@@ -1,17 +1,13 @@
-import React from 'react';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import { LocalizedRole, userRole } from './UserUtil';
-import UserMenuItems from '../UserMenuItems';
-import UserAvatar from '../UserAvatar';
-import {
-  Text,
-  black54,
-  units,
-  body1,
-} from '../../styles/js/shared';
+import React from "react";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import Box from "@material-ui/core/Box";
+import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ListItemText from "@material-ui/core/ListItemText";
+import { LocalizedRole, userRole } from "./UserUtil";
+import UserMenuItems from "../UserMenuItems";
+import UserAvatar from "../UserAvatar";
+import { Text, black54, units, body1 } from "../../styles/js/shared";
 
 export default class UserMenu extends React.Component {
   state = {
@@ -28,7 +24,11 @@ export default class UserMenu extends React.Component {
 
   render() {
     const {
-      currentUserIsMember, inTeamContext, loggedIn, user, team,
+      currentUserIsMember,
+      inTeamContext,
+      loggedIn,
+      user,
+      team,
     } = this.props;
 
     if (!loggedIn) {
@@ -48,13 +48,18 @@ export default class UserMenu extends React.Component {
             primary={
               <div>
                 <Text maxWidth="100%" font={body1} ellipsis>
-                  <span style={{ maxWidth: '80%' }}>
+                  <Box component="span" maxWidth="80%">
                     {user ? user.name : null}
-                  </span>
+                  </Box>
                   {role ? (
-                    <span className="user-menu__role" style={{ color: black54, marginLeft: units(1) }}>
+                    <Box
+                      className="user-menu__role"
+                      color={black54}
+                      ml={units(1)}
+                      component="span"
+                    >
                       <LocalizedRole role={role} />
-                    </span>
+                    </Box>
                   ) : null}
                 </Text>
               </div>
@@ -66,7 +71,7 @@ export default class UserMenu extends React.Component {
           getContentAnchorEl={null}
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
-          anchorOrigin={{ horizontal: 'left', vertical: 'bottom' }}
+          anchorOrigin={{ horizontal: "left", vertical: "bottom" }}
         >
           <UserMenuItems {...this.props} />
         </Menu>

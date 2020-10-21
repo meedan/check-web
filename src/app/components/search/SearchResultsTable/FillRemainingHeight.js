@@ -1,5 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 /**
  * Count number of pixels from the top of `el` to the top of the HTML page.
@@ -27,9 +28,12 @@ function pxFromDocumentTop(el) {
  * page renders. You can add dummy props, `affectsHeight1`, `affectsHeight2`,
  * etc., higher-up in the component tree to force renders here.
  */
-export default function FillRemainingHeight({ component: Component, children }) {
+export default function FillRemainingHeight({
+  component: Component,
+  children,
+}) {
   const boxRef = React.useRef();
-  const [maxHeight, setMaxHeight] = React.useState('auto');
+  const [maxHeight, setMaxHeight] = React.useState("auto");
 
   const handleResize = React.useCallback(() => {
     const box = boxRef.current;
@@ -37,7 +41,7 @@ export default function FillRemainingHeight({ component: Component, children }) 
       const pxBefore = pxFromDocumentTop(box);
       setMaxHeight(`calc(100vh - ${pxBefore}px)`);
     } else {
-      setMaxHeight('auto');
+      setMaxHeight("auto");
     }
   }, [boxRef, setMaxHeight]); // boxRef and setMaxHeight must never change
 
@@ -45,15 +49,15 @@ export default function FillRemainingHeight({ component: Component, children }) 
 
   React.useEffect(() => {
     // on load, fonts may change, causing height change. (Untested.)
-    window.addEventListener('load', handleResize);
-    return () => window.removeEventListener('load', handleResize);
+    window.addEventListener("load", handleResize);
+    return () => window.removeEventListener("load", handleResize);
   }, [handleResize]);
 
-  return (
-    <Component ref={boxRef} style={{ maxHeight }}>
-      {children}
-    </Component>
-  );
+  const CustomComponent = styled(Component)`
+    max-height: ${maxHeight};
+  `;
+
+  return <CustomComponent ref={boxRef}>{children}</CustomComponent>;
 }
 FillRemainingHeight.propTypes = {
   children: PropTypes.element.isRequired,

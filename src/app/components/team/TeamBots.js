@@ -1,23 +1,24 @@
-import React, { Component } from 'react';
-import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
-import Button from '@material-ui/core/Button';
-import Settings from '@material-ui/icons/Settings';
-import Tooltip from '@material-ui/core/Tooltip';
-import { Emojione } from 'react-emoji-render';
-import { browserHistory } from 'react-router';
-import styled from 'styled-components';
-import TeamBot from './TeamBot';
-import TeamRoute from '../../relay/TeamRoute';
-import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
-import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
-import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
-import ConfirmDialog from '../layout/ConfirmDialog';
+import React, { Component } from "react";
+import Relay from "react-relay/classic";
+import { FormattedMessage } from "react-intl";
+import Card from "@material-ui/core/Card";
+import Box from "@material-ui/core/Box";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
+import Settings from "@material-ui/icons/Settings";
+import Tooltip from "@material-ui/core/Tooltip";
+import { Emojione } from "react-emoji-render";
+import { browserHistory } from "react-router";
+import styled from "styled-components";
+import TeamBot from "./TeamBot";
+import TeamRoute from "../../relay/TeamRoute";
+import { units, title1, ContentColumn, black32 } from "../../styles/js/shared";
+import DeleteTeamBotInstallationMutation from "../../relay/mutations/DeleteTeamBotInstallationMutation";
+import UpdateTeamBotInstallationMutation from "../../relay/mutations/UpdateTeamBotInstallationMutation";
+import ConfirmDialog from "../layout/ConfirmDialog";
 
 const StyledCardContent = styled(CardContent)`
   display: flex;
@@ -25,7 +26,8 @@ const StyledCardContent = styled(CardContent)`
   img {
     height: 100px;
     border: 1px solid ${black32};
-    margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: ${units(3)};
+    margin-${(props) =>
+      props.theme.dir === "rtl" ? "left" : "right"}: ${units(3)};
   }
 
   h2 {
@@ -36,8 +38,8 @@ const StyledCardContent = styled(CardContent)`
 const StyledSettings = styled.div`
   display: inline;
 
-  margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 0;
-  margin-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: auto;
+  margin-${(props) => (props.theme.dir === "rtl" ? "left" : "right")}: 0;
+  margin-${(props) => (props.theme.dir === "rtl" ? "right" : "left")}: auto;
 
   .settingsIcon {
     vertical-align: middle;
@@ -49,7 +51,7 @@ const StyledSettings = styled.div`
 
 class TeamBotsComponent extends Component {
   static handleBotGardenClick() {
-    browserHistory.push('/check/bot-garden');
+    browserHistory.push("/check/bot-garden");
   }
 
   constructor(props) {
@@ -69,7 +71,7 @@ class TeamBotsComponent extends Component {
   componentWillMount() {
     const settings = {};
     this.props.team.team_bot_installations.edges.forEach((installation) => {
-      const value = installation.node.json_settings || '{}';
+      const value = installation.node.json_settings || "{}";
       settings[installation.node.id] = JSON.parse(value);
     });
     this.setState({ settings });
@@ -84,17 +86,19 @@ class TeamBotsComponent extends Component {
         }
         this.setState({ leaveLocation: nextLocation });
         return false;
-      },
+      }
     );
   }
 
   get hasUnsavedChanges() {
     const savedSettings = {};
     this.props.team.team_bot_installations.edges.forEach((installation) => {
-      const value = installation.node.json_settings || '{}';
+      const value = installation.node.json_settings || "{}";
       savedSettings[installation.node.id] = JSON.parse(value);
     });
-    return JSON.stringify(savedSettings) !== JSON.stringify(this.state.settings);
+    return (
+      JSON.stringify(savedSettings) !== JSON.stringify(this.state.settings)
+    );
   }
 
   componentWillUmount() {
@@ -136,13 +140,23 @@ class TeamBotsComponent extends Component {
     const onSuccess = () => {
       this.setState({
         messageBotId,
-        message: <FormattedMessage id="teamBots.success" defaultMessage="Settings updated!" />,
+        message: (
+          <FormattedMessage
+            id="teamBots.success"
+            defaultMessage="Settings updated!"
+          />
+        ),
       });
     };
     const onFailure = () => {
       this.setState({
         messageBotId,
-        message: <FormattedMessage id="teamBots.fail" defaultMessage="Error! Please try again." />,
+        message: (
+          <FormattedMessage
+            id="teamBots.fail"
+            defaultMessage="Error! Please try again."
+          />
+        ),
       });
     };
 
@@ -151,19 +165,21 @@ class TeamBotsComponent extends Component {
         id: installation.id,
         json_settings: settings,
       }),
-      { onSuccess, onFailure },
+      { onSuccess, onFailure }
     );
   }
 
   handleToggleSettings(botId) {
-    const expanded = (this.state.expanded === botId) ? null : botId;
+    const expanded = this.state.expanded === botId ? null : botId;
     this.setState({ expanded, message: null, messageBotId: null });
   }
 
   handleToggle(node) {
     const deleteBot = { id: node.id, teamId: this.props.team.id };
-    const deleteBotName = node.team_bot.identifier !== 'smooch' ?
-      node.team_bot.name : 'Check Message';
+    const deleteBotName =
+      node.team_bot.identifier !== "smooch"
+        ? node.team_bot.name
+        : "Check Message";
 
     this.setState({
       showConfirmDeleteDialog: true,
@@ -185,39 +201,58 @@ class TeamBotsComponent extends Component {
   render() {
     const { team } = this.props;
 
+    const CustomContentColumn = styled(ContentColumn)`
+      max-width: 900px;
+    `;
+
+    const CustomCard = styled(Card)`
+      margin-bottom: ${units(5)};
+    `;
+
+    const CustomHeading = styled.h2`
+      font: ${font};
+    `;
+
     return (
-      <ContentColumn style={{ maxWidth: 900 }}>
-        { team.team_bot_installations.edges.length === 0 ?
-          <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
+      <CustomContentColumn>
+        {team.team_bot_installations.edges.length === 0 ? (
+          <Box component="p" pb={`${units(5)}`} textAlign="center">
             <FormattedMessage
               id="teamBots.noBots"
               defaultMessage="No bots installed."
             />
-          </p>
-          : null }
-        { team.team_bot_installations.edges.map((installation) => {
+          </Box>
+        ) : null}
+        {team.team_bot_installations.edges.map((installation) => {
           const bot = installation.node.team_bot;
           const botExpanded = this.state.expanded === bot.dbid;
 
           return (
-            <Card
-              style={{ marginBottom: units(5) }}
-              key={`bot-${bot.dbid}`}
-            >
+            <CustomCard key={`bot-${bot.dbid}`}>
               <StyledCardContent>
                 <img src={bot.avatar} alt={bot.name} />
                 <div>
-                  <h2 style={{ font: title1 }}>{bot.name}</h2>
+                  <CustomHeading>{bot.name}</CustomHeading>
                   <p>{bot.description}</p>
                   <div>
-                    <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
-                      <FormattedMessage id="teamBots.moreInfo" defaultMessage="More info" />
+                    <Button
+                      onClick={() =>
+                        browserHistory.push(`/check/bot/${bot.dbid}`)
+                      }
+                    >
+                      <FormattedMessage
+                        id="teamBots.moreInfo"
+                        defaultMessage="More info"
+                      />
                     </Button>
                     <Button
                       className="team-bots__uninstall-button"
                       onClick={this.handleToggle.bind(this, installation.node)}
                     >
-                      <FormattedMessage id="teamBots.remove" defaultMessage="Remove" />
+                      <FormattedMessage
+                        id="teamBots.remove"
+                        defaultMessage="Remove"
+                      />
                     </Button>
                   </div>
                 </div>
@@ -226,7 +261,10 @@ class TeamBotsComponent extends Component {
                 <StyledSettings>
                   <Tooltip
                     title={
-                      <FormattedMessage id="teamBots.settingsTooltip" defaultMessage="Bot settings" />
+                      <FormattedMessage
+                        id="teamBots.settingsTooltip"
+                        defaultMessage="Bot settings"
+                      />
                     }
                   >
                     <Settings
@@ -280,19 +318,35 @@ class TeamBotsComponent extends Component {
               <Divider />
               <Collapse in={botExpanded} timeout="auto">
                 <CardContent>
-                  { bot.settings_as_json_schema ?
+                  {bot.settings_as_json_schema ? (
                     <React.Fragment>
-                      { bot.name !== 'Fetch' ?
-                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                          <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                      {bot.name !== "Fetch" ? (
+                        <Box
+                          component="div"
+                          display="flex"
+                          alignItems="center"
+                          justifyContent="space-between"
+                        >
+                          <h3>
+                            <FormattedMessage
+                              id="teamBots.settings"
+                              defaultMessage="Settings"
+                            />
+                          </h3>
                           <div>
                             <Button
                               variant="contained"
                               color="primary"
                               onClick={
-                                bot.name === 'Smooch' ?
-                                  this.handleOpen.bind(this, installation.node) :
-                                  this.handleSubmitSettings.bind(this, installation.node)
+                                bot.name === "Smooch"
+                                  ? this.handleOpen.bind(
+                                      this,
+                                      installation.node
+                                    )
+                                  : this.handleSubmitSettings.bind(
+                                      this,
+                                      installation.node
+                                    )
                               }
                             >
                               <FormattedMessage
@@ -300,14 +354,16 @@ class TeamBotsComponent extends Component {
                                 defaultMessage="Save"
                               />
                             </Button>
-                            <small style={{ margin: `0 ${units(1)}` }}>
-                              { this.state.message && this.state.messageBotId === bot.dbid ?
-                                this.state.message : null
-                              }
-                            </small>
+                            <Box component="small" m={`0 ${units(1)}`}>
+                              {this.state.message &&
+                              this.state.messageBotId === bot.dbid
+                                ? this.state.message
+                                : null}
+                            </Box>
                           </div>
-                        </div> : null }
-                      { botExpanded ?
+                        </Box>
+                      ) : null}
+                      {botExpanded ? (
                         <TeamBot
                           team={team}
                           bot={bot}
@@ -315,48 +371,65 @@ class TeamBotsComponent extends Component {
                           schema={JSON.parse(bot.settings_as_json_schema)}
                           uiSchema={JSON.parse(bot.settings_ui_schema)}
                           value={this.state.settings[installation.node.id]}
-                          onChange={this.handleSettingsUpdated.bind(this, installation.node)}
-                        /> : null
-                      }
-                    </React.Fragment> :
+                          onChange={this.handleSettingsUpdated.bind(
+                            this,
+                            installation.node
+                          )}
+                        />
+                      ) : null}
+                    </React.Fragment>
+                  ) : (
                     <FormattedMessage
                       id="teamBots.noSettings"
                       defaultMessage="There are no settings for this bot."
                     />
-                  }
+                  )}
                 </CardContent>
               </Collapse>
-            </Card>
+            </CustomCard>
           );
         })}
-        <p style={{ textAlign: 'end' }}>
-          <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
+        <Box component="p" textAlign="end">
+          <Button
+            id="team-bots__bot-garden-button"
+            onClick={TeamBotsComponent.handleBotGardenClick}
+          >
             <span>
               <FormattedMessage
                 id="teamBots.botGarden"
                 defaultMessage="Browse the Bot Garden"
-              /> <Emojione text="🤖 🌼" />
+              />{" "}
+              <Emojione text="🤖 🌼" />
             </span>
           </Button>
-        </p>
+        </Box>
         <ConfirmDialog
           open={this.state.open}
-          title={<FormattedMessage id="teamBots.confirmationTitle" defaultMessage="Confirm" />}
-          blurb={<FormattedMessage
-            id="teamBots.confirmationMessage"
-            defaultMessage="You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
-          />}
+          title={
+            <FormattedMessage
+              id="teamBots.confirmationTitle"
+              defaultMessage="Confirm"
+            />
+          }
+          blurb={
+            <FormattedMessage
+              id="teamBots.confirmationMessage"
+              defaultMessage="You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
+            />
+          }
           handleClose={this.handleClose.bind(this)}
           handleConfirm={this.handleConfirm.bind(this)}
         />
-      </ContentColumn>
+      </CustomContentColumn>
     );
   }
 }
 
 const TeamBotsContainer = Relay.createContainer(TeamBotsComponent, {
   initialVariables: {
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname)
+      ? window.location.pathname.match(/^\/([^/]+)/)[1]
+      : null,
   },
   fragments: {
     team: () => Relay.QL`
@@ -396,8 +469,14 @@ const TeamBots = (props) => {
     <Relay.RootContainer
       Component={TeamBotsContainer}
       route={route}
-      renderFetched={data =>
-        <TeamBotsContainer {...data} {...params} route={props.route} router={props.router} />}
+      renderFetched={(data) => (
+        <TeamBotsContainer
+          {...data}
+          {...params}
+          route={props.route}
+          router={props.router}
+        />
+      )}
     />
   );
 };

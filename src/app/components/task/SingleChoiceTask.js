@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormGroup from '@material-ui/core/FormGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Button from '@material-ui/core/Button';
-import { FormattedMessage } from 'react-intl';
-import ParsedText from '../ParsedText';
-import { FormattedGlobalMessage } from '../MappedMessage';
-import { safelyParseJSON } from '../../helpers';
-import { StyledSmallTextField } from '../../styles/js/shared';
+import React, { Component } from "react";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Button from "@material-ui/core/Button";
+import { FormattedMessage } from "react-intl";
+import ParsedText from "../ParsedText";
+import { FormattedGlobalMessage } from "../MappedMessage";
+import { safelyParseJSON } from "../../helpers";
+import { StyledSmallTextField, boxShadow } from "../../styles/js/shared";
 
 class SingleChoiceTask extends Component {
   constructor(props) {
@@ -23,7 +23,9 @@ class SingleChoiceTask extends Component {
 
   handleSubmitResponse() {
     if (!this.state.taskAnswerDisabled) {
-      const response = this.state.response ? this.state.response.trim() : this.props.response;
+      const response = this.state.response
+        ? this.state.response.trim()
+        : this.props.response;
 
       this.props.onSubmit(response);
       this.setState({ taskAnswerDisabled: true });
@@ -31,7 +33,9 @@ class SingleChoiceTask extends Component {
   }
 
   canSubmit() {
-    const response = this.state.response ? this.state.response.trim() : this.props.response;
+    const response = this.state.response
+      ? this.state.response.trim()
+      : this.props.response;
     const can_submit = !!response;
 
     this.setState({ taskAnswerDisabled: !can_submit });
@@ -39,12 +43,15 @@ class SingleChoiceTask extends Component {
   }
 
   handleCancelResponse() {
-    this.setState({
-      response: null,
-      responseOther: null,
-      otherSelected: false,
-      focus: false,
-    }, this.canSubmit);
+    this.setState(
+      {
+        response: null,
+        responseOther: null,
+        otherSelected: false,
+        focus: false,
+      },
+      this.canSubmit
+    );
 
     if (this.props.onDismiss) {
       this.props.onDismiss();
@@ -55,7 +62,7 @@ class SingleChoiceTask extends Component {
     this.setState({
       focus: true,
       response: e.target.value,
-      responseOther: '',
+      responseOther: "",
       otherSelected: false,
       taskAnswerDisabled: false,
     });
@@ -63,7 +70,9 @@ class SingleChoiceTask extends Component {
 
   handleSelectRadioOther() {
     // TODO Use React ref
-    const input = document.querySelector('.task__option_other_text_input input');
+    const input = document.querySelector(
+      ".task__option_other_text_input input"
+    );
 
     if (input) {
       input.focus();
@@ -71,8 +80,8 @@ class SingleChoiceTask extends Component {
 
     this.setState({
       focus: true,
-      response: '',
-      responseOther: '',
+      response: "",
+      responseOther: "",
       otherSelected: true,
       taskAnswerDisabled: true,
     });
@@ -80,16 +89,19 @@ class SingleChoiceTask extends Component {
 
   handleEditOther(e) {
     const { value } = e.target;
-    this.setState({
-      focus: true,
-      response: value,
-      responseOther: value,
-      otherSelected: true,
-    }, this.canSubmit);
+    this.setState(
+      {
+        focus: true,
+        response: value,
+        responseOther: value,
+        otherSelected: true,
+      },
+      this.canSubmit
+    );
   }
 
   handleKeyPress(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       if (this.canSubmit()) {
         this.setState({ taskAnswerDisabled: true });
         this.handleSubmitResponse();
@@ -101,7 +113,7 @@ class SingleChoiceTask extends Component {
   renderOptions(response, jsonoptions) {
     const { fieldset } = this.props;
     const options = safelyParseJSON(jsonoptions);
-    const editable = !response || this.props.mode === 'edit_response';
+    const editable = !response || this.props.mode === "edit_response";
     const submitCallback = this.handleSubmitResponse.bind(this);
     const cancelCallback = this.handleCancelResponse.bind(this);
     const keyPressCallback = this.handleKeyPress.bind(this);
@@ -117,29 +129,35 @@ class SingleChoiceTask extends Component {
           onClick={submitCallback}
           disabled={this.state.taskAnswerDisabled}
         >
-          { fieldset === 'tasks' ?
-            <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" /> :
+          {fieldset === "tasks" ? (
+            <FormattedMessage id="tasks.answer" defaultMessage="Answer Task" />
+          ) : (
             <FormattedGlobalMessage messageKey="save" />
-          }
+          )}
         </Button>
       </div>
     );
 
     if (Array.isArray(options) && options.length > 0) {
-      const otherIndex = options.findIndex(item => item.other);
-      const other = otherIndex >= 0 ? options.splice(otherIndex, 1).pop() : null;
-      const responseIndex =
-        options.findIndex(item => item.label === response || item.label === this.state.response);
-      let responseOther = '';
-      if (typeof this.state.responseOther !== 'undefined' && this.state.responseOther !== null) {
+      const otherIndex = options.findIndex((item) => item.other);
+      const other =
+        otherIndex >= 0 ? options.splice(otherIndex, 1).pop() : null;
+      const responseIndex = options.findIndex(
+        (item) => item.label === response || item.label === this.state.response
+      );
+      let responseOther = "";
+      if (
+        typeof this.state.responseOther !== "undefined" &&
+        this.state.responseOther !== null
+      ) {
         ({ responseOther } = this.state);
       } else if (responseIndex < 0) {
         responseOther = response;
       }
-      const responseOtherSelected = this.state.otherSelected || responseOther
-        ? responseOther
-        : 'none';
-      const responseSelected = this.state.response === null ? response : this.state.response;
+      const responseOtherSelected =
+        this.state.otherSelected || responseOther ? responseOther : "none";
+      const responseSelected =
+        this.state.response === null ? response : this.state.response;
 
       return (
         <div className="task__options">
@@ -154,21 +172,19 @@ class SingleChoiceTask extends Component {
                   key={`task__options--radiobutton-${index.toString()}`}
                   id={index.toString()}
                   value={item.label}
-                  label={
-                    <ParsedText text={item.label} />
-                  }
-                  control={
-                    <Radio disabled={!editable} />
-                  }
+                  label={<ParsedText text={item.label} />}
+                  control={<Radio disabled={!editable} />}
                 />
               ))}
             </RadioGroup>
 
-            <div
-              style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
               className="task__options_other"
             >
-              {other ?
+              {other ? (
                 <RadioGroup
                   name="task__option_other_radio"
                   key="task__option_other_radio"
@@ -178,28 +194,30 @@ class SingleChoiceTask extends Component {
                 >
                   <FormControlLabel
                     value={responseOther}
-                    control={
-                      <Radio disabled={!editable} />
-                    }
-                    label={editable ?
-                      <StyledSmallTextField
-                        key="task__option_other_text_input"
-                        className="task__option_other_text_input"
-                        placeholder={other.label}
-                        value={responseOther}
-                        name="response"
-                        onKeyPress={keyPressCallback}
-                        onChange={this.handleEditOther.bind(this)}
-                        multiline
-                      /> :
-                      <ParsedText text={responseOther} />
+                    control={<Radio disabled={!editable} />}
+                    label={
+                      editable ? (
+                        <StyledSmallTextField
+                          key="task__option_other_text_input"
+                          className="task__option_other_text_input"
+                          placeholder={other.label}
+                          value={responseOther}
+                          name="response"
+                          onKeyPress={keyPressCallback}
+                          onChange={this.handleEditOther.bind(this)}
+                          multiline
+                        />
+                      ) : (
+                        <ParsedText text={responseOther} />
+                      )
                     }
                   />
                 </RadioGroup>
-                : null}
-            </div>
+              ) : null}
+            </Box>
 
-            {(this.state.focus && editable) || this.props.mode === 'edit_response'
+            {(this.state.focus && editable) ||
+            this.props.mode === "edit_response"
               ? actionBtns
               : null}
           </FormGroup>
@@ -211,18 +229,17 @@ class SingleChoiceTask extends Component {
   }
 
   render() {
-    const {
-      response,
-      jsonoptions,
-    } = this.props;
+    const { response, jsonoptions } = this.props;
 
     return (
       <div>
-        {this.props.mode === 'respond' ? this.renderOptions(response, jsonoptions) : null}
-        {this.props.mode === 'show_response' && response
+        {this.props.mode === "respond"
           ? this.renderOptions(response, jsonoptions)
           : null}
-        {this.props.mode === 'edit_response'
+        {this.props.mode === "show_response" && response
+          ? this.renderOptions(response, jsonoptions)
+          : null}
+        {this.props.mode === "edit_response"
           ? this.renderOptions(response, jsonoptions)
           : null}
       </div>

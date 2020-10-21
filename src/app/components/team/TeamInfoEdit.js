@@ -1,24 +1,24 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
-import Relay from 'react-relay/classic';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import TeamAvatar from './TeamAvatar';
-import Message from '../Message';
-import UploadFile from '../UploadFile';
-import { FormattedGlobalMessage } from '../MappedMessage';
-import { getErrorMessage, validateURL } from '../../helpers';
-import UpdateTeamMutation from '../../relay/mutations/UpdateTeamMutation';
+import React from "react";
+import { FormattedMessage } from "react-intl";
+import { browserHistory } from "react-router";
+import Relay from "react-relay/classic";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import TeamAvatar from "./TeamAvatar";
+import Message from "../Message";
+import UploadFile from "../UploadFile";
+import { FormattedGlobalMessage } from "../MappedMessage";
+import { getErrorMessage, validateURL } from "../../helpers";
+import UpdateTeamMutation from "../../relay/mutations/UpdateTeamMutation";
 import {
   StyledButtonGroup,
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
   StyledAvatarEditButton,
-} from '../../styles/js/HeaderCard';
-import { units } from '../../styles/js/shared';
-import { stringHelper } from '../../customHelpers';
+} from "../../styles/js/HeaderCard";
+import { units } from "../../styles/js/shared";
+import { stringHelper } from "../../customHelpers";
 
 class TeamInfoEdit extends React.Component {
   constructor(props) {
@@ -43,11 +43,11 @@ class TeamInfoEdit extends React.Component {
 
   handleImageChange = (file) => {
     this.setState({ avatar: file, message: null });
-  }
+  };
 
   handleImageError = (file, message) => {
     this.setState({ avatar: null, message });
-  }
+  };
 
   handleEditProfileImg() {
     this.setState({ editProfileImg: true });
@@ -58,10 +58,11 @@ class TeamInfoEdit extends React.Component {
   }
 
   handleChange(key, e) {
-    const value = (e.target.type === 'checkbox' && !e.target.checked) ? '0' : e.target.value;
+    const value =
+      e.target.type === "checkbox" && !e.target.checked ? "0" : e.target.value;
     const values = Object.assign({}, this.state.values);
 
-    if (key === 'contact_web') {
+    if (key === "contact_web") {
       const urlError = null;
       this.setState({ urlError });
     }
@@ -76,7 +77,7 @@ class TeamInfoEdit extends React.Component {
         <FormattedMessage
           id="teamComponent.editError"
           defaultMessage="Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+          values={{ supportEmail: stringHelper("SUPPORT_EMAIL") }}
         />
       );
       const message = getErrorMessage(transaction, fallbackMessage);
@@ -108,7 +109,7 @@ class TeamInfoEdit extends React.Component {
           public_id: this.props.team.public_team_id,
           avatar,
         }),
-        { onSuccess, onFailure },
+        { onSuccess, onFailure }
       );
       this.setState({ submitDisabled: true });
     }
@@ -137,17 +138,21 @@ class TeamInfoEdit extends React.Component {
 
     const avatarPreview = this.state.avatar && this.state.avatar.preview;
 
+    const CustomTeamAvatar = styled(TeamAvatar)`
+      background-image: url("${(props) => props.imageUrl}");
+    `;
+
     return (
       <form onSubmit={this.handleSubmit.bind(this)} name="edit-team-form">
         <Message message={this.state.message} />
         <StyledTwoColumns>
           <StyledSmallColumn>
-            <TeamAvatar
-              style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
+            <CustomTeamAvatar
+              imageUrl={avatarPreview || team.avatar}
               size={units(9)}
               team={team}
             />
-            {!this.state.editProfileImg ?
+            {!this.state.editProfileImg ? (
               <StyledAvatarEditButton className="team__edit-avatar-button">
                 <Button
                   color="primary"
@@ -156,11 +161,11 @@ class TeamInfoEdit extends React.Component {
                   <FormattedGlobalMessage messageKey="edit" />
                 </Button>
               </StyledAvatarEditButton>
-              : null}
+            ) : null}
           </StyledSmallColumn>
 
           <StyledBigColumn>
-            {this.state.editProfileImg ?
+            {this.state.editProfileImg ? (
               <UploadFile
                 type="image"
                 value={this.state.avatar}
@@ -168,14 +173,19 @@ class TeamInfoEdit extends React.Component {
                 onError={this.handleImageError}
                 noPreview
               />
-              : null}
+            ) : null}
 
             <TextField
               className="team__name-input"
               id="team__name-container"
               defaultValue={team.name}
-              label={<FormattedMessage id="teamComponent.teamName" defaultMessage="Name" />}
-              onChange={this.handleChange.bind(this, 'name')}
+              label={
+                <FormattedMessage
+                  id="teamComponent.teamName"
+                  defaultMessage="Name"
+                />
+              }
+              onChange={this.handleChange.bind(this, "name")}
               margin="normal"
               fullWidth
             />
@@ -185,9 +195,12 @@ class TeamInfoEdit extends React.Component {
               id="team__description-container"
               defaultValue={team.description}
               label={
-                <FormattedMessage id="teamComponent.teamDescription" defaultMessage="Description" />
+                <FormattedMessage
+                  id="teamComponent.teamDescription"
+                  defaultMessage="Description"
+                />
               }
-              onChange={this.handleChange.bind(this, 'description')}
+              onChange={this.handleChange.bind(this, "description")}
               fullWidth
               rows={1}
               rowsMax={4}
@@ -197,9 +210,14 @@ class TeamInfoEdit extends React.Component {
             <TextField
               className="team__location"
               id="team__location-container"
-              defaultValue={contact ? contact.node.location : ''}
-              label={<FormattedMessage id="teamComponent.location" defaultMessage="Location" />}
-              onChange={this.handleChange.bind(this, 'contact_location')}
+              defaultValue={contact ? contact.node.location : ""}
+              label={
+                <FormattedMessage
+                  id="teamComponent.location"
+                  defaultMessage="Location"
+                />
+              }
+              onChange={this.handleChange.bind(this, "contact_location")}
               fullWidth
               margin="normal"
             />
@@ -207,9 +225,14 @@ class TeamInfoEdit extends React.Component {
             <TextField
               className="team__phone"
               id="team__phone-container"
-              defaultValue={contact ? contact.node.phone : ''}
-              label={<FormattedMessage id="teamComponent.phone" defaultMessage="Phone number" />}
-              onChange={this.handleChange.bind(this, 'contact_phone')}
+              defaultValue={contact ? contact.node.phone : ""}
+              label={
+                <FormattedMessage
+                  id="teamComponent.phone"
+                  defaultMessage="Phone number"
+                />
+              }
+              onChange={this.handleChange.bind(this, "contact_phone")}
               fullWidth
               margin="normal"
             />
@@ -217,10 +240,15 @@ class TeamInfoEdit extends React.Component {
             <TextField
               className="team__location-name-input"
               id="team__link-container"
-              defaultValue={contact ? contact.node.web : ''}
-              label={<FormattedMessage id="teamComponent.website" defaultMessage="Website" />}
+              defaultValue={contact ? contact.node.web : ""}
+              label={
+                <FormattedMessage
+                  id="teamComponent.website"
+                  defaultMessage="Website"
+                />
+              }
               onBlur={this.validateWebsite.bind(this)}
-              onChange={this.handleChange.bind(this, 'contact_web')}
+              onChange={this.handleChange.bind(this, "contact_web")}
               fullWidth
               margin="normal"
               error={!!this.state.urlError}

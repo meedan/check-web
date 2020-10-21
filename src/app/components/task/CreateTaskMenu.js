@@ -1,17 +1,18 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ShortTextIcon from '@material-ui/icons/ShortText';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import LocationOnIcon from '@material-ui/icons/LocationOn';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import GradeIcon from '@material-ui/icons/Grade';
-import IconImageUpload from '@material-ui/icons/CloudUpload';
+import React from "react";
+import { FormattedMessage } from "react-intl";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ShortTextIcon from "@material-ui/icons/ShortText";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import DateRangeIcon from "@material-ui/icons/DateRange";
+import GradeIcon from "@material-ui/icons/Grade";
+import IconImageUpload from "@material-ui/icons/CloudUpload";
+import styled from "styled-components";
 
 class CreateTaskMenu extends React.Component {
   constructor(props) {
@@ -40,14 +41,18 @@ class CreateTaskMenu extends React.Component {
   };
 
   render() {
-    const isTask = this.props.fieldset === 'tasks';
+    const isTask = this.props.fieldset === "tasks";
     const { teamSettings } = this.props;
     const buttonProps = {};
 
     if (teamSettings) {
-      buttonProps.color = 'primary';
-      buttonProps.variant = 'contained';
+      buttonProps.color = "primary";
+      buttonProps.variant = "contained";
     }
+
+    const CustomCheckBox = styled(CheckBoxIcon)`
+      transform: scale(1, 1);
+    `;
 
     return (
       <div>
@@ -56,10 +61,14 @@ class CreateTaskMenu extends React.Component {
           onClick={this.handleClick.bind(this)}
           {...buttonProps}
         >
-          { isTask ?
-            <FormattedMessage id="tasks.addTask" defaultMessage="New task" /> :
-            <FormattedMessage id="tasks.addMetadata" defaultMessage="New metadata" />
-          }
+          {isTask ? (
+            <FormattedMessage id="tasks.addTask" defaultMessage="New task" />
+          ) : (
+            <FormattedMessage
+              id="tasks.addMetadata"
+              defaultMessage="New metadata"
+            />
+          )}
         </Button>
 
         <Menu
@@ -69,73 +78,118 @@ class CreateTaskMenu extends React.Component {
         >
           <MenuItem
             className="create-task__add-short-answer"
-            onClick={() => this.handleSelectType('free_text')}
+            onClick={() => this.handleSelectType("free_text")}
           >
-            <ListItemIcon><ShortTextIcon /></ListItemIcon>
+            <ListItemIcon>
+              <ShortTextIcon />
+            </ListItemIcon>
             <ListItemText
               primary={
-                <FormattedMessage id="tasks.shortAnswer" defaultMessage="Text" />
+                <FormattedMessage
+                  id="tasks.shortAnswer"
+                  defaultMessage="Text"
+                />
               }
             />
           </MenuItem>
           <MenuItem
             className="create-task__add-choose-one"
-            onClick={() => this.handleSelectType('single_choice')}
+            onClick={() => this.handleSelectType("single_choice")}
           >
-            <ListItemIcon><RadioButtonCheckedIcon /></ListItemIcon>
+            <ListItemIcon>
+              <RadioButtonCheckedIcon />
+            </ListItemIcon>
             <ListItemText
-              primary={<FormattedMessage id="tasks.chooseOne" defaultMessage="Single select" />}
+              primary={
+                <FormattedMessage
+                  id="tasks.chooseOne"
+                  defaultMessage="Single select"
+                />
+              }
             />
           </MenuItem>
           <MenuItem
             className="create-task__add-choose-multiple"
-            onClick={() => this.handleSelectType('multiple_choice')}
+            onClick={() => this.handleSelectType("multiple_choice")}
           >
-            <ListItemIcon><CheckBoxIcon style={{ transform: 'scale(1,1)' }} /></ListItemIcon>
+            <ListItemIcon>
+              <CustomCheckBox />
+            </ListItemIcon>
             <ListItemText
               primary={
-                <FormattedMessage id="tasks.chooseMultiple" defaultMessage="Multiple select" />
+                <FormattedMessage
+                  id="tasks.chooseMultiple"
+                  defaultMessage="Multiple select"
+                />
               }
             />
           </MenuItem>
           <MenuItem
             className="create-task__add-geolocation"
-            onClick={() => this.handleSelectType('geolocation')}
+            onClick={() => this.handleSelectType("geolocation")}
           >
-            <ListItemIcon><LocationOnIcon /></ListItemIcon>
+            <ListItemIcon>
+              <LocationOnIcon />
+            </ListItemIcon>
             <ListItemText
-              primary={<FormattedMessage id="tasks.geolocation" defaultMessage="Location" />}
+              primary={
+                <FormattedMessage
+                  id="tasks.geolocation"
+                  defaultMessage="Location"
+                />
+              }
             />
           </MenuItem>
           <MenuItem
             className="create-task__add-datetime"
-            onClick={() => this.handleSelectType('datetime')}
+            onClick={() => this.handleSelectType("datetime")}
           >
-            <ListItemIcon><DateRangeIcon /></ListItemIcon>
+            <ListItemIcon>
+              <DateRangeIcon />
+            </ListItemIcon>
             <ListItemText
-              primary={<FormattedMessage id="tasks.datetime" defaultMessage="Date and time" />}
+              primary={
+                <FormattedMessage
+                  id="tasks.datetime"
+                  defaultMessage="Date and time"
+                />
+              }
             />
           </MenuItem>
           <MenuItem
             className="create-task__add-image-upload"
-            onClick={() => this.handleSelectType('image_upload')}
+            onClick={() => this.handleSelectType("image_upload")}
           >
-            <ListItemIcon><IconImageUpload /></ListItemIcon>
+            <ListItemIcon>
+              <IconImageUpload />
+            </ListItemIcon>
             <ListItemText
-              primary={<FormattedMessage id="tasks.imageUpload" defaultMessage="Image upload" />}
+              primary={
+                <FormattedMessage
+                  id="tasks.imageUpload"
+                  defaultMessage="Image upload"
+                />
+              }
             />
           </MenuItem>
-          { !this.props.teamSettings && isTask ?
+          {!this.props.teamSettings && isTask ? (
             <MenuItem
               className="create-task__teamwide-nudge"
-              onClick={() => this.handleSelectType('teamwide')}
+              onClick={() => this.handleSelectType("teamwide")}
             >
-              <ListItemIcon><GradeIcon /></ListItemIcon>
+              <ListItemIcon>
+                <GradeIcon />
+              </ListItemIcon>
               <ListItemText
-                primary={<FormattedMessage id="tasks.teamwideNudge" defaultMessage="Default tasks" />}
+                primary={
+                  <FormattedMessage
+                    id="tasks.teamwideNudge"
+                    defaultMessage="Default tasks"
+                  />
+                }
               />
-            </MenuItem> : null
-          }
+            </MenuItem>
+          ) : null}
         </Menu>
       </div>
     );

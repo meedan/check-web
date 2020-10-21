@@ -1,14 +1,15 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import List from '@material-ui/core/List';
+import Box from "@material-ui/core/Box";
 import TeamTasksListItem from './TeamTasksListItem';
 import { units } from '../../styles/js/shared';
 
 const TeamTasksProject = props => props.project.teamTasks.length ? (
-  <div className="team-tasks-project" style={{ marginTop: units(2), marginBottom: units(2) }}>
+  <Box className="team-tasks-project" my={units(2)} >
     {
       props.project.title ?
-        <div style={{ paddingBottom: units(2) }}>{props.project.title}</div>
+        <Box pb={units(2)}>{props.project.title}</Box>
         : null
     }
     <div>
@@ -24,7 +25,7 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
         </List>
       </Card>
     </div>
-  </div>
+  </Box>
 ) : null;
 
 export default TeamTasksProject;

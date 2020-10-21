@@ -1,22 +1,30 @@
-import React, { Component } from 'react';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
-import { FormattedMessage } from 'react-intl';
-import { DatePicker, TimePicker } from '@material-ui/pickers';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
-import EventIcon from '@material-ui/icons/Event';
-import { FormattedGlobalMessage } from '../MappedMessage';
-import { convertNumbers2English } from '../../helpers';
-import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
-import timezones from '../../timezones';
+import React, { Component } from "react";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
+import { FormattedMessage } from "react-intl";
+import { DatePicker, TimePicker } from "@material-ui/pickers";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import AccessTimeIcon from "@material-ui/icons/AccessTime";
+import EventIcon from "@material-ui/icons/Event";
+import { FormattedGlobalMessage } from "../MappedMessage";
+import { convertNumbers2English } from "../../helpers";
+import {
+  alertRed,
+  black38,
+  black54,
+  units,
+  caption,
+  FlexRow,
+} from "../../styles/js/shared";
+import timezones from "../../timezones";
+import styled from "styled-components";
 
 const styles = {
   error: {
-    font: 'caption',
+    font: "caption",
     color: alertRed,
-    display: 'block',
+    display: "block",
   },
   primaryColumn: {
     flex: 10,
@@ -25,14 +33,14 @@ const styles = {
     color: black54,
     height: units(2.5),
     width: units(2.5),
-    flex: '1',
+    flex: "1",
   },
   row: {
     marginBottom: units(2),
   },
   time: {
     width: units(6),
-    textAlign: 'center',
+    textAlign: "center",
   },
   label: {
     font: caption,
@@ -45,18 +53,31 @@ class DatetimeRespondTask extends Component {
     super(props);
 
     let date = null;
-    let hour = '';
-    let minute = '';
+    let hour = "";
+    let minute = "";
     let timezone = null;
-    const response = this.props.response ? convertNumbers2English(this.props.response) : null;
+    const response = this.props.response
+      ? convertNumbers2English(this.props.response)
+      : null;
+    const CustomFlexRow = styled(FlexRow)`
+      justify-content: flex-start;
+      align-items: center;
+    `;
+
+    const CustomAutoComplete = styled(Autocomplete)`
+      margin-left: ${units(2)};
+    `;
+
     if (response) {
-      const values = response.match(/^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/);
+      const values = response.match(
+        /^(\d+-\d+-\d+) (\d+):(\d+) ([+-]?\d+) ([^ ]+)/
+      );
       const hasTime = !/notime/.test(response);
       date = new Date(`${values[1]} 00:00`);
       if (hasTime) {
-        ([, , hour, minute] = values);
+        [, , hour, minute] = values;
       }
-      ([, , , , , timezone] = values);
+      [, , , , , timezone] = values;
     }
     if (timezone) {
       const code = timezone;
@@ -97,15 +118,26 @@ class DatetimeRespondTask extends Component {
 
   handleChange(moment) {
     const date = moment.toDate();
-    this.setState({ focus: true, taskAnswerDisabled: !this.canSubmit(date), date });
+    this.setState({
+      focus: true,
+      taskAnswerDisabled: !this.canSubmit(date),
+      date,
+    });
   }
 
   handleChangeTimezone(timezone) {
-    this.setState({ focus: true, timezone, taskAnswerDisabled: !this.canSubmit() });
+    this.setState({
+      focus: true,
+      timezone,
+      taskAnswerDisabled: !this.canSubmit(),
+    });
   }
 
   handleChangeTime(value) {
-    const time = [value.toDate().getHours().toString(), value.toDate().getMinutes().toString()];
+    const time = [
+      value.toDate().getHours().toString(),
+      value.toDate().getMinutes().toString(),
+    ];
     const hour = convertNumbers2English(time[0]);
     const minute = convertNumbers2English(time[1]);
     this.setState({
@@ -119,23 +151,25 @@ class DatetimeRespondTask extends Component {
   handleSubmit() {
     if (!this.state.taskAnswerDisabled && !this.state.timeError) {
       const { date } = this.state;
-      const timezone = this.state.timezone || { code: 'GMT' };
+      const timezone = this.state.timezone || { code: "GMT" };
 
       const format = (val, size, char) => `${val}`.padStart(size, char);
 
-      const month = format(date.getMonth() + 1, 2, '0');
-      const day = format(date.getDate(), 2, '0');
+      const month = format(date.getMonth() + 1, 2, "0");
+      const day = format(date.getDate(), 2, "0");
       const year = date.getFullYear();
 
-      const hour = (this.state.hour && this.state.hour !== '')
-        ? format(this.state.hour, 2, '0')
-        : '0';
+      const hour =
+        this.state.hour && this.state.hour !== ""
+          ? format(this.state.hour, 2, "0")
+          : "0";
 
-      const minute = (this.state.minute && this.state.minute !== '')
-        ? format(this.state.minute, 2, '0')
-        : '0';
+      const minute =
+        this.state.minute && this.state.minute !== ""
+          ? format(this.state.minute, 2, "0")
+          : "0";
 
-      let offset = '';
+      let offset = "";
       if (timezone && timezones[timezone.code]) {
         ({ offset } = timezones[timezone.code]);
         if (offset > 0) {
@@ -143,12 +177,14 @@ class DatetimeRespondTask extends Component {
         }
       }
 
-      let notime = '';
-      if (this.state.hour === '' && this.state.minute === '') {
-        notime = 'notime';
+      let notime = "";
+      if (this.state.hour === "" && this.state.minute === "") {
+        notime = "notime";
       }
 
-      const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${timezone ? timezone.code : ''} ${notime}`;
+      const response = `${year}-${month}-${day} ${hour}:${minute} ${offset} ${
+        timezone ? timezone.code : ""
+      } ${notime}`;
 
       this.setState({ taskAnswerDisabled: true });
       this.props.onSubmit(response);
@@ -181,7 +217,10 @@ class DatetimeRespondTask extends Component {
     const actionBtns = (
       <p className="task__resolver">
         <Button className="task__cancel" onClick={this.handleCancel.bind(this)}>
-          <FormattedMessage id="datetimeRespondTask.cancelTask" defaultMessage="Cancel" />
+          <FormattedMessage
+            id="datetimeRespondTask.cancelTask"
+            defaultMessage="Cancel"
+          />
         </Button>
         <Button
           className="task__save"
@@ -189,14 +228,14 @@ class DatetimeRespondTask extends Component {
           onClick={this.handlePressButton.bind(this)}
           disabled={this.state.taskAnswerDisabled}
         >
-          { fieldset === 'tasks' ? (
+          {fieldset === "tasks" ? (
             <FormattedMessage
               id="datetimeRespondTask.answerTask"
               defaultMessage="Answer task"
             />
-          ) :
+          ) : (
             <FormattedGlobalMessage messageKey="save" />
-          }
+          )}
         </Button>
       </p>
     );
@@ -234,10 +273,7 @@ class DatetimeRespondTask extends Component {
 
         <FlexRow style={styles.row}>
           <div style={styles.primaryColumn}>
-            <FlexRow
-              style={{ justifyContent: 'flex-start', alignItems: 'center' }}
-              id="task__response-time"
-            >
+            <CustomFlexRow id="task__response-time">
               <TimePicker
                 id="task__response-time-input"
                 label={
@@ -248,8 +284,9 @@ class DatetimeRespondTask extends Component {
                 }
                 onChange={this.handleChangeTime.bind(this)}
                 value={
-                  this.state.hour && this.state.minute ?
-                    new Date().setHours(this.state.hour, this.state.minute) : null
+                  this.state.hour && this.state.minute
+                    ? new Date().setHours(this.state.hour, this.state.minute)
+                    : null
                 }
                 inputVariant="outlined"
                 InputProps={{
@@ -262,18 +299,19 @@ class DatetimeRespondTask extends Component {
                 variant="inline"
                 fullWidth
               />
-              <Autocomplete
+              <Customutocomplete
                 className="task__datetime-timezone"
-                style={{ marginLeft: units(2) }}
                 options={
-                  taskTimezones && taskTimezones.length ? taskTimezones : Object.values(timezones)
+                  taskTimezones && taskTimezones.length
+                    ? taskTimezones
+                    : Object.values(timezones)
                 }
-                getOptionLabel={option => option.label}
+                getOptionLabel={(option) => option.label}
                 defaultValue={this.state.timezone}
                 onChange={(event, newValue) => {
                   this.handleChangeTimezone(newValue);
                 }}
-                renderInput={params => (
+                renderInput={(params) => (
                   <TextField
                     {...params}
                     variant="outlined"
@@ -287,13 +325,13 @@ class DatetimeRespondTask extends Component {
                 )}
                 fullWidth
               />
-            </FlexRow>
+            </CustomFlexRow>
           </div>
         </FlexRow>
         <div style={styles.error}>
-          {this.state.timeError ? this.state.timeError : ''}
+          {this.state.timeError ? this.state.timeError : ""}
         </div>
-        { this.state.focus || this.props.response ? actionBtns : null }
+        {this.state.focus || this.props.response ? actionBtns : null}
       </div>
     );
   }

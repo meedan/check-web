@@ -9,6 +9,7 @@ import {
   injectIntl,
 } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
+import Box from "@material-ui/core/Box";
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -235,14 +236,14 @@ class CreateTeamCard extends React.Component {
             </CardActions>
           </form>
         </Card>
-        <div style={{ marginTop: units(2) }}>
+        <>
           <Link to="/check/teams/find" className="create-team__toggle-find">
             <FormattedMessage
               id="createTeam.requestToJoin"
               defaultMessage="You can also request to join an existing workspace."
             />
           </Link>
-        </div>
+        </>
       </div>
     );
   }

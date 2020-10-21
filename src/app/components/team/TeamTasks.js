@@ -1,17 +1,17 @@
-import React from 'react';
-import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
-import intersection from 'lodash.intersection';
-import Box from '@material-ui/core/Box';
-import TeamTasksProject from './TeamTasksProject';
-import CreateTeamTask from './CreateTeamTask';
-import ProjectSelector from '../project/ProjectSelector';
-import TaskTypeSelector from '../task/TaskTypeSelector';
-import BlankState from '../layout/BlankState';
-import CardToolbar from '../layout/CardToolbar';
-import FilterPopup from '../layout/FilterPopup';
-import TeamRoute from '../../relay/TeamRoute';
-import { ContentColumn, units } from '../../styles/js/shared';
+import React from "react";
+import Relay from "react-relay/classic";
+import { FormattedMessage } from "react-intl";
+import intersection from "lodash.intersection";
+import Box from "@material-ui/core/Box";
+import TeamTasksProject from "./TeamTasksProject";
+import CreateTeamTask from "./CreateTeamTask";
+import ProjectSelector from "../project/ProjectSelector";
+import TaskTypeSelector from "../task/TaskTypeSelector";
+import BlankState from "../layout/BlankState";
+import CardToolbar from "../layout/CardToolbar";
+import FilterPopup from "../layout/FilterPopup";
+import TeamRoute from "../../relay/TeamRoute";
+import { ContentColumn, units } from "../../styles/js/shared";
 
 class TeamTasksComponent extends React.Component {
   state = {
@@ -36,20 +36,24 @@ class TeamTasksComponent extends React.Component {
     let filteredTeamTasks = team_tasks || [];
 
     if (search) {
-      filteredTeamTasks = filteredTeamTasks.filter(t =>
-        t.node.label.toLowerCase().includes(search.toLowerCase()));
+      filteredTeamTasks = filteredTeamTasks.filter((t) =>
+        t.node.label.toLowerCase().includes(search.toLowerCase())
+      );
     }
 
     if (typeFilter.length) {
-      filteredTeamTasks = filteredTeamTasks.filter(t =>
-        typeFilter.indexOf(t.node.type) > -1);
+      filteredTeamTasks = filteredTeamTasks.filter(
+        (t) => typeFilter.indexOf(t.node.type) > -1
+      );
     }
 
     if (projFilter.length) {
-      const projFilterInt = projFilter.map(f => parseInt(f, 10));
-      filteredTeamTasks = filteredTeamTasks.filter(t =>
-        intersection(t.node.project_ids, projFilterInt).length > 0 ||
-        !t.node.project_ids.length);
+      const projFilterInt = projFilter.map((f) => parseInt(f, 10));
+      filteredTeamTasks = filteredTeamTasks.filter(
+        (t) =>
+          intersection(t.node.project_ids, projFilterInt).length > 0 ||
+          !t.node.project_ids.length
+      );
     }
 
     return filteredTeamTasks;
@@ -58,7 +62,7 @@ class TeamTasksComponent extends React.Component {
   filterProjects = (projects) => {
     const { projFilter } = this.state;
     if (projFilter.length) {
-      return projects.filter(p => projFilter.indexOf(`${p.node.dbid}`) > -1);
+      return projects.filter((p) => projFilter.indexOf(`${p.node.dbid}`) > -1);
     }
     return projects;
   };
@@ -91,24 +95,34 @@ class TeamTasksComponent extends React.Component {
           fieldset={this.props.fieldset}
           project={{ teamTasks }}
           team={this.props.team}
-        />);
+        />
+      );
     }
 
     return (
       <BlankState>
-        { this.props.fieldset === 'tasks' ?
-          <FormattedMessage id="teamTasks.blank" defaultMessage="No default tasks to display" /> :
-          <FormattedMessage id="teamTasks.blankMetadata" defaultMessage="No metadata fields" />
-        }
+        {this.props.fieldset === "tasks" ? (
+          <FormattedMessage
+            id="teamTasks.blank"
+            defaultMessage="No default tasks to display"
+          />
+        ) : (
+          <FormattedMessage
+            id="teamTasks.blankMetadata"
+            defaultMessage="No metadata fields"
+          />
+        )}
       </BlankState>
     );
   }
 
   render() {
     const { fieldset } = this.props;
-    const isTask = this.props.fieldset === 'tasks';
+    const isTask = this.props.fieldset === "tasks";
     const { team_tasks } = this.props.team;
-    const filteredTasks = this.filterTeamTasks(team_tasks.edges).map(task => task.node);
+    const filteredTasks = this.filterTeamTasks(team_tasks.edges).map(
+      (task) => task.node
+    );
     const filterLabel = this.renderFilterLabel(filteredTasks, team_tasks.edges);
 
     return (
@@ -117,48 +131,63 @@ class TeamTasksComponent extends React.Component {
           <CardToolbar
             action={
               <Box alignItems="center" display="flex">
-                { isTask ? (
+                {isTask ? (
                   <FilterPopup
                     search={this.state.search}
                     onSearchChange={this.handleSearchChange}
                     label={filterLabel}
-                    tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
+                    tooltip={
+                      <FormattedMessage
+                        id="teamTasks.filter"
+                        defaultMessage="Filter tasks"
+                      />
+                    }
                   >
-                    <div style={{ marginTop: units(4) }}>
-                      <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
+                    <Box mt={units(4)}>
+                      <FormattedMessage
+                        id="teamTasks.projFilter"
+                        defaultMessage="Show tasks in"
+                      />
                       <ProjectSelector
                         projects={this.props.team.projects.edges}
                         selected={this.state.projFilter}
                         onSelect={this.handleSelectProjects}
                         fullWidth
                       />
-                    </div>
-                    <div style={{ marginTop: units(2) }}>
-                      <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
+                    </Box>
+                    <Box mt={units(2)} >
+                      <FormattedMessage
+                        id="teamTasks.typeFilter"
+                        defaultMessage="Task type"
+                      />
                       <TaskTypeSelector
                         selected={this.state.typeFilter}
                         onSelect={this.handleSelectTaskTypes}
                         fullWidth
                       />
-                    </div>
+                    </Box>
                   </FilterPopup>
-                ) : null
-                }
+                ) : null}
                 <CreateTeamTask fieldset={fieldset} team={this.props.team} />
               </Box>
             }
             helpUrl={
-              isTask ?
-                'https://help.checkmedia.org/en/articles/3648632-tasks' :
-                'https://help.checkmedia.org/en/articles/4346772-metadata'
+              isTask
+                ? "https://help.checkmedia.org/en/articles/3648632-tasks"
+                : "https://help.checkmedia.org/en/articles/4346772-metadata"
             }
             title={
-              isTask ?
-                <FormattedMessage id="teamTasks.tasks" defaultMessage="Tasks" /> :
-                <FormattedMessage id="teamTasks.metadata" defaultMessage="Metadata" />
+              isTask ? (
+                <FormattedMessage id="teamTasks.tasks" defaultMessage="Tasks" />
+              ) : (
+                <FormattedMessage
+                  id="teamTasks.metadata"
+                  defaultMessage="Metadata"
+                />
+              )
             }
           />
-          { this.renderTeamTaskList(filteredTasks) }
+          {this.renderTeamTaskList(filteredTasks)}
         </ContentColumn>
       </div>
     );
@@ -231,12 +260,14 @@ const TeamTasks = (props) => {
   const { fieldset, team } = props;
   const route = new TeamRoute({ teamSlug: team.slug });
 
-  if (fieldset === 'tasks') {
+  if (fieldset === "tasks") {
     return (
       <Relay.RootContainer
         Component={TeamTasksContainer}
         route={route}
-        renderFetched={data => <TeamTasksContainer {...data} fieldset={fieldset} />}
+        renderFetched={(data) => (
+          <TeamTasksContainer {...data} fieldset={fieldset} />
+        )}
       />
     );
   }
@@ -245,7 +276,9 @@ const TeamTasks = (props) => {
     <Relay.RootContainer
       Component={TeamMetadataContainer}
       route={route}
-      renderFetched={data => <TeamMetadataContainer {...data} fieldset={fieldset} />}
+      renderFetched={(data) => (
+        <TeamMetadataContainer {...data} fieldset={fieldset} />
+      )}
     />
   );
 };

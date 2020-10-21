@@ -1,67 +1,63 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import Relay from 'react-relay/classic';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
-import CancelIcon from '@material-ui/icons/Cancel';
-import * as EmailValidator from 'email-validator';
-import RoleSelect from './RoleSelect';
-import UserUtil from '../user/UserUtil';
-import CheckContext from '../../CheckContext';
-import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
-import { withSetFlashMessage } from '../FlashMessage';
-import {
-  units,
-  StyledIconButton,
-  Row,
-  FlexRow,
-} from '../../styles/js/shared';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import Relay from "react-relay/classic";
+import { FormattedMessage, defineMessages, injectIntl } from "react-intl";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import TextField from "@material-ui/core/TextField";
+import CancelIcon from "@material-ui/icons/Cancel";
+import * as EmailValidator from "email-validator";
+import RoleSelect from "./RoleSelect";
+import UserUtil from "../user/UserUtil";
+import CheckContext from "../../CheckContext";
+import UserInvitationMutation from "../../relay/mutations/UserInvitationMutation";
+import { withSetFlashMessage } from "../FlashMessage";
+import { units, StyledIconButton, Row, FlexRow } from "../../styles/js/shared";
 
 const messages = defineMessages({
   inviteMembers: {
-    id: 'TeamInviteMembers.newInvite',
-    defaultMessage: 'Invite members',
+    id: "TeamInviteMembers.newInvite",
+    defaultMessage: "Invite members",
   },
   inviteEmailInput: {
-    id: 'TeamInviteMembers.emailInput',
-    defaultMessage: 'Email address',
+    id: "TeamInviteMembers.emailInput",
+    defaultMessage: "Email address",
   },
   inviteEmailMultipleInput: {
-    id: 'TeamInviteMembers.emailMultipleInput',
-    defaultMessage: 'Separate emails by commas',
+    id: "TeamInviteMembers.emailMultipleInput",
+    defaultMessage: "Separate emails by commas",
   },
   invalidEmail: {
-    id: 'TeamInviteMembers.invalidEmail',
-    defaultMessage: 'Not a valid email address.',
+    id: "TeamInviteMembers.invalidEmail",
+    defaultMessage: "Not a valid email address.",
   },
   memberEmail: {
-    id: 'TeamInviteMembers.existsEmail',
-    defaultMessage: 'Already a member.',
+    id: "TeamInviteMembers.existsEmail",
+    defaultMessage: "Already a member.",
   },
   invitedEmail: {
-    id: 'TeamInviteMembers.invitedEmail',
-    defaultMessage: 'Already invited.',
+    id: "TeamInviteMembers.invitedEmail",
+    defaultMessage: "Already invited.",
   },
   contributor: {
-    id: 'TeamMembersListItem.contributor',
-    defaultMessage: 'Contributor',
+    id: "TeamMembersListItem.contributor",
+    defaultMessage: "Contributor",
   },
   journalist: {
-    id: 'TeamMembersListItem.journalist',
-    defaultMessage: 'Journalist',
+    id: "TeamMembersListItem.journalist",
+    defaultMessage: "Journalist",
   },
   editor: {
-    id: 'TeamMembersListItem.editor',
-    defaultMessage: 'Editor',
+    id: "TeamMembersListItem.editor",
+    defaultMessage: "Editor",
   },
   annotator: {
-    id: 'TeamMembersListItem.annotator',
-    defaultMessage: 'Annotator',
+    id: "TeamMembersListItem.annotator",
+    defaultMessage: "Annotator",
   },
 });
 
@@ -70,11 +66,11 @@ class TeamInviteMembers extends Component {
     let error = null;
     const inputEmail = email.trim();
     if (EmailValidator.validate(inputEmail) === false) {
-      error = 'invalid';
+      error = "invalid";
     } else if (invitedEmails.has(inputEmail) === true) {
-      error = 'invited';
+      error = "invited";
     } else if (membersEmails.has(inputEmail) === true) {
-      error = 'member';
+      error = "member";
     }
     return error;
   }
@@ -84,7 +80,7 @@ class TeamInviteMembers extends Component {
     this.state = {
       dialogOpen: false,
       sendDisabled: true,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: "", role: "contributor", errors: [] }],
       addMany: false,
     };
   }
@@ -98,7 +94,7 @@ class TeamInviteMembers extends Component {
       dialogOpen: true,
       sendDisabled: true,
       addMany: false,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: "", role: "contributor", errors: [] }],
     });
   }
 
@@ -107,13 +103,16 @@ class TeamInviteMembers extends Component {
       dialogOpen: false,
       sendDisabled: true,
       addMany: false,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: "", role: "contributor", errors: [] }],
     });
   }
 
   handleAddAnother() {
     this.setState({
-      membersToInvite: [...this.state.membersToInvite, { email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [
+        ...this.state.membersToInvite,
+        { email: "", role: "contributor", errors: [] },
+      ],
     });
   }
 
@@ -121,7 +120,7 @@ class TeamInviteMembers extends Component {
     this.setState({
       addMany: true,
       sendDisabled: true,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: "", role: "contributor", errors: [] }],
     });
   }
 
@@ -129,20 +128,26 @@ class TeamInviteMembers extends Component {
     this.setState({
       addMany: false,
       sendDisabled: true,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: "", role: "contributor", errors: [] }],
     });
   }
 
   handleRemoveEmail(index) {
     this.state.membersToInvite.splice(index, 1);
-    const emptyEmails = this.state.membersToInvite.every(obj => !obj.email);
-    this.setState({ membersToInvite: this.state.membersToInvite, sendDisabled: emptyEmails });
+    const emptyEmails = this.state.membersToInvite.every((obj) => !obj.email);
+    this.setState({
+      membersToInvite: this.state.membersToInvite,
+      sendDisabled: emptyEmails,
+    });
   }
 
   handleEmailChange(e, index) {
     this.state.membersToInvite[index].email = e.target.value;
-    const emptyEmails = this.state.membersToInvite.every(obj => !obj.email);
-    this.setState({ membersToInvite: this.state.membersToInvite, sendDisabled: emptyEmails });
+    const emptyEmails = this.state.membersToInvite.every((obj) => !obj.email);
+    this.setState({
+      membersToInvite: this.state.membersToInvite,
+      sendDisabled: emptyEmails,
+    });
   }
 
   handleRoleChange(e, index) {
@@ -155,7 +160,7 @@ class TeamInviteMembers extends Component {
     const invitedEmails = new Set(team.invited_mails);
     const membersEmails = new Set();
     team.team_users.edges.forEach(({ node: { status, user } }) => {
-      if (status === 'member' && user && user.email) {
+      if (status === "member" && user && user.email) {
         membersEmails.add(user.email);
       }
     });
@@ -163,39 +168,58 @@ class TeamInviteMembers extends Component {
       this.state.membersToInvite[index].errors = [];
       if (item.email) {
         if (this.state.addMany) {
-          item.email.split(',').map(email => email.trim()).filter(email => !!email).forEach((email) => {
-            const error = TeamInviteMembers.validateEmail(email, invitedEmails, membersEmails);
-            if (error) {
-              this.state.membersToInvite[index].errors.push({ key: error, email });
-            }
-          });
+          item.email
+            .split(",")
+            .map((email) => email.trim())
+            .filter((email) => !!email)
+            .forEach((email) => {
+              const error = TeamInviteMembers.validateEmail(
+                email,
+                invitedEmails,
+                membersEmails
+              );
+              if (error) {
+                this.state.membersToInvite[index].errors.push({
+                  key: error,
+                  email,
+                });
+              }
+            });
         } else {
-          const error = TeamInviteMembers.validateEmail(item.email, invitedEmails, membersEmails);
+          const error = TeamInviteMembers.validateEmail(
+            item.email,
+            invitedEmails,
+            membersEmails
+          );
           if (error) {
-            this.state.membersToInvite[index].errors.push({ key: error, email: item.email });
+            this.state.membersToInvite[index].errors.push({
+              key: error,
+              email: item.email,
+            });
           }
         }
       }
     });
     this.setState({ membersToInvite: this.state.membersToInvite });
-    return this.state.membersToInvite.every(member => !member.errors.length);
+    return this.state.membersToInvite.every((member) => !member.errors.length);
   }
 
   handleSubmit() {
-    const onFailure = () => {
-    };
+    const onFailure = () => {};
 
     const onSuccess = (response) => {
-      const { userInvitation: { success } } = response;
+      const {
+        userInvitation: { success },
+      } = response;
       this.setState({
         dialogOpen: false,
       });
       if (success.length > 0) {
-        const errorMessage = (
-          success.map((message, index) => (
-            <p key={`email-error-${index.toString()}`}>{message.email} : {message.error}</p>
-          ))
-        );
+        const errorMessage = success.map((message, index) => (
+          <p key={`email-error-${index.toString()}`}>
+            {message.email} : {message.error}
+          </p>
+        ));
         this.props.setFlashMessage(errorMessage);
       } else {
         const message = (
@@ -209,95 +233,102 @@ class TeamInviteMembers extends Component {
     };
     if (this.validateMembers() && !this.state.sendDisabled) {
       // FIXME Don't read from the DOM.
-      const invitation = document.getElementById('invite-msg-input').value.trim();
+      const invitation = document
+        .getElementById("invite-msg-input")
+        .value.trim();
       Relay.Store.commitUpdate(
         new UserInvitationMutation({
           invitation,
           members: JSON.stringify(this.state.membersToInvite),
         }),
-        { onSuccess, onFailure },
+        { onSuccess, onFailure }
       );
     }
   }
 
   renderError(item) {
     switch (item.key) {
-    case 'invalid':
-      return this.props.intl.formatMessage(messages.invalidEmail);
-    case 'member':
-      return this.props.intl.formatMessage(messages.memberEmail);
-    case 'invited':
-      return this.props.intl.formatMessage(messages.invitedEmail);
-    default:
-      return null;
+      case "invalid":
+        return this.props.intl.formatMessage(messages.invalidEmail);
+      case "member":
+        return this.props.intl.formatMessage(messages.memberEmail);
+      case "invited":
+        return this.props.intl.formatMessage(messages.invitedEmail);
+      default:
+        return null;
     }
   }
 
   render() {
-    const excludeRoles = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ? [] : ['owner'];
+    const excludeRoles =
+      UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === "owner"
+        ? []
+        : ["owner"];
     let inviteBody = null;
     if (this.state.addMany) {
-      inviteBody = (
-        this.state.membersToInvite.map((member, index) => (
-          <div key={`invite-team-member-new-${index.toString()}`}>
-            <FlexRow>
-              <FormattedMessage id="teamInviteMembers.inviteMembers" defaultMessage="Members will be invited as" />
-              <RoleSelect
-                className="invite-member-email-role"
-                onChange={e => this.handleRoleChange(e, index)}
-                value={member.role}
-                excludeRoles={excludeRoles}
-              />
-            </FlexRow>
+      inviteBody = this.state.membersToInvite.map((member, index) => (
+        <div key={`invite-team-member-new-${index.toString()}`}>
+          <FlexRow>
+            <FormattedMessage
+              id="teamInviteMembers.inviteMembers"
+              defaultMessage="Members will be invited as"
+            />
+            <RoleSelect
+              className="invite-member-email-role"
+              onChange={(e) => this.handleRoleChange(e, index)}
+              value={member.role}
+              excludeRoles={excludeRoles}
+            />
+          </FlexRow>
+          <TextField
+            key="invite-member-email-input"
+            id={index.toString()}
+            className="invite-member-email-input"
+            label={this.props.intl.formatMessage(
+              messages.inviteEmailMultipleInput
+            )}
+            multiline
+            fullWidth
+            margin="normal"
+            variant="outlined"
+            rows={4}
+            onChange={(e) => this.handleEmailChange(e, index)}
+            value={member.email}
+            error={member.errors.length > 0}
+            helperText={member.errors
+              .map(
+                (errorItem) =>
+                  `${errorItem.email}: ${this.renderError(errorItem)}`
+              )
+              .join(" ")}
+          />
+        </div>
+      ));
+    } else {
+      inviteBody = this.state.membersToInvite.map((member, index) => (
+        <div key={`invite-team-member-new-${index.toString()}`}>
+          <Row>
             <TextField
               key="invite-member-email-input"
-              id={index.toString()}
               className="invite-member-email-input"
-              label={this.props.intl.formatMessage(messages.inviteEmailMultipleInput)}
-              multiline
-              fullWidth
-              margin="normal"
-              variant="outlined"
-              rows={4}
-              onChange={e => this.handleEmailChange(e, index)}
+              id={index.toString()}
+              placeholder={this.props.intl.formatMessage(
+                messages.inviteEmailInput
+              )}
+              onChange={(e) => this.handleEmailChange(e, index)}
               value={member.email}
               error={member.errors.length > 0}
-              helperText={
-                member.errors.map(errorItem => `${errorItem.email}: ${this.renderError(errorItem)}`).join(' ')
-              }
+              helperText={member.errors
+                .map((errorItem) => this.renderError(errorItem))
+                .join(" ")}
+              margin="normal"
+              fullWidth
             />
-          </div>
-        ))
-      );
-    } else {
-      inviteBody = (
-        this.state.membersToInvite.map((member, index) => (
-          <div key={`invite-team-member-new-${index.toString()}`}>
-            <Row>
-              <TextField
-                key="invite-member-email-input"
-                className="invite-member-email-input"
-                id={index.toString()}
-                placeholder={this.props.intl.formatMessage(messages.inviteEmailInput)}
-                onChange={e => this.handleEmailChange(e, index)}
-                value={member.email}
-                error={member.errors.length > 0}
-                helperText={
-                  member.errors.map(errorItem => this.renderError(errorItem)).join(' ')
-                }
-                margin="normal"
-                fullWidth
-              />
-              <Row
-                style={{
-                  marginLeft: units(2),
-                  marginTop: units(1),
-                  marginBottom: units(1),
-                }}
-              >
+            <Box ml={`${units(2)}`} my={`${units(1)}`}>
+              <Row>
                 <RoleSelect
                   className="invite-member-email-role"
-                  onChange={e => this.handleRoleChange(e, index)}
+                  onChange={(e) => this.handleRoleChange(e, index)}
                   value={member.role}
                   excludeRoles={excludeRoles}
                 />
@@ -308,22 +339,29 @@ class TeamInviteMembers extends Component {
                   <CancelIcon />
                 </StyledIconButton>
               </Row>
-            </Row>
-          </div>
-        ))
-      );
+            </Box>
+          </Row>
+        </div>
+      ));
     }
+
+    const CustomButton = styled(Button)`
+      margin-left: auto;
+      margin-right: ${units(2)};
+    `;
 
     return (
       <FlexRow>
-        <Button
+        <CustomButton
           variant="contained"
-          style={{ marginLeft: 'auto', marginRight: units(2) }}
           onClick={this.handleOpenDialog.bind(this)}
           className="team-members__invite-button"
         >
-          <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
-        </Button>
+          <FormattedMessage
+            id="teamInviteMembers.inviteMember"
+            defaultMessage="Invite"
+          />
+        </CustomButton>
         <Dialog
           className="team-invite-members__dialog"
           open={this.state.dialogOpen}
@@ -331,13 +369,18 @@ class TeamInviteMembers extends Component {
           scroll="paper"
           fullWidth
         >
-          <DialogTitle>{this.props.intl.formatMessage(messages.inviteMembers)}</DialogTitle>
+          <DialogTitle>
+            {this.props.intl.formatMessage(messages.inviteMembers)}
+          </DialogTitle>
           <DialogContent>
             <TextField
               id="invite-msg-input"
               className="team-invite-members__input"
               label={
-                <FormattedMessage id="teamInviteMembers.customInvitation" defaultMessage="Invitation note (optional)" />
+                <FormattedMessage
+                  id="teamInviteMembers.customInvitation"
+                  defaultMessage="Invitation note (optional)"
+                />
               }
               fullWidth
               multiline
@@ -345,39 +388,52 @@ class TeamInviteMembers extends Component {
               margin="normal"
               variant="outlined"
             />
-            { inviteBody }
-            { this.state.addMany ?
-              <div style={{ height: units(6) }}>
+            {inviteBody}
+            {this.state.addMany ? (
+              <Box component="div" height={`${units(6)}`}>
                 <Row>
                   <Button
                     className="team-invite-members__dialog-add-separate-button"
                     onClick={this.handleAddSeparate.bind(this)}
                   >
-                    <FormattedMessage id="teamInviteMembers.addSeparate" defaultMessage="Add separate" />
+                    <FormattedMessage
+                      id="teamInviteMembers.addSeparate"
+                      defaultMessage="Add separate"
+                    />
                   </Button>
                 </Row>
-              </div> :
-              <div style={{ height: units(12) }}>
+              </Box>
+            ) : (
+              <Box component="div" height={`${units(12)}`}>
                 <Row>
                   <Button
                     className="team-invite-members__dialog-add-another-button"
                     onClick={this.handleAddAnother.bind(this)}
                   >
-                    <FormattedMessage id="teamInviteMembers.addAnother" defaultMessage="Add another" />
+                    <FormattedMessage
+                      id="teamInviteMembers.addAnother"
+                      defaultMessage="Add another"
+                    />
                   </Button>
                   <Button
                     className="team-invite-members__dialog-add-many-button"
                     onClick={this.handleAddMany.bind(this)}
                   >
-                    <FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />
+                    <FormattedMessage
+                      id="teamInviteMembers.addMany"
+                      defaultMessage="Add many"
+                    />
                   </Button>
                 </Row>
-              </div>
-            }
+              </Box>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleCloseDialog.bind(this)}>
-              <FormattedMessage id="teamInviteMembers.cancelAdd" defaultMessage="Cancel" />
+              <FormattedMessage
+                id="teamInviteMembers.cancelAdd"
+                defaultMessage="Cancel"
+              />
             </Button>
             <Button
               className="team-invite-members__dialog-submit-button"
@@ -385,7 +441,10 @@ class TeamInviteMembers extends Component {
               color="primary"
               disabled={this.state.sendDisabled}
             >
-              <FormattedMessage id="teamInviteMembers.send" defaultMessage="Send" />
+              <FormattedMessage
+                id="teamInviteMembers.send"
+                defaultMessage="Send"
+              />
             </Button>
           </DialogActions>
         </Dialog>
@@ -402,9 +461,11 @@ TeamInviteMembers.contextTypes = {
   store: PropTypes.object,
 };
 
-export default Relay.createContainer(withSetFlashMessage(injectIntl(TeamInviteMembers)), {
-  fragments: {
-    team: () => Relay.QL`
+export default Relay.createContainer(
+  withSetFlashMessage(injectIntl(TeamInviteMembers)),
+  {
+    fragments: {
+      team: () => Relay.QL`
       fragment on Team {
         invited_mails
         team_users(first: 10000) {
@@ -419,5 +480,6 @@ export default Relay.createContainer(withSetFlashMessage(injectIntl(TeamInviteMe
         }
       }
     `,
-  },
-});
+    },
+  }
+);

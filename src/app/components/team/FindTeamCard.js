@@ -1,34 +1,30 @@
-import React from 'react';
-import {
-  FormattedMessage,
-  defineMessages,
-  injectIntl,
-} from 'react-intl';
-import { browserHistory, Link } from 'react-router';
-import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
-import styled from 'styled-components';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
+import React from "react";
+import { FormattedMessage, defineMessages, injectIntl } from "react-intl";
+import { browserHistory, Link } from "react-router";
+import TextField from "@material-ui/core/TextField";
+import Card from "@material-ui/core/Card";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardActions from "@material-ui/core/CardActions";
+import Button from "@material-ui/core/Button";
+import styled from "styled-components";
+import config from "config"; // eslint-disable-line require-path-exists/exists
 import {
   black38,
   caption,
   checkBlue,
   subheading2,
   units,
-} from '../../styles/js/shared';
+} from "../../styles/js/shared";
 
 const messages = defineMessages({
   teamSlugHint: {
-    id: 'findTeamCard.teamSlugHint',
-    defaultMessage: 'Workspace URL',
+    id: "findTeamCard.teamSlugHint",
+    defaultMessage: "Workspace URL",
   },
   teamNotFound: {
-    id: 'findTeamCard.teamNotFound',
-    defaultMessage: 'Workspace not found!',
+    id: "findTeamCard.teamNotFound",
+    defaultMessage: "Workspace not found!",
   },
 });
 
@@ -73,10 +69,12 @@ class FindTeamCard extends React.Component {
     const { team, teamSlug } = this.props;
 
     if (teamSlug) {
-      if (team && (teamSlug === team.slug)) {
+      if (team && teamSlug === team.slug) {
         browserHistory.push(`/${team.slug}/join`);
       } else {
-        this.setState({ message: this.props.intl.formatMessage(messages.teamNotFound) });
+        this.setState({
+          message: this.props.intl.formatMessage(messages.teamNotFound),
+        });
       }
     }
   };
@@ -119,9 +117,7 @@ class FindTeamCard extends React.Component {
                       defaultMessage="Workspace URL"
                     />
                   </label>
-                  <TeamUrlDomain>
-                    {config.selfHost}/
-                  </TeamUrlDomain>
+                  <TeamUrlDomain>{config.selfHost}/</TeamUrlDomain>
                 </TeamUrlColumn>
                 <TextField
                   type="text"
@@ -129,7 +125,9 @@ class FindTeamCard extends React.Component {
                   className="find-team__team-slug-input"
                   defaultValue={this.props.teamSlug}
                   onChange={this.handleSlugChange}
-                  placeholder={this.props.intl.formatMessage(messages.teamSlugHint)}
+                  placeholder={this.props.intl.formatMessage(
+                    messages.teamSlugHint
+                  )}
                   error={this.state.message}
                   helperText={this.state.message}
                   autoComplete="off"
@@ -154,14 +152,14 @@ class FindTeamCard extends React.Component {
             </CardActions>
           </form>
         </Card>
-        <div style={{ marginTop: units(2) }}>
+        <Box Component="div" mt={`${units(2)}`}>
           <Link to="/check/teams/new" className="find-team__toggle-create">
             <FormattedMessage
               id="findTeamCard.createYourOwn"
               defaultMessage="You can also create your own workspace."
             />
           </Link>
-        </div>
+        </Box>
       </div>
     );
   }

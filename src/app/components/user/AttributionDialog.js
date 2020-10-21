@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import Box from "@material-ui/core/Box";
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -32,9 +33,9 @@ class AttributionDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
-          <div style={{ marginBottom: units(2), marginTop: units(2) }}>
+          <Box my={units(2)} >
             { this.props.blurb }
-          </div>
+          </Box>
           <Attribution
             id="attribution-dialog"
             taskType={this.props.taskType}

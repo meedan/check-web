@@ -1,33 +1,42 @@
-import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import Button from '@material-ui/core/Button';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import TextField from '@material-ui/core/TextField';
-import CancelIcon from '@material-ui/icons/Cancel';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/HelpOutline';
-import styled from 'styled-components';
-import Attribution from './Attribution';
-import Message from '../Message';
-import ProjectSelector from '../project/ProjectSelector';
-import timezones from '../../timezones';
-import { units, StyledIconButton, caption, black54, Row, checkBlue } from '../../styles/js/shared';
+import React from "react";
+import { FormattedMessage, defineMessages, injectIntl } from "react-intl";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
+import Box from "@material-ui/core/Box";
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import TextField from "@material-ui/core/TextField";
+import CancelIcon from "@material-ui/icons/Cancel";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import IconButton from "@material-ui/core/IconButton";
+import HelpIcon from "@material-ui/icons/HelpOutline";
+import styled from "styled-components";
+import Attribution from "./Attribution";
+import Message from "../Message";
+import ProjectSelector from "../project/ProjectSelector";
+import timezones from "../../timezones";
+import {
+  units,
+  StyledIconButton,
+  caption,
+  black54,
+  Row,
+  checkBlue,
+} from "../../styles/js/shared";
 
 const StyledProjectsArea = styled.div`
   margin-top: ${units(2)};
 `;
 
 const StyledTaskAssignment = styled.div`
-  margin-top ${units(2)};
+  margin-top: ${units(2)};
 
-  .create-task__add-task-description-label, .create-task__add-assignment-button {
+  .create-task__add-task-description-label,
+  .create-task__add-assignment-button {
     bottom: ${units(2)};
     font: ${caption};
     padding: 0 ${units(1)};
@@ -43,20 +52,20 @@ const StyledTaskAssignment = styled.div`
 
 const messages = defineMessages({
   addValue: {
-    id: 'singleChoiceTask.addValue',
-    defaultMessage: 'Add Option',
+    id: "singleChoiceTask.addValue",
+    defaultMessage: "Add Option",
   },
   value: {
-    id: 'singleChoiceTask.value',
-    defaultMessage: 'Value',
+    id: "singleChoiceTask.value",
+    defaultMessage: "Value",
   },
   addOther: {
-    id: 'singleChoiceTask.addOther',
+    id: "singleChoiceTask.addOther",
     defaultMessage: 'Add "Other"',
   },
   other: {
-    id: 'singleChoiceTask.other',
-    defaultMessage: 'Other',
+    id: "singleChoiceTask.other",
+    defaultMessage: "Other",
   },
 });
 
@@ -66,8 +75,8 @@ class EditTaskDialog extends React.Component {
 
     const { task } = props;
 
-    let defaultOptions = [{ label: '' }, { label: '' }];
-    if (props.taskType === 'datetime') {
+    let defaultOptions = [{ label: "" }, { label: "" }];
+    if (props.taskType === "datetime") {
       defaultOptions = [];
     }
 
@@ -84,16 +93,21 @@ class EditTaskDialog extends React.Component {
   }
 
   handleDescriptionChange(e) {
-    this.setState({ description: e.target.value, editLabelOrDescription: true });
+    this.setState({
+      description: e.target.value,
+      editLabelOrDescription: true,
+    });
     this.validateTask(this.state.label, this.state.options);
   }
 
   handleAddValue() {
-    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
+    const options = Array.isArray(this.state.options)
+      ? this.state.options.slice(0)
+      : [];
     if (this.state.hasOther) {
-      options.splice(-1, 0, { label: '' });
+      options.splice(-1, 0, { label: "" });
     } else {
-      options.push({ label: '' });
+      options.push({ label: "" });
     }
     this.setState({ options });
 
@@ -101,9 +115,11 @@ class EditTaskDialog extends React.Component {
   }
 
   handleAddOther() {
-    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
+    const options = Array.isArray(this.state.options)
+      ? this.state.options.slice(0)
+      : [];
     const other = true;
-    let label = '';
+    let label = "";
 
     if (!this.state.hasOther) {
       label = this.props.intl.formatMessage(messages.other);
@@ -142,9 +158,13 @@ class EditTaskDialog extends React.Component {
   validateTask(label, options) {
     let valid = false;
 
-    if (this.props.taskType === 'single_choice' ||
-        this.props.taskType === 'multiple_choice') {
-      valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
+    if (
+      this.props.taskType === "single_choice" ||
+      this.props.taskType === "multiple_choice"
+    ) {
+      valid =
+        !!(label && label.trim()) &&
+        options.filter((item) => item.label.trim() !== "").length > 1;
     } else {
       valid = !!(label && label.trim());
     }
@@ -163,16 +183,18 @@ class EditTaskDialog extends React.Component {
   }
 
   handleSelectProjects = (projectsIds) => {
-    const project_ids = projectsIds.map(id => parseInt(id, 10));
+    const project_ids = projectsIds.map((id) => parseInt(id, 10));
     this.setState({ project_ids });
     this.validateTask(this.state.label, this.state.options);
   };
 
   handleSubmitTask() {
     const jsonoptions = this.state.options
-      ? JSON.stringify(this.state.options
-        .map(item => ({ ...item, label: item.label.trim() }))
-        .filter(item => item.label !== ''))
+      ? JSON.stringify(
+          this.state.options
+            .map((item) => ({ ...item, label: item.label.trim() }))
+            .filter((item) => item.label !== "")
+        )
       : undefined;
 
     const task = {
@@ -199,8 +221,10 @@ class EditTaskDialog extends React.Component {
       return null;
     }
 
-    if (this.props.taskType !== 'single_choice' &&
-        this.props.taskType !== 'multiple_choice') {
+    if (
+      this.props.taskType !== "single_choice" &&
+      this.props.taskType !== "multiple_choice"
+    ) {
       return null;
     }
 
@@ -208,13 +232,18 @@ class EditTaskDialog extends React.Component {
 
     const canRemove = this.state.options.length > 2;
 
+    const CustomTextField = styled(TextField)`
+      padding: ${units(0.5)} ${units(1)};
+      width: 75%;
+    `;
+
     return (
-      <div style={{ marginTop: units(2) }}>
+      <Box mt={`${units(2)}`}>
         {this.state.options.map((item, index) => (
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
             <Row>
               <ChevronRightIcon />
-              <TextField
+              <CustomTextField
                 key="create-task__add-option-input"
                 className="create-task__add-option-input"
                 id={index.toString()}
@@ -222,9 +251,8 @@ class EditTaskDialog extends React.Component {
                 placeholder={`${formatMessage(messages.value)} ${index + 1}`}
                 value={item.label}
                 disabled={item.other}
-                style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
               />
-              {canRemove ?
+              {canRemove ? (
                 <StyledIconButton>
                   <CancelIcon
                     key="create-task__remove-option-button"
@@ -232,11 +260,11 @@ class EditTaskDialog extends React.Component {
                     onClick={this.handleRemoveOption.bind(this, index)}
                   />
                 </StyledIconButton>
-                : null}
+              ) : null}
             </Row>
           </div>
         ))}
-        <div style={{ marginTop: units(1) }}>
+        <Box mt={`${units(1)}`}>
           <Button onClick={this.handleAddValue.bind(this)}>
             {this.props.intl.formatMessage(messages.addValue)}
           </Button>
@@ -246,31 +274,49 @@ class EditTaskDialog extends React.Component {
           >
             {this.props.intl.formatMessage(messages.addOther)}
           </Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
   render() {
-    const isTask = this.props.fieldset === 'tasks';
+    const isTask = this.props.fieldset === "tasks";
     const dialogTitle = () => {
       if (this.props.task) {
         return isTask ? (
-          <FormattedMessage id="editTaskDialog.editTask" defaultMessage="Edit task" />
+          <FormattedMessage
+            id="editTaskDialog.editTask"
+            defaultMessage="Edit task"
+          />
         ) : (
-          <FormattedMessage id="editTaskDialog.editMetadata" defaultMessage="Edit metadata field" />
+          <FormattedMessage
+            id="editTaskDialog.editMetadata"
+            defaultMessage="Edit metadata field"
+          />
         );
       }
 
       return isTask ? (
-        <FormattedMessage id="editTaskDialog.newTask" defaultMessage="New task" />
+        <FormattedMessage
+          id="editTaskDialog.newTask"
+          defaultMessage="New task"
+        />
       ) : (
-        <FormattedMessage id="editTaskDialog.newMetadata" defaultMessage="New metadata field" />
+        <FormattedMessage
+          id="editTaskDialog.newMetadata"
+          defaultMessage="New metadata field"
+        />
       );
     };
     const handleHelp = () => {
-      window.open('https://help.checkmedia.org/en/articles/4423863-using-the-check-browser-extension');
+      window.open(
+        "https://help.checkmedia.org/en/articles/4423863-using-the-check-browser-extension"
+      );
     };
+
+    const CustomHelpIcon = styled(HelpIcon)`
+      color: ${checkBlue};
+    `;
 
     return (
       <Dialog
@@ -288,7 +334,9 @@ class EditTaskDialog extends React.Component {
           <TextField
             id="task-label-input"
             className="tasks__task-label-input"
-            label={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />}
+            label={
+              <FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />
+            }
             defaultValue={this.state.label}
             onChange={this.handleLabelChange.bind(this)}
             margin="normal"
@@ -300,7 +348,10 @@ class EditTaskDialog extends React.Component {
             id="task-description-input"
             className="create-task__task-description-input"
             label={
-              <FormattedMessage id="tasks.description" defaultMessage="Description (optional)" />
+              <FormattedMessage
+                id="tasks.description"
+                defaultMessage="Description (optional)"
+              />
             }
             defaultValue={this.state.description}
             onChange={this.handleDescriptionChange.bind(this)}
@@ -310,18 +361,18 @@ class EditTaskDialog extends React.Component {
             fullWidth
           />
           <p />
-          { this.props.isTeamTask && this.props.taskType === 'datetime' ?
+          {this.props.isTeamTask && this.props.taskType === "datetime" ? (
             <Autocomplete
               multiple
               options={Object.values(timezones)}
-              getOptionLabel={option => option.label}
+              getOptionLabel={(option) => option.label}
               defaultValue={this.state.options}
               filterSelectedOptions
               onChange={(event, newValue) => {
                 this.setState({ options: newValue });
                 this.validateTask(this.state.label, newValue);
               }}
-              renderInput={params => (
+              renderInput={(params) => (
                 <TextField
                   {...params}
                   variant="outlined"
@@ -333,9 +384,10 @@ class EditTaskDialog extends React.Component {
                   }
                 />
               )}
-            /> : null }
+            />
+          ) : null}
           <p />
-          { this.props.isTeamTask ?
+          {this.props.isTeamTask ? (
             <FormControlLabel
               control={
                 <Checkbox
@@ -344,49 +396,52 @@ class EditTaskDialog extends React.Component {
                 />
               }
               label={
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Box display="flex" alignItems="center">
                   <FormattedMessage
                     id="tasks.showInBrowserExtension"
                     defaultMessage="Show in browser extension"
                   />
                   <IconButton onClick={handleHelp}>
-                    <HelpIcon style={{ color: checkBlue }} />
+                    <CustomHelpIcon />
                   </IconButton>
-                </div>
+                </Box>
               }
-            /> : null }
+            />
+          ) : null}
           <p />
-          { this.props.projects && isTask ?
+          {this.props.projects && isTask ? (
             <StyledProjectsArea>
-              <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
+              <FormattedMessage
+                id="tasks.showInProj"
+                defaultMessage="Show tasks in"
+              />
               <ProjectSelector
                 projects={this.props.projects}
-                selected={this.state.project_ids.map(id => `${id}`)}
+                selected={this.state.project_ids.map((id) => `${id}`)}
                 onSelect={this.handleSelectProjects}
               />
             </StyledProjectsArea>
-            : null
-          }
+          ) : null}
 
           {this.renderOptions()}
 
           <StyledTaskAssignment>
-            { this.state.showAssignmentField ?
+            {this.state.showAssignmentField ? (
               <Attribution
                 multi
                 selectedUsers={[]}
                 id="new"
                 taskType={this.props.taskType}
-              /> : null }
-            { this.props.allowAssignment ?
+              />
+            ) : null}
+            {this.props.allowAssignment ? (
               <button
                 className="create-task__add-assignment-button"
                 onClick={this.toggleAssignmentField.bind(this)}
               >
-                +{' '}
-                <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
-              </button> : null
-            }
+                + <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
+              </button>
+            ) : null}
           </StyledTaskAssignment>
         </DialogContent>
         <DialogActions>
