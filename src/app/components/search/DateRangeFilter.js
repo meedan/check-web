@@ -17,10 +17,6 @@ const Styles = {
 };
 
 function buildValue(valueType, startTimeOrNull, endTimeOrNull) {
-  if (startTimeOrNull === null && endTimeOrNull === null) {
-    return null;
-  }
-
   const range = {};
   if (startTimeOrNull) {
     range.start_time = startTimeOrNull;
@@ -44,7 +40,9 @@ function parseEndDateAsISOString(moment) {
 class DateRangeFilter extends React.Component {
   get valueType() {
     const { value } = this.props;
-    return (value && value.updated_at) ? 'updated_at' : 'created_at';
+    if (value && value.updated_at) return 'updated_at';
+    if (value && value.last_seen) return 'last_seen';
+    return 'created_at';
   }
 
   getDateStringOrNull(field) {
@@ -93,7 +91,8 @@ class DateRangeFilter extends React.Component {
 
     const label = {
       date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
-      created_at: <FormattedMessage id="search.dateCreatedHeading" defaultMessage="Created" />,
+      created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
+      last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
     };
 
@@ -102,11 +101,14 @@ class DateRangeFilter extends React.Component {
         <h4>{ label.date }</h4>
         <div>
           <FlexRow>
-            <FormControl className={classes.selectFormControl}>
+            <FormControl variant="outlined" className={classes.selectFormControl}>
               <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
               <Select onChange={this.handleChangeType} value={this.valueType}>
                 <MenuItem value="created_at">
                   {label.created_at}
+                </MenuItem>
+                <MenuItem value="last_seen">
+                  {label.last_seen}
                 </MenuItem>
                 <MenuItem value="updated_at">
                   {label.updated_at}
@@ -114,6 +116,7 @@ class DateRangeFilter extends React.Component {
               </Select>
             </FormControl>
             <DatePicker
+              inputVariant="outlined"
               label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
               className="date-range__start-date"
               onChange={this.handleChangeStartDate}
@@ -124,6 +127,7 @@ class DateRangeFilter extends React.Component {
               style={{ margin: `0 ${units(2)}` }}
             />
             <DatePicker
+              inputVariant="outlined"
               label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
               className="date-range__end-date"
               onChange={this.handleChangeEndDate}

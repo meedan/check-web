@@ -16,6 +16,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
+import CustomFiltersManager from './CustomFiltersManager';
 import DateRangeFilter from './DateRangeFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -252,9 +253,34 @@ class SearchQueryComponent extends React.Component {
     return this.getContext().getContextStore();
   }
 
+  cleanup = (query) => {
+    const cleanQuery = { ...query };
+    if (query.team_tasks) {
+      cleanQuery.team_tasks = query.team_tasks.filter(tt => (
+        tt.id && tt.response && tt.response_type
+      ));
+      if (!cleanQuery.team_tasks.length) {
+        delete cleanQuery.team_tasks;
+      }
+    }
+    if (query.range) {
+      const datesObj =
+        query.range.created_at ||
+        query.range.updated_at ||
+        query.range.last_seen || {};
+      if (!datesObj.start_time && !datesObj.end_time) {
+        delete cleanQuery.range;
+      }
+    }
+    return cleanQuery;
+  }
+
   handleApplyFilters() {
-    if (!deepEqual(this.state.query, this.props.query)) {
-      this.props.onChange(this.state.query);
+    const cleanQuery = this.cleanup(this.state.query);
+    if (!deepEqual(cleanQuery, this.props.query)) {
+      this.props.onChange(cleanQuery);
+    } else {
+      this.setState({ dialogOpen: false, query: cleanQuery });
     }
   }
 
@@ -265,7 +291,17 @@ class SearchQueryComponent extends React.Component {
 
   filterIsActive = () => {
     const { query } = this.props;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users', 'read'];
+    const filterFields = [
+      'range',
+      'verification_status',
+      'projects',
+      'tags',
+      'show',
+      'dynamic',
+      'users',
+      'read',
+      'team_tasks',
+    ];
     return filterFields.some(key => !!query[key]);
   }
 
@@ -311,6 +347,10 @@ class SearchQueryComponent extends React.Component {
 
   handleDateChange = (value) => {
     this.setState({ query: { ...this.state.query, range: value } });
+  }
+
+  handleCustomFilterChange = (value) => {
+    this.setState({ query: { ...this.state.query, ...value } });
   }
 
   handleStatusClick = (statusCode) => {
@@ -456,10 +496,6 @@ class SearchQueryComponent extends React.Component {
 
   handleClickReset = () => {
     this.setState({ query: {} });
-  }
-
-  doneButtonDisabled() {
-    return deepEqual(this.state.query, this.props.query);
   }
 
   subscribe() {
@@ -872,6 +908,11 @@ class SearchQueryComponent extends React.Component {
                     }
                   </StyledFilterRow>
                 ) : null}
+                <CustomFiltersManager
+                  onFilterChange={this.handleCustomFilterChange}
+                  team={team}
+                  query={this.state.query}
+                />
               </StyledSearchFiltersSection>
             </DialogContent>
             <DialogActions>
@@ -887,7 +928,6 @@ class SearchQueryComponent extends React.Component {
                 id="search-query__submit-button"
                 type="submit"
                 form="search-form"
-                disabled={this.doneButtonDisabled()}
                 color="primary"
               >
                 <FormattedMessage id="search.applyFilters" defaultMessage="Done" />

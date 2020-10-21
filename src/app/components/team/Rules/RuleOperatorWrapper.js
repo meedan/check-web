@@ -32,7 +32,7 @@ const RuleOperatorWrapper = (props) => {
   };
 
   const handleRemove = (i) => {
-    if (props.children.length > 1) {
+    if (props.children.length > 1 || props.allowRemove) {
       props.onRemove(i);
     }
   };
@@ -86,11 +86,13 @@ const RuleOperatorWrapper = (props) => {
 };
 
 RuleOperatorWrapper.defaultProps = {
+  allowRemove: false,
   operators: ['and', 'or'],
   deleteIconColor: black54,
 };
 
 RuleOperatorWrapper.propTypes = {
+  allowRemove: PropTypes.bool,
   center: PropTypes.bool.isRequired,
   operator: PropTypes.string.isRequired,
   operators: PropTypes.arrayOf(PropTypes.string),
