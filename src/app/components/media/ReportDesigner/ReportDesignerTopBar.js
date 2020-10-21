@@ -118,18 +118,18 @@ const ReportDesignerTopBar = (props) => {
               <Typography variant="subtitle2">
                 <FormattedMessage
                   id="reportDesigner.firstSent"
-                  defaultMessage="First sent"
+                  defaultMessage="First published"
                 />
               </Typography>
               <Typography variant="body2">
-                {firstSent || <FormattedMessage id="reportDesigner.never" defaultMessage="Never" />}
+                {firstSent || '-'}
               </Typography>
             </Box>
             <Box className={classes.cell}>
               <Typography variant="subtitle2">
                 <FormattedMessage
                   id="reportDesigner.sentCount"
-                  defaultMessage="Sent"
+                  defaultMessage="Reports received"
                 />
               </Typography>
               <Typography variant="body2">
