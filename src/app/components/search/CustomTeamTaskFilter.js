@@ -79,7 +79,7 @@ const CustomTeamTaskFilter = ({
       id: `${filterEntity}`,
       response_type: (
         filterType === 'metadata_text' ||
-        filterType === 'tasks_text' ?
+        filterType === 'task_text' ?
           'free_text' : 'choice'
       ),
       response: value,
