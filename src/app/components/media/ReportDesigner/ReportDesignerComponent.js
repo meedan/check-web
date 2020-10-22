@@ -179,6 +179,9 @@ const ReportDesignerComponent = (props) => {
 
     if (state === 'published') {
       fields.last_published = parseInt(new Date().getTime() / 1000, 10).toString();
+      if (!fields.first_published) {
+        fields.first_published = parseInt(new Date().getTime() / 1000, 10).toString();
+      }
       fields.options.forEach((option, i) => {
         fields.options[i].previous_published_status_label = option.status_label;
       });

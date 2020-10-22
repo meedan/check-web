@@ -1,0 +1,26 @@
+[
+  {
+    "id": "CustomTeamTaskFilter.metadataChoiceLabel",
+    "defaultMessage": "Metadata has specific value"
+  },
+  {
+    "id": "CustomTeamTaskFilter.metadataTextLabel",
+    "defaultMessage": "Metadata contains keyword"
+  },
+  {
+    "id": "CustomTeamTaskFilter.taskChoiceLabel",
+    "defaultMessage": "Task has specific answer"
+  },
+  {
+    "id": "CustomTeamTaskFilter.taskTextLabel",
+    "defaultMessage": "Task answer contains keyword"
+  },
+  {
+    "id": "CustomTeamTaskFilter.entityTaskLabel",
+    "defaultMessage": "Select task"
+  },
+  {
+    "id": "CustomTeamTaskFilter.entityMetadataLabel",
+    "defaultMessage": "Select metadata"
+  }
+]
