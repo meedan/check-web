@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -438,7 +438,7 @@ class UserInfoEdit extends React.Component {
             {link.error ?
               null :
               <StyledHelper>
-                <FormattedMessage 
+                <FormattedMessage
                   id="userInfoEdit.addLinkHelper"
                   defaultMessage="Add a link to a web page or social media profile. Note: this does not affect your login method."
                 />
@@ -547,7 +547,7 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleAddLink.bind(this)}
                 >
-                  <FormattedMessage 
+                  <FormattedMessage
                     id="userInfoEdit.addLink"
                     defaultMessage="Add Link"
                   />
