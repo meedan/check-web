@@ -20,6 +20,14 @@ const CustomFiltersManager = ({
     newQuery.team_tasks = query.team_tasks ?
       [...query.team_tasks, {}] : [{}, {}];
     onFilterChange(newQuery);
+
+    // Scroll to the bottom
+    setTimeout(() => {
+      const modal = document.getElementById('search__query-dialog-content');
+      if (modal) {
+        modal.scrollTop = modal.scrollHeight;
+      }
+    }, 500);
   };
 
   const handleRemoveFilter = (index) => {
