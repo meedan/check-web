@@ -1103,92 +1103,93 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  # FIXME: Fix these two tests
-  # it "should filter by status and search by keywords", bin2: true, quick:true do
-  #   api_create_claim_and_go_to_search_page
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  #   create_media("media 2")
-  #   create_media("media 3")
-  #   wait_for_selector_list(".media__heading a")[0].click
-  #   change_the_status_to(".media-status__menu-item--false", false)
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector("#search-input")
-  #   wait_for_selector_list(".media__heading a")[1].click
-  #   wait_for_selector(".media__annotations-column")
-  #   change_the_status_to(".media-status__menu-item--verified", false)
-  #   wait_for_selector(".project-header__back-button").click
-  #   wait_for_selector_list_size(".media__heading", 3)
-  #   wait_for_selector("#search__open-dialog-button").click
-  #   wait_for_selector("#search-query__cancel-button")
-  #   wait_for_selector("#search-query__status-false").click
-  #   wait_for_selector("#search-query__status-verified").click
-  #   wait_for_selector("#search-query__submit-button").click
-  #   expect(@driver.page_source.include?('My search result')).to be(false)
-  #   attempts = 0
-  #   while !@driver.page_source.include?('media 2') && attempts < 30
-  #     wait_for_selector("#search__open-dialog-button").click
-  #     wait_for_selector("#search-query__cancel-button")
-  #     wait_for_selector("#search-query__status-verified").click
-  #     wait_for_selector("#search-query__submit-button").click
-  #     sleep 1
-  #     attempts += 1
-  #   end
-  #   while !@driver.page_source.include?('media 3') && attempts < 30
-  #     wait_for_selector("#search__open-dialog-button").click
-  #     wait_for_selector("#search-query__cancel-button")
-  #     wait_for_selector("#search-query__status-false").click
-  #     wait_for_selector("#search-query__submit-button").click
-  #     sleep 1
-  #     attempts += 1
-  #   end
-  #   expect(@driver.page_source.include?('media 3')).to be(true)
-  #   expect(@driver.page_source.include?('media 2')).to be(true)
-  #   wait_for_selector_list_size(".media__heading", 2)
-  #   expect(@driver.page_source.include?('My search result')).to be(false)
-  #   wait_for_selector("#search__open-dialog-button").click
-  #   selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-  #   expect(selected.size == 2).to be(true)
-  #   #reset filter
-  #   wait_for_selector("//span[contains(text(), 'Reset')]", :xpath).click
-  #   wait_for_selector("#search-query__submit-button").click
-  #   wait_for_selector_list_size(".media__heading", 3)
+  it "should filter by status and search by keywords", bin2: true, quick:true do
+    api_create_claim_and_go_to_search_page
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    create_media("media 2")
+    wait_for_selector_list(".media__heading a")[0].click
+    change_the_status_to(".media-status__menu-item--false", false)
+    wait_for_selector(".project-header__back-button").click
+    wait_for_selector("#search-input")
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    wait_for_selector("button[title=Open]").click
+    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("verified")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("false")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector("#search-query__submit-button").click
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    expect(@driver.page_source.include?('media 2')).to be(false)
+    attempts = 0
+    @driver.navigate.refresh
+    while !@driver.page_source.include?('media 2') && attempts < 30
+      wait_for_selector("#search__open-dialog-button").click
+      wait_for_selector("#search-query__cancel-button")
+      if @driver.page_source.include?('False')
+        wait_for_selector_list(".MuiChip-deletable > svg")[1].click
+      else
+        wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("false")
+        @driver.action.send_keys(:arrow_down).perform
+        @driver.action.send_keys(:enter).perform
+      end
+      wait_for_selector("#search-query__submit-button").click
+      sleep 1
+      attempts += 1
+    end
+    expect(@driver.page_source.include?('media 2')).to be(true)
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    wait_for_selector("#search__open-dialog-button").click
+    selected = @driver.find_elements(:css, '.MuiChip-deletable')
+    expect(selected.size == 1).to be(true)
+    #reset filter
+    wait_for_selector("//span[contains(text(), 'Reset')]", :xpath).click
+    wait_for_selector("#search-query__submit-button").click
+    wait_for_selector_list_size(".media__heading", 2)
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    #search by keyword
+    wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
+    wait_for_selector("#search-input").send_keys("search")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector_list_size(".media__heading", 1)
+    expect(@driver.page_source.include?('My search result')).to be(true)
+  end
 
-  #   #search by keyword
-  #   wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-  #   wait_for_selector("#search-input").send_keys("search")
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector_list_size(".media__heading", 1)
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  # end
-
-  # it "should filter item by status on trash page", bin2: true do
-  #   api_create_claim_and_go_to_search_page
-  #   wait_for_selector("#search-input")
-  #   wait_for_selector(".media__heading").click
-  #   wait_for_selector(".media")
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  #   wait_for_selector(".media-actions__icon").click
-  #   wait_for_selector(".media-actions__send-to-trash").click
-  #   wait_for_selector(".message").click
-  #   wait_for_selector(".project-header__back-button").click
-  #   expect(@driver.find_elements(:css, '.medias__item').length == 0 )
-  #   wait_for_selector(".project-list__item-trash").click #Go to the trash page
-  #   wait_for_selector(".media__heading")
-  #   #user filter option
-  #   wait_for_selector("#search__open-dialog-button").click
-  #   wait_for_selector("#search-query__cancel-button")
-  #   wait_for_selector("#search-query__status-in_progress").click
-  #   wait_for_selector("#search-query__submit-button").click
-  #   wait_for_selector_none("#search-query__cancel-button")
-  #   expect(@driver.page_source.include?('My search result')).to be(false)
-  #   #reset filter
-  #   wait_for_selector("#search__open-dialog-button").click
-  #   wait_for_selector("#search-query__cancel-button")
-  #   wait_for_selector("#search-query__status-in_progress").click
-  #   wait_for_selector("#search-query__submit-button").click
-  #   wait_for_selector_none("#search-query__cancel-button")
-  #   expect(@driver.page_source.include?('My search result')).to be(true)
-  # end
+  it "should filter item by status on trash page", bin2: true do
+    api_create_claim_and_go_to_search_page
+    wait_for_selector("#search-input")
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".media")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__send-to-trash").click
+    wait_for_selector(".message").click
+    wait_for_selector(".project-header__back-button").click
+    expect(@driver.find_elements(:css, '.medias__item').length == 0 )
+    wait_for_selector(".project-list__item-trash").click #Go to the trash page
+    wait_for_selector(".media__heading")
+    #use filter option
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("in progress")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector("#search-query__submit-button").click
+    wait_for_selector_none("#search-query__cancel-button")
+    expect(@driver.page_source.include?('My search result')).to be(false)
+    #reset filter
+    @driver.navigate.refresh
+    wait_for_selector("#search-input")
+    wait_for_selector("#search__open-dialog-button").click
+    wait_for_selector("#search-query__cancel-button")
+    wait_for_selector("#search-query__reset-button").click
+    wait_for_selector("#search-query__submit-button").click
+    wait_for_selector_none("#search-query__cancel-button")
+    wait_for_selector(".media__heading")
+    expect(@driver.page_source.include?('My search result')).to be(true)
+  end
 
   it "should search and change sort criteria", bin2: true do
     api_create_claim_and_go_to_search_page
