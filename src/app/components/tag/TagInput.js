@@ -10,17 +10,15 @@ import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { stringHelper } from '../../customHelpers';
 import { makeStyles } from '@material-ui/core/styles';
 
-const TagInputStyle = makeStyles ({
- 
-  paddingStyle: {
-    padding: units(2),
-  },
-  
-  buttonStyle: {
-    marginLeft: 'auto',
-  },                           
+const Box = styled.div`
+p={2}
+`;
 
-});
+
+const Button = styled.button`
+ marginLeft: 'auto';
+  `;
+
 
 const messages = defineMessages({
   error: {
@@ -108,7 +106,7 @@ class TagInput extends React.Component {
 
   render() {
     return (
-      <div style={paddingStyle}>
+      <Box>
         <Row>
           <TextField
             id="tag-input__tag-input"
@@ -119,7 +117,7 @@ class TagInput extends React.Component {
             onKeyPress={this.handleKeyPress.bind(this)}
             placeholder={this.props.intl.formatMessage(messages.search)}
           />
-          <Button style={buttonStyle}
+          <Button
             onClick={this.handleSubmit.bind(this)}
             color="primary"
             disabled={this.state.submitDisabled}
@@ -130,7 +128,7 @@ class TagInput extends React.Component {
             />
           </Button>
         </Row>
-      </div>
+      </Box>
     );
   }
 }
