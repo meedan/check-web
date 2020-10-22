@@ -50,10 +50,6 @@ const messages = defineMessages({
     id: 'userInfoEdit.userSendEmailNotification',
     defaultMessage: 'Receive email notifications',
   },
-  addLink: {
-    id: 'userInfoEdit.addLink',
-    defaultMessage: 'Add Link',
-  },
   editError: {
     id: 'userInfoEdit.editError',
     defaultMessage: 'Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists.',
@@ -65,11 +61,6 @@ const messages = defineMessages({
   addLinkLabel: {
     id: 'userInfoEdit.addLinkLabel',
     defaultMessage: 'Add a link',
-  },
-  addLinkHelper: {
-    id: 'userInfoEdit.addLinkHelper',
-    defaultMessage:
-      'Add a link to a web page or social media profile. Note: this does not affect your login method.',
   },
   emailConfirmed: {
     id: 'userInfoEdit.emailConfirmed',
@@ -448,8 +439,8 @@ class UserInfoEdit extends React.Component {
               null :
               <StyledHelper>
                 <FormattedMessage 
-                  id={messages.addLinkHelper.id} 
-                  defaultMessage={messages.addLinkHelper.defaultMessage} 
+                  id="userInfoEdit.addLinkHelper"
+                  defaultMessage="Add a link to a web page or social media profile. Note: this does not affect your login method."
                 />
               </StyledHelper>}
           </div>))}
@@ -485,10 +476,7 @@ class UserInfoEdit extends React.Component {
                   onClick={this.handleEditProfileImg.bind(this)}
                   color="primary"
                 >
-                  <FormattedMessage 
-                    id={globalStrings.edit.id} 
-                    defaultMessage={globalStrings.edit.defaultMessage} 
-                  />
+                  <FormattedMessage {...globalStrings.edit} />
                 </Button>
               </StyledAvatarEditButton>
               : null}
@@ -560,8 +548,8 @@ class UserInfoEdit extends React.Component {
                   onClick={this.handleAddLink.bind(this)}
                 >
                   <FormattedMessage 
-                    id={messages.addLink.id} 
-                    defaultMessage={messages.addLink.defaultMessage} 
+                    id="userInfoEdit.addLink"
+                    defaultMessage="Add Link"
                   />
                 </Button>
               </div>
@@ -571,10 +559,7 @@ class UserInfoEdit extends React.Component {
                   className="source__edit-cancel-button"
                   onClick={handleLeaveEditMode}
                 >
-                  <FormattedMessage 
-                    id={globalStrings.cancel.id} 
-                    defaultMessage={globalStrings.cancel.defaultMessage} 
-                  />
+                  <FormattedMessage {...globalStrings.cancel} />
                 </Button>
                 <Button
                   variant="contained"
@@ -582,10 +567,7 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleSubmit.bind(this)}
                 >
-                  <FormattedMessage 
-                    id={globalStrings.save.id} 
-                    defaultMessage={globalStrings.save.defaultMessage} 
-                  />
+                  <FormattedMessage {...globalStrings.save} />
                 </Button>
               </div>
             </StyledButtonGroup>
