@@ -172,6 +172,8 @@
 	"annotation.penderArchiveResponse": "أتخذ Keep  لقطة شاشة للرّابط.",
 	"annotation.penderArchiveWait": "Keep يقوم بالتقاط لقطة لشاشة هذا العنصر، يرجى العودة هنا بعد دقائق لرؤيتها.",
 	"annotation.openInSlack": "فتحه في Slack",
+	"annotation.reportReceived": "Report received on {date}",
+	"annotation.reportUpdateReceived": "Report update received on {date}",
 	"annotation.smoochNoMessage": "لم يتم إرسال أي رسالة مع الطلب",
 	"annotation.projectMoved": "قام(ت) {author} بنقله من قائمة {previousProject} إلى {currentProject}",
 	"annotation.movedToTrash": "قام(ت) {author} بإرساله إلى سلة المهملات",
@@ -275,7 +277,7 @@
 	"createMedia.video": "فيديو",
 	"createMedia.audio": "صوت",
 	"createRelatedMedia.addRelatedItem": "إضافة عنصر مرتبط",
-	"createMedia.existingReport": "Add to imported report",
+	"createMedia.existingReport": "إضافة إلى التقرير المستورد",
 	"destinationProjects.choose": "إختيار قائمة",
 	"mediaDetail.editReportError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"mediaDetail.editReport": "تحرير",
@@ -333,7 +335,7 @@
 	"mediaCondensed.tooltip": "إجراءات العنصر",
 	"mediaCondensed.promote": "ترقية إلى عنصر أولي",
 	"mediaCondensed.break": "فك الارتباط بعنصر أولي",
-	"mediaExpanded.addToImportedReport": "Add to imported report",
+	"mediaExpanded.addToImportedReport": "إضافة إلى التقرير المستورد",
 	"mediaMetadata.Timeline": "الجدول الزمني",
 	"mediaMetadata.ImageSearch": "بحث عن طريق الصور",
 	"mediaMetadata.download": "تحميل",
@@ -839,6 +841,9 @@
 	"reportDesigner.darkOverlay": "غطاء معتم",
 	"reportDesigner.removeImage": "إزالة الصورة",
 	"reportDesigner.datePublished": "تاريخ النشر",
+	"reportDesigner.firstSent": "First sent",
+	"reportDesigner.never": "Never",
+	"reportDesigner.sentCount": "Sent",
 	"reportDesigner.cannotPublish": "يرجى تعبئة التقرير بنص أو صورة على الأقل، والتأكد من إنشاء تقرير للغة الرئيسية ({language}).",
 	"list.Item": "العنصر",
 	"list.Demand": "الطلبات",
@@ -916,16 +921,16 @@
 	"smoochBotMenuOption.condition": "تطابقت الكلمة المفتاحية التالية",
 	"smoochBotMenuOption.then": "حينئذ",
 	"smoochBotMenuOption.action": "الإجابة ب",
-	"smoochBotMenuOption.add": "Create \"{resourceName}\"",
+	"smoochBotMenuOption.add": "إنشاء \"{resourceName}\"",
 	"smoochBotMenuOption.selectAction": "تحديد الإجراء",
-	"smoochBotResourceEditor.rssPlaceholder": "Public URL that returns N articles in RSS format",
-	"smoochBotResourceEditor.error": "This URL does not seem to be a valid RSS feed",
-	"smoochBotResourceEditor.title": "Bot resource title",
-	"smoochBotResourceEditor.content": "Bot resource content",
-	"smoochBotResourceEditor.rss": "Add content from RSS feed",
+	"smoochBotResourceEditor.rssPlaceholder": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS",
+	"smoochBotResourceEditor.error": "هذا الرابط لا يبدو صالحًا لموجز RSS",
+	"smoochBotResourceEditor.title": "عنوان مورد البوت",
+	"smoochBotResourceEditor.content": "محتوى مورد البوت",
+	"smoochBotResourceEditor.rss": "إضافة محتوى من موجز RSS",
 	"smoochBotResourceEditor.url": "الرّابط",
-	"smoochBotResourceEditor.numberOfArticles": "Number of articles to return",
-	"smoochBotResourceEditor.load": "Load",
+	"smoochBotResourceEditor.numberOfArticles": "عدد المقالات المرتجعة",
+	"smoochBotResourceEditor.load": "تحميل",
 	"smoochBotResourceEditor.delete": "حذف",
 	"smoochBotSelectReport.dialogTitle": "اختيار تقرير",
 	"smoochBotSelectReport.dialogDescription": "يرجى البحث عن عنوان العنصر الذى تريدون إرساله كتقرير. سيقوم البوت بالرّد على المستخدمين بهذا التقرير. يجب أن يكون التقرير مكتملا قبل أن يمكن البحث عنه هنا.",
@@ -934,7 +939,7 @@
 	"smoochBot.scenarios": "سيناريوهات",
 	"smoochBot.settings": "الإعدادات",
 	"smoochBot.title": "تصميم البوت الخاص بك",
-	"smoochBot.addResource": "Add resource",
+	"smoochBot.addResource": "إضافة مورد",
 	"smoochBot.labelGreeting": "مرحباً",
 	"smoochBot.labelMainMenu": "القائمة الرئيسية",
 	"smoochBot.labelSecondaryMenu": "القائمة الثانوية",
@@ -955,7 +960,7 @@
 	"smoochBot.descriptionInvalidFormat": "رسالة تلقائية يتم إرسالها إلى المستخدمين عند إرسالهم لأي ملف غير مدعوم من قبل Check.",
 	"smoochBot.descriptionInactive": "سيتم إرسال هذه الرسالة إلى أي مستخدم يرسل رسالة إلى الخط السّاخن (Tipline) بينما يكون بوت رسائل Check غير نشط.",
 	"smoochBot.descriptionTos": " ستتبع هذه الرسالة أي تقرير يتم إرساله إلى المستخدم مباشرة، لذا يجب أن تتضمن رابطاً إلى شروط إستخدام Check.",
-	"smoochBot.placeholderGreeting": "Hi! Welcome to [Name of your organization]’s fact-checking bot.",
+	"smoochBot.placeholderGreeting": "مرحبا! وأهلا بكم فى بوت تقصي الحقائق الخاص ب[Name of your organization].",
 	"smoochBot.placeholderMainMenu": "📌*القائمة الرئيسية*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة،  أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)",
 	"smoochBot.placeholderSecondaryMenu": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌",
 	"smoochBot.placeholderQueryPrompt": "*يرجى كتابة السؤال أو الرابط أو الصورة أو الفيديو الذي تريديت تقصّي حقيقته،* ثم أتبعيه بأي سياق أو أسئلة إضافية متعلقة بهذا العنصر. سوف يرسل طلبك إلى متقصّي(ة) الحقائق بعد حوالي 30 ثانية من إرسال آخر رسالة.\n\n*أرسلي 0 (أو 📌)*للعودة إلى *القائمة الرئيسية*",
@@ -965,7 +970,7 @@
 	"smoochBot.placeholderInvalidFormat": "❌عذرا، لا يمكننا قبول هذا النوع من الرسائل للتحقق منها في الوقت الحالي\n\nيمكننا قبول أغلب الصور، الفيديوهات، الروابط، الرسائل النصية، ورسائل الواتس آب التى تمّت مشاركتها.",
 	"smoochBot.placeholderInactive": "❌شكرا لكم الرسالة. خدمة تقصي الحقائق *غير نشطة* حاليا.\n\nتواصلوا معنا على *[البريد الإلكتروني أو وسيلة تواصل أخرى]* للمزيد من الإستفسارات.",
 	"smoochBot.placeholderTos": "هذه الخدمة مقدمة وفقا للشروط التالية: %{tos}",
-	"smoochBot.newResourceTitle": "New bot resource",
+	"smoochBot.newResourceTitle": "مورد جديد للبوت",
 	"deleteStatusDialog.moveItemsTo": "نقل العناصر إلى",
 	"deleteStatusDialog.statusInUseTitle": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}",
 	"deleteStatusDialog.statusInUseMessage": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة.",

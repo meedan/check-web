@@ -111,7 +111,7 @@ const SmoochBotResourceEditor = ({
           className={classes.spaced}
           defaultValue={resource.smooch_custom_resource_title}
           onBlur={(event) => {
-            onChange('smooch_custom_resource_title', event.target.value);
+            onChange('smooch_custom_resource_title', event.target.value.trim());
           }}
           variant="outlined"
           fullWidth

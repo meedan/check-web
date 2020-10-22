@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import CustomTeamTaskFilter from './CustomTeamTaskFilter';
 import SearchQueryComponent from './SearchQueryComponent';
 
 export default Relay.createContainer(SearchQueryComponent, {
@@ -39,6 +40,7 @@ export default Relay.createContainer(SearchQueryComponent, {
             }
           }
         }
+        ${CustomTeamTaskFilter.getFragment('team')}
       }
     `,
   },
