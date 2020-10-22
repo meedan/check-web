@@ -38,7 +38,7 @@ const MultiSelectFilter = ({
       options={options}
       getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
       getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
-      defaultValue={selected}
+      value={selected}
       filterSelectedOptions
       renderInput={params => (
         <TextField
