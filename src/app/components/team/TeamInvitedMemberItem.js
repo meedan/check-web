@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
 import { getErrorMessage } from '../../helpers';
@@ -57,17 +58,18 @@ class TeamInvitedMemberItem extends Component {
         </Text>
         <AlignOpposite>
           <FlexRow>
-            <Button
-              variant="contained"
-              style={{ marginLeft: 'auto', marginRight: units(1) }}
-              onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
-              className="team-member-invited__user-button--cancel"
-            >
-              <FormattedMessage
-                id="TeamMembersInvitedListItem.cancel"
-                defaultMessage="Cancel invite"
-              />
-            </Button>
+            <Box ml={'auto'} mr={units(1)}>
+              <Button
+                variant="contained"
+                onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
+                className="team-member-invited__user-button--cancel"
+              >
+                <FormattedMessage
+                  id="TeamMembersInvitedListItem.cancel"
+                  defaultMessage="Cancel invite"
+                />
+              </Button>
+            </Box>
             <Button
               variant="contained"
               onClick={this.handleTeamMemberInvites.bind(this, 'resend')}

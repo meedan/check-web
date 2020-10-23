@@ -19,6 +19,11 @@ import {
 } from '../../styles/js/HeaderCard';
 import { units } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
+import styled from 'styled-components';
+
+const StyledTeamAvatar = styled(TeamAvatar)`
+  background-image: url('${(props) => props.imageUrl}');
+`;
 
 class TeamInfoEdit extends React.Component {
   constructor(props) {
@@ -142,8 +147,8 @@ class TeamInfoEdit extends React.Component {
         <Message message={this.state.message} />
         <StyledTwoColumns>
           <StyledSmallColumn>
-            <TeamAvatar
-              style={{ backgroundImage: `url(${avatarPreview || team.avatar})` }}
+            <StyledTeamAvatar
+              imageUrl={avatarPreview || team.avatar}
               size={units(9)}
               team={team}
             />

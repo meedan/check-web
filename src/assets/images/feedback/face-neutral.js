@@ -1,13 +1,13 @@
 import React from 'react';
+import Box from '@material-ui/core/Box';
 
 const FaceNeutral = (props) => (
-  <svg
-    viewBox="0 0 24 24"
-    style={{
-      display: 'inline-block',
-      height: '48px',
-      width: '48px',
-    }}
+  <Box
+    component='svg'
+    display='inline-block'
+    height='48px'
+    width='48px'
+    viewBox='0 0 24 24'
   >
     <defs>
       <path id="path-1" d="M0,0h2v4h-2Z" />
@@ -19,7 +19,7 @@ const FaceNeutral = (props) => (
       <use transform="translate(8, 8)" xlinkHref="#path-1" />
       <use transform="translate(14, 8)" xlinkHref="#path-1" />
     </g>
-  </svg>
+  </Box>
 );
 
 export default FaceNeutral;

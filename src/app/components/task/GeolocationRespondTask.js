@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Box from '@material-ui/core/Box';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -6,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import CoordinateParser from 'coordinate-parser';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { black54, caption } from '../../styles/js/shared';
+import { black54, caption, fontStackSans } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 import { FormattedGlobalMessage } from '../MappedMessage';
 
@@ -331,9 +332,9 @@ class GeolocationRespondTask extends Component {
           onBlur={() => this.setState({ openResultsPopup: false })}
           fullWidth
         />
-        <div style={{ font: caption, color: black54 }}>
+        <Box color={black54} fontFamily={fontStackSans} fontWeight={400} fontSize={units(1.5)} lineHeight={units(2.5)}>
           {this.state.message }
-        </div>
+        </Box>
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"
@@ -371,23 +372,24 @@ class GeolocationRespondTask extends Component {
           margin="normal"
         />
         <div>
-          <Map
-            style={{ height: '400px' }}
-            center={position}
-            zoom={this.state.zoom}
-            onClick={this.updatePositionOnClick.bind(this)}
-          >
-            <TileLayer
-              attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
-              url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-            />
-            <Marker
-              draggable={this.state.draggable}
-              onDragend={this.updatePosition.bind(this)}
-              position={position}
-              ref={(m) => { this.marker = m; }}
-            />
-          </Map>
+          <Box height={'400px'}>
+            <Map
+              center={position}
+              zoom={this.state.zoom}
+              onClick={this.updatePositionOnClick.bind(this)}
+            >
+              <TileLayer
+                attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
+                url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+              />
+              <Marker
+                draggable={this.state.draggable}
+                onDragend={this.updatePosition.bind(this)}
+                position={position}
+                ref={(m) => { this.marker = m; }}
+              />
+            </Map>
+          </Box>
         </div>
         { this.state.focus || this.props.response ? actionBtns : null }
       </div>
