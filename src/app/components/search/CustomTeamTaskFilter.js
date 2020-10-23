@@ -1,5 +1,6 @@
 import React from 'react';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import PropTypes from 'prop-types';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import CustomFilter from './CustomFilter';
 
@@ -187,6 +188,33 @@ const CustomTeamTaskFilter = ({
       onChangeFilterEntityValue={handleChangeFilterEntityValue}
     />
   );
+};
+
+CustomTeamTaskFilter.propTypes = {
+  filter: PropTypes.shape({
+    id: PropTypes.string,
+    response: PropTypes.string,
+    response_type: PropTypes.string,
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+  intl: intlShape.isRequired,
+  team: PropTypes.shape({
+    team_tasks: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          dbid: PropTypes.number.isRequired,
+          fieldset: PropTypes.string.isRequired,
+          label: PropTypes.string.isRequired,
+          options: PropTypes.array.isRequired,
+          type: PropTypes.string.isRequired,
+        }),
+      })),
+    }),
+  }).isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onFilterChange: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(injectIntl(CustomTeamTaskFilter), graphql`
