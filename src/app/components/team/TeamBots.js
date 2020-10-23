@@ -187,7 +187,7 @@ class TeamBotsComponent extends Component {
     const { team } = this.props;
 
     return (
-      <Box maxWidth={900}>
+      <Box clone maxWidth={900}>
         <ContentColumn>
           { team.team_bot_installations.edges.length === 0 ?
             <Box commponent='p' pb={units(5)} textAlign='center'>
@@ -202,7 +202,7 @@ class TeamBotsComponent extends Component {
             const botExpanded = this.state.expanded === bot.dbid;
   
             return (
-              <Box mb={units(5)}>
+              <Box clone mb={units(5)}>
                 <Card
                   key={`bot-${bot.dbid}`}
                 >

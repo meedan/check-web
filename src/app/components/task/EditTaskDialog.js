@@ -215,7 +215,7 @@ class EditTaskDialog extends React.Component {
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
             <Row>
               <ChevronRightIcon />
-              <Box p={`${units(0.5)} ${units(1)}`} width={"75%"}>
+              <Box clone p={`${units(0.5)} ${units(1)}`} width={"75%"}>
                 <TextField
                   key="create-task__add-option-input"
                   className="create-task__add-option-input"
@@ -352,7 +352,7 @@ class EditTaskDialog extends React.Component {
                     defaultMessage="Show in browser extension"
                   />
                   <IconButton onClick={handleHelp}>
-                    <Box color={checkBlue}>
+                    <Box clone color={checkBlue}>
                       <HelpIcon />
                     </Box>
                   </IconButton>

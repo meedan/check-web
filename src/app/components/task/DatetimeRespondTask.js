@@ -176,9 +176,9 @@ class DatetimeRespondTask extends Component {
 
     return (
       <div>
-        <Box mb={units(2)}>
+        <Box clone mb={units(2)}>
           <FlexRow >
-            <Box flex={10}>
+            <Box clone flex={10}>
               <DatePicker
                 label={
                   <FormattedMessage
@@ -208,10 +208,10 @@ class DatetimeRespondTask extends Component {
           </FlexRow>
         </Box>
 
-        <Box mb={units(2)}>
+        <Box clone mb={units(2)}>
           <FlexRow >
-            <Box flex={10} >
-              <Box justifyContent='flex-start' alignItems='center'>
+            <Box clone flex={10} >
+              <Box clone justifyContent='flex-start' alignItems='center'>
                 <FlexRow
                   id="task__response-time"
                 >
@@ -239,7 +239,7 @@ class DatetimeRespondTask extends Component {
                     variant="inline"
                     fullWidth
                   />
-                  <Box ml={units(2)}>
+                  <Box clone ml={units(2)}>
                     <Autocomplete
                       className="task__datetime-timezone"
                       options={

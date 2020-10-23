@@ -51,7 +51,7 @@ export default function FillRemainingHeight({ component: Component, children }) 
   }, [handleResize]);
 
   return (
-    <Box maxHeight={maxHeight}>
+    <Box clone maxHeight={maxHeight}>
       <Component ref={boxRef}>
         {children}
       </Component>
