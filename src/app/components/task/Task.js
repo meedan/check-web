@@ -57,17 +57,17 @@ const StyledWordBreakDiv = styled.div`
     margin-bottom: 0 !important;
 
     .task__card-header {
-      padding: ${units(3)} 0 ${units(3)} 0;
+      padding: ${units(3)} 0;
       flex-direction: row-reverse;
       display: flex;
       align-items: flex-start;
 
       .task__card-expand {
-        margin: ${units(1)} ${units(1)} 0 0;
+        margin: ${units(0)} ${units(1)} 0 0;
       }
 
       .task__card-description {
-        padding: ${units(2)} 0;
+        padding: ${units(2)} 0 0 0;
       }
     }
   }

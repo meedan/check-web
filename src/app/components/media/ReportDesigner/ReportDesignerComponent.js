@@ -36,10 +36,13 @@ const useStyles = makeStyles(theme => ({
     height: 'calc(100vh - 60px)',
     overflow: 'auto',
     padding: theme.spacing(2),
+    backgroundColor: backgroundMain,
   },
   preview: {
-    backgroundColor: backgroundMain,
     borderRight: '1px solid #DFE4F4',
+  },
+  editor: {
+    padding: '16px 32px',
   },
   title: {
     display: 'flex',

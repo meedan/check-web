@@ -11,8 +11,10 @@ const useStyles = makeStyles(theme => ({
   root: {
     margin: '0 auto',
   },
-  box: {
-    border: '1px solid black',
+  messagePreview: {
+    border: '2px solid #DFE4F4',
+    borderRadius: '5px',
+    backgroundColor: 'white',
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginTop: theme.spacing(2),
@@ -59,7 +61,7 @@ const ReportDesignerPreview = (props) => {
 
   if (isEmpty(data)) {
     return (
-      <Box className={[classes.box, classes.root].join(' ')}>
+      <Box className={[classes.messagePreview, classes.root].join(' ')}>
         <FormattedMessage
           id="reportDesigner.nothingToPreview"
           defaultMessage="Start creating your report to preview what users will see when they receive it."
@@ -76,20 +78,21 @@ const ReportDesignerPreview = (props) => {
     text.push(data.text);
   }
 
+// Preview for the introduction, the text message, and the visual card
   return (
     <Box className={classes.root}>
       { data.use_introduction ?
-        <Box className={classes.box}>
+        <Box className={classes.messagePreview}>
           <ParsedText text={previewIntroduction(data, media)} />
         </Box> : null }
       { data.use_text_message ?
-        <Box className={classes.box}>
+        <Box className={classes.messagePreview}>
           <ParsedText text={text.join('\n\n')} block />
           { data.disclaimer ?
             <ParsedText text={data.disclaimer} block /> : null }
         </Box> : null }
       { data.use_visual_card ?
-        <Box>
+        <Box className={classes.visualCardPreview}>
           <ReportDesignerImagePreview
             style={{
               width: 500,

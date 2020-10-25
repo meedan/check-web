@@ -29,6 +29,8 @@ import {
   ContentColumn,
   units,
   mediaQuery,
+  backgroundMain,
+  brandSecondary,
 } from '../../styles/js/shared';
 
 const styles = () => ({
@@ -37,7 +39,10 @@ const styles = () => ({
     minWidth: '120px',
   },
 });
-
+const StyledTabs = styled(Tabs)`
+  background-color: ${brandSecondary};
+  box-shadow: none !important;
+`;
 const StyledTwoColumnLayout = styled(ContentColumn)`
   flex-direction: column;
   ${mediaQuery.desktop`
@@ -55,6 +60,10 @@ const StyledTwoColumnLayout = styled(ContentColumn)`
       max-width: ${units(50)};
     }
   `}
+`;
+const StyledTeamContainer = styled.div`
+  background-color: ${backgroundMain};
+  min-height: 100vh;
 `;
 
 class TeamComponent extends Component {
@@ -131,7 +140,7 @@ class TeamComponent extends Component {
     const TeamSettingsTabs = () => {
       if (isSettings || isReadOnly) {
         return (
-          <Tabs
+          <StyledTabs
             indicatorColor="primary"
             textColor="primary"
             value={tab}
@@ -254,7 +263,7 @@ class TeamComponent extends Component {
                 value="bots"
               />
               : null }
-          </Tabs>
+          </StyledTabs>
         );
       }
 
@@ -263,7 +272,7 @@ class TeamComponent extends Component {
 
     return (
       <PageTitle team={team}>
-        <div className="team">
+        <StyledTeamContainer className="team">
           <HeaderCard>
             <ContentColumn>
               { isSettings ? null : <HeaderContent /> }
@@ -301,7 +310,7 @@ class TeamComponent extends Component {
           { isSettings && tab === 'languages'
             ? <TeamLanguages teamSlug={team.slug} />
             : null }
-        </div>
+        </StyledTeamContainer>
       </PageTitle>
     );
   }
