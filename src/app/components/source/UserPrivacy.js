@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { compose } from 'redux';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Card from '@material-ui/core/Card';
@@ -236,4 +235,4 @@ UserPrivacy.contextTypes = {
   store: PropTypes.object,
 };
 
-export default compose(withStyles(useStyles))(injectIntl(UserPrivacy));
+export default withStyles(useStyles)(injectIntl(UserPrivacy));
