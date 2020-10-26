@@ -10,8 +10,8 @@ require_relative './metadata_spec.rb'
 require_relative './login_spec.rb'
 require_relative './task_spec_helpers.rb'
 require_relative './login_spec_helpers.rb'
+require_relative './flaky_tests_spec.rb'
 # require_relative './source_spec.rb'
-# require_relative './config_sheet_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 
@@ -22,7 +22,7 @@ shared_examples 'app' do |webdriver_url|
   include ApiHelpers
   include TaskSpecHelpers
   include LoginSpecHelpers
-  # include Spreadsheet
+  include FlakyTests
 
   before :all do
     @config = CONFIG
@@ -72,19 +72,24 @@ shared_examples 'app' do |webdriver_url|
   end
 
   after :each do |example|
+    flaky = {}
+    link = save_screenshot("Test failed: #{example.description}")
     if example.exception
       if @failing_tests.has_key? example.description
-        @failing_tests[example.description]= example.metadata[:retry_attempts] + 1
+        @failing_tests[example.description]['failure']= example.metadata[:retry_attempts] + 1
+        @failing_tests[example.description]['imgur']= link
       else 
-        @failing_tests[example.description]= example.metadata[:retry_attempts] + 1
+        flaky['failures'] = example.metadata[:retry_attempts] + 1
+        flaky['imgur'] = link
+        @failing_tests[example.description]= flaky
       end 
-      link = save_screenshot("Test failed: #{example.description}")
-      print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
+      print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: ] "
+      # print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
     end
   end
 
   after :all do
-    puts @failing_tests
+    save_failing_tests(@failing_tests)
   end
 
   # The tests themselves start here

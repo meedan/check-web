@@ -43,6 +43,7 @@ before_install:
 - export CHROMEDRIVER_URL=http://localhost:9515
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
+- mkdir -p ~/.aws && cp configurator/$APP/travis/credentials ~/.aws/
 # minio
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
