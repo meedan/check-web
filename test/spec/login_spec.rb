@@ -45,13 +45,14 @@ shared_examples 'login' do
     expect(@driver.page_source.include?("Bio")).to be(true)
   end
 
-  it "should login using Slack", bin4: true, quick:true do
-    login_with_slack
-    @driver.navigate.to @config['self_url'] + '/check/me'
-    displayed_name = wait_for_selector('h1.source__name').text.upcase
-    expected_name = @config['slack_name'].upcase
-    expect(displayed_name == expected_name).to be(true)
-  end
+  # commented to be fixed on ticket #8789
+  # it "should login using Slack", bin4: true, quick:true do
+  #   login_with_slack
+  #   @driver.navigate.to @config['self_url'] + '/check/me'
+  #   displayed_name = wait_for_selector('h1.source__name').text.upcase
+  #   expected_name = @config['slack_name'].upcase
+  #   expect(displayed_name == expected_name).to be(true)
+  # end
 
   it "should register and login using e-mail", bin5: true, quick:true do
     register_with_email
