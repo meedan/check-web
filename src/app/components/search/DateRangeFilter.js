@@ -135,7 +135,6 @@ class DateRangeFilter extends React.Component {
               okLabel={<FormattedMessage {...globalStrings.ok} />}
               cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
               value={this.endDateStringOrNull}
-              style={{ margin: `0 ${units(2)}` }}
             />
           </FlexRow>
         </div>

@@ -228,11 +228,11 @@ shared_examples 'task' do
     edit_team_data_field("New teamwide task-EDITED")
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
 
-    # #add new task
+    # Add new task
     create_team_data_field(tab_class:'.team-settings__tasks-tab',task_type_class:'.create-task__add-geolocation',task_name:'geolocation task' )
     expect(@driver.page_source.include?('geolocation task')).to be(true)
 
-    #change the task order
+    # Change the task order
     task = wait_for_selector(".team-tasks__task-label > span > span") #first task
     expect(task.text ).to eq "New teamwide task-EDITED"
     wait_for_selector(".reorder__button-down").click
@@ -240,7 +240,7 @@ shared_examples 'task' do
     task = wait_for_selector(".team-tasks__task-label > span > span")  # the second becomes the first
     expect(task.text ).to eq "geolocation task"
 
-    #search task by keyword
+    # Search task by keyword
     wait_for_selector(".filter-popup > div > button > span > svg").click
     wait_for_selector('input[name="filter-search"]').send_keys("New")
     wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
@@ -248,7 +248,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
     expect(@driver.page_source.include?('geolocation task')).to be(false)
 
-    #filter by type
+    # Filter by type
     wait_for_selector(".filter-popup > div > button > span > svg").click
     wait_for_selector('input[name="filter-search"]').send_keys(:control, 'a', :delete)
     wait_for_selector("//span[contains(text(), 'All tasks')]", :xpath).click
