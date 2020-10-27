@@ -154,14 +154,14 @@ class FindTeamCard extends React.Component {
             </CardActions>
           </form>
         </Card>
-        <div style={{ marginTop: units(2) }}>
+        <Box mt={2}>
           <Link to="/check/teams/new" className="find-team__toggle-create">
             <FormattedMessage
               id="findTeamCard.createYourOwn"
               defaultMessage="You can also create your own workspace."
             />
           </Link>
-        </div>
+        </Box>
       </div>
     );
   }

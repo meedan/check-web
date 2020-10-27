@@ -11,7 +11,7 @@ import BlankState from '../layout/BlankState';
 import CardToolbar from '../layout/CardToolbar';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { ContentColumn, units } from '../../styles/js/shared';
+import { ContentColumn } from '../../styles/js/shared';
 
 class TeamTasksComponent extends React.Component {
   state = {
@@ -124,7 +124,7 @@ class TeamTasksComponent extends React.Component {
                     label={filterLabel}
                     tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
                   >
-                    <div style={{ marginTop: units(4) }}>
+                    <Box mt={4}>
                       <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
                       <ProjectSelector
                         projects={this.props.team.projects.edges}
@@ -132,15 +132,15 @@ class TeamTasksComponent extends React.Component {
                         onSelect={this.handleSelectProjects}
                         fullWidth
                       />
-                    </div>
-                    <div style={{ marginTop: units(2) }}>
+                    </Box>
+                    <Box mt={2}>
                       <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
                       <TaskTypeSelector
                         selected={this.state.typeFilter}
                         onSelect={this.handleSelectTaskTypes}
                         fullWidth
                       />
-                    </div>
+                    </Box>
                   </FilterPopup>
                 ) : null
                 }

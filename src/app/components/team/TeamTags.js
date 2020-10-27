@@ -307,95 +307,100 @@ class TeamTagsComponent extends Component {
 
   tagsList(list) {
     return (
-      <List
-        style={{
-          maxHeight: 400,
-          overflowY: 'auto',
-          overflowX: 'hidden',
-          padding: units(2),
-        }}
-      >
-        { list.map((tag) => {
-          const menu = can(tag.permissions, 'update TagText') ? (
-            <div>
-              <IconButton
-                className="tag__actions"
-                style={{ padding: 0 }}
-                tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
-                onClick={e => this.handleOpenMenu(e, tag)}
-              >
-                <MoreHoriz />
-              </IconButton>
-              <Menu
-                anchorEl={this.state.anchorEl}
-                open={Boolean(this.state.anchorEl && (this.state.menuOpenForTag === tag))}
-                onClose={this.handleCloseMenu}
-                style={{ margin: '0 12px' }}
-              >
-                <MenuItem
-                  className="tag__edit"
-                  onClick={this.handleEdit.bind(this, tag)}
+      <Box p={2}>
+        <List
+          style={{
+            maxHeight: 400,
+            overflowY: 'auto',
+            overflowX: 'hidden',
+          }}
+        >
+          { list.map((tag) => {
+            const menu = can(tag.permissions, 'update TagText') ? (
+              <div>
+                <IconButton
+                  className="tag__actions"
+                  style={{ padding: 0 }}
+                  tooltip={this.props.intl.formatMessage(messages.menuTooltip)}
+                  onClick={e => this.handleOpenMenu(e, tag)}
                 >
-                  <ListItemText
-                    primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
-                  />
-                </MenuItem>
-                <MenuItem
-                  className="tag__delete"
-                  onClick={this.handleDelete.bind(this, tag)}
+                  <MoreHoriz />
+                </IconButton>
+                <Menu
+                  anchorEl={this.state.anchorEl}
+                  open={Boolean(this.state.anchorEl && (this.state.menuOpenForTag === tag))}
+                  onClose={this.handleCloseMenu}
+                  style={{ margin: '0 12px' }}
                 >
-                  <ListItemText
-                    primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
-                  />
-                </MenuItem>
-              </Menu>
-            </div>
-          ) : null;
+                  <MenuItem
+                    className="tag__edit"
+                    onClick={this.handleEdit.bind(this, tag)}
+                  >
+                    <ListItemText
+                      primary={<FormattedMessage id="teamTags.editTag" defaultMessage="Edit tag" />}
+                    />
+                  </MenuItem>
+                  <MenuItem
+                    className="tag__delete"
+                    onClick={this.handleDelete.bind(this, tag)}
+                  >
+                    <ListItemText
+                      primary={<FormattedMessage id="teamTags.deleteTag" defaultMessage="Delete tag" />}
+                    />
+                  </MenuItem>
+                </Menu>
+              </div>
+            ) : null;
 
-          if (this.state.editing && this.state.editing.dbid === tag.dbid) {
+            if (this.state.editing && this.state.editing.dbid === tag.dbid) {
+              return (
+                <Box py={0}>
+                  <ListItem key={tag.dbid}>
+                    <Box py={0}>
+                      <TextField
+                        id="tag__edit"
+                        autoFocus
+                        onKeyPress={this.handleUpdate.bind(this)}
+                        defaultValue={tag.text}
+                      />
+                    </Box>
+                    {' '}
+                    <Tooltip title={this.props.intl.formatMessage(globalStrings.cancel)}>
+                      <IconClose
+                        style={{ cursor: 'pointer', verticalAlign: 'sub' }}
+                        onClick={this.handleCancelUpdate.bind(this)}
+                      />
+                    </Tooltip>
+                  </ListItem>
+                </Box>
+              );
+            }
+
             return (
-              <ListItem key={tag.dbid} style={{ paddingTop: 0, paddingBottom: 0 }}>
-                <TextField
-                  style={{ paddingTop: 0, paddingBottom: 0 }}
-                  id="tag__edit"
-                  autoFocus
-                  onKeyPress={this.handleUpdate.bind(this)}
-                  defaultValue={tag.text}
-                />
-                {' '}
-                <Tooltip title={this.props.intl.formatMessage(globalStrings.cancel)}>
-                  <IconClose
-                    style={{ cursor: 'pointer', verticalAlign: 'sub' }}
-                    onClick={this.handleCancelUpdate.bind(this)}
+              <Box py={2} px={0}>
+                <ListItem
+                  key={tag.dbid}
+                  id={`tag__text-${tag.text}`}
+                >
+                  <ListItemText
+                    primary={tag.text}
+                    secondary={
+                      <FormattedMessage
+                        id="teamTags.itemsCount"
+                        defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
+                        values={{ count: tag.tags_count }}
+                      />
+                    }
                   />
-                </Tooltip>
-              </ListItem>
+                  <ListItemSecondaryAction>
+                    {menu}
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </Box>
             );
-          }
-
-          return (
-            <ListItem
-              style={{ padding: `${units(2)} 0` }}
-              key={tag.dbid}
-              id={`tag__text-${tag.text}`}
-            >
-              <ListItemText
-                primary={tag.text}
-                secondary={
-                  <FormattedMessage
-                    id="teamTags.itemsCount"
-                    defaultMessage="{count, plural, =0 {no items} one {1 item} other {# items}}"
-                    values={{ count: tag.tags_count }}
-                  />
-                }
-              />
-              <ListItemSecondaryAction>
-                {menu}
-              </ListItemSecondaryAction>
-            </ListItem>
-          );
-        })}
-      </List>
+          })}
+        </List>
+      </Box>
     );
   }
 
@@ -466,48 +471,55 @@ class TeamTagsComponent extends Component {
             label={filterLabel}
             tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
           >
-            <div style={{ marginTop: units(2) }}>
+            <Box mt={2}>
               <SortSelector
                 value={this.state.sort}
                 onChange={this.handleChange.bind(this)}
                 fullWidth
               />
-            </div>
+            </Box>
           </FilterPopup>
         </AlignOpposite>
-        <Card style={{ marginTop: units(2) }}>
-          <CardContent style={{ padding: 0 }}>
-            { tag_texts.length === 0 ?
-              <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
-                <FormattedMessage
-                  id="teamTags.noTags"
-                  defaultMessage="No tags"
-                />
-              </p>
-              : null }
-            {this.tagsList(tag_texts)}
-            <Can permissions={this.props.team.permissions} permission="create TagText">
-              <div style={{ padding: units(2) }}>
-                <TextField
-                  id="tag__new"
-                  onKeyUp={this.handleKeyUp.bind(this)}
-                  onKeyPress={this.handleKeyPress.bind(this)}
-                  label={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
-                  style={{ width: '50%' }}
-                />
-                <p>
-                  <Button
-                    onClick={this.handleAddTag.bind(this)}
-                    disabled={this.state.newTag.length === 0}
-                    color="primary"
-                  >
-                    <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
-                  </Button>
-                </p>
-              </div>
-            </Can>
-          </CardContent>
-        </Card>
+        <Box mt={2}>
+          <Card>
+            <Box p={0}>
+              <CardContent>
+                { tag_texts.length === 0 ?
+                  <Box pb={5} display='flex' alignItems='center'>
+                    <p>
+                      <FormattedMessage
+                        id="teamTags.noTags"
+                        defaultMessage="No tags"
+                      />
+                    </p>
+                  </Box>
+                  : null }
+                {this.tagsList(tag_texts)}
+                <Can permissions={this.props.team.permissions} permission="create TagText">
+                  <Box p={2}>
+                    <Box width="50%">
+                      <TextField
+                        id="tag__new"
+                        onKeyUp={this.handleKeyUp.bind(this)}
+                        onKeyPress={this.handleKeyPress.bind(this)}
+                        label={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
+                      />
+                    </Box>
+                    <p>
+                      <Button
+                        onClick={this.handleAddTag.bind(this)}
+                        disabled={this.state.newTag.length === 0}
+                        color="primary"
+                      >
+                        <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
+                      </Button>
+                    </p>
+                  </Box>
+                </Can>
+              </CardContent>
+            </Box>
+          </Card>
+        </Box>
 
         <ConfirmDialog
           open={this.state.dialogOpen}

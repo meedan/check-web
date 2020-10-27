@@ -288,26 +288,22 @@ class TeamInviteMembers extends Component {
                 margin="normal"
                 fullWidth
               />
-              <Row
-                style={{
-                  marginLeft: units(2),
-                  marginTop: units(1),
-                  marginBottom: units(1),
-                }}
-              >
-                <RoleSelect
-                  className="invite-member-email-role"
-                  onChange={e => this.handleRoleChange(e, index)}
-                  value={member.role}
-                  excludeRoles={excludeRoles}
-                />
-                <StyledIconButton
-                  className="invite-member-email-remove-button"
-                  onClick={() => this.handleRemoveEmail(index)}
-                >
-                  <CancelIcon />
-                </StyledIconButton>
-              </Row>
+              <Box ml={2} mt={1} mb={1}>
+                <Row>
+                  <RoleSelect
+                    className="invite-member-email-role"
+                    onChange={e => this.handleRoleChange(e, index)}
+                    value={member.role}
+                    excludeRoles={excludeRoles}
+                  />
+                  <StyledIconButton
+                    className="invite-member-email-remove-button"
+                    onClick={() => this.handleRemoveEmail(index)}
+                  >
+                    <CancelIcon />
+                  </StyledIconButton>
+                </Row>
+              </Box>
             </Row>
           </div>
         ))
@@ -316,14 +312,15 @@ class TeamInviteMembers extends Component {
 
     return (
       <FlexRow>
-        <Button
-          variant="contained"
-          style={{ marginLeft: 'auto', marginRight: units(2) }}
-          onClick={this.handleOpenDialog.bind(this)}
-          className="team-members__invite-button"
-        >
-          <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
-        </Button>
+        <Box ml="auto" mr={2}>
+          <Button
+            variant="contained"
+            onClick={this.handleOpenDialog.bind(this)}
+            className="team-members__invite-button"
+          >
+            <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
+          </Button>
+        </Box>
         <Dialog
           className="team-invite-members__dialog"
           open={this.state.dialogOpen}

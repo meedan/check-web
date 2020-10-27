@@ -14,7 +14,6 @@ import {
   AlignOpposite,
   FlexRow,
   Text,
-  units,
 } from '../../styles/js/shared';
 
 class TeamInvitedMemberItem extends Component {
@@ -57,24 +56,27 @@ class TeamInvitedMemberItem extends Component {
         </Text>
         <AlignOpposite>
           <FlexRow>
-            <Button
-              variant="contained"
-              style={{ marginLeft: 'auto', marginRight: units(1) }}
-              onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
-              className="team-member-invited__user-button--cancel"
-            >
-              <FormattedMessage
-                id="TeamMembersInvitedListItem.cancel"
-                defaultMessage="Cancel invite"
-              />
-            </Button>
-            <Button
-              variant="contained"
-              onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
-              className="team-member-invited__user-button--resend"
-            >
-              <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
-            </Button>
+            <Box ml="auto" mr={1}>
+              <Button
+                variant="contained"
+                onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}
+                className="team-member-invited__user-button--cancel"
+              >
+                <FormattedMessage
+                  id="TeamMembersInvitedListItem.cancel"
+                  defaultMessage="Cancel invite"
+                />
+              </Button>
+            </Box>
+            <Box>
+              <Button
+                variant="contained"
+                onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
+                className="team-member-invited__user-button--resend"
+              >
+                <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
+              </Button>
+            </Box>
           </FlexRow>
         </AlignOpposite>
       </ListItem>

@@ -11,7 +11,7 @@ import TeamInvitedMemberItem from './TeamInvitedMemberItem';
 import TeamInviteMembers from './TeamInviteMembers';
 import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
-import { FlexRow, cardInCardGroupStyle, units } from '../../styles/js/shared';
+import { FlexRow, cardInCardGroupStyle } from '../../styles/js/shared';
 
 const pageSize = 20;
 
@@ -44,22 +44,24 @@ class TeamMembersComponent extends Component {
 
         { invitedMails &&
           <Can permissions={team.permissions} permission="invite Members">
-            <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-              <CardHeader title={<FormattedMessage
-                id="teamMembersComponent.pendingInvitations"
-                defaultMessage="Pending invitations"
-              />}
-              />
-              <TeamInviteMembers team={team} />
-              <List>
-                { teamInvitedMails.map(invitedMail => (
-                  <TeamInvitedMemberItem
-                    invitedMail={invitedMail}
-                    key={invitedMail}
-                  />
-                ))}
-              </List>
-            </Card>
+            <Box my={2}>
+              <Card>
+                <CardHeader title={<FormattedMessage
+                  id="teamMembersComponent.pendingInvitations"
+                  defaultMessage="Pending invitations"
+                />}
+                />
+                <TeamInviteMembers team={team} />
+                <List>
+                  { teamInvitedMails.map(invitedMail => (
+                    <TeamInvitedMemberItem
+                      invitedMail={invitedMail}
+                      key={invitedMail}
+                    />
+                  ))}
+                </List>
+              </Card>
+            </Box>
           </Can>
         }
 
@@ -87,49 +89,52 @@ class TeamMembersComponent extends Component {
           </Can>
         }
 
-        <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-          <CardHeader title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
-          <FlexRow>
-            <Can permissions={team.permissions} permission="update Team">
-              <Button
-                variant="contained"
-                style={{ marginLeft: 'auto', marginRight: units(1) }}
-                onClick={this.handleEditMembers.bind(this)}
-                className="team-members__edit-button"
-                icon={<EditIcon className="team-members__edit-icon" />}
+        <Box my={2}>
+          <Card>
+            <CardHeader title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
+            <FlexRow>
+              <Can permissions={team.permissions} permission="update Team">
+                <Box ml="auto" mr={1}>
+                  <Button
+                    variant="contained"
+                    onClick={this.handleEditMembers.bind(this)}
+                    className="team-members__edit-button"
+                    icon={<EditIcon className="team-members__edit-icon" />}
+                  >
+                    { isEditing ?
+                      <FormattedMessage
+                        id="teamMembersComponent.editDoneButton"
+                        defaultMessage="Done"
+                      />
+                      : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
+                  </Button>
+                </Box>
+              </Can>
+              <Can permissions={team.permissions} permission="invite Members">
+                <TeamInviteMembers team={team} />
+              </Can>
+            </FlexRow>
+            <List className="team-members__list">
+              <LoadMore
+                relay={this.props.relay}
+                pageSize={pageSize}
+                currentSize={teamUsers.edges.length}
+                total={team.members_count}
               >
-                { isEditing ?
-                  <FormattedMessage
-                    id="teamMembersComponent.editDoneButton"
-                    defaultMessage="Done"
+                { teamUsersMembers.map(teamUser => (
+                  <TeamMembersListItem
+                    className="team-members__member-list-item"
+                    key={teamUser.node.id}
+                    team={team}
+                    teamUser={teamUser.node}
+                    isEditing={isEditing}
+                    singleOwner={ownerMembers.length <= 1}
                   />
-                  : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-              </Button>
-            </Can>
-            <Can permissions={team.permissions} permission="invite Members">
-              <TeamInviteMembers team={team} />
-            </Can>
-          </FlexRow>
-          <List className="team-members__list">
-            <LoadMore
-              relay={this.props.relay}
-              pageSize={pageSize}
-              currentSize={teamUsers.edges.length}
-              total={team.members_count}
-            >
-              { teamUsersMembers.map(teamUser => (
-                <TeamMembersListItem
-                  className="team-members__member-list-item"
-                  key={teamUser.node.id}
-                  team={team}
-                  teamUser={teamUser.node}
-                  isEditing={isEditing}
-                  singleOwner={ownerMembers.length <= 1}
-                />
-              ))}
-            </LoadMore>
-          </List>
-        </Card>
+                ))}
+              </LoadMore>
+            </List>
+          </Card>
+        </Box>
       </div>
     );
   }

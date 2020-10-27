@@ -8,10 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Message from '../Message';
-import {
-  units,
-  Row,
-} from '../../styles/js/shared';
+import { Row } from '../../styles/js/shared';
 
 class TeamTaskConfirmDialog extends React.Component {
   constructor(props) {
@@ -112,7 +109,7 @@ class TeamTaskConfirmDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
-          <div style={{ margin: `${units(2)} 0` }}>
+          <Box my={2} mx={0}>
             { affectedItems > 0 ?
               <div>
                 <Row>
@@ -153,7 +150,7 @@ class TeamTaskConfirmDialog extends React.Component {
                 label={<FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />}
               />
             </Row>
-          </div>
+          </Box>
         </DialogContent>
         <DialogActions>
           <Button
