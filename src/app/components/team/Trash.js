@@ -21,7 +21,7 @@ export default function Trash({ routeParams }) {
       title={<FormattedMessage id="trash.title" defaultMessage="Trash" />}
       teamSlug={routeParams.team}
       query={query}
-      fields={['keyword', 'date', 'status', 'sort', 'tags']}
+      hideFields={['read', 'user']}
       page="trash"
     />
   );
