@@ -157,7 +157,9 @@ const CustomTeamTaskFilter = ({
     const options = [];
     const entity = team_tasks.edges.find(t => t.node.dbid === filterEntity);
     if (entity) {
-      options.push(...entity.node.options.map(o => ({ key: o.label, value: o.label })));
+      options.push(...entity.node.options
+        .filter(fo => !fo.other)
+        .map(o => ({ key: o.label, value: o.label })));
     }
     return options;
   };
