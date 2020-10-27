@@ -46,10 +46,14 @@ export const opaqueBlack02 = '#fafafa';
 
 // Social network colors
 //
-export const facebookBlue = '#3b5999';
-export const twitterBlue = '#0095ff';
-export const googleOrange = '#db4437';
-export const slackGreen = '#2ab27b';
+// https://facebookbrand.com/facebookapp/advertisers-and-partners/
+export const facebookBlue = '#1877f2';
+// https://about.twitter.com/content/dam/about-twitter/company/brand-resources/en_us/Twitter_Brand_Guidelines_V2_0.pdf
+export const twitterBlue = '#1da1f2';
+// https://designguidelines.withgoogle.com/ads-branding/assets/1McJDbBKmuQAv35pVV9vY3A5CQiRY5hRv/visual-guidelines-google-ads.pdf
+export const googleOrange = '#ea4335';
+// https://slack.com/intl/en-it/marketing/img/media-kit/slack_brand_guidelines_september2020.pdf
+export const slackGreen = '#2eb67d';
 // https://www.youtube.com/about/brand-resources/#logos-icons-colors
 export const youTubeRed = '#ff0000';
 // https://whatsappbrand.com/#color
