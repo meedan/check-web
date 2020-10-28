@@ -6,6 +6,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Settings from '@material-ui/icons/Settings';
 import Tooltip from '@material-ui/core/Tooltip';

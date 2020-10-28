@@ -1,5 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
+import Box from '@material-ui/core/Box';
 import List from '@material-ui/core/List';
 import TeamTasksListItem from './TeamTasksListItem';
 

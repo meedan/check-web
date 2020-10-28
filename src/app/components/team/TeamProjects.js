@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -21,7 +22,6 @@ import LoadMore from '../layout/LoadMore';
 import {
   highlightBlue,
   checkBlue,
-  units,
   black05,
   black54,
 } from '../../styles/js/shared';
