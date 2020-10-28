@@ -255,7 +255,7 @@ class SearchQueryComponent extends React.Component {
       'verification_status',
       'projects',
       'tags',
-      'show',
+      'type',
       'dynamic',
       'users',
       'read',
@@ -288,9 +288,9 @@ class SearchQueryComponent extends React.Component {
     return array ? array.includes(tag) : false;
   }
 
-  showIsSelected(show) {
+  showIsSelected(type) {
     const array = this.state.query.show;
-    return array ? array.includes(show) : false;
+    return array ? array.includes(type) : false;
   }
 
   dynamicIsSelected(field, value) {
@@ -337,9 +337,9 @@ class SearchQueryComponent extends React.Component {
     });
   }
 
-  handleShowClick(show) {
+  handleShowClick(type) {
     this.setState({
-      query: updateStateQueryArrayValue(this.state.query, 'show', show),
+      query: updateStateQueryArrayValue(this.state.query, 'show', type),
     });
   }
 
@@ -406,8 +406,8 @@ class SearchQueryComponent extends React.Component {
     );
   }
 
-  showField(field) {
-    return this.props.fields ? this.props.fields.indexOf(field) > -1 : true;
+  hideField(field) {
+    return this.props.hideFields ? this.props.hideFields.indexOf(field) > -1 : false;
   }
 
   handleInputChange = (ev) => {
@@ -614,14 +614,14 @@ class SearchQueryComponent extends React.Component {
             <DialogContent id="search__query-dialog-content">
               <StyledSearchFiltersSection>
                 <DateRangeFilter
-                  hidden={!this.showField('date')}
+                  hide={this.hideField('date')}
                   onChange={this.handleDateChange}
                   value={this.state.query.range}
                 />
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.statusHeading" defaultMessage="Status" />}
-                  show={this.showField('status')}
+                  hide={this.hideField('status')}
                   selected={statuses.filter(s => this.statusIsSelected(s.id))}
                   options={statuses}
                   onChange={(newValue) => {
@@ -631,7 +631,7 @@ class SearchQueryComponent extends React.Component {
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.projectHeading" defaultMessage="List" />}
-                  show={this.showField('project') && projects.length}
+                  hide={this.hideField('project') || !projects.length}
                   selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
                   options={projects.map(p => p.node)}
                   labelProp="title"
@@ -642,7 +642,7 @@ class SearchQueryComponent extends React.Component {
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.userHeading" defaultMessage="Author" />}
-                  show={this.showField('user') && users.length}
+                  hide={this.hideField('user') || !users.length}
                   selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
                   options={users.map(u => u.node)}
                   labelProp="name"
@@ -651,24 +651,27 @@ class SearchQueryComponent extends React.Component {
                   }}
                 />
 
-                { this.showField('read') ?
-                  <StyledFilterRow>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={this.readIsSelected(true)}
-                          onChange={(e) => { this.handleReadClick(e.target.checked); }}
-                        />
-                      }
-                      label={
-                        <FormattedMessage id="search.readHeading" defaultMessage="Read" />
-                      }
-                    />
-                  </StyledFilterRow> : null }
+                { this.hideField('read') ?
+                  null : (
+                    <StyledFilterRow>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={this.readIsSelected(true)}
+                            onChange={(e) => { this.handleReadClick(e.target.checked); }}
+                          />
+                        }
+                        label={
+                          <FormattedMessage id="search.readHeading" defaultMessage="Read" />
+                        }
+                      />
+                    </StyledFilterRow>
+                  )
+                }
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.categoriesHeading" defaultMessage="Tags" />}
-                  show={this.showField('tags') && plainTagsTexts.length}
+                  hide={this.hideField('tags') || !plainTagsTexts.length}
                   selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
                   options={plainTagsTexts}
                   labelProp=""
@@ -679,7 +682,7 @@ class SearchQueryComponent extends React.Component {
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.show" defaultMessage="Type" />}
-                  show={this.showField('show')}
+                  hide={this.hideField('type')}
                   selected={types.filter(t => this.showIsSelected(t.value))}
                   options={types}
                   onChange={(newValue) => {
@@ -691,7 +694,7 @@ class SearchQueryComponent extends React.Component {
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.language" defaultMessage="Language" />}
-                  show={this.showField('dynamic') && languages.length > 0}
+                  hide={this.hideField('dynamic') || !languages.length}
                   selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
                   options={languages}
                   onChange={(newValue) => {

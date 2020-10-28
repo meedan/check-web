@@ -16,7 +16,7 @@ const MultiSelectFilter = ({
   label,
   onChange,
   selected,
-  show,
+  hide,
   labelProp,
 }) => {
   const classes = useStyles();
@@ -25,7 +25,7 @@ const MultiSelectFilter = ({
     onChange(newValue);
   };
 
-  if (!show) {
+  if (hide) {
     return null;
   }
 
@@ -54,16 +54,22 @@ const MultiSelectFilter = ({
 
 MultiSelectFilter.defaultProps = {
   selected: [],
-  show: true,
+  hide: false,
   labelProp: 'label',
 };
 
 MultiSelectFilter.propTypes = {
-  options: PropTypes.arrayOf(PropTypes.object).isRequired,
+  options: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ])).isRequired,
   label: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  selected: PropTypes.arrayOf(PropTypes.object),
-  show: PropTypes.bool,
+  selected: PropTypes.arrayOf(PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ])),
+  hide: PropTypes.bool,
   labelProp: PropTypes.string,
 };
 

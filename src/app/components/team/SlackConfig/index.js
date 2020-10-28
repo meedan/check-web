@@ -24,10 +24,6 @@ import {
 } from '../../../styles/js/shared';
 
 const messages = defineMessages({
-  title: {
-    id: 'slackConfig.title',
-    defaultMessage: 'Slack integration',
-  },
   menuTooltip: {
     id: 'slackConfig.menuTooltip',
     defaultMessage: 'Integration settings',
