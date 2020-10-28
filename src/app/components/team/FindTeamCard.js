@@ -155,7 +155,7 @@ class FindTeamCard extends React.Component {
             </CardActions>
           </form>
         </Card>
-        <Box mt={units(2)}>
+        <Box mt={2}>
           <Link to="/check/teams/new" className="find-team__toggle-create">
             <FormattedMessage
               id="findTeamCard.createYourOwn"

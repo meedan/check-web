@@ -439,15 +439,15 @@ class Task extends Component {
             <div onClick={this.handleOpenImage.bind(this, imageUploadPath)}>
               <StyledPointerDiv>
                 <Box 
-                  component='img'
-                  height='auto'
+                  component="img"
+                  height="auto"
                   maxHeight={300}
                   maxWidth={300}
                   src={imageUploadPath}
                   className="task__response-thumbnail"
                   alt=""
                 />
-                <Box component='p' textAlign='center'><small>{response}</small></Box>
+                <Box component="p" textAlign="center"><small>{response}</small></Box>
               </StyledPointerDiv>
               {this.state.zoomedImage
                 ? <Lightbox
@@ -461,14 +461,14 @@ class Task extends Component {
         { by && byPictures && isTask ?
           <Box 
             className="task__resolver" 
-            display='flex'
-            alignItems='center' 
-            justifyContent='space-between' 
-            mt={units(1)}
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            mt={1}
           >
-            <Box component='small' display='flex'>
+            <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
-              <Box component='span' lineHeight='24px' px={units(1)}>
+              <Box component="span" lineHeight="24px" px={1}>
                 <FormattedMessage
                   id="task.answeredBy"
                   defaultMessage="Completed by {byName}"
@@ -511,15 +511,15 @@ class Task extends Component {
     const taskAssignment = task.assignments.edges.length > 0 && !response && task.fieldset === 'tasks' ? (
       <Box 
         className="task__assigned"
-        display='flex'
-        alignItems='center'
-        width={`420px`}
-        m={units(2)}
-        justifyContent='space-between'
+        display="flex"
+        alignItems="center"
+        width="420px"
+        m={2}
+        justifyContent="space-between"
       >
-        <Box component='small' display='flex'>
+        <Box component="small" display="flex">
           <UserAvatars users={assignments} />
-          <Box component='span' lineHeight='24px' px={units(1)}>
+          <Box component="span" lineHeight="24px" px={1}>
             <FormattedMessage
               id="task.assignedTo"
               defaultMessage="Assigned to {name}"
@@ -539,9 +539,9 @@ class Task extends Component {
         {taskAssignment}
         { data.by && isTask ?
           <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
-            <Box component='small' display='flex'>
+            <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
-              <Box component='span' lineHeight='24px' px={units(1)}>
+              <Box component="span" lineHeight="24px" px={1}>
                 { response ?
                   <FormattedMessage
                     id="task.answeredBy"
@@ -663,7 +663,7 @@ class Task extends Component {
 
     return (
       <StyledWordBreakDiv>
-        <Box clone mb={units(1)}>
+        <Box clone mb={1}>
           <Card
             id={`task-${task.dbid}`}
             className={className.join(' ')}

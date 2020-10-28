@@ -10,7 +10,7 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import EventIcon from '@material-ui/icons/Event';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { convertNumbers2English } from '../../helpers';
-import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
+import { alertRed, FlexRow } from '../../styles/js/shared';
 import timezones from '../../timezones';
 
 class DatetimeRespondTask extends Component {
@@ -176,7 +176,7 @@ class DatetimeRespondTask extends Component {
 
     return (
       <div>
-        <Box clone mb={units(2)}>
+        <Box clone mb={2}>
           <FlexRow >
             <Box clone flex={10}>
               <DatePicker
@@ -208,7 +208,7 @@ class DatetimeRespondTask extends Component {
           </FlexRow>
         </Box>
 
-        <Box clone mb={units(2)}>
+        <Box clone mb={2}>
           <FlexRow >
             <Box clone flex={10} >
               <Box clone justifyContent='flex-start' alignItems='center'>
@@ -239,7 +239,7 @@ class DatetimeRespondTask extends Component {
                     variant="inline"
                     fullWidth
                   />
-                  <Box clone ml={units(2)}>
+                  <Box clone ml={2}>
                     <Autocomplete
                       className="task__datetime-timezone"
                       options={
@@ -270,7 +270,7 @@ class DatetimeRespondTask extends Component {
             </Box>
           </FlexRow>  
         </Box>
-        <Box color={alertRed} display='block' fontFamily='caption'>
+        <Box color={alertRed} display="block" fontFamily="caption">
           {this.state.timeError ? this.state.timeError : ''}
         </Box>
         { this.state.focus || this.props.response ? actionBtns : null }

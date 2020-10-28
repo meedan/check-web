@@ -15,7 +15,6 @@ import {
   AlignOpposite,
   FlexRow,
   Text,
-  units,
 } from '../../styles/js/shared';
 
 class TeamInvitedMemberItem extends Component {
@@ -58,7 +57,7 @@ class TeamInvitedMemberItem extends Component {
         </Text>
         <AlignOpposite>
           <FlexRow>
-            <Box ml={'auto'} mr={units(1)}>
+            <Box ml="auto" mr={1}>
               <Button
                 variant="contained"
                 onClick={this.handleTeamMemberInvites.bind(this, 'cancel')}

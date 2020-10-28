@@ -3,11 +3,11 @@ import Box from '@material-ui/core/Box';
 
 const FaceFrown = (props) => (
   <Box
-    component='svg'
-    display='inline-block'
-    height='48px'
-    width='48px'
-    viewBox='0 0 24 24'
+    component="svg"
+    display="inline-block"
+    height="48px"
+    width="48px"
+    viewBox="0 0 24 24"
   >
     <defs>
       <path id="path-1" d="M0,0h2v4h-2Z" />

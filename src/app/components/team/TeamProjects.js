@@ -22,7 +22,6 @@ import LoadMore from '../layout/LoadMore';
 import {
   highlightBlue,
   checkBlue,
-  units,
   black05,
   black54,
 } from '../../styles/js/shared';
@@ -59,7 +58,7 @@ class TeamProjects extends React.Component {
             renderCard
           />
         </Can>
-        <Box clone mb={units(2)}>
+        <Box clone mb={2}>
           <Card>
             <CardHeader
               title={<FormattedMessage id="teamComponent.projects" defaultMessage="Lists" />}
@@ -118,7 +117,7 @@ class TeamProjects extends React.Component {
                           </ListItemSecondaryAction>
                         </ListItem>
                         <Collapse in={this.state[p.node.dbid]} timeout="auto" unmountOnExit>
-                          <Box p={`${units(1)} ${units(2)}`} bgColor={black05}>
+                          <Box py={1} px={2} bgColor={black05}>
                             <ProjectAssignment project={p.node} key={p.node.dbid} />
                           </Box>
                         </Collapse>

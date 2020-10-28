@@ -15,7 +15,7 @@ import { browserHistory } from 'react-router';
 import styled from 'styled-components';
 import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, title1, ContentColumn, black32, fontStackSans } from '../../styles/js/shared';
+import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import ConfirmDialog from '../layout/ConfirmDialog';
@@ -190,7 +190,7 @@ class TeamBotsComponent extends Component {
       <Box clone maxWidth={900}>
         <ContentColumn>
           { team.team_bot_installations.edges.length === 0 ?
-            <Box commponent='p' pb={units(5)} textAlign='center'>
+            <Box commponent="p" pb={5} textAlign="center">
               <FormattedMessage
                 id="teamBots.noBots"
                 defaultMessage="No bots installed."
@@ -202,22 +202,16 @@ class TeamBotsComponent extends Component {
             const botExpanded = this.state.expanded === bot.dbid;
   
             return (
-              <Box clone mb={units(5)}>
+              <Box clone mb={5}>
                 <Card
                   key={`bot-${bot.dbid}`}
                 >
                   <StyledCardContent>
                     <img src={bot.avatar} alt={bot.name} />
                     <div>
-                      <Box 
-                        component="h2" 
-                        fontWeight='500' 
-                        fontSize={units(2.5)} 
-                        lineHeight={units(4)}
-                        fontFamily={fontStackSans}
-                      >
+                      <h2 style={{ font: title1 }}>
                         {bot.name}
-                      </Box>
+                      </h2>
                       <p>{bot.description}</p>
                       <div>
                         <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
@@ -293,7 +287,7 @@ class TeamBotsComponent extends Component {
                       { bot.settings_as_json_schema ?
                         <React.Fragment>
                           { bot.name !== 'Fetch' ?
-                            <Box display='flex' alignItems='center' justifyContent='space-between'>
+                            <Box display="flex" alignItems="center" justifyContent="space-between">
                               <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
                               <div>
                                 <Button
@@ -310,7 +304,7 @@ class TeamBotsComponent extends Component {
                                     defaultMessage="Save"
                                   />
                                 </Button>
-                                <Box component='small' m={`0 ${units(1)}`}>
+                                <Box component="small" my={0} mx={1}>
                                   { this.state.message && this.state.messageBotId === bot.dbid ?
                                     this.state.message : null
                                   }
@@ -340,7 +334,7 @@ class TeamBotsComponent extends Component {
               </Box>
             );
           })}
-          <Box component='p' textAlign='end'>
+          <Box component="p" textAlign="end">
             <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
               <span>
                 <FormattedMessage

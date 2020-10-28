@@ -10,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import globalStrings from '../../globalStrings';
 import Message from '../Message';
 import Attribution from '../task/Attribution';
-import { units } from '../../styles/js/shared';
 
 class AttributionDialog extends React.Component {
   handleSubmit = () => {
@@ -33,7 +32,7 @@ class AttributionDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
-          <Box my={units(2)}>
+          <Box my={2}>
             { this.props.blurb }
           </Box>
           <Attribution

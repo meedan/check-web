@@ -25,7 +25,6 @@ import {
   caption,
   checkBlue,
   subheading2,
-  units,
 } from '../../styles/js/shared';
 import CreateTeamMutation from '../../relay/mutations/CreateTeamMutation';
 import { stringHelper } from '../../customHelpers';
@@ -236,7 +235,7 @@ class CreateTeamCard extends React.Component {
             </CardActions>
           </form>
         </Card>
-        <Box mt={units(2)}>
+        <Box mt={2}>
           <Link to="/check/teams/find" className="create-team__toggle-find">
             <FormattedMessage
               id="createTeam.requestToJoin"

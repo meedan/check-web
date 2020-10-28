@@ -7,7 +7,7 @@ import { FormattedMessage } from 'react-intl';
 import { Map, Marker, TileLayer } from 'react-leaflet';
 import CoordinateParser from 'coordinate-parser';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { black54, caption, fontStackSans } from '../../styles/js/shared';
+import { black54, caption } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 import { FormattedGlobalMessage } from '../MappedMessage';
 
@@ -332,9 +332,9 @@ class GeolocationRespondTask extends Component {
           onBlur={() => this.setState({ openResultsPopup: false })}
           fullWidth
         />
-        <Box color={black54} fontFamily={fontStackSans} fontWeight={400} fontSize={units(1.5)} lineHeight={units(2.5)}>
+        <div style={{ font: caption, color: black54 }}>
           {this.state.message }
-        </Box>
+        </div>
         <TextField
           id="task__response-geolocation-name"
           className="task__response-input"

@@ -210,12 +210,12 @@ class EditTaskDialog extends React.Component {
     const canRemove = this.state.options.length > 2;
 
     return (
-      <Box mt={units(2)}>
+      <Box mt={2}>
         {this.state.options.map((item, index) => (
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
             <Row>
               <ChevronRightIcon />
-              <Box clone p={`${units(0.5)} ${units(1)}`} width={"75%"}>
+              <Box clone py={0.5} px={1} width={"75%"}>
                 <TextField
                   key="create-task__add-option-input"
                   className="create-task__add-option-input"
@@ -238,7 +238,7 @@ class EditTaskDialog extends React.Component {
             </Row>
           </div>
         ))}
-        <Box mt={units(2)} >
+        <Box mt={2} >
           <Button onClick={this.handleAddValue.bind(this)}>
             {this.props.intl.formatMessage(messages.addValue)}
           </Button>
@@ -346,7 +346,7 @@ class EditTaskDialog extends React.Component {
                 />
               }
               label={
-                <Box display='flex' alignItems='center'>
+                <Box display="flex" alignItems="center">
                   <FormattedMessage
                     id="tasks.showInBrowserExtension"
                     defaultMessage="Show in browser extension"

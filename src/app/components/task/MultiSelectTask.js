@@ -196,7 +196,7 @@ class MultiSelectTask extends Component {
               />
             ))}
 
-            <Box display='flex' justifyContent='flex-start' className="task__options_other">
+            <Box display="flex" justifyContent="flex-start" className="task__options_other">
               {other ?
                 <div key="task__option_other_checkbox">
                   <FormControlLabel

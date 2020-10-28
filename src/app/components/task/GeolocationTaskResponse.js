@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ParsedText from '../ParsedText';
 import { safelyParseJSON } from '../../helpers';
-import { units, black05, black38, FlexRow, black54 } from '../../styles/js/shared';
+import { units, black05, black38, FlexRow } from '../../styles/js/shared';
 
 const StyledMap = styled.div`
   height: 500px;
@@ -64,10 +64,10 @@ class GeolocationTaskResponse extends Component {
       <FlexRow className="task__geolocation-response">
         <span className="task__response"><ParsedText text={name} /></span>
         {coordinatesString ?
-          <Box component='span'
+          <Box component="span"
             className="task__geolocation"
             color={black38}
-            px={units(1)}
+            px={1}
           >
             <StyledLink
               href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
@@ -80,9 +80,9 @@ class GeolocationTaskResponse extends Component {
           : null}
         {imgPath ?
           <Box // eslint-disable-line jsx-a11y/click-events-have-key-events
-            component='span'
+            component="span"
             border={`1px solid ${black05}`}
-            ml={'auto'}
+            ml="auto"
             className="task__geolocation-image"
             onClick={this.handleOpenMap.bind(this)}
           >
