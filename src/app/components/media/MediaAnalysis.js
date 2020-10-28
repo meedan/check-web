@@ -159,6 +159,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         fields.options[i].title = headline;
         fields.options[i].text = `${description}\n\n${getValue('published_article_url') || ''}`;
         fields.options[i].date = getValue('date_published') ? formatDate(new Date(parseInt(getValue('date_published'), 10) * 1000), language) : formatDate(new Date(), language);
+        fields.options[i].image = (projectMedia.media && projectMedia.media.picture) ? projectMedia.media.picture : '';
       }
     });
 

@@ -180,6 +180,14 @@
     "defaultMessage": "Open in Slack"
   },
   {
+    "id": "annotation.reportReceived",
+    "defaultMessage": "Report received on {date}"
+  },
+  {
+    "id": "annotation.reportUpdateReceived",
+    "defaultMessage": "Report update received on {date}"
+  },
+  {
     "id": "annotation.smoochNoMessage",
     "defaultMessage": "No message was sent with the request"
   },

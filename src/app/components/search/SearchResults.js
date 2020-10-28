@@ -376,7 +376,7 @@ class SearchResultsComponent extends React.PureComponent {
                 query={unsortedQuery}
                 onChange={this.handleChangeQuery}
                 project={this.props.project}
-                fields={this.props.fields}
+                hideFields={this.props.hideFields}
                 title={this.props.title}
                 team={team}
               />

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "CustomFilter.filterBy",
+    "defaultMessage": "Filter by"
+  },
+  {
+    "id": "CustomFilter.selectValueLabel",
+    "defaultMessage": "Select value"
+  },
+  {
+    "id": "CustomFilter.keywordsLabel",
+    "defaultMessage": "Type a list of keywords separated by commas"
+  }
+]

@@ -1,8 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedDate, FormattedRelative } from 'react-intl';
+import { FormattedDate, FormattedRelative, injectIntl, intlShape } from 'react-intl';
 
-const TimeBefore = ({ date }) => (
+function hoursDiff(date2, date1) {
+  let diff = (date2.getTime() - date1.getTime()) / 1000;
+  diff /= (60 * 60);
+  return Math.abs(Math.round(diff));
+}
+
+const TimeBefore = ({ date, intl }) => (
   <FormattedDate
     value={date}
     year="numeric"
@@ -13,13 +19,17 @@ const TimeBefore = ({ date }) => (
   >
     {title => (
       <time dateTime={date.toISOString()} title={title}>
-        <FormattedRelative value={date} />
+        { hoursDiff(new Date(), date) >= 24 ?
+          date.toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' }) :
+          <FormattedRelative value={date} /> }
       </time>
     )}
   </FormattedDate>
 );
+
 TimeBefore.propTypes = {
   date: PropTypes.instanceOf(Date).isRequired,
+  intl: intlShape.isRequired,
 };
 
-export default TimeBefore;
+export default injectIntl(TimeBefore);

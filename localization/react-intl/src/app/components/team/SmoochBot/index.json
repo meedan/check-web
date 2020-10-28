@@ -10,5 +10,9 @@
   {
     "id": "smoochBot.title",
     "defaultMessage": "Design your bot"
+  },
+  {
+    "id": "smoochBot.addResource",
+    "defaultMessage": "Add resource"
   }
 ]

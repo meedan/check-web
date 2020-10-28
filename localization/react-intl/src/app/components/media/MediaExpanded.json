@@ -1,14 +1,6 @@
 [
   {
-    "id": "mediaExpanded.firstSeen",
-    "defaultMessage": "First seen:"
-  },
-  {
-    "id": "mediaExpanded.lastSeen",
-    "defaultMessage": "Last seen:"
-  },
-  {
-    "id": "mediaExpanded.requests",
-    "defaultMessage": "{count} requests"
+    "id": "mediaExpanded.addToImportedReport",
+    "defaultMessage": "Add to imported report"
   }
 ]
