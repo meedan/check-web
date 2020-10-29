@@ -2,5 +2,13 @@
   {
     "id": "reportDesigner.nothingToPreview",
     "defaultMessage": "Start creating your report to preview what users will see when they receive it."
+  },
+  {
+    "id": "ReportImagePreview.addIntro",
+    "defaultMessage": "Add content to the introduction"
+  },
+  {
+    "id": "ReportImagePreview.addText",
+    "defaultMessage": "Add content to the text message"
   }
 ]

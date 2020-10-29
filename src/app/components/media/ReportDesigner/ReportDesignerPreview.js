@@ -79,15 +79,31 @@ const ReportDesignerPreview = (props) => {
     text.push(`_${data.disclaimer}_`);
   }
 
+  const introduction = previewIntroduction(data, media);
+
   return (
     <Box className={classes.root}>
       { data.use_introduction ?
         <Box className={classes.box}>
-          <ParsedText text={previewIntroduction(data, media)} />
+          { introduction ? (
+            <ParsedText text={introduction} />
+          ) : (
+            <FormattedMessage
+              id="ReportImagePreview.addIntro"
+              defaultMessage="Add content to the introduction"
+            />
+          )}
         </Box> : null }
       { data.use_text_message ?
         <Box className={classes.box}>
-          <ParsedText text={text.join('\n\n')} block />
+          { text.length ? (
+            <ParsedText text={text.join('\n\n')} block />
+          ) : (
+            <FormattedMessage
+              id="ReportImagePreview.addText"
+              defaultMessage="Add content to the text message"
+            />
+          )}
         </Box> : null }
       { data.use_visual_card ?
         <Box>
