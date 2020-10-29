@@ -215,7 +215,7 @@ class EditTaskDialog extends React.Component {
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
             <Row>
               <ChevronRightIcon />
-              <Box clone py={0.5} px={1} width={"75%"}>
+              <Box clone py={0.5} px={1} width="75%">
                 <TextField
                   key="create-task__add-option-input"
                   className="create-task__add-option-input"
@@ -238,7 +238,7 @@ class EditTaskDialog extends React.Component {
             </Row>
           </div>
         ))}
-        <Box mt={2} >
+        <Box mt={1} >
           <Button onClick={this.handleAddValue.bind(this)}>
             {this.props.intl.formatMessage(messages.addValue)}
           </Button>

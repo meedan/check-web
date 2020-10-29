@@ -69,17 +69,6 @@ const StyledTaskResponses = styled.div`
   }
 `;
 
-const StyledPointerDiv = styled.div`
-  text-align:center;
-  cursor: pointer;
-`;
-
-const StyledEditIcon = styled(EditIcon)`
-  width:16;
-  height:16;
-  cursor: pointer;
-`;
-
 function getResponseData(response) {
   const data = {};
 
@@ -398,7 +387,7 @@ class Task extends Component {
           </form>
         </div>
       );
-    }    
+    }
     let imageUploadPath = null;
     if (task.type === 'image_upload' && responseObj.image_data && responseObj.image_data.length) {
       [imageUploadPath] = responseObj.image_data;
@@ -437,8 +426,8 @@ class Task extends Component {
         {task.type === 'image_upload' ?
           <div className="task__response">
             <div onClick={this.handleOpenImage.bind(this, imageUploadPath)}>
-              <StyledPointerDiv>
-                <Box 
+              <div style={{ textAlign: 'center', cursor: 'pointer' }}>
+                <Box
                   component="img"
                   height="auto"
                   maxHeight={300}
@@ -448,7 +437,7 @@ class Task extends Component {
                   alt=""
                 />
                 <Box component="p" textAlign="center"><small>{response}</small></Box>
-              </StyledPointerDiv>
+              </div>
               {this.state.zoomedImage
                 ? <Lightbox
                   onCloseRequest={this.handleCloseImage.bind(this)}
@@ -459,8 +448,8 @@ class Task extends Component {
           </div>
           : null}
         { by && byPictures && isTask ?
-          <Box 
-            className="task__resolver" 
+          <Box
+            className="task__resolver"
             display="flex"
             alignItems="center"
             justifyContent="space-between"
@@ -477,7 +466,8 @@ class Task extends Component {
               </Box>
             </Box>
             { showEditIcon && can(responseObj.permissions, 'update Dynamic') ?
-              <StyledEditIcon
+              <EditIcon
+                style={{ width: 16, height: 16, cursor: 'pointer' }}
                 onClick={() => this.handleAction('edit_response', responseObj)}
               /> : null }
           </Box> : null }
@@ -509,7 +499,7 @@ class Task extends Component {
     });
 
     const taskAssignment = task.assignments.edges.length > 0 && !response && task.fieldset === 'tasks' ? (
-      <Box 
+      <Box
         className="task__assigned"
         display="flex"
         alignItems="center"
@@ -695,7 +685,7 @@ class Task extends Component {
               }
             </Collapse>
           </Card>
-        </Box>  
+        </Box>
 
         { this.state.editingQuestion ?
           <EditTaskDialog

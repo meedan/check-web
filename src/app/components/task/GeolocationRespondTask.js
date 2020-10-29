@@ -371,26 +371,24 @@ class GeolocationRespondTask extends Component {
           fullWidth
           margin="normal"
         />
-        <div>
-          <Box height={'400px'}>
-            <Map
-              center={position}
-              zoom={this.state.zoom}
-              onClick={this.updatePositionOnClick.bind(this)}
-            >
-              <TileLayer
-                attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
-                url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
-              />
-              <Marker
-                draggable={this.state.draggable}
-                onDragend={this.updatePosition.bind(this)}
-                position={position}
-                ref={(m) => { this.marker = m; }}
-              />
-            </Map>
-          </Box>
-        </div>
+        <Box height="400px">
+          <Map
+            center={position}
+            zoom={this.state.zoom}
+            onClick={this.updatePositionOnClick.bind(this)}
+          >
+            <TileLayer
+              attribution="2017 <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a>"
+              url="http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png"
+            />
+            <Marker
+              draggable={this.state.draggable}
+              onDragend={this.updatePosition.bind(this)}
+              position={position}
+              ref={(m) => { this.marker = m; }}
+            />
+          </Map>
+        </Box>
         { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );

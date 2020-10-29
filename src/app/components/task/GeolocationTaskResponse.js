@@ -16,16 +16,6 @@ const StyledMap = styled.div`
     min-height: 500px;
   }
 `;
-const StyledLink = styled.a`
-  text-decoration:underline;
-`;
-
-const StyledImage = styled.img`
-  height:${units(7)};
-  width:${units(7)};
-  cursor: pointer;
-  display:block;
-`;
 
 class GeolocationTaskResponse extends Component {
   constructor(props) {
@@ -64,18 +54,20 @@ class GeolocationTaskResponse extends Component {
       <FlexRow className="task__geolocation-response">
         <span className="task__response"><ParsedText text={name} /></span>
         {coordinatesString ?
-          <Box component="span"
+          <Box 
+            component="span"
             className="task__geolocation"
             color={black38}
             px={1}
           >
-            <StyledLink
+            <a
+              style={{ textDecoration: 'underline' }}
               href={`http://www.openstreetmap.org/?mlat=${coordinates[0]}&mlon=${coordinates[1]}&zoom=12#map=12/${coordinates[0]}/${coordinates[1]}`}
               target="_blank"
               rel="noreferrer noopener"
             >
               ({coordinatesString})
-            </StyledLink>
+            </a>
           </Box>
           : null}
         {imgPath ?
@@ -86,7 +78,13 @@ class GeolocationTaskResponse extends Component {
             className="task__geolocation-image"
             onClick={this.handleOpenMap.bind(this)}
           >
-            <StyledImage
+            <img
+              style={{
+                cursor: 'pointer',
+                display: 'block',
+                height: units(7),
+                width: units(7),
+              }}
               src={imgPath}
               alt=""
             />

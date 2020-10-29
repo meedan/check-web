@@ -200,7 +200,6 @@ class TeamBotsComponent extends Component {
           { team.team_bot_installations.edges.map((installation) => {
             const bot = installation.node.team_bot;
             const botExpanded = this.state.expanded === bot.dbid;
-  
             return (
               <Box clone mb={5}>
                 <Card

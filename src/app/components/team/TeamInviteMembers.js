@@ -302,7 +302,7 @@ class TeamInviteMembers extends Component {
                   >
                     <CancelIcon />
                   </StyledIconButton>
-                </Row>  
+                </Row>
               </Box>
             </Row>
           </div>

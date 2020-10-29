@@ -87,7 +87,7 @@ class TeamMembersComponent extends Component {
                     />
                   ))}
                 </List>
-              </Card>  
+              </Card>
             </Box>
           </Can>
         }

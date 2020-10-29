@@ -211,7 +211,7 @@ class DatetimeRespondTask extends Component {
         <Box clone mb={2}>
           <FlexRow >
             <Box clone flex={10} >
-              <Box clone justifyContent='flex-start' alignItems='center'>
+              <Box clone justifyContent="flex-start" alignItems="center">
                 <FlexRow
                   id="task__response-time"
                 >
@@ -243,7 +243,9 @@ class DatetimeRespondTask extends Component {
                     <Autocomplete
                       className="task__datetime-timezone"
                       options={
-                        taskTimezones && taskTimezones.length ? taskTimezones : Object.values(timezones)
+                        taskTimezones && taskTimezones.length
+                          ? taskTimezones
+                          : Object.values(timezones)
                       }
                       getOptionLabel={option => option.label}
                       defaultValue={this.state.timezone}
@@ -268,7 +270,7 @@ class DatetimeRespondTask extends Component {
                 </FlexRow>
               </Box>
             </Box>
-          </FlexRow>  
+          </FlexRow>
         </Box>
         <Box color={alertRed} display="block" fontFamily="caption">
           {this.state.timeError ? this.state.timeError : ''}

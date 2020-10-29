@@ -165,7 +165,10 @@ class SingleChoiceTask extends Component {
               ))}
             </RadioGroup>
 
-            <Box display="flex" justifyContent="flex-start" alignItems="center"
+            <Box 
+              display="flex" 
+              justifyContent="flex-start" 
+              alignItems="center"
               className="task__options_other"
             >
               {other ?
