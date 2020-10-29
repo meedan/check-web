@@ -7,25 +7,25 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { SketchPicker } from 'react-color';
 
 const useStyles = makeStyles(theme => ({
-  statusButton: {
+  statusButton: props => ({
     borderRadius: theme.spacing(0.5),
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     color: 'white',
-  },
+    backgroundColor: props.backgroundColor,
+  }),
   statusButtonIcon: {
     fontSize: 32,
   },
 }));
 
 const ColorPicker = ({ color, onChange }) => {
-  const classes = useStyles();
+  const classes = useStyles({ backgroundColor: color });
   const [colorPickerAnchorEl, setColorPickerAnchorEl] = React.useState(null);
 
   return (
     <React.Fragment>
       <IconButton
-        style={{ backgroundColor: color }}
         className={classes.statusButton}
         onClick={e => setColorPickerAnchorEl(e.currentTarget)}
       >
