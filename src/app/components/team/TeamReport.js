@@ -9,7 +9,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { ContentColumn, units, checkBlue } from '../../styles/js/shared';
+import { ContentColumn, checkBlue } from '../../styles/js/shared';
 import Can from '../Can';
 import TeamRoute from '../../relay/TeamRoute';
 import Message from '../Message';
