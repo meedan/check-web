@@ -24,7 +24,7 @@ import ConfirmDialog from '../layout/ConfirmDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32, AlignOpposite } from '../../styles/js/shared';
+import { ContentColumn, black32, AlignOpposite } from '../../styles/js/shared';
 import Can, { can } from '../Can';
 import Message from '../Message';
 import { withPusher, pusherShape } from '../../pusher';
