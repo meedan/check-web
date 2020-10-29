@@ -8,19 +8,19 @@
     "defaultMessage": "email@example.com"
   },
   {
-    "id": "userEmail.submit",
-    "defaultMessage": "Submit"
-  },
-  {
-    "id": "userEmail.skip",
-    "defaultMessage": "Skip"
-  },
-  {
     "id": "userEmail.text",
     "defaultMessage": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\""
   },
   {
     "id": "userEmail.emailInputLabel",
     "defaultMessage": "Email"
+  },
+  {
+    "id": "userEmail.skip",
+    "defaultMessage": "Skip"
+  },
+  {
+    "id": "userEmail.submit",
+    "defaultMessage": "Submit"
   }
 ]

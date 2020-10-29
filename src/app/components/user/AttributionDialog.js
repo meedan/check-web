@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -47,14 +47,14 @@ class AttributionDialog extends React.Component {
             className="attribution-dialog__cancel"
             onClick={this.props.onDismiss}
           >
-            {this.props.intl.formatMessage(globalStrings.cancel)}
+            <FormattedMessage {...globalStrings.cancel} />
           </Button>
           <Button
             color="primary"
             className="attribution-dialog__save"
             onClick={this.handleSubmit}
           >
-            {this.props.intl.formatMessage(globalStrings.submit)}
+            <FormattedMessage {...globalStrings.submit} />
           </Button>
         </DialogActions>
       </Dialog>
@@ -66,4 +66,4 @@ AttributionDialog.propTypes = {
   taskType: PropTypes.string.isRequired,
 };
 
-export default injectIntl(AttributionDialog);
+export default AttributionDialog;
