@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CloseIcon from '@material-ui/icons/Close';
 import Dialog from '@material-ui/core/Dialog';
@@ -45,6 +46,13 @@ const ItemHistoryDialog = ({
       </DialogContent>
     </Dialog>
   );
+};
+
+ItemHistoryDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  projectMedia: PropTypes.object.isRequired,
+  team: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default ItemHistoryDialog;

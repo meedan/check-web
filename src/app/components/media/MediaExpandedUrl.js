@@ -36,8 +36,12 @@ const MediaExpandedUrl = ({ url }) => {
   );
 };
 
+MediaExpandedUrl.defaultProps = {
+  url: null,
+};
+
 MediaExpandedUrl.propTypes = {
-  url: PropTypes.string.isRequired,
+  url: PropTypes.string,
 };
 
 export default MediaExpandedUrl;
