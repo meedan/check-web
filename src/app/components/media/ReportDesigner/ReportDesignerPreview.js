@@ -89,7 +89,7 @@ const ReportDesignerPreview = (props) => {
             <ParsedText text={introduction} />
           ) : (
             <FormattedMessage
-              id="ReportImagePreview.addIntro"
+              id="reportDesigner.addIntro"
               defaultMessage="Add content to the introduction"
             />
           )}
@@ -100,7 +100,7 @@ const ReportDesignerPreview = (props) => {
             <ParsedText text={text.join('\n\n')} block />
           ) : (
             <FormattedMessage
-              id="ReportImagePreview.addText"
+              id="reportDesigner.addText"
               defaultMessage="Add content to the text message"
             />
           )}
