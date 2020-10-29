@@ -69,15 +69,13 @@ class TeamInvitedMemberItem extends Component {
                 />
               </Button>
             </Box>
-            <Box>
-              <Button
-                variant="contained"
-                onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
-                className="team-member-invited__user-button--resend"
-              >
-                <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
-              </Button>
-            </Box>
+            <Button
+              variant="contained"
+              onClick={this.handleTeamMemberInvites.bind(this, 'resend')}
+              className="team-member-invited__user-button--resend"
+            >
+              <FormattedMessage id="TeamMembersInvitedListItem.resend" defaultMessage="Resend" />
+            </Button>
           </FlexRow>
         </AlignOpposite>
       </ListItem>
