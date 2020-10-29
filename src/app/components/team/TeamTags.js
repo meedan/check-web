@@ -486,7 +486,7 @@ class TeamTagsComponent extends Component {
             <Box p={0}>
               <CardContent>
                 { tag_texts.length === 0 ?
-                  <Box pb={5} display='flex' alignItems='center'>
+                  <Box pb={5} display="flex" alignItems="center">
                     <p>
                       <FormattedMessage
                         id="teamTags.noTags"

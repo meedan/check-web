@@ -86,7 +86,7 @@ class TeamReportComponent extends React.Component {
           onChange={this.handleChangeLanguage.bind(this)}
         />
         <Can permissions={team.permissions} permission="update Team">
-          <Box mt={2} display='flex' alignItems='end' justifyContent='end'>
+          <Box mt={2} display="flex" alignItems="end" justifyContent="end">
             <p>
               <Button onClick={this.handleSubmit.bind(this)} primary>
                 <FormattedMessage id="teamReport.save" defaultMessage="Save" />
@@ -98,7 +98,7 @@ class TeamReportComponent extends React.Component {
           <Card>
             <CardHeader
               title={
-                <Box display='flex' alignItems='center'>
+                <Box display="flex" alignItems="center">
                   <FormattedMessage
                     id="teamReport.title"
                     defaultMessage="Default report settings"
@@ -116,7 +116,7 @@ class TeamReportComponent extends React.Component {
               }
             />
             <CardContent>
-              <Box display='flex' alignItems='center'>
+              <Box display="flex" alignItems="center">
                 <Checkbox
                   id="use_introduction"
                   key={`use-introduction-${currentLanguage}`}
@@ -152,7 +152,7 @@ class TeamReportComponent extends React.Component {
                   </a>
                 </div>
               </Box>
-              <Box mt={4} display='flex' alignItems='center'>
+              <Box mt={4} display="flex" alignItems="center">
                 <Checkbox
                   id="use_disclaimer"
                   key={`use-disclaimer-${currentLanguage}`}

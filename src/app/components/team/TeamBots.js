@@ -189,7 +189,7 @@ class TeamBotsComponent extends Component {
     return (
       <ContentColumn style={{ maxWidth: 900 }}>
         { team.team_bot_installations.edges.length === 0 ?
-          <Box pb={5} display='flex' alignItems='center' justifyContent='center'>
+          <Box pb={5} display="flex" alignItems="center" justifyContent="center">
             <FormattedMessage
               id="teamBots.noBots"
               defaultMessage="No bots installed."
@@ -282,7 +282,7 @@ class TeamBotsComponent extends Component {
                     { bot.settings_as_json_schema ?
                       <React.Fragment>
                         { bot.name !== 'Fetch' ?
-                          <Box display='flex' alignItems='center' justifyContent='space-between'>
+                          <Box display="flex" alignItems="center" justifyContent="space-between">
                             <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
                             <div>
                               <Button
@@ -331,7 +331,7 @@ class TeamBotsComponent extends Component {
             </Box>
           );
         })}
-        <Box display='flex' alignItems='end' justifyContent='end'>
+        <Box display="flex" alignItems="end" justifyContent="end">
           <p>
             <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
               <span>
