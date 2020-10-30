@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { getErrorMessage } from '../../helpers';
 import CheckContext from '../../CheckContext';
-import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { stringHelper } from '../../customHelpers';
+import { Row } from '../../styles/js/shared';
+
 
 const messages = defineMessages({
   error: {
@@ -95,7 +97,7 @@ class TagInput extends React.Component {
 
   render() {
     return (
-      <div style={{ padding: units(2) }}>
+      <Box p={2}>
         <Row>
           <TextField
             id="tag-input__tag-input"
@@ -106,19 +108,20 @@ class TagInput extends React.Component {
             onKeyPress={this.handleKeyPress.bind(this)}
             placeholder={this.props.intl.formatMessage(messages.search)}
           />
-          <Button
-            style={{ marginLeft: 'auto' }}
-            onClick={this.handleSubmit.bind(this)}
-            color="primary"
-            disabled={this.state.submitDisabled}
-          >
-            <FormattedMessage
-              id="tagInput.addTag"
-              defaultMessage="Add Tag"
-            />
-          </Button>
+          <Box ml="auto">
+            <Button
+              onClick={this.handleSubmit.bind(this)}
+              color="primary"
+              disabled={this.state.submitDisabled}
+            >
+              <FormattedMessage
+                id="tagInput.addTag"
+                defaultMessage="Add Tag"
+              />
+            </Button>
+          </Box>
         </Row>
-      </div>
+      </Box>
     );
   }
 }
