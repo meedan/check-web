@@ -40,7 +40,7 @@
     "defaultMessage": "Create \"{resourceName}\""
   },
   {
-    "id": "smoochBotMenuOption.selectAction",
-    "defaultMessage": "Select action"
+    "id": "smoochBotMenuOption.selectMessage",
+    "defaultMessage": "Select message"
   }
 ]

@@ -122,5 +122,9 @@
   {
     "id": "smoochBot.newResourceTitle",
     "defaultMessage": "New bot resource"
+  },
+  {
+    "id": "smoochBot.menuKeywords",
+    "defaultMessage": "Keywords separated by comma"
   }
 ]

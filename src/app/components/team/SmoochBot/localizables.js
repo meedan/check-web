@@ -95,6 +95,10 @@ Contact us at *[email or other contact]* for further inquiries.`,
     id: 'smoochBot.newResourceTitle',
     defaultMessage: 'New bot resource',
   },
+  menu_keywords: {
+    id: 'smoochBot.menuKeywords',
+    defaultMessage: 'Keywords separated by comma',
+  },
 });
 
 export { labels, descriptions, placeholders };
