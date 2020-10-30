@@ -72,7 +72,8 @@ shared_examples 'task' do
     # Add comment to task
     expect(@driver.page_source.include?('This is a comment under a task')).to be(false)
     add_task_comment('This is a comment under a task')
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     wait_for_selector("//span[contains(text(), 'Task note added')]", :xpath)
     expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
 
@@ -204,7 +205,7 @@ shared_examples 'task' do
 
     # Edit task answer
     edit_task_response(task_type_class: '.create-task__add-choose-one', choice:'Doo')
-    
+
     # Delete task
     delete_task
     expect(@driver.page_source.include?('Foo, Doo or Bar???')).to be(false)
@@ -268,7 +269,8 @@ shared_examples 'task' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
 
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     old = wait_for_size_change(old, "annotations__list-item", :class)
     wait_for_selector(".media-tab__tasks").click
 
