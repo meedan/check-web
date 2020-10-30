@@ -91,8 +91,9 @@ shared_examples 'media' do |type|
     wait_for_selector('.annotation__avatar-col')
     wait_for_selector(".media-actions__icon").click
     wait_for_selector(".media-actions__history").click
-    expect(@driver.find_elements(:class, "annotation__timestamp").length == 0).to be(true)
+    expect(@driver.find_elements(:class, "annotation__timestamp").length == 1).to be(true)
     expect(@driver.page_source.include?('Comment deleted')).to be(false)
+    wait_for_selector("#item-history__close-button").click
     wait_for_selector(".media-tab__comments").click
     wait_for_selector('.annotation .menu-button').click
     wait_for_selector('.annotation__delete').click

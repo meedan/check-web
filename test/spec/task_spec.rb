@@ -77,6 +77,9 @@ shared_examples 'task' do
     wait_for_selector("//span[contains(text(), 'Task note added')]", :xpath)
     expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
 
+    # Dismiss dialog
+    wait_for_selector("#item-history__close-button").click
+
     # Create another task
     wait_for_selector(".media-tab__tasks").click
     expect(@driver.page_source.include?("Task 2")).to be (false)
@@ -272,6 +275,7 @@ shared_examples 'task' do
     wait_for_selector(".media-actions__icon").click
     wait_for_selector(".media-actions__history").click
     old = wait_for_size_change(old, "annotations__list-item", :class)
+    wait_for_selector("#item-history__close-button").click
     wait_for_selector(".media-tab__tasks").click
 
     # Create a task

@@ -34,7 +34,12 @@ const ItemHistoryDialog = ({
     >
       <DialogTitle>
         <FormattedMessage id="ItemHistoryDialog.title" defaultMessage="Item history" />
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          id="item-history__close-button"
+          onClick={onClose}
+        >
           <CloseIcon />
         </IconButton>
       </DialogTitle>
