@@ -108,7 +108,7 @@ class TagInput extends React.Component {
             placeholder={this.props.intl.formatMessage(messages.search)}
           />
          <Box ml="auto">
-           <Button 
+           <Button
             onClick={this.handleSubmit.bind(this)}
             color="primary"
             disabled={this.state.submitDisabled}
