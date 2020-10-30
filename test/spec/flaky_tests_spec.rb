@@ -51,7 +51,7 @@ module FlakyTests
       end
       puts "Tests after update: #{file}"
       create_file(file)
-      if(File.exist?('example.txt'))
+      if(File.exist?('file.json'))
         puts "file exist"
       else
         puts "file doesn't exist"
