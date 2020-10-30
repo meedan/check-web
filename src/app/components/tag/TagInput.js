@@ -6,7 +6,6 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { getErrorMessage } from '../../helpers';
 import CheckContext from '../../CheckContext';
-import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { stringHelper } from '../../customHelpers';
 
