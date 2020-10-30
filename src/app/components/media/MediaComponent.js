@@ -18,7 +18,6 @@ import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
 import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
-import MediaLog from './MediaLog';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
@@ -349,22 +348,11 @@ class MediaComponent extends Component {
                 value="notes"
                 className="media-tab__comments"
               />
-              <StyledTab
-                label={
-                  <FormattedMessage
-                    id="mediaComponent.activity"
-                    defaultMessage="Activity"
-                  />
-                }
-                value="activity"
-                className="media-tab__activity"
-              />
             </Tabs>
             { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
             { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
             { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
             { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-            { this.state.showTab === 'activity' ? <MediaLog media={media} /> : null }
           </Column>
         </StyledThreeColumnLayout>
 
