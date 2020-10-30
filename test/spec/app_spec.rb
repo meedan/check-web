@@ -76,14 +76,14 @@ shared_examples 'app' do |webdriver_url|
     link = save_screenshot("Test failed: #{example.description}")
     if example.exception
       if @failing_tests.has_key? example.description
-        @failing_tests[example.description]['failure']= example.metadata[:retry_attempts] + 1
+        @failing_tests[example.description]['failures']= example.metadata[:retry_attempts] + 1
         @failing_tests[example.description]['imgur']= link
       else 
         flaky['failures'] = example.metadata[:retry_attempts] + 1
         flaky['imgur'] = link
         @failing_tests[example.description]= flaky
       end 
-      print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: ] "
+      puts" [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: ] "
       # print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
     end
   end
