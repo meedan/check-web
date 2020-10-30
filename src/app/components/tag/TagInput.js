@@ -108,7 +108,7 @@ class TagInput extends React.Component {
             onKeyPress={this.handleKeyPress.bind(this)}
             placeholder={this.props.intl.formatMessage(messages.search)}
           />
-         <Box ml="auto">
+        <Box ml="auto">
             <Button
               onClick={this.handleSubmit.bind(this)}
               color="primary"
