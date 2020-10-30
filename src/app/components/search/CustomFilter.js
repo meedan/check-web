@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Paper from '@material-ui/core/Paper';
@@ -73,7 +74,7 @@ const CustomFilter = ({
       onRemove={onRemove}
     >
       {[
-        <Paper className={[classes.paper, classes.paper2, classes.ifGroup].join(' ')}>
+        <Paper key="single-child" className={[classes.paper, classes.paper2, classes.ifGroup].join(' ')}>
           <Autocomplete
             className={classes.paper2}
             label={filterTypeLabel}
@@ -135,6 +136,40 @@ const CustomFilter = ({
       ]}
     </RuleOperatorWrapper>
   );
+};
+
+CustomFilter.defaultProps = {
+  filterType: null,
+  filterTypeOptions: null,
+  filterEntity: null,
+  filterEntityLabel: null,
+  filterEntityOptions: null,
+  filterEntityValue: null,
+  filterEntityValueOptions: null,
+};
+
+CustomFilter.propTypes = {
+  filterType: PropTypes.string,
+  filterTypeOptions: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
+  onChangeFilterType: PropTypes.func.isRequired,
+  filterEntity: PropTypes.number,
+  filterEntityLabel: PropTypes.node,
+  filterEntityOptions: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.number.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
+  onChangeFilterEntity: PropTypes.func.isRequired,
+  filterEntityValue: PropTypes.string,
+  filterEntityValueOptions: PropTypes.arrayOf(PropTypes.shape({
+    key: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })),
+  onChangeFilterEntityValue: PropTypes.func.isRequired,
+  onAdd: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default CustomFilter;

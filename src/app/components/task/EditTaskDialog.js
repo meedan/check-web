@@ -43,17 +43,9 @@ const StyledTaskAssignment = styled.div`
 `;
 
 const messages = defineMessages({
-  addValue: {
-    id: 'singleChoiceTask.addValue',
-    defaultMessage: 'Add Option',
-  },
   value: {
     id: 'singleChoiceTask.value',
     defaultMessage: 'Value',
-  },
-  addOther: {
-    id: 'singleChoiceTask.addOther',
-    defaultMessage: 'Add "Other"',
   },
   other: {
     id: 'singleChoiceTask.other',
@@ -240,13 +232,19 @@ class EditTaskDialog extends React.Component {
         ))}
         <Box mt={1} >
           <Button onClick={this.handleAddValue.bind(this)}>
-            {this.props.intl.formatMessage(messages.addValue)}
+            <FormattedMessage
+              id="singleChoiceTask.addValue"
+              defaultMessage="Add Option"
+            />
           </Button>
           <Button
             onClick={this.handleAddOther.bind(this)}
             disabled={this.state.hasOther}
           >
-            {this.props.intl.formatMessage(messages.addOther)}
+            <FormattedMessage
+              id="singleChoiceTask.addOther"
+              defaultMessage='Add "Other"'
+            />
           </Button>
         </Box>
       </Box>

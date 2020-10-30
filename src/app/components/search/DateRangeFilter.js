@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
@@ -84,8 +85,8 @@ class DateRangeFilter extends React.Component {
   }
 
   render() {
-    const { hidden, classes } = this.props;
-    if (hidden) {
+    const { hide, classes } = this.props;
+    if (hide) {
       return null;
     }
 
@@ -142,5 +143,36 @@ class DateRangeFilter extends React.Component {
     );
   }
 }
+
+DateRangeFilter.defaultProps = {
+  hide: false,
+  value: null,
+};
+
+DateRangeFilter.propTypes = {
+  classes: PropTypes.object.isRequired,
+  hide: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    PropTypes.shape({
+      created_at: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+    PropTypes.shape({
+      last_seen: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+    PropTypes.shape({
+      updated_at: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+  ]),
+  onChange: PropTypes.func.isRequired,
+};
 
 export default withStyles(Styles)(DateRangeFilter);

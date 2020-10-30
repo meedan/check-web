@@ -16,10 +16,6 @@
     "defaultMessage": "Receive email notifications"
   },
   {
-    "id": "userInfoEdit.addLink",
-    "defaultMessage": "Add Link"
-  },
-  {
     "id": "userInfoEdit.editError",
     "defaultMessage": "Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists."
   },
@@ -32,10 +28,6 @@
     "defaultMessage": "Add a link"
   },
   {
-    "id": "userInfoEdit.addLinkHelper",
-    "defaultMessage": "Add a link to a web page or social media profile. Note: this does not affect your login method."
-  },
-  {
     "id": "userInfoEdit.emailConfirmed",
     "defaultMessage": "✔ Address confirmed"
   },
@@ -46,5 +38,13 @@
   {
     "id": "userInfoEdit.invalidLink",
     "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "userInfoEdit.addLinkHelper",
+    "defaultMessage": "Add a link to a web page or social media profile. Note: this does not affect your login method."
+  },
+  {
+    "id": "userInfoEdit.addLink",
+    "defaultMessage": "Add Link"
   }
 ]
