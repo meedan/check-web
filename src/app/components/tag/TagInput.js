@@ -112,7 +112,7 @@ class TagInput extends React.Component {
             onClick={this.handleSubmit.bind(this)}
             color="primary"
             disabled={this.state.submitDisabled}
-           >
+          >
            <FormattedMessage
              id="tagInput.addTag"
              defaultMessage="Add Tag"
