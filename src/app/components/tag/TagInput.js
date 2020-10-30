@@ -9,7 +9,6 @@ import CheckContext from '../../CheckContext';
 import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { stringHelper } from '../../customHelpers';
-import { makeStyles } from '@material-ui/core/styles';
 
 
 const messages = defineMessages({
@@ -109,18 +108,18 @@ class TagInput extends React.Component {
             onKeyPress={this.handleKeyPress.bind(this)}
             placeholder={this.props.intl.formatMessage(messages.search)}
           />
-          <Box ml="auto">
-          <Button 
+         <Box ml="auto">
+           <Button 
             onClick={this.handleSubmit.bind(this)}
             color="primary"
             disabled={this.state.submitDisabled}
-          >
-            <FormattedMessage
-              id="tagInput.addTag"
-              defaultMessage="Add Tag"
+           >
+           <FormattedMessage
+             id="tagInput.addTag"
+             defaultMessage="Add Tag"
             />
-          </Button>
-          </Box>
+           </Button>
+         </Box>
         </Row>
       </Box>
     );
