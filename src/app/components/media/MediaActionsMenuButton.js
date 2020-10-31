@@ -56,6 +56,7 @@ class MediaActionsMenuButton extends React.PureComponent {
       handleRestore,
       handleAssign,
       handleStatusLock,
+      handleItemHistory,
     } = this.props;
     const menuItems = [];
 
@@ -133,6 +134,19 @@ class MediaActionsMenuButton extends React.PureComponent {
           />
         </MenuItem>));
     }
+
+    menuItems.push((
+      <MenuItem
+        key="mediaActions.history"
+        className="media-actions__history"
+        id="media-actions__history"
+        onClick={e => this.handleActionAndClose(e, handleItemHistory)}
+      >
+        <ListItemText
+          primary={<FormattedMessage id="mediaActions.history" defaultMessage="Item history" />}
+        />
+      </MenuItem>
+    ));
 
     return menuItems.length ? (
       <div>

@@ -66,6 +66,7 @@ class MediaLogComponent extends Component {
         annotations={media.log.edges}
         annotated={media}
         annotatedType="ProjectMedia"
+        team={this.props.team}
       />
     );
   }
@@ -112,7 +113,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
         id
         dbid
         pusher_channel
-        team { verification_statuses } # FIXME: Make Annotation a container
         log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
           edges {
             node {
@@ -266,7 +266,13 @@ const MediaLog = (props) => {
   return (
     <Relay.RootContainer
       Component={MediaLogContainer}
-      renderFetched={data => <MediaLogContainer cachedMedia={props.media} {...data} />}
+      renderFetched={data => (
+        <MediaLogContainer
+          cachedMedia={props.media}
+          {...data}
+          team={props.team}
+        />
+      )}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />

@@ -95,6 +95,7 @@ class Annotations extends React.Component {
                   annotatedType={props.annotatedType}
                   annotation={annotation.node}
                   onTimelineCommentOpen={props.onTimelineCommentOpen}
+                  team={props.team}
                 />
               </div>))}
           { hasMore ? (
