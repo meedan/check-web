@@ -28,8 +28,8 @@
     "defaultMessage": "Date and time"
   },
   {
-    "id": "tasks.imageUpload",
-    "defaultMessage": "Image upload"
+    "id": "tasks.fileUpload",
+    "defaultMessage": "File upload"
   },
   {
     "id": "tasks.teamwideNudge",

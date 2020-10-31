@@ -57,7 +57,7 @@ class UpdateTaskMutation extends Relay.Mutation {
           first_response: {
             permissions: '{}',
             content: JSON.stringify(content),
-            image_data: {},
+            file_data: {},
             attribution: {
               edges: [
                 {
