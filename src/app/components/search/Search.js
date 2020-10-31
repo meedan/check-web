@@ -54,7 +54,7 @@ export function noFilters(query_, project) {
 }
 
 export default function Search({
-  fields,
+  hideFields,
   listActions,
   listDescription,
   mediaUrlPrefix,
@@ -79,7 +79,7 @@ export default function Search({
       listActions={listActions}
       listDescription={listDescription}
       page={page}
-      fields={fields}
+      hideFields={hideFields}
       title={title}
       query={timestampedQuery}
     />
@@ -88,7 +88,7 @@ export default function Search({
 Search.defaultProps = {
   project: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
-  fields: undefined,
+  hideFields: undefined,
   listDescription: undefined,
   listActions: undefined,
 };
@@ -100,7 +100,7 @@ Search.propTypes = {
   project: PropTypes.object, // or null
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
-  fields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
 };

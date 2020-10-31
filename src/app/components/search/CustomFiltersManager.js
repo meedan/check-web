@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CustomTeamTaskFilter from './CustomTeamTaskFilter';
 import { StyledFilterRow } from './SearchQueryComponent';
@@ -27,7 +28,7 @@ const CustomFiltersManager = ({
       if (modal) {
         modal.scrollTop = modal.scrollHeight;
       }
-    }, 500);
+    }, 100);
   };
 
   const handleRemoveFilter = (index) => {
@@ -45,10 +46,10 @@ const CustomFiltersManager = ({
         <h4><FormattedMessage id="CustomFiltersManager.addFilters" defaultMessage="Add filters" /></h4>
       </StyledFilterRow>
       {
-        filters.map((ttf, i) => (
+        filters.map((filter, i) => (
           <CustomTeamTaskFilter
-            key={ttf.id || `uncommitted-filter-${i}`}
-            filter={ttf}
+            key={filter.id || `uncommitted-filter-${i}`}
+            filter={filter}
             index={i}
             onAdd={handleAddFilter}
             onRemove={filters.length > 1 ? handleRemoveFilter : () => {}}
@@ -59,6 +60,18 @@ const CustomFiltersManager = ({
       }
     </React.Fragment>
   );
+};
+
+CustomFiltersManager.propTypes = {
+  onFilterChange: PropTypes.func.isRequired,
+  query: PropTypes.shape({
+    team_tasks: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string,
+      response: PropTypes.string,
+      response_type: PropTypes.string,
+    })),
+  }).isRequired,
+  team: PropTypes.object.isRequired,
 };
 
 export default CustomFiltersManager;

@@ -6,6 +6,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
+import withStyles from '@material-ui/core/styles/withStyles';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import UserConnectedAccount from '../user/UserConnectedAccount';
 import { logout } from '../../redux/actions';
@@ -14,8 +15,31 @@ import CheckContext from '../../CheckContext';
 import { mapGlobalMessage } from '../MappedMessage';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
-import { units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
+
+const useStyles = theme => ({
+  linkStyle: {
+    textDecoration: 'underline',
+  },
+  headerStyle: {
+    margin: theme.spacing(2, 0),
+    marginTop: theme.spacing(6),
+  },
+  style: {
+    margin: theme.spacing(2, 0),
+  },
+  cardStyle: {
+    margin: theme.spacing(2, 0),
+  },
+  cardTextStyle: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  buttonStyle: {
+    minWidth: 300,
+    textAlign: 'end',
+  },
+});
 
 const messages = defineMessages({
   deleteAccount: {
@@ -78,34 +102,13 @@ class UserPrivacy extends Component {
 
   render() {
     const { user } = this.props;
+    const { classes } = this.props;
 
     const currentUser = this.getCurrentUser();
 
     if (!currentUser || !user || currentUser.dbid !== user.dbid) {
       return null;
     }
-
-    const linkStyle = {
-      textDecoration: 'underline',
-    };
-
-    const style = {
-      margin: `${units(2)} 0`,
-    };
-
-    const cardStyle = {
-      margin: `${units(2)} 0`,
-    };
-
-    const cardTextStyle = {
-      display: 'flex',
-      alignItems: 'center',
-    };
-
-    const buttonStyle = {
-      minWidth: 300,
-      textAlign: 'end',
-    };
 
     const confirmDialog = {
       blurb: <FormattedMessage
@@ -120,7 +123,7 @@ class UserPrivacy extends Component {
       <a
         target="_blank"
         rel="noopener noreferrer"
-        style={linkStyle}
+        className={classes.linkStyle}
         href={stringHelper('PP_URL')}
       >
         <FormattedMessage id="userPrivacy.ppLink" defaultMessage="Privacy Policy" />
@@ -132,10 +135,10 @@ class UserPrivacy extends Component {
 
     return (
       <div id="user__privacy">
-        <h2 style={style}>
+        <h2 className={classes.style}>
           <FormattedMessage id="userPrivacy.title" defaultMessage="Your information" />
         </h2>
-        <p style={style}>
+        <p className={classes.style}>
           <FormattedMessage
             id="userPrivacy.description"
             defaultMessage="Please review our {ppLink} to learn how {appName} uses and stores your information."
@@ -145,8 +148,8 @@ class UserPrivacy extends Component {
             }}
           />
         </p>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.seeInformationText"
               defaultMessage="We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
@@ -154,7 +157,7 @@ class UserPrivacy extends Component {
             />
             <Button
               id="user-privacy__see-info"
-              style={buttonStyle}
+              className={classes.buttonStyle}
               color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Send information')}
             >
@@ -162,8 +165,8 @@ class UserPrivacy extends Component {
             </Button>
           </CardContent>
         </Card>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.stopProcessingText"
               defaultMessage="You can request {appName} to stop processing your information under certain conditions."
@@ -171,7 +174,7 @@ class UserPrivacy extends Component {
             />
             <Button
               id="user-privacy__stop-processing"
-              style={buttonStyle}
+              className={classes.buttonStyle}
               color="primary"
               onClick={UserPrivacy.handleSubmit.bind(this, 'Stop processing')}
             >
@@ -179,11 +182,11 @@ class UserPrivacy extends Component {
             </Button>
           </CardContent>
         </Card>
-        <h2 style={style}>
+        <h2 className={classes.style}>
           <FormattedMessage id="userPrivacy.connectedAccounts" defaultMessage="Connected accounts" />
         </h2>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
             <List>
               { providers.map(provider => (
                 <UserConnectedAccount
@@ -195,11 +198,11 @@ class UserPrivacy extends Component {
             </List>
           </CardContent>
         </Card>
-        <h2 style={Object.assign({}, style, { marginTop: units(6) })}>
+        <h2 className={classes.headerStyle}>
           <FormattedMessage id="userPrivacy.delete" defaultMessage="Delete your account" />
         </h2>
-        <Card style={cardStyle}>
-          <CardContent style={cardTextStyle}>
+        <Card className={classes.cardStyle}>
+          <CardContent className={classes.cardTextStyle}>
             <FormattedMessage
               id="userPrivacy.deleteAccountText"
               defaultMessage="If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
@@ -207,7 +210,7 @@ class UserPrivacy extends Component {
             />
             <Button
               id="user-privacy__delete-account"
-              style={buttonStyle}
+              className={classes.buttonStyle}
               color="primary"
               onClick={this.handleOpenDialog.bind(this)}
             >
@@ -232,4 +235,4 @@ UserPrivacy.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(UserPrivacy);
+export default withStyles(useStyles)(injectIntl(UserPrivacy));
