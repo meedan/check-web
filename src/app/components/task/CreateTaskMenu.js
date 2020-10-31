@@ -11,7 +11,7 @@ import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import GradeIcon from '@material-ui/icons/Grade';
-import IconImageUpload from '@material-ui/icons/CloudUpload';
+import IconFileUpload from '@material-ui/icons/CloudUpload';
 
 class CreateTaskMenu extends React.Component {
   constructor(props) {
@@ -117,12 +117,12 @@ class CreateTaskMenu extends React.Component {
             />
           </MenuItem>
           <MenuItem
-            className="create-task__add-image-upload"
-            onClick={() => this.handleSelectType('image_upload')}
+            className="create-task__add-file-upload"
+            onClick={() => this.handleSelectType('file_upload')}
           >
-            <ListItemIcon><IconImageUpload /></ListItemIcon>
+            <ListItemIcon><IconFileUpload /></ListItemIcon>
             <ListItemText
-              primary={<FormattedMessage id="tasks.imageUpload" defaultMessage="Image upload" />}
+              primary={<FormattedMessage id="tasks.fileUpload" defaultMessage="File upload" />}
             />
           </MenuItem>
           { !this.props.teamSettings && isTask ?

@@ -12,8 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
 import TaskLog from './TaskLog';
@@ -24,7 +22,7 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import ImageUploadRespondTask from './ImageUploadRespondTask';
+import FileUploadRespondTask from './FileUploadRespondTask';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
@@ -41,7 +39,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, black87 } from '../../styles/js/shared';
+import { Row, units, black16, black87, checkBlue } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
   width: 100%;
@@ -106,7 +104,6 @@ class Task extends Component {
       editingResponse: false,
       editingAttribution: false,
       expand: true,
-      zoomedImage: null,
     };
   }
 
@@ -311,14 +308,6 @@ class Task extends Component {
     );
   };
 
-  handleCloseImage() {
-    this.setState({ zoomedImage: false });
-  }
-
-  handleOpenImage(image) {
-    this.setState({ zoomedImage: image });
-  }
-
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
     const isTask = task.fieldset === 'tasks';
@@ -375,8 +364,8 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
               />
               : null}
-            {task.type === 'image_upload' ?
-              <ImageUploadRespondTask
+            {task.type === 'file_upload' ?
+              <FileUploadRespondTask
                 fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
@@ -388,9 +377,9 @@ class Task extends Component {
         </div>
       );
     }
-    let imageUploadPath = null;
-    if (task.type === 'image_upload' && responseObj.image_data && responseObj.image_data.length) {
-      [imageUploadPath] = responseObj.image_data;
+    let fileUploadPath = null;
+    if (task.type === 'file_upload' && responseObj.file_data && responseObj.file_data.length) {
+      [fileUploadPath] = responseObj.file_data;
     }
     return (
       <StyledWordBreakDiv className="task__resolved">
@@ -423,28 +412,19 @@ class Task extends Component {
             jsonoptions={task.jsonoptions}
           />
           : null}
-        {task.type === 'image_upload' ?
+        {task.type === 'file_upload' ?
           <div className="task__response">
-            <div onClick={this.handleOpenImage.bind(this, imageUploadPath)}>
-              <div style={{ textAlign: 'center', cursor: 'pointer' }}>
-                <Box
-                  component="img"
-                  height="auto"
-                  maxHeight={300}
-                  maxWidth={300}
-                  src={imageUploadPath}
-                  className="task__response-thumbnail"
-                  alt=""
-                />
-                <Box component="p" textAlign="center"><small>{response}</small></Box>
-              </div>
-              {this.state.zoomedImage
-                ? <Lightbox
-                  onCloseRequest={this.handleCloseImage.bind(this)}
-                  mainSrc={this.state.zoomedImage}
-                />
-                : null}
-            </div>
+            <Box component="p" textAlign="center">
+              <Box 
+                component="a"
+                href={fileUploadPath}
+                target="_blank"
+                rel="noreferrer noopener"
+                color={checkBlue}
+              >
+                {response}
+              </Box>
+            </Box>
           </div>
           : null}
         { by && byPictures && isTask ?
@@ -619,8 +599,8 @@ class Task extends Component {
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}
-                    {task.type === 'image_upload' ?
-                      <ImageUploadRespondTask
+                    {task.type === 'file_upload' ?
+                      <FileUploadRespondTask
                         fieldset={task.fieldset}
                         task={task}
                         onSubmit={this.handleSubmitResponse}
@@ -813,7 +793,7 @@ export default Relay.createContainer(Task, {
               dbid,
               permissions,
               content,
-              image_data,
+              file_data,
               attribution(first: 10000) {
                 edges {
                   node {
@@ -874,7 +854,7 @@ export default Relay.createContainer(Task, {
           dbid,
           permissions,
           content,
-          image_data,
+          file_data,
           attribution(first: 10000) {
             edges {
               node {
