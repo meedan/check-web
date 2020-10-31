@@ -12,6 +12,10 @@
     "defaultMessage": "Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
   },
   {
+    "id": "uploadFile.fileMessage",
+    "defaultMessage": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+  },
+  {
     "id": "uploadFile.invalidExtension",
     "defaultMessage": "The file cannot have type \"{extension}\". Please try with the following file types: {allowed_types}."
   },
