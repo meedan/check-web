@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SmoochBotSelectReport from './SmoochBotSelectReport';
+import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
 import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
 
@@ -166,6 +167,7 @@ const SmoochBotMenuOption = (props) => {
             key={Math.random().toString().substring(2, 10)}
             defaultValue={option.smooch_menu_option_keyword}
             onBlur={handleChangeKeywords}
+            placeholder={props.intl.formatMessage(placeholders.menu_keywords)}
             variant="outlined"
             fullWidth
           />
@@ -269,8 +271,8 @@ const SmoochBotMenuOption = (props) => {
                   {...params}
                   label={
                     <FormattedMessage
-                      id="smoochBotMenuOption.selectAction"
-                      defaultMessage="Select action"
+                      id="smoochBotMenuOption.selectMessage"
+                      defaultMessage="Select message"
                     />
                   }
                   variant="outlined"
