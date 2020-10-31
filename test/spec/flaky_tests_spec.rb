@@ -53,12 +53,6 @@ module FlakyTests
     end
   end
 
-  def save_failing_tests(failing_tests)
-    if ENV['TRAVIS_BRANCH'] == 'master' || ENV['TRAVIS_BRANCH'] == 'develop'
-      update_failing_tests_file(failing_tests)
-    end
-  end
-
   def create_file(tests)
     File.write('file.json', JSON.dump(tests))
   end

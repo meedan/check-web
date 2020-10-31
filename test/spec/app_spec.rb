@@ -88,7 +88,9 @@ shared_examples 'app' do |webdriver_url|
   end
 
   after :all do
-    save_failing_tests(@failing_tests)
+    if ENV['TRAVIS_BRANCH'] == 'master' || ENV['TRAVIS_BRANCH'] == 'develop'
+      update_failing_tests_file(@failing_tests)
+    end
   end
 
   # The tests themselves start here
