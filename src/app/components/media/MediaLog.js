@@ -90,7 +90,6 @@ const fieldNames = [
   'team_bot_response_formatted_data', 'reverse_image_path', 'archive_is_response',
   'archive_org_response', 'keep_backup_response', 'embed_code_copied',
   'pender_archive_response', 'perma_cc_response', 'video_archiver_response',
-  'suggestion_image_upload', 'response_image_upload',
 ];
 
 const annotationTypes = ['verification_status', 'flag'];

@@ -6,28 +6,28 @@ import UploadFile from '../UploadFile';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
 
-export default function ImageUploadRespondTask({
+export default function FileUploadRespondTask({
   fieldset, onDismiss, onSubmit,
 }) {
-  // Store image+message as a single value: they always change as one.
-  const [state, setState] = React.useState({ image: null, message: null });
+  // Store file + message as a single value: they always change as one.
+  const [state, setState] = React.useState({ file: null, message: null });
 
   const handleChange = React.useCallback((file) => {
-    setState({ image: file, message: null });
+    setState({ file, message: null });
   });
 
   const handleError = React.useCallback((file, message) => {
-    setState({ image: null, message });
+    setState({ file: null, message });
   });
 
   const handleClickSubmit = React.useCallback(() => {
-    const { image } = state;
-    onSubmit(image.name, image);
-    setState({ image: null, message: null });
+    const { file } = state;
+    onSubmit(file.name, file);
+    setState({ file: null, message: null });
   }, [state, onSubmit]);
 
   const handleClickCancel = React.useCallback(() => {
-    setState({ image: null, message: null });
+    setState({ file: null, message: null });
     onDismiss();
   }, [onDismiss]);
 
@@ -35,23 +35,23 @@ export default function ImageUploadRespondTask({
     <div>
       <Message message={state.message} />
       <UploadFile
-        type="image"
-        value={state.image}
+        type="file"
+        value={state.file}
         onChange={handleChange}
         onError={handleError}
       />
       <p className="task__resolver">
         <Button className="task__cancel" onClick={handleClickCancel}>
-          <FormattedMessage id="imageUploadRespondTask.cancelTask" defaultMessage="Cancel" />
+          <FormattedMessage id="fileUploadRespondTask.cancelTask" defaultMessage="Cancel" />
         </Button>
         <Button
           className="task__save"
           onClick={handleClickSubmit}
-          disabled={!state.image}
+          disabled={!state.file}
           color="primary"
         >
           { fieldset === 'tasks' ?
-            <FormattedMessage id="imageUploadRespondTask.answerTask" defaultMessage="Answer task" /> :
+            <FormattedMessage id="fileUploadRespondTask.answerTask" defaultMessage="Answer task" /> :
             <FormattedGlobalMessage messageKey="save" />
           }
         </Button>
@@ -59,11 +59,11 @@ export default function ImageUploadRespondTask({
     </div>
   );
 }
-ImageUploadRespondTask.defaultProps = {
+FileUploadRespondTask.defaultProps = {
   onDismiss: () => {},
 
 };
-ImageUploadRespondTask.propTypes = {
+FileUploadRespondTask.propTypes = {
   onDismiss: PropTypes.func, // onDismiss() => undefined
   onSubmit: PropTypes.func.isRequired, // onSubmit(fileName, file) => undefined
 };
