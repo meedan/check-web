@@ -53,40 +53,36 @@ shared_examples 'login' do
     expect(displayed_name == expected_name).to be(true)
   end
 
-  it "should register and login using e-mail flaky-tests", bin5: true, quick:true do
+  it "should register and login using e-mail", bin5: true, quick:true do
     register_with_email
     @driver.navigate.to @config['self_url'] + '/check/me'
-    expect(@driver.page_source.include?('flaky-tests')).to be(true)
     displayed_name = wait_for_selector('h1.source__name').text
     expect(displayed_name == 'User With Email').to be(true)
   end
 
-  it "should invite a user by e-mail to join team flaky-tests", bin6: true do
+  it "should invite a user by e-mail to join team", bin6: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to @config['self_url']+'/'+team
-    expect(@driver.page_source.include?('flaky-tests')).to be(true)
     wait_for_selector(".team-members__invite-button").click
     wait_for_selector(".invite-member-email-input input").send_keys("user-email@email.com")
     wait_for_selector(".team-invite-members__dialog-submit-button").click
     wait_for_selector_none(".invite-member-email-input")
   end
 
-  it "should redirect to login screen by the join team link flaky-tests", bin2: true do
+  it "should redirect to login screen by the join team link", bin2: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     api_logout
     @driver.quit
     @driver = new_driver()
     @driver.navigate.to @config['self_url'] + "/"+team+"/join"
-    expect(@driver.page_source.include?('flaky-tests')).to be(true)
     wait_for_selector(".message")
     expect(@driver.page_source.include?("First you need to register. Once registered, you can request to join the workspace.")).to be(true)
   end
 
-  it "should not reset password flaky-tests", bin5: true do
+  it "should not reset password", bin5: true do
     @driver.navigate.to @config['self_url']
-    expect(@driver.page_source.include?('flaky-tests')).to be(true)
     reset_password('test@meedan.com')
     wait_for_selector(".user-password-reset__email-input")
     wait_for_selector("#password-reset-email-input-helper-text")
@@ -101,10 +97,9 @@ shared_examples 'login' do
     expect(@driver.page_source.include?('Sign in')).to be(true)
   end
 
-  it "should logout flaky-tests", bin5: true do
+  it "should logout", bin5: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    expect(@driver.page_source.include?('flaky-tests')).to be(true)
     logout
     expect(@driver.page_source.include?('Sign in')).to be(true)
   end

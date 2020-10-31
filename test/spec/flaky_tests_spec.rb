@@ -13,11 +13,10 @@ module FlakyTests
     s3 = Aws::S3::Resource.new(client:client)
     bucket_name = 'check-web-travis'
     current_branch = ENV['TRAVIS_BRANCH']
-    if current_branch == "tests/8635-identify-flaky-tests"
+    if current_branch == "master"
       key = 'flaky-tests/master.json'
-      # key = 'file.json'
-    # else
-      # key = 'flaky-tests/develop.json'
+    else
+      key = 'flaky-tests/develop.json'
     end
     file = s3.bucket(bucket_name).object(key)
   end
@@ -25,7 +24,6 @@ module FlakyTests
   def update_failing_tests_file(failing_tests)
     unless failing_tests.empty?
       file = JSON.parse(get_file.get.body.read)
-      puts "Tests before update: #{file}"
       failing_tests.each do |key,value|
         test = {}
         if file.has_key? key
@@ -49,24 +47,15 @@ module FlakyTests
           file[key] = test
         end
       end
-      puts "Tests after update: #{file}"
       create_file(file)
-      if(File.exist?('file.json'))
-        puts "file exist"
-      else
-        puts "file doesn't exist"
-      end
+      puts "Flaky Tests: #{file}"
       get_file.upload_file('file.json')
     end
   end
 
   def save_failing_tests(failing_tests)
-    puts "failing tests: #{failing_tests}"
-    if ENV['TRAVIS_BRANCH'] == 'tests/8635-identify-flaky-tests' 
+    if ENV['TRAVIS_BRANCH'] == 'master' || ENV['TRAVIS_BRANCH'] == 'develop'
       update_failing_tests_file(failing_tests)
-      puts "Branch: #{ENV['TRAVIS_BRANCH']}"
-    else
-      puts "Current Branch: #{ENV['TRAVIS_BRANCH']}"
     end
   end
 
