@@ -54,7 +54,7 @@ class GeolocationTaskResponse extends Component {
       <FlexRow className="task__geolocation-response">
         <span className="task__response"><ParsedText text={name} /></span>
         {coordinatesString ?
-          <Box 
+          <Box
             component="span"
             className="task__geolocation"
             color={black38}
