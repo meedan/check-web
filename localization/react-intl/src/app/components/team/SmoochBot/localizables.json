@@ -81,7 +81,7 @@
   },
   {
     "id": "smoochBot.placeholderGreeting",
-    "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot. We fact-check claims, videos and images related to topics such as politics, health, finance, and technology."
+    "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot."
   },
   {
     "id": "smoochBot.placeholderMainMenu",
@@ -118,5 +118,13 @@
   {
     "id": "smoochBot.placeholderTos",
     "defaultMessage": "This service is provided under the following terms: %{tos}"
+  },
+  {
+    "id": "smoochBot.newResourceTitle",
+    "defaultMessage": "New bot resource"
+  },
+  {
+    "id": "smoochBot.menuKeywords",
+    "defaultMessage": "Keywords separated by comma"
   }
 ]

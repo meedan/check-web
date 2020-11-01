@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
@@ -21,6 +21,7 @@ import Typography from '@material-ui/core/Typography';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import CheckIcon from '@material-ui/icons/Check';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
@@ -63,6 +64,7 @@ import {
   twitterBlue,
   facebookBlue,
   whatsappGreen,
+  completedGreen,
 } from '../../styles/js/shared';
 
 const dotSize = borderWidthLarge;
@@ -221,7 +223,7 @@ const StyledRequestHeader = styled(Row)`
   color: ${black54};
   flex-flow: wrap row;
   font: ${caption};
-  margin-bottom: ${units(3)};
+  margin-bottom: ${units(2)};
 
   .circle_delimeter:before {
     content: '\\25CF';
@@ -232,6 +234,14 @@ const StyledRequestHeader = styled(Row)`
     display: flex;
     align-items: center;
   }
+`;
+
+const StyledReportReceived = styled.div`
+  color: ${black54};
+  font: ${caption};
+  display: flex;
+  align-items: center;
+  margin-bottom: ${units(2)};
 `;
 
 const StyledAnnotationActionsWrapper = styled.div`
@@ -777,7 +787,7 @@ class Annotation extends Component {
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.team.verification_statuses, statusValue);
+        const status = getStatus(this.props.team.verification_statuses, statusValue);
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -1068,6 +1078,11 @@ class Annotation extends Component {
         const messageText = objectValue.text ? objectValue.text.trim() : null;
         const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         const smoochExternalId = activity.smooch_user_external_identifier;
+        const smoochReportReceivedAt = activity.smooch_report_received_at ?
+          new Date(parseInt(activity.smooch_report_received_at, 10) * 1000) : null;
+        const smoochReportUpdateReceivedAt = activity.smooch_report_update_received_at ?
+          new Date(parseInt(activity.smooch_report_update_received_at, 10) * 1000) : null;
+        const { locale } = this.props.intl;
         contentTemplate = (
           <div>
             <StyledRequestHeader>
@@ -1098,6 +1113,34 @@ class Annotation extends Component {
                   </span> : null }
               </span>
             </StyledRequestHeader>
+            { smoochReportReceivedAt && !smoochReportUpdateReceivedAt ?
+              <StyledReportReceived className="annotation__smooch-report-received">
+                <CheckIcon style={{ color: completedGreen }} />
+                {' '}
+                <span title={smoochReportReceivedAt.toLocaleString(locale)}>
+                  <FormattedMessage
+                    id="annotation.reportReceived"
+                    defaultMessage="Report received on {date}"
+                    values={{
+                      date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
+                    }}
+                  />
+                </span>
+              </StyledReportReceived> : null }
+            { smoochReportUpdateReceivedAt ?
+              <StyledReportReceived className="annotation__smooch-report-received">
+                <CheckIcon style={{ color: completedGreen }} />
+                {' '}
+                <span title={smoochReportUpdateReceivedAt.toLocaleString(locale)}>
+                  <FormattedMessage
+                    id="annotation.reportUpdateReceived"
+                    defaultMessage="Report update received on {date}"
+                    values={{
+                      date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
+                    }}
+                  />
+                </span>
+              </StyledReportReceived> : null }
             <div className="annotation__card-content">
               {messageText ? (
                 <StyledRequest>
@@ -1135,7 +1178,7 @@ class Annotation extends Component {
       if (activity.projects.edges.length > 0 && activity.user) {
         const previousProject = activity.projects.edges[0].node;
         const currentProject = activity.projects.edges[1].node;
-        const urlPrefix = `/${annotated.team.slug}/project/`;
+        const urlPrefix = `/${this.props.team.slug}/project/`;
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -1288,6 +1331,7 @@ Annotation.propTypes = {
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   setFlashMessage: PropTypes.func.isRequired,
+  intl: intlShape.isRequired,
 };
 
 const annotationStyles = theme => ({
@@ -1301,4 +1345,4 @@ const annotationStyles = theme => ({
   },
 });
 
-export default withStyles(annotationStyles)(withSetFlashMessage(Annotation));
+export default withStyles(annotationStyles)(withSetFlashMessage(injectIntl(Annotation)));

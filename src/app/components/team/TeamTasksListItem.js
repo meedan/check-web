@@ -18,7 +18,7 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import IconImageUpload from '@material-ui/icons/CloudUpload';
+import IconFileUpload from '@material-ui/icons/CloudUpload';
 import { withStyles } from '@material-ui/core/styles';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import Reorder from '../layout/Reorder';
@@ -256,7 +256,7 @@ class TeamTasksListItem extends React.Component {
       datetime: <DateRangeIcon />,
       single_choice: <RadioButtonCheckedIcon />,
       multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
-      image_upload: <IconImageUpload />,
+      file_upload: <IconFileUpload />,
     };
 
     const label = (

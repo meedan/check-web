@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,31 +11,29 @@ import Popper from '@material-ui/core/Popper';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
+import CustomFiltersManager from './CustomFiltersManager';
 import DateRangeFilter from './DateRangeFilter';
+import MultiSelectFilter from './MultiSelectFilter';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
-import { bemClass } from '../../helpers';
 import {
   white,
   black87,
-  black38,
   black16,
-  black05,
   black54,
-  checkBlue,
   highlightOrange,
   Row,
   units,
   caption,
   borderWidthLarge,
-  transitionSpeedDefault,
   mediaQuery,
-  ellipsisStyles,
 } from '../../styles/js/shared';
 
 export const StyledSearchInput = styled.input`
@@ -128,35 +126,6 @@ const StyledFilterRow = styled(Row)`
   `}
 `;
 
-const StyledFilterChip = styled.div`
-  margin: ${units(0.5)};
-  background-color: ${black05};
-  border-radius: ${units(3)};
-  padding: 0 ${units(1.5)};
-  font: ${caption};
-  line-height: ${units(3.5)};
-  transition: all ${transitionSpeedDefault};
-  white-space: nowrap;
-  min-width: ${units(5)};
-  max-width: ${units(20)};
-  ${ellipsisStyles}
-  ${props =>
-    props.active
-      ? `color: ${white}; font-weight: 700;`
-      : `color: ${black38};
-  `}
-  ${props =>
-    props.active
-      ? `background-color: ${checkBlue};`
-      : `background-color: ${black05};
-  `}
-  &:hover {
-    color: ${black87};
-    cursor: pointer;
-    background-color: ${black16};
-  }
-`;
-
 const styles = theme => ({
   margin: {
     marginLeft: theme.spacing(1),
@@ -172,56 +141,47 @@ const styles = theme => ({
   },
 });
 
-function addToArraySet(array, value) {
-  if (!array || !array.length) {
-    // Empty array means undefined
-    return [value];
-  }
-  const ret = array.slice();
-  ret.push(value);
-  ret.sort(); // should make output more predictable
-  return ret;
-}
-
-function removeFromArraySet(array, value) {
-  const ret = (array || []).filter(v => v !== value);
-  if (ret.length === 0) {
-    return undefined;
-  }
-  return ret;
-}
-
 /**
- * Given an array or undefined, return an array or undefined.
- *
- * If `array` contains `value`, then the return value won't have it.
- * Otherwise, the return value _will_.
- *
- * `undefined` is understood to be the empty array. This function will never
- * return `[]`: it will always return `undefined`.
- */
-function toggleArraySetContains(array, value) {
-  if (array && array.includes(value)) {
-    return removeFromArraySet(array, value);
-  }
-  return addToArraySet(array, value);
-}
-
-/**
- * Return `query`, with property `key` changed to omit/add `value`.
+ * Return `query`, with property `key` changed to the `newArray`.
  *
  * `undefined` is understood to be the empty array. This function will remove
  * the `key` filter rather than return an empty array.
  */
-function toggleStateQueryArrayValue(query, key, value) {
-  const newArray = toggleArraySetContains(query[key], value);
-  if (newArray === undefined) {
+function updateStateQueryArrayValue(query, key, newArray) {
+  if (newArray === undefined || newArray.length === 0) {
     const newQuery = { ...query };
     delete newQuery[key];
     return newQuery;
   }
   return { ...query, [key]: newArray };
 }
+
+const typeLabels = defineMessages({
+  claims: {
+    id: 'search.showClaims',
+    defaultMessage: 'Texts',
+  },
+  links: {
+    id: 'search.showLinks',
+    defaultMessage: 'Links',
+  },
+  images: {
+    id: 'search.showImages',
+    defaultMessage: 'Images',
+  },
+  videos: {
+    id: 'search.showVideos',
+    defaultMessage: 'Videos',
+  },
+  audios: {
+    id: 'search.showAudios',
+    defaultMessage: 'Audios',
+  },
+  blank: {
+    id: 'search.showBlank',
+    defaultMessage: 'Blank',
+  },
+});
 
 class SearchQueryComponent extends React.Component {
   constructor(props) {
@@ -252,9 +212,35 @@ class SearchQueryComponent extends React.Component {
     return this.getContext().getContextStore();
   }
 
+  cleanup = (query) => {
+    const cleanQuery = { ...query };
+    if (query.team_tasks) {
+      cleanQuery.team_tasks = query.team_tasks.filter(tt => (
+        tt.id && tt.response && tt.response_type
+      ));
+      if (!cleanQuery.team_tasks.length) {
+        delete cleanQuery.team_tasks;
+      }
+    }
+    if (query.range) {
+      const datesObj =
+        query.range.created_at ||
+        query.range.updated_at ||
+        query.range.published_at ||
+        query.range.last_seen || {};
+      if (!datesObj.start_time && !datesObj.end_time) {
+        delete cleanQuery.range;
+      }
+    }
+    return cleanQuery;
+  }
+
   handleApplyFilters() {
-    if (!deepEqual(this.state.query, this.props.query)) {
-      this.props.onChange(this.state.query);
+    const cleanQuery = this.cleanup(this.state.query);
+    if (!deepEqual(cleanQuery, this.props.query)) {
+      this.props.onChange(cleanQuery);
+    } else {
+      this.setState({ dialogOpen: false, query: cleanQuery });
     }
   }
 
@@ -265,7 +251,17 @@ class SearchQueryComponent extends React.Component {
 
   filterIsActive = () => {
     const { query } = this.props;
-    const filterFields = ['range', 'verification_status', 'projects', 'tags', 'show', 'dynamic', 'users', 'read'];
+    const filterFields = [
+      'range',
+      'verification_status',
+      'projects',
+      'tags',
+      'type',
+      'dynamic',
+      'users',
+      'read',
+      'team_tasks',
+    ];
     return filterFields.some(key => !!query[key]);
   }
 
@@ -293,14 +289,9 @@ class SearchQueryComponent extends React.Component {
     return array ? array.includes(tag) : false;
   }
 
-  showIsSelected(show) {
+  showIsSelected(type) {
     const array = this.state.query.show;
-    return array ? array.includes(show) : false;
-  }
-
-  ruleIsSelected(rule) {
-    const array = this.state.query.rules;
-    return array ? array.includes(rule) : false;
+    return array ? array.includes(type) : false;
   }
 
   dynamicIsSelected(field, value) {
@@ -313,21 +304,25 @@ class SearchQueryComponent extends React.Component {
     this.setState({ query: { ...this.state.query, range: value } });
   }
 
-  handleStatusClick = (statusCode) => {
+  handleCustomFilterChange = (value) => {
+    this.setState({ query: { ...this.state.query, ...value } });
+  }
+
+  handleStatusClick = (statusCodes) => {
     this.setState({
-      query: toggleStateQueryArrayValue(this.state.query, 'verification_status', statusCode),
+      query: updateStateQueryArrayValue(this.state.query, 'verification_status', statusCodes),
     });
   }
 
-  handleProjectClick(projectId) {
+  handleProjectClick(projectIds) {
     this.setState({
-      query: toggleStateQueryArrayValue(this.state.query, 'projects', projectId),
+      query: updateStateQueryArrayValue(this.state.query, 'projects', projectIds),
     });
   }
 
-  handleUserClick(userId) {
+  handleUserClick(userIds) {
     this.setState({
-      query: toggleStateQueryArrayValue(this.state.query, 'users', userId),
+      query: updateStateQueryArrayValue(this.state.query, 'users', userIds),
     });
   }
 
@@ -337,28 +332,22 @@ class SearchQueryComponent extends React.Component {
     });
   }
 
-  handleTagClick(tag) {
+  handleTagClick(tags) {
     this.setState({
-      query: toggleStateQueryArrayValue(this.state.query, 'tags', tag),
+      query: updateStateQueryArrayValue(this.state.query, 'tags', tags),
     });
   }
 
-  handleRuleClick(rule) {
+  handleShowClick(type) {
     this.setState({
-      query: toggleStateQueryArrayValue(this.state.query, 'rules', rule),
+      query: updateStateQueryArrayValue(this.state.query, 'show', type),
     });
   }
 
-  handleShowClick(show) {
-    this.setState({
-      query: toggleStateQueryArrayValue(this.state.query, 'show', show),
-    });
-  }
-
-  handleDynamicClick(field, value) {
+  handleDynamicClick(field, newValue) {
     const { query } = this.state;
     const oldDynamic = query.dynamic ? query.dynamic : {};
-    const newDynamic = toggleStateQueryArrayValue(oldDynamic, field, value);
+    const newDynamic = updateStateQueryArrayValue(oldDynamic, field, newValue);
     if (Object.keys(newDynamic).length === 0) {
       const newQuery = { ...query };
       delete newQuery.dynamic;
@@ -418,8 +407,8 @@ class SearchQueryComponent extends React.Component {
     );
   }
 
-  showField(field) {
-    return this.props.fields ? this.props.fields.indexOf(field) > -1 : true;
+  hideField(field) {
+    return this.props.hideFields ? this.props.hideFields.indexOf(field) > -1 : false;
   }
 
   handleInputChange = (ev) => {
@@ -456,10 +445,6 @@ class SearchQueryComponent extends React.Component {
 
   handleClickReset = () => {
     this.setState({ query: {} });
-  }
-
-  doneButtonDisabled() {
-    return deepEqual(this.state.query, this.props.query);
   }
 
   subscribe() {
@@ -513,7 +498,6 @@ class SearchQueryComponent extends React.Component {
         a.node.name.localeCompare(b.node.name));
     }
 
-    const { currentUser } = this.currentContext();
     const plainTagsTexts = team.tag_texts ?
       team.tag_texts.edges.map(t => t.node.text) : [];
 
@@ -521,13 +505,30 @@ class SearchQueryComponent extends React.Component {
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
-    const hasRules = team.rules_search_fields_json_schema &&
-      Object.keys(team.rules_search_fields_json_schema.properties.rules.properties).length > 0;
-
     const filterButtonClasses = {};
     filterButtonClasses[classes.margin] = true;
     filterButtonClasses[classes.filterActive] = this.filterIsActive();
     filterButtonClasses[classes.filterInactive] = !this.filterIsActive();
+
+    const types = [
+      { value: 'claims', label: this.props.intl.formatMessage(typeLabels.claims) },
+      { value: 'links', label: this.props.intl.formatMessage(typeLabels.links) },
+      { value: 'images', label: this.props.intl.formatMessage(typeLabels.images) },
+      { value: 'videos', label: this.props.intl.formatMessage(typeLabels.videos) },
+      { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audios) },
+      { value: 'blank', label: this.props.intl.formatMessage(typeLabels.blank) },
+    ];
+
+    const languages = [];
+    if (team.dynamic_search_fields_json_schema.properties &&
+        team.dynamic_search_fields_json_schema.properties.language) {
+      team.dynamic_search_fields_json_schema.properties.language.items.enum.forEach((value, i) => {
+        languages.push({
+          value,
+          label: team.dynamic_search_fields_json_schema.properties.language.items.enumNames[i],
+        });
+      });
+    }
 
     return (
       <div style={{ minWidth: 350 }}>
@@ -611,267 +612,102 @@ class SearchQueryComponent extends React.Component {
             open={this.state.dialogOpen}
             onClose={this.handleDialogClose}
           >
-            <DialogContent>
+            <DialogContent id="search__query-dialog-content">
               <StyledSearchFiltersSection>
                 <DateRangeFilter
-                  hidden={!this.showField('date')}
+                  hide={this.hideField('date')}
                   onChange={this.handleDateChange}
                   value={this.state.query.range}
                 />
-                {this.showField('status') ?
-                  <StyledFilterRow>
-                    <h4><FormattedMessage id="search.statusHeading" defaultMessage="Status" /></h4>
-                    {statuses.map(status => (
-                      <StyledFilterChip
-                        id={`search-query__status-${status.id}`}
-                        active={this.statusIsSelected(status.id)}
-                        key={status.id}
-                        title={status.description}
-                        onClick={this.handleStatusClick.bind(this, status.id)}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.statusIsSelected(status.id),
-                          '--selected',
-                        )}
-                      >
-                        {status.label}
-                      </StyledFilterChip>))}
-                  </StyledFilterRow>
-                  : null}
 
-                {this.showField('project') && projects.length ?
-                  <StyledFilterRow>
-                    <h4>
-                      <FormattedMessage id="search.projectHeading" defaultMessage="List" />
-                    </h4>
-                    {projects.map(project => (
-                      <StyledFilterChip
-                        active={this.projectIsSelected(project.node.dbid)}
-                        key={project.node.dbid}
-                        onClick={this.handleProjectClick.bind(this, project.node.dbid)}
-                        className={bemClass(
-                          'search-filter__project-chip',
-                          this.projectIsSelected(project.node.dbid),
-                          '--selected',
-                        )}
-                      >
-                        {project.node.title}
-                      </StyledFilterChip>))}
-                  </StyledFilterRow>
-                  : null}
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.statusHeading" defaultMessage="Status" />}
+                  hide={this.hideField('status')}
+                  selected={statuses.filter(s => this.statusIsSelected(s.id))}
+                  options={statuses}
+                  onChange={(newValue) => {
+                    this.handleStatusClick(newValue.map(s => s.id));
+                  }}
+                />
 
-                {this.showField('user') && users.length ?
-                  <StyledFilterRow>
-                    <h4>
-                      <FormattedMessage id="search.userHeading" defaultMessage="Author" />
-                    </h4>
-                    {users.map(user => (
-                      <StyledFilterChip
-                        active={this.userIsSelected(user.node.dbid)}
-                        key={user.node.dbid}
-                        onClick={this.handleUserClick.bind(this, user.node.dbid)}
-                        className={bemClass(
-                          'search-filter__user-chip',
-                          this.userIsSelected(user.node.dbid),
-                          '--selected',
-                        )}
-                      >
-                        {user.node.name}
-                      </StyledFilterChip>))}
-                  </StyledFilterRow>
-                  : null}
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.projectHeading" defaultMessage="List" />}
+                  hide={this.hideField('project') || !projects.length}
+                  selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
+                  options={projects.map(p => p.node)}
+                  labelProp="title"
+                  onChange={(newValue) => {
+                    this.handleProjectClick(newValue.map(p => p.dbid));
+                  }}
+                />
 
-                {this.showField('read') ?
-                  <StyledFilterRow>
-                    <h4>
-                      <FormattedMessage id="search.readHeading" defaultMessage="Read or unread?" />
-                    </h4>
-                    <StyledFilterChip
-                      active={this.readIsSelected(true)}
-                      onClick={this.handleReadClick.bind(this, true)}
-                      className={bemClass(
-                        'search-filter__read-chip',
-                        this.readIsSelected(true),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.read" defaultMessage="Read" />
-                    </StyledFilterChip>
-                    <StyledFilterChip
-                      active={this.readIsSelected(false)}
-                      onClick={this.handleReadClick.bind(this, false)}
-                      className={bemClass(
-                        'search-filter__read-chip',
-                        this.readIsSelected(false),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.unread" defaultMessage="Unread" />
-                    </StyledFilterChip>
-                  </StyledFilterRow>
-                  : null}
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.userHeading" defaultMessage="Author" />}
+                  hide={this.hideField('user') || !users.length}
+                  selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
+                  options={users.map(u => u.node)}
+                  labelProp="name"
+                  onChange={(newValue) => {
+                    this.handleUserClick(newValue.map(u => u.dbid));
+                  }}
+                />
 
-                {this.showField('tags') && plainTagsTexts.length ?
-                  <StyledFilterRow>
-                    <h4>
-                      <FormattedMessage id="status.categoriesHeading" defaultMessage="Tags" />
-                    </h4>
-                    {plainTagsTexts.map(tag => (
-                      <StyledFilterChip
-                        active={this.tagIsSelected(tag)}
-                        key={tag}
-                        title={null}
-                        onClick={this.handleTagClick.bind(this, tag)}
-                        className={bemClass(
-                          'search-query__filter-button',
-                          this.tagIsSelected(tag),
-                          '--selected',
-                        )}
-                      >
-                        {tag}
-                      </StyledFilterChip>))}
-                  </StyledFilterRow>
-                  : null}
+                { this.hideField('read') ?
+                  null : (
+                    <StyledFilterRow>
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={this.readIsSelected(true)}
+                            onChange={(e) => { this.handleReadClick(e.target.checked); }}
+                          />
+                        }
+                        label={
+                          <FormattedMessage id="search.readHeading" defaultMessage="Read" />
+                        }
+                      />
+                    </StyledFilterRow>
+                  )
+                }
 
-                {this.showField('show') ?
-                  <StyledFilterRow className="search-query__sort-actions">
-                    <h4><FormattedMessage id="search.show" defaultMessage="Type" /></h4>
-                    <StyledFilterChip
-                      active={this.showIsSelected('claims')}
-                      onClick={this.handleShowClick.bind(this, 'claims')}
-                      className={bemClass(
-                        'search-query__filter-button',
-                        this.showIsSelected('claims'),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.showClaims" defaultMessage="Texts" />
-                    </StyledFilterChip>
-                    <StyledFilterChip
-                      active={this.showIsSelected('links')}
-                      onClick={this.handleShowClick.bind(this, 'links')}
-                      className={bemClass(
-                        'search-query__filter-button',
-                        this.showIsSelected('links'),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.showLinks" defaultMessage="Links" />
-                    </StyledFilterChip>
-                    <StyledFilterChip
-                      active={this.showIsSelected('images')}
-                      onClick={this.handleShowClick.bind(this, 'images')}
-                      className={bemClass(
-                        'search-query__filter-button',
-                        this.showIsSelected('images'),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.showImages" defaultMessage="Images" />
-                    </StyledFilterChip>
-                    <StyledFilterChip
-                      active={this.showIsSelected('videos')}
-                      onClick={this.handleShowClick.bind(this, 'videos')}
-                      className={bemClass(
-                        'search-query__filter-button',
-                        this.showIsSelected('videos'),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.showVideos" defaultMessage="Videos" />
-                    </StyledFilterChip>
-                    <StyledFilterChip
-                      active={this.showIsSelected('audios')}
-                      onClick={this.handleShowClick.bind(this, 'audios')}
-                      className={bemClass(
-                        'search-query__filter-button',
-                        this.showIsSelected('audios'),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.showAudios" defaultMessage="Audios" />
-                    </StyledFilterChip>
-                    <StyledFilterChip
-                      active={this.showIsSelected('blank')}
-                      onClick={this.handleShowClick.bind(this, 'blank')}
-                      className={bemClass(
-                        'search-query__filter-button',
-                        this.showIsSelected('blank'),
-                        '--selected',
-                      )}
-                    >
-                      <FormattedMessage id="search.showBlank" defaultMessage="Blank" />
-                    </StyledFilterChip>
-                  </StyledFilterRow>
-                  : null}
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.categoriesHeading" defaultMessage="Tags" />}
+                  hide={this.hideField('tags') || !plainTagsTexts.length}
+                  selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
+                  options={plainTagsTexts}
+                  labelProp=""
+                  onChange={(newValue) => {
+                    this.handleTagClick(newValue);
+                  }}
+                />
 
-                {this.showField('dynamic') ?
-                  (Object.keys(team.dynamic_search_fields_json_schema.properties).map((key) => {
-                    if (key === 'sort') {
-                      return null;
-                    }
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.show" defaultMessage="Type" />}
+                  hide={this.hideField('type')}
+                  selected={types.filter(t => this.showIsSelected(t.value))}
+                  options={types}
+                  onChange={(newValue) => {
+                    this.handleShowClick(newValue.map(t => t.value));
+                  }}
+                />
 
-                    const annotationType = team.dynamic_search_fields_json_schema.properties[key];
+                {/* The only dynamic filter available right now is language */}
 
-                    const fields = [];
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.language" defaultMessage="Language" />}
+                  hide={this.hideField('dynamic') || !languages.length}
+                  selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
+                  options={languages}
+                  onChange={(newValue) => {
+                    this.handleDynamicClick('language', newValue.map(t => t.value));
+                  }}
+                />
 
-                    if (annotationType.type === 'array') {
-                      // #8220 remove "spam" until we get real values for it.
-                      annotationType.items.enum.filter(value => value !== 'spam').forEach((value, i) => {
-                        const label = annotationType.items.enumNames[i];
-                        const option = (
-                          <StyledFilterChip
-                            key={`dynamic-field-${key}-option-${value}`}
-                            active={this.dynamicIsSelected(key, value)}
-                            onClick={this.handleDynamicClick.bind(this, key, value)}
-                            className={bemClass(
-                              'search-query__filter-button',
-                              this.dynamicIsSelected(key, value),
-                              '--selected',
-                            )}
-                          >
-                            <span>{label}</span>
-                          </StyledFilterChip>
-                        );
-                        fields.push(option);
-                      });
-                    }
-
-                    return (
-                      <StyledFilterRow key={`dynamic-field-${key}`} className="search-query__dynamic">
-                        <h4>{annotationType.title}</h4>
-                        {fields}
-                      </StyledFilterRow>
-                    );
-                  }))
-                  : null}
-
-                {hasRules && this.showField('rules') && currentUser.is_admin ? (
-                  <StyledFilterRow className="search-query__sort-actions">
-                    <h4><FormattedMessage id="search.rules" defaultMessage="Rules" /></h4>
-                    {Object
-                      .keys(team.rules_search_fields_json_schema.properties.rules.properties)
-                      .map((id) => {
-                        const label = team.rules_search_fields_json_schema.properties
-                          .rules.properties[id].title;
-                        return (
-                          <StyledFilterChip
-                            key={id}
-                            active={this.ruleIsSelected(id)}
-                            onClick={this.handleRuleClick.bind(this, id)}
-                            className={bemClass(
-                              'search-query__filter-button',
-                              this.ruleIsSelected(id),
-                              '--selected',
-                            )}
-                          >
-                            {label}
-                          </StyledFilterChip>
-                        );
-                      })
-                    }
-                  </StyledFilterRow>
-                ) : null}
+                <CustomFiltersManager
+                  onFilterChange={this.handleCustomFilterChange}
+                  team={team}
+                  query={this.state.query}
+                />
               </StyledSearchFiltersSection>
             </DialogContent>
             <DialogActions>
@@ -887,7 +723,6 @@ class SearchQueryComponent extends React.Component {
                 id="search-query__submit-button"
                 type="submit"
                 form="search-form"
-                disabled={this.doneButtonDisabled()}
                 color="primary"
               >
                 <FormattedMessage id="search.applyFilters" defaultMessage="Done" />
@@ -910,19 +745,13 @@ SearchQueryComponent.propTypes = {
     dynamic_search_fields_json_schema: PropTypes.shape({
       properties: PropTypes.object.isRequired,
     }).isRequired,
-    rules_search_fields_json_schema: PropTypes.shape({
-      rules: PropTypes.shape({
-        properties: PropTypes.arrayOf(PropTypes.shape({
-          label: PropTypes.string.isRequired,
-        }).isRequired).isRequired,
-      }).isRequired,
-    }),
   }).isRequired,
 };
 
 SearchQueryComponent.contextTypes = {
   store: PropTypes.object,
+  intl: intlShape.isRequired,
 };
 
-export default withStyles(styles)(withPusher(SearchQueryComponent));
+export default withStyles(styles)(withPusher(injectIntl(SearchQueryComponent)));
 export { StyledFilterRow };

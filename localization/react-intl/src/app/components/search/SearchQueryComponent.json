@@ -1,5 +1,29 @@
 [
   {
+    "id": "search.showClaims",
+    "defaultMessage": "Texts"
+  },
+  {
+    "id": "search.showLinks",
+    "defaultMessage": "Links"
+  },
+  {
+    "id": "search.showImages",
+    "defaultMessage": "Images"
+  },
+  {
+    "id": "search.showVideos",
+    "defaultMessage": "Videos"
+  },
+  {
+    "id": "search.showAudios",
+    "defaultMessage": "Audios"
+  },
+  {
+    "id": "search.showBlank",
+    "defaultMessage": "Blank"
+  },
+  {
     "id": "search.title",
     "defaultMessage": "All items"
   },
@@ -33,18 +57,10 @@
   },
   {
     "id": "search.readHeading",
-    "defaultMessage": "Read or unread?"
-  },
-  {
-    "id": "search.read",
     "defaultMessage": "Read"
   },
   {
-    "id": "search.unread",
-    "defaultMessage": "Unread"
-  },
-  {
-    "id": "status.categoriesHeading",
+    "id": "search.categoriesHeading",
     "defaultMessage": "Tags"
   },
   {
@@ -52,32 +68,8 @@
     "defaultMessage": "Type"
   },
   {
-    "id": "search.showClaims",
-    "defaultMessage": "Texts"
-  },
-  {
-    "id": "search.showLinks",
-    "defaultMessage": "Links"
-  },
-  {
-    "id": "search.showImages",
-    "defaultMessage": "Images"
-  },
-  {
-    "id": "search.showVideos",
-    "defaultMessage": "Videos"
-  },
-  {
-    "id": "search.showAudios",
-    "defaultMessage": "Audios"
-  },
-  {
-    "id": "search.showBlank",
-    "defaultMessage": "Blank"
-  },
-  {
-    "id": "search.rules",
-    "defaultMessage": "Rules"
+    "id": "search.language",
+    "defaultMessage": "Language"
   },
   {
     "id": "search.cancel",

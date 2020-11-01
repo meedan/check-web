@@ -4,12 +4,15 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
+import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
@@ -59,7 +62,8 @@ class MediaActionsBarComponent extends Component {
     super(props);
 
     this.state = {
-      assignmentAnchorEl: null,
+      assignmentDialogOpened: false,
+      itemHistoryDialogOpen: false,
     };
   }
 
@@ -138,7 +142,8 @@ class MediaActionsBarComponent extends Component {
 
   handleCloseDialogs() {
     this.setState({
-      assignmentAnchorEl: null,
+      assignmentDialogOpened: false,
+      itemHistoryDialogOpen: false,
     });
   }
 
@@ -172,8 +177,8 @@ class MediaActionsBarComponent extends Component {
     );
   }
 
-  handleAssign(e) {
-    this.setState({ assignmentAnchorEl: e.currentTarget });
+  handleAssign() {
+    this.setState({ assignmentDialogOpened: true });
   }
 
   handleAssignProjectMedia(selected) {
@@ -206,7 +211,7 @@ class MediaActionsBarComponent extends Component {
       { onSuccess, onFailure: this.fail },
     );
 
-    this.setState({ assignmentAnchorEl: null });
+    this.setState({ assignmentDialogOpened: false });
   }
 
   handleRestore() {
@@ -240,6 +245,10 @@ class MediaActionsBarComponent extends Component {
       { onSuccess, onFailure: this.fail },
     );
   }
+
+  handleItemHistory = () => {
+    this.setState({ itemHistoryDialogOpen: true });
+  };
 
   render() {
     const { classes, media } = this.props;
@@ -308,21 +317,12 @@ class MediaActionsBarComponent extends Component {
             </Button>
           </div> : <div />}
 
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
+        <Box display="flex">
           <MediaStatus
             media={media}
             readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
-
           <MediaActionsMenuButton
-            style={{
-              height: 36,
-              marginTop: -5,
-            }}
             key={media.id /* close menu if we navigate to a different projectMedia */}
             projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
@@ -330,57 +330,67 @@ class MediaActionsBarComponent extends Component {
             handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
+            handleItemHistory={this.handleItemHistory}
           />
-        </div>
+        </Box>
 
-        <Menu
+        <ItemHistoryDialog
+          open={this.state.itemHistoryDialogOpen}
+          onClose={this.handleCloseDialogs.bind(this)}
+          projectMedia={media}
+          team={media.team}
+        />
+
+        {/* FIXME Extract to dedicated AssignmentDialog component */}
+        <Dialog
           className="project__assignment-menu"
-          open={Boolean(this.state.assignmentAnchorEl)}
-          anchorEl={this.state.assignmentAnchorEl}
+          open={this.state.assignmentDialogOpened}
           onClose={this.handleCloseDialogs.bind(this)}
         >
-          <Typography variant="h6" className={classes.title}>
+          <DialogTitle>
             <FormattedMessage
               id="mediaActionsBar.assignmentTitle"
               defaultMessage="Assign item to collaborators"
             />
-          </Typography>
-          <Box display="flex" style={{ outline: 0 }}>
-            <MultiSelector
-              allowSelectAll
-              allowUnselectAll
-              allowSearch
-              options={options}
-              selected={selected}
-              onDismiss={this.handleCloseDialogs.bind(this)}
-              onSubmit={this.handleAssignProjectMedia.bind(this)}
-            />
-            <div className={classes.spaced}>
-              <Typography variant="body1" component="div" className={classes.spaced}>
-                <FormattedMessage
-                  id="mediaActionsBar.assignmentHeadlineTitle"
-                  defaultMessage="Add a note to the e-mail"
-                />
-              </Typography>
-              <TextField
-                label={
-                  <FormattedMessage
-                    id="mediaActionsBar.assignmentHeadline"
-                    defaultMessage="Headline"
-                  />
-                }
-                variant="outlined"
-                inputRef={(element) => {
-                  this.assignmentMessageRef = element;
-                  return element;
-                }}
-                rows={21}
-                InputProps={{ classes: { root: classes.inputRoot } }}
-                multiline
+          </DialogTitle>
+          <DialogContent>
+            <Box display="flex" style={{ outline: 0 }}>
+              <MultiSelector
+                allowSelectAll
+                allowUnselectAll
+                allowSearch
+                options={options}
+                selected={selected}
+                onDismiss={this.handleCloseDialogs.bind(this)}
+                onSubmit={this.handleAssignProjectMedia.bind(this)}
               />
-            </div>
-          </Box>
-        </Menu>
+              <div className={classes.spaced}>
+                <Typography variant="body1" component="div" className={classes.spaced}>
+                  <FormattedMessage
+                    id="mediaActionsBar.assignmentNotesTitle"
+                    defaultMessage="Add a note to the e-mail"
+                  />
+                </Typography>
+                <TextField
+                  label={
+                    <FormattedMessage
+                      id="mediaActionsBar.assignmentNotes"
+                      defaultMessage="Notes"
+                    />
+                  }
+                  variant="outlined"
+                  inputRef={(element) => {
+                    this.assignmentMessageRef = element;
+                    return element;
+                  }}
+                  rows={21}
+                  InputProps={{ classes: { root: classes.inputRoot } }}
+                  multiline
+                />
+              </div>
+            </Box>
+          </DialogContent>
+        </Dialog>
       </div>
     );
   }

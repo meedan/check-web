@@ -12,6 +12,14 @@
     "defaultMessage": "Copy share URL"
   },
   {
+    "id": "reportDesigner.firstSent",
+    "defaultMessage": "First published"
+  },
+  {
+    "id": "reportDesigner.sentCount",
+    "defaultMessage": "Reports received"
+  },
+  {
     "id": "reportDesigner.save",
     "defaultMessage": "Save"
   },

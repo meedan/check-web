@@ -82,7 +82,7 @@ function AutoCompleteMediaItem(props, context) {
 
       const encodedQuery = JSON.stringify(JSON.stringify({
         keyword: searchText,
-        show: ['claims', 'links', 'images', 'videos', 'audios'],
+        show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
         eslimit: 30,
       }));
       const params = {
@@ -218,11 +218,13 @@ AutoCompleteMediaItem.contextTypes = {
 AutoCompleteMediaItem.defaultProps = {
   dbid: null,
   onlyPublished: false,
+  typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
 };
 AutoCompleteMediaItem.propTypes = {
   onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
   dbid: PropTypes.number, // filter results: do _not_ select this number
   onlyPublished: PropTypes.bool, // filter results
+  typesToShow: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default AutoCompleteMediaItem;

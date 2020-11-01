@@ -171,7 +171,9 @@
 	"annotation.penderArchiveResponseError": "عذراً ، لقد واجهنا خطأ ما اثناء التقاط شاشة العنصر. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"annotation.penderArchiveResponse": "أتخذ Keep  لقطة شاشة للرّابط.",
 	"annotation.penderArchiveWait": "Keep يقوم بالتقاط لقطة لشاشة هذا العنصر، يرجى العودة هنا بعد دقائق لرؤيتها.",
-	"annotation.slackChannel": "قناة Slack",
+	"annotation.openInSlack": "فتحه في Slack",
+	"annotation.reportReceived": "تم استلام التقرير في {date}",
+	"annotation.reportUpdateReceived": "تم استلام تحديث التقرير في {date}",
 	"annotation.smoochNoMessage": "لم يتم إرسال أي رسالة مع الطلب",
 	"annotation.projectMoved": "قام(ت) {author} بنقله من قائمة {previousProject} إلى {currentProject}",
 	"annotation.movedToTrash": "قام(ت) {author} بإرساله إلى سلة المهملات",
@@ -232,6 +234,11 @@
 	"autoCompleteMediaItem.error": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"autoCompleteMediaItem.notFound": "‏‏لم يتم العثور على عناصر مطابقة",
 	"autoCompleteMediaItem.searchItem": "بحث",
+	"blankMediaButton.defaultErrorMessage": "لا يمكن حفظ العنصر",
+	"blankMediaButton.confirmTitle": "الكتابة فوق التقرير والحالة؟",
+	"blankMediaButton.confirmText": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وايقاف التقرير.",
+	"blankMediaButton.confirmButtonLabel": "إيقاف التقرير وتحديث المحتوى",
+	"blankMediaButton.addItem": "إضافة عنصر",
 	"blankMediaCard.defaultErrorMessage": "لا يمكن حفظ العنصر",
 	"blankMediaCard.addItem": "إضافة عنصر",
 	"blankMediaCard.confirmTitle": "الكتابة فوق التقرير والحالة؟",
@@ -270,6 +277,7 @@
 	"createMedia.video": "فيديو",
 	"createMedia.audio": "صوت",
 	"createRelatedMedia.addRelatedItem": "إضافة عنصر مرتبط",
+	"createMedia.existingReport": "إضافة إلى التقرير المستورد",
 	"destinationProjects.choose": "إختيار قائمة",
 	"mediaDetail.editReportError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"mediaDetail.editReport": "تحرير",
@@ -277,6 +285,7 @@
 	"mediaDetail.mediaDescription": "الوصف",
 	"mediaDetail.cancelButton": "إلغاء",
 	"mediaDetail.doneButton": "إتمام",
+	"ItemHistoryDialog.title": "Item history",
 	"media.confirmLeave": "{count, plural, zero {هل أنت متأكد أنك تود الخروج ؟} one {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك مهمة إجبارية واحدة غير مجابة} two {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك مهمتان إجباريتان غير مجابة} few {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك # مهام إجبارية غير مجابة} many {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك # مهمة إجبارية غير مجابة} other {متأكدين من الرّغبة في الخروج؟ ما زال لديك # مهمة إجبارية غير مستجابة}}",
 	"mediaActions.edit": "تحرير العنوان والوصف",
 	"mediaActions.refresh": "تحديث",
@@ -293,10 +302,11 @@
 	"mediaDetail.trash": "سلة المهملات",
 	"mediaActionsBar.assignmentsUpdated": "تم تحديث التكليفات بنجاح!",
 	"mediaActionsBar.movedBack": "تمت الاستعادة من سلة المهملات",
-	"mediaActionsBar.done": "إتمام",
 	"mediaActionsBar.publishedReport": "تقرير منشور",
 	"mediaActionsBar.unpublishedReport": "تقرير غير منشور",
-	"mediaActionsBar.assignDialogHeader": "التكليف",
+	"mediaActionsBar.assignmentTitle": "تكليف العنصر لشريك(ة)",
+	"mediaActionsBar.assignmentNotesTitle": "إضافة ملاحظة للبريد الإلكتروني",
+	"mediaActionsBar.assignmentNotes": "الملحوظات",
 	"mediaAnalysis.analysis": "التحليل",
 	"mediaAnalysis.saving": "الحفظ جارٍ…",
 	"mediaAnalysis.saved": "تم الحفظ {ago}",
@@ -304,7 +314,7 @@
 	"mediaAnalysis.copying": "النسخ جارٍ…",
 	"mediaAnalysis.copyToReport": "نسخ إلى التقرير",
 	"mediaAnalysis.title": "العنوان",
-	"mediaAnalysis.content": "المحتوى (بحد أقصى {max} حرف)",
+	"mediaAnalysis.content": "المحتوى",
 	"mediaAnalysis.publishedArticle": "رابط المقال المنشور",
 	"mediaAnalysis.date": "تاريخ النشر",
 	"mediaAnalysis.confirmTitle1": "التقرير الحالي منشور",
@@ -326,9 +336,7 @@
 	"mediaCondensed.tooltip": "إجراءات العنصر",
 	"mediaCondensed.promote": "ترقية إلى عنصر أولي",
 	"mediaCondensed.break": "فك الارتباط بعنصر أولي",
-	"mediaExpanded.firstSeen": "أوّل مطالعة: ",
-	"mediaExpanded.lastSeen": "آخر مطالعة:",
-	"mediaExpanded.requests": "{count} طلب(ات) ",
+	"mediaExpanded.addToImportedReport": "إضافة إلى التقرير المستورد",
 	"mediaMetadata.Timeline": "الجدول الزمني",
 	"mediaMetadata.ImageSearch": "بحث عن طريق الصور",
 	"mediaMetadata.download": "تحميل",
@@ -337,6 +345,9 @@
 	"mediaExpandedMetadata.shares": "مشاركات فيسبوك",
 	"mediaExpandedMetadata.reactions": "تفاعلات فيسبوك",
 	"mediaExpandedMetadata.comments": "تعليقات فيسبوك",
+	"mediaExpanded.firstSeen": "أوّل مطالعة: ",
+	"mediaExpanded.lastSeen": "آخر مطالعة:",
+	"mediaExpanded.requests": "{count} طلب(ات) ",
 	"mediaLanguageChip.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"media.normalSpeed": "السرعة العادية",
 	"mediaRelated.primaryItem": "العنصر الأولي",
@@ -399,7 +410,7 @@
 	"reportDesigner.visualCard": "البطاقة المرئية",
 	"reportDesigner.useDefaultImage": "استخدام الصورة الافتراضية",
 	"reportDesigner.headline": "العنوان (بحد أقصى {max} حرف)",
-	"reportDesigner.description": "الوصف (بحد أقصى {max} حرف)",
+	"reportDesigner.description": "المحتوى (بحد أقصى {max} حرف)",
 	"reportDesigner.statusLabel": "عنوان الحالة (بحد أقصى {max} حرف)",
 	"reportDesigner.themeColor": "لون المظهر",
 	"reportDesigner.url": "عنوان الموقع (بحد أقصى {max} حرف)",
@@ -419,6 +430,55 @@
 	"reportDesigner.confirmLeaveText": "إذا غادرت الآن، ستفقدين تعديلاتك. ",
 	"reportDesigner.reportImagePreviewTitle": "لمحة عن التقرير ",
 	"webPageMediaCard.Error": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. انقروا أعلاه لفتحه.",
+	"AddCustomFilters.metadataChoiceLabel": "البيانات الوصفية لها قيمة محددة",
+	"AddCustomFilters.metadataTextLabel": "Metadata contains keyword",
+	"AddCustomFilters.taskChoiceLabel": "المهمة لها إجابة محددة",
+	"AddCustomFilters.taskTextLabel": "إجابة المهمة تتضمن الكلمة المفتاحية",
+	"AddCustomFilters.entityTaskLabel": "اختيار مهمة",
+	"AddCustomFilters.entityMetadataLabel": "تحديد البيانات الوصفيّة",
+	"search.allClaimsTitle": "كل العناصر",
+	"CustomFilter.filterBy": "Filter by",
+	"CustomFilter.selectValueLabel": "تحديد القيمة",
+	"CustomFilter.keywordsLabel": "يرجى طباعة قائمة بالكلمات المفتاحية مفصولة بفواصل",
+	"CustomFiltersManager.addFilters": "Add filters",
+	"CustomTeamTaskFilter.metadataChoiceLabel": "البيانات الوصفية لها قيمة محددة",
+	"CustomTeamTaskFilter.metadataTextLabel": "Metadata contains keyword",
+	"CustomTeamTaskFilter.taskChoiceLabel": "المهمة لها إجابة محددة",
+	"CustomTeamTaskFilter.taskTextLabel": "إجابة المهمة تتضمن الكلمة المفتاحية",
+	"CustomTeamTaskFilter.entityTaskLabel": "اختيار مهمة",
+	"CustomTeamTaskFilter.entityMetadataLabel": "تحديد البيانات الوصفيّة",
+	"search.dateHeading": "التاريخ",
+	"search.dateSubmittedHeading": "تم الإرسال",
+	"search.dateLastSubmittedHeading": "آخر إرسال",
+	"search.dateUpdatedHeading": "تاريخ آخر تحديث",
+	"search.pickDateFrom": "تاريخ البدء",
+	"search.pickDateTo": "تاريخ الانتهاء",
+	"search.loading": "تحميل...",
+	"search.showClaims": "نصوص",
+	"search.showLinks": "روابط",
+	"search.showImages": "صور",
+	"search.showVideos": "الفيديوهات",
+	"search.showAudios": "ملفات صوتية",
+	"search.showBlank": "فارغ",
+	"search.title": "كل العناصر",
+	"search.inputHint": "بحث",
+	"search.help": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>",
+	"search.Filter": "فلتر ",
+	"search.clear": "الغاء الفلتر ",
+	"search.statusHeading": "الحالة",
+	"search.projectHeading": "القائمة",
+	"search.userHeading": "المؤلف(ة)",
+	"search.readHeading": "تمت قراءته",
+	"search.categoriesHeading": "الوسوم",
+	"search.show": "النوع",
+	"search.language": "اللغة",
+	"search.cancel": "إلغاء",
+	"search.reset": "إعادة ضبط",
+	"search.applyFilters": "إتمام",
+	"search.previousPage": "الصفحة السابقة",
+	"searchResults.itemsCount": "{count, plural, zero {} one {1 / 1} two {} few {} many {} other {{from} - {to} / #}}",
+	"searchResults.withSelection": "{selectedCount, plural, zero {} one {(1 selected)} two {} few {} many {} other {(# selected)}}",
+	"search.nextPage": "الصفحة التالية",
 	"createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"createProject.newProjectName": "عنوان القائمة",
 	"createProject.addProject": "إنشاء قائمة",
@@ -432,6 +492,9 @@
 	"ProjectActions.tooltip": "اجراءات القائمة",
 	"projectActions.confirmDeleteProject": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'.",
 	"projectAssignment.processing": "تم! سوف تنتشر هذه التكليفات إلى العناصر والمهام وسيتم إخطارك عبر البريد الإلكتروني عند إتمام العملية.",
+	"projectAssignment.title": "تكليف القائمة لشريك(ة)",
+	"projectAssignment.notesTitle": "إضافة ملاحظة للبريد الإلكتروني",
+	"projectAssignment.notes": "الملحوظات",
 	"projectAssignment.assignedTo": "مُكَلَّف إلى",
 	"projectAssignment.notAssigned": "غير مُكَلَّف",
 	"userAssignments.blank": "لا توجد أنشطة",
@@ -444,40 +507,6 @@
 	"projectHeader.allItems": "كل العناصر",
 	"projectSelector.numProjs": "{length, number} محدد",
 	"projectSelector.allProjs": "كل القوائم",
-	"search.allClaimsTitle": "كل العناصر",
-	"search.dateHeading": "التاريخ",
-	"search.dateCreatedHeading": "تاريخ الإضافة",
-	"search.dateUpdatedHeading": "تاريخ آخر تحديث",
-	"search.pickDateFrom": "تاريخ البدء",
-	"search.pickDateTo": "تاريخ الانتهاء",
-	"search.loading": "تحميل...",
-	"search.title": "كل العناصر",
-	"search.inputHint": "بحث",
-	"search.help": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>",
-	"search.Filter": "فلتر ",
-	"search.clear": "الغاء الفلتر ",
-	"search.statusHeading": "الحالة",
-	"search.projectHeading": "القائمة",
-	"search.userHeading": "المؤلف(ة)",
-	"search.readHeading": "هل تمّت قراءتة أم لا؟",
-	"search.read": "تمت قراءته",
-	"search.unread": "لم تتم قراءته",
-	"status.categoriesHeading": "الوسوم",
-	"search.show": "النوع",
-	"search.showClaims": "نصوص",
-	"search.showLinks": "روابط",
-	"search.showImages": "صور",
-	"search.showVideos": "الفيديوهات",
-	"search.showAudios": "ملفات صوتية",
-	"search.showBlank": "فارغ",
-	"search.rules": "القواعد",
-	"search.cancel": "إلغاء",
-	"search.reset": "إعادة ضبط",
-	"search.applyFilters": "إتمام",
-	"search.previousPage": "الصفحة السابقة",
-	"searchResults.itemsCount": "{count, plural, zero {} one {1 / 1} two {} few {} many {} other {{from} - {to} / #}}",
-	"searchResults.withSelection": "{selectedCount, plural, zero {} one {(1 selected)} two {} few {} many {} other {(# selected)}}",
-	"search.nextPage": "الصفحة التالية",
 	"userAssignments.filterByTeam": "الفلترة عن طريق مساحة العمل",
 	"userAssignments.other": "غير ذلك",
 	"userComponent.teams": "مساحات العمل",
@@ -557,9 +586,9 @@
 	"tasks.teamwideNudge": "المهمات الإفتراضية",
 	"datetimeRespondTask.cancelTask": "إلغاء",
 	"datetimeRespondTask.answerTask": "إجابة",
-	"datetimeRespondTask.pickDate": "Pick a date",
-	"datetimeRespondTask.time": "Pick a time",
-	"datetimeRespondTask.timezone": "Select a timezone",
+	"datetimeRespondTask.pickDate": "اختيار التاريخ",
+	"datetimeRespondTask.time": "اختيار الوقت",
+	"datetimeRespondTask.timezone": "اختيار المنطقة الزمنية",
 	"datetimeTaskResponse.timeIs": "عرض هذا النطاق الزمني على time.is",
 	"datetimeTaskResponse.invalidTimestamp": "ختم التوقيت غير صالح",
 	"singleChoiceTask.addValue": "إضافة خيار",
@@ -572,8 +601,8 @@
 	"editTaskDialog.newMetadata": "إضافة حقل بيانات وصفيّة جديد",
 	"tasks.taskPrompt": "المحث على السؤال",
 	"tasks.description": "الوصف (اختياري)",
-	"tasks.timezones": "Timezones available to complete the task",
-	"tasks.showInBrowserExtension": "Show in browser extension",
+	"tasks.timezones": "المناطق الزمنية المتاحة لإكمال المهمة",
+	"tasks.showInBrowserExtension": "إظهار في امتداد اامتصفح",
 	"tasks.showInProj": "عرض المهام في",
 	"tasks.assign": "تكليف",
 	"tasks.cancelAdd": "إلغاء",
@@ -778,7 +807,7 @@
 	"teamTasks.confirmDeleteTaskTitle": "هل أنت متأكد(ة) من حذف هذه المهمة؟",
 	"teamTasks.confirmDeleteMetadataTitle": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟",
 	"teamTasks.confirmEditTaskTitle": "هل أنت متأكد(ة) من تحرير هذه المهمة؟",
-	"teamTasks.confirmEditMetadataTitle": "Are you sure you want to edit this metadata?",
+	"teamTasks.confirmEditMetadataTitle": "هل أنت متأكد(ة) من تحرير هذه البيانات الوصفيّة؟",
 	"teamTasks.confirmEditBlurb": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل.",
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": "أنت على وشك تحرير المهام في {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم تعديل كل هذه المهام.",
 	"teamTasks.confirmDeleteBlurb": "أنت على وشك حذف المهام المحددة من {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم أيضا حذف إجابات هذه المهام.",
@@ -828,6 +857,8 @@
 	"reportDesigner.darkOverlay": "غطاء معتم",
 	"reportDesigner.removeImage": "إزالة الصورة",
 	"reportDesigner.datePublished": "تاريخ النشر",
+	"reportDesigner.firstSent": "First published",
+	"reportDesigner.sentCount": "Reports received",
 	"reportDesigner.cannotPublish": "يرجى تعبئة التقرير بنص أو صورة على الأقل، والتأكد من إنشاء تقرير للغة الرئيسية ({language}).",
 	"list.Item": "العنصر",
 	"list.Demand": "الطلبات",
@@ -883,16 +914,39 @@
 	"rulesTableToolbar.add": "قاعدة جديدة",
 	"rulesTableToolbar.deleteConfirmationTitle": "حذف القواعد المحددة؟",
 	"rulesTableToolbar.deleteConfirmationText": "متأكد(ة) من حذف هذه القواعد؟",
+	"slackConfigDialogComponent.defaultErrorMessage": "لم يمكننا حفظ إعدادات Slack",
+	"slackConfigDialogComponent.savedSuccessfully": "تم حفظ إعدادات Slack بنجاح!",
+	"slackConfigDialogComponent.title": "إرسال تنبيهات إلى قنوات Slack عند إضافة ادعاءات إلى قوائم محددة",
+	"slackConfigDialogComponent.webhook": "Slack webhook",
+	"slackConfigDialogComponent.event": "الحدث",
+	"slackConfigDialogComponent.sendNotificationsTo": "إرسال تنبيهات إلى",
+	"slackConfigDialogComponent.allActivity": "كل أنشطة مساحة العمل",
+	"slackConfigDialogComponent.channel": "قناة Slack",
+	"slackConfigDialogComponent.ifItemAddedTo": "إذا تم إضافة العنصر إلى",
+	"slackConfigDialogComponent.new": "تنبيه جديد",
+	"slackConfigDialogComponent.cancel": "إلغاء",
+	"slackConfigDialogComponent.save": "حفظ",
 	"smoochBotMenuEditor.scenario": "سيناريو",
 	"smoochBotMenuOption.mainState": "القائمة الرئيسية",
 	"smoochBotMenuOption.secondaryState": "القائمة الثانوية",
 	"smoochBotMenuOption.queryState": "موجّه الاستعلامات",
 	"smoochBotMenuOption.resource": "التقرير",
+	"smoochBotMenuOption.languageAction": "{languageName} (القائمة الرئيسية)",
 	"smoochBotMenuOption.if": "إذا",
 	"smoochBotMenuOption.condition": "تطابقت الكلمة المفتاحية التالية",
 	"smoochBotMenuOption.then": "حينئذ",
 	"smoochBotMenuOption.action": "الإجابة ب",
-	"smoochBotMenuOption.languageAction": "{languageName} (القائمة الرئيسية)",
+	"smoochBotMenuOption.add": "إنشاء \"{resourceName}\"",
+	"smoochBotMenuOption.selectAction": "تحديد الإجراء",
+	"smoochBotResourceEditor.rssPlaceholder": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS",
+	"smoochBotResourceEditor.error": "هذا الرابط لا يبدو صالحًا لموجز RSS",
+	"smoochBotResourceEditor.title": "عنوان مورد البوت",
+	"smoochBotResourceEditor.content": "محتوى مورد البوت",
+	"smoochBotResourceEditor.rss": "إضافة محتوى من موجز RSS",
+	"smoochBotResourceEditor.url": "الرّابط",
+	"smoochBotResourceEditor.numberOfArticles": "عدد المقالات المرتجعة",
+	"smoochBotResourceEditor.load": "تحميل",
+	"smoochBotResourceEditor.delete": "حذف",
 	"smoochBotSelectReport.dialogTitle": "اختيار تقرير",
 	"smoochBotSelectReport.dialogDescription": "يرجى البحث عن عنوان العنصر الذى تريدون إرساله كتقرير. سيقوم البوت بالرّد على المستخدمين بهذا التقرير. يجب أن يكون التقرير مكتملا قبل أن يمكن البحث عنه هنا.",
 	"smoochBotSelectReport.cancel": "إلغاء",
@@ -900,6 +954,7 @@
 	"smoochBot.scenarios": "سيناريوهات",
 	"smoochBot.settings": "الإعدادات",
 	"smoochBot.title": "تصميم البوت الخاص بك",
+	"smoochBot.addResource": "إضافة مورد",
 	"smoochBot.labelGreeting": "مرحباً",
 	"smoochBot.labelMainMenu": "القائمة الرئيسية",
 	"smoochBot.labelSecondaryMenu": "القائمة الثانوية",
@@ -920,7 +975,7 @@
 	"smoochBot.descriptionInvalidFormat": "رسالة تلقائية يتم إرسالها إلى المستخدمين عند إرسالهم لأي ملف غير مدعوم من قبل Check.",
 	"smoochBot.descriptionInactive": "سيتم إرسال هذه الرسالة إلى أي مستخدم يرسل رسالة إلى الخط السّاخن (Tipline) بينما يكون بوت رسائل Check غير نشط.",
 	"smoochBot.descriptionTos": " ستتبع هذه الرسالة أي تقرير يتم إرساله إلى المستخدم مباشرة، لذا يجب أن تتضمن رابطاً إلى شروط إستخدام Check.",
-	"smoochBot.placeholderGreeting": "مرحبا! وأهلا بكم فى بوت تقصي الحقائق الخاص ب[Name of your organization]. نحن نتقصّى حقيقة الدعاوى، الفيديوهات، والصور المتعلّقة بمواضيع مثل السياسة والصحة والتمويل والتقنية.",
+	"smoochBot.placeholderGreeting": "مرحبا! وأهلا بكم فى بوت تقصي الحقائق الخاص ب[Name of your organization].",
 	"smoochBot.placeholderMainMenu": "📌*القائمة الرئيسية*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة،  أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)",
 	"smoochBot.placeholderSecondaryMenu": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌",
 	"smoochBot.placeholderQueryPrompt": "*يرجى كتابة السؤال أو الرابط أو الصورة أو الفيديو الذي تريديت تقصّي حقيقته،* ثم أتبعيه بأي سياق أو أسئلة إضافية متعلقة بهذا العنصر. سوف يرسل طلبك إلى متقصّي(ة) الحقائق بعد حوالي 30 ثانية من إرسال آخر رسالة.\n\n*أرسلي 0 (أو 📌)*للعودة إلى *القائمة الرئيسية*",
@@ -930,6 +985,7 @@
 	"smoochBot.placeholderInvalidFormat": "❌عذرا، لا يمكننا قبول هذا النوع من الرسائل للتحقق منها في الوقت الحالي\n\nيمكننا قبول أغلب الصور، الفيديوهات، الروابط، الرسائل النصية، ورسائل الواتس آب التى تمّت مشاركتها.",
 	"smoochBot.placeholderInactive": "❌شكرا لكم الرسالة. خدمة تقصي الحقائق *غير نشطة* حاليا.\n\nتواصلوا معنا على *[البريد الإلكتروني أو وسيلة تواصل أخرى]* للمزيد من الإستفسارات.",
 	"smoochBot.placeholderTos": "هذه الخدمة مقدمة وفقا للشروط التالية: %{tos}",
+	"smoochBot.newResourceTitle": "مورد جديد للبوت",
 	"deleteStatusDialog.moveItemsTo": "نقل العناصر إلى",
 	"deleteStatusDialog.statusInUseTitle": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}",
 	"deleteStatusDialog.statusInUseMessage": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة.",

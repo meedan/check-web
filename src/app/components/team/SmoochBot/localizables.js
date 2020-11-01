@@ -30,7 +30,7 @@ const descriptions = {
 const placeholders = defineMessages({
   smooch_message_smooch_bot_greetings: {
     id: 'smoochBot.placeholderGreeting',
-    defaultMessage: 'Hi! Welcome to [Name of your organization]’s fact-checking bot. We fact-check claims, videos and images related to topics such as politics, health, finance, and technology.',
+    defaultMessage: 'Hi! Welcome to [Name of your organization]’s fact-checking bot.',
   },
   smooch_state_main: {
     id: 'smoochBot.placeholderMainMenu',
@@ -90,6 +90,14 @@ Contact us at *[email or other contact]* for further inquiries.`,
   smooch_message_smooch_bot_ask_for_tos: {
     id: 'smoochBot.placeholderTos',
     defaultMessage: 'This service is provided under the following terms: %{tos}',
+  },
+  default_new_resource_title: {
+    id: 'smoochBot.newResourceTitle',
+    defaultMessage: 'New bot resource',
+  },
+  menu_keywords: {
+    id: 'smoochBot.menuKeywords',
+    defaultMessage: 'Keywords separated by comma',
   },
 });
 

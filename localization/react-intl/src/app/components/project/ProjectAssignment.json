@@ -8,12 +8,12 @@
     "defaultMessage": "Assign list to collaborators"
   },
   {
-    "id": "projectAssignment.headlineTitle",
+    "id": "projectAssignment.notesTitle",
     "defaultMessage": "Add a note to the e-mail"
   },
   {
-    "id": "projectAssignment.headline",
-    "defaultMessage": "Headline"
+    "id": "projectAssignment.notes",
+    "defaultMessage": "Notes"
   },
   {
     "id": "projectAssignment.assignedTo",

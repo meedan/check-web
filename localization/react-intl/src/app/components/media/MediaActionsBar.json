@@ -28,11 +28,11 @@
     "defaultMessage": "Assign item to collaborators"
   },
   {
-    "id": "mediaActionsBar.assignmentHeadlineTitle",
+    "id": "mediaActionsBar.assignmentNotesTitle",
     "defaultMessage": "Add a note to the e-mail"
   },
   {
-    "id": "mediaActionsBar.assignmentHeadline",
-    "defaultMessage": "Headline"
+    "id": "mediaActionsBar.assignmentNotes",
+    "defaultMessage": "Notes"
   }
 ]

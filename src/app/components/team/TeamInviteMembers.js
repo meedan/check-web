@@ -23,10 +23,6 @@ import {
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
-  inviteMembers: {
-    id: 'TeamInviteMembers.newInvite',
-    defaultMessage: 'Invite members',
-  },
   inviteEmailInput: {
     id: 'TeamInviteMembers.emailInput',
     defaultMessage: 'Email address',
@@ -331,7 +327,7 @@ class TeamInviteMembers extends Component {
           scroll="paper"
           fullWidth
         >
-          <DialogTitle>{this.props.intl.formatMessage(messages.inviteMembers)}</DialogTitle>
+          <DialogTitle><FormattedMessage id="TeamInviteMembers.newInvite" defaultMessage="Invite members" /></DialogTitle>
           <DialogContent>
             <TextField
               id="invite-msg-input"

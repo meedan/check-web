@@ -33,17 +33,16 @@ shared_examples 'smoke' do
     wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
-    #from Instagram
+    # from Instagram
     expect(@driver.page_source.include?('#wEDnesday')).to be(false)
     create_media("https://www.instagram.com/p/BRYob0dA1SC/")
-    wait_for_selector_list_size('.media__heading',3)
-    wait_for_selector("//h4[contains(text(), 'We get')]", :xpath)
-    expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    wait_for_selector_list_size('.media__heading',4)
+    expect(@driver.page_source.include?('1 - 4 / 4')).to be(true)
 
     #from Tiktok
     expect(@driver.page_source.include?('Who agrees with this')).to be(false)
     create_media("https://www.tiktok.com/@scout2015/video/6771039287917038854")
-    wait_for_selector_list_size('.media__heading',4)
+    wait_for_selector_list_size('.media__heading',5)
     wait_for_selector("//h4[contains(text(), 'Who agrees')]", :xpath)
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
@@ -58,7 +57,8 @@ shared_examples 'smoke' do
     wait_for_selector(".multi__selector-save").click
     wait_for_selector(".message")
     expect(@driver.page_source.include?('Assignments updated successfully!')).to be(true)
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     wait_for_selector(".annotation__timestamp")
     expect(@driver.page_source.include?('Item assigned to')).to be(true)
   end
@@ -69,11 +69,15 @@ shared_examples 'smoke' do
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
     wait_for_selector_none(".media-actions__assign")
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     wait_for_selector('.annotation__timestamp')
     expect(@driver.page_source.include?('Item status locked by')).to be(true)
+    wait_for_selector("#item-history__close-button").click
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     wait_for_selector("//span[contains(text(), 'Item status unlocked by')]", :xpath)
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
@@ -91,8 +95,10 @@ shared_examples 'smoke' do
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
     wait_for_selector('.add-annotation__buttons button').click
     wait_for_selector_none(".with-file")
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     wait_for_size_change(old, "annotations__list-item", :class)
+    wait_for_selector("#item-history__close-button").click
 
     # Verify that comment was added to annotations list
     wait_for_selector(".media-tab__comments").click
@@ -130,8 +136,6 @@ shared_examples 'smoke' do
     # send this item to trash go to the item page and go back to trash page
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".media-bulk-actions__delete-icon").click
-    wait_for_selector(".message")
-    wait_for_selector('a[href$="/all-items"]').click
     wait_for_selector_none(".medias__item")
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
@@ -312,15 +316,14 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
   end
 
-  it "should enable the slack notifications", bin5: true do
+  it "should enable the Slack notifications", bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__integrations-tab').click
     expect(@driver.find_elements(:css, '.Mui-checked').length == 0 )
     wait_for_selector("input[type=checkbox]").click
     wait_for_selector(".MuiCardHeader-action").click
-    wait_for_selector('input[name="channel"]')
-    wait_for_selector('input[name="webhook"]').send_keys("https://hooks.slack.com/services/00000/0000000000")
+    wait_for_selector('#slack-config__webhook').send_keys("https://hooks.slack.com/services/00000/0000000000")
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     @driver.navigate.refresh
@@ -328,7 +331,7 @@ shared_examples 'smoke' do
     wait_for_selector(".MuiCardHeader-action").click
     wait_for_selector(".Mui-checked")
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1 )
-    wait_for_selector('input[name="channel"]')
+    wait_for_selector('#slack-config__webhook')
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
@@ -540,6 +543,35 @@ shared_examples 'smoke' do
       driver.quit
     end
   end
+
+  it "should set analysis information for an item and copy to report", bin2: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector(".media-detail")
+    expect(@driver.page_source.include?("my content")).to be(false)
+    expect(@driver.page_source.include?("- my title")).to be(false)
+    wait_for_selector(".media-analysis__title > div > textarea").send_keys("- my title")
+    wait_for_selector(".media-analysis__content > div > textarea").send_keys("my content")
+    wait_for_text_change("my content", ".media-analysis__content > div > textarea")
+    wait_for_selector(".media-analysis__title").click
+    @driver.navigate.refresh
+    wait_for_selector(".media-analysis__title")
+    expect(@driver.page_source.include?("- my title")).to be(true)
+    expect(@driver.page_source.include?("my content")).to be(true)
+    wait_for_selector(".media-analysis__copy-to-report").click
+    wait_for_selector("#confirm-dialog__checkbox").click
+    wait_for_selector("#confirm-dialog__confirm-action-button").click
+    wait_for_selector(".report-designer__copy-share-url")
+    expect(@driver.page_source.include?("Design your report")).to be(true)
+    expect(@driver.page_source.include?("my content")).to be(true)
+    expect(@driver.page_source.include?("- my title")).to be(true)
+    wait_for_selector("//span[contains(text(), 'Back to annotation')]", :xpath).click
+    wait_for_selector(".media-detail")
+    @driver.navigate.refresh
+    wait_for_selector(".media-analysis__title")
+    expect(@driver.page_source.include?("my content")).to be(true)
+    expect(@driver.page_source.include?("- my title")).to be(true)
+  end
+
 #Report section end
 
 #Bulk Actions section start
@@ -1081,51 +1113,48 @@ shared_examples 'smoke' do
     api_create_claim_and_go_to_search_page
     expect(@driver.page_source.include?('My search result')).to be(true)
     create_media("media 2")
-    create_media("media 3")
     wait_for_selector_list(".media__heading a")[0].click
     change_the_status_to(".media-status__menu-item--false", false)
     wait_for_selector(".project-header__back-button").click
     wait_for_selector("#search-input")
-    wait_for_selector_list(".media__heading a")[1].click
-    wait_for_selector(".media__annotations-column")
-    change_the_status_to(".media-status__menu-item--verified", false)
-    wait_for_selector(".project-header__back-button").click
-    wait_for_selector_list_size(".media__heading", 3)
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
-    wait_for_selector("#search-query__status-false").click
-    wait_for_selector("#search-query__status-verified").click
+    wait_for_selector("button[title=Open]").click
+    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("verified")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("false")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
     wait_for_selector("#search-query__submit-button").click
     expect(@driver.page_source.include?('My search result')).to be(false)
+    expect(@driver.page_source.include?('media 2')).to be(false)
     attempts = 0
+    @driver.navigate.refresh
     while !@driver.page_source.include?('media 2') && attempts < 30
       wait_for_selector("#search__open-dialog-button").click
       wait_for_selector("#search-query__cancel-button")
-      wait_for_selector("#search-query__status-verified").click
+      if @driver.page_source.include?('False')
+        wait_for_selector_list(".MuiChip-deletable > svg")[1].click
+      else
+        wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("false")
+        @driver.action.send_keys(:arrow_down).perform
+        @driver.action.send_keys(:enter).perform
+      end
       wait_for_selector("#search-query__submit-button").click
       sleep 1
       attempts += 1
     end
-    while !@driver.page_source.include?('media 3') && attempts < 30
-      wait_for_selector("#search__open-dialog-button").click
-      wait_for_selector("#search-query__cancel-button")
-      wait_for_selector("#search-query__status-false").click
-      wait_for_selector("#search-query__submit-button").click
-      sleep 1
-      attempts += 1
-    end
-    expect(@driver.page_source.include?('media 3')).to be(true)
     expect(@driver.page_source.include?('media 2')).to be(true)
-    wait_for_selector_list_size(".media__heading", 2)
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
-    selected = @driver.find_elements(:css, '.search-query__filter-button--selected')
-    expect(selected.size == 2).to be(true)
+    selected = @driver.find_elements(:css, '.MuiChip-deletable')
+    expect(selected.size == 1).to be(true)
     #reset filter
     wait_for_selector("//span[contains(text(), 'Reset')]", :xpath).click
     wait_for_selector("#search-query__submit-button").click
-    wait_for_selector_list_size(".media__heading", 3)
-
+    wait_for_selector_list_size(".media__heading", 2)
+    expect(@driver.page_source.include?('My search result')).to be(true)
     #search by keyword
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
     wait_for_selector("#search-input").send_keys("search")
@@ -1147,19 +1176,24 @@ shared_examples 'smoke' do
     expect(@driver.find_elements(:css, '.medias__item').length == 0 )
     wait_for_selector(".project-list__item-trash").click #Go to the trash page
     wait_for_selector(".media__heading")
-    #user filter option
+    #use filter option
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
-    wait_for_selector("#search-query__status-in_progress").click
+    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("in progress")
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
     wait_for_selector("#search-query__submit-button").click
     wait_for_selector_none("#search-query__cancel-button")
     expect(@driver.page_source.include?('My search result')).to be(false)
     #reset filter
+    @driver.navigate.refresh
+    wait_for_selector("#search-input")
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
-    wait_for_selector("#search-query__status-in_progress").click
+    wait_for_selector("#search-query__reset-button").click
     wait_for_selector("#search-query__submit-button").click
     wait_for_selector_none("#search-query__cancel-button")
+    wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
@@ -1213,8 +1247,8 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
-    selected = @driver.find_elements(:css, '.search-query__filter-button--selected').map(&:text).sort
-    expect(selected == ['False'].sort).to be(true)
+    selected = @driver.find_elements(:css, '.MuiChip-deletable')
+    expect(selected.size == 1).to be(true)
   end
 
   it "should search by project through URL", bin3: true do
@@ -1226,7 +1260,7 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
-    selected = @driver.find_elements(:css, '.search-filter__project-chip--selected')
+    selected = @driver.find_elements(:css, '.MuiChip-deletable')
     expect(selected.size == 1).to be(true)
   end
 
@@ -1338,7 +1372,7 @@ shared_examples 'smoke' do
     wait_for_selector("#tag__text-tag2")
     expect(@driver.page_source.include?('tag2')).to be(true)
 
-    #search tag by keyword
+    # Search tag by keyword
     wait_for_selector(".filter-popup > div > button > span > svg").click
     wait_for_selector("input[name=sort-select]")
     wait_for_selector("input[placeholder='Search…']").send_keys("edited")
