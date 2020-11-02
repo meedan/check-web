@@ -4,7 +4,7 @@ module FlakyTests
 
   def get_file
     config = {
-      access_key_id: @config['aws_endpoint'],
+      endpoint: @config['aws_endpoint'],
       access_key_id: @config['aws_access_key_id'],
       secret_access_key: @config['aws_secret_access_key'],
       region: @config['aws_region']
