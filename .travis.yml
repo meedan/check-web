@@ -92,6 +92,7 @@ before_script:
 - sleep 5
 script: npm run test:lint && npm run test:unit && ./scripts/uncovered-files && cd test && ./parallel-test.sh
 after_script:
+- cat file.json
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 notifications:
   slack:
