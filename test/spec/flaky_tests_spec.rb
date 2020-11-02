@@ -48,7 +48,6 @@ module FlakyTests
         end
       end
       create_file(file)
-      puts "Flaky Tests: #{file}"
       get_file.upload_file('file.json')
     end
   end
