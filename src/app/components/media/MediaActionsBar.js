@@ -12,6 +12,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
+import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
@@ -62,6 +63,7 @@ class MediaActionsBarComponent extends Component {
 
     this.state = {
       assignmentDialogOpened: false,
+      itemHistoryDialogOpen: false,
     };
   }
 
@@ -141,6 +143,7 @@ class MediaActionsBarComponent extends Component {
   handleCloseDialogs() {
     this.setState({
       assignmentDialogOpened: false,
+      itemHistoryDialogOpen: false,
     });
   }
 
@@ -243,6 +246,10 @@ class MediaActionsBarComponent extends Component {
     );
   }
 
+  handleItemHistory = () => {
+    this.setState({ itemHistoryDialogOpen: true });
+  };
+
   render() {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
@@ -310,21 +317,12 @@ class MediaActionsBarComponent extends Component {
             </Button>
           </div> : <div />}
 
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
+        <Box display="flex">
           <MediaStatus
             media={media}
             readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
-
           <MediaActionsMenuButton
-            style={{
-              height: 36,
-              marginTop: -5,
-            }}
             key={media.id /* close menu if we navigate to a different projectMedia */}
             projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
@@ -332,9 +330,18 @@ class MediaActionsBarComponent extends Component {
             handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
+            handleItemHistory={this.handleItemHistory}
           />
-        </div>
+        </Box>
 
+        <ItemHistoryDialog
+          open={this.state.itemHistoryDialogOpen}
+          onClose={this.handleCloseDialogs.bind(this)}
+          projectMedia={media}
+          team={media.team}
+        />
+
+        {/* FIXME Extract to dedicated AssignmentDialog component */}
         <Dialog
           className="project__assignment-menu"
           open={this.state.assignmentDialogOpened}

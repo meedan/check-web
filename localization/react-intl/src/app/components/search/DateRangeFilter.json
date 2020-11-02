@@ -16,6 +16,10 @@
     "defaultMessage": "Updated"
   },
   {
+    "id": "search.datePublishedHeading",
+    "defaultMessage": "Published"
+  },
+  {
     "id": "search.pickDateFrom",
     "defaultMessage": "Starting date"
   },

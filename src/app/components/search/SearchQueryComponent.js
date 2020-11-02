@@ -226,6 +226,7 @@ class SearchQueryComponent extends React.Component {
       const datesObj =
         query.range.created_at ||
         query.range.updated_at ||
+        query.range.published_at ||
         query.range.last_seen || {};
       if (!datesObj.start_time && !datesObj.end_time) {
         delete cleanQuery.range;

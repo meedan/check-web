@@ -41,6 +41,10 @@ before_install:
 - sudo apt-get remove google-chrome-stable  # Travis comes with it, and its version doesn't match chromedriver's
 - export TEST_ENV_NUMBER=0
 - export CHROMEDRIVER_URL=http://localhost:9515
+# Needed to fix error when installing Pender gems
+# Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
+# https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
+- export TRAVIS_TAG=0.0.0
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # minio
@@ -68,7 +72,7 @@ before_install:
 - git clone https://github.com/meedan/pender.git
 - d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
 - cd pender
-- bundle install --path=/tmp/bundler
+- RAILS_ENV=test bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - bundle exec rails s -p 3005 >/dev/null &
@@ -88,6 +92,7 @@ before_script:
 - sleep 5
 script: npm run test:lint && npm run test:unit && ./scripts/uncovered-files && cd test && ./parallel-test.sh
 after_script:
+- cat file.json
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 notifications:
   slack:

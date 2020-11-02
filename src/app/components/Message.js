@@ -54,11 +54,12 @@ const Message = (props) => {
 
 Message.propTypes = {
   message: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
 };
 
 Message.defaultProps = {
   message: '',
+  onClick: null,
 };
 
 export default Message;

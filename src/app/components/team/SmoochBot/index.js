@@ -241,6 +241,9 @@ const SmoochBot = (props) => {
                 onClick={() => {
                   const updatedValue = handleAddResource(value);
                   setValue(updatedValue);
+                  const resourcesCount = updatedValue.smooch_workflows[currentWorkflowIndex]
+                    .smooch_custom_resources.length;
+                  setCurrentOption(`resource_${resourcesCount - 1}`);
                 }}
               >
                 <FormattedMessage

@@ -26,33 +26,33 @@ shared_examples 'login' do
     expect(displayed_name).to eq(expected_name)
   end
 
-  it "should login using Twitter and edit user profile", bin5: true, quick: true do
-    login_with_twitter
-    @driver.navigate.to @config['self_url'] + '/check/me'
-    wait_for_selector("#assignments-tab")
-    displayed_name = wait_for_selector('h1.source__name').text.upcase
-    expected_name = @config['twitter_name'].upcase
-    expect(displayed_name == expected_name).to be(true)
-    expect(@driver.page_source.include?(' - edited')).to be(false)
-    expect(@driver.page_source.include?('bio')).to be(false)
-    wait_for_selector(".source__edit-source-button").click
-    wait_for_selector("#source__name-container").send_keys("- edited")
-    wait_for_selector("#source__bio-container").send_keys("Bio")
-    wait_for_selector(".source__edit-save-button").click
-    wait_for_selector_none("#source__bio-container")
-    wait_for_selector("#assignments-tab")
-    expect(@driver.page_source.include?('- edited')).to be(true)
-    expect(@driver.page_source.include?("Bio")).to be(true)
-  end
-
-  # commented to be fixed on ticket #8789
-  # it "should login using Slack", bin4: true, quick:true do
-  #   login_with_slack
+  # Commented to be fixed on ticket #8789
+  # it "should login using Twitter and edit user profile", bin5: true, quick: true do
+  #   login_with_twitter
   #   @driver.navigate.to @config['self_url'] + '/check/me'
+  #   wait_for_selector("#assignments-tab")
   #   displayed_name = wait_for_selector('h1.source__name').text.upcase
-  #   expected_name = @config['slack_name'].upcase
+  #   expected_name = @config['twitter_name'].upcase
   #   expect(displayed_name == expected_name).to be(true)
+  #   expect(@driver.page_source.include?(' - edited')).to be(false)
+  #   expect(@driver.page_source.include?('bio')).to be(false)
+  #   wait_for_selector(".source__edit-source-button").click
+  #   wait_for_selector("#source__name-container").send_keys("- edited")
+  #   wait_for_selector("#source__bio-container").send_keys("Bio")
+  #   wait_for_selector(".source__edit-save-button").click
+  #   wait_for_selector_none("#source__bio-container")
+  #   wait_for_selector("#assignments-tab")
+  #   expect(@driver.page_source.include?('- edited')).to be(true)
+  #   expect(@driver.page_source.include?("Bio")).to be(true)
   # end
+
+  it "should login using Slack", bin4: true, quick:true do
+    login_with_slack
+    @driver.navigate.to @config['self_url'] + '/check/me'
+    displayed_name = wait_for_selector('h1.source__name').text.upcase
+    expected_name = @config['slack_name'].upcase
+    expect(displayed_name == expected_name).to be(true)
+  end
 
   it "should register and login using e-mail", bin5: true, quick:true do
     register_with_email
