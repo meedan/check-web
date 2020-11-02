@@ -33,18 +33,16 @@ shared_examples 'smoke' do
     wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
-    # commented to be fixed on ticket #8789
     # from Instagram
-    # expect(@driver.page_source.include?('#wEDnesday')).to be(false)
-    # create_media("https://www.instagram.com/p/BRYob0dA1SC/")
-    # wait_for_selector_list_size('.media__heading',3)
-    # wait_for_selector("//h4[contains(text(), 'We get')]", :xpath)
-    # expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+    create_media("https://www.instagram.com/p/BRYob0dA1SC/")
+    wait_for_selector_list_size('.media__heading',4)
+    expect(@driver.page_source.include?('1 - 4 / 4')).to be(true)
 
     #from Tiktok
     expect(@driver.page_source.include?('Who agrees with this')).to be(false)
     create_media("https://www.tiktok.com/@scout2015/video/6771039287917038854")
-    wait_for_selector_list_size('.media__heading',4)
+    wait_for_selector_list_size('.media__heading',5)
     wait_for_selector("//h4[contains(text(), 'Who agrees')]", :xpath)
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
