@@ -24,8 +24,8 @@ const useStyles = makeStyles(theme => ({
 
 const MediaExpandedMetadata = ({ projectMedia }) => {
   const classes = useStyles();
-  const metrics = projectMedia.media.metadata.metrics ?
-    projectMedia.media.metadata.metrics.facebook : null;
+  const metrics = projectMedia.metrics ?
+    projectMedia.metrics.data.fields[0].value_json.facebook : null;
   const { published_at } = projectMedia.media.metadata;
 
   if (!shouldDisplayMetrics(metrics) && !published_at) { return null; }
