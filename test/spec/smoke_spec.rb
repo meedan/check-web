@@ -33,18 +33,16 @@ shared_examples 'smoke' do
     wait_for_selector("//h4[contains(text(), 'How')]", :xpath)
     expect(@driver.page_source.include?("How To Check An")).to be(true)
 
-    # commented to be fixed on ticket #8789
     # from Instagram
-    # expect(@driver.page_source.include?('#wEDnesday')).to be(false)
-    # create_media("https://www.instagram.com/p/BRYob0dA1SC/")
-    # wait_for_selector_list_size('.media__heading',3)
-    # wait_for_selector("//h4[contains(text(), 'We get')]", :xpath)
-    # expect(@driver.page_source.include?('#wEDnesday')).to be(true)
+    expect(@driver.page_source.include?('#wEDnesday')).to be(false)
+    create_media("https://www.instagram.com/p/BRYob0dA1SC/")
+    wait_for_selector_list_size('.media__heading',4)
+    expect(@driver.page_source.include?('1 - 4 / 4')).to be(true)
 
     #from Tiktok
     expect(@driver.page_source.include?('Who agrees with this')).to be(false)
     create_media("https://www.tiktok.com/@scout2015/video/6771039287917038854")
-    wait_for_selector_list_size('.media__heading',4)
+    wait_for_selector_list_size('.media__heading',5)
     wait_for_selector("//h4[contains(text(), 'Who agrees')]", :xpath)
     expect(@driver.page_source.include?('Who agrees with this')).to be(true)
   end
@@ -1246,19 +1244,6 @@ shared_examples 'smoke' do
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"verification_status"%3A%5B"false"%5D%7D'
     wait_for_selector("#search-query__clear-button")
     expect((@driver.title =~ /False/).nil?).to be(false)
-    expect(@driver.page_source.include?('My search result')).to be(false)
-    wait_for_selector("#search__open-dialog-button").click
-    wait_for_selector("#search-query__cancel-button")
-    selected = @driver.find_elements(:css, '.MuiChip-deletable')
-    expect(selected.size == 1).to be(true)
-  end
-
-  it "should search by project through URL", bin3: true do
-    data = api_create_team_and_project
-    project_id = data[:project].dbid.to_s
-    claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items/%7B"projects"%3A%5B' + project_id + '%5D%7D'
-    wait_for_selector(".search__results-heading")
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")

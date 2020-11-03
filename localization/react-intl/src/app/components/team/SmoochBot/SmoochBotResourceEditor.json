@@ -12,8 +12,8 @@
     "defaultMessage": "Bot resource title"
   },
   {
-    "id": "smoochBotResourceEditor.content",
-    "defaultMessage": "Bot resource content"
+    "id": "smoochBotResourceEditor.addContent",
+    "defaultMessage": "Add content manually"
   },
   {
     "id": "smoochBotResourceEditor.rss",
