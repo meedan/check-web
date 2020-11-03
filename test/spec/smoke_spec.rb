@@ -1251,19 +1251,6 @@ shared_examples 'smoke' do
     expect(selected.size == 1).to be(true)
   end
 
-  it "should search by project through URL", bin3: true do
-    data = api_create_team_and_project
-    project_id = data[:project].dbid.to_s
-    claim = request_api 'claim', { quote: 'Claim', email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
-    @driver.navigate.to @config['self_url'] + '/' + data[:team].slug + '/all-items/%7B"projects"%3A%5B' + project_id + '%5D%7D'
-    wait_for_selector(".search__results-heading")
-    expect(@driver.page_source.include?('My search result')).to be(false)
-    wait_for_selector("#search__open-dialog-button").click
-    wait_for_selector("#search-query__cancel-button")
-    selected = @driver.find_elements(:css, '.MuiChip-deletable')
-    expect(selected.size == 1).to be(true)
-  end
-
   it "should search by date range", bin4: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector(".medias__item")
