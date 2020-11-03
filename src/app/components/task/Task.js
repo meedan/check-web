@@ -415,7 +415,7 @@ class Task extends Component {
         {task.type === 'file_upload' ?
           <div className="task__response">
             <Box component="p" textAlign="center">
-              <Box 
+              <Box
                 component="a"
                 href={fileUploadPath}
                 target="_blank"

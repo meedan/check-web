@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Box from '@material-ui/core/Box'
+import Box from '@material-ui/core/Box';
 
 /**
  * Count number of pixels from the top of `el` to the top of the HTML page.
