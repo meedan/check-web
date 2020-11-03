@@ -288,6 +288,14 @@ export const MuiTheme = {
         color: `${highlightOrange} !important`,
       },
     },
+    MuiIconButton: {
+      root: {
+        '&:hover': {
+          backgroundColor: 'transparent',
+          color: checkBlue,
+        },
+      },
+    },
   },
 };
 
