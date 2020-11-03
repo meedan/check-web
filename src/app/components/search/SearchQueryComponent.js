@@ -179,7 +179,7 @@ const typeLabels = defineMessages({
   },
   blank: {
     id: 'search.showBlank',
-    defaultMessage: 'Blank',
+    defaultMessage: 'Report',
   },
 });
 

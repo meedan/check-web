@@ -127,8 +127,8 @@ const SmoochBotResourceEditor = ({
           key={Math.random().toString().substring(2, 10)}
           label={
             <FormattedMessage
-              id="smoochBotResourceEditor.content"
-              defaultMessage="Bot resource content"
+              id="smoochBotResourceEditor.addContent"
+              defaultMessage="Add content manually"
             />
           }
           className={classes.spaced}
