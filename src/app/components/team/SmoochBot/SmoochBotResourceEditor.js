@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
@@ -26,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'initial',
     whiteSpace: 'initial',
     margin: 0,
+    width: '100%',
   },
   content: {
     flexWrap: 'wrap',
@@ -35,6 +37,10 @@ const useStyles = makeStyles(theme => ({
   },
   load: {
     height: theme.spacing(4),
+  },
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -84,7 +90,7 @@ const SmoochBotResourceEditor = ({
       setRefetch(refetch + 1);
       setError(null);
       setLoading(true);
-      setUrl(resource.smooch_custom_resource_feed_url);
+      setUrl(resource.smooch_custom_resource_feed_url.trim());
       setCount(resource.smooch_custom_resource_number_of_articles);
     } else {
       handleError();
@@ -121,8 +127,8 @@ const SmoochBotResourceEditor = ({
           key={Math.random().toString().substring(2, 10)}
           label={
             <FormattedMessage
-              id="smoochBotResourceEditor.content"
-              defaultMessage="Bot resource content"
+              id="smoochBotResourceEditor.addContent"
+              defaultMessage="Add content manually"
             />
           }
           className={classes.spaced}
@@ -131,14 +137,19 @@ const SmoochBotResourceEditor = ({
             onChange('smooch_custom_resource_body', event.target.value);
           }}
           variant="outlined"
-          rows={3}
+          rows={5}
+          rowsMax={Infinity}
           multiline
           fullWidth
           InputProps={{
             className: classes.content,
             endAdornment: (
               <InputAdornment position="end" className={classes.rssPreview}>
-                { rssPreview ? <ParsedText text={rssPreview} block /> : null }
+                { rssPreview ?
+                  <React.Fragment>
+                    <Divider className={classes.divider} />
+                    <ParsedText text={rssPreview} block />
+                  </React.Fragment> : null }
               </InputAdornment>
             ),
           }}
@@ -173,7 +184,7 @@ const SmoochBotResourceEditor = ({
           className={classes.spaced}
           defaultValue={resource.smooch_custom_resource_feed_url}
           onBlur={(event) => {
-            onChange('smooch_custom_resource_feed_url', event.target.value);
+            onChange('smooch_custom_resource_feed_url', event.target.value.trim());
           }}
           error={Boolean(error)}
           helperText={error}

@@ -10,6 +10,7 @@ require_relative './metadata_spec.rb'
 require_relative './login_spec.rb'
 require_relative './task_spec_helpers.rb'
 require_relative './login_spec_helpers.rb'
+require_relative './flaky_tests_spec.rb'
 # require_relative './source_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
@@ -21,10 +22,12 @@ shared_examples 'app' do |webdriver_url|
   include ApiHelpers
   include TaskSpecHelpers
   include LoginSpecHelpers
+  include FlakyTests
 
   before :all do
     @config = CONFIG
     @webdriver_url = webdriver_url
+    @failing_tests = {}
   end
 
   if not ENV['SKIP_CONFIG_JS_OVERWRITE']
@@ -69,9 +72,24 @@ shared_examples 'app' do |webdriver_url|
   end
 
   after :each do |example|
+    flaky = {}
+    link = save_screenshot("Test failed: #{example.description}")
     if example.exception
-      link = save_screenshot("Test failed: #{example.description}")
+      if @failing_tests.has_key? example.description
+        @failing_tests[example.description]['failures'] = example.metadata[:retry_attempts] + 1
+        @failing_tests[example.description]['imgur'] = link
+      else 
+        flaky['failures'] = example.metadata[:retry_attempts] + 1
+        flaky['imgur'] = link
+        @failing_tests[example.description]= flaky
+      end 
       print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}] "
+    end
+  end
+
+  after :all do
+    if ENV['TRAVIS_BRANCH'] == 'master' || ENV['TRAVIS_BRANCH'] == 'develop'
+      update_failing_tests_file(@failing_tests)
     end
   end
 

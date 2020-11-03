@@ -1,19 +1,19 @@
 [
   {
-    "id": "singleChoiceTask.addValue",
-    "defaultMessage": "Add Option"
-  },
-  {
     "id": "singleChoiceTask.value",
     "defaultMessage": "Value"
   },
   {
-    "id": "singleChoiceTask.addOther",
-    "defaultMessage": "Add \"Other\""
-  },
-  {
     "id": "singleChoiceTask.other",
     "defaultMessage": "Other"
+  },
+  {
+    "id": "singleChoiceTask.addValue",
+    "defaultMessage": "Add Option"
+  },
+  {
+    "id": "singleChoiceTask.addOther",
+    "defaultMessage": "Add \"Other\""
   },
   {
     "id": "editTaskDialog.editTask",
