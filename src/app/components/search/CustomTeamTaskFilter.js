@@ -155,7 +155,7 @@ const CustomTeamTaskFilter = ({
   };
 
   const buildFilterEntityValueOptions = () => {
-    const options = [];
+    const options = [{ key: 'NO_VALUE', value: 'Not value is set' }, { key: 'ANY_VALUE', value: 'Any value is set' }];
     const entity = team_tasks.edges.find(t => t.node.dbid === filterEntity);
     if (entity) {
       options.push(...entity.node.options
