@@ -1,13 +1,4 @@
-require_relative './spec_helper.rb'
-require_relative './app_spec_helpers.rb'
-require_relative './api_helpers.rb'
-require_relative './login_spec_helpers.rb'
-
 shared_examples 'login' do
-
-  include AppSpecHelpers
-  include ApiHelpers
-  include LoginSpecHelpers
 
   it "should sign up using e-mail", bin2: true do
     @driver.navigate.to @config['self_url']
@@ -117,5 +108,23 @@ shared_examples 'login' do
     wait_for_selector_none(".user-password-reset__email-input")
     expect(@driver.page_source.include?('email was not found')).to be(false)
     expect(@driver.page_source.include?('Password reset sent')).to be(true)
+  end
+  
+  it "should upload image when registering", bin3: true do
+    @driver.navigate.to @config['self_url']
+    wait_for_selector(".login__form")
+    wait_for_selector("#register").click
+    wait_for_selector(".without-file")
+    fill_field('.login__name input', 'User With Email')
+    fill_field('.login__email input', @email+Time.now.to_i.to_s)
+    fill_field('.login__password input', '12345678')
+    fill_field('.login__password-confirmation input', '12345678')
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector(".with-file")
+    expect(wait_for_selector(".with-file div").text.include?('test.png')).to be(true)
+    agree_to_tos(false)
+    press_button('#submit-register-or-login')
+    wait_for_selector(".message")
+    expect(@driver.page_source.include?('Please check your email to verify your account')).to be(true)
   end
 end
