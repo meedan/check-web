@@ -60,7 +60,7 @@ shared_examples 'tag' do
   end
 
   it "should add a tag, reject duplicated and delete tag", bin3: true, quick: true  do
-    create_media_depending_on_type
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector(".media-detail")
     new_tag = 'tag:'+Time.now.to_i.to_s
     # Validate assumption that tag does not exist

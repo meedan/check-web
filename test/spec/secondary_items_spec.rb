@@ -80,6 +80,7 @@ shared_examples 'secondary items' do
     wait_for_selector(".team-header__drawer-team-link").click
     wait_for_selector(".home--team")
     wait_for_selector(".team-members__member")
+    @driver.navigate.refresh
     wait_for_selector("//div[contains(text(), 'Smooch')]", :xpath)
     wait_for_selector(".team__project").click
     wait_for_selector("#search__open-dialog-button")

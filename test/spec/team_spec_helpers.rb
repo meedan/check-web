@@ -87,5 +87,6 @@ module TeamSpecHelpers
     wait_for_selector(".bot-garden__bot-name")
     wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath).click
     wait_for_selector('#bot__install-button').click
+    wait_for_selector_none('#bot__install-button')
   end
 end
