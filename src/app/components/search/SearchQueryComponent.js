@@ -10,17 +10,21 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import InputBase from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FilterListIcon from '@material-ui/icons/FilterList';
 import ClearIcon from '@material-ui/icons/Clear';
+import FilterListIcon from '@material-ui/icons/FilterList';
+import SearchIcon from '@material-ui/icons/Search';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
-import { withPusher, pusherShape } from '../../pusher';
 import CustomFiltersManager from './CustomFiltersManager';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
+import SearchKeywordConfig from './SearchKeywordConfig';
+import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import {
@@ -35,20 +39,6 @@ import {
   borderWidthLarge,
   mediaQuery,
 } from '../../styles/js/shared';
-
-export const StyledSearchInput = styled.input`
-  background-repeat: no-repeat;
-  background-color: ${white};
-  background-image: url('/images/search.svg');
-  background-position: ${props => (props.theme.dir === 'rtl' ? `calc(100% - ${units(2)})` : units(2))} center;
-  border: ${borderWidthLarge} solid ${props => (props.active ? highlightOrange : black16)};
-  border-radius: ${units(0.5)};
-  height: ${units(5)};
-  outline: none;
-  width: 100%;
-  font-size: 16px;
-  padding-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(6)};
-`;
 
 const StyledPopper = styled(Popper)`
   width: 80%;
@@ -138,6 +128,34 @@ const styles = theme => ({
     color: white,
     backgroundColor: highlightOrange,
     border: `${borderWidthLarge} solid ${highlightOrange}`,
+  },
+  inputInactive: {
+    borderRadius: theme.spacing(0.5),
+    border: `${borderWidthLarge} solid ${black16}`,
+  },
+  inputActive: {
+    borderRadius: theme.spacing(0.5),
+    border: `${borderWidthLarge} solid ${highlightOrange}`,
+  },
+  startAdornmentRoot: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+  },
+  endAdornmentRoot: {
+    cursor: 'pointer',
+    display: 'flex',
+    justifyContent: 'center',
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+  },
+  endAdornmentInactive: {
+    backgroundColor: black16,
+  },
+  endAdornmentActive: {
+    color: 'white',
+    backgroundColor: highlightOrange,
   },
 });
 
@@ -249,6 +267,11 @@ class SearchQueryComponent extends React.Component {
     return query.keyword && query.keyword.trim() !== '';
   };
 
+  keywordConfigIsActive = () => {
+    const { query } = this.state;
+    return query.keyword_fields;
+  }
+
   filterIsActive = () => {
     const { query } = this.props;
     const filterFields = [
@@ -306,6 +329,15 @@ class SearchQueryComponent extends React.Component {
 
   handleCustomFilterChange = (value) => {
     this.setState({ query: { ...this.state.query, ...value } });
+  }
+
+  handleKeywordConfigChange = (value) => {
+    const newQuery = { ...this.state.query, ...value };
+    if (Object.keys(value.keyword_fields).length === 0) {
+      delete newQuery.keyword_fields;
+    }
+    const callback = this.state.query.keyword ? this.handleApplyFilters : null;
+    this.setState({ query: newQuery }, callback);
   }
 
   handleStatusClick = (statusCodes) => {
@@ -540,16 +572,52 @@ class SearchQueryComponent extends React.Component {
             autoComplete="off"
           >
             <FormattedMessage id="search.inputHint" defaultMessage="Search">
-              {placeholder => (
-                <StyledSearchInput
+              { placeholder => (
+                <InputBase
+                  classes={{
+                    root: (
+                      this.keywordIsActive() || this.keywordConfigIsActive() ?
+                        classes.inputActive :
+                        classes.inputInactive
+                    ),
+                  }}
                   placeholder={placeholder}
                   name="search-input"
                   id="search-input"
-                  active={this.keywordIsActive()}
                   defaultValue={this.state.query.keyword || ''}
                   onBlur={this.handleBlur}
                   onChange={this.handleInputChange}
                   ref={this.searchInput}
+                  InputProps={{
+                    disableUnderline: true,
+                    startAdornment: (
+                      <InputAdornment
+                        classes={{
+                          root: classes.startAdornmentRoot,
+                        }}
+                      >
+                        <SearchIcon />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment
+                        classes={{
+                          root: classes.endAdornmentRoot,
+                          filled: (
+                            this.keywordConfigIsActive() ?
+                              classes.endAdornmentActive :
+                              classes.endAdornmentInactive
+                          ),
+                        }}
+                        variant="filled"
+                      >
+                        <SearchKeywordConfig
+                          onChange={this.handleKeywordConfigChange}
+                          query={this.state.query}
+                        />
+                      </InputAdornment>
+                    ),
+                  }}
                   autoFocus
                 />
               )}

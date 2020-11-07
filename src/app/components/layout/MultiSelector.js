@@ -1,6 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -140,28 +142,35 @@ class MultiSelector extends React.Component {
         <StyledMultiSelectorArea>
           <FormGroup>
             {
-              options.map((o, index) => (
-                <FormControlLabel
-                  key={`multiselector-option-${index.toString()}`}
-                  control={this.props.single ?
-                    <Radio
-                      checked={this.state.selected === o.value}
-                      onChange={this.handleSelectRadio}
-                      id={o.value}
-                      icon={o.icon}
-                      checkedIcon={o.checkedIcon}
-                    /> :
-                    <Checkbox
-                      checked={this.state.selected.indexOf(o.value) > -1}
-                      onChange={this.handleSelectCheckbox}
-                      id={o.value}
-                      icon={o.icon}
-                      checkedIcon={o.checkedIcon}
-                    />
-                  }
-                  label={o.label}
-                />
-              ))
+              options.map((o, index) => {
+                if (o.value === '') {
+                  return (
+                    <Divider key={`multiselector-dividider-${index.toString()}`} />
+                  );
+                }
+                return (
+                  <FormControlLabel
+                    key={`multiselector-option-${index.toString()}`}
+                    control={this.props.single ?
+                      <Radio
+                        checked={this.state.selected === o.value}
+                        onChange={this.handleSelectRadio}
+                        id={o.value}
+                        icon={o.icon}
+                        checkedIcon={o.checkedIcon}
+                      /> :
+                      <Checkbox
+                        checked={this.state.selected.indexOf(o.value) > -1}
+                        onChange={this.handleSelectCheckbox}
+                        id={o.value}
+                        icon={o.icon}
+                        checkedIcon={o.checkedIcon}
+                      />
+                    }
+                    label={o.label}
+                  />
+                );
+              })
             }
             { options.length < 1 ?
               <StyledNotFound>
@@ -189,5 +198,30 @@ class MultiSelector extends React.Component {
     );
   }
 }
+
+MultiSelector.defaultProps = {
+  allowSearch: false,
+  allowSelectAll: false,
+  allowUnselectAll: false,
+  cancelLabel: null,
+  single: false,
+  submitLabel: null,
+};
+
+MultiSelector.propTypes = {
+  allowSearch: PropTypes.bool,
+  allowSelectAll: PropTypes.bool,
+  allowUnselectAll: PropTypes.bool,
+  cancelLabel: PropTypes.node,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  })).isRequired,
+  selected: PropTypes.arrayOf(PropTypes.string).isRequired,
+  single: PropTypes.bool,
+  submitLabel: PropTypes.node,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default MultiSelector;
