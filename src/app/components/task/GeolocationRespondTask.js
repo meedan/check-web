@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Box from '@material-ui/core/Box';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -371,8 +370,9 @@ class GeolocationRespondTask extends Component {
           fullWidth
           margin="normal"
         />
-        <Box height="400px">
+        <div>
           <Map
+            style={{ height: '400px' }}
             center={position}
             zoom={this.state.zoom}
             onClick={this.updatePositionOnClick.bind(this)}
@@ -388,7 +388,7 @@ class GeolocationRespondTask extends Component {
               ref={(m) => { this.marker = m; }}
             />
           </Map>
-        </Box>
+        </div>
         { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );
