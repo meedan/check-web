@@ -40,7 +40,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
   }
 
   return (
-    <TableCell align="left" title={value}>
+    <TableCell align="left">
       {value}
     </TableCell>
   );
