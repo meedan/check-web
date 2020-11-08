@@ -256,7 +256,7 @@ module AppSpecHelpers
     Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
   end
 
-  def install_bot (team, bot_name)
+  def install_bot(team, bot_name)
     api_create_bot
     @driver.navigate.to @config['self_url'] + '/' + team
     wait_for_selector('.team-menu__team-settings-button').click

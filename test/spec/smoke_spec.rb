@@ -269,7 +269,9 @@ shared_examples 'smoke' do
     expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
-    wait_for_selector('.team-bots__uninstall-button').click
+    button = wait_for_selector('.team-bots__uninstall-button')
+    @driver.execute_script('window.scrollTo(0, 0)')
+    button.click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__checkbox')
@@ -1212,7 +1214,7 @@ shared_examples 'smoke' do
     expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(true)
 
-    wait_for_selector("th[data-field=created_at] span").click
+    wait_for_selector("th[data-field=created_at_timestamp] span").click
     wait_for_selector(".medias__item")
     expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
     expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
@@ -1290,7 +1292,7 @@ shared_examples 'smoke' do
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").empty?).to be(true)
-    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").length).to eq 1
+    expect(@driver.find_elements(:css, "th[data-field=created_at_timestamp]> span > svg").length).to eq 1
   end
 
   it "should search for reverse images", bin2: true do

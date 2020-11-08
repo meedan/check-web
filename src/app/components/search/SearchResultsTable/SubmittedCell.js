@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import TimeCell from './TimeCell';
 
 export default function SubmittedCell({ projectMedia }) {
-  return <TimeCell unixTimestampInS={parseFloat(projectMedia.first_seen)} />;
+  const timestamp = projectMedia.list_columns_values.created_at_timestamp;
+  return <TimeCell unixTimestampInS={timestamp} />;
 }
 SubmittedCell.propTypes = {
   projectMedia: PropTypes.shape({
-    // first_seen: UNIX timestamp in s, encoded as a String.
-    // TODO make .first_seen a Number (requires API change)
-    first_seen: PropTypes.string.isRequired,
+    list_columns_values: PropTypes.shape({
+      created_at_timestamp: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };
