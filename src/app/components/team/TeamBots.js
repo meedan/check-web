@@ -199,6 +199,11 @@ class TeamBotsComponent extends Component {
             : null }
           { team.team_bot_installations.edges.map((installation) => {
             const bot = installation.node.team_bot;
+
+            if (bot.default) {
+              return null;
+            }
+
             const botExpanded = this.state.expanded === bot.dbid;
             return (
               <Box clone mb={5}>
@@ -382,6 +387,7 @@ const TeamBotsContainer = Relay.createContainer(TeamBotsComponent, {
                 avatar
                 name
                 identifier
+                default
                 settings_as_json_schema(team_slug: $teamSlug)
                 settings_ui_schema
                 description: get_description
