@@ -10,7 +10,7 @@ export function defaultOptions(media, language) {
   );
   const teamUrl = team.contacts && team.contacts.edges[0] ?
     team.contacts.edges[0].node.web :
-    window.location.href.match(/https?:\/\/[^/]+\/[^/]+/)[0];
+    '';
   const default_reports = team.get_report || {};
   const default_report = default_reports[language] || {};
   const isDefaultLanguage = (language === team.get_language);
