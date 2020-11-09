@@ -231,7 +231,8 @@ shared_examples 'app' do |webdriver_url|
       # send this item to trash go to the item page and go back to trash page
       wait_for_selector("input[type=checkbox]").click
       wait_for_selector(".media-bulk-actions__delete-icon").click
-      wait_for_selector_none(".medias__item")
+      wait_for_selector(".message")
+      wait_for_selector_none(".media__heading")
       wait_for_selector(".project-list__item-trash").click #Go to the trash page
       wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
       wait_for_selector(".medias__item")

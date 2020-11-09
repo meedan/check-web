@@ -59,7 +59,8 @@ shared_examples 'login' do
     wait_for_selector(".team-members__invite-button").click
     wait_for_selector(".invite-member-email-input input").send_keys("user-email@email.com")
     wait_for_selector(".team-invite-members__dialog-submit-button").click
-    wait_for_selector_none(".invite-member-email-input")
+    wait_for_selector(".message")
+    expect(@driver.page_source.include?('Invitation was sent')).to be(true)
   end
 
   it "should redirect to login screen by the join team link", bin2: true do
