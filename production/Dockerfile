@@ -16,7 +16,10 @@ ENV DEPLOYUSER=checkdeploy \
     NODE_ENV=production \
     TERM=xterm \
     MIN_INSTANCES=4 \
-    MAX_POOL_SIZE=12
+    MAX_POOL_SIZE=12 \
+    LC_ALL=C.UTF-8 \
+    LANG=C.UTF-8 \
+    LANGUAGE=C.UTF-8
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
