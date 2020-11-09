@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -201,21 +202,22 @@ class EditTaskDialog extends React.Component {
     const canRemove = this.state.options.length > 2;
 
     return (
-      <div style={{ marginTop: units(2) }}>
+      <Box mt={2}>
         {this.state.options.map((item, index) => (
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
             <Row>
               <ChevronRightIcon />
-              <TextField
-                key="create-task__add-option-input"
-                className="create-task__add-option-input"
-                id={index.toString()}
-                onChange={this.handleEditOption.bind(this)}
-                placeholder={`${formatMessage(messages.value)} ${index + 1}`}
-                value={item.label}
-                disabled={item.other}
-                style={{ padding: `${units(0.5)} ${units(1)}`, width: '75%' }}
-              />
+              <Box clone py={0.5} px={1} width="75%">
+                <TextField
+                  key="create-task__add-option-input"
+                  className="create-task__add-option-input"
+                  id={index.toString()}
+                  onChange={this.handleEditOption.bind(this)}
+                  placeholder={`${formatMessage(messages.value)} ${index + 1}`}
+                  value={item.label}
+                  disabled={item.other}
+                />
+              </Box>
               {canRemove ?
                 <StyledIconButton>
                   <CancelIcon
@@ -228,7 +230,7 @@ class EditTaskDialog extends React.Component {
             </Row>
           </div>
         ))}
-        <div style={{ marginTop: units(1) }}>
+        <Box mt={1} >
           <Button onClick={this.handleAddValue.bind(this)}>
             <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option" />
           </Button>
@@ -238,8 +240,8 @@ class EditTaskDialog extends React.Component {
           >
             <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
           </Button>
-        </div>
-      </div>
+        </Box>
+      </Box>
     );
   }
 
@@ -336,15 +338,17 @@ class EditTaskDialog extends React.Component {
                 />
               }
               label={
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Box display="flex" alignItems="center">
                   <FormattedMessage
                     id="tasks.showInBrowserExtension"
                     defaultMessage="Show in browser extension"
                   />
                   <IconButton onClick={handleHelp}>
-                    <HelpIcon style={{ color: checkBlue }} />
+                    <Box clone color={checkBlue}>
+                      <HelpIcon />
+                    </Box>
                   </IconButton>
-                </div>
+                </Box>
               }
             /> : null }
           <p />
