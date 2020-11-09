@@ -1,10 +1,14 @@
 [
   {
-    "id": "teamSettings.Metadata",
+    "id": "teamSettings.lists",
+    "defaultMessage": "Lists"
+  },
+  {
+    "id": "teamSettings.metadata",
     "defaultMessage": "Metadata"
   },
   {
-    "id": "teamSettings.Tasks",
+    "id": "teamSettings.tasks",
     "defaultMessage": "Tasks"
   },
   {

@@ -16,6 +16,7 @@ import ParsedText from '../../ParsedText';
 const useStyles = makeStyles(theme => ({
   spaced: {
     margin: theme.spacing(1),
+    minWidth: 100,
   },
   title: {
     margin: theme.spacing(1.25),

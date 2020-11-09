@@ -16,6 +16,7 @@ import UpdatedCell from './UpdatedCell';
 import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
 import LinkedItemsCountCell from './LinkedItemsCountCell';
+import MetadataCell from './MetadataCell';
 import { isBotInstalled } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -47,7 +48,7 @@ const AllPossibleColumns = [
     sortKey: 'related',
   },
   {
-    field: 'type',
+    field: 'type_of_media',
     headerText: <FormattedMessage id="list.Type" defaultMessage="Type" />,
     cellComponent: TypeCell,
   },
@@ -57,7 +58,7 @@ const AllPossibleColumns = [
     cellComponent: StatusCell,
   },
   {
-    field: 'created_at',
+    field: 'created_at_timestamp',
     headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="Submitted" />,
     cellComponent: SubmittedCell,
     sortKey: 'recent_added',
@@ -70,7 +71,7 @@ const AllPossibleColumns = [
     cellComponent: LastSubmittedCell,
   },
   {
-    field: 'recent_activity',
+    field: 'updated_at_timestamp',
     headerText: <FormattedMessage id="list.updated" defaultMessage="Updated" />,
     sortKey: 'recent_activity',
     cellComponent: UpdatedCell,
@@ -78,9 +79,28 @@ const AllPossibleColumns = [
 ];
 
 function buildColumnDefs(team) {
-  return AllPossibleColumns
+  const possibleColumns = AllPossibleColumns
     // "demand" and "last_seen" only appear if smooch bot is installed
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? isBotInstalled(team, 'smooch') : true);
+  const columns = [possibleColumns[0]];
+  team.list_columns.forEach((listColumn) => {
+    if (listColumn.show) {
+      let column = possibleColumns.find(c => c.field === listColumn.key);
+      if (!column && /^task_value_/.test(listColumn.key)) {
+        column = {
+          field: listColumn.key,
+          headerText: <div>{listColumn.label}</div>,
+          cellComponent: MetadataCell,
+          sortKey: listColumn.key,
+          type: listColumn.type,
+        };
+      }
+      if (column) {
+        columns.push(column);
+      }
+    }
+  });
+  return columns;
 }
 
 /**

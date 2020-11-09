@@ -377,12 +377,6 @@ class Task extends Component {
         </div>
       );
     }
-    const resolverStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: units(1),
-      justifyContent: 'space-between',
-    };
     let fileUploadPath = null;
     if (task.type === 'file_upload' && responseObj.file_data && responseObj.file_data.length) {
       [fileUploadPath] = responseObj.file_data;
@@ -420,29 +414,43 @@ class Task extends Component {
           : null}
         {task.type === 'file_upload' ?
           <div className="task__response">
-            <p style={{ textAlign: 'center' }}>
-              <a href={fileUploadPath} target="_blank" rel="noreferrer noopener" style={{ color: checkBlue }}>{response}</a>
-            </p>
+            <Box component="p" textAlign="center">
+              <Box
+                component="a"
+                href={fileUploadPath}
+                target="_blank"
+                rel="noreferrer noopener"
+                color={checkBlue}
+              >
+                {response}
+              </Box>
+            </Box>
           </div>
           : null}
         { by && byPictures && isTask ?
-          <div className="task__resolver" style={resolverStyle}>
-            <small style={{ display: 'flex' }}>
+          <Box
+            className="task__resolver"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            mt={1}
+          >
+            <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
-              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+              <Box component="span" lineHeight="24px" px={1}>
                 <FormattedMessage
                   id="task.answeredBy"
                   defaultMessage="Completed by {byName}"
                   values={{ byName: <Sentence list={by} /> }}
                 />
-              </span>
-            </small>
+              </Box>
+            </Box>
             { showEditIcon && can(responseObj.permissions, 'update Dynamic') ?
               <EditIcon
                 style={{ width: 16, height: 16, cursor: 'pointer' }}
                 onClick={() => this.handleAction('edit_response', responseObj)}
               /> : null }
-          </div> : null }
+          </Box> : null }
       </StyledWordBreakDiv>
     );
   }
@@ -470,18 +478,18 @@ class Task extends Component {
       }
     });
 
-    const assignmentStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      width: 420,
-      margin: units(2),
-      justifyContent: 'space-between',
-    };
     const taskAssignment = task.assignments.edges.length > 0 && !response && task.fieldset === 'tasks' ? (
-      <div className="task__assigned" style={assignmentStyle}>
-        <small style={{ display: 'flex' }}>
+      <Box
+        className="task__assigned"
+        display="flex"
+        alignItems="center"
+        width="420px"
+        m={2}
+        justifyContent="space-between"
+      >
+        <Box component="small" display="flex">
           <UserAvatars users={assignments} />
-          <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+          <Box component="span" lineHeight="24px" px={1}>
             <FormattedMessage
               id="task.assignedTo"
               defaultMessage="Assigned to {name}"
@@ -489,9 +497,9 @@ class Task extends Component {
                 name: <Sentence list={assignmentComponents} />,
               }}
             />
-          </span>
-        </small>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     ) : null;
 
     const zeroAnswer = task.responses.edges.length === 0;
@@ -501,17 +509,17 @@ class Task extends Component {
         {taskAssignment}
         { data.by && isTask ?
           <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
-            <small style={{ display: 'flex' }}>
+            <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
-              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+              <Box component="span" lineHeight="24px" px={1}>
                 { response ?
                   <FormattedMessage
                     id="task.answeredBy"
                     defaultMessage="Completed by {byName}"
                     values={{ byName: <Sentence list={by} /> }}
                   /> : null }
-              </span>
-            </small>
+              </Box>
+            </Box>
           </Box>
           : null}
         <Box marginLeft="auto">
@@ -625,38 +633,39 @@ class Task extends Component {
 
     return (
       <StyledWordBreakDiv>
-        <Card
-          id={`task-${task.dbid}`}
-          className={className.join(' ')}
-          style={{ marginBottom: units(1) }}
-        >
-          <CardHeader
-            disableTypography
-            title={taskQuestion}
-            subheader={taskDescription}
-            id={`task__label-${task.id}`}
-            action={
-              <IconButton
-                className="task__card-expand"
-                onClick={() => this.setState({ expand: !this.state.expand })}
-              >
-                <KeyboardArrowDown />
-              </IconButton>
-            }
-          />
-          <Collapse in={this.state.expand} timeout="auto">
-            <CardContent className="task__card-text">
-              <Message message={this.state.message} />
-              <Box marginBottom={2}>
-                {taskBody}
-              </Box>
-            </CardContent>
-            {taskActions}
-            { isTask ?
-              <TaskLog task={task} response={response} /> : null
-            }
-          </Collapse>
-        </Card>
+        <Box clone mb={1}>
+          <Card
+            id={`task-${task.dbid}`}
+            className={className.join(' ')}
+          >
+            <CardHeader
+              disableTypography
+              title={taskQuestion}
+              subheader={taskDescription}
+              id={`task__label-${task.id}`}
+              action={
+                <IconButton
+                  className="task__card-expand"
+                  onClick={() => this.setState({ expand: !this.state.expand })}
+                >
+                  <KeyboardArrowDown />
+                </IconButton>
+              }
+            />
+            <Collapse in={this.state.expand} timeout="auto">
+              <CardContent className="task__card-text">
+                <Message message={this.state.message} />
+                <Box marginBottom={2}>
+                  {taskBody}
+                </Box>
+              </CardContent>
+              {taskActions}
+              { isTask ?
+                <TaskLog task={task} response={response} /> : null
+              }
+            </Collapse>
+          </Card>
+        </Box>
 
         { this.state.editingQuestion ?
           <EditTaskDialog
