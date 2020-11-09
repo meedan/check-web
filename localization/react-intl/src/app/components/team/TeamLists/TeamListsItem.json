@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamListsItem.hide",
+    "defaultMessage": "Hide"
+  },
+  {
+    "id": "teamListsItem.show",
+    "defaultMessage": "Show"
+  }
+]

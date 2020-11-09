@@ -1,0 +1,30 @@
+[
+  {
+    "id": "teamListsComponent.defaultErrorMessage",
+    "defaultMessage": "Could not save lists settings!"
+  },
+  {
+    "id": "teamListsComponent.savedSuccessfully",
+    "defaultMessage": "Lists settings saved successfully!"
+  },
+  {
+    "id": "teamListsComponent.title",
+    "defaultMessage": "Lists settings"
+  },
+  {
+    "id": "teamListsComponent.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamListsComponent.description",
+    "defaultMessage": "Select all the columns you want to display in all your lists."
+  },
+  {
+    "id": "teamListsComponent.selectedColumns",
+    "defaultMessage": "Selected columns"
+  },
+  {
+    "id": "teamListsComponent.availableColumns",
+    "defaultMessage": "Available columns"
+  }
+]
