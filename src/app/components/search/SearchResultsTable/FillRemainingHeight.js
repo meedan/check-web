@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Box from '@material-ui/core/Box';
 
 /**
  * Count number of pixels from the top of `el` to the top of the HTML page.
@@ -50,9 +51,11 @@ export default function FillRemainingHeight({ component: Component, children }) 
   }, [handleResize]);
 
   return (
-    <Component ref={boxRef} style={{ maxHeight }}>
-      {children}
-    </Component>
+    <Box clone maxHeight={maxHeight}>
+      <Component ref={boxRef}>
+        {children}
+      </Component>
+    </Box>
   );
 }
 FillRemainingHeight.propTypes = {

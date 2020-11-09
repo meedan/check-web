@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
+import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
@@ -195,10 +196,7 @@ class MultiSelectTask extends Component {
               />
             ))}
 
-            <div
-              style={{ display: 'flex', justifyContent: 'flex-start' }}
-              className="task__options_other"
-            >
+            <Box display="flex" justifyContent="flex-start" className="task__options_other">
               {other ?
                 <div key="task__option_other_checkbox">
                   <FormControlLabel
@@ -226,7 +224,7 @@ class MultiSelectTask extends Component {
                   />
                 </div>
                 : null}
-            </div>
+            </Box>
           </FormGroup>
 
           {(this.state.focus && editable) || this.props.mode === 'edit_response'

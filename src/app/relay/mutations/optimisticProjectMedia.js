@@ -41,6 +41,16 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
         updated_at: now,
         last_seen: now,
         share_count: 0,
+        list_columns_values: JSON.stringify({
+          type_of_media: '-',
+          demand: 0,
+          linked_items_count: 0,
+          status: 'undetermined',
+          created_at_timestamp: parseInt(now, 10),
+          updated_at_timestamp: parseInt(now, 10),
+          last_seen: parseInt(now, 10),
+          share_count: 0,
+        }),
         check_search_project: project ? {
           id: project.search_id,
           number_of_results: mediasCount + 1,
