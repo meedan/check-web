@@ -117,7 +117,7 @@ shared_examples 'search' do
     expect((@driver.current_url.to_s.match(/last_seen/)).nil?).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(true)
 
-    wait_for_selector("th[data-field=created_at] span").click
+    wait_for_selector("th[data-field=created_at_timestamp] span").click
     wait_for_selector(".medias__item")
     expect((@driver.current_url.to_s.match(/requests/)).nil?).to be(true)
     expect((@driver.current_url.to_s.match(/related/)).nil?).to be(true)
@@ -185,13 +185,13 @@ shared_examples 'search' do
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").length).to eq 1
-    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").empty?).to be(true)
+    expect(@driver.find_elements(:css, "th[data-field=created_at_timestamp]> span > svg").empty?).to be(true)
 
     @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items/%7B"sort"%3A"recent_added"%2C"sort_type"%3A"DESC"%7D'
     wait_for_selector("#create-media__add-item")
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, "th[data-field=linked_items_count]> span > svg").empty?).to be(true)
-    expect(@driver.find_elements(:css, "th[data-field=created_at]> span > svg").length).to eq 1
+    expect(@driver.find_elements(:css, "th[data-field=created_at_timestamp]> span > svg").length).to eq 1
   end
 
   it "should search for reverse images", bin2: true do

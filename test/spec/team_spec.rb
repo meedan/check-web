@@ -105,14 +105,16 @@ shared_examples 'team' do
     wait_for_selector(".team-members__member")
     wait_for_selector(".team-menu__team-settings-button").click
     wait_for_selector('.team-settings__bots-tab').click
-    wait_for_selector_none(".create-task__add-button")
+    wait_for_selector("//span[contains(text(), 'More info')]", :xpath)
     expect(@driver.page_source.include?(bot_name)).to be(true)
     wait_for_selector('.settingsIcon')
     expect(@driver.page_source.include?('No bots installed')).to be(false)
     expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
-    wait_for_selector('.team-bots__uninstall-button').click
+    button = wait_for_selector('.team-bots__uninstall-button')
+    @driver.execute_script('window.scrollTo(0, 0)')
+    button.click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__checkbox')

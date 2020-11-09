@@ -77,7 +77,7 @@ module TeamSpecHelpers
     wait_for_selector('.team-members__edit-button', :css).click
   end
 
-  def install_bot (team, bot_name)
+  def install_bot(team, bot_name)
     api_create_bot
     @driver.navigate.to @config['self_url'] + '/' + team
     wait_for_selector('.team-menu__team-settings-button').click

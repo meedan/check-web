@@ -19,6 +19,7 @@ shared_examples 'secondary items' do
     wait_for_selector(".project-header__back-button").click
     @driver.navigate.refresh
     wait_for_selector("#create-media__add-item")
+    wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('Main Item')).to be(true)
     expect(@driver.page_source.include?('Claim')).to be(false)
   end
