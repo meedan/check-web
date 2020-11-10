@@ -33,8 +33,8 @@ export default function SearchResultsTh({
       // Sorted by this column, descending => sort ascending
       newSortParams = { key: sortKey, ascending: true };
     } else {
-      // Sorted by this column, ascending => un-sort
-      newSortParams = null;
+      // Sorted by this column, ascending => sort descending
+      newSortParams = { key: sortKey, ascending: false };
     }
     onChangeSortParams(newSortParams);
   }, [sortKey, sortDirection]);

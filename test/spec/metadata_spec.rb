@@ -1,13 +1,4 @@
-require_relative './spec_helper.rb'
-require_relative './app_spec_helpers.rb'
-require_relative './api_helpers.rb'
-require_relative './task_spec_helpers.rb'
-
 shared_examples 'metadata' do
-
-  include AppSpecHelpers
-  include ApiHelpers
-  include TaskSpecHelpers
 
   it "should manage metadata", bin6: true do
     # Create team and go to team page that should not contain any task

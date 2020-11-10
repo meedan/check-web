@@ -1,14 +1,4 @@
-require_relative './spec_helper.rb'
-require_relative './app_spec_helpers.rb'
-require_relative './api_helpers.rb'
-require_relative './task_spec_helpers.rb'
-
 shared_examples 'task' do
-
-  include AppSpecHelpers
-  include ApiHelpers
-  include TaskSpecHelpers
-
 
   it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page

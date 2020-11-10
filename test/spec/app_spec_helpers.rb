@@ -50,13 +50,13 @@ module AppSpecHelpers
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, retries = 10, test = 'unknown')
+  def wait_for_selector_list_size(selector, size, type = :css,  timeout = 20, retries = 10, test = 'unknown')
     elements = []
     attempts = 0
     start = Time.now.to_i
     while elements.length < size && attempts < retries do
       attempts += 1
-      elements = wait_for_selector_list(selector, type)
+      elements = wait_for_selector_list(selector, type, timeout)
     end
     finish = Time.now.to_i - start
     raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size
@@ -116,25 +116,6 @@ module AppSpecHelpers
     wait_for_selector_none("#tos__save")
   end
 
-  def create_team
-    if @driver.find_elements(:css, '.create-team').size > 0
-      if @driver.find_elements(:css, '.find-team-card').size > 0
-        el = wait_for_selector('.find-team__toggle-create')
-        el.click
-      end
-      fill_field('#team-name-container', "Team #{Time.now}")
-      fill_field('#team-slug-container', "team#{Time.now.to_i}#{Process.pid}")
-      press_button('.create-team__submit-button')
-      sleep 0.5
-    end
-    @driver.navigate.to @config['self_url']
-    sleep 0.5
-  end
-
-  def get_team
-    @driver.execute_script('var context = Check.store.getState().app.context; return context.team ? context.team.slug : context.currentUser.current_team.slug').to_s
-  end
-
   def get_project
     @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
   end
@@ -166,12 +147,6 @@ module AppSpecHelpers
     @config['self_url'] + '/' + get_team + '/' + path
   end
 
-  def create_team_and_go_to_settings_page(team)
-    api_create_team(team: team)
-    @driver.navigate.to @config['self_url'] + '/' + team + '/settings'
-    wait_for_selector(".team-settings__statuses-tab")
-  end
-
   def create_claim_and_go_to_search_page
     login_with_email
     wait_for_selector("#input")
@@ -179,48 +154,36 @@ module AppSpecHelpers
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  def create_team_project_and_image_and_redirect_to_media_page
-    api_create_team_and_project
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('#create-media__add-item').click
-    wait_for_selector("#create-media__image").click
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    wait_for_selector_none(".without-file")
-    wait_for_selector("#create-media-dialog__submit-button").click
-    wait_for_selector('.medias__item')
-    wait_for_selector(".media__heading a").click
-    wait_for_selector(".media__annotations-column")
+  def edit_project(options)
+    wait_for_selector('.project-actions').click
+    wait_for_selector('.project-actions__edit').click
+    if (options[:title])
+      update_field('#project-title-field', options[:title])
+    end
+    if (options[:description] != nil)
+      wait_for_selector('#project-description-field').send_keys(:control, 'a', :delete)
+      @driver.action.send_keys(" \b").perform
+      sleep 1
+      update_field('#project-description-field', options[:description])
+    end
+    wait_for_selector('button.project-edit__editing-button--save').click
+    wait_for_selector_none(".project-edit__editing-button--cancel")
+    self
   end
 
   def save_screenshot(title)
-    path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
-    @driver.save_screenshot(path)
+    begin
+      path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
+      @driver.save_screenshot(path)
 
-    auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
-    image = File.new(path)
-    body = {image: image, type: 'file'}
-    response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
-    JSON.parse(response.body)['data']['link']
-  end
-
-  def wait_page_load(options = {})
-    driver = options[:driver] || @driver
-    item = options[:item] || "root"
-    @wait.until {driver.page_source.include?(item) }
-  end
-
-  def go(new_url)
-    if defined? $caller_name and $caller_name.length > 0
-      method_id = $caller_name[0]
-        .gsub(/\s/, '_')
-        .gsub(/"|\[|\]/, '')
-      if new_url.include? '?'
-        new_url = new_url + '&test_id='+method_id
-      else
-        new_url = new_url + '?test_id='+method_id
-      end
+      auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
+      image = File.new(path)
+      body = {image: image, type: 'file'}
+      response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
+      JSON.parse(response.body)['data']['link']
+    rescue Exception => e
+      "(couldn't take screenshot for '#{title}', error was: '#{e.message}')"
     end
-    @driver.navigate.to new_url
   end
 
   def new_driver(chrome_prefs: {}, extra_chrome_args: [])
@@ -254,20 +217,6 @@ module AppSpecHelpers
     )
 
     Selenium::WebDriver.for(:chrome, desired_capabilities: desired_capabilities, url: @webdriver_url)
-  end
-
-  def install_bot(team, bot_name)
-    api_create_bot
-    @driver.navigate.to @config['self_url'] + '/' + team
-    wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__bots-tab').click
-    # Install bot
-    wait_for_selector('#team-bots__bot-garden-button').click
-    wait_for_selector(".bot-garden__bot-name")
-    bot = wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath)
-    bot.click
-    wait_for_selector('#bot__install-button').click
-    @driver.navigate.to @config['self_url'] + '/' + team
   end
 
   def generate_a_report_and_copy_report_code
@@ -331,60 +280,5 @@ module AppSpecHelpers
     wait_for_selector('.create-project-card input[name="title"]').send_keys(name)
     wait_for_selector('.create-project-card button[type="submit"]').click
     wait_for_selector('.project')
-  end
-
-  def select_team(options)
-    wait_for_selector("#teams-tab").click
-    wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
-    wait_for_selector('.projects__list a[href$="/all-items"]')
-    wait_for_selector(".project__title")
-    wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_selector(".team__primary-info")
-    wait_for_selector('.team')
-  end
-
-  def ask_join_team(options = {})
-    subdomain = options[:subdomain]
-    @driver.navigate.to @config['self_url'] + "/"+subdomain+"/join"
-    wait_for_selector(".join-team__button").click
-    wait_for_selector(".message")
-  end
-
-  def approve_join_team(options = {})
-    subdomain = options[:subdomain]
-    @driver.navigate.to @config['self_url'] + '/'+subdomain
-    wait_for_selector('button.team-member-requests__user-button--approve').click
-    wait_for_selector_none(".team-member-requests__user-button--deny")
-  end
-
-  def disapprove_join_team(options = {})
-    subdomain = options[:subdomain]
-    @driver.navigate.to @config['self_url'] + '/'+subdomain
-    wait_for_selector('button.team-member-requests__user-button--deny').click
-    wait_for_selector_none('.team-member-requests__user-button--approve')
-  end
-
-  def change_the_member_role_to(rule_class)
-    wait_for_selector('.team-members__edit-button', :css).click
-    wait_for_selector('.role-select', :css, 29, index: 1).click
-    wait_for_selector(rule_class).click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.team-members__edit-button', :css).click
-  end
-
-  def add_tag(tag_name)
-    wait_for_selector(".tag-menu__icon").click
-    fill_field('#tag-input__tag-input', tag_name)
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector(".tag-menu__done").click
-    wait_for_selector_none("#tag-input__tag-input")
-  end
-
-  def delete_tag(tag_name)
-    wait_for_selector(".tag-menu__icon").click
-    wait_for_selector("#tag-input__tag-input")
-    wait_for_selector("input[type=checkbox]").click
-    wait_for_selector(".tag-menu__done").click
   end
 end

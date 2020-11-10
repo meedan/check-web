@@ -21,6 +21,14 @@ const messages = defineMessages({
     id: 'CustomTeamTaskFilter.taskTextLabel',
     defaultMessage: 'Task answer contains keyword',
   },
+  noValue: {
+    id: 'CustomTeamTaskFilter.noValue',
+    defaultMessage: 'No value is set',
+  },
+  anyValue: {
+    id: 'CustomTeamTaskFilter.anyValue',
+    defaultMessage: 'Any value is set',
+  },
 });
 
 const isMetadataChoice = t =>
@@ -155,7 +163,14 @@ const CustomTeamTaskFilter = ({
   };
 
   const buildFilterEntityValueOptions = () => {
-    const options = [];
+    const options = [{
+      key: 'NO_VALUE',
+      value: intl.formatMessage(messages.noValue),
+    },
+    {
+      key: 'ANY_VALUE',
+      value: intl.formatMessage(messages.anyValue),
+    }];
     const entity = team_tasks.edges.find(t => t.node.dbid === filterEntity);
     if (entity) {
       options.push(...entity.node.options

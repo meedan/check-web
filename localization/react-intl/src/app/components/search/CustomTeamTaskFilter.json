@@ -16,6 +16,14 @@
     "defaultMessage": "Task answer contains keyword"
   },
   {
+    "id": "CustomTeamTaskFilter.noValue",
+    "defaultMessage": "No value is set"
+  },
+  {
+    "id": "CustomTeamTaskFilter.anyValue",
+    "defaultMessage": "Any value is set"
+  },
+  {
     "id": "CustomTeamTaskFilter.entityTaskLabel",
     "defaultMessage": "Select task"
   },
