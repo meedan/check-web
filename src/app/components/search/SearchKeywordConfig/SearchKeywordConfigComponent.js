@@ -128,8 +128,8 @@ const SearchKeywordConfigComponent = ({
 
   return (
     <MultiSelector
-      allowSelectAll
-      allowUnselectAll
+      allowToggleAll
+      defaultAllSelected
       options={options}
       selected={selected}
       onDismiss={onDismiss}
