@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
+import { makeStyles } from '@material-ui/core/styles';
 
 function truncate(str) {
   const length = 32;
@@ -17,7 +18,16 @@ function formatMultipleChoice(value) {
   return newValue;
 }
 
+const useStyles = makeStyles({
+  multiChoice: {
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
+});
+
 export default function MetadataCell({ projectMedia, field, type }) {
+  const classes = useStyles();
   let value = projectMedia.list_columns_values[field];
 
   if (value) {
@@ -29,7 +39,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
       value = <b>{value}</b>;
       break;
     case 'multiple_choice':
-      value = formatMultipleChoice(value).map(v => <div>{v}</div>);
+      value = formatMultipleChoice(value).map(v => <div className={classes.multiChoice}>{v}</div>);
       break;
     case 'datetime':
       value = value.replace('at 00:00 notime', '').replace(/\(.*\)/, '');
@@ -41,7 +51,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
 
   return (
     <TableCell align="left">
-      {value}
+      {value || '-'}
     </TableCell>
   );
 }
