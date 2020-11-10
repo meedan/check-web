@@ -16,9 +16,8 @@ shared_examples 'secondary items' do
     wait_for_selector(".media-condensed__actions_icon").click
     wait_for_selector('.media-condensed__promote-relationshp').click
     wait_for_selector_none(".media-condensed__break-relationshp")
-    wait_for_selector(".project-header__back-button").click
-    @driver.navigate.refresh
-    wait_for_selector("#create-media__add-item")
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/all-items'
+    wait_for_selector("#search-input")
     wait_for_selector(".media__heading")
     expect(@driver.page_source.include?('Main Item')).to be(true)
     expect(@driver.page_source.include?('Claim')).to be(false)
