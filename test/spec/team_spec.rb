@@ -1,6 +1,6 @@
 shared_examples 'team' do
 
-  it "should be able to find a team after signing up", bin5: true do
+  it "should be able to find a team after signing up", bin6: true do
     user = api_register_and_login_with_email
     @driver.navigate.to @config['self_url']
     wait_for_selector('.find-team-card')

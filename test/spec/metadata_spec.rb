@@ -35,7 +35,7 @@ shared_examples 'metadata' do
     expect(@driver.page_source.include?('my data time metadata')).to be(false)
   end
 
-  it "should add, edit and delete a metadata response", bin5: true do
+  it "should add, edit and delete a metadata response", bin4: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
