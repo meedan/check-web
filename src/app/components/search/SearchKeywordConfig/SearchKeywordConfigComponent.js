@@ -1,41 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import SettingsIcon from '@material-ui/icons/Settings';
-import Menu from '@material-ui/core/Menu';
-import MultiSelector from '../layout/MultiSelector';
+import MultiSelector from '../../layout/MultiSelector';
 
-const SearchKeywordConfig = ({
+const SearchKeywordConfigComponent = ({
+  team,
   query,
-  onChange,
+  onDismiss,
+  onSubmit,
 }) => {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const handleClose = () => setAnchorEl(null);
-
-  const handleChange = (values) => {
-    const fields = [];
-    const team_tasks = [];
-    const keyword_fields = {};
-
-    values.forEach((v) => {
-      if (parseInt(v, 10)) {
-        team_tasks.push(v);
-      } else {
-        fields.push(v);
-      }
-    });
-
-    if (fields.length) {
-      keyword_fields.fields = fields;
-    }
-    if (team_tasks.length) {
-      keyword_fields.team_tasks = team_tasks;
-    }
-
-    onChange({ keyword_fields });
-    handleClose();
-  };
-
   let selected = [];
   if (query.keyword_fields) {
     if (query.keyword_fields.fields) {
@@ -46,7 +19,7 @@ const SearchKeywordConfig = ({
     }
   }
 
-  const options = [{
+  let options = [{
     value: 'title',
     label: (
       <FormattedMessage
@@ -132,30 +105,43 @@ const SearchKeywordConfig = ({
     ),
   }];
 
+  const wantedTeamTaskTypes = m => (
+    m.node.type === 'free_text' ||
+    m.node.type === 'single_choice' ||
+    m.node.type === 'multiple_choice'
+  );
+
+  const formatOption = m => ({ value: `${m.node.dbid}`, label: m.node.label });
+
+  const teamMetadata = team.metadata.edges
+    .filter(wantedTeamTaskTypes)
+    .map(formatOption);
+  const teamTasks = team.tasks.edges
+    .filter(wantedTeamTaskTypes)
+    .map(formatOption);
+
+  if (teamMetadata.length || teamTasks.length) {
+    options = options.concat([{ value: '', label: '' }]);
+    options = options.concat(teamMetadata);
+    options = options.concat(teamTasks);
+  }
+
   return (
-    <React.Fragment>
-      <SettingsIcon onClick={e => setAnchorEl(e.target)} />
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <MultiSelector
-          allowSelectAll
-          allowUnselectAll
-          options={options}
-          selected={selected}
-          onDismiss={handleClose}
-          onSubmit={handleChange}
-        />
-      </Menu>
-    </React.Fragment>
+    <MultiSelector
+      allowSelectAll
+      allowUnselectAll
+      options={options}
+      selected={selected}
+      onDismiss={onDismiss}
+      onSubmit={onSubmit}
+    />
   );
 };
 
-SearchKeywordConfig.propTypes = {
+SearchKeywordConfigComponent.propTypes = {
   query: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
-export default SearchKeywordConfig;
+export default SearchKeywordConfigComponent;

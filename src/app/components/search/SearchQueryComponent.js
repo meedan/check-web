@@ -23,7 +23,7 @@ import styled from 'styled-components';
 import CustomFiltersManager from './CustomFiltersManager';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
-import SearchKeywordConfig from './SearchKeywordConfig';
+import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
@@ -611,7 +611,8 @@ class SearchQueryComponent extends React.Component {
                         }}
                         variant="filled"
                       >
-                        <SearchKeywordConfig
+                        <SearchKeywordMenu
+                          teamSlug={this.props.team.slug}
                           onChange={this.handleKeywordConfigChange}
                           query={this.state.query}
                         />
