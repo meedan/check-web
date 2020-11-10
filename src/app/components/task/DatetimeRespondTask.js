@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker, TimePicker } from '@material-ui/pickers';
@@ -9,36 +10,8 @@ import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import EventIcon from '@material-ui/icons/Event';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import { convertNumbers2English } from '../../helpers';
-import { alertRed, black38, black54, units, caption, FlexRow } from '../../styles/js/shared';
+import { alertRed, FlexRow } from '../../styles/js/shared';
 import timezones from '../../timezones';
-
-const styles = {
-  error: {
-    font: 'caption',
-    color: alertRed,
-    display: 'block',
-  },
-  primaryColumn: {
-    flex: 10,
-  },
-  secondaryColumn: {
-    color: black54,
-    height: units(2.5),
-    width: units(2.5),
-    flex: '1',
-  },
-  row: {
-    marginBottom: units(2),
-  },
-  time: {
-    width: units(6),
-    textAlign: 'center',
-  },
-  label: {
-    font: caption,
-    color: black38,
-  },
-};
 
 class DatetimeRespondTask extends Component {
   constructor(props) {
@@ -203,96 +176,105 @@ class DatetimeRespondTask extends Component {
 
     return (
       <div>
-        <FlexRow style={styles.row}>
-          <DatePicker
-            label={
-              <FormattedMessage
-                id="datetimeRespondTask.pickDate"
-                defaultMessage="Pick a date"
-              />
-            }
-            InputProps={{
-              endAdornment: (
-                <InputAdornment>
-                  <EventIcon />
-                </InputAdornment>
-              ),
-            }}
-            id="task__response-date"
-            className="task__response-input"
-            name="response"
-            value={this.state.date}
-            onChange={this.handleChange.bind(this)}
-            style={styles.primaryColumn}
-            disableToolbar
-            inputVariant="outlined"
-            variant="inline"
-            format="MMMM DD, YYYY"
-            margin="normal"
-          />
-        </FlexRow>
-
-        <FlexRow style={styles.row}>
-          <div style={styles.primaryColumn}>
-            <FlexRow
-              style={{ justifyContent: 'flex-start', alignItems: 'center' }}
-              id="task__response-time"
-            >
-              <TimePicker
-                id="task__response-time-input"
+        <Box clone mb={2}>
+          <FlexRow >
+            <Box clone flex={10}>
+              <DatePicker
                 label={
                   <FormattedMessage
-                    id="datetimeRespondTask.time"
-                    defaultMessage="Pick a time"
+                    id="datetimeRespondTask.pickDate"
+                    defaultMessage="Pick a date"
                   />
                 }
-                onChange={this.handleChangeTime.bind(this)}
-                value={
-                  this.state.hour && this.state.minute ?
-                    new Date().setHours(this.state.hour, this.state.minute) : null
-                }
-                inputVariant="outlined"
                 InputProps={{
                   endAdornment: (
                     <InputAdornment>
-                      <AccessTimeIcon />
+                      <EventIcon />
                     </InputAdornment>
                   ),
                 }}
+                id="task__response-date"
+                className="task__response-input"
+                name="response"
+                value={this.state.date}
+                onChange={this.handleChange.bind(this)}
+                disableToolbar
+                inputVariant="outlined"
                 variant="inline"
-                fullWidth
+                format="MMMM DD, YYYY"
+                margin="normal"
               />
-              <Autocomplete
-                className="task__datetime-timezone"
-                style={{ marginLeft: units(2) }}
-                options={
-                  taskTimezones && taskTimezones.length ? taskTimezones : Object.values(timezones)
-                }
-                getOptionLabel={option => option.label}
-                defaultValue={this.state.timezone}
-                onChange={(event, newValue) => {
-                  this.handleChangeTimezone(newValue);
-                }}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
+            </Box>
+          </FlexRow>
+        </Box>
+
+        <Box clone mb={2}>
+          <FlexRow >
+            <Box clone flex={10} >
+              <Box clone justifyContent="flex-start" alignItems="center">
+                <FlexRow
+                  id="task__response-time"
+                >
+                  <TimePicker
+                    id="task__response-time-input"
                     label={
                       <FormattedMessage
-                        id="datetimeRespondTask.timezone"
-                        defaultMessage="Select a timezone"
+                        id="datetimeRespondTask.time"
+                        defaultMessage="Pick a time"
                       />
                     }
+                    onChange={this.handleChangeTime.bind(this)}
+                    value={
+                      this.state.hour && this.state.minute ?
+                        new Date().setHours(this.state.hour, this.state.minute) : null
+                    }
+                    inputVariant="outlined"
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment>
+                          <AccessTimeIcon />
+                        </InputAdornment>
+                      ),
+                    }}
+                    variant="inline"
+                    fullWidth
                   />
-                )}
-                fullWidth
-              />
-            </FlexRow>
-          </div>
-        </FlexRow>
-        <div style={styles.error}>
+                  <Box clone ml={2}>
+                    <Autocomplete
+                      className="task__datetime-timezone"
+                      options={
+                        taskTimezones && taskTimezones.length
+                          ? taskTimezones
+                          : Object.values(timezones)
+                      }
+                      getOptionLabel={option => option.label}
+                      defaultValue={this.state.timezone}
+                      onChange={(event, newValue) => {
+                        this.handleChangeTimezone(newValue);
+                      }}
+                      renderInput={params => (
+                        <TextField
+                          {...params}
+                          variant="outlined"
+                          label={
+                            <FormattedMessage
+                              id="datetimeRespondTask.timezone"
+                              defaultMessage="Select a timezone"
+                            />
+                          }
+                        />
+                      )}
+                      fullWidth
+                    />
+                  </Box>
+                </FlexRow>
+              </Box>
+            </Box>
+          </FlexRow>
+        </Box>
+        <Box color={alertRed} display="block" fontFamily="caption">
           {this.state.timeError ? this.state.timeError : ''}
-        </div>
+        </Box>
         { this.state.focus || this.props.response ? actionBtns : null }
       </div>
     );

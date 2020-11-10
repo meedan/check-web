@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -164,8 +165,10 @@ class SingleChoiceTask extends Component {
               ))}
             </RadioGroup>
 
-            <div
-              style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}
+            <Box
+              display="flex"
+              justifyContent="flex-start"
+              alignItems="center"
               className="task__options_other"
             >
               {other ?
@@ -197,7 +200,7 @@ class SingleChoiceTask extends Component {
                   />
                 </RadioGroup>
                 : null}
-            </div>
+            </Box>
 
             {(this.state.focus && editable) || this.props.mode === 'edit_response'
               ? actionBtns

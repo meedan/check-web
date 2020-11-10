@@ -380,7 +380,7 @@ class SearchResultsComponent extends React.PureComponent {
                 query={unsortedQuery}
                 onChange={this.handleChangeQuery}
                 project={this.props.project}
-                fields={this.props.fields}
+                hideFields={this.props.hideFields}
                 title={this.props.title}
                 team={team}
               />
@@ -518,6 +518,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
           search { id, number_of_results },
           check_search_trash { id, number_of_results },
           verification_statuses,
+          list_columns,
           medias_count,
           team_bot_installations(first: 10000) {
             edges {
@@ -534,20 +535,13 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         medias(first: $pageSize) {
           edges {
             node {
-              id,
-              dbid,
-              picture,
-              title,
-              description,
-              demand,
-              linked_items_count,
-              type,
-              status,
-              first_seen: created_at,
-              last_seen,
-              share_count,
-              updated_at,
-              is_read,
+              id
+              dbid
+              picture
+              title
+              description
+              is_read
+              list_columns_values
               project_media_project(project_id: $projectId) {
                 dbid
                 id

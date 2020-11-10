@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import TimeCell from './TimeCell';
 
 export default function UpdatedCell({ projectMedia }) {
-  return <TimeCell unixTimestampInS={parseFloat(projectMedia.updated_at)} />;
+  const timestamp = projectMedia.list_columns_values.updated_at_timestamp;
+  return <TimeCell unixTimestampInS={timestamp} />;
 }
 UpdatedCell.propTypes = {
   projectMedia: PropTypes.shape({
-    // last_seen: UNIX timestamp in s, encoded as a String.
-    // TODO make .last_seen a Number (requires API change)
-    updated_at: PropTypes.string.isRequired,
+    list_columns_values: PropTypes.shape({
+      updated_at_timestamp: PropTypes.number.isRequired,
+    }).isRequired,
   }).isRequired,
 };

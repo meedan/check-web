@@ -11,7 +11,8 @@ import BlankState from '../layout/BlankState';
 import CardToolbar from '../layout/CardToolbar';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { ContentColumn, units } from '../../styles/js/shared';
+import { ContentColumn } from '../../styles/js/shared';
+
 
 class TeamTasksComponent extends React.Component {
   state = {

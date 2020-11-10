@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import FormGroup from '@material-ui/core/FormGroup';
+import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';

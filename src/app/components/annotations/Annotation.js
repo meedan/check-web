@@ -802,7 +802,7 @@ class Annotation extends Component {
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
-        const status = getStatus(this.props.annotated.team.verification_statuses, statusValue);
+        const status = getStatus(this.props.team.verification_statuses, statusValue);
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -1181,7 +1181,7 @@ class Annotation extends Component {
       if (activity.projects.edges.length > 0 && activity.user) {
         const previousProject = activity.projects.edges[0].node;
         const currentProject = activity.projects.edges[1].node;
-        const urlPrefix = `/${annotated.team.slug}/project/`;
+        const urlPrefix = `/${this.props.team.slug}/project/`;
         contentTemplate = (
           <span>
             <FormattedMessage

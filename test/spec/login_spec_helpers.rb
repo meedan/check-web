@@ -1,4 +1,3 @@
-
 module LoginSpecHelpers
 
   def twitter_login
@@ -144,5 +143,4 @@ module LoginSpecHelpers
     wait_for_selector('.user-menu__logout').click
     wait_for_selector('#login-container').click
   end
-
 end

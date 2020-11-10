@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import Radio from '@material-ui/core/Radio';
 import styled from 'styled-components';
+import globalStrings from '../../globalStrings';
 import { units, opaqueBlack02, opaqueBlack05, black54 } from '../../styles/js/shared';
 import { emojify } from '../../helpers';
 
@@ -23,7 +25,7 @@ const StyledMultiSelectorArea = styled.div`
 
 const StyledActions = styled.div`
   padding: ${units(2)};
-  align-items: flex-end;
+  justify-content: flex-end;
   flex-direction: row;
   display: flex;
 `;
@@ -39,9 +41,12 @@ const StyledNotFound = styled.div`
 class MultiSelector extends React.Component {
   constructor(props) {
     super(props);
-    const defaultSelected = props.single ? null : [];
+    const defaultSelected = props.defaultAllSelected
+      ? props.options.filter(o => o.value !== '').map(o => o.value)
+      : [];
+
     this.state = {
-      selected: props.selected ? props.selected : defaultSelected,
+      selected: props.selected.length ? props.selected : defaultSelected,
       filter: '',
     };
   }
@@ -68,14 +73,16 @@ class MultiSelector extends React.Component {
     this.setState({ selected });
   };
 
-  handleSelectAll = () => {
-    this.setState({
-      selected: this.props.options.map(o => o.value),
-    });
-  };
-
-  handleUnselectAll = () => {
-    this.setState({ selected: [] });
+  handleToggleAll = () => {
+    if (this.isAllSelected()) {
+      this.setState({ selected: [] });
+    } else {
+      this.setState({
+        selected: this.props.options
+          .filter(o => o.value !== '')
+          .map(o => o.value),
+      });
+    }
   };
 
   addItem = (value) => {
@@ -101,6 +108,11 @@ class MultiSelector extends React.Component {
     return options;
   };
 
+  isAllSelected = () => {
+    const filteredOptions = this.props.options.filter(o => o.value !== '');
+    return (this.state.selected.length === filteredOptions.length);
+  };
+
   render() {
     const {
       onDismiss,
@@ -121,48 +133,46 @@ class MultiSelector extends React.Component {
           </Box>
           : null
         }
-        { (this.props.allowSelectAll || this.props.allowUnselectAll) ?
+        { this.props.allowToggleAll ?
           <Box p={units(2)}>
-            { this.props.allowSelectAll ?
-              <Button color="primary" onClick={this.handleSelectAll}>
-                <FormattedMessage id="multiSelector.all" defaultMessage="Select all" />
-              </Button>
-              : null
-            }
-            { this.props.allowUnselectAll ?
-              <Button color="primary" onClick={this.handleUnselectAll}>
-                <FormattedMessage id="multiSelector.none" defaultMessage="Unselect all" />
-              </Button>
-              : null
-            }
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.isAllSelected()}
+                  onChange={this.handleToggleAll}
+                  id="multiselector__select-all"
+                />
+              }
+              label={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
+            />
           </Box>
           : null
         }
         <StyledMultiSelectorArea>
           <FormGroup>
             {
-              options.map((o, index) => (
-                <FormControlLabel
-                  key={`multiselector-option-${index.toString()}`}
-                  control={this.props.single ?
-                    <Radio
-                      checked={this.state.selected === o.value}
-                      onChange={this.handleSelectRadio}
-                      id={o.value}
-                      icon={o.icon}
-                      checkedIcon={o.checkedIcon}
-                    /> :
-                    <Checkbox
-                      checked={this.state.selected.indexOf(o.value) > -1}
-                      onChange={this.handleSelectCheckbox}
-                      id={o.value}
-                      icon={o.icon}
-                      checkedIcon={o.checkedIcon}
-                    />
-                  }
-                  label={o.label}
-                />
-              ))
+              options.map((o, index) => {
+                if (o.value === '') {
+                  return (
+                    <Divider key={`multiselector-dividider-${index.toString()}`} />
+                  );
+                }
+                return (
+                  <FormControlLabel
+                    key={`multiselector-option-${index.toString()}`}
+                    control={
+                      <Checkbox
+                        checked={this.state.selected.indexOf(o.value) > -1}
+                        onChange={this.handleSelectCheckbox}
+                        id={o.value}
+                        icon={o.icon}
+                        checkedIcon={o.checkedIcon}
+                      />
+                    }
+                    label={o.label}
+                  />
+                );
+              })
             }
             { options.length < 1 ?
               <StyledNotFound>
@@ -179,10 +189,15 @@ class MultiSelector extends React.Component {
               : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
             }
           </Button>
-          <Button className="multi__selector-save" color="primary" onClick={() => onSubmit(this.state.selected)}>
+          <Button
+            className="multi__selector-save"
+            color="primary"
+            variant="contained"
+            onClick={() => onSubmit(this.state.selected)}
+          >
             { this.props.submitLabel ?
               this.props.submitLabel
-              : <FormattedMessage id="multiSelector.save" defaultMessage="Save" />
+              : <FormattedMessage {...globalStrings.update} />
             }
           </Button>
         </StyledActions>
@@ -190,5 +205,26 @@ class MultiSelector extends React.Component {
     );
   }
 }
+
+MultiSelector.defaultProps = {
+  allowSearch: false,
+  allowToggleAll: false,
+  cancelLabel: null,
+  submitLabel: null,
+};
+
+MultiSelector.propTypes = {
+  allowSearch: PropTypes.bool,
+  allowToggleAll: PropTypes.bool,
+  cancelLabel: PropTypes.node,
+  options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+  })).isRequired,
+  selected: PropTypes.arrayOf(PropTypes.string).isRequired,
+  submitLabel: PropTypes.node,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+};
 
 export default MultiSelector;

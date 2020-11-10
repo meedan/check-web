@@ -33,7 +33,9 @@ class BotGardenComponent extends Component {
         <Box display="flex" flexWrap="wrap">
           { root.team_bots_approved.edges.map((team_bot) => {
             const bot = team_bot.node;
-
+            if (bot.default) {
+              return null;
+            }
             return (
               <Box clone m={units(2)} width={150}>
                 <Card key={`bot-${bot.id}`}>
@@ -72,6 +74,7 @@ const BotGardenContainer = Relay.createContainer(BotGardenComponent, {
               dbid
               avatar
               name
+              default
               team_author {
                 name
                 slug

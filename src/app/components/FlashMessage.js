@@ -1,5 +1,5 @@
 import React from 'react';
-import Box from '@material-ui/core/Box';
+import { makeStyles } from '@material-ui/core/styles';
 import Message from './Message';
 
 /**
@@ -42,22 +42,30 @@ const FlashMessageProvider = ({ children }) => {
   );
 };
 
+const useStyles = makeStyles({
+  flashMessageStyle: {
+    marginTop: '0',
+    position: 'fixed',
+    width: '100%',
+    zIndex: '1000',
+  },
+});
+
 /**
  * Display the message in an ancestor <FlashMessageContext.Provider>.
  */
 const FlashMessage = () => {
+  const classes = useStyles();
   const message = React.useContext(FlashMessageContext);
   const setMessage = React.useContext(FlashMessageSetterContext);
   const resetMessage = React.useCallback(() => setMessage(null), [setMessage]);
 
   return (
-    <Box clone mt={0} position="fixed" width="100%" zIndex={1000}>
-      <Message
-        message={message}
-        onClick={resetMessage}
-        className="home__message"
-      />
-    </Box>
+    <Message
+      message={message}
+      onClick={resetMessage}
+      className={`home__message ${classes.flashMessageStyle}`}
+    />
   );
 };
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,17 +17,12 @@ import CheckContext from '../../CheckContext';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
 import { withSetFlashMessage } from '../FlashMessage';
 import {
-  units,
   StyledIconButton,
   Row,
   FlexRow,
 } from '../../styles/js/shared';
 
 const messages = defineMessages({
-  inviteMembers: {
-    id: 'TeamInviteMembers.newInvite',
-    defaultMessage: 'Invite members',
-  },
   inviteEmailInput: {
     id: 'TeamInviteMembers.emailInput',
     defaultMessage: 'Email address',
@@ -288,26 +284,22 @@ class TeamInviteMembers extends Component {
                 margin="normal"
                 fullWidth
               />
-              <Row
-                style={{
-                  marginLeft: units(2),
-                  marginTop: units(1),
-                  marginBottom: units(1),
-                }}
-              >
-                <RoleSelect
-                  className="invite-member-email-role"
-                  onChange={e => this.handleRoleChange(e, index)}
-                  value={member.role}
-                  excludeRoles={excludeRoles}
-                />
-                <StyledIconButton
-                  className="invite-member-email-remove-button"
-                  onClick={() => this.handleRemoveEmail(index)}
-                >
-                  <CancelIcon />
-                </StyledIconButton>
-              </Row>
+              <Box clone ml={2} my={1}>
+                <Row>
+                  <RoleSelect
+                    className="invite-member-email-role"
+                    onChange={e => this.handleRoleChange(e, index)}
+                    value={member.role}
+                    excludeRoles={excludeRoles}
+                  />
+                  <StyledIconButton
+                    className="invite-member-email-remove-button"
+                    onClick={() => this.handleRemoveEmail(index)}
+                  >
+                    <CancelIcon />
+                  </StyledIconButton>
+                </Row>
+              </Box>
             </Row>
           </div>
         ))
@@ -316,14 +308,15 @@ class TeamInviteMembers extends Component {
 
     return (
       <FlexRow>
-        <Button
-          variant="contained"
-          style={{ marginLeft: 'auto', marginRight: units(2) }}
-          onClick={this.handleOpenDialog.bind(this)}
-          className="team-members__invite-button"
-        >
-          <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
-        </Button>
+        <Box clone ml="auto" mr={2}>
+          <Button
+            variant="contained"
+            onClick={this.handleOpenDialog.bind(this)}
+            className="team-members__invite-button"
+          >
+            <FormattedMessage id="teamInviteMembers.inviteMember" defaultMessage="Invite" />
+          </Button>
+        </Box>
         <Dialog
           className="team-invite-members__dialog"
           open={this.state.dialogOpen}
@@ -331,7 +324,7 @@ class TeamInviteMembers extends Component {
           scroll="paper"
           fullWidth
         >
-          <DialogTitle>{this.props.intl.formatMessage(messages.inviteMembers)}</DialogTitle>
+          <DialogTitle><FormattedMessage id="TeamInviteMembers.newInvite" defaultMessage="Invite members" /></DialogTitle>
           <DialogContent>
             <TextField
               id="invite-msg-input"
@@ -347,7 +340,7 @@ class TeamInviteMembers extends Component {
             />
             { inviteBody }
             { this.state.addMany ?
-              <div style={{ height: units(6) }}>
+              <Box height={6}>
                 <Row>
                   <Button
                     className="team-invite-members__dialog-add-separate-button"
@@ -356,8 +349,8 @@ class TeamInviteMembers extends Component {
                     <FormattedMessage id="teamInviteMembers.addSeparate" defaultMessage="Add separate" />
                   </Button>
                 </Row>
-              </div> :
-              <div style={{ height: units(12) }}>
+              </Box> :
+              <Box height={12}>
                 <Row>
                   <Button
                     className="team-invite-members__dialog-add-another-button"
@@ -372,7 +365,7 @@ class TeamInviteMembers extends Component {
                     <FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />
                   </Button>
                 </Row>
-              </div>
+              </Box>
             }
           </DialogContent>
           <DialogActions>

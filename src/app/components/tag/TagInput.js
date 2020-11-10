@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { getErrorMessage } from '../../helpers';
 import CheckContext from '../../CheckContext';
-import { units, Row } from '../../styles/js/shared';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { stringHelper } from '../../customHelpers';
+import { Row } from '../../styles/js/shared';
+
 
 const messages = defineMessages({
   error: {

@@ -1,9 +1,5 @@
 [
   {
-    "id": "TeamInviteMembers.newInvite",
-    "defaultMessage": "Invite members"
-  },
-  {
     "id": "TeamInviteMembers.emailInput",
     "defaultMessage": "Email address"
   },
@@ -50,6 +46,10 @@
   {
     "id": "teamInviteMembers.inviteMember",
     "defaultMessage": "Invite"
+  },
+  {
+    "id": "TeamInviteMembers.newInvite",
+    "defaultMessage": "Invite members"
   },
   {
     "id": "teamInviteMembers.customInvitation",

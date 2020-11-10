@@ -122,8 +122,7 @@ class ProjectAssignmentComponent extends Component {
         <DialogContent>
           <StyledDialog>
             <MultiSelector
-              allowSelectAll
-              allowUnselectAll
+              allowToggleAll
               allowSearch
               options={options}
               selected={selected}

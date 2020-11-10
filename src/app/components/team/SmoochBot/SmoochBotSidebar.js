@@ -23,6 +23,12 @@ const useStyles = makeStyles(theme => ({
     borderStyle: 'solid',
     marginBottom: theme.spacing(1),
   },
+  label: {
+    width: 165,
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
   menu: {
     outline: 0,
   },
@@ -46,7 +52,9 @@ const SmoochBotSidebar = ({ currentOption, resources, onClick }) => {
       className={clsx(classes.root, currentOption === id ?
         classes.selected : classes.notSelected)}
     >
-      {label}
+      <div className={classes.label}>
+        {label}
+      </div>
     </MenuItem>
   );
 

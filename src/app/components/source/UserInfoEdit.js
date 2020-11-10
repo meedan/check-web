@@ -1,8 +1,8 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { injectIntl, defineMessages } from 'react-intl';
 import Box from '@material-ui/core/Box';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -51,10 +51,6 @@ const messages = defineMessages({
     id: 'userInfoEdit.userSendEmailNotification',
     defaultMessage: 'Receive email notifications',
   },
-  addLink: {
-    id: 'userInfoEdit.addLink',
-    defaultMessage: 'Add Link',
-  },
   editError: {
     id: 'userInfoEdit.editError',
     defaultMessage: 'Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists.',
@@ -66,11 +62,6 @@ const messages = defineMessages({
   addLinkLabel: {
     id: 'userInfoEdit.addLinkLabel',
     defaultMessage: 'Add a link',
-  },
-  addLinkHelper: {
-    id: 'userInfoEdit.addLinkHelper',
-    defaultMessage:
-      'Add a link to a web page or social media profile. Note: this does not affect your login method.',
   },
   emailConfirmed: {
     id: 'userInfoEdit.emailConfirmed',
@@ -450,7 +441,10 @@ class UserInfoEdit extends React.Component {
             {link.error ?
               null :
               <StyledHelper>
-                {this.props.intl.formatMessage(messages.addLinkHelper)}
+                <FormattedMessage
+                  id="userInfoEdit.addLinkHelper"
+                  defaultMessage="Add a link to a web page or social media profile. Note: this does not affect your login method."
+                />
               </StyledHelper>}
           </div>))}
       </div>
@@ -485,7 +479,7 @@ class UserInfoEdit extends React.Component {
                   onClick={this.handleEditProfileImg.bind(this)}
                   color="primary"
                 >
-                  {this.props.intl.formatMessage(globalStrings.edit)}
+                  <FormattedMessage {...globalStrings.edit} />
                 </Button>
               </StyledAvatarEditButton>
               : null}
@@ -559,7 +553,10 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleAddLink.bind(this)}
                 >
-                  {this.props.intl.formatMessage(messages.addLink)}
+                  <FormattedMessage
+                    id="userInfoEdit.addLink"
+                    defaultMessage="Add Link"
+                  />
                 </Button>
               </div>
 
@@ -568,7 +565,7 @@ class UserInfoEdit extends React.Component {
                   className="source__edit-cancel-button"
                   onClick={handleLeaveEditMode}
                 >
-                  {this.props.intl.formatMessage(globalStrings.cancel)}
+                  <FormattedMessage {...globalStrings.cancel} />
                 </Button>
                 <Button
                   variant="contained"
@@ -576,7 +573,7 @@ class UserInfoEdit extends React.Component {
                   color="primary"
                   onClick={this.handleSubmit.bind(this)}
                 >
-                  {this.props.intl.formatMessage(globalStrings.save)}
+                  <FormattedMessage {...globalStrings.save} />
                 </Button>
               </div>
             </StyledButtonGroup>
