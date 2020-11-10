@@ -84,7 +84,7 @@ const CustomFilter = ({
                 handleSelectFilterType(newValue.key);
               }
             }}
-            options={filterTypeOptions.sort((a, b) => (a.value.localeCompare(b.value)))}
+            options={filterTypeOptions}
             getOptionLabel={option => option.value}
             renderInput={params => <TextField {...params} variant="outlined" label={filterTypeLabel} fullWidth />}
             fullWidth
@@ -99,7 +99,7 @@ const CustomFilter = ({
                   handleSelectFilterEntity(newValue.key);
                 }
               }}
-              options={filterEntityOptions.sort((a, b) => (a.value.localeCompare(b.value)))}
+              options={filterEntityOptions}
               getOptionLabel={option => option.value}
               renderInput={params => <TextField {...params} variant="outlined" label={filterEntityLabel} fullWidth />}
               fullWidth
@@ -115,7 +115,7 @@ const CustomFilter = ({
                   handleSelectFilterEntityValue(newValue.key);
                 }
               }}
-              options={filterEntityValueOptions.sort((a, b) => (a.value.localeCompare(b.value)))}
+              options={filterEntityValueOptions}
               getOptionLabel={option => option.value}
               renderInput={params => <TextField {...params} variant="outlined" label={filterEntityValueSelectLabel} fullWidth />}
               fullWidth
