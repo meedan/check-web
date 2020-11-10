@@ -56,8 +56,7 @@ class TaskTypeSelector extends React.Component {
           onClose={this.handleClose}
         >
           <MultiSelector
-            allowSelectAll
-            allowUnselectAll
+            allowToggleAll
             options={options}
             selected={this.props.selected}
             onDismiss={this.handleClose}

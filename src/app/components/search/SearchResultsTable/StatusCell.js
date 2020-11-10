@@ -27,7 +27,7 @@ export default function StatusCell({ projectMedia }) {
   const classes = useStyles();
   const statusObject = findStatusObjectOrNull(
     projectMedia.team.verification_statuses.statuses,
-    projectMedia.status,
+    projectMedia.list_columns_values.status,
   );
   return (
     <TableCell classes={classes}>
@@ -45,6 +45,8 @@ StatusCell.propTypes = {
         }).isRequired), // undefined during optimistic update
       }).isRequired,
     }),
-    status: PropTypes.string.isRequired,
+    list_columns_values: PropTypes.shape({
+      status: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
 };

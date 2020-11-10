@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Map, Marker, TileLayer } from 'react-leaflet';
@@ -53,9 +54,11 @@ class GeolocationTaskResponse extends Component {
       <FlexRow className="task__geolocation-response">
         <span className="task__response"><ParsedText text={name} /></span>
         {coordinatesString ?
-          <span
+          <Box
+            component="span"
             className="task__geolocation"
-            style={{ color: black38, paddingLeft: units(1), paddingRight: units(1) }}
+            color={black38}
+            px={1}
           >
             <a
               style={{ textDecoration: 'underline' }}
@@ -65,14 +68,13 @@ class GeolocationTaskResponse extends Component {
             >
               ({coordinatesString})
             </a>
-          </span>
+          </Box>
           : null}
         {imgPath ?
-          <span // eslint-disable-line jsx-a11y/click-events-have-key-events
-            style={{
-              border: `1px solid ${black05}`,
-              marginLeft: 'auto',
-            }}
+          <Box // eslint-disable-line jsx-a11y/click-events-have-key-events
+            component="span"
+            border={`1px solid ${black05}`}
+            ml="auto"
             className="task__geolocation-image"
             onClick={this.handleOpenMap.bind(this)}
           >
@@ -86,7 +88,7 @@ class GeolocationTaskResponse extends Component {
               src={imgPath}
               alt=""
             />
-          </span>
+          </Box>
           : null}
         {imgPath && !!this.state.zoomedMap ?
           <Dialog

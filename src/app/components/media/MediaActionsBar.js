@@ -356,8 +356,7 @@ class MediaActionsBarComponent extends Component {
           <DialogContent>
             <Box display="flex" style={{ outline: 0 }}>
               <MultiSelector
-                allowSelectAll
-                allowUnselectAll
+                allowToggleAll
                 allowSearch
                 options={options}
                 selected={selected}
