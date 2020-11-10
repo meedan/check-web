@@ -12,27 +12,8 @@ const SearchKeywordMenu = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);
 
-  const handleChange = (values) => {
-    const fields = [];
-    const team_tasks = [];
-    const keyword_fields = {};
-
-    values.forEach((v) => {
-      if (parseInt(v, 10)) {
-        team_tasks.push(v);
-      } else {
-        fields.push(v);
-      }
-    });
-
-    if (fields.length) {
-      keyword_fields.fields = fields;
-    }
-    if (team_tasks.length) {
-      keyword_fields.team_tasks = team_tasks;
-    }
-
-    onChange({ keyword_fields });
+  const handleChange = (value) => {
+    onChange(value);
     handleClose();
   };
 
