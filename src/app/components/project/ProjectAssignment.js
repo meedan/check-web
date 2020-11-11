@@ -61,7 +61,7 @@ class ProjectAssignmentComponent extends Component {
       const message = (
         <FormattedMessage
           id="projectAssignment.processing"
-          defaultMessage="Done! The assignments are now propagating to items and tasks. You will receive an e-mail when it's ready."
+          defaultMessage="Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
         />
       );
       this.props.setFlashMessage(message);
@@ -131,7 +131,7 @@ class ProjectAssignmentComponent extends Component {
               <Typography variant="body1" component="div" className={classes.spaced}>
                 <FormattedMessage
                   id="projectAssignment.notesTitle"
-                  defaultMessage="Add a note to the e-mail"
+                  defaultMessage="Add a note to the email"
                 />
               </Typography>
               <TextField

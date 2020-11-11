@@ -367,7 +367,7 @@ class MediaActionsBarComponent extends Component {
                 <Typography variant="body1" component="div" className={classes.spaced}>
                   <FormattedMessage
                     id="mediaActionsBar.assignmentNotesTitle"
-                    defaultMessage="Add a note to the e-mail"
+                    defaultMessage="Add a note to the email"
                   />
                 </Typography>
                 <TextField

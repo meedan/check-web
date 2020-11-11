@@ -5,7 +5,7 @@
   },
   {
     "id": "loginContainer.agreeTerms",
-    "defaultMessage": "By signing in, you agree to the {appName} {tosLink} and {ppLink}."
+    "defaultMessage": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
   },
   {
     "id": "tos.title",
