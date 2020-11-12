@@ -135,7 +135,7 @@ shared_examples 'media actions' do
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
   end
 
-  it "should not create duplicated media", bin4: true do
+  it "should not create duplicated media", bin1: true do
     url = 'https://twitter.com/meedan/status/1262644257996898305'
     api_create_team_project_and_link_and_redirect_to_media_page url
     id1 = @driver.current_url.to_s.gsub(/^.*\/media\//, '').to_i
@@ -152,7 +152,7 @@ shared_examples 'media actions' do
     expect(id1 == id2).to be(true)
   end
 
-  it "should move media to another project", bin2: true do
+  it "should move media to another project", bin1: true do
     claim = 'This is going to be moved'
 
     # Create a couple projects under the same team
@@ -235,7 +235,7 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
-  it "should add media to another project from item page", bin2: true do
+  it "should add media to another project from item page", bin6: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector("#search-input")
     wait_for_selector(".drawer__create-project-button").click
