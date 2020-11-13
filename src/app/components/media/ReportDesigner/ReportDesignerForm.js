@@ -148,7 +148,6 @@ const ReportDesignerForm = (props) => {
             onChange={(e) => { props.onUpdate('text', e.target.value); }}
             rows={10}
             multiline
-            error={data.use_text_message && data.text.length === 0}
             helperText={
               data.use_text_message && data.text.length === 0 ?
                 <FormattedMessage
