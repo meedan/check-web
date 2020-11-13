@@ -66,6 +66,14 @@ const SmoochBotSettings = (props) => {
         }
 
         if (schema.type === 'array') {
+          const options = schema.items.enum;
+          if (value) {
+            value.forEach((selectedValue) => {
+              if (options.indexOf(selectedValue) === -1) {
+                options.push(selectedValue);
+              }
+            });
+          }
           return (
             <FormControl key={`${field}-${value}`} variant="outlined" fullWidth>
               <InputLabel>{schema.title}</InputLabel>
@@ -84,7 +92,7 @@ const SmoochBotSettings = (props) => {
                 multiple
                 fullWidth
               >
-                {schema.items.enum.map(option => (
+                {options.map(option => (
                   <MenuItem key={option} value={option}>
                     {option}
                   </MenuItem>
