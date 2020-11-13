@@ -134,6 +134,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
+  const noReport = !projectMedia.report;
 
   const handleCopyToReport = () => {
     setShowConfirmationDialog(false);
@@ -213,7 +214,11 @@ const MediaAnalysis = ({ projectMedia }) => {
   };
 
   const handleConfirmCopyToReport = () => {
-    setShowConfirmationDialog(true);
+    if (noReport) {
+      handleCopyToReport();
+    } else {
+      setShowConfirmationDialog(true);
+    }
   };
 
   return (
