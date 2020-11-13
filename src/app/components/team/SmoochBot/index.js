@@ -282,6 +282,7 @@ const SmoochBot = (props) => {
         <SmoochBotSettings
           settings={settings}
           schema={settingsSchema}
+          currentUser={props.currentUser}
           onChange={handleUpdateSetting}
         /> : null }
     </React.Fragment>
@@ -294,6 +295,7 @@ SmoochBot.propTypes = {
   value: PropTypes.object.isRequired, // saved settings for the Smooch Bot
   onChange: PropTypes.func.isRequired, // called after "save" is clicked
   schema: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

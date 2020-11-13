@@ -30,11 +30,24 @@ const SmoochBotSettings = (props) => {
     props.onChange(key, value);
   };
 
+  // Some critical settings fields should be available only to admins
+  const shouldHide = (field) => {
+    const whitelist = ['smooch_disabled', 'smooch_project_id', 'smooch_urls_to_ignore'];
+    if (whitelist.indexOf(field) > -1 || props.currentUser.is_admin) {
+      return false;
+    }
+    return true;
+  };
+
   return (
     <React.Fragment>
       {Object.keys(props.schema).map((field) => {
         const value = props.settings[field];
         const schema = props.schema[field];
+
+        if (shouldHide(field)) {
+          return null;
+        }
 
         if (schema.type === 'boolean') {
           return (
@@ -91,6 +104,14 @@ const SmoochBotSettings = (props) => {
           otherProps.type = 'number';
         }
 
+        if (field === 'smooch_urls_to_ignore') {
+          Object.assign(otherProps, {
+            rows: 5,
+            rowsMax: Infinity,
+            multiline: true,
+          });
+        }
+
         return (
           <TextField
             key={`${field}-${value}`}
@@ -117,6 +138,7 @@ const SmoochBotSettings = (props) => {
 SmoochBotSettings.propTypes = {
   settings: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
 };
 
 export default SmoochBotSettings;
