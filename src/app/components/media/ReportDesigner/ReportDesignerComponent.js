@@ -17,7 +17,6 @@ import ConfirmDialog from '../../layout/ConfirmDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
 import {
-  defaultOptions,
   findReportIndex,
   propsToData,
   cloneData,
@@ -98,11 +97,6 @@ const ReportDesignerComponent = (props) => {
   }, []);
 
   const handleChangeLanguage = (newValue) => {
-    if (findReportIndex(data, newValue) === -1) {
-      const updatedData = cloneData(data);
-      updatedData.options.push(defaultOptions(media, newValue));
-      setData(updatedData);
-    }
     setCurrentLanguage(newValue);
   };
 
