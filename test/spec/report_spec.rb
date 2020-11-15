@@ -96,8 +96,6 @@ shared_examples 'report' do
     expect(@driver.page_source.include?("- my title")).to be(true)
     expect(@driver.page_source.include?("my content")).to be(true)
     wait_for_selector(".media-analysis__copy-to-report").click
-    wait_for_selector("#confirm-dialog__checkbox").click
-    wait_for_selector("#confirm-dialog__confirm-action-button").click
     wait_for_selector(".report-designer__copy-share-url")
     expect(@driver.page_source.include?("Design your report")).to be(true)
     expect(@driver.page_source.include?("my content")).to be(true)

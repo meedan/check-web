@@ -111,14 +111,14 @@ class CreateRelatedMedia extends Component {
   };
 
   render() {
-    const { media } = this.props;
+    const { media, reverse } = this.props;
 
     if (media.archived) {
       return null;
     }
 
     let label = <FormattedMessage id="createRelatedMedia.addSecondaryItem" defaultMessage="Add secondary item" />;
-    if (this.props.reverse) {
+    if (reverse) {
       label = <FormattedMessage id="createRelatedMedia.addToPrimaryItem" defaultMessage="Add to primary item" />;
     }
 
@@ -127,7 +127,11 @@ class CreateRelatedMedia extends Component {
         {media.relationships.sources_count === 0 ?
           <Can permissions={media.team.permissions} permission="create ProjectMedia">
             <StyledCreateRelatedClaimButton
-              className="create-related-media__add-button create-related-media__add-button--default"
+              className={
+                reverse ?
+                  'create-related-media__add-to-primary-button create-related-media__add-to-primary-button--default' :
+                  'create-related-media__add-button create-related-media__add-button--default'
+              }
               onClick={this.handleOpenDialog.bind(this)}
               variant="outlined"
             >
@@ -144,8 +148,8 @@ class CreateRelatedMedia extends Component {
           media={media}
           message={this.state.message}
           isSubmitting={this.state.isSubmitting}
-          hideNew={this.props.reverse}
-          reverse={this.props.reverse}
+          hideNew={reverse}
+          reverse={reverse}
         />
       </div>
     );

@@ -175,32 +175,34 @@ class MediaExpandedComponent extends Component {
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
     const { description } = media.media.metadata;
-    const notRelated = media.relationships &&
+    const isFetchBotInstalled = isBotInstalled(media.team, 'fetch');
+    const isNotRelated = media.relationships &&
       media.relationships.targets_count !== undefined &&
       media.relationships.sources_count !== undefined &&
       media.relationships.targets_count + media.relationships.sources_count === 0;
 
     return (
       <React.Fragment>
-        <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
-          { isBotInstalled(media.team, 'fetch') ?
-            <BlankMediaButton
-              projectMediaId={media.id}
-              team={media.team}
-              label={
-                <FormattedMessage
-                  id="mediaExpanded.addToImportedReport"
-                  defaultMessage="Add to imported report"
-                />
-              }
-              ButtonProps={{
-                variant: 'outlined',
-                color: 'default',
-              }}
-              reverse
-            /> : null }
-          { notRelated ? <CreateRelatedMedia media={media} reverse /> : null }
-        </Box>
+        { isFetchBotInstalled || isNotRelated ?
+          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
+            { isFetchBotInstalled ?
+              <BlankMediaButton
+                projectMediaId={media.id}
+                team={media.team}
+                label={
+                  <FormattedMessage
+                    id="mediaExpanded.addToImportedReport"
+                    defaultMessage="Add to imported report"
+                  />
+                }
+                ButtonProps={{
+                  variant: 'outlined',
+                  color: 'default',
+                }}
+                reverse
+              /> : null }
+            { isNotRelated ? <CreateRelatedMedia media={media} reverse /> : null }
+          </Box> : null }
         <CardHeader
           className="media-expanded__title"
           title={truncateLength(title, 110)}
