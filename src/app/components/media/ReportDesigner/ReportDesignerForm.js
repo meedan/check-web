@@ -43,7 +43,8 @@ const useStyles = makeStyles(theme => ({
 
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
-  const { data, media } = props;
+  const { media } = props;
+  const data = props.data || { use_text_message: true, use_introduction: true, text: '' };
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -74,7 +75,7 @@ const ReportDesignerForm = (props) => {
       { props.disabled ? <Box className={classes.mask} /> : null }
       <Box>
         <ReportDesignerFormSection
-          enabled={data.use_introduction}
+          enabled={Boolean(data.use_introduction)}
           onToggle={(enabled) => { props.onUpdate('use_introduction', enabled); }}
           label={
             <FormattedMessage
@@ -110,7 +111,7 @@ const ReportDesignerForm = (props) => {
         </ReportDesignerFormSection>
 
         <ReportDesignerFormSection
-          enabled={data.use_text_message}
+          enabled={Boolean(data.use_text_message)}
           onToggle={(enabled) => { props.onUpdate('use_text_message', enabled); }}
           label={
             <FormattedMessage
@@ -175,7 +176,7 @@ const ReportDesignerForm = (props) => {
         </ReportDesignerFormSection>
 
         <ReportDesignerFormSection
-          enabled={data.use_visual_card}
+          enabled={Boolean(data.use_visual_card)}
           onToggle={(enabled) => { props.onUpdate('use_visual_card', enabled); }}
           label={
             <FormattedMessage

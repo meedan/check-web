@@ -17,6 +17,7 @@ import ConfirmDialog from '../../layout/ConfirmDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
 import {
+  defaultOptions,
   findReportIndex,
   propsToData,
   cloneData,
@@ -58,7 +59,7 @@ const ReportDesignerComponent = (props) => {
 
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const currentReportIndex = findReportIndex(data, currentLanguage);
-  hasUnsavedChanges = !deepEqual(data, propsToData(props, currentLanguage));
+  hasUnsavedChanges = !deepEqual(data, propsToData(props, defaultLanguage));
   const defaultReportIsSet = data.options.filter(r => (
     (r.language === defaultLanguage) &&
     (r.use_visual_card || (r.use_text_message && r.text.length > 0))
@@ -130,7 +131,13 @@ const ReportDesignerComponent = (props) => {
 
   const handleUpdate = (field, value) => {
     const updatedData = cloneData(data);
-    updatedData.options[currentReportIndex][field] = value;
+    if (currentReportIndex > -1) {
+      updatedData.options[currentReportIndex][field] = value;
+    } else {
+      const newReport = defaultOptions(media, currentLanguage);
+      newReport[field] = value;
+      updatedData.options.push(newReport);
+    }
     setData(updatedData);
   };
 
