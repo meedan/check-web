@@ -66,5 +66,17 @@
   {
     "id": "teamBots.confirmationMessage",
     "defaultMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
+  },
+  {
+    "id": "teamBots.smoochErrorTitle",
+    "defaultMessage": "Unavailable option"
+  },
+  {
+    "id": "teamBots.smoochErrorMessage",
+    "defaultMessage": "You cannot use '9' as a scenario option in the main menu. Please choose another value for the following languages: {languages}"
+  },
+  {
+    "id": "teamBots.close",
+    "defaultMessage": "Close"
   }
 ]
