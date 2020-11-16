@@ -49,14 +49,15 @@ const ReportDesignerComponent = (props) => {
   const classes = useStyles();
   const { media, media: { team } } = props;
 
-  const defaultLanguage = team.get_language || 'en';
-
-  const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
+  const savedReportData = props.media.dynamic_annotation_report_design || { data: {} };
+  const initialLanguage = savedReportData.data.default_language || team.get_language || 'en';
+  const [currentLanguage, setCurrentLanguage] = React.useState(initialLanguage);
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
   const [leaveLocation, setLeaveLocation] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [pending, setPending] = React.useState(false);
 
+  const defaultLanguage = data.default_language || team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const currentReportIndex = findReportIndex(data, currentLanguage);
   hasUnsavedChanges = !deepEqual(data, propsToData(props, defaultLanguage));
@@ -99,6 +100,12 @@ const ReportDesignerComponent = (props) => {
 
   const handleChangeLanguage = (newValue) => {
     setCurrentLanguage(newValue);
+  };
+
+  const handleSetDefaultLanguage = (newValue) => {
+    const updatedData = cloneData(data);
+    updatedData.default_language = newValue;
+    setData(updatedData);
   };
 
   const handleConfirmLeave = () => {
@@ -288,6 +295,7 @@ const ReportDesignerComponent = (props) => {
             currentLanguage={currentLanguage}
             languages={languages}
             onChange={handleChangeLanguage}
+            onSetDefault={handleSetDefaultLanguage}
           />
           <ReportDesignerForm
             data={data.options[currentReportIndex]}
