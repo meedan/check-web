@@ -847,7 +847,7 @@ class SearchQueryComponent extends React.Component {
                 form="search-form"
                 color="primary"
               >
-                <FormattedMessage id="search.applyFilters" defaultMessage="Done" />
+                <FormattedMessage id="search.applyFilters" defaultMessage="Filter" />
               </Button>
             </DialogActions>
           </Dialog>
