@@ -65,10 +65,7 @@ const ReportDesignerComponent = (props) => {
     (r.language === defaultLanguage) &&
     (r.use_visual_card || (r.use_text_message && r.text.length > 0))
   )).length === 1;
-  const canPublish = defaultReportIsSet && data.options.filter(r => (
-    (r.use_introduction && !r.use_visual_card && !r.use_text_message) ||
-    (r.use_text_message && r.text.length === 0)
-  )).length === 0;
+  const canPublish = defaultReportIsSet;
 
   const confirmCloseBrowserWindow = (e) => {
     if (hasUnsavedChanges) {

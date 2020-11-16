@@ -67,7 +67,8 @@ const actionLabels = defineMessages({
 
 function keywordIsInvalid(field, keyword) {
   // Number 9 is a reserved keyword for the main menu - it returns the TOS
-  return field === 'smooch_state_main' && parseInt(keyword.trim(), 10) === 9;
+  return field === 'smooch_state_main' &&
+    keyword.trim().split(',').find(k => parseInt(k.trim(), 10) === 9);
 }
 
 const SmoochBotMenuOption = (props) => {

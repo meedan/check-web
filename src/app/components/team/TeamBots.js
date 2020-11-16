@@ -124,7 +124,7 @@ class TeamBotsComponent extends Component {
     settings.smooch_workflows.forEach((workflow) => {
       if (workflow.smooch_state_main && workflow.smooch_state_main.smooch_menu_options) {
         const invalidOption = workflow.smooch_state_main.smooch_menu_options
-          .find(o => parseInt(o.smooch_menu_option_keyword, 10) === 9);
+          .find(o => o.smooch_menu_option_keyword.split(',').find(k => parseInt(k.trim(), 10) === 9));
         if (invalidOption) {
           smoochBotLanguagesWithError.push(languageLabel(workflow.smooch_workflow_language));
         }
