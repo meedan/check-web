@@ -25,10 +25,10 @@ shared_examples 'search' do
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
     wait_for_selector("button[title=Open]").click
-    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("verified")
+    wait_for_selector_list(".MuiOutlinedInput-input")[4].send_keys("verified")
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
-    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("false")
+    wait_for_selector_list(".MuiOutlinedInput-input")[4].send_keys("false")
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector("#search-query__submit-button").click
@@ -42,7 +42,7 @@ shared_examples 'search' do
       if @driver.page_source.include?('False')
         wait_for_selector_list(".MuiChip-deletable > svg")[1].click
       else
-        wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("false")
+        wait_for_selector_list(".MuiOutlinedInput-input")[4].send_keys("false")
         @driver.action.send_keys(:arrow_down).perform
         @driver.action.send_keys(:enter).perform
       end
@@ -84,7 +84,7 @@ shared_examples 'search' do
     #use filter option
     wait_for_selector("#search__open-dialog-button").click
     wait_for_selector("#search-query__cancel-button")
-    wait_for_selector_list(".MuiOutlinedInput-input")[3].send_keys("in progress")
+    wait_for_selector_list(".MuiOutlinedInput-input")[4].send_keys("in progress")
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector("#search-query__submit-button").click

@@ -11,12 +11,11 @@ const labels = {
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.labelReportUpdated" defaultMessage="Report updated" />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.labelInvalidFormat" defaultMessage="Invalid format" />,
   smooch_message_smooch_bot_disabled: <FormattedMessage id="smoochBot.labelInactive" defaultMessage="Notice of inactivity" />,
-  smooch_message_smooch_bot_ask_for_tos: <FormattedMessage id="smoochBot.labelTos" defaultMessage="Terms of service" />,
 };
 
 const descriptions = {
-  smooch_message_smooch_bot_greetings: <FormattedMessage id="smoochBot.descriptionGreeting" defaultMessage="The first message that is sent to the user. It introduces your organization and the service you provide through this bot. This message is automatically followed by the Main menu." />,
-  smooch_state_main: <FormattedMessage id="smoochBot.descriptionMainMenu" defaultMessage="A menu asking the user to choose between a set of options. This message automatically follows the Greeting message." />,
+  smooch_message_smooch_bot_greetings: <FormattedMessage id="smoochBot.descriptionGreeting" defaultMessage="The first message that is sent to the user. It introduces your organization and the service you provide through this bot. The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'." />,
+  smooch_state_main: <FormattedMessage id="smoochBot.descriptionMainMenu" defaultMessage="A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu." />,
   smooch_state_secondary: <FormattedMessage id="smoochBot.descriptionSecondaryMenu" defaultMessage="An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message." />,
   smooch_state_query: <FormattedMessage id="smoochBot.descriptionQueryPrompt" defaultMessage="The message asking the user to submit content for a fact-check." />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.descriptionQueryReceived" defaultMessage="The confirmation sent to the user after a valid query from the user has been received." />,
@@ -24,7 +23,6 @@ const descriptions = {
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.descriptionReportUpdated" defaultMessage="The message sent to the user when status of a report has changed. The report must be completed for this message to be sent." />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.descriptionInvalidFormat" defaultMessage="An automatic message sent to the user when they have sent a file that is not supported by Check." />,
   smooch_message_smooch_bot_disabled: <FormattedMessage id="smoochBot.descriptionInactive" defaultMessage="This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive." />,
-  smooch_message_smooch_bot_ask_for_tos: <FormattedMessage id="smoochBot.descriptionTos" defaultMessage="This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service." />,
 };
 
 const placeholders = defineMessages({
@@ -87,10 +85,6 @@ We can accept most images, videos, links, text messages, and shared WhatsApp mes
 
 Contact us at *[email or other contact]* for further inquiries.`,
   },
-  smooch_message_smooch_bot_ask_for_tos: {
-    id: 'smoochBot.placeholderTos',
-    defaultMessage: 'This service is provided under the following terms: %{tos}',
-  },
   default_new_resource_title: {
     id: 'smoochBot.newResourceTitle',
     defaultMessage: 'New bot resource',
@@ -98,6 +92,10 @@ Contact us at *[email or other contact]* for further inquiries.`,
   menu_keywords: {
     id: 'smoochBot.menuKeywords',
     defaultMessage: 'Keywords separated by comma',
+  },
+  tos: {
+    id: 'smoochBot.tos',
+    defaultMessage: 'Terms of Service ({language})',
   },
 });
 

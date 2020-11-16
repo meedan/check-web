@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function isEmpty(data) {
+  if (!data) {
+    return true;
+  }
   if (Object.keys(data).length === 0 ||
     (!data.use_introduction && !data.use_visual_card && !data.use_text_message)) {
     return true;

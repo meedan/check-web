@@ -219,10 +219,11 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedBack"
-          defaultMessage="Restored from trash"
+          defaultMessage="Restored from trash, redirecting..."
         />
       );
       this.props.setFlashMessage(message);
+      window.location.assign(window.location.pathname);
     };
 
     const context = this.getContext();

@@ -48,6 +48,7 @@ const MultiSelectFilter = ({
         />
       )}
       onChange={handleChange}
+      fullWidth
     />
   );
 };

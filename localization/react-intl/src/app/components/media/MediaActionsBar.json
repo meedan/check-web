@@ -13,7 +13,7 @@
   },
   {
     "id": "mediaActionsBar.movedBack",
-    "defaultMessage": "Restored from trash"
+    "defaultMessage": "Restored from trash, redirecting..."
   },
   {
     "id": "mediaActionsBar.publishedReport",

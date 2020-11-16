@@ -92,7 +92,7 @@ class DateRangeFilter extends React.Component {
     }
 
     const label = {
-      date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
+      date: <FormattedMessage id="search.dateHeading" defaultMessage="Time Range" />,
       created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
       last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
