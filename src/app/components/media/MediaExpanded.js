@@ -20,6 +20,7 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
+import CreateRelatedMedia from './CreateRelatedMedia';
 import BlankMediaButton from './BlankMediaButton';
 import { isBotInstalled, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
@@ -174,26 +175,33 @@ class MediaExpandedComponent extends Component {
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
     const { description } = media.media.metadata;
+    const isFetchBotInstalled = isBotInstalled(media.team, 'fetch');
+    const isNotRelated = media.relationships &&
+      media.relationships.targets_count !== undefined &&
+      media.relationships.sources_count !== undefined &&
+      media.relationships.targets_count + media.relationships.sources_count === 0;
 
     return (
       <React.Fragment>
-        { isBotInstalled(media.team, 'fetch') ?
-          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2) }}>
-            <BlankMediaButton
-              projectMediaId={media.id}
-              team={media.team}
-              label={
-                <FormattedMessage
-                  id="mediaExpanded.addToImportedReport"
-                  defaultMessage="Add to imported report"
-                />
-              }
-              ButtonProps={{
-                variant: 'outlined',
-                color: 'default',
-              }}
-              reverse
-            />
+        { isFetchBotInstalled || isNotRelated ?
+          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
+            { isFetchBotInstalled ?
+              <BlankMediaButton
+                projectMediaId={media.id}
+                team={media.team}
+                label={
+                  <FormattedMessage
+                    id="mediaExpanded.addToImportedReport"
+                    defaultMessage="Add to imported report"
+                  />
+                }
+                ButtonProps={{
+                  variant: 'outlined',
+                  color: 'default',
+                }}
+                reverse
+              /> : null }
+            { isNotRelated ? <CreateRelatedMedia media={media} reverse /> : null }
           </Box> : null }
         <CardHeader
           className="media-expanded__title"
@@ -311,6 +319,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
           search_id
           verification_statuses
           get_languages
+          permissions
           team_bot_installations(first: 10000) {
             edges {
               node {

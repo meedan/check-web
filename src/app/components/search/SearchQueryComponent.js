@@ -6,6 +6,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import Button from '@material-ui/core/Button';
@@ -38,6 +39,7 @@ import {
   caption,
   borderWidthLarge,
   mediaQuery,
+  inProgressYellow,
 } from '../../styles/js/shared';
 
 const StyledPopper = styled(Popper)`
@@ -156,6 +158,13 @@ const styles = theme => ({
   endAdornmentActive: {
     color: 'white',
     backgroundColor: highlightOrange,
+  },
+  noHoverButton: {
+    minWidth: 0,
+    margin: theme.spacing(1),
+    '&:hover': {
+      background: 'transparent',
+    },
   },
 });
 
@@ -368,6 +377,20 @@ class SearchQueryComponent extends React.Component {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'tags', tags),
     });
+  }
+
+  handleTagsOperator(operator) {
+    this.setState({
+      query: { ...this.state.query, tags_operator: operator },
+    });
+  }
+
+  tagsOperatorIs(operator) {
+    let currentOperator = 'or'; // "or" is the default
+    if (this.state.query && this.state.query.tags_operator) {
+      currentOperator = this.state.query.tags_operator;
+    }
+    return currentOperator === operator;
   }
 
   handleShowClick(type) {
@@ -689,15 +712,89 @@ class SearchQueryComponent extends React.Component {
                   value={this.state.query.range}
                 />
 
-                <MultiSelectFilter
-                  label={<FormattedMessage id="search.statusHeading" defaultMessage="Status" />}
-                  hide={this.hideField('status')}
-                  selected={statuses.filter(s => this.statusIsSelected(s.id))}
-                  options={statuses}
-                  onChange={(newValue) => {
-                    this.handleStatusClick(newValue.map(s => s.id));
-                  }}
-                />
+                { !this.hideField('tags') && plainTagsTexts.length ?
+                  <Box display="flex" alignItems="center">
+                    <MultiSelectFilter
+                      label={<FormattedMessage id="search.categoriesHeading" defaultMessage="Tags" />}
+                      hide={this.hideField('tags') || !plainTagsTexts.length}
+                      selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
+                      options={plainTagsTexts}
+                      labelProp=""
+                      onChange={(newValue) => {
+                        this.handleTagClick(newValue);
+                      }}
+                    />
+                    <Button
+                      onClick={() => { this.handleTagsOperator('or'); }}
+                      style={this.tagsOperatorIs('or') ? { color: inProgressYellow } : {}}
+                      classes={{ root: classes.noHoverButton }}
+                      disableRipple
+                    >
+                      <FormattedMessage
+                        id="search.any"
+                        defaultMessage="Any"
+                      />
+                    </Button>
+                    <div> | </div>
+                    <Button
+                      onClick={() => { this.handleTagsOperator('and'); }}
+                      style={this.tagsOperatorIs('and') ? { color: inProgressYellow } : {}}
+                      classes={{ root: classes.noHoverButton }}
+                      disableRipple
+                    >
+                      <FormattedMessage
+                        id="search.all"
+                        defaultMessage="All"
+                      />
+                    </Button>
+                  </Box> : null }
+
+                <Box display="flex" style={{ gap: units(3) }}>
+                  <MultiSelectFilter
+                    label={<FormattedMessage id="search.show" defaultMessage="Media Type" />}
+                    hide={this.hideField('type')}
+                    selected={types.filter(t => this.showIsSelected(t.value))}
+                    options={types}
+                    onChange={(newValue) => {
+                      this.handleShowClick(newValue.map(t => t.value));
+                    }}
+                  />
+
+                  <MultiSelectFilter
+                    label={<FormattedMessage id="search.statusHeading" defaultMessage="Item Status" />}
+                    hide={this.hideField('status')}
+                    selected={statuses.filter(s => this.statusIsSelected(s.id))}
+                    options={statuses}
+                    onChange={(newValue) => {
+                      this.handleStatusClick(newValue.map(s => s.id));
+                    }}
+                  />
+                </Box>
+
+                <Box display="flex" style={{ gap: units(3) }}>
+                  <MultiSelectFilter
+                    label={<FormattedMessage id="search.userHeading" defaultMessage="Created By" />}
+                    hide={this.hideField('user') || !users.length}
+                    selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
+                    options={users.map(u => u.node)}
+                    labelProp="name"
+                    onChange={(newValue) => {
+                      this.handleUserClick(newValue.map(u => u.dbid));
+                    }}
+                  />
+
+                  {/* The only dynamic filter available right now is language */}
+
+                  <MultiSelectFilter
+                    label={<FormattedMessage id="search.language" defaultMessage="Language" />}
+                    hide={this.hideField('dynamic') || !languages.length}
+                    selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
+                    options={languages}
+                    onChange={(newValue) => {
+                      this.handleDynamicClick('language', newValue.map(t => t.value));
+                    }}
+                  />
+                </Box>
 
                 <MultiSelectFilter
                   label={<FormattedMessage id="search.projectHeading" defaultMessage="List" />}
@@ -707,17 +804,6 @@ class SearchQueryComponent extends React.Component {
                   labelProp="title"
                   onChange={(newValue) => {
                     this.handleProjectClick(newValue.map(p => p.dbid));
-                  }}
-                />
-
-                <MultiSelectFilter
-                  label={<FormattedMessage id="search.userHeading" defaultMessage="Author" />}
-                  hide={this.hideField('user') || !users.length}
-                  selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
-                  options={users.map(u => u.node)}
-                  labelProp="name"
-                  onChange={(newValue) => {
-                    this.handleUserClick(newValue.map(u => u.dbid));
                   }}
                 />
 
@@ -738,39 +824,6 @@ class SearchQueryComponent extends React.Component {
                     </StyledFilterRow>
                   )
                 }
-
-                <MultiSelectFilter
-                  label={<FormattedMessage id="search.categoriesHeading" defaultMessage="Tags" />}
-                  hide={this.hideField('tags') || !plainTagsTexts.length}
-                  selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
-                  options={plainTagsTexts}
-                  labelProp=""
-                  onChange={(newValue) => {
-                    this.handleTagClick(newValue);
-                  }}
-                />
-
-                <MultiSelectFilter
-                  label={<FormattedMessage id="search.show" defaultMessage="Type" />}
-                  hide={this.hideField('type')}
-                  selected={types.filter(t => this.showIsSelected(t.value))}
-                  options={types}
-                  onChange={(newValue) => {
-                    this.handleShowClick(newValue.map(t => t.value));
-                  }}
-                />
-
-                {/* The only dynamic filter available right now is language */}
-
-                <MultiSelectFilter
-                  label={<FormattedMessage id="search.language" defaultMessage="Language" />}
-                  hide={this.hideField('dynamic') || !languages.length}
-                  selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
-                  options={languages}
-                  onChange={(newValue) => {
-                    this.handleDynamicClick('language', newValue.map(t => t.value));
-                  }}
-                />
 
                 <CustomFiltersManager
                   onFilterChange={this.handleCustomFilterChange}
@@ -794,7 +847,7 @@ class SearchQueryComponent extends React.Component {
                 form="search-form"
                 color="primary"
               >
-                <FormattedMessage id="search.applyFilters" defaultMessage="Done" />
+                <FormattedMessage id="search.applyFilters" defaultMessage="Filter" />
               </Button>
             </DialogActions>
           </Dialog>

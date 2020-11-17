@@ -125,7 +125,6 @@ shared_examples 'media' do |type|
     wait_for_selector(".media-status")
     wait_for_selector(".media-actions__icon").click
     wait_for_selector("#media-actions__restore").click
-    wait_for_selector(".message").click
     wait_for_selector(".project-header__back-button").click
     wait_for_selector("#search-input")
     wait_for_selector(".project-list__link-all").click

@@ -1075,7 +1075,13 @@ class Annotation extends Component {
         authorName = null;
         const objectValue = JSON.parse(object.value);
         const messageType = objectValue.source.type;
-        const messageText = objectValue.text ? objectValue.text.trim() : null;
+        const messageText = objectValue.text ?
+          objectValue.text.trim()
+            .split('\n')
+            .map(w => w.replace('\u2063', ''))
+            .filter(w => !/^[0-9]+$/.test(w))
+            .join('\n')
+          : null;
         const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         const smoochExternalId = activity.smooch_user_external_identifier;
         const smoochReportReceivedAt = activity.smooch_report_received_at ?

@@ -19,6 +19,7 @@ import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import ConfirmDialog from '../layout/ConfirmDialog';
+import { languageLabel } from '../../LanguageRegistry';
 
 const StyledCardContent = styled(CardContent)`
   display: flex;
@@ -64,6 +65,7 @@ class TeamBotsComponent extends Component {
       currentInstallation: null,
       confirmedToLeave: false,
       leaveLocation: null,
+      smoochBotLanguagesWithError: [],
     };
   }
 
@@ -113,11 +115,26 @@ class TeamBotsComponent extends Component {
   }
 
   handleClose() {
-    this.setState({ open: false });
+    this.setState({ open: false, smoochBotLanguagesWithError: [] });
   }
 
   handleOpen(installation) {
-    this.setState({ open: true, currentInstallation: installation });
+    const smoochBotLanguagesWithError = [];
+    const settings = this.state.settings[installation.id];
+    settings.smooch_workflows.forEach((workflow) => {
+      if (workflow.smooch_state_main && workflow.smooch_state_main.smooch_menu_options) {
+        const invalidOption = workflow.smooch_state_main.smooch_menu_options
+          .find(o => o.smooch_menu_option_keyword.split(',').find(k => parseInt(k.trim(), 10) === 9));
+        if (invalidOption) {
+          smoochBotLanguagesWithError.push(languageLabel(workflow.smooch_workflow_language));
+        }
+      }
+    });
+    if (smoochBotLanguagesWithError.length > 0) {
+      this.setState({ currentInstallation: installation, smoochBotLanguagesWithError });
+    } else {
+      this.setState({ open: true, currentInstallation: installation });
+    }
   }
 
   handleConfirm() {
@@ -357,6 +374,24 @@ class TeamBotsComponent extends Component {
             />}
             handleClose={this.handleClose.bind(this)}
             handleConfirm={this.handleConfirm.bind(this)}
+          />
+          <ConfirmDialog
+            open={this.state.smoochBotLanguagesWithError.length}
+            title={<FormattedMessage id="teamBots.smoochErrorTitle" defaultMessage="Unavailable option" />}
+            blurb={<FormattedMessage
+              id="teamBots.smoochErrorMessage"
+              defaultMessage="You cannot use '9' as a scenario option in the main menu. Please choose another value for the following languages: {languages}"
+              values={{
+                languages: this.state.smoochBotLanguagesWithError.join(', '),
+              }}
+            />}
+            handleClose={this.handleClose.bind(this)}
+            cancelButtonLabel={
+              <FormattedMessage
+                id="teamBots.close"
+                defaultMessage="Close"
+              />
+            }
           />
         </ContentColumn>
       </Box>

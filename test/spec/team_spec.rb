@@ -1,6 +1,6 @@
 shared_examples 'team' do
 
-  it "should be able to find a team after signing up", bin5: true do
+  it "should be able to find a team after signing up", bin6: true do
     user = api_register_and_login_with_email
     @driver.navigate.to @config['self_url']
     wait_for_selector('.find-team-card')
@@ -143,7 +143,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
   end
 
-  it "should add introduction and a disclaimer to team report settings", bin5: true do
+  it "should add introduction and a disclaimer to team report settings", bin6: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__report-tab').click
@@ -180,7 +180,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
-  it "should create a list and assign it on team page", bin5: true do
+  it "should create a list and assign it on team page", bin6: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to @config['self_url']+'/'+team
@@ -198,7 +198,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Assigned to')).to be(true)
   end
 
-  it "should manage team members", bin5: true, quick: true do
+  it "should manage team members", bin4: true, quick: true do
     # setup
     @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
     @team1_slug = 'team1'+Time.now.to_i.to_s+rand(9999).to_s

@@ -32,7 +32,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('Where was it?')).to be(false)
   end
 
-  it "should assign, answer with a link and add a comment to a task and change the task order", bin5: true do
+  it "should assign, answer with a link and add a comment to a task and change the task order", bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
 
@@ -176,7 +176,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('Foo or bar???')).to be(false)
   end
 
-  it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
+  it "should add, edit, answer, update answer and delete multiple_choice task", bin6: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
     # Create a task

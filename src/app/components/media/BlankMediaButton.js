@@ -129,7 +129,13 @@ const BlankMediaButton = ({
       </Button>
       <CreateRelatedMediaDialog
         message={message}
-        title={null}
+        title={
+          reverse ?
+            <FormattedMessage
+              id="blankMediaButton.addToImportedReport"
+              defaultMessage="Add to imported report"
+            /> : null
+        }
         open={showItemDialog}
         onDismiss={handleCloseItemDialog}
         onSubmit={handleSubmitNew}

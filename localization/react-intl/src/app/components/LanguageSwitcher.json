@@ -2,5 +2,9 @@
   {
     "id": "languageSwitcher.primaryLanguage",
     "defaultMessage": "{language} (default)"
+  },
+  {
+    "id": "languageSwitcher.makeDefault",
+    "defaultMessage": "Set as default language for this item"
   }
 ]

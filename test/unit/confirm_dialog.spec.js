@@ -9,6 +9,7 @@ describe('<ConfirmDialog />', function() {
         open
         title="Dialog Title"
         blurb="Dialog Blurb"
+        handleConfirm={() => {}}
       />
     );
     expect(wrapper.html()).toMatch('Dialog Title');
