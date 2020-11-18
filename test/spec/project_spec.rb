@@ -111,4 +111,34 @@ shared_examples 'project' do
     wait_for_selector("//span[contains(text(), '21 - 21 / 21')]", :xpath)
     expect(@driver.page_source.include?('21 - 21 / 21')).to be(true)
   end
+
+  it "should custom list columns", bin4: true do
+    api_create_team_project_metadata_and_media
+    wait_for_selector("#create-media__add-item")
+    wait_for_selector('.media__heading')
+    expect(@driver.page_source.include?('Status')).to be(true)
+    expect(@driver.page_source.include?('metadata')).to be(false)
+    expect(@driver.page_source.include?('answer')).to be(false)
+    wait_for_selector(".media__heading").click
+    wait_for_selector(".create-related-media__add-button")
+    #answer the metadata
+    wait_for_selector(".media-tab__metadata").click
+    wait_for_selector("#task__response-input").send_keys("answer")
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector_none("#task__response-input")
+    @driver.navigate.to @config['self_url'] + '/' + get_team + '/settings'
+    wait_for_selector(".team")
+    wait_for_selector(".team-settings__lists-tab").click
+    wait_for_selector("//span[contains(text(), 'Show')]", :xpath).click
+    wait_for_selector("#team-lists__item-4-status button").click
+    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector(".message").click
+    wait_for_selector_none(".message")
+    wait_for_selector(".project-list__link-all").click
+    wait_for_selector("#create-media__add-item")
+    wait_for_selector('.media__heading')
+    expect(@driver.page_source.include?('Status')).to be(false)
+    expect(@driver.page_source.include?('metadata')).to be(true)
+    expect(@driver.page_source.include?('answer')).to be(true)
+  end
 end

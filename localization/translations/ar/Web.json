@@ -13,6 +13,7 @@
 	"global.submitting": "الإرسال جارٍ ...",
 	"global.tags": "الوسوم",
 	"global.unknownError": "عذراً ، لقد واجهنا خطأ ما. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+	"global.update": "تحديث",
 	"accessDenied.title": "الدخول ممنوع",
 	"bot.cantChange": "عذراً ، لقد واجهنا خطأ ما أثناء تحديث البوت. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"bot.madeBy": "من صُنع {teamLink}",
@@ -43,6 +44,7 @@
 	"home.invalidExpiredInvitation": "عذراً ، الدعوة التي تلقيتها منتهية الصلاحية. يرجى التواصل مع {supportEmail} إن كنت تعتقدين ان هناك خطأ ما.",
 	"home.invalidInvitation": "عذراً ، لقد واجهنا خطأ ما اثناء معالجة دعوتك. يرجى التواصل مع {supportEmail}.",
 	"languageSwitcher.primaryLanguage": "{language} (الافتراضية)",
+	"languageSwitcher.makeDefault": "Set as default language for this item",
 	"login.disclaimer": "لن يتم أي نشر بدون موافقتك",
 	"login.tosMissing": "يجب أن توافقين على شروط الاستخدام وسياسة الخصوصية",
 	"login.title": "تسجيل الدخول",
@@ -73,7 +75,7 @@
 	"uploadFile.message": "يرجى اسقاط صورة هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأنواع المسموحة: {upload_extensions}، الأبعاد المسموحة بين {upload_min_dimensions} و {upload_max_dimensions} بكسل)",
 	"uploadFile.videoMessage": "يرجى اسقاط  فيديو هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {video_max_size}، الأنواع المسموحة: {video_extensions})",
 	"uploadFile.audioMessage": "يرجى اسقاط ملف صوتي هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {audio_max_size}، الأنواع المسموحة: {audio_extensions})",
-	"uploadFile.fileMessage": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})",
+	"uploadFile.fileMessage": "يرجى إسقاط ملف هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {file_max_size}، الأنواع المسموحة: {file_extensions})",
 	"uploadFile.invalidExtension": "لا يمكن إضافة ملف نوعه ({extension}). يرجى إعادة المحاولة مع ملف من الانواع المسموحة : ({allowed_types})",
 	"uploadFile.fileTooLarge": "لا يمكن إضافة ملف حجمه اكبر من {size}. يرجى إعادة المحاولة مع ملف ذو حجم مناسب.",
 	"uploadFile.changeFile": "{filename} (لتغيير الصورة انقري هنا أو اسقطي صورة جديدة)",
@@ -201,9 +203,9 @@
 	"projects.dismiss": "تجاهل",
 	"projects.addProject": "إضافة قائمة",
 	"projects.newList": "+ قائمة جديدة",
-	"teamTasks.cancelAction": "إلغاء",
 	"teamTasks.confirmAction": "نعم",
 	"teamTasks.continue": "متابعة",
+	"teamTasks.cancelAction": "إلغاء",
 	"confirmProceed.confirm": "تأكيد ومتابعة",
 	"MultiSelector.search": "بحث...",
 	"FilterPopup.close": "إتمام",
@@ -214,45 +216,15 @@
 	"loadMore.loadMore": "تحميل أكثر",
 	"moreLess.less": "الأقل",
 	"moreLess.more": "المزيد",
-	"multiSelector.all": "تحديد الكل",
-	"multiSelector.none": "إلغاء تحديد الكل",
+	"MultiSelector.all": "الكل",
 	"multiSelector.empty": "‏‏لم يتم العثور على عناصر",
 	"multiSelector.cancel": "إلغاء",
-	"multiSelector.save": "حفظ",
 	"sortSelect.az": "أبجدياً",
 	"sortSelect.za": "أبجدياً عكسياً",
 	"sortSelect.of": "الأقدم أولاً",
 	"sortSelect.nf": "الأحدث أولاً",
 	"sortSelect.mu": "اﻷكثر استخداماً",
 	"sortSelect.lu": "اﻷقل استخداماً",
-	"createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
-	"createProject.newProjectName": "عنوان القائمة",
-	"createProject.addProject": "إنشاء قائمة",
-	"createProject.title": "إضافة قائمة",
-	"createProject.titleBlank": "أضف أول قائمة",
-	"projectActions.projectDeleted": "تم حذف القائمة بنجاح.",
-	"projectActions.projectNotDeleted": "عذراً، لم نستطع حذف القائمة.",
-	"ProjectActions.edit": "تحرير الاسم والوصف",
-	"projectActions.assignOrUnassign": "تكليف القائمة",
-	"projectActions.destroy": "حذف",
-	"ProjectActions.tooltip": "اجراءات القائمة",
-	"projectActions.confirmDeleteProject": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'.",
-	"projectAssignment.processing": "تم! سوف تنتشر هذه التكليفات إلى العناصر والمهام وسيتم إخطارك عبر البريد الإلكتروني عند إتمام العملية.",
-	"projectAssignment.title": "تكليف القائمة لشريك(ة)",
-	"projectAssignment.notesTitle": "إضافة ملاحظة للبريد الإلكتروني",
-	"projectAssignment.notes": "الملحوظات",
-	"projectAssignment.assignedTo": "مُكَلَّف إلى",
-	"projectAssignment.notAssigned": "غير مُكَلَّف",
-	"userAssignments.blank": "لا توجد أنشطة",
-	"ProjectBlankState.createMedia": "يرجى إضافة رابط أو نص",
-	"projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
-	"projectEdit.titleField": "العنوان",
-	"projectEdit.descriptionField": "الوصف",
-	"projectEdit.saveButton": "حفظ",
-	"projectHeader.trash": "سلة المهملات",
-	"projectHeader.allItems": "كل العناصر",
-	"projectSelector.numProjs": "{length, number} محدد",
-	"projectSelector.allProjs": "كل القوائم",
 	"mediaMetadata.addedToList": "تمت الإضافة إلى القائمة {listName}",
 	"mediaActionsBar.addTo": "إضافة إلى...",
 	"mediaActionsBar.dialogAddToListTitle": "إضافة إلى قائمة آخرى",
@@ -264,6 +236,7 @@
 	"autoCompleteMediaItem.notFound": "‏‏لم يتم العثور على عناصر مطابقة",
 	"autoCompleteMediaItem.searchItem": "بحث",
 	"blankMediaButton.defaultErrorMessage": "لا يمكن حفظ العنصر",
+	"blankMediaButton.addToImportedReport": "إضافة إلى التقرير المستورد",
 	"blankMediaButton.confirmTitle": "الكتابة فوق التقرير والحالة؟",
 	"blankMediaButton.confirmText": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وايقاف التقرير.",
 	"blankMediaButton.confirmButtonLabel": "إيقاف التقرير وتحديث المحتوى",
@@ -305,8 +278,8 @@
 	"createMedia.image": "صورة",
 	"createMedia.video": "فيديو",
 	"createMedia.audio": "صوت",
-	"createRelatedMedia.addRelatedItem": "إضافة عنصر مرتبط",
-	"createMedia.existingReport": "إضافة إلى التقرير المستورد",
+	"createRelatedMedia.addSecondaryItem": "Add secondary item",
+	"createRelatedMedia.addToPrimaryItem": "Add to primary item",
 	"destinationProjects.choose": "إختيار قائمة",
 	"mediaDetail.editReportError": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"mediaDetail.editReport": "تحرير",
@@ -330,7 +303,7 @@
 	"mediaActionsBar.movedToTrash": "تم الإرسال إلى {trash}",
 	"mediaDetail.trash": "سلة المهملات",
 	"mediaActionsBar.assignmentsUpdated": "تم تحديث التكليفات بنجاح!",
-	"mediaActionsBar.movedBack": "تمت الاستعادة من سلة المهملات",
+	"mediaActionsBar.movedBack": "Restored from trash, redirecting...",
 	"mediaActionsBar.publishedReport": "تقرير منشور",
 	"mediaActionsBar.unpublishedReport": "تقرير غير منشور",
 	"mediaActionsBar.assignmentTitle": "تكليف العنصر لشريك(ة)",
@@ -458,7 +431,35 @@
 	"reportDesigner.confirmRepublishResendText2": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير.",
 	"reportDesigner.confirmLeaveText": "إذا غادرت الآن، ستفقدين تعديلاتك. ",
 	"reportDesigner.reportImagePreviewTitle": "لمحة عن التقرير ",
-	"webPageMediaCard.Error": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. انقروا أعلاه لفتحه.",
+	"webPageMediaCard.Error": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. انقروا الرابط بالأعلى للإنتقال إليه.",
+	"createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+	"createProject.newProjectName": "عنوان القائمة",
+	"createProject.addProject": "إنشاء قائمة",
+	"createProject.title": "إضافة قائمة",
+	"createProject.titleBlank": "أضف أول قائمة",
+	"projectActions.projectDeleted": "تم حذف القائمة بنجاح.",
+	"projectActions.projectNotDeleted": "عذراً، لم نستطع حذف القائمة.",
+	"ProjectActions.edit": "تحرير الاسم والوصف",
+	"projectActions.assignOrUnassign": "تكليف القائمة",
+	"projectActions.destroy": "حذف",
+	"ProjectActions.tooltip": "اجراءات القائمة",
+	"projectActions.confirmDeleteProject": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'.",
+	"projectAssignment.processing": "تم! سوف تنتشر هذه التكليفات إلى العناصر والمهام وسيتم إخطارك عبر البريد الإلكتروني عند إتمام العملية.",
+	"projectAssignment.title": "تكليف القائمة لشريك(ة)",
+	"projectAssignment.notesTitle": "إضافة ملاحظة للبريد الإلكتروني",
+	"projectAssignment.notes": "الملحوظات",
+	"projectAssignment.assignedTo": "مُكَلَّف إلى",
+	"projectAssignment.notAssigned": "غير مُكَلَّف",
+	"userAssignments.blank": "لا توجد أنشطة",
+	"ProjectBlankState.createMedia": "يرجى إضافة رابط أو نص",
+	"projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+	"projectEdit.titleField": "العنوان",
+	"projectEdit.descriptionField": "الوصف",
+	"projectEdit.saveButton": "حفظ",
+	"projectHeader.trash": "سلة المهملات",
+	"projectHeader.allItems": "كل العناصر",
+	"projectSelector.numProjs": "{length, number} محدد",
+	"projectSelector.allProjs": "كل القوائم",
 	"AddCustomFilters.metadataChoiceLabel": "البيانات الوصفية لها قيمة محددة",
 	"AddCustomFilters.metadataTextLabel": "البيانات الوصفيّة تتضمن الكلمة المفتاحية",
 	"AddCustomFilters.taskChoiceLabel": "المهمة لها إجابة محددة",
@@ -474,15 +475,26 @@
 	"CustomTeamTaskFilter.metadataTextLabel": "البيانات الوصفيّة تتضمن الكلمة المفتاحية",
 	"CustomTeamTaskFilter.taskChoiceLabel": "المهمة لها إجابة محددة",
 	"CustomTeamTaskFilter.taskTextLabel": "إجابة المهمة تتضمن الكلمة المفتاحية",
+	"CustomTeamTaskFilter.noValue": "لم يتم تحديد قيمة",
+	"CustomTeamTaskFilter.anyValue": "أي قيمة محددة",
 	"CustomTeamTaskFilter.entityTaskLabel": "اختيار مهمة",
 	"CustomTeamTaskFilter.entityMetadataLabel": "تحديد البيانات الوصفيّة",
-	"search.dateHeading": "التاريخ",
+	"search.dateHeading": "Time Range",
 	"search.dateSubmittedHeading": "تم الإرسال",
 	"search.dateLastSubmittedHeading": "آخر إرسال",
 	"search.dateUpdatedHeading": "تاريخ آخر تحديث",
-	"search.datePublishedHeading": "Published",
+	"search.datePublishedHeading": "منشور",
 	"search.pickDateFrom": "تاريخ البدء",
 	"search.pickDateTo": "تاريخ الانتهاء",
+	"searchKeywordConfig.mediaTitle": "عنوان الميديا",
+	"searchKeywordConfig.mediaContent": "محتوى الميديا",
+	"searchKeywordConfig.analysisTitle": "عنوان التحليل",
+	"searchKeywordConfig.analysisContent": "محتوى التحليل",
+	"searchKeywordConfig.tags": "الوسوم",
+	"searchKeywordConfig.allTaskAnswers": "جميع إجابات المهام",
+	"searchKeywordConfig.allMetadataAnswers": "جميع إجابات البيانات الوصفيّة",
+	"searchKeywordConfig.allNotes": "جميع الملحوظات",
+	"searchKeywordConfig.allTaskComments": "جميع تعليقات المهمة",
 	"search.loading": "تحميل...",
 	"search.showClaims": "نصوص",
 	"search.showLinks": "روابط",
@@ -495,27 +507,22 @@
 	"search.help": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>",
 	"search.Filter": "فلتر ",
 	"search.clear": "الغاء الفلتر ",
-	"search.statusHeading": "الحالة",
-	"search.projectHeading": "القائمة",
-	"search.userHeading": "المؤلف(ة)",
-	"search.readHeading": "تمت قراءته",
 	"search.categoriesHeading": "الوسوم",
-	"search.show": "النوع",
+	"search.any": "Any",
+	"search.all": "الكل",
+	"search.show": "Media Type",
+	"search.statusHeading": "Item Status",
+	"search.userHeading": "Created By",
 	"search.language": "اللغة",
+	"search.projectHeading": "القائمة",
+	"search.readHeading": "تمت قراءته",
 	"search.cancel": "إلغاء",
 	"search.reset": "إعادة ضبط",
-	"search.applyFilters": "إتمام",
+	"search.applyFilters": "فلتر ",
 	"search.previousPage": "الصفحة السابقة",
 	"searchResults.itemsCount": "{count, plural, zero {} one {1 / 1} two {} few {} many {} other {{from} - {to} / #}}",
 	"searchResults.withSelection": "{selectedCount, plural, zero {} one {(1 selected)} two {} few {} many {} other {(# selected)}}",
 	"search.nextPage": "الصفحة التالية",
-	"tagInput.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
-	"tagInput.search": "للبحث عن أو إضافة وسوم جديدة",
-	"tagInput.addTag": "إضافة وسم",
-	"tagMenu.tooltip": "تحرير الوسوم",
-	"tagMenu.done": "إتمام",
-	"tagPicker.emptyTags": "لا توجد وسوم حاليا في مساحة العمل هذه.",
-	"tagPicker.tagNotFound": "الوسم {tag}# غير موجود.",
 	"userAssignments.filterByTeam": "الفلترة عن طريق مساحة العمل",
 	"userAssignments.other": "غير ذلك",
 	"userComponent.teams": "مساحات العمل",
@@ -574,6 +581,13 @@
 	"userSecurity.verifyDescription": "لتفعيل المصادقة الثنائية، يرجى إدخال الرمز المكون من 6 أرقام الموجود في تطبيق المصادقة الثنائية:",
 	"userSecurity.enableTwofactor": "تفعيل",
 	"userSecurity.changePassword": "تغيير كلمة السر",
+	"tagInput.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+	"tagInput.search": "للبحث عن أو إضافة وسوم جديدة",
+	"tagInput.addTag": "إضافة وسم",
+	"tagMenu.tooltip": "تحرير الوسوم",
+	"tagMenu.done": "إتمام",
+	"tagPicker.emptyTags": "لا توجد وسوم حاليا في مساحة العمل هذه.",
+	"tagPicker.tagNotFound": "الوسم {tag}# غير موجود.",
 	"attribution.noResults": "لا توجد نتائج",
 	"attribution.search": "البحث في الأعضاء",
 	"createTask.newTask": "مهمة جديدة",
@@ -584,7 +598,7 @@
 	"tasks.chooseMultiple": "تحديد متعدد",
 	"tasks.geolocation": "الموقع",
 	"tasks.datetime": "التاريخ والزمن",
-	"tasks.fileUpload": "File upload",
+	"tasks.fileUpload": "رفع الملف",
 	"tasks.teamwideNudge": "المهمات الإفتراضية",
 	"datetimeRespondTask.cancelTask": "إلغاء",
 	"datetimeRespondTask.answerTask": "إجابة",
@@ -649,28 +663,6 @@
 	"taskTypeSelector.allTypes": "جميع المهام",
 	"tasks.blankMetadata": "لا توجد حقول للبيانات الوصفيّة",
 	"tasks.goToSettings": "إلى الإعدادات",
-	"tasks.done": "إتمام",
-	"ConfirmEmail.title": "تأكيد بريدك الإلكتروني",
-	"ConfirmEmail.content": "يرجى مراجعة بريدك الالكتروني للتحقق من حسابك.",
-	"ConfirmEmail.resendConfirmation": "إعادة الإرسال",
-	"UserConnectedAccount.connectButton": "توصيل حساب",
-	"UserConnectedAccount.disconnectButton": "فصل",
-	"UserConnectedAccount.disconnectAccountTitle": "فصل الحساب",
-	"UserConnectedAccount.disconnectAccountConfirmationText": "هل أنت متأكد(ة)؟ هذا سيفصل حساب تسجيل الدّخول؟",
-	"UserConnectedAccount.addAnother": "إضافة حساب آخر",
-	"userEmail.title": "إضافة بريد إلكتروني",
-	"userEmail.emailInputHint": "email@example.com",
-	"userEmail.text": "يرجى إدخال البريد اﻹلكتروني لاستقبال الإخطارات. أو، اضغطي \"تخطي\"",
-	"userEmail.emailInputLabel": "البريد الإلكتروني",
-	"userEmail.skip": "تخطي",
-	"userEmail.submit": "إرسال",
-	"userMenu.edit": "تحرير الملف الشخصي",
-	"userTooltip.dateJoined": "انضم في  {date} • {teamsCount, plural, =0 {ليس عضواً في أي مساحة عمل} one {مساحة عمل واحدة} other {# مساحات عمل}}",
-	"UserUtil.annotator": "مُعقّب(ة)",
-	"UserUtil.contributor": "مساهم(ة)",
-	"UserUtil.journalist": "صحفي(ة)",
-	"UserUtil.editor": "محرر(ة)",
-	"UserUtil.owner": "مدير(ة)",
 	"addTeamPage.titleFind": "العثور على مساحة العمل موجودة",
 	"addTeamPage.titleCreate": "إنشاء مساحة عمل",
 	"createTeam.slugChecking": "التحقق من توفر المسار جارٍ...",
@@ -742,8 +734,12 @@
 	"teamBots.botGarden": "تصفح Bot Garden",
 	"teamBots.confirmationTitle": "تأكيد",
 	"teamBots.confirmationMessage": "أنت على وشك تفعيل تغييراتك على البوت. سيرى جميع المستخدمين على خطّك السّاخن (tipline) هذه التغييرات. متأكد(ة) من المتابعة؟",
-	"teamSettings.Metadata": "البيانات الوصفيّة ",
-	"teamSettings.Tasks": "المهام",
+	"teamBots.smoochErrorTitle": "Unavailable option",
+	"teamBots.smoochErrorMessage": "You cannot use '9' as a scenario option in the main menu. Please choose another value for the following languages: {languages}",
+	"teamBots.close": "إغلاق",
+	"teamSettings.lists": "القوائم",
+	"teamSettings.metadata": "البيانات الوصفيّة",
+	"teamSettings.tasks": "المهام",
 	"teamSettings.rules": "القواعد",
 	"teamSettings.Tags": "الوسوم",
 	"teamSettings.languages": "اللغات",
@@ -788,6 +784,8 @@
 	"teamInviteMembers.send": "إرسال",
 	"TeamMembersInvitedListItem.cancel": "إلغاء الدعوة",
 	"TeamMembersInvitedListItem.resend": "إعادة الإرسال",
+	"teamLists.title": "إعدادات القوائم",
+	"teamLists.description": "يرجى تحديد جميع الأعمدة التى تريدين عرضها في جميع القوائم الخاصة بك.",
 	"teamMembersComponent.pendingInvitations": "الدعوات الحالية",
 	"teamMembershipRequests.requestsToJoin": "طلبات الانضمام",
 	"teamMembersComponent.mainHeading": "أعضاء",
@@ -853,6 +851,28 @@
 	"teamTasks.delete": "حذف",
 	"teams.title": "مساحات العمل",
 	"trash.title": "سلة المهملات",
+	"tasks.done": "إتمام",
+	"ConfirmEmail.title": "تأكيد بريدك الإلكتروني",
+	"ConfirmEmail.content": "يرجى مراجعة بريدك الالكتروني للتحقق من حسابك.",
+	"ConfirmEmail.resendConfirmation": "إعادة الإرسال",
+	"UserConnectedAccount.connectButton": "توصيل حساب",
+	"UserConnectedAccount.disconnectButton": "فصل",
+	"UserConnectedAccount.disconnectAccountTitle": "فصل الحساب",
+	"UserConnectedAccount.disconnectAccountConfirmationText": "هل أنت متأكد(ة)؟ هذا سيفصل حساب تسجيل الدّخول؟",
+	"UserConnectedAccount.addAnother": "إضافة حساب آخر",
+	"userEmail.title": "إضافة بريد إلكتروني",
+	"userEmail.emailInputHint": "email@example.com",
+	"userEmail.text": "يرجى إدخال البريد اﻹلكتروني لاستقبال الإخطارات. أو، اضغطي \"تخطي\"",
+	"userEmail.emailInputLabel": "البريد الإلكتروني",
+	"userEmail.skip": "تخطي",
+	"userEmail.submit": "إرسال",
+	"userMenu.edit": "تحرير الملف الشخصي",
+	"userTooltip.dateJoined": "انضم في  {date} • {teamsCount, plural, =0 {ليس عضواً في أي مساحة عمل} one {مساحة عمل واحدة} other {# مساحات عمل}}",
+	"UserUtil.annotator": "مُعقّب(ة)",
+	"UserUtil.contributor": "مساهم(ة)",
+	"UserUtil.journalist": "صحفي(ة)",
+	"UserUtil.editor": "محرر(ة)",
+	"UserUtil.owner": "مدير(ة)",
 	"reportDesigner.title": "تصميم تقريرك",
 	"reportDesigner.confirmLeaveButtonLabel": "مغادرة",
 	"reportDesigner.textTitle": "العنوان (بحد أقصى {max} حرف)",
@@ -861,8 +881,8 @@
 	"reportDesigner.darkOverlay": "غطاء معتم",
 	"reportDesigner.removeImage": "إزالة الصورة",
 	"reportDesigner.datePublished": "تاريخ النشر",
-	"reportDesigner.addIntro": "Add content to the introduction",
-	"reportDesigner.addText": "Add content to the text message",
+	"reportDesigner.addIntro": "إضافة محتوى إلى المقدمة",
+	"reportDesigner.addText": "إضافة محتوى إلى الرسالة النصية",
 	"reportDesigner.firstSent": "أوّل نشر",
 	"reportDesigner.sentCount": "التقارير المستلمة",
 	"reportDesigner.cannotPublish": "يرجى تعبئة التقرير بنص أو صورة على الأقل، والتأكد من إنشاء تقرير للغة الرئيسية ({language}).",
@@ -926,9 +946,10 @@
 	"slackConfigDialogComponent.webhook": "Slack webhook",
 	"slackConfigDialogComponent.event": "الحدث",
 	"slackConfigDialogComponent.sendNotificationsTo": "إرسال تنبيهات إلى",
-	"slackConfigDialogComponent.allActivity": "كل أنشطة مساحة العمل",
+	"slackConfigDialogComponent.ifItemAddedTo": "If item is in list",
 	"slackConfigDialogComponent.channel": "قناة Slack",
-	"slackConfigDialogComponent.ifItemAddedTo": "إذا تم إضافة العنصر إلى",
+	"slackConfigDialogComponent.allOtherActivity": "All other activity",
+	"slackConfigDialogComponent.allWorkspaceActivity": "كل أنشطة مساحة العمل",
 	"slackConfigDialogComponent.new": "تنبيه جديد",
 	"slackConfigDialogComponent.cancel": "إلغاء",
 	"slackConfigDialogComponent.save": "حفظ",
@@ -940,14 +961,15 @@
 	"smoochBotMenuOption.languageAction": "{languageName} (القائمة الرئيسية)",
 	"smoochBotMenuOption.if": "إذا",
 	"smoochBotMenuOption.condition": "تطابقت الكلمة المفتاحية التالية",
+	"smoochBotMenuOption.errorTos": "'9' will redirect to the terms of service. It cannot be used as an option in the main menu.",
 	"smoochBotMenuOption.then": "حينئذ",
 	"smoochBotMenuOption.action": "الإجابة ب",
 	"smoochBotMenuOption.add": "إنشاء \"{resourceName}\"",
-	"smoochBotMenuOption.selectMessage": "Select message",
+	"smoochBotMenuOption.selectMessage": "اختيار رسالة",
 	"smoochBotResourceEditor.rssPlaceholder": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS",
 	"smoochBotResourceEditor.error": "هذا الرابط لا يبدو صالحًا لموجز RSS",
 	"smoochBotResourceEditor.title": "عنوان مورد البوت",
-	"smoochBotResourceEditor.addContent": "Add content manually",
+	"smoochBotResourceEditor.addContent": "إضافة محتوى يدويا",
 	"smoochBotResourceEditor.rss": "إضافة محتوى من موجز RSS",
 	"smoochBotResourceEditor.url": "الرّابط",
 	"smoochBotResourceEditor.numberOfArticles": "عدد المقالات المرتجعة",
@@ -970,9 +992,8 @@
 	"smoochBot.labelReportUpdated": "تم تحديث التقرير",
 	"smoochBot.labelInvalidFormat": "صيغة غير صالحة",
 	"smoochBot.labelInactive": "إشعار بعدم الفاعلية",
-	"smoochBot.labelTos": "شروط الاستخدام",
-	"smoochBot.descriptionGreeting": "الرسالة الأولى التى سترسل إلى المستخدم. ستقدّم هذه الرسالة منظمتك والخدمة التى تقدموها من خلال هذا البوت. ستتبع القائمة الرئيسية هذه الرسالة تلقائيا.",
-	"smoochBot.descriptionMainMenu": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة ترحيب تلقائيا.",
+	"smoochBot.descriptionGreeting": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'.",
+	"smoochBot.descriptionMainMenu": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu.",
 	"smoochBot.descriptionSecondaryMenu": "قائمة اختيارية تطلب من المستخدمين الاختيار بين مجموعة من الخيارات. عندما يرد المستخدمين بأحد الخيارات، يستطيع البوت إرسال تقرير أو توجيه المستخدم إلى رسالة بوت أخرى.",
 	"smoochBot.descriptionQueryPrompt": "الرسالة التي تطلب من المستخدمين إرسال محتوى مرتبط بتقصي الحقائق.",
 	"smoochBot.descriptionQueryReceived": "التأكيد الذى سيتم إرساله إلى المستخدمين بعد استلام استعلام صالح منهم.",
@@ -980,7 +1001,6 @@
 	"smoochBot.descriptionReportUpdated": "الرسالة التى سيتم إرسالها إلى المستخدمين حينما تتغير حالة تقرير ما. يجب أن يكون التقرير مكتملا حتى يتم إرسال الرسالة.",
 	"smoochBot.descriptionInvalidFormat": "رسالة تلقائية يتم إرسالها إلى المستخدمين عند إرسالهم لأي ملف غير مدعوم من قبل Check.",
 	"smoochBot.descriptionInactive": "سيتم إرسال هذه الرسالة إلى أي مستخدم يرسل رسالة إلى الخط السّاخن (Tipline) بينما يكون بوت رسائل Check غير نشط.",
-	"smoochBot.descriptionTos": " ستتبع هذه الرسالة أي تقرير يتم إرساله إلى المستخدم مباشرة، لذا يجب أن تتضمن رابطاً إلى شروط إستخدام Check.",
 	"smoochBot.placeholderGreeting": "مرحبا! وأهلا بكم فى بوت تقصي الحقائق الخاص ب[Name of your organization].",
 	"smoochBot.placeholderMainMenu": "📌*القائمة الرئيسية*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة،  أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)",
 	"smoochBot.placeholderSecondaryMenu": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌",
@@ -990,9 +1010,9 @@
 	"smoochBot.placeholderReportUpdated": "❗️تم *تحديث* تقصي الحقائق الذي أرسلناه لك بمعلومات جديدة:",
 	"smoochBot.placeholderInvalidFormat": "❌عذرا، لا يمكننا قبول هذا النوع من الرسائل للتحقق منها في الوقت الحالي\n\nيمكننا قبول أغلب الصور، الفيديوهات، الروابط، الرسائل النصية، ورسائل الواتس آب التى تمّت مشاركتها.",
 	"smoochBot.placeholderInactive": "❌شكرا لكم الرسالة. خدمة تقصي الحقائق *غير نشطة* حاليا.\n\nتواصلوا معنا على *[البريد الإلكتروني أو وسيلة تواصل أخرى]* للمزيد من الإستفسارات.",
-	"smoochBot.placeholderTos": "هذه الخدمة مقدمة وفقا للشروط التالية: %{tos}",
 	"smoochBot.newResourceTitle": "مورد جديد للبوت",
-	"smoochBot.menuKeywords": "Keywords separated by comma",
+	"smoochBot.menuKeywords": "كلمات مفتاحية مفصولة بالفاصلة",
+	"smoochBot.tos": "Terms of Service ({language})",
 	"deleteStatusDialog.moveItemsTo": "نقل العناصر إلى",
 	"deleteStatusDialog.statusInUseTitle": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}",
 	"deleteStatusDialog.statusInUseMessage": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة.",
@@ -1014,5 +1034,14 @@
 	"statusesComponent.blurbSecondary": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم.",
 	"translateStatuses.missingTranslations": "الترجمة غير موجودة",
 	"translateStatuses.missingTranslationsBody": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة.",
-	"translateStatuses.continueAndSave": "متابعة و حفظ"
+	"translateStatuses.continueAndSave": "متابعة و حفظ",
+	"teamListsComponent.defaultErrorMessage": "لم يمكننا حفظ إعدادات القوائم!",
+	"teamListsComponent.savedSuccessfully": "تم حفظ إعدادات القوائم بنجاح!",
+	"teamListsComponent.title": "إعدادات القوائم",
+	"teamListsComponent.save": "حفظ",
+	"teamListsComponent.description": "يرجى تحديد جميع الأعمدة التى تريدين عرضها في جميع القوائم الخاصة بك.",
+	"teamListsComponent.selectedColumns": "الأعمدة المحددة",
+	"teamListsComponent.availableColumns": "الأعمدة المتاحة",
+	"teamListsItem.hide": "إخفاء",
+	"teamListsItem.show": "عرض"
 }

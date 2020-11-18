@@ -126,6 +126,33 @@ const SearchKeywordConfigComponent = ({
     options = options.concat(teamTasks);
   }
 
+  const handleChange = (values) => {
+    const fields = [];
+    const team_tasks = [];
+    let keyword_fields = {};
+
+    values.forEach((v) => {
+      if (parseInt(v, 10)) {
+        team_tasks.push(v);
+      } else {
+        fields.push(v);
+      }
+    });
+
+    if (fields.length) {
+      keyword_fields.fields = fields;
+    }
+    if (team_tasks.length) {
+      keyword_fields.team_tasks = team_tasks;
+    }
+    const filteredOptions = options.filter(o => o.value !== '');
+    if (values.length === filteredOptions.length) {
+      keyword_fields = {};
+    }
+
+    onSubmit({ keyword_fields });
+  };
+
   return (
     <MultiSelector
       allowToggleAll
@@ -133,7 +160,7 @@ const SearchKeywordConfigComponent = ({
       options={options}
       selected={selected}
       onDismiss={onDismiss}
-      onSubmit={onSubmit}
+      onSubmit={handleChange}
     />
   );
 };

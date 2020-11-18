@@ -54,34 +54,36 @@ class ConfirmDialog extends React.Component {
             {this.props.blurb}
           </Box>
           <div>{this.props.children}</div>
-          <Box m={`${units(4)} 0`}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  id="confirm-dialog__checkbox"
-                  onChange={this.handleConfirmation.bind(this)}
-                  checked={this.state.confirmed}
-                />
-              }
-              label={this.props.checkBoxLabel}
-            />
-          </Box>
+          { this.props.handleConfirm ?
+            <Box m={`${units(4)} 0`}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="confirm-dialog__checkbox"
+                    onChange={this.handleConfirmation.bind(this)}
+                    checked={this.state.confirmed}
+                  />
+                }
+                label={this.props.checkBoxLabel}
+              />
+            </Box> : null }
         </DialogContent>
         <DialogActions>
           <Button
             id="confirm-dialog__cancel-action-button"
             onClick={this.handleCancel}
           >
-            <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />
+            {this.props.cancelButtonLabel}
           </Button>
-          <Button
-            id="confirm-dialog__confirm-action-button"
-            onClick={this.handleProceed}
-            color="primary"
-            disabled={this.props.disabled || !this.state.confirmed}
-          >
-            {this.props.continueButtonLabel}
-          </Button>
+          { this.props.handleConfirm ?
+            <Button
+              id="confirm-dialog__confirm-action-button"
+              onClick={this.handleProceed}
+              color="primary"
+              disabled={this.props.disabled || !this.state.confirmed}
+            >
+              {this.props.continueButtonLabel}
+            </Button> : null }
         </DialogActions>
       </Dialog>
     );
@@ -93,12 +95,14 @@ ConfirmDialog.defaultProps = {
   disabled: false,
   checkBoxLabel: <FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />,
   continueButtonLabel: <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />,
+  cancelButtonLabel: <FormattedMessage id="teamTasks.cancelAction" defaultMessage="Cancel" />,
   message: null,
+  handleConfirm: null,
 };
 
 ConfirmDialog.propTypes = {
   handleClose: PropTypes.func.isRequired,
-  handleConfirm: PropTypes.func.isRequired,
+  handleConfirm: PropTypes.func,
   open: PropTypes.bool.isRequired,
   title: PropTypes.oneOfType([
     PropTypes.string,
@@ -109,6 +113,7 @@ ConfirmDialog.propTypes = {
   disabled: PropTypes.bool,
   checkBoxLabel: PropTypes.node,
   continueButtonLabel: PropTypes.node,
+  cancelButtonLabel: PropTypes.node,
 };
 
 export default ConfirmDialog;

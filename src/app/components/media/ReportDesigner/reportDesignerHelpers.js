@@ -63,6 +63,9 @@ export function cloneData(data) {
 }
 
 export function formatDate(date, language) {
+  if (!language) {
+    return '';
+  }
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Intl.DateTimeFormat(language.replace('_', '-'), options).format(date);
 }
