@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -65,9 +66,11 @@ class TeamProjects extends React.Component {
             />
 
             {!team.projects.edges.length ?
-              <CardContent style={{ color: black54 }}>
-                <FormattedMessage id="teamComponent.noProjects" defaultMessage="No lists" />
-              </CardContent>
+              <Box color={black54}>
+                <CardContent>
+                  <FormattedMessage id="teamComponent.noProjects" defaultMessage="No lists" />
+                </CardContent>
+              </Box>
               :
               <List className="projects">
                 <LoadMore
@@ -115,10 +118,8 @@ class TeamProjects extends React.Component {
                           </ListItemSecondaryAction>
                         </ListItem>
                         <Collapse in={this.state[p.node.dbid]} timeout="auto" unmountOnExit>
-                          <Box py={1} px={2}>
-                            <div style={{ backgroundColor: black05 }}>
-                              <ProjectAssignment project={p.node} key={p.node.dbid} />
-                            </div>
+                          <Box py={1} px={2} bgColor={black05}>
+                            <ProjectAssignment project={p.node} key={p.node.dbid} />
                           </Box>
                         </Collapse>
                       </div>

@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import ListItem from '@material-ui/core/ListItem';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import '../../styles/css/tooltip.css';
 import ResendCancelInvitationMutation from '../../relay/mutations/ResendCancelInvitationMutation';
 import { getErrorMessage } from '../../helpers';

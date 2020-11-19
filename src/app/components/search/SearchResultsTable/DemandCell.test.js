@@ -18,7 +18,7 @@ function mountInTable(value) {
 
 describe('<DemandCell>', () => {
   it('should show demand', () => {
-    const cell = mountInTable(<DemandCell projectMedia={{ demand: 1 }} />);
+    const cell = mountInTable(<DemandCell projectMedia={{ list_columns_values: { demand: 1 } }} />);
     expect(cell.find('td').text()).toEqual('1');
   });
 });

@@ -12,7 +12,7 @@ import TeamInvitedMemberItem from './TeamInvitedMemberItem';
 import TeamInviteMembers from './TeamInviteMembers';
 import Can from '../Can';
 import LoadMore from '../layout/LoadMore';
-import { FlexRow, cardInCardGroupStyle } from '../../styles/js/shared';
+import { FlexRow } from '../../styles/js/shared';
 
 const pageSize = 20;
 
@@ -68,25 +68,27 @@ class TeamMembersComponent extends Component {
 
         { requestingMembership &&
           <Can permissions={team.permissions} permission="update Team">
-            <Card style={cardInCardGroupStyle}>
-              <CardHeader
-                title={<FormattedMessage
-                  id="teamMembershipRequests.requestsToJoin"
-                  defaultMessage="Requests to join"
-                />}
-              />
-              <List>
-                { teamUsersRequestingMembership.map(teamUser => (
-                  <TeamMembersListItem
-                    className="team-members__requesting-list-item"
-                    team={team}
-                    teamUser={teamUser.node}
-                    key={teamUser.node.id}
-                    requestingMembership
-                  />
-                ))}
-              </List>
-            </Card>
+            <Box clone mb={2}>
+              <Card>
+                <CardHeader
+                  title={<FormattedMessage
+                    id="teamMembershipRequests.requestsToJoin"
+                    defaultMessage="Requests to join"
+                  />}
+                />
+                <List>
+                  { teamUsersRequestingMembership.map(teamUser => (
+                    <TeamMembersListItem
+                      className="team-members__requesting-list-item"
+                      team={team}
+                      teamUser={teamUser.node}
+                      key={teamUser.node.id}
+                      requestingMembership
+                    />
+                  ))}
+                </List>
+              </Card>
+            </Box>
           </Can>
         }
 

@@ -6,12 +6,14 @@ import MediaTypeDisplayName from '../../media/MediaTypeDisplayName';
 export default function TypeCell({ projectMedia }) {
   return (
     <TableCell>
-      <MediaTypeDisplayName mediaType={projectMedia.type} />
+      <MediaTypeDisplayName mediaType={projectMedia.list_columns_values.type_of_media} />
     </TableCell>
   );
 }
 TypeCell.propTypes = {
   projectMedia: PropTypes.shape({
-    type: MediaTypeDisplayName.MediaTypeShape.isRequired,
+    list_columns_values: PropTypes.shape({
+      type_of_media: MediaTypeDisplayName.MediaTypeShape.isRequired,
+    }).isRequired,
   }).isRequired,
 };

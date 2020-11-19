@@ -65,13 +65,25 @@ const actionLabels = defineMessages({
   },
 });
 
+function keywordIsInvalid(field, keyword) {
+  // Number 9 is a reserved keyword for the main menu - it returns the TOS
+  return field === 'smooch_state_main' &&
+    keyword.trim().split(',').find(k => parseInt(k.trim(), 10) === 9);
+}
+
 const SmoochBotMenuOption = (props) => {
   const classes = useStyles();
   const { option } = props;
   const [showReportDialog, setShowReportDialog] = React.useState(false);
+  const [error, setError] = React.useState(keywordIsInvalid(
+    props.field,
+    option.smooch_menu_option_keyword,
+  ));
 
   const handleChangeKeywords = (event) => {
-    props.onChange({ smooch_menu_option_keyword: event.target.value });
+    const { value } = event.target;
+    setError(keywordIsInvalid(props.field, value));
+    props.onChange({ smooch_menu_option_keyword: value });
   };
 
   const resourceIdToTitle = (id) => {
@@ -169,6 +181,15 @@ const SmoochBotMenuOption = (props) => {
             onBlur={handleChangeKeywords}
             placeholder={props.intl.formatMessage(placeholders.menu_keywords)}
             variant="outlined"
+            disabled={props.readOnly}
+            helperText={
+              option.smooch_menu_option_value !== 'tos' && error ?
+                <FormattedMessage
+                  id="smoochBotMenuOption.errorTos"
+                  defaultMessage="'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
+                /> : null
+            }
+            error={option.smooch_menu_option_value !== 'tos' && error}
             fullWidth
           />
         </Box>
@@ -187,6 +208,18 @@ const SmoochBotMenuOption = (props) => {
               />
             </Typography>
           </Box>
+          { option.smooch_menu_option_value === 'tos' ?
+            <TextField
+              key="tos"
+              placeholder={
+                props.intl.formatMessage(placeholders.tos, {
+                  language: languageLabel(props.currentLanguage),
+                })
+              }
+              variant="outlined"
+              fullWidth
+              disabled
+            /> : null }
           { option.smooch_menu_option_value === 'resource' ?
             <TextField
               key={option.smooch_menu_project_media_id}
@@ -217,7 +250,7 @@ const SmoochBotMenuOption = (props) => {
               fullWidth
               disabled
             /> : null }
-          { (option.smooch_menu_option_value !== 'custom_resource' || !resourceIdToTitle(option.smooch_menu_custom_resource_id)) && option.smooch_menu_option_value !== 'resource' ?
+          { (option.smooch_menu_option_value !== 'custom_resource' || !resourceIdToTitle(option.smooch_menu_custom_resource_id)) && option.smooch_menu_option_value !== 'resource' && option.smooch_menu_option_value !== 'tos' ?
             <Autocomplete
               value={option.smooch_menu_option_value}
               onChange={handleSelectAction}
@@ -298,6 +331,8 @@ const SmoochBotMenuOption = (props) => {
 
 SmoochBotMenuOption.defaultProps = {
   resources: [],
+  readOnly: false,
+  currentLanguage: '',
 };
 
 SmoochBotMenuOption.propTypes = {
@@ -306,6 +341,9 @@ SmoochBotMenuOption.propTypes = {
   option: PropTypes.object.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
   onChange: PropTypes.func.isRequired,
+  field: PropTypes.string.isRequired,
+  currentLanguage: PropTypes.string,
+  readOnly: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

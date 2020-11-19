@@ -253,31 +253,6 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              <TableRow>
-                <TableCell>
-                  <FormattedMessage
-                    id="slackConfigDialogComponent.allActivity"
-                    defaultMessage="All workspace activity"
-                  />
-                </TableCell>
-                <TableCell><ForwardIcon className={classes.icon} /></TableCell>
-                <TableCell>
-                  <TextField
-                    label={
-                      <FormattedMessage
-                        id="slackConfigDialogComponent.channel"
-                        defaultMessage="Slack channel"
-                      />
-                    }
-                    id="slack-config__channel"
-                    value={channel}
-                    onChange={(e) => { setChannel(e.target.value); }}
-                    variant="outlined"
-                    fullWidth
-                  />
-                </TableCell>
-                <TableCell>{' '}</TableCell>
-              </TableRow>
               { events.map((event, i) => (
                 <TableRow key={Math.random().toString().substring(2, 10)}>
                   <TableCell>
@@ -296,7 +271,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
                           label={
                             <FormattedMessage
                               id="slackConfigDialogComponent.ifItemAddedTo"
-                              defaultMessage="If item is added to"
+                              defaultMessage="If item is in list"
                             />
                           }
                           variant="outlined"
@@ -328,6 +303,36 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
                   </TableCell>
                 </TableRow>
               ))}
+              <TableRow>
+                <TableCell>
+                  { events.length > 0 ?
+                    <FormattedMessage
+                      id="slackConfigDialogComponent.allOtherActivity"
+                      defaultMessage="All other activity"
+                    /> :
+                    <FormattedMessage
+                      id="slackConfigDialogComponent.allWorkspaceActivity"
+                      defaultMessage="All workspace activity"
+                    /> }
+                </TableCell>
+                <TableCell><ForwardIcon className={classes.icon} /></TableCell>
+                <TableCell>
+                  <TextField
+                    label={
+                      <FormattedMessage
+                        id="slackConfigDialogComponent.channel"
+                        defaultMessage="Slack channel"
+                      />
+                    }
+                    id="slack-config__channel"
+                    value={channel}
+                    onChange={(e) => { setChannel(e.target.value); }}
+                    variant="outlined"
+                    fullWidth
+                  />
+                </TableCell>
+                <TableCell>{' '}</TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>

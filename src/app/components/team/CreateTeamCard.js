@@ -9,6 +9,7 @@ import {
   injectIntl,
 } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';

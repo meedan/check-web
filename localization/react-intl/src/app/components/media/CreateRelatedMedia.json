@@ -1,6 +1,10 @@
 [
   {
-    "id": "createRelatedMedia.addRelatedItem",
-    "defaultMessage": "Add related item"
+    "id": "createRelatedMedia.addSecondaryItem",
+    "defaultMessage": "Add secondary item"
+  },
+  {
+    "id": "createRelatedMedia.addToPrimaryItem",
+    "defaultMessage": "Add to primary item"
   }
 ]

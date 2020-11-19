@@ -1,6 +1,11 @@
 FROM node:12.16.1-buster AS base
 MAINTAINER Meedan <sysops@meedan.com>
 
+# Set a UTF-8 capabable locale
+ENV LC_ALL C.UTF-8
+ENV LANG C.UTF-8
+ENV LANGUAGE C.UTF-8
+
 # TODO develop our own `watchman` image, so we can version it
 COPY --from=icalialabs/watchman:buster /usr/local/bin/watchman /usr/local/bin/watchman
 RUN mkdir -p /usr/local/var/run/watchman && touch /usr/local/var/run/watchman/.not-empty

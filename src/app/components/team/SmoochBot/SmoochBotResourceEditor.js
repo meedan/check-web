@@ -16,6 +16,7 @@ import ParsedText from '../../ParsedText';
 const useStyles = makeStyles(theme => ({
   spaced: {
     margin: theme.spacing(1),
+    minWidth: 100,
   },
   title: {
     margin: theme.spacing(1.25),
@@ -127,8 +128,8 @@ const SmoochBotResourceEditor = ({
           key={Math.random().toString().substring(2, 10)}
           label={
             <FormattedMessage
-              id="smoochBotResourceEditor.content"
-              defaultMessage="Bot resource content"
+              id="smoochBotResourceEditor.addContent"
+              defaultMessage="Add content manually"
             />
           }
           className={classes.spaced}

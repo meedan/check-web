@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -9,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import globalStrings from '../../globalStrings';
 import Message from '../Message';
 import Attribution from '../task/Attribution';
-import { units } from '../../styles/js/shared';
 
 class AttributionDialog extends React.Component {
   handleSubmit = () => {
@@ -32,9 +32,9 @@ class AttributionDialog extends React.Component {
         </DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
-          <div style={{ marginBottom: units(2), marginTop: units(2) }}>
+          <Box my={2}>
             { this.props.blurb }
-          </div>
+          </Box>
           <Attribution
             id="attribution-dialog"
             taskType={this.props.taskType}

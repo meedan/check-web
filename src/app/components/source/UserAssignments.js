@@ -18,7 +18,7 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import LinkIcon from '@material-ui/icons/Link';
 import ImageIcon from '@material-ui/icons/Image';
-import IconImageUpload from '@material-ui/icons/CloudUpload';
+import IconFileUpload from '@material-ui/icons/CloudUpload';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
@@ -42,7 +42,7 @@ const icons = {
   claim: <FormatQuoteIcon />,
   link: <LinkIcon />,
   uploadedimage: <ImageIcon />,
-  image_upload: <IconImageUpload />,
+  file_upload: <IconFileUpload />,
 };
 
 class UserAssignmentsComponent extends Component {

@@ -17,7 +17,6 @@ import CheckContext from '../../CheckContext';
 import UserInvitationMutation from '../../relay/mutations/UserInvitationMutation';
 import { withSetFlashMessage } from '../FlashMessage';
 import {
-  units,
   StyledIconButton,
   Row,
   FlexRow,
@@ -285,7 +284,7 @@ class TeamInviteMembers extends Component {
                 margin="normal"
                 fullWidth
               />
-              <Box ml={2} mt={1} mb={1}>
+              <Box ml={2} my={1}>
                 <Row>
                   <RoleSelect
                     className="invite-member-email-role"
@@ -341,7 +340,7 @@ class TeamInviteMembers extends Component {
             />
             { inviteBody }
             { this.state.addMany ?
-              <div style={{ height: units(6) }}>
+              <Box height={6}>
                 <Row>
                   <Button
                     className="team-invite-members__dialog-add-separate-button"
@@ -350,8 +349,8 @@ class TeamInviteMembers extends Component {
                     <FormattedMessage id="teamInviteMembers.addSeparate" defaultMessage="Add separate" />
                   </Button>
                 </Row>
-              </div> :
-              <div style={{ height: units(12) }}>
+              </Box> :
+              <Box height={12}>
                 <Row>
                   <Button
                     className="team-invite-members__dialog-add-another-button"
@@ -366,7 +365,7 @@ class TeamInviteMembers extends Component {
                     <FormattedMessage id="teamInviteMembers.addMany" defaultMessage="Add many" />
                   </Button>
                 </Row>
-              </div>
+              </Box>
             }
           </DialogContent>
           <DialogActions>

@@ -21,7 +21,7 @@
   },
   {
     "id": "search.showBlank",
-    "defaultMessage": "Blank"
+    "defaultMessage": "Report"
   },
   {
     "id": "search.title",
@@ -44,32 +44,40 @@
     "defaultMessage": "Clear filter"
   },
   {
+    "id": "search.categoriesHeading",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "search.any",
+    "defaultMessage": "Any"
+  },
+  {
+    "id": "search.all",
+    "defaultMessage": "All"
+  },
+  {
+    "id": "search.show",
+    "defaultMessage": "Media Type"
+  },
+  {
     "id": "search.statusHeading",
-    "defaultMessage": "Status"
+    "defaultMessage": "Item Status"
+  },
+  {
+    "id": "search.userHeading",
+    "defaultMessage": "Created By"
+  },
+  {
+    "id": "search.language",
+    "defaultMessage": "Language"
   },
   {
     "id": "search.projectHeading",
     "defaultMessage": "List"
   },
   {
-    "id": "search.userHeading",
-    "defaultMessage": "Author"
-  },
-  {
     "id": "search.readHeading",
     "defaultMessage": "Read"
-  },
-  {
-    "id": "search.categoriesHeading",
-    "defaultMessage": "Tags"
-  },
-  {
-    "id": "search.show",
-    "defaultMessage": "Type"
-  },
-  {
-    "id": "search.language",
-    "defaultMessage": "Language"
   },
   {
     "id": "search.cancel",
@@ -81,6 +89,6 @@
   },
   {
     "id": "search.applyFilters",
-    "defaultMessage": "Done"
+    "defaultMessage": "Filter"
   }
 ]

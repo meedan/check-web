@@ -84,6 +84,7 @@ function AutoCompleteMediaItem(props, context) {
         keyword: searchText,
         show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
         eslimit: 30,
+        archived: 0,
       }));
       const params = {
         body: JSON.stringify({
@@ -96,7 +97,8 @@ function AutoCompleteMediaItem(props, context) {
                       id
                       dbid
                       title
-                      relationships { sources_count, targets_count }
+                      archived
+                      relationships { sources_count, targets_count, target_id, source_id }
                       dynamic_annotation_report_design {
                         id
                         data
@@ -141,9 +143,12 @@ function AutoCompleteMediaItem(props, context) {
         let items = response.data.search.medias.edges
           .map(({ node }) => node)
           .filter(({ relationships }) => (
-            relationships.sources_count + relationships.targets_count === 0
+            props.reverse ?
+              (relationships.sources_count === 0) :
+              (relationships.sources_count + relationships.targets_count === 0)
           ))
-          .filter(({ dbid }) => dbid !== props.dbid);
+          .filter(({ dbid }) => dbid !== props.dbid)
+          .filter(({ archived }) => !archived);
         if (props.onlyPublished) {
           items = items.filter(isPublished);
         }
@@ -152,6 +157,8 @@ function AutoCompleteMediaItem(props, context) {
           value: item.dbid,
           id: item.id,
           isPublished: isPublished(item),
+          relationships: item.relationships,
+          dbid: item.dbid,
         }));
         setSearchResult({ loading: false, items, error: null });
       } catch (err) {
@@ -219,11 +226,13 @@ AutoCompleteMediaItem.defaultProps = {
   dbid: null,
   onlyPublished: false,
   typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
+  reverse: false,
 };
 AutoCompleteMediaItem.propTypes = {
   onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
   dbid: PropTypes.number, // filter results: do _not_ select this number
   onlyPublished: PropTypes.bool, // filter results
+  reverse: PropTypes.bool, // filter results
   typesToShow: PropTypes.arrayOf(PropTypes.string),
 };
 

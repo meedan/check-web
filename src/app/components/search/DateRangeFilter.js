@@ -43,6 +43,7 @@ class DateRangeFilter extends React.Component {
     const { value } = this.props;
     if (value && value.updated_at) return 'updated_at';
     if (value && value.last_seen) return 'last_seen';
+    if (value && value.published_at) return 'published_at';
     return 'created_at';
   }
 
@@ -91,10 +92,11 @@ class DateRangeFilter extends React.Component {
     }
 
     const label = {
-      date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
+      date: <FormattedMessage id="search.dateHeading" defaultMessage="Time Range" />,
       created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
       last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
+      published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Published" />,
     };
 
     return (
@@ -113,6 +115,9 @@ class DateRangeFilter extends React.Component {
                 </MenuItem>
                 <MenuItem value="updated_at">
                   {label.updated_at}
+                </MenuItem>
+                <MenuItem value="published_at">
+                  {label.published_at}
                 </MenuItem>
               </Select>
             </FormControl>
@@ -167,6 +172,12 @@ DateRangeFilter.propTypes = {
     }),
     PropTypes.shape({
       updated_at: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+    PropTypes.shape({
+      published_at: PropTypes.shape({
         start_time: PropTypes.string,
         end_time: PropTypes.string,
       }),
