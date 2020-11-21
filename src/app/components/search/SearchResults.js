@@ -23,8 +23,9 @@ import { isBotInstalled } from '../../helpers';
 const pageSize = 20;
 
 const StyledListHeader = styled.div`
-  padding: 0 ${units(2)};
-  max-width: calc(100vw - ${units(34)});
+  padding: ${units(2)};
+  margin: 0;
+  /* max-width: calc(100vw - ${units(34)}); Seems unecessary*/
 
   .search__list-header-filter-row {
     justify-content: space-between;

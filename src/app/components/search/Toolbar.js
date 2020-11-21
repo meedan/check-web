@@ -10,8 +10,9 @@ import { black87, units, Row, FlexRow } from '../../styles/js/shared';
 const StyledToolbar = styled.div`
   background-color: white;
   min-height: ${units(5)};
-  max-width: calc(100vw - ${units(34)});
-  padding: ${units(2)};
+  /* max-width: calc(100vw - ${units(34)}); Seems unecessary */
+  padding: 0 ${units(2)} ${units(2)} ${units(2)};
+  margin: 0;
 
   .toolbar__title {
     color: ${black87};

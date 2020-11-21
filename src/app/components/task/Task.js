@@ -39,13 +39,36 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, black87, checkBlue } from '../../styles/js/shared';
+import { Row, units, black16, black87, separationGray, checkBlue } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
   width: 100%;
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;
+
+  .task {
+    box-shadow: none;
+    border-bottom: 1px solid ${separationGray};
+    border-radius: 0;
+    margin-right: ${units(3)};
+    margin-bottom: 0 !important;
+
+    .task__card-header {
+      padding: ${units(3)} 0;
+      flex-direction: row-reverse;
+      display: flex;
+      align-items: flex-start;
+
+      .task__card-expand {
+        margin: ${units(0)} ${units(1)} 0 0;
+      }
+
+      .task__card-description {
+        padding: ${units(2)} 0 0 0;
+      }
+    }
+  }
 
   .task__card-text {
     padding-bottom: 0 !important;
@@ -619,9 +642,11 @@ class Task extends Component {
     task.project_media = Object.assign({}, this.props.media);
     delete task.project_media.tasks;
 
-    const taskDescription = task.description ?
-      <ParsedText text={task.description} />
-      : null;
+    const taskDescription = task.description ? (
+      <div className="task__card-description">
+        <ParsedText text={task.description} />
+      </div>
+    ) : null;
 
     const className = ['task', `task-type__${task.type}`];
     if (taskAnswered) {
@@ -631,14 +656,16 @@ class Task extends Component {
       className.push('task__assigned-to-current-user');
     }
 
-    return (
+    return ( // Task cards
       <StyledWordBreakDiv>
         <Box clone mb={1}>
           <Card
             id={`task-${task.dbid}`}
             className={className.join(' ')}
+            style={{ marginBottom: units(1) }}
           >
             <CardHeader
+              className="task__card-header"
               disableTypography
               title={taskQuestion}
               subheader={taskDescription}

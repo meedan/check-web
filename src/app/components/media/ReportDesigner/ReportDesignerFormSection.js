@@ -13,6 +13,11 @@ const useStyles = makeStyles(() => ({
   expansionPanelDetails: {
     display: 'block',
   },
+  reportMessage: {
+    boxShadow: 'none',
+    border: '1px solid #DFE4F4',
+    borderRadius: '5px',
+  },
 }));
 
 const IconLeftExpansionPanelSummary = withStyles({
@@ -47,6 +52,7 @@ const ReportDesignerFormSection = (props) => {
 
   return (
     <ExpansionPanel
+      className={classes.reportMessage}
       TransitionProps={{ unmountOnExit: true }}
       expanded={expanded}
     >

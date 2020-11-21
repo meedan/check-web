@@ -11,11 +11,11 @@ import {
   mediaQuery,
   headerHeight,
   Row,
-  black02,
+  brandSecondary,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
-  background-color: ${black02};
+  background-color: ${brandSecondary};
   display: flex;
   align-items: center;
   padding: 0 ${units(2)};
