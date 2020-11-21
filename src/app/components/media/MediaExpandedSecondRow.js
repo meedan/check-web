@@ -45,8 +45,7 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
                 }}
               />
             </span>
-          </span> : null
-        }
+          </span> : null }
       </Row>
     </StyledHeaderTextSecondary>
   </div>

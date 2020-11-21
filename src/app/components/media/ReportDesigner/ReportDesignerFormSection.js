@@ -8,7 +8,6 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import { checkBlue, backgroundMain, brandSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   expansionPanelDetails: {
@@ -18,7 +17,7 @@ const useStyles = makeStyles(() => ({
     boxShadow: 'none',
     border: '1px solid #DFE4F4',
     borderRadius: '5px',
-  }
+  },
 }));
 
 const IconLeftExpansionPanelSummary = withStyles({

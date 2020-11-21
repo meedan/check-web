@@ -16,12 +16,20 @@
     "defaultMessage": "Report"
   },
   {
+    "id": "smoochBotMenuOption.languageAction",
+    "defaultMessage": "{languageName} (main menu)"
+  },
+  {
     "id": "smoochBotMenuOption.if",
     "defaultMessage": "If"
   },
   {
     "id": "smoochBotMenuOption.condition",
     "defaultMessage": "The following keyword is matched"
+  },
+  {
+    "id": "smoochBotMenuOption.errorTos",
+    "defaultMessage": "'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
   },
   {
     "id": "smoochBotMenuOption.then",
@@ -32,7 +40,11 @@
     "defaultMessage": "Respond with"
   },
   {
-    "id": "smoochBotMenuOption.languageAction",
-    "defaultMessage": "{languageName} (main menu)"
+    "id": "smoochBotMenuOption.add",
+    "defaultMessage": "Create \"{resourceName}\""
+  },
+  {
+    "id": "smoochBotMenuOption.selectMessage",
+    "defaultMessage": "Select message"
   }
 ]

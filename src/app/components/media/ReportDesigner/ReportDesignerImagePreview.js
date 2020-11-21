@@ -52,7 +52,7 @@ function ReportImagePreview({
 
   const html = template
     .replace(/#CCCCCC/gi, themeColor)
-    .replace('%IMAGE_URL%', escapeHtml(image || ''))
+    .replace(/%IMAGE_URL%/g, escapeHtml(image || ''))
     .replace('%AVATAR_URL%', escapeHtml(teamAvatar || ''));
 
   React.useEffect(

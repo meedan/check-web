@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
 import AddAnnotation from './AddAnnotation';
 import Annotation from './Annotation';
@@ -35,7 +36,7 @@ const StyledAnnotations = styled.div`
         ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(4)};
       }
       &:last-of-type {
-        height: 100%;
+        height: ${props => props.noLastItemStretch ? 'auto' : '100%'};
       }
     }
   }
@@ -66,10 +67,13 @@ class Annotations extends React.Component {
 
   render() {
     const { props } = this;
+    const hasMore = props.annotations.length < props.annotationsCount;
+
     return (
       <StyledAnnotations
         className="annotations"
         showAddAnnotation={props.showAddAnnotation}
+        noLastItemStretch={hasMore}
       >
         { props.showAddAnnotation ?
           <AddAnnotation
@@ -91,12 +95,18 @@ class Annotations extends React.Component {
                   annotatedType={props.annotatedType}
                   annotation={annotation.node}
                   onTimelineCommentOpen={props.onTimelineCommentOpen}
+                  team={props.team}
                 />
               </div>))}
-          { props.annotations.length < props.annotationsCount ? (
+          { hasMore ? (
             <Button
               onClick={this.loadMore}
               disabled={this.state.loadingMore}
+              endIcon={
+                this.state.loadingMore ?
+                  <CircularProgress color="inherit" size="1em" /> :
+                  null
+              }
             >
               Load More
             </Button>

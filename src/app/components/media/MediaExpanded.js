@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
@@ -18,8 +20,9 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
-import BlankMediaCard from './BlankMediaCard';
-import { truncateLength, getCurrentProjectId } from '../../helpers';
+import CreateRelatedMedia from './CreateRelatedMedia';
+import BlankMediaButton from './BlankMediaButton';
+import { isBotInstalled, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
 import { units } from '../../styles/js/shared';
@@ -154,10 +157,17 @@ class MediaExpandedComponent extends Component {
     if (isBlank) {
       return (
         <CardContent>
-          <BlankMediaCard
-            projectMediaId={media.id}
-            team={media.team}
-          />
+          <Box
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            style={{ minHeight: 400 }}
+          >
+            <BlankMediaButton
+              projectMediaId={media.id}
+              team={media.team}
+            />
+          </Box>
         </CardContent>
       );
     }
@@ -165,9 +175,34 @@ class MediaExpandedComponent extends Component {
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
     const { description } = media.media.metadata;
+    const isFetchBotInstalled = isBotInstalled(media.team, 'fetch');
+    const isNotRelated = media.relationships &&
+      media.relationships.targets_count !== undefined &&
+      media.relationships.sources_count !== undefined &&
+      media.relationships.targets_count + media.relationships.sources_count === 0;
 
     return (
       <React.Fragment>
+        { isFetchBotInstalled || isNotRelated ?
+          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
+            { isFetchBotInstalled ?
+              <BlankMediaButton
+                projectMediaId={media.id}
+                team={media.team}
+                label={
+                  <FormattedMessage
+                    id="mediaExpanded.addToImportedReport"
+                    defaultMessage="Add to imported report"
+                  />
+                }
+                ButtonProps={{
+                  variant: 'outlined',
+                  color: 'default',
+                }}
+                reverse
+              /> : null }
+            { isNotRelated ? <CreateRelatedMedia media={media} reverse /> : null }
+          </Box> : null }
         <CardHeader
           className="media-expanded__title"
           title={truncateLength(title, 110)}
@@ -284,6 +319,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
           search_id
           verification_statuses
           get_languages
+          permissions
           team_bot_installations(first: 10000) {
             edges {
               node {

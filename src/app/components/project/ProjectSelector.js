@@ -44,8 +44,7 @@ class ProjectSelector extends React.Component {
         >
           <MultiSelector
             allowSearch
-            allowSelectAll
-            allowUnselectAll
+            allowToggleAll
             options={this.props.projects.map(p => ({
               label: p.node.title,
               value: `${p.node.dbid}`,

@@ -5,15 +5,18 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
+import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
-import Attribution from '../task/Attribution';
+import MultiSelector from '../layout/MultiSelector';
 import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
@@ -36,6 +39,17 @@ const Styles = theme => ({
   spacedButton: {
     marginRight: theme.spacing(1),
   },
+  inputRoot: {
+    flex: '1 0 auto',
+    margin: theme.spacing(1),
+  },
+  spaced: {
+    margin: theme.spacing(1),
+  },
+  title: {
+    margin: theme.spacing(2),
+    outline: 0,
+  },
 });
 
 class MediaActionsBarComponent extends Component {
@@ -48,7 +62,8 @@ class MediaActionsBarComponent extends Component {
     super(props);
 
     this.state = {
-      openAssignDialog: false,
+      assignmentDialogOpened: false,
+      itemHistoryDialogOpen: false,
     };
   }
 
@@ -127,7 +142,8 @@ class MediaActionsBarComponent extends Component {
 
   handleCloseDialogs() {
     this.setState({
-      openAssignDialog: false,
+      assignmentDialogOpened: false,
+      itemHistoryDialogOpen: false,
     });
   }
 
@@ -162,10 +178,10 @@ class MediaActionsBarComponent extends Component {
   }
 
   handleAssign() {
-    this.setState({ openAssignDialog: true });
+    this.setState({ assignmentDialogOpened: true });
   }
 
-  handleAssignProjectMedia() {
+  handleAssignProjectMedia(selected) {
     const { media } = this.props;
 
     const onSuccess = () => {
@@ -180,14 +196,13 @@ class MediaActionsBarComponent extends Component {
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
 
-    const assignment = document.getElementById(`attribution-media-${media.dbid}`).value;
-
     const statusAttr = {
       parent_type: 'project_media',
       annotated: media,
       annotation: {
         status_id,
-        assigned_to_ids: assignment,
+        assigned_to_ids: selected.join(','),
+        assignment_message: this.assignmentMessageRef.value,
       },
     };
 
@@ -196,7 +211,7 @@ class MediaActionsBarComponent extends Component {
       { onSuccess, onFailure: this.fail },
     );
 
-    this.setState({ openAssignDialog: false });
+    this.setState({ assignmentDialogOpened: false });
   }
 
   handleRestore() {
@@ -204,10 +219,11 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedBack"
-          defaultMessage="Restored from trash"
+          defaultMessage="Restored from trash, redirecting..."
         />
       );
       this.props.setFlashMessage(message);
+      window.location.assign(window.location.pathname);
     };
 
     const context = this.getContext();
@@ -231,6 +247,10 @@ class MediaActionsBarComponent extends Component {
     );
   }
 
+  handleItemHistory = () => {
+    this.setState({ itemHistoryDialogOpen: true });
+  };
+
   render() {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
@@ -246,24 +266,18 @@ class MediaActionsBarComponent extends Component {
     const readonlyStatus = isBotInstalled(media.team, 'smooch') && isChild && !isParent;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
+    const options = [];
+    media.team.team_users.edges.forEach((teamUser) => {
+      if (teamUser.node.status === 'member') {
+        const { user } = teamUser.node;
+        options.push({ label: user.name, value: user.dbid.toString() });
+      }
+    });
+    const selected = [];
     const assignments = media.last_status_obj.assignments.edges;
-
-    const assignDialogActions = [
-      <Button
-        color="primary"
-        onClick={this.handleCloseDialogs.bind(this)}
-        key="mediaActionsBar.cancelButton"
-      >
-        <FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />
-      </Button>,
-      <Button
-        color="primary"
-        onClick={this.handleAssignProjectMedia.bind(this)}
-        key="mediaActionsBar.done"
-      >
-        <FormattedMessage id="mediaActionsBar.done" defaultMessage="Done" />
-      </Button>,
-    ];
+    assignments.forEach((user) => {
+      selected.push(user.node.dbid.toString());
+    });
 
     return (
       <div className={classes.root}>
@@ -304,21 +318,12 @@ class MediaActionsBarComponent extends Component {
             </Button>
           </div> : <div />}
 
-        <div
-          style={{
-            display: 'flex',
-          }}
-        >
+        <Box display="flex">
           <MediaStatus
             media={media}
             readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
           />
-
           <MediaActionsMenuButton
-            style={{
-              height: 36,
-              marginTop: -5,
-            }}
             key={media.id /* close menu if we navigate to a different projectMedia */}
             projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
@@ -326,31 +331,65 @@ class MediaActionsBarComponent extends Component {
             handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
+            handleItemHistory={this.handleItemHistory}
           />
-        </div>
+        </Box>
 
-        <Dialog
-          open={this.state.openAssignDialog}
+        <ItemHistoryDialog
+          open={this.state.itemHistoryDialogOpen}
           onClose={this.handleCloseDialogs.bind(this)}
-          maxWidth="sm"
-          fullWidth
+          projectMedia={media}
+          team={media.team}
+        />
+
+        {/* FIXME Extract to dedicated AssignmentDialog component */}
+        <Dialog
+          className="project__assignment-menu"
+          open={this.state.assignmentDialogOpened}
+          onClose={this.handleCloseDialogs.bind(this)}
         >
           <DialogTitle>
             <FormattedMessage
-              id="mediaActionsBar.assignDialogHeader"
-              defaultMessage="Assignment"
+              id="mediaActionsBar.assignmentTitle"
+              defaultMessage="Assign item to collaborators"
             />
           </DialogTitle>
           <DialogContent>
-            <Attribution
-              multi
-              selectedUsers={assignments}
-              id={`media-${media.dbid}`}
-            />
+            <Box display="flex" style={{ outline: 0 }}>
+              <MultiSelector
+                allowToggleAll
+                allowSearch
+                options={options}
+                selected={selected}
+                onDismiss={this.handleCloseDialogs.bind(this)}
+                onSubmit={this.handleAssignProjectMedia.bind(this)}
+              />
+              <div className={classes.spaced}>
+                <Typography variant="body1" component="div" className={classes.spaced}>
+                  <FormattedMessage
+                    id="mediaActionsBar.assignmentNotesTitle"
+                    defaultMessage="Add a note to the e-mail"
+                  />
+                </Typography>
+                <TextField
+                  label={
+                    <FormattedMessage
+                      id="mediaActionsBar.assignmentNotes"
+                      defaultMessage="Notes"
+                    />
+                  }
+                  variant="outlined"
+                  inputRef={(element) => {
+                    this.assignmentMessageRef = element;
+                    return element;
+                  }}
+                  rows={21}
+                  InputProps={{ classes: { root: classes.inputRoot } }}
+                  multiline
+                />
+              </div>
+            </Box>
           </DialogContent>
-          <DialogActions>
-            {assignDialogActions}
-          </DialogActions>
         </Dialog>
       </div>
     );
@@ -452,6 +491,25 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           check_search_trash {
             id
             number_of_results
+          }
+          team_users(first: 10000) {
+            edges {
+              node {
+                id
+                status
+                user {
+                  id
+                  dbid
+                  name
+                  is_active
+                  source {
+                    id
+                    dbid
+                    image
+                  }
+                }
+              }
+            }
           }
           team_bot_installations(first: 10000) {
             edges {

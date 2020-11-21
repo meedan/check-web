@@ -11,7 +11,6 @@ import {
   mediaQuery,
   headerHeight,
   Row,
-  black02,
   brandSecondary,
 } from '../styles/js/shared';
 

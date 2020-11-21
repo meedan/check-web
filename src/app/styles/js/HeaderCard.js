@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { stripUnit } from 'polished';
 
 import {
   mediaQuery,
@@ -11,7 +10,6 @@ import {
   boxShadow,
   subheading1,
   Row,
-  gutterMedium,
   avatarSizeLarge,
 } from './shared';
 

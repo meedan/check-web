@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
@@ -17,10 +18,6 @@ const Styles = {
 };
 
 function buildValue(valueType, startTimeOrNull, endTimeOrNull) {
-  if (startTimeOrNull === null && endTimeOrNull === null) {
-    return null;
-  }
-
   const range = {};
   if (startTimeOrNull) {
     range.start_time = startTimeOrNull;
@@ -44,7 +41,10 @@ function parseEndDateAsISOString(moment) {
 class DateRangeFilter extends React.Component {
   get valueType() {
     const { value } = this.props;
-    return (value && value.updated_at) ? 'updated_at' : 'created_at';
+    if (value && value.updated_at) return 'updated_at';
+    if (value && value.last_seen) return 'last_seen';
+    if (value && value.published_at) return 'published_at';
+    return 'created_at';
   }
 
   getDateStringOrNull(field) {
@@ -86,15 +86,17 @@ class DateRangeFilter extends React.Component {
   }
 
   render() {
-    const { hidden, classes } = this.props;
-    if (hidden) {
+    const { hide, classes } = this.props;
+    if (hide) {
       return null;
     }
 
     const label = {
-      date: <FormattedMessage id="search.dateHeading" defaultMessage="Date" />,
-      created_at: <FormattedMessage id="search.dateCreatedHeading" defaultMessage="Created" />,
+      date: <FormattedMessage id="search.dateHeading" defaultMessage="Time Range" />,
+      created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
+      last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
+      published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Published" />,
     };
 
     return (
@@ -102,18 +104,25 @@ class DateRangeFilter extends React.Component {
         <h4>{ label.date }</h4>
         <div>
           <FlexRow>
-            <FormControl className={classes.selectFormControl}>
+            <FormControl variant="outlined" className={classes.selectFormControl}>
               <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
               <Select onChange={this.handleChangeType} value={this.valueType}>
                 <MenuItem value="created_at">
                   {label.created_at}
                 </MenuItem>
+                <MenuItem value="last_seen">
+                  {label.last_seen}
+                </MenuItem>
                 <MenuItem value="updated_at">
                   {label.updated_at}
+                </MenuItem>
+                <MenuItem value="published_at">
+                  {label.published_at}
                 </MenuItem>
               </Select>
             </FormControl>
             <DatePicker
+              inputVariant="outlined"
               label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
               className="date-range__start-date"
               onChange={this.handleChangeStartDate}
@@ -124,6 +133,7 @@ class DateRangeFilter extends React.Component {
               style={{ margin: `0 ${units(2)}` }}
             />
             <DatePicker
+              inputVariant="outlined"
               label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
               className="date-range__end-date"
               onChange={this.handleChangeEndDate}
@@ -131,7 +141,6 @@ class DateRangeFilter extends React.Component {
               okLabel={<FormattedMessage {...globalStrings.ok} />}
               cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
               value={this.endDateStringOrNull}
-              style={{ margin: `0 ${units(2)}` }}
             />
           </FlexRow>
         </div>
@@ -139,5 +148,42 @@ class DateRangeFilter extends React.Component {
     );
   }
 }
+
+DateRangeFilter.defaultProps = {
+  hide: false,
+  value: null,
+};
+
+DateRangeFilter.propTypes = {
+  classes: PropTypes.object.isRequired,
+  hide: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    PropTypes.shape({
+      created_at: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+    PropTypes.shape({
+      last_seen: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+    PropTypes.shape({
+      updated_at: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+    PropTypes.shape({
+      published_at: PropTypes.shape({
+        start_time: PropTypes.string,
+        end_time: PropTypes.string,
+      }),
+    }),
+  ]),
+  onChange: PropTypes.func.isRequired,
+};
 
 export default withStyles(Styles)(DateRangeFilter);

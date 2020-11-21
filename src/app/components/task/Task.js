@@ -12,8 +12,6 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
-import Lightbox from 'react-image-lightbox';
-import 'react-image-lightbox/style.css';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
 import TaskLog from './TaskLog';
@@ -24,7 +22,7 @@ import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
 import DatetimeTaskResponse from './DatetimeTaskResponse';
-import ImageUploadRespondTask from './ImageUploadRespondTask';
+import FileUploadRespondTask from './FileUploadRespondTask';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
@@ -41,7 +39,7 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, black87, separationGray } from '../../styles/js/shared';
+import { Row, units, black16, black87, separationGray, checkBlue } from '../../styles/js/shared';
 
 const StyledWordBreakDiv = styled.div`
   width: 100%;
@@ -129,7 +127,6 @@ class Task extends Component {
       editingResponse: false,
       editingAttribution: false,
       expand: true,
-      zoomedImage: null,
     };
   }
 
@@ -334,14 +331,6 @@ class Task extends Component {
     );
   };
 
-  handleCloseImage() {
-    this.setState({ zoomedImage: false });
-  }
-
-  handleOpenImage(image) {
-    this.setState({ zoomedImage: image });
-  }
-
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
     const isTask = task.fieldset === 'tasks';
@@ -398,8 +387,8 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
               />
               : null}
-            {task.type === 'image_upload' ?
-              <ImageUploadRespondTask
+            {task.type === 'file_upload' ?
+              <FileUploadRespondTask
                 fieldset={task.fieldset}
                 task={task}
                 response={editingResponseText}
@@ -411,15 +400,9 @@ class Task extends Component {
         </div>
       );
     }
-    const resolverStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      marginTop: units(1),
-      justifyContent: 'space-between',
-    };
-    let imageUploadPath = null;
-    if (task.type === 'image_upload' && responseObj.image_data && responseObj.image_data.length) {
-      [imageUploadPath] = responseObj.image_data;
+    let fileUploadPath = null;
+    if (task.type === 'file_upload' && responseObj.file_data && responseObj.file_data.length) {
+      [fileUploadPath] = responseObj.file_data;
     }
     return (
       <StyledWordBreakDiv className="task__resolved">
@@ -452,49 +435,45 @@ class Task extends Component {
             jsonoptions={task.jsonoptions}
           />
           : null}
-        {task.type === 'image_upload' ?
+        {task.type === 'file_upload' ?
           <div className="task__response">
-            <div onClick={this.handleOpenImage.bind(this, imageUploadPath)}>
-              <div style={{ textAlign: 'center', cursor: 'pointer' }}>
-                <img
-                  src={imageUploadPath}
-                  className="task__response-thumbnail"
-                  alt=""
-                  style={{
-                    height: 'auto',
-                    maxWidth: 300,
-                    maxHeight: 300,
-                  }}
-                />
-                <p style={{ textAlign: 'center' }}><small>{response}</small></p>
-              </div>
-              {this.state.zoomedImage
-                ? <Lightbox
-                  onCloseRequest={this.handleCloseImage.bind(this)}
-                  mainSrc={this.state.zoomedImage}
-                />
-                : null}
-            </div>
+            <Box component="p" textAlign="center">
+              <Box
+                component="a"
+                href={fileUploadPath}
+                target="_blank"
+                rel="noreferrer noopener"
+                color={checkBlue}
+              >
+                {response}
+              </Box>
+            </Box>
           </div>
           : null}
         { by && byPictures && isTask ?
-          <div className="task__resolver" style={resolverStyle}>
-            <small style={{ display: 'flex' }}>
+          <Box
+            className="task__resolver"
+            display="flex"
+            alignItems="center"
+            justifyContent="space-between"
+            mt={1}
+          >
+            <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
-              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+              <Box component="span" lineHeight="24px" px={1}>
                 <FormattedMessage
                   id="task.answeredBy"
                   defaultMessage="Completed by {byName}"
                   values={{ byName: <Sentence list={by} /> }}
                 />
-              </span>
-            </small>
+              </Box>
+            </Box>
             { showEditIcon && can(responseObj.permissions, 'update Dynamic') ?
               <EditIcon
                 style={{ width: 16, height: 16, cursor: 'pointer' }}
                 onClick={() => this.handleAction('edit_response', responseObj)}
               /> : null }
-          </div> : null }
+          </Box> : null }
       </StyledWordBreakDiv>
     );
   }
@@ -522,18 +501,18 @@ class Task extends Component {
       }
     });
 
-    const assignmentStyle = {
-      display: 'flex',
-      alignItems: 'center',
-      width: 420,
-      margin: units(2),
-      justifyContent: 'space-between',
-    };
     const taskAssignment = task.assignments.edges.length > 0 && !response && task.fieldset === 'tasks' ? (
-      <div className="task__assigned" style={assignmentStyle}>
-        <small style={{ display: 'flex' }}>
+      <Box
+        className="task__assigned"
+        display="flex"
+        alignItems="center"
+        width="420px"
+        m={2}
+        justifyContent="space-between"
+      >
+        <Box component="small" display="flex">
           <UserAvatars users={assignments} />
-          <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+          <Box component="span" lineHeight="24px" px={1}>
             <FormattedMessage
               id="task.assignedTo"
               defaultMessage="Assigned to {name}"
@@ -541,9 +520,9 @@ class Task extends Component {
                 name: <Sentence list={assignmentComponents} />,
               }}
             />
-          </span>
-        </small>
-      </div>
+          </Box>
+        </Box>
+      </Box>
     ) : null;
 
     const zeroAnswer = task.responses.edges.length === 0;
@@ -553,17 +532,17 @@ class Task extends Component {
         {taskAssignment}
         { data.by && isTask ?
           <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
-            <small style={{ display: 'flex' }}>
+            <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
-              <span style={{ lineHeight: '24px', paddingLeft: units(1), paddingRight: units(1) }}>
+              <Box component="span" lineHeight="24px" px={1}>
                 { response ?
                   <FormattedMessage
                     id="task.answeredBy"
                     defaultMessage="Completed by {byName}"
                     values={{ byName: <Sentence list={by} /> }}
                   /> : null }
-              </span>
-            </small>
+              </Box>
+            </Box>
           </Box>
           : null}
         <Box marginLeft="auto">
@@ -643,8 +622,8 @@ class Task extends Component {
                         onSubmit={this.handleSubmitResponse}
                       />
                       : null}
-                    {task.type === 'image_upload' ?
-                      <ImageUploadRespondTask
+                    {task.type === 'file_upload' ?
+                      <FileUploadRespondTask
                         fieldset={task.fieldset}
                         task={task}
                         onSubmit={this.handleSubmitResponse}
@@ -663,10 +642,11 @@ class Task extends Component {
     task.project_media = Object.assign({}, this.props.media);
     delete task.project_media.tasks;
 
-    const taskDescription = task.description ?
+    const taskDescription = task.description ? (
       <div className="task__card-description">
         <ParsedText text={task.description} />
-      </div> : null;
+      </div>
+    ) : null;
 
     const className = ['task', `task-type__${task.type}`];
     if (taskAnswered) {
@@ -678,39 +658,41 @@ class Task extends Component {
 
     return ( // Task cards
       <StyledWordBreakDiv>
-        <Card
-          id={`task-${task.dbid}`}
-          className={className.join(' ')}
-          style={{ marginBottom: units(1) }}
-        >
-          <CardHeader
-            className="task__card-header"
-            disableTypography
-            title={taskQuestion}
-            subheader={taskDescription}
-            id={`task__label-${task.id}`}
-            action={
-              <IconButton
-                className="task__card-expand"
-                onClick={() => this.setState({ expand: !this.state.expand })}
-              >
-                <KeyboardArrowDown />
-              </IconButton>
-            }
-          />
-          <Collapse in={this.state.expand} timeout="auto">
-            <CardContent className="task__card-text">
-              <Message message={this.state.message} />
-              <Box>
-                {taskBody}
-              </Box>
-            </CardContent>
-            {taskActions}
-            { isTask ?
-              <TaskLog task={task} response={response} /> : null
-            }
-          </Collapse>
-        </Card>
+        <Box clone mb={1}>
+          <Card
+            id={`task-${task.dbid}`}
+            className={className.join(' ')}
+            style={{ marginBottom: units(1) }}
+          >
+            <CardHeader
+              className="task__card-header"
+              disableTypography
+              title={taskQuestion}
+              subheader={taskDescription}
+              id={`task__label-${task.id}`}
+              action={
+                <IconButton
+                  className="task__card-expand"
+                  onClick={() => this.setState({ expand: !this.state.expand })}
+                >
+                  <KeyboardArrowDown />
+                </IconButton>
+              }
+            />
+            <Collapse in={this.state.expand} timeout="auto">
+              <CardContent className="task__card-text">
+                <Message message={this.state.message} />
+                <Box marginBottom={2}>
+                  {taskBody}
+                </Box>
+              </CardContent>
+              {taskActions}
+              { isTask ?
+                <TaskLog task={task} response={response} /> : null
+              }
+            </Collapse>
+          </Card>
+        </Box>
 
         { this.state.editingQuestion ?
           <EditTaskDialog
@@ -838,7 +820,7 @@ export default Relay.createContainer(Task, {
               dbid,
               permissions,
               content,
-              image_data,
+              file_data,
               attribution(first: 10000) {
                 edges {
                   node {
@@ -899,7 +881,7 @@ export default Relay.createContainer(Task, {
           dbid,
           permissions,
           content,
-          image_data,
+          file_data,
           attribution(first: 10000) {
             edges {
               node {

@@ -1,14 +1,4 @@
-require_relative './spec_helper.rb'
-require_relative './app_spec_helpers.rb'
-require_relative './api_helpers.rb'
-require_relative './task_spec_helpers.rb'
-
 shared_examples 'task' do
-
-  include AppSpecHelpers
-  include ApiHelpers
-  include TaskSpecHelpers
-
 
   it "should add, edit, answer, update answer and delete geolocation task", bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
@@ -42,7 +32,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('Where was it?')).to be(false)
   end
 
-  it "should assign, answer with a link and add a comment to a task and change the task order", bin5: true do
+  it "should assign, answer with a link and add a comment to a task and change the task order", bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
 
@@ -72,9 +62,13 @@ shared_examples 'task' do
     # Add comment to task
     expect(@driver.page_source.include?('This is a comment under a task')).to be(false)
     add_task_comment('This is a comment under a task')
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     wait_for_selector("//span[contains(text(), 'Task note added')]", :xpath)
     expect(@driver.page_source.include?('This is a comment under a task')).to be(true)
+
+    # Dismiss dialog
+    wait_for_selector("#item-history__close-button").click
 
     # Create another task
     wait_for_selector(".media-tab__tasks").click
@@ -182,7 +176,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('Foo or bar???')).to be(false)
   end
 
-  it "should add, edit, answer, update answer and delete multiple_choice task", bin5: true do
+  it "should add, edit, answer, update answer and delete multiple_choice task", bin6: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
     # Create a task
@@ -204,7 +198,7 @@ shared_examples 'task' do
 
     # Edit task answer
     edit_task_response(task_type_class: '.create-task__add-choose-one', choice:'Doo')
-    
+
     # Delete task
     delete_task
     expect(@driver.page_source.include?('Foo, Doo or Bar???')).to be(false)
@@ -228,18 +222,19 @@ shared_examples 'task' do
     edit_team_data_field("New teamwide task-EDITED")
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
 
-    # #add new task
+    # Add new task
     create_team_data_field(tab_class:'.team-settings__tasks-tab',task_type_class:'.create-task__add-geolocation',task_name:'geolocation task' )
     expect(@driver.page_source.include?('geolocation task')).to be(true)
 
-    #change the task order
+    # Change the task order
     task = wait_for_selector(".team-tasks__task-label > span > span") #first task
     expect(task.text ).to eq "New teamwide task-EDITED"
     wait_for_selector(".reorder__button-down").click
+    wait_for_text_change("geolocation task",".team-tasks__task-label > span > span")
     task = wait_for_selector(".team-tasks__task-label > span > span")  # the second becomes the first
     expect(task.text ).to eq "geolocation task"
 
-    #search task by keyword
+    # Search task by keyword
     wait_for_selector(".filter-popup > div > button > span > svg").click
     wait_for_selector('input[name="filter-search"]').send_keys("New")
     wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
@@ -247,7 +242,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('New teamwide task-EDITED')).to be(true)
     expect(@driver.page_source.include?('geolocation task')).to be(false)
 
-    #filter by type
+    # Filter by type
     wait_for_selector(".filter-popup > div > button > span > svg").click
     wait_for_selector('input[name="filter-search"]').send_keys(:control, 'a', :delete)
     wait_for_selector("//span[contains(text(), 'All tasks')]", :xpath).click
@@ -267,8 +262,10 @@ shared_examples 'task' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
 
-    wait_for_selector(".media-tab__activity").click
+    wait_for_selector(".media-actions__icon").click
+    wait_for_selector(".media-actions__history").click
     old = wait_for_size_change(old, "annotations__list-item", :class)
+    wait_for_selector("#item-history__close-button").click
     wait_for_selector(".media-tab__tasks").click
 
     # Create a task

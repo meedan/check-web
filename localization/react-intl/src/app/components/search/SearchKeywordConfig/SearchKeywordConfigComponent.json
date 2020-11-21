@@ -1,0 +1,38 @@
+[
+  {
+    "id": "searchKeywordConfig.mediaTitle",
+    "defaultMessage": "Media title"
+  },
+  {
+    "id": "searchKeywordConfig.mediaContent",
+    "defaultMessage": "Media content"
+  },
+  {
+    "id": "searchKeywordConfig.analysisTitle",
+    "defaultMessage": "Analysis title"
+  },
+  {
+    "id": "searchKeywordConfig.analysisContent",
+    "defaultMessage": "Analysis content"
+  },
+  {
+    "id": "searchKeywordConfig.tags",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "searchKeywordConfig.allTaskAnswers",
+    "defaultMessage": "All tasks answers"
+  },
+  {
+    "id": "searchKeywordConfig.allMetadataAnswers",
+    "defaultMessage": "All metadata answers"
+  },
+  {
+    "id": "searchKeywordConfig.allNotes",
+    "defaultMessage": "All notes"
+  },
+  {
+    "id": "searchKeywordConfig.allTaskComments",
+    "defaultMessage": "All task comments"
+  }
+]

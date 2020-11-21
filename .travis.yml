@@ -7,7 +7,6 @@ cache:
     - "/tmp/bundler"
 services:
   - docker
-  - elasticsearch
   - redis
   - postgresql
   - xvfb
@@ -42,19 +41,25 @@ before_install:
 - sudo apt-get remove google-chrome-stable  # Travis comes with it, and its version doesn't match chromedriver's
 - export TEST_ENV_NUMBER=0
 - export CHROMEDRIVER_URL=http://localhost:9515
+# Set a UTF-8 capabable locale
+- export LC_ALL=C.UTF-8
+- export LANG=C.UTF-8
+- export LANGUAGE=C.UTF-8
+# Needed to fix error when installing Pender gems
+# Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
+# https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
+- export TRAVIS_TAG=0.0.0
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # minio
 - docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
 # check api
 - psql -c 'create database checkdesk_test0;' -U postgres
-- wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.8.9.deb && sudo dpkg -i --force-confnew elasticsearch-6.8.9.deb && sudo service elasticsearch restart
-- sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install analysis-icu
-- sudo chown -R elasticsearch:elasticsearch /etc/default/elasticsearch
-- sudo service elasticsearch restart
+- docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.2
+- docker exec elasticsearch elasticsearch-plugin install analysis-icu
+- docker restart elasticsearch
 - until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
 - curl --silent -XPUT http://localhost:9200/check_api_tests0
-- sudo service elasticsearch status
 - export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
@@ -71,7 +76,7 @@ before_install:
 - git clone https://github.com/meedan/pender.git
 - d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
 - cd pender
-- bundle install --path=/tmp/bundler
+- RAILS_ENV=test bundle install --path=/tmp/bundler
 - bundle exec rake db:migrate
 - bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
 - bundle exec rails s -p 3005 >/dev/null &
@@ -91,6 +96,7 @@ before_script:
 - sleep 5
 script: npm run test:lint && npm run test:unit && ./scripts/uncovered-files && cd test && ./parallel-test.sh
 after_script:
+- cat file.json
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
 notifications:
   slack:

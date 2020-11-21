@@ -4,12 +4,8 @@
     "defaultMessage": "Search…"
   },
   {
-    "id": "multiSelector.all",
-    "defaultMessage": "Select all"
-  },
-  {
-    "id": "multiSelector.none",
-    "defaultMessage": "Unselect all"
+    "id": "MultiSelector.all",
+    "defaultMessage": "All"
   },
   {
     "id": "multiSelector.empty",
@@ -18,9 +14,5 @@
   {
     "id": "multiSelector.cancel",
     "defaultMessage": "Cancel"
-  },
-  {
-    "id": "multiSelector.save",
-    "defaultMessage": "Save"
   }
 ]

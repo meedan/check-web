@@ -46,6 +46,12 @@ export default function SearchResultsTableRow({
     onChangeChecked(ev, projectMedia);
   }, [projectMedia, onChangeChecked]);
 
+  // FIXME: Mutation a prop! But how to return a JSON object in an optimistic response?
+  if (typeof projectMedia.list_columns_values === 'string') {
+    // eslint-disable-next-line no-param-reassign
+    projectMedia.list_columns_values = JSON.parse(projectMedia.list_columns_values);
+  }
+
   return (
     <TableRow
       onClick={handleClick}
@@ -58,9 +64,11 @@ export default function SearchResultsTableRow({
       <TableCell padding="checkbox" onClick={swallowClick}>
         <Checkbox checked={checked} onChange={handleChangeChecked} />
       </TableCell>
-      {columnDefs.map(({ cellComponent: Cell }) => (
+      {columnDefs.map(({ cellComponent: Cell, field, type }) => (
         <Cell
-          key={Cell.displayName || Cell.name}
+          key={field}
+          field={field}
+          type={type}
           projectMedia={projectMedia}
           projectMediaUrl={projectMediaUrl}
         />

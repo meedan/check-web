@@ -19,6 +19,7 @@ import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
 import TeamProjects from './TeamProjects';
+import TeamLists from './TeamLists';
 import SlackConfig from './SlackConfig';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
@@ -149,11 +150,24 @@ class TeamComponent extends Component {
           >
             { currentUserIsOwner ?
               <Tab
+                className="team-settings__lists-tab"
+                classes={{ root: classes.root }}
+                label={
+                  <FormattedMessage
+                    id="teamSettings.lists"
+                    defaultMessage="Lists"
+                  />
+                }
+                value="lists"
+              /> : null
+            }
+            { currentUserIsOwner ?
+              <Tab
                 className="team-settings__metadata-tab"
                 classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
-                    id="teamSettings.Metadata"
+                    id="teamSettings.metadata"
                     defaultMessage="Metadata"
                   />
                 }
@@ -166,7 +180,7 @@ class TeamComponent extends Component {
                 classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
-                    id="teamSettings.Tasks"
+                    id="teamSettings.tasks"
                     defaultMessage="Tasks"
                   />
                 }
@@ -280,6 +294,9 @@ class TeamComponent extends Component {
             <TeamSettingsTabs />
           </HeaderCard>
           { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
+          { isSettings && tab === 'lists'
+            ? <TeamLists key={tab} />
+            : null }
           { isSettings && tab === 'metadata'
             ? <TeamTasks key={tab} team={team} fieldset="metadata" />
             : null }

@@ -8,7 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import { columnWidthWide, units, checkBlue } from '../../styles/js/shared';
+import { ContentColumn, units, checkBlue } from '../../styles/js/shared';
 import Can from '../Can';
 import TeamRoute from '../../relay/TeamRoute';
 import Message from '../Message';
@@ -76,7 +76,7 @@ class TeamReportComponent extends React.Component {
     const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
     return (
-      <div style={{ width: columnWidthWide, margin: 'auto' }}>
+      <ContentColumn large>
         <Message message={this.state.message} />
         <LanguageSwitcher
           primaryLanguage={defaultLanguage}
@@ -167,7 +167,7 @@ class TeamReportComponent extends React.Component {
             </div>
           </CardContent>
         </Card>
-      </div>
+      </ContentColumn>
     );
   }
 }

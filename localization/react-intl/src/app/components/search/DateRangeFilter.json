@@ -1,15 +1,23 @@
 [
   {
     "id": "search.dateHeading",
-    "defaultMessage": "Date"
+    "defaultMessage": "Time Range"
   },
   {
-    "id": "search.dateCreatedHeading",
-    "defaultMessage": "Created"
+    "id": "search.dateSubmittedHeading",
+    "defaultMessage": "Submitted"
+  },
+  {
+    "id": "search.dateLastSubmittedHeading",
+    "defaultMessage": "Last submitted"
   },
   {
     "id": "search.dateUpdatedHeading",
     "defaultMessage": "Updated"
+  },
+  {
+    "id": "search.datePublishedHeading",
+    "defaultMessage": "Published"
   },
   {
     "id": "search.pickDateFrom",

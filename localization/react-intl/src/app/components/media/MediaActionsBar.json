@@ -13,15 +13,7 @@
   },
   {
     "id": "mediaActionsBar.movedBack",
-    "defaultMessage": "Restored from trash"
-  },
-  {
-    "id": "mediaActionsBar.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "mediaActionsBar.done",
-    "defaultMessage": "Done"
+    "defaultMessage": "Restored from trash, redirecting..."
   },
   {
     "id": "mediaActionsBar.publishedReport",
@@ -32,7 +24,15 @@
     "defaultMessage": "Unpublished report"
   },
   {
-    "id": "mediaActionsBar.assignDialogHeader",
-    "defaultMessage": "Assignment"
+    "id": "mediaActionsBar.assignmentTitle",
+    "defaultMessage": "Assign item to collaborators"
+  },
+  {
+    "id": "mediaActionsBar.assignmentNotesTitle",
+    "defaultMessage": "Add a note to the e-mail"
+  },
+  {
+    "id": "mediaActionsBar.assignmentNotes",
+    "defaultMessage": "Notes"
   }
 ]

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamLists.title",
+    "defaultMessage": "Lists settings"
+  },
+  {
+    "id": "teamLists.description",
+    "defaultMessage": "Select all the columns you want to display in all your lists."
+  }
+]

@@ -79,20 +79,30 @@ class CreateRelatedMedia extends Component {
 
     const onSuccess = () => {
       this.setState({ message: null, isSubmitting: false });
+      if (this.props.reverse) {
+        window.location.reload();
+      }
     };
 
     const context = new CheckContext(this).getContextStore();
 
+    let source = this.props.media;
+    let target = obj;
+    if (this.props.reverse) {
+      source = obj;
+      target = this.props.media;
+    }
+
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        obj,
+        obj: target,
         context,
-        id: obj.id,
-        project: getCurrentProject(this.props.media.team.projects),
-        related_to: this.props.media,
-        related_to_id: this.props.media.dbid,
-        relationships_target_id: this.props.media.relationships.target_id,
-        relationships_source_id: this.props.media.relationships.source_id,
+        id: target.id,
+        project: source.team ? getCurrentProject(source.team.projects) : null,
+        related_to: source,
+        related_to_id: source.dbid,
+        relationships_target_id: source.relationships.target_id,
+        relationships_source_id: source.relationships.source_id,
       }),
       { onSuccess, onFailure },
     );
@@ -101,10 +111,15 @@ class CreateRelatedMedia extends Component {
   };
 
   render() {
-    const { media } = this.props;
+    const { media, reverse } = this.props;
 
     if (media.archived) {
       return null;
+    }
+
+    let label = <FormattedMessage id="createRelatedMedia.addSecondaryItem" defaultMessage="Add secondary item" />;
+    if (reverse) {
+      label = <FormattedMessage id="createRelatedMedia.addToPrimaryItem" defaultMessage="Add to primary item" />;
     }
 
     return (
@@ -112,15 +127,20 @@ class CreateRelatedMedia extends Component {
         {media.relationships.sources_count === 0 ?
           <Can permissions={media.team.permissions} permission="create ProjectMedia">
             <StyledCreateRelatedClaimButton
-              className="create-related-media__add-button create-related-media__add-button--default"
+              className={
+                reverse ?
+                  'create-related-media__add-to-primary-button create-related-media__add-to-primary-button--default' :
+                  'create-related-media__add-button create-related-media__add-button--default'
+              }
               onClick={this.handleOpenDialog.bind(this)}
+              variant="outlined"
             >
-              <FormattedMessage id="createRelatedMedia.addRelatedItem" defaultMessage="Add related item" />
+              {label}
             </StyledCreateRelatedClaimButton>
           </Can> : null}
 
         <CreateRelatedMediaDialog
-          title={<FormattedMessage id="createRelatedMedia.addRelatedItem" defaultMessage="Add related item" />}
+          title={label}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}
@@ -128,6 +148,8 @@ class CreateRelatedMedia extends Component {
           media={media}
           message={this.state.message}
           isSubmitting={this.state.isSubmitting}
+          hideNew={reverse}
+          reverse={reverse}
         />
       </div>
     );

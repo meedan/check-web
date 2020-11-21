@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -24,6 +25,13 @@ const messages = defineMessages({
   },
 });
 
+const useStyles = makeStyles(() => ({
+  dialog: {
+    position: 'absolute',
+    top: 60,
+  },
+}));
+
 const LanguagePickerDialog = ({
   intl,
   isSaving,
@@ -32,6 +40,7 @@ const LanguagePickerDialog = ({
   open,
   team,
 }) => {
+  const classes = useStyles();
   const [value, setValue] = React.useState(null);
   const languages = safelyParseJSON(team.get_languages) || [];
 
@@ -69,6 +78,9 @@ const LanguagePickerDialog = ({
     <Dialog
       open={open}
       maxWidth="xs"
+      PaperProps={{
+        className: window.parent === window ? '' : classes.dialog, // Fixed position in browser extension
+      }}
       fullWidth
     >
       <DialogTitle>

@@ -100,12 +100,22 @@ const UploadMessage = ({ type, about }) => {
       }}
     />
   );
+  case 'file': return (
+    <FormattedMessage
+      id="uploadFile.fileMessage"
+      defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      values={{
+        file_max_size: about.file_max_size,
+        file_extensions: about.file_extensions,
+      }}
+    />
+  );
   default: return null;
   }
 };
 
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'file']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
     upload_extensions: PropTypes.string.isRequired,
@@ -115,6 +125,8 @@ UploadMessage.propTypes = {
     video_extensions: PropTypes.string.isRequired,
     audio_max_size: PropTypes.string.isRequired,
     audio_extensions: PropTypes.string.isRequired,
+    file_max_size: PropTypes.string.isRequired,
+    file_extensions: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -138,6 +150,9 @@ class UploadFileComponent extends React.PureComponent {
     } else if (type === 'audio') {
       extensions = about.audio_extensions;
       maxSize = about.audio_max_size;
+    } else if (type === 'file') {
+      extensions = about.file_extensions;
+      maxSize = about.file_max_size;
     }
     const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
@@ -226,6 +241,8 @@ const UploadFile = childProps => (
           video_extensions
           audio_max_size
           audio_extensions
+          file_max_size
+          file_extensions
           upload_max_dimensions
           upload_min_dimensions
         }
@@ -247,7 +264,7 @@ UploadFile.defaultProps = {
 };
 UploadFile.propTypes = {
   value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video', 'audio']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'file']).isRequired,
   noPreview: PropTypes.bool,
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined

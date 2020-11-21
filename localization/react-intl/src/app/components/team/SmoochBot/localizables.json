@@ -36,16 +36,12 @@
     "defaultMessage": "Notice of inactivity"
   },
   {
-    "id": "smoochBot.labelTos",
-    "defaultMessage": "Terms of service"
-  },
-  {
     "id": "smoochBot.descriptionGreeting",
-    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. This message is automatically followed by the Main menu."
+    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
   },
   {
     "id": "smoochBot.descriptionMainMenu",
-    "defaultMessage": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message."
+    "defaultMessage": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu."
   },
   {
     "id": "smoochBot.descriptionSecondaryMenu",
@@ -76,12 +72,8 @@
     "defaultMessage": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
   },
   {
-    "id": "smoochBot.descriptionTos",
-    "defaultMessage": "This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service."
-  },
-  {
     "id": "smoochBot.placeholderGreeting",
-    "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot. We fact-check claims, videos and images related to topics such as politics, health, finance, and technology."
+    "defaultMessage": "Hi! Welcome to [Name of your organization]’s fact-checking bot."
   },
   {
     "id": "smoochBot.placeholderMainMenu",
@@ -116,7 +108,15 @@
     "defaultMessage": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n\nContact us at *[email or other contact]* for further inquiries."
   },
   {
-    "id": "smoochBot.placeholderTos",
-    "defaultMessage": "This service is provided under the following terms: %{tos}"
+    "id": "smoochBot.newResourceTitle",
+    "defaultMessage": "New bot resource"
+  },
+  {
+    "id": "smoochBot.menuKeywords",
+    "defaultMessage": "Keywords separated by comma"
+  },
+  {
+    "id": "smoochBot.tos",
+    "defaultMessage": "Terms of Service ({language})"
   }
 ]

@@ -134,6 +134,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
+  const noReport = !projectMedia.report;
 
   const handleCopyToReport = () => {
     setShowConfirmationDialog(false);
@@ -147,7 +148,8 @@ const MediaAnalysis = ({ projectMedia }) => {
       },
     };
     const headline = getValue('title') || getDefaultValue('title') || '';
-    const description = getValue('content') || getDefaultValue('description') || '';
+    let description = getValue('content') || getDefaultValue('description') || '';
+    description = description.substring(0, 760);
     const fields = propsToData(props, language);
     fields.state = 'paused';
     fields.options.forEach((option, i) => {
@@ -158,6 +160,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         fields.options[i].title = headline;
         fields.options[i].text = `${description}\n\n${getValue('published_article_url') || ''}`;
         fields.options[i].date = getValue('date_published') ? formatDate(new Date(parseInt(getValue('date_published'), 10) * 1000), language) : formatDate(new Date(), language);
+        fields.options[i].image = (projectMedia.media && projectMedia.media.picture) ? projectMedia.media.picture : '';
       }
     });
 
@@ -211,7 +214,11 @@ const MediaAnalysis = ({ projectMedia }) => {
   };
 
   const handleConfirmCopyToReport = () => {
-    setShowConfirmationDialog(true);
+    if (noReport) {
+      handleCopyToReport();
+    } else {
+      setShowConfirmationDialog(true);
+    }
   };
 
   return (
@@ -246,7 +253,7 @@ const MediaAnalysis = ({ projectMedia }) => {
           </Typography>
         </Box>
         <Box>
-          <Button onClick={handleConfirmCopyToReport} variant="contained" color="primary" disabled={saving || copying || !canCopy || editing}>
+          <Button onClick={handleConfirmCopyToReport} className="media-analysis__copy-to-report" variant="contained" color="primary" disabled={saving || copying || !canCopy || editing}>
             { copying ?
               <FormattedMessage id="mediaAnalysis.copying" defaultMessage="Copying…" /> :
               <FormattedMessage id="mediaAnalysis.copyToReport" defaultMessage="Copy to report" /> }
@@ -271,6 +278,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             onFocus={handleFocus}
             onChange={handleChangeTitle}
             disabled={!canEdit}
+            className="media-analysis__title"
             multiline
             fullWidth
           />
@@ -278,14 +286,12 @@ const MediaAnalysis = ({ projectMedia }) => {
         <Box display="flex" className={classes.box}>
           <TextField
             inputProps={{
-              maxLength: 760,
               className: content === getDefaultValue('description') ? classes.placeholder : null,
             }}
             label={
               <FormattedMessage
                 id="mediaAnalysis.content"
-                defaultMessage="Content ({max} characters max)"
-                values={{ max: 760 }}
+                defaultMessage="Content"
               />
             }
             value={content}
@@ -295,6 +301,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             onFocus={handleFocus}
             onChange={handleChangeContent}
             disabled={!canEdit}
+            className="media-analysis__content"
             multiline
             fullWidth
           />

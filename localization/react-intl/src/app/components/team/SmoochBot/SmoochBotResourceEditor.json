@@ -1,0 +1,38 @@
+[
+  {
+    "id": "smoochBotResourceEditor.rssPlaceholder",
+    "defaultMessage": "Public URL that returns N articles in RSS format"
+  },
+  {
+    "id": "smoochBotResourceEditor.error",
+    "defaultMessage": "This URL does not seem to be a valid RSS feed"
+  },
+  {
+    "id": "smoochBotResourceEditor.title",
+    "defaultMessage": "Bot resource title"
+  },
+  {
+    "id": "smoochBotResourceEditor.addContent",
+    "defaultMessage": "Add content manually"
+  },
+  {
+    "id": "smoochBotResourceEditor.rss",
+    "defaultMessage": "Add content from RSS feed"
+  },
+  {
+    "id": "smoochBotResourceEditor.url",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "smoochBotResourceEditor.numberOfArticles",
+    "defaultMessage": "Number of articles to return"
+  },
+  {
+    "id": "smoochBotResourceEditor.load",
+    "defaultMessage": "Load"
+  },
+  {
+    "id": "smoochBotResourceEditor.delete",
+    "defaultMessage": "Delete"
+  }
+]

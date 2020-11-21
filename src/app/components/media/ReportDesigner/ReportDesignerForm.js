@@ -43,7 +43,8 @@ const useStyles = makeStyles(theme => ({
 
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
-  const { data, media } = props;
+  const { media } = props;
+  const data = props.data || { use_text_message: true, use_introduction: true, text: '' };
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);
@@ -74,7 +75,7 @@ const ReportDesignerForm = (props) => {
       { props.disabled ? <Box className={classes.mask} /> : null }
       <Box>
         <ReportDesignerFormSection
-          enabled={data.use_introduction}
+          enabled={Boolean(data.use_introduction)}
           onToggle={(enabled) => { props.onUpdate('use_introduction', enabled); }}
           label={
             <FormattedMessage
@@ -110,7 +111,7 @@ const ReportDesignerForm = (props) => {
         </ReportDesignerFormSection>
 
         <ReportDesignerFormSection
-          enabled={data.use_text_message}
+          enabled={Boolean(data.use_text_message)}
           onToggle={(enabled) => { props.onUpdate('use_text_message', enabled); }}
           label={
             <FormattedMessage
@@ -126,7 +127,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.textTitle"
-                defaultMessage="Headline ({max} characters max)"
+                defaultMessage="Title ({max} characters max)"
                 values={{ max: 140 }}
               />
             }
@@ -148,7 +149,6 @@ const ReportDesignerForm = (props) => {
             onChange={(e) => { props.onUpdate('text', e.target.value); }}
             rows={10}
             multiline
-            error={data.use_text_message && data.text.length === 0}
             helperText={
               data.use_text_message && data.text.length === 0 ?
                 <FormattedMessage
@@ -176,7 +176,7 @@ const ReportDesignerForm = (props) => {
         </ReportDesignerFormSection>
 
         <ReportDesignerFormSection
-          enabled={data.use_visual_card}
+          enabled={Boolean(data.use_visual_card)}
           onToggle={(enabled) => { props.onUpdate('use_visual_card', enabled); }}
           label={
             <FormattedMessage
@@ -193,7 +193,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.headline"
-                defaultMessage="Headline ({max} characters max)"
+                defaultMessage="Title ({max} characters max)"
                 values={{ max: 85 }}
               />
             }
@@ -207,7 +207,7 @@ const ReportDesignerForm = (props) => {
             label={
               <FormattedMessage
                 id="reportDesigner.description"
-                defaultMessage="Description ({max} characters max)"
+                defaultMessage="Content ({max} characters max)"
                 values={{ max: 240 }}
               />
             }
@@ -234,7 +234,7 @@ const ReportDesignerForm = (props) => {
             />
             <Box>
               { media.media.picture ?
-                <Button onClick={handleDefaultImage}>
+                <Button onClick={handleDefaultImage} disabled={media.media.picture === data.image}>
                   <FormattedMessage
                     id="reportDesigner.useDefaultImage"
                     defaultMessage="Use default image"
