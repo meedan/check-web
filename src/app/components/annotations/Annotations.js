@@ -108,7 +108,10 @@ class Annotations extends React.Component {
                   null
               }
             >
-              Load More
+              <FormattedMessage
+                id="annotations.loadMore"
+                defaultMessage="Load more"
+              />
             </Button>
           ) : null }
         </div>

@@ -15,7 +15,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
-        related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count },
+        related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count, secondary_relationships },
         relationships_target { id },
         relationships_source { id },
         project_media {
@@ -162,24 +162,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       configs.push({
         type: 'FIELDS_CHANGE',
         fieldIDs: { related_to: this.props.related_to.id },
-      });
-
-      configs.push({
-        type: 'RANGE_ADD',
-        parentName: 'relationships_target',
-        parentID: this.props.relationships_target_id,
-        connectionName: 'targets',
-        edgeName: 'project_mediaEdge',
-        rangeBehaviors: () => ('prepend'),
-      });
-
-      configs.push({
-        type: 'RANGE_ADD',
-        parentName: 'relationships_source',
-        parentID: this.props.relationships_source_id,
-        connectionName: 'siblings',
-        edgeName: 'project_mediaEdge',
-        rangeBehaviors: () => ('prepend'),
       });
 
       configs.push({

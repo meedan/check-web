@@ -14,6 +14,7 @@ const mediaFragment = Relay.QL`
     last_seen,
     share_count,
     archived,
+    picture,
     relationships { sources_count, targets_count },
     relationship {
       id

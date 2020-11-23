@@ -2,5 +2,9 @@
   {
     "id": "annotation.noAnnotationsYet",
     "defaultMessage": "No activity"
+  },
+  {
+    "id": "annotations.loadMore",
+    "defaultMessage": "Load more"
   }
 ]

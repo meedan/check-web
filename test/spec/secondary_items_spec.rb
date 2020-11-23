@@ -51,26 +51,25 @@ shared_examples 'secondary items' do
 
   it "should break relationship between related items" , bin1: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector(".media-detail")
-    expect(@driver.page_source.include?('Claim Related')).to be(false)
+    wait_for_selector('.media-detail')
+    expect(@driver.page_source.include?('Meedan super star')).to be(false)
     press_button('.create-related-media__add-button')
-    #add a related link
+    # Add a related link
     wait_for_selector('#create-media-dialog__tab-new').click
     wait_for_selector('#create-media__link').click
-    wait_for_selector("#create-media-input")
+    wait_for_selector('#create-media-input')
     fill_field('#create-media-input', 'https://twitter.com/meedan/status/1167366036791943168')
     press_button('#create-media-dialog__submit-button')
-    wait_for_selector_none("#create-media-quote-input")
-    #verify that the link was created
-    wait_for_selector_list_size(".media-detail", 2)
-    cards = wait_for_selector_list(".media-detail").length
-    expect(cards == 2).to be(true)
-    #break the relationship between the items
-    wait_for_selector(".media-condensed__actions_icon").click
+    wait_for_selector_none('#create-media-quote-input')
+    # Verify that the link was created
+    wait_for_selector_list_size('.media-condensed__title', 1)
+    expect(@driver.page_source.include?('Meedan super star')).to be(true)
+    # Break the relationship between the items
+    wait_for_selector('.media-condensed__actions_icon').click
     wait_for_selector('.media-condensed__break-relationship').click
     wait_for_selector_none('.media-condensed__break-relationship')
-    wait_for_selector_list_size(".media-detail", 1)
-    expect(wait_for_selector_list(".media-detail").length == 1).to be(true)
+    wait_for_selector_none('.media-condensed__title')
+    expect(@driver.page_source.include?('Meedan super star')).to be(false)
   end
 
   it "should install Smooch bot, create a claim, change the status and add a related item", bin1: true do
@@ -83,7 +82,7 @@ shared_examples 'secondary items' do
     @driver.navigate.refresh
     wait_for_selector(".team-members__member")
     wait_for_selector("//div[contains(text(), 'Smooch')]", :xpath)
-    wait_for_selector(".team__project").click
+    wait_for_selector('.project-list__link').click
     wait_for_selector("#search__open-dialog-button")
     create_media("Claim", false)
     sleep 10 # Wait for ElasticSearch

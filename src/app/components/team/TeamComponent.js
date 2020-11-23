@@ -18,7 +18,6 @@ import TeamReport from './TeamReport';
 import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
-import TeamProjects from './TeamProjects';
 import TeamLists from './TeamLists';
 import SlackConfig from './SlackConfig';
 import HeaderCard from '../HeaderCard';
@@ -28,8 +27,6 @@ import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
 import {
   ContentColumn,
-  units,
-  mediaQuery,
   backgroundMain,
   brandSecondary,
 } from '../../styles/js/shared';
@@ -40,28 +37,12 @@ const styles = () => ({
     minWidth: '120px',
   },
 });
+
 const StyledTabs = styled(Tabs)`
   background-color: ${brandSecondary};
   box-shadow: none !important;
 `;
-const StyledTwoColumnLayout = styled(ContentColumn)`
-  flex-direction: column;
-  ${mediaQuery.desktop`
-    display: flex;
-    justify-content: center;
-    max-width: ${units(120)};
-    padding: 0;
-    flex-direction: row;
 
-    .team__primary-column {
-      max-width: ${units(150)} !important;
-    }
-
-    .team__secondary-column {
-      max-width: ${units(50)};
-    }
-  `}
-`;
 const StyledTeamContainer = styled.div`
   background-color: ${backgroundMain};
   min-height: 100vh;
@@ -113,14 +94,9 @@ class TeamComponent extends Component {
     const context = new CheckContext(this).getContextStore();
 
     const TeamPageContent = (
-      <StyledTwoColumnLayout>
-        <ContentColumn>
-          <TeamMembers {...this.props} />
-        </ContentColumn>
-        <ContentColumn className="team__secondary-column">
-          <TeamProjects team={team} relay={this.props.relay} />
-        </ContentColumn>
-      </StyledTwoColumnLayout>
+      <ContentColumn>
+        <TeamMembers {...this.props} />
+      </ContentColumn>
     );
 
     const HeaderContent = () => (
@@ -134,7 +110,10 @@ class TeamComponent extends Component {
 
     const currentUserIsOwner = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
     let { tab } = this.props.params;
-    if (!tab || !currentUserIsOwner) {
+    if (!tab) {
+      tab = 'lists';
+    }
+    if (!currentUserIsOwner) {
       tab = 'tags';
     }
 

@@ -122,8 +122,16 @@ const SearchKeywordConfigComponent = ({
 
   if (teamMetadata.length || teamTasks.length) {
     options = options.concat([{ value: '', label: '' }]);
-    options = options.concat(teamMetadata);
-    options = options.concat(teamTasks);
+    if (teamMetadata.length) {
+      const label = <FormattedMessage id="searchKeywordConfig.metadata" defaultMessage="Metadata" />;
+      options = options.concat([{ value: '', label }]);
+      options = options.concat(teamMetadata);
+    }
+    if (teamTasks.length) {
+      const label = <FormattedMessage id="searchKeywordConfig.tasks" defaultMessage="Tasks" />;
+      options = options.concat([{ value: '', label }]);
+      options = options.concat(teamTasks);
+    }
   }
 
   const handleChange = (values) => {

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -12,8 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import { makeStyles } from '@material-ui/core/styles';
 import TeamListsColumn from './TeamListsColumn';
+import ConfirmDialog from '../../layout/ConfirmDialog';
 import { checkBlue, ContentColumn } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
@@ -45,6 +46,9 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
   const classes = useStyles();
   const [columns, setColumns] = React.useState(clone(team.list_columns || []));
   const [saving, setSaving] = React.useState(false);
+  const [showConfirmSaveDialog, setShowConfirmSaveDialog] = React.useState(false);
+
+  const hasUnsavedChanges = (JSON.stringify(columns) !== JSON.stringify(team.list_columns));
 
   const columnsToShow = [];
   const selectedColumns = [];
@@ -60,21 +64,22 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
   });
 
   const handleHelp = () => {
-    window.open('https://help.checkmedia.org/');
+    window.open('http://help.checkmedia.org/en/articles/4637158-list-settings');
   };
 
   const handleError = () => {
     setSaving(false);
-    setFlashMessage(<FormattedMessage id="teamListsComponent.defaultErrorMessage" defaultMessage="Could not save lists settings!" />);
+    setFlashMessage(<FormattedMessage id="teamListsComponent.defaultErrorMessage" defaultMessage="Could not save list settings!" />);
   };
 
   const handleSuccess = () => {
     setSaving(false);
-    setFlashMessage(<FormattedMessage id="teamListsComponent.savedSuccessfully" defaultMessage="Lists settings saved successfully!" />);
+    setFlashMessage(<FormattedMessage id="teamListsComponent.savedSuccessfully" defaultMessage="List settings saved successfully!" />);
   };
 
   const handleSave = () => {
     setSaving(true);
+    setShowConfirmSaveDialog(false);
 
     const mutation = graphql`
       mutation TeamListsComponentUpdateTeamMutation($input: UpdateTeamInput!) {
@@ -106,6 +111,16 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         handleError();
       },
     });
+  };
+
+  const handleConfirmSave = () => {
+    if (hasUnsavedChanges) {
+      setShowConfirmSaveDialog(true);
+    }
+  };
+
+  const handleCloseDialogs = () => {
+    setShowConfirmSaveDialog(false);
   };
 
   const handleToggle = (key, index) => {
@@ -148,14 +163,14 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 <Typography variant="h6" component="div">
                   <FormattedMessage
                     id="teamListsComponent.title"
-                    defaultMessage="Lists settings"
+                    defaultMessage="List settings"
                   />
                 </Typography>
                 <IconButton onClick={handleHelp}>
                   <HelpIcon className={classes.helpIcon} />
                 </IconButton>
               </Box>
-              <Button variant="contained" color="primary" disabled={saving} onClick={handleSave}>
+              <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
                 <FormattedMessage
                   id="teamListsComponent.save"
                   defaultMessage="Save"
@@ -196,6 +211,29 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           </CardContent>
         </Card>
       </ContentColumn>
+      <ConfirmDialog
+        open={showConfirmSaveDialog}
+        title={
+          <FormattedMessage
+            id="teamListsComponent.confirmSaveTitle"
+            defaultMessage="Workspace list change"
+          />
+        }
+        blurb={
+          <FormattedMessage
+            id="teamListsComponent.confirmSaveText"
+            defaultMessage="Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
+          />
+        }
+        continueButtonLabel={
+          <FormattedMessage
+            id="teamListsComponent.buttonLabel"
+            defaultMessage="Save changes for all lists"
+          />
+        }
+        handleClose={handleCloseDialogs}
+        handleConfirm={handleSave}
+      />
     </React.Fragment>
   );
 };

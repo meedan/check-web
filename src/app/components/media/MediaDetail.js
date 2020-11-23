@@ -101,6 +101,7 @@ class MediaDetail extends React.Component {
               media={this.props.media}
               mediaUrl={mediaUrl}
               currentRelatedMedia={this.props.currentRelatedMedia}
+              noQuery={this.props.noQuery}
             />
           ) : (
             <MediaExpanded
