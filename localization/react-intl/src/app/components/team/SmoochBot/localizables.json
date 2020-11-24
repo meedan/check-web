@@ -36,8 +36,12 @@
     "defaultMessage": "Notice of inactivity"
   },
   {
+    "id": "smoochBot.labelPrivacyStatement",
+    "defaultMessage": "Privacy statement"
+  },
+  {
     "id": "smoochBot.descriptionGreeting",
-    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
+    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot."
   },
   {
     "id": "smoochBot.descriptionMainMenu",
@@ -70,6 +74,26 @@
   {
     "id": "smoochBot.descriptionInactive",
     "defaultMessage": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
+  },
+  {
+    "id": "smoochBot.descriptionPrivacyStatementGreeting",
+    "defaultMessage": "By default, the following Privacy statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
+  },
+  {
+    "id": "smoochBot.descriptionPrivacyStatementGreeting2",
+    "defaultMessage": "The option '9' must be referenced for users to access the Privacy statement on the Main menu."
+  },
+  {
+    "id": "smoochBot.descriptionPrivacyStatementContent",
+    "defaultMessage": "Privacy statement content. Edit the text below, or replace it with custom content."
+  },
+  {
+    "id": "smoochBot.footnoteGreeting",
+    "defaultMessage": "The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
+  },
+  {
+    "id": "smoochBot.footnoteGreeting2",
+    "defaultMessage": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy statement' on this page."
   },
   {
     "id": "smoochBot.placeholderGreeting",

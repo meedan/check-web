@@ -275,10 +275,10 @@ module AppSpecHelpers
   end
 
   def create_project(project_name)
-    wait_for_selector(".team")
     name = project_name || "Project #{Time.now.to_i}"
-    wait_for_selector('.create-project-card input[name="title"]').send_keys(name)
-    wait_for_selector('.create-project-card button[type="submit"]').click
+    wait_for_selector('.drawer__create-project-button').click
+    wait_for_selector('.create-project-form input').send_keys(name)
+    wait_for_selector('.create-project-form button').click
     wait_for_selector('.project')
   end
 end

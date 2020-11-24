@@ -176,33 +176,28 @@ class MediaExpandedComponent extends Component {
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
     const { description } = media.media.metadata;
     const isFetchBotInstalled = isBotInstalled(media.team, 'fetch');
-    const isNotRelated = media.relationships &&
-      media.relationships.targets_count !== undefined &&
-      media.relationships.sources_count !== undefined &&
-      media.relationships.targets_count + media.relationships.sources_count === 0;
 
     return (
       <React.Fragment>
-        { isFetchBotInstalled || isNotRelated ?
-          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
-            { isFetchBotInstalled ?
-              <BlankMediaButton
-                projectMediaId={media.id}
-                team={media.team}
-                label={
-                  <FormattedMessage
-                    id="mediaExpanded.addToImportedReport"
-                    defaultMessage="Add to imported report"
-                  />
-                }
-                ButtonProps={{
-                  variant: 'outlined',
-                  color: 'default',
-                }}
-                reverse
-              /> : null }
-            { isNotRelated ? <CreateRelatedMedia media={media} reverse /> : null }
-          </Box> : null }
+        <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
+          { isFetchBotInstalled ?
+            <BlankMediaButton
+              projectMediaId={media.id}
+              team={media.team}
+              label={
+                <FormattedMessage
+                  id="mediaExpanded.addToImportedReport"
+                  defaultMessage="Add to imported report"
+                />
+              }
+              ButtonProps={{
+                variant: 'outlined',
+                color: 'default',
+              }}
+              reverse
+            /> : null }
+          <CreateRelatedMedia media={media} reverse />
+        </Box>
         <CardHeader
           className="media-expanded__title"
           title={truncateLength(title, 110)}

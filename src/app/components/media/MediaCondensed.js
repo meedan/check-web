@@ -122,12 +122,12 @@ class MediaCondensedComponent extends Component {
     const { mediaUrl } = this.props;
 
     return (
-      <span style={{ display: 'block', position: 'relative' }}>
+      <div style={{ display: 'flex', position: 'relative' }}>
         <CardHeader
           title={
             <Link to={mediaUrl} className="media-condensed__title">
               <span style={{ color: black87 }}>
-                {truncateLength(media.title, 120)}
+                {truncateLength(media.title, 90)}
               </span>
             </Link>}
           subheader={
@@ -166,16 +166,12 @@ class MediaCondensedComponent extends Component {
             cursor: 'pointer',
             padding: 0,
             height: 100,
+            width: '100%',
           }}
         />
         { !media.archived ?
           <div>
             <IconButton
-              style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-              }}
               tooltip={
                 <FormattedMessage id="mediaCondensed.tooltip" defaultMessage="Item actions" />
               }
@@ -209,7 +205,7 @@ class MediaCondensedComponent extends Component {
               ) : null}
             </Menu>
           </div> : null }
-      </span>
+      </div>
     );
   }
 }
@@ -274,9 +270,9 @@ const MediaCondensed = (props) => {
   const route = new MediaRoute({ ids });
   const cachedMedia = Object.assign({}, props.media);
 
-  if (props.media.dbid === 0) {
+  if (props.media.dbid === 0 || props.noQuery) {
     return (
-      <ConnectedMediaCondensedComponent {...props} />
+      <ConnectedMediaCondensedComponent cachedMedia={cachedMedia} {...props} />
     );
   }
 

@@ -12,11 +12,47 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on CreateProjectMediaPayload {
         project_mediaEdge,
-        project_media,
-        related_to { id, relationships, log, log_count },
-        relationships_target { id },
-        relationships_source { id },
+        project_media
         project { id, medias_count },
+        related_to {
+          id
+          secondary_relationships_count
+          secondary_relationships(first: 10) {
+            edges {
+              node {
+                id
+                dbid
+                target_id
+                source_id
+                target {
+                  id
+                  dbid
+                  type
+                  title
+                  description
+                  picture
+                  archived
+                  created_at
+                  updated_at
+                  last_seen
+                  requests_count
+                  relationships { sources_count, targets_count },
+                  relationship {
+                    id
+                    permissions
+                    source { id, dbid }
+                    source_id
+                    target { id, dbid }
+                    target_id
+                  }
+                  team {
+                    slug
+                  }
+                }
+              }
+            }
+          }
+        }
         team { id, medias_count },
         check_search_team { id, number_of_results },
         check_search_project { id, number_of_results }
@@ -124,24 +160,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
     });
 
     if (this.props.related_to_id) {
-      if (this.props.targets_count > 0) {
-        configs.push({
-          type: 'RANGE_ADD',
-          parentName: 'relationships_target',
-          parentID: this.props.relationships_target_id,
-          connectionName: 'targets',
-          edgeName: 'project_mediaEdge',
-          rangeBehaviors: () => ('prepend'),
-        });
-        configs.push({
-          type: 'RANGE_ADD',
-          parentName: 'relationships_source',
-          parentID: this.props.relationships_source_id,
-          connectionName: 'siblings',
-          edgeName: 'project_mediaEdge',
-          rangeBehaviors: () => ('prepend'),
-        });
-      }
       configs.push({
         type: 'FIELDS_CHANGE',
         fieldIDs: {

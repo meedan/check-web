@@ -263,7 +263,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
       <Box>
         <Box display="flex" className={classes.box}>
-          { picture ? <img src={picture} alt="" className={classes.image} /> : null }
+          { picture ? <img src={picture} alt="" className={classes.image} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} /> : null }
           <TextField
             label={
               <FormattedMessage id="mediaAnalysis.title" defaultMessage="Title" />

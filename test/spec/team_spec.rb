@@ -180,24 +180,6 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
-  it "should create a list and assign it on team page", bin6: true do
-    team = "team#{Time.now.to_i}"
-    api_create_team(team: team)
-    @driver.navigate.to @config['self_url']+'/'+team
-    wait_for_selector('.team')
-    wait_for_selector('.create-project-card input[name="title"]').send_keys("list")
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_selector(".create-project-card")
-    wait_for_selector(".team__project-expand").click
-    wait_for_selector(".project__assignment-button").click
-    wait_for_selector("input[type=checkbox]").click
-    wait_for_selector(".multi__selector-save").click
-    wait_for_selector(".message")
-    wait_for_selector("#user__avatars")
-    expect(@driver.page_source.include?('Assigned to')).to be(true)
-  end
-
   it "should manage team members", bin4: true, quick: true do
     # setup
     @user_mail = "test" +Time.now.to_i.to_s+rand(9999).to_s + @user_mail
@@ -214,8 +196,8 @@ shared_examples 'team' do
 
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 1')
-    expect(wait_for_selector(".team__project-title").text.include?('Team 1 Project')).to be(true)
-    expect(wait_for_selector(".team__project-title").text.include?('Team 2 Project')).to be(false)
+    expect(wait_for_selector('.project-list__link').text.include?('Team 1 Project')).to be(true)
+    expect(wait_for_selector('.project-list__link').text.include?('Team 2 Project')).to be(false)
 
     @driver.navigate.to(@config['self_url'] + '/check/me')
     wait_for_selector(".source__primary-info")
@@ -224,10 +206,10 @@ shared_examples 'team' do
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team 2')
-    expect(wait_for_selector(".team__project-title").text.include?('Team 1 Project')).to be(false)
-    expect(wait_for_selector(".team__project-title").text.include?('Team 2 Project')).to be(true)
+    expect(wait_for_selector('.project-list__link').text.include?('Team 1 Project')).to be(false)
+    expect(wait_for_selector('.project-list__link').text.include?('Team 2 Project')).to be(true)
 
-    #As a different user, request to join one team and be accepted.
+    # As a different user, request to join one team and be accepted.
     user = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
     ask_join_team(subdomain: @team1_slug)
     @wait.until {
@@ -237,7 +219,7 @@ shared_examples 'team' do
     @driver.quit
 
     @driver = new_driver()
-    #As the group creator, go to the members page and approve the joining request.
+    # As the group creator, go to the members page and approve the joining request.
     @driver.navigate.to(@config['api_path'] + '/test/session?email='+@user_mail)
     approve_join_team(subdomain: @team1_slug)
     count = 0
@@ -249,7 +231,7 @@ shared_examples 'team' do
     end
     expect(elems.size).to be > 1
 
-    #edit team member role
+    # Edit team member role
     change_the_member_role_to('li.role-journalist')
     el = wait_for_selector('input[name="role-select"]', index: 1)
     expect(el.property('value')).to eq 'journalist'
@@ -304,7 +286,7 @@ shared_examples 'team' do
     wait_for_selector(".team__primary-info")
     team_name = wait_for_selector('.team__name').text
     expect(team_name).to eq('Team')
-    expect(wait_for_selector(".team__project-title").text.include?('Team Project')).to be(true)
+    expect(wait_for_selector('.project-list__link').text.include?('Team Project')).to be(true)
     api_logout
     #As a different user, request to join one team and be accepted.
     user2 = api_register_and_login_with_email(email: "new"+@user_mail, password: @password)
@@ -350,8 +332,8 @@ shared_examples 'team' do
     @driver.navigate.to(@config['api_path'] + '/test/session?email=new'+@user_mail)
 
     #go to the members page and can't see the request to join the another user
-    @driver.navigate.to @config['self_url'] + "/"+@team1_slug
-    wait_for_selector(".create-project-card")
+    @driver.navigate.to @config['self_url'] + '/' + @team1_slug
+    wait_for_selector('.team-members__list')
     expect(@driver.page_source.include?('Requests to join')).to be(false)
 
     #go to the project that you don't own and can't see the actions icon
@@ -366,7 +348,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('new item')).to be(true)
 
     #see the icon 'change the status' that the media you don't own
-    wait_for_selector_list(".media__heading a")[1].click
+    wait_for_selector_list('.medias__item')[1].click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button").size).to eq 1
 
@@ -411,7 +393,7 @@ shared_examples 'team' do
 
     #go to the project and can't see the icon 'change the status' that the media you don't own
     wait_for_selector(".project-list__link", index: 0).click
-    wait_for_selector(".media__heading a", index: 1).click
+    wait_for_selector('.medias__item', index: 1).click
     wait_for_selector(".create-related-media__add-button")
     expect(@driver.find_elements(:css, ".media-status button[disabled]").size).to eq 1
   end

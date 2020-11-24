@@ -23,7 +23,12 @@ import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
 import MediaAnalysis from './MediaAnalysis';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
+
+import {
+  units,
+  brandSecondary,
+  backgroundMain,
+} from '../../styles/js/shared';
 
 const styles = theme => ({
   root: {
@@ -40,12 +45,32 @@ const StyledThreeColumnLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+/* Middle column */
+  .media__column {
+    background-color: ${backgroundMain};
+  }
+
+/* Right Column */
+  .media__annotations-column {
+    border-left: 1px solid ${brandSecondary};
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+
+    /* Container of tabs */
+    .media__annotations-tabs {
+      background-color: ${backgroundMain};
+    }
+  }
 `;
 
-const FixedColumn = styled.div`
+const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: ${units(2)};
+  border-right: 1px solid ${brandSecondary};
 `;
 
 const Column = styled.div`
@@ -53,7 +78,7 @@ const Column = styled.div`
   min-width: 340px;
   max-width: 720px;
   padding: ${units(2)};
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
   overflow: auto;
 `;
 
@@ -274,10 +299,10 @@ class MediaComponent extends Component {
       <div>
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
-          <FixedColumn>
+          <AnalysisColumn>
             <MediaAnalysis projectMedia={media} />
-          </FixedColumn>
-          <Column>
+          </AnalysisColumn>
+          <Column className="media__column">
             <MediaDetail
               hideBorder
               hideRelated
@@ -305,6 +330,7 @@ class MediaComponent extends Component {
               textColor="primary"
               variant="scrollable"
               value={this.state.showTab}
+              className="media__annotations-tabs"
             >
               { this.state.showRequests ?
                 <StyledTab

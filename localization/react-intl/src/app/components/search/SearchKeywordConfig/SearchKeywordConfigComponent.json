@@ -34,5 +34,13 @@
   {
     "id": "searchKeywordConfig.allTaskComments",
     "defaultMessage": "All task comments"
+  },
+  {
+    "id": "searchKeywordConfig.metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
+    "id": "searchKeywordConfig.tasks",
+    "defaultMessage": "Tasks"
   }
 ]

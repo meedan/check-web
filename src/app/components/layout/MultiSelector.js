@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 import styled from 'styled-components';
 import globalStrings from '../../globalStrings';
 import { units, opaqueBlack02, opaqueBlack05, black54 } from '../../styles/js/shared';
@@ -151,9 +152,16 @@ class MultiSelector extends React.Component {
           <FormGroup>
             {
               options.map((o, index) => {
+                if (o.value === '' && o.label === '') {
+                  return (
+                    <Divider key={`multiselector-dividider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
+                  );
+                }
                 if (o.value === '') {
                   return (
-                    <Divider key={`multiselector-dividider-${index.toString()}`} />
+                    <Typography variant="button">
+                      {o.label}
+                    </Typography>
                   );
                 }
                 return (

@@ -51,7 +51,7 @@ shared_examples 'project' do
     create_project(project_name)
     expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false)
     wait_for_selector('.team-header__drawer-team-link').click
-    element = wait_for_selector('.team__project-title')
+    element = wait_for_selector('.project-list__link > span')
     expect(element.text == project_name).to be(true)
   end
 
@@ -73,32 +73,6 @@ shared_examples 'project' do
     expect(@driver.page_source.include?(new_description)).to be(true)
   end
 
-  it "should assign and delete project", bin3: true do
-    user = api_register_and_login_with_email
-    api_create_team_and_project(user: user)
-    @driver.navigate.to(@config['self_url'] + '/check/me')
-    wait_for_selector('#teams-tab').click
-    wait_for_selector('.teams a').click
-    wait_for_selector('a[href$="/all-items"]')
-    wait_for_selector(".project-list__link-trash")
-    wait_for_selector(".project__title")
-    wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_selector(".team__primary-info")
-    expect(@driver.page_source.include?('Assigned to one member')).to be(false)
-    ['.team__project-expand', '.project__assignment-button', '.project__assignment-menu input[type=checkbox]', '.multi__selector-save'].each do |selector|
-      wait_for_selector(selector).click
-    end
-    wait_for_selector('.message')
-    expect(@driver.page_source.include?('Assigned to one member')).to be(true)
-    wait_for_selector(".project-list__link").click
-    wait_for_selector(".project-actions__icon").click
-    wait_for_selector(".project-actions__destroy").click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.message')
-    expect(@driver.find_elements(:css, '.project-list__link').length == 0 )
-  end
-
   it "should paginate project page", bin4: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
     wait_for_selector(".search__results-heading")
@@ -112,7 +86,7 @@ shared_examples 'project' do
     expect(@driver.page_source.include?('21 - 21 / 21')).to be(true)
   end
 
-  it "should custom list columns", bin4: true do
+  it "should manage custom list columns", bin4: true do
     api_create_team_project_metadata_and_media
     wait_for_selector("#create-media__add-item")
     wait_for_selector('.media__heading')
@@ -132,8 +106,10 @@ shared_examples 'project' do
     wait_for_selector("//span[contains(text(), 'Show')]", :xpath).click
     wait_for_selector("#team-lists__item-4-status button").click
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
-    wait_for_selector(".message").click
-    wait_for_selector_none(".message")
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector('.message').click
+    wait_for_selector_none('.message')
     wait_for_selector(".project-list__link-all").click
     wait_for_selector("#create-media__add-item")
     wait_for_selector('.media__heading')
