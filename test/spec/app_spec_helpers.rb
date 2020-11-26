@@ -177,9 +177,7 @@ module AppSpecHelpers
       @driver.save_screenshot(path)
       puts path
       auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
-      # auth_header =  {'Authorization' => 'Client-ID ' + ''}
-      image = File.new(path)
-      # image = File.new('spec/test.png')
+      image = Base64.strict_encode64(File.open(path).read)
       puts image
       puts image.class
       body = {image: image, type: 'file'}
@@ -188,7 +186,7 @@ module AppSpecHelpers
       puts "=================="
       puts response.headers
       puts "==================================================================================="
-      response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
+      response = HTTParty.post('https://api.imgur.com/3/image', body: body, headers: auth_header)
       puts response.headers
       puts "=================="
       puts response.body

@@ -1,5 +1,6 @@
 require 'httparty'
 require 'rspec/retry'
+require 'base64'
 
 RSpec.configure do |config|
   config.verbose_retry = true
