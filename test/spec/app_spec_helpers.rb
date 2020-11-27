@@ -175,11 +175,15 @@ module AppSpecHelpers
     begin
       path = '/tmp/' + (0...8).map{ (65 + rand(26)).chr }.join + '.png'
       @driver.save_screenshot(path)
-
       auth_header =  {'Authorization' => 'Client-ID ' + @config['imgur_client_id']}
-      image = File.new(path)
+      image = Base64.strict_encode64(File.open(path).read)
       body = {image: image, type: 'file'}
-      response = HTTParty.post('https://api.imgur.com/3/upload', body: body, headers: auth_header)
+      count = 0
+      begin
+        count = count + 1
+        response = HTTParty.post('https://api.imgur.com/3/image', body: body, headers: auth_header)
+        sleep 10
+      end while (JSON.parse(response.body)['status'] != 200 and count < 3)
       JSON.parse(response.body)['data']['link']
     rescue Exception => e
       "(couldn't take screenshot for '#{title}', error was: '#{e.message}')"
