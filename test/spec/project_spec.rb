@@ -74,16 +74,16 @@ shared_examples 'project' do
   end
 
   it "should paginate project page", bin4: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page 21, 0
+    api_create_team_project_claims_sources_and_redirect_to_project_page 51, 0
     wait_for_selector(".search__results-heading")
     wait_for_selector('.media__heading')
-    wait_for_selector("//span[contains(text(), '1 - 20 / 21')]", :xpath)
-    expect(@driver.page_source.include?('1 - 20 / 21')).to be(true)
+    wait_for_selector("//span[contains(text(), '1 - 50 / 51')]", :xpath)
+    expect(@driver.page_source.include?('1 - 50 / 51')).to be(true)
     wait_for_selector(".search__next-page").click
     wait_for_selector(".search__results-heading")
     wait_for_selector('.media__heading')
-    wait_for_selector("//span[contains(text(), '21 - 21 / 21')]", :xpath)
-    expect(@driver.page_source.include?('21 - 21 / 21')).to be(true)
+    wait_for_selector("//span[contains(text(), '51 - 51 / 51')]", :xpath)
+    expect(@driver.page_source.include?('51 - 51 / 51')).to be(true)
   end
 
   it "should manage custom list columns", bin4: true do

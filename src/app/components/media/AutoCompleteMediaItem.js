@@ -61,7 +61,8 @@ function AutoCompleteMediaItem(props, context) {
   //
   // After abort, we promise we won't call any more setSearchResult().
   React.useEffect(() => {
-    if (searchText.length < 3) {
+    // eslint-disable-next-line no-useless-escape
+    if (searchText.length < 3 && !/\p{Extended_Pictographic}/u.test(searchText)) {
       setSearchResult(null);
       return undefined; // no cleanup needed
     }
