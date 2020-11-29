@@ -120,6 +120,7 @@ function AutoCompleteMediaItem(props, context) {
         method: 'POST',
         credentials: 'include',
         referrerPolicy: 'no-referrer',
+        mode: 'no-cors',
       };
       const { jsonPromise, abort } = fetchJsonEnsuringOkAllowingAbort(config.relayPath, params);
       // abortAsyncStuff() should call this HTTP abort(). That will cause
