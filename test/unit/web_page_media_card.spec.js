@@ -10,7 +10,7 @@ describe('<WebPageMediaCard />', () => {
       dbid: 10,
       quote: null,
       published: '1506728130',
-      archived: false,
+      archived: 0,
       url: 'https://meedan.com/en/',
       picture: "http://meedan.com/images/logos/meedan-logo-600@2x.png",
       metadata: {
@@ -55,7 +55,7 @@ describe('<WebPageMediaCard />', () => {
       dbid: 26,
       quote: null,
       published: '1508470916',
-      archived: false,
+      archived: 0,
       url: 'http://idlewords.com/2006/04/argentina_on_two_steaks_a_day.htm',
       last_status: 'undetermined',
       field_value: 'pending',
@@ -106,7 +106,7 @@ describe('<WebPageMediaCard />', () => {
       dbid: 10,
       quote: null,
       published: '1506728130',
-      archived: false,
+      archived: 0,
       url: 'https://meedan.com/en/',
       team: {
         get_embed_whitelist: "meedan.com, checkmedia.org"

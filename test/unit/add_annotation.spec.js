@@ -4,8 +4,8 @@ import { mountWithIntl } from './helpers/intl-test';
 import AddAnnotation from '../../src/app/components/annotations/AddAnnotation';
 
 describe('<AddAnnotation />', () => {
-  const annotated_archived = { archived: true };
-  const annotated_not_archived = { archived: false };
+  const annotated_archived = { archived: 1 };
+  const annotated_not_archived = { archived: 0 };
 
   it('Hides when media is archived (Trash)', () => {
     const addAnnotation = mountWithIntl(<AddAnnotation annotated={annotated_archived} />);

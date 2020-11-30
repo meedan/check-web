@@ -16,6 +16,7 @@ import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestorePr
 import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
 import BulkDeleteProjectMediaProjectsMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectsMutation';
 import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const useStyles = makeStyles(theme => ({
   // buttonSpan: a <span> between a <Tooltip> and a <Button>. (The <Button> may be
@@ -170,7 +171,7 @@ class BulkActions extends React.Component {
 
   handleDelete = (params) => {
     const onSuccess = () => {
-      const message = params.archived === 1 ? (
+      const message = params.archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="Items moved to the trash."
@@ -186,7 +187,7 @@ class BulkActions extends React.Component {
     };
 
     if (this.props.selectedMedia.length && !this.state.confirmationError) {
-      const mutation = params.archived ?
+      const mutation = params.archived === CheckArchivedFlags.TRASHED ?
         new BulkArchiveProjectMediaMutation({
           ids: this.props.selectedMedia,
           project: this.props.project,
@@ -229,7 +230,7 @@ class BulkActions extends React.Component {
                 }
                 disabled={disabled}
                 className="media-bulk-actions__restore-button"
-                onClick={() => { this.handleDelete({ archived: 0 }); }}
+                onClick={() => { this.handleDelete({ archived: CheckArchivedFlags.NONE }); }}
                 variant="outlined"
               >
                 <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
@@ -346,7 +347,7 @@ class BulkActions extends React.Component {
                 }
                 disabled={disabled}
                 className="media-bulk-actions__delete-icon"
-                onClick={() => { this.handleDelete({ archived: 1 }); }}
+                onClick={() => { this.handleDelete({ archived: CheckArchivedFlags.TRASHED }); }}
               >
                 <DeleteIcon />
               </IconButtonWithTooltip>
