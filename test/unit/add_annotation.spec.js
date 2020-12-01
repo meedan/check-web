@@ -2,10 +2,11 @@
 import React from 'react';
 import { mountWithIntl } from './helpers/intl-test';
 import AddAnnotation from '../../src/app/components/annotations/AddAnnotation';
+import CheckArchivedFlags from '../../src/app/CheckArchivedFlags';
 
 describe('<AddAnnotation />', () => {
-  const annotated_archived = { archived: 1 };
-  const annotated_not_archived = { archived: 0 };
+  const annotated_archived = { archived: CheckArchivedFlags.TRASHED };
+  const annotated_not_archived = { archived: CheckArchivedFlags.NONE };
 
   it('Hides when media is archived (Trash)', () => {
     const addAnnotation = mountWithIntl(<AddAnnotation annotated={annotated_archived} />);
