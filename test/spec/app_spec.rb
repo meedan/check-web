@@ -1,34 +1,33 @@
 require 'selenium-webdriver'
 require 'yaml'
-require_relative './spec_helper.rb'
-require_relative './app_spec_helpers.rb'
-require_relative './api_helpers.rb'
-require_relative './flaky_tests_spec.rb'
-require_relative './language_spec.rb'
-require_relative './login_spec.rb'
-require_relative './login_spec_helpers.rb'
-require_relative './media_actions_spec.rb'
-require_relative './media_spec.rb'
-require_relative './metadata_spec.rb'
-require_relative './project_spec.rb'
-require_relative './report_spec.rb'
-require_relative './rules_spec.rb'
-require_relative './search_spec.rb'
-require_relative './secondary_items_spec.rb'
-require_relative './status_spec.rb'
-require_relative './tag_spec.rb'
-require_relative './tag_spec_helpers.rb'
-require_relative './team_spec.rb'
-require_relative './team_spec_helpers.rb'
-require_relative './task_spec.rb'
-require_relative './task_spec_helpers.rb'
-require_relative './video_timeline_spec.rb'
+require_relative './spec_helper'
+require_relative './app_spec_helpers'
+require_relative './api_helpers'
+require_relative './flaky_tests_spec'
+require_relative './language_spec'
+require_relative './login_spec'
+require_relative './login_spec_helpers'
+require_relative './media_actions_spec'
+require_relative './media_spec'
+require_relative './metadata_spec'
+require_relative './project_spec'
+require_relative './report_spec'
+require_relative './rules_spec'
+require_relative './search_spec'
+require_relative './secondary_items_spec'
+require_relative './status_spec'
+require_relative './tag_spec'
+require_relative './tag_spec_helpers'
+require_relative './team_spec'
+require_relative './team_spec_helpers'
+require_relative './task_spec'
+require_relative './task_spec_helpers'
+require_relative './video_timeline_spec'
 # require_relative './source_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
 
 shared_examples 'app' do |webdriver_url|
-
   # Helpers
   include AppSpecHelpers
   include ApiHelpers
@@ -44,7 +43,7 @@ shared_examples 'app' do |webdriver_url|
     @failing_tests = {}
   end
 
-  if not ENV['SKIP_CONFIG_JS_OVERWRITE']
+  unless ENV['SKIP_CONFIG_JS_OVERWRITE']
     around(:all) do |block|
       FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
       begin
@@ -53,7 +52,7 @@ shared_examples 'app' do |webdriver_url|
         begin
           FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
         rescue Errno::ENOENT
-          puts "Could not copy config.js to ../build/web/js/"
+          puts 'Could not copy config.js to ../build/web/js/'
         end
       end
     end
@@ -65,7 +64,7 @@ shared_examples 'app' do |webdriver_url|
 
   around(:each) do |example|
     @wait = Selenium::WebDriver::Wait.new(timeout: 10)
-    @driver = new_driver()
+    @driver = new_driver
     begin
       example.run
     ensure
@@ -89,171 +88,168 @@ shared_examples 'app' do |webdriver_url|
     flaky = {}
     link = save_screenshot("Test failed: #{example.description}")
     if example.exception
-      if @failing_tests.has_key? example.description
+      if @failing_tests.key? example.description
         @failing_tests[example.description]['failures'] = example.metadata[:retry_attempts] + 1
         @failing_tests[example.description]['imgur'] = link
-      else 
+      else
         flaky['failures'] = example.metadata[:retry_attempts] + 1
         flaky['imgur'] = link
-        @failing_tests[example.description]= flaky
-      end 
-      print " [Test \"#{example.description}\" failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
+        @failing_tests[example.description] = flaky
+      end
+      print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
     end
   end
 
   after :all do
-    if ENV['TRAVIS_BRANCH'] == 'master' || ENV['TRAVIS_BRANCH'] == 'develop'
-      update_failing_tests_file(@failing_tests)
-    end
+    update_failing_tests_file(@failing_tests) if ENV['TRAVIS_BRANCH'] == 'master' || ENV['TRAVIS_BRANCH'] == 'develop'
   end
 
   # The tests themselves start here
-  context "web" do
+  context 'web' do
+    include_examples 'language'
+    include_examples 'login'
+    include_examples 'media actions'
+    include_examples 'metadata'
+    include_examples 'project'
+    include_examples 'report'
+    include_examples 'rules'
+    include_examples 'search'
+    include_examples 'secondary items'
+    include_examples 'status'
+    include_examples 'task'
+    include_examples 'tag'
+    include_examples 'team'
+    include_examples 'videotimeline'
+    it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
+    it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
-    include_examples "language"
-    include_examples "login"
-    include_examples "media actions"
-    include_examples "metadata"
-    include_examples "project"
-    include_examples "report"
-    include_examples "rules"
-    include_examples "search"
-    include_examples "secondary items"
-    include_examples "status"
-    include_examples "task"
-    include_examples "tag"
-    include_examples "team"
-    include_examples "videotimeline"
-    it_behaves_like "media", 'BELONGS_TO_ONE_PROJECT'
-    it_behaves_like "media", 'DOES_NOT_BELONG_TO_ANY_PROJECT'
-
-    it "should redirect to access denied page", bin1: true do
+    it 'should redirect to access denied page', bin1: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
-      @driver.navigate.to(@config['self_url'] + '/check/me')
-      wait_for_selector("#teams-tab").click;
+      @driver.navigate.to("#{@config['self_url']}/check/me")
+      wait_for_selector('#teams-tab').click
       wait_for_selector("//span[contains(text(), 'Create Workspace')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
-      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(true)
-      @driver.navigate.to(@config['self_url'] + "/check/user/#{user.dbid}") #unauthorized page
-      wait_for_selector(".main-title")
+      expect((@driver.current_url.to_s =~ %r{/forbidden$}).nil?).to be(true)
+      @driver.navigate.to(@config['self_url'] + "/check/user/#{user.dbid}") # unauthorized page
+      wait_for_selector('.main-title')
       expect(@driver.page_source.include?('Access Denied')).to be(true)
-      expect((@driver.current_url.to_s =~ /\/forbidden$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ %r{/forbidden$}).nil?).to be(false)
     end
 
-    it "should localize interface based on browser language", bin6: true do
+    it 'should localize interface based on browser language', bin6: true do
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'fr' })
       @driver.navigate.to @config['self_url']
-      wait_for_selector(".login__form")
-      wait_for_selector(".login__icon")
+      wait_for_selector('.login__form')
+      wait_for_selector('.login__icon')
       expect(@driver.find_element(:css, '.login__heading span').text == 'Connexion').to be(true)
 
       @driver.quit
       @driver = new_driver(chrome_prefs: { 'intl.accept_languages' => 'pt' })
       @driver.navigate.to @config['self_url']
-      wait_for_selector(".login__form")
-      wait_for_selector(".login__icon")
+      wait_for_selector('.login__form')
+      wait_for_selector('.login__icon')
       expect(@driver.find_element(:css, '.login__heading span').text == 'Iniciar sessão').to be(true)
     end
 
-    it "should access user confirmed page", bin5: true do
-      @driver.navigate.to @config['self_url'] + '/check/user/confirmed'
+    it 'should access user confirmed page', bin5: true do
+      @driver.navigate.to "#{@config['self_url']}/check/user/confirmed"
       title = wait_for_selector('.main-title')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
-    it "should access user unconfirmed page", bin5: true do
-      @driver.navigate.to @config['self_url'] + '/check/user/unconfirmed'
+    it 'should access user unconfirmed page', bin5: true do
+      @driver.navigate.to "#{@config['self_url']}/check/user/unconfirmed"
       title = wait_for_selector('.main-title')
       expect(title.text == 'Error').to be(true)
     end
 
-    it "should access user already confirmed page", bin5: true do
-      @driver.navigate.to @config['self_url'] + '/check/user/already-confirmed'
+    it 'should access user already confirmed page', bin5: true do
+      @driver.navigate.to "#{@config['self_url']}/check/user/already-confirmed"
       title = wait_for_selector('.main-title')
       expect(title.text == 'Account Already Confirmed').to be(true)
     end
 
-    it "should redirect to 404 page", bin4: true do
-      @driver.navigate.to @config['self_url'] + '/something-that/does-not-exist'
+    it 'should redirect to 404 page', bin4: true do
+      @driver.navigate.to "#{@config['self_url']}/something-that/does-not-exist"
       title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should redirect to login screen if not logged in", bin5: true do
-      @driver.navigate.to @config['self_url'] + '/check/teams'
+    it 'should redirect to login screen if not logged in', bin5: true do
+      @driver.navigate.to "#{@config['self_url']}/check/teams"
       title = wait_for_selector('.login__heading')
       expect(title.text == 'Sign in').to be(true)
     end
 
-    it "should go back and forward in the history", bin4: true do
+    it 'should go back and forward in the history', bin4: true do
       @driver.navigate.to @config['self_url']
-      expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
-      @driver.navigate.to @config['self_url'] + '/check/terms-of-service'
-      expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ %r{/$}).nil?).to be(false)
+      @driver.navigate.to "#{@config['self_url']}/check/terms-of-service"
+      expect((@driver.current_url.to_s =~ %r{/terms-of-service$}).nil?).to be(false)
       @driver.navigate.back
-      expect((@driver.current_url.to_s =~ /\/$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ %r{/$}).nil?).to be(false)
       @driver.navigate.forward
-      expect((@driver.current_url.to_s =~ /\/terms-of-service$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ %r{/terms-of-service$}).nil?).to be(false)
     end
 
-    it "should redirect to 404 page if id does not exist", bin4: true do
+    it 'should redirect to 404 page if id does not exist', bin4: true do
       api_create_team_and_project
       @driver.navigate.to @config['self_url']
       wait_for_selector('#create-media__add-item')
       url = @driver.current_url.to_s
-      @driver.navigate.to url.gsub(/project\/([0-9]+).*/, 'project/999')
+      @driver.navigate.to url.gsub(%r{project/([0-9]+).*}, 'project/999')
       title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
-      expect((@driver.current_url.to_s =~ /\/not-found$/).nil?).to be(false)
+      expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
 
-    it "should give 404 when trying to access a media that is not related to the project on the URL", bin1: true do
-      t1 = api_create_team_and_project()
+    it 'should give 404 when trying to access a media that is not related to the project on the URL', bin1: true do
+      t1 = api_create_team_and_project
       data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
       url = data.full_url
-      url = url[0..data.full_url.index("project")+7]+t1[:project].dbid.to_s + url[url.index("/media")..url.length-1]
+      url = url[0..data.full_url.index('project') + 7] + t1[:project].dbid.to_s + url[url.index('/media')..url.length - 1]
       @driver.navigate.to url
-      wait_for_selector("main-title",:class)
+      wait_for_selector('main-title', :class)
       title = wait_for_selector('.main-title')
       expect(title.text == 'Not Found').to be(true)
     end
 
-    it "should go back to the right url from the item page", bin3: true do
-      #item created in a project
+    it 'should go back to the right url from the item page', bin3: true do
+      # item created in a project
       api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector(".card")
-      wait_for_selector(".project-header__back-button").click
-      wait_for_selector("#create-media__add-item")
-      expect(@driver.current_url.to_s.match(/\/project\/[0-9]+$/).nil?).to be(false) #project page
+      wait_for_selector('.card')
+      wait_for_selector('.project-header__back-button').click
+      wait_for_selector('#create-media__add-item')
+      expect(@driver.current_url.to_s.match(%r{/project/[0-9]+$}).nil?).to be(false) # project page
       # send this item to trash go to the item page and go back to trash page
-      wait_for_selector("input[type=checkbox]").click
-      wait_for_selector(".media-bulk-actions__delete-icon").click
+      wait_for_selector('input[type=checkbox]').click
+      wait_for_selector('.media-bulk-actions__delete-icon').click
       wait_for_selector("//span[contains(text(), 'Add a link or text')]", :xpath)
-      wait_for_selector(".project-list__item-trash").click #Go to the trash page
+      wait_for_selector('.project-list__item-trash').click # Go to the trash page
       wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
-      wait_for_selector(".medias__item")
-      wait_for_selector(".media__heading").click
-      wait_for_selector(".media-actions__icon")
-      wait_for_selector(".project-header__back-button").click
-      wait_for_selector("#media-bulk-actions")
+      wait_for_selector('.medias__item')
+      wait_for_selector('.media__heading').click
+      wait_for_selector('.media-actions__icon')
+      wait_for_selector('.project-header__back-button').click
+      wait_for_selector('#media-bulk-actions')
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
-      #item created from "all items" page
+      # item created from "all items" page
       wait_for_selector('a[href$="/all-items"]').click
-      create_media("claim 2")
-      wait_for_selector(".media__heading").click
-      wait_for_selector("#media-detail__report-designer")
-      wait_for_selector(".project-header__back-button").click
-      wait_for_selector("#create-media__add-item")
+      create_media('claim 2')
+      wait_for_selector('.media__heading').click
+      wait_for_selector('#media-detail__report-designer')
+      wait_for_selector('.project-header__back-button').click
+      wait_for_selector('#create-media__add-item')
       expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
     end
 
-    it "should linkify URLs on comments", bin1: true do
+    it 'should linkify URLs on comments', bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
       expect(@driver.page_source.include?('https://meedan.com/en/')).to be(false)
-      wait_for_selector(".media-tab__comments").click
+      wait_for_selector('.media-tab__comments').click
       fill_field('#cmd-input', 'https://meedan.com/en/')
       @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation__avatar-col')
@@ -262,10 +258,10 @@ shared_examples 'app' do |webdriver_url|
       expect(wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath).length == 1).to be(true)
     end
 
-    it "should set metatags", bin5: true do
+    it 'should set metatags', bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
       request_api('make_team_public', { slug: get_team })
-      wait_for_selector(".create-related-media__add-button")
+      wait_for_selector('.create-related-media__add-button')
       url = @driver.current_url.to_s
       @driver.navigate.to url
       wait_for_selector('.media-detail')
@@ -274,11 +270,11 @@ shared_examples 'app' do |webdriver_url|
       twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
       expect(twitter_title == 'This is a test').to be(true)
     end
-  
-    it "should show current team content on sidebar when viewing profile", bin3: true do
+
+    it 'should show current team content on sidebar when viewing profile', bin3: true do
       user = api_register_and_login_with_email
       api_create_team_and_project(user: user)
-      @driver.navigate.to(@config['self_url'] + '/check/me')
+      @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab')
       wait_for_selector('.projects__list a[href$="/all-items"]')
     end
