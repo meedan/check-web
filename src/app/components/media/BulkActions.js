@@ -90,7 +90,8 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.addedSuccessfully"
-          defaultMessage="Items added to list!"
+          defaultMessage="Items added to list."
+          description="Banner displayed after items are added successfully to list"
         />
       );
       this.props.setFlashMessage(message);
@@ -117,7 +118,8 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.removedSuccessfully"
-          defaultMessage="Items removed from this list!"
+          defaultMessage="Items removed from this list."
+          description="Banner displayed after items are removed successfully from list"
         />
       );
       this.props.setFlashMessage(message);
@@ -144,7 +146,8 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.movedSuccessfully"
-          defaultMessage="Items moved!"
+          defaultMessage="Items moved."
+          description="Banner displayed after items are moved successfully"
         />
       );
       this.props.setFlashMessage(message);
