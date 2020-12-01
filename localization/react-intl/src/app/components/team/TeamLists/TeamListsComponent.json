@@ -1,11 +1,13 @@
 [
   {
     "id": "teamListsComponent.defaultErrorMessage",
-    "defaultMessage": "Could not save list settings!"
+    "description": "Warning displayed if an error occurred when saving list settings",
+    "defaultMessage": "Could not save list settings."
   },
   {
     "id": "teamListsComponent.savedSuccessfully",
-    "defaultMessage": "List settings saved successfully!"
+    "description": "Banner displayed when list settings are saved successfully",
+    "defaultMessage": "List settings saved successfully."
   },
   {
     "id": "teamListsComponent.title",

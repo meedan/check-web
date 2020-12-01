@@ -69,12 +69,24 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
 
   const handleError = () => {
     setSaving(false);
-    setFlashMessage(<FormattedMessage id="teamListsComponent.defaultErrorMessage" defaultMessage="Could not save list settings!" />);
+    setFlashMessage((
+      <FormattedMessage
+        id="teamListsComponent.defaultErrorMessage"
+        defaultMessage="Could not save list settings."
+        description="Warning displayed if an error occurred when saving list settings"
+      />
+    ));
   };
 
   const handleSuccess = () => {
     setSaving(false);
-    setFlashMessage(<FormattedMessage id="teamListsComponent.savedSuccessfully" defaultMessage="List settings saved successfully!" />);
+    setFlashMessage((
+      <FormattedMessage
+        id="teamListsComponent.savedSuccessfully"
+        defaultMessage="List settings saved successfully."
+        description="Banner displayed when list settings are saved successfully"
+      />
+    ));
   };
 
   const handleSave = () => {

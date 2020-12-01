@@ -19,8 +19,7 @@ import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { isBotInstalled } from '../../helpers';
 
-// TODO Make this a config
-const pageSize = 20;
+const pageSize = 50;
 
 const StyledListHeader = styled.div`
   padding: ${units(2)};

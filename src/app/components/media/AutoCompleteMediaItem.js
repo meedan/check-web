@@ -61,7 +61,8 @@ function AutoCompleteMediaItem(props, context) {
   //
   // After abort, we promise we won't call any more setSearchResult().
   React.useEffect(() => {
-    if (searchText.length < 3) {
+    // eslint-disable-next-line no-useless-escape
+    if (searchText.length < 3 && !/\p{Extended_Pictographic}/u.test(searchText)) {
       setSearchResult(null);
       return undefined; // no cleanup needed
     }
@@ -87,36 +88,35 @@ function AutoCompleteMediaItem(props, context) {
         archived: 0,
       }));
       const params = {
-        body: JSON.stringify({
-          query: `
-            query {
-              search(query: ${encodedQuery}) {
-                medias(first: 30) {
-                  edges {
-                    node {
+        body: `query=query {
+            search(query: ${encodedQuery}) {
+              medias(first: 30) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    title
+                    archived
+                    relationships { sources_count, targets_count, target_id, source_id }
+                    dynamic_annotation_report_design {
                       id
-                      dbid
-                      title
-                      archived
-                      relationships { sources_count, targets_count, target_id, source_id }
-                      dynamic_annotation_report_design {
-                        id
-                        data
-                      }
+                      data
                     }
                   }
                 }
               }
             }
-          `,
-        }),
+          }
+        `,
         headers: {
           Accept: '*/*',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'X-Check-Team': teamSlug,
-          'Content-Type': 'application/json',
           ...config.relayHeaders,
         },
         method: 'POST',
+        credentials: 'include',
+        referrerPolicy: 'no-referrer',
       };
       const { jsonPromise, abort } = fetchJsonEnsuringOkAllowingAbort(config.relayPath, params);
       // abortAsyncStuff() should call this HTTP abort(). That will cause
