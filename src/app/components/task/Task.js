@@ -40,6 +40,7 @@ import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
 import { Row, units, black16, black87, separationGray, checkBlue } from '../../styles/js/shared';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledWordBreakDiv = styled.div`
   width: 100%;
@@ -527,7 +528,7 @@ class Task extends Component {
 
     const zeroAnswer = task.responses.edges.length === 0;
 
-    const taskActions = !media.archived ? (
+    const taskActions = media.archived === CheckArchivedFlags.NONE ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
         { data.by && isTask ?
@@ -564,7 +565,8 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if ((!response || task.responses.edges.length > 1) && !media.archived) {
+    if ((!response || task.responses.edges.length > 1)
+      && media.archived === CheckArchivedFlags.NONE) {
       taskBody = (
         <div>
           <StyledTaskResponses>

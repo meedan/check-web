@@ -19,6 +19,7 @@ import CheckContext from '../../CheckContext';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
 import { getCurrentProjectId, getErrorMessage } from '../../helpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledIconButton = withStyles(theme => ({
   root: {
@@ -154,7 +155,7 @@ class TagMenuComponent extends Component {
   render() {
     const { media } = this.props;
 
-    if (!can(media.permissions, 'update ProjectMedia') || media.archived) {
+    if (!can(media.permissions, 'update ProjectMedia') || media.archived > CheckArchivedFlags.NONE) {
       return null;
     }
 

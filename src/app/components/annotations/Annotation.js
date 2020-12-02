@@ -48,6 +48,7 @@ import {
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
   white,
@@ -436,7 +437,9 @@ class Annotation extends Component {
         .charAt(0)
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
       // TODO: Improve hide when item is archived logic. Not all annotated types have archived flag.
-      annotationActions = can(annotation.permissions, permission) && !annotated.archived ? (
+      const canDoAnnotationActions = can(annotation.permissions, permission) &&
+        annotated.archived === CheckArchivedFlags.NONE;
+      annotationActions = canDoAnnotationActions ? (
         <div>
           <Tooltip title={
             <FormattedMessage id="annotation.menuTooltip" defaultMessage="Annotation actions" />
@@ -1206,7 +1209,7 @@ class Annotation extends Component {
             />
           </span>
         );
-      } else if (activity.object_changes_json === '{"archived":[false,true]}') {
+      } else if (activity.object_changes_json === '{"archived":[0,1]}') {
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -1218,7 +1221,7 @@ class Annotation extends Component {
             />
           </span>
         );
-      } else if (activity.object_changes_json === '{"archived":[true,false]}') {
+      } else if (activity.object_changes_json === '{"archived":[1,0]}') {
         contentTemplate = (
           <span>
             <FormattedMessage
