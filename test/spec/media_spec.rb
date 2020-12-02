@@ -5,19 +5,19 @@ shared_examples 'media' do |type|
     @type = type
   end
 
-  def create_media_depending_on_type(url = nil, number = 1)
+  def create_media_depending_on_type(url = nil, media = 1)
     case @type
     when 'BELONGS_TO_ONE_PROJECT'
-      if number == 1
+      if media == 1
         url.nil? ? api_create_team_project_and_claim_and_redirect_to_media_page : api_create_team_project_and_link_and_redirect_to_media_page(url)
       else
-        api_create_team_project_claims_sources_and_redirect_to_project_page(number)
+        api_create_team_project_claims_sources_and_redirect_to_project_page(media)
       end
     when 'DOES_NOT_BELONG_TO_ANY_PROJECT'
-      if number == 1
+      if media == 1
         url.nil? ? api_create_team_project_and_claim_and_redirect_to_media_page("Orphan #{Time.now.to_f}", nil) : api_create_team_project_and_link_and_redirect_to_media_page(url, nil)
       else
-        api_create_team_project_claims_sources_and_redirect_to_project_page(number, nil)
+        api_create_team_project_claims_sources_and_redirect_to_project_page(media, nil)
       end
     end
   end

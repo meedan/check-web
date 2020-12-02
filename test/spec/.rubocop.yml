@@ -1,13 +1,5 @@
 AllCops:
   NewCops: enable
-Layout/LineLength:
-  Enabled: false  
-Metrics/BlockLength:
-  Enabled: false  
-Metrics/MethodLength:
-  Enabled: false  
-Metrics/ModuleLength:
-  Enabled: false  
 Naming/AccessorMethodName:
   Enabled: false
 Style/OptionalBooleanParameter:
@@ -19,6 +11,14 @@ Style/GlobalVars:
 Lint/RescueException:
   Enabled: false
 Style/RescueStandardError: 
+  Enabled: false
+Layout/LineLength:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
   Enabled: false
 Style/Documentation:
   Enabled: false
