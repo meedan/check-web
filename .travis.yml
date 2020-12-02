@@ -94,9 +94,7 @@ before_script:
 - export SERVER_PORT=3333
 - npm run publish &
 - sleep 5
-- cd test/spec && pwd
-- bundle install
-- bundle exec rubocop || travis_terminate 1;
+- cd test/spec && bundle exec rubocop || travis_terminate 1;
 - cd -
 script: npm run test:lint && npm run test:unit && ./scripts/uncovered-files && cd test && ./parallel-test.sh
 after_script:
