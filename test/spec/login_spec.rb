@@ -93,7 +93,7 @@ shared_examples 'login' do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     logout
-    expect(@driver.page_source.include?("Sign in")).to be(true)
+    expect(@driver.page_source.include?('Sign in')).to be(true)
   end
 
   it 'should reset password', bin5: true do
