@@ -73,7 +73,8 @@ const SearchKeywordConfigComponent = ({
     label: (
       <FormattedMessage
         id="searchKeywordConfig.allTaskAnswers"
-        defaultMessage="All tasks answers"
+        defaultMessage="All task answers"
+        description="This options applies keyword search across all task answers"
       />
     ),
   },

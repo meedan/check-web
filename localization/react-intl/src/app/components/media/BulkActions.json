@@ -9,15 +9,18 @@
   },
   {
     "id": "bulkActions.addedSuccessfully",
-    "defaultMessage": "Items added to list!"
+    "description": "Banner displayed after items are added successfully to list",
+    "defaultMessage": "Items added to list."
   },
   {
     "id": "bulkActions.removedSuccessfully",
-    "defaultMessage": "Items removed from this list!"
+    "description": "Banner displayed after items are removed successfully from list",
+    "defaultMessage": "Items removed from this list."
   },
   {
     "id": "bulkActions.movedSuccessfully",
-    "defaultMessage": "Items moved!"
+    "description": "Banner displayed after items are moved successfully",
+    "defaultMessage": "Items moved."
   },
   {
     "id": "bulkActions.restoreItemsFromTrash",
