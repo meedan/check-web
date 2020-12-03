@@ -268,11 +268,11 @@ shared_examples 'media actions' do
     create_media('claim 2')
     wait_for_selector_list_size('.medias__item', 2)
     expect(@driver.page_source.include?('Add a link or text')).to be(false)
-    # 0th <a> is "All items"; 1st is project 1; 2nd is project 2
-    wait_for_selector('.projects__list a', index: 2).click  # project 2
-    wait_for_selector_none('.medias__item')
+    p1url = @driver.current_url
+    wait_for_selector_list('.project-list__link')[1].click # project 2
+    wait_for_selector('#create-media__add-item')
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector('.projects__list a', index: 1).click  # project 1
+    @driver.navigate.to p1url
     wait_for_selector_list_size('.medias__item', 2)
     wait_for_selector("thead input[type='checkbox']:not(:checked)").click
     wait_for_selector('#media-bulk-actions__add-icon').click
@@ -280,7 +280,7 @@ shared_examples 'media actions' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__add-button').click
     wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
-    wait_for_selector('.projects__list a', index: 2).click # project 2
+    wait_for_selector_list('.project-list__link')[1].click # project 2
     wait_for_selector_list_size('.medias__item', 2, :css)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)

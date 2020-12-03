@@ -143,8 +143,9 @@ shared_examples 'media' do |type|
     expect(@driver.find_elements(:css, '.medias__item').empty?)
     wait_for_selector('.project-list__item-trash').click # Go to the trash page
     wait_for_selector('.media__heading')
-    wait_for_selector("body input[type='checkbox']:not(:checked)").click
-    wait_for_selector('#media-bulk-actions__actions').click
+    wait_for_selector("input[type='checkbox']").click
+    wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
+    wait_for_selector('.media-bulk-actions__restore-button').click
     wait_for_selector('.message')
     wait_for_selector(".projects__list a[href$='/all-items']").click
     wait_for_selector_list_size('.medias__item', 1, :css)
