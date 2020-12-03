@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import DeleteIcon from '@material-ui/icons/Delete';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import DrawerHeader from './drawer/DrawerHeader';
@@ -126,23 +127,42 @@ class DrawerNavigationComponent extends Component {
           <React.Fragment>
             <DrawerProjects team={team.slug} />
             {currentUserIsMember ? (
-              <Link to={`/${team.slug}/trash`} className="project-list__link-trash">
-                <MenuItem className="project-list__item-trash">
-                  <ListItemIcon>
-                    <DeleteIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={
-                      <Row style={{ font: body1 }}>
-                        <FormattedMessage id="projects.trash" defaultMessage="Trash" />
-                        <AlignOpposite>
-                          {String(team.trash_count)}
-                        </AlignOpposite>
-                      </Row>
-                    }
-                  />
-                </MenuItem>
-              </Link>
+              <div>
+                <Link to={`/${team.slug}/unconfirmed`} className="project-list__link-unconfirmed">
+                  <MenuItem className="project-list__item-unconfirmed">
+                    <ListItemIcon>
+                      <LockOpenIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Row style={{ font: body1 }}>
+                          <FormattedMessage id="projects.unconfirmed" defaultMessage="Unconfirmed" />
+                          <AlignOpposite>
+                            {String(team.unconfirmed_count)}
+                          </AlignOpposite>
+                        </Row>
+                      }
+                    />
+                  </MenuItem>
+                </Link>
+                <Link to={`/${team.slug}/trash`} className="project-list__link-trash">
+                  <MenuItem className="project-list__item-trash">
+                    <ListItemIcon>
+                      <DeleteIcon />
+                    </ListItemIcon>
+                    <ListItemText
+                      primary={
+                        <Row style={{ font: body1 }}>
+                          <FormattedMessage id="projects.trash" defaultMessage="Trash" />
+                          <AlignOpposite>
+                            {String(team.trash_count)}
+                          </AlignOpposite>
+                        </Row>
+                      }
+                    />
+                  </MenuItem>
+                </Link>
+              </div>
             ) : null}
           </React.Fragment>
         ) : <BigEmptySpaceInSidebar />}

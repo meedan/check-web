@@ -21,6 +21,7 @@ import AddTeamPage from './team/AddTeamPage';
 import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
+import Unconfirmed from './team/Unconfirmed';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -92,6 +93,7 @@ class Root extends Component {
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/all-items(/:query)" component={AllItems} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
+                <Route path=":team/unconfirmed(/:query)" component={Unconfirmed} />
                 <Route path=":team" component={Team} public />
                 <Route path=":team/edit" action="edit" component={Team} />
                 <Route path=":team/settings(/:tab)" action="settings" component={Team} />
