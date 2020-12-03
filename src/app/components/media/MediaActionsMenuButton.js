@@ -8,13 +8,14 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { can } from '../Can';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class MediaActionsMenuButton extends React.PureComponent {
   static propTypes = {
     projectMedia: PropTypes.shape({
       id: PropTypes.string.isRequired,
       permissions: PropTypes.string.isRequired,
-      archived: PropTypes.bool.isRequired,
+      archived: PropTypes.number.isRequired,
       last_status_obj: PropTypes.shape({
         locked: PropTypes.bool.isRequired,
       }).isRequired,
@@ -60,7 +61,7 @@ class MediaActionsMenuButton extends React.PureComponent {
     } = this.props;
     const menuItems = [];
 
-    if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
+    if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
       if (projectMedia.media.url) {
         menuItems.push((
           <MenuItem
@@ -78,7 +79,7 @@ class MediaActionsMenuButton extends React.PureComponent {
       }
     }
 
-    if (can(projectMedia.permissions, 'update Status') && !projectMedia.archived) {
+    if (can(projectMedia.permissions, 'update Status') && projectMedia.archived === CheckArchivedFlags.NONE) {
       menuItems.push((
         <MenuItem
           key="mediaActions.assign"
@@ -93,7 +94,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         </MenuItem>));
     }
 
-    if (can(projectMedia.permissions, 'lock Annotation') && !projectMedia.archived) {
+    if (can(projectMedia.permissions, 'lock Annotation') && projectMedia.archived === CheckArchivedFlags.NONE) {
       menuItems.push((
         <MenuItem
           key="mediaActions.lockStatus"
@@ -108,7 +109,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         </MenuItem>));
     }
 
-    if (can(projectMedia.permissions, 'update ProjectMedia') && !projectMedia.archived) {
+    if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
       menuItems.push((
         <MenuItem
           key="mediaActions.sendToTrash"
@@ -121,7 +122,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         </MenuItem>));
     }
 
-    if (can(projectMedia.permissions, 'restore ProjectMedia') && projectMedia.archived) {
+    if (can(projectMedia.permissions, 'restore ProjectMedia') && projectMedia.archived > CheckArchivedFlags.NONE) {
       menuItems.push((
         <MenuItem
           key="mediaActions.restore"

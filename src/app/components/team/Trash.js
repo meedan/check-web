@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { safelyParseJSON } from '../../helpers';
 import Search from '../search/Search';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 export default function Trash({ routeParams }) {
   const query = {
     ...safelyParseJSON(routeParams.query, {}),
-    archived: 1,
+    archived: CheckArchivedFlags.TRASHED,
     parent: {
       type: 'team',
       slug: routeParams.team,

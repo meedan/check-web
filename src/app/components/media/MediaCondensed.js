@@ -25,6 +25,7 @@ import {
 } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { black87 } from '../../styles/js/shared';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class MediaCondensedComponent extends Component {
   constructor(props) {
@@ -169,7 +170,7 @@ class MediaCondensedComponent extends Component {
             width: '100%',
           }}
         />
-        { !media.archived ?
+        { media.archived === CheckArchivedFlags.NONE ?
           <div>
             <IconButton
               tooltip={

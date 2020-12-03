@@ -11,6 +11,7 @@ import EditTaskDialog from './EditTaskDialog';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class CreateTask extends Component {
   constructor(props) {
@@ -96,7 +97,7 @@ class CreateTask extends Component {
   render() {
     const { media } = this.props;
 
-    if (media.archived) {
+    if (media.archived > CheckArchivedFlags.NONE) {
       return null;
     }
 

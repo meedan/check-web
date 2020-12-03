@@ -11,6 +11,7 @@ import MediaRoute from '../../relay/MediaRoute';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
 import { getCurrentProjectId } from '../../helpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   FlexRow,
   black54,
@@ -172,7 +173,7 @@ class MediaRelatedComponent extends Component {
             <React.Fragment>
               <ul style={{ width: '100%' }}>
                 {medias.map((item) => {
-                  if (item.node.archived) {
+                  if (item.node.archived > CheckArchivedFlags.NONE) {
                     return null;
                   }
                   return (

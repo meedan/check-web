@@ -13,6 +13,7 @@ import globalStrings from '../../globalStrings';
 import { black05 } from '../../styles/js/shared';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledCreateRelatedClaimButton = styled(Button)`
   &:hover {
@@ -113,7 +114,7 @@ class CreateRelatedMedia extends Component {
   render() {
     const { media, reverse } = this.props;
 
-    if (media.archived) {
+    if (media.archived > CheckArchivedFlags.NONE) {
       return null;
     }
 
