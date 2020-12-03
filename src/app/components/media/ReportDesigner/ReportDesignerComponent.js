@@ -27,6 +27,7 @@ import { stringHelper } from '../../../customHelpers';
 import { checkBlue, backgroundMain } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 let hasUnsavedChanges = false;
 
@@ -269,7 +270,7 @@ const ReportDesignerComponent = (props) => {
         editing={editing}
         readOnly={
           !can(media.permissions, 'update ProjectMedia') ||
-          media.archived ||
+          media.archived > CheckArchivedFlags.NONE ||
           pending
         }
         canPublish={canPublish}

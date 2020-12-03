@@ -26,6 +26,7 @@ import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import { getErrorMessage, isBotInstalled } from '../../helpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const Styles = theme => ({
   root: {
@@ -119,7 +120,7 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        archived: 1,
+        archived: CheckArchivedFlags.TRASHED,
         check_search_team: this.props.media.team.search,
         check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
@@ -235,7 +236,7 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         id: this.props.media.id,
         media: this.props.media,
-        archived: 0,
+        archived: CheckArchivedFlags.NONE,
         check_search_team: this.props.media.team.search,
         check_search_project: this.currentProject() ? this.currentProject().search : null,
         check_search_trash: this.props.media.team.check_search_trash,
@@ -281,7 +282,7 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={classes.root}>
-        { !media.archived ?
+        { media.archived === CheckArchivedFlags.NONE ?
           <div>
             <AddProjectMediaToProjectAction
               team={this.props.media.team}
@@ -321,7 +322,8 @@ class MediaActionsBarComponent extends Component {
         <Box display="flex">
           <MediaStatus
             media={media}
-            readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
+            readonly={media.archived > CheckArchivedFlags.NONE
+              || media.last_status_obj.locked || readonlyStatus || published}
           />
           <MediaActionsMenuButton
             key={media.id /* close menu if we navigate to a different projectMedia */}

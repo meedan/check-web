@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 function isPublished(media) {
   return (
@@ -85,7 +86,7 @@ function AutoCompleteMediaItem(props, context) {
         keyword: searchText,
         show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
         eslimit: 30,
-        archived: 0,
+        archived: CheckArchivedFlags.NONE,
       }));
       const params = {
         body: `query=query {
@@ -148,7 +149,7 @@ function AutoCompleteMediaItem(props, context) {
               (relationships.sources_count + relationships.targets_count === 0)
           ))
           .filter(({ dbid }) => dbid !== props.dbid)
-          .filter(({ archived }) => !archived);
+          .filter(({ archived }) => archived === CheckArchivedFlags.NONE);
         if (props.onlyPublished) {
           items = items.filter(isPublished);
         }
