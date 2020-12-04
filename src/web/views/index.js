@@ -41,6 +41,12 @@ const heapAnalytics = (config) => {
     </script>` : '';
 };
 
+const uptimeMonitoring = (config) => {
+  return config.uptimeId ?
+    `<script>(function(w,d,s){w._uptime_rum={};w._uptime_rum.uuid='${config.uptimeId}';w._uptime_rum.url='https://rum.uptime.com/rum/record-data';s=document.createElement('script');s.async=1;s.src='https://rum.uptime.com/static/rum/compiled/rum.js';d.getElementsByTagName('head')[0].appendChild(s);})(window,document);</script>`
+    : '';
+};
+
 const metaTags = (metadata, config, url) => {
   const params = url.replace(/^[^?]*/, '');
   return [
@@ -79,6 +85,7 @@ module.exports = ({ config, metadata, url }) => `
       </head>
       <body>
         <div id="root"></div>
+        ${uptimeMonitoring(config)}
       </body>
       <script src="/js/index.bundle.js" defer="defer"></script>
     </html>
