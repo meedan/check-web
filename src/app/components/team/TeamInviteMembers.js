@@ -284,7 +284,7 @@ class TeamInviteMembers extends Component {
                 margin="normal"
                 fullWidth
               />
-              <Box ml={2} my={1}>
+              <Box clone ml={2} my={1}>
                 <Row>
                   <RoleSelect
                     className="invite-member-email-role"
@@ -308,7 +308,7 @@ class TeamInviteMembers extends Component {
 
     return (
       <FlexRow>
-        <Box ml="auto" mr={2}>
+        <Box clone ml="auto" mr={2}>
           <Button
             variant="contained"
             onClick={this.handleOpenDialog.bind(this)}

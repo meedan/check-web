@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Relay from 'react-relay/classic';
 import ListItem from '@material-ui/core/ListItem';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import '../../styles/css/tooltip.css';

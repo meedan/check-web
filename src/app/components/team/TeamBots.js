@@ -7,7 +7,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Settings from '@material-ui/icons/Settings';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -205,10 +204,10 @@ class TeamBotsComponent extends Component {
     const { team } = this.props;
 
     return (
-      <Box maxWidth={900}>
+      <Box clone maxWidth={900}>
         <ContentColumn>
           { team.team_bot_installations.edges.length === 0 ?
-            <Box pb={5} display="flex" alignItems="center" justifyContent="center">
+            <Box commponent="p" pb={5} textAlign="center">
               <FormattedMessage
                 id="teamBots.noBots"
                 defaultMessage="No bots installed."
@@ -217,15 +216,23 @@ class TeamBotsComponent extends Component {
             : null }
           { team.team_bot_installations.edges.map((installation) => {
             const bot = installation.node.team_bot;
-            const botExpanded = this.state.expanded === bot.dbid;
 
+            if (bot.default) {
+              return null;
+            }
+
+            const botExpanded = this.state.expanded === bot.dbid;
             return (
-              <Box mb={5}>
-                <Card key={`bot-${bot.dbid}`}>
+              <Box clone mb={5}>
+                <Card
+                  key={`bot-${bot.dbid}`}
+                >
                   <StyledCardContent>
                     <img src={bot.avatar} alt={bot.name} />
                     <div>
-                      <h2 style={{ font: title1 }}>{bot.name}</h2>
+                      <h2 style={{ font: title1 }}>
+                        {bot.name}
+                      </h2>
                       <p>{bot.description}</p>
                       <div>
                         <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
@@ -318,12 +325,10 @@ class TeamBotsComponent extends Component {
                                     defaultMessage="Save"
                                   />
                                 </Button>
-                                <Box mx={1}>
-                                  <small>
-                                    { this.state.message && this.state.messageBotId === bot.dbid ?
-                                      this.state.message : null
-                                    }
-                                  </small>
+                                <Box component="small" my={0} mx={1}>
+                                  { this.state.message && this.state.messageBotId === bot.dbid ?
+                                    this.state.message : null
+                                  }
                                 </Box>
                               </div>
                             </Box> : null }
@@ -350,17 +355,15 @@ class TeamBotsComponent extends Component {
               </Box>
             );
           })}
-          <Box display="flex" alignItems="end" justifyContent="end">
-            <p>
-              <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
-                <span>
-                  <FormattedMessage
-                    id="teamBots.botGarden"
-                    defaultMessage="Browse the Bot Garden"
-                  /> <Emojione text="🤖 🌼" />
-                </span>
-              </Button>
-            </p>
+          <Box component="p" textAlign="end">
+            <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
+              <span>
+                <FormattedMessage
+                  id="teamBots.botGarden"
+                  defaultMessage="Browse the Bot Garden"
+                /> <Emojione text="🤖 🌼" />
+              </span>
+            </Button>
           </Box>
           <ConfirmDialog
             open={this.state.open}

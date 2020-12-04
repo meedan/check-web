@@ -11,7 +11,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import styled from 'styled-components';
 import config from 'config'; // eslint-disable-line require-path-exists/exists

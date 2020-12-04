@@ -45,7 +45,7 @@ class TeamMembersComponent extends Component {
 
         { invitedMails &&
           <Can permissions={team.permissions} permission="invite Members">
-            <Box my={2}>
+            <Box clone my={2}>
               <Card>
                 <CardHeader title={<FormattedMessage
                   id="teamMembersComponent.pendingInvitations"
@@ -92,12 +92,12 @@ class TeamMembersComponent extends Component {
           </Can>
         }
 
-        <Box my={2}>
+        <Box clone my={2}>
           <Card>
             <CardHeader title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
             <FlexRow>
               <Can permissions={team.permissions} permission="update Team">
-                <Box ml="auto" mr={1}>
+                <Box clone ml="auto" mr={1}>
                   <Button
                     variant="contained"
                     onClick={this.handleEditMembers.bind(this)}
