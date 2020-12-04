@@ -17,6 +17,9 @@ import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
 import LinkedItemsCountCell from './LinkedItemsCountCell';
 import MetadataCell from './MetadataCell';
+import ReportStatusCell from './ReportStatusCell';
+import TagsCell from './TagsCell';
+import MediaPublishedCell from './MediaPublishedCell';
 import { isBotInstalled } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -75,6 +78,24 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.updated" defaultMessage="Updated" />,
     sortKey: 'recent_activity',
     cellComponent: UpdatedCell,
+  },
+  {
+    field: 'report_status',
+    headerText: <FormattedMessage id="list.reportStatus" defaultMessage="Report status" />,
+    sortKey: 'report_status',
+    cellComponent: ReportStatusCell,
+  },
+  {
+    field: 'tags_as_sentence',
+    headerText: <FormattedMessage id="list.tags" defaultMessage="Tags" />,
+    sortKey: 'tags_as_sentence',
+    cellComponent: TagsCell,
+  },
+  {
+    field: 'media_published_at',
+    headerText: <FormattedMessage id="list.mediaPublishedAt" defaultMessage="Media published" />,
+    sortKey: 'media_published_at',
+    cellComponent: MediaPublishedCell,
   },
 ];
 

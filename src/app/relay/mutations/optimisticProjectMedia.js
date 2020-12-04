@@ -50,6 +50,9 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           updated_at_timestamp: parseInt(now, 10),
           last_seen: parseInt(now, 10),
           share_count: 0,
+          report_status: 'unpublished',
+          tags_as_sentence: '',
+          media_published_at: 0,
         }),
         check_search_project: project ? {
           id: project.search_id,

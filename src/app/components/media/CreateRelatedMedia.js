@@ -13,6 +13,7 @@ import globalStrings from '../../globalStrings';
 import { black05 } from '../../styles/js/shared';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledCreateRelatedClaimButton = styled(Button)`
   &:hover {
@@ -113,7 +114,7 @@ class CreateRelatedMedia extends Component {
   render() {
     const { media, reverse } = this.props;
 
-    if (media.archived) {
+    if (media.archived > CheckArchivedFlags.NONE) {
       return null;
     }
 
@@ -124,20 +125,24 @@ class CreateRelatedMedia extends Component {
 
     return (
       <div>
-        {media.relationships.sources_count === 0 ?
-          <Can permissions={media.team.permissions} permission="create ProjectMedia">
-            <StyledCreateRelatedClaimButton
-              className={
-                reverse ?
-                  'create-related-media__add-to-primary-button create-related-media__add-to-primary-button--default' :
-                  'create-related-media__add-button create-related-media__add-button--default'
-              }
-              onClick={this.handleOpenDialog.bind(this)}
-              variant="outlined"
-            >
-              {label}
-            </StyledCreateRelatedClaimButton>
-          </Can> : null}
+        <Can permissions={media.team.permissions} permission="create ProjectMedia">
+          <StyledCreateRelatedClaimButton
+            className={
+              reverse ?
+                'create-related-media__add-to-primary-button create-related-media__add-to-primary-button--default' :
+                'create-related-media__add-button create-related-media__add-button--default'
+            }
+            onClick={this.handleOpenDialog.bind(this)}
+            variant="outlined"
+            disabled={
+              (reverse &&
+               (media.relationships.sources_count > 0 || media.relationships.targets_count > 0)) ||
+              (!reverse && media.relationships.sources_count > 0)
+            }
+          >
+            {label}
+          </StyledCreateRelatedClaimButton>
+        </Can>
 
         <CreateRelatedMediaDialog
           title={label}

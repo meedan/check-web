@@ -8,7 +8,7 @@
     "defaultMessage": "Secondary items"
   },
   {
-    "id": "mediaRelated.counter",
-    "defaultMessage": "{total, number} related items ({hidden, number} hidden by filters)"
+    "id": "mediaRelated.loadMore",
+    "defaultMessage": "Load more"
   }
 ]

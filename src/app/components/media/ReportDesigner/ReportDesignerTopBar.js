@@ -17,7 +17,7 @@ import ReportDesignerCopyToClipboard from './ReportDesignerCopyToClipboard';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import ReportDesignerEditButton from './ReportDesignerEditButton';
 import MediaStatus from '../MediaStatus';
-import { completedGreen, inProgressYellow } from '../../../styles/js/shared';
+import { completedGreen, inProgressYellow, brandSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   publish: {
@@ -30,6 +30,9 @@ const useStyles = makeStyles(theme => ({
   },
   confirmation: {
     marginBottom: theme.spacing(2),
+  },
+  reportHeader: {
+    backgroundColor: brandSecondary,
   },
   cell: {
     marginRight: theme.spacing(2),
@@ -82,7 +85,7 @@ const ReportDesignerTopBar = (props) => {
   };
 
   return (
-    <Toolbar>
+    <Toolbar className={classes.reportHeader}>
       <Box display="flex" justifyContent="space-between" width="1">
         <Box>
           <Button startIcon={<IconArrowBack />} onClick={handleGoBack}>

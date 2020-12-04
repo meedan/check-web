@@ -84,7 +84,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
         {picture ? (
-          <img className={classes.thumbnail} alt="" src={picture} />
+          <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
         ) : null}
         <TitleText classes={classes} title={title} description={description} />
       </MaybeLink>

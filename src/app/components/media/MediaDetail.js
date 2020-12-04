@@ -1,8 +1,21 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
+import styled from 'styled-components';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaExpanded from './MediaExpanded';
 import MediaCondensed from './MediaCondensed';
+
+import {
+  brandSecondary,
+} from '../../styles/js/shared';
+
+const StyledMainCard = styled.div`
+  .media-detail {
+    box-shadow: none;
+    border: 1px solid ${brandSecondary};
+    border-radius: 8px;
+  }
+`;
 
 class MediaDetail extends React.Component {
   componentDidMount() {
@@ -81,34 +94,37 @@ class MediaDetail extends React.Component {
     }
 
     return (
-      <Card className="card media-detail">
-        {this.props.condensed ? (
-          <MediaCondensed
-            media={this.props.media}
-            mediaUrl={mediaUrl}
-            currentRelatedMedia={this.props.currentRelatedMedia}
-          />
-        ) : (
-          <MediaExpanded
-            media={this.props.media}
-            mediaUrl={mediaUrl}
-            {...{
-              end,
-              gaps,
-              onPlayerReady,
-              onTimelineCommentOpen,
-              onVideoAnnoToggle,
-              playerRef,
-              playing,
-              scrubTo,
-              seekTo,
-              setPlayerState,
-              showVideoAnnotation,
-              start,
-            }}
-          />
-        )}
-      </Card>
+      <StyledMainCard>
+        <Card className="card media-detail">
+          {this.props.condensed ? (
+            <MediaCondensed
+              media={this.props.media}
+              mediaUrl={mediaUrl}
+              currentRelatedMedia={this.props.currentRelatedMedia}
+              noQuery={this.props.noQuery}
+            />
+          ) : (
+            <MediaExpanded
+              media={this.props.media}
+              mediaUrl={mediaUrl}
+              {...{
+                end,
+                gaps,
+                onPlayerReady,
+                onTimelineCommentOpen,
+                onVideoAnnoToggle,
+                playerRef,
+                playing,
+                scrubTo,
+                seekTo,
+                setPlayerState,
+                showVideoAnnotation,
+                start,
+              }}
+            />
+          )}
+        </Card>
+      </StyledMainCard>
     );
   }
 }

@@ -17,6 +17,7 @@ import UploadFile from '../UploadFile';
 import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class AddAnnotation extends Component {
   static parseCommand(input) {
@@ -316,7 +317,7 @@ class AddAnnotation extends Component {
       }
     `;
 
-    if (this.props.annotated.archived ||
+    if (this.props.annotated.archived > CheckArchivedFlags.NONE ||
       ((this.props.annotatedType === 'ProjectMedia' &&
       !can(this.props.annotated.permissions, 'create Comment')) ||
       (this.props.annotatedType === 'Task' &&

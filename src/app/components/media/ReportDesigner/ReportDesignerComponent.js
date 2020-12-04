@@ -24,17 +24,25 @@ import {
 } from './reportDesignerHelpers';
 import { getStatus, getStatusStyle } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import { checkBlue } from '../../../styles/js/shared';
+import { checkBlue, backgroundMain } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 let hasUnsavedChanges = false;
 
 const useStyles = makeStyles(theme => ({
-  column: {
-    height: 'calc(100vh - 100px)',
+  section: {
+    height: 'calc(100vh - 60px)',
     overflow: 'auto',
     padding: theme.spacing(2),
+    backgroundColor: backgroundMain,
+  },
+  preview: {
+    borderRight: '1px solid #DFE4F4',
+  },
+  editor: {
+    padding: '16px 32px',
   },
   title: {
     display: 'flex',
@@ -262,7 +270,7 @@ const ReportDesignerComponent = (props) => {
         editing={editing}
         readOnly={
           !can(media.permissions, 'update ProjectMedia') ||
-          media.archived ||
+          media.archived > CheckArchivedFlags.NONE ||
           pending
         }
         canPublish={canPublish}
@@ -272,10 +280,10 @@ const ReportDesignerComponent = (props) => {
         onEdit={handleEdit}
       />
       <Box display="flex" width="1">
-        <Box flex="1" alignItems="flex-start" display="flex" className={classes.column}>
+        <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
           <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
         </Box>
-        <Box flex="1" className={classes.column}>
+        <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
           <Box display="flex">
             <Typography className={classes.title} color="inherit" variant="h6" component="div">
               <FormattedMessage

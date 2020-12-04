@@ -14,6 +14,7 @@ import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
+import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
@@ -151,6 +152,15 @@ const SmoochBot = (props) => {
     setValue(updatedValue);
   };
 
+  const handleChangeMultiTextField = (subKey, newValue) => {
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
+      updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
+    }
+    updatedValue.smooch_workflows[currentWorkflowIndex][currentOption][subKey] = newValue;
+    setValue(updatedValue);
+  };
+
   const handleChangeMenu = (newValue) => {
     let updatedValue = JSON.parse(JSON.stringify(value));
     if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
@@ -251,7 +261,17 @@ const SmoochBot = (props) => {
               </Button>
             </Box>
             <Box flexGrow="1" className={classes.box}>
-              { /^smooch_message_smooch_bot_/.test(currentOption) ?
+              { currentOption === 'smooch_message_smooch_bot_tos' ?
+                <SmoochBotMultiTextEditor
+                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
+                  onChange={handleChangeMultiTextField}
+                  subSchema={
+                    props.schema.properties.smooch_workflows.items.properties[currentOption]
+                  }
+                  field={currentOption}
+                  currentLanguage={currentLanguage}
+                /> : null }
+              { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' ?
                 <SmoochBotTextEditor
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
                   onChange={handleChangeTextField}

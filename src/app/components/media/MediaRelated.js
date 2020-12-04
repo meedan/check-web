@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { withPusher, pusherShape } from '../../pusher';
 import CreateRelatedMedia from './CreateRelatedMedia';
 import MediaRoute from '../../relay/MediaRoute';
-import mediaFragment from '../../relay/mediaFragment';
 import MediaDetail from './MediaDetail';
 import MediasLoading from './MediasLoading';
-import { getFilters, getCurrentProjectId } from '../../helpers';
+import { getCurrentProjectId } from '../../helpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   FlexRow,
   black54,
@@ -34,13 +36,15 @@ const StyledHeaderRow = styled.div`
   }
 `;
 
-const previousFilters = {};
+const pageSize = 10;
 
 class MediaRelatedComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      loadingMore: false,
+    };
   }
 
   componentDidMount() {
@@ -86,36 +90,45 @@ class MediaRelatedComponent extends Component {
     pusher.unsubscribe(media.pusher_channel);
   }
 
-  render() {
-    const filters = getFilters();
-    const { dbid } = this.props.media;
-
-    const medias = [];
-    const { relationships } = this.props.media;
-    const { targets_count, sources_count } = relationships;
-    const targets = relationships.targets.edges;
-    const sources = relationships.sources.edges;
-    let filtered_count = 0;
-    const total = targets_count + sources_count;
-    let primaryItem = null;
-
-    if (dbid in previousFilters && filters !== previousFilters[dbid]) {
-      this.props.relay.setVariables({ filters });
-      this.props.relay.forceFetch();
-    } else if (targets.length > 0) {
-      targets[0].node.targets.edges.forEach((child) => {
-        medias.push({ node: Object.assign(child.node, { target_id: targets[0].node.id }) });
-      });
-      filtered_count = total - medias.length;
-    } else if (sources.length > 0) {
-      primaryItem = sources[0].node.source;
-      sources[0].node.siblings.edges.forEach((sibling) => {
-        if (sibling.node.id !== this.props.media.id) {
-          medias.push({ node: Object.assign(sibling.node, { source_id: sources[0].node.id }) });
-        }
+  loadMore() {
+    if (!this.state.loadingMore) {
+      this.setState({ loadingMore: true }, () => {
+        const newSize = this.props.media.secondary_relationships.edges.length + pageSize;
+        this.props.relay.setVariables(
+          { pageSize: newSize },
+          (state) => {
+            if (state.done || state.aborted) {
+              this.setState({ loadingMore: false });
+            }
+          },
+        );
       });
     }
-    previousFilters[dbid] = filters;
+  }
+
+  render() {
+    const medias = [];
+    const {
+      primary_relationship,
+      secondary_relationships_count,
+      secondary_relationships,
+    } = this.props.media;
+    let primaryItem = null;
+    let secondaryItemsCount = secondary_relationships_count;
+    const hasMore = (secondaryItemsCount > this.props.media.secondary_relationships.edges.length);
+
+    if (primary_relationship && primary_relationship.source) {
+      primaryItem = primary_relationship.source;
+      secondaryItemsCount -= 1;
+    }
+
+    secondary_relationships.edges.forEach((secondary) => {
+      const relationship = secondary.node;
+      if (relationship.target.dbid !== this.props.media.dbid) {
+        const { source_id, target_id } = relationship;
+        medias.push({ node: Object.assign(relationship.target, { target_id, source_id }) });
+      }
+    });
 
     return (
       <div style={{ marginTop: units(5) }}>
@@ -133,11 +146,12 @@ class MediaRelatedComponent extends Component {
             </StyledHeaderRow>
             <MediaDetail
               media={primaryItem}
-              condensed
               currentRelatedMedia={this.props.media}
               parentComponent={this}
               parentComponentName="MediaRelated"
+              condensed
               hideRelated
+              noQuery
             />
           </div> : null }
 
@@ -153,42 +167,54 @@ class MediaRelatedComponent extends Component {
           <CreateRelatedMedia style={{ marginLeft: 'auto' }} media={this.props.media} />
         </StyledHeaderRow>
 
-        { (this.props.showNumbers && medias.length > 0) ?
-          <StyledHeaderRow>
-            <FlexRow>
-              <FormattedMessage
-                id="mediaRelated.counter"
-                defaultMessage="{total, number} related items ({hidden, number} hidden by filters)"
-                values={{ total, hidden: filtered_count }}
-              />
-            </FlexRow>
-          </StyledHeaderRow> : null }
-
-        <FlexRow>
-          { (sources_count === 0 && targets_count === 0) ?
+        <div>
+          { secondaryItemsCount === 0 ?
             null :
-            <ul style={{ width: '100%' }}>
-              {medias.map((item) => {
-                if (item.node.archived) {
-                  return null;
-                }
-                return (
-                  <li key={item.node.id} className="medias__item media-related__secondary-item" style={{ paddingBottom: units(1) }}>
-                    {<MediaDetail
-                      media={item.node}
-                      condensed
-                      currentRelatedMedia={this.props.media}
-                      parentComponent={this}
-                      parentComponentName="MediaRelated"
-                      hideRelated
-                    />}
-                    {<ul className="empty" />}
-                  </li>
-                );
-              })}
-            </ul>
+            <React.Fragment>
+              <ul style={{ width: '100%' }}>
+                {medias.map((item) => {
+                  if (item.node.archived > CheckArchivedFlags.NONE) {
+                    return null;
+                  }
+                  return (
+                    <li key={item.node.id} className="medias__item media-related__secondary-item" style={{ paddingBottom: units(1) }}>
+                      {<MediaDetail
+                        media={item.node}
+                        currentRelatedMedia={this.props.media}
+                        parentComponent={this}
+                        parentComponentName="MediaRelated"
+                        hideRelated
+                        condensed
+                        noQuery
+                      />}
+                      {<ul className="empty" />}
+                    </li>
+                  );
+                })}
+              </ul>
+              { hasMore ?
+                <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                  <Button
+                    onClick={this.loadMore.bind(this)}
+                    disabled={this.state.loadingMore}
+                    endIcon={
+                      this.state.loadingMore ?
+                        <CircularProgress color="inherit" size="1em" /> :
+                        null
+                    }
+                    style={{
+                      margin: 'auto',
+                    }}
+                  >
+                    <FormattedMessage
+                      id="mediaRelated.loadMore"
+                      defaultMessage="Load more"
+                    />
+                  </Button>
+                </div> : null }
+            </React.Fragment>
           }
-        </FlexRow>
+        </div>
       </div>
     );
   }
@@ -201,8 +227,7 @@ MediaRelatedComponent.propTypes = {
 
 const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedComponent), {
   initialVariables: {
-    contextId: null,
-    filters: getFilters(),
+    pageSize,
   },
   fragments: {
     media: () => Relay.QL`
@@ -213,9 +238,6 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
         archived
         permissions
         pusher_channel
-        media {
-          quote
-        }
         team {  # TODO pass as separate prop
           id
           slug
@@ -241,36 +263,67 @@ const MediaRelatedContainer = Relay.createContainer(withPusher(MediaRelatedCompo
           source_id
           targets_count
           sources_count
-          targets(first: 10000, filters: $filters) {
-            edges {
-              node {
-                id
-                type
-                targets(first: 10000) {
-                  edges {
-                    node {
-                      __typename
-                      ${mediaFragment}
-                    }
-                  }
-                }
-              }
+        }
+        primary_relationship {
+          id
+          dbid
+          source {
+            id
+            dbid
+            type
+            title
+            description
+            picture
+            archived
+            created_at
+            updated_at
+            last_seen
+            requests_count
+            relationships { sources_count, targets_count },
+            relationship {
+              id
+              permissions
+              source { id, dbid }
+              source_id
+              target { id, dbid }
+              target_id
+            }
+            team {
+              slug
             }
           }
-          sources(first: 10000) {
-            edges {
-              node {
+        }
+        secondary_relationships_count
+        secondary_relationships(first: $pageSize) {
+          edges {
+            node {
+              id
+              dbid
+              target_id
+              source_id
+              target {
                 id
+                dbid
                 type
-                siblings(first: 10000) {
-                  edges {
-                    node {
-                      ${mediaFragment}
-                    }
-                  }
+                title
+                description
+                picture
+                archived
+                created_at
+                updated_at
+                last_seen
+                requests_count
+                relationships { sources_count, targets_count },
+                relationship {
+                  id
+                  permissions
+                  source { id, dbid }
+                  source_id
+                  target { id, dbid }
+                  target_id
                 }
-                source {
-                  ${mediaFragment}
+                team {
+                  slug
                 }
               }
             }

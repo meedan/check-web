@@ -312,6 +312,11 @@ class SearchQueryComponent extends React.Component {
     return array ? array.includes(userId) : false;
   }
 
+  assignedUserIsSelected(userId) {
+    const array = this.state.query.assigned_to;
+    return array ? array.includes(userId) : false;
+  }
+
   readIsSelected(isRead) {
     return this.state.query.read === isRead;
   }
@@ -364,6 +369,12 @@ class SearchQueryComponent extends React.Component {
   handleUserClick(userIds) {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'users', userIds),
+    });
+  }
+
+  handleAssignedUserClick(userIds) {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'assigned_to', userIds),
     });
   }
 
@@ -804,6 +815,17 @@ class SearchQueryComponent extends React.Component {
                   labelProp="title"
                   onChange={(newValue) => {
                     this.handleProjectClick(newValue.map(p => p.dbid));
+                  }}
+                />
+
+                <MultiSelectFilter
+                  label={<FormattedMessage id="search.assignedTo" defaultMessage="Assigned To" />}
+                  hide={this.hideField('assignment') || !users.length}
+                  selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
+                  options={users.map(u => u.node)}
+                  labelProp="name"
+                  onChange={(newValue) => {
+                    this.handleAssignedUserClick(newValue.map(u => u.dbid));
                   }}
                 />
 

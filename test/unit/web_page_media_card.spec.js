@@ -1,6 +1,7 @@
 import React from 'react';
 import { mountWithIntl } from './helpers/intl-test';
 import WebPageMediaCard from '../../src/app/components/media/WebPageMediaCard.js';
+import CheckArchivedFlags from '../../src/app/CheckArchivedFlags';
 
 describe('<WebPageMediaCard />', () => {
   const webPageWithGoodPicture = {
@@ -10,7 +11,7 @@ describe('<WebPageMediaCard />', () => {
       dbid: 10,
       quote: null,
       published: '1506728130',
-      archived: false,
+      archived: CheckArchivedFlags.NONE,
       url: 'https://meedan.com/en/',
       picture: "http://meedan.com/images/logos/meedan-logo-600@2x.png",
       metadata: {
@@ -55,7 +56,7 @@ describe('<WebPageMediaCard />', () => {
       dbid: 26,
       quote: null,
       published: '1508470916',
-      archived: false,
+      archived: CheckArchivedFlags.NONE,
       url: 'http://idlewords.com/2006/04/argentina_on_two_steaks_a_day.htm',
       last_status: 'undetermined',
       field_value: 'pending',
@@ -106,7 +107,7 @@ describe('<WebPageMediaCard />', () => {
       dbid: 10,
       quote: null,
       published: '1506728130',
-      archived: false,
+      archived: CheckArchivedFlags.NONE,
       url: 'https://meedan.com/en/',
       team: {
         get_embed_whitelist: "meedan.com, checkmedia.org"
@@ -211,7 +212,7 @@ describe('<WebPageMediaCard />', () => {
       />,
     );
 
-    expect(cardWithErrorMessage.find('span.web-page-media-card__error')).toHaveLength(1);
-    expect(cardWithoutErrorMessage.find('span.web-page-media-card__error')).toHaveLength(0);
+    expect(cardWithErrorMessage.find('div.web-page-media-card__error')).toHaveLength(1);
+    expect(cardWithoutErrorMessage.find('div.web-page-media-card__error')).toHaveLength(0);
   });
 });

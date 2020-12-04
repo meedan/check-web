@@ -6,8 +6,6 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
-import ProfileLink from '../layout/ProfileLink';
-import UserTooltip from '../user/UserTooltip';
 import { getCurrentProjectId } from '../../helpers';
 
 class MediaRequestsComponent extends Component {
@@ -125,96 +123,6 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
               smooch_user_external_identifier,
               smooch_report_received_at,
               smooch_report_update_received_at,
-              meta,
-              user {
-                id,
-                dbid,
-                name,
-                is_active,
-                team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                },
-                source {
-                  id,
-                  dbid,
-                  image,
-                }
-              }
-              annotation {
-                id,
-                dbid,
-                content,
-                annotation_type,
-                updated_at,
-                created_at,
-                permissions,
-                medias(first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      dbid,
-                      quote,
-                      published,
-                      url,
-                      last_status,
-                      last_status_obj {
-                        id
-                        dbid
-                        content
-                        assignments(first: 10000) {
-                          edges {
-                            node {
-                              id
-                              dbid
-                              name
-                              source {
-                                id
-                                dbid
-                                image
-                              }
-                            }
-                          }
-                        }
-                      }
-                      log_count,
-                      permissions,
-                      domain,
-                      team {
-                        slug,
-                        get_embed_whitelist
-                      }
-                      media {
-                        type,
-                        metadata
-                        embed_path,
-                        thumbnail_path,
-                        file_path,
-                        url,
-                        quote
-                      }
-                      user {
-                        dbid
-                        name
-                        is_active
-                        source {
-                          dbid
-                          image
-                        }
-                      }
-                    }
-                  }
-                }
-                annotator {
-                  name,
-                  profile_image
-                }
-                version {
-                  id
-                  item_id
-                  item_type
-                }
-              }
             }
           }
         }

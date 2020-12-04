@@ -76,6 +76,10 @@
     "defaultMessage": "List"
   },
   {
+    "id": "search.assignedTo",
+    "defaultMessage": "Assigned To"
+  },
+  {
     "id": "search.readHeading",
     "defaultMessage": "Read"
   },

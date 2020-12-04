@@ -20,7 +20,7 @@ const StyledAnnotations = styled.div`
     overflow: auto;
     display: flex;
     flex-direction: column;
-
+  
     .annotations__list-item {
       position: relative;
       margin: 0 ${units(1)};
@@ -108,7 +108,10 @@ class Annotations extends React.Component {
                   null
               }
             >
-              Load More
+              <FormattedMessage
+                id="annotations.loadMore"
+                defaultMessage="Load more"
+              />
             </Button>
           ) : null }
         </div>
