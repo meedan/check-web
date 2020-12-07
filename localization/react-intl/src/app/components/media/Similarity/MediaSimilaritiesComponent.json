@@ -1,0 +1,10 @@
+[
+  {
+    "id": "mediaSimilarities.allSimilarMedia",
+    "defaultMessage": "All similar media"
+  },
+  {
+    "id": "mediaSimilarities.requests",
+    "defaultMessage": "Requests"
+  }
+]

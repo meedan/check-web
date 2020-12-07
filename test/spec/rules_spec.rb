@@ -24,7 +24,7 @@ shared_examples 'rules' do
     # Select a condition and set a value for it
     wait_for_selector('.rules__rule-field button + button').click
     wait_for_selector('button[title=Close]')
-    wait_for_selector('ul[role=listbox] li[data-option-index="7"]').click
+    wait_for_selector('ul[role=listbox] li[data-option-index="6"]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
 
     # Select an action

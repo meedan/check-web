@@ -146,7 +146,7 @@ shared_examples 'media actions' do
     wait_for_selector('#create-media__link')
     fill_field('#create-media-input', url)
     wait_for_selector('#create-media-dialog__submit-button').click
-    wait_for_selector('.create-related-media__add-button')
+    wait_for_selector('.media-detail')
     id2 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1 == id2).to be(true)
   end

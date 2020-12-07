@@ -16,9 +16,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
-        related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count, secondary_relationships },
-        relationships_target { id },
-        relationships_source { id },
         project_media {
           demand
           requests_count

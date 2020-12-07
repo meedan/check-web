@@ -327,14 +327,4 @@ shared_examples 'source' do
     expect(id2.positive?).to be(true)
     expect(id1 == id2).to be(true)
   end
-
-  it 'should not show source option to be added as a related item', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
-    expect(@driver.page_source.include?('Photo')).to be(false)
-    press_button('.create-related-media__add-button')
-    wait_for_selector('#create-media__quote')
-    expect(@driver.page_source.include?('Photo')).to be(true)
-    expect(@driver.find_element(:id, 'create-media__source').nil?).to be(true)
-  end
 end

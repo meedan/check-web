@@ -25,7 +25,7 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage, isBotInstalled } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const Styles = theme => ({
@@ -55,7 +55,7 @@ const Styles = theme => ({
 
 class MediaActionsBarComponent extends Component {
   static handleReportDesigner() {
-    const path = `${window.location.pathname}/report`;
+    const path = `${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`;
     browserHistory.push(path);
   }
 
@@ -255,16 +255,6 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
     const { project_media_project: projectMediaProject } = media;
-    let isChild = false;
-    let isParent = false;
-    if (media.relationship) {
-      if (media.relationship.target_id === media.dbid) {
-        isChild = true;
-      } else if (media.relationship.source_id === media.dbid) {
-        isParent = true;
-      }
-    }
-    const readonlyStatus = isBotInstalled(media.team, 'smooch') && isChild && !isParent;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const options = [];
@@ -323,7 +313,7 @@ class MediaActionsBarComponent extends Component {
           <MediaStatus
             media={media}
             readonly={media.archived > CheckArchivedFlags.NONE
-              || media.last_status_obj.locked || readonlyStatus || published}
+              || media.last_status_obj.locked || published}
           />
           <MediaActionsMenuButton
             key={media.id /* close menu if we navigate to a different projectMedia */}
@@ -467,12 +457,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
               }
             }
           }
-        }
-        relationship {
-          id
-          dbid
-          target_id
-          source_id
         }
         team {
           ${AddProjectMediaToProjectAction.getFragment('team')}

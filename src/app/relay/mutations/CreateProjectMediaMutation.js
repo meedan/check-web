@@ -16,42 +16,6 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         project { id, medias_count },
         related_to {
           id
-          secondary_relationships_count
-          secondary_relationships(first: 10) {
-            edges {
-              node {
-                id
-                dbid
-                target_id
-                source_id
-                target {
-                  id
-                  dbid
-                  type
-                  title
-                  description
-                  picture
-                  archived
-                  created_at
-                  updated_at
-                  last_seen
-                  requests_count
-                  relationships { sources_count, targets_count },
-                  relationship {
-                    id
-                    permissions
-                    source { id, dbid }
-                    source_id
-                    target { id, dbid }
-                    target_id
-                  }
-                  team {
-                    slug
-                  }
-                }
-              }
-            }
-          }
         }
         team { id, medias_count },
         check_search_team { id, number_of_results },
