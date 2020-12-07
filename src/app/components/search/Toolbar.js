@@ -55,7 +55,7 @@ class Toolbar extends React.Component {
             <span className="toolbar__title">{title}</span>
             {actions}
           </Row>
-          {page !== 'trash' ? (
+          {['trash', 'unconfirmed'].indexOf(page) === -1 ? (
             <Can {...perms}>
               <OffsetButton>
                 <CreateProjectMedia search={search} project={project} team={team} />
@@ -72,7 +72,7 @@ Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
 };
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
 };
 
 export default injectIntl(Toolbar);

@@ -4,6 +4,10 @@
     "defaultMessage": "Items moved to the trash."
   },
   {
+    "id": "bulkActions.confirmSuccessfully",
+    "defaultMessage": "Items confirmed."
+  },
+  {
     "id": "bulkActions.restoredFromTrashSuccessfully",
     "defaultMessage": "Items restored from the trash."
   },
@@ -29,6 +33,14 @@
   {
     "id": "bulkActions.restore",
     "defaultMessage": "Restore from trash"
+  },
+  {
+    "id": "bulkActions.confirmItems",
+    "defaultMessage": "Confirm selected items"
+  },
+  {
+    "id": "bulkActions.confrim",
+    "defaultMessage": "Confirm"
   },
   {
     "id": "bulkActions.add",

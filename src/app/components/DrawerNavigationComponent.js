@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import DeleteIcon from '@material-ui/icons/Delete';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
+import ErrorIcon from '@material-ui/icons/Error';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import DrawerHeader from './drawer/DrawerHeader';
@@ -131,7 +131,7 @@ class DrawerNavigationComponent extends Component {
                 <Link to={`/${team.slug}/unconfirmed`} className="project-list__link-unconfirmed">
                   <MenuItem className="project-list__item-unconfirmed">
                     <ListItemIcon>
-                      <LockOpenIcon />
+                      <ErrorIcon />
                     </ListItemIcon>
                     <ListItemText
                       primary={
