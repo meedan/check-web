@@ -1,7 +1,7 @@
 module TeamSpecHelpers
   def create_team
-    if @driver.find_elements(:css, '.create-team').size > 0
-      if @driver.find_elements(:css, '.find-team-card').size > 0
+    unless @driver.find_elements(:css, '.create-team').empty?
+      unless @driver.find_elements(:css, '.find-team-card').empty?
         el = wait_for_selector('.find-team__toggle-create')
         el.click
       end
@@ -20,50 +20,50 @@ module TeamSpecHelpers
 
   def create_team_and_go_to_settings_page(team)
     api_create_team(team: team)
-    @driver.navigate.to @config['self_url'] + '/' + team + '/settings'
-    wait_for_selector(".team-settings__tags-tab")
+    @driver.navigate.to "#{@config['self_url']}/#{team}/settings"
+    wait_for_selector('.team-settings__tags-tab')
   end
 
   def create_team_project_and_image_and_redirect_to_media_page
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector("#create-media__image").click
+    wait_for_selector('#create-media__image').click
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    wait_for_selector_none(".without-file")
-    wait_for_selector("#create-media-dialog__submit-button").click
+    wait_for_selector_none('.without-file')
+    wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.medias__item')
-    wait_for_selector(".media__heading a").click
-    wait_for_selector(".media__annotations-column")
+    wait_for_selector('.media__heading a').click
+    wait_for_selector('.media__annotations-column')
   end
 
   def select_team(options)
-    wait_for_selector("#teams-tab").click
+    wait_for_selector('#teams-tab').click
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
     wait_for_selector('.projects__list a[href$="/all-items"]')
-    wait_for_selector(".project__title")
-    wait_for_selector(".team-header__drawer-team-link").click
-    wait_for_selector(".team__primary-info")
+    wait_for_selector('.project__title')
+    wait_for_selector('.team-header__drawer-team-link').click
+    wait_for_selector('.team__primary-info')
     wait_for_selector('.team')
   end
 
   def ask_join_team(options = {})
     subdomain = options[:subdomain]
-    @driver.navigate.to @config['self_url'] + "/"+subdomain+"/join"
-    wait_for_selector(".join-team__button").click
-    wait_for_selector(".message")
+    @driver.navigate.to "#{@config['self_url']}/#{subdomain}/join"
+    wait_for_selector('.join-team__button').click
+    wait_for_selector('.message')
   end
 
   def approve_join_team(options = {})
     subdomain = options[:subdomain]
-    @driver.navigate.to @config['self_url'] + '/'+subdomain
+    @driver.navigate.to "#{@config['self_url']}/#{subdomain}"
     wait_for_selector('button.team-member-requests__user-button--approve').click
-    wait_for_selector_none(".team-member-requests__user-button--deny")
+    wait_for_selector_none('.team-member-requests__user-button--deny')
   end
 
   def disapprove_join_team(options = {})
     subdomain = options[:subdomain]
-    @driver.navigate.to @config['self_url'] + '/'+subdomain
+    @driver.navigate.to "#{@config['self_url']}/#{subdomain}"
     wait_for_selector('button.team-member-requests__user-button--deny').click
     wait_for_selector_none('.team-member-requests__user-button--approve')
   end
@@ -79,12 +79,12 @@ module TeamSpecHelpers
 
   def install_bot(team, bot_name)
     api_create_bot
-    @driver.navigate.to @config['self_url'] + '/' + team
+    @driver.navigate.to "#{@config['self_url']}/#{team}"
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__bots-tab').click
     # Install bot
     wait_for_selector('#team-bots__bot-garden-button').click
-    wait_for_selector(".bot-garden__bot-name")
+    wait_for_selector('.bot-garden__bot-name')
     wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath).click
     wait_for_selector('#bot__install-button').click
     wait_for_selector_none('#bot__install-button')
