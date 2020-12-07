@@ -1,0 +1,40 @@
+[
+  {
+    "id": "mediaSimilarityBarAdd.addSimilarToThisTitle",
+    "defaultMessage": "Add similar media to this item"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addThisToSimilarTitle",
+    "defaultMessage": "Add this media to a similar item"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.defaultErrorMessage",
+    "description": "Warning displayed if an error occurred when adding a similar item",
+    "defaultMessage": "Could not add similar item"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.savedSuccessfully",
+    "description": "Banner displayed when similar item is added successfully",
+    "defaultMessage": "Similar item added successfully"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addSimilar",
+    "defaultMessage": "Add similar"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addSimilarToThis",
+    "defaultMessage": "Add similar media to this item"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addThisToSimilar",
+    "defaultMessage": "Add this media to a similar item"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addAsSimilar",
+    "defaultMessage": "Add as similar"
+  },
+  {
+    "id": "mediaSimilarityBarAdd.addSimilarItem",
+    "defaultMessage": "Add similar item"
+  }
+]

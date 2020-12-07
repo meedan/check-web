@@ -4,7 +4,7 @@ import MediaPageLayout from './MediaPageLayout';
 import { getListUrlQueryAndIndex } from '../../urlHelpers';
 import NotFound from '../NotFound';
 
-export default function MediaPage({ routeParams, location }) {
+export default function MediaPage({ route, routeParams, location }) {
   const {
     listUrl,
     listQuery,
@@ -15,6 +15,10 @@ export default function MediaPage({ routeParams, location }) {
   const teamSlug = routeParams.team;
   const projectId = parseInt(routeParams.projectId, 10) || null;
   const projectMediaId = parseInt(routeParams.mediaId, 10) || null;
+  let currentView = 'default';
+  if (route && route.view) {
+    currentView = route.view;
+  }
 
   if (projectMediaId === null) {
     return <NotFound />;
@@ -29,11 +33,15 @@ export default function MediaPage({ routeParams, location }) {
       teamSlug={teamSlug}
       projectId={projectId}
       projectMediaId={projectMediaId}
+      view={currentView}
     />
   );
 }
 
 MediaPage.propTypes = {
+  route: PropTypes.shape({
+    view: PropTypes.string, // or undefined
+  }).isRequired,
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     projectId: PropTypes.string, // or undefined

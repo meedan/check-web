@@ -45,7 +45,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'linked_items_count',
-    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Related" />,
+    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Similar media" />,
     cellComponent: LinkedItemsCountCell,
     align: 'center',
     sortKey: 'related',

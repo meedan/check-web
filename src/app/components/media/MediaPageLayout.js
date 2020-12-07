@@ -21,7 +21,7 @@ const StyledTopBar = styled.div`
 `;
 
 export default function MediaPageLayout({
-  listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId,
+  listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view,
 }) {
   return (
     <div>
@@ -42,16 +42,19 @@ export default function MediaPageLayout({
           projectMediaId={projectMediaId}
         />
       </StyledTopBar>
-      <Media projectId={projectId} projectMediaId={projectMediaId} />
+      <Media projectId={projectId} projectMediaId={projectMediaId} view={view} />
     </div>
   );
 }
+
 MediaPageLayout.defaultProps = {
   listQuery: null,
   buildSiblingUrl: null,
   listIndex: null,
   projectId: null,
+  view: 'default',
 };
+
 MediaPageLayout.propTypes = {
   listUrl: PropTypes.string.isRequired,
   buildSiblingUrl: PropTypes.func, // null or func(projectMediaId, listIndex) => String|null
@@ -59,4 +62,5 @@ MediaPageLayout.propTypes = {
   listIndex: PropTypes.number, // or null
   projectId: PropTypes.number, // or null
   projectMediaId: PropTypes.number.isRequired,
+  view: PropTypes.string, // or null
 };

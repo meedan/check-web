@@ -469,6 +469,15 @@ export const ContentColumn = styled.div`
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 
+export const Column = styled.div`
+  flex: 1;
+  min-width: 340px;
+  max-width: 720px;
+  padding: ${units(2)};
+  height: calc(100vh - 60px);
+  overflow: auto;
+`;
+
 export const OffsetBothSides = styled.div`
   padding-left: ${units(1)};
   padding-right: ${units(1)};

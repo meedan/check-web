@@ -85,20 +85,22 @@ function AutoCompleteMediaItem(props, context) {
       const encodedQuery = JSON.stringify(JSON.stringify({
         keyword: searchText,
         show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
-        eslimit: 30,
+        eslimit: 50,
         archived: CheckArchivedFlags.NONE,
+        include_related_items: Boolean(props.customFilter),
       }));
       const params = {
         body: `query=query {
             search(query: ${encodedQuery}) {
-              medias(first: 30) {
+              medias(first: 50) {
                 edges {
                   node {
                     id
                     dbid
                     title
                     archived
-                    relationships { sources_count, targets_count, target_id, source_id }
+                    confirmed_similar_items_count
+                    is_confirmed_similar_to_another_item
                     dynamic_annotation_report_design {
                       id
                       data
@@ -141,13 +143,17 @@ function AutoCompleteMediaItem(props, context) {
 
       // The rest of this code is synchronous, so it can't be aborted.
       try {
-        let items = response.data.search.medias.edges
-          .map(({ node }) => node)
-          .filter(({ relationships }) => (
-            props.reverse ?
-              (relationships.sources_count === 0) :
-              (relationships.sources_count + relationships.targets_count === 0)
-          ))
+        let items = response.data.search.medias.edges.map(({ node }) => node);
+        if (props.customFilter) {
+          items = props.customFilter(items);
+        } else {
+          items = items
+            .filter(({ confirmed_similar_items_count, is_confirmed_similar_to_another_item }) => (
+              props.reverse ? !is_confirmed_similar_to_another_item :
+                (confirmed_similar_items_count === 0)
+            ));
+        }
+        items = items
           .filter(({ dbid }) => dbid !== props.dbid)
           .filter(({ archived }) => archived === CheckArchivedFlags.NONE);
         if (props.onlyPublished) {
@@ -158,7 +164,6 @@ function AutoCompleteMediaItem(props, context) {
           value: item.dbid,
           id: item.id,
           isPublished: isPublished(item),
-          relationships: item.relationships,
           dbid: item.dbid,
         }));
         setSearchResult({ loading: false, items, error: null });
@@ -220,21 +225,26 @@ function AutoCompleteMediaItem(props, context) {
     />
   );
 }
+
 AutoCompleteMediaItem.contextTypes = {
   store: PropTypes.object, // TODO nix
 };
+
 AutoCompleteMediaItem.defaultProps = {
   dbid: null,
   onlyPublished: false,
   typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
   reverse: false,
+  customFilter: null,
 };
+
 AutoCompleteMediaItem.propTypes = {
   onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
   dbid: PropTypes.number, // filter results: do _not_ select this number
   onlyPublished: PropTypes.bool, // filter results
   reverse: PropTypes.bool, // filter results
   typesToShow: PropTypes.arrayOf(PropTypes.string),
+  customFilter: PropTypes.func,
 };
 
 export default AutoCompleteMediaItem;

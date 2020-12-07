@@ -53,7 +53,6 @@ shared_examples 'metadata' do
     # create media and to go media page
     create_media('media')
     wait_for_selector('.media__heading').click
-    wait_for_selector('.create-related-media__add-button')
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task-type__free_text')
     expect(@driver.page_source.include?('my metadata')).to be(true)

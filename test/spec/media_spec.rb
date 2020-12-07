@@ -28,7 +28,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
-    wait_for_selector('.create-related-media__add-button')
+    wait_for_selector('.media-detail')
 
     # First item
     expect(@driver.page_source.include?('1 of 3')).to be(true)
@@ -41,7 +41,7 @@ shared_examples 'media' do |type|
     # Second item
     wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__actions-bar')
-    wait_for_selector('.create-related-media__add-button')
+    wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('1 of 3')).to be(false)
     expect(@driver.page_source.include?('2 of 3')).to be(true)
     expect(@driver.page_source.include?('3 of 3')).to be(false)
@@ -52,7 +52,7 @@ shared_examples 'media' do |type|
     # Third item
     wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__actions-bar')
-    wait_for_selector('.create-related-media__add-button')
+    wait_for_selector('.media-detail')
 
     expect(@driver.page_source.include?('1 of 3')).to be(false)
     expect(@driver.page_source.include?('2 of 3')).to be(false)
@@ -113,7 +113,6 @@ shared_examples 'media' do |type|
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
-    wait_for_selector_none('.create-related-media__add-button')
     wait_for_selector('.message').click
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
@@ -137,7 +136,6 @@ shared_examples 'media' do |type|
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
-    wait_for_selector_none('.create-related-media__add-button')
     wait_for_selector('.message').click
     wait_for_selector('.project-header__back-button').click
     expect(@driver.find_elements(:css, '.medias__item').empty?)

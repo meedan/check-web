@@ -82,6 +82,8 @@ class Root extends Component {
 
                 <Route path=":team/media/:mediaId" component={MediaPage} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} public />
+                <Route path=":team/media/:mediaId/suggested-matches" component={MediaPage} view="suggestedMatches" />
+                <Route path=":team/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
                 <Route path=":team/media/:mediaId/report" component={ReportDesigner} public />
                 <Route path=":team/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/media/:mediaId/metadata" component={MediaTasks} />

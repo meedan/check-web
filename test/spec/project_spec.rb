@@ -92,7 +92,6 @@ shared_examples 'project' do
     expect(@driver.page_source.include?('metadata')).to be(false)
     expect(@driver.page_source.include?('answer')).to be(false)
     wait_for_selector('.media__heading').click
-    wait_for_selector('.create-related-media__add-button')
     # answer the metadata
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('#task__response-input').send_keys('answer')

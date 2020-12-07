@@ -1,0 +1,22 @@
+[
+  {
+    "id": "mediaRelatedComponent.defaultErrorMessage",
+    "defaultMessage": "Could not add related item"
+  },
+  {
+    "id": "mediaRelatedComponent.savedSuccessfully",
+    "defaultMessage": "Related item added successfully"
+  },
+  {
+    "id": "mediaRelatedComponent.count",
+    "defaultMessage": "{count, plural, one {1 related item} other {# related items}}"
+  },
+  {
+    "id": "mediaRelatedComponent.addSimilar",
+    "defaultMessage": "Add related item"
+  },
+  {
+    "id": "mediaRelatedComponent.dialogTitle",
+    "defaultMessage": "Add related item"
+  }
+]

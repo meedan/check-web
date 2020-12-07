@@ -20,7 +20,6 @@ import WebPageMediaCard from './WebPageMediaCard';
 import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
-import CreateRelatedMedia from './CreateRelatedMedia';
 import BlankMediaButton from './BlankMediaButton';
 import { isBotInstalled, truncateLength, getCurrentProjectId } from '../../helpers';
 import CheckContext from '../../CheckContext';
@@ -179,8 +178,8 @@ class MediaExpandedComponent extends Component {
 
     return (
       <React.Fragment>
-        <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
-          { isFetchBotInstalled ?
+        { isFetchBotInstalled ?
+          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
             <BlankMediaButton
               projectMediaId={media.id}
               team={media.team}
@@ -195,9 +194,8 @@ class MediaExpandedComponent extends Component {
                 color: 'default',
               }}
               reverse
-            /> : null }
-          <CreateRelatedMedia media={media} reverse />
-        </Box>
+            />
+          </Box> : null }
         <CardHeader
           className="media-expanded__title"
           title={truncateLength(title, 110)}
@@ -271,33 +269,6 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}
-        relationships {
-          id
-          sources_count
-          targets_count
-          source_id
-          target_id
-        }
-        relationship {
-          id
-          permissions
-          source_id
-          source {
-            id
-            dbid
-            relationships {
-              targets(first: 1) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            }
-          }
-          target_id
-          target { id, dbid }
-        }
         media {
           url
           type

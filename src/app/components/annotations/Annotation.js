@@ -29,7 +29,6 @@ import EmbedCreate from './EmbedCreate';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
-import MediaDetail from '../media/MediaDetail';
 import ProfileLink from '../layout/ProfileLink';
 import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -516,14 +515,6 @@ class Annotation extends Component {
                   alt=""
                 />
               </div> : null}
-          </div>
-          {/* embedded medias */}
-          <div className="annotation__card-embedded-medias">
-            {annotation.medias.edges.map(media => (
-              <div key={media.node.dbid}>
-                <MediaDetail media={media.node} condensed readonly hideRelated />
-              </div>))
-            }
           </div>
 
           {/* lightbox */}
