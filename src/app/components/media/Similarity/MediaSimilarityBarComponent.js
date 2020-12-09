@@ -29,7 +29,8 @@ const MediaSimilarityBarComponent = ({
   suggestionsCount,
   confirmedSimilarCount,
   hasMain,
-  mainItem,
+  confirmedMainItem,
+  suggestedMainItem,
   canAdd,
 }) => {
   const classes = useStyles();
@@ -37,7 +38,7 @@ const MediaSimilarityBarComponent = ({
   const linkPrefix = `/${teamSlug}/media/${projectMediaDbid}`;
 
   if (hasMain) {
-    const mainItemLink = `/${mainItem.team.slug}/media/${mainItem.dbid}`;
+    const mainItemLink = `/${confirmedMainItem.team.slug}/media/${confirmedMainItem.dbid}/similar-media`;
     return (
       <Box className={classes.root}>
         <Link to={mainItemLink} className={classes.link} style={{ color: inProgressYellow }}>
@@ -50,13 +51,27 @@ const MediaSimilarityBarComponent = ({
     );
   }
 
+  if (suggestedMainItem) {
+    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/suggested-matches`;
+    return (
+      <Box className={classes.root}>
+        <Link to={mainItemLink} className={classes.link} style={{ color: inProgressYellow }}>
+          <FormattedMessage
+            id="mediaSimilarityBarComponent.hasSuggestedMain"
+            defaultMessage="This media has been suggested to be similar to another item"
+          />
+        </Link>
+      </Box>
+    );
+  }
+
   return (
     <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
       <Box className={classes.links}>
         <Link to={`${linkPrefix}/similar-media`} className={classes.link} style={{ color: checkBlue }}>
           <FormattedMessage
             id="mediaSimilarityBarComponent.similarMedia"
-            defaultMessage="{count, plural, one {1 similar media} other {# similar media}}"
+            defaultMessage="{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
             values={{
               count: confirmedSimilarCount,
             }}
@@ -75,7 +90,7 @@ const MediaSimilarityBarComponent = ({
       <Box>
         { canAdd ?
           <MediaSimilarityBarAdd
-            projectMediaId={mainItem.id}
+            projectMediaId={confirmedMainItem.id}
             projectMediaDbid={projectMediaDbid}
             canBeAddedToSimilar={confirmedSimilarCount === 0}
             similarCanBeAddedToIt={!hasMain}
@@ -90,7 +105,14 @@ MediaSimilarityBarComponent.propTypes = {
   suggestionsCount: PropTypes.number.isRequired,
   confirmedSimilarCount: PropTypes.number.isRequired,
   hasMain: PropTypes.bool.isRequired,
-  mainItem: PropTypes.shape({
+  confirmedMainItem: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    team: PropTypes.shape({
+      slug: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  suggestedMainItem: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     team: PropTypes.shape({

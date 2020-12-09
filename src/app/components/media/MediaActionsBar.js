@@ -254,6 +254,11 @@ class MediaActionsBarComponent extends Component {
 
   render() {
     const { classes, media } = this.props;
+
+    if (media.suggested_main_item || media.is_confirmed_similar_to_another_item) {
+      return null;
+    }
+
     const { project_media_project: projectMediaProject } = media;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
@@ -420,6 +425,8 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         url
         quote
         archived
+        suggested_main_item
+        is_confirmed_similar_to_another_item
         dynamic_annotation_report_design {
           id
           data

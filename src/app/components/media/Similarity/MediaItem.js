@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: 14,
+    lineHeight: '1.5em',
     color: 'black',
     '&:visited': {
       color: 'black',
@@ -191,7 +192,7 @@ const MediaItem = ({
           handleError();
         } else {
           setFlashMessage(<FormattedMessage id="mediaItem.doneRedirecting" defaultMessage="Done, redirecting to new main item…" />);
-          window.location.assign(`/${teamSlug}/media/${relationship.target_id}`);
+          window.location.assign(`/${teamSlug}/media/${relationship.target_id}/similar-media`);
         }
       },
       onError: () => {
@@ -215,7 +216,7 @@ const MediaItem = ({
       }}
     >
       <CardHeader
-        classes={{ content: classes.content }}
+        classes={{ content: classes.content, title: classes.title }}
         title={
           <Link to={mediaUrl} className={classes.title}>
             {truncateLength(projectMedia.title, 140)}

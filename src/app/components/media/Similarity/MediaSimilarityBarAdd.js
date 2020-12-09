@@ -29,9 +29,9 @@ const MediaSimilarityBarAdd = ({
   let label = '';
   let reverse = false;
   if (action === 'addSimilarToThis') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Add similar media to this item" />;
+    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Import similar media into this item" />;
   } else if (action === 'addThisToSimilar') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Add this media to a similar item" />;
+    label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Export all media to another item" />;
     reverse = true;
   }
 
@@ -182,7 +182,7 @@ const MediaSimilarityBarAdd = ({
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addSimilarToThis"
-                defaultMessage="Add similar media to this item"
+                defaultMessage="Import similar media into this item"
               />
             }
           />
@@ -195,7 +195,7 @@ const MediaSimilarityBarAdd = ({
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addThisToSimilar"
-                defaultMessage="Add this media to a similar item"
+                defaultMessage="Export all media to another item"
               />
             }
           />
@@ -211,8 +211,8 @@ const MediaSimilarityBarAdd = ({
         reverse={reverse}
         submitButtonLabel={
           reverse ?
-            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Add as similar" /> :
-            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="Add similar item" />
+            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Export as similar" /> :
+            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="Import similar item" />
         }
         hideNew
       />

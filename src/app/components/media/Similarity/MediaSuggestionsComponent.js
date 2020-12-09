@@ -19,6 +19,7 @@ import IconArrowBack from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
 import MediaExpanded from '../MediaExpanded';
 import MediaRequests from '../MediaRequests';
+import MediaComments from '../MediaComments';
 import {
   Column,
   inProgressYellow,
@@ -27,6 +28,7 @@ import {
   alertRed,
   brandSecondary,
 } from '../../../styles/js/shared';
+import { isBotInstalled } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -56,6 +58,7 @@ const useStyles = makeStyles(theme => ({
 
 const MediaSuggestionsComponent = ({
   relationships,
+  team,
 }) => {
   const classes = useStyles();
   const itemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
@@ -272,12 +275,14 @@ const MediaSuggestionsComponent = ({
               mediaUrl={itemUrl}
             /> :
             <Box justifyContent="center">
-              <Typography>
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.noSuggestions"
-                  defaultMessage="There are no suggested matches."
-                />
-              </Typography>
+              <Box mb={2}>
+                <Typography>
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.noSuggestions"
+                    defaultMessage="There are no suggested matches."
+                  />
+                </Typography>
+              </Box>
               <Button onClick={handleGoBack} color="primary" variant="contained">
                 <FormattedMessage
                   id="mediaSuggestionsComponent.goBack"
@@ -289,26 +294,53 @@ const MediaSuggestionsComponent = ({
         </Box>
       </Column>
       <Column className="media__annotations-column">
-        <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
-          <Tab
-            label={
-              <FormattedMessage
-                id="mediaSuggestionsComponent.requests"
-                defaultMessage="Requests"
+        { isBotInstalled(team, 'smooch') ?
+          <React.Fragment>
+            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.requests"
+                    defaultMessage="Requests"
+                  />
+                }
+                value="requests"
+                className="media-tab__requests"
               />
+            </Tabs>
+            { projectMedia ?
+              <MediaRequests media={{ dbid: projectMedia.dbid }} all={false} /> :
+              <Typography variant="subtitle2" className={classes.spaced}>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.noRequests"
+                  defaultMessage="No requests"
+                />
+              </Typography>
             }
-            value="requests"
-            className="media-tab__requests"
-          />
-        </Tabs>
-        { projectMedia ?
-          <MediaRequests media={{ dbid: projectMedia.dbid }} all={false} /> :
-          <Typography variant="subtitle2" className={classes.spaced}>
-            <FormattedMessage
-              id="mediaSuggestionsComponent.noRequests"
-              defaultMessage="No requests"
-            />
-          </Typography>
+          </React.Fragment> :
+          <React.Fragment>
+            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.notes"
+                    defaultMessage="Notes"
+                  />
+                }
+                value="notes"
+                className="media-tab__notes"
+              />
+            </Tabs>
+            { projectMedia ?
+              <MediaComments media={{ dbid: projectMedia.dbid }} /> :
+              <Typography variant="subtitle2" className={classes.spaced}>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.noNotes"
+                  defaultMessage="No notes"
+                />
+              </Typography>
+            }
+          </React.Fragment>
         }
       </Column>
     </React.Fragment>
@@ -320,6 +352,17 @@ MediaSuggestionsComponent.propTypes = {
     id: PropTypes.string.isRequired,
     target_id: PropTypes.number.isRequired,
   })).isRequired,
+  team: PropTypes.shape({
+    team_bot_installations: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          team_bot: PropTypes.shape({
+            identifier: PropTypes.string,
+          }),
+        }),
+      })).isRequired,
+    }).isRequired,
+  }).isRequired,
 };
 
 export default MediaSuggestionsComponent;

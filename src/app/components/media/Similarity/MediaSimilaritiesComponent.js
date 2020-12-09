@@ -2,15 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconArrowBack from '@material-ui/icons/ArrowBack';
 import MediaSimilarityBar from './MediaSimilarityBar';
 import MediaItem from './MediaItem';
 import MediaRequests from '../MediaRequests';
+import MediaComments from '../MediaComments';
 import { Column } from '../../../styles/js/shared';
 import { can } from '../../Can';
+import { isBotInstalled } from '../../../helpers';
 
 function sort(items) {
   if (!items) {
@@ -23,6 +28,7 @@ let listener = null;
 
 const MediaSimilaritiesComponent = ({ projectMedia }) => {
   const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
+  const itemUrl = window.location.pathname.replace(/\/similar-media$/, '');
 
   listener = () => {
     setSelectedProjectMediaDbid(null);
@@ -39,12 +45,36 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
     setSelectedProjectMediaDbid(newSelectedProjectMediaDbid);
   };
 
+  const handleGoBack = () => {
+    browserHistory.push(itemUrl);
+  };
+
   return (
     <React.Fragment>
       <Column className="media__column">
+        <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small">
+          <FormattedMessage
+            id="mediaSimilaritiesComponent.back"
+            defaultMessage="Back"
+          />
+        </Button>
         <MediaSimilarityBar projectMedia={projectMedia} />
         { projectMedia.confirmed_main_item ?
-          <MediaItem projectMedia={projectMedia.confirmed_main_item} /> : null }
+          <React.Fragment>
+            <Box mt={2} mb={2}>
+              <Typography variant="subtitle2">
+                <FormattedMessage
+                  id="mediaSimilarities.mainItem"
+                  defaultMessage="Main media"
+                />
+              </Typography>
+            </Box>
+            <MediaItem
+              projectMedia={projectMedia.confirmed_main_item}
+              isSelected={projectMedia.confirmed_main_item.dbid === selectedProjectMediaDbid}
+              onSelect={handleSelectItem}
+            />
+          </React.Fragment> : null }
         <Box mt={4} mb={2}>
           <Typography variant="subtitle2">
             <FormattedMessage
@@ -67,21 +97,51 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
         ))}
       </Column>
       <Column className="media__annotations-column">
-        <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
-          <Tab
-            label={
-              <FormattedMessage
-                id="mediaSimilarities.requests"
-                defaultMessage="Requests"
+        { isBotInstalled(projectMedia.team, 'smooch') ?
+          <React.Fragment>
+            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaSimilarities.requests"
+                    defaultMessage="Requests"
+                  />
+                }
+                value="requests"
+                className="media-tab__requests"
               />
+            </Tabs>
+            { selectedProjectMediaDbid ?
+              <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
+              <MediaRequests media={{ dbid: projectMedia.dbid }} all />
             }
-            value="requests"
-            className="media-tab__requests"
-          />
-        </Tabs>
-        { selectedProjectMediaDbid ?
-          <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
-          <MediaRequests media={{ dbid: projectMedia.dbid }} all /> }
+          </React.Fragment> :
+          <React.Fragment>
+            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
+              <Tab
+                label={
+                  <FormattedMessage
+                    id="mediaSimilarities.notes"
+                    defaultMessage="Notes"
+                  />
+                }
+                value="notes"
+                className="media-tab__notes"
+              />
+            </Tabs>
+            { selectedProjectMediaDbid ?
+              <MediaComments media={{ dbid: selectedProjectMediaDbid }} /> :
+              <Box m={1}>
+                <Typography variant="subtitle2">
+                  <FormattedMessage
+                    id="mediaSimilarities.clickOnItem"
+                    defaultMessage="Click on an item"
+                  />
+                </Typography>
+              </Box>
+            }
+          </React.Fragment>
+        }
       </Column>
     </React.Fragment>
   );
@@ -106,6 +166,15 @@ MediaSimilaritiesComponent.propTypes = {
     }).isRequired,
     team: PropTypes.shape({
       dbid: PropTypes.number.isRequired,
+      team_bot_installations: PropTypes.shape({
+        edges: PropTypes.arrayOf(PropTypes.shape({
+          node: PropTypes.shape({
+            team_bot: PropTypes.shape({
+              identifier: PropTypes.string,
+            }),
+          }),
+        })).isRequired,
+      }).isRequired,
     }).isRequired,
   }).isRequired,
 };
@@ -117,6 +186,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     permissions
     confirmed_main_item {
       id
+      dbid
       ...MediaItem_projectMedia
     }
     confirmed_similar_relationships(first: 10000) {
@@ -135,6 +205,15 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     }
     team {
       dbid
+      team_bot_installations(first: 10000) {
+        edges {
+          node {
+            team_bot: bot_user {
+              identifier
+            }
+          }
+        }
+      }
     }
   }
 `);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSimilaritiesComponent from './MediaSimilaritiesComponent';
+import MediasLoading from '../MediasLoading';
 
 const MediaSimilarities = ({ projectMedia }) => {
   const ids = `${projectMedia.dbid},0,${projectMedia.team.dbid}`; // Project ID doesn't matter
@@ -25,7 +26,7 @@ const MediaSimilarities = ({ projectMedia }) => {
         if (props) {
           return (<MediaSimilaritiesComponent projectMedia={props.project_media} />);
         }
-        return null;
+        return <MediasLoading count={1} />;
       }}
     />
   );

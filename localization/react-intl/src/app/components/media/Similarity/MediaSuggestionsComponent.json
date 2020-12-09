@@ -26,5 +26,13 @@
   {
     "id": "mediaSuggestionsComponent.noRequests",
     "defaultMessage": "No requests"
+  },
+  {
+    "id": "mediaSuggestionsComponent.notes",
+    "defaultMessage": "Notes"
+  },
+  {
+    "id": "mediaSuggestionsComponent.noNotes",
+    "defaultMessage": "No notes"
   }
 ]

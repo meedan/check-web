@@ -4,8 +4,12 @@
     "defaultMessage": "This media has been added as similar to another item"
   },
   {
+    "id": "mediaSimilarityBarComponent.hasSuggestedMain",
+    "defaultMessage": "This media has been suggested to be similar to another item"
+  },
+  {
     "id": "mediaSimilarityBarComponent.similarMedia",
-    "defaultMessage": "{count, plural, one {1 similar media} other {# similar media}}"
+    "defaultMessage": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
   },
   {
     "id": "mediaSimilarityBarComponent.suggestedMatches",

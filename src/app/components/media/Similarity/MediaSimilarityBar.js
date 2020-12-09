@@ -18,7 +18,14 @@ const MediaSimilarityBar = ({ projectMedia }) => {
             dbid
             permissions
             hasMain: is_confirmed_similar_to_another_item
-            mainItem: confirmed_main_item {
+            confirmedMainItem: confirmed_main_item {
+              id
+              dbid
+              team {
+                slug
+              }
+            }
+            suggestedMainItem: suggested_main_item {
               id
               dbid
               team {
@@ -41,7 +48,8 @@ const MediaSimilarityBar = ({ projectMedia }) => {
               suggestionsCount={props.project_media.suggestionsCount}
               confirmedSimilarCount={props.project_media.confirmedSimilarCount}
               hasMain={props.project_media.hasMain}
-              mainItem={props.project_media.mainItem}
+              confirmedMainItem={props.project_media.confirmedMainItem}
+              suggestedMainItem={props.project_media.suggestedMainItem}
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
             />
           );
