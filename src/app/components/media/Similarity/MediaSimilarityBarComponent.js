@@ -93,7 +93,7 @@ const MediaSimilarityBarComponent = ({
           <MediaSimilarityBarAdd
             projectMediaId={confirmedMainItem.id}
             projectMediaDbid={projectMediaDbid}
-            canBeAddedToSimilar={confirmedSimilarCount === 0}
+            canBeAddedToSimilar={!hasMain}
             similarCanBeAddedToIt={!hasMain}
           /> : null }
       </Box>

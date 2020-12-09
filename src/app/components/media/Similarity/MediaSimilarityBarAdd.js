@@ -217,7 +217,6 @@ const MediaSimilarityBarAdd = ({
         onSelect={handleSubmit}
         media={{ dbid: projectMediaDbid }}
         isSubmitting={submitting}
-        reverse={reverse}
         submitButtonLabel={
           reverse ?
             <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Export as similar" /> :
