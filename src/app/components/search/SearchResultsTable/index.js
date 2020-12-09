@@ -124,26 +124,14 @@ function buildColumnDefs(team) {
   return columns;
 }
 
-/**
- * A <TableContainer> that won't show scrollbars.
- *
- * This implies a parent must manage scrolling. Our design is: <html> shows
- * scrollbars; and the table's sticky header appears here.
- */
-const TableContainerWithoutScrollbars = withStyles({
-  root: {
-    overflow: 'visible',
-  },
-})(TableContainer);
-
-const TableWrapper = withStyles({
+const TableContainerWithScrollbars = withStyles({
   root: {
     overflow: 'auto',
     display: 'block',
     maxWidth: 'calc(100vw - 256px)',
     maxHeight: 'calc(100vh - 152px)',
   },
-})(Table);
+})(TableContainer);
 
 export default function SearchResultsTable({
   team,
@@ -179,8 +167,8 @@ export default function SearchResultsTable({
   }, [selectedIds, onChangeSelectedIds]);
 
   return (
-    <TableContainerWithoutScrollbars>
-      <TableWrapper stickyHeader size="small">
+    <TableContainerWithScrollbars>
+      <Table stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
           team={team}
@@ -202,8 +190,8 @@ export default function SearchResultsTable({
             />
           ))}
         </TableBody>
-      </TableWrapper>
-    </TableContainerWithoutScrollbars>
+      </Table>
+    </TableContainerWithScrollbars>
   );
 }
 SearchResultsTable.defaultProps = {
