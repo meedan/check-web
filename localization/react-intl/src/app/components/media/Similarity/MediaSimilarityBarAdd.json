@@ -1,11 +1,11 @@
 [
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThisTitle",
-    "defaultMessage": "Add similar media to this item"
+    "defaultMessage": "Import similar media into this item"
   },
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilarTitle",
-    "defaultMessage": "Add this media to a similar item"
+    "defaultMessage": "Export all media to another item"
   },
   {
     "id": "mediaSimilarityBarAdd.defaultErrorMessage",
@@ -23,18 +23,18 @@
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThis",
-    "defaultMessage": "Add similar media to this item"
+    "defaultMessage": "Import similar media into this item"
   },
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilar",
-    "defaultMessage": "Add this media to a similar item"
+    "defaultMessage": "Export all media to another item"
   },
   {
     "id": "mediaSimilarityBarAdd.addAsSimilar",
-    "defaultMessage": "Add as similar"
+    "defaultMessage": "Export as similar"
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilarItem",
-    "defaultMessage": "Add similar item"
+    "defaultMessage": "Import similar item"
   }
 ]
