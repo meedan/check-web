@@ -180,7 +180,7 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
         >
           <FormattedMessage
             id="mediaRelatedComponent.addSimilar"
-            defaultMessage="Add related item"
+            defaultMessage="Add relation"
           />
         </Button>
       </Box>
@@ -198,13 +198,13 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
         </Box>
       ))}
       <CreateRelatedMediaDialog
-        title={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add related item" />}
+        title={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
         open={showDialog}
         onDismiss={handleClose}
         onSelect={handleSubmit}
         media={{ dbid: projectMedia.dbid }}
         isSubmitting={submitting}
-        submitButtonLabel={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add related item" />}
+        submitButtonLabel={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
         customFilter={filterResults}
         hideNew
       />

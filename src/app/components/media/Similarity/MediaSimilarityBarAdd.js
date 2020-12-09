@@ -12,8 +12,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { makeStyles } from '@material-ui/core/styles';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
+
+const useStyles = makeStyles(() => ({
+  button: {
+    whiteSpace: 'nowrap',
+  },
+}));
 
 const MediaSimilarityBarAdd = ({
   projectMediaId,
@@ -22,6 +29,7 @@ const MediaSimilarityBarAdd = ({
   canBeAddedToSimilar,
   similarCanBeAddedToIt,
 }) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [action, setAction] = React.useState(null);
   const [submitting, setSubmitting] = React.useState(false);
@@ -167,6 +175,7 @@ const MediaSimilarityBarAdd = ({
         color="primary"
         endIcon={<ExpandMoreIcon />}
         disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
+        className={classes.button}
       >
         <FormattedMessage
           id="mediaSimilarityBarAdd.addSimilar"

@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     textDecoration: 'underline',
+    lineHeight: '1.5em',
   },
 }));
 
