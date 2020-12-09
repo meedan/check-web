@@ -20,7 +20,7 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
-import { isBotInstalled } from '../../../helpers';
+import { isBotInstalled, truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
@@ -110,7 +110,7 @@ function buildColumnDefs(team) {
       if (!column && /^task_value_/.test(listColumn.key)) {
         column = {
           field: listColumn.key,
-          headerText: <div>{listColumn.label}</div>,
+          headerText: <div title={listColumn.label}>{truncateLength(listColumn.label, 32)}</div>,
           cellComponent: MetadataCell,
           sortKey: listColumn.key,
           type: listColumn.type,
@@ -135,6 +135,15 @@ const TableContainerWithoutScrollbars = withStyles({
     overflow: 'visible',
   },
 })(TableContainer);
+
+const TableWrapper = withStyles({
+  root: {
+    overflow: 'auto',
+    display: 'block',
+    maxWidth: 'calc(100vw - 256px)',
+    maxHeight: 'calc(100vh - 152px)',
+  },
+})(Table);
 
 export default function SearchResultsTable({
   team,
@@ -171,7 +180,7 @@ export default function SearchResultsTable({
 
   return (
     <TableContainerWithoutScrollbars>
-      <Table stickyHeader size="small">
+      <TableWrapper stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
           team={team}
@@ -193,7 +202,7 @@ export default function SearchResultsTable({
             />
           ))}
         </TableBody>
-      </Table>
+      </TableWrapper>
     </TableContainerWithoutScrollbars>
   );
 }
