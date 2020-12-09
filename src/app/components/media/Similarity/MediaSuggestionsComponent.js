@@ -207,7 +207,7 @@ const MediaSuggestionsComponent = ({
   };
 
   const handleHelp = () => {
-    window.open('http://help.checkmedia.org/');
+    window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
 
   return (
