@@ -12,7 +12,7 @@ const labels = {
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.labelReportUpdated" defaultMessage="Report updated" />,
   smooch_message_smooch_bot_message_type_unsupported: <FormattedMessage id="smoochBot.labelInvalidFormat" defaultMessage="Invalid format" />,
   smooch_message_smooch_bot_disabled: <FormattedMessage id="smoochBot.labelInactive" defaultMessage="Notice of inactivity" />,
-  smooch_message_smooch_bot_tos: <FormattedMessage id="smoochBot.labelPrivacyStatement" defaultMessage="Privacy statement" />,
+  smooch_message_smooch_bot_tos: <FormattedMessage id="smoochBot.labelPrivacyStatement" defaultMessage="Privacy Statement" />,
 };
 
 const descriptions = {
@@ -27,12 +27,12 @@ const descriptions = {
   smooch_message_smooch_bot_disabled: <FormattedMessage id="smoochBot.descriptionInactive" defaultMessage="This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive." />,
   smooch_message_smooch_bot_tos_greeting: (
     <React.Fragment>
-      <FormattedMessage id="smoochBot.descriptionPrivacyStatementGreeting" defaultMessage="By default, the following Privacy statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in." />
+      <FormattedMessage id="smoochBot.descriptionPrivacyStatementGreeting" defaultMessage="By default, the following Privacy Statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in." />
       <br /><br />
-      <FormattedMessage id="smoochBot.descriptionPrivacyStatementGreeting2" defaultMessage="The option '9' must be referenced for users to access the Privacy statement on the Main menu." />
+      <FormattedMessage id="smoochBot.descriptionPrivacyStatementGreeting2" defaultMessage="The option '9' must be referenced for users to access the Privacy Statement on the Main menu." />
     </React.Fragment>
   ),
-  smooch_message_smooch_bot_tos_content: <FormattedMessage id="smoochBot.descriptionPrivacyStatementContent" defaultMessage="Privacy statement content. Edit the text below, or replace it with custom content." />,
+  smooch_message_smooch_bot_tos_content: <FormattedMessage id="smoochBot.descriptionPrivacyStatementContent" defaultMessage="Privacy Statement content. Edit the text below, or replace it with custom content." />,
 };
 
 const footnotes = {
@@ -42,7 +42,7 @@ const footnotes = {
         <FormattedMessage id="smoochBot.footnoteGreeting" defaultMessage="The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'." />
       </Box>
       <Box my={2}>
-        <FormattedMessage id="smoochBot.footnoteGreeting2" defaultMessage="The default Privacy Statement can be replaced with a custom one under the option 'Privacy statement' on this page." />
+        <FormattedMessage id="smoochBot.footnoteGreeting2" defaultMessage="The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page." />
       </Box>
     </React.Fragment>
   ),
