@@ -73,7 +73,7 @@ const MediaSimilarityBarAdd = ({
     ));
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = (response) => {
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
@@ -84,7 +84,8 @@ const MediaSimilarityBarAdd = ({
     ));
     handleClose();
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    const mediaUrl = `/${teamSlug}/media/${projectMediaDbid}/similar-media`;
+    const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
+    const mediaUrl = `/${teamSlug}/media/${mainItemDbid}/similar-media`;
     browserHistory.push(mediaUrl);
   };
 
