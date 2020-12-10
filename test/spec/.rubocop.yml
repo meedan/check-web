@@ -32,3 +32,5 @@ Metrics/ParameterLists:
   Enabled: false
 Metrics/PerceivedComplexity:
   Max: 10
+Metrics/CyclomaticComplexity:
+  Max: 10

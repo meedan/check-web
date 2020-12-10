@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: 'uppercase',
     fontWeight: 'bold',
     textDecoration: 'underline',
+    lineHeight: '1.5em',
   },
 }));
 
@@ -92,7 +93,7 @@ const MediaSimilarityBarComponent = ({
           <MediaSimilarityBarAdd
             projectMediaId={confirmedMainItem.id}
             projectMediaDbid={projectMediaDbid}
-            canBeAddedToSimilar={confirmedSimilarCount === 0}
+            canBeAddedToSimilar={!hasMain}
             similarCanBeAddedToIt={!hasMain}
           /> : null }
       </Box>

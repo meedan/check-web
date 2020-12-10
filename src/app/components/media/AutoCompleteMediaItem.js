@@ -99,7 +99,6 @@ function AutoCompleteMediaItem(props, context) {
                     dbid
                     title
                     archived
-                    confirmed_similar_items_count
                     is_confirmed_similar_to_another_item
                     dynamic_annotation_report_design {
                       id
@@ -148,10 +147,8 @@ function AutoCompleteMediaItem(props, context) {
           items = props.customFilter(items);
         } else {
           items = items
-            .filter(({ confirmed_similar_items_count, is_confirmed_similar_to_another_item }) => (
-              props.reverse ? !is_confirmed_similar_to_another_item :
-                (confirmed_similar_items_count === 0)
-            ));
+            .filter(({ is_confirmed_similar_to_another_item }) =>
+              !is_confirmed_similar_to_another_item);
         }
         items = items
           .filter(({ dbid }) => dbid !== props.dbid)
@@ -234,7 +231,6 @@ AutoCompleteMediaItem.defaultProps = {
   dbid: null,
   onlyPublished: false,
   typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
-  reverse: false,
   customFilter: null,
 };
 
@@ -242,7 +238,6 @@ AutoCompleteMediaItem.propTypes = {
   onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
   dbid: PropTypes.number, // filter results: do _not_ select this number
   onlyPublished: PropTypes.bool, // filter results
-  reverse: PropTypes.bool, // filter results
   typesToShow: PropTypes.arrayOf(PropTypes.string),
   customFilter: PropTypes.func,
 };

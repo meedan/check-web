@@ -13,10 +13,10 @@
   },
   {
     "id": "mediaRelatedComponent.addSimilar",
-    "defaultMessage": "Add related item"
+    "defaultMessage": "Add relation"
   },
   {
     "id": "mediaRelatedComponent.dialogTitle",
-    "defaultMessage": "Add related item"
+    "defaultMessage": "Add relation"
   }
 ]
