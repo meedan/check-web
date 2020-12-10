@@ -52,7 +52,7 @@ shared_examples 'metadata' do
     wait_for_selector('#search-input')
     # create media and to go media page
     create_media('media', false)
-    item = wait_for_selector('.medias__item', :css, 20, 0, true)
+    item = wait_for_selector('.medias__item', :css, 20, true)
     item.click
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task-type__free_text')
