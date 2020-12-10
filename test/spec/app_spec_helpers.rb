@@ -22,7 +22,7 @@ module AppSpecHelpers
   end
 
   def wait_for_selector(selector, type = :css, timeout = 20, index = 0, reload = false)
-    wait_for_selector_list_size(selector, index + 1, type, 20, 10, 'unknown', reload)[index]
+    wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
   def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false)
