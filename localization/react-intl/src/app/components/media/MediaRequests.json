@@ -1,6 +1,14 @@
 [
   {
-    "id": "MediaRequests.noRequest",
+    "id": "mediaRequests.allRequests",
+    "defaultMessage": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+  },
+  {
+    "id": "mediaRequests.thisRequests",
+    "defaultMessage": "{count, plural, one {1 request} other {# requests}}"
+  },
+  {
+    "id": "mediaRequests.noRequest",
     "defaultMessage": "No requests"
   }
 ]

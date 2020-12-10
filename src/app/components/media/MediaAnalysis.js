@@ -204,7 +204,7 @@ const MediaAnalysis = ({ projectMedia }) => {
       onCompleted: (response, err) => {
         setCopying(false);
         if (!err) {
-          browserHistory.push(`${window.location.pathname}/report`);
+          browserHistory.push(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
         }
       },
       onError: () => {

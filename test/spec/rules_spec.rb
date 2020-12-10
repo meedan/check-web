@@ -1,11 +1,10 @@
 shared_examples 'rules' do
-
-  it "should set, edit and delete rules", bin3: true do
+  it 'should set, edit and delete rules', bin3: true do
     user = api_register_and_login_with_email
     t = api_create_team(user: user)
 
     # Go to rules page
-    @driver.navigate.to @config['self_url'] + '/' + t.slug + '/settings'
+    @driver.navigate.to "#{@config['self_url']}/#{t.slug}/settings"
     wait_for_selector('.team-settings__rules-tab').click
     wait_for_selector('#tableTitle')
 
@@ -25,7 +24,7 @@ shared_examples 'rules' do
     # Select a condition and set a value for it
     wait_for_selector('.rules__rule-field button + button').click
     wait_for_selector('button[title=Close]')
-    wait_for_selector('ul[role=listbox] li[data-option-index="7"]').click
+    wait_for_selector('ul[role=listbox] li[data-option-index="6"]').click
     wait_for_selector('.rules__rule-field textarea').send_keys('foo,bar')
 
     # Select an action
@@ -68,20 +67,20 @@ shared_examples 'rules' do
     expect(@driver.page_source.include?('Move item to list')).to be(true)
     expect(@driver.page_source.include?('Select destination list')).to be(true)
 
-    #edit rule
-    wait_for_selector('input[name="rule-name"]').send_keys("- Edited")
+    # edit rule
+    wait_for_selector('input[name="rule-name"]').send_keys('- Edited')
     wait_for_selector('.rules__save-button').click
     wait_for_selector('#tableTitle')
     expect(@driver.page_source.include?('1 rule')).to be(true)
     expect(@driver.page_source.include?('Rule 1- Edited')).to be(true)
 
-    #delet rule
+    # delet rule
     wait_for_selector('tbody tr').click
     wait_for_selector("//span[contains(text(), 'More')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Delete')]", :xpath).click
-    wait_for_selector("#confirm-dialog__checkbox").click
-    wait_for_selector("#confirm-dialog__confirm-action-button").click
-    wait_for_selector(".message")
+    wait_for_selector('#confirm-dialog__checkbox').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector('.message')
     expect(@driver.page_source.include?('Rule 1- Edited')).to be(false)
   end
 end

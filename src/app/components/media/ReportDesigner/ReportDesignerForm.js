@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 const ReportDesignerForm = (props) => {
   const classes = useStyles();
   const { media } = props;
-  const data = props.data || { use_text_message: true, use_introduction: true, text: '' };
+  const data = props.data || { use_text_message: true, text: '' };
 
   const handleImageChange = (image) => {
     props.onUpdate('image', image);

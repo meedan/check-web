@@ -52,7 +52,6 @@ class CreateRelatedMediaDialog extends React.Component {
       media,
       hideNew,
       typesToShow,
-      reverse,
     } = this.props;
     const formId = 'create-related-media-dialog-form';
 
@@ -102,7 +101,7 @@ class CreateRelatedMediaDialog extends React.Component {
                   dbid={media ? media.dbid : null}
                   onSelect={this.handleSelectExisting}
                   typesToShow={typesToShow}
-                  reverse={reverse}
+                  customFilter={this.props.customFilter}
                 />
               </StyledAutoCompleteWrapper>
             }
@@ -122,7 +121,8 @@ class CreateRelatedMediaDialog extends React.Component {
             >
               { this.props.isSubmitting ?
                 <FormattedMessage {...globalStrings.submitting} /> :
-                <FormattedMessage {...globalStrings.submit} /> }
+                (this.props.submitButtonLabel || <FormattedMessage {...globalStrings.submit} />)
+              }
             </Button>
           }
           { mode === 'existing' &&
@@ -134,7 +134,8 @@ class CreateRelatedMediaDialog extends React.Component {
             >
               { this.props.isSubmitting ?
                 <FormattedMessage {...globalStrings.submitting} /> :
-                <FormattedMessage {...globalStrings.submit} /> }
+                (this.props.submitButtonLabel || <FormattedMessage {...globalStrings.submit} />)
+              }
             </Button>
           }
         </DialogActions>

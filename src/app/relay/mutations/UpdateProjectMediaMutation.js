@@ -1,5 +1,6 @@
 import Relay from 'react-relay/classic';
 import optimisticProjectMedia from './optimisticProjectMedia';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class UpdateProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -15,9 +16,6 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         check_search_team { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
-        related_to { id, relationships, log, log_count, demand, requests_count, linked_items_count, secondary_relationships },
-        relationships_target { id },
-        relationships_source { id },
         project_media {
           demand
           requests_count
@@ -67,7 +65,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         this.props.context,
       );
     }
-    if (this.props.archived === 0 && this.props.check_search_trash) {
+    if (this.props.archived === CheckArchivedFlags.NONE && this.props.check_search_trash) {
       const response = optimisticProjectMedia(
         this.props.media,
         this.props.context.project,
@@ -95,7 +93,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
 
       return response;
     }
-    if (this.props.archived === 1 && this.props.check_search_trash) {
+    if (this.props.archived === CheckArchivedFlags.TRASHED && this.props.check_search_trash) {
       const response = optimisticProjectMedia(
         this.props.media,
         this.props.context.project,
@@ -212,7 +210,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       ids.check_search_project = this.props.dstProj.search_id;
     }
 
-    if (this.props.archived === 1) {
+    if (this.props.archived === CheckArchivedFlags.TRASHED) {
       configs.push({
         type: 'RANGE_DELETE',
         parentName: 'check_search_team',
@@ -243,7 +241,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       }
     }
 
-    if (this.props.archived === 0) {
+    if (this.props.archived === CheckArchivedFlags.NONE) {
       configs.push({
         type: 'RANGE_ADD',
         parentName: 'check_search_team',

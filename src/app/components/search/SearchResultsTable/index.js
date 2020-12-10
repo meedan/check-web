@@ -20,7 +20,7 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
-import { isBotInstalled } from '../../../helpers';
+import { isBotInstalled, truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
@@ -45,7 +45,7 @@ const AllPossibleColumns = [
   },
   {
     field: 'linked_items_count',
-    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Related" />,
+    headerText: <FormattedMessage id="list.LinkedItems" defaultMessage="Similar media" />,
     cellComponent: LinkedItemsCountCell,
     align: 'center',
     sortKey: 'related',
@@ -110,7 +110,7 @@ function buildColumnDefs(team) {
       if (!column && /^task_value_/.test(listColumn.key)) {
         column = {
           field: listColumn.key,
-          headerText: <div>{listColumn.label}</div>,
+          headerText: <div title={listColumn.label}>{truncateLength(listColumn.label, 32)}</div>,
           cellComponent: MetadataCell,
           sortKey: listColumn.key,
           type: listColumn.type,
@@ -124,15 +124,12 @@ function buildColumnDefs(team) {
   return columns;
 }
 
-/**
- * A <TableContainer> that won't show scrollbars.
- *
- * This implies a parent must manage scrolling. Our design is: <html> shows
- * scrollbars; and the table's sticky header appears here.
- */
-const TableContainerWithoutScrollbars = withStyles({
+const TableContainerWithScrollbars = withStyles({
   root: {
-    overflow: 'visible',
+    overflow: 'auto',
+    display: 'block',
+    maxWidth: 'calc(100vw - 256px)',
+    maxHeight: 'calc(100vh - 152px)',
   },
 })(TableContainer);
 
@@ -170,7 +167,7 @@ export default function SearchResultsTable({
   }, [selectedIds, onChangeSelectedIds]);
 
   return (
-    <TableContainerWithoutScrollbars>
+    <TableContainerWithScrollbars>
       <Table stickyHeader size="small">
         <SearchResultsTableHead
           columnDefs={columnDefs}
@@ -194,7 +191,7 @@ export default function SearchResultsTable({
           ))}
         </TableBody>
       </Table>
-    </TableContainerWithoutScrollbars>
+    </TableContainerWithScrollbars>
   );
 }
 SearchResultsTable.defaultProps = {

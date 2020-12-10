@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class BulkRestoreProjectMediaMutation extends Relay.Mutation {
   getMutation() {
@@ -21,7 +22,7 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
   getVariables() {
     return {
       ids: this.props.ids,
-      archived: false,
+      archived: CheckArchivedFlags.NONE,
     };
   }
 

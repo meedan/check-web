@@ -16,6 +16,10 @@
     "defaultMessage": "Notes"
   },
   {
+    "id": "mediaComponent.related",
+    "defaultMessage": "Related"
+  },
+  {
     "id": "mediaComponent.timelineTab",
     "defaultMessage": "Timeline"
   }
