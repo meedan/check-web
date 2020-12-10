@@ -12,8 +12,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import { makeStyles } from '@material-ui/core/styles';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
+
+const useStyles = makeStyles(() => ({
+  button: {
+    whiteSpace: 'nowrap',
+  },
+}));
 
 const MediaSimilarityBarAdd = ({
   projectMediaId,
@@ -22,6 +29,7 @@ const MediaSimilarityBarAdd = ({
   canBeAddedToSimilar,
   similarCanBeAddedToIt,
 }) => {
+  const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [action, setAction] = React.useState(null);
   const [submitting, setSubmitting] = React.useState(false);
@@ -29,9 +37,9 @@ const MediaSimilarityBarAdd = ({
   let label = '';
   let reverse = false;
   if (action === 'addSimilarToThis') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Add similar media to this item" />;
+    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Import similar media into this item" />;
   } else if (action === 'addThisToSimilar') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Add this media to a similar item" />;
+    label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Export all media to another item" />;
     reverse = true;
   }
 
@@ -65,7 +73,7 @@ const MediaSimilarityBarAdd = ({
     ));
   };
 
-  const handleSuccess = () => {
+  const handleSuccess = (response) => {
     setSubmitting(false);
     setFlashMessage((
       <FormattedMessage
@@ -76,7 +84,8 @@ const MediaSimilarityBarAdd = ({
     ));
     handleClose();
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-    const mediaUrl = `/${teamSlug}/media/${projectMediaDbid}/similar-media`;
+    const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;
+    const mediaUrl = `/${teamSlug}/media/${mainItemDbid}/similar-media`;
     browserHistory.push(mediaUrl);
   };
 
@@ -167,6 +176,7 @@ const MediaSimilarityBarAdd = ({
         color="primary"
         endIcon={<ExpandMoreIcon />}
         disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
+        className={classes.button}
       >
         <FormattedMessage
           id="mediaSimilarityBarAdd.addSimilar"
@@ -182,7 +192,7 @@ const MediaSimilarityBarAdd = ({
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addSimilarToThis"
-                defaultMessage="Add similar media to this item"
+                defaultMessage="Import similar media into this item"
               />
             }
           />
@@ -195,7 +205,7 @@ const MediaSimilarityBarAdd = ({
             primary={
               <FormattedMessage
                 id="mediaSimilarityBarAdd.addThisToSimilar"
-                defaultMessage="Add this media to a similar item"
+                defaultMessage="Export all media to another item"
               />
             }
           />
@@ -208,11 +218,10 @@ const MediaSimilarityBarAdd = ({
         onSelect={handleSubmit}
         media={{ dbid: projectMediaDbid }}
         isSubmitting={submitting}
-        reverse={reverse}
         submitButtonLabel={
           reverse ?
-            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Add as similar" /> :
-            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="Add similar item" />
+            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Export as similar" /> :
+            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="Import similar item" />
         }
         hideNew
       />

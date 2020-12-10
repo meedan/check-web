@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     // Use flexbox so thumbnail takes up very little space and then text takes
     // the rest. (display: float; is too finicky.)
     display: 'flex',
-    minWidth: units(30),
+    minWidth: units(45),
     maxWidth: units(110),
     '&:hover': {
       textDecoration: 'none',

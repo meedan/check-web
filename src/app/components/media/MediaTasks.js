@@ -30,8 +30,8 @@ const StyledAnnotationRow = styled.div`
   /* Tasks and metadata tab have shared styles */
 
   .annotation-header-row {
-    padding: ${units(1)} 0;
-    margin: 0 ${units(3)};
+    padding: ${units(1)} ${units(3)};
+    margin: 0;
     border-bottom: 1px solid ${brandSecondary};
     display: flex;
     justify-content: space-between;
@@ -175,35 +175,35 @@ class MediaTasksComponent extends Component {
               onTimelineCommentOpen={onTimelineCommentOpen}
             />
           </Box> : null }
-        <div
-          style={isBrowserExtension ? { padding: 0 } : {}}
-          className="annotation-header-row task-row"
-        >
-          { itemTasks.edges.length && fieldset === 'tasks' && !isBrowserExtension ?
-            <FlexRow>
-              <h2>
-                <FormattedMessage
-                  id="mediaComponent.verificationTasks"
-                  defaultMessage="Item tasks"
-                />
-              </h2>
-              &nbsp;
-              { currentUserRole !== 'annotator' ?
-                <FlexRow>
-                  {itemTasks.edges.filter(t =>
-                    t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
-                  }
-                  &nbsp;
-                  <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
-                </FlexRow> : null }
-            </FlexRow> : null }
-          { !isBrowserExtension && fieldset === 'tasks' ?
-            <CreateTask style={{ marginLeft: 'auto' }} media={media} /> : null }
-          { isBrowserExtension && itemTasks.edges.length === 0 ?
-            <p style={{ textAlign: 'center', width: '100%', marginTop: units(6) }}>
-              <FormattedMessage id="mediaComponent.noTasks" defaultMessage="Nothing to show." />
-            </p> : null }
-        </div>
+        { fieldset === 'tasks' && !isBrowserExtension ?
+          <div
+            style={isBrowserExtension ? { padding: 0 } : {}}
+            className="annotation-header-row task-row"
+          >
+            { itemTasks.edges.length ?
+              <FlexRow>
+                <h2>
+                  <FormattedMessage
+                    id="mediaComponent.verificationTasks"
+                    defaultMessage="Item tasks"
+                  />
+                </h2>
+                &nbsp;
+                { currentUserRole !== 'annotator' ?
+                  <FlexRow>
+                    {itemTasks.edges.filter(t =>
+                      t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
+                    }
+                    &nbsp;
+                    <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
+                  </FlexRow> : null }
+              </FlexRow> : null }
+            <CreateTask style={{ marginLeft: 'auto' }} media={media} />
+          </div> : null }
+        { isBrowserExtension && itemTasks.edges.length === 0 ?
+          <p style={{ textAlign: 'center', width: '100%', marginTop: units(6) }}>
+            <FormattedMessage id="mediaComponent.noTasks" defaultMessage="Nothing to show." />
+          </p> : null }
         <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
       </StyledAnnotationRow>
     );

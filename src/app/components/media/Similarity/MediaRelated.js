@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaRelatedComponent from './MediaRelatedComponent';
+import MediasLoading from '../MediasLoading';
 
 const MediaRelated = ({ projectMedia }) => {
   const ids = `${projectMedia.dbid},0,${projectMedia.team.dbid}`; // Project ID doesn't matter
@@ -25,7 +26,7 @@ const MediaRelated = ({ projectMedia }) => {
         if (props) {
           return (<MediaRelatedComponent projectMedia={props.project_media} />);
         }
-        return null;
+        return <MediasLoading count={1} />;
       }}
     />
   );

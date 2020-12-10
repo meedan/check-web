@@ -65,7 +65,7 @@ shared_examples 'report' do
     wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
-    wait_for_selector('#report-designer__text').send_keys('text message')
+    wait_for_selector('#report-designer__text').send_keys('media text message')
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
     wait_for_selector('.report-designer__copy-share-url').click
@@ -74,8 +74,8 @@ shared_examples 'report' do
     driver = Selenium::WebDriver.for(:remote, url: @webdriver_url, desired_capabilities: caps)
     begin
       driver.navigate.to embed_url
-      @wait.until { driver.find_element(:id, 'container') }
-      expect(driver.page_source.include?('text message')).to be(true)
+      @wait.until { driver.find_element(:css, 'body') }
+      expect(driver.page_source.include?('media')).to be(true)
     ensure
       driver.quit
     end

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSuggestionsComponent from './MediaSuggestionsComponent';
+import MediasLoading from '../MediasLoading';
 
 const MediaSuggestions = ({ projectMedia }) => {
   const ids = `${projectMedia.dbid},0,${projectMedia.team.dbid}`; // Project ID doesn't matter
@@ -23,6 +24,17 @@ const MediaSuggestions = ({ projectMedia }) => {
                 }
               }
             }
+            team {
+              team_bot_installations(first: 10000) {
+                edges {
+                  node {
+                    team_bot: bot_user {
+                      identifier
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       `}
@@ -33,12 +45,13 @@ const MediaSuggestions = ({ projectMedia }) => {
         if (props) {
           return (
             <MediaSuggestionsComponent
+              team={props.project_media.team}
               relationships={props.project_media.suggested_similar_relationships.edges
                 .map(r => r.node)}
             />
           );
         }
-        return null;
+        return <MediasLoading count={1} />;
       }}
     />
   );

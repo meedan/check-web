@@ -52,7 +52,6 @@ const StyledWordBreakDiv = styled.div`
     box-shadow: none;
     border-bottom: 1px solid ${separationGray};
     border-radius: 0;
-    margin-right: ${units(3)};
     margin-bottom: 0 !important;
 
     .task__card-header {
