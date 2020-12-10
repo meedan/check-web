@@ -228,7 +228,7 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector_none('.media__heading')
       wait_for_selector('.project-list__item-trash').click # Go to the trash page
       wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
-      wait_for_selector('.medias__item')
+      wait_for_selector('.medias__item', :css, 20, 0, true)
       wait_for_selector('.media__heading').click
       wait_for_selector('.media-actions__icon')
       wait_for_selector('.project-header__back-button').click
@@ -236,8 +236,9 @@ shared_examples 'app' do |webdriver_url|
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
       # item created from "all items" page
       wait_for_selector('a[href$="/all-items"]').click
-      create_media('claim 2')
-      wait_for_selector('.media__heading').click
+      create_media('claim 2', false)
+      item = wait_for_selector('.media__heading', :css, 20, 0, true)
+      item.click
       wait_for_selector('#media-detail__report-designer')
       wait_for_selector('.project-header__back-button').click
       wait_for_selector('#create-media__add-item')

@@ -51,8 +51,9 @@ shared_examples 'metadata' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-input')
     # create media and to go media page
-    create_media('media')
-    wait_for_selector('.media__heading').click
+    create_media('media', false)
+    item = wait_for_selector('.medias__item', :css, 20, 0, true)
+    item.click
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task-type__free_text')
     expect(@driver.page_source.include?('my metadata')).to be(true)
