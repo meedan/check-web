@@ -174,17 +174,31 @@ class BulkActions extends React.Component {
 
   handleDelete = (params) => {
     const onSuccess = () => {
-      const message = params.archived === CheckArchivedFlags.TRASHED ? (
-        <FormattedMessage
-          id="bulkActions.moveToTrashSuccessfully"
-          defaultMessage="Items moved to the trash."
-        />
-      ) : (
-        <FormattedMessage
-          id="bulkActions.restoredFromTrashSuccessfully"
-          defaultMessage="Items restored from the trash."
-        />
-      );
+      let message = null;
+      if (params.archived === CheckArchivedFlags.TRASHED) {
+        message = (
+          <FormattedMessage
+            id="bulkActions.moveToTrashSuccessfully"
+            defaultMessage="Items moved to the trash."
+          />
+        );
+      } else if (params.archived === CheckArchivedFlags.NONE) {
+        if (params.archived_was === CheckArchivedFlags.UNCONFIRMED) {
+          message = (
+            <FormattedMessage
+              id="bulkActions.confirmSuccessfully"
+              defaultMessage="Items confirmed."
+            />
+          );
+        } else {
+          message = (
+            <FormattedMessage
+              id="bulkActions.restoredFromTrashSuccessfully"
+              defaultMessage="Items restored from the trash."
+            />
+          );
+        }
+      }
       this.props.setFlashMessage(message);
       this.props.onUnselectAll();
     };
@@ -200,6 +214,7 @@ class BulkActions extends React.Component {
           ids: this.props.selectedMedia,
           project: this.props.project,
           team: this.props.team,
+          archived_was: params.archived_was,
         });
       Relay.Store.commitUpdate(mutation, { onSuccess });
     }
@@ -219,143 +234,188 @@ class BulkActions extends React.Component {
     } = this.props;
     const disabled = selectedMedia.length === 0;
 
-    return (
-      <span id="media-bulk-actions">
-        <span id="media-bulk-actions__actions">
-          { page === 'trash' ? (
-            <Can permission="restore ProjectMedia" permissions={team.permissions}>
-              <ButtonWithTooltip
-                title={
-                  <FormattedMessage
-                    id="bulkActions.restoreItemsFromTrash"
-                    defaultMessage="Restore selected items from trash"
-                  />
-                }
-                disabled={disabled}
-                className="media-bulk-actions__restore-button"
-                onClick={() => { this.handleDelete({ archived: CheckArchivedFlags.NONE }); }}
-                variant="outlined"
+    let actionButtons = null;
+    switch (page) {
+    case 'trash':
+      actionButtons = (
+        <Can permission="restore ProjectMedia" permissions={team.permissions}>
+          <ButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.restoreItemsFromTrash"
+                defaultMessage="Restore selected items from trash"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__restore-button"
+            onClick={() => {
+              this.handleDelete({
+                archived: CheckArchivedFlags.NONE,
+                archived_was: CheckArchivedFlags.TRASHED,
+              });
+            }}
+            variant="outlined"
+          >
+            <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+          </ButtonWithTooltip>
+        </Can>
+      );
+      break;
+    case 'unconfirmed':
+      actionButtons = (
+        <Can permission="confirm ProjectMedia" permissions={team.permissions}>
+          <ButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.confirmItems"
+                defaultMessage="Confirm selected items"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__confrim-button"
+            onClick={() => {
+              this.handleDelete({
+                archived: CheckArchivedFlags.NONE,
+                archived_was: CheckArchivedFlags.UNCONFIRMED,
+              });
+            }}
+            variant="outlined"
+          >
+            <FormattedMessage id="bulkActions.confrim" defaultMessage="Confirm" />
+          </ButtonWithTooltip>
+        </Can>
+      );
+      break;
+    default:
+      actionButtons = (
+        <React.Fragment>
+          <ButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.add"
+                defaultMessage="Add selected items to another list"
+              />
+            }
+            id="media-bulk-actions__add-icon"
+            disabled={disabled}
+            onClick={this.addSelected.bind(this)}
+            color="primary"
+            variant="contained"
+          >
+            <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to…" />
+          </ButtonWithTooltip>
+          <MoveDialog
+            actions={[
+              <Button
+                color="primary"
+                onClick={this.handleCloseDialogs.bind(this)}
+                key="bulkActions.cancelAddButton"
               >
-                <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
-              </ButtonWithTooltip>
-            </Can>
-          ) : (
+                <FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />
+              </Button>,
+              <Button
+                color="primary"
+                className="media-bulk-actions__add-button"
+                onClick={this.handleAdd.bind(this)}
+                disabled={!this.state.dstProjForAdd}
+                key="bulkActions.addButton"
+              >
+                <FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />
+              </Button>,
+            ]}
+            open={this.state.openAddDialog}
+            team={this.props.team}
+            onClose={this.handleCloseDialogs.bind(this)}
+            excludeProjectDbids={project ? [project.dbid] : []}
+            value={this.state.dstProjectForAdd}
+            onChange={this.handleSelectDestProjectForAdd.bind(this)}
+            title={
+              <FormattedMessage
+                id="bulkActions.dialogAddTitle"
+                defaultMessage="Add to a different list"
+              />
+            }
+          />
+
+          {project ? (
             <React.Fragment>
               <ButtonWithTooltip
                 title={
                   <FormattedMessage
-                    id="bulkActions.add"
-                    defaultMessage="Add selected items to another list"
+                    id="bulkActions.move"
+                    defaultMessage="Move selected items to another list"
                   />
                 }
-                id="media-bulk-actions__add-icon"
+                id="media-bulk-actions__move-to"
+                onClick={this.moveSelected.bind(this)}
                 disabled={disabled}
-                onClick={this.addSelected.bind(this)}
                 color="primary"
                 variant="contained"
               >
-                <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to…" />
+                <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to…" />
               </ButtonWithTooltip>
               <MoveDialog
                 actions={[
                   <Button
+                    key="cancel"
                     color="primary"
                     onClick={this.handleCloseDialogs.bind(this)}
-                    key="bulkActions.cancelAddButton"
                   >
                     <FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />
                   </Button>,
                   <Button
+                    key="move"
                     color="primary"
-                    className="media-bulk-actions__add-button"
-                    onClick={this.handleAdd.bind(this)}
-                    disabled={!this.state.dstProjForAdd}
-                    key="bulkActions.addButton"
+                    className="media-bulk-actions__move-button"
+                    onClick={this.handleMove.bind(this)}
+                    disabled={!this.state.dstProj}
                   >
-                    <FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />
+                    <FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move" />
                   </Button>,
                 ]}
-                open={this.state.openAddDialog}
-                team={this.props.team}
+                open={this.state.openMoveDialog}
                 onClose={this.handleCloseDialogs.bind(this)}
+                team={this.props.team}
                 excludeProjectDbids={project ? [project.dbid] : []}
-                value={this.state.dstProjectForAdd}
-                onChange={this.handleSelectDestProjectForAdd.bind(this)}
+                value={this.state.dstProj}
+                onChange={this.handleSelectDestProject.bind(this)}
                 title={
                   <FormattedMessage
-                    id="bulkActions.dialogAddTitle"
-                    defaultMessage="Add to a different list"
+                    id="bulkActions.dialogMoveTitle"
+                    defaultMessage="Move to a different list"
                   />
                 }
               />
-
-              {project ? (
-                <React.Fragment>
-                  <ButtonWithTooltip
-                    title={
-                      <FormattedMessage
-                        id="bulkActions.move"
-                        defaultMessage="Move selected items to another list"
-                      />
-                    }
-                    id="media-bulk-actions__move-to"
-                    onClick={this.moveSelected.bind(this)}
-                    disabled={disabled}
-                    color="primary"
-                    variant="contained"
-                  >
-                    <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to…" />
-                  </ButtonWithTooltip>
-                  <MoveDialog
-                    actions={[
-                      <Button
-                        key="cancel"
-                        color="primary"
-                        onClick={this.handleCloseDialogs.bind(this)}
-                      >
-                        <FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />
-                      </Button>,
-                      <Button
-                        key="move"
-                        color="primary"
-                        className="media-bulk-actions__move-button"
-                        onClick={this.handleMove.bind(this)}
-                        disabled={!this.state.dstProj}
-                      >
-                        <FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move" />
-                      </Button>,
-                    ]}
-                    open={this.state.openMoveDialog}
-                    onClose={this.handleCloseDialogs.bind(this)}
-                    team={this.props.team}
-                    excludeProjectDbids={project ? [project.dbid] : []}
-                    value={this.state.dstProj}
-                    onChange={this.handleSelectDestProject.bind(this)}
-                    title={
-                      <FormattedMessage
-                        id="bulkActions.dialogMoveTitle"
-                        defaultMessage="Move to a different list"
-                      />
-                    }
-                  />
-                </React.Fragment>
-              ) : null}
-
-              <IconButtonWithTooltip
-                title={
-                  <FormattedMessage
-                    id="bulkActions.sendItemsToTrash"
-                    defaultMessage="Send selected items to trash"
-                  />
-                }
-                disabled={disabled}
-                className="media-bulk-actions__delete-icon"
-                onClick={() => { this.handleDelete({ archived: CheckArchivedFlags.TRASHED }); }}
-              >
-                <DeleteIcon />
-              </IconButtonWithTooltip>
             </React.Fragment>
-          )}
+          ) : null}
+
+          <IconButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.sendItemsToTrash"
+                defaultMessage="Send selected items to trash"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__delete-icon"
+            onClick={() => {
+              this.handleDelete({
+                archived: CheckArchivedFlags.TRASHED,
+                archived_was: CheckArchivedFlags.NONE,
+              });
+            }}
+          >
+            <DeleteIcon />
+          </IconButtonWithTooltip>
+        </React.Fragment>
+      );
+      break;
+    }
+
+    return (
+      <span id="media-bulk-actions">
+        <span id="media-bulk-actions__actions">
+          { actionButtons }
         </span>
       </span>
     );
@@ -378,9 +438,14 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
       id
       number_of_results
     }
+    check_search_unconfirmed {
+      id
+      number_of_results
+    }
     public_team {
       id
       trash_count
+      unconfirmed_count
     }
   }
 `);
