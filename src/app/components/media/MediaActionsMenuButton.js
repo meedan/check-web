@@ -122,7 +122,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         </MenuItem>));
     }
 
-    if (can(projectMedia.permissions, 'restore ProjectMedia') && projectMedia.archived > CheckArchivedFlags.NONE) {
+    if (can(projectMedia.permissions, 'restore ProjectMedia') && projectMedia.archived === CheckArchivedFlags.TRASHED) {
       menuItems.push((
         <MenuItem
           key="mediaActions.restore"
@@ -132,6 +132,20 @@ class MediaActionsMenuButton extends React.PureComponent {
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />}
+          />
+        </MenuItem>));
+    }
+
+    if (can(projectMedia.permissions, 'confirm ProjectMedia') && projectMedia.archived === CheckArchivedFlags.UNCONFIRMED) {
+      menuItems.push((
+        <MenuItem
+          key="mediaActions.confirm"
+          className="media-actions__confirm"
+          id="media-actions__confirm"
+          onClick={e => this.handleActionAndClose(e, handleRestore)}
+        >
+          <ListItemText
+            primary={<FormattedMessage id="mediaActions.confirm" defaultMessage="Confirm" />}
           />
         </MenuItem>));
     }
