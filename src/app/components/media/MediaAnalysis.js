@@ -134,6 +134,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
+  const noReport = !projectMedia.report;
 
   const handleCopyToReport = () => {
     setShowConfirmationDialog(false);
@@ -203,7 +204,7 @@ const MediaAnalysis = ({ projectMedia }) => {
       onCompleted: (response, err) => {
         setCopying(false);
         if (!err) {
-          browserHistory.push(`${window.location.pathname}/report`);
+          browserHistory.push(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
         }
       },
       onError: () => {
@@ -213,7 +214,11 @@ const MediaAnalysis = ({ projectMedia }) => {
   };
 
   const handleConfirmCopyToReport = () => {
-    setShowConfirmationDialog(true);
+    if (noReport) {
+      handleCopyToReport();
+    } else {
+      setShowConfirmationDialog(true);
+    }
   };
 
   return (
@@ -258,7 +263,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
       <Box>
         <Box display="flex" className={classes.box}>
-          { picture ? <img src={picture} alt="" className={classes.image} /> : null }
+          { picture ? <img src={picture} alt="" className={classes.image} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} /> : null }
           <TextField
             label={
               <FormattedMessage id="mediaAnalysis.title" defaultMessage="Title" />

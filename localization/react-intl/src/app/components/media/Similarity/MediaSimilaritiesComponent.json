@@ -1,0 +1,26 @@
+[
+  {
+    "id": "mediaSimilaritiesComponent.back",
+    "defaultMessage": "Back"
+  },
+  {
+    "id": "mediaSimilarities.mainItem",
+    "defaultMessage": "Main media"
+  },
+  {
+    "id": "mediaSimilarities.allSimilarMedia",
+    "defaultMessage": "All similar media"
+  },
+  {
+    "id": "mediaSimilarities.requests",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "mediaSimilarities.notes",
+    "defaultMessage": "Notes"
+  },
+  {
+    "id": "mediaSimilarities.clickOnItem",
+    "defaultMessage": "Click on an item"
+  }
+]

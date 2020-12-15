@@ -1,15 +1,17 @@
 [
   {
     "id": "teamListsComponent.defaultErrorMessage",
-    "defaultMessage": "Could not save lists settings!"
+    "description": "Warning displayed if an error occurred when saving list settings",
+    "defaultMessage": "Could not save list settings."
   },
   {
     "id": "teamListsComponent.savedSuccessfully",
-    "defaultMessage": "Lists settings saved successfully!"
+    "description": "Banner displayed when list settings are saved successfully",
+    "defaultMessage": "List settings saved successfully."
   },
   {
     "id": "teamListsComponent.title",
-    "defaultMessage": "Lists settings"
+    "defaultMessage": "List settings"
   },
   {
     "id": "teamListsComponent.save",
@@ -26,5 +28,17 @@
   {
     "id": "teamListsComponent.availableColumns",
     "defaultMessage": "Available columns"
+  },
+  {
+    "id": "teamListsComponent.confirmSaveTitle",
+    "defaultMessage": "Workspace list change"
+  },
+  {
+    "id": "teamListsComponent.confirmSaveText",
+    "defaultMessage": "Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
+  },
+  {
+    "id": "teamListsComponent.buttonLabel",
+    "defaultMessage": "Save changes for all lists"
   }
 ]

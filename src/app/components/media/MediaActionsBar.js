@@ -25,7 +25,8 @@ import CheckContext from '../../CheckContext';
 import globalStrings from '../../globalStrings';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
-import { getErrorMessage, isBotInstalled } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const Styles = theme => ({
   root: {
@@ -54,7 +55,7 @@ const Styles = theme => ({
 
 class MediaActionsBarComponent extends Component {
   static handleReportDesigner() {
-    const path = `${window.location.pathname}/report`;
+    const path = `${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`;
     browserHistory.push(path);
   }
 
@@ -119,7 +120,7 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        archived: 1,
+        archived: CheckArchivedFlags.TRASHED,
         check_search_team: this.props.media.team.search,
         check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
@@ -216,13 +217,21 @@ class MediaActionsBarComponent extends Component {
 
   handleRestore() {
     const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="mediaActionsBar.movedBack"
-          defaultMessage="Restored from trash"
-        />
-      );
+      const message = this.props.media.archived === CheckArchivedFlags.TRASHED ?
+        (
+          <FormattedMessage
+            id="mediaActionsBar.movedRestoreBack"
+            defaultMessage="Restored from trash, redirecting..."
+          />
+        ) :
+        (
+          <FormattedMessage
+            id="mediaActionsBar.movedConfirmBack"
+            defaultMessage="Confirmed, redirecting..."
+          />
+        );
       this.props.setFlashMessage(message);
+      window.location.assign(window.location.pathname);
     };
 
     const context = this.getContext();
@@ -234,7 +243,7 @@ class MediaActionsBarComponent extends Component {
       new UpdateProjectMediaMutation({
         id: this.props.media.id,
         media: this.props.media,
-        archived: 0,
+        archived: CheckArchivedFlags.NONE,
         check_search_team: this.props.media.team.search,
         check_search_project: this.currentProject() ? this.currentProject().search : null,
         check_search_trash: this.props.media.team.check_search_trash,
@@ -252,17 +261,12 @@ class MediaActionsBarComponent extends Component {
 
   render() {
     const { classes, media } = this.props;
-    const { project_media_project: projectMediaProject } = media;
-    let isChild = false;
-    let isParent = false;
-    if (media.relationship) {
-      if (media.relationship.target_id === media.dbid) {
-        isChild = true;
-      } else if (media.relationship.source_id === media.dbid) {
-        isParent = true;
-      }
+
+    if (media.suggested_main_item || media.is_confirmed_similar_to_another_item) {
+      return null;
     }
-    const readonlyStatus = isBotInstalled(media.team, 'smooch') && isChild && !isParent;
+
+    const { project_media_project: projectMediaProject } = media;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const options = [];
@@ -280,7 +284,7 @@ class MediaActionsBarComponent extends Component {
 
     return (
       <div className={classes.root}>
-        { !media.archived ?
+        { media.archived === CheckArchivedFlags.NONE ?
           <div>
             <AddProjectMediaToProjectAction
               team={this.props.media.team}
@@ -320,7 +324,8 @@ class MediaActionsBarComponent extends Component {
         <Box display="flex">
           <MediaStatus
             media={media}
-            readonly={media.archived || media.last_status_obj.locked || readonlyStatus || published}
+            readonly={media.archived > CheckArchivedFlags.NONE
+              || media.last_status_obj.locked || published}
           />
           <MediaActionsMenuButton
             key={media.id /* close menu if we navigate to a different projectMedia */}
@@ -427,6 +432,8 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         url
         quote
         archived
+        suggested_main_item
+        is_confirmed_similar_to_another_item
         dynamic_annotation_report_design {
           id
           data
@@ -464,12 +471,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
               }
             }
           }
-        }
-        relationship {
-          id
-          dbid
-          target_id
-          source_id
         }
         team {
           ${AddProjectMediaToProjectAction.getFragment('team')}

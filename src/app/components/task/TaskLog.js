@@ -15,6 +15,7 @@ import MediasLoading from '../media/MediasLoading';
 import UserTooltip from '../user/UserTooltip';
 import UserUtil from '../user/UserUtil';
 import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledAnnotation = styled.div`
   div {
@@ -391,7 +392,8 @@ class TaskLog extends Component {
           route={route}
           renderLoading={() => <MediasLoading count={1} />}
         /> : null }
-        { !this.state.collapsed && !this.props.task.project_media.archived ?
+        { !this.state.collapsed &&
+        this.props.task.project_media.archived === CheckArchivedFlags.NONE ?
           <div id={`task-${this.props.task.dbid}-log`}>
             <AddAnnotation
               annotated={this.props.task}

@@ -37,16 +37,17 @@ class WebPageMediaCard extends Component {
           <div>
             { media.picture ?
               <AspectRatio>
-                <img src={media.picture} alt="" />
+                <img src={media.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
             }
+            <p />
             { data.error ?
-              <span className="web-page-media-card__error">
+              <div className="web-page-media-card__error">
                 <FormattedMessage
                   id="webPageMediaCard.Error"
                   defaultMessage="This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
                 />
-              </span> : null
+              </div> : null
             }
           </div>
         }

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "reportStatusCell.unpublished",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "reportStatusCell.paused",
+    "defaultMessage": "Paused"
+  },
+  {
+    "id": "reportStatusCell.published",
+    "defaultMessage": "Published"
+  }
+]

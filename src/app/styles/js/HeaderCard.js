@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { stripUnit } from 'polished';
 
 import {
   mediaQuery,
@@ -11,7 +10,6 @@ import {
   boxShadow,
   subheading1,
   Row,
-  gutterMedium,
   avatarSizeLarge,
 } from './shared';
 
@@ -68,7 +66,7 @@ export const StyledHelper = styled.div`
 
 export const StyledProfileCard = styled.div`
   margin-bottom: ${units(6)};
-  margin-top: ${stripUnit(gutterMedium) * -1}px;
+  
   background-color: white;
   box-shadow: ${boxShadow(1)};
 `;

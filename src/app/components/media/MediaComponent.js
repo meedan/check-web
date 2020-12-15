@@ -16,14 +16,23 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
-import MediaRelated from './MediaRelated';
 import MediaTasks from './MediaTasks';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
 import MediaAnalysis from './MediaAnalysis';
+import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
+import MediaSuggestions from './Similarity/MediaSuggestions';
+import MediaSimilarities from './Similarity/MediaSimilarities';
+import MediaRelated from './Similarity/MediaRelated';
 import CheckContext from '../../CheckContext';
-import { units } from '../../styles/js/shared';
+
+import {
+  units,
+  brandSecondary,
+  backgroundMain,
+  Column,
+} from '../../styles/js/shared';
 
 const styles = theme => ({
   root: {
@@ -40,21 +49,32 @@ const StyledThreeColumnLayout = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+
+/* Middle column */
+  .media__column {
+    background-color: ${backgroundMain};
+  }
+
+/* Right Column */
+  .media__annotations-column {
+    border-left: 1px solid ${brandSecondary};
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+
+    /* Container of tabs */
+    .media__annotations-tabs {
+      background-color: ${backgroundMain};
+    }
+  }
 `;
 
-const FixedColumn = styled.div`
+const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: ${units(2)};
-`;
-
-const Column = styled.div`
-  flex: 1;
-  min-width: 340px;
-  max-width: 720px;
-  padding: ${units(2)};
-  height: calc(100vh - 100px);
-  overflow: auto;
+  border-right: 1px solid ${brandSecondary};
 `;
 
 const StyledTab = withStyles(theme => ({
@@ -246,7 +266,7 @@ class MediaComponent extends Component {
       return null;
     }
 
-    const { media } = this.props;
+    const { media, view } = this.props;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
@@ -274,90 +294,107 @@ class MediaComponent extends Component {
       <div>
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
-          <FixedColumn>
+          <AnalysisColumn>
             <MediaAnalysis projectMedia={media} />
-          </FixedColumn>
-          <Column>
-            <MediaDetail
-              hideBorder
-              hideRelated
-              media={media}
-              onPlayerReady={this.setPlayerRect}
-              onReady={this.handleMediaDetailReady}
-              onTimelineCommentOpen={this.onTimelineCommentOpen}
-              onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
-              playerRef={this.playerRef}
-              setPlayerState={this.setPlayerState}
-              {...{
-                playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
-              }}
-            />
-            {this.props.extras}
-            <MediaRelated
-              media={media}
-            />
-          </Column>
-          <Column className="media__annotations-column">
-            <Tabs
-              indicatorColor="primary"
-              onChange={this.handleTabChange}
-              scrollButtons="auto"
-              textColor="primary"
-              variant="scrollable"
-              value={this.state.showTab}
-            >
-              { this.state.showRequests ?
-                <StyledTab
-                  label={
-                    <FormattedMessage
-                      id="mediaComponent.requests"
-                      defaultMessage="Requests"
-                    />
-                  }
-                  value="requests"
-                  className="media-tab__requests"
+          </AnalysisColumn>
+          { view === 'default' ?
+            <React.Fragment>
+              <Column className="media__column">
+                <MediaSimilarityBar
+                  projectMedia={media}
                 />
-                : null }
-              <StyledTab
-                label={
-                  <FormattedMessage
-                    id="mediaComponent.metadata"
-                    defaultMessage="Metadata"
+                <MediaDetail
+                  hideBorder
+                  hideRelated
+                  media={media}
+                  onPlayerReady={this.setPlayerRect}
+                  onReady={this.handleMediaDetailReady}
+                  onTimelineCommentOpen={this.onTimelineCommentOpen}
+                  onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
+                  playerRef={this.playerRef}
+                  setPlayerState={this.setPlayerState}
+                  {...{
+                    playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
+                  }}
+                />
+                {this.props.extras}
+              </Column>
+              <Column className="media__annotations-column">
+                <Tabs
+                  indicatorColor="primary"
+                  onChange={this.handleTabChange}
+                  scrollButtons="auto"
+                  textColor="primary"
+                  variant="scrollable"
+                  value={this.state.showTab}
+                  className="media__annotations-tabs"
+                >
+                  { this.state.showRequests ?
+                    <StyledTab
+                      label={
+                        <FormattedMessage
+                          id="mediaComponent.requests"
+                          defaultMessage="Requests"
+                        />
+                      }
+                      value="requests"
+                      className="media-tab__requests"
+                    />
+                    : null }
+                  <StyledTab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.metadata"
+                        defaultMessage="Metadata"
+                      />
+                    }
+                    value="metadata"
+                    className="media-tab__metadata"
                   />
-                }
-                value="metadata"
-                className="media-tab__metadata"
-              />
-              <StyledTab
-                label={
-                  <FormattedMessage
-                    id="mediaComponent.tasks"
-                    defaultMessage="Tasks"
+                  <StyledTab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.tasks"
+                        defaultMessage="Tasks"
+                      />
+                    }
+                    value="tasks"
+                    className="media-tab__tasks"
                   />
-                }
-                value="tasks"
-                className="media-tab__tasks"
-              />
-              <StyledTab
-                label={
-                  <FormattedMessage
-                    id="mediaComponent.notes"
-                    defaultMessage="Notes"
+                  <StyledTab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.notes"
+                        defaultMessage="Notes"
+                      />
+                    }
+                    value="notes"
+                    className="media-tab__comments"
                   />
-                }
-                value="notes"
-                className="media-tab__comments"
-              />
-            </Tabs>
-            { this.state.showTab === 'requests' ? <MediaRequests media={media} /> : null }
-            { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-            { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
-            { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-          </Column>
+                  <StyledTab
+                    label={
+                      <FormattedMessage
+                        id="mediaComponent.related"
+                        defaultMessage="Related"
+                      />
+                    }
+                    value="related"
+                    className="media-tab__related"
+                  />
+                </Tabs>
+                { this.state.showTab === 'requests' ? <MediaRequests media={media} all /> : null }
+                { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+                { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
+                { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+                { this.state.showTab === 'related' ? <MediaRelated projectMedia={media} /> : null }
+              </Column>
+            </React.Fragment> : null }
+          { view === 'suggestedMatches' ? <MediaSuggestions projectMedia={media} /> : null }
+          { view === 'similarMedia' ? <MediaSimilarities projectMedia={media} /> : null }
         </StyledThreeColumnLayout>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:
-          playerRect ?
+          playerRect && view === 'default' ?
             <Drawer
               PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
               anchor="bottom"

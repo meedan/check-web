@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
+import Typography from '@material-ui/core/Typography';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
-import ProfileLink from '../layout/ProfileLink';
-import UserTooltip from '../user/UserTooltip';
 import { getCurrentProjectId } from '../../helpers';
+import { units } from '../../styles/js/shared';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -58,21 +58,43 @@ class MediaRequestsComponent extends Component {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
 
     return (
-      <div id="media__requests" style={this.props.style}>
-        <Annotations
-          annotations={media.requests.edges}
-          annotated={media}
-          annotatedType="ProjectMedia"
-          annotationsCount={media.demand}
-          relay={this.props.relay}
-          noActivityMessage={
-            <FormattedMessage
-              id="MediaRequests.noRequest"
-              defaultMessage="No requests"
-            />
-          }
-        />
-      </div>
+      <React.Fragment>
+        <div id="media__requests" style={this.props.style}>
+          <div style={{ padding: units(1) }}>
+            <Typography variant="subtitle2">
+              { this.props.all ?
+                <FormattedMessage
+                  id="mediaRequests.allRequests"
+                  defaultMessage="{count, plural, one {1 request across all media} other {# requests across all media}}"
+                  values={{
+                    count: this.props.media.demand,
+                  }}
+                /> :
+                <FormattedMessage
+                  id="mediaRequests.thisRequests"
+                  defaultMessage="{count, plural, one {1 request} other {# requests}}"
+                  values={{
+                    count: this.props.media.requests_count,
+                  }}
+                />
+              }
+            </Typography>
+          </div>
+          <Annotations
+            annotations={media.requests.edges}
+            annotated={media}
+            annotatedType="ProjectMedia"
+            annotationsCount={media.demand}
+            relay={this.props.relay}
+            noActivityMessage={
+              <FormattedMessage
+                id="mediaRequests.noRequest"
+                defaultMessage="No requests"
+              />
+            }
+          />
+        </div>
+      </React.Fragment>
     );
   }
 }
@@ -88,7 +110,7 @@ const fieldNames = ['smooch_data'];
 const annotationTypes = [];
 const whoDunnit = ['smooch'];
 
-const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
+const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
   initialVariables: {
     pageSize,
     eventTypes,
@@ -125,96 +147,51 @@ const MediaRequestsContainer = Relay.createContainer(withPusher(MediaRequestsCom
               smooch_user_external_identifier,
               smooch_report_received_at,
               smooch_report_update_received_at,
-              meta,
-              user {
-                id,
-                dbid,
-                name,
-                is_active,
-                team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                },
-                source {
-                  id,
-                  dbid,
-                  image,
-                }
-              }
-              annotation {
-                id,
-                dbid,
-                content,
-                annotation_type,
-                updated_at,
-                created_at,
-                permissions,
-                medias(first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      dbid,
-                      quote,
-                      published,
-                      url,
-                      last_status,
-                      last_status_obj {
-                        id
-                        dbid
-                        content
-                        assignments(first: 10000) {
-                          edges {
-                            node {
-                              id
-                              dbid
-                              name
-                              source {
-                                id
-                                dbid
-                                image
-                              }
-                            }
-                          }
-                        }
-                      }
-                      log_count,
-                      permissions,
-                      domain,
-                      team {
-                        slug,
-                        get_embed_whitelist
-                      }
-                      media {
-                        type,
-                        metadata
-                        embed_path,
-                        thumbnail_path,
-                        file_path,
-                        url,
-                        quote
-                      }
-                      user {
-                        dbid
-                        name
-                        is_active
-                        source {
-                          dbid
-                          image
-                        }
-                      }
-                    }
-                  }
-                }
-                annotator {
-                  name,
-                  profile_image
-                }
-                version {
-                  id
-                  item_id
-                  item_type
-                }
-              }
+            }
+          }
+        }
+      }
+    `,
+  },
+});
+
+const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
+  initialVariables: {
+    pageSize,
+    eventTypes,
+    fieldNames,
+    annotationTypes,
+    whoDunnit,
+    teamSlug: null,
+  },
+  prepareVariables: vars => ({
+    ...vars,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+  }),
+  fragments: {
+    media: () => Relay.QL`
+      fragment on ProjectMedia {
+        id
+        dbid
+        archived
+        pusher_channel
+        requests_count
+        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: false) {
+          edges {
+            node {
+              id,
+              dbid,
+              item_type,
+              item_id,
+              event,
+              event_type,
+              created_at,
+              object_after,
+              object_changes_json,
+              smooch_user_slack_channel_url,
+              smooch_user_external_identifier,
+              smooch_report_received_at,
+              smooch_report_update_received_at,
             }
           }
         }
@@ -227,14 +204,18 @@ const MediaRequests = (props) => {
   const projectId = getCurrentProjectId(props.media.project_ids);
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
+  const { media, style, all } = props;
+
+  const Container = all ? MediaAllRequestsContainer : MediaOwnRequestsContainer;
 
   return (
     <Relay.RootContainer
-      Component={MediaRequestsContainer}
+      Component={Container}
       renderFetched={data =>
-        <MediaRequestsContainer cachedMedia={props.media} style={props.style} {...data} />}
+        <Container cachedMedia={media} style={style} all={all} {...data} />}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
+      forceFetch
     />
   );
 };

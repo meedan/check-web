@@ -13,7 +13,7 @@
   },
   {
     "id": "list.LinkedItems",
-    "defaultMessage": "Related"
+    "defaultMessage": "Similar media"
   },
   {
     "id": "list.Type",
@@ -34,5 +34,17 @@
   {
     "id": "list.updated",
     "defaultMessage": "Updated"
+  },
+  {
+    "id": "list.reportStatus",
+    "defaultMessage": "Report status"
+  },
+  {
+    "id": "list.tags",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "list.mediaPublishedAt",
+    "defaultMessage": "Media published"
   }
 ]

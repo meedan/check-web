@@ -36,16 +36,16 @@
     "defaultMessage": "Notice of inactivity"
   },
   {
-    "id": "smoochBot.labelTos",
-    "defaultMessage": "Terms of service"
+    "id": "smoochBot.labelPrivacyStatement",
+    "defaultMessage": "Privacy statement"
   },
   {
     "id": "smoochBot.descriptionGreeting",
-    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot. This message is automatically followed by the Main menu."
+    "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot."
   },
   {
     "id": "smoochBot.descriptionMainMenu",
-    "defaultMessage": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message."
+    "defaultMessage": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu."
   },
   {
     "id": "smoochBot.descriptionSecondaryMenu",
@@ -76,8 +76,24 @@
     "defaultMessage": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
   },
   {
-    "id": "smoochBot.descriptionTos",
-    "defaultMessage": "This message immediately follows any report sent to the user and should contain a link to the Check Terms of Service."
+    "id": "smoochBot.descriptionPrivacyStatementGreeting",
+    "defaultMessage": "By default, the following Privacy statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
+  },
+  {
+    "id": "smoochBot.descriptionPrivacyStatementGreeting2",
+    "defaultMessage": "The option '9' must be referenced for users to access the Privacy statement on the Main menu."
+  },
+  {
+    "id": "smoochBot.descriptionPrivacyStatementContent",
+    "defaultMessage": "Privacy statement content. Edit the text below, or replace it with custom content."
+  },
+  {
+    "id": "smoochBot.footnoteGreeting",
+    "defaultMessage": "The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
+  },
+  {
+    "id": "smoochBot.footnoteGreeting2",
+    "defaultMessage": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy statement' on this page."
   },
   {
     "id": "smoochBot.placeholderGreeting",
@@ -116,15 +132,15 @@
     "defaultMessage": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n\nContact us at *[email or other contact]* for further inquiries."
   },
   {
-    "id": "smoochBot.placeholderTos",
-    "defaultMessage": "This service is provided under the following terms: %{tos}"
-  },
-  {
     "id": "smoochBot.newResourceTitle",
     "defaultMessage": "New bot resource"
   },
   {
     "id": "smoochBot.menuKeywords",
     "defaultMessage": "Keywords separated by comma"
+  },
+  {
+    "id": "smoochBot.tos",
+    "defaultMessage": "Terms of Service ({language})"
   }
 ]

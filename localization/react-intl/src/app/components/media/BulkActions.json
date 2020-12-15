@@ -4,20 +4,27 @@
     "defaultMessage": "Items moved to the trash."
   },
   {
+    "id": "bulkActions.confirmSuccessfully",
+    "defaultMessage": "Items confirmed."
+  },
+  {
     "id": "bulkActions.restoredFromTrashSuccessfully",
     "defaultMessage": "Items restored from the trash."
   },
   {
     "id": "bulkActions.addedSuccessfully",
-    "defaultMessage": "Items added to list!"
+    "description": "Banner displayed after items are added successfully to list",
+    "defaultMessage": "Items added to list."
   },
   {
     "id": "bulkActions.removedSuccessfully",
-    "defaultMessage": "Items removed from this list!"
+    "description": "Banner displayed after items are removed successfully from list",
+    "defaultMessage": "Items removed from this list."
   },
   {
     "id": "bulkActions.movedSuccessfully",
-    "defaultMessage": "Items moved!"
+    "description": "Banner displayed after items are moved successfully",
+    "defaultMessage": "Items moved."
   },
   {
     "id": "bulkActions.restoreItemsFromTrash",
@@ -26,6 +33,14 @@
   {
     "id": "bulkActions.restore",
     "defaultMessage": "Restore from trash"
+  },
+  {
+    "id": "bulkActions.confirmItems",
+    "defaultMessage": "Confirm selected items"
+  },
+  {
+    "id": "bulkActions.confrim",
+    "defaultMessage": "Confirm"
   },
   {
     "id": "bulkActions.add",

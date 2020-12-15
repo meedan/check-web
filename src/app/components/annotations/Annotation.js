@@ -29,7 +29,6 @@ import EmbedCreate from './EmbedCreate';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import TaskUpdate from './TaskUpdate';
 import SourcePicture from '../source/SourcePicture';
-import MediaDetail from '../media/MediaDetail';
 import ProfileLink from '../layout/ProfileLink';
 import ParsedText from '../ParsedText';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
@@ -48,6 +47,7 @@ import {
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import UserTooltip from '../user/UserTooltip';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
   white,
@@ -436,7 +436,9 @@ class Annotation extends Component {
         .charAt(0)
         .toUpperCase()}${annotation.annotation_type.slice(1)}`;
       // TODO: Improve hide when item is archived logic. Not all annotated types have archived flag.
-      annotationActions = can(annotation.permissions, permission) && !annotated.archived ? (
+      const canDoAnnotationActions = can(annotation.permissions, permission) &&
+        annotated.archived === CheckArchivedFlags.NONE;
+      annotationActions = canDoAnnotationActions ? (
         <div>
           <Tooltip title={
             <FormattedMessage id="annotation.menuTooltip" defaultMessage="Annotation actions" />
@@ -513,14 +515,6 @@ class Annotation extends Component {
                   alt=""
                 />
               </div> : null}
-          </div>
-          {/* embedded medias */}
-          <div className="annotation__card-embedded-medias">
-            {annotation.medias.edges.map(media => (
-              <div key={media.node.dbid}>
-                <MediaDetail media={media.node} condensed readonly hideRelated />
-              </div>))
-            }
           </div>
 
           {/* lightbox */}
@@ -1075,7 +1069,13 @@ class Annotation extends Component {
         authorName = null;
         const objectValue = JSON.parse(object.value);
         const messageType = objectValue.source.type;
-        const messageText = objectValue.text ? objectValue.text.trim() : null;
+        const messageText = objectValue.text ?
+          objectValue.text.trim()
+            .split('\n')
+            .map(w => w.replace('\u2063', ''))
+            .filter(w => !/^[0-9]+$/.test(w))
+            .join('\n')
+          : null;
         const smoochSlackUrl = activity.smooch_user_slack_channel_url;
         const smoochExternalId = activity.smooch_user_external_identifier;
         const smoochReportReceivedAt = activity.smooch_report_received_at ?
@@ -1200,7 +1200,7 @@ class Annotation extends Component {
             />
           </span>
         );
-      } else if (activity.object_changes_json === '{"archived":[false,true]}') {
+      } else if (activity.object_changes_json === '{"archived":[0,1]}') {
         contentTemplate = (
           <span>
             <FormattedMessage
@@ -1212,7 +1212,7 @@ class Annotation extends Component {
             />
           </span>
         );
-      } else if (activity.object_changes_json === '{"archived":[true,false]}') {
+      } else if (activity.object_changes_json === '{"archived":[1,0]}') {
         contentTemplate = (
           <span>
             <FormattedMessage

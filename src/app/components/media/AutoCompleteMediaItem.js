@@ -5,6 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 function isPublished(media) {
   return (
@@ -61,7 +62,8 @@ function AutoCompleteMediaItem(props, context) {
   //
   // After abort, we promise we won't call any more setSearchResult().
   React.useEffect(() => {
-    if (searchText.length < 3) {
+    // eslint-disable-next-line no-useless-escape
+    if (searchText.length < 3 && !/\p{Extended_Pictographic}/u.test(searchText)) {
       setSearchResult(null);
       return undefined; // no cleanup needed
     }
@@ -83,38 +85,40 @@ function AutoCompleteMediaItem(props, context) {
       const encodedQuery = JSON.stringify(JSON.stringify({
         keyword: searchText,
         show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
-        eslimit: 30,
+        eslimit: 50,
+        archived: CheckArchivedFlags.NONE,
+        include_related_items: Boolean(props.customFilter),
       }));
       const params = {
-        body: JSON.stringify({
-          query: `
-            query {
-              search(query: ${encodedQuery}) {
-                medias(first: 30) {
-                  edges {
-                    node {
+        body: `query=query {
+            search(query: ${encodedQuery}) {
+              medias(first: 50) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    title
+                    archived
+                    is_confirmed_similar_to_another_item
+                    dynamic_annotation_report_design {
                       id
-                      dbid
-                      title
-                      relationships { sources_count, targets_count }
-                      dynamic_annotation_report_design {
-                        id
-                        data
-                      }
+                      data
                     }
                   }
                 }
               }
             }
-          `,
-        }),
+          }
+        `,
         headers: {
           Accept: '*/*',
+          'Content-Type': 'application/x-www-form-urlencoded',
           'X-Check-Team': teamSlug,
-          'Content-Type': 'application/json',
           ...config.relayHeaders,
         },
         method: 'POST',
+        credentials: 'include',
+        referrerPolicy: 'no-referrer',
       };
       const { jsonPromise, abort } = fetchJsonEnsuringOkAllowingAbort(config.relayPath, params);
       // abortAsyncStuff() should call this HTTP abort(). That will cause
@@ -138,12 +142,17 @@ function AutoCompleteMediaItem(props, context) {
 
       // The rest of this code is synchronous, so it can't be aborted.
       try {
-        let items = response.data.search.medias.edges
-          .map(({ node }) => node)
-          .filter(({ relationships }) => (
-            relationships.sources_count + relationships.targets_count === 0
-          ))
-          .filter(({ dbid }) => dbid !== props.dbid);
+        let items = response.data.search.medias.edges.map(({ node }) => node);
+        if (props.customFilter) {
+          items = props.customFilter(items);
+        } else {
+          items = items
+            .filter(({ is_confirmed_similar_to_another_item }) =>
+              !is_confirmed_similar_to_another_item);
+        }
+        items = items
+          .filter(({ dbid }) => dbid !== props.dbid)
+          .filter(({ archived }) => archived === CheckArchivedFlags.NONE);
         if (props.onlyPublished) {
           items = items.filter(isPublished);
         }
@@ -152,6 +161,7 @@ function AutoCompleteMediaItem(props, context) {
           value: item.dbid,
           id: item.id,
           isPublished: isPublished(item),
+          dbid: item.dbid,
         }));
         setSearchResult({ loading: false, items, error: null });
       } catch (err) {
@@ -212,19 +222,24 @@ function AutoCompleteMediaItem(props, context) {
     />
   );
 }
+
 AutoCompleteMediaItem.contextTypes = {
   store: PropTypes.object, // TODO nix
 };
+
 AutoCompleteMediaItem.defaultProps = {
   dbid: null,
   onlyPublished: false,
   typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
+  customFilter: null,
 };
+
 AutoCompleteMediaItem.propTypes = {
   onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
   dbid: PropTypes.number, // filter results: do _not_ select this number
   onlyPublished: PropTypes.bool, // filter results
   typesToShow: PropTypes.arrayOf(PropTypes.string),
+  customFilter: PropTypes.func,
 };
 
 export default AutoCompleteMediaItem;

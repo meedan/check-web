@@ -48,7 +48,11 @@ class CreateRelatedMediaDialog extends React.Component {
 
   render() {
     const { mode } = this.state;
-    const { media, hideNew, typesToShow } = this.props;
+    const {
+      media,
+      hideNew,
+      typesToShow,
+    } = this.props;
     const formId = 'create-related-media-dialog-form';
 
     return (
@@ -56,10 +60,7 @@ class CreateRelatedMediaDialog extends React.Component {
         <DialogContent>
           { hideNew ?
             <DialogTitle style={{ paddingLeft: 0, paddingRight: 0 }}>
-              <FormattedMessage
-                id="createMedia.existingReport"
-                defaultMessage="Add to imported report"
-              />
+              {this.props.title}
             </DialogTitle> :
             <Tabs
               value={this.state.mode}
@@ -97,8 +98,10 @@ class CreateRelatedMediaDialog extends React.Component {
                 <Message message={this.props.message} />
                 <AutoCompleteMediaItem
                   media={media}
+                  dbid={media ? media.dbid : null}
                   onSelect={this.handleSelectExisting}
                   typesToShow={typesToShow}
+                  customFilter={this.props.customFilter}
                 />
               </StyledAutoCompleteWrapper>
             }
@@ -118,7 +121,8 @@ class CreateRelatedMediaDialog extends React.Component {
             >
               { this.props.isSubmitting ?
                 <FormattedMessage {...globalStrings.submitting} /> :
-                <FormattedMessage {...globalStrings.submit} /> }
+                (this.props.submitButtonLabel || <FormattedMessage {...globalStrings.submit} />)
+              }
             </Button>
           }
           { mode === 'existing' &&
@@ -130,7 +134,8 @@ class CreateRelatedMediaDialog extends React.Component {
             >
               { this.props.isSubmitting ?
                 <FormattedMessage {...globalStrings.submitting} /> :
-                <FormattedMessage {...globalStrings.submit} /> }
+                (this.props.submitButtonLabel || <FormattedMessage {...globalStrings.submit} />)
+              }
             </Button>
           }
         </DialogActions>

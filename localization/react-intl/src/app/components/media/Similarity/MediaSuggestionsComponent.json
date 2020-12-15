@@ -1,0 +1,38 @@
+[
+  {
+    "id": "mediaSuggestionsComponent.back",
+    "defaultMessage": "Back"
+  },
+  {
+    "id": "mediaSuggestionsComponent.title",
+    "defaultMessage": "Suggested matches ({current} of {total})"
+  },
+  {
+    "id": "mediaSuggestionsComponent.question",
+    "defaultMessage": "Is the suggested media similar to the main?"
+  },
+  {
+    "id": "mediaSuggestionsComponent.noSuggestions",
+    "defaultMessage": "There are no suggested matches."
+  },
+  {
+    "id": "mediaSuggestionsComponent.goBack",
+    "defaultMessage": "Back to main view"
+  },
+  {
+    "id": "mediaSuggestionsComponent.requests",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "mediaSuggestionsComponent.noRequests",
+    "defaultMessage": "No requests"
+  },
+  {
+    "id": "mediaSuggestionsComponent.notes",
+    "defaultMessage": "Notes"
+  },
+  {
+    "id": "mediaSuggestionsComponent.noNotes",
+    "defaultMessage": "No notes"
+  }
+]

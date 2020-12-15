@@ -10,7 +10,7 @@ const useStyles = makeStyles({
     // Use flexbox so thumbnail takes up very little space and then text takes
     // the rest. (display: float; is too finicky.)
     display: 'flex',
-    minWidth: units(30),
+    minWidth: units(45),
     maxWidth: units(110),
     '&:hover': {
       textDecoration: 'none',
@@ -84,7 +84,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
         {picture ? (
-          <img className={classes.thumbnail} alt="" src={picture} />
+          <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
         ) : null}
         <TitleText classes={classes} title={title} description={description} />
       </MaybeLink>

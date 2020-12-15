@@ -28,6 +28,10 @@
     "defaultMessage": "The following keyword is matched"
   },
   {
+    "id": "smoochBotMenuOption.errorTos",
+    "defaultMessage": "'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
+  },
+  {
     "id": "smoochBotMenuOption.then",
     "defaultMessage": "Then"
   },

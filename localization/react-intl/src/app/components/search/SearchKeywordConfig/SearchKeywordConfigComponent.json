@@ -21,7 +21,8 @@
   },
   {
     "id": "searchKeywordConfig.allTaskAnswers",
-    "defaultMessage": "All tasks answers"
+    "description": "This options applies keyword search across all task answers",
+    "defaultMessage": "All task answers"
   },
   {
     "id": "searchKeywordConfig.allMetadataAnswers",
@@ -34,5 +35,13 @@
   {
     "id": "searchKeywordConfig.allTaskComments",
     "defaultMessage": "All task comments"
+  },
+  {
+    "id": "searchKeywordConfig.metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
+    "id": "searchKeywordConfig.tasks",
+    "defaultMessage": "Tasks"
   }
 ]

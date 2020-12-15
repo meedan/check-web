@@ -1,0 +1,34 @@
+[
+  {
+    "id": "mediaItem.error",
+    "defaultMessage": "Error, please try again"
+  },
+  {
+    "id": "mediaItem.processing",
+    "defaultMessage": "Processing…"
+  },
+  {
+    "id": "mediaItem.done",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "mediaItem.pinning",
+    "defaultMessage": "Pinning…"
+  },
+  {
+    "id": "mediaItem.doneRedirecting",
+    "defaultMessage": "Done, redirecting to new main item…"
+  },
+  {
+    "id": "mediaItem.requests",
+    "defaultMessage": "{count, plural, one {1 request} other {# requests}}"
+  },
+  {
+    "id": "mediaItem.pinAsMain",
+    "defaultMessage": "Pin as main"
+  },
+  {
+    "id": "mediaItem.detach",
+    "defaultMessage": "Detach"
+  }
+]

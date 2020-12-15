@@ -18,7 +18,7 @@ export function defaultOptions(media, language) {
     language,
     use_disclaimer: !!default_report.use_disclaimer,
     disclaimer: default_report.disclaimer || '',
-    use_introduction: isDefaultLanguage,
+    use_introduction: isDefaultLanguage ? !!default_report.use_introduction : false,
     introduction: default_report.introduction || '',
     use_visual_card: false,
     image: (media.media && media.media.picture) ? media.media.picture : '',
@@ -63,6 +63,9 @@ export function cloneData(data) {
 }
 
 export function formatDate(date, language) {
+  if (!language) {
+    return '';
+  }
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   return new Intl.DateTimeFormat(language.replace('_', '-'), options).format(date);
 }

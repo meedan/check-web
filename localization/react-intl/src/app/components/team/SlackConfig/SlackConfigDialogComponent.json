@@ -24,16 +24,20 @@
     "defaultMessage": "Send notifications to"
   },
   {
-    "id": "slackConfigDialogComponent.allActivity",
-    "defaultMessage": "All workspace activity"
+    "id": "slackConfigDialogComponent.ifItemAddedTo",
+    "defaultMessage": "If item is in list"
   },
   {
     "id": "slackConfigDialogComponent.channel",
     "defaultMessage": "Slack channel"
   },
   {
-    "id": "slackConfigDialogComponent.ifItemAddedTo",
-    "defaultMessage": "If item is added to"
+    "id": "slackConfigDialogComponent.allOtherActivity",
+    "defaultMessage": "All other activity"
+  },
+  {
+    "id": "slackConfigDialogComponent.allWorkspaceActivity",
+    "defaultMessage": "All workspace activity"
   },
   {
     "id": "slackConfigDialogComponent.new",

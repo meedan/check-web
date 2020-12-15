@@ -1,9 +1,5 @@
 [
   {
-    "id": "createMedia.existingReport",
-    "defaultMessage": "Add to imported report"
-  },
-  {
     "id": "createMedia.existing",
     "defaultMessage": "Add existing item"
   },

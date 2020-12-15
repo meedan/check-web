@@ -18,7 +18,7 @@ const TextButton = withStyles({
   },
 })(Button);
 
-const MaxHeight = units(5);
+const MaxHeight = units(60);
 
 const StyledMoreLessArea = styled.div`
   ${props => props.isExpanded ? null : `max-height: ${MaxHeight}; overflow: hidden;`}
@@ -71,7 +71,7 @@ class MoreLess extends React.PureComponent {
     return (
       <div className="more-less">
         <StyledMoreLessArea className="more-less-area" isExpanded={isExpanded} ref={this.areaRef}>
-          <div className="more-less-content" ref={this.contentRef}>
+          <div className="more-less-content" ref={this.contentRef} style={{ lineHeight: '1.5em' }}>
             {children}
           </div>
         </StyledMoreLessArea>

@@ -14,6 +14,7 @@ import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
+import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
@@ -103,8 +104,6 @@ const SmoochBot = (props) => {
           props.intl.formatMessage(placeholders.smooch_message_smooch_bot_message_type_unsupported),
         smooch_message_smooch_bot_disabled:
           props.intl.formatMessage(placeholders.smooch_message_smooch_bot_disabled),
-        smooch_message_smooch_bot_ask_for_tos:
-          props.intl.formatMessage(placeholders.smooch_message_smooch_bot_ask_for_tos),
         smooch_message_smooch_bot_greetings:
           props.intl.formatMessage(placeholders.smooch_message_smooch_bot_greetings),
         smooch_message_smooch_bot_option_not_available:
@@ -150,6 +149,15 @@ const SmoochBot = (props) => {
   const handleChangeTextField = (newValue) => {
     const updatedValue = JSON.parse(JSON.stringify(value));
     updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = newValue;
+    setValue(updatedValue);
+  };
+
+  const handleChangeMultiTextField = (subKey, newValue) => {
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
+      updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
+    }
+    updatedValue.smooch_workflows[currentWorkflowIndex][currentOption][subKey] = newValue;
     setValue(updatedValue);
   };
 
@@ -253,7 +261,17 @@ const SmoochBot = (props) => {
               </Button>
             </Box>
             <Box flexGrow="1" className={classes.box}>
-              { /^smooch_message_smooch_bot_/.test(currentOption) ?
+              { currentOption === 'smooch_message_smooch_bot_tos' ?
+                <SmoochBotMultiTextEditor
+                  value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
+                  onChange={handleChangeMultiTextField}
+                  subSchema={
+                    props.schema.properties.smooch_workflows.items.properties[currentOption]
+                  }
+                  field={currentOption}
+                  currentLanguage={currentLanguage}
+                /> : null }
+              { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' ?
                 <SmoochBotTextEditor
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
                   onChange={handleChangeTextField}
@@ -267,6 +285,7 @@ const SmoochBot = (props) => {
                   resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
                   menuActions={menuActions}
                   onChange={handleChangeMenu}
+                  currentLanguage={currentLanguage}
                 /> : null }
               { currentResource ?
                 <SmoochBotResourceEditor
@@ -282,6 +301,7 @@ const SmoochBot = (props) => {
         <SmoochBotSettings
           settings={settings}
           schema={settingsSchema}
+          currentUser={props.currentUser}
           onChange={handleUpdateSetting}
         /> : null }
     </React.Fragment>
@@ -294,6 +314,7 @@ SmoochBot.propTypes = {
   value: PropTypes.object.isRequired, // saved settings for the Smooch Bot
   onChange: PropTypes.func.isRequired, // called after "save" is clicked
   schema: PropTypes.object.isRequired,
+  currentUser: PropTypes.object.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

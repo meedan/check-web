@@ -174,11 +174,12 @@ class MediaExpandedComponent extends Component {
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
     const { description } = media.media.metadata;
+    const isFetchBotInstalled = isBotInstalled(media.team, 'fetch');
 
     return (
       <React.Fragment>
-        { isBotInstalled(media.team, 'fetch') ?
-          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2) }}>
+        { isFetchBotInstalled ?
+          <Box display="flex" flexDirection="row-reverse" style={{ padding: units(2), gap: units(2) }}>
             <BlankMediaButton
               projectMediaId={media.id}
               team={media.team}
@@ -268,33 +269,6 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}
-        relationships {
-          id
-          sources_count
-          targets_count
-          source_id
-          target_id
-        }
-        relationship {
-          id
-          permissions
-          source_id
-          source {
-            id
-            dbid
-            relationships {
-              targets(first: 1) {
-                edges {
-                  node {
-                    id
-                  }
-                }
-              }
-            }
-          }
-          target_id
-          target { id, dbid }
-        }
         media {
           url
           type
@@ -311,6 +285,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
           search_id
           verification_statuses
           get_languages
+          permissions
           team_bot_installations(first: 10000) {
             edges {
               node {

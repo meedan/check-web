@@ -17,7 +17,9 @@ export const modalBlue = 'rgba(0, 15, 41, .8)';
 export const inProgressYellow = '#efac51';
 export const unstartedRed = '#f04747';
 export const completedGreen = '#5cae73';
-export const separationGray = '#ECECEC';
+export const separationGray = '#E5E5E5';
+export const brandSecondary = '#DFE4F4';
+export const backgroundMain = '#F7F8FD';
 
 // Material blacks
 // TODO make these opaque!
@@ -465,6 +467,15 @@ export const ContentColumn = styled.div`
   ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
   ${props => props.fullWidth ? 'max-width: 100%' : ''}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
+`;
+
+export const Column = styled.div`
+  flex: 1;
+  min-width: 340px;
+  max-width: 720px;
+  padding: ${units(2)};
+  height: calc(100vh - 60px);
+  overflow: auto;
 `;
 
 export const OffsetBothSides = styled.div`

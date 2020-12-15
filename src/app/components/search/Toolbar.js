@@ -10,8 +10,9 @@ import { black87, units, Row, FlexRow } from '../../styles/js/shared';
 const StyledToolbar = styled.div`
   background-color: white;
   min-height: ${units(5)};
-  max-width: calc(100vw - ${units(34)});
-  padding: ${units(2)};
+  /* max-width: calc(100vw - ${units(34)}); Seems unecessary */
+  padding: 0 ${units(2)} ${units(2)} ${units(2)};
+  margin: 0;
 
   .toolbar__title {
     color: ${black87};
@@ -54,7 +55,7 @@ class Toolbar extends React.Component {
             <span className="toolbar__title">{title}</span>
             {actions}
           </Row>
-          {page !== 'trash' ? (
+          {['trash', 'unconfirmed'].indexOf(page) === -1 ? (
             <Can {...perms}>
               <OffsetButton>
                 <CreateProjectMedia search={search} project={project} team={team} />
@@ -71,7 +72,7 @@ Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
 };
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
 };
 
 export default injectIntl(Toolbar);

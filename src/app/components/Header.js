@@ -11,11 +11,11 @@ import {
   mediaQuery,
   headerHeight,
   Row,
-  black02,
+  brandSecondary,
 } from '../styles/js/shared';
 
 const HeaderBar = styled.div`
-  background-color: ${black02};
+  background-color: ${brandSecondary};
   display: flex;
   align-items: center;
   padding: 0 ${units(2)};
@@ -38,7 +38,7 @@ function HeaderComponent(props) {
   const path = window.location.pathname;
 
   const tasksPage = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path);
-  const mediaPage = /^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+$/.test(path);
+  const mediaPage = /^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+(\/suggested-matches|\/similar-media)?$/.test(path);
   const sourcePage = /^\/[^/]+\/project\/[0-9]+\/source\/[0-9]+$/.test(path);
 
   if (tasksPage || (!mediaPage && !sourcePage)) {

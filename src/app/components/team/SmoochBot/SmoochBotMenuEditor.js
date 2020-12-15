@@ -83,6 +83,7 @@ const SmoochBotMenuEditor = (props) => {
       {menuOptions.map((option, index) => (
         <Box display="flex" key={Math.random().toString().substring(2, 10)}>
           <SmoochBotMenuOption
+            field={props.field}
             languages={props.languages}
             option={option}
             menuActions={props.menuActions}
@@ -111,6 +112,20 @@ const SmoochBotMenuEditor = (props) => {
           </Box>
         </Box>
       ))}
+      { props.field === 'smooch_state_main' ?
+        <SmoochBotMenuOption
+          field={props.field}
+          currentLanguage={props.currentLanguage}
+          languages={[]}
+          option={{
+            smooch_menu_option_keyword: '9',
+            smooch_menu_option_value: 'tos',
+          }}
+          menuActions={[]}
+          resources={[]}
+          onChange={() => {}}
+          readOnly
+        /> : null }
       <Button onClick={handleAddOption} startIcon={<AddIcon />} className={classes.button}>
         <FormattedMessage
           id="smoochBotMenuEditor.scenario"
@@ -132,6 +147,7 @@ SmoochBotMenuEditor.propTypes = {
   menuActions: PropTypes.arrayOf(PropTypes.object).isRequired,
   field: PropTypes.string.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
+  currentLanguage: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
 };
 

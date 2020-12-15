@@ -24,17 +24,25 @@ import {
 } from './reportDesignerHelpers';
 import { getStatus, getStatusStyle } from '../../../helpers';
 import { stringHelper } from '../../../customHelpers';
-import { checkBlue } from '../../../styles/js/shared';
+import { checkBlue, backgroundMain } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 let hasUnsavedChanges = false;
 
 const useStyles = makeStyles(theme => ({
-  column: {
-    height: 'calc(100vh - 100px)',
+  section: {
+    height: 'calc(100vh - 60px)',
     overflow: 'auto',
     padding: theme.spacing(2),
+    backgroundColor: backgroundMain,
+  },
+  preview: {
+    borderRight: '1px solid #DFE4F4',
+  },
+  editor: {
+    padding: '16px 32px',
   },
   title: {
     display: 'flex',
@@ -49,25 +57,23 @@ const ReportDesignerComponent = (props) => {
   const classes = useStyles();
   const { media, media: { team } } = props;
 
-  const defaultLanguage = team.get_language || 'en';
-
-  const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
+  const savedReportData = props.media.dynamic_annotation_report_design || { data: {} };
+  const initialLanguage = savedReportData.data.default_language || team.get_language || 'en';
+  const [currentLanguage, setCurrentLanguage] = React.useState(initialLanguage);
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
   const [leaveLocation, setLeaveLocation] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [pending, setPending] = React.useState(false);
 
+  const defaultLanguage = data.default_language || team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const currentReportIndex = findReportIndex(data, currentLanguage);
-  hasUnsavedChanges = !deepEqual(data, propsToData(props, currentLanguage));
+  hasUnsavedChanges = !deepEqual(data, propsToData(props, defaultLanguage));
   const defaultReportIsSet = data.options.filter(r => (
     (r.language === defaultLanguage) &&
     (r.use_visual_card || (r.use_text_message && r.text.length > 0))
   )).length === 1;
-  const canPublish = defaultReportIsSet && data.options.filter(r => (
-    (r.use_introduction && !r.use_visual_card && !r.use_text_message) ||
-    (r.use_text_message && r.text.length === 0)
-  )).length === 0;
+  const canPublish = defaultReportIsSet;
 
   const confirmCloseBrowserWindow = (e) => {
     if (hasUnsavedChanges) {
@@ -98,12 +104,13 @@ const ReportDesignerComponent = (props) => {
   }, []);
 
   const handleChangeLanguage = (newValue) => {
-    if (findReportIndex(data, newValue) === -1) {
-      const updatedData = cloneData(data);
-      updatedData.options.push(defaultOptions(media, newValue));
-      setData(updatedData);
-    }
     setCurrentLanguage(newValue);
+  };
+
+  const handleSetDefaultLanguage = (newValue) => {
+    const updatedData = cloneData(data);
+    updatedData.default_language = newValue;
+    setData(updatedData);
   };
 
   const handleConfirmLeave = () => {
@@ -136,7 +143,13 @@ const ReportDesignerComponent = (props) => {
 
   const handleUpdate = (field, value) => {
     const updatedData = cloneData(data);
-    updatedData.options[currentReportIndex][field] = value;
+    if (currentReportIndex > -1) {
+      updatedData.options[currentReportIndex][field] = value;
+    } else {
+      const newReport = defaultOptions(media, currentLanguage);
+      newReport[field] = value;
+      updatedData.options.push(newReport);
+    }
     setData(updatedData);
   };
 
@@ -257,7 +270,7 @@ const ReportDesignerComponent = (props) => {
         editing={editing}
         readOnly={
           !can(media.permissions, 'update ProjectMedia') ||
-          media.archived ||
+          media.archived > CheckArchivedFlags.NONE ||
           pending
         }
         canPublish={canPublish}
@@ -267,10 +280,10 @@ const ReportDesignerComponent = (props) => {
         onEdit={handleEdit}
       />
       <Box display="flex" width="1">
-        <Box flex="1" alignItems="flex-start" display="flex" className={classes.column}>
+        <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
           <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
         </Box>
-        <Box flex="1" className={classes.column}>
+        <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
           <Box display="flex">
             <Typography className={classes.title} color="inherit" variant="h6" component="div">
               <FormattedMessage
@@ -287,6 +300,7 @@ const ReportDesignerComponent = (props) => {
             currentLanguage={currentLanguage}
             languages={languages}
             onChange={handleChangeLanguage}
+            onSetDefault={handleSetDefaultLanguage}
           />
           <ReportDesignerForm
             data={data.options[currentReportIndex]}
