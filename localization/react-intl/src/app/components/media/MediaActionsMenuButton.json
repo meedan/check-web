@@ -24,6 +24,10 @@
     "defaultMessage": "Restore from trash"
   },
   {
+    "id": "mediaActions.confirm",
+    "defaultMessage": "Confirm"
+  },
+  {
     "id": "mediaActions.history",
     "defaultMessage": "Item history"
   },
