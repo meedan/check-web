@@ -217,12 +217,19 @@ class MediaActionsBarComponent extends Component {
 
   handleRestore() {
     const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="mediaActionsBar.movedBack"
-          defaultMessage="Restored from trash, redirecting..."
-        />
-      );
+      const message = this.props.media.archived === CheckArchivedFlags.TRASHED ?
+        (
+          <FormattedMessage
+            id="mediaActionsBar.movedRestoreBack"
+            defaultMessage="Restored from trash, redirecting..."
+          />
+        ) :
+        (
+          <FormattedMessage
+            id="mediaActionsBar.movedConfirmBack"
+            defaultMessage="Confirmed, redirecting..."
+          />
+        );
       this.props.setFlashMessage(message);
       window.location.assign(window.location.pathname);
     };
