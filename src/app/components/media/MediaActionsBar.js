@@ -216,46 +216,6 @@ class MediaActionsBarComponent extends Component {
     this.setState({ assignmentDialogOpened: false });
   }
 
-  handleRestore() {
-    const onSuccess = () => {
-      const message = this.props.media.archived === CheckArchivedFlags.TRASHED ?
-        (
-          <FormattedMessage
-            id="mediaActionsBar.movedRestoreBack"
-            defaultMessage="Restored from trash, redirecting..."
-          />
-        ) :
-        (
-          <FormattedMessage
-            id="mediaActionsBar.movedConfirmBack"
-            defaultMessage="Confirmed, redirecting..."
-          />
-        );
-      this.props.setFlashMessage(message);
-      window.location.assign(window.location.pathname);
-    };
-
-    const context = this.getContext();
-    if (context.team && !context.team.public_team) {
-      context.team.public_team = Object.assign({}, context.team);
-    }
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        id: this.props.media.id,
-        media: this.props.media,
-        archived: CheckArchivedFlags.NONE,
-        check_search_team: this.props.media.team.search,
-        check_search_project: this.currentProject() ? this.currentProject().search : null,
-        check_search_trash: this.props.media.team.check_search_trash,
-        context,
-        srcProj: null,
-        dstProj: null,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
   handleItemHistory = () => {
     this.setState({ itemHistoryDialogOpen: true });
   };
@@ -282,6 +242,8 @@ class MediaActionsBarComponent extends Component {
     assignments.forEach((user) => {
       selected.push(user.node.dbid.toString());
     });
+
+    const context = this.getContext();
 
     return (
       <div className={classes.root}>
@@ -325,6 +287,7 @@ class MediaActionsBarComponent extends Component {
             <RestoreConfirmProjectMediaToProjectAction
               team={this.props.media.team}
               projectMedia={this.props.media}
+              context={context}
               className={classes.spacedButton}
             />
           </div>
@@ -341,7 +304,6 @@ class MediaActionsBarComponent extends Component {
             projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
             handleItemHistory={this.handleItemHistory}

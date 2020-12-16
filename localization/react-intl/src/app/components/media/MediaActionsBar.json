@@ -12,14 +12,6 @@
     "defaultMessage": "Assignments updated successfully!"
   },
   {
-    "id": "mediaActionsBar.movedRestoreBack",
-    "defaultMessage": "Restored from trash, redirecting..."
-  },
-  {
-    "id": "mediaActionsBar.movedConfirmBack",
-    "defaultMessage": "Confirmed, redirecting..."
-  },
-  {
     "id": "mediaActionsBar.publishedReport",
     "defaultMessage": "Published report"
   },

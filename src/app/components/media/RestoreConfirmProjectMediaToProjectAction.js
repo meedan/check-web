@@ -6,36 +6,22 @@ import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { FlashMessageSetterContext } from '../FlashMessage';
-import CheckContext from '../../CheckContext';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import SelectProjectDialog from './SelectProjectDialog';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
-function handleRestore(projectMedia, project, team) {
-  const onSuccess = () => {
-    const message = projectMedia.archived === CheckArchivedFlags.TRASHED ?
-      (
-        <FormattedMessage
-          id="mediaActionsBar.movedRestoreBack"
-          defaultMessage="Restored from trash, redirecting..."
-        />
-      ) :
-      (
-        <FormattedMessage
-          id="mediaActionsBar.movedConfirmBack"
-          defaultMessage="Confirmed, redirecting..."
-        />
-      );
-    this.props.setFlashMessage(message);
-    window.location.assign(window.location.pathname);
-  };
-
+function handleRestore({
+  team,
+  project,
+  projectMedia,
+  context,
+  onSuccess,
+}) {
+  const newContext = context;
+  if (context.team && !context.team.public_team) {
+    newContext.team.public_team = Object.assign({}, context.team);
+  }
   const onFailure = () => {};
-
-  const context = new CheckContext(this).getContextStore();
-  // if (context.team && !context.team.public_team) {
-  //   context.team.public_team = Object.assign({}, context.team);
-  // }
 
   Relay.Store.commitUpdate(
     new UpdateProjectMediaMutation({
@@ -45,7 +31,7 @@ function handleRestore(projectMedia, project, team) {
       check_search_team: team.search,
       check_search_project: null,
       check_search_trash: team.check_search_trash,
-      context,
+      context: newContext,
       srcProj: null,
       dstProj: project,
     }),
@@ -53,7 +39,12 @@ function handleRestore(projectMedia, project, team) {
   );
 }
 
-function RestoreConfirmProjectMediaToProjectAction({ team, projectMedia, className }) {
+function RestoreConfirmProjectMediaToProjectAction({
+  team,
+  projectMedia,
+  context,
+  className,
+}) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
   const setFlashMessage = React.useContext(FlashMessageSetterContext);
@@ -63,7 +54,30 @@ function RestoreConfirmProjectMediaToProjectAction({ team, projectMedia, classNa
   const handleSubmit = React.useCallback((project) => {
     setIsDialogOpen(false);
     setIsSaving(true);
-    handleRestore(projectMedia, project, team);
+    handleRestore({
+      team,
+      project,
+      projectMedia,
+      context,
+      onSuccess: () => {
+        setIsSaving(false);
+        const message = projectMedia.archived === CheckArchivedFlags.TRASHED ?
+          (
+            <FormattedMessage
+              id="mediaActionsBar.movedRestoreBack"
+              defaultMessage="Restored from trash, redirecting..."
+            />
+          ) :
+          (
+            <FormattedMessage
+              id="mediaActionsBar.movedConfirmBack"
+              defaultMessage="Confirmed, redirecting..."
+            />
+          );
+        setFlashMessage(message);
+        window.location.assign(window.location.pathname);
+      },
+    });
   }, [
     setFlashMessage, team, projectMedia, setIsDialogOpen, setIsSaving,
   ]);
