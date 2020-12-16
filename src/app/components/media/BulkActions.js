@@ -174,19 +174,24 @@ class BulkActions extends React.Component {
 
   handleRestoreOrConfirm = (params) => {
     const onSuccess = () => {
-      const fromAction = params.archived_was === CheckArchivedFlags.TRASHED ? 'Trash' : 'Unconfirmed';
       const toProject = this.state.dstProj ? this.state.dstProj.title : null;
-      const message = (
-        <FormattedMessage
-          id="bulkActions.movedRestoreOrConfirmSuccessfully"
-          defaultMessage="Items moved from {fromAction} to `{toProject}`"
-          description="Banner displayed after items are moved successfully"
-          values={{
-            fromAction,
-            toProject,
-          }}
-        />
-      );
+      const message = params.archived_was === CheckArchivedFlags.TRASHED ?
+        (
+          <FormattedMessage
+            id="bulkActions.movedRestoreSuccessfully"
+            defaultMessage="Items moved from trash to `{toProject}`"
+            description="Banner displayed after items are moved successfully"
+            values={{ toProject }}
+          />
+        ) :
+        (
+          <FormattedMessage
+            id="bulkActions.movedConfirmSuccessfully"
+            defaultMessage="Items moved from Unconfirmed to `{toProject}`"
+            description="Banner displayed after items are moved successfully"
+            values={{ toProject }}
+          />
+        );
       this.props.setFlashMessage(message);
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();

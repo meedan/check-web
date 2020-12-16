@@ -1,8 +1,13 @@
 [
   {
-    "id": "bulkActions.movedRestoreOrConfirmSuccessfully",
+    "id": "bulkActions.movedRestoreSuccessfully",
     "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from {fromAction} to `{toProject}`"
+    "defaultMessage": "Items moved from trash to `{toProject}`"
+  },
+  {
+    "id": "bulkActions.movedConfirmSuccessfully",
+    "description": "Banner displayed after items are moved successfully",
+    "defaultMessage": "Items moved from Unconfirmed to `{toProject}`"
   },
   {
     "id": "bulkActions.addedSuccessfully",
