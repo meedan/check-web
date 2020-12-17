@@ -116,6 +116,20 @@ const MediaSuggestionsComponent = ({
                 }
               }
             }
+            confirmed_similar_relationships(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  source_id
+                  target_id
+                  target {
+                    requests_count
+                    ...MediaItem_projectMedia
+                  }
+                }
+              }
+            }
           }
           target_project_media {
             demand
@@ -215,7 +229,7 @@ const MediaSuggestionsComponent = ({
       <Column className="media__column">
         <Box display="flex" width="1" justifyContent="space-between" alignItems="center">
           <Box>
-            <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small">
+            <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" disabled={saving}>
               <FormattedMessage
                 id="mediaSuggestionsComponent.back"
                 defaultMessage="Back"
