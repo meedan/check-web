@@ -124,8 +124,13 @@ const MediaSuggestionsComponent = ({
                   source_id
                   target_id
                   target {
+                    id
+                    dbid
+                    title
+                    picture
+                    created_at
+                    type
                     requests_count
-                    ...MediaItem_projectMedia
                   }
                 }
               }
