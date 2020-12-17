@@ -76,9 +76,9 @@ const placeholders = defineMessages({
   },
   smooch_state_query: {
     id: 'smoochBot.placeholderQueryPrompt',
-    defaultMessage: `*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.
-
-*Reply 0 (or 📌)* to go back to the *Main Menu* `,
+    defaultMessage: `*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after  your last message.
+      
+*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*`,
   },
   smooch_message_smooch_bot_message_confirmed: {
     id: 'smoochBot.placeholderQueryReceived',
