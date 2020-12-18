@@ -30,6 +30,7 @@ addons:
     - libtag1-dev
     - unzip
     - wget
+    - libidn11-dev
   hosts:
     - minio
     - redis
