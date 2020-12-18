@@ -19,6 +19,7 @@ import MediaActionsMenuButton from './MediaActionsMenuButton';
 import MultiSelector from '../layout/MultiSelector';
 import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
 import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
+import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import CheckContext from '../../CheckContext';
@@ -215,46 +216,6 @@ class MediaActionsBarComponent extends Component {
     this.setState({ assignmentDialogOpened: false });
   }
 
-  handleRestore() {
-    const onSuccess = () => {
-      const message = this.props.media.archived === CheckArchivedFlags.TRASHED ?
-        (
-          <FormattedMessage
-            id="mediaActionsBar.movedRestoreBack"
-            defaultMessage="Restored from trash, redirecting..."
-          />
-        ) :
-        (
-          <FormattedMessage
-            id="mediaActionsBar.movedConfirmBack"
-            defaultMessage="Confirmed, redirecting..."
-          />
-        );
-      this.props.setFlashMessage(message);
-      window.location.assign(window.location.pathname);
-    };
-
-    const context = this.getContext();
-    if (context.team && !context.team.public_team) {
-      context.team.public_team = Object.assign({}, context.team);
-    }
-
-    Relay.Store.commitUpdate(
-      new UpdateProjectMediaMutation({
-        id: this.props.media.id,
-        media: this.props.media,
-        archived: CheckArchivedFlags.NONE,
-        check_search_team: this.props.media.team.search,
-        check_search_project: this.currentProject() ? this.currentProject().search : null,
-        check_search_trash: this.props.media.team.check_search_trash,
-        context,
-        srcProj: null,
-        dstProj: null,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
-
   handleItemHistory = () => {
     this.setState({ itemHistoryDialogOpen: true });
   };
@@ -282,6 +243,8 @@ class MediaActionsBarComponent extends Component {
       selected.push(user.node.dbid.toString());
     });
 
+    const context = this.getContext();
+
     return (
       <div className={classes.root}>
         { media.archived === CheckArchivedFlags.NONE ?
@@ -300,7 +263,7 @@ class MediaActionsBarComponent extends Component {
                 projectMediaProject={projectMediaProject}
                 className={classes.spacedButton}
               />
-            ) : null}
+            ) : null }
 
             <Button
               onClick={MediaActionsBarComponent.handleReportDesigner}
@@ -319,7 +282,16 @@ class MediaActionsBarComponent extends Component {
                   defaultMessage="Unpublished report"
                 /> }
             </Button>
-          </div> : <div />}
+          </div> :
+          <div>
+            <RestoreConfirmProjectMediaToProjectAction
+              team={this.props.media.team}
+              projectMedia={this.props.media}
+              context={context}
+              className={classes.spacedButton}
+            />
+          </div>
+        }
 
         <Box display="flex">
           <MediaStatus
@@ -332,7 +304,6 @@ class MediaActionsBarComponent extends Component {
             projectMedia={media}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
-            handleRestore={this.handleRestore.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
             handleItemHistory={this.handleItemHistory}
@@ -423,6 +394,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
+        ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
         project_ids
         title
@@ -475,6 +447,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         team {
           ${AddProjectMediaToProjectAction.getFragment('team')}
           ${MoveProjectMediaToProjectAction.getFragment('team')}
+          ${RestoreConfirmProjectMediaToProjectAction.getFragment('team')}
           id
           dbid
           slug
