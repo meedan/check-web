@@ -146,7 +146,6 @@ shared_examples 'media' do |type|
   #   wait_for_selector("input[type='checkbox']").click
   #   wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
   #   wait_for_selector('.media-bulk-actions__restore-button').click
-  #   wait_for_selector('.message')
   #   wait_for_selector(".projects__list a[href$='/all-items']").click
   #   wait_for_selector_list_size('.medias__item', 1, :css)
   #   expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)

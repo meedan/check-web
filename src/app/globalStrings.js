@@ -39,7 +39,7 @@ const globalStrings = defineMessages({
   },
   submitting: {
     id: 'global.submitting',
-    defaultMessage: 'Submitting...',
+    defaultMessage: 'Submitting…',
   },
   tags: {
     id: 'global.tags',

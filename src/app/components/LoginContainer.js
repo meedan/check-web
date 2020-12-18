@@ -30,7 +30,7 @@ const LoginContainer = props => (
         <p style={{ textAlign: 'center' }}>
           <FormattedMessage
             id="loginContainer.agreeTerms"
-            defaultMessage="By signing in, you agree to the {appName} {tosLink} and {ppLink}."
+            defaultMessage="By signing up, you agree to the {appName} {tosLink} and {ppLink}."
             values={{
               appName: mapGlobalMessage(props.intl, 'appNameHuman'),
               tosLink: <a className="login-container__footer-link" target="_blank" rel="noopener noreferrer" href={stringHelper('TOS_URL')}><FormattedMessage id="tos.title" defaultMessage="Terms of Service" /></a>,
