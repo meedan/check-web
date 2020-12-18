@@ -53,6 +53,10 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           report_status: 'unpublished',
           tags_as_sentence: '',
           media_published_at: 0,
+          comment_count: 0,
+          reaction_count: 0,
+          suggestions_count: 0,
+          related_count: 0,
         }),
         check_search_project: project ? {
           id: project.search_id,
