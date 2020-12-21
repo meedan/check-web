@@ -108,46 +108,53 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
 
-  # TODO: fix by Sawy
-  # it 'should restore item from trash from item page', bin2: true do
-  #   create_media_depending_on_type
-  #   wait_for_selector('.media')
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__send-to-trash').click
-  #   wait_for_selector('.message').click
-  #   wait_for_selector('.project-header__back-button').click
-  #   wait_for_selector('#search-input')
-  #   expect(@driver.find_elements(:css, '.medias__item').empty?)
-  #   # Go to the trash page and restore the item
-  #   wait_for_selector('.project-list__item-trash').click
-  #   wait_for_selector_list_size('.media__heading', 1)
-  #   wait_for_selector('.media__heading').click
-  #   wait_for_selector('.media-status')
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('#media-actions__restore').click
-  #   wait_for_selector('.project-header__back-button').click
-  #   wait_for_selector('#search-input')
-  #   wait_for_selector('.project-list__link-all').click
-  #   wait_for_selector('.media__heading')
-  #   expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
-  # end
+  it 'should restore item from trash from item page', bin2: true do
+    create_media_depending_on_type
+    wait_for_selector('.media')
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__send-to-trash').click
+    wait_for_selector('.message').click
+    wait_for_selector('.project-header__back-button').click
+    wait_for_selector('#search-input')
+    expect(@driver.find_elements(:css, '.medias__item').empty?)
+    # Go to the trash page and restore the item
+    wait_for_selector('.project-list__item-trash').click
+    wait_for_selector_list_size('.media__heading', 1)
+    wait_for_selector('.media__heading').click
+    wait_for_selector('.media-status')
+    wait_for_selector('#media-actions-bar__restore-confirm-to').click
+    wait_for_selector('input[name=project-title]').send_keys('Project')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.media-actions-bar__add-button').click
+    wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
+    wait_for_selector('.message').click
+    wait_for_selector('.project-header__back-button').click
+    wait_for_selector('#search-input')
+    wait_for_selector('.project-list__link-all').click
+    wait_for_selector('.media__heading')
+    expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
+  end
 
-  # TODO: fix by Sawy
-  # it 'should restore items from the trash', bin2: true do
-  #   create_media_depending_on_type
-  #   wait_for_selector('.media')
-  #   wait_for_selector('.media-actions__icon').click
-  #   wait_for_selector('.media-actions__send-to-trash').click
-  #   wait_for_selector('.message').click
-  #   wait_for_selector('.project-header__back-button').click
-  #   expect(@driver.find_elements(:css, '.medias__item').empty?)
-  #   wait_for_selector('.project-list__item-trash').click # Go to the trash page
-  #   wait_for_selector('.media__heading')
-  #   wait_for_selector("input[type='checkbox']").click
-  #   wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
-  #   wait_for_selector('.media-bulk-actions__restore-button').click
-  #   wait_for_selector(".projects__list a[href$='/all-items']").click
-  #   wait_for_selector_list_size('.medias__item', 1, :css)
-  #   expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
-  # end
+  it 'should restore items from the trash', bin2: true do
+    create_media_depending_on_type
+    wait_for_selector('.media')
+    wait_for_selector('.media-actions__icon').click
+    wait_for_selector('.media-actions__send-to-trash').click
+    wait_for_selector('.message').click
+    wait_for_selector('.project-header__back-button').click
+    expect(@driver.find_elements(:css, '.medias__item').empty?)
+    wait_for_selector('.project-list__item-trash').click # Go to the trash page
+    wait_for_selector('.media__heading')
+    wait_for_selector("input[type='checkbox']").click
+    wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
+    wait_for_selector('#media-bulk-actions__move-to').click
+    wait_for_selector('input[name=project-title]').send_keys('Project')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.media-bulk-actions__move-button').click
+    wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
+    wait_for_selector('.message').click
+    wait_for_selector(".projects__list a[href$='/all-items']").click
+    wait_for_selector_list_size('.medias__item', 1, :css)
+    expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
+  end
 end
