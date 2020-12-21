@@ -18,5 +18,9 @@
   {
     "id": "media.typeAudio",
     "defaultMessage": "Audio"
+  },
+  {
+    "id": "media.typeBlank",
+    "defaultMessage": "Imported report"
   }
 ]
