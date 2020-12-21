@@ -19,7 +19,7 @@ const UserConfirmed = () => (
         <p>
           <FormattedMessage
             id="userConfirmed.message"
-            defaultMessage="Thanks for confirming your e-mail address! Now you can sign in."
+            defaultMessage="Thanks for confirming your email address! Now you can sign in."
           />
         </p>
       </CardContent>

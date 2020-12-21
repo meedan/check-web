@@ -4,14 +4,6 @@
     "defaultMessage": "Error, please try again"
   },
   {
-    "id": "mediaItem.processing",
-    "defaultMessage": "Processing…"
-  },
-  {
-    "id": "mediaItem.done",
-    "defaultMessage": "Done"
-  },
-  {
     "id": "mediaItem.pinning",
     "defaultMessage": "Pinning…"
   },

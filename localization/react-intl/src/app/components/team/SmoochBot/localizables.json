@@ -37,7 +37,7 @@
   },
   {
     "id": "smoochBot.labelPrivacyStatement",
-    "defaultMessage": "Privacy statement"
+    "defaultMessage": "Privacy Statement"
   },
   {
     "id": "smoochBot.descriptionGreeting",
@@ -77,15 +77,15 @@
   },
   {
     "id": "smoochBot.descriptionPrivacyStatementGreeting",
-    "defaultMessage": "By default, the following Privacy statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
+    "defaultMessage": "By default, the following Privacy Statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
   },
   {
     "id": "smoochBot.descriptionPrivacyStatementGreeting2",
-    "defaultMessage": "The option '9' must be referenced for users to access the Privacy statement on the Main menu."
+    "defaultMessage": "The option '9' must be referenced for users to access the Privacy Statement on the Main menu."
   },
   {
     "id": "smoochBot.descriptionPrivacyStatementContent",
-    "defaultMessage": "Privacy statement content. Edit the text below, or replace it with custom content."
+    "defaultMessage": "Privacy Statement content. Edit the text below, or replace it with custom content."
   },
   {
     "id": "smoochBot.footnoteGreeting",
@@ -93,7 +93,7 @@
   },
   {
     "id": "smoochBot.footnoteGreeting2",
-    "defaultMessage": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy statement' on this page."
+    "defaultMessage": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page."
   },
   {
     "id": "smoochBot.placeholderGreeting",
@@ -109,7 +109,7 @@
   },
   {
     "id": "smoochBot.placeholderQueryPrompt",
-    "defaultMessage": "*Please enter the question, link, picture, or video that you want fact-checked,* followed by any context or additional questions related to that item. Your request will be sent to fact-checkers about 30 seconds after you have sent your last message.\n\n*Reply 0 (or 📌)* to go back to the *Main Menu*"
+    "defaultMessage": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after  your last message.\n      \n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
   },
   {
     "id": "smoochBot.placeholderQueryReceived",

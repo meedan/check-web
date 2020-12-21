@@ -46,5 +46,21 @@
   {
     "id": "list.mediaPublishedAt",
     "defaultMessage": "Media published"
+  },
+  {
+    "id": "list.reactCount",
+    "defaultMessage": "FB Reactions"
+  },
+  {
+    "id": "list.commentCount",
+    "defaultMessage": "FB Comments"
+  },
+  {
+    "id": "list.relatedCount",
+    "defaultMessage": "Related"
+  },
+  {
+    "id": "list.suggestionsCount",
+    "defaultMessage": "Suggested matches"
   }
 ]

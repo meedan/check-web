@@ -762,7 +762,7 @@ class SearchQueryComponent extends React.Component {
 
                 <Box display="flex" style={{ gap: units(3) }}>
                   <MultiSelectFilter
-                    label={<FormattedMessage id="search.show" defaultMessage="Media Type" />}
+                    label={<FormattedMessage id="search.show" defaultMessage="Media type" />}
                     hide={this.hideField('type')}
                     selected={types.filter(t => this.showIsSelected(t.value))}
                     options={types}
@@ -772,7 +772,7 @@ class SearchQueryComponent extends React.Component {
                   />
 
                   <MultiSelectFilter
-                    label={<FormattedMessage id="search.statusHeading" defaultMessage="Item Status" />}
+                    label={<FormattedMessage id="search.statusHeading" defaultMessage="Item status" />}
                     hide={this.hideField('status')}
                     selected={statuses.filter(s => this.statusIsSelected(s.id))}
                     options={statuses}
@@ -784,7 +784,7 @@ class SearchQueryComponent extends React.Component {
 
                 <Box display="flex" style={{ gap: units(3) }}>
                   <MultiSelectFilter
-                    label={<FormattedMessage id="search.userHeading" defaultMessage="Created By" />}
+                    label={<FormattedMessage id="search.userHeading" defaultMessage="Created by" />}
                     hide={this.hideField('user') || !users.length}
                     selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
                     options={users.map(u => u.node)}
@@ -819,7 +819,7 @@ class SearchQueryComponent extends React.Component {
                 />
 
                 <MultiSelectFilter
-                  label={<FormattedMessage id="search.assignedTo" defaultMessage="Assigned To" />}
+                  label={<FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" />}
                   hide={this.hideField('assignment') || !users.length}
                   selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
                   options={users.map(u => u.node)}

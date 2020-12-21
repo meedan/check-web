@@ -12,10 +12,12 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UpdateProjectMediasPayload {
         ids
+        check_search_project { id, number_of_results }
         check_search_team { id, number_of_results }
         check_search_trash { id, number_of_results }
         check_search_unconfirmed { id, number_of_results }
         team { id, medias_count, public_team { id, trash_count, unconfirmed_count } }
+        project { id, medias_count }
       }
     `;
   }
@@ -24,6 +26,7 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
     return {
       ids: this.props.ids,
       archived: CheckArchivedFlags.NONE,
+      add_to_project_id: this.props.dstProject.dbid,
     };
   }
 
@@ -57,6 +60,17 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.team.public_team.unconfirmed_count - this.props.ids.length,
       };
     }
+
+    if (this.props.dstProject) {
+      response.project = {
+        id: this.props.dstProject.id,
+        medias_count: this.props.dstProject.medias_count + this.props.ids.length,
+      };
+      response.check_search_project = {
+        id: this.props.dstProject.search_id,
+        number_of_results: this.props.dstProject.medias_count + this.props.ids.length,
+      };
+    }
     return response;
   }
 
@@ -65,6 +79,8 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
+          project: this.props.dstProject.id,
+          check_search_project: this.props.dstProject.search_id,
           check_search_team: this.props.team.search_id,
           check_search_trash: this.props.team.check_search_trash.id,
           check_search_unconfirmed: this.props.team.check_search_unconfirmed.id,

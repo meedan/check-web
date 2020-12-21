@@ -1,7 +1,7 @@
 [
   {
     "id": "projectAssignment.processing",
-    "defaultMessage": "Done! The assignments are now propagating to items and tasks. You will receive an e-mail when it's ready."
+    "defaultMessage": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
   },
   {
     "id": "projectAssignment.title",
@@ -9,7 +9,7 @@
   },
   {
     "id": "projectAssignment.notesTitle",
-    "defaultMessage": "Add a note to the e-mail"
+    "defaultMessage": "Add a note to the email"
   },
   {
     "id": "projectAssignment.notes",

@@ -183,7 +183,9 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
   fragment MediaSimilaritiesComponent_projectMedia on ProjectMedia {
     id
     dbid
+    demand
     permissions
+    confirmedSimilarCount: confirmed_similar_items_count
     confirmed_main_item {
       id
       dbid
