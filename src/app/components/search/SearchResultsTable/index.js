@@ -20,6 +20,10 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
+import ReactionCountCell from './ReactionCountCell';
+import CommentCountCell from './CommentCountCell';
+import RelatedCountCell from './RelatedCountCell';
+import SuggestionsCountCell from './SuggestionsCountCell';
 import { isBotInstalled, truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -96,6 +100,34 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.mediaPublishedAt" defaultMessage="Media published" />,
     sortKey: 'media_published_at',
     cellComponent: MediaPublishedCell,
+  },
+  {
+    field: 'reaction_count',
+    headerText: <FormattedMessage id="list.reactCount" defaultMessage="FB Reactions" />,
+    cellComponent: ReactionCountCell,
+    align: 'center',
+    sortKey: 'reaction_count',
+  },
+  {
+    field: 'comment_count',
+    headerText: <FormattedMessage id="list.commentCount" defaultMessage="FB Comments" />,
+    cellComponent: CommentCountCell,
+    align: 'center',
+    sortKey: 'comment_count',
+  },
+  {
+    field: 'related_count',
+    headerText: <FormattedMessage id="list.relatedCount" defaultMessage="Related" />,
+    cellComponent: RelatedCountCell,
+    align: 'center',
+    sortKey: 'related_count',
+  },
+  {
+    field: 'suggestions_count',
+    headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggested matches" />,
+    cellComponent: SuggestionsCountCell,
+    align: 'center',
+    sortKey: 'suggestions_count',
   },
 ];
 
