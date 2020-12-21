@@ -20,10 +20,6 @@
     "defaultMessage": "Send to trash"
   },
   {
-    "id": "mediaActions.restore",
-    "defaultMessage": "Restore from trash"
-  },
-  {
     "id": "mediaActions.history",
     "defaultMessage": "Item history"
   },

@@ -16,6 +16,7 @@ const MediaSuggestions = ({ projectMedia }) => {
           project_media(ids: $ids) {
             id
             dbid
+            confirmedSimilarCount: confirmed_similar_items_count
             suggested_similar_relationships(first: 10000) {
               edges {
                 node {
@@ -45,6 +46,7 @@ const MediaSuggestions = ({ projectMedia }) => {
         if (props) {
           return (
             <MediaSuggestionsComponent
+              key={props.project_media.confirmedSimilarCount}
               team={props.project_media.team}
               relationships={props.project_media.suggested_similar_relationships.edges
                 .map(r => r.node)}

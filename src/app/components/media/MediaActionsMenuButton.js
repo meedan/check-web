@@ -25,7 +25,6 @@ class MediaActionsMenuButton extends React.PureComponent {
     }).isRequired,
     handleRefresh: PropTypes.func.isRequired,
     handleSendToTrash: PropTypes.func.isRequired,
-    handleRestore: PropTypes.func.isRequired,
     handleAssign: PropTypes.func.isRequired,
     handleStatusLock: PropTypes.func.isRequired,
   };
@@ -54,7 +53,6 @@ class MediaActionsMenuButton extends React.PureComponent {
       projectMedia,
       handleRefresh,
       handleSendToTrash,
-      handleRestore,
       handleAssign,
       handleStatusLock,
       handleItemHistory,
@@ -118,20 +116,6 @@ class MediaActionsMenuButton extends React.PureComponent {
         >
           <ListItemText
             primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />}
-          />
-        </MenuItem>));
-    }
-
-    if (can(projectMedia.permissions, 'restore ProjectMedia') && projectMedia.archived > CheckArchivedFlags.NONE) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.restore"
-          className="media-actions__restore"
-          id="media-actions__restore"
-          onClick={e => this.handleActionAndClose(e, handleRestore)}
-        >
-          <ListItemText
-            primary={<FormattedMessage id="mediaActions.restore" defaultMessage="Restore from trash" />}
           />
         </MenuItem>));
     }

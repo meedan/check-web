@@ -21,11 +21,11 @@ module AppSpecHelpers
     false
   end
 
-  def wait_for_selector(selector, type = :css, _timeout = 20, index: 0)
-    wait_for_selector_list_size(selector, index + 1, type, _timeout = 20)[index]
+  def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
+    wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
 
-  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown')
+  def wait_for_selector_list(selector, type = :css, timeout = 20, _test = 'unknown', reload = false)
     elements = []
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
@@ -37,11 +37,12 @@ module AppSpecHelpers
         wait.until { @driver.find_elements(type, selector).length.positive? }
         elements = @driver.find_elements(type, selector)
         elements.each do |e|
-          raise 'element is not being displayed' unless e.displayed?
+          raise 'Element is not being displayed' unless e.displayed?
         end
       rescue
         # rescue from 'Selenium::WebDriver::Error::TimeOutError:' to give more information about the failure
       end
+      @driver.navigate.refresh if reload && elements.empty?
     end
     finish = Time.now.to_i - start
     raise "Could not find element with selector #{type.upcase} '#{selector}' after #{finish} seconds!" if elements.empty?
@@ -49,13 +50,13 @@ module AppSpecHelpers
     elements
   end
 
-  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown')
+  def wait_for_selector_list_size(selector, size, type = :css, timeout = 20, retries = 10, test = 'unknown', reload = false)
     elements = []
     attempts = 0
     start = Time.now.to_i
     while elements.length < size && attempts < retries
       attempts += 1
-      elements = wait_for_selector_list(selector, type, timeout)
+      elements = wait_for_selector_list(selector, type, timeout, test, reload)
     end
     finish = Time.now.to_i - start
     raise "Could not find #{size} list elements  with selector #{type.upcase} '#{selector}' for test '#{test}' after #{finish} seconds!" if elements.length < size

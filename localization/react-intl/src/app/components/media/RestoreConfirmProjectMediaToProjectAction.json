@@ -1,0 +1,30 @@
+[
+  {
+    "id": "mediaActionsBar.movedRestoreBack",
+    "defaultMessage": "Restored from trash, redirecting..."
+  },
+  {
+    "id": "mediaActionsBar.movedConfirmBack",
+    "defaultMessage": "Confirmed, redirecting..."
+  },
+  {
+    "id": "mediaActionsBar.restoreTo",
+    "defaultMessage": "Restore from trash"
+  },
+  {
+    "id": "mediaActionsBar.confirmTo",
+    "defaultMessage": "Confirm"
+  },
+  {
+    "id": "mediaActionsBar.dialogRestoreOrConfirmToListTitle",
+    "defaultMessage": "Move item to list..."
+  },
+  {
+    "id": "mediaActionsBar.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaActionsBar.restoreOrConfirm",
+    "defaultMessage": "Move to list"
+  }
+]
