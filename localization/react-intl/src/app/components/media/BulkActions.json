@@ -62,7 +62,7 @@
   },
   {
     "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "{selectedCount, plural, one {Move 1 item to list...} other {Move # items to list...}}"
+    "defaultMessage": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
   },
   {
     "id": "bulkActions.add",
