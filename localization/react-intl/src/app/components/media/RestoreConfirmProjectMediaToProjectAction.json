@@ -1,11 +1,11 @@
 [
   {
     "id": "mediaActionsBar.movedRestoreBack",
-    "defaultMessage": "Restored from trash, redirecting..."
+    "defaultMessage": "Restored from trash, redirecting…"
   },
   {
     "id": "mediaActionsBar.movedConfirmBack",
-    "defaultMessage": "Confirmed, redirecting..."
+    "defaultMessage": "Confirmed, redirecting…"
   },
   {
     "id": "mediaActionsBar.restoreTo",
@@ -17,7 +17,7 @@
   },
   {
     "id": "mediaActionsBar.dialogRestoreOrConfirmToListTitle",
-    "defaultMessage": "Move item to list..."
+    "defaultMessage": "Move item to list…"
   },
   {
     "id": "mediaActionsBar.cancelButton",
