@@ -15,6 +15,7 @@ export default function MediaTypeDisplayName({ mediaType }) {
   case 'UploadedAudio':
     return <FormattedMessage id="media.typeAudio" defaultMessage="Audio" />;
   case 'Blank':
+    return <FormattedMessage id="media.typeBlank" defaultMessage="Imported report" />;
   case '-':
   default:
     return <React.Fragment>-</React.Fragment>;

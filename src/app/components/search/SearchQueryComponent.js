@@ -206,7 +206,7 @@ const typeLabels = defineMessages({
   },
   blank: {
     id: 'search.showBlank',
-    defaultMessage: 'Report',
+    defaultMessage: 'Imported report',
   },
 });
 
