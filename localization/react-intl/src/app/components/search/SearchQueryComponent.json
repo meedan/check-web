@@ -21,7 +21,7 @@
   },
   {
     "id": "search.showBlank",
-    "defaultMessage": "Report"
+    "defaultMessage": "Imported report"
   },
   {
     "id": "search.title",
@@ -57,15 +57,15 @@
   },
   {
     "id": "search.show",
-    "defaultMessage": "Media Type"
+    "defaultMessage": "Media type"
   },
   {
     "id": "search.statusHeading",
-    "defaultMessage": "Item Status"
+    "defaultMessage": "Item status"
   },
   {
     "id": "search.userHeading",
-    "defaultMessage": "Created By"
+    "defaultMessage": "Created by"
   },
   {
     "id": "search.language",
@@ -77,7 +77,7 @@
   },
   {
     "id": "search.assignedTo",
-    "defaultMessage": "Assigned To"
+    "defaultMessage": "Assigned to"
   },
   {
     "id": "search.readHeading",

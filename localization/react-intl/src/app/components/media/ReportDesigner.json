@@ -12,14 +12,6 @@
     "defaultMessage": "Pause report"
   },
   {
-    "id": "reportDesigner.introductionPlaceholder",
-    "defaultMessage": "Type your introduction here..."
-  },
-  {
-    "id": "reportDesigner.textPlaceholder",
-    "defaultMessage": "Type your report here..."
-  },
-  {
     "id": "reportDesigner.confirmLeaveTitle",
     "defaultMessage": "Close without saving?"
   },

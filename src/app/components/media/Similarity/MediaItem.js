@@ -97,8 +97,6 @@ const MediaItem = ({
   };
 
   const handleDelete = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.processing" defaultMessage="Processing…" />);
-
     const mutation = graphql`
       mutation MediaItemDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
         destroyRelationship(input: $input) {
@@ -121,8 +119,20 @@ const MediaItem = ({
       }
     `;
 
+    const optimisticResponse = {
+      destroyRelationship: {
+        deletedId: relationship.id,
+        source_project_media: {
+          id: mainProjectMedia.id,
+          demand: mainProjectMedia.demand - 1,
+          confirmed_similar_items_count: mainProjectMedia.confirmedSimilarCount - 1,
+        },
+      },
+    };
+
     commitMutation(Store, {
       mutation,
+      optimisticResponse,
       variables: {
         input: {
           id: relationship.id,
@@ -155,8 +165,6 @@ const MediaItem = ({
       onCompleted: (response, error) => {
         if (error) {
           handleError();
-        } else {
-          setFlashMessage(<FormattedMessage id="mediaItem.done" defaultMessage="Done" />);
         }
       },
       onError: () => {
@@ -296,6 +304,8 @@ MediaItem.defaultProps = {
 MediaItem.propTypes = {
   mainProjectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    confirmedSimilarCount: PropTypes.number,
+    demand: PropTypes.number,
   }),
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,

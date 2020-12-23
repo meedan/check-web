@@ -168,7 +168,11 @@ class MediaTasksComponent extends Component {
     return (
       <StyledAnnotationRow>
         { fieldset === 'metadata' ?
-          <Box mt={3} className="annotation-header-row metadata-row">
+          <Box
+            mt={3}
+            className="annotation-header-row metadata-row"
+            style={isBrowserExtension ? { marginTop: 30 } : {}}
+          >
             <MediaLanguageChip projectMedia={media} />
             <MediaTags
               projectMedia={media}

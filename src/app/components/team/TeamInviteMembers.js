@@ -325,7 +325,7 @@ class TeamInviteMembers extends Component {
           fullWidth
         >
           <DialogTitle><FormattedMessage id="TeamInviteMembers.newInvite" defaultMessage="Invite members" /></DialogTitle>
-          <DialogContent>
+          <DialogContent style={{ minHeight: 400 }}>
             <TextField
               id="invite-msg-input"
               className="team-invite-members__input"

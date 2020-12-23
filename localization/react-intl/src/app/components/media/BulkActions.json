@@ -1,11 +1,13 @@
 [
   {
-    "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Items moved to the trash."
+    "id": "bulkActions.movedRestoreSuccessfully",
+    "description": "Banner displayed after items are moved successfully",
+    "defaultMessage": "Items moved from trash to `{toProject}`"
   },
   {
-    "id": "bulkActions.restoredFromTrashSuccessfully",
-    "defaultMessage": "Items restored from the trash."
+    "id": "bulkActions.movedConfirmSuccessfully",
+    "description": "Banner displayed after items are moved successfully",
+    "defaultMessage": "Items moved from Unconfirmed to `{toProject}`"
   },
   {
     "id": "bulkActions.addedSuccessfully",
@@ -23,32 +25,24 @@
     "defaultMessage": "Items moved."
   },
   {
-    "id": "bulkActions.restoreItemsFromTrash",
-    "defaultMessage": "Restore selected items from trash"
+    "id": "bulkActions.moveToTrashSuccessfully",
+    "defaultMessage": "Items moved to the trash."
+  },
+  {
+    "id": "bulkActions.trash",
+    "defaultMessage": "Restore selected items and move items to another list"
   },
   {
     "id": "bulkActions.restore",
     "defaultMessage": "Restore from trash"
   },
   {
-    "id": "bulkActions.add",
-    "defaultMessage": "Add selected items to another list"
+    "id": "bulkActions.unconfirmed",
+    "defaultMessage": "Confirm selected items and move items to another list"
   },
   {
-    "id": "bulkActions.addTo",
-    "defaultMessage": "Add to…"
-  },
-  {
-    "id": "bulkActions.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "bulkActions.addTitle",
-    "defaultMessage": "Add"
-  },
-  {
-    "id": "bulkActions.dialogAddTitle",
-    "defaultMessage": "Add to a different list"
+    "id": "bulkActions.confirm",
+    "defaultMessage": "Move from unconfirmed"
   },
   {
     "id": "bulkActions.move",
@@ -59,12 +53,32 @@
     "defaultMessage": "Move to…"
   },
   {
+    "id": "bulkActions.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
     "id": "bulkActions.moveTitle",
-    "defaultMessage": "Move"
+    "defaultMessage": "Move to list"
   },
   {
     "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "Move to a different list"
+    "defaultMessage": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+  },
+  {
+    "id": "bulkActions.add",
+    "defaultMessage": "Add selected items to another list"
+  },
+  {
+    "id": "bulkActions.addTo",
+    "defaultMessage": "Add to…"
+  },
+  {
+    "id": "bulkActions.addTitle",
+    "defaultMessage": "Add"
+  },
+  {
+    "id": "bulkActions.dialogAddTitle",
+    "defaultMessage": "Add to a different list"
   },
   {
     "id": "bulkActions.sendItemsToTrash",

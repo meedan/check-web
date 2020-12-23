@@ -10,7 +10,7 @@
 	"global.ok": "حسناً",
 	"global.save": "حفظ",
 	"global.submit": "إرسال",
-	"global.submitting": "الإرسال جارٍ ...",
+	"global.submitting": "الإرسال جارٍ…",
 	"global.tags": "الوسوم",
 	"global.unknownError": "عذراً ، لقد واجهنا خطأ ما. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
 	"global.update": "تحديث",
@@ -32,6 +32,7 @@
 	"passwordChange.newPassword": "كلمة السر (الحد الأدنى {min} حروف)",
 	"passwordChange.confirmPassword": "تأكيد كلمة السر",
 	"passwordChange.changePassword": "تغيير كلمة السر",
+	"projects.unconfirmed": "غير مؤكد",
 	"projects.trash": "سلة المهملات",
 	"headerActions.signIn": "تسجيل الدخول",
 	"footer.madeBy": "Check: للتحقق من الأخبار العاجلة على الإنترنت. مطوّر بِ ✨ من {meedan}",
@@ -63,7 +64,7 @@
 	"login.newAccount": "تسجيل حساب جديد بالبريد الإلكتروني",
 	"login.alreadyHasAccount": "لدي حساب بالفعل",
 	"browser.support.message": "أفضل تصفح على <a href=\"https://www.google.com/chrome/browser/desktop/\">  كروم نسخة سطح المكتب </a>.",
-	"loginContainer.agreeTerms": "بتسجيل الدخول أنت توافقين على {tosLink}  و {ppLink} لدى {appName}.",
+	"loginContainer.agreeTerms": "بتسجيل الإشتراك أنت توافقين على {tosLink}  و {ppLink} لدى {appName}.",
 	"tos.title": "شروط الاستخدام",
 	"privacy.policy.title": "سياسة الخصوصية",
 	"login.contactSupport": "للدعم تواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>.",
@@ -226,6 +227,34 @@
 	"sortSelect.nf": "الأحدث أولاً",
 	"sortSelect.mu": "اﻷكثر استخداماً",
 	"sortSelect.lu": "اﻷقل استخداماً",
+	"createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+	"createProject.newProjectName": "عنوان القائمة",
+	"createProject.addProject": "إنشاء قائمة",
+	"createProject.title": "إضافة قائمة",
+	"createProject.titleBlank": "أضف أول قائمة",
+	"projectActions.projectDeleted": "تم حذف القائمة بنجاح.",
+	"projectActions.projectNotDeleted": "عذراً، لم نستطع حذف القائمة.",
+	"ProjectActions.edit": "تحرير الاسم والوصف",
+	"projectActions.assignOrUnassign": "تكليف القائمة",
+	"projectActions.destroy": "حذف",
+	"ProjectActions.tooltip": "اجراءات القائمة",
+	"projectActions.confirmDeleteProject": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'.",
+	"projectAssignment.processing": "تم! سوف تنتشر هذه التكليفات إلى العناصر والمهام وسيتم إخطارك عبر البريد الإلكتروني عند إتمام العملية.",
+	"projectAssignment.title": "تكليف القائمة لشريك(ة)",
+	"projectAssignment.notesTitle": "إضافة ملاحظة للبريد الإلكتروني",
+	"projectAssignment.notes": "الملحوظات",
+	"projectAssignment.assignedTo": "مُكَلَّف إلى",
+	"projectAssignment.notAssigned": "غير مُكَلَّف",
+	"userAssignments.blank": "لا توجد أنشطة",
+	"ProjectBlankState.createMedia": "يرجى إضافة رابط أو نص",
+	"projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+	"projectEdit.titleField": "العنوان",
+	"projectEdit.descriptionField": "الوصف",
+	"projectEdit.saveButton": "حفظ",
+	"projectHeader.trash": "سلة المهملات",
+	"projectHeader.allItems": "كل العناصر",
+	"projectSelector.numProjs": "{length, number} محدد",
+	"projectSelector.allProjs": "كل القوائم",
 	"mediaMetadata.addedToList": "تمت الإضافة إلى القائمة {listName}",
 	"mediaActionsBar.addTo": "إضافة إلى...",
 	"mediaActionsBar.dialogAddToListTitle": "إضافة إلى قائمة آخرى",
@@ -247,22 +276,25 @@
 	"blankMediaCard.confirmTitle": "الكتابة فوق التقرير والحالة؟",
 	"blankMediaCard.confirmText": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وايقاف التقرير.",
 	"blankMediaCard.confirmButtonLabel": "إيقاف التقرير وتحديث المحتوى",
-	"bulkActions.moveToTrashSuccessfully": "تم إرسال العناصر إلى سلة المهملات",
-	"bulkActions.restoredFromTrashSuccessfully": "تمت استعادة العناصر من سلة المهملات",
+	"bulkActions.movedRestoreSuccessfully": "Items moved from trash to `{toProject}`",
+	"bulkActions.movedConfirmSuccessfully": "Items moved from Unconfirmed to `{toProject}`",
 	"bulkActions.addedSuccessfully": "تمت إضافة العناصر إلى القائمة.",
 	"bulkActions.removedSuccessfully": "تم حذف العناصر من هذه القائمة.",
 	"bulkActions.movedSuccessfully": "تم إرسال العناصر.",
-	"bulkActions.restoreItemsFromTrash": "استعادة العناصر المحددة من سلة المهملات",
+	"bulkActions.moveToTrashSuccessfully": "تم إرسال العناصر إلى سلة المهملات",
+	"bulkActions.trash": "Restore selected items and move items to another list",
 	"bulkActions.restore": "استعادة من سلة المهملات",
-	"bulkActions.add": "إضافة ‏‏العناصر المحددة إلى قائمة آخرى",
-	"bulkActions.addTo": "إضافة إلى...",
-	"bulkActions.cancelButton": "إلغاء",
-	"bulkActions.addTitle": "إضافة",
-	"bulkActions.dialogAddTitle": "إضافة إلى قائمة آخرى",
+	"bulkActions.unconfirmed": "Confirm selected items and move items to another list",
+	"bulkActions.confirm": "Move from unconfirmed",
 	"bulkActions.move": "نقل ‏‏العناصر المحددة إلى قائمة أخرى",
 	"bulkActions.moveTo": "نقل إلى...",
-	"bulkActions.moveTitle": "نقل",
-	"bulkActions.dialogMoveTitle": "نقل إلى قائمة آخرى",
+	"bulkActions.cancelButton": "إلغاء",
+	"bulkActions.moveTitle": "Move to list",
+	"bulkActions.dialogMoveTitle": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}",
+	"bulkActions.add": "إضافة ‏‏العناصر المحددة إلى قائمة آخرى",
+	"bulkActions.addTo": "إضافة إلى...",
+	"bulkActions.addTitle": "إضافة",
+	"bulkActions.dialogAddTitle": "إضافة إلى قائمة آخرى",
 	"bulkActions.sendItemsToTrash": "ارسال العناصر المحددة إلى سلة المهملات",
 	"claimReview.claim": "الإدعاء : ",
 	"claimReview.claimedBy": "الإدعاء بواسطة: ",
@@ -304,7 +336,6 @@
 	"mediaActionsBar.movedToTrash": "تم الإرسال إلى {trash}",
 	"mediaDetail.trash": "سلة المهملات",
 	"mediaActionsBar.assignmentsUpdated": "تم تحديث التكليفات بنجاح!",
-	"mediaActionsBar.movedBack": "تمت الاستعادة من سلة المهملات، جارٍ أعادة التوجيه...",
 	"mediaActionsBar.publishedReport": "تقرير منشور",
 	"mediaActionsBar.unpublishedReport": "تقرير غير منشور",
 	"mediaActionsBar.assignmentTitle": "تكليف العنصر لشريك(ة)",
@@ -352,8 +383,8 @@
 	"mediaRelated.primaryItem": "العنصر الأولي",
 	"mediaRelated.secondaryItems": "العناصر الثانوية",
 	"mediaRelated.loadMore": "تحميل أكثر",
-	"mediaRequests.allRequests": "{count, plural, one {1 request across all media} other {# requests across all media}}",
-	"mediaRequests.thisRequests": "{count, plural, one {1 request} other {# requests}}",
+	"mediaRequests.allRequests": "{count, plural, zero {لا طلبات عبر جميع الميديا} one {طلب واحد عبر جميع المديا} two {طلبان عبر جمبع الميديا} few {# طلبات عبر جميع الميديا} many {# طلب عبر جميع الميديا} other {# طلب عبر جميع الميديا}}",
+	"mediaRequests.thisRequests": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلب}}",
 	"mediaRequests.noRequest": "لا توجد طلبات",
 	"mediaSearch.itemWentAway": "لم يتم العثور عنه",
 	"mediaSearch.error": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة.",
@@ -378,6 +409,7 @@
 	"media.onDomain": "{typeLabel} على {domain}",
 	"media.typeLink": "رابط",
 	"media.typeAudio": "ملف صوتي",
+	"media.typeBlank": "Imported report",
 	"media.retweetsCount": "{retweetsCount, plural, zero {لا ريتويت} one {ريتويت واحد} two {ريتويتين} few {# ريتويتات} many {# ريتويت} other {# ريتويت}}",
 	"mediaActionsBar.moveTo": "نقل إلى...",
 	"mediaActionsBar.dialogMoveTitle": "نقل إلى قائمة آخرى",
@@ -390,8 +422,6 @@
 	"reportDesigner.cantPublish": "يرجى اختيار نص أو صورة من التقرير على الأقل  لنشره",
 	"reportDesigner.canPublish": "نشر التقرير",
 	"reportDesigner.pauseReport": "إيقاف التقرير",
-	"reportDesigner.introductionPlaceholder": "يرجى كتابة المقدّمة هنا...",
-	"reportDesigner.textPlaceholder": "يرجى كتابة التقرير هنا...",
 	"reportDesigner.confirmLeaveTitle": "مغادرة دون حفظ؟",
 	"reportDesigner.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل  مع {supportEmail} إن استمرت المشكلة.",
 	"reportDesigner.warning": "تحذير — هذه المشاركة ستكشف معلومات إلى أشخاص خارج مساحة عمل خاصّة. الرجاء توخ الحذر عند المتابعة.",
@@ -430,35 +460,13 @@
 	"reportDesigner.confirmRepublishResendText2": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير.",
 	"reportDesigner.confirmLeaveText": "إذا غادرت الآن، ستفقدين تعديلاتك. ",
 	"reportDesigner.reportImagePreviewTitle": "لمحة عن التقرير ",
+	"mediaActionsBar.movedRestoreBack": "Restored from trash, redirecting…",
+	"mediaActionsBar.movedConfirmBack": "Confirmed, redirecting…",
+	"mediaActionsBar.restoreTo": "استعادة من سلة المهملات",
+	"mediaActionsBar.confirmTo": "تأكيد",
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": "Move item to list…",
+	"mediaActionsBar.restoreOrConfirm": "Move to list",
 	"webPageMediaCard.Error": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. انقروا الرابط بالأعلى للإنتقال إليه.",
-	"createProject.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
-	"createProject.newProjectName": "عنوان القائمة",
-	"createProject.addProject": "إنشاء قائمة",
-	"createProject.title": "إضافة قائمة",
-	"createProject.titleBlank": "أضف أول قائمة",
-	"projectActions.projectDeleted": "تم حذف القائمة بنجاح.",
-	"projectActions.projectNotDeleted": "عذراً، لم نستطع حذف القائمة.",
-	"ProjectActions.edit": "تحرير الاسم والوصف",
-	"projectActions.assignOrUnassign": "تكليف القائمة",
-	"projectActions.destroy": "حذف",
-	"ProjectActions.tooltip": "اجراءات القائمة",
-	"projectActions.confirmDeleteProject": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'.",
-	"projectAssignment.processing": "تم! سوف تنتشر هذه التكليفات إلى العناصر والمهام وسيتم إخطارك عبر البريد الإلكتروني عند إتمام العملية.",
-	"projectAssignment.title": "تكليف القائمة لشريك(ة)",
-	"projectAssignment.notesTitle": "إضافة ملاحظة للبريد الإلكتروني",
-	"projectAssignment.notes": "الملحوظات",
-	"projectAssignment.assignedTo": "مُكَلَّف إلى",
-	"projectAssignment.notAssigned": "غير مُكَلَّف",
-	"userAssignments.blank": "لا توجد أنشطة",
-	"ProjectBlankState.createMedia": "يرجى إضافة رابط أو نص",
-	"projectEdit.error": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
-	"projectEdit.titleField": "العنوان",
-	"projectEdit.descriptionField": "الوصف",
-	"projectEdit.saveButton": "حفظ",
-	"projectHeader.trash": "سلة المهملات",
-	"projectHeader.allItems": "كل العناصر",
-	"projectSelector.numProjs": "{length, number} محدد",
-	"projectSelector.allProjs": "كل القوائم",
 	"AddCustomFilters.metadataChoiceLabel": "البيانات الوصفية لها قيمة محددة",
 	"AddCustomFilters.metadataTextLabel": "البيانات الوصفيّة تتضمن الكلمة المفتاحية",
 	"AddCustomFilters.taskChoiceLabel": "المهمة لها إجابة محددة",
@@ -494,13 +502,12 @@
 	"searchKeywordConfig.allMetadataAnswers": "جميع إجابات البيانات الوصفيّة",
 	"searchKeywordConfig.allNotes": "جميع الملحوظات",
 	"searchKeywordConfig.allTaskComments": "جميع تعليقات المهمة",
-	"search.loading": "تحميل...",
 	"search.showClaims": "نصوص",
 	"search.showLinks": "روابط",
 	"search.showImages": "صور",
 	"search.showVideos": "الفيديوهات",
 	"search.showAudios": "ملفات صوتية",
-	"search.showBlank": "التقرير",
+	"search.showBlank": "Imported report",
 	"search.title": "كل العناصر",
 	"search.inputHint": "بحث",
 	"search.help": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>",
@@ -851,6 +858,7 @@
 	"teamTasks.delete": "حذف",
 	"teams.title": "مساحات العمل",
 	"trash.title": "سلة المهملات",
+	"unconfirmed.title": "غير مؤكد",
 	"tasks.done": "إتمام",
 	"ConfirmEmail.title": "تأكيد بريدك الإلكتروني",
 	"ConfirmEmail.content": "يرجى مراجعة بريدك الالكتروني للتحقق من حسابك.",
@@ -886,40 +894,45 @@
 	"reportDesigner.firstSent": "أوّل نشر",
 	"reportDesigner.sentCount": "التقارير المستلمة",
 	"reportDesigner.cannotPublish": "يرجى تعبئة التقرير بنص أو صورة على الأقل، والتأكد من إنشاء تقرير للغة الرئيسية ({language}).",
-	"mediaItem.error": "Error, please try again",
-	"mediaItem.processing": "Processing…",
-	"mediaItem.done": "إتمام",
-	"mediaItem.pinning": "Pinning…",
-	"mediaItem.doneRedirecting": "Done, redirecting to new main item…",
-	"mediaItem.requests": "{count, plural, one {1 request} other {# requests}}",
-	"mediaItem.pinAsMain": "Pin as main",
-	"mediaItem.detach": "Detach",
-	"mediaRelatedComponent.defaultErrorMessage": "Could not add related item",
-	"mediaRelatedComponent.savedSuccessfully": "Related item added successfully",
-	"mediaRelatedComponent.count": "{count, plural, one {1 related item} other {# related items}}",
+	"mediaItem.error": "خطأ، يرجى إعادة المحاولة.",
+	"mediaItem.pinning": "جارِ التثبيت…",
+	"mediaItem.doneRedirecting": "تمت العملية، جارِ التحويل إلى العنصر الأساسي الجديد",
+	"mediaItem.requests": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلب}}",
+	"mediaItem.pinAsMain": "تثبيت كأساسي",
+	"mediaItem.detach": "فصل",
+	"mediaRelatedComponent.defaultErrorMessage": "لا يمكن إضافة عنصر مرتبط",
+	"mediaRelatedComponent.savedSuccessfully": "تمت إضافة العنصر المرتبط بنجاح",
+	"mediaRelatedComponent.count": "{count, plural, zero {لا عناصر مرتبطة} one {عنصر واحد مرتبط} two {عنصران مرتبطان} few {# عناصر مرتبطة} many {# عنصر مرتبط} other {# عنصر مرتبط}}",
 	"mediaRelatedComponent.addSimilar": "إضافة عنصر مرتبط",
 	"mediaRelatedComponent.dialogTitle": "إضافة عنصر مرتبط",
 	"mediaSimilarities.requests": "الطلبات",
-	"mediaSimilarities.allSimilarMedia": "All similar media",
-	"mediaSimilarityBarAdd.addSimilarToThisTitle": "Add similar media to this item",
-	"mediaSimilarityBarAdd.addThisToSimilarTitle": "Add this media to a similar item",
-	"mediaSimilarityBarAdd.defaultErrorMessage": "Could not add similar item",
-	"mediaSimilarityBarAdd.savedSuccessfully": "Similar item added successfully",
-	"mediaSimilarityBarAdd.addSimilar": "Add similar",
-	"mediaSimilarityBarAdd.addSimilarToThis": "Add similar media to this item",
-	"mediaSimilarityBarAdd.addThisToSimilar": "Add this media to a similar item",
-	"mediaSimilarityBarAdd.addAsSimilar": "Add as similar",
-	"mediaSimilarityBarAdd.addSimilarItem": "Add similar item",
-	"mediaSimilarityBarComponent.hasMain": "This media has been added as similar to another item",
-	"mediaSimilarityBarComponent.similarMedia": "{count, plural, one {1 similar media} other {# similar media}}",
-	"mediaSimilarityBarComponent.suggestedMatches": "{count, plural, one {1 suggested match} other {# suggested matches}}",
+	"mediaSimilaritiesComponent.back": "الرجوع",
+	"mediaSimilarities.mainItem": "الميديا الرئيسية",
+	"mediaSimilarities.allSimilarMedia": "جميع الميديا المتشابهة",
+	"mediaSimilarities.notes": "الملحوظات",
+	"mediaSimilarities.clickOnItem": "إضغط على عنصر",
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": "استيراد ميديا مشابهة لهذا العنصر",
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": "تصدير كل الميديا إلى عنصر آخر",
+	"mediaSimilarityBarAdd.defaultErrorMessage": "لا يمكن إضافة عنصر مشابه",
+	"mediaSimilarityBarAdd.savedSuccessfully": "تمت إضافة العنصر المشابه بنجاح",
+	"mediaSimilarityBarAdd.addSimilar": "إضافة مشابه",
+	"mediaSimilarityBarAdd.addSimilarToThis": "استيراد ميديا مشابهة لهذا العنصر",
+	"mediaSimilarityBarAdd.addThisToSimilar": "تصدير كل الميديا إلى عنصر آخر",
+	"mediaSimilarityBarAdd.addAsSimilar": "تصدير كمشابه",
+	"mediaSimilarityBarAdd.addSimilarItem": "استيراد عنصر مشابه",
+	"mediaSimilarityBarComponent.hasMain": "تم إضافة هذه الميديا كمشابهة لعنصر آخر",
+	"mediaSimilarityBarComponent.hasSuggestedMain": "تم إقتراح هذه الميديا كمشابهة لعنصر آخر",
+	"mediaSimilarityBarComponent.similarMedia": "{count, plural, zero {لا ميديا متشابهة مؤكدة} one {1 ميديا متشابهة مؤكدة} two {2 ميديا متشابهة مؤكدة} few {# ميديا متشابهة مؤكدة} many {# ميديا متشابهة مؤكدة} other {# ميديا متشابهة مؤكدة}}",
+	"mediaSimilarityBarComponent.suggestedMatches": "{count, plural, zero {لا مطابقات مقترحة} one {مطابق واحد مقترح} two {مطابقان مقترحان} few {# مطابقات مقترحة} many {# مطابق مقترح} other {# مطابق مقترح}}",
 	"mediaSuggestionsComponent.back": "الرجوع",
-	"mediaSuggestionsComponent.title": "Suggested matches ({current} of {total})",
-	"mediaSuggestionsComponent.question": "Is the suggested media similar to the main?",
-	"mediaSuggestionsComponent.noSuggestions": "There are no suggested matches.",
-	"mediaSuggestionsComponent.goBack": "Back to main view",
+	"mediaSuggestionsComponent.title": "المطابقات المقترحة ({current} من مجموع {total})",
+	"mediaSuggestionsComponent.question": "هل الميديا المقترحة متشابهة مع الأساسية؟",
+	"mediaSuggestionsComponent.noSuggestions": "لا يوجد مطابقات مقترحة",
+	"mediaSuggestionsComponent.goBack": "عودة إلى العرض الرئيسي",
 	"mediaSuggestionsComponent.requests": "الطلبات",
 	"mediaSuggestionsComponent.noRequests": "لا توجد طلبات",
+	"mediaSuggestionsComponent.notes": "الملحوظات",
+	"mediaSuggestionsComponent.noNotes": "لا توجد ملحوظات",
 	"searchKeywordConfig.metadata": "البيانات الوصفيّة",
 	"searchKeywordConfig.tasks": "المهام",
 	"reportStatusCell.unpublished": "غير منشور",
@@ -928,7 +941,7 @@
 	"list.Item": "العنصر",
 	"list.Demand": "الطلبات",
 	"list.ShareCount": "مشاركات فيسبوك",
-	"list.LinkedItems": "Similar media",
+	"list.LinkedItems": "الميديا المتشابهة",
 	"list.Type": "النوع",
 	"list.Status": "الحالة",
 	"list.FirstSeen": "تم الإرسال",
@@ -937,6 +950,10 @@
 	"list.reportStatus": "حالة التقرير",
 	"list.tags": "الوسوم",
 	"list.mediaPublishedAt": "تاريخ نشر الميديا",
+	"list.reactCount": "تفاعلات فيسبوك",
+	"list.commentCount": "تعليقات فيسبوك",
+	"list.relatedCount": "ذات صلة",
+	"list.suggestionsCount": "Suggested matches",
 	"addLanguageAction.optionLabel": "{languageName} ({languageCode})",
 	"addLanguageAction.newLanguage": "لغة جديدة",
 	"addLanguageAction.title": "اختيار لغة جديدة",
@@ -1053,7 +1070,7 @@
 	"smoochBot.placeholderGreeting": "مرحبا! وأهلا بكم فى بوت تقصي الحقائق الخاص ب[Name of your organization].",
 	"smoochBot.placeholderMainMenu": "📌*القائمة الرئيسية*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة،  أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)",
 	"smoochBot.placeholderSecondaryMenu": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌",
-	"smoochBot.placeholderQueryPrompt": "*يرجى كتابة السؤال أو الرابط أو الصورة أو الفيديو الذي تريديت تقصّي حقيقته،* ثم أتبعيه بأي سياق أو أسئلة إضافية متعلقة بهذا العنصر. سوف يرسل طلبك إلى متقصّي(ة) الحقائق بعد حوالي 30 ثانية من إرسال آخر رسالة.\n\n*أرسلي 0 (أو 📌)*للعودة إلى *القائمة الرئيسية*",
+	"smoochBot.placeholderQueryPrompt": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after  your last message.\n      \n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*",
 	"smoochBot.placeholderQueryReceived": "شكرا لكم! تمّ استلام طلبكم.  يتم تجميع و تخزين جميع الرّدود ونعمل على تقصي الحقائق التي استفسرتم عنها.\n\n✔️*تابعوا هذا الرّابط  لقائمة محدّثة بالأسئلة المتكرّرة التي تم تقصّي صِحّتها:* [ يمكنكم ربط  صفحة تقصّي الحقائق مع موقعكم ]\n\n👉*أرسلي أي نص* للعودة إلى *القائمة الرئيسية* 📌",
 	"smoochBot.placeholderOptionNotAvailable": "🤖أنا آسف، لم أفهم رسالتك. يرجى المحاولة ثانية!",
 	"smoochBot.placeholderReportUpdated": "❗️تم *تحديث* تقصي الحقائق الذي أرسلناه لك بمعلومات جديدة:",
