@@ -337,7 +337,7 @@ class BulkActions extends React.Component {
             title={
               <FormattedMessage
                 id="bulkActions.dialogMoveTitle"
-                defaultMessage="{selectedCount, plural, one {Move 1 item to list...} other {Move # items to list...}}"
+                defaultMessage="{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
                 values={{
                   selectedCount: this.props.selectedMedia.length,
                 }}
