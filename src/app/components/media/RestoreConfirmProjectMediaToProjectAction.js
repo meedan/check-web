@@ -65,13 +65,13 @@ function RestoreConfirmProjectMediaToProjectAction({
           (
             <FormattedMessage
               id="mediaActionsBar.movedRestoreBack"
-              defaultMessage="Restored from trash, redirecting..."
+              defaultMessage="Restored from trash, redirecting…"
             />
           ) :
           (
             <FormattedMessage
               id="mediaActionsBar.movedConfirmBack"
-              defaultMessage="Confirmed, redirecting..."
+              defaultMessage="Confirmed, redirecting…"
             />
           );
         setFlashMessage(message);
@@ -104,7 +104,7 @@ function RestoreConfirmProjectMediaToProjectAction({
         title={
           <FormattedMessage
             id="mediaActionsBar.dialogRestoreOrConfirmToListTitle"
-            defaultMessage="Move item to list..."
+            defaultMessage="Move item to list…"
           />
         }
         cancelLabel={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}
