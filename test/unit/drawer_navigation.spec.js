@@ -89,7 +89,7 @@ describe('<DrawerNavigationComponent />', () => {
     );
     expect(header.find(DrawerProjects)).toHaveLength(0);
   });
-
+  // TODO: Review
   it('renders with projects in team context if user is not logged in and it is a public team', () => {
     const location = { pathname: '/team/members' };
     const params = { team: 'team' };
