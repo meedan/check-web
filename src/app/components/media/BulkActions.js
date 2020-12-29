@@ -179,7 +179,7 @@ class BulkActions extends React.Component {
         (
           <FormattedMessage
             id="bulkActions.movedRestoreSuccessfully"
-            defaultMessage="Items moved from trash to `{toProject}`"
+            defaultMessage="Items moved from Trash to '{toProject}'"
             description="Banner displayed after items are moved successfully"
             values={{ toProject }}
           />
@@ -187,7 +187,7 @@ class BulkActions extends React.Component {
         (
           <FormattedMessage
             id="bulkActions.movedConfirmSuccessfully"
-            defaultMessage="Items moved from Unconfirmed to `{toProject}`"
+            defaultMessage="Items moved from Unconfirmed to '{toProject}'"
             description="Banner displayed after items are moved successfully"
             values={{ toProject }}
           />
@@ -218,7 +218,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
-          defaultMessage="Items moved to the trash."
+          defaultMessage="Items moved to the Trash."
         />
       );
       this.props.setFlashMessage(message);
@@ -263,7 +263,7 @@ class BulkActions extends React.Component {
         />
       );
       moveButtonMessage = (
-        <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+        <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
       );
     } else if (page === 'unconfirmed') {
       archivedWas = CheckArchivedFlags.UNCONFIRMED;
@@ -274,7 +274,7 @@ class BulkActions extends React.Component {
         />
       );
       moveButtonMessage = (
-        <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from unconfirmed" />
+        <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
       );
     } else if (project) {
       moveAction = true;
@@ -419,7 +419,7 @@ class BulkActions extends React.Component {
             title={
               <FormattedMessage
                 id="bulkActions.sendItemsToTrash"
-                defaultMessage="Send selected items to trash"
+                defaultMessage="Send selected items to Trash"
               />
             }
             disabled={disabled}
