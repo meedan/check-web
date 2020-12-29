@@ -1,0 +1,3355 @@
+{
+	"network.stillWorking": {
+		"string": "Toujours en cours…"
+	},
+	"network.noResponse": {
+		"string": "Impossible de se connecter à {app}. Veuillez vous assurer d’être connecté à Internet."
+	},
+	"global.appNameHuman": {
+		"string": "Check"
+	},
+	"global.edit": {
+		"string": "Modifier"
+	},
+	"global.cancel": {
+		"string": "Annuler"
+	},
+	"global.close": {
+		"string": "Fermer"
+	},
+	"global.confirm": {
+		"string": "Confirmer"
+	},
+	"global.delete": {
+		"string": "Supprimer"
+	},
+	"global.ok": {
+		"string": "Valider"
+	},
+	"global.save": {
+		"string": "Enregistrer"
+	},
+	"global.submit": {
+		"string": "Envoyer"
+	},
+	"global.submitting": {
+		"string": "Envoi en cours…"
+	},
+	"global.tags": {
+		"string": "Balises"
+	},
+	"global.unknownError": {
+		"string": "Désolé, une erreur est survenue. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"global.update": {
+		"string": "Mettre à jour"
+	},
+	"accessDenied.title": {
+		"string": "Accès refusé"
+	},
+	"bot.cantChange": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour du robot. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"bot.madeBy": {
+		"string": "Créée par {teamLink}"
+	},
+	"bot.installed": {
+		"string": "Installé"
+	},
+	"bot.install": {
+		"string": "Installer"
+	},
+	"bot.permissions": {
+		"string": "Permissions"
+	},
+	"bot.permissionsText": {
+		"string": "Le niveau d’accès de ce robot est {role}."
+	},
+	"bot.sourceCode": {
+		"string": "Afficher le code source"
+	},
+	"bot.updatedAt": {
+		"string": "Mise à jour"
+	},
+	"bot.version": {
+		"string": "Version"
+	},
+	"bot.installs": {
+		"string": "Installations"
+	},
+	"botGarden.botGarden": {
+		"string": "Jardin de robots"
+	},
+	"browserSupport.message": {
+		"string": "{appName} est optimisée pour Chrome pour ordinateur de Google."
+	},
+	"passwordChange.unmatchingPasswords": {
+		"string": "Les mots de passe ne correspondent pas"
+	},
+	"passwordChange.currentPassword": {
+		"string": "Mot de passe actuel"
+	},
+	"passwordChange.newPassword": {
+		"string": "Mot de passe (au moins {min} caractères)"
+	},
+	"passwordChange.confirmPassword": {
+		"string": "Confirmer le mot de passe"
+	},
+	"passwordChange.changePassword": {
+		"string": "Changer le mot de passe"
+	},
+	"projects.unconfirmed": {
+		"string": "Non confirmés"
+	},
+	"projects.trash": {
+		"string": "Corbeille"
+	},
+	"headerActions.signIn": {
+		"string": "Connexion"
+	},
+	"footer.madeBy": {
+		"string": "Check : vérifier en ligne les nouvelles de dernière heure. Créée avec ✨ par {meedan}"
+	},
+	"teamComponent.editButton": {
+		"string": "Modifier le profil"
+	},
+	"home.needRegister": {
+		"string": "Vous devez d’abord vous inscrire. Après inscription, vous pouvez demander à vous joindre à l’espace de travail."
+	},
+	"home.somethingWrong": {
+		"string": "Désolé, une erreur est survenue. Veuillez actualiser votre navigateur et contacter {supportEmail} si la situation persiste."
+	},
+	"home.successInvitation": {
+		"string": "Bienvenue sur {appName}. Veuillez vous connecter avec le mot de passe que vous avez reçu dans le courriel de bienvenue."
+	},
+	"home.invalidTeamInvitation": {
+		"string": "Désolé, l’espace de travail auquel vous avez été invité est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+	},
+	"home.invalidNoInvitation": {
+		"string": "Désolé, l’invitation que vous avez reçue est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+	},
+	"home.invalidExpiredInvitation": {
+		"string": "Désolé, l’invitation que vous avez reçue était expiré. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+	},
+	"home.invalidInvitation": {
+		"string": "Désolé, une erreur est survenue lors du traitement de votre invitation. Veuillez contacter {supportEmail}."
+	},
+	"languageSwitcher.primaryLanguage": {
+		"string": "{language} (par défaut)"
+	},
+	"languageSwitcher.makeDefault": {
+		"string": "Définir comme langue par défaut pour cet élément"
+	},
+	"login.disclaimer": {
+		"string": "Nous ne publierons rien sans votre permission"
+	},
+	"login.tosMissing": {
+		"string": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité"
+	},
+	"login.title": {
+		"string": "Connexion"
+	},
+	"login.registerTitle": {
+		"string": "Inscription"
+	},
+	"login.nameLabel": {
+		"string": "Votre nom"
+	},
+	"login.emailLabel": {
+		"string": "Adresse courriel"
+	},
+	"login.passwordInputHint": {
+		"string": "Mot de passe"
+	},
+	"login.passwordLabel": {
+		"string": "Mot de passe (au moins 8 caractères)"
+	},
+	"login.otpAttemptLabel": {
+		"string": "Jeton d’authentification à deux facteurs"
+	},
+	"login.passwordConfirmLabel": {
+		"string": "Confirmation du mot de passe"
+	},
+	"login.profilePicture": {
+		"string": "Image du profil"
+	},
+	"login.signIn": {
+		"string": "CONNEXION"
+	},
+	"login.signUp": {
+		"string": "INSCRIPTION"
+	},
+	"loginEmail.lostPassword": {
+		"string": "Mot de passe oublié"
+	},
+	"login.with": {
+		"string": "Connexion avec {provider}"
+	},
+	"login.newAccount": {
+		"string": "Créer un nouveau compte avec une adresse courriel"
+	},
+	"login.alreadyHasAccount": {
+		"string": "J’ai déjà un compte"
+	},
+	"browser.support.message": {
+		"string": "Affichage optimal avec<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>."
+	},
+	"loginContainer.agreeTerms": {
+		"string": "En vous inscrivant, vous acceptez les {tosLink} et la {ppLink} de {appName}."
+	},
+	"tos.title": {
+		"string": "Conditions générales d’utilisation"
+	},
+	"privacy.policy.title": {
+		"string": "Politique de confidentialité"
+	},
+	"login.contactSupport": {
+		"string": "Pour de l’assistance, contactez <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"notFound.title": {
+		"string": "Introuvable"
+	},
+	"pageTitle.appNameHuman": {
+		"string": "Check"
+	},
+	"bridge.pageTitle.appNameHuman": {
+		"string": "Bridge"
+	},
+	"sentence.separator": {
+		"string": ","
+	},
+	"sentence.lastSeparator": {
+		"string": "et"
+	},
+	"uploadFile.message": {
+		"string": "Déposez un fichier image ici ou cliquez pour téléverser un fichier (taille maximale :{upload_max_size}, extensions autorisées : {upload_extensions}, dimensions autorisées entre {upload_min_dimensions} et {upload_max_dimensions} pixels)"
+	},
+	"uploadFile.videoMessage": {
+		"string": "Déposez un fichier vidéo ici ou cliquez pour téléverser un fichier (taille maximale : {video_max_size}, extensions autorisées : {video_extensions})"
+	},
+	"uploadFile.audioMessage": {
+		"string": "Déposez un fichier son ici ou cliquez pour téléverser un fichier (taille maximale : {audio_max_size}, extensions autorisées : {audio_extensions})"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Déposez un fichier ici ou cliquez pour téléverser un fichier (taille maximale : {file_max_size}, extensions autorisées : {file_extensions})"
+	},
+	"uploadFile.invalidExtension": {
+		"string": "Le fichier ne peut pas être de type « {extension} ». Veuillez essayer avec les types de fichier suivants : {allowed_types}."
+	},
+	"uploadFile.fileTooLarge": {
+		"string": "La taille des fichiers devrait être inférieure à {size}. Veuillez essayer avec un fichier plus petit."
+	},
+	"uploadFile.changeFile": {
+		"string": "{filename} (cliquer ou déposer pour changer)"
+	},
+	"uploadImage.changeFile": {
+		"string": "{filename} (cliquer ou déposer pour changer)"
+	},
+	"uploadImage.invalidExtension": {
+		"string": "Le fichier ne peut pas être de type « {extension} ». Veuillez essayer avec les types de fichier suivants : {allowed_types}."
+	},
+	"uploadImage.fileTooLarge": {
+		"string": "La taille des fichiers devrait être inférieure à {size}. Veuillez essayer avec un fichier plus petit."
+	},
+	"uploadImage.message": {
+		"string": "Déposez un fichier image ici ou cliquez pour téléverser un fichier (taille maximale :{upload_max_size}, extensions autorisées : {upload_extensions}, dimensions autorisées entre {upload_min_dimensions} et {upload_max_dimensions} pixels)"
+	},
+	"uploadImage.videoMessage": {
+		"string": "Déposez un fichier vidéo ici ou cliquez pour téléverser un fichier (taille maximale : {video_max_size}, extensions autorisées : {video_extensions})"
+	},
+	"userAlreadyConfirmed.heading": {
+		"string": "Le compte est déjà confirmé"
+	},
+	"userAlreadyConfirmed.message": {
+		"string": "Oups ! Votre compte est déjà confirmé. Veuillez vous {login} pour commencer."
+	},
+	"userAlreadyConfirmed.login": {
+		"string": "connecter"
+	},
+	"projectAssignment.more": {
+		"string": "+{count} de plus"
+	},
+	"userConfirmed.heading": {
+		"string": "Le compte est confirmé"
+	},
+	"userConfirmed.message": {
+		"string": "Nous vous remercions d’avoir confirmé votre adresse courriel. Vous pouvez maintenant vous connecter."
+	},
+	"UserMenu.userSettings": {
+		"string": "Paramètres de l’utilisateur"
+	},
+	"UserMenu.training": {
+		"string": "Formation et documentation"
+	},
+	"UserMenu.tos": {
+		"string": "Conditions générales d’utilisation"
+	},
+	"UserMenu.pp": {
+		"string": "Politique de confidentialité"
+	},
+	"UserMenu.about": {
+		"string": "À propos"
+	},
+	"UserMenu.signOut": {
+		"string": "Déconnexion"
+	},
+	"passwordChange.title": {
+		"string": "Changer le mot de passe"
+	},
+	"passwordChange.successTitle": {
+		"string": "Le mot de passe a été mis à jour"
+	},
+	"passwordChange.successMsg": {
+		"string": "Tout est prêt. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
+	},
+	"passwordChange.signIn": {
+		"string": "D’accord"
+	},
+	"passwordReset.emailNotFoundContactSupport": {
+		"string": "Désolé, cette adresse courriel n’a pas été trouvée. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+	},
+	"passwordReset.emailNotValid": {
+		"string": "Veuillez saisir une adresse courriel valide."
+	},
+	"passwordReset.title": {
+		"string": "Réinitialiser le mot de passe"
+	},
+	"passwordReset.confirmedTitle": {
+		"string": "Le courriel de réinitialisation du mot de passe a été envoyé"
+	},
+	"passwordReset.confirmedText": {
+		"string": "Nous vous avons envoyé un courriel de {adminEmail} avec des instructions pour réinitialiser votre mot de passe. Assurez-vous qu’il n’est pas dans vos indésirables/pourriels. Si vous ne recevez pas nos courriels de réinitialisation du mot de passe, contactez {supportEmail}. Veuillez noter que le lien indiqué dans ce courriel expirera dans {expiry} heures."
+	},
+	"passwordReset.signIn": {
+		"string": "Connexion"
+	},
+	"passwordReset.text": {
+		"string": "Ajoutez votre adresse et un courriel vous sera envoyé avec de plus amples instructions."
+	},
+	"passwordReset.email": {
+		"string": "Adresse courriel"
+	},
+	"passwordReset.cancel": {
+		"string": "Annuler"
+	},
+	"passwordReset.submit": {
+		"string": "Réinitialiser le mot de passe"
+	},
+	"userTos.validation": {
+		"string": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité"
+	},
+	"userTos.save": {
+		"string": "Enregistrer"
+	},
+	"userTos.commGuidelinesLink": {
+		"string": "Directives générales pour la communauté"
+	},
+	"userTos.commGuidelines": {
+		"string": "Nous vous demandons aussi de consulter nos {communityGuidelinesLink} avant d’utiliser {appName}."
+	},
+	"userTos.tosLink": {
+		"string": "Conditions générales d’utilisation"
+	},
+	"userTos.ppLink": {
+		"string": "Politique de confidentialité"
+	},
+	"userTos.title": {
+		"string": "Conditions générales d’utilisation et Politique de confidentialité"
+	},
+	"userTos.termsLastUpdatedAt": {
+		"string": "Dernière mise à jour {lastUpdated}"
+	},
+	"userTos.disclaimer": {
+		"string": "Veuillez examiner nos {tosLink} et notre {ppLink} et accepter ce qui suit :"
+	},
+	"userTos.titleUpdated": {
+		"string": "Mise à jour des Conditions et de la Politique de confidentialité"
+	},
+	"userTos.disclaimerUpdate": {
+		"string": "Nous avons mis à jour nos {tosLink} et notre {ppLink}. Veuillez examiner et accepter ce qui suit :"
+	},
+	"userTos.agreeTos": {
+		"string": "J’accepte les Conditions générales d’utilisation."
+	},
+	"userTos.agreePp": {
+		"string": "J’accepte que Meedan traite les renseignements personnels que je choisis de partager, dont des renseignements qui révèlent mon origine raciale ou ethnique, mes opinions politiques, mes croyances religieuses ou philosophiques, mon appartenance à des organisations syndicales, des photographies, ou encore des renseignements sur mon orientation sexuelle. Conformément à la Politique de confidentialité, ces données seront supprimées si je supprime mon compte."
+	},
+	"userUnconfirmed.heading": {
+		"string": "Erreur"
+	},
+	"userUnconfirmed.message": {
+		"string": "Désolé, une erreur est survenue lors de la confirmation de votre compte. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"addAnnotation.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’élément. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"addAnnotation.invalidCommand": {
+		"string": "La commande est invalide"
+	},
+	"addAnnotation.inputHint": {
+		"string": "Ajoutez une note"
+	},
+	"addAnnotation.addImage": {
+		"string": "Ajouter une image"
+	},
+	"addAnnotation.submitButton": {
+		"string": "Envoyer"
+	},
+	"annotation.flagAdult": {
+		"string": "Adulte"
+	},
+	"annotation.flagMedical": {
+		"string": "Médical"
+	},
+	"annotation.flagViolence": {
+		"string": "Violence"
+	},
+	"annotation.flagRacy": {
+		"string": "Suggestif"
+	},
+	"annotation.flagSpam": {
+		"string": "Indésirable"
+	},
+	"annotation.flagLikelihood0": {
+		"string": "Inconnu"
+	},
+	"annotation.flagLikelihood1": {
+		"string": "Très peu probable"
+	},
+	"annotation.flagLikelihood2": {
+		"string": "Peu probable"
+	},
+	"annotation.flagLikelihood3": {
+		"string": "Possible"
+	},
+	"annotation.flagLikelihood4": {
+		"string": "Probable"
+	},
+	"annotation.flagLikelihood5": {
+		"string": "Très probable"
+	},
+	"annotation.menuTooltip": {
+		"string": "Actions sur la note"
+	},
+	"annotation.deleteButton": {
+		"string": "Supprimer"
+	},
+	"annotation.permalink": {
+		"string": "Permalien"
+	},
+	"annotation.taggedHeader": {
+		"string": "Balisée #{tag} par {author}"
+	},
+	"annotation.deletedComment": {
+		"string": "Le commentaire a été supprimé par {author} : {comment}"
+	},
+	"annotation.taskCreated": {
+		"string": "La tâche a été créée par {author} : {task}"
+	},
+	"annotation.metadataCreated": {
+		"string": "Le champ des métadonnées a été créé par {author} : {fieldLabel}"
+	},
+	"annotation.relationshipCreated": {
+		"string": "L’élément associé a été ajouté par {author} : {title}"
+	},
+	"annotation.relationshipDeleted": {
+		"string": "L’élément associé a été supprimé par {author} : {title}"
+	},
+	"annotation.taskAssignmentCreated": {
+		"string": "La tâche a été attribuée à {name} par {author} : {title}"
+	},
+	"annotation.mediaAssignmentCreated": {
+		"string": "L’élément a été attribué à {name} par {author}"
+	},
+	"annotation.taskAssignmentDeleted": {
+		"string": "L’attribution d’une tâche a été retirée de {name} par {author} : {title}"
+	},
+	"annotation.mediaAssignmentDeleted": {
+		"string": "L’attribution d’une élément a été retirée de {name} par {author}"
+	},
+	"annotation.flag": {
+		"string": "Résultat de la classification :"
+	},
+	"annotation.statusLocked": {
+		"string": "L’état de l’élément a été verrouillé par {author}"
+	},
+	"annotation.statusUnlocked": {
+		"string": "L’état de l’élément a été déverrouillé par {author}"
+	},
+	"annotation.mediaAssigned": {
+		"string": "L’élément a été attribué à {name} par {author}"
+	},
+	"annotation.mediaUnassigned": {
+		"string": "L’attribution d’une élément a été retirée de {name} par {author}"
+	},
+	"annotation.statusSetHeader": {
+		"string": "L’état a été défini à {status} par {author}"
+	},
+	"annotation.seeHowThisBotWorks": {
+		"string": "Voir comment ce robot fonctionne"
+	},
+	"annotation.suggestionAccepted": {
+		"string": "Acceptée par {user}"
+	},
+	"annotation.suggestionRejected": {
+		"string": "Refusée par {user}"
+	},
+	"annotation.acceptSuggestion": {
+		"string": "Accepter"
+	},
+	"annotation.rejectSuggestion": {
+		"string": "Refuser"
+	},
+	"annotation.taskResolve": {
+		"string": "La tâche a été achevée par {author} : {task}{response}"
+	},
+	"annotation.metadataResponse": {
+		"string": "Le champ de métadonnées « {fieldLabel} » a été renseigné par {author} : {response}"
+	},
+	"annotation.archiverSuccess": {
+		"string": "Au cas où ce lien deviendrait inaccessible, vous pouvez <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">accéder à une sauvegarde sur {name}</a>."
+	},
+	"annotation.archiverError": {
+		"string": "Désolé, l’erreur suivante est survenue lors de l’archivage de l’élément sur {name} : « {message} ». Veuillez actualiser l’élément pour réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"annotation.archiverWait": {
+		"string": "Cet élément est en cours d’archivage sur {name}. Le lien de l’archive sera affiché ici une fois prêt."
+	},
+	"annotation.embedCodeCopied": {
+		"string": "Un code d’intégration de l’élément a été généré et copié. L’élément est maintenant visible publiquement."
+	},
+	"annotation.penderArchiveResponseError": {
+		"string": "Désolé, une erreur est survenue lors de la prise d’une capture d’écran de l’élément. Veuillez actualiser l’élément pour réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"annotation.penderArchiveResponse": {
+		"string": "Keep a effectué une capture d’écran de ce lien."
+	},
+	"annotation.penderArchiveWait": {
+		"string": "Keep est en train de préparer une capture d’écran de cet élément. Veuillez revenir dans quelques minutes pour la visualiser."
+	},
+	"annotation.openInSlack": {
+		"string": "Ouvrir dans Slack"
+	},
+	"annotation.reportReceived": {
+		"string": "Rapport reçu le {date}"
+	},
+	"annotation.reportUpdateReceived": {
+		"string": "Mise à jour du rapport reçue le {date}"
+	},
+	"annotation.smoochNoMessage": {
+		"string": "Aucun message n’a été envoyé avec la demande"
+	},
+	"annotation.projectMoved": {
+		"string": "A été déplacé de la liste {previousProject} vers {currentProject} par {author}"
+	},
+	"annotation.movedToTrash": {
+		"string": "A été déplacé vers la corbeille par {author}"
+	},
+	"annotation.movedFromTrash": {
+		"string": "A été déplacé de la corbeille par {author}"
+	},
+	"annotation.teamCopied": {
+		"string": "Copié de l’espace de travail de {previousTeam} par {author}"
+	},
+	"annotation.noAnnotationsYet": {
+		"string": "Aucune activité"
+	},
+	"annotations.loadMore": {
+		"string": "Charger davantage"
+	},
+	"annotation.newReport": {
+		"string": "L’élément a été ajouté par {author}"
+	},
+	"annotation.titleChanged": {
+		"string": "Le titre de l’élément a été modifié par {author} : {title}"
+	},
+	"annotation.embedNoteCreated": {
+		"string": "La description de l’élément a été ajoutée par {author} : {description}"
+	},
+	"annotation.embedLabelUpdated": {
+		"string": "Le titre de l’élément a été modifié par {author} : {title}"
+	},
+	"annotation.embedLabelRemoved": {
+		"string": "Le titre de l’élément a été supprimé par {author} : {title}"
+	},
+	"annotation.embedNoteUpdated": {
+		"string": "La description de l’élément a été modifiée par {author} : {description}"
+	},
+	"annotation.embedNoteRemoved": {
+		"string": "La description de l’élément a été supprimée par {author} : {description}"
+	},
+	"annotation.taskLabelUpdated": {
+		"string": "La tâche a été modifiée par {author} : {title}"
+	},
+	"annotation.taskNoteUpdated": {
+		"string": "La note de tâche a été modifiée par {author} : {title}{note}"
+	},
+	"annotation.taskNoteCreated": {
+		"string": "La note de tâche a été ajoutée par {author} : {title}{note}"
+	},
+	"annotation.assignmentChanged": {
+		"string": "La tâche a été attribuée à {attribueeTo} par {author} : {title}"
+	},
+	"annotation.assignmentRemoved": {
+		"string": "L’attribution d’une tâche a été retirée de {attribueeFrom} par {author} : {title}"
+	},
+	"annotation.addedComment": {
+		"string": "La note de tâche a été ajoutée par {author} : {title}{note}"
+	},
+	"annotation.removedComment": {
+		"string": "La note de tâche a été supprimé par {author} : {title}{note}"
+	},
+	"annotation.changedJsonSchema": {
+		"string": "Le schéma JSON de la tâche a été modifié par {author} : {title}"
+	},
+	"teamMenu.teamSettings": {
+		"string": "Paramètres de l’espace de travail"
+	},
+	"projects.allClaims": {
+		"string": "Tous les éléments"
+	},
+	"projects.dismiss": {
+		"string": "Abandonner"
+	},
+	"projects.addProject": {
+		"string": "Ajouter une liste"
+	},
+	"projects.newList": {
+		"string": "+ Nouvelle liste"
+	},
+	"teamTasks.confirmAction": {
+		"string": "Oui"
+	},
+	"teamTasks.continue": {
+		"string": "Poursuivre"
+	},
+	"teamTasks.cancelAction": {
+		"string": "Annuler"
+	},
+	"confirmProceed.confirm": {
+		"string": "Confirmer et poursuivre"
+	},
+	"MultiSelector.search": {
+		"string": "Recherche…"
+	},
+	"FilterPopup.close": {
+		"string": "Terminé"
+	},
+	"languagePickerDialog.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"languagePickerDialog.unknownLanguage": {
+		"string": "La langue est inconnue"
+	},
+	"languagePickerDialog.title": {
+		"string": "Choisir une langue"
+	},
+	"languagePickerDialog.selectLanguage": {
+		"string": "Sélectionner une langue"
+	},
+	"loadMore.loadMore": {
+		"string": "Charger davantage"
+	},
+	"moreLess.less": {
+		"string": "Moins"
+	},
+	"moreLess.more": {
+		"string": "Plus"
+	},
+	"MultiSelector.all": {
+		"string": "Tout"
+	},
+	"multiSelector.empty": {
+		"string": "Aucun élément n’a été trouvé"
+	},
+	"multiSelector.cancel": {
+		"string": "Annuler"
+	},
+	"sortSelect.az": {
+		"string": "A à Z"
+	},
+	"sortSelect.za": {
+		"string": "Z à A"
+	},
+	"sortSelect.of": {
+		"string": "Plus anciens d’abord"
+	},
+	"sortSelect.nf": {
+		"string": "Plus récents d’abord"
+	},
+	"sortSelect.mu": {
+		"string": "Les plus utilisés"
+	},
+	"sortSelect.lu": {
+		"string": "Les moins utilisés"
+	},
+	"createProject.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la liste. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"createProject.newProjectName": {
+		"string": "Nom de la liste"
+	},
+	"createProject.addProject": {
+		"string": "Créer une liste"
+	},
+	"createProject.title": {
+		"string": "Ajouter une liste"
+	},
+	"createProject.titleBlank": {
+		"string": "Ajoutez votre première liste"
+	},
+	"projectActions.projectDeleted": {
+		"string": "La liste a été supprimée avec succès."
+	},
+	"projectActions.projectNotDeleted": {
+		"string": "Désolé, il n’a pas été possible de supprimer la liste."
+	},
+	"ProjectActions.edit": {
+		"string": "Modifier le nom et la description"
+	},
+	"projectActions.assignOrUnassign": {
+		"string": "Attribuer la liste"
+	},
+	"projectActions.destroy": {
+		"string": "Supprimer"
+	},
+	"ProjectActions.tooltip": {
+		"string": "Actions sur la liste"
+	},
+	"projectActions.confirmDeleteProject": {
+		"string": "Voulez-vous vraiment supprimer cette liste ? Tous ses éléments seront encore accessibles à partir de la liste « Tous les éléments »."
+	},
+	"projectAssignment.processing": {
+		"string": "Terminé ! Les attributions se propagent maintenant aux éléments et aux tâches. Vous recevrez un courriel une fois ce processus terminé."
+	},
+	"projectAssignment.title": {
+		"string": "Attribuer la liste à des collaborateurs"
+	},
+	"projectAssignment.notesTitle": {
+		"string": "Ajouter un note au courriel"
+	},
+	"projectAssignment.notes": {
+		"string": "Notes"
+	},
+	"projectAssignment.assignedTo": {
+		"string": "Attribué à"
+	},
+	"projectAssignment.notAssigned": {
+		"string": "Non attribué"
+	},
+	"userAssignments.blank": {
+		"string": "Aucune activité"
+	},
+	"ProjectBlankState.createMedia": {
+		"string": "Ajoutez un lien ou un texte"
+	},
+	"projectEdit.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la liste. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"projectEdit.titleField": {
+		"string": "Titre"
+	},
+	"projectEdit.descriptionField": {
+		"string": "Description"
+	},
+	"projectEdit.saveButton": {
+		"string": "Enregistrer"
+	},
+	"projectHeader.trash": {
+		"string": "Corbeille"
+	},
+	"projectHeader.allItems": {
+		"string": "Tous les éléments"
+	},
+	"projectSelector.numProjs": {
+		"string": "{length, number} sélectionné.es"
+	},
+	"projectSelector.allProjs": {
+		"string": "Toutes les listes"
+	},
+	"mediaMetadata.addedToList": {
+		"string": "A été ajouté à la liste {listName}"
+	},
+	"mediaActionsBar.addTo": {
+		"string": "Ajouter à…"
+	},
+	"mediaActionsBar.dialogAddToListTitle": {
+		"string": "Ajouter à une liste différente"
+	},
+	"mediaActionsBar.cancelButton": {
+		"string": "Annuler"
+	},
+	"mediaActionsBar.add": {
+		"string": "Ajouter"
+	},
+	"video.normalSpeed": {
+		"string": "Vitesse normale "
+	},
+	"autoCompleteMediaItem.searching": {
+		"string": "Recherche…"
+	},
+	"autoCompleteMediaItem.error": {
+		"string": "Désolé, une erreur est survenue lors de la recherche. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"autoCompleteMediaItem.notFound": {
+		"string": "Aucun élément correspondant n’a été trouvé"
+	},
+	"autoCompleteMediaItem.searchItem": {
+		"string": "Recherche"
+	},
+	"blankMediaButton.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer l’article"
+	},
+	"blankMediaButton.addToImportedReport": {
+		"string": "Ajouter au rapport importé"
+	},
+	"blankMediaButton.confirmTitle": {
+		"string": "Remplacer le rapport et l’état ?"
+	},
+	"blankMediaButton.confirmText": {
+		"string": "Un rapport est déjà publié pour l’article suivant :\n              {link}\n              Si vous poursuivez, l’état et le rapport seront tous les deux remplacés et le rapport sera mis en pause."
+	},
+	"blankMediaButton.confirmButtonLabel": {
+		"string": "Mettre le rapport en pause et le contenu à jour"
+	},
+	"blankMediaButton.addItem": {
+		"string": "Ajouter un élément"
+	},
+	"blankMediaCard.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer l’article"
+	},
+	"blankMediaCard.addItem": {
+		"string": "Ajouter un élément"
+	},
+	"blankMediaCard.confirmTitle": {
+		"string": "Remplacer le rapport et l’état ?"
+	},
+	"blankMediaCard.confirmText": {
+		"string": "Un rapport est déjà publié pour l’article suivant :\n              {link}\n              Si vous poursuivez, l’état et le rapport seront tous les deux remplacés et le rapport sera mis en pause."
+	},
+	"blankMediaCard.confirmButtonLabel": {
+		"string": "Mettre le rapport en pause et le contenu à jour"
+	},
+	"bulkActions.movedRestoreSuccessfully": {
+		"string": "Les éléments ont été déplacés de la corbeille vers `{toProject}`",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedConfirmSuccessfully": {
+		"string": "Les éléments ont été déplacés de Non confirmés vers `{toProject}`",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.addedSuccessfully": {
+		"string": "Les éléments ont été ajoutés à la liste.",
+		"developer_comment": "Banner displayed after items are added successfully to list"
+	},
+	"bulkActions.removedSuccessfully": {
+		"string": "Les éléments ont été supprimés de cette liste.",
+		"developer_comment": "Banner displayed after items are removed successfully from list"
+	},
+	"bulkActions.movedSuccessfully": {
+		"string": "Les éléments ont été déplacés.",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.moveToTrashSuccessfully": {
+		"string": "Les éléments ont été déplacé vers la corbeille."
+	},
+	"bulkActions.trash": {
+		"string": "Restaurer les éléments sélectionnés et déplacer les éléments vers une autre liste"
+	},
+	"bulkActions.restore": {
+		"string": "Restaurer de la corbeille"
+	},
+	"bulkActions.unconfirmed": {
+		"string": "Confirmer les éléments sélectionnés et déplacer les éléments vers une autre liste"
+	},
+	"bulkActions.confirm": {
+		"string": "Déplacer de Non confirmés"
+	},
+	"bulkActions.move": {
+		"string": "Transférer les éléments sélectionnés vers une autre liste"
+	},
+	"bulkActions.moveTo": {
+		"string": "Déplacer vers…"
+	},
+	"bulkActions.cancelButton": {
+		"string": "Annuler"
+	},
+	"bulkActions.moveTitle": {
+		"string": "Déplacer vers une liste"
+	},
+	"bulkActions.dialogMoveTitle": {
+		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+	},
+	"bulkActions.add": {
+		"string": "Ajouter les éléments sélectionnés à une autre liste"
+	},
+	"bulkActions.addTo": {
+		"string": "Ajouter à…"
+	},
+	"bulkActions.addTitle": {
+		"string": "Ajouter"
+	},
+	"bulkActions.dialogAddTitle": {
+		"string": "Ajouter à une liste différente"
+	},
+	"bulkActions.sendItemsToTrash": {
+		"string": "Envoyer les éléments sélectionnés à la corbeille"
+	},
+	"claimReview.claim": {
+		"string": "Affirmation :"
+	},
+	"claimReview.claimedBy": {
+		"string": "Affirmée par :"
+	},
+	"claimReview.reviewedBy": {
+		"string": "Faits vérifiés par {reviewer} : "
+	},
+	"createMedia.error": {
+		"string": "Désolé, une erreur est survenue lors de l’envoi de l’élément. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"createMedia.addItem": {
+		"string": "Ajouter un élément"
+	},
+	"createMedia.addNewItem": {
+		"string": "Ajouter un nouvel élément"
+	},
+	"createMedia.addNew": {
+		"string": "Ajouter un nouvel élément"
+	},
+	"createMedia.existing": {
+		"string": "Ajouter un élément existant"
+	},
+	"createMedia.quoteInput": {
+		"string": "Collez ou tapez un texte"
+	},
+	"createMedia.mediaInput": {
+		"string": "Collez ou tapez"
+	},
+	"createMedia.link": {
+		"string": "Lien"
+	},
+	"createMedia.quote": {
+		"string": "Texte"
+	},
+	"createMedia.image": {
+		"string": "Photo"
+	},
+	"createMedia.video": {
+		"string": "Vidéo"
+	},
+	"createMedia.audio": {
+		"string": "Son"
+	},
+	"createRelatedMedia.addSecondaryItem": {
+		"string": "Ajouter un élément secondaire"
+	},
+	"createRelatedMedia.addToPrimaryItem": {
+		"string": "Ajouter à l’élément principal"
+	},
+	"destinationProjects.choose": {
+		"string": "Sélectionner une liste"
+	},
+	"mediaDetail.editReportError": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’élément. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"mediaDetail.editReport": {
+		"string": "Modifier"
+	},
+	"mediaDetail.mediaTitle": {
+		"string": "Titre"
+	},
+	"mediaDetail.mediaDescription": {
+		"string": "Description"
+	},
+	"mediaDetail.cancelButton": {
+		"string": "Annuler"
+	},
+	"mediaDetail.doneButton": {
+		"string": "Terminé"
+	},
+	"ItemHistoryDialog.title": {
+		"string": "Historique de l’élément"
+	},
+	"media.confirmLeave": {
+		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+	},
+	"mediaActions.edit": {
+		"string": "Modifier le titre et la description"
+	},
+	"mediaActions.refresh": {
+		"string": "Actualiser"
+	},
+	"mediaActions.assignOrUnassign": {
+		"string": "Attribution"
+	},
+	"mediaActions.unlockStatus": {
+		"string": "Déverrouiller l’état"
+	},
+	"mediaActions.lockStatus": {
+		"string": "Verrouiller l’état"
+	},
+	"mediaActions.sendToTrash": {
+		"string": "Envoyer à la corbeille"
+	},
+	"mediaActions.restore": {
+		"string": "Restaurer de la corbeille"
+	},
+	"mediaActions.move": {
+		"string": "Déplacer"
+	},
+	"mediaActions.addToList": {
+		"string": "Ajouter à une liste"
+	},
+	"mediaActions.removeFromList": {
+		"string": "Supprimer de la liste"
+	},
+	"mediaActions.tooltip": {
+		"string": "Actions sur l’élément"
+	},
+	"mediaActionsBar.movedToTrash": {
+		"string": "Envoyer à la {trash}"
+	},
+	"mediaDetail.trash": {
+		"string": "Corbeille"
+	},
+	"mediaActionsBar.assignmentsUpdated": {
+		"string": "Les attributions ont été mises à jour avec succès."
+	},
+	"mediaActionsBar.publishedReport": {
+		"string": "Rapport publié"
+	},
+	"mediaActionsBar.unpublishedReport": {
+		"string": "Rapport non publié"
+	},
+	"mediaActionsBar.assignmentTitle": {
+		"string": "Attribuer l’élément à des collaborateurs"
+	},
+	"mediaActionsBar.assignmentNotesTitle": {
+		"string": "Ajouter un note au courriel"
+	},
+	"mediaActionsBar.assignmentNotes": {
+		"string": "Notes"
+	},
+	"mediaActions.history": {
+		"string": "Historique de l’élément"
+	},
+	"mediaAnalysis.analysis": {
+		"string": "Analyse"
+	},
+	"mediaAnalysis.saving": {
+		"string": "Enregistrement…"
+	},
+	"mediaAnalysis.saved": {
+		"string": "Enregistré il y a {ago}"
+	},
+	"mediaAnalysis.error": {
+		"string": "Impossible d’enregistrer. Dernier enregistrement il y a {ago}"
+	},
+	"mediaAnalysis.copying": {
+		"string": "Copie…"
+	},
+	"mediaAnalysis.copyToReport": {
+		"string": "Copier dans le rapport"
+	},
+	"mediaAnalysis.title": {
+		"string": "Titre"
+	},
+	"mediaAnalysis.content": {
+		"string": "Contenu"
+	},
+	"mediaAnalysis.publishedArticle": {
+		"string": "URL de l’article publié"
+	},
+	"mediaAnalysis.date": {
+		"string": "Date de publication"
+	},
+	"mediaAnalysis.confirmTitle1": {
+		"string": "Le rapport actuel est publié"
+	},
+	"mediaAnalysis.confirmTitle2": {
+		"string": "Remplacer le rapport existant ?"
+	},
+	"mediaAnalysis.confirmText1": {
+		"string": "Vous devez d’abord mettre le rapport en pause afin de le modifier. Voulez-vous mettre le rapport en pause puis à jour avec le nouveau contenu ?"
+	},
+	"mediaAnalysis.confirmText2": {
+		"string": "Voulez-vous mettre le rapport à jour avec ce nouveau contenu ? Toutes les modifications seront perdues."
+	},
+	"mediaAnalysis.confirmButtonLabel1": {
+		"string": "Mettre le rapport en pause et le contenu à jour"
+	},
+	"mediaAnalysis.confirmButtonLabel2": {
+		"string": "Remplacer le contenu"
+	},
+	"mediaComments.noNote": {
+		"string": "Aucune note"
+	},
+	"mediaComponent.requests": {
+		"string": "Demandes"
+	},
+	"mediaComponent.metadata": {
+		"string": "Métadonnées"
+	},
+	"mediaComponent.tasks": {
+		"string": "Tâches"
+	},
+	"mediaComponent.notes": {
+		"string": "Notes"
+	},
+	"mediaComponent.related": {
+		"string": "Associés"
+	},
+	"mediaComponent.timelineTab": {
+		"string": "Chronologie"
+	},
+	"mediaCondensed.requests": {
+		"string": "{count} demandes"
+	},
+	"mediaExpanded.addToImportedReport": {
+		"string": "Ajouter au rapport importé"
+	},
+	"mediaMetadata.Timeline": {
+		"string": "Chronologie"
+	},
+	"mediaMetadata.ImageSearch": {
+		"string": "Recherche d’images"
+	},
+	"mediaMetadata.download": {
+		"string": "Télécharger"
+	},
+	"mediaExpandedArchives.archives": {
+		"string": "Archives :"
+	},
+	"mediaExpandedMetadata.publishedOn": {
+		"string": "Publié le"
+	},
+	"mediaExpandedMetadata.shares": {
+		"string": "Partages sur Facebook"
+	},
+	"mediaExpandedMetadata.reactions": {
+		"string": "Réactions sur Facebook"
+	},
+	"mediaExpandedMetadata.comments": {
+		"string": "Commentaires sur Facebook"
+	},
+	"mediaExpanded.firstSeen": {
+		"string": "Vu pour la première fois :"
+	},
+	"mediaExpanded.lastSeen": {
+		"string": "Vu pour la dernière fois :"
+	},
+	"mediaExpanded.requests": {
+		"string": "{count} demandes"
+	},
+	"mediaLanguageChip.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la langue. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"media.normalSpeed": {
+		"string": "Vitesse normale "
+	},
+	"mediaRelated.primaryItem": {
+		"string": "Elément principal"
+	},
+	"mediaRelated.secondaryItems": {
+		"string": "Eléments secondaires"
+	},
+	"mediaRelated.loadMore": {
+		"string": "Charger davantage"
+	},
+	"mediaRequests.allRequests": {
+		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+	},
+	"mediaRequests.thisRequests": {
+		"string": "{count, plural, one {1 request} other {# requests}}"
+	},
+	"mediaRequests.noRequest": {
+		"string": "Aucune demande"
+	},
+	"mediaSearch.itemWentAway": {
+		"string": "Introuvable"
+	},
+	"mediaSearch.error": {
+		"string": "Désolé, l’erreur suivante est survenue : {message}. Veuillez actualiser l’élément pour réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"mediaStatus.cancelMessage": {
+		"string": "Annuler"
+	},
+	"mediaStatus.messageDescription": {
+		"string": "Veuillez ajouter un commentaire. Il sera renvoyé à l’auteur original pour l’informer que sa demande sera fermée."
+	},
+	"mediaStatus.noteHint": {
+		"string": "Appuyez sur Entrée pour envoyer"
+	},
+	"mediaStatus.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’état. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"mediaTags.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la balise. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"mediaComponent.verificationTasks": {
+		"string": "Tâches de l’élément"
+	},
+	"mediaComponent.answered": {
+		"string": "achevées"
+	},
+	"mediaComponent.noTasks": {
+		"string": "Il n’y a rien à afficher."
+	},
+	"media.typeTwitter": {
+		"string": "Tweet"
+	},
+	"media.typeFacebook": {
+		"string": "Publication Facebook"
+	},
+	"media.typeInstagram": {
+		"string": "Instagram"
+	},
+	"media.typeYoutube": {
+		"string": "Vidéo YouTube"
+	},
+	"media.typeVideo": {
+		"string": "Vidéo"
+	},
+	"media.typeTiktok": {
+		"string": "Vidéo TikTok"
+	},
+	"media.typeClaim": {
+		"string": "Texte"
+	},
+	"media.typeImage": {
+		"string": "Image"
+	},
+	"media.typePage": {
+		"string": "Page"
+	},
+	"media.byAttribution": {
+		"string": "{typeLabel} par {attribution}"
+	},
+	"media.onDomain": {
+		"string": "{typeLabel} sur {domain}"
+	},
+	"media.typeLink": {
+		"string": "Lien"
+	},
+	"media.typeAudio": {
+		"string": "Son"
+	},
+	"media.typeBlank": {
+		"string": "Rapport importé"
+	},
+	"media.retweetsCount": {
+		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+	},
+	"mediaActionsBar.moveTo": {
+		"string": "Déplacer vers…"
+	},
+	"mediaActionsBar.dialogMoveTitle": {
+		"string": "Déplacer vers une liste différente"
+	},
+	"mediaActionsBar.move": {
+		"string": "Déplacer"
+	},
+	"mediaSearch.previousItem": {
+		"string": "Élément précédent"
+	},
+	"mediaSearch.xOfY": {
+		"string": "{current} sur {total}"
+	},
+	"mediaSearch.nextItem": {
+		"string": "Élément suivant"
+	},
+	"mediaActionsBar.removedFromList": {
+		"string": "Supprimer de la liste"
+	},
+	"mediaActionsBar.removeFromList": {
+		"string": "Supprimer de la liste"
+	},
+	"reportDesigner.cantPublish": {
+		"string": "Sélectionnez au moins le texte ou l’image de votre rapport pour le publier"
+	},
+	"reportDesigner.canPublish": {
+		"string": "Publier le rapport"
+	},
+	"reportDesigner.pauseReport": {
+		"string": "Interrompre le rapport"
+	},
+	"reportDesigner.confirmLeaveTitle": {
+		"string": "Quitter sans enregistrer ?"
+	},
+	"reportDesigner.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour des paramètres du rapport. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"reportDesigner.warning": {
+		"string": "Avertissement : Partager l’activité de vérification révélera des renseignements à des personnes hors de votre espace de travail privé. Faites preuve de prudence."
+	},
+	"reportDesigner.copyButtonInactive": {
+		"string": "Copié"
+	},
+	"reportDesigner.copyButton": {
+		"string": "Copier"
+	},
+	"reportDesigner.back": {
+		"string": "Retour aux annotations"
+	},
+	"reportDesigner.copyEmbedCode": {
+		"string": "Copier le code d’intégration"
+	},
+	"reportDesigner.copyShareUrl": {
+		"string": "Copier l’URL de partage"
+	},
+	"reportDesigner.save": {
+		"string": "Enregistrer"
+	},
+	"reportDesigner.edit": {
+		"string": "Modifier"
+	},
+	"reportDesigner.publish": {
+		"string": "Publier"
+	},
+	"reportDesigner.pause": {
+		"string": "Interrompre"
+	},
+	"reportDesigner.nothingToPreview": {
+		"string": "Commencez à créer votre rapport pour prévisualiser ce que les utilisateurs verront quand ils le recevront."
+	},
+	"reportDesigner.reportEditorTitle": {
+		"string": "Sélectionner le contenu à envoyer dans votre rapport"
+	},
+	"reportDesigner.introduction": {
+		"string": "Introduction"
+	},
+	"reportDesigner.introductionSub": {
+		"string": "Utilisez l’emplacement réservé {query_date} pour afficher la date de la demande originale. Utilisez {status} pour communiquer l’état de l’article."
+	},
+	"reportDesigner.visualCard": {
+		"string": "Carte visuelle"
+	},
+	"reportDesigner.useDefaultImage": {
+		"string": "Utiliser l’image par défaut"
+	},
+	"reportDesigner.headline": {
+		"string": "Titre (maximum {max} caractères)"
+	},
+	"reportDesigner.description": {
+		"string": "Contenu (maximum {max} caractères)"
+	},
+	"reportDesigner.statusLabel": {
+		"string": "Étiquette d’état (maximum {max} caractères)"
+	},
+	"reportDesigner.themeColor": {
+		"string": "Couleur du thème"
+	},
+	"reportDesigner.url": {
+		"string": "URL du site Web (maximum {max} caractères)"
+	},
+	"reportDesigner.textMessage": {
+		"string": "Texte du rapport"
+	},
+	"reportDesigner.disclaimer": {
+		"string": "Avis"
+	},
+	"reportDesigner.confirmPublishTitle": {
+		"string": "Prêt à publier votre rapport ?"
+	},
+	"reportDesigner.confirmPublishText": {
+		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+	},
+	"reportDesigner.confirmPublishText2": {
+		"string": "À l’avenir, les utilisateurs qui demandent cet élément recevront votre rapport tant qu’il est publié."
+	},
+	"reportDesigner.confirmPauseTitle": {
+		"string": "Vous êtes sur le point d’interrompre le rapport"
+	},
+	"reportDesigner.confirmPauseText": {
+		"string": "Ce rapport ne sera pas envoyé aux utilisateurs tant qu’il n’aura pas été republié. Voulez-vous poursuivre ?"
+	},
+	"reportDesigner.confirmRepublishTitle": {
+		"string": "Prêt à publier vos modifications ?"
+	},
+	"reportDesigner.confirmRepublishText": {
+		"string": "À l’avenir, les utilisateurs qui demandent cet élément recevront cette nouvelle version du rapport."
+	},
+	"reportDesigner.republishAndResend": {
+		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+	},
+	"reportDesigner.confirmRepublishResendTitle": {
+		"string": "Votre correction est-elle prête à être publiée ?"
+	},
+	"reportDesigner.confirmRepublishResendText": {
+		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+	},
+	"reportDesigner.confirmRepublishResendText2": {
+		"string": "À l’avenir, les utilisateurs qui demandent cet élément recevront cette nouvelle version du rapport."
+	},
+	"reportDesigner.confirmLeaveText": {
+		"string": "Si vous quittez cette fenêtre, vous perdrez vos modifications."
+	},
+	"reportDesigner.reportImagePreviewTitle": {
+		"string": "Aperçu du rapport",
+		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
+	},
+	"mediaActionsBar.movedRestoreBack": {
+		"string": "Restaurés de la corbeille, redirection…"
+	},
+	"mediaActionsBar.movedConfirmBack": {
+		"string": "Confirmé, redirection…"
+	},
+	"mediaActionsBar.restoreTo": {
+		"string": "Restaurer de la corbeille"
+	},
+	"mediaActionsBar.confirmTo": {
+		"string": "Confirmer"
+	},
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
+		"string": "Déplacer l’élément vers la liste…"
+	},
+	"mediaActionsBar.restoreOrConfirm": {
+		"string": "Déplacer vers une liste"
+	},
+	"webPageMediaCard.Error": {
+		"string": "Cet élément n’a pas pu être identifié. Il a peut-être été supprimé ou n’est visible que pour les utilisateurs connectés. Cliquez sur le lien ci-dessus pour y accéder."
+	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "Les métadonnées ont une valeur précise"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Les métadonnées comprennent un mot-clé"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "La tâche à une réponse précise"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "La réponse de la tâche comprend un mot-clé"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Sélectionner la tâche"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Sélectionner les métadonnées"
+	},
+	"search.allClaimsTitle": {
+		"string": "Tous les éléments"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filtrer par"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Sélectionner la valeur"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Saisissez une liste de mots-clés séparés par des virgules"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Ajouter des filtres"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Les métadonnées ont une valeur précise"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Les métadonnées comprennent un mot-clé"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "La tâche à une réponse précise"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "La réponse de la tâche comprend un mot-clé"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Aucune valeur n’est définie"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "N’importe quelle valeur est définie"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Sélectionner la tâche"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Sélectionner les métadonnées"
+	},
+	"search.dateHeading": {
+		"string": "Période"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Envoyé"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Dernier envoi"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Mise à jour"
+	},
+	"search.datePublishedHeading": {
+		"string": "Publié"
+	},
+	"search.pickDateFrom": {
+		"string": "Date de début"
+	},
+	"search.pickDateTo": {
+		"string": "Date de fin"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Titre des médias"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Contenu des médias"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Titre des analyses"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Contenu des analyses"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Balises"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Toutes les réponses des tâches",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Toutes les réponses des métadonnées"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Toutes les notes"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Tous les commentaires des tâches"
+	},
+	"search.showClaims": {
+		"string": "Textes"
+	},
+	"search.showLinks": {
+		"string": "Liens"
+	},
+	"search.showImages": {
+		"string": "Images"
+	},
+	"search.showVideos": {
+		"string": "Vidéos"
+	},
+	"search.showAudios": {
+		"string": "Sons"
+	},
+	"search.showBlank": {
+		"string": "Rapport importé"
+	},
+	"search.title": {
+		"string": "Tous les éléments"
+	},
+	"search.inputHint": {
+		"string": "Recherche"
+	},
+	"search.help": {
+		"string": "<table>\n                        <tbody>\n                          <tr><td>+</td><td>Arbre + Feuille</td><td>Éléments avec à la fois Arbre ET Feuille</td></tr>\n                          <tr><td>|</td><td>Arbre | Feuille</td><td>Éléments avec soit Arbre OU Feuille</td></tr>\n                          <tr><td>()</td><td>Arbre + (Feuille | Branche)</td><td>Eléments avec Arbre ET Feuille OU éléments avec Arbre ET Branche\n                        </tbody>\n                      </table>\n                      <div>\n                        <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                          Apprenez-en davantage sur les techniques de recherche\n                        </a>\n                      </div>"
+	},
+	"search.Filter": {
+		"string": "Filtre"
+	},
+	"search.clear": {
+		"string": "Effacer le filtre"
+	},
+	"search.categoriesHeading": {
+		"string": "Balises"
+	},
+	"search.any": {
+		"string": "Au moins une"
+	},
+	"search.all": {
+		"string": "Tout"
+	},
+	"search.show": {
+		"string": "Type de média"
+	},
+	"search.statusHeading": {
+		"string": "État de l’élément"
+	},
+	"search.userHeading": {
+		"string": "Créé par"
+	},
+	"search.language": {
+		"string": "Langue"
+	},
+	"search.projectHeading": {
+		"string": "Liste"
+	},
+	"search.assignedTo": {
+		"string": "Attribué à"
+	},
+	"search.readHeading": {
+		"string": "Lu"
+	},
+	"search.cancel": {
+		"string": "Annuler"
+	},
+	"search.reset": {
+		"string": "Réinitialiser"
+	},
+	"search.applyFilters": {
+		"string": "Filtre"
+	},
+	"search.previousPage": {
+		"string": "Page précédente"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+	},
+	"search.nextPage": {
+		"string": "Page suivante"
+	},
+	"userAssignments.filterByTeam": {
+		"string": "Filtrer par espace de travail"
+	},
+	"userAssignments.other": {
+		"string": "Autre"
+	},
+	"userComponent.teams": {
+		"string": "Espaces de travail"
+	},
+	"userComponents.assignments": {
+		"string": "Attributions"
+	},
+	"userComponents.privacy": {
+		"string": "Confidentialité"
+	},
+	"userComponents.security": {
+		"string": "Sécurité"
+	},
+	"UserInfo.dateJoined": {
+		"string": "Membre depuis le {date} • {teamsCount, plural, one {1 espace de travail} other {# espaces de travail}}"
+	},
+	"userInfoEdit.sourceName": {
+		"string": "Nom"
+	},
+	"userInfoEdit.sourceBio": {
+		"string": "Bio"
+	},
+	"userInfoEdit.userEmail": {
+		"string": "Adresse courriel"
+	},
+	"userInfoEdit.userSendEmailNotification": {
+		"string": "Recevoir des notifications par courriel"
+	},
+	"userInfoEdit.editError": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de votre profil. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"userInfoEdit.nameError": {
+		"string": "Le nom ne peut pas être vide"
+	},
+	"userInfoEdit.addLinkLabel": {
+		"string": "Ajouter un lien"
+	},
+	"userInfoEdit.emailConfirmed": {
+		"string": "✔ L’adresse est confirmée"
+	},
+	"userInfoEdit.emailPendingConfirm": {
+		"string": "⚠ En attente de confirmation"
+	},
+	"userInfoEdit.invalidLink": {
+		"string": "Veuillez saisir une URL valide"
+	},
+	"userInfoEdit.addLinkHelper": {
+		"string": "Ajouter un lien vers une page Web ou un profil de réseau social. Note : Cela n’attribue pas votre mode de connexion."
+	},
+	"userInfoEdit.addLink": {
+		"string": "Ajouter un lien"
+	},
+	"UserPrivacy.deleteAccount": {
+		"string": "Supprimer le compte"
+	},
+	"userPrivacy.deleteAccountConfirmationText": {
+		"string": "Confirmez-vous ? Votre compte sera supprimé et vous serez déconnecté de l’appli ?"
+	},
+	"userPrivacy.ppLink": {
+		"string": "Politique de confidentialité"
+	},
+	"userPrivacy.title": {
+		"string": "Vos renseignements"
+	},
+	"userPrivacy.description": {
+		"string": "Veuillez examiner notre {ppLink} pour savoir comment {appName} utilise et enregistre vos renseignements."
+	},
+	"userPrivacy.seeInformationText": {
+		"string": "Nous vous enverrons un fichier avec le contenu et les données que vous avez créés et générés sur {appName}. Vous pouvez le conserver pour vos dossiers ou le transférer à un autre service."
+	},
+	"userPrivacy.seeInformationButton": {
+		"string": "Afficher mes rensignements"
+	},
+	"userPrivacy.stopProcessingText": {
+		"string": "Vous pouvez demander à {appName} de cesser de traiter vos renseignements sous certaines conditions."
+	},
+	"userPrivacy.stopProcessingButton": {
+		"string": "Demander de cesser le traitement"
+	},
+	"userPrivacy.connectedAccounts": {
+		"string": "Comptes connectés"
+	},
+	"userPrivacy.delete": {
+		"string": "Supprimer votre compte"
+	},
+	"userPrivacy.deleteAccountText": {
+		"string": "Si vous supprimez votre compte, vos renseignements personnels seront effacés. Les commentaires, annotations et l’activité des espaces de travail deviendront pseudonymes et resteront sur {appName}."
+	},
+	"userPrivacy.deleteAccountButton": {
+		"string": "Supprimer mon compte"
+	},
+	"UserSecurity.passwordInput": {
+		"string": "Mot de passe actuel"
+	},
+	"UserSecurity.passwordError": {
+		"string": "Le mot de passe est erroné"
+	},
+	"UserSecurity.verifyInput": {
+		"string": "Code de validation"
+	},
+	"UserSecurity.verifyError": {
+		"string": "Le code de validation est erroné"
+	},
+	"userSecurity.notification": {
+		"string": "Notification"
+	},
+	"userSecurity.successfulLoginText": {
+		"string": "Recevoir une notification en cas de connexion d’un nouveau lieu ou d’un nouvel appareil"
+	},
+	"userSecurity.failedfulLoginText": {
+		"string": "Recevoir une notification après {loginTrial} tentatives consécutives infructueuses de connexion"
+	},
+	"userSecurity.twoFactorAuthentication": {
+		"string": "Authentification à deux facteurs"
+	},
+	"userSecurity.suggestTwoFactorForSocialAccounts": {
+		"string": "Pour activer l’A2F, vous devez créer un mot de passe pour Check. Veuillez le faire ci-dessous dans la section « Changer le mot de passe »."
+	},
+	"userSecurity.requireTwoFactorAuth": {
+		"string": "Exiger l’authentification à deux facteurs"
+	},
+	"userSecurity.authenticateHeader": {
+		"string": "Étape 1 : Authentification"
+	},
+	"userSecurity.authenticateDescription": {
+		"string": "Veuillez saisir votre mot de passe pour confirmer votre identité : "
+	},
+	"userSecurity.disableAuthenticateDescription": {
+		"string": "Saisissez votre mot de passe pour désactiver l’authentification à deux facteurs : "
+	},
+	"userSecurity.disableTwofactor": {
+		"string": "Désactiver"
+	},
+	"userSecurity.downloadHeader": {
+		"string": "Étape 2 : Télécharger"
+	},
+	"userSecurity.downloadDescription": {
+		"string": "Afin de poursuivre, une appli d’authentification à deux facteurs telle que Google Authenticator devra être installée sur votre téléphone intelligent :"
+	},
+	"userSecurity.qrcodeHeader": {
+		"string": "Étape 3 : Balayer"
+	},
+	"userSecurity.qrcodeDescription": {
+		"string": "Balayez ce code QR avec votre appli d’authentification à deux facteurs :"
+	},
+	"userSecurity.backupHeader": {
+		"string": "Étape 4 : Codes de secours"
+	},
+	"userSecurity.backupDescription": {
+		"string": "Nous vous recommandons vivement de générer et d’imprimer des codes de secours à l’aide du bouton ci-dessous. Ces codes à usage unique peuvent remplacer votre connexion A2F au cas où vous perdriez l’accès à votre appareil d’A2F."
+	},
+	"userSecurity.backupNote": {
+		"string": "Note : Les codes de secours existants deviendront invalides après avoir cliqué sur ce bouton."
+	},
+	"userSecurity.generateGackup": {
+		"string": "Générer codes de secours"
+	},
+	"userSecurity.verifyHeader": {
+		"string": "Étape 5 : Confirmer"
+	},
+	"userSecurity.verifyDescription": {
+		"string": "Pour activer l’authentification à deux facteurs, saisissez le code à six chiffres indiqué par votre appli d’authentification à deux facteurs : "
+	},
+	"userSecurity.enableTwofactor": {
+		"string": "Activer"
+	},
+	"userSecurity.changePassword": {
+		"string": "Changer le mot de passe"
+	},
+	"tagInput.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la balise. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"tagInput.search": {
+		"string": "Chercher ou ajouter un nouvelle balise"
+	},
+	"tagInput.addTag": {
+		"string": "Ajouter une balise"
+	},
+	"tagMenu.tooltip": {
+		"string": "Modifier les balises"
+	},
+	"tagMenu.done": {
+		"string": "Terminé"
+	},
+	"tagPicker.emptyTags": {
+		"string": "Il n’y a actuellement aucune balise pour cet espace de travail."
+	},
+	"tagPicker.tagNotFound": {
+		"string": "La balise #{tag} est introuvable."
+	},
+	"attribution.noResults": {
+		"string": "Aucun résultat"
+	},
+	"attribution.search": {
+		"string": "Recherche de membres"
+	},
+	"createTask.newTask": {
+		"string": "Nouvelle tâche"
+	},
+	"tasks.addTask": {
+		"string": "Nouvelle tâche"
+	},
+	"tasks.addMetadata": {
+		"string": "Nouvelles métadonnées"
+	},
+	"tasks.shortAnswer": {
+		"string": "Texte"
+	},
+	"tasks.chooseOne": {
+		"string": "Sélection simple"
+	},
+	"tasks.chooseMultiple": {
+		"string": "Sélection multiple"
+	},
+	"tasks.geolocation": {
+		"string": "Lieu"
+	},
+	"tasks.datetime": {
+		"string": "Date et heure"
+	},
+	"tasks.fileUpload": {
+		"string": "Téléversement d’un fichier"
+	},
+	"tasks.teamwideNudge": {
+		"string": "Tâches par défaut"
+	},
+	"datetimeRespondTask.cancelTask": {
+		"string": "Annuler"
+	},
+	"datetimeRespondTask.answerTask": {
+		"string": "Répondre à la tâche"
+	},
+	"datetimeRespondTask.pickDate": {
+		"string": "Sélectionner une date"
+	},
+	"datetimeRespondTask.time": {
+		"string": "Sélectionner une heure"
+	},
+	"datetimeRespondTask.timezone": {
+		"string": "Sélectionner un fuseau horaire"
+	},
+	"datetimeTaskResponse.timeIs": {
+		"string": "Afficher ce fuseau horaire sur time.is"
+	},
+	"datetimeTaskResponse.invalidTimestamp": {
+		"string": "Erreur : l’heure n’est pas valide"
+	},
+	"singleChoiceTask.value": {
+		"string": "Valeur"
+	},
+	"singleChoiceTask.other": {
+		"string": "Autre"
+	},
+	"singleChoiceTask.addValue": {
+		"string": "Ajouter une option"
+	},
+	"singleChoiceTask.addOther": {
+		"string": "Ajouter « Autre »"
+	},
+	"editTaskDialog.editTask": {
+		"string": "Modifier la tâche"
+	},
+	"editTaskDialog.editMetadata": {
+		"string": "Modifier le champ des métadonnées"
+	},
+	"editTaskDialog.newTask": {
+		"string": "Nouvelle tâche"
+	},
+	"editTaskDialog.newMetadata": {
+		"string": "Nouveau champ de métadonnées"
+	},
+	"tasks.taskPrompt": {
+		"string": "Saisie"
+	},
+	"tasks.description": {
+		"string": "Description (facultative)"
+	},
+	"tasks.timezones": {
+		"string": "Fuseaux horaires proposés pour exécuter la tâche"
+	},
+	"tasks.showInBrowserExtension": {
+		"string": "Afficher dans l’extension pour navigateurs"
+	},
+	"tasks.showInProj": {
+		"string": "Afficher les tâches dans"
+	},
+	"tasks.assign": {
+		"string": "Attribuer"
+	},
+	"tasks.cancelAdd": {
+		"string": "Annuler"
+	},
+	"tasks.add": {
+		"string": "Enregistrer"
+	},
+	"fileUploadRespondTask.cancelTask": {
+		"string": "Annuler"
+	},
+	"fileUploadRespondTask.answerTask": {
+		"string": "Répondre à la tâche"
+	},
+	"geoLocationRespondTask.invalidCoords": {
+		"string": "Les coordonnées sont invalides"
+	},
+	"geoLocationRespondTask.searching": {
+		"string": "Recherche…"
+	},
+	"geoLocationRespondTask.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la tâche. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"geoLocationRespondTask.notFound": {
+		"string": "Désolé, ce lieu est introuvable. Veuillez essayer une recherche différente."
+	},
+	"geolocationRespondTask.cancelTask": {
+		"string": "Annuler"
+	},
+	"geolocationRespondTask.answerTask": {
+		"string": "Répondre à la tâche"
+	},
+	"geolocationRespondTask.searchMap": {
+		"string": "Chercher sur la carte"
+	},
+	"geolocationRespondTask.placeName": {
+		"string": "Personnaliser le nom du lieu"
+	},
+	"geolocationRespondTask.coordinates": {
+		"string": "Latitude, longitude"
+	},
+	"imageUploadRespondTask.cancelTask": {
+		"string": "Annuler"
+	},
+	"imageUploadRespondTask.answerTask": {
+		"string": "Répondre à la tâche"
+	},
+	"tasks.cancelEdit": {
+		"string": "Annuler"
+	},
+	"tasks.answer": {
+		"string": "Répondre à la tâche"
+	},
+	"shortTextRespondTask.responseHint": {
+		"string": "Répondre ici."
+	},
+	"shortTextRespondTask.cancelTask": {
+		"string": "Annuler"
+	},
+	"shortTextRespondTask.answerTask": {
+		"string": "Répondre à la tâche"
+	},
+	"task.answeredBy": {
+		"string": "Achevée par {byName}"
+	},
+	"task.assignedTo": {
+		"string": "Attribuée à {name}"
+	},
+	"tasks.editAssignment": {
+		"string": "Modifier l’attribution"
+	},
+	"tasks.attributionSlogan": {
+		"string": "Pour la tâche « {label} »"
+	},
+	"tasks.editAttribution": {
+		"string": "Modifier l’attribution"
+	},
+	"task.confirmDelete": {
+		"string": "Voulez-vous vraiment supprimer cette tâche ?"
+	},
+	"task.confirmDeleteTitle": {
+		"string": "Supprimer la tâche ?"
+	},
+	"task.confirmDeleteResponse": {
+		"string": "Voulez-vous vraiment supprimer cette réponse ?"
+	},
+	"task.confirmDeleteResponseTitle": {
+		"string": "Supprimer la réponse ?"
+	},
+	"taskActions.tooltipTask": {
+		"string": "Actions sur la tâche"
+	},
+	"taskActions.tooltipMetadata": {
+		"string": "Actions sur les métadonnées"
+	},
+	"task.edit": {
+		"string": "Modifier la tâche"
+	},
+	"task.editResponse": {
+		"string": "Modifier la réponse"
+	},
+	"task.deleteResponse": {
+		"string": "Supprimer la réponse"
+	},
+	"task.assignOrUnassign": {
+		"string": "Attribuer/Retirer l’attribution"
+	},
+	"task.editAttribution": {
+		"string": "Modifier l’attribution"
+	},
+	"task.delete": {
+		"string": "Supprimer la tâche"
+	},
+	"taskLog.bubbleTooltip": {
+		"string": "Activer/désactiver le journal"
+	},
+	"taskTypeSelector.numTypes": {
+		"string": "{length, number} sélectionné.es"
+	},
+	"taskTypeSelector.allTypes": {
+		"string": "Toutes les tâches"
+	},
+	"tasks.blankMetadata": {
+		"string": "Il n’y a aucun champ de métadonnées"
+	},
+	"tasks.goToSettings": {
+		"string": "Accéder aux paramètres"
+	},
+	"addTeamPage.titleFind": {
+		"string": "Chercher un espace de travail existant"
+	},
+	"addTeamPage.titleCreate": {
+		"string": "Créer un espace de travail"
+	},
+	"createTeam.slugChecking": {
+		"string": "Vérification de la disponibilité…"
+	},
+	"createTeam.slugAvailable": {
+		"string": "Disponible"
+	},
+	"createTeam.slugUnavailable": {
+		"string": "Désolé, cet identifiant d’adresse URL n’est pas disponible. Veuillez en essayer un autre."
+	},
+	"createTeam.createTeamError": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’espace de travail. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"createTeam.title": {
+		"string": "Créer un espace de travail"
+	},
+	"createTeam.teamNameHint": {
+		"string": "Nom de l’espace de travail"
+	},
+	"createTeam.teamSlugHint": {
+		"string": "URL de l’espace de travail"
+	},
+	"createTeam.mainHeading": {
+		"string": "Créer un espace de travail"
+	},
+	"createTeam.blurb": {
+		"string": "Créez un espace de travail pour votre organisation ou pour votre usage personnel :"
+	},
+	"createTeam.displayName": {
+		"string": "Nom de l’espace de travail"
+	},
+	"createTeam.url": {
+		"string": "URL de l’équipe"
+	},
+	"createTeam.submitButton": {
+		"string": "Créer"
+	},
+	"createTeam.requestToJoin": {
+		"string": "Vous pouvez aussi demander à vous joindre à un espace de travail existant."
+	},
+	"createTeamTask.errorTask": {
+		"string": "Désolé, une erreur est survenue lors de la création de la tâche. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"createTeamTask.errorMetadata": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour du champ des métadonnées. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"trash.emptyTrash": {
+		"string": "Vider la corbeille"
+	},
+	"trash.emptyTrashConfirmationText": {
+		"string": "Confirmez-vous ? {itemsCount, plural, one {Un élément} other {# éléments}} et {notesCount, plural, one {une annotation} other {# annotations}} seront supprimés irrémédiablement."
+	},
+	"fetchBot.contactUs": {
+		"string": "Contactez-nous pour mettre l’intégration en place"
+	},
+	"findTeamCard.teamSlugHint": {
+		"string": "URL de l’espace de travail"
+	},
+	"findTeamCard.teamNotFound": {
+		"string": "L’espace de travail est introuvable"
+	},
+	"findTeamCard.mainHeading": {
+		"string": "Chercher un espace de travail existant"
+	},
+	"findTeamCard.blurb": {
+		"string": "Demandez à vous joindre à un espace de travail existant en ajoutant son nom ici, ou commencez en créant le vôtre."
+	},
+	"findTeamCard.url": {
+		"string": "URL de l’espace de travail"
+	},
+	"findTeamCard.submitButton": {
+		"string": "Chercher un espace de travail"
+	},
+	"findTeamCard.createYourOwn": {
+		"string": "Vous pouvez aussi créer votre propre espace de travail."
+	},
+	"joinTeamComponent.error": {
+		"string": "Désolé, une erreur est survenue lors de l’envoi de votre demande. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"joinTeamComponent.autoApprove": {
+		"string": "Nous vous remercions de vous être joint à {team} ! Vous pouvez commencer à contribuer dès maintenant."
+	},
+	"joinTeamComponent.success": {
+		"string": "Nous vous remercions de votre intérêt à vous joindre à {team} ! Un administrateur de l’espace de travail examinera bientôt votre demande."
+	},
+	"joinTeamComponent.title": {
+		"string": "Se joindre à l’espace de travail"
+	},
+	"joinTeamComponent.mainHeading": {
+		"string": "Demander de vous joindre"
+	},
+	"joinTeamComponent.alreadyRequested": {
+		"string": "Vous avez déjà demandé de vous joindre à {team}."
+	},
+	"joinTeamComponent.requestHasBeenSent": {
+		"string": "Votre demande a été envoyée aux administrateurs de l’espace de travail pour approbation."
+	},
+	"joinTeamComponent.blurbGraf": {
+		"string": "Pour demander à vous joindre à {team}, cliquez ci-dessous :"
+	},
+	"joinTeamComponent.buttonSubmitted": {
+		"string": "La demande a été envoyée"
+	},
+	"joinTeamComponent.buttonSubmit": {
+		"string": "Demander de vous joindre"
+	},
+	"RoleSelect.annotator": {
+		"string": "Annotateur"
+	},
+	"RoleSelect.contributor": {
+		"string": "Contributeur"
+	},
+	"RoleSelect.journalist": {
+		"string": "Journaliste"
+	},
+	"RoleSelect.editor": {
+		"string": "Rédacteur"
+	},
+	"RoleSelect.owner": {
+		"string": "Propriétaire"
+	},
+	"slackConfig.title": {
+		"string": "Intégration avec Slack"
+	},
+	"slackConfig.menuTooltip": {
+		"string": "Paramètres de l’intégration"
+	},
+	"slackConfig.text": {
+		"string": "Signalez dans un canal Slack l’activité de l’espace de travail."
+	},
+	"switchTeams.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’espace de travail. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teams.yourTeams": {
+		"string": "Vos espaces de travail"
+	},
+	"teams.userTeams": {
+		"string": "Les espaces de travail de {name}"
+	},
+	"switchTeams.member": {
+		"string": "{membersCount, plural, =0 {Aucun membre} one {1 membre} other {# membres}}"
+	},
+	"switchTeams.joinRequestMessage": {
+		"string": "Vous avez demandé à vous joindre"
+	},
+	"switchTeams.cancelJoinRequest": {
+		"string": "Annuler"
+	},
+	"switchTeams.noTeams": {
+		"string": "Membre d’aucun espace de travail."
+	},
+	"switchTeams.newTeamLink": {
+		"string": "Créer un espace de travail"
+	},
+	"tagTextCount.acknowledge": {
+		"string": "{count, plural, =0 {Oui} one {Je comprends qu’en supprimant cette balise, elle sera supprimée d’un élément multimédia.} other {Je comprends qu’en supprimant cette balise, elle sera supprimée de # n éléments multimédias.}}"
+	},
+	"teamBots.success": {
+		"string": "Paramètres ont été mis à jour."
+	},
+	"teamBots.fail": {
+		"string": "Une erreur s’est produite. Veuillez réessayer."
+	},
+	"teamBots.noBots": {
+		"string": "Aucun robot n’est installé."
+	},
+	"teamBots.moreInfo": {
+		"string": "Plus de renseignements"
+	},
+	"teamBots.remove": {
+		"string": "Supprimer"
+	},
+	"teamBots.settingsTooltip": {
+		"string": "Paramètres du robot"
+	},
+	"teamBots.confirmDeleteTitle": {
+		"string": "Vous êtes sur le point de désactiver {botName}"
+	},
+	"teamBots.confirmDeleteBlurb": {
+		"string": "Tous les paramètres seront supprimés et ne pourront pas être récupérés. Voulez-vous vraiment poursuivre ?"
+	},
+	"teamBots.confirmLeaveTitle": {
+		"string": "Quitter sans enregistrer ?"
+	},
+	"teamBots.confirmLeaveText": {
+		"string": "Si vous quittez cette fenêtre, vous perdrez vos modifications."
+	},
+	"teamBots.confirmLeaveButtonLabel": {
+		"string": "Quitter"
+	},
+	"teamBots.settings": {
+		"string": "Paramètres"
+	},
+	"teamBots.save": {
+		"string": "Enregistrer"
+	},
+	"teamBots.noSettings": {
+		"string": "Il n’y a aucun paramètre pour ce robot."
+	},
+	"teamBots.botGarden": {
+		"string": "Parcourir le jardin de robots"
+	},
+	"teamBots.confirmationTitle": {
+		"string": "Confirmer"
+	},
+	"teamBots.confirmationMessage": {
+		"string": "Vous êtes sur le point de rendre effectifs les changements de votre robot. Tous les utilisateurs de votre ligne de signalement verront ces changements. Voulez-vous vraiment poursuivre ?"
+	},
+	"teamBots.smoochErrorTitle": {
+		"string": "Option non proposée"
+	},
+	"teamBots.smoochErrorMessage": {
+		"string": "Vous ne pouvez pas utiliser « 9 » comme option de scénario dans le menu principal. Veuillez choisir une autre valeur pour les langues suivantes : {languages}"
+	},
+	"teamBots.close": {
+		"string": "Fermer"
+	},
+	"teamSettings.lists": {
+		"string": "Listes"
+	},
+	"teamSettings.metadata": {
+		"string": "Métadonnées"
+	},
+	"teamSettings.tasks": {
+		"string": "Tâches"
+	},
+	"teamSettings.rules": {
+		"string": "Règles"
+	},
+	"teamSettings.Tags": {
+		"string": "Balises"
+	},
+	"teamSettings.languages": {
+		"string": "Langages"
+	},
+	"teamSettings.statuses": {
+		"string": "États"
+	},
+	"teamSettings.report": {
+		"string": "Rapport"
+	},
+	"teamSettings.integrations": {
+		"string": "Intégrations"
+	},
+	"teamSettings.bots": {
+		"string": "Robots"
+	},
+	"teamComponent.private": {
+		"string": "Privé"
+	},
+	"teamComponent.public": {
+		"string": "Public"
+	},
+	"teamInfo.editTeam": {
+		"string": "Modifier"
+	},
+	"teamComponent.editError": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’espace de travail. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teamComponent.invalidLink": {
+		"string": "Veuillez saisir une URL valide"
+	},
+	"teamComponent.teamName": {
+		"string": "Nom"
+	},
+	"teamComponent.teamDescription": {
+		"string": "Description"
+	},
+	"teamComponent.location": {
+		"string": "Lieu"
+	},
+	"teamComponent.phone": {
+		"string": "Numéro de téléphone"
+	},
+	"teamComponent.website": {
+		"string": "Site Web"
+	},
+	"teamComponent.cancelButton": {
+		"string": "Annuler"
+	},
+	"teamComponent.saveButton": {
+		"string": "Enregistrer"
+	},
+	"teamInviteCard.title": {
+		"string": "Inviter des membres"
+	},
+	"teamMembersComponent.inviteLink": {
+		"string": "Pour inviter des collègues à se joindre à {teamName}, envoyez-leur ce lien :"
+	},
+	"teamInviteCard.copy": {
+		"string": "A ÉTÉ COPIÉ"
+	},
+	"teamInviteCard.copied": {
+		"string": "COPIER"
+	},
+	"TeamInviteMembers.emailInput": {
+		"string": "Adresse courriel"
+	},
+	"TeamInviteMembers.emailMultipleInput": {
+		"string": "Séparez les adresses courriel par des virgules"
+	},
+	"TeamInviteMembers.invalidEmail": {
+		"string": "N’est pas une adresse courriel valide."
+	},
+	"TeamInviteMembers.existsEmail": {
+		"string": "Est déjà membre."
+	},
+	"TeamInviteMembers.invitedEmail": {
+		"string": "Est déjà invité."
+	},
+	"TeamMembersListItem.contributor": {
+		"string": "Contributeur"
+	},
+	"TeamMembersListItem.journalist": {
+		"string": "Journaliste"
+	},
+	"TeamMembersListItem.editor": {
+		"string": "Rédacteur"
+	},
+	"TeamMembersListItem.annotator": {
+		"string": "Annotateur"
+	},
+	"teamInviteMembers.resendEmailSuccess": {
+		"string": "L’invitation a été envoyée avec succès"
+	},
+	"teamInviteMembers.inviteMembers": {
+		"string": "Les membres seront invités en tant que"
+	},
+	"teamInviteMembers.inviteMember": {
+		"string": "Inviter"
+	},
+	"TeamInviteMembers.newInvite": {
+		"string": "Inviter des membres"
+	},
+	"teamInviteMembers.customInvitation": {
+		"string": "Note d’invitation (facultative)"
+	},
+	"teamInviteMembers.addSeparate": {
+		"string": "Ajouter séparé"
+	},
+	"teamInviteMembers.addAnother": {
+		"string": "Ajouter un autre"
+	},
+	"teamInviteMembers.addMany": {
+		"string": "Ajouter plusieurs"
+	},
+	"teamInviteMembers.cancelAdd": {
+		"string": "Annuler"
+	},
+	"teamInviteMembers.send": {
+		"string": "Envoyer"
+	},
+	"TeamMembersInvitedListItem.cancel": {
+		"string": "Annuler l’invitation"
+	},
+	"TeamMembersInvitedListItem.resend": {
+		"string": "Renvoyer"
+	},
+	"teamLists.title": {
+		"string": "Paramètres des listes"
+	},
+	"teamLists.description": {
+		"string": "Sélectionnez toutes les colonnes que vous voulez afficher dans toutes vos listes."
+	},
+	"teamMembersComponent.pendingInvitations": {
+		"string": "Invitations en attente"
+	},
+	"teamMembershipRequests.requestsToJoin": {
+		"string": "Demandes à vous joindre"
+	},
+	"teamMembersComponent.mainHeading": {
+		"string": "Membres"
+	},
+	"teamMembersComponent.editDoneButton": {
+		"string": "Terminé"
+	},
+	"teamMembersComponent.editButton": {
+		"string": "Modifier"
+	},
+	"TeamMembersListItem.leaveTeam": {
+		"string": "Quitter l’espace de travail"
+	},
+	"TeamMembersListItem.singleOwner": {
+		"string": "Avant de quitter l’espace de travail, veuillez en transférer la propriété à un autre membre."
+	},
+	"TeamMembersListItem.deleteMember": {
+		"string": "Supprimer le membre"
+	},
+	"TeamMembersListItem.confirmLeaveTitle": {
+		"string": "Voulez-vous vraiment quitter {team} ?"
+	},
+	"TeamMembersListItem.confirmDeleteMemberTitle": {
+		"string": "Voulez-vous vraiment supprimer {user} ?"
+	},
+	"TeamMembersListItem.confirmEditMemberTitle": {
+		"string": "Voulez-vous vraiment changer le rôle de {user} ?"
+	},
+	"TeamMembersListItem.confirmLeaveBlurb": {
+		"string": "Vous serez supprimé de {team}"
+	},
+	"TeamMembersListItem.confirmDeleteMemberBlurb": {
+		"string": "L’utilisateur sera supprimé de {team}"
+	},
+	"TeamMembershipRequestsListItem.approve": {
+		"string": "Approuver"
+	},
+	"TeamMembershipRequestsListItem.deny": {
+		"string": "Refuser"
+	},
+	"teamComponent.projects": {
+		"string": "Listes"
+	},
+	"teamComponent.noProjects": {
+		"string": "Aucune liste"
+	},
+	"teamComponent.projectAssignmentsCount": {
+		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+	},
+	"teamReport.updateFail": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour des paramètres du rapport. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teamReport.updateSuccess": {
+		"string": "Les paramètres du rapport ont été mis jour avec succès."
+	},
+	"teamReport.save": {
+		"string": "Enregistrer"
+	},
+	"teamReport.title": {
+		"string": "Paramètres de rapport par défaut"
+	},
+	"teamReport.subtitle": {
+		"string": "Le contenu que vous définissez ici peut être modifié dans chaque rapport individuel"
+	},
+	"teamReport.introduction": {
+		"string": "Introduction"
+	},
+	"teamReport.introductionSub": {
+		"string": "Utilisez l’emplacement réservé {query_date} pour afficher la date de la demande originale. Utilisez {status} pour communiquer l’état de l’article."
+	},
+	"teamReport.disclaimer": {
+		"string": "Avis"
+	},
+	"teamReport.disclaimerSub": {
+		"string": "Avis qui sera affiché au bas du rapport avec le logo de l’espace de travail."
+	},
+	"teamTags.menuTooltip": {
+		"string": "Actions sur la balise"
+	},
+	"teamTags.failUpdate": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la balise. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teamTags.failDelete": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la balise. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teamTags.failMove": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la balise. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teamTags.fail": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la balise. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"teamTags.editTag": {
+		"string": "Modifier la balise"
+	},
+	"teamTags.deleteTag": {
+		"string": "Supprimer la balise"
+	},
+	"teamTags.itemsCount": {
+		"string": "{count, plural, =0 {aucun élément} one {un élément} other {# éléments}}"
+	},
+	"teamTags.counter": {
+		"string": "{total, plural, =0 {Aucun balise} one {1 balise ({hidden} cachée par des filtres)} other {# balise ({hidden} cachées par des filtres)}}"
+	},
+	"teamTags.counterNoHidden": {
+		"string": "{total, plural, =0 {Aucun balise} one {1 balise} other {# balise}}"
+	},
+	"teamTags.tooltip": {
+		"string": "Filtrer et trier la liste"
+	},
+	"teamTags.noTags": {
+		"string": "Aucune balise"
+	},
+	"teamTags.new": {
+		"string": "Nouvelle balise"
+	},
+	"teamTags.addTag": {
+		"string": "Ajouter une balise"
+	},
+	"teamTags.confirmDeleteTitle": {
+		"string": "Voulez-vous vraiment supprimer cette balise ?"
+	},
+	"teamTasks.confirmDeleteTaskTitle": {
+		"string": "Voulez-vous vraiment supprimer cette tâche ?"
+	},
+	"teamTasks.confirmDeleteMetadataTitle": {
+		"string": "Voulez-vous vraiment supprimer ces métadonnées ?"
+	},
+	"teamTasks.confirmEditTaskTitle": {
+		"string": "Voulez-vous vraiment modifier cette tâche ?"
+	},
+	"teamTasks.confirmEditMetadataTitle": {
+		"string": "Voulez-vous vraiment modifier ces métadonnées ?"
+	},
+	"teamTasks.confirmEditBlurb": {
+		"string": "L’application de cette modification modifiera les tâches d’éléments associées, sauf celles déjà achevées."
+	},
+	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
+		"string": "Vous êtes sur le point de modifier les tâches {itemsNumber, plural, one {d’un élément} other {de # éléments}}. Si vous poursuivez, toutes ces tâches seront aussi modifiées."
+	},
+	"teamTasks.confirmDeleteBlurb": {
+		"string": "Vous êtes sur le point de supprimer les tâches sélectionnées {itemsNumber, plural, one {d’un élément} other {de # éléments}}. Si vous poursuivez, les réponses à ces tâches seront aussi supprimées."
+	},
+	"teamTasks.confirmEditkeepCompleted": {
+		"string": "Garder les tâches achevées, avec leurs titre et description actuels."
+	},
+	"teamTasks.confirmDeletekeepCompleted": {
+		"string": "Garder les tâches achevées, avec leurs réponses actuelles."
+	},
+	"teamTasks.processMessage": {
+		"string": "Voulez-vous vraiment poursuivre ?"
+	},
+	"teamTasks.filterLabelHidden": {
+		"string": "{total, plural, =0 {Aucune tâche} one {une tâche ({hidden} cachée par des filtres)} other {# tâches ({hidden} cachées par des filtres)}}"
+	},
+	"teamTasks.filterLabel": {
+		"string": "{total, plural, =0 {Aucune tâche} one {une tâche} other {# tâches}}"
+	},
+	"teamTasks.blank": {
+		"string": "Il n’y a aucune tâche par défaut à afficher"
+	},
+	"teamTasks.blankMetadata": {
+		"string": "Il n’y a aucun champ de métadonnées"
+	},
+	"teamTasks.filter": {
+		"string": "Filtrer les tâches"
+	},
+	"teamTasks.projFilter": {
+		"string": "Afficher les tâches dans"
+	},
+	"teamTasks.typeFilter": {
+		"string": "Type de la tâche"
+	},
+	"teamTasks.tasks": {
+		"string": "Tâches"
+	},
+	"teamTasks.metadata": {
+		"string": "Métadonnées"
+	},
+	"teamTasks.edit": {
+		"string": "Modifier"
+	},
+	"teamTasks.delete": {
+		"string": "Supprimer"
+	},
+	"teams.title": {
+		"string": "Espaces de travail"
+	},
+	"trash.title": {
+		"string": "Corbeille"
+	},
+	"unconfirmed.title": {
+		"string": "Non confirmés"
+	},
+	"tasks.done": {
+		"string": "Terminé"
+	},
+	"ConfirmEmail.title": {
+		"string": "Confirmez votre adresse courriel"
+	},
+	"ConfirmEmail.content": {
+		"string": "Veuillez consulter vos courriels afin de confirmer votre compte."
+	},
+	"ConfirmEmail.resendConfirmation": {
+		"string": "Renvoyer"
+	},
+	"UserConnectedAccount.connectButton": {
+		"string": "Connecter"
+	},
+	"UserConnectedAccount.disconnectButton": {
+		"string": "Déconnecter"
+	},
+	"UserConnectedAccount.disconnectAccountTitle": {
+		"string": "Déconnecter le compte"
+	},
+	"UserConnectedAccount.disconnectAccountConfirmationText": {
+		"string": "Confirmez-vous ? Le compte sera déconnecté."
+	},
+	"UserConnectedAccount.addAnother": {
+		"string": "Ajouter un autre compte"
+	},
+	"userEmail.title": {
+		"string": "Ajoutez votre adresse courriel"
+	},
+	"userEmail.emailInputHint": {
+		"string": "courriel@exemple.com"
+	},
+	"userEmail.text": {
+		"string": "Pour vous envoyer des notifications, nous avons besoin de votre adresse courriel. Si vous souhaitez recevoir des notifications, veuillez saisir votre adresse courriel. Sinon, cliquez sur « Ignorer »."
+	},
+	"userEmail.emailInputLabel": {
+		"string": "Adresse courriel"
+	},
+	"userEmail.skip": {
+		"string": "Ignorer"
+	},
+	"userEmail.submit": {
+		"string": "Envoyer"
+	},
+	"userMenu.edit": {
+		"string": "Modifier le profil"
+	},
+	"userTooltip.dateJoined": {
+		"string": "Membre depuis le {date} • {teamsCount, plural, =0 {Aucun espace de travail} one {1 espace de travail} other {# espaces de travail}}"
+	},
+	"UserUtil.annotator": {
+		"string": "Annotateur"
+	},
+	"UserUtil.contributor": {
+		"string": "Contributeur"
+	},
+	"UserUtil.journalist": {
+		"string": "Journaliste"
+	},
+	"UserUtil.editor": {
+		"string": "Rédacteur"
+	},
+	"UserUtil.owner": {
+		"string": "Propriétaire"
+	},
+	"reportDesigner.title": {
+		"string": "Concevez votre rapport"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Quitter"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Titre (maximum {max} caractères)"
+	},
+	"reportDesigner.content": {
+		"string": "Contenu (maximum {max} caractères)"
+	},
+	"reportDesigner.textError": {
+		"string": "Vous devez soit rédiger un texte pour le rapport soit décocher la case « Texte du rapport »"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Superposition foncée"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Supprimer l’image"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Date de publication"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Ajouter du contenu à l’introduction"
+	},
+	"reportDesigner.addText": {
+		"string": "Ajouter du contenu au message texte"
+	},
+	"reportDesigner.firstSent": {
+		"string": "Première publication"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Rapports reçus"
+	},
+	"reportDesigner.cannotPublish": {
+		"string": "Remplissez au moins le texte ou l’image du rapport pour le publier. Assurez-vous de créer un rapport pour la langue principale ({language})."
+	},
+	"mediaItem.error": {
+		"string": "Une erreur s’est produite, veuillez réessayer."
+	},
+	"mediaItem.pinning": {
+		"string": "Épinglage…"
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Terminé, redirection vers le nouvel élément principal…"
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {1 request} other {# requests}}"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "Épingler en tant que principal"
+	},
+	"mediaItem.detach": {
+		"string": "Détacher"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Impossible d’ajouter l’élément associé"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "L’élément associé a été ajouté avec succès"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {1 related item} other {# related items}}"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Ajouter une association"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Ajouter une association"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Demandes"
+	},
+	"mediaSimilaritiesComponent.back": {
+		"string": "Retour"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Média principal"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Tous les médias semblables"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Notes"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Cliquer sur un élément"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Importer un média semblable dans cet élément"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "Exporter tous les médias vers un autre élément"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Impossible d’ajouter l’élément semblable",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "L’élément semblable a été ajouté avec succès",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Ajouter un élément semblable"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Importer un média semblable dans cet élément"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "Exporter tous les médias vers un autre élément"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "Exporter comme semblable"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "Importer un élément semblable"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "Ce média a été ajouté comme semblable à un autre élément"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "Il a été suggéré que ce média est semblable à un autre élément"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Retour"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "Correspondances suggérées ({current} de {total})"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "Le média suggéré est-il semblable au principal ?"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "Il n’y a aucune correspondance suggérée."
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Retour à la vue principale"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Demandes"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "Aucune demande"
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Notes"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "Aucune note"
+	},
+	"searchKeywordConfig.metadata": {
+		"string": "Métadonnées"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Tâches"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Non publié"
+	},
+	"reportStatusCell.paused": {
+		"string": "Interrompu"
+	},
+	"reportStatusCell.published": {
+		"string": "Publié"
+	},
+	"list.Item": {
+		"string": "Élément"
+	},
+	"list.Demand": {
+		"string": "Demandes"
+	},
+	"list.ShareCount": {
+		"string": "Partages sur Facebook"
+	},
+	"list.LinkedItems": {
+		"string": "Médias semblables"
+	},
+	"list.Type": {
+		"string": "Type"
+	},
+	"list.Status": {
+		"string": "État"
+	},
+	"list.FirstSeen": {
+		"string": "Envoyé"
+	},
+	"list.LastSeen": {
+		"string": "Dernier envoi"
+	},
+	"list.updated": {
+		"string": "Mise à jour"
+	},
+	"list.reportStatus": {
+		"string": "État du rapport"
+	},
+	"list.tags": {
+		"string": "Balises"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Médias publiés"
+	},
+	"list.reactCount": {
+		"string": "Réactions sur Facebook"
+	},
+	"list.commentCount": {
+		"string": "Commentaires sur Facebook"
+	},
+	"list.relatedCount": {
+		"string": "Associés"
+	},
+	"list.suggestionsCount": {
+		"string": "Correspondances suggérées"
+	},
+	"addLanguageAction.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"addLanguageAction.newLanguage": {
+		"string": "Nouvelle langue"
+	},
+	"addLanguageAction.title": {
+		"string": "Choisir une nouvelle langue"
+	},
+	"addLanguageAction.selectLanguage": {
+		"string": "Sélectionner une langue"
+	},
+	"addLanguageAction.addLanguage": {
+		"string": "Ajouter une langue"
+	},
+	"languageListItem.default": {
+		"string": "{language} (par défaut)"
+	},
+	"statusListItem.makeDefault": {
+		"string": "Utiliser par défaut"
+	},
+	"statusListItem.confirmDefaultBody": {
+		"string": "{language} deviendra la langue par défaut pour répondre aux utilisateurs qui interagissent avec le robot dans une langue autre que celles ajoutées à cette liste."
+	},
+	"statusListItem.confirmDefaultButton": {
+		"string": "Définir par défaut"
+	},
+	"statusListItem.confirmDefaultTitle": {
+		"string": "Définir comme langue par défaut ?"
+	},
+	"statusListItem.confirmDeleteBody1": {
+		"string": "Tout contenu en {language} cessera d’être envoyé et la langue par défaut sera plutôt utilisée."
+	},
+	"statusListItem.confirmDeleteBody2": {
+		"string": "Cela comprend le contenu du robot de la ligne de signalement, les états et rapports."
+	},
+	"statusListItem.confirmDeleteTitle": {
+		"string": "Supprimer cette langue ?"
+	},
+	"languagesComponent.title": {
+		"string": "Langues des contenus"
+	},
+	"languagesComponent.blurb": {
+		"string": "Ajoutez de nouvelles langues à votre espace de travail afin de créer des rapports, des robots de ligne de signalement et des états en plusieurs langues pour communiquer avec les utilisateurs."
+	},
+	"translationNeededDialog.title": {
+		"string": "Les états doivent être traduits"
+	},
+	"translationNeededDialog.body": {
+		"string": "Afin que {language} soit la langue par défaut, vous devez d’abord traduire en {language} tous les états existants {language} dans l’onglet de paramètres États."
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer les paramètres de Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Les paramètres de Slack ont été enregistrés avec succès"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Envoyer des notifications aux canaux Slack si des affirmations sont ajoutées à des listes précises"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Point d’ancrage Web Slack"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Événement"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Envoyer des notifications à"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Si l’élément est dans la liste"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Canal Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Toute autre activité"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Toute l’activité de l’espace de travail"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Nouvelle notification"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Annuler"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Enregistrer"
+	},
+	"rule.copyOf": {
+		"string": "Copie de {ruleName}"
+	},
+	"ruleBody.ruleNameValidation": {
+		"string": "Le nom de la règle est requis"
+	},
+	"ruleBody.ruleName": {
+		"string": "Nom"
+	},
+	"ruleBody.if": {
+		"string": "Si"
+	},
+	"ruleBody.then": {
+		"string": "alors"
+	},
+	"ruleOperatorWrapper.and": {
+		"string": "et"
+	},
+	"ruleOperatorWrapper.or": {
+		"string": "ou"
+	},
+	"ruleOperatorWrapper.removeTheAbove": {
+		"string": "Supprimer l’élément ci-dessus"
+	},
+	"ruleToolbar.back": {
+		"string": "Retour"
+	},
+	"ruleToolbar.more": {
+		"string": "Plus"
+	},
+	"ruleToolbar.duplicate": {
+		"string": "Dupliquer"
+	},
+	"ruleToolbar.delete": {
+		"string": "Supprimer"
+	},
+	"rulesTableToolbar.save": {
+		"string": "Enregistrer"
+	},
+	"ruleToolbar.deleteConfirmationTitle": {
+		"string": "Supprimer la règle ?"
+	},
+	"ruleToolbar.deleteConfirmationText": {
+		"string": "Voulez-vous vraiment supprimer cette règle ?"
+	},
+	"ruleToolbar.leaveConfirmationTitle": {
+		"string": "Fermer sans enregistrer ?"
+	},
+	"ruleToolbar.leaveConfirmationText": {
+		"string": "Si vous poursuivez, vous perdrez vos modifications."
+	},
+	"rulesComponent.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer les règles"
+	},
+	"rulesComponent.savedSuccessfully": {
+		"string": "Les règles ont été enregistrées avec succès."
+	},
+	"rulesTableHead.name": {
+		"string": "Nom"
+	},
+	"rulesTableHead.updated": {
+		"string": "Mise à jour"
+	},
+	"rulesTableHead.selectAll": {
+		"string": "Sélectionner toutes les règles"
+	},
+	"rulesTableToolbar.selected": {
+		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+	},
+	"rulesTableToolbar.title": {
+		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+	},
+	"rulesTableToolbar.delete": {
+		"string": "Supprimer"
+	},
+	"rulesTableToolbar.add": {
+		"string": "Nouvelle règle"
+	},
+	"rulesTableToolbar.deleteConfirmationTitle": {
+		"string": "Supprimer les règles sélectionnées ?"
+	},
+	"rulesTableToolbar.deleteConfirmationText": {
+		"string": "Voulez-vous vraiment supprimer ces règles ?"
+	},
+	"smoochBotMenuEditor.scenario": {
+		"string": "Scénario"
+	},
+	"smoochBotMenuOption.mainState": {
+		"string": "Menu principal"
+	},
+	"smoochBotMenuOption.secondaryState": {
+		"string": "Menu secondaire"
+	},
+	"smoochBotMenuOption.queryState": {
+		"string": "Invite de requête"
+	},
+	"smoochBotMenuOption.resource": {
+		"string": "Rapport"
+	},
+	"smoochBotMenuOption.languageAction": {
+		"string": "{languageName} (menu principal)"
+	},
+	"smoochBotMenuOption.if": {
+		"string": "Si"
+	},
+	"smoochBotMenuOption.condition": {
+		"string": "Il y a correspondance pour le mot-clé suivant"
+	},
+	"smoochBotMenuOption.errorTos": {
+		"string": "« 9 » redirigera vers les conditions générales d’utilisation. Il ne peut pas être utilisé comme option dans le menu principal."
+	},
+	"smoochBotMenuOption.then": {
+		"string": "alors"
+	},
+	"smoochBotMenuOption.action": {
+		"string": "Répondre par"
+	},
+	"smoochBotMenuOption.add": {
+		"string": "Créer « {resourceName} »"
+	},
+	"smoochBotMenuOption.selectMessage": {
+		"string": "Sélectionner un message"
+	},
+	"smoochBotMultiTextEditor.errorNine": {
+		"string": "L’option « 9 » doit être comprise pour que les utilisateurs accèdent à la Déclaration de confidentialité"
+	},
+	"smoochBotResourceEditor.rssPlaceholder": {
+		"string": "URL publique qui retourne N articles au format RSS"
+	},
+	"smoochBotResourceEditor.error": {
+		"string": "Cette URL ne semble pas être un fil RSS valide"
+	},
+	"smoochBotResourceEditor.title": {
+		"string": "Titre de la ressource du robot"
+	},
+	"smoochBotResourceEditor.addContent": {
+		"string": "Ajouter du contenu manuellement"
+	},
+	"smoochBotResourceEditor.rss": {
+		"string": "Ajoute le contenu d’un fil RSS"
+	},
+	"smoochBotResourceEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotResourceEditor.numberOfArticles": {
+		"string": "Nombre d’articles à retourner"
+	},
+	"smoochBotResourceEditor.load": {
+		"string": "Charger"
+	},
+	"smoochBotResourceEditor.delete": {
+		"string": "Supprimer"
+	},
+	"smoochBotSelectReport.dialogTitle": {
+		"string": "Sélectionner un rapport"
+	},
+	"smoochBotSelectReport.dialogDescription": {
+		"string": "Cherchez le titre de l’élément que vous souhaitez envoyer en tant que rapport. Le robot enverra ce rapport à l’utilisateur en guise de réponse. Le rapport doit être rempli avant de pouvoir le trouver ici."
+	},
+	"smoochBotSelectReport.cancel": {
+		"string": "Annuler"
+	},
+	"smoochBotSelectReport.confirm": {
+		"string": "Confirmer"
+	},
+	"smoochBot.scenarios": {
+		"string": "Scénarios"
+	},
+	"smoochBot.settings": {
+		"string": "Paramètres"
+	},
+	"smoochBot.title": {
+		"string": "Concevez votre robot"
+	},
+	"smoochBot.addResource": {
+		"string": "Ajouter une ressource"
+	},
+	"smoochBot.labelGreeting": {
+		"string": "Message d’accueil"
+	},
+	"smoochBot.labelMainMenu": {
+		"string": "Menu principal"
+	},
+	"smoochBot.labelSecondaryMenu": {
+		"string": "Menu secondaire"
+	},
+	"smoochBot.labelQueryPrompt": {
+		"string": "Invite de requête"
+	},
+	"smoochBot.labelQueryReceived": {
+		"string": "La requête a été reçue"
+	},
+	"smoochBot.labelOptionNotAvailable": {
+		"string": "L’option n’est pas proposée"
+	},
+	"smoochBot.labelReportUpdated": {
+		"string": "Le rapport a été mis à jour"
+	},
+	"smoochBot.labelInvalidFormat": {
+		"string": "Le format est invalide"
+	},
+	"smoochBot.labelInactive": {
+		"string": "Avis d’inactivité"
+	},
+	"smoochBot.labelPrivacyStatement": {
+		"string": "Déclaration de confidentialité"
+	},
+	"smoochBot.descriptionGreeting": {
+		"string": "Le premier message envoyé à l’utilisateur. Il présente votre organisation et le service que vous proposez grâce à ce robot."
+	},
+	"smoochBot.descriptionMainMenu": {
+		"string": "Un menu qui demande à l’utilisateur de choisir parmi un ensemble d’options. Ce message suit automatiquement le message d’accueil. 9 ne peut pas être utilisé comme option dans le menu principal."
+	},
+	"smoochBot.descriptionSecondaryMenu": {
+		"string": "Un menu facultatif qui demande à l’utilisateur de choisir parmi un ensemble d’options. Quand un utilisateur répond par l’une des options, le robot peut envoyer un rapport ou les diriger vers un autre message du robot."
+	},
+	"smoochBot.descriptionQueryPrompt": {
+		"string": "Le message qui demande à l’utilisateur d’envoyer du contenu pour en vérifier les faits."
+	},
+	"smoochBot.descriptionQueryReceived": {
+		"string": "La confirmation envoyée à l’utilisateur après réception d’une requête valide envoyée par lui."
+	},
+	"smoochBot.descriptionOptionNotAvailable": {
+		"string": "Le message envoyé si la réponse de l’utilisateur à un menu ne correspond pas à un scénario de menu valide."
+	},
+	"smoochBot.descriptionReportUpdated": {
+		"string": "Message envoyé à l’utilisateur si l’état d’un rapport a changé. Le rapport doit être achevé pour que ce message soit envoyé."
+	},
+	"smoochBot.descriptionInvalidFormat": {
+		"string": "Message automatique envoyé à l’utilisateur s’il a envoyé un fichier qui n’est pas pris en charge par Check."
+	},
+	"smoochBot.descriptionInactive": {
+		"string": "Ce message est envoyé à tout utilisateur qui a envoyé un message à la ligne de signalement quand le robot Check Message est défini comme inactif."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting": {
+		"string": "Par défaut, la Déclaration de confidentialité suivante est accessible à tous les utilisateurs. En la remplaçant par une déclaration personnalisée, vous devez le faire dans toutes les langues pour lesquelles votre robot est activé."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting2": {
+		"string": "L’option « 9 » doit être mentionnée pour que les utilisateurs accèdent à la Déclaration de confidentialité sur le menu principal."
+	},
+	"smoochBot.descriptionPrivacyStatementContent": {
+		"string": "Contenu de la Déclaration de confidentialité. Modifiez le texte ci-dessous ou remplacez-le par un contenu personnalisé."
+	},
+	"smoochBot.footnoteGreeting": {
+		"string": "La déclaration et l’option suivantes seront ajoutées automatiquement à la fin de ce message : « Nous ne partagerons jamais des renseignements qui peuvent vous identifier personnellement. Répondez 9 pour consulter notre Déclaration de confidentialité et d’objectif »."
+	},
+	"smoochBot.footnoteGreeting2": {
+		"string": "La Déclaration de confidentialité par défaut peut être remplacée par une déclaration personnalisée sous l’option « Déclaration de confidentialité » de cette page."
+	},
+	"smoochBot.placeholderGreeting": {
+		"string": "Bonjour ! Bienvenue sur le robot de vérification de faits de [nom de votre organisation]."
+	},
+	"smoochBot.placeholderMainMenu": {
+		"string": "📌*Menu principal*\n\n*Répondez 1* (ou 🔍) pour envoyer une demande de vérification des faits relatifs à un article, une vidéo, une image ou à tout autre contenu.\n*Répondez 2* (ou 🦠) pour obtenir les derniers renseignements sur la maladie à coronavirus (COVID-19)"
+	},
+	"smoochBot.placeholderSecondaryMenu": {
+		"string": "*Renseignements sur la maladie à coronavirus (COVID-19)* 🦠\n\n👉*Répondez avec l’un des numéros suivants (ou émoji) pour obtenir des renseignements sur ce sujet : *\n\n*1 : * Comment puis-je me protéger ou protéger ma famille ? 👨‍👩‍👧\n*2 : * Je pense que je tombe peut-être malade 🤒\n*3 : * Comment puis-je gérer le stress associé à COVID-19 ? ❤️\n*4 : * Renseignements sur les cas et les guérisons à l’échelle planétaire 📊\n*5 : * Dernières mises à jour de l’Organisation mondiale de la santé 🌐\n\n*Répondez par 0* pour revenir au *menu principal* 📌"
+	},
+	"smoochBot.placeholderQueryPrompt": {
+		"string": "*Veuillez saisir la question, le lien, l’image, la vidéo ou le son dont vous souhaitez que les faits soient vérifiés,* suivis de tout contexte lié à cet élément. Votre demande sera envoyée aux vérificateurs de faits environ 15 secondes après votre dernier message.\n      \n*Répondez par 0 (ou 📌)* pour revenir au *menu principal*"
+	},
+	"smoochBot.placeholderQueryReceived": {
+		"string": "Merci. Votre demande a été reçue. Les réponses sont en cours d’agrégation, de tri et nous vérifions les faits de vos questions.\n\n✔️*Suivez ce lien pour une liste mise à jour des questions courantes dont nous avons vérifié les faits :* [Lien vers une page de vérifications sur votre site Web]\n\n👉*Répondez n’importe quoi* pour revenir au *menu principal* 📌"
+	},
+	"smoochBot.placeholderOptionNotAvailable": {
+		"string": "🤖Je suis désolé, je n’ai pas compris votre message. Veuillez réessayer."
+	},
+	"smoochBot.placeholderReportUpdated": {
+		"string": "❗️La vérification de faits que nous vous avons envoyée a été *mise à jour* avec de nouveaux renseignements :"
+	},
+	"smoochBot.placeholderInvalidFormat": {
+		"string": "❌Désolé, nous ne pouvons pour le moment pas accepter ce genre de message pour qu’il soit vérifié.\n\nNous acceptons la plupart des images, vidéos, liens, messages texte et messages WhatsApp partagés."
+	},
+	"smoochBot.placeholderInactive": {
+		"string": "❌Nous vous remercions de votre message. Notre service de vérification des faits est actuellement *inactif*.\n\nContactez-nous à *[adresse courriel ou autre contact]* pour toute autre demande."
+	},
+	"smoochBot.newResourceTitle": {
+		"string": "Nouvelle ressource du robot"
+	},
+	"smoochBot.menuKeywords": {
+		"string": "Mots-clés séparés par des virgules"
+	},
+	"smoochBot.tos": {
+		"string": "Conditions générales d’utilisation ({language})"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Déplacer les éléments vers"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Vous devez changer l’état {itemsCount, plural, one {d’un élément} other {de # éléments}} pour supprimer cet état"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Il existe {itemsCount, plural, one {un élément} other {# éléments}} dont l’état est {statusLabel}, à changer en d’autres états avant de supprimer cet état."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Vous pouvez autrement changer l’état de chaque élément individuellement."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Déplacer les éléments et supprimer l’état"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Modifier l’état"
+	},
+	"editStatusDialog.title": {
+		"string": "Ajouter un nouvel état"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "État (maximum {maxLength} caractères)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Description"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Ajouter un état"
+	},
+	"statusListItem.noDescription": {
+		"string": "Aucune description"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (par défaut)"
+	},
+	"statusesComponent.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"statusesComponent.saved": {
+		"string": "Les états ont été enregistrés avec succès."
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Nouvel état"
+	},
+	"statusesComponent.blurb": {
+		"string": "Le titre de l’état est visible quand les rapports sont envoyés aux utilisateurs."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Il manque des traductions"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Des traductions manquent pour certains états. Les utilisateurs pourraient ne pas être en mesure de lire les états non traduits."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Poursuivre et enregistrer"
+	},
+	"teamListsComponent.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer les paramètres des listes.",
+		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+	},
+	"teamListsComponent.savedSuccessfully": {
+		"string": "Les paramètres des listes ont été enregistrés avec succès.",
+		"developer_comment": "Banner displayed when list settings are saved successfully"
+	},
+	"teamListsComponent.title": {
+		"string": "Paramètres des listes"
+	},
+	"teamListsComponent.save": {
+		"string": "Enregistrer"
+	},
+	"teamListsComponent.description": {
+		"string": "Sélectionnez toutes les colonnes que vous voulez afficher dans toutes vos listes."
+	},
+	"teamListsComponent.selectedColumns": {
+		"string": "Colonnes sélectionnées"
+	},
+	"teamListsComponent.availableColumns": {
+		"string": "Colonnes proposées"
+	},
+	"teamListsComponent.confirmSaveTitle": {
+		"string": "Changement des listes de l’espace de travail"
+	},
+	"teamListsComponent.confirmSaveText": {
+		"string": "Confirmez-vous ? Vos changements affecteront toutes les listes et seront visibles par tous les utilisateurs dans votre espace de travail."
+	},
+	"teamListsComponent.buttonLabel": {
+		"string": "Enregistrer les changements pour toutes les listes"
+	},
+	"teamListsItem.hide": {
+		"string": "Cacher"
+	},
+	"teamListsItem.show": {
+		"string": "Afficher"
+	}
+}

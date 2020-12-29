@@ -1,0 +1,3355 @@
+{
+	"network.stillWorking": {
+		"string": "Încă în lucru..."
+	},
+	"network.noResponse": {
+		"string": "Conectarea la {app} nu a fost posibilă, asigurați-vă că sunteți conectat(ă) la Internet"
+	},
+	"global.appNameHuman": {
+		"string": "Verifică"
+	},
+	"global.edit": {
+		"string": "Editează"
+	},
+	"global.cancel": {
+		"string": "Anulează"
+	},
+	"global.close": {
+		"string": "Închide"
+	},
+	"global.confirm": {
+		"string": "Confirmă"
+	},
+	"global.delete": {
+		"string": "Șterge"
+	},
+	"global.ok": {
+		"string": "OK"
+	},
+	"global.save": {
+		"string": "Salvează"
+	},
+	"global.submit": {
+		"string": "Trimite"
+	},
+	"global.submitting": {
+		"string": "Se transmite..."
+	},
+	"global.tags": {
+		"string": "Etichete"
+	},
+	"global.unknownError": {
+		"string": "Ne pare rău, s-a produs o eroare. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"global.update": {
+		"string": "Actualizează"
+	},
+	"accessDenied.title": {
+		"string": "Acces interzis"
+	},
+	"bot.cantChange": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea robotului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"bot.madeBy": {
+		"string": "Realizat de {teamLink}"
+	},
+	"bot.installed": {
+		"string": "Instalat"
+	},
+	"bot.install": {
+		"string": "Instalează"
+	},
+	"bot.permissions": {
+		"string": "Permisiuni"
+	},
+	"bot.permissionsText": {
+		"string": "Acest robot are nivel de acces de {role}."
+	},
+	"bot.sourceCode": {
+		"string": "Vizualizare cod-sursă"
+	},
+	"bot.updatedAt": {
+		"string": "Actualizată"
+	},
+	"bot.version": {
+		"string": "Versiune"
+	},
+	"bot.installs": {
+		"string": "Se instalează"
+	},
+	"botGarden.botGarden": {
+		"string": "Depozit de roboți"
+	},
+	"browserSupport.message": {
+		"string": "{appName} este optimizată pentru Google Chrome pe desktop."
+	},
+	"passwordChange.unmatchingPasswords": {
+		"string": "Parolele nu se potrivesc"
+	},
+	"passwordChange.currentPassword": {
+		"string": "Parolă curentă"
+	},
+	"passwordChange.newPassword": {
+		"string": "Parola nouă (minim {min} caractere)"
+	},
+	"passwordChange.confirmPassword": {
+		"string": "Confirmă parola"
+	},
+	"passwordChange.changePassword": {
+		"string": "Schimbă parola"
+	},
+	"projects.unconfirmed": {
+		"string": "Neconfirmat"
+	},
+	"projects.trash": {
+		"string": "Coș de gunoi"
+	},
+	"headerActions.signIn": {
+		"string": "Conectare"
+	},
+	"footer.madeBy": {
+		"string": "Verificare: Căutați știri de ultimă oră online. Realizat cu ✨ de la {meedan}"
+	},
+	"teamComponent.editButton": {
+		"string": "Editează profilul"
+	},
+	"home.needRegister": {
+		"string": "Mai întâi trebuie să vă înregistrați. Odată înregistrat(ă), puteți trimite o cerere să vă alăturați spațiului de lucru."
+	},
+	"home.somethingWrong": {
+		"string": "Ne pare rău, s-a produs o eroare. Vă rugăm să actualizați browser-ul și să contactați {supportEmail} dacă situația persistă."
+	},
+	"home.successInvitation": {
+		"string": "Bine ați venit în {appName}. Vă rugăm să vă conectați cu ajutorul parolei, pe care ați primit-o în mesajul de bun venit pe e-mail."
+	},
+	"home.invalidTeamInvitation": {
+		"string": "Ne pare rău, nu am găsit spațiul de lucru la care ați fost invitat(ă). Vă rugăm să contactați {supportEmail} dacă s-a produs o eroare."
+	},
+	"home.invalidNoInvitation": {
+		"string": "Ne pare rău, nu am găsit invitația pe care ați primit-o. Contactați {supportEmail} dacă s-a produs o eroare."
+	},
+	"home.invalidExpiredInvitation": {
+		"string": "Ne pare rău, invitația pe care ați primit-o a expirat. Vă rugăm să contactați {supportEmail} dacă s-a produs o eroare."
+	},
+	"home.invalidInvitation": {
+		"string": "Ne pare rău, s-a produs o eroare la procesarea invitației dvs. Vă rugăm să contactați {supportEmail}."
+	},
+	"languageSwitcher.primaryLanguage": {
+		"string": "{language} (implicită)"
+	},
+	"languageSwitcher.makeDefault": {
+		"string": "Setează ca limbă implicită pentru acest element"
+	},
+	"login.disclaimer": {
+		"string": "Nu vom publica fără permisiunea dvs."
+	},
+	"login.tosMissing": {
+		"string": "Trebuie să fiți de acord cu Termenii de utilizare a serviciilor și Politica de confidențialitate"
+	},
+	"login.title": {
+		"string": "Conectare"
+	},
+	"login.registerTitle": {
+		"string": "Înregistrare"
+	},
+	"login.nameLabel": {
+		"string": "Nume"
+	},
+	"login.emailLabel": {
+		"string": "Adresă de e-mail"
+	},
+	"login.passwordInputHint": {
+		"string": "Parolă"
+	},
+	"login.passwordLabel": {
+		"string": "Parolă (minim 8 caractere)"
+	},
+	"login.otpAttemptLabel": {
+		"string": "Jeton de autentificare cu doi factori"
+	},
+	"login.passwordConfirmLabel": {
+		"string": "Confirmarea parolei"
+	},
+	"login.profilePicture": {
+		"string": "Imagine de profil"
+	},
+	"login.signIn": {
+		"string": "CONECTARE"
+	},
+	"login.signUp": {
+		"string": "ÎNREGISTRARE"
+	},
+	"loginEmail.lostPassword": {
+		"string": "Ați uitat parola?"
+	},
+	"login.with": {
+		"string": "Continuați cu {provider}"
+	},
+	"login.newAccount": {
+		"string": "Creați un cont nou cu adresa de e-mail"
+	},
+	"login.alreadyHasAccount": {
+		"string": "Am deja un cont"
+	},
+	"browser.support.message": {
+		"string": "Cel mai bine se vizualizează cu <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pentru Desktop</a>."
+	},
+	"loginContainer.agreeTerms": {
+		"string": "Prin înregistrare, agreați {appName} {tosLink} și {ppLink}."
+	},
+	"tos.title": {
+		"string": "Termeni de utilizare a serviciilor"
+	},
+	"privacy.policy.title": {
+		"string": "Politica de confidențialitate"
+	},
+	"login.contactSupport": {
+		"string": "Pentru asistență, contactați <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"notFound.title": {
+		"string": "Nu a fost găsit"
+	},
+	"pageTitle.appNameHuman": {
+		"string": "Verifică"
+	},
+	"bridge.pageTitle.appNameHuman": {
+		"string": "Punte"
+	},
+	"sentence.separator": {
+		"string": ","
+	},
+	"sentence.lastSeparator": {
+		"string": "și"
+	},
+	"uploadFile.message": {
+		"string": "Plasați aici un fișier de imagine sau dați clic pentru încărcarea unui fișier (mărime max.: {upload_max_size}, extensii permise: {upload_extensions}, dimensiuni permise între {upload_min_dimensions} și {upload_max_dimensions} pixels)"
+	},
+	"uploadFile.videoMessage": {
+		"string": "Plasați aici un fișier video sau dați clic pentru încărcarea unui fișier (mărime max.: {video_max_size}, extensii permise: {video_extensions})"
+	},
+	"uploadFile.audioMessage": {
+		"string": "Plasați aici un fișier audio sau dați clic pentru încărcarea unui fișier (mărime max.: {audio_max_size}, extensii permise: {audio_extensions})"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Plasați aici un fișier video sau dați clic pentru încărcarea unui fișier (mărime max.: {file_max_size}, extensii permise: {file_extensions})"
+	},
+	"uploadFile.invalidExtension": {
+		"string": "Fișierul nu poate fi de tipul \"{extension}\". Încercați cu următoarele tipuri de fișiere: {allowed_types}."
+	},
+	"uploadFile.fileTooLarge": {
+		"string": "Mărimea fișierului trebuie să fie mai mică de {size}. Încercați cu un fișier mai mic."
+	},
+	"uploadFile.changeFile": {
+		"string": "{filename} (dați clic sau plasați pentru modificare)"
+	},
+	"uploadImage.changeFile": {
+		"string": "{filename} (dați clic sau plasați pentru modificare)"
+	},
+	"uploadImage.invalidExtension": {
+		"string": "Fișierul nu poate fi de tipul \"{extension}\". Încercați cu următoarele tipuri de fișiere: {allowed_types}."
+	},
+	"uploadImage.fileTooLarge": {
+		"string": "Mărimea fișierului trebuie să fie mai mică de {size}. Încercați cu un fișier mai mic."
+	},
+	"uploadImage.message": {
+		"string": "Plasați aici un fișier de imagine sau dați clic pentru încărcarea unui fișier (mărime max.: {upload_max_size}, extensii permise: {upload_extensions}, dimensiuni permise între {upload_min_dimensions} și {upload_max_dimensions} pixels)"
+	},
+	"uploadImage.videoMessage": {
+		"string": "Plasați aici un fișier video sau dați clic pentru încărcarea unui fișier (mărime max.: {video_max_size}, extensii permise: {video_extensions})"
+	},
+	"userAlreadyConfirmed.heading": {
+		"string": "Cont deja confirmat"
+	},
+	"userAlreadyConfirmed.message": {
+		"string": "Ups! Contul dvs. a fost deja confirmat. Vă rugăm {login} pentru a începe."
+	},
+	"userAlreadyConfirmed.login": {
+		"string": "conectare"
+	},
+	"projectAssignment.more": {
+		"string": "+ încă {count} "
+	},
+	"userConfirmed.heading": {
+		"string": "Cont confirmat"
+	},
+	"userConfirmed.message": {
+		"string": "Vă mulțumim pentru confirmarea adresei de e-mail! Acum puteți intra în cont."
+	},
+	"UserMenu.userSettings": {
+		"string": "Setări utilizator"
+	},
+	"UserMenu.training": {
+		"string": "Instructaj și documentație"
+	},
+	"UserMenu.tos": {
+		"string": "Termenii de utilizare a serviciului"
+	},
+	"UserMenu.pp": {
+		"string": "Politică de confidențialitate"
+	},
+	"UserMenu.about": {
+		"string": "Despre"
+	},
+	"UserMenu.signOut": {
+		"string": "Deconectare"
+	},
+	"passwordChange.title": {
+		"string": "Schimbă parola"
+	},
+	"passwordChange.successTitle": {
+		"string": "Parola a fost actualizată"
+	},
+	"passwordChange.successMsg": {
+		"string": "Ați finalizat setările necesare. Puteți să vă conectați cu parola nouă."
+	},
+	"passwordChange.signIn": {
+		"string": "Am înțeles"
+	},
+	"passwordReset.emailNotFoundContactSupport": {
+		"string": "Ne pare rău, nu am găsit această adresă de e-mail. Contactați {supportEmail} dacă s-a produs o eroare."
+	},
+	"passwordReset.emailNotValid": {
+		"string": "Introduceți o adresă de e-mail validă."
+	},
+	"passwordReset.title": {
+		"string": "Resetează parola"
+	},
+	"passwordReset.confirmedTitle": {
+		"string": "Informațiile pentru resetarea parolei au fost trimise"
+	},
+	"passwordReset.confirmedText": {
+		"string": "V-am trimis un mesaj pe e-mail de pe {adminEmail} cu instrucțiunile de resetare a parolei. Verificați să nu fi ajuns în dosarul de spam. Dacă nu primiți mesajele noastre pentru resetarea parolei, contactați {supportEmail}. Atenție! Linkul din acest mesaj va expira în {expiry} (de) ore."
+	},
+	"passwordReset.signIn": {
+		"string": "Conectare"
+	},
+	"passwordReset.text": {
+		"string": "Adăugați adresa dvs. și veți primi un mesaj cu instrucțiuni privind următorii pași."
+	},
+	"passwordReset.email": {
+		"string": "E-mail"
+	},
+	"passwordReset.cancel": {
+		"string": "Anulează"
+	},
+	"passwordReset.submit": {
+		"string": "Resetează parola"
+	},
+	"userTos.validation": {
+		"string": "Trebuie să fiți de acord cu Termenii de utilizare a serviciilor și Politica de confidențialitate"
+	},
+	"userTos.save": {
+		"string": "Salvează"
+	},
+	"userTos.commGuidelinesLink": {
+		"string": "Ghid pentru comunitate"
+	},
+	"userTos.commGuidelines": {
+		"string": "Vă rugăm să citiți și {communityGuidelinesLink} pentru folosirea {appName}."
+	},
+	"userTos.tosLink": {
+		"string": "Termeni de utilizare a serviciilor"
+	},
+	"userTos.ppLink": {
+		"string": "Politică de confidențialitate"
+	},
+	"userTos.title": {
+		"string": "Termenii de utilizare a serviciilor și politica de confidențialitate"
+	},
+	"userTos.termsLastUpdatedAt": {
+		"string": "Ultima actualizare {lastUpdated}"
+	},
+	"userTos.disclaimer": {
+		"string": "Vă rugăm să analizați {tosLink} și {ppLink} și vă dați acordul pentru:"
+	},
+	"userTos.titleUpdated": {
+		"string": "Termenii de utilizare a serviciilor și Politica de confidențialitate actualizate"
+	},
+	"userTos.disclaimerUpdate": {
+		"string": "Am actualizat {tosLink} și {ppLink}. Vă rugăm să le analizați și să vă dați acordul pentru:"
+	},
+	"userTos.agreeTos": {
+		"string": "Sunt de acord cu Termenii de utilizare a serviciilor."
+	},
+	"userTos.agreePp": {
+		"string": "Sunt de acord ca Meedan să îmi poată procesa datele personale pe care aleg să le partajez, inclusiv informații ce îmi dezvăluie rasa sau etnia, opiniile politice, religioase sau filosofice, calitatea de membru de sindicat, fotografii sau informații privind orientarea mea sexuală. Aceste informații vor fi șterse dacă îmi șterg contul, conform prevederilor din Politica de confidențialitate."
+	},
+	"userUnconfirmed.heading": {
+		"string": "Eroare"
+	},
+	"userUnconfirmed.message": {
+		"string": "Ne pare rău, s-a produs o eroare la confirmarea contului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"addAnnotation.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea elementului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"addAnnotation.invalidCommand": {
+		"string": "Comandă nevalidă"
+	},
+	"addAnnotation.inputHint": {
+		"string": "Adaugă o notă"
+	},
+	"addAnnotation.addImage": {
+		"string": "Adaugă o imagine"
+	},
+	"addAnnotation.submitButton": {
+		"string": "Trimite"
+	},
+	"annotation.flagAdult": {
+		"string": "Adult"
+	},
+	"annotation.flagMedical": {
+		"string": "Medical"
+	},
+	"annotation.flagViolence": {
+		"string": "Violență"
+	},
+	"annotation.flagRacy": {
+		"string": "Indecent"
+	},
+	"annotation.flagSpam": {
+		"string": "Spam"
+	},
+	"annotation.flagLikelihood0": {
+		"string": "Necunoscut"
+	},
+	"annotation.flagLikelihood1": {
+		"string": "Foarte improbabil"
+	},
+	"annotation.flagLikelihood2": {
+		"string": "Improbabil"
+	},
+	"annotation.flagLikelihood3": {
+		"string": "Posibil"
+	},
+	"annotation.flagLikelihood4": {
+		"string": "Probabil"
+	},
+	"annotation.flagLikelihood5": {
+		"string": "Foarte probabil"
+	},
+	"annotation.menuTooltip": {
+		"string": "Acțiuni de adnotare"
+	},
+	"annotation.deleteButton": {
+		"string": "Șterge"
+	},
+	"annotation.permalink": {
+		"string": "Link permanent"
+	},
+	"annotation.taggedHeader": {
+		"string": "Etichetă #{tag} adăugată de {author}"
+	},
+	"annotation.deletedComment": {
+		"string": "Comentariu șters de {author}: {comment}"
+	},
+	"annotation.taskCreated": {
+		"string": "Sarcină creată de {author}: {task}"
+	},
+	"annotation.metadataCreated": {
+		"string": "Câmp de metadate creat de {author}: {fieldLabel}"
+	},
+	"annotation.relationshipCreated": {
+		"string": "Element aferent adăugat de {author}: {title}"
+	},
+	"annotation.relationshipDeleted": {
+		"string": "Element aferent șters de {author}: {title}"
+	},
+	"annotation.taskAssignmentCreated": {
+		"string": "Sarcină alocată lui {name} de {author}: {title}"
+	},
+	"annotation.mediaAssignmentCreated": {
+		"string": "Element alocat lui {name} de {author}"
+	},
+	"annotation.taskAssignmentDeleted": {
+		"string": "Alocare sarcină lui {name} anulată de {author}: {title}"
+	},
+	"annotation.mediaAssignmentDeleted": {
+		"string": "Alocare element lui {name} anulată de {author}"
+	},
+	"annotation.flag": {
+		"string": "Rezultatul clasificării:"
+	},
+	"annotation.statusLocked": {
+		"string": "Starea elementului blocată de {author}"
+	},
+	"annotation.statusUnlocked": {
+		"string": "Starea elementului deblocată de {author}"
+	},
+	"annotation.mediaAssigned": {
+		"string": "Element alocat lui {name} de {author}"
+	},
+	"annotation.mediaUnassigned": {
+		"string": "Alocare element lui {name} anulată de {author}"
+	},
+	"annotation.statusSetHeader": {
+		"string": "Stare setată pe {status} de {author}"
+	},
+	"annotation.seeHowThisBotWorks": {
+		"string": "Vezi cum funcționează acest robot"
+	},
+	"annotation.suggestionAccepted": {
+		"string": "Acceptat de {user}"
+	},
+	"annotation.suggestionRejected": {
+		"string": "Respins de {user}"
+	},
+	"annotation.acceptSuggestion": {
+		"string": "Acceptă"
+	},
+	"annotation.rejectSuggestion": {
+		"string": "Respinge"
+	},
+	"annotation.taskResolve": {
+		"string": "Sarcină finalizată de {author}: {task}{response}"
+	},
+	"annotation.metadataResponse": {
+		"string": "Câmp de metadate „{fieldLabel}” completat de {author}: {response}"
+	},
+	"annotation.archiverSuccess": {
+		"string": "Dacă elementul devine nefuncțional, puteți <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">accesa o copie de rezervă pe {name}</a>."
+	},
+	"annotation.archiverError": {
+		"string": "Ne pare rău, a apărut următoarea eroare la arhivarea elementului {name}: \"{message}\". Vă rugăm să împrospătați elementul pentru a încerca din nou și contactați {supportEmail} dacă situația persistă."
+	},
+	"annotation.archiverWait": {
+		"string": "Elementul este în curs de arhivare pe {name}. Linkul spre arhivă va fi afișat aici imediat ce este gata."
+	},
+	"annotation.embedCodeCopied": {
+		"string": "A fost generat și copiat un cod de încorporare a elementului. Acum elementul poate fi vizibil public. "
+	},
+	"annotation.penderArchiveResponseError": {
+		"string": "Ne pare rău, s-a produs o eroare la executarea capturii de ecran de pe element. Vă rugăm să actualizați elementul pentru a mai face o încercare și contactați {supportEmail} dacă situația persistă."
+	},
+	"annotation.penderArchiveResponse": {
+		"string": "Keep a făcut o captură de ecran de pe acest URL."
+	},
+	"annotation.penderArchiveWait": {
+		"string": "Keep face acum o captură de ecran cu acest element. Reveniți peste câteva minute pentru a o vedea."
+	},
+	"annotation.openInSlack": {
+		"string": "Deschide în Slack"
+	},
+	"annotation.reportReceived": {
+		"string": "Raport primit pe {date}"
+	},
+	"annotation.reportUpdateReceived": {
+		"string": "Actualizare raport primită pe {date}"
+	},
+	"annotation.smoochNoMessage": {
+		"string": "Nu a fost trimis niciun mesaj cu cererea"
+	},
+	"annotation.projectMoved": {
+		"string": "Mutat din lista {previousProject} în {currentProject} de {author}"
+	},
+	"annotation.movedToTrash": {
+		"string": "Mutat în coș de {author}"
+	},
+	"annotation.movedFromTrash": {
+		"string": "Scos din coș de {author}"
+	},
+	"annotation.teamCopied": {
+		"string": "Copiat din spațiul de lucru {previousTeam} de {author}"
+	},
+	"annotation.noAnnotationsYet": {
+		"string": "Nicio activitate"
+	},
+	"annotations.loadMore": {
+		"string": "Încarcă mai mult"
+	},
+	"annotation.newReport": {
+		"string": "Element adăugat de {author}"
+	},
+	"annotation.titleChanged": {
+		"string": "Titlul elementului redactat de {author}: {title}"
+	},
+	"annotation.embedNoteCreated": {
+		"string": "Descriere a elementului adăugată de {author}: {description}"
+	},
+	"annotation.embedLabelUpdated": {
+		"string": "Titlul elementului redactat de {author}: {title}"
+	},
+	"annotation.embedLabelRemoved": {
+		"string": "Titlul elementului șters de {author}: {title}"
+	},
+	"annotation.embedNoteUpdated": {
+		"string": "Descriere a elementului editată de {author}: {description}"
+	},
+	"annotation.embedNoteRemoved": {
+		"string": "Descriere a elementului eliminată de {author}: {description}"
+	},
+	"annotation.taskLabelUpdated": {
+		"string": "Sarcină redactată de {author}: {title}"
+	},
+	"annotation.taskNoteUpdated": {
+		"string": "Notă la sarcină redactată de {author}: {title}{note}"
+	},
+	"annotation.taskNoteCreated": {
+		"string": "Notă la sarcină adăugată de {author}: {title}{note}"
+	},
+	"annotation.assignmentChanged": {
+		"string": "Sarcină alocată lui {assigneeTo} de {author}: {title}"
+	},
+	"annotation.assignmentRemoved": {
+		"string": "Alocare sarcină lui {assigneeFrom} anulată de {author}: {title}"
+	},
+	"annotation.addedComment": {
+		"string": "Notă la sarcină adăugată de {author}: {title}{note}"
+	},
+	"annotation.removedComment": {
+		"string": "Nota la sarcină ștearsă de {author}: {title}{note}"
+	},
+	"annotation.changedJsonSchema": {
+		"string": "Schema JSON a sarcinii {title} modificată de {author}"
+	},
+	"teamMenu.teamSettings": {
+		"string": "Setări spațiu de lucru"
+	},
+	"projects.allClaims": {
+		"string": "Toate elementele"
+	},
+	"projects.dismiss": {
+		"string": "Respinge"
+	},
+	"projects.addProject": {
+		"string": "Adaugă listă"
+	},
+	"projects.newList": {
+		"string": "+ Listă nouă"
+	},
+	"teamTasks.confirmAction": {
+		"string": "Da"
+	},
+	"teamTasks.continue": {
+		"string": "Continuă"
+	},
+	"teamTasks.cancelAction": {
+		"string": "Anulează"
+	},
+	"confirmProceed.confirm": {
+		"string": "Confirmă și mergi mai departe"
+	},
+	"MultiSelector.search": {
+		"string": "Caută..."
+	},
+	"FilterPopup.close": {
+		"string": "Terminat"
+	},
+	"languagePickerDialog.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"languagePickerDialog.unknownLanguage": {
+		"string": "Limbă necunoscută"
+	},
+	"languagePickerDialog.title": {
+		"string": "Alegeți o limbă"
+	},
+	"languagePickerDialog.selectLanguage": {
+		"string": "Selectați limba"
+	},
+	"loadMore.loadMore": {
+		"string": "Încarcă mai mult"
+	},
+	"moreLess.less": {
+		"string": "Mai puțin"
+	},
+	"moreLess.more": {
+		"string": "Mai mult"
+	},
+	"MultiSelector.all": {
+		"string": "Toate"
+	},
+	"multiSelector.empty": {
+		"string": "Nu a fost găsit nici un element"
+	},
+	"multiSelector.cancel": {
+		"string": "Anulează"
+	},
+	"sortSelect.az": {
+		"string": "De la A la Z"
+	},
+	"sortSelect.za": {
+		"string": "De la Z la A"
+	},
+	"sortSelect.of": {
+		"string": "Rezultatele mai vechi întâi"
+	},
+	"sortSelect.nf": {
+		"string": "Rezultatele mai noi întâi"
+	},
+	"sortSelect.mu": {
+		"string": "Cele mai utilizate"
+	},
+	"sortSelect.lu": {
+		"string": "Cele mai puțin utilizate"
+	},
+	"createProject.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea listei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"createProject.newProjectName": {
+		"string": "Denumire listă"
+	},
+	"createProject.addProject": {
+		"string": "Creează lista"
+	},
+	"createProject.title": {
+		"string": "Adaugă o listă"
+	},
+	"createProject.titleBlank": {
+		"string": "Adăugați prima dvs. listă"
+	},
+	"projectActions.projectDeleted": {
+		"string": "Lista a fost ștearsă cu succes."
+	},
+	"projectActions.projectNotDeleted": {
+		"string": "Ne pare rău, nu am reușit să ștergem lista."
+	},
+	"ProjectActions.edit": {
+		"string": "Editează denumirea și descrierea"
+	},
+	"projectActions.assignOrUnassign": {
+		"string": "Listă de alocare"
+	},
+	"projectActions.destroy": {
+		"string": "Șterge"
+	},
+	"ProjectActions.tooltip": {
+		"string": "Acțiuni pe liste"
+	},
+	"projectActions.confirmDeleteProject": {
+		"string": "Sigur vreți să ștergeți această listă? Toate elementele aferente vor fi în continuare accesibile prin intermediul listei „Toate elementele”."
+	},
+	"projectAssignment.processing": {
+		"string": "Terminat! Alocările sunt acum propagate pe elemente și sarcini. Veți primi un mesaj pe e-mail la finalizare."
+	},
+	"projectAssignment.title": {
+		"string": "Alocă lista colaboratorilor"
+	},
+	"projectAssignment.notesTitle": {
+		"string": "Adaugă o notă la mesajul e-mail"
+	},
+	"projectAssignment.notes": {
+		"string": "Note"
+	},
+	"projectAssignment.assignedTo": {
+		"string": "Alocat lui"
+	},
+	"projectAssignment.notAssigned": {
+		"string": "Nealocat"
+	},
+	"userAssignments.blank": {
+		"string": "Nicio activitate"
+	},
+	"ProjectBlankState.createMedia": {
+		"string": "Adăugați un link sau text"
+	},
+	"projectEdit.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea listei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"projectEdit.titleField": {
+		"string": "Titlu"
+	},
+	"projectEdit.descriptionField": {
+		"string": "Descriere"
+	},
+	"projectEdit.saveButton": {
+		"string": "Salvează"
+	},
+	"projectHeader.trash": {
+		"string": "Coș de gunoi"
+	},
+	"projectHeader.allItems": {
+		"string": "Toate elementele"
+	},
+	"projectSelector.numProjs": {
+		"string": "{length, number} selectate"
+	},
+	"projectSelector.allProjs": {
+		"string": "Toate listele"
+	},
+	"mediaMetadata.addedToList": {
+		"string": "Adăugat în lista {listName}"
+	},
+	"mediaActionsBar.addTo": {
+		"string": "Adaugă în..."
+	},
+	"mediaActionsBar.dialogAddToListTitle": {
+		"string": "Adaugă într-o listă diferită"
+	},
+	"mediaActionsBar.cancelButton": {
+		"string": "Anulează"
+	},
+	"mediaActionsBar.add": {
+		"string": "Adaugă"
+	},
+	"video.normalSpeed": {
+		"string": "Viteză normală"
+	},
+	"autoCompleteMediaItem.searching": {
+		"string": "Se caută..."
+	},
+	"autoCompleteMediaItem.error": {
+		"string": "Ne pare rău, s-a produs o eroare la căutare. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"autoCompleteMediaItem.notFound": {
+		"string": "Nu am găsit nicio potrivire"
+	},
+	"autoCompleteMediaItem.searchItem": {
+		"string": "Căutare"
+	},
+	"blankMediaButton.defaultErrorMessage": {
+		"string": "Elementul nu a putut fi salvat"
+	},
+	"blankMediaButton.addToImportedReport": {
+		"string": "Adaugă la raportul importat"
+	},
+	"blankMediaButton.confirmTitle": {
+		"string": "Suprascrieți raportul și starea?"
+	},
+	"blankMediaButton.confirmText": {
+		"string": "Următorul element are deja un raport publicat:\n              {link}\n              Dacă veți continua, atât starea, cât și raportul vor fi suprascrise și raportul va trece în pauză."
+	},
+	"blankMediaButton.confirmButtonLabel": {
+		"string": "Trece raportul în pauză și actualizează conținutul"
+	},
+	"blankMediaButton.addItem": {
+		"string": "Adaugă elementul"
+	},
+	"blankMediaCard.defaultErrorMessage": {
+		"string": "Elementul nu a putut fi salvat"
+	},
+	"blankMediaCard.addItem": {
+		"string": "Adaugă elementul"
+	},
+	"blankMediaCard.confirmTitle": {
+		"string": "Suprascrieți raportul și starea?"
+	},
+	"blankMediaCard.confirmText": {
+		"string": "Următorul element are deja un raport publicat:\n              {link}\n              Dacă veți continua, atât starea, cât și raportul vor fi suprascrise și raportul va trece în pauză."
+	},
+	"blankMediaCard.confirmButtonLabel": {
+		"string": "Trece raportul în pauză și actualizează conținutul"
+	},
+	"bulkActions.movedRestoreSuccessfully": {
+		"string": "Elemente mutate din coșul de gunoi în `{toProject}`",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedConfirmSuccessfully": {
+		"string": "Elemente mutate din Neconfirmate în `{toProject}`",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.addedSuccessfully": {
+		"string": "Elemente adăugate în listă.",
+		"developer_comment": "Banner displayed after items are added successfully to list"
+	},
+	"bulkActions.removedSuccessfully": {
+		"string": "Elemente scoase din această listă.",
+		"developer_comment": "Banner displayed after items are removed successfully from list"
+	},
+	"bulkActions.movedSuccessfully": {
+		"string": "Elemente mutate.",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.moveToTrashSuccessfully": {
+		"string": "Elemente mutate în coșul de gunoi."
+	},
+	"bulkActions.trash": {
+		"string": "Restaurează elementele selectate și mută-le în altă listă"
+	},
+	"bulkActions.restore": {
+		"string": "Restaurează din coșul de gunoi"
+	},
+	"bulkActions.unconfirmed": {
+		"string": "Confirmă elementele selectate și mută-le în altă listă"
+	},
+	"bulkActions.confirm": {
+		"string": "Mută din neconfirmate"
+	},
+	"bulkActions.move": {
+		"string": "Mută elementele selectate în altă listă"
+	},
+	"bulkActions.moveTo": {
+		"string": "Mută în..."
+	},
+	"bulkActions.cancelButton": {
+		"string": "Anulează"
+	},
+	"bulkActions.moveTitle": {
+		"string": "Mută în listă"
+	},
+	"bulkActions.dialogMoveTitle": {
+		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+	},
+	"bulkActions.add": {
+		"string": "Adaugă elementele selectate în altă listă"
+	},
+	"bulkActions.addTo": {
+		"string": "Adaugă în..."
+	},
+	"bulkActions.addTitle": {
+		"string": "Adaugă"
+	},
+	"bulkActions.dialogAddTitle": {
+		"string": "Adaugă într-o listă diferită"
+	},
+	"bulkActions.sendItemsToTrash": {
+		"string": "Trimite elementele selectate la coșul de gunoi"
+	},
+	"claimReview.claim": {
+		"string": "Alegație:"
+	},
+	"claimReview.claimedBy": {
+		"string": "De către:"
+	},
+	"claimReview.reviewedBy": {
+		"string": "Fapte verificate de {reviewer}:"
+	},
+	"createMedia.error": {
+		"string": "Ne pare rău, s-a produs o eroare la transmiterea elementului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"createMedia.addItem": {
+		"string": "Adaugă element"
+	},
+	"createMedia.addNewItem": {
+		"string": "Adaugă un element nou"
+	},
+	"createMedia.addNew": {
+		"string": "Adaugă un element nou"
+	},
+	"createMedia.existing": {
+		"string": "Adaugă un element existent"
+	},
+	"createMedia.quoteInput": {
+		"string": "Lipește sau tastează un text"
+	},
+	"createMedia.mediaInput": {
+		"string": "Lipește sau tastează"
+	},
+	"createMedia.link": {
+		"string": "Link"
+	},
+	"createMedia.quote": {
+		"string": "Text"
+	},
+	"createMedia.image": {
+		"string": "Fotografie"
+	},
+	"createMedia.video": {
+		"string": "Video"
+	},
+	"createMedia.audio": {
+		"string": "Audio"
+	},
+	"createRelatedMedia.addSecondaryItem": {
+		"string": "Adaugă ca element secundar"
+	},
+	"createRelatedMedia.addToPrimaryItem": {
+		"string": "Adaugă la elementul primar"
+	},
+	"destinationProjects.choose": {
+		"string": "Alege o listă"
+	},
+	"mediaDetail.editReportError": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea elementului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"mediaDetail.editReport": {
+		"string": "Editează"
+	},
+	"mediaDetail.mediaTitle": {
+		"string": "Titlu"
+	},
+	"mediaDetail.mediaDescription": {
+		"string": "Descriere"
+	},
+	"mediaDetail.cancelButton": {
+		"string": "Anulează"
+	},
+	"mediaDetail.doneButton": {
+		"string": "Terminat"
+	},
+	"ItemHistoryDialog.title": {
+		"string": "Istoricul elementului"
+	},
+	"media.confirmLeave": {
+		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+	},
+	"mediaActions.edit": {
+		"string": "Editează titlul și descrierea"
+	},
+	"mediaActions.refresh": {
+		"string": "Împrospătează"
+	},
+	"mediaActions.assignOrUnassign": {
+		"string": "Alocare"
+	},
+	"mediaActions.unlockStatus": {
+		"string": "Deblochează starea"
+	},
+	"mediaActions.lockStatus": {
+		"string": "Blochează starea"
+	},
+	"mediaActions.sendToTrash": {
+		"string": "Trimite la coșul de gunoi"
+	},
+	"mediaActions.restore": {
+		"string": "Restaurează din coșul de gunoi"
+	},
+	"mediaActions.move": {
+		"string": "Mută"
+	},
+	"mediaActions.addToList": {
+		"string": "Adaugă în listă"
+	},
+	"mediaActions.removeFromList": {
+		"string": "Elimină din listă"
+	},
+	"mediaActions.tooltip": {
+		"string": "Acțiuni pe elemente"
+	},
+	"mediaActionsBar.movedToTrash": {
+		"string": "Trimite în {trash}"
+	},
+	"mediaDetail.trash": {
+		"string": "Coș de gunoi"
+	},
+	"mediaActionsBar.assignmentsUpdated": {
+		"string": "Alocări actualizate cu succes!"
+	},
+	"mediaActionsBar.publishedReport": {
+		"string": "Raport publicat"
+	},
+	"mediaActionsBar.unpublishedReport": {
+		"string": "Raport nepublicat"
+	},
+	"mediaActionsBar.assignmentTitle": {
+		"string": "Alocă elementul colaboratorilor"
+	},
+	"mediaActionsBar.assignmentNotesTitle": {
+		"string": "Adaugă o notă la mesajul e-mail"
+	},
+	"mediaActionsBar.assignmentNotes": {
+		"string": "Note"
+	},
+	"mediaActions.history": {
+		"string": "Istoricul elementului"
+	},
+	"mediaAnalysis.analysis": {
+		"string": "Analiză"
+	},
+	"mediaAnalysis.saving": {
+		"string": "Se salvează..."
+	},
+	"mediaAnalysis.saved": {
+		"string": "Salvat {ago}"
+	},
+	"mediaAnalysis.error": {
+		"string": "Imposibil de salvat! Ultima salvare {ago}"
+	},
+	"mediaAnalysis.copying": {
+		"string": "Se copiază..."
+	},
+	"mediaAnalysis.copyToReport": {
+		"string": "Copiază în raport"
+	},
+	"mediaAnalysis.title": {
+		"string": "Titlu"
+	},
+	"mediaAnalysis.content": {
+		"string": "Conținut"
+	},
+	"mediaAnalysis.publishedArticle": {
+		"string": "URL articol publicat"
+	},
+	"mediaAnalysis.date": {
+		"string": "Data publicării"
+	},
+	"mediaAnalysis.confirmTitle1": {
+		"string": "Raportul curent este publicat"
+	},
+	"mediaAnalysis.confirmTitle2": {
+		"string": "Suprascrieți raportul existent?"
+	},
+	"mediaAnalysis.confirmText1": {
+		"string": "Raportul trebuie mai întâi trecut în pauză ca să îl puteți edita. Vreți să treceți raportul în pauză și să-l actualizați cu noul conținut?"
+	},
+	"mediaAnalysis.confirmText2": {
+		"string": "Vreți să actualizați raportul cu acest conținut nou? Toate editările vor fi pierdute."
+	},
+	"mediaAnalysis.confirmButtonLabel1": {
+		"string": "Trece raportul în pauză și actualizează conținutul"
+	},
+	"mediaAnalysis.confirmButtonLabel2": {
+		"string": "Suprascrie conținutul"
+	},
+	"mediaComments.noNote": {
+		"string": "Nicio notă"
+	},
+	"mediaComponent.requests": {
+		"string": "Cereri"
+	},
+	"mediaComponent.metadata": {
+		"string": "Metadate"
+	},
+	"mediaComponent.tasks": {
+		"string": "Sarcini"
+	},
+	"mediaComponent.notes": {
+		"string": "Note"
+	},
+	"mediaComponent.related": {
+		"string": "Asociate"
+	},
+	"mediaComponent.timelineTab": {
+		"string": "Cronologie"
+	},
+	"mediaCondensed.requests": {
+		"string": "{count} cereri"
+	},
+	"mediaExpanded.addToImportedReport": {
+		"string": "Adaugă la raportul importat"
+	},
+	"mediaMetadata.Timeline": {
+		"string": "Cronologie"
+	},
+	"mediaMetadata.ImageSearch": {
+		"string": "Căutare imagini"
+	},
+	"mediaMetadata.download": {
+		"string": "Descarcă"
+	},
+	"mediaExpandedArchives.archives": {
+		"string": "Arhive:"
+	},
+	"mediaExpandedMetadata.publishedOn": {
+		"string": "Publicat la data de"
+	},
+	"mediaExpandedMetadata.shares": {
+		"string": "Partajări FB"
+	},
+	"mediaExpandedMetadata.reactions": {
+		"string": "Reacții FB"
+	},
+	"mediaExpandedMetadata.comments": {
+		"string": "Comentarii FB"
+	},
+	"mediaExpanded.firstSeen": {
+		"string": "Prima dată văzut:"
+	},
+	"mediaExpanded.lastSeen": {
+		"string": "Ultima dată văzut:"
+	},
+	"mediaExpanded.requests": {
+		"string": "{count} cereri"
+	},
+	"mediaLanguageChip.error": {
+		"string": "Ne pare rău, a apărut o eroare la actualizarea limbii. Vă rugăm să încercați din nou și contactați {supportEmail} dacă situația persistă."
+	},
+	"media.normalSpeed": {
+		"string": "Viteză normală"
+	},
+	"mediaRelated.primaryItem": {
+		"string": "Element primar"
+	},
+	"mediaRelated.secondaryItems": {
+		"string": "Elemente secundare"
+	},
+	"mediaRelated.loadMore": {
+		"string": "Încarcă mai mult"
+	},
+	"mediaRequests.allRequests": {
+		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+	},
+	"mediaRequests.thisRequests": {
+		"string": "{count, plural, one {1 request} other {# requests}}"
+	},
+	"mediaRequests.noRequest": {
+		"string": "Nicio cerere"
+	},
+	"mediaSearch.itemWentAway": {
+		"string": "Negăsit"
+	},
+	"mediaSearch.error": {
+		"string": "Ne pare rău, s-a produs următoarea eroare: {message}. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"mediaStatus.cancelMessage": {
+		"string": "Anulează"
+	},
+	"mediaStatus.messageDescription": {
+		"string": "Vă rugăm să adăugați un comentariu. El va fi transmis celui, care a făcut postarea inițială, pentru a-i informa că solicitarea lor va fi închisă."
+	},
+	"mediaStatus.noteHint": {
+		"string": "Pentru a trimite tastați ENTER"
+	},
+	"mediaStatus.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea stării. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"mediaTags.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"mediaComponent.verificationTasks": {
+		"string": "Sarcinile elementului"
+	},
+	"mediaComponent.answered": {
+		"string": "finalizat"
+	},
+	"mediaComponent.noTasks": {
+		"string": "Nimic de afișat."
+	},
+	"media.typeTwitter": {
+		"string": "Postare pe Twitter"
+	},
+	"media.typeFacebook": {
+		"string": "Postare pe Facebook"
+	},
+	"media.typeInstagram": {
+		"string": "Instagram"
+	},
+	"media.typeYoutube": {
+		"string": "Videoclip pe YouTube"
+	},
+	"media.typeVideo": {
+		"string": "Video"
+	},
+	"media.typeTiktok": {
+		"string": "TikTok video"
+	},
+	"media.typeClaim": {
+		"string": "Text"
+	},
+	"media.typeImage": {
+		"string": "Imagine"
+	},
+	"media.typePage": {
+		"string": "Pagina"
+	},
+	"media.byAttribution": {
+		"string": "{typeLabel} de {attribution}"
+	},
+	"media.onDomain": {
+		"string": "{typeLabel} pe {domain}"
+	},
+	"media.typeLink": {
+		"string": "Link"
+	},
+	"media.typeAudio": {
+		"string": "Audio"
+	},
+	"media.typeBlank": {
+		"string": "Raport importat"
+	},
+	"media.retweetsCount": {
+		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+	},
+	"mediaActionsBar.moveTo": {
+		"string": "Mută în..."
+	},
+	"mediaActionsBar.dialogMoveTitle": {
+		"string": "Mută într-o listă diferită"
+	},
+	"mediaActionsBar.move": {
+		"string": "Mută"
+	},
+	"mediaSearch.previousItem": {
+		"string": "Elementul anterior"
+	},
+	"mediaSearch.xOfY": {
+		"string": "{current} din {total}"
+	},
+	"mediaSearch.nextItem": {
+		"string": "Elementul următor"
+	},
+	"mediaActionsBar.removedFromList": {
+		"string": "Eliminat din listă"
+	},
+	"mediaActionsBar.removeFromList": {
+		"string": "Elimină din listă"
+	},
+	"reportDesigner.cantPublish": {
+		"string": "Selectați cel puțin textul raportului sau imaginea ca să publicați raportul"
+	},
+	"reportDesigner.canPublish": {
+		"string": "Publică raportul"
+	},
+	"reportDesigner.pauseReport": {
+		"string": "Pune raportul în pauză"
+	},
+	"reportDesigner.confirmLeaveTitle": {
+		"string": "Ieșiți fără salvare?"
+	},
+	"reportDesigner.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea setărilor raportului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"reportDesigner.warning": {
+		"string": "Avertisment — Partajarea va expune informațiile unor persoane din afara spațiului dvs. de lucru privat. Continuați cu prudență."
+	},
+	"reportDesigner.copyButtonInactive": {
+		"string": "Copiat"
+	},
+	"reportDesigner.copyButton": {
+		"string": "Copiază"
+	},
+	"reportDesigner.back": {
+		"string": "Înapoi la adnotare"
+	},
+	"reportDesigner.copyEmbedCode": {
+		"string": "Copiază codul înglobat"
+	},
+	"reportDesigner.copyShareUrl": {
+		"string": "Copiază URL de partajare"
+	},
+	"reportDesigner.save": {
+		"string": "Salvează"
+	},
+	"reportDesigner.edit": {
+		"string": "Editează"
+	},
+	"reportDesigner.publish": {
+		"string": "Publică"
+	},
+	"reportDesigner.pause": {
+		"string": "Pune în pauză"
+	},
+	"reportDesigner.nothingToPreview": {
+		"string": "Începeți crearea raportului pentru a previzualiza ce vor vedea utilizatorii când îl primesc."
+	},
+	"reportDesigner.reportEditorTitle": {
+		"string": "Selectați conținutul de transmis cu raportul"
+	},
+	"reportDesigner.introduction": {
+		"string": "Introducere"
+	},
+	"reportDesigner.introductionSub": {
+		"string": "Folosiți substituentul {query_date} pentru afișarea datei interogării inițiale. Folosiți {status} pentru a comunica starea articolului."
+	},
+	"reportDesigner.visualCard": {
+		"string": "Cartelă vizuală"
+	},
+	"reportDesigner.useDefaultImage": {
+		"string": "Folosește imaginea implicită"
+	},
+	"reportDesigner.headline": {
+		"string": "Titlu (max. {max} caractere)"
+	},
+	"reportDesigner.description": {
+		"string": "Conținut (max. {max} caractere)"
+	},
+	"reportDesigner.statusLabel": {
+		"string": "Etichetă de stare (maxim {max} caractere)"
+	},
+	"reportDesigner.themeColor": {
+		"string": "Culoarea temei"
+	},
+	"reportDesigner.url": {
+		"string": "URL website URL (max. {max} caractere)"
+	},
+	"reportDesigner.textMessage": {
+		"string": "Textul raportului"
+	},
+	"reportDesigner.disclaimer": {
+		"string": "Declinarea răspunderii"
+	},
+	"reportDesigner.confirmPublishTitle": {
+		"string": "Sunteți gata să publicați raportul?"
+	},
+	"reportDesigner.confirmPublishText": {
+		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+	},
+	"reportDesigner.confirmPublishText2": {
+		"string": "În viitor, utilizatorii care vor solicita elementul vor primi raportul dvs., atât timp cât rămâne publicat."
+	},
+	"reportDesigner.confirmPauseTitle": {
+		"string": "Sunteți pe cale să treceți raportul în pauză"
+	},
+	"reportDesigner.confirmPauseText": {
+		"string": "Acest raport nu va fi transmis utilizatorilor până ce nu este publicat din nou. Continuați?"
+	},
+	"reportDesigner.confirmRepublishTitle": {
+		"string": "Sunteți gata să publicați modificările?"
+	},
+	"reportDesigner.confirmRepublishText": {
+		"string": "În viitor, utilizatorii care vor solicita elementul vor primi această versiune nouă a raportului."
+	},
+	"reportDesigner.republishAndResend": {
+		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+	},
+	"reportDesigner.confirmRepublishResendTitle": {
+		"string": "Sunteți gata să publicați corecția?"
+	},
+	"reportDesigner.confirmRepublishResendText": {
+		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+	},
+	"reportDesigner.confirmRepublishResendText2": {
+		"string": "În viitor, utilizatorii care vor solicita elementul vor primi această versiune nouă a raportului."
+	},
+	"reportDesigner.confirmLeaveText": {
+		"string": "Dacă ieșiți, pierdeți modificările."
+	},
+	"reportDesigner.reportImagePreviewTitle": {
+		"string": "Previzualizare raport",
+		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
+	},
+	"mediaActionsBar.movedRestoreBack": {
+		"string": "Restaurate din coșul de gunoi. Se redirecționează..."
+	},
+	"mediaActionsBar.movedConfirmBack": {
+		"string": "Confirmate. Se redirecționează..."
+	},
+	"mediaActionsBar.restoreTo": {
+		"string": "Restaurează din coșul de gunoi"
+	},
+	"mediaActionsBar.confirmTo": {
+		"string": "Confirmă"
+	},
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
+		"string": "Mută elementul în lista..."
+	},
+	"mediaActionsBar.restoreOrConfirm": {
+		"string": "Mută în listă"
+	},
+	"webPageMediaCard.Error": {
+		"string": "Elementul nu a putut fi identificat. Este posibil să fi fost eliminat sau este vizibil numai pentru utilizatorii autentificați. Dați clic pe linkul de deasupra ca să ajungeți la el."
+	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "Metadatele au o valoare specifică"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Metadatele conțin cuvântul-cheie"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "Sarcina are un răspuns specific"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "Răspunsul la sarcină conține cuvântul-cheie"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Selectează sarcina"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Selectează metadatele"
+	},
+	"search.allClaimsTitle": {
+		"string": "Toate elementele"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filtrează după"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Selectează valoarea"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Scrieți o listă de cuvinte-cheie, separate prin virgulă"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Adaugă filtre"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Metadatele au o valoare specifică"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Metadatele conțin cuvântul-cheie"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "Sarcina are un răspuns specific"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "Răspunsul la sarcină conține cuvântul-cheie"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Nicio valoare setată"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Setat pe orice valoare"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Selectează sarcina"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Selectează metadatele"
+	},
+	"search.dateHeading": {
+		"string": "Interval de timp"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Transmis"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Ultimul transmis"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Actualizată"
+	},
+	"search.datePublishedHeading": {
+		"string": "Publicat"
+	},
+	"search.pickDateFrom": {
+		"string": "Data începeri"
+	},
+	"search.pickDateTo": {
+		"string": "Data finalizării"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Titlu media"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Conținut media"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Titlu analiză"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Conținut analiză"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Etichete"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Toate răspunsurile la sarcină",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Toate răspunsurile la metadate"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Toate notele"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Toate comentariile la sarcini"
+	},
+	"search.showClaims": {
+		"string": "Texte"
+	},
+	"search.showLinks": {
+		"string": "Linkuri"
+	},
+	"search.showImages": {
+		"string": "Imagini"
+	},
+	"search.showVideos": {
+		"string": "Videoclipuri"
+	},
+	"search.showAudios": {
+		"string": "Fișiere audio"
+	},
+	"search.showBlank": {
+		"string": "Raport importat"
+	},
+	"search.title": {
+		"string": "Toate elementele"
+	},
+	"search.inputHint": {
+		"string": "Căutare"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Copac + Frunză</td><td>Elemente cu Copac ȘI Frunză</td></tr>\n                        <tr><td>|</td><td>Copac | Frunză</td><td>Elemente cu Copac SAU Frunză</td></tr>\n                        <tr><td>()</td><td>Copac + (Frunză | Ramură)</td><td>Elemente cu Copac ȘI Frunză sau elemente cu Copac ȘI Ramură</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Aflați mai multe despre tehnicile de căutare\n                      </a>\n                    </div>"
+	},
+	"search.Filter": {
+		"string": "Filtrează"
+	},
+	"search.clear": {
+		"string": "Anulează filtrarea"
+	},
+	"search.categoriesHeading": {
+		"string": "Etichete"
+	},
+	"search.any": {
+		"string": "Oricare"
+	},
+	"search.all": {
+		"string": "Toate"
+	},
+	"search.show": {
+		"string": "Tip de medii"
+	},
+	"search.statusHeading": {
+		"string": "Stare element"
+	},
+	"search.userHeading": {
+		"string": "Creat de"
+	},
+	"search.language": {
+		"string": "Limba"
+	},
+	"search.projectHeading": {
+		"string": "Listă"
+	},
+	"search.assignedTo": {
+		"string": "Alocat lui"
+	},
+	"search.readHeading": {
+		"string": "Citit"
+	},
+	"search.cancel": {
+		"string": "Anulează"
+	},
+	"search.reset": {
+		"string": "Resetare"
+	},
+	"search.applyFilters": {
+		"string": "Filtrează"
+	},
+	"search.previousPage": {
+		"string": "Pagina anterioară"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+	},
+	"search.nextPage": {
+		"string": "Pagina următoare"
+	},
+	"userAssignments.filterByTeam": {
+		"string": "Filtrează după spațiul de lucru"
+	},
+	"userAssignments.other": {
+		"string": "Altele"
+	},
+	"userComponent.teams": {
+		"string": "Spații de lucru"
+	},
+	"userComponents.assignments": {
+		"string": "Alocări"
+	},
+	"userComponents.privacy": {
+		"string": "Confidențialitate"
+	},
+	"userComponents.security": {
+		"string": "Securitate"
+	},
+	"UserInfo.dateJoined": {
+		"string": "S-a alăturat la {date} • {teamsCount, plural, one {1 spațiu de lucru} other {# spații de lucru}}"
+	},
+	"userInfoEdit.sourceName": {
+		"string": "Denumire"
+	},
+	"userInfoEdit.sourceBio": {
+		"string": "Bio"
+	},
+	"userInfoEdit.userEmail": {
+		"string": "E-mail"
+	},
+	"userInfoEdit.userSendEmailNotification": {
+		"string": "Primește notificări prin e-mail"
+	},
+	"userInfoEdit.editError": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea profilului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"userInfoEdit.nameError": {
+		"string": "Câmpul ”Nume” nu poate rămâne gol"
+	},
+	"userInfoEdit.addLinkLabel": {
+		"string": "Adaugă un link"
+	},
+	"userInfoEdit.emailConfirmed": {
+		"string": "✔ Adresa a fost confirmată"
+	},
+	"userInfoEdit.emailPendingConfirm": {
+		"string": "⚠ În așteptarea confirmării"
+	},
+	"userInfoEdit.invalidLink": {
+		"string": "Introduceți un URL valid"
+	},
+	"userInfoEdit.addLinkHelper": {
+		"string": "Adăugați un link către o pagină web sau către un profil pe rețelele de socializare. Notă: Nu vă afectează metoda de autentificare."
+	},
+	"userInfoEdit.addLink": {
+		"string": "Adaugă link"
+	},
+	"UserPrivacy.deleteAccount": {
+		"string": "Șterge contul"
+	},
+	"userPrivacy.deleteAccountConfirmationText": {
+		"string": "Sunteți sigur(ă)? Contul va fi șters și veți fi deconectat(ă) de la aplicație."
+	},
+	"userPrivacy.ppLink": {
+		"string": "Politică de confidențialitate"
+	},
+	"userPrivacy.title": {
+		"string": "Informațiile dvs."
+	},
+	"userPrivacy.description": {
+		"string": "Vă rugăm să citiți {ppLink} pentru a afla în ce mod vă folosește și stochează {appName} informațiile."
+	},
+	"userPrivacy.seeInformationText": {
+		"string": "Vă vom transmite un fișier cu conținutul și datele pe care le-ați creat și generat pe {appName}. Îl puteți păstra și transfera pe un alt serviciu."
+	},
+	"userPrivacy.seeInformationButton": {
+		"string": "Afișează-mi informațiile"
+	},
+	"userPrivacy.stopProcessingText": {
+		"string": "Puteți cere {appName} să nu vă mai proceseze informațiile în anumite condiții."
+	},
+	"userPrivacy.stopProcessingButton": {
+		"string": "Solicită încetarea procesării"
+	},
+	"userPrivacy.connectedAccounts": {
+		"string": "Conturi conectate"
+	},
+	"userPrivacy.delete": {
+		"string": "Ștergerea contului"
+	},
+	"userPrivacy.deleteAccountText": {
+		"string": "Dacă vă ștergeți contul, datele dvs. personale vor fi șterse. Comentariile, adnotările și activitatea din spațiul de lucru vor fi alocate unui pseudonim și vor rămâne pe {appName}."
+	},
+	"userPrivacy.deleteAccountButton": {
+		"string": "Șterge contul"
+	},
+	"UserSecurity.passwordInput": {
+		"string": "Parolă actuală"
+	},
+	"UserSecurity.passwordError": {
+		"string": "Parolă incorectă"
+	},
+	"UserSecurity.verifyInput": {
+		"string": "Cod de validare"
+	},
+	"UserSecurity.verifyError": {
+		"string": "Cod de validare incorect"
+	},
+	"userSecurity.notification": {
+		"string": "Notificare"
+	},
+	"userSecurity.successfulLoginText": {
+		"string": "Primiți o notificare cu autentificările din alt loc sau de pe alt dispozitiv"
+	},
+	"userSecurity.failedfulLoginText": {
+		"string": "Primiți o notificare pentru tentative consecutive eșuate de autentificare {loginTrial}"
+	},
+	"userSecurity.twoFactorAuthentication": {
+		"string": "Autentificare în doi pași"
+	},
+	"userSecurity.suggestTwoFactorForSocialAccounts": {
+		"string": "Pentru activarea 2FA, trebuie să creați o parolă pe Check. Vă rugăm să o faceți în secțiunea „Schimbare parolă” de mai jos."
+	},
+	"userSecurity.requireTwoFactorAuth": {
+		"string": "Solicită autentificare în doi pași"
+	},
+	"userSecurity.authenticateHeader": {
+		"string": "Pasul 1: Autentificați-vă"
+	},
+	"userSecurity.authenticateDescription": {
+		"string": "Introduceți parola actuală pentru a vă confirma identitatea:"
+	},
+	"userSecurity.disableAuthenticateDescription": {
+		"string": "Introduceți parola pentru dezactivarea autentificării cu doi factori:"
+	},
+	"userSecurity.disableTwofactor": {
+		"string": "Dezactivează"
+	},
+	"userSecurity.downloadHeader": {
+		"string": "Pasul 2: Descărcați"
+	},
+	"userSecurity.downloadDescription": {
+		"string": "Veți avea nevoie să aveți pe telefon o aplicație pentru autentificare cu doi factori, cum ar fi Google Authenticator sau Microsoft Authenticator, pentru a continua:"
+	},
+	"userSecurity.qrcodeHeader": {
+		"string": "Pasul 3: Scanați"
+	},
+	"userSecurity.qrcodeDescription": {
+		"string": "Scanați acest cod QR cu aplicația de autentificare cu doi factori:"
+	},
+	"userSecurity.backupHeader": {
+		"string": "Pasul 4: Coduri de rezervă"
+	},
+	"userSecurity.backupDescription": {
+		"string": "Vă recomandăm să generați și să tipăriți codurile de siguranță dând clic pe butonul de mai jos. Sunt coduri de unică folosință, de utilizat în locul autentificării 2FA în cazul în care nu mai aveți acces la dispozitivul 2FA."
+	},
+	"userSecurity.backupNote": {
+		"string": "Notă: Codurile de rezervă existente vor fi invalidate dacă dați clic pe buton."
+	},
+	"userSecurity.generateGackup": {
+		"string": "Generează coduri de rezervă"
+	},
+	"userSecurity.verifyHeader": {
+		"string": "Pasul 5: Verificați"
+	},
+	"userSecurity.verifyDescription": {
+		"string": "Pentru activarea autentificării cu doi factori, introduceți codul din 6 cifre din aplicația de autentificare cu doi factori:"
+	},
+	"userSecurity.enableTwofactor": {
+		"string": "Activează"
+	},
+	"userSecurity.changePassword": {
+		"string": "Schimbă parola"
+	},
+	"tagInput.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"tagInput.search": {
+		"string": "Caută sau adaugă o etichetă nouă"
+	},
+	"tagInput.addTag": {
+		"string": "Adaugă etichetă"
+	},
+	"tagMenu.tooltip": {
+		"string": "Editează etichetele"
+	},
+	"tagMenu.done": {
+		"string": "Terminat"
+	},
+	"tagPicker.emptyTags": {
+		"string": "Momentan nu sunt etichete pentru acest spațiu de lucru."
+	},
+	"tagPicker.tagNotFound": {
+		"string": "Eticheta #{tag} nu a fost găsită."
+	},
+	"attribution.noResults": {
+		"string": "Niciun rezultat"
+	},
+	"attribution.search": {
+		"string": "Caută membri"
+	},
+	"createTask.newTask": {
+		"string": "Sarcină nouă"
+	},
+	"tasks.addTask": {
+		"string": "Sarcină nouă"
+	},
+	"tasks.addMetadata": {
+		"string": "Metadate noi"
+	},
+	"tasks.shortAnswer": {
+		"string": "Text"
+	},
+	"tasks.chooseOne": {
+		"string": "Selecție unică"
+	},
+	"tasks.chooseMultiple": {
+		"string": "Selecție multiplă"
+	},
+	"tasks.geolocation": {
+		"string": "Loc"
+	},
+	"tasks.datetime": {
+		"string": "Data și ora"
+	},
+	"tasks.fileUpload": {
+		"string": "Încărcare fișiere"
+	},
+	"tasks.teamwideNudge": {
+		"string": "Sarcini implicite"
+	},
+	"datetimeRespondTask.cancelTask": {
+		"string": "Anulează"
+	},
+	"datetimeRespondTask.answerTask": {
+		"string": "Rezolvă sarcina"
+	},
+	"datetimeRespondTask.pickDate": {
+		"string": "Alege o dată"
+	},
+	"datetimeRespondTask.time": {
+		"string": "Alege o oră"
+	},
+	"datetimeRespondTask.timezone": {
+		"string": "Selectează un fus orar"
+	},
+	"datetimeTaskResponse.timeIs": {
+		"string": "Vezi acest fus orar pe time.is"
+	},
+	"datetimeTaskResponse.invalidTimestamp": {
+		"string": "Eroare: Marcă de timp nevalidă"
+	},
+	"singleChoiceTask.value": {
+		"string": "Valoare"
+	},
+	"singleChoiceTask.other": {
+		"string": "Altele"
+	},
+	"singleChoiceTask.addValue": {
+		"string": "Adaugă o opțiune"
+	},
+	"singleChoiceTask.addOther": {
+		"string": "Adaugă „Altele”"
+	},
+	"editTaskDialog.editTask": {
+		"string": "Editează sarcina"
+	},
+	"editTaskDialog.editMetadata": {
+		"string": "Editează câmpul de metadate"
+	},
+	"editTaskDialog.newTask": {
+		"string": "Sarcină nouă"
+	},
+	"editTaskDialog.newMetadata": {
+		"string": "Câmp nou de metadate"
+	},
+	"tasks.taskPrompt": {
+		"string": "Reamintire"
+	},
+	"tasks.description": {
+		"string": "Descriere (opțional)"
+	},
+	"tasks.timezones": {
+		"string": "Fusuri orare disponibile pentru finalizarea sarcinii"
+	},
+	"tasks.showInBrowserExtension": {
+		"string": "Afișează în extensia de browser"
+	},
+	"tasks.showInProj": {
+		"string": "Afișează sarcinile în"
+	},
+	"tasks.assign": {
+		"string": "Alocă"
+	},
+	"tasks.cancelAdd": {
+		"string": "Anulează"
+	},
+	"tasks.add": {
+		"string": "Salvează"
+	},
+	"fileUploadRespondTask.cancelTask": {
+		"string": "Anulează"
+	},
+	"fileUploadRespondTask.answerTask": {
+		"string": "Rezolvă sarcina"
+	},
+	"geoLocationRespondTask.invalidCoords": {
+		"string": "Coordonate nevalide"
+	},
+	"geoLocationRespondTask.searching": {
+		"string": "Se caută..."
+	},
+	"geoLocationRespondTask.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea sarcinii. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"geoLocationRespondTask.notFound": {
+		"string": "Ne pare rău, acest loc nu a fost identificat. Vă rugăm să încercați o altă căutare."
+	},
+	"geolocationRespondTask.cancelTask": {
+		"string": "Anulează"
+	},
+	"geolocationRespondTask.answerTask": {
+		"string": "Rezolvă sarcina"
+	},
+	"geolocationRespondTask.searchMap": {
+		"string": "Caută pe hartă"
+	},
+	"geolocationRespondTask.placeName": {
+		"string": "Individualizează denumirea locului"
+	},
+	"geolocationRespondTask.coordinates": {
+		"string": "Latitudine, longitudine"
+	},
+	"imageUploadRespondTask.cancelTask": {
+		"string": "Anulează"
+	},
+	"imageUploadRespondTask.answerTask": {
+		"string": "Rezolvă sarcina"
+	},
+	"tasks.cancelEdit": {
+		"string": "Anulează"
+	},
+	"tasks.answer": {
+		"string": "Rezolvă sarcina"
+	},
+	"shortTextRespondTask.responseHint": {
+		"string": "Răspundeți aici."
+	},
+	"shortTextRespondTask.cancelTask": {
+		"string": "Anulează"
+	},
+	"shortTextRespondTask.answerTask": {
+		"string": "Rezolvă sarcina"
+	},
+	"task.answeredBy": {
+		"string": "Finalizată de {byName}"
+	},
+	"task.assignedTo": {
+		"string": "Alocată lui {name}"
+	},
+	"tasks.editAssignment": {
+		"string": "Editează alocarea"
+	},
+	"tasks.attributionSlogan": {
+		"string": "Pentru sarcină, \"{label}\""
+	},
+	"tasks.editAttribution": {
+		"string": "Editează atribuirea"
+	},
+	"task.confirmDelete": {
+		"string": "Sigur vreți să ștergeți această sarcină?"
+	},
+	"task.confirmDeleteTitle": {
+		"string": "Ștergeți sarcina?"
+	},
+	"task.confirmDeleteResponse": {
+		"string": "Sigur vreți să ștergeți acest răspuns?"
+	},
+	"task.confirmDeleteResponseTitle": {
+		"string": "Ștergeți răspunsul?"
+	},
+	"taskActions.tooltipTask": {
+		"string": "Acțiuni pe sarcini"
+	},
+	"taskActions.tooltipMetadata": {
+		"string": "Acțiuni cu metadate"
+	},
+	"task.edit": {
+		"string": "Editează sarcina"
+	},
+	"task.editResponse": {
+		"string": "Editează răspunsul"
+	},
+	"task.deleteResponse": {
+		"string": "Șterge răspunsul"
+	},
+	"task.assignOrUnassign": {
+		"string": "Alocă / Anulează alocarea"
+	},
+	"task.editAttribution": {
+		"string": "Editează atribuirea"
+	},
+	"task.delete": {
+		"string": "Șterge sarcina"
+	},
+	"taskLog.bubbleTooltip": {
+		"string": "Comută jurnalul"
+	},
+	"taskTypeSelector.numTypes": {
+		"string": "{length, number} selectate"
+	},
+	"taskTypeSelector.allTypes": {
+		"string": "Toate sarcinile"
+	},
+	"tasks.blankMetadata": {
+		"string": "Niciun câmp de metadate"
+	},
+	"tasks.goToSettings": {
+		"string": "Deschide setările"
+	},
+	"addTeamPage.titleFind": {
+		"string": "Căutați un spațiu de lucru existent"
+	},
+	"addTeamPage.titleCreate": {
+		"string": "Creează un spațiu de lucru"
+	},
+	"createTeam.slugChecking": {
+		"string": "Se verifică disponibilitatea..."
+	},
+	"createTeam.slugAvailable": {
+		"string": "Disponibil!"
+	},
+	"createTeam.slugUnavailable": {
+		"string": "Ne pare rău, acest slug nu este disponibil. Încercați un alt slug."
+	},
+	"createTeam.createTeamError": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea spațiului de lucru. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"createTeam.title": {
+		"string": "Creează un spațiu de lucru"
+	},
+	"createTeam.teamNameHint": {
+		"string": "Denumire spațiu de lucru"
+	},
+	"createTeam.teamSlugHint": {
+		"string": "URL spațiu de lucru"
+	},
+	"createTeam.mainHeading": {
+		"string": "Creează un spațiu de lucru"
+	},
+	"createTeam.blurb": {
+		"string": "Creați un spațiu de lucru pentru firmă sau personal:"
+	},
+	"createTeam.displayName": {
+		"string": "Denumire spațiu de lucru"
+	},
+	"createTeam.url": {
+		"string": "URL echipă"
+	},
+	"createTeam.submitButton": {
+		"string": "Creează"
+	},
+	"createTeam.requestToJoin": {
+		"string": "Puteți și să cereți să intrați pe un spațiu de lucru existent."
+	},
+	"createTeamTask.errorTask": {
+		"string": "Ne pare rău, s-a produs o eroare la crearea sarcinii. Încercați din nou și contactați {supportEmail} dacă situația persistă."
+	},
+	"createTeamTask.errorMetadata": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea câmpului de metadate. Încercați din nou și contactați {supportEmail} dacă situația persistă."
+	},
+	"trash.emptyTrash": {
+		"string": "Golește coșul"
+	},
+	"trash.emptyTrashConfirmationText": {
+		"string": "Sunteți sigur(ă)? {itemsCount, plural, one {1 element} other {# elemente}} și {notesCount, plural, one {1 adnotare} other {# adnotări}} vor fi șterse definitiv."
+	},
+	"fetchBot.contactUs": {
+		"string": "Contactați-ne pentru configurare"
+	},
+	"findTeamCard.teamSlugHint": {
+		"string": "URL spațiu de lucru"
+	},
+	"findTeamCard.teamNotFound": {
+		"string": "Spațiul de lucru nu a fost găsit!"
+	},
+	"findTeamCard.mainHeading": {
+		"string": "Căutați un spațiu de lucru existent"
+	},
+	"findTeamCard.blurb": {
+		"string": "Cereți să intrați pe un spațiu de lucru existent, adăugându-i denumirea aici, sau începeți prin a crea un spațiu de lucru propriu. "
+	},
+	"findTeamCard.url": {
+		"string": "URL spațiu de lucru"
+	},
+	"findTeamCard.submitButton": {
+		"string": "Caută spațiul de lucru"
+	},
+	"findTeamCard.createYourOwn": {
+		"string": "Puteți și să vă creați propriul spațiu de lucru."
+	},
+	"joinTeamComponent.error": {
+		"string": "Ne pare rău, s-a produs o eroare la transmiterea cererii. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"joinTeamComponent.autoApprove": {
+		"string": "Vă mulțumim că v-ați alăturat echipei {team}! Puteți începe să contribuiți imediat."
+	},
+	"joinTeamComponent.success": {
+		"string": "Vă mulțumim pentru interesul de a vă alătura echipei {team}! În curând, un administrator vă va evalua cererea."
+	},
+	"joinTeamComponent.title": {
+		"string": "Intră pe spațiul de lucru"
+	},
+	"joinTeamComponent.mainHeading": {
+		"string": "Cere acces"
+	},
+	"joinTeamComponent.alreadyRequested": {
+		"string": "Deja ați solicitat să vă alăturați echipei {team}."
+	},
+	"joinTeamComponent.requestHasBeenSent": {
+		"string": "Cererea dvs. a fost trimisă către administratorii spațiului de lucru pentru aprobare."
+	},
+	"joinTeamComponent.blurbGraf": {
+		"string": "Pentru solicita să vă alăturați {team}, dați click mai jos:"
+	},
+	"joinTeamComponent.buttonSubmitted": {
+		"string": "Cerere trimisă"
+	},
+	"joinTeamComponent.buttonSubmit": {
+		"string": "Cere acces"
+	},
+	"RoleSelect.annotator": {
+		"string": "Adnotator"
+	},
+	"RoleSelect.contributor": {
+		"string": "Colaborator"
+	},
+	"RoleSelect.journalist": {
+		"string": "Jurnalist"
+	},
+	"RoleSelect.editor": {
+		"string": "Editor"
+	},
+	"RoleSelect.owner": {
+		"string": "Coordonator"
+	},
+	"slackConfig.title": {
+		"string": "Integrare Slack"
+	},
+	"slackConfig.menuTooltip": {
+		"string": "Setări de integrare"
+	},
+	"slackConfig.text": {
+		"string": "Notificați un canal Slack despre activitatea de pe spațiul de lucru."
+	},
+	"switchTeams.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea spațiului de lucru. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teams.yourTeams": {
+		"string": "Spațiile dvs. de lucru"
+	},
+	"teams.userTeams": {
+		"string": "Spațiile de lucru ale lui {name}"
+	},
+	"switchTeams.member": {
+		"string": "{membersCount, plural, =0 {Niciun membru} one {1 membru} other {# membri}}"
+	},
+	"switchTeams.joinRequestMessage": {
+		"string": "Ați cerut să vă alăturați"
+	},
+	"switchTeams.cancelJoinRequest": {
+		"string": "Anulează"
+	},
+	"switchTeams.noTeams": {
+		"string": "Nu sunteți membru pe niciun spațiu de lucru."
+	},
+	"switchTeams.newTeamLink": {
+		"string": "Creează spațiu de lucru"
+	},
+	"tagTextCount.acknowledge": {
+		"string": "{count, plural, =0 {Da} one {Înțeleg că ștergerea acestei etichete o va scoate de pe un element media.} other {Înțeleg că ștergerea etichetei o va scoate de pe # elemente media.}}"
+	},
+	"teamBots.success": {
+		"string": "Setările au fost actualizate!"
+	},
+	"teamBots.fail": {
+		"string": "Eroare! Mai încercați odată."
+	},
+	"teamBots.noBots": {
+		"string": "Nu există roboți instalați."
+	},
+	"teamBots.moreInfo": {
+		"string": "Mai multe informații"
+	},
+	"teamBots.remove": {
+		"string": "Elimină"
+	},
+	"teamBots.settingsTooltip": {
+		"string": "Setări robot"
+	},
+	"teamBots.confirmDeleteTitle": {
+		"string": "Sunteți pe cale să dezactivați {botName}"
+	},
+	"teamBots.confirmDeleteBlurb": {
+		"string": "Toate setările vor fi șterse și nu vor putea fi recuperate. Sigur vreți să continuați?"
+	},
+	"teamBots.confirmLeaveTitle": {
+		"string": "Ieșiți fără salvare?"
+	},
+	"teamBots.confirmLeaveText": {
+		"string": "Dacă ieșiți, pierdeți modificările."
+	},
+	"teamBots.confirmLeaveButtonLabel": {
+		"string": "Ieșire"
+	},
+	"teamBots.settings": {
+		"string": "Setări"
+	},
+	"teamBots.save": {
+		"string": "Salvează"
+	},
+	"teamBots.noSettings": {
+		"string": "Nu există setări pentru acest robot."
+	},
+	"teamBots.botGarden": {
+		"string": "Navigare prin depozitul de roboți"
+	},
+	"teamBots.confirmationTitle": {
+		"string": "Confirmă"
+	},
+	"teamBots.confirmationMessage": {
+		"string": "Sunteți pe cale să modificați live robotul. Toți utilizatorii abonați la fluxul dvs. vor vedea modificările. Sigur vreți să continuați?"
+	},
+	"teamBots.smoochErrorTitle": {
+		"string": "Opțiune nedisponibilă"
+	},
+	"teamBots.smoochErrorMessage": {
+		"string": "Nu puteți folosi „9” ca opțiune de scenariu în meniul principal. Alegeți altă valoare pentru următoarele limbi: {languages}"
+	},
+	"teamBots.close": {
+		"string": "Închide"
+	},
+	"teamSettings.lists": {
+		"string": "Liste"
+	},
+	"teamSettings.metadata": {
+		"string": "Metadate"
+	},
+	"teamSettings.tasks": {
+		"string": "Sarcini"
+	},
+	"teamSettings.rules": {
+		"string": "Reguli"
+	},
+	"teamSettings.Tags": {
+		"string": "Etichete"
+	},
+	"teamSettings.languages": {
+		"string": "Limbile"
+	},
+	"teamSettings.statuses": {
+		"string": "Stări"
+	},
+	"teamSettings.report": {
+		"string": "Raport"
+	},
+	"teamSettings.integrations": {
+		"string": "Integrări"
+	},
+	"teamSettings.bots": {
+		"string": "Roboți"
+	},
+	"teamComponent.private": {
+		"string": "Privat"
+	},
+	"teamComponent.public": {
+		"string": "Public"
+	},
+	"teamInfo.editTeam": {
+		"string": "Editează"
+	},
+	"teamComponent.editError": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea spațiului de lucru. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teamComponent.invalidLink": {
+		"string": "Introduceți un URL valid"
+	},
+	"teamComponent.teamName": {
+		"string": "Denumire"
+	},
+	"teamComponent.teamDescription": {
+		"string": "Descriere"
+	},
+	"teamComponent.location": {
+		"string": "Loc"
+	},
+	"teamComponent.phone": {
+		"string": "Număr de telefon"
+	},
+	"teamComponent.website": {
+		"string": "Pagină web"
+	},
+	"teamComponent.cancelButton": {
+		"string": "Anulează"
+	},
+	"teamComponent.saveButton": {
+		"string": "Salvează"
+	},
+	"teamInviteCard.title": {
+		"string": "Invită membri"
+	},
+	"teamMembersComponent.inviteLink": {
+		"string": "Pentru a invita colegii să se alăture echipei {teamName}, trimiteți-le acest link:"
+	},
+	"teamInviteCard.copy": {
+		"string": "COPIAT!"
+	},
+	"teamInviteCard.copied": {
+		"string": "COPIAZĂ"
+	},
+	"TeamInviteMembers.emailInput": {
+		"string": "Adresă de e-mail"
+	},
+	"TeamInviteMembers.emailMultipleInput": {
+		"string": "Separați adresele de e-mail prin virgule"
+	},
+	"TeamInviteMembers.invalidEmail": {
+		"string": "Adresă de e-mail nevalidă."
+	},
+	"TeamInviteMembers.existsEmail": {
+		"string": "Este deja membru."
+	},
+	"TeamInviteMembers.invitedEmail": {
+		"string": "Deja invitat."
+	},
+	"TeamMembersListItem.contributor": {
+		"string": "Colaborator"
+	},
+	"TeamMembersListItem.journalist": {
+		"string": "Jurnalist"
+	},
+	"TeamMembersListItem.editor": {
+		"string": "Editor"
+	},
+	"TeamMembersListItem.annotator": {
+		"string": "Adnotator"
+	},
+	"teamInviteMembers.resendEmailSuccess": {
+		"string": "Invitația a fost trimisă cu succes"
+	},
+	"teamInviteMembers.inviteMembers": {
+		"string": "Membrii vor fi invitați ca"
+	},
+	"teamInviteMembers.inviteMember": {
+		"string": "Invită"
+	},
+	"TeamInviteMembers.newInvite": {
+		"string": "Invită membri"
+	},
+	"teamInviteMembers.customInvitation": {
+		"string": "Notă la invitație (opțional)"
+	},
+	"teamInviteMembers.addSeparate": {
+		"string": "Adaugă separat"
+	},
+	"teamInviteMembers.addAnother": {
+		"string": "Adaugă altul"
+	},
+	"teamInviteMembers.addMany": {
+		"string": "Adaugă mai mulți"
+	},
+	"teamInviteMembers.cancelAdd": {
+		"string": "Anulează"
+	},
+	"teamInviteMembers.send": {
+		"string": "Trimite"
+	},
+	"TeamMembersInvitedListItem.cancel": {
+		"string": "Anulează invitația"
+	},
+	"TeamMembersInvitedListItem.resend": {
+		"string": "Retransmite"
+	},
+	"teamLists.title": {
+		"string": "Setări liste"
+	},
+	"teamLists.description": {
+		"string": "Selectați toate coloanele pe care le vreți afișate în toate listele."
+	},
+	"teamMembersComponent.pendingInvitations": {
+		"string": "Invitații în așteptare"
+	},
+	"teamMembershipRequests.requestsToJoin": {
+		"string": "Cereri de acces"
+	},
+	"teamMembersComponent.mainHeading": {
+		"string": "Membri"
+	},
+	"teamMembersComponent.editDoneButton": {
+		"string": "Terminat"
+	},
+	"teamMembersComponent.editButton": {
+		"string": "Editează"
+	},
+	"TeamMembersListItem.leaveTeam": {
+		"string": "Ieși din spațiul de lucru"
+	},
+	"TeamMembersListItem.singleOwner": {
+		"string": "Înainte de a putea ieși din spațiul de lucru, transferați unui alt membru statutul de coordonator."
+	},
+	"TeamMembersListItem.deleteMember": {
+		"string": "Elimină membrul"
+	},
+	"TeamMembersListItem.confirmLeaveTitle": {
+		"string": "Sigur vreți să părăsiți echipa {team}?"
+	},
+	"TeamMembersListItem.confirmDeleteMemberTitle": {
+		"string": "Sigur vreți să eliminați utilizatorul {user}?"
+	},
+	"TeamMembersListItem.confirmEditMemberTitle": {
+		"string": "Sigur vreți să modificați rolul utilizatorului {user}?"
+	},
+	"TeamMembersListItem.confirmLeaveBlurb": {
+		"string": "Veți fi eliminat(ă) din echipa {team}"
+	},
+	"TeamMembersListItem.confirmDeleteMemberBlurb": {
+		"string": "Utilizatorul va fi eliminat din echipa {team}"
+	},
+	"TeamMembershipRequestsListItem.approve": {
+		"string": "Aprobă"
+	},
+	"TeamMembershipRequestsListItem.deny": {
+		"string": "Respinge"
+	},
+	"teamComponent.projects": {
+		"string": "Liste"
+	},
+	"teamComponent.noProjects": {
+		"string": "Nicio listă"
+	},
+	"teamComponent.projectAssignmentsCount": {
+		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+	},
+	"teamReport.updateFail": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea setărilor raportului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teamReport.updateSuccess": {
+		"string": "Setările raportului au fost actualizate cu succes!"
+	},
+	"teamReport.save": {
+		"string": "Salvează"
+	},
+	"teamReport.title": {
+		"string": "Setări implicte de rapoarte"
+	},
+	"teamReport.subtitle": {
+		"string": "Conținutul setat aici poate fi editat în fiecare raport individual"
+	},
+	"teamReport.introduction": {
+		"string": "Introducere"
+	},
+	"teamReport.introductionSub": {
+		"string": "Folosiți substituentul {query_date} pentru afișarea datei interogării inițiale. Folosiți {status} pentru a comunica starea articolului."
+	},
+	"teamReport.disclaimer": {
+		"string": "Declinarea răspunderii"
+	},
+	"teamReport.disclaimerSub": {
+		"string": "Declinare a răspunderii care va fi afișată în partea de jos a raportului, împreună cu logo-ul spațiului de lucru."
+	},
+	"teamTags.menuTooltip": {
+		"string": "Acțiuni pe etichete"
+	},
+	"teamTags.failUpdate": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teamTags.failDelete": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teamTags.failMove": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teamTags.fail": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"teamTags.editTag": {
+		"string": "Editează eticheta"
+	},
+	"teamTags.deleteTag": {
+		"string": "Șterge eticheta"
+	},
+	"teamTags.itemsCount": {
+		"string": "{count, plural, =0 {no items} one {1 element} other {# elemente}}"
+	},
+	"teamTags.counter": {
+		"string": "{total, plural, =0 {Nicio etichetă} one {1 etichetă ({hidden} ascunsă de filtre)} other {# etichete ({hidden} ascunse de filtre)}}"
+	},
+	"teamTags.counterNoHidden": {
+		"string": "{total, plural, =0 {Nicio etichetă} one {1 etichetă} other {# etichete}}"
+	},
+	"teamTags.tooltip": {
+		"string": "Filtrează și sortează lista"
+	},
+	"teamTags.noTags": {
+		"string": "Nicio etichetă"
+	},
+	"teamTags.new": {
+		"string": "Etichetă nouă"
+	},
+	"teamTags.addTag": {
+		"string": "Adaugă eticheta"
+	},
+	"teamTags.confirmDeleteTitle": {
+		"string": "Sigur vreți să ștergeți această etichetă?"
+	},
+	"teamTasks.confirmDeleteTaskTitle": {
+		"string": "Sigur vreți să ștergeți această sarcină?"
+	},
+	"teamTasks.confirmDeleteMetadataTitle": {
+		"string": "Sigur vreți să ștergeți aceste metadate?"
+	},
+	"teamTasks.confirmEditTaskTitle": {
+		"string": "Sigur vreți să editați această sarcină?"
+	},
+	"teamTasks.confirmEditMetadataTitle": {
+		"string": "Sigur vreți să editați aceste metadate?"
+	},
+	"teamTasks.confirmEditBlurb": {
+		"string": "Sarcinile aferente elementului vor fi modificate ca urmare a aplicării acestei modificări, cu excepția celor care au fost deja finalizate."
+	},
+	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
+		"string": "Sunteți pe cale să editați sarcinile din {itemsNumber, plural, one {1 element} other {# elemente}}. Dacă veți continua, toate sarcinile respective vor fi modificate."
+	},
+	"teamTasks.confirmDeleteBlurb": {
+		"string": "Sunteți pe cale să ștergeți sarcinile selectate din {itemsNumber, plural, one {1 element} other {# elemente}}. Dacă veți continua, răspunsurile la aceste sarcini vor fi și ele șterse."
+	},
+	"teamTasks.confirmEditkeepCompleted": {
+		"string": "Păstrați sarcinile finalizate, cu denumirile și descrierile actuale."
+	},
+	"teamTasks.confirmDeletekeepCompleted": {
+		"string": "Păstrați sarcinile finalizate, cu răspunsurile actuale."
+	},
+	"teamTasks.processMessage": {
+		"string": "Vreți să continuați?"
+	},
+	"teamTasks.filterLabelHidden": {
+		"string": "{total, plural, =0 {Nicio sarcină} one {1 sarcină ({hidden} ascunsă de filtre)} other {# sarcini ({hidden} ascunse de filtre)}}"
+	},
+	"teamTasks.filterLabel": {
+		"string": "{total, plural, =0 {Nicio sarcină} one {1 sarcină} other {# sarcini}}"
+	},
+	"teamTasks.blank": {
+		"string": "Nicio sarcină implicită de afișat"
+	},
+	"teamTasks.blankMetadata": {
+		"string": "Niciun câmp de metadate"
+	},
+	"teamTasks.filter": {
+		"string": "Filtrează sarcinile"
+	},
+	"teamTasks.projFilter": {
+		"string": "Afișează sarcinile în"
+	},
+	"teamTasks.typeFilter": {
+		"string": "Tip sarcină"
+	},
+	"teamTasks.tasks": {
+		"string": "Sarcini"
+	},
+	"teamTasks.metadata": {
+		"string": "Metadate"
+	},
+	"teamTasks.edit": {
+		"string": "Editează"
+	},
+	"teamTasks.delete": {
+		"string": "Șterge"
+	},
+	"teams.title": {
+		"string": "Spații de lucru"
+	},
+	"trash.title": {
+		"string": "Coș de gunoi"
+	},
+	"unconfirmed.title": {
+		"string": "Neconfirmat"
+	},
+	"tasks.done": {
+		"string": "Terminat"
+	},
+	"ConfirmEmail.title": {
+		"string": "Confirmați adresa de e-mail"
+	},
+	"ConfirmEmail.content": {
+		"string": "Verificați mesajele primite pe e-mail pentru a verifica contul."
+	},
+	"ConfirmEmail.resendConfirmation": {
+		"string": "Retransmite"
+	},
+	"UserConnectedAccount.connectButton": {
+		"string": "Conectare"
+	},
+	"UserConnectedAccount.disconnectButton": {
+		"string": "Deconectare"
+	},
+	"UserConnectedAccount.disconnectAccountTitle": {
+		"string": "Deconectează contul"
+	},
+	"UserConnectedAccount.disconnectAccountConfirmationText": {
+		"string": "Sunteți sigur(ă)? Această acțiune va deconecta contul."
+	},
+	"UserConnectedAccount.addAnother": {
+		"string": "Adaugă alt cont"
+	},
+	"userEmail.title": {
+		"string": "Adăugați adresa de e-mail"
+	},
+	"userEmail.emailInputHint": {
+		"string": "email@example.com"
+	},
+	"userEmail.text": {
+		"string": "Pentru a vă trimite notificări avem nevoie de adresa dvs. de e-mail. Dacă vreți să primiți notificări, introduceți adresa dvs. de e-mail. Altminteri, dați click pe „Omite”"
+	},
+	"userEmail.emailInputLabel": {
+		"string": "E-mail"
+	},
+	"userEmail.skip": {
+		"string": "Omite"
+	},
+	"userEmail.submit": {
+		"string": "Trimite"
+	},
+	"userMenu.edit": {
+		"string": "Editează profilul"
+	},
+	"userTooltip.dateJoined": {
+		"string": "S-a alăturat la {date} • {teamsCount, plural, =0 {Niciun spațiu de lucru} one {1 spațiu de lucru} other {# spații de lucru}}"
+	},
+	"UserUtil.annotator": {
+		"string": "Adnotator"
+	},
+	"UserUtil.contributor": {
+		"string": "Colaborator"
+	},
+	"UserUtil.journalist": {
+		"string": "Jurnalist"
+	},
+	"UserUtil.editor": {
+		"string": "Editor"
+	},
+	"UserUtil.owner": {
+		"string": "Coordonator"
+	},
+	"reportDesigner.title": {
+		"string": "Creați formatul raportului"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Ieșire"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Titlu (max. {max} caractere)"
+	},
+	"reportDesigner.content": {
+		"string": "Conținut (max. {max} caractere)"
+	},
+	"reportDesigner.textError": {
+		"string": "Trebuie să introduceți textul raportului sau să debifați caseta „Text raport”"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Acoperire întunecată"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Elimină imaginea"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Data publicării"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Adaugă conținut în introducere"
+	},
+	"reportDesigner.addText": {
+		"string": "Adaugă conținut în mesajul text"
+	},
+	"reportDesigner.firstSent": {
+		"string": "Prima dată a publicării"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Rapoarte primite"
+	},
+	"reportDesigner.cannotPublish": {
+		"string": "Completați măcar textul raportului sau introduceți o imagine ca să publicați raportul. Asigurați-vă că ați creat un raport pentru limba primară ({language})."
+	},
+	"mediaItem.error": {
+		"string": "Eroare. Încercați din nou"
+	},
+	"mediaItem.pinning": {
+		"string": "Se fixează..."
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Terminat. În curs de redirecționare la noul element principal..."
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {1 request} other {# requests}}"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "Fixează ca principal"
+	},
+	"mediaItem.detach": {
+		"string": "Elimină"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Elementul asociat nu a putut fi adăugat"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "Element asociat adăugat cu succes"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {1 related item} other {# related items}}"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Adaugă relație"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Adaugă relație"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Cereri"
+	},
+	"mediaSimilaritiesComponent.back": {
+		"string": "Înapoi"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Medii principale"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Toate mediile similare"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Note"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Dați clic pe un element"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Importă medii similare în acest element"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "Exportă toate mediile către alt element"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Elementul similar nu a putut fi adăugat",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "Element similar adăugat cu succes",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Adaugă un element similar"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Importă medii similare în acest element"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "Exportă toate mediile către alt element"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "Exportă ca similar"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "Importă elementul similar"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "Acest mediu a fost adăugat ca similar la un alt element"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "Acest mediu a fost sugerat ca fiind similar pentru un alt element"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Înapoi"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "Potriviri sugerate ({current} din {total})"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "Sunt mediile sugerate similare cu cel principal?"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "Nu există potriviri sugerate."
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Înapoi la vizualizarea principală"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Cereri"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "Nicio cerere"
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Note"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "Fără note"
+	},
+	"searchKeywordConfig.metadata": {
+		"string": "Metadate"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Sarcini"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Nepublicat"
+	},
+	"reportStatusCell.paused": {
+		"string": "În pauză"
+	},
+	"reportStatusCell.published": {
+		"string": "Publicat"
+	},
+	"list.Item": {
+		"string": "Element"
+	},
+	"list.Demand": {
+		"string": "Cereri"
+	},
+	"list.ShareCount": {
+		"string": "Partajări FB"
+	},
+	"list.LinkedItems": {
+		"string": "Medii similare"
+	},
+	"list.Type": {
+		"string": "Tip"
+	},
+	"list.Status": {
+		"string": "Stare"
+	},
+	"list.FirstSeen": {
+		"string": "Transmis"
+	},
+	"list.LastSeen": {
+		"string": "Ultimul transmis"
+	},
+	"list.updated": {
+		"string": "Actualizată"
+	},
+	"list.reportStatus": {
+		"string": "Starea raportului"
+	},
+	"list.tags": {
+		"string": "Etichete"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Medii publicate"
+	},
+	"list.reactCount": {
+		"string": "Reacții FB"
+	},
+	"list.commentCount": {
+		"string": "Comentarii FB"
+	},
+	"list.relatedCount": {
+		"string": "Asociate"
+	},
+	"list.suggestionsCount": {
+		"string": "Potriviri sugerate"
+	},
+	"addLanguageAction.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"addLanguageAction.newLanguage": {
+		"string": "Limbă nouă"
+	},
+	"addLanguageAction.title": {
+		"string": "Alege o limbă nouă"
+	},
+	"addLanguageAction.selectLanguage": {
+		"string": "Selectați limba"
+	},
+	"addLanguageAction.addLanguage": {
+		"string": "Adaugă limba"
+	},
+	"languageListItem.default": {
+		"string": "{language} (implicită)"
+	},
+	"statusListItem.makeDefault": {
+		"string": "Setează ca implicită"
+	},
+	"statusListItem.confirmDefaultBody": {
+		"string": "{language} va deveni limbă implicită pentru răspunsurile către utilizatorii care interacționează cu robotul în orice alte limbi în afară de cea adăugată în listă."
+	},
+	"statusListItem.confirmDefaultButton": {
+		"string": "Setează ca implicită"
+	},
+	"statusListItem.confirmDefaultTitle": {
+		"string": "Setați ca limbă implicită?"
+	},
+	"statusListItem.confirmDeleteBody1": {
+		"string": "Tot conținutul în {language} nu va mai fi transmit și va fi utilizată în schimb limba implicită."
+	},
+	"statusListItem.confirmDeleteBody2": {
+		"string": "Este inclus și conținutul din robotul Tipline, stări și raport."
+	},
+	"statusListItem.confirmDeleteTitle": {
+		"string": "Ștergeți limba?"
+	},
+	"languagesComponent.title": {
+		"string": "Limbi pentru conținuturi"
+	},
+	"languagesComponent.blurb": {
+		"string": "Adăugați limbi noi în spațiul de lucru pentru crearea de rapoarte, roboți tipline și stări în mai multe limbi pentru comunicarea cu utilizatorii."
+	},
+	"translationNeededDialog.title": {
+		"string": "Necesită traducerea stărilor"
+	},
+	"translationNeededDialog.body": {
+		"string": "Pentru a face {language} limba implicită, trebuie să traduceți mai întâi stările existente în {language}, folosind fila de setare a stărilor."
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Setările Slack nu au putut fi salvate"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Setări Slack salvate cu succes!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Trimite notificări spre canalele Slack atunci când sunt adăugate revendicări în liste specifice"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Webhook Slack"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Eveniment"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Trimite notificări către"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Dacă elementul este în listă"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Canal Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Toată cealaltă activitate"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Toată activitatea din spațiul de lucru"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Notificare nouă"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Anulează"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Salvează"
+	},
+	"rule.copyOf": {
+		"string": "Copie a regulii {ruleName}"
+	},
+	"ruleBody.ruleNameValidation": {
+		"string": "Denumirea regulii este obligatorie"
+	},
+	"ruleBody.ruleName": {
+		"string": "Denumire"
+	},
+	"ruleBody.if": {
+		"string": "Dacă"
+	},
+	"ruleBody.then": {
+		"string": "Atunci"
+	},
+	"ruleOperatorWrapper.and": {
+		"string": "Și"
+	},
+	"ruleOperatorWrapper.or": {
+		"string": "Sau"
+	},
+	"ruleOperatorWrapper.removeTheAbove": {
+		"string": "Elimină elementul de mai sus"
+	},
+	"ruleToolbar.back": {
+		"string": "Înapoi"
+	},
+	"ruleToolbar.more": {
+		"string": "Mai mult"
+	},
+	"ruleToolbar.duplicate": {
+		"string": "Duplică"
+	},
+	"ruleToolbar.delete": {
+		"string": "Șterge"
+	},
+	"rulesTableToolbar.save": {
+		"string": "Salvează"
+	},
+	"ruleToolbar.deleteConfirmationTitle": {
+		"string": "Ștergeți regula?"
+	},
+	"ruleToolbar.deleteConfirmationText": {
+		"string": "Sigur vreți să ștergeți această regulă?"
+	},
+	"ruleToolbar.leaveConfirmationTitle": {
+		"string": "Închideți fără salvare?"
+	},
+	"ruleToolbar.leaveConfirmationText": {
+		"string": "Dacă veți continua, pierdeți modificările."
+	},
+	"rulesComponent.defaultErrorMessage": {
+		"string": "Regulile nu au putut fi salvate"
+	},
+	"rulesComponent.savedSuccessfully": {
+		"string": "Regulile au fost salvate cu succes!"
+	},
+	"rulesTableHead.name": {
+		"string": "Denumire"
+	},
+	"rulesTableHead.updated": {
+		"string": "Actualizată"
+	},
+	"rulesTableHead.selectAll": {
+		"string": "Selectează toate regulile"
+	},
+	"rulesTableToolbar.selected": {
+		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+	},
+	"rulesTableToolbar.title": {
+		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+	},
+	"rulesTableToolbar.delete": {
+		"string": "Șterge"
+	},
+	"rulesTableToolbar.add": {
+		"string": "Regulă nouă"
+	},
+	"rulesTableToolbar.deleteConfirmationTitle": {
+		"string": "Ștergeți regulile selectate?"
+	},
+	"rulesTableToolbar.deleteConfirmationText": {
+		"string": "Sunteți sigur(ă) că vreți să ștergeți aceste reguli?"
+	},
+	"smoochBotMenuEditor.scenario": {
+		"string": "Scenariu"
+	},
+	"smoochBotMenuOption.mainState": {
+		"string": "Meniu principal"
+	},
+	"smoochBotMenuOption.secondaryState": {
+		"string": "Meniu secundar"
+	},
+	"smoochBotMenuOption.queryState": {
+		"string": "Notificare de interogare"
+	},
+	"smoochBotMenuOption.resource": {
+		"string": "Raport"
+	},
+	"smoochBotMenuOption.languageAction": {
+		"string": "{languageName} (meniu principal)"
+	},
+	"smoochBotMenuOption.if": {
+		"string": "Dacă"
+	},
+	"smoochBotMenuOption.condition": {
+		"string": "Apare următorul cuvânt-cheie"
+	},
+	"smoochBotMenuOption.errorTos": {
+		"string": "„9” va redirecționa la termenii de utilizare a serviciilor. Nu poate fi utilizat ca opțiune în meniul principal."
+	},
+	"smoochBotMenuOption.then": {
+		"string": "Atunci"
+	},
+	"smoochBotMenuOption.action": {
+		"string": "Răspunde cu"
+	},
+	"smoochBotMenuOption.add": {
+		"string": "Creează \"{resourceName}\""
+	},
+	"smoochBotMenuOption.selectMessage": {
+		"string": "Selectează mesajul"
+	},
+	"smoochBotMultiTextEditor.errorNine": {
+		"string": "Opțiunea „9” trebuie inclusă pentru utilizatori ca să acceseze Declarația de confidențialitate"
+	},
+	"smoochBotResourceEditor.rssPlaceholder": {
+		"string": "URL public care dă ca rezultat articole N în format RSS"
+	},
+	"smoochBotResourceEditor.error": {
+		"string": "URL-ul nu pare să fie un flux RSS valabil"
+	},
+	"smoochBotResourceEditor.title": {
+		"string": "Titlu resurse robot"
+	},
+	"smoochBotResourceEditor.addContent": {
+		"string": "Adaugă conținut manual"
+	},
+	"smoochBotResourceEditor.rss": {
+		"string": "Adaugă conținut din fluxul RSS"
+	},
+	"smoochBotResourceEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotResourceEditor.numberOfArticles": {
+		"string": "Număr de articole de inclus în rezultate"
+	},
+	"smoochBotResourceEditor.load": {
+		"string": "Încarcă"
+	},
+	"smoochBotResourceEditor.delete": {
+		"string": "Șterge"
+	},
+	"smoochBotSelectReport.dialogTitle": {
+		"string": "Selectează un raport"
+	},
+	"smoochBotSelectReport.dialogDescription": {
+		"string": "Căutați titlul elementului pe care vreți să îl trimiteți ca raport. Robotul va răspunde utilizatorului cu acest raport. Raportul trebuie finalizat înainte de a-l putea căuta aici."
+	},
+	"smoochBotSelectReport.cancel": {
+		"string": "Anulează"
+	},
+	"smoochBotSelectReport.confirm": {
+		"string": "Confirmă"
+	},
+	"smoochBot.scenarios": {
+		"string": "Scenarii"
+	},
+	"smoochBot.settings": {
+		"string": "Setări"
+	},
+	"smoochBot.title": {
+		"string": "Creați robotul"
+	},
+	"smoochBot.addResource": {
+		"string": "Adaugă resursa"
+	},
+	"smoochBot.labelGreeting": {
+		"string": "Mesaj de întâmpinare"
+	},
+	"smoochBot.labelMainMenu": {
+		"string": "Meniu principal"
+	},
+	"smoochBot.labelSecondaryMenu": {
+		"string": "Meniu secundar"
+	},
+	"smoochBot.labelQueryPrompt": {
+		"string": "Notificare de interogare"
+	},
+	"smoochBot.labelQueryReceived": {
+		"string": "Interogare primită"
+	},
+	"smoochBot.labelOptionNotAvailable": {
+		"string": "Opțiune indisponibilă"
+	},
+	"smoochBot.labelReportUpdated": {
+		"string": "Raportul a fost actualizat"
+	},
+	"smoochBot.labelInvalidFormat": {
+		"string": "Format nevalid"
+	},
+	"smoochBot.labelInactive": {
+		"string": "Notificare de inactivitate"
+	},
+	"smoochBot.labelPrivacyStatement": {
+		"string": "Declarație de confidențialitate"
+	},
+	"smoochBot.descriptionGreeting": {
+		"string": "Primul mesaj trimis utilizatorului. Prezintă organizația dvs. și serviciul pe care îl furnizați prin acest robot."
+	},
+	"smoochBot.descriptionMainMenu": {
+		"string": "Este un meniu care îi cere utilizatorului să aleagă dintr-un set de opțiuni. Acest mesaj va urma automat după mesajul de întâmpinare. 9 nu poate fi folosit ca opțiune în meniul principal."
+	},
+	"smoochBot.descriptionSecondaryMenu": {
+		"string": "Un meniu opțional, care cere utilizatorului să aleagă dintr-un set de opțiuni. Când un utilizator răspunde cu una dintre opțiuni, robotul poate transmite un raport sau poate direcționa utilizatorul spre un alt mesaj automat."
+	},
+	"smoochBot.descriptionQueryPrompt": {
+		"string": "Mesajul îi cere utilizatorului să transmită conținutul pentru verificarea faptelor."
+	},
+	"smoochBot.descriptionQueryReceived": {
+		"string": "Confirmarea transmită utilizatorului după ce a fost primită o interogare validă din partea utilizatorului."
+	},
+	"smoochBot.descriptionOptionNotAvailable": {
+		"string": "Mesaj transmis dacă răspunsul utilizatorului la un meniu nu este un scenariu de meniu valid."
+	},
+	"smoochBot.descriptionReportUpdated": {
+		"string": "Mesaj transmis utilizatorului la modificarea stării unui raport. Raportul trebuie să fie finalizat pentru ca acest mesaj să fiie transmis."
+	},
+	"smoochBot.descriptionInvalidFormat": {
+		"string": "Un mesaj automat transmis utilizatorului când a transmis un fișier pentru care Check nu oferă suport."
+	},
+	"smoochBot.descriptionInactive": {
+		"string": "Acest mesaj este transmis oricărui utilizator care a transmis un mesaj în flux când robotul Check Message este setat pe inactiv."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting": {
+		"string": "Următoarea Declarație de confidențialitate este disponibilă tuturor utilizatorilor. La înlocuirea ei cu una personalizată, trebuie să o înlocuiți pentru fiecare limbă în care este activ robotul."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting2": {
+		"string": "Trebuie să se facă trimitere la opțiunea „9” pentru ca utilizatorii să poată accesa Declarația de confidențialitate din Meniul principal."
+	},
+	"smoochBot.descriptionPrivacyStatementContent": {
+		"string": "Conținutul Declarației de confidențialitate. Editați textul de mai jos sau înlocuiți-l cu un conținut personalizat."
+	},
+	"smoochBot.footnoteGreeting": {
+		"string": "Următoarea declarație și opțiunea aferentă vor fi adăugate automat la sfârșitul mesajului: „Nu vă vom divulga niciodată datele cu caracter personal identificabile. Răspundeți cu 9 pentru a citi Declarație de confidențialitate și scopul colectării”."
+	},
+	"smoochBot.footnoteGreeting2": {
+		"string": "Declarația implicită de confidențialitate poate fi înlocuită cu una personalizată în dreptul opțiunii „Declarație de confidențialitate” de pe această pagină."
+	},
+	"smoochBot.placeholderGreeting": {
+		"string": "Salut! Bine ai venit la robotul de verificare a faptelor al [Denumirea organizației dvs.]."
+	},
+	"smoochBot.placeholderMainMenu": {
+		"string": "📌*Meniu principal*\n\n*Răspundeți cu 1* (sau 🔍) pentru transmiterea unei cereri de verificare a unui articol, videoclip, a unei imagini sau a altui tip de conținut.\n*Răspundeți cu 2* (sau 🦠) pentru a obține cele mai noi informații despre coronavirus (COVID-19)"
+	},
+	"smoochBot.placeholderSecondaryMenu": {
+		"string": "*Informații despre coronavirus (COVID-19)* 🦠\n\n👉*Răspundeți cu oricare dintre următoarele numere (sau emoji) pentru a obține informații despre subiectul respectiv:*\n\n*1:* Cum mă protejez pe mine/Cum îmi protejez familia? 👨‍👩‍👧\n*2:* Cred că m-am îmbolnăvit 🤒\n*3:* Cum pot gestiona stresul legat de COVID-19? ❤️\n*4:* Informații despre cazuri și pacienți recuperați la nivel mondial 📊\n*5:* Cele mai recente actualizări de la Organizația Mondială a Sănătății 🌐\n\n*Răspundeți cu 0* pentru revenire în *meniul principal* 📌"
+	},
+	"smoochBot.placeholderQueryPrompt": {
+		"string": "*Vă rugăm să introduceți întrebarea, linkul, imaginea, clipul video sau audio pe care vreți să îl verificați pentru fapte,* urmat de orice context legat de elementul respectiv. Cererea dvs. va fi trimisă la verificatori în circa 15 secunde de la ultimul dvs. mesaj.\n      \n*Răspundeți cu 0 (sau 📌)* pentru anulare și revenirea în *meniul principal*"
+	},
+	"smoochBot.placeholderQueryReceived": {
+		"string": "Vă mulțumim! Cererea dvs. a fost recepționată. Răspunsurile sunt cumulate și sortate și lucrăm la verificarea întrebărilor dvs.\n\n✔️*Urmați acest link pentru o listă actualizată cu întrebări frecvente pentru care am efectuat verificări de fapte:* [ Link spre o pagină de verificări de fapte de pe site-ul dvs. web ]\n\n👉*Răspundeți cu orice text* pentru revenire în *meniul principal* 📌"
+	},
+	"smoochBot.placeholderOptionNotAvailable": {
+		"string": "🤖Ne pare rău, nu am înțeles mesajul. Vă rugăm să încercați din nou!"
+	},
+	"smoochBot.placeholderReportUpdated": {
+		"string": "❗️Verificarea de fapte pe care v-am transmis-o a fost *actualizată* cu informații noi:"
+	},
+	"smoochBot.placeholderInvalidFormat": {
+		"string": "❌Ne pare rău, momentan nu putem accepta acest tip de mesaje pentru verificări.\n\nAcceptăm majoritatea imaginilor, videoclipurilor, linkurilor, mesajelor text și mesajelor partajate de pe WhatsApp."
+	},
+	"smoochBot.placeholderInactive": {
+		"string": "❌Vă mulțumim pentru mesaj. Serviciul nostru de verificare a faptelor este momentan *inactiv.*\n\nContactați-ne la *[adresă de e-mail sau alte date de contact]* pentru alte întrebări."
+	},
+	"smoochBot.newResourceTitle": {
+		"string": "Resursă nouă pentru robot"
+	},
+	"smoochBot.menuKeywords": {
+		"string": "Cuvinte-cheie separate prin virgulă"
+	},
+	"smoochBot.tos": {
+		"string": "Termenii de utilizare a serviciului ({language})"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Mută elementele în"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Trebuie să modificați starea pentru {itemsCount, plural, one {un element} other {# elemente}} ca să ștergeți această stare"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Sunt {itemsCount, plural, one {un element} other {sunt # elemente}} cu starea {statusLabel} pe care trebuie să le treceți pe alte stări înainte de a șterge această stare."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Alternativ, puteți modifica starea fiecărui element individual."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Mută elementele și șterge starea"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Editează starea"
+	},
+	"editStatusDialog.title": {
+		"string": "Adaugă o stare nouă"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Stare (maxim {maxLength} caractere)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Descriere"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Adaugă stare"
+	},
+	"statusListItem.noDescription": {
+		"string": "Nicio descriere"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (implicită)"
+	},
+	"statusesComponent.error": {
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea stărilor. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"statusesComponent.saved": {
+		"string": "Stări salvate cu succes!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Stare nouă"
+	},
+	"statusesComponent.blurb": {
+		"string": "Titlul stării este vizibil când rapoartele sunt transmise utilizatorilor."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Traduceți stările în limbi secundare pentru afișarea lor în limbile naționale în rapoartele de verificare a faptelor."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Traduceri lipsă"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Unele stări nu au traduceri. Este posibil ca utilizatorii să nu poată citi stările netraduse."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Continuă și salvează"
+	},
+	"teamListsComponent.defaultErrorMessage": {
+		"string": "Setările listei nu au putut fi salvate.",
+		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+	},
+	"teamListsComponent.savedSuccessfully": {
+		"string": "Setările listei au fost salvate cu succes.",
+		"developer_comment": "Banner displayed when list settings are saved successfully"
+	},
+	"teamListsComponent.title": {
+		"string": "Setări liste"
+	},
+	"teamListsComponent.save": {
+		"string": "Salvează"
+	},
+	"teamListsComponent.description": {
+		"string": "Selectați toate coloanele pe care le vreți afișate în toate listele."
+	},
+	"teamListsComponent.selectedColumns": {
+		"string": "Coloane selectate"
+	},
+	"teamListsComponent.availableColumns": {
+		"string": "Coloane disponibile"
+	},
+	"teamListsComponent.confirmSaveTitle": {
+		"string": "Modificarea listei din spațiul de lucru"
+	},
+	"teamListsComponent.confirmSaveText": {
+		"string": "Sunteți sigur(ă)? Modificările vor afecta toate listele și vor fi vizibile pentru toți utilizatorii din spațiul de lucru."
+	},
+	"teamListsComponent.buttonLabel": {
+		"string": "Salvează modificările pentru toate listele"
+	},
+	"teamListsItem.hide": {
+		"string": "Ascunde"
+	},
+	"teamListsItem.show": {
+		"string": "Arată"
+	}
+}

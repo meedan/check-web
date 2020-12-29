@@ -26,7 +26,7 @@ if (buildConfig.transifex) {
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
     project: buildConfig.transifex.project,
-    i18n_type: 'CHROME',
+    i18n_type: 'STRUCTURED_JSON',
     local_path: './localization/translations/*/',
   });
 }
@@ -75,27 +75,27 @@ gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').
   const outputJson = {};
   inputJson.forEach((entry) => {
     outputJson[entry.id] = {
-      message: entry.defaultMessage,
-      description: entry.description,
+      string: entry.defaultMessage,
+      developer_comment: entry.description,
     };
   });
   return outputJson;
 }))
-.pipe(merge({ fileName: 'WebWithContext.json' }))
+.pipe(merge({ fileName: 'WebStructured.json' }))
 .pipe(gulp.dest('./localization/transifex/')));
 
-gulp.task('transifex:upload', () => gulp.src('./localization/transifex/WebWithContext.json').pipe(transifexClient.pushResource()));
+gulp.task('transifex:upload', () => gulp.src('./localization/transifex/WebStructured.json').pipe(transifexClient.pushResource()));
 
-gulp.task('transifex:export-chrome', () => gulp.src('./localization/translations/**/*.json').pipe(jsonEditor((inputJson) => {
+gulp.task('transifex:export-structured', () => gulp.src('./localization/translations/**/*.json').pipe(jsonEditor((inputJson) => {
   const outputJson = {};
   for (const [key, value] of Object.entries(inputJson)) {
     outputJson[key] = {
-      message: value,
+      string: value,
     };
   }
   return outputJson;
 }))
-.pipe(gulp.dest('./localization/export-chrome/')));
+.pipe(gulp.dest('./localization/export-structured/')));
 
 gulp.task('transifex:languages', () => {
   transifexClient.languages((data) => {
