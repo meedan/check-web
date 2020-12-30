@@ -273,7 +273,7 @@ export const MuiTheme = {
       },
     },
   },
-  overrides: {
+  overrides: { // Override of all material UI components. Information at https://material-ui.com/api/{component}
     MuiTableCell: {
       stickyHeader: {
         // @material-ui/core sets #fafafa, only for sticky header. Undo that.
@@ -290,12 +290,26 @@ export const MuiTheme = {
         color: `${highlightOrange} !important`,
       },
     },
-    MuiIconButton: {
+    MuiIconButton: { // Buttons with Icons
       root: {
         '&:hover': {
           backgroundColor: 'transparent',
           color: checkBlue,
         },
+      },
+    },
+    MuiTab: {
+      root: {
+        padding: '8px 16px',
+        minWidth: 0,
+        '@media (min-width: 0px)': {
+          minWidth: 0,
+        },
+      },
+    },
+    MuiButton: {
+      contained: {
+        boxShadow: 'none',
       },
     },
   },
@@ -457,9 +471,11 @@ export const FadeIn = styled.div`
   opacity: 0;
 `;
 
+// content column used in  settings
+// We want to align left together with the setting menu
 export const ContentColumn = styled.div`
-  margin: 0 auto;
-  padding: 0 ${props => props.noPadding ? '0' : units(1)};
+  margin: 0 0 0 32px;
+  padding: 0;
   width: 100%;
   max-width: ${columnWidthMedium};
   ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
