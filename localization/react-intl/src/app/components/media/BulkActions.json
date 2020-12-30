@@ -2,12 +2,12 @@
   {
     "id": "bulkActions.movedRestoreSuccessfully",
     "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from trash to `{toProject}`"
+    "defaultMessage": "Items moved from Trash to '{toProject}'"
   },
   {
     "id": "bulkActions.movedConfirmSuccessfully",
     "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from Unconfirmed to `{toProject}`"
+    "defaultMessage": "Items moved from Unconfirmed to '{toProject}'"
   },
   {
     "id": "bulkActions.addedSuccessfully",
@@ -26,7 +26,7 @@
   },
   {
     "id": "bulkActions.moveToTrashSuccessfully",
-    "defaultMessage": "Items moved to the trash."
+    "defaultMessage": "Items moved to the Trash."
   },
   {
     "id": "bulkActions.trash",
@@ -34,7 +34,7 @@
   },
   {
     "id": "bulkActions.restore",
-    "defaultMessage": "Restore from trash"
+    "defaultMessage": "Restore from Trash"
   },
   {
     "id": "bulkActions.unconfirmed",
@@ -42,7 +42,7 @@
   },
   {
     "id": "bulkActions.confirm",
-    "defaultMessage": "Move from unconfirmed"
+    "defaultMessage": "Move from Unconfirmed"
   },
   {
     "id": "bulkActions.move",
@@ -82,6 +82,6 @@
   },
   {
     "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send selected items to trash"
+    "defaultMessage": "Send selected items to Trash"
   }
 ]
