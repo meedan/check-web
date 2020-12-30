@@ -1,6 +1,10 @@
 [
   {
-    "id": "UserInfo.dateJoined",
-    "defaultMessage": "Joined {date} • {teamsCount, plural, one {1 workspace} other {# workspaces}}"
+    "id": "userInfo.dateJoined",
+    "defaultMessage": "Joined {date}"
+  },
+  {
+    "id": "userInfo.teamsCount",
+    "defaultMessage": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
   }
 ]
