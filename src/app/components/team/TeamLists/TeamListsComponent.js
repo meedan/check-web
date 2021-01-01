@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import TeamListsColumn from './TeamListsColumn';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import { checkBlue, ContentColumn } from '../../../styles/js/shared';
+import { checkBlue, ContentColumn, black16 } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { isBotInstalled } from '../../../helpers';
 
@@ -34,8 +35,19 @@ const useStyles = makeStyles(theme => ({
     color: checkBlue,
   },
   divider: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  link: {
+    textDecoration: 'underline',
+    background: '#F6F6F6',
+    padding: theme.spacing(1),
+    margin: theme.spacing(1),
+    minHeight: theme.spacing(10),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
   },
 }));
 
@@ -204,24 +216,48 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 columns={selectedColumns}
                 title={
                   <FormattedMessage
-                    id="teamListsComponent.selectedColumns"
-                    defaultMessage="Selected columns"
+                    id="teamListsComponent.displayedColumns"
+                    defaultMessage="Displayed columns"
                   />
                 }
                 onToggle={handleToggle}
                 onMoveUp={handleMoveUp}
                 onMoveDown={handleMoveDown}
+                style={{
+                  background: '#F6F6F6',
+                  borderRadius: '5px',
+                  border: `2px solid ${black16}`,
+                }}
               />
               <Divider orientation="vertical" className={classes.divider} flexItem />
               <TeamListsColumn
-                columns={availableColumns}
+                columns={availableColumns.filter(c => !/^task_value_/.test(c.key))}
                 title={
                   <FormattedMessage
-                    id="teamListsComponent.availableColumns"
-                    defaultMessage="Available columns"
+                    id="teamListsComponent.generalColumns"
+                    defaultMessage="General"
                   />
                 }
                 onToggle={handleToggle}
+              />
+              <Divider orientation="vertical" className={classes.divider} flexItem />
+              <TeamListsColumn
+                columns={availableColumns.filter(c => /^task_value_/.test(c.key))}
+                title={
+                  <FormattedMessage
+                    id="teamListsComponent.metadataColumns"
+                    defaultMessage="Metadata"
+                  />
+                }
+                onToggle={handleToggle}
+                placeholder={
+                  <Link to={`/${team.slug}/settings/metadata`} className={classes.link}>
+                    <FormattedMessage
+                      id="teamListsComponent.createMetadata"
+                      defaultMessage="Create new metadata field"
+                    />
+                  </Link>
+                }
               />
             </Box>
           </CardContent>
@@ -257,11 +293,11 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
 TeamListsComponent.propTypes = {
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
     list_columns: PropTypes.arrayOf(PropTypes.shape({
       key: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       show: PropTypes.bool.isRequired,
-      frozen: PropTypes.bool.isRequired,
     }).isRequired).isRequired,
     team_bot_installations: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({

@@ -1,5 +1,13 @@
 [
   {
+    "id": "teamListsItem.metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
+    "id": "teamListsItem.general",
+    "defaultMessage": "General"
+  },
+  {
     "id": "teamListsItem.hide",
     "defaultMessage": "Hide"
   },
