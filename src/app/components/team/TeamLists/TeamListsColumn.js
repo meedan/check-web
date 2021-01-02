@@ -1,13 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TeamListsItem from './TeamListsItem';
+import { black54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   column: {
     marginTop: theme.spacing(2),
+  },
+  innerColumn: {
+    padding: theme.spacing(1),
+  },
+  placeholder: {
+    color: black54,
+    textAlign: 'center',
   },
 }));
 
@@ -17,6 +26,8 @@ const TeamListsColumn = ({
   onToggle,
   onMoveUp,
   onMoveDown,
+  style,
+  placeholder,
 }) => {
   const classes = useStyles();
 
@@ -25,17 +36,23 @@ const TeamListsColumn = ({
       <Typography variant="subtitle2">
         {title}
       </Typography>
-      {columns.map((column, i) => (
-        <TeamListsItem
-          key={column.key}
-          column={column}
-          onToggle={onToggle}
-          onMoveUp={onMoveUp}
-          onMoveDown={onMoveDown}
-          isFirst={i === 0}
-          isLast={i === columns.length - 1}
-        />
-      ))}
+      <Box className={classes.innerColumn} style={style}>
+        {columns.map((column, i) => (
+          <TeamListsItem
+            key={column.key}
+            column={column}
+            onToggle={onToggle}
+            onMoveUp={onMoveUp}
+            onMoveDown={onMoveDown}
+            isFirst={i === 0}
+            isLast={i === columns.length - 1}
+          />
+        ))}
+        { columns.length === 0 ?
+          <Box className={classes.placeholder}>
+            {placeholder}
+          </Box> : null }
+      </Box>
     </Box>
   );
 };
@@ -43,6 +60,8 @@ const TeamListsColumn = ({
 TeamListsColumn.defaultProps = {
   onMoveUp: null,
   onMoveDown: null,
+  style: {},
+  placeholder: <FormattedMessage id="teamListsColumn.none" defaultMessage="None available" />,
 };
 
 TeamListsColumn.propTypes = {
@@ -52,11 +71,12 @@ TeamListsColumn.propTypes = {
     key: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     show: PropTypes.bool.isRequired,
-    frozen: PropTypes.bool.isRequired,
   }).isRequired).isRequired,
   onToggle: PropTypes.func.isRequired,
   onMoveUp: PropTypes.func,
   onMoveDown: PropTypes.func,
+  style: PropTypes.object,
+  placeholder: PropTypes.node,
 };
 
 export default TeamListsColumn;

@@ -83,7 +83,7 @@ class UserComponent extends React.Component {
                           defaultMessage="Workspaces"
                         />
                       }
-                      value="teams"
+                      value="workspaces"
                     />
                     <Tab
                       id="assignments-tab"
@@ -129,7 +129,7 @@ class UserComponent extends React.Component {
               null :
               <div>
                 <UserEmail user={user} />
-                { this.state.showTab === 'teams' ? <SwitchTeamsComponent user={user} /> : null}
+                { this.state.showTab === 'teams' || this.state.showTab === 'workspaces' ? <SwitchTeamsComponent user={user} /> : null}
                 { this.state.showTab === 'assignments' ? <UserAssignments user={user} /> : null}
                 { this.state.showTab === 'privacy' ? <UserPrivacy user={user} /> : null}
                 { this.state.showTab === 'security' ? <UserSecurity user={user} /> : null}
