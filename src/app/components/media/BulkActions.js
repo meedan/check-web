@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -144,20 +145,30 @@ class BulkActions extends React.Component {
 
   handleMove() {
     const onSuccess = () => {
+      const {
+        title: projectTitle,
+        dbid: projectId,
+      } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
       const message = (
         <FormattedMessage
           id="bulkActions.movedSuccessfully"
-          defaultMessage="Items moved."
+          defaultMessage="Items moved to '{toProject}'"
           description="Banner displayed after items are moved successfully"
+          values={{
+            toProject: (
+              <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                {projectTitle}
+              </Link>
+            ),
+          }}
         />
       );
       this.props.setFlashMessage(message);
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
 
-    onSuccess();
+    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -174,14 +185,23 @@ class BulkActions extends React.Component {
 
   handleRestoreOrConfirm = (params) => {
     const onSuccess = () => {
-      const toProject = this.state.dstProj ? this.state.dstProj.title : null;
+      const {
+        title: projectTitle,
+        dbid: projectId,
+      } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
       const message = params.archived_was === CheckArchivedFlags.TRASHED ?
         (
           <FormattedMessage
             id="bulkActions.movedRestoreSuccessfully"
             defaultMessage="Items moved from Trash to '{toProject}'"
             description="Banner displayed after items are moved successfully"
-            values={{ toProject }}
+            values={{
+              toProject: (
+                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                  {projectTitle}
+                </Link>
+              ),
+            }}
           />
         ) :
         (
@@ -189,7 +209,13 @@ class BulkActions extends React.Component {
             id="bulkActions.movedConfirmSuccessfully"
             defaultMessage="Items moved from Unconfirmed to '{toProject}'"
             description="Banner displayed after items are moved successfully"
-            values={{ toProject }}
+            values={{
+              toProject: (
+                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                  {projectTitle}
+                </Link>
+              ),
+            }}
           />
         );
       this.props.setFlashMessage(message);
@@ -455,6 +481,7 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
     medias_count
     permissions
     search_id
+    slug
     check_search_trash {
       id
       number_of_results
