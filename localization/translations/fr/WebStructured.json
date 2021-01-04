@@ -69,7 +69,7 @@
 		"string": "Afficher le code source"
 	},
 	"bot.updatedAt": {
-		"string": "Mise à jour"
+		"string": "Mis à jour"
 	},
 	"bot.version": {
 		"string": "Version"
@@ -762,10 +762,200 @@
 		"string": "Tous les éléments"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, number} sélectionné.es"
+		"string": "{length, number} sélectionnés"
 	},
 	"projectSelector.allProjs": {
 		"string": "Toutes les listes"
+	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "Les métadonnées ont une valeur précise"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Les métadonnées comprennent un mot-clé"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "La tâche à une réponse précise"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "La réponse de la tâche comprend un mot-clé"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Sélectionner la tâche"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Sélectionner les métadonnées"
+	},
+	"search.allClaimsTitle": {
+		"string": "Tous les éléments"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filtrer par"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Sélectionner la valeur"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Saisissez une liste de mots-clés séparés par des virgules"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Ajouter des filtres"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Les métadonnées ont une valeur précise"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Les métadonnées comprennent un mot-clé"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "La tâche à une réponse précise"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "La réponse de la tâche comprend un mot-clé"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Aucune valeur n’est définie"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "N’importe quelle valeur est définie"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Sélectionner la tâche"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Sélectionner les métadonnées"
+	},
+	"search.dateHeading": {
+		"string": "Période"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Envoyé"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Dernier envoi"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Mise à jour"
+	},
+	"search.datePublishedHeading": {
+		"string": "Publié"
+	},
+	"search.pickDateFrom": {
+		"string": "Date de début"
+	},
+	"search.pickDateTo": {
+		"string": "Date de fin"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Titre des médias"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Contenu des médias"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Titre des analyses"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Contenu des analyses"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Balises"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Toutes les réponses des tâches",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Toutes les réponses des métadonnées"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Toutes les notes"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Tous les commentaires des tâches"
+	},
+	"search.showClaims": {
+		"string": "Textes"
+	},
+	"search.showLinks": {
+		"string": "Liens"
+	},
+	"search.showImages": {
+		"string": "Images"
+	},
+	"search.showVideos": {
+		"string": "Vidéos"
+	},
+	"search.showAudios": {
+		"string": "Contenus sonores"
+	},
+	"search.showBlank": {
+		"string": "Rapport importé"
+	},
+	"search.title": {
+		"string": "Tous les éléments"
+	},
+	"search.inputHint": {
+		"string": "Recherche"
+	},
+	"search.help": {
+		"string": "<table>\n                        <tbody>\n                          <tr><td>+</td><td>Arbre + Feuille</td><td>Éléments avec à la fois Arbre ET Feuille</td></tr>\n                          <tr><td>|</td><td>Arbre | Feuille</td><td>Éléments avec soit Arbre OU Feuille</td></tr>\n                          <tr><td>()</td><td>Arbre + (Feuille | Branche)</td><td>Eléments avec Arbre ET Feuille OU éléments avec Arbre ET Branche\n                        </tbody>\n                      </table>\n                      <div>\n                        <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                          Apprenez-en davantage sur les techniques de recherche\n                        </a>\n                      </div>"
+	},
+	"search.Filter": {
+		"string": "Filtre"
+	},
+	"search.clear": {
+		"string": "Effacer le filtre"
+	},
+	"search.categoriesHeading": {
+		"string": "Balises"
+	},
+	"search.any": {
+		"string": "Au moins une"
+	},
+	"search.all": {
+		"string": "Toutes"
+	},
+	"search.show": {
+		"string": "Type de média"
+	},
+	"search.statusHeading": {
+		"string": "État de l’élément"
+	},
+	"search.userHeading": {
+		"string": "Créé par"
+	},
+	"search.language": {
+		"string": "Langue"
+	},
+	"search.projectHeading": {
+		"string": "Liste"
+	},
+	"search.assignedTo": {
+		"string": "Attribué à"
+	},
+	"search.readHeading": {
+		"string": "Lu"
+	},
+	"search.cancel": {
+		"string": "Annuler"
+	},
+	"search.reset": {
+		"string": "Réinitialiser"
+	},
+	"search.applyFilters": {
+		"string": "Filtrer"
+	},
+	"search.previousPage": {
+		"string": "Page précédente"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1/1} other {{from} – {to}/#}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 sélectionné)} other {(# sélectionnés)}}"
+	},
+	"search.nextPage": {
+		"string": "Page suivante"
 	},
 	"mediaMetadata.addedToList": {
 		"string": "A été ajouté à la liste {listName}"
@@ -831,11 +1021,11 @@
 		"string": "Mettre le rapport en pause et le contenu à jour"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Les éléments ont été déplacés de la corbeille vers `{toProject}`",
+		"string": "Les éléments ont été déplacés de la corbeille vers « {toProject} »",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Les éléments ont été déplacés de Non confirmés vers `{toProject}`",
+		"string": "Les éléments ont été déplacés de Non confirmés vers « {toProject} »",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.addedSuccessfully": {
@@ -851,7 +1041,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "Les éléments ont été déplacé vers la corbeille."
+		"string": "Les éléments ont été déplacés vers la corbeille."
 	},
 	"bulkActions.trash": {
 		"string": "Restaurer les éléments sélectionnés et déplacer les éléments vers une autre liste"
@@ -878,7 +1068,7 @@
 		"string": "Déplacer vers une liste"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+		"string": "{selectedCount, plural, one {Déplacer un élément vers la liste…} other {Déplacer # éléments vers la liste…}}"
 	},
 	"bulkActions.add": {
 		"string": "Ajouter les éléments sélectionnés à une autre liste"
@@ -893,7 +1083,7 @@
 		"string": "Ajouter à une liste différente"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Envoyer les éléments sélectionnés à la corbeille"
+		"string": "Déplacer les éléments sélectionnés vers la corbeille"
 	},
 	"claimReview.claim": {
 		"string": "Affirmation :"
@@ -938,7 +1128,7 @@
 		"string": "Vidéo"
 	},
 	"createMedia.audio": {
-		"string": "Son"
+		"string": "Contenu sonore"
 	},
 	"createRelatedMedia.addSecondaryItem": {
 		"string": "Ajouter un élément secondaire"
@@ -971,7 +1161,7 @@
 		"string": "Historique de l’élément"
 	},
 	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+		"string": "{count, plural, one {Voulez-vous vraiment sortir ? Une tâche requise qui vous est attribuée n’a pas encore reçu de réponse} other {Voulez-vous vraiment sortir ? # tâches requises qui vous sont attribuées n’ont pas encore reçu de réponse}}"
 	},
 	"mediaActions.edit": {
 		"string": "Modifier le titre et la description"
@@ -989,7 +1179,7 @@
 		"string": "Verrouiller l’état"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Envoyer à la corbeille"
+		"string": "Déplacer vers la corbeille"
 	},
 	"mediaActions.restore": {
 		"string": "Restaurer de la corbeille"
@@ -1145,7 +1335,7 @@
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de la langue. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
 	},
 	"media.normalSpeed": {
-		"string": "Vitesse normale "
+		"string": "Vitesse normale"
 	},
 	"mediaRelated.primaryItem": {
 		"string": "Elément principal"
@@ -1157,10 +1347,10 @@
 		"string": "Charger davantage"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {1 demande pour tous les médias} other {# demandes pour tous les médias}}"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {1 demande} other {# demandes}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Aucune demande"
@@ -1232,13 +1422,13 @@
 		"string": "Lien"
 	},
 	"media.typeAudio": {
-		"string": "Son"
+		"string": "Contenu sonore"
 	},
 	"media.typeBlank": {
 		"string": "Rapport importé"
 	},
 	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+		"string": "{retweetsCount, plural, one {1 partage} other {# partages}}"
 	},
 	"mediaActionsBar.moveTo": {
 		"string": "Déplacer vers…"
@@ -1352,7 +1542,7 @@
 		"string": "Prêt à publier votre rapport ?"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+		"string": "{demand, plural, one {Vous êtes sur le point d’envoyer ce rapport à l’utilisateur qui a demandé cet élément.} other {Vous êtes sur le point d’envoyer ce rapport aux # utilisateurs qui ont demandé cet élément.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "À l’avenir, les utilisateurs qui demandent cet élément recevront votre rapport tant qu’il est publié."
@@ -1370,13 +1560,13 @@
 		"string": "À l’avenir, les utilisateurs qui demandent cet élément recevront cette nouvelle version du rapport."
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+		"string": "{demand, plural, one {Envoyez aussi la correction à l’utilisateur qui a déjà reçu la version précédente de ce rapport} other {Envoyez aussi la correction aux # utilisateurs qui ont déjà reçu la version précédente de ce rapport}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Votre correction est-elle prête à être publiée ?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+		"string": "{demand, plural, one {Votre correction sera envoyée à l’utilisateur qui a reçu le rapport précédent.} other {Votre correction sera envoyée aux # utilisateurs qui ont reçu le rapport précédent.}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "À l’avenir, les utilisateurs qui demandent cet élément recevront cette nouvelle version du rapport."
@@ -1389,7 +1579,7 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Restaurés de la corbeille, redirection…"
+		"string": "Restauré de la corbeille, redirection…"
 	},
 	"mediaActionsBar.movedConfirmBack": {
 		"string": "Confirmé, redirection…"
@@ -1404,200 +1594,10 @@
 		"string": "Déplacer l’élément vers la liste…"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Déplacer vers une liste"
+		"string": "Déplacer vers la liste"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Cet élément n’a pas pu être identifié. Il a peut-être été supprimé ou n’est visible que pour les utilisateurs connectés. Cliquez sur le lien ci-dessus pour y accéder."
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Les métadonnées ont une valeur précise"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Les métadonnées comprennent un mot-clé"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "La tâche à une réponse précise"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "La réponse de la tâche comprend un mot-clé"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Sélectionner la tâche"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Sélectionner les métadonnées"
-	},
-	"search.allClaimsTitle": {
-		"string": "Tous les éléments"
-	},
-	"CustomFilter.filterBy": {
-		"string": "Filtrer par"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Sélectionner la valeur"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Saisissez une liste de mots-clés séparés par des virgules"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Ajouter des filtres"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Les métadonnées ont une valeur précise"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Les métadonnées comprennent un mot-clé"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "La tâche à une réponse précise"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "La réponse de la tâche comprend un mot-clé"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "Aucune valeur n’est définie"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "N’importe quelle valeur est définie"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Sélectionner la tâche"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Sélectionner les métadonnées"
-	},
-	"search.dateHeading": {
-		"string": "Période"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Envoyé"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Dernier envoi"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "Mise à jour"
-	},
-	"search.datePublishedHeading": {
-		"string": "Publié"
-	},
-	"search.pickDateFrom": {
-		"string": "Date de début"
-	},
-	"search.pickDateTo": {
-		"string": "Date de fin"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Titre des médias"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Contenu des médias"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Titre des analyses"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Contenu des analyses"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Balises"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Toutes les réponses des tâches",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "Toutes les réponses des métadonnées"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "Toutes les notes"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Tous les commentaires des tâches"
-	},
-	"search.showClaims": {
-		"string": "Textes"
-	},
-	"search.showLinks": {
-		"string": "Liens"
-	},
-	"search.showImages": {
-		"string": "Images"
-	},
-	"search.showVideos": {
-		"string": "Vidéos"
-	},
-	"search.showAudios": {
-		"string": "Sons"
-	},
-	"search.showBlank": {
-		"string": "Rapport importé"
-	},
-	"search.title": {
-		"string": "Tous les éléments"
-	},
-	"search.inputHint": {
-		"string": "Recherche"
-	},
-	"search.help": {
-		"string": "<table>\n                        <tbody>\n                          <tr><td>+</td><td>Arbre + Feuille</td><td>Éléments avec à la fois Arbre ET Feuille</td></tr>\n                          <tr><td>|</td><td>Arbre | Feuille</td><td>Éléments avec soit Arbre OU Feuille</td></tr>\n                          <tr><td>()</td><td>Arbre + (Feuille | Branche)</td><td>Eléments avec Arbre ET Feuille OU éléments avec Arbre ET Branche\n                        </tbody>\n                      </table>\n                      <div>\n                        <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                          Apprenez-en davantage sur les techniques de recherche\n                        </a>\n                      </div>"
-	},
-	"search.Filter": {
-		"string": "Filtre"
-	},
-	"search.clear": {
-		"string": "Effacer le filtre"
-	},
-	"search.categoriesHeading": {
-		"string": "Balises"
-	},
-	"search.any": {
-		"string": "Au moins une"
-	},
-	"search.all": {
-		"string": "Tout"
-	},
-	"search.show": {
-		"string": "Type de média"
-	},
-	"search.statusHeading": {
-		"string": "État de l’élément"
-	},
-	"search.userHeading": {
-		"string": "Créé par"
-	},
-	"search.language": {
-		"string": "Langue"
-	},
-	"search.projectHeading": {
-		"string": "Liste"
-	},
-	"search.assignedTo": {
-		"string": "Attribué à"
-	},
-	"search.readHeading": {
-		"string": "Lu"
-	},
-	"search.cancel": {
-		"string": "Annuler"
-	},
-	"search.reset": {
-		"string": "Réinitialiser"
-	},
-	"search.applyFilters": {
-		"string": "Filtre"
-	},
-	"search.previousPage": {
-		"string": "Page précédente"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Page suivante"
 	},
 	"userAssignments.filterByTeam": {
 		"string": "Filtrer par espace de travail"
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Sécurité"
 	},
-	"UserInfo.dateJoined": {
-		"string": "Membre depuis le {date} • {teamsCount, plural, one {1 espace de travail} other {# espaces de travail}}"
+	"userInfo.dateJoined": {
+		"string": "Jonction {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 espace de travail} other {# espaces de travail}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Nom"
@@ -2440,7 +2443,7 @@
 		"string": "Aucune liste"
 	},
 	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+		"string": "{count, plural, one {Attribué à un membre} other {Attribué à # membres}}"
 	},
 	"teamReport.updateFail": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour des paramètres du rapport. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
@@ -2652,6 +2655,69 @@
 	"UserUtil.owner": {
 		"string": "Propriétaire"
 	},
+	"searchKeywordConfig.metadata": {
+		"string": "Métadonnées"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Tâches"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Non publié"
+	},
+	"reportStatusCell.paused": {
+		"string": "Interrompu"
+	},
+	"reportStatusCell.published": {
+		"string": "Publié"
+	},
+	"list.Item": {
+		"string": "Élément"
+	},
+	"list.Demand": {
+		"string": "Demandes"
+	},
+	"list.ShareCount": {
+		"string": "Partages sur Facebook"
+	},
+	"list.LinkedItems": {
+		"string": "Médias semblables"
+	},
+	"list.Type": {
+		"string": "Type"
+	},
+	"list.Status": {
+		"string": "État"
+	},
+	"list.FirstSeen": {
+		"string": "Envoyé"
+	},
+	"list.LastSeen": {
+		"string": "Dernier envoi"
+	},
+	"list.updated": {
+		"string": "Mis à jour"
+	},
+	"list.reportStatus": {
+		"string": "État du rapport"
+	},
+	"list.tags": {
+		"string": "Balises"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Médias publiés"
+	},
+	"list.reactCount": {
+		"string": "Réactions sur Facebook"
+	},
+	"list.commentCount": {
+		"string": "Commentaires sur Facebook"
+	},
+	"list.relatedCount": {
+		"string": "Associés"
+	},
+	"list.suggestionsCount": {
+		"string": "Correspondances suggérées"
+	},
 	"reportDesigner.title": {
 		"string": "Concevez votre rapport"
 	},
@@ -2701,7 +2767,7 @@
 		"string": "Terminé, redirection vers le nouvel élément principal…"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {1 demande} other {# demandes}}"
 	},
 	"mediaItem.pinAsMain": {
 		"string": "Épingler en tant que principal"
@@ -2716,7 +2782,7 @@
 		"string": "L’élément associé a été ajouté avec succès"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, one {1 élément associé} other {# éléments associés}}"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Ajouter une association"
@@ -2760,7 +2826,7 @@
 		"string": "Ajouter un élément semblable"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Importer un média semblable dans cet élément"
+		"string": "Importer des médias semblables dans cet élément"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Exporter tous les médias vers un autre élément"
@@ -2778,10 +2844,10 @@
 		"string": "Il a été suggéré que ce média est semblable à un autre élément"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {1 média semblable confirmé} other {# médias semblables confirmés}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, one {1 correspondance suggérée} other {# correspondances suggérées}}"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Retour"
@@ -2809,69 +2875,6 @@
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Aucune note"
-	},
-	"searchKeywordConfig.metadata": {
-		"string": "Métadonnées"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "Tâches"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "Non publié"
-	},
-	"reportStatusCell.paused": {
-		"string": "Interrompu"
-	},
-	"reportStatusCell.published": {
-		"string": "Publié"
-	},
-	"list.Item": {
-		"string": "Élément"
-	},
-	"list.Demand": {
-		"string": "Demandes"
-	},
-	"list.ShareCount": {
-		"string": "Partages sur Facebook"
-	},
-	"list.LinkedItems": {
-		"string": "Médias semblables"
-	},
-	"list.Type": {
-		"string": "Type"
-	},
-	"list.Status": {
-		"string": "État"
-	},
-	"list.FirstSeen": {
-		"string": "Envoyé"
-	},
-	"list.LastSeen": {
-		"string": "Dernier envoi"
-	},
-	"list.updated": {
-		"string": "Mise à jour"
-	},
-	"list.reportStatus": {
-		"string": "État du rapport"
-	},
-	"list.tags": {
-		"string": "Balises"
-	},
-	"list.mediaPublishedAt": {
-		"string": "Médias publiés"
-	},
-	"list.reactCount": {
-		"string": "Réactions sur Facebook"
-	},
-	"list.commentCount": {
-		"string": "Commentaires sur Facebook"
-	},
-	"list.relatedCount": {
-		"string": "Associés"
-	},
-	"list.suggestionsCount": {
-		"string": "Correspondances suggérées"
 	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -2923,45 +2926,6 @@
 	},
 	"translationNeededDialog.body": {
 		"string": "Afin que {language} soit la langue par défaut, vous devez d’abord traduire en {language} tous les états existants {language} dans l’onglet de paramètres États."
-	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "Impossible d’enregistrer les paramètres de Slack"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Les paramètres de Slack ont été enregistrés avec succès"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "Envoyer des notifications aux canaux Slack si des affirmations sont ajoutées à des listes précises"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Point d’ancrage Web Slack"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "Événement"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Envoyer des notifications à"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Si l’élément est dans la liste"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "Canal Slack"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Toute autre activité"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Toute l’activité de l’espace de travail"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "Nouvelle notification"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "Annuler"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "Enregistrer"
 	},
 	"rule.copyOf": {
 		"string": "Copie de {ruleName}"
@@ -3030,10 +2994,10 @@
 		"string": "Sélectionner toutes les règles"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, one {1 sélectionnée} other {# sélectionnées}}"
 	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "{numRules, plural, one {1 règle} other {# règles}}"
 	},
 	"rulesTableToolbar.delete": {
 		"string": "Supprimer"
@@ -3046,6 +3010,111 @@
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "Voulez-vous vraiment supprimer ces règles ?"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Impossible d’enregistrer les paramètres de Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Les paramètres de Slack ont été enregistrés avec succès"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Envoyer des notifications aux canaux Slack si des affirmations sont ajoutées à des listes précises"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Point d’ancrage Web Slack"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Événement"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Envoyer des notifications à"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Si l’élément est dans la liste"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Canal Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Toute autre activité"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Toute l’activité de l’espace de travail"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Nouvelle notification"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Annuler"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Enregistrer"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Déplacer les éléments vers"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Vous devez changer l’état {itemsCount, plural, one {d’un élément} other {de # éléments}} pour supprimer cet état"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Il existe {itemsCount, plural, one {un élément} other {# éléments}} dont l’état est {statusLabel}, à changer en d’autres états avant de supprimer cet état."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Vous pouvez autrement changer l’état de chaque élément individuellement."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {Un de ces éléments est actuellement publié.} other {# de ces éléments sont actuellement publiés.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Déplacer les éléments et supprimer l’état"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Modifier l’état"
+	},
+	"editStatusDialog.title": {
+		"string": "Ajouter un nouvel état"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "État (maximum {maxLength} caractères)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Description"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Ajouter un état"
+	},
+	"statusListItem.noDescription": {
+		"string": "Aucune description"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (par défaut)"
+	},
+	"statusesComponent.error": {
+		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
+	},
+	"statusesComponent.saved": {
+		"string": "Les états ont été enregistrés avec succès."
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 état} other {# états}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Nouvel état"
+	},
+	"statusesComponent.blurb": {
+		"string": "Le titre de l’état est visible quand les rapports sont envoyés aux utilisateurs."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Il manque des traductions"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Des traductions manquent pour certains états. Les utilisateurs pourraient ne pas être en mesure de lire les états non traduits."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Poursuivre et enregistrer"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Scénario"
@@ -3222,7 +3291,7 @@
 		"string": "*Renseignements sur la maladie à coronavirus (COVID-19)* 🦠\n\n👉*Répondez avec l’un des numéros suivants (ou émoji) pour obtenir des renseignements sur ce sujet : *\n\n*1 : * Comment puis-je me protéger ou protéger ma famille ? 👨‍👩‍👧\n*2 : * Je pense que je tombe peut-être malade 🤒\n*3 : * Comment puis-je gérer le stress associé à COVID-19 ? ❤️\n*4 : * Renseignements sur les cas et les guérisons à l’échelle planétaire 📊\n*5 : * Dernières mises à jour de l’Organisation mondiale de la santé 🌐\n\n*Répondez par 0* pour revenir au *menu principal* 📌"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Veuillez saisir la question, le lien, l’image, la vidéo ou le son dont vous souhaitez que les faits soient vérifiés,* suivis de tout contexte lié à cet élément. Votre demande sera envoyée aux vérificateurs de faits environ 15 secondes après votre dernier message.\n      \n*Répondez par 0 (ou 📌)* pour revenir au *menu principal*"
+		"string": "*Veuillez saisir la question, le lien, l’image, la vidéo ou le contenu sonore dont vous souhaitez que les faits soient vérifiés,* suivis de tout contexte lié à cet élément. Votre demande sera envoyée aux vérificateurs de faits environ 15 secondes après votre dernier message.\n\n*Répondez par 0 (ou 📌)* pour annuler et revenir au *menu principal*"
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "Merci. Votre demande a été reçue. Les réponses sont en cours d’agrégation, de tri et nous vérifions les faits de vos questions.\n\n✔️*Suivez ce lien pour une liste mise à jour des questions courantes dont nous avons vérifié les faits :* [Lien vers une page de vérifications sur votre site Web]\n\n👉*Répondez n’importe quoi* pour revenir au *menu principal* 📌"
@@ -3247,72 +3316,6 @@
 	},
 	"smoochBot.tos": {
 		"string": "Conditions générales d’utilisation ({language})"
-	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Déplacer les éléments vers"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Vous devez changer l’état {itemsCount, plural, one {d’un élément} other {de # éléments}} pour supprimer cet état"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Il existe {itemsCount, plural, one {un élément} other {# éléments}} dont l’état est {statusLabel}, à changer en d’autres états avant de supprimer cet état."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Vous pouvez autrement changer l’état de chaque élément individuellement."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Déplacer les éléments et supprimer l’état"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "Modifier l’état"
-	},
-	"editStatusDialog.title": {
-		"string": "Ajouter un nouvel état"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "État (maximum {maxLength} caractères)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Description"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Ajouter un état"
-	},
-	"statusListItem.noDescription": {
-		"string": "Aucune description"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (par défaut)"
-	},
-	"statusesComponent.error": {
-		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
-	},
-	"statusesComponent.saved": {
-		"string": "Les états ont été enregistrés avec succès."
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "Nouvel état"
-	},
-	"statusesComponent.blurb": {
-		"string": "Le titre de l’état est visible quand les rapports sont envoyés aux utilisateurs."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "Il manque des traductions"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "Des traductions manquent pour certains états. Les utilisateurs pourraient ne pas être en mesure de lire les états non traduits."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Poursuivre et enregistrer"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Impossible d’enregistrer les paramètres des listes.",

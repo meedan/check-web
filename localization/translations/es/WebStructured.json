@@ -69,7 +69,7 @@
 		"string": "Ver el código fuente"
 	},
 	"bot.updatedAt": {
-		"string": "Actualizada"
+		"string": "Actualizado"
 	},
 	"bot.version": {
 		"string": "Versión"
@@ -105,7 +105,7 @@
 		"string": "Papelera"
 	},
 	"headerActions.signIn": {
-		"string": "Iniciar sesión "
+		"string": "Inicia sesión "
 	},
 	"footer.madeBy": {
 		"string": "Check: Verifica noticias de último momento en línea.\nHecho con ✨ por {meedan}"
@@ -156,7 +156,7 @@
 		"string": "Tu nombre"
 	},
 	"login.emailLabel": {
-		"string": "Dirección de correo electrónico"
+		"string": "Correo electrónico"
 	},
 	"login.passwordInputHint": {
 		"string": "Contraseña"
@@ -246,16 +246,16 @@
 		"string": "{filename} (clic o arrastrar para cambiar)"
 	},
 	"uploadImage.invalidExtension": {
-		"string": "El archivo no puede ser de tipo \"{extension}\". Por favor intenta con los siguiente tipos de archivos: {allowed_types}"
+		"string": "El archivo no puede ser de tipo \"{extension}\". Por favor intenta con los tipos de archivos: {allowed_types}"
 	},
 	"uploadImage.fileTooLarge": {
 		"string": "El tamaño del archivo debe ser menor a {size}. Por favor intenta con un archivo más pequeño."
 	},
 	"uploadImage.message": {
-		"string": "Arrastra la imagen aquí, o haz clic para subir un archivo (tamaño máximo permitido: {upload_max_size}, extensiones permitidas: {upload_extensions}, dimensiones permitidas entre {upload_min_dimensions} y {upload_max_dimensions} pixeles)"
+		"string": "Arrastra la imagen aquí o haz clic aquí para subir un archivo (tamaño máximo permitido: {upload_max_size}, extensiones permitidas: {upload_extensions}, dimensiones permitidas entre {upload_min_dimensions} y {upload_max_dimensions} pixeles)"
 	},
 	"uploadImage.videoMessage": {
-		"string": "Arrastra el vídeo aquí, o haz clic para subir un archivo (tamaño máximo: {video_max_size}, extensiones permitidas: {video_extensions})"
+		"string": "Arrastra el vídeo aquí o haz clic para subir un archivo (tamaño máximo permitido: {video_max_size}, extensiones permitidas: {video_extensions})"
 	},
 	"userAlreadyConfirmed.heading": {
 		"string": "Esta cuenta ya ha sido confirmada"
@@ -336,7 +336,7 @@
 		"string": "Reestablecer contraseña"
 	},
 	"userTos.validation": {
-		"string": "Debes aceptar los Términos del Servicio y la Política de Privacidad"
+		"string": "Debe aceptar los Términos del Servicio y la Política de Privacidad"
 	},
 	"userTos.save": {
 		"string": "Guardar"
@@ -432,7 +432,7 @@
 		"string": "Acciones de las anotaciones"
 	},
 	"annotation.deleteButton": {
-		"string": "Borrar"
+		"string": "Eliminar "
 	},
 	"annotation.permalink": {
 		"string": "Enlace permanente"
@@ -711,7 +711,7 @@
 		"string": "Asignar lista"
 	},
 	"projectActions.destroy": {
-		"string": "Borrar"
+		"string": "Eliminar "
 	},
 	"ProjectActions.tooltip": {
 		"string": "Acciones de la lista"
@@ -750,7 +750,7 @@
 		"string": "Título"
 	},
 	"projectEdit.descriptionField": {
-		"string": "Descripción"
+		"string": "Descripción "
 	},
 	"projectEdit.saveButton": {
 		"string": "Guardar"
@@ -762,10 +762,200 @@
 		"string": "Todos los ítems"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, number} seleccionado"
+		"string": "{length, number} seleccionado "
 	},
 	"projectSelector.allProjs": {
 		"string": "Todas las listas"
+	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "El metadato tiene un valor específico"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Metadato contiene palabra clave"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "La tarea tiene una respuesta específica"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "La respuesta de la tarea contiene una palabra clave"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Seleccionar tarea"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Seleccionar metadato"
+	},
+	"search.allClaimsTitle": {
+		"string": "Todos los ítems"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filtrar por"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Seleccionar valor"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Escribe una lista de palabras clave separadas por comas"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Añadir filtros"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Metadato tiene valor específico"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Metadato contiene una palabra clave"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "La tarea tiene una respuesta específica"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "La respuesta de la tarea contiene una palabra clave"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "No value is set"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Any value is set"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Seleccionar tarea"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Seleccionar metadato(s)"
+	},
+	"search.dateHeading": {
+		"string": "Time Range"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Presentado"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Presentado por última vez"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Actualizado"
+	},
+	"search.datePublishedHeading": {
+		"string": "Publicado"
+	},
+	"search.pickDateFrom": {
+		"string": "Fecha de inicio"
+	},
+	"search.pickDateTo": {
+		"string": "Fecha de finalización"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Media title"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Media content"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Analysis title"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Analysis content"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Etiquetas"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "All task answers",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "All metadata answers"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "All notes"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "All task comments"
+	},
+	"search.showClaims": {
+		"string": "Textos"
+	},
+	"search.showLinks": {
+		"string": "Links"
+	},
+	"search.showImages": {
+		"string": "Imágenes"
+	},
+	"search.showVideos": {
+		"string": "Vídeos"
+	},
+	"search.showAudios": {
+		"string": "Audios"
+	},
+	"search.showBlank": {
+		"string": "Imported report"
+	},
+	"search.title": {
+		"string": "Todos los ítems"
+	},
+	"search.inputHint": {
+		"string": "Buscar "
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árbol + Hoja</td><td>Elementos con ambos Árbol Y Hoja</td></tr>\n                        <tr><td>|</td><td>Árbol | Hoja</td><td>Elementos con cualquiera Árbol O Hoja</td></tr>\n                        <tr><td>()</td><td>Árbol + (Hoja | Rama)</td><td>Elementos con Árbol Y Hoja o elementos con Árbol Y Rama</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Aprende más sobre técnicas de búsqueda\n                      </a>\n                    </div>"
+	},
+	"search.Filter": {
+		"string": "Filtrar"
+	},
+	"search.clear": {
+		"string": "Eliminar filtro"
+	},
+	"search.categoriesHeading": {
+		"string": "Etiquetas"
+	},
+	"search.any": {
+		"string": "Any"
+	},
+	"search.all": {
+		"string": "All"
+	},
+	"search.show": {
+		"string": "Media type"
+	},
+	"search.statusHeading": {
+		"string": "Item status"
+	},
+	"search.userHeading": {
+		"string": "Created by"
+	},
+	"search.language": {
+		"string": "Idioma"
+	},
+	"search.projectHeading": {
+		"string": "Lista"
+	},
+	"search.assignedTo": {
+		"string": "Asignado a"
+	},
+	"search.readHeading": {
+		"string": "Leído"
+	},
+	"search.cancel": {
+		"string": "Cancelar"
+	},
+	"search.reset": {
+		"string": "Restablecer"
+	},
+	"search.applyFilters": {
+		"string": "Filtrar"
+	},
+	"search.previousPage": {
+		"string": "Página anterior"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 seleccionado)} other {(# seleccionados)}}"
+	},
+	"search.nextPage": {
+		"string": "Página siguiente"
 	},
 	"mediaMetadata.addedToList": {
 		"string": "Añadido a la lista {listName}"
@@ -831,11 +1021,11 @@
 		"string": "Pausar informe y actualizar contenido"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Items moved from trash to `{toProject}`",
+		"string": "Items moved from Trash to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Items moved from Unconfirmed to `{toProject}`",
+		"string": "Items moved from Unconfirmed to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.addedSuccessfully": {
@@ -851,19 +1041,19 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "Ítems enviados a la papelera."
+		"string": "Items moved to the Trash."
 	},
 	"bulkActions.trash": {
 		"string": "Restore selected items and move items to another list"
 	},
 	"bulkActions.restore": {
-		"string": "Restaurar desde la papelera"
+		"string": "Restore from Trash"
 	},
 	"bulkActions.unconfirmed": {
 		"string": "Confirm selected items and move items to another list"
 	},
 	"bulkActions.confirm": {
-		"string": "Move from unconfirmed"
+		"string": "Move from Unconfirmed"
 	},
 	"bulkActions.move": {
 		"string": "Mover los ítems seleccionados a otra lista"
@@ -893,7 +1083,7 @@
 		"string": "Añadir a otra lista"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Mover los ítems seleccionados a la papelera."
+		"string": "Send selected items to Trash"
 	},
 	"claimReview.claim": {
 		"string": "Afirmación: "
@@ -950,7 +1140,7 @@
 		"string": "Seleccionar una lista"
 	},
 	"mediaDetail.editReportError": {
-		"string": "Lo sentimos, se produjo un error al actualizar el ítem. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
+		"string": "Lo sentimos, se produjo un error al actualizar el ítem. Ppr favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"mediaDetail.editReport": {
 		"string": "Editar"
@@ -959,7 +1149,7 @@
 		"string": "Título"
 	},
 	"mediaDetail.mediaDescription": {
-		"string": "Descripción"
+		"string": "Descripción "
 	},
 	"mediaDetail.cancelButton": {
 		"string": "Cancelar"
@@ -971,7 +1161,7 @@
 		"string": "Historial del Ítem"
 	},
 	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+		"string": "{count, plural, one {¿Estás segura o seguro que quieres salir? Todavía tienes asignada una tarea requerida que no has resuelto} other {¿Estás seguro(a) que quieres salir? Todavía tienes asignadas # tareas requeridas que no has respondido}}"
 	},
 	"mediaActions.edit": {
 		"string": "Editar título y descripción"
@@ -1088,7 +1278,7 @@
 		"string": "Solicitudes"
 	},
 	"mediaComponent.metadata": {
-		"string": "Metadatos"
+		"string": "Metadato"
 	},
 	"mediaComponent.tasks": {
 		"string": "Tareas"
@@ -1097,7 +1287,7 @@
 		"string": "Notas"
 	},
 	"mediaComponent.related": {
-		"string": "Relacionado(s)"
+		"string": "Relacionado"
 	},
 	"mediaComponent.timelineTab": {
 		"string": "Cronología"
@@ -1352,7 +1542,7 @@
 		"string": "¿Listo(a) para publicar tu informe?"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+		"string": "{demand, plural, one {Está a punto de enviar este informe al usuario que solicitó este artículo.} other {Está a punto de enviar este informe al # de usuarios que solicitaron este artículo.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "En el futuro, los usuarios que soliciten este artículo recibirán su informe mientras permanezca publicado."
@@ -1370,13 +1560,13 @@
 		"string": "En el futuro, los usuarios que soliciten este artículo recibirán esta nueva versión del informe."
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+		"string": "{demand, plural, one {Envíe también la corrección al usuario que ya recibió la versión anterior de este informe} other {También envíe correcciones a los # usuarios que ya recibieron la versión anterior de este informe}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "¿Listo(a) para publicar tu corrección?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+		"string": "{demand, plural, one {Su corrección se enviará al usuario que recibió el informe anterior.} other {Su corrección se enviará a los # usuarios que han recibido el informe anterior.}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "En el futuro, los usuarios que soliciten este artículo recibirán esta nueva versión del informe."
@@ -1409,196 +1599,6 @@
 	"webPageMediaCard.Error": {
 		"string": "This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
 	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Metadato tiene valor específico"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Metadato contiene palabra clave"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "La tarea tiene una respuesta específica"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "La respuesta de la tarea contiene una palabra clave"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Seleccionar tarea"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Seleccionar metadato"
-	},
-	"search.allClaimsTitle": {
-		"string": "Todos los ítems"
-	},
-	"CustomFilter.filterBy": {
-		"string": "Filtrar por"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Seleccionar valor"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Escribe una lista de palabras clave separadas por comas"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Añadir filtros"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Metadato tiene valor específico"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadato contiene palabra clave"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "La tarea tiene una respuesta específica"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "La respuesta de la tarea contiene una palabra clave"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "No value is set"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "Any value is set"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Seleccionar tarea"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Seleccionar metadato"
-	},
-	"search.dateHeading": {
-		"string": "Time Range"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Presentado"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Presentado por última vez"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "Actualizada"
-	},
-	"search.datePublishedHeading": {
-		"string": "Publicado"
-	},
-	"search.pickDateFrom": {
-		"string": "Fecha de inicio"
-	},
-	"search.pickDateTo": {
-		"string": "Fecha de finalización"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Media title"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Media content"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Analysis title"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Analysis content"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Etiquetas"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "All task answers",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "All metadata answers"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "All notes"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "All task comments"
-	},
-	"search.showClaims": {
-		"string": "Textos"
-	},
-	"search.showLinks": {
-		"string": "Links"
-	},
-	"search.showImages": {
-		"string": "Imágenes"
-	},
-	"search.showVideos": {
-		"string": "Vídeos"
-	},
-	"search.showAudios": {
-		"string": "Audios"
-	},
-	"search.showBlank": {
-		"string": "Imported report"
-	},
-	"search.title": {
-		"string": "Todos los ítems"
-	},
-	"search.inputHint": {
-		"string": "Buscar "
-	},
-	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árbol + Hoja</td><td>Elementos con ambos Árbol Y Hoja</td></tr>\n                        <tr><td>|</td><td>Árbol | Hoja</td><td>Elementos con cualquiera Árbol O Hoja</td></tr>\n                        <tr><td>()</td><td>Árbol + (Hoja | Rama)</td><td>Elementos con Árbol Y Hoja o elementos con Árbol Y Rama</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Aprende más sobre técnicas de búsqueda\n                      </a>\n                    </div>"
-	},
-	"search.Filter": {
-		"string": "Filtrar"
-	},
-	"search.clear": {
-		"string": "Eliminar filtro"
-	},
-	"search.categoriesHeading": {
-		"string": "Etiquetas"
-	},
-	"search.any": {
-		"string": "Any"
-	},
-	"search.all": {
-		"string": "All"
-	},
-	"search.show": {
-		"string": "Media type"
-	},
-	"search.statusHeading": {
-		"string": "Item status"
-	},
-	"search.userHeading": {
-		"string": "Created by"
-	},
-	"search.language": {
-		"string": "Idioma"
-	},
-	"search.projectHeading": {
-		"string": "Lista"
-	},
-	"search.assignedTo": {
-		"string": "Asignado a"
-	},
-	"search.readHeading": {
-		"string": "Leído"
-	},
-	"search.cancel": {
-		"string": "Cancelar"
-	},
-	"search.reset": {
-		"string": "Restablecer"
-	},
-	"search.applyFilters": {
-		"string": "Filtrar"
-	},
-	"search.previousPage": {
-		"string": "Página anterior"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Página siguiente"
-	},
 	"userAssignments.filterByTeam": {
 		"string": "Filtrar por área de trabajo"
 	},
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Seguridad"
 	},
-	"UserInfo.dateJoined": {
-		"string": "Unido {date} • {teamsCount, plural, one {1 área de trabajo} other {# áreas de trabajo}}"
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Nombre"
@@ -1819,7 +1822,7 @@
 		"string": "Selección multiple"
 	},
 	"tasks.geolocation": {
-		"string": "Localización "
+		"string": "Ubicación"
 	},
 	"tasks.datetime": {
 		"string": "Fecha y hora"
@@ -1921,7 +1924,7 @@
 		"string": "Cancelar"
 	},
 	"geolocationRespondTask.answerTask": {
-		"string": "Responder tarea"
+		"string": "Responder"
 	},
 	"geolocationRespondTask.searchMap": {
 		"string": "Buscar el mapa"
@@ -1936,7 +1939,7 @@
 		"string": "Cancelar"
 	},
 	"imageUploadRespondTask.answerTask": {
-		"string": "Responder tarea"
+		"string": "Responder"
 	},
 	"tasks.cancelEdit": {
 		"string": "Cancelar"
@@ -2023,7 +2026,7 @@
 		"string": "Buscar una área de trabajo existente"
 	},
 	"addTeamPage.titleCreate": {
-		"string": "Crear una área de trabajo"
+		"string": "Crear área de trabajo"
 	},
 	"createTeam.slugChecking": {
 		"string": "Comprobando disponibilidad... "
@@ -2038,7 +2041,7 @@
 		"string": "Lo sentimos, se produjo un error al actualizar la área de trabajo. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"createTeam.title": {
-		"string": "Crear una área de trabajo"
+		"string": "Crear área de trabajo"
 	},
 	"createTeam.teamNameHint": {
 		"string": "Nombre del área de trabajo"
@@ -2140,7 +2143,7 @@
 		"string": "Periodista"
 	},
 	"RoleSelect.editor": {
-		"string": "Editor / Editora"
+		"string": "Editora/Editor "
 	},
 	"RoleSelect.owner": {
 		"string": "Propietario / Propietaria"
@@ -2290,7 +2293,7 @@
 		"string": "Nombre"
 	},
 	"teamComponent.teamDescription": {
-		"string": "Descripción"
+		"string": "Descripción "
 	},
 	"teamComponent.location": {
 		"string": "Localización "
@@ -2341,7 +2344,7 @@
 		"string": "Periodista"
 	},
 	"TeamMembersListItem.editor": {
-		"string": "Editor / Editora"
+		"string": "Editora/Editor "
 	},
 	"TeamMembersListItem.annotator": {
 		"string": "Anotadora/Anotador"
@@ -2440,7 +2443,7 @@
 		"string": "Sin listas"
 	},
 	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+		"string": "{count, plural, one {Asignado a un miembro} other {Asignado a # miembros}}"
 	},
 	"teamReport.updateFail": {
 		"string": "Lo sentimos, se produjo un error al actualizar la configuración del informe. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
@@ -2560,7 +2563,7 @@
 		"string": "Filtrar tareas"
 	},
 	"teamTasks.projFilter": {
-		"string": "Mostrar tareas en"
+		"string": "Mostrar tareas en "
 	},
 	"teamTasks.typeFilter": {
 		"string": "Tipo de tarea"
@@ -2651,6 +2654,69 @@
 	},
 	"UserUtil.owner": {
 		"string": "Propietario / Propietaria"
+	},
+	"searchKeywordConfig.metadata": {
+		"string": "Metadatos"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Tareas"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Unpublished"
+	},
+	"reportStatusCell.paused": {
+		"string": "Paused"
+	},
+	"reportStatusCell.published": {
+		"string": "Publicado"
+	},
+	"list.Item": {
+		"string": "Ítem"
+	},
+	"list.Demand": {
+		"string": "Solicitudes"
+	},
+	"list.ShareCount": {
+		"string": "Compartidas en FB"
+	},
+	"list.LinkedItems": {
+		"string": "Similar media"
+	},
+	"list.Type": {
+		"string": "Tipo"
+	},
+	"list.Status": {
+		"string": "Estado"
+	},
+	"list.FirstSeen": {
+		"string": "Submitted"
+	},
+	"list.LastSeen": {
+		"string": "Last submitted"
+	},
+	"list.updated": {
+		"string": "Actualizada"
+	},
+	"list.reportStatus": {
+		"string": "Report status"
+	},
+	"list.tags": {
+		"string": "Etiquetas"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Media published"
+	},
+	"list.reactCount": {
+		"string": "Reacciones en FB"
+	},
+	"list.commentCount": {
+		"string": "Comentarios en FB"
+	},
+	"list.relatedCount": {
+		"string": "Relacionado"
+	},
+	"list.suggestionsCount": {
+		"string": "Suggested matches"
 	},
 	"reportDesigner.title": {
 		"string": "Diseña tu informe"
@@ -2810,69 +2876,6 @@
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Sin notas"
 	},
-	"searchKeywordConfig.metadata": {
-		"string": "Metadatos"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "Tareas"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "Unpublished"
-	},
-	"reportStatusCell.paused": {
-		"string": "Paused"
-	},
-	"reportStatusCell.published": {
-		"string": "Publicado"
-	},
-	"list.Item": {
-		"string": "Ítem"
-	},
-	"list.Demand": {
-		"string": "Solicitudes"
-	},
-	"list.ShareCount": {
-		"string": "Compartidas en FB"
-	},
-	"list.LinkedItems": {
-		"string": "Similar media"
-	},
-	"list.Type": {
-		"string": "Tipo"
-	},
-	"list.Status": {
-		"string": "Estado"
-	},
-	"list.FirstSeen": {
-		"string": "Presentado"
-	},
-	"list.LastSeen": {
-		"string": "Presentado por última vez"
-	},
-	"list.updated": {
-		"string": "Actualizada"
-	},
-	"list.reportStatus": {
-		"string": "Report status"
-	},
-	"list.tags": {
-		"string": "Etiquetas"
-	},
-	"list.mediaPublishedAt": {
-		"string": "Media published"
-	},
-	"list.reactCount": {
-		"string": "Reacciones en FB"
-	},
-	"list.commentCount": {
-		"string": "Comentarios en FB"
-	},
-	"list.relatedCount": {
-		"string": "Relacionado(s)"
-	},
-	"list.suggestionsCount": {
-		"string": "Suggested matches"
-	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
 	},
@@ -2924,6 +2927,90 @@
 	"translationNeededDialog.body": {
 		"string": "Para hacer que {language} sea el idioma predeterminado, primero debes traducir todos los estados existentes a {language} en la pestaña de configuración de Estados."
 	},
+	"rule.copyOf": {
+		"string": "Copia de {ruleName}"
+	},
+	"ruleBody.ruleNameValidation": {
+		"string": "El nombre de la regla es requerido"
+	},
+	"ruleBody.ruleName": {
+		"string": "Nombre"
+	},
+	"ruleBody.if": {
+		"string": "Si"
+	},
+	"ruleBody.then": {
+		"string": "Entonces"
+	},
+	"ruleOperatorWrapper.and": {
+		"string": "Y"
+	},
+	"ruleOperatorWrapper.or": {
+		"string": "O"
+	},
+	"ruleOperatorWrapper.removeTheAbove": {
+		"string": "Eliminar ítem arriba"
+	},
+	"ruleToolbar.back": {
+		"string": "Volver"
+	},
+	"ruleToolbar.more": {
+		"string": "Más"
+	},
+	"ruleToolbar.duplicate": {
+		"string": "Duplicar"
+	},
+	"ruleToolbar.delete": {
+		"string": "Eliminar "
+	},
+	"rulesTableToolbar.save": {
+		"string": "Guardar"
+	},
+	"ruleToolbar.deleteConfirmationTitle": {
+		"string": "¿Eliminar regla?"
+	},
+	"ruleToolbar.deleteConfirmationText": {
+		"string": "¿Estás seguro(a) que quieres eliminar esta regla?"
+	},
+	"ruleToolbar.leaveConfirmationTitle": {
+		"string": "¿Cerrar sin guardar?"
+	},
+	"ruleToolbar.leaveConfirmationText": {
+		"string": "Si continúa, perderá sus cambios."
+	},
+	"rulesComponent.defaultErrorMessage": {
+		"string": "No se pudo guardar las reglas"
+	},
+	"rulesComponent.savedSuccessfully": {
+		"string": "¡Las reglas se han actualizado con éxito!"
+	},
+	"rulesTableHead.name": {
+		"string": "Nombre"
+	},
+	"rulesTableHead.updated": {
+		"string": "Actualizada"
+	},
+	"rulesTableHead.selectAll": {
+		"string": "Seleccionar todas las reglas"
+	},
+	"rulesTableToolbar.selected": {
+		"string": "{numSelected, plural, one {1 seleccionada} other {# seleccionadas}}"
+	},
+	"rulesTableToolbar.title": {
+		"string": "{numRules, plural, one {1 regla} other {# reglas}}"
+	},
+	"rulesTableToolbar.delete": {
+		"string": "Eliminar "
+	},
+	"rulesTableToolbar.add": {
+		"string": "Nueva regla"
+	},
+	"rulesTableToolbar.deleteConfirmationTitle": {
+		"string": "¿Eliminar las reglas seleccionadas? "
+	},
+	"rulesTableToolbar.deleteConfirmationText": {
+		"string": "¿Estás seguro(a) que quieres eliminar estas reglas?"
+	},
 	"slackConfigDialogComponent.defaultErrorMessage": {
 		"string": "No se pudo guardar la configuración de Slack"
 	},
@@ -2963,89 +3050,71 @@
 	"slackConfigDialogComponent.save": {
 		"string": "Guardar"
 	},
-	"rule.copyOf": {
-		"string": "Copia de {ruleName}"
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Mover ítems a"
 	},
-	"ruleBody.ruleNameValidation": {
-		"string": "El nombre de la regla es requerido"
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Debes cambiar el estado de {itemsCount, plural, one {one item} other {# items}} para eliminar este estado"
 	},
-	"ruleBody.ruleName": {
-		"string": "Nombre"
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Hay {itemsCount, plural, one {is one item} other {are # items}} con el estado {statusLabel} que debe cambiarse a otros estados antes de eliminar este estado."
 	},
-	"ruleBody.if": {
-		"string": "Si"
+	"deleteStatusDialog.alternatively": {
+		"string": "Como alternativa, puedes cambiar el estado de cada ítem individualmente."
 	},
-	"ruleBody.then": {
-		"string": "Entonces"
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {Uno de esos ítems está publicado actualmente.} other {# de esos ítmes están publicados actualmente.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
 	},
-	"ruleOperatorWrapper.and": {
-		"string": "Y"
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Mover ítem y eliminar estado"
 	},
-	"ruleOperatorWrapper.or": {
-		"string": "O"
+	"editStatusDialog.titleEdit": {
+		"string": "Editar estado"
 	},
-	"ruleOperatorWrapper.removeTheAbove": {
-		"string": "Eliminar ítem arriba"
+	"editStatusDialog.title": {
+		"string": "Añadir un nuevo estado"
 	},
-	"ruleToolbar.back": {
-		"string": "Volver"
+	"editStatusDialog.statusTitle": {
+		"string": "Estado ({max} caracteres como máximo)"
 	},
-	"ruleToolbar.more": {
-		"string": "Más"
+	"editStatusDialog.statusDescription": {
+		"string": "Descripción"
 	},
-	"ruleToolbar.duplicate": {
-		"string": "Duplicar"
+	"editStatusDialog.addButton": {
+		"string": "Añadir estado"
 	},
-	"ruleToolbar.delete": {
-		"string": "Borrar"
+	"statusListItem.noDescription": {
+		"string": "Sin descripción"
 	},
-	"rulesTableToolbar.save": {
-		"string": "Guardar"
+	"statusListItem.default": {
+		"string": "{statusLabel} (predeterminado)"
 	},
-	"ruleToolbar.deleteConfirmationTitle": {
-		"string": "¿Eliminar regla?"
+	"statusesComponent.error": {
+		"string": "Lo sentimos, se produjo un error al actualizar los estados. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
-	"ruleToolbar.deleteConfirmationText": {
-		"string": "¿Estás seguro(a) que quieres eliminar esta regla?"
+	"statusesComponent.saved": {
+		"string": "Estados guardados exitosamente!"
 	},
-	"ruleToolbar.leaveConfirmationTitle": {
-		"string": "¿Cerrar sin guardar?"
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 estado} other {# estados}}"
 	},
-	"ruleToolbar.leaveConfirmationText": {
-		"string": "Si continúa, perderá sus cambios."
+	"statusesComponent.newStatus": {
+		"string": "Nuevo estado"
 	},
-	"rulesComponent.defaultErrorMessage": {
-		"string": "No se pudo guardar las reglas"
+	"statusesComponent.blurb": {
+		"string": "El título del estado es visible cuando se envían informes a los usuarios."
 	},
-	"rulesComponent.savedSuccessfully": {
-		"string": "¡Las reglas se han actualizado con éxito!"
+	"statusesComponent.blurbSecondary": {
+		"string": "Traduce los estados en idiomas secundarios para mostrarlos en idiomas locales en tus informes de verificación de datos."
 	},
-	"rulesTableHead.name": {
-		"string": "Nombre"
+	"translateStatuses.missingTranslations": {
+		"string": "Traducciones faltantes"
 	},
-	"rulesTableHead.updated": {
-		"string": "Actualizada"
+	"translateStatuses.missingTranslationsBody": {
+		"string": "A algunos estados les faltan traducciones. Es posible que los usuarios no puedan leer estados no traducidos."
 	},
-	"rulesTableHead.selectAll": {
-		"string": "Seleccionar todas las reglas"
-	},
-	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
-	},
-	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
-	},
-	"rulesTableToolbar.delete": {
-		"string": "Borrar"
-	},
-	"rulesTableToolbar.add": {
-		"string": "Nueva regla"
-	},
-	"rulesTableToolbar.deleteConfirmationTitle": {
-		"string": "¿Eliminar las reglas seleccionadas? "
-	},
-	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "¿Estás seguro(a) que quieres eliminar estas reglas?"
+	"translateStatuses.continueAndSave": {
+		"string": "Continuar y guardar"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Escenario"
@@ -3216,19 +3285,19 @@
 		"string": "¡Hola! Bienvenido(a) al bot de verificación de datos de [Nombre de su organización]."
 	},
 	"smoochBot.placeholderMainMenu": {
-		"string": "📌*Menú Principal*\n\n*Responda 1* (o 🔍) para enviar una solicitud de verificación de hechos sobre un artículo, video, imagen u otro contenido.\n*Responda 2* (o 🦠) para obtener la información más reciente sobre la enfermedad del coronavirus (COVID-19)"
+		"string": "📌*Menú Principal*\n\n*Responda 1* (o 🔍) para enviar una solicitud de verificación de hechos sobre un artículo, video, imagen u otro contenido.\n*Responda 2* (o 🦠) para obtener la información más reciente sobre la enfermedad por coronavirus (COVID-19)"
 	},
 	"smoochBot.placeholderSecondaryMenu": {
-		"string": "*Información sobre la enfermedad por Coronavirus (COVID-19)* 🦠\n\n👉*Responda con cualquiera de los siguientes números (o emoji) para obtener información sobre ese tema:*\n\n*1:* ¿Cómo me protejo a mí mismo(a) y / o a mi familia? 👨‍👩‍👧\n*2:* Creo que me estoy enfermando 🤒\n*3:* ¿Cómo puedo manejar el estrés asociado a COVID-19? ❤️\n*4:* Información sobre casos y recuperaciones a nivel mundial 📊\n*5:* Últimas actualizaciones de la Organización Mundial de la Salud 🌐\n\n*Responda 0* para volver al *Menú Principal* 📌"
+		"string": "*Información sobre la enfermedad por Coronavirus (COVID-19)* 🦠\n\n👉*Responda con cualquiera de los siguientes números (o emoji) para obtener información sobre ese tema:*\n\n*1:* ¿Cómo me protejo a mí mismo y / o a mi familia? 👨‍👩‍👧\n*2:* Creo que me estoy enfermando 🤒\n*3:* ¿Cómo puedo manejar el estrés asociado con COVID-19? ❤️\n*4:* Información sobre casos y recuperaciones a nivel mundial 📊\n*5:* Últimas actualizaciones de la Organización Mundial de la Salud 🌐\n\n*Responda 0* para volver al *Menú Principal* 📌"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after  your last message.\n      \n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
 	},
 	"smoochBot.placeholderQueryReceived": {
-		"string": "¡Gracias! Su solicitud ha sido recibida. Las respuestas se están agregando y ordenando, y estamos trabajando para verificar sus preguntas.\n\n✔️*Siga este enlace para obtener una lista actualizada de preguntas frecuentes que hemos verificado:* [ Enlace a una página de verificación de hechos en su sitio web ]\n\n👉*Responda con cualquier texto* para volver al *Menú Principal* 📌"
+		"string": "¡Gracias! Su solicitud ha sido recibida. Las respuestas se están agregando y ordenando, y estamos trabajando para verificar sus preguntas.\n\n✔️*Siga este enlace para obtener una lista actualizada de preguntas comunes que hemos verificado:* [ Enlace a una página de verificación de hechos en su sitio web ]\n\n👉*Responda con cualquier texto* para volver al *Menú Principal* 📌"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
-		"string": "🤖Lo siento, no entendí tu mensaje ¡Por favor inténtalo de nuevo!"
+		"string": "🤖Lo siento, no entendí tu mensaje ¡Inténtalo de nuevo!"
 	},
 	"smoochBot.placeholderReportUpdated": {
 		"string": "❗️La verificación de datos que le enviamos se ha *actualizado* con nueva información:"
@@ -3237,7 +3306,7 @@
 		"string": "❌Lo sentimos, no podemos aceptar este tipo de mensaje para verificación en este momento.\n\nPodemos aceptar la mayoría de las imágenes, videos, enlaces, mensajes de texto y mensajes compartidos de WhatsApp."
 	},
 	"smoochBot.placeholderInactive": {
-		"string": "❌Gracias por tu mensaje. Nuestro servicio de verificación de hechos está actualmente *inactivo*.\n\nContáctate con nosotros en *[correo electrónico o otro contacto]* para consultas adicionales."
+		"string": "❌Gracias por tu mensaje. Nuestro servicio de verificación de hechos está actualmente *inactivo*.\n\nPóngase en contacto con nosotros en *[correo electrónico o otro contacto]* para consultas adicionales."
 	},
 	"smoochBot.newResourceTitle": {
 		"string": "Nuevo recurso del bot"
@@ -3247,72 +3316,6 @@
 	},
 	"smoochBot.tos": {
 		"string": "Terms of Service ({language})"
-	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Mover ítems a"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Debes cambiar el estado de {itemsCount, plural, one {one item} other {# items}} para eliminar este estado"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Hay {itemsCount, plural, one {is one item} other {are # items}} con el estado {statusLabel} que debe cambiarse a otros estados antes de eliminar este estado."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Como alternativa, puedes cambiar el estado de cada ítem individualmente."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Mover ítem y eliminar estado"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "Editar estado"
-	},
-	"editStatusDialog.title": {
-		"string": "Añadir un nuevo estado"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "Estado ({max} caracteres como máximo)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Descripción"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Añadir estado"
-	},
-	"statusListItem.noDescription": {
-		"string": "Sin descripción"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (predeterminado)"
-	},
-	"statusesComponent.error": {
-		"string": "Lo sentimos, se produjo un error al actualizar los estados. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
-	},
-	"statusesComponent.saved": {
-		"string": "Estados guardados exitosamente!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "Nuevo estado"
-	},
-	"statusesComponent.blurb": {
-		"string": "El título del estado es visible cuando se envían informes a los usuarios."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Traduce los estados en idiomas secundarios para mostrarlos en idiomas locales en tus informes de verificación de datos."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "Traducciones faltantes"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "A algunos estados les faltan traducciones. Es posible que los usuarios no puedan leer estados no traducidos."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Continuar y guardar"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Could not save list settings.",

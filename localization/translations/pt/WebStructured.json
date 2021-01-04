@@ -18,7 +18,7 @@
 		"string": "Fechar"
 	},
 	"global.confirm": {
-		"string": "Confirme"
+		"string": "Confirmar"
 	},
 	"global.delete": {
 		"string": "Excluir"
@@ -99,7 +99,7 @@
 		"string": "Modificar senha"
 	},
 	"projects.unconfirmed": {
-		"string": "Não Confirmado"
+		"string": "Não confirmado"
 	},
 	"projects.trash": {
 		"string": "Lixeira"
@@ -252,7 +252,7 @@
 		"string": "O tamanho do arquivo deve ser inferior a {size}. Por favor, tente com um arquivo menor."
 	},
 	"uploadImage.message": {
-		"string": "Deposite um arquivo de imagem aqui, ou clique para  carregar um arquivo (tamanho máximo: {upload_max_size}, extensões permitidas: {upload_extensions}, dimensões permitidas entre {upload_min_dimensions} e {upload_max_dimensions} pixels)"
+		"string": "Deposite um arquivo de imagem aqui, ou clique para carregar um arquivo (tamanho máximo: {upload_max_size}, extensões permitidas: {upload_extensions}, dimensões permitidas entre {upload_min_dimensions} e {upload_max_dimensions} pixels)"
 	},
 	"uploadImage.videoMessage": {
 		"string": "Deposite um arquivo de vídeo aqui, ou clique para carregar um arquivo (tamanho máximo: {video_max_size}, extensões permitidas: {video_extensions})"
@@ -633,7 +633,7 @@
 		"string": "Buscar..."
 	},
 	"FilterPopup.close": {
-		"string": "Concluído"
+		"string": "Terminado"
 	},
 	"languagePickerDialog.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -657,7 +657,7 @@
 		"string": "Mais"
 	},
 	"MultiSelector.all": {
-		"string": "Todas"
+		"string": "Todos"
 	},
 	"multiSelector.empty": {
 		"string": "Nenhum item encontrado "
@@ -767,6 +767,196 @@
 	"projectSelector.allProjs": {
 		"string": "Todas as listas"
 	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "Os metadados têm um valor específico"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Os metadados contêm uma palavra-chave"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "A tarefa tem uma resposta específica"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "A resposta da tarefa contém uma palavra-chave"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Selecionar tarefa"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Selecionar metadados"
+	},
+	"search.allClaimsTitle": {
+		"string": "Todos os itens"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filtrar por"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Selecionar valor"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Digite uma lista de palavras-chave separadas por vírgulas"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Adicionar filtros"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Os metadados têm um valor específico"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Os metadados contêm uma palavra-chave"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "A tarefa tem uma resposta específica"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "A resposta da tarefa contém uma palavra-chave"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Nenhum valor foi definido"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Um valor qualquer foi definido"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Selecionar tarefa"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Selecionar metadados"
+	},
+	"search.dateHeading": {
+		"string": "Intervalo de tempo"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Enviado"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Último envio"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Atualizado"
+	},
+	"search.datePublishedHeading": {
+		"string": "Publicado"
+	},
+	"search.pickDateFrom": {
+		"string": "Data inicial"
+	},
+	"search.pickDateTo": {
+		"string": "Data final"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Título da mídia"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Conteúdo da mídia"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Título da análise"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Conteúdo da análise"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Tags"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Todas as respostas da tarefa",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Respostas de todos os metadados"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Todas as notas"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Comentários de todas as tarefas"
+	},
+	"search.showClaims": {
+		"string": "Textos"
+	},
+	"search.showLinks": {
+		"string": "Links"
+	},
+	"search.showImages": {
+		"string": "Imagens"
+	},
+	"search.showVideos": {
+		"string": "Vídeos"
+	},
+	"search.showAudios": {
+		"string": "Áudios"
+	},
+	"search.showBlank": {
+		"string": "Relatório importado"
+	},
+	"search.title": {
+		"string": "Todos os itens"
+	},
+	"search.inputHint": {
+		"string": "Buscar"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árvore + Folha</td><td>Itens com ambos \"Árvore\" E \"Folha\" </td></tr>\n                        <tr><td>|</td><td>Árvore | Folha </td><td>Itens com alternativamente \"Árvore\" OU \"Folha\"</td></tr>\n                        <tr><td>()</td><td>Árvore + (Folha | Ramo)</td><td>Itens com \"Árvore\" E \"Folha\" OU itens com \"Árvore\" E \"Ramo\"</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Saiba mais sobre as técnicas de pesquisa\n                      </a>\n                    </div>"
+	},
+	"search.Filter": {
+		"string": "Filtro"
+	},
+	"search.clear": {
+		"string": "Limpar filtro"
+	},
+	"search.categoriesHeading": {
+		"string": "Tags"
+	},
+	"search.any": {
+		"string": "Qualquer uma"
+	},
+	"search.all": {
+		"string": "Todas"
+	},
+	"search.show": {
+		"string": "Formato da mídia"
+	},
+	"search.statusHeading": {
+		"string": "Status do item"
+	},
+	"search.userHeading": {
+		"string": "Criado por"
+	},
+	"search.language": {
+		"string": "Idioma"
+	},
+	"search.projectHeading": {
+		"string": "Lista"
+	},
+	"search.assignedTo": {
+		"string": "Atribuído a"
+	},
+	"search.readHeading": {
+		"string": "Lido"
+	},
+	"search.cancel": {
+		"string": "Cancelar"
+	},
+	"search.reset": {
+		"string": "Redefinir"
+	},
+	"search.applyFilters": {
+		"string": "Filtro"
+	},
+	"search.previousPage": {
+		"string": "Página anterior"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 selecionado)} other {(# selecionados)}}"
+	},
+	"search.nextPage": {
+		"string": "Próxima página"
+	},
 	"mediaMetadata.addedToList": {
 		"string": "Adicionar à lista {listName}"
 	},
@@ -831,11 +1021,11 @@
 		"string": "Suspender o relatório e atualizar o conteúdo"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Itens movidos da lixeira para `{toProject}`",
+		"string": "Items moved from Trash to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Itens movidos de Não Confirmado para `{toProject}`",
+		"string": "Items moved from Unconfirmed to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.addedSuccessfully": {
@@ -851,19 +1041,19 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "Itens movidos para a lixeira."
+		"string": "Items moved to the Trash."
 	},
 	"bulkActions.trash": {
 		"string": "Restaurar itens selecionados e movê-los para outra lista"
 	},
 	"bulkActions.restore": {
-		"string": "Restaurar da lixeira"
+		"string": "Restore from Trash"
 	},
 	"bulkActions.unconfirmed": {
 		"string": "Confirmar itens selecionados e movê-los para outra lista"
 	},
 	"bulkActions.confirm": {
-		"string": "Mover de Não Confirmado"
+		"string": "Move from Unconfirmed"
 	},
 	"bulkActions.move": {
 		"string": "Mover itens selecionados para uma outra lista"
@@ -878,7 +1068,7 @@
 		"string": "Mover para a lista"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+		"string": "{selectedCount, plural, one {Mover 1 item para a lista...} other {Mover # itens para a lista...}}"
 	},
 	"bulkActions.add": {
 		"string": "Adicionar itens selecionados à uma outra lista"
@@ -890,10 +1080,10 @@
 		"string": "Adicionar"
 	},
 	"bulkActions.dialogAddTitle": {
-		"string": "Adicionar a uma lista diferente"
+		"string": "Adicionar a uma outra lista"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Mover itens selecionados para a lixeira"
+		"string": "Send selected items to Trash"
 	},
 	"claimReview.claim": {
 		"string": "Afirmação: "
@@ -971,7 +1161,7 @@
 		"string": "Histórico do item"
 	},
 	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+		"string": "{count, plural, one {Tem certeza que deseja sair? Você ainda tem uma tarefa obrigatória que lhe foi atribuída  e que ainda não foi respondida.} other {Tem certeza de que deseja sair? Você ainda tem # tarefas obrigatórias que lhe foram atribuídas e que ainda não foram respondidas.}}"
 	},
 	"mediaActions.edit": {
 		"string": "Editar título e descrição"
@@ -1127,10 +1317,10 @@
 		"string": "Compartilhamentos do Facebook"
 	},
 	"mediaExpandedMetadata.reactions": {
-		"string": "Reações no Facebook"
+		"string": "Reações do Facebook"
 	},
 	"mediaExpandedMetadata.comments": {
-		"string": "Comentários no Facebook"
+		"string": "Comentários do Facebook"
 	},
 	"mediaExpanded.firstSeen": {
 		"string": "Visto pela primeira vez:"
@@ -1157,10 +1347,10 @@
 		"string": "Carregar mais"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {1 solicitação em toda a mídia} other {# solicitações em todas as mídias}}"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {1 solicitação} other {# solicitações}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Nenhuma solicitação"
@@ -1352,7 +1542,7 @@
 		"string": "Pronto para publicar o seu relatório?"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+		"string": "{demand, plural, one {Você está prestes a enviar este relatório ao(à) usuário(à) que solicitou este item.} other {Você está prestes a enviar este relatório aos(às) # usuários(as) que solicitaram este item.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "A partir de agora, os(as) usuários(as) que solicitarem este item receberão seu relatório enquanto ele permanecer publicado."
@@ -1370,13 +1560,13 @@
 		"string": "A partir de agora, os(as) usuários(as) que solicitarem este item receberão esta nova versão do relatório."
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+		"string": "{demand, plural, one {Envie também a correção ao(à) usuário(a) que já recebeu a versão anterior deste relatório.} other {Envie também a correção aos(às) # usuários(as) que já receberam a versão anterior deste relatório}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Pronto(a) para publicar sua correção?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+		"string": "{demand, plural, one {Sua correção será enviada ao(à) usuário(à) que recebeu o relatório anterior.} other {Sua correção será enviada aos(às) # usuários(as) que receberam o relatório anterior.}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "A partir de agora, os(as) usuários(as) que solicitarem este item receberão esta nova versão do relatório."
@@ -1398,7 +1588,7 @@
 		"string": "Restaurar da lixeira"
 	},
 	"mediaActionsBar.confirmTo": {
-		"string": "Confirme"
+		"string": "Confirmar"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
 		"string": "Mover item para a lista..."
@@ -1408,196 +1598,6 @@
 	},
 	"webPageMediaCard.Error": {
 		"string": "Este item não pôde ser identificado. Ele pode ter sido removido, ou pode estar visível apenas para os(as) usuários(as) que estão logados. Clique no link acima para navegar até ele."
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Os metadados têm um valor específico"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Os metadados contêm uma palavra-chave"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "A tarefa tem uma resposta específica"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "A resposta da tarefa contém uma palavra-chave"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Selecionar tarefa"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Selecionar metadados"
-	},
-	"search.allClaimsTitle": {
-		"string": "Todos os itens"
-	},
-	"CustomFilter.filterBy": {
-		"string": "Filtrar por"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Selecionar valor"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Digite uma lista de palavras-chave separadas por vírgulas"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Adicionar filtros"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Os metadados têm um valor específico"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Os metadados contêm uma palavra-chave"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "A tarefa tem uma resposta específica"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "A resposta da tarefa contém uma palavra-chave"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "Nenhum valor foi definido"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "Um valor qualquer foi definido"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Selecionar tarefa"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Selecionar metadados"
-	},
-	"search.dateHeading": {
-		"string": "Intervalo de tempo"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Enviado"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Último envio"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "Atualizado"
-	},
-	"search.datePublishedHeading": {
-		"string": "Publicado"
-	},
-	"search.pickDateFrom": {
-		"string": "Data inicial"
-	},
-	"search.pickDateTo": {
-		"string": "Data final"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Título da mídia"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Conteúdo da mídia"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Título da análise"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Conteúdo da análise"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Tags"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Todas as respostas da tarefa",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "Respostas de todos os metadados"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "Todas as notas"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Comentários de todas as tarefas"
-	},
-	"search.showClaims": {
-		"string": "Textos"
-	},
-	"search.showLinks": {
-		"string": "Links"
-	},
-	"search.showImages": {
-		"string": "Imagens"
-	},
-	"search.showVideos": {
-		"string": "Vídeos"
-	},
-	"search.showAudios": {
-		"string": "Áudios"
-	},
-	"search.showBlank": {
-		"string": "Relatório importado"
-	},
-	"search.title": {
-		"string": "Todos os itens"
-	},
-	"search.inputHint": {
-		"string": "Buscar"
-	},
-	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árvore + Folha</td><td>Itens com ambos \"Árvore\" E \"Folha\" </td></tr>\n                        <tr><td>|</td><td>Árvore | Folha </td><td>Itens com alternativamente \"Árvore\" OU \"Folha\"</td></tr>\n                        <tr><td>()</td><td>Árvore + (Folha | Ramo)</td><td>Itens com \"Árvore\" E \"Folha\" OU itens com \"Árvore\" E \"Ramo\"</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Saiba mais sobre as técnicas de pesquisa\n                      </a>\n                    </div>"
-	},
-	"search.Filter": {
-		"string": "Filtro"
-	},
-	"search.clear": {
-		"string": "Limpar filtro"
-	},
-	"search.categoriesHeading": {
-		"string": "Tags"
-	},
-	"search.any": {
-		"string": "Qualquer uma"
-	},
-	"search.all": {
-		"string": "Todas"
-	},
-	"search.show": {
-		"string": "Formato da mídia"
-	},
-	"search.statusHeading": {
-		"string": "Status do item"
-	},
-	"search.userHeading": {
-		"string": "Criado por"
-	},
-	"search.language": {
-		"string": "Idioma"
-	},
-	"search.projectHeading": {
-		"string": "Lista"
-	},
-	"search.assignedTo": {
-		"string": "Atribuído a"
-	},
-	"search.readHeading": {
-		"string": "Lido"
-	},
-	"search.cancel": {
-		"string": "Cancelar"
-	},
-	"search.reset": {
-		"string": "Redefinir"
-	},
-	"search.applyFilters": {
-		"string": "Filtro"
-	},
-	"search.previousPage": {
-		"string": "Página anterior"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Próxima página"
 	},
 	"userAssignments.filterByTeam": {
 		"string": "Filtrar por espaço de trabalho"
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Segurança"
 	},
-	"UserInfo.dateJoined": {
-		"string": "Começou a participar em {date} • {teamsCount, plural, one {1 workspace} other {# workspaces}}"
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Nome"
@@ -1786,7 +1789,7 @@
 		"string": "Editar tags"
 	},
 	"tagMenu.done": {
-		"string": "Concluído"
+		"string": "Terminado"
 	},
 	"tagPicker.emptyTags": {
 		"string": "Não há tags para esse espaço de trabalho."
@@ -1999,7 +2002,7 @@
 		"string": "Atribuir / Remover atribuição"
 	},
 	"task.editAttribution": {
-		"string": "Editar atribuição"
+		"string": "Editar autoria da resposta"
 	},
 	"task.delete": {
 		"string": "Excluir tarefa"
@@ -2398,7 +2401,7 @@
 		"string": "Membros"
 	},
 	"teamMembersComponent.editDoneButton": {
-		"string": "Concluído"
+		"string": "Terminado"
 	},
 	"teamMembersComponent.editButton": {
 		"string": "Editar"
@@ -2440,7 +2443,7 @@
 		"string": "Nenhuma lista"
 	},
 	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+		"string": "{count, plural, one {Atribuído a um membro} other {Atribuído a # membros}}"
 	},
 	"teamReport.updateFail": {
 		"string": "Desculpe, ocorreu um erro ao atualizar as configurações do relatório. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -2554,7 +2557,7 @@
 		"string": "Nenhuma tarefa padrão para exibir"
 	},
 	"teamTasks.blankMetadata": {
-		"string": "Sem campos de metadados"
+		"string": "Não há campos de metadados"
 	},
 	"teamTasks.filter": {
 		"string": "Filtrar tarefas"
@@ -2587,7 +2590,7 @@
 		"string": "Não Confirmado"
 	},
 	"tasks.done": {
-		"string": "Concluído"
+		"string": "Terminado"
 	},
 	"ConfirmEmail.title": {
 		"string": "Confirme seu e-mail"
@@ -2652,164 +2655,6 @@
 	"UserUtil.owner": {
 		"string": "Dono(a)"
 	},
-	"reportDesigner.title": {
-		"string": "Crie seu relatório"
-	},
-	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Sair"
-	},
-	"reportDesigner.textTitle": {
-		"string": "Título ({max} caracteres no máximo)"
-	},
-	"reportDesigner.content": {
-		"string": "Conteúdo ({max} caracteres no máximo)"
-	},
-	"reportDesigner.textError": {
-		"string": "Você deve inserir texto no relatório ou desmarcar a caixa 'Texto do relatório'"
-	},
-	"reportDesigner.darkOverlay": {
-		"string": "Sobreposição escura"
-	},
-	"reportDesigner.removeImage": {
-		"string": "Remover imagem"
-	},
-	"reportDesigner.datePublished": {
-		"string": "Data de publicação"
-	},
-	"reportDesigner.addIntro": {
-		"string": "Adicionar conteúdo à introdução"
-	},
-	"reportDesigner.addText": {
-		"string": "Adicionar conteúdo à mensagem"
-	},
-	"reportDesigner.firstSent": {
-		"string": "Publicado pela primeira vez"
-	},
-	"reportDesigner.sentCount": {
-		"string": "Relatórios recebidos"
-	},
-	"reportDesigner.cannotPublish": {
-		"string": "Preencha pelo menos o texto ou a imagem do relatório para publicá-lo. Certifique-se de criar um relatório para o idioma original ({language})."
-	},
-	"mediaItem.error": {
-		"string": "Erro. Por favor, tente novamente"
-	},
-	"mediaItem.pinning": {
-		"string": "Fixando..."
-	},
-	"mediaItem.doneRedirecting": {
-		"string": "Pronto, redirecionando para o novo item principal..."
-	},
-	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
-	},
-	"mediaItem.pinAsMain": {
-		"string": "Fixar como principal"
-	},
-	"mediaItem.detach": {
-		"string": "Desprender"
-	},
-	"mediaRelatedComponent.defaultErrorMessage": {
-		"string": "Não foi possível adicionar item relacionado"
-	},
-	"mediaRelatedComponent.savedSuccessfully": {
-		"string": "Item relacionado adicionado com sucesso"
-	},
-	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
-	},
-	"mediaRelatedComponent.addSimilar": {
-		"string": "Adicionar relação"
-	},
-	"mediaRelatedComponent.dialogTitle": {
-		"string": "Adicionar relação"
-	},
-	"mediaSimilarities.requests": {
-		"string": "Solicitações"
-	},
-	"mediaSimilaritiesComponent.back": {
-		"string": "Voltar"
-	},
-	"mediaSimilarities.mainItem": {
-		"string": "Mídia principal"
-	},
-	"mediaSimilarities.allSimilarMedia": {
-		"string": "Todas as mídias semelhantes"
-	},
-	"mediaSimilarities.notes": {
-		"string": "Notas"
-	},
-	"mediaSimilarities.clickOnItem": {
-		"string": "Clique em um item"
-	},
-	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Importar mídia semelhante para este item"
-	},
-	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Exportar todas as mídias para outro item"
-	},
-	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Não foi possível adicionar item semelhante",
-		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
-	},
-	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Item semelhante adicionado com sucesso",
-		"developer_comment": "Banner displayed when similar item is added successfully"
-	},
-	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Adicionar semelhante"
-	},
-	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Importar mídia semelhante para este item"
-	},
-	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Exportar todas as mídias para outro item"
-	},
-	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Exportar como semelhante"
-	},
-	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Importar item semelhante"
-	},
-	"mediaSimilarityBarComponent.hasMain": {
-		"string": "Esta mídia foi adicionada como semelhante a outro item"
-	},
-	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "Esta mídia foi sugerida como semelhante a outro item"
-	},
-	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
-	},
-	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
-	},
-	"mediaSuggestionsComponent.back": {
-		"string": "Voltar"
-	},
-	"mediaSuggestionsComponent.title": {
-		"string": "Palavras que coincidem sugeridas ({current} de {total})"
-	},
-	"mediaSuggestionsComponent.question": {
-		"string": "A mídia sugerida é semelhante à principal?"
-	},
-	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "Não há sugestões de palavras que coincidam."
-	},
-	"mediaSuggestionsComponent.goBack": {
-		"string": "Voltar à visualização principal"
-	},
-	"mediaSuggestionsComponent.requests": {
-		"string": "Solicitações"
-	},
-	"mediaSuggestionsComponent.noRequests": {
-		"string": "Nenhuma solicitação"
-	},
-	"mediaSuggestionsComponent.notes": {
-		"string": "Notas"
-	},
-	"mediaSuggestionsComponent.noNotes": {
-		"string": "Nenhuma nota"
-	},
 	"searchKeywordConfig.metadata": {
 		"string": "Metadados"
 	},
@@ -2873,6 +2718,164 @@
 	"list.suggestionsCount": {
 		"string": "Coincidências sugeridas"
 	},
+	"reportDesigner.title": {
+		"string": "Crie seu relatório"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Sair"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Título ({max} caracteres no máximo)"
+	},
+	"reportDesigner.content": {
+		"string": "Conteúdo ({max} caracteres no máximo)"
+	},
+	"reportDesigner.textError": {
+		"string": "Você deve inserir texto no relatório ou desmarcar a caixa 'Texto do relatório'"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Sobreposição escura"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Remover imagem"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Data de publicação"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Adicionar conteúdo à introdução"
+	},
+	"reportDesigner.addText": {
+		"string": "Adicionar conteúdo à mensagem"
+	},
+	"reportDesigner.firstSent": {
+		"string": "Publicado pela primeira vez"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Relatórios recebidos"
+	},
+	"reportDesigner.cannotPublish": {
+		"string": "Preencha pelo menos o texto ou a imagem do relatório para publicá-lo. Certifique-se de criar um relatório para o idioma original ({language})."
+	},
+	"mediaItem.error": {
+		"string": "Erro. Por favor, tente novamente"
+	},
+	"mediaItem.pinning": {
+		"string": "Fixando..."
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Pronto, redirecionando para o novo item principal..."
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {1 solicitação} other {# solicitações}}"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "Fixar como principal"
+	},
+	"mediaItem.detach": {
+		"string": "Desprender"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Não foi possível adicionar item relacionado"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "Item relacionado adicionado com sucesso"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {1 item relacionado} other {# itens relacionados}}"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Adicionar relação"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Adicionar relação"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Solicitações"
+	},
+	"mediaSimilaritiesComponent.back": {
+		"string": "Voltar"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Mídia principal"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Todas as mídias semelhantes"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Notas"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Clique em um item"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Importar mídia semelhante para este item"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "Exportar todas as mídias para outro item"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Não foi possível adicionar item semelhante",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "Item semelhante adicionado com sucesso",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Adicionar semelhante"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Importar mídia semelhante para este item"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "Exportar todas as mídias para outro item"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "Exportar como semelhante"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "Importar item semelhante"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "Esta mídia foi adicionada como semelhante a outro item"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "Esta mídia foi sugerida como semelhante a outro item"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "{count, plural, one {1 mídia semelhante confirmada} other {# mídias semelhantes confirmadas}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "{count, plural, one {1 correspondência sugerida} other {# coincidências sugeridas}}"
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Voltar"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "Palavras que coincidem sugeridas ({current} de {total})"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "A mídia sugerida é semelhante à principal?"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "Não há sugestões de palavras que coincidam."
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Voltar à visualização principal"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Solicitações"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "Nenhuma solicitação"
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Notas"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "Nenhuma nota"
+	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
 	},
@@ -2923,45 +2926,6 @@
 	},
 	"translationNeededDialog.body": {
 		"string": "Para fazer do {language} o idioma padrão, você deve primeiro traduzir todos os status existentes para {language} na aba de configurações de Status."
-	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "Não foi possível salvar as configurações do Slack"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Configurações do Slack salvas com sucesso!"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "Enviar notificações aos canais do Slack quando afirmações são adicionadas à listas específicas"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Webhook do Slack"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "Evento"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Enviar notificações para"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Se o item estiver na lista"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "Canal no Slack"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Todas as outras atividades"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Todas as atividades do espaço de trabalho"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "Nova notificação"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "Cancelar"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "Salvar"
 	},
 	"rule.copyOf": {
 		"string": "Cópia de {ruleName}"
@@ -3024,16 +2988,16 @@
 		"string": "Nome"
 	},
 	"rulesTableHead.updated": {
-		"string": "Atualizado"
+		"string": "Atualizada"
 	},
 	"rulesTableHead.selectAll": {
 		"string": "Selecionar todas regras"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, one {1 selecionada} other {# selecionadas}}"
 	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "{numRules, plural, one {1 regra} other {# regras}}"
 	},
 	"rulesTableToolbar.delete": {
 		"string": "Excluir"
@@ -3047,6 +3011,111 @@
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "Tem certeza de que deseja excluir estas regras?"
 	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Não foi possível salvar as configurações do Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Configurações do Slack salvas com sucesso!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Enviar notificações aos canais do Slack quando afirmações são adicionadas à listas específicas"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Webhook do Slack"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Evento"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Enviar notificações para"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Se o item estiver na lista"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Canal no Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Todas as outras atividades"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Todas as atividades do espaço de trabalho"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Nova notificação"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Cancelar"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Salvar"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Mover itens para"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Você precisa modificar o status de {itemsCount, plural, one {um item} other {# itens}} para excluir este status"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Há {itemsCount, plural, one {is one item} other {are # items}} com o status {statusLabel} que devem ser modificados para outros status antes de excluir este status."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Como alternativa, você pode modificar o status de cada item individualmente."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {No momento, um desses itens está publicado.} other {No momento, # desses itens estão publicados.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Mover itens e excluir status"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Editar status"
+	},
+	"editStatusDialog.title": {
+		"string": "Adicionar novo status"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Status ({maxLength} caracteres no máximo)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Descrição"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Adicionar status"
+	},
+	"statusListItem.noDescription": {
+		"string": "Sem descrição"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (padrão)"
+	},
+	"statusesComponent.error": {
+		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+	},
+	"statusesComponent.saved": {
+		"string": "Os status foram atualizadas com sucesso!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# status}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Novo status"
+	},
+	"statusesComponent.blurb": {
+		"string": "O título do status é exibido quando os relatório são enviados aos(às) usuários(as)."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "As traduções estão faltando"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Estão faltando traduções de alguns status. Os(as) usuários(as) podem não conseguir ler os status não traduzidos."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Continuar e salvar"
+	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Cenário"
 	},
@@ -3057,7 +3126,7 @@
 		"string": "Menu secundário"
 	},
 	"smoochBotMenuOption.queryState": {
-		"string": "Prompt de consulta"
+		"string": "Pedido de consulta"
 	},
 	"smoochBotMenuOption.resource": {
 		"string": "Relatório"
@@ -3126,7 +3195,7 @@
 		"string": "Cancelar"
 	},
 	"smoochBotSelectReport.confirm": {
-		"string": "Confirme"
+		"string": "Confirmar"
 	},
 	"smoochBot.scenarios": {
 		"string": "Cenários"
@@ -3222,7 +3291,7 @@
 		"string": "*Informações sobre a doença causada pelo Coronavírus (COVID-19)* 🦠\n\n👉*Responda com qualquer um dos seguintes números (ou emoji) para obter informações sobre o tópico:*\n\n*1:* Como eu me protejo e/ou protejo a minha família? 👨‍👩‍👧\n*2:* Acho que estou ficando doente 🤒\n*3:* Como posso lidar com o estresse associado ao COVID-19? ❤️\n*4:* Informações sobre casos e recuperações em todo o mundo 📊\n*5:* Últimas atualizações da Organização Mundial da Saúde 🌐\n\n*Responda 0* para voltar ao *Menu Principal* 📌"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Por favor, insira a pergunta, link, foto ou vídeo que você deseja verificar,* e, em seguida, o contexto relacionado a esse item. Sua solicitação será enviada aos(às) verificadores(as) cerca de 15 segundos após o envio da sua última mensagem.\n      \n*Responda 0 (ou 📌)* para cancelar e voltar ao *Menu Principal*"
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "Agradecemos-lhe! Sua solicitação foi recebida. As respostas estão sendo agregadas e classificadas e estamos trabalhando na verificação de fatos das suas perguntas.\n\n✔️ *Siga este link para obter uma lista atualizada de perguntas comuns que foram verificadas:* [Link para uma página de verificações em seu site]\n\n👉*Responda com qualquer texto* para voltar ao *Menu Principal* 📌"
@@ -3247,72 +3316,6 @@
 	},
 	"smoochBot.tos": {
 		"string": "Termos de Serviço ({language})"
-	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Mover itens para"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Você precisa modificar o status de {itemsCount, plural, one {um item} other {# itens}} para excluir este status"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Há {itemsCount, plural, one {is one item} other {are # items}} com o status {statusLabel} que devem ser modificados para outros status antes de excluir este status."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Como alternativa, você pode modificar o status de cada item individualmente."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Mover itens e excluir status"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "Editar status"
-	},
-	"editStatusDialog.title": {
-		"string": "Adicionar novo status"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "Status ({maxLength} caracteres no máximo)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Descrição"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Adicionar status"
-	},
-	"statusListItem.noDescription": {
-		"string": "Sem descrição"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (padrão)"
-	},
-	"statusesComponent.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"statusesComponent.saved": {
-		"string": "Os status foram atualizadas com sucesso!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "Novo status"
-	},
-	"statusesComponent.blurb": {
-		"string": "O título do status é exibido quando os relatório são enviados aos(às) usuários(as)."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "As traduções estão faltando"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "Estão faltando traduções de alguns status. Os(as) usuários(as) podem não conseguir ler os status não traduzidos."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Continuar e salvar"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Não foi possível salvar as configurações de lista.",

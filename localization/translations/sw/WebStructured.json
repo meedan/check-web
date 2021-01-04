@@ -767,6 +767,196 @@
 	"projectSelector.allProjs": {
 		"string": "Orodha zote"
 	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "Metadata ina thamani maalum"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Metadata ina neno msingi"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "Kazi ina jibu maalum"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "Jibu la kazi lina neno msingi"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Chagua kazi"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Chagua metadata"
+	},
+	"search.allClaimsTitle": {
+		"string": "Vipengee vyote"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Chuja na"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Chagua thamani"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Andika orodha ya maneno msingi ukiyatenganisha na koma"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Ongeza vichujio"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Metadata ina thamani maalum"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Metadata ina neno msingi"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "Kazi ina jibu maalum"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "Jibu la kazi lina neno msingi"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Hakuna dhamana iliyowekwa"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Thamani yoyote imewekwa"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Chagua kazi"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Chagua metadata"
+	},
+	"search.dateHeading": {
+		"string": "Muda Mbalimbali"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Imewasilishwa"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Iliwasilishwa mwisho"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Imesasishwa"
+	},
+	"search.datePublishedHeading": {
+		"string": "Imechapishwa"
+	},
+	"search.pickDateFrom": {
+		"string": "Tarehe ya kuanza"
+	},
+	"search.pickDateTo": {
+		"string": "Tarehe ya kumalisha"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Kichwa cha vyombo vya habari"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Maudhui ya media"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Kichwa cha uchambuzi"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Maudhui ya uchambuzi"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Lebo"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Majibu yote ya kazi",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Majibu yote ya metadata"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Vidokezo vyote"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Maoni yote ya kazi"
+	},
+	"search.showClaims": {
+		"string": "Maandishi"
+	},
+	"search.showLinks": {
+		"string": "Viungo"
+	},
+	"search.showImages": {
+		"string": "Picha"
+	},
+	"search.showVideos": {
+		"string": "Video"
+	},
+	"search.showAudios": {
+		"string": "Sauti"
+	},
+	"search.showBlank": {
+		"string": "Ripoti iliyoletwa"
+	},
+	"search.title": {
+		"string": "Vipengee vyote"
+	},
+	"search.inputHint": {
+		"string": "Tafuta"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Mti + Jani</td><td>Vipengee vyenye Mti NA Jani</td></tr>\n                        <tr><td>|</td><td>Mti I Jani</td><td>Vipengee vyenye aidha Mti au Jani</td></tr>\n                        <tr><td>()</td><td>Mti + (Jani I Tawi)</td><td>Vipengee vyemye Mti NA Jani AU viipengee vyenye Mti NA Tawi</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Jifunze zaidi kuhusu mbinu ya kutafuta\n                      </a>\n</div>"
+	},
+	"search.Filter": {
+		"string": "Chuja"
+	},
+	"search.clear": {
+		"string": "Ondoa kichujio"
+	},
+	"search.categoriesHeading": {
+		"string": "Lebo"
+	},
+	"search.any": {
+		"string": "Yoyote"
+	},
+	"search.all": {
+		"string": "Wote"
+	},
+	"search.show": {
+		"string": "Aina ya media"
+	},
+	"search.statusHeading": {
+		"string": "Hali ya kipengee"
+	},
+	"search.userHeading": {
+		"string": "Imetengenezwa na"
+	},
+	"search.language": {
+		"string": "Lugha"
+	},
+	"search.projectHeading": {
+		"string": "Orodha"
+	},
+	"search.assignedTo": {
+		"string": "Imepangiwa"
+	},
+	"search.readHeading": {
+		"string": "Imesomwa"
+	},
+	"search.cancel": {
+		"string": "Ghairi"
+	},
+	"search.reset": {
+		"string": "Weka upya"
+	},
+	"search.applyFilters": {
+		"string": "Chuja"
+	},
+	"search.previousPage": {
+		"string": "Ukurasa wa awali"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+	},
+	"search.nextPage": {
+		"string": "Ukurasa ufuatao"
+	},
 	"mediaMetadata.addedToList": {
 		"string": "Imeongezwa kwenye orodha {listName}"
 	},
@@ -1409,196 +1599,6 @@
 	"webPageMediaCard.Error": {
 		"string": "Kipengee hiki hakiwezi kutambuliwa. Inaweza kuwa imeondolewa, au inaweza tu kuonekana kwa watumiaji ambao wameingia. Bonyeza kiungo hapo juu ili uende kwenye hiyo."
 	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Metadata ina thamani maalum"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Metadata ina neno msingi"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "Kazi ina jibu maalum"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "Jibu la kazi lina neno msingi"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Chagua kazi"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Chagua metadata"
-	},
-	"search.allClaimsTitle": {
-		"string": "Vipengee vyote"
-	},
-	"CustomFilter.filterBy": {
-		"string": "Chuja na"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Chagua thamani"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Andika orodha ya maneno msingi ukiyatenganisha na koma"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Ongeza vichujio"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Metadata ina thamani maalum"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadata ina neno msingi"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "Kazi ina jibu maalum"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Jibu la kazi lina neno msingi"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "Hakuna dhamana iliyowekwa"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "Thamani yoyote imewekwa"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Chagua kazi"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Chagua metadata"
-	},
-	"search.dateHeading": {
-		"string": "Muda Mbalimbali"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Imewasilishwa"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Iliwasilishwa mwisho"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "Imesasishwa"
-	},
-	"search.datePublishedHeading": {
-		"string": "Imechapishwa"
-	},
-	"search.pickDateFrom": {
-		"string": "Tarehe ya kuanza"
-	},
-	"search.pickDateTo": {
-		"string": "Tarehe ya kumalisha"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Kichwa cha vyombo vya habari"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Maudhui ya media"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Kichwa cha uchambuzi"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Maudhui ya uchambuzi"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Lebo"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Majibu yote ya kazi",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "Majibu yote ya metadata"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "Vidokezo vyote"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Maoni yote ya kazi"
-	},
-	"search.showClaims": {
-		"string": "Maandishi"
-	},
-	"search.showLinks": {
-		"string": "Viungo"
-	},
-	"search.showImages": {
-		"string": "Picha"
-	},
-	"search.showVideos": {
-		"string": "Video"
-	},
-	"search.showAudios": {
-		"string": "Sauti"
-	},
-	"search.showBlank": {
-		"string": "Ripoti iliyoletwa"
-	},
-	"search.title": {
-		"string": "Vipengee vyote"
-	},
-	"search.inputHint": {
-		"string": "Tafuta"
-	},
-	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Mti + Jani</td><td>Vipengee vyenye Mti NA Jani</td></tr>\n                        <tr><td>|</td><td>Mti I Jani</td><td>Vipengee vyenye aidha Mti au Jani</td></tr>\n                        <tr><td>()</td><td>Mti + (Jani I Tawi)</td><td>Vipengee vyemye Mti NA Jani AU viipengee vyenye Mti NA Tawi</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Jifunze zaidi kuhusu mbinu ya kutafuta\n                      </a>\n</div>"
-	},
-	"search.Filter": {
-		"string": "Chuja"
-	},
-	"search.clear": {
-		"string": "Ondoa kichujio"
-	},
-	"search.categoriesHeading": {
-		"string": "Lebo"
-	},
-	"search.any": {
-		"string": "Yoyote"
-	},
-	"search.all": {
-		"string": "Wote"
-	},
-	"search.show": {
-		"string": "Aina ya media"
-	},
-	"search.statusHeading": {
-		"string": "Hali ya kipengee"
-	},
-	"search.userHeading": {
-		"string": "Imetengenezwa na"
-	},
-	"search.language": {
-		"string": "Lugha"
-	},
-	"search.projectHeading": {
-		"string": "Orodha"
-	},
-	"search.assignedTo": {
-		"string": "Imepangiwa"
-	},
-	"search.readHeading": {
-		"string": "Imesomwa"
-	},
-	"search.cancel": {
-		"string": "Ghairi"
-	},
-	"search.reset": {
-		"string": "Weka upya"
-	},
-	"search.applyFilters": {
-		"string": "Chuja"
-	},
-	"search.previousPage": {
-		"string": "Ukurasa wa awali"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Ukurasa ufuatao"
-	},
 	"userAssignments.filterByTeam": {
 		"string": "Chujaa na eneo la kazi"
 	},
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Usalama"
 	},
-	"UserInfo.dateJoined": {
-		"string": "Amejiunga {date} • {teamsCount, wingi, moja {eneo 1 ya kazi} nyingine {maeneo # ya kazi}}"
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Jina"
@@ -2652,6 +2655,69 @@
 	"UserUtil.owner": {
 		"string": "Mmiliki"
 	},
+	"searchKeywordConfig.metadata": {
+		"string": "Metadata"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Kazi"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Haijachapishwa"
+	},
+	"reportStatusCell.paused": {
+		"string": "Imesitishwa."
+	},
+	"reportStatusCell.published": {
+		"string": "Imechapishwa"
+	},
+	"list.Item": {
+		"string": "Kipengee"
+	},
+	"list.Demand": {
+		"string": "Maombi"
+	},
+	"list.ShareCount": {
+		"string": "Shiriki za FB"
+	},
+	"list.LinkedItems": {
+		"string": "Vyombo vya habari sawa"
+	},
+	"list.Type": {
+		"string": "Aina"
+	},
+	"list.Status": {
+		"string": "Hali"
+	},
+	"list.FirstSeen": {
+		"string": "Imewasilishwa"
+	},
+	"list.LastSeen": {
+		"string": "Iliwasilishwa mwisho"
+	},
+	"list.updated": {
+		"string": "Imesasishwa"
+	},
+	"list.reportStatus": {
+		"string": "Ripoti hali"
+	},
+	"list.tags": {
+		"string": "Lebo"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Imechapishwa kwenye vyombo vya habari"
+	},
+	"list.reactCount": {
+		"string": "Hisia za FB"
+	},
+	"list.commentCount": {
+		"string": "Maoni ya FB"
+	},
+	"list.relatedCount": {
+		"string": "Inayohusiana"
+	},
+	"list.suggestionsCount": {
+		"string": "Mechi zilizopendekezwa"
+	},
 	"reportDesigner.title": {
 		"string": "Buni ripoti yako"
 	},
@@ -2810,69 +2876,6 @@
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Hakuna maelezo"
 	},
-	"searchKeywordConfig.metadata": {
-		"string": "Metadata"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "Kazi"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "Haijachapishwa"
-	},
-	"reportStatusCell.paused": {
-		"string": "Imesitishwa."
-	},
-	"reportStatusCell.published": {
-		"string": "Imechapishwa"
-	},
-	"list.Item": {
-		"string": "Kipengee"
-	},
-	"list.Demand": {
-		"string": "Maombi"
-	},
-	"list.ShareCount": {
-		"string": "Shiriki za FB"
-	},
-	"list.LinkedItems": {
-		"string": "Vyombo vya habari sawa"
-	},
-	"list.Type": {
-		"string": "Aina"
-	},
-	"list.Status": {
-		"string": "Hali"
-	},
-	"list.FirstSeen": {
-		"string": "Imewasilishwa"
-	},
-	"list.LastSeen": {
-		"string": "Iliwasilishwa mwisho"
-	},
-	"list.updated": {
-		"string": "Imesasishwa"
-	},
-	"list.reportStatus": {
-		"string": "Ripoti hali"
-	},
-	"list.tags": {
-		"string": "Lebo"
-	},
-	"list.mediaPublishedAt": {
-		"string": "Imechapishwa kwenye vyombo vya habari"
-	},
-	"list.reactCount": {
-		"string": "Hisia za FB"
-	},
-	"list.commentCount": {
-		"string": "Maoni ya FB"
-	},
-	"list.relatedCount": {
-		"string": "Inayohusiana"
-	},
-	"list.suggestionsCount": {
-		"string": "Mechi zilizopendekezwa"
-	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
 	},
@@ -2923,45 +2926,6 @@
 	},
 	"translationNeededDialog.body": {
 		"string": "Ili kuifanya {language} kuwa lugha ya msingi, lazima kwanza utafsiri hali zote zilizopo hadi {language} kwenye kichupo cha mipangilio ya Hali."
-	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "Haikuweza kuhifadhi mipangilio ya Slack"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Mipangilio ya Slack imehifadhiwa kwa mafanikio!"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "Tuma arifa kwenye vituo vya Slack wakati madai yanaongezwa kwenye orodha maalum"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "Tukio"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Tuma arifa kwa"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Ikiwa bidhaa iko kwenye orodha"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "Kituo cha Slack"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Shughuli nyingine zote"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Shughuli zote za eneo la kazi"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "Arifa mpya"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "Ghairi"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "Hifadhi"
 	},
 	"rule.copyOf": {
 		"string": "Nakala ya {ruleName}"
@@ -3046,6 +3010,111 @@
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "Una uhakika unataka kufuta masharti haya?"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Haikuweza kuhifadhi mipangilio ya Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Mipangilio ya Slack imehifadhiwa kwa mafanikio!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Tuma arifa kwenye vituo vya Slack wakati madai yanaongezwa kwenye orodha maalum"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Slack webhook"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Tukio"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Tuma arifa kwa"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Ikiwa bidhaa iko kwenye orodha"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Kituo cha Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Shughuli nyingine zote"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Shughuli zote za eneo la kazi"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Arifa mpya"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Ghairi"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Hifadhi"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Hamisha vipengee hadi"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Unahitaji kubadilisha hali ya {itemsCount, plural, one {one item} other {# items}} ili kufuta hali hii"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Kuna itemsCount, plural, one {itemsCount, plural, one {is one item} other {are # items}} zenye hali {statusLabel} ambayo lazima ibadilishwe hadi hali zinginezo kabla ya kufuta hali hii. "
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Mbadala, unaweza kubadilisha hali ya kila kipengee kivyake."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Hamisha vipenge na futa hali"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Hariri hali"
+	},
+	"editStatusDialog.title": {
+		"string": "Ongeza hali mpya"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Hali ({maxLength} characters max)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Maelezo"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Ongeza hali"
+	},
+	"statusListItem.noDescription": {
+		"string": "Hakuna maelezo"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (default)"
+	},
+	"statusesComponent.error": {
+		"string": "Samahani, hitilafu imetokea wakati wa kusaisihsa hali. Tafadhali jaribu tena na uwasiliane na {supportEmail}  iwapo hali itaendelea."
+	},
+	"statusesComponent.saved": {
+		"string": "Hali imehifadhiwa kwa mafanikio!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Hali mpya"
+	},
+	"statusesComponent.blurb": {
+		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Tafsiri hali zilizo kwenye lugha nyinginezo ili kuzionyesha katika lugha asili kwenye ripoti zako za uthibitisho."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Tafsiri zinakosekana"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Hali zingine zinakosa tafsiri. Watumiaji huenda wasiweze kusoma hali ambazo hazijatafsiriwa."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Endelea na hifadhi"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Mazingira"
@@ -3247,72 +3316,6 @@
 	},
 	"smoochBot.tos": {
 		"string": "Masharti ya Huduma ({language})"
-	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Hamisha vipengee hadi"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Unahitaji kubadilisha hali ya {itemsCount, plural, one {one item} other {# items}} ili kufuta hali hii"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Kuna itemsCount, plural, one {itemsCount, plural, one {is one item} other {are # items}} zenye hali {statusLabel} ambayo lazima ibadilishwe hadi hali zinginezo kabla ya kufuta hali hii. "
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Mbadala, unaweza kubadilisha hali ya kila kipengee kivyake."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Hamisha vipenge na futa hali"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "Hariri hali"
-	},
-	"editStatusDialog.title": {
-		"string": "Ongeza hali mpya"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "Hali ({maxLength} characters max)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Maelezo"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Ongeza hali"
-	},
-	"statusListItem.noDescription": {
-		"string": "Hakuna maelezo"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (default)"
-	},
-	"statusesComponent.error": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusaisihsa hali. Tafadhali jaribu tena na uwasiliane na {supportEmail}  iwapo hali itaendelea."
-	},
-	"statusesComponent.saved": {
-		"string": "Hali imehifadhiwa kwa mafanikio!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "Hali mpya"
-	},
-	"statusesComponent.blurb": {
-		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Tafsiri hali zilizo kwenye lugha nyinginezo ili kuzionyesha katika lugha asili kwenye ripoti zako za uthibitisho."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "Tafsiri zinakosekana"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "Hali zingine zinakosa tafsiri. Watumiaji huenda wasiweze kusoma hali ambazo hazijatafsiriwa."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Endelea na hifadhi"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Haikuweza kuhifadhi mipangilio ya orodha.",

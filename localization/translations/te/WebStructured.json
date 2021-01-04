@@ -767,6 +767,196 @@
 	"projectSelector.allProjs": {
 		"string": "All lists"
 	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "Metadata has specific value"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Metadata contains keyword"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "Task has specific answer"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "Task answer contains keyword"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Select task"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Select metadata"
+	},
+	"search.allClaimsTitle": {
+		"string": "All items"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filter by"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Select value"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Type a list of keywords separated by commas"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Add filters"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Metadata has specific value"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Metadata contains keyword"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "Task has specific answer"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "Task answer contains keyword"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "No value is set"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Any value is set"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Select task"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Select metadata"
+	},
+	"search.dateHeading": {
+		"string": "Time Range"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Submitted"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Last submitted"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Updated"
+	},
+	"search.datePublishedHeading": {
+		"string": "Published"
+	},
+	"search.pickDateFrom": {
+		"string": "Starting date"
+	},
+	"search.pickDateTo": {
+		"string": "Ending date"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Media title"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Media content"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Analysis title"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Analysis content"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Tags"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "All task answers",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "All metadata answers"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "All notes"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "All task comments"
+	},
+	"search.showClaims": {
+		"string": "Texts"
+	},
+	"search.showLinks": {
+		"string": "Links"
+	},
+	"search.showImages": {
+		"string": "Images"
+	},
+	"search.showVideos": {
+		"string": "Videos"
+	},
+	"search.showAudios": {
+		"string": "Audios"
+	},
+	"search.showBlank": {
+		"string": "Imported report"
+	},
+	"search.title": {
+		"string": "All items"
+	},
+	"search.inputHint": {
+		"string": "Search"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>"
+	},
+	"search.Filter": {
+		"string": "Filter"
+	},
+	"search.clear": {
+		"string": "Clear filter"
+	},
+	"search.categoriesHeading": {
+		"string": "Tags"
+	},
+	"search.any": {
+		"string": "Any"
+	},
+	"search.all": {
+		"string": "All"
+	},
+	"search.show": {
+		"string": "Media type"
+	},
+	"search.statusHeading": {
+		"string": "Item status"
+	},
+	"search.userHeading": {
+		"string": "Created by"
+	},
+	"search.language": {
+		"string": "Language"
+	},
+	"search.projectHeading": {
+		"string": "List"
+	},
+	"search.assignedTo": {
+		"string": "Assigned to"
+	},
+	"search.readHeading": {
+		"string": "Read"
+	},
+	"search.cancel": {
+		"string": "Cancel"
+	},
+	"search.reset": {
+		"string": "Reset"
+	},
+	"search.applyFilters": {
+		"string": "Filter"
+	},
+	"search.previousPage": {
+		"string": "Previous page"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+	},
+	"search.nextPage": {
+		"string": "Next page"
+	},
 	"mediaMetadata.addedToList": {
 		"string": "Added to list {listName}"
 	},
@@ -831,11 +1021,11 @@
 		"string": "Pause report and update content"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Items moved from trash to `{toProject}`",
+		"string": "Items moved from Trash to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Items moved from Unconfirmed to `{toProject}`",
+		"string": "Items moved from Unconfirmed to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.addedSuccessfully": {
@@ -851,19 +1041,19 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "Items moved to the trash."
+		"string": "Items moved to the Trash."
 	},
 	"bulkActions.trash": {
 		"string": "Restore selected items and move items to another list"
 	},
 	"bulkActions.restore": {
-		"string": "Restore from trash"
+		"string": "Restore from Trash"
 	},
 	"bulkActions.unconfirmed": {
 		"string": "Confirm selected items and move items to another list"
 	},
 	"bulkActions.confirm": {
-		"string": "Move from unconfirmed"
+		"string": "Move from Unconfirmed"
 	},
 	"bulkActions.move": {
 		"string": "Move selected items to another list"
@@ -893,7 +1083,7 @@
 		"string": "Add to a different list"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Send selected items to trash"
+		"string": "Send selected items to Trash"
 	},
 	"claimReview.claim": {
 		"string": "Claim:"
@@ -1409,196 +1599,6 @@
 	"webPageMediaCard.Error": {
 		"string": "This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
 	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Metadata has specific value"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Metadata contains keyword"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "Task has specific answer"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "Task answer contains keyword"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Select task"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Select metadata"
-	},
-	"search.allClaimsTitle": {
-		"string": "All items"
-	},
-	"CustomFilter.filterBy": {
-		"string": "Filter by"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Select value"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Type a list of keywords separated by commas"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Add filters"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Metadata has specific value"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadata contains keyword"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "Task has specific answer"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Task answer contains keyword"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "No value is set"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "Any value is set"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Select task"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Select metadata"
-	},
-	"search.dateHeading": {
-		"string": "Time Range"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Submitted"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Last submitted"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "Updated"
-	},
-	"search.datePublishedHeading": {
-		"string": "Published"
-	},
-	"search.pickDateFrom": {
-		"string": "Starting date"
-	},
-	"search.pickDateTo": {
-		"string": "Ending date"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Media title"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Media content"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Analysis title"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Analysis content"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Tags"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "All task answers",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "All metadata answers"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "All notes"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "All task comments"
-	},
-	"search.showClaims": {
-		"string": "Texts"
-	},
-	"search.showLinks": {
-		"string": "Links"
-	},
-	"search.showImages": {
-		"string": "Images"
-	},
-	"search.showVideos": {
-		"string": "Videos"
-	},
-	"search.showAudios": {
-		"string": "Audios"
-	},
-	"search.showBlank": {
-		"string": "Imported report"
-	},
-	"search.title": {
-		"string": "All items"
-	},
-	"search.inputHint": {
-		"string": "Search"
-	},
-	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>"
-	},
-	"search.Filter": {
-		"string": "Filter"
-	},
-	"search.clear": {
-		"string": "Clear filter"
-	},
-	"search.categoriesHeading": {
-		"string": "Tags"
-	},
-	"search.any": {
-		"string": "Any"
-	},
-	"search.all": {
-		"string": "All"
-	},
-	"search.show": {
-		"string": "Media type"
-	},
-	"search.statusHeading": {
-		"string": "Item status"
-	},
-	"search.userHeading": {
-		"string": "Created by"
-	},
-	"search.language": {
-		"string": "Language"
-	},
-	"search.projectHeading": {
-		"string": "List"
-	},
-	"search.assignedTo": {
-		"string": "Assigned to"
-	},
-	"search.readHeading": {
-		"string": "Read"
-	},
-	"search.cancel": {
-		"string": "Cancel"
-	},
-	"search.reset": {
-		"string": "Reset"
-	},
-	"search.applyFilters": {
-		"string": "Filter"
-	},
-	"search.previousPage": {
-		"string": "Previous page"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Next page"
-	},
 	"userAssignments.filterByTeam": {
 		"string": "Filter by workspace"
 	},
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Security"
 	},
-	"UserInfo.dateJoined": {
-		"string": "Joined {date} • {teamsCount, plural, one {1 workspace} other {# workspaces}}"
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Name"
@@ -2652,6 +2655,69 @@
 	"UserUtil.owner": {
 		"string": "Owner"
 	},
+	"searchKeywordConfig.metadata": {
+		"string": "Metadata"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Tasks"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Unpublished"
+	},
+	"reportStatusCell.paused": {
+		"string": "Paused"
+	},
+	"reportStatusCell.published": {
+		"string": "Published"
+	},
+	"list.Item": {
+		"string": "Item"
+	},
+	"list.Demand": {
+		"string": "Requests"
+	},
+	"list.ShareCount": {
+		"string": "FB Shares"
+	},
+	"list.LinkedItems": {
+		"string": "Similar media"
+	},
+	"list.Type": {
+		"string": "Type"
+	},
+	"list.Status": {
+		"string": "Status"
+	},
+	"list.FirstSeen": {
+		"string": "Submitted"
+	},
+	"list.LastSeen": {
+		"string": "Last submitted"
+	},
+	"list.updated": {
+		"string": "Updated"
+	},
+	"list.reportStatus": {
+		"string": "Report status"
+	},
+	"list.tags": {
+		"string": "Tags"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Media published"
+	},
+	"list.reactCount": {
+		"string": "FB Reactions"
+	},
+	"list.commentCount": {
+		"string": "FB Comments"
+	},
+	"list.relatedCount": {
+		"string": "Related"
+	},
+	"list.suggestionsCount": {
+		"string": "Suggested matches"
+	},
 	"reportDesigner.title": {
 		"string": "Design your report"
 	},
@@ -2810,69 +2876,6 @@
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "No notes"
 	},
-	"searchKeywordConfig.metadata": {
-		"string": "Metadata"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "Tasks"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "Unpublished"
-	},
-	"reportStatusCell.paused": {
-		"string": "Paused"
-	},
-	"reportStatusCell.published": {
-		"string": "Published"
-	},
-	"list.Item": {
-		"string": "Item"
-	},
-	"list.Demand": {
-		"string": "Requests"
-	},
-	"list.ShareCount": {
-		"string": "FB Shares"
-	},
-	"list.LinkedItems": {
-		"string": "Similar media"
-	},
-	"list.Type": {
-		"string": "Type"
-	},
-	"list.Status": {
-		"string": "Status"
-	},
-	"list.FirstSeen": {
-		"string": "Submitted"
-	},
-	"list.LastSeen": {
-		"string": "Last submitted"
-	},
-	"list.updated": {
-		"string": "Updated"
-	},
-	"list.reportStatus": {
-		"string": "Report status"
-	},
-	"list.tags": {
-		"string": "Tags"
-	},
-	"list.mediaPublishedAt": {
-		"string": "Media published"
-	},
-	"list.reactCount": {
-		"string": "FB Reactions"
-	},
-	"list.commentCount": {
-		"string": "FB Comments"
-	},
-	"list.relatedCount": {
-		"string": "Related"
-	},
-	"list.suggestionsCount": {
-		"string": "Suggested matches"
-	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
 	},
@@ -2923,45 +2926,6 @@
 	},
 	"translationNeededDialog.body": {
 		"string": "In order to make {language} the default language, you must first translate all existing statuses into {language} in the Statuses setting tab."
-	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "Could not save Slack settings"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully!"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when claims are added to specific lists"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "Event"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Send notifications to"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "If item is in list"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "Slack channel"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "All other activity"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "All workspace activity"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "New notification"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "Cancel"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "Save"
 	},
 	"rule.copyOf": {
 		"string": "Copy of {ruleName}"
@@ -3046,6 +3010,111 @@
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "Are you sure you want to delete these rules?"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Could not save Slack settings"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Slack settings saved successfully!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Send notifications to Slack channels when claims are added to specific lists"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Slack webhook"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Event"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Send notifications to"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "If item is in list"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Slack channel"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "All other activity"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "All workspace activity"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "New notification"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Cancel"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Save"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Move items to"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Alternatively, you can change each item status individually."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Move items and delete status"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Edit status"
+	},
+	"editStatusDialog.title": {
+		"string": "Add a new status"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Status ({maxLength} characters max)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Description"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Add status"
+	},
+	"statusListItem.noDescription": {
+		"string": "No description"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (default)"
+	},
+	"statusesComponent.error": {
+		"string": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"statusesComponent.saved": {
+		"string": "Statuses saved sucessfully!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "New status"
+	},
+	"statusesComponent.blurb": {
+		"string": "The status title is visible when reports are sent to users."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Missing translations"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Some statuses are missing translations. Users may not be able to read untranslated statuses."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Continue and save"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Scenario"
@@ -3222,7 +3291,7 @@
 		"string": "*Information about Coronavirus disease (COVID-19)* 🦠\n\n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n\n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after  your last message.\n      \n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n\n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
@@ -3247,72 +3316,6 @@
 	},
 	"smoochBot.tos": {
 		"string": "Terms of Service ({language})"
-	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Move items to"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Alternatively, you can change each item status individually."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Move items and delete status"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "Edit status"
-	},
-	"editStatusDialog.title": {
-		"string": "Add a new status"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "Status ({maxLength} characters max)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Description"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Add status"
-	},
-	"statusListItem.noDescription": {
-		"string": "No description"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (default)"
-	},
-	"statusesComponent.error": {
-		"string": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
-	},
-	"statusesComponent.saved": {
-		"string": "Statuses saved sucessfully!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "New status"
-	},
-	"statusesComponent.blurb": {
-		"string": "The status title is visible when reports are sent to users."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "Missing translations"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "Some statuses are missing translations. Users may not be able to read untranslated statuses."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Continue and save"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Could not save list settings.",

@@ -767,6 +767,196 @@
 	"projectSelector.allProjs": {
 		"string": "Все списки"
 	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "У метаданных есть конкретное значение"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Метаданные содержат ключевое слово"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "На вопрос есть конкретный ответ"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "Ответ содержит ключевое слово"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Выберите вопрос"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Выберите метаданные"
+	},
+	"search.allClaimsTitle": {
+		"string": "Все материалы"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Фильтр по"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Выберите значение"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Список слов, разделенных запятыми"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Добавить фильтры"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "У метаданных есть конкретное значение"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Метаданные содержат ключевое слово"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "На вопрос есть конкретный ответ"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "Ответ содержит ключевое слово"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Нет значения"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Любое значение"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Выберите вопрос"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Выберите метаданные"
+	},
+	"search.dateHeading": {
+		"string": "Временной промежуток"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Отправлено"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Отредактировано"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Изменено"
+	},
+	"search.datePublishedHeading": {
+		"string": "Опубликован"
+	},
+	"search.pickDateFrom": {
+		"string": "Дата начала"
+	},
+	"search.pickDateTo": {
+		"string": "Дата окончания"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Заголовок медиа-файла"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Содержимое медиа-файла"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Заголовок анализа"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Содержимое анализа"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Тэги"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Все ответы на вопрос",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Все ответы на метаданные"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Все заметки"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Все комментарии к вопросам"
+	},
+	"search.showClaims": {
+		"string": "Тексты"
+	},
+	"search.showLinks": {
+		"string": "Ссылки"
+	},
+	"search.showImages": {
+		"string": "Изображения"
+	},
+	"search.showVideos": {
+		"string": "Видео"
+	},
+	"search.showAudios": {
+		"string": "Аудио"
+	},
+	"search.showBlank": {
+		"string": "Imported report"
+	},
+	"search.title": {
+		"string": "Все материалы"
+	},
+	"search.inputHint": {
+		"string": "Искать"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Альфа + Бета</td><td>Результаты, где есть И Альфа, И Бета</td></tr>\n                        <tr><td>|</td><td>Альфа | Бета</td><td>Результаты, где есть Альфа ИЛИ Бета</td></tr>\n                        <tr><td>()</td><td>Альфа + (Бета | Гамма)</td><td>Результаты, где есть ИЛИ Альфа И Бета, ИЛИ Альфа И Гамма</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Узнать больше о методах поиска\n                      </a>\n                    </div>"
+	},
+	"search.Filter": {
+		"string": "Фильтр"
+	},
+	"search.clear": {
+		"string": "Очистить фильтр"
+	},
+	"search.categoriesHeading": {
+		"string": "Тэги"
+	},
+	"search.any": {
+		"string": "Любое"
+	},
+	"search.all": {
+		"string": "Все"
+	},
+	"search.show": {
+		"string": "Media type"
+	},
+	"search.statusHeading": {
+		"string": "Item status"
+	},
+	"search.userHeading": {
+		"string": "Created by"
+	},
+	"search.language": {
+		"string": "Язык"
+	},
+	"search.projectHeading": {
+		"string": "Список"
+	},
+	"search.assignedTo": {
+		"string": "Назначен"
+	},
+	"search.readHeading": {
+		"string": "Прочитано"
+	},
+	"search.cancel": {
+		"string": "Отменить"
+	},
+	"search.reset": {
+		"string": "Сбросить"
+	},
+	"search.applyFilters": {
+		"string": "Фильтр"
+	},
+	"search.previousPage": {
+		"string": "Предыдущая"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} few {} many {} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(выбрано: 1)} few {(выбрано: #)} many {(выбрано: #)} other {(выбрано: #)}}"
+	},
+	"search.nextPage": {
+		"string": "Следующая"
+	},
 	"mediaMetadata.addedToList": {
 		"string": "Добавлено к списку {listName}"
 	},
@@ -831,7 +1021,7 @@
 		"string": "Снять с публикации и обновить содержимое"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Items moved from trash to `{toProject}`",
+		"string": "Объекты перемещены из корзины в `{toProject}`",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedConfirmSuccessfully": {
@@ -971,7 +1161,7 @@
 		"string": "История материала"
 	},
 	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+		"string": "{count, plural, one {Вы уверены, что хотите выйти? На вас назначен вопрос, на который ещё нет ответа} few {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)} many {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)} other {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)}}"
 	},
 	"mediaActions.edit": {
 		"string": "Редактировать заголовок и описание"
@@ -1157,10 +1347,10 @@
 		"string": "Загрузить ещё"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {1 запрос среди всех медиа-файлов} few {# запросов среди всех медиа-файлов} many {# запросов среди всех медиа-файлов} other {# запросов среди всех медиа-файлов}}"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Нет запросов"
@@ -1238,7 +1428,7 @@
 		"string": "Imported report"
 	},
 	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+		"string": "{retweetsCount, plural, one {1 ретвит} few {ретвитов: #} many {ретвитов: #} other {ретвитов: #}}"
 	},
 	"mediaActionsBar.moveTo": {
 		"string": "Переместить в..."
@@ -1352,7 +1542,7 @@
 		"string": "Вы готовы опубликовать отчёт?"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+		"string": "{demand, plural, one {Этот отчёт будет отправлен пользователю, который запросил этот материал.} few {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.} many {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.} other {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать ваш отчёт, пока он остаётся опубликованным."
@@ -1370,13 +1560,13 @@
 		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+		"string": "{demand, plural, one {Также отправить отредактированную версию пользователю, который запрашивал предыдущую версию отчёта} few {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта} many {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта} other {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Вы готовы опубликовать корректировку?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+		"string": "{demand, plural, one {Скорректированный отчёт будет отправлен пользователю, который запрашивал предыдущую версию} few {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию} many {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию} other {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
@@ -1409,196 +1599,6 @@
 	"webPageMediaCard.Error": {
 		"string": "Не удалось идентифицировать этот материал. Возможно, он удалён или доступен только авторизованным пользователям. Нажмите выше, чтобы открыть его."
 	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "У метаданных есть конкретное значение"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Метаданные содержат ключевое слово"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "На вопрос есть конкретный ответ"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "Ответ содержит ключевое слово"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Выберите вопрос"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Выберите метаданные"
-	},
-	"search.allClaimsTitle": {
-		"string": "Все материалы"
-	},
-	"CustomFilter.filterBy": {
-		"string": "Фильтр по"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Выберите значение"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Список слов, разделенных запятыми"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Добавить фильтры"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "У метаданных есть конкретное значение"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Метаданные содержат ключевое слово"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "На вопрос есть конкретный ответ"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Ответ содержит ключевое слово"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "Нет значения"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "Любое значение"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Выберите вопрос"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Выберите метаданные"
-	},
-	"search.dateHeading": {
-		"string": "Временной промежуток"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Отправлено"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Отредактировано"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "Изменено"
-	},
-	"search.datePublishedHeading": {
-		"string": "Опубликован"
-	},
-	"search.pickDateFrom": {
-		"string": "Дата начала"
-	},
-	"search.pickDateTo": {
-		"string": "Дата окончания"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Заголовок медиа-файла"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Содержимое медиа-файла"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Заголовок анализа"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Содержимое анализа"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Тэги"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Все ответы на вопрос",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "Все ответы на метаданные"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "Все заметки"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Все комментарии к вопросам"
-	},
-	"search.showClaims": {
-		"string": "Тексты"
-	},
-	"search.showLinks": {
-		"string": "Ссылки"
-	},
-	"search.showImages": {
-		"string": "Изображения"
-	},
-	"search.showVideos": {
-		"string": "Видео"
-	},
-	"search.showAudios": {
-		"string": "Аудио"
-	},
-	"search.showBlank": {
-		"string": "Imported report"
-	},
-	"search.title": {
-		"string": "Все материалы"
-	},
-	"search.inputHint": {
-		"string": "Искать"
-	},
-	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Альфа + Бета</td><td>Результаты, где есть И Альфа, И Бета</td></tr>\n                        <tr><td>|</td><td>Альфа | Бета</td><td>Результаты, где есть Альфа ИЛИ Бета</td></tr>\n                        <tr><td>()</td><td>Альфа + (Бета | Гамма)</td><td>Результаты, где есть ИЛИ Альфа И Бета, ИЛИ Альфа И Гамма</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Узнать больше о методах поиска\n                      </a>\n                    </div>"
-	},
-	"search.Filter": {
-		"string": "Фильтр"
-	},
-	"search.clear": {
-		"string": "Очистить фильтр"
-	},
-	"search.categoriesHeading": {
-		"string": "Тэги"
-	},
-	"search.any": {
-		"string": "Любое"
-	},
-	"search.all": {
-		"string": "Все"
-	},
-	"search.show": {
-		"string": "Media type"
-	},
-	"search.statusHeading": {
-		"string": "Item status"
-	},
-	"search.userHeading": {
-		"string": "Created by"
-	},
-	"search.language": {
-		"string": "Язык"
-	},
-	"search.projectHeading": {
-		"string": "Список"
-	},
-	"search.assignedTo": {
-		"string": "Назначен"
-	},
-	"search.readHeading": {
-		"string": "Прочитано"
-	},
-	"search.cancel": {
-		"string": "Отменить"
-	},
-	"search.reset": {
-		"string": "Сбросить"
-	},
-	"search.applyFilters": {
-		"string": "Фильтр"
-	},
-	"search.previousPage": {
-		"string": "Предыдущая"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Следующая"
-	},
 	"userAssignments.filterByTeam": {
 		"string": "Фильтровать по проектам"
 	},
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Безопасность"
 	},
-	"UserInfo.dateJoined": {
-		"string": "С нами с {date} • {teamsCount, plural, one {1 проект} other {Проектов: #}}"
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Название"
@@ -2440,7 +2443,7 @@
 		"string": "Нет списков"
 	},
 	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+		"string": "{count, plural, one {Назначено одному участнику} few {Назначено участникам (#)} many {Назначено участникам (#)} other {Назначено участникам (#)}}"
 	},
 	"teamReport.updateFail": {
 		"string": "В процессе изменения настроек отчёта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
@@ -2652,6 +2655,69 @@
 	"UserUtil.owner": {
 		"string": "Администратор"
 	},
+	"searchKeywordConfig.metadata": {
+		"string": "Метаданные"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Вопросы"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Неопубликован"
+	},
+	"reportStatusCell.paused": {
+		"string": "Приостановлен"
+	},
+	"reportStatusCell.published": {
+		"string": "Опубликован"
+	},
+	"list.Item": {
+		"string": "Материал"
+	},
+	"list.Demand": {
+		"string": "Запросы"
+	},
+	"list.ShareCount": {
+		"string": "Репосты FB"
+	},
+	"list.LinkedItems": {
+		"string": "Похожие медиа-файлы"
+	},
+	"list.Type": {
+		"string": "Тип"
+	},
+	"list.Status": {
+		"string": "Статус"
+	},
+	"list.FirstSeen": {
+		"string": "Отправлено"
+	},
+	"list.LastSeen": {
+		"string": "Отредактировано"
+	},
+	"list.updated": {
+		"string": "Изменено"
+	},
+	"list.reportStatus": {
+		"string": "Статус отчёта"
+	},
+	"list.tags": {
+		"string": "Тэги"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Опубликовано"
+	},
+	"list.reactCount": {
+		"string": "Реакции FB"
+	},
+	"list.commentCount": {
+		"string": "Комментарии FB"
+	},
+	"list.relatedCount": {
+		"string": "Связанные"
+	},
+	"list.suggestionsCount": {
+		"string": "Suggested matches"
+	},
 	"reportDesigner.title": {
 		"string": "Создайте свой отчёт"
 	},
@@ -2701,7 +2767,7 @@
 		"string": "Готово, перенаправляем на новый основной материал..."
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
 	},
 	"mediaItem.pinAsMain": {
 		"string": "Закрепить как основной"
@@ -2716,7 +2782,7 @@
 		"string": "Связанный материал успешно добавлен"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, one {1 связанный материал} few {# связанных материалов} many {# связанных материалов} other {# связанных материалов}}"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Add relation"
@@ -2781,7 +2847,7 @@
 		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, one {1 возможное совпадение} few {# возможных совпадений} many {# возможных совпадений} other {# возможных совпадений}}"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Назад"
@@ -2809,69 +2875,6 @@
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "No notes"
-	},
-	"searchKeywordConfig.metadata": {
-		"string": "Метаданные"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "Вопросы"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "Неопубликован"
-	},
-	"reportStatusCell.paused": {
-		"string": "Приостановлен"
-	},
-	"reportStatusCell.published": {
-		"string": "Опубликован"
-	},
-	"list.Item": {
-		"string": "Материал"
-	},
-	"list.Demand": {
-		"string": "Запросы"
-	},
-	"list.ShareCount": {
-		"string": "Репосты FB"
-	},
-	"list.LinkedItems": {
-		"string": "Похожие медиа-файлы"
-	},
-	"list.Type": {
-		"string": "Тип"
-	},
-	"list.Status": {
-		"string": "Статус"
-	},
-	"list.FirstSeen": {
-		"string": "Отправлено"
-	},
-	"list.LastSeen": {
-		"string": "Отредактировано"
-	},
-	"list.updated": {
-		"string": "Изменено"
-	},
-	"list.reportStatus": {
-		"string": "Статус отчёта"
-	},
-	"list.tags": {
-		"string": "Тэги"
-	},
-	"list.mediaPublishedAt": {
-		"string": "Опубликовано"
-	},
-	"list.reactCount": {
-		"string": "Реакции FB"
-	},
-	"list.commentCount": {
-		"string": "Комментарии FB"
-	},
-	"list.relatedCount": {
-		"string": "Связанные"
-	},
-	"list.suggestionsCount": {
-		"string": "Suggested matches"
 	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -2923,45 +2926,6 @@
 	},
 	"translationNeededDialog.body": {
 		"string": "Чтобы сделать {language} языком по умолчанию, вы должны перевести на {language} все статусы в разделе настроек «Статусы»."
-	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "Не удалось сохранить настройки Slack"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Настройки Slack сохранены успешно!"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "Отправлять уведомления в каналы Slack при добавлении задач к спискам"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Webhook Slack"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "Событие"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Отправлять уведомления в"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Если материал в списке"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "Канал Slack"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Прочая активность"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Вся активность проекта"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "Новое уведомление"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "Отменить"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "Сохранить"
 	},
 	"rule.copyOf": {
 		"string": "Копия правила «{ruleName}»"
@@ -3030,10 +2994,10 @@
 		"string": "Выбрать все правила"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, one {выбрано: 1} few {выбрано: #} many {выбрано: #} other {выбрано: #}}"
 	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "{numRules, plural, one {1 правило} few {Правил: #} many {Правил: #} other {Правил: #}}"
 	},
 	"rulesTableToolbar.delete": {
 		"string": "Удалить"
@@ -3046,6 +3010,111 @@
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "Вы уверены, что хотите удалить эти правила?"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Не удалось сохранить настройки Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Настройки Slack сохранены успешно!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Отправлять уведомления в каналы Slack при добавлении задач к спискам"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Webhook Slack"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Событие"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Отправлять уведомления в"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Если материал в списке"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Канал Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Прочая активность"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Вся активность проекта"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Новое уведомление"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Отменить"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Сохранить"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Переместить материалы в"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Чтобы удалить этот статус, необходимо снять его с существующих материалов ({itemsCount, plural, one {1} other {#}})"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Статус {statusLabel} находится в использовании (материалов: {itemsCount, plural, one {1} other {#}}). Чтобы удалить данный статус, нужно изменить статус всех этих материалов на другой."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Вы также можете поменять статус каждого материала вручную."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {Один из этих материалов уже опубликован.} few {Уже опубликованных материалов с данным статусом: #.} many {Уже опубликованных материалов с данным статусом: #.} other {Уже опубликованных материалов с данным статусом: #.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Отредактировать материалы и удалить статус"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Редактировать статус"
+	},
+	"editStatusDialog.title": {
+		"string": "Добавить статус"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Статус (до {maxLength} символов)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Описание"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Добавить статус"
+	},
+	"statusListItem.noDescription": {
+		"string": "Без описания"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (по умолчанию)"
+	},
+	"statusesComponent.error": {
+		"string": "Извините, во время обновления статусов произошла ошибка. Пожалуйста, попробуйте ещё раз. Если ошибка повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"statusesComponent.saved": {
+		"string": "Статусы сохранены успешно!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 статус} few {Статусов: #} many {Статусов: #} other {Статусов: #}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Новый статус"
+	},
+	"statusesComponent.blurb": {
+		"string": "Пользователи видят статус, когда получают отчёты."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Недостающие переводы"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Некоторые статусы не переведены. Не все пользователи могут понять непереведённые статусы."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Сохранить и продолжить"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Сценарий"
@@ -3247,72 +3316,6 @@
 	},
 	"smoochBot.tos": {
 		"string": "Условия предоставления услуг ({language})"
-	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Переместить материалы в"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Чтобы удалить этот статус, необходимо снять его с существующих материалов ({itemsCount, plural, one {1} other {#}})"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Статус {statusLabel} находится в использовании (материалов: {itemsCount, plural, one {1} other {#}}). Чтобы удалить данный статус, нужно изменить статус всех этих материалов на другой."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Вы также можете поменять статус каждого материала вручную."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Отредактировать материалы и удалить статус"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "Редактировать статус"
-	},
-	"editStatusDialog.title": {
-		"string": "Добавить статус"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "Статус (до {maxLength} символов)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Описание"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Добавить статус"
-	},
-	"statusListItem.noDescription": {
-		"string": "Без описания"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (по умолчанию)"
-	},
-	"statusesComponent.error": {
-		"string": "Извините, во время обновления статусов произошла ошибка. Пожалуйста, попробуйте ещё раз. Если ошибка повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"statusesComponent.saved": {
-		"string": "Статусы сохранены успешно!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "Новый статус"
-	},
-	"statusesComponent.blurb": {
-		"string": "Пользователи видят статус, когда получают отчёты."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "Недостающие переводы"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "Некоторые статусы не переведены. Не все пользователи могут понять непереведённые статусы."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Сохранить и продолжить"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Не удалось сохранить настройки списка.",

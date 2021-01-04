@@ -24,7 +24,7 @@
 		"string": "حذف"
 	},
 	"global.ok": {
-		"string": "حسناً "
+		"string": "حسناً"
 	},
 	"global.save": {
 		"string": "حفظ"
@@ -111,7 +111,7 @@
 		"string": "Check: للتحقق من الأخبار العاجلة على الإنترنت. مطوّر بِ ✨ من {meedan}"
 	},
 	"teamComponent.editButton": {
-		"string": "تحرير الملف الشخصي"
+		"string": "تحرير المعلومات الشخصية"
 	},
 	"home.needRegister": {
 		"string": "يرجى تسجيل الدخول قبل طلب الانضمام لمساحة العمل."
@@ -144,7 +144,7 @@
 		"string": "لن يتم أي نشر بدون موافقتك"
 	},
 	"login.tosMissing": {
-		"string": "تجب الموافقة على شروط الاستخدام وسياسة الخصوصية"
+		"string": "يجب أن توافقين على شروط الاستخدام وسياسة الخصوصية"
 	},
 	"login.title": {
 		"string": "تسجيل الدخول"
@@ -156,7 +156,7 @@
 		"string": "اسمك"
 	},
 	"login.emailLabel": {
-		"string": "البريد الإلكتروني"
+		"string": "بريدك الإلكتروني"
 	},
 	"login.passwordInputHint": {
 		"string": "كلمة السر"
@@ -222,10 +222,10 @@
 		"string": "و"
 	},
 	"uploadFile.message": {
-		"string": "يرجى إسقاط صورة هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأنواع المسموحة: {upload_extensions}، الأبعاد المسموحة بين {upload_min_dimensions} و {upload_max_dimensions} بكسل)"
+		"string": "يرجى اسقاط صورة هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {upload_max_size}، الأنواع المسموحة: {upload_extensions}، الأبعاد المسموحة بين {upload_min_dimensions} و {upload_max_dimensions} بكسل)"
 	},
 	"uploadFile.videoMessage": {
-		"string": "يرجى إسقاط فيديو هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {video_max_size}، الأنواع المسموحة: {video_extensions})"
+		"string": "يرجى اسقاط  فيديو هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {video_max_size}، الأنواع المسموحة: {video_extensions})"
 	},
 	"uploadFile.audioMessage": {
 		"string": "يرجى اسقاط ملف صوتي هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {audio_max_size}، الأنواع المسموحة: {audio_extensions})"
@@ -234,7 +234,7 @@
 		"string": "يرجى إسقاط ملف هنا، أو النقر لتحميل ملف (الحجم الأقصى:  {file_max_size}، الأنواع المسموحة: {file_extensions})"
 	},
 	"uploadFile.invalidExtension": {
-		"string": "لا يمكن إضافة ملف نوعه ({extension}). يرجى أعادة المحاولة مع ملف من الانواع المسموحة : ({allowed_types})"
+		"string": "لا يمكن إضافة ملف نوعه ({extension}). يرجى إعادة المحاولة مع ملف من الانواع المسموحة : ({allowed_types})"
 	},
 	"uploadFile.fileTooLarge": {
 		"string": "لا يمكن إضافة ملف حجمه اكبر من {size}. يرجى إعادة المحاولة مع ملف ذو حجم مناسب."
@@ -381,7 +381,7 @@
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تأكيد حسابك. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"addAnnotation.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"addAnnotation.invalidCommand": {
 		"string": " أمر غير صالح"
@@ -396,10 +396,10 @@
 		"string": "إرسال"
 	},
 	"annotation.flagAdult": {
-		"string": "إباحي"
+		"string": "إباحية"
 	},
 	"annotation.flagMedical": {
-		"string": "طبي"
+		"string": "طبية"
 	},
 	"annotation.flagViolence": {
 		"string": "عنف"
@@ -414,19 +414,19 @@
 		"string": "غير معروف"
 	},
 	"annotation.flagLikelihood1": {
-		"string": "مُستبعد جدا"
+		"string": "مُستبعدة جدا"
 	},
 	"annotation.flagLikelihood2": {
-		"string": "مُستبعد"
+		"string": "مُستبعدة"
 	},
 	"annotation.flagLikelihood3": {
-		"string": "ممكن"
+		"string": "ممكنة"
 	},
 	"annotation.flagLikelihood4": {
-		"string": "محتمل"
+		"string": "محتملة"
 	},
 	"annotation.flagLikelihood5": {
-		"string": "محتمل جدا"
+		"string": "محتملة جدا"
 	},
 	"annotation.menuTooltip": {
 		"string": "إجراءات التعقيبات"
@@ -606,7 +606,7 @@
 		"string": "إعدادات مساحة العمل"
 	},
 	"projects.allClaims": {
-		"string": "جميع العناصر"
+		"string": "كل العناصر"
 	},
 	"projects.dismiss": {
 		"string": "تجاهل"
@@ -645,10 +645,10 @@
 		"string": "اختيار اللغة"
 	},
 	"languagePickerDialog.selectLanguage": {
-		"string": "اختيار اللغة"
+		"string": "تحديد اللغة"
 	},
 	"loadMore.loadMore": {
-		"string": "تحميل المزيد"
+		"string": "تحميل أكثر"
 	},
 	"moreLess.less": {
 		"string": "الأقل"
@@ -684,7 +684,7 @@
 		"string": "اﻷقل استخداماً"
 	},
 	"createProject.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"createProject.newProjectName": {
 		"string": "عنوان القائمة"
@@ -726,10 +726,10 @@
 		"string": "تكليف القائمة لشركاء"
 	},
 	"projectAssignment.notesTitle": {
-		"string": "إضافة ملاحظة للإيميل"
+		"string": "إضافة ملاحظة للبريد الإلكتروني"
 	},
 	"projectAssignment.notes": {
-		"string": "ملاحظات"
+		"string": "الملاحظات"
 	},
 	"projectAssignment.assignedTo": {
 		"string": "مُكَلَّف إلى"
@@ -759,655 +759,13 @@
 		"string": "سلة المهملات"
 	},
 	"projectHeader.allItems": {
-		"string": "جميع العناصر"
+		"string": "كل العناصر"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, number} المحدد"
+		"string": "{length, number} محدد"
 	},
 	"projectSelector.allProjs": {
 		"string": "كل القوائم"
-	},
-	"mediaMetadata.addedToList": {
-		"string": "تمت الإضافة إلى القائمة {listName}"
-	},
-	"mediaActionsBar.addTo": {
-		"string": "إضافة إلى..."
-	},
-	"mediaActionsBar.dialogAddToListTitle": {
-		"string": "إضافة إلى قائمة آخرى"
-	},
-	"mediaActionsBar.cancelButton": {
-		"string": "إلغاء"
-	},
-	"mediaActionsBar.add": {
-		"string": "إضافة"
-	},
-	"video.normalSpeed": {
-		"string": "السرعة العادية"
-	},
-	"autoCompleteMediaItem.searching": {
-		"string": "البحث جارٍ…"
-	},
-	"autoCompleteMediaItem.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"autoCompleteMediaItem.notFound": {
-		"string": "‏‏لم يتم العثور على عناصر مطابقة"
-	},
-	"autoCompleteMediaItem.searchItem": {
-		"string": "بحث"
-	},
-	"blankMediaButton.defaultErrorMessage": {
-		"string": "لم يمكن حفظ العنصر"
-	},
-	"blankMediaButton.addToImportedReport": {
-		"string": "إضافة إلى التقرير المستورد"
-	},
-	"blankMediaButton.confirmTitle": {
-		"string": "الكتابة فوق التقرير والحالة؟"
-	},
-	"blankMediaButton.confirmText": {
-		"string": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وإيقاف التقرير."
-	},
-	"blankMediaButton.confirmButtonLabel": {
-		"string": "إيقاف التقرير وتحديث المحتوى"
-	},
-	"blankMediaButton.addItem": {
-		"string": "إضافة عنصر"
-	},
-	"blankMediaCard.defaultErrorMessage": {
-		"string": "لم يمكن حفظ العنصر"
-	},
-	"blankMediaCard.addItem": {
-		"string": "إضافة عنصر"
-	},
-	"blankMediaCard.confirmTitle": {
-		"string": "الكتابة فوق التقرير والحالة؟"
-	},
-	"blankMediaCard.confirmText": {
-		"string": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وإيقاف التقرير."
-	},
-	"blankMediaCard.confirmButtonLabel": {
-		"string": "إيقاف التقرير وتحديث المحتوى"
-	},
-	"bulkActions.movedRestoreSuccessfully": {
-		"string": "تم نقل العناصر من سلة المهملات إلى `{toProject}`",
-		"developer_comment": "Banner displayed after items are moved successfully"
-	},
-	"bulkActions.movedConfirmSuccessfully": {
-		"string": "تم نقل العناصر من الغير مؤكد إلى `{toProject}`",
-		"developer_comment": "Banner displayed after items are moved successfully"
-	},
-	"bulkActions.addedSuccessfully": {
-		"string": "تمت إضافة العناصر إلى القائمة.",
-		"developer_comment": "Banner displayed after items are added successfully to list"
-	},
-	"bulkActions.removedSuccessfully": {
-		"string": "تم حذف العناصر من هذه القائمة.",
-		"developer_comment": "Banner displayed after items are removed successfully from list"
-	},
-	"bulkActions.movedSuccessfully": {
-		"string": "تم إرسال العناصر.",
-		"developer_comment": "Banner displayed after items are moved successfully"
-	},
-	"bulkActions.moveToTrashSuccessfully": {
-		"string": "تم إرسال العناصر إلى سلة المهملات"
-	},
-	"bulkActions.trash": {
-		"string": "استعادة العناصر المحددة ونقلها إلى قائمة أخرى"
-	},
-	"bulkActions.restore": {
-		"string": "استعادة من سلة المهملات"
-	},
-	"bulkActions.unconfirmed": {
-		"string": "يرجى تأكيد تحديد العناصر ونقلها إلى قائمة أخرى"
-	},
-	"bulkActions.confirm": {
-		"string": "النقل من الغير مؤكد"
-	},
-	"bulkActions.move": {
-		"string": "نقل ‏‏العناصر المحددة إلى قائمة أخرى"
-	},
-	"bulkActions.moveTo": {
-		"string": "نقل إلى..."
-	},
-	"bulkActions.cancelButton": {
-		"string": "إلغاء"
-	},
-	"bulkActions.moveTitle": {
-		"string": "نقل إلى قائمة"
-	},
-	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
-	},
-	"bulkActions.add": {
-		"string": "إضافة ‏‏العناصر المحددة إلى قائمة آخرى"
-	},
-	"bulkActions.addTo": {
-		"string": "إضافة إلى..."
-	},
-	"bulkActions.addTitle": {
-		"string": "إضافة"
-	},
-	"bulkActions.dialogAddTitle": {
-		"string": "إضافة إلى قائمة آخرى"
-	},
-	"bulkActions.sendItemsToTrash": {
-		"string": "ارسال العناصر المحددة إلى سلة المهملات"
-	},
-	"claimReview.claim": {
-		"string": "الإدعاء : "
-	},
-	"claimReview.claimedBy": {
-		"string": "الإدعاء بواسطة: "
-	},
-	"claimReview.reviewedBy": {
-		"string": "تمّ التحقق بواسطة {reviewer} : "
-	},
-	"createMedia.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء ارسال العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"createMedia.addItem": {
-		"string": "إضافة عنصر"
-	},
-	"createMedia.addNewItem": {
-		"string": "إضافة عنصر جديد"
-	},
-	"createMedia.addNew": {
-		"string": "إضافة عنصر جديد"
-	},
-	"createMedia.existing": {
-		"string": "إضافة عنصر موجود"
-	},
-	"createMedia.quoteInput": {
-		"string": "يرجى إلصاق أو كتابة نص"
-	},
-	"createMedia.mediaInput": {
-		"string": "إلصاق أو كتابة"
-	},
-	"createMedia.link": {
-		"string": "رابط"
-	},
-	"createMedia.quote": {
-		"string": "نص"
-	},
-	"createMedia.image": {
-		"string": "صورة"
-	},
-	"createMedia.video": {
-		"string": "فيديو"
-	},
-	"createMedia.audio": {
-		"string": "ملف صوتي"
-	},
-	"createRelatedMedia.addSecondaryItem": {
-		"string": "إضافة عنصر ثانوي"
-	},
-	"createRelatedMedia.addToPrimaryItem": {
-		"string": "إضافة إلى العنصر الأولي"
-	},
-	"destinationProjects.choose": {
-		"string": "إختيار قائمة"
-	},
-	"mediaDetail.editReportError": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"mediaDetail.editReport": {
-		"string": "تحرير"
-	},
-	"mediaDetail.mediaTitle": {
-		"string": "العنوان"
-	},
-	"mediaDetail.mediaDescription": {
-		"string": "الوصف"
-	},
-	"mediaDetail.cancelButton": {
-		"string": "إلغاء"
-	},
-	"mediaDetail.doneButton": {
-		"string": "إتمام"
-	},
-	"ItemHistoryDialog.title": {
-		"string": "تاريخ العنصر"
-	},
-	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
-	},
-	"mediaActions.edit": {
-		"string": "تحرير العنوان والوصف"
-	},
-	"mediaActions.refresh": {
-		"string": "تحديث"
-	},
-	"mediaActions.assignOrUnassign": {
-		"string": "التكليف"
-	},
-	"mediaActions.unlockStatus": {
-		"string": "فك قفل الحالة"
-	},
-	"mediaActions.lockStatus": {
-		"string": "قفل الحالة"
-	},
-	"mediaActions.sendToTrash": {
-		"string": "ارسال إلى سلة المهملات"
-	},
-	"mediaActions.restore": {
-		"string": "استعادة من سلة المهملات"
-	},
-	"mediaActions.move": {
-		"string": "نقل"
-	},
-	"mediaActions.addToList": {
-		"string": "إضافة إلى القائمة"
-	},
-	"mediaActions.removeFromList": {
-		"string": "حذف من القائمة"
-	},
-	"mediaActions.tooltip": {
-		"string": "إجراءات العنصر"
-	},
-	"mediaActionsBar.movedToTrash": {
-		"string": "تم الإرسال إلى {trash}"
-	},
-	"mediaDetail.trash": {
-		"string": "سلة المهملات"
-	},
-	"mediaActionsBar.assignmentsUpdated": {
-		"string": "تم تحديث التكليفات بنجاح!"
-	},
-	"mediaActionsBar.publishedReport": {
-		"string": "تقرير منشور"
-	},
-	"mediaActionsBar.unpublishedReport": {
-		"string": "تقرير غير منشور"
-	},
-	"mediaActionsBar.assignmentTitle": {
-		"string": "تكليف العنصر لشركاء"
-	},
-	"mediaActionsBar.assignmentNotesTitle": {
-		"string": "إضافة ملاحظة للإيميل"
-	},
-	"mediaActionsBar.assignmentNotes": {
-		"string": "ملاحظات"
-	},
-	"mediaActions.history": {
-		"string": "تاريخ العنصر"
-	},
-	"mediaAnalysis.analysis": {
-		"string": "التحليل"
-	},
-	"mediaAnalysis.saving": {
-		"string": "الحفظ جارٍ…"
-	},
-	"mediaAnalysis.saved": {
-		"string": "تم الحفظ {ago}"
-	},
-	"mediaAnalysis.error": {
-		"string": "لم تنجح عملية الحفظ! آخر حفظ قبل {ago}"
-	},
-	"mediaAnalysis.copying": {
-		"string": "النسخ جارٍ…"
-	},
-	"mediaAnalysis.copyToReport": {
-		"string": "نسخ إلى التقرير"
-	},
-	"mediaAnalysis.title": {
-		"string": "العنوان"
-	},
-	"mediaAnalysis.content": {
-		"string": "المحتوى"
-	},
-	"mediaAnalysis.publishedArticle": {
-		"string": "رابط المقال المنشور"
-	},
-	"mediaAnalysis.date": {
-		"string": "تاريخ النشر"
-	},
-	"mediaAnalysis.confirmTitle1": {
-		"string": "التقرير الحالي منشور"
-	},
-	"mediaAnalysis.confirmTitle2": {
-		"string": "الكتابة فوق التقرير الموجود؟"
-	},
-	"mediaAnalysis.confirmText1": {
-		"string": "لا بد من إيقاف التقرير للتمكُّن من تحريره. هل تريدين إيقاف التقرير وتحديثه بالمحتوى الجديد؟"
-	},
-	"mediaAnalysis.confirmText2": {
-		"string": "تحديث التقرير بهذا المحتوى الجديد؟ سيتم فُقدان كل عمليّة تحرير."
-	},
-	"mediaAnalysis.confirmButtonLabel1": {
-		"string": "إيقاف التقرير وتحديث المحتوى"
-	},
-	"mediaAnalysis.confirmButtonLabel2": {
-		"string": "الكتابة فوق المحتوى"
-	},
-	"mediaComments.noNote": {
-		"string": "لا توجد ملحوظة"
-	},
-	"mediaComponent.requests": {
-		"string": "طلبات"
-	},
-	"mediaComponent.metadata": {
-		"string": "البيانات الوصفيّة"
-	},
-	"mediaComponent.tasks": {
-		"string": "المهام"
-	},
-	"mediaComponent.notes": {
-		"string": "ملاحظات"
-	},
-	"mediaComponent.related": {
-		"string": "ذات صلة"
-	},
-	"mediaComponent.timelineTab": {
-		"string": "الجدول الزمني"
-	},
-	"mediaCondensed.requests": {
-		"string": "{count} طلب(ات) "
-	},
-	"mediaExpanded.addToImportedReport": {
-		"string": "إضافة إلى التقرير المستورد"
-	},
-	"mediaMetadata.Timeline": {
-		"string": "الجدول الزمني"
-	},
-	"mediaMetadata.ImageSearch": {
-		"string": "بحث عن طريق الصور"
-	},
-	"mediaMetadata.download": {
-		"string": "تحميل"
-	},
-	"mediaExpandedArchives.archives": {
-		"string": "الأرشيفات:"
-	},
-	"mediaExpandedMetadata.publishedOn": {
-		"string": "تم النشر في"
-	},
-	"mediaExpandedMetadata.shares": {
-		"string": "مشاركات فيسبوك"
-	},
-	"mediaExpandedMetadata.reactions": {
-		"string": "تفاعلات فيسبوك"
-	},
-	"mediaExpandedMetadata.comments": {
-		"string": "تعليقات فيسبوك"
-	},
-	"mediaExpanded.firstSeen": {
-		"string": "أوّل مطالعة: "
-	},
-	"mediaExpanded.lastSeen": {
-		"string": "آخر مطالعة:"
-	},
-	"mediaExpanded.requests": {
-		"string": "{count} طلب(ات) "
-	},
-	"mediaLanguageChip.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"media.normalSpeed": {
-		"string": "السرعة العادية"
-	},
-	"mediaRelated.primaryItem": {
-		"string": "العنصر الأولي"
-	},
-	"mediaRelated.secondaryItems": {
-		"string": "العناصر الثانوية"
-	},
-	"mediaRelated.loadMore": {
-		"string": "تحميل المزيد"
-	},
-	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
-	},
-	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
-	},
-	"mediaRequests.noRequest": {
-		"string": "لا توجد طلبات"
-	},
-	"mediaSearch.itemWentAway": {
-		"string": "لم يتم العثور عنه"
-	},
-	"mediaSearch.error": {
-		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"mediaStatus.cancelMessage": {
-		"string": "إلغاء"
-	},
-	"mediaStatus.messageDescription": {
-		"string": "يرجى إضافة تعليق. سيتم إرساله إلى النّاشر الأصلي لإعلامهم بإغلاق طلبهم."
-	},
-	"mediaStatus.noteHint": {
-		"string": "يرجى ضغط \"إدخال\" للإرسال"
-	},
-	"mediaStatus.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الحالة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"mediaTags.error": {
-		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"mediaComponent.verificationTasks": {
-		"string": "مهام العنصر"
-	},
-	"mediaComponent.answered": {
-		"string": "تم اكمالها"
-	},
-	"mediaComponent.noTasks": {
-		"string": "لا يوجد."
-	},
-	"media.typeTwitter": {
-		"string": "تويت"
-	},
-	"media.typeFacebook": {
-		"string": "منشور فيسبوك"
-	},
-	"media.typeInstagram": {
-		"string": "انستجرام"
-	},
-	"media.typeYoutube": {
-		"string": "فيديو YouTube"
-	},
-	"media.typeVideo": {
-		"string": "فيديو"
-	},
-	"media.typeTiktok": {
-		"string": "TikTok فيديو"
-	},
-	"media.typeClaim": {
-		"string": "نص"
-	},
-	"media.typeImage": {
-		"string": "صورة"
-	},
-	"media.typePage": {
-		"string": "صفحة"
-	},
-	"media.byAttribution": {
-		"string": "{typeLabel} من {attribution}"
-	},
-	"media.onDomain": {
-		"string": "{typeLabel} على {domain}"
-	},
-	"media.typeLink": {
-		"string": "رابط"
-	},
-	"media.typeAudio": {
-		"string": "ملف صوتي"
-	},
-	"media.typeBlank": {
-		"string": "التقرير المستورد"
-	},
-	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
-	},
-	"mediaActionsBar.moveTo": {
-		"string": "نقل إلى..."
-	},
-	"mediaActionsBar.dialogMoveTitle": {
-		"string": "نقل إلى قائمة آخرى"
-	},
-	"mediaActionsBar.move": {
-		"string": "نقل"
-	},
-	"mediaSearch.previousItem": {
-		"string": "العنصر السابق"
-	},
-	"mediaSearch.xOfY": {
-		"string": "{current} من مجموع  {total}"
-	},
-	"mediaSearch.nextItem": {
-		"string": "العنصر التالي"
-	},
-	"mediaActionsBar.removedFromList": {
-		"string": "تم حذفه من القائمة"
-	},
-	"mediaActionsBar.removeFromList": {
-		"string": "حذف من القائمة"
-	},
-	"reportDesigner.cantPublish": {
-		"string": "يرجى اختيار نص أو صورة من التقرير على الأقل  لنشره"
-	},
-	"reportDesigner.canPublish": {
-		"string": "نشر التقرير"
-	},
-	"reportDesigner.pauseReport": {
-		"string": "إيقاف التقرير"
-	},
-	"reportDesigner.confirmLeaveTitle": {
-		"string": "مغادرة دون حفظ؟"
-	},
-	"reportDesigner.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"reportDesigner.warning": {
-		"string": "تحذير — هذه المشاركة ستكشف معلومات إلى أشخاص خارج مساحة عمل خاصّة. الرجاء توخ الحذر عند المتابعة."
-	},
-	"reportDesigner.copyButtonInactive": {
-		"string": "‏‏تم النسخ"
-	},
-	"reportDesigner.copyButton": {
-		"string": "نسخ"
-	},
-	"reportDesigner.back": {
-		"string": "العودة إلى التعقيبات"
-	},
-	"reportDesigner.copyEmbedCode": {
-		"string": "نسخ كود التضمين"
-	},
-	"reportDesigner.copyShareUrl": {
-		"string": "نسخ رابط المشاركة"
-	},
-	"reportDesigner.save": {
-		"string": "حفظ"
-	},
-	"reportDesigner.edit": {
-		"string": "تحرير"
-	},
-	"reportDesigner.publish": {
-		"string": "نشر"
-	},
-	"reportDesigner.pause": {
-		"string": "إيقاف"
-	},
-	"reportDesigner.nothingToPreview": {
-		"string": "يرجى البدء بإنشاء التقرير لمعاينة ما سيراه المستخدمون عند استلام التقرير."
-	},
-	"reportDesigner.reportEditorTitle": {
-		"string": "يرجى تحديد المحتوى الذى تريدين إرساله في تقريرك"
-	},
-	"reportDesigner.introduction": {
-		"string": "المقدمة"
-	},
-	"reportDesigner.introductionSub": {
-		"string": "يرجى استخدام النص النائب {query_date} لعرض تاريخ الاستعلام الرئيسي، و استخدام {status} للإعلام عن حالة التقرير."
-	},
-	"reportDesigner.visualCard": {
-		"string": "البطاقة المرئية"
-	},
-	"reportDesigner.useDefaultImage": {
-		"string": "استخدام الصورة الافتراضية"
-	},
-	"reportDesigner.headline": {
-		"string": "العنوان (بحد أقصى {max} حرف)"
-	},
-	"reportDesigner.description": {
-		"string": "المحتوى (بحد أقصى {max} حرف)"
-	},
-	"reportDesigner.statusLabel": {
-		"string": "عنوان الحالة (بحد أقصى {max} حرف)"
-	},
-	"reportDesigner.themeColor": {
-		"string": "لون المظهر"
-	},
-	"reportDesigner.url": {
-		"string": "عنوان الموقع (بحد أقصى {max} حرف)"
-	},
-	"reportDesigner.textMessage": {
-		"string": "نص التقرير"
-	},
-	"reportDesigner.disclaimer": {
-		"string": "إخلاء مسؤولية"
-	},
-	"reportDesigner.confirmPublishTitle": {
-		"string": "هل التقرير جاهز للنّشر؟ "
-	},
-	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
-	},
-	"reportDesigner.confirmPublishText2": {
-		"string": " في المستقبل، سيستلم المستخدمين تقريرك طالما هو منشور."
-	},
-	"reportDesigner.confirmPauseTitle": {
-		"string": "انت على وشك إيقاف التقرير"
-	},
-	"reportDesigner.confirmPauseText": {
-		"string": "لن يتم إرسال هذا التقرير إلى المستخدمين حتى يتم نشره مرّة ثانية. هل تودين المتابعة؟"
-	},
-	"reportDesigner.confirmRepublishTitle": {
-		"string": "هل هذه التغييرات جاهزة للنّشر؟ "
-	},
-	"reportDesigner.confirmRepublishText": {
-		"string": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير."
-	},
-	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
-	},
-	"reportDesigner.confirmRepublishResendTitle": {
-		"string": "هل التصحيحات جاهزة للنّشر؟ "
-	},
-	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
-	},
-	"reportDesigner.confirmRepublishResendText2": {
-		"string": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير."
-	},
-	"reportDesigner.confirmLeaveText": {
-		"string": "إذا غادرت، ستفقدين جميع تعديلاتك."
-	},
-	"reportDesigner.reportImagePreviewTitle": {
-		"string": "لمحة عن التقرير ",
-		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
-	},
-	"mediaActionsBar.movedRestoreBack": {
-		"string": "تمت الاستعادة من سلة المهملات، جارٍ أعادة التوجيه…"
-	},
-	"mediaActionsBar.movedConfirmBack": {
-		"string": "تم التأكيد، إعادة التوجيه جارية…"
-	},
-	"mediaActionsBar.restoreTo": {
-		"string": "استعادة من سلة المهملات"
-	},
-	"mediaActionsBar.confirmTo": {
-		"string": "تأكيد"
-	},
-	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "نقل العنصر إلى قائمة…"
-	},
-	"mediaActionsBar.restoreOrConfirm": {
-		"string": "نقل إلى قائمة"
-	},
-	"webPageMediaCard.Error": {
-		"string": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. يرجى نقر الرابط أعلاه للإنتقال إليه."
 	},
 	"AddCustomFilters.metadataChoiceLabel": {
 		"string": "البيانات الوصفية لها قيمة محددة"
@@ -1425,10 +783,10 @@
 		"string": "اختيار مهمة"
 	},
 	"AddCustomFilters.entityMetadataLabel": {
-		"string": "يرجى اختيار البيانات الوصفيّة"
+		"string": "تحديد البيانات الوصفيّة"
 	},
 	"search.allClaimsTitle": {
-		"string": "جميع العناصر"
+		"string": "كل العناصر"
 	},
 	"CustomFilter.filterBy": {
 		"string": "الفلترة عن طريق"
@@ -1449,7 +807,7 @@
 		"string": "البيانات الوصفيّة تتضمن كلمة مفتاحية"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "للمهمة إجابة محددة"
+		"string": "المهمة لها إجابة محددة"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
 		"string": "إجابة المهمة تتضمن كلمة مفتاحية"
@@ -1464,7 +822,7 @@
 		"string": "اختيار مهمة"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "يرجى اختيار البيانات الوصفيّة"
+		"string": "تحديد البيانات الوصفيّة"
 	},
 	"search.dateHeading": {
 		"string": "المدى الزمني"
@@ -1476,7 +834,7 @@
 		"string": "آخر إرسال"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "آخر تحديث"
+		"string": "تاريخ آخر تحديث"
 	},
 	"search.datePublishedHeading": {
 		"string": "منشور"
@@ -1534,13 +892,13 @@
 		"string": "التقرير المستورد"
 	},
 	"search.title": {
-		"string": "جميع العناصر"
+		"string": "كل العناصر"
 	},
 	"search.inputHint": {
 		"string": "بحث"
 	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>"
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>شجرة + ورقة</td><td>العناصر التى فيها كلًا من شجرة وورقة</td></tr>\n                        <tr><td>|</td><td>شجرة | ورقة</td><td>العناصر التى فيها أيًا من شجرة أو ورقة</td></tr>\n                        <tr><td>()</td><td>شجرة + (ورقة | غصن)</td><td>العناصر التي فيها شجرة وورقة أو فيها شجرة وغصن</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        تعلم المزيد من أساليب البحث\n                      </a>\n                    </div>"
 	},
 	"search.Filter": {
 		"string": "فلتر "
@@ -1570,7 +928,7 @@
 		"string": "اللغة"
 	},
 	"search.projectHeading": {
-		"string": "قائمة"
+		"string": "القائمة"
 	},
 	"search.assignedTo": {
 		"string": "مُكَلَّف إلى"
@@ -1591,13 +949,655 @@
 		"string": "الصفحة السابقة"
 	},
 	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, zero {(لا يوجد تحديد)} one {(1 محدد)} two {(2 محددان)} few {(# محددين)} many {(# محدد)} other {(# محدد)}}"
 	},
 	"search.nextPage": {
 		"string": "الصفحة التالية"
+	},
+	"mediaMetadata.addedToList": {
+		"string": "تمت الإضافة إلى القائمة {listName}"
+	},
+	"mediaActionsBar.addTo": {
+		"string": "إضافة إلى..."
+	},
+	"mediaActionsBar.dialogAddToListTitle": {
+		"string": "إضافة إلى قائمة آخرى"
+	},
+	"mediaActionsBar.cancelButton": {
+		"string": "إلغاء"
+	},
+	"mediaActionsBar.add": {
+		"string": "إضافة"
+	},
+	"video.normalSpeed": {
+		"string": "السرعة العادية"
+	},
+	"autoCompleteMediaItem.searching": {
+		"string": "البحث جارٍ…"
+	},
+	"autoCompleteMediaItem.error": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"autoCompleteMediaItem.notFound": {
+		"string": "‏‏لم يتم العثور على عناصر مطابقة"
+	},
+	"autoCompleteMediaItem.searchItem": {
+		"string": "بحث"
+	},
+	"blankMediaButton.defaultErrorMessage": {
+		"string": "لم يمكن حفظ العنصر"
+	},
+	"blankMediaButton.addToImportedReport": {
+		"string": "إضافة إلى التقرير المستورد"
+	},
+	"blankMediaButton.confirmTitle": {
+		"string": "الكتابة فوق التقرير والحالة؟"
+	},
+	"blankMediaButton.confirmText": {
+		"string": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وإيقاف التقرير."
+	},
+	"blankMediaButton.confirmButtonLabel": {
+		"string": "إيقاف التقرير وتحديث المحتوى"
+	},
+	"blankMediaButton.addItem": {
+		"string": "إضافة عنصر"
+	},
+	"blankMediaCard.defaultErrorMessage": {
+		"string": "لا يمكن حفظ العنصر"
+	},
+	"blankMediaCard.addItem": {
+		"string": "إضافة عنصر"
+	},
+	"blankMediaCard.confirmTitle": {
+		"string": "الكتابة فوق التقرير والحالة؟"
+	},
+	"blankMediaCard.confirmText": {
+		"string": "قام العنصر التالي بنشر تقرير مسبقاً:\n              {link}\n              إذا قمت بالمتابعة ستتم الكتابة فوق الحالة والتقرير وايقاف التقرير."
+	},
+	"blankMediaCard.confirmButtonLabel": {
+		"string": "إيقاف التقرير وتحديث المحتوى"
+	},
+	"bulkActions.movedRestoreSuccessfully": {
+		"string": "تم نقل العناصر من سلة المهملات إلى '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedConfirmSuccessfully": {
+		"string": "تم نقل العناصر من الغير مؤكد إلى '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.addedSuccessfully": {
+		"string": "تمت إضافة العناصر إلى القائمة.",
+		"developer_comment": "Banner displayed after items are added successfully to list"
+	},
+	"bulkActions.removedSuccessfully": {
+		"string": "تم حذف العناصر من هذه القائمة.",
+		"developer_comment": "Banner displayed after items are removed successfully from list"
+	},
+	"bulkActions.movedSuccessfully": {
+		"string": "تم إرسال العناصر.",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.moveToTrashSuccessfully": {
+		"string": "تم إرسال العناصر إلى سلة المهملات."
+	},
+	"bulkActions.trash": {
+		"string": "استعادة العناصر المحددة ونقلها إلى قائمة أخرى"
+	},
+	"bulkActions.restore": {
+		"string": "استعادة من سلة المهملات"
+	},
+	"bulkActions.unconfirmed": {
+		"string": "يرجى تأكيد تحديد العناصر ونقلها إلى قائمة أخرى"
+	},
+	"bulkActions.confirm": {
+		"string": "النقل من الغير مؤكد"
+	},
+	"bulkActions.move": {
+		"string": "نقل ‏‏العناصر المحددة إلى قائمة أخرى"
+	},
+	"bulkActions.moveTo": {
+		"string": "نقل إلى..."
+	},
+	"bulkActions.cancelButton": {
+		"string": "إلغاء"
+	},
+	"bulkActions.moveTitle": {
+		"string": "نقل إلى قائمة"
+	},
+	"bulkActions.dialogMoveTitle": {
+		"string": "{selectedCount, plural, zero {لا نقل إلى القائمة} one {نقل عنصر واحد إلى قائمة…} two {نقل عنصرين إلى قائمة…} few {نقل # عناصر إلى قائمة…} many {نقل # عنصر إلى قائمة…} other {نقل # عنصر إلى قائمة…}}"
+	},
+	"bulkActions.add": {
+		"string": "إضافة ‏‏العناصر المحددة إلى قائمة آخرى"
+	},
+	"bulkActions.addTo": {
+		"string": "إضافة إلى..."
+	},
+	"bulkActions.addTitle": {
+		"string": "إضافة"
+	},
+	"bulkActions.dialogAddTitle": {
+		"string": "إضافة إلى قائمة آخرى"
+	},
+	"bulkActions.sendItemsToTrash": {
+		"string": "ارسال العناصر المحددة إلى سلة المهملات"
+	},
+	"claimReview.claim": {
+		"string": "الإدعاء : "
+	},
+	"claimReview.claimedBy": {
+		"string": "الإدعاء بواسطة: "
+	},
+	"claimReview.reviewedBy": {
+		"string": "تمّ التحقق بواسطة {reviewer} : "
+	},
+	"createMedia.error": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء ارسال العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"createMedia.addItem": {
+		"string": "إضافة عنصر"
+	},
+	"createMedia.addNewItem": {
+		"string": "إضافة عنصر جديد"
+	},
+	"createMedia.addNew": {
+		"string": "إضافة عنصر جديد"
+	},
+	"createMedia.existing": {
+		"string": "إضافة عنصر موجود"
+	},
+	"createMedia.quoteInput": {
+		"string": "يرجى إلصاق أو كتابة نص"
+	},
+	"createMedia.mediaInput": {
+		"string": "إلصاق أو كتابة"
+	},
+	"createMedia.link": {
+		"string": "الرابط"
+	},
+	"createMedia.quote": {
+		"string": "نص"
+	},
+	"createMedia.image": {
+		"string": "صورة"
+	},
+	"createMedia.video": {
+		"string": "فيديو"
+	},
+	"createMedia.audio": {
+		"string": "صوت"
+	},
+	"createRelatedMedia.addSecondaryItem": {
+		"string": "إضافة عنصر ثانوي"
+	},
+	"createRelatedMedia.addToPrimaryItem": {
+		"string": "إضافة إلى العنصر الأولي"
+	},
+	"destinationProjects.choose": {
+		"string": "إختيار قائمة"
+	},
+	"mediaDetail.editReportError": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"mediaDetail.editReport": {
+		"string": "تحرير"
+	},
+	"mediaDetail.mediaTitle": {
+		"string": "العنوان"
+	},
+	"mediaDetail.mediaDescription": {
+		"string": "الوصف"
+	},
+	"mediaDetail.cancelButton": {
+		"string": "إلغاء"
+	},
+	"mediaDetail.doneButton": {
+		"string": "إتمام"
+	},
+	"ItemHistoryDialog.title": {
+		"string": "تاريخ العنصر"
+	},
+	"media.confirmLeave": {
+		"string": "{count, plural, zero {هل أنت متأكد أنك تود الخروج ؟} one {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك مهمة إجبارية واحدة غير مجابة} two {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك مهمتان إجباريتان غير مجابة} few {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك # مهام إجبارية غير مجابة} many {هل أنت متأكد أنك تود الخروج ؟ ما زالت لديك # مهمة إجبارية غير مجابة} other {متأكدين من الرّغبة في الخروج؟ ما زال لديك # مهمة إجبارية غير مستجابة}}"
+	},
+	"mediaActions.edit": {
+		"string": "تحرير العنوان والوصف"
+	},
+	"mediaActions.refresh": {
+		"string": "تحديث"
+	},
+	"mediaActions.assignOrUnassign": {
+		"string": "التكليف"
+	},
+	"mediaActions.unlockStatus": {
+		"string": "فك قفل الحالة"
+	},
+	"mediaActions.lockStatus": {
+		"string": "قفل الحالة"
+	},
+	"mediaActions.sendToTrash": {
+		"string": "ارسال إلى سلة المهملات"
+	},
+	"mediaActions.restore": {
+		"string": "استعادة من سلة المهملات"
+	},
+	"mediaActions.move": {
+		"string": "نقل"
+	},
+	"mediaActions.addToList": {
+		"string": "إضافة إلى القائمة"
+	},
+	"mediaActions.removeFromList": {
+		"string": "حذف من القائمة"
+	},
+	"mediaActions.tooltip": {
+		"string": "إجراءات العنصر"
+	},
+	"mediaActionsBar.movedToTrash": {
+		"string": "تم الإرسال إلى {trash}"
+	},
+	"mediaDetail.trash": {
+		"string": "سلة المهملات"
+	},
+	"mediaActionsBar.assignmentsUpdated": {
+		"string": "تم تحديث التكليفات بنجاح!"
+	},
+	"mediaActionsBar.publishedReport": {
+		"string": "تقرير منشور"
+	},
+	"mediaActionsBar.unpublishedReport": {
+		"string": "تقرير غير منشور"
+	},
+	"mediaActionsBar.assignmentTitle": {
+		"string": "تكليف العنصر لشركاء"
+	},
+	"mediaActionsBar.assignmentNotesTitle": {
+		"string": "إضافة ملاحظة للإيميل"
+	},
+	"mediaActionsBar.assignmentNotes": {
+		"string": "الملاحظات"
+	},
+	"mediaActions.history": {
+		"string": "تاريخ العنصر"
+	},
+	"mediaAnalysis.analysis": {
+		"string": "التحليل"
+	},
+	"mediaAnalysis.saving": {
+		"string": "الحفظ جارٍ…"
+	},
+	"mediaAnalysis.saved": {
+		"string": "تم الحفظ {ago}"
+	},
+	"mediaAnalysis.error": {
+		"string": "لم تنجح عملية الحفظ! آخر حفظ قبل {ago}"
+	},
+	"mediaAnalysis.copying": {
+		"string": "النسخ جارٍ…"
+	},
+	"mediaAnalysis.copyToReport": {
+		"string": "نسخ إلى التقرير"
+	},
+	"mediaAnalysis.title": {
+		"string": "العنوان"
+	},
+	"mediaAnalysis.content": {
+		"string": "المحتوى"
+	},
+	"mediaAnalysis.publishedArticle": {
+		"string": "رابط المقال المنشور"
+	},
+	"mediaAnalysis.date": {
+		"string": "تاريخ النشر"
+	},
+	"mediaAnalysis.confirmTitle1": {
+		"string": "التقرير الحالي منشور"
+	},
+	"mediaAnalysis.confirmTitle2": {
+		"string": "الكتابة فوق التقرير الموجود؟"
+	},
+	"mediaAnalysis.confirmText1": {
+		"string": "لا بد من إيقاف التقرير للتمكُّن من تحريره. هل تريدين إيقاف التقرير وتحديثه بالمحتوى الجديد؟"
+	},
+	"mediaAnalysis.confirmText2": {
+		"string": "تحديث التقرير بهذا المحتوى الجديد؟ سيتم فُقدان كل عمليّة تحرير."
+	},
+	"mediaAnalysis.confirmButtonLabel1": {
+		"string": "إيقاف التقرير وتحديث المحتوى"
+	},
+	"mediaAnalysis.confirmButtonLabel2": {
+		"string": "الكتابة فوق المحتوى"
+	},
+	"mediaComments.noNote": {
+		"string": "لا توجد ملحوظة"
+	},
+	"mediaComponent.requests": {
+		"string": "الطلبات"
+	},
+	"mediaComponent.metadata": {
+		"string": "بيانات وصفيّة"
+	},
+	"mediaComponent.tasks": {
+		"string": "المهام"
+	},
+	"mediaComponent.notes": {
+		"string": "الملحوظات"
+	},
+	"mediaComponent.related": {
+		"string": "ذات صلة"
+	},
+	"mediaComponent.timelineTab": {
+		"string": "الجدول الزمني"
+	},
+	"mediaCondensed.requests": {
+		"string": "{count} طلب(ات)"
+	},
+	"mediaExpanded.addToImportedReport": {
+		"string": "إضافة إلى التقرير المستورد"
+	},
+	"mediaMetadata.Timeline": {
+		"string": "الجدول الزمني"
+	},
+	"mediaMetadata.ImageSearch": {
+		"string": "بحث عن طريق الصور"
+	},
+	"mediaMetadata.download": {
+		"string": "تحميل"
+	},
+	"mediaExpandedArchives.archives": {
+		"string": "الأرشيفات:"
+	},
+	"mediaExpandedMetadata.publishedOn": {
+		"string": "تم النشر في"
+	},
+	"mediaExpandedMetadata.shares": {
+		"string": "مشاركات فيسبوك"
+	},
+	"mediaExpandedMetadata.reactions": {
+		"string": "تفاعلات فيسبوك"
+	},
+	"mediaExpandedMetadata.comments": {
+		"string": "تعليقات فيسبوك"
+	},
+	"mediaExpanded.firstSeen": {
+		"string": "أوّل مطالعة: "
+	},
+	"mediaExpanded.lastSeen": {
+		"string": "آخر مطالعة:"
+	},
+	"mediaExpanded.requests": {
+		"string": "{count} طلب(ات) "
+	},
+	"mediaLanguageChip.error": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"media.normalSpeed": {
+		"string": "السرعة العادية"
+	},
+	"mediaRelated.primaryItem": {
+		"string": "العنصر الأولي"
+	},
+	"mediaRelated.secondaryItems": {
+		"string": "العناصر الثانوية"
+	},
+	"mediaRelated.loadMore": {
+		"string": "تحميل المزيد"
+	},
+	"mediaRequests.allRequests": {
+		"string": "{count, plural, zero {لا طلبات عبر جميع الميديا} one {طلب واحد عبر جميع المديا} two {طلبان عبر جمبع الميديا} few {# طلبات عبر جميع الميديا} many {# طلب عبر جميع الميديا} other {# طلبات عبر جميع المواد الإعلامية}}"
+	},
+	"mediaRequests.thisRequests": {
+		"string": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلبات}}"
+	},
+	"mediaRequests.noRequest": {
+		"string": "لا توجد طلبات"
+	},
+	"mediaSearch.itemWentAway": {
+		"string": "لم يتم العثور عنه"
+	},
+	"mediaSearch.error": {
+		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"mediaStatus.cancelMessage": {
+		"string": "إلغاء"
+	},
+	"mediaStatus.messageDescription": {
+		"string": "يرجى إضافة تعليق. سيتم إرساله إلى النّاشر الأصلي لإعلامهم بإغلاق طلبهم."
+	},
+	"mediaStatus.noteHint": {
+		"string": "يرجى ضغط \"إدخال\" للإرسال"
+	},
+	"mediaStatus.error": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الحالة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"mediaTags.error": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"mediaComponent.verificationTasks": {
+		"string": "مهام العنصر"
+	},
+	"mediaComponent.answered": {
+		"string": "تم اكمالها"
+	},
+	"mediaComponent.noTasks": {
+		"string": "لا يوجد."
+	},
+	"media.typeTwitter": {
+		"string": "تويت"
+	},
+	"media.typeFacebook": {
+		"string": "منشور فيسبوك"
+	},
+	"media.typeInstagram": {
+		"string": "انستجرام"
+	},
+	"media.typeYoutube": {
+		"string": "فيديو YouTube"
+	},
+	"media.typeVideo": {
+		"string": "فيديو"
+	},
+	"media.typeTiktok": {
+		"string": "TikTok فيديو"
+	},
+	"media.typeClaim": {
+		"string": "نص"
+	},
+	"media.typeImage": {
+		"string": "صورة"
+	},
+	"media.typePage": {
+		"string": "صفحة"
+	},
+	"media.byAttribution": {
+		"string": "{typeLabel} من {attribution}"
+	},
+	"media.onDomain": {
+		"string": "{typeLabel} على {domain}"
+	},
+	"media.typeLink": {
+		"string": "رابط"
+	},
+	"media.typeAudio": {
+		"string": "ملف صوتي"
+	},
+	"media.typeBlank": {
+		"string": "التقرير المستورد"
+	},
+	"media.retweetsCount": {
+		"string": "{retweetsCount, plural, zero {لا ريتويت} one {ريتويت واحد} two {ريتويتين} few {# ريتويتات} many {# ريتويت} other {# ريتويت}}"
+	},
+	"mediaActionsBar.moveTo": {
+		"string": "نقل إلى..."
+	},
+	"mediaActionsBar.dialogMoveTitle": {
+		"string": "نقل إلى قائمة آخرى"
+	},
+	"mediaActionsBar.move": {
+		"string": "نقل"
+	},
+	"mediaSearch.previousItem": {
+		"string": "العنصر السابق"
+	},
+	"mediaSearch.xOfY": {
+		"string": "{current} من مجموع  {total}"
+	},
+	"mediaSearch.nextItem": {
+		"string": "العنصر التالي"
+	},
+	"mediaActionsBar.removedFromList": {
+		"string": "تم حذفه من القائمة"
+	},
+	"mediaActionsBar.removeFromList": {
+		"string": "حذف من القائمة"
+	},
+	"reportDesigner.cantPublish": {
+		"string": "يرجى اختيار نص أو صورة من التقرير على الأقل  لنشره"
+	},
+	"reportDesigner.canPublish": {
+		"string": "نشر التقرير"
+	},
+	"reportDesigner.pauseReport": {
+		"string": "إيقاف التقرير"
+	},
+	"reportDesigner.confirmLeaveTitle": {
+		"string": "مغادرة دون حفظ؟"
+	},
+	"reportDesigner.error": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل  مع {supportEmail} إن استمرت المشكلة."
+	},
+	"reportDesigner.warning": {
+		"string": "تحذير — هذه المشاركة ستكشف معلومات إلى أشخاص خارج مساحة عمل خاصّة. الرجاء توخ الحذر عند المتابعة."
+	},
+	"reportDesigner.copyButtonInactive": {
+		"string": "‏‏تم النسخ"
+	},
+	"reportDesigner.copyButton": {
+		"string": "نسخ"
+	},
+	"reportDesigner.back": {
+		"string": "العودة إلى التعقيبات"
+	},
+	"reportDesigner.copyEmbedCode": {
+		"string": "نسخ كود التضمين"
+	},
+	"reportDesigner.copyShareUrl": {
+		"string": "نسخ رابط المشاركة"
+	},
+	"reportDesigner.save": {
+		"string": "حفظ"
+	},
+	"reportDesigner.edit": {
+		"string": "تحرير"
+	},
+	"reportDesigner.publish": {
+		"string": "نشر"
+	},
+	"reportDesigner.pause": {
+		"string": "إيقاف"
+	},
+	"reportDesigner.nothingToPreview": {
+		"string": "يرجى البدء بإنشاء التقرير لمعاينة ما سيراه المستخدمون عند استلام التقرير."
+	},
+	"reportDesigner.reportEditorTitle": {
+		"string": "يرجى تحديد المحتوى الذى تريدين إرساله في تقريرك"
+	},
+	"reportDesigner.introduction": {
+		"string": "المقدمة"
+	},
+	"reportDesigner.introductionSub": {
+		"string": "استخدم(ي) {query_date} مبدئيّاً لعرض تاريخ البحث الأصلى. استخدم(ي) {status}  للإعلام عن حالة التقرير."
+	},
+	"reportDesigner.visualCard": {
+		"string": "البطاقة المرئية"
+	},
+	"reportDesigner.useDefaultImage": {
+		"string": "استخدام الصورة الافتراضية"
+	},
+	"reportDesigner.headline": {
+		"string": "العنوان (بحد أقصى {max} حرف)"
+	},
+	"reportDesigner.description": {
+		"string": "المحتوى (بحد أقصى {max} حرف)"
+	},
+	"reportDesigner.statusLabel": {
+		"string": "عنوان الحالة (بحد أقصى {max} حرف)"
+	},
+	"reportDesigner.themeColor": {
+		"string": "لون المظهر"
+	},
+	"reportDesigner.url": {
+		"string": "عنوان الموقع (بحد أقصى {max} حرف)"
+	},
+	"reportDesigner.textMessage": {
+		"string": "نص التقرير"
+	},
+	"reportDesigner.disclaimer": {
+		"string": "إخلاء مسؤولية"
+	},
+	"reportDesigner.confirmPublishTitle": {
+		"string": "هل التقرير جاهز للنّشر؟ "
+	},
+	"reportDesigner.confirmPublishText": {
+		"string": "{demand, plural, zero {لا يوجد مستخدم طلب هذا العنصر.} one {انت على وشك إرسال هذا التقرير للمستخدم الذى طلب هذا العنصر.} two {انت على وشك إرسال هذا التقرير للمستخدمين اللذين طلبا هذا العنصر.} few {انت على وشك إرسال هذا التقرير إلى # مستخدمين طلبوا هذا العنصر.} many {انت على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.} other {انت على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.}}"
+	},
+	"reportDesigner.confirmPublishText2": {
+		"string": " في المستقبل، سيستلم المستخدمين تقريرك طالما هو منشور."
+	},
+	"reportDesigner.confirmPauseTitle": {
+		"string": "انت على وشك إيقاف التقرير"
+	},
+	"reportDesigner.confirmPauseText": {
+		"string": "لن يتم إرسال هذا التقرير إلى المستخدمين حتى يتم نشره مرّة ثانية. هل تودين المتابعة؟"
+	},
+	"reportDesigner.confirmRepublishTitle": {
+		"string": "هل هذه التغييرات جاهزة للنّشر؟ "
+	},
+	"reportDesigner.confirmRepublishText": {
+		"string": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير."
+	},
+	"reportDesigner.republishAndResend": {
+		"string": "{demand, plural, zero {لا أحد استلم بالفعل الإصدار السابق من التقرير.} one {إرسال التصحيحات أيضا إلى المستخدم الذى استلم بالفعل الإصدار السابق من التقرير.} two {إرسال التصحيحات أيضا إلى المستخدمين اللذين استلما بالفعل الإصدار السابق من التقرير.} few {إرسال التصحيحات أيضا إلى # مستخدمين استلموا بالفعل الإصدار السابق من التقرير.} many {إرسال التصحيحات أيضا إلى # مستخدم استلموا بالفعل الإصدار السابق من التقرير.} other {إرسال التصحيحات كذلك إلى # مستخدم(ة) سبق وإن استلموا الإصدار السابق من هذا التقرير.}}"
+	},
+	"reportDesigner.confirmRepublishResendTitle": {
+		"string": "هل التصحيحات جاهزة للنّشر؟ "
+	},
+	"reportDesigner.confirmRepublishResendText": {
+		"string": "{demand, plural, zero {لن يتم إرسال تصحيحاتك إلى أحد.} one {سيتم إرسال تصحيحاتك إلى المستخدم الذي استلم التقرير السابق.} two {سيتم إرسال تصحيحاتك إلى المستخدمين اللذين استلما التقرير السابق.} few {سيتم إرسال تصحيحاتك إلى # مستخدمين استلموا التقرير السابق.} many {سيتم إرسال تصحيحاتك إلى # مستخدم استلموا التقرير السابق.} other {سيتم إرسال تصحيحاتك إلى # مستخدم سبق وان استلموا التقرير السابق.}}"
+	},
+	"reportDesigner.confirmRepublishResendText2": {
+		"string": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير."
+	},
+	"reportDesigner.confirmLeaveText": {
+		"string": "إذا غادرت الآن، ستفقدين تعديلاتك. "
+	},
+	"reportDesigner.reportImagePreviewTitle": {
+		"string": "لمحة عن التقرير ",
+		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
+	},
+	"mediaActionsBar.movedRestoreBack": {
+		"string": "تمت الاستعادة من سلة المهملات، جارٍ أعادة التوجيه…"
+	},
+	"mediaActionsBar.movedConfirmBack": {
+		"string": "تم التأكيد، إعادة التوجيه جارية…"
+	},
+	"mediaActionsBar.restoreTo": {
+		"string": "استعادة من سلة المهملات"
+	},
+	"mediaActionsBar.confirmTo": {
+		"string": "تأكيد"
+	},
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
+		"string": "نقل العنصر إلى قائمة…"
+	},
+	"mediaActionsBar.restoreOrConfirm": {
+		"string": "نقل إلى قائمة"
+	},
+	"webPageMediaCard.Error": {
+		"string": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. يرجى نقر الرابط أعلاه للإنتقال إليه."
 	},
 	"userAssignments.filterByTeam": {
 		"string": "الفلترة عن طريق مساحة العمل"
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "الأمان"
 	},
-	"UserInfo.dateJoined": {
-		"string": "انضم(ت) في {date} • {teamsCount, plural, one {مساحة عمل واحدة} other {# مساحات عمل}}"
+	"userInfo.dateJoined": {
+		"string": "تاريخ الانضمام {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, zero {لا مساحة عمل} one {مساحة عمل واحدة} two {مساحتي عمل} few {# مساحات عمل} many {# مساحة عمل} other {# مساحة عمل}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "الاسم"
@@ -1648,7 +1651,7 @@
 		"string": "⚠ بانتظار التأكيد"
 	},
 	"userInfoEdit.invalidLink": {
-		"string": "يرجى أدخال رابط صحيح"
+		"string": "يرجى إدخال رابط صحيح"
 	},
 	"userInfoEdit.addLinkHelper": {
 		"string": "يرجى إضافة رابط لصفحة ويب أو لِحساب في وسيلة إعلام اجتماعي. ملاحظة: لن يغير هذا من طريقة تسجيل الدخول بالنسبة لك."
@@ -1774,7 +1777,7 @@
 		"string": "تغيير كلمة السر"
 	},
 	"tagInput.error": {
-		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"tagInput.search": {
 		"string": "للبحث عن أو إضافة وسوم جديدة"
@@ -1834,7 +1837,7 @@
 		"string": "إلغاء"
 	},
 	"datetimeRespondTask.answerTask": {
-		"string": "يرجى الاستجابة للمهمة "
+		"string": "إجابة"
 	},
 	"datetimeRespondTask.pickDate": {
 		"string": "اختيار التاريخ"
@@ -1909,7 +1912,7 @@
 		"string": "احداثيات غير صالحة"
 	},
 	"geoLocationRespondTask.searching": {
-		"string": "البحث جارٍ…"
+		"string": "البحث جارٍ..."
 	},
 	"geoLocationRespondTask.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث المهمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1921,7 +1924,7 @@
 		"string": "إلغاء"
 	},
 	"geolocationRespondTask.answerTask": {
-		"string": "يرجى الاستجابة للمهمة "
+		"string": "إجابة"
 	},
 	"geolocationRespondTask.searchMap": {
 		"string": "بحث في الخريطة"
@@ -1936,7 +1939,7 @@
 		"string": "إلغاء"
 	},
 	"imageUploadRespondTask.answerTask": {
-		"string": "يرجى الاستجابة للمهمة "
+		"string": "الإجابة عن المهمة"
 	},
 	"tasks.cancelEdit": {
 		"string": "إلغاء"
@@ -1951,7 +1954,7 @@
 		"string": "إلغاء"
 	},
 	"shortTextRespondTask.answerTask": {
-		"string": "يرجى الاستجابة للمهمة "
+		"string": "يرجى اﻹجابة "
 	},
 	"task.answeredBy": {
 		"string": "تم الاستكمال بواسطة {byName}"
@@ -1969,7 +1972,7 @@
 		"string": "تحرير اﻹسناد"
 	},
 	"task.confirmDelete": {
-		"string": "هل أنت متأكد(ة) من حذف هذه المهمة؟"
+		"string": "متأكدة من رغبتك في حذف هذه المهمة ؟"
 	},
 	"task.confirmDeleteTitle": {
 		"string": "حذف المهمة؟"
@@ -2002,7 +2005,7 @@
 		"string": "تحرير اﻹسناد"
 	},
 	"task.delete": {
-		"string": "حذف مهمة"
+		"string": "حذف المهمة"
 	},
 	"taskLog.bubbleTooltip": {
 		"string": "تبديل التسجيل"
@@ -2020,7 +2023,7 @@
 		"string": "إلى الإعدادات"
 	},
 	"addTeamPage.titleFind": {
-		"string": "البحث عن مساحة عمل موجودة"
+		"string": "العثور على مساحة العمل موجودة"
 	},
 	"addTeamPage.titleCreate": {
 		"string": "إنشاء مساحة عمل"
@@ -2131,10 +2134,10 @@
 		"string": "طلب الانضمام"
 	},
 	"RoleSelect.annotator": {
-		"string": "مُعقّب(ة)"
+		"string": "مُعقِّب(ة)"
 	},
 	"RoleSelect.contributor": {
-		"string": "مساهم(ة)"
+		"string": "مشارك(ة)"
 	},
 	"RoleSelect.journalist": {
 		"string": "صحفي(ة)"
@@ -2341,7 +2344,7 @@
 		"string": "صحفي(ة)"
 	},
 	"TeamMembersListItem.editor": {
-		"string": "محرر(ة)"
+		"string": "محرّر(ة)"
 	},
 	"TeamMembersListItem.annotator": {
 		"string": "مُعقّب(ة)"
@@ -2440,7 +2443,7 @@
 		"string": "لا توجد قوائم"
 	},
 	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+		"string": "{count, plural, zero {غير مُكَلَّف إلى أحد} one {مُكَلَّف إلى عضو واحد} two {مُكَلَّف إلى عضوين} few {مُكَلَّف إلى # أعضاء} many {مُكَلَّف إلى # عضو} other {مُكَلَّف إلى # عضو}}"
 	},
 	"teamReport.updateFail": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -2464,7 +2467,7 @@
 		"string": "يرجى استخدام النص النائب {query_date} لعرض تاريخ الاستعلام الرئيسي، و استخدام {status} للإعلام عن حالة التقرير."
 	},
 	"teamReport.disclaimer": {
-		"string": "إخلاء مسؤولية"
+		"string": "إخلاء المسؤولية"
 	},
 	"teamReport.disclaimerSub": {
 		"string": "إخلاء المسئولية سيظهر في أسفل التقرير بجوار شعار مساحة العمل."
@@ -2476,10 +2479,10 @@
 		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.failDelete": {
-		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "ععذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.failMove": {
-		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.fail": {
 		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -2652,6 +2655,69 @@
 	"UserUtil.owner": {
 		"string": "مدير(ة)"
 	},
+	"searchKeywordConfig.metadata": {
+		"string": "البيانات الوصفيّة"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "المهام"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "غير منشور"
+	},
+	"reportStatusCell.paused": {
+		"string": "موقوف"
+	},
+	"reportStatusCell.published": {
+		"string": "منشور"
+	},
+	"list.Item": {
+		"string": "العنصر"
+	},
+	"list.Demand": {
+		"string": "الطلبات"
+	},
+	"list.ShareCount": {
+		"string": "مشاركات فيسبوك"
+	},
+	"list.LinkedItems": {
+		"string": "المواد الإعلامية المتشابهة"
+	},
+	"list.Type": {
+		"string": "النوع"
+	},
+	"list.Status": {
+		"string": "الحالة"
+	},
+	"list.FirstSeen": {
+		"string": "تم الإرسال"
+	},
+	"list.LastSeen": {
+		"string": "آخر إرسال"
+	},
+	"list.updated": {
+		"string": "آخر تحديث"
+	},
+	"list.reportStatus": {
+		"string": "حالة التقرير"
+	},
+	"list.tags": {
+		"string": "الوسوم"
+	},
+	"list.mediaPublishedAt": {
+		"string": "تاريخ نشر المادة الإعلامية"
+	},
+	"list.reactCount": {
+		"string": "تفاعلات فيسبوك"
+	},
+	"list.commentCount": {
+		"string": "تعليقات فيسبوك"
+	},
+	"list.relatedCount": {
+		"string": "ذات صلة"
+	},
+	"list.suggestionsCount": {
+		"string": "المتطابقات المقترحة"
+	},
 	"reportDesigner.title": {
 		"string": "تصميم تقريرك"
 	},
@@ -2698,10 +2764,10 @@
 		"string": "جارِ التثبيت…"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "تم، جارِ التحويل إلى العنصر الأساسي الجديد"
+		"string": "تمت العملية، جارِ التحويل إلى العنصر الأساسي الجديد"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلبات}}"
 	},
 	"mediaItem.pinAsMain": {
 		"string": "تثبيت كأساسي"
@@ -2716,7 +2782,7 @@
 		"string": "تمت إضافة العنصر ذي الصلة بنجاح"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, zero {لا عناصر مرتبطة} one {عنصر واحد مرتبط} two {عنصران مرتبطان} few {# عناصر مرتبطة} many {# عنصر مرتبط} other {# عناصر ذات صلة}}"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "إضافة عنصر ذي صلة"
@@ -2740,7 +2806,7 @@
 		"string": "ملاحظات"
 	},
 	"mediaSimilarities.clickOnItem": {
-		"string": "إضغطي على عنصر"
+		"string": "إضغط على عنصر"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
 		"string": "استيراد مواد إعلامية مشابهة لهذا العنصر"
@@ -2778,10 +2844,10 @@
 		"string": "تم اقتراح هذه المواد الإعلامية كمشابهة لعنصر آخر"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, zero {لا ميديا متشابهة مؤكدة} one {1 ميديا متشابهة مؤكدة} two {2 ميديا متشابهة مؤكدة} few {# ميديا متشابهة مؤكدة} many {# ميديا متشابهة مؤكدة} other {# مواد إعلامية متشابهة مؤكدة}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, zero {لا مطابقات مقترحة} one {مطابق واحد مقترح} two {مطابقان مقترحان} few {# مطابقات مقترحة} many {# مطابق مقترح} other {# متطابق مقترح }}"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "عودة"
@@ -2799,79 +2865,16 @@
 		"string": "عودة إلى العرض الرئيسي"
 	},
 	"mediaSuggestionsComponent.requests": {
-		"string": "طلبات"
+		"string": "الطلبات"
 	},
 	"mediaSuggestionsComponent.noRequests": {
 		"string": "لا توجد طلبات"
 	},
 	"mediaSuggestionsComponent.notes": {
-		"string": "ملاحظات"
+		"string": "الملاحظات"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "لا توجد ملاحظات"
-	},
-	"searchKeywordConfig.metadata": {
-		"string": "البيانات الوصفيّة"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "المهام"
-	},
-	"reportStatusCell.unpublished": {
-		"string": "غير منشور"
-	},
-	"reportStatusCell.paused": {
-		"string": "موقوف"
-	},
-	"reportStatusCell.published": {
-		"string": "منشور"
-	},
-	"list.Item": {
-		"string": "الإجابة من "
-	},
-	"list.Demand": {
-		"string": "طلبات"
-	},
-	"list.ShareCount": {
-		"string": "مشاركات فيسبوك"
-	},
-	"list.LinkedItems": {
-		"string": "المواد الإعلامية المتشابهة"
-	},
-	"list.Type": {
-		"string": "النوع"
-	},
-	"list.Status": {
-		"string": "الحالة"
-	},
-	"list.FirstSeen": {
-		"string": "تم الإرسال"
-	},
-	"list.LastSeen": {
-		"string": "آخر إرسال"
-	},
-	"list.updated": {
-		"string": "آخر تحديث"
-	},
-	"list.reportStatus": {
-		"string": "حالة التقرير"
-	},
-	"list.tags": {
-		"string": "الوسوم"
-	},
-	"list.mediaPublishedAt": {
-		"string": "تاريخ نشر المادة الإعلامية"
-	},
-	"list.reactCount": {
-		"string": "تفاعلات فيسبوك"
-	},
-	"list.commentCount": {
-		"string": "تعليقات فيسبوك"
-	},
-	"list.relatedCount": {
-		"string": "ذات صلة"
-	},
-	"list.suggestionsCount": {
-		"string": "المتطابقات المقترحة"
 	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -2924,45 +2927,6 @@
 	"translationNeededDialog.body": {
 		"string": "لكي تصبح {language} هي اللغة الافتراضية، لا بد من ترجمة جميع الحالات الموجودة  إلى {language} في تبويبة إعدادات الحالات."
 	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "لم يمكننا حفظ إعدادات Slack"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "تم حفظ إعدادات Slack بنجاح!"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة ادعاءات إلى قوائم محددة"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "الحدث"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "إرسال تنبيهات إلى"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "إذا كان العنصر في قائمة"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "قناة Slack"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "جميع الأنشطة الأخرى"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "كل أنشطة مساحة العمل"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "تنبيه جديد"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "إلغاء"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "حفظ"
-	},
 	"rule.copyOf": {
 		"string": "نسخة من {ruleName}"
 	},
@@ -2988,7 +2952,7 @@
 		"string": "إزالة العنصر أعلاه"
 	},
 	"ruleToolbar.back": {
-		"string": "عودة"
+		"string": "الرجوع"
 	},
 	"ruleToolbar.more": {
 		"string": "المزيد"
@@ -3030,10 +2994,10 @@
 		"string": "اختيار كل القواعد"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, zero {لا يوجد تحديد} one {1 محدد} two {2 محددان} few {# محددين} many {# محدد} other {# محدد}}"
 	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "{numRules, plural, zero {لا توجد قاعدة} one {1 قاعدة} two {قاعدتان} few {# قواعد} many {# قاعدة} other {# قاعدة}}"
 	},
 	"rulesTableToolbar.delete": {
 		"string": "حذف"
@@ -3046,6 +3010,111 @@
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "متأكد(ة) من حذف هذه القواعد؟"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "لم يمكننا حفظ إعدادات Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "تم حفظ إعدادات Slack بنجاح!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة ادعاءات إلى قوائم محددة"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Slack webhook"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "الحدث"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "إرسال تنبيهات إلى"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "إذا كان العنصر في قائمة"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "قناة Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "كل الأنشطة الأخرى"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "كل أنشطة مساحة العمل"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "تنبيه جديد"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "إلغاء"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "حفظ"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "نقل العناصر إلى"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "أو بالمقابل، بإمكانكم تغيير حالة كل عنصر على حدة."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, zero {لا يوجد عنصر منشور حاليا.} one {أحد هذه العنصر منشور حاليا,} two {عنصران منشوران من هذه العنصار حاليا.} few {# عناصر منشورة من هذه العناصر حاليا.} many {# عنصر منشور من هذه العناصر حاليا.} other {# من هذه العناصر منشور حاليا.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "نقل العناصر وحذف الحالة"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "تحرير الحالة"
+	},
+	"editStatusDialog.title": {
+		"string": "إضافة حالة جديدة"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "الحالة (بحد أقصى {maxLength} حرف)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "الوصف"
+	},
+	"editStatusDialog.addButton": {
+		"string": "إضافة حالة"
+	},
+	"statusListItem.noDescription": {
+		"string": "لا يوجد وصف"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (الإفتراضية)"
+	},
+	"statusesComponent.error": {
+		"string": "عذراً ، حدث خطأ أثناء تحديث الحالات. يرجى المحاولة ثانية و التواصل مع {supportEmail} إن استمرت المشكلة."
+	},
+	"statusesComponent.saved": {
+		"string": "تم حفظ الحالات بنجاح!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, zero {# حالة} one {حالة واحدة} two {حالتان} few {# حالات} many {# حالة} other {# حالة}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "حالة جديدة"
+	},
+	"statusesComponent.blurb": {
+		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "الترجمة غير موجودة"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "متابعة و حفظ"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "سيناريو"
@@ -3222,7 +3291,7 @@
 		"string": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*يرجى كتابة السؤال أو الرابط أو الصورة أو الفيديو أو الملف الصوتي المراد تقصّي حقيقته،* ثم اتباعه بأي سياق متعلق بهذا العنصر. سوف يرسل طلبك إلى متقصّي الحقائق بعد حوالي 15 ثانية من إرسال آخر رسالة.\n      \n*يرجى إرسال 0 (أو 📌)* للإلغاء والعودة إلى *القائمة الرئيسية*"
+		"string": "*يرجى كتابة السؤال أو الرابط أو الصورة أو الفيديو أو الملف الصوتي المراد تقصّي حقيقته،* ثم اتباعه بأي سياق متعلق بهذا العنصر. سوف يرسل طلبك إلى متقصّي الحقائق بعد حوالي 15 ثانية من إرسال آخر رسالة.\n\n*يرجى إرسال 0 (أو 📌)* للإلغاء والعودة إلى *القائمة الرئيسية*"
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "شكرا لكم! تمّ استلام طلبكم.  يتم تجميع و تخزين جميع الرّدود ونعمل على تقصي الحقائق التي استفسرتم عنها.\n\n✔️*تابعوا هذا الرّابط  لقائمة محدّثة بالأسئلة المتكرّرة التي تم تقصّي صِحّتها:* [ يمكنكم ربط  صفحة تقصّي الحقائق مع موقعكم ]\n\n👉*أرسلي أي نص* للعودة إلى *القائمة الرئيسية* 📌"
@@ -3248,72 +3317,6 @@
 	"smoochBot.tos": {
 		"string": "شروط الاستخدام ({language})"
 	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "نقل العناصر إلى"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "أو بالمقابل، بإمكانكم تغيير حالة كل عنصر على حدة."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "نقل العناصر وحذف الحالة"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "تحرير الحالة"
-	},
-	"editStatusDialog.title": {
-		"string": "إضافة حالة جديدة"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "الحالة (بحد أقصى {maxLength} حرف)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "الوصف"
-	},
-	"editStatusDialog.addButton": {
-		"string": "إضافة حالة"
-	},
-	"statusListItem.noDescription": {
-		"string": "لا يوجد وصف"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (الإفتراضية)"
-	},
-	"statusesComponent.error": {
-		"string": "عذراً ، حدث خطأ أثناء تحديث الحالات. يرجى المحاولة ثانية و التواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"statusesComponent.saved": {
-		"string": "تم حفظ الحالات بنجاح!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "حالة جديدة"
-	},
-	"statusesComponent.blurb": {
-		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "الترجمة غير موجودة"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "متابعة و حفظ"
-	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "لم يمكننا حفظ إعدادات القوائم.",
 		"developer_comment": "Warning displayed if an error occurred when saving list settings"
@@ -3329,7 +3332,7 @@
 		"string": "حفظ"
 	},
 	"teamListsComponent.description": {
-		"string": "يرجى تحديد جميع الأعمدة المراد عرضها في جميع القوائم الخاصة بك."
+		"string": "يرجى تحديد جميع الأعمدة التى تريدين عرضها في جميع القوائم الخاصة بك."
 	},
 	"teamListsComponent.selectedColumns": {
 		"string": "الأعمدة المحددة"
@@ -3344,7 +3347,7 @@
 		"string": "هل أنتم متأكدون؟ ستؤثر تغييراتكم على جميع القوائم وستكون ظاهرة لكل المستخدمين في مساحة العمل الخاصة بكم."
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "حفظ التغييرات لجميع القوائم"
+		"string": "حفظ التغييرات في جميع القوائم"
 	},
 	"teamListsItem.hide": {
 		"string": "إخفاء"

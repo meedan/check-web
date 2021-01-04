@@ -105,7 +105,7 @@
 		"string": "Basurahan"
 	},
 	"headerActions.signIn": {
-		"string": "Mag-sign In"
+		"string": "Mag-sign in"
 	},
 	"footer.madeBy": {
 		"string": "Check: Verify breaking news online. Made with ✨ by {meedan}"
@@ -767,6 +767,196 @@
 	"projectSelector.allProjs": {
 		"string": "Lahat ng listahan"
 	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "May tiyak na value ang metadata"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "May nilalamang keyword ang metadata"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "May tiyak na sagot ang gawain"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "May nilalamang keyword ang sagot sa gawain"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Mamili ng gawain"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Mamili ng metadata"
+	},
+	"search.allClaimsTitle": {
+		"string": "Lahat ng mga item"
+	},
+	"CustomFilter.filterBy": {
+		"string": "I-filter ayon sa"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Mamili ng value"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Mag-type ng listahan ng mga keyword na pinaghihiwalay ng mga kuwit"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Magdagdag ng filter"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "May tiyak na value ang metadata"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "May nilalamang keyword ang metadata"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "May tiyak na sagot ang gawain"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "May nilalamang keyword ang sagot sa gawain"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Walang nakatakdang value"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Anumang value ay nakatakda"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Mamili ng gawain"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Mamili ng metadata"
+	},
+	"search.dateHeading": {
+		"string": "Saklaw ng Oras"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Isinumite"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Huling isinumite"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "In-update noong"
+	},
+	"search.datePublishedHeading": {
+		"string": "Inilathala"
+	},
+	"search.pickDateFrom": {
+		"string": "Petsang nagsimula"
+	},
+	"search.pickDateTo": {
+		"string": "Petsang nagtapos"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Pamagat ng media"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Nilalaman ng media"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Pamagat ng pagsusuri"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Nilalaman ng pagsusuri"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Mga tag"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Lahat ng sagot sa mga gawain",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Lahat ng sagot sa metadata"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Lahat ng mga note"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Lahat ng komentong panggawain"
+	},
+	"search.showClaims": {
+		"string": "Mga teksto"
+	},
+	"search.showLinks": {
+		"string": "Mga link"
+	},
+	"search.showImages": {
+		"string": "Mga larawan"
+	},
+	"search.showVideos": {
+		"string": "Mga video"
+	},
+	"search.showAudios": {
+		"string": "Mga audio"
+	},
+	"search.showBlank": {
+		"string": "Inangkat na ulat"
+	},
+	"search.title": {
+		"string": "Lahat ng mga item"
+	},
+	"search.inputHint": {
+		"string": "Maghanap"
+	},
+	"search.help": {
+		"string": "<table>\n                    <tbody>\n                      <tr><td>+</td><td>Puno+Dahon</td><td>Mga item na may parehong Puno AT Dahon</td></tr>\n                      <tr><td>|</td><td>Puno | Dahon</td><td>Mga item na may alinman sa Puno O Dahon</td></tr>\n                       <tr><td>()</td><td>Puno + (Dahon | Sanga)</td><td>Mga item na may Puno AT Dahon O mga item na may Puno AT Sanga</td></tr>\n                       </tbody>\n                     </table>\n                     <div>\n                       <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Dagdagan ang kaalaman tungkol sa mga pamamaraan sa paghahanap\n                        </a>\n                      </div>"
+	},
+	"search.Filter": {
+		"string": "Filter"
+	},
+	"search.clear": {
+		"string": "Tanggalin ang filter"
+	},
+	"search.categoriesHeading": {
+		"string": "Mga tag"
+	},
+	"search.any": {
+		"string": "Kahit ano"
+	},
+	"search.all": {
+		"string": "Lahat"
+	},
+	"search.show": {
+		"string": "Uri ng media"
+	},
+	"search.statusHeading": {
+		"string": "Status ng item"
+	},
+	"search.userHeading": {
+		"string": "Ginawa ni"
+	},
+	"search.language": {
+		"string": "Wika"
+	},
+	"search.projectHeading": {
+		"string": "Listahan"
+	},
+	"search.assignedTo": {
+		"string": "Itinalaga kay"
+	},
+	"search.readHeading": {
+		"string": "Nabasa na"
+	},
+	"search.cancel": {
+		"string": "Kanselahin"
+	},
+	"search.reset": {
+		"string": "I-reset"
+	},
+	"search.applyFilters": {
+		"string": "Filter"
+	},
+	"search.previousPage": {
+		"string": "Nakaraang pahina"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 pinili)} other {(# ang pinili)}}"
+	},
+	"search.nextPage": {
+		"string": "Kasunod na pahina"
+	},
 	"mediaMetadata.addedToList": {
 		"string": "Idinagdag sa listahang {listName}"
 	},
@@ -831,11 +1021,11 @@
 		"string": "Pahintuin ang ulat at i-update ang nilalaman"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Inilipat ang mga item galing sa basurahan patungong '{toProject}'",
+		"string": "Items moved from Trash to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Inilipat ang mga item galing sa Hindi Kumpirmado patungong '{toProject}'",
+		"string": "Items moved from Unconfirmed to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.addedSuccessfully": {
@@ -851,19 +1041,19 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "Inilipat sa basurahan ang mga item."
+		"string": "Items moved to the Trash."
 	},
 	"bulkActions.trash": {
 		"string": "Ibalik ang mga piniling item at ilipat sa ibang listahan"
 	},
 	"bulkActions.restore": {
-		"string": "Ibalik galing sa basurahan"
+		"string": "Restore from Trash"
 	},
 	"bulkActions.unconfirmed": {
 		"string": "Kumpirmahin ang mga piniling item at ilipat ang mga ito sa ibang listahan"
 	},
 	"bulkActions.confirm": {
-		"string": "Ilipat galing sa hindi kumpirmado"
+		"string": "Move from Unconfirmed"
 	},
 	"bulkActions.move": {
 		"string": "Ilipat ang mga piniling item sa ibang listahan"
@@ -878,7 +1068,7 @@
 		"string": "Ilipat sa listahan"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+		"string": "{selectedCount, plural, one {Ilipat ang # item sa listahan...} other {Ilipat ang # item sa listahan...}}"
 	},
 	"bulkActions.add": {
 		"string": "Idagdag ang mga piniling item sa ibang listahan"
@@ -893,7 +1083,7 @@
 		"string": "Idagdag sa ibang listahan"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Ipadala ang mga piniling item sa basurahan"
+		"string": "Send selected items to Trash"
 	},
 	"claimReview.claim": {
 		"string": "Pahayag:"
@@ -929,7 +1119,7 @@
 		"string": "Link"
 	},
 	"createMedia.quote": {
-		"string": "Teksto"
+		"string": "Tektso"
 	},
 	"createMedia.image": {
 		"string": "Larawan"
@@ -971,7 +1161,7 @@
 		"string": "Kasaysayan ng item"
 	},
 	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
+		"string": "{count, plural, one {Sigurado ka bang nais mong umalis? May isa pang kinakailangang gawaing nakatalaga sa iyo na hindi mo pa nasasagutan} other {Sigurado ka ba na gusto mong umalis? Meron ka pang # kinakailangang gawaing nakatalaga sa iyo na hindi mo pa nasasagutan}}"
 	},
 	"mediaActions.edit": {
 		"string": "I-edit ang pamagat at pagkakalarawan"
@@ -1091,7 +1281,7 @@
 		"string": "Metadata"
 	},
 	"mediaComponent.tasks": {
-		"string": "Mga Gawain"
+		"string": "Mga gawain"
 	},
 	"mediaComponent.notes": {
 		"string": "Mga note"
@@ -1157,10 +1347,10 @@
 		"string": "Mag-load ng iba pa"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {# kahilingan sa lahat ng media} other {# kahilingan sa lahat ng media}}"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# kahilingan} other {# kahilingan}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Walang kahilingan"
@@ -1238,7 +1428,7 @@
 		"string": "Inangkat na ulat"
 	},
 	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
+		"string": "{retweetsCount, plural, one {1 retweet} other {# retweet}}"
 	},
 	"mediaActionsBar.moveTo": {
 		"string": "Ilipat sa…"
@@ -1352,7 +1542,7 @@
 		"string": "Handa ka na bang ilathala ang iyong ulat?"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+		"string": "{demand, plural, one {Ipadadala mo na ang ulat na ito sa user na humiling sa item na ito.} other {Ipadadala mo na ang ulat sa # user na hiniling ang item na ito.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap ng iyong ulat habang nananatili itong nakalathala."
@@ -1370,13 +1560,13 @@
 		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap nitong bagong bersyon ng ulat."
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+		"string": "{demand, plural, one {Ipadala rin ang pagwawasto sa user na nakatanggap na ng nakaraang bersyon nitong ulat.} other {Ipadala rin ang pagwawasto sa # mga user na nakatanggap ng nakaraang bersyon nitong ulat}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Handa ka na bang ilathala ang iyong pagwawasto?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
+		"string": "{demand, plural, one {Ipadadala ang iyong pagwawasto sa user na nakatanggap na ng nakaraang beryson nitong ulat.} other {Ipadadala ang iyong pagwawasto sa # mga user na nakatanggap ng nakaraang bersyon nitong ulat.}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap nitong bagong bersyon ng ulat."
@@ -1409,196 +1599,6 @@
 	"webPageMediaCard.Error": {
 		"string": "Hindi matukoy ang item na ito. Maaaring tinanggal ito o makikita lang ng mga user na naka-log in. Mag-click sa itaas para puntahan ito. "
 	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "May tiyak na value ang metadata"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "May nilalamang keyword ang metadata"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "May tiyak na sagot ang gawain"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "May nilalamang keyword ang sagot sa gawain"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Mamili ng gawain"
-	},
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Mamili ng metadata"
-	},
-	"search.allClaimsTitle": {
-		"string": "Lahat ng mga item"
-	},
-	"CustomFilter.filterBy": {
-		"string": "I-filter ayon sa"
-	},
-	"CustomFilter.selectValueLabel": {
-		"string": "Mamili ng value"
-	},
-	"CustomFilter.keywordsLabel": {
-		"string": "Mag-type ng listahan ng mga keyword na pinaghihiwalay ng mga kuwit"
-	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Magdagdag ng filter"
-	},
-	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "May tiyak na value ang metadata"
-	},
-	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "May nilalamang keyword ang metadata"
-	},
-	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "May tiyak na sagot ang gawain"
-	},
-	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "May nilalamang keyword ang sagot sa gawain"
-	},
-	"CustomTeamTaskFilter.noValue": {
-		"string": "Walang nakatakdang value"
-	},
-	"CustomTeamTaskFilter.anyValue": {
-		"string": "Anumang value ay nakatakda"
-	},
-	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Mamili ng gawain"
-	},
-	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Mamili ng metadata"
-	},
-	"search.dateHeading": {
-		"string": "Saklaw ng Oras"
-	},
-	"search.dateSubmittedHeading": {
-		"string": "Isinumite"
-	},
-	"search.dateLastSubmittedHeading": {
-		"string": "Huling isinumite"
-	},
-	"search.dateUpdatedHeading": {
-		"string": "In-update"
-	},
-	"search.datePublishedHeading": {
-		"string": "Inilathala"
-	},
-	"search.pickDateFrom": {
-		"string": "Petsang nagsimula"
-	},
-	"search.pickDateTo": {
-		"string": "Petsang nagtapos"
-	},
-	"searchKeywordConfig.mediaTitle": {
-		"string": "Pamagat ng media"
-	},
-	"searchKeywordConfig.mediaContent": {
-		"string": "Nilalaman ng media"
-	},
-	"searchKeywordConfig.analysisTitle": {
-		"string": "Pamagat ng pagsusuri"
-	},
-	"searchKeywordConfig.analysisContent": {
-		"string": "Nilalaman ng pagsusuri"
-	},
-	"searchKeywordConfig.tags": {
-		"string": "Mga tag"
-	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Lahat ng sagot sa mga gawain",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "Lahat ng sagot sa metadata"
-	},
-	"searchKeywordConfig.allNotes": {
-		"string": "Lahat ng mga note"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Lahat ng komentong panggawain"
-	},
-	"search.showClaims": {
-		"string": "Mga teksto"
-	},
-	"search.showLinks": {
-		"string": "Mga link"
-	},
-	"search.showImages": {
-		"string": "Mga larawan"
-	},
-	"search.showVideos": {
-		"string": "Mga video"
-	},
-	"search.showAudios": {
-		"string": "Mga audio"
-	},
-	"search.showBlank": {
-		"string": "Inangkat na ulat"
-	},
-	"search.title": {
-		"string": "Lahat ng mga item"
-	},
-	"search.inputHint": {
-		"string": "Maghanap"
-	},
-	"search.help": {
-		"string": "<table>\n                    <tbody>\n                      <tr><td>+</td><td>Puno+Dahon</td><td>Mga item na may parehong Puno AT Dahon</td></tr>\n                      <tr><td>|</td><td>Puno | Dahon</td><td>Mga item na may alinman sa Puno O Dahon</td></tr>\n                       <tr><td>()</td><td>Puno + (Dahon | Sanga)</td><td>Mga item na may Puno AT Dahon O mga item na may Puno AT Sanga</td></tr>\n                       </tbody>\n                     </table>\n                     <div>\n                       <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Dagdagan ang kaalaman tungkol sa mga pamamaraan sa paghahanap\n                        </a>\n                      </div>"
-	},
-	"search.Filter": {
-		"string": "Filter"
-	},
-	"search.clear": {
-		"string": "Tanggalin ang filter"
-	},
-	"search.categoriesHeading": {
-		"string": "Mga tag"
-	},
-	"search.any": {
-		"string": "Kahit ano"
-	},
-	"search.all": {
-		"string": "Lahat"
-	},
-	"search.show": {
-		"string": "Uri ng media"
-	},
-	"search.statusHeading": {
-		"string": "Status ng item"
-	},
-	"search.userHeading": {
-		"string": "Ginawa ni"
-	},
-	"search.language": {
-		"string": "Wika"
-	},
-	"search.projectHeading": {
-		"string": "Listahan"
-	},
-	"search.assignedTo": {
-		"string": "Itinalaga kay"
-	},
-	"search.readHeading": {
-		"string": "Nabasa na"
-	},
-	"search.cancel": {
-		"string": "Kanselahin"
-	},
-	"search.reset": {
-		"string": "I-reset"
-	},
-	"search.applyFilters": {
-		"string": "Filter"
-	},
-	"search.previousPage": {
-		"string": "Nakaraang pahina"
-	},
-	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-	},
-	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
-	},
-	"search.nextPage": {
-		"string": "Kasunod na pahina"
-	},
 	"userAssignments.filterByTeam": {
 		"string": "I-filter ayon sa workspace"
 	},
@@ -1617,8 +1617,11 @@
 	"userComponents.security": {
 		"string": "Seguridad"
 	},
-	"UserInfo.dateJoined": {
-		"string": "Sumali noong {date} • {teamsCount, plural, one {1 workspace} other {# workspaces}}"
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.sourceName": {
 		"string": "Pangalan"
@@ -1783,7 +1786,7 @@
 		"string": "Magdagdag ng Tag"
 	},
 	"tagMenu.tooltip": {
-		"string": "I-edit ang mga tag"
+		"string": "Mag-edit ng mga tag"
 	},
 	"tagMenu.done": {
 		"string": "Tapos na"
@@ -2044,7 +2047,7 @@
 		"string": "Pangalan ng Workspace"
 	},
 	"createTeam.teamSlugHint": {
-		"string": "URL ng workspace"
+		"string": "URL ng Workspace"
 	},
 	"createTeam.mainHeading": {
 		"string": "Gumawa ng workspace"
@@ -2440,7 +2443,7 @@
 		"string": "Walang listahan"
 	},
 	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
+		"string": "{count, plural, one {Nakatalaga sa isang miyembro} other {Nakatalaga sa # miyembro}}"
 	},
 	"teamReport.updateFail": {
 		"string": "Paumanhin, may naganap na error habang inu-update ang mga setting ng ulat. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
@@ -2652,164 +2655,6 @@
 	"UserUtil.owner": {
 		"string": "May-ari"
 	},
-	"reportDesigner.title": {
-		"string": "Disenyuhan ang iyong ulat"
-	},
-	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Umalis"
-	},
-	"reportDesigner.textTitle": {
-		"string": "Pamagat (hindi hihigit sa {max} karakter)"
-	},
-	"reportDesigner.content": {
-		"string": "Nilalaman (hindi hihigit sa {max} karakter)"
-	},
-	"reportDesigner.textError": {
-		"string": "Kailangan mong magbigay ng teksto para sa ulat o tanggalan ng tsek ang kahong 'Teksto ng ulat'"
-	},
-	"reportDesigner.darkOverlay": {
-		"string": "Madilim na overlay"
-	},
-	"reportDesigner.removeImage": {
-		"string": "Tanggalin ang larawan"
-	},
-	"reportDesigner.datePublished": {
-		"string": "Petsa ng pagkakalathala"
-	},
-	"reportDesigner.addIntro": {
-		"string": "Magdagdag ng laman sa panimula"
-	},
-	"reportDesigner.addText": {
-		"string": "Magdagdag ng laman sa text message"
-	},
-	"reportDesigner.firstSent": {
-		"string": "Unang inilathala"
-	},
-	"reportDesigner.sentCount": {
-		"string": "Natanggap ang mga ulat"
-	},
-	"reportDesigner.cannotPublish": {
-		"string": "Punan kahit ang teksto ng ulat o ang larawan para mailathala ang iyong ulat. Siguruhing gumawa ng ulat para sa pangunahing wika ({language})."
-	},
-	"mediaItem.error": {
-		"string": "Error, mangyaring sumubok muli"
-	},
-	"mediaItem.pinning": {
-		"string": "Ipini-pin..."
-	},
-	"mediaItem.doneRedirecting": {
-		"string": "Tapos na, nagre-redirect sa bagong pangunahing item..."
-	},
-	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
-	},
-	"mediaItem.pinAsMain": {
-		"string": "I-pin bilang pangunahin"
-	},
-	"mediaItem.detach": {
-		"string": "I-detach"
-	},
-	"mediaRelatedComponent.defaultErrorMessage": {
-		"string": "Hindi maidagdag ang kaugnay na item"
-	},
-	"mediaRelatedComponent.savedSuccessfully": {
-		"string": "Matagumpay na naidagdag ang kaugnay na item"
-	},
-	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
-	},
-	"mediaRelatedComponent.addSimilar": {
-		"string": "Magdagdag ng kaugnayan"
-	},
-	"mediaRelatedComponent.dialogTitle": {
-		"string": "Magdagdag ng kaugnayan"
-	},
-	"mediaSimilarities.requests": {
-		"string": "Mga kahilingan"
-	},
-	"mediaSimilaritiesComponent.back": {
-		"string": "Bumalik"
-	},
-	"mediaSimilarities.mainItem": {
-		"string": "Pangunahing media"
-	},
-	"mediaSimilarities.allSimilarMedia": {
-		"string": "Lahat ng katulad na media"
-	},
-	"mediaSimilarities.notes": {
-		"string": "Mga note"
-	},
-	"mediaSimilarities.clickOnItem": {
-		"string": "Mag-click sa isang item"
-	},
-	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Mag-angkat ng katulad na media sa item na ito"
-	},
-	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "I-export ang lahat ng media sa ibang item"
-	},
-	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Hindi maidagdag ang katulad na item",
-		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
-	},
-	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Matagumpay na naidagdag ang katulad na item",
-		"developer_comment": "Banner displayed when similar item is added successfully"
-	},
-	"mediaSimilarityBarAdd.addSimilar": {
-		"string": "Magdagdag ng katulad"
-	},
-	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Mag-angkat ng katulad na media sa item na ito"
-	},
-	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "I-export ang lahat ng media sa ibang item"
-	},
-	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "I-export bilang katulad"
-	},
-	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Mag-angkat ng katulad na item"
-	},
-	"mediaSimilarityBarComponent.hasMain": {
-		"string": "Idinagdag ang media na ito bilang katulad ng isa pang item"
-	},
-	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "Iminungkahi na ang media na ito ay katulad ng isa pang item"
-	},
-	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
-	},
-	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
-	},
-	"mediaSuggestionsComponent.back": {
-		"string": "Bumalik"
-	},
-	"mediaSuggestionsComponent.title": {
-		"string": "Mga iminumungkahing katugma ({current} sa {total})"
-	},
-	"mediaSuggestionsComponent.question": {
-		"string": "Magkatulad ba ang pangunahin at ang iminumungkahing media?"
-	},
-	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "Walang iminumungkahing katugma"
-	},
-	"mediaSuggestionsComponent.goBack": {
-		"string": "Bumalik sa pangunahing pananaw"
-	},
-	"mediaSuggestionsComponent.requests": {
-		"string": "Mga kahilingan"
-	},
-	"mediaSuggestionsComponent.noRequests": {
-		"string": "Walang kahilingan"
-	},
-	"mediaSuggestionsComponent.notes": {
-		"string": "Mga note"
-	},
-	"mediaSuggestionsComponent.noNotes": {
-		"string": "Walang note"
-	},
 	"searchKeywordConfig.metadata": {
 		"string": "Metadata"
 	},
@@ -2871,7 +2716,165 @@
 		"string": "Magkaugnay"
 	},
 	"list.suggestionsCount": {
-		"string": "Mga iminumungkahing tugma"
+		"string": "Mga iminungkahing tugma"
+	},
+	"reportDesigner.title": {
+		"string": "Disenyuhan ang iyong ulat"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Umalis"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Pamagat (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.content": {
+		"string": "Nilalaman (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.textError": {
+		"string": "Kailangan mong magbigay ng teksto para sa ulat o tanggalan ng tsek ang kahong 'Teksto ng ulat'"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Madilim na overlay"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Tanggalin ang larawan"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Petsa ng pagkakalathala"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Magdagdag ng laman sa panimula"
+	},
+	"reportDesigner.addText": {
+		"string": "Magdagdag ng laman sa text message"
+	},
+	"reportDesigner.firstSent": {
+		"string": "Unang inilathala"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Natanggap ang mga ulat"
+	},
+	"reportDesigner.cannotPublish": {
+		"string": "Punan kahit ang teksto ng ulat o ang larawan para mailathala ang iyong ulat. Siguruhing gumawa ng ulat para sa pangunahing wika ({language})."
+	},
+	"mediaItem.error": {
+		"string": "Error, mangyaring sumubok muli"
+	},
+	"mediaItem.pinning": {
+		"string": "Ipini-pin..."
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Tapos na, nagre-redirect sa bagong pangunahing item..."
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {# kahilingan} other {# kahilingan}}"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "I-pin bilang pangunahin"
+	},
+	"mediaItem.detach": {
+		"string": "I-detach"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Hindi maidagdag ang kaugnay na item"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "Matagumpay na naidagdag ang kaugnay na item"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {# kaugnay na item} other {# kaugnay na item}}"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Magdagdag ng kaugnayan"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Magdagdag ng kaugnayan"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Mga kahilingan"
+	},
+	"mediaSimilaritiesComponent.back": {
+		"string": "Bumalik"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Pangunahing media"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Lahat ng katulad na media"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Mga note"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Mag-click sa isang item"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Mag-angkat ng katulad na media sa item na ito"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "I-export ang lahat ng media sa ibang item"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Hindi maidagdag ang katulad na item",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "Matagumpay na naidagdag ang katulad na item",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Magdagdag ng katulad"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Mag-angkat ng katulad na media sa item na ito"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "I-export ang lahat ng media sa ibang item"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "I-export bilang katulad"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "Mag-angkat ng katulad na item"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "Idinagdag ang media na ito bilang katulad ng isa pang item"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "Iminungkahi na ang media na ito ay katulad ng isa pang item"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "{count, plural, one {# kumpirmadong katulad na media} other {# kumpirmadong katulad na media}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "{count, plural, one {# iminumungkahing katugma} other {# iminumungkahing katugma}}"
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Bumalik"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "Mga iminumungkahing katugma ({current} sa {total})"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "Magkatulad ba ang pangunahin at ang iminumungkahing media?"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "Walang iminumungkahing katugma"
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Bumalik sa pangunahing pananaw"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Mga kahilingan"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "Walang kahilingan"
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Mga note"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "Walang note"
 	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -2924,45 +2927,6 @@
 	"translationNeededDialog.body": {
 		"string": "Para gawing default na wika ang {language}, kailangan munang isalin sa {language} ang lahat ng mga dating status sa setting tab ng Status."
 	},
-	"slackConfigDialogComponent.defaultErrorMessage": {
-		"string": "Hindi mai-save ang mga setting ng Slack"
-	},
-	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Matagumpay na na-save ang mga setting ng Slack!"
-	},
-	"slackConfigDialogComponent.title": {
-		"string": "Magpadala ng abiso sa mga Slack channel tuwing may idinaragdag na pahayag sa mga piling listahan"
-	},
-	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
-	},
-	"slackConfigDialogComponent.event": {
-		"string": "Kaganapan"
-	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Magpadala ng mga abiso sa"
-	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Kung nasa listahan ang item"
-	},
-	"slackConfigDialogComponent.channel": {
-		"string": "Channel ng Slack"
-	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Lahat ng iba pang aktibidad"
-	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Lahat ng aktibidad sa workspace"
-	},
-	"slackConfigDialogComponent.new": {
-		"string": "Bagong abiso"
-	},
-	"slackConfigDialogComponent.cancel": {
-		"string": "Kanselahin"
-	},
-	"slackConfigDialogComponent.save": {
-		"string": "I-save"
-	},
 	"rule.copyOf": {
 		"string": "Kopya ng {ruleName}"
 	},
@@ -2973,7 +2937,7 @@
 		"string": "Pangalan"
 	},
 	"ruleBody.if": {
-		"string": "Kung"
+		"string": "Kung "
 	},
 	"ruleBody.then": {
 		"string": "Samakatuwid"
@@ -3030,10 +2994,10 @@
 		"string": "Piliin ang lahat ng panuntunan"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, one {1 pinili} other {# pinili}}"
 	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "{numRules, plural, one {1 panuntunan} other {# panuntunan}}"
 	},
 	"rulesTableToolbar.delete": {
 		"string": "Burahin"
@@ -3046,6 +3010,111 @@
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
 		"string": "Sigurado ka bang nais mong burahin ang mga panuntunang ito?"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Hindi mai-save ang mga setting ng Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Matagumpay na na-save ang mga setting ng Slack!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Magpadala ng abiso sa mga Slack channel tuwing may idinaragdag na pahayag sa mga piling listahan"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Slack webhook"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Kaganapan"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Magpadala ng mga abiso sa"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Kung nasa listahan ang item"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Channel ng Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Lahat ng iba pang aktibidad"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Lahat ng aktibidad sa workspace"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Bagong abiso"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Kanselahin"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "I-save"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Ilipat ang mga item sa"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Kailangan mong baguhin ang status ng {itemsCount, plural, one {one item} other {# items}} para mabura ang status na ito"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "May {itemsCount, plural, one {is one item} other {are # items}} na may status na {statusLabel} na kailangang mapalitan ng ibang status bago burahin ang status na ito."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Pwede mo ring baguhin isa-isa ang bawat status ng item."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {Isa sa mga item na iyon ay kasalukuyang nakalathala.} other {# sa mga item na iyon ay kasalukuyang nakalathala.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Ilipat ang mga item at burahin ang status"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "I-edit ang status"
+	},
+	"editStatusDialog.title": {
+		"string": "Magdagdag ng bagong status"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Status (hindi hihigit sa {max} karakter)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Pagkakalarawan"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Magdagdag ng status"
+	},
+	"statusListItem.noDescription": {
+		"string": "Walang pagkakalarawan"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (default)"
+	},
+	"statusesComponent.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang mga status. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"statusesComponent.saved": {
+		"string": "Matagumpay na na-save ang mga status!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# mga status}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Bagong status"
+	},
+	"statusesComponent.blurb": {
+		"string": "Makikita ang pamagat ng status kapag nagpapadala ng ulat sa mga user."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Isalin ang mga status sa mga sekondaryong wika para maipakita sila sa mga lokal na wika sa iyong mga ulat pang-fact check."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Kulang sa pagsasalin"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Kulang sa pagsasalin ang ilang mga status. Posibleng hindi mabasa ng mga user ang mga status na hindi pa naisasalin."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Magpatuloy at i-save"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Senaryo"
@@ -3060,7 +3129,7 @@
 		"string": "Query prompt"
 	},
 	"smoochBotMenuOption.resource": {
-		"string": "Mag-ulat"
+		"string": "Ulat"
 	},
 	"smoochBotMenuOption.languageAction": {
 		"string": "{languageName} (pangunahing talaan)"
@@ -3222,7 +3291,7 @@
 		"string": "*Impormasyon tungkol sa Coronavirus disease (COVID-19)* 🦠\n\n👉*Tumugon gamit ang alinman sa mga sumusunod na bilang (o emoji) para makakuha ng impormasyon tungkol sa paksang iyon:*\n\n*1:* Paano ko mapangangalagaan ang sarili at/o ang aking pamilya?* 👨‍👩‍👧\n*2:* Tila magkakasakit na yata ako 🤒\n*3:* Paano ko kakayanin ang stress na kaugnay ng COVID-19? ❤️\n*4:* Impormasyon tungkol sa mga kaso at paggaling sa buong mundo  📊\n*5:* Ang mga pinakabagong update mula sa World Health Organization 🌐\n\n*Tumugon ng 0* para makabalik sa *Pangunahing Talaan* 📌"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Mangyaring ilagay ang katanungan, link, larawan, o video na nais mong ipa-fact-check,* kasunod ang anumang konteksto o dagdag na katanungang kaugnay ng item na iyon. Ang iyong kahilingan ay ipadadala sa mga fact-checker halos 30 segundo matapos mong maipadala ang iyong huling mensahe.\n\n*Tumugon ng 0 (o 📌)* para makabalik sa *Main Menu*"
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "Salamat! Naitala na ang iyong kahilingan. Pinagsasama-sama at inaayos na ang mga tugon, at itinatrabaho na namin ang pagfa-fact check sa iyong mga katanungan.\n\n✔️*Sundan ang link na ito para sa naka-update na listahan ng mga karaniwang katanungang nai-fact-check na namin.* [ Link sa pahina ng mga fact-check sa iyong website ]\n\n👉 Tumugon ng kahit anong teksto para makabalik sa *Pangunahing Talaan*"
@@ -3248,72 +3317,6 @@
 	"smoochBot.tos": {
 		"string": "Mga Tuntunin ng Serbisyo ({language})"
 	},
-	"deleteStatusDialog.moveItemsTo": {
-		"string": "Ilipat ang mga item sa"
-	},
-	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Kailangan mong baguhin ang status ng {itemsCount, plural, one {one item} other {# items}} para mabura ang status na ito"
-	},
-	"deleteStatusDialog.statusInUseMessage": {
-		"string": "May {itemsCount, plural, one {is one item} other {are # items}} na may status na {statusLabel} na kailangang mapalitan ng ibang status bago burahin ang status na ito."
-	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Pwede mo ring baguhin isa-isa ang bawat status ng item."
-	},
-	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-	},
-	"statusesComponent.moveItemsAndDelete": {
-		"string": "Ilipat ang mga item at burahin ang status"
-	},
-	"editStatusDialog.titleEdit": {
-		"string": "I-edit ang status"
-	},
-	"editStatusDialog.title": {
-		"string": "Magdagdag ng bagong status"
-	},
-	"editStatusDialog.statusTitle": {
-		"string": "Status (hindi hihigit sa {max} karakter)"
-	},
-	"editStatusDialog.statusDescription": {
-		"string": "Pagkakalarawan"
-	},
-	"editStatusDialog.addButton": {
-		"string": "Magdagdag ng status"
-	},
-	"statusListItem.noDescription": {
-		"string": "Walang pagkakalarawan"
-	},
-	"statusListItem.default": {
-		"string": "{statusLabel} (default)"
-	},
-	"statusesComponent.error": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang mga status. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"statusesComponent.saved": {
-		"string": "Matagumpay na na-save ang mga status!"
-	},
-	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
-	},
-	"statusesComponent.newStatus": {
-		"string": "Bagong status"
-	},
-	"statusesComponent.blurb": {
-		"string": "Makikita ang pamagat ng status kapag nagpapadala ng ulat sa mga user."
-	},
-	"statusesComponent.blurbSecondary": {
-		"string": "Isalin ang mga status sa mga sekondaryong wika para maipakita sila sa mga lokal na wika sa iyong mga ulat pang-fact check."
-	},
-	"translateStatuses.missingTranslations": {
-		"string": "Kulang sa pagsasalin"
-	},
-	"translateStatuses.missingTranslationsBody": {
-		"string": "Kulang sa pagsasalin ang ilang mga status. Posibleng hindi mabasa ng mga user ang mga status na hindi pa naisasalin."
-	},
-	"translateStatuses.continueAndSave": {
-		"string": "Magpatuloy at i-save"
-	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Hindi mai-save ang mga setting panlistahan.",
 		"developer_comment": "Warning displayed if an error occurred when saving list settings"
@@ -3329,7 +3332,7 @@
 		"string": "I-save"
 	},
 	"teamListsComponent.description": {
-		"string": "Piliin ang mga haliging nais mong ipakita sa lahat ng iyong mga listahan\n"
+		"string": "Piliin ang mga haliging nais mong ipakita sa lahat ng iyong mga listahan"
 	},
 	"teamListsComponent.selectedColumns": {
 		"string": "Mga piniling haligi"
