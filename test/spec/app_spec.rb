@@ -127,7 +127,7 @@ shared_examples 'app' do |webdriver_url|
       api_register_and_login_with_email
       @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab').click
-      wait_for_selector("//span[contains(text(), 'Create Workspace')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
       expect(@driver.page_source.include?('Access Denied')).to be(false)
       expect((@driver.current_url.to_s =~ %r{/forbidden$}).nil?).to be(true)
       @driver.navigate.to(@config['self_url'] + "/check/user/#{user.dbid}") # unauthorized page
