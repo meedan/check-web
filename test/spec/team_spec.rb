@@ -162,6 +162,7 @@ shared_examples 'team' do
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector("//span[contains(text(), 'Slack integration')]", :xpath)
+    @driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
     expect(@driver.find_elements(:css, '.Mui-checked').empty?)
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector("button[title='Integration settings']").click
@@ -172,6 +173,7 @@ shared_examples 'team' do
     @driver.navigate.refresh
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector("//span[contains(text(), 'Slack integration')]", :xpath)
+    @driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
     wait_for_selector('.Mui-checked')
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1)
     wait_for_selector("button[title='Integration settings']").click
