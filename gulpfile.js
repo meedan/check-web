@@ -26,7 +26,7 @@ if (buildConfig.transifex) {
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
     project: buildConfig.transifex.project,
-    i18n_type: 'KEYVALUEJSON',
+    i18n_type: 'STRUCTURED_JSON',
     local_path: './localization/translations/*/',
   });
 }
@@ -74,14 +74,28 @@ gulp.task('transifex:translations', () => gulp.src('./localization/translations/
 gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
   const outputJson = {};
   inputJson.forEach((entry) => {
-    outputJson[entry.id] = entry.defaultMessage;
+    outputJson[entry.id] = {
+      string: entry.defaultMessage,
+      developer_comment: entry.description,
+    };
   });
   return outputJson;
 }))
-.pipe(merge({ fileName: 'Web.json' }))
+.pipe(merge({ fileName: 'WebStructured.json' }))
 .pipe(gulp.dest('./localization/transifex/')));
 
-gulp.task('transifex:upload', () => gulp.src('./localization/transifex/Web.json').pipe(transifexClient.pushResource()));
+gulp.task('transifex:upload', () => gulp.src('./localization/transifex/WebStructured.json').pipe(transifexClient.pushResource()));
+
+gulp.task('transifex:export-structured', () => gulp.src('./localization/translations/**/*.json').pipe(jsonEditor((inputJson) => {
+  const outputJson = {};
+  for (const [key, value] of Object.entries(inputJson)) {
+    outputJson[key] = {
+      string: value,
+    };
+  }
+  return outputJson;
+}))
+.pipe(gulp.dest('./localization/export-structured/')));
 
 gulp.task('transifex:languages', () => {
   transifexClient.languages((data) => {

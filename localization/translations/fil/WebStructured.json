@@ -1,0 +1,3358 @@
+{
+	"network.stillWorking": {
+		"string": "Ginagawa pa..."
+	},
+	"network.noResponse": {
+		"string": "Hindi makakonekta sa {app}, pakisigurong nakakonekta ka sa internet"
+	},
+	"global.appNameHuman": {
+		"string": "Check"
+	},
+	"global.edit": {
+		"string": "I-edit"
+	},
+	"global.cancel": {
+		"string": "Kanselahin"
+	},
+	"global.close": {
+		"string": "Isara"
+	},
+	"global.confirm": {
+		"string": "Kumpirmahin"
+	},
+	"global.delete": {
+		"string": "Burahin"
+	},
+	"global.ok": {
+		"string": "OK"
+	},
+	"global.save": {
+		"string": "I-save"
+	},
+	"global.submit": {
+		"string": "Isumite"
+	},
+	"global.submitting": {
+		"string": "Isinusumite..."
+	},
+	"global.tags": {
+		"string": "Mga tag"
+	},
+	"global.unknownError": {
+		"string": "Paumanhin, may naganap na error. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"global.update": {
+		"string": "I-update"
+	},
+	"accessDenied.title": {
+		"string": "Tinanggihan ang Pag-access"
+	},
+	"bot.cantChange": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang bot. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"bot.madeBy": {
+		"string": "Gawa ng {teamLink}"
+	},
+	"bot.installed": {
+		"string": "Naka-install"
+	},
+	"bot.install": {
+		"string": "I-install"
+	},
+	"bot.permissions": {
+		"string": "Mga pahintulot"
+	},
+	"bot.permissionsText": {
+		"string": "Ang bot na ito ay may antas ng pag-access ng {role}."
+	},
+	"bot.sourceCode": {
+		"string": "Tingnan ang source code"
+	},
+	"bot.updatedAt": {
+		"string": "In-update"
+	},
+	"bot.version": {
+		"string": "Bersyon"
+	},
+	"bot.installs": {
+		"string": "Mga install"
+	},
+	"botGarden.botGarden": {
+		"string": "Bot Garden"
+	},
+	"browserSupport.message": {
+		"string": "Naka-optimize ang {appName} para sa Google Chrome sa desktop."
+	},
+	"passwordChange.unmatchingPasswords": {
+		"string": "Hindi tugma ang mga password"
+	},
+	"passwordChange.currentPassword": {
+		"string": "Kasalukuyang password"
+	},
+	"passwordChange.newPassword": {
+		"string": "Bagong password (hindi bababa sa {min} karakter)"
+	},
+	"passwordChange.confirmPassword": {
+		"string": "Kumpirmahin ang password"
+	},
+	"passwordChange.changePassword": {
+		"string": "Palitan ang password"
+	},
+	"projects.unconfirmed": {
+		"string": "Hindi kumpirmado"
+	},
+	"projects.trash": {
+		"string": "Basurahan"
+	},
+	"headerActions.signIn": {
+		"string": "Mag-sign in"
+	},
+	"footer.madeBy": {
+		"string": "Check: Verify breaking news online. Made with ✨ by {meedan}"
+	},
+	"teamComponent.editButton": {
+		"string": "I-edit ang profile"
+	},
+	"home.needRegister": {
+		"string": "Mag-rehistro ka muna. Pagkarehistro, pwede ka nang magpadala ng kahilingan para makasali sa workspace."
+	},
+	"home.somethingWrong": {
+		"string": "Paumanhin, may naganap na error. Mangyaring i-refresh ang iyong browser at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"home.successInvitation": {
+		"string": "Maligayang pagdating sa {appName}. Mangyaring mag-login gamit ang password na iyong natanggap sa pambungad na email."
+	},
+	"home.invalidTeamInvitation": {
+		"string": "Paumanhin, hindi matagpuan ang workspace kung saan ka inanyayahan. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali."
+	},
+	"home.invalidNoInvitation": {
+		"string": "Paumanhin, hindi matagpuan ang paanyayang natanggap mo. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali."
+	},
+	"home.invalidExpiredInvitation": {
+		"string": "Paumanhin, lumipas na ang paanyayang natanggap mo. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali."
+	},
+	"home.invalidInvitation": {
+		"string": "Paumanhin, may naganap na error habang pinoproseso ang iyong paanyaya. Mangyaring makipag-ugnay sa {supportEmail}."
+	},
+	"languageSwitcher.primaryLanguage": {
+		"string": "{language} (default)"
+	},
+	"languageSwitcher.makeDefault": {
+		"string": "Gawing default na wika para sa item na ito"
+	},
+	"login.disclaimer": {
+		"string": "Hindi kami maglalathala nang wala ang iyong pahintulot"
+	},
+	"login.tosMissing": {
+		"string": "Kailangan mong sumang-ayon sa mga Tuntunin ng Serbisyo at Patakaran sa Pagkapribado"
+	},
+	"login.title": {
+		"string": "Mag-sign in"
+	},
+	"login.registerTitle": {
+		"string": "Magrehistro"
+	},
+	"login.nameLabel": {
+		"string": "Iyong pangalan"
+	},
+	"login.emailLabel": {
+		"string": "Email address"
+	},
+	"login.passwordInputHint": {
+		"string": "Password"
+	},
+	"login.passwordLabel": {
+		"string": "Password (hindi bababa sa 8 karakter)"
+	},
+	"login.otpAttemptLabel": {
+		"string": "Two-Factor Authentication Token"
+	},
+	"login.passwordConfirmLabel": {
+		"string": "Pagkumpirma ng password"
+	},
+	"login.profilePicture": {
+		"string": "Profile picture"
+	},
+	"login.signIn": {
+		"string": "MAG-SIGN IN"
+	},
+	"login.signUp": {
+		"string": "MAGREHISTRO"
+	},
+	"loginEmail.lostPassword": {
+		"string": "Nakalimutan ang password"
+	},
+	"login.with": {
+		"string": "Magpatuloy gamit ang {provider}"
+	},
+	"login.newAccount": {
+		"string": "Gumawa ng bagong account gamit ang email"
+	},
+	"login.alreadyHasAccount": {
+		"string": "May account na ako"
+	},
+	"browser.support.message": {
+		"string": "Pinakamainam tingnan gamit ang <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome para sa Desktop</a>."
+	},
+	"loginContainer.agreeTerms": {
+		"string": "Sa pag-sign in, sumasang-ayon ka sa {appName} {tosLink} at {ppLink}."
+	},
+	"tos.title": {
+		"string": "Mga Tuntunin ng Serbisyo"
+	},
+	"privacy.policy.title": {
+		"string": "Patakaran sa Pagkapribado"
+	},
+	"login.contactSupport": {
+		"string": "Para sa suporta, makipag-ugnay sa <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"notFound.title": {
+		"string": "Hindi Matagpuan"
+	},
+	"pageTitle.appNameHuman": {
+		"string": "Check"
+	},
+	"bridge.pageTitle.appNameHuman": {
+		"string": "Tulay"
+	},
+	"sentence.separator": {
+		"string": ","
+	},
+	"sentence.lastSeparator": {
+		"string": "at"
+	},
+	"uploadFile.message": {
+		"string": "Maglagay ng larawan na file dito, o mag-click para makapag-upload ng file (maximum na laki: {upload_max_size}, mga pinahihintulutang extension: {upload_extensions}, mga pinahihintulutang sukat nasa pagitan ng {upload_min_dimensions} at {upload_max_dimensions} pixels)"
+	},
+	"uploadFile.videoMessage": {
+		"string": "Maglagay ng video file dito, o mag-click para makapag-upload ng file (maximum na laki: {video_max_size}, mga pinahihintulutang extension: {upload_extensions})"
+	},
+	"uploadFile.audioMessage": {
+		"string": "Maglagay ng audio file dito, o mag-click para makapag-upload ng file (maximum na laki: {audio_max_size}, mga pinahihintulutang extension: {audio_extensions})"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Maglagay ng file dito, o mag-click para makapag-upload ng file (maximum na laki: {file_max_size}, mga pinahihintulutang extension: {file_extensions})"
+	},
+	"uploadFile.invalidExtension": {
+		"string": "Ang file na ito ay hindi maaaring magkaroon ng uring \"{extension}\". Mangyaring sumubok muli gamit ang mga sumusunod na uri ng file: {allowed_types}."
+	},
+	"uploadFile.fileTooLarge": {
+		"string": "Hindi dapat hihigit sa {size} ang laki ng file. Mangyaring sumubok ng mas maliit na file."
+	},
+	"uploadFile.changeFile": {
+		"string": "{filename} (mag-click o maglagay rito para palitan)"
+	},
+	"uploadImage.changeFile": {
+		"string": "{filename} (mag-click o maglagay rito para palitan)"
+	},
+	"uploadImage.invalidExtension": {
+		"string": "Ang file na ito ay hindi maaaring magkaroon ng uring \"{extension}\". Mangyaring sumubok muli gamit ang mga sumusunod na uri ng file: {allowed_types}."
+	},
+	"uploadImage.fileTooLarge": {
+		"string": "Hindi dapat hihigit sa {size} ang laki ng file. Mangyaring sumubok ng mas maliit na file."
+	},
+	"uploadImage.message": {
+		"string": "Maglagay ng larawan na file dito, o mag-click para makapag-upload ng file (maximum na laki: {upload_max_size}, mga pinahihintulutang extension: {upload_extensions}, mga pinahihintulutang sukat nasa pagitan ng {upload_min_dimensions} at {upload_max_dimensions} pixels)"
+	},
+	"uploadImage.videoMessage": {
+		"string": "Maglagay ng video file dito, o mag-click para makapag-upload ng file (maximum na laki: {video_max_size}, mga pinahihintulutang extension: {upload_extensions})"
+	},
+	"userAlreadyConfirmed.heading": {
+		"string": "Kumpirmado na ang Account"
+	},
+	"userAlreadyConfirmed.message": {
+		"string": "Ay! Kumpirmado na ang iyong account. Mangyaring {login} para makapagsimula."
+	},
+	"userAlreadyConfirmed.login": {
+		"string": "login"
+	},
+	"projectAssignment.more": {
+		"string": "+{count} na dagdag"
+	},
+	"userConfirmed.heading": {
+		"string": "Kumpirmado ang Account"
+	},
+	"userConfirmed.message": {
+		"string": "Salamat sa pagkumpirma ng iyong email address! Pwede ka nang mag-sign in."
+	},
+	"UserMenu.userSettings": {
+		"string": "Mga setting ng user"
+	},
+	"UserMenu.training": {
+		"string": "Pagsasanay at dokumentasyon"
+	},
+	"UserMenu.tos": {
+		"string": "Mga tuntunin ng serbisyo"
+	},
+	"UserMenu.pp": {
+		"string": "Patakaran sa pagkapribado"
+	},
+	"UserMenu.about": {
+		"string": "Tungkol saan"
+	},
+	"UserMenu.signOut": {
+		"string": "Mag-sign out"
+	},
+	"passwordChange.title": {
+		"string": "Palitan ang password"
+	},
+	"passwordChange.successTitle": {
+		"string": "In-update ang password"
+	},
+	"passwordChange.successMsg": {
+		"string": "Handa ka na. Pwede ka nang mag-login gamit ang iyong bagong password."
+	},
+	"passwordChange.signIn": {
+		"string": "Nakuha ko"
+	},
+	"passwordReset.emailNotFoundContactSupport": {
+		"string": "Paumanhin, hindi matagpuan ang email na ito. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali."
+	},
+	"passwordReset.emailNotValid": {
+		"string": "Magbigay ng wastong email address."
+	},
+	"passwordReset.title": {
+		"string": "I-reset ang password"
+	},
+	"passwordReset.confirmedTitle": {
+		"string": "Naipadala ang password reset"
+	},
+	"passwordReset.confirmedText": {
+		"string": "Nagpadala kami sa iyo ng email mula sa {adminEmail} na may mga panuto sa pag-reset ng iyong password. Siguruhing hindi ito napunta sa iyong spam mailbox. Kung sakaling hindi mo natatanggap ang aming mga email sa pag-reset ng password, makipag-ugnay sa {supportEmail}. Mangyaring tandaan na ang link sa loob ng email na ito ay lilipas pagkatapos ng {expiry} hours."
+	},
+	"passwordReset.signIn": {
+		"string": "Mag-sign In"
+	},
+	"passwordReset.text": {
+		"string": "Idagdag ang iyong address at may ipadadalang email na may mga karagdagang panuto."
+	},
+	"passwordReset.email": {
+		"string": "Email"
+	},
+	"passwordReset.cancel": {
+		"string": "Kanselahin"
+	},
+	"passwordReset.submit": {
+		"string": "I-reset ang Password"
+	},
+	"userTos.validation": {
+		"string": "Kailangan mong sumang-ayon sa mga Tuntunin ng Serbisyo at Patakaran sa Pagkapribado"
+	},
+	"userTos.save": {
+		"string": "I-save"
+	},
+	"userTos.commGuidelinesLink": {
+		"string": "Mga Alituntunin ng Komunidad"
+	},
+	"userTos.commGuidelines": {
+		"string": "Pakiusap namin na basahin mo rin ang aming {communityGuidelinesLink} para sa paggamit ng {appName}."
+	},
+	"userTos.tosLink": {
+		"string": "Mga Tuntunin ng Serbisyo"
+	},
+	"userTos.ppLink": {
+		"string": "Patakaran sa Pagkapribado"
+	},
+	"userTos.title": {
+		"string": "Mga Tuntunin ng Serbisyo at Patakaran sa Pagkapribado"
+	},
+	"userTos.termsLastUpdatedAt": {
+		"string": "Huling in-update {lastUpdated}"
+	},
+	"userTos.disclaimer": {
+		"string": "Mangyaring suriin ang aming {tosLink} at ang aming {ppLink} at magpahintulot sa mga sumusunod:"
+	},
+	"userTos.titleUpdated": {
+		"string": "Naka-update na mga Tuntunin at Patakaran sa Pagkapribado"
+	},
+	"userTos.disclaimerUpdate": {
+		"string": "In-update namin ang aming {tosLink} at ang aming {ppLink}. Mangyaring suriin at magpahintulot sa mga sumusunod:"
+	},
+	"userTos.agreeTos": {
+		"string": "Sumasang-ayon ako sa mga Tuntunin ng Serbisyo."
+	},
+	"userTos.agreePp": {
+		"string": "Sumasang-ayon ako na maaaring iproseso ng Meedan ang personal na impormasyon na pinili kong ibahagi, kasama ang impormasyong naglalantad sa aking pinagmulang lahi o etniko, mga saloobing pulitikal, mga paniniwalang panrelihyon o pampilosopiya, pagiging miyembro ng unyon, mga larawan, o impormasyon tungkol sa aking oryentasyong sekswal. Buburahin ang nasabing impormasyon kung buburahin ko ang aking account tulad ng nakasaad sa Patakaran sa Pagkapribado."
+	},
+	"userUnconfirmed.heading": {
+		"string": "Error"
+	},
+	"userUnconfirmed.message": {
+		"string": "Paumanhin, may naganap na error habang kinukumpirma ang iyong account. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"addAnnotation.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang item. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"addAnnotation.invalidCommand": {
+		"string": "Hindi wastong utos"
+	},
+	"addAnnotation.inputHint": {
+		"string": "Magdagdag ng note"
+	},
+	"addAnnotation.addImage": {
+		"string": "Magdagdag ng larawan"
+	},
+	"addAnnotation.submitButton": {
+		"string": "Isumite"
+	},
+	"annotation.flagAdult": {
+		"string": "Hindi angkop sa bata"
+	},
+	"annotation.flagMedical": {
+		"string": "Medikal"
+	},
+	"annotation.flagViolence": {
+		"string": "Karahasan"
+	},
+	"annotation.flagRacy": {
+		"string": "Sekswal"
+	},
+	"annotation.flagSpam": {
+		"string": "Spam"
+	},
+	"annotation.flagLikelihood0": {
+		"string": "Hindi matukoy"
+	},
+	"annotation.flagLikelihood1": {
+		"string": "Higit na walang katiyakan"
+	},
+	"annotation.flagLikelihood2": {
+		"string": "Walang katiyakan"
+	},
+	"annotation.flagLikelihood3": {
+		"string": "Posible"
+	},
+	"annotation.flagLikelihood4": {
+		"string": "Maaari"
+	},
+	"annotation.flagLikelihood5": {
+		"string": "Higit na maaari"
+	},
+	"annotation.menuTooltip": {
+		"string": "Mga aksyong pang-anotasyon"
+	},
+	"annotation.deleteButton": {
+		"string": "Burahin"
+	},
+	"annotation.permalink": {
+		"string": "Permalink"
+	},
+	"annotation.taggedHeader": {
+		"string": "Na-tag bilang #{tag} ni {author}"
+	},
+	"annotation.deletedComment": {
+		"string": "Komentong binura ni {author}: {comment}"
+	},
+	"annotation.taskCreated": {
+		"string": "Gawaing nilikha ni {author}: {task}"
+	},
+	"annotation.metadataCreated": {
+		"string": "Patlang pang-metadata na gawa ni {author}: {fieldLabel}"
+	},
+	"annotation.relationshipCreated": {
+		"string": "Kaugnay na item na idinagdag ni {author}: {title}"
+	},
+	"annotation.relationshipDeleted": {
+		"string": "Kaugnay na item na itinanggal ni {author}: {title}"
+	},
+	"annotation.taskAssignmentCreated": {
+		"string": "Gawaing itinalaga ni {author} kay {name}: {title}"
+	},
+	"annotation.mediaAssignmentCreated": {
+		"string": "Item na itinalaga ni {author} kay {name}"
+	},
+	"annotation.taskAssignmentDeleted": {
+		"string": "Gawaing inalis ni {author} sa pagkakatalaga kay {name}: {title}"
+	},
+	"annotation.mediaAssignmentDeleted": {
+		"string": "Item na inalis ni {author} sa pagkakatalaga kay {name}"
+	},
+	"annotation.flag": {
+		"string": "Resulta ng pag-uuri:"
+	},
+	"annotation.statusLocked": {
+		"string": "Ni-lock ni {author} ang status ng item"
+	},
+	"annotation.statusUnlocked": {
+		"string": "In-unlock ni {author} ang status ng item"
+	},
+	"annotation.mediaAssigned": {
+		"string": "Item na itinalaga ni {author} kay {name}"
+	},
+	"annotation.mediaUnassigned": {
+		"string": "Item na inalis ni {author} sa pagkakatalaga kay {name}"
+	},
+	"annotation.statusSetHeader": {
+		"string": "Itinakda ang status bilang {status} ni {name}"
+	},
+	"annotation.seeHowThisBotWorks": {
+		"string": "Tingnan kung paano gumagana ang bot na ito"
+	},
+	"annotation.suggestionAccepted": {
+		"string": "Itinanggap ni {user}"
+	},
+	"annotation.suggestionRejected": {
+		"string": "Tinanggihan ni {user}"
+	},
+	"annotation.acceptSuggestion": {
+		"string": "Tanggapin"
+	},
+	"annotation.rejectSuggestion": {
+		"string": "Tanggihan"
+	},
+	"annotation.taskResolve": {
+		"string": "Gawaing kinumpleto ni {author}: {task}{response}"
+	},
+	"annotation.metadataResponse": {
+		"string": "Patlang pang-metadata na \"{fieldLabel}\" na pinunan ni {author}: {response}"
+	},
+	"annotation.archiverSuccess": {
+		"string": "Kung sakaling mag-offline ang item, pwedeng <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">ma-access ang backup sa {name}</a>."
+	},
+	"annotation.archiverError": {
+		"string": "Paumanhin, naganap ang sumusunod na error habang inaarkibo ang item sa {name}: \"{message}\". Mangyaring i-refresh ang item para masubukang muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"annotation.archiverWait": {
+		"string": "Kasalukuyang inaarkibo ang item sa {name}. Ipakikita rito ang link sa artsibo kapag handa na ito."
+	},
+	"annotation.embedCodeCopied": {
+		"string": "Nakapagbuo at nakopya na ang embed code ng item. Makikita na ng publiko ang item."
+	},
+	"annotation.penderArchiveResponseError": {
+		"string": "Paumanhin, may naganap na error habang kumukuha ng screenshot ng item. Mangyaring i-refresh ang item para masubukang muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"annotation.penderArchiveResponse": {
+		"string": "Kumuha ang Keep ng screenshot ng URL na ito."
+	},
+	"annotation.penderArchiveWait": {
+		"string": "Kasalukuyang kumukuha ang Keep ng screenshot ng item na ito. Bumalik sa loob ng ilang minuto para makita ito."
+	},
+	"annotation.openInSlack": {
+		"string": "Buksan sa Slack"
+	},
+	"annotation.reportReceived": {
+		"string": "Natanggap ang ulat noong {date}"
+	},
+	"annotation.reportUpdateReceived": {
+		"string": "Natanggap ang update sa ulat noong {date}"
+	},
+	"annotation.smoochNoMessage": {
+		"string": "Walang naipadalang mensahe kasama ng kahilingan."
+	},
+	"annotation.projectMoved": {
+		"string": "Inilipat mula sa listahang {previousProject} papunta sa {currentProject} ni {author}"
+	},
+	"annotation.movedToTrash": {
+		"string": "Inilipat sa basurahan ni {author}"
+	},
+	"annotation.movedFromTrash": {
+		"string": "Inalis sa basurahan ni {author}"
+	},
+	"annotation.teamCopied": {
+		"string": "Kinopya mula sa workspace na {previousTeam} ni {author} "
+	},
+	"annotation.noAnnotationsYet": {
+		"string": "Walang aktibidad"
+	},
+	"annotations.loadMore": {
+		"string": "Mag-load ng iba pa"
+	},
+	"annotation.newReport": {
+		"string": "Item na idinagdag ni {author}"
+	},
+	"annotation.titleChanged": {
+		"string": "Pamagat ng item na in-edit ni {author}: {title}"
+	},
+	"annotation.embedNoteCreated": {
+		"string": "Pagkakalarawan ng item na idinagdag ni {author}: {description}"
+	},
+	"annotation.embedLabelUpdated": {
+		"string": "Pamagat ng item na in-edit ni {author}: {title}"
+	},
+	"annotation.embedLabelRemoved": {
+		"string": "Pamagat ng item na itinanggal ni {author}: {title}"
+	},
+	"annotation.embedNoteUpdated": {
+		"string": "Pagkakalarawan ng item na in-edit ni {author}: {description}"
+	},
+	"annotation.embedNoteRemoved": {
+		"string": "Pagkakalarawan ng item na tinanggal ni {author}: {description}"
+	},
+	"annotation.taskLabelUpdated": {
+		"string": "Gawaing in-edit ni {author}: {title}"
+	},
+	"annotation.taskNoteUpdated": {
+		"string": "Task note na in-edit ni {author}: {title}{note}"
+	},
+	"annotation.taskNoteCreated": {
+		"string": "Task note na idinagdag ni {author}: {title}{note}"
+	},
+	"annotation.assignmentChanged": {
+		"string": "Gawaing itinalaga ni {author} kay {assigneeTo}: {title}"
+	},
+	"annotation.assignmentRemoved": {
+		"string": "Gawaing inalis ni {author} sa pagkakatalaga kay {assigneeFrom}: {title}"
+	},
+	"annotation.addedComment": {
+		"string": "Task note na idinagdag ni {author}: {title}{note}"
+	},
+	"annotation.removedComment": {
+		"string": "Task note na binura ni {author}: {title}{note}"
+	},
+	"annotation.changedJsonSchema": {
+		"string": "JSON Schema ng gawaing {title} na iniba ni {author}"
+	},
+	"teamMenu.teamSettings": {
+		"string": "Mga setting ng workspace"
+	},
+	"projects.allClaims": {
+		"string": "Lahat ng mga item"
+	},
+	"projects.dismiss": {
+		"string": "I-dismiss"
+	},
+	"projects.addProject": {
+		"string": "Magdagdag ng listahan"
+	},
+	"projects.newList": {
+		"string": "+ Bagong listahan"
+	},
+	"teamTasks.confirmAction": {
+		"string": "Oo"
+	},
+	"teamTasks.continue": {
+		"string": "Ipagpatuloy"
+	},
+	"teamTasks.cancelAction": {
+		"string": "Kanselahin"
+	},
+	"confirmProceed.confirm": {
+		"string": "Kumpirmahin at magpatuloy"
+	},
+	"MultiSelector.search": {
+		"string": "Maghanap..."
+	},
+	"FilterPopup.close": {
+		"string": "Tapos na"
+	},
+	"languagePickerDialog.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"languagePickerDialog.unknownLanguage": {
+		"string": "Hindi matukoy na wika"
+	},
+	"languagePickerDialog.title": {
+		"string": "Mamili ng wika"
+	},
+	"languagePickerDialog.selectLanguage": {
+		"string": "Mamili ng wika"
+	},
+	"loadMore.loadMore": {
+		"string": "Mag-load ng iba pa"
+	},
+	"moreLess.less": {
+		"string": "Bawasan"
+	},
+	"moreLess.more": {
+		"string": "Dagdagan"
+	},
+	"MultiSelector.all": {
+		"string": "Lahat"
+	},
+	"multiSelector.empty": {
+		"string": "Walang natagpuang item"
+	},
+	"multiSelector.cancel": {
+		"string": "Kanselahin"
+	},
+	"sortSelect.az": {
+		"string": "A hanggang Z"
+	},
+	"sortSelect.za": {
+		"string": "Z hanggang A"
+	},
+	"sortSelect.of": {
+		"string": "Pinakaluma muna"
+	},
+	"sortSelect.nf": {
+		"string": "Pinakabago muna"
+	},
+	"sortSelect.mu": {
+		"string": "Pinakamadalas gamitin"
+	},
+	"sortSelect.lu": {
+		"string": "Pinakabihirang gamitin"
+	},
+	"createProject.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang listahan. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"createProject.newProjectName": {
+		"string": "Pangalan ng listahan"
+	},
+	"createProject.addProject": {
+		"string": "Gumawa ng listahan"
+	},
+	"createProject.title": {
+		"string": "Magdagdag ng listahan"
+	},
+	"createProject.titleBlank": {
+		"string": "Magdagdag ng iyong unang listahan"
+	},
+	"projectActions.projectDeleted": {
+		"string": "Matagumpay na nabura ang listahan."
+	},
+	"projectActions.projectNotDeleted": {
+		"string": "Paumanhin, hindi mabura ang listahan."
+	},
+	"ProjectActions.edit": {
+		"string": "I-edit ang pangalan at pagkakalarawan"
+	},
+	"projectActions.assignOrUnassign": {
+		"string": "Italaga ang listahan"
+	},
+	"projectActions.destroy": {
+		"string": "Burahin"
+	},
+	"ProjectActions.tooltip": {
+		"string": "Mga aksyong panlistahan"
+	},
+	"projectActions.confirmDeleteProject": {
+		"string": "Sigurado ka bang gusto mong burahin ang listahang ito? Pwede pa ring ma-access ang lahat ng mga item nito sa 'All items' na listahan."
+	},
+	"projectAssignment.processing": {
+		"string": "Tapos na! Ipinalalaganap ang mga assignment sa mga item at gawain. Makatatanggap ka ng email kapag handa na ito."
+	},
+	"projectAssignment.title": {
+		"string": "Italaga ang listahan sa mga katuwang"
+	},
+	"projectAssignment.notesTitle": {
+		"string": "Maglagay ng note sa email"
+	},
+	"projectAssignment.notes": {
+		"string": "Mga note"
+	},
+	"projectAssignment.assignedTo": {
+		"string": "Itinalaga kay"
+	},
+	"projectAssignment.notAssigned": {
+		"string": "Hindi nakatalaga"
+	},
+	"userAssignments.blank": {
+		"string": "Walang aktibidad"
+	},
+	"ProjectBlankState.createMedia": {
+		"string": "Magdagdag ng link o teksto"
+	},
+	"projectEdit.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang listahan. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"projectEdit.titleField": {
+		"string": "Pamagat"
+	},
+	"projectEdit.descriptionField": {
+		"string": "Pagkakalarawan"
+	},
+	"projectEdit.saveButton": {
+		"string": "I-save"
+	},
+	"projectHeader.trash": {
+		"string": "Basurahan"
+	},
+	"projectHeader.allItems": {
+		"string": "Lahat ng mga item"
+	},
+	"projectSelector.numProjs": {
+		"string": "{length, number} ang pinili"
+	},
+	"projectSelector.allProjs": {
+		"string": "Lahat ng listahan"
+	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "May tiyak na value ang metadata"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "May nilalamang keyword ang metadata"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "May tiyak na sagot ang gawain"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "May nilalamang keyword ang sagot sa gawain"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Mamili ng gawain"
+	},
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Mamili ng metadata"
+	},
+	"search.allClaimsTitle": {
+		"string": "Lahat ng mga item"
+	},
+	"CustomFilter.filterBy": {
+		"string": "I-filter ayon sa"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Mamili ng value"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Mag-type ng listahan ng mga keyword na pinaghihiwalay ng mga kuwit"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Magdagdag ng filter"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "May tiyak na value ang metadata"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "May nilalamang keyword ang metadata"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "May tiyak na sagot ang gawain"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "May nilalamang keyword ang sagot sa gawain"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Walang nakatakdang value"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Anumang value ay nakatakda"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Mamili ng gawain"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Mamili ng metadata"
+	},
+	"search.dateHeading": {
+		"string": "Saklaw ng Oras"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Isinumite"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Huling isinumite"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "In-update noong"
+	},
+	"search.datePublishedHeading": {
+		"string": "Inilathala"
+	},
+	"search.pickDateFrom": {
+		"string": "Petsang nagsimula"
+	},
+	"search.pickDateTo": {
+		"string": "Petsang nagtapos"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Pamagat ng media"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Nilalaman ng media"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Pamagat ng pagsusuri"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Nilalaman ng pagsusuri"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Mga tag"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Lahat ng sagot sa mga gawain",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Lahat ng sagot sa metadata"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Lahat ng mga note"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Lahat ng komentong panggawain"
+	},
+	"search.showClaims": {
+		"string": "Mga teksto"
+	},
+	"search.showLinks": {
+		"string": "Mga link"
+	},
+	"search.showImages": {
+		"string": "Mga larawan"
+	},
+	"search.showVideos": {
+		"string": "Mga video"
+	},
+	"search.showAudios": {
+		"string": "Mga audio"
+	},
+	"search.showBlank": {
+		"string": "Inangkat na ulat"
+	},
+	"search.title": {
+		"string": "Lahat ng mga item"
+	},
+	"search.inputHint": {
+		"string": "Maghanap"
+	},
+	"search.help": {
+		"string": "<table>\n                    <tbody>\n                      <tr><td>+</td><td>Puno+Dahon</td><td>Mga item na may parehong Puno AT Dahon</td></tr>\n                      <tr><td>|</td><td>Puno | Dahon</td><td>Mga item na may alinman sa Puno O Dahon</td></tr>\n                       <tr><td>()</td><td>Puno + (Dahon | Sanga)</td><td>Mga item na may Puno AT Dahon O mga item na may Puno AT Sanga</td></tr>\n                       </tbody>\n                     </table>\n                     <div>\n                       <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Dagdagan ang kaalaman tungkol sa mga pamamaraan sa paghahanap\n                        </a>\n                      </div>"
+	},
+	"search.Filter": {
+		"string": "Filter"
+	},
+	"search.clear": {
+		"string": "Tanggalin ang filter"
+	},
+	"search.categoriesHeading": {
+		"string": "Mga tag"
+	},
+	"search.any": {
+		"string": "Kahit ano"
+	},
+	"search.all": {
+		"string": "Lahat"
+	},
+	"search.show": {
+		"string": "Uri ng media"
+	},
+	"search.statusHeading": {
+		"string": "Status ng item"
+	},
+	"search.userHeading": {
+		"string": "Ginawa ni"
+	},
+	"search.language": {
+		"string": "Wika"
+	},
+	"search.projectHeading": {
+		"string": "Listahan"
+	},
+	"search.assignedTo": {
+		"string": "Itinalaga kay"
+	},
+	"search.readHeading": {
+		"string": "Nabasa na"
+	},
+	"search.cancel": {
+		"string": "Kanselahin"
+	},
+	"search.reset": {
+		"string": "I-reset"
+	},
+	"search.applyFilters": {
+		"string": "Filter"
+	},
+	"search.previousPage": {
+		"string": "Nakaraang pahina"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(1 pinili)} other {(# ang pinili)}}"
+	},
+	"search.nextPage": {
+		"string": "Kasunod na pahina"
+	},
+	"mediaMetadata.addedToList": {
+		"string": "Idinagdag sa listahang {listName}"
+	},
+	"mediaActionsBar.addTo": {
+		"string": "Idagdag sa…"
+	},
+	"mediaActionsBar.dialogAddToListTitle": {
+		"string": "Idagdag sa ibang listahan"
+	},
+	"mediaActionsBar.cancelButton": {
+		"string": "Kanselahin"
+	},
+	"mediaActionsBar.add": {
+		"string": "Idagdag"
+	},
+	"video.normalSpeed": {
+		"string": "Karaniwang bilis"
+	},
+	"autoCompleteMediaItem.searching": {
+		"string": "Naghahanap…"
+	},
+	"autoCompleteMediaItem.error": {
+		"string": "Paumanhin, may naganap na error habang naghahanap. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"autoCompleteMediaItem.notFound": {
+		"string": "Walang natagpuang tugma "
+	},
+	"autoCompleteMediaItem.searchItem": {
+		"string": "Maghanap"
+	},
+	"blankMediaButton.defaultErrorMessage": {
+		"string": "Hindi ma-save ang item"
+	},
+	"blankMediaButton.addToImportedReport": {
+		"string": "Idagdag sa inangkat na ulat"
+	},
+	"blankMediaButton.confirmTitle": {
+		"string": "Palitan ang ulat at status?"
+	},
+	"blankMediaButton.confirmText": {
+		"string": "Meron nang nakalathalang ulat ang sumusunod na item:\n              {link}\n              Kung magpapatuloy, parehong mapapalitan ang status at ang ulat, at mahihinto ang ulat."
+	},
+	"blankMediaButton.confirmButtonLabel": {
+		"string": "Pahintuin ang ulat at i-update ang nilalaman"
+	},
+	"blankMediaButton.addItem": {
+		"string": "Magdagdag ng item"
+	},
+	"blankMediaCard.defaultErrorMessage": {
+		"string": "Hindi ma-save ang item"
+	},
+	"blankMediaCard.addItem": {
+		"string": "Magdagdag ng item"
+	},
+	"blankMediaCard.confirmTitle": {
+		"string": "Palitan ang ulat at status?"
+	},
+	"blankMediaCard.confirmText": {
+		"string": "Meron nang nakalathalang ulat ang sumusunod na item:\n              {link}\n              Kung magpapatuloy, parehong mapapalitan ang status at ang ulat, at mahihinto ang ulat."
+	},
+	"blankMediaCard.confirmButtonLabel": {
+		"string": "Pahintuin ang ulat at i-update ang nilalaman"
+	},
+	"bulkActions.movedRestoreSuccessfully": {
+		"string": "Items moved from Trash to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedConfirmSuccessfully": {
+		"string": "Items moved from Unconfirmed to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.addedSuccessfully": {
+		"string": "Idinagdag ang mga item sa listahan.",
+		"developer_comment": "Banner displayed after items are added successfully to list"
+	},
+	"bulkActions.removedSuccessfully": {
+		"string": "Itinanggal ang mga item mula sa listahang ito.",
+		"developer_comment": "Banner displayed after items are removed successfully from list"
+	},
+	"bulkActions.movedSuccessfully": {
+		"string": "Inilipat ang mga item.",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.moveToTrashSuccessfully": {
+		"string": "Items moved to the Trash."
+	},
+	"bulkActions.trash": {
+		"string": "Ibalik ang mga piniling item at ilipat sa ibang listahan"
+	},
+	"bulkActions.restore": {
+		"string": "Restore from Trash"
+	},
+	"bulkActions.unconfirmed": {
+		"string": "Kumpirmahin ang mga piniling item at ilipat ang mga ito sa ibang listahan"
+	},
+	"bulkActions.confirm": {
+		"string": "Move from Unconfirmed"
+	},
+	"bulkActions.move": {
+		"string": "Ilipat ang mga piniling item sa ibang listahan"
+	},
+	"bulkActions.moveTo": {
+		"string": "Ilipat sa…"
+	},
+	"bulkActions.cancelButton": {
+		"string": "Kanselahin"
+	},
+	"bulkActions.moveTitle": {
+		"string": "Ilipat sa listahan"
+	},
+	"bulkActions.dialogMoveTitle": {
+		"string": "{selectedCount, plural, one {Ilipat ang # item sa listahan...} other {Ilipat ang # item sa listahan...}}"
+	},
+	"bulkActions.add": {
+		"string": "Idagdag ang mga piniling item sa ibang listahan"
+	},
+	"bulkActions.addTo": {
+		"string": "Idagdag sa…"
+	},
+	"bulkActions.addTitle": {
+		"string": "Idagdag"
+	},
+	"bulkActions.dialogAddTitle": {
+		"string": "Idagdag sa ibang listahan"
+	},
+	"bulkActions.sendItemsToTrash": {
+		"string": "Send selected items to Trash"
+	},
+	"claimReview.claim": {
+		"string": "Pahayag:"
+	},
+	"claimReview.claimedBy": {
+		"string": "Ipinahayag ni:"
+	},
+	"claimReview.reviewedBy": {
+		"string": "Na-fact-check ni {reviewer}:"
+	},
+	"createMedia.error": {
+		"string": "Paumanhin, may naganap na error habang isinusumite ang item. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"createMedia.addItem": {
+		"string": "Magdagdag ng Item"
+	},
+	"createMedia.addNewItem": {
+		"string": "Magdagdag ng bagong item"
+	},
+	"createMedia.addNew": {
+		"string": "Magdagdag ng bagong item"
+	},
+	"createMedia.existing": {
+		"string": "Magdagdag ng dati nang item"
+	},
+	"createMedia.quoteInput": {
+		"string": "Magdikit o mag-type ng teksto"
+	},
+	"createMedia.mediaInput": {
+		"string": "Magdikit o mag-type"
+	},
+	"createMedia.link": {
+		"string": "Link"
+	},
+	"createMedia.quote": {
+		"string": "Tektso"
+	},
+	"createMedia.image": {
+		"string": "Larawan"
+	},
+	"createMedia.video": {
+		"string": "Video"
+	},
+	"createMedia.audio": {
+		"string": "Audio"
+	},
+	"createRelatedMedia.addSecondaryItem": {
+		"string": "Magdagdag ng sekundaryong item"
+	},
+	"createRelatedMedia.addToPrimaryItem": {
+		"string": "Idagdag sa pangunahing item"
+	},
+	"destinationProjects.choose": {
+		"string": "Mamili ng listahan"
+	},
+	"mediaDetail.editReportError": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang item. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"mediaDetail.editReport": {
+		"string": "I-edit"
+	},
+	"mediaDetail.mediaTitle": {
+		"string": "Pamagat"
+	},
+	"mediaDetail.mediaDescription": {
+		"string": "Pagkakalarawan"
+	},
+	"mediaDetail.cancelButton": {
+		"string": "Kanselahin"
+	},
+	"mediaDetail.doneButton": {
+		"string": "Tapos na"
+	},
+	"ItemHistoryDialog.title": {
+		"string": "Kasaysayan ng item"
+	},
+	"media.confirmLeave": {
+		"string": "{count, plural, one {Sigurado ka bang nais mong umalis? May isa pang kinakailangang gawaing nakatalaga sa iyo na hindi mo pa nasasagutan} other {Sigurado ka ba na gusto mong umalis? Meron ka pang # kinakailangang gawaing nakatalaga sa iyo na hindi mo pa nasasagutan}}"
+	},
+	"mediaActions.edit": {
+		"string": "I-edit ang pamagat at pagkakalarawan"
+	},
+	"mediaActions.refresh": {
+		"string": "I-refresh"
+	},
+	"mediaActions.assignOrUnassign": {
+		"string": "Assignment"
+	},
+	"mediaActions.unlockStatus": {
+		"string": "I-unlock ang status"
+	},
+	"mediaActions.lockStatus": {
+		"string": "I-lock ang status"
+	},
+	"mediaActions.sendToTrash": {
+		"string": "Ipadala sa basurahan"
+	},
+	"mediaActions.restore": {
+		"string": "Ibalik galing sa basurahan"
+	},
+	"mediaActions.move": {
+		"string": "Ilipat"
+	},
+	"mediaActions.addToList": {
+		"string": "Idagdag sa listahan"
+	},
+	"mediaActions.removeFromList": {
+		"string": "Tanggalin sa listahan"
+	},
+	"mediaActions.tooltip": {
+		"string": "Mga aksyong pang-item"
+	},
+	"mediaActionsBar.movedToTrash": {
+		"string": "Ipinadala sa {trash}"
+	},
+	"mediaDetail.trash": {
+		"string": "Basurahan"
+	},
+	"mediaActionsBar.assignmentsUpdated": {
+		"string": "Matagumpay na in-update ang mga assignment!"
+	},
+	"mediaActionsBar.publishedReport": {
+		"string": "Nailathala ang ulat"
+	},
+	"mediaActionsBar.unpublishedReport": {
+		"string": "Itinanggal sa pagkakalathala ang ulat"
+	},
+	"mediaActionsBar.assignmentTitle": {
+		"string": "Italaga ang item sa mga katuwang"
+	},
+	"mediaActionsBar.assignmentNotesTitle": {
+		"string": "Maglagay ng note sa email"
+	},
+	"mediaActionsBar.assignmentNotes": {
+		"string": "Mga note"
+	},
+	"mediaActions.history": {
+		"string": "Kasaysayan ng item"
+	},
+	"mediaAnalysis.analysis": {
+		"string": "Pagsusuri"
+	},
+	"mediaAnalysis.saving": {
+		"string": "Nagse-save..."
+	},
+	"mediaAnalysis.saved": {
+		"string": "Nai-save {ago}"
+	},
+	"mediaAnalysis.error": {
+		"string": "Hindi mai-save! Huling na-save {ago}"
+	},
+	"mediaAnalysis.copying": {
+		"string": "Kinokopya..."
+	},
+	"mediaAnalysis.copyToReport": {
+		"string": "Kopyahin sa ulat"
+	},
+	"mediaAnalysis.title": {
+		"string": "Pamagat"
+	},
+	"mediaAnalysis.content": {
+		"string": "Nilalaman"
+	},
+	"mediaAnalysis.publishedArticle": {
+		"string": "URL ng nakalathalang artikulo"
+	},
+	"mediaAnalysis.date": {
+		"string": "Petsa ng pagkakalathala"
+	},
+	"mediaAnalysis.confirmTitle1": {
+		"string": "Nakalathala ang kasalukuyang ulat"
+	},
+	"mediaAnalysis.confirmTitle2": {
+		"string": "Palitan ang dati nang ulat?"
+	},
+	"mediaAnalysis.confirmText1": {
+		"string": "Kailangan mo munang pahintuin ang iyong ulat para ma-edit ito. Nais mo bang pahintuin ang ulat at i-update ito ng bagong nilalaman?"
+	},
+	"mediaAnalysis.confirmText2": {
+		"string": "Nais mo bang i-update ang ulat ng bagong nilalamang ito? Mawawala ang lahat ng edit."
+	},
+	"mediaAnalysis.confirmButtonLabel1": {
+		"string": "Pahintuin ang ulat at i-update ang nilalaman"
+	},
+	"mediaAnalysis.confirmButtonLabel2": {
+		"string": "Palitan ang nilalaman"
+	},
+	"mediaComments.noNote": {
+		"string": "Walang note"
+	},
+	"mediaComponent.requests": {
+		"string": "Mga kahilingan"
+	},
+	"mediaComponent.metadata": {
+		"string": "Metadata"
+	},
+	"mediaComponent.tasks": {
+		"string": "Mga gawain"
+	},
+	"mediaComponent.notes": {
+		"string": "Mga note"
+	},
+	"mediaComponent.related": {
+		"string": "Magkaugnay"
+	},
+	"mediaComponent.timelineTab": {
+		"string": "Timeline"
+	},
+	"mediaCondensed.requests": {
+		"string": "{count} na kahilingan"
+	},
+	"mediaExpanded.addToImportedReport": {
+		"string": "Idagdag sa inangkat na ulat"
+	},
+	"mediaMetadata.Timeline": {
+		"string": "Timeline"
+	},
+	"mediaMetadata.ImageSearch": {
+		"string": "Paghanap ng Larawan"
+	},
+	"mediaMetadata.download": {
+		"string": "I-download"
+	},
+	"mediaExpandedArchives.archives": {
+		"string": "Artsibo:"
+	},
+	"mediaExpandedMetadata.publishedOn": {
+		"string": "Inilathala noong"
+	},
+	"mediaExpandedMetadata.shares": {
+		"string": "Mga Share sa FB"
+	},
+	"mediaExpandedMetadata.reactions": {
+		"string": "Mga Reaksyon sa FB"
+	},
+	"mediaExpandedMetadata.comments": {
+		"string": "Mga Komento sa FB"
+	},
+	"mediaExpanded.firstSeen": {
+		"string": "Unang nakita:"
+	},
+	"mediaExpanded.lastSeen": {
+		"string": "Huling nakita:"
+	},
+	"mediaExpanded.requests": {
+		"string": "{count} na kahilingan"
+	},
+	"mediaLanguageChip.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang wika. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"media.normalSpeed": {
+		"string": "Karaniwang bilis"
+	},
+	"mediaRelated.primaryItem": {
+		"string": "Pangunahing item"
+	},
+	"mediaRelated.secondaryItems": {
+		"string": "Mga sekundaryong item"
+	},
+	"mediaRelated.loadMore": {
+		"string": "Mag-load ng iba pa"
+	},
+	"mediaRequests.allRequests": {
+		"string": "{count, plural, one {# kahilingan sa lahat ng media} other {# kahilingan sa lahat ng media}}"
+	},
+	"mediaRequests.thisRequests": {
+		"string": "{count, plural, one {# kahilingan} other {# kahilingan}}"
+	},
+	"mediaRequests.noRequest": {
+		"string": "Walang kahilingan"
+	},
+	"mediaSearch.itemWentAway": {
+		"string": "Hindi matagpuan"
+	},
+	"mediaSearch.error": {
+		"string": "Paumanhin, naganap ang sumusunod na error: {message}. Mangyaring i-refresh ang item para masubukang muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"mediaStatus.cancelMessage": {
+		"string": "Kanselahin"
+	},
+	"mediaStatus.messageDescription": {
+		"string": "Mangyaring magdagdag ng komento. Ipadadala ito pabalik sa orihinal na nagpaskil para ipaalam sa kanila na isasara ang kanilang kahilingan."
+	},
+	"mediaStatus.noteHint": {
+		"string": "Pindutin ang ENTER para isumite"
+	},
+	"mediaStatus.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang status. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"mediaTags.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"mediaComponent.verificationTasks": {
+		"string": "Mga gawaing pang-item"
+	},
+	"mediaComponent.answered": {
+		"string": "natapos"
+	},
+	"mediaComponent.noTasks": {
+		"string": "Walang maipapakita."
+	},
+	"media.typeTwitter": {
+		"string": "Tweet"
+	},
+	"media.typeFacebook": {
+		"string": "Paskil sa Facebook"
+	},
+	"media.typeInstagram": {
+		"string": "Instagram"
+	},
+	"media.typeYoutube": {
+		"string": "YouTube video"
+	},
+	"media.typeVideo": {
+		"string": "Video"
+	},
+	"media.typeTiktok": {
+		"string": "Video sa TikTok"
+	},
+	"media.typeClaim": {
+		"string": "Teksto"
+	},
+	"media.typeImage": {
+		"string": "Larawan"
+	},
+	"media.typePage": {
+		"string": "Pahina"
+	},
+	"media.byAttribution": {
+		"string": "{typeLabel} ni {attribution}"
+	},
+	"media.onDomain": {
+		"string": "{typeLabel} sa {domain}"
+	},
+	"media.typeLink": {
+		"string": "Link"
+	},
+	"media.typeAudio": {
+		"string": "Audio"
+	},
+	"media.typeBlank": {
+		"string": "Inangkat na ulat"
+	},
+	"media.retweetsCount": {
+		"string": "{retweetsCount, plural, one {1 retweet} other {# retweet}}"
+	},
+	"mediaActionsBar.moveTo": {
+		"string": "Ilipat sa…"
+	},
+	"mediaActionsBar.dialogMoveTitle": {
+		"string": "Ilipat sa ibang listahan"
+	},
+	"mediaActionsBar.move": {
+		"string": "Ilipat"
+	},
+	"mediaSearch.previousItem": {
+		"string": "Nakaraang item"
+	},
+	"mediaSearch.xOfY": {
+		"string": "{current} ng {total}"
+	},
+	"mediaSearch.nextItem": {
+		"string": "Kasunod na item"
+	},
+	"mediaActionsBar.removedFromList": {
+		"string": "Tinanggal sa listahan"
+	},
+	"mediaActionsBar.removeFromList": {
+		"string": "Tanggalin sa listahan"
+	},
+	"reportDesigner.cantPublish": {
+		"string": "Piliin kahit ang teksto ng ulat o ang larawan para mailathala ang iyong ulat"
+	},
+	"reportDesigner.canPublish": {
+		"string": "Ilathala ang ulat"
+	},
+	"reportDesigner.pauseReport": {
+		"string": "Ihinto ang ulat"
+	},
+	"reportDesigner.confirmLeaveTitle": {
+		"string": "Umalis nang hindi sine-save?"
+	},
+	"reportDesigner.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang mga setting ng ulat. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"reportDesigner.warning": {
+		"string": "Babala — ang pagbabahagi nito ay maglalantad ng impormasyon sa mga tao sa labas ng iyong pribadong workspace. Mag-ingat sa pagpapatuloy."
+	},
+	"reportDesigner.copyButtonInactive": {
+		"string": "Kinopya"
+	},
+	"reportDesigner.copyButton": {
+		"string": "Kopyahin"
+	},
+	"reportDesigner.back": {
+		"string": "Bumalik sa anotasyon"
+	},
+	"reportDesigner.copyEmbedCode": {
+		"string": "Kopyahin ang embed code"
+	},
+	"reportDesigner.copyShareUrl": {
+		"string": "Kopyahin ang share URL"
+	},
+	"reportDesigner.save": {
+		"string": "I-save"
+	},
+	"reportDesigner.edit": {
+		"string": "I-edit"
+	},
+	"reportDesigner.publish": {
+		"string": "Ilathala"
+	},
+	"reportDesigner.pause": {
+		"string": "Ihinto"
+	},
+	"reportDesigner.nothingToPreview": {
+		"string": "Simulan ang paggawa ng iyong ulat para masilip kung ano ang makikita ng mga user kapag natanggap ito"
+	},
+	"reportDesigner.reportEditorTitle": {
+		"string": "Piliin ang nilalamang ipadadala sa iyong ulat"
+	},
+	"reportDesigner.introduction": {
+		"string": "Panimula"
+	},
+	"reportDesigner.introductionSub": {
+		"string": "Gamitin ang placeholder na {query_date} para ipakita ang petsa ng orihinal na katanungan. Gamitin ang {status} para ipabatid ang status ng artikulo."
+	},
+	"reportDesigner.visualCard": {
+		"string": "Visual card"
+	},
+	"reportDesigner.useDefaultImage": {
+		"string": "Gamitin ang default na larawan"
+	},
+	"reportDesigner.headline": {
+		"string": "Pamagat (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.description": {
+		"string": "Nilalaman (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.statusLabel": {
+		"string": "Label ng status (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.themeColor": {
+		"string": "Kulay ng tema"
+	},
+	"reportDesigner.url": {
+		"string": "URL ng website (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.textMessage": {
+		"string": "Teksto ng ulat"
+	},
+	"reportDesigner.disclaimer": {
+		"string": "Disclaimer"
+	},
+	"reportDesigner.confirmPublishTitle": {
+		"string": "Handa ka na bang ilathala ang iyong ulat?"
+	},
+	"reportDesigner.confirmPublishText": {
+		"string": "{demand, plural, one {Ipadadala mo na ang ulat na ito sa user na humiling sa item na ito.} other {Ipadadala mo na ang ulat sa # user na hiniling ang item na ito.}}"
+	},
+	"reportDesigner.confirmPublishText2": {
+		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap ng iyong ulat habang nananatili itong nakalathala."
+	},
+	"reportDesigner.confirmPauseTitle": {
+		"string": "Pahihintuin mo ang ulat"
+	},
+	"reportDesigner.confirmPauseText": {
+		"string": "Hindi ipadadala ang ulat na ito sa mga user hanggang mailathala ito muli. Nais mo bang magpatuloy?"
+	},
+	"reportDesigner.confirmRepublishTitle": {
+		"string": "Handa ka na bang ilathala ang iyong mga binago?"
+	},
+	"reportDesigner.confirmRepublishText": {
+		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap nitong bagong bersyon ng ulat."
+	},
+	"reportDesigner.republishAndResend": {
+		"string": "{demand, plural, one {Ipadala rin ang pagwawasto sa user na nakatanggap na ng nakaraang bersyon nitong ulat.} other {Ipadala rin ang pagwawasto sa # mga user na nakatanggap ng nakaraang bersyon nitong ulat}}"
+	},
+	"reportDesigner.confirmRepublishResendTitle": {
+		"string": "Handa ka na bang ilathala ang iyong pagwawasto?"
+	},
+	"reportDesigner.confirmRepublishResendText": {
+		"string": "{demand, plural, one {Ipadadala ang iyong pagwawasto sa user na nakatanggap na ng nakaraang beryson nitong ulat.} other {Ipadadala ang iyong pagwawasto sa # mga user na nakatanggap ng nakaraang bersyon nitong ulat.}}"
+	},
+	"reportDesigner.confirmRepublishResendText2": {
+		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap nitong bagong bersyon ng ulat."
+	},
+	"reportDesigner.confirmLeaveText": {
+		"string": "Kung aalis ka, mawawala ang mga pagbabagong ginawa mo."
+	},
+	"reportDesigner.reportImagePreviewTitle": {
+		"string": "Preview ng report",
+		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
+	},
+	"mediaActionsBar.movedRestoreBack": {
+		"string": "Ibinalik galing sa basurahan, nagre-redirect..."
+	},
+	"mediaActionsBar.movedConfirmBack": {
+		"string": "Kumpirmado, nagre-redirect..."
+	},
+	"mediaActionsBar.restoreTo": {
+		"string": "Ibalik galing sa basurahan"
+	},
+	"mediaActionsBar.confirmTo": {
+		"string": "Kumpirmahin"
+	},
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
+		"string": "Ilipat ang item sa listahan..."
+	},
+	"mediaActionsBar.restoreOrConfirm": {
+		"string": "Ilipat sa listahan"
+	},
+	"webPageMediaCard.Error": {
+		"string": "Hindi matukoy ang item na ito. Maaaring tinanggal ito o makikita lang ng mga user na naka-log in. Mag-click sa itaas para puntahan ito. "
+	},
+	"userAssignments.filterByTeam": {
+		"string": "I-filter ayon sa workspace"
+	},
+	"userAssignments.other": {
+		"string": "Iba pa"
+	},
+	"userComponent.teams": {
+		"string": "Mga workspace"
+	},
+	"userComponents.assignments": {
+		"string": "Mga assignment"
+	},
+	"userComponents.privacy": {
+		"string": "Pagkapribado"
+	},
+	"userComponents.security": {
+		"string": "Seguridad"
+	},
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+	},
+	"userInfoEdit.sourceName": {
+		"string": "Pangalan"
+	},
+	"userInfoEdit.sourceBio": {
+		"string": "Bio"
+	},
+	"userInfoEdit.userEmail": {
+		"string": "Email"
+	},
+	"userInfoEdit.userSendEmailNotification": {
+		"string": "Tumanggap ng mga abiso sa email"
+	},
+	"userInfoEdit.editError": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang iyong profile. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"userInfoEdit.nameError": {
+		"string": "Hindi pwedeng blangko ang pangalan"
+	},
+	"userInfoEdit.addLinkLabel": {
+		"string": "Magdagdag ng link"
+	},
+	"userInfoEdit.emailConfirmed": {
+		"string": "✔ Kumpirmado ang address"
+	},
+	"userInfoEdit.emailPendingConfirm": {
+		"string": "⚠ Nakabinbin ang pagkumpirma"
+	},
+	"userInfoEdit.invalidLink": {
+		"string": "Mangyaring maglagay ng wastong URL"
+	},
+	"userInfoEdit.addLinkHelper": {
+		"string": "Magdagdag ng link sa isang web page o social media profile. Tandaan: hindi nito maa-apektuhan ang iyong pamamaraan ng pag-login."
+	},
+	"userInfoEdit.addLink": {
+		"string": "Magdagdag ng Link"
+	},
+	"UserPrivacy.deleteAccount": {
+		"string": "Burahin ang Account"
+	},
+	"userPrivacy.deleteAccountConfirmationText": {
+		"string": "Sigurado ka ba? Tatanggalin nito ang iyong account at ila-log out ka mula sa app."
+	},
+	"userPrivacy.ppLink": {
+		"string": "Patakaran sa Pagkapribado"
+	},
+	"userPrivacy.title": {
+		"string": "Iyong impormasyon"
+	},
+	"userPrivacy.description": {
+		"string": "Mangyaring suriin ang aming {ppLink} para malaman kung paano ginagamit at itinatabi ng {appName} ang iyong impormasyon."
+	},
+	"userPrivacy.seeInformationText": {
+		"string": "Magpapadala kami ng file ng lahat ng nilalaman at datos na iyong ginawa at binuo sa {appName}. Pwede itong itabi para sa sariling rekord o ilipat sa ibang serbisyo."
+	},
+	"userPrivacy.seeInformationButton": {
+		"string": "Tingnan ang aking impormasyon"
+	},
+	"userPrivacy.stopProcessingText": {
+		"string": "Pwede mong hilinging itigil ng {appName} ang pagproseso ng iyong impormasyon sa ilalim ng mga tiyak na kundisyon."
+	},
+	"userPrivacy.stopProcessingButton": {
+		"string": "Humiling na itigil ang pagproseso"
+	},
+	"userPrivacy.connectedAccounts": {
+		"string": "Mga konektadong account"
+	},
+	"userPrivacy.delete": {
+		"string": "Burahin ang iyong account"
+	},
+	"userPrivacy.deleteAccountText": {
+		"string": "Kung buburahin mo ang iyong account, mawawala ang iyong personal na impormasyon. Bibigyan ng sagisag-panulat ang iyong mga komento, anotasyon, at aktibidad sa workspace at mananatili sila sa {appName}."
+	},
+	"userPrivacy.deleteAccountButton": {
+		"string": "Burahin ang aking account"
+	},
+	"UserSecurity.passwordInput": {
+		"string": "Kasalukuyang Password"
+	},
+	"UserSecurity.passwordError": {
+		"string": "Maling password"
+	},
+	"UserSecurity.verifyInput": {
+		"string": "Validation Code"
+	},
+	"UserSecurity.verifyError": {
+		"string": "Maling validation code"
+	},
+	"userSecurity.notification": {
+		"string": "Abiso"
+	},
+	"userSecurity.successfulLoginText": {
+		"string": "Tumanggap ng abiso para sa mga login mula sa bagong lokasyon o device"
+	},
+	"userSecurity.failedfulLoginText": {
+		"string": "Tumanggap ng abiso para sa {loginTrial} sunud-sunod na bigong pagtatangka sa pag-login."
+	},
+	"userSecurity.twoFactorAuthentication": {
+		"string": "Two factor authentication"
+	},
+	"userSecurity.suggestTwoFactorForSocialAccounts": {
+		"string": "Para ma-enable ang 2FA, kailangan mong gumawa ng password sa Check. Mangyaring gawin ito sa bahaging 'Palitan ang password' sa ibaba."
+	},
+	"userSecurity.requireTwoFactorAuth": {
+		"string": "Kailanganin ang two-factor authentication"
+	},
+	"userSecurity.authenticateHeader": {
+		"string": "Hakbang 1: Magpatunay"
+	},
+	"userSecurity.authenticateDescription": {
+		"string": "Ilagay ang kasalukuyang password para makumpirma ang iyong identidad:"
+	},
+	"userSecurity.disableAuthenticateDescription": {
+		"string": "Ilagay ang iyong password para ma-disable ang two-factor authentication"
+	},
+	"userSecurity.disableTwofactor": {
+		"string": "I-disable"
+	},
+	"userSecurity.downloadHeader": {
+		"string": "Hakbang 2: Mag-download"
+	},
+	"userSecurity.downloadDescription": {
+		"string": "Mangangailangan ng two-factor app, tulad ng Google Authenticator, sa iyong smartphone para magpatuloy:"
+	},
+	"userSecurity.qrcodeHeader": {
+		"string": "Hakbang 3: Mag-scan"
+	},
+	"userSecurity.qrcodeDescription": {
+		"string": "Gamit ang iyong two-factor app, i-scan itong QR code:"
+	},
+	"userSecurity.backupHeader": {
+		"string": "Hakbang 4: Mga backup code"
+	},
+	"userSecurity.backupDescription": {
+		"string": "Mariin naming iminumungkahi ang paggawa at pag-print ng mga backup code gamit ang pindutan sa ibaba. Ito ay mga single-use code na magagamit sa halip ng 2FA login kung sakaling mawalan ka ng access sa iyong 2FA device."
+	},
+	"userSecurity.backupNote": {
+		"string": "Tandaan: Ang mga dating backup code ay hindi na magagamit sa pag-click sa pindutan."
+	},
+	"userSecurity.generateGackup": {
+		"string": "Gumawa ng backup code"
+	},
+	"userSecurity.verifyHeader": {
+		"string": "Hakbang 5: Magberipika"
+	},
+	"userSecurity.verifyDescription": {
+		"string": "Para ma-enable ang two-factor authentication, ilagay ang 6-digit code mula sa iyong two-factor app:"
+	},
+	"userSecurity.enableTwofactor": {
+		"string": "I-enable"
+	},
+	"userSecurity.changePassword": {
+		"string": "Palitan ang password"
+	},
+	"tagInput.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"tagInput.search": {
+		"string": "Maghanap o magdagdag ng bagong tag"
+	},
+	"tagInput.addTag": {
+		"string": "Magdagdag ng Tag"
+	},
+	"tagMenu.tooltip": {
+		"string": "Mag-edit ng mga tag"
+	},
+	"tagMenu.done": {
+		"string": "Tapos na"
+	},
+	"tagPicker.emptyTags": {
+		"string": "Kasalukuyang walang tag para sa workspace na ito."
+	},
+	"tagPicker.tagNotFound": {
+		"string": "Hindi matagpuan ang tag na #{tag}"
+	},
+	"attribution.noResults": {
+		"string": "Walang resulta"
+	},
+	"attribution.search": {
+		"string": "Maghanap ng mga miyembro"
+	},
+	"createTask.newTask": {
+		"string": "Bagong gawain"
+	},
+	"tasks.addTask": {
+		"string": "Bagong gawain"
+	},
+	"tasks.addMetadata": {
+		"string": "Bagong metadata"
+	},
+	"tasks.shortAnswer": {
+		"string": "Teksto"
+	},
+	"tasks.chooseOne": {
+		"string": "Isahang pagpili"
+	},
+	"tasks.chooseMultiple": {
+		"string": "Maramihang pagpili"
+	},
+	"tasks.geolocation": {
+		"string": "Lokasyon"
+	},
+	"tasks.datetime": {
+		"string": "Petsa at oras"
+	},
+	"tasks.fileUpload": {
+		"string": "Pag-upload ng file"
+	},
+	"tasks.teamwideNudge": {
+		"string": "Mga default na gawain"
+	},
+	"datetimeRespondTask.cancelTask": {
+		"string": "Kanselahin"
+	},
+	"datetimeRespondTask.answerTask": {
+		"string": "Sagutin ang gawain"
+	},
+	"datetimeRespondTask.pickDate": {
+		"string": "Mamili ng petsa"
+	},
+	"datetimeRespondTask.time": {
+		"string": "Mamili ng oras"
+	},
+	"datetimeRespondTask.timezone": {
+		"string": "Mamili ng timezone"
+	},
+	"datetimeTaskResponse.timeIs": {
+		"string": "Tingnan itong timezone sa time.is"
+	},
+	"datetimeTaskResponse.invalidTimestamp": {
+		"string": "Error: Hindi wastong timestamp"
+	},
+	"singleChoiceTask.value": {
+		"string": "Value"
+	},
+	"singleChoiceTask.other": {
+		"string": "Iba pa"
+	},
+	"singleChoiceTask.addValue": {
+		"string": "Magdagdag ng Pagpipilian"
+	},
+	"singleChoiceTask.addOther": {
+		"string": "Magdagdag ng \"Iba pa\""
+	},
+	"editTaskDialog.editTask": {
+		"string": "I-edit ang gawain"
+	},
+	"editTaskDialog.editMetadata": {
+		"string": "I-edit ang patlang pang-metadata"
+	},
+	"editTaskDialog.newTask": {
+		"string": "Bagong gawain"
+	},
+	"editTaskDialog.newMetadata": {
+		"string": "Bagong patlang pang-metadata"
+	},
+	"tasks.taskPrompt": {
+		"string": "Prompt"
+	},
+	"tasks.description": {
+		"string": "Pagkakalarawan (hindi kinakailangan)"
+	},
+	"tasks.timezones": {
+		"string": "Mga available na timezone para makumpleto ang gawain"
+	},
+	"tasks.showInBrowserExtension": {
+		"string": "Ipakita sa browser extension"
+	},
+	"tasks.showInProj": {
+		"string": "Ipakita ang mga gawain sa"
+	},
+	"tasks.assign": {
+		"string": "Italaga"
+	},
+	"tasks.cancelAdd": {
+		"string": "Kanselahin"
+	},
+	"tasks.add": {
+		"string": "I-save"
+	},
+	"fileUploadRespondTask.cancelTask": {
+		"string": "Kanselahin"
+	},
+	"fileUploadRespondTask.answerTask": {
+		"string": "Sagutin ang gawain"
+	},
+	"geoLocationRespondTask.invalidCoords": {
+		"string": "Hindi wastong mga coordinate"
+	},
+	"geoLocationRespondTask.searching": {
+		"string": "Naghahanap…"
+	},
+	"geoLocationRespondTask.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang gawain. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"geoLocationRespondTask.notFound": {
+		"string": "Paumanhin, hindi matagpuan ang lugar na ito. Mangyaring sumubok ng iba."
+	},
+	"geolocationRespondTask.cancelTask": {
+		"string": "Kanselahin"
+	},
+	"geolocationRespondTask.answerTask": {
+		"string": "Sagutin ang gawain"
+	},
+	"geolocationRespondTask.searchMap": {
+		"string": "Maghanap sa mapa"
+	},
+	"geolocationRespondTask.placeName": {
+		"string": "I-customize ang pangalan ng lugar"
+	},
+	"geolocationRespondTask.coordinates": {
+		"string": "Latitude, Longitude"
+	},
+	"imageUploadRespondTask.cancelTask": {
+		"string": "Kanselahin"
+	},
+	"imageUploadRespondTask.answerTask": {
+		"string": "Sagutin ang gawain"
+	},
+	"tasks.cancelEdit": {
+		"string": "Kanselahin"
+	},
+	"tasks.answer": {
+		"string": "Sagutin ang Gawain"
+	},
+	"shortTextRespondTask.responseHint": {
+		"string": "Sumagot dito."
+	},
+	"shortTextRespondTask.cancelTask": {
+		"string": "Kanselahin"
+	},
+	"shortTextRespondTask.answerTask": {
+		"string": "Sagutin ang gawain"
+	},
+	"task.answeredBy": {
+		"string": "Kinumpleto ni {byName}"
+	},
+	"task.assignedTo": {
+		"string": "Itinalaga kay {name}"
+	},
+	"tasks.editAssignment": {
+		"string": "I-edit ang assignment"
+	},
+	"tasks.attributionSlogan": {
+		"string": "Para sa gawaing, \"{label}\""
+	},
+	"tasks.editAttribution": {
+		"string": "I-edit ang atribusyon"
+	},
+	"task.confirmDelete": {
+		"string": "Sigurado ka bang nais mong burahin ang gawaing ito?"
+	},
+	"task.confirmDeleteTitle": {
+		"string": "Burahin ang gawain?"
+	},
+	"task.confirmDeleteResponse": {
+		"string": "Sigurado ka bang nais mong burahin ang sagot na ito?"
+	},
+	"task.confirmDeleteResponseTitle": {
+		"string": "Burahin ang sagot?"
+	},
+	"taskActions.tooltipTask": {
+		"string": "Mga aksyong panggawain"
+	},
+	"taskActions.tooltipMetadata": {
+		"string": "Mga aksyong pang-metadata"
+	},
+	"task.edit": {
+		"string": "I-edit ang gawain"
+	},
+	"task.editResponse": {
+		"string": "I-edit ang sagot"
+	},
+	"task.deleteResponse": {
+		"string": "Burahin ang sagot"
+	},
+	"task.assignOrUnassign": {
+		"string": "Magtalaga / Magtanggal sa Pagkakatalaga"
+	},
+	"task.editAttribution": {
+		"string": "I-edit ang atribusyon"
+	},
+	"task.delete": {
+		"string": "Burahin ang gawain"
+	},
+	"taskLog.bubbleTooltip": {
+		"string": "Toggle log"
+	},
+	"taskTypeSelector.numTypes": {
+		"string": "{length, number} ang pinili"
+	},
+	"taskTypeSelector.allTypes": {
+		"string": "Lahat ng gawain"
+	},
+	"tasks.blankMetadata": {
+		"string": "Walang mga patlang pang-metadata"
+	},
+	"tasks.goToSettings": {
+		"string": "Pumunta sa settings"
+	},
+	"addTeamPage.titleFind": {
+		"string": "Maghanap ng dati nang workspace"
+	},
+	"addTeamPage.titleCreate": {
+		"string": "Gumawa ng workspace"
+	},
+	"createTeam.slugChecking": {
+		"string": "Tinitingnan ang availability…"
+	},
+	"createTeam.slugAvailable": {
+		"string": "Available!"
+	},
+	"createTeam.slugUnavailable": {
+		"string": "Paumanhin, hindi available ang slug na ito. Mangyaring sumubok ng isa pa."
+	},
+	"createTeam.createTeamError": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang workspace. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"createTeam.title": {
+		"string": "Gumawa ng workspace"
+	},
+	"createTeam.teamNameHint": {
+		"string": "Pangalan ng Workspace"
+	},
+	"createTeam.teamSlugHint": {
+		"string": "URL ng Workspace"
+	},
+	"createTeam.mainHeading": {
+		"string": "Gumawa ng workspace"
+	},
+	"createTeam.blurb": {
+		"string": "Gumawa ng workspace para sa iyong organisasyon, o para lang sa iyo:"
+	},
+	"createTeam.displayName": {
+		"string": "Pangalan ng Workspace"
+	},
+	"createTeam.url": {
+		"string": "URL ng Team"
+	},
+	"createTeam.submitButton": {
+		"string": "Gumawa"
+	},
+	"createTeam.requestToJoin": {
+		"string": "Pwede ka ring humiling na sumali sa dati nang workspace."
+	},
+	"createTeamTask.errorTask": {
+		"string": "Paumanhin, may naganap na error habang nililikha ang gawain. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"createTeamTask.errorMetadata": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang patlang pang-metadata. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"trash.emptyTrash": {
+		"string": "Ubusin ang laman ng basurahan"
+	},
+	"trash.emptyTrashConfirmationText": {
+		"string": "Sigurado ka ba? Permanente nitong buburahin ang {itemsCount, plural, one {1 item} other {# items}} at {notesCount, plural, one {1 annotation} other {# annotations}}."
+	},
+	"fetchBot.contactUs": {
+		"string": "Makipag-ugnay sa amin para sa setup"
+	},
+	"findTeamCard.teamSlugHint": {
+		"string": "URL ng workspace"
+	},
+	"findTeamCard.teamNotFound": {
+		"string": "Hindi matagpuan ang workspace!"
+	},
+	"findTeamCard.mainHeading": {
+		"string": "Maghanap ng dati nang workspace"
+	},
+	"findTeamCard.blurb": {
+		"string": "Para humiling na sumali sa dati nang workspace, ilagay ang pangalan dito, o kaya magsimula sa paggawa ng sarili mong workspace."
+	},
+	"findTeamCard.url": {
+		"string": "URL ng workspace"
+	},
+	"findTeamCard.submitButton": {
+		"string": "Maghanap ng workspace"
+	},
+	"findTeamCard.createYourOwn": {
+		"string": "Pwede ka ring gumawa ng sarili mong workspace."
+	},
+	"joinTeamComponent.error": {
+		"string": "Paumanhin, may naganap na error habang pinadadala ang iyong kahilingan. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"joinTeamComponent.autoApprove": {
+		"string": "Salamat sa pagsali sa {team}! Maaari ka nang magsimulang mag-ambag."
+	},
+	"joinTeamComponent.success": {
+		"string": "Salamat sa iyong interes sa pagsali sa {team}! Susuriin ng isang workspace administrator ang iyong aplikasyon sa lalong madaling panahon."
+	},
+	"joinTeamComponent.title": {
+		"string": "Sumali sa Workspace"
+	},
+	"joinTeamComponent.mainHeading": {
+		"string": "Kahilingan para sumali"
+	},
+	"joinTeamComponent.alreadyRequested": {
+		"string": "Humiling ka nang makasali sa {team}."
+	},
+	"joinTeamComponent.requestHasBeenSent": {
+		"string": "Naipadala na ang iyong kahilingan sa mga workspace administrator para aprubahan."
+	},
+	"joinTeamComponent.blurbGraf": {
+		"string": "Para humiling na makasali sa {team}, mag-click sa ibaba:"
+	},
+	"joinTeamComponent.buttonSubmitted": {
+		"string": "Naipadala ang Kahilingan"
+	},
+	"joinTeamComponent.buttonSubmit": {
+		"string": "Kahilingan para Sumali"
+	},
+	"RoleSelect.annotator": {
+		"string": "Anotador"
+	},
+	"RoleSelect.contributor": {
+		"string": "Tagapag-ambag"
+	},
+	"RoleSelect.journalist": {
+		"string": "Peryodista"
+	},
+	"RoleSelect.editor": {
+		"string": "Tagapag-edit"
+	},
+	"RoleSelect.owner": {
+		"string": "May-ari"
+	},
+	"slackConfig.title": {
+		"string": "Integration sa Slack"
+	},
+	"slackConfig.menuTooltip": {
+		"string": "Mga setting pang-integration"
+	},
+	"slackConfig.text": {
+		"string": "Mag-abiso sa isang Slack channel tungkol sa aktibidad ng workspace."
+	},
+	"switchTeams.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang workspace. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teams.yourTeams": {
+		"string": "Ang iyong mga workspace"
+	},
+	"teams.userTeams": {
+		"string": "Mga workspace ni {name}"
+	},
+	"switchTeams.member": {
+		"string": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+	},
+	"switchTeams.joinRequestMessage": {
+		"string": "Humiling kang makasali sa "
+	},
+	"switchTeams.cancelJoinRequest": {
+		"string": "Kanselahin"
+	},
+	"switchTeams.noTeams": {
+		"string": "Hindi miyembro ng kahit anong workspace."
+	},
+	"switchTeams.newTeamLink": {
+		"string": "Gumawa ng Workspace"
+	},
+	"tagTextCount.acknowledge": {
+		"string": "{count, plural, =0 {Oo} isa {Naiintindihan ko na sa pagbura ng tag na ito, matatanggal ito mula sa isang media item} iba pa {Naiintindihan ko na sa pagbura ng tag na ito, matatanggal ito mula sa # media item.}}"
+	},
+	"teamBots.success": {
+		"string": "Na-update ang mga setting!"
+	},
+	"teamBots.fail": {
+		"string": "Error! Mangyaring sumubok muli."
+	},
+	"teamBots.noBots": {
+		"string": "Walang naka-install na bot."
+	},
+	"teamBots.moreInfo": {
+		"string": "Karagdagang impormasyon"
+	},
+	"teamBots.remove": {
+		"string": "Tanggalin"
+	},
+	"teamBots.settingsTooltip": {
+		"string": "Mga setting ng bot"
+	},
+	"teamBots.confirmDeleteTitle": {
+		"string": "Ide-deactivate mo na ang {botName}"
+	},
+	"teamBots.confirmDeleteBlurb": {
+		"string": "Buburahin ang lahat ng mga setting at hindi na ito maibabalik. Sigurado ka bang nais mong magpatuloy?"
+	},
+	"teamBots.confirmLeaveTitle": {
+		"string": "Umalis nang hindi sine-save?"
+	},
+	"teamBots.confirmLeaveText": {
+		"string": "Kung aalis ka, mawawala ang mga pagbabagong ginawa mo."
+	},
+	"teamBots.confirmLeaveButtonLabel": {
+		"string": "Umalis"
+	},
+	"teamBots.settings": {
+		"string": "Mga setting"
+	},
+	"teamBots.save": {
+		"string": "I-save"
+	},
+	"teamBots.noSettings": {
+		"string": "Walang mga setting para sa bot na ito."
+	},
+	"teamBots.botGarden": {
+		"string": "I-browse ang Bot Garden"
+	},
+	"teamBots.confirmationTitle": {
+		"string": "Kumpirmahin"
+	},
+	"teamBots.confirmationMessage": {
+		"string": "Gagawing live ang mga pagbabago sa iyong bot. Makikita ng lahat ng user sa iyong tipline ang mga pagbabagong ito. Sigurado ka bang nais mong magpatuloy?"
+	},
+	"teamBots.smoochErrorTitle": {
+		"string": "Hindi available na option"
+	},
+	"teamBots.smoochErrorMessage": {
+		"string": "Hindi magagamit ang '9' bilang scenario option sa pangunahing talaan. Mangyaring pumili ng ibang value para sa mga sumusunod na wika: {languages}"
+	},
+	"teamBots.close": {
+		"string": "Isara"
+	},
+	"teamSettings.lists": {
+		"string": "Mga listahan"
+	},
+	"teamSettings.metadata": {
+		"string": "Metadata"
+	},
+	"teamSettings.tasks": {
+		"string": "Mga Gawain"
+	},
+	"teamSettings.rules": {
+		"string": "Mga panuntunan"
+	},
+	"teamSettings.Tags": {
+		"string": "Mga tag"
+	},
+	"teamSettings.languages": {
+		"string": "Mga wika"
+	},
+	"teamSettings.statuses": {
+		"string": "Mga status"
+	},
+	"teamSettings.report": {
+		"string": "Mag-ulat"
+	},
+	"teamSettings.integrations": {
+		"string": "Mga integration"
+	},
+	"teamSettings.bots": {
+		"string": "Mga bot"
+	},
+	"teamComponent.private": {
+		"string": "Pribado"
+	},
+	"teamComponent.public": {
+		"string": "Publiko"
+	},
+	"teamInfo.editTeam": {
+		"string": "I-edit"
+	},
+	"teamComponent.editError": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang workspace. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teamComponent.invalidLink": {
+		"string": "Mangyaring maglagay ng wastong URL"
+	},
+	"teamComponent.teamName": {
+		"string": "Pangalan"
+	},
+	"teamComponent.teamDescription": {
+		"string": "Pagkakalarawan"
+	},
+	"teamComponent.location": {
+		"string": "Lokasyon"
+	},
+	"teamComponent.phone": {
+		"string": "Numero ng telepono"
+	},
+	"teamComponent.website": {
+		"string": "Website"
+	},
+	"teamComponent.cancelButton": {
+		"string": "Kanselahin"
+	},
+	"teamComponent.saveButton": {
+		"string": "I-save"
+	},
+	"teamInviteCard.title": {
+		"string": "Mag-anyaya ng mga miyembro"
+	},
+	"teamMembersComponent.inviteLink": {
+		"string": "Para makapag-anyaya ng mga kasamahang sumali sa {teamName}, ipadala ang link na ito:"
+	},
+	"teamInviteCard.copy": {
+		"string": "NAKOPYA!"
+	},
+	"teamInviteCard.copied": {
+		"string": "KOPYAHIN"
+	},
+	"TeamInviteMembers.emailInput": {
+		"string": "Email address"
+	},
+	"TeamInviteMembers.emailMultipleInput": {
+		"string": "Gumamit ng kuwit para ipaghiwalay ang mga email"
+	},
+	"TeamInviteMembers.invalidEmail": {
+		"string": "Hindi wastong email address."
+	},
+	"TeamInviteMembers.existsEmail": {
+		"string": "Miyembro na."
+	},
+	"TeamInviteMembers.invitedEmail": {
+		"string": "Naanyaya na."
+	},
+	"TeamMembersListItem.contributor": {
+		"string": "Tagapag-ambag"
+	},
+	"TeamMembersListItem.journalist": {
+		"string": "Peryodista"
+	},
+	"TeamMembersListItem.editor": {
+		"string": "Tagapag-edit"
+	},
+	"TeamMembersListItem.annotator": {
+		"string": "Anotador"
+	},
+	"teamInviteMembers.resendEmailSuccess": {
+		"string": "Matagumpay na naipadala ang paanyaya."
+	},
+	"teamInviteMembers.inviteMembers": {
+		"string": "Anyayahan ang mga miyembro bilang"
+	},
+	"teamInviteMembers.inviteMember": {
+		"string": "Mag-anyaya"
+	},
+	"TeamInviteMembers.newInvite": {
+		"string": "Mag-anyaya ng mga miyembro"
+	},
+	"teamInviteMembers.customInvitation": {
+		"string": "Mensaheng paanyaya (hindi kinakailangan)"
+	},
+	"teamInviteMembers.addSeparate": {
+		"string": "Magdagdag ng hiwalay"
+	},
+	"teamInviteMembers.addAnother": {
+		"string": "Magdagdag ng isa pa"
+	},
+	"teamInviteMembers.addMany": {
+		"string": "Magdagdag ng marami"
+	},
+	"teamInviteMembers.cancelAdd": {
+		"string": "Kanselahin"
+	},
+	"teamInviteMembers.send": {
+		"string": "Ipadala"
+	},
+	"TeamMembersInvitedListItem.cancel": {
+		"string": "Kanselahin ang paanyaya"
+	},
+	"TeamMembersInvitedListItem.resend": {
+		"string": "Muling ipadala"
+	},
+	"teamLists.title": {
+		"string": "Mga setting panlistahan"
+	},
+	"teamLists.description": {
+		"string": "Piliin ang mga haliging nais mong ipakita sa lahat ng iyong mga listahan\n"
+	},
+	"teamMembersComponent.pendingInvitations": {
+		"string": "Mga nakabinbing paanyaya"
+	},
+	"teamMembershipRequests.requestsToJoin": {
+		"string": "Mga kahilingang sumali"
+	},
+	"teamMembersComponent.mainHeading": {
+		"string": "Mga miyembro"
+	},
+	"teamMembersComponent.editDoneButton": {
+		"string": "Tapos na"
+	},
+	"teamMembersComponent.editButton": {
+		"string": "I-edit"
+	},
+	"TeamMembersListItem.leaveTeam": {
+		"string": "Umalis sa workspace"
+	},
+	"TeamMembersListItem.singleOwner": {
+		"string": "Bago umalis sa workspace, mangyaring ilipat ang pagmamay-ari sa ibang miyembro."
+	},
+	"TeamMembersListItem.deleteMember": {
+		"string": "Tanggalin ang miyembro"
+	},
+	"TeamMembersListItem.confirmLeaveTitle": {
+		"string": "Sigurado ka bang nais mong umalis sa {team}?"
+	},
+	"TeamMembersListItem.confirmDeleteMemberTitle": {
+		"string": "Sigurado ka bang nais mong tanggalin si {user}?"
+	},
+	"TeamMembersListItem.confirmEditMemberTitle": {
+		"string": "Sigurado ka bang nais mong palitan ang papel ni {user}?"
+	},
+	"TeamMembersListItem.confirmLeaveBlurb": {
+		"string": "Tatanggalin ka mula sa {team}"
+	},
+	"TeamMembersListItem.confirmDeleteMemberBlurb": {
+		"string": "Ang user ay matatanggal mula sa {team}"
+	},
+	"TeamMembershipRequestsListItem.approve": {
+		"string": "Aprubahan"
+	},
+	"TeamMembershipRequestsListItem.deny": {
+		"string": "Tanggihan"
+	},
+	"teamComponent.projects": {
+		"string": "Mga listahan"
+	},
+	"teamComponent.noProjects": {
+		"string": "Walang listahan"
+	},
+	"teamComponent.projectAssignmentsCount": {
+		"string": "{count, plural, one {Nakatalaga sa isang miyembro} other {Nakatalaga sa # miyembro}}"
+	},
+	"teamReport.updateFail": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang mga setting ng ulat. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teamReport.updateSuccess": {
+		"string": "Matagumpay na na-update ang mga setting ng ulat!"
+	},
+	"teamReport.save": {
+		"string": "I-save"
+	},
+	"teamReport.title": {
+		"string": "Mga default na setting ng ulat"
+	},
+	"teamReport.subtitle": {
+		"string": "Ang nilalaman na itakda mo rito ay pwedeng ma-edit sa bawat indibidwal na ulat"
+	},
+	"teamReport.introduction": {
+		"string": "Panimula"
+	},
+	"teamReport.introductionSub": {
+		"string": "Gamitin ang placeholder na {query_date} para ipakita ang petsa ng orihinal na katanungan. Gamitin ang {status} para ipabatid ang status ng artikulo."
+	},
+	"teamReport.disclaimer": {
+		"string": "Disclaimer"
+	},
+	"teamReport.disclaimerSub": {
+		"string": "Disclaimer na ipakikita sa ilalim ng ulat kasama ang logo ng workspace."
+	},
+	"teamTags.menuTooltip": {
+		"string": "Mga aksyong pang-tag"
+	},
+	"teamTags.failUpdate": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teamTags.failDelete": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teamTags.failMove": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teamTags.fail": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"teamTags.editTag": {
+		"string": "I-edit ang tag"
+	},
+	"teamTags.deleteTag": {
+		"string": "Burahin ang tag"
+	},
+	"teamTags.itemsCount": {
+		"string": "{count, plural, =0 {no items} one {1 item} other {# items}}"
+	},
+	"teamTags.counter": {
+		"string": "{total, plural, =0 {Walang tag} one {1 tag ({hidden} itinago ng mga filter)} other {# tags ({hidden} itinago ng mga filter)}}"
+	},
+	"teamTags.counterNoHidden": {
+		"string": "{total, plural, =0 {Walang tag} one {1 tag} other {# tags}}"
+	},
+	"teamTags.tooltip": {
+		"string": "I-filter at isaayos ang listahan"
+	},
+	"teamTags.noTags": {
+		"string": "Walang tag"
+	},
+	"teamTags.new": {
+		"string": "Bagong tag"
+	},
+	"teamTags.addTag": {
+		"string": "Magdagdag ng tag"
+	},
+	"teamTags.confirmDeleteTitle": {
+		"string": "Sigurado ka bang nais mong burahin ang tag na ito?"
+	},
+	"teamTasks.confirmDeleteTaskTitle": {
+		"string": "Sigurado ka bang nais mong burahin ang gawaing ito?"
+	},
+	"teamTasks.confirmDeleteMetadataTitle": {
+		"string": "Sigurado ka bang nais mong burahin ang metadata na ito?"
+	},
+	"teamTasks.confirmEditTaskTitle": {
+		"string": "Sigurado ka bang nais mong i-edit ang gawaing ito?"
+	},
+	"teamTasks.confirmEditMetadataTitle": {
+		"string": "Sigurado ka bang nais mong i-edit ang metadata na ito?"
+	},
+	"teamTasks.confirmEditBlurb": {
+		"string": "Kasunod ng pag-apply ng pagbabagong ito, mababago rin ang mga kaugnay na gawaing pang-item, maliban sa mga nakumpleto na."
+	},
+	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
+		"string": "Mage-edit ka ng mga gawain sa {itemsNumber, plural, one {1 item} other {# items}}. Kung magpapatuloy, mababago rin ang lahat ng gawaing iyon."
+	},
+	"teamTasks.confirmDeleteBlurb": {
+		"string": "Buburahin mo ang mga piniling gawain mula sa {itemsNumber, plural, one {1 item} other {# items}}. Kung magpapatuloy, mabubura rin ang mga sagot sa mga gawaing iyon."
+	},
+	"teamTasks.confirmEditkeepCompleted": {
+		"string": "Panatilihin ang mga nakumpletong gawain, kasama ang kanilang kasalukuyang pangalan at pagkakalarawan."
+	},
+	"teamTasks.confirmDeletekeepCompleted": {
+		"string": "Panatilihin ang mga nakumpletong gawain, kasama ang kanilang mga kasalukuyang sagot."
+	},
+	"teamTasks.processMessage": {
+		"string": "Nais mo bang magpatuloy?"
+	},
+	"teamTasks.filterLabelHidden": {
+		"string": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
+	},
+	"teamTasks.filterLabel": {
+		"string": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
+	},
+	"teamTasks.blank": {
+		"string": "Walang mapapakitang default na gawain"
+	},
+	"teamTasks.blankMetadata": {
+		"string": "Walang mga patlang pang-metadata"
+	},
+	"teamTasks.filter": {
+		"string": "I-filter ang mga gawain"
+	},
+	"teamTasks.projFilter": {
+		"string": "Ipakita ang mga gawain sa"
+	},
+	"teamTasks.typeFilter": {
+		"string": "Uri ng gawain"
+	},
+	"teamTasks.tasks": {
+		"string": "Mga Gawain"
+	},
+	"teamTasks.metadata": {
+		"string": "Metadata"
+	},
+	"teamTasks.edit": {
+		"string": "I-edit"
+	},
+	"teamTasks.delete": {
+		"string": "Burahin"
+	},
+	"teams.title": {
+		"string": "Mga workspace"
+	},
+	"trash.title": {
+		"string": "Basurahan"
+	},
+	"unconfirmed.title": {
+		"string": "Hindi kumpirmado"
+	},
+	"tasks.done": {
+		"string": "Tapos na"
+	},
+	"ConfirmEmail.title": {
+		"string": "Kumpirmahin ang iyong email"
+	},
+	"ConfirmEmail.content": {
+		"string": "Mangyaring tingnan ang iyong email para maberipika ang iyong account."
+	},
+	"ConfirmEmail.resendConfirmation": {
+		"string": "Muling ipadala"
+	},
+	"UserConnectedAccount.connectButton": {
+		"string": "Kumonekta"
+	},
+	"UserConnectedAccount.disconnectButton": {
+		"string": "Magdiskonekta"
+	},
+	"UserConnectedAccount.disconnectAccountTitle": {
+		"string": "Idiskonekta ang account"
+	},
+	"UserConnectedAccount.disconnectAccountConfirmationText": {
+		"string": "Sigurado ka ba? Ididiskonekta nito ang login account."
+	},
+	"UserConnectedAccount.addAnother": {
+		"string": "Magdagdag ng ibang account"
+	},
+	"userEmail.title": {
+		"string": "Idagdag ang iyong email"
+	},
+	"userEmail.emailInputHint": {
+		"string": "email@example.com"
+	},
+	"userEmail.text": {
+		"string": "Para makapagpadala ng mga abiso, kailangan namin ang iyong email address. Kung nais mong makatanggap ng mga abiso, mangyaring ilagay ang iyong email address. Kung hindi, i-click ang \"Skip\""
+	},
+	"userEmail.emailInputLabel": {
+		"string": "Email"
+	},
+	"userEmail.skip": {
+		"string": "Laktawan"
+	},
+	"userEmail.submit": {
+		"string": "Isumite"
+	},
+	"userMenu.edit": {
+		"string": "I-edit ang profile"
+	},
+	"userTooltip.dateJoined": {
+		"string": "Sumali noong {date} • {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
+	},
+	"UserUtil.annotator": {
+		"string": "Anotador"
+	},
+	"UserUtil.contributor": {
+		"string": "Tagapag-ambag"
+	},
+	"UserUtil.journalist": {
+		"string": "Peryodista"
+	},
+	"UserUtil.editor": {
+		"string": "Tagapag-edit"
+	},
+	"UserUtil.owner": {
+		"string": "May-ari"
+	},
+	"searchKeywordConfig.metadata": {
+		"string": "Metadata"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Mga Gawain"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Itinanggal sa pagkakalathala"
+	},
+	"reportStatusCell.paused": {
+		"string": "Inihinto"
+	},
+	"reportStatusCell.published": {
+		"string": "Inilathala"
+	},
+	"list.Item": {
+		"string": "Item"
+	},
+	"list.Demand": {
+		"string": "Mga kahilingan"
+	},
+	"list.ShareCount": {
+		"string": "Mga Share sa FB"
+	},
+	"list.LinkedItems": {
+		"string": "Katulad na media"
+	},
+	"list.Type": {
+		"string": "Uri"
+	},
+	"list.Status": {
+		"string": "Status"
+	},
+	"list.FirstSeen": {
+		"string": "Isinumite"
+	},
+	"list.LastSeen": {
+		"string": "Huling isinumite"
+	},
+	"list.updated": {
+		"string": "In-update"
+	},
+	"list.reportStatus": {
+		"string": "Iulat ang status"
+	},
+	"list.tags": {
+		"string": "Mga tag"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Nailathala ang media"
+	},
+	"list.reactCount": {
+		"string": "Mga Reaksyon sa FB"
+	},
+	"list.commentCount": {
+		"string": "Mga Komento sa FB"
+	},
+	"list.relatedCount": {
+		"string": "Magkaugnay"
+	},
+	"list.suggestionsCount": {
+		"string": "Mga iminungkahing tugma"
+	},
+	"reportDesigner.title": {
+		"string": "Disenyuhan ang iyong ulat"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Umalis"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Pamagat (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.content": {
+		"string": "Nilalaman (hindi hihigit sa {max} karakter)"
+	},
+	"reportDesigner.textError": {
+		"string": "Kailangan mong magbigay ng teksto para sa ulat o tanggalan ng tsek ang kahong 'Teksto ng ulat'"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Madilim na overlay"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Tanggalin ang larawan"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Petsa ng pagkakalathala"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Magdagdag ng laman sa panimula"
+	},
+	"reportDesigner.addText": {
+		"string": "Magdagdag ng laman sa text message"
+	},
+	"reportDesigner.firstSent": {
+		"string": "Unang inilathala"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Natanggap ang mga ulat"
+	},
+	"reportDesigner.cannotPublish": {
+		"string": "Punan kahit ang teksto ng ulat o ang larawan para mailathala ang iyong ulat. Siguruhing gumawa ng ulat para sa pangunahing wika ({language})."
+	},
+	"mediaItem.error": {
+		"string": "Error, mangyaring sumubok muli"
+	},
+	"mediaItem.pinning": {
+		"string": "Ipini-pin..."
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Tapos na, nagre-redirect sa bagong pangunahing item..."
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {# kahilingan} other {# kahilingan}}"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "I-pin bilang pangunahin"
+	},
+	"mediaItem.detach": {
+		"string": "I-detach"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Hindi maidagdag ang kaugnay na item"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "Matagumpay na naidagdag ang kaugnay na item"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {# kaugnay na item} other {# kaugnay na item}}"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Magdagdag ng kaugnayan"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Magdagdag ng kaugnayan"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Mga kahilingan"
+	},
+	"mediaSimilaritiesComponent.back": {
+		"string": "Bumalik"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Pangunahing media"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Lahat ng katulad na media"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Mga note"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Mag-click sa isang item"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Mag-angkat ng katulad na media sa item na ito"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "I-export ang lahat ng media sa ibang item"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Hindi maidagdag ang katulad na item",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "Matagumpay na naidagdag ang katulad na item",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Magdagdag ng katulad"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Mag-angkat ng katulad na media sa item na ito"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "I-export ang lahat ng media sa ibang item"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "I-export bilang katulad"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "Mag-angkat ng katulad na item"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "Idinagdag ang media na ito bilang katulad ng isa pang item"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "Iminungkahi na ang media na ito ay katulad ng isa pang item"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "{count, plural, one {# kumpirmadong katulad na media} other {# kumpirmadong katulad na media}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "{count, plural, one {# iminumungkahing katugma} other {# iminumungkahing katugma}}"
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Bumalik"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "Mga iminumungkahing katugma ({current} sa {total})"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "Magkatulad ba ang pangunahin at ang iminumungkahing media?"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "Walang iminumungkahing katugma"
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Bumalik sa pangunahing pananaw"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Mga kahilingan"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "Walang kahilingan"
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Mga note"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "Walang note"
+	},
+	"addLanguageAction.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"addLanguageAction.newLanguage": {
+		"string": "Bagong wika"
+	},
+	"addLanguageAction.title": {
+		"string": "Pumili ng bagong wika"
+	},
+	"addLanguageAction.selectLanguage": {
+		"string": "Mamili ng wika"
+	},
+	"addLanguageAction.addLanguage": {
+		"string": "Magdagdag ng wika"
+	},
+	"languageListItem.default": {
+		"string": "{language} (default)"
+	},
+	"statusListItem.makeDefault": {
+		"string": "Gawing default"
+	},
+	"statusListItem.confirmDefaultBody": {
+		"string": "{language} ang magiging default na tutugon sa mga user na gagamit ng bot sa mga wikang wala sa listahang ito."
+	},
+	"statusListItem.confirmDefaultButton": {
+		"string": "Gawing default"
+	},
+	"statusListItem.confirmDefaultTitle": {
+		"string": "Gawing default na wika?"
+	},
+	"statusListItem.confirmDeleteBody1": {
+		"string": "Hindi na ipadadala ang mga nilalamang nasa wikang {language}, at gagamitin na lang ang default na wika."
+	},
+	"statusListItem.confirmDeleteBody2": {
+		"string": "Kasama rito ang mga nilalaman ng Tipline bot, Mga Status, at Ulat."
+	},
+	"statusListItem.confirmDeleteTitle": {
+		"string": "Burahin ang wikang ito?"
+	},
+	"languagesComponent.title": {
+		"string": "Mga wika ng nilalaman"
+	},
+	"languagesComponent.blurb": {
+		"string": "Magdagdag ng mga bagong wika sa iyong workspace para makagawa ng mga ulat, tipline bot, at mga status sa maraming wika kapag nakikipag-usap sa mga user."
+	},
+	"translationNeededDialog.title": {
+		"string": "Kinakailangan ang pagsasalin ng status"
+	},
+	"translationNeededDialog.body": {
+		"string": "Para gawing default na wika ang {language}, kailangan munang isalin sa {language} ang lahat ng mga dating status sa setting tab ng Status."
+	},
+	"rule.copyOf": {
+		"string": "Kopya ng {ruleName}"
+	},
+	"ruleBody.ruleNameValidation": {
+		"string": "Kinakailangan ang pangalan ng panuntunan"
+	},
+	"ruleBody.ruleName": {
+		"string": "Pangalan"
+	},
+	"ruleBody.if": {
+		"string": "Kung "
+	},
+	"ruleBody.then": {
+		"string": "Samakatuwid"
+	},
+	"ruleOperatorWrapper.and": {
+		"string": "At"
+	},
+	"ruleOperatorWrapper.or": {
+		"string": "O"
+	},
+	"ruleOperatorWrapper.removeTheAbove": {
+		"string": "Tanggalin ang item sa itaas"
+	},
+	"ruleToolbar.back": {
+		"string": "Bumalik"
+	},
+	"ruleToolbar.more": {
+		"string": "Dagdagan"
+	},
+	"ruleToolbar.duplicate": {
+		"string": "I-duplicate"
+	},
+	"ruleToolbar.delete": {
+		"string": "Burahin"
+	},
+	"rulesTableToolbar.save": {
+		"string": "I-save"
+	},
+	"ruleToolbar.deleteConfirmationTitle": {
+		"string": "Burahin ang panuntunan?"
+	},
+	"ruleToolbar.deleteConfirmationText": {
+		"string": "Sigurado ka bang nais mong burahin ang panuntunang ito?"
+	},
+	"ruleToolbar.leaveConfirmationTitle": {
+		"string": "Isara nang hindi sine-save?"
+	},
+	"ruleToolbar.leaveConfirmationText": {
+		"string": "Kung magpapatuloy, mawawala ang mga pagbabagong ginawa mo."
+	},
+	"rulesComponent.defaultErrorMessage": {
+		"string": "Hindi ma-save ang mga panuntunan"
+	},
+	"rulesComponent.savedSuccessfully": {
+		"string": "Matagumpay na nai-save ang mga panuntunan!"
+	},
+	"rulesTableHead.name": {
+		"string": "Pangalan"
+	},
+	"rulesTableHead.updated": {
+		"string": "In-update"
+	},
+	"rulesTableHead.selectAll": {
+		"string": "Piliin ang lahat ng panuntunan"
+	},
+	"rulesTableToolbar.selected": {
+		"string": "{numSelected, plural, one {1 pinili} other {# pinili}}"
+	},
+	"rulesTableToolbar.title": {
+		"string": "{numRules, plural, one {1 panuntunan} other {# panuntunan}}"
+	},
+	"rulesTableToolbar.delete": {
+		"string": "Burahin"
+	},
+	"rulesTableToolbar.add": {
+		"string": "Bagong panuntunan"
+	},
+	"rulesTableToolbar.deleteConfirmationTitle": {
+		"string": "Burahin ang mga piniling panuntunan?"
+	},
+	"rulesTableToolbar.deleteConfirmationText": {
+		"string": "Sigurado ka bang nais mong burahin ang mga panuntunang ito?"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Hindi mai-save ang mga setting ng Slack"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Matagumpay na na-save ang mga setting ng Slack!"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Magpadala ng abiso sa mga Slack channel tuwing may idinaragdag na pahayag sa mga piling listahan"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Slack webhook"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Kaganapan"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Magpadala ng mga abiso sa"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Kung nasa listahan ang item"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Channel ng Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Lahat ng iba pang aktibidad"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Lahat ng aktibidad sa workspace"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Bagong abiso"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Kanselahin"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "I-save"
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Ilipat ang mga item sa"
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Kailangan mong baguhin ang status ng {itemsCount, plural, one {one item} other {# items}} para mabura ang status na ito"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "May {itemsCount, plural, one {is one item} other {are # items}} na may status na {statusLabel} na kailangang mapalitan ng ibang status bago burahin ang status na ito."
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Pwede mo ring baguhin isa-isa ang bawat status ng item."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {Isa sa mga item na iyon ay kasalukuyang nakalathala.} other {# sa mga item na iyon ay kasalukuyang nakalathala.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Ilipat ang mga item at burahin ang status"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "I-edit ang status"
+	},
+	"editStatusDialog.title": {
+		"string": "Magdagdag ng bagong status"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Status (hindi hihigit sa {max} karakter)"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Pagkakalarawan"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Magdagdag ng status"
+	},
+	"statusListItem.noDescription": {
+		"string": "Walang pagkakalarawan"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (default)"
+	},
+	"statusesComponent.error": {
+		"string": "Paumanhin, may naganap na error habang inu-update ang mga status. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"statusesComponent.saved": {
+		"string": "Matagumpay na na-save ang mga status!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 status} other {# mga status}}"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Bagong status"
+	},
+	"statusesComponent.blurb": {
+		"string": "Makikita ang pamagat ng status kapag nagpapadala ng ulat sa mga user."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Isalin ang mga status sa mga sekondaryong wika para maipakita sila sa mga lokal na wika sa iyong mga ulat pang-fact check."
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Kulang sa pagsasalin"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Kulang sa pagsasalin ang ilang mga status. Posibleng hindi mabasa ng mga user ang mga status na hindi pa naisasalin."
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Magpatuloy at i-save"
+	},
+	"smoochBotMenuEditor.scenario": {
+		"string": "Senaryo"
+	},
+	"smoochBotMenuOption.mainState": {
+		"string": "Pangunahing talaan"
+	},
+	"smoochBotMenuOption.secondaryState": {
+		"string": "Sekondaryong talaan"
+	},
+	"smoochBotMenuOption.queryState": {
+		"string": "Query prompt"
+	},
+	"smoochBotMenuOption.resource": {
+		"string": "Ulat"
+	},
+	"smoochBotMenuOption.languageAction": {
+		"string": "{languageName} (pangunahing talaan)"
+	},
+	"smoochBotMenuOption.if": {
+		"string": "Kung"
+	},
+	"smoochBotMenuOption.condition": {
+		"string": "May katugma ang sumusunod na keyword"
+	},
+	"smoochBotMenuOption.errorTos": {
+		"string": "Magre-redirect ang '9' sa mga tuntunin ng serbisyo. Hindi ito magagamit bilang pagpipilian sa pangunahing talaan."
+	},
+	"smoochBotMenuOption.then": {
+		"string": "Samakatuwid"
+	},
+	"smoochBotMenuOption.action": {
+		"string": "Tumugon gamit ang"
+	},
+	"smoochBotMenuOption.add": {
+		"string": "Gumawa ng \"{resourceName}\""
+	},
+	"smoochBotMenuOption.selectMessage": {
+		"string": "Mamili ng mensahe"
+	},
+	"smoochBotMultiTextEditor.errorNine": {
+		"string": "Kailangang isama ang option na '9' para ma-access ng mga user ang Pahayag sa Pagkapribado"
+	},
+	"smoochBotResourceEditor.rssPlaceholder": {
+		"string": "Pampublikong URL na nagbabalik ng N mga artikulong sa RSS format"
+	},
+	"smoochBotResourceEditor.error": {
+		"string": "Tila hindi wastong RSS feed ang URL na ito"
+	},
+	"smoochBotResourceEditor.title": {
+		"string": "Pamagat ng bot resource"
+	},
+	"smoochBotResourceEditor.addContent": {
+		"string": "Manu-manong lagyan ng laman"
+	},
+	"smoochBotResourceEditor.rss": {
+		"string": "Magdagdag ng kontent mula sa RSS feed"
+	},
+	"smoochBotResourceEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotResourceEditor.numberOfArticles": {
+		"string": "Bilang ng mga artikulong ibabalik"
+	},
+	"smoochBotResourceEditor.load": {
+		"string": "I-load"
+	},
+	"smoochBotResourceEditor.delete": {
+		"string": "Burahin"
+	},
+	"smoochBotSelectReport.dialogTitle": {
+		"string": "Mamili ng ulat"
+	},
+	"smoochBotSelectReport.dialogDescription": {
+		"string": "Hanapin ang pamagat ng item na nais mong ipadala bilang ulat. Tutugon ang bot sa user kasama ang ulat na ito. Kailangang makumpleto ang ulat bago ito mahanap dito."
+	},
+	"smoochBotSelectReport.cancel": {
+		"string": "Kanselahin"
+	},
+	"smoochBotSelectReport.confirm": {
+		"string": "Kumpirmahin"
+	},
+	"smoochBot.scenarios": {
+		"string": "Mga senaryo"
+	},
+	"smoochBot.settings": {
+		"string": "Mga setting"
+	},
+	"smoochBot.title": {
+		"string": "Disenyuhan ang iyong bot"
+	},
+	"smoochBot.addResource": {
+		"string": "Magdagdag ng resource"
+	},
+	"smoochBot.labelGreeting": {
+		"string": "Pagbati"
+	},
+	"smoochBot.labelMainMenu": {
+		"string": "Pangunahing talaan"
+	},
+	"smoochBot.labelSecondaryMenu": {
+		"string": "Sekondaryong talaan"
+	},
+	"smoochBot.labelQueryPrompt": {
+		"string": "Query prompt"
+	},
+	"smoochBot.labelQueryReceived": {
+		"string": "Natanggap ang katanungan"
+	},
+	"smoochBot.labelOptionNotAvailable": {
+		"string": "Hindi available ang pagpipilian"
+	},
+	"smoochBot.labelReportUpdated": {
+		"string": "In-update ang ulat"
+	},
+	"smoochBot.labelInvalidFormat": {
+		"string": "Hindi wastong format"
+	},
+	"smoochBot.labelInactive": {
+		"string": "Abiso sa kawalan ng aktibidad"
+	},
+	"smoochBot.labelPrivacyStatement": {
+		"string": "Pahayag sa Pagkapribado"
+	},
+	"smoochBot.descriptionGreeting": {
+		"string": "Ang unang mensaheng ipinadadala sa user. Ipinakikilala nito ang iyong organisasyon at ang inyong serbisyong ipinagkakaloob sa pamamagitan ng bot na ito."
+	},
+	"smoochBot.descriptionMainMenu": {
+		"string": "Isang talaang nagsasabi sa user na pumili mula sa hanay ng mga pagpipilian. Ang mensaheng ito ay awtomatikong kasunod ng mensaheng Pagbati. Hindi magagamit ang 9 bilang pagpipilian sa pangunahing talaan."
+	},
+	"smoochBot.descriptionSecondaryMenu": {
+		"string": "Isang opsyonal na talaang nagsasabi sa user na pumili mula sa hanay ng mga pagpipilian. Kapag tumugon ang user gamit ang isa sa mga pagpipilian, maaaring magpadala ang bot ng ulat o ituro sila sa ibang mensahe ng bot."
+	},
+	"smoochBot.descriptionQueryPrompt": {
+		"string": "Ang mensaheng nagsasabi sa user na magsumite ng kontent para sa pag-fact check."
+	},
+	"smoochBot.descriptionQueryReceived": {
+		"string": "Kumpirmasyong pinadadala sa user pagkatanggap ng nawawastong katanungan mula sa kanya."
+	},
+	"smoochBot.descriptionOptionNotAvailable": {
+		"string": "Ang mensaheng pinadadala kapag ang tugon ng user sa menu ay hindi wastong senaryong pantalaan."
+	},
+	"smoochBot.descriptionReportUpdated": {
+		"string": "Ang mensaheng ipinadadala sa user kapag nagbago ang status ng isang ulat. Kailangang makumpleto ang ulat para maipadala ang mensaheng ito."
+	},
+	"smoochBot.descriptionInvalidFormat": {
+		"string": "Isang mensaheng awtomatikong ipinadadala sa user kapag nagpadala sila ng file na hindi suportado ng Check."
+	},
+	"smoochBot.descriptionInactive": {
+		"string": "Ang mensaheng ipinadadala sa sinumang user na nakapagpadala ng mensahe sa tipline habang nakatakda bilang inactive ang bot ng Check Message."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting": {
+		"string": "Bilang default, available para sa lahat ng user ang sumusunod na Pahayag sa Pagkapribado. Kapag papalitan ito ng sariling pahayag, kailangan din itong gawin para sa bawat wikang aktibo ang iyong bot."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting2": {
+		"string": "Kailangang naka-reference ang option na '9' para ma-access ng mga user ang Pahayag sa Pagkapribado sa Pangunahing talaan."
+	},
+	"smoochBot.descriptionPrivacyStatementContent": {
+		"string": "Nilalaman ng Pahayag sa Pagkapribado. I-edit ang teksto sa ibaba o palitan ito ng sariling nilalaman."
+	},
+	"smoochBot.footnoteGreeting": {
+		"string": "Awtomatikong idaragdag ang sumusunod na pahayag at option sa dulo ng mensaheng ito: 'Hindi namin kailanman ibabahagi ang impormasyong magtutukoy sa iyong personal na pagkakakilanlan. Tumugon ng 9 para basahin ang aming pahayag ukol sa Pagkapribado at Layunin."
+	},
+	"smoochBot.footnoteGreeting2": {
+		"string": "Mapapalitan ng sariling pahayag ang default na Pahayag sa Pagkapribado sa ilalim ng option na 'Pahayag sa Pagkapribado' sa pahinang ito."
+	},
+	"smoochBot.placeholderGreeting": {
+		"string": "Kumusta? Maligayang pagdating sa fact-checking bot ng {Name of your organization}."
+	},
+	"smoochBot.placeholderMainMenu": {
+		"string": "📌*Pangunahing Talaan*\n\n*Tumugon ng 1* (o 🔍) para mag-sumite ng kahilingan para sa pag-fact-check ng artikulo, video, larawan, o iba pang kontent.\n*Tumugon ng 2* (o 🦠) para makakuha ng pinakabagong impormasyon tungkol sa coronavirus disease (COVID-19)"
+	},
+	"smoochBot.placeholderSecondaryMenu": {
+		"string": "*Impormasyon tungkol sa Coronavirus disease (COVID-19)* 🦠\n\n👉*Tumugon gamit ang alinman sa mga sumusunod na bilang (o emoji) para makakuha ng impormasyon tungkol sa paksang iyon:*\n\n*1:* Paano ko mapangangalagaan ang sarili at/o ang aking pamilya?* 👨‍👩‍👧\n*2:* Tila magkakasakit na yata ako 🤒\n*3:* Paano ko kakayanin ang stress na kaugnay ng COVID-19? ❤️\n*4:* Impormasyon tungkol sa mga kaso at paggaling sa buong mundo  📊\n*5:* Ang mga pinakabagong update mula sa World Health Organization 🌐\n\n*Tumugon ng 0* para makabalik sa *Pangunahing Talaan* 📌"
+	},
+	"smoochBot.placeholderQueryPrompt": {
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
+	},
+	"smoochBot.placeholderQueryReceived": {
+		"string": "Salamat! Naitala na ang iyong kahilingan. Pinagsasama-sama at inaayos na ang mga tugon, at itinatrabaho na namin ang pagfa-fact check sa iyong mga katanungan.\n\n✔️*Sundan ang link na ito para sa naka-update na listahan ng mga karaniwang katanungang nai-fact-check na namin.* [ Link sa pahina ng mga fact-check sa iyong website ]\n\n👉 Tumugon ng kahit anong teksto para makabalik sa *Pangunahing Talaan*"
+	},
+	"smoochBot.placeholderOptionNotAvailable": {
+		"string": "🤖Paumanhin, hindi ko naintindihan ang iyong mensahe. Mangyaring sumubok muli!"
+	},
+	"smoochBot.placeholderReportUpdated": {
+		"string": "❗️Ang fact-check na ipinadala namin sa iyo ay *in-update* ng bagong impormasyon:"
+	},
+	"smoochBot.placeholderInvalidFormat": {
+		"string": "❌Paumanhin, sa ngayon, hindi kami nakatatanggap ng ganitong uri ng mensahe para sa beripikasyon.\n\nTumatanggap kami ng karamihan ng larawan, video, link, mensaheng teksto, at mga mensaheng nakabahagi sa WhatsApp."
+	},
+	"smoochBot.placeholderInactive": {
+		"string": "❌Salamat sa iyong mensahe. Kasalukuyang *inactive* ang aming serbisyong pang-fact-check.\n\nMakipag-ugnay sa amin sa *[email o iba pang contact]* para sa karagdagang katanungan."
+	},
+	"smoochBot.newResourceTitle": {
+		"string": "Panibagong bot resource"
+	},
+	"smoochBot.menuKeywords": {
+		"string": "Mga keyword na pinaghihiwalay ng mga kuwit"
+	},
+	"smoochBot.tos": {
+		"string": "Mga Tuntunin ng Serbisyo ({language})"
+	},
+	"teamListsComponent.defaultErrorMessage": {
+		"string": "Hindi mai-save ang mga setting panlistahan.",
+		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+	},
+	"teamListsComponent.savedSuccessfully": {
+		"string": "Matagumpay na nai-save ang mga setting panlistahan.",
+		"developer_comment": "Banner displayed when list settings are saved successfully"
+	},
+	"teamListsComponent.title": {
+		"string": "Mga setting panlistahan"
+	},
+	"teamListsComponent.save": {
+		"string": "I-save"
+	},
+	"teamListsComponent.description": {
+		"string": "Piliin ang mga haliging nais mong ipakita sa lahat ng iyong mga listahan"
+	},
+	"teamListsComponent.selectedColumns": {
+		"string": "Mga piniling haligi"
+	},
+	"teamListsComponent.availableColumns": {
+		"string": "Mga magagamit na haligi"
+	},
+	"teamListsComponent.confirmSaveTitle": {
+		"string": "Pagbabago sa listahang pang-workspace"
+	},
+	"teamListsComponent.confirmSaveText": {
+		"string": "Sigurado ka ba? Ang mga pagbabago mo ay makaaapekto sa lahat ng listahan at makikita ng lahat ng mga user sa iyong workspace."
+	},
+	"teamListsComponent.buttonLabel": {
+		"string": "I-save ang mga pagbabago para sa lahat ng listahan"
+	},
+	"teamListsItem.hide": {
+		"string": "Itago"
+	},
+	"teamListsItem.show": {
+		"string": "Ipakita"
+	}
+}
