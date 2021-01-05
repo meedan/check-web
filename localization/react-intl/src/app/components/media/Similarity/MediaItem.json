@@ -4,6 +4,11 @@
     "defaultMessage": "Error, please try again"
   },
   {
+    "id": "mediaItem.detachedSuccessfully",
+    "description": "Banner displayed after items are detached successfully",
+    "defaultMessage": "Item detached to '{toProject}'"
+  },
+  {
     "id": "mediaItem.pinning",
     "defaultMessage": "Pinning…"
   },
@@ -22,5 +27,17 @@
   {
     "id": "mediaItem.detach",
     "defaultMessage": "Detach"
+  },
+  {
+    "id": "mediaItem.dialogdetachedToListTitle",
+    "defaultMessage": "Move detached item to…"
+  },
+  {
+    "id": "mediaItem.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaItem.detached",
+    "defaultMessage": "Move to list"
   }
 ]
