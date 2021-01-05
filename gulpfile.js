@@ -71,7 +71,7 @@ gulp.task('transifex:download', () => gulp.src('./localization/transifex/**/*.js
 
 gulp.task('transifex:translations', () => gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/')));
 
-gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
+gulp.task('transifex:prepare:merge', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
   const outputJson = {};
   inputJson.forEach((entry) => {
     outputJson[entry.id] = {
@@ -84,19 +84,22 @@ gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').
 .pipe(merge({ fileName: 'WebStructured.json' }))
 .pipe(gulp.dest('./localization/transifex/')));
 
+gulp.task('transifex:prepare:sort', () => gulp.src('./localization/transifex/WebStructured.json').pipe(jsonEditor((inputJson) => {
+  const orderedResource = Object.keys(inputJson).sort().reduce(
+    (obj, key) => {
+      obj[key] = inputJson[key];
+      return obj;
+    },
+    {}
+  );
+  return orderedResource;
+})).pipe(gulp.dest('./localization/transifex/')));
+
+gulp.task('transifex:prepare', gulp.series('transifex:prepare:merge', 'transifex:prepare:sort'));
+
 gulp.task('transifex:upload', () => gulp.src('./localization/transifex/WebStructured.json').pipe(transifexClient.pushResource()));
 
-gulp.task('transifex:export-structured', () => gulp.src('./localization/translations/**/*.json').pipe(jsonEditor((inputJson) => {
-  const outputJson = {};
-  for (const [key, value] of Object.entries(inputJson)) {
-    outputJson[key] = {
-      string: value,
-    };
-  }
-  return outputJson;
-}))
-.pipe(gulp.dest('./localization/export-structured/')));
-
+// FIXME: Remove unused?
 gulp.task('transifex:languages', () => {
   transifexClient.languages((data) => {
     console.log(JSON.stringify(data)); // eslint-disable-line no-console
