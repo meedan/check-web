@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 import { DatePicker } from '@material-ui/pickers';
 import TimeBefore from '../TimeBefore';
 import ConfirmDialog from '../layout/ConfirmDialog';
-import { parseStringUnixTimestamp } from '../../helpers';
+import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import { propsToData, formatDate } from './ReportDesigner/reportDesignerHelpers';
 import { can } from '../Can';
 import { opaqueBlack54 } from '../../styles/js/shared';
@@ -53,6 +53,9 @@ const MediaAnalysis = ({ projectMedia }) => {
     let defaultValue = null;
     if (projectMedia.media && projectMedia.media.metadata) {
       defaultValue = projectMedia.media.metadata[fieldName];
+    }
+    if (!defaultValue && projectMedia.quote) {
+      defaultValue = projectMedia.quote;
     }
     return defaultValue;
   };
@@ -271,7 +274,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             inputProps={{
               className: title === getDefaultValue('title') ? classes.placeholder : null,
             }}
-            value={title}
+            value={truncateLength(title, 110)}
             variant="outlined"
             rows={3}
             onBlur={(e) => { handleChange('title', e.target.value); }}

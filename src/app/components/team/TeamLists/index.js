@@ -13,6 +13,7 @@ const TeamLists = () => {
         query TeamListsQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
             id
+            slug
             list_columns
             team_bot_installations(first: 10000) {
               edges {

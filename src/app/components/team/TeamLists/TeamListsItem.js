@@ -12,9 +12,19 @@ const useStyles = makeStyles(theme => ({
   box: {
     border: `2px solid ${black16}`,
     borderRadius: '5px',
-    padding: theme.spacing(3),
+    padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
+    minHeight: theme.spacing(10),
+    background: 'white',
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  button: {
+    fontSize: 12,
+    fontWeight: 'normal',
   },
 }));
 
@@ -31,7 +41,6 @@ const TeamListsItem = ({
     key,
     label,
     show,
-    frozen,
   } = column;
   const classes = useStyles();
 
@@ -64,21 +73,33 @@ const TeamListsItem = ({
         alignItems="center"
         justifyContent="space-between"
       >
-        <Typography variant="body1">
-          {label}
-        </Typography>
-        { !frozen ?
-          <Button color="primary" size="small" onClick={handleToggle}>
-            { show ?
+        <Box>
+          <Typography variant="body2" className={classes.label}>
+            {label}
+          </Typography>
+          <Typography variant="caption">
+            { /^task_value_/.test(key) ?
               <FormattedMessage
-                id="teamListsItem.hide"
-                defaultMessage="Hide"
+                id="teamListsItem.metadata"
+                defaultMessage="Metadata"
               /> :
               <FormattedMessage
-                id="teamListsItem.show"
-                defaultMessage="Show"
+                id="teamListsItem.general"
+                defaultMessage="General"
               /> }
-          </Button> : null }
+          </Typography>
+        </Box>
+        <Button color="primary" size="small" onClick={handleToggle} className={classes.button}>
+          { show ?
+            <FormattedMessage
+              id="teamListsItem.hide"
+              defaultMessage="Hide"
+            /> :
+            <FormattedMessage
+              id="teamListsItem.show"
+              defaultMessage="Show"
+            /> }
+        </Button>
       </Box>
     </Box>
   );
@@ -97,7 +118,6 @@ TeamListsItem.propTypes = {
     key: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
     show: PropTypes.bool.isRequired,
-    frozen: PropTypes.bool.isRequired,
   }).isRequired,
   isFirst: PropTypes.bool,
   isLast: PropTypes.bool,

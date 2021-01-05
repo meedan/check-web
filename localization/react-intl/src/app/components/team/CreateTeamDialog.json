@@ -1,0 +1,26 @@
+[
+  {
+    "id": "createTeamDialog.defaultErrorMessage",
+    "defaultMessage": "Could not create new workspace"
+  },
+  {
+    "id": "createTeamDialog.dialogTitle",
+    "defaultMessage": "Create new workspace"
+  },
+  {
+    "id": "createTeamDialog.name",
+    "defaultMessage": "Workspace name"
+  },
+  {
+    "id": "createTeamDialog.url",
+    "defaultMessage": "Workspace URL"
+  },
+  {
+    "id": "createTeamDialog.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "createTeamDialog.create",
+    "defaultMessage": "Create"
+  }
+]
