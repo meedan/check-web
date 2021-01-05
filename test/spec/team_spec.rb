@@ -111,8 +111,8 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
+    @driver.execute_script('window.scrollTo(10, 0)')
     button = wait_for_selector('.team-bots__uninstall-button')
-    @driver.execute_script('window.scrollTo(0, 0)')
     button.click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
@@ -160,20 +160,22 @@ shared_examples 'team' do
   it 'should enable the Slack notifications', bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
+    @driver.execute_script('window.scrollTo(10, 0)')
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector("//span[contains(text(), 'Slack integration')]", :xpath)
-    @driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+    @driver.execute_script('window.scrollTo(10, 0)')
     expect(@driver.find_elements(:css, '.Mui-checked').empty?)
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector("button[title='Integration settings']").click
-    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
+    wait_for_selector("#slack-config__channel")
+    wait_for_selector("//span[contains(text(), 'Send notifications to Slack channels')]", :xpath)
     wait_for_selector('#slack-config__webhook').send_keys('https://hooks.slack.com/services/00000/0000000000')
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     @driver.navigate.refresh
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector("//span[contains(text(), 'Slack integration')]", :xpath)
-    @driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
+    @driver.execute_script('window.scrollTo(10, 0)')
     wait_for_selector('.Mui-checked')
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1)
     wait_for_selector("button[title='Integration settings']").click
