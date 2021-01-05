@@ -1,16 +1,16 @@
 [
   {
-    "id": "mediaItem.dialogdetachedToListTitle",
+    "id": "detachDialog.dialogdetachedToListTitle",
     "description": "Dialog title prompting user to select a destination list for the item",
     "defaultMessage": "Move detached item to…"
   },
   {
-    "id": "mediaItem.cancelButton",
+    "id": "detachDialog.cancelButton",
     "description": "Button to dismiss the dialog",
     "defaultMessage": "Cancel"
   },
   {
-    "id": "mediaItem.detached",
+    "id": "detachDialog.detached",
     "description": "Button to commit the action of moving item",
     "defaultMessage": "Move to list"
   }

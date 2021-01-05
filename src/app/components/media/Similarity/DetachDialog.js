@@ -38,21 +38,21 @@ const DetachDialog = ({ closeDialog, handleDelete }) => {
               excludeProjectDbids={[]}
               title={
                 <FormattedMessage
-                  id="mediaItem.dialogdetachedToListTitle"
+                  id="detachDialog.dialogdetachedToListTitle"
                   defaultMessage="Move detached item to…"
                   description="Dialog title prompting user to select a destination list for the item"
                 />
               }
               cancelLabel={
                 <FormattedMessage
-                  id="mediaItem.cancelButton"
+                  id="detachDialog.cancelButton"
                   defaultMessage="Cancel"
                   description="Button to dismiss the dialog"
                 />
               }
               submitLabel={
                 <FormattedMessage
-                  id="mediaItem.detached"
+                  id="detachDialog.detached"
                   defaultMessage="Move to list"
                   description="Button to commit the action of moving item"
                 />
