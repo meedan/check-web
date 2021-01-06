@@ -167,7 +167,7 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, '.Mui-checked').empty?)
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector("button[title='Integration settings']").click
-    wait_for_selector("#slack-config__channel")
+    wait_for_selector('#slack-config__channel')
     wait_for_selector("//span[contains(text(), 'Send notifications to Slack channels')]", :xpath)
     wait_for_selector('#slack-config__webhook').send_keys('https://hooks.slack.com/services/00000/0000000000')
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
