@@ -22,7 +22,7 @@
   {
     "id": "bulkActions.movedSuccessfully",
     "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved."
+    "defaultMessage": "Items moved to '{toProject}'"
   },
   {
     "id": "bulkActions.moveToTrashSuccessfully",
