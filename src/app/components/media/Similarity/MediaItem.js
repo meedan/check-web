@@ -312,7 +312,7 @@ const MediaItem = ({
         </Box> : null }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={handleDelete}>
+          <IconButton onClick={openDialog}>
             <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }
