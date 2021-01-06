@@ -234,7 +234,7 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
-  it 'should add media to another project from item page', bin6: true do
+  it 'should add media to another project from item page', bin3: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.drawer__create-project-button').click
