@@ -1,6 +1,13 @@
 shared_examples 'similarity' do
-  it 'import, export, list, pin and remove similarity itens', bin4: true do
+  it 'import, export, list, pin and remove similarity itens', bin5: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page 3, 0
+    wait_for_selector('.search__results-heading')
+    project_url = @driver.current_url.to_s
+    wait_for_selector('.drawer__create-project-button').click
+    wait_for_selector('input[name=title]').send_keys('list')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.project-list__link')
+    @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-analysis__copy-to-report')
@@ -11,7 +18,7 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('All similar media')).to be(true)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
-    @driver.navigate.to (@config['self_url']).to_s
+    @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
     wait_for_selector('.media-analysis__copy-to-report')
@@ -41,11 +48,15 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Claim 1')).to be(true)
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector("//span[contains(text(), 'Detach')]", :xpath).click
+    wait_for_selector('input[name=project-title]').send_keys('list')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.media-item__add-button').click
+    wait_for_selector('.message')
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Claim 1')).to be(false)
   end
 
-  it 'add and remove related itens', bin4: true do
+  it 'add and remove related itens', bin5: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page 2, 0
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)
@@ -63,7 +74,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Claim 0')).to be(false)
   end
 
-  it 'accept and reject suggested similarity' do
+  it 'accept and reject suggested similarity', bin5: true do
     data = api_create_team_and_project
     pm1 = api_create_claim(data: data, quote: 'claim 1')
     pm2 = api_create_claim(data: data, quote: 'claim 2')
