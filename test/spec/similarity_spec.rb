@@ -60,6 +60,13 @@ shared_examples 'similarity' do
     api_create_team_project_claims_sources_and_redirect_to_project_page 2, 0
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)
+    project_url = @driver.current_url.to_s
+    wait_for_selector('.drawer__create-project-button').click
+    wait_for_selector('input[name=title]').send_keys('list')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.project-list__link')
+    @driver.navigate.to project_url
+    wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-analysis__copy-to-report')
     expect(@driver.page_source.include?('Claim 0')).to be(false)
@@ -71,6 +78,9 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     wait_for_selector('.related-media-item__delete-relationship').click
+    wait_for_selector('input[name=project-title]').send_keys('list')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.media-item__add-button').click
     wait_for_selector_list_size('.MuiCardHeader-title', 1)
     expect(@driver.page_source.include?('Claim 0')).to be(false)
   end
