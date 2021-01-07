@@ -168,4 +168,15 @@ module ApiHelpers
     request_api 'link', { url: @media_url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
   end
+
+  def api_create_claim(params = {})
+    data = params[:data] || api_create_team_and_project
+    quote = params[:quote] || 'Claim'
+    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+  end
+
+  def api_suggest_similarity_between_items(team_id, source, target)
+    request_api 'suggest_similarity', { pm1: source, pm2: target, team_id: team_id }
+    @driver.navigate.to @config['self_url']
+  end
 end

@@ -1,0 +1,46 @@
+[
+  {
+    "id": "createTeamDialog.defaultErrorMessage",
+    "defaultMessage": "Could not create new workspace"
+  },
+  {
+    "id": "createTeamDialog.dialogTitleDuplicate",
+    "defaultMessage": "Duplicate workspace"
+  },
+  {
+    "id": "createTeamDialog.dialogTitleCreate",
+    "defaultMessage": "Create new workspace"
+  },
+  {
+    "id": "createTeamDialog.description",
+    "defaultMessage": "All settings from this workspace will be duplicated. No content will be added."
+  },
+  {
+    "id": "createTeamDialog.name",
+    "defaultMessage": "Workspace name"
+  },
+  {
+    "id": "createTeamDialog.url",
+    "defaultMessage": "Workspace URL"
+  },
+  {
+    "id": "createTeamDialog.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "createTeamDialog.duplicating",
+    "defaultMessage": "Duplicating..."
+  },
+  {
+    "id": "createTeamDialog.duplice",
+    "defaultMessage": "Duplicate"
+  },
+  {
+    "id": "createTeamDialog.creating",
+    "defaultMessage": "Creating..."
+  },
+  {
+    "id": "createTeamDialog.create",
+    "defaultMessage": "Create"
+  }
+]

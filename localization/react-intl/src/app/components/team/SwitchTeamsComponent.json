@@ -5,11 +5,15 @@
   },
   {
     "id": "teams.yourTeams",
-    "defaultMessage": "Your workspaces"
+    "defaultMessage": "Workspaces"
   },
   {
     "id": "teams.userTeams",
     "defaultMessage": "{name}'s workspaces"
+  },
+  {
+    "id": "switchTeams.newTeamLink",
+    "defaultMessage": "Create"
   },
   {
     "id": "switchTeams.member",
@@ -26,9 +30,5 @@
   {
     "id": "switchTeams.noTeams",
     "defaultMessage": "Not a member of any workspace."
-  },
-  {
-    "id": "switchTeams.newTeamLink",
-    "defaultMessage": "Create Workspace"
   }
 ]

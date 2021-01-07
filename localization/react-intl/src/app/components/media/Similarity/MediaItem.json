@@ -4,6 +4,11 @@
     "defaultMessage": "Error, please try again"
   },
   {
+    "id": "mediaItem.detachedSuccessfully",
+    "description": "Banner displayed after items are detached successfully",
+    "defaultMessage": "Item detached to '{toProject}'"
+  },
+  {
     "id": "mediaItem.pinning",
     "defaultMessage": "Pinning…"
   },

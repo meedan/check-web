@@ -13,6 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
+import DetachDialog from './DetachDialog';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
@@ -83,6 +84,9 @@ const MediaItem = ({
   const classes = useStyles();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
+  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -96,7 +100,8 @@ const MediaItem = ({
     setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />);
   };
 
-  const handleDelete = () => {
+  const handleDelete = (project) => {
+    setIsDialogOpen(false);
     const mutation = graphql`
       mutation MediaItemDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
         destroyRelationship(input: $input) {
@@ -136,6 +141,7 @@ const MediaItem = ({
       variables: {
         input: {
           id: relationship.id,
+          add_to_project_id: project.dbid,
         },
       },
       configs: [
@@ -165,6 +171,23 @@ const MediaItem = ({
       onCompleted: (response, error) => {
         if (error) {
           handleError();
+        } else {
+          const { title: projectTitle, dbid: projectId } = project;
+          const message = (
+            <FormattedMessage
+              id="mediaItem.detachedSuccessfully"
+              defaultMessage="Item detached to '{toProject}'"
+              description="Banner displayed after items are detached successfully"
+              values={{
+                toProject: (
+                  <Link to={`/${teamSlug}/project/${projectId}`}>
+                    {projectTitle}
+                  </Link>
+                ),
+              }}
+            />
+          );
+          setFlashMessage(message);
         }
       },
       onError: () => {
@@ -257,7 +280,10 @@ const MediaItem = ({
       />
       { canDelete && canSwitch ?
         <Box>
-          <IconButton onClick={handleOpenMenu}>
+          <IconButton
+            onClick={handleOpenMenu}
+            className="media-similarity__menu-icon"
+          >
             <IconMoreVert />
           </IconButton>
           <Menu
@@ -268,13 +294,15 @@ const MediaItem = ({
           >
             <MenuItem onClick={handleSwitch}>
               <ListItemText
+                className="similarity-media-item__pin-relationship"
                 primary={
                   <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" />
                 }
               />
             </MenuItem>
-            <MenuItem onClick={handleDelete}>
+            <MenuItem onClick={openDialog}>
               <ListItemText
+                className="similarity-media-item__delete-relationship"
                 primary={
                   <FormattedMessage id="mediaItem.detach" defaultMessage="Detach" />
                 }
@@ -284,10 +312,16 @@ const MediaItem = ({
         </Box> : null }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={handleDelete}>
-            <RemoveCircleOutlineIcon />
+          <IconButton onClick={openDialog}>
+            <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }
+      { isDialogOpen ?
+        <DetachDialog
+          closeDialog={closeDialog}
+          handleDelete={handleDelete}
+        /> : null
+      }
     </Box>
   );
 };

@@ -21,6 +21,8 @@
     "serve:dev": "NODE_ENV=development gulp serve:dev",
     "transifex:download": "gulp transifex:download && gulp transifex:translations",
     "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
+    "transifex:prepare": "gulp transifex:prepare",
+    "transifex:export-chrome": "gulp transifex:export-chrome",
     "publish": "node scripts/server.js",
     "test": "npm run test:unit && npm run test:integration && npm run test:quick",
     "test:unit": "jest",

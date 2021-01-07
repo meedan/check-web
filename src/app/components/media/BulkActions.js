@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -144,20 +145,30 @@ class BulkActions extends React.Component {
 
   handleMove() {
     const onSuccess = () => {
+      const {
+        title: projectTitle,
+        dbid: projectId,
+      } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
       const message = (
         <FormattedMessage
           id="bulkActions.movedSuccessfully"
-          defaultMessage="Items moved."
+          defaultMessage="Items moved to '{toProject}'"
           description="Banner displayed after items are moved successfully"
+          values={{
+            toProject: (
+              <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                {projectTitle}
+              </Link>
+            ),
+          }}
         />
       );
       this.props.setFlashMessage(message);
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
 
-    onSuccess();
+    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -174,22 +185,37 @@ class BulkActions extends React.Component {
 
   handleRestoreOrConfirm = (params) => {
     const onSuccess = () => {
-      const toProject = this.state.dstProj ? this.state.dstProj.title : null;
+      const {
+        title: projectTitle,
+        dbid: projectId,
+      } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
       const message = params.archived_was === CheckArchivedFlags.TRASHED ?
         (
           <FormattedMessage
             id="bulkActions.movedRestoreSuccessfully"
-            defaultMessage="Items moved from trash to `{toProject}`"
+            defaultMessage="Items moved from Trash to '{toProject}'"
             description="Banner displayed after items are moved successfully"
-            values={{ toProject }}
+            values={{
+              toProject: (
+                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                  {projectTitle}
+                </Link>
+              ),
+            }}
           />
         ) :
         (
           <FormattedMessage
             id="bulkActions.movedConfirmSuccessfully"
-            defaultMessage="Items moved from Unconfirmed to `{toProject}`"
+            defaultMessage="Items moved from Unconfirmed to '{toProject}'"
             description="Banner displayed after items are moved successfully"
-            values={{ toProject }}
+            values={{
+              toProject: (
+                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                  {projectTitle}
+                </Link>
+              ),
+            }}
           />
         );
       this.props.setFlashMessage(message);
@@ -218,7 +244,7 @@ class BulkActions extends React.Component {
       const message = (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
-          defaultMessage="Items moved to the trash."
+          defaultMessage="Items moved to the Trash."
         />
       );
       this.props.setFlashMessage(message);
@@ -263,7 +289,7 @@ class BulkActions extends React.Component {
         />
       );
       moveButtonMessage = (
-        <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from trash" />
+        <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
       );
     } else if (page === 'unconfirmed') {
       archivedWas = CheckArchivedFlags.UNCONFIRMED;
@@ -274,7 +300,7 @@ class BulkActions extends React.Component {
         />
       );
       moveButtonMessage = (
-        <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from unconfirmed" />
+        <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
       );
     } else if (project) {
       moveAction = true;
@@ -419,7 +445,7 @@ class BulkActions extends React.Component {
             title={
               <FormattedMessage
                 id="bulkActions.sendItemsToTrash"
-                defaultMessage="Send selected items to trash"
+                defaultMessage="Send selected items to Trash"
               />
             }
             disabled={disabled}
@@ -455,6 +481,7 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
     medias_count
     permissions
     search_id
+    slug
     check_search_trash {
       id
       number_of_results

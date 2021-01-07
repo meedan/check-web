@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedHTMLMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
 import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
@@ -69,14 +69,20 @@ const UserInfo = (props) => {
         />
 
         <StyledContactInfo>
-          <FormattedHTMLMessage
-            id="UserInfo.dateJoined"
-            defaultMessage="Joined {date} &bull; {teamsCount, plural, one {1 workspace} other {# workspaces}}"
+          <FormattedMessage
+            id="userInfo.dateJoined"
+            defaultMessage="Joined {date}"
             values={{
               date: props.intl.formatDate(
                 parseStringUnixTimestamp(props.user.source.created_at),
                 { year: 'numeric', month: 'short', day: '2-digit' },
               ),
+            }}
+          />
+          <FormattedMessage
+            id="userInfo.teamsCount"
+            defaultMessage="{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+            values={{
               teamsCount: props.user.team_users.edges.length || 0,
             }}
           />

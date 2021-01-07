@@ -54,7 +54,7 @@ shared_examples 'report' do
     expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
-  it 'should generate a report, copy the share url and open the report page in a incognito window', bin4: true do
+  it 'should generate a report, copy the share url and open the report page in a incognito window', bin5: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')

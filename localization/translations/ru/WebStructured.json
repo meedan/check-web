@@ -1,0 +1,3391 @@
+{
+	"AddCustomFilters.entityMetadataLabel": {
+		"string": "Выберите метаданные"
+	},
+	"AddCustomFilters.entityTaskLabel": {
+		"string": "Выберите вопрос"
+	},
+	"AddCustomFilters.metadataChoiceLabel": {
+		"string": "У метаданных есть конкретное значение"
+	},
+	"AddCustomFilters.metadataTextLabel": {
+		"string": "Метаданные содержат ключевое слово"
+	},
+	"AddCustomFilters.taskChoiceLabel": {
+		"string": "На вопрос есть конкретный ответ"
+	},
+	"AddCustomFilters.taskTextLabel": {
+		"string": "Ответ содержит ключевое слово"
+	},
+	"ConfirmEmail.content": {
+		"string": "Пожалуйста, проверьте почту, чтобы подтвердить аккаунт."
+	},
+	"ConfirmEmail.resendConfirmation": {
+		"string": "Отправить заново"
+	},
+	"ConfirmEmail.title": {
+		"string": "Подтвердите email"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Фильтр по"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Список слов, разделенных запятыми"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Выберите значение"
+	},
+	"CustomFiltersManager.addFilters": {
+		"string": "Фильтры"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Любое значение"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Выберите метаданные"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Выберите вопрос"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "У метаданных есть конкретное значение"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Метаданные содержат ключевое слово"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "Нет значения"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "На вопрос есть конкретный ответ"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "Ответ содержит ключевое слово"
+	},
+	"FilterPopup.close": {
+		"string": "Ок"
+	},
+	"ItemHistoryDialog.title": {
+		"string": "История материала"
+	},
+	"MultiSelector.all": {
+		"string": "Все"
+	},
+	"MultiSelector.search": {
+		"string": "Искать..."
+	},
+	"ProjectActions.edit": {
+		"string": "Редактировать название и описание"
+	},
+	"ProjectActions.tooltip": {
+		"string": "Действия со списками"
+	},
+	"ProjectBlankState.createMedia": {
+		"string": "Добавить ссылку или текст"
+	},
+	"RoleSelect.annotator": {
+		"string": "Аннотатор"
+	},
+	"RoleSelect.contributor": {
+		"string": "Участник"
+	},
+	"RoleSelect.editor": {
+		"string": "Редактор"
+	},
+	"RoleSelect.journalist": {
+		"string": "Журналист"
+	},
+	"RoleSelect.owner": {
+		"string": "Владелец"
+	},
+	"TeamInviteMembers.emailInput": {
+		"string": "Email"
+	},
+	"TeamInviteMembers.emailMultipleInput": {
+		"string": "Адреса через запятую"
+	},
+	"TeamInviteMembers.existsEmail": {
+		"string": "Уже является участником."
+	},
+	"TeamInviteMembers.invalidEmail": {
+		"string": "Некорректный email."
+	},
+	"TeamInviteMembers.invitedEmail": {
+		"string": "Уже приглашён."
+	},
+	"TeamInviteMembers.newInvite": {
+		"string": "Пригласить участников"
+	},
+	"TeamMembersInvitedListItem.cancel": {
+		"string": "Отменить приглашение"
+	},
+	"TeamMembersInvitedListItem.resend": {
+		"string": "Отправить заново"
+	},
+	"TeamMembersListItem.annotator": {
+		"string": "Аннотатор"
+	},
+	"TeamMembersListItem.confirmDeleteMemberBlurb": {
+		"string": "Пользователь будет удалён из {team}"
+	},
+	"TeamMembersListItem.confirmDeleteMemberTitle": {
+		"string": "Вы уверены, что хотите удалить {user}?"
+	},
+	"TeamMembersListItem.confirmEditMemberTitle": {
+		"string": "Вы уверены, что хотите изменить роль для {user}?"
+	},
+	"TeamMembersListItem.confirmLeaveBlurb": {
+		"string": "Вы будете удалены из {team}"
+	},
+	"TeamMembersListItem.confirmLeaveTitle": {
+		"string": "Вы уверены, что хотите покинуть {team}?"
+	},
+	"TeamMembersListItem.contributor": {
+		"string": "Участник"
+	},
+	"TeamMembersListItem.deleteMember": {
+		"string": "Удалить участника"
+	},
+	"TeamMembersListItem.editor": {
+		"string": "Редактор"
+	},
+	"TeamMembersListItem.journalist": {
+		"string": "Журналист"
+	},
+	"TeamMembersListItem.leaveTeam": {
+		"string": "Покинуть проект"
+	},
+	"TeamMembersListItem.singleOwner": {
+		"string": "Прежде чем покинуть проект, пожалуйста, назначьте владельцем проекта другого участника."
+	},
+	"TeamMembershipRequestsListItem.approve": {
+		"string": "Одобрить"
+	},
+	"TeamMembershipRequestsListItem.deny": {
+		"string": "Отклонить"
+	},
+	"UserConnectedAccount.addAnother": {
+		"string": "Привязать ещё один аккаунт"
+	},
+	"UserConnectedAccount.connectButton": {
+		"string": "Привязать"
+	},
+	"UserConnectedAccount.disconnectAccountConfirmationText": {
+		"string": "Вы уверены? Это отвяжет аккаунт, используемый для входа."
+	},
+	"UserConnectedAccount.disconnectAccountTitle": {
+		"string": "Отвязать аккаунт"
+	},
+	"UserConnectedAccount.disconnectButton": {
+		"string": "Отвязать"
+	},
+	"UserMenu.about": {
+		"string": "О проекте"
+	},
+	"UserMenu.pp": {
+		"string": "Политика приватности"
+	},
+	"UserMenu.signOut": {
+		"string": "Выйти"
+	},
+	"UserMenu.tos": {
+		"string": "Условия использования"
+	},
+	"UserMenu.training": {
+		"string": "Обучение и документация"
+	},
+	"UserMenu.userSettings": {
+		"string": "Настройки"
+	},
+	"UserPrivacy.deleteAccount": {
+		"string": "Удалить аккаунт"
+	},
+	"UserSecurity.passwordError": {
+		"string": "Неверный пароль"
+	},
+	"UserSecurity.passwordInput": {
+		"string": "Текущий пароль"
+	},
+	"UserSecurity.verifyError": {
+		"string": "Неверный проверочный код"
+	},
+	"UserSecurity.verifyInput": {
+		"string": "Проверочный код"
+	},
+	"UserUtil.annotator": {
+		"string": "Аннотатор"
+	},
+	"UserUtil.contributor": {
+		"string": "Участник"
+	},
+	"UserUtil.editor": {
+		"string": "Редактор"
+	},
+	"UserUtil.journalist": {
+		"string": "Журналист"
+	},
+	"UserUtil.owner": {
+		"string": "Владелец"
+	},
+	"accessDenied.title": {
+		"string": "Отказано в доступе"
+	},
+	"addAnnotation.addImage": {
+		"string": "Добавить изображение"
+	},
+	"addAnnotation.error": {
+		"string": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"addAnnotation.inputHint": {
+		"string": "Добавить заметку"
+	},
+	"addAnnotation.invalidCommand": {
+		"string": "Команда некорректна"
+	},
+	"addAnnotation.submitButton": {
+		"string": "Отправить"
+	},
+	"addLanguageAction.addLanguage": {
+		"string": "Добавить язык"
+	},
+	"addLanguageAction.newLanguage": {
+		"string": "Новый язык"
+	},
+	"addLanguageAction.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"addLanguageAction.selectLanguage": {
+		"string": "Выберите язык"
+	},
+	"addLanguageAction.title": {
+		"string": "Выберите новый язык"
+	},
+	"addTeamPage.titleCreate": {
+		"string": "Новый проект"
+	},
+	"addTeamPage.titleFind": {
+		"string": "Найти существующий проект"
+	},
+	"annotation.acceptSuggestion": {
+		"string": "Принять"
+	},
+	"annotation.addedComment": {
+		"string": "Заметка к вопросу добавлена ({author}): {title}{note}"
+	},
+	"annotation.archiverError": {
+		"string": "В процессе архивации материала на {name} возникла ошибка: \"{message}\". Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"annotation.archiverSuccess": {
+		"string": "Если материал перестанет быть доступным, <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">в {name} сохранена архивная копия</a>."
+	},
+	"annotation.archiverWait": {
+		"string": "Материал находится в процессе архивации на {name}. Ссылка на архив будет доступна по завершению."
+	},
+	"annotation.assignmentChanged": {
+		"string": "Вопрос назначен {assigneeTo} ({author}): {title}"
+	},
+	"annotation.assignmentRemoved": {
+		"string": "Вопрос снят с {assigneeFrom} ({author}): {title}"
+	},
+	"annotation.changedJsonSchema": {
+		"string": "JSON Schema вопроса {title} изменена ({author})"
+	},
+	"annotation.deleteButton": {
+		"string": "Удалить"
+	},
+	"annotation.deletedComment": {
+		"string": "Комментарий удален ({author}): {comment}"
+	},
+	"annotation.embedCodeCopied": {
+		"string": "Код для вставки материала сгенерирован и скопирован в буфер обмена. Теперь материал готов к распространению и доступен публично."
+	},
+	"annotation.embedLabelRemoved": {
+		"string": "Заголовок материала удалён ({author}): {title}"
+	},
+	"annotation.embedLabelUpdated": {
+		"string": "Заголовок материала изменён ({author}): {title}"
+	},
+	"annotation.embedNoteCreated": {
+		"string": "Описание материала добавлено ({author}): {description}"
+	},
+	"annotation.embedNoteRemoved": {
+		"string": "Описание материала удалено ({author}): {description}"
+	},
+	"annotation.embedNoteUpdated": {
+		"string": "Описание материала изменено ({author}): {description}"
+	},
+	"annotation.flag": {
+		"string": "Результат классификации:"
+	},
+	"annotation.flagAdult": {
+		"string": "Не для детей"
+	},
+	"annotation.flagLikelihood0": {
+		"string": "Неизвестно"
+	},
+	"annotation.flagLikelihood1": {
+		"string": "Крайне маловероятно"
+	},
+	"annotation.flagLikelihood2": {
+		"string": "Маловероятно"
+	},
+	"annotation.flagLikelihood3": {
+		"string": "Возможно"
+	},
+	"annotation.flagLikelihood4": {
+		"string": "Вероятно"
+	},
+	"annotation.flagLikelihood5": {
+		"string": "Крайне вероятно"
+	},
+	"annotation.flagMedical": {
+		"string": "Медданные"
+	},
+	"annotation.flagRacy": {
+		"string": "Непристойности"
+	},
+	"annotation.flagSpam": {
+		"string": "Спам"
+	},
+	"annotation.flagViolence": {
+		"string": "Насилие"
+	},
+	"annotation.mediaAssigned": {
+		"string": "Материал назначен {name} ({author})"
+	},
+	"annotation.mediaAssignmentCreated": {
+		"string": "Материал назначен {name} ({author})"
+	},
+	"annotation.mediaAssignmentDeleted": {
+		"string": "Материал снят с {name} ({author})"
+	},
+	"annotation.mediaUnassigned": {
+		"string": "Материал снят с {name} ({author})"
+	},
+	"annotation.menuTooltip": {
+		"string": "Действия с аннотациями"
+	},
+	"annotation.metadataCreated": {
+		"string": "Поле метаданных добавлено ({author}): {fieldLabel}"
+	},
+	"annotation.metadataResponse": {
+		"string": "Метаданные \"{fieldLabel}\" заполнены ({author}): {response}"
+	},
+	"annotation.movedFromTrash": {
+		"string": "Возвращено из корзины ({author})"
+	},
+	"annotation.movedToTrash": {
+		"string": "Перемещено в корзину ({author})"
+	},
+	"annotation.newReport": {
+		"string": "Материал добавлен ({author})"
+	},
+	"annotation.noAnnotationsYet": {
+		"string": "Нет активности"
+	},
+	"annotation.openInSlack": {
+		"string": "Открыть в Slack"
+	},
+	"annotation.penderArchiveResponse": {
+		"string": "Keep сохранил скриншот с этого URL. "
+	},
+	"annotation.penderArchiveResponseError": {
+		"string": "В процессе снятия скриншота материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"annotation.penderArchiveWait": {
+		"string": "Keep сохраняет скриншот этого материала. Он должен быть готов через несколько минут."
+	},
+	"annotation.permalink": {
+		"string": "Ссылка"
+	},
+	"annotation.projectMoved": {
+		"string": "Перемещено из списка {previousProject} в {currentProject} ({author})"
+	},
+	"annotation.rejectSuggestion": {
+		"string": "Отклонить"
+	},
+	"annotation.relationshipCreated": {
+		"string": "Связанный материал добавлен ({author}): {title}"
+	},
+	"annotation.relationshipDeleted": {
+		"string": "Связанный материал удалён ({author}): {title}"
+	},
+	"annotation.removedComment": {
+		"string": "Заметка к вопросу удалена ({author}): {title}{note}"
+	},
+	"annotation.reportReceived": {
+		"string": "Отчёт получен {date}"
+	},
+	"annotation.reportUpdateReceived": {
+		"string": "Обновление отчёта получено {date}"
+	},
+	"annotation.seeHowThisBotWorks": {
+		"string": "Как работает этот бот?"
+	},
+	"annotation.smoochNoMessage": {
+		"string": "Вместе с запросом не было отправлено сообщение"
+	},
+	"annotation.statusLocked": {
+		"string": "Статус материала заблокирован ({author})"
+	},
+	"annotation.statusSetHeader": {
+		"string": "Статус изменен: {status} ({author})"
+	},
+	"annotation.statusUnlocked": {
+		"string": "Статус материала разблокирован ({author})"
+	},
+	"annotation.suggestionAccepted": {
+		"string": "Принято ({user})"
+	},
+	"annotation.suggestionRejected": {
+		"string": "Отклонено ({user})"
+	},
+	"annotation.taggedHeader": {
+		"string": "Отмечено как #{tag} ({author})"
+	},
+	"annotation.taskAssignmentCreated": {
+		"string": "Вопрос назначен {name} ({author}): {title}"
+	},
+	"annotation.taskAssignmentDeleted": {
+		"string": "Вопрос снят с {name} ({author}): {title}"
+	},
+	"annotation.taskCreated": {
+		"string": "Вопрос добавлен ({author}): {task}"
+	},
+	"annotation.taskLabelUpdated": {
+		"string": "Вопрос изменен ({author}): {title}"
+	},
+	"annotation.taskNoteCreated": {
+		"string": "Заметка к вопросу добавлена ({author}): {title}{note}"
+	},
+	"annotation.taskNoteUpdated": {
+		"string": "Заметка к вопросу изменена ({author}): {title}{note}"
+	},
+	"annotation.taskResolve": {
+		"string": "На вопрос дан ответ ({author}): {task}{response}"
+	},
+	"annotation.teamCopied": {
+		"string": "Скопировано из проекта {previousTeam} ({author})"
+	},
+	"annotation.titleChanged": {
+		"string": "Заголовок материала изменён ({author}): {title}"
+	},
+	"annotations.loadMore": {
+		"string": "Загрузить ещё"
+	},
+	"attribution.noResults": {
+		"string": "Нет результатов"
+	},
+	"attribution.search": {
+		"string": "Искать по участникам проекта"
+	},
+	"autoCompleteMediaItem.error": {
+		"string": "В процессе поиска произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"autoCompleteMediaItem.notFound": {
+		"string": "Нет результатов"
+	},
+	"autoCompleteMediaItem.searchItem": {
+		"string": "Искать"
+	},
+	"autoCompleteMediaItem.searching": {
+		"string": "Поиск..."
+	},
+	"blankMediaButton.addItem": {
+		"string": "Добавить материал"
+	},
+	"blankMediaButton.addToImportedReport": {
+		"string": "Добавить в существующий отчёт"
+	},
+	"blankMediaButton.confirmButtonLabel": {
+		"string": "Снять с публикации и обновить содержимое"
+	},
+	"blankMediaButton.confirmText": {
+		"string": "У данного материала уже есть опубликованный отчёт:\n              {link}\n              При обновлении статус и отчёт будут заменены, и публикация отчёта будет приостановлена."
+	},
+	"blankMediaButton.confirmTitle": {
+		"string": "Заменить отчёт и статус?"
+	},
+	"blankMediaButton.defaultErrorMessage": {
+		"string": "Не удалось сохранить материал"
+	},
+	"blankMediaCard.addItem": {
+		"string": "Добавить материал"
+	},
+	"blankMediaCard.confirmButtonLabel": {
+		"string": "Снять с публикации и обновить содержимое"
+	},
+	"blankMediaCard.confirmText": {
+		"string": "У данного материала уже есть опубликованный отчёт:\n              {link}\n              При обновлении статус и отчёт будут заменены, и публикация отчёта будет приостановлена."
+	},
+	"blankMediaCard.confirmTitle": {
+		"string": "Заменить отчёт и статус?"
+	},
+	"blankMediaCard.defaultErrorMessage": {
+		"string": "Не удалось сохранить материал"
+	},
+	"bot.cantChange": {
+		"string": "В процессе редактирования бота произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"bot.install": {
+		"string": "Установить"
+	},
+	"bot.installed": {
+		"string": "Установлен"
+	},
+	"bot.installs": {
+		"string": "Установок"
+	},
+	"bot.madeBy": {
+		"string": "Разработчик: {teamLink}"
+	},
+	"bot.permissions": {
+		"string": "Разрешения"
+	},
+	"bot.permissionsText": {
+		"string": "Уровень доступа этого бота: {role}."
+	},
+	"bot.sourceCode": {
+		"string": "Исходный код"
+	},
+	"bot.updatedAt": {
+		"string": "Обновлено"
+	},
+	"bot.version": {
+		"string": "Версия"
+	},
+	"botGarden.botGarden": {
+		"string": "Боты"
+	},
+	"bridge.pageTitle.appNameHuman": {
+		"string": "Bridge"
+	},
+	"browser.support.message": {
+		"string": "Оптимизировано для десктопной версии <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome</a>."
+	},
+	"browserSupport.message": {
+		"string": "{appName} оптимизирован для десктопной версии Chrome."
+	},
+	"bulkActions.add": {
+		"string": "Добавить выбранное к другому списку"
+	},
+	"bulkActions.addTitle": {
+		"string": "Добавить"
+	},
+	"bulkActions.addTo": {
+		"string": "Добавить в..."
+	},
+	"bulkActions.addedSuccessfully": {
+		"string": "Материалы добавлены в список.",
+		"developer_comment": "Banner displayed after items are added successfully to list"
+	},
+	"bulkActions.cancelButton": {
+		"string": "Отменить"
+	},
+	"bulkActions.confirm": {
+		"string": "Move from unconfirmed"
+	},
+	"bulkActions.dialogAddTitle": {
+		"string": "Добавить к другому списку"
+	},
+	"bulkActions.dialogMoveTitle": {
+		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+	},
+	"bulkActions.move": {
+		"string": "Переместить выбранное в другой список"
+	},
+	"bulkActions.moveTitle": {
+		"string": "Move to list"
+	},
+	"bulkActions.moveTo": {
+		"string": "Переместить в..."
+	},
+	"bulkActions.moveToTrashSuccessfully": {
+		"string": "Материалы перемещены в корзину."
+	},
+	"bulkActions.movedConfirmSuccessfully": {
+		"string": "Items moved from Unconfirmed to `{toProject}`",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedRestoreSuccessfully": {
+		"string": "Объекты перемещены из корзины в `{toProject}`",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedSuccessfully": {
+		"string": "Материалы перемещены.",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.removedSuccessfully": {
+		"string": "Материалы удалены из списка.",
+		"developer_comment": "Banner displayed after items are removed successfully from list"
+	},
+	"bulkActions.restore": {
+		"string": "Восстановить из корзины"
+	},
+	"bulkActions.sendItemsToTrash": {
+		"string": "Отправить выбранное в корзину"
+	},
+	"bulkActions.trash": {
+		"string": "Restore selected items and move items to another list"
+	},
+	"bulkActions.unconfirmed": {
+		"string": "Confirm selected items and move items to another list"
+	},
+	"claimReview.claim": {
+		"string": "Высказывание:"
+	},
+	"claimReview.claimedBy": {
+		"string": "Автор высказывания:"
+	},
+	"claimReview.reviewedBy": {
+		"string": "Факт-чек ({reviewer}):"
+	},
+	"confirmProceed.confirm": {
+		"string": "Подтвердить и продолжить"
+	},
+	"createMedia.addItem": {
+		"string": "Добавить материал"
+	},
+	"createMedia.addNew": {
+		"string": "Добавить материал"
+	},
+	"createMedia.addNewItem": {
+		"string": "Добавить материал"
+	},
+	"createMedia.audio": {
+		"string": "Аудио"
+	},
+	"createMedia.error": {
+		"string": "В процессе добавления материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"createMedia.existing": {
+		"string": "Добавить существующий материал"
+	},
+	"createMedia.image": {
+		"string": "Фотография"
+	},
+	"createMedia.link": {
+		"string": "Ссылка"
+	},
+	"createMedia.mediaInput": {
+		"string": "Материал"
+	},
+	"createMedia.quote": {
+		"string": "Текст"
+	},
+	"createMedia.quoteInput": {
+		"string": "Вставьте или введите текст"
+	},
+	"createMedia.video": {
+		"string": "Видео"
+	},
+	"createProject.addProject": {
+		"string": "Создать список"
+	},
+	"createProject.error": {
+		"string": "В процессе редактирования списка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"createProject.newProjectName": {
+		"string": "Название списка"
+	},
+	"createProject.title": {
+		"string": "Добавить список"
+	},
+	"createProject.titleBlank": {
+		"string": "Добавьте ваш первый список"
+	},
+	"createRelatedMedia.addSecondaryItem": {
+		"string": "Добавить вторичный материал"
+	},
+	"createRelatedMedia.addToPrimaryItem": {
+		"string": "Добавить к основному материалу"
+	},
+	"createTask.newTask": {
+		"string": "Новый вопрос"
+	},
+	"createTeam.blurb": {
+		"string": "Создайте проект для своей организации или для себя:"
+	},
+	"createTeam.createTeamError": {
+		"string": "В процессе редактирования проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"createTeam.displayName": {
+		"string": "Название проекта"
+	},
+	"createTeam.mainHeading": {
+		"string": "Новый проект"
+	},
+	"createTeam.requestToJoin": {
+		"string": "Вы также можете отправить запрос на участие в уже существующем проекте."
+	},
+	"createTeam.slugAvailable": {
+		"string": "Доступно!"
+	},
+	"createTeam.slugChecking": {
+		"string": "Проверяем доступность..."
+	},
+	"createTeam.slugUnavailable": {
+		"string": "Этот идентификатор недоступен. Пожалуйста, попробуйте выбрать другой."
+	},
+	"createTeam.submitButton": {
+		"string": "Создать"
+	},
+	"createTeam.teamNameHint": {
+		"string": "Название проекта"
+	},
+	"createTeam.teamSlugHint": {
+		"string": "URL проекта"
+	},
+	"createTeam.title": {
+		"string": "Новый проект"
+	},
+	"createTeam.url": {
+		"string": "URL группы"
+	},
+	"createTeamDialog.cancel": {
+		"string": "Отменить"
+	},
+	"createTeamDialog.create": {
+		"string": "Создать"
+	},
+	"createTeamDialog.defaultErrorMessage": {
+		"string": "Could not create new workspace"
+	},
+	"createTeamDialog.dialogTitle": {
+		"string": "Create new workspace"
+	},
+	"createTeamDialog.name": {
+		"string": "Workspace name"
+	},
+	"createTeamDialog.url": {
+		"string": "URL проекта"
+	},
+	"createTeamTask.errorMetadata": {
+		"string": "В процессе обновления поля для метаданных произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"createTeamTask.errorTask": {
+		"string": "В процессе создания задачи произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"datetimeRespondTask.answerTask": {
+		"string": "Ответить на вопрос"
+	},
+	"datetimeRespondTask.cancelTask": {
+		"string": "Отменить"
+	},
+	"datetimeRespondTask.pickDate": {
+		"string": "Укажите дату"
+	},
+	"datetimeRespondTask.time": {
+		"string": "Укажите время"
+	},
+	"datetimeRespondTask.timezone": {
+		"string": "Выберите часовой пояс"
+	},
+	"datetimeTaskResponse.invalidTimestamp": {
+		"string": "Ошибка: некорректное время"
+	},
+	"datetimeTaskResponse.timeIs": {
+		"string": "Посмотреть на time.is"
+	},
+	"deleteStatusDialog.alternatively": {
+		"string": "Вы также можете поменять статус каждого материала вручную."
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "{publishedCount, plural, one {Один из этих материалов уже опубликован.} few {Уже опубликованных материалов с данным статусом: #.} many {Уже опубликованных материалов с данным статусом: #.} other {Уже опубликованных материалов с данным статусом: #.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Переместить материалы в"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "Статус {statusLabel} находится в использовании (материалов: {itemsCount, plural, one {1} other {#}}). Чтобы удалить данный статус, нужно изменить статус всех этих материалов на другой."
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "Чтобы удалить этот статус, необходимо снять его с существующих материалов ({itemsCount, plural, one {1} other {#}})"
+	},
+	"destinationProjects.choose": {
+		"string": "Выберите список"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Добавить статус"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Описание"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Статус (до {maxLength} символов)"
+	},
+	"editStatusDialog.title": {
+		"string": "Добавить статус"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Редактировать статус"
+	},
+	"editTaskDialog.editMetadata": {
+		"string": "Редактировать поле для метаданных"
+	},
+	"editTaskDialog.editTask": {
+		"string": "Редактировать вопрос"
+	},
+	"editTaskDialog.newMetadata": {
+		"string": "Новое поле для метаданных"
+	},
+	"editTaskDialog.newTask": {
+		"string": "Новый вопрос"
+	},
+	"fetchBot.contactUs": {
+		"string": "Свяжитесь с нами для настройки"
+	},
+	"fileUploadRespondTask.answerTask": {
+		"string": "Ответить на вопрос"
+	},
+	"fileUploadRespondTask.cancelTask": {
+		"string": "Отменить"
+	},
+	"findTeamCard.blurb": {
+		"string": "Введите название существующего проекта, чтобы подать заявку на участие, или создайте свой."
+	},
+	"findTeamCard.createYourOwn": {
+		"string": "Вы также можете создать свой собственный проект."
+	},
+	"findTeamCard.mainHeading": {
+		"string": "Найти существующий проект"
+	},
+	"findTeamCard.submitButton": {
+		"string": "Найти проект"
+	},
+	"findTeamCard.teamNotFound": {
+		"string": "Проект не найден!"
+	},
+	"findTeamCard.teamSlugHint": {
+		"string": "URL проекта"
+	},
+	"findTeamCard.url": {
+		"string": "URL проекта"
+	},
+	"footer.madeBy": {
+		"string": "Check: проверка горячих новостей онлайн. Сделано с ✨ в {meedan}"
+	},
+	"geoLocationRespondTask.error": {
+		"string": "В процессе редактирования вопроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"geoLocationRespondTask.invalidCoords": {
+		"string": "Неверные координаты"
+	},
+	"geoLocationRespondTask.notFound": {
+		"string": "Извините, запрашиваемое место не найдено. Пожалуйста, попробуйте изменить условия поиска."
+	},
+	"geoLocationRespondTask.searching": {
+		"string": "Поиск..."
+	},
+	"geolocationRespondTask.answerTask": {
+		"string": "Ответить на вопрос"
+	},
+	"geolocationRespondTask.cancelTask": {
+		"string": "Отменить"
+	},
+	"geolocationRespondTask.coordinates": {
+		"string": "Широта, долгота"
+	},
+	"geolocationRespondTask.placeName": {
+		"string": "Редактировать название места"
+	},
+	"geolocationRespondTask.searchMap": {
+		"string": "Искать на карте"
+	},
+	"global.appNameHuman": {
+		"string": "Check"
+	},
+	"global.cancel": {
+		"string": "Отменить"
+	},
+	"global.close": {
+		"string": "Закрыть"
+	},
+	"global.confirm": {
+		"string": "Подтверждение"
+	},
+	"global.delete": {
+		"string": "Удалить"
+	},
+	"global.edit": {
+		"string": "Редактировать"
+	},
+	"global.ok": {
+		"string": "Ок"
+	},
+	"global.save": {
+		"string": "Сохранить"
+	},
+	"global.submit": {
+		"string": "Отправить"
+	},
+	"global.submitting": {
+		"string": "Submitting…"
+	},
+	"global.tags": {
+		"string": "Тэги"
+	},
+	"global.unknownError": {
+		"string": "Произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"global.update": {
+		"string": "Обновить"
+	},
+	"headerActions.signIn": {
+		"string": "Войти"
+	},
+	"home.invalidExpiredInvitation": {
+		"string": "Извините, но срок действия приглашения, которое вы получили, истёк. Если вы считаете, что это ошибка, пожалуйста, свяжитесь с нами: {supportEmail}."
+	},
+	"home.invalidInvitation": {
+		"string": "Извините, при обработке вашего приглашения возникла ошибка. Если проблема повторяется, пожалуйста, свяжитесь с нами: {supportEmail}."
+	},
+	"home.invalidNoInvitation": {
+		"string": "Извините, приглашение не найдено. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}."
+	},
+	"home.invalidTeamInvitation": {
+		"string": "Извините, но проект, в который вас пригласили, не существует. Если считаете, что это ошибка, пожалуйста, свяжитесь с нами: {supportEmail}."
+	},
+	"home.needRegister": {
+		"string": "Сначала нужно зарегистрироваться. Потом вы сможете отправить заявку на присоединение к проекту."
+	},
+	"home.somethingWrong": {
+		"string": "Извините, произошла ошибка. Пожалуйста, перезагрузите страницу. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"home.successInvitation": {
+		"string": "Добро пожаловать в {appName}. Пожалуйста, войдите с паролем, который получили в приветственном email."
+	},
+	"imageUploadRespondTask.answerTask": {
+		"string": "Ответить на вопрос"
+	},
+	"imageUploadRespondTask.cancelTask": {
+		"string": "Отменить"
+	},
+	"joinTeamComponent.alreadyRequested": {
+		"string": "Вы уже отправили заявку на участие в {team}."
+	},
+	"joinTeamComponent.autoApprove": {
+		"string": "Спасибо, что присоединились к проекту «{team}»! Вы можете сразу же начинать принимать в нём участие."
+	},
+	"joinTeamComponent.blurbGraf": {
+		"string": "Чтобы запросить доступ к {team}, нажмите:"
+	},
+	"joinTeamComponent.buttonSubmit": {
+		"string": "Отправить запрос"
+	},
+	"joinTeamComponent.buttonSubmitted": {
+		"string": "Запрос отправлен"
+	},
+	"joinTeamComponent.error": {
+		"string": "В процессе отправки запроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"joinTeamComponent.mainHeading": {
+		"string": "Заявка на участие"
+	},
+	"joinTeamComponent.requestHasBeenSent": {
+		"string": "Ваш запрос был отправлен на одобрение администраторам проекта."
+	},
+	"joinTeamComponent.success": {
+		"string": "Спасибо за ваш интерес к проекту «{team}»! Администратор проекта скоро проверит вашу заявку."
+	},
+	"joinTeamComponent.title": {
+		"string": "Участвовать в проекте"
+	},
+	"languageListItem.default": {
+		"string": "{language} (по умолчанию)"
+	},
+	"languagePickerDialog.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"languagePickerDialog.selectLanguage": {
+		"string": "Выберите язык"
+	},
+	"languagePickerDialog.title": {
+		"string": "Выберите язык"
+	},
+	"languagePickerDialog.unknownLanguage": {
+		"string": "Неизвестный язык"
+	},
+	"languageSwitcher.makeDefault": {
+		"string": "Сделать языком по умолчанию для этого материала"
+	},
+	"languageSwitcher.primaryLanguage": {
+		"string": "{language} (по умолчанию)"
+	},
+	"languagesComponent.blurb": {
+		"string": "Добавьте к проекту дополнительные языки, чтобы создавать отчёты, ботов и статусы на нескольких языках при общении с пользователями."
+	},
+	"languagesComponent.title": {
+		"string": "Языки контента"
+	},
+	"list.Demand": {
+		"string": "Запросы"
+	},
+	"list.FirstSeen": {
+		"string": "Отправлено"
+	},
+	"list.Item": {
+		"string": "Материал"
+	},
+	"list.LastSeen": {
+		"string": "Отредактировано"
+	},
+	"list.LinkedItems": {
+		"string": "Похожие медиа-файлы"
+	},
+	"list.ShareCount": {
+		"string": "Репосты FB"
+	},
+	"list.Status": {
+		"string": "Статус"
+	},
+	"list.Type": {
+		"string": "Тип"
+	},
+	"list.commentCount": {
+		"string": "Комментарии FB"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Опубликовано"
+	},
+	"list.reactCount": {
+		"string": "Реакции FB"
+	},
+	"list.relatedCount": {
+		"string": "Связанные"
+	},
+	"list.reportStatus": {
+		"string": "Статус отчёта"
+	},
+	"list.suggestionsCount": {
+		"string": "Suggested matches"
+	},
+	"list.tags": {
+		"string": "Тэги"
+	},
+	"list.updated": {
+		"string": "Обновлено"
+	},
+	"loadMore.loadMore": {
+		"string": "Загрузить ещё"
+	},
+	"login.alreadyHasAccount": {
+		"string": "У меня уже есть аккаунт"
+	},
+	"login.contactSupport": {
+		"string": "Если вам нужна помощь, напишите на <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"login.disclaimer": {
+		"string": "(мы не пишем ничего без разрешения)"
+	},
+	"login.emailLabel": {
+		"string": "Email"
+	},
+	"login.nameLabel": {
+		"string": "Имя"
+	},
+	"login.newAccount": {
+		"string": "Создать аккаунт"
+	},
+	"login.otpAttemptLabel": {
+		"string": "Токен двухфакторной аутентификации"
+	},
+	"login.passwordConfirmLabel": {
+		"string": "Подтвердите пароль"
+	},
+	"login.passwordInputHint": {
+		"string": "Пароль"
+	},
+	"login.passwordLabel": {
+		"string": "Пароль (минимум 8 символов)"
+	},
+	"login.profilePicture": {
+		"string": "Аватар"
+	},
+	"login.registerTitle": {
+		"string": "Регистрация"
+	},
+	"login.signIn": {
+		"string": "ВОЙТИ"
+	},
+	"login.signUp": {
+		"string": "Зарегистрироваться"
+	},
+	"login.title": {
+		"string": "Вход"
+	},
+	"login.tosMissing": {
+		"string": "Вы должны согласиться с Условиями использования и Политикой приватности"
+	},
+	"login.with": {
+		"string": "Войти через {provider}"
+	},
+	"loginContainer.agreeTerms": {
+		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
+	},
+	"loginEmail.lostPassword": {
+		"string": "Восстановить пароль"
+	},
+	"media.byAttribution": {
+		"string": "{typeLabel} ({attribution})"
+	},
+	"media.confirmLeave": {
+		"string": "{count, plural, one {Вы уверены, что хотите выйти? На вас назначен вопрос, на который ещё нет ответа} few {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)} many {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)} other {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)}}"
+	},
+	"media.normalSpeed": {
+		"string": "Обычная скорость"
+	},
+	"media.onDomain": {
+		"string": "{typeLabel} на {domain}"
+	},
+	"media.retweetsCount": {
+		"string": "{retweetsCount, plural, one {1 ретвит} few {ретвитов: #} many {ретвитов: #} other {ретвитов: #}}"
+	},
+	"media.typeAudio": {
+		"string": "Аудио"
+	},
+	"media.typeBlank": {
+		"string": "Отчёт (импорт)"
+	},
+	"media.typeClaim": {
+		"string": "Текст"
+	},
+	"media.typeFacebook": {
+		"string": "Пост в Facebook"
+	},
+	"media.typeImage": {
+		"string": "Изображение"
+	},
+	"media.typeInstagram": {
+		"string": "Instagram"
+	},
+	"media.typeLink": {
+		"string": "Ссылка"
+	},
+	"media.typePage": {
+		"string": "Страница"
+	},
+	"media.typeTiktok": {
+		"string": "TikTok video"
+	},
+	"media.typeTwitter": {
+		"string": "Твит"
+	},
+	"media.typeVideo": {
+		"string": "Видео"
+	},
+	"media.typeYoutube": {
+		"string": "Видео YouTube"
+	},
+	"mediaActions.addToList": {
+		"string": "Добавить к списку"
+	},
+	"mediaActions.assignOrUnassign": {
+		"string": "Назначено"
+	},
+	"mediaActions.edit": {
+		"string": "Редактировать заголовок и описание"
+	},
+	"mediaActions.history": {
+		"string": "История материала"
+	},
+	"mediaActions.lockStatus": {
+		"string": "Заблокировать статус"
+	},
+	"mediaActions.move": {
+		"string": "Переместить"
+	},
+	"mediaActions.refresh": {
+		"string": "Обновить"
+	},
+	"mediaActions.removeFromList": {
+		"string": "Удалить из списка"
+	},
+	"mediaActions.restore": {
+		"string": "Восстановить из корзины"
+	},
+	"mediaActions.sendToTrash": {
+		"string": "Отправить в корзину"
+	},
+	"mediaActions.tooltip": {
+		"string": "Действия с вопросами"
+	},
+	"mediaActions.unlockStatus": {
+		"string": "Разблокировать статус"
+	},
+	"mediaActionsBar.add": {
+		"string": "Добавить"
+	},
+	"mediaActionsBar.addTo": {
+		"string": "Добавить в..."
+	},
+	"mediaActionsBar.assignmentNotes": {
+		"string": "Заметки"
+	},
+	"mediaActionsBar.assignmentNotesTitle": {
+		"string": "Add a note to the email"
+	},
+	"mediaActionsBar.assignmentTitle": {
+		"string": "Назначить материал соавторам"
+	},
+	"mediaActionsBar.assignmentsUpdated": {
+		"string": "Назначения задач успешно обновлены!"
+	},
+	"mediaActionsBar.cancelButton": {
+		"string": "Отменить"
+	},
+	"mediaActionsBar.confirmTo": {
+		"string": "Подтверждение"
+	},
+	"mediaActionsBar.dialogAddToListTitle": {
+		"string": "Добавить к другому списку"
+	},
+	"mediaActionsBar.dialogMoveTitle": {
+		"string": "Переместить в другой список"
+	},
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
+		"string": "Move item to list…"
+	},
+	"mediaActionsBar.move": {
+		"string": "Переместить"
+	},
+	"mediaActionsBar.moveTo": {
+		"string": "Переместить в..."
+	},
+	"mediaActionsBar.movedConfirmBack": {
+		"string": "Confirmed, redirecting…"
+	},
+	"mediaActionsBar.movedRestoreBack": {
+		"string": "Restored from trash, redirecting…"
+	},
+	"mediaActionsBar.movedToTrash": {
+		"string": "Отправлено в {trash}"
+	},
+	"mediaActionsBar.publishedReport": {
+		"string": "Опубликованный отчёт"
+	},
+	"mediaActionsBar.removeFromList": {
+		"string": "Удалить из списка"
+	},
+	"mediaActionsBar.removedFromList": {
+		"string": "Удалено из списка"
+	},
+	"mediaActionsBar.restoreOrConfirm": {
+		"string": "Move to list"
+	},
+	"mediaActionsBar.restoreTo": {
+		"string": "Восстановить из корзины"
+	},
+	"mediaActionsBar.unpublishedReport": {
+		"string": "Неопубликованный отчёт"
+	},
+	"mediaAnalysis.analysis": {
+		"string": "Анализ"
+	},
+	"mediaAnalysis.confirmButtonLabel1": {
+		"string": "Снять с публикации и обновить содержимое"
+	},
+	"mediaAnalysis.confirmButtonLabel2": {
+		"string": "Заменить содержимое"
+	},
+	"mediaAnalysis.confirmText1": {
+		"string": "Чтобы отредактировать отчёт, его необходимо снять с публикации. Вы хотите снять отчёт с публикации и обновить его содержимое?"
+	},
+	"mediaAnalysis.confirmText2": {
+		"string": "Вы хотите обновить содержимое отчёта? Все правки будут потеряны."
+	},
+	"mediaAnalysis.confirmTitle1": {
+		"string": "Отчёт уже опубликован"
+	},
+	"mediaAnalysis.confirmTitle2": {
+		"string": "Заменить существующий отчёт?"
+	},
+	"mediaAnalysis.content": {
+		"string": "Контент"
+	},
+	"mediaAnalysis.copyToReport": {
+		"string": "Скопировать в отчёт"
+	},
+	"mediaAnalysis.copying": {
+		"string": "Копируем..."
+	},
+	"mediaAnalysis.date": {
+		"string": "Дата публикации"
+	},
+	"mediaAnalysis.error": {
+		"string": "Не удалось сохранить! Последнее сохранение {ago}"
+	},
+	"mediaAnalysis.publishedArticle": {
+		"string": "Опубликованный URL статьи"
+	},
+	"mediaAnalysis.saved": {
+		"string": "Сохранён {ago}"
+	},
+	"mediaAnalysis.saving": {
+		"string": "Сохранение..."
+	},
+	"mediaAnalysis.title": {
+		"string": "Заголовок"
+	},
+	"mediaComments.noNote": {
+		"string": "Нет заметок"
+	},
+	"mediaComponent.answered": {
+		"string": "завершено"
+	},
+	"mediaComponent.metadata": {
+		"string": "Метаданные"
+	},
+	"mediaComponent.noTasks": {
+		"string": "Ничего нет."
+	},
+	"mediaComponent.notes": {
+		"string": "Заметки"
+	},
+	"mediaComponent.related": {
+		"string": "Связанные"
+	},
+	"mediaComponent.requests": {
+		"string": "Запросы"
+	},
+	"mediaComponent.tasks": {
+		"string": "Вопросы"
+	},
+	"mediaComponent.timelineTab": {
+		"string": "Таймлайн"
+	},
+	"mediaComponent.verificationTasks": {
+		"string": "Вопросы по материалу"
+	},
+	"mediaCondensed.requests": {
+		"string": "Запросов: {count}"
+	},
+	"mediaDetail.cancelButton": {
+		"string": "Отменить"
+	},
+	"mediaDetail.doneButton": {
+		"string": "Ок"
+	},
+	"mediaDetail.editReport": {
+		"string": "Редактировать"
+	},
+	"mediaDetail.editReportError": {
+		"string": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"mediaDetail.mediaDescription": {
+		"string": "Описание"
+	},
+	"mediaDetail.mediaTitle": {
+		"string": "Заголовок"
+	},
+	"mediaDetail.trash": {
+		"string": "Корзина"
+	},
+	"mediaExpanded.addToImportedReport": {
+		"string": "Добавить в существующий отчёт"
+	},
+	"mediaExpanded.firstSeen": {
+		"string": "Первое появление:"
+	},
+	"mediaExpanded.lastSeen": {
+		"string": "Последнее появление:"
+	},
+	"mediaExpanded.requests": {
+		"string": "Запросов: {count}"
+	},
+	"mediaExpandedArchives.archives": {
+		"string": "Архивы:"
+	},
+	"mediaExpandedMetadata.comments": {
+		"string": "Комментарии FB"
+	},
+	"mediaExpandedMetadata.publishedOn": {
+		"string": "Опубликован"
+	},
+	"mediaExpandedMetadata.reactions": {
+		"string": "Реакции FB"
+	},
+	"mediaExpandedMetadata.shares": {
+		"string": "Репосты FB"
+	},
+	"mediaItem.detach": {
+		"string": "Открепить"
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Готово, перенаправляем на новый основной материал..."
+	},
+	"mediaItem.error": {
+		"string": "Ошибка. Пожалуйста, попробуйте ещё раз"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "Закрепить как основной"
+	},
+	"mediaItem.pinning": {
+		"string": "Закрепляется..."
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
+	},
+	"mediaLanguageChip.error": {
+		"string": "В процессе обновления языка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"mediaMetadata.ImageSearch": {
+		"string": "Поиск по картинкам"
+	},
+	"mediaMetadata.Timeline": {
+		"string": "Таймлайн"
+	},
+	"mediaMetadata.addedToList": {
+		"string": "Добавлено к списку {listName}"
+	},
+	"mediaMetadata.download": {
+		"string": "Скачать"
+	},
+	"mediaRelated.loadMore": {
+		"string": "Загрузить ещё"
+	},
+	"mediaRelated.primaryItem": {
+		"string": "Основной материал"
+	},
+	"mediaRelated.secondaryItems": {
+		"string": "Вторичные материалы"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Add relation"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {1 связанный материал} few {# связанных материалов} many {# связанных материалов} other {# связанных материалов}}"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Не удалось добавить связанный материал"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Add relation"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "Связанный материал успешно добавлен"
+	},
+	"mediaRequests.allRequests": {
+		"string": "{count, plural, one {1 запрос среди всех медиа-файлов} few {# запросов среди всех медиа-файлов} many {# запросов среди всех медиа-файлов} other {# запросов среди всех медиа-файлов}}"
+	},
+	"mediaRequests.noRequest": {
+		"string": "Нет запросов"
+	},
+	"mediaRequests.thisRequests": {
+		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
+	},
+	"mediaSearch.error": {
+		"string": "Извините, возникла ошибка: \"{message}\". Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"mediaSearch.itemWentAway": {
+		"string": "Не найдено"
+	},
+	"mediaSearch.nextItem": {
+		"string": "Следующий материал"
+	},
+	"mediaSearch.previousItem": {
+		"string": "Предыдущий материал"
+	},
+	"mediaSearch.xOfY": {
+		"string": "{current} из {total}"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Все похожие медиа-файлы"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Click on an item"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Main media"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Заметки"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Запросы"
+	},
+	"mediaSimilaritiesComponent.back": {
+		"string": "Назад"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "Export as similar"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Добавить похожий"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "Import similar item"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Import similar media into this item"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Import similar media into this item"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "Export all media to another item"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "Export all media to another item"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Не удалось добавить похожий материал",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "Похожий материал успешно добавлен",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "Этот файл был добавлен как похожий к другому материалу"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "This media has been suggested to be similar to another item"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "{count, plural, one {1 возможное совпадение} few {# возможных совпадений} many {# возможных совпадений} other {# возможных совпадений}}"
+	},
+	"mediaStatus.cancelMessage": {
+		"string": "Отменить"
+	},
+	"mediaStatus.error": {
+		"string": "В процессе редактирования статуса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"mediaStatus.messageDescription": {
+		"string": "Пожалуйста, добавьте комментарий для отправителя. Комментарий будет добавлен к сообщению о закрытии запроса."
+	},
+	"mediaStatus.noteHint": {
+		"string": "Нажмите ENTER для отправки"
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Назад"
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Назад к основному виду"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "No notes"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "Нет запросов"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "Нет возможных совпадений."
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Заметки"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "Похож ли предложенный медиа-файл на основной?"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Запросы"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "Возможных совпадений ({current} из {total})"
+	},
+	"mediaTags.error": {
+		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"moreLess.less": {
+		"string": "Меньше"
+	},
+	"moreLess.more": {
+		"string": "Ещё"
+	},
+	"multiSelector.cancel": {
+		"string": "Отменить"
+	},
+	"multiSelector.empty": {
+		"string": "Нет результатов"
+	},
+	"network.noResponse": {
+		"string": "Не удается подключиться к {app} — убедитесь, что интернет подключен"
+	},
+	"network.stillWorking": {
+		"string": "Загрузка..."
+	},
+	"notFound.title": {
+		"string": "Не найдено"
+	},
+	"pageTitle.appNameHuman": {
+		"string": "Check"
+	},
+	"passwordChange.changePassword": {
+		"string": "Изменить пароль"
+	},
+	"passwordChange.confirmPassword": {
+		"string": "Повторите пароль"
+	},
+	"passwordChange.currentPassword": {
+		"string": "Текущий пароль"
+	},
+	"passwordChange.newPassword": {
+		"string": "Новый пароль (минимум {min} знаков)"
+	},
+	"passwordChange.signIn": {
+		"string": "Ок"
+	},
+	"passwordChange.successMsg": {
+		"string": "Готово! Теперь вы можете входить со своим новым паролем."
+	},
+	"passwordChange.successTitle": {
+		"string": "Пароль изменён"
+	},
+	"passwordChange.title": {
+		"string": "Изменить пароль"
+	},
+	"passwordChange.unmatchingPasswords": {
+		"string": "Пароли не совпадают"
+	},
+	"passwordReset.cancel": {
+		"string": "Отменить"
+	},
+	"passwordReset.confirmedText": {
+		"string": "Вам отправлено письмо от {adminEmail} с инструкциями по сбросу пароля. Ссылка в письме действует {expiry} ч. Если вы не получили письмо, проверьте папку со спамом. Если наши письма вам не приходят, свяжитесь с нами: {supportEmail}."
+	},
+	"passwordReset.confirmedTitle": {
+		"string": "Проверьте почту"
+	},
+	"passwordReset.email": {
+		"string": "Email"
+	},
+	"passwordReset.emailNotFoundContactSupport": {
+		"string": "Извините, аккаунт с данным email не найден. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}."
+	},
+	"passwordReset.emailNotValid": {
+		"string": "Пожалуйста, укажите корректный email."
+	},
+	"passwordReset.signIn": {
+		"string": "Войти"
+	},
+	"passwordReset.submit": {
+		"string": "Сбросить пароль"
+	},
+	"passwordReset.text": {
+		"string": "Укажите свой email, и мы вышлем вам письмо с инструкциями."
+	},
+	"passwordReset.title": {
+		"string": "Сбросить пароль"
+	},
+	"privacy.policy.title": {
+		"string": "Политика приватности"
+	},
+	"projectActions.assignOrUnassign": {
+		"string": "Назначить список"
+	},
+	"projectActions.confirmDeleteProject": {
+		"string": "Вы уверены, что хотите удалить этот список? Все материалы из удаляемого списка всё ещё будут доступны в общем списке «Все материалы»."
+	},
+	"projectActions.destroy": {
+		"string": "Удалить"
+	},
+	"projectActions.projectDeleted": {
+		"string": "Список успешно удалён."
+	},
+	"projectActions.projectNotDeleted": {
+		"string": "Извините, не удалось удалить список."
+	},
+	"projectAssignment.assignedTo": {
+		"string": "Назначено"
+	},
+	"projectAssignment.more": {
+		"string": "ещё +{count}"
+	},
+	"projectAssignment.notAssigned": {
+		"string": "Не назначен"
+	},
+	"projectAssignment.notes": {
+		"string": "Заметки"
+	},
+	"projectAssignment.notesTitle": {
+		"string": "Add a note to the email"
+	},
+	"projectAssignment.processing": {
+		"string": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
+	},
+	"projectAssignment.title": {
+		"string": "Назначить список соавторам"
+	},
+	"projectEdit.descriptionField": {
+		"string": "Описание"
+	},
+	"projectEdit.error": {
+		"string": "В процессе редактирования списка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"projectEdit.saveButton": {
+		"string": "Сохранить"
+	},
+	"projectEdit.titleField": {
+		"string": "Заголовок"
+	},
+	"projectHeader.allItems": {
+		"string": "Все материалы"
+	},
+	"projectHeader.trash": {
+		"string": "Корзина"
+	},
+	"projectSelector.allProjs": {
+		"string": "Все списки"
+	},
+	"projectSelector.numProjs": {
+		"string": "Выбрано: {length, number}"
+	},
+	"projects.addProject": {
+		"string": "Добавить список"
+	},
+	"projects.allClaims": {
+		"string": "Все материалы"
+	},
+	"projects.dismiss": {
+		"string": "Отменить"
+	},
+	"projects.newList": {
+		"string": "+ Новый список"
+	},
+	"projects.trash": {
+		"string": "Корзина"
+	},
+	"projects.unconfirmed": {
+		"string": "Unconfirmed"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Добавить контент ко вступлению"
+	},
+	"reportDesigner.addText": {
+		"string": "Добавить контент к основному тексту"
+	},
+	"reportDesigner.back": {
+		"string": "Назад к аннотации"
+	},
+	"reportDesigner.canPublish": {
+		"string": "Опубликовать отчёт"
+	},
+	"reportDesigner.cannotPublish": {
+		"string": "Заполните по меньшей мере текст отчёта или изображение, чтобы опубликовать отчёт. Убедитесь, что создали отчёт для основного языка ({language})."
+	},
+	"reportDesigner.cantPublish": {
+		"string": "Выберите как минимум текст или изображение, чтобы опубликовать отчёт"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Выйти"
+	},
+	"reportDesigner.confirmLeaveText": {
+		"string": "Если вы закроете окно, вы потеряете все изменения."
+	},
+	"reportDesigner.confirmLeaveTitle": {
+		"string": "Выйти без сохранения?"
+	},
+	"reportDesigner.confirmPauseText": {
+		"string": "Этот отчёт не будет отправляться пользователям, пока он не будет снова одобрен для публикации. Вы хотите продолжить?"
+	},
+	"reportDesigner.confirmPauseTitle": {
+		"string": "Подтвердите приостановку отчёта"
+	},
+	"reportDesigner.confirmPublishText": {
+		"string": "{demand, plural, one {Этот отчёт будет отправлен пользователю, который запросил этот материал.} few {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.} many {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.} other {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.}}"
+	},
+	"reportDesigner.confirmPublishText2": {
+		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать ваш отчёт, пока он остаётся опубликованным."
+	},
+	"reportDesigner.confirmPublishTitle": {
+		"string": "Вы готовы опубликовать отчёт?"
+	},
+	"reportDesigner.confirmRepublishResendText": {
+		"string": "{demand, plural, one {Скорректированный отчёт будет отправлен пользователю, который запрашивал предыдущую версию} few {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию} many {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию} other {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию}}"
+	},
+	"reportDesigner.confirmRepublishResendText2": {
+		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
+	},
+	"reportDesigner.confirmRepublishResendTitle": {
+		"string": "Вы готовы опубликовать корректировку?"
+	},
+	"reportDesigner.confirmRepublishText": {
+		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
+	},
+	"reportDesigner.confirmRepublishTitle": {
+		"string": "Вы готовы опубликовать изменения?"
+	},
+	"reportDesigner.content": {
+		"string": "Контент (до {max} символов)"
+	},
+	"reportDesigner.copyButton": {
+		"string": "Копировать"
+	},
+	"reportDesigner.copyButtonInactive": {
+		"string": "Скопировано"
+	},
+	"reportDesigner.copyEmbedCode": {
+		"string": "Код для вставки"
+	},
+	"reportDesigner.copyShareUrl": {
+		"string": "Публичный URL"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Затемнение"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Дата публикации"
+	},
+	"reportDesigner.description": {
+		"string": "Контент (до {max} символов)"
+	},
+	"reportDesigner.disclaimer": {
+		"string": "Отказ от ответственности"
+	},
+	"reportDesigner.edit": {
+		"string": "Редактировать"
+	},
+	"reportDesigner.error": {
+		"string": "В процессе изменения настроек отчёта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"reportDesigner.firstSent": {
+		"string": "Впервые опубликован"
+	},
+	"reportDesigner.headline": {
+		"string": "Заголовок (до {max} символов)"
+	},
+	"reportDesigner.introduction": {
+		"string": "Вступление"
+	},
+	"reportDesigner.introductionSub": {
+		"string": "Используйте подстановку {query_date}, чтобы вставить дату запроса. Используйте {status} для отображения текущего статуса статьи."
+	},
+	"reportDesigner.nothingToPreview": {
+		"string": "Начните создавать отчёт, чтобы увидеть, как он будет выглядеть для пользователей, которые его получат."
+	},
+	"reportDesigner.pause": {
+		"string": "Приостановить"
+	},
+	"reportDesigner.pauseReport": {
+		"string": "Приостановить отчёт"
+	},
+	"reportDesigner.publish": {
+		"string": "Опубликовать"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Удалить изображение"
+	},
+	"reportDesigner.reportEditorTitle": {
+		"string": "Выберите контент для вашего отчёта"
+	},
+	"reportDesigner.reportImagePreviewTitle": {
+		"string": "Превью отчёта",
+		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
+	},
+	"reportDesigner.republishAndResend": {
+		"string": "{demand, plural, one {Также отправить отредактированную версию пользователю, который запрашивал предыдущую версию отчёта} few {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта} many {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта} other {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта}}"
+	},
+	"reportDesigner.save": {
+		"string": "Сохранить"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Отчётов получено"
+	},
+	"reportDesigner.statusLabel": {
+		"string": "Статус (до {max} символов)"
+	},
+	"reportDesigner.textError": {
+		"string": "Необходимо либо добавить текст для отчёта, либо снять галку «Текст отчёта»"
+	},
+	"reportDesigner.textMessage": {
+		"string": "Текст отчёта"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Заголовок (до {max} символов)"
+	},
+	"reportDesigner.themeColor": {
+		"string": "Основной цвет"
+	},
+	"reportDesigner.title": {
+		"string": "Создайте свой отчёт"
+	},
+	"reportDesigner.url": {
+		"string": "URL сайта (до {max} символов)"
+	},
+	"reportDesigner.useDefaultImage": {
+		"string": "Использовать изображение по умолчанию"
+	},
+	"reportDesigner.visualCard": {
+		"string": "Карточка"
+	},
+	"reportDesigner.warning": {
+		"string": "Внимание! Распространение URL или кода для вставки сделает материал публичным. Вы уверены?"
+	},
+	"reportStatusCell.paused": {
+		"string": "Приостановлен"
+	},
+	"reportStatusCell.published": {
+		"string": "Опубликован"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Неопубликован"
+	},
+	"rule.copyOf": {
+		"string": "Копия правила «{ruleName}»"
+	},
+	"ruleBody.if": {
+		"string": "Если"
+	},
+	"ruleBody.ruleName": {
+		"string": "Название"
+	},
+	"ruleBody.ruleNameValidation": {
+		"string": "Название правила обязательно"
+	},
+	"ruleBody.then": {
+		"string": "Тогда"
+	},
+	"ruleOperatorWrapper.and": {
+		"string": "И"
+	},
+	"ruleOperatorWrapper.or": {
+		"string": "Или"
+	},
+	"ruleOperatorWrapper.removeTheAbove": {
+		"string": "Удалить материал выше"
+	},
+	"ruleToolbar.back": {
+		"string": "Назад"
+	},
+	"ruleToolbar.delete": {
+		"string": "Удалить"
+	},
+	"ruleToolbar.deleteConfirmationText": {
+		"string": "Вы уверены, что хотите удалить это правило?"
+	},
+	"ruleToolbar.deleteConfirmationTitle": {
+		"string": "Удалить правило?"
+	},
+	"ruleToolbar.duplicate": {
+		"string": "Дублировать"
+	},
+	"ruleToolbar.leaveConfirmationText": {
+		"string": "Если вы продолжите, изменения будут утеряны."
+	},
+	"ruleToolbar.leaveConfirmationTitle": {
+		"string": "Закрыть без сохранения?"
+	},
+	"ruleToolbar.more": {
+		"string": "Ещё"
+	},
+	"rulesComponent.defaultErrorMessage": {
+		"string": "Не удалось сохранить правила"
+	},
+	"rulesComponent.savedSuccessfully": {
+		"string": "Правила сохранены успешно!"
+	},
+	"rulesTableHead.name": {
+		"string": "Название"
+	},
+	"rulesTableHead.selectAll": {
+		"string": "Выбрать все правила"
+	},
+	"rulesTableHead.updated": {
+		"string": "Обновлено"
+	},
+	"rulesTableToolbar.add": {
+		"string": "Новое правило"
+	},
+	"rulesTableToolbar.delete": {
+		"string": "Удалить"
+	},
+	"rulesTableToolbar.deleteConfirmationText": {
+		"string": "Вы уверены, что хотите удалить эти правила?"
+	},
+	"rulesTableToolbar.deleteConfirmationTitle": {
+		"string": "Удалить выбранные правила?"
+	},
+	"rulesTableToolbar.save": {
+		"string": "Сохранить"
+	},
+	"rulesTableToolbar.selected": {
+		"string": "{numSelected, plural, one {выбрано: 1} few {выбрано: #} many {выбрано: #} other {выбрано: #}}"
+	},
+	"rulesTableToolbar.title": {
+		"string": "{numRules, plural, one {1 правило} few {Правил: #} many {Правил: #} other {Правил: #}}"
+	},
+	"search.Filter": {
+		"string": "Фильтровать"
+	},
+	"search.all": {
+		"string": "Все"
+	},
+	"search.allClaimsTitle": {
+		"string": "Все материалы"
+	},
+	"search.any": {
+		"string": "Любое"
+	},
+	"search.applyFilters": {
+		"string": "Фильтровать"
+	},
+	"search.assignedTo": {
+		"string": "Назначено"
+	},
+	"search.cancel": {
+		"string": "Отменить"
+	},
+	"search.categoriesHeading": {
+		"string": "Тэги"
+	},
+	"search.clear": {
+		"string": "Очистить фильтр"
+	},
+	"search.dateHeading": {
+		"string": "Временной промежуток"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Отредактировано"
+	},
+	"search.datePublishedHeading": {
+		"string": "Опубликован"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Отправлено"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Обновлено"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Альфа + Бета</td><td>Результаты, где есть И Альфа, И Бета</td></tr>\n                        <tr><td>|</td><td>Альфа | Бета</td><td>Результаты, где есть Альфа ИЛИ Бета</td></tr>\n                        <tr><td>()</td><td>Альфа + (Бета | Гамма)</td><td>Результаты, где есть ИЛИ Альфа И Бета, ИЛИ Альфа И Гамма</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Узнать больше о методах поиска\n                      </a>\n                    </div>"
+	},
+	"search.inputHint": {
+		"string": "Искать"
+	},
+	"search.language": {
+		"string": "Язык"
+	},
+	"search.nextPage": {
+		"string": "Следующая"
+	},
+	"search.pickDateFrom": {
+		"string": "Дата начала"
+	},
+	"search.pickDateTo": {
+		"string": "Дата окончания"
+	},
+	"search.previousPage": {
+		"string": "Предыдущая"
+	},
+	"search.projectHeading": {
+		"string": "Список"
+	},
+	"search.readHeading": {
+		"string": "Прочитано"
+	},
+	"search.reset": {
+		"string": "Сбросить"
+	},
+	"search.show": {
+		"string": "Тип материала"
+	},
+	"search.showAudios": {
+		"string": "Аудио"
+	},
+	"search.showBlank": {
+		"string": "Отчёт (импорт)"
+	},
+	"search.showClaims": {
+		"string": "Тексты"
+	},
+	"search.showImages": {
+		"string": "Изображения"
+	},
+	"search.showLinks": {
+		"string": "Ссылки"
+	},
+	"search.showVideos": {
+		"string": "Видео"
+	},
+	"search.statusHeading": {
+		"string": "Item status"
+	},
+	"search.title": {
+		"string": "Все материалы"
+	},
+	"search.userHeading": {
+		"string": "Автор"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "Все ответы на метаданные"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "Все заметки"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "Все ответы на вопрос",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "Все комментарии к вопросам"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Содержимое анализа"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Заголовок анализа"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Содержимое медиа-файла"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Заголовок медиа-файла"
+	},
+	"searchKeywordConfig.metadata": {
+		"string": "Метаданные"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Тэги"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Вопросы"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} few {} many {} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(выбрано: 1)} few {(выбрано: #)} many {(выбрано: #)} other {(выбрано: #)}}"
+	},
+	"sentence.lastSeparator": {
+		"string": "и"
+	},
+	"sentence.separator": {
+		"string": ", "
+	},
+	"shortTextRespondTask.answerTask": {
+		"string": "Ответить на вопрос"
+	},
+	"shortTextRespondTask.cancelTask": {
+		"string": "Отменить"
+	},
+	"shortTextRespondTask.responseHint": {
+		"string": "Ответ"
+	},
+	"singleChoiceTask.addOther": {
+		"string": "Добавить вариант «Другое»"
+	},
+	"singleChoiceTask.addValue": {
+		"string": "Добавить вариант ответа"
+	},
+	"singleChoiceTask.other": {
+		"string": "Другое"
+	},
+	"singleChoiceTask.value": {
+		"string": "Значение"
+	},
+	"slackConfig.menuTooltip": {
+		"string": "Настройки интеграции"
+	},
+	"slackConfig.text": {
+		"string": "Уведомлять об активности в Slack"
+	},
+	"slackConfig.title": {
+		"string": "Интеграция со Slack"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "Прочая активность"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "Вся активность проекта"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Отменить"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Канал Slack"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Не удалось сохранить настройки Slack"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Событие"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "Если материал в списке"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "Новое уведомление"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Сохранить"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Настройки Slack сохранены успешно!"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Отправлять уведомления в"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Отправлять уведомления в каналы Slack при добавлении задач к спискам"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Webhook Slack"
+	},
+	"smoochBot.addResource": {
+		"string": "Добавить ресурс"
+	},
+	"smoochBot.descriptionGreeting": {
+		"string": "Самое первое сообщение, отправляемое пользователю. В нём содержится информация о вашей организации и предоставляемой услуге."
+	},
+	"smoochBot.descriptionInactive": {
+		"string": "Это сообщение отправляется в ответ на любые запросы пользователей, когда бот Check переведён в неактивное состояние."
+	},
+	"smoochBot.descriptionInvalidFormat": {
+		"string": "Автоматическое сообщение, отправляемое пользователю, когда он пытается загрузить файл, не поддерживаемый Check."
+	},
+	"smoochBot.descriptionMainMenu": {
+		"string": "Меню, где пользователю предлагается выбрать из нескольких вариантов. Это сообщение автоматически отправляется пользователю сразу после приветствия. «9» не может быть использовано как вариант ответа в главном меню."
+	},
+	"smoochBot.descriptionOptionNotAvailable": {
+		"string": "Сообщение, отправляемое пользователю, если его ответа нет в вариантах меню."
+	},
+	"smoochBot.descriptionPrivacyStatementContent": {
+		"string": "Privacy Statement content. Edit the text below, or replace it with custom content."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting": {
+		"string": "By default, the following Privacy Statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting2": {
+		"string": "The option '9' must be referenced for users to access the Privacy Statement on the Main menu."
+	},
+	"smoochBot.descriptionQueryPrompt": {
+		"string": "Сообщение, в котором пользователю предлагается отправить контент для факт-чекинга."
+	},
+	"smoochBot.descriptionQueryReceived": {
+		"string": "Подтверждение, отправляемое пользователю после того, как от него был получен корректный запрос."
+	},
+	"smoochBot.descriptionReportUpdated": {
+		"string": "Сообщение, отправляемое пользователю, когда меняется статус отчёта по его материалу. Это сообщение отправляется только для опубликованных отчётов."
+	},
+	"smoochBot.descriptionSecondaryMenu": {
+		"string": "Опциональное меню, которое даёт пользователю выбрать из нескольких действий. Когда пользователь выбирает одну из доступных опций, бот может отправить отчёт или перенаправить пользователя на другое сообщение."
+	},
+	"smoochBot.footnoteGreeting": {
+		"string": "Следующее объявление и вариант ответа будут автоматически добавлены после этого сообщения: «Мы не передаём третьим лицам ваши персональные данные. Нажмите \"9\", чтобы ознакомиться с условиями предоставления услуг.»"
+	},
+	"smoochBot.footnoteGreeting2": {
+		"string": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page."
+	},
+	"smoochBot.labelGreeting": {
+		"string": "Приветствие"
+	},
+	"smoochBot.labelInactive": {
+		"string": "Уведомление о неактивности"
+	},
+	"smoochBot.labelInvalidFormat": {
+		"string": "Неверный формат"
+	},
+	"smoochBot.labelMainMenu": {
+		"string": "Главное меню"
+	},
+	"smoochBot.labelOptionNotAvailable": {
+		"string": "Опция недоступна"
+	},
+	"smoochBot.labelPrivacyStatement": {
+		"string": "Privacy Statement"
+	},
+	"smoochBot.labelQueryPrompt": {
+		"string": "Сообщение пользователю"
+	},
+	"smoochBot.labelQueryReceived": {
+		"string": "Полученное сообщение"
+	},
+	"smoochBot.labelReportUpdated": {
+		"string": "Отчёт обновлён"
+	},
+	"smoochBot.labelSecondaryMenu": {
+		"string": "Вторичное меню"
+	},
+	"smoochBot.menuKeywords": {
+		"string": "Ключевые слова через запятую"
+	},
+	"smoochBot.newResourceTitle": {
+		"string": "Новый бот"
+	},
+	"smoochBot.placeholderGreeting": {
+		"string": "Привет! Я факт-чек бот от [Имя вашей организации]."
+	},
+	"smoochBot.placeholderInactive": {
+		"string": "❌Спасибо за ваше сообщение. Наша услуга факт-чекинга в данный момент *неактивна.*\n\nСвяжитесь с нами (*[e-mail или другой контакт]*) для получения более подробной информации."
+	},
+	"smoochBot.placeholderInvalidFormat": {
+		"string": "❌Извините, но мы ещё не можем обрабатывать запросы такого типа.\n\nМы принимаем большинство изображений, видео, ссылок, текстовых сообщений и пересланных сообщений WhatsApp."
+	},
+	"smoochBot.placeholderMainMenu": {
+		"string": "📌*Главное меню*\n\n*Отправьте 1* (или 🔍), чтобы запросить факт-чек статьи, видео, изображения или другого контента.\n*Отправьте 2* (или 🦠), чтобы получить последнюю информацию о коронавирусе (COVID-19)"
+	},
+	"smoochBot.placeholderOptionNotAvailable": {
+		"string": "🤖Извините, я не понял ваше сообщение. Пожалуйста, попробуйте снова!"
+	},
+	"smoochBot.placeholderQueryPrompt": {
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after  your last message.\n      \n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
+	},
+	"smoochBot.placeholderQueryReceived": {
+		"string": "Спасибо! Ваш запрос был получен. Мы собираем ответы из разных источников и работаем над факт-чекингом ваших материалов.\n\n✔️*По этой ссылке можно увидеть обновляемый список часто задаваемых вопросов, по которым мы провели проверку:* [ Ссылка на страницу факт-чекинга на вашем сайте ]\n\n👉*Отправьте любое сообщение*, чтобы вернуться в *Главное меню* 📌"
+	},
+	"smoochBot.placeholderReportUpdated": {
+		"string": "❗️Отчёт о верификации, который мы вам отправили, был *обновлён*:"
+	},
+	"smoochBot.placeholderSecondaryMenu": {
+		"string": "*Информация о коронавирусе (COVID-19)* 🦠\n\n👉*Отправьте любую из предложенных цифр (или эмодзи), чтобы получить информацию о соответствующей теме:*\n\n*1:* Как я могу защитить себя и/или мою семью? 👨‍👩‍👧\n*2:* Мне кажется, что я заболеваю 🤒\n*3:* Как справиться со стрессом, вызванным COVID-19? ❤️\n*4:* Информация о случаях заражения и статистике по выздоровлению 📊\n*5:* Последняя информация от Всемирной Организации Здравоохранения 🌐\n\n*Отправьте 0*, чтобы вернуться в *Главное меню* 📌"
+	},
+	"smoochBot.scenarios": {
+		"string": "Сценарии"
+	},
+	"smoochBot.settings": {
+		"string": "Настройки"
+	},
+	"smoochBot.title": {
+		"string": "Создайте своего бота"
+	},
+	"smoochBot.tos": {
+		"string": "Условия использования ({language})"
+	},
+	"smoochBotMenuEditor.scenario": {
+		"string": "Сценарий"
+	},
+	"smoochBotMenuOption.action": {
+		"string": "Ответить"
+	},
+	"smoochBotMenuOption.add": {
+		"string": "Создать \"{resourceName}\""
+	},
+	"smoochBotMenuOption.condition": {
+		"string": "Присутствует ключевое слово"
+	},
+	"smoochBotMenuOption.errorTos": {
+		"string": "«9» используется для ознакомления с условиями предоставления услуг. Эта цифра не может быть использована как вариант ответа в главном меню."
+	},
+	"smoochBotMenuOption.if": {
+		"string": "Если"
+	},
+	"smoochBotMenuOption.languageAction": {
+		"string": "{languageName} (главное меню)"
+	},
+	"smoochBotMenuOption.mainState": {
+		"string": "Главное меню"
+	},
+	"smoochBotMenuOption.queryState": {
+		"string": "Сообщение пользователю"
+	},
+	"smoochBotMenuOption.resource": {
+		"string": "Отчёт"
+	},
+	"smoochBotMenuOption.secondaryState": {
+		"string": "Вторичное меню"
+	},
+	"smoochBotMenuOption.selectMessage": {
+		"string": "Выберите сообщение"
+	},
+	"smoochBotMenuOption.then": {
+		"string": "Тогда"
+	},
+	"smoochBotMultiTextEditor.errorNine": {
+		"string": "The option '9' must be included for users to access the Privacy Statement"
+	},
+	"smoochBotResourceEditor.addContent": {
+		"string": "Добавить контент вручную"
+	},
+	"smoochBotResourceEditor.delete": {
+		"string": "Удалить"
+	},
+	"smoochBotResourceEditor.error": {
+		"string": "Этот URL, кажется, не является RSS-лентой"
+	},
+	"smoochBotResourceEditor.load": {
+		"string": "Загрузить"
+	},
+	"smoochBotResourceEditor.numberOfArticles": {
+		"string": "Количество статей"
+	},
+	"smoochBotResourceEditor.rss": {
+		"string": "Добавить контент из RSS-ленты"
+	},
+	"smoochBotResourceEditor.rssPlaceholder": {
+		"string": "Публичный URL, который возвращает N статей в формате RSS"
+	},
+	"smoochBotResourceEditor.title": {
+		"string": "Заголовок ресурса"
+	},
+	"smoochBotResourceEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotSelectReport.cancel": {
+		"string": "Отменить"
+	},
+	"smoochBotSelectReport.confirm": {
+		"string": "Подтверждение"
+	},
+	"smoochBotSelectReport.dialogDescription": {
+		"string": "Через поиск по заголовкам выберите материал, который хотите отправить как отчёт. Бот ответит этим отчётом пользоввателю. Отчёт должен быть завершён, чтобы его можно было выбрать."
+	},
+	"smoochBotSelectReport.dialogTitle": {
+		"string": "Выберите отчёт"
+	},
+	"sortSelect.az": {
+		"string": "А — Я"
+	},
+	"sortSelect.lu": {
+		"string": "Наименее используемые"
+	},
+	"sortSelect.mu": {
+		"string": "Самые используемые"
+	},
+	"sortSelect.nf": {
+		"string": "От новых к старым"
+	},
+	"sortSelect.of": {
+		"string": "От старых к новым"
+	},
+	"sortSelect.za": {
+		"string": "Я — А"
+	},
+	"statusListItem.confirmDefaultBody": {
+		"string": "{language} станет языком по умолчанию: бот будет отвечать на нём, если пользователь напишет на языке, которого нет в списке поддерживаемых. "
+	},
+	"statusListItem.confirmDefaultButton": {
+		"string": "Задать по умолчанию"
+	},
+	"statusListItem.confirmDefaultTitle": {
+		"string": "Сделать языком по умолчанию?"
+	},
+	"statusListItem.confirmDeleteBody1": {
+		"string": "{language} язык перестанет поддерживаться при отправке контента, вместо него будет использоваться язык по умолчанию."
+	},
+	"statusListItem.confirmDeleteBody2": {
+		"string": "Это также относится к боту Tipline, статусам и отчётам."
+	},
+	"statusListItem.confirmDeleteTitle": {
+		"string": "Удалить язык?"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (по умолчанию)"
+	},
+	"statusListItem.makeDefault": {
+		"string": "По умолчанию"
+	},
+	"statusListItem.noDescription": {
+		"string": "Без описания"
+	},
+	"statusesComponent.blurb": {
+		"string": "Пользователи видят статус, когда получают отчёты."
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
+	},
+	"statusesComponent.error": {
+		"string": "Извините, во время обновления статусов произошла ошибка. Пожалуйста, попробуйте ещё раз. Если ошибка повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Отредактировать материалы и удалить статус"
+	},
+	"statusesComponent.newStatus": {
+		"string": "Новый статус"
+	},
+	"statusesComponent.saved": {
+		"string": "Статусы сохранены успешно!"
+	},
+	"statusesComponent.title": {
+		"string": "{statuses_count, plural, one {1 статус} few {Статусов: #} many {Статусов: #} other {Статусов: #}}"
+	},
+	"switchTeams.cancelJoinRequest": {
+		"string": "Отменить"
+	},
+	"switchTeams.error": {
+		"string": "В процессе редактирования проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"switchTeams.joinRequestMessage": {
+		"string": "Вы подали заявку"
+	},
+	"switchTeams.member": {
+		"string": "{membersCount, plural, =0 {Нет участников} one {1 участник} other {Участников: #}}"
+	},
+	"switchTeams.newTeamLink": {
+		"string": "Создать"
+	},
+	"switchTeams.noTeams": {
+		"string": "Не участвует ни в одном проекте."
+	},
+	"tagInput.addTag": {
+		"string": "Добавить тэг"
+	},
+	"tagInput.error": {
+		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"tagInput.search": {
+		"string": "Найти или добавить тэг"
+	},
+	"tagMenu.done": {
+		"string": "Ок"
+	},
+	"tagMenu.tooltip": {
+		"string": "Редактировать тэги"
+	},
+	"tagPicker.emptyTags": {
+		"string": "У этого проекта пока нет тэгов."
+	},
+	"tagPicker.tagNotFound": {
+		"string": "Тэг #{tag} не найден."
+	},
+	"tagTextCount.acknowledge": {
+		"string": "{count, plural, =0 {Да} one {При удалении этого тэга он будет снят с материала, на который он назначен.} other {При удалении этого тэга он будет снят со всех материалов, на которые он назначен. Материалов: #.}}"
+	},
+	"task.answeredBy": {
+		"string": "Выполнено {byName}"
+	},
+	"task.assignOrUnassign": {
+		"string": "Назначить / Снять"
+	},
+	"task.assignedTo": {
+		"string": "Назначено {name}"
+	},
+	"task.confirmDelete": {
+		"string": "Вы уверены, что хотите удалить вопрос?"
+	},
+	"task.confirmDeleteResponse": {
+		"string": "Вы уверены, что хотите удалить этот ответ?"
+	},
+	"task.confirmDeleteResponseTitle": {
+		"string": "Удалить ответ?"
+	},
+	"task.confirmDeleteTitle": {
+		"string": "Удалить вопрос?"
+	},
+	"task.delete": {
+		"string": "Удалить вопрос"
+	},
+	"task.deleteResponse": {
+		"string": "Удалить ответ"
+	},
+	"task.edit": {
+		"string": "Редактировать вопрос"
+	},
+	"task.editAttribution": {
+		"string": "Авторство ответа"
+	},
+	"task.editResponse": {
+		"string": "Редактировать ответ"
+	},
+	"taskActions.tooltipMetadata": {
+		"string": "Действия с метаданными"
+	},
+	"taskActions.tooltipTask": {
+		"string": "Действия с вопросом"
+	},
+	"taskLog.bubbleTooltip": {
+		"string": "Переключить логирование"
+	},
+	"taskTypeSelector.allTypes": {
+		"string": "Все вопросы"
+	},
+	"taskTypeSelector.numTypes": {
+		"string": "Выбрано: {length, number}"
+	},
+	"tasks.add": {
+		"string": "Сохранить"
+	},
+	"tasks.addMetadata": {
+		"string": "Новые метаданные"
+	},
+	"tasks.addTask": {
+		"string": "Новый вопрос"
+	},
+	"tasks.answer": {
+		"string": "Ответить"
+	},
+	"tasks.assign": {
+		"string": "Назначить"
+	},
+	"tasks.attributionSlogan": {
+		"string": "Авторы ответа на вопрос «{label}»"
+	},
+	"tasks.blankMetadata": {
+		"string": "Нет полей для метаданных"
+	},
+	"tasks.cancelAdd": {
+		"string": "Отменить"
+	},
+	"tasks.cancelEdit": {
+		"string": "Отменить"
+	},
+	"tasks.chooseMultiple": {
+		"string": "Множественный выбор"
+	},
+	"tasks.chooseOne": {
+		"string": "Одиночный выбор"
+	},
+	"tasks.datetime": {
+		"string": "Дата и время"
+	},
+	"tasks.description": {
+		"string": "Описание (необязательно)"
+	},
+	"tasks.done": {
+		"string": "Ок"
+	},
+	"tasks.editAssignment": {
+		"string": "Редактировать назначение"
+	},
+	"tasks.editAttribution": {
+		"string": "Авторство ответа"
+	},
+	"tasks.fileUpload": {
+		"string": "Загрузка файла"
+	},
+	"tasks.geolocation": {
+		"string": "Местонахождение"
+	},
+	"tasks.goToSettings": {
+		"string": "К настройкам"
+	},
+	"tasks.shortAnswer": {
+		"string": "Текст"
+	},
+	"tasks.showInBrowserExtension": {
+		"string": "Показать в браузерном расширении"
+	},
+	"tasks.showInProj": {
+		"string": "Показать вопросы в"
+	},
+	"tasks.taskPrompt": {
+		"string": "Вопрос"
+	},
+	"tasks.teamwideNudge": {
+		"string": "Вопросы по умолчанию"
+	},
+	"tasks.timezones": {
+		"string": "Часовые пояса, доступные для ответа на вопрос"
+	},
+	"teamBots.botGarden": {
+		"string": "Cмотреть ботов"
+	},
+	"teamBots.close": {
+		"string": "Закрыть"
+	},
+	"teamBots.confirmDeleteBlurb": {
+		"string": "Все настройки будут удалены и не будут подлежать восстановлению. Вы уверены, что хотите продолжить?"
+	},
+	"teamBots.confirmDeleteTitle": {
+		"string": "Бот {botName} сейчас будет удалён"
+	},
+	"teamBots.confirmLeaveButtonLabel": {
+		"string": "Выйти"
+	},
+	"teamBots.confirmLeaveText": {
+		"string": "Если вы закроете окно, вы потеряете все изменения."
+	},
+	"teamBots.confirmLeaveTitle": {
+		"string": "Выйти без сохранения?"
+	},
+	"teamBots.confirmationMessage": {
+		"string": "Все изменения настроек бота будут применены немедленно, и пользователи сразу увидят эти изменения. Вы уверены, что хотите продолжить?"
+	},
+	"teamBots.confirmationTitle": {
+		"string": "Подтверждение"
+	},
+	"teamBots.fail": {
+		"string": "Ошибка! Пожалуйста, попробуйте ещё раз."
+	},
+	"teamBots.moreInfo": {
+		"string": "Информация"
+	},
+	"teamBots.noBots": {
+		"string": "Нет установленных ботов."
+	},
+	"teamBots.noSettings": {
+		"string": "У этого бота нет настроек."
+	},
+	"teamBots.remove": {
+		"string": "Удалить"
+	},
+	"teamBots.save": {
+		"string": "Сохранить"
+	},
+	"teamBots.settings": {
+		"string": "Настройки"
+	},
+	"teamBots.settingsTooltip": {
+		"string": "Настройки бота"
+	},
+	"teamBots.smoochErrorMessage": {
+		"string": "Вы не можете использовать «9» как вариант ответа в главном меню. Пожалуйста, выберите другое значение для следующих языков: {languages}"
+	},
+	"teamBots.smoochErrorTitle": {
+		"string": "Недоступный вариант"
+	},
+	"teamBots.success": {
+		"string": "Настройки обновлены!"
+	},
+	"teamComponent.cancelButton": {
+		"string": "Отменить"
+	},
+	"teamComponent.editButton": {
+		"string": "Редактировать профиль"
+	},
+	"teamComponent.editError": {
+		"string": "В процессе редактирования проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"teamComponent.invalidLink": {
+		"string": "Пожалуйста, введите корректный URL"
+	},
+	"teamComponent.location": {
+		"string": "Местонахождение"
+	},
+	"teamComponent.noProjects": {
+		"string": "Нет списков"
+	},
+	"teamComponent.phone": {
+		"string": "Номер телефона"
+	},
+	"teamComponent.private": {
+		"string": "Закрытая"
+	},
+	"teamComponent.projectAssignmentsCount": {
+		"string": "{count, plural, one {Назначено одному участнику} few {Назначено участникам (#)} many {Назначено участникам (#)} other {Назначено участникам (#)}}"
+	},
+	"teamComponent.projects": {
+		"string": "Списки"
+	},
+	"teamComponent.public": {
+		"string": "Публичная"
+	},
+	"teamComponent.saveButton": {
+		"string": "Сохранить"
+	},
+	"teamComponent.teamDescription": {
+		"string": "Описание"
+	},
+	"teamComponent.teamName": {
+		"string": "Название"
+	},
+	"teamComponent.website": {
+		"string": "Сайт"
+	},
+	"teamInfo.editTeam": {
+		"string": "Редактировать"
+	},
+	"teamInviteCard.copied": {
+		"string": "КОПИРОВАТЬ"
+	},
+	"teamInviteCard.copy": {
+		"string": "Скопировано!"
+	},
+	"teamInviteCard.title": {
+		"string": "Пригласить участников"
+	},
+	"teamInviteMembers.addAnother": {
+		"string": "Добавить ещё"
+	},
+	"teamInviteMembers.addMany": {
+		"string": "Добавить несколько"
+	},
+	"teamInviteMembers.addSeparate": {
+		"string": "Добавить по одному"
+	},
+	"teamInviteMembers.cancelAdd": {
+		"string": "Отменить"
+	},
+	"teamInviteMembers.customInvitation": {
+		"string": "Заметка (необязательно)"
+	},
+	"teamInviteMembers.inviteMember": {
+		"string": "Пригласить"
+	},
+	"teamInviteMembers.inviteMembers": {
+		"string": "Участники будут приглашены как"
+	},
+	"teamInviteMembers.resendEmailSuccess": {
+		"string": "Приглашение отправлено"
+	},
+	"teamInviteMembers.send": {
+		"string": "Отправить"
+	},
+	"teamLists.description": {
+		"string": "Выберите столбцы, которые хотите отображать во всех списках."
+	},
+	"teamLists.title": {
+		"string": "Настройки списков"
+	},
+	"teamListsColumn.none": {
+		"string": "None available"
+	},
+	"teamListsComponent.buttonLabel": {
+		"string": "Сохранить изменения для всех списков"
+	},
+	"teamListsComponent.confirmSaveText": {
+		"string": "Вы уверены? Ваши изменения затронут все списки и отразятся на всех пользователях проекта."
+	},
+	"teamListsComponent.confirmSaveTitle": {
+		"string": "Изменение списка проекта"
+	},
+	"teamListsComponent.createMetadata": {
+		"string": "Create new metadata field"
+	},
+	"teamListsComponent.defaultErrorMessage": {
+		"string": "Не удалось сохранить настройки списка.",
+		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+	},
+	"teamListsComponent.description": {
+		"string": "Выберите столбцы, которые хотите отображать во всех списках."
+	},
+	"teamListsComponent.displayedColumns": {
+		"string": "Displayed columns"
+	},
+	"teamListsComponent.generalColumns": {
+		"string": "General"
+	},
+	"teamListsComponent.metadataColumns": {
+		"string": "Метаданные"
+	},
+	"teamListsComponent.save": {
+		"string": "Сохранить"
+	},
+	"teamListsComponent.savedSuccessfully": {
+		"string": "Настройки списка сохранены успешно.",
+		"developer_comment": "Banner displayed when list settings are saved successfully"
+	},
+	"teamListsComponent.title": {
+		"string": "Настройки списка"
+	},
+	"teamListsItem.general": {
+		"string": "General"
+	},
+	"teamListsItem.hide": {
+		"string": "Скрыть"
+	},
+	"teamListsItem.metadata": {
+		"string": "Метаданные"
+	},
+	"teamListsItem.show": {
+		"string": "Показать"
+	},
+	"teamMembersComponent.editButton": {
+		"string": "Редактировать"
+	},
+	"teamMembersComponent.editDoneButton": {
+		"string": "Ок"
+	},
+	"teamMembersComponent.inviteLink": {
+		"string": "Чтобы пригласить коллег в группу {teamName}, отправьте им эту ссылку:"
+	},
+	"teamMembersComponent.mainHeading": {
+		"string": "Участники"
+	},
+	"teamMembersComponent.pendingInvitations": {
+		"string": "Отправленные приглашения"
+	},
+	"teamMembershipRequests.requestsToJoin": {
+		"string": "Заявки на вступление"
+	},
+	"teamMenu.teamSettings": {
+		"string": "Настройки проекта"
+	},
+	"teamReport.disclaimer": {
+		"string": "Отказ от ответственности"
+	},
+	"teamReport.disclaimerSub": {
+		"string": "Заявление об отказе от ответственности (дисклеймер), которое будет отображено рядом с логотипом проекта в нижней части отчёта."
+	},
+	"teamReport.introduction": {
+		"string": "Вступление"
+	},
+	"teamReport.introductionSub": {
+		"string": "Используйте подстановку {query_date}, чтобы вставить дату запроса. Используйте {status} для отображения текущего статуса статьи."
+	},
+	"teamReport.save": {
+		"string": "Сохранить"
+	},
+	"teamReport.subtitle": {
+		"string": "Контент, который вы зададите здесь, может быть отредактирован для каждого отчёта"
+	},
+	"teamReport.title": {
+		"string": "Настройки отчёта по умолчанию"
+	},
+	"teamReport.updateFail": {
+		"string": "В процессе изменения настроек отчёта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"teamReport.updateSuccess": {
+		"string": "Настройки отчёта успешно обновлены!"
+	},
+	"teamSettings.Tags": {
+		"string": "Тэги"
+	},
+	"teamSettings.bots": {
+		"string": "Боты"
+	},
+	"teamSettings.integrations": {
+		"string": "Интеграция"
+	},
+	"teamSettings.languages": {
+		"string": "Языки"
+	},
+	"teamSettings.lists": {
+		"string": "Списки"
+	},
+	"teamSettings.metadata": {
+		"string": "Метаданные"
+	},
+	"teamSettings.report": {
+		"string": "Отчёт"
+	},
+	"teamSettings.rules": {
+		"string": "Правила"
+	},
+	"teamSettings.statuses": {
+		"string": "Статусы"
+	},
+	"teamSettings.tasks": {
+		"string": "Вопросы"
+	},
+	"teamTags.addTag": {
+		"string": "Добавить тэг"
+	},
+	"teamTags.confirmDeleteTitle": {
+		"string": "Вы уверены, что хотите удалить этот тэг?"
+	},
+	"teamTags.counter": {
+		"string": "{total, plural, =0 {Нет тэгов} one {1 тэг (скрыто фильтрами: {hidden})} other {Тэгов: # (скрыто фильтрами: {hidden})}}"
+	},
+	"teamTags.counterNoHidden": {
+		"string": "{total, plural, =0 {Нет тэгов} one {1 тэг} other {Тэгов: #}}"
+	},
+	"teamTags.deleteTag": {
+		"string": "Удалить тэг"
+	},
+	"teamTags.editTag": {
+		"string": "Редактировать тэг"
+	},
+	"teamTags.fail": {
+		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"teamTags.failDelete": {
+		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"teamTags.failMove": {
+		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"teamTags.failUpdate": {
+		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"teamTags.itemsCount": {
+		"string": "{count, plural, =0 {Нет материалов} one {1 материал} other {Материалов: #}}"
+	},
+	"teamTags.menuTooltip": {
+		"string": "Действия с тегами"
+	},
+	"teamTags.new": {
+		"string": "Новый тэг"
+	},
+	"teamTags.noTags": {
+		"string": "Нет тэгов"
+	},
+	"teamTags.tooltip": {
+		"string": "Фильтр и сортировка"
+	},
+	"teamTasks.blank": {
+		"string": "Нет вопросов по умолчанию"
+	},
+	"teamTasks.blankMetadata": {
+		"string": "Нет полей для метаданных"
+	},
+	"teamTasks.cancelAction": {
+		"string": "Отменить"
+	},
+	"teamTasks.confirmAction": {
+		"string": "Да"
+	},
+	"teamTasks.confirmDeleteBlurb": {
+		"string": "Выбранные вопросы будут удалены из {itemsNumber, plural, one {1 материала} other {# материалов}}. При удалении вопросов также будут удалены все ответы на них."
+	},
+	"teamTasks.confirmDeleteMetadataTitle": {
+		"string": "Вы уверены, что хотите удалить эти метаданные?"
+	},
+	"teamTasks.confirmDeleteTaskTitle": {
+		"string": "Вы уверены, что хотите удалить вопрос?"
+	},
+	"teamTasks.confirmDeletekeepCompleted": {
+		"string": "Оставить отвеченные вопросы и их текущие ответы."
+	},
+	"teamTasks.confirmEditBlurb": {
+		"string": "Это действие изменит все связанные вопросы кроме тех, на которые уже есть ответы."
+	},
+	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
+		"string": "Будут отредактированы вопросы в {itemsNumber, plural, one {одном материале} other {нескольких материалах (#)}}."
+	},
+	"teamTasks.confirmEditMetadataTitle": {
+		"string": "Вы уверены, что хотите отредактировать эти метаданные?"
+	},
+	"teamTasks.confirmEditTaskTitle": {
+		"string": "Вы уверены, что хотите отредактировать этот вопрос?"
+	},
+	"teamTasks.confirmEditkeepCompleted": {
+		"string": "Оставить отвеченные вопросы и их текущие заголовки и описания."
+	},
+	"teamTasks.continue": {
+		"string": "Продолжить"
+	},
+	"teamTasks.delete": {
+		"string": "Удалить"
+	},
+	"teamTasks.edit": {
+		"string": "Редактировать"
+	},
+	"teamTasks.filter": {
+		"string": "Фильтр вопросов"
+	},
+	"teamTasks.filterLabel": {
+		"string": "{total, plural, =0 {Нет вопросов} one {1 вопрос} other {Вопросов: #}}"
+	},
+	"teamTasks.filterLabelHidden": {
+		"string": "{total, plural, =0 {Нет вопросов} one {1 вопрос (скрыто фильтрами: {hidden})} other {Вопросов: # (скрыто фильтрами: {hidden})}}"
+	},
+	"teamTasks.metadata": {
+		"string": "Метаданные"
+	},
+	"teamTasks.processMessage": {
+		"string": "Вы уверены, что хотите продолжить?"
+	},
+	"teamTasks.projFilter": {
+		"string": "Показать вопросы в"
+	},
+	"teamTasks.tasks": {
+		"string": "Вопросы"
+	},
+	"teamTasks.typeFilter": {
+		"string": "Тип вопроса"
+	},
+	"teams.title": {
+		"string": "Проекты"
+	},
+	"teams.userTeams": {
+		"string": "Проекты {name}"
+	},
+	"teams.yourTeams": {
+		"string": "Проекты"
+	},
+	"tos.title": {
+		"string": "Условия использования"
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Сохранить и продолжить"
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Недостающие переводы"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Некоторые статусы не переведены. Не все пользователи могут понять непереведённые статусы."
+	},
+	"translationNeededDialog.body": {
+		"string": "Чтобы сделать {language} языком по умолчанию, вы должны перевести на {language} все статусы в разделе настроек «Статусы»."
+	},
+	"translationNeededDialog.title": {
+		"string": "Необходим перевод статусов"
+	},
+	"trash.emptyTrash": {
+		"string": "Очистить корзину"
+	},
+	"trash.emptyTrashConfirmationText": {
+		"string": "Вы уверены? Это действие навсегда удалит {itemsCount, plural, one {1 материал} other {материалы (#)}} and {notesCount, plural, one {1 заметку} other {заметки (#)}}."
+	},
+	"trash.title": {
+		"string": "Корзина"
+	},
+	"unconfirmed.title": {
+		"string": "Unconfirmed"
+	},
+	"uploadFile.audioMessage": {
+		"string": "Перетащите файл или нажмите здесь для загрузки аудио (максимальный размер: {audio_max_size}, допустимые форматы: {audio_extensions})"
+	},
+	"uploadFile.changeFile": {
+		"string": "{filename} (нажмите или перетащите для изменения)"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Перетащите файл или нажмите здесь для загрузки (максимальный размер: {file_max_size}, допустимые форматы: {file_extensions})"
+	},
+	"uploadFile.fileTooLarge": {
+		"string": "Размер файла должен быть меньше {size}. Пожалуйста, попробуйте файл меньшего размера."
+	},
+	"uploadFile.invalidExtension": {
+		"string": "Файлы \"{extension}\" не разрешены. Разрешенные форматы: {allowed_types}."
+	},
+	"uploadFile.message": {
+		"string": "Перетащите файл или нажмите здесь для загрузки изображения (максимальный размер: {upload_max_size}, допустимые форматы: {upload_extensions}, допустимое разрешение: от {upload_min_dimensions} до {upload_max_dimensions})"
+	},
+	"uploadFile.videoMessage": {
+		"string": "Перетащите файл или нажмите здесь для загрузки видео (максимальный размер: {video_max_size}, допустимые форматы: {video_extensions})"
+	},
+	"uploadImage.changeFile": {
+		"string": "{filename} (нажмите или перетащите для изменения)"
+	},
+	"uploadImage.fileTooLarge": {
+		"string": "Размер файла должен быть меньше {size}. Пожалуйста, попробуйте файл меньшего размера."
+	},
+	"uploadImage.invalidExtension": {
+		"string": "Файлы \"{extension}\" не разрешены. Разрешенные форматы: {allowed_types}."
+	},
+	"uploadImage.message": {
+		"string": "Перетащите файл или нажмите здесь для загрузки изображения (максимальный размер: {upload_max_size}, допустимые форматы: {upload_extensions}, допустимое разрешение: от {upload_min_dimensions} до {upload_max_dimensions})"
+	},
+	"uploadImage.videoMessage": {
+		"string": "Перетащите файл или нажмите здесь для загрузки видео (максимальный размер: {video_max_size}, допустимые форматы: {video_extensions})"
+	},
+	"userAlreadyConfirmed.heading": {
+		"string": "Аккаунт уже подтверждён"
+	},
+	"userAlreadyConfirmed.login": {
+		"string": "войдите"
+	},
+	"userAlreadyConfirmed.message": {
+		"string": "Ой! Ваш аккаунт уже подтверждён. Пожалуйста, {login}, чтобы начать."
+	},
+	"userAssignments.blank": {
+		"string": "Нет активности"
+	},
+	"userAssignments.filterByTeam": {
+		"string": "Фильтровать по проектам"
+	},
+	"userAssignments.other": {
+		"string": "Другое"
+	},
+	"userComponent.teams": {
+		"string": "Проекты"
+	},
+	"userComponents.assignments": {
+		"string": "Задачи"
+	},
+	"userComponents.privacy": {
+		"string": "Приватность"
+	},
+	"userComponents.security": {
+		"string": "Безопасность"
+	},
+	"userConfirmed.heading": {
+		"string": "Аккаунт подтвержден"
+	},
+	"userConfirmed.message": {
+		"string": "Спасибо, что подтвердили email. Теперь можете войти."
+	},
+	"userEmail.emailInputHint": {
+		"string": "email@example.com"
+	},
+	"userEmail.emailInputLabel": {
+		"string": "Email"
+	},
+	"userEmail.skip": {
+		"string": "Пропустить"
+	},
+	"userEmail.submit": {
+		"string": "Отправить"
+	},
+	"userEmail.text": {
+		"string": "Чтобы получать уведомления, вам нужно указать email. Если вы не хотите получать уведомления, нажмите \"Пропустить\"."
+	},
+	"userEmail.title": {
+		"string": "Добавить email"
+	},
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+	},
+	"userInfoEdit.addLink": {
+		"string": "Добавить ссылку"
+	},
+	"userInfoEdit.addLinkHelper": {
+		"string": "Добавьте ссылку на веб-страницу или профиль в социальных сетях. Это не повлияет на способ входа в ваш аккаунт."
+	},
+	"userInfoEdit.addLinkLabel": {
+		"string": "Добавить ссылку"
+	},
+	"userInfoEdit.editError": {
+		"string": "В процессе редактирования профиля произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"userInfoEdit.emailConfirmed": {
+		"string": "✔ Адрес подтвержден"
+	},
+	"userInfoEdit.emailPendingConfirm": {
+		"string": "⚠ В ожидании подтверждения"
+	},
+	"userInfoEdit.invalidLink": {
+		"string": "Пожалуйста, введите корректный URL"
+	},
+	"userInfoEdit.nameError": {
+		"string": "Имя не может быть пустым"
+	},
+	"userInfoEdit.sourceBio": {
+		"string": "О себе"
+	},
+	"userInfoEdit.sourceName": {
+		"string": "Название"
+	},
+	"userInfoEdit.userEmail": {
+		"string": "Email"
+	},
+	"userInfoEdit.userSendEmailNotification": {
+		"string": "Получать уведомления по email"
+	},
+	"userMenu.edit": {
+		"string": "Редактировать"
+	},
+	"userPrivacy.connectedAccounts": {
+		"string": "Привязанные аккаунты"
+	},
+	"userPrivacy.delete": {
+		"string": "Удалить аккаунт"
+	},
+	"userPrivacy.deleteAccountButton": {
+		"string": "Удалить мой аккаунт"
+	},
+	"userPrivacy.deleteAccountConfirmationText": {
+		"string": "Вы уверены, что хотите выйти из приложения и удалить аккаунт?"
+	},
+	"userPrivacy.deleteAccountText": {
+		"string": "Если вы удалите свой аккаунт, ваши персональные данные будут удалены. Комментарии, аннотации и активность в проектах останутся в {appName} без упоминания вашего имени (под псевдонимом)."
+	},
+	"userPrivacy.description": {
+		"string": "О том, как {appName} хранит и обрабатывает ваши данные, рассказано здесь: {ppLink}."
+	},
+	"userPrivacy.ppLink": {
+		"string": "политику конфиденциальности"
+	},
+	"userPrivacy.seeInformationButton": {
+		"string": "Мои данные"
+	},
+	"userPrivacy.seeInformationText": {
+		"string": "Мы отправим вам файл со всеми данными, которые вы добавили или создали в {appName}. Вы можете сохранить этот файл для дальнейшего использования или перенести данные в другой сервис."
+	},
+	"userPrivacy.stopProcessingButton": {
+		"string": "Прекратить обработку данных"
+	},
+	"userPrivacy.stopProcessingText": {
+		"string": "Вы можете запросить прекращение обработки ваших персональных данных {appName}."
+	},
+	"userPrivacy.title": {
+		"string": "Ваши данные"
+	},
+	"userSecurity.authenticateDescription": {
+		"string": "Укажите ваш текущий пароль для подтверждения личности:"
+	},
+	"userSecurity.authenticateHeader": {
+		"string": "Шаг 1. Авторизуйтесь"
+	},
+	"userSecurity.backupDescription": {
+		"string": "Это одноразовые коды, которые можно использовать вместо двухфакторной аутентификации, если вы потеряете доступ к смартфону. Мы очень рекомендуем создать и распечатать резервные коды. Нажмите кнопку ниже. "
+	},
+	"userSecurity.backupHeader": {
+		"string": "Шаг 4. Сохраните резервные коды"
+	},
+	"userSecurity.backupNote": {
+		"string": "Внимание! Нажатие кнопки сбросит уже существующие резервные коды."
+	},
+	"userSecurity.changePassword": {
+		"string": "Изменить пароль"
+	},
+	"userSecurity.disableAuthenticateDescription": {
+		"string": "Введите пароль, чтобы отключить двухфакторную аутентификацию:"
+	},
+	"userSecurity.disableTwofactor": {
+		"string": "Отключить"
+	},
+	"userSecurity.downloadDescription": {
+		"string": "Вам понадобится приложение для двухфакторной аутентификации на вашем смартфоне (например, Google Authenticator):"
+	},
+	"userSecurity.downloadHeader": {
+		"string": "Шаг 2. Скачайте приложение"
+	},
+	"userSecurity.enableTwofactor": {
+		"string": "Включить"
+	},
+	"userSecurity.failedfulLoginText": {
+		"string": "Уведомлять о {loginTrial} неудачных попытках входа подряд"
+	},
+	"userSecurity.generateGackup": {
+		"string": "Создать резервные коды"
+	},
+	"userSecurity.notification": {
+		"string": "Уведомления"
+	},
+	"userSecurity.qrcodeDescription": {
+		"string": "Отсканируйте этот QR-код в вашем приложении для двухфакторной аутентификации:"
+	},
+	"userSecurity.qrcodeHeader": {
+		"string": "Шаг 3. Отсканируйте код"
+	},
+	"userSecurity.requireTwoFactorAuth": {
+		"string": "Требовать двухфакторную аутентификацию"
+	},
+	"userSecurity.successfulLoginText": {
+		"string": "Уведомлять о входе из нового места или с нового устройства"
+	},
+	"userSecurity.suggestTwoFactorForSocialAccounts": {
+		"string": "Чтобы включить двухфакторную аутентификацию, нужно задать пароль в Check. Пожалуйста, воспользуйтесь опцией 'Изменить пароль' ниже."
+	},
+	"userSecurity.twoFactorAuthentication": {
+		"string": "Двухфакторная аутентификация"
+	},
+	"userSecurity.verifyDescription": {
+		"string": "Чтобы включить двухфакторную аутентификацию, введите шестизначный код из вашего приложения:"
+	},
+	"userSecurity.verifyHeader": {
+		"string": "Шаг 5: Подтвердите"
+	},
+	"userTooltip.dateJoined": {
+		"string": "С нами с {date} • {teamsCount, plural, =0 {Нет проектов} one {1 проект} other {Проектов: #}}"
+	},
+	"userTos.agreePp": {
+		"string": "Я даю Meedan разрешение обрабатывать данные, которые я публикую в системе, включая персональные данные, которые могут содержать информацию о моей расовой или этнической принадлежности, политических взглядах, членстве в союзах и организациях, вероисповедании и сексуальной ориентации, а также фотографии и видеозаписи. Согласно политике конфиденциальности, у меня есть право запросить удаление аккаунта; при этом данная информация также будет удалена."
+	},
+	"userTos.agreeTos": {
+		"string": "Даю согласие с Условиями использования."
+	},
+	"userTos.commGuidelines": {
+		"string": "Мы также просим соблюдать {communityGuidelinesLink}, принятые в {appName}."
+	},
+	"userTos.commGuidelinesLink": {
+		"string": "правила поведения"
+	},
+	"userTos.disclaimer": {
+		"string": "Пожалуйста, прочтите {tosLink} и {ppLink} и дайте своё согласие:"
+	},
+	"userTos.disclaimerUpdate": {
+		"string": "Мы обновили {tosLink} и {ppLink}. Пожалуйста, прочтите их и дайте своё согласие:"
+	},
+	"userTos.ppLink": {
+		"string": "политику конфиденциальности"
+	},
+	"userTos.save": {
+		"string": "Сохранить"
+	},
+	"userTos.termsLastUpdatedAt": {
+		"string": "Последнее обновление {lastUpdated}"
+	},
+	"userTos.title": {
+		"string": "Условия использования и Политика приватности"
+	},
+	"userTos.titleUpdated": {
+		"string": "Обновленные политики"
+	},
+	"userTos.tosLink": {
+		"string": "Условия использования"
+	},
+	"userTos.validation": {
+		"string": "Вы должны согласиться с Условиями использования и Политикой приватности"
+	},
+	"userUnconfirmed.heading": {
+		"string": "Ошибка"
+	},
+	"userUnconfirmed.message": {
+		"string": "В процессе подтверждения аккаунта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"video.normalSpeed": {
+		"string": "Обычная скорость"
+	},
+	"webPageMediaCard.Error": {
+		"string": "Не удалось идентифицировать этот материал. Возможно, он удалён или доступен только авторизованным пользователям. Нажмите выше, чтобы открыть его."
+	}
+}

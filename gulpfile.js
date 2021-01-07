@@ -26,7 +26,7 @@ if (buildConfig.transifex) {
     user: buildConfig.transifex.user,
     password: buildConfig.transifex.password,
     project: buildConfig.transifex.project,
-    i18n_type: 'KEYVALUEJSON',
+    i18n_type: 'STRUCTURED_JSON',
     local_path: './localization/translations/*/',
   });
 }
@@ -71,18 +71,35 @@ gulp.task('transifex:download', () => gulp.src('./localization/transifex/**/*.js
 
 gulp.task('transifex:translations', () => gulp.src('./localization/translations/**/*.json').pipe(mergeTransifex(buildConfig)).pipe(gulp.dest('./localization/translations/')));
 
-gulp.task('transifex:prepare', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
+gulp.task('transifex:prepare:merge', () => gulp.src('./localization/react-intl/**/*').pipe(jsonEditor((inputJson) => {
   const outputJson = {};
   inputJson.forEach((entry) => {
-    outputJson[entry.id] = entry.defaultMessage;
+    outputJson[entry.id] = {
+      string: entry.defaultMessage,
+      developer_comment: entry.description,
+    };
   });
   return outputJson;
 }))
-.pipe(merge({ fileName: 'Web.json' }))
+.pipe(merge({ fileName: 'WebStructured.json' }))
 .pipe(gulp.dest('./localization/transifex/')));
 
-gulp.task('transifex:upload', () => gulp.src('./localization/transifex/Web.json').pipe(transifexClient.pushResource()));
+gulp.task('transifex:prepare:sort', () => gulp.src('./localization/transifex/WebStructured.json').pipe(jsonEditor((inputJson) => {
+  const orderedResource = Object.keys(inputJson).sort().reduce(
+    (obj, key) => {
+      obj[key] = inputJson[key];
+      return obj;
+    },
+    {}
+  );
+  return orderedResource;
+})).pipe(gulp.dest('./localization/transifex/')));
 
+gulp.task('transifex:prepare', gulp.series('transifex:prepare:merge', 'transifex:prepare:sort'));
+
+gulp.task('transifex:upload', () => gulp.src('./localization/transifex/WebStructured.json').pipe(transifexClient.pushResource()));
+
+// FIXME: Remove unused?
 gulp.task('transifex:languages', () => {
   transifexClient.languages((data) => {
     console.log(JSON.stringify(data)); // eslint-disable-line no-console

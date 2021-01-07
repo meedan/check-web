@@ -7,7 +7,6 @@ import { browserHistory, Link } from 'react-router';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
@@ -16,6 +15,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import CreateTeamDialog from './CreateTeamDialog';
 import {
   defaultBorderRadius,
   listStyle,
@@ -32,6 +32,14 @@ import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 
 class SwitchTeamsComponent extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showCreateTeamDialog: false,
+    };
+  }
+
   getContext() {
     return new CheckContext(this);
   }
@@ -77,6 +85,10 @@ class SwitchTeamsComponent extends Component {
     e.preventDefault();
   }
 
+  handleCancelCreateTeam() {
+    this.setState({ showCreateTeamDialog: false });
+  }
+
   render() {
     const { user, user: { team_users: { edges: teamUsers } } } = this.props;
     const { currentUser } = this.getContext().getContextStore();
@@ -105,13 +117,24 @@ class SwitchTeamsComponent extends Component {
     });
 
     const cardTitle = isUserSelf ?
-      <FormattedMessage id="teams.yourTeams" defaultMessage="Your workspaces" /> :
+      <FormattedMessage id="teams.yourTeams" defaultMessage="Workspaces" /> :
       <FormattedMessage id="teams.userTeams" defaultMessage="{name}'s workspaces" values={{ name: user.name }} />;
 
     return (
       <Card>
         <CardHeader
           title={cardTitle}
+          action={
+            isUserSelf ?
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => this.setState({ showCreateTeamDialog: true })}
+              >
+                <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create" />
+              </Button> :
+              null
+          }
         />
         { (joinedTeams.length + pendingTeams.length) ?
           <List className="teams" style={listStyle}>
@@ -180,15 +203,9 @@ class SwitchTeamsComponent extends Component {
             <FormattedMessage id="switchTeams.noTeams" defaultMessage="Not a member of any workspace." />
           </CardContent>
         }
-
-        { isUserSelf ?
-          <CardActions>
-            <Button
-              onClick={() => browserHistory.push('/check/teams/new')}
-            >
-              <FormattedMessage id="switchTeams.newTeamLink" defaultMessage="Create Workspace" />
-            </Button>
-          </CardActions> : null
+        { this.state.showCreateTeamDialog ?
+          <CreateTeamDialog onDismiss={this.handleCancelCreateTeam.bind(this)} /> :
+          null
         }
       </Card>
     );
