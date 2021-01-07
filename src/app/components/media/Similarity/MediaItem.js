@@ -280,7 +280,10 @@ const MediaItem = ({
       />
       { canDelete && canSwitch ?
         <Box>
-          <IconButton onClick={handleOpenMenu}>
+          <IconButton
+            onClick={handleOpenMenu}
+            className="media-similarity__menu-icon"
+          >
             <IconMoreVert />
           </IconButton>
           <Menu
@@ -291,6 +294,7 @@ const MediaItem = ({
           >
             <MenuItem onClick={handleSwitch}>
               <ListItemText
+                className="similarity-media-item__pin-relationship"
                 primary={
                   <FormattedMessage id="mediaItem.pinAsMain" defaultMessage="Pin as main" />
                 }
@@ -298,6 +302,7 @@ const MediaItem = ({
             </MenuItem>
             <MenuItem onClick={openDialog}>
               <ListItemText
+                className="similarity-media-item__delete-relationship"
                 primary={
                   <FormattedMessage id="mediaItem.detach" defaultMessage="Detach" />
                 }
@@ -308,7 +313,7 @@ const MediaItem = ({
       { canDelete && !canSwitch ?
         <Box>
           <IconButton onClick={openDialog}>
-            <RemoveCircleOutlineIcon />
+            <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }
       { isDialogOpen ?

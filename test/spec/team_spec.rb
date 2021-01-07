@@ -1,5 +1,5 @@
 shared_examples 'team' do
-  it 'should be able to find a team after signing up', bin6: true do
+  it 'should be able to find a team after signing up', bin3: true do
     api_register_and_login_with_email
     @driver.navigate.to @config['self_url']
     wait_for_selector('.find-team-card')
@@ -90,7 +90,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?(' - EDIT')).to be(true)
   end
 
-  it 'should install and uninstall bot', bin6: true do
+  it 'should install and uninstall bot', bin5: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     bot_name = 'Testing Bot'
@@ -142,7 +142,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
   end
 
-  it 'should add introduction and a disclaimer to team report settings', bin6: true do
+  it 'should add introduction and a disclaimer to team report settings', bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__report-tab').click
@@ -278,7 +278,7 @@ shared_examples 'team' do
     expect(new < old).to be(true)
   end
 
-  it 'should check user permissions', bin6: true do
+  it 'should check user permissions', bin5: true do
     # setup
     @user_mail = "test#{Time.now.to_i}#{rand(9999)}#{@user_mail}"
     @team1_slug = "team1#{Time.now.to_i}#{rand(9999)}"

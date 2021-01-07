@@ -271,6 +271,7 @@ const MediaSuggestionsComponent = ({
               style={{ color: completedGreen }}
               disabled={total === 0 || saving}
               className={total === 0 || saving ? classes.disabled : ''}
+              id="similarity-media-item__accept-relationship"
             >
               <CheckCircleOutlineIcon fontSize="large" />
             </IconButton>
@@ -279,6 +280,7 @@ const MediaSuggestionsComponent = ({
               style={{ color: alertRed }}
               disabled={total === 0 || saving}
               className={total === 0 || saving ? classes.disabled : ''}
+              id="similarity-media-item__reject-relationship"
             >
               <HighlightOffIcon fontSize="large" />
             </IconButton>
@@ -302,7 +304,7 @@ const MediaSuggestionsComponent = ({
                   />
                 </Typography>
               </Box>
-              <Button onClick={handleGoBack} color="primary" variant="contained">
+              <Button onClick={handleGoBack} color="primary" variant="contained" className="media-page__back-button">
                 <FormattedMessage
                   id="mediaSuggestionsComponent.goBack"
                   defaultMessage="Back to main view"

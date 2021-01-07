@@ -7,6 +7,9 @@ import MdLink from '@material-ui/icons/Link';
 import IconEdit from '@material-ui/icons/Edit';
 import MdLocation from '@material-ui/icons/LocationOn';
 import MdPhone from '@material-ui/icons/Phone';
+import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import CreateTeamDialog from './CreateTeamDialog';
 import TeamAvatar from './TeamAvatar';
 import Can from '../Can';
 import ParsedText from '../ParsedText';
@@ -26,6 +29,7 @@ import {
 
 const TeamInfo = (props) => {
   const { team } = props;
+  const [showDuplicateTeamDialog, setShowDuplicateTeamDialog] = React.useState(false);
   const contact = team.contacts.edges[0];
   const contactInfo = [];
 
@@ -85,32 +89,50 @@ const TeamInfo = (props) => {
         />
       </StyledSmallColumn>
       <StyledBigColumn>
-        <div className="team__primary-info">
-          <StyledName className="team__name">
+        <Box display="flex" justifyContent="space-between">
+          <div>
+            <div className="team__primary-info">
+              <StyledName className="team__name">
+                <Row>
+                  {team.name}
+                  <Can permissions={team.permissions} permission="update Team">
+                    <SmallerStyledIconButton
+                      className="team-menu__edit-team-button"
+                      onClick={() => browserHistory.push(`/${props.team.slug}/edit`)}
+                      tooltip={
+                        <FormattedMessage id="teamInfo.editTeam" defaultMessage="Edit" />
+                      }
+                    >
+                      <IconEdit />
+                    </SmallerStyledIconButton>
+                  </Can>
+                </Row>
+              </StyledName>
+              <StyledDescription>
+                <ParsedText text={team.description} />
+              </StyledDescription>
+            </div>
             <Row>
-              {team.name}
-              <Can permissions={team.permissions} permission="update Team">
-                <SmallerStyledIconButton
-                  className="team-menu__edit-team-button"
-                  onClick={() => browserHistory.push(`/${props.team.slug}/edit`)}
-                  tooltip={
-                    <FormattedMessage id="teamInfo.editTeam" defaultMessage="Edit" />
-                  }
-                >
-                  <IconEdit />
-                </SmallerStyledIconButton>
-              </Can>
+              {contactInfo}
             </Row>
-          </StyledName>
-          <StyledDescription>
-            <ParsedText text={team.description} />
-          </StyledDescription>
-        </div>
-
-        <Row>
-          {contactInfo}
-        </Row>
+          </div>
+          <div>
+            <Can permissions={team.permissions} permission="duplicate Team">
+              <Button
+                color="primary"
+                variant="contained"
+                onClick={() => setShowDuplicateTeamDialog(true)}
+              >
+                <FormattedMessage id="teamInfo.duplicateTeam" defaultMessage="Duplicate" />
+              </Button>
+            </Can>
+          </div>
+        </Box>
       </StyledBigColumn>
+      { showDuplicateTeamDialog ?
+        <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} /> :
+        null
+      }
     </StyledTwoColumns>
   );
 };
