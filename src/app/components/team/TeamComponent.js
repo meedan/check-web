@@ -77,9 +77,9 @@ class TeamComponent extends Component {
     browserHistory.push(path);
   };
 
-  render() { 
+  render() {
+    const { team } = this.props;
     const { action } = this.props.route;
-
     const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
     const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
     const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
