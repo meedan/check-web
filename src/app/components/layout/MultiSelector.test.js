@@ -10,7 +10,7 @@ const options = [
 ];
 
 describe('<MultiSelector />', () => {
-  it('should render options ', () => {
+  it('should render options to be selected', () => {
     const wrapper = mount(<MultiSelector
       allowToggleAll
       selected={selected}

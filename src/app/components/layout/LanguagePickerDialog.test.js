@@ -18,5 +18,6 @@ describe('<LanguagePickerDialog />', () => {
     expect(wrapper.find('.add-language-action__cancel').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.add-language-action__submit').hostNodes()).toHaveLength(1);
     expect(wrapper.find('input#autocomplete-add-language').hostNodes()).toHaveLength(1);
+    expect(wrapper.html()).toMatch('Select a language');
   });
 });
