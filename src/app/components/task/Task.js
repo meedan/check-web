@@ -11,6 +11,7 @@ import Collapse from '@material-ui/core/Collapse';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import styled from 'styled-components';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
@@ -127,6 +128,7 @@ class Task extends Component {
       editingResponse: false,
       editingAttribution: false,
       expand: true,
+      isSaving: false,
     };
   }
 
@@ -175,9 +177,10 @@ class Task extends Component {
 
   handleSubmitResponse = (response, file) => {
     const { media, task } = this.props;
+    this.setState({ isSaving: true });
 
     const onSuccess = () => {
-      this.setState({ message: null });
+      this.setState({ message: null, isSaving: false });
     };
 
     const fields = {};
@@ -200,8 +203,13 @@ class Task extends Component {
 
   handleUpdateResponse = (edited_response, file) => {
     const { media, task } = this.props;
+    this.setState({ isSaving: true });
 
-    const onSuccess = () => this.setState({ message: null, editingResponse: false });
+    const onSuccess = () => this.setState({
+      message: null,
+      editingResponse: false,
+      isSaving: false,
+    });
 
     const onFailure = (transaction) => {
       this.setState({ editingResponse: true });
@@ -438,15 +446,17 @@ class Task extends Component {
         {task.type === 'file_upload' ?
           <div className="task__response">
             <Box component="p" textAlign="center">
-              <Box
-                component="a"
-                href={fileUploadPath}
-                target="_blank"
-                rel="noreferrer noopener"
-                color={checkBlue}
-              >
-                {response}
-              </Box>
+              { fileUploadPath ?
+                <Box
+                  component="a"
+                  href={fileUploadPath}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  color={checkBlue}
+                >
+                  {response}
+                </Box> :
+                <CircularProgress /> }
             </Box>
           </div>
           : null}

@@ -29,7 +29,12 @@ module.exports = function (config) {
         if (languages.indexOf(lang) === -1) {
           languages.push(lang);
         }
-        translations[lang] = Object.assign(translations[lang], JSON.parse(file.contents.toString()))
+
+        const txTranslated = JSON.parse(file.contents.toString());
+
+        for (const [key, value] of Object.entries(txTranslated)) {
+          translations[lang][key] = value.string;
+        }
       }
     }
 

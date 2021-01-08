@@ -10,5 +10,9 @@
   {
     "id": "teamInfo.editTeam",
     "defaultMessage": "Edit"
+  },
+  {
+    "id": "teamInfo.duplicateTeam",
+    "defaultMessage": "Duplicate"
   }
 ]

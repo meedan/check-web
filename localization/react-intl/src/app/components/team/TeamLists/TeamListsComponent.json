@@ -22,12 +22,20 @@
     "defaultMessage": "Select all the columns you want to display in all your lists."
   },
   {
-    "id": "teamListsComponent.selectedColumns",
-    "defaultMessage": "Selected columns"
+    "id": "teamListsComponent.displayedColumns",
+    "defaultMessage": "Displayed columns"
   },
   {
-    "id": "teamListsComponent.availableColumns",
-    "defaultMessage": "Available columns"
+    "id": "teamListsComponent.generalColumns",
+    "defaultMessage": "General"
+  },
+  {
+    "id": "teamListsComponent.metadataColumns",
+    "defaultMessage": "Metadata"
+  },
+  {
+    "id": "teamListsComponent.createMetadata",
+    "defaultMessage": "Create new metadata field"
   },
   {
     "id": "teamListsComponent.confirmSaveTitle",
