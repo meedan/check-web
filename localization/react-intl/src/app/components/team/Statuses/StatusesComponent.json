@@ -9,15 +9,16 @@
   },
   {
     "id": "statusesComponent.title",
-    "defaultMessage": "{statuses_count, plural, one {1 status} other {# statuses}}"
+    "description": "The idea of this sentence is 'statuses written in language <languageName>'",
+    "defaultMessage": "{languageName} statuses"
+  },
+  {
+    "id": "statusesComponent.subtitle",
+    "defaultMessage": "The status title is visible when reports are sent to users."
   },
   {
     "id": "statusesComponent.newStatus",
     "defaultMessage": "New status"
-  },
-  {
-    "id": "statusesComponent.blurb",
-    "defaultMessage": "The status title is visible when reports are sent to users."
   },
   {
     "id": "statusesComponent.blurbSecondary",

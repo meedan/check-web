@@ -1,23 +1,23 @@
 [
   {
     "id": "search.showClaims",
-    "defaultMessage": "Texts"
+    "defaultMessage": "Text"
   },
   {
     "id": "search.showLinks",
-    "defaultMessage": "Links"
+    "defaultMessage": "Link"
   },
   {
     "id": "search.showImages",
-    "defaultMessage": "Images"
+    "defaultMessage": "Image"
   },
   {
     "id": "search.showVideos",
-    "defaultMessage": "Videos"
+    "defaultMessage": "Video"
   },
   {
     "id": "search.showAudios",
-    "defaultMessage": "Audios"
+    "defaultMessage": "Audio"
   },
   {
     "id": "search.showBlank",

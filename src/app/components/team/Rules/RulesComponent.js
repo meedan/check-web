@@ -1,19 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
-import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import { makeStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Rule from './Rule';
 import RulesTable from './RulesTable';
-import { columnWidthMedium } from '../../../styles/js/shared';
+import { ContentColumn } from '../../../styles/js/shared';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    width: columnWidthMedium,
     padding: theme.spacing(2),
     margin: '0 auto',
     boxShadow: 'none',
@@ -171,26 +170,34 @@ const RulesComponent = (props) => {
     handleUpdateRules(updatedRules, false);
   };
 
+  if (currentRuleIndex !== null && rule !== null) {
+    return (
+      <ContentColumn large>
+        <Paper className={classes.paper}>
+          <Rule
+            rule={rule}
+            schema={JSON.parse(props.team.rules_json_schema)}
+            unsavedChanges={JSON.stringify(rule) !== JSON.stringify(savedRule)}
+            onGoBack={handleGoBack}
+            onDeleteRule={handleDeleteRule}
+            onSaveRule={handleSaveRule}
+            onDuplicateRule={handleDuplicateRule}
+            onChangeRule={handleChangeRule}
+          />
+        </Paper>
+      </ContentColumn>
+    );
+  }
+
   return (
-    <Paper className={classes.paper}>
-      { currentRuleIndex !== null && rule !== null ?
-        <Rule
-          rule={rule}
-          schema={JSON.parse(props.team.rules_json_schema)}
-          unsavedChanges={JSON.stringify(rule) !== JSON.stringify(savedRule)}
-          onGoBack={handleGoBack}
-          onDeleteRule={handleDeleteRule}
-          onSaveRule={handleSaveRule}
-          onDuplicateRule={handleDuplicateRule}
-          onChangeRule={handleChangeRule}
-        /> :
-        <RulesTable
-          rules={rules}
-          onClickRule={handleClickRule}
-          onAddRule={handleAddRule}
-          onDeleteRules={handleDeleteRules}
-        /> }
-    </Paper>
+    <ContentColumn large>
+      <RulesTable
+        rules={rules}
+        onClickRule={handleClickRule}
+        onAddRule={handleAddRule}
+        onDeleteRules={handleDeleteRules}
+      />
+    </ContentColumn>
   );
 };
 

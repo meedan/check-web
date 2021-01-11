@@ -37,6 +37,8 @@ module LoginSpecHelpers
 
   def slack_login
     @driver.navigate.to "https://#{@config['slack_domain']}.slack.com"
+    wait_for_selector("input[value='I have a guest account']").click if @driver.page_source.include?('have a guest account')
+    wait_for_selector('#signin_btn')
     fill_field('#email', @config['slack_user'])
     fill_field('#password', @config['slack_password'])
     press_button('#signin_btn')

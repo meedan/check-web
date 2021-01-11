@@ -8,20 +8,28 @@
     "defaultMessage": "Error! Please try again."
   },
   {
+    "id": "teamBots.title",
+    "defaultMessage": "Bots"
+  },
+  {
+    "id": "teamBots.subtitle",
+    "defaultMessage": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+  },
+  {
+    "id": "teamBots.browserBots",
+    "defaultMessage": "Browse bots"
+  },
+  {
     "id": "teamBots.noBots",
     "defaultMessage": "No bots installed."
   },
   {
-    "id": "teamBots.moreInfo",
-    "defaultMessage": "More info"
+    "id": "teamBots.settingsTooltip",
+    "defaultMessage": "Bot settings"
   },
   {
     "id": "teamBots.remove",
     "defaultMessage": "Remove"
-  },
-  {
-    "id": "teamBots.settingsTooltip",
-    "defaultMessage": "Bot settings"
   },
   {
     "id": "teamBots.confirmDeleteTitle",
@@ -54,10 +62,6 @@
   {
     "id": "teamBots.noSettings",
     "defaultMessage": "There are no settings for this bot."
-  },
-  {
-    "id": "teamBots.botGarden",
-    "defaultMessage": "Browse the Bot Garden"
   },
   {
     "id": "teamBots.confirmationTitle",

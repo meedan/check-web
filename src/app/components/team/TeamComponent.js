@@ -19,7 +19,7 @@ import TeamInfo from './TeamInfo';
 import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
 import TeamLists from './TeamLists';
-import SlackConfig from './SlackConfig';
+import TeamIntegrations from './TeamIntegrations';
 import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import { can } from '../Can';
@@ -292,11 +292,8 @@ class TeamComponent extends Component {
             ? <TeamReport team={team} />
             : null }
           { isSettings && tab === 'integrations'
-            ? (
-              <ContentColumn>
-                <SlackConfig team={team} />
-              </ContentColumn>
-            ) : null }
+            ? <TeamIntegrations team={team} />
+            : null }
           { isReadOnly && tab === 'tags'
             ? <TeamTags team={team} />
             : null }

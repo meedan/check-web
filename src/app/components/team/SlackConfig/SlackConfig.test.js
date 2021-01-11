@@ -23,7 +23,7 @@ describe('<SlackConfig />', () => {
         team={team}
       />
     );
-    expect(wrapper.html()).toMatch('Slack integration');
+    expect(wrapper.html()).toMatch('Slack');
   });
 
   it('should not render component for other team members', function() {
