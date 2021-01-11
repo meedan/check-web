@@ -475,7 +475,7 @@ export const FadeIn = styled.div`
 // We want to align left together with the setting menu
 export const ContentColumn = styled.div`
   margin: ${props => props.noCenter ? '0' : '0 0 0 32px'};
-  padding: 0 ${props => props.noPadding ? '0' : units(1)};
+  padding: 0;
   width: 100%;
   max-width: ${columnWidthMedium};
   ${props => props.narrow ? `max-width: ${columnWidthSmall}` : ''}
