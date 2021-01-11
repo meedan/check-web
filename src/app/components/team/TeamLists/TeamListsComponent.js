@@ -13,7 +13,6 @@ import HelpIcon from '@material-ui/icons/HelpOutline';
 import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import TeamListsColumn from './TeamListsColumn';
 import ConfirmDialog from '../../layout/ConfirmDialog';
 import { checkBlue, ContentColumn, black16 } from '../../../styles/js/shared';
@@ -34,10 +33,6 @@ const useStyles = makeStyles(theme => ({
   helpIcon: {
     color: checkBlue,
   },
-  divider: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
   link: {
     textDecoration: 'underline',
     background: '#F6F6F6',
@@ -49,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     borderRadius: 5,
   },
+
 }));
 
 function clone(arrayOfObjects) {
@@ -226,10 +222,10 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 style={{
                   background: '#F6F6F6',
                   borderRadius: '5px',
-                  border: `2px solid ${black16}`,
+                  border: `1px solid ${black16}`,
+                  padding: '.3rem 1rem .5rem 0',
                 }}
               />
-              <Divider orientation="vertical" className={classes.divider} flexItem />
               <TeamListsColumn
                 columns={availableColumns.filter(c => !/^task_value_/.test(c.key))}
                 title={
@@ -240,7 +236,6 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 }
                 onToggle={handleToggle}
               />
-              <Divider orientation="vertical" className={classes.divider} flexItem />
               <TeamListsColumn
                 columns={availableColumns.filter(c => /^task_value_/.test(c.key))}
                 title={

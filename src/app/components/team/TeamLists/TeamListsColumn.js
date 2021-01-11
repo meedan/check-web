@@ -12,11 +12,16 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
   },
   innerColumn: {
-    padding: theme.spacing(1),
+    padding: '.5rem 0 1rem 1rem',
+    border: '1px solid transparent', // To match column of teamListComponent.js
   },
   placeholder: {
     color: black54,
     textAlign: 'center',
+  },
+  columnTitle: {
+    marginLeft: '1rem',
+    marginBottom: '1rem',
   },
 }));
 
@@ -33,7 +38,7 @@ const TeamListsColumn = ({
 
   return (
     <Box className={classes.column} width="1">
-      <Typography variant="subtitle2">
+      <Typography className={classes.columnTitle} variant="subtitle2">
         {title}
       </Typography>
       <Box className={classes.innerColumn} style={style}>
