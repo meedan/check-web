@@ -66,7 +66,6 @@ export const StyledHelper = styled.div`
 
 export const StyledProfileCard = styled.div`
   margin-bottom: ${units(6)};
-  
   background-color: white;
   box-shadow: ${boxShadow(1)};
 `;
