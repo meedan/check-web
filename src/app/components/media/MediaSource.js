@@ -22,6 +22,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import SourcePicture from '../source/SourcePicture';
+import { urlFromSearchQuery } from '../search/Search';
 import { getCurrentProjectId, getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
@@ -189,6 +190,7 @@ class MediaSourceComponent extends Component {
     const accountSources = source.account_sources.edges;
     const mainAccount = accountSources[0];
     const secondaryAccounts = accountSources.slice(1);
+    const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${media.team.slug}/all-items`);
 
     return (
       <React.Fragment>
@@ -210,7 +212,7 @@ class MediaSourceComponent extends Component {
                       {source.name}
                     </Row>
                   </StyledName>
-                  <Link to="sawy">
+                  <Link to={sourceMediasLink}>
                     <FormattedMessage
                       id="userSource.mediasCount"
                       defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
@@ -401,6 +403,9 @@ const MediaSourceContainer = Relay.createContainer(withPusher(MediaSourceCompone
         dbid
         archived
         pusher_channel
+        team {
+          slug
+        }
         source {
           id
           dbid
