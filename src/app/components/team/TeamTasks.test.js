@@ -1,7 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mountWithIntl } from './helpers/intl-test';
-import { TeamTasksComponent } from '../../src/app/components/team/TeamTasks';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { TeamTasksComponent } from './TeamTasks';
 
 const team = {
   team_tasks: {

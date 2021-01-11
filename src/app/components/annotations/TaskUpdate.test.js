@@ -1,8 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mountWithIntl } from './helpers/intl-test';
-
-import TaskUpdate from '../../src/app/components/annotations/TaskUpdate';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import TaskUpdate from './TaskUpdate';
 
 describe('<TaskUpdate />', () => {
   const activity_no_changes = {

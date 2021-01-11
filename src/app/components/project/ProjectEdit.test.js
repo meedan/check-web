@@ -1,8 +1,8 @@
 import React from 'react';
-import { FlashMessageSetterContext } from '../../src/app/components/FlashMessage';
-import { mountWithIntl, getStore } from './helpers/intl-test';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import { mountWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
 
-import { ProjectEditComponent, ConnectedProjectEditComponent } from '../../src/app/components/project/ProjectEdit';
+import { ProjectEditComponent, ConnectedProjectEditComponent } from './ProjectEdit';
 
 /**
  * Return { wrapper: <ConnectedProjectEditComponent {...props}>, setFlashMessage: spy() }.
@@ -84,6 +84,7 @@ describe('<ProjectEditComponent />', () => {
     expect(descriptionField.prop('value')).toEqual('Edited description');
 
     saveButton = wrapper.find('.project-edit__editing-button--save button');
-    expect(saveButton.prop('disabled')).toEqual(false);
+    expect(saveButton.prop('disabled')).toEqual(false)
+    ;
   });
 });

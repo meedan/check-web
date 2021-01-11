@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import MediaDetail from '../../src/app/components/media/MediaDetail';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import MediaDetail from './MediaDetail';
 
 describe('<MediaDetail />', () => {
   const media = {

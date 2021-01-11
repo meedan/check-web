@@ -1,7 +1,7 @@
 import React from 'react';
-import { currentUser, otherUser } from './mocks/user';
-import { mountWithIntl, getStore } from './helpers/intl-test';
-import SwitchTeamsComponent from '../../src/app/components/team/SwitchTeamsComponent';
+import { currentUser, otherUser } from '../../../../test/unit/mocks/user';
+import { mountWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
+import SwitchTeamsComponent from './SwitchTeamsComponent';
 
 describe('<SwitchTeamsComponent />', () => {
   it('should show private teams to members of the same team', () => {

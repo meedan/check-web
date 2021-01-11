@@ -1,8 +1,8 @@
 /* global describe, expect, it */
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import AddAnnotation from '../../src/app/components/annotations/AddAnnotation';
-import CheckArchivedFlags from '../../src/app/CheckArchivedFlags';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import AddAnnotation from './AddAnnotation';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<AddAnnotation />', () => {
   const annotated_archived = { archived: CheckArchivedFlags.TRASHED };

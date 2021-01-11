@@ -1,8 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mountWithIntl } from './helpers/intl-test';
-
-import EmbedUpdate from '../../src/app/components/annotations/EmbedUpdate';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import EmbedUpdate from './EmbedUpdate';
 
 describe('<EmbedUpdate />', () => {
   const activity_no_changes = {

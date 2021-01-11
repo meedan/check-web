@@ -1,7 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mountWithIntl } from './helpers/intl-test';
-import CreateTeamTask from '../../src/app/components/team/CreateTeamTask';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import CreateTeamTask from './CreateTeamTask';
 
 describe('<CreateTeamTask />', () => {
   it('should render create task button', function() {

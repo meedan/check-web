@@ -1,7 +1,7 @@
 import React from 'react';
-import { mountWithIntl, getStore } from './helpers/intl-test';
+import { mountWithIntl, getStore } from '../../../../../test/unit/helpers/intl-test';
 
-import SlackConfig from '../../src/app/components/team/SlackConfig';
+import SlackConfig from './index';
 
 describe('<SlackConfig />', () => {
   const ownerUser = {

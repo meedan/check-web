@@ -1,9 +1,9 @@
 import React from 'react';
-import DrawerNavigationComponent from '../../src/app/components/DrawerNavigationComponent';
-import DrawerProjects from '../../src/app/components/drawer/Projects';
-import UserMenuItems from '../../src/app/components/UserMenuItems';
+import DrawerNavigationComponent from './DrawerNavigationComponent';
+import DrawerProjects from './drawer/Projects';
+import UserMenuItems from './UserMenuItems';
 
-import { mountWithIntl, getStore } from './helpers/intl-test';
+import { mountWithIntl, getStore  } from '../../../test/unit/helpers/intl-test';
 
 describe('<DrawerNavigationComponent />', () => {
   const currentUser = {

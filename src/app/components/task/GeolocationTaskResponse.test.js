@@ -1,7 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-
-import GeolocationTaskResponse from '../../src/app/components/task/GeolocationTaskResponse';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import GeolocationTaskResponse from './GeolocationTaskResponse';
 
 describe('<GeolocationTaskResponse />', () => {
   const response = '{"type":"Feature","geometry":{"type":"Point","coordinates":[0,0]},"properties":{"name":"A Place"}}';

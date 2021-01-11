@@ -1,8 +1,6 @@
 import React from 'react';
-import { FormattedMessage, IntlProvider } from 'react-intl';
-import { mountWithIntl } from './helpers/intl-test';
-
-import EmbedCreate from '../../src/app/components/annotations/EmbedCreate';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import EmbedCreate from './EmbedCreate';
 
 describe('<EmbedCreate />', () => {
   const content_new_entry = {

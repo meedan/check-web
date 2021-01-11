@@ -1,8 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import TeamInviteCard from '../../src/app/components/team/TeamInviteCard';
-
-import { getStore } from './helpers/intl-test';
+import { mountWithIntl, getStore} from '../../../../test/unit/helpers/intl-test';
+import TeamInviteCard from './TeamInviteCard';
 
 describe('<TeamInviteCard />', () => {
   const currentUser = {

@@ -1,7 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-
-import ShortTextRespondTask from '../../src/app/components/task/ShortTextRespondTask';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import ShortTextRespondTask from './ShortTextRespondTask';
 
 describe('<ShortTextRespondTask />', () => {
   it('Hides buttons when not focused', () => {

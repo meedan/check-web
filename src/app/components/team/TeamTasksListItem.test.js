@@ -1,8 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import ShortTextIcon from '@material-ui/icons/ShortText';
-import { mountWithIntl } from './helpers/intl-test';
-import TeamTasksListItem from '../../src/app/components/team/TeamTasksListItem';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import TeamTasksListItem from './TeamTasksListItem';
 
 const task = {
   task_type: 'free_text',

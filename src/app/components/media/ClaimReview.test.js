@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import ClaimReview from '../../src/app/components/media/ClaimReview';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import ClaimReview from './ClaimReview';
 
 describe('<ClaimReview />', () => {
   const data = {
@@ -60,5 +60,7 @@ describe('<ClaimReview />', () => {
     delete data.itemReviewed;
     const claimReview = mountWithIntl(<ClaimReview data={data} />);
     expect(claimReview.html()).toEqual('');
+    console.log('ENTROOOOOOOOOOOOOOOOOU')
+
   });
 });

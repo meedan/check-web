@@ -1,7 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-
-import CreateTeamCard from '../../src/app/components/team/CreateTeamCard';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import CreateTeamCard from './CreateTeamCard';
 
 describe('<CreateTeamCard />', () => {
   it('creates a slug that contains Unicode alphanumeric chars only', function() {

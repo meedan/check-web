@@ -1,7 +1,6 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
-import { mountWithIntl } from './helpers/intl-test';
-import TeamTasksProject from '../../src/app/components/team/TeamTasksProject';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import TeamTasksProject from './TeamTasksProject';
 
 const project = {
   teamTasks: [],
@@ -43,5 +42,6 @@ describe('<TeamTasksProject />', () => {
       />
     );
     expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(2);
+    console.log('ENTROOOOOOOOOOOOOOOOOU')
   });
 });

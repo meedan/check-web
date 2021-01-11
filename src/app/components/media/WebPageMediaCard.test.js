@@ -1,7 +1,7 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import WebPageMediaCard from '../../src/app/components/media/WebPageMediaCard.js';
-import CheckArchivedFlags from '../../src/app/CheckArchivedFlags';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import WebPageMediaCard from './WebPageMediaCard.js';
+import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 describe('<WebPageMediaCard />', () => {
   const webPageWithGoodPicture = {
