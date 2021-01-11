@@ -5,35 +5,19 @@ import { Link } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import HelpIcon from '@material-ui/icons/HelpOutline';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import TeamListsColumn from './TeamListsColumn';
+import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import { checkBlue, ContentColumn, black16 } from '../../../styles/js/shared';
+import { ContentColumn, black16 } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { isBotInstalled } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    padding: 0,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  title: {
-    justifyContent: 'left',
-    alignItems: 'center',
-  },
-  helpIcon: {
-    color: checkBlue,
-  },
   divider: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
@@ -78,10 +62,6 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
       }
     }
   });
-
-  const handleHelp = () => {
-    window.open('http://help.checkmedia.org/en/articles/4637158-list-settings');
-  };
 
   const handleError = () => {
     setSaving(false);
@@ -184,33 +164,28 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
   return (
     <React.Fragment>
       <ContentColumn large>
+        <SettingsHeader
+          title={
+            <FormattedMessage
+              id="teamListsComponent.title"
+              defaultMessage="List settings"
+            />
+          }
+          subtitle={
+            <FormattedMessage
+              id="teamListsComponent.description"
+              defaultMessage="Select all the columns you want to display in all your lists."
+            />
+          }
+          helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
+          actionButton={
+            <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
+              <FormattedMessage id="settingsHeader.save" defaultMessage="Save" />
+            </Button>
+          }
+        />
         <Card>
           <CardContent>
-            <Toolbar className={classes.root}>
-              <Box display="flex" justifyContent="center" className={classes.title}>
-                <Typography variant="h6" component="div">
-                  <FormattedMessage
-                    id="teamListsComponent.title"
-                    defaultMessage="List settings"
-                  />
-                </Typography>
-                <IconButton onClick={handleHelp}>
-                  <HelpIcon className={classes.helpIcon} />
-                </IconButton>
-              </Box>
-              <Button variant="contained" color="primary" disabled={saving || !hasUnsavedChanges} onClick={handleConfirmSave}>
-                <FormattedMessage
-                  id="teamListsComponent.save"
-                  defaultMessage="Save"
-                />
-              </Button>
-            </Toolbar>
-            <Typography>
-              <FormattedMessage
-                id="teamListsComponent.description"
-                defaultMessage="Select all the columns you want to display in all your lists."
-              />
-            </Typography>
             <Box display="flex" justifyContent="space-between">
               <TeamListsColumn
                 columns={selectedColumns}

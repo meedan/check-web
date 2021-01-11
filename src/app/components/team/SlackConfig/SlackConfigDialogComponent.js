@@ -210,7 +210,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
           <Typography variant="body1" component="div">
             <FormattedMessage
               id="slackConfigDialogComponent.title"
-              defaultMessage="Send notifications to Slack channels when claims are added to specific lists"
+              defaultMessage="Send notifications to Slack channels when items are added to specific lists"
             />
           </Typography>
         </Box>

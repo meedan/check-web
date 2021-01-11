@@ -12,18 +12,20 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
+import Popover from '@material-ui/core/Popover';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
+import SettingsHeader from './SettingsHeader';
 import TagTextCount from './TagTextCount';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, ContentColumn, black32, AlignOpposite } from '../../styles/js/shared';
+import { units, ContentColumn, black32 } from '../../styles/js/shared';
 import Can, { can } from '../Can';
 import Message from '../Message';
 import { withPusher, pusherShape } from '../../pusher';
@@ -33,7 +35,7 @@ import DeleteTagTextMutation from '../../relay/mutations/DeleteTagTextMutation';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 
-const StyledContentColumn = styled(ContentColumn)`
+const StyledTeamTags = styled.div`
   .highlight {
     background-color: #FFF !important;
     -webkit-transition: background-color 1000ms linear !important;
@@ -54,6 +56,7 @@ class TeamTagsComponent extends Component {
     super(props);
     this.state = {
       anchorEl: null,
+      newTagAnchorEl: null,
       sort: 'az',
       search: '',
       newTag: '',
@@ -195,6 +198,14 @@ class TeamTagsComponent extends Component {
 
   handleCloseMenu = () => {
     this.setState({ anchorEl: null, menuOpenForTag: null });
+  };
+
+  handleOpenNewTag = (e) => {
+    this.setState({ newTagAnchorEl: e.currentTarget });
+  };
+
+  handleCloseNewTag = () => {
+    this.setState({ newTagAnchorEl: null });
   };
 
   handleEdit(tag) {
@@ -457,72 +468,102 @@ class TeamTagsComponent extends Component {
     );
 
     return (
-      <StyledContentColumn>
-        <Message message={this.state.message} />
-        <AlignOpposite>
-          <FilterPopup
-            search={this.state.search}
-            onSearchChange={this.handleSearchChange}
-            label={filterLabel}
-            tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
-          >
-            <div style={{ marginTop: units(2) }}>
-              <SortSelector
-                value={this.state.sort}
-                onChange={this.handleChange.bind(this)}
-                fullWidth
+      <StyledTeamTags>
+        <ContentColumn large>
+          <Message message={this.state.message} />
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="teamTags.title"
+                defaultMessage="Tags"
               />
-            </div>
-          </FilterPopup>
-        </AlignOpposite>
-        <Card style={{ marginTop: units(2) }}>
-          <CardContent style={{ padding: 0 }}>
-            { tag_texts.length === 0 ?
-              <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
-                <FormattedMessage
-                  id="teamTags.noTags"
-                  defaultMessage="No tags"
-                />
-              </p>
-              : null }
-            {this.tagsList(tag_texts)}
-            <Can permissions={this.props.team.permissions} permission="create TagText">
-              <div style={{ padding: units(2) }}>
-                <TextField
-                  id="tag__new"
-                  onKeyUp={this.handleKeyUp.bind(this)}
-                  onKeyPress={this.handleKeyPress.bind(this)}
-                  label={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
-                  style={{ width: '50%' }}
-                />
-                <p>
-                  <Button
-                    onClick={this.handleAddTag.bind(this)}
-                    disabled={this.state.newTag.length === 0}
-                    color="primary"
-                  >
-                    <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
-                  </Button>
+            }
+            subtitle={
+              <FormattedMessage
+                id="teamTags.description"
+                defaultMessage="Tags can be added to media, items and sources."
+              />
+            }
+            helpUrl="http://help.checkmedia.org/en/articles/4516913-tags"
+            actionButton={
+              <Can permissions={this.props.team.permissions} permission="create TagText">
+                <Button variant="contained" color="primary" onClick={this.handleOpenNewTag.bind(this)} id="team-tags__create">
+                  <FormattedMessage
+                    id="teamTags.newTag"
+                    defaultMessage="New tag"
+                  />
+                </Button>
+                <Popover
+                  open={Boolean(this.state.newTagAnchorEl)}
+                  anchorEl={this.state.newTagAnchorEl}
+                  onClose={this.handleCloseNewTag.bind(this)}
+                >
+                  <div style={{ padding: units(2) }}>
+                    <TextField
+                      id="tag__new"
+                      onKeyUp={this.handleKeyUp.bind(this)}
+                      onKeyPress={this.handleKeyPress.bind(this)}
+                      label={<FormattedMessage id="teamTags.new" defaultMessage="New tag" />}
+                      style={{ width: '50%' }}
+                    />
+                    <p>
+                      <Button
+                        onClick={this.handleAddTag.bind(this)}
+                        disabled={this.state.newTag.length === 0}
+                        color="primary"
+                      >
+                        <FormattedMessage id="teamTags.addTag" defaultMessage="Add tag" />
+                      </Button>
+                    </p>
+                  </div>
+                </Popover>
+              </Can>
+            }
+            extra={
+              <FilterPopup
+                search={this.state.search}
+                onSearchChange={this.handleSearchChange}
+                label={filterLabel}
+                tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
+              >
+                <div style={{ marginTop: units(2) }}>
+                  <SortSelector
+                    value={this.state.sort}
+                    onChange={this.handleChange.bind(this)}
+                    fullWidth
+                  />
+                </div>
+              </FilterPopup>
+            }
+          />
+          <Card style={{ marginTop: units(2) }}>
+            <CardContent style={{ padding: 0 }}>
+              { tag_texts.length === 0 ?
+                <p style={{ paddingBottom: units(5), textAlign: 'center' }}>
+                  <FormattedMessage
+                    id="teamTags.noTags"
+                    defaultMessage="No tags"
+                  />
                 </p>
-              </div>
-            </Can>
-          </CardContent>
-        </Card>
-
-        <ConfirmDialog
-          open={this.state.dialogOpen}
-          title={
-            <FormattedMessage
-              id="teamTags.confirmDeleteTitle"
-              defaultMessage="Are you sure you want to delete this tag?"
-            />
-          }
-          checkBoxLabel={<TagTextCount tag={this.state.tagToBeDeleted} />}
-          disabled={this.state.deleting || !this.state.tagToBeDeleted}
-          handleClose={this.handleCloseDialog.bind(this)}
-          handleConfirm={this.handleDestroy.bind(this)}
-        />
-      </StyledContentColumn>
+                : null }
+              {this.tagsList(tag_texts)}
+            </CardContent>
+          </Card>
+          <ConfirmDialog
+            open={this.state.dialogOpen}
+            title={
+              <FormattedMessage
+                id="teamTags.confirmDeleteTitle"
+                defaultMessage="Are you sure you want to delete this tag?"
+              />
+            }
+            checkBoxLabel={<TagTextCount tag={this.state.tagToBeDeleted} />}
+            disabled={this.state.deleting || !this.state.tagToBeDeleted}
+            handleClose={this.handleCloseDialog.bind(this)}
+            handleConfirm={this.handleDestroy.bind(this)}
+          />
+        </ContentColumn>
+      </StyledTeamTags>
     );
   }
 }

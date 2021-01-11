@@ -66,7 +66,7 @@ export function units(unit) {
 
 export const columnWidthSmall = units(56);
 export const columnWidthMedium = units(85);
-export const columnWidthLarge = units(100);
+export const columnWidthLarge = units(110);
 export const columnWidthWide = units(152);
 export const appBarInnerHeight = units(7);
 
@@ -458,7 +458,7 @@ export const FadeIn = styled.div`
 `;
 
 export const ContentColumn = styled.div`
-  margin: 0 auto;
+  margin: 0 ${props => props.noCenter ? '0' : 'auto'};
   padding: 0 ${props => props.noPadding ? '0' : units(1)};
   width: 100%;
   max-width: ${columnWidthMedium};

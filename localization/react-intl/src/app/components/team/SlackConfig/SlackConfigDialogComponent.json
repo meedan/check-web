@@ -9,7 +9,7 @@
   },
   {
     "id": "slackConfigDialogComponent.title",
-    "defaultMessage": "Send notifications to Slack channels when claims are added to specific lists"
+    "defaultMessage": "Send notifications to Slack channels when items are added to specific lists"
   },
   {
     "id": "slackConfigDialogComponent.webhook",

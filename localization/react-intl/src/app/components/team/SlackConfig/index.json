@@ -4,11 +4,7 @@
     "defaultMessage": "Integration settings"
   },
   {
-    "id": "slackConfig.title",
-    "defaultMessage": "Slack integration"
-  },
-  {
     "id": "slackConfig.text",
-    "defaultMessage": "Notify a Slack channel about workspace activity."
+    "defaultMessage": "Send notifications to Slack channels when items are added to specific lists"
   }
 ]

@@ -104,11 +104,7 @@ shared_examples 'team' do
     wait_for_selector('.team-members__member')
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__bots-tab').click
-    wait_for_selector("//span[contains(text(), 'More info')]", :xpath)
-    expect(@driver.page_source.include?(bot_name)).to be(true)
-    wait_for_selector('.settingsIcon')
     expect(@driver.page_source.include?('No bots installed')).to be(false)
-    expect(@driver.page_source.include?('More info')).to be(true)
 
     # Uninstall bot
     @driver.execute_script('window.scrollTo(10, 0)')
@@ -119,13 +115,11 @@ shared_examples 'team' do
     wait_for_selector_none('#confirm-dialog__checkbox')
     wait_for_selector_none('.settingsIcon')
     expect(@driver.page_source.include?('No bots installed')).to be(true)
-    expect(@driver.page_source.include?('More info')).to be(false)
   end
 
   it 'should install Smooch bot and customize message', bin1: true do
     response = api_create_team_and_project
-    install_bot(response[:team].slug, 'Smooch')
-    wait_for_selector('img[alt=Smooch]')
+    install_bot(response[:team].slug, 'Tipline')
     wait_for_selector('.settingsIcon').click
     wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]').send_keys(:control, 'a', :delete)
     wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]').send_keys('Hi, this is a test')
@@ -136,7 +130,6 @@ shared_examples 'team' do
     @driver.navigate.refresh
     wait_for_selector('.team')
     wait_for_selector('.team-settings__bots-tab').click
-    wait_for_selector('img[alt=Smooch]')
     wait_for_selector('.settingsIcon').click
     wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]')
     expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
@@ -152,7 +145,7 @@ shared_examples 'team' do
     wait_for_selector('#introduction').send_keys('introduction text')
     wait_for_selector('#use_disclaimer').click
     wait_for_selector('#disclaimer').send_keys('a text')
-    wait_for_selector('.team p button').click # save button
+    wait_for_selector('#team-report__save').click
     wait_for_selector('.message')
     expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
   end
@@ -162,8 +155,7 @@ shared_examples 'team' do
     create_team_and_go_to_settings_page(team)
     @driver.execute_script('window.scrollTo(10, 0)')
     wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector("//span[contains(text(), 'Slack integration')]", :xpath)
-    @driver.execute_script('window.scrollTo(10, 0)')
+    wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
     expect(@driver.find_elements(:css, '.Mui-checked').empty?)
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector("button[title='Integration settings']").click
@@ -174,8 +166,7 @@ shared_examples 'team' do
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
     @driver.navigate.refresh
     wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector("//span[contains(text(), 'Slack integration')]", :xpath)
-    @driver.execute_script('window.scrollTo(10, 0)')
+    wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
     wait_for_selector('.Mui-checked')
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1)
     wait_for_selector("button[title='Integration settings']").click

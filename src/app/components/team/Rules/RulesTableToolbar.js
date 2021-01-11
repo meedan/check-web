@@ -8,11 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
-import HelpIcon from '@material-ui/icons/HelpOutline';
 import Button from '@material-ui/core/Button';
-import Box from '@material-ui/core/Box';
+import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
-import { checkBlue } from '../../../styles/js/shared';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -32,14 +30,11 @@ const useToolbarStyles = makeStyles(theme => ({
   button: {
     whiteSpace: 'nowrap',
   },
-  helpIcon: {
-    color: checkBlue,
-  },
 }));
 
 const RulesTableToolbar = (props) => {
   const classes = useToolbarStyles();
-  const { numRules, numSelected } = props;
+  const { numSelected } = props;
   const [showDeleteConfirmationDialog, setShowDeleteConfirmationDialog] = React.useState(false);
 
   const handleConfirmDelete = () => {
@@ -55,41 +50,41 @@ const RulesTableToolbar = (props) => {
     setShowDeleteConfirmationDialog(false);
   };
 
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/3623179-automation-and-filtering-rules');
-  };
-
   return (
     <React.Fragment>
-      <Toolbar
-        className={clsx(classes.root, {
-          [classes.highlight]: numSelected > 0,
-        })}
-      >
-        <Box display="flex" justifyContent="center">
-          {numSelected > 0 ? (
-            <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-              <FormattedMessage
-                id="rulesTableToolbar.selected"
-                defaultMessage="{numSelected, plural, one {1 selected} other {# selected}}"
-                values={{ numSelected }}
-              />
-            </Typography>
-          ) : (
-            <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-              <FormattedMessage
-                id="rulesTableToolbar.title"
-                defaultMessage="{numRules, plural, one {1 rule} other {# rules}}"
-                values={{ numRules }}
-              />
-            </Typography>
-          )}
-          <IconButton onClick={handleHelp}>
-            <HelpIcon className={classes.helpIcon} />
-          </IconButton>
-        </Box>
-
-        {numSelected > 0 ? (
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="rulesTableToolbar.title"
+            defaultMessage="Rules"
+          />
+        }
+        subtitle={
+          <FormattedMessage
+            id="rulesTableToolbar.subtitle"
+            defaultMessage="Create automations to organize lists and customize your workflow."
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/3623179-automation-and-filtering-rules"
+        actionButton={
+          <Button color="primary" variant="contained" className={[classes.button, 'rules__new-rule'].join(' ')} onClick={props.onAddNewRule}>
+            <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" />
+          </Button>
+        }
+      />
+      { numSelected > 0 ?
+        <Toolbar
+          className={clsx(classes.root, {
+            [classes.highlight]: numSelected > 0,
+          })}
+        >
+          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+            <FormattedMessage
+              id="rulesTableToolbar.selected"
+              defaultMessage="{numSelected, plural, one {1 selected} other {# selected}}"
+              values={{ numSelected }}
+            />
+          </Typography>
           <Tooltip
             title={
               <FormattedMessage id="rulesTableToolbar.delete" defaultMessage="Delete" />
@@ -99,12 +94,7 @@ const RulesTableToolbar = (props) => {
               <DeleteIcon />
             </IconButton>
           </Tooltip>
-        ) : (
-          <Button color="primary" variant="contained" className={[classes.button, 'rules__new-rule'].join(' ')} onClick={props.onAddNewRule}>
-            <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" />
-          </Button>
-        )}
-      </Toolbar>
+        </Toolbar> : null }
       <ConfirmDialog
         open={showDeleteConfirmationDialog}
         title={
@@ -127,7 +117,6 @@ const RulesTableToolbar = (props) => {
 };
 
 RulesTableToolbar.propTypes = {
-  numRules: PropTypes.number.isRequired,
   numSelected: PropTypes.number.isRequired,
   onAddNewRule: PropTypes.func.isRequired,
   onDeleteRules: PropTypes.func.isRequired,
