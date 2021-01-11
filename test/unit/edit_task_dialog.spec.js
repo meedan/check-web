@@ -1,5 +1,4 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-test';
 import EditTaskDialog from '../../src/app/components/task/EditTaskDialog';
 
