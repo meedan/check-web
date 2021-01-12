@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -31,16 +30,11 @@ import {
   brandSecondary,
 } from '../../styles/js/shared';
 
-const styles = () => ({
-  root: {
-    maxWidth: '120px',
-    minWidth: '120px',
-  },
-});
-
 const StyledTabs = styled(Tabs)`
   background-color: ${brandSecondary};
   box-shadow: none !important;
+  padding-left: 32px;
+  margin-bottom: 32px;
 `;
 
 const StyledTeamContainer = styled.div`
@@ -84,9 +78,8 @@ class TeamComponent extends Component {
   };
 
   render() {
-    const { team, classes } = this.props;
+    const { team } = this.props;
     const { action } = this.props.route;
-
     const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
     const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
     const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
@@ -125,12 +118,10 @@ class TeamComponent extends Component {
             textColor="primary"
             value={tab}
             onChange={this.handleTabChange}
-            centered
           >
             { currentUserIsOwner ?
               <Tab
                 className="team-settings__lists-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.lists"
@@ -143,7 +134,6 @@ class TeamComponent extends Component {
             { currentUserIsOwner ?
               <Tab
                 className="team-settings__metadata-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.metadata"
@@ -156,7 +146,6 @@ class TeamComponent extends Component {
             { currentUserIsOwner ?
               <Tab
                 className="team-settings__tasks-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.tasks"
@@ -169,7 +158,6 @@ class TeamComponent extends Component {
             {currentUserIsOwner ?
               <Tab
                 className="team-settings__rules-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.rules"
@@ -182,7 +170,6 @@ class TeamComponent extends Component {
             { isSettings || isReadOnly ?
               <Tab
                 className="team-settings__tags-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.Tags"
@@ -194,7 +181,6 @@ class TeamComponent extends Component {
             {currentUserIsOwner ?
               <Tab
                 className="team-settings__languages-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.languages"
@@ -207,7 +193,6 @@ class TeamComponent extends Component {
             {currentUserIsOwner ?
               <Tab
                 className="team-settings__statuses-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.statuses"
@@ -220,7 +205,6 @@ class TeamComponent extends Component {
             {currentUserIsOwner ?
               <Tab
                 className="team-settings__report-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.report"
@@ -233,7 +217,6 @@ class TeamComponent extends Component {
             {currentUserIsOwner ?
               <Tab
                 className="team-settings__integrations-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.integrations"
@@ -246,7 +229,6 @@ class TeamComponent extends Component {
             {currentUserIsOwner ?
               <Tab
                 className="team-settings__bots-tab"
-                classes={{ root: classes.root }}
                 label={
                   <FormattedMessage
                     id="teamSettings.bots"
@@ -317,4 +299,4 @@ TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default withStyles(styles)(TeamComponent);
+export default TeamComponent;

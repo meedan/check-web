@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Divider from '@material-ui/core/Divider';
 import TeamListsColumn from './TeamListsColumn';
 import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
@@ -18,10 +17,6 @@ import { withSetFlashMessage } from '../../FlashMessage';
 import { isBotInstalled } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
-  divider: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
   link: {
     textDecoration: 'underline',
     background: '#F6F6F6',
@@ -33,6 +28,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     borderRadius: 5,
   },
+
 }));
 
 function clone(arrayOfObjects) {
@@ -201,10 +197,10 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 style={{
                   background: '#F6F6F6',
                   borderRadius: '5px',
-                  border: `2px solid ${black16}`,
+                  border: `1px solid ${black16}`,
+                  padding: '.3rem 1rem .5rem 0',
                 }}
               />
-              <Divider orientation="vertical" className={classes.divider} flexItem />
               <TeamListsColumn
                 columns={availableColumns.filter(c => !/^task_value_/.test(c.key))}
                 title={
@@ -215,7 +211,6 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 }
                 onToggle={handleToggle}
               />
-              <Divider orientation="vertical" className={classes.divider} flexItem />
               <TeamListsColumn
                 columns={availableColumns.filter(c => /^task_value_/.test(c.key))}
                 title={
