@@ -67,6 +67,7 @@ shared_examples 'project' do
     wait_for_selector('.project-actions', :css)
     # 7204 edit title and description separately
     edit_project(description: new_description)
+    wait_for_selector('.Linkify')
     expect(@driver.page_source.include?('Changed title')).to be(true)
     expect(@driver.page_source.include?(new_description)).to be(true)
   end

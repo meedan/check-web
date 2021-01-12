@@ -1,5 +1,5 @@
 shared_examples 'videotimeline' do
-  it 'should manage video notes', bin4: true do
+  it 'should manage video notes', bin5: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector('.media-detail')
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
@@ -35,7 +35,7 @@ shared_examples 'videotimeline' do
     expect(@driver.page_source.include?('my note')).to be(false) # check the video note disappears from the comments tab
   end
 
-  it 'should manage videotags', bin4: true do
+  it 'should manage videotags', bin5: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my videotag')).to be(false)

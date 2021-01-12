@@ -1,0 +1,10 @@
+[
+  {
+    "id": "teamIntegrations.title",
+    "defaultMessage": "Integrations"
+  },
+  {
+    "id": "teamIntegrations.subtitle",
+    "defaultMessage": "Third party tools to enhance productivity."
+  }
+]

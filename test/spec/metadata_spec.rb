@@ -1,5 +1,5 @@
 shared_examples 'metadata' do
-  it 'should manage metadata', bin6: true do
+  it 'should manage metadata', bin3: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
@@ -25,6 +25,7 @@ shared_examples 'metadata' do
     # change the metadata order
     task = wait_for_selector('.team-tasks__task-label > span > span') # first metadata
     expect(task.text).to eq 'my metadata - Edited'
+    @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector('.reorder__button-down').click
     task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
     expect(task.text).to eq 'my data time metadata'
@@ -34,7 +35,7 @@ shared_examples 'metadata' do
     expect(@driver.page_source.include?('my data time metadata')).to be(false)
   end
 
-  it 'should add, edit and delete a metadata response', bin4: true do
+  it 'should add, edit and delete a metadata response', bin5: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)

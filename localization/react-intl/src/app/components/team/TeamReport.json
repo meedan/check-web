@@ -8,16 +8,16 @@
     "defaultMessage": "Report settings updated successfully!"
   },
   {
-    "id": "teamReport.save",
-    "defaultMessage": "Save"
-  },
-  {
     "id": "teamReport.title",
     "defaultMessage": "Default report settings"
   },
   {
     "id": "teamReport.subtitle",
-    "defaultMessage": "The content you set here can be edited in each individual report"
+    "defaultMessage": "The content you set here can be edited in each individual report."
+  },
+  {
+    "id": "teamReport.save",
+    "defaultMessage": "Save"
   },
   {
     "id": "teamReport.introduction",

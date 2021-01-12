@@ -9,6 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { getErrorMessage } from '../../helpers';
@@ -23,11 +24,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const CreateTeamDialog = ({ onDismiss }) => {
+const CreateTeamDialog = ({ onDismiss, team }) => {
   const classes = useStyles();
   const [saving, setSaving] = React.useState(false);
-  const [name, setName] = React.useState('');
-  const [slug, setSlug] = React.useState('');
+  const [name, setName] = React.useState(team ? `Copy of ${team.name}` : '');
+  const [slug, setSlug] = React.useState(team ? `${team.slug}-copy-1` : '');
   const [errorMessage, setErrorMessage] = React.useState(null);
   const autoSlug = name.toLowerCase().replace(/ /g, '-').replace(/[^-a-z0-9]/g, '').replace(/-+/g, '-');
 
@@ -82,21 +83,71 @@ const CreateTeamDialog = ({ onDismiss }) => {
     });
   };
 
+  const handleDuplicate = () => {
+    setSaving(true);
+    setErrorMessage(null);
+
+    const mutation = graphql`
+      mutation CreateTeamDialogDuplicateTeamMutation($input: DuplicateTeamMutationInput!) {
+        duplicateTeam(input: $input) {
+          team {
+            slug
+          }
+        }
+      }
+    `;
+
+    commitMutation(Store, {
+      mutation,
+      variables: {
+        input: {
+          team_id: team.id,
+          custom_name: name,
+          custom_slug: slug || autoSlug,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError(error);
+        } else {
+          handleSuccess(response.duplicateTeam.team.slug);
+        }
+      },
+      onError: (error) => {
+        handleError(error);
+      },
+    });
+  };
+
   const textFieldProps = {
     className: classes.textField,
     variant: 'outlined',
     fullWidth: true,
   };
 
+  const handleSubmit = team ? handleDuplicate : handleCreate;
+
   return (
     <Dialog open>
       <DialogTitle>
-        <FormattedMessage
-          id="createTeamDialog.dialogTitle"
-          defaultMessage="Create new workspace"
-        />
+        { team ?
+          <FormattedMessage
+            id="createTeamDialog.dialogTitleDuplicate"
+            defaultMessage="Duplicate workspace"
+          /> :
+          <FormattedMessage
+            id="createTeamDialog.dialogTitleCreate"
+            defaultMessage="Create new workspace"
+          /> }
       </DialogTitle>
       <DialogContent>
+        { team ?
+          <Typography>
+            <FormattedMessage
+              id="createTeamDialog.description"
+              defaultMessage="All settings from this workspace will be duplicated. No content will be added."
+            />
+          </Typography> : null }
         <TextField
           value={name}
           label={
@@ -141,19 +192,29 @@ const CreateTeamDialog = ({ onDismiss }) => {
             defaultMessage="Cancel"
           />
         </Button>
-        <Button color="primary" variant="contained" onClick={handleCreate} disabled={saving || !name}>
-          <FormattedMessage
-            id="createTeamDialog.create"
-            defaultMessage="Create"
-          />
+        <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving || !name}>
+          { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating..." /> : null }
+          { team && !saving ? <FormattedMessage id="createTeamDialog.duplice" defaultMessage="Duplicate" /> : null }
+          { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating..." /> : null }
+          { !team && !saving ? <FormattedMessage id="createTeamDialog.create" defaultMessage="Create" /> : null }
         </Button>
       </DialogActions>
     </Dialog>
   );
 };
 
+CreateTeamDialog.defaultProps = {
+  team: null,
+};
+
 CreateTeamDialog.propTypes = {
   onDismiss: PropTypes.func.isRequired,
+  // If a team is passed as a prop, a duplicate of that team is created, instead of a blank new team
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+  }),
 };
 
 export default CreateTeamDialog;

@@ -22,6 +22,7 @@ require_relative './team_spec_helpers'
 require_relative './task_spec'
 require_relative './task_spec_helpers'
 require_relative './video_timeline_spec'
+require_relative './similarity_spec'
 # require_relative './source_spec.rb'
 
 CONFIG = YAML.load_file('config.yml')
@@ -118,6 +119,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'tag'
     include_examples 'team'
     include_examples 'videotimeline'
+    include_examples 'similarity'
     it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 

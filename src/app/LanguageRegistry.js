@@ -793,4 +793,9 @@ export function compareLanguages(defaultCode, a, b) {
   return languageLabel(a).localeCompare(languageLabel(b));
 }
 
+export function languageName(code) {
+  const language = LanguageRegistry[code];
+  return language ? language.name : code;
+}
+
 export default LanguageRegistry;

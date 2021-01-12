@@ -40,7 +40,7 @@ shared_examples 'media actions' do
   end
 
   it 'should refresh media', bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+    api_create_team_project_and_link_and_redirect_to_media_page 'https://ca.ios.ba/files/meedan/random.php'
     wait_for_selector('.media-detail')
     title1 = wait_for_selector('.media-expanded__title span').text
     expect((title1 =~ /Random/).nil?).to be(false)
@@ -72,7 +72,7 @@ shared_examples 'media actions' do
   end
 
   it 'should lock and unlock status', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'http://ca.ios.ba/files/meedan/random.php'
+    api_create_team_project_and_link_and_redirect_to_media_page 'https://ca.ios.ba/files/meedan/random.php'
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -234,7 +234,7 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
 
-  it 'should add media to another project from item page', bin6: true do
+  it 'should add media to another project from item page', bin3: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.drawer__create-project-button').click

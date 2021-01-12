@@ -1,5 +1,4 @@
 import React from 'react';
-import { StyledProfileCard } from '../styles/js/HeaderCard';
 
 // The "Header Card" is the layout at the top of Source, Profile and Team.
 // Currently we have an actual HeaderCard component that the TeamComponent uses,
@@ -10,9 +9,7 @@ import { StyledProfileCard } from '../styles/js/HeaderCard';
 // @chris 2017-10-17
 
 const HeaderCard = props => (
-  <StyledProfileCard>
-    <div>{props.children}</div>
-  </StyledProfileCard>
+  <div>{props.children}</div>
 );
 
 export default HeaderCard;

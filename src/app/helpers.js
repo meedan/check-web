@@ -319,6 +319,14 @@ function isBotInstalled(team, identifier) {
   ));
 }
 
+/**
+ * Return the human bot name
+ * FIXME: That should be changed in the backend actually
+ */
+function botName(bot) {
+  return bot.name === 'Smooch' ? 'Tipline' : bot.name;
+}
+
 export {
   bemClass,
   bemClassFromMediaStatus,
@@ -342,4 +350,5 @@ export {
   getCurrentProject,
   getCurrentProjectId,
   parseStringUnixTimestamp,
+  botName,
 };

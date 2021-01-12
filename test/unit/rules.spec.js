@@ -1,5 +1,4 @@
 import React from 'react';
-import { IntlProvider } from 'react-intl';
 import { mountWithIntl } from './helpers/intl-test';
 import RulesComponent from './../../src/app/components/team/Rules/RulesComponent';
 import schema from './mocks/rules-schema';

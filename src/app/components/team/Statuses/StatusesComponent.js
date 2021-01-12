@@ -9,13 +9,10 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import HelpIcon from '@material-ui/icons/HelpOutline';
-import IconButton from '@material-ui/core/IconButton';
 import List from '@material-ui/core/List';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
+import SettingsHeader from '../SettingsHeader';
 import DeleteStatusDialog from './DeleteStatusDialog';
 import EditStatusDialog from './EditStatusDialog';
 import StatusListItem from './StatusListItem';
@@ -23,25 +20,13 @@ import TranslateStatuses from './TranslateStatuses';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import { stringHelper } from '../../../customHelpers';
 import { getErrorMessage } from '../../../helpers';
-import { checkBlue, ContentColumn, units } from '../../../styles/js/shared';
+import { ContentColumn, units } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
+import { languageName } from '../../../LanguageRegistry';
 
-const useToolbarStyles = makeStyles(theme => ({
-  root: {
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(1),
-    display: 'flex',
-    justifyContent: 'space-between',
-  },
-  title: {
-    flex: '1 1 100%',
-    alignSelf: 'center',
-  },
+const useToolbarStyles = makeStyles(() => ({
   button: {
     whiteSpace: 'nowrap',
-  },
-  helpIcon: {
-    color: checkBlue,
   },
 }));
 
@@ -122,10 +107,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
       onError,
     });
   }
-
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/4235955-status-settings');
-  };
 
   const handleDelete = ({ status_id, fallback_status_id }) => {
     const onCompleted = (response, error) => {
@@ -232,60 +213,60 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   return (
-    <React.Fragment>
-      <ContentColumn large>
+    <Box display="flex" justifyContent="center">
+      <LanguageSwitcher
+        orientation="vertical"
+        primaryLanguage={defaultLanguage}
+        currentLanguage={currentLanguage}
+        languages={languages}
+        onChange={handleChangeLanguage}
+      />
+      <ContentColumn large noCenter>
+        <SettingsHeader
+          title={
+            <FormattedMessage
+              id="statusesComponent.title"
+              defaultMessage="{languageName} statuses"
+              values={{
+                languageName: languageName(currentLanguage),
+              }}
+              description="The idea of this sentence is 'statuses written in language <languageName>'"
+            />
+          }
+          subtitle={
+            <FormattedMessage
+              id="statusesComponent.subtitle"
+              defaultMessage="The status title is visible when reports are sent to users."
+            />
+          }
+          helpUrl="https://help.checkmedia.org/en/articles/4235955-status-settings"
+          actionButton={
+            <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
+              <FormattedMessage
+                id="statusesComponent.newStatus"
+                defaultMessage="New status"
+              />
+            </Button>
+          }
+        />
         <Card>
           <CardContent>
-            <Toolbar className={classes.root}>
-              <Box display="flex" justifyContent="center">
-                <Typography className={classes.title} color="inherit" variant="h6" component="div">
-                  <FormattedMessage
-                    id="statusesComponent.title"
-                    defaultMessage="{statuses_count, plural, one {1 status} other {# statuses}}"
-                    values={{ statuses_count: statuses.length }}
-                  />
-                </Typography>
-                <IconButton onClick={handleHelp}>
-                  <HelpIcon className={classes.helpIcon} />
-                </IconButton>
-              </Box>
-              <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
-                <FormattedMessage
-                  id="statusesComponent.newStatus"
-                  defaultMessage="New status"
-                />
-              </Button>
-            </Toolbar>
-            <LanguageSwitcher
-              primaryLanguage={defaultLanguage}
-              currentLanguage={currentLanguage}
-              languages={languages}
-              onChange={handleChangeLanguage}
-            />
             {
               currentLanguage === defaultLanguage ? (
-                <React.Fragment>
-                  <StyledBlurb>
-                    <FormattedMessage
-                      id="statusesComponent.blurb"
-                      defaultMessage="The status title is visible when reports are sent to users."
+                <List>
+                  { statuses.map(s => (
+                    <StatusListItem
+                      defaultLanguage={defaultLanguage}
+                      isDefault={s.id === defaultStatusId}
+                      key={s.id}
+                      onDelete={handleMenuDelete}
+                      onEdit={handleMenuEdit}
+                      onMakeDefault={handleMenuMakeDefault}
+                      preventDelete={statuses.length === 1}
+                      status={s}
                     />
-                  </StyledBlurb>
-                  <List>
-                    { statuses.map(s => (
-                      <StatusListItem
-                        defaultLanguage={defaultLanguage}
-                        isDefault={s.id === defaultStatusId}
-                        key={s.id}
-                        onDelete={handleMenuDelete}
-                        onEdit={handleMenuEdit}
-                        onMakeDefault={handleMenuMakeDefault}
-                        preventDelete={statuses.length === 1}
-                        status={s}
-                      />
-                    ))}
-                  </List>
-                </React.Fragment>
+                  ))}
+                </List>
               ) : (
                 <React.Fragment>
                   <StyledBlurb>
@@ -323,7 +304,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         onProceed={handleDelete}
         statuses={statuses}
       />
-    </React.Fragment>
+    </Box>
   );
 };
 
