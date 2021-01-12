@@ -13,7 +13,7 @@ import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
-import DetachDialog from './DetachDialog';
+import SelectProjectDialog from '../SelectProjectDialog';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
@@ -73,6 +73,7 @@ const MediaItem = ({
   setFlashMessage,
   isSelected,
   onSelect,
+  team,
 }) => {
   if (!projectMedia || !projectMedia.dbid) {
     return null;
@@ -311,12 +312,35 @@ const MediaItem = ({
             <RemoveCircleOutlineIcon />
           </IconButton>
         </Box> : null }
-      { isDialogOpen ?
-        <DetachDialog
-          closeDialog={closeDialog}
-          handleDelete={handleDelete}
-        /> : null
-      }
+      <SelectProjectDialog
+        open={isDialogOpen}
+        excludeProjectDbids={[]}
+        team={team}
+        title={
+          <FormattedMessage
+            id="detachDialog.dialogdetachedToListTitle"
+            defaultMessage="Move detached item to…"
+            description="Dialog title prompting user to select a destination list for the item"
+          />
+        }
+        cancelLabel={
+          <FormattedMessage
+            id="detachDialog.cancelButton"
+            defaultMessage="Cancel"
+            description="Button to dismiss the dialog"
+          />
+        }
+        submitLabel={
+          <FormattedMessage
+            id="detachDialog.detached"
+            defaultMessage="Move to list"
+            description="Button to commit the action of moving item"
+          />
+        }
+        submitButtonClassName="media-item__add-button"
+        onCancel={closeDialog}
+        onSubmit={handleDelete}
+      />
     </Box>
   );
 };
@@ -356,14 +380,21 @@ MediaItem.propTypes = {
   onSelect: PropTypes.func,
 };
 
-export default createFragmentContainer(withSetFlashMessage(MediaItem), graphql`
-  fragment MediaItem_projectMedia on ProjectMedia {
-    id
-    dbid
-    title
-    picture
-    created_at
-    type
-    requests_count
-  }
-`);
+export default createFragmentContainer(withSetFlashMessage(MediaItem), {
+  projectMedia: graphql`
+    fragment MediaItem_projectMedia on ProjectMedia {
+      id
+      dbid
+      title
+      picture
+      created_at
+      type
+      requests_count
+    }
+  `,
+  team: graphql`
+    fragment MediaItem_team on Team {
+      ...SelectProjectDialog_team
+    }
+  `,
+});

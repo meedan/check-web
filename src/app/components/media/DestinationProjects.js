@@ -76,12 +76,12 @@ export default createFragmentContainer(DestinationProjects, graphql`
           title
           medias_count  # Add|MoveProjectMediaToProjectAction optimistic update
           search_id  # Add|MoveProjectMediaToProjectAction optimistic update
-          ...UpdateProjectMediaMutation_srcProj
-          ...BulkArchiveProjectMediaMutation_project
-          ...BulkCreateProjectMediaProjectsMutation_project
-          ...BulkDeleteProjectMediaProjectsMutation_project
-          ...BulkUpdateProjectMediaProjectsMutation_srcProject
-          ...BulkUpdateProjectMediaProjectsMutation_dstProject
+          # ...UpdateProjectMediaMutation_srcProj
+          # ...BulkArchiveProjectMediaMutation_project
+          # ...BulkCreateProjectMediaProjectsMutation_project
+          # ...BulkDeleteProjectMediaProjectsMutation_project
+          # ...BulkUpdateProjectMediaProjectsMutation_srcProject
+          # ...BulkUpdateProjectMediaProjectsMutation_dstProject
         }
       }
     }
