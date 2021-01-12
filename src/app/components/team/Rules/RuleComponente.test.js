@@ -10,17 +10,13 @@ const team = {
 };
 
 describe('<RulesComponent />', () => {
-  it('should render one table row per rule', function() {
-    const wrapper = mountWithIntl(
-      <RulesComponent team={team} />
-    );
+  it('should render one table row per rule', () => {
+    const wrapper = mountWithIntl(<RulesComponent team={team} />);
     expect(wrapper.find('tr').hostNodes()).toHaveLength(3); // one row for the header
   });
 
-  it('should show rule names on the table', function() {
-    const wrapper = mountWithIntl(
-      <RulesComponent team={team} />
-    );
+  it('should show rule names on the table', () => {
+    const wrapper = mountWithIntl(<RulesComponent team={team} />);
     expect(wrapper.text()).toMatch('Rule 1');
     expect(wrapper.text()).toMatch('Rule 2');
   });

@@ -16,23 +16,19 @@ describe('<SlackConfig />', () => {
     slug: 'team-slug',
   };
 
-  it('should render component for team owners', function() {
+  it('should render component for team owners', () => {
     getStore().currentUser = ownerUser;
-    const wrapper = mountWithIntl(
-      <SlackConfig
-        team={team}
-      />
-    );
+    const wrapper = mountWithIntl(<SlackConfig
+      team={team}
+    />);
     expect(wrapper.html()).toMatch('Slack');
   });
 
-  it('should not render component for other team members', function() {
+  it('should not render component for other team members', () => {
     getStore().currentUser = otherUser;
-    const wrapper = mountWithIntl(
-      <SlackConfig
-        team={team}
-      />
-    );
+    const wrapper = mountWithIntl(<SlackConfig
+      team={team}
+    />);
     expect(wrapper.html()).toEqual('');
   });
 });

@@ -12,6 +12,5 @@ describe('<PenderCard />', () => {
   it('does not contain an SVG spinner component if fallback is provided', () => {
     const wrapper = mountWithIntl(<PenderCard fallback={<div />} />);
     expect(wrapper.find(CircularProgress)).toHaveLength(0);
-    console.log('ENTROOOOOOOOOOOOOOOOOU')
   });
 });

@@ -5,7 +5,7 @@ import MediaDetail from './MediaDetail';
 describe('<MediaDetail />', () => {
   const media = {
     metadata: {
-      title: 'Title'
+      title: 'Title',
     },
     overridden: {},
     last_status: 'verified',
@@ -23,7 +23,7 @@ describe('<MediaDetail />', () => {
     },
     team: { private: false },
     data: {
-      title: 'Title'
+      title: 'Title',
     },
   };
 

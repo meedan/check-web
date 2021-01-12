@@ -24,24 +24,18 @@ describe('<EmbedCreate />', () => {
 
   const authorName = 'Felis Catus';
 
-  it('should render new report entry', function() {
-    const wrapper = mountWithIntl(
-      <EmbedCreate content={content_new_entry} annotated={annotated} authorName={authorName} />
-    );
+  it('should render new report entry', () => {
+    const wrapper = mountWithIntl(<EmbedCreate content={content_new_entry} annotated={annotated} authorName={authorName} />);
     expect(wrapper.html()).toMatch('Item added by Felis Catus');
   });
 
-  it('should render edited title entry', function() {
-    const wrapper = mountWithIntl(
-      <EmbedCreate content={content_edited_title} annotated={annotated} authorName={authorName} />
-    );
+  it('should render edited title entry', () => {
+    const wrapper = mountWithIntl(<EmbedCreate content={content_edited_title} annotated={annotated} authorName={authorName} />);
     expect(wrapper.html()).toMatch('Item title edited by Felis Catus: This is an edited title');
   });
 
-  it('should render created note entry', function() {
-    const wrapper = mountWithIntl(
-      <EmbedCreate content={content_created_description} annotated={annotated} authorName={authorName} />
-    );
+  it('should render created note entry', () => {
+    const wrapper = mountWithIntl(<EmbedCreate content={content_created_description} annotated={annotated} authorName={authorName} />);
     expect(wrapper.html()).toMatch('Item description added by Felis Catus');
   });
 });

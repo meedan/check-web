@@ -62,6 +62,9 @@
 
         // TODO Consider standardizing on camelCase
         "camelcase": "off",
+
+        "max-len": "off",
+        "function-paren-newline": "off",
     },
     "overrides": [
         {
