@@ -1,7 +1,7 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import { Pulse } from '../../src/app/styles/js/shared';
-import TeamHeader from '../../src/app/components/team/TeamHeader';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { Pulse } from '../../styles/js/shared';
+import TeamHeader from './TeamHeader';
 
 // Skip, because mounting a Relay component causes some async stuff that
 // can break _future_ unit tests.

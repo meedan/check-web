@@ -1,9 +1,9 @@
 /* global describe, expect, it */
 import React from 'react';
-import { mountWithIntlProvider } from './helpers/intl-test';
-import Rule from './../../src/app/components/team/Rules/Rule';
-import schema from './mocks/rules-schema';
-import rules from './mocks/rules';
+import { mountWithIntlProvider } from '../../../../../test/unit/helpers/intl-test';
+import Rule from './Rule';
+import schema from './../../../../../test/unit/mocks/rules-schema';
+import rules from './../../../../../test/unit/mocks/rules';
 
 const CommonProps = {
   schema,

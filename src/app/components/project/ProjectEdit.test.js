@@ -1,8 +1,7 @@
 import React from 'react';
-import { FlashMessageSetterContext } from '../../src/app/components/FlashMessage';
-import { mountWithIntl, getStore } from './helpers/intl-test';
-
-import { ProjectEditComponent, ConnectedProjectEditComponent } from '../../src/app/components/project/ProjectEdit';
+import { FlashMessageSetterContext } from '../FlashMessage';
+import { mountWithIntl, getStore } from '../../../../test/unit/helpers/intl-test';
+import { ProjectEditComponent, ConnectedProjectEditComponent } from './ProjectEdit';
 
 /**
  * Return { wrapper: <ConnectedProjectEditComponent {...props}>, setFlashMessage: spy() }.
@@ -12,19 +11,19 @@ const createWrapper = (props) => {
   const wrapper = mountWithIntl(
     <FlashMessageSetterContext.Provider value={setFlashMessage}>
       <ConnectedProjectEditComponent {...props} />
-    </FlashMessageSetterContext.Provider>
+    </FlashMessageSetterContext.Provider>,
   );
   return { wrapper, setFlashMessage };
 };
 
 describe('<ProjectEditComponent />', () => {
-  it('forbids empty title', function() {
+  it('forbids empty title', () => {
     const team = { slug: 'team-slug' };
     getStore().team = team;
     getStore().dispatch = () => {};
 
     const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
-    let ProjectEdit = wrapper.find(ProjectEditComponent);
+    const ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
     expect(saveButton.prop('disabled')).toEqual(true);
@@ -41,13 +40,13 @@ describe('<ProjectEditComponent />', () => {
     expect(saveButton.prop('disabled')).toEqual(true);
   });
 
-  it('allows editing title', function() {
+  it('allows editing title', () => {
     const team = { slug: 'team-slug' };
     getStore().team = team;
     getStore().dispatch = () => {};
 
     const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
-    let ProjectEdit = wrapper.find(ProjectEditComponent);
+    const ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
     expect(saveButton.prop('disabled')).toEqual(true);
@@ -64,13 +63,13 @@ describe('<ProjectEditComponent />', () => {
     expect(saveButton.prop('disabled')).toEqual(false);
   });
 
-  it('allows editing description', function() {
+  it('allows editing description', () => {
     const team = { slug: 'team-slug' };
     getStore().team = team;
     getStore().dispatch = () => {};
 
     const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
-    let ProjectEdit = wrapper.find(ProjectEditComponent);
+    const ProjectEdit = wrapper.find(ProjectEditComponent);
 
     let saveButton = wrapper.find('.project-edit__editing-button--save button');
     expect(saveButton.prop('disabled')).toEqual(true);

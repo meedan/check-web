@@ -1,9 +1,9 @@
 import React from 'react';
-import DrawerNavigationComponent from '../../src/app/components/DrawerNavigationComponent';
-import DrawerProjects from '../../src/app/components/drawer/Projects';
-import UserMenuItems from '../../src/app/components/UserMenuItems';
+import DrawerNavigationComponent from './DrawerNavigationComponent';
+import DrawerProjects from './drawer/Projects';
+import UserMenuItems from './UserMenuItems';
 
-import { mountWithIntl, getStore } from './helpers/intl-test';
+import { mountWithIntl, getStore } from '../../../test/unit/helpers/intl-test';
 
 describe('<DrawerNavigationComponent />', () => {
   const currentUser = {
@@ -33,19 +33,17 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().team = privateTeam;
     getStore().dispatch = () => {};
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
-    const header = mountWithIntl(
-      <DrawerNavigationComponent
-        inTeamContext
-        loggedIn
-        currentUserIsMember
-        team={privateTeam}
-        location={location}
-        pusher={pusher}
-        clientSessionId="checkClientSessionId"
-        params={params}
-        classes={{ paper: 'check-paper' }}
-      />,
-    );
+    const header = mountWithIntl(<DrawerNavigationComponent
+      inTeamContext
+      loggedIn
+      currentUserIsMember
+      team={privateTeam}
+      location={location}
+      pusher={pusher}
+      clientSessionId="checkClientSessionId"
+      params={params}
+      classes={{ paper: 'check-paper' }}
+    />);
     expect(header.find(DrawerProjects)).toHaveLength(1);
   });
 
@@ -54,16 +52,14 @@ describe('<DrawerNavigationComponent />', () => {
     const params = { team: 'team' };
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = currentUser;
-    const header = mountWithIntl(
-      <DrawerNavigationComponent
-        loggedIn
-        location={location}
-        params={params}
-        classes={{ paper: 'check-paper' }}
-        pusher={pusher}
-        clientSessionId="checkClientSessionId"
-      />,
-    );
+    const header = mountWithIntl(<DrawerNavigationComponent
+      loggedIn
+      location={location}
+      params={params}
+      classes={{ paper: 'check-paper' }}
+      pusher={pusher}
+      clientSessionId="checkClientSessionId"
+    />);
     expect(header.find(DrawerProjects)).toHaveLength(0);
   });
 
@@ -74,19 +70,17 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().currentUser = currentUser;
     getStore().team = privateTeam;
     getStore().dispatch = () => {};
-    const header = mountWithIntl(
-      <DrawerNavigationComponent
-        inTeamContext
-        loggedIn
-        currentUserIsMember={false}
-        team={privateTeam}
-        location={location}
-        params={params}
-        classes={{ paper: 'check-paper' }}
-        pusher={pusher}
-        clientSessionId="checkClientSessionId"
-      />,
-    );
+    const header = mountWithIntl(<DrawerNavigationComponent
+      inTeamContext
+      loggedIn
+      currentUserIsMember={false}
+      team={privateTeam}
+      location={location}
+      params={params}
+      classes={{ paper: 'check-paper' }}
+      pusher={pusher}
+      clientSessionId="checkClientSessionId"
+    />);
     expect(header.find(DrawerProjects)).toHaveLength(0);
   });
   // TODO: Review
@@ -97,19 +91,17 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().currentUser = undefined;
     getStore().team = publicTeam;
     getStore().dispatch = () => {};
-    const header = mountWithIntl(
-      <DrawerNavigationComponent
-        inTeamContext
-        loggedIn={false}
-        currentUserIsMember={false}
-        team={publicTeam}
-        location={location}
-        pusher={pusher}
-        clientSessionId="checkClientSessionId"
-        params={params}
-        classes={{ paper: 'check-paper' }}
-      />,
-    );
+    const header = mountWithIntl(<DrawerNavigationComponent
+      inTeamContext
+      loggedIn={false}
+      currentUserIsMember={false}
+      team={publicTeam}
+      location={location}
+      pusher={pusher}
+      clientSessionId="checkClientSessionId"
+      params={params}
+      classes={{ paper: 'check-paper' }}
+    />);
 
     expect(header.find(DrawerProjects)).toHaveLength(1);
   });
@@ -121,19 +113,17 @@ describe('<DrawerNavigationComponent />', () => {
     getStore().currentUser = currentUser;
     getStore().team = publicTeam;
     getStore().dispatch = () => {};
-    const header = mountWithIntl(
-      <DrawerNavigationComponent
-        inTeamContext
-        loggedIn={false}
-        currentUserIsMember={false}
-        team={publicTeam}
-        location={location}
-        params={params}
-        classes={{ paper: 'check-paper' }}
-        pusher={pusher}
-        clientSessionId="checkClientSessionId"
-      />,
-    );
+    const header = mountWithIntl(<DrawerNavigationComponent
+      inTeamContext
+      loggedIn={false}
+      currentUserIsMember={false}
+      team={publicTeam}
+      location={location}
+      params={params}
+      classes={{ paper: 'check-paper' }}
+      pusher={pusher}
+      clientSessionId="checkClientSessionId"
+    />);
     expect(header.find(UserMenuItems)).toHaveLength(0);
   });
 });

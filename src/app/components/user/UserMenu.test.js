@@ -1,6 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-import UserMenu from '../../src/app/components/user/UserMenu';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import UserMenu from './UserMenu';
 
 describe('<UserMenu />', () => {
   it('should not render if not signed in', () => {

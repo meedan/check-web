@@ -1,8 +1,7 @@
 import React from 'react';
-import CircularProgress from '../../src/app/components/CircularProgress';
-import { mountWithIntl } from './helpers/intl-test';
-
-import PenderCard from '../../src/app/components/PenderCard';
+import CircularProgress from './CircularProgress';
+import { mountWithIntl } from '../../../test/unit/helpers/intl-test';
+import PenderCard from './PenderCard';
 
 describe('<PenderCard />', () => {
   it('contains an SVG spinner if fallback is not provided', () => {

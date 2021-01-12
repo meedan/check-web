@@ -1,7 +1,6 @@
 import React from 'react';
-import { mountWithIntl } from './helpers/intl-test';
-
-import EmbedUpdate from '../../src/app/components/annotations/EmbedUpdate';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import EmbedUpdate from './EmbedUpdate';
 
 describe('<EmbedUpdate />', () => {
   const activity_no_changes = {
@@ -19,22 +18,22 @@ describe('<EmbedUpdate />', () => {
 
   const authorName = 'Felis Catus';
 
-  it('should render empty string if no changes', function() {
+  it('should render empty string if no changes', () => {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_no_changes} authorName={authorName} />);
     expect(wrapper.html()).toEqual(null);
   });
 
-  it('should render edited title entry', function() {
+  it('should render edited title entry', () => {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_edited_title} authorName={authorName} />);
     expect(wrapper.html()).toMatch('Item title edited by Felis Catus: New edited title');
   });
 
-  it('should render edited note entry', function() {
+  it('should render edited note entry', () => {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_edited_description} authorName={authorName} />);
     expect(wrapper.html()).toMatch('Item description edited by Felis Catus');
   });
 
-  it('should render created note entry', function() {
+  it('should render created note entry', () => {
     const wrapper = mountWithIntl(<EmbedUpdate activity={activity_created_description} authorName={authorName} />);
     expect(wrapper.html()).toMatch('Item description added by Felis Catus');
   });
