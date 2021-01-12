@@ -261,10 +261,6 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleSelectDestProjectForAdd(dstProjForAdd) {
-    this.setState({ dstProjForAdd });
-  }
-
   render() {
     const {
       page, team, selectedMedia, project,
@@ -327,6 +323,7 @@ class BulkActions extends React.Component {
           <SelectProjectDialog
             open={this.state.openMoveDialog}
             excludeProjectDbids={project ? [project.dbid] : []}
+            team={team}
             title={
               <FormattedMessage
                 id="bulkActions.dialogMoveTitle"
@@ -339,14 +336,13 @@ class BulkActions extends React.Component {
             cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
             submitLabel={<FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move to list" />}
             submitButtonClassName="media-bulk-actions__move-button"
-            onSubmit={
-              moveAction ? this.handleMove.bind(this)
-                : () => {
-                  this.handleRestoreOrConfirm({
-                    archived_was: archivedWas,
-                  });
-                }
-            }
+            onSubmit={(dstProj) => {
+              this.setState({ dstProj }, () => (
+                moveAction
+                  ? this.handleMove()
+                  : this.handleRestoreOrConfirm({ archived_was: archivedWas })
+              ));
+            }}
             onCancel={this.handleCloseDialogs.bind(this)}
           />
         </React.Fragment>
@@ -388,6 +384,7 @@ class BulkActions extends React.Component {
           <SelectProjectDialog
             open={this.state.openAddDialog}
             excludeProjectDbids={project ? [project.dbid] : []}
+            team={team}
             title={
               <FormattedMessage
                 id="bulkActions.dialogAddTitle"
@@ -397,7 +394,9 @@ class BulkActions extends React.Component {
             cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
             submitLabel={<FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />}
             submitButtonClassName="media-bulk-actions__add-button"
-            onSubmit={this.handleSelectDestProjectForAdd.bind(this)}
+            onSubmit={(dstProjForAdd) => {
+              this.setState({ dstProjForAdd }, this.handleAdd);
+            }}
             onCancel={this.handleCloseDialogs.bind(this)}
           />
 
