@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Elemente mutate.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "Creează"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "Duplică spațiul de lucru"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "Duplică"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "Alege o listă"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Anulează",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Mută în listă",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Adaugă stare"
@@ -1016,7 +1043,7 @@
 		"string": "Adăugați limbi noi în spațiul de lucru pentru crearea de rapoarte, roboți tipline și stări în mai multe limbi pentru comunicarea cu utilizatorii."
 	},
 	"languagesComponent.title": {
-		"string": "Limbi pentru conținuturi"
+		"string": "Limbile"
 	},
 	"list.Demand": {
 		"string": "Cereri"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "Elimină"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Terminat. În curs de redirecționare la noul element principal..."
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {1 selectată} few {# selectate} other {# selectate}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 regulă} few {# reguli} other {# de reguli}}"
+		"string": "Reguli"
 	},
 	"search.Filter": {
 		"string": "Filtrează"
@@ -2084,22 +2118,22 @@
 		"string": "Tip de medii"
 	},
 	"search.showAudios": {
-		"string": "Fișiere audio"
+		"string": "Audio"
 	},
 	"search.showBlank": {
 		"string": "Raport importat"
 	},
 	"search.showClaims": {
-		"string": "Texte"
+		"string": "Text"
 	},
 	"search.showImages": {
-		"string": "Imagini"
+		"string": "Imagine"
 	},
 	"search.showLinks": {
-		"string": "Linkuri"
+		"string": "Link"
 	},
 	"search.showVideos": {
-		"string": "Videoclipuri"
+		"string": "Video"
 	},
 	"search.statusHeading": {
 		"string": "Stare element"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"settingsHeader.save": {
+		"string": "Salvează"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Rezolvă sarcina"
 	},
@@ -2181,7 +2218,7 @@
 		"string": "Setări de integrare"
 	},
 	"slackConfig.text": {
-		"string": "Notificați un canal Slack despre activitatea de pe spațiul de lucru."
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "Integrare Slack"
@@ -2220,7 +2257,7 @@
 		"string": "Trimite notificări către"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Trimite notificări spre canalele Slack atunci când sunt adăugate revendicări în liste specifice"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Webhook Slack"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "Nicio descriere"
 	},
-	"statusesComponent.blurb": {
-		"string": "Titlul stării este vizibil când rapoartele sunt transmise utilizatorilor."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Traduceți stările în limbi secundare pentru afișarea lor în limbile naționale în rapoartele de verificare a faptelor."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "Stări salvate cu succes!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "Titlul stării este vizibil când rapoartele sunt transmise utilizatorilor."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 stare} few {# stări} other {# de stări}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Anulează"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "Fusuri orare disponibile pentru finalizarea sarcinii"
 	},
-	"teamBots.botGarden": {
-		"string": "Navigare prin depozitul de roboți"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "Închide"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "Eroare! Mai încercați odată."
 	},
-	"teamBots.moreInfo": {
-		"string": "Mai multe informații"
-	},
 	"teamBots.noBots": {
 		"string": "Nu există roboți instalați."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "Opțiune nedisponibilă"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "Setările au fost actualizate!"
+	},
+	"teamBots.title": {
+		"string": "Roboți"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Anulează"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "Pagină web"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "Duplică"
+	},
 	"teamInfo.editTeam": {
 		"string": "Editează"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Integrări"
 	},
 	"teamInviteCard.copied": {
 		"string": "COPIAZĂ"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadate"
 	},
-	"teamListsComponent.save": {
-		"string": "Salvează"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Setările listei au fost salvate cu succes.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "Salvează"
 	},
 	"teamReport.subtitle": {
-		"string": "Conținutul setat aici poate fi editat în fiecare raport individual"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "Setări implicte de rapoarte"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "Șterge eticheta"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "Editează eticheta"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "Etichetă nouă"
 	},
+	"teamTags.newTag": {
+		"string": "Etichetă nouă"
+	},
 	"teamTags.noTags": {
 		"string": "Nicio etichetă"
+	},
+	"teamTags.title": {
+		"string": "Etichete"
 	},
 	"teamTags.tooltip": {
 		"string": "Filtrează și sortează lista"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "Metadate"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "Vreți să continuați?"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "Sarcini"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Tip sarcină"

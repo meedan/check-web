@@ -193,9 +193,9 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
           />
         </Button>
         <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving || !name}>
-          { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating..." /> : null }
+          { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating…" /> : null }
           { team && !saving ? <FormattedMessage id="createTeamDialog.duplice" defaultMessage="Duplicate" /> : null }
-          { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating..." /> : null }
+          { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating…" /> : null }
           { !team && !saving ? <FormattedMessage id="createTeamDialog.create" defaultMessage="Create" /> : null }
         </Button>
       </DialogActions>
