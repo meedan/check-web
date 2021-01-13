@@ -70,7 +70,9 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
               </Typography>
             </Box>
             <MediaItem
+              team={projectMedia.team}
               projectMedia={projectMedia.confirmed_main_item}
+              mainProjectMedia={projectMedia.confirmed_main_item}
               isSelected={projectMedia.confirmed_main_item.dbid === selectedProjectMediaDbid}
               onSelect={handleSelectItem}
             />
@@ -87,6 +89,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           <MediaItem
             key={relationship.node.id}
             mainProjectMedia={projectMedia}
+            team={projectMedia.team}
             projectMedia={relationship.node.target}
             relationship={relationship.node}
             canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
@@ -207,6 +210,7 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     }
     team {
       dbid
+      ...MediaItem_team
       team_bot_installations(first: 10000) {
         edges {
           node {

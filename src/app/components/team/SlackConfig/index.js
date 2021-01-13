@@ -9,7 +9,7 @@ import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
-import MoreHoriz from '@material-ui/icons/MoreHoriz';
+import SettingsIcon from '@material-ui/icons/Settings';
 import styled from 'styled-components';
 import UserUtil from '../../user/UserUtil';
 import Message from '../../Message';
@@ -105,20 +105,18 @@ class SlackConfig extends React.Component {
       <div>
         <Card>
           <StyledCardHeader
+            avatar={
+              <img src="/images/slack.svg" height="32" width="32" alt="Slack" />
+            }
             title={
-              <span>
-                <FormattedMessage
-                  id="slackConfig.title"
-                  defaultMessage="Slack integration"
-                />
-              </span>
+              <span>Slack</span>
             }
             action={
               <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
                 <IconButton
                   onClick={this.handleOpenDialog.bind(this)}
                 >
-                  <MoreHoriz />
+                  <SettingsIcon />
                 </IconButton>
               </Tooltip>
             }
@@ -127,7 +125,7 @@ class SlackConfig extends React.Component {
           <CardContent>
             <FormattedMessage
               id="slackConfig.text"
-              defaultMessage="Notify a Slack channel about workspace activity."
+              defaultMessage="Send notifications to Slack channels when items are added to specific lists"
             />
             <Switch
               checked={enabled}

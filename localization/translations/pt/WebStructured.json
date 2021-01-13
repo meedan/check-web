@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Itens movidos.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "Criar"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "Duplicar o espaço de trabalho"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "Duplicar"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "Escolha uma lista"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Cancelar",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Mover para a lista",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Adicionar status"
@@ -1016,7 +1043,7 @@
 		"string": "Adicione novos idiomas ao seu espaço de trabalho para criar relatórios, bots da linha direta e status em vários idiomas ao se comunicar com os(as)  usuários(as)."
 	},
 	"languagesComponent.title": {
-		"string": "Idiomas do conteúdo"
+		"string": "Idiomas"
 	},
 	"list.Demand": {
 		"string": "Solicitações"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "Desprender"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Pronto, redirecionando para o novo item principal..."
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {1 selecionada} other {# selecionadas}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 regra} other {# regras}}"
+		"string": "Regras"
 	},
 	"search.Filter": {
 		"string": "Filtro"
@@ -2084,22 +2118,22 @@
 		"string": "Formato da mídia"
 	},
 	"search.showAudios": {
-		"string": "Áudios"
+		"string": "Áudio"
 	},
 	"search.showBlank": {
 		"string": "Relatório importado"
 	},
 	"search.showClaims": {
-		"string": "Textos"
+		"string": "Texto"
 	},
 	"search.showImages": {
-		"string": "Imagens"
+		"string": "Imagem"
 	},
 	"search.showLinks": {
-		"string": "Links"
+		"string": "Link"
 	},
 	"search.showVideos": {
-		"string": "Vídeos"
+		"string": "Vídeo"
 	},
 	"search.statusHeading": {
 		"string": "Status do item"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"settingsHeader.save": {
+		"string": "Salvar"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Responder à tarefa"
 	},
@@ -2181,7 +2218,7 @@
 		"string": "Configurações de integração"
 	},
 	"slackConfig.text": {
-		"string": "Notificar um canal de Slack sobre a atividade no espaço de trabalho."
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "Integração com Slack"
@@ -2220,7 +2257,7 @@
 		"string": "Enviar notificações para"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Enviar notificações aos canais do Slack quando afirmações são adicionadas à listas específicas"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Webhook do Slack"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "Sem descrição"
 	},
-	"statusesComponent.blurb": {
-		"string": "O título do status é exibido quando os relatório são enviados aos(às) usuários(as)."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "Os status foram atualizadas com sucesso!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "O título do status é exibido quando os relatório são enviados aos(às) usuários(as)."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# status}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Cancelar"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "Fusos horários disponíveis para completar a tarefa"
 	},
-	"teamBots.botGarden": {
-		"string": "Navegar no Bot Garden"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "Fechar"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "Erro. Por favor, tente novamente mais tarde."
 	},
-	"teamBots.moreInfo": {
-		"string": "Mais informações"
-	},
 	"teamBots.noBots": {
 		"string": "Nenhum bot instalado."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "Opção indisponível"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "Configurações salvas."
+	},
+	"teamBots.title": {
+		"string": "Bots"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Cancelar"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "Website"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "Duplicar"
+	},
 	"teamInfo.editTeam": {
 		"string": "Editar"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Integrações"
 	},
 	"teamInviteCard.copied": {
 		"string": "COPIAR"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadados"
 	},
-	"teamListsComponent.save": {
-		"string": "Salvar"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Configurações de lista salvas com sucesso.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "Salvar"
 	},
 	"teamReport.subtitle": {
-		"string": "O conteúdo que você define aqui pode ser editado em todos os relatórios, individualmente"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "Configurações do relatório"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "Excluir tag"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "Editar tag"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "Nova tag"
 	},
+	"teamTags.newTag": {
+		"string": "Nova tag"
+	},
 	"teamTags.noTags": {
 		"string": "Sem tags"
+	},
+	"teamTags.title": {
+		"string": "Tags"
 	},
 	"teamTags.tooltip": {
 		"string": "Filtrar e classificar a lista"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "Metadados"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "Você deseja prosseguir?"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "Tarefas"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Tipo da tarefa"

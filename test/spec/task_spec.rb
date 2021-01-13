@@ -228,6 +228,7 @@ shared_examples 'task' do
     # Change the task order
     task = wait_for_selector('.team-tasks__task-label > span > span') # first task
     expect(task.text).to eq 'New teamwide task-EDITED'
+    @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector('.reorder__button-down').click
     wait_for_text_change('geolocation task', '.team-tasks__task-label > span > span')
     task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first

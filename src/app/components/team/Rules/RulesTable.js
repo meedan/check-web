@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
   paper: {
     width: '100%',
     marginBottom: theme.spacing(2),
-    boxShadow: 'none',
   },
   tableRow: {
     cursor: 'pointer',
@@ -72,61 +71,62 @@ export default function RulesTable(props) {
   const isSelected = index => selected.indexOf(index) !== -1;
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper}>
-        <RulesTableToolbar
-          numSelected={selected.length}
-          numRules={rows.length}
-          onAddNewRule={handleNewRule}
-          onDeleteRules={handleDelete}
-        />
-        <TableContainer>
-          <Table size="medium">
-            <RulesTableHead
-              numSelected={selected.length}
-              onSelectAllClick={handleSelectAllClick}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {rows
-                .sort((a, b) => (a.name.localeCompare(b.name)))
-                .map((row) => {
-                  const { name, index } = row;
-                  const isItemSelected = isSelected(index);
-                  const labelId = `rules-table-checkbox-${index}`;
-                  const date = new Date(row.updated_at * 1000);
+    <React.Fragment>
+      <RulesTableToolbar
+        numSelected={selected.length}
+        onAddNewRule={handleNewRule}
+        onDeleteRules={handleDelete}
+      />
+      <div className={classes.root}>
+        <Paper className={classes.paper}>
+          <TableContainer>
+            <Table size="medium" id="rules-table">
+              <RulesTableHead
+                numSelected={selected.length}
+                onSelectAllClick={handleSelectAllClick}
+                rowCount={rows.length}
+              />
+              <TableBody>
+                {rows
+                  .sort((a, b) => (a.name.localeCompare(b.name)))
+                  .map((row) => {
+                    const { name, index } = row;
+                    const isItemSelected = isSelected(index);
+                    const labelId = `rules-table-checkbox-${index}`;
+                    const date = new Date(row.updated_at * 1000);
 
-                  return (
-                    <TableRow
-                      hover
-                      className={classes.tableRow}
-                      onClick={() => { handleClick(index); }}
-                      key={row.index}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          checked={isItemSelected}
-                          onClick={(event) => { handleChange(event, index); }}
-                          inputProps={{ 'aria-labelledby': labelId }}
-                        />
-                      </TableCell>
-                      <TableCell component="th" id={labelId} scope="row">
-                        {name}
-                      </TableCell>
-                      <TableCell>
-                        <time dateTime={date.toISOString()}>
-                          <FormattedRelative value={date} />
-                        </time>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })
-              }
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </div>
+                    return (
+                      <TableRow
+                        hover
+                        className={classes.tableRow}
+                        onClick={() => { handleClick(index); }}
+                        key={row.index}
+                      >
+                        <TableCell padding="checkbox">
+                          <Checkbox
+                            checked={isItemSelected}
+                            onClick={(event) => { handleChange(event, index); }}
+                            inputProps={{ 'aria-labelledby': labelId }}
+                          />
+                        </TableCell>
+                        <TableCell component="th" id={labelId} scope="row">
+                          {name}
+                        </TableCell>
+                        <TableCell>
+                          <time dateTime={date.toISOString()}>
+                            <FormattedRelative value={date} />
+                          </time>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                }
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </div>
+    </React.Fragment>
   );
 }
 

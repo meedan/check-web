@@ -2,13 +2,13 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
-import HelpIcon from '@material-ui/icons/HelpOutline';
-import { ContentColumn, units, checkBlue } from '../../styles/js/shared';
+import SettingsHeader from './SettingsHeader';
+import { ContentColumn, units } from '../../styles/js/shared';
 import Can from '../Can';
 import TeamRoute from '../../relay/TeamRoute';
 import Message from '../Message';
@@ -76,98 +76,94 @@ class TeamReportComponent extends React.Component {
     const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
     return (
-      <ContentColumn large>
-        <Message message={this.state.message} />
+      <Box display="flex" justifyContent="center">
         <LanguageSwitcher
+          orientation="vertical"
           primaryLanguage={defaultLanguage}
           currentLanguage={currentLanguage}
           languages={languages}
           onChange={this.handleChangeLanguage.bind(this)}
         />
-        <Can permissions={team.permissions} permission="update Team">
-          <p style={{ marginTop: units(2), textAlign: 'end' }}>
-            <Button onClick={this.handleSubmit.bind(this)} primary>
-              <FormattedMessage id="teamReport.save" defaultMessage="Save" />
-            </Button>
-          </p>
-        </Can>
-        <Card style={{ marginTop: units(2) }}>
-          <CardHeader
+        <ContentColumn large noCenter>
+          <SettingsHeader
             title={
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <FormattedMessage
-                  id="teamReport.title"
-                  defaultMessage="Default report settings"
-                />
-                <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'flex' }}>
-                  <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
-                </a>
-              </div>
+              <FormattedMessage
+                id="teamReport.title"
+                defaultMessage="Default report settings"
+              />
             }
-            subheader={
+            subtitle={
               <FormattedMessage
                 id="teamReport.subtitle"
-                defaultMessage="The content you set here can be edited in each individual report"
+                defaultMessage="The content you set here can be edited in each individual report."
               />
             }
+            helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
+            actionButton={
+              <Can permissions={team.permissions} permission="update Team">
+                <Button onClick={this.handleSubmit.bind(this)} color="primary" variant="contained" id="team-report__save">
+                  <FormattedMessage id="teamReport.save" defaultMessage="Save" />
+                </Button>
+              </Can>
+            }
           />
-          <CardContent>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <Checkbox
-                id="use_introduction"
-                key={`use-introduction-${currentLanguage}`}
-                checked={report.use_introduction || false}
-                onChange={(e) => { this.handleUpdate('use_introduction', e.target.checked); }}
+          <Card style={{ marginTop: units(2) }}>
+            <Message message={this.state.message} />
+            <CardContent>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Checkbox
+                  id="use_introduction"
+                  key={`use-introduction-${currentLanguage}`}
+                  checked={report.use_introduction || false}
+                  onChange={(e) => { this.handleUpdate('use_introduction', e.target.checked); }}
+                />
+                <h3><FormattedMessage id="teamReport.introduction" defaultMessage="Introduction" /></h3>
+              </div>
+              <TextField
+                id="introduction"
+                key={`introduction-${currentLanguage}`}
+                style={{ paddingTop: 0, paddingBottom: 0 }}
+                value={report.introduction || ''}
+                onChange={(e) => { this.handleUpdate('introduction', e.target.value); }}
+                multiline
+                variant="outlined"
+                rows="10"
+                fullWidth
               />
-              <h3><FormattedMessage id="teamReport.introduction" defaultMessage="Introduction" /></h3>
-            </div>
-            <TextField
-              id="introduction"
-              key={`introduction-${currentLanguage}`}
-              style={{ paddingTop: 0, paddingBottom: 0 }}
-              value={report.introduction || ''}
-              onChange={(e) => { this.handleUpdate('introduction', e.target.value); }}
-              multiline
-              variant="outlined"
-              rows="10"
-              fullWidth
-            />
-            <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
-              <FormattedMessage
-                id="teamReport.introductionSub"
-                defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
-                values={{
-                  query_date: '{{query_date}}',
-                  status: '{{status}}',
-                }}
+              <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
+                <FormattedMessage
+                  id="teamReport.introductionSub"
+                  defaultMessage="Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+                  values={{
+                    query_date: '{{query_date}}',
+                    status: '{{status}}',
+                  }}
+                />
+              </div>
+              <div style={{ display: 'flex', alignItems: 'center', marginTop: units(4) }}>
+                <Checkbox
+                  id="use_disclaimer"
+                  key={`use-disclaimer-${currentLanguage}`}
+                  checked={report.use_disclaimer || false}
+                  onChange={(e) => { this.handleUpdate('use_disclaimer', e.target.checked); }}
+                />
+                <h3><FormattedMessage id="teamReport.disclaimer" defaultMessage="Disclaimer" /></h3>
+              </div>
+              <TextField
+                id="disclaimer"
+                key={`disclaimer-${currentLanguage}`}
+                style={{ paddingTop: 0, paddingBottom: 0 }}
+                value={report.disclaimer || ''}
+                onChange={(e) => { this.handleUpdate('disclaimer', e.target.value); }}
+                fullWidth
               />
-              <a href="http://help.checkmedia.org/en/articles/3627266-check-message-report" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', verticalAlign: 'bottom' }}>
-                <HelpIcon style={{ margin: '0 2px', color: checkBlue }} />
-              </a>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', marginTop: units(4) }}>
-              <Checkbox
-                id="use_disclaimer"
-                key={`use-disclaimer-${currentLanguage}`}
-                checked={report.use_disclaimer || false}
-                onChange={(e) => { this.handleUpdate('use_disclaimer', e.target.checked); }}
-              />
-              <h3><FormattedMessage id="teamReport.disclaimer" defaultMessage="Disclaimer" /></h3>
-            </div>
-            <TextField
-              id="disclaimer"
-              key={`disclaimer-${currentLanguage}`}
-              style={{ paddingTop: 0, paddingBottom: 0 }}
-              value={report.disclaimer || ''}
-              onChange={(e) => { this.handleUpdate('disclaimer', e.target.value); }}
-              fullWidth
-            />
-            <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
-              <FormattedMessage id="teamReport.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo." />
-            </div>
-          </CardContent>
-        </Card>
-      </ContentColumn>
+              <div style={{ lineHeight: '1.5em', marginTop: units(1) }}>
+                <FormattedMessage id="teamReport.disclaimerSub" defaultMessage="Disclaimer that will be shown at the bottom of the report with the workspace logo." />
+              </div>
+            </CardContent>
+          </Card>
+        </ContentColumn>
+      </Box>
     );
   }
 }

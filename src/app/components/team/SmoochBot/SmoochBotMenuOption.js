@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import SmoochBotSelectReport from './SmoochBotSelectReport';
 import { placeholders } from './localizables';
 import { languageLabel } from '../../../LanguageRegistry';
 import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
@@ -74,7 +73,6 @@ function keywordIsInvalid(field, keyword) {
 const SmoochBotMenuOption = (props) => {
   const classes = useStyles();
   const { option } = props;
-  const [showReportDialog, setShowReportDialog] = React.useState(false);
   const [error, setError] = React.useState(keywordIsInvalid(
     props.field,
     option.smooch_menu_option_keyword,
@@ -95,9 +93,7 @@ const SmoochBotMenuOption = (props) => {
   };
 
   const handleSelectAction = (event, newValue) => {
-    if (newValue.value === 'resource') {
-      setShowReportDialog(true);
-    } else if (newValue && newValue.inputValue) {
+    if (newValue && newValue.inputValue) {
       props.onChange({
         smooch_menu_option_value: 'custom_resource',
         smooch_menu_custom_resource_title: newValue.inputValue,
@@ -111,14 +107,6 @@ const SmoochBotMenuOption = (props) => {
     } else {
       props.onChange({ smooch_menu_option_value: newValue.value });
     }
-  };
-
-  const handleSelectReport = (report) => {
-    props.onChange({
-      smooch_menu_option_value: 'resource',
-      smooch_menu_project_media_title: report.text,
-      smooch_menu_project_media_id: report.value,
-    });
   };
 
   const handleClear = () => {
@@ -315,16 +303,6 @@ const SmoochBotMenuOption = (props) => {
             /> : null }
         </Box>
       </Box>
-      { showReportDialog ?
-        <SmoochBotSelectReport
-          onSelect={(resource) => {
-            handleSelectReport(resource);
-            setShowReportDialog(false);
-          }}
-          onDismiss={() => {
-            setShowReportDialog(false);
-          }}
-        /> : null }
     </Paper>
   );
 };

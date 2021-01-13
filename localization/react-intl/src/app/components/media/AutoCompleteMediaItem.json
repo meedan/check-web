@@ -1,18 +1,30 @@
 [
   {
-    "id": "autoCompleteMediaItem.searching",
-    "defaultMessage": "Searching…"
+    "id": "autoCompleteMediaItem.searchItem",
+    "defaultMessage": "Search"
   },
   {
-    "id": "autoCompleteMediaItem.error",
-    "defaultMessage": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
+    "id": "autoCompleteMediaItem.searching",
+    "defaultMessage": "Searching…"
   },
   {
     "id": "autoCompleteMediaItem.notFound",
     "defaultMessage": "No matches found"
   },
   {
-    "id": "autoCompleteMediaItem.searchItem",
-    "defaultMessage": "Search"
+    "id": "autoCompleteMediaItem.error",
+    "defaultMessage": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "autoCompleteMediaItem.results",
+    "defaultMessage": "{count, plural, one {1 result} other {# results}}"
+  },
+  {
+    "id": "autoCompleteMediaItem.cantSelectPublished",
+    "defaultMessage": "Media cannot be imported from items that have their report published"
+  },
+  {
+    "id": "autoCompleteMediaItem.searchSettings",
+    "defaultMessage": "Search settings"
   }
 ]

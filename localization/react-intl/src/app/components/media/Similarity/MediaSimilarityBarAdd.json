@@ -1,7 +1,7 @@
 [
   {
     "id": "mediaSimilarityBarAdd.addSimilarToThisTitle",
-    "defaultMessage": "Import similar media into this item"
+    "defaultMessage": "Import similar media from other items"
   },
   {
     "id": "mediaSimilarityBarAdd.addThisToSimilarTitle",
@@ -26,15 +26,23 @@
     "defaultMessage": "Import similar media into this item"
   },
   {
+    "id": "mediaSimilarityBarAdd.exportTooltip",
+    "defaultMessage": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
+  },
+  {
     "id": "mediaSimilarityBarAdd.addThisToSimilar",
     "defaultMessage": "Export all media to another item"
   },
   {
+    "id": "mediaSimilarityBarAdd.addToImportedReport",
+    "defaultMessage": "Add to imported report"
+  },
+  {
     "id": "mediaSimilarityBarAdd.addAsSimilar",
-    "defaultMessage": "Export as similar"
+    "defaultMessage": "Export all media"
   },
   {
     "id": "mediaSimilarityBarAdd.addSimilarItem",
-    "defaultMessage": "Import similar item"
+    "defaultMessage": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
   }
 ]

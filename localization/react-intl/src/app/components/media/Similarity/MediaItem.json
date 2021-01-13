@@ -17,8 +17,29 @@
     "defaultMessage": "Done, redirecting to new main item…"
   },
   {
+    "id": "mediaItem.similarMedia",
+    "defaultMessage": "{count} similar media"
+  },
+  {
+    "id": "mediaItem.lastSubmitted",
+    "description": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'",
+    "defaultMessage": "Last submitted {timeAgo}"
+  },
+  {
     "id": "mediaItem.requests",
     "defaultMessage": "{count, plural, one {1 request} other {# requests}}"
+  },
+  {
+    "id": "mediaItem.reportPublished",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "mediaItem.reportUnpublished",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "mediaItem.reportPaused",
+    "defaultMessage": "Paused"
   },
   {
     "id": "mediaItem.pinAsMain",
@@ -27,5 +48,20 @@
   {
     "id": "mediaItem.detach",
     "defaultMessage": "Detach"
+  },
+  {
+    "id": "detachDialog.dialogdetachedToListTitle",
+    "description": "Dialog title prompting user to select a destination list for the item",
+    "defaultMessage": "Move detached item to…"
+  },
+  {
+    "id": "detachDialog.cancelButton",
+    "description": "Button to dismiss the dialog",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "detachDialog.detached",
+    "description": "Button to commit the action of moving item",
+    "defaultMessage": "Move to list"
   }
 ]

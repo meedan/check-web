@@ -16,7 +16,9 @@ const MediaSimilarityBar = ({ projectMedia }) => {
           project_media(ids: $ids) {
             id
             dbid
+            type
             permissions
+            report_status
             hasMain: is_confirmed_similar_to_another_item
             confirmedMainItem: confirmed_main_item {
               id
@@ -51,6 +53,8 @@ const MediaSimilarityBar = ({ projectMedia }) => {
               confirmedMainItem={props.project_media.confirmedMainItem}
               suggestedMainItem={props.project_media.suggestedMainItem}
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
+              isBlank={props.project_media.type === 'Blank'}
+              isPublished={props.project_media.report_status === 'published'}
             />
           );
         }

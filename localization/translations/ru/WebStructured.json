@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Материалы перемещены.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "Создать"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "Клонировать проект"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "Дублировать"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "Выберите список"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Отменить",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Move to list",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Добавить статус"
@@ -1016,7 +1043,7 @@
 		"string": "Добавьте к проекту дополнительные языки, чтобы создавать отчёты, ботов и статусы на нескольких языках при общении с пользователями."
 	},
 	"languagesComponent.title": {
-		"string": "Языки контента"
+		"string": "Языки"
 	},
 	"list.Demand": {
 		"string": "Запросы"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "Открепить"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Готово, перенаправляем на новый основной материал..."
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {выбрано: 1} few {выбрано: #} many {выбрано: #} other {выбрано: #}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 правило} few {Правил: #} many {Правил: #} other {Правил: #}}"
+		"string": "Правила"
 	},
 	"search.Filter": {
 		"string": "Фильтровать"
@@ -2090,13 +2124,13 @@
 		"string": "Отчёт (импорт)"
 	},
 	"search.showClaims": {
-		"string": "Тексты"
+		"string": "Текст"
 	},
 	"search.showImages": {
-		"string": "Изображения"
+		"string": "Изображение"
 	},
 	"search.showLinks": {
-		"string": "Ссылки"
+		"string": "Ссылка"
 	},
 	"search.showVideos": {
 		"string": "Видео"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": ", "
 	},
+	"settingsHeader.save": {
+		"string": "Сохранить"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Ответить на вопрос"
 	},
@@ -2181,7 +2218,7 @@
 		"string": "Настройки интеграции"
 	},
 	"slackConfig.text": {
-		"string": "Уведомлять об активности в Slack"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "Интеграция со Slack"
@@ -2220,7 +2257,7 @@
 		"string": "Отправлять уведомления в"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Отправлять уведомления в каналы Slack при добавлении задач к спискам"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Webhook Slack"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "Без описания"
 	},
-	"statusesComponent.blurb": {
-		"string": "Пользователи видят статус, когда получают отчёты."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "Статусы сохранены успешно!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "Пользователи видят статус, когда получают отчёты."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 статус} few {Статусов: #} many {Статусов: #} other {Статусов: #}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Отменить"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "Часовые пояса, доступные для ответа на вопрос"
 	},
-	"teamBots.botGarden": {
-		"string": "Cмотреть ботов"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "Закрыть"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "Ошибка! Пожалуйста, попробуйте ещё раз."
 	},
-	"teamBots.moreInfo": {
-		"string": "Информация"
-	},
 	"teamBots.noBots": {
 		"string": "Нет установленных ботов."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "Недоступный вариант"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "Настройки обновлены!"
+	},
+	"teamBots.title": {
+		"string": "Боты"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Отменить"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "Сайт"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "Дублировать"
+	},
 	"teamInfo.editTeam": {
 		"string": "Редактировать"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Интеграция"
 	},
 	"teamInviteCard.copied": {
 		"string": "КОПИРОВАТЬ"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "Метаданные"
 	},
-	"teamListsComponent.save": {
-		"string": "Сохранить"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Настройки списка сохранены успешно.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "Сохранить"
 	},
 	"teamReport.subtitle": {
-		"string": "Контент, который вы зададите здесь, может быть отредактирован для каждого отчёта"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "Настройки отчёта по умолчанию"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "Удалить тэг"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "Редактировать тэг"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "Новый тэг"
 	},
+	"teamTags.newTag": {
+		"string": "Новый тэг"
+	},
 	"teamTags.noTags": {
 		"string": "Нет тэгов"
+	},
+	"teamTags.title": {
+		"string": "Тэги"
 	},
 	"teamTags.tooltip": {
 		"string": "Фильтр и сортировка"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "Метаданные"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "Вы уверены, что хотите продолжить?"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "Вопросы"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Тип вопроса"

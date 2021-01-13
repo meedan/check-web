@@ -184,25 +184,25 @@ function updateStateQueryArrayValue(query, key, newArray) {
 }
 
 const typeLabels = defineMessages({
-  claims: {
+  claim: {
     id: 'search.showClaims',
-    defaultMessage: 'Texts',
+    defaultMessage: 'Text',
   },
-  links: {
+  link: {
     id: 'search.showLinks',
-    defaultMessage: 'Links',
+    defaultMessage: 'Link',
   },
-  images: {
+  image: {
     id: 'search.showImages',
-    defaultMessage: 'Images',
+    defaultMessage: 'Image',
   },
-  videos: {
+  video: {
     id: 'search.showVideos',
-    defaultMessage: 'Videos',
+    defaultMessage: 'Video',
   },
-  audios: {
+  audio: {
     id: 'search.showAudios',
-    defaultMessage: 'Audios',
+    defaultMessage: 'Audio',
   },
   blank: {
     id: 'search.showBlank',
@@ -577,11 +577,11 @@ class SearchQueryComponent extends React.Component {
     filterButtonClasses[classes.filterInactive] = !this.filterIsActive();
 
     const types = [
-      { value: 'claims', label: this.props.intl.formatMessage(typeLabels.claims) },
-      { value: 'links', label: this.props.intl.formatMessage(typeLabels.links) },
-      { value: 'images', label: this.props.intl.formatMessage(typeLabels.images) },
-      { value: 'videos', label: this.props.intl.formatMessage(typeLabels.videos) },
-      { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audios) },
+      { value: 'claims', label: this.props.intl.formatMessage(typeLabels.claim) },
+      { value: 'links', label: this.props.intl.formatMessage(typeLabels.link) },
+      { value: 'images', label: this.props.intl.formatMessage(typeLabels.image) },
+      { value: 'videos', label: this.props.intl.formatMessage(typeLabels.video) },
+      { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audio) },
       { value: 'blank', label: this.props.intl.formatMessage(typeLabels.blank) },
     ];
 

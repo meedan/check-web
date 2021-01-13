@@ -83,19 +83,25 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
                 id
                 dbid
                 title
+                description
                 picture
-                created_at
                 type
+                last_seen
                 requests_count
+                linked_items_count
+                report_status
               }
               target {
                 id
                 dbid
                 title
+                description
                 picture
-                created_at
                 type
+                last_seen
                 requests_count
+                linked_items_count
+                report_status
               }
             }
           }
@@ -187,6 +193,7 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
       { projectMedia.default_relationships.edges.map(relationship => (
         <Box className={classes.spaced} key={relationship.node.id}>
           <MediaItem
+            team={projectMedia.team}
             projectMedia={
               relationship.node.source_id === projectMedia.dbid ?
                 relationship.node.target :
@@ -197,17 +204,20 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
           />
         </Box>
       ))}
-      <CreateRelatedMediaDialog
-        title={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
-        open={showDialog}
-        onDismiss={handleClose}
-        onSelect={handleSubmit}
-        media={{ dbid: projectMedia.dbid }}
-        isSubmitting={submitting}
-        submitButtonLabel={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
-        customFilter={filterResults}
-        hideNew
-      />
+      { showDialog ?
+        <CreateRelatedMediaDialog
+          open
+          title={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
+          onDismiss={handleClose}
+          onSelect={handleSubmit}
+          media={{ dbid: projectMedia.dbid }}
+          isSubmitting={submitting}
+          submitButtonLabel={count => <FormattedMessage id="mediaRelatedComponent.submitButton" defaultMessage="{count, plural, one {Add relation for one item} other {Add relation for # items}}" values={{ count }} />}
+          customFilter={filterResults}
+          showFilters
+          hideNew
+          multiple
+        /> : null }
     </React.Fragment>
   );
 };
@@ -230,6 +240,7 @@ MediaRelatedComponent.propTypes = {
       })).isRequired,
     }).isRequired,
     team: PropTypes.shape({
+      id: PropTypes.string.isRequired,
       dbid: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
@@ -257,7 +268,9 @@ export default createFragmentContainer(withSetFlashMessage(MediaRelatedComponent
       }
     }
     team {
+      id
       dbid
+      ...MediaItem_team
     }
   }
 `);

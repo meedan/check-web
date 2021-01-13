@@ -3,16 +3,15 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import intersection from 'lodash.intersection';
 import Box from '@material-ui/core/Box';
+import SettingsHeader from './SettingsHeader';
 import TeamTasksProject from './TeamTasksProject';
 import CreateTeamTask from './CreateTeamTask';
 import ProjectSelector from '../project/ProjectSelector';
 import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
-import CardToolbar from '../layout/CardToolbar';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
 import { ContentColumn } from '../../styles/js/shared';
-
 
 class TeamTasksComponent extends React.Component {
   state = {
@@ -114,49 +113,53 @@ class TeamTasksComponent extends React.Component {
 
     return (
       <div className="team-tasks">
-        <ContentColumn>
-          <CardToolbar
-            action={
-              <Box alignItems="center" display="flex">
-                { isTask ? (
-                  <FilterPopup
-                    search={this.state.search}
-                    onSearchChange={this.handleSearchChange}
-                    label={filterLabel}
-                    tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
-                  >
-                    <Box mt={4}>
-                      <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
-                      <ProjectSelector
-                        projects={this.props.team.projects.edges}
-                        selected={this.state.projFilter}
-                        onSelect={this.handleSelectProjects}
-                        fullWidth
-                      />
-                    </Box>
-                    <Box mt={2}>
-                      <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
-                      <TaskTypeSelector
-                        selected={this.state.typeFilter}
-                        onSelect={this.handleSelectTaskTypes}
-                        fullWidth
-                      />
-                    </Box>
-                  </FilterPopup>
-                ) : null
-                }
-                <CreateTeamTask fieldset={fieldset} team={this.props.team} />
-              </Box>
+        <ContentColumn large>
+          <SettingsHeader
+            title={
+              isTask ?
+                <FormattedMessage id="teamTasks.tasks" defaultMessage="Tasks" /> :
+                <FormattedMessage id="teamTasks.metadata" defaultMessage="Metadata" />
+            }
+            subtitle={
+              isTask ?
+                <FormattedMessage id="teamTasks.tasksSubtitle" defaultMessage="Add custom tasks to items." /> :
+                <FormattedMessage id="teamTasks.metadataSubtitle" defaultMessage="Add custom metadata fields to items." />
             }
             helpUrl={
               isTask ?
                 'https://help.checkmedia.org/en/articles/3648632-tasks' :
                 'https://help.checkmedia.org/en/articles/4346772-metadata'
             }
-            title={
-              isTask ?
-                <FormattedMessage id="teamTasks.tasks" defaultMessage="Tasks" /> :
-                <FormattedMessage id="teamTasks.metadata" defaultMessage="Metadata" />
+            actionButton={
+              <CreateTeamTask fieldset={fieldset} team={this.props.team} />
+            }
+            extra={
+              isTask ? (
+                <FilterPopup
+                  search={this.state.search}
+                  onSearchChange={this.handleSearchChange}
+                  label={filterLabel}
+                  tooltip={<FormattedMessage id="teamTasks.filter" defaultMessage="Filter tasks" />}
+                >
+                  <Box mt={4}>
+                    <FormattedMessage id="teamTasks.projFilter" defaultMessage="Show tasks in" />
+                    <ProjectSelector
+                      projects={this.props.team.projects.edges}
+                      selected={this.state.projFilter}
+                      onSelect={this.handleSelectProjects}
+                      fullWidth
+                    />
+                  </Box>
+                  <Box mt={2}>
+                    <FormattedMessage id="teamTasks.typeFilter" defaultMessage="Task type" />
+                    <TaskTypeSelector
+                      selected={this.state.typeFilter}
+                      onSelect={this.handleSelectTaskTypes}
+                      fullWidth
+                    />
+                  </Box>
+                </FilterPopup>
+              ) : null
             }
           />
           { this.renderTeamTaskList(filteredTasks) }

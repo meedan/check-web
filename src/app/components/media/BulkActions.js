@@ -10,7 +10,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import { withSetFlashMessage } from '../FlashMessage';
-import MoveDialog from './MoveDialog';
+import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
@@ -261,14 +261,6 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleSelectDestProject(dstProj) {
-    this.setState({ dstProj });
-  }
-
-  handleSelectDestProjectForAdd(dstProjForAdd) {
-    this.setState({ dstProjForAdd });
-  }
-
   render() {
     const {
       page, team, selectedMedia, project,
@@ -328,38 +320,10 @@ class BulkActions extends React.Component {
           >
             {moveButtonMessage}
           </ButtonWithTooltip>
-          <MoveDialog
-            actions={[
-              <Button
-                key="cancel"
-                color="primary"
-                onClick={this.handleCloseDialogs.bind(this)}
-              >
-                <FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />
-              </Button>,
-              <Button
-                key="move"
-                color="primary"
-                className="media-bulk-actions__move-button"
-                onClick={
-                  moveAction ? this.handleMove.bind(this)
-                    : () => {
-                      this.handleRestoreOrConfirm({
-                        archived_was: archivedWas,
-                      });
-                    }
-                }
-                disabled={!this.state.dstProj}
-              >
-                <FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move to list" />
-              </Button>,
-            ]}
+          <SelectProjectDialog
             open={this.state.openMoveDialog}
-            onClose={this.handleCloseDialogs.bind(this)}
-            team={this.props.team}
             excludeProjectDbids={project ? [project.dbid] : []}
-            value={this.state.dstProj}
-            onChange={this.handleSelectDestProject.bind(this)}
+            team={team}
             title={
               <FormattedMessage
                 id="bulkActions.dialogMoveTitle"
@@ -369,6 +333,17 @@ class BulkActions extends React.Component {
                 }}
               />
             }
+            cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
+            submitLabel={<FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move to list" />}
+            submitButtonClassName="media-bulk-actions__move-button"
+            onSubmit={(dstProj) => {
+              this.setState({ dstProj }, () => (
+                moveAction
+                  ? this.handleMove()
+                  : this.handleRestoreOrConfirm({ archived_was: archivedWas })
+              ));
+            }}
+            onCancel={this.handleCloseDialogs.bind(this)}
           />
         </React.Fragment>
       );
@@ -406,37 +381,23 @@ class BulkActions extends React.Component {
           >
             <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to…" />
           </ButtonWithTooltip>
-          <MoveDialog
-            actions={[
-              <Button
-                color="primary"
-                onClick={this.handleCloseDialogs.bind(this)}
-                key="bulkActions.cancelAddButton"
-              >
-                <FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />
-              </Button>,
-              <Button
-                color="primary"
-                className="media-bulk-actions__add-button"
-                onClick={this.handleAdd.bind(this)}
-                disabled={!this.state.dstProjForAdd}
-                key="bulkActions.addButton"
-              >
-                <FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />
-              </Button>,
-            ]}
+          <SelectProjectDialog
             open={this.state.openAddDialog}
-            team={this.props.team}
-            onClose={this.handleCloseDialogs.bind(this)}
             excludeProjectDbids={project ? [project.dbid] : []}
-            value={this.state.dstProjectForAdd}
-            onChange={this.handleSelectDestProjectForAdd.bind(this)}
+            team={team}
             title={
               <FormattedMessage
                 id="bulkActions.dialogAddTitle"
                 defaultMessage="Add to a different list"
               />
             }
+            cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
+            submitLabel={<FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />}
+            submitButtonClassName="media-bulk-actions__add-button"
+            onSubmit={(dstProjForAdd) => {
+              this.setState({ dstProjForAdd }, this.handleAdd);
+            }}
+            onCancel={this.handleCloseDialogs.bind(this)}
           />
 
           {project ? modalToMove : null}
@@ -476,7 +437,7 @@ BulkActions.propTypes = {
 
 export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
   fragment BulkActions_team on Team {
-    ...MoveDialog_team
+    ...SelectProjectDialog_team
     id
     medias_count
     permissions

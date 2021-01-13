@@ -77,12 +77,6 @@ const AnalysisColumn = styled.div`
   border-right: 1px solid ${brandSecondary};
 `;
 
-const StyledTab = withStyles(theme => ({
-  root: {
-    minWidth: theme.spacing(16),
-  },
-}))(Tab);
-
 class MediaComponent extends Component {
   static scrollToAnnotation() {
     if (window.location.hash !== '') {
@@ -330,7 +324,7 @@ class MediaComponent extends Component {
                   className="media__annotations-tabs"
                 >
                   { this.state.showRequests ?
-                    <StyledTab
+                    <Tab
                       label={
                         <FormattedMessage
                           id="mediaComponent.requests"
@@ -341,7 +335,7 @@ class MediaComponent extends Component {
                       className="media-tab__requests"
                     />
                     : null }
-                  <StyledTab
+                  <Tab
                     label={
                       <FormattedMessage
                         id="mediaComponent.metadata"
@@ -351,7 +345,7 @@ class MediaComponent extends Component {
                     value="metadata"
                     className="media-tab__metadata"
                   />
-                  <StyledTab
+                  <Tab
                     label={
                       <FormattedMessage
                         id="mediaComponent.tasks"
@@ -361,7 +355,7 @@ class MediaComponent extends Component {
                     value="tasks"
                     className="media-tab__tasks"
                   />
-                  <StyledTab
+                  <Tab
                     label={
                       <FormattedMessage
                         id="mediaComponent.notes"
@@ -371,7 +365,7 @@ class MediaComponent extends Component {
                     value="notes"
                     className="media-tab__comments"
                   />
-                  <StyledTab
+                  <Tab
                     label={
                       <FormattedMessage
                         id="mediaComponent.related"

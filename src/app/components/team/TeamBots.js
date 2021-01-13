@@ -3,51 +3,25 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Card from '@material-ui/core/Card';
 import Box from '@material-ui/core/Box';
+import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import Settings from '@material-ui/icons/Settings';
+import IconButton from '@material-ui/core/IconButton';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Tooltip from '@material-ui/core/Tooltip';
-import { Emojione } from 'react-emoji-render';
 import { browserHistory } from 'react-router';
-import styled from 'styled-components';
+import SettingsHeader from './SettingsHeader';
 import TeamBot from './TeamBot';
 import TeamRoute from '../../relay/TeamRoute';
-import { units, title1, ContentColumn, black32 } from '../../styles/js/shared';
+import { ContentColumn } from '../../styles/js/shared';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import ConfirmDialog from '../layout/ConfirmDialog';
 import { languageLabel } from '../../LanguageRegistry';
-
-const StyledCardContent = styled(CardContent)`
-  display: flex;
-
-  img {
-    height: 100px;
-    border: 1px solid ${black32};
-    margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: ${units(3)};
-  }
-
-  h2 {
-    margin-bottom: ${units(1)};
-  }
-`;
-
-const StyledSettings = styled.div`
-  display: inline;
-
-  margin-${props => props.theme.dir === 'rtl' ? 'left' : 'right'}: 0;
-  margin-${props => props.theme.dir === 'rtl' ? 'right' : 'left'}: auto;
-
-  .settingsIcon {
-    vertical-align: middle;
-    cursor: pointer;
-    color: ${black32};
-    margin: ${units(1)};
-  }
-`;
+import { botName } from '../../helpers';
 
 class TeamBotsComponent extends Component {
   static handleBotGardenClick() {
@@ -180,8 +154,7 @@ class TeamBotsComponent extends Component {
 
   handleToggle(node) {
     const deleteBot = { id: node.id, teamId: this.props.team.id };
-    const deleteBotName = node.team_bot.identifier !== 'smooch' ?
-      node.team_bot.name : 'Check Message';
+    const deleteBotName = botName(node.team_bot);
 
     this.setState({
       showConfirmDeleteDialog: true,
@@ -204,8 +177,31 @@ class TeamBotsComponent extends Component {
     const { team } = this.props;
 
     return (
-      <Box clone maxWidth={900}>
-        <ContentColumn>
+      <Box className="team-bots">
+        <ContentColumn large>
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="teamBots.title"
+                defaultMessage="Bots"
+              />
+            }
+            subtitle={
+              <FormattedMessage
+                id="teamBots.subtitle"
+                defaultMessage="Dedicated tools to automate archiving and connect a social media to Check tiplines."
+              />
+            }
+            helpUrl="http://help.checkmedia.org/en/articles/3633646-bots-overview"
+            actionButton={
+              <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick} color="primary" variant="contained">
+                <FormattedMessage
+                  id="teamBots.browserBots"
+                  defaultMessage="Browse bots"
+                />
+              </Button>
+            }
+          />
           { team.team_bot_installations.edges.length === 0 ?
             <Box commponent="p" pb={5} textAlign="center">
               <FormattedMessage
@@ -224,42 +220,36 @@ class TeamBotsComponent extends Component {
             const botExpanded = this.state.expanded === bot.dbid;
             return (
               <Box clone mb={5}>
-                <Card
-                  key={`bot-${bot.dbid}`}
-                >
-                  <StyledCardContent>
-                    <img src={bot.avatar} alt={bot.name} />
-                    <div>
-                      <h2 style={{ font: title1 }}>
-                        {bot.name}
-                      </h2>
-                      <p>{bot.description}</p>
-                      <div>
-                        <Button onClick={() => browserHistory.push(`/check/bot/${bot.dbid}`)}>
-                          <FormattedMessage id="teamBots.moreInfo" defaultMessage="More info" />
-                        </Button>
-                        <Button
-                          className="team-bots__uninstall-button"
-                          onClick={this.handleToggle.bind(this, installation.node)}
-                        >
-                          <FormattedMessage id="teamBots.remove" defaultMessage="Remove" />
-                        </Button>
-                      </div>
-                    </div>
-                  </StyledCardContent>
-                  <CardActions>
-                    <StyledSettings>
+                <Card key={`bot-${bot.dbid}`}>
+                  <CardHeader
+                    title={botName(bot)}
+                    action={
                       <Tooltip
                         title={
                           <FormattedMessage id="teamBots.settingsTooltip" defaultMessage="Bot settings" />
                         }
                       >
-                        <Settings
+                        <IconButton
                           onClick={this.handleToggleSettings.bind(this, bot.dbid)}
                           className="settingsIcon"
-                        />
+                        >
+                          <SettingsIcon />
+                        </IconButton>
                       </Tooltip>
-                    </StyledSettings>
+                    }
+                  />
+                  <CardContent>
+                    {bot.description}
+                  </CardContent>
+                  <CardActions>
+                    <Button
+                      color="primary"
+                      size="small"
+                      className="team-bots__uninstall-button"
+                      onClick={this.handleToggle.bind(this, installation.node)}
+                    >
+                      <FormattedMessage id="teamBots.remove" defaultMessage="Remove" />
+                    </Button>
                   </CardActions>
                   <ConfirmDialog
                     open={this.state.showConfirmDeleteDialog}
@@ -355,16 +345,6 @@ class TeamBotsComponent extends Component {
               </Box>
             );
           })}
-          <Box component="p" textAlign="end">
-            <Button id="team-bots__bot-garden-button" onClick={TeamBotsComponent.handleBotGardenClick}>
-              <span>
-                <FormattedMessage
-                  id="teamBots.botGarden"
-                  defaultMessage="Browse the Bot Garden"
-                /> <Emojione text="🤖 🌼" />
-              </span>
-            </Button>
-          </Box>
           <ConfirmDialog
             open={this.state.open}
             title={<FormattedMessage id="teamBots.confirmationTitle" defaultMessage="Confirm" />}
