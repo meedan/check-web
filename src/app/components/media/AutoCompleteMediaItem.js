@@ -24,6 +24,7 @@ const useStyles = makeStyles(theme => ({
     borderLeft: `1px solid ${black32}`,
     marginLeft: theme.spacing(1),
     paddingLeft: theme.spacing(2),
+    width: 300,
   },
   autocompleteResults: {
     overflow: 'auto',
@@ -140,7 +141,6 @@ const AutoCompleteMediaItem = (props, context) => {
       const params = {
         body: `query=query {
             search(query: ${encodedQuery}) {
-              number_of_results
               medias(first: 50) {
                 edges {
                   node {
@@ -209,7 +209,6 @@ const AutoCompleteMediaItem = (props, context) => {
       // The rest of this code is synchronous, so it can't be aborted.
       try {
         const { team } = response.data.search;
-        const total = response.data.search.number_of_results;
         let items = response.data.search.medias.edges.map(({ node }) => node);
         if (props.customFilter) {
           items = props.customFilter(items);
@@ -229,7 +228,6 @@ const AutoCompleteMediaItem = (props, context) => {
         setSearchResult({
           loading: false,
           items,
-          total,
           team,
           error: null,
         });
@@ -277,7 +275,7 @@ const AutoCompleteMediaItem = (props, context) => {
                   { searchResult.error ?
                     <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
                   { searchResult.items && searchResult.items.length > 0 ?
-                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {1 result} other {# results}}" values={{ count: searchResult.total }} /> : null }
+                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {1 result} other {# results}}" values={{ count: searchResult.items.length }} /> : null }
                 </React.Fragment> : null
             }
             variant="outlined"

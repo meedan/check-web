@@ -204,19 +204,20 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
           />
         </Box>
       ))}
-      <CreateRelatedMediaDialog
-        title={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
-        open={showDialog}
-        onDismiss={handleClose}
-        onSelect={handleSubmit}
-        media={{ dbid: projectMedia.dbid }}
-        isSubmitting={submitting}
-        submitButtonLabel={count => <FormattedMessage id="mediaRelatedComponent.submitButton" defaultMessage="{count, plural, one {Add relation for one item} other {Add relation for # items}}" values={{ count }} />}
-        customFilter={filterResults}
-        showFilters
-        hideNew
-        multiple
-      />
+      { showDialog ?
+        <CreateRelatedMediaDialog
+          open
+          title={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
+          onDismiss={handleClose}
+          onSelect={handleSubmit}
+          media={{ dbid: projectMedia.dbid }}
+          isSubmitting={submitting}
+          submitButtonLabel={count => <FormattedMessage id="mediaRelatedComponent.submitButton" defaultMessage="{count, plural, one {Add relation for one item} other {Add relation for # items}}" values={{ count }} />}
+          customFilter={filterResults}
+          showFilters
+          hideNew
+          multiple
+        /> : null }
     </React.Fragment>
   );
 };
