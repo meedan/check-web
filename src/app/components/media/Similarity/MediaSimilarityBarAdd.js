@@ -279,6 +279,7 @@ const MediaSimilarityBarAdd = ({
         multiple={!reverse}
         hideNew
         showFilters
+        disablePublished
       />
     </React.Fragment>
   );

@@ -158,6 +158,21 @@ const AutoCompleteMediaItem = (props, context) => {
                   }
                 }
               }
+              team {
+                id
+                name
+                projects(first: 10000) {
+                  edges {
+                    node {
+                      id
+                      dbid
+                      title
+                      medias_count
+                      search_id
+                    }
+                  }
+                }
+              }
             }
           }
         `,
@@ -193,6 +208,7 @@ const AutoCompleteMediaItem = (props, context) => {
 
       // The rest of this code is synchronous, so it can't be aborted.
       try {
+        const { team } = response.data.search;
         const total = response.data.search.number_of_results;
         let items = response.data.search.medias.edges.map(({ node }) => node);
         if (props.customFilter) {
@@ -214,6 +230,7 @@ const AutoCompleteMediaItem = (props, context) => {
           loading: false,
           items,
           total,
+          team,
           error: null,
         });
       } catch (err) {
@@ -282,13 +299,14 @@ const AutoCompleteMediaItem = (props, context) => {
                   <Box
                     display="flex"
                     alignItems="center"
+                    key={projectMedia.dbid}
                     className={props.multiple ? '' : 'autocomplete-media-item__select'}
                   >
                     { props.multiple ?
                       <Tooltip
                         disableFocusListener
                         disableTouchListener
-                        disableHoverListener={!projectMedia.isPublished}
+                        disableHoverListener={!projectMedia.isPublished || !props.disablePublished}
                         title={
                           <FormattedMessage
                             id="autoCompleteMediaItem.cantSelectPublished"
@@ -299,7 +317,7 @@ const AutoCompleteMediaItem = (props, context) => {
                         <span>
                           <Checkbox
                             className="autocomplete-media-item__select"
-                            disabled={projectMedia.isPublished}
+                            disabled={projectMedia.isPublished && props.disablePublished}
                             onChange={(e, checked) => {
                               handleSelectMany(projectMedia.dbid, checked);
                             }}
@@ -308,7 +326,7 @@ const AutoCompleteMediaItem = (props, context) => {
                       </Tooltip> : null
                     }
                     <MediaItem
-                      key={projectMedia.dbid}
+                      team={searchResult.team}
                       projectMedia={projectMedia}
                       onSelect={props.multiple ? null : handleSelectOne}
                       isSelected={selectedProjectMediaDbid === projectMedia.dbid}
@@ -347,6 +365,7 @@ AutoCompleteMediaItem.defaultProps = {
   customFilter: null,
   showFilters: false,
   multiple: false,
+  disablePublished: false,
 };
 
 AutoCompleteMediaItem.propTypes = {
@@ -356,6 +375,7 @@ AutoCompleteMediaItem.propTypes = {
   customFilter: PropTypes.func,
   showFilters: PropTypes.bool,
   multiple: PropTypes.bool,
+  disablePublished: PropTypes.bool,
 };
 
 export default AutoCompleteMediaItem;

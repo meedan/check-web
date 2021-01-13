@@ -124,6 +124,7 @@ class CreateRelatedMediaDialog extends React.Component {
                   customFilter={this.props.customFilter}
                   showFilters={Boolean(this.props.showFilters)}
                   multiple={Boolean(this.props.multiple)}
+                  disablePublished={Boolean(this.props.disablePublished)}
                 />
               </StyledAutoCompleteWrapper>
             }

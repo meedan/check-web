@@ -30,6 +30,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     justifyContent: 'space-between',
+    overflow: 'hidden',
   },
   notSelected: {
     background: 'white',
@@ -51,14 +52,14 @@ const useStyles = makeStyles(theme => ({
     objectFit: 'cover',
   },
   sep: {
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
   },
   sub: {
-    fontSize: 14,
+    fontSize: 12,
   },
   content: {
-    height: 100,
+    minHeight: 100,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -325,7 +326,7 @@ const MediaItem = ({
                 </div> : null }
             </Box>
             <Typography variant="body2" className={classes.description}>
-              {truncateLength(projectMedia.description, 200)}
+              {truncateLength(projectMedia.description, 140)}
             </Typography>
           </Box>
         }
@@ -442,6 +443,7 @@ MediaItem.propTypes = {
     source_id: PropTypes.number, // Mandatory if canSwitch is true
     target_id: PropTypes.number, // Mandatory if canSwitch is true
   }),
+  team: PropTypes.object.isRequired, // FIXME: Use "shape" and specify all need fields
   canSwitch: PropTypes.bool,
   canDelete: PropTypes.bool,
   isSelected: PropTypes.bool,
