@@ -72,6 +72,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
             <MediaItem
               team={projectMedia.team}
               projectMedia={projectMedia.confirmed_main_item}
+              mainProjectMedia={projectMedia.confirmed_main_item}
               isSelected={projectMedia.confirmed_main_item.dbid === selectedProjectMediaDbid}
               onSelect={handleSelectItem}
             />
