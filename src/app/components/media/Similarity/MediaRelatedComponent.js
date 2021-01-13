@@ -213,6 +213,7 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
         isSubmitting={submitting}
         submitButtonLabel={count => <FormattedMessage id="mediaRelatedComponent.submitButton" defaultMessage="{count, plural, one {Add relation for one item} other {Add relation for # items}}" values={{ count }} />}
         customFilter={filterResults}
+        showFilters
         hideNew
         multiple
       />
