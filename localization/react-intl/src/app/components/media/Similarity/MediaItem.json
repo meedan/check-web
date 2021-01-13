@@ -17,8 +17,29 @@
     "defaultMessage": "Done, redirecting to new main item…"
   },
   {
+    "id": "mediaItem.similarMedia",
+    "defaultMessage": "{count} similar media"
+  },
+  {
+    "id": "mediaItem.lastSubmitted",
+    "description": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'",
+    "defaultMessage": "Last submitted {timeAgo}"
+  },
+  {
     "id": "mediaItem.requests",
     "defaultMessage": "{count, plural, one {1 request} other {# requests}}"
+  },
+  {
+    "id": "mediaItem.reportPublished",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "mediaItem.reportUnpublished",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "mediaItem.reportPaused",
+    "defaultMessage": "Paused"
   },
   {
     "id": "mediaItem.pinAsMain",

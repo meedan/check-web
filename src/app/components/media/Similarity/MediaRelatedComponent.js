@@ -83,19 +83,25 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
                 id
                 dbid
                 title
+                description
                 picture
-                created_at
                 type
+                last_seen
                 requests_count
+                linked_items_count
+                report_status
               }
               target {
                 id
                 dbid
                 title
+                description
                 picture
-                created_at
                 type
+                last_seen
                 requests_count
+                linked_items_count
+                report_status
               }
             }
           }
@@ -205,9 +211,10 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
         onSelect={handleSubmit}
         media={{ dbid: projectMedia.dbid }}
         isSubmitting={submitting}
-        submitButtonLabel={<FormattedMessage id="mediaRelatedComponent.dialogTitle" defaultMessage="Add relation" />}
+        submitButtonLabel={count => <FormattedMessage id="mediaRelatedComponent.submitButton" defaultMessage="{count, plural, one {Add relation for one item} other {Add relation for # items}}" values={{ count }} />}
         customFilter={filterResults}
         hideNew
+        multiple
       />
     </React.Fragment>
   );

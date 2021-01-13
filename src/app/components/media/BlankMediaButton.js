@@ -26,8 +26,7 @@ const BlankMediaButton = ({
   projectMediaId,
   team,
   reverse,
-  label,
-  ButtonProps,
+  ButtonComponent,
 }) => {
   const classes = useStyles();
   const [showItemDialog, setShowItemDialog] = React.useState(false);
@@ -124,9 +123,7 @@ const BlankMediaButton = ({
 
   return (
     <React.Fragment>
-      <Button variant="contained" color="primary" onClick={handleOpenItemDialog} {...ButtonProps}>
-        {label}
-      </Button>
+      <ButtonComponent onClick={handleOpenItemDialog} />
       <CreateRelatedMediaDialog
         message={message}
         title={
@@ -144,6 +141,13 @@ const BlankMediaButton = ({
         isSubmitting={pending}
         hideNew={reverse}
         typesToShow={reverse ? ['blank'] : null}
+        submitButtonLabel={() => (
+          <FormattedMessage
+            id="blankMediaButton.addToReport"
+            defaultMessage="Add to report"
+          />
+        )}
+        showFilters
       />
       { selectedItem ?
         <ConfirmDialog
@@ -185,17 +189,23 @@ const BlankMediaButton = ({
 };
 
 BlankMediaButton.defaultProps = {
-  label: <FormattedMessage id="blankMediaButton.addItem" defaultMessage="Add item" />,
+  team: {},
   reverse: false,
-  ButtonProps: {},
+  ButtonComponent: ({ onClick }) => (
+    <Button variant="contained" color="primary" onClick={onClick}>
+      <FormattedMessage
+        id="blankMediaButton.addItem"
+        defaultMessage="Add item"
+      />
+    </Button>
+  ),
 };
 
 BlankMediaButton.propTypes = {
-  label: PropTypes.object,
   projectMediaId: PropTypes.string.isRequired,
-  team: PropTypes.object.isRequired,
-  ButtonProps: PropTypes.object,
+  team: PropTypes.object, // Only if wants to be able to create a new item
   reverse: PropTypes.bool, // When "reverse" is true, the selected report is the source
+  ButtonComponent: PropTypes.node,
 };
 
 export default BlankMediaButton;

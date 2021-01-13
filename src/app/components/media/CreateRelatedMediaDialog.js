@@ -26,25 +26,45 @@ class CreateRelatedMediaDialog extends React.Component {
 
     this.state = {
       mode: 'existing',
-      selectedId: null,
+      selectedItem: null, // Used when props.multiple = false
+      selectedItems: [], // Used when props.multiple = true
     };
   }
 
   handleChange = (event, mode) => {
-    this.setState({ mode, selectedId: null });
+    this.setState({ mode, selectedItem: null, selectedItems: [] });
   };
 
-  handleSelectExisting = (selectedId) => {
-    this.setState({ selectedId });
-  }
-
-  handleSubmitExisting = () => {
-    if (this.props.onSelect && this.state.selectedId) {
-      this.props.onSelect(this.state.selectedId);
+  handleSelectExisting = (selectedItem, selected) => {
+    if (this.props.multiple) {
+      const selectedItems = this.state.selectedItems.slice();
+      const i = selectedItems.findIndex(item => item.dbid === selectedItem.dbid);
+      if (selected) {
+        if (i === -1) {
+          selectedItems.push(selectedItem);
+        }
+      } else {
+        selectedItems.splice(i, 1);
+      }
+      this.setState({ selectedItems });
+    } else {
+      this.setState({ selectedItem });
     }
   }
 
-  submitExistingDisabled = () => !this.state.selectedId
+  handleSubmitExisting = () => {
+    if (this.props.onSelect) {
+      if (!this.props.multiple && this.state.selectedItem) {
+        this.props.onSelect(this.state.selectedItem);
+      } else if (this.props.multiple && this.state.selectedItems.length > 0) {
+        this.state.selectedItems.forEach((item) => {
+          this.props.onSelect(item);
+        });
+      }
+    }
+  }
+
+  submitExistingDisabled = () => (!this.state.selectedItem && !this.state.selectedItems.length);
 
   render() {
     const { mode } = this.state;
@@ -56,8 +76,8 @@ class CreateRelatedMediaDialog extends React.Component {
     const formId = 'create-related-media-dialog-form';
 
     return (
-      <Dialog open={this.props.open} fullWidth>
-        <DialogContent>
+      <Dialog open={this.props.open} fullWidth maxWidth="md">
+        <DialogContent style={{ minHeight: 600 }}>
           { hideNew ?
             <DialogTitle style={{ paddingLeft: 0, paddingRight: 0 }}>
               {this.props.title}
@@ -102,6 +122,8 @@ class CreateRelatedMediaDialog extends React.Component {
                   onSelect={this.handleSelectExisting}
                   typesToShow={typesToShow}
                   customFilter={this.props.customFilter}
+                  showFilters={Boolean(this.props.showFilters)}
+                  multiple={Boolean(this.props.multiple)}
                 />
               </StyledAutoCompleteWrapper>
             }
@@ -118,10 +140,11 @@ class CreateRelatedMediaDialog extends React.Component {
               color="primary"
               form={formId}
               disabled={this.props.isSubmitting}
+              variant="contained"
             >
               { this.props.isSubmitting ?
                 <FormattedMessage {...globalStrings.submitting} /> :
-                (this.props.submitButtonLabel || <FormattedMessage {...globalStrings.submit} />)
+                this.props.submitButtonLabel(this.state.selectedItems.length)
               }
             </Button>
           }
@@ -131,10 +154,11 @@ class CreateRelatedMediaDialog extends React.Component {
               color="primary"
               onClick={this.handleSubmitExisting}
               disabled={this.submitExistingDisabled() || this.props.isSubmitting}
+              variant="contained"
             >
               { this.props.isSubmitting ?
                 <FormattedMessage {...globalStrings.submitting} /> :
-                (this.props.submitButtonLabel || <FormattedMessage {...globalStrings.submit} />)
+                this.props.submitButtonLabel(this.state.selectedItems.length)
               }
             </Button>
           }

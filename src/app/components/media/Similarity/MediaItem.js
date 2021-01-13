@@ -6,19 +6,21 @@ import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Menu from '@material-ui/core/Menu';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
+import LayersIcon from '@material-ui/icons/Layers';
 import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import SelectProjectDialog from '../SelectProjectDialog';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
-import { brandSecondary } from '../../../styles/js/shared';
+import { brandSecondary, checkBlue, inProgressYellow, black32 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -28,7 +30,6 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
     justifyContent: 'space-between',
-    cursor: 'pointer',
   },
   notSelected: {
     background: 'white',
@@ -61,6 +62,18 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
+  },
+  description: {
+    color: 'black',
+  },
+  reportPublished: {
+    color: checkBlue,
+  },
+  reportPaused: {
+    color: inProgressYellow,
+  },
+  reportUnpublished: {
+    color: black32,
   },
 }));
 
@@ -243,30 +256,77 @@ const MediaItem = ({
       display="flex"
       width={1}
       onClick={(event) => {
-        onSelect(projectMedia.dbid);
+        if (onSelect) {
+          onSelect(projectMedia.dbid);
+        }
         event.stopPropagation();
       }}
+      style={onSelect ? { cursor: 'pointer' } : {}}
     >
       <CardHeader
         classes={{ content: classes.content, title: classes.title }}
         title={
-          <Link to={mediaUrl} className={classes.title}>
-            {truncateLength(projectMedia.title, 140)}
-          </Link>
+          <Box display="flex" alignItems="center">
+            { projectMedia.linked_items_count > 0 && !mainProjectMedia.id ? <LayersIcon /> : null }
+            <Link to={mediaUrl} className={classes.title}>
+              <strong>{truncateLength(projectMedia.title, 140)}</strong>
+            </Link>
+          </Box>
         }
         subheader={
-          <Box display="flex" className={classes.sub}>
-            <MediaTypeDisplayName mediaType={projectMedia.type} />
-            <div className={classes.sep}> - </div>
-            <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
-            <div className={classes.sep}> - </div>
-            <FormattedMessage
-              id="mediaItem.requests"
-              defaultMessage="{count, plural, one {1 request} other {# requests}}"
-              values={{
-                count: projectMedia.requests_count,
-              }}
-            />
+          <Box>
+            <Box display="flex" className={classes.sub}>
+              { projectMedia.linked_items_count && !mainProjectMedia.id ?
+                <FormattedMessage
+                  id="mediaItem.similarMedia"
+                  defaultMessage="{count} similar media"
+                  values={{
+                    count: projectMedia.linked_items_count,
+                  }}
+                /> :
+                <MediaTypeDisplayName mediaType={projectMedia.type} />
+              }
+              <div className={classes.sep}> - </div>
+              { projectMedia.type !== 'Blank' ?
+                <React.Fragment>
+                  <FormattedMessage
+                    id="mediaItem.lastSubmitted"
+                    defaultMessage="Last submitted {timeAgo}"
+                    description="Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+                    values={{
+                      timeAgo: (
+                        <TimeBefore
+                          date={parseStringUnixTimestamp(projectMedia.last_seen)}
+                        />
+                      ),
+                    }}
+                  />
+                  <div className={classes.sep}> - </div>
+                  <FormattedMessage
+                    id="mediaItem.requests"
+                    defaultMessage="{count, plural, one {1 request} other {# requests}}"
+                    values={{
+                      count: projectMedia.requests_count,
+                    }}
+                  />
+                  <div className={classes.sep}> - </div>
+                </React.Fragment> : null }
+              { projectMedia.report_status === 'published' ?
+                <div className={classes.reportPublished}>
+                  <FormattedMessage id="mediaItem.reportPublished" defaultMessage="Published" />
+                </div> : null }
+              { projectMedia.report_status === 'unpublished' ?
+                <div className={classes.reportUnpublished}>
+                  <FormattedMessage id="mediaItem.reportUnpublished" defaultMessage="Unpublished" />
+                </div> : null }
+              { projectMedia.report_status === 'paused' ?
+                <div className={classes.reportPaused}>
+                  <FormattedMessage id="mediaItem.reportPaused" defaultMessage="Paused" />
+                </div> : null }
+            </Box>
+            <Typography variant="body2" className={classes.description}>
+              {truncateLength(projectMedia.description, 200)}
+            </Typography>
           </Box>
         }
         avatar={
@@ -369,10 +429,13 @@ MediaItem.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
     picture: PropTypes.string.isRequired,
-    created_at: PropTypes.string.isRequired,
+    last_seen: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     requests_count: PropTypes.number.isRequired,
+    linked_items_count: PropTypes.number.isRequired,
+    report_status: PropTypes.string.isRequired,
   }).isRequired,
   relationship: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -391,10 +454,13 @@ export default createFragmentContainer(withSetFlashMessage(MediaItem), {
       id
       dbid
       title
+      description
       picture
-      created_at
       type
+      last_seen
       requests_count
+      linked_items_count
+      report_status
     }
   `,
   team: graphql`

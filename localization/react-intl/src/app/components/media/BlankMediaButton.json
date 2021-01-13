@@ -8,6 +8,10 @@
     "defaultMessage": "Add to imported report"
   },
   {
+    "id": "blankMediaButton.addToReport",
+    "defaultMessage": "Add to report"
+  },
+  {
     "id": "blankMediaButton.confirmTitle",
     "defaultMessage": "Overwrite report and status?"
   },

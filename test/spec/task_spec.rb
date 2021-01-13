@@ -203,7 +203,7 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('Foo, Doo or Bar???')).to be(false)
   end
 
-  it 'should manage, search by keywords and filter team tasks bli', bin6: true do
+  it 'should manage, search by keywords and filter team tasks', bin6: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)

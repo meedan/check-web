@@ -1,19 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Autocomplete from '@material-ui/lab/Autocomplete';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
+import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import SettingsIcon from '@material-ui/icons/Settings';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import SearchKeywordContainer from '../search/SearchKeywordConfig/SearchKeywordContainer';
+import MediaItem from './Similarity/MediaItem';
+import { black32 } from '../../styles/js/shared';
 
-function isPublished(media) {
-  return (
-    media.dynamic_annotation_report_design &&
-    media.dynamic_annotation_report_design.data &&
-    media.dynamic_annotation_report_design.data.state === 'published'
-  );
-}
+const useStyles = makeStyles(theme => ({
+  searchSettingsTitle: {
+    fontWeight: 'bold',
+  },
+  searchSettingsBox: {
+    borderLeft: `1px solid ${black32}`,
+    marginLeft: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+  },
+  autocompleteResults: {
+    overflow: 'auto',
+    maxHeight: 400,
+    paddingRight: theme.spacing(1),
+    marginTop: 12,
+  },
+  searchSettingsButton: {
+    marginTop: theme.spacing(0.5),
+  },
+}));
 
 // Return { jsonPromise, abort }.
 //
@@ -38,9 +59,13 @@ function fetchJsonEnsuringOkAllowingAbort(url, params) {
   return { jsonPromise, abort };
 }
 
-function AutoCompleteMediaItem(props, context) {
+const AutoCompleteMediaItem = (props, context) => {
+  const classes = useStyles();
   const teamSlug = context.store.getState().app.context.team.slug; // TODO make it a prop
   const [searchText, setSearchText] = React.useState('');
+  const [showFilters, setShowFilters] = React.useState(false);
+  const [keywordFields, setKeywordFields] = React.useState(null);
+  const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
 
   // Object with { loading, items, error } (only one truthy), or `null`
   const [searchResult, setSearchResult] = React.useState(null);
@@ -52,11 +77,40 @@ function AutoCompleteMediaItem(props, context) {
     }
   }, []);
 
-  const handleChange = React.useCallback((e, obj) => { props.onSelect(obj); }, [props.onSelect]);
+  const handleSelectOne = (dbid) => {
+    const selProjectMedia = searchResult.items.find(projectMedia => projectMedia.dbid === dbid);
+    setSelectedProjectMediaDbid(dbid);
+    props.onSelect(selProjectMedia);
+  };
+
+  const handleSelectMany = (dbid, selected) => {
+    const selProjectMedia = searchResult.items.find(projectMedia => projectMedia.dbid === dbid);
+    props.onSelect(selProjectMedia, selected);
+  };
 
   const handleChangeSearchText = React.useCallback((e) => {
     setSearchText(e.target.value);
   }, [setSearchText]);
+
+  const handleCloseFilters = () => {
+    setShowFilters(false);
+    setKeywordFields(null);
+  };
+
+  const handleChangeFilters = (filters) => {
+    setKeywordFields(filters.keyword_fields);
+  };
+
+  const query = {
+    keyword: searchText,
+    show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
+    eslimit: 50,
+    archived: CheckArchivedFlags.NONE,
+    include_related_items: Boolean(props.customFilter),
+  };
+  if (keywordFields) {
+    query.keyword_fields = keywordFields;
+  }
 
   // Call setSearchResult() twice (loading ... results!) whenever `searchText` changes.
   //
@@ -82,28 +136,25 @@ function AutoCompleteMediaItem(props, context) {
         return;
       }
 
-      const encodedQuery = JSON.stringify(JSON.stringify({
-        keyword: searchText,
-        show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
-        eslimit: 50,
-        archived: CheckArchivedFlags.NONE,
-        include_related_items: Boolean(props.customFilter),
-      }));
+      const encodedQuery = JSON.stringify(JSON.stringify(query));
       const params = {
         body: `query=query {
             search(query: ${encodedQuery}) {
+              number_of_results
               medias(first: 50) {
                 edges {
                   node {
                     id
                     dbid
                     title
-                    archived
+                    description
+                    picture
+                    type
+                    last_seen
+                    requests_count
+                    linked_items_count
+                    report_status
                     is_confirmed_similar_to_another_item
-                    dynamic_annotation_report_design {
-                      id
-                      data
-                    }
                   }
                 }
               }
@@ -142,6 +193,7 @@ function AutoCompleteMediaItem(props, context) {
 
       // The rest of this code is synchronous, so it can't be aborted.
       try {
+        const total = response.data.search.number_of_results;
         let items = response.data.search.medias.edges.map(({ node }) => node);
         if (props.customFilter) {
           items = props.customFilter(items);
@@ -151,19 +203,19 @@ function AutoCompleteMediaItem(props, context) {
               !is_confirmed_similar_to_another_item);
         }
         items = items
-          .filter(({ dbid }) => dbid !== props.dbid)
-          .filter(({ archived }) => archived === CheckArchivedFlags.NONE);
-        if (props.onlyPublished) {
-          items = items.filter(isPublished);
-        }
+          .filter(({ dbid }) => dbid !== props.dbid);
         items = items.map(item => ({
+          ...item,
           text: item.title,
           value: item.dbid,
-          id: item.id,
-          isPublished: isPublished(item),
-          dbid: item.dbid,
+          isPublished: item.report_status === 'published',
         }));
-        setSearchResult({ loading: false, items, error: null });
+        setSearchResult({
+          loading: false,
+          items,
+          total,
+          error: null,
+        });
       } catch (err) {
         // TODO nix catch-all error handler for errors we've likely never seen
         console.error(err); // eslint-disable-line no-console
@@ -184,44 +236,106 @@ function AutoCompleteMediaItem(props, context) {
     };
     timer = setTimeout(begin, keystrokeWait);
     return abortAsyncStuff;
-  }, [searchText, setSearchResult, props.dbid, props.onlyPublished]);
+  }, [searchText, setSearchResult, props.dbid, keywordFields]);
 
   return (
-    <Autocomplete
-      blurOnSelect
-      id="autocomplete-media-item"
-      name="autocomplete-media-item"
-      options={(searchResult && searchResult.items) ? searchResult.items : []}
-      open={!!searchResult}
-      getOptionLabel={option => option.text}
-      loading={searchResult ? searchResult.loading : false}
-      loadingText={
-        <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" />
-      }
-      noOptionsText={searchResult && searchResult.error ? (
-        <FormattedMessage
-          id="autoCompleteMediaItem.error"
-          defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
-      ) : (
-        <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" />
-      )}
-      renderInput={
-        params => (<TextField
-          label={
-            <FormattedMessage id="autoCompleteMediaItem.searchItem" defaultMessage="Search" />
-          }
-          onKeyPress={handleKeyPress}
-          onChange={handleChangeSearchText}
-          {...params}
-        />)
-      }
-      onChange={handleChange}
-      onBlur={() => setSearchText('') /* so useEffect() will setSearchResult(null) */}
-    />
+    <Box display="flex" alignItems="flex-start" className="autocomplete-media-item">
+      <Box flexGrow="1">
+        <Box display="flex" alignItems="flex-start" flexGrow="1">
+          <TextField
+            id="autocomplete-media-item"
+            name="autocomplete-media-item"
+            label={
+              <FormattedMessage id="autoCompleteMediaItem.searchItem" defaultMessage="Search" />
+            }
+            onKeyPress={handleKeyPress}
+            onChange={handleChangeSearchText}
+            helperText={
+              searchResult ?
+                <React.Fragment>
+                  { searchResult.loading ?
+                    <FormattedMessage id="autoCompleteMediaItem.searching" defaultMessage="Searching…" /> : null }
+                  { !searchResult.loading && !searchResult.error && !searchResult.items.length ?
+                    <FormattedMessage id="autoCompleteMediaItem.notFound" defaultMessage="No matches found" /> : null }
+                  { searchResult.error ?
+                    <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
+                  { searchResult.items && searchResult.items.length > 0 ?
+                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {1 result} other {# results}}" values={{ count: searchResult.total }} /> : null }
+                </React.Fragment> : null
+            }
+            variant="outlined"
+            fullWidth
+          />
+          { props.showFilters ?
+            <IconButton
+              onClick={() => { setShowFilters(!showFilters); }}
+              className={classes.searchSettingsButton}
+            >
+              <SettingsIcon />
+            </IconButton> : null }
+        </Box>
+        { searchResult ?
+          <Box>
+            { searchResult.items && searchResult.items.length > 0 ?
+              <Box className={classes.autocompleteResults}>
+                { searchResult.items.map(projectMedia => (
+                  <Box
+                    display="flex"
+                    alignItems="center"
+                    className={props.multiple ? '' : 'autocomplete-media-item__select'}
+                  >
+                    { props.multiple ?
+                      <Tooltip
+                        disableFocusListener
+                        disableTouchListener
+                        disableHoverListener={!projectMedia.isPublished}
+                        title={
+                          <FormattedMessage
+                            id="autoCompleteMediaItem.cantSelectPublished"
+                            defaultMessage="Media cannot be imported from items that have their report published"
+                          />
+                        }
+                      >
+                        <span>
+                          <Checkbox
+                            className="autocomplete-media-item__select"
+                            disabled={projectMedia.isPublished}
+                            onChange={(e, checked) => {
+                              handleSelectMany(projectMedia.dbid, checked);
+                            }}
+                          />
+                        </span>
+                      </Tooltip> : null
+                    }
+                    <MediaItem
+                      key={projectMedia.dbid}
+                      projectMedia={projectMedia}
+                      onSelect={props.multiple ? null : handleSelectOne}
+                      isSelected={selectedProjectMediaDbid === projectMedia.dbid}
+                    />
+                  </Box>
+                ))}
+              </Box> : null }
+          </Box> : null }
+      </Box>
+      { showFilters ?
+        <Box className={classes.searchSettingsBox}>
+          <Typography variant="subtitle1" className={classes.searchSettingsTitle}>
+            <FormattedMessage
+              id="autoCompleteMediaItem.searchSettings"
+              defaultMessage="Search settings"
+            />
+          </Typography>
+          <SearchKeywordContainer
+            teamSlug={teamSlug}
+            query={query}
+            onDismiss={handleCloseFilters}
+            onSubmit={handleChangeFilters}
+          />
+        </Box> : null }
+    </Box>
   );
-}
+};
 
 AutoCompleteMediaItem.contextTypes = {
   store: PropTypes.object, // TODO nix
@@ -229,17 +343,19 @@ AutoCompleteMediaItem.contextTypes = {
 
 AutoCompleteMediaItem.defaultProps = {
   dbid: null,
-  onlyPublished: false,
   typesToShow: ['claims', 'links', 'images', 'videos', 'audios'],
   customFilter: null,
+  showFilters: false,
+  multiple: false,
 };
 
 AutoCompleteMediaItem.propTypes = {
-  onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
+  // onSelect: PropTypes.func.isRequired, // func({ value, text } or null) => undefined
   dbid: PropTypes.number, // filter results: do _not_ select this number
-  onlyPublished: PropTypes.bool, // filter results
   typesToShow: PropTypes.arrayOf(PropTypes.string),
   customFilter: PropTypes.func,
+  showFilters: PropTypes.bool,
+  multiple: PropTypes.bool,
 };
 
 export default AutoCompleteMediaItem;
