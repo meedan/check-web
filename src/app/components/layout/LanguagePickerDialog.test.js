@@ -6,6 +6,8 @@ const current_team = {
   dbid: 1,
   name: 'teamName',
   slug: 'slugTeam',
+  id: '1',
+  get_languages: '',
 };
 
 describe('<LanguagePickerDialog />', () => {
@@ -14,6 +16,8 @@ describe('<LanguagePickerDialog />', () => {
       open
       team={current_team}
       isSaving
+      onDismiss={() => {}}
+      onSubmit={() => {}}
     />);
     expect(wrapper.find('.add-language-action__cancel').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.add-language-action__submit').hostNodes()).toHaveLength(1);

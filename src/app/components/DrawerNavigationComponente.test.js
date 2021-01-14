@@ -59,6 +59,7 @@ describe('<DrawerNavigationComponent />', () => {
       classes={{ paper: 'check-paper' }}
       pusher={pusher}
       clientSessionId="checkClientSessionId"
+      currentUserIsMember={false}
     />);
     expect(header.find(DrawerProjects)).toHaveLength(0);
   });
