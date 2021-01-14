@@ -1,0 +1,27 @@
+[
+  {
+    "id": "sourceInfo.mediasCount",
+    "description": "show source media counts",
+    "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
+  },
+  {
+    "id": "sourceInfo.mainName",
+    "description": "souce name",
+    "defaultMessage": "Main name"
+  },
+  {
+    "id": "sourceInfo.mainAccount",
+    "description": "URL for first account related to media souce",
+    "defaultMessage": "Main source URL"
+  },
+  {
+    "id": "sourceInfo.secondaryAccounts",
+    "description": "URLs for source accounts except first account",
+    "defaultMessage": "Secondary source URLs"
+  },
+  {
+    "id": "sourceInfo.addLink",
+    "description": "allow user to relate a new link to media source",
+    "defaultMessage": "Add a secondary URL"
+  }
+]
