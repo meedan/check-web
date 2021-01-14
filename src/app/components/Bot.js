@@ -16,6 +16,7 @@ import PageTitle from './PageTitle';
 import Message from './Message';
 import CheckContext from '../CheckContext';
 import { stringHelper } from '../customHelpers';
+import { botName } from '../helpers';
 import CreateTeamBotInstallationMutation from '../relay/mutations/CreateTeamBotInstallationMutation';
 
 const StyledCardText = styled(CardContent)`
@@ -114,16 +115,16 @@ class BotComponent extends Component {
     const botDate = new Date(parseInt(bot.updated_at, 10) * 1000);
 
     return (
-      <PageTitle prefix={bot.name}>
+      <PageTitle prefix={botName(bot)}>
         <ContentColumn>
           <Message message={this.state.message} />
           <Card key={`bot-${bot.dbid}`}>
             <StyledCardText>
-              <img src={bot.avatar} alt={bot.name} />
+              <img src={bot.avatar} alt={botName(bot)} />
               <CardContainer>
                 <CardHeader
                   style={{ padding: 0, paddingTop: units(2) }}
-                  title={bot.name}
+                  title={botName(bot)}
                   subheader={
                     bot.team_author ?
                       <FormattedMessage

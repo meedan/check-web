@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "Create"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "Duplicate workspace"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "Duplicate"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "Choose a list"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Move to list",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Add status"
@@ -1016,7 +1043,7 @@
 		"string": "Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
 	},
 	"languagesComponent.title": {
-		"string": "Content languages"
+		"string": "Languages"
 	},
 	"list.Demand": {
 		"string": "Requests"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "Detach"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Done, redirecting to new main item…"
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "Rules"
 	},
 	"search.Filter": {
 		"string": "Filter"
@@ -2084,22 +2118,22 @@
 		"string": "Media type"
 	},
 	"search.showAudios": {
-		"string": "Audios"
+		"string": "Audio"
 	},
 	"search.showBlank": {
 		"string": "Imported report"
 	},
 	"search.showClaims": {
-		"string": "Texts"
+		"string": "Text"
 	},
 	"search.showImages": {
-		"string": "Images"
+		"string": "ചിത്രം"
 	},
 	"search.showLinks": {
-		"string": "Links"
+		"string": "ലിങ്ക് "
 	},
 	"search.showVideos": {
-		"string": "Videos"
+		"string": "Video"
 	},
 	"search.statusHeading": {
 		"string": "Item status"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"settingsHeader.save": {
+		"string": "Save"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Answer task"
 	},
@@ -2181,7 +2218,7 @@
 		"string": "Integration settings"
 	},
 	"slackConfig.text": {
-		"string": "Notify a Slack channel about workspace activity."
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "Slack integration"
@@ -2220,7 +2257,7 @@
 		"string": "Send notifications to"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when claims are added to specific lists"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "No description"
 	},
-	"statusesComponent.blurb": {
-		"string": "The status title is visible when reports are sent to users."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "Statuses saved sucessfully!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "The status title is visible when reports are sent to users."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Cancel"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "Timezones available to complete the task"
 	},
-	"teamBots.botGarden": {
-		"string": "Browse the Bot Garden"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "Close"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "Error! Please try again."
 	},
-	"teamBots.moreInfo": {
-		"string": "More info"
-	},
 	"teamBots.noBots": {
 		"string": "No bots installed."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "Unavailable option"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "Settings updated!"
+	},
+	"teamBots.title": {
+		"string": "Bots"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Cancel"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "Website"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "Duplicate"
+	},
 	"teamInfo.editTeam": {
 		"string": "Edit"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Integrations"
 	},
 	"teamInviteCard.copied": {
 		"string": "COPY"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadata"
 	},
-	"teamListsComponent.save": {
-		"string": "Save"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "List settings saved successfully.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "Save"
 	},
 	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "Default report settings"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "Delete tag"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "Edit tag"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "New tag"
 	},
+	"teamTags.newTag": {
+		"string": "New tag"
+	},
 	"teamTags.noTags": {
 		"string": "No tags"
+	},
+	"teamTags.title": {
+		"string": "Tags"
 	},
 	"teamTags.tooltip": {
 		"string": "Filter and sort list"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "Metadata"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "Do you want to proceed?"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "Tasks"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Task type"

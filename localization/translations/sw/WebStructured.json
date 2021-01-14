@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Vipengee vimeondolewa.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "Unda"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "Ulingo wa kazi uliorudiwa"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "Nakili"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "Chagua orodha"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Ghairi",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Sogeza kwenye orodha",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Ongeza hali"
@@ -1016,7 +1043,7 @@
 		"string": "Ongeza lugha mpya kwenye eneo lako la kazi ili kuunda ripoti, boti za vidokezo na hali katika lugha nyingi wakati wa kuwasiliana na watumiaji."
 	},
 	"languagesComponent.title": {
-		"string": "Lugha ya maudhui"
+		"string": "Lugha"
 	},
 	"list.Demand": {
 		"string": "Maombi"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "Tenganisha"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Imekamilika, inaelekeza kwenye kipengee kipya kuu…"
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 rule} other {# rules}}"
+		"string": "Masharti"
 	},
 	"search.Filter": {
 		"string": "Chuja"
@@ -2090,13 +2124,13 @@
 		"string": "Ripoti iliyoletwa"
 	},
 	"search.showClaims": {
-		"string": "Maandishi"
+		"string": "Ujumbe"
 	},
 	"search.showImages": {
 		"string": "Picha"
 	},
 	"search.showLinks": {
-		"string": "Viungo"
+		"string": "Kiungo"
 	},
 	"search.showVideos": {
 		"string": "Video"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"settingsHeader.save": {
+		"string": "Hifadhi"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Jibu kazi"
 	},
@@ -2181,7 +2218,7 @@
 		"string": "Mipangilio ya ujumuishaji"
 	},
 	"slackConfig.text": {
-		"string": "Juza kituo cha Slack kuhusu shughuli ya eneo la kazi"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "Ujumuishaji wa Slack"
@@ -2220,7 +2257,7 @@
 		"string": "Tuma arifa kwa"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Tuma arifa kwenye vituo vya Slack wakati madai yanaongezwa kwenye orodha maalum"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "Hakuna maelezo"
 	},
-	"statusesComponent.blurb": {
-		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Tafsiri hali zilizo kwenye lugha nyinginezo ili kuzionyesha katika lugha asili kwenye ripoti zako za uthibitisho."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "Hali imehifadhiwa kwa mafanikio!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# statuses}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Ghairi"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "Ukanda wa saa unaopatikana kukamilisha kazi"
 	},
-	"teamBots.botGarden": {
-		"string": "Vinjari Bustani ya Boti"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "Funga"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "Hitilafu! Tafadhali jaribu tena."
 	},
-	"teamBots.moreInfo": {
-		"string": "Maelezo zaidi"
-	},
 	"teamBots.noBots": {
 		"string": "Hakuna boti iliyosakinishwa."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "Chaguo isiyopatikana"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "Mipangilio imesasishwa!"
+	},
+	"teamBots.title": {
+		"string": "Boti"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Ghairi"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "Tovuti"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "Nakili"
+	},
 	"teamInfo.editTeam": {
 		"string": "Hariri"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Mijumuisho"
 	},
 	"teamInviteCard.copied": {
 		"string": "Nakili"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadata"
 	},
-	"teamListsComponent.save": {
-		"string": "Hifadhi"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Mipangilio ya orodha imehifadhiwa.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "Hifadhi"
 	},
 	"teamReport.subtitle": {
-		"string": "Maudhui uliyoyaweka hapa yanaweza kuhaririwa kivyake kwenye kila ripoti"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "Mipangilio msingi ya ripoti"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "Futa lebo"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "Hariri lebo"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "Lebo mpya"
 	},
+	"teamTags.newTag": {
+		"string": "Lebo mpya"
+	},
 	"teamTags.noTags": {
 		"string": "Hakuna lebo"
+	},
+	"teamTags.title": {
+		"string": "Lebo"
 	},
 	"teamTags.tooltip": {
 		"string": "Chuja na upange orodha"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "Metadata"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "Unataka kuendelea?"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "Kazi"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Aina la kazi"

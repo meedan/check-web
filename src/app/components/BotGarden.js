@@ -8,6 +8,7 @@ import { Emojione } from 'react-emoji-render';
 import { Link } from 'react-router';
 import RootRoute from '../relay/RootRoute';
 import { units, ContentColumn, black32 } from '../styles/js/shared';
+import { botName } from '../helpers';
 
 class BotGardenComponent extends Component {
   constructor(props) {
@@ -39,7 +40,7 @@ class BotGardenComponent extends Component {
                   <img src={bot.avatar} alt={bot.name} style={{ border: `1px solid ${black32}`, width: '100%' }} />
                   <CardHeader
                     className="bot-garden__bot-name"
-                    title={bot.name}
+                    title={botName(bot)}
                   />
                 </Link>
                 <CardContent>

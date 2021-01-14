@@ -1,10 +1,10 @@
+import { Link } from 'react-router';
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
 import Tooltip from 'rc-tooltip';
 import UserTooltip from '../user/UserTooltip';
 
-const ProfileLink = ({ className, teamUser }) => {
+export const ProfileLink = ({ className, teamUser }) => {
   if (!teamUser) return null;
 
   let url = '';

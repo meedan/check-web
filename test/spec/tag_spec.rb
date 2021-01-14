@@ -12,8 +12,11 @@ shared_examples 'tag' do
     expect(@driver.page_source.include?('newtag')).to be(false)
 
     # Create tag
+    wait_for_selector('#team-tags__create').click
+    wait_for_selector('#tag__new')
     fill_field('#tag__new', 'newtag')
     @driver.action.send_keys(:enter).perform
+    wait_for_selector('body').click
     wait_for_selector('#tag__text-newtag')
     expect(@driver.page_source.include?('No tags')).to be(false)
     expect(@driver.page_source.include?('1 tag')).to be(true)
@@ -27,13 +30,17 @@ shared_examples 'tag' do
     wait_for_selector('#tag__edit')
     fill_field('#tag__edit', 'edited')
     @driver.action.send_keys(:enter).perform
+    wait_for_selector('body').click
     wait_for_selector('#tag__text-newtagedited')
     expect(@driver.page_source.include?('1 tag')).to be(true)
     expect(@driver.page_source.include?('newtagedited')).to be(true)
 
     # Create another tag
+    wait_for_selector('#team-tags__create').click
+    wait_for_selector('#tag__new')
     fill_field('#tag__new', 'tag2')
     @driver.action.send_keys(:enter).perform
+    wait_for_selector('body').click
     wait_for_selector('#tag__text-tag2')
     expect(@driver.page_source.include?('tag2')).to be(true)
 

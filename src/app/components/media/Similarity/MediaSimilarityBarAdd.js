@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import Tooltip from '@material-ui/core/Tooltip';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -12,7 +14,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import PublishIcon from '@material-ui/icons/Publish';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import { makeStyles } from '@material-ui/core/styles';
+import BlankMediaButton from '../BlankMediaButton';
 import CreateRelatedMediaDialog from '../CreateRelatedMediaDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 
@@ -28,6 +32,7 @@ const MediaSimilarityBarAdd = ({
   setFlashMessage,
   canBeAddedToSimilar,
   similarCanBeAddedToIt,
+  canBeAddedToImported,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -37,7 +42,7 @@ const MediaSimilarityBarAdd = ({
   let label = '';
   let reverse = false;
   if (action === 'addSimilarToThis') {
-    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Import similar media into this item" />;
+    label = <FormattedMessage id="mediaSimilarityBarAdd.addSimilarToThisTitle" defaultMessage="Import similar media from other items" />;
   } else if (action === 'addThisToSimilar') {
     label = <FormattedMessage id="mediaSimilarityBarAdd.addThisToSimilarTitle" defaultMessage="Export all media to another item" />;
     reverse = true;
@@ -113,10 +118,13 @@ const MediaSimilarityBarAdd = ({
                 id
                 dbid
                 title
+                description
                 picture
-                created_at
                 type
+                last_seen
                 requests_count
+                linked_items_count
+                report_status
               }
             }
           }
@@ -183,7 +191,12 @@ const MediaSimilarityBarAdd = ({
           defaultMessage="Add similar"
         />
       </Button>
-      <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose} keepMounted>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        keepMounted
+      >
         <MenuItem onClick={handleAddSimilarToThis} disabled={!similarCanBeAddedToIt}>
           <ListItemIcon>
             <GetAppIcon />
@@ -197,19 +210,59 @@ const MediaSimilarityBarAdd = ({
             }
           />
         </MenuItem>
-        <MenuItem onClick={handleAddThisToSimilar} disabled={!canBeAddedToSimilar}>
-          <ListItemIcon>
-            <PublishIcon />
-          </ListItemIcon>
-          <ListItemText
-            primary={
-              <FormattedMessage
-                id="mediaSimilarityBarAdd.addThisToSimilar"
-                defaultMessage="Export all media to another item"
+        <Tooltip
+          disableFocusListener
+          disableTouchListener
+          disableHoverListener={canBeAddedToSimilar}
+          title={
+            <FormattedMessage
+              id="mediaSimilarityBarAdd.exportTooltip"
+              defaultMessage="Media from this item cannot be exported if this item is attached to a main item or if its report is published"
+            />
+          }
+        >
+          <span>
+            <MenuItem onClick={handleAddThisToSimilar} disabled={!canBeAddedToSimilar}>
+              <ListItemIcon>
+                <PublishIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <FormattedMessage
+                    id="mediaSimilarityBarAdd.addThisToSimilar"
+                    defaultMessage="Export all media to another item"
+                  />
+                }
               />
-            }
-          />
-        </MenuItem>
+            </MenuItem>
+          </span>
+        </Tooltip>
+        <Divider />
+        <BlankMediaButton
+          reverse
+          projectMediaId={projectMediaId}
+          ButtonComponent={({ onClick }) => (
+            <MenuItem
+              onClick={() => {
+                setAnchorEl(null);
+                onClick();
+              }}
+              disabled={!canBeAddedToImported}
+            >
+              <ListItemIcon>
+                <IconReport />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <FormattedMessage
+                    id="mediaSimilarityBarAdd.addToImportedReport"
+                    defaultMessage="Add to imported report"
+                  />
+                }
+              />
+            </MenuItem>
+          )}
+        />
       </Menu>
       <CreateRelatedMediaDialog
         title={label}
@@ -218,12 +271,15 @@ const MediaSimilarityBarAdd = ({
         onSelect={handleSubmit}
         media={{ dbid: projectMediaDbid }}
         isSubmitting={submitting}
-        submitButtonLabel={
+        submitButtonLabel={count => (
           reverse ?
-            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Export as similar" /> :
-            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="Import similar item" />
-        }
+            <FormattedMessage id="mediaSimilarityBarAdd.addAsSimilar" defaultMessage="Export all media" /> :
+            <FormattedMessage id="mediaSimilarityBarAdd.addSimilarItem" defaultMessage="{count, plural, one {Import all media from one item} other {Import all media from # items}}" values={{ count }} />
+        )}
+        multiple={!reverse}
         hideNew
+        showFilters
+        disablePublished
       />
     </React.Fragment>
   );
@@ -232,6 +288,7 @@ const MediaSimilarityBarAdd = ({
 MediaSimilarityBarAdd.defaultProps = {
   canBeAddedToSimilar: true,
   similarCanBeAddedToIt: true,
+  canBeAddedToImported: false,
 };
 
 MediaSimilarityBarAdd.propTypes = {
@@ -239,6 +296,7 @@ MediaSimilarityBarAdd.propTypes = {
   projectMediaDbid: PropTypes.number.isRequired,
   canBeAddedToSimilar: PropTypes.bool,
   similarCanBeAddedToIt: PropTypes.bool,
+  canBeAddedToImported: PropTypes.bool,
 };
 
 export default withSetFlashMessage(MediaSimilarityBarAdd);

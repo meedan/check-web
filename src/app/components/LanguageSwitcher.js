@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import IconButton from '@material-ui/core/IconButton';
@@ -10,8 +11,19 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box';
 import { compareLanguages, languageLabel } from '../LanguageRegistry';
 
+const useStyles = makeStyles(theme => ({
+  verticalLanguageSwitcher: {
+    marginRight: theme.spacing(5),
+    marginTop: theme.spacing(2),
+  },
+  verticalLanguageSwitcherTab: {
+    alignItems: 'flex-end',
+  },
+}));
+
 const LanguageSwitcher = (props) => {
-  const { primaryLanguage, currentLanguage } = props;
+  const classes = useStyles();
+  const { primaryLanguage, currentLanguage, orientation } = props;
   const languages = props.languages.sort((a, b) => compareLanguages(primaryLanguage, a, b));
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,10 +48,12 @@ const LanguageSwitcher = (props) => {
 
   return (
     <Tabs
+      orientation={orientation}
       value={currentLanguage}
       onChange={handleChange}
       scrollButtons="auto"
       variant="scrollable"
+      className={orientation === 'vertical' ? classes.verticalLanguageSwitcher : ''}
     >
       { languages.map((languageCode) => {
         const label = languageLabel(languageCode);
@@ -80,6 +94,7 @@ const LanguageSwitcher = (props) => {
             }
             value={languageCode}
             key={languageCode}
+            classes={orientation === 'vertical' ? { wrapper: classes.verticalLanguageSwitcherTab } : {}}
           />
         );
       })}
@@ -89,6 +104,7 @@ const LanguageSwitcher = (props) => {
 
 LanguageSwitcher.defaultProps = {
   onSetDefault: null,
+  orientation: 'horizontal',
 };
 
 LanguageSwitcher.propTypes = {
@@ -97,6 +113,7 @@ LanguageSwitcher.propTypes = {
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   onSetDefault: PropTypes.func,
+  orientation: PropTypes.oneOf(['horizontal', 'vertical']),
 };
 
 export default LanguageSwitcher;

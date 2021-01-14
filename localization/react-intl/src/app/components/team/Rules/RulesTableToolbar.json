@@ -1,19 +1,23 @@
 [
   {
-    "id": "rulesTableToolbar.selected",
-    "defaultMessage": "{numSelected, plural, one {1 selected} other {# selected}}"
-  },
-  {
     "id": "rulesTableToolbar.title",
-    "defaultMessage": "{numRules, plural, one {1 rule} other {# rules}}"
+    "defaultMessage": "Rules"
   },
   {
-    "id": "rulesTableToolbar.delete",
-    "defaultMessage": "Delete"
+    "id": "rulesTableToolbar.subtitle",
+    "defaultMessage": "Create automations to organize lists and customize your workflow."
   },
   {
     "id": "rulesTableToolbar.add",
     "defaultMessage": "New rule"
+  },
+  {
+    "id": "rulesTableToolbar.selected",
+    "defaultMessage": "{numSelected, plural, one {1 selected} other {# selected}}"
+  },
+  {
+    "id": "rulesTableToolbar.delete",
+    "defaultMessage": "Delete"
   },
   {
     "id": "rulesTableToolbar.deleteConfirmationTitle",

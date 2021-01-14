@@ -33,6 +33,8 @@ const MediaSimilarityBarComponent = ({
   confirmedMainItem,
   suggestedMainItem,
   canAdd,
+  isBlank,
+  isPublished,
 }) => {
   const classes = useStyles();
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
@@ -93,8 +95,9 @@ const MediaSimilarityBarComponent = ({
           <MediaSimilarityBarAdd
             projectMediaId={confirmedMainItem.id}
             projectMediaDbid={projectMediaDbid}
-            canBeAddedToSimilar={!hasMain}
+            canBeAddedToSimilar={!hasMain && !isPublished}
             similarCanBeAddedToIt={!hasMain}
+            canBeAddedToImported={!isBlank}
           /> : null }
       </Box>
     </Box>
@@ -121,6 +124,8 @@ MediaSimilarityBarComponent.propTypes = {
     }).isRequired,
   }).isRequired,
   canAdd: PropTypes.bool.isRequired,
+  isBlank: PropTypes.bool.isRequired,
+  isPublished: PropTypes.bool.isRequired,
 };
 
 export default MediaSimilarityBarComponent;

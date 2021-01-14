@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "تم إرسال العناصر.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "إنشاء"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "تكرار مساحة العمل"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "تكرار"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "إختيار قائمة"
+	},
+	"detachDialog.cancelButton": {
+		"string": "إلغاء",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "نقل إلى قائمة",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "إضافة حالة"
@@ -1016,7 +1043,7 @@
 		"string": "بإمكانكم بإضافة لغات جديدة إلى مساحة العمل الخاصة بكم لإنشاء التقارير وبوتات الخط السّاخن (Tipline) والحالات بلغات متعددة عند التواصل مع المستخدمين."
 	},
 	"languagesComponent.title": {
-		"string": "لغات المحتوى"
+		"string": "اللغات"
 	},
 	"list.Demand": {
 		"string": "الطلبات"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "فصل"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "تمت العملية، جارِ التحويل إلى العنصر الأساسي الجديد"
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, zero {لا يوجد تحديد} one {1 محدد} two {2 محددان} few {# محددين} many {# محدد} other {# محدد}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, zero {لا توجد قاعدة} one {1 قاعدة} two {قاعدتان} few {# قواعد} many {# قاعدة} other {# قاعدة}}"
+		"string": "القواعد"
 	},
 	"search.Filter": {
 		"string": "فلتر "
@@ -2084,22 +2118,22 @@
 		"string": "نوع المادة الإعلامية"
 	},
 	"search.showAudios": {
-		"string": "ملفات صوتية"
+		"string": "صوت"
 	},
 	"search.showBlank": {
 		"string": "التقرير المستورد"
 	},
 	"search.showClaims": {
-		"string": "نصوص"
+		"string": "نص"
 	},
 	"search.showImages": {
-		"string": "صور"
+		"string": "صورة"
 	},
 	"search.showLinks": {
-		"string": "روابط"
+		"string": "الرابط"
 	},
 	"search.showVideos": {
-		"string": "الفيديوهات"
+		"string": "فيديو"
 	},
 	"search.statusHeading": {
 		"string": "حالة العنصر"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": "و"
 	},
+	"settingsHeader.save": {
+		"string": "حفظ"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "يرجى اﻹجابة "
 	},
@@ -2181,7 +2218,7 @@
 		"string": "إعدادات التكامل"
 	},
 	"slackConfig.text": {
-		"string": "إرسال تنبيه إلى قناة Slack عند حدوث أى نشاط في مساحة العمل."
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "تكامل مع Slack"
@@ -2220,7 +2257,7 @@
 		"string": "إرسال تنبيهات إلى"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة ادعاءات إلى قوائم محددة"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "لا يوجد وصف"
 	},
-	"statusesComponent.blurb": {
-		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "تم حفظ الحالات بنجاح!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, zero {# حالة} one {حالة واحدة} two {حالتان} few {# حالات} many {# حالة} other {# حالة}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "إلغاء"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "المناطق الزمنية المتاحة لإكمال المهمة"
 	},
-	"teamBots.botGarden": {
-		"string": "تصفح Bot Garden"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "إغلاق"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "خطأ! يرجى إعادة المحاولة."
 	},
-	"teamBots.moreInfo": {
-		"string": "المزيد من المعلومات"
-	},
 	"teamBots.noBots": {
 		"string": "لا يوجد بوتات مثبتة."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "الخيار غير متاح"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "تم حفظ الإعدادات"
+	},
+	"teamBots.title": {
+		"string": "البوتات"
 	},
 	"teamComponent.cancelButton": {
 		"string": "إلغاء"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "الموقع الإلكتروني"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "تكرار"
+	},
 	"teamInfo.editTeam": {
 		"string": "تحرير"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "التكاملات"
 	},
 	"teamInviteCard.copied": {
 		"string": "نسخ"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "بيانات وصفيّة"
 	},
-	"teamListsComponent.save": {
-		"string": "حفظ"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "تم حفظ إعدادات القوائم بنجاح.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "حفظ"
 	},
 	"teamReport.subtitle": {
-		"string": "المحتوى الذى تعينه هنا يمكن تحريره في كل تقرير على حدة"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "إعدادات التقرير الافتراضية"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "حذف الوسم"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "تحرير الوسم"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "وسم جديد"
 	},
+	"teamTags.newTag": {
+		"string": "وسم جديد"
+	},
 	"teamTags.noTags": {
 		"string": "لا توجد وسوم"
+	},
+	"teamTags.title": {
+		"string": "الوسوم"
 	},
 	"teamTags.tooltip": {
 		"string": "فلترة وترتيب القائمة"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "البيانات الوصفيّة"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "هل تودّون المتابعة؟"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "المهام"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "نوع المهمة"

@@ -25,6 +25,7 @@ shared_examples 'metadata' do
     # change the metadata order
     task = wait_for_selector('.team-tasks__task-label > span > span') # first metadata
     expect(task.text).to eq 'my metadata - Edited'
+    @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector('.reorder__button-down').click
     task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
     expect(task.text).to eq 'my data time metadata'

@@ -43,7 +43,7 @@ class FilterPopup extends React.Component {
               </IconButton>
             </Tooltip>
             :
-            <IconButton onClick={this.handleMenuClick}>
+            <IconButton className="filter-popup__open-button" onClick={this.handleMenuClick}>
               <FilterListIcon />
             </IconButton>
           }
@@ -58,6 +58,7 @@ class FilterPopup extends React.Component {
               <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
                 {placeholder => (
                   <TextField
+                    className="filter-popup__filter-search"
                     defaultValue={this.props.search}
                     onChange={this.props.onSearchChange}
                     name="filter-search"
@@ -69,7 +70,7 @@ class FilterPopup extends React.Component {
             ) : null}
             {this.props.children}
             <div>
-              <Button onClick={this.handleClose} style={{ marginTop: units(2) }}>
+              <Button className="filter-popup__close-button" onClick={this.handleClose} style={{ marginTop: units(2) }}>
                 <FormattedMessage id="FilterPopup.close" defaultMessage="Done" />
               </Button>
             </div>

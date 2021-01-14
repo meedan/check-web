@@ -29,7 +29,7 @@
   },
   {
     "id": "createTeamDialog.duplicating",
-    "defaultMessage": "Duplicating..."
+    "defaultMessage": "Duplicating…"
   },
   {
     "id": "createTeamDialog.duplice",
@@ -37,7 +37,7 @@
   },
   {
     "id": "createTeamDialog.creating",
-    "defaultMessage": "Creating..."
+    "defaultMessage": "Creating…"
   },
   {
     "id": "createTeamDialog.create",

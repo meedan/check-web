@@ -14,12 +14,12 @@
     "defaultMessage": "List settings"
   },
   {
-    "id": "teamListsComponent.save",
-    "defaultMessage": "Save"
-  },
-  {
     "id": "teamListsComponent.description",
     "defaultMessage": "Select all the columns you want to display in all your lists."
+  },
+  {
+    "id": "settingsHeader.save",
+    "defaultMessage": "Save"
   },
   {
     "id": "teamListsComponent.displayedColumns",

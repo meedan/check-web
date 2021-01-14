@@ -5,8 +5,15 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import styled from 'styled-components';
 import Reorder from '../../layout/Reorder';
 import { black16 } from '../../../styles/js/shared';
+
+const ArrowReorder = styled.div`
+  .reorder__button-up, .reorder__button-down {
+    padding: .5rem;
+  }
+`;
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -15,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1),
     marginBottom: theme.spacing(1),
     marginTop: theme.spacing(1),
-    minHeight: theme.spacing(10),
+    Minheight: theme.spacing(10),
     background: 'white',
   },
   label: {
@@ -59,12 +66,14 @@ const TeamListsItem = ({
   return (
     <Box display="flex" flexWrap="nowrap" alignItems="center">
       { onMoveUp && onMoveDown ?
-        <Reorder
-          onMoveUp={handleMoveUp}
-          onMoveDown={handleMoveDown}
-          disableUp={isFirst}
-          disableDown={isLast}
-        /> : null }
+        <ArrowReorder>
+          <Reorder
+            onMoveUp={handleMoveUp}
+            onMoveDown={handleMoveDown}
+            disableUp={isFirst}
+            disableDown={isLast}
+          />
+        </ArrowReorder> : null }
       <Box
         id={`team-lists__item-${index}-${key}`}
         className={classes.box}

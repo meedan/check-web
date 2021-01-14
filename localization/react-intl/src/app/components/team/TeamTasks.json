@@ -16,6 +16,22 @@
     "defaultMessage": "No metadata fields"
   },
   {
+    "id": "teamTasks.tasks",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "teamTasks.metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
+    "id": "teamTasks.tasksSubtitle",
+    "defaultMessage": "Add custom tasks to items."
+  },
+  {
+    "id": "teamTasks.metadataSubtitle",
+    "defaultMessage": "Add custom metadata fields to items."
+  },
+  {
     "id": "teamTasks.filter",
     "defaultMessage": "Filter tasks"
   },
@@ -26,13 +42,5 @@
   {
     "id": "teamTasks.typeFilter",
     "defaultMessage": "Task type"
-  },
-  {
-    "id": "teamTasks.tasks",
-    "defaultMessage": "Tasks"
-  },
-  {
-    "id": "teamTasks.metadata",
-    "defaultMessage": "Metadata"
   }
 ]

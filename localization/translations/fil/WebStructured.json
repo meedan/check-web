@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Inilipat ang mga item.",
+		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -748,11 +748,26 @@
 	"createTeamDialog.create": {
 		"string": "Gumawa"
 	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
 	"createTeamDialog.defaultErrorMessage": {
 		"string": "Could not create new workspace"
 	},
-	"createTeamDialog.dialogTitle": {
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
 		"string": "Create new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "I-duplicate ang workspace"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "I-duplicate"
 	},
 	"createTeamDialog.name": {
 		"string": "Workspace name"
@@ -804,6 +819,18 @@
 	},
 	"destinationProjects.choose": {
 		"string": "Mamili ng listahan"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Kanselahin",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Ilipat sa listahan",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Magdagdag ng status"
@@ -1016,7 +1043,7 @@
 		"string": "Magdagdag ng mga bagong wika sa iyong workspace para makagawa ng mga ulat, tipline bot, at mga status sa maraming wika kapag nakikipag-usap sa mga user."
 	},
 	"languagesComponent.title": {
-		"string": "Mga wika ng nilalaman"
+		"string": "Mga wika"
 	},
 	"list.Demand": {
 		"string": "Mga kahilingan"
@@ -1410,6 +1437,10 @@
 	},
 	"mediaItem.detach": {
 		"string": "I-detach"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
 		"string": "Tapos na, nagre-redirect sa bagong pangunahing item..."
@@ -2005,8 +2036,11 @@
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {1 pinili} other {# pinili}}"
 	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize lists and customize your workflow."
+	},
 	"rulesTableToolbar.title": {
-		"string": "{numRules, plural, one {1 panuntunan} other {# panuntunan}}"
+		"string": "Mga panuntunan"
 	},
 	"search.Filter": {
 		"string": "Filter"
@@ -2084,22 +2118,22 @@
 		"string": "Uri ng media"
 	},
 	"search.showAudios": {
-		"string": "Mga audio"
+		"string": "Audio"
 	},
 	"search.showBlank": {
 		"string": "Inangkat na ulat"
 	},
 	"search.showClaims": {
-		"string": "Mga teksto"
+		"string": "Tektso"
 	},
 	"search.showImages": {
-		"string": "Mga larawan"
+		"string": "Larawan"
 	},
 	"search.showLinks": {
-		"string": "Mga link"
+		"string": "Link"
 	},
 	"search.showVideos": {
-		"string": "Mga video"
+		"string": "Video"
 	},
 	"search.statusHeading": {
 		"string": "Status ng item"
@@ -2156,6 +2190,9 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"settingsHeader.save": {
+		"string": "I-save"
+	},
 	"shortTextRespondTask.answerTask": {
 		"string": "Sagutin ang gawain"
 	},
@@ -2181,7 +2218,7 @@
 		"string": "Mga setting pang-integration"
 	},
 	"slackConfig.text": {
-		"string": "Mag-abiso sa isang Slack channel tungkol sa aktibidad ng workspace."
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfig.title": {
 		"string": "Integration sa Slack"
@@ -2220,7 +2257,7 @@
 		"string": "Magpadala ng mga abiso sa"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Magpadala ng abiso sa mga Slack channel tuwing may idinaragdag na pahayag sa mga piling listahan"
+		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2471,9 +2508,6 @@
 	"statusListItem.noDescription": {
 		"string": "Walang pagkakalarawan"
 	},
-	"statusesComponent.blurb": {
-		"string": "Makikita ang pamagat ng status kapag nagpapadala ng ulat sa mga user."
-	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Isalin ang mga status sa mga sekondaryong wika para maipakita sila sa mga lokal na wika sa iyong mga ulat pang-fact check."
 	},
@@ -2489,8 +2523,12 @@
 	"statusesComponent.saved": {
 		"string": "Matagumpay na na-save ang mga status!"
 	},
+	"statusesComponent.subtitle": {
+		"string": "Makikita ang pamagat ng status kapag nagpapadala ng ulat sa mga user."
+	},
 	"statusesComponent.title": {
-		"string": "{statuses_count, plural, one {1 status} other {# mga status}}"
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Kanselahin"
@@ -2660,8 +2698,8 @@
 	"tasks.timezones": {
 		"string": "Mga available na timezone para makumpleto ang gawain"
 	},
-	"teamBots.botGarden": {
-		"string": "I-browse ang Bot Garden"
+	"teamBots.browserBots": {
+		"string": "Browse bots"
 	},
 	"teamBots.close": {
 		"string": "Isara"
@@ -2690,9 +2728,6 @@
 	"teamBots.fail": {
 		"string": "Error! Mangyaring sumubok muli."
 	},
-	"teamBots.moreInfo": {
-		"string": "Karagdagang impormasyon"
-	},
 	"teamBots.noBots": {
 		"string": "Walang naka-install na bot."
 	},
@@ -2717,8 +2752,14 @@
 	"teamBots.smoochErrorTitle": {
 		"string": "Hindi available na option"
 	},
+	"teamBots.subtitle": {
+		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+	},
 	"teamBots.success": {
 		"string": "Na-update ang mga setting!"
+	},
+	"teamBots.title": {
+		"string": "Mga bot"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Kanselahin"
@@ -2765,8 +2806,17 @@
 	"teamComponent.website": {
 		"string": "Website"
 	},
+	"teamInfo.duplicateTeam": {
+		"string": "I-duplicate"
+	},
 	"teamInfo.editTeam": {
 		"string": "I-edit"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Mga integration"
 	},
 	"teamInviteCard.copied": {
 		"string": "KOPYAHIN"
@@ -2841,9 +2891,6 @@
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadata"
 	},
-	"teamListsComponent.save": {
-		"string": "I-save"
-	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Matagumpay na nai-save ang mga setting panlistahan.",
 		"developer_comment": "Banner displayed when list settings are saved successfully"
@@ -2900,7 +2947,7 @@
 		"string": "I-save"
 	},
 	"teamReport.subtitle": {
-		"string": "Ang nilalaman na itakda mo rito ay pwedeng ma-edit sa bawat indibidwal na ulat"
+		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReport.title": {
 		"string": "Mga default na setting ng ulat"
@@ -2956,6 +3003,9 @@
 	"teamTags.deleteTag": {
 		"string": "Burahin ang tag"
 	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
 	"teamTags.editTag": {
 		"string": "I-edit ang tag"
 	},
@@ -2980,8 +3030,14 @@
 	"teamTags.new": {
 		"string": "Bagong tag"
 	},
+	"teamTags.newTag": {
+		"string": "Bagong tag"
+	},
 	"teamTags.noTags": {
 		"string": "Walang tag"
+	},
+	"teamTags.title": {
+		"string": "Mga tag"
 	},
 	"teamTags.tooltip": {
 		"string": "I-filter at isaayos ang listahan"
@@ -3046,6 +3102,9 @@
 	"teamTasks.metadata": {
 		"string": "Metadata"
 	},
+	"teamTasks.metadataSubtitle": {
+		"string": "Add custom metadata fields to items."
+	},
 	"teamTasks.processMessage": {
 		"string": "Nais mo bang magpatuloy?"
 	},
@@ -3054,6 +3113,9 @@
 	},
 	"teamTasks.tasks": {
 		"string": "Mga Gawain"
+	},
+	"teamTasks.tasksSubtitle": {
+		"string": "Add custom tasks to items."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Uri ng gawain"

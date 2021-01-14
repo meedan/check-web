@@ -40,12 +40,16 @@
     "defaultMessage": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
   },
   {
-    "id": "teamTags.tooltip",
-    "defaultMessage": "Filter and sort list"
+    "id": "teamTags.title",
+    "defaultMessage": "Tags"
   },
   {
-    "id": "teamTags.noTags",
-    "defaultMessage": "No tags"
+    "id": "teamTags.description",
+    "defaultMessage": "Tags can be added to media, items and sources."
+  },
+  {
+    "id": "teamTags.newTag",
+    "defaultMessage": "New tag"
   },
   {
     "id": "teamTags.new",
@@ -54,6 +58,14 @@
   {
     "id": "teamTags.addTag",
     "defaultMessage": "Add tag"
+  },
+  {
+    "id": "teamTags.tooltip",
+    "defaultMessage": "Filter and sort list"
+  },
+  {
+    "id": "teamTags.noTags",
+    "defaultMessage": "No tags"
   },
   {
     "id": "teamTags.confirmDeleteTitle",
