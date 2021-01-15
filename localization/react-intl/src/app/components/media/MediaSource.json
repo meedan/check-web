@@ -1,27 +1,7 @@
 [
   {
-    "id": "userSource.mediasCount",
-    "description": "show source media counts",
-    "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
-  },
-  {
-    "id": "MediaSource.mainName",
-    "description": "souce name",
-    "defaultMessage": "Main name"
-  },
-  {
-    "id": "MediaSource.mainAccount",
-    "description": "URL for first account related to media souce",
-    "defaultMessage": "Main source URL"
-  },
-  {
-    "id": "mediaSource.secondaryAccounts",
-    "description": "URLs for source accounts except first account",
-    "defaultMessage": "Secondary source URLs"
-  },
-  {
-    "id": "mediaSource.addLink",
-    "description": "allow user to relate a new link to media source",
-    "defaultMessage": "Add a secondary URL"
+    "id": "mediaSource.sourceName",
+    "description": "Label for create source name",
+    "defaultMessage": "Name"
   }
 ]

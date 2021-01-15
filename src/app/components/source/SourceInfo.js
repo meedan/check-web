@@ -253,7 +253,7 @@ class SourceInfo extends Component {
                         disabled={!can(source.permissions, 'update Source')}
                         error={this.state.sourceError}
                         helperText={this.state.sourceError}
-                        onKeyPress={e => this.handleKeyPress(e, source, 'updateName', 'createAccountSource')}
+                        onKeyPress={e => this.handleKeyPress(e, source, 'updateName')}
                         onChange={e => this.handleChangeName(e)}
                         style={{ width: '100%' }}
                         margin="normal"
@@ -294,45 +294,49 @@ class SourceInfo extends Component {
                 />
                 <Collapse in={this.state.expandAccounts} timeout="auto">
                   <CardContent className="source__card-text">
-                    <Row>
-                      <TextField
-                        id="main_source__link"
-                        defaultValue={mainAccount.node.account.url}
-                        style={{ width: '100%' }}
-                        margin="normal"
-                        disabled
-                      />
-                    </Row>
-                    {secondaryAccounts.length === 0 ?
-                      null :
-                      <h2>
-                        <FormattedMessage
-                          id="sourceInfo.secondaryAccounts"
-                          defaultMessage="Secondary source URLs"
-                          description="URLs for source accounts except first account"
-                        />
-                      </h2>
-                    }
-                    {secondaryAccounts.map((as, index) => (
-                      <div key={as.node.id} className="source__url">
+                    {mainAccount ?
+                      <div>
                         <Row>
                           <TextField
-                            id={`source__link-item${index.toString()}`}
-                            defaultValue={as.node.account.url}
+                            id="main_source__link"
+                            defaultValue={mainAccount.node.account.url}
                             style={{ width: '100%' }}
                             margin="normal"
                             disabled
                           />
-                          {can(as.node.permissions, 'destroy AccountSource') ?
-                            <StyledIconButton
-                              className="source__remove-link-button"
-                              onClick={() => SourceInfo.handleRemoveLink(as.node.id, source)}
-                            >
-                              <CancelIcon />
-                            </StyledIconButton> : null
-                          }
                         </Row>
-                      </div>))}
+                        {secondaryAccounts.length === 0 ?
+                          null :
+                          <h2>
+                            <FormattedMessage
+                              id="sourceInfo.secondaryAccounts"
+                              defaultMessage="Secondary source URLs"
+                              description="URLs for source accounts except first account"
+                            />
+                          </h2>
+                        }
+                        {secondaryAccounts.map((as, index) => (
+                          <div key={as.node.id} className="source__url">
+                            <Row>
+                              <TextField
+                                id={`source__link-item${index.toString()}`}
+                                defaultValue={as.node.account.url}
+                                style={{ width: '100%' }}
+                                margin="normal"
+                                disabled
+                              />
+                              {can(as.node.permissions, 'destroy AccountSource') ?
+                                <StyledIconButton
+                                  className="source__remove-link-button"
+                                  onClick={() => SourceInfo.handleRemoveLink(as.node.id, source)}
+                                >
+                                  <CancelIcon />
+                                </StyledIconButton> : null
+                              }
+                            </Row>
+                          </div>))}
+                      </div> : null
+                    }
                     { this.state.addNewLink ?
                       <div key="source-add-new-link" className="source__url-input">
                         <Row>
@@ -342,7 +346,7 @@ class SourceInfo extends Component {
                             value={this.state.linkUrl}
                             error={this.state.linkError}
                             helperText={this.state.linkError}
-                            onKeyPress={e => this.handleKeyPress(e, source)}
+                            onKeyPress={e => this.handleKeyPress(e, source, 'createAccountSource')}
                             onChange={e => this.handleChangeLink(e)}
                             style={{ width: '100%' }}
                             margin="normal"

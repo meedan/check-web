@@ -356,7 +356,7 @@ class MediaComponent extends Component {
                     value="source"
                     className="media-tab__source"
                   />
-                  <StyledTab
+                  <Tab
                     label={
                       <FormattedMessage
                         id="mediaComponent.tasks"
