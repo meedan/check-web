@@ -4,6 +4,7 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -12,6 +13,7 @@ import UploadFile from '../UploadFile';
 import Message from '../Message';
 import globalStrings from '../../globalStrings';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
+import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import { getCurrentProjectId } from '../../helpers';
 
 class MediaSourceComponent extends Component {
@@ -22,6 +24,7 @@ class MediaSourceComponent extends Component {
       sourceAction: 'view',
       submitDisabled: false,
       image: null,
+      mediaSourceValue: null,
     };
   }
 
@@ -100,9 +103,29 @@ class MediaSourceComponent extends Component {
     this.setState({ sourceAction: 'view' });
   }
 
+  handleChangeSource(value) {
+    this.setState({ mediaSourceValue: value });
+  }
+
+  handleChangeSourceSubmit() {
+    if (this.state.mediaSourceValue) {
+      const onFailure = () => {};
+      const onSuccess = () => { this.setState({ sourceAction: 'view' }); };
+      Relay.Store.commitUpdate(
+        new UpdateProjectMediaMutation({
+          id: this.props.media.id,
+          source_id: this.state.mediaSourceValue.dbid,
+        }),
+        { onSuccess, onFailure },
+      );
+      this.setState({ mediaSourceValue: null });
+    }
+  }
+
   render() {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const { team, source } = media;
+    const teamSources = team.sources.edges.map(({ node }) => node);
     return (
       <React.Fragment>
         <div id="media__source" style={this.props.style}>
@@ -158,6 +181,46 @@ class MediaSourceComponent extends Component {
               </div>
             </div> : null
           }
+          {this.state.sourceAction === 'change' ?
+            <div id="media_source-create" style={{ padding: '8px 5px', width: '85%' }}>
+              <div style={{ width: 300 }}>
+                <Autocomplete
+                  autoHighlight
+                  options={teamSources}
+                  getOptionLabel={option => option.name}
+                  getOptionSelected={(option, val) => val !== null && option.id === val.id}
+                  value={this.state.mediaSourceValue}
+                  onChange={(event, newValue) => {
+                    this.handleChangeSource(newValue);
+                  }}
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      autoFocus
+                      name="source-name"
+                      label={
+                        <FormattedMessage id="mediaSource.choose" defaultMessage="Choose a source" />
+                      }
+                      variant="outlined"
+                    />
+                  )}
+                />
+                <div>
+                  <Button color="primary" onClick={this.handleCancel.bind(this)}>
+                    <FormattedMessage id="mediaSource.cancelButton" defaultMessage="Cancel" />
+                  </Button>
+                  <Button
+                    color="primary"
+                    className="project-media-source-save-action"
+                    onClick={this.handleChangeSourceSubmit.bind(this)}
+                    disabled={!this.state.mediaSourceValue}
+                  >
+                    <FormattedMessage id="mediaSource.saveButton" defaultMessage="Save" />
+                  </Button>
+                </div>
+              </div>
+            </div> : null
+          }
         </div>
       </React.Fragment>
     );
@@ -179,6 +242,16 @@ const MediaSourceContainer = Relay.createContainer(withPusher(MediaSourceCompone
         pusher_channel
         team {
           slug
+          name
+          sources(first: 1000) {
+            edges {
+              node {
+                id
+                dbid
+                name
+              }
+            }
+          }
         }
         source {
           id

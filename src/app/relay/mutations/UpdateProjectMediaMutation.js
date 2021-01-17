@@ -134,6 +134,9 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
     if (this.props.dstProj) {
       vars.add_to_project_id = this.props.dstProj.dbid;
     }
+    if (this.props.source_id) {
+      vars.source_id = this.props.source_id;
+    }
     return vars;
   }
 

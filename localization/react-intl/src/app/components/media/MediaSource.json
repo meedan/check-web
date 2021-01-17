@@ -3,5 +3,17 @@
     "id": "mediaSource.sourceName",
     "description": "Label for create source name",
     "defaultMessage": "Name"
+  },
+  {
+    "id": "mediaSource.choose",
+    "defaultMessage": "Choose a source"
+  },
+  {
+    "id": "mediaSource.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "mediaSource.saveButton",
+    "defaultMessage": "Save"
   }
 ]
