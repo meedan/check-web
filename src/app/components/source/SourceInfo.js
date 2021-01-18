@@ -14,6 +14,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
+import Message from '../Message';
 import UploadFile from '../UploadFile';
 import { can } from '../Can';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
@@ -121,7 +122,8 @@ class SourceInfo extends Component {
   updateName = (ev, source) => {
     if (ev.key === 'Enter' && !ev.shiftKey) {
       ev.preventDefault();
-      this.updateSource(this.state.sourceName, source);
+      this.updateSource('name', source);
+      this.setState({ sourceError: '' });
     }
   };
 
@@ -169,33 +171,54 @@ class SourceInfo extends Component {
     );
   }
 
+  handleImageChange = (file) => {
+    this.setState({ image: file, message: null });
+  }
+
+  handleImageError = (file, message) => {
+    this.setState({ message, image: null });
+  }
+
   handleEditProfileImg() {
     this.setState({ editProfileImg: true });
   }
 
-  updateSource(name, source) {
+  handleCancelEditProfileImg() {
+    this.setState({ editProfileImg: false, message: null });
+  }
+
+  updateSource(type, source) {
     const onFailure = (transaction) => {
       const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-      this.setState({ sourceError: message });
+      if (type === 'name') {
+        this.setState({ sourceError: message });
+      } else {
+        this.setState({ message });
+      }
     };
 
     const onSuccess = () => {
-      this.setState({ sourceError: '' });
+      this.setState({ editProfileImg: false, message: null });
     };
 
-    if (!name) {
-      return;
+    const { sourceName, image } = this.state;
+
+    if (source.name === sourceName && !this.state.image) {
+      return false;
     }
 
     Relay.Store.commitUpdate(
       new UpdateSourceMutation({
         source: {
           id: source.id,
-          name,
+          name: sourceName,
+          image,
         },
       }),
       { onSuccess, onFailure },
     );
+
+    return true;
   }
 
   handleRemoveNewLink() {
@@ -206,12 +229,9 @@ class SourceInfo extends Component {
     this.setState({ secondaryUrl: { url: '', error: '', addNewLink: true } });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
-
-    if (!this.state.submitDisabled) {
-      this.setState({ submitDisabled: true });
-    }
+  updateImage(e, source) {
+    this.updateSource('image', source);
+    this.setState({ message: null });
   }
 
   handleCancel() {
@@ -229,32 +249,30 @@ class SourceInfo extends Component {
       <React.Fragment>
         <div id={`source-${source.dbid}`} style={this.props.style}>
           <Row style={{ padding: '8px 5px' }}>
-            <form
-              onSubmit={this.handleSubmit.bind(this)}
-              name="create-edis-media-source-form"
-            >
-              <StyledTwoColumns>
-                <StyledSmallColumn>
-                  <SourcePicture
-                    size="large"
-                    object={source}
-                    type="user"
-                    className="source__avatar"
-                  />
-                  {!this.state.editProfileImg ?
-                    <StyledAvatarEditButton className="source__edit-avatar-button">
-                      <Button
-                        onClick={this.handleEditProfileImg.bind(this)}
-                        color="primary"
-                      >
-                        <FormattedMessage {...globalStrings.edit} />
-                      </Button>
-                    </StyledAvatarEditButton>
-                    : null}
-                </StyledSmallColumn>
-                <StyledBigColumn>
-                  <div className="source__primary-info">
-                    {this.state.editProfileImg ?
+            <StyledTwoColumns>
+              <StyledSmallColumn>
+                <SourcePicture
+                  size="large"
+                  object={source}
+                  type="user"
+                  className="source__avatar"
+                />
+                {!this.state.editProfileImg ?
+                  <StyledAvatarEditButton className="source__edit-avatar-button">
+                    <Button
+                      onClick={this.handleEditProfileImg.bind(this)}
+                      color="primary"
+                    >
+                      <FormattedMessage {...globalStrings.edit} />
+                    </Button>
+                  </StyledAvatarEditButton>
+                  : null}
+              </StyledSmallColumn>
+              <StyledBigColumn>
+                <div className="source__primary-info">
+                  {this.state.editProfileImg ?
+                    <div>
+                      <Message message={this.state.message} />
                       <UploadFile
                         type="image"
                         value={this.state.image}
@@ -262,26 +280,41 @@ class SourceInfo extends Component {
                         onError={this.handleImageError}
                         noPreview
                       />
-                      : null}
-                    <StyledName className="source__name">
-                      <Row>
-                        {this.state.sourceName}
-                      </Row>
-                    </StyledName>
-                    <Link to={sourceMediasLink}>
-                      <FormattedMessage
-                        id="sourceInfo.mediasCount"
-                        defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
-                        description="show source media counts"
-                        values={{
-                          mediasCount: source.medias_count || 0,
-                        }}
-                      />
-                    </Link>
-                  </div>
-                </StyledBigColumn>
-              </StyledTwoColumns>
-            </form>
+                      <div className="source__edit-buttons-cancel-save">
+                        <Button
+                          className="source__edit-cancel-button"
+                          onClick={this.handleCancelEditProfileImg.bind(this)}
+                        >
+                          <FormattedMessage {...globalStrings.cancel} />
+                        </Button>
+                        <Button
+                          className="source__edit-save-button"
+                          disabled={!this.state.image}
+                          onClick={e => this.updateImage(e, source)}
+                        >
+                          <FormattedMessage {...globalStrings.save} />
+                        </Button>
+                      </div>
+                    </div>
+                    : null}
+                  <StyledName className="source__name">
+                    <Row>
+                      {this.state.sourceName}
+                    </Row>
+                  </StyledName>
+                  <Link to={sourceMediasLink}>
+                    <FormattedMessage
+                      id="sourceInfo.mediasCount"
+                      defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
+                      description="show source media counts"
+                      values={{
+                        mediasCount: source.medias_count || 0,
+                      }}
+                    />
+                  </Link>
+                </div>
+              </StyledBigColumn>
+            </StyledTwoColumns>
           </Row>
           <StyledWordBreakDiv>
             <Box clone mb={1}>
