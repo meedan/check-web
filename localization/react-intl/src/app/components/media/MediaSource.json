@@ -8,17 +8,5 @@
     "id": "mediaSource.createSource",
     "description": "allow user to create a new source",
     "defaultMessage": "Create new"
-  },
-  {
-    "id": "mediaSource.choose",
-    "defaultMessage": "Choose a source"
-  },
-  {
-    "id": "mediaSource.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
-    "id": "mediaSource.saveButton",
-    "defaultMessage": "Save"
   }
 ]

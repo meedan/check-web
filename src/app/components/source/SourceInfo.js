@@ -98,6 +98,7 @@ class SourceInfo extends Component {
       expandName: true,
       expandAccounts: true,
       sourceName,
+      sourceError: '',
       secondaryUrl: { url: '', error: '', addNewLink: false },
       primaryUrl: { url: '', error: '', addNewLink: false },
     };
@@ -351,7 +352,7 @@ class SourceInfo extends Component {
                         name="source__name-input"
                         value={this.state.sourceName}
                         disabled={!can(source.permissions, 'update Source')}
-                        error={this.state.sourceError}
+                        error={this.state.sourceError.length !== 0}
                         helperText={this.state.sourceError}
                         onKeyPress={e => this.updateName(e, source)}
                         onChange={e => this.handleChangeName(e)}
@@ -416,7 +417,7 @@ class SourceInfo extends Component {
                             />
                           }
                           value={this.state.primaryUrl.url}
-                          error={this.state.primaryUrl.error}
+                          error={this.state.primaryUrl.error.length !== 0}
                           helperText={this.state.primaryUrl.error}
                           onKeyPress={e => this.handleKeyPress(e, source, 'primary')}
                           onChange={e => this.handleChangeLink(e, 'primary')}
@@ -462,7 +463,7 @@ class SourceInfo extends Component {
                             id="source__link-input-new"
                             name="source__link-input-new"
                             value={this.state.secondaryUrl.url}
-                            error={this.state.secondaryUrl.error}
+                            error={this.state.secondaryUrl.error.length !== 0}
                             helperText={this.state.secondaryUrl.error}
                             onKeyPress={e => this.handleKeyPress(e, source, 'secondary')}
                             onChange={e => this.handleChangeLink(e, 'secondary')}
