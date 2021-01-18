@@ -127,6 +127,7 @@ class MediaSourceComponent extends Component {
             <SourceInfo
               source={source}
               team={team}
+              onChangeClick={this.handleChangeSource.bind(this)}
             /> : null
           }
           {this.state.sourceAction === 'create' ?
