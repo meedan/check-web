@@ -5,6 +5,11 @@
     "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
   },
   {
+    "id": "mediaSource.changeSource",
+    "description": "allow user to change a project media source",
+    "defaultMessage": "Change"
+  },
+  {
     "id": "sourceInfo.mainName",
     "description": "souce name",
     "defaultMessage": "Main name"

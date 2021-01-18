@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+import { withStyles } from '@material-ui/core/styles';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import Message from '../Message';
@@ -28,7 +29,6 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
   units,
-  separationGray,
   StyledIconButton,
 } from '../../styles/js/shared';
 import {
@@ -44,36 +44,15 @@ const StyledWordBreakDiv = styled.div`
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;
-
-  .source {
-    width: 100%;
-    pa
-    box-shadow: none;
-    border-bottom: 1px solid ${separationGray};
-    border-radius: 0;
-    margin-bottom: 0 !important;
-
-    .source__card-header {
-      padding: ${units(3)} 0;
-      flex-direction: row-reverse;
-      display: flex;
-      align-items: flex-start;
-
-      .source__card-expand {
-        margin: ${units(0)} ${units(1)} 0 0;
-      }
-
-      .source__card-description {
-        padding: ${units(2)} 0 0 0;
-      }
-    }
-  }
-
-  .source__card-text {
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
-  }
 `;
+
+const styles = {
+  headerRow: {
+    display: 'flex',
+    alignItems: 'top',
+    justifyContent: 'space-between',
+  },
+};
 
 class SourceInfo extends Component {
   static handleRemoveLink(asId, source) {
@@ -240,7 +219,7 @@ class SourceInfo extends Component {
   }
 
   render() {
-    const { team, source } = this.props;
+    const { classes, team, source } = this.props;
     const accountSources = source.account_sources.edges;
     const mainAccount = accountSources[0];
     const secondaryAccounts = accountSources.slice(1);
@@ -249,11 +228,10 @@ class SourceInfo extends Component {
     return (
       <React.Fragment>
         <div id={`source-${source.dbid}`} style={this.props.style}>
-          <Row style={{ padding: '8px 5px' }}>
+          <div className={classes.headerRow}>
             <StyledTwoColumns>
               <StyledSmallColumn>
                 <SourcePicture
-                  size="large"
                   object={source}
                   type="user"
                   className="source__avatar"
@@ -315,7 +293,21 @@ class SourceInfo extends Component {
                 </div>
               </StyledBigColumn>
             </StyledTwoColumns>
-          </Row>
+            <div id="media-source-change">
+              <Button
+                style={{
+                  color: 'blue',
+                  textDecoration: 'underline',
+                }}
+              >
+                <FormattedMessage
+                  id="mediaSource.changeSource"
+                  defaultMessage="Change"
+                  description="allow user to change a project media source"
+                />
+              </Button>
+            </div>
+          </div>
           <StyledWordBreakDiv>
             <Box clone mb={1}>
               <Card
@@ -345,7 +337,7 @@ class SourceInfo extends Component {
                   }
                 />
                 <Collapse in={this.state.expandName} timeout="auto">
-                  <CardContent className="source__card-text">
+                  <CardContent>
                     <Row>
                       <TextField
                         id="source__name-input"
@@ -394,7 +386,7 @@ class SourceInfo extends Component {
                   }
                 />
                 <Collapse in={this.state.expandAccounts} timeout="auto">
-                  <CardContent className="source__card-text">
+                  <CardContent>
                     <Row>
                       {mainAccount ?
                         <TextField
@@ -507,4 +499,4 @@ class SourceInfo extends Component {
   }
 }
 
-export default SourceInfo;
+export default withStyles(styles)(SourceInfo);

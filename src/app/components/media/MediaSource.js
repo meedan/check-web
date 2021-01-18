@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -11,6 +12,12 @@ import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import { getCurrentProjectId } from '../../helpers';
+
+const style = theme => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+});
 
 class MediaSourceComponent extends Component {
   constructor(props) {
@@ -97,10 +104,12 @@ class MediaSourceComponent extends Component {
   render() {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const { team, source } = media;
+    const { classes } = this.props;
+
     return (
       <React.Fragment>
-        <div id="media__source" style={this.props.style}>
-          {this.state.sourceAction === 'view' ?
+        <div id="media__source" className={classes.root}>
+          {this.state.sourceAction === 'view' && source === null ?
             <div id="media-source-change" style={{ textAlign: 'right', textDecoration: 'underline' }}>
               <Button
                 style={{ color: 'blue' }}
@@ -145,7 +154,7 @@ MediaSourceComponent.propTypes = {
   clientSessionId: PropTypes.string.isRequired,
 };
 
-const MediaSourceContainer = Relay.createContainer(withPusher(MediaSourceComponent), {
+const MediaSourceContainer = Relay.createContainer(withPusher(withStyles(style)(MediaSourceComponent)), {
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
