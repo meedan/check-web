@@ -10,11 +10,6 @@
     "defaultMessage": "Create new"
   },
   {
-    "id": "mediaSource.sourceName",
-    "description": "Label for create source name",
-    "defaultMessage": "Name"
-  },
-  {
     "id": "mediaSource.choose",
     "defaultMessage": "Choose a source"
   },

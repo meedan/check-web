@@ -9,10 +9,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import SourceInfo from '../source/SourceInfo';
-import UploadFile from '../UploadFile';
-import Message from '../Message';
-import globalStrings from '../../globalStrings';
-import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
+import CreateMediaSource from './CreateMediaSource';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import { getCurrentProjectId } from '../../helpers';
 
@@ -22,8 +19,6 @@ class MediaSourceComponent extends Component {
 
     this.state = {
       sourceAction: 'view',
-      submitDisabled: false,
-      image: null,
       mediaSourceValue: null,
     };
   }
@@ -69,34 +64,6 @@ class MediaSourceComponent extends Component {
   unsubscribe() {
     const { pusher, media } = this.props;
     pusher.unsubscribe(media.pusher_channel);
-  }
-
-  handleImageChange = (file) => {
-    this.setState({ image: file });
-  }
-
-  handleImageError = (file, message) => {
-    this.setState({ message, image: null });
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-
-    if (!this.state.submitDisabled) {
-      const onFailure = () => {};
-      const onSuccess = () => {};
-      const form = document.forms['create-source-form'];
-      Relay.Store.commitUpdate(
-        new CreateSourceMutation({
-          name: form.name.value,
-          slogan: form.name.value,
-          image: this.state.image,
-          mediaId: this.props.media.dbid,
-        }),
-        { onSuccess, onFailure },
-      );
-      this.setState({ message: null, submitDisabled: true, sourceAction: 'view' });
-    }
   }
 
   handleCancel() {
@@ -174,50 +141,10 @@ class MediaSourceComponent extends Component {
             /> : null
           }
           {this.state.sourceAction === 'create' ?
-            <div id="media_source-create" style={{ padding: '8px 5px', width: '85%' }}>
-              <Message message={this.state.message} />
-              <form
-                onSubmit={this.handleSubmit.bind(this)}
-                name="create-source-form"
-              >
-                <UploadFile
-                  type="image"
-                  value={this.state.image}
-                  onChange={this.handleImageChange}
-                  onError={this.handleImageError}
-                />
-                <TextField
-                  className="source__name-input"
-                  name="name"
-                  id="source__name-container"
-                  label={
-                    <FormattedMessage
-                      id="mediaSource.sourceName"
-                      defaultMessage="Name"
-                      description="Label for create source name"
-                    />
-                  }
-                  style={{ width: '85%' }}
-                  margin="normal"
-                />
-              </form>
-              <div className="source__new-buttons-cancel-save">
-                <Button
-                  className="source__new-cancel-button"
-                  onClick={this.handleCancel.bind(this)}
-                >
-                  <FormattedMessage {...globalStrings.cancel} />
-                </Button>
-                <Button
-                  variant="contained"
-                  className="source__new-save-button"
-                  color="primary"
-                  onClick={this.handleSubmit.bind(this)}
-                >
-                  <FormattedMessage {...globalStrings.save} />
-                </Button>
-              </div>
-            </div> : null
+            <CreateMediaSource
+              media={media}
+              onCancel={this.handleCancel.bind(this)}
+            /> : null
           }
           {this.state.sourceAction === 'change' ?
             <div id="media_source-change" style={{ padding: '8px 5px', width: '85%' }}>

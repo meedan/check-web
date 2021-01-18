@@ -278,7 +278,6 @@ class SourceInfo extends Component {
                         value={this.state.image}
                         onChange={this.handleImageChange}
                         onError={this.handleImageError}
-                        noPreview
                       />
                       <div className="source__edit-buttons-cancel-save">
                         <Button

@@ -11,17 +11,45 @@ class CreateSourceMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on CreateSourcePayload {
         sourceEdge
+        project_media {
+          source {
+            id
+            dbid
+            image
+            name
+            medias_count
+            permissions
+            account_sources(first: 10000) {
+              edges {
+                node {
+                  id
+                  permissions
+                  account {
+                    id
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     `;
   }
 
 
   getVariables() {
-    return {
+    const vars = {
       name: this.props.name,
       slogan: this.props.slogan,
-      add_to_project_media_id: this.props.mediaId,
     };
+    if (this.props.project_media) {
+      vars.add_to_project_media_id = this.props.project_media.dbid;
+    }
+    if (this.props.urls.length) {
+      vars.urls = JSON.stringify(this.props.urls);
+    }
+    return vars;
   }
 
   getFiles() {
@@ -31,7 +59,14 @@ class CreateSourceMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    return [];
+    const fieldIds = {};
+    fieldIds.project_media = this.props.project_media.id;
+    return [
+      {
+        type: 'FIELDS_CHANGE',
+        fieldIDs: fieldIds,
+      },
+    ];
   }
 }
 
