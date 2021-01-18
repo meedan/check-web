@@ -49,22 +49,22 @@ class MediaSourceComponent extends Component {
   }
 
   subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
-    const { source } = media;
-    pusher.subscribe(source.pusher_channel).bind('source_updated', 'MediaSource', (data, run) => {
-      const sourceData = JSON.parse(data.message);
-      if (sourceData.id === source.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
-        }
-        return {
-          id: `media-source-${media.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
+    // const { pusher, clientSessionId, media } = this.props;
+    // const { source } = media;
+    // pusher.subscribe(source.pusher_channel).bind('source_updated', 'MediaSource', (data, run) => {
+    //   const sourceData = JSON.parse(data.message);
+    //   if (sourceData.id === source.dbid && clientSessionId !== data.actor_session_id) {
+    //     if (run) {
+    //       this.props.relay.forceFetch();
+    //       return true;
+    //     }
+    //     return {
+    //       id: `media-source-${media.dbid}`,
+    //       callback: this.props.relay.forceFetch,
+    //     };
+    //   }
+    //   return false;
+    // });
   }
 
   unsubscribe() {

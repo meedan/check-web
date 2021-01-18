@@ -42,7 +42,7 @@ function ChangeMediaSource({
   );
 
   return (
-    <div id="media_source-change" style={{ padding: '24px 5px', width: '85%' }}>
+    <div id="media_source-change">
       <Autocomplete
         autoHighlight
         options={teamSources}

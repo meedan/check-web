@@ -42,13 +42,14 @@ const StyledWordBreakDiv = styled.div`
   word-break: break-word;
 `;
 
-const styles = {
+const styles = theme => ({
   headerRow: {
     display: 'flex',
     alignItems: 'top',
     justifyContent: 'space-between',
+    marginBottom: theme.spacing(2),
   },
-};
+});
 
 class SourceInfo extends Component {
   static handleRemoveLink(asId, source) {
@@ -406,8 +407,8 @@ class SourceInfo extends Component {
                           <Button
                             onClick={this.handleAddLink.bind(this)}
                             disabled={this.state.secondaryUrl.addNewLink}
+                            startIcon={<AddCircleOutlineIcon />}
                           >
-                            <AddCircleOutlineIcon />
                             <FormattedMessage
                               id="sourceInfo.addLink"
                               defaultMessage="Add a secondary URL"
