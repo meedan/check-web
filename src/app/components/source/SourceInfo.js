@@ -14,11 +14,13 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
+import UploadFile from '../UploadFile';
 import { can } from '../Can';
 import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
+import globalStrings from '../../globalStrings';
 import { urlFromSearchQuery } from '../search/Search';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -29,6 +31,7 @@ import {
   StyledIconButton,
 } from '../../styles/js/shared';
 import {
+  StyledAvatarEditButton,
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
@@ -93,40 +96,65 @@ class SourceInfo extends Component {
     this.state = {
       expandName: true,
       expandAccounts: true,
-      addNewLink: false,
       sourceName,
+      secondaryUrl: { url: '', error: '', addNewLink: false },
+      primaryUrl: { url: '', error: '', addNewLink: false },
     };
   }
 
-  handleChangeLink(e) {
-    this.setState({ linkUrl: e.target.value });
+  handleChangeLink(e, type) {
+    if (type === 'primary') {
+      const { primaryUrl } = this.state;
+      primaryUrl.url = e.target.value;
+      this.setState({ primaryUrl });
+    } else {
+      const { secondaryUrl } = this.state;
+      secondaryUrl.url = e.target.value;
+      this.setState({ secondaryUrl });
+    }
   }
 
   handleChangeName(e) {
     this.setState({ sourceName: e.target.value });
   }
 
-  handleKeyPress = (ev, source, action) => {
+  updateName = (ev, source) => {
     if (ev.key === 'Enter' && !ev.shiftKey) {
       ev.preventDefault();
-      if (action === 'createAccountSource') {
-        this.createAccountSource(this.state.linkUrl, source);
-      } else {
-        this.updateSource(this.state.sourceName, source);
-      }
+      this.updateSource(this.state.sourceName, source);
     }
   };
 
-  createAccountSource(url, source) {
+  handleKeyPress = (ev, source, type) => {
+    if (ev.key === 'Enter' && !ev.shiftKey) {
+      ev.preventDefault();
+      this.createAccountSource(type, source);
+    }
+  };
+
+  createAccountSource(type, source) {
     const onFailure = (transaction) => {
       const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-      this.setState({ linkError: message });
+      if (type === 'primary') {
+        const { primaryUrl } = this.state;
+        primaryUrl.error = message;
+        this.setState({ primaryUrl });
+      } else {
+        const { secondaryUrl } = this.state;
+        secondaryUrl.error = message;
+        this.setState({ secondaryUrl });
+      }
     };
 
     const onSuccess = () => {
-      this.handleRemoveNewLink();
+      if (type === 'primary') {
+        this.setState({ primaryUrl: { url: '', error: '', addNewLink: false } });
+      } else {
+        this.handleRemoveNewLink();
+      }
     };
 
+    const url = type === 'primary' ? this.state.primaryUrl.url : this.state.secondaryUrl.url;
     if (!url) {
       return;
     }
@@ -139,6 +167,10 @@ class SourceInfo extends Component {
       }),
       { onSuccess, onFailure },
     );
+  }
+
+  handleEditProfileImg() {
+    this.setState({ editProfileImg: true });
   }
 
   updateSource(name, source) {
@@ -167,11 +199,23 @@ class SourceInfo extends Component {
   }
 
   handleRemoveNewLink() {
-    this.setState({ linkUrl: '', linkError: '', addNewLink: false });
+    this.setState({ secondaryUrl: { url: '', error: '', addNewLink: false } });
   }
 
   handleAddLink() {
-    this.setState({ linkUrl: '', linkError: '', addNewLink: true });
+    this.setState({ secondaryUrl: { url: '', error: '', addNewLink: true } });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+
+    if (!this.state.submitDisabled) {
+      this.setState({ submitDisabled: true });
+    }
+  }
+
+  handleCancel() {
+    this.setState({ editProfileImg: false });
   }
 
   render() {
@@ -185,41 +229,65 @@ class SourceInfo extends Component {
       <React.Fragment>
         <div id={`source-${source.dbid}`} style={this.props.style}>
           <Row style={{ padding: '8px 5px' }}>
-            <StyledTwoColumns>
-              <StyledSmallColumn>
-                <SourcePicture
-                  size="large"
-                  object={source}
-                  type="user"
-                  className="source__avatar"
-                />
-              </StyledSmallColumn>
-              <StyledBigColumn>
-                <div className="source__primary-info">
-                  <StyledName className="source__name">
-                    <Row>
-                      {source.name}
-                    </Row>
-                  </StyledName>
-                  <Link to={sourceMediasLink}>
-                    <FormattedMessage
-                      id="sourceInfo.mediasCount"
-                      defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
-                      description="show source media counts"
-                      values={{
-                        mediasCount: source.medias_count || 0,
-                      }}
-                    />
-                  </Link>
-                </div>
-              </StyledBigColumn>
-            </StyledTwoColumns>
+            <form
+              onSubmit={this.handleSubmit.bind(this)}
+              name="create-edis-media-source-form"
+            >
+              <StyledTwoColumns>
+                <StyledSmallColumn>
+                  <SourcePicture
+                    size="large"
+                    object={source}
+                    type="user"
+                    className="source__avatar"
+                  />
+                  {!this.state.editProfileImg ?
+                    <StyledAvatarEditButton className="source__edit-avatar-button">
+                      <Button
+                        onClick={this.handleEditProfileImg.bind(this)}
+                        color="primary"
+                      >
+                        <FormattedMessage {...globalStrings.edit} />
+                      </Button>
+                    </StyledAvatarEditButton>
+                    : null}
+                </StyledSmallColumn>
+                <StyledBigColumn>
+                  <div className="source__primary-info">
+                    {this.state.editProfileImg ?
+                      <UploadFile
+                        type="image"
+                        value={this.state.image}
+                        onChange={this.handleImageChange}
+                        onError={this.handleImageError}
+                        noPreview
+                      />
+                      : null}
+                    <StyledName className="source__name">
+                      <Row>
+                        {this.state.sourceName}
+                      </Row>
+                    </StyledName>
+                    <Link to={sourceMediasLink}>
+                      <FormattedMessage
+                        id="sourceInfo.mediasCount"
+                        defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
+                        description="show source media counts"
+                        values={{
+                          mediasCount: source.medias_count || 0,
+                        }}
+                      />
+                    </Link>
+                  </div>
+                </StyledBigColumn>
+              </StyledTwoColumns>
+            </form>
           </Row>
           <StyledWordBreakDiv>
             <Box clone mb={1}>
               <Card
                 id={`source__card-${source.dbid}`}
-                className="source source__card-card"
+                className="source__card-card"
                 style={{ marginBottom: units(1) }}
               >
                 <CardHeader
@@ -253,7 +321,7 @@ class SourceInfo extends Component {
                         disabled={!can(source.permissions, 'update Source')}
                         error={this.state.sourceError}
                         helperText={this.state.sourceError}
-                        onKeyPress={e => this.handleKeyPress(e, source, 'updateName')}
+                        onKeyPress={e => this.updateName(e, source)}
                         onChange={e => this.handleChangeName(e)}
                         style={{ width: '100%' }}
                         margin="normal"
@@ -268,7 +336,7 @@ class SourceInfo extends Component {
             <Box clone mb={1}>
               <Card
                 id={`source-accounts-${source.dbid}`}
-                className="source source__card-card"
+                className="source__card-card"
                 style={{ marginBottom: units(1) }}
               >
                 <CardHeader
@@ -294,60 +362,78 @@ class SourceInfo extends Component {
                 />
                 <Collapse in={this.state.expandAccounts} timeout="auto">
                   <CardContent className="source__card-text">
-                    {mainAccount ?
-                      <div>
+                    <Row>
+                      {mainAccount ?
+                        <TextField
+                          id="main_source__link"
+                          defaultValue={mainAccount.node.account.url}
+                          style={{ width: '100%' }}
+                          margin="normal"
+                          disabled
+                        /> : null
+                      }
+                      {!mainAccount && can(source.permissions, 'create Account') ?
+                        <TextField
+                          id="source_primary__link-input"
+                          name="source_primary__link-input"
+                          label={
+                            <FormattedMessage
+                              id="sourceInfo.primaryLink"
+                              defaultMessage="Add main source URL"
+                              description="Allow user to add a main source URL"
+                            />
+                          }
+                          value={this.state.primaryUrl.url}
+                          error={this.state.primaryUrl.error}
+                          helperText={this.state.primaryUrl.error}
+                          onKeyPress={e => this.handleKeyPress(e, source, 'primary')}
+                          onChange={e => this.handleChangeLink(e, 'primary')}
+                          style={{ width: '100%' }}
+                          margin="normal"
+                        /> : null
+                      }
+                    </Row>
+                    {secondaryAccounts.length === 0 ?
+                      null :
+                      <h2>
+                        <FormattedMessage
+                          id="sourceInfo.secondaryAccounts"
+                          defaultMessage="Secondary source URLs"
+                          description="URLs for source accounts except first account"
+                        />
+                      </h2>
+                    }
+                    {secondaryAccounts.map((as, index) => (
+                      <div key={as.node.id} className="source__url">
                         <Row>
                           <TextField
-                            id="main_source__link"
-                            defaultValue={mainAccount.node.account.url}
+                            id={`source__link-item${index.toString()}`}
+                            defaultValue={as.node.account.url}
                             style={{ width: '100%' }}
                             margin="normal"
                             disabled
                           />
+                          {can(as.node.permissions, 'destroy AccountSource') ?
+                            <StyledIconButton
+                              className="source__remove-link-button"
+                              onClick={() => SourceInfo.handleRemoveLink(as.node.id, source)}
+                            >
+                              <CancelIcon />
+                            </StyledIconButton> : null
+                          }
                         </Row>
-                        {secondaryAccounts.length === 0 ?
-                          null :
-                          <h2>
-                            <FormattedMessage
-                              id="sourceInfo.secondaryAccounts"
-                              defaultMessage="Secondary source URLs"
-                              description="URLs for source accounts except first account"
-                            />
-                          </h2>
-                        }
-                        {secondaryAccounts.map((as, index) => (
-                          <div key={as.node.id} className="source__url">
-                            <Row>
-                              <TextField
-                                id={`source__link-item${index.toString()}`}
-                                defaultValue={as.node.account.url}
-                                style={{ width: '100%' }}
-                                margin="normal"
-                                disabled
-                              />
-                              {can(as.node.permissions, 'destroy AccountSource') ?
-                                <StyledIconButton
-                                  className="source__remove-link-button"
-                                  onClick={() => SourceInfo.handleRemoveLink(as.node.id, source)}
-                                >
-                                  <CancelIcon />
-                                </StyledIconButton> : null
-                              }
-                            </Row>
-                          </div>))}
-                      </div> : null
-                    }
-                    { this.state.addNewLink ?
+                      </div>))}
+                    { this.state.secondaryUrl.addNewLink ?
                       <div key="source-add-new-link" className="source__url-input">
                         <Row>
                           <TextField
                             id="source__link-input-new"
                             name="source__link-input-new"
-                            value={this.state.linkUrl}
-                            error={this.state.linkError}
-                            helperText={this.state.linkError}
-                            onKeyPress={e => this.handleKeyPress(e, source, 'createAccountSource')}
-                            onChange={e => this.handleChangeLink(e)}
+                            value={this.state.secondaryUrl.url}
+                            error={this.state.secondaryUrl.error}
+                            helperText={this.state.secondaryUrl.error}
+                            onKeyPress={e => this.handleKeyPress(e, source, 'secondary')}
+                            onChange={e => this.handleChangeLink(e, 'secondary')}
                             style={{ width: '100%' }}
                             margin="normal"
                           />
@@ -365,7 +451,7 @@ class SourceInfo extends Component {
                         <div>
                           <Button
                             onClick={this.handleAddLink.bind(this)}
-                            disabled={this.state.addNewLink}
+                            disabled={this.state.secondaryUrl.addNewLink}
                           >
                             <AddCircleOutlineIcon />
                             <FormattedMessage

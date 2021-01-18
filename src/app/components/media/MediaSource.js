@@ -103,6 +103,16 @@ class MediaSourceComponent extends Component {
     this.setState({ sourceAction: 'view' });
   }
 
+  handleChangeSourceBarLink() {
+    let sourceAction = 'view';
+    if (this.state.sourceAction === 'view') {
+      sourceAction = 'change';
+    } else if (this.state.sourceAction === 'change') {
+      sourceAction = 'create';
+    }
+    this.setState({ sourceAction });
+  }
+
   handleChangeSource(value) {
     this.setState({ mediaSourceValue: value });
   }
@@ -126,9 +136,37 @@ class MediaSourceComponent extends Component {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const { team, source } = media;
     const teamSources = team.sources.edges.map(({ node }) => node);
+    let sourceBarAction = null;
+    if (this.state.sourceAction === 'view') {
+      sourceBarAction = (
+        <FormattedMessage
+          id="mediaSource.changeSource"
+          defaultMessage="Change"
+          description="allow user to change a project media source"
+        />
+      );
+    } else if (this.state.sourceAction === 'change') {
+      sourceBarAction = (
+        <FormattedMessage
+          id="mediaSource.createSource"
+          defaultMessage="Create new"
+          description="allow user to create a new source"
+        />
+      );
+    }
     return (
       <React.Fragment>
         <div id="media__source" style={this.props.style}>
+          {sourceBarAction ?
+            <div id="media-source-change" style={{ textAlign: 'right', textDecoration: 'underline' }}>
+              <Button
+                style={{ color: 'blue' }}
+                onClick={this.handleChangeSourceBarLink.bind(this)}
+              >
+                { sourceBarAction }
+              </Button>
+            </div> : null
+          }
           {this.state.sourceAction === 'view' && source !== null ?
             <SourceInfo
               source={source}
@@ -182,42 +220,40 @@ class MediaSourceComponent extends Component {
             </div> : null
           }
           {this.state.sourceAction === 'change' ?
-            <div id="media_source-create" style={{ padding: '8px 5px', width: '85%' }}>
-              <div style={{ width: 300 }}>
-                <Autocomplete
-                  autoHighlight
-                  options={teamSources}
-                  getOptionLabel={option => option.name}
-                  getOptionSelected={(option, val) => val !== null && option.id === val.id}
-                  value={this.state.mediaSourceValue}
-                  onChange={(event, newValue) => {
-                    this.handleChangeSource(newValue);
-                  }}
-                  renderInput={params => (
-                    <TextField
-                      {...params}
-                      autoFocus
-                      name="source-name"
-                      label={
-                        <FormattedMessage id="mediaSource.choose" defaultMessage="Choose a source" />
-                      }
-                      variant="outlined"
-                    />
-                  )}
-                />
-                <div>
-                  <Button color="primary" onClick={this.handleCancel.bind(this)}>
-                    <FormattedMessage id="mediaSource.cancelButton" defaultMessage="Cancel" />
-                  </Button>
-                  <Button
-                    color="primary"
-                    className="project-media-source-save-action"
-                    onClick={this.handleChangeSourceSubmit.bind(this)}
-                    disabled={!this.state.mediaSourceValue}
-                  >
-                    <FormattedMessage id="mediaSource.saveButton" defaultMessage="Save" />
-                  </Button>
-                </div>
+            <div id="media_source-change" style={{ padding: '8px 5px', width: '85%' }}>
+              <Autocomplete
+                autoHighlight
+                options={teamSources}
+                getOptionLabel={option => option.name}
+                getOptionSelected={(option, val) => val !== null && option.id === val.id}
+                value={this.state.mediaSourceValue}
+                onChange={(event, newValue) => {
+                  this.handleChangeSource(newValue);
+                }}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    autoFocus
+                    name="source-name"
+                    label={
+                      <FormattedMessage id="mediaSource.choose" defaultMessage="Choose a source" />
+                    }
+                    variant="outlined"
+                  />
+                )}
+              />
+              <div>
+                <Button color="primary" onClick={this.handleCancel.bind(this)}>
+                  <FormattedMessage id="mediaSource.cancelButton" defaultMessage="Cancel" />
+                </Button>
+                <Button
+                  color="primary"
+                  className="project-media-source-save-action"
+                  onClick={this.handleChangeSourceSubmit.bind(this)}
+                  disabled={!this.state.mediaSourceValue}
+                >
+                  <FormattedMessage id="mediaSource.saveButton" defaultMessage="Save" />
+                </Button>
               </div>
             </div> : null
           }

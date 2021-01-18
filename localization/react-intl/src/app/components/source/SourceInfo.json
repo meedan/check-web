@@ -15,6 +15,11 @@
     "defaultMessage": "Main source URL"
   },
   {
+    "id": "sourceInfo.primaryLink",
+    "description": "Allow user to add a main source URL",
+    "defaultMessage": "Add main source URL"
+  },
+  {
     "id": "sourceInfo.secondaryAccounts",
     "description": "URLs for source accounts except first account",
     "defaultMessage": "Secondary source URLs"
