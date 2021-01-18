@@ -1,5 +1,10 @@
 [
   {
+    "id": "changeMediaSource.createSource",
+    "description": "allow user to create a new source",
+    "defaultMessage": "Create new"
+  },
+  {
     "id": "changeMediaSource.choose",
     "description": "Change media source label",
     "defaultMessage": "Choose a source"

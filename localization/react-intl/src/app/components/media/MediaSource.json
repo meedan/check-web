@@ -3,10 +3,5 @@
     "id": "mediaSource.changeSource",
     "description": "allow user to change a project media source",
     "defaultMessage": "Change"
-  },
-  {
-    "id": "mediaSource.createSource",
-    "description": "allow user to create a new source",
-    "defaultMessage": "Create new"
   }
 ]

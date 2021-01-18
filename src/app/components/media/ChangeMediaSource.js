@@ -10,6 +10,7 @@ function ChangeMediaSource({
   team,
   onCancel,
   onSubmit,
+  createNewClick,
 }) {
   const [value, setValue] = React.useState(null);
   const handleSubmit = React.useCallback(() => {
@@ -27,8 +28,21 @@ function ChangeMediaSource({
     }
   }, [value]);
 
+  const createNew = (
+    <Button
+      style={{ color: 'blue' }}
+      onClick={createNewClick}
+    >
+      <FormattedMessage
+        id="changeMediaSource.createSource"
+        defaultMessage="Create new"
+        description="allow user to create a new source"
+      />
+    </Button>
+  );
+
   return (
-    <div id="media_source-change" style={{ padding: '8px 5px', width: '85%' }}>
+    <div id="media_source-change" style={{ padding: '24px 5px', width: '85%' }}>
       <Autocomplete
         autoHighlight
         options={teamSources}
@@ -49,6 +63,15 @@ function ChangeMediaSource({
               />
             }
             variant="outlined"
+            InputProps={{
+              ...params.InputProps,
+              endAdornment: (
+                <React.Fragment>
+                  {createNew}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
           />
         )}
       />
@@ -80,6 +103,7 @@ ChangeMediaSource.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   onCancel: PropTypes.func.isRequired, // func() => undefined
   onSubmit: PropTypes.func.isRequired, // func(<Project>) => undefined
+  createNewClick: PropTypes.func.isRequired, // func() => undefined
 };
 
 export default createFragmentContainer(ChangeMediaSource, {

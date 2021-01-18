@@ -69,14 +69,12 @@ class MediaSourceComponent extends Component {
     this.setState({ sourceAction: 'view' });
   }
 
-  handleChangeSourceBarLink() {
-    let sourceAction = 'view';
-    if (this.state.sourceAction === 'view') {
-      sourceAction = 'change';
-    } else if (this.state.sourceAction === 'change') {
-      sourceAction = 'create';
-    }
-    this.setState({ sourceAction });
+  handleCreateNewSource() {
+    this.setState({ sourceAction: 'create' });
+  }
+
+  handleChangeSource() {
+    this.setState({ sourceAction: 'change' });
   }
 
   handleChangeSourceSubmit(value) {
@@ -99,34 +97,20 @@ class MediaSourceComponent extends Component {
   render() {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const { team, source } = media;
-    let sourceBarAction = null;
-    if (this.state.sourceAction === 'view') {
-      sourceBarAction = (
-        <FormattedMessage
-          id="mediaSource.changeSource"
-          defaultMessage="Change"
-          description="allow user to change a project media source"
-        />
-      );
-    } else if (this.state.sourceAction === 'change') {
-      sourceBarAction = (
-        <FormattedMessage
-          id="mediaSource.createSource"
-          defaultMessage="Create new"
-          description="allow user to create a new source"
-        />
-      );
-    }
     return (
       <React.Fragment>
         <div id="media__source" style={this.props.style}>
-          {sourceBarAction ?
+          {this.state.sourceAction === 'view' ?
             <div id="media-source-change" style={{ textAlign: 'right', textDecoration: 'underline' }}>
               <Button
                 style={{ color: 'blue' }}
-                onClick={this.handleChangeSourceBarLink.bind(this)}
+                onClick={this.handleChangeSource.bind(this)}
               >
-                { sourceBarAction }
+                <FormattedMessage
+                  id="mediaSource.changeSource"
+                  defaultMessage="Change"
+                  description="allow user to change a project media source"
+                />
               </Button>
             </div> : null
           }
@@ -147,6 +131,7 @@ class MediaSourceComponent extends Component {
               team={team}
               onSubmit={this.handleChangeSourceSubmit.bind(this)}
               onCancel={this.handleCancel.bind(this)}
+              createNewClick={this.handleCreateNewSource.bind(this)}
             /> : null
           }
         </div>
