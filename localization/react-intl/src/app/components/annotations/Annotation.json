@@ -176,22 +176,6 @@
     "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
   },
   {
-    "id": "annotation.openInSlack",
-    "defaultMessage": "Open in Slack"
-  },
-  {
-    "id": "annotation.reportReceived",
-    "defaultMessage": "Report received on {date}"
-  },
-  {
-    "id": "annotation.reportUpdateReceived",
-    "defaultMessage": "Report update received on {date}"
-  },
-  {
-    "id": "annotation.smoochNoMessage",
-    "defaultMessage": "No message was sent with the request"
-  },
-  {
     "id": "annotation.projectMoved",
     "defaultMessage": "Moved from list {previousProject} to {currentProject} by {author}"
   },
