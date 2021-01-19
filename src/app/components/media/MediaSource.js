@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
@@ -49,27 +47,32 @@ class MediaSourceComponent extends Component {
   }
 
   subscribe() {
-    // const { pusher, clientSessionId, media } = this.props;
-    // const { source } = media;
-    // pusher.subscribe(source.pusher_channel).bind('source_updated', 'MediaSource', (data, run) => {
-    //   const sourceData = JSON.parse(data.message);
-    //   if (sourceData.id === source.dbid && clientSessionId !== data.actor_session_id) {
-    //     if (run) {
-    //       this.props.relay.forceFetch();
-    //       return true;
-    //     }
-    //     return {
-    //       id: `media-source-${media.dbid}`,
-    //       callback: this.props.relay.forceFetch,
-    //     };
-    //   }
-    //   return false;
-    // });
+    const { pusher, clientSessionId, media } = this.props;
+    const { source } = media;
+    if (source) {
+      pusher.subscribe(source.pusher_channel).bind('source_updated', 'MediaSource', (data, run) => {
+        const sourceData = JSON.parse(data.message);
+        if (sourceData.id === source.dbid && clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `media-source-${media.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
+        }
+        return false;
+      });
+    }
   }
 
   unsubscribe() {
     const { pusher, media } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
+    const { source } = media;
+    if (source) {
+      pusher.unsubscribe(media.source.pusher_channel);
+    }
   }
 
   handleCancel() {
@@ -109,20 +112,6 @@ class MediaSourceComponent extends Component {
     return (
       <React.Fragment>
         <div id="media__source" className={classes.root}>
-          {this.state.sourceAction === 'view' && source === null ?
-            <div id="media-source-change" style={{ textAlign: 'right', textDecoration: 'underline' }}>
-              <Button
-                style={{ color: 'blue' }}
-                onClick={this.handleChangeSource.bind(this)}
-              >
-                <FormattedMessage
-                  id="mediaSource.changeSource"
-                  defaultMessage="Change"
-                  description="allow user to change a project media source"
-                />
-              </Button>
-            </div> : null
-          }
           {this.state.sourceAction === 'view' && source !== null ?
             <SourceInfo
               source={source}
@@ -136,7 +125,7 @@ class MediaSourceComponent extends Component {
               onCancel={this.handleCancel.bind(this)}
             /> : null
           }
-          {this.state.sourceAction === 'change' ?
+          {this.state.sourceAction === 'change' || source === null ?
             <ChangeMediaSource
               team={team}
               onSubmit={this.handleChangeSourceSubmit.bind(this)}

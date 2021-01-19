@@ -1,5 +1,10 @@
 [
   {
+    "id": "sourceInfo.invalidLink",
+    "description": "Error message for invalid link",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
     "id": "sourceInfo.mediasCount",
     "description": "show source media counts",
     "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"

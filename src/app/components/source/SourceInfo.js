@@ -8,6 +8,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
 import { Link } from 'react-router';
+import LinkifyIt from 'linkify-it';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -76,7 +77,7 @@ class SourceInfo extends Component {
       sourceName,
       sourceError: '',
       secondaryUrl: { url: '', error: '', addNewLink: false },
-      primaryUrl: { url: '', error: '', addNewLink: false },
+      primaryUrl: { url: '', error: '' },
     };
   }
 
@@ -84,10 +85,12 @@ class SourceInfo extends Component {
     if (type === 'primary') {
       const { primaryUrl } = this.state;
       primaryUrl.url = e.target.value;
+      primaryUrl.error = '';
       this.setState({ primaryUrl });
     } else {
       const { secondaryUrl } = this.state;
       secondaryUrl.url = e.target.value;
+      secondaryUrl.error = '';
       this.setState({ secondaryUrl });
     }
   }
@@ -96,83 +99,78 @@ class SourceInfo extends Component {
     this.setState({ sourceName: e.target.value });
   }
 
-  updateName = (ev, source) => {
-    if (ev.key === 'Enter' && !ev.shiftKey) {
-      ev.preventDefault();
-      this.updateSource(source);
-      this.setState({ sourceError: '' });
+  updateName = (source, value) => {
+    if (value && source.name !== value) {
+      const onFailure = (transaction) => {
+        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+        this.setState({ sourceError: message });
+      };
+
+      const onSuccess = () => {
+        this.setState({ sourceError: '' });
+      };
+
+      Relay.Store.commitUpdate(
+        new UpdateSourceMutation({
+          source: {
+            id: source.id,
+            name: value,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
     }
   };
 
-  handleKeyPress = (ev, source, type) => {
-    if (ev.key === 'Enter' && !ev.shiftKey) {
-      ev.preventDefault();
-      this.createAccountSource(type, source);
+  handleAddLinkFail(type, message) {
+    if (type === 'primary') {
+      const { primaryUrl } = this.state;
+      primaryUrl.error = message;
+      this.setState({ primaryUrl });
+    } else {
+      const { secondaryUrl } = this.state;
+      secondaryUrl.error = message;
+      this.setState({ secondaryUrl });
     }
-  };
-
-  createAccountSource(type, source) {
-    const onFailure = (transaction) => {
-      const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-      if (type === 'primary') {
-        const { primaryUrl } = this.state;
-        primaryUrl.error = message;
-        this.setState({ primaryUrl });
-      } else {
-        const { secondaryUrl } = this.state;
-        secondaryUrl.error = message;
-        this.setState({ secondaryUrl });
-      }
-    };
-
-    const onSuccess = () => {
-      if (type === 'primary') {
-        this.setState({ primaryUrl: { url: '', error: '', addNewLink: false } });
-      } else {
-        this.handleRemoveNewLink();
-      }
-    };
-
-    const url = type === 'primary' ? this.state.primaryUrl.url : this.state.secondaryUrl.url;
-    if (!url) {
-      return;
-    }
-
-    Relay.Store.commitUpdate(
-      new CreateAccountSourceMutation({
-        id: source.dbid,
-        url,
-        source,
-      }),
-      { onSuccess, onFailure },
-    );
   }
 
-  updateSource(source) {
-    const onFailure = (transaction) => {
-      const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-      this.setState({ sourceError: message });
-    };
-
-    const onSuccess = () => {};
-
-    const { sourceName } = this.state;
-
-    if (source.name === sourceName) {
-      return false;
+  createAccountSource(type, source, value) {
+    if (!value) {
+      return;
     }
-
-    Relay.Store.commitUpdate(
-      new UpdateSourceMutation({
-        source: {
-          id: source.id,
-          name: sourceName,
-        },
-      }),
-      { onSuccess, onFailure },
-    );
-
-    return true;
+    const linkify = new LinkifyIt();
+    const validateUrl = linkify.match(value);
+    if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
+      const { url } = validateUrl[0];
+      const onFailure = (transaction) => {
+        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+        this.handleAddLinkFail(type, message);
+      };
+      const onSuccess = () => {
+        if (type === 'primary') {
+          this.setState({ primaryUrl: { url: '', error: '' } });
+        } else {
+          this.handleRemoveNewLink();
+        }
+      };
+      Relay.Store.commitUpdate(
+        new CreateAccountSourceMutation({
+          id: source.dbid,
+          url,
+          source,
+        }),
+        { onSuccess, onFailure },
+      );
+    } else {
+      const message = (
+        <FormattedMessage
+          id="sourceInfo.invalidLink"
+          defaultMessage="Please enter a valid URL"
+          description="Error message for invalid link"
+        />
+      );
+      this.handleAddLinkFail(type, message);
+    }
   }
 
   handleRemoveNewLink() {
@@ -189,6 +187,7 @@ class SourceInfo extends Component {
     const mainAccount = accountSources[0];
     const secondaryAccounts = accountSources.slice(1);
     const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${team.slug}/all-items`);
+    const { primaryUrl, secondaryUrl } = this.state;
 
     return (
       <React.Fragment>
@@ -276,7 +275,7 @@ class SourceInfo extends Component {
                         disabled={!can(source.permissions, 'update Source')}
                         error={this.state.sourceError.length !== 0}
                         helperText={this.state.sourceError}
-                        onKeyPress={e => this.updateName(e, source)}
+                        onBlur={(e) => { this.updateName(source, e.target.value); }}
                         onChange={e => this.handleChangeName(e)}
                         style={{ width: '100%' }}
                         margin="normal"
@@ -338,10 +337,10 @@ class SourceInfo extends Component {
                               description="Allow user to add a main source URL"
                             />
                           }
-                          value={this.state.primaryUrl.url}
-                          error={this.state.primaryUrl.error.length !== 0}
-                          helperText={this.state.primaryUrl.error}
-                          onKeyPress={e => this.handleKeyPress(e, source, 'primary')}
+                          value={primaryUrl.url}
+                          error={primaryUrl.error.length !== 0}
+                          helperText={primaryUrl.error}
+                          onBlur={(e) => { this.createAccountSource('primary', source, e.target.value.trim()); }}
                           onChange={e => this.handleChangeLink(e, 'primary')}
                           style={{ width: '100%' }}
                           margin="normal"
@@ -378,16 +377,16 @@ class SourceInfo extends Component {
                           }
                         </Row>
                       </div>))}
-                    { this.state.secondaryUrl.addNewLink ?
+                    { secondaryUrl.addNewLink ?
                       <div key="source-add-new-link" className="source__url-input">
                         <Row>
                           <TextField
                             id="source__link-input-new"
                             name="source__link-input-new"
-                            value={this.state.secondaryUrl.url}
-                            error={this.state.secondaryUrl.error.length !== 0}
-                            helperText={this.state.secondaryUrl.error}
-                            onKeyPress={e => this.handleKeyPress(e, source, 'secondary')}
+                            value={secondaryUrl.url}
+                            error={secondaryUrl.error.length !== 0}
+                            helperText={secondaryUrl.error}
+                            onBlur={(e) => { this.createAccountSource('secondary', source, e.target.value.trim()); }}
                             onChange={e => this.handleChangeLink(e, 'secondary')}
                             style={{ width: '100%' }}
                             margin="normal"
@@ -406,7 +405,7 @@ class SourceInfo extends Component {
                         <div>
                           <Button
                             onClick={this.handleAddLink.bind(this)}
-                            disabled={this.state.secondaryUrl.addNewLink}
+                            disabled={secondaryUrl.addNewLink || !mainAccount || primaryUrl.error}
                             startIcon={<AddCircleOutlineIcon />}
                           >
                             <FormattedMessage

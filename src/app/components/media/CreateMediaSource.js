@@ -14,17 +14,15 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import LinkifyIt from 'linkify-it';
 import Relay from 'react-relay/classic';
 import styled from 'styled-components';
+import { withStyles } from '@material-ui/core/styles';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import globalStrings from '../../globalStrings';
-// import { getErrorMessage } from '../../helpers';
-// import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
   units,
-  separationGray,
   StyledIconButton,
 } from '../../styles/js/shared';
 import {
@@ -40,36 +38,16 @@ const StyledWordBreakDiv = styled.div`
   hyphens: auto;
   overflow-wrap: break-word;
   word-break: break-word;
-
-  .source {
-    width: 100%;
-    pa
-    box-shadow: none;
-    border-bottom: 1px solid ${separationGray};
-    border-radius: 0;
-    margin-bottom: 0 !important;
-
-    .source__card-header {
-      padding: ${units(3)} 0;
-      flex-direction: row-reverse;
-      display: flex;
-      align-items: flex-start;
-
-      .source__card-expand {
-        margin: ${units(0)} ${units(1)} 0 0;
-      }
-
-      .source__card-description {
-        padding: ${units(2)} 0 0 0;
-      }
-    }
-  }
-
-  .source__card-text {
-    padding-bottom: 0 !important;
-    padding-top: 0 !important;
-  }
 `;
+
+const styles = theme => ({
+  headerRow: {
+    display: 'flex',
+    alignItems: 'top',
+    justifyContent: 'space-between',
+    marginBottom: theme.spacing(2),
+  },
+});
 
 class CreateMediaSource extends Component {
   constructor(props) {
@@ -79,7 +57,7 @@ class CreateMediaSource extends Component {
       expandName: true,
       expandAccounts: true,
       sourceName: null,
-      primaryUrl: { url: '', error: '', addNewLink: false },
+      primaryUrl: { url: '', error: '' },
       submitDisabled: true,
     };
   }
@@ -152,7 +130,8 @@ class CreateMediaSource extends Component {
       }
     });
     if (type === 'primary') {
-      this.setState({ primaryUrl: links[0] });
+      const primaryUrl = links[0].length ? links[0] : { url: '', error: '' };
+      this.setState({ primaryUrl });
     } else {
       this.setState({ links });
     }
@@ -198,11 +177,12 @@ class CreateMediaSource extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const links = this.state.links ? this.state.links.slice(0) : [];
 
     return (
       <React.Fragment>
-        <div id="media_source-create" style={{ padding: '8px 5px' }}>
+        <div id="media-source-create-new" style={this.props.style}>
           <div className="source__create-buttons-cancel-save" style={{ textAlign: 'right' }}>
             <Button
               className="source__edit-cancel-button"
@@ -220,11 +200,10 @@ class CreateMediaSource extends Component {
               <FormattedMessage {...globalStrings.save} />
             </Button>
           </div>
-          <Row style={{ padding: '8px 5px' }}>
+          <div className={classes.headerRow}>
             <StyledTwoColumns>
               <StyledSmallColumn>
                 <SourcePicture
-                  size="large"
                   type="user"
                   className="source__avatar"
                 />
@@ -277,7 +256,7 @@ class CreateMediaSource extends Component {
                 </div>
               </StyledBigColumn>
             </StyledTwoColumns>
-          </Row>
+          </div>
           <StyledWordBreakDiv>
             <Box clone mb={1}>
               <Card
@@ -424,8 +403,8 @@ class CreateMediaSource extends Component {
                       <div>
                         <Button
                           onClick={this.handleAddLink.bind(this)}
+                          startIcon={<AddCircleOutlineIcon />}
                         >
-                          <AddCircleOutlineIcon />
                           <FormattedMessage
                             id="sourceInfo.addLink"
                             defaultMessage="Add a secondary URL"
@@ -445,4 +424,4 @@ class CreateMediaSource extends Component {
   }
 }
 
-export default CreateMediaSource;
+export default withStyles(styles)(CreateMediaSource);
