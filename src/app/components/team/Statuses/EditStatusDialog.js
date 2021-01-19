@@ -45,9 +45,10 @@ const EditStatusDialog = ({
   const [statusMessageEnabled, setStatusMessageEnabled] = React.useState(status ? Boolean(status.should_send_message) : false);
 
   const handleSubmit = () => {
+    const locales = status && status.locales ? { ...status.locales } : {};
     const newStatus = {
       id: Date.now().toString(),
-      locales: { ...status.locales },
+      locales,
       style: { color: statusColor },
       should_send_message: statusMessageEnabled,
     };
