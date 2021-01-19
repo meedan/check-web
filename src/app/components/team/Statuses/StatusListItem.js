@@ -5,10 +5,12 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
+import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import StatusLabel from './StatusLabel';
+import StatusMessage from './StatusMessage';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 
 const StatusListItem = ({
@@ -49,8 +51,12 @@ const StatusListItem = ({
       />
     );
 
+  const statusMessage =
+    localeStatus && localeStatus.message && status.should_send_message ?
+      localeStatus.message : null;
+
   return (
-    <ListItem>
+    <ListItem className="status-list-item">
       <ListItemText
         primary={
           isDefault ? (
@@ -71,7 +77,12 @@ const StatusListItem = ({
             </StatusLabel>
           )
         }
-        secondary={statusDescription}
+        secondary={
+          <React.Fragment>
+            <Box>{statusDescription}</Box>
+            <StatusMessage message={statusMessage} />
+          </React.Fragment>
+        }
       />
       <ListItemSecondaryAction>
         <IconButton className="status-actions__menu" onClick={e => setAnchorEl(e.target)}>

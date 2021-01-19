@@ -16,6 +16,18 @@
     "defaultMessage": "Description"
   },
   {
+    "id": "editStatusDialog.toggleStatusMessage",
+    "defaultMessage": "Send message to requester"
+  },
+  {
+    "id": "editStatusDialog.messageDescription",
+    "defaultMessage": "Send a message to the user who requested the item when you change an item to this status."
+  },
+  {
+    "id": "editStatusDialog.statusMessage",
+    "defaultMessage": "Message"
+  },
+  {
     "id": "editStatusDialog.addButton",
     "defaultMessage": "Add status"
   }
