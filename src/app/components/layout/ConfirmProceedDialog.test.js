@@ -8,6 +8,7 @@ describe('<ConfirmProceedDialog />', () => {
       open
       title="Dialog Title"
       body="Body Content"
+      proceedLabel=""
       onCancel={() => {}}
       onProceed={() => {}}
       onClick={() => {}}
