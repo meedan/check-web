@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { withStyles } from '@material-ui/core/styles';
-import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
@@ -24,55 +22,6 @@ class MediaSourceComponent extends Component {
     this.state = {
       sourceAction: 'view',
     };
-  }
-
-  componentDidMount() {
-    this.subscribe();
-  }
-
-  componentWillUpdate(nextProps) {
-    if (this.props.media.dbid !== nextProps.media.dbid) {
-      this.unsubscribe();
-    }
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.media.dbid !== prevProps.media.dbid) {
-      this.subscribe();
-    }
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  subscribe() {
-    const { pusher, clientSessionId, media } = this.props;
-    const { source } = media;
-    if (source) {
-      pusher.subscribe(source.pusher_channel).bind('source_updated', 'MediaSource', (data, run) => {
-        const sourceData = JSON.parse(data.message);
-        if (sourceData.id === source.dbid && clientSessionId !== data.actor_session_id) {
-          if (run) {
-            this.props.relay.forceFetch();
-            return true;
-          }
-          return {
-            id: `media-source-${media.dbid}`,
-            callback: this.props.relay.forceFetch,
-          };
-        }
-        return false;
-      });
-    }
-  }
-
-  unsubscribe() {
-    const { pusher, media } = this.props;
-    const { source } = media;
-    if (source) {
-      pusher.unsubscribe(media.source.pusher_channel);
-    }
   }
 
   handleCancel() {
@@ -139,12 +88,7 @@ class MediaSourceComponent extends Component {
   }
 }
 
-MediaSourceComponent.propTypes = {
-  pusher: pusherShape.isRequired,
-  clientSessionId: PropTypes.string.isRequired,
-};
-
-const MediaSourceContainer = Relay.createContainer(withPusher(withStyles(style)(MediaSourceComponent)), {
+const MediaSourceContainer = Relay.createContainer(withStyles(style)(MediaSourceComponent), {
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {

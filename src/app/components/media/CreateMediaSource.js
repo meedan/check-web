@@ -20,6 +20,8 @@ import UploadFile from '../UploadFile';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import globalStrings from '../../globalStrings';
+import { getErrorMessage } from '../../helpers';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
   units,
@@ -108,33 +110,53 @@ class CreateMediaSource extends Component {
     this.setState({ links });
   }
 
-  validateLinks(type) {
+  validatePrimaryLink() {
+    const linkify = new LinkifyIt();
+    const { primaryUrl } = this.state;
+    if (primaryUrl.url.trim()) {
+      const validateUrl = linkify.match(primaryUrl.url);
+      if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
+        return true;
+      }
+      primaryUrl.error = (
+        <FormattedMessage
+          id="sourceInfo.invalidLink"
+          defaultMessage="Please enter a valid URL"
+          description="Error message for invalid link"
+        />
+      );
+      this.setState({ primaryUrl });
+      return false;
+    }
+    return true;
+  }
+
+  validateLinks() {
     const linkify = new LinkifyIt();
 
     let success = true;
-    let links = [];
-    if (type === 'primary') {
-      links = [this.state.primaryUrl];
-    } else {
-      links = this.state.links ? this.state.links.slice(0) : [];
-    }
+
+    let links = this.state.links ? this.state.links.slice(0) : [];
     links = links.filter(link => !!link.url.trim());
+
     links.forEach((item_) => {
       const item = item_;
       const url = linkify.match(item.url);
       if (Array.isArray(url) && url[0] && url[0].url) {
         item.url = url[0].url;
       } else {
-        item.error = 'TODO: add invalid error message';
+        item.error = (
+          <FormattedMessage
+            id="sourceInfo.invalidLink"
+            defaultMessage="Please enter a valid URL"
+            description="Error message for invalid link"
+          />
+        );
         success = false;
       }
     });
-    if (type === 'primary') {
-      const primaryUrl = links[0].length ? links[0] : { url: '', error: '' };
-      this.setState({ primaryUrl });
-    } else {
-      this.setState({ links });
-    }
+
+    this.setState({ links });
     return success;
   }
 
@@ -143,7 +165,7 @@ class CreateMediaSource extends Component {
   }
 
   handleSave() {
-    if (!this.state.submitDisabled && this.validateLinks('secondary') && this.validateLinks('primary')) {
+    if (!this.state.submitDisabled && this.validateLinks() && this.validatePrimaryLink()) {
       this.setState({ submitDisabled: true });
       const urls = [];
       const { primaryUrl } = this.state;
@@ -154,8 +176,10 @@ class CreateMediaSource extends Component {
         urls.push(link.url);
       });
 
-      const onFailure = () => {
+      const onFailure = (transaction) => {
         this.setState({ submitDisabled: false });
+        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+        this.setState({ message });
       };
 
       const onSuccess = () => {
@@ -200,6 +224,7 @@ class CreateMediaSource extends Component {
               <FormattedMessage {...globalStrings.save} />
             </Button>
           </div>
+          <Message message={this.state.message} />
           <div className={classes.headerRow}>
             <StyledTwoColumns>
               <StyledSmallColumn>
