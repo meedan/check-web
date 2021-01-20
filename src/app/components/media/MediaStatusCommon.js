@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import LockIcon from '@material-ui/icons/Lock';
+import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
@@ -18,6 +19,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 const StyledMediaStatus = styled.div`
   display: flex;
   align-items: center;
+  gap: 4px;
 `;
 
 const useStyles = makeStyles({
@@ -102,6 +104,7 @@ class MediaStatusCommon extends Component {
           disableElevation
           onClick={e => this.setState({ anchorEl: e.currentTarget })}
           disabled={!this.canUpdate()}
+          startIcon={currentStatus.should_send_message ? <ChatBubbleOutlineIcon /> : null}
           endIcon={this.canUpdate() ? <KeyboardArrowDownIcon /> : <LockIcon />}
         >
           {currentStatus.label}
@@ -123,7 +126,10 @@ class MediaStatusCommon extends Component {
               onClick={() => this.handleStatusClick(status.id)}
             >
               <StatusLabel color={status.style.color}>
-                {status.label}
+                <StyledMediaStatus>
+                  {status.label}
+                  {status.should_send_message ? <ChatBubbleOutlineIcon /> : null}
+                </StyledMediaStatus>
               </StatusLabel>
             </MenuItem>
           ))}
