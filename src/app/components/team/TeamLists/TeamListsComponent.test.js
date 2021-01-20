@@ -37,7 +37,7 @@ describe('<TeamListsComponent />', () => {
     },
   };
 
-  it('should render all list collumns', () => {
+  it('should render all list columns', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
     expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(3);
     expect(wrapper.html()).toMatch('Displayed columns');
@@ -45,7 +45,7 @@ describe('<TeamListsComponent />', () => {
     expect(wrapper.html()).toMatch('Metadata');
   });
 
-  it('should create metadata button', () => {
+  it('should render create metadata button', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team} />);
     expect(wrapper.html()).toMatch('Create new metadata field');
     expect(wrapper.find('#create-metadata__add-button').hostNodes()).toHaveLength(1);
@@ -59,7 +59,7 @@ describe('<TeamListsComponent />', () => {
     wrapper.find('.MuiButton-text').at(0).simulate('click');
   });
 
-  it('should hide item collumn', () => {
+  it('should hide item column', () => {
     const wrapper = mountWithIntl(<TeamListsComponent team={team2} />);
     expect(wrapper.html()).toMatch('Hide');
     expect(wrapper.html()).not.toMatch('Show');

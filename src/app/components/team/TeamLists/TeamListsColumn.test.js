@@ -23,17 +23,30 @@ describe('<TeamListsColumn />', () => {
     },
   };
 
-  it('should render collum', () => {
+  it('should render team list column title and the list items', () => {
     const wrapper = mountWithIntl(<TeamListsColumn
-      title="Colum title"
+      title="Column title"
       columns={columns}
       team={team}
       onToggle={() => {}}
     />);
     expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(1);
-    expect(wrapper.html()).toMatch('Colum title');
+    expect(wrapper.html()).toMatch('Column title');
     expect(wrapper.html()).toMatch('label-content-1');
     expect(wrapper.html()).toMatch('label-content-2');
     expect(wrapper.html()).toMatch('label-content-3');
+    expect(wrapper.html()).not.toMatch('None available');
+  });
+
+  it('should render team list column title and the placeholder when there are no items in the list', () => {
+    const wrapper = mountWithIntl(<TeamListsColumn
+      title="Column title"
+      columns={[]}
+      team={team}
+      onToggle={() => {}}
+    />);
+    expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(1);
+    expect(wrapper.html()).toMatch('Column title');
+    expect(wrapper.html()).toMatch('None available');
   });
 });
