@@ -72,6 +72,7 @@ class MediaSourceComponent extends Component {
             <CreateMediaSource
               media={media}
               onCancel={this.handleCancel.bind(this)}
+              relateToExistingSource={this.handleChangeSourceSubmit.bind(this)}
             /> : null
           }
           {this.state.sourceAction === 'change' || source === null ?

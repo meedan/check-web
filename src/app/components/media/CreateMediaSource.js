@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
+import Relay from 'react-relay/classic';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
@@ -7,12 +8,16 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import LinkifyIt from 'linkify-it';
-import Relay from 'react-relay/classic';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import Message from '../Message';
@@ -20,7 +25,8 @@ import UploadFile from '../UploadFile';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import globalStrings from '../../globalStrings';
-import { getErrorMessage } from '../../helpers';
+import { getErrorObjects, getErrorMessage } from '../../helpers';
+import CheckError from '../../CheckError';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
@@ -61,6 +67,8 @@ class CreateMediaSource extends Component {
       sourceName: null,
       primaryUrl: { url: '', error: '' },
       submitDisabled: true,
+      dialogOpen: false,
+      validate_primary_link_exist: true,
     };
   }
 
@@ -164,6 +172,14 @@ class CreateMediaSource extends Component {
     this.props.onCancel();
   }
 
+  handleCancelDialog() {
+    this.setState({ dialogOpen: false, validate_primary_link_exist: false });
+  }
+
+  handleSubmitDialog() {
+    this.props.relateToExistingSource({ dbid: this.state.existingSource.id });
+  }
+
   handleSave() {
     if (!this.state.submitDisabled && this.validateLinks() && this.validatePrimaryLink()) {
       this.setState({ submitDisabled: true });
@@ -178,20 +194,30 @@ class CreateMediaSource extends Component {
 
       const onFailure = (transaction) => {
         this.setState({ submitDisabled: false });
-        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-        this.setState({ message });
+        const error = getErrorObjects(transaction);
+        if (Array.isArray(error) && error.length > 0) {
+          if (error[0].code === CheckError.codes.DUPLICATED) {
+            this.setState({ dialogOpen: true, existingSource: error[0].data });
+          } else {
+            const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+            this.setState({ message });
+          }
+        }
       };
 
       const onSuccess = () => {
         this.handleCancelOrSave();
       };
 
+      const { sourceName: name, image, validate_primary_link_exist } = this.state;
+
       Relay.Store.commitUpdate(
         new CreateSourceMutation({
-          name: this.state.sourceName,
-          slogan: this.state.sourceName,
-          image: this.state.image,
+          name,
+          slogan: name,
+          image,
           urls,
+          validate_primary_link_exist,
           project_media: this.props.media,
         }),
         { onSuccess, onFailure },
@@ -443,6 +469,55 @@ class CreateMediaSource extends Component {
               </Card>
             </Box>
           </StyledWordBreakDiv>
+          <div>
+            {this.state.dialogOpen ?
+              <Dialog open={this.state.dialogOpen} maxWidth="sm" fullWidth>
+                <DialogTitle>
+                  <FormattedMessage
+                    id="createMediaSource.existingSource"
+                    defaultMessage="Existing source URL"
+                    description="Dialog title for existing source with same primary url"
+                  />
+                </DialogTitle>
+                <DialogContent>
+                  <Typography>
+                    <FormattedHTMLMessage
+                      id="createMediaSource.existDescription"
+                      defaultMessage="An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
+                      values={{
+                        name: this.state.existingSource.name,
+                        url: this.state.primaryUrl.url,
+                      }}
+                      description="Text to inform user about existing source"
+                    />
+                  </Typography>
+                  <Typography>
+                    <FormattedMessage
+                      id="createMediaSource.confirm"
+                      defaultMessage="Do you want to use the existing sources for this media?"
+                      description="Confirm message to relate media to an existing source"
+                    />
+                  </Typography>
+                </DialogContent>
+                <DialogActions>
+                  <Button color="primary" onClick={this.handleCancelDialog.bind(this)}>
+                    <FormattedMessage id="createMediaSource.cancelButton" defaultMessage="Cancel" />
+                  </Button>
+                  <Button
+                    color="primary"
+                    className="source__create-use-existing-source"
+                    onClick={this.handleSubmitDialog.bind(this)}
+                  >
+                    <FormattedMessage
+                      id="createMediaSource.useExistingSource"
+                      defaultMessage="Use existing source"
+                      description="Submit button to relate media to an existing source"
+                    />
+                  </Button>
+                </DialogActions>
+              </Dialog> : null
+            }
+          </div>
         </div>
       </React.Fragment>
     );

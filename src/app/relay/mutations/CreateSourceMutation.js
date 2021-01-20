@@ -42,6 +42,7 @@ class CreateSourceMutation extends Relay.Mutation {
     const vars = {
       name: this.props.name,
       slogan: this.props.slogan,
+      validate_primary_link_exist: this.props.validate_primary_link_exist,
     };
     if (this.props.project_media) {
       vars.add_to_project_media_id = this.props.project_media.dbid;
