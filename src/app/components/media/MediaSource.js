@@ -1,155 +1,169 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Relay from 'react-relay/classic';
-import { withStyles } from '@material-ui/core/styles';
-import MediaRoute from '../../relay/MediaRoute';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
+import { makeStyles } from '@material-ui/core/styles';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
-import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import { getCurrentProjectId } from '../../helpers';
 
-const style = theme => ({
+const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2),
   },
-});
+}));
 
-class MediaSourceComponent extends Component {
-  constructor(props) {
-    super(props);
+const MediaSourceComponent = ({ cachedMedia, media }) => {
+  const [action, setAction] = React.useState('view');
+  const classes = useStyles();
 
-    this.state = {
-      sourceAction: 'view',
-    };
-  }
-
-  handleCancel() {
-    this.setState({ sourceAction: 'view' });
-  }
-
-  handleCreateNewSource() {
-    this.setState({ sourceAction: 'create' });
-  }
-
-  handleChangeSource() {
-    this.setState({ sourceAction: 'change' });
-  }
-
-  handleChangeSourceSubmit(value) {
+  const handleChangeSourceSubmit = (value) => {
     if (value) {
-      const onFailure = () => {};
-      const onSuccess = () => { this.setState({ sourceAction: 'view' }); };
-      Relay.Store.commitUpdate(
-        new UpdateProjectMediaMutation({
-          id: this.props.media.id,
-          source_id: value.dbid,
-          media: this.props.media,
-          srcProj: null,
-          dstProj: null,
-        }),
-        { onSuccess, onFailure },
-      );
-    }
-  }
+      const onFailure = () => {}; // FIXME: Add error handling
+      const onSuccess = () => { setAction('view'); };
 
-  render() {
-    const media = Object.assign(this.props.cachedMedia, this.props.media);
-    const { team, source } = media;
-    const { classes } = this.props;
-
-    return (
-      <React.Fragment>
-        <div id="media__source" className={classes.root}>
-          {this.state.sourceAction === 'view' && source !== null ?
-            <SourceInfo
-              source={source}
-              team={team}
-              onChangeClick={this.handleChangeSource.bind(this)}
-            /> : null
-          }
-          {this.state.sourceAction === 'create' ?
-            <CreateMediaSource
-              media={media}
-              onCancel={this.handleCancel.bind(this)}
-              relateToExistingSource={this.handleChangeSourceSubmit.bind(this)}
-            /> : null
-          }
-          {this.state.sourceAction === 'change' || source === null ?
-            <ChangeMediaSource
-              team={team}
-              onSubmit={this.handleChangeSourceSubmit.bind(this)}
-              onCancel={this.handleCancel.bind(this)}
-              createNewClick={this.handleCreateNewSource.bind(this)}
-            /> : null
-          }
-        </div>
-      </React.Fragment>
-    );
-  }
-}
-
-const MediaSourceContainer = Relay.createContainer(withStyles(style)(MediaSourceComponent), {
-  fragments: {
-    media: () => Relay.QL`
-      fragment on ProjectMedia {
-        id
-        dbid
-        archived
-        pusher_channel
-        team {
-          slug
-          name
-          sources(first: 10000) {
-            edges {
-              node {
-                id
-                dbid
-                name
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation MediaSourceChangeSourceMutation($input: UpdateProjectMediaInput!) {
+            updateProjectMedia(input: $input) {
+              project_media {
+                source {
+                  id
+                  dbid
+                  image
+                  name
+                  pusher_channel
+                  medias_count
+                  permissions
+                  account_sources(first: 10000) {
+                    edges {
+                      node {
+                        id
+                        permissions
+                        account {
+                          id
+                          url
+                        }
+                      }
+                    }
+                  }
+                }
               }
             }
           }
+        `,
+        variables: {
+          input: {
+            id: media.id,
+            source_id: value.dbid,
+          },
+        },
+        onError: onFailure,
+        onCompleted: ({ data, errors }) => {
+          if (errors) {
+            return onFailure(errors);
+          }
+          return onSuccess(data);
+        },
+      });
+    }
+  };
+
+  const handleCancel = () => setAction('view');
+  const handleCreateNewSource = () => setAction('create');
+  const handleChangeSource = () => setAction('change');
+
+  const projectMedia = Object.assign(cachedMedia, media);
+  const { team, source } = projectMedia;
+
+  return (
+    <React.Fragment>
+      <div id="media__source" className={classes.root}>
+        { action === 'view' && source !== null ?
+          <SourceInfo
+            source={source}
+            team={team}
+            onChangeClick={handleChangeSource}
+          /> : null
         }
-        source {
-          id
-          dbid
-          image
-          name
-          pusher_channel
-          medias_count
-          permissions
-          account_sources(first: 10000) {
-            edges {
-              node {
-                id
-                permissions
-                account {
-                  id
-                  url
+        { action === 'create' ?
+          <CreateMediaSource
+            media={projectMedia}
+            onCancel={handleCancel}
+            relateToExistingSource={handleChangeSourceSubmit}
+          /> : null
+        }
+        { action === 'change' || source === null ?
+          <ChangeMediaSource
+            team={team}
+            onSubmit={handleChangeSourceSubmit}
+            onCancel={handleCancel}
+            createNewClick={handleCreateNewSource}
+          /> : null
+        }
+      </div>
+    </React.Fragment>
+  );
+};
+
+const MediaSource = ({ projectMedia }) => {
+  const projectId = getCurrentProjectId(projectMedia.project_ids);
+  const ids = `${projectMedia.dbid},${projectId}`;
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query MediaSourceQuery($ids: String!) {
+          project_media(ids: $ids) {
+            id
+            dbid
+            archived
+            pusher_channel
+            team {
+              slug
+              ...ChangeMediaSource_team
+            }
+            source {
+              id
+              dbid
+              image
+              name
+              pusher_channel
+              medias_count
+              permissions
+              account_sources(first: 10000) {
+                edges {
+                  node {
+                    id
+                    permissions
+                    account {
+                      id
+                      url
+                    }
+                  }
                 }
               }
             }
           }
         }
-      }
-    `,
-  },
-});
+      `}
+      variables={{
+        ids,
+      }}
+      render={({ error, props }) => {
+        if (!error && !props) {
+          return <MediasLoading count={1} />;
+        }
 
-const MediaSource = (props) => {
-  const projectId = getCurrentProjectId(props.media.project_ids);
-  const ids = `${props.media.dbid},${projectId}`;
-  const route = new MediaRoute({ ids });
-  const { media } = props;
+        if (!error && props) {
+          return <MediaSourceComponent cachedMedia={projectMedia} media={props.project_media} />;
+        }
 
-  return (
-    <Relay.RootContainer
-      Component={MediaSourceContainer}
-      renderFetched={data =>
-        <MediaSourceContainer cachedMedia={media} {...data} />}
-      route={route}
-      renderLoading={() => <MediasLoading count={1} />}
-      forceFetch
+        // TODO: We need a better error handling in the future, standardized with other components
+        return null;
+      }}
     />
   );
 };
