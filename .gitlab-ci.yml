@@ -23,7 +23,6 @@ build_qa:
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
-    - fix-ecs-deploy
 
 deploy_qa:
   image: python:3-alpine
@@ -44,7 +43,6 @@ deploy_qa:
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
-    - fix-ecs-deploy
 
 build_live:
   image: docker:latest
