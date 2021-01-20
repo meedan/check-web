@@ -23,7 +23,6 @@ build_qa:
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
-    - fix-ecs-deploy
 
 deploy_qa:
   image: python:3-alpine
@@ -37,15 +36,14 @@ deploy_qa:
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
     - apk add --no-cache curl jq python3 py3-pip git
-    - pip install awscli
     - pip install botocore==1.17.47
     - pip install boto3==1.14.47
     - pip install ecs-deploy==1.11.0
+    - pip install awscli
     - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
-    - fix-ecs-deploy
 
 build_live:
   image: docker:latest
@@ -82,10 +80,10 @@ deploy_live:
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
     - apk add --no-cache curl jq python3 py3-pip git
-    - pip install awscli
     - pip install botocore==1.17.47
     - pip install boto3==1.14.47
     - pip install ecs-deploy==1.11.0
+    - pip install awscli
     - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
