@@ -98,13 +98,13 @@ function CreateMediaSource({
   };
 
   const handleRemoveNewLink = (index) => {
-    const newLinks = links;
+    const newLinks = links.slice();
     newLinks.splice(index, 1);
     setLinks(newLinks);
   };
 
   const handleAddLink = () => {
-    const newLinks = links;
+    const newLinks = links.slice();
     newLinks.push({ url: '', error: '' });
     setLinks(newLinks);
   };
