@@ -14,25 +14,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaSourceComponent = ({
-  projectMedia,
-  keyword,
-  onChangeKeyword,
-}) => {
-  const [action, setAction] = React.useState(keyword.length === 0 ? 'view' : 'change');
+const MediaSourceComponent = ({ cachedMedia, media }) => {
+  const [action, setAction] = React.useState('view');
   const classes = useStyles();
 
   const handleChangeSourceSubmit = (value) => {
     if (value) {
       const onFailure = () => {}; // FIXME: Add error handling
-      const onSuccess = () => { onChangeKeyword(''); };
+      const onSuccess = () => { setAction('view'); };
 
       commitMutation(Relay.Store, {
         mutation: graphql`
           mutation MediaSourceChangeSourceMutation($input: UpdateProjectMediaInput!) {
             updateProjectMedia(input: $input) {
               project_media {
-                id
                 source {
                   id
                   dbid
@@ -60,7 +55,7 @@ const MediaSourceComponent = ({
         `,
         variables: {
           input: {
-            id: projectMedia.id,
+            id: media.id,
             source_id: value.dbid,
           },
         },
@@ -79,6 +74,7 @@ const MediaSourceComponent = ({
   const handleCreateNewSource = () => setAction('create');
   const handleChangeSource = () => setAction('change');
 
+  const projectMedia = Object.assign(cachedMedia, media);
   const { team, source } = projectMedia;
 
   return (
@@ -86,7 +82,6 @@ const MediaSourceComponent = ({
       <div id="media__source" className={classes.root}>
         { action === 'view' && source !== null ?
           <SourceInfo
-            key={source.id}
             source={source}
             team={team}
             onChangeClick={handleChangeSource}
@@ -102,10 +97,8 @@ const MediaSourceComponent = ({
         { action === 'change' || source === null ?
           <ChangeMediaSource
             team={team}
-            keyword={keyword}
             onSubmit={handleChangeSourceSubmit}
             onCancel={handleCancel}
-            onChange={onChangeKeyword}
             createNewClick={handleCreateNewSource}
           /> : null
         }
@@ -115,7 +108,6 @@ const MediaSourceComponent = ({
 };
 
 const MediaSource = ({ projectMedia }) => {
-  const [keyword, setKeyword] = React.useState('');
   const projectId = getCurrentProjectId(projectMedia.project_ids);
   const ids = `${projectMedia.dbid},${projectId}`;
 
@@ -123,7 +115,7 @@ const MediaSource = ({ projectMedia }) => {
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query MediaSourceQuery($ids: String!, $keyword: String!) {
+        query MediaSourceQuery($ids: String!) {
           project_media(ids: $ids) {
             id
             dbid
@@ -131,7 +123,7 @@ const MediaSource = ({ projectMedia }) => {
             pusher_channel
             team {
               slug
-              ...ChangeMediaSource_team @arguments(keyword: $keyword)
+              ...ChangeMediaSource_team
             }
             source {
               id
@@ -159,7 +151,6 @@ const MediaSource = ({ projectMedia }) => {
       `}
       variables={{
         ids,
-        keyword,
       }}
       render={({ error, props }) => {
         if (!error && !props) {
@@ -167,7 +158,7 @@ const MediaSource = ({ projectMedia }) => {
         }
 
         if (!error && props) {
-          return <MediaSourceComponent projectMedia={props.project_media} keyword={keyword} onChangeKeyword={setKeyword} />;
+          return <MediaSourceComponent cachedMedia={projectMedia} media={props.project_media} />;
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
