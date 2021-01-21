@@ -171,9 +171,13 @@ module AppSpecHelpers
     self
   end
 
-  def save_screenshot(title)
+  def save_screenshot(title, driver = nil)
     path = "/tmp/ #{(0...8).map { rand(65..90).chr }.join}.png"
-    @driver.save_screenshot(path)
+    if driver
+      driver.save_screenshot(path)
+    else
+      @driver.save_screenshot(path)
+    end
     auth_header = { 'Authorization' => "Client-ID #{@config['imgur_client_id']}" }
     image = Base64.strict_encode64(File.open(path).read)
     body = { image: image, type: 'file' }

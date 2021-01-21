@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { browserHistory } from 'react-router';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -207,7 +206,7 @@ const MediaAnalysis = ({ projectMedia }) => {
       onCompleted: (response, err) => {
         setCopying(false);
         if (!err) {
-          browserHistory.push(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
+          window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
         }
       },
       onError: () => {
