@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
 import CheckIcon from '@material-ui/icons/Check';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
@@ -202,6 +202,18 @@ const TiplineRequest = ({
       </div>
     </div>
   );
+};
+
+TiplineRequest.propTypes = {
+  annotation: PropTypes.shape({
+    object_after: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+    smooch_user_slack_channel_url: PropTypes.string.isRequired,
+    smooch_user_external_identifier: PropTypes.string.isRequired,
+    smooch_report_received_at: PropTypes.number.isRequired,
+    smooch_report_update_received_at: PropTypes.number.isRequired,
+  }).isRequired,
+  intl: intlShape.isRequired,
 };
 
 export default injectIntl(TiplineRequest);
