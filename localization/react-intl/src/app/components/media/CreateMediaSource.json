@@ -65,10 +65,6 @@
     "defaultMessage": "Do you want to use the existing sources for this media?"
   },
   {
-    "id": "createMediaSource.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "createMediaSource.useExistingSource",
     "description": "Submit button to relate media to an existing source",
     "defaultMessage": "Use existing source"
