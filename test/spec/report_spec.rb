@@ -55,12 +55,7 @@ shared_examples 'report' do
   end
 
   it 'should generate a report, copy the share url and open the report page in a incognito window', bin5: true do
-    api_create_team_and_project
-    @driver.navigate.to @config['self_url']
-    wait_for_selector('.project__description')
-    create_image('test.png')
-    wait_for_selector('.medias__item')
-    wait_for_selector('img').click
+    api_create_team_project_and_claim_and_redirect_to_media_page('Embed Test')
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
@@ -75,7 +70,7 @@ shared_examples 'report' do
     begin
       driver.navigate.to embed_url
       @wait.until { driver.find_element(:css, 'body') }
-      expect(driver.page_source.include?('media')).to be(true)
+      expect(embed_url.match(/^http/).nil?).to be(false)
     ensure
       driver.quit
     end
