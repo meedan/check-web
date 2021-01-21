@@ -8,11 +8,15 @@ import TextField from '@material-ui/core/TextField';
 
 function ChangeMediaSource({
   team,
+  keyword,
   onCancel,
   onSubmit,
+  onChange,
   createNewClick,
 }) {
   const [value, setValue] = React.useState(null);
+  const [input, setInput] = React.useState(keyword);
+
   const handleSubmit = React.useCallback(() => {
     setValue(null);
     onSubmit(value);
@@ -27,6 +31,17 @@ function ChangeMediaSource({
     default: break;
     }
   }, [value]);
+
+  const handleInputChange = (ev, newInput, reason) => {
+    if (reason === 'input') {
+      setTimeout(() => {
+        if (input !== newInput && newInput.length > 2) {
+          onChange(newInput);
+        }
+      }, 1000);
+      setInput(newInput);
+    }
+  };
 
   const createNew = (
     <Button
@@ -44,11 +59,14 @@ function ChangeMediaSource({
   return (
     <div id="media_source-change">
       <Autocomplete
+        open={!value && teamSources.length > 0}
         autoHighlight
-        options={teamSources}
+        options={input.length < 3 ? [] : teamSources}
         getOptionLabel={option => option.name}
         getOptionSelected={(option, val) => val !== null && option.id === val.id}
+        inputValue={value ? value.name : input}
         value={value}
+        onInputChange={handleInputChange}
         onChange={handleChange}
         renderInput={params => (
           <TextField
@@ -99,18 +117,26 @@ function ChangeMediaSource({
     </div>
   );
 }
+
+ChangeMediaSource.defaultProps = {
+  keyword: '',
+};
+
 ChangeMediaSource.propTypes = {
+  keyword: PropTypes.string,
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   onCancel: PropTypes.func.isRequired, // func() => undefined
   onSubmit: PropTypes.func.isRequired, // func(<Project>) => undefined
+  onChange: PropTypes.func.isRequired, // func(keyword) => undefined
   createNewClick: PropTypes.func.isRequired, // func() => undefined
 };
 
 export default createFragmentContainer(ChangeMediaSource, {
   team: graphql`
-    fragment ChangeMediaSource_team on Team {
+    fragment ChangeMediaSource_team on Team
+    @argumentDefinitions(keyword: { type: "String!", defaultValue: "" }) {
       name
-      sources(first: 10000) {
+      sources(first: 10000, keyword: $keyword) {
         edges {
           node {
             id
