@@ -1,11 +1,23 @@
 [
   {
+    "id": "translateStatuses.status",
+    "defaultMessage": "Status"
+  },
+  {
+    "id": "translateStatuses.message",
+    "defaultMessage": "Message"
+  },
+  {
     "id": "translateStatuses.missingTranslations",
     "defaultMessage": "Missing translations"
   },
   {
     "id": "translateStatuses.missingTranslationsBody",
     "defaultMessage": "Some statuses are missing translations. Users may not be able to read untranslated statuses."
+  },
+  {
+    "id": "translateStatuses.missingTranslationsBody2",
+    "defaultMessage": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
   },
   {
     "id": "translateStatuses.continueAndSave",

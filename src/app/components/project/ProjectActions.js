@@ -121,7 +121,7 @@ class ProjectActions extends Component {
         >
           <ListItemText
             primary={
-              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign list" />
+              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign list to…" />
             }
           />
         </MenuItem>));

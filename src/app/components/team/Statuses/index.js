@@ -24,6 +24,15 @@ const Statuses = props => (
           verification_statuses
           get_language
           get_languages
+          team_bot_installations(first: 10000) {
+            edges {
+              node {
+                team_bot: bot_user {
+                  identifier
+                }
+              }
+            }
+          }
         }
       }
     `}

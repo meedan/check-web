@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
+import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +13,7 @@ import { languageLabel } from '../../../LanguageRegistry';
 import { units } from '../../../styles/js/shared';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import StatusLabel from './StatusLabel';
+import StatusMessage from './StatusMessage';
 
 const StyledTranslateStatusesContainer = styled.div`
   margin: ${units(4)};
@@ -21,6 +24,11 @@ const StyledColHeader = styled.div`
   justify-content: space-between;
 `;
 
+const StyledTextField = styled.div`
+  margin-top: ${units(2)};
+  margin-bottom: ${units(1)};
+`;
+
 const TranslateStatuses = ({
   statuses,
   defaultLanguage,
@@ -28,6 +36,7 @@ const TranslateStatuses = ({
   onSubmit,
 }) => {
   const [translations, setTranslations] = React.useState({});
+  const [messages, setMessages] = React.useState({});
   const [showWarning, setShowWarning] = React.useState(false);
 
   const handleDialogCancel = () => {
@@ -39,13 +48,23 @@ const TranslateStatuses = ({
       const status = { ...s };
       const locales = { ...s.locales };
 
-      if (typeof translations[s.id] !== 'undefined') {
-        locales[currentLanguage] = {
-          label: translations[s.id],
-          description: '',
-        };
-        status.locales = locales;
+      let label = translations[s.id];
+      let message = messages[s.id];
+
+      if (typeof label === 'undefined' && s.locales[currentLanguage]) {
+        label = s.locales[currentLanguage].label || '';
       }
+
+      if (typeof message === 'undefined' && s.locales[currentLanguage]) {
+        message = s.locales[currentLanguage].message || '';
+      }
+
+      locales[currentLanguage] = {
+        label,
+        message,
+        description: '',
+      };
+      status.locales = locales;
 
       return status;
     });
@@ -63,8 +82,19 @@ const TranslateStatuses = ({
       return (!savedTranslation && !newTranslation);
     });
 
-    if (missingTranslation) {
-      setShowWarning(missingTranslation);
+    const missingMessage = statuses.some((s) => {
+      const missedMessage =
+        s.should_send_message &&
+        s.locales[defaultLanguage] &&
+        s.locales[defaultLanguage].message &&
+        s.locales[defaultLanguage].message.length > 0 &&
+        (!s.locales[currentLanguage] || !s.locales[currentLanguage].message || s.locales[currentLanguage].message.replace(/\s/g, '').length === 0);
+      const newMessage = messages[s.id];
+      return (missedMessage && !newMessage);
+    });
+
+    if (missingTranslation || missingMessage) {
+      setShowWarning(true);
     } else {
       handleSubmit();
     }
@@ -73,6 +103,11 @@ const TranslateStatuses = ({
   const handleTextChange = (id, text) => {
     const newTranslations = { ...translations, [id]: text };
     setTranslations(newTranslations);
+  };
+
+  const handleMessageChange = (id, message) => {
+    const newMessages = { ...messages, [id]: message };
+    setMessages(newMessages);
   };
 
   return (
@@ -95,34 +130,80 @@ const TranslateStatuses = ({
         </Grid>
       </Grid>
       {statuses.map(s => (
-        <Grid
-          spacing={2}
-          container
-          direction="row"
-          alignItems="center"
-          key={s.id}
-        >
-          <Grid item xs={6}>
-            <StatusLabel color={s.style.color}>
-              { s.locales[defaultLanguage] ?
-                s.locales[defaultLanguage].label : s.label }
-            </StatusLabel>
+        <Box mt={1} key={s.id}>
+          <Divider />
+          <Grid
+            spacing={2}
+            container
+            direction="row"
+            alignItems="center"
+          >
+            <Grid item xs={6}>
+              <Typography variant="caption" component="div">
+                <FormattedMessage
+                  id="translateStatuses.status"
+                  defaultMessage="Status"
+                />
+              </Typography>
+              <StatusLabel color={s.style.color}>
+                { s.locales[defaultLanguage] ?
+                  s.locales[defaultLanguage].label : s.label }
+              </StatusLabel>
+              <StatusMessage
+                message={
+                  s.locales[defaultLanguage] && s.should_send_message ?
+                    s.locales[defaultLanguage].message : null
+                }
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <StyledTextField>
+                <TextField
+                  className="translate-statuses__input"
+                  label={
+                    <FormattedMessage
+                      id="translateStatuses.status"
+                      defaultMessage="Status"
+                    />
+                  }
+                  defaultValue={
+                    s.locales[currentLanguage] ?
+                      s.locales[currentLanguage].label : ''
+                  }
+                  fullWidth
+                  id={`translate-statuses__input-${s.id}`}
+                  onChange={e => (handleTextChange(s.id, e.target.value))}
+                  size="small"
+                  variant="outlined"
+                />
+              </StyledTextField>
+              { s.should_send_message && s.locales[defaultLanguage] && s.locales[defaultLanguage].message ?
+                <StyledTextField>
+                  <TextField
+                    className="translate-statuses__message"
+                    label={
+                      <FormattedMessage
+                        id="translateStatuses.message"
+                        defaultMessage="Message"
+                      />
+                    }
+                    defaultValue={
+                      s.locales[currentLanguage] ?
+                        s.locales[currentLanguage].message : ''
+                    }
+                    fullWidth
+                    id={`translate-statuses__message-${s.id}`}
+                    multiline
+                    rows={3}
+                    rowsMax={Infinity}
+                    onChange={e => (handleMessageChange(s.id, e.target.value))}
+                    size="small"
+                    variant="outlined"
+                  />
+                </StyledTextField> : null }
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <TextField
-              className="translate-statuses__input"
-              defaultValue={
-                s.locales[currentLanguage] ?
-                  s.locales[currentLanguage].label : ''
-              }
-              fullWidth
-              id={`translate-statuses__input-${s.id}`}
-              onChange={e => (handleTextChange(s.id, e.target.value))}
-              size="small"
-              variant="outlined"
-            />
-          </Grid>
-        </Grid>
+        </Box>
       ))}
       <ConfirmProceedDialog
         open={showWarning}
@@ -133,10 +214,21 @@ const TranslateStatuses = ({
           />
         }
         body={
-          <FormattedMessage
-            id="translateStatuses.missingTranslationsBody"
-            defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
-          />
+          <Box>
+            <Typography variant="body1">
+              <FormattedMessage
+                id="translateStatuses.missingTranslationsBody"
+                defaultMessage="Some statuses are missing translations. Users may not be able to read untranslated statuses."
+              />
+            </Typography>
+            <p />
+            <Typography variant="body1">
+              <FormattedMessage
+                id="translateStatuses.missingTranslationsBody2"
+                defaultMessage="If the message for a status is not translated in a language, any requester using that language will not receive the message."
+              />
+            </Typography>
+          </Box>
         }
         onCancel={handleDialogCancel}
         onProceed={handleSubmit}

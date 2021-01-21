@@ -86,7 +86,7 @@ shared_examples 'project' do
   end
 
   it 'should manage custom list columns', bin4: true do
-    api_create_team_project_metadata_and_media
+    api_create_team_project_metadata_and_media('https://twitter.com/check/status/1255094026497413120')
     wait_for_selector('#create-media__add-item')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(true)

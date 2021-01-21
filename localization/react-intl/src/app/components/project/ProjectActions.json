@@ -13,7 +13,7 @@
   },
   {
     "id": "projectActions.assignOrUnassign",
-    "defaultMessage": "Assign list"
+    "defaultMessage": "Assign list to…"
   },
   {
     "id": "projectActions.destroy",

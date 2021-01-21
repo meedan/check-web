@@ -86,7 +86,7 @@ class MediaActionsMenuButton extends React.PureComponent {
         >
           <ListItemText
             primary={
-              <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assignment" />
+              <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assign to…" />
             }
           />
         </MenuItem>));

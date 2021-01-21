@@ -289,6 +289,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         </Card>
       </ContentColumn>
       <EditStatusDialog
+        team={team}
         defaultLanguage={defaultLanguage}
         defaultValue={selectedStatus}
         key={selectedStatus || 'edit-status-dialog'}
