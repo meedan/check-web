@@ -75,7 +75,7 @@ function CreateMediaSource({
   const classes = useStyles();
 
   const handleChangeLink = (e, index) => {
-    const newLinks = links;
+    const newLinks = links.slice();
     newLinks[index].url = e.target.value;
     newLinks[index].error = '';
     setLinks(newLinks);
@@ -134,7 +134,7 @@ function CreateMediaSource({
 
     let success = true;
 
-    const newLinks = links.filter(link => !!link.url.trim());
+    const newLinks = links.slice().filter(link => !!link.url.trim());
 
     newLinks.forEach((item_) => {
       const item = item_;

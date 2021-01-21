@@ -119,12 +119,13 @@ function SourceInfo({ source, team, onChangeClick }) {
   };
 
   const handleAddLinkFail = (type, message) => {
+    const newLink = { error: message };
+    newLink.url = type === 'primary' ? primaryUrl.url : secondaryUrl.url;
     if (type === 'primary') {
-      primaryUrl.error = message;
-      setPrimaryUrl(primaryUrl);
+      setPrimaryUrl(newLink);
     } else {
-      secondaryUrl.error = message;
-      setSecondaryUrl(secondaryUrl);
+      newLink.addNewLink = false;
+      setSecondaryUrl(newLink);
     }
   };
 
@@ -142,7 +143,7 @@ function SourceInfo({ source, team, onChangeClick }) {
       };
       const onSuccess = () => {
         if (type === 'primary') {
-          setPrimaryUrl({ primaryUrl: { url: '', error: '' } });
+          setPrimaryUrl({ url: '', error: '' });
         } else {
           setSecondaryUrl({ url: '', error: '', addNewLink: false });
         }
@@ -243,7 +244,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                 name="source__name-input"
                 value={sourceName}
                 disabled={!can(source.permissions, 'update Source')}
-                error={sourceError.length !== 0}
+                error={Boolean(sourceError)}
                 helperText={sourceError}
                 onBlur={(e) => { updateName(e.target.value); }}
                 onChange={(e) => { setSourceName(e.target.value); }}
@@ -303,7 +304,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                       />
                     }
                     value={primaryUrl.url}
-                    error={primaryUrl.error.length !== 0}
+                    error={Boolean(primaryUrl.error)}
                     helperText={primaryUrl.error}
                     onBlur={(e) => { createAccountSource('primary', e.target.value.trim()); }}
                     onChange={(e) => { handleChangeLink(e, 'primary'); }}
@@ -349,7 +350,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     id="source__link-input-new"
                     name="source__link-input-new"
                     value={secondaryUrl.url}
-                    error={secondaryUrl.error.length !== 0}
+                    error={Boolean(secondaryUrl.error)}
                     helperText={secondaryUrl.error}
                     onBlur={(e) => { createAccountSource('secondary', e.target.value.trim()); }}
                     onChange={(e) => { handleChangeLink(e, 'secondary'); }}

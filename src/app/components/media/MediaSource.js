@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaSourceComponent = ({ cachedMedia, media }) => {
+const MediaSourceComponent = ({ projectMedia }) => {
   const [action, setAction] = React.useState('view');
   const classes = useStyles();
 
@@ -28,6 +28,7 @@ const MediaSourceComponent = ({ cachedMedia, media }) => {
           mutation MediaSourceChangeSourceMutation($input: UpdateProjectMediaInput!) {
             updateProjectMedia(input: $input) {
               project_media {
+                id
                 source {
                   id
                   dbid
@@ -55,7 +56,7 @@ const MediaSourceComponent = ({ cachedMedia, media }) => {
         `,
         variables: {
           input: {
-            id: media.id,
+            id: projectMedia.id,
             source_id: value.dbid,
           },
         },
@@ -74,7 +75,6 @@ const MediaSourceComponent = ({ cachedMedia, media }) => {
   const handleCreateNewSource = () => setAction('create');
   const handleChangeSource = () => setAction('change');
 
-  const projectMedia = Object.assign(cachedMedia, media);
   const { team, source } = projectMedia;
 
   return (
@@ -82,6 +82,7 @@ const MediaSourceComponent = ({ cachedMedia, media }) => {
       <div id="media__source" className={classes.root}>
         { action === 'view' && source !== null ?
           <SourceInfo
+            key={source ? source.id : 0}
             source={source}
             team={team}
             onChangeClick={handleChangeSource}
@@ -94,7 +95,7 @@ const MediaSourceComponent = ({ cachedMedia, media }) => {
             relateToExistingSource={handleChangeSourceSubmit}
           /> : null
         }
-        { action === 'change' || source === null ?
+        { action !== 'create' && (action === 'change' || source === null) ?
           <ChangeMediaSource
             team={team}
             onSubmit={handleChangeSourceSubmit}
@@ -158,7 +159,7 @@ const MediaSource = ({ projectMedia }) => {
         }
 
         if (!error && props) {
-          return <MediaSourceComponent cachedMedia={projectMedia} media={props.project_media} />;
+          return <MediaSourceComponent projectMedia={props.project_media} />;
         }
 
         // TODO: We need a better error handling in the future, standardized with other components
