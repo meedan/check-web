@@ -7,7 +7,6 @@ cache:
     - "/tmp/bundler"
 services:
   - docker
-  - redis
   - postgresql
   - xvfb
 addons:
@@ -52,8 +51,16 @@ before_install:
 - export TRAVIS_TAG=0.0.0
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
-# minio
-- docker run -d -p 9000:9000 -e "MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE" -e "MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY" minio/minio server /data
+# pender
+# also starts minio and redis
+- export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- echo "Using branch $PENDER_BRANCH for Pender"
+- git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
+- d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
+- cd pender
+- docker-compose build
+- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- cd -
 # check api
 - psql -c 'create database checkdesk_test0;' -U postgres
 - docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.2
@@ -73,15 +80,6 @@ before_install:
 - RAILS_ENV=test bundle exec puma -w 3 -t 8:60 --preload -b tcp://127.0.0.1:3000 >/dev/null &
 - cd -
 - export RAILS_ENV=development
-# pender
-- git clone https://github.com/meedan/pender.git
-- d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
-- cd pender
-- RAILS_ENV=test bundle install --path=/tmp/bundler
-- bundle exec rake db:migrate
-- bundle exec rails runner 'a = ApiKey.create!; a.access_token = "test"; a.save!'
-- bundle exec rails s -p 3005 >/dev/null &
-- cd -
 # chromedriver
 - chromedriver --port=9515 >/dev/null 2>/dev/null &
 # ruby / bundler / rspec
