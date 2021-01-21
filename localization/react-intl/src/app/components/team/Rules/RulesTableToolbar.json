@@ -13,7 +13,7 @@
   },
   {
     "id": "rulesTableToolbar.selected",
-    "defaultMessage": "{numSelected, plural, one {1 selected} other {# selected}}"
+    "defaultMessage": "{numSelected, plural, one {# selected} other {# selected}}"
   },
   {
     "id": "rulesTableToolbar.delete",

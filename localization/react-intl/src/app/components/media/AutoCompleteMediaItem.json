@@ -17,7 +17,7 @@
   },
   {
     "id": "autoCompleteMediaItem.results",
-    "defaultMessage": "{count, plural, one {1 result} other {# results}}"
+    "defaultMessage": "{count, plural, one {# result} other {# results}}"
   },
   {
     "id": "autoCompleteMediaItem.cantSelectPublished",

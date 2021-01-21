@@ -9,7 +9,7 @@
   },
   {
     "id": "searchResults.withSelection",
-    "defaultMessage": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+    "defaultMessage": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
   },
   {
     "id": "search.nextPage",

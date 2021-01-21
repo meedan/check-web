@@ -9,10 +9,10 @@
   },
   {
     "id": "mediaSimilarityBarComponent.similarMedia",
-    "defaultMessage": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+    "defaultMessage": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
   },
   {
     "id": "mediaSimilarityBarComponent.suggestedMatches",
-    "defaultMessage": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+    "defaultMessage": "{count, plural, one {# suggested match} other {# suggested matches}}"
   }
 ]
