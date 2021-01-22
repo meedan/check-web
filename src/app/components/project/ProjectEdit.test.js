@@ -18,7 +18,7 @@ const createWrapper = (props) => {
 
 describe('<ProjectEditComponent />', () => {
   it('forbids empty title', () => {
-    const team = { slug: 'team-slug' };
+    const team = { slug: 'team-slug', name: 'A Team' };
     getStore().team = team;
     getStore().dispatch = () => {};
 
@@ -41,10 +41,9 @@ describe('<ProjectEditComponent />', () => {
   });
 
   it('allows editing title', () => {
-    const team = { slug: 'team-slug' };
+    const team = { slug: 'team-slug', name: 'A Team' };
     getStore().team = team;
     getStore().dispatch = () => {};
-
     const { wrapper } = createWrapper({ project: { title: 'Project', description: 'Description', team } });
     const ProjectEdit = wrapper.find(ProjectEditComponent);
 
@@ -64,7 +63,7 @@ describe('<ProjectEditComponent />', () => {
   });
 
   it('allows editing description', () => {
-    const team = { slug: 'team-slug' };
+    const team = { slug: 'team-slug', name: 'A Team' };
     getStore().team = team;
     getStore().dispatch = () => {};
 

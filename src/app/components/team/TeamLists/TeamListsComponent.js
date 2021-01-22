@@ -221,7 +221,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 }
                 onToggle={handleToggle}
                 placeholder={
-                  <Link to={`/${team.slug}/settings/metadata`} className={classes.link}>
+                  <Link to={`/${team.slug}/settings/metadata`} className={classes.link} id="create-metadata__add-button" >
                     <FormattedMessage
                       id="teamListsComponent.createMetadata"
                       defaultMessage="Create new metadata field"

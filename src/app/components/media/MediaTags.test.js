@@ -6,7 +6,7 @@ import { MediaTags } from './MediaTags';
 describe('<MediaTags />', () => {
   const projectMedia = {
     tags: {
-      edges: [{ node: { tag: 123, id: '123', tag_text: 'tag1' } }, { node: { tag: 234, tag_text: 'suggestedTag3', id: '234' } }],
+      edges: [{ node: { tag: '123', id: '123', tag_text: 'tag1' } }, { node: { tag: '234', tag_text: 'suggestedTag3', id: '234' } }],
     },
   };
 
