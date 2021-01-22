@@ -32,6 +32,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     overflow: 'hidden',
   },
+  mediaItemCardHeader: {
+    padding: theme.spacing(1),
+    width: '100%',
+  },
   notSelected: {
     background: 'white',
   },
@@ -42,30 +46,42 @@ const useStyles = makeStyles(theme => ({
     fontSize: 14,
     lineHeight: '1.5em',
     color: 'black',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
     '&:visited': {
       color: 'black',
     },
   },
   image: {
-    height: 100,
-    width: 100,
+    height: 80,
+    width: 80,
     objectFit: 'cover',
+    border: `1px solid ${brandSecondary}`,
   },
   sep: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
   },
   sub: {
     fontSize: 12,
+    flexWrap: 'wrap',
+  },
+  mediaItemMetadataField: {
+    whiteSpace: 'nowrap',
   },
   content: {
-    minHeight: 100,
+    minHeight: 80,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
+    overflow: 'hidden',
   },
   description: {
     color: 'black',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   reportPublished: {
     color: checkBlue,
@@ -265,7 +281,7 @@ const MediaItem = ({
       style={onSelect ? { cursor: 'pointer' } : {}}
     >
       <CardHeader
-        classes={{ content: classes.content, title: classes.title }}
+        classes={{ content: classes.content, title: classes.title, root: classes.mediaItemCardHeader }}
         title={
           <Box display="flex" alignItems="center">
             { projectMedia.linked_items_count > 0 && !mainProjectMedia.id ? <LayersIcon /> : null }
@@ -277,53 +293,61 @@ const MediaItem = ({
         subheader={
           <Box>
             <Box display="flex" className={classes.sub}>
-              { projectMedia.linked_items_count && !mainProjectMedia.id ?
-                <FormattedMessage
-                  id="mediaItem.similarMedia"
-                  defaultMessage="{count} similar media"
-                  values={{
-                    count: projectMedia.linked_items_count,
-                  }}
-                /> :
-                <MediaTypeDisplayName mediaType={projectMedia.type} />
-              }
+              <div className={classes.mediaItemMetadataField}>
+                { projectMedia.linked_items_count && !mainProjectMedia.id ?
+                  <FormattedMessage
+                    id="mediaItem.similarMedia"
+                    defaultMessage="{count} similar media"
+                    values={{
+                      count: projectMedia.linked_items_count,
+                    }}
+                  /> :
+                  <MediaTypeDisplayName mediaType={projectMedia.type} />
+                }
+              </div>
               <div className={classes.sep}> - </div>
               { projectMedia.type !== 'Blank' ?
                 <React.Fragment>
-                  <FormattedMessage
-                    id="mediaItem.lastSubmitted"
-                    defaultMessage="Last submitted {timeAgo}"
-                    description="Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
-                    values={{
-                      timeAgo: (
-                        <TimeBefore
-                          date={parseStringUnixTimestamp(projectMedia.last_seen)}
-                        />
-                      ),
-                    }}
-                  />
+                  <div className={classes.mediaItemMetadataField}>
+                    <FormattedMessage
+                      id="mediaItem.lastSubmitted"
+                      defaultMessage="Last submitted {timeAgo}"
+                      description="Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+                      values={{
+                        timeAgo: (
+                          <TimeBefore
+                            date={parseStringUnixTimestamp(projectMedia.last_seen)}
+                          />
+                        ),
+                      }}
+                    />
+                  </div>
                   <div className={classes.sep}> - </div>
-                  <FormattedMessage
-                    id="mediaItem.requests"
-                    defaultMessage="{count, plural, one {1 request} other {# requests}}"
-                    values={{
-                      count: projectMedia.requests_count,
-                    }}
-                  />
+                  <div className={classes.mediaItemMetadataField}>
+                    <FormattedMessage
+                      id="mediaItem.requests"
+                      defaultMessage="{count, plural, one {1 request} other {# requests}}"
+                      values={{
+                        count: projectMedia.requests_count,
+                      }}
+                    />
+                  </div>
                   <div className={classes.sep}> - </div>
                 </React.Fragment> : null }
-              { projectMedia.report_status === 'published' ?
-                <div className={classes.reportPublished}>
-                  <FormattedMessage id="mediaItem.reportPublished" defaultMessage="Published" />
-                </div> : null }
-              { projectMedia.report_status === 'unpublished' ?
-                <div className={classes.reportUnpublished}>
-                  <FormattedMessage id="mediaItem.reportUnpublished" defaultMessage="Unpublished" />
-                </div> : null }
-              { projectMedia.report_status === 'paused' ?
-                <div className={classes.reportPaused}>
-                  <FormattedMessage id="mediaItem.reportPaused" defaultMessage="Paused" />
-                </div> : null }
+              <div className={classes.mediaItemMetadataField}>
+                { projectMedia.report_status === 'published' ?
+                  <div className={classes.reportPublished}>
+                    <FormattedMessage id="mediaItem.reportPublished" defaultMessage="Published" />
+                  </div> : null }
+                { projectMedia.report_status === 'unpublished' ?
+                  <div className={classes.reportUnpublished}>
+                    <FormattedMessage id="mediaItem.reportUnpublished" defaultMessage="Unpublished" />
+                  </div> : null }
+                { projectMedia.report_status === 'paused' ?
+                  <div className={classes.reportPaused}>
+                    <FormattedMessage id="mediaItem.reportPaused" defaultMessage="Paused" />
+                  </div> : null }
+              </div>
             </Box>
             <Typography variant="body2" className={classes.description}>
               {truncateLength(projectMedia.description, 140)}
