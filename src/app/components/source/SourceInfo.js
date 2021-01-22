@@ -80,41 +80,43 @@ function SourceInfo({ source, team, onChangeClick }) {
     }
   };
 
-  const updateName = (value) => {
-    if (value && source.name !== value) {
-      const onFailure = (transaction) => {
-        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-        setSourceError(message);
-      };
+  const handleNameKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      if (sourceName && source.name !== sourceName) {
+        const onFailure = (transaction) => {
+          const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+          setSourceError(message);
+        };
 
-      const onSuccess = () => {
-        setSourceError('');
-      };
+        const onSuccess = () => {
+          setSourceError('');
+        };
 
-      commitMutation(Relay.Store, {
-        mutation: graphql`
-          mutation SourceInfoUpdateNameMutation($input: UpdateSourceInput!) {
-            updateSource(input: $input) {
-              source {
-                name
+        commitMutation(Relay.Store, {
+          mutation: graphql`
+            mutation SourceInfoUpdateNameMutation($input: UpdateSourceInput!) {
+              updateSource(input: $input) {
+                source {
+                  name
+                }
               }
             }
-          }
-        `,
-        variables: {
-          input: {
-            id: source.id,
-            name: value,
+          `,
+          variables: {
+            input: {
+              id: source.id,
+              name: sourceName,
+            },
           },
-        },
-        onError: onFailure,
-        onCompleted: ({ data, errors }) => {
-          if (errors) {
-            return onFailure(errors);
-          }
-          return onSuccess(data);
-        },
-      });
+          onError: onFailure,
+          onCompleted: ({ data, errors }) => {
+            if (errors) {
+              return onFailure(errors);
+            }
+            return onSuccess(data);
+          },
+        });
+      }
     }
   };
 
@@ -129,42 +131,45 @@ function SourceInfo({ source, team, onChangeClick }) {
     }
   };
 
-  const createAccountSource = (type, value) => {
-    if (!value) {
-      return;
-    }
-    const linkify = new LinkifyIt();
-    const validateUrl = linkify.match(value);
-    if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
-      const { url } = validateUrl[0];
-      const onFailure = (transaction) => {
-        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+  const createAccountSource = (e, type) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      const value = e.target.value.trim();
+      if (!value) {
+        return;
+      }
+      const linkify = new LinkifyIt();
+      const validateUrl = linkify.match(value);
+      if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
+        const { url } = validateUrl[0];
+        const onFailure = (transaction) => {
+          const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+          handleAddLinkFail(type, message);
+        };
+        const onSuccess = () => {
+          if (type === 'primary') {
+            setPrimaryUrl({ url: '', error: '' });
+          } else {
+            setSecondaryUrl({ url: '', error: '', addNewLink: false });
+          }
+        };
+        Relay.Store.commitUpdate(
+          new CreateAccountSourceMutation({
+            id: source.dbid,
+            url,
+            source,
+          }),
+          { onSuccess, onFailure },
+        );
+      } else {
+        const message = (
+          <FormattedMessage
+            id="sourceInfo.invalidLink"
+            defaultMessage="Please enter a valid URL"
+            description="Error message for invalid link"
+          />
+        );
         handleAddLinkFail(type, message);
-      };
-      const onSuccess = () => {
-        if (type === 'primary') {
-          setPrimaryUrl({ url: '', error: '' });
-        } else {
-          setSecondaryUrl({ url: '', error: '', addNewLink: false });
-        }
-      };
-      Relay.Store.commitUpdate(
-        new CreateAccountSourceMutation({
-          id: source.dbid,
-          url,
-          source,
-        }),
-        { onSuccess, onFailure },
-      );
-    } else {
-      const message = (
-        <FormattedMessage
-          id="sourceInfo.invalidLink"
-          defaultMessage="Please enter a valid URL"
-          description="Error message for invalid link"
-        />
-      );
-      handleAddLinkFail(type, message);
+      }
     }
   };
 
@@ -246,7 +251,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                 disabled={!can(source.permissions, 'update Source')}
                 error={Boolean(sourceError)}
                 helperText={sourceError}
-                onBlur={(e) => { updateName(e.target.value); }}
+                onKeyPress={(e) => { handleNameKeyPress(e); }}
                 onChange={(e) => { setSourceName(e.target.value); }}
                 margin="normal"
                 fullWidth
@@ -306,7 +311,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     value={primaryUrl.url}
                     error={Boolean(primaryUrl.error)}
                     helperText={primaryUrl.error}
-                    onBlur={(e) => { createAccountSource('primary', e.target.value.trim()); }}
+                    onKeyPress={(e) => { createAccountSource(e, 'primary'); }}
                     onChange={(e) => { handleChangeLink(e, 'primary'); }}
                     margin="normal"
                     fullWidth
@@ -352,7 +357,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     value={secondaryUrl.url}
                     error={Boolean(secondaryUrl.error)}
                     helperText={secondaryUrl.error}
-                    onBlur={(e) => { createAccountSource('secondary', e.target.value.trim()); }}
+                    onKeyPress={(e) => { createAccountSource(e, 'secondary'); }}
                     onChange={(e) => { handleChangeLink(e, 'secondary'); }}
                     margin="normal"
                     fullWidth
