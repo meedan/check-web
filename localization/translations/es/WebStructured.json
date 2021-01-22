@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved to '{toProject}'",
+		"string": "Ítems movidos a '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -749,28 +749,28 @@
 		"string": "Crear"
 	},
 	"createTeamDialog.creating": {
-		"string": "Creating…"
+		"string": "Creando..."
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "Could not create new workspace"
+		"string": "No se pudo crear una nueva área de trabajo"
 	},
 	"createTeamDialog.description": {
-		"string": "All settings from this workspace will be duplicated. No content will be added."
+		"string": "Se duplicarán todas las configuraciones de esta área de trabajo. No se añadirá contenido."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Crear una nueva área de trabajo"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Duplicar área de trabajo"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "Duplicating…"
+		"string": "Duplicando..."
 	},
 	"createTeamDialog.duplice": {
 		"string": "Duplicar"
 	},
 	"createTeamDialog.name": {
-		"string": "Workspace name"
+		"string": "Nombre del área de trabajo"
 	},
 	"createTeamDialog.url": {
 		"string": "URL del área de trabajo"
@@ -829,7 +829,7 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Move detached item to…",
+		"string": "Mover ítem adosado a...",
 		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
@@ -1439,7 +1439,7 @@
 		"string": "Detach"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Item detached to '{toProject}'",
+		"string": "Ítem adosado a '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -2037,7 +2037,7 @@
 		"string": "{numSelected, plural, one {1 seleccionada} other {# seleccionadas}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Crea automatizaciones para organizar listas y personalizar tu flujo de trabajo."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Reglas"
@@ -2218,7 +2218,7 @@
 		"string": "Configuración de integración"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Enviar notificaciones a canales de Slack cuando se añadan ítems a listas específicas."
 	},
 	"slackConfig.title": {
 		"string": "Integración con Slack"
@@ -2257,7 +2257,7 @@
 		"string": "Enviar notificación a"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Enviar notificaciones a canales de Slack cuando se añadan nuevos ítems a listas específicas."
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2527,7 +2527,7 @@
 		"string": "El título del estado es visible cuando se envían informes a los usuarios."
 	},
 	"statusesComponent.title": {
-		"string": "{languageName} statuses",
+		"string": "{languageName} Estados",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
@@ -2699,7 +2699,7 @@
 		"string": "Zonas horarias disponibles para completar la tarea"
 	},
 	"teamBots.browserBots": {
-		"string": "Browse bots"
+		"string": "Explorar bots"
 	},
 	"teamBots.close": {
 		"string": "Cerrar"
@@ -2753,7 +2753,7 @@
 		"string": "Unavailable option"
 	},
 	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+		"string": "Herramientas dedicadas a automatizar el archivado y conectar una red social a las lineas de Check."
 	},
 	"teamBots.success": {
 		"string": "¡Configuración actualizada!"
@@ -2813,7 +2813,7 @@
 		"string": "Editar"
 	},
 	"teamIntegrations.subtitle": {
-		"string": "Third party tools to enhance productivity."
+		"string": "Herramientas de terceros para mejorar la productividad."
 	},
 	"teamIntegrations.title": {
 		"string": "Integraciones"
@@ -2861,7 +2861,7 @@
 		"string": "Lists settings"
 	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "Ninguno(a) disponible"
 	},
 	"teamListsComponent.buttonLabel": {
 		"string": "Save changes for all lists"
@@ -2873,7 +2873,7 @@
 		"string": "Workspace list change"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new metadata field"
+		"string": "Crear nuevo campo de metadatos"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Could not save list settings.",
@@ -2883,7 +2883,7 @@
 		"string": "Select all the columns you want to display in all your lists."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Displayed columns"
+		"string": "Columnas mostradas"
 	},
 	"teamListsComponent.generalColumns": {
 		"string": "General"
@@ -2947,7 +2947,7 @@
 		"string": "Guardar"
 	},
 	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "El contenido que establezca aquí puede editarse en cada informe individual"
 	},
 	"teamReport.title": {
 		"string": "Configuración del informe"
@@ -3004,7 +3004,7 @@
 		"string": "Eliminar etiqueta"
 	},
 	"teamTags.description": {
-		"string": "Tags can be added to media, items and sources."
+		"string": "Se pueden añadir etiquetas a medios, ítems y fuentes."
 	},
 	"teamTags.editTag": {
 		"string": "Editar etiqueta"
@@ -3103,7 +3103,7 @@
 		"string": "Metadatos"
 	},
 	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
+		"string": "Añade campos de metadatos personalizados a los ítems."
 	},
 	"teamTasks.processMessage": {
 		"string": "¿Quieres proceder?"
@@ -3115,7 +3115,7 @@
 		"string": "Tareas"
 	},
 	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
+		"string": "Añade tareas personalizadas a los ítems."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Tipo de tarea"

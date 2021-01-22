@@ -1455,7 +1455,7 @@
 		"string": "Fixando..."
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 solicitação} other {# solicitações}}"
+		"string": "{count, plural, one {# solicitação} other {# solicitações}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -1485,7 +1485,7 @@
 		"string": "Adicionar relação"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 item relacionado} other {# itens relacionados}}"
+		"string": "{count, plural, one {# item relacionado} other {# itens relacionados}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Não foi possível adicionar item relacionado"
@@ -1497,13 +1497,13 @@
 		"string": "Item relacionado adicionado com sucesso"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 solicitação em toda a mídia} other {# solicitações em todas as mídias}}"
+		"string": "{count, plural, one {# solicitação em todas as mídias} other {# solicitações em todas as mídias}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Nenhuma solicitação"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 solicitação} other {# solicitações}}"
+		"string": "{count, plural, one {# solicitação} other {# solicitações}}"
 	},
 	"mediaSearch.error": {
 		"string": "Desculpe, ocorreu o seguinte erro: {message}. Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -1574,10 +1574,10 @@
 		"string": "Esta mídia foi sugerida como semelhante a outro item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 mídia semelhante confirmada} other {# mídias semelhantes confirmadas}}"
+		"string": "{count, plural, one {# mídia semelhante confirmada} other {# mídias semelhantes confirmadas}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 correspondência sugerida} other {# coincidências sugeridas}}"
+		"string": "{count, plural, one {# correspondência sugerida} other {# correspondências sugeridas}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Cancelar"

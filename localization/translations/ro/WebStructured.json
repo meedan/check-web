@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved to '{toProject}'",
+		"string": "Elemente mutate în „{toProject}”",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -749,28 +749,28 @@
 		"string": "Creează"
 	},
 	"createTeamDialog.creating": {
-		"string": "Creating…"
+		"string": "Se creează..."
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "Could not create new workspace"
+		"string": "Noul spațiu de lucru nu a putut fi creat"
 	},
 	"createTeamDialog.description": {
-		"string": "All settings from this workspace will be duplicated. No content will be added."
+		"string": "Toate setările din acest spațiu de lucru vor fi duplicate. Nu se va adăuga niciun conținut."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Creează spațiu nou de lucru"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Duplică spațiul de lucru"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "Duplicating…"
+		"string": "În curs de duplicare..."
 	},
 	"createTeamDialog.duplice": {
 		"string": "Duplică"
 	},
 	"createTeamDialog.name": {
-		"string": "Workspace name"
+		"string": "Denumire spațiu de lucru"
 	},
 	"createTeamDialog.url": {
 		"string": "URL spațiu de lucru"
@@ -829,7 +829,7 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Move detached item to…",
+		"string": "Mută elementul detașat în...",
 		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
@@ -1439,7 +1439,7 @@
 		"string": "Elimină"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Item detached to '{toProject}'",
+		"string": "Element detașat în „{toProject}”",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -2037,7 +2037,7 @@
 		"string": "{numSelected, plural, one {1 selectată} few {# selectate} other {# selectate}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Creeați automatizări pentru organizarea listelor și personalizarea fluxului de lucru."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Reguli"
@@ -2218,7 +2218,7 @@
 		"string": "Setări de integrare"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Trimite notificări către canalele Slack când sunt adăugate elemente la liste specifice"
 	},
 	"slackConfig.title": {
 		"string": "Integrare Slack"
@@ -2257,7 +2257,7 @@
 		"string": "Trimite notificări către"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Trimite notificări către canalele Slack când sunt adăugate elemente la liste specifice"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Webhook Slack"
@@ -2527,7 +2527,7 @@
 		"string": "Titlul stării este vizibil când rapoartele sunt transmise utilizatorilor."
 	},
 	"statusesComponent.title": {
-		"string": "{languageName} statuses",
+		"string": "Stări {languageName}",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
@@ -2699,7 +2699,7 @@
 		"string": "Fusuri orare disponibile pentru finalizarea sarcinii"
 	},
 	"teamBots.browserBots": {
-		"string": "Browse bots"
+		"string": "Caută roboți"
 	},
 	"teamBots.close": {
 		"string": "Închide"
@@ -2753,7 +2753,7 @@
 		"string": "Opțiune nedisponibilă"
 	},
 	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+		"string": "Instrumente dedicate pentru automatizarea arhivării și conectarea unei rețele sociale la liniile de ponturi Check."
 	},
 	"teamBots.success": {
 		"string": "Setările au fost actualizate!"
@@ -2813,7 +2813,7 @@
 		"string": "Editează"
 	},
 	"teamIntegrations.subtitle": {
-		"string": "Third party tools to enhance productivity."
+		"string": "Instrumente de la terți pentru creșterea productivității."
 	},
 	"teamIntegrations.title": {
 		"string": "Integrări"
@@ -2861,7 +2861,7 @@
 		"string": "Setări liste"
 	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "Niciunul disponibil"
 	},
 	"teamListsComponent.buttonLabel": {
 		"string": "Salvează modificările pentru toate listele"
@@ -2873,7 +2873,7 @@
 		"string": "Modificarea listei din spațiul de lucru"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new metadata field"
+		"string": "Creează câmp nou de metadate"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Setările listei nu au putut fi salvate.",
@@ -2883,7 +2883,7 @@
 		"string": "Selectați toate coloanele pe care le vreți afișate în toate listele."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Displayed columns"
+		"string": "Coloane afișate"
 	},
 	"teamListsComponent.generalColumns": {
 		"string": "General"
@@ -2947,7 +2947,7 @@
 		"string": "Salvează"
 	},
 	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "Conținutul setat aici poate fi editat în fiecare raport individual."
 	},
 	"teamReport.title": {
 		"string": "Setări implicte de rapoarte"
@@ -3004,7 +3004,7 @@
 		"string": "Șterge eticheta"
 	},
 	"teamTags.description": {
-		"string": "Tags can be added to media, items and sources."
+		"string": "Se pot adăuga etichete la medii, elemente și surse."
 	},
 	"teamTags.editTag": {
 		"string": "Editează eticheta"
@@ -3103,7 +3103,7 @@
 		"string": "Metadate"
 	},
 	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
+		"string": "Adaugă câmpuri personalizate de metadate la elemente."
 	},
 	"teamTasks.processMessage": {
 		"string": "Vreți să continuați?"
@@ -3115,7 +3115,7 @@
 		"string": "Sarcini"
 	},
 	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
+		"string": "Adaugă sarcini personalizate la elemente."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Tip sarcină"
@@ -3250,10 +3250,10 @@
 		"string": "Adăugați adresa de e-mail"
 	},
 	"userInfo.dateJoined": {
-		"string": "Joined {date}"
+		"string": "Membru de la data de {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {1 spațiu de lucru} few {spații de lucru} other {# de spații de lucru}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Adaugă link"

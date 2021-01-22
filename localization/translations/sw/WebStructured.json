@@ -612,7 +612,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved to '{toProject}'",
+		"string": "Vitu vimehamishiwa kwenye '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -749,28 +749,28 @@
 		"string": "Unda"
 	},
 	"createTeamDialog.creating": {
-		"string": "Creating…"
+		"string": "Inaunda…"
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "Could not create new workspace"
+		"string": "Haikuweza kuunda nafasi mpya ya ulingo"
 	},
 	"createTeamDialog.description": {
-		"string": "All settings from this workspace will be duplicated. No content will be added."
+		"string": "Mipangilio yote kutoka kwa nafasi hii ya kazi itadhibitiwa. Hakuna maudhui yataongezwa."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Unda nafasi mpya ya ulingo"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Ulingo wa kazi uliorudiwa"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "Duplicating…"
+		"string": "Inakili…"
 	},
 	"createTeamDialog.duplice": {
 		"string": "Nakili"
 	},
 	"createTeamDialog.name": {
-		"string": "Workspace name"
+		"string": "Jina la ulingo"
 	},
 	"createTeamDialog.url": {
 		"string": "URL ya eneo la kazi"
@@ -829,7 +829,7 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Move detached item to…",
+		"string": "Hamisha kipengee kilichotengwa hadi…",
 		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
@@ -1439,7 +1439,7 @@
 		"string": "Tenganisha"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Item detached to '{toProject}'",
+		"string": "Kipengee kimejitenga na  '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -2037,7 +2037,7 @@
 		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Unda mitambo ili kupanga orodha na ubadilishe utendakazi wako"
 	},
 	"rulesTableToolbar.title": {
 		"string": "Masharti"
@@ -2218,7 +2218,7 @@
 		"string": "Mipangilio ya ujumuishaji"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Tuma arifa kwenye vituo vya Slack wakati vitu vinaongezwa kwenye orodha maalum"
 	},
 	"slackConfig.title": {
 		"string": "Ujumuishaji wa Slack"
@@ -2257,7 +2257,7 @@
 		"string": "Tuma arifa kwa"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Tuma arifa kwenye vituo vya Slack wakati vitu vinaongezwa kwenye orodha maalum"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2527,7 +2527,7 @@
 		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
 	},
 	"statusesComponent.title": {
-		"string": "{languageName} statuses",
+		"string": "{languageName} hadhi",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
@@ -2699,7 +2699,7 @@
 		"string": "Ukanda wa saa unaopatikana kukamilisha kazi"
 	},
 	"teamBots.browserBots": {
-		"string": "Browse bots"
+		"string": "Vinjari bots"
 	},
 	"teamBots.close": {
 		"string": "Funga"
@@ -2753,7 +2753,7 @@
 		"string": "Chaguo isiyopatikana"
 	},
 	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+		"string": "Zana za kujitolea za kujiwekea kumbukumbu na kuunganisha media ya kijamii kwa Angalia vidokezo."
 	},
 	"teamBots.success": {
 		"string": "Mipangilio imesasishwa!"
@@ -2813,7 +2813,7 @@
 		"string": "Hariri"
 	},
 	"teamIntegrations.subtitle": {
-		"string": "Third party tools to enhance productivity."
+		"string": "Zana za mtu mwingine kuongeza tija."
 	},
 	"teamIntegrations.title": {
 		"string": "Mijumuisho"
@@ -2861,7 +2861,7 @@
 		"string": "Orodha ya mipangilio"
 	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "Haipatikani"
 	},
 	"teamListsComponent.buttonLabel": {
 		"string": "Hifadhi mabadiliko ya orodha zote"
@@ -2873,7 +2873,7 @@
 		"string": "Mabadiliko ya orodha ya eneo la kazi"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new metadata field"
+		"string": "Unda uwanja mpya wa metadata"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Haikuweza kuhifadhi mipangilio ya orodha.",
@@ -2883,10 +2883,10 @@
 		"string": "Chagua nguzo zote unazotaka kuonyesha kwenye orodha zako zote."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Displayed columns"
+		"string": "Safu wima zilizoonyeshwa"
 	},
 	"teamListsComponent.generalColumns": {
-		"string": "General"
+		"string": "Mkuu"
 	},
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadata"
@@ -2899,7 +2899,7 @@
 		"string": "Mipangilio ya orodha"
 	},
 	"teamListsItem.general": {
-		"string": "General"
+		"string": "Mkuu"
 	},
 	"teamListsItem.hide": {
 		"string": "Ficha"
@@ -2947,7 +2947,7 @@
 		"string": "Hifadhi"
 	},
 	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "Yaliyomo unayoweka hapa yanaweza kuhaririwa katika kila ripoti ya kibinafsi."
 	},
 	"teamReport.title": {
 		"string": "Mipangilio msingi ya ripoti"
@@ -3004,7 +3004,7 @@
 		"string": "Futa lebo"
 	},
 	"teamTags.description": {
-		"string": "Tags can be added to media, items and sources."
+		"string": "Lebo zinaweza kuongezwa kwa media, vitu na vyanzo."
 	},
 	"teamTags.editTag": {
 		"string": "Hariri lebo"
@@ -3103,7 +3103,7 @@
 		"string": "Metadata"
 	},
 	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
+		"string": "Ongeza sehemu za metadata maalum kwa vipengee."
 	},
 	"teamTasks.processMessage": {
 		"string": "Unataka kuendelea?"
@@ -3115,7 +3115,7 @@
 		"string": "Kazi"
 	},
 	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
+		"string": "Ongeza kazi za kawaida kwa vitu."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Aina la kazi"
@@ -3250,10 +3250,10 @@
 		"string": "Ongeza barua pepe yako"
 	},
 	"userInfo.dateJoined": {
-		"string": "Joined {date}"
+		"string": "Umejiunga {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {Umejiunga {date}} other {# ulingo}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Ongeza Kiungo"
