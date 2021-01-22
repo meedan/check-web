@@ -272,6 +272,7 @@ const MediaLog = (props) => {
           team={props.team}
         />
       )}
+      forceFetch
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
     />

@@ -591,16 +591,36 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
+        const type = object.relationship_type;
         contentTemplate = (
           <span>
-            <FormattedMessage
-              id="annotation.relationshipCreated"
-              defaultMessage="Related item added by {author}: {title}"
-              values={{
-                title: emojify(target.title),
-                author: authorName,
-              }}
-            />
+            { /parent/.test(type) ?
+              <FormattedMessage
+                id="annotation.relationshipCreated"
+                defaultMessage="Related item added by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /confirmed_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.similarCreated"
+                defaultMessage="Confirmed similar by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /suggested/.test(type) ?
+              <FormattedMessage
+                id="annotation.suggestionCreated"
+                defaultMessage="Suggested match by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
           </span>
         );
       }
@@ -610,16 +630,36 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
+        const type = object.relationship_type;
         contentTemplate = (
           <span>
-            <FormattedMessage
-              id="annotation.relationshipDeleted"
-              defaultMessage="Related item removed by {author}: {title}"
-              values={{
-                title: emojify(target.title),
-                author: authorName,
-              }}
-            />
+            { /parent/.test(type) ?
+              <FormattedMessage
+                id="annotation.relationshipDestroyed"
+                defaultMessage="Related item removed by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /confirmed_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.similarDestroyed"
+                defaultMessage="Confirmed similar detached by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /suggested_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.suggestionDestroyed"
+                defaultMessage="Suggested match rejected by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
           </span>
         );
       }

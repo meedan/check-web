@@ -76,8 +76,24 @@
     "defaultMessage": "Related item added by {author}: {title}"
   },
   {
-    "id": "annotation.relationshipDeleted",
+    "id": "annotation.similarCreated",
+    "defaultMessage": "Confirmed similar by {author}: {title}"
+  },
+  {
+    "id": "annotation.suggestionCreated",
+    "defaultMessage": "Suggested match by {author}: {title}"
+  },
+  {
+    "id": "annotation.relationshipDestroyed",
     "defaultMessage": "Related item removed by {author}: {title}"
+  },
+  {
+    "id": "annotation.similarDestroyed",
+    "defaultMessage": "Confirmed similar detached by {author}: {title}"
+  },
+  {
+    "id": "annotation.suggestionDestroyed",
+    "defaultMessage": "Suggested match rejected by {author}: {title}"
   },
   {
     "id": "annotation.taskAssignmentCreated",
