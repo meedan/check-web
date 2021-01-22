@@ -65,14 +65,14 @@ class MediaRequestsComponent extends Component {
               { this.props.all ?
                 <FormattedMessage
                   id="mediaRequests.allRequests"
-                  defaultMessage="{count, plural, one {1 request across all media} other {# requests across all media}}"
+                  defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
                   values={{
                     count: this.props.media.demand,
                   }}
                 /> :
                 <FormattedMessage
                   id="mediaRequests.thisRequests"
-                  defaultMessage="{count, plural, one {1 request} other {# requests}}"
+                  defaultMessage="{count, plural, one {# request} other {# requests}}"
                   values={{
                     count: this.props.media.requests_count,
                   }}

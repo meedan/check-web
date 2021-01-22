@@ -74,7 +74,7 @@ const MediaSimilarityBarComponent = ({
         <Link to={`${linkPrefix}/similar-media`} className={classes.link} style={{ color: checkBlue }}>
           <FormattedMessage
             id="mediaSimilarityBarComponent.similarMedia"
-            defaultMessage="{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+            defaultMessage="{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
             values={{
               count: confirmedSimilarCount,
             }}
@@ -83,7 +83,7 @@ const MediaSimilarityBarComponent = ({
         <Link to={`${linkPrefix}/suggested-matches`} className={classes.link} style={{ color: inProgressYellow }}>
           <FormattedMessage
             id="mediaSimilarityBarComponent.suggestedMatches"
-            defaultMessage="{count, plural, one {1 suggested match} other {# suggested matches}}"
+            defaultMessage="{count, plural, one {# suggested match} other {# suggested matches}}"
             values={{
               count: suggestionsCount,
             }}

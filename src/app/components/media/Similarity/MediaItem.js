@@ -305,7 +305,7 @@ const MediaItem = ({
                   <div className={classes.sep}> - </div>
                   <FormattedMessage
                     id="mediaItem.requests"
-                    defaultMessage="{count, plural, one {1 request} other {# requests}}"
+                    defaultMessage="{count, plural, one {# request} other {# requests}}"
                     values={{
                       count: projectMedia.requests_count,
                     }}

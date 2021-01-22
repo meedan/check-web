@@ -5,6 +5,6 @@
   },
   {
     "id": "userInfo.teamsCount",
-    "defaultMessage": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+    "defaultMessage": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
   }
 ]
