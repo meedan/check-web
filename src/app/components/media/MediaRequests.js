@@ -7,6 +7,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import TiplineRequest from '../annotations/TiplineRequest';
 import { getCurrentProjectId } from '../../helpers';
 import { units } from '../../styles/js/shared';
 
@@ -81,6 +82,8 @@ class MediaRequestsComponent extends Component {
             </Typography>
           </div>
           <Annotations
+            noLink
+            component={TiplineRequest}
             annotations={media.requests.edges}
             annotated={media}
             annotatedType="ProjectMedia"
