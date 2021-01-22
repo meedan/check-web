@@ -14,7 +14,7 @@ import CreateDynamicMutation from '../../relay/mutations/CreateDynamicMutation';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
 import UploadFile from '../UploadFile';
-import { ContentColumn, Row, black38, black87, units } from '../../styles/js/shared';
+import { Row, black38, black87, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
@@ -338,7 +338,7 @@ class AddAnnotation extends Component {
           zIndex: 0,
         }}
       >
-        <ContentColumn flex style={{ maxWidth: '100%' }}>
+        <div style={{ padding: `0 ${units(4)}` }}>
           <FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note">
             {inputHint => (
               <TextField
@@ -381,7 +381,7 @@ class AddAnnotation extends Component {
               <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
             </Button>
           </AddAnnotationButtonGroup>
-        </ContentColumn>
+        </div>
       </form>
     );
   }

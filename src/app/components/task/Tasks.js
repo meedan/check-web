@@ -3,21 +3,30 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
 import Task from './Task';
 import ReorderTask from './ReorderTask';
 import BlankState from '../layout/BlankState';
+
+const useStyles = makeStyles({
+  taskList: {
+    overflowY: 'auto',
+    maxHeight: 'calc(100vh - 166px)', // screen height - (media bar + tabs + add task)
+  },
+});
 
 const Tasks = ({
   fieldset,
   tasks,
   media,
 }) => {
-  const isMetadata = fieldset === 'metadata';
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
-
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
 
   const isBrowserExtension = (window.parent !== window);
+  const isMetadata = fieldset === 'metadata';
+
+  const classes = useStyles();
 
   if (isMetadata && tasks.length === 0 && !isBrowserExtension) {
     return (
@@ -35,8 +44,8 @@ const Tasks = ({
   }
 
   return (
-    <div className="tasks">
-      <ul className="tasks__list / tasks-list">
+    <div className={classes.taskList}>
+      <ul className="tasks__list">
         {tasks
           .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
           .map(task => (

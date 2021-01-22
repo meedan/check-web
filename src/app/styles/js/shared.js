@@ -13,7 +13,6 @@ export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
 export const highlightOrange = '#FD730C';
-export const modalBlue = 'rgba(0, 15, 41, .8)';
 export const inProgressYellow = '#efac51';
 export const unstartedRed = '#f04747';
 export const completedGreen = '#5cae73';
@@ -490,8 +489,8 @@ export const Column = styled.div`
   min-width: 340px;
   max-width: 720px;
   padding: ${units(2)};
-  height: calc(100vh - 60px);
-  overflow: auto;
+  max-height: calc(100vh - 64px);
+  overflow: ${props => props.overflow ? props.overflow : 'auto'};
 `;
 
 export const OffsetBothSides = styled.div`
