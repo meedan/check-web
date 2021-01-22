@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import MultiSelector from './MultiSelector';
 
 const selected = ['selecteOne', 'selectedTwo'];
@@ -11,10 +11,12 @@ const options = [
 
 describe('<MultiSelector />', () => {
   it('should render options to be selected', () => {
-    const wrapper = mount(<MultiSelector
+    const wrapper = mountWithIntl(<MultiSelector
       allowToggleAll
       selected={selected}
       options={options}
+      onSubmit={() => {}}
+      onDismiss={() => {}}
     />);
     expect(wrapper.find('input[type="checkbox"]').hostNodes()).toHaveLength(4); // three options + select all option
     expect(wrapper.html()).toMatch('label 1');
@@ -24,9 +26,11 @@ describe('<MultiSelector />', () => {
   });
 
   it('should display "No items found" message when no option is found', () => {
-    const wrapper = mount(<MultiSelector
+    const wrapper = mountWithIntl(<MultiSelector
       selected={selected}
       options={[]}
+      onSubmit={() => {}}
+      onDismiss={() => {}}
     />);
     expect(wrapper.find('input[type="checkbox"]').hostNodes()).toHaveLength(0); // no field to be selected
     expect(wrapper.html()).toMatch('No items found');

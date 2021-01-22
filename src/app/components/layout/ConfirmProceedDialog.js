@@ -50,14 +50,14 @@ const ConfirmProceedDialog = ({
 
 ConfirmProceedDialog.propTypes = {
   open: PropTypes.bool.isRequired,
-  title: PropTypes.element.isRequired,
-  body: PropTypes.element.isRequired,
+  title: PropTypes.node.isRequired,
+  body: PropTypes.node.isRequired,
   cancelLabel: PropTypes.element,
   isSaving: PropTypes.bool,
   onCancel: PropTypes.func.isRequired,
   onProceed: PropTypes.func.isRequired,
   proceedDisabled: PropTypes.bool,
-  proceedLabel: PropTypes.element.isRequired,
+  proceedLabel: PropTypes.node.isRequired,
 };
 
 ConfirmProceedDialog.defaultProps = {

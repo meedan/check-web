@@ -3,14 +3,21 @@ import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import TeamTasksListItem from './TeamTasksListItem';
 
 const task = {
-  task_type: 'free_text',
+  type: 'free_text',
+  id: '1',
+  label: 'label',
+};
+
+const team = {
+  id: '1',
 };
 
 describe('<TeamTasksListItem />', () => {
   it('should render icon, label and menu', () => {
     const wrapper = mountWithIntl(<TeamTasksListItem
       task={task}
-      team={{}}
+      team={team}
+      fieldset=""
     />);
     expect(wrapper.find('.team-tasks__task-icon').hostNodes()).toHaveLength(1);
     expect(wrapper.find('.team-tasks__task-label').hostNodes()).toHaveLength(1);
