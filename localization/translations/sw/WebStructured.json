@@ -479,14 +479,23 @@
 	"attribution.search": {
 		"string": "Tafuta wanachama"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "Samahani, hitilafu imetokea ikitafuta. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Hakuna inayolingana iliyopatikana"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Tafuta"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Inatafuta..."
@@ -496,6 +505,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "Ongeza kwenye ripoti iliyoletwa"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "Sitisha ripoti na usasishe maudhui"
@@ -835,8 +847,14 @@
 	"editStatusDialog.addButton": {
 		"string": "Ongeza hali"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "Maelezo"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "Hali ({maxLength} characters max)"
@@ -846,6 +864,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "Hariri hali"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Hariri sehemu ya metadata"
@@ -1208,7 +1229,7 @@
 		"string": "Ongeza kwenye orodha"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Kazi"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "Hariri mada na maelezo"
@@ -1418,7 +1439,7 @@
 		"string": "Ulionekana mwisho:"
 	},
 	"mediaExpanded.requests": {
-		"string": "Maombi {count}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Jalada:"
@@ -1448,14 +1469,30 @@
 	"mediaItem.error": {
 		"string": "Kosa, tafadhali jaribu tena"
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": " Bandika kama kuu"
 	},
 	"mediaItem.pinning": {
 		"string": "Inabandika…"
 	},
+	"mediaItem.reportPaused": {
+		"string": "Imesitishwa."
+	},
+	"mediaItem.reportPublished": {
+		"string": "Imechapishwa"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Haijachapishwa"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha lugha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
@@ -1485,7 +1522,7 @@
 		"string": "Ongeza uhusiano"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Haikuweza kuongeza kipengee kinachohusiana"
@@ -1496,14 +1533,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "Bidhaa inayohusiana imeongezwa kwa mafaniki"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Hakuna maombi"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "Samahani, hitilafu ifwatayo ilitokea: {message}. Tafadhali pakia upya kipengee hiki kujaribu tena na uwasiliane na  {supportEmail} iwapo hali itaendelea. "
@@ -1539,19 +1579,19 @@
 		"string": "Nyuma"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Hamisha kama sawa"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Ongeza sawa"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Ingiza bidhaa sawa"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Ingiza media sawa kwenye kipengee hiki"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Ingiza media sawa kwenye kipengee hiki"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Hamisha media zote kwa kipengee kingine"
@@ -1559,9 +1599,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "Hamisha media zote kwa kipengee kingine"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Ongeza kwenye ripoti iliyoletwa"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Haikuweza kuongeza kipengee sawa",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Bidhaa sawa imeongezwa kwa mafanikio",
@@ -1574,10 +1620,10 @@
 		"string": "Vyombo vya habari hivi vimependekezwa kuwa sawa na kipengee kingine"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Ghairi"
@@ -1706,7 +1752,7 @@
 		"string": "Sera Faragha"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "Peana orodha "
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "Una uhakika unataka kufuta orodha hii? Vipengee vyote bado vitaweza kufikiwa kupitia orodha ya \"Vipengee Vyote\". "
@@ -2034,7 +2080,7 @@
 		"string": "Hifadhi"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Unda mitambo ili kupanga orodha na ubadilishe utendakazi wako"
@@ -2182,7 +2228,7 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "na"
@@ -3055,7 +3101,7 @@
 		"string": "Ndiyo"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "Unakaribia kufuta kazi zilizochaguliwa kutoka kwa {itemsNumber, plural, one {1 item} other {# items}}.. Iwapo utaendelea, majibu ya kazi hizi yatafutwa. "
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Je, una uhakika unataka kufuta metadata hii?"
@@ -3070,7 +3116,7 @@
 		"string": "Vipengee husika vitafanyiwa mabadiliko kama matokeo ya kutekeleza mabadiliko haya, isipokuwa kwa yale yaliyokuwa yamekamilishwa tayari."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "Unakaribia kuhariri kazi katika {itemsNumber, plural, one {1 item} other {# items}}. Iwapo utaendelea, kazi hizo zote pia zitafanyiwa mabadiliko."
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Je, una uhakika unataka kuhariri metadata hii?"
@@ -3135,11 +3181,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "Endelea na hifadhi"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "Tafsiri zinakosekana"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "Hali zingine zinakosa tafsiri. Watumiaji huenda wasiweze kusoma hali ambazo hazijatafsiriwa."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Hali"
 	},
 	"translationNeededDialog.body": {
 		"string": "Ili kuifanya {language} kuwa lugha ya msingi, lazima kwanza utafsiri hali zote zilizopo hadi {language} kwenye kichupo cha mipangilio ya Hali."
@@ -3253,7 +3308,7 @@
 		"string": "Umejiunga {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {Umejiunga {date}} other {# ulingo}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Ongeza Kiungo"

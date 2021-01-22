@@ -479,14 +479,23 @@
 	"attribution.search": {
 		"string": "Busca miembros"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "Lo sentimos, se produjo un error al buscar. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Ítems no encontrados"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Buscar "
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Buscando..."
@@ -496,6 +505,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "Añadir al informe importado"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "Pausar informe y actualizar contenido"
@@ -835,8 +847,14 @@
 	"editStatusDialog.addButton": {
 		"string": "Añadir estado"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "Descripción"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "Estado ({max} caracteres como máximo)"
@@ -846,6 +864,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "Editar estado"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Editar campo de metadatos"
@@ -1208,7 +1229,7 @@
 		"string": "Añadir a la lista"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Asignación"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "Editar título y descripción"
@@ -1418,7 +1439,7 @@
 		"string": "Visto por última vez: "
 	},
 	"mediaExpanded.requests": {
-		"string": "{count} solicitudes"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Archivos:"
@@ -1448,14 +1469,30 @@
 	"mediaItem.error": {
 		"string": "Error, please try again"
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": "Pin as main"
 	},
 	"mediaItem.pinning": {
 		"string": "Pinning…"
 	},
+	"mediaItem.reportPaused": {
+		"string": "Paused"
+	},
+	"mediaItem.reportPublished": {
+		"string": "Publicado"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Unpublished"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar el idioma. Por favor, intentalo nuevamente y si el problema persiste ponte en contacto con {supportEmail}."
@@ -1485,7 +1522,7 @@
 		"string": "Add relation"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Could not add related item"
@@ -1496,14 +1533,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "Related item added successfully"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Sin solicitudes"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "Lo sentimos, se produjo el siguiente error: {message}. Por favor actualice el ítem para volver a intentarlo y póngase en contacto con {supportEmail} si la condición persiste."
@@ -1539,19 +1579,19 @@
 		"string": "Volver"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Export as similar"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Add similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Import similar item"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Import similar media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import similar media into this item"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Export all media to another item"
@@ -1559,9 +1599,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "Export all media to another item"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Añadir al informe importado"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Could not add similar item",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Similar item added successfully",
@@ -1574,10 +1620,10 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Cancelar"
@@ -1706,7 +1752,7 @@
 		"string": "Política Privacidad"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "Asignar lista"
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "¿Estás seguro de que deseas eliminar esta lista? Todos sus ítems seguirán siendo accesibles a través de la lista 'Todos los ítems'."
@@ -2034,7 +2080,7 @@
 		"string": "Guardar"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 seleccionada} other {# seleccionadas}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Crea automatizaciones para organizar listas y personalizar tu flujo de trabajo."
@@ -2182,7 +2228,7 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 seleccionado)} other {(# seleccionados)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "y"
@@ -3055,7 +3101,7 @@
 		"string": "Sí"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "Está a punto de eliminar las tareas seleccionadas de {itemsNumber, plural, one {1 ítem} other {# ítems}}. Si continúa, las respuestas a estas tareas también se eliminarán."
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "¿Estás seguro(a) que quieres eliminar este metadato?"
@@ -3070,7 +3116,7 @@
 		"string": "Las tareas relacionadas con los ítems se modificarán como consecuencia de la aplicación de este cambio, excepto aquellas que ya hayan sido completadas."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "Estás a punto de editar tareas en {itemsNumber, plural, one {1 item} other {# items}}. Si continúas, todas esas tareas también se modificarán. "
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "¿Estás seguro(a) que quieres editar este metadato?"
@@ -3135,11 +3181,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "Continuar y guardar"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "Traducciones faltantes"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "A algunos estados les faltan traducciones. Es posible que los usuarios no puedan leer estados no traducidos."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Estado"
 	},
 	"translationNeededDialog.body": {
 		"string": "Para hacer que {language} sea el idioma predeterminado, primero debes traducir todos los estados existentes a {language} en la pestaña de configuración de Estados."
@@ -3253,7 +3308,7 @@
 		"string": "Joined {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Añadir enlace"
