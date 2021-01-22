@@ -29,7 +29,6 @@ import CheckError from '../../CheckError';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
-  units,
   StyledIconButton,
 } from '../../styles/js/shared';
 import {
@@ -48,8 +47,12 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-between',
     marginBottom: theme.spacing(2),
   },
-  CancelSaveRow: {
+  cancelSaveRow: {
     textAlign: 'right',
+  },
+  linkedText: {
+    color: 'blue',
+    textDecoration: 'underline',
   },
 }));
 
@@ -65,7 +68,7 @@ function CreateMediaSource({
   const [primaryUrl, setPrimaryUrl] = React.useState({ url: '', error: '' });
   const [submitDisabled, setSubmitDisabled] = React.useState(true);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [validate_primary_link_exist, setValidatePrimaryLinkExist] = React.useState(true);
+  const [validatePrimaryLinkExist, setValidatePrimaryLinkExist] = React.useState(true);
   const [links, setLinks] = React.useState([]);
   const [message, setMessage] = React.useState(null);
   const [image, setImage] = React.useState(null);
@@ -204,7 +207,7 @@ function CreateMediaSource({
           slogan: sourceName,
           image,
           urls,
-          validate_primary_link_exist,
+          validate_primary_link_exist: validatePrimaryLinkExist,
           project_media: media,
         }),
         { onSuccess, onFailure },
@@ -215,8 +218,8 @@ function CreateMediaSource({
 
 
   return (
-    <div id="media-source-create-new">
-      <div className={classes.CancelSaveRow}>
+    <React.Fragment>
+      <div className={classes.cancelSaveRow}>
         <Button
           className="source__edit-cancel-button"
           onClick={handleCancelOrSave}
@@ -277,7 +280,7 @@ function CreateMediaSource({
                   }
                 </Row>
               </StyledName>
-              <div style={{ textDecoration: 'underline' }}>
+              <div className={classes.linkedText}>
                 <FormattedMessage
                   id="sourceInfo.mediasCount"
                   defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
@@ -295,11 +298,9 @@ function CreateMediaSource({
         <Card
           id="source-create-name__card"
           className="source__card-card"
-          style={{ marginBottom: units(1) }}
         >
           <CardHeader
             className="source__card-header"
-            style={{ paddingBottom: '0px' }}
             disableTypography
             title={
               <FormattedMessage
@@ -344,11 +345,9 @@ function CreateMediaSource({
         <Card
           id="source-create-accounts"
           className="source__card-card"
-          style={{ marginBottom: units(1) }}
         >
           <CardHeader
             className="source__card-header"
-            style={{ paddingBottom: '0px' }}
             disableTypography
             title={
               <FormattedMessage
@@ -413,8 +412,8 @@ function CreateMediaSource({
                         />
                       }
                       onChange={(e) => { handleChangeLink(e, index); }}
-                      style={{ width: '85%' }}
                       margin="normal"
+                      fullWidth
                     />
                     <StyledIconButton
                       className="source__remove-link-button"
@@ -485,7 +484,7 @@ function CreateMediaSource({
           </DialogActions>
         </Dialog> : null
       }
-    </div>
+    </React.Fragment>
   );
 }
 

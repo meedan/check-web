@@ -16,14 +16,10 @@ class CreateAccountSourceMutation extends Relay.Mutation {
   }
 
   getOptimisticResponse() {
-    const account_source = {
-      account: {
-        url: this.props.url,
-        metadata: '',
-      },
-    };
-
-    return { account_sourceEdge: { node: account_source } };
+    const source = this.props.source || {};
+    const accountSources = source.account_sources ? source.account_sources.edges : [];
+    const newAccountSources = accountSources.concat({ node: { account: { url: this.props.url, metadata: '' } } });
+    return { account_sourceEdge: { newAccountSources } };
   }
 
   getConfigs() {

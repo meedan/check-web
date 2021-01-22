@@ -124,7 +124,7 @@ function SourceInfo({ source, team, onChangeClick }) {
     if (type === 'primary') {
       setPrimaryUrl(newLink);
     } else {
-      newLink.addNewLink = false;
+      newLink.addNewLink = secondaryUrl.addNewLink;
       setSecondaryUrl(newLink);
     }
   };
