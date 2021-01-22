@@ -479,14 +479,23 @@
 	"attribution.search": {
 		"string": "Tafuta wanachama"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "Samahani, hitilafu imetokea ikitafuta. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Hakuna inayolingana iliyopatikana"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Tafuta"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Inatafuta..."
@@ -496,6 +505,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "Ongeza kwenye ripoti iliyoletwa"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "Sitisha ripoti na usasishe maudhui"
@@ -612,7 +624,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved to '{toProject}'",
+		"string": "Vitu vimehamishiwa kwenye '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -749,28 +761,28 @@
 		"string": "Unda"
 	},
 	"createTeamDialog.creating": {
-		"string": "Creating…"
+		"string": "Inaunda…"
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "Could not create new workspace"
+		"string": "Haikuweza kuunda nafasi mpya ya ulingo"
 	},
 	"createTeamDialog.description": {
-		"string": "All settings from this workspace will be duplicated. No content will be added."
+		"string": "Mipangilio yote kutoka kwa nafasi hii ya kazi itadhibitiwa. Hakuna maudhui yataongezwa."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Unda nafasi mpya ya ulingo"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Ulingo wa kazi uliorudiwa"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "Duplicating…"
+		"string": "Inakili…"
 	},
 	"createTeamDialog.duplice": {
 		"string": "Nakili"
 	},
 	"createTeamDialog.name": {
-		"string": "Workspace name"
+		"string": "Jina la ulingo"
 	},
 	"createTeamDialog.url": {
 		"string": "URL ya eneo la kazi"
@@ -829,14 +841,20 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Move detached item to…",
+		"string": "Hamisha kipengee kilichotengwa hadi…",
 		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Ongeza hali"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "Maelezo"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "Hali ({maxLength} characters max)"
@@ -846,6 +864,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "Hariri hali"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Hariri sehemu ya metadata"
@@ -1208,7 +1229,7 @@
 		"string": "Ongeza kwenye orodha"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Kazi"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "Hariri mada na maelezo"
@@ -1418,7 +1439,7 @@
 		"string": "Ulionekana mwisho:"
 	},
 	"mediaExpanded.requests": {
-		"string": "Maombi {count}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Jalada:"
@@ -1439,7 +1460,7 @@
 		"string": "Tenganisha"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Item detached to '{toProject}'",
+		"string": "Kipengee kimejitenga na  '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -1448,14 +1469,30 @@
 	"mediaItem.error": {
 		"string": "Kosa, tafadhali jaribu tena"
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": " Bandika kama kuu"
 	},
 	"mediaItem.pinning": {
 		"string": "Inabandika…"
 	},
+	"mediaItem.reportPaused": {
+		"string": "Imesitishwa."
+	},
+	"mediaItem.reportPublished": {
+		"string": "Imechapishwa"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Haijachapishwa"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha lugha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
@@ -1485,7 +1522,7 @@
 		"string": "Ongeza uhusiano"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Haikuweza kuongeza kipengee kinachohusiana"
@@ -1496,14 +1533,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "Bidhaa inayohusiana imeongezwa kwa mafaniki"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Hakuna maombi"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "Samahani, hitilafu ifwatayo ilitokea: {message}. Tafadhali pakia upya kipengee hiki kujaribu tena na uwasiliane na  {supportEmail} iwapo hali itaendelea. "
@@ -1539,19 +1579,19 @@
 		"string": "Nyuma"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Hamisha kama sawa"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Ongeza sawa"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Ingiza bidhaa sawa"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Ingiza media sawa kwenye kipengee hiki"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Ingiza media sawa kwenye kipengee hiki"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Hamisha media zote kwa kipengee kingine"
@@ -1559,9 +1599,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "Hamisha media zote kwa kipengee kingine"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Ongeza kwenye ripoti iliyoletwa"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Haikuweza kuongeza kipengee sawa",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Bidhaa sawa imeongezwa kwa mafanikio",
@@ -1574,10 +1620,10 @@
 		"string": "Vyombo vya habari hivi vimependekezwa kuwa sawa na kipengee kingine"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Ghairi"
@@ -1706,7 +1752,7 @@
 		"string": "Sera Faragha"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "Peana orodha "
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "Una uhakika unataka kufuta orodha hii? Vipengee vyote bado vitaweza kufikiwa kupitia orodha ya \"Vipengee Vyote\". "
@@ -2034,10 +2080,10 @@
 		"string": "Hifadhi"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 selected} other {# selected}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Unda mitambo ili kupanga orodha na ubadilishe utendakazi wako"
 	},
 	"rulesTableToolbar.title": {
 		"string": "Masharti"
@@ -2182,7 +2228,7 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "na"
@@ -2218,7 +2264,7 @@
 		"string": "Mipangilio ya ujumuishaji"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Tuma arifa kwenye vituo vya Slack wakati vitu vinaongezwa kwenye orodha maalum"
 	},
 	"slackConfig.title": {
 		"string": "Ujumuishaji wa Slack"
@@ -2257,7 +2303,7 @@
 		"string": "Tuma arifa kwa"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Tuma arifa kwenye vituo vya Slack wakati vitu vinaongezwa kwenye orodha maalum"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2527,7 +2573,7 @@
 		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
 	},
 	"statusesComponent.title": {
-		"string": "{languageName} statuses",
+		"string": "{languageName} hadhi",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
@@ -2699,7 +2745,7 @@
 		"string": "Ukanda wa saa unaopatikana kukamilisha kazi"
 	},
 	"teamBots.browserBots": {
-		"string": "Browse bots"
+		"string": "Vinjari bots"
 	},
 	"teamBots.close": {
 		"string": "Funga"
@@ -2753,7 +2799,7 @@
 		"string": "Chaguo isiyopatikana"
 	},
 	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+		"string": "Zana za kujitolea za kujiwekea kumbukumbu na kuunganisha media ya kijamii kwa Angalia vidokezo."
 	},
 	"teamBots.success": {
 		"string": "Mipangilio imesasishwa!"
@@ -2813,7 +2859,7 @@
 		"string": "Hariri"
 	},
 	"teamIntegrations.subtitle": {
-		"string": "Third party tools to enhance productivity."
+		"string": "Zana za mtu mwingine kuongeza tija."
 	},
 	"teamIntegrations.title": {
 		"string": "Mijumuisho"
@@ -2861,7 +2907,7 @@
 		"string": "Orodha ya mipangilio"
 	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "Haipatikani"
 	},
 	"teamListsComponent.buttonLabel": {
 		"string": "Hifadhi mabadiliko ya orodha zote"
@@ -2873,7 +2919,7 @@
 		"string": "Mabadiliko ya orodha ya eneo la kazi"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new metadata field"
+		"string": "Unda uwanja mpya wa metadata"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Haikuweza kuhifadhi mipangilio ya orodha.",
@@ -2883,10 +2929,10 @@
 		"string": "Chagua nguzo zote unazotaka kuonyesha kwenye orodha zako zote."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Displayed columns"
+		"string": "Safu wima zilizoonyeshwa"
 	},
 	"teamListsComponent.generalColumns": {
-		"string": "General"
+		"string": "Mkuu"
 	},
 	"teamListsComponent.metadataColumns": {
 		"string": "Metadata"
@@ -2899,7 +2945,7 @@
 		"string": "Mipangilio ya orodha"
 	},
 	"teamListsItem.general": {
-		"string": "General"
+		"string": "Mkuu"
 	},
 	"teamListsItem.hide": {
 		"string": "Ficha"
@@ -2947,7 +2993,7 @@
 		"string": "Hifadhi"
 	},
 	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "Yaliyomo unayoweka hapa yanaweza kuhaririwa katika kila ripoti ya kibinafsi."
 	},
 	"teamReport.title": {
 		"string": "Mipangilio msingi ya ripoti"
@@ -3004,7 +3050,7 @@
 		"string": "Futa lebo"
 	},
 	"teamTags.description": {
-		"string": "Tags can be added to media, items and sources."
+		"string": "Lebo zinaweza kuongezwa kwa media, vitu na vyanzo."
 	},
 	"teamTags.editTag": {
 		"string": "Hariri lebo"
@@ -3055,7 +3101,7 @@
 		"string": "Ndiyo"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "Unakaribia kufuta kazi zilizochaguliwa kutoka kwa {itemsNumber, plural, one {1 item} other {# items}}.. Iwapo utaendelea, majibu ya kazi hizi yatafutwa. "
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Je, una uhakika unataka kufuta metadata hii?"
@@ -3070,7 +3116,7 @@
 		"string": "Vipengee husika vitafanyiwa mabadiliko kama matokeo ya kutekeleza mabadiliko haya, isipokuwa kwa yale yaliyokuwa yamekamilishwa tayari."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "Unakaribia kuhariri kazi katika {itemsNumber, plural, one {1 item} other {# items}}. Iwapo utaendelea, kazi hizo zote pia zitafanyiwa mabadiliko."
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Je, una uhakika unataka kuhariri metadata hii?"
@@ -3103,7 +3149,7 @@
 		"string": "Metadata"
 	},
 	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
+		"string": "Ongeza sehemu za metadata maalum kwa vipengee."
 	},
 	"teamTasks.processMessage": {
 		"string": "Unataka kuendelea?"
@@ -3115,7 +3161,7 @@
 		"string": "Kazi"
 	},
 	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
+		"string": "Ongeza kazi za kawaida kwa vitu."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Aina la kazi"
@@ -3135,11 +3181,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "Endelea na hifadhi"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "Tafsiri zinakosekana"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "Hali zingine zinakosa tafsiri. Watumiaji huenda wasiweze kusoma hali ambazo hazijatafsiriwa."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Hali"
 	},
 	"translationNeededDialog.body": {
 		"string": "Ili kuifanya {language} kuwa lugha ya msingi, lazima kwanza utafsiri hali zote zilizopo hadi {language} kwenye kichupo cha mipangilio ya Hali."
@@ -3250,10 +3305,10 @@
 		"string": "Ongeza barua pepe yako"
 	},
 	"userInfo.dateJoined": {
-		"string": "Joined {date}"
+		"string": "Umejiunga {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Ongeza Kiungo"

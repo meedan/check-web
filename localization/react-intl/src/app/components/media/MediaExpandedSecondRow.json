@@ -9,6 +9,6 @@
   },
   {
     "id": "mediaExpanded.requests",
-    "defaultMessage": "{count} requests"
+    "defaultMessage": "{count, plural, one {# request} other {# requests}}"
   }
 ]
