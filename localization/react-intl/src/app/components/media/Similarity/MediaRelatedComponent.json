@@ -9,7 +9,7 @@
   },
   {
     "id": "mediaRelatedComponent.count",
-    "defaultMessage": "{count, plural, one {1 related item} other {# related items}}"
+    "defaultMessage": "{count, plural, one {# related item} other {# related items}}"
   },
   {
     "id": "mediaRelatedComponent.addSimilar",

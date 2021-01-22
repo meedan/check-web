@@ -81,7 +81,7 @@ const UserInfo = (props) => {
           />
           <FormattedMessage
             id="userInfo.teamsCount"
-            defaultMessage="{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+            defaultMessage="{teamsCount, plural, one {# workspace} other {# workspaces}}"
             values={{
               teamsCount: props.user.team_users.edges.length || 0,
             }}

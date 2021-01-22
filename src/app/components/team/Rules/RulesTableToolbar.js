@@ -81,7 +81,7 @@ const RulesTableToolbar = (props) => {
           <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
             <FormattedMessage
               id="rulesTableToolbar.selected"
-              defaultMessage="{numSelected, plural, one {1 selected} other {# selected}}"
+              defaultMessage="{numSelected, plural, one {# selected} other {# selected}}"
               values={{ numSelected }}
             />
           </Typography>
