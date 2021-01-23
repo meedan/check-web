@@ -1,0 +1,22 @@
+[
+  {
+    "id": "changeMediaSource.createSource",
+    "description": "allow user to create a new source",
+    "defaultMessage": "Create new"
+  },
+  {
+    "id": "changeMediaSource.choose",
+    "description": "Change media source label",
+    "defaultMessage": "Choose a source"
+  },
+  {
+    "id": "changeMediaSource.cancelButton",
+    "description": "Cancel change media source action",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "changeMediaSource.saveButton",
+    "description": "Save media source label",
+    "defaultMessage": "Save"
+  }
+]
