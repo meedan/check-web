@@ -106,8 +106,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function parseText(text, projectMedia) {
+  let parsedText = text;
+
+  // Replace the external URL of the first media by the Check URL,
+  // since the first media is downloaded and saved in Check
+  if (projectMedia && projectMedia.media && projectMedia.media.file_path) {
+    parsedText = parsedText.replace(/https:\/\/media.smooch.io[^ ]+/m, projectMedia.media.file_path);
+  }
+
+  // The unicode character \u2063 is used on the backend to separate messages
+  parsedText = parsedText.replace(/[\u2063]/g, '');
+
+  return emojify(parsedText);
+}
+
 const TiplineRequest = ({
   annotation: activity,
+  annotated: projectMedia,
   intl,
 }) => {
   const object = JSON.parse(activity.object_after);
@@ -191,7 +207,7 @@ const TiplineRequest = ({
       <div className="annotation__card-content">
         {messageText ? (
           <StyledRequest>
-            <ParsedText text={emojify(messageText.replace(/[\u2063]/g, ''))} />
+            <ParsedText text={parseText(messageText, projectMedia)} />
           </StyledRequest>
         ) : (
           <FormattedMessage
@@ -212,6 +228,11 @@ TiplineRequest.propTypes = {
     smooch_user_external_identifier: PropTypes.string.isRequired,
     smooch_report_received_at: PropTypes.number.isRequired,
     smooch_report_update_received_at: PropTypes.number.isRequired,
+  }).isRequired,
+  annotated: PropTypes.shape({
+    media: PropTypes.shape({
+      file_path: PropTypes.string.isRequired,
+    }).isRequired,
   }).isRequired,
   intl: intlShape.isRequired,
 };

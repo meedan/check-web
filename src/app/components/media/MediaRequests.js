@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Typography from '@material-ui/core/Typography';
+import merge from 'lodash.merge';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -56,7 +57,7 @@ class MediaRequestsComponent extends Component {
   }
 
   render() {
-    const media = Object.assign(this.props.cachedMedia, this.props.media);
+    const media = merge(this.props.cachedMedia, this.props.media);
 
     return (
       <React.Fragment>
@@ -134,6 +135,9 @@ const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequests
         archived
         pusher_channel
         demand
+        media {
+          file_path
+        }
         requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: true) {
           edges {
             node {
@@ -179,6 +183,9 @@ const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequests
         archived
         pusher_channel
         requests_count
+        media {
+          file_path
+        }
         requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: false) {
           edges {
             node {
