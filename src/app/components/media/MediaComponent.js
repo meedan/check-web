@@ -313,7 +313,7 @@ class MediaComponent extends Component {
                 />
                 {this.props.extras}
               </Column>
-              <Column className="media__annotations-column">
+              <Column className="media__annotations-column" overflow="hidden">
                 <Tabs
                   indicatorColor="primary"
                   onChange={this.handleTabChange}

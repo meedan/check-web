@@ -14,8 +14,8 @@ const StyledAnnotations = styled.div`
   flex-direction: column;
   .annotations__list {
     ${props => props.showAddAnnotation ?
-    'height: calc(100vh - 268px);' :
-    'height: calc(100vh - 200px);'
+    'height: calc(100vh - 195px);' :
+    'height: calc(100vh - 112px);'
 }
     overflow: auto;
     display: flex;
