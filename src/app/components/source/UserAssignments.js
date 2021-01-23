@@ -19,6 +19,7 @@ import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import LinkIcon from '@material-ui/icons/Link';
 import ImageIcon from '@material-ui/icons/Image';
 import IconFileUpload from '@material-ui/icons/CloudUpload';
+import MediasLoading from '../media/MediasLoading';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
@@ -87,7 +88,8 @@ class UserAssignmentsComponent extends Component {
 
   refresh() {
     if (this.props.relay.variables.teamId !== this.state.teamId) {
-      this.props.relay.setVariables({ teamId: this.state.teamId, userId: this.props.userId });
+      this.props.relay.setVariables({ teamId: this.state.teamId, userId: this.props.user.dbid });
+      this.props.relay.forceFetch();
     }
   }
 
@@ -275,7 +277,7 @@ const UserAssignments = (props) => {
     <Relay.RootContainer
       Component={UserAssignmentsContainer}
       route={route}
-      renderFetched={data => <UserAssignmentsContainer {...data} userId={userId} />}
+      renderLoading={() => <MediasLoading />}
       forceFetch
     />
   );
