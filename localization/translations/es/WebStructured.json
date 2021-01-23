@@ -479,14 +479,23 @@
 	"attribution.search": {
 		"string": "Busca miembros"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "Lo sentimos, se produjo un error al buscar. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Ítems no encontrados"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Buscar "
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Buscando..."
@@ -496,6 +505,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "Añadir al informe importado"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "Pausar informe y actualizar contenido"
@@ -612,7 +624,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved to '{toProject}'",
+		"string": "Ítems movidos a '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.removedSuccessfully": {
@@ -749,28 +761,28 @@
 		"string": "Crear"
 	},
 	"createTeamDialog.creating": {
-		"string": "Creating…"
+		"string": "Creando..."
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "Could not create new workspace"
+		"string": "No se pudo crear una nueva área de trabajo"
 	},
 	"createTeamDialog.description": {
-		"string": "All settings from this workspace will be duplicated. No content will be added."
+		"string": "Se duplicarán todas las configuraciones de esta área de trabajo. No se añadirá contenido."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Crear una nueva área de trabajo"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Duplicar área de trabajo"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "Duplicating…"
+		"string": "Duplicando..."
 	},
 	"createTeamDialog.duplice": {
 		"string": "Duplicar"
 	},
 	"createTeamDialog.name": {
-		"string": "Workspace name"
+		"string": "Nombre del área de trabajo"
 	},
 	"createTeamDialog.url": {
 		"string": "URL del área de trabajo"
@@ -829,14 +841,20 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Move detached item to…",
+		"string": "Mover ítem adosado a...",
 		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Añadir estado"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "Descripción"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "Estado ({max} caracteres como máximo)"
@@ -846,6 +864,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "Editar estado"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Editar campo de metadatos"
@@ -1208,7 +1229,7 @@
 		"string": "Añadir a la lista"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Asignación"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "Editar título y descripción"
@@ -1418,7 +1439,7 @@
 		"string": "Visto por última vez: "
 	},
 	"mediaExpanded.requests": {
-		"string": "{count} solicitudes"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Archivos:"
@@ -1439,7 +1460,7 @@
 		"string": "Detach"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Item detached to '{toProject}'",
+		"string": "Ítem adosado a '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -1448,14 +1469,30 @@
 	"mediaItem.error": {
 		"string": "Error, please try again"
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": "Pin as main"
 	},
 	"mediaItem.pinning": {
 		"string": "Pinning…"
 	},
+	"mediaItem.reportPaused": {
+		"string": "Paused"
+	},
+	"mediaItem.reportPublished": {
+		"string": "Publicado"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Unpublished"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar el idioma. Por favor, intentalo nuevamente y si el problema persiste ponte en contacto con {supportEmail}."
@@ -1485,7 +1522,7 @@
 		"string": "Add relation"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 related item} other {# related items}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Could not add related item"
@@ -1496,14 +1533,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "Related item added successfully"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 request across all media} other {# requests across all media}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Sin solicitudes"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 request} other {# requests}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "Lo sentimos, se produjo el siguiente error: {message}. Por favor actualice el ítem para volver a intentarlo y póngase en contacto con {supportEmail} si la condición persiste."
@@ -1539,19 +1579,19 @@
 		"string": "Volver"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Export as similar"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Add similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Import similar item"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Import similar media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import similar media into this item"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Export all media to another item"
@@ -1559,9 +1599,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "Export all media to another item"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Añadir al informe importado"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Could not add similar item",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Similar item added successfully",
@@ -1574,10 +1620,10 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 suggested match} other {# suggested matches}}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Cancelar"
@@ -1706,7 +1752,7 @@
 		"string": "Política Privacidad"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "Asignar lista"
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "¿Estás seguro de que deseas eliminar esta lista? Todos sus ítems seguirán siendo accesibles a través de la lista 'Todos los ítems'."
@@ -2034,10 +2080,10 @@
 		"string": "Guardar"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {1 seleccionada} other {# seleccionadas}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Crea automatizaciones para organizar listas y personalizar tu flujo de trabajo."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Reglas"
@@ -2182,7 +2228,7 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(1 seleccionado)} other {(# seleccionados)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "y"
@@ -2218,7 +2264,7 @@
 		"string": "Configuración de integración"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Enviar notificaciones a canales de Slack cuando se añadan ítems a listas específicas."
 	},
 	"slackConfig.title": {
 		"string": "Integración con Slack"
@@ -2257,7 +2303,7 @@
 		"string": "Enviar notificación a"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Enviar notificaciones a canales de Slack cuando se añadan nuevos ítems a listas específicas."
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack webhook"
@@ -2527,7 +2573,7 @@
 		"string": "El título del estado es visible cuando se envían informes a los usuarios."
 	},
 	"statusesComponent.title": {
-		"string": "{languageName} statuses",
+		"string": "{languageName} Estados",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
@@ -2699,7 +2745,7 @@
 		"string": "Zonas horarias disponibles para completar la tarea"
 	},
 	"teamBots.browserBots": {
-		"string": "Browse bots"
+		"string": "Explorar bots"
 	},
 	"teamBots.close": {
 		"string": "Cerrar"
@@ -2753,7 +2799,7 @@
 		"string": "Unavailable option"
 	},
 	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
+		"string": "Herramientas dedicadas a automatizar el archivado y conectar una red social a las lineas de Check."
 	},
 	"teamBots.success": {
 		"string": "¡Configuración actualizada!"
@@ -2813,7 +2859,7 @@
 		"string": "Editar"
 	},
 	"teamIntegrations.subtitle": {
-		"string": "Third party tools to enhance productivity."
+		"string": "Herramientas de terceros para mejorar la productividad."
 	},
 	"teamIntegrations.title": {
 		"string": "Integraciones"
@@ -2861,7 +2907,7 @@
 		"string": "Lists settings"
 	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "Ninguno(a) disponible"
 	},
 	"teamListsComponent.buttonLabel": {
 		"string": "Save changes for all lists"
@@ -2873,7 +2919,7 @@
 		"string": "Workspace list change"
 	},
 	"teamListsComponent.createMetadata": {
-		"string": "Create new metadata field"
+		"string": "Crear nuevo campo de metadatos"
 	},
 	"teamListsComponent.defaultErrorMessage": {
 		"string": "Could not save list settings.",
@@ -2883,7 +2929,7 @@
 		"string": "Select all the columns you want to display in all your lists."
 	},
 	"teamListsComponent.displayedColumns": {
-		"string": "Displayed columns"
+		"string": "Columnas mostradas"
 	},
 	"teamListsComponent.generalColumns": {
 		"string": "General"
@@ -2947,7 +2993,7 @@
 		"string": "Guardar"
 	},
 	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "El contenido que establezca aquí puede editarse en cada informe individual"
 	},
 	"teamReport.title": {
 		"string": "Configuración del informe"
@@ -3004,7 +3050,7 @@
 		"string": "Eliminar etiqueta"
 	},
 	"teamTags.description": {
-		"string": "Tags can be added to media, items and sources."
+		"string": "Se pueden añadir etiquetas a medios, ítems y fuentes."
 	},
 	"teamTags.editTag": {
 		"string": "Editar etiqueta"
@@ -3055,7 +3101,7 @@
 		"string": "Sí"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "Está a punto de eliminar las tareas seleccionadas de {itemsNumber, plural, one {1 ítem} other {# ítems}}. Si continúa, las respuestas a estas tareas también se eliminarán."
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "¿Estás seguro(a) que quieres eliminar este metadato?"
@@ -3070,7 +3116,7 @@
 		"string": "Las tareas relacionadas con los ítems se modificarán como consecuencia de la aplicación de este cambio, excepto aquellas que ya hayan sido completadas."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "Estás a punto de editar tareas en {itemsNumber, plural, one {1 item} other {# items}}. Si continúas, todas esas tareas también se modificarán. "
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "¿Estás seguro(a) que quieres editar este metadato?"
@@ -3103,7 +3149,7 @@
 		"string": "Metadatos"
 	},
 	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
+		"string": "Añade campos de metadatos personalizados a los ítems."
 	},
 	"teamTasks.processMessage": {
 		"string": "¿Quieres proceder?"
@@ -3115,7 +3161,7 @@
 		"string": "Tareas"
 	},
 	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
+		"string": "Añade tareas personalizadas a los ítems."
 	},
 	"teamTasks.typeFilter": {
 		"string": "Tipo de tarea"
@@ -3135,11 +3181,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "Continuar y guardar"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "Traducciones faltantes"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "A algunos estados les faltan traducciones. Es posible que los usuarios no puedan leer estados no traducidos."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Estado"
 	},
 	"translationNeededDialog.body": {
 		"string": "Para hacer que {language} sea el idioma predeterminado, primero debes traducir todos los estados existentes a {language} en la pestaña de configuración de Estados."
@@ -3253,7 +3308,7 @@
 		"string": "Joined {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Añadir enlace"

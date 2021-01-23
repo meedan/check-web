@@ -85,7 +85,7 @@ export const title1 = `500 ${units(2.5)}/${units(4)} ${fontStackSans}`;
 export const subheading1 = `400 15px/${units(3)} ${fontStackSans}`;
 export const subheading2 = `400 ${units(2)}/${units(3.5)} ${fontStackSans}`;
 export const body2 = `400 14px/${units(3)} ${fontStackSans}`;
-export const body1 = `400 14px/${units(1.8)} ${fontStackSans}`;
+export const body1 = `400 14px ${fontStackSans}`;
 export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 

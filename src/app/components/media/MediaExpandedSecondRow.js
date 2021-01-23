@@ -39,7 +39,7 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
             <span>
               <FormattedMessage
                 id="mediaExpanded.requests"
-                defaultMessage="{count} requests"
+                defaultMessage="{count, plural, one {# request} other {# requests}}"
                 values={{
                   count: projectMedia.requests_count,
                 }}

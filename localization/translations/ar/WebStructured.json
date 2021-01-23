@@ -479,14 +479,23 @@
 	"attribution.search": {
 		"string": "البحث في الأعضاء"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "‏‏لم يتم العثور على عناصر مطابقة"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "بحث"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "البحث جارٍ…"
@@ -496,6 +505,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "إضافة إلى التقرير المستورد"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "إيقاف التقرير وتحديث المحتوى"
@@ -835,8 +847,14 @@
 	"editStatusDialog.addButton": {
 		"string": "إضافة حالة"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "الوصف"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "الحالة (بحد أقصى {maxLength} حرف)"
@@ -846,6 +864,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "تحرير الحالة"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "تحرير حقل البيانات الوصفيّة"
@@ -1208,7 +1229,7 @@
 		"string": "إضافة إلى القائمة"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "التكليف"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "تحرير العنوان والوصف"
@@ -1418,7 +1439,7 @@
 		"string": "آخر مطالعة:"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count} طلب(ات) "
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "الأرشيفات:"
@@ -1448,14 +1469,30 @@
 	"mediaItem.error": {
 		"string": "خطأ، يرجى إعادة المحاولة."
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": "تثبيت كأساسي"
 	},
 	"mediaItem.pinning": {
 		"string": "جارِ التثبيت…"
 	},
+	"mediaItem.reportPaused": {
+		"string": "موقوف"
+	},
+	"mediaItem.reportPublished": {
+		"string": "منشور"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "غير منشور"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلبات}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1485,7 +1522,7 @@
 		"string": "إضافة عنصر ذي صلة"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, zero {لا عناصر مرتبطة} one {عنصر واحد مرتبط} two {عنصران مرتبطان} few {# عناصر مرتبطة} many {# عنصر مرتبط} other {# عناصر ذات صلة}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "لم يمكن إضافة العنصر ذي الصلة"
@@ -1496,14 +1533,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "تمت إضافة العنصر ذي الصلة بنجاح"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, zero {لا طلبات عبر جميع الميديا} one {طلب واحد عبر جميع المديا} two {طلبان عبر جمبع الميديا} few {# طلبات عبر جميع الميديا} many {# طلب عبر جميع الميديا} other {# طلبات عبر جميع المواد الإعلامية}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "لا توجد طلبات"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلبات}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1539,19 +1579,19 @@
 		"string": "عودة"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "تصدير كمشابه"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "إضافة مشابه"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "استيراد عنصر مشابه"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "استيراد مواد إعلامية مشابهة لهذا العنصر"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "استيراد مواد إعلامية مشابهة لهذا العنصر"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر"
@@ -1559,9 +1599,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "إضافة إلى التقرير المستورد"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "لا يمكن إضافة عنصر مشابه",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "تمت إضافة العنصر المشابه بنجاح",
@@ -1574,10 +1620,10 @@
 		"string": "تم اقتراح هذه المواد الإعلامية كمشابهة لعنصر آخر"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, zero {لا ميديا متشابهة مؤكدة} one {1 ميديا متشابهة مؤكدة} two {2 ميديا متشابهة مؤكدة} few {# ميديا متشابهة مؤكدة} many {# ميديا متشابهة مؤكدة} other {# مواد إعلامية متشابهة مؤكدة}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, zero {لا مطابقات مقترحة} one {مطابق واحد مقترح} two {مطابقان مقترحان} few {# مطابقات مقترحة} many {# مطابق مقترح} other {# متطابق مقترح }}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "إلغاء"
@@ -1706,7 +1752,7 @@
 		"string": "سياسة الخصوصية"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "تكليف القائمة"
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'."
@@ -2034,7 +2080,7 @@
 		"string": "حفظ"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, zero {لا يوجد تحديد} one {1 محدد} two {2 محددان} few {# محددين} many {# محدد} other {# محدد}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Create automations to organize lists and customize your workflow."
@@ -2182,7 +2228,7 @@
 		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, zero {(لا يوجد تحديد)} one {(1 محدد)} two {(2 محددان)} few {(# محددين)} many {(# محدد)} other {(# محدد)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "و"
@@ -3055,7 +3101,7 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "أنت على وشك حذف المهام المحددة من {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم أيضا حذف إجابات هذه المهام."
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"
@@ -3070,7 +3116,7 @@
 		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "أنت على وشك تحرير المهام في {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم تعديل كل هذه المهام."
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من تحرير هذه البيانات الوصفيّة؟"
@@ -3135,11 +3181,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "متابعة و حفظ"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "الترجمة غير موجودة"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "الحالة"
 	},
 	"translationNeededDialog.body": {
 		"string": "لكي تصبح {language} هي اللغة الافتراضية، لا بد من ترجمة جميع الحالات الموجودة  إلى {language} في تبويبة إعدادات الحالات."
@@ -3253,7 +3308,7 @@
 		"string": "تاريخ الانضمام {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, zero {لا مساحة عمل} one {مساحة عمل واحدة} two {مساحتي عمل} few {# مساحات عمل} many {# مساحة عمل} other {# مساحة عمل}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "إضافة رابط"

@@ -255,7 +255,7 @@ const AutoCompleteMediaItem = (props, context) => {
 
   return (
     <Box display="flex" alignItems="flex-start" className="autocomplete-media-item">
-      <Box flexGrow="1">
+      <Box flexGrow="1" width={1}>
         <Box display="flex" alignItems="flex-start" flexGrow="1">
           <TextField
             id="autocomplete-media-item"

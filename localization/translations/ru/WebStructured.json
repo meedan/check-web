@@ -479,14 +479,23 @@
 	"attribution.search": {
 		"string": "Искать по участникам проекта"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "В процессе поиска произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Нет результатов"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Искать"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Поиск..."
@@ -496,6 +505,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "Добавить в существующий отчёт"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "Снять с публикации и обновить содержимое"
@@ -835,8 +847,14 @@
 	"editStatusDialog.addButton": {
 		"string": "Добавить статус"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "Описание"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "Статус (до {maxLength} символов)"
@@ -846,6 +864,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "Редактировать статус"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Редактировать поле для метаданных"
@@ -1208,7 +1229,7 @@
 		"string": "Добавить к списку"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Назначено"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "Редактировать заголовок и описание"
@@ -1418,7 +1439,7 @@
 		"string": "Последнее появление:"
 	},
 	"mediaExpanded.requests": {
-		"string": "Запросов: {count}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Архивы:"
@@ -1448,14 +1469,30 @@
 	"mediaItem.error": {
 		"string": "Ошибка. Пожалуйста, попробуйте ещё раз"
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": "Закрепить как основной"
 	},
 	"mediaItem.pinning": {
 		"string": "Закрепляется..."
 	},
+	"mediaItem.reportPaused": {
+		"string": "Приостановлен"
+	},
+	"mediaItem.reportPublished": {
+		"string": "Опубликован"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Неопубликован"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "В процессе обновления языка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
@@ -1485,7 +1522,7 @@
 		"string": "Add relation"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 связанный материал} few {# связанных материалов} many {# связанных материалов} other {# связанных материалов}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Не удалось добавить связанный материал"
@@ -1496,14 +1533,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "Связанный материал успешно добавлен"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 запрос среди всех медиа-файлов} few {# запросов среди всех медиа-файлов} many {# запросов среди всех медиа-файлов} other {# запросов среди всех медиа-файлов}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Нет запросов"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "Извините, возникла ошибка: \"{message}\". Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
@@ -1539,19 +1579,19 @@
 		"string": "Назад"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Export as similar"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Добавить похожий"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Import similar item"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Import similar media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import similar media into this item"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Export all media to another item"
@@ -1559,9 +1599,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "Export all media to another item"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Добавить в существующий отчёт"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Не удалось добавить похожий материал",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Похожий материал успешно добавлен",
@@ -1574,10 +1620,10 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 возможное совпадение} few {# возможных совпадений} many {# возможных совпадений} other {# возможных совпадений}}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Отменить"
@@ -1706,7 +1752,7 @@
 		"string": "Политика приватности"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "Назначить список"
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "Вы уверены, что хотите удалить этот список? Все материалы из удаляемого списка всё ещё будут доступны в общем списке «Все материалы»."
@@ -2034,7 +2080,7 @@
 		"string": "Сохранить"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {выбрано: 1} few {выбрано: #} many {выбрано: #} other {выбрано: #}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Create automations to organize lists and customize your workflow."
@@ -2182,7 +2228,7 @@
 		"string": "{count, plural, one {1 / 1} few {} many {} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(выбрано: 1)} few {(выбрано: #)} many {(выбрано: #)} other {(выбрано: #)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "и"
@@ -3055,7 +3101,7 @@
 		"string": "Да"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "Выбранные вопросы будут удалены из {itemsNumber, plural, one {1 материала} other {# материалов}}. При удалении вопросов также будут удалены все ответы на них."
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Вы уверены, что хотите удалить эти метаданные?"
@@ -3070,7 +3116,7 @@
 		"string": "Это действие изменит все связанные вопросы кроме тех, на которые уже есть ответы."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "Будут отредактированы вопросы в {itemsNumber, plural, one {одном материале} other {нескольких материалах (#)}}."
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Вы уверены, что хотите отредактировать эти метаданные?"
@@ -3135,11 +3181,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "Сохранить и продолжить"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "Недостающие переводы"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "Некоторые статусы не переведены. Не все пользователи могут понять непереведённые статусы."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Статус"
 	},
 	"translationNeededDialog.body": {
 		"string": "Чтобы сделать {language} языком по умолчанию, вы должны перевести на {language} все статусы в разделе настроек «Статусы»."
@@ -3253,7 +3308,7 @@
 		"string": "Joined {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Добавить ссылку"
