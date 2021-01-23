@@ -489,6 +489,7 @@ export const Column = styled.div`
   min-width: 340px;
   max-width: 720px;
   padding: ${units(2)};
+  height: calc(100vh - 64px);
   max-height: calc(100vh - 64px);
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
 `;
