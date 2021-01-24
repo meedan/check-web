@@ -30,30 +30,9 @@ function TeamMetadataRender({ team }) {
   const handleTabChange = (e, value) => {
     setShowTab(value);
   };
-  const teamItemTasks = team.team_tasks.edges.map(task => task.node);
-
-  const teamSourceTasks = [];
-
-  const renderTeamTaskList = (teamTasks) => {
-    if (teamTasks.length) {
-      return (
-        <TeamTasksProject
-          fieldset="metadata"
-          project={{ teamTasks }}
-          team={team}
-        />);
-    }
-
-    return (
-      <BlankState>
-        <FormattedMessage
-          id="teamMetadataRender.blankMetadata"
-          defaultMessage="No metadata fields"
-          description="Text for empty metadata"
-        />
-      </BlankState>
-    );
-  };
+  const annotatedType = showTab === 'items' ? 'ProjectMedia' : 'Source';
+  const teamMetadata = team.team_tasks.edges.map(task => task.node)
+    .filter(t => t.annotated_type === annotatedType);
 
   return (
     <div className="team-metadata">
@@ -74,7 +53,7 @@ function TeamMetadataRender({ team }) {
         }
         helpUrl="https://help.checkmedia.org/en/articles/4346772-metadata"
         actionButton={
-          <CreateTeamTask fieldset="metadata" team={team} />
+          <CreateTeamTask fieldset="metadata" annotatedType={annotatedType} team={team} />
         }
       />
       <div className={classes.root}>
@@ -101,8 +80,20 @@ function TeamMetadataRender({ team }) {
           />
         </Tabs>
         <div className={classes.tabContent} >
-          { showTab === 'items' ? renderTeamTaskList(teamItemTasks) : null }
-          { showTab === 'sources' ? renderTeamTaskList(teamSourceTasks) : null }
+          { teamMetadata.length ?
+            <TeamTasksProject
+              fieldset="tasks"
+              project={{ teamTasks: teamMetadata }}
+              team={team}
+            /> :
+            <BlankState>
+              <FormattedMessage
+                id="teamMetadataRender.blankMetadata"
+                defaultMessage="No metadata fields"
+                description="Text for empty metadata"
+              />
+            </BlankState>
+          }
         </div>
       </div>
     </div>

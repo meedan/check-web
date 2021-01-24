@@ -1,10 +1,5 @@
 [
   {
-    "id": "teamMetadataRender.blankMetadata",
-    "description": "Text for empty metadata",
-    "defaultMessage": "No metadata fields"
-  },
-  {
     "id": "teamMetadataRender.title",
     "description": "Metadata title",
     "defaultMessage": "Metadata"
@@ -13,5 +8,10 @@
     "id": "teamMetadataRender.metadataSubtitle",
     "description": "Metadata subtitle",
     "defaultMessage": "Add custom metadata fields to items."
+  },
+  {
+    "id": "teamMetadataRender.blankMetadata",
+    "description": "Text for empty metadata",
+    "defaultMessage": "No metadata fields"
   }
 ]

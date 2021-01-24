@@ -44,6 +44,7 @@ const TeamTasks = ({ team, fieldset }) => {
                   description
                   options
                   type
+                  annotated_type
                   project_ids
                   json_schema
                   show_in_browser_extension
