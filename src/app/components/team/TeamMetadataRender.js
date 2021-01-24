@@ -1,12 +1,59 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import { makeStyles } from '@material-ui/core/styles';
 import TeamTasksProject from './TeamTasksProject';
 import SettingsHeader from './SettingsHeader';
 import CreateTeamTask from './CreateTeamTask';
 import BlankState from '../layout/BlankState';
+import { backgroundMain } from '../../styles/js/shared';
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    backgroundColor: `${backgroundMain}`,
+    display: 'flex',
+    height: 224,
+  },
+  tabs: {
+    backgroundColor: `${backgroundMain}`,
+  },
+  tabContent: {
+    width: '100%',
+  },
+});
 
 function TeamMetadataRender({ team }) {
-  const teamTasks = team.team_tasks.edges.map(task => task.node);
+  const [showTab, setShowTab] = React.useState('items');
+  const classes = useStyles();
+  const handleTabChange = (e, value) => {
+    setShowTab(value);
+  };
+  const teamItemTasks = team.team_tasks.edges.map(task => task.node);
+
+  const teamSourceTasks = [];
+
+  const renderTeamTaskList = (teamTasks) => {
+    if (teamTasks.length) {
+      return (
+        <TeamTasksProject
+          fieldset="metadata"
+          project={{ teamTasks }}
+          team={team}
+        />);
+    }
+
+    return (
+      <BlankState>
+        <FormattedMessage
+          id="teamMetadataRender.blankMetadata"
+          defaultMessage="No metadata fields"
+          description="Text for empty metadata"
+        />
+      </BlankState>
+    );
+  };
 
   return (
     <div className="team-metadata">
@@ -30,20 +77,34 @@ function TeamMetadataRender({ team }) {
           <CreateTeamTask fieldset="metadata" team={team} />
         }
       />
-      { teamTasks.length ?
-        <TeamTasksProject
-          fieldset="metadata"
-          project={{ teamTasks }}
-          team={team}
-        /> :
-        <BlankState>
-          <FormattedMessage
-            id="teamMetadataRender.blankMetadata"
-            defaultMessage="No metadata fields"
-            description="Text for empty metadata"
+      <div className={classes.root}>
+        <Tabs
+          indicatorColor="primary"
+          scrollButtons="auto"
+          textColor="primary"
+          orientation="vertical"
+          variant="scrollable"
+          value={showTab}
+          onChange={handleTabChange}
+          className={classes.tabs}
+        >
+          <Tab
+            fullWidth
+            label="Items"
+            value="items"
+            className="metadata-tab__items"
           />
-        </BlankState>
-      }
+          <Tab
+            label="Sources"
+            value="sources"
+            className="metadata-tab__source"
+          />
+        </Tabs>
+        <div className={classes.tabContent} >
+          { showTab === 'items' ? renderTeamTaskList(teamItemTasks) : null }
+          { showTab === 'sources' ? renderTeamTaskList(teamSourceTasks) : null }
+        </div>
+      </div>
     </div>
   );
 }
