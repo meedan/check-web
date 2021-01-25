@@ -30,9 +30,9 @@ function TeamMetadataRender({ team }) {
   const handleTabChange = (e, value) => {
     setShowTab(value);
   };
-  const annotatedType = showTab === 'items' ? 'ProjectMedia' : 'Source';
+  const associatedType = showTab === 'items' ? 'ProjectMedia' : 'Source';
   const teamMetadata = team.team_tasks.edges.map(task => task.node)
-    .filter(t => t.annotated_type === annotatedType);
+    .filter(t => t.associated_type === associatedType);
 
   return (
     <div className="team-metadata">
@@ -53,7 +53,7 @@ function TeamMetadataRender({ team }) {
         }
         helpUrl="https://help.checkmedia.org/en/articles/4346772-metadata"
         actionButton={
-          <CreateTeamTask fieldset="metadata" annotatedType={annotatedType} team={team} />
+          <CreateTeamTask fieldset="metadata" associatedType={associatedType} team={team} />
         }
       />
       <div className={classes.root}>
