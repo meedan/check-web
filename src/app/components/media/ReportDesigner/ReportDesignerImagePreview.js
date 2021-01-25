@@ -10,13 +10,17 @@ function overwriteDocumentHtml(contentDocument, html) {
 }
 
 function tweakIframeDom({
-  contentDocument, headline, description, status_label, url, date,
+  contentDocument, headline, description, status_label, url, date, defaultReport,
 }) {
   const fillInOrHide = (selector, textContent) => {
     const el = contentDocument.querySelector(selector);
     if (el) {
       if (textContent) {
-        el.textContent = textContent;
+        if (el.lastChild) {
+          el.lastChild.nodeValue = textContent;
+        } else {
+          el.textContent = textContent;
+        }
       } else {
         el.style.display = 'none';
       }
@@ -27,10 +31,13 @@ function tweakIframeDom({
   fillInOrHide('#status', status_label);
   fillInOrHide('#url', url);
   fillInOrHide('#date', date);
+  fillInOrHide('#whatsapp', defaultReport.whatsapp);
+  fillInOrHide('#facebook', defaultReport.facebook ? `m.me/${defaultReport.facebook}` : null);
+  fillInOrHide('#twitter', defaultReport.twitter ? `@${defaultReport.twitter}` : null);
 }
 
 function ReportImagePreview({
-  template, teamAvatar, image, style, params, date,
+  template, teamAvatar, image, style, params, date, defaultReport,
 }) {
   const [iframe, setIframe] = React.useState(null);
 
@@ -65,7 +72,7 @@ function ReportImagePreview({
       const theme = dark_overlay ? 'dark' : 'light';
       contentDocument.body.className += ` ${theme}`;
       tweakIframeDom({
-        contentDocument, headline, description, status_label, url, date,
+        contentDocument, headline, description, status_label, url, date, defaultReport,
       });
     },
     [iframe, html, headline, description, status_label, url, dark_overlay, date],
@@ -94,6 +101,7 @@ ReportImagePreview.defaultProps = {
   teamAvatar: null,
   date: null,
   style: {},
+  defaultReport: {},
 };
 
 ReportImagePreview.propTypes = {
@@ -110,6 +118,7 @@ ReportImagePreview.propTypes = {
     theme_color: PropTypes.string.isRequired,
     dark_overlay: PropTypes.bool, // or null
   }).isRequired,
+  defaultReport: PropTypes.object, // or null
 };
 
 export default ReportImagePreview;
