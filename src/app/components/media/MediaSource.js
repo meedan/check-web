@@ -127,25 +127,7 @@ const MediaSource = ({ projectMedia }) => {
               ...ChangeMediaSource_team
             }
             source {
-              id
-              dbid
-              image
-              name
-              pusher_channel
-              medias_count
-              permissions
-              account_sources(first: 10000) {
-                edges {
-                  node {
-                    id
-                    permissions
-                    account {
-                      id
-                      url
-                    }
-                  }
-                }
-              }
+              ...SourceInfo_source
             }
           }
         }

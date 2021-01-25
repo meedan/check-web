@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
@@ -99,5 +100,9 @@ function TeamMetadataRender({ team }) {
     </div>
   );
 }
+
+TeamMetadataRender.propTypes = {
+  team: PropTypes.object.isRequired, // GraphQL "Team" object
+};
 
 export default TeamMetadataRender;

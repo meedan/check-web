@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import intersection from 'lodash.intersection';
 import Box from '@material-ui/core/Box';
@@ -154,5 +155,9 @@ function TeamTasksRender({ team }) {
     </div>
   );
 }
+
+TeamTasksRender.propTypes = {
+  team: PropTypes.object.isRequired, // GraphQL "Team" object
+};
 
 export default TeamTasksRender;

@@ -1,5 +1,6 @@
 import React from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import PropTypes from 'prop-types';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -21,6 +22,7 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
+// import Tasks from '../task/Tasks';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
@@ -177,6 +179,7 @@ function SourceInfo({ source, team, onChangeClick }) {
   const mainAccount = accountSources[0];
   const secondaryAccounts = accountSources.slice(1);
   const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${team.slug}/all-items`);
+  // const itemTasks = source.item_metadata;
 
   return (
     <div id={`source-${source.dbid}`}>
@@ -387,8 +390,60 @@ function SourceInfo({ source, team, onChangeClick }) {
           </Collapse>
         </Card>
       </Box>
+      {/* <Tasks tasks={itemTasks.edges} media={source} fieldset="metadata" /> */}
     </div>
   );
 }
 
-export default SourceInfo;
+SourceInfo.propTypes = {
+  team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
+  source: PropTypes.object.isRequired, // GraphQL "Source" object
+  onChangeClick: PropTypes.func.isRequired, // func(<SourceId>) => undefined
+};
+
+export default createFragmentContainer(SourceInfo, {
+  source: graphql`
+    fragment SourceInfo_source on Source {
+      id
+      dbid
+      image
+      name
+      pusher_channel
+      medias_count
+      permissions
+      account_sources(first: 10000) {
+        edges {
+          node {
+            id
+            permissions
+            account {
+              id
+              url
+            }
+          }
+        }
+      }
+      item_metadata: tasks(fieldset: "metadata", first: 10000) {
+        edges {
+          node {
+            id
+            dbid
+            show_in_browser_extension
+            label
+            type
+            description
+            fieldset
+            permissions
+            jsonoptions
+            json_schema
+            options
+            pending_suggestions_count
+            suggestions_count
+            log_count
+            team_task_id
+          }
+        }
+      }
+    }
+  `,
+});

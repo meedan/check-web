@@ -99,6 +99,7 @@ function ChangeMediaSource({
     </div>
   );
 }
+
 ChangeMediaSource.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   onCancel: PropTypes.func.isRequired, // func() => undefined
