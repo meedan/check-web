@@ -21,8 +21,10 @@ import { can } from '../Can';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
+// eslint-disable-next-line no-unused-vars
+import SourceTask from './SourceTask';
 import { urlFromSearchQuery } from '../search/Search';
-// import Tasks from '../task/Tasks';
+import Tasks from '../task/Tasks';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
@@ -179,7 +181,7 @@ function SourceInfo({ source, team, onChangeClick }) {
   const mainAccount = accountSources[0];
   const secondaryAccounts = accountSources.slice(1);
   const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${team.slug}/all-items`);
-  // const itemTasks = source.item_metadata;
+  const sourceTasks = source.source_metadata;
 
   return (
     <div id={`source-${source.dbid}`}>
@@ -390,7 +392,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           </Collapse>
         </Card>
       </Box>
-      {/* <Tasks tasks={itemTasks.edges} media={source} fieldset="metadata" /> */}
+      <Tasks tasks={sourceTasks.edges} media={source} fieldset="metadata" />
     </div>
   );
 }
@@ -423,24 +425,13 @@ export default createFragmentContainer(SourceInfo, {
           }
         }
       }
-      item_metadata: tasks(fieldset: "metadata", first: 10000) {
+      source_metadata: tasks(fieldset: "metadata", first: 10000) {
         edges {
           node {
-            id
-            dbid
-            show_in_browser_extension
-            label
-            type
-            description
-            fieldset
-            permissions
-            jsonoptions
-            json_schema
-            options
-            pending_suggestions_count
-            suggestions_count
-            log_count
-            team_task_id
+            id,
+            dbid,
+            show_in_browser_extension,
+            ...SourceTask_task,
           }
         }
       }
