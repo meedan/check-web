@@ -119,8 +119,13 @@ class UpdateTaskMutation extends Relay.Mutation {
   getConfigs() {
     const fieldIDs = { task: this.props.task.id };
     if (this.props.annotated) {
-      fieldIDs.project_media = this.props.annotated.id;
+      if (this.props.parent_type === 'project_media') {
+        fieldIDs.project_media = this.props.annotated.id;
+      } else if (this.props.parent_type === 'source') {
+        fieldIDs.source = this.props.annotated.id;
+      }
     }
+
     const configs = [
       {
         type: 'FIELDS_CHANGE',

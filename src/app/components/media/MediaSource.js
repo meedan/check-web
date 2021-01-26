@@ -11,6 +11,7 @@ import { getCurrentProjectId } from '../../helpers';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2),
+    overflow: 'auto',
   },
 }));
 
