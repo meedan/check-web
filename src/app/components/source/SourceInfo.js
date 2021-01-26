@@ -389,7 +389,10 @@ function SourceInfo({ source, team, onChangeClick }) {
           </Collapse>
         </Card>
       </Box>
-      <SourceTasks source={source} fieldset="metadata" />
+      { source !== null ?
+        <SourceTasks key={source.id} source={source} fieldset="metadata" />
+        : null
+      }
     </div>
   );
 }

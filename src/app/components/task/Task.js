@@ -185,10 +185,14 @@ class Task extends Component {
 
     const fields = {};
     fields[`response_${task.type}`] = response;
+
+    const parentType = task.annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'answer',
         annotated: media,
+        parent_type: parentType,
         file,
         user: this.getCurrentUser(),
         task: {
@@ -256,10 +260,13 @@ class Task extends Component {
       assigned_to_ids: this.getAssignment(),
     };
 
+    const parentType = task.annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'update',
         annotated: media,
+        parent_type: parentType,
         user: this.getCurrentUser(),
         task: taskObj,
       }),
@@ -275,11 +282,14 @@ class Task extends Component {
 
     const onSuccess = () => this.setState({ message: null, editingAssignment: false });
 
+    const parentType = task.annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'assign',
         user: this.getCurrentUser(),
         annotated: this.props.media,
+        parent_type: parentType,
         task,
       }),
       { onSuccess, onFailure: this.fail },

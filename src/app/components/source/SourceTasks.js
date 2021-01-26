@@ -41,11 +41,12 @@ const StyledAnnotationRow = styled.div`
 `;
 
 function SourceTasks({ source, fieldset }) {
-  const { source_metadata: sourceMetadata } = source;
+  const { source_metadata } = source;
+  const sourceMetadata = source_metadata ? source_metadata.edges : [];
 
   return (
     <StyledAnnotationRow>
-      <Tasks tasks={sourceMetadata.edges} media={source} fieldset={fieldset} />
+      <Tasks tasks={sourceMetadata} media={source} fieldset={fieldset} />
     </StyledAnnotationRow>
   );
 }

@@ -9,28 +9,31 @@ class UpdateTaskMutation extends Relay.Mutation {
 
   getFatQuery() {
     if (this.props.operation === 'answer') {
-      return Relay.QL`fragment on UpdateTaskPayload {
-        versionEdge
-        task {
-          responses
-          first_response
-        },
-        project_media {
-          last_status,
-          id,
-          log_count
-        },
-      }`;
+      switch (this.props.parent_type) {
+      case 'project_media':
+        return Relay.QL`fragment on UpdateTaskPayload {
+          versionEdge,
+          task { responses, first_response },
+          project_media { last_status, id, log_count },
+        }`;
+      case 'source':
+        return Relay.QL`fragment on UpdateTaskPayload { versionEdge, task { responses, first_response }, source { id } }`;
+      default:
+        return '';
+      }
     }
-    return Relay.QL`fragment on UpdateTaskPayload {
-      task,
-      project_media {
-        last_status,
-        log,
-        id,
-        log_count
-      },
-    }`;
+
+    switch (this.props.parent_type) {
+    case 'project_media':
+      return Relay.QL`fragment on UpdateTaskPayload {
+        task,
+        project_media { last_status, log, id, log_count },
+      }`;
+    case 'source':
+      return Relay.QL`fragment on UpdateTaskPayload { task, source { id } }`;
+    default:
+      return '';
+    }
   }
 
   getFiles() {
@@ -127,7 +130,7 @@ class UpdateTaskMutation extends Relay.Mutation {
     if (this.props.operation === 'answer') {
       configs.push({
         type: 'RANGE_ADD',
-        parentName: 'project_media',
+        parentName: this.props.parent_type,
         parentID: this.props.annotated.id,
         connectionName: 'log',
         edgeName: 'versionEdge',
