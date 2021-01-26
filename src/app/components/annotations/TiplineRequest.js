@@ -106,17 +106,18 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function parseText(text, projectMedia) {
+function parseText(text, projectMedia, activity) {
   let parsedText = text;
-
-  // Replace the external URL of the first media by the Check URL,
-  // since the first media is downloaded and saved in Check
-  if (projectMedia && projectMedia.media && projectMedia.media.file_path) {
-    parsedText = parsedText.replace(/https:\/\/media.smooch.io[^ ]+/m, projectMedia.media.file_path);
-  }
 
   // The unicode character \u2063 is used on the backend to separate messages
   parsedText = parsedText.replace(/[\u2063]/g, '');
+
+  // Replace the external URL of the first media by the Check URL,
+  // since the first media is downloaded and saved in Check.
+  // Ignore similar items, since it's not the exact same media as the main item.
+  if (projectMedia && projectMedia.media && projectMedia.media.file_path && activity.associated_graphql_id === projectMedia.id) {
+    parsedText = parsedText.replace(/https:\/\/media.smooch.io[^\s]+/m, projectMedia.media.file_path);
+  }
 
   return emojify(parsedText);
 }
@@ -207,7 +208,7 @@ const TiplineRequest = ({
       <div className="annotation__card-content">
         {messageText ? (
           <StyledRequest>
-            <ParsedText text={parseText(messageText, projectMedia)} />
+            <ParsedText text={parseText(messageText, projectMedia, activity)} />
           </StyledRequest>
         ) : (
           <FormattedMessage
@@ -228,8 +229,10 @@ TiplineRequest.propTypes = {
     smooch_user_external_identifier: PropTypes.string.isRequired,
     smooch_report_received_at: PropTypes.number.isRequired,
     smooch_report_update_received_at: PropTypes.number.isRequired,
+    associated_graphql_id: PropTypes.string.isRequired,
   }).isRequired,
   annotated: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     media: PropTypes.shape({
       file_path: PropTypes.string.isRequired,
     }).isRequired,

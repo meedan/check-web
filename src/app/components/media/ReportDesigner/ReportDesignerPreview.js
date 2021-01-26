@@ -58,6 +58,23 @@ function previewIntroduction(data, media) {
   return introduction;
 }
 
+function previewFooter(defaultReport) {
+  const footer = [];
+  if (defaultReport.signature) {
+    footer.push(`_${defaultReport.signature}_`);
+  }
+  if (defaultReport.whatsapp) {
+    footer.push(`_WhatsApp: ${defaultReport.whatsapp}_`);
+  }
+  if (defaultReport.facebook) {
+    footer.push(`_FB Messenger: m.me/${defaultReport.facebook}_`);
+  }
+  if (defaultReport.twitter) {
+    footer.push(`_Twitter: twitter.com/${defaultReport.twitter}_`);
+  }
+  return footer.join('\n');
+}
+
 const ReportDesignerPreview = (props) => {
   const classes = useStyles();
   const { data, media } = props;
@@ -73,6 +90,9 @@ const ReportDesignerPreview = (props) => {
     );
   }
 
+  const defaultReports = media.team.get_report || {};
+  const defaultReport = defaultReports[data.language] || {};
+
   const text = [];
   if (data.title) {
     text.push(`*${data.title}*`);
@@ -80,9 +100,7 @@ const ReportDesignerPreview = (props) => {
   if (data.text) {
     text.push(data.text);
   }
-  if (data.disclaimer) {
-    text.push(`_${data.disclaimer}_`);
-  }
+  text.push(previewFooter(defaultReport));
 
   const introduction = previewIntroduction(data, media);
 
@@ -129,6 +147,7 @@ const ReportDesignerPreview = (props) => {
             params={data}
             template={media.team.get_report_design_image_template}
             date={data.date || formatDate(new Date(), data.language)}
+            defaultReport={defaultReport}
           />
         </Box> : null }
     </Box>

@@ -24,10 +24,6 @@
     "defaultMessage": "You must either provide text for the report or uncheck the 'Report text' box"
   },
   {
-    "id": "reportDesigner.disclaimer",
-    "defaultMessage": "Disclaimer"
-  },
-  {
     "id": "reportDesigner.visualCard",
     "defaultMessage": "Visual card"
   },

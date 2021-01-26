@@ -135,19 +135,17 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
   end
 
-  it 'should add introduction and a disclaimer to team report settings', bin5: true do
+  it 'should add introduction to team report settings', bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__report-tab').click
     wait_for_selector('#use_introduction').click
-    expect(@driver.page_source.include?('Report settings updated successfully!')).to be(false)
+    expect(@driver.page_source.include?('Report settings saved successfully')).to be(false)
     expect(@driver.page_source.include?('The content you set here can be edited in each individual report')).to be(true)
     wait_for_selector('#introduction').send_keys('introduction text')
-    wait_for_selector('#use_disclaimer').click
-    wait_for_selector('#disclaimer').send_keys('a text')
     wait_for_selector('#team-report__save').click
     wait_for_selector('.message')
-    expect(@driver.page_source.include?('Report settings updated successfully!')).to be(true)
+    expect(@driver.page_source.include?('Report settings saved successfully')).to be(true)
   end
 
   it 'should enable the Slack notifications', bin5: true do

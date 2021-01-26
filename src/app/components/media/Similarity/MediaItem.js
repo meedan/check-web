@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
   mediaItemCardHeader: {
     padding: theme.spacing(1),
-    width: '100%',
+    width: 'calc(100% - 50px)', // Make space for the menu
   },
   notSelected: {
     background: 'white',
