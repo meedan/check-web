@@ -326,14 +326,22 @@ function SourceInfo({ source, team, onChangeClick }) {
             <CardContent>
               <Box mb={2}>
                 { mainAccount ?
-                  <TextField
-                    id="main_source__link"
-                    value={mainAccount.node.account.url}
-                    margin="normal"
-                    fullWidth
-                    disabled
-                  /> : null
-                }
+                  <Row key={mainAccount.node.id} className="source__url">
+                    <TextField
+                      id="main_source__link"
+                      value={mainAccount.node.account.url}
+                      margin="normal"
+                      disabled
+                      fullWidth
+                    />
+                    { can(mainAccount.node.permissions, 'destroy AccountSource') ?
+                      <StyledIconButton
+                        className="source__remove-link-button"
+                        onClick={() => handleRemoveLink(mainAccount.node.id)}
+                      >
+                        <CancelIcon />
+                      </StyledIconButton> : null }
+                  </Row> : null }
                 { !mainAccount && can(source.permissions, 'create Account') ?
                   <TextField
                     id="source_primary__link-input"
