@@ -17,7 +17,7 @@
   },
   {
     "id": "switchTeams.member",
-    "defaultMessage": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+    "defaultMessage": "{membersCount, plural, one {# member} other {# members}}"
   },
   {
     "id": "switchTeams.joinRequestMessage",

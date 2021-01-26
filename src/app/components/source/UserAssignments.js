@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import List from '@material-ui/core/List';
@@ -164,53 +165,59 @@ class UserAssignmentsComponent extends Component {
           </BlankState>
         )}
         {Object.keys(assignments).map(project => (
-          <Card key={project} style={{ marginTop: units(2), marginBottom: units(2) }}>
-            <CardHeader title={
-              <Link to={projectPaths[project]}>
-                {project}
-              </Link>}
-            />
-            <List>
-              {assignments[project].map(assignment => (
-                <ListItem
-                  button
-                  component={Link}
-                  to={assignment.path}
-                  key={`media-${assignment.dbid}`}
-                >
-                  <ListItemIcon>
-                    {icons[assignment.report_type]}
-                  </ListItemIcon>
-                  <ListItemText>
-                    {assignment.title}
-                  </ListItemText>
-                </ListItem>
-              ))}
-            </List>
-          </Card>
+          <Box clone my={2} key={project}>
+            <Card>
+              <CardHeader title={
+                <Link to={projectPaths[project]}>
+                  {project}
+                </Link>}
+              />
+              <List>
+                {assignments[project].map(assignment => (
+                  <ListItem
+                    button
+                    component={Link}
+                    to={assignment.path}
+                    key={`media-${assignment.dbid}`}
+                  >
+                    <ListItemIcon>
+                      {icons[assignment.report_type]}
+                    </ListItemIcon>
+                    <ListItemText>
+                      {assignment.title}
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </Card>
+          </Box>
         ))}
-        <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-          <CardHeader
-            title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
-          />
-          <List>
-            {assignmentsWithoutProject.map(assignment => (
-              <ListItem
-                button
-                component={Link}
-                to={assignment.path}
-                key={`media-${assignment.dbid}`}
-              >
-                <ListItemIcon>
-                  {icons[assignment.report_type]}
-                </ListItemIcon>
-                <ListItemText>
-                  {assignment.title}
-                </ListItemText>
-              </ListItem>
-            ))}
-          </List>
-        </Card>
+        { assignmentsWithoutProject.length > 0 ? (
+          <Box clone my={2}>
+            <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
+              <CardHeader
+                title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
+              />
+              <List>
+                {assignmentsWithoutProject.map(assignment => (
+                  <ListItem
+                    button
+                    component={Link}
+                    to={assignment.path}
+                    key={`media-${assignment.dbid}`}
+                  >
+                    <ListItemIcon>
+                      {icons[assignment.report_type]}
+                    </ListItemIcon>
+                    <ListItemText>
+                      {assignment.title}
+                    </ListItemText>
+                  </ListItem>
+                ))}
+              </List>
+            </Card>
+          </Box>
+        ) : null }
       </div>
     );
   }
