@@ -5,6 +5,10 @@
     "defaultMessage": "Please enter a valid URL"
   },
   {
+    "id": "createMediaSource.createSource",
+    "defaultMessage": "Create source"
+  },
+  {
     "id": "sourceInfo.createNew",
     "description": "Create a new media source label",
     "defaultMessage": "Create new"

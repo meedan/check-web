@@ -10,13 +10,21 @@
     "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
   },
   {
+    "id": "sourceInfo.saving",
+    "defaultMessage": "Saving…"
+  },
+  {
+    "id": "sourceInfo.saved",
+    "defaultMessage": "Saved {ago}"
+  },
+  {
     "id": "mediaSource.changeSource",
     "description": "allow user to change a project media source",
     "defaultMessage": "Change"
   },
   {
     "id": "sourceInfo.mainName",
-    "description": "souce name",
+    "description": "Source name",
     "defaultMessage": "Main name"
   },
   {
@@ -36,7 +44,7 @@
   },
   {
     "id": "sourceInfo.addLink",
-    "description": "allow user to relate a new link to media source",
+    "description": "Allow user to relate a new link to media source",
     "defaultMessage": "Add a secondary URL"
   }
 ]

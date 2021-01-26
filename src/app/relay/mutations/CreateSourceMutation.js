@@ -19,6 +19,7 @@ class CreateSourceMutation extends Relay.Mutation {
             name
             medias_count
             permissions
+            updated_at
             account_sources(first: 10000) {
               edges {
                 node {
