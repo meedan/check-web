@@ -402,7 +402,8 @@ SourceInfo.propTypes = {
 
 export default createFragmentContainer(SourceInfo, {
   source: graphql`
-    fragment SourceInfo_source on Source {
+    fragment SourceInfo_source on Source
+    @argumentDefinitions(teamSlug: { type: "String!"}) {
       id
       dbid
       image
@@ -455,7 +456,7 @@ export default createFragmentContainer(SourceInfo, {
                         id
                         dbid
                         name
-                        team_user(team_slug: "sawy") {
+                        team_user(team_slug: $teamSlug) {
                           id
                           status
                           role
@@ -504,7 +505,7 @@ export default createFragmentContainer(SourceInfo, {
                       dbid,
                       name,
                       is_active
-                      team_user(team_slug: "sawy") {
+                      team_user(team_slug: $teamSlug) {
                         id
                         status
                         role
@@ -553,7 +554,7 @@ export default createFragmentContainer(SourceInfo, {
                   name
                   id
                   dbid
-                  team_user(team_slug: "sawy") {
+                  team_user(team_slug: $teamSlug) {
                     id
                     status
                     role
@@ -606,7 +607,7 @@ export default createFragmentContainer(SourceInfo, {
                     id
                     dbid
                     name
-                    team_user(team_slug: "sawy") {
+                    team_user(team_slug: $teamSlug) {
                       id
                       status
                       role
@@ -655,7 +656,7 @@ export default createFragmentContainer(SourceInfo, {
                   dbid,
                   name,
                   is_active
-                  team_user(team_slug: "sawy") {
+                  team_user(team_slug: $teamSlug) {
                     id
                     status
                     role

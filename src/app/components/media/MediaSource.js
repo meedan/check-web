@@ -111,12 +111,13 @@ const MediaSourceComponent = ({ projectMedia }) => {
 const MediaSource = ({ projectMedia }) => {
   const projectId = getCurrentProjectId(projectMedia.project_ids);
   const ids = `${projectMedia.dbid},${projectId}`;
+  const teamSlug = `${projectMedia.team.slug}`;
 
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query MediaSourceQuery($ids: String!) {
+        query MediaSourceQuery($ids: String!, $teamSlug: String!) {
           project_media(ids: $ids) {
             id
             dbid
@@ -127,13 +128,14 @@ const MediaSource = ({ projectMedia }) => {
               ...ChangeMediaSource_team
             }
             source {
-              ...SourceInfo_source
+              ...SourceInfo_source @arguments(teamSlug: $teamSlug)
             }
           }
         }
       `}
       variables={{
         ids,
+        teamSlug,
       }}
       render={({ error, props }) => {
         if (!error && !props) {
