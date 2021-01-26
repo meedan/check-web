@@ -19,6 +19,7 @@ import Me from './source/Me';
 import Team from './team/Team';
 import AddTeamPage from './team/AddTeamPage';
 import JoinTeam from './team/JoinTeam';
+import Teams from './team/Teams';
 import Trash from './team/Trash';
 import Unconfirmed from './team/Unconfirmed';
 import MediaPage from './media/MediaPage';
@@ -75,6 +76,7 @@ class Root extends Component {
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams/new" component={AddTeamPage} />
                 <Route path="check/teams/find(/:slug)" component={AddTeamPage} />
+                <Route path="check/teams" component={Teams} />
                 <Route path="check/bot-garden" component={BotGarden} />
                 <Route path="check/bot/:botId" component={Bot} />
 
