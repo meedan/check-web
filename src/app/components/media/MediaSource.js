@@ -129,6 +129,7 @@ const MediaSource = ({ projectMedia }) => {
               ...ChangeMediaSource_team
             }
             source {
+              id
               ...SourceInfo_source @arguments(teamSlug: $teamSlug)
             }
           }

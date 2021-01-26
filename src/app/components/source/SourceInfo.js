@@ -22,7 +22,7 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
-import SourceTasks from './SourceTasks';
+import Tasks from '../task/Tasks';
 import { getErrorMessage } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
@@ -179,6 +179,8 @@ function SourceInfo({ source, team, onChangeClick }) {
   const mainAccount = accountSources[0];
   const secondaryAccounts = accountSources.slice(1);
   const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${team.slug}/all-items`);
+  const { source_metadata } = source;
+  const sourceMetadata = source_metadata ? source_metadata.edges : [];
 
   return (
     <div id={`source-${source.dbid}`}>
@@ -389,10 +391,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           </Collapse>
         </Card>
       </Box>
-      { source !== null ?
-        <SourceTasks key={source.id} source={source} fieldset="metadata" />
-        : null
-      }
+      <Tasks tasks={sourceMetadata} media={source} fieldset="metadata" noscroll />
     </div>
   );
 }
