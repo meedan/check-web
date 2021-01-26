@@ -4,7 +4,6 @@ import Relay from 'react-relay/classic';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -26,7 +25,7 @@ import FilterPopup from '../layout/FilterPopup';
 import TeamSelect from '../team/TeamSelect';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
-import { units, AlignOpposite } from '../../styles/js/shared';
+import { AlignOpposite } from '../../styles/js/shared';
 
 const messages = defineMessages({
   filterByTeam: {
@@ -164,40 +163,9 @@ class UserAssignmentsComponent extends Component {
             <FormattedMessage id="userAssignments.blank" defaultMessage="No activity" />
           </BlankState>
         )}
-        {Object.keys(assignments).map(project => (
-          <Box clone my={2} key={project}>
-            <Card>
-              <CardHeader title={
-                <Link to={projectPaths[project]}>
-                  {project}
-                </Link>}
-              />
-              <List>
-                {assignments[project].map(assignment => (
-                  <ListItem
-                    button
-                    component={Link}
-                    to={assignment.path}
-                    key={`media-${assignment.dbid}`}
-                  >
-                    <ListItemIcon>
-                      {icons[assignment.report_type]}
-                    </ListItemIcon>
-                    <ListItemText>
-                      {assignment.title}
-                    </ListItemText>
-                  </ListItem>
-                ))}
-              </List>
-            </Card>
-          </Box>
-        ))}
         { assignmentsWithoutProject.length > 0 ? (
           <Box clone my={2}>
-            <Card style={{ marginTop: units(2), marginBottom: units(2) }}>
-              <CardHeader
-                title={<FormattedMessage id="userAssignments.other" defaultMessage="Other" />}
-              />
+            <Card>
               <List>
                 {assignmentsWithoutProject.map(assignment => (
                   <ListItem
