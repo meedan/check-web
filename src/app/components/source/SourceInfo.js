@@ -12,16 +12,19 @@ import Collapse from '@material-ui/core/Collapse';
 import { Link } from 'react-router';
 import LinkifyIt from 'linkify-it';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
 import { can } from '../Can';
+import TimeBefore from '../TimeBefore';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
@@ -45,6 +48,9 @@ const useStyles = makeStyles(theme => ({
     color: 'blue',
     textDecoration: 'underline',
   },
+  sourceInfoRight: {
+    textAlign: 'right',
+  },
 }));
 
 function SourceInfo({ source, team, onChangeClick }) {
@@ -54,6 +60,7 @@ function SourceInfo({ source, team, onChangeClick }) {
   const [sourceError, setSourceError] = React.useState('');
   const [secondaryUrl, setSecondaryUrl] = React.useState({ url: '', error: '', addNewLink: false });
   const [primaryUrl, setPrimaryUrl] = React.useState({ url: '', error: '' });
+  const [saving, setSaving] = React.useState(false);
 
   const classes = useStyles();
 
@@ -80,43 +87,51 @@ function SourceInfo({ source, team, onChangeClick }) {
     }
   };
 
-  const handleNameKeyPress = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      if (sourceName && source.name !== sourceName) {
-        const onFailure = (transaction) => {
-          const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-          setSourceError(message);
-        };
+  const handleChangeSourceName = () => {
+    if (sourceName && source.name !== sourceName) {
+      const onFailure = (transaction) => {
+        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+        setSourceError(message);
+      };
 
-        const onSuccess = () => {
-          setSourceError('');
-        };
+      const onSuccess = () => {
+        setSourceError('');
+      };
 
-        commitMutation(Relay.Store, {
-          mutation: graphql`
-            mutation SourceInfoUpdateNameMutation($input: UpdateSourceInput!) {
-              updateSource(input: $input) {
-                source {
-                  name
-                }
+      setSaving(true);
+
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation SourceInfoUpdateNameMutation($input: UpdateSourceInput!) {
+            updateSource(input: $input) {
+              source {
+                name
+                updated_at
               }
             }
-          `,
-          variables: {
-            input: {
-              id: source.id,
-              name: sourceName,
-            },
+          }
+        `,
+        variables: {
+          input: {
+            id: source.id,
+            name: sourceName,
           },
-          onError: onFailure,
-          onCompleted: ({ data, errors }) => {
-            if (errors) {
-              return onFailure(errors);
-            }
-            return onSuccess(data);
-          },
-        });
-      }
+        },
+        onError: onFailure,
+        onCompleted: ({ data, errors }) => {
+          setSaving(false);
+          if (errors) {
+            return onFailure(errors);
+          }
+          return onSuccess(data);
+        },
+      });
+    }
+  };
+
+  const handleNameKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      handleChangeSourceName();
     }
   };
 
@@ -132,44 +147,48 @@ function SourceInfo({ source, team, onChangeClick }) {
   };
 
   const createAccountSource = (e, type) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      const value = e.target.value.trim();
-      if (!value) {
-        return;
-      }
-      const linkify = new LinkifyIt();
-      const validateUrl = linkify.match(value);
-      if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
-        const { url } = validateUrl[0];
-        const onFailure = (transaction) => {
-          const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-          handleAddLinkFail(type, message);
-        };
-        const onSuccess = () => {
-          if (type === 'primary') {
-            setPrimaryUrl({ url: '', error: '' });
-          } else {
-            setSecondaryUrl({ url: '', error: '', addNewLink: false });
-          }
-        };
-        Relay.Store.commitUpdate(
-          new CreateAccountSourceMutation({
-            id: source.dbid,
-            url,
-            source,
-          }),
-          { onSuccess, onFailure },
-        );
-      } else {
-        const message = (
-          <FormattedMessage
-            id="sourceInfo.invalidLink"
-            defaultMessage="Please enter a valid URL"
-            description="Error message for invalid link"
-          />
-        );
+    let value = e.target.value.trim().toLowerCase();
+    if (!value) {
+      return;
+    }
+    if (!/^https?:\/\//.test(value)) {
+      value = `http://${value}`; // Pender will turn into HTTPS if available
+    }
+    const linkify = new LinkifyIt();
+    const validateUrl = linkify.match(value);
+    if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
+      const { url } = validateUrl[0];
+      const onFailure = (transaction) => {
+        setSaving(false);
+        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
         handleAddLinkFail(type, message);
-      }
+      };
+      const onSuccess = () => {
+        setSaving(false);
+        if (type === 'primary') {
+          setPrimaryUrl({ url: '', error: '' });
+        } else {
+          setSecondaryUrl({ url: '', error: '', addNewLink: false });
+        }
+      };
+      setSaving(true);
+      Relay.Store.commitUpdate(
+        new CreateAccountSourceMutation({
+          id: source.dbid,
+          url,
+          source,
+        }),
+        { onSuccess, onFailure },
+      );
+    } else {
+      const message = (
+        <FormattedMessage
+          id="sourceInfo.invalidLink"
+          defaultMessage="Please enter a valid URL"
+          description="Error message for invalid link"
+        />
+      );
+      handleAddLinkFail(type, message);
     }
   };
 
@@ -205,17 +224,34 @@ function SourceInfo({ source, team, onChangeClick }) {
             </Link>
           </StyledBigColumn>
         </StyledTwoColumns>
-        <Button
-          id="media-source-change"
-          onClick={onChangeClick}
-          className={classes.linkedText}
-        >
-          <FormattedMessage
-            id="mediaSource.changeSource"
-            defaultMessage="Change"
-            description="allow user to change a project media source"
-          />
-        </Button>
+        <div className={classes.sourceInfoRight}>
+          <Typography variant="caption" component="div">
+            { saving ?
+              <FormattedMessage
+                id="sourceInfo.saving"
+                defaultMessage="Saving…"
+              /> :
+              <FormattedMessage
+                id="sourceInfo.saved"
+                defaultMessage="Saved {ago}"
+                values={{
+                  ago: <TimeBefore date={parseStringUnixTimestamp(source.updated_at)} />,
+                }}
+              />
+            }
+          </Typography>
+          <Button
+            id="media-source-change"
+            onClick={onChangeClick}
+            className={classes.linkedText}
+          >
+            <FormattedMessage
+              id="mediaSource.changeSource"
+              defaultMessage="Change"
+              description="allow user to change a project media source"
+            />
+          </Button>
+        </div>
       </div>
       <Box clone mb={2}>
         <Card
@@ -229,7 +265,7 @@ function SourceInfo({ source, team, onChangeClick }) {
               <FormattedMessage
                 id="sourceInfo.mainName"
                 defaultMessage="Main name"
-                description="souce name"
+                description="Source name"
               />
             }
             id={`source__label-${source.id}`}
@@ -248,11 +284,12 @@ function SourceInfo({ source, team, onChangeClick }) {
                 id="source__name-input"
                 name="source__name-input"
                 value={sourceName}
-                disabled={!can(source.permissions, 'update Source')}
+                disabled={!can(source.permissions, 'update Source') || saving}
                 error={Boolean(sourceError)}
                 helperText={sourceError}
                 onKeyPress={(e) => { handleNameKeyPress(e); }}
                 onChange={(e) => { setSourceName(e.target.value); }}
+                onBlur={handleChangeSourceName}
                 margin="normal"
                 fullWidth
               />
@@ -301,6 +338,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                   <TextField
                     id="source_primary__link-input"
                     name="source_primary__link-input"
+                    disabled={saving}
                     label={
                       <FormattedMessage
                         id="sourceInfo.primaryLink"
@@ -311,8 +349,18 @@ function SourceInfo({ source, team, onChangeClick }) {
                     value={primaryUrl.url}
                     error={Boolean(primaryUrl.error)}
                     helperText={primaryUrl.error}
-                    onKeyPress={(e) => { createAccountSource(e, 'primary'); }}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        createAccountSource(e, 'primary');
+                      }
+                    }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">http(s)://</InputAdornment>
+                      ),
+                    }}
                     onChange={(e) => { handleChangeLink(e, 'primary'); }}
+                    onBlur={(e) => { createAccountSource(e); }}
                     margin="normal"
                     fullWidth
                   /> : null
@@ -354,12 +402,23 @@ function SourceInfo({ source, team, onChangeClick }) {
                   <TextField
                     id="source__link-input-new"
                     name="source__link-input-new"
+                    margin="normal"
                     value={secondaryUrl.url}
                     error={Boolean(secondaryUrl.error)}
                     helperText={secondaryUrl.error}
-                    onKeyPress={(e) => { createAccountSource(e, 'secondary'); }}
+                    disabled={saving}
+                    onKeyPress={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        createAccountSource(e, 'secondary');
+                      }
+                    }}
                     onChange={(e) => { handleChangeLink(e, 'secondary'); }}
-                    margin="normal"
+                    onBlur={(e) => { createAccountSource(e); }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">http(s)://</InputAdornment>
+                      ),
+                    }}
                     fullWidth
                   />
                   <StyledIconButton
@@ -379,7 +438,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                   <FormattedMessage
                     id="sourceInfo.addLink"
                     defaultMessage="Add a secondary URL"
-                    description="allow user to relate a new link to media source"
+                    description="Allow user to relate a new link to media source"
                   />
                 </Button> : null
               }
