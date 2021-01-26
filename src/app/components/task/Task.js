@@ -489,7 +489,8 @@ class Task extends Component {
   }
 
   render() {
-    const { task, media } = this.props;
+    const { task: teamTask, media } = this.props;
+    const task = { ...teamTask };
     const isTask = task.fieldset === 'tasks';
     const data = getResponseData(task.first_response);
     const {
@@ -537,7 +538,9 @@ class Task extends Component {
 
     const zeroAnswer = task.responses.edges.length === 0;
 
-    const taskActions = media.archived === CheckArchivedFlags.NONE ? (
+    const annotatedNotArchived = task.annotated_type === 'Source' || media.archived === CheckArchivedFlags.NONE;
+
+    const taskActions = annotatedNotArchived ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
         { data.by && isTask ?
@@ -575,7 +578,7 @@ class Task extends Component {
 
     let taskBody = null;
     if ((!response || task.responses.edges.length > 1)
-      && media.archived === CheckArchivedFlags.NONE) {
+      && annotatedNotArchived) {
       taskBody = (
         <div>
           <StyledTaskResponses>
@@ -814,6 +817,7 @@ export default Relay.createContainer(Task, {
         dbid,
         label,
         type,
+        annotated_type
         description,
         fieldset,
         permissions,
