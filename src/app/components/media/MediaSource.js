@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
 
 const MediaSourceComponent = ({ projectMedia }) => {
   const [action, setAction] = React.useState('view');
+  const [newSourceName, setNewSourceName] = React.useState('');
   const classes = useStyles();
 
   const handleChangeSourceSubmit = (value) => {
@@ -37,6 +38,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
                   pusher_channel
                   medias_count
                   permissions
+                  updated_at
                   account_sources(first: 10000) {
                     edges {
                       node {
@@ -72,7 +74,10 @@ const MediaSourceComponent = ({ projectMedia }) => {
   };
 
   const handleCancel = () => setAction('view');
-  const handleCreateNewSource = () => setAction('create');
+  const handleCreateNewSource = (name) => {
+    setNewSourceName(name);
+    setAction('create');
+  };
   const handleChangeSource = () => setAction('change');
 
   const { team, source } = projectMedia;
@@ -90,6 +95,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
         }
         { action === 'create' ?
           <CreateMediaSource
+            name={newSourceName}
             media={projectMedia}
             onCancel={handleCancel}
             relateToExistingSource={handleChangeSourceSubmit}
@@ -134,6 +140,7 @@ const MediaSource = ({ projectMedia }) => {
               pusher_channel
               medias_count
               permissions
+              updated_at
               account_sources(first: 10000) {
                 edges {
                   node {
