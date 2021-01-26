@@ -13,25 +13,34 @@ function ChangeMediaSource({
   createNewClick,
 }) {
   const [value, setValue] = React.useState(null);
-  const handleSubmit = React.useCallback(() => {
-    setValue(null);
-    onSubmit(value);
-  }, [onSubmit, value]);
+  const [input, setInput] = React.useState('');
 
   const teamSources = team.sources.edges.map(({ node }) => node);
 
-  const handleChange = React.useCallback((ev, newValue, reason) => {
+  const handleChange = (ev, newValue, reason) => {
     switch (reason) {
-    case 'select-option': setValue(newValue); break;
-    case 'clear': setValue(null); break;
+    case 'select-option':
+      setValue(newValue);
+      onSubmit(newValue);
+      break;
+    case 'clear':
+      setValue(null);
+      onSubmit(null);
+      break;
     default: break;
     }
-  }, [value]);
+  };
+
+  const handleInputChange = React.useCallback((ev, newValue, reason) => {
+    if (reason === 'input') {
+      setInput(newValue);
+    }
+  }, [input]);
 
   const createNew = (
     <Button
       style={{ color: 'blue' }}
-      onClick={createNewClick}
+      onClick={() => { createNewClick(input); }}
     >
       <FormattedMessage
         id="changeMediaSource.createSource"
@@ -50,6 +59,8 @@ function ChangeMediaSource({
         getOptionSelected={(option, val) => val !== null && option.id === val.id}
         value={value}
         onChange={handleChange}
+        inputValue={input}
+        onInputChange={handleInputChange}
         renderInput={params => (
           <TextField
             {...params}
@@ -86,7 +97,7 @@ function ChangeMediaSource({
         <Button
           color="primary"
           className="project-media-source-save-action"
-          onClick={handleSubmit}
+          onClick={() => { onSubmit(value); }}
           disabled={!value}
         >
           <FormattedMessage

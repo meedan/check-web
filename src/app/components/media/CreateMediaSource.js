@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -15,12 +16,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import LinkifyIt from 'linkify-it';
 import { makeStyles } from '@material-ui/core/styles';
 import Message from '../Message';
-import UploadFile from '../UploadFile';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
 import globalStrings from '../../globalStrings';
@@ -32,13 +33,11 @@ import {
   StyledIconButton,
 } from '../../styles/js/shared';
 import {
-  StyledAvatarEditButton,
   StyledTwoColumns,
   StyledSmallColumn,
   StyledBigColumn,
   StyledName,
 } from '../../styles/js/HeaderCard';
-
 
 const useStyles = makeStyles(theme => ({
   headerRow: {
@@ -48,7 +47,10 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(2),
   },
   cancelSaveRow: {
-    textAlign: 'right',
+    display: 'flex',
+    gap: `${theme.spacing(1)}px`,
+    padding: `${theme.spacing(1)}px 0`,
+    flexDirection: 'row-reverse',
   },
   linkedText: {
     color: 'blue',
@@ -56,23 +58,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-
 function CreateMediaSource({
   media,
   onCancel,
   relateToExistingSource,
+  name,
 }) {
   const [expandName, setExpandName] = React.useState(true);
   const [expandAccounts, setExpandAccounts] = React.useState(true);
-  const [sourceName, setSourceName] = React.useState('');
+  const [sourceName, setSourceName] = React.useState(name || '');
   const [primaryUrl, setPrimaryUrl] = React.useState({ url: '', error: '' });
-  const [submitDisabled, setSubmitDisabled] = React.useState(true);
+  const [submitDisabled, setSubmitDisabled] = React.useState(!name);
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [validatePrimaryLinkExist, setValidatePrimaryLinkExist] = React.useState(true);
   const [links, setLinks] = React.useState([]);
   const [message, setMessage] = React.useState(null);
-  const [image, setImage] = React.useState(null);
-  const [editProfileImg, setEditProfileImg] = React.useState(false);
   const [existingSource, setExistingSource] = React.useState({});
 
   const classes = useStyles();
@@ -90,16 +90,6 @@ function CreateMediaSource({
     setSubmitDisabled(submitDisabledValue);
   };
 
-  const handleImageChange = (file) => {
-    setImage(file);
-    setMessage(null);
-  };
-
-  const handleImageError = (file, errorMessage) => {
-    setImage(null);
-    setMessage(errorMessage);
-  };
-
   const handleRemoveNewLink = (index) => {
     const newLinks = links.slice();
     newLinks.splice(index, 1);
@@ -115,6 +105,9 @@ function CreateMediaSource({
   const validatePrimaryLink = () => {
     const linkify = new LinkifyIt();
     if (primaryUrl.url.trim()) {
+      if (!/^https?:\/\//.test(primaryUrl.url)) {
+        primaryUrl.url = `http://${primaryUrl.url}`; // Pender will turn into HTTPS if available
+      }
       const validateUrl = linkify.match(primaryUrl.url);
       if (Array.isArray(validateUrl) && validateUrl[0] && validateUrl[0].url) {
         return true;
@@ -137,7 +130,13 @@ function CreateMediaSource({
 
     let success = true;
 
-    const newLinks = links.slice().filter(link => !!link.url.trim());
+    const newLinks = links.slice().filter(link => !!link.url.trim()).map((link) => {
+      let { url } = link;
+      if (!/^https?:\/\//.test(link)) {
+        url = `http://${url}`; // Pender will turn into HTTPS if available
+      }
+      return { ...link, url };
+    });
 
     newLinks.forEach((item_) => {
       const item = item_;
@@ -205,7 +204,6 @@ function CreateMediaSource({
         new CreateSourceMutation({
           name: sourceName,
           slogan: sourceName,
-          image,
           urls,
           validate_primary_link_exist: validatePrimaryLinkExist,
           project_media: media,
@@ -215,7 +213,6 @@ function CreateMediaSource({
     }
     return true;
   };
-
 
   return (
     <React.Fragment>
@@ -233,7 +230,10 @@ function CreateMediaSource({
           onClick={handleSave}
           disabled={submitDisabled}
         >
-          <FormattedMessage {...globalStrings.save} />
+          <FormattedMessage
+            id="createMediaSource.createSource"
+            defaultMessage="Create source"
+          />
         </Button>
       </div>
       <Message message={message} />
@@ -244,30 +244,9 @@ function CreateMediaSource({
               type="user"
               className="source__avatar"
             />
-            {!editProfileImg ?
-              <StyledAvatarEditButton className="source__edit-avatar-button">
-                <Button
-                  onClick={() => { setEditProfileImg(true); }}
-                  color="primary"
-                >
-                  <FormattedMessage {...globalStrings.edit} />
-                </Button>
-              </StyledAvatarEditButton>
-              : null}
           </StyledSmallColumn>
           <StyledBigColumn>
             <div className="source__primary-info">
-              { editProfileImg ?
-                <div>
-                  <Message message={message} />
-                  <UploadFile
-                    type="image"
-                    value={image}
-                    onChange={handleImageChange}
-                    onError={handleImageError}
-                  />
-                </div>
-                : null}
               <StyledName className="source__name">
                 <Row>
                   {sourceName.length !== 0 ?
@@ -378,10 +357,15 @@ function CreateMediaSource({
                     description="Allow user to add a main source URL"
                   />
                 }
-                value={primaryUrl.url}
+                value={primaryUrl.url ? primaryUrl.url.replace(/^https?:\/\//, '') : ''}
                 error={Boolean(primaryUrl.error)}
                 helperText={primaryUrl.error}
                 onChange={(e) => { setPrimaryUrl({ url: e.target.value, error: '' }); }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">http(s)://</InputAdornment>
+                  ),
+                }}
                 fullWidth
                 margin="normal"
               />
@@ -401,7 +385,7 @@ function CreateMediaSource({
                     <TextField
                       id={`source__link-input${index.toString()}`}
                       name={`source__link-input${index.toString()}`}
-                      value={link.url}
+                      value={link.url ? link.url.replace(/^https?:\/\//, '') : ''}
                       error={Boolean(link.error)}
                       helperText={link.error}
                       label={
@@ -412,6 +396,11 @@ function CreateMediaSource({
                         />
                       }
                       onChange={(e) => { handleChangeLink(e, index); }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">http(s)://</InputAdornment>
+                        ),
+                      }}
                       margin="normal"
                       fullWidth
                     />
@@ -467,9 +456,6 @@ function CreateMediaSource({
             </Typography>
           </DialogContent>
           <DialogActions>
-            <Button color="primary" onClick={handleCancelDialog}>
-              <FormattedMessage {...globalStrings.cancel} />
-            </Button>
             <Button
               color="primary"
               className="source__create-use-existing-source"
@@ -481,6 +467,9 @@ function CreateMediaSource({
                 description="Submit button to relate media to an existing source"
               />
             </Button>
+            <Button color="primary" onClick={handleCancelDialog}>
+              <FormattedMessage {...globalStrings.cancel} />
+            </Button>
           </DialogActions>
         </Dialog> : null
       }
@@ -488,5 +477,15 @@ function CreateMediaSource({
   );
 }
 
+CreateMediaSource.defaultProps = {
+  name: '',
+};
+
+CreateMediaSource.propTypes = {
+  media: PropTypes.object.isRequired,
+  onCancel: PropTypes.func.isRequired,
+  relateToExistingSource: PropTypes.func.isRequired,
+  name: PropTypes.string,
+};
 
 export default CreateMediaSource;
