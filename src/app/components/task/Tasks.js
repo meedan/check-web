@@ -10,8 +10,10 @@ import BlankState from '../layout/BlankState';
 
 const useStyles = makeStyles({
   taskList: {
-    overflowY: 'auto',
     maxHeight: 'calc(100vh - 166px)', // screen height - (media bar + tabs + add task)
+  },
+  taskListOverflow: {
+    overflowY: 'auto',
   },
 });
 
@@ -19,6 +21,7 @@ const Tasks = ({
   fieldset,
   tasks,
   media,
+  noscroll,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
@@ -27,6 +30,10 @@ const Tasks = ({
   const isMetadata = fieldset === 'metadata';
 
   const classes = useStyles();
+  const taskListClasses = [classes.taskList];
+  if (!noscroll) {
+    taskListClasses.push(classes.taskListOverflow);
+  }
 
   if (isMetadata && tasks.length === 0 && !isBrowserExtension) {
     return (
@@ -44,7 +51,7 @@ const Tasks = ({
   }
 
   return (
-    <div className={classes.taskList}>
+    <div className={[taskListClasses.join(' ')]}>
       <ul className="tasks__list">
         {tasks
           .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))

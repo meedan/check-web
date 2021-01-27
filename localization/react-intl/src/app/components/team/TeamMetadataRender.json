@@ -1,0 +1,27 @@
+[
+  {
+    "id": "teamMetadataRender.itemTitle",
+    "description": "Title for item Metadata",
+    "defaultMessage": "Metadata"
+  },
+  {
+    "id": "teamMetadataRender.sourceTitle",
+    "description": "Ttle for source Metadata",
+    "defaultMessage": "Source metadata"
+  },
+  {
+    "id": "teamMetadataRender.metadataItemSubtitle",
+    "description": "Metadata item subtitle",
+    "defaultMessage": "Add custom metadata fields to items."
+  },
+  {
+    "id": "teamMetadataRender.metadataSourceSubtitle",
+    "description": "Metadata source subtitle",
+    "defaultMessage": "Add custom data ields to the source tab."
+  },
+  {
+    "id": "teamMetadataRender.blankMetadata",
+    "description": "Text for empty metadata",
+    "defaultMessage": "No metadata fields"
+  }
+]

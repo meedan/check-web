@@ -11,6 +11,7 @@ import { getCurrentProjectId } from '../../helpers';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2),
+    overflow: 'auto',
   },
 }));
 
@@ -117,12 +118,13 @@ const MediaSourceComponent = ({ projectMedia }) => {
 const MediaSource = ({ projectMedia }) => {
   const projectId = getCurrentProjectId(projectMedia.project_ids);
   const ids = `${projectMedia.dbid},${projectId}`;
+  const teamSlug = `${projectMedia.team.slug}`;
 
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query MediaSourceQuery($ids: String!) {
+        query MediaSourceQuery($ids: String!, $teamSlug: String!) {
           project_media(ids: $ids) {
             id
             dbid
@@ -134,31 +136,14 @@ const MediaSource = ({ projectMedia }) => {
             }
             source {
               id
-              dbid
-              image
-              name
-              pusher_channel
-              medias_count
-              permissions
-              updated_at
-              account_sources(first: 10000) {
-                edges {
-                  node {
-                    id
-                    permissions
-                    account {
-                      id
-                      url
-                    }
-                  }
-                }
-              }
+              ...SourceInfo_source @arguments(teamSlug: $teamSlug)
             }
           }
         }
       `}
       variables={{
         ids,
+        teamSlug,
       }}
       render={({ error, props }) => {
         if (!error && !props) {

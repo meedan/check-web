@@ -320,10 +320,13 @@ class Annotation extends Component {
       task.reject_suggestion = vid;
     }
 
+    const parentType = this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'suggest',
         annotated: this.props.annotated.project_media,
+        parent_type: parentType,
         task,
       }),
       { onSuccess, onFailure: this.fail },
