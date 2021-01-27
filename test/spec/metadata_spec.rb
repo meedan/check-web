@@ -22,18 +22,17 @@ shared_examples 'metadata' do
     create_team_data_field(task_type_class: '.create-task__add-datetime', task_name: 'my data time metadata')
     expect(@driver.page_source.include?('my data time metadata')).to be(true)
 
-    # TODO: fix me Sawy
     # change the metadata order
-    # task = wait_for_selector('.team-tasks__task-label > span > span') # first metadata
-    # expect(task.text).to eq 'my metadata - Edited'
-    # @driver.execute_script('window.scrollTo(0, 0)')
-    # wait_for_selector('.reorder__button-down').click
-    # task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
-    # expect(task.text).to eq 'my data time metadata'
+    task = wait_for_selector('.team-tasks__task-label > span > span') # first metadata
+    expect(task.text).to eq 'my metadata - Edited'
+    @driver.execute_script('window.scrollTo(0, 0)')
+    wait_for_selector('.reorder__button-down').click
+    task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
+    expect(task.text).to eq 'my data time metadata'
 
     # delete metadata
-    # delete_team_data_field
-    # expect(@driver.page_source.include?('my data time metadata')).to be(false)
+    delete_team_data_field
+    expect(@driver.page_source.include?('my data time metadata')).to be(false)
   end
 
   it 'should add, edit and delete a metadata response', bin5: true do

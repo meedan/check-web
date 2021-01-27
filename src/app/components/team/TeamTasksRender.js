@@ -76,7 +76,7 @@ function TeamTasksRender({ team }) {
   const filterLabel = renderFilterLabel(filteredTasks, team_tasks.edges);
 
   return (
-    <div className="team-metadata">
+    <div className="team-tasks">
       <SettingsHeader
         title={
           <FormattedMessage

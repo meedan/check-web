@@ -39,18 +39,30 @@ function TeamMetadataRender({ team }) {
     <div className="team-metadata">
       <SettingsHeader
         title={
-          <FormattedMessage
-            id="teamMetadataRender.title"
-            defaultMessage="Metadata"
-            description="Metadata title"
-          />
+          associatedType === 'ProjectMedia' ?
+            <FormattedMessage
+              id="teamMetadataRender.itemTitle"
+              defaultMessage="Metadata"
+              description="Title for item Metadata"
+            /> :
+            <FormattedMessage
+              id="teamMetadataRender.sourceTitle"
+              defaultMessage="Source metadata"
+              description="Ttle for source Metadata"
+            />
         }
         subtitle={
-          <FormattedMessage
-            id="teamMetadataRender.metadataSubtitle"
-            defaultMessage="Add custom metadata fields to items."
-            description="Metadata subtitle"
-          />
+          associatedType === 'ProjectMedia' ?
+            <FormattedMessage
+              id="teamMetadataRender.metadataItemSubtitle"
+              defaultMessage="Add custom metadata fields to items."
+              description="Metadata item subtitle"
+            /> :
+            <FormattedMessage
+              id="teamMetadataRender.metadataSourceSubtitle"
+              defaultMessage="Add custom data ields to the source tab."
+              description="Metadata source subtitle"
+            />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4346772-metadata"
         actionButton={
@@ -83,7 +95,7 @@ function TeamMetadataRender({ team }) {
         <div className={classes.tabContent} >
           { teamMetadata.length ?
             <TeamTasksProject
-              fieldset="tasks"
+              fieldset="metadata"
               project={{ teamTasks: teamMetadata }}
               team={team}
             /> :
