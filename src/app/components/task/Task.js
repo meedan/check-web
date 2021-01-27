@@ -548,9 +548,7 @@ class Task extends Component {
 
     const zeroAnswer = task.responses.edges.length === 0;
 
-    const annotatedNotArchived = task.annotated_type === 'Source' || media.archived === CheckArchivedFlags.NONE;
-
-    const taskActions = annotatedNotArchived ? (
+    const taskActions = media.archived === CheckArchivedFlags.NONE ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
         { data.by && isTask ?
@@ -588,7 +586,7 @@ class Task extends Component {
 
     let taskBody = null;
     if ((!response || task.responses.edges.length > 1)
-      && annotatedNotArchived) {
+      && media.archived === CheckArchivedFlags.NONE) {
       taskBody = (
         <div>
           <StyledTaskResponses>

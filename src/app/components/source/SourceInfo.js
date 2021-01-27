@@ -481,6 +481,7 @@ export default createFragmentContainer(SourceInfo, {
       medias_count
       permissions
       updated_at
+      archived
       account_sources(first: 10000) {
         edges {
           node {
