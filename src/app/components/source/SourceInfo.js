@@ -1,5 +1,6 @@
 import React from 'react';
-import { graphql, commitMutation } from 'react-relay/compat';
+import PropTypes from 'prop-types';
+import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -24,6 +25,7 @@ import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSour
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
+import Tasks from '../task/Tasks';
 import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
@@ -196,6 +198,8 @@ function SourceInfo({ source, team, onChangeClick }) {
   const mainAccount = accountSources[0];
   const secondaryAccounts = accountSources.slice(1);
   const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${team.slug}/all-items`);
+  const { source_metadata } = source;
+  const sourceMetadata = source_metadata ? source_metadata.edges : [];
 
   return (
     <div id={`source-${source.dbid}`}>
@@ -454,8 +458,319 @@ function SourceInfo({ source, team, onChangeClick }) {
           </Collapse>
         </Card>
       </Box>
+      <Tasks tasks={sourceMetadata} media={source} fieldset="metadata" noscroll />
     </div>
   );
 }
 
-export default SourceInfo;
+SourceInfo.propTypes = {
+  team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
+  source: PropTypes.object.isRequired, // GraphQL "Source" object
+  onChangeClick: PropTypes.func.isRequired, // func(<SourceId>) => undefined
+};
+
+export default createFragmentContainer(SourceInfo, {
+  source: graphql`
+    fragment SourceInfo_source on Source
+    @argumentDefinitions(teamSlug: { type: "String!"}) {
+      id
+      dbid
+      image
+      name
+      pusher_channel
+      medias_count
+      permissions
+      updated_at
+      archived
+      account_sources(first: 10000) {
+        edges {
+          node {
+            id
+            permissions
+            account {
+              id
+              url
+            }
+          }
+        }
+      }
+      source_metadata: tasks(fieldset: "metadata", first: 10000) {
+        edges {
+          node {
+            id
+            dbid
+            show_in_browser_extension
+            label
+            type
+            annotated_type
+            description
+            fieldset
+            permissions
+            jsonoptions
+            json_schema
+            options
+            pending_suggestions_count
+            suggestions_count
+            log_count
+            team_task_id
+            responses(first: 10000) {
+              edges {
+                node {
+                  id,
+                  dbid,
+                  permissions,
+                  content,
+                  file_data,
+                  attribution(first: 10000) {
+                    edges {
+                      node {
+                        id
+                        dbid
+                        name
+                        team_user(team_slug: $teamSlug) {
+                          id
+                          status
+                          role
+                          team {
+                            id
+                            slug
+                          }
+                          user {
+                            id
+                            dbid
+                            name
+                            is_active
+                            number_of_teams
+                            source {
+                              id
+                              image
+                              description
+                              created_at
+                              account_sources(first: 10000) {
+                                edges {
+                                  node {
+                                    account {
+                                      id
+                                      url
+                                      provider
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                        source {
+                          id
+                          dbid
+                          image
+                        }
+                      }
+                    }
+                  }
+                  annotator {
+                    name,
+                    profile_image,
+                    user {
+                      id,
+                      dbid,
+                      name,
+                      is_active
+                      team_user(team_slug: $teamSlug) {
+                        id
+                        status
+                        role
+                        team {
+                          id
+                          slug
+                        }
+                        user {
+                          id
+                          dbid
+                          name
+                          is_active
+                          number_of_teams
+                          source {
+                            id
+                            image
+                            description
+                            created_at
+                            account_sources(first: 10000) {
+                              edges {
+                                node {
+                                  account {
+                                    id
+                                    url
+                                    provider
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                      source {
+                        id,
+                        dbid,
+                        image,
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            assignments(first: 10000) {
+              edges {
+                node {
+                  name
+                  id
+                  dbid
+                  team_user(team_slug: $teamSlug) {
+                    id
+                    status
+                    role
+                    team {
+                      id
+                      slug
+                    }
+                    user {
+                      id
+                      dbid
+                      name
+                      is_active
+                      number_of_teams
+                      source {
+                        id
+                        image
+                        description
+                        created_at
+                        account_sources(first: 10000) {
+                          edges {
+                            node {
+                              account {
+                                id
+                                url
+                                provider
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                  source {
+                    id
+                    dbid
+                    image
+                  }
+                }
+              }
+            }
+            first_response {
+              id,
+              dbid,
+              permissions,
+              content,
+              file_data,
+              attribution(first: 10000) {
+                edges {
+                  node {
+                    id
+                    dbid
+                    name
+                    team_user(team_slug: $teamSlug) {
+                      id
+                      status
+                      role
+                      team {
+                        id
+                        slug
+                      }
+                      user {
+                        id
+                        dbid
+                        name
+                        is_active
+                        number_of_teams
+                        source {
+                          id
+                          image
+                          description
+                          created_at
+                          account_sources(first: 10000) {
+                            edges {
+                              node {
+                                account {
+                                  id
+                                  url
+                                  provider
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                    source {
+                      id
+                      dbid
+                      image
+                    }
+                  }
+                }
+              }
+              annotator {
+                name,
+                profile_image,
+                user {
+                  id,
+                  dbid,
+                  name,
+                  is_active
+                  team_user(team_slug: $teamSlug) {
+                    id
+                    status
+                    role
+                    team {
+                      id
+                      slug
+                    }
+                    user {
+                      id
+                      dbid
+                      name
+                      is_active
+                      number_of_teams
+                      source {
+                        id
+                        image
+                        description
+                        created_at
+                        account_sources(first: 10000) {
+                          edges {
+                            node {
+                              account {
+                                id
+                                url
+                                provider
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                  source {
+                    id,
+                    dbid,
+                    image,
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `,
+});

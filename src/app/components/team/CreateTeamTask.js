@@ -35,6 +35,7 @@ class CreateTeamTask extends React.Component {
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
       fieldset: this.props.fieldset,
+      associated_type: this.props.associatedType,
     };
 
     const onSuccess = () => {
