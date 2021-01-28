@@ -27,7 +27,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
 
       commitMutation(Relay.Store, {
         mutation: graphql`
-          mutation MediaSourceChangeSourceMutation($input: UpdateProjectMediaInput!) {
+          mutation MediaSourceChangeSourceMutation($input: UpdateProjectMediaInput!, $teamSlug: String!) {
             updateProjectMedia(input: $input) {
               project_media {
                 id
@@ -40,6 +40,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
                   medias_count
                   permissions
                   updated_at
+                  archived
                   account_sources(first: 10000) {
                     edges {
                       node {
@@ -52,6 +53,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
                       }
                     }
                   }
+                  ...SourceInfo_source @arguments(teamSlug: $teamSlug)
                 }
               }
             }
@@ -62,6 +64,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
             id: projectMedia.id,
             source_id: value.dbid,
           },
+          teamSlug: projectMedia.team.slug,
         },
         onError: onFailure,
         onCompleted: ({ data, errors }) => {
