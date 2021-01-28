@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 
 import SlackConfig from './SlackConfig';
 import SettingsHeader from './SettingsHeader';
+import TeamBots from './TeamBots';
 import { ContentColumn } from '../../styles/js/shared';
 
 const TeamIntegrations = (props) => {
@@ -29,6 +30,7 @@ const TeamIntegrations = (props) => {
           helpUrl="http://help.checkmedia.org/en/articles/4499092-slack-notifications"
         />
         <Box className="team-integrations__integrations">
+          <TeamBots />
           <SlackConfig team={team} />
         </Box>
       </ContentColumn>

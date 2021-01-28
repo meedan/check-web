@@ -1,0 +1,28 @@
+[
+  {
+    "id": "smoochBotComponent.defaultErrorMessage",
+    "description": "Warning displayed if an error occurred when saving tipline settings",
+    "defaultMessage": "Could not save tipline settings."
+  },
+  {
+    "id": "smoochBotComponent.savedSuccessfully",
+    "description": "Banner displayed when tipline settings are saved successfully",
+    "defaultMessage": "Tipline settings saved successfully."
+  },
+  {
+    "id": "smoochBotComponent.title",
+    "defaultMessage": "Tipline"
+  },
+  {
+    "id": "smoochBotComponent.subtitle",
+    "defaultMessage": "Create automated conversational bots to receive content from your audience."
+  },
+  {
+    "id": "smoochBotComponent.save",
+    "defaultMessage": "Save settings"
+  },
+  {
+    "id": "smoochBotComponent.contactUs",
+    "defaultMessage": "Contact us to setup"
+  }
+]
