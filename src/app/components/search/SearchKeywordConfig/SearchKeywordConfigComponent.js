@@ -112,13 +112,17 @@ const SearchKeywordConfigComponent = ({
     m.node.type === 'multiple_choice'
   );
 
+  const wantedTeamTaskAssociatedTypes = m => (
+    m.node.associated_type === 'ProjectMedia'
+  );
+
   const formatOption = m => ({ value: `${m.node.dbid}`, label: m.node.label });
 
   const teamMetadata = team.metadata.edges
-    .filter(wantedTeamTaskTypes)
+    .filter(wantedTeamTaskAssociatedTypes).filter(wantedTeamTaskTypes)
     .map(formatOption);
   const teamTasks = team.tasks.edges
-    .filter(wantedTeamTaskTypes)
+    .filter(wantedTeamTaskAssociatedTypes).filter(wantedTeamTaskTypes)
     .map(formatOption);
 
   if (teamMetadata.length || teamTasks.length) {
