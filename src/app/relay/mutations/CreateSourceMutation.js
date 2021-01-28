@@ -1,4 +1,5 @@
 import Relay from 'react-relay/classic';
+import Task from '../../components/task/Task';
 
 class CreateSourceMutation extends Relay.Mutation {
   getMutation() {
@@ -19,6 +20,7 @@ class CreateSourceMutation extends Relay.Mutation {
             name
             medias_count
             permissions
+            archived
             updated_at
             account_sources(first: 10000) {
               edges {
@@ -29,6 +31,16 @@ class CreateSourceMutation extends Relay.Mutation {
                     id
                     url
                   }
+                }
+              }
+            }
+            source_metadata: tasks(fieldset: "metadata", first: 10000) {
+              edges {
+                node {
+                  id,
+                  dbid,
+                  show_in_browser_extension,
+                  ${Task.getFragment('task')},
                 }
               }
             }
