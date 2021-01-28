@@ -22,6 +22,7 @@ const SearchKeywordContainer = ({
               node {
                 id,
                 dbid,
+                associated_type,
                 label,
                 type,
               }
@@ -32,6 +33,7 @@ const SearchKeywordContainer = ({
               node {
                 id,
                 dbid,
+                associated_type,
                 label,
                 type,
               }
