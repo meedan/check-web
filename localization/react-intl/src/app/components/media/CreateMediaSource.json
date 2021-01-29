@@ -1,0 +1,76 @@
+[
+  {
+    "id": "sourceInfo.invalidLink",
+    "description": "Error message for invalid link",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "createMediaSource.createSource",
+    "defaultMessage": "Create source"
+  },
+  {
+    "id": "sourceInfo.createNew",
+    "description": "Create a new media source label",
+    "defaultMessage": "Create new"
+  },
+  {
+    "id": "sourceInfo.mediasCount",
+    "description": "show source media counts",
+    "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
+  },
+  {
+    "id": "sourceInfo.mainName",
+    "description": "souce name",
+    "defaultMessage": "Main name"
+  },
+  {
+    "id": "sourceInfo.sourceName",
+    "description": "label for create source name",
+    "defaultMessage": "Add name"
+  },
+  {
+    "id": "sourceInfo.mainAccount",
+    "description": "URL for first account related to media souce",
+    "defaultMessage": "Main source URL"
+  },
+  {
+    "id": "sourceInfo.primaryLink",
+    "description": "Allow user to add a main source URL",
+    "defaultMessage": "Add main source URL"
+  },
+  {
+    "id": "sourceInfo.secondaryAccounts",
+    "description": "URLs for source accounts except first account",
+    "defaultMessage": "Secondary source URLs"
+  },
+  {
+    "id": "sourceInfo.addSecondaryLink",
+    "description": "Label for add a new source secondary URL",
+    "defaultMessage": "Add a secondary URL"
+  },
+  {
+    "id": "sourceInfo.addLink",
+    "description": "allow user to relate a new link to media source",
+    "defaultMessage": "Add a secondary URL"
+  },
+  {
+    "id": "createMediaSource.existingSource",
+    "description": "Dialog title for existing source with same primary url",
+    "defaultMessage": "Existing source URL"
+  },
+  {
+    "id": "createMediaSource.existDescription",
+    "description": "Text to inform user about existing source",
+    "defaultMessage": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
+  },
+  {
+    "id": "createMediaSource.confirm",
+    "description": "Confirm message to relate media to an existing source",
+    "defaultMessage": "Do you want to use the existing sources for this media?"
+  },
+  {
+    "id": "createMediaSource.useExistingSource",
+    "description": "Submit button to relate media to an existing source",
+    "defaultMessage": "Use existing source"
+  }
+]

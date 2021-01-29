@@ -99,7 +99,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           />
         ))}
       </Column>
-      <Column className="media__annotations-column">
+      <Column className="media__annotations-column" overflow="hidden">
         { isBotInstalled(projectMedia.team, 'smooch') ?
           <React.Fragment>
             <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">

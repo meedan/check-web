@@ -21,6 +21,7 @@ import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
 import MediaAnalysis from './MediaAnalysis';
+import MediaSource from './MediaSource';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import MediaSimilarities from './Similarity/MediaSimilarities';
@@ -313,7 +314,7 @@ class MediaComponent extends Component {
                 />
                 {this.props.extras}
               </Column>
-              <Column className="media__annotations-column">
+              <Column className="media__annotations-column" overflow="hidden">
                 <Tabs
                   indicatorColor="primary"
                   onChange={this.handleTabChange}
@@ -348,6 +349,16 @@ class MediaComponent extends Component {
                   <Tab
                     label={
                       <FormattedMessage
+                        id="mediaComponent.source"
+                        defaultMessage="Source"
+                      />
+                    }
+                    value="source"
+                    className="media-tab__source"
+                  />
+                  <Tab
+                    label={
+                      <FormattedMessage
                         id="mediaComponent.tasks"
                         defaultMessage="Tasks"
                       />
@@ -378,6 +389,7 @@ class MediaComponent extends Component {
                 </Tabs>
                 { this.state.showTab === 'requests' ? <MediaRequests media={media} all /> : null }
                 { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+                { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
                 { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
                 { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
                 { this.state.showTab === 'related' ? <MediaRelated projectMedia={media} /> : null }

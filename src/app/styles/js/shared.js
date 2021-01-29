@@ -13,7 +13,6 @@ export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
 export const highlightOrange = '#FD730C';
-export const modalBlue = 'rgba(0, 15, 41, .8)';
 export const inProgressYellow = '#efac51';
 export const unstartedRed = '#f04747';
 export const completedGreen = '#5cae73';
@@ -86,7 +85,7 @@ export const title1 = `500 ${units(2.5)}/${units(4)} ${fontStackSans}`;
 export const subheading1 = `400 15px/${units(3)} ${fontStackSans}`;
 export const subheading2 = `400 ${units(2)}/${units(3.5)} ${fontStackSans}`;
 export const body2 = `400 14px/${units(3)} ${fontStackSans}`;
-export const body1 = `400 14px/${units(1.8)} ${fontStackSans}`;
+export const body1 = `400 14px ${fontStackSans}`;
 export const caption = `400 ${units(1.5)}/${units(2.5)} ${fontStackSans}`;
 export const tiny = `400 ${units(1)}/${units(1.5)} ${fontStackSans}`;
 
@@ -490,8 +489,9 @@ export const Column = styled.div`
   min-width: 340px;
   max-width: 720px;
   padding: ${units(2)};
-  height: calc(100vh - 60px);
-  overflow: auto;
+  height: calc(100vh - 64px);
+  max-height: calc(100vh - 64px);
+  overflow: ${props => props.overflow ? props.overflow : 'auto'};
 `;
 
 export const OffsetBothSides = styled.div`

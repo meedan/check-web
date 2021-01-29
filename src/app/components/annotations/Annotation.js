@@ -18,25 +18,22 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
-import WhatsAppIcon from '@material-ui/icons/WhatsApp';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import CheckIcon from '@material-ui/icons/Check';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import { withSetFlashMessage } from '../FlashMessage';
 import EmbedUpdate from './EmbedUpdate';
 import EmbedCreate from './EmbedCreate';
-import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import TaskUpdate from './TaskUpdate';
+import { can } from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
+import ParsedText from '../ParsedText';
+import TimeBefore from '../TimeBefore';
 import SourcePicture from '../source/SourcePicture';
 import ProfileLink from '../layout/ProfileLink';
-import ParsedText from '../ParsedText';
+import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
+import UserTooltip from '../user/UserTooltip';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
-import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
-import { can } from '../Can';
-import TimeBefore from '../TimeBefore';
+import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   getErrorMessage,
   getStatus,
@@ -46,7 +43,6 @@ import {
 } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
-import UserTooltip from '../user/UserTooltip';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
   units,
@@ -61,10 +57,6 @@ import {
   breakWordStyles,
   Row,
   defaultBorderRadius,
-  twitterBlue,
-  facebookBlue,
-  whatsappGreen,
-  completedGreen,
 } from '../../styles/js/shared';
 
 const dotSize = borderWidthLarge;
@@ -219,42 +211,8 @@ const StyledAnnotationMetadata = styled(Row)`
   }
 `;
 
-const StyledRequestHeader = styled(Row)`
-  color: ${black54};
-  flex-flow: wrap row;
-  font: ${caption};
-  margin-bottom: ${units(2)};
-
-  .circle_delimeter:before {
-    content: '\\25CF';
-    font-size: ${units(1.5)};
-  }
-
-  .annotation__card-header {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const StyledReportReceived = styled.div`
-  color: ${black54};
-  font: ${caption};
-  display: flex;
-  align-items: center;
-  margin-bottom: ${units(2)};
-`;
-
 const StyledAnnotationActionsWrapper = styled.div`
   margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
-`;
-
-const StyledRequest = styled.div`
-  font-size: ${units(1.75)};
-
-  a, a:visited, a:hover {
-    color: ${checkBlue};
-    text-decoration: underline;
-  }
 `;
 
 const FlagName = ({ flag }) => {
@@ -286,29 +244,6 @@ const FlagLikelihood = ({ likelihood }) => {
 
 FlagLikelihood.propTypes = {
   likelihood: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
-};
-
-const SmoochIcon = ({ name }) => {
-  switch (name) {
-  case 'whatsapp':
-    return (
-      <WhatsAppIcon
-        style={{
-          backgroundColor: whatsappGreen,
-          color: '#FFF',
-          borderRadius: 4,
-          padding: 2,
-        }}
-      />
-    );
-  case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
-  case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
-  default: return null;
-  }
-};
-
-SmoochIcon.propTypes = {
-  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter']).isRequired,
 };
 
 // TODO Fix a11y issues
@@ -385,10 +320,13 @@ class Annotation extends Component {
       task.reject_suggestion = vid;
     }
 
+    const parentType = this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'suggest',
         annotated: this.props.annotated.project_media,
+        parent_type: parentType,
         task,
       }),
       { onSuccess, onFailure: this.fail },
@@ -494,7 +432,6 @@ class Annotation extends Component {
     let activityType = activity.event_type;
     let contentTemplate = null;
     let showCard = false;
-    let cardFooter = true;
 
     switch (activityType) {
     case 'create_comment': {
@@ -591,16 +528,36 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
+        const type = object.relationship_type;
         contentTemplate = (
           <span>
-            <FormattedMessage
-              id="annotation.relationshipCreated"
-              defaultMessage="Related item added by {author}: {title}"
-              values={{
-                title: emojify(target.title),
-                author: authorName,
-              }}
-            />
+            { /parent/.test(type) ?
+              <FormattedMessage
+                id="annotation.relationshipCreated"
+                defaultMessage="Related item added by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /confirmed_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.similarCreated"
+                defaultMessage="Confirmed similar by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /suggested/.test(type) ?
+              <FormattedMessage
+                id="annotation.suggestionCreated"
+                defaultMessage="Suggested match by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
           </span>
         );
       }
@@ -610,16 +567,36 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
+        const type = object.relationship_type;
         contentTemplate = (
           <span>
-            <FormattedMessage
-              id="annotation.relationshipDeleted"
-              defaultMessage="Related item removed by {author}: {title}"
-              values={{
-                title: emojify(target.title),
-                author: authorName,
-              }}
-            />
+            { /parent/.test(type) ?
+              <FormattedMessage
+                id="annotation.relationshipDestroyed"
+                defaultMessage="Related item removed by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /confirmed_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.similarDestroyed"
+                defaultMessage="Confirmed similar detached by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
+            { /suggested_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.suggestionDestroyed"
+                defaultMessage="Suggested match rejected by {author}: {title}"
+                values={{
+                  title: emojify(target.title),
+                  author: authorName,
+                }}
+              /> : null }
           </span>
         );
       }
@@ -1062,101 +1039,6 @@ class Annotation extends Component {
         }
         contentTemplate = null;
       }
-
-      if (object.field_name === 'smooch_data' && activityType === 'create_dynamicannotationfield') {
-        showCard = true;
-        cardFooter = false;
-        authorName = null;
-        const objectValue = JSON.parse(object.value);
-        const messageType = objectValue.source.type;
-        const messageText = objectValue.text ?
-          objectValue.text.trim()
-            .split('\n')
-            .map(w => w.replace('\u2063', ''))
-            .filter(w => !/^[0-9]+$/.test(w))
-            .join('\n')
-          : null;
-        const smoochSlackUrl = activity.smooch_user_slack_channel_url;
-        const smoochExternalId = activity.smooch_user_external_identifier;
-        const smoochReportReceivedAt = activity.smooch_report_received_at ?
-          new Date(parseInt(activity.smooch_report_received_at, 10) * 1000) : null;
-        const smoochReportUpdateReceivedAt = activity.smooch_report_update_received_at ?
-          new Date(parseInt(activity.smooch_report_update_received_at, 10) * 1000) : null;
-        const { locale } = this.props.intl;
-        contentTemplate = (
-          <div>
-            <StyledRequestHeader>
-              <span className="annotation__card-header">
-                <span style={{ display: 'flex' }}>
-                  <SmoochIcon name={messageType} />
-                </span>
-                <span style={{ margin: `0 ${units(0.5)}` }} />
-                { emojify(objectValue.name) }
-                { smoochExternalId ?
-                  <span>
-                    <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
-                    {smoochExternalId}
-                  </span> : null }
-                <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
-                <TimeBefore date={updatedAt} />
-                { smoochSlackUrl ?
-                  <span>
-                    <span style={{ margin: `0 ${units(0.5)}` }} className="circle_delimeter" />
-                    <a
-                      target="_blank"
-                      style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
-                      rel="noopener noreferrer"
-                      href={smoochSlackUrl}
-                    >
-                      <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
-                    </a>
-                  </span> : null }
-              </span>
-            </StyledRequestHeader>
-            { smoochReportReceivedAt && !smoochReportUpdateReceivedAt ?
-              <StyledReportReceived className="annotation__smooch-report-received">
-                <CheckIcon style={{ color: completedGreen }} />
-                {' '}
-                <span title={smoochReportReceivedAt.toLocaleString(locale)}>
-                  <FormattedMessage
-                    id="annotation.reportReceived"
-                    defaultMessage="Report received on {date}"
-                    values={{
-                      date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-                    }}
-                  />
-                </span>
-              </StyledReportReceived> : null }
-            { smoochReportUpdateReceivedAt ?
-              <StyledReportReceived className="annotation__smooch-report-received">
-                <CheckIcon style={{ color: completedGreen }} />
-                {' '}
-                <span title={smoochReportUpdateReceivedAt.toLocaleString(locale)}>
-                  <FormattedMessage
-                    id="annotation.reportUpdateReceived"
-                    defaultMessage="Report update received on {date}"
-                    values={{
-                      date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
-                    }}
-                  />
-                </span>
-              </StyledReportReceived> : null }
-            <div className="annotation__card-content">
-              {messageText ? (
-                <StyledRequest>
-                  <ParsedText text={emojify(messageText.replace(/[\u2063]/g, ''))} />
-                </StyledRequest>
-              ) : (
-                <FormattedMessage
-                  id="annotation.smoochNoMessage"
-                  defaultMessage="No message was sent with the request"
-                />
-              )}
-            </div>
-          </div>
-        );
-      }
-
       break;
     }
     case 'update_embed':
@@ -1295,23 +1177,22 @@ class Annotation extends Component {
                   <Typography variant="body1" component="div">
                     {contentTemplate}
                   </Typography>
-                  { cardFooter ?
-                    <StyledAnnotationMetadata>
-                      <span className="annotation__card-footer">
-                        { authorName ?
-                          <ProfileLink
-                            className="annotation__card-author"
-                            teamUser={activity.user.team_user}
-                          /> : null }
-                        <span>
-                          {timestamp}
-                        </span>
+                  <StyledAnnotationMetadata>
+                    <span className="annotation__card-footer">
+                      { authorName ?
+                        <ProfileLink
+                          className="annotation__card-author"
+                          teamUser={activity.user.team_user}
+                        /> : null }
+                      <span>
+                        {timestamp}
                       </span>
+                    </span>
 
-                      <StyledAnnotationActionsWrapper>
-                        {annotationActions}
-                      </StyledAnnotationActionsWrapper>
-                    </StyledAnnotationMetadata> : null }
+                    <StyledAnnotationActionsWrapper>
+                      {annotationActions}
+                    </StyledAnnotationActionsWrapper>
+                  </StyledAnnotationMetadata>
                 </StyledPrimaryColumn>
               </CardContent>
             </Card>

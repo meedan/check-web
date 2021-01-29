@@ -11,7 +11,10 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on CreateTeamBotInstallationPayload {
         team_bot_installationEdge
-        team_bot_installation
+        team_bot_installation {
+          id
+          json_settings
+        }
         team {
           id
         }
@@ -20,6 +23,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
           installed
           installation {
             id
+            json_settings
           }
         }
       }
@@ -27,7 +31,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return { team_id: this.props.team.dbid, user_id: this.props.bot.dbid };
+    return { user_id: this.props.bot.dbid, team_id: this.props.team.dbid };
   }
 
   getConfigs() {
@@ -38,6 +42,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
           fragment on CreateTeamBotInstallationPayload {
             team_bot_installation {
               id
+              json_settings
             }
           }`,
         ],

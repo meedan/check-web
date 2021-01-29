@@ -8,6 +8,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
   }
 
   getFatQuery() {
+    const { task } = this.props;
     switch (this.props.parent_type) {
     case 'source':
       return Relay.QL`fragment on UpdateDynamicPayload {
@@ -28,17 +29,15 @@ class UpdateDynamicMutation extends Relay.Mutation {
         }
       }`;
     case 'task':
+      if (task.annotated_type === 'Source') {
+        return Relay.QL`fragment on UpdateDynamicPayload {
+          task { id, first_response, responses }
+          source { id }
+        }`;
+      }
       return Relay.QL`fragment on UpdateDynamicPayload {
-        task {
-          id
-          first_response
-          responses
-        }
-        project_media {
-          id
-          log
-          log_count
-        }
+        task { id, first_response, responses }
+        project_media { id, log, log_count }
       }`;
     default:
       return '';
@@ -94,9 +93,14 @@ class UpdateDynamicMutation extends Relay.Mutation {
   getConfigs() {
     const fieldIds = {};
 
+    const { task } = this.props;
     if (this.props.parent_type === 'task') {
       fieldIds.task = this.props.task.id;
-      fieldIds.project_media = this.props.annotated.id;
+      if (task.annotated_type === 'Source') {
+        fieldIds.source = this.props.annotated.id;
+      } else {
+        fieldIds.project_media = this.props.annotated.id;
+      }
     } else {
       fieldIds[this.props.parent_type] = this.props.annotated.id;
     }

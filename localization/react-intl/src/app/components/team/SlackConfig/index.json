@@ -1,9 +1,5 @@
 [
   {
-    "id": "slackConfig.menuTooltip",
-    "defaultMessage": "Integration settings"
-  },
-  {
     "id": "slackConfig.text",
     "defaultMessage": "Send notifications to Slack channels when items are added to specific lists"
   }

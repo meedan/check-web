@@ -172,7 +172,7 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
         <Typography variant="subtitle2">
           <FormattedMessage
             id="mediaRelatedComponent.count"
-            defaultMessage="{count, plural, one {1 related item} other {# related items}}"
+            defaultMessage="{count, plural, one {# related item} other {# related items}}"
             values={{
               count: projectMedia.default_relationships_count,
             }}

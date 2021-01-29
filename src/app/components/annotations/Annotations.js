@@ -14,30 +14,34 @@ const StyledAnnotations = styled.div`
   flex-direction: column;
   .annotations__list {
     ${props => props.showAddAnnotation ?
-    'height: calc(100vh - 268px);' :
-    'height: calc(100vh - 200px);'
+    'height: calc(100vh - 195px);' :
+    'height: calc(100vh - 112px);'
 }
     overflow: auto;
     display: flex;
     flex-direction: column;
-  
+
     .annotations__list-item {
       position: relative;
       margin: 0 ${units(1)};
-      // The timeline line
-      &::before {
-        background-color: ${opaqueBlack16};
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 0;
-        top: 0;
-        width: ${borderWidthMedium};
-        ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(4)};
-      }
-      &:last-of-type {
-        height: ${props => props.noLastItemStretch ? 'auto' : '100%'};
-      }
+
+      ${prop => prop.noLink ? null : `
+        // The timeline line
+        &::before {
+          background-color: ${opaqueBlack16};
+          content: '';
+          display: block;
+          position: absolute;
+          bottom: 0;
+          top: 0;
+          width: ${borderWidthMedium};
+          ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(4)};
+        }
+        &:last-of-type {
+          height: ${props => props.noLastItemStretch ? 'auto' : '100%'};
+        }
+        `
+}
     }
   }
 `;
@@ -73,6 +77,7 @@ class Annotations extends React.Component {
       <StyledAnnotations
         className="annotations"
         showAddAnnotation={props.showAddAnnotation}
+        noLink={props.noLink}
         noLastItemStretch={hasMore}
       >
         { props.showAddAnnotation ?
@@ -90,13 +95,22 @@ class Annotations extends React.Component {
             </Box> :
             props.annotations.slice(0).reverse().map(annotation => (
               <div key={annotation.node.dbid} className="annotations__list-item">
-                <Annotation
-                  annotated={props.annotated}
-                  annotatedType={props.annotatedType}
-                  annotation={annotation.node}
-                  onTimelineCommentOpen={props.onTimelineCommentOpen}
-                  team={props.team}
-                />
+                { props.component ?
+                  <props.component
+                    annotated={props.annotated}
+                    annotatedType={props.annotatedType}
+                    annotation={annotation.node}
+                    onTimelineCommentOpen={props.onTimelineCommentOpen}
+                    team={props.team}
+                  /> :
+                  <Annotation
+                    annotated={props.annotated}
+                    annotatedType={props.annotatedType}
+                    annotation={annotation.node}
+                    onTimelineCommentOpen={props.onTimelineCommentOpen}
+                    team={props.team}
+                  />
+                }
               </div>))}
           { hasMore ? (
             <Button

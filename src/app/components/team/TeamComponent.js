@@ -7,7 +7,6 @@ import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
-import TeamBots from './TeamBots';
 import TeamLanguages from './Languages';
 import TeamRules from './Rules';
 import TeamStatuses from './Statuses';
@@ -24,6 +23,7 @@ import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
+import SmoochBot from './SmoochBot';
 import {
   ContentColumn,
   backgroundMain,
@@ -143,6 +143,18 @@ class TeamComponent extends Component {
                 value="metadata"
               /> : null
             }
+            {currentUserIsOwner ?
+              <Tab
+                className="team-settings__tipline-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.tipline"
+                    defaultMessage="Tipline"
+                  />
+                }
+                value="tipline"
+              />
+              : null }
             { currentUserIsOwner ?
               <Tab
                 className="team-settings__tasks-tab"
@@ -226,18 +238,6 @@ class TeamComponent extends Component {
                 value="integrations"
               />
               : null }
-            {currentUserIsOwner ?
-              <Tab
-                className="team-settings__bots-tab"
-                label={
-                  <FormattedMessage
-                    id="teamSettings.bots"
-                    defaultMessage="Bots"
-                  />
-                }
-                value="bots"
-              />
-              : null }
           </StyledTabs>
         );
       }
@@ -261,11 +261,11 @@ class TeamComponent extends Component {
           { isSettings && tab === 'metadata'
             ? <TeamTasks key={tab} team={team} fieldset="metadata" />
             : null }
+          { isSettings && tab === 'tipline'
+            ? <SmoochBot currentUser={this.getCurrentUser()} />
+            : null }
           { isSettings && tab === 'tasks'
             ? <TeamTasks key={tab} team={team} fieldset="tasks" />
-            : null }
-          { isSettings && tab === 'bots'
-            ? <TeamBots team={team} route={this.props.route} router={this.props.router} />
             : null }
           { isSettings && tab === 'rules'
             ? <TeamRules teamSlug={team.slug} />

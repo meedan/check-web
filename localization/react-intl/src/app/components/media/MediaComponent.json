@@ -8,6 +8,10 @@
     "defaultMessage": "Metadata"
   },
   {
+    "id": "mediaComponent.source",
+    "defaultMessage": "Source"
+  },
+  {
     "id": "mediaComponent.tasks",
     "defaultMessage": "Tasks"
   },

@@ -1,13 +1,13 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Dialog from '@material-ui/core/Dialog';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
 import SettingsIcon from '@material-ui/icons/Settings';
 import styled from 'styled-components';
@@ -22,13 +22,6 @@ import { stringHelper } from '../../../customHelpers';
 import {
   title1,
 } from '../../../styles/js/shared';
-
-const messages = defineMessages({
-  menuTooltip: {
-    id: 'slackConfig.menuTooltip',
-    defaultMessage: 'Integration settings',
-  },
-});
 
 class SlackConfig extends React.Component {
   constructor(props) {
@@ -112,25 +105,28 @@ class SlackConfig extends React.Component {
               <span>Slack</span>
             }
             action={
-              <Tooltip title={this.props.intl.formatMessage(messages.menuTooltip)}>
-                <IconButton
-                  onClick={this.handleOpenDialog.bind(this)}
-                >
-                  <SettingsIcon />
-                </IconButton>
-              </Tooltip>
+              <IconButton
+                className="slack-config__settings"
+                onClick={this.handleOpenDialog.bind(this)}
+                disabled={!enabled}
+              >
+                <SettingsIcon />
+              </IconButton>
             }
           />
           <Message message={this.state.message} />
           <CardContent>
-            <FormattedMessage
-              id="slackConfig.text"
-              defaultMessage="Send notifications to Slack channels when items are added to specific lists"
-            />
-            <Switch
-              checked={enabled}
-              onClick={this.handleToggleSwitch}
-            />
+            <Box display="flex" alignItems="center" justifyContent="space-between">
+              <FormattedMessage
+                id="slackConfig.text"
+                defaultMessage="Send notifications to Slack channels when items are added to specific lists"
+              />
+              <Switch
+                className="slack-config__switch"
+                checked={enabled}
+                onClick={this.handleToggleSwitch}
+              />
+            </Box>
           </CardContent>
         </Card>
         <Dialog

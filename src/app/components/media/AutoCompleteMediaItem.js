@@ -255,7 +255,7 @@ const AutoCompleteMediaItem = (props, context) => {
 
   return (
     <Box display="flex" alignItems="flex-start" className="autocomplete-media-item">
-      <Box flexGrow="1">
+      <Box flexGrow="1" width={1}>
         <Box display="flex" alignItems="flex-start" flexGrow="1">
           <TextField
             id="autocomplete-media-item"
@@ -275,7 +275,7 @@ const AutoCompleteMediaItem = (props, context) => {
                   { searchResult.error ?
                     <FormattedMessage id="autoCompleteMediaItem.error" defaultMessage="Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists." values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }} /> : null }
                   { searchResult.items && searchResult.items.length > 0 ?
-                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {1 result} other {# results}}" values={{ count: searchResult.items.length }} /> : null }
+                    <FormattedMessage id="autoCompleteMediaItem.results" defaultMessage="{count, plural, one {# result} other {# results}}" values={{ count: searchResult.items.length }} /> : null }
                 </React.Fragment> : null
             }
             variant="outlined"

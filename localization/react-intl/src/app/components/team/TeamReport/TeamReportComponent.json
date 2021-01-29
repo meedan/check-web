@@ -1,0 +1,56 @@
+[
+  {
+    "id": "teamReportComponent.defaultErrorMessage",
+    "description": "Warning displayed if an error occurred when saving report settings",
+    "defaultMessage": "Could not save report settings."
+  },
+  {
+    "id": "teamReportComponent.savedSuccessfully",
+    "description": "Banner displayed when report settings are saved successfully",
+    "defaultMessage": "Report settings saved successfully."
+  },
+  {
+    "id": "teamReportComponent.title",
+    "defaultMessage": "Default report settings"
+  },
+  {
+    "id": "teamReportComponent.subtitle",
+    "defaultMessage": "The content you set here can be edited in each individual report."
+  },
+  {
+    "id": "teamReportComponent.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "teamReportComponent.introduction",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "teamReportComponent.introductionSub",
+    "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+  },
+  {
+    "id": "teamReportComponent.url",
+    "defaultMessage": "Website URL"
+  },
+  {
+    "id": "teamReportComponent.urlLabel",
+    "defaultMessage": "Prompt ({max} characters max)"
+  },
+  {
+    "id": "teamReportComponent.signature",
+    "defaultMessage": "Signature"
+  },
+  {
+    "id": "teamReportComponent.whatsapp",
+    "defaultMessage": "WhatsApp number"
+  },
+  {
+    "id": "teamReportComponent.facebook",
+    "defaultMessage": "Facebook page name"
+  },
+  {
+    "id": "teamReportComponent.twitter",
+    "defaultMessage": "Twitter account name"
+  }
+]

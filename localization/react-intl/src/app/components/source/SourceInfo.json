@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sourceInfo.invalidLink",
+    "description": "Error message for invalid link",
+    "defaultMessage": "Please enter a valid URL"
+  },
+  {
+    "id": "sourceInfo.mediasCount",
+    "description": "show source media counts",
+    "defaultMessage": "{mediasCount, plural, one {1 item} other {# items}}"
+  },
+  {
+    "id": "sourceInfo.saving",
+    "defaultMessage": "Saving…"
+  },
+  {
+    "id": "sourceInfo.saved",
+    "defaultMessage": "Saved {ago}"
+  },
+  {
+    "id": "mediaSource.changeSource",
+    "description": "allow user to change a project media source",
+    "defaultMessage": "Change"
+  },
+  {
+    "id": "sourceInfo.mainName",
+    "description": "Source name",
+    "defaultMessage": "Main name"
+  },
+  {
+    "id": "sourceInfo.mainAccount",
+    "description": "URL for first account related to media souce",
+    "defaultMessage": "Main source URL"
+  },
+  {
+    "id": "sourceInfo.primaryLink",
+    "description": "Allow user to add a main source URL",
+    "defaultMessage": "Add main source URL"
+  },
+  {
+    "id": "sourceInfo.secondaryAccounts",
+    "description": "URLs for source accounts except first account",
+    "defaultMessage": "Secondary source URLs"
+  },
+  {
+    "id": "sourceInfo.addLink",
+    "description": "Allow user to relate a new link to media source",
+    "defaultMessage": "Add a secondary URL"
+  }
+]

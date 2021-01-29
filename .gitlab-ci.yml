@@ -15,8 +15,7 @@ build_qa:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
     - apk add --no-cache curl jq python3 py3-pip git
-    - pip install docutils==0.14
-    - pip install awscli==1.16.201
+    - pip install awscli==1.18.194
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
     - d=configurator/check/qa/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
@@ -37,7 +36,9 @@ deploy_qa:
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
     - apk add --no-cache curl jq python3 py3-pip git
-    - pip install ecs-deploy==1.7.0
+    - pip install botocore==1.17.47
+    - pip install boto3==1.14.47
+    - pip install ecs-deploy==1.11.0
     - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
@@ -56,8 +57,7 @@ build_live:
     AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
   script:
     - apk add --no-cache curl jq python3 py3-pip git
-    - pip install docutils==0.14
-    - pip install awscli==1.16.201
+    - pip install awscli==1.18.194
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
     - git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
     - d=configurator/check/live/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
@@ -79,7 +79,9 @@ deploy_live:
     AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
   script:
     - apk add --no-cache curl jq python3 py3-pip git
-    - pip install ecs-deploy==1.7.0
+    - pip install botocore==1.17.47
+    - pip install boto3==1.14.47
+    - pip install ecs-deploy==1.11.0
     - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:

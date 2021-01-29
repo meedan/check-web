@@ -407,8 +407,8 @@
 	"annotation.relationshipCreated": {
 		"string": "Связанный материал добавлен ({author}): {title}"
 	},
-	"annotation.relationshipDeleted": {
-		"string": "Связанный материал удалён ({author}): {title}"
+	"annotation.relationshipDestroyed": {
+		"string": "Related item removed by {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "Заметка к вопросу удалена ({author}): {title}{note}"
@@ -421,6 +421,12 @@
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "Как работает этот бот?"
+	},
+	"annotation.similarCreated": {
+		"string": "Confirmed similar by {author}: {title}"
+	},
+	"annotation.similarDestroyed": {
+		"string": "Confirmed similar detached by {author}: {title}"
 	},
 	"annotation.smoochNoMessage": {
 		"string": "Вместе с запросом не было отправлено сообщение"
@@ -436,6 +442,12 @@
 	},
 	"annotation.suggestionAccepted": {
 		"string": "Принято ({user})"
+	},
+	"annotation.suggestionCreated": {
+		"string": "Suggested match by {author}: {title}"
+	},
+	"annotation.suggestionDestroyed": {
+		"string": "Suggested match rejected by {author}: {title}"
 	},
 	"annotation.suggestionRejected": {
 		"string": "Отклонено ({user})"
@@ -479,14 +491,23 @@
 	"attribution.search": {
 		"string": "Искать по участникам проекта"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "В процессе поиска произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "Нет результатов"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Искать"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "Поиск..."
@@ -496,6 +517,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "Добавить в существующий отчёт"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "Снять с публикации и обновить содержимое"
@@ -631,6 +655,22 @@
 	"bulkActions.unconfirmed": {
 		"string": "Confirm selected items and move items to another list"
 	},
+	"changeMediaSource.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Cancel change media source action"
+	},
+	"changeMediaSource.choose": {
+		"string": "Choose a source",
+		"developer_comment": "Change media source label"
+	},
+	"changeMediaSource.createSource": {
+		"string": "Create new",
+		"developer_comment": "allow user to create a new source"
+	},
+	"changeMediaSource.saveButton": {
+		"string": "Save",
+		"developer_comment": "Save media source label"
+	},
 	"claimReview.claim": {
 		"string": "Высказывание:"
 	},
@@ -678,6 +718,25 @@
 	},
 	"createMedia.video": {
 		"string": "Видео"
+	},
+	"createMediaSource.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"createMediaSource.createSource": {
+		"string": "Create source"
+	},
+	"createMediaSource.existDescription": {
+		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"createMediaSource.existingSource": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"createMediaSource.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"createProject.addProject": {
 		"string": "Создать список"
@@ -835,8 +894,14 @@
 	"editStatusDialog.addButton": {
 		"string": "Добавить статус"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "Описание"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "Статус (до {maxLength} символов)"
@@ -846,6 +911,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "Редактировать статус"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Редактировать поле для метаданных"
@@ -1208,7 +1276,7 @@
 		"string": "Добавить к списку"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Назначено"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "Редактировать заголовок и описание"
@@ -1375,6 +1443,9 @@
 	"mediaComponent.requests": {
 		"string": "Запросы"
 	},
+	"mediaComponent.source": {
+		"string": "Source"
+	},
 	"mediaComponent.tasks": {
 		"string": "Вопросы"
 	},
@@ -1418,7 +1489,7 @@
 		"string": "Последнее появление:"
 	},
 	"mediaExpanded.requests": {
-		"string": "Запросов: {count}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Архивы:"
@@ -1448,14 +1519,30 @@
 	"mediaItem.error": {
 		"string": "Ошибка. Пожалуйста, попробуйте ещё раз"
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": "Закрепить как основной"
 	},
 	"mediaItem.pinning": {
 		"string": "Закрепляется..."
 	},
+	"mediaItem.reportPaused": {
+		"string": "Приостановлен"
+	},
+	"mediaItem.reportPublished": {
+		"string": "Опубликован"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Неопубликован"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "В процессе обновления языка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
@@ -1485,7 +1572,7 @@
 		"string": "Add relation"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {1 связанный материал} few {# связанных материалов} many {# связанных материалов} other {# связанных материалов}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Не удалось добавить связанный материал"
@@ -1496,14 +1583,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "Связанный материал успешно добавлен"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {1 запрос среди всех медиа-файлов} few {# запросов среди всех медиа-файлов} many {# запросов среди всех медиа-файлов} other {# запросов среди всех медиа-файлов}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Нет запросов"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {1 запрос} few {# запросов} many {# запросов} other {# запросов}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "Извините, возникла ошибка: \"{message}\". Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
@@ -1539,19 +1629,19 @@
 		"string": "Назад"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Export as similar"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Добавить похожий"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "Import similar item"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Import similar media into this item"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import similar media into this item"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Export all media to another item"
@@ -1559,9 +1649,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "Export all media to another item"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Добавить в существующий отчёт"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "Не удалось добавить похожий материал",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "Похожий материал успешно добавлен",
@@ -1574,10 +1670,14 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {1 confirmed similar media} other {# confirmed similar media}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {1 возможное совпадение} few {# возможных совпадений} many {# возможных совпадений} other {# возможных совпадений}}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+	},
+	"mediaSource.changeSource": {
+		"string": "Change",
+		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Отменить"
@@ -1706,7 +1806,7 @@
 		"string": "Политика приватности"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "Назначить список"
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "Вы уверены, что хотите удалить этот список? Все материалы из удаляемого списка всё ещё будут доступны в общем списке «Все материалы»."
@@ -2034,7 +2134,7 @@
 		"string": "Сохранить"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {выбрано: 1} few {выбрано: #} many {выбрано: #} other {выбрано: #}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Create automations to organize lists and customize your workflow."
@@ -2182,13 +2282,22 @@
 		"string": "{count, plural, one {1 / 1} few {} many {} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(выбрано: 1)} few {(выбрано: #)} many {(выбрано: #)} other {(выбрано: #)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "и"
 	},
 	"sentence.separator": {
 		"string": ", "
+	},
+	"setProjectMediaSource.cancelButton": {
+		"string": "Cancel"
+	},
+	"setProjectMediaSource.choose": {
+		"string": "Choose a source"
+	},
+	"setProjectMediaSource.saveButton": {
+		"string": "Save"
 	},
 	"settingsHeader.save": {
 		"string": "Сохранить"
@@ -2382,6 +2491,26 @@
 	"smoochBot.tos": {
 		"string": "Условия использования ({language})"
 	},
+	"smoochBotComponent.contactUs": {
+		"string": "Contact us to setup"
+	},
+	"smoochBotComponent.defaultErrorMessage": {
+		"string": "Could not save tipline settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.save": {
+		"string": "Save settings"
+	},
+	"smoochBotComponent.savedSuccessfully": {
+		"string": "Tipline settings saved successfully.",
+		"developer_comment": "Banner displayed when tipline settings are saved successfully"
+	},
+	"smoochBotComponent.subtitle": {
+		"string": "Create automated conversational bots to receive content from your audience."
+	},
+	"smoochBotComponent.title": {
+		"string": "Tipline"
+	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Сценарий"
 	},
@@ -2480,6 +2609,52 @@
 	},
 	"sortSelect.za": {
 		"string": "Я — А"
+	},
+	"sourceInfo.addLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Allow user to relate a new link to media source"
+	},
+	"sourceInfo.addSecondaryLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Label for add a new source secondary URL"
+	},
+	"sourceInfo.createNew": {
+		"string": "Create new",
+		"developer_comment": "Create a new media source label"
+	},
+	"sourceInfo.invalidLink": {
+		"string": "Please enter a valid URL",
+		"developer_comment": "Error message for invalid link"
+	},
+	"sourceInfo.mainAccount": {
+		"string": "Main source URL",
+		"developer_comment": "URL for first account related to media souce"
+	},
+	"sourceInfo.mainName": {
+		"string": "Main name",
+		"developer_comment": "Source name"
+	},
+	"sourceInfo.mediasCount": {
+		"string": "{mediasCount, plural, one {1 item} other {# items}}",
+		"developer_comment": "show source media counts"
+	},
+	"sourceInfo.primaryLink": {
+		"string": "Add main source URL",
+		"developer_comment": "Allow user to add a main source URL"
+	},
+	"sourceInfo.saved": {
+		"string": "Saved {ago}"
+	},
+	"sourceInfo.saving": {
+		"string": "Saving…"
+	},
+	"sourceInfo.secondaryAccounts": {
+		"string": "Secondary source URLs",
+		"developer_comment": "URLs for source accounts except first account"
+	},
+	"sourceInfo.sourceName": {
+		"string": "Add name",
+		"developer_comment": "label for create source name"
 	},
 	"statusListItem.confirmDefaultBody": {
 		"string": "{language} станет языком по умолчанию: бот будет отвечать на нём, если пользователь напишет на языке, которого нет в списке поддерживаемых. "
@@ -2698,44 +2873,11 @@
 	"tasks.timezones": {
 		"string": "Часовые пояса, доступные для ответа на вопрос"
 	},
-	"teamBots.browserBots": {
-		"string": "Browse bots"
-	},
-	"teamBots.close": {
-		"string": "Закрыть"
-	},
-	"teamBots.confirmDeleteBlurb": {
-		"string": "Все настройки будут удалены и не будут подлежать восстановлению. Вы уверены, что хотите продолжить?"
-	},
-	"teamBots.confirmDeleteTitle": {
-		"string": "Бот {botName} сейчас будет удалён"
-	},
-	"teamBots.confirmLeaveButtonLabel": {
-		"string": "Выйти"
-	},
-	"teamBots.confirmLeaveText": {
-		"string": "Если вы закроете окно, вы потеряете все изменения."
-	},
-	"teamBots.confirmLeaveTitle": {
-		"string": "Выйти без сохранения?"
-	},
-	"teamBots.confirmationMessage": {
-		"string": "Все изменения настроек бота будут применены немедленно, и пользователи сразу увидят эти изменения. Вы уверены, что хотите продолжить?"
-	},
-	"teamBots.confirmationTitle": {
-		"string": "Подтверждение"
-	},
 	"teamBots.fail": {
 		"string": "Ошибка! Пожалуйста, попробуйте ещё раз."
 	},
-	"teamBots.noBots": {
-		"string": "Нет установленных ботов."
-	},
 	"teamBots.noSettings": {
 		"string": "У этого бота нет настроек."
-	},
-	"teamBots.remove": {
-		"string": "Удалить"
 	},
 	"teamBots.save": {
 		"string": "Сохранить"
@@ -2743,23 +2885,8 @@
 	"teamBots.settings": {
 		"string": "Настройки"
 	},
-	"teamBots.settingsTooltip": {
-		"string": "Настройки бота"
-	},
-	"teamBots.smoochErrorMessage": {
-		"string": "Вы не можете использовать «9» как вариант ответа в главном меню. Пожалуйста, выберите другое значение для следующих языков: {languages}"
-	},
-	"teamBots.smoochErrorTitle": {
-		"string": "Недоступный вариант"
-	},
-	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
-	},
 	"teamBots.success": {
 		"string": "Настройки обновлены!"
-	},
-	"teamBots.title": {
-		"string": "Боты"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Отменить"
@@ -2931,6 +3058,26 @@
 	"teamMenu.teamSettings": {
 		"string": "Настройки проекта"
 	},
+	"teamMetadataRender.blankMetadata": {
+		"string": "No metadata fields",
+		"developer_comment": "Text for empty metadata"
+	},
+	"teamMetadataRender.itemTitle": {
+		"string": "Metadata",
+		"developer_comment": "Title for item Metadata"
+	},
+	"teamMetadataRender.metadataItemSubtitle": {
+		"string": "Add custom metadata fields to items.",
+		"developer_comment": "Metadata item subtitle"
+	},
+	"teamMetadataRender.metadataSourceSubtitle": {
+		"string": "Add custom data ields to the source tab.",
+		"developer_comment": "Metadata source subtitle"
+	},
+	"teamMetadataRender.sourceTitle": {
+		"string": "Source metadata",
+		"developer_comment": "Ttle for source Metadata"
+	},
 	"teamReport.disclaimer": {
 		"string": "Отказ от ответственности"
 	},
@@ -2958,11 +3105,49 @@
 	"teamReport.updateSuccess": {
 		"string": "Настройки отчёта успешно обновлены!"
 	},
+	"teamReportComponent.defaultErrorMessage": {
+		"string": "Could not save report settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving report settings"
+	},
+	"teamReportComponent.facebook": {
+		"string": "Facebook page name"
+	},
+	"teamReportComponent.introduction": {
+		"string": "Introduction"
+	},
+	"teamReportComponent.introductionSub": {
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+	},
+	"teamReportComponent.save": {
+		"string": "Save"
+	},
+	"teamReportComponent.savedSuccessfully": {
+		"string": "Report settings saved successfully.",
+		"developer_comment": "Banner displayed when report settings are saved successfully"
+	},
+	"teamReportComponent.signature": {
+		"string": "Signature"
+	},
+	"teamReportComponent.subtitle": {
+		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.title": {
+		"string": "Default report settings"
+	},
+	"teamReportComponent.twitter": {
+		"string": "Twitter account name"
+	},
+	"teamReportComponent.url": {
+		"string": "Website URL"
+	},
+	"teamReportComponent.urlLabel": {
+		"string": "Prompt ({max} characters max)"
+	},
+	"teamReportComponent.whatsapp": {
+		"string": "WhatsApp number"
+	},
 	"teamSettings.Tags": {
 		"string": "Тэги"
-	},
-	"teamSettings.bots": {
-		"string": "Боты"
 	},
 	"teamSettings.integrations": {
 		"string": "Интеграция"
@@ -2987,6 +3172,9 @@
 	},
 	"teamSettings.tasks": {
 		"string": "Вопросы"
+	},
+	"teamSettings.tipline": {
+		"string": "Tipline"
 	},
 	"teamTags.addTag": {
 		"string": "Добавить тэг"
@@ -3055,7 +3243,7 @@
 		"string": "Да"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "Выбранные вопросы будут удалены из {itemsNumber, plural, one {1 материала} other {# материалов}}. При удалении вопросов также будут удалены все ответы на них."
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Вы уверены, что хотите удалить эти метаданные?"
@@ -3070,7 +3258,7 @@
 		"string": "Это действие изменит все связанные вопросы кроме тех, на которые уже есть ответы."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "Будут отредактированы вопросы в {itemsNumber, plural, one {одном материале} other {нескольких материалах (#)}}."
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Вы уверены, что хотите отредактировать эти метаданные?"
@@ -3120,6 +3308,30 @@
 	"teamTasks.typeFilter": {
 		"string": "Тип вопроса"
 	},
+	"teamTasksRender.blank": {
+		"string": "No default tasks to display",
+		"developer_comment": "Text for empty tasks"
+	},
+	"teamTasksRender.filter": {
+		"string": "Filter tasks",
+		"developer_comment": "Filter tasks"
+	},
+	"teamTasksRender.projFilter": {
+		"string": "Show tasks in",
+		"developer_comment": "filter tasks by projects"
+	},
+	"teamTasksRender.tasks": {
+		"string": "Tasks",
+		"developer_comment": "Tasks title"
+	},
+	"teamTasksRender.tasksSubtitle": {
+		"string": "Add custom tasks to items.",
+		"developer_comment": "Tasks subtitle"
+	},
+	"teamTasksRender.typeFilter": {
+		"string": "Task type",
+		"developer_comment": "filter tasks by type"
+	},
 	"teams.title": {
 		"string": "Проекты"
 	},
@@ -3135,11 +3347,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "Сохранить и продолжить"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "Недостающие переводы"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "Некоторые статусы не переведены. Не все пользователи могут понять непереведённые статусы."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Статус"
 	},
 	"translationNeededDialog.body": {
 		"string": "Чтобы сделать {language} языком по умолчанию, вы должны перевести на {language} все статусы в разделе настроек «Статусы»."
@@ -3253,7 +3474,7 @@
 		"string": "Joined {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {1 workspace} other {# workspaces}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Добавить ссылку"

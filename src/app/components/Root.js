@@ -28,8 +28,6 @@ import MediaTasks from './media/MediaTasks';
 import Project from './project/Project';
 import ProjectEdit from './project/ProjectEdit';
 import AllItems from './search/AllItems';
-import BotGarden from './BotGarden';
-import Bot from './Bot';
 
 class Root extends Component {
   static logPageView() {
@@ -77,8 +75,6 @@ class Root extends Component {
                 <Route path="check/teams/new" component={AddTeamPage} />
                 <Route path="check/teams/find(/:slug)" component={AddTeamPage} />
                 <Route path="check/teams" component={Teams} />
-                <Route path="check/bot-garden" component={BotGarden} />
-                <Route path="check/bot/:botId" component={Bot} />
 
                 <Route path=":team/media/:mediaId" component={MediaPage} public />
                 <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} public />

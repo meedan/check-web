@@ -1,0 +1,40 @@
+[
+  {
+    "id": "teamTasks.filterLabelHidden",
+    "defaultMessage": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
+  },
+  {
+    "id": "teamTasks.filterLabel",
+    "defaultMessage": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
+  },
+  {
+    "id": "teamTasksRender.tasks",
+    "description": "Tasks title",
+    "defaultMessage": "Tasks"
+  },
+  {
+    "id": "teamTasksRender.tasksSubtitle",
+    "description": "Tasks subtitle",
+    "defaultMessage": "Add custom tasks to items."
+  },
+  {
+    "id": "teamTasksRender.filter",
+    "description": "Filter tasks",
+    "defaultMessage": "Filter tasks"
+  },
+  {
+    "id": "teamTasksRender.projFilter",
+    "description": "filter tasks by projects",
+    "defaultMessage": "Show tasks in"
+  },
+  {
+    "id": "teamTasksRender.typeFilter",
+    "description": "filter tasks by type",
+    "defaultMessage": "Task type"
+  },
+  {
+    "id": "teamTasksRender.blank",
+    "description": "Text for empty tasks",
+    "defaultMessage": "No default tasks to display"
+  }
+]

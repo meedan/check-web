@@ -14,10 +14,8 @@ export function defaultOptions(media, language) {
   const default_reports = team.get_report || {};
   const default_report = default_reports[language] || {};
   const isDefaultLanguage = (language === team.get_language);
-  return {
+  const options = {
     language,
-    use_disclaimer: !!default_report.use_disclaimer,
-    disclaimer: default_report.disclaimer || '',
     use_introduction: isDefaultLanguage ? !!default_report.use_introduction : false,
     introduction: default_report.introduction || '',
     use_visual_card: false,
@@ -29,8 +27,14 @@ export function defaultOptions(media, language) {
     description: media.description ? media.description.substring(0, 240) : '',
     status_label: status.label.substring(0, 16),
     theme_color: getStatusStyle(status, 'color'),
-    url: teamUrl ? teamUrl.substring(0, 40) : '',
   };
+  if (default_report.use_url) {
+    options.url = default_report.url;
+    if (!options.url || options.url === '') {
+      options.url = teamUrl ? teamUrl.substring(0, 40) : '';
+    }
+  }
+  return options;
 }
 
 export function findReportIndex(data, language) {

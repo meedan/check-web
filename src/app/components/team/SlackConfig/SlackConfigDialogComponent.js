@@ -343,7 +343,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
           <Button onClick={handleCancel}>
             <FormattedMessage id="slackConfigDialogComponent.cancel" defaultMessage="Cancel" />
           </Button>
-          <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving}>
+          <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving} className="slack-config__save">
             <FormattedMessage id="slackConfigDialogComponent.save" defaultMessage="Save" />
           </Button>
         </Box>

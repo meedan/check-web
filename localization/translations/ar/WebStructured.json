@@ -407,8 +407,8 @@
 	"annotation.relationshipCreated": {
 		"string": "قام(ت) {author} بإضافة عنصر مرتبط : {title}"
 	},
-	"annotation.relationshipDeleted": {
-		"string": "قام(ت) {author} بحذف عنصر مرتبط : {title}"
+	"annotation.relationshipDestroyed": {
+		"string": "Related item removed by {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "قام(ت) {author} بحذف تعليق على مهمة : {title}{note}"
@@ -421,6 +421,12 @@
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "فحص كيفية عمل هذا البوت"
+	},
+	"annotation.similarCreated": {
+		"string": "Confirmed similar by {author}: {title}"
+	},
+	"annotation.similarDestroyed": {
+		"string": "Confirmed similar detached by {author}: {title}"
 	},
 	"annotation.smoochNoMessage": {
 		"string": "لم يتم إرسال أي رسالة مع الطلب"
@@ -436,6 +442,12 @@
 	},
 	"annotation.suggestionAccepted": {
 		"string": "تم القبول من {user}"
+	},
+	"annotation.suggestionCreated": {
+		"string": "Suggested match by {author}: {title}"
+	},
+	"annotation.suggestionDestroyed": {
+		"string": "Suggested match rejected by {author}: {title}"
 	},
 	"annotation.suggestionRejected": {
 		"string": "تم الرّفض من {user}"
@@ -479,14 +491,23 @@
 	"attribution.search": {
 		"string": "البحث في الأعضاء"
 	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
 	"autoCompleteMediaItem.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"autoCompleteMediaItem.notFound": {
 		"string": "‏‏لم يتم العثور على عناصر مطابقة"
 	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "بحث"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "البحث جارٍ…"
@@ -496,6 +517,9 @@
 	},
 	"blankMediaButton.addToImportedReport": {
 		"string": "إضافة إلى التقرير المستورد"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
 	},
 	"blankMediaButton.confirmButtonLabel": {
 		"string": "إيقاف التقرير وتحديث المحتوى"
@@ -631,6 +655,22 @@
 	"bulkActions.unconfirmed": {
 		"string": "يرجى تأكيد تحديد العناصر ونقلها إلى قائمة أخرى"
 	},
+	"changeMediaSource.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Cancel change media source action"
+	},
+	"changeMediaSource.choose": {
+		"string": "Choose a source",
+		"developer_comment": "Change media source label"
+	},
+	"changeMediaSource.createSource": {
+		"string": "Create new",
+		"developer_comment": "allow user to create a new source"
+	},
+	"changeMediaSource.saveButton": {
+		"string": "Save",
+		"developer_comment": "Save media source label"
+	},
 	"claimReview.claim": {
 		"string": "الإدعاء : "
 	},
@@ -678,6 +718,25 @@
 	},
 	"createMedia.video": {
 		"string": "فيديو"
+	},
+	"createMediaSource.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"createMediaSource.createSource": {
+		"string": "Create source"
+	},
+	"createMediaSource.existDescription": {
+		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"createMediaSource.existingSource": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"createMediaSource.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"createProject.addProject": {
 		"string": "إنشاء قائمة"
@@ -835,8 +894,14 @@
 	"editStatusDialog.addButton": {
 		"string": "إضافة حالة"
 	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status."
+	},
 	"editStatusDialog.statusDescription": {
 		"string": "الوصف"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
 	},
 	"editStatusDialog.statusTitle": {
 		"string": "الحالة (بحد أقصى {maxLength} حرف)"
@@ -846,6 +911,9 @@
 	},
 	"editStatusDialog.titleEdit": {
 		"string": "تحرير الحالة"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "تحرير حقل البيانات الوصفيّة"
@@ -1208,7 +1276,7 @@
 		"string": "إضافة إلى القائمة"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "التكليف"
+		"string": "Assign to…"
 	},
 	"mediaActions.edit": {
 		"string": "تحرير العنوان والوصف"
@@ -1375,6 +1443,9 @@
 	"mediaComponent.requests": {
 		"string": "الطلبات"
 	},
+	"mediaComponent.source": {
+		"string": "Source"
+	},
 	"mediaComponent.tasks": {
 		"string": "المهام"
 	},
@@ -1418,7 +1489,7 @@
 		"string": "آخر مطالعة:"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count} طلب(ات) "
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "الأرشيفات:"
@@ -1448,14 +1519,30 @@
 	"mediaItem.error": {
 		"string": "خطأ، يرجى إعادة المحاولة."
 	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
 	"mediaItem.pinAsMain": {
 		"string": "تثبيت كأساسي"
 	},
 	"mediaItem.pinning": {
 		"string": "جارِ التثبيت…"
 	},
+	"mediaItem.reportPaused": {
+		"string": "موقوف"
+	},
+	"mediaItem.reportPublished": {
+		"string": "منشور"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "غير منشور"
+	},
 	"mediaItem.requests": {
-		"string": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلبات}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count} similar media"
 	},
 	"mediaLanguageChip.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1485,7 +1572,7 @@
 		"string": "إضافة عنصر ذي صلة"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, zero {لا عناصر مرتبطة} one {عنصر واحد مرتبط} two {عنصران مرتبطان} few {# عناصر مرتبطة} many {# عنصر مرتبط} other {# عناصر ذات صلة}}"
+		"string": "{count, plural, one {# related item} other {# related items}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "لم يمكن إضافة العنصر ذي الصلة"
@@ -1496,14 +1583,17 @@
 	"mediaRelatedComponent.savedSuccessfully": {
 		"string": "تمت إضافة العنصر ذي الصلة بنجاح"
 	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, zero {لا طلبات عبر جميع الميديا} one {طلب واحد عبر جميع المديا} two {طلبان عبر جمبع الميديا} few {# طلبات عبر جميع الميديا} many {# طلب عبر جميع الميديا} other {# طلبات عبر جميع المواد الإعلامية}}"
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "لا توجد طلبات"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, zero {لا طلبات} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلب} other {# طلبات}}"
+		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaSearch.error": {
 		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1539,19 +1629,19 @@
 		"string": "عودة"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "تصدير كمشابه"
+		"string": "Export all media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "إضافة مشابه"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "استيراد عنصر مشابه"
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "استيراد مواد إعلامية مشابهة لهذا العنصر"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "استيراد مواد إعلامية مشابهة لهذا العنصر"
+		"string": "Import similar media from other items"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر"
@@ -1559,9 +1649,15 @@
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
 		"string": "تصدير كل المواد الإعلامية إلى عنصر آخر"
 	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "إضافة إلى التقرير المستورد"
+	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
 		"string": "لا يمكن إضافة عنصر مشابه",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
 		"string": "تمت إضافة العنصر المشابه بنجاح",
@@ -1574,10 +1670,14 @@
 		"string": "تم اقتراح هذه المواد الإعلامية كمشابهة لعنصر آخر"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, zero {لا ميديا متشابهة مؤكدة} one {1 ميديا متشابهة مؤكدة} two {2 ميديا متشابهة مؤكدة} few {# ميديا متشابهة مؤكدة} many {# ميديا متشابهة مؤكدة} other {# مواد إعلامية متشابهة مؤكدة}}"
+		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, zero {لا مطابقات مقترحة} one {مطابق واحد مقترح} two {مطابقان مقترحان} few {# مطابقات مقترحة} many {# مطابق مقترح} other {# متطابق مقترح }}"
+		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+	},
+	"mediaSource.changeSource": {
+		"string": "Change",
+		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "إلغاء"
@@ -1706,7 +1806,7 @@
 		"string": "سياسة الخصوصية"
 	},
 	"projectActions.assignOrUnassign": {
-		"string": "تكليف القائمة"
+		"string": "Assign list to…"
 	},
 	"projectActions.confirmDeleteProject": {
 		"string": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'."
@@ -2034,7 +2134,7 @@
 		"string": "حفظ"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, zero {لا يوجد تحديد} one {1 محدد} two {2 محددان} few {# محددين} many {# محدد} other {# محدد}}"
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Create automations to organize lists and customize your workflow."
@@ -2182,13 +2282,22 @@
 		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, zero {(لا يوجد تحديد)} one {(1 محدد)} two {(2 محددان)} few {(# محددين)} many {(# محدد)} other {(# محدد)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
 	},
 	"sentence.lastSeparator": {
 		"string": "و"
 	},
 	"sentence.separator": {
 		"string": "و"
+	},
+	"setProjectMediaSource.cancelButton": {
+		"string": "Cancel"
+	},
+	"setProjectMediaSource.choose": {
+		"string": "Choose a source"
+	},
+	"setProjectMediaSource.saveButton": {
+		"string": "Save"
 	},
 	"settingsHeader.save": {
 		"string": "حفظ"
@@ -2382,6 +2491,26 @@
 	"smoochBot.tos": {
 		"string": "شروط الاستخدام ({language})"
 	},
+	"smoochBotComponent.contactUs": {
+		"string": "Contact us to setup"
+	},
+	"smoochBotComponent.defaultErrorMessage": {
+		"string": "Could not save tipline settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.save": {
+		"string": "Save settings"
+	},
+	"smoochBotComponent.savedSuccessfully": {
+		"string": "Tipline settings saved successfully.",
+		"developer_comment": "Banner displayed when tipline settings are saved successfully"
+	},
+	"smoochBotComponent.subtitle": {
+		"string": "Create automated conversational bots to receive content from your audience."
+	},
+	"smoochBotComponent.title": {
+		"string": "Tipline"
+	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "سيناريو"
 	},
@@ -2480,6 +2609,52 @@
 	},
 	"sortSelect.za": {
 		"string": "أبجدياً عكسياً"
+	},
+	"sourceInfo.addLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Allow user to relate a new link to media source"
+	},
+	"sourceInfo.addSecondaryLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Label for add a new source secondary URL"
+	},
+	"sourceInfo.createNew": {
+		"string": "Create new",
+		"developer_comment": "Create a new media source label"
+	},
+	"sourceInfo.invalidLink": {
+		"string": "Please enter a valid URL",
+		"developer_comment": "Error message for invalid link"
+	},
+	"sourceInfo.mainAccount": {
+		"string": "Main source URL",
+		"developer_comment": "URL for first account related to media souce"
+	},
+	"sourceInfo.mainName": {
+		"string": "Main name",
+		"developer_comment": "Source name"
+	},
+	"sourceInfo.mediasCount": {
+		"string": "{mediasCount, plural, one {1 item} other {# items}}",
+		"developer_comment": "show source media counts"
+	},
+	"sourceInfo.primaryLink": {
+		"string": "Add main source URL",
+		"developer_comment": "Allow user to add a main source URL"
+	},
+	"sourceInfo.saved": {
+		"string": "Saved {ago}"
+	},
+	"sourceInfo.saving": {
+		"string": "Saving…"
+	},
+	"sourceInfo.secondaryAccounts": {
+		"string": "Secondary source URLs",
+		"developer_comment": "URLs for source accounts except first account"
+	},
+	"sourceInfo.sourceName": {
+		"string": "Add name",
+		"developer_comment": "label for create source name"
 	},
 	"statusListItem.confirmDefaultBody": {
 		"string": "ستصبح {language} هي اللغة الافتراضية للرّد على المستخدمين الذين يتفاعلون مع البوت بأي لغات أخرى غير تلك الموجودة في هذه القائمة."
@@ -2698,44 +2873,11 @@
 	"tasks.timezones": {
 		"string": "المناطق الزمنية المتاحة لإكمال المهمة"
 	},
-	"teamBots.browserBots": {
-		"string": "Browse bots"
-	},
-	"teamBots.close": {
-		"string": "إغلاق"
-	},
-	"teamBots.confirmDeleteBlurb": {
-		"string": "سيتم حذف جميع الإعدادات ولن يمكن استعادتها. متأكّدون من المتابعة؟"
-	},
-	"teamBots.confirmDeleteTitle": {
-		"string": "أنت على وشك تعطيل {botName}"
-	},
-	"teamBots.confirmLeaveButtonLabel": {
-		"string": "مغادرة"
-	},
-	"teamBots.confirmLeaveText": {
-		"string": "إذا غادرت، ستفقدين جميع تعديلاتك."
-	},
-	"teamBots.confirmLeaveTitle": {
-		"string": "مغادرة دون حفظ؟"
-	},
-	"teamBots.confirmationMessage": {
-		"string": "أنت على وشك تفعيل تغييراتك على البوت. سيرى جميع المستخدمين على خطّك السّاخن (tipline) هذه التغييرات. متأكد(ة) من المتابعة؟"
-	},
-	"teamBots.confirmationTitle": {
-		"string": "تأكيد"
-	},
 	"teamBots.fail": {
 		"string": "خطأ! يرجى إعادة المحاولة."
 	},
-	"teamBots.noBots": {
-		"string": "لا يوجد بوتات مثبتة."
-	},
 	"teamBots.noSettings": {
 		"string": "لا يوجد إعدادات لهذا البوت,"
-	},
-	"teamBots.remove": {
-		"string": "إزالة"
 	},
 	"teamBots.save": {
 		"string": "حفظ"
@@ -2743,23 +2885,8 @@
 	"teamBots.settings": {
 		"string": "الإعدادات"
 	},
-	"teamBots.settingsTooltip": {
-		"string": "إعدادات البوت"
-	},
-	"teamBots.smoochErrorMessage": {
-		"string": "لا يمكن استخدام الخيار '9' كسيناريو في القائمة الرئيسية. يرجى إختيار قيمة أخرى في اللغات التالية: {languages}"
-	},
-	"teamBots.smoochErrorTitle": {
-		"string": "الخيار غير متاح"
-	},
-	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
-	},
 	"teamBots.success": {
 		"string": "تم حفظ الإعدادات"
-	},
-	"teamBots.title": {
-		"string": "البوتات"
 	},
 	"teamComponent.cancelButton": {
 		"string": "إلغاء"
@@ -2931,6 +3058,26 @@
 	"teamMenu.teamSettings": {
 		"string": "إعدادات مساحة العمل"
 	},
+	"teamMetadataRender.blankMetadata": {
+		"string": "No metadata fields",
+		"developer_comment": "Text for empty metadata"
+	},
+	"teamMetadataRender.itemTitle": {
+		"string": "Metadata",
+		"developer_comment": "Title for item Metadata"
+	},
+	"teamMetadataRender.metadataItemSubtitle": {
+		"string": "Add custom metadata fields to items.",
+		"developer_comment": "Metadata item subtitle"
+	},
+	"teamMetadataRender.metadataSourceSubtitle": {
+		"string": "Add custom data ields to the source tab.",
+		"developer_comment": "Metadata source subtitle"
+	},
+	"teamMetadataRender.sourceTitle": {
+		"string": "Source metadata",
+		"developer_comment": "Ttle for source Metadata"
+	},
 	"teamReport.disclaimer": {
 		"string": "إخلاء المسؤولية"
 	},
@@ -2958,11 +3105,49 @@
 	"teamReport.updateSuccess": {
 		"string": "تم تحديث إعدادات التقرير بنجاح!"
 	},
+	"teamReportComponent.defaultErrorMessage": {
+		"string": "Could not save report settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving report settings"
+	},
+	"teamReportComponent.facebook": {
+		"string": "Facebook page name"
+	},
+	"teamReportComponent.introduction": {
+		"string": "Introduction"
+	},
+	"teamReportComponent.introductionSub": {
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+	},
+	"teamReportComponent.save": {
+		"string": "Save"
+	},
+	"teamReportComponent.savedSuccessfully": {
+		"string": "Report settings saved successfully.",
+		"developer_comment": "Banner displayed when report settings are saved successfully"
+	},
+	"teamReportComponent.signature": {
+		"string": "Signature"
+	},
+	"teamReportComponent.subtitle": {
+		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.title": {
+		"string": "Default report settings"
+	},
+	"teamReportComponent.twitter": {
+		"string": "Twitter account name"
+	},
+	"teamReportComponent.url": {
+		"string": "Website URL"
+	},
+	"teamReportComponent.urlLabel": {
+		"string": "Prompt ({max} characters max)"
+	},
+	"teamReportComponent.whatsapp": {
+		"string": "WhatsApp number"
+	},
 	"teamSettings.Tags": {
 		"string": "الوسوم"
-	},
-	"teamSettings.bots": {
-		"string": "البوتات"
 	},
 	"teamSettings.integrations": {
 		"string": "التكاملات"
@@ -2987,6 +3172,9 @@
 	},
 	"teamSettings.tasks": {
 		"string": "المهام"
+	},
+	"teamSettings.tipline": {
+		"string": "Tipline"
 	},
 	"teamTags.addTag": {
 		"string": "إضافة الوسم"
@@ -3055,7 +3243,7 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "أنت على وشك حذف المهام المحددة من {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم أيضا حذف إجابات هذه المهام."
+		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"
@@ -3070,7 +3258,7 @@
 		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل."
 	},
 	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "أنت على وشك تحرير المهام في {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}. اذا تابعت سيتم تعديل كل هذه المهام."
+		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من تحرير هذه البيانات الوصفيّة؟"
@@ -3120,6 +3308,30 @@
 	"teamTasks.typeFilter": {
 		"string": "نوع المهمة"
 	},
+	"teamTasksRender.blank": {
+		"string": "No default tasks to display",
+		"developer_comment": "Text for empty tasks"
+	},
+	"teamTasksRender.filter": {
+		"string": "Filter tasks",
+		"developer_comment": "Filter tasks"
+	},
+	"teamTasksRender.projFilter": {
+		"string": "Show tasks in",
+		"developer_comment": "filter tasks by projects"
+	},
+	"teamTasksRender.tasks": {
+		"string": "Tasks",
+		"developer_comment": "Tasks title"
+	},
+	"teamTasksRender.tasksSubtitle": {
+		"string": "Add custom tasks to items.",
+		"developer_comment": "Tasks subtitle"
+	},
+	"teamTasksRender.typeFilter": {
+		"string": "Task type",
+		"developer_comment": "filter tasks by type"
+	},
 	"teams.title": {
 		"string": "مساحات العمل"
 	},
@@ -3135,11 +3347,20 @@
 	"translateStatuses.continueAndSave": {
 		"string": "متابعة و حفظ"
 	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
 	"translateStatuses.missingTranslations": {
 		"string": "الترجمة غير موجودة"
 	},
 	"translateStatuses.missingTranslationsBody": {
 		"string": "هناك بعض الحالات التي ينقصها الترجمة. قد لا يستطيع المستخدمون قراءة الحالات الغير مترجمة."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "الحالة"
 	},
 	"translationNeededDialog.body": {
 		"string": "لكي تصبح {language} هي اللغة الافتراضية، لا بد من ترجمة جميع الحالات الموجودة  إلى {language} في تبويبة إعدادات الحالات."
@@ -3253,7 +3474,7 @@
 		"string": "تاريخ الانضمام {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, zero {لا مساحة عمل} one {مساحة عمل واحدة} two {مساحتي عمل} few {# مساحات عمل} many {# مساحة عمل} other {# مساحة عمل}}"
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "إضافة رابط"

@@ -158,21 +158,6 @@ const ReportDesignerForm = (props) => {
             }
             {...textFieldProps}
           />
-          <TextField
-            key={`disclaimer-${data.language}`}
-            value={data.disclaimer}
-            label={
-              <FormattedMessage
-                id="reportDesigner.disclaimer"
-                defaultMessage="Disclaimer"
-              />
-            }
-            onChange={(e) => {
-              props.onUpdate('use_disclaimer', Boolean(e.target.value));
-              props.onUpdate('disclaimer', e.target.value);
-            }}
-            {...textFieldProps}
-          />
         </ReportDesignerFormSection>
 
         <ReportDesignerFormSection

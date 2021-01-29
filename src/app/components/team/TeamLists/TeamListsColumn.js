@@ -70,7 +70,7 @@ TeamListsColumn.defaultProps = {
 };
 
 TeamListsColumn.propTypes = {
-  title: PropTypes.object.isRequired,
+  title: PropTypes.node.isRequired,
   columns: PropTypes.arrayOf(PropTypes.shape({
     index: PropTypes.number.isRequired,
     key: PropTypes.string.isRequired,
