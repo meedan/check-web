@@ -1,0 +1,41 @@
+#!/bin/bash
+
+# All Relay Classic Imports
+grep -r "import Relay from 'react-relay/classic';" ../src > /tmp/relayclassic.txt
+echo 'List of Relay Classic files:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of Relay Classic files:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All RootContainers
+grep -r "Relay.RootContainer" ../src > /tmp/relayclassic.txt
+echo 'List of RootContainers:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of RootContainers:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All commitUpdate
+grep -r "Relay.Store.commitUpdate" ../src > /tmp/relayclassic.txt
+echo 'List of commitUpdate:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of commitUpdate:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All Mutations
+grep -r "extends Relay.Mutation" ../src > /tmp/relayclassic.txt
+echo 'List of Mutations:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of Mutations:'
+cat /tmp/relayclassic.txt | wc -l
+echo
