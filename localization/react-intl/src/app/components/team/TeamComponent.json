@@ -8,6 +8,10 @@
     "defaultMessage": "Metadata"
   },
   {
+    "id": "teamSettings.tipline",
+    "defaultMessage": "Tipline"
+  },
+  {
     "id": "teamSettings.tasks",
     "defaultMessage": "Tasks"
   },
@@ -34,9 +38,5 @@
   {
     "id": "teamSettings.integrations",
     "defaultMessage": "Integrations"
-  },
-  {
-    "id": "teamSettings.bots",
-    "defaultMessage": "Bots"
   }
 ]

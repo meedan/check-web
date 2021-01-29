@@ -138,24 +138,28 @@ const CustomTeamTaskFilter = ({
     if (filterType === 'metadata_choice') {
       options.push(...(
         team_tasks.edges.filter(t => isMetadataChoice(t))
+          .filter(t => t.node.associated_type === 'ProjectMedia')
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
     if (filterType === 'metadata_text') {
       options.push(...(
         team_tasks.edges.filter(t => isMetadataText(t))
+          .filter(t => t.node.associated_type === 'ProjectMedia')
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
     if (filterType === 'task_choice') {
       options.push(...(
         team_tasks.edges.filter(t => isTaskChoice(t))
+          .filter(t => t.node.associated_type === 'ProjectMedia')
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
     if (filterType === 'task_text') {
       options.push(...(
         team_tasks.edges.filter(t => isTaskText(t))
+          .filter(t => t.node.associated_type === 'ProjectMedia')
           .map(t => ({ key: t.node.dbid, value: t.node.label }))
       ));
     }
@@ -245,6 +249,7 @@ export default createFragmentContainer(injectIntl(CustomTeamTaskFilter), graphql
           label
           options
           type
+          associated_type
         }
       }
     }

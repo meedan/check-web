@@ -407,8 +407,8 @@
 	"annotation.relationshipCreated": {
 		"string": "Bidhaa husika imeongezwa na {author}: {title}"
 	},
-	"annotation.relationshipDeleted": {
-		"string": "Bidhaa husika imeondolwea na {author}: {title}"
+	"annotation.relationshipDestroyed": {
+		"string": "Related item removed by {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "Kidokezo cha kazi kimefutwa na {author}: {title}{note}"
@@ -421,6 +421,12 @@
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "Angalia jinsi boti hii inafanya kazi"
+	},
+	"annotation.similarCreated": {
+		"string": "Confirmed similar by {author}: {title}"
+	},
+	"annotation.similarDestroyed": {
+		"string": "Confirmed similar detached by {author}: {title}"
 	},
 	"annotation.smoochNoMessage": {
 		"string": "Hakuna ujumbe uliotumwa na ombi hili"
@@ -436,6 +442,12 @@
 	},
 	"annotation.suggestionAccepted": {
 		"string": "Imekubaliwa na {user}"
+	},
+	"annotation.suggestionCreated": {
+		"string": "Suggested match by {author}: {title}"
+	},
+	"annotation.suggestionDestroyed": {
+		"string": "Suggested match rejected by {author}: {title}"
 	},
 	"annotation.suggestionRejected": {
 		"string": "Imekataliwa na {user}"
@@ -643,6 +655,22 @@
 	"bulkActions.unconfirmed": {
 		"string": "Thibitisha vitu vilivyochaguliwa na uhamishe vitu kwenye orodha nyingine"
 	},
+	"changeMediaSource.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Cancel change media source action"
+	},
+	"changeMediaSource.choose": {
+		"string": "Choose a source",
+		"developer_comment": "Change media source label"
+	},
+	"changeMediaSource.createSource": {
+		"string": "Create new",
+		"developer_comment": "allow user to create a new source"
+	},
+	"changeMediaSource.saveButton": {
+		"string": "Save",
+		"developer_comment": "Save media source label"
+	},
 	"claimReview.claim": {
 		"string": "Dai:"
 	},
@@ -690,6 +718,25 @@
 	},
 	"createMedia.video": {
 		"string": "Video"
+	},
+	"createMediaSource.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"createMediaSource.createSource": {
+		"string": "Create source"
+	},
+	"createMediaSource.existDescription": {
+		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"createMediaSource.existingSource": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"createMediaSource.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"createProject.addProject": {
 		"string": "Unda orodha "
@@ -1396,6 +1443,9 @@
 	"mediaComponent.requests": {
 		"string": "Maombi"
 	},
+	"mediaComponent.source": {
+		"string": "Source"
+	},
 	"mediaComponent.tasks": {
 		"string": "Kazi"
 	},
@@ -1624,6 +1674,10 @@
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+	},
+	"mediaSource.changeSource": {
+		"string": "Change",
+		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Ghairi"
@@ -2236,6 +2290,15 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"setProjectMediaSource.cancelButton": {
+		"string": "Cancel"
+	},
+	"setProjectMediaSource.choose": {
+		"string": "Choose a source"
+	},
+	"setProjectMediaSource.saveButton": {
+		"string": "Save"
+	},
 	"settingsHeader.save": {
 		"string": "Hifadhi"
 	},
@@ -2428,6 +2491,26 @@
 	"smoochBot.tos": {
 		"string": "Masharti ya Huduma ({language})"
 	},
+	"smoochBotComponent.contactUs": {
+		"string": "Contact us to setup"
+	},
+	"smoochBotComponent.defaultErrorMessage": {
+		"string": "Could not save tipline settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.save": {
+		"string": "Save settings"
+	},
+	"smoochBotComponent.savedSuccessfully": {
+		"string": "Tipline settings saved successfully.",
+		"developer_comment": "Banner displayed when tipline settings are saved successfully"
+	},
+	"smoochBotComponent.subtitle": {
+		"string": "Create automated conversational bots to receive content from your audience."
+	},
+	"smoochBotComponent.title": {
+		"string": "Tipline"
+	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Mazingira"
 	},
@@ -2526,6 +2609,52 @@
 	},
 	"sortSelect.za": {
 		"string": "Z hadi A"
+	},
+	"sourceInfo.addLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Allow user to relate a new link to media source"
+	},
+	"sourceInfo.addSecondaryLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Label for add a new source secondary URL"
+	},
+	"sourceInfo.createNew": {
+		"string": "Create new",
+		"developer_comment": "Create a new media source label"
+	},
+	"sourceInfo.invalidLink": {
+		"string": "Please enter a valid URL",
+		"developer_comment": "Error message for invalid link"
+	},
+	"sourceInfo.mainAccount": {
+		"string": "Main source URL",
+		"developer_comment": "URL for first account related to media souce"
+	},
+	"sourceInfo.mainName": {
+		"string": "Main name",
+		"developer_comment": "Source name"
+	},
+	"sourceInfo.mediasCount": {
+		"string": "{mediasCount, plural, one {1 item} other {# items}}",
+		"developer_comment": "show source media counts"
+	},
+	"sourceInfo.primaryLink": {
+		"string": "Add main source URL",
+		"developer_comment": "Allow user to add a main source URL"
+	},
+	"sourceInfo.saved": {
+		"string": "Saved {ago}"
+	},
+	"sourceInfo.saving": {
+		"string": "Saving…"
+	},
+	"sourceInfo.secondaryAccounts": {
+		"string": "Secondary source URLs",
+		"developer_comment": "URLs for source accounts except first account"
+	},
+	"sourceInfo.sourceName": {
+		"string": "Add name",
+		"developer_comment": "label for create source name"
 	},
 	"statusListItem.confirmDefaultBody": {
 		"string": "{language} itakuwa ya msingi kujibu watumiaji ambao huwasiliana na boti kwa lugha nyingine yoyote kuliko ile iliyoongezwa kwenye orodha hii."
@@ -2744,44 +2873,11 @@
 	"tasks.timezones": {
 		"string": "Ukanda wa saa unaopatikana kukamilisha kazi"
 	},
-	"teamBots.browserBots": {
-		"string": "Vinjari bots"
-	},
-	"teamBots.close": {
-		"string": "Funga"
-	},
-	"teamBots.confirmDeleteBlurb": {
-		"string": "Mipangilio yote itafutwa na haiwezi kurejeshwa. Una uhakika unataka kuendelea?"
-	},
-	"teamBots.confirmDeleteTitle": {
-		"string": "Unakaribia kulemaza {botName}"
-	},
-	"teamBots.confirmLeaveButtonLabel": {
-		"string": "Ondoka"
-	},
-	"teamBots.confirmLeaveText": {
-		"string": "Ukiondoka, utapoteza mabadiliko yako."
-	},
-	"teamBots.confirmLeaveTitle": {
-		"string": "Ondoka bila kuhifadhi?"
-	},
-	"teamBots.confirmationMessage": {
-		"string": "Unakaribia kufanya mabadiliko kwa boti yako ya moja kwa moja. Watumiaji wako wote kwenye mkondo wa kudokeza wataweza kuona mabadiliko hayo. Una uhakika unataka kuendelea?"
-	},
-	"teamBots.confirmationTitle": {
-		"string": "Thibitisha"
-	},
 	"teamBots.fail": {
 		"string": "Hitilafu! Tafadhali jaribu tena."
 	},
-	"teamBots.noBots": {
-		"string": "Hakuna boti iliyosakinishwa."
-	},
 	"teamBots.noSettings": {
 		"string": "Hakuna mipangilio ya boti hii."
-	},
-	"teamBots.remove": {
-		"string": "Ondoa"
 	},
 	"teamBots.save": {
 		"string": "Hifadhi"
@@ -2789,23 +2885,8 @@
 	"teamBots.settings": {
 		"string": "Mipangilio"
 	},
-	"teamBots.settingsTooltip": {
-		"string": "Mipangilio ya boti"
-	},
-	"teamBots.smoochErrorMessage": {
-		"string": "Huwezi kutumia '9' kama chaguo la hali kwenye menyu kuu. Tafadhali chagua thamani nyingine kwa lugha zifuatazo : {languages}"
-	},
-	"teamBots.smoochErrorTitle": {
-		"string": "Chaguo isiyopatikana"
-	},
-	"teamBots.subtitle": {
-		"string": "Zana za kujitolea za kujiwekea kumbukumbu na kuunganisha media ya kijamii kwa Angalia vidokezo."
-	},
 	"teamBots.success": {
 		"string": "Mipangilio imesasishwa!"
-	},
-	"teamBots.title": {
-		"string": "Boti"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Ghairi"
@@ -2977,6 +3058,26 @@
 	"teamMenu.teamSettings": {
 		"string": "Mipangilio ya eneo la kazi"
 	},
+	"teamMetadataRender.blankMetadata": {
+		"string": "No metadata fields",
+		"developer_comment": "Text for empty metadata"
+	},
+	"teamMetadataRender.itemTitle": {
+		"string": "Metadata",
+		"developer_comment": "Title for item Metadata"
+	},
+	"teamMetadataRender.metadataItemSubtitle": {
+		"string": "Add custom metadata fields to items.",
+		"developer_comment": "Metadata item subtitle"
+	},
+	"teamMetadataRender.metadataSourceSubtitle": {
+		"string": "Add custom data ields to the source tab.",
+		"developer_comment": "Metadata source subtitle"
+	},
+	"teamMetadataRender.sourceTitle": {
+		"string": "Source metadata",
+		"developer_comment": "Ttle for source Metadata"
+	},
 	"teamReport.disclaimer": {
 		"string": "Kanusho"
 	},
@@ -3004,11 +3105,49 @@
 	"teamReport.updateSuccess": {
 		"string": "Mipangilio ya ripoti imesashiswa kwa mafanikio!"
 	},
+	"teamReportComponent.defaultErrorMessage": {
+		"string": "Could not save report settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving report settings"
+	},
+	"teamReportComponent.facebook": {
+		"string": "Facebook page name"
+	},
+	"teamReportComponent.introduction": {
+		"string": "Introduction"
+	},
+	"teamReportComponent.introductionSub": {
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+	},
+	"teamReportComponent.save": {
+		"string": "Save"
+	},
+	"teamReportComponent.savedSuccessfully": {
+		"string": "Report settings saved successfully.",
+		"developer_comment": "Banner displayed when report settings are saved successfully"
+	},
+	"teamReportComponent.signature": {
+		"string": "Signature"
+	},
+	"teamReportComponent.subtitle": {
+		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.title": {
+		"string": "Default report settings"
+	},
+	"teamReportComponent.twitter": {
+		"string": "Twitter account name"
+	},
+	"teamReportComponent.url": {
+		"string": "Website URL"
+	},
+	"teamReportComponent.urlLabel": {
+		"string": "Prompt ({max} characters max)"
+	},
+	"teamReportComponent.whatsapp": {
+		"string": "WhatsApp number"
+	},
 	"teamSettings.Tags": {
 		"string": "Lebo"
-	},
-	"teamSettings.bots": {
-		"string": "Boti"
 	},
 	"teamSettings.integrations": {
 		"string": "Mijumuisho"
@@ -3033,6 +3172,9 @@
 	},
 	"teamSettings.tasks": {
 		"string": "Kazi"
+	},
+	"teamSettings.tipline": {
+		"string": "Tipline"
 	},
 	"teamTags.addTag": {
 		"string": "Ongeza lebo"
@@ -3165,6 +3307,30 @@
 	},
 	"teamTasks.typeFilter": {
 		"string": "Aina la kazi"
+	},
+	"teamTasksRender.blank": {
+		"string": "No default tasks to display",
+		"developer_comment": "Text for empty tasks"
+	},
+	"teamTasksRender.filter": {
+		"string": "Filter tasks",
+		"developer_comment": "Filter tasks"
+	},
+	"teamTasksRender.projFilter": {
+		"string": "Show tasks in",
+		"developer_comment": "filter tasks by projects"
+	},
+	"teamTasksRender.tasks": {
+		"string": "Tasks",
+		"developer_comment": "Tasks title"
+	},
+	"teamTasksRender.tasksSubtitle": {
+		"string": "Add custom tasks to items.",
+		"developer_comment": "Tasks subtitle"
+	},
+	"teamTasksRender.typeFilter": {
+		"string": "Task type",
+		"developer_comment": "filter tasks by type"
 	},
 	"teams.title": {
 		"string": "Maeneo ya kazi"

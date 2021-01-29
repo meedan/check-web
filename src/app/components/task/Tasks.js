@@ -22,6 +22,7 @@ const Tasks = ({
   tasks,
   media,
   noscroll,
+  style,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
@@ -51,7 +52,7 @@ const Tasks = ({
   }
 
   return (
-    <div className={[taskListClasses.join(' ')]}>
+    <div className={[taskListClasses.join(' ')]} style={style}>
       <ul className="tasks__list">
         {tasks
           .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))

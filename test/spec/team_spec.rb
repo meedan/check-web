@@ -93,46 +93,9 @@ shared_examples 'team' do
   it 'should install and uninstall bot', bin5: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
-    bot_name = 'Testing Bot'
-    @driver.navigate.to "#{@config['self_url']}/#{team}/settings/bots"
-    wait_for_selector('.team-settings__bots-tab')
-    wait_for_selector("//span[contains(text(), 'No bots installed.')]", :xpath).click
-    expect(@driver.page_source.include?('No bots installed')).to be(true)
-    install_bot(team, bot_name)
-    expect(@driver.page_source.include?('No bots installed')).to be(false)
-    wait_for_selector('.team-header__drawer-team-link').click
-    wait_for_selector('.team-members__member')
-    wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__bots-tab').click
-    expect(@driver.page_source.include?('No bots installed')).to be(false)
-
-    # Uninstall bot
-    @driver.execute_script('window.scrollTo(10, 0)')
-    button = wait_for_selector('.team-bots__uninstall-button')
-    button.click
-    wait_for_selector('#confirm-dialog__checkbox').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__checkbox')
-    wait_for_selector_none('.settingsIcon')
-    expect(@driver.page_source.include?('No bots installed')).to be(true)
-  end
-
-  it 'should install Smooch bot and customize message', bin1: true do
-    response = api_create_team_and_project
-    install_bot(response[:team].slug, 'Tipline')
-    wait_for_selector('.settingsIcon').click
-    wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]').send_keys(:control, 'a', :delete)
-    wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]').send_keys('Hi, this is a test')
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
-    wait_for_selector('input[type=checkbox]').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    @driver.navigate.refresh
-    wait_for_selector('.team')
-    wait_for_selector('.team-settings__bots-tab').click
-    wait_for_selector('.settingsIcon').click
-    wait_for_selector('textarea[name="smooch_message_smooch_bot_greetings"]')
-    expect(@driver.page_source.include?('Hi, this is a test')).to be(true)
+    @driver.navigate.to "#{@config['self_url']}/#{team}/settings/integrations"
+    wait_for_selector('.team-bots__keep-uninstalled').click
+    wait_for_selector('.team-bots__keep-installed').click
   end
 
   it 'should add introduction to team report settings', bin5: true do
@@ -151,23 +114,25 @@ shared_examples 'team' do
   it 'should enable the Slack notifications', bin5: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
-    @driver.execute_script('window.scrollTo(10, 0)')
+    @driver.execute_script('window.scrollTo(10, 10000)')
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
     expect(@driver.find_elements(:css, '.Mui-checked').empty?)
-    wait_for_selector('input[type=checkbox]').click
-    wait_for_selector("button[title='Integration settings']").click
+    @driver.execute_script('window.scrollTo(10, 10000)')
+    wait_for_selector('.slack-config__switch').click
+    wait_for_selector('.Mui-checked')
+    wait_for_selector('.slack-config__settings').click
     wait_for_selector('#slack-config__channel')
     wait_for_selector("//span[contains(text(), 'Send notifications to Slack channels')]", :xpath)
     wait_for_selector('#slack-config__webhook').send_keys('https://hooks.slack.com/services/00000/0000000000')
-    wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
-    wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
+    wait_for_selector('.slack-config__save').click
+    wait_for_selector_none('.slack-config__save')
     @driver.navigate.refresh
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector("//span[contains(text(), 'Slack')]", :xpath)
     wait_for_selector('.Mui-checked')
     expect(@driver.find_elements(:css, '.Mui-checked').length == 1)
-    wait_for_selector("button[title='Integration settings']").click
+    wait_for_selector('.slack-config__settings').click
     wait_for_selector('#slack-config__webhook')
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end

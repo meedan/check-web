@@ -407,8 +407,8 @@
 	"annotation.relationshipCreated": {
 		"string": "L’élément associé a été ajouté par {author} : {title}"
 	},
-	"annotation.relationshipDeleted": {
-		"string": "L’élément associé a été supprimé par {author} : {title}"
+	"annotation.relationshipDestroyed": {
+		"string": "Related item removed by {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "La note de tâche a été supprimé par {author} : {title}{note}"
@@ -421,6 +421,12 @@
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "Voir comment ce robot fonctionne"
+	},
+	"annotation.similarCreated": {
+		"string": "Confirmed similar by {author}: {title}"
+	},
+	"annotation.similarDestroyed": {
+		"string": "Confirmed similar detached by {author}: {title}"
 	},
 	"annotation.smoochNoMessage": {
 		"string": "Aucun message n’a été envoyé avec la demande"
@@ -436,6 +442,12 @@
 	},
 	"annotation.suggestionAccepted": {
 		"string": "Acceptée par {user}"
+	},
+	"annotation.suggestionCreated": {
+		"string": "Suggested match by {author}: {title}"
+	},
+	"annotation.suggestionDestroyed": {
+		"string": "Suggested match rejected by {author}: {title}"
 	},
 	"annotation.suggestionRejected": {
 		"string": "Refusée par {user}"
@@ -643,6 +655,22 @@
 	"bulkActions.unconfirmed": {
 		"string": "Confirmer les éléments sélectionnés et déplacer les éléments vers une autre liste"
 	},
+	"changeMediaSource.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Cancel change media source action"
+	},
+	"changeMediaSource.choose": {
+		"string": "Choose a source",
+		"developer_comment": "Change media source label"
+	},
+	"changeMediaSource.createSource": {
+		"string": "Create new",
+		"developer_comment": "allow user to create a new source"
+	},
+	"changeMediaSource.saveButton": {
+		"string": "Save",
+		"developer_comment": "Save media source label"
+	},
 	"claimReview.claim": {
 		"string": "Affirmation :"
 	},
@@ -690,6 +718,25 @@
 	},
 	"createMedia.video": {
 		"string": "Vidéo"
+	},
+	"createMediaSource.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"createMediaSource.createSource": {
+		"string": "Create source"
+	},
+	"createMediaSource.existDescription": {
+		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"createMediaSource.existingSource": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"createMediaSource.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"createProject.addProject": {
 		"string": "Créer une liste"
@@ -1396,6 +1443,9 @@
 	"mediaComponent.requests": {
 		"string": "Demandes"
 	},
+	"mediaComponent.source": {
+		"string": "Source"
+	},
 	"mediaComponent.tasks": {
 		"string": "Tâches"
 	},
@@ -1624,6 +1674,10 @@
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+	},
+	"mediaSource.changeSource": {
+		"string": "Change",
+		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.cancelMessage": {
 		"string": "Annuler"
@@ -2236,6 +2290,15 @@
 	"sentence.separator": {
 		"string": ","
 	},
+	"setProjectMediaSource.cancelButton": {
+		"string": "Cancel"
+	},
+	"setProjectMediaSource.choose": {
+		"string": "Choose a source"
+	},
+	"setProjectMediaSource.saveButton": {
+		"string": "Save"
+	},
 	"settingsHeader.save": {
 		"string": "Enregistrer"
 	},
@@ -2428,6 +2491,26 @@
 	"smoochBot.tos": {
 		"string": "Conditions générales d’utilisation ({language})"
 	},
+	"smoochBotComponent.contactUs": {
+		"string": "Contact us to setup"
+	},
+	"smoochBotComponent.defaultErrorMessage": {
+		"string": "Could not save tipline settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.save": {
+		"string": "Save settings"
+	},
+	"smoochBotComponent.savedSuccessfully": {
+		"string": "Tipline settings saved successfully.",
+		"developer_comment": "Banner displayed when tipline settings are saved successfully"
+	},
+	"smoochBotComponent.subtitle": {
+		"string": "Create automated conversational bots to receive content from your audience."
+	},
+	"smoochBotComponent.title": {
+		"string": "Tipline"
+	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Scénario"
 	},
@@ -2526,6 +2609,52 @@
 	},
 	"sortSelect.za": {
 		"string": "Z à A"
+	},
+	"sourceInfo.addLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Allow user to relate a new link to media source"
+	},
+	"sourceInfo.addSecondaryLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Label for add a new source secondary URL"
+	},
+	"sourceInfo.createNew": {
+		"string": "Create new",
+		"developer_comment": "Create a new media source label"
+	},
+	"sourceInfo.invalidLink": {
+		"string": "Please enter a valid URL",
+		"developer_comment": "Error message for invalid link"
+	},
+	"sourceInfo.mainAccount": {
+		"string": "Main source URL",
+		"developer_comment": "URL for first account related to media souce"
+	},
+	"sourceInfo.mainName": {
+		"string": "Main name",
+		"developer_comment": "Source name"
+	},
+	"sourceInfo.mediasCount": {
+		"string": "{mediasCount, plural, one {1 item} other {# items}}",
+		"developer_comment": "show source media counts"
+	},
+	"sourceInfo.primaryLink": {
+		"string": "Add main source URL",
+		"developer_comment": "Allow user to add a main source URL"
+	},
+	"sourceInfo.saved": {
+		"string": "Saved {ago}"
+	},
+	"sourceInfo.saving": {
+		"string": "Saving…"
+	},
+	"sourceInfo.secondaryAccounts": {
+		"string": "Secondary source URLs",
+		"developer_comment": "URLs for source accounts except first account"
+	},
+	"sourceInfo.sourceName": {
+		"string": "Add name",
+		"developer_comment": "label for create source name"
 	},
 	"statusListItem.confirmDefaultBody": {
 		"string": "{language} deviendra la langue par défaut pour répondre aux utilisateurs qui interagissent avec le robot dans une langue autre que celles ajoutées à cette liste."
@@ -2744,44 +2873,11 @@
 	"tasks.timezones": {
 		"string": "Fuseaux horaires proposés pour exécuter la tâche"
 	},
-	"teamBots.browserBots": {
-		"string": "Browse bots"
-	},
-	"teamBots.close": {
-		"string": "Fermer"
-	},
-	"teamBots.confirmDeleteBlurb": {
-		"string": "Tous les paramètres seront supprimés et ne pourront pas être récupérés. Voulez-vous vraiment poursuivre ?"
-	},
-	"teamBots.confirmDeleteTitle": {
-		"string": "Vous êtes sur le point de désactiver {botName}"
-	},
-	"teamBots.confirmLeaveButtonLabel": {
-		"string": "Quitter"
-	},
-	"teamBots.confirmLeaveText": {
-		"string": "Si vous quittez cette fenêtre, vous perdrez vos modifications."
-	},
-	"teamBots.confirmLeaveTitle": {
-		"string": "Quitter sans enregistrer ?"
-	},
-	"teamBots.confirmationMessage": {
-		"string": "Vous êtes sur le point de rendre effectifs les changements de votre robot. Tous les utilisateurs de votre ligne de signalement verront ces changements. Voulez-vous vraiment poursuivre ?"
-	},
-	"teamBots.confirmationTitle": {
-		"string": "Confirmer"
-	},
 	"teamBots.fail": {
 		"string": "Une erreur s’est produite. Veuillez réessayer."
 	},
-	"teamBots.noBots": {
-		"string": "Aucun robot n’est installé."
-	},
 	"teamBots.noSettings": {
 		"string": "Il n’y a aucun paramètre pour ce robot."
-	},
-	"teamBots.remove": {
-		"string": "Supprimer"
 	},
 	"teamBots.save": {
 		"string": "Enregistrer"
@@ -2789,23 +2885,8 @@
 	"teamBots.settings": {
 		"string": "Paramètres"
 	},
-	"teamBots.settingsTooltip": {
-		"string": "Paramètres du robot"
-	},
-	"teamBots.smoochErrorMessage": {
-		"string": "Vous ne pouvez pas utiliser « 9 » comme option de scénario dans le menu principal. Veuillez choisir une autre valeur pour les langues suivantes : {languages}"
-	},
-	"teamBots.smoochErrorTitle": {
-		"string": "Option non proposée"
-	},
-	"teamBots.subtitle": {
-		"string": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
-	},
 	"teamBots.success": {
 		"string": "Paramètres ont été mis à jour."
-	},
-	"teamBots.title": {
-		"string": "Robots"
 	},
 	"teamComponent.cancelButton": {
 		"string": "Annuler"
@@ -2977,6 +3058,26 @@
 	"teamMenu.teamSettings": {
 		"string": "Paramètres de l’espace de travail"
 	},
+	"teamMetadataRender.blankMetadata": {
+		"string": "No metadata fields",
+		"developer_comment": "Text for empty metadata"
+	},
+	"teamMetadataRender.itemTitle": {
+		"string": "Metadata",
+		"developer_comment": "Title for item Metadata"
+	},
+	"teamMetadataRender.metadataItemSubtitle": {
+		"string": "Add custom metadata fields to items.",
+		"developer_comment": "Metadata item subtitle"
+	},
+	"teamMetadataRender.metadataSourceSubtitle": {
+		"string": "Add custom data ields to the source tab.",
+		"developer_comment": "Metadata source subtitle"
+	},
+	"teamMetadataRender.sourceTitle": {
+		"string": "Source metadata",
+		"developer_comment": "Ttle for source Metadata"
+	},
 	"teamReport.disclaimer": {
 		"string": "Avis"
 	},
@@ -3004,11 +3105,49 @@
 	"teamReport.updateSuccess": {
 		"string": "Les paramètres du rapport ont été mis jour avec succès."
 	},
+	"teamReportComponent.defaultErrorMessage": {
+		"string": "Could not save report settings.",
+		"developer_comment": "Warning displayed if an error occurred when saving report settings"
+	},
+	"teamReportComponent.facebook": {
+		"string": "Facebook page name"
+	},
+	"teamReportComponent.introduction": {
+		"string": "Introduction"
+	},
+	"teamReportComponent.introductionSub": {
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+	},
+	"teamReportComponent.save": {
+		"string": "Save"
+	},
+	"teamReportComponent.savedSuccessfully": {
+		"string": "Report settings saved successfully.",
+		"developer_comment": "Banner displayed when report settings are saved successfully"
+	},
+	"teamReportComponent.signature": {
+		"string": "Signature"
+	},
+	"teamReportComponent.subtitle": {
+		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.title": {
+		"string": "Default report settings"
+	},
+	"teamReportComponent.twitter": {
+		"string": "Twitter account name"
+	},
+	"teamReportComponent.url": {
+		"string": "Website URL"
+	},
+	"teamReportComponent.urlLabel": {
+		"string": "Prompt ({max} characters max)"
+	},
+	"teamReportComponent.whatsapp": {
+		"string": "WhatsApp number"
+	},
 	"teamSettings.Tags": {
 		"string": "Balises"
-	},
-	"teamSettings.bots": {
-		"string": "Robots"
 	},
 	"teamSettings.integrations": {
 		"string": "Intégrations"
@@ -3033,6 +3172,9 @@
 	},
 	"teamSettings.tasks": {
 		"string": "Tâches"
+	},
+	"teamSettings.tipline": {
+		"string": "Tipline"
 	},
 	"teamTags.addTag": {
 		"string": "Ajouter une balise"
@@ -3165,6 +3307,30 @@
 	},
 	"teamTasks.typeFilter": {
 		"string": "Type de la tâche"
+	},
+	"teamTasksRender.blank": {
+		"string": "No default tasks to display",
+		"developer_comment": "Text for empty tasks"
+	},
+	"teamTasksRender.filter": {
+		"string": "Filter tasks",
+		"developer_comment": "Filter tasks"
+	},
+	"teamTasksRender.projFilter": {
+		"string": "Show tasks in",
+		"developer_comment": "filter tasks by projects"
+	},
+	"teamTasksRender.tasks": {
+		"string": "Tasks",
+		"developer_comment": "Tasks title"
+	},
+	"teamTasksRender.tasksSubtitle": {
+		"string": "Add custom tasks to items.",
+		"developer_comment": "Tasks subtitle"
+	},
+	"teamTasksRender.typeFilter": {
+		"string": "Task type",
+		"developer_comment": "filter tasks by type"
 	},
 	"teams.title": {
 		"string": "Espaces de travail"

@@ -8,50 +8,6 @@
     "defaultMessage": "Error! Please try again."
   },
   {
-    "id": "teamBots.title",
-    "defaultMessage": "Bots"
-  },
-  {
-    "id": "teamBots.subtitle",
-    "defaultMessage": "Dedicated tools to automate archiving and connect a social media to Check tiplines."
-  },
-  {
-    "id": "teamBots.browserBots",
-    "defaultMessage": "Browse bots"
-  },
-  {
-    "id": "teamBots.noBots",
-    "defaultMessage": "No bots installed."
-  },
-  {
-    "id": "teamBots.settingsTooltip",
-    "defaultMessage": "Bot settings"
-  },
-  {
-    "id": "teamBots.remove",
-    "defaultMessage": "Remove"
-  },
-  {
-    "id": "teamBots.confirmDeleteTitle",
-    "defaultMessage": "You are about to deactivate {botName}"
-  },
-  {
-    "id": "teamBots.confirmDeleteBlurb",
-    "defaultMessage": "All settings will be deleted and cannot be recovered. Are you sure you want to proceed?"
-  },
-  {
-    "id": "teamBots.confirmLeaveTitle",
-    "defaultMessage": "Leave without saving?"
-  },
-  {
-    "id": "teamBots.confirmLeaveText",
-    "defaultMessage": "If you leave, you will lose your changes."
-  },
-  {
-    "id": "teamBots.confirmLeaveButtonLabel",
-    "defaultMessage": "Leave"
-  },
-  {
     "id": "teamBots.settings",
     "defaultMessage": "Settings"
   },
@@ -62,25 +18,5 @@
   {
     "id": "teamBots.noSettings",
     "defaultMessage": "There are no settings for this bot."
-  },
-  {
-    "id": "teamBots.confirmationTitle",
-    "defaultMessage": "Confirm"
-  },
-  {
-    "id": "teamBots.confirmationMessage",
-    "defaultMessage": "You are about to make the changes to your bot live. All the users on your tipline will see those changes. Are you sure you want to proceed?"
-  },
-  {
-    "id": "teamBots.smoochErrorTitle",
-    "defaultMessage": "Unavailable option"
-  },
-  {
-    "id": "teamBots.smoochErrorMessage",
-    "defaultMessage": "You cannot use '9' as a scenario option in the main menu. Please choose another value for the following languages: {languages}"
-  },
-  {
-    "id": "teamBots.close",
-    "defaultMessage": "Close"
   }
 ]

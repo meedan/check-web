@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import styled from 'styled-components';
-import SmoochBot from './SmoochBot';
 import FetchBot from './FetchBot';
-import CheckContext from '../../CheckContext';
 import { units, black32 } from '../../styles/js/shared';
 
 const StyledSchemaForm = styled.div`
@@ -49,10 +46,6 @@ class TeamBot extends Component {
   }
 
   render() {
-    const { currentUser } = new CheckContext(this).getContextStore();
-    if (this.props.bot.name === 'Smooch') {
-      return (<SmoochBot {...this.props} currentUser={currentUser} />);
-    }
     if (this.props.bot.name === 'Fetch') {
       return (<FetchBot />);
     }
@@ -63,9 +56,5 @@ class TeamBot extends Component {
     );
   }
 }
-
-TeamBot.contextTypes = {
-  store: PropTypes.object,
-};
 
 export default TeamBot;
