@@ -53,7 +53,7 @@ class TeamBotsComponent extends Component {
 
   handleToggle(installation, bot, team) {
     const handleDone = () => { this.setState({ saving: false }); };
-    this.setState({ saving: true });
+    this.setState({ saving: bot.id });
     const callbacks = { onFailure: handleDone, onSuccess: handleDone };
     if (installation) {
       const deleteBot = { id: installation.id, teamId: team.id };
@@ -138,7 +138,7 @@ class TeamBotsComponent extends Component {
                       className={`team-bots__${bot.identifier}-${installation ? 'installed' : 'uninstalled'}`}
                       checked={Boolean(installation)}
                       onClick={this.handleToggle.bind(this, installation, bot, team)}
-                      disabled={this.state.saving}
+                      disabled={this.state.saving === bot.id}
                     />
                   </Box>
                 </CardContent>
