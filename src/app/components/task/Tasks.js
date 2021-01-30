@@ -8,14 +8,17 @@ import Task from './Task';
 import ReorderTask from './ReorderTask';
 import BlankState from '../layout/BlankState';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   taskList: {
     maxHeight: 'calc(100vh - 166px)', // screen height - (media bar + tabs + add task)
   },
   taskListOverflow: {
     overflowY: 'auto',
   },
-});
+  taskListBrowserExtension: {
+    marginTop: theme.spacing(3),
+  },
+}));
 
 const Tasks = ({
   fieldset,
@@ -31,9 +34,13 @@ const Tasks = ({
   const isMetadata = fieldset === 'metadata';
 
   const classes = useStyles();
-  const taskListClasses = [classes.taskList];
-  if (!noscroll) {
-    taskListClasses.push(classes.taskListOverflow);
+  let taskListClasses = [classes.taskListBrowserExtension];
+  // Should not apply for the browser extension
+  if (window === window.parent) {
+    taskListClasses = [classes.taskList];
+    if (!noscroll) {
+      taskListClasses.push(classes.taskListOverflow);
+    }
   }
 
   if (isMetadata && tasks.length === 0 && !isBrowserExtension) {
