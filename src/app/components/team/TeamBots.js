@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -115,7 +114,7 @@ class TeamBotsComponent extends Component {
 
           const botExpanded = installation && this.state.expanded === bot.dbid;
           return (
-            <Box clone mb={5}>
+            <Box clone mb={2.5}>
               <Card key={`bot-${bot.dbid}`}>
                 <CardHeader
                   title={botName(bot)}
@@ -142,7 +141,6 @@ class TeamBotsComponent extends Component {
                     />
                   </Box>
                 </CardContent>
-                <Divider />
                 <Collapse in={botExpanded} timeout="auto">
                   <CardContent>
                     { bot.settings_as_json_schema ?

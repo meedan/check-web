@@ -15,9 +15,14 @@ const useStyles = makeStyles(theme => ({
   verticalLanguageSwitcher: {
     marginRight: theme.spacing(5),
     marginTop: theme.spacing(2),
+    marginLeft: theme.spacing(4),
   },
   verticalLanguageSwitcherTab: {
-    alignItems: 'flex-end',
+    alignItems: 'flex-start',
+  },
+  sideSettingDefault: {
+    textAlign: 'left',
+    fontSize: 12,
   },
 }));
 
@@ -62,14 +67,14 @@ const LanguageSwitcher = (props) => {
             label={
               <Box display="flex" alignItems="center">
                 <div>
+                  {label}
                   { languageCode === primaryLanguage ?
-                    <FormattedMessage
-                      id="languageSwitcher.primaryLanguage"
-                      defaultMessage="{language} (default)"
-                      values={{
-                        language: label,
-                      }}
-                    /> : label }
+                    <div className={classes.sideSettingDefault}>
+                      <FormattedMessage
+                        id="languageSwitcher.primaryLanguage"
+                        defaultMessage="(default)"
+                      />
+                    </div> : null }
                 </div>
                 { props.onSetDefault && languageCode !== primaryLanguage ?
                   <div>

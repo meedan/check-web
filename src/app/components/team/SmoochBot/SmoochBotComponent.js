@@ -128,9 +128,9 @@ const SmoochBotComponent = ({
     }
     setCurrentLanguage(newValue);
   };
-
+  // If only on language, no margin left. If more than one language the language selector is displayed, so we add a margin.
   return (
-    <Box display="flex" justifyContent="center" className="smooch-bot-component">
+    <Box display="flex" justifyContent="left" className="smooch-bot-component" ml={installation && bot && languages.length > 1 ? 0 : 6}>
       { installation && bot && languages.length > 1 ?
         <LanguageSwitcher
           orientation="vertical"
