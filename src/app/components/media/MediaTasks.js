@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Box from '@material-ui/core/Box';
 import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
@@ -196,7 +197,9 @@ class MediaTasksComponent extends Component {
               </FlexRow> : null }
             <CreateTask style={{ marginLeft: 'auto' }} media={media} />
           </div> : null }
-        <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
+        <Box style={{ overflowY: 'auto', maxHeight: 'calc(100vh - 166px)' }}>
+          <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
+        </Box>
       </StyledAnnotationRow>
     );
   }

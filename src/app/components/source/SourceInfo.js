@@ -461,7 +461,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           </Collapse>
         </Card>
       </Box>
-      <Tasks tasks={sourceMetadata} media={source} fieldset="metadata" noscroll style={{ maxHeight: '100%' }} />
+      <Tasks tasks={sourceMetadata} media={source} fieldset="metadata" />
     </div>
   );
 }
