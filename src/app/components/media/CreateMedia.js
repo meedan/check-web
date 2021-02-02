@@ -4,12 +4,12 @@ import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
+import { withSnackbar } from 'notistack';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
-import { withSetFlashMessage } from '../FlashMessage';
 
 class CreateProjectMedia extends React.Component {
   constructor(props) {
@@ -37,7 +37,14 @@ class CreateProjectMedia extends React.Component {
         message = error[0].message; // eslint-disable-line prefer-destructuring
       }
     }
-    this.props.setFlashMessage(message);
+    this.props.enqueueSnackbar(message, {
+      persist: true,
+      anchorOrigin: {
+        vertical: 'top',
+        horizontal: 'center',
+      },
+      variant: 'error',
+    });
   };
 
   submitMedia(value) {
@@ -102,7 +109,7 @@ class CreateProjectMedia extends React.Component {
 }
 
 CreateProjectMedia.propTypes = {
-  setFlashMessage: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(CreateProjectMedia);
+export default withSnackbar(CreateProjectMedia);

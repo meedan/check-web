@@ -9,7 +9,7 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
-import { withSetFlashMessage } from '../FlashMessage';
+import { withSnackbar } from 'notistack';
 import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
@@ -96,13 +96,17 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are added successfully to list"
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.enqueueSnackbar(message, {
+        anchorOrigin: {
+          vertical: 'bottom',
+          horizontal: 'left',
+        },
+        variant: 'success',
+      });
       this.setState({ openAddDialog: false, dstProjForAdd: null });
       this.props.onUnselectAll();
     };
     const onDone = () => {};
-
-    onSuccess();
 
     if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
       Relay.Store.commitUpdate(
@@ -431,11 +435,11 @@ class BulkActions extends React.Component {
 }
 
 BulkActions.propTypes = {
-  setFlashMessage: PropTypes.func.isRequired,
+  enqueueSnackbar: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
 };
 
-export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
+export default createFragmentContainer(withSnackbar(BulkActions), graphql`
   fragment BulkActions_team on Team {
     ...SelectProjectDialog_team
     id
