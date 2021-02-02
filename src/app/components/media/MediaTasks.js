@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import Box from '@material-ui/core/Box';
 import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
@@ -168,22 +167,15 @@ class MediaTasksComponent extends Component {
     return (
       <StyledAnnotationRow>
         { fieldset === 'metadata' ?
-          <Box
-            mt={3}
-            className="annotation-header-row metadata-row"
-            style={isBrowserExtension ? { marginTop: 30 } : {}}
-          >
+          <div className="annotation-header-row metadata-row">
             <MediaLanguageChip projectMedia={media} />
             <MediaTags
               projectMedia={media}
               onTimelineCommentOpen={onTimelineCommentOpen}
             />
-          </Box> : null }
+          </div> : null }
         { fieldset === 'tasks' && !isBrowserExtension ?
-          <div
-            style={isBrowserExtension ? { padding: 0 } : {}}
-            className="annotation-header-row task-row"
-          >
+          <div className="annotation-header-row task-row">
             { itemTasks.edges.length ?
               <FlexRow>
                 <h2>
@@ -204,10 +196,6 @@ class MediaTasksComponent extends Component {
               </FlexRow> : null }
             <CreateTask style={{ marginLeft: 'auto' }} media={media} />
           </div> : null }
-        { isBrowserExtension && itemTasks.edges.length === 0 ?
-          <p style={{ textAlign: 'center', width: '100%', marginTop: units(6) }}>
-            <FormattedMessage id="mediaComponent.noTasks" defaultMessage="Nothing to show." />
-          </p> : null }
         <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
       </StyledAnnotationRow>
     );

@@ -8,17 +8,14 @@ import Task from './Task';
 import ReorderTask from './ReorderTask';
 import BlankState from '../layout/BlankState';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   taskList: {
     maxHeight: 'calc(100vh - 166px)', // screen height - (media bar + tabs + add task)
   },
   taskListOverflow: {
     overflowY: 'auto',
   },
-  taskListBrowserExtension: {
-    marginTop: theme.spacing(3),
-  },
-}));
+});
 
 const Tasks = ({
   fieldset,
@@ -34,26 +31,28 @@ const Tasks = ({
   const isMetadata = fieldset === 'metadata';
 
   const classes = useStyles();
-  let taskListClasses = [classes.taskListBrowserExtension];
-  // Should not apply for the browser extension
-  if (window === window.parent) {
-    taskListClasses = [classes.taskList];
-    if (!noscroll) {
-      taskListClasses.push(classes.taskListOverflow);
-    }
+  const taskListClasses = [classes.taskList];
+  if (!noscroll) {
+    taskListClasses.push(classes.taskListOverflow);
   }
 
-  if (isMetadata && tasks.length === 0 && !isBrowserExtension) {
+  if (tasks.length === 0) {
     return (
       <React.Fragment>
         <BlankState>
-          <FormattedMessage id="tasks.blankMetadata" defaultMessage="No metadata fields" />
+          { isMetadata ?
+            <FormattedMessage id="tasks.blankMetadata" defaultMessage="No metadata fields" /> :
+            <FormattedMessage id="tasks.blankTasks" defaultMessage="No tasks" />
+          }
         </BlankState>
-        <Box display="flex" justifyContent="center" m={2}>
-          <Button variant="contained" color="primary" onClick={goToSettings}>
-            <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" />
-          </Button>
-        </Box>
+        { !isBrowserExtension && isMetadata ?
+          <Box display="flex" justifyContent="center" m={2}>
+            <Button variant="contained" color="primary" onClick={goToSettings}>
+              <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" />
+            </Button>
+          </Box>
+          : null
+        }
       </React.Fragment>
     );
   }

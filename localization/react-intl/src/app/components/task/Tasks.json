@@ -4,6 +4,10 @@
     "defaultMessage": "No metadata fields"
   },
   {
+    "id": "tasks.blankTasks",
+    "defaultMessage": "No tasks"
+  },
+  {
     "id": "tasks.goToSettings",
     "defaultMessage": "Go to settings"
   }
