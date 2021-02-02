@@ -31,7 +31,12 @@ const Tasks = ({
   const isMetadata = fieldset === 'metadata';
 
   const classes = useStyles();
-  const taskListClasses = [classes.taskList];
+  const taskListClasses = [];
+
+  if (!isBrowserExtension) {
+    taskListClasses.push(classes.taskList);
+  }
+
   if (!noscroll) {
     taskListClasses.push(classes.taskListOverflow);
   }
