@@ -89,7 +89,7 @@ const DeleteStatusDialog = ({
               </InputLabel>
               <Select
                 id="delete-status-dialog__select"
-                defaultValue={null}
+                defaultValue=""
                 label={inputLabel}
                 onChange={handleSelect}
               >
