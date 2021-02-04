@@ -43,18 +43,36 @@ window.config = {
 };
 TEMPLATEEOF
 
+export SVRTEMPLATEFILE=$(mktemp)
+export SVRDESTFILE="${DEPLOYDIR}/latest/config-server.js"
+cat << TEMPLATEEOF > $SVRTEMPLATEFILE
+const config = {
+  default: {
+    appName: 'check',
+    relayPath: '##relay_path##',
+    checkApiToken: '##check_api_token##',
+    heapAppId: '##heap_app_id##',
+  }
+};
+module.exports = config;
+TEMPLATEEOF
+
 # Because of differences in configuration between environments, we use
 # different template files for each environment.
 if [[ "$DEPLOY_ENV" == "live" ]]; then
     export WORKTMP=$(mktemp)
     # Iterate over keys in SSM and replace corresponding values in template.
     PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /live/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/live/check-web/##')
-    echo "Setting parameters: $PARAMNAMES"
     for PNAME in $PARAMNAMES; do
         export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
         cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     done
     mv $TEMPLATEFILE $DESTFILE
+    for PNAME in $PARAMNAMES; do
+        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
+        cat $SVRTEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $SVRTEMPLATEFILE
+    done
+    mv $SVRTEMPLATEFILE $SVRDESTFILE
 
 # QA environment:
 elif [[ "$DEPLOY_ENV" == "qa" ]]; then
@@ -63,12 +81,16 @@ elif [[ "$DEPLOY_ENV" == "qa" ]]; then
     cat $TEMPLATEFILE | grep -v extensionUrls | grep -v intercomAppId > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     # Iterate over keys in SSM and replace corresponding values in template.
     PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /qa/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/qa/check-web/##')
-    echo "Setting parameters: $PARAMNAMES"
     for PNAME in $PARAMNAMES; do
         export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/qa/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
         cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     done
     mv $TEMPLATEFILE $DESTFILE
+    for PNAME in $PARAMNAMES; do
+        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
+        cat $SVRTEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $SVRTEMPLATEFILE
+    done
+    mv $SVRTEMPLATEFILE $SVRDESTFILE
 
 # Test environments:
 else
@@ -77,12 +99,16 @@ else
     cat $TEMPLATEFILE | grep -v googleAnalyticsCode | grep -v googleStaticMapsKey | grep -v mapboxApiKey | grep -v extensionUrls | grep -v intercomAppId > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     # Iterate over keys in SSM and replace corresponding values in template.
     PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /qa/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/qa/check-web/##')
-    echo "Setting parameters: $PARAMNAMES"
     for PNAME in $PARAMNAMES; do
         export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/qa/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
         cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     done
     mv $TEMPLATEFILE $DESTFILE
+    for PNAME in $PARAMNAMES; do
+        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
+        cat $SVRTEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $SVRTEMPLATEFILE
+    done
+    mv $SVRTEMPLATEFILE $SVRDESTFILE
 fi
 
 echo "Configuration for env $DEPLOY_ENV complete."
