@@ -3,7 +3,7 @@
 # This script generates json configuration files for check-web using values
 # from the SSM parameter store.
 
-# The following environment variables must be set: DEPLOYDIR and
+# The following environment variables must be set:
 if [[ -z ${DEPLOY_ENV+x} || -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; then
         echo "DEPLOY_ENV, DEPLOYDIR, and AWS_DEFAULT_REGION must be in the environment. Exiting."
         exit 1
@@ -63,6 +63,10 @@ if [[ "$DEPLOY_ENV" == "live" ]]; then
     export WORKTMP=$(mktemp)
     # Iterate over keys in SSM and replace corresponding values in template.
     PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /live/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/live/check-web/##')
+    if (( $? != 0 )); then
+        echo "Error retrieving SSM parameters. Check IAM permissions. Exiting."
+        exit 1
+    fi
     for PNAME in $PARAMNAMES; do
         export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
         cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
@@ -81,6 +85,10 @@ elif [[ "$DEPLOY_ENV" == "qa" ]]; then
     cat $TEMPLATEFILE | grep -v extensionUrls | grep -v intercomAppId > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     # Iterate over keys in SSM and replace corresponding values in template.
     PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /qa/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/qa/check-web/##')
+    if (( $? != 0 )); then
+        echo "Error retrieving SSM parameters. Check IAM permissions. Exiting."
+        exit 1
+    fi
     for PNAME in $PARAMNAMES; do
         export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/qa/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
         cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
@@ -99,6 +107,10 @@ else
     cat $TEMPLATEFILE | grep -v googleAnalyticsCode | grep -v googleStaticMapsKey | grep -v mapboxApiKey | grep -v extensionUrls | grep -v intercomAppId > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
     # Iterate over keys in SSM and replace corresponding values in template.
     PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /qa/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/qa/check-web/##')
+    if (( $? != 0 )); then
+        echo "Error retrieving SSM parameters. Check IAM permissions. Exiting."
+        exit 1
+    fi
     for PNAME in $PARAMNAMES; do
         export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/qa/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
         cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
