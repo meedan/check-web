@@ -17,7 +17,6 @@ build_qa:
     - apk add --no-cache curl jq python3 py3-pip git
     - pip install awscli==1.18.194
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-    - d=configurator/check/qa/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
     - docker build  -f production/Dockerfile -t "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
