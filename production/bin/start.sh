@@ -2,15 +2,20 @@
 # start.sh
 # the Dockerfile CMD
 
-if [[ -z ${GITHUB_TOKEN+x} || -z ${DEPLOY_ENV+x} || -z ${APP+x} ]]; then
-	echo "GITHUB_TOKEN, DEPLOY_ENV, and APP must be in the environment. Exiting."
+if [[ -z ${DEPLOY_ENV+x} || -z ${APP+x} ]]; then
+	echo "DEPLOY_ENV, and APP must be in the environment. Exiting."
 	exit 1
 fi
 
-rm -rf ${DEPLOYDIR}/latest/configurator && git clone https://${GITHUB_TOKEN}:x-oauth-basic@github.com/meedan/configurator ${DEPLOYDIR}/latest/configurator
-d=configurator/check/${DEPLOY_ENV}/${APP}/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
+# Put config into place if not yet created
+if [ ! -f ${DEPLOYDIR}/latest/config.js ]; then
+	/opt/bin/create_configs.sh ${DEPLOYDIR}
+	if (( $? != 0 )); then
+		echo "Error creating configuration files. Exiting."
+		exit 1
+	fi
+fi	
 
-# Put config into place
 cp ${DEPLOYDIR}/latest/config.js ${DEPLOYDIR}/latest/build/web/js/config.js
 
 passenger start
