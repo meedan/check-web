@@ -19,7 +19,8 @@ ENV DEPLOYUSER=checkdeploy \
     MAX_POOL_SIZE=12 \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
-    LANGUAGE=C.UTF-8
+    LANGUAGE=C.UTF-8 \
+    AWS_DEFAULT_REGION=eu-west-1
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
