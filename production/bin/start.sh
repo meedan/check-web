@@ -9,7 +9,7 @@ fi
 
 # Put config into place if not yet created
 if [ ! -f ${DEPLOYDIR}/latest/config.js ]; then
-	/opt/bin/create_configs.sh ${DEPLOYDIR}
+	/opt/bin/create_configs.sh
 	if (( $? != 0 )); then
 		echo "Error creating configuration files. Exiting."
 		exit 1

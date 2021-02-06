@@ -45,6 +45,8 @@ COPY . ${DEPLOYDIR}/latest
 RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
     && sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
+# Trigger the config download here prior to build.
+RUN /opt/bin/create_configs.sh
 
 # build all assets, js, css, transifex
 RUN npm run build
