@@ -38,7 +38,7 @@ deploy_qa:
     - pip install botocore==1.17.47
     - pip install boto3==1.14.47
     - pip install ecs-deploy==1.11.0
-    - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA --timeout 3600
+    - ecs deploy ecs-qa  qa-check-web --image qa-check-web-c $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA -r arn:aws:iam::848416313321:role/ECSSecretsAccessRole --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
@@ -80,7 +80,7 @@ deploy_live:
     - pip install botocore==1.17.47
     - pip install boto3==1.14.47
     - pip install ecs-deploy==1.11.0
-    - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA --timeout 3600
+    - ecs deploy ecs-live  live-check-web --image live-check-web-c $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA -r arn:aws:iam::848416313321:role/ECSSecretsAccessRole --timeout 3600
     - echo "new Image was deployed $ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
     - master
