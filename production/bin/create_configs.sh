@@ -16,7 +16,7 @@ if (( $? != 0 )); then
   exit 1
 fi
 
-SSM_PREFIX="${DEPLOY_ENV}/check-web"
+SSM_PREFIX="/${DEPLOY_ENV}/check-web"
 WORKTMP=$(mktemp)
 
 # Create user config.js from SSM parameter value:
