@@ -16,112 +16,27 @@ if (( $? != 0 )); then
   exit 1
 fi
 
-# We create a full template, and then exclude specific elements depending
-# on which environment we are configuring.
-export TEMPLATEFILE=$(mktemp)
-export DESTFILE="${DEPLOYDIR}/latest/config.js"
-cat << TEMPLATEEOF > $TEMPLATEFILE
-window.config = {
-  appName: 'check',
-  selfHost: '##self_host##',
-  restBaseUrl: '##rest_base_url##',
-  relayPath: '##relay_path##',
-  relayHeaders: {
-    'X-Check-Token': '##check_header_token##'
-  },
-  penderUrl: '##pender_url##',
-  pusherKey: '##pusher_key##',
-  pusherCluster: '##pusher_cluster##',
-  pusherDebug: ##pusher_debug##,
-  googleAnalyticsCode: '##google_analytics_code##',
-  googleStaticMapsKey: '##google_static_maps_key##',
-  mapboxApiKey: '##mapbox_api_key##',
-  opencageApiKey: '##opencage_api_key##',
-  googleMapsApiKey: '##google_maps_api_key##',
-  extensionUrls: ['chrome-extension://afafaiilokmpfmkfjjgfenfneoafojie', 'moz-extension://baeeb55c-c744-4ffc-bddd-64199b73f77b'],
-  intercomAppId: '##intercom_app_id##',
-};
-TEMPLATEEOF
+SSM_PREFIX="${DEPLOY_ENV}/check-web"
+WORKTMP=$(mktemp)
 
-export SVRTEMPLATEFILE=$(mktemp)
-export SVRDESTFILE="${DEPLOYDIR}/latest/config-server.js"
-cat << TEMPLATEEOF > $SVRTEMPLATEFILE
-const config = {
-  default: {
-    appName: 'check',
-    relayPath: '##relay_path##',
-    checkApiToken: '##check_api_token##',
-    heapAppId: '##heap_app_id##',
-  }
-};
-module.exports = config;
-TEMPLATEEOF
-
-# Because of differences in configuration between environments, we use
-# different template files for each environment.
-if [[ "$DEPLOY_ENV" == "live" ]]; then
-    export WORKTMP=$(mktemp)
-    # Iterate over keys in SSM and replace corresponding values in template.
-    PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /live/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/live/check-web/##')
-    if (( $? != 0 )); then
-        echo "Error retrieving SSM parameters. Check IAM permissions. Exiting."
-        exit 1
-    fi
-    for PNAME in $PARAMNAMES; do
-        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
-        cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
-    done
-    mv $TEMPLATEFILE $DESTFILE
-    for PNAME in $PARAMNAMES; do
-        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
-        cat $SVRTEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $SVRTEMPLATEFILE
-    done
-    mv $SVRTEMPLATEFILE $SVRDESTFILE
-
-# QA environment:
-elif [[ "$DEPLOY_ENV" == "qa" ]]; then
-    export WORKTMP=$(mktemp)
-    # QA environment does not set some elements. Exclude them below...
-    cat $TEMPLATEFILE | grep -v extensionUrls | grep -v intercomAppId > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
-    # Iterate over keys in SSM and replace corresponding values in template.
-    PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /qa/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/qa/check-web/##')
-    if (( $? != 0 )); then
-        echo "Error retrieving SSM parameters. Check IAM permissions. Exiting."
-        exit 1
-    fi
-    for PNAME in $PARAMNAMES; do
-        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/qa/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
-        cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
-    done
-    mv $TEMPLATEFILE $DESTFILE
-    for PNAME in $PARAMNAMES; do
-        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
-        cat $SVRTEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $SVRTEMPLATEFILE
-    done
-    mv $SVRTEMPLATEFILE $SVRDESTFILE
-
-# Test environments:
-else
-    export WORKTMP=$(mktemp)
-    # For test environments, we omit a number of elements.
-    cat $TEMPLATEFILE | grep -v googleAnalyticsCode | grep -v googleStaticMapsKey | grep -v mapboxApiKey | grep -v extensionUrls | grep -v intercomAppId > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
-    # Iterate over keys in SSM and replace corresponding values in template.
-    PARAMNAMES=$(aws ssm get-parameters-by-path --region $AWS_DEFAULT_REGION --path /qa/check-web/ --recursive --with-decryption --output text --query "Parameters[].[Name]" | sed -E 's#/qa/check-web/##')
-    if (( $? != 0 )); then
-        echo "Error retrieving SSM parameters. Check IAM permissions. Exiting."
-        exit 1
-    fi
-    for PNAME in $PARAMNAMES; do
-        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/qa/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
-        cat $TEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $TEMPLATEFILE
-    done
-    mv $TEMPLATEFILE $DESTFILE
-    for PNAME in $PARAMNAMES; do
-        export PVAL=$(aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "/live/check-web/${PNAME}" | jq .Parameters[].Value|sed 's/["]//g')
-        cat $SVRTEMPLATEFILE | sed "s,##${PNAME}##,${PVAL}," > $WORKTMP && mv $WORKTMP $SVRTEMPLATEFILE
-    done
-    mv $SVRTEMPLATEFILE $SVRDESTFILE
+# Create user config.js from SSM parameter value:
+DESTFILE="${DEPLOYDIR}/latest/config.js"
+aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "${SSM_PREFIX}/config" | jq .Parameters[].Value|sed 's/["]//g' | python -m base64 -d > $WORKTMP
+if (( $? != 0 )); then
+  echo "Error retrieving SSM parameter ${SSM_PREFIX}/config. Exiting."
+  exit 1
 fi
+mv $WORKTMP $DESTFILE
+
+# Create config-server.js from SSM parameter value:
+DESTFILE="${DEPLOYDIR}/latest/config-server.js"
+aws ssm get-parameters --region $AWS_DEFAULT_REGION --name "${SSM_PREFIX}/config-server" | jq .Parameters[].Value|sed 's/["]//g' | python -m base64 -d > $WORKTMP
+if (( $? != 0 )); then
+  echo "Error retrieving SSM parameter ${SSM_PREFIX}/config-server. Exiting."
+  exit 1
+fi
+mv $WORKTMP $DESTFILE
+
 
 echo "Configuration for env $DEPLOY_ENV complete."
 exit 0
