@@ -7,8 +7,8 @@ if [[ -z ${DEPLOY_ENV+x} || -z ${APP+x} ]]; then
 	exit 1
 fi
 
-# Always put config into place when starting service. This is because
-# build stage includes the QA configs which Live must replace.
+# Always put config into place when starting service. This is because the
+# build stage includes the sample configs which real deployments must replace.
 /opt/bin/create_configs.sh
 if (( $? != 0 )); then
 	echo "Error creating configuration files. Exiting."
