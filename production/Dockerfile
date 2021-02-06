@@ -28,7 +28,8 @@ RUN apt-get install -y dirmngr gnupg \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
     && apt-get install -y apt-transport-https ca-certificates \
     && echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list \
-    && apt-get update -qq && apt-get install -y graphicsmagick passenger
+    && apt-get update -qq && apt-get install -y graphicsmagick passenger \
+    && apt-get install -y awscli jq
 
 # deployment scripts
 COPY production/bin /opt/bin
