@@ -9,13 +9,6 @@ if [[ -z ${DEPLOY_ENV+x} || -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; 
   exit 1
 fi
 
-# We also require access to SSM via the awscli.
-aws sts get-caller-identity >/dev/null 2>&1
-if (( $? != 0 )); then
-  echo "Error calling AWS get-caller-identity. Valid credentials required. Exiting."
-  exit 1
-fi
-
 SSM_PREFIX="/${DEPLOY_ENV}/check-web"
 WORKTMP=$(mktemp)
 
