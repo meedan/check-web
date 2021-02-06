@@ -3,11 +3,6 @@
 # This script generates json configuration files for check-web using values
 # from the SSM parameter store.
 
-# For the build stage, use QA configs. These will be replaced for Live environment.
-if [[ -z ${DEPLOY_ENV+x} ]]; then
-  export DEPLOY_ENV=qa
-fi
-
 # The following environment variables must be set:
 if [[ -z ${DEPLOY_ENV+x} || -z ${DEPLOYDIR+x} || -z ${AWS_DEFAULT_REGION+x} ]]; then
   echo "DEPLOY_ENV, DEPLOYDIR, and AWS_DEFAULT_REGION must be in the environment. Exiting."

@@ -47,8 +47,8 @@ RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/develop/pub
     && sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 # Create stub configs for build to succeed
-COPY /dev/null ${DEPLOYDIR}/latest/config.js
-COPY /dev/null ${DEPLOYDIR}/latest/config-server.js
+RUN touch ${DEPLOYDIR}/latest/config.js
+RUN touch ${DEPLOYDIR}/latest/config-server.js
 
 # build all assets, js, css, transifex
 RUN npm run build
