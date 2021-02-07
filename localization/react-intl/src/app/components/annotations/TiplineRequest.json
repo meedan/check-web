@@ -5,11 +5,11 @@
   },
   {
     "id": "annotation.reportReceived",
-    "defaultMessage": "Report received on {date}"
+    "defaultMessage": "Report sent on {date}"
   },
   {
     "id": "annotation.reportUpdateReceived",
-    "defaultMessage": "Report update received on {date}"
+    "defaultMessage": "Report update sent on {date}"
   },
   {
     "id": "annotation.smoochNoMessage",
