@@ -17,7 +17,7 @@
   },
   {
     "id": "reportDesigner.sentCount",
-    "defaultMessage": "Reports received"
+    "defaultMessage": "Reports sent"
   },
   {
     "id": "reportDesigner.save",
