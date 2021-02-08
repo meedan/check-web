@@ -27,7 +27,7 @@ const TeamIntegrations = (props) => {
               defaultMessage="Third party tools to enhance productivity."
             />
           }
-          helpUrl="http://help.checkmedia.org/en/articles/4499092-slack-notifications"
+          helpUrl="https://help.checkmedia.org/en/articles/4841437-integrations"
         />
         <Box className="team-integrations__integrations">
           <TeamBots />
