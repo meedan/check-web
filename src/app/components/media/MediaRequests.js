@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import merge from 'lodash.merge';
@@ -11,7 +12,6 @@ import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
 import { getCurrentProjectId } from '../../helpers';
-import { units } from '../../styles/js/shared';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -63,7 +63,7 @@ class MediaRequestsComponent extends Component {
 
     return (
       <div id="media__requests" className={classes.root}>
-        <div style={{ padding: units(1) }}>
+        <Box p={2}>
           <Typography variant="subtitle2">
             { this.props.all ?
               <FormattedMessage
@@ -82,7 +82,7 @@ class MediaRequestsComponent extends Component {
               />
             }
           </Typography>
-        </div>
+        </Box>
         <Annotations
           noLink
           component={TiplineRequest}
