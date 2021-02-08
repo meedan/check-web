@@ -19,7 +19,8 @@ ENV DEPLOYUSER=checkdeploy \
     MAX_POOL_SIZE=12 \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
-    LANGUAGE=C.UTF-8
+    LANGUAGE=C.UTF-8 \
+    AWS_DEFAULT_REGION=eu-west-1
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
@@ -27,7 +28,8 @@ RUN apt-get install -y dirmngr gnupg \
     && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 \
     && apt-get install -y apt-transport-https ca-certificates \
     && echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list \
-    && apt-get update -qq && apt-get install -y graphicsmagick passenger
+    && apt-get update -qq && apt-get install -y graphicsmagick passenger \
+    && apt-get install -y awscli jq
 
 # deployment scripts
 COPY production/bin /opt/bin
@@ -45,6 +47,9 @@ COPY . ${DEPLOYDIR}/latest
 RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/develop/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
     && sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
+# Create default configs for build to succeed
+COPY config.js.example ${DEPLOYDIR}/latest/config.js
+COPY config-server.js.example ${DEPLOYDIR}/latest/config-server.js
 
 # build all assets, js, css, transifex
 RUN npm run build
