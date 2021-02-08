@@ -6,9 +6,5 @@
   {
     "id": "mediaComponent.answered",
     "defaultMessage": "completed"
-  },
-  {
-    "id": "mediaComponent.noTasks",
-    "defaultMessage": "Nothing to show."
   }
 ]
