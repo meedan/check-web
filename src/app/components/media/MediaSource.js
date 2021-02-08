@@ -11,6 +11,7 @@ import { getCurrentProjectId } from '../../helpers';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2),
+    maxHeight: 'calc(100vh - 112px)', // screen height - (media bar + tabs)
     overflow: 'auto',
   },
 }));
