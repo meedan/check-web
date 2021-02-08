@@ -311,6 +311,22 @@ class BulkActions extends React.Component {
       );
     }
 
+    const deleteButton = (
+      <IconButtonWithTooltip
+        title={
+          <FormattedMessage
+            id="bulkActions.sendItemsToTrash"
+            defaultMessage="Send selected items to Trash"
+          />
+        }
+        disabled={disabled}
+        className="media-bulk-actions__delete-icon"
+        onClick={this.handleDelete.bind(this)}
+      >
+        <DeleteIcon />
+      </IconButtonWithTooltip>
+    );
+
     if (moveTooltipMessage) {
       modalToMove = (
         <React.Fragment>
@@ -362,9 +378,12 @@ class BulkActions extends React.Component {
       break;
     case 'unconfirmed':
       actionButtons = (
-        <Can permission="confirm ProjectMedia" permissions={team.permissions}>
-          {modalToMove}
-        </Can>
+        <React.Fragment>
+          <Can permission="confirm ProjectMedia" permissions={team.permissions}>
+            {modalToMove}
+          </Can>
+          {deleteButton}
+        </React.Fragment>
       );
       break;
     default:
@@ -404,21 +423,9 @@ class BulkActions extends React.Component {
             onCancel={this.handleCloseDialogs.bind(this)}
           />
 
-          {project ? modalToMove : null}
+          { project ? modalToMove : null }
 
-          <IconButtonWithTooltip
-            title={
-              <FormattedMessage
-                id="bulkActions.sendItemsToTrash"
-                defaultMessage="Send selected items to Trash"
-              />
-            }
-            disabled={disabled}
-            className="media-bulk-actions__delete-icon"
-            onClick={this.handleDelete.bind(this)}
-          >
-            <DeleteIcon />
-          </IconButtonWithTooltip>
+          {deleteButton}
         </React.Fragment>
       );
       break;

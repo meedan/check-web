@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
+import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
@@ -65,9 +66,10 @@ class MediaCommentsComponent extends Component {
 
   render() {
     const media = Object.assign(this.props.cachedMedia, this.props.media);
+    const { classes } = this.props;
 
     return (
-      <div id="media__comments" style={this.props.style}>
+      <div id="media__comments" className={classes.root}>
         <Annotations
           showAddAnnotation
           annotations={media.log.edges}
@@ -98,7 +100,15 @@ const eventTypes = ['create_comment'];
 const fieldNames = [];
 const annotationTypes = [];
 
-const MediaCommentsContainer = Relay.createContainer(withPusher(MediaCommentsComponent), {
+const styles = theme => ({
+  root: {
+    padding: theme.spacing(2),
+    maxHeight: 'calc(100vh - 112px)', // screen height - (media bar + tabs)
+    overflow: 'auto',
+  },
+});
+
+const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaCommentsComponent)), {
   initialVariables: {
     pageSize,
     eventTypes,

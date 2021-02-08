@@ -19,6 +19,7 @@ import { withSetFlashMessage } from '../../FlashMessage';
 const SmoochBotComponent = ({
   team,
   currentUser,
+  smoochBotDbid,
   intl,
   setFlashMessage,
 }) => {
@@ -85,6 +86,41 @@ const SmoochBotComponent = ({
           handleError();
         } else {
           handleSuccess();
+        }
+      },
+      onError: () => {
+        handleError();
+      },
+    });
+  };
+
+  const handleInstall = () => {
+    setSaving(true);
+
+    const mutation = graphql`
+      mutation SmoochBotComponentCreateTeamBotInstallationMutation($input: CreateTeamBotInstallationInput!) {
+        createTeamBotInstallation(input: $input) {
+          team {
+            slug
+          }
+        }
+      }
+    `;
+
+    commitMutation(Store, {
+      mutation,
+      variables: {
+        input: {
+          user_id: smoochBotDbid,
+          team_id: team.dbid,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError();
+        } else {
+          handleSuccess();
+          window.location.assign(`/${response.createTeamBotInstallation.team.slug}/settings/tipline`);
         }
       },
       onError: () => {
@@ -178,16 +214,28 @@ const SmoochBotComponent = ({
                 languages={languages}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleOpenForm}
-                >
-                  <FormattedMessage
-                    id="smoochBotComponent.contactUs"
-                    defaultMessage="Contact us to setup"
-                  />
-                </Button>
+                { currentUser.is_admin ?
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleInstall}
+                    disable={saving}
+                  >
+                    <FormattedMessage
+                      id="smoochBotComponent.install"
+                      defaultMessage="Install"
+                    />
+                  </Button> :
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpenForm}
+                  >
+                    <FormattedMessage
+                      id="smoochBotComponent.contactUs"
+                      defaultMessage="Contact us to setup"
+                    />
+                  </Button> }
               </Box>
             }
           </CardContent>
@@ -200,6 +248,7 @@ const SmoochBotComponent = ({
 SmoochBotComponent.propTypes = {
   currentUser: PropTypes.object.isRequired, // FIXME: List the fields needed
   team: PropTypes.object.isRequired, // FIXME: List the fields needed
+  smoochBotDbid: PropTypes.number.isRequired,
   intl: intlShape.isRequired,
 };
 

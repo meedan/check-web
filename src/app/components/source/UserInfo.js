@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { browserHistory } from 'react-router';
+import IconButton from '@material-ui/core/IconButton';
 import IconEdit from '@material-ui/icons/Edit';
 import AccountChips from './AccountChips';
 import Can from '../Can';
@@ -15,10 +16,7 @@ import {
   StyledName,
   StyledDescription,
 } from '../../styles/js/HeaderCard';
-import {
-  Row,
-  SmallerStyledIconButton,
-} from '../../styles/js/shared';
+import { Row } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const UserInfo = (props) => {
@@ -41,7 +39,7 @@ const UserInfo = (props) => {
             <Row>
               {props.user.name}
               <Can permissions={props.user.permissions} permission="update User">
-                <SmallerStyledIconButton
+                <IconButton
                   className="source__edit-source-button"
                   onClick={() => {
                     if (props.user.dbid === props.context.currentUser.dbid) {
@@ -53,7 +51,7 @@ const UserInfo = (props) => {
                   tooltip={props.intl.formatMessage(globalStrings.edit)}
                 >
                   <IconEdit />
-                </SmallerStyledIconButton>
+                </IconButton>
               </Can>
             </Row>
           </StyledName>

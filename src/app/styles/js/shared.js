@@ -400,12 +400,6 @@ export const HeaderTitle = styled.h3`
   `}
 `;
 
-export const HiddenOnMobile = styled.div`
-   ${mediaQuery.handheld`
-     display: none;
-  `}
-`;
-
 // <Row />
 //
 // The prop `containsEllipsis` adds overflow to flex-items in case any descendant uses ellipsis
@@ -494,11 +488,6 @@ export const Column = styled.div`
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
 `;
 
-export const OffsetBothSides = styled.div`
-  padding-left: ${units(1)};
-  padding-right: ${units(1)};
-`;
-
 // AlignOpposite
 export const AlignOpposite = styled.div`
   ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
@@ -550,16 +539,6 @@ export const StyledIconButton = styled(IconButton)`
   svg {
     color: ${black38} !important;
     margin: 0!important;
-  }
-`;
-
-// In the Header, the search icon is visually smaller than the
-// rest of the icons, so we make the rest of the icons smaller to match.
-// (the difference is ~ 2px)
-export const SmallerStyledIconButton = styled(StyledIconButton)`
-  svg {
-    height: 22px!important;
-    width: 22px!important;
   }
 `;
 
