@@ -40,9 +40,6 @@ import {
 } from '../../styles/js/HeaderCard';
 
 const useStyles = makeStyles(theme => ({
-  sourceInfo: {
-    maxHeight: 'calc(100vh - 166px)', // screen height - (media bar + tabs + add task)
-  },
   headerRow: {
     display: 'flex',
     alignItems: 'top',
@@ -205,7 +202,7 @@ function SourceInfo({ source, team, onChangeClick }) {
   const sourceMetadata = source_metadata ? source_metadata.edges : [];
 
   return (
-    <div id={`source-${source.dbid}`} className={classes.sourceInfo}>
+    <div id={`source-${source.dbid}`}>
       <div className={classes.headerRow}>
         <StyledTwoColumns>
           <StyledSmallColumn>
