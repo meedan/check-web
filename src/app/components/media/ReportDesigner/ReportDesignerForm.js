@@ -132,6 +132,7 @@ const ReportDesignerForm = (props) => {
               />
             }
             onChange={(e) => { props.onUpdate('title', e.target.value); }}
+            onBlur={(e) => { props.onUpdate('title', e.target.value.trim()); }}
             {...textFieldProps}
           />
           <TextField

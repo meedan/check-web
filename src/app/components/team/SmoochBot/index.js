@@ -12,29 +12,40 @@ const SmoochBot = ({ currentUser }) => {
       environment={Relay.Store}
       query={graphql`
         query SmoochBotQuery($teamSlug: String!) {
-          team(slug: $teamSlug) {
-            id
-            dbid
-            slug
-            get_language
-            get_languages
-            permissions
-            team_bot_installations(first: 10000) {
+          root {
+            current_team {
+              id
+              dbid
+              slug
+              get_language
+              get_languages
+              permissions
+              team_bot_installations(first: 10000) {
+                edges {
+                  node {
+                    id
+                    json_settings
+                    team_bot: bot_user {
+                      id
+                      dbid
+                      avatar
+                      name
+                      identifier
+                      default
+                      settings_as_json_schema(team_slug: $teamSlug)
+                      settings_ui_schema
+                      description: get_description
+                    }
+                  }
+                }
+              }
+            }
+            team_bots_approved(first: 10000) {
               edges {
                 node {
                   id
-                  json_settings
-                  team_bot: bot_user {
-                    id
-                    dbid
-                    avatar
-                    name
-                    identifier
-                    default
-                    settings_as_json_schema(team_slug: $teamSlug)
-                    settings_ui_schema
-                    description: get_description
-                  }
+                  dbid
+                  name
                 }
               }
             }
@@ -46,7 +57,8 @@ const SmoochBot = ({ currentUser }) => {
       }}
       render={({ props }) => {
         if (props) {
-          return (<SmoochBotComponent team={props.team} currentUser={currentUser} />);
+          const smoochBotDbid = props.root.team_bots_approved.edges.find(bot => bot.node.name === 'Smooch').node.dbid;
+          return (<SmoochBotComponent team={props.root.current_team} currentUser={currentUser} smoochBotDbid={smoochBotDbid} />);
         }
         return null;
       }}

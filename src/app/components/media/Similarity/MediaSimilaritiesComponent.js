@@ -95,6 +95,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
             canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
             canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
             isSelected={relationship.node.target_id === selectedProjectMediaDbid}
+            showReportStatus={false}
             onSelect={handleSelectItem}
           />
         ))}

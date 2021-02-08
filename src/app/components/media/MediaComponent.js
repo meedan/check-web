@@ -387,7 +387,7 @@ class MediaComponent extends Component {
                     className="media-tab__related"
                   />
                 </Tabs>
-                { this.state.showTab === 'requests' ? <MediaRequests media={media} all /> : null }
+                { this.state.showTab === 'requests' ? <MediaRequests media={media} all={!media.is_confirmed_similar_to_another_item} /> : null }
                 { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
                 { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
                 { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }

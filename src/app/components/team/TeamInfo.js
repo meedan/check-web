@@ -7,8 +7,9 @@ import MdLink from '@material-ui/icons/Link';
 import IconEdit from '@material-ui/icons/Edit';
 import MdLocation from '@material-ui/icons/LocationOn';
 import MdPhone from '@material-ui/icons/Phone';
-import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import CreateTeamDialog from './CreateTeamDialog';
 import TeamAvatar from './TeamAvatar';
 import Can from '../Can';
@@ -21,11 +22,7 @@ import {
   StyledDescription,
   StyledContactInfo,
 } from '../../styles/js/HeaderCard';
-import {
-  units,
-  Row,
-  SmallerStyledIconButton,
-} from '../../styles/js/shared';
+import { units, Row } from '../../styles/js/shared';
 
 const TeamInfo = (props) => {
   const { team } = props;
@@ -96,7 +93,7 @@ const TeamInfo = (props) => {
                 <Row>
                   {team.name}
                   <Can permissions={team.permissions} permission="update Team">
-                    <SmallerStyledIconButton
+                    <IconButton
                       className="team-menu__edit-team-button"
                       onClick={() => browserHistory.push(`/${props.team.slug}/edit`)}
                       tooltip={
@@ -104,7 +101,7 @@ const TeamInfo = (props) => {
                       }
                     >
                       <IconEdit />
-                    </SmallerStyledIconButton>
+                    </IconButton>
                   </Can>
                 </Row>
               </StyledName>
