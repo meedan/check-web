@@ -352,15 +352,18 @@ const MediaSuggestionsComponent = ({
                 className="media-tab__notes"
               />
             </Tabs>
-            { projectMedia ?
-              <MediaComments media={{ dbid: projectMedia.dbid }} /> :
-              <Typography variant="subtitle2" className={classes.spaced}>
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.noNotes"
-                  defaultMessage="No notes"
-                />
-              </Typography>
-            }
+            { /* Set maxHeight to screen height - (media bar + tabs) */ }
+            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
+              { projectMedia ?
+                <MediaComments media={{ dbid: projectMedia.dbid }} /> :
+                <Typography variant="subtitle2" className={classes.spaced}>
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.noNotes"
+                    defaultMessage="No notes"
+                  />
+                </Typography>
+              }
+            </Box>
           </React.Fragment>
         }
       </Column>
