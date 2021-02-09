@@ -22,6 +22,10 @@
     "defaultMessage": "Save settings"
   },
   {
+    "id": "smoochBotComponent.install",
+    "defaultMessage": "Install"
+  },
+  {
     "id": "smoochBotComponent.contactUs",
     "defaultMessage": "Contact us to setup"
   }

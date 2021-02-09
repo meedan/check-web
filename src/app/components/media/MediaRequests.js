@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import merge from 'lodash.merge';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
@@ -10,7 +11,6 @@ import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
 import { getCurrentProjectId } from '../../helpers';
-import { units } from '../../styles/js/shared';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -58,47 +58,44 @@ class MediaRequestsComponent extends Component {
 
   render() {
     const media = merge(this.props.cachedMedia, this.props.media);
+    const { classes } = this.props;
 
     return (
-      <React.Fragment>
-        <div id="media__requests" style={this.props.style}>
-          <div style={{ padding: units(1) }}>
-            <Typography variant="subtitle2">
-              { this.props.all ?
-                <FormattedMessage
-                  id="mediaRequests.allRequests"
-                  defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
-                  values={{
-                    count: this.props.media.demand,
-                  }}
-                /> :
-                <FormattedMessage
-                  id="mediaRequests.thisRequests"
-                  defaultMessage="{count, plural, one {# request} other {# requests}}"
-                  values={{
-                    count: this.props.media.requests_count,
-                  }}
-                />
-              }
-            </Typography>
-          </div>
-          <Annotations
-            noLink
-            component={TiplineRequest}
-            annotations={media.requests.edges}
-            annotated={media}
-            annotatedType="ProjectMedia"
-            annotationsCount={media.demand}
-            relay={this.props.relay}
-            noActivityMessage={
-              <FormattedMessage
-                id="mediaRequests.noRequest"
-                defaultMessage="No requests"
-              />
-            }
-          />
-        </div>
-      </React.Fragment>
+      <div id="media__requests" className={classes.root}>
+        <Typography variant="subtitle2">
+          { this.props.all ?
+            <FormattedMessage
+              id="mediaRequests.allRequests"
+              defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
+              values={{
+                count: this.props.media.demand,
+              }}
+            /> :
+            <FormattedMessage
+              id="mediaRequests.thisRequests"
+              defaultMessage="{count, plural, one {# request} other {# requests}}"
+              values={{
+                count: this.props.media.requests_count,
+              }}
+            />
+          }
+        </Typography>
+        <Annotations
+          noLink
+          component={TiplineRequest}
+          annotations={media.requests.edges}
+          annotated={media}
+          annotatedType="ProjectMedia"
+          annotationsCount={media.demand}
+          relay={this.props.relay}
+          noActivityMessage={
+            <FormattedMessage
+              id="mediaRequests.noRequest"
+              defaultMessage="No requests"
+            />
+          }
+        />
+      </div>
     );
   }
 }
@@ -114,7 +111,13 @@ const fieldNames = ['smooch_data'];
 const annotationTypes = [];
 const whoDunnit = ['smooch'];
 
-const MediaAllRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
+const styles = theme => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+});
+
+const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
   initialVariables: {
     pageSize,
     eventTypes,

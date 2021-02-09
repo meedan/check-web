@@ -102,6 +102,7 @@ const MediaItem = ({
   canSwitch,
   setFlashMessage,
   isSelected,
+  showReportStatus,
   onSelect,
   team,
 }) => {
@@ -332,22 +333,25 @@ const MediaItem = ({
                       }}
                     />
                   </div>
-                  <div className={classes.sep}> - </div>
                 </React.Fragment> : null }
-              <div className={classes.mediaItemMetadataField}>
-                { projectMedia.report_status === 'published' ?
-                  <div className={classes.reportPublished}>
-                    <FormattedMessage id="mediaItem.reportPublished" defaultMessage="Published" />
-                  </div> : null }
-                { projectMedia.report_status === 'unpublished' ?
-                  <div className={classes.reportUnpublished}>
-                    <FormattedMessage id="mediaItem.reportUnpublished" defaultMessage="Unpublished" />
-                  </div> : null }
-                { projectMedia.report_status === 'paused' ?
-                  <div className={classes.reportPaused}>
-                    <FormattedMessage id="mediaItem.reportPaused" defaultMessage="Paused" />
-                  </div> : null }
-              </div>
+              { showReportStatus ?
+                <React.Fragment>
+                  <div className={classes.sep}> - </div>
+                  <div className={classes.mediaItemMetadataField}>
+                    { projectMedia.report_status === 'published' ?
+                      <div className={classes.reportPublished}>
+                        <FormattedMessage id="mediaItem.reportPublished" defaultMessage="Published" />
+                      </div> : null }
+                    { projectMedia.report_status === 'unpublished' ?
+                      <div className={classes.reportUnpublished}>
+                        <FormattedMessage id="mediaItem.reportUnpublished" defaultMessage="Unpublished" />
+                      </div> : null }
+                    { projectMedia.report_status === 'paused' ?
+                      <div className={classes.reportPaused}>
+                        <FormattedMessage id="mediaItem.reportPaused" defaultMessage="Paused" />
+                      </div> : null }
+                  </div>
+                </React.Fragment> : null }
             </Box>
             <Typography variant="body2" className={classes.description}>
               {truncateLength(projectMedia.description, 140)}
@@ -441,6 +445,7 @@ MediaItem.defaultProps = {
   canSwitch: false,
   canDelete: false,
   isSelected: false,
+  showReportStatus: true,
   onSelect: () => {},
 };
 
@@ -471,6 +476,7 @@ MediaItem.propTypes = {
   canSwitch: PropTypes.bool,
   canDelete: PropTypes.bool,
   isSelected: PropTypes.bool,
+  showReportStatus: PropTypes.bool,
   onSelect: PropTypes.func,
 };
 

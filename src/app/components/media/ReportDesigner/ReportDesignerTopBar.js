@@ -132,7 +132,7 @@ const ReportDesignerTopBar = (props) => {
               <Typography variant="subtitle2">
                 <FormattedMessage
                   id="reportDesigner.sentCount"
-                  defaultMessage="Reports received"
+                  defaultMessage="Reports sent"
                 />
               </Typography>
               <Typography variant="body2">

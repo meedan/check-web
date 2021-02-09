@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import qs from 'qs';
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
@@ -387,12 +388,15 @@ class MediaComponent extends Component {
                     className="media-tab__related"
                   />
                 </Tabs>
-                { this.state.showTab === 'requests' ? <MediaRequests media={media} all /> : null }
-                { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-                { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
-                { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
-                { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-                { this.state.showTab === 'related' ? <MediaRelated projectMedia={media} /> : null }
+                { /* Set maxHeight to screen height - (media bar + tabs) */ }
+                <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
+                  { this.state.showTab === 'requests' ? <MediaRequests media={media} all={!media.is_confirmed_similar_to_another_item} /> : null }
+                  { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+                  { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
+                  { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
+                  { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+                  { this.state.showTab === 'related' ? <MediaRelated projectMedia={media} /> : null }
+                </Box>
               </Column>
             </React.Fragment> : null }
           { view === 'suggestedMatches' ? <MediaSuggestions projectMedia={media} /> : null }

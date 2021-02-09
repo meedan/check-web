@@ -183,7 +183,7 @@ const TiplineRequest = ({
           <span title={smoochReportReceivedAt.toLocaleString(locale)}>
             <FormattedMessage
               id="annotation.reportReceived"
-              defaultMessage="Report received on {date}"
+              defaultMessage="Report sent on {date}"
               values={{
                 date: smoochReportReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
               }}
@@ -198,7 +198,7 @@ const TiplineRequest = ({
           <span title={smoochReportUpdateReceivedAt.toLocaleString(locale)}>
             <FormattedMessage
               id="annotation.reportUpdateReceived"
-              defaultMessage="Report update received on {date}"
+              defaultMessage="Report update sent on {date}"
               values={{
                 date: smoochReportUpdateReceivedAt.toLocaleDateString(locale, { month: 'short', year: 'numeric', day: '2-digit' }),
               }}
