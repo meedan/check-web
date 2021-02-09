@@ -10,7 +10,7 @@ const statuses = [
       pt: { label: 'falso' },
     },
     label: 'false',
-    style: { color: 'red', height: '100px' },
+    style: { color: 'red' },
   },
   {
     id: '2',

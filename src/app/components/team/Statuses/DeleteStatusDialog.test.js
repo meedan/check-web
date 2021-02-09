@@ -30,7 +30,6 @@ describe('<DeleteStatusDialog />', () => {
       handleSelect={() => {}}
       open
       statuses={statuses}
-      deleteStatus={statuses[0]}
     />);
     expect(wrapper.html()).toMatch('You need to change the status of one item to delete this status');
     expect(wrapper.html()).not.toMatch('Alternatively, you can change each item status individually');
@@ -47,7 +46,6 @@ describe('<DeleteStatusDialog />', () => {
       handleSelect={() => {}}
       open
       statuses={statuses}
-      deleteStatus={statuses[0]}
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
     expect(wrapper.html()).toMatch('Alternatively, you can change each item status individually');
@@ -65,7 +63,6 @@ describe('<DeleteStatusDialog />', () => {
       handleSelect={() => {}}
       open
       statuses={statuses}
-      deleteStatus={statuses[0]}
     />);
     expect(wrapper.html()).toMatch('There are 5 items with the status');
     expect(wrapper.html()).toMatch('In Progress');
@@ -81,7 +78,6 @@ describe('<DeleteStatusDialog />', () => {
       handleSelect={() => {}}
       open
       statuses={statuses}
-      deleteStatus={statuses[0]}
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
     expect(wrapper.html()).not.toMatch('those items are currently published');

@@ -38,7 +38,6 @@ describe('<EditStatusDialog />', () => {
       defaultLanguage="English"
       onCancel={() => {}}
       onSubmit={() => {}}
-      handleSelect={() => {}}
     />);
     expect(wrapper.html()).toMatch('Add a new status');
     expect(wrapper.html()).not.toMatch('Edit status');
@@ -51,11 +50,9 @@ describe('<EditStatusDialog />', () => {
       team={team}
       defaultLanguage="en"
       defaultValue={status}
-      selectedStatus={status}
       open={Boolean(status)}
       onCancel={() => {}}
       onSubmit={() => {}}
-      handleSelect={() => {}}
     />);
     expect(wrapper.html()).not.toMatch('Add a new status');
     expect(wrapper.html()).not.toMatch('Send a message to the user who requested the item when you change an item to this status');
@@ -68,18 +65,12 @@ describe('<EditStatusDialog />', () => {
 
   it('should render message field when smooch is installed on the team', () => {
     const wrapper = mountWithIntl(<EditStatusDialog
-      status={status}
       team={team2}
       defaultLanguage="en"
       defaultValue={status}
-      selectedStatus={status}
       open={Boolean(status)}
       onCancel={() => {}}
       onSubmit={() => {}}
-      handleSelect={() => {}}
-      margin="normal"
-      fullWidth
-      maxWidth="xs"
     />);
     expect(wrapper.html()).not.toMatch('Add a new status');
     expect(wrapper.html()).toMatch('Edit status');
