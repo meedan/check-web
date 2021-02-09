@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import merge from 'lodash.merge';
@@ -63,26 +62,24 @@ class MediaRequestsComponent extends Component {
 
     return (
       <div id="media__requests" className={classes.root}>
-        <Box p={2}>
-          <Typography variant="subtitle2">
-            { this.props.all ?
-              <FormattedMessage
-                id="mediaRequests.allRequests"
-                defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
-                values={{
-                  count: this.props.media.demand,
-                }}
-              /> :
-              <FormattedMessage
-                id="mediaRequests.thisRequests"
-                defaultMessage="{count, plural, one {# request} other {# requests}}"
-                values={{
-                  count: this.props.media.requests_count,
-                }}
-              />
-            }
-          </Typography>
-        </Box>
+        <Typography variant="subtitle2">
+          { this.props.all ?
+            <FormattedMessage
+              id="mediaRequests.allRequests"
+              defaultMessage="{count, plural, one {# request across all media} other {# requests across all media}}"
+              values={{
+                count: this.props.media.demand,
+              }}
+            /> :
+            <FormattedMessage
+              id="mediaRequests.thisRequests"
+              defaultMessage="{count, plural, one {# request} other {# requests}}"
+              values={{
+                count: this.props.media.requests_count,
+              }}
+            />
+          }
+        </Typography>
         <Annotations
           noLink
           component={TiplineRequest}
