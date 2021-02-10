@@ -23,9 +23,9 @@ const StatusMessage = ({ message }) => {
   }
 
   return (
-    <Box display="flex" alignItems="flex-start" mt={1} className="status-message">
+    <Box display="flex" alignItems="flex-start" mt={1} className="status-message" component="span">
       <CommentIcon className={classes.statusMessageIcon} />
-      <Box className={classes.statusMessageText} ml={1}>
+      <Box className={classes.statusMessageText} ml={1} component="span">
         {message}
       </Box>
     </Box>
