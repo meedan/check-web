@@ -101,7 +101,7 @@ class TeamComponent extends Component {
       </Box>
     );
 
-    const currentUserIsOwner = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner';
+    const currentUserIsOwner = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'admin';
     let { tab } = this.props.params;
     if (!tab) {
       tab = 'lists';
