@@ -189,9 +189,9 @@ shared_examples 'team' do
     expect(elems.size).to be > 1
 
     # Edit team member role
-    change_the_member_role_to('li.role-journalist')
+    change_the_member_role_to('li.role-editor')
     el = wait_for_selector('input[name="role-select"]', index: 1)
-    expect(el.property('value')).to eq 'journalist'
+    expect(el.property('value')).to eq 'editor'
 
     # # "should redirect to team page if user asking to join a team is already a member"
     @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}/join"
@@ -266,9 +266,9 @@ shared_examples 'team' do
     end
     expect(elems.size).to be > 1
     # edit team member role
-    change_the_member_role_to('li.role-journalist')
+    change_the_member_role_to('li.role-editor')
     el = wait_for_selector('input[name="role-select"]', index: 1)
-    expect(el.property('value')).to eq 'journalist'
+    expect(el.property('value')).to eq 'editor'
 
     # create one media
     wait_for_selector('.project-list__link', index: 0).click
@@ -284,7 +284,7 @@ shared_examples 'team' do
     end
     api_logout
     @driver.quit
-    # log in as  the journalist
+    # log in as  the editor
     @driver = new_driver
     @driver.navigate.to("#{@config['api_path']}/test/session?email=new#{@user_mail}")
 
@@ -330,14 +330,14 @@ shared_examples 'team' do
     # go to the members page and edit team member role to 'contribuitor'
     @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}"
     # edit team member role
-    change_the_member_role_to('li.role-contributor')
+    change_the_member_role_to('li.role-collaborator')
     el = wait_for_selector('input[name="role-select"]', index: 1)
-    expect(el.property('value')).to eq 'contributor'
+    expect(el.property('value')).to eq 'collaborator'
 
     api_logout
     @driver.quit
 
-    # log in as the contributor
+    # log in as the collaborator
     @driver = new_driver
     @driver.navigate.to("#{@config['api_path']}/test/session?email=new#{@user_mail}")
 

@@ -1,22 +1,14 @@
 [
   {
-    "id": "RoleSelect.annotator",
-    "defaultMessage": "Annotator"
-  },
-  {
-    "id": "RoleSelect.contributor",
-    "defaultMessage": "Contributor"
-  },
-  {
-    "id": "RoleSelect.journalist",
-    "defaultMessage": "Journalist"
+    "id": "RoleSelect.collaborator",
+    "defaultMessage": "Collaborator"
   },
   {
     "id": "RoleSelect.editor",
     "defaultMessage": "Editor"
   },
   {
-    "id": "RoleSelect.owner",
-    "defaultMessage": "Owner"
+    "id": "RoleSelect.admin",
+    "defaultMessage": "Admin"
   }
 ]
