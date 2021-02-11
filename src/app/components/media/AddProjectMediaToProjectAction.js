@@ -57,11 +57,11 @@ function commitAddProjectMediaToProject({
       },
     },
     onError: onFailure,
-    onCompleted: ({ data, errors }) => {
+    onCompleted: (response, errors) => {
       if (errors) {
         return onFailure(errors);
       }
-      return onSuccess(data);
+      return onSuccess();
     },
   });
 }
