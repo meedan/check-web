@@ -1,0 +1,14 @@
+[
+  {
+    "id": "smoochBotSettings.connectToWhatsApp",
+    "defaultMessage": "Connect to WhatsApp"
+  },
+  {
+    "id": "smoochBotSettings.connectToTwitter",
+    "defaultMessage": "Connect to Twitter"
+  },
+  {
+    "id": "smoochBotSettings.connectToFacebook",
+    "defaultMessage": "Connect to Facebook"
+  }
+]
