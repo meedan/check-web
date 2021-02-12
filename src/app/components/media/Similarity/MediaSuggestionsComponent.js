@@ -329,15 +329,18 @@ const MediaSuggestionsComponent = ({
                 className="media-tab__requests"
               />
             </Tabs>
-            { projectMedia ?
-              <MediaRequests media={{ dbid: projectMedia.dbid }} all={false} /> :
-              <Typography variant="subtitle2" className={classes.spaced}>
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.noRequests"
-                  defaultMessage="No requests"
-                />
-              </Typography>
-            }
+            { /* Set maxHeight to screen height - (media bar + tabs) */ }
+            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
+              { projectMedia ?
+                <MediaRequests media={{ dbid: projectMedia.dbid }} all={false} /> :
+                <Typography variant="subtitle2" className={classes.spaced}>
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.noRequests"
+                    defaultMessage="No requests"
+                  />
+                </Typography>
+              }
+            </Box>
           </React.Fragment> :
           <React.Fragment>
             <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
