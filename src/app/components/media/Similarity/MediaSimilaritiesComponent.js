@@ -114,10 +114,13 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
                 className="media-tab__requests"
               />
             </Tabs>
-            { selectedProjectMediaDbid ?
-              <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
-              <MediaRequests media={{ dbid: projectMedia.dbid }} all />
-            }
+            { /* Set maxHeight to screen height - (media bar + tabs) */ }
+            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
+              { selectedProjectMediaDbid ?
+                <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
+                <MediaRequests media={{ dbid: projectMedia.dbid }} all />
+              }
+            </Box>
           </React.Fragment> :
           <React.Fragment>
             <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
