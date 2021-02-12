@@ -166,7 +166,7 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
   },
 });
 
-const MediaOwnRequestsContainer = Relay.createContainer(withPusher(MediaRequestsComponent), {
+const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
   initialVariables: {
     pageSize,
     eventTypes,
