@@ -293,32 +293,29 @@ shared_examples 'team' do
     wait_for_selector('.team-members__list')
     expect(@driver.page_source.include?('Requests to join')).to be(true)
 
-    # go to the project that you don't own and can't see the actions icon
-    # wait_for_selector('.project-list__link', index: 0).click
-    # wait_for_selector_none('.project-actions__icon') # actions icon
-    # expect(@driver.find_elements(:css, '.project-actions__icon').size).to be > 0
-
+    # go to the project that you don't own
+    wait_for_selector('.project-list__link', index: 0).click
     # create media in a project that you don't own
-    # expect(@driver.page_source.include?('new item')).to be(false)
-    # create_media('new item')
-    # wait_for_selector_list_size('.medias__item', 2)
-    # expect(@driver.page_source.include?('new item')).to be(true)
+    expect(@driver.page_source.include?('new item')).to be(false)
+    create_media('new item')
+    wait_for_selector_list_size('.medias__item', 2)
+    expect(@driver.page_source.include?('new item')).to be(true)
 
-    # # see the icon 'change the status' that the media you don't own
-    # wait_for_selector_list('.medias__item')[1].click
-    # wait_for_selector('.media-detail')
-    # expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
+    # see the icon 'change the status' that the media you don't own
+    wait_for_selector_list('.medias__item')[1].click
+    wait_for_selector('.media-detail')
+    expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
 
-    # # see the input to add a comment in media you don't own
-    # wait_for_selector('.media-tab__comments').click
-    # wait_for_selector('.add-annotation__buttons')
-    # expect(@driver.find_elements(:css, '#cmd-input').size).to eq 1
+    # see the input to add a comment in media you don't own
+    wait_for_selector('.media-tab__comments').click
+    wait_for_selector('.add-annotation__buttons')
+    expect(@driver.find_elements(:css, '#cmd-input').size).to eq 1
 
-    # # try edit team and can't see the button 'edit team button'
-    # wait_for_selector('.project-header__back-button').click
-    # wait_for_selector('.team-menu__team-settings-button').click
-    # wait_for_selector('.team-settings__tags-tab')
-    # expect(@driver.find_elements(:css, '.team-menu__edit-team-button').size).to eq 0
+    # try edit team and can't see the button 'edit team button'
+    @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}"
+    wait_for_selector('.team-menu__team-settings-button').click
+    wait_for_selector('.team-settings__tags-tab')
+    expect(@driver.find_elements(:css, '.team-menu__edit-team-button').size).to eq 0
 
     api_logout
     @driver.quit
@@ -348,11 +345,11 @@ shared_examples 'team' do
     # can't see the link 'create a new list'
     expect(@driver.find_elements(:css, '.create-project-card').size).to eq 0
 
-    # go to the project and can't see the icon 'change the status' that the media you don't own
+    # go to the project and see the icon 'change the status' that the media you don't own
     wait_for_selector('.project-list__link', index: 0).click
     wait_for_selector('.medias__item', index: 1).click
     wait_for_selector('.media-detail')
-    expect(@driver.find_elements(:css, '.media-status button[disabled]').size).to eq 1
+    expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
   end
 
   it 'should go back to previous team', bin1: true do

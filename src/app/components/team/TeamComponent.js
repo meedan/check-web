@@ -101,12 +101,14 @@ class TeamComponent extends Component {
       </Box>
     );
 
-    const currentUserIsOwner = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'admin';
+    const userRole = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug);
+    const isAdmin = userRole === 'admin';
+    const isAdminOrEditor = userRole === 'admin' || userRole === 'editor';
     let { tab } = this.props.params;
     if (!tab) {
       tab = 'lists';
     }
-    if (!currentUserIsOwner) {
+    if (!isAdminOrEditor) {
       tab = 'tags';
     }
 
@@ -119,7 +121,7 @@ class TeamComponent extends Component {
             value={tab}
             onChange={this.handleTabChange}
           >
-            { currentUserIsOwner ?
+            { isAdminOrEditor ?
               <Tab
                 className="team-settings__lists-tab"
                 label={
@@ -131,7 +133,7 @@ class TeamComponent extends Component {
                 value="lists"
               /> : null
             }
-            { currentUserIsOwner ?
+            { can(team.permissions, 'mange TeamTask') ?
               <Tab
                 className="team-settings__metadata-tab"
                 label={
@@ -143,7 +145,7 @@ class TeamComponent extends Component {
                 value="metadata"
               /> : null
             }
-            {currentUserIsOwner ?
+            {isAdmin ?
               <Tab
                 className="team-settings__tipline-tab"
                 label={
@@ -155,7 +157,7 @@ class TeamComponent extends Component {
                 value="tipline"
               />
               : null }
-            { currentUserIsOwner ?
+            { can(team.permissions, 'mange TeamTask') ?
               <Tab
                 className="team-settings__tasks-tab"
                 label={
@@ -167,7 +169,7 @@ class TeamComponent extends Component {
                 value="tasks"
               /> : null
             }
-            {currentUserIsOwner ?
+            {isAdminOrEditor ?
               <Tab
                 className="team-settings__rules-tab"
                 label={
@@ -190,7 +192,7 @@ class TeamComponent extends Component {
                 }
                 value="tags"
               /> : null }
-            {currentUserIsOwner ?
+            {isAdmin ?
               <Tab
                 className="team-settings__languages-tab"
                 label={
@@ -202,7 +204,7 @@ class TeamComponent extends Component {
                 value="languages"
               />
               : null }
-            {currentUserIsOwner ?
+            {isAdminOrEditor ?
               <Tab
                 className="team-settings__statuses-tab"
                 label={
@@ -214,7 +216,7 @@ class TeamComponent extends Component {
                 value="statuses"
               />
               : null }
-            {currentUserIsOwner ?
+            {isAdminOrEditor ?
               <Tab
                 className="team-settings__report-tab"
                 label={
@@ -226,7 +228,7 @@ class TeamComponent extends Component {
                 value="report"
               />
               : null }
-            {currentUserIsOwner ?
+            {isAdmin ?
               <Tab
                 className="team-settings__integrations-tab"
                 label={
