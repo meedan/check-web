@@ -4,25 +4,17 @@ import { FormattedMessage, defineMessages } from 'react-intl';
 import { safelyParseJSON } from '../../helpers';
 
 const messages = defineMessages({
-  annotator: {
-    id: 'UserUtil.annotator',
-    defaultMessage: 'Annotator',
-  },
-  contributor: {
-    id: 'UserUtil.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'UserUtil.journalist',
-    defaultMessage: 'Journalist',
+  collaborator: {
+    id: 'UserUtil.collaborator',
+    defaultMessage: 'Collaborator',
   },
   editor: {
     id: 'UserUtil.editor',
     defaultMessage: 'Editor',
   },
-  owner: {
-    id: 'UserUtil.owner',
-    defaultMessage: 'Owner',
+  admin: {
+    id: 'UserUtil.admin',
+    defaultMessage: 'Admin',
   },
 });
 

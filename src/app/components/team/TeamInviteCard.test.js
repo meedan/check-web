@@ -8,7 +8,7 @@ describe('<TeamInviteCard />', () => {
       alex: {
         id: 1,
         name: 'alex',
-        role: 'owner',
+        role: 'admin',
         status: 'member',
       },
       'new-team': {
@@ -20,13 +20,13 @@ describe('<TeamInviteCard />', () => {
       'team-gets-appended-to-user-with-role': {
         id: 4,
         name: 'team gets appended to user with role',
-        role: 'journalist',
+        role: 'editor',
         status: 'member',
       },
       'brand-new-team': {
         id: 5,
         name: 'brand new team',
-        role: 'contributor',
+        role: 'collaborator',
         status: 'member',
       },
     }),

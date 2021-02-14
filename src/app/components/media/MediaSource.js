@@ -6,6 +6,7 @@ import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
+import { can } from '../Can';
 import { getCurrentProjectId } from '../../helpers';
 
 const useStyles = makeStyles(theme => ({
@@ -104,7 +105,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
             relateToExistingSource={handleChangeSourceSubmit}
           /> : null
         }
-        { action !== 'create' && (action === 'change' || source === null) ?
+        { can(projectMedia.permissions, 'update Source') && action !== 'create' && (action === 'change' || source === null) ?
           <ChangeMediaSource
             team={team}
             onSubmit={handleChangeSourceSubmit}
@@ -132,6 +133,7 @@ const MediaSource = ({ projectMedia }) => {
             dbid
             archived
             pusher_channel
+            permissions
             team {
               slug
               ...ChangeMediaSource_team

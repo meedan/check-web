@@ -244,17 +244,19 @@ function SourceInfo({ source, team, onChangeClick }) {
               />
             }
           </Typography>
-          <Button
-            id="media-source-change"
-            onClick={onChangeClick}
-            className={classes.linkedText}
-          >
-            <FormattedMessage
-              id="mediaSource.changeSource"
-              defaultMessage="Change"
-              description="allow user to change a project media source"
-            />
-          </Button>
+          { can(source.permissions, 'update Source') ?
+            <Button
+              id="media-source-change"
+              onClick={onChangeClick}
+              className={classes.linkedText}
+            >
+              <FormattedMessage
+                id="mediaSource.changeSource"
+                defaultMessage="Change"
+                description="allow user to change a project media source"
+              />
+            </Button> : null
+          }
         </div>
       </div>
       <Box clone mb={2}>
