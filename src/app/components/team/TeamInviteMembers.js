@@ -43,21 +43,13 @@ const messages = defineMessages({
     id: 'TeamInviteMembers.invitedEmail',
     defaultMessage: 'Already invited.',
   },
-  contributor: {
-    id: 'TeamMembersListItem.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'TeamMembersListItem.journalist',
-    defaultMessage: 'Journalist',
+  collaborator: {
+    id: 'TeamMembersListItem.collaborator',
+    defaultMessage: 'Collaborator',
   },
   editor: {
     id: 'TeamMembersListItem.editor',
     defaultMessage: 'Editor',
-  },
-  annotator: {
-    id: 'TeamMembersListItem.annotator',
-    defaultMessage: 'Annotator',
   },
 });
 
@@ -80,7 +72,7 @@ class TeamInviteMembers extends Component {
     this.state = {
       dialogOpen: false,
       sendDisabled: true,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: '', role: 'collaborator', errors: [] }],
       addMany: false,
     };
   }
@@ -94,7 +86,7 @@ class TeamInviteMembers extends Component {
       dialogOpen: true,
       sendDisabled: true,
       addMany: false,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: '', role: 'collaborator', errors: [] }],
     });
   }
 
@@ -103,13 +95,13 @@ class TeamInviteMembers extends Component {
       dialogOpen: false,
       sendDisabled: true,
       addMany: false,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: '', role: 'collaborator', errors: [] }],
     });
   }
 
   handleAddAnother() {
     this.setState({
-      membersToInvite: [...this.state.membersToInvite, { email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [...this.state.membersToInvite, { email: '', role: 'collaborator', errors: [] }],
     });
   }
 
@@ -117,7 +109,7 @@ class TeamInviteMembers extends Component {
     this.setState({
       addMany: true,
       sendDisabled: true,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: '', role: 'collaborator', errors: [] }],
     });
   }
 
@@ -125,7 +117,7 @@ class TeamInviteMembers extends Component {
     this.setState({
       addMany: false,
       sendDisabled: true,
-      membersToInvite: [{ email: '', role: 'contributor', errors: [] }],
+      membersToInvite: [{ email: '', role: 'collaborator', errors: [] }],
     });
   }
 
@@ -230,7 +222,7 @@ class TeamInviteMembers extends Component {
   }
 
   render() {
-    const excludeRoles = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'owner' ? [] : ['owner'];
+    const excludeRoles = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug) === 'admin' ? [] : ['admin'];
     let inviteBody = null;
     if (this.state.addMany) {
       inviteBody = (
