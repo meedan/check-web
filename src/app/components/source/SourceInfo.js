@@ -21,8 +21,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
 import Tasks from '../task/Tasks';
@@ -55,6 +53,108 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function commitCreateAccountSource({
+  source, url, onSuccess, onFailure,
+}) {
+  const accountSources = source.account_sources ? source.account_sources.edges : [];
+  const newAccountSources = accountSources.concat({ node: { account: { url, metadata: '' } } });
+  const optimisticResponse = {
+    createAccountSource: {
+      account_sources: {
+        newAccountSources,
+      },
+    },
+  };
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation SourceInfoCreateAccountSourceMutation($input: CreateAccountSourceInput!) {
+        createAccountSource(input: $input) {
+          source {
+            id
+            name
+            updated_at
+            account_sources(first: 10000) {
+              edges {
+                node {
+                  id
+                  permissions
+                  account {
+                    id
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    optimisticResponse,
+    variables: {
+      input: {
+        source_id: source.dbid,
+        url,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+}
+
+function commitDeleteAccountSource({ source, asId }) {
+  const onFailure = () => {};
+  const onSuccess = () => {};
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation SourceInfoDeleteAccountSourceMutation($input: DestroyAccountSourceInput!) {
+        destroyAccountSource(input: $input) {
+          deletedId
+          source {
+            account_sources(first: 10000) {
+              edges {
+                node {
+                  id
+                  permissions
+                  account {
+                    id
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: asId,
+      },
+    },
+    configs: [
+      {
+        type: 'NODE_DELETE',
+        parentName: 'source',
+        parentID: source.id,
+        connectionName: 'account_sources',
+        deletedIDFieldName: 'deletedId',
+      },
+    ],
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+}
+
 function SourceInfo({ source, team, onChangeClick }) {
   const [expandName, setExpandName] = React.useState(true);
   const [expandAccounts, setExpandAccounts] = React.useState(true);
@@ -67,16 +167,7 @@ function SourceInfo({ source, team, onChangeClick }) {
   const classes = useStyles();
 
   const handleRemoveLink = (asId) => {
-    const onFailure = () => {};
-    const onSuccess = () => {};
-
-    Relay.Store.commitUpdate(
-      new DeleteAccountSourceMutation({
-        id: asId,
-        source,
-      }),
-      { onSuccess, onFailure },
-    );
+    commitDeleteAccountSource({ source, asId });
   };
 
   const handleChangeLink = (e, type) => {
@@ -174,14 +265,9 @@ function SourceInfo({ source, team, onChangeClick }) {
         }
       };
       setSaving(true);
-      Relay.Store.commitUpdate(
-        new CreateAccountSourceMutation({
-          id: source.dbid,
-          url,
-          source,
-        }),
-        { onSuccess, onFailure },
-      );
+      commitCreateAccountSource({
+        source, url, onSuccess, onFailure,
+      });
     } else {
       const message = (
         <FormattedMessage
