@@ -64,7 +64,7 @@ const AllPossibleColumns = [
     field: 'status',
     headerText: <FormattedMessage id="list.Status" defaultMessage="Status" />,
     cellComponent: StatusCell,
-    sortKey: 'status',
+    sortKey: 'status_index',
   },
   {
     field: 'created_at_timestamp',
