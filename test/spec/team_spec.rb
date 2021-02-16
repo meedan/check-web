@@ -303,6 +303,7 @@ shared_examples 'team' do
 
     # see the icon 'change the status' that the media you don't own
     wait_for_selector_list('.medias__item')[1].click
+    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-detail')
     expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
 
@@ -348,6 +349,7 @@ shared_examples 'team' do
     # go to the project and see the icon 'change the status' that the media you don't own
     wait_for_selector('.project-list__link', index: 0).click
     wait_for_selector('.medias__item', index: 1).click
+    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-detail')
     expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
   end

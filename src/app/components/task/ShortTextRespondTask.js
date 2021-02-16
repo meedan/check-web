@@ -132,6 +132,7 @@ class ShortTextRespondTask extends React.Component {
           onKeyUp={this.handleKeyUp.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
           ref={(input) => { this.input = input; }}
+          variant="outlined"
           fullWidth
           multiline
         />

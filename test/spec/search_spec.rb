@@ -18,6 +18,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
     create_media('media 2')
     wait_for_selector_list('.medias__item')[0].click
+    @driver.switch_to.window(@driver.window_handles.last)
     change_the_status_to('.media-status__menu-item--false', false)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
@@ -31,11 +32,10 @@ shared_examples 'search' do
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#search-query__submit-button').click
-    expect(@driver.page_source.include?('My search result')).to be(false)
-    expect(@driver.page_source.include?('media 2')).to be(false)
+    expect(page_source_body.include?('My search result')).to be(false)
     attempts = 0
     @driver.navigate.refresh
-    while !@driver.page_source.include?('media 2') && attempts < 30
+    while !page_source_body.include?('media 2') && attempts < 30
       wait_for_selector('#search__open-dialog-button').click
       wait_for_selector('#search-query__cancel-button')
       if @driver.page_source.include?('False')
@@ -71,6 +71,7 @@ shared_examples 'search' do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
+    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media')
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('.media-actions__icon').click
@@ -88,7 +89,7 @@ shared_examples 'search' do
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#search-query__submit-button').click
     wait_for_selector_none('#search-query__cancel-button')
-    expect(@driver.page_source.include?('My search result')).to be(false)
+    expect(page_source_body.include?('My search result')).to be(false)
     # reset filter
     @driver.navigate.refresh
     wait_for_selector('#search-input')
@@ -98,7 +99,7 @@ shared_examples 'search' do
     wait_for_selector('#search-query__submit-button').click
     wait_for_selector_none('#search-query__cancel-button')
     wait_for_selector('.media__heading')
-    expect(@driver.page_source.include?('My search result')).to be(true)
+    expect(page_source_body.include?('My search result')).to be(true)
   end
 
   it 'should search and change sort criteria', bin2: true do

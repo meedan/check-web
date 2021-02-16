@@ -122,6 +122,10 @@ module AppSpecHelpers
     @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
   end
 
+  def page_source_body
+    @driver.execute_script('return document.body.outerHTML;').to_s
+  end
+
   def console_logs
     require 'pp'
     @driver.manage.logs.get('browser').pretty_inspect

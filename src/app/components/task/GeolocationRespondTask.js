@@ -324,6 +324,7 @@ class GeolocationRespondTask extends Component {
               }
               onKeyPress={this.handleKeyPress.bind(this)}
               onChange={this.handleSearchText.bind(this)}
+              variant="outlined"
               {...params}
             />)
           }
@@ -347,9 +348,10 @@ class GeolocationRespondTask extends Component {
           value={this.state.name}
           onChange={this.handleChange.bind(this)}
           onFocus={() => { this.setState({ focus: true }); }}
+          variant="outlined"
+          margin="normal"
           fullWidth
           multiline
-          margin="normal"
         />
         <TextField
           id="task__response-geolocation-coordinates"
@@ -367,8 +369,9 @@ class GeolocationRespondTask extends Component {
           value={this.state.coordinatesString}
           error={!!this.state.coordMessage}
           helperText={this.state.coordMessage}
-          fullWidth
+          variant="outlined"
           margin="normal"
+          fullWidth
         />
         <div>
           <Map
