@@ -307,7 +307,7 @@ class Annotation extends Component {
         />
       ),
     );
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   };
 
   handleSuggestion(vid, accept) {

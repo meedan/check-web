@@ -1,6 +1,12 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
+import IconClose from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import { SnackbarProvider, withSnackbar } from 'notistack';
 import Message from './Message';
+import { withClientSessionId } from '../ClientSessionId';
+import { safelyParseJSON } from '../helpers';
 
 /**
  * A global message, already translated for the user.
@@ -30,15 +36,48 @@ FlashMessageSetterContext.displayName = 'FlashMessageSetterContext';
  * Calling setMessage(x) will set message to x and re-render every
  * <FlashMessageContext.Consumer>.
  */
-const FlashMessageProvider = ({ children }) => {
-  const [message, setMessage] = React.useState(null);
+const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackbar }) => {
+  const setMessage = (message, type) => {
+    const variant = type || 'error';
+    const persist = (variant === 'error');
+    const anchorOrigin = {
+      vertical: (variant === 'error') ? 'top' : 'bottom',
+      horizontal: (variant === 'error') ? 'center' : 'left',
+    };
+
+    enqueueSnackbar(message, { variant, persist, anchorOrigin });
+  };
 
   return (
     <FlashMessageSetterContext.Provider value={setMessage}>
-      <FlashMessageContext.Provider value={message}>
+      <FlashMessageContext.Provider value="">
         {children}
       </FlashMessageContext.Provider>
     </FlashMessageSetterContext.Provider>
+  );
+});
+
+const FlashMessageProvider = ({ children }) => {
+  const notistackRef = React.createRef();
+
+  const onClickDismiss = key => () => {
+    notistackRef.current.closeSnackbar(key);
+  };
+
+  return (
+    <SnackbarProvider
+      maxSnack={10}
+      ref={notistackRef}
+      action={key => (
+        <IconButton onClick={onClickDismiss(key)}>
+          <IconClose />
+        </IconButton>
+      )}
+    >
+      <FlashMessageProviderWithSnackBar>
+        { children }
+      </FlashMessageProviderWithSnackBar>
+    </SnackbarProvider>
   );
 };
 
@@ -54,11 +93,38 @@ const useStyles = makeStyles({
 /**
  * Display the message in an ancestor <FlashMessageContext.Provider>.
  */
-const FlashMessage = () => {
+const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueueSnackbar }) => {
   const classes = useStyles();
   const message = React.useContext(FlashMessageContext);
   const setMessage = React.useContext(FlashMessageSetterContext);
   const resetMessage = React.useCallback(() => setMessage(null), [setMessage]);
+
+  const useInitialMount = () => {
+    const isFirst = React.useRef(true);
+    if (isFirst.current) {
+      isFirst.current = false;
+      return true;
+    }
+    return false;
+  };
+
+  const isInitialMount = useInitialMount();
+
+  if (isInitialMount && clientSessionId) {
+    // eslint-disable-next-line no-undef
+    const pusher = new Pusher(config.pusherKey, {
+      cluster: config.pusherCluster,
+      encrypted: true,
+    });
+
+    pusher.unsubscribe(`check-api-session-channel-${clientSessionId}`);
+    pusher.subscribe(`check-api-session-channel-${clientSessionId}`).bind('info_message', (data) => {
+      const infoContent = safelyParseJSON(data.message);
+      if (infoContent) {
+        enqueueSnackbar(infoContent.message, { variant: 'info' });
+      }
+    });
+  }
 
   return (
     <Message
@@ -67,7 +133,7 @@ const FlashMessage = () => {
       className={`home__message ${classes.flashMessageStyle}`}
     />
   );
-};
+}));
 
 /**
  * Call <Component setFlashMessage={fn} {...props}>.

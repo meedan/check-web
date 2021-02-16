@@ -128,13 +128,13 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
     }
-    setFlashMessage(errorMessage);
+    setFlashMessage(errorMessage, 'error');
   };
 
   const handleSuccess = () => {
     setSaving(false);
     onCancel();
-    setFlashMessage(<FormattedMessage id="slackConfigDialogComponent.savedSuccessfully" defaultMessage="Slack settings saved successfully!" />);
+    setFlashMessage(<FormattedMessage id="slackConfigDialogComponent.savedSuccessfully" defaultMessage="Slack settings saved successfully!" />, 'success');
   };
 
   const handleSubmit = () => {

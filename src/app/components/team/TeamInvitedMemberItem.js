@@ -22,7 +22,7 @@ class TeamInvitedMemberItem extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'error');
     };
 
     const onSuccess = () => {
@@ -33,7 +33,7 @@ class TeamInvitedMemberItem extends Component {
             defaultMessage="Invitation was sent successfully"
           />
         );
-        this.props.setFlashMessage(message);
+        this.props.setFlashMessage(message, 'success');
       }
     };
 

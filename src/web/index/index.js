@@ -14,9 +14,6 @@ import {
   createMuiTheme,
   jssPreset,
 } from '@material-ui/core/styles';
-import IconClose from '@material-ui/icons/Close';
-import IconButton from '@material-ui/core/IconButton';
-import { SnackbarProvider } from 'notistack';
 import Root from '../../app/components/Root';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
@@ -63,12 +60,6 @@ const muiTheme = createMuiTheme({ direction: dir, ...MuiTheme });
 // See https://material-ui.com/guides/right-to-left/
 const jss = jssCreate({ plugins: [...jssPreset().plugins, rtl()] });
 
-const notistackRef = React.createRef();
-
-const onClickDismiss = key => () => {
-    notistackRef.current.closeSnackbar(key);
-}
-
 const callback = (translations) => {
   render(
     (
@@ -80,17 +71,7 @@ const callback = (translations) => {
               <ThemeProvider theme={styledComponentsTheme}>
                 <StylesProvider jss={jss}>
                   <MuiThemeProvider theme={muiTheme}>
-                    <SnackbarProvider
-                      maxSnack={10}
-                      ref={notistackRef}
-                      action={(key) => (
-                          <IconButton onClick={onClickDismiss(key)}>
-                              <IconClose />
-                          </IconButton>
-                      )}
-                    >
-                      <Root store={store} translations={translations} locale={locale} />
-                    </SnackbarProvider>
+                    <Root store={store} translations={translations} locale={locale} />
                   </MuiThemeProvider>
                 </StylesProvider>
               </ThemeProvider>

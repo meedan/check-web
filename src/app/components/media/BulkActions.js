@@ -9,9 +9,11 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
-import { withSnackbar } from 'notistack';
 import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessage } from '../../helpers';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
 import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
@@ -87,6 +89,11 @@ class BulkActions extends React.Component {
     this.setState({ openMoveDialog: false, openAddDialog: false });
   }
 
+  fail = (transaction) => {
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    this.props.setFlashMessage(message, 'error');
+  };
+
   handleAdd() {
     const onSuccess = () => {
       const message = (
@@ -96,17 +103,10 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are added successfully to list"
         />
       );
-      this.props.enqueueSnackbar(message, {
-        anchorOrigin: {
-          vertical: 'bottom',
-          horizontal: 'left',
-        },
-        variant: 'success',
-      });
+      this.props.setFlashMessage(message, 'success');
       this.setState({ openAddDialog: false, dstProjForAdd: null });
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
       Relay.Store.commitUpdate(
@@ -114,7 +114,7 @@ class BulkActions extends React.Component {
           projectMediaDbids: this.props.selectedProjectMediaDbids,
           project: this.state.dstProjForAdd,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -128,12 +128,9 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are removed successfully from list"
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
-
-    onSuccess();
 
     if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
@@ -142,7 +139,7 @@ class BulkActions extends React.Component {
           projectMediaIds: this.props.selectedMedia,
           project: this.props.project,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -167,12 +164,10 @@ class BulkActions extends React.Component {
           }}
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
-
-    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -182,7 +177,7 @@ class BulkActions extends React.Component {
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -222,12 +217,10 @@ class BulkActions extends React.Component {
             }}
           />
         );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
-
-    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -238,7 +231,7 @@ class BulkActions extends React.Component {
           archived_was: params.archived_was,
           dstProject: this.state.dstProj,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -251,7 +244,7 @@ class BulkActions extends React.Component {
           defaultMessage="Items moved to the Trash."
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.props.onUnselectAll();
     };
 
@@ -442,11 +435,11 @@ class BulkActions extends React.Component {
 }
 
 BulkActions.propTypes = {
-  enqueueSnackbar: PropTypes.func.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
 };
 
-export default createFragmentContainer(withSnackbar(BulkActions), graphql`
+export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
   fragment BulkActions_team on Team {
     ...SelectProjectDialog_team
     id

@@ -103,7 +103,7 @@ class ProjectEditComponent extends Component {
         />
       );
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'error');
       browserHistory.push(`${window.location.pathname}/edit`);
     };
 

@@ -34,7 +34,7 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
         />
       );
       const errorMessage = getErrorMessage(transaction, fallbackMessage);
-      setFlashMessage(errorMessage);
+      setFlashMessage(errorMessage, 'error');
       setIsSaving(false);
     };
 

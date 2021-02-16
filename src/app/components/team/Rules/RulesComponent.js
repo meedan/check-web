@@ -41,11 +41,11 @@ const RulesComponent = (props) => {
     if (json && json.errors && json.errors[0] && json.errors[0].message) {
       errorMessage = json.errors[0].message;
     }
-    props.setFlashMessage(errorMessage);
+    props.setFlashMessage(errorMessage, 'error');
   };
 
   const handleSuccess = () => {
-    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully!" />);
+    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully!" />, 'success');
   };
 
   const handleUpdateRules = (newRules, commit) => {

@@ -129,7 +129,8 @@ const MediaItem = ({
   };
 
   const handleError = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />);
+    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
+    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />, 'error');
   };
 
   const handleDelete = (project) => {
@@ -219,7 +220,7 @@ const MediaItem = ({
               }}
             />
           );
-          setFlashMessage(message);
+          setFlashMessage(message, 'success');
         }
       },
       onError: () => {
@@ -229,7 +230,7 @@ const MediaItem = ({
   };
 
   const handleSwitch = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />);
+    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />, 'info');
 
     const mutation = graphql`
       mutation MediaItemUpdateRelationshipMutation($input: UpdateRelationshipInput!) {
@@ -254,7 +255,12 @@ const MediaItem = ({
         if (error) {
           handleError();
         } else {
-          setFlashMessage(<FormattedMessage id="mediaItem.doneRedirecting" defaultMessage="Done, redirecting to new main item…" />);
+          setFlashMessage((
+            <FormattedMessage
+              id="mediaItem.doneRedirecting"
+              defaultMessage="Done, redirecting to new main item…"
+            />
+          ), 'success');
           window.location.assign(`/${teamSlug}/media/${relationship.target_id}/similar-media`);
         }
       },

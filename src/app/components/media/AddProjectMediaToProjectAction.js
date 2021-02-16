@@ -92,7 +92,7 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
               ),
             }}
           />
-        ));
+        ), 'success');
       },
       onFailure: (errors) => {
         setIsSaving(false);
@@ -100,7 +100,7 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
         setFlashMessage((
           getErrorMessageForRelayModernProblem(errors)
           || <GenericUnknownErrorMessage />
-        ));
+        ), 'success');
       },
     });
   }, [

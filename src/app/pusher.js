@@ -107,10 +107,6 @@ function createPusher({
   });
 
   pusher.unsubscribe('check-api-global-channel');
-  pusher.subscribe(`check-api-session-channel-${clientSessionId}`).bind('info_message', (data) => {
-    console.log(`Hello from check-api-info-${clientSessionId}!`);
-    console.log('data:', data);
-  });
   pusher.subscribe('check-api-global-channel').bind('update', (data) => {
     const rawMessage = JSON.stringify(data);
     pusherLog(`Received global event: ${rawMessage}`);

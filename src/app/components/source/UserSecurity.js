@@ -70,7 +70,7 @@ class UserSecurity extends Component {
   fail = (transaction) => {
     const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   };
 
   handleFieldChange(e) {

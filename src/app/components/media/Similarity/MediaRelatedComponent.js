@@ -43,12 +43,13 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
 
   const handleError = () => {
     setSubmitting(false);
+    // FIXME: Show error from backend
     setFlashMessage((
       <FormattedMessage
         id="mediaRelatedComponent.defaultErrorMessage"
         defaultMessage="Could not add related item"
       />
-    ));
+    ), 'error');
   };
 
   const handleSuccess = () => {
@@ -58,7 +59,7 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
         id="mediaRelatedComponent.savedSuccessfully"
         defaultMessage="Related item added successfully"
       />
-    ));
+    ), 'success');
     handleClose();
   };
 

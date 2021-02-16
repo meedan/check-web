@@ -86,7 +86,7 @@ class MediaActionsBarComponent extends Component {
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   }
 
   canSubmit = () => {
@@ -111,7 +111,7 @@ class MediaActionsBarComponent extends Component {
           }}
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
     };
 
     const context = this.getContext();
@@ -193,7 +193,7 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Assignments updated successfully!"
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
     };
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';
