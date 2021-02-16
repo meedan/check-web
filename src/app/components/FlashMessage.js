@@ -69,7 +69,7 @@ const FlashMessageProvider = ({ children }) => {
       maxSnack={10}
       ref={notistackRef}
       action={key => (
-        <IconButton onClick={onClickDismiss(key)}>
+        <IconButton className="message message__dismiss-button" onClick={onClickDismiss(key)}>
           <IconClose />
         </IconButton>
       )}
