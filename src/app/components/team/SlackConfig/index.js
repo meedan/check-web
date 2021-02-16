@@ -90,7 +90,7 @@ class SlackConfig extends React.Component {
       }
     `;
 
-    if (UserUtil.myRole(this.getCurrentUser(), team.slug) !== 'owner') {
+    if (UserUtil.myRole(this.getCurrentUser(), team.slug) !== 'admin') {
       return null;
     }
 

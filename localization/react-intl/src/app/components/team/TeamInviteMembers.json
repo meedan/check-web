@@ -20,20 +20,12 @@
     "defaultMessage": "Already invited."
   },
   {
-    "id": "TeamMembersListItem.contributor",
-    "defaultMessage": "Contributor"
-  },
-  {
-    "id": "TeamMembersListItem.journalist",
-    "defaultMessage": "Journalist"
+    "id": "TeamMembersListItem.collaborator",
+    "defaultMessage": "Collaborator"
   },
   {
     "id": "TeamMembersListItem.editor",
     "defaultMessage": "Editor"
-  },
-  {
-    "id": "TeamMembersListItem.annotator",
-    "defaultMessage": "Annotator"
   },
   {
     "id": "teamInviteMembers.resendEmailSuccess",

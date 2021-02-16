@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -36,7 +35,7 @@ export default function SearchResultsTableRow({
     if (!projectMediaUrl) {
       return;
     }
-    browserHistory.push(projectMediaUrl);
+    window.open(`${window.location.origin}${projectMediaUrl}`);
   }, [projectMediaUrl]);
 
   const handleChangeChecked = React.useCallback((ev) => {

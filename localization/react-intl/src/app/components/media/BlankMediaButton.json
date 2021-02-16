@@ -12,18 +12,6 @@
     "defaultMessage": "Add to report"
   },
   {
-    "id": "blankMediaButton.confirmTitle",
-    "defaultMessage": "Overwrite report and status?"
-  },
-  {
-    "id": "blankMediaButton.confirmText",
-    "defaultMessage": "The following item already has a published report:\n              {link}\n              If you proceed, both the status and the report will be overwritten, and the report will be paused."
-  },
-  {
-    "id": "blankMediaButton.confirmButtonLabel",
-    "defaultMessage": "Pause report and update content"
-  },
-  {
     "id": "blankMediaButton.addItem",
     "defaultMessage": "Add item"
   }

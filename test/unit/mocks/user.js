@@ -30,7 +30,7 @@ const currentUser = {
           },
           id: 'VGVhbVVzZXIvMQ==\n',
           status: 'member',
-          role: 'owner',
+          role: 'admin',
         },
       },
       {
@@ -47,7 +47,7 @@ const currentUser = {
           },
           id: 'VGVhbVVzZXIvMg==\n',
           status: 'member',
-          role: 'owner',
+          role: 'admin',
         },
       },
     ],
@@ -188,7 +188,7 @@ const otherUser = {
           },
           id: 'VGVhbVVzZXIvMw==\n',
           status: 'member',
-          role: 'contributor',
+          role: 'collaborator',
         },
       },
       {
@@ -202,7 +202,7 @@ const otherUser = {
           },
           id: 'VGVhbVVzZXIvMw==\n',
           status: 'member',
-          role: 'contributor',
+          role: 'collaborator',
         },
       },
       {
@@ -216,7 +216,7 @@ const otherUser = {
           },
           id: 'VGVhbVVzZXIvMw==\n',
           status: 'banned',
-          role: 'contributor',
+          role: 'collaborator',
         },
       },
       {
@@ -230,7 +230,7 @@ const otherUser = {
           },
           id: 'VGVhbVVzZXIvMw==\n',
           status: 'requested',
-          role: 'contributor',
+          role: 'collaborator',
         },
       },
     ],

@@ -13,7 +13,6 @@ import Annotation from '../annotations/Annotation';
 import ProfileLink from '../layout/ProfileLink';
 import MediasLoading from '../media/MediasLoading';
 import UserTooltip from '../user/UserTooltip';
-import UserUtil from '../user/UserUtil';
 import { black16, units, opaqueBlack54, checkBlue } from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
@@ -365,9 +364,7 @@ class TaskLog extends Component {
     const route = new TaskRoute({ id });
     const suggestionsCount = this.props.task.suggestions_count || 0;
     const pendingSuggestionsCount = this.props.task.pending_suggestions_count || 0;
-    const { currentUser, team } = this.currentContext();
-    const logCount = UserUtil.myRole(currentUser, team.slug) === 'annotator' ?
-      null : (this.props.task.log_count + suggestionsCount);
+    const logCount = this.props.task.log_count + suggestionsCount;
     const isBrowserExtension = (window.parent !== window);
 
     return (

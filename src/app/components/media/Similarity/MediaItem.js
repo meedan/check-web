@@ -292,9 +292,9 @@ const MediaItem = ({
         title={
           <Box display="flex" alignItems="center">
             { projectMedia.linked_items_count > 0 && !mainProjectMedia.id ? <LayersIcon /> : null }
-            <Link to={mediaUrl} className={classes.title}>
+            <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
               <strong>{truncateLength(projectMedia.title, 140)}</strong>
-            </Link>
+            </a>
           </Box>
         }
         subheader={

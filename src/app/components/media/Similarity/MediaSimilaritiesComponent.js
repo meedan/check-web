@@ -115,10 +115,13 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
                 className="media-tab__requests"
               />
             </Tabs>
-            { selectedProjectMediaDbid ?
-              <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
-              <MediaRequests media={{ dbid: projectMedia.dbid }} all />
-            }
+            { /* Set maxHeight to screen height - (media bar + tabs) */ }
+            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
+              { selectedProjectMediaDbid ?
+                <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
+                <MediaRequests media={{ dbid: projectMedia.dbid }} all />
+              }
+            </Box>
           </React.Fragment> :
           <React.Fragment>
             <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
@@ -133,17 +136,20 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
                 className="media-tab__notes"
               />
             </Tabs>
-            { selectedProjectMediaDbid ?
-              <MediaComments media={{ dbid: selectedProjectMediaDbid }} /> :
-              <Box m={1}>
-                <Typography variant="subtitle2">
-                  <FormattedMessage
-                    id="mediaSimilarities.clickOnItem"
-                    defaultMessage="Click on an item"
-                  />
-                </Typography>
-              </Box>
-            }
+            { /* Set maxHeight to screen height - (media bar + tabs) */ }
+            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
+              { selectedProjectMediaDbid ?
+                <MediaComments media={{ dbid: selectedProjectMediaDbid }} /> :
+                <Box m={1}>
+                  <Typography variant="subtitle2">
+                    <FormattedMessage
+                      id="mediaSimilarities.clickOnItem"
+                      defaultMessage="Click on an item"
+                    />
+                  </Typography>
+                </Box>
+              }
+            </Box>
           </React.Fragment>
         }
       </Column>

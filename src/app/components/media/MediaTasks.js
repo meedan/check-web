@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
-import Box from '@material-ui/core/Box';
 import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
@@ -159,41 +158,39 @@ class MediaTasksComponent extends Component {
     const isBrowserExtension = (window.parent !== window);
 
     return (
-      <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-        <StyledAnnotationRow>
-          { fieldset === 'metadata' ?
-            <div className="annotation-header-row metadata-row">
-              <MediaLanguageChip projectMedia={media} />
-              <MediaTags
-                projectMedia={media}
-                onTimelineCommentOpen={onTimelineCommentOpen}
-              />
-            </div> : null }
-          { fieldset === 'tasks' && !isBrowserExtension ?
-            <div className="annotation-header-row task-row">
-              { itemTasks.edges.length ?
-                <FlexRow>
-                  <h2>
-                    <FormattedMessage
-                      id="mediaComponent.verificationTasks"
-                      defaultMessage="Item tasks"
-                    />
-                  </h2>
-                  &nbsp;
-                  { currentUserRole !== 'annotator' ?
-                    <FlexRow>
-                      {itemTasks.edges.filter(t =>
-                        t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
-                      }
-                      &nbsp;
-                      <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
-                    </FlexRow> : null }
-                </FlexRow> : null }
-              <CreateTask style={{ marginLeft: 'auto' }} media={media} />
-            </div> : null }
-          <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
-        </StyledAnnotationRow>
-      </Box>
+      <StyledAnnotationRow>
+        { fieldset === 'metadata' ?
+          <div className="annotation-header-row metadata-row">
+            <MediaLanguageChip projectMedia={media} />
+            <MediaTags
+              projectMedia={media}
+              onTimelineCommentOpen={onTimelineCommentOpen}
+            />
+          </div> : null }
+        { fieldset === 'tasks' && !isBrowserExtension ?
+          <div className="annotation-header-row task-row">
+            { itemTasks.edges.length ?
+              <FlexRow>
+                <h2>
+                  <FormattedMessage
+                    id="mediaComponent.verificationTasks"
+                    defaultMessage="Item tasks"
+                  />
+                </h2>
+                &nbsp;
+                { currentUserRole !== 'annotator' ?
+                  <FlexRow>
+                    {itemTasks.edges.filter(t =>
+                      t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
+                    }
+                    &nbsp;
+                    <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
+                  </FlexRow> : null }
+              </FlexRow> : null }
+            <CreateTask style={{ marginLeft: 'auto' }} media={media} />
+          </div> : null }
+        <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
+      </StyledAnnotationRow>
     );
   }
 }

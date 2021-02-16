@@ -6,20 +6,46 @@ import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
+import { can } from '../Can';
 import { getCurrentProjectId } from '../../helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(2),
-    maxHeight: 'calc(100vh - 112px)', // screen height - (media bar + tabs)
-    overflow: 'auto',
   },
 }));
+
+
+// Auto-resize the iframe when embedded in the browser extension
+
+let sourceTabFrameTimer = null;
+let sourceTabFrameHeight = 0;
+function updateHeight() {
+  const height = document.documentElement.scrollHeight;
+  if (height !== sourceTabFrameHeight) {
+    window.parent.postMessage(JSON.stringify({ height }), '*');
+    sourceTabFrameHeight = height;
+  }
+  sourceTabFrameTimer = setTimeout(updateHeight, 500);
+}
 
 const MediaSourceComponent = ({ projectMedia }) => {
   const [action, setAction] = React.useState('view');
   const [newSourceName, setNewSourceName] = React.useState('');
   const classes = useStyles();
+
+  React.useEffect(() => {
+    // This code only applies if this page is embedded in the browser extension
+    if (window.parent !== window) {
+      sourceTabFrameTimer = setTimeout(updateHeight, 500);
+    }
+
+    return () => {
+      if (sourceTabFrameTimer) {
+        clearTimeout(sourceTabFrameTimer);
+      }
+    };
+  }, []);
 
   const handleChangeSourceSubmit = (value) => {
     if (value) {
@@ -106,7 +132,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
             relateToExistingSource={handleChangeSourceSubmit}
           /> : null
         }
-        { action !== 'create' && (action === 'change' || source === null) ?
+        { can(projectMedia.permissions, 'update Source') && action !== 'create' && (action === 'change' || source === null) ?
           <ChangeMediaSource
             team={team}
             onSubmit={handleChangeSourceSubmit}
@@ -119,10 +145,17 @@ const MediaSourceComponent = ({ projectMedia }) => {
   );
 };
 
-const MediaSource = ({ projectMedia }) => {
-  const projectId = getCurrentProjectId(projectMedia.project_ids);
-  const ids = `${projectMedia.dbid},${projectId}`;
-  const teamSlug = `${projectMedia.team.slug}`;
+const MediaSource = ({ projectMedia, params }) => {
+  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+  let ids = null;
+
+  // Accessing through /.../source
+  if (params) {
+    ids = `${params.mediaId},${params.projectId}`;
+  } else {
+    const projectId = getCurrentProjectId(projectMedia.project_ids);
+    ids = `${projectMedia.dbid},${projectId}`;
+  }
 
   return (
     <QueryRenderer
@@ -134,6 +167,7 @@ const MediaSource = ({ projectMedia }) => {
             dbid
             archived
             pusher_channel
+            permissions
             team {
               slug
               ...ChangeMediaSource_team

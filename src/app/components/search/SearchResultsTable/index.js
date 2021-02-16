@@ -58,11 +58,13 @@ const AllPossibleColumns = [
     field: 'type_of_media',
     headerText: <FormattedMessage id="list.Type" defaultMessage="Type" />,
     cellComponent: TypeCell,
+    sortKey: 'type_of_media',
   },
   {
     field: 'status',
     headerText: <FormattedMessage id="list.Status" defaultMessage="Status" />,
     cellComponent: StatusCell,
+    sortKey: 'status_index',
   },
   {
     field: 'created_at_timestamp',

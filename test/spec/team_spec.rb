@@ -189,9 +189,9 @@ shared_examples 'team' do
     expect(elems.size).to be > 1
 
     # Edit team member role
-    change_the_member_role_to('li.role-journalist')
+    change_the_member_role_to('li.role-editor')
     el = wait_for_selector('input[name="role-select"]', index: 1)
-    expect(el.property('value')).to eq 'journalist'
+    expect(el.property('value')).to eq 'editor'
 
     # # "should redirect to team page if user asking to join a team is already a member"
     @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}/join"
@@ -266,9 +266,9 @@ shared_examples 'team' do
     end
     expect(elems.size).to be > 1
     # edit team member role
-    change_the_member_role_to('li.role-journalist')
+    change_the_member_role_to('li.role-editor')
     el = wait_for_selector('input[name="role-select"]', index: 1)
-    expect(el.property('value')).to eq 'journalist'
+    expect(el.property('value')).to eq 'editor'
 
     # create one media
     wait_for_selector('.project-list__link', index: 0).click
@@ -284,20 +284,17 @@ shared_examples 'team' do
     end
     api_logout
     @driver.quit
-    # log in as  the journalist
+    # log in as  the editor
     @driver = new_driver
     @driver.navigate.to("#{@config['api_path']}/test/session?email=new#{@user_mail}")
 
     # go to the members page and can't see the request to join the another user
     @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}"
     wait_for_selector('.team-members__list')
-    expect(@driver.page_source.include?('Requests to join')).to be(false)
+    expect(@driver.page_source.include?('Requests to join')).to be(true)
 
-    # go to the project that you don't own and can't see the actions icon
+    # go to the project that you don't own
     wait_for_selector('.project-list__link', index: 0).click
-    wait_for_selector_none('.project-actions__icon') # actions icon
-    expect(@driver.find_elements(:css, '.project-actions__icon').size).to eq 0
-
     # create media in a project that you don't own
     expect(@driver.page_source.include?('new item')).to be(false)
     create_media('new item')
@@ -306,6 +303,7 @@ shared_examples 'team' do
 
     # see the icon 'change the status' that the media you don't own
     wait_for_selector_list('.medias__item')[1].click
+    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-detail')
     expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
 
@@ -315,7 +313,7 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, '#cmd-input').size).to eq 1
 
     # try edit team and can't see the button 'edit team button'
-    wait_for_selector('.project-header__back-button').click
+    @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}"
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__tags-tab')
     expect(@driver.find_elements(:css, '.team-menu__edit-team-button').size).to eq 0
@@ -327,17 +325,17 @@ shared_examples 'team' do
     @driver = new_driver
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{@user_mail}")
 
-    # go to the members page and edit team member role to 'contribuitor'
+    # go to the members page and edit team member role to 'collaborator'
     @driver.navigate.to "#{@config['self_url']}/#{@team1_slug}"
     # edit team member role
-    change_the_member_role_to('li.role-contributor')
+    change_the_member_role_to('li.role-collaborator')
     el = wait_for_selector('input[name="role-select"]', index: 1)
-    expect(el.property('value')).to eq 'contributor'
+    expect(el.property('value')).to eq 'collaborator'
 
     api_logout
     @driver.quit
 
-    # log in as the contributor
+    # log in as the collaborator
     @driver = new_driver
     @driver.navigate.to("#{@config['api_path']}/test/session?email=new#{@user_mail}")
 
@@ -348,11 +346,12 @@ shared_examples 'team' do
     # can't see the link 'create a new list'
     expect(@driver.find_elements(:css, '.create-project-card').size).to eq 0
 
-    # go to the project and can't see the icon 'change the status' that the media you don't own
+    # go to the project and see the icon 'change the status' that the media you don't own
     wait_for_selector('.project-list__link', index: 0).click
     wait_for_selector('.medias__item', index: 1).click
+    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-detail')
-    expect(@driver.find_elements(:css, '.media-status button[disabled]').size).to eq 1
+    expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
   end
 
   it 'should go back to previous team', bin1: true do

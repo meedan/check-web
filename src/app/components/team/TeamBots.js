@@ -13,13 +13,12 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import SettingsIcon from '@material-ui/icons/Settings';
 import TeamBot from './TeamBot';
-import RootRoute from '../../relay/RootRoute';
 import CreateTeamBotInstallationMutation from '../../relay/mutations/CreateTeamBotInstallationMutation';
 import UpdateTeamBotInstallationMutation from '../../relay/mutations/UpdateTeamBotInstallationMutation';
 import DeleteTeamBotInstallationMutation from '../../relay/mutations/DeleteTeamBotInstallationMutation';
 import { botName } from '../../helpers';
 
-class TeamBotsComponent extends Component {
+class TeamBots extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -115,7 +114,7 @@ class TeamBotsComponent extends Component {
 
           const botExpanded = installation && this.state.expanded === bot.dbid;
           return (
-            <Box clone mb={5}>
+            <Box clone mb={5} key={bot.dbid}>
               <Card key={`bot-${bot.dbid}`}>
                 <CardHeader
                   title={botName(bot)}
@@ -193,82 +192,5 @@ class TeamBotsComponent extends Component {
     );
   }
 }
-
-const TeamBotsContainer = Relay.createContainer(TeamBotsComponent, {
-  initialVariables: {
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
-  },
-  fragments: {
-    root: () => Relay.QL`
-      fragment on RootLevel {
-        current_team {
-          id
-          dbid
-          team_bot_installations(first: 10000) {
-            edges {
-              node {
-                id
-                json_settings
-                bot_user {
-                  id
-                }
-                team {
-                  id
-                  dbid
-                }
-                team_bot: bot_user {
-                  id
-                  dbid
-                }
-              }
-            }
-          }
-        }
-        team_bots_approved(first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              avatar
-              name
-              default
-              identifier
-              settings_as_json_schema(team_slug: $teamSlug)
-              settings_ui_schema
-              description: get_description
-              team_author {
-                name
-                slug
-              }
-              installation {
-                id
-                json_settings
-                team {
-                  id
-                  dbid
-                }
-                team_bot: bot_user {
-                  id
-                  dbid
-                }
-              }
-            }
-          }
-        }
-      }
-    `,
-  },
-});
-
-const TeamBots = () => {
-  const route = new RootRoute();
-  return (
-    <Relay.RootContainer
-      Component={TeamBotsContainer}
-      route={route}
-      forceFetch
-    />
-  );
-};
 
 export default TeamBots;

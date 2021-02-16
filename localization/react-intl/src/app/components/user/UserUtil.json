@@ -1,22 +1,14 @@
 [
   {
-    "id": "UserUtil.annotator",
-    "defaultMessage": "Annotator"
-  },
-  {
-    "id": "UserUtil.contributor",
-    "defaultMessage": "Contributor"
-  },
-  {
-    "id": "UserUtil.journalist",
-    "defaultMessage": "Journalist"
+    "id": "UserUtil.collaborator",
+    "defaultMessage": "Collaborator"
   },
   {
     "id": "UserUtil.editor",
     "defaultMessage": "Editor"
   },
   {
-    "id": "UserUtil.owner",
-    "defaultMessage": "Owner"
+    "id": "UserUtil.admin",
+    "defaultMessage": "Admin"
   }
 ]
