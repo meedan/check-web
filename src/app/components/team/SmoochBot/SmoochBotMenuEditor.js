@@ -11,14 +11,14 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuOption from './SmoochBotMenuOption';
-import { inProgressYellow } from '../../../styles/js/shared';
+import { brandHighlight } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   button: {
-    color: inProgressYellow,
+    color: brandHighlight,
   },
   iconButton: {
-    color: inProgressYellow,
+    color: brandHighlight,
     display: 'block',
   },
 }));

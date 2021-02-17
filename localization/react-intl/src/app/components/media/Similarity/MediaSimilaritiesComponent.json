@@ -1,15 +1,11 @@
 [
   {
-    "id": "mediaSimilaritiesComponent.back",
-    "defaultMessage": "Back"
-  },
-  {
     "id": "mediaSimilarities.mainItem",
-    "defaultMessage": "Main media"
+    "defaultMessage": "Main"
   },
   {
     "id": "mediaSimilarities.allSimilarMedia",
-    "defaultMessage": "All similar media"
+    "defaultMessage": "Similar"
   },
   {
     "id": "mediaSimilarities.requests",

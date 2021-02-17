@@ -10,7 +10,7 @@ import Button from '@material-ui/core/Button';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
-import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
+import { checkBlue, brandHighlight } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   resource: {
-    color: inProgressYellow,
+    color: brandHighlight,
   },
 }));
 

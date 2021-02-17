@@ -8,11 +8,19 @@
     "defaultMessage": "This media has been suggested to be similar to another item"
   },
   {
+    "id": "mediaSimilarityBarComponent.back",
+    "defaultMessage": "Back"
+  },
+  {
+    "id": "mediaSimilarityBarComponent.similarMediaWithValue",
+    "defaultMessage": "{count, plural, one {# similar media} other {# similar media}}"
+  },
+  {
     "id": "mediaSimilarityBarComponent.similarMedia",
-    "defaultMessage": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
+    "defaultMessage": "Similar media"
   },
   {
     "id": "mediaSimilarityBarComponent.suggestedMatches",
-    "defaultMessage": "{count, plural, one {# suggested match} other {# suggested matches}}"
+    "defaultMessage": "Suggested media"
   }
 ]
