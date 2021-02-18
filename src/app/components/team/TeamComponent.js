@@ -145,7 +145,7 @@ class TeamComponent extends Component {
                 value="metadata"
               /> : null
             }
-            {isAdmin ?
+            {isAdminOrEditor ?
               <Tab
                 className="team-settings__tipline-tab"
                 label={

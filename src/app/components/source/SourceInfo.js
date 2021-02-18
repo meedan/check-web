@@ -161,7 +161,12 @@ function commitDeleteAccountSource({ source, asId }) {
   });
 }
 
-function SourceInfo({ source, team, onChangeClick }) {
+function SourceInfo({
+  source,
+  team,
+  projectMediaPermissions,
+  onChangeClick,
+}) {
   const [expandName, setExpandName] = React.useState(true);
   const [expandAccounts, setExpandAccounts] = React.useState(true);
   const [sourceName, setSourceName] = React.useState(source.name);
@@ -336,7 +341,7 @@ function SourceInfo({ source, team, onChangeClick }) {
               />
             }
           </Typography>
-          { can(source.permissions, 'update Source') ?
+          { can(projectMediaPermissions, 'update ProjectMedia') ?
             <Button
               id="media-source-change"
               onClick={onChangeClick}
@@ -565,6 +570,7 @@ function SourceInfo({ source, team, onChangeClick }) {
 SourceInfo.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   source: PropTypes.object.isRequired, // GraphQL "Source" object
+  projectMediaPermissions: PropTypes.object.isRequired, // ProjectMedia permissions
   onChangeClick: PropTypes.func.isRequired, // func(<SourceId>) => undefined
 };
 

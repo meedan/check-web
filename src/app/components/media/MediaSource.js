@@ -121,10 +121,11 @@ const MediaSourceComponent = ({ projectMedia }) => {
             key={source ? source.id : 0}
             source={source}
             team={team}
+            projectMediaPermissions={projectMedia.permissions}
             onChangeClick={handleChangeSource}
           /> : null
         }
-        { action === 'create' ?
+        { action === 'create' && can(projectMedia.permissions, 'create Source') ?
           <CreateMediaSource
             name={newSourceName}
             media={projectMedia}
@@ -132,9 +133,10 @@ const MediaSourceComponent = ({ projectMedia }) => {
             relateToExistingSource={handleChangeSourceSubmit}
           /> : null
         }
-        { can(projectMedia.permissions, 'update Source') && action !== 'create' && (action === 'change' || source === null) ?
+        { can(projectMedia.permissions, 'update ProjectMedia') && action !== 'create' && (action === 'change' || source === null) ?
           <ChangeMediaSource
             team={team}
+            projectMediaPermissions={projectMedia.permissions}
             onSubmit={handleChangeSourceSubmit}
             onCancel={handleCancel}
             createNewClick={handleCreateNewSource}
