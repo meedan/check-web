@@ -98,7 +98,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" className="team-report-component">
+    <Box display="flex" justifyContent="left" className="team-report-component">
       <LanguageSwitcher
         orientation="vertical"
         primaryLanguage={defaultLanguage}

@@ -305,10 +305,24 @@ export const MuiTheme = {
           minWidth: 0,
         },
       },
+      wrapper: {
+        alignItems: 'flex-start',
+      },
     },
     MuiButton: {
       contained: {
         boxShadow: 'none',
+      },
+    },
+    MuiPaper: {
+      elevation1: {
+        boxShadow: 'none',
+        border: `2px solid ${brandSecondary}`,
+      },
+    },
+    MuiTabs: {
+      indicator: {
+        right: 'auto',
       },
     },
   },

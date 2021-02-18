@@ -213,7 +213,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="center">
+    <Box display="flex" className="status-settings">
       <LanguageSwitcher
         orientation="vertical"
         primaryLanguage={defaultLanguage}

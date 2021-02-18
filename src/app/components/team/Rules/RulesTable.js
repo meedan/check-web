@@ -13,7 +13,7 @@ import RulesTableToolbar from './RulesTableToolbar';
 import RulesTableHead from './RulesTableHead';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  rulesTable: {
     width: '100%',
   },
   paper: {
@@ -22,6 +22,12 @@ const useStyles = makeStyles(theme => ({
   },
   tableRow: {
     cursor: 'pointer',
+  },
+  rulesTableCell: {
+    borderBottom: 0,
+  },
+  rulesTableTime: {
+    whiteSpace: 'nowrap',
   },
 }));
 
@@ -77,7 +83,7 @@ export default function RulesTable(props) {
         onAddNewRule={handleNewRule}
         onDeleteRules={handleDelete}
       />
-      <div className={classes.root}>
+      <div className={classes.rulesTable}>
         <Paper className={classes.paper}>
           <TableContainer>
             <Table size="medium" id="rules-table">
@@ -102,18 +108,18 @@ export default function RulesTable(props) {
                         onClick={() => { handleClick(index); }}
                         key={row.index}
                       >
-                        <TableCell padding="checkbox">
+                        <TableCell className={classes.rulesTableCell} padding="checkbox">
                           <Checkbox
                             checked={isItemSelected}
                             onClick={(event) => { handleChange(event, index); }}
                             inputProps={{ 'aria-labelledby': labelId }}
                           />
                         </TableCell>
-                        <TableCell component="th" id={labelId} scope="row">
+                        <TableCell className={classes.rulesTableCell} component="th" id={labelId} scope="row">
                           {name}
                         </TableCell>
-                        <TableCell>
-                          <time dateTime={date.toISOString()}>
+                        <TableCell className={classes.rulesTableCell}>
+                          <time className={classes.rulesTableTime} dateTime={date.toISOString()}>
                             <FormattedRelative value={date} />
                           </time>
                         </TableCell>
