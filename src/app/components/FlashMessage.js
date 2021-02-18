@@ -4,11 +4,11 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { SnackbarProvider, withSnackbar } from 'notistack';
+import reactStringReplace from 'react-string-replace';
 import Message from './Message';
-import ParsedText from './ParsedText';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON } from '../helpers';
-import { checkBlue } from '../styles/js/shared';
+import { checkBlue, white } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -61,7 +61,13 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
 
 const useSnackBarStyles = makeStyles({
   info: {
-    backgroundColor: checkBlue,
+    backgroundColor: `${checkBlue} !important`,
+  },
+  icon: {
+    color: white,
+    '&:hover': {
+      color: white,
+    },
   },
 });
 
@@ -79,7 +85,10 @@ const FlashMessageProvider = ({ children }) => {
       maxSnack={10}
       ref={notistackRef}
       action={key => (
-        <IconButton className="message message__dismiss-button" onClick={onClickDismiss(key)}>
+        <IconButton
+          className={`message message__dismiss-button ${classes.icon}`}
+          onClick={onClickDismiss(key)}
+        >
           <IconClose />
         </IconButton>
       )}
@@ -100,6 +109,13 @@ const useStyles = makeStyles({
     position: 'fixed',
     width: '100%',
     zIndex: '1000',
+  },
+  link: {
+    color: white,
+    textDecoration: 'underline',
+    '&:visited': {
+      color: white,
+    },
   },
 });
 
@@ -133,8 +149,19 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
     pusher.unsubscribe(`check-api-session-channel-${clientSessionId}`);
     pusher.subscribe(`check-api-session-channel-${clientSessionId}`).bind('info_message', (data) => {
       const infoContent = safelyParseJSON(data.message);
+
       if (infoContent) {
-        enqueueSnackbar(<ParsedText text={infoContent.message} />, { variant: 'info' });
+        // Parse markdown-formatted links. E.g.: [label](url)
+        const parsedText = reactStringReplace(infoContent.message, /(\[[^[]+?\]\([^(]+?\))/gm, (match, i) => {
+          const label = match.match(/\[(.*)\]/)[1];
+          const url = match.match(/\((.*)\)/)[1];
+          return (
+            <a className={classes.link} href={url} target="_blank" rel="noopener noreferrer" key={i}>
+              {label}
+            </a>
+          );
+        });
+        enqueueSnackbar(parsedText, { variant: 'info' });
       }
     });
   }
