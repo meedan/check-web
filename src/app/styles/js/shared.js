@@ -18,7 +18,7 @@ export const completedGreen = '#5cae73';
 export const separationGray = '#E5E5E5';
 export const brandSecondary = '#DFE4F4';
 export const backgroundMain = '#F7F8FD';
-export const brandHighlight = '#9B38EA';
+export const brandHighlight = checkBlue;
 
 // Material blacks
 // TODO make these opaque!
