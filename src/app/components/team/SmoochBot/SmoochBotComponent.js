@@ -191,7 +191,7 @@ const SmoochBotComponent = ({
               defaultMessage="Create automated conversational bots to receive content from your audience."
             />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/3872445-creating-your-tipline-bot"
+          helpUrl="https://help.checkmedia.org/en/articles/4838307-creating-your-tipline-bot"
           actionButton={
             installation ?
               <Can permissions={team.permissions} permission="update Team">
