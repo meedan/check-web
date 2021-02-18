@@ -55,7 +55,6 @@ shared_examples 'metadata' do
     create_media('media', false)
     item = wait_for_selector('.medias__item', :css, 20, true)
     item.click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task-type__free_text')
     expect(@driver.page_source.include?('my metadata')).to be(true)

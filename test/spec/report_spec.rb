@@ -39,7 +39,6 @@ shared_examples 'report' do
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading img')
     wait_for_selector('.media__heading a').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.card')
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to('.media-status__menu-item--in-progress', false)

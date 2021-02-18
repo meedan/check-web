@@ -18,7 +18,6 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
     create_media('media 2')
     wait_for_selector_list('.medias__item')[0].click
-    @driver.switch_to.window(@driver.window_handles.last)
     change_the_status_to('.media-status__menu-item--false', false)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
@@ -71,7 +70,6 @@ shared_examples 'search' do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media')
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('.media-actions__icon').click

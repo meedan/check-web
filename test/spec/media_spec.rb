@@ -27,7 +27,6 @@ shared_examples 'media' do |type|
     wait_for_selector('.projects__list')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading a').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
 
@@ -124,7 +123,6 @@ shared_examples 'media' do |type|
     wait_for_selector('.project-list__item-trash').click
     wait_for_selector_list_size('.media__heading', 1)
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-status')
     wait_for_selector('#media-actions-bar__restore-confirm-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')

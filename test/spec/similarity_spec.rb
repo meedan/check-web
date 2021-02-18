@@ -10,7 +10,6 @@ shared_examples 'similarity' do
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-analysis__copy-to-report')
     wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
     # import similarity item
@@ -22,7 +21,6 @@ shared_examples 'similarity' do
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-analysis__copy-to-report')
     # export similarity item
     wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
@@ -71,7 +69,6 @@ shared_examples 'similarity' do
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-analysis__copy-to-report')
     expect(@driver.page_source.include?('Claim 0')).to be(false)
     @driver.execute_script('window.scrollTo(0, 50)')
@@ -98,7 +95,6 @@ shared_examples 'similarity' do
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm3.id)
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.media-analysis__copy-to-report')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click

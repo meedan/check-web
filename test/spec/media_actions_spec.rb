@@ -221,7 +221,6 @@ shared_examples 'media actions' do
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector('#media-bulk-actions__actions')
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('#media-actions-bar__move-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
@@ -246,7 +245,6 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('Add a link or text')).to be(true)
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector('.media__heading').click
-    @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('#media-actions-bar__add-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
