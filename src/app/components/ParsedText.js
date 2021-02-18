@@ -12,9 +12,20 @@ const StyledEmojiOnly = styled.span`
 `;
 
 const marked = (text) => {
+  // Parse markdown-formatted links. E.g.: [label](url)
+
+  let parsedText = reactStringReplace(text, /(\[.*\]\(.*\))/gm, (match, i) => {
+    const label = match.match(/\[(.*?)\]/)[1];
+    const url = match.match(/\((.*?)\)/)[1];
+
+    return (
+      <a href={url} key={i}>{label}</a>
+    );
+  });
+
   // If a URL ends on a filename, display only the filename, not the full URL
 
-  let parsedText = reactStringReplace(text, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
+  parsedText = reactStringReplace(parsedText, /(https?:\/\/[^ ]+\/[^/.]+\.[^ ]+)/gm, (match, i) => (
     <a href={match} target="_blank" key={i} rel="noopener noreferrer">{match.replace(/.*\//, '')}</a>
   ));
 

@@ -5,8 +5,10 @@ import IconClose from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import Message from './Message';
+import ParsedText from './ParsedText';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON } from '../helpers';
+import { checkBlue } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -57,12 +59,20 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
   );
 });
 
+const useSnackBarStyles = makeStyles({
+  info: {
+    backgroundColor: checkBlue,
+  },
+});
+
 const FlashMessageProvider = ({ children }) => {
   const notistackRef = React.createRef();
 
   const onClickDismiss = key => () => {
     notistackRef.current.closeSnackbar(key);
   };
+
+  const classes = useSnackBarStyles();
 
   return (
     <SnackbarProvider
@@ -73,6 +83,9 @@ const FlashMessageProvider = ({ children }) => {
           <IconClose />
         </IconButton>
       )}
+      classes={{
+        variantInfo: classes.info,
+      }}
     >
       <FlashMessageProviderWithSnackBar>
         { children }
@@ -121,7 +134,7 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
     pusher.subscribe(`check-api-session-channel-${clientSessionId}`).bind('info_message', (data) => {
       const infoContent = safelyParseJSON(data.message);
       if (infoContent) {
-        enqueueSnackbar(infoContent.message, { variant: 'info' });
+        enqueueSnackbar(<ParsedText text={infoContent.message} />, { variant: 'info' });
       }
     });
   }
