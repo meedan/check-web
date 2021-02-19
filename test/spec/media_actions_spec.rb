@@ -225,7 +225,6 @@ shared_examples 'media actions' do
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click
-    wait_for_selector_none('input[name=project-title]')  # wait for dialog to disappear
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('My search result')).to be(true)
