@@ -5,11 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import HelpIcon from '@material-ui/icons/HelpOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import { checkBlue, brandHighlight } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
@@ -22,6 +20,8 @@ import { placeholders } from './localizables';
 const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 'bold',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   helpIcon: {
     color: checkBlue,
@@ -80,10 +80,6 @@ const SmoochBotConfig = (props) => {
 
   const handleChangeTab = (event, newTab) => {
     setCurrentTab(newTab);
-  };
-
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/3872445-create-your-bot');
   };
 
   const handleSelectOption = (option) => {
@@ -182,17 +178,12 @@ const SmoochBotConfig = (props) => {
       </Tabs>
       { currentTab === 0 ?
         <React.Fragment>
-          <Box display="flex" alignItems="center">
-            <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-              <FormattedMessage
-                id="smoochBot.title"
-                defaultMessage="Design your bot"
-              />
-            </Typography>
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.helpIcon} />
-            </IconButton>
-          </Box>
+          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+            <FormattedMessage
+              id="smoochBot.title"
+              defaultMessage="Design your bot"
+            />
+          </Typography>
           <Box display="flex">
             <Box>
               <SmoochBotSidebar
