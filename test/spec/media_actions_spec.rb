@@ -249,7 +249,6 @@ shared_examples 'media actions' do
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
-    wait_for_selector_none('input[name=project-title]')  # wait for dialog to disappear
     wait_for_selector('.message').click
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('.project-list__link', index: 0).click
