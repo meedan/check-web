@@ -7,7 +7,6 @@ import Typography from '@material-ui/core/Typography';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
 import Switch from '@material-ui/core/Switch';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
@@ -141,7 +140,6 @@ class TeamBots extends Component {
                     />
                   </Box>
                 </CardContent>
-                <Divider />
                 <Collapse in={botExpanded} timeout="auto">
                   <CardContent>
                     { bot.settings_as_json_schema ?

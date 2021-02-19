@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
   },
   innerColumn: {
-    padding: '.5rem 0 1rem 1rem',
+    padding: '.3rem 0 1rem 1rem',
     border: '1px solid transparent', // To match column of teamListComponent.js
   },
   placeholder: {

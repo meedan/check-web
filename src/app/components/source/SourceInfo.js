@@ -51,6 +51,12 @@ const useStyles = makeStyles(theme => ({
   sourceInfoRight: {
     textAlign: 'right',
   },
+  sourceCardHeader: {
+    paddingBottom: 0,
+  },
+  sourceCardContent: {
+    paddingTop: 0,
+  },
 }));
 
 function commitCreateAccountSource({
@@ -155,7 +161,12 @@ function commitDeleteAccountSource({ source, asId }) {
   });
 }
 
-function SourceInfo({ source, team, onChangeClick }) {
+function SourceInfo({
+  source,
+  team,
+  projectMediaPermissions,
+  onChangeClick,
+}) {
   const [expandName, setExpandName] = React.useState(true);
   const [expandAccounts, setExpandAccounts] = React.useState(true);
   const [sourceName, setSourceName] = React.useState(source.name);
@@ -330,7 +341,7 @@ function SourceInfo({ source, team, onChangeClick }) {
               />
             }
           </Typography>
-          { can(source.permissions, 'update Source') ?
+          { can(projectMediaPermissions, 'update ProjectMedia') ?
             <Button
               id="media-source-change"
               onClick={onChangeClick}
@@ -351,7 +362,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           className="source__card-card"
         >
           <CardHeader
-            className="source__card-header"
+            className={['source__card-header', classes.sourceCardHeader].join(' ')}
             disableTypography
             title={
               <FormattedMessage
@@ -371,7 +382,7 @@ function SourceInfo({ source, team, onChangeClick }) {
             }
           />
           <Collapse in={expandName} timeout="auto">
-            <CardContent>
+            <CardContent className={classes.sourceCardContent}>
               <TextField
                 id="source__name-input"
                 name="source__name-input"
@@ -383,6 +394,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                 onChange={(e) => { setSourceName(e.target.value); }}
                 onBlur={handleChangeSourceName}
                 margin="normal"
+                variant="outlined"
                 fullWidth
               />
             </CardContent>
@@ -395,7 +407,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           className="source__card-card"
         >
           <CardHeader
-            className="source__card-header"
+            className={['source__card-header', classes.sourceCardHeader].join(' ')}
             disableTypography
             title={
               <FormattedMessage
@@ -415,7 +427,7 @@ function SourceInfo({ source, team, onChangeClick }) {
             }
           />
           <Collapse in={expandAccounts} timeout="auto">
-            <CardContent>
+            <CardContent className={classes.sourceCardContent}>
               <Box mb={2}>
                 { mainAccount ?
                   <Row key={mainAccount.node.id} className="source__url">
@@ -423,6 +435,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                       id="main_source__link"
                       value={mainAccount.node.account.url}
                       margin="normal"
+                      variant="outlined"
                       disabled
                       fullWidth
                     />
@@ -439,6 +452,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     id="source_primary__link-input"
                     name="source_primary__link-input"
                     disabled={saving}
+                    variant="outlined"
                     label={
                       <FormattedMessage
                         id="sourceInfo.primaryLink"
@@ -483,6 +497,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                       id={`source__link-item${index.toString()}`}
                       defaultValue={as.node.account.url}
                       margin="normal"
+                      variant="outlined"
                       fullWidth
                       disabled
                     />
@@ -503,6 +518,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     id="source__link-input-new"
                     name="source__link-input-new"
                     margin="normal"
+                    variant="outlined"
                     value={secondaryUrl.url}
                     error={Boolean(secondaryUrl.error)}
                     helperText={secondaryUrl.error}
@@ -554,6 +570,7 @@ function SourceInfo({ source, team, onChangeClick }) {
 SourceInfo.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   source: PropTypes.object.isRequired, // GraphQL "Source" object
+  projectMediaPermissions: PropTypes.object.isRequired, // ProjectMedia permissions
   onChangeClick: PropTypes.func.isRequired, // func(<SourceId>) => undefined
 };
 

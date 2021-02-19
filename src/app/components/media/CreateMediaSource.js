@@ -56,6 +56,12 @@ const useStyles = makeStyles(theme => ({
     color: 'blue',
     textDecoration: 'underline',
   },
+  sourceCardHeader: {
+    paddingBottom: 0,
+  },
+  sourceCardContent: {
+    paddingTop: 0,
+  },
 }));
 
 function CreateMediaSource({
@@ -224,7 +230,7 @@ function CreateMediaSource({
           <FormattedMessage {...globalStrings.cancel} />
         </Button>
         <Button
-          variant="contained"
+          variant="outlined"
           color="primary"
           className="source__edit-save-button"
           onClick={handleSave}
@@ -279,7 +285,7 @@ function CreateMediaSource({
           className="source__card-card"
         >
           <CardHeader
-            className="source__card-header"
+            className={['source__card-header', classes.sourceCardHeader].join(' ')}
             disableTypography
             title={
               <FormattedMessage
@@ -299,7 +305,7 @@ function CreateMediaSource({
             }
           />
           <Collapse in={expandName} timeout="auto">
-            <CardContent className="source__card-text">
+            <CardContent className={['source__card-text', classes.sourceCardContent].join(' ')}>
               <TextField
                 id="source__name-input"
                 name="source__name-input"
@@ -313,6 +319,7 @@ function CreateMediaSource({
                 }
                 onChange={e => handleChangeName(e)}
                 margin="normal"
+                variant="outlined"
                 fullWidth
                 required
               />
@@ -326,7 +333,7 @@ function CreateMediaSource({
           className="source__card-card"
         >
           <CardHeader
-            className="source__card-header"
+            className={['source__card-header', classes.sourceCardHeader].join(' ')}
             disableTypography
             title={
               <FormattedMessage
@@ -346,10 +353,11 @@ function CreateMediaSource({
             }
           />
           <Collapse in={expandAccounts} timeout="auto">
-            <CardContent className="source__card-text">
+            <CardContent className={['source__card-text', classes.sourceCardContent].join(' ')}>
               <TextField
                 id="source_primary__link-input"
                 name="source_primary__link-input"
+                variant="outlined"
                 label={
                   <FormattedMessage
                     id="sourceInfo.primaryLink"
@@ -388,6 +396,7 @@ function CreateMediaSource({
                       value={link.url ? link.url.replace(/^https?:\/\//, '') : ''}
                       error={Boolean(link.error)}
                       helperText={link.error}
+                      variant="outlined"
                       label={
                         <FormattedMessage
                           id="sourceInfo.addSecondaryLink"

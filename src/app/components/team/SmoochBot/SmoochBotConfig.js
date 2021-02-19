@@ -5,12 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Button from '@material-ui/core/Button';
-import HelpIcon from '@material-ui/icons/HelpOutline';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
-import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
+import Button from '@material-ui/core/Button';
+import { checkBlue, brandHighlight } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -22,6 +20,8 @@ import { placeholders } from './localizables';
 const useStyles = makeStyles(theme => ({
   title: {
     fontWeight: 'bold',
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(1),
   },
   helpIcon: {
     color: checkBlue,
@@ -30,14 +30,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
   resource: {
-    color: inProgressYellow,
+    color: brandHighlight,
   },
 }));
 
 const SmoochBotConfig = (props) => {
   const classes = useStyles();
 
-  const { currentLanguage, languages } = props;
+  const { currentLanguage, languages, userRole } = props;
   const [currentTab, setCurrentTab] = React.useState(0);
   const [currentOption, setCurrentOption] = React.useState('smooch_message_smooch_bot_greetings');
 
@@ -80,10 +80,6 @@ const SmoochBotConfig = (props) => {
 
   const handleChangeTab = (event, newTab) => {
     setCurrentTab(newTab);
-  };
-
-  const handleHelp = () => {
-    window.open('https://help.checkmedia.org/en/articles/3872445-create-your-bot');
   };
 
   const handleSelectOption = (option) => {
@@ -175,21 +171,19 @@ const SmoochBotConfig = (props) => {
     <React.Fragment>
       <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
         <Tab label={<FormattedMessage id="smoochBot.scenarios" defaultMessage="Scenarios" />} />
-        <Tab label={<FormattedMessage id="smoochBot.settings" defaultMessage="Settings" />} />
+        { userRole === 'admin' ?
+          <Tab label={<FormattedMessage id="smoochBot.settings" defaultMessage="Settings" />} />
+          : null
+        }
       </Tabs>
       { currentTab === 0 ?
         <React.Fragment>
-          <Box display="flex" alignItems="center">
-            <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-              <FormattedMessage
-                id="smoochBot.title"
-                defaultMessage="Design your bot"
-              />
-            </Typography>
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.helpIcon} />
-            </IconButton>
-          </Box>
+          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
+            <FormattedMessage
+              id="smoochBot.title"
+              defaultMessage="Design your bot"
+            />
+          </Typography>
           <Box display="flex">
             <Box>
               <SmoochBotSidebar
@@ -268,6 +262,7 @@ SmoochBotConfig.propTypes = {
   onChange: PropTypes.func.isRequired, // called after "save" is clicked
   schema: PropTypes.object.isRequired,
   currentUser: PropTypes.object.isRequired,
+  userRole: PropTypes.string.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

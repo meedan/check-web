@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
+import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import SmoochBotConfig from './SmoochBotConfig';
@@ -32,6 +32,8 @@ const SmoochBotComponent = ({
   const bot = installation ? installation.node.team_bot : null;
 
   const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.node.json_settings) : {});
+
+  const userRole = UserUtil.myRole(currentUser, team.slug);
 
   const handleOpenForm = () => {
     window.open('https://airtable.com/shr727e2MeBQnTGa1');
@@ -164,9 +166,9 @@ const SmoochBotComponent = ({
     }
     setCurrentLanguage(newValue);
   };
-
+  // If only on language, no margin left. If more than one language the language selector is displayed, so we add a margin.
   return (
-    <Box display="flex" justifyContent="center" className="smooch-bot-component">
+    <Box display="flex" justifyContent="left" className="smooch-bot-component" ml={installation && bot && languages.length > 1 ? 0 : 6}>
       { installation && bot && languages.length > 1 ?
         <LanguageSwitcher
           orientation="vertical"
@@ -189,7 +191,7 @@ const SmoochBotComponent = ({
               defaultMessage="Create automated conversational bots to receive content from your audience."
             />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/3872445-creating-your-tipline-bot"
+          helpUrl="https://help.checkmedia.org/en/articles/4838307-creating-your-tipline-bot"
           actionButton={
             installation ?
               <Can permissions={team.permissions} permission="update Team">
@@ -210,6 +212,7 @@ const SmoochBotComponent = ({
                 value={settings}
                 onChange={setSettings}
                 currentUser={currentUser}
+                userRole={userRole}
                 currentLanguage={currentLanguage}
                 languages={languages}
               /> :

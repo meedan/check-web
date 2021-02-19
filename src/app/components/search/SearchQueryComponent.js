@@ -33,13 +33,12 @@ import {
   black87,
   black16,
   black54,
-  highlightOrange,
+  brandHighlight,
   Row,
   units,
   caption,
   borderWidthLarge,
   mediaQuery,
-  inProgressYellow,
 } from '../../styles/js/shared';
 
 const StyledPopper = styled(Popper)`
@@ -128,8 +127,8 @@ const styles = theme => ({
   },
   filterActive: {
     color: white,
-    backgroundColor: highlightOrange,
-    border: `${borderWidthLarge} solid ${highlightOrange}`,
+    backgroundColor: brandHighlight,
+    border: `${borderWidthLarge} solid ${brandHighlight}`,
   },
   inputInactive: {
     borderRadius: theme.spacing(0.5),
@@ -137,7 +136,7 @@ const styles = theme => ({
   },
   inputActive: {
     borderRadius: theme.spacing(0.5),
-    border: `${borderWidthLarge} solid ${highlightOrange}`,
+    border: `${borderWidthLarge} solid ${brandHighlight}`,
   },
   startAdornmentRoot: {
     display: 'flex',
@@ -157,7 +156,7 @@ const styles = theme => ({
   },
   endAdornmentActive: {
     color: 'white',
-    backgroundColor: highlightOrange,
+    backgroundColor: brandHighlight,
   },
   noHoverButton: {
     minWidth: 0,
@@ -703,7 +702,7 @@ class SearchQueryComponent extends React.Component {
           {(this.filterIsActive() || this.keywordIsActive()) ? (
             <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
               <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon style={{ color: highlightOrange }} />
+                <ClearIcon style={{ color: brandHighlight }} />
               </IconButton>
             </Tooltip>
           ) : null}
@@ -737,7 +736,7 @@ class SearchQueryComponent extends React.Component {
                     />
                     <Button
                       onClick={() => { this.handleTagsOperator('or'); }}
-                      style={this.tagsOperatorIs('or') ? { color: inProgressYellow } : {}}
+                      style={this.tagsOperatorIs('or') ? { color: brandHighlight } : {}}
                       classes={{ root: classes.noHoverButton }}
                       disableRipple
                     >
@@ -749,7 +748,7 @@ class SearchQueryComponent extends React.Component {
                     <div> | </div>
                     <Button
                       onClick={() => { this.handleTagsOperator('and'); }}
-                      style={this.tagsOperatorIs('and') ? { color: inProgressYellow } : {}}
+                      style={this.tagsOperatorIs('and') ? { color: brandHighlight } : {}}
                       classes={{ root: classes.noHoverButton }}
                       disableRipple
                     >

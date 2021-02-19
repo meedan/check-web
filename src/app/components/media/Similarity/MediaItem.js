@@ -92,6 +92,9 @@ const useStyles = makeStyles(theme => ({
   reportUnpublished: {
     color: black32,
   },
+  by: {
+    color: checkBlue,
+  },
 }));
 
 const MediaItem = ({
@@ -359,6 +362,20 @@ const MediaItem = ({
                       </div> : null }
                   </div>
                 </React.Fragment> : null }
+              { projectMedia.added_as_similar_by_name && !projectMedia.confirmed_as_similar_by_name ?
+                <React.Fragment>
+                  <div className={classes.sep}> - </div>
+                  <div className={classes.by}>
+                    <FormattedMessage id="mediaItem.addedBy" defaultMessage="Added by {name}" values={{ name: projectMedia.added_as_similar_by_name }} />
+                  </div>
+                </React.Fragment> : null }
+              { projectMedia.confirmed_as_similar_by_name ?
+                <React.Fragment>
+                  <div className={classes.sep}> - </div>
+                  <div className={classes.by}>
+                    <FormattedMessage id="mediaItem.confirmedBy" defaultMessage="Confirmed by {name}" values={{ name: projectMedia.confirmed_as_similar_by_name }} />
+                  </div>
+                </React.Fragment> : null }
             </Box>
             <Typography variant="body2" className={classes.description}>
               {truncateLength(projectMedia.description, 140)}
@@ -473,6 +490,8 @@ MediaItem.propTypes = {
     requests_count: PropTypes.number.isRequired,
     linked_items_count: PropTypes.number.isRequired,
     report_status: PropTypes.string.isRequired,
+    added_as_similar_by_name: PropTypes.string.isRequired,
+    confirmed_as_similar_by_name: PropTypes.string.isRequired,
   }).isRequired,
   relationship: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -500,6 +519,8 @@ export default createFragmentContainer(withSetFlashMessage(MediaItem), {
       requests_count
       linked_items_count
       report_status
+      added_as_similar_by_name
+      confirmed_as_similar_by_name
     }
   `,
   team: graphql`

@@ -11,7 +11,7 @@ describe('<LanguageSwitcher />', () => {
       currentLanguage="fr"
       onChange={() => {}}
     />);
-    expect(wrapper.html()).toMatch('English (default)');
+    expect(wrapper.text()).toMatch('English(default)');
   });
 
   it('should display all language tabs', () => {

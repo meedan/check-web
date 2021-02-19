@@ -12,13 +12,13 @@ export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
-export const highlightOrange = '#FD730C';
 export const inProgressYellow = '#efac51';
 export const unstartedRed = '#f04747';
 export const completedGreen = '#5cae73';
 export const separationGray = '#E5E5E5';
 export const brandSecondary = '#DFE4F4';
 export const backgroundMain = '#F7F8FD';
+export const brandHighlight = checkBlue;
 
 // Material blacks
 // TODO make these opaque!
@@ -283,10 +283,10 @@ export const MuiTheme = {
     },
     MuiTableSortLabel: {
       active: {
-        color: `${highlightOrange} !important`,
+        color: `${brandHighlight} !important`,
       },
       icon: {
-        color: `${highlightOrange} !important`,
+        color: `${brandHighlight} !important`,
       },
     },
     MuiIconButton: { // Buttons with Icons
@@ -305,10 +305,24 @@ export const MuiTheme = {
           minWidth: 0,
         },
       },
+      wrapper: {
+        alignItems: 'flex-start',
+      },
     },
     MuiButton: {
       contained: {
         boxShadow: 'none',
+      },
+    },
+    MuiPaper: {
+      elevation1: {
+        boxShadow: 'none',
+        border: `2px solid ${brandSecondary}`,
+      },
+    },
+    MuiTabs: {
+      indicator: {
+        right: 'auto',
       },
     },
   },

@@ -2,18 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconArrowBack from '@material-ui/icons/ArrowBack';
 import MediaSimilarityBar from './MediaSimilarityBar';
 import MediaItem from './MediaItem';
 import MediaRequests from '../MediaRequests';
 import MediaComments from '../MediaComments';
-import { Column } from '../../../styles/js/shared';
+import { Column, black54 } from '../../../styles/js/shared';
 import { can } from '../../Can';
 import { isBotInstalled } from '../../../helpers';
 
@@ -24,11 +22,20 @@ function sort(items) {
   return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
 }
 
+const useStyles = makeStyles(() => ({
+  similarityTitle: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 12,
+    color: black54,
+  },
+}));
+
 let listener = null;
 
 const MediaSimilaritiesComponent = ({ projectMedia }) => {
+  const classes = useStyles();
   const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
-  const itemUrl = window.location.pathname.replace(/\/similar-media$/, '');
 
   listener = () => {
     setSelectedProjectMediaDbid(null);
@@ -45,27 +52,17 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
     setSelectedProjectMediaDbid(newSelectedProjectMediaDbid);
   };
 
-  const handleGoBack = () => {
-    browserHistory.push(itemUrl);
-  };
-
   return (
     <React.Fragment>
       <Column className="media__column">
-        <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small">
-          <FormattedMessage
-            id="mediaSimilaritiesComponent.back"
-            defaultMessage="Back"
-          />
-        </Button>
-        <MediaSimilarityBar projectMedia={projectMedia} />
+        <MediaSimilarityBar projectMedia={projectMedia} showSuggestionsCount={false} showBackButton />
         { projectMedia.confirmed_main_item ?
           <React.Fragment>
-            <Box mt={2} mb={2}>
-              <Typography variant="subtitle2">
+            <Box mt={2}>
+              <Typography variant="subtitle2" className={classes.similarityTitle}>
                 <FormattedMessage
                   id="mediaSimilarities.mainItem"
-                  defaultMessage="Main media"
+                  defaultMessage="Main"
                 />
               </Typography>
             </Box>
@@ -77,11 +74,11 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
               onSelect={handleSelectItem}
             />
           </React.Fragment> : null }
-        <Box mt={4} mb={2}>
-          <Typography variant="subtitle2">
+        <Box mt={4}>
+          <Typography variant="subtitle2" className={classes.similarityTitle}>
             <FormattedMessage
               id="mediaSimilarities.allSimilarMedia"
-              defaultMessage="All similar media"
+              defaultMessage="Similar"
             />
           </Typography>
         </Box>

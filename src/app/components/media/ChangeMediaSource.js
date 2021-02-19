@@ -5,9 +5,11 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { can } from '../Can';
 
 function ChangeMediaSource({
   team,
+  projectMediaPermissions,
   onCancel,
   onSubmit,
   createNewClick,
@@ -37,18 +39,21 @@ function ChangeMediaSource({
     }
   }, [input]);
 
-  const createNew = (
-    <Button
-      style={{ color: 'blue' }}
-      onClick={() => { createNewClick(input); }}
-    >
-      <FormattedMessage
-        id="changeMediaSource.createSource"
-        defaultMessage="Create new"
-        description="allow user to create a new source"
-      />
-    </Button>
-  );
+  let createNew = null;
+  if (can(projectMediaPermissions, 'create Source')) {
+    createNew = (
+      <Button
+        style={{ color: 'blue' }}
+        onClick={() => { createNewClick(input); }}
+      >
+        <FormattedMessage
+          id="changeMediaSource.createSource"
+          defaultMessage="Create new"
+          description="allow user to create a new source"
+        />
+      </Button>
+    );
+  }
 
   return (
     <div id="media_source-change">
@@ -113,6 +118,7 @@ function ChangeMediaSource({
 
 ChangeMediaSource.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
+  projectMediaPermissions: PropTypes.object.isRequired, // ProjectMedia permissions
   onCancel: PropTypes.func.isRequired, // func() => undefined
   onSubmit: PropTypes.func.isRequired, // func(<Project>) => undefined
   createNewClick: PropTypes.func.isRequired, // func() => undefined
