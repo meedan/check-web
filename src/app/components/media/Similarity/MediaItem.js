@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -213,9 +213,10 @@ const MediaItem = ({
               description="Banner displayed after items are detached successfully"
               values={{
                 toProject: (
-                  <Link to={`/${teamSlug}/project/${projectId}`}>
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                  <a onClick={() => browserHistory.push(`/${teamSlug}/project/${projectId}`)}>
                     {projectTitle}
-                  </Link>
+                  </a>
                 ),
               }}
             />

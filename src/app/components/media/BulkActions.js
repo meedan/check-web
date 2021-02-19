@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -157,9 +157,10 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are moved successfully"
           values={{
             toProject: (
-              <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                 {projectTitle}
-              </Link>
+              </a>
             ),
           }}
         />
@@ -196,9 +197,10 @@ class BulkActions extends React.Component {
             description="Banner displayed after items are moved successfully"
             values={{
               toProject: (
-                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                   {projectTitle}
-                </Link>
+                </a>
               ),
             }}
           />
@@ -210,9 +212,10 @@ class BulkActions extends React.Component {
             description="Banner displayed after items are moved successfully"
             values={{
               toProject: (
-                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                   {projectTitle}
-                </Link>
+                </a>
               ),
             }}
           />

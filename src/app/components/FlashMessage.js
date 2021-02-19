@@ -8,7 +8,7 @@ import reactStringReplace from 'react-string-replace';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
 import { safelyParseJSON } from '../helpers';
-import { checkBlue, white } from '../styles/js/shared';
+import { checkBlue, white, black54 } from '../styles/js/shared';
 
 /**
  * A global message, already translated for the user.
@@ -69,6 +69,26 @@ const useSnackBarStyles = makeStyles({
       color: white,
     },
   },
+  root: {
+    '& a': {
+      color: white,
+      textDecoration: 'underline',
+      cursor: 'pointer',
+      '&:not([href])': {
+        textDecoration: 'underline',
+      },
+      '&:not([href]):hover': {
+        color: black54,
+        textDecoration: 'underline',
+      },
+      '&:visited': {
+        color: white,
+      },
+      '&:hover': {
+        color: black54,
+      },
+    },
+  },
 });
 
 const FlashMessageProvider = ({ children }) => {
@@ -94,6 +114,7 @@ const FlashMessageProvider = ({ children }) => {
       )}
       classes={{
         variantInfo: classes.info,
+        root: classes.root,
       }}
     >
       <FlashMessageProviderWithSnackBar>
