@@ -83,20 +83,14 @@
 	"ProjectBlankState.createMedia": {
 		"string": "Add a link or text"
 	},
-	"RoleSelect.annotator": {
-		"string": "Annotator"
+	"RoleSelect.admin": {
+		"string": "Admin"
 	},
-	"RoleSelect.contributor": {
-		"string": "Contributor"
+	"RoleSelect.collaborator": {
+		"string": "Collaborator"
 	},
 	"RoleSelect.editor": {
 		"string": "Editor"
-	},
-	"RoleSelect.journalist": {
-		"string": "Journalist"
-	},
-	"RoleSelect.owner": {
-		"string": "Owner"
 	},
 	"TeamInviteMembers.emailInput": {
 		"string": "Email address"
@@ -122,8 +116,8 @@
 	"TeamMembersInvitedListItem.resend": {
 		"string": "Resend"
 	},
-	"TeamMembersListItem.annotator": {
-		"string": "Annotator"
+	"TeamMembersListItem.collaborator": {
+		"string": "Collaborator"
 	},
 	"TeamMembersListItem.confirmDeleteMemberBlurb": {
 		"string": "User will be removed from {team}"
@@ -140,17 +134,11 @@
 	"TeamMembersListItem.confirmLeaveTitle": {
 		"string": "Are you sure you want to leave {team}?"
 	},
-	"TeamMembersListItem.contributor": {
-		"string": "Contributor"
-	},
 	"TeamMembersListItem.deleteMember": {
 		"string": "Remove member"
 	},
 	"TeamMembersListItem.editor": {
 		"string": "Editor"
-	},
-	"TeamMembersListItem.journalist": {
-		"string": "Journalist"
 	},
 	"TeamMembersListItem.leaveTeam": {
 		"string": "Leave workspace"
@@ -212,20 +200,14 @@
 	"UserSecurity.verifyInput": {
 		"string": "Validation Code"
 	},
-	"UserUtil.annotator": {
-		"string": "Annotator"
+	"UserUtil.admin": {
+		"string": "Admin"
 	},
-	"UserUtil.contributor": {
-		"string": "Contributor"
+	"UserUtil.collaborator": {
+		"string": "Collaborator"
 	},
 	"UserUtil.editor": {
 		"string": "Editor"
-	},
-	"UserUtil.journalist": {
-		"string": "Journalist"
-	},
-	"UserUtil.owner": {
-		"string": "Owner"
 	},
 	"accessDenied.title": {
 		"string": "പ്രവേശനം തടഞ്ഞിരിക്കുന്നു"
@@ -414,10 +396,10 @@
 		"string": "Task note deleted by {author}: {title}{note}"
 	},
 	"annotation.reportReceived": {
-		"string": "Report received on {date}"
+		"string": "Report sent on {date}"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Report update received on {date}"
+		"string": "Report update sent on {date}"
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "See how this bot works"
@@ -520,15 +502,6 @@
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Add to report"
-	},
-	"blankMediaButton.confirmButtonLabel": {
-		"string": "Pause report and update content"
-	},
-	"blankMediaButton.confirmText": {
-		"string": "The following item already has a published report:\n              {link}\n              If you proceed, both the status and the report will be overwritten, and the report will be paused."
-	},
-	"blankMediaButton.confirmTitle": {
-		"string": "Overwrite report and status?"
 	},
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Could not save item"
@@ -1105,7 +1078,7 @@
 		"string": "Set as default language for this item"
 	},
 	"languageSwitcher.primaryLanguage": {
-		"string": "{language} (default)"
+		"string": "(default)"
 	},
 	"languagesComponent.blurb": {
 		"string": "Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
@@ -1431,9 +1404,6 @@
 	"mediaComponent.metadata": {
 		"string": "Metadata"
 	},
-	"mediaComponent.noTasks": {
-		"string": "Nothing to show."
-	},
 	"mediaComponent.notes": {
 		"string": "Notes"
 	},
@@ -1444,7 +1414,7 @@
 		"string": "Requests"
 	},
 	"mediaComponent.source": {
-		"string": "Source"
+		"string": "ഉറവിടം"
 	},
 	"mediaComponent.tasks": {
 		"string": "Tasks"
@@ -1505,6 +1475,12 @@
 	},
 	"mediaExpandedMetadata.shares": {
 		"string": "FB Shares"
+	},
+	"mediaItem.addedBy": {
+		"string": "Added by {name}"
+	},
+	"mediaItem.confirmedBy": {
+		"string": "Confirmed by {name}"
 	},
 	"mediaItem.detach": {
 		"string": "Detach"
@@ -1611,22 +1587,19 @@
 		"string": "{current} of {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "All similar media"
+		"string": "Similar"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Click on an item"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main media"
+		"string": "Main"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Notes"
 	},
 	"mediaSimilarities.requests": {
 		"string": "Requests"
-	},
-	"mediaSimilaritiesComponent.back": {
-		"string": "Back"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1663,6 +1636,9 @@
 		"string": "Similar item added successfully",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
+	"mediaSimilarityBarComponent.back": {
+		"string": "Back"
+	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "This media has been added as similar to another item"
 	},
@@ -1670,10 +1646,13 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
+		"string": "Similar media"
+	},
+	"mediaSimilarityBarComponent.similarMediaWithValue": {
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+		"string": "Suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
@@ -1704,7 +1683,7 @@
 		"string": "No requests"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "There are no suggested matches."
+		"string": "There is no suggested media."
 	},
 	"mediaSuggestionsComponent.notes": {
 		"string": "Notes"
@@ -1716,7 +1695,7 @@
 		"string": "Requests"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "Suggested matches ({current} of {total})"
+		"string": "{current} of {total} suggested media"
 	},
 	"mediaTags.error": {
 		"string": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
@@ -2014,7 +1993,7 @@
 		"string": "Save"
 	},
 	"reportDesigner.sentCount": {
-		"string": "Reports received"
+		"string": "Reports sent"
 	},
 	"reportDesigner.statusLabel": {
 		"string": "Status label ({max} characters max)"
@@ -2111,9 +2090,6 @@
 	},
 	"rulesTableHead.name": {
 		"string": "പേര്"
-	},
-	"rulesTableHead.selectAll": {
-		"string": "Select all rules"
 	},
 	"rulesTableHead.updated": {
 		"string": "Updated"
@@ -2498,6 +2474,9 @@
 		"string": "Could not save tipline settings.",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
+	"smoochBotComponent.install": {
+		"string": "Install"
+	},
 	"smoochBotComponent.save": {
 		"string": "Save settings"
 	},
@@ -2591,6 +2570,15 @@
 	},
 	"smoochBotSelectReport.dialogTitle": {
 		"string": "Select a report"
+	},
+	"smoochBotSettings.connectToFacebook": {
+		"string": "Connect to Facebook"
+	},
+	"smoochBotSettings.connectToTwitter": {
+		"string": "Connect to Twitter"
+	},
+	"smoochBotSettings.connectToWhatsApp": {
+		"string": "Connect to WhatsApp"
 	},
 	"sortSelect.az": {
 		"string": "A to Z"
@@ -2715,7 +2703,7 @@
 		"string": "You requested to join"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+		"string": "{membersCount, plural, one {# member} other {# members}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "Create"
@@ -2818,6 +2806,9 @@
 	},
 	"tasks.blankMetadata": {
 		"string": "No metadata fields"
+	},
+	"tasks.blankTasks": {
+		"string": "No tasks"
 	},
 	"tasks.cancelAdd": {
 		"string": "Cancel"
@@ -3430,9 +3421,6 @@
 	},
 	"userAssignments.filterByTeam": {
 		"string": "Filter by workspace"
-	},
-	"userAssignments.other": {
-		"string": "Other"
 	},
 	"userComponent.teams": {
 		"string": "Workspaces"
