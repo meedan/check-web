@@ -47,7 +47,7 @@ const SmoochBotComponent = ({
         defaultMessage="Could not save tipline settings."
         description="Warning displayed if an error occurred when saving tipline settings"
       />
-    ));
+    ), 'error');
   };
 
   const handleSuccess = () => {
@@ -58,7 +58,7 @@ const SmoochBotComponent = ({
         defaultMessage="Tipline settings saved successfully."
         description="Banner displayed when tipline settings are saved successfully"
       />
-    ));
+    ), 'success');
   };
 
   const handleSave = () => {
@@ -253,6 +253,7 @@ SmoochBotComponent.propTypes = {
   team: PropTypes.object.isRequired, // FIXME: List the fields needed
   smoochBotDbid: PropTypes.number.isRequired,
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 export default injectIntl(withSetFlashMessage(SmoochBotComponent));

@@ -55,7 +55,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
       />
     );
     const message = getErrorMessage(error, fallbackMessage);
-    setFlashMessage(message);
+    setFlashMessage(message, 'error');
   };
 
   const handleChangeLanguage = (newValue) => {
@@ -143,7 +143,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
             id="statusesComponent.saved"
             defaultMessage="Statuses saved sucessfully!"
           />
-        ));
+        ), 'success');
       }
     };
     const onError = (error) => {
@@ -316,6 +316,7 @@ StatusesComponent.propTypes = {
     get_language: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(StatusesComponent);

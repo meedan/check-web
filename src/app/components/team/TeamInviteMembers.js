@@ -184,7 +184,7 @@ class TeamInviteMembers extends Component {
             <p key={`email-error-${index.toString()}`}>{message.email} : {message.error}</p>
           ))
         );
-        this.props.setFlashMessage(errorMessage);
+        this.props.setFlashMessage(errorMessage, 'error');
       } else {
         const message = (
           <FormattedMessage
@@ -192,7 +192,7 @@ class TeamInviteMembers extends Component {
             defaultMessage="Invitation was sent successfully"
           />
         );
-        this.props.setFlashMessage(message);
+        this.props.setFlashMessage(message, 'success');
       }
     };
     if (this.validateMembers() && !this.state.sendDisabled) {

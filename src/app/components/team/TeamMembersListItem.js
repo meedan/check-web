@@ -105,6 +105,7 @@ class TeamMembersListItem extends Component {
   };
 
   fail = (transaction) => {
+    // FIXME: Replace with <GenericUnkownErrorMessage />
     const fallbackMessage = (
       <FormattedMessage
         {...globalStrings.unknownError}
@@ -112,7 +113,7 @@ class TeamMembersListItem extends Component {
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   };
 
   handleDeleteTeamUser() {

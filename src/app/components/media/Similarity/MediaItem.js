@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -132,7 +132,8 @@ const MediaItem = ({
   };
 
   const handleError = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />);
+    // FIXME: Replace with `<GenericUnknownErrorMessage />`;
+    setFlashMessage(<FormattedMessage id="mediaItem.error" defaultMessage="Error, please try again" />, 'error');
   };
 
   const handleDelete = (project) => {
@@ -215,14 +216,15 @@ const MediaItem = ({
               description="Banner displayed after items are detached successfully"
               values={{
                 toProject: (
-                  <Link to={`/${teamSlug}/project/${projectId}`}>
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                  <a onClick={() => browserHistory.push(`/${teamSlug}/project/${projectId}`)}>
                     {projectTitle}
-                  </Link>
+                  </a>
                 ),
               }}
             />
           );
-          setFlashMessage(message);
+          setFlashMessage(message, 'success');
         }
       },
       onError: () => {
@@ -232,7 +234,7 @@ const MediaItem = ({
   };
 
   const handleSwitch = () => {
-    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />);
+    setFlashMessage(<FormattedMessage id="mediaItem.pinning" defaultMessage="Pinning…" />, 'info');
 
     const mutation = graphql`
       mutation MediaItemUpdateRelationshipMutation($input: UpdateRelationshipInput!) {
@@ -257,7 +259,12 @@ const MediaItem = ({
         if (error) {
           handleError();
         } else {
-          setFlashMessage(<FormattedMessage id="mediaItem.doneRedirecting" defaultMessage="Done, redirecting to new main item…" />);
+          setFlashMessage((
+            <FormattedMessage
+              id="mediaItem.doneRedirecting"
+              defaultMessage="Done, redirecting to new main item…"
+            />
+          ), 'success');
           window.location.assign(`/${teamSlug}/media/${relationship.target_id}/similar-media`);
         }
       },

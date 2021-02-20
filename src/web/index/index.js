@@ -17,7 +17,7 @@ import {
 import Root from '../../app/components/Root';
 import { MuiTheme } from '../../app/styles/js/shared';
 import { FlashMessageProvider } from '../../app/components/FlashMessage';
-import { subscribe as pusherSubscribe, unsubscribe as pusherUnsubscribe, PusherContext } from '../../app/pusher';
+import { PusherContext, getPusherContextValueForClientSessionId } from '../../app/pusher';
 import { ClientSessionIdContext, generateRandomClientSessionId } from '../../app/ClientSessionId';
 import rootReducer from '../../app/redux';
 import locales from '../../../localization/translations/locales';
@@ -48,12 +48,9 @@ if (locales.indexOf(locale) === -1) {
   locale = 'en';
 }
 
-const pusherContextValue = {
-  subscribe: pusherSubscribe,
-  unsubscribe: pusherUnsubscribe,
-};
-
 const clientSessionId = generateRandomClientSessionId();
+
+const pusherContextValue = getPusherContextValueForClientSessionId(clientSessionId);
 
 const dir = rtlDetect.isRtlLang(locale) ? 'rtl' : 'ltr';
 const styledComponentsTheme = { dir };

@@ -123,7 +123,7 @@ const LanguageListItem = ({ code, team }) => {
       setFlashMessage((
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
-      ));
+      ), 'error');
     };
 
     setIsSaving(true);
@@ -154,7 +154,7 @@ const LanguageListItem = ({ code, team }) => {
       setFlashMessage((
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
-      ));
+      ), 'error');
     };
 
     setIsSaving(true);

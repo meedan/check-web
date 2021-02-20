@@ -37,7 +37,7 @@ class CreateProjectMedia extends React.Component {
         message = error[0].message; // eslint-disable-line prefer-destructuring
       }
     }
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   };
 
   submitMedia(value) {

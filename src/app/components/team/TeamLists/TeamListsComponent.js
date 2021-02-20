@@ -67,7 +67,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         defaultMessage="Could not save list settings."
         description="Warning displayed if an error occurred when saving list settings"
       />
-    ));
+    ), 'error');
   };
 
   const handleSuccess = () => {
@@ -78,7 +78,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         defaultMessage="List settings saved successfully."
         description="Banner displayed when list settings are saved successfully"
       />
-    ));
+    ), 'success');
   };
 
   const handleSave = () => {
@@ -279,6 +279,7 @@ TeamListsComponent.propTypes = {
       })).isRequired,
     }).isRequired,
   }).isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(TeamListsComponent);

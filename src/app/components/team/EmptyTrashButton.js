@@ -49,7 +49,7 @@ class EmptyTrashComponent extends Component {
         const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
         const message = getErrorMessage(transaction, fallbackMessage);
         this.setState({ emptyTrashDisabled: false });
-        this.props.setFlashMessage(message);
+        this.props.setFlashMessage(message, 'error');
       };
 
       const onSuccess = () => {

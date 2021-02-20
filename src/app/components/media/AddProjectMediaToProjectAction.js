@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { browserHistory } from 'react-router';
 import { commitMutation, createFragmentContainer, graphql } from 'react-relay/compat';
-import { Link } from 'react-router';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
@@ -57,11 +57,11 @@ function commitAddProjectMediaToProject({
       },
     },
     onError: onFailure,
-    onCompleted: ({ data, errors }) => {
+    onCompleted: (response, errors) => {
       if (errors) {
         return onFailure(errors);
       }
-      return onSuccess(data);
+      return onSuccess();
     },
   });
 }
@@ -86,13 +86,14 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
             defaultMessage="Added to list {listName}"
             values={{
               listName: (
-                <Link to={`/${team.slug}/project/${project.dbid}`}>
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                <a onClick={() => browserHistory.push(`/${team.slug}/project/${project.dbid}`)}>
                   {project.title}
-                </Link>
+                </a>
               ),
             }}
           />
-        ));
+        ), 'success');
       },
       onFailure: (errors) => {
         setIsSaving(false);
@@ -100,7 +101,7 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
         setFlashMessage((
           getErrorMessageForRelayModernProblem(errors)
           || <GenericUnknownErrorMessage />
-        ));
+        ), 'success');
       },
     });
   }, [

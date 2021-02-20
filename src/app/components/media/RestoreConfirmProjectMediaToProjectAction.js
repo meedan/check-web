@@ -74,9 +74,10 @@ function RestoreConfirmProjectMediaToProjectAction({
               defaultMessage="Confirmed, redirecting…"
             />
           );
-        setFlashMessage(message);
+        setFlashMessage(message, 'success');
         window.location.assign(window.location.pathname);
       },
+      // FIXME: Add onFailure handler
     });
   }, [
     setFlashMessage, team, projectMedia, setIsDialogOpen, setIsSaving,

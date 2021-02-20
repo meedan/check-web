@@ -6,7 +6,12 @@ import ifvisible from 'ifvisible.js';
 import { safelyParseJSON } from './helpers';
 import { ClientSessionIdContext } from './ClientSessionId';
 
-function createPusher({ cluster, pusherKey, debug }) {
+function createPusher({
+  clientSessionId,
+  cluster,
+  pusherKey,
+  debug,
+}) {
   // Pusher is imported at runtime from a <script file> tag.
   // eslint-disable-next-line no-console
   if (!!debug && console && console.debug) {
@@ -28,6 +33,7 @@ function createPusher({ cluster, pusherKey, debug }) {
     currentChannels: {},
     subscribedChannels: {},
     callbacksToRun: {},
+    clientSessionId,
   };
   window.CheckPusher = checkPusher; // to help debug things
 
@@ -187,11 +193,14 @@ const NullPusher = {
   unsubscribe: () => null,
 };
 
-const { subscribe, unsubscribe } = config.pusherKey ? createPusher({
-  cluster: config.pusherCluster,
-  pusherKey: config.pusherKey,
-  debug: config.pusherDebug,
-}) : NullPusher;
+function getPusherContextValueForClientSessionId(clientSessionId) {
+  return config.pusherKey ? createPusher({
+    clientSessionId,
+    cluster: config.pusherCluster,
+    pusherKey: config.pusherKey,
+    debug: config.pusherDebug,
+  }) : NullPusher;
+}
 
 const PusherContext = React.createContext({ subscribe: () => {}, unsubscribe: () => {} });
 PusherContext.displayName = 'PusherContext';
@@ -220,4 +229,4 @@ const pusherShape = PropTypes.shape({
   unsubscribe: PropTypes.func.isRequired,
 });
 
-export { subscribe, unsubscribe, PusherContext, withPusher, pusherShape };
+export { getPusherContextValueForClientSessionId, PusherContext, withPusher, pusherShape };
