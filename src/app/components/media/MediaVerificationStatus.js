@@ -30,8 +30,8 @@ class MediaStatus extends Component {
     const onSuccess = (data) => {
       const pm = data.updateDynamic.project_media;
       if (pm.project_ids.length !== media.project_ids.length) {
-        const newPath = window.location.pathname.replace(/project\/[0-9]+/, `project/${pm.project_ids.pop()}`);
-        window.location = `${newPath}?reload=true`;
+        // const newPath = window.location.pathname.replace(/project\/[0-9]+/, `project/${pm.project_ids.pop()}`);
+        // window.location = `${newPath}?reload=true`;
       } else if (this.props.callback) {
         this.props.callback();
       } else {

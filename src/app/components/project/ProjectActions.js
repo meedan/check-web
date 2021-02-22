@@ -66,17 +66,18 @@ class ProjectActions extends Component {
           defaultMessage="List deleted successfully."
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
     };
 
     const onFailure = () => {
+      // FIXME: Get error message from backend
       const message = (
         <FormattedMessage
           id="projectActions.projectNotDeleted"
           defaultMessage="Sorry, could not delete list."
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'error');
     };
 
     Relay.Store.commitUpdate(

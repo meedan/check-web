@@ -162,7 +162,7 @@ const ReportDesignerComponent = (props) => {
           supportEmail: stringHelper('SUPPORT_EMAIL'),
         }}
       />);
-      props.setFlashMessage(message);
+      props.setFlashMessage(message, 'error');
       setPending(false);
     };
 
@@ -181,7 +181,6 @@ const ReportDesignerComponent = (props) => {
     };
 
     const annotation = media.dynamic_annotation_report_design;
-    props.setFlashMessage(null);
     setPending(true);
 
     const fields = JSON.parse(JSON.stringify(data));

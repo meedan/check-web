@@ -21,8 +21,6 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
-import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
-import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
 import Tasks from '../task/Tasks';
@@ -53,9 +51,122 @@ const useStyles = makeStyles(theme => ({
   sourceInfoRight: {
     textAlign: 'right',
   },
+  sourceCardHeader: {
+    paddingBottom: 0,
+  },
+  sourceCardContent: {
+    paddingTop: 0,
+  },
 }));
 
-function SourceInfo({ source, team, onChangeClick }) {
+function commitCreateAccountSource({
+  source, url, onSuccess, onFailure,
+}) {
+  const accountSources = source.account_sources ? source.account_sources.edges : [];
+  const newAccountSources = accountSources.concat({ node: { account: { url, metadata: '' } } });
+  const optimisticResponse = {
+    createAccountSource: {
+      account_sources: {
+        newAccountSources,
+      },
+    },
+  };
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation SourceInfoCreateAccountSourceMutation($input: CreateAccountSourceInput!) {
+        createAccountSource(input: $input) {
+          source {
+            id
+            name
+            updated_at
+            account_sources(first: 10000) {
+              edges {
+                node {
+                  id
+                  permissions
+                  account {
+                    id
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    optimisticResponse,
+    variables: {
+      input: {
+        source_id: source.dbid,
+        url,
+      },
+    },
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+}
+
+function commitDeleteAccountSource({ source, asId }) {
+  const onFailure = () => {};
+  const onSuccess = () => {};
+  commitMutation(Relay.Store, {
+    mutation: graphql`
+      mutation SourceInfoDeleteAccountSourceMutation($input: DestroyAccountSourceInput!) {
+        destroyAccountSource(input: $input) {
+          deletedId
+          source {
+            account_sources(first: 10000) {
+              edges {
+                node {
+                  id
+                  permissions
+                  account {
+                    id
+                    url
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    `,
+    variables: {
+      input: {
+        id: asId,
+      },
+    },
+    configs: [
+      {
+        type: 'NODE_DELETE',
+        parentName: 'source',
+        parentID: source.id,
+        connectionName: 'account_sources',
+        deletedIDFieldName: 'deletedId',
+      },
+    ],
+    onError: onFailure,
+    onCompleted: ({ data, errors }) => {
+      if (errors) {
+        return onFailure(errors);
+      }
+      return onSuccess(data);
+    },
+  });
+}
+
+function SourceInfo({
+  source,
+  team,
+  projectMediaPermissions,
+  onChangeClick,
+}) {
   const [expandName, setExpandName] = React.useState(true);
   const [expandAccounts, setExpandAccounts] = React.useState(true);
   const [sourceName, setSourceName] = React.useState(source.name);
@@ -67,16 +178,7 @@ function SourceInfo({ source, team, onChangeClick }) {
   const classes = useStyles();
 
   const handleRemoveLink = (asId) => {
-    const onFailure = () => {};
-    const onSuccess = () => {};
-
-    Relay.Store.commitUpdate(
-      new DeleteAccountSourceMutation({
-        id: asId,
-        source,
-      }),
-      { onSuccess, onFailure },
-    );
+    commitDeleteAccountSource({ source, asId });
   };
 
   const handleChangeLink = (e, type) => {
@@ -174,14 +276,9 @@ function SourceInfo({ source, team, onChangeClick }) {
         }
       };
       setSaving(true);
-      Relay.Store.commitUpdate(
-        new CreateAccountSourceMutation({
-          id: source.dbid,
-          url,
-          source,
-        }),
-        { onSuccess, onFailure },
-      );
+      commitCreateAccountSource({
+        source, url, onSuccess, onFailure,
+      });
     } else {
       const message = (
         <FormattedMessage
@@ -244,17 +341,19 @@ function SourceInfo({ source, team, onChangeClick }) {
               />
             }
           </Typography>
-          <Button
-            id="media-source-change"
-            onClick={onChangeClick}
-            className={classes.linkedText}
-          >
-            <FormattedMessage
-              id="mediaSource.changeSource"
-              defaultMessage="Change"
-              description="allow user to change a project media source"
-            />
-          </Button>
+          { can(projectMediaPermissions, 'update ProjectMedia') ?
+            <Button
+              id="media-source-change"
+              onClick={onChangeClick}
+              className={classes.linkedText}
+            >
+              <FormattedMessage
+                id="mediaSource.changeSource"
+                defaultMessage="Change"
+                description="allow user to change a project media source"
+              />
+            </Button> : null
+          }
         </div>
       </div>
       <Box clone mb={2}>
@@ -263,7 +362,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           className="source__card-card"
         >
           <CardHeader
-            className="source__card-header"
+            className={['source__card-header', classes.sourceCardHeader].join(' ')}
             disableTypography
             title={
               <FormattedMessage
@@ -283,7 +382,7 @@ function SourceInfo({ source, team, onChangeClick }) {
             }
           />
           <Collapse in={expandName} timeout="auto">
-            <CardContent>
+            <CardContent className={classes.sourceCardContent}>
               <TextField
                 id="source__name-input"
                 name="source__name-input"
@@ -295,6 +394,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                 onChange={(e) => { setSourceName(e.target.value); }}
                 onBlur={handleChangeSourceName}
                 margin="normal"
+                variant="outlined"
                 fullWidth
               />
             </CardContent>
@@ -307,7 +407,7 @@ function SourceInfo({ source, team, onChangeClick }) {
           className="source__card-card"
         >
           <CardHeader
-            className="source__card-header"
+            className={['source__card-header', classes.sourceCardHeader].join(' ')}
             disableTypography
             title={
               <FormattedMessage
@@ -327,7 +427,7 @@ function SourceInfo({ source, team, onChangeClick }) {
             }
           />
           <Collapse in={expandAccounts} timeout="auto">
-            <CardContent>
+            <CardContent className={classes.sourceCardContent}>
               <Box mb={2}>
                 { mainAccount ?
                   <Row key={mainAccount.node.id} className="source__url">
@@ -335,6 +435,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                       id="main_source__link"
                       value={mainAccount.node.account.url}
                       margin="normal"
+                      variant="outlined"
                       disabled
                       fullWidth
                     />
@@ -351,6 +452,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     id="source_primary__link-input"
                     name="source_primary__link-input"
                     disabled={saving}
+                    variant="outlined"
                     label={
                       <FormattedMessage
                         id="sourceInfo.primaryLink"
@@ -395,6 +497,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                       id={`source__link-item${index.toString()}`}
                       defaultValue={as.node.account.url}
                       margin="normal"
+                      variant="outlined"
                       fullWidth
                       disabled
                     />
@@ -415,6 +518,7 @@ function SourceInfo({ source, team, onChangeClick }) {
                     id="source__link-input-new"
                     name="source__link-input-new"
                     margin="normal"
+                    variant="outlined"
                     value={secondaryUrl.url}
                     error={Boolean(secondaryUrl.error)}
                     helperText={secondaryUrl.error}
@@ -466,6 +570,7 @@ function SourceInfo({ source, team, onChangeClick }) {
 SourceInfo.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   source: PropTypes.object.isRequired, // GraphQL "Source" object
+  projectMediaPermissions: PropTypes.object.isRequired, // ProjectMedia permissions
   onChangeClick: PropTypes.func.isRequired, // func(<SourceId>) => undefined
 };
 

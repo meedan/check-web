@@ -1,17 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
-import { Link } from 'react-router';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
-import { withSetFlashMessage } from '../FlashMessage';
 import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessage } from '../../helpers';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
 import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
@@ -87,6 +89,11 @@ class BulkActions extends React.Component {
     this.setState({ openMoveDialog: false, openAddDialog: false });
   }
 
+  fail = (transaction) => {
+    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    this.props.setFlashMessage(message, 'error');
+  };
+
   handleAdd() {
     const onSuccess = () => {
       const message = (
@@ -96,13 +103,10 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are added successfully to list"
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.setState({ openAddDialog: false, dstProjForAdd: null });
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
-
-    onSuccess();
 
     if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
       Relay.Store.commitUpdate(
@@ -110,7 +114,7 @@ class BulkActions extends React.Component {
           projectMediaDbids: this.props.selectedProjectMediaDbids,
           project: this.state.dstProjForAdd,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -124,12 +128,9 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are removed successfully from list"
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.props.onUnselectAll();
     };
-    const onDone = () => {};
-
-    onSuccess();
 
     if (this.props.selectedMedia.length) {
       Relay.Store.commitUpdate(
@@ -138,7 +139,7 @@ class BulkActions extends React.Component {
           projectMediaIds: this.props.selectedMedia,
           project: this.props.project,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -156,19 +157,18 @@ class BulkActions extends React.Component {
           description="Banner displayed after items are moved successfully"
           values={{
             toProject: (
-              <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                 {projectTitle}
-              </Link>
+              </a>
             ),
           }}
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
-
-    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -178,7 +178,7 @@ class BulkActions extends React.Component {
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -197,9 +197,10 @@ class BulkActions extends React.Component {
             description="Banner displayed after items are moved successfully"
             values={{
               toProject: (
-                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                   {projectTitle}
-                </Link>
+                </a>
               ),
             }}
           />
@@ -211,19 +212,18 @@ class BulkActions extends React.Component {
             description="Banner displayed after items are moved successfully"
             values={{
               toProject: (
-                <Link to={`/${this.props.team.slug}/project/${projectId}`}>
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                   {projectTitle}
-                </Link>
+                </a>
               ),
             }}
           />
         );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.setState({ openMoveDialog: false, dstProj: null });
       this.props.onUnselectAll();
     };
-
-    const onDone = () => {};
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
@@ -234,7 +234,7 @@ class BulkActions extends React.Component {
           archived_was: params.archived_was,
           dstProject: this.state.dstProj,
         }),
-        { onSuccess, onFailure: onDone },
+        { onSuccess, onFailure: this.fail },
       );
     }
   }
@@ -247,7 +247,7 @@ class BulkActions extends React.Component {
           defaultMessage="Items moved to the Trash."
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
       this.props.onUnselectAll();
     };
 
@@ -307,6 +307,22 @@ class BulkActions extends React.Component {
       );
     }
 
+    const deleteButton = (
+      <IconButtonWithTooltip
+        title={
+          <FormattedMessage
+            id="bulkActions.sendItemsToTrash"
+            defaultMessage="Send selected items to Trash"
+          />
+        }
+        disabled={disabled}
+        className="media-bulk-actions__delete-icon"
+        onClick={this.handleDelete.bind(this)}
+      >
+        <DeleteIcon />
+      </IconButtonWithTooltip>
+    );
+
     if (moveTooltipMessage) {
       modalToMove = (
         <React.Fragment>
@@ -358,9 +374,12 @@ class BulkActions extends React.Component {
       break;
     case 'unconfirmed':
       actionButtons = (
-        <Can permission="confirm ProjectMedia" permissions={team.permissions}>
-          {modalToMove}
-        </Can>
+        <React.Fragment>
+          <Can permission="confirm ProjectMedia" permissions={team.permissions}>
+            {modalToMove}
+          </Can>
+          {deleteButton}
+        </React.Fragment>
       );
       break;
     default:
@@ -400,21 +419,9 @@ class BulkActions extends React.Component {
             onCancel={this.handleCloseDialogs.bind(this)}
           />
 
-          {project ? modalToMove : null}
+          { project ? modalToMove : null }
 
-          <IconButtonWithTooltip
-            title={
-              <FormattedMessage
-                id="bulkActions.sendItemsToTrash"
-                defaultMessage="Send selected items to Trash"
-              />
-            }
-            disabled={disabled}
-            className="media-bulk-actions__delete-icon"
-            onClick={this.handleDelete.bind(this)}
-          >
-            <DeleteIcon />
-          </IconButtonWithTooltip>
+          {deleteButton}
         </React.Fragment>
       );
       break;

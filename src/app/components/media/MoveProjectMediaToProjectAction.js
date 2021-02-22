@@ -131,7 +131,7 @@ function MoveProjectMediaToProjectAction({
         setFlashMessage((
           getErrorMessageForRelayModernProblem(errors)
           || <GenericUnknownErrorMessage />
-        ));
+        ), 'error');
       },
     });
   }, [

@@ -12,13 +12,13 @@ export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
 export const highlightBlue = '#f1f6ff';
-export const highlightOrange = '#FD730C';
 export const inProgressYellow = '#efac51';
 export const unstartedRed = '#f04747';
 export const completedGreen = '#5cae73';
 export const separationGray = '#E5E5E5';
 export const brandSecondary = '#DFE4F4';
 export const backgroundMain = '#F7F8FD';
+export const brandHighlight = checkBlue;
 
 // Material blacks
 // TODO make these opaque!
@@ -283,10 +283,10 @@ export const MuiTheme = {
     },
     MuiTableSortLabel: {
       active: {
-        color: `${highlightOrange} !important`,
+        color: `${brandHighlight} !important`,
       },
       icon: {
-        color: `${highlightOrange} !important`,
+        color: `${brandHighlight} !important`,
       },
     },
     MuiIconButton: { // Buttons with Icons
@@ -305,10 +305,24 @@ export const MuiTheme = {
           minWidth: 0,
         },
       },
+      wrapper: {
+        alignItems: 'flex-start',
+      },
     },
     MuiButton: {
       contained: {
         boxShadow: 'none',
+      },
+    },
+    MuiPaper: {
+      elevation1: {
+        boxShadow: 'none',
+        border: `2px solid ${brandSecondary}`,
+      },
+    },
+    MuiTabs: {
+      indicator: {
+        right: 'auto',
       },
     },
   },
@@ -400,12 +414,6 @@ export const HeaderTitle = styled.h3`
   `}
 `;
 
-export const HiddenOnMobile = styled.div`
-   ${mediaQuery.handheld`
-     display: none;
-  `}
-`;
-
 // <Row />
 //
 // The prop `containsEllipsis` adds overflow to flex-items in case any descendant uses ellipsis
@@ -494,11 +502,6 @@ export const Column = styled.div`
   overflow: ${props => props.overflow ? props.overflow : 'auto'};
 `;
 
-export const OffsetBothSides = styled.div`
-  padding-left: ${units(1)};
-  padding-right: ${units(1)};
-`;
-
 // AlignOpposite
 export const AlignOpposite = styled.div`
   ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
@@ -550,16 +553,6 @@ export const StyledIconButton = styled(IconButton)`
   svg {
     color: ${black38} !important;
     margin: 0!important;
-  }
-`;
-
-// In the Header, the search icon is visually smaller than the
-// rest of the icons, so we make the rest of the icons smaller to match.
-// (the difference is ~ 2px)
-export const SmallerStyledIconButton = styled(StyledIconButton)`
-  svg {
-    height: 22px!important;
-    width: 22px!important;
   }
 `;
 

@@ -5,7 +5,7 @@ import SlackConfig from './index';
 
 describe('<SlackConfig />', () => {
   const ownerUser = {
-    teams: '{"team-slug":{"id":2,"name":"Team Name","role":"owner","status":"member"}}',
+    teams: '{"team-slug":{"id":2,"name":"Team Name","role":"admin","status":"member"}}',
   };
 
   const otherUser = {
@@ -16,7 +16,7 @@ describe('<SlackConfig />', () => {
     slug: 'team-slug',
   };
 
-  it('should render component for team owners', () => {
+  it('should render component for team admins', () => {
     getStore().currentUser = ownerUser;
     const wrapper = mountWithIntl(<SlackConfig
       team={team}

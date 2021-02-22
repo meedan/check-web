@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -86,7 +86,7 @@ class MediaActionsBarComponent extends Component {
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   }
 
   canSubmit = () => {
@@ -104,14 +104,15 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Sent to {trash}"
           values={{
             trash: (
-              <Link to={`/${pm.team.slug}/trash`}>
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
                 <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
-              </Link>
+              </a>
             ),
           }}
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
     };
 
     const context = this.getContext();
@@ -193,7 +194,7 @@ class MediaActionsBarComponent extends Component {
           defaultMessage="Assignments updated successfully!"
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
     };
 
     const status_id = media.last_status_obj ? media.last_status_obj.id : '';

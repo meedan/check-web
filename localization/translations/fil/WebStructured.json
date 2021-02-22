@@ -83,20 +83,14 @@
 	"ProjectBlankState.createMedia": {
 		"string": "Magdagdag ng link o teksto"
 	},
-	"RoleSelect.annotator": {
-		"string": "Anotador"
+	"RoleSelect.admin": {
+		"string": "Admin"
 	},
-	"RoleSelect.contributor": {
-		"string": "Tagapag-ambag"
+	"RoleSelect.collaborator": {
+		"string": "Collaborator"
 	},
 	"RoleSelect.editor": {
 		"string": "Tagapag-edit"
-	},
-	"RoleSelect.journalist": {
-		"string": "Peryodista"
-	},
-	"RoleSelect.owner": {
-		"string": "May-ari"
 	},
 	"TeamInviteMembers.emailInput": {
 		"string": "Email address"
@@ -122,8 +116,8 @@
 	"TeamMembersInvitedListItem.resend": {
 		"string": "Muling ipadala"
 	},
-	"TeamMembersListItem.annotator": {
-		"string": "Anotador"
+	"TeamMembersListItem.collaborator": {
+		"string": "Collaborator"
 	},
 	"TeamMembersListItem.confirmDeleteMemberBlurb": {
 		"string": "Ang user ay matatanggal mula sa {team}"
@@ -140,17 +134,11 @@
 	"TeamMembersListItem.confirmLeaveTitle": {
 		"string": "Sigurado ka bang nais mong umalis sa {team}?"
 	},
-	"TeamMembersListItem.contributor": {
-		"string": "Tagapag-ambag"
-	},
 	"TeamMembersListItem.deleteMember": {
 		"string": "Tanggalin ang miyembro"
 	},
 	"TeamMembersListItem.editor": {
 		"string": "Tagapag-edit"
-	},
-	"TeamMembersListItem.journalist": {
-		"string": "Peryodista"
 	},
 	"TeamMembersListItem.leaveTeam": {
 		"string": "Umalis sa workspace"
@@ -212,20 +200,14 @@
 	"UserSecurity.verifyInput": {
 		"string": "Validation Code"
 	},
-	"UserUtil.annotator": {
-		"string": "Anotador"
+	"UserUtil.admin": {
+		"string": "Admin"
 	},
-	"UserUtil.contributor": {
-		"string": "Tagapag-ambag"
+	"UserUtil.collaborator": {
+		"string": "Collaborator"
 	},
 	"UserUtil.editor": {
 		"string": "Tagapag-edit"
-	},
-	"UserUtil.journalist": {
-		"string": "Peryodista"
-	},
-	"UserUtil.owner": {
-		"string": "May-ari"
 	},
 	"accessDenied.title": {
 		"string": "Tinanggihan ang Pag-access"
@@ -408,16 +390,16 @@
 		"string": "Kaugnay na item na idinagdag ni {author}: {title}"
 	},
 	"annotation.relationshipDestroyed": {
-		"string": "Related item removed by {author}: {title}"
+		"string": "Kaugnay na item na itinanggal ni {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "Task note na binura ni {author}: {title}{note}"
 	},
 	"annotation.reportReceived": {
-		"string": "Natanggap ang ulat noong {date}"
+		"string": "Report sent on {date}"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Natanggap ang update sa ulat noong {date}"
+		"string": "Report update sent on {date}"
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "Tingnan kung paano gumagana ang bot na ito"
@@ -520,15 +502,6 @@
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Add to report"
-	},
-	"blankMediaButton.confirmButtonLabel": {
-		"string": "Pahintuin ang ulat at i-update ang nilalaman"
-	},
-	"blankMediaButton.confirmText": {
-		"string": "Meron nang nakalathalang ulat ang sumusunod na item:\n              {link}\n              Kung magpapatuloy, parehong mapapalitan ang status at ang ulat, at mahihinto ang ulat."
-	},
-	"blankMediaButton.confirmTitle": {
-		"string": "Palitan ang ulat at status?"
 	},
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Hindi ma-save ang item"
@@ -656,7 +629,7 @@
 		"string": "Kumpirmahin ang mga piniling item at ilipat ang mga ito sa ibang listahan"
 	},
 	"changeMediaSource.cancelButton": {
-		"string": "Cancel",
+		"string": "Kanselahin",
 		"developer_comment": "Cancel change media source action"
 	},
 	"changeMediaSource.choose": {
@@ -668,7 +641,7 @@
 		"developer_comment": "allow user to create a new source"
 	},
 	"changeMediaSource.saveButton": {
-		"string": "Save",
+		"string": "I-save",
 		"developer_comment": "Save media source label"
 	},
 	"claimReview.claim": {
@@ -1105,7 +1078,7 @@
 		"string": "Gawing default na wika para sa item na ito"
 	},
 	"languageSwitcher.primaryLanguage": {
-		"string": "{language} (default)"
+		"string": "(default)"
 	},
 	"languagesComponent.blurb": {
 		"string": "Magdagdag ng mga bagong wika sa iyong workspace para makagawa ng mga ulat, tipline bot, at mga status sa maraming wika kapag nakikipag-usap sa mga user."
@@ -1431,9 +1404,6 @@
 	"mediaComponent.metadata": {
 		"string": "Metadata"
 	},
-	"mediaComponent.noTasks": {
-		"string": "Walang maipapakita."
-	},
 	"mediaComponent.notes": {
 		"string": "Mga note"
 	},
@@ -1505,6 +1475,12 @@
 	},
 	"mediaExpandedMetadata.shares": {
 		"string": "Mga Share sa FB"
+	},
+	"mediaItem.addedBy": {
+		"string": "Added by {name}"
+	},
+	"mediaItem.confirmedBy": {
+		"string": "Confirmed by {name}"
 	},
 	"mediaItem.detach": {
 		"string": "I-detach"
@@ -1611,22 +1587,19 @@
 		"string": "{current} ng {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Lahat ng katulad na media"
+		"string": "Similar"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Mag-click sa isang item"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Pangunahing media"
+		"string": "Main"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Mga note"
 	},
 	"mediaSimilarities.requests": {
 		"string": "Mga kahilingan"
-	},
-	"mediaSimilaritiesComponent.back": {
-		"string": "Bumalik"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1663,6 +1636,9 @@
 		"string": "Matagumpay na naidagdag ang katulad na item",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
+	"mediaSimilarityBarComponent.back": {
+		"string": "Bumalik"
+	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "Idinagdag ang media na ito bilang katulad ng isa pang item"
 	},
@@ -1670,10 +1646,13 @@
 		"string": "Iminungkahi na ang media na ito ay katulad ng isa pang item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
+		"string": "Katulad na media"
+	},
+	"mediaSimilarityBarComponent.similarMediaWithValue": {
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+		"string": "Suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
@@ -1704,7 +1683,7 @@
 		"string": "Walang kahilingan"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "Walang iminumungkahing katugma"
+		"string": "There is no suggested media."
 	},
 	"mediaSuggestionsComponent.notes": {
 		"string": "Mga note"
@@ -1716,7 +1695,7 @@
 		"string": "Mga kahilingan"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "Mga iminumungkahing katugma ({current} sa {total})"
+		"string": "{current} of {total} suggested media"
 	},
 	"mediaTags.error": {
 		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
@@ -2014,7 +1993,7 @@
 		"string": "I-save"
 	},
 	"reportDesigner.sentCount": {
-		"string": "Natanggap ang mga ulat"
+		"string": "Reports sent"
 	},
 	"reportDesigner.statusLabel": {
 		"string": "Label ng status (hindi hihigit sa {max} karakter)"
@@ -2111,9 +2090,6 @@
 	},
 	"rulesTableHead.name": {
 		"string": "Pangalan"
-	},
-	"rulesTableHead.selectAll": {
-		"string": "Piliin ang lahat ng panuntunan"
 	},
 	"rulesTableHead.updated": {
 		"string": "In-update"
@@ -2291,13 +2267,13 @@
 		"string": ","
 	},
 	"setProjectMediaSource.cancelButton": {
-		"string": "Cancel"
+		"string": "Kanselahin"
 	},
 	"setProjectMediaSource.choose": {
 		"string": "Choose a source"
 	},
 	"setProjectMediaSource.saveButton": {
-		"string": "Save"
+		"string": "I-save"
 	},
 	"settingsHeader.save": {
 		"string": "I-save"
@@ -2492,11 +2468,14 @@
 		"string": "Mga Tuntunin ng Serbisyo ({language})"
 	},
 	"smoochBotComponent.contactUs": {
-		"string": "Contact us to setup"
+		"string": "Makipag-ugnay sa amin para sa setup"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
 		"string": "Could not save tipline settings.",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.install": {
+		"string": "I-install"
 	},
 	"smoochBotComponent.save": {
 		"string": "Save settings"
@@ -2592,6 +2571,15 @@
 	"smoochBotSelectReport.dialogTitle": {
 		"string": "Mamili ng ulat"
 	},
+	"smoochBotSettings.connectToFacebook": {
+		"string": "Connect to Facebook"
+	},
+	"smoochBotSettings.connectToTwitter": {
+		"string": "Connect to Twitter"
+	},
+	"smoochBotSettings.connectToWhatsApp": {
+		"string": "Connect to WhatsApp"
+	},
 	"sortSelect.az": {
 		"string": "A hanggang Z"
 	},
@@ -2623,7 +2611,7 @@
 		"developer_comment": "Create a new media source label"
 	},
 	"sourceInfo.invalidLink": {
-		"string": "Please enter a valid URL",
+		"string": "Mangyaring maglagay ng wastong URL",
 		"developer_comment": "Error message for invalid link"
 	},
 	"sourceInfo.mainAccount": {
@@ -2643,10 +2631,10 @@
 		"developer_comment": "Allow user to add a main source URL"
 	},
 	"sourceInfo.saved": {
-		"string": "Saved {ago}"
+		"string": "Nai-save {ago}"
 	},
 	"sourceInfo.saving": {
-		"string": "Saving…"
+		"string": "Nagse-save..."
 	},
 	"sourceInfo.secondaryAccounts": {
 		"string": "Secondary source URLs",
@@ -2715,7 +2703,7 @@
 		"string": "Humiling kang makasali sa "
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+		"string": "{membersCount, plural, one {# member} other {# members}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "Gumawa"
@@ -2818,6 +2806,9 @@
 	},
 	"tasks.blankMetadata": {
 		"string": "Walang mga patlang pang-metadata"
+	},
+	"tasks.blankTasks": {
+		"string": "No tasks"
 	},
 	"tasks.cancelAdd": {
 		"string": "Kanselahin"
@@ -3059,7 +3050,7 @@
 		"string": "Mga setting ng workspace"
 	},
 	"teamMetadataRender.blankMetadata": {
-		"string": "No metadata fields",
+		"string": "Walang mga patlang pang-metadata",
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
@@ -3113,13 +3104,13 @@
 		"string": "Facebook page name"
 	},
 	"teamReportComponent.introduction": {
-		"string": "Introduction"
+		"string": "Panimula"
 	},
 	"teamReportComponent.introductionSub": {
-		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+		"string": "Gamitin ang placeholder na {query_date} para ipakita ang petsa ng orihinal na katanungan. Gamitin ang {status} para ipabatid ang status ng artikulo."
 	},
 	"teamReportComponent.save": {
-		"string": "Save"
+		"string": "I-save"
 	},
 	"teamReportComponent.savedSuccessfully": {
 		"string": "Report settings saved successfully.",
@@ -3132,7 +3123,7 @@
 		"string": "The content you set here can be edited in each individual report."
 	},
 	"teamReportComponent.title": {
-		"string": "Default report settings"
+		"string": "Mga default na setting ng ulat"
 	},
 	"teamReportComponent.twitter": {
 		"string": "Twitter account name"
@@ -3309,19 +3300,19 @@
 		"string": "Uri ng gawain"
 	},
 	"teamTasksRender.blank": {
-		"string": "No default tasks to display",
+		"string": "Walang mapapakitang default na gawain",
 		"developer_comment": "Text for empty tasks"
 	},
 	"teamTasksRender.filter": {
-		"string": "Filter tasks",
+		"string": "I-filter ang mga gawain",
 		"developer_comment": "Filter tasks"
 	},
 	"teamTasksRender.projFilter": {
-		"string": "Show tasks in",
+		"string": "Ipakita ang mga gawain sa",
 		"developer_comment": "filter tasks by projects"
 	},
 	"teamTasksRender.tasks": {
-		"string": "Tasks",
+		"string": "Mga gawain",
 		"developer_comment": "Tasks title"
 	},
 	"teamTasksRender.tasksSubtitle": {
@@ -3329,7 +3320,7 @@
 		"developer_comment": "Tasks subtitle"
 	},
 	"teamTasksRender.typeFilter": {
-		"string": "Task type",
+		"string": "Uri ng gawain",
 		"developer_comment": "filter tasks by type"
 	},
 	"teams.title": {
@@ -3430,9 +3421,6 @@
 	},
 	"userAssignments.filterByTeam": {
 		"string": "I-filter ayon sa workspace"
-	},
-	"userAssignments.other": {
-		"string": "Iba pa"
 	},
 	"userComponent.teams": {
 		"string": "Mga workspace"

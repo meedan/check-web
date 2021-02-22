@@ -122,6 +122,10 @@ module AppSpecHelpers
     @driver.execute_script('return Check.store.getState().app.context.project.dbid').to_s
   end
 
+  def page_source_body
+    @driver.execute_script('return document.body.outerHTML;').to_s
+  end
+
   def console_logs
     require 'pp'
     @driver.manage.logs.get('browser').pretty_inspect
@@ -290,6 +294,7 @@ module AppSpecHelpers
     wait_for_text_change(' ', '#autocomplete-media-item', :css)
     wait_for_selector('.autocomplete-media-item__select').click
     wait_for_selector('#create-media-dialog__submit-button').click
+    wait_for_selector('.message').click
     wait_for_selector_none('#create-media-dialog__dismiss-button')
   end
 end

@@ -54,7 +54,7 @@ class ProjectAssignmentComponent extends Component {
     const onFailure = (transaction) => {
       const fallbackMessage = this.props.intl.formatMessage(globalStrings.unknownError, { supportEmail: stringHelper('SUPPORT_EMAIL') });
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'error');
     };
 
     const onSuccess = () => {
@@ -64,7 +64,7 @@ class ProjectAssignmentComponent extends Component {
           defaultMessage="Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
         />
       );
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'success');
     };
 
     Relay.Store.commitUpdate(

@@ -1,7 +1,7 @@
 [
   {
     "id": "languageSwitcher.primaryLanguage",
-    "defaultMessage": "{language} (default)"
+    "defaultMessage": "(default)"
   },
   {
     "id": "languageSwitcher.makeDefault",

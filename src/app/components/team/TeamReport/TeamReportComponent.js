@@ -43,13 +43,14 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
 
   const handleError = () => {
     setSaving(false);
+    // FIXME: Get error message from backend
     setFlashMessage((
       <FormattedMessage
         id="teamReportComponent.defaultErrorMessage"
         defaultMessage="Could not save report settings."
         description="Warning displayed if an error occurred when saving report settings"
       />
-    ));
+    ), 'error');
   };
 
   const handleSuccess = () => {
@@ -60,7 +61,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
         defaultMessage="Report settings saved successfully."
         description="Banner displayed when report settings are saved successfully"
       />
-    ));
+    ), 'success');
   };
 
   const handleSave = () => {
@@ -98,7 +99,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
   };
 
   return (
-    <Box display="flex" justifyContent="center" className="team-report-component">
+    <Box display="flex" justifyContent="left" className="team-report-component">
       <LanguageSwitcher
         orientation="vertical"
         primaryLanguage={defaultLanguage}
@@ -338,6 +339,7 @@ TeamReportComponent.propTypes = {
     get_languages: PropTypes.string.isRequired,
     get_report: PropTypes.string.isRequired,
   }).isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 export default withSetFlashMessage(TeamReportComponent);

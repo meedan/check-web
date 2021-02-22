@@ -1,0 +1,83 @@
+#!/bin/bash
+
+# All Relay Classic Imports
+grep -r "import Relay from 'react-relay/classic';" ../src > /tmp/relayclassic.txt
+echo 'List of Relay Classic files:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of Relay Classic files:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All RootContainers
+grep -r "Relay.RootContainer" ../src > /tmp/relayclassic.txt
+echo 'List of RootContainers:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of RootContainers:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All createContainer
+grep -r "Relay.createContainer" ../src > /tmp/relayclassic.txt
+echo 'List of Relay.createContainer:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of Relay.createContainer:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All commitUpdate
+grep -r "Relay.Store.commitUpdate" ../src > /tmp/relayclassic.txt
+echo 'List of commitUpdate:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of commitUpdate:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All Mutations
+grep -r "extends Relay.Mutation" ../src > /tmp/relayclassic.txt
+echo 'List of Mutations:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of Mutations:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# Now let's track RelayModern imports:
+
+# All QueryRenderer
+grep -r "<QueryRenderer" ../src > /tmp/relayclassic.txt
+echo 'List of QueryRenderers:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of QueryRenderers:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All createFragmentContainer
+grep -r "createFragmentContainer(" ../src > /tmp/relayclassic.txt
+echo 'List of createFragmentContainer:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of createFragmentContainer:'
+cat /tmp/relayclassic.txt | wc -l
+echo
+
+# All commitMutation
+grep -r "commitMutation(" ../src > /tmp/relayclassic.txt
+echo 'List of commitMutation:'
+echo
+cat /tmp/relayclassic.txt
+echo
+echo 'Number of commitMutation:'
+cat /tmp/relayclassic.txt | wc -l
+echo

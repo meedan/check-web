@@ -52,12 +52,12 @@ const StyledThreeColumnLayout = styled.div`
   flex-wrap: wrap;
   justify-content: center;
 
-/* Middle column */
+  /* Middle column */
   .media__column {
     background-color: ${backgroundMain};
   }
 
-/* Right Column */
+  /* Right Column */
   .media__annotations-column {
     border-left: 1px solid ${brandSecondary};
     padding-top: 0;
@@ -67,7 +67,9 @@ const StyledThreeColumnLayout = styled.div`
 
     /* Container of tabs */
     .media__annotations-tabs {
-      background-color: ${backgroundMain};
+      background-color: white;
+      border-bottom: 1px solid ${brandSecondary};
+      padding-top: ${units(0.5)};
     }
   }
 `;

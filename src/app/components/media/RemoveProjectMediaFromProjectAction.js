@@ -83,7 +83,7 @@ function RemoveProjectMediaFromProjectAction({
             defaultMessage="Removed from list"
           />
         );
-        setFlashMessage(message);
+        setFlashMessage(message, 'success');
         browserHistory.push(`/${team.slug}/media/${projectMedia.dbid}`);
       },
       onFailure: (errors) => {
@@ -92,7 +92,7 @@ function RemoveProjectMediaFromProjectAction({
         setFlashMessage((
           getErrorMessageForRelayModernProblem(errors)
           || <GenericUnknownErrorMessage />
-        ));
+        ), 'error');
       },
     });
   }, [

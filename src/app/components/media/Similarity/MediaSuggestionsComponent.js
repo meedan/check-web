@@ -22,17 +22,21 @@ import MediaRequests from '../MediaRequests';
 import MediaComments from '../MediaComments';
 import {
   Column,
-  inProgressYellow,
+  brandHighlight,
   checkBlue,
   completedGreen,
   alertRed,
   brandSecondary,
+  backgroundMain,
 } from '../../../styles/js/shared';
 import { isBotInstalled } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   title: {
-    color: inProgressYellow,
+    color: brandHighlight,
+    fontSize: 12,
+    lineHeight: 'normal',
+    letterSpacing: 'normal',
   },
   helpIcon: {
     color: checkBlue,
@@ -48,11 +52,32 @@ const useStyles = makeStyles(theme => ({
   },
   noMedia: {
     color: 'black',
-    paddingTop: theme.spacing(5),
     textAlign: 'center',
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
   spaced: {
     padding: theme.spacing(1),
+  },
+  suggestionsTopBar: {
+    padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
+    margin: theme.spacing(-2),
+    marginBottom: 0,
+    borderBottom: `1px solid ${brandSecondary}`,
+    position: 'sticky',
+    top: theme.spacing(-2),
+    background: backgroundMain,
+    zIndex: 2,
+  },
+  suggestionsBackButton: {
+    padding: 0,
+  },
+  suggestionsNoMediaBox: {
+    border: `1px solid ${brandSecondary}`,
+    borderRadius: theme.spacing(1),
+    paddingTop: theme.spacing(5),
+    paddingBottom: theme.spacing(5),
   },
 }));
 
@@ -232,35 +257,35 @@ const MediaSuggestionsComponent = ({
   return (
     <React.Fragment>
       <Column className="media__column">
+        <Box className={classes.suggestionsTopBar}>
+          <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" disabled={saving} className={classes.suggestionsBackButton}>
+            <FormattedMessage
+              id="mediaSuggestionsComponent.back"
+              defaultMessage="Back"
+            />
+          </Button>
+          <Typography variant="button" display="block" className={classes.title}>
+            <FormattedMessage
+              id="mediaSuggestionsComponent.title"
+              defaultMessage="{current} of {total} suggested media"
+              values={{
+                current: total === 0 ? 0 : index + 1,
+                total,
+              }}
+            />
+          </Typography>
+        </Box>
         <Box display="flex" width="1" justifyContent="space-between" alignItems="center">
-          <Box>
-            <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" disabled={saving}>
+          <Box display="flex" alignItems="center">
+            <Typography variant="body2">
               <FormattedMessage
-                id="mediaSuggestionsComponent.back"
-                defaultMessage="Back"
-              />
-            </Button>
-            <Typography variant="button" display="block" className={classes.title}>
-              <FormattedMessage
-                id="mediaSuggestionsComponent.title"
-                defaultMessage="Suggested matches ({current} of {total})"
-                values={{
-                  current: total === 0 ? 0 : index + 1,
-                  total,
-                }}
+                id="mediaSuggestionsComponent.question"
+                defaultMessage="Is the suggested media similar to the main?"
               />
             </Typography>
-            <Box display="flex" alignItems="center">
-              <Typography variant="body2">
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.question"
-                  defaultMessage="Is the suggested media similar to the main?"
-                />
-              </Typography>
-              <IconButton onClick={handleHelp}>
-                <HelpIcon className={classes.helpIcon} />
-              </IconButton>
-            </Box>
+            <IconButton onClick={handleHelp}>
+              <HelpIcon className={classes.helpIcon} />
+            </IconButton>
           </Box>
           <Box display="flex" alignItems="center">
             <IconButton onClick={handlePrevious} disabled={!hasPrevious || saving}>
@@ -295,12 +320,12 @@ const MediaSuggestionsComponent = ({
               media={projectMedia}
               mediaUrl={itemUrl}
             /> :
-            <Box justifyContent="center">
+            <Box justifyContent="center" className={classes.suggestionsNoMediaBox}>
               <Box mb={2}>
                 <Typography>
                   <FormattedMessage
                     id="mediaSuggestionsComponent.noSuggestions"
-                    defaultMessage="There are no suggested matches."
+                    defaultMessage="There is no suggested media."
                   />
                 </Typography>
               </Box>

@@ -69,13 +69,14 @@ const MediaSimilarityBarAdd = ({
 
   const handleError = () => {
     setSubmitting(false);
+    // FIXME: Get error message from backend
     setFlashMessage((
       <FormattedMessage
         id="mediaSimilarityBarAdd.defaultErrorMessage"
         defaultMessage="Could not add similar item"
         description="Warning displayed if an error occurred when adding a similar item"
       />
-    ));
+    ), 'error');
   };
 
   const handleSuccess = (response) => {
@@ -86,7 +87,7 @@ const MediaSimilarityBarAdd = ({
         defaultMessage="Similar item added successfully"
         description="Banner displayed when similar item is added successfully"
       />
-    ));
+    ), 'success');
     handleClose();
     const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
     const mainItemDbid = response.createRelationship.relationshipEdge.node.source_id;

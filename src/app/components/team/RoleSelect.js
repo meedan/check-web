@@ -7,25 +7,17 @@ import OutlinedInput from '@material-ui/core/OutlinedInput';
 import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
-  annotator: {
-    id: 'RoleSelect.annotator',
-    defaultMessage: 'Annotator',
-  },
-  contributor: {
-    id: 'RoleSelect.contributor',
-    defaultMessage: 'Contributor',
-  },
-  journalist: {
-    id: 'RoleSelect.journalist',
-    defaultMessage: 'Journalist',
+  collaborator: {
+    id: 'RoleSelect.collaborator',
+    defaultMessage: 'Collaborator',
   },
   editor: {
     id: 'RoleSelect.editor',
     defaultMessage: 'Editor',
   },
-  owner: {
-    id: 'RoleSelect.owner',
-    defaultMessage: 'Owner',
+  admin: {
+    id: 'RoleSelect.admin',
+    defaultMessage: 'Admin',
   },
 });
 
@@ -33,11 +25,9 @@ const RoleSelect = (props) => {
   const { excludeRoles, ...other } = props;
 
   const roles = [
-    { value: 'annotator', label: props.intl.formatMessage(messages.annotator) },
-    { value: 'contributor', label: props.intl.formatMessage(messages.contributor) },
-    { value: 'journalist', label: props.intl.formatMessage(messages.journalist) },
+    { value: 'collaborator', label: props.intl.formatMessage(messages.collaborator) },
     { value: 'editor', label: props.intl.formatMessage(messages.editor) },
-    { value: 'owner', label: props.intl.formatMessage(messages.owner) },
+    { value: 'admin', label: props.intl.formatMessage(messages.admin) },
   ];
 
   const filteredRoles = excludeRoles

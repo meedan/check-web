@@ -31,35 +31,37 @@ shared_examples 'media' do |type|
     wait_for_selector('.media-detail')
 
     # First item
-    expect(@driver.page_source.include?('1 of 3')).to be(true)
-    expect(@driver.page_source.include?('2 of 3')).to be(false)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(true)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
+    expect(page_source_body.include?('1 of 3')).to be(true)
+    expect(page_source_body.include?('2 of 3')).to be(false)
+    expect(page_source_body.include?('3 of 3')).to be(false)
+    expect(page_source_body.include?('Claim 2')).to be(true)
+    expect(page_source_body.include?('Claim 1')).to be(false)
+    expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Second item
     wait_for_selector('.media-search__next-item').click
+    wait_for_selector('.media-search__next-item')
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
-    expect(@driver.page_source.include?('1 of 3')).to be(false)
-    expect(@driver.page_source.include?('2 of 3')).to be(true)
-    expect(@driver.page_source.include?('3 of 3')).to be(false)
-    expect(@driver.page_source.include?('Claim 2')).to be(false)
-    expect(@driver.page_source.include?('Claim 1')).to be(true)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
+    expect(page_source_body.include?('1 of 3')).to be(false)
+    expect(page_source_body.include?('2 of 3')).to be(true)
+    expect(page_source_body.include?('3 of 3')).to be(false)
+    expect(page_source_body.include?('Claim 2')).to be(false)
+    expect(page_source_body.include?('Claim 1')).to be(true)
+    expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Third item
     wait_for_selector('.media-search__next-item').click
+    wait_for_selector('.media-search__next-item')
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
 
-    expect(@driver.page_source.include?('1 of 3')).to be(false)
-    expect(@driver.page_source.include?('2 of 3')).to be(false)
-    expect(@driver.page_source.include?('3 of 3')).to be(true)
-    expect(@driver.page_source.include?('Claim 2')).to be(false)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
-    expect(@driver.page_source.include?('Claim 0')).to be(true)
+    expect(page_source_body.include?('1 of 3')).to be(false)
+    expect(page_source_body.include?('2 of 3')).to be(false)
+    expect(page_source_body.include?('3 of 3')).to be(true)
+    expect(page_source_body.include?('Claim 2')).to be(false)
+    expect(page_source_body.include?('Claim 1')).to be(false)
+    expect(page_source_body.include?('Claim 0')).to be(true)
   end
 
   it 'should autorefresh page when media is created', bin1: true do
@@ -150,7 +152,6 @@ shared_examples 'media' do |type|
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__move-button').click
-    wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
     wait_for_selector('.message').click
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)

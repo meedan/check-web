@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import RuleOperatorWrapper from '../team/Rules/RuleOperatorWrapper';
-import { inProgressYellow } from '../../styles/js/shared';
+import { brandHighlight } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     boxShadow: 'none',
   },
   ifGroup: {
-    border: `2px solid ${inProgressYellow}`,
+    border: `2px solid ${brandHighlight}`,
   },
   paper2: {
     marginTop: theme.spacing(2),
@@ -69,7 +69,7 @@ const CustomFilter = ({
     <RuleOperatorWrapper
       allowRemove
       center
-      color={inProgressYellow}
+      color={brandHighlight}
       onAdd={onAdd}
       onRemove={onRemove}
     >

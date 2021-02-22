@@ -7,7 +7,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
+import UserUtil from '../../user/UserUtil';
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
 import SmoochBotConfig from './SmoochBotConfig';
@@ -19,6 +19,7 @@ import { withSetFlashMessage } from '../../FlashMessage';
 const SmoochBotComponent = ({
   team,
   currentUser,
+  smoochBotDbid,
   intl,
   setFlashMessage,
 }) => {
@@ -32,6 +33,8 @@ const SmoochBotComponent = ({
 
   const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.node.json_settings) : {});
 
+  const userRole = UserUtil.myRole(currentUser, team.slug);
+
   const handleOpenForm = () => {
     window.open('https://airtable.com/shr727e2MeBQnTGa1');
   };
@@ -44,7 +47,7 @@ const SmoochBotComponent = ({
         defaultMessage="Could not save tipline settings."
         description="Warning displayed if an error occurred when saving tipline settings"
       />
-    ));
+    ), 'error');
   };
 
   const handleSuccess = () => {
@@ -55,7 +58,7 @@ const SmoochBotComponent = ({
         defaultMessage="Tipline settings saved successfully."
         description="Banner displayed when tipline settings are saved successfully"
       />
-    ));
+    ), 'success');
   };
 
   const handleSave = () => {
@@ -85,6 +88,41 @@ const SmoochBotComponent = ({
           handleError();
         } else {
           handleSuccess();
+        }
+      },
+      onError: () => {
+        handleError();
+      },
+    });
+  };
+
+  const handleInstall = () => {
+    setSaving(true);
+
+    const mutation = graphql`
+      mutation SmoochBotComponentCreateTeamBotInstallationMutation($input: CreateTeamBotInstallationInput!) {
+        createTeamBotInstallation(input: $input) {
+          team {
+            slug
+          }
+        }
+      }
+    `;
+
+    commitMutation(Store, {
+      mutation,
+      variables: {
+        input: {
+          user_id: smoochBotDbid,
+          team_id: team.dbid,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError();
+        } else {
+          handleSuccess();
+          window.location.assign(`/${response.createTeamBotInstallation.team.slug}/settings/tipline`);
         }
       },
       onError: () => {
@@ -128,9 +166,9 @@ const SmoochBotComponent = ({
     }
     setCurrentLanguage(newValue);
   };
-
+  // If only on language, no margin left. If more than one language the language selector is displayed, so we add a margin.
   return (
-    <Box display="flex" justifyContent="center" className="smooch-bot-component">
+    <Box display="flex" justifyContent="left" className="smooch-bot-component" ml={installation && bot && languages.length > 1 ? 0 : 6}>
       { installation && bot && languages.length > 1 ?
         <LanguageSwitcher
           orientation="vertical"
@@ -153,7 +191,7 @@ const SmoochBotComponent = ({
               defaultMessage="Create automated conversational bots to receive content from your audience."
             />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/3872445-creating-your-tipline-bot"
+          helpUrl="https://help.checkmedia.org/en/articles/4838307-creating-your-tipline-bot"
           actionButton={
             installation ?
               <Can permissions={team.permissions} permission="update Team">
@@ -174,20 +212,33 @@ const SmoochBotComponent = ({
                 value={settings}
                 onChange={setSettings}
                 currentUser={currentUser}
+                userRole={userRole}
                 currentLanguage={currentLanguage}
                 languages={languages}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleOpenForm}
-                >
-                  <FormattedMessage
-                    id="smoochBotComponent.contactUs"
-                    defaultMessage="Contact us to setup"
-                  />
-                </Button>
+                { currentUser.is_admin ?
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleInstall}
+                    disable={saving}
+                  >
+                    <FormattedMessage
+                      id="smoochBotComponent.install"
+                      defaultMessage="Install"
+                    />
+                  </Button> :
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleOpenForm}
+                  >
+                    <FormattedMessage
+                      id="smoochBotComponent.contactUs"
+                      defaultMessage="Contact us to setup"
+                    />
+                  </Button> }
               </Box>
             }
           </CardContent>
@@ -200,7 +251,9 @@ const SmoochBotComponent = ({
 SmoochBotComponent.propTypes = {
   currentUser: PropTypes.object.isRequired, // FIXME: List the fields needed
   team: PropTypes.object.isRequired, // FIXME: List the fields needed
+  smoochBotDbid: PropTypes.number.isRequired,
   intl: intlShape.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
 };
 
 export default injectIntl(withSetFlashMessage(SmoochBotComponent));

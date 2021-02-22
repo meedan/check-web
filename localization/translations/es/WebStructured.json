@@ -83,20 +83,14 @@
 	"ProjectBlankState.createMedia": {
 		"string": "Añadir un enlace o texto"
 	},
-	"RoleSelect.annotator": {
-		"string": "Anotadora/Anotador"
+	"RoleSelect.admin": {
+		"string": "Admin"
 	},
-	"RoleSelect.contributor": {
-		"string": "Colaboradora / Colaborador"
+	"RoleSelect.collaborator": {
+		"string": "Collaborator"
 	},
 	"RoleSelect.editor": {
 		"string": "Editora/Editor "
-	},
-	"RoleSelect.journalist": {
-		"string": "Periodista"
-	},
-	"RoleSelect.owner": {
-		"string": "Propietario / Propietaria"
 	},
 	"TeamInviteMembers.emailInput": {
 		"string": "Dirección de correo electrónico"
@@ -122,8 +116,8 @@
 	"TeamMembersInvitedListItem.resend": {
 		"string": "Reenviar"
 	},
-	"TeamMembersListItem.annotator": {
-		"string": "Anotadora/Anotador"
+	"TeamMembersListItem.collaborator": {
+		"string": "Collaborator"
 	},
 	"TeamMembersListItem.confirmDeleteMemberBlurb": {
 		"string": "El usuario será eliminado de {team}"
@@ -140,17 +134,11 @@
 	"TeamMembersListItem.confirmLeaveTitle": {
 		"string": "¿Estás segura(o) que quieres abandonar {team}?"
 	},
-	"TeamMembersListItem.contributor": {
-		"string": "Colaboradora / Colaborador"
-	},
 	"TeamMembersListItem.deleteMember": {
 		"string": "Eliminar miembro"
 	},
 	"TeamMembersListItem.editor": {
 		"string": "Editora/Editor "
-	},
-	"TeamMembersListItem.journalist": {
-		"string": "Periodista"
 	},
 	"TeamMembersListItem.leaveTeam": {
 		"string": "Salir del área de trabajo"
@@ -212,20 +200,14 @@
 	"UserSecurity.verifyInput": {
 		"string": "Código de validación"
 	},
-	"UserUtil.annotator": {
-		"string": "Anotadora/Anotador"
+	"UserUtil.admin": {
+		"string": "Admin"
 	},
-	"UserUtil.contributor": {
-		"string": "Colaboradora / Colaborador"
+	"UserUtil.collaborator": {
+		"string": "Collaborator"
 	},
 	"UserUtil.editor": {
 		"string": "Editor / Editora"
-	},
-	"UserUtil.journalist": {
-		"string": "Periodista"
-	},
-	"UserUtil.owner": {
-		"string": "Propietario / Propietaria"
 	},
 	"accessDenied.title": {
 		"string": "Acceso Denegado"
@@ -408,16 +390,16 @@
 		"string": "Ítem relacionado añadido por {author}: {title}"
 	},
 	"annotation.relationshipDestroyed": {
-		"string": "Related item removed by {author}: {title}"
+		"string": "Ítem relacionado eliminado por {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "Nota de la tarea eliminada por {author}: {title}{note}"
 	},
 	"annotation.reportReceived": {
-		"string": "Informe recibido el {date}"
+		"string": "Report sent on {date}"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Actualización de informe recibida el {date}"
+		"string": "Report update sent on {date}"
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "Mira cómo funciona este bot"
@@ -520,15 +502,6 @@
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Add to report"
-	},
-	"blankMediaButton.confirmButtonLabel": {
-		"string": "Pausar informe y actualizar contenido"
-	},
-	"blankMediaButton.confirmText": {
-		"string": "El siguiente ítem ya tiene un informe publicado:\n{link}\nSi continúas, tanto el estado como el informe se sobrescribirán y el informe será pausado."
-	},
-	"blankMediaButton.confirmTitle": {
-		"string": "Sobrescribir informe y estado?"
 	},
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "No se pudo guardar el ítem"
@@ -656,7 +629,7 @@
 		"string": "Confirm selected items and move items to another list"
 	},
 	"changeMediaSource.cancelButton": {
-		"string": "Cancel",
+		"string": "Cancelar",
 		"developer_comment": "Cancel change media source action"
 	},
 	"changeMediaSource.choose": {
@@ -668,7 +641,7 @@
 		"developer_comment": "allow user to create a new source"
 	},
 	"changeMediaSource.saveButton": {
-		"string": "Save",
+		"string": "Guardar",
 		"developer_comment": "Save media source label"
 	},
 	"claimReview.claim": {
@@ -1105,7 +1078,7 @@
 		"string": "Set as default language for this item"
 	},
 	"languageSwitcher.primaryLanguage": {
-		"string": "{language} (predeterminado)"
+		"string": "(default)"
 	},
 	"languagesComponent.blurb": {
 		"string": "Agrega nuevos idiomas a tu espacio de trabajo para crear informes, bots de tips y estados en varios idiomas cuando te comuniques con los usuarios."
@@ -1431,9 +1404,6 @@
 	"mediaComponent.metadata": {
 		"string": "Metadato"
 	},
-	"mediaComponent.noTasks": {
-		"string": "Nada para mostrar"
-	},
 	"mediaComponent.notes": {
 		"string": "Notas"
 	},
@@ -1444,7 +1414,7 @@
 		"string": "Solicitudes"
 	},
 	"mediaComponent.source": {
-		"string": "Source"
+		"string": "Fuente"
 	},
 	"mediaComponent.tasks": {
 		"string": "Tareas"
@@ -1505,6 +1475,12 @@
 	},
 	"mediaExpandedMetadata.shares": {
 		"string": "Compartidas en FB"
+	},
+	"mediaItem.addedBy": {
+		"string": "Added by {name}"
+	},
+	"mediaItem.confirmedBy": {
+		"string": "Confirmed by {name}"
 	},
 	"mediaItem.detach": {
 		"string": "Detach"
@@ -1611,22 +1587,19 @@
 		"string": "{current} de {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "All similar media"
+		"string": "Similar"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Click on an item"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main media"
+		"string": "Main"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Notas"
 	},
 	"mediaSimilarities.requests": {
 		"string": "Solicitudes"
-	},
-	"mediaSimilaritiesComponent.back": {
-		"string": "Volver"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1663,6 +1636,9 @@
 		"string": "Similar item added successfully",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
+	"mediaSimilarityBarComponent.back": {
+		"string": "Volver"
+	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "This media has been added as similar to another item"
 	},
@@ -1670,10 +1646,13 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
+		"string": "Similar media"
+	},
+	"mediaSimilarityBarComponent.similarMediaWithValue": {
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+		"string": "Suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
@@ -1704,7 +1683,7 @@
 		"string": "Sin solicitudes"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "There are no suggested matches."
+		"string": "There is no suggested media."
 	},
 	"mediaSuggestionsComponent.notes": {
 		"string": "Notas"
@@ -1716,7 +1695,7 @@
 		"string": "Solicitudes"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "Suggested matches ({current} of {total})"
+		"string": "{current} of {total} suggested media"
 	},
 	"mediaTags.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar la etiqueta. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
@@ -2014,7 +1993,7 @@
 		"string": "Guardar"
 	},
 	"reportDesigner.sentCount": {
-		"string": "Informes recibidos"
+		"string": "Reports sent"
 	},
 	"reportDesigner.statusLabel": {
 		"string": "Etiqueta de estado ({max} caracteres como máximo)"
@@ -2111,9 +2090,6 @@
 	},
 	"rulesTableHead.name": {
 		"string": "Nombre"
-	},
-	"rulesTableHead.selectAll": {
-		"string": "Seleccionar todas las reglas"
 	},
 	"rulesTableHead.updated": {
 		"string": "Actualizada"
@@ -2291,13 +2267,13 @@
 		"string": ","
 	},
 	"setProjectMediaSource.cancelButton": {
-		"string": "Cancel"
+		"string": "Cancelar"
 	},
 	"setProjectMediaSource.choose": {
 		"string": "Choose a source"
 	},
 	"setProjectMediaSource.saveButton": {
-		"string": "Save"
+		"string": "Guardar"
 	},
 	"settingsHeader.save": {
 		"string": "Guardar"
@@ -2492,11 +2468,14 @@
 		"string": "Terms of Service ({language})"
 	},
 	"smoochBotComponent.contactUs": {
-		"string": "Contact us to setup"
+		"string": "Contáctanos para configurar"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
 		"string": "Could not save tipline settings.",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.install": {
+		"string": "Instalar"
 	},
 	"smoochBotComponent.save": {
 		"string": "Save settings"
@@ -2592,6 +2571,15 @@
 	"smoochBotSelectReport.dialogTitle": {
 		"string": "Seleccionar informe"
 	},
+	"smoochBotSettings.connectToFacebook": {
+		"string": "Connect to Facebook"
+	},
+	"smoochBotSettings.connectToTwitter": {
+		"string": "Connect to Twitter"
+	},
+	"smoochBotSettings.connectToWhatsApp": {
+		"string": "Connect to WhatsApp"
+	},
 	"sortSelect.az": {
 		"string": "A a Z"
 	},
@@ -2623,7 +2611,7 @@
 		"developer_comment": "Create a new media source label"
 	},
 	"sourceInfo.invalidLink": {
-		"string": "Please enter a valid URL",
+		"string": "Por favor introduce un URL válido",
 		"developer_comment": "Error message for invalid link"
 	},
 	"sourceInfo.mainAccount": {
@@ -2643,10 +2631,10 @@
 		"developer_comment": "Allow user to add a main source URL"
 	},
 	"sourceInfo.saved": {
-		"string": "Saved {ago}"
+		"string": "Guardado {ago}"
 	},
 	"sourceInfo.saving": {
-		"string": "Saving…"
+		"string": "Guardando..."
 	},
 	"sourceInfo.secondaryAccounts": {
 		"string": "Secondary source URLs",
@@ -2715,7 +2703,7 @@
 		"string": "Solicitaste unirte"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, =0 {Sin miembros} one {1 miembro} other {# membros}} "
+		"string": "{membersCount, plural, one {# member} other {# members}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "Crear"
@@ -2818,6 +2806,9 @@
 	},
 	"tasks.blankMetadata": {
 		"string": "No hay campos de metadatos"
+	},
+	"tasks.blankTasks": {
+		"string": "No tasks"
 	},
 	"tasks.cancelAdd": {
 		"string": "Cancelar"
@@ -3059,15 +3050,15 @@
 		"string": "Configuración del área de trabajo"
 	},
 	"teamMetadataRender.blankMetadata": {
-		"string": "No metadata fields",
+		"string": "No hay campos de metadatos",
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "Metadata",
+		"string": "Metadato",
 		"developer_comment": "Title for item Metadata"
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "Add custom metadata fields to items.",
+		"string": "Añade campos de metadatos personalizados a los ítems.",
 		"developer_comment": "Metadata item subtitle"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
@@ -3113,13 +3104,13 @@
 		"string": "Facebook page name"
 	},
 	"teamReportComponent.introduction": {
-		"string": "Introduction"
+		"string": "Introducción"
 	},
 	"teamReportComponent.introductionSub": {
-		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+		"string": "Utilice el marcador de posición {query_date} para mostrar la fecha de la consulta original. Use {estado} para comunicar el estado del artículo."
 	},
 	"teamReportComponent.save": {
-		"string": "Save"
+		"string": "Guardar"
 	},
 	"teamReportComponent.savedSuccessfully": {
 		"string": "Report settings saved successfully.",
@@ -3129,10 +3120,10 @@
 		"string": "Signature"
 	},
 	"teamReportComponent.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "El contenido que establezca aquí puede editarse en cada informe individual"
 	},
 	"teamReportComponent.title": {
-		"string": "Default report settings"
+		"string": "Configuración del informe"
 	},
 	"teamReportComponent.twitter": {
 		"string": "Twitter account name"
@@ -3309,27 +3300,27 @@
 		"string": "Tipo de tarea"
 	},
 	"teamTasksRender.blank": {
-		"string": "No default tasks to display",
+		"string": "No hay tareas predeterminadas para mostrar",
 		"developer_comment": "Text for empty tasks"
 	},
 	"teamTasksRender.filter": {
-		"string": "Filter tasks",
+		"string": "Filtrar tareas",
 		"developer_comment": "Filter tasks"
 	},
 	"teamTasksRender.projFilter": {
-		"string": "Show tasks in",
+		"string": "Mostrar tareas en ",
 		"developer_comment": "filter tasks by projects"
 	},
 	"teamTasksRender.tasks": {
-		"string": "Tasks",
+		"string": "Tareas",
 		"developer_comment": "Tasks title"
 	},
 	"teamTasksRender.tasksSubtitle": {
-		"string": "Add custom tasks to items.",
+		"string": "Añade tareas personalizadas a los ítems.",
 		"developer_comment": "Tasks subtitle"
 	},
 	"teamTasksRender.typeFilter": {
-		"string": "Task type",
+		"string": "Tipo de tarea",
 		"developer_comment": "filter tasks by type"
 	},
 	"teams.title": {
@@ -3430,9 +3421,6 @@
 	},
 	"userAssignments.filterByTeam": {
 		"string": "Filtrar por área de trabajo"
-	},
-	"userAssignments.other": {
-		"string": "Otro"
 	},
 	"userComponent.teams": {
 		"string": "Áreas de trabajo"

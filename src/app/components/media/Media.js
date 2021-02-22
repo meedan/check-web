@@ -24,6 +24,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         project_ids
         requests_count
         picture
+        is_confirmed_similar_to_another_item
         media {
           url
           quote

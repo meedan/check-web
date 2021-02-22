@@ -225,13 +225,12 @@ shared_examples 'media actions' do
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click
-    wait_for_selector_none('input[name=project-title]')  # wait for dialog to disappear
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector_none('.media__heading', :css, 5)
-    expect(@driver.page_source.include?('My search result')).to be(false)
+    expect(page_source_body.include?('My search result')).to be(false)
   end
 
   it 'should add media to another project from item page', bin3: true do
@@ -249,7 +248,6 @@ shared_examples 'media actions' do
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
-    wait_for_selector_none('input[name=project-title]')  # wait for dialog to disappear
     wait_for_selector('.message').click
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('.project-list__link', index: 0).click

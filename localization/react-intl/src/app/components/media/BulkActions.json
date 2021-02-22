@@ -53,6 +53,10 @@
     "defaultMessage": "Move to…"
   },
   {
+    "id": "bulkActions.sendItemsToTrash",
+    "defaultMessage": "Send selected items to Trash"
+  },
+  {
     "id": "bulkActions.dialogMoveTitle",
     "defaultMessage": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
   },
@@ -79,9 +83,5 @@
   {
     "id": "bulkActions.addTitle",
     "defaultMessage": "Add"
-  },
-  {
-    "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send selected items to Trash"
   }
 ]

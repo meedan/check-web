@@ -42,6 +42,14 @@
     "defaultMessage": "Paused"
   },
   {
+    "id": "mediaItem.addedBy",
+    "defaultMessage": "Added by {name}"
+  },
+  {
+    "id": "mediaItem.confirmedBy",
+    "defaultMessage": "Confirmed by {name}"
+  },
+  {
     "id": "mediaItem.pinAsMain",
     "defaultMessage": "Pin as main"
   },

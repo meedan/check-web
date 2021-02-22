@@ -47,7 +47,7 @@ class TagMenuComponent extends Component {
 
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   };
 
   handleChange = (searchValue) => {

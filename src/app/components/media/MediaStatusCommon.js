@@ -82,7 +82,7 @@ class MediaStatusCommon extends Component {
       />
     );
     const message = getErrorMessage(transaction, fallbackMessage);
-    this.props.setFlashMessage(message);
+    this.props.setFlashMessage(message, 'error');
   };
 
   // eslint-disable-next-line class-methods-use-this

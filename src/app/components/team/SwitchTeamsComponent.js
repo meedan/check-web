@@ -60,7 +60,7 @@ class SwitchTeamsComponent extends Component {
         />
       );
       const message = getErrorMessage(transaction, fallbackMessage);
-      this.props.setFlashMessage(message);
+      this.props.setFlashMessage(message, 'error');
     };
 
     const onSuccess = () => {
@@ -155,7 +155,7 @@ class SwitchTeamsComponent extends Component {
                   secondary={
                     <FormattedMessage
                       id="switchTeams.member"
-                      defaultMessage="{membersCount, plural, =0 {No members} one {1 member} other {# members}}"
+                      defaultMessage="{membersCount, plural, one {# member} other {# members}}"
                       values={{ membersCount: team.members_count }}
                     />
                   }

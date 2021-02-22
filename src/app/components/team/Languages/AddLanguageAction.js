@@ -94,7 +94,7 @@ const AddLanguageAction = ({ team, intl }) => {
       setFlashMessage((
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
-      ));
+      ), 'error');
     };
 
     setIsSaving(true);

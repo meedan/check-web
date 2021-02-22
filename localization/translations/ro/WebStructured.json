@@ -83,20 +83,14 @@
 	"ProjectBlankState.createMedia": {
 		"string": "Adăugați un link sau text"
 	},
-	"RoleSelect.annotator": {
-		"string": "Adnotator"
+	"RoleSelect.admin": {
+		"string": "Admin"
 	},
-	"RoleSelect.contributor": {
-		"string": "Colaborator"
+	"RoleSelect.collaborator": {
+		"string": "Collaborator"
 	},
 	"RoleSelect.editor": {
 		"string": "Editor"
-	},
-	"RoleSelect.journalist": {
-		"string": "Jurnalist"
-	},
-	"RoleSelect.owner": {
-		"string": "Coordonator"
 	},
 	"TeamInviteMembers.emailInput": {
 		"string": "Adresă de e-mail"
@@ -122,8 +116,8 @@
 	"TeamMembersInvitedListItem.resend": {
 		"string": "Retransmite"
 	},
-	"TeamMembersListItem.annotator": {
-		"string": "Adnotator"
+	"TeamMembersListItem.collaborator": {
+		"string": "Collaborator"
 	},
 	"TeamMembersListItem.confirmDeleteMemberBlurb": {
 		"string": "Utilizatorul va fi eliminat din echipa {team}"
@@ -140,17 +134,11 @@
 	"TeamMembersListItem.confirmLeaveTitle": {
 		"string": "Sigur vreți să părăsiți echipa {team}?"
 	},
-	"TeamMembersListItem.contributor": {
-		"string": "Colaborator"
-	},
 	"TeamMembersListItem.deleteMember": {
 		"string": "Elimină membrul"
 	},
 	"TeamMembersListItem.editor": {
 		"string": "Editor"
-	},
-	"TeamMembersListItem.journalist": {
-		"string": "Jurnalist"
 	},
 	"TeamMembersListItem.leaveTeam": {
 		"string": "Ieși din spațiul de lucru"
@@ -212,20 +200,14 @@
 	"UserSecurity.verifyInput": {
 		"string": "Cod de validare"
 	},
-	"UserUtil.annotator": {
-		"string": "Adnotator"
+	"UserUtil.admin": {
+		"string": "Admin"
 	},
-	"UserUtil.contributor": {
-		"string": "Colaborator"
+	"UserUtil.collaborator": {
+		"string": "Collaborator"
 	},
 	"UserUtil.editor": {
 		"string": "Editor"
-	},
-	"UserUtil.journalist": {
-		"string": "Jurnalist"
-	},
-	"UserUtil.owner": {
-		"string": "Coordonator"
 	},
 	"accessDenied.title": {
 		"string": "Acces interzis"
@@ -408,16 +390,16 @@
 		"string": "Element aferent adăugat de {author}: {title}"
 	},
 	"annotation.relationshipDestroyed": {
-		"string": "Related item removed by {author}: {title}"
+		"string": "Element aferent șters de {author}: {title}"
 	},
 	"annotation.removedComment": {
 		"string": "Nota la sarcină ștearsă de {author}: {title}{note}"
 	},
 	"annotation.reportReceived": {
-		"string": "Raport primit pe {date}"
+		"string": "Report sent on {date}"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Actualizare raport primită pe {date}"
+		"string": "Report update sent on {date}"
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "Vezi cum funcționează acest robot"
@@ -520,15 +502,6 @@
 	},
 	"blankMediaButton.addToReport": {
 		"string": "Add to report"
-	},
-	"blankMediaButton.confirmButtonLabel": {
-		"string": "Trece raportul în pauză și actualizează conținutul"
-	},
-	"blankMediaButton.confirmText": {
-		"string": "Următorul element are deja un raport publicat:\n              {link}\n              Dacă veți continua, atât starea, cât și raportul vor fi suprascrise și raportul va trece în pauză."
-	},
-	"blankMediaButton.confirmTitle": {
-		"string": "Suprascrieți raportul și starea?"
 	},
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Elementul nu a putut fi salvat"
@@ -656,7 +629,7 @@
 		"string": "Confirmă elementele selectate și mută-le în altă listă"
 	},
 	"changeMediaSource.cancelButton": {
-		"string": "Cancel",
+		"string": "Anulează",
 		"developer_comment": "Cancel change media source action"
 	},
 	"changeMediaSource.choose": {
@@ -668,7 +641,7 @@
 		"developer_comment": "allow user to create a new source"
 	},
 	"changeMediaSource.saveButton": {
-		"string": "Save",
+		"string": "Salvează",
 		"developer_comment": "Save media source label"
 	},
 	"claimReview.claim": {
@@ -1105,7 +1078,7 @@
 		"string": "Setează ca limbă implicită pentru acest element"
 	},
 	"languageSwitcher.primaryLanguage": {
-		"string": "{language} (implicită)"
+		"string": "(default)"
 	},
 	"languagesComponent.blurb": {
 		"string": "Adăugați limbi noi în spațiul de lucru pentru crearea de rapoarte, roboți tipline și stări în mai multe limbi pentru comunicarea cu utilizatorii."
@@ -1431,9 +1404,6 @@
 	"mediaComponent.metadata": {
 		"string": "Metadate"
 	},
-	"mediaComponent.noTasks": {
-		"string": "Nimic de afișat."
-	},
 	"mediaComponent.notes": {
 		"string": "Note"
 	},
@@ -1444,7 +1414,7 @@
 		"string": "Cereri"
 	},
 	"mediaComponent.source": {
-		"string": "Source"
+		"string": "Sursă"
 	},
 	"mediaComponent.tasks": {
 		"string": "Sarcini"
@@ -1505,6 +1475,12 @@
 	},
 	"mediaExpandedMetadata.shares": {
 		"string": "Partajări FB"
+	},
+	"mediaItem.addedBy": {
+		"string": "Added by {name}"
+	},
+	"mediaItem.confirmedBy": {
+		"string": "Confirmed by {name}"
 	},
 	"mediaItem.detach": {
 		"string": "Elimină"
@@ -1611,22 +1587,19 @@
 		"string": "{current} din {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Toate mediile similare"
+		"string": "Similar"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Dați clic pe un element"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Medii principale"
+		"string": "Main"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Note"
 	},
 	"mediaSimilarities.requests": {
 		"string": "Cereri"
-	},
-	"mediaSimilaritiesComponent.back": {
-		"string": "Înapoi"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1663,6 +1636,9 @@
 		"string": "Element similar adăugat cu succes",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
+	"mediaSimilarityBarComponent.back": {
+		"string": "Înapoi"
+	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "Acest mediu a fost adăugat ca similar la un alt element"
 	},
@@ -1670,10 +1646,13 @@
 		"string": "Acest mediu a fost sugerat ca fiind similar pentru un alt element"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "{count, plural, one {# confirmed similar media} other {# confirmed similar media}}"
+		"string": "Medii similare"
+	},
+	"mediaSimilarityBarComponent.similarMediaWithValue": {
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "{count, plural, one {# suggested match} other {# suggested matches}}"
+		"string": "Suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
@@ -1704,7 +1683,7 @@
 		"string": "Nicio cerere"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "Nu există potriviri sugerate."
+		"string": "There is no suggested media."
 	},
 	"mediaSuggestionsComponent.notes": {
 		"string": "Note"
@@ -1716,7 +1695,7 @@
 		"string": "Cereri"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "Potriviri sugerate ({current} din {total})"
+		"string": "{current} of {total} suggested media"
 	},
 	"mediaTags.error": {
 		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
@@ -2014,7 +1993,7 @@
 		"string": "Salvează"
 	},
 	"reportDesigner.sentCount": {
-		"string": "Rapoarte primite"
+		"string": "Reports sent"
 	},
 	"reportDesigner.statusLabel": {
 		"string": "Etichetă de stare (maxim {max} caractere)"
@@ -2111,9 +2090,6 @@
 	},
 	"rulesTableHead.name": {
 		"string": "Denumire"
-	},
-	"rulesTableHead.selectAll": {
-		"string": "Selectează toate regulile"
 	},
 	"rulesTableHead.updated": {
 		"string": "Actualizată"
@@ -2291,13 +2267,13 @@
 		"string": ","
 	},
 	"setProjectMediaSource.cancelButton": {
-		"string": "Cancel"
+		"string": "Anulează"
 	},
 	"setProjectMediaSource.choose": {
 		"string": "Choose a source"
 	},
 	"setProjectMediaSource.saveButton": {
-		"string": "Save"
+		"string": "Salvează"
 	},
 	"settingsHeader.save": {
 		"string": "Salvează"
@@ -2492,11 +2468,14 @@
 		"string": "Termenii de utilizare a serviciului ({language})"
 	},
 	"smoochBotComponent.contactUs": {
-		"string": "Contact us to setup"
+		"string": "Contactați-ne pentru configurare"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
 		"string": "Could not save tipline settings.",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.install": {
+		"string": "Instalează"
 	},
 	"smoochBotComponent.save": {
 		"string": "Save settings"
@@ -2592,6 +2571,15 @@
 	"smoochBotSelectReport.dialogTitle": {
 		"string": "Selectează un raport"
 	},
+	"smoochBotSettings.connectToFacebook": {
+		"string": "Connect to Facebook"
+	},
+	"smoochBotSettings.connectToTwitter": {
+		"string": "Connect to Twitter"
+	},
+	"smoochBotSettings.connectToWhatsApp": {
+		"string": "Connect to WhatsApp"
+	},
 	"sortSelect.az": {
 		"string": "De la A la Z"
 	},
@@ -2623,7 +2611,7 @@
 		"developer_comment": "Create a new media source label"
 	},
 	"sourceInfo.invalidLink": {
-		"string": "Please enter a valid URL",
+		"string": "Introduceți un URL valid",
 		"developer_comment": "Error message for invalid link"
 	},
 	"sourceInfo.mainAccount": {
@@ -2643,10 +2631,10 @@
 		"developer_comment": "Allow user to add a main source URL"
 	},
 	"sourceInfo.saved": {
-		"string": "Saved {ago}"
+		"string": "Salvat {ago}"
 	},
 	"sourceInfo.saving": {
-		"string": "Saving…"
+		"string": "Se salvează..."
 	},
 	"sourceInfo.secondaryAccounts": {
 		"string": "Secondary source URLs",
@@ -2715,7 +2703,7 @@
 		"string": "Ați cerut să vă alăturați"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, =0 {Niciun membru} one {1 membru} other {# membri}}"
+		"string": "{membersCount, plural, one {# member} other {# members}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "Creează"
@@ -2818,6 +2806,9 @@
 	},
 	"tasks.blankMetadata": {
 		"string": "Niciun câmp de metadate"
+	},
+	"tasks.blankTasks": {
+		"string": "No tasks"
 	},
 	"tasks.cancelAdd": {
 		"string": "Anulează"
@@ -3059,15 +3050,15 @@
 		"string": "Setări spațiu de lucru"
 	},
 	"teamMetadataRender.blankMetadata": {
-		"string": "No metadata fields",
+		"string": "Niciun câmp de metadate",
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "Metadata",
+		"string": "Metadate",
 		"developer_comment": "Title for item Metadata"
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "Add custom metadata fields to items.",
+		"string": "Adaugă câmpuri personalizate de metadate la elemente.",
 		"developer_comment": "Metadata item subtitle"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
@@ -3113,13 +3104,13 @@
 		"string": "Facebook page name"
 	},
 	"teamReportComponent.introduction": {
-		"string": "Introduction"
+		"string": "Introducere"
 	},
 	"teamReportComponent.introductionSub": {
-		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+		"string": "Folosiți substituentul {query_date} pentru afișarea datei interogării inițiale. Folosiți {status} pentru a comunica starea articolului."
 	},
 	"teamReportComponent.save": {
-		"string": "Save"
+		"string": "Salvează"
 	},
 	"teamReportComponent.savedSuccessfully": {
 		"string": "Report settings saved successfully.",
@@ -3129,10 +3120,10 @@
 		"string": "Signature"
 	},
 	"teamReportComponent.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
+		"string": "Conținutul setat aici poate fi editat în fiecare raport individual."
 	},
 	"teamReportComponent.title": {
-		"string": "Default report settings"
+		"string": "Setări implicte de rapoarte"
 	},
 	"teamReportComponent.twitter": {
 		"string": "Twitter account name"
@@ -3309,27 +3300,27 @@
 		"string": "Tip sarcină"
 	},
 	"teamTasksRender.blank": {
-		"string": "No default tasks to display",
+		"string": "Nicio sarcină implicită de afișat",
 		"developer_comment": "Text for empty tasks"
 	},
 	"teamTasksRender.filter": {
-		"string": "Filter tasks",
+		"string": "Filtrează sarcinile",
 		"developer_comment": "Filter tasks"
 	},
 	"teamTasksRender.projFilter": {
-		"string": "Show tasks in",
+		"string": "Afișează sarcinile în",
 		"developer_comment": "filter tasks by projects"
 	},
 	"teamTasksRender.tasks": {
-		"string": "Tasks",
+		"string": "Sarcini",
 		"developer_comment": "Tasks title"
 	},
 	"teamTasksRender.tasksSubtitle": {
-		"string": "Add custom tasks to items.",
+		"string": "Adaugă sarcini personalizate la elemente.",
 		"developer_comment": "Tasks subtitle"
 	},
 	"teamTasksRender.typeFilter": {
-		"string": "Task type",
+		"string": "Tip sarcină",
 		"developer_comment": "filter tasks by type"
 	},
 	"teams.title": {
@@ -3430,9 +3421,6 @@
 	},
 	"userAssignments.filterByTeam": {
 		"string": "Filtrează după spațiul de lucru"
-	},
-	"userAssignments.other": {
-		"string": "Altele"
 	},
 	"userComponent.teams": {
 		"string": "Spații de lucru"

@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Box from '@material-ui/core/Box';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconMoreVert from '@material-ui/icons/MoreVert';
@@ -79,7 +78,7 @@ const StatusListItem = ({
         }
         secondary={
           <React.Fragment>
-            <Box>{statusDescription}</Box>
+            <span>{statusDescription}</span><br />
             <StatusMessage message={statusMessage} />
           </React.Fragment>
         }
