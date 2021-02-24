@@ -240,6 +240,15 @@ function getErrorMessageForRelayModernProblem(errorOrErrors) {
   return null;
 }
 
+function getErrorObjectForRelayModernProblem(errorOrErrors) {
+  if (errorOrErrors.source) {
+    const json = safelyParseJSON(errorOrErrors.source);
+    return json && json.errors && json.errors.length > 0 ? json.errors : null;
+  }
+  return null;
+}
+
+
 /**
  * Safely extract an error object from a transaction
  */
@@ -344,6 +353,7 @@ export {
   getFilters,
   getErrorMessage,
   getErrorMessageForRelayModernProblem,
+  getErrorObjectForRelayModernProblem,
   getErrorObjects,
   emojify,
   capitalize,

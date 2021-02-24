@@ -19,23 +19,40 @@ function SetSourceDialog({
   return (
     <Dialog open={open} maxWidth="sm" fullWidth>
       <DialogTitle>
-        <FormattedMessage
-          id="setSourceDialog.existingSource"
-          defaultMessage="Existing source URL"
-          description="Dialog title for existing source with same primary url"
-        />
+        { primaryUrl ?
+          <FormattedMessage
+            id="setSourceDialog.existingSourceWithUrl"
+            defaultMessage="Existing source URL"
+            description="Dialog title for existing source with same primary url"
+          /> :
+          <FormattedMessage
+            id="setSourceDialog.existingSource"
+            defaultMessage="Existing source name"
+            description="Dialog title for existing source with same name"
+          />
+        }
       </DialogTitle>
       <DialogContent>
         <Typography>
-          <FormattedHTMLMessage
-            id="setSourceDialog.existDescription"
-            defaultMessage="An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
-            values={{
-              name: sourceName,
-              url: primaryUrl,
-            }}
-            description="Text to inform user about existing source"
-          />
+          { primaryUrl ?
+            <FormattedHTMLMessage
+              id="setSourceDialog.existDescriptionWithUrl"
+              defaultMessage="An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
+              values={{
+                name: sourceName,
+                url: primaryUrl,
+              }}
+              description="Text to inform user about existing source"
+            /> :
+            <FormattedHTMLMessage
+              id="setSourceDialog.existDescription"
+              defaultMessage="An the source <b>{name}</b> already exists."
+              values={{
+                name: sourceName,
+              }}
+              description="Text to inform user about existing source"
+            />
+          }
         </Typography>
         <Typography>
           <FormattedMessage

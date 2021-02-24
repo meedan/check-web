@@ -26,7 +26,12 @@ import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
 import Tasks from '../task/Tasks';
 import CheckError from '../../CheckError';
-import { getErrorObjects, getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
+import {
+  getErrorMessage,
+  getErrorMessageForRelayModernProblem,
+  getErrorObjectForRelayModernProblem,
+  parseStringUnixTimestamp,
+} from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
@@ -198,15 +203,15 @@ function SourceInfo({
 
   const handleChangeSourceName = () => {
     if (sourceName && source.name !== sourceName) {
-      const onFailure = (transaction) => {
+      const onFailure = (errors) => {
         setSaving(false);
-        const error = getErrorObjects(transaction);
+        const error = getErrorObjectForRelayModernProblem(errors);
         if (Array.isArray(error) && error.length > 0) {
           if (error[0].code === CheckError.codes.DUPLICATED) {
             setDialogOpen(true);
             setExistingSource(error[0].data);
           } else {
-            const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+            const message = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
             setSourceError(message);
           }
         }
@@ -307,6 +312,7 @@ function SourceInfo({
 
   const handleCancelDialog = () => {
     setDialogOpen(false);
+    setSourceName(source.name);
   };
 
   const handleSubmitDialog = () => {
