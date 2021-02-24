@@ -123,6 +123,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
             team={team}
             projectMediaPermissions={projectMedia.permissions}
             onChangeClick={handleChangeSource}
+            relateToExistingSource={handleChangeSourceSubmit}
           /> : null
         }
         { action === 'create' && can(projectMedia.permissions, 'create Source') ?

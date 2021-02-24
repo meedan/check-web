@@ -1,0 +1,22 @@
+[
+  {
+    "id": "setSourceDialog.existingSource",
+    "description": "Dialog title for existing source with same primary url",
+    "defaultMessage": "Existing source URL"
+  },
+  {
+    "id": "setSourceDialog.existDescription",
+    "description": "Text to inform user about existing source",
+    "defaultMessage": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
+  },
+  {
+    "id": "setSourceDialog.confirm",
+    "description": "Confirm message to relate media to an existing source",
+    "defaultMessage": "Do you want to use the existing sources for this media?"
+  },
+  {
+    "id": "setSourceDialog.useExistingSource",
+    "description": "Submit button to relate media to an existing source",
+    "defaultMessage": "Use existing source"
+  }
+]
