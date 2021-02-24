@@ -15,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
     padding: theme.spacing(2),
     boxShadow: 'none',
+    border: 0,
   },
   ifGroup: {
     border: `2px solid ${brandHighlight}`,

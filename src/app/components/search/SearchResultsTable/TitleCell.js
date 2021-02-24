@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
+import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units, black87 } from '../../../styles/js/shared';
 
@@ -65,8 +66,7 @@ const TitleText = ({
 
 const MaybeLink = ({ to, className, children }) => {
   if (to) {
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    return <a className={className} href="#">{children}</a>;
+    return <Link className={className} to={to}>{children}</Link>;
   }
   return <span className={className}>{children}</span>;
 };
