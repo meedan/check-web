@@ -29,7 +29,7 @@ import CheckError from '../../CheckError';
 import {
   getErrorMessage,
   getErrorMessageForRelayModernProblem,
-  getErrorObjectForRelayModernProblem,
+  getErrorObjectsForRelayModernProblem,
   parseStringUnixTimestamp,
 } from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -205,7 +205,7 @@ function SourceInfo({
     if (sourceName && source.name !== sourceName) {
       const onFailure = (errors) => {
         setSaving(false);
-        const error = getErrorObjectForRelayModernProblem(errors);
+        const error = getErrorObjectsForRelayModernProblem(errors);
         if (Array.isArray(error) && error.length > 0) {
           if (error[0].code === CheckError.codes.DUPLICATED) {
             setDialogOpen(true);

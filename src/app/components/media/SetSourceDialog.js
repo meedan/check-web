@@ -87,7 +87,7 @@ SetSourceDialog.propTypes = {
   sourceName: PropTypes.string.isRequired,
   primaryUrl: PropTypes.string.isRequired,
   onCancel: PropTypes.func.isRequired, // func() => undefined
-  onSubmit: PropTypes.func.isRequired, // func(<Project>) => undefined
+  onSubmit: PropTypes.func.isRequired, // func() => undefined
 };
 
 export default SetSourceDialog;
