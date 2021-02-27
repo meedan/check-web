@@ -7,6 +7,7 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import { makeStyles } from '@material-ui/core/styles';
+import { languageName } from '../../LanguageRegistry';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import {
@@ -144,6 +145,7 @@ const TiplineRequest = ({
     new Date(parseInt(activity.smooch_report_received_at, 10) * 1000) : null;
   const smoochReportUpdateReceivedAt = activity.smooch_report_update_received_at ?
     new Date(parseInt(activity.smooch_report_update_received_at, 10) * 1000) : null;
+  const smoochRequestLanguage = activity.smooch_user_request_language;
   const { locale } = intl;
   const classes = useStyles();
 
@@ -158,6 +160,10 @@ const TiplineRequest = ({
           { smoochExternalId ?
             <span className="separation_dot">
               {smoochExternalId}
+            </span> : null }
+          { smoochRequestLanguage ?
+            <span className="separation_dot">
+              {languageName(smoochRequestLanguage)}
             </span> : null }
           <span className="separation_dot">
             <TimeBefore date={updatedAt} />
