@@ -239,7 +239,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
               defaultMessage="The status title is visible when reports are sent to users."
             />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/4235955-status-settings"
+          helpUrl="https://help.checkmedia.org/en/articles/4838891-status-settings"
           actionButton={
             <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
               <FormattedMessage

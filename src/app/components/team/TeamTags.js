@@ -484,7 +484,7 @@ class TeamTagsComponent extends Component {
                 defaultMessage="Tags can be added to media, items and sources."
               />
             }
-            helpUrl="http://help.checkmedia.org/en/articles/4516913-tags"
+            helpUrl="https://help.checkmedia.org/en/articles/3648432-workflow-settings#default-tag-settings"
             actionButton={
               <Can permissions={this.props.team.permissions} permission="create TagText">
                 <Button variant="contained" color="primary" onClick={this.handleOpenNewTag.bind(this)} id="team-tags__create">
