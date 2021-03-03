@@ -95,9 +95,8 @@ class Root extends Component {
                 <Route path=":team/all-items(/:query)" component={AllItems} public />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team/unconfirmed(/:query)" component={Unconfirmed} />
-                <Route path=":team" component={Team} public />
-                <Route path=":team/edit" action="edit" component={Team} />
                 <Route path=":team/settings(/:tab)" action="settings" component={Team} />
+                <Route path=":team(/:tab)" action="main" component={Team} public />
 
                 <Route path="*" component={NotFound} public />
               </Route>

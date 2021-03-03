@@ -8,26 +8,30 @@ import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   collaborator: {
-    id: 'RoleSelect.collaborator',
+    id: 'roleSelect.collaborator',
     defaultMessage: 'Collaborator',
   },
   editor: {
-    id: 'RoleSelect.editor',
+    id: 'roleSelect.editor',
     defaultMessage: 'Editor',
   },
   admin: {
-    id: 'RoleSelect.admin',
+    id: 'roleSelect.admin',
     defaultMessage: 'Admin',
   },
 });
 
-const RoleSelect = (props) => {
-  const { excludeRoles, ...other } = props;
-
+const RoleSelect = ({
+  excludeRoles,
+  fullWidth,
+  intl,
+  onChange,
+  value,
+}) => {
   const roles = [
-    { value: 'collaborator', label: props.intl.formatMessage(messages.collaborator) },
-    { value: 'editor', label: props.intl.formatMessage(messages.editor) },
-    { value: 'admin', label: props.intl.formatMessage(messages.admin) },
+    { value: 'collaborator', label: intl.formatMessage(messages.collaborator) },
+    { value: 'editor', label: intl.formatMessage(messages.editor) },
+    { value: 'admin', label: intl.formatMessage(messages.admin) },
   ];
 
   const filteredRoles = excludeRoles
@@ -35,11 +39,16 @@ const RoleSelect = (props) => {
     : roles;
 
   return (
-    <FormControl variant="outlined" style={{ minWidth: units(20), ...props.style }}>
+    <FormControl
+      variant="outlined"
+      style={{ minWidth: units(20) }}
+      fullWidth={fullWidth}
+    >
       <Select
         className="role-select"
         input={<OutlinedInput name="role-select" labelWidth={0} />}
-        {...other}
+        onChange={onChange}
+        value={value}
       >
         {
           filteredRoles.map(r => (

@@ -1,146 +1,168 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Relay from 'react-relay/classic';
+import { commitMutation, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Box from '@material-ui/core/Box';
+import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import List from '@material-ui/core/List';
-import EditIcon from '@material-ui/icons/Edit';
-import TeamInviteCard from './TeamInviteCard';
-import TeamMembersListItem from './TeamMembersListItem';
-import TeamInvitedMemberItem from './TeamInvitedMemberItem';
-import TeamInviteMembers from './TeamInviteMembers';
-import Can from '../Can';
-import LoadMore from '../layout/LoadMore';
-import { FlexRow } from '../../styles/js/shared';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import InviteDialog from './InviteDialog';
+import RoleSelect from './RoleSelect';
+import SettingsHeader from './SettingsHeader';
+import TeamMemberActions from './TeamMemberActions';
+import { withSetFlashMessage } from '../FlashMessage';
+import { ContentColumn } from '../../styles/js/shared';
+import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
 
-const pageSize = 20;
+const TeamMembersComponent = ({
+  team,
+  setFlashMessage,
+}) => {
+  const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
 
-class TeamMembersComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isEditing: false,
+  const handleChangeRole = (id, role) => {
+    const onFailure = () => {
+      // FIXME Fix copy
+      setFlashMessage('Faiô!', 'error');
     };
-  }
 
-  handleEditMembers(e) {
-    e.preventDefault();
-    this.setState({ isEditing: !this.state.isEditing });
-  }
-
-  render() {
-    const { isEditing } = this.state;
-    const { team, team: { team_users: teamUsers } } = this.props;
-    const teamUsersRequestingMembership = team.join_requests.edges;
-    const teamUsersMembers = teamUsers.edges.filter(tu => tu.node.status === 'member');
-    const ownerMembers = teamUsers.edges.filter(tu => tu.node.role === 'owner');
-    const teamInvitedMails = team.invited_mails;
-    const requestingMembership = !!teamUsersRequestingMembership.length;
-    const invitedMails = !!teamInvitedMails.length;
-
-    return (
-      <div>
-        <TeamInviteCard team={team} />
-
-        { invitedMails &&
-          <Can permissions={team.permissions} permission="invite Members">
-            <Box clone my={2}>
-              <Card>
-                <CardHeader title={<FormattedMessage
-                  id="teamMembersComponent.pendingInvitations"
-                  defaultMessage="Pending invitations"
-                />}
-                />
-                <TeamInviteMembers team={team} />
-                <List>
-                  { teamInvitedMails.map(invitedMail => (
-                    <TeamInvitedMemberItem
-                      invitedMail={invitedMail}
-                      key={invitedMail}
-                    />
-                  ))}
-                </List>
-              </Card>
-            </Box>
-          </Can>
+    commitMutation(Relay.Store, {
+      mutation: graphql`
+        mutation TeamMembersComponentEditRoleMutation($input: UpdateTeamUserInput!) {
+          updateTeamUser(input: $input) {
+            team_user {
+              id
+              role
+            }
+          }
         }
+      `,
+      variables: {
+        input: {
+          id,
+          role,
+        },
+      },
+      onError: onFailure,
+    });
+  };
 
-        { requestingMembership &&
-          <Can permissions={team.permissions} permission="update Team">
-            <Box clone mb={2}>
-              <Card>
-                <CardHeader
-                  title={<FormattedMessage
-                    id="teamMembershipRequests.requestsToJoin"
-                    defaultMessage="Requests to join"
-                  />}
-                />
-                <List>
-                  { teamUsersRequestingMembership.map(teamUser => (
-                    <TeamMembersListItem
-                      className="team-members__requesting-list-item"
-                      team={team}
-                      teamUser={teamUser.node}
-                      key={teamUser.node.id}
-                      requestingMembership
-                    />
-                  ))}
-                </List>
-              </Card>
-            </Box>
-          </Can>
+  return (
+    <ContentColumn>
+      <SettingsHeader
+        title={
+          <FormattedMessage
+            id="teamMembers.title"
+            defaultMessage="Members"
+            description="Title for workspace members management page"
+          />
         }
-
-        <Box clone my={2}>
-          <Card>
-            <CardHeader title={<FormattedMessage id="teamMembersComponent.mainHeading" defaultMessage="Members" />} />
-            <FlexRow>
-              <Can permissions={team.permissions} permission="update Team">
-                <Box clone ml="auto" mr={1}>
-                  <Button
-                    variant="contained"
-                    onClick={this.handleEditMembers.bind(this)}
-                    className="team-members__edit-button"
-                    icon={<EditIcon className="team-members__edit-icon" />}
-                  >
-                    { isEditing ?
-                      <FormattedMessage
-                        id="teamMembersComponent.editDoneButton"
-                        defaultMessage="Done"
-                      />
-                      : <FormattedMessage id="teamMembersComponent.editButton" defaultMessage="Edit" />}
-                  </Button>
-                </Box>
-              </Can>
-              <Can permissions={team.permissions} permission="invite Members">
-                <TeamInviteMembers team={team} />
-              </Can>
-            </FlexRow>
-            <List className="team-members__list">
-              <LoadMore
-                relay={this.props.relay}
-                pageSize={pageSize}
-                currentSize={teamUsers.edges.length}
-                total={team.members_count}
-              >
-                { teamUsersMembers.map(teamUser => (
-                  <TeamMembersListItem
-                    className="team-members__member-list-item"
-                    key={teamUser.node.id}
-                    team={team}
-                    teamUser={teamUser.node}
-                    isEditing={isEditing}
-                    singleOwner={ownerMembers.length <= 1}
+        subtitle={
+          <FormattedMessage
+            id="teamMembers.subtitle"
+            defaultMessage="Invite and manage users"
+          />
+        }
+        helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
+        actionButton={
+          <Button
+            className="team-members__invite-button"
+            color="primary"
+            variant="contained"
+            onClick={() => setInviteDialogOpen(true)}
+          >
+            <FormattedMessage
+              id="teamMembers.invite"
+              defaultMessage="Invite"
+            />
+          </Button>
+        }
+      />
+      <Card>
+        <TableContainer>
+          <Table>
+            <TableHead className="rulesTableHead">
+              <TableRow>
+                <TableCell>
+                  <FormattedMessage
+                    id="teamMembers.tableHeaderName"
+                    defaultMessage="Name"
+                    description="Column header in members table."
                   />
-                ))}
-              </LoadMore>
-            </List>
-          </Card>
-        </Box>
-      </div>
-    );
-  }
-}
+                </TableCell>
+                <TableCell>
+                  <FormattedMessage
+                    id="teamMembers.tableHeaderLastActive"
+                    defaultMessage="Last active"
+                    description="Column header in members table."
+                  />
+                </TableCell>
+                <TableCell>
+                  <FormattedMessage
+                    id="teamMembers.tableHeaderRole"
+                    defaultMessage="Workspace permission"
+                    description="Column header in members table."
+                  />
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              { team.team_users.edges.filter(tu => !tu.node.user.is_bot).map(tu => (
+                <TableRow key={tu.node.id}>
+                  <TableCell>
+                    <StyledTwoColumns>
+                      <StyledSmallColumn>
+                        <Avatar alt={tu.node.user.name} src={tu.node.user.profile_image} />
+                      </StyledSmallColumn>
+                      <StyledBigColumn>
+                        { tu.node.status === 'invited' ? (
+                          <React.Fragment>
+                            <div>{tu.node.user.email}</div>
+                            <div>
+                              <FormattedMessage
+                                id="teamMembers.pending"
+                                defaultMessage="Pending"
+                                description="Label for invite pending acceptance"
+                              />
+                            </div>
+                          </React.Fragment>
+                        ) : (
+                          <React.Fragment>
+                            <div>{tu.node.user.name}</div>
+                            <div>{tu.node.user.email}</div>
+                          </React.Fragment>
+                        )}
+                      </StyledBigColumn>
+                    </StyledTwoColumns>
+                  </TableCell>
+                  <TableCell>
+                    -
+                  </TableCell>
+                  <TableCell>
+                    <RoleSelect
+                      value={tu.node.role}
+                      onChange={e => handleChangeRole(tu.node.id, e.target.value)}
+                    />
+                    <TeamMemberActions team={team} teamUser={tu.node} />
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <InviteDialog
+          team={team}
+          open={inviteDialogOpen}
+          onClose={() => setInviteDialogOpen(false)}
+        />
+      </Card>
+    </ContentColumn>
+  );
+};
 
-export default TeamMembersComponent;
+export default withSetFlashMessage(TeamMembersComponent);

@@ -1,55 +1,55 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import TeamRoute from '../../relay/TeamRoute';
 import TeamMembersComponent from './TeamMembersComponent';
-import TeamInviteMembers from './TeamInviteMembers';
-import TeamMembersListItem from './TeamMembersListItem';
 
-export const TeamMembersContainer = Relay.createContainer(TeamMembersComponent, {
-  initialVariables: {
-    pageSize: 20,
-  },
-  fragments: {
-    team: () => Relay.QL`
-      fragment on Team {
-        id,
-        ${TeamMembersListItem.getFragment('team')}
-        ${TeamInviteMembers.getFragment('team')}
-        dbid,
-        name,
-        slug,
-        permissions,
-        members_count,
-        invited_mails,
-        join_requests(first: 100) {
-          edges {
-            node {
-              ${TeamMembersListItem.getFragment('teamUser')}
-              id
-              status
-            }
-          }
-        },
-        team_users(first: $pageSize) {
-          edges {
-            node {
-              ${TeamMembersListItem.getFragment('teamUser')}
-              id
-              status
+const renderQuery = ({ error, props }) => {
+  if (!error && props) {
+    return <TeamMembersComponent team={props.team} />;
+  }
+
+  // TODO: We need a better error handling in the future, standardized with other components
+  return null;
+};
+
+const TeamMembers = props => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query TeamMembersQuery($teamSlug: String!) {
+        team(slug: $teamSlug) {
+          id
+          dbid
+          team_users(first: 10000, status: ["invited", "member", "banned"]) {
+            edges {
+              node {
+                id
+                status
+                role
+                user {
+                  id
+                  dbid
+                  email
+                  is_bot
+                  name
+                  profile_image
+                }
+              }
             }
           }
         }
       }
-    `,
-  },
-});
+    `}
+    variables={{
+      teamSlug: props.teamSlug,
+    }}
+    render={renderQuery}
+  />
+);
 
-const TeamMembers = (props) => {
-  const route = new TeamRoute({ teamSlug: props.teamSlug });
-  return (<Relay.RootContainer
-    Component={TeamMembersContainer}
-    route={route}
-  />);
+TeamMembers.propTypes = {
+  teamSlug: PropTypes.string.isRequired,
 };
 
 export default TeamMembers;

@@ -7,19 +7,13 @@ import {
   black38,
   black54,
   caption,
-  boxShadow,
   subheading1,
   Row,
   avatarSizeLarge,
 } from './shared';
 
-// The "Header Card" is the layout at the top of Source, Profile and Team.
-// Currently we have an actual HeaderCard component that the TeamComponent uses,
-// but the user profile and source profile are using a selection of these constants
-// without the HeaderCard component.
-// See: components/HeaderCard
-// TODO Standardize to use the HeaderCard in all three components that use this layout.
-// @chris 2017-10-17
+// FIXME: Highly deprecated stuff
+// TODO: Do not reuse these components and replace any usage with updated solutions
 
 export const StyledButtonGroup = styled.div`
   margin: ${units(6)} auto 0;
@@ -49,12 +43,6 @@ export const StyledDescription = styled.div`
   margin-bottom: ${units(1)};
 `;
 
-export const StyledMetadata = styled.div`
-  margin: ${units(1)} 0;
-  color: ${black38};
-  font: ${caption};
-`;
-
 export const StyledHelper = styled.div`
   color: ${black38};
   font: ${caption};
@@ -62,12 +50,6 @@ export const StyledHelper = styled.div`
   ${mediaQuery.handheld`
     display: none;
   `}
-`;
-
-export const StyledProfileCard = styled.div`
-  margin-bottom: ${units(6)};
-  background-color: white;
-  box-shadow: ${boxShadow(1)};
 `;
 
 export const StyledContactInfo = styled.div`
