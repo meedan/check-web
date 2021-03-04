@@ -1,9 +1,5 @@
 [
   {
-    "id": "login.disclaimer",
-    "defaultMessage": "We won’t publish without your permission"
-  },
-  {
     "id": "login.tosMissing",
     "defaultMessage": "You must agree to the Terms of Service and Privacy Policy"
   },
@@ -16,12 +12,20 @@
     "defaultMessage": "Register"
   },
   {
+    "id": "login.withGoogle",
+    "defaultMessage": "Sign in with Google"
+  },
+  {
+    "id": "login.emailLogin",
+    "defaultMessage": "Or, sign in with your email"
+  },
+  {
     "id": "login.nameLabel",
-    "defaultMessage": "Your name"
+    "defaultMessage": "Name"
   },
   {
     "id": "login.emailLabel",
-    "defaultMessage": "Email address"
+    "defaultMessage": "Email"
   },
   {
     "id": "login.passwordInputHint",
@@ -40,8 +44,8 @@
     "defaultMessage": "Password confirmation"
   },
   {
-    "id": "login.profilePicture",
-    "defaultMessage": "Profile picture"
+    "id": "loginEmail.lostPassword",
+    "defaultMessage": "Forgot your password?"
   },
   {
     "id": "login.signIn",
@@ -49,22 +53,24 @@
   },
   {
     "id": "login.signUp",
-    "defaultMessage": "REGISTER"
-  },
-  {
-    "id": "loginEmail.lostPassword",
-    "defaultMessage": "Forgot password"
-  },
-  {
-    "id": "login.with",
-    "defaultMessage": "Continue with {provider}"
+    "defaultMessage": "Sign Up"
   },
   {
     "id": "login.newAccount",
-    "defaultMessage": "Create a new account with email"
+    "defaultMessage": "Don't have an account ?"
+  },
+  {
+    "id": "login.signUpLink",
+    "description": "allow user to create a new source",
+    "defaultMessage": "Sign up"
   },
   {
     "id": "login.alreadyHasAccount",
-    "defaultMessage": "I already have an account"
+    "defaultMessage": "Already have an account ?"
+  },
+  {
+    "id": "login.signInLink",
+    "description": "allow user to sing in with exisintg account",
+    "defaultMessage": "Sign in"
   }
 ]
