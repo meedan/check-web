@@ -3,6 +3,8 @@ import { FormattedMessage } from 'react-intl';
 import { FcGoogle } from 'react-icons/fc';
 import { browserHistory, Link } from 'react-router';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -41,19 +43,22 @@ const styles = {
     margin: '0 auto',
     display: 'block',
   },
-  buttonGroup: {
-    marginTop: units(8),
-  },
   primaryButton: {
     display: 'block',
     margin: `${units(2)} auto`,
-    maxWidth: units(21),
+    width: '80%',
   },
   secondaryButton: {
     display: 'block',
     color: black54,
     maxWidth: units(26),
     margin: `${units(2)} auto`,
+  },
+  googleButton: {
+    border: '2px solid #D5D5D5',
+  },
+  orDivider: {
+    padding: `${units(3)} 0`,
   },
 };
 
@@ -202,6 +207,8 @@ class Login extends React.Component {
             </StyledSubHeader>
             {this.state.type === 'login' ?
               <Button
+                fullWidth
+                style={styles.googleButton}
                 onClick={this.oAuthLogin.bind(this, 'google_oauth2')}
                 startIcon={<FcGoogle />}
               >
@@ -212,12 +219,20 @@ class Login extends React.Component {
               </Button> : null
             }
             {this.state.type === 'login' ?
-              <Typography component="div">
-                <FormattedMessage
-                  id="login.emailLogin"
-                  defaultMessage="Or, sign in with your email"
-                />
-              </Typography> : null
+              <Grid container alignItems="center" spacing={3} style={styles.orDivider}>
+                <Grid item xs>
+                  <Divider />
+                </Grid>
+                <Grid item>
+                  <FormattedMessage
+                    id="login.emailLogin"
+                    defaultMessage="Or, sign in with your email"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <Divider />
+                </Grid>
+              </Grid> : null
             }
             <Message message={this.state.message} />
             {this.state.registrationSubmitted ?
@@ -324,7 +339,7 @@ class Login extends React.Component {
                     checkedPp={this.state.checkedPp}
                   />}
 
-                <div className="login__actions" style={styles.buttonGroup}>
+                <div className="login__actions">
                   {this.state.type === 'login' ?
                     <span className="login__forgot-password">
                       <Link to="/check/user/password-reset">
@@ -357,41 +372,41 @@ class Login extends React.Component {
                     }
                   </Button>
                 </div>
-                <div>
-                  {this.state.type === 'login' ? (
-                    <Typography component="div">
+                {this.state.type === 'login' ? (
+                  <Typography component="div" align="center">
+                    <FormattedMessage
+                      id="login.newAccount"
+                      defaultMessage="Don't have an account ?"
+                    />
+                    <Button
+                      color="primary"
+                      onClick={this.handleSwitchToRegister}
+                    >
                       <FormattedMessage
-                        id="login.newAccount"
-                        defaultMessage="Don't have an account ?"
+                        id="login.signUpLink"
+                        defaultMessage="Sign up"
+                        description="allow user to create a new source"
                       />
-                      <Button
-                        onClick={this.handleSwitchToRegister}
-                      >
-                        <FormattedMessage
-                          id="login.signUpLink"
-                          defaultMessage="Sign up"
-                          description="allow user to create a new source"
-                        />
-                      </Button>
-                    </Typography>
-                  ) : (
-                    <Typography component="div">
+                    </Button>
+                  </Typography>
+                ) : (
+                  <Typography component="div" align="center">
+                    <FormattedMessage
+                      id="login.alreadyHasAccount"
+                      defaultMessage="Already have an account ?"
+                    />
+                    <Button
+                      color="primary"
+                      onClick={this.handleSwitchToLogin}
+                    >
                       <FormattedMessage
-                        id="login.alreadyHasAccount"
-                        defaultMessage="Already have an account ?"
+                        id="login.signInLink"
+                        defaultMessage="Sign in"
+                        description="allow user to sing in with exisintg account"
                       />
-                      <Button
-                        onClick={this.handleSwitchToLogin}
-                      >
-                        <FormattedMessage
-                          id="login.signInLink"
-                          defaultMessage="Sign in"
-                          description="allow user to sing in with exisintg account"
-                        />
-                      </Button>
-                    </Typography>
-                  )}
-                </div>
+                    </Button>
+                  </Typography>
+                )}
               </div>}
           </form>
         </StyledCard>
