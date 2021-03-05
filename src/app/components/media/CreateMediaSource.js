@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
@@ -9,12 +9,7 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import CancelIcon from '@material-ui/icons/Cancel';
@@ -24,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Message from '../Message';
 import CreateSourceMutation from '../../relay/mutations/CreateSourceMutation';
 import SourcePicture from '../source/SourcePicture';
+import SetSourceDialog from './SetSourceDialog';
 import globalStrings from '../../globalStrings';
 import { getErrorObjects, getErrorMessage } from '../../helpers';
 import CheckError from '../../CheckError';
@@ -436,51 +432,13 @@ function CreateMediaSource({
         </Card>
       </Box>
       {dialogOpen ?
-        <Dialog open={dialogOpen} maxWidth="sm" fullWidth>
-          <DialogTitle>
-            <FormattedMessage
-              id="createMediaSource.existingSource"
-              defaultMessage="Existing source URL"
-              description="Dialog title for existing source with same primary url"
-            />
-          </DialogTitle>
-          <DialogContent>
-            <Typography>
-              <FormattedHTMLMessage
-                id="createMediaSource.existDescription"
-                defaultMessage="An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
-                values={{
-                  name: existingSource.name,
-                  url: primaryUrl.url,
-                }}
-                description="Text to inform user about existing source"
-              />
-            </Typography>
-            <Typography>
-              <FormattedMessage
-                id="createMediaSource.confirm"
-                defaultMessage="Do you want to use the existing sources for this media?"
-                description="Confirm message to relate media to an existing source"
-              />
-            </Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button
-              color="primary"
-              className="source__create-use-existing-source"
-              onClick={handleSubmitDialog}
-            >
-              <FormattedMessage
-                id="createMediaSource.useExistingSource"
-                defaultMessage="Use existing source"
-                description="Submit button to relate media to an existing source"
-              />
-            </Button>
-            <Button color="primary" onClick={handleCancelDialog}>
-              <FormattedMessage {...globalStrings.cancel} />
-            </Button>
-          </DialogActions>
-        </Dialog> : null
+        <SetSourceDialog
+          open={dialogOpen}
+          sourceName={existingSource.name}
+          primaryUrl={primaryUrl.url}
+          onSubmit={handleSubmitDialog}
+          onCancel={handleCancelDialog}
+        /> : null
       }
     </React.Fragment>
   );

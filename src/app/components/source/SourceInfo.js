@@ -19,12 +19,19 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import CancelIcon from '@material-ui/icons/Cancel';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { makeStyles } from '@material-ui/core/styles';
+import SetSourceDialog from '../media/SetSourceDialog';
 import { can } from '../Can';
 import TimeBefore from '../TimeBefore';
 import SourcePicture from './SourcePicture';
 import { urlFromSearchQuery } from '../search/Search';
 import Tasks from '../task/Tasks';
-import { getErrorMessage, parseStringUnixTimestamp } from '../../helpers';
+import CheckError from '../../CheckError';
+import {
+  getErrorMessage,
+  getErrorMessageForRelayModernProblem,
+  getErrorObjectsForRelayModernProblem,
+  parseStringUnixTimestamp,
+} from '../../helpers';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import {
   Row,
@@ -166,6 +173,7 @@ function SourceInfo({
   team,
   projectMediaPermissions,
   onChangeClick,
+  relateToExistingSource,
 }) {
   const [expandName, setExpandName] = React.useState(true);
   const [expandAccounts, setExpandAccounts] = React.useState(true);
@@ -174,6 +182,8 @@ function SourceInfo({
   const [secondaryUrl, setSecondaryUrl] = React.useState({ url: '', error: '', addNewLink: false });
   const [primaryUrl, setPrimaryUrl] = React.useState({ url: '', error: '' });
   const [saving, setSaving] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [existingSource, setExistingSource] = React.useState({});
 
   const classes = useStyles();
 
@@ -193,9 +203,18 @@ function SourceInfo({
 
   const handleChangeSourceName = () => {
     if (sourceName && source.name !== sourceName) {
-      const onFailure = (transaction) => {
-        const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-        setSourceError(message);
+      const onFailure = (errors) => {
+        setSaving(false);
+        const error = getErrorObjectsForRelayModernProblem(errors);
+        if (Array.isArray(error) && error.length > 0) {
+          if (error[0].code === CheckError.codes.DUPLICATED) {
+            setDialogOpen(true);
+            setExistingSource(error[0].data);
+          } else {
+            const message = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
+            setSourceError(message);
+          }
+        }
       };
 
       const onSuccess = () => {
@@ -289,6 +308,15 @@ function SourceInfo({
       );
       handleAddLinkFail(type, message);
     }
+  };
+
+  const handleCancelDialog = () => {
+    setDialogOpen(false);
+    setSourceName(source.name);
+  };
+
+  const handleSubmitDialog = () => {
+    relateToExistingSource({ dbid: existingSource.id });
   };
 
   const accountSources = source.account_sources.edges;
@@ -398,6 +426,14 @@ function SourceInfo({
                 fullWidth
               />
             </CardContent>
+            {dialogOpen ?
+              <SetSourceDialog
+                open={dialogOpen}
+                sourceName={existingSource.name}
+                onSubmit={handleSubmitDialog}
+                onCancel={handleCancelDialog}
+              /> : null
+            }
           </Collapse>
         </Card>
       </Box>
@@ -572,6 +608,7 @@ SourceInfo.propTypes = {
   source: PropTypes.object.isRequired, // GraphQL "Source" object
   projectMediaPermissions: PropTypes.object.isRequired, // ProjectMedia permissions
   onChangeClick: PropTypes.func.isRequired, // func(<SourceId>) => undefined
+  relateToExistingSource: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(SourceInfo, {

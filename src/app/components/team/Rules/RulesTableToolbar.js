@@ -65,7 +65,7 @@ const RulesTableToolbar = (props) => {
             defaultMessage="Create automations to organize lists and customize your workflow."
           />
         }
-        helpUrl="https://help.checkmedia.org/en/articles/3623179-automation-and-filtering-rules"
+        helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"
         actionButton={
           <Button color="primary" variant="contained" className={[classes.button, 'rules__new-rule'].join(' ')} onClick={props.onAddNewRule}>
             <FormattedMessage id="rulesTableToolbar.add" defaultMessage="New rule" />

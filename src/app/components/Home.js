@@ -260,6 +260,7 @@ class HomeComponent extends Component {
               user_id={user.dbid}
               email={user.email}
               name={user.name}
+              check_workspace={teamSlug}
             /> : null
           }
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
