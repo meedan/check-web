@@ -8,6 +8,9 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const TeamMemberActions = ({
   setFlashMessage,
@@ -15,12 +18,20 @@ const TeamMemberActions = ({
   team,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [removeUserId, setRemoveUserId] = React.useState(null);
+
+  const confirmRemoveUser = (id) => {
+    setAnchorEl(null);
+    setRemoveUserId(id);
+  };
 
   const handleRemoveUser = (id) => {
     setAnchorEl(null);
-    const onFailure = () => {
-      // FIXME Fix copy
-      setFlashMessage('Faiô!', 'error');
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
     };
 
     commitMutation(Relay.Store, {
@@ -58,6 +69,49 @@ const TeamMemberActions = ({
     });
   };
 
+  const handleResendInvite = () => {
+    setAnchorEl(null);
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
+    };
+
+    const onSuccess = () => {
+      setFlashMessage((
+        <FormattedMessage
+          id="teamMemberActions.invitationSent"
+          defaultMessage="Invite sent!"
+          description="Sucess notification confirming that invitation was sent to user"
+        />
+      ), 'success');
+    };
+
+    commitMutation(Relay.Store, {
+      mutation: graphql`
+        mutation TeamMemberActionsResendInviteMutation($input: ResendCancelInvitationInput!) {
+          resendCancelInvitation(input: $input) {
+            success
+          }
+        }
+      `,
+      variables: {
+        input: {
+          email: teamUser.user.email,
+          action: 'resend',
+        },
+      },
+      onError: onFailure,
+      onCompleted: (response, errors) => {
+        if (errors) {
+          return onFailure(errors);
+        }
+        return onSuccess();
+      },
+    });
+  };
+
   const handleCopyToClipboard = () => {
     setAnchorEl(null);
     setFlashMessage((
@@ -91,14 +145,14 @@ const TeamMemberActions = ({
             </MenuItem>
           </CopyToClipboard>
         ) : null }
-        <MenuItem onClick={() => handleRemoveUser(teamUser.id)}>
+        <MenuItem onClick={() => confirmRemoveUser(teamUser.id)}>
           <FormattedMessage
             id="teamMembers.remove"
             defaultMessage="Remove"
           />
         </MenuItem>
         { teamUser.status === 'invited' ? (
-          <MenuItem>
+          <MenuItem onClick={() => handleResendInvite()}>
             <FormattedMessage
               id="teamMembers.resendInvite"
               defaultMessage="Resend invite"
@@ -106,6 +160,31 @@ const TeamMemberActions = ({
           </MenuItem>
         ) : null }
       </Menu>
+      <ConfirmProceedDialog
+        open={Boolean(removeUserId)}
+        title={
+          <FormattedMessage
+            id="teamMembers.removeDialogTitle"
+            defaultMessage="Remove {userLabel}"
+            values={{ userLabel: teamUser.user.name || teamUser.user.email }}
+          />
+        }
+        body={
+          <FormattedMessage
+            id="teamMembers.removeDialogBody"
+            defaultMessage="{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+            values={{ userLabel: teamUser.user.name || teamUser.user.email, teamName: team.name }}
+          />
+        }
+        onCancel={() => setRemoveUserId(null)}
+        onProceed={() => handleRemoveUser(removeUserId)}
+        proceedLabel={
+          <FormattedMessage
+            id="teamMembers.remove"
+            defaultMessage="Remove"
+          />
+        }
+      />
     </React.Fragment>
   );
 };

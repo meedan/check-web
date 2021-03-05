@@ -11,7 +11,9 @@ import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
 import RoleSelect from './RoleSelect';
 import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import globalStrings from '../../globalStrings';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const InviteDialog = ({
   open,
@@ -37,9 +39,11 @@ const InviteDialog = ({
   };
 
   const handleSubmit = () => {
-    const onFailure = () => {
-      // FIXME Fix copy
-      setFlashMessage('NUM CONVIDÔ!', 'error');
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
     };
 
     const onSuccess = () => {

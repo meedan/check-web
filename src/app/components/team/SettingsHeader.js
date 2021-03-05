@@ -47,9 +47,12 @@ const SettingsHeader = ({
           <Typography variant="h6" component="div">
             {title}
           </Typography>
-          <IconButton onClick={handleHelp}>
-            <HelpIcon className={classes.settingsHeaderHelpIcon} />
-          </IconButton>
+          { helpUrl ?
+            <IconButton onClick={handleHelp}>
+              <HelpIcon className={classes.settingsHeaderHelpIcon} />
+            </IconButton>
+            : null
+          }
         </Box>
         <Box display="flex" alignItems="center">
           {extra}
@@ -68,11 +71,12 @@ SettingsHeader.defaultProps = {
   actionButton: null,
   subtitle: null,
   extra: null,
+  helpUrl: null,
 };
 
 SettingsHeader.propTypes = {
   title: PropTypes.node.isRequired,
-  helpUrl: PropTypes.string.isRequired,
+  helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
   subtitle: PropTypes.node,
   extra: PropTypes.node,

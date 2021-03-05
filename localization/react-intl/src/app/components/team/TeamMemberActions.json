@@ -1,5 +1,10 @@
 [
   {
+    "id": "teamMemberActions.invitationSent",
+    "description": "Sucess notification confirming that invitation was sent to user",
+    "defaultMessage": "Invite sent!"
+  },
+  {
     "id": "teamMemberActions.copiedToClipboard",
     "defaultMessage": "The email has been copied to the clipboard"
   },
@@ -18,5 +23,13 @@
   {
     "id": "teamMembers.resendInvite",
     "defaultMessage": "Resend invite"
+  },
+  {
+    "id": "teamMembers.removeDialogTitle",
+    "defaultMessage": "Remove {userLabel}"
+  },
+  {
+    "id": "teamMembers.removeDialogBody",
+    "defaultMessage": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
   }
 ]

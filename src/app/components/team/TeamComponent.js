@@ -6,6 +6,7 @@ import { browserHistory } from 'react-router';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import TeamDetails from './TeamDetails';
 import TeamLanguages from './Languages';
 import TeamRules from './Rules';
 import TeamStatuses from './Statuses';
@@ -265,7 +266,10 @@ class TeamComponent extends Component {
         <StyledTeamContainer className="team">
           <TeamSettingsTabs />
           { tab === 'members'
-            ? <TeamMembers {...this.props} />
+            ? <TeamMembers teamSlug={team.slug} />
+            : null }
+          { tab === 'edit'
+            ? <TeamDetails team={team} />
             : null }
           { isSettings && tab === 'lists'
             ? <TeamLists key={tab} />

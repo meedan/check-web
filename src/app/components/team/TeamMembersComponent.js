@@ -16,8 +16,10 @@ import RoleSelect from './RoleSelect';
 import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
 import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { ContentColumn } from '../../styles/js/shared';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
+import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const TeamMembersComponent = ({
   team,
@@ -26,9 +28,11 @@ const TeamMembersComponent = ({
   const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
 
   const handleChangeRole = (id, role) => {
-    const onFailure = () => {
-      // FIXME Fix copy
-      setFlashMessage('Faiô!', 'error');
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
     };
 
     commitMutation(Relay.Store, {
@@ -86,7 +90,7 @@ const TeamMembersComponent = ({
       <Card>
         <TableContainer>
           <Table>
-            <TableHead className="rulesTableHead">
+            <TableHead>
               <TableRow>
                 <TableCell>
                   <FormattedMessage
@@ -141,6 +145,7 @@ const TeamMembersComponent = ({
                     </StyledTwoColumns>
                   </TableCell>
                   <TableCell>
+                    { /* FIXME: Add last active data */ }
                     -
                   </TableCell>
                   <TableCell>

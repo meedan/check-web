@@ -188,31 +188,6 @@ export const avatarSize = units(5);
 export const avatarSizeSmall = units(4);
 export const avatarSizeExtraSmall = units(3);
 
-// avatarStyle is deprecated
-// prefer SourcePicture instead
-export const avatarStyle = `
-  border: ${borderWidthSmall} solid ${black05};
-  border-radius: ${defaultBorderRadius};
-  flex: 0 0 auto;
-  height: ${avatarSizeLarge};
-  width: ${avatarSizeLarge};
-  ${backgroundCover}
-  background-color: ${white};
-`;
-
-export const proBadgeStyle = `
-  background-color: ${opaqueBlack87};
-  border-radius: ${borderWidthMedium};
-  color: ${white};
-  font: ${tiny};
-  line-height: 1.2;
-  padding: ${units(0.25)} ${units(0.5)};
-  position: absolute;
-  right: -${units(1)};
-  text-transform: uppercase;
-  top: ${units(0.5)};
-`;
-
 export const StyledPasswordChange = styled.div`
   .user-password-change__card {
     margin: ${units(9)} auto auto;
