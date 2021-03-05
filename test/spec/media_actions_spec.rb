@@ -4,23 +4,13 @@ shared_examples 'media actions' do
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
     wait_for_selector('.media-detail')
     wait_for_selector('iframe')
-    expect(@driver.page_source.include?('First Draft')).to be(true)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-form')
-
-    expect(@driver.page_source.include?('Happy birthday Mick')).to be(false)
-    expect(@driver.page_source.include?('How To Check An')).to be(false)
-    expect(@driver.page_source.include?('Who agrees with this')).to be(false)
-
+    expect(wait_for_selector_list('.media__heading').length == 1).to be(true)
     ['https://twitter.com/TheWho/status/890135323216367616', 'https://www.youtube.com/watch?v=ykLgjhBnik0', 'https://www.instagram.com/p/BRYob0dA1SC/', 'https://www.tiktok.com/@scout2015/video/6771039287917038854'].each do |url|
       create_media url
     end
-
-    wait_for_selector_list_size('.media__heading', 5)
-    wait_for_selector("//h4[contains(text(), 'Who agrees')]", :xpath)
-    expect(@driver.page_source.include?('How To Check An')).to be(true)
-    expect(@driver.page_source.include?('Who agrees with this')).to be(true)
-    expect(@driver.page_source.include?('Happy birthday Mick')).to be(true)
+    expect(wait_for_selector_list('.media__heading').length == 5).to be(true)
   end
 
   it 'should create an item and assign it', bin4: true do
