@@ -1,46 +1,6 @@
-sudo: required
+language: minimal
 dist: bionic
-language: ruby
-rvm: "2.4"  # must be same as check-api/.travis.yml
-cache:
-  directories:
-    - "/tmp/bundler"
-services:
-  - docker
-  - postgresql
-  - xvfb
-addons:
-  postgresql: "11"
-  apt:
-    packages:
-    - build-essential
-    - chromium-browser
-    - chromium-chromedriver
-    - curl
-    - fonts-liberation
-    - imagemagick
-    - libappindicator1
-    - libexif-dev
-    - libnss3
-    - libnss3-dev
-    - libssl-dev
-    - lsof
-    - python-setuptools
-    - libtag1-dev
-    - unzip
-    - wget
-    - libidn11-dev
-  hosts:
-    - minio
-    - redis
-  snaps:
-    - name: node
-      channel: 12/stable  # must be same as check-web/Dockerfile
-      confinement: classic
 before_install:
-- sudo apt-get remove google-chrome-stable  # Travis comes with it, and its version doesn't match chromedriver's
-- export TEST_ENV_NUMBER=0
-- export CHROMEDRIVER_URL=http://localhost:9515
 # Set a UTF-8 capabable locale
 - export LC_ALL=C.UTF-8
 - export LANG=C.UTF-8
@@ -52,50 +12,29 @@ before_install:
 # extract configs
 - git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # pender
-# also starts minio and redis
 - export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $PENDER_BRANCH for Pender"
 - git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
 - d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
-- cd pender
-- docker-compose build
-- docker-compose -f docker-compose.yml -f docker-test.yml up -d
-- cd -
 # check api
-- psql -c 'create database checkdesk_test0;' -U postgres
-- docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-- docker exec elasticsearch elasticsearch-plugin install analysis-icu
-- docker restart elasticsearch
-- until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
-- curl --silent -XPUT http://localhost:9200/check_api_tests0
 - export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
 - d=configurator/$APP/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
-- cd check-api
-- bundle install --path=/tmp/bundler
-- bundle exec rake db:migrate RAILS_ENV=test
-- bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- bundle exec sidekiq -L log/sidekiq.log -d
-- RAILS_ENV=test bundle exec puma -w 3 -t 8:60 --preload -b tcp://127.0.0.1:3000 >/dev/null &
-- cd -
-- export RAILS_ENV=development
-# chromedriver
-- chromedriver --port=9515 >/dev/null 2>/dev/null &
-# ruby / bundler / rspec
-- cd test && bundle install --path=/tmp/bundler && cd -
 # config files
 - d=configurator/$APP/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
-install:
-- npm install
 before_script:
-- npm run build
-- export SERVER_PORT=3333
-- npm run publish &
+- docker-compose build
+- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- until curl --silent -I -f --fail http://localhost:3000 ; do printf .; sleep 1; done
+- until curl --silent -I -f --fail http://localhost:3333 ; do printf .; sleep 1; done
+- docker-compose exec web npm install
+- docker-compose exec web npm run build
+- docker-compose exec web npm run publish &
 - sleep 5
-- cd test/spec && bundle exec rubocop || travis_terminate 1;
-- cd -
-script: npm run test:lint && npm run test:unit && ./scripts/uncovered-files && cd test && ./parallel-test.sh
+- docker-compose exec web npm run test:unit:lint || travis_terminate 1;
+- docker-compose exec web npm run test:integration:lint || travis_terminate 1;
+script: docker-compose exec web ./test/run-tests.sh
 after_script:
 - cat file.json
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
