@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FormattedDate, FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import Typography from '@material-ui/core/Typography';
 import { units, title1, caption } from '../styles/js/shared';
 import { stringHelper } from '../customHelpers';
 
@@ -64,16 +66,18 @@ class UserTosForm extends Component {
                 />
               </p> : null
             }
-            <p style={{ margin: `${units(4)} 0` }}>
-              <FormattedMessage
-                id="userTos.disclaimer"
-                defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
-                values={{
-                  tosLink,
-                  ppLink,
-                }}
-              />
-            </p>
+            <Box my={4}>
+              <Typography component="div" variant="body2">
+                <FormattedMessage
+                  id="userTos.disclaimer"
+                  defaultMessage="Please review our {tosLink} and our {ppLink} and consent to the following:"
+                  values={{
+                    tosLink,
+                    ppLink,
+                  }}
+                />
+              </Typography>
+            </Box>
           </div> :
           <div>
             <h2>

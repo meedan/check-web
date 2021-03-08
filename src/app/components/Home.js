@@ -11,7 +11,7 @@ import MomentUtils from '@date-io/moment';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
-// import InviteNewAccount from './InviteNewAccount';
+import InviteNewAccount from './InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
@@ -209,11 +209,11 @@ class HomeComponent extends Component {
 
     const routeIsPublic = children && children.props.route.public;
 
-    // if (!routeIsPublic && this.state.token && 'invitation_response' in location.query) {
-    //   return (
-    //     <InviteNewAccount />
-    //   );
-    // }
+    if (this.state.token && 'invitation_response' in location.query) {
+      return (
+        <InviteNewAccount />
+      );
+    }
 
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {

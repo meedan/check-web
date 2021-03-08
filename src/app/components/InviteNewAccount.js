@@ -18,6 +18,7 @@ import { getErrorMessageForRelayModernProblem } from '../helpers';
 import {
   units,
   mediaQuery,
+  ContentColumn,
 } from '../styles/js/shared';
 
 const StyledCard = styled(Card)`
@@ -127,156 +128,160 @@ const InviteNewAccountComponent = ({ user }) => {
 
   return (
     <div className="login" id="login">
-      <StyledCard>
-        <form onSubmit={(e) => { onFormSubmit(e); }} className="login__form">
-          <FormattedGlobalMessage messageKey="appNameHuman">
-            {appNameHuman => (
-              <img
-                alt={appNameHuman}
-                width="120"
-                className={['login__icon', classes.logo].join(' ')}
-                src={stringHelper('LOGO_URL')}
-              />
-            )}
-          </FormattedGlobalMessage>
-
-          <Typography component="div" align="center" className={classes.topMargin}>
-            <FormattedMessage
-              id="inviteNewAccount.invitedBy"
-              defaultMessage="{name} has invited you to join the workspace"
-              values={{
-                name: teamUser.invited_by.name,
-              }}
-            />
-          </Typography>
-          <Typography component="div" align="center" className={classes.bold} paragraph="true">
-            {teamUser.team.name}
-          </Typography>
-          <Typography component="div" align="center" paragraph="true">
-            <FormattedHTMLMessage
-              id="inviteNewAccount.createMessage"
-              defaultMessage="You need to create an account for <b>{email}</b>"
-              values={{
-                email: user.email,
-              }}
-              description="Inform your to create a new account for signup"
-            />
-          </Typography>
-
-          <Message message={message} />
-
-          <div className="login__email">
-            <TextField
-              margin="normal"
-              fullWidth
-              type="email"
-              name="email"
-              value={email}
-              className="login__email-input"
-              onChange={(e) => { setEmail(e.target.value); }}
-              label={
-                <FormattedMessage
-                  id="inviteNewAccountemailLabel"
-                  defaultMessage="Email"
-                  description="Label for user email field"
+      <ContentColumn>
+        <StyledCard>
+          <form onSubmit={(e) => { onFormSubmit(e); }} className="login__form">
+            <FormattedGlobalMessage messageKey="appNameHuman">
+              {appNameHuman => (
+                <img
+                  alt={appNameHuman}
+                  width="120"
+                  className={['login__icon', classes.logo].join(' ')}
+                  src={stringHelper('LOGO_URL')}
                 />
-              }
-              disabled
-            />
-          </div>
+              )}
+            </FormattedGlobalMessage>
 
-          <div className="login__name">
-            <TextField
-              required
-              margin="normal"
-              fullWidth
-              name="name"
-              value={name}
-              className="login__name-input"
-              onChange={(e) => { setName(e.target.value); }}
-              label={
-                <FormattedMessage
-                  id="inviteNewAccountnameLabel"
-                  defaultMessage="Name"
-                  description="Label for user name field"
-                />
-              }
-              autoFocus
-            />
-          </div>
-
-          <div className="login__password">
-            <TextField
-              required
-              margin="normal"
-              fullWidth
-              type="password"
-              name="password"
-              value={password}
-              className="login__password-input"
-              onChange={(e) => { setPassword(e.target.value); }}
-              label={
-                <FormattedMessage
-                  id="inviteNewAccountpasswordLabel"
-                  defaultMessage="Password (minimum 8 characters)"
-                  description="Label for password field"
-                />
-              }
-            />
-          </div>
-
-          <div className="login__password-confirmation">
-            <TextField
-              required
-              margin="normal"
-              fullWidth
-              type="password"
-              name="passwordConfirmation"
-              value={passwordConfirmation}
-              className="login__password-confirmation-input"
-              onChange={(e) => { setPasswordConfirmation(e.target.value); }}
-              label={
-                <FormattedMessage
-                  id="inviteNewAccountpasswordConfirmLabel"
-                  defaultMessage="Password confirmation"
-                  description="Label for password confirmation field"
-                />
-              }
-            />
-          </div>
-
-          <UserTosForm
-            user={{}}
-            showTitle={false}
-            handleCheckTos={handleCheckTos}
-            handleCheckPp={handleCheckPp}
-            checkedTos={checkedTos}
-            checkedPp={checkedPp}
-          />
-          <div className="login__actions">
-            <Button
-              variant="contained"
-              color="primary"
-              type="submit"
-              id="submit-register-or-login"
-              className={['login__submit login__submit--register', classes.primaryButton].join(' ')}
-            >
+            <Typography component="div" align="center" className={classes.topMargin}>
               <FormattedMessage
-                id="inviteNewAccount.createAccount"
-                defaultMessage="Create Account"
-                description="Submit button for create a new account"
+                id="inviteNewAccount.invitedBy"
+                defaultMessage="{name} has invited you to join the workspace"
+                values={{
+                  name: teamUser.invited_by.name,
+                }}
               />
-            </Button>
-          </div>
+            </Typography>
+            <Typography component="div" align="center" className={classes.bold} paragraph="true">
+              {teamUser.team.name}
+            </Typography>
+            <Typography component="div" align="center" paragraph="true">
+              <FormattedHTMLMessage
+                id="inviteNewAccount.createMessage"
+                defaultMessage="You need to create an account for <b>{email}</b>"
+                values={{
+                  email: user.email,
+                }}
+                description="Inform your to create a new account for signup"
+              />
+            </Typography>
 
-        </form>
-      </StyledCard>
+            <Message message={message} />
+
+            <div className="login__email">
+              <TextField
+                margin="normal"
+                fullWidth
+                type="email"
+                name="email"
+                value={email}
+                className="login__email-input"
+                onChange={(e) => { setEmail(e.target.value); }}
+                label={
+                  <FormattedMessage
+                    id="inviteNewAccountemailLabel"
+                    defaultMessage="Email"
+                    description="Label for user email field"
+                  />
+                }
+                disabled
+              />
+            </div>
+
+            <div className="login__name">
+              <TextField
+                required
+                margin="normal"
+                fullWidth
+                name="name"
+                value={name}
+                className="login__name-input"
+                onChange={(e) => { setName(e.target.value); }}
+                label={
+                  <FormattedMessage
+                    id="inviteNewAccountnameLabel"
+                    defaultMessage="Name"
+                    description="Label for user name field"
+                  />
+                }
+                autoFocus
+              />
+            </div>
+
+            <div className="login__password">
+              <TextField
+                required
+                margin="normal"
+                fullWidth
+                type="password"
+                name="password"
+                value={password}
+                className="login__password-input"
+                onChange={(e) => { setPassword(e.target.value); }}
+                label={
+                  <FormattedMessage
+                    id="inviteNewAccountpasswordLabel"
+                    defaultMessage="Password (minimum 8 characters)"
+                    description="Label for password field"
+                  />
+                }
+              />
+            </div>
+
+            <div className="login__password-confirmation">
+              <TextField
+                required
+                margin="normal"
+                fullWidth
+                type="password"
+                name="passwordConfirmation"
+                value={passwordConfirmation}
+                className="login__password-confirmation-input"
+                onChange={(e) => { setPasswordConfirmation(e.target.value); }}
+                label={
+                  <FormattedMessage
+                    id="inviteNewAccountpasswordConfirmLabel"
+                    defaultMessage="Password confirmation"
+                    description="Label for password confirmation field"
+                  />
+                }
+              />
+            </div>
+
+            <UserTosForm
+              user={{}}
+              showTitle={false}
+              handleCheckTos={handleCheckTos}
+              handleCheckPp={handleCheckPp}
+              checkedTos={checkedTos}
+              checkedPp={checkedPp}
+            />
+            <div className="login__actions">
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                id="submit-register-or-login"
+                className={['login__submit login__submit--register', classes.primaryButton].join(' ')}
+              >
+                <FormattedMessage
+                  id="inviteNewAccount.createAccount"
+                  defaultMessage="Create Account"
+                  description="Submit button for create a new account"
+                />
+              </Button>
+            </div>
+
+          </form>
+        </StyledCard>
+      </ContentColumn>
     </div>
   );
 };
 
 const InviteNewAccount = ({ params }) => {
-  const teamSlug = params.slug;
+  // const teamSlug = params.slug;
+  console.log('params', params);
+  const teamSlug = 'eita';
   return (
     <QueryRenderer
       environment={Relay.Store}
