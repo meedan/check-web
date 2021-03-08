@@ -1,5 +1,21 @@
 [
   {
+    "id": "reportDesignerToolbar.cantPublishInitial",
+    "defaultMessage": "You must have at least Report Text or Visual Card selected in order to publish the report."
+  },
+  {
+    "id": "reportDesignerToolbar.cantPublishDefault",
+    "defaultMessage": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
+  },
+  {
+    "id": "reportDesignerToolbar.cantPublishText",
+    "defaultMessage": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+  },
+  {
+    "id": "reportDesignerToolbar.cantPublishStatus",
+    "defaultMessage": "Your item still has the default status {status} and must be changed to a different status it can be published."
+  },
+  {
     "id": "reportDesigner.back",
     "defaultMessage": "Back to annotation"
   },
@@ -32,12 +48,8 @@
     "defaultMessage": "Publish"
   },
   {
-    "id": "reportDesigner.canPublish",
-    "defaultMessage": "Publish report"
-  },
-  {
-    "id": "reportDesigner.cannotPublish",
-    "defaultMessage": "Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
+    "id": "reportDesigner.cantPublishTitle",
+    "defaultMessage": "Your report is not ready to be published"
   },
   {
     "id": "reportDesigner.confirmPublishTitle",
@@ -45,7 +57,7 @@
   },
   {
     "id": "reportDesigner.confirmRepublishResendTitle",
-    "defaultMessage": "Ready to publish your correction?"
+    "defaultMessage": "Ready to publish your changes?"
   },
   {
     "id": "reportDesigner.confirmRepublishTitle",
@@ -53,34 +65,62 @@
   },
   {
     "id": "reportDesigner.confirmPublishText",
-    "defaultMessage": "{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
-  },
-  {
-    "id": "reportDesigner.confirmRepublishResendText",
-    "defaultMessage": "{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
-  },
-  {
-    "id": "reportDesigner.republishAndResend",
-    "defaultMessage": "{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
+    "defaultMessage": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
   },
   {
     "id": "reportDesigner.confirmPublishText2",
-    "defaultMessage": "In the future, users who request this item will receive your report while it remains published."
+    "defaultMessage": "All future users who request this item will receive this version of the report while it remains published."
+  },
+  {
+    "id": "reportDesigner.confirmRepublishResendText",
+    "defaultMessage": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
+  },
+  {
+    "id": "reportDesigner.correction",
+    "defaultMessage": "correction"
+  },
+  {
+    "id": "reportDesigner.republishAndResend",
+    "defaultMessage": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
+  },
+  {
+    "id": "reportDesigner.cancelPublish",
+    "defaultMessage": "Go back"
+  },
+  {
+    "id": "reportDesigner.cantPublish",
+    "defaultMessage": "Go back to editing"
+  },
+  {
+    "id": "reportDesigner.confirmPublish",
+    "defaultMessage": "Publish report"
+  },
+  {
+    "id": "reportDesigner.confirmPublishSameStatus",
+    "defaultMessage": "Publish changes"
+  },
+  {
+    "id": "reportDesigner.confirmPublishStatusChange",
+    "defaultMessage": "Publish changes and send correction"
   },
   {
     "id": "reportDesigner.pause",
     "defaultMessage": "Pause"
   },
   {
-    "id": "reportDesigner.pauseReport",
-    "defaultMessage": "Pause report"
-  },
-  {
     "id": "reportDesigner.confirmPauseTitle",
-    "defaultMessage": "You are about to pause the report"
+    "defaultMessage": "Do you want to pause the report?"
   },
   {
     "id": "reportDesigner.confirmPauseText",
-    "defaultMessage": "This report will not be sent to users until it is published again. Do you want to continue?"
+    "defaultMessage": "This will stop the report from being sent out to users until it is published again."
+  },
+  {
+    "id": "reportDesigner.cancelPause",
+    "defaultMessage": "Go back"
+  },
+  {
+    "id": "reportDesigner.confirmPause",
+    "defaultMessage": "Pause report"
   }
 ]

@@ -171,6 +171,7 @@ module AppSpecHelpers
       update_field('#project-description-field', options[:description])
     end
     wait_for_selector('button.project-edit__editing-button--save').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('.project-edit__editing-button--cancel')
     self
   end
@@ -265,9 +266,8 @@ module AppSpecHelpers
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     update_field('#task-label-input', new_data_field_name)
     wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__checkbox')
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
   end
 
   def delete_team_data_field
@@ -275,7 +275,6 @@ module AppSpecHelpers
     wait_for_selector('.team-tasks__edit-button')
     wait_for_selector('.team-tasks__delete-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
   end

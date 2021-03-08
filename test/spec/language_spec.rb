@@ -7,10 +7,9 @@ shared_examples 'language' do
     wait_for_selector('.language-list-item__en-default')
     expect(@driver.page_source.include?('language-list-item__en-default')).to be(true)
     expect(@driver.page_source.include?('English')).to be(true)
-    # verify that actions are blocked for default language
+    # verify that "make default" action is blocked for default language
     wait_for_selector_list('.language-actions__menu')[0].click
     expect(@driver.find_elements(:css, '.language-actions__make-default[aria-disabled=true]').size).to eq 1
-    expect(@driver.find_elements(:css, '.language-actions__delete[aria-disabled=true]').size).to eq 1
     @driver.action.send_keys(:escape).perform
     # add translated language
     wait_for_selector('.add-language-action__add-button').click
@@ -41,11 +40,12 @@ shared_examples 'language' do
     # try to set as default but fail because statuses aren't translated to norsk
     wait_for_selector_list('.language-actions__menu')[2].click
     wait_for_selector('.language-actions__make-default').click
-    expect(@driver.page_source.include?('Status translation needed')).to be(true)
-    wait_for_selector('.translation-needed-dialog__close').click
+    expect(@driver.page_source.include?('need to translate all')).to be(true)
+    wait_for_selector('.confirm-proceed-dialog__proceed').click
     # delete language
     wait_for_selector_list('.language-actions__menu')[1].click
     wait_for_selector('.language-actions__delete').click
+    wait_for_selector('#confirm-proceed-dialog__confirmation-text').send_keys('Delete English and all content')
     wait_for_selector('.confirm-proceed-dialog__proceed').click
     wait_for_selector_none('.language-list-item__en')
     expect(@driver.page_source.include?('English')).to be(false)

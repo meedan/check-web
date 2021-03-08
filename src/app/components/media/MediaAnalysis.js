@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { DatePicker } from '@material-ui/pickers';
 import TimeBefore from '../TimeBefore';
-import ConfirmDialog from '../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
 import { propsToData, formatDate } from './ReportDesigner/reportDesignerHelpers';
 import { can } from '../Can';
@@ -337,7 +337,7 @@ const MediaAnalysis = ({ projectMedia }) => {
           />
         </Box>
       </Box>
-      <ConfirmDialog
+      <ConfirmProceedDialog
         open={showConfirmationDialog}
         title={
           published ?
@@ -347,21 +347,26 @@ const MediaAnalysis = ({ projectMedia }) => {
             /> :
             <FormattedMessage
               id="mediaAnalysis.confirmTitle2"
-              defaultMessage="Overwrite existing report?"
+              defaultMessage="Overwrite existing report content?"
             />
         }
-        blurb={
-          published ?
-            <FormattedMessage
-              id="mediaAnalysis.confirmText1"
-              defaultMessage="You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
-            /> :
-            <FormattedMessage
-              id="mediaAnalysis.confirmText2"
-              defaultMessage="Do you want to update the report with this new content? All edits will be lost."
-            />
+        body={
+          <div>
+            <Typography variant="body1" component="p" paragraph>
+              { published ?
+                <FormattedMessage
+                  id="mediaAnalysis.confirmText1"
+                  defaultMessage="You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+                /> :
+                <FormattedMessage
+                  id="mediaAnalysis.confirmText2"
+                  defaultMessage="Do you want to update the report with this new content? All content currently in the report will be lost."
+                />
+              }
+            </Typography>
+          </div>
         }
-        continueButtonLabel={
+        proceedLabel={
           published ?
             <FormattedMessage
               id="mediaAnalysis.confirmButtonLabel1"
@@ -369,11 +374,11 @@ const MediaAnalysis = ({ projectMedia }) => {
             /> :
             <FormattedMessage
               id="mediaAnalysis.confirmButtonLabel2"
-              defaultMessage="Overwrite content"
+              defaultMessage="Overwrite report content"
             />
         }
-        handleClose={handleCloseConfirmationDialog}
-        handleConfirm={handleCopyToReport}
+        onProceed={handleCopyToReport}
+        onCancel={handleCloseConfirmationDialog}
       />
     </Box>
   );

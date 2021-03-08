@@ -20,6 +20,10 @@
     "defaultMessage": "Tags"
   },
   {
+    "id": "searchKeywordConfig.accounts",
+    "defaultMessage": "Source"
+  },
+  {
     "id": "searchKeywordConfig.allTaskAnswers",
     "description": "This options applies keyword search across all task answers",
     "defaultMessage": "All task answers"

@@ -227,7 +227,6 @@ shared_examples 'team' do
     l.last.click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__checkbox')
     new = wait_for_size_change(l.length, 'team-members__delete-member', :class)
     expect(new < old).to be(true)
   end

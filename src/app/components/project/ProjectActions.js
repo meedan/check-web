@@ -5,10 +5,11 @@ import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ConfirmDialog from '../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
 import { can } from '../Can';
@@ -21,7 +22,6 @@ class ProjectActions extends Component {
     openAssignPopup: false,
     showConfirmDeleteProjectDialog: false,
     projectDeletionConfirmed: false,
-    message: null,
   };
 
   handleEdit = () => {
@@ -166,17 +166,27 @@ class ProjectActions extends Component {
         >
           {menuItems}
         </Menu>
-        <ConfirmDialog
-          message={this.state.message}
+        <ConfirmProceedDialog
           open={this.state.showConfirmDeleteProjectDialog}
           title={
             <FormattedMessage
-              id="projectActions.confirmDeleteProject"
-              defaultMessage="Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
+              id="projectActions.deleteProjectTitle"
+              defaultMessage="Are you sure you want to delete this list?"
             />
           }
-          handleClose={this.handleCloseDialog.bind(this)}
-          handleConfirm={this.handleDestroy.bind(this)}
+          body={(
+            <div>
+              <Typography variant="body1" component="p" paragraph>
+                <FormattedMessage
+                  id="projectActions.deleteProjectBody"
+                  defaultMessage='The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the "All items" list'
+                />
+              </Typography>
+            </div>
+          )}
+          proceedLabel={<FormattedMessage id="projectActions.proceedLabel" defaultMessage="Delete list" />}
+          onCancel={this.handleCloseDialog.bind(this)}
+          onProceed={this.handleDestroy.bind(this)}
         />
         {
           this.state.openAssignPopup ?
