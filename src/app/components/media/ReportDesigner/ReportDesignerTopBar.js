@@ -97,20 +97,20 @@ const ReportDesignerTopBar = (props) => {
       />
     );
   }
+  // We can publish if there is a default report with either visual card or non-empty text report
+  if (defaultReport && (defaultReport.use_visual_card || (defaultReport.use_text_message &&
+    (defaultReport.text.length > 0 || defaultReport.title.length > 0)))) {
+    cantPublishReason = null;
+  }
   // We can't publish if the status is the initial one
   if (media.last_status === media.team.verification_statuses.default) {
     cantPublishReason = (
       <FormattedMessage
         id="reportDesignerToolbar.cantPublishStatus"
-        defaultMessage="Your item still has the default status {status} and must be changed to a different status it can be published."
+        defaultMessage="Your item still has the default status {status} and must be changed to a different status before it can be published."
         values={{ status: <strong>{getStatus(media.team.verification_statuses, media.last_status, defaultLanguage, defaultLanguage).label}</strong> }}
       />
     );
-  }
-  // We can publish if there is a default report with either visual card or non-empty text report
-  if (defaultReport && (defaultReport.use_visual_card || (defaultReport.use_text_message &&
-    (defaultReport.text.length > 0 || defaultReport.title.length > 0)))) {
-    cantPublishReason = null;
   }
 
   const readOnly = props.readOnly || statusChanging;
