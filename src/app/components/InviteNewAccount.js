@@ -128,7 +128,7 @@ const InviteNewAccountComponent = ({ user }) => {
 
   return (
     <div className="login" id="login">
-      <ContentColumn>
+      <ContentColumn center>
         <StyledCard>
           <form onSubmit={(e) => { onFormSubmit(e); }} className="login__form">
             <FormattedGlobalMessage messageKey="appNameHuman">

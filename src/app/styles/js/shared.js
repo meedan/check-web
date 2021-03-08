@@ -481,7 +481,7 @@ export const FadeIn = styled.div`
 // content column used in  settings
 // We want to align left together with the setting menu
 export const ContentColumn = styled.div`
-  margin: ${props => props.noCenter ? '0' : '0 0 0 32px'};
+  margin: ${props => props.center ? 'auto' : '0 0 0 32px'};
   padding: 0;
   width: 100%;
   max-width: ${columnWidthMedium};
