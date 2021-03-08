@@ -13,7 +13,7 @@
   },
   {
     "id": "reportDesignerToolbar.cantPublishStatus",
-    "defaultMessage": "Your item still has the default status {status} and must be changed to a different status it can be published."
+    "defaultMessage": "Your item still has the default status {status} and must be changed to a different status before it can be published."
   },
   {
     "id": "reportDesigner.back",
