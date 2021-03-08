@@ -4,11 +4,13 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ConfirmDialog from '../../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -115,22 +117,27 @@ const RuleToolbar = (props) => {
           </Button>
         </div>
       </Toolbar>
-      <ConfirmDialog
+      <ConfirmProceedDialog
         open={showDeleteConfirmationDialog}
         title={
           <FormattedMessage
             id="ruleToolbar.deleteConfirmationTitle"
-            defaultMessage="Delete rule?"
-          />
-        }
-        blurb={
-          <FormattedMessage
-            id="ruleToolbar.deleteConfirmationText"
             defaultMessage="Are you sure you want to delete this rule?"
           />
         }
-        handleClose={handleCloseDialogs}
-        handleConfirm={handleDeleteConfirmed}
+        body={(
+          <div>
+            <Typography variant="body1" component="p" paragraph>
+              <FormattedMessage
+                id="ruleToolbar.deleteConfirmationText"
+                defaultMessage="You cannot undo this action."
+              />
+            </Typography>
+          </div>
+        )}
+        proceedLabel={<FormattedMessage id="ruleToolbar.deleteConfirmationLabel" defaultMessage="Delete rule" />}
+        onProceed={handleDeleteConfirmed}
+        onCancel={handleCloseDialogs}
       />
       <ConfirmDialog
         open={showLeaveConfirmationDialog}

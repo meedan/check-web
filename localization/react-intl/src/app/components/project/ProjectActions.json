@@ -24,7 +24,15 @@
     "defaultMessage": "List actions"
   },
   {
-    "id": "projectActions.confirmDeleteProject",
-    "defaultMessage": "Are you sure you want to delete this list? All its items will still be accessible through the 'All items' list."
+    "id": "projectActions.deleteProjectTitle",
+    "defaultMessage": "Are you sure you want to delete this list?"
+  },
+  {
+    "id": "projectActions.deleteProjectBody",
+    "defaultMessage": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+  },
+  {
+    "id": "projectActions.proceedLabel",
+    "defaultMessage": "Delete list"
   }
 ]

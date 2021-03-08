@@ -14,5 +14,21 @@
   {
     "id": "projectEdit.saveButton",
     "defaultMessage": "Save"
+  },
+  {
+    "id": "projectEdit.confirmProceedTitle",
+    "defaultMessage": "Are you sure you want to change this list?"
+  },
+  {
+    "id": "projectEdit.confirmProceedBody",
+    "defaultMessage": "Changes made to this list will be reflected for everyone in this workspace."
+  },
+  {
+    "id": "projectEdit.confirmProceedLabel",
+    "defaultMessage": "Save changes"
+  },
+  {
+    "id": "projectEdit.confirmCancelLabel",
+    "defaultMessage": "Go back"
   }
 ]

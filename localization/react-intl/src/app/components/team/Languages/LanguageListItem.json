@@ -1,5 +1,9 @@
 [
   {
+    "id": "languageListItem.deleteConfirmationText",
+    "defaultMessage": "Delete {language} and all content"
+  },
+  {
     "id": "languageListItem.default",
     "defaultMessage": "{language} (default)"
   },
@@ -8,27 +12,63 @@
     "defaultMessage": "Make default"
   },
   {
-    "id": "statusListItem.confirmDefaultBody",
-    "defaultMessage": "{language} will become the default one to respond to users who interact with the bot in any other languages than the ones added to this list."
+    "id": "statusListItem.translationNeededBody1",
+    "defaultMessage": "Not all statuses are currently translated into {language}!"
+  },
+  {
+    "id": "statusListItem.translationNeededBody2",
+    "defaultMessage": "Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
+  },
+  {
+    "id": "statusListItem.translationNeededLabel",
+    "defaultMessage": "Go back and translate statuses"
+  },
+  {
+    "id": "statusListItem.translationNeededTitle",
+    "defaultMessage": "You need to translate all statuses into {language}"
+  },
+  {
+    "id": "statusListItem.confirmDefaultBody1",
+    "defaultMessage": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
+  },
+  {
+    "id": "statusListItem.confirmDefaultBody2",
+    "defaultMessage": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
   },
   {
     "id": "statusListItem.confirmDefaultButton",
-    "defaultMessage": "Set as default"
+    "defaultMessage": "Set {language} as default"
   },
   {
     "id": "statusListItem.confirmDefaultTitle",
-    "defaultMessage": "Set as default language?"
+    "defaultMessage": "Do you want to set the default language to {language}?"
   },
   {
     "id": "statusListItem.confirmDeleteBody1",
-    "defaultMessage": "All content in {language} will stop being sent, and the default language will be used instead."
+    "defaultMessage": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
   },
   {
     "id": "statusListItem.confirmDeleteBody2",
-    "defaultMessage": "This includes content in the Tipline bot, Statuses, and Report."
+    "defaultMessage": "Users will receive this content in the default language {language} instead."
+  },
+  {
+    "id": "statusListItem.confirmDeleteLabel",
+    "defaultMessage": "Delete language and all content"
   },
   {
     "id": "statusListItem.confirmDeleteTitle",
-    "defaultMessage": "Delete this language?"
+    "defaultMessage": "Do you want to delete this content language?"
+  },
+  {
+    "id": "statusListItem.confirmDeleteDefaultBody",
+    "defaultMessage": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+  },
+  {
+    "id": "statusListItem.confirmDeleteDefaultLabel",
+    "defaultMessage": "Go back and change"
+  },
+  {
+    "id": "statusListItem.confirmDeleteDefaultTitle",
+    "defaultMessage": "You must first change the default language"
   }
 ]
