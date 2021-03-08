@@ -1,14 +1,14 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import { QueryRenderer, graphql } from 'react-relay/compat';
+import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
-import { request } from '../redux/actions';
 import Message from './Message';
 import UserTosForm from './UserTosForm';
 import { FormattedGlobalMessage } from './MappedMessage';
@@ -64,50 +64,43 @@ const InviteNewAccountComponent = ({ user }) => {
       };
 
       const onSuccess = () => {
-        setMessage('Success...........');
+        browserHistory.push(`/${teamUser.team.slug}`);
       };
 
-      // commitMutation(Relay.Store, {
-      //   mutation: graphql`
-      //     mutation InviteNewAccountUpdateUserMutation($input: UpdateUserInput!) {
-      //       updateUser(input: $input) {
-      //         user {
-      //           id
-      //           dbid
-      //           accepted_terms
-      //           current_team_id
-      //           current_team {
-      //             id
-      //             dbid
-      //           }
-      //         }
-      //       }
-      //     }
-      //   `,
-      //   variables: {
-      //     input: {
-      //       id: user.id,
-      //       name,
-      //       password,
-      //       password_confirmation: passwordConfirmation,
-      //       accept_terms: true,
-      //       current_team_id: teamUser.team.dbid,
-      //     },
-      //   },
-      //   onError: onFailure,
-      //   onCompleted: ({ data, errors }) => {
-      //     if (errors) {
-      //       return onFailure(errors);
-      //     }
-      //     return onSuccess(data);
-      //   },
-      // });
-      const params = {
-        'api_user[name]': name,
-        'api_user[password]': password,
-        'api_user[password_confirmation]': passwordConfirmation,
-      };
-      request('post', 'users', onFailure, onSuccess, params);
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation InviteNewAccountUpdateUserMutation($input: UpdateUserInput!) {
+            updateUser(input: $input) {
+              user {
+                id
+                dbid
+                accepted_terms
+                current_team_id
+                current_team {
+                  id
+                  dbid
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: user.id,
+            name,
+            password,
+            accept_terms: true,
+            current_team_id: teamUser.team.dbid,
+          },
+        },
+        onError: onFailure,
+        onCompleted: ({ data, errors }) => {
+          if (errors) {
+            return onFailure(errors);
+          }
+          return onSuccess(data);
+        },
+      });
     } else {
       const errorMessage = (
         <FormattedMessage
@@ -299,6 +292,7 @@ const InviteNewAccount = ({ params }) => {
               team {
                 dbid
                 name
+                slug
               }
               invited_by {
                 name
