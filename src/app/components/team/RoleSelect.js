@@ -1,5 +1,6 @@
 import React from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
+import PropTypes from 'prop-types';
+import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -22,6 +23,7 @@ const messages = defineMessages({
 });
 
 const RoleSelect = ({
+  disabled,
   excludeRoles,
   fullWidth,
   intl,
@@ -46,6 +48,7 @@ const RoleSelect = ({
     >
       <Select
         className="role-select"
+        disabled={disabled}
         input={<OutlinedInput name="role-select" labelWidth={0} />}
         onChange={onChange}
         value={value}
@@ -60,6 +63,21 @@ const RoleSelect = ({
       </Select>
     </FormControl>
   );
+};
+
+RoleSelect.defaultProps = {
+  disabled: false,
+  excludeRoles: [],
+  fullWidth: false,
+};
+
+RoleSelect.propTypes = {
+  disabled: PropTypes.bool,
+  excludeRoles: PropTypes.arrayOf(PropTypes.string.isRequired),
+  fullWidth: PropTypes.bool,
+  intl: intlShape.isRequired,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };
 
 export default injectIntl(RoleSelect);

@@ -1,6 +1,6 @@
 import React from 'react';
-import Relay from 'react-relay/classic';
-import { commitMutation, graphql } from 'react-relay/compat';
+import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -11,50 +11,17 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
-import RoleSelect from './RoleSelect';
 import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
-import { withSetFlashMessage } from '../FlashMessage';
-import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { ContentColumn } from '../../styles/js/shared';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
-import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 const TeamMembersComponent = ({
   team,
-  setFlashMessage,
 }) => {
   const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
-
-  const handleChangeRole = (id, role) => {
-    const onFailure = (errors) => {
-      setFlashMessage((
-        getErrorMessageForRelayModernProblem(errors)
-        || <GenericUnknownErrorMessage />
-      ), 'error');
-    };
-
-    commitMutation(Relay.Store, {
-      mutation: graphql`
-        mutation TeamMembersComponentEditRoleMutation($input: UpdateTeamUserInput!) {
-          updateTeamUser(input: $input) {
-            team_user {
-              id
-              role
-            }
-          }
-        }
-      `,
-      variables: {
-        input: {
-          id,
-          role,
-        },
-      },
-      onError: onFailure,
-    });
-  };
 
   return (
     <ContentColumn>
@@ -149,10 +116,7 @@ const TeamMembersComponent = ({
                     -
                   </TableCell>
                   <TableCell>
-                    <RoleSelect
-                      value={tu.node.role}
-                      onChange={e => handleChangeRole(tu.node.id, e.target.value)}
-                    />
+                    <ChangeUserRole teamUser={tu.node} />
                     <TeamMemberActions team={team} teamUser={tu.node} />
                   </TableCell>
                 </TableRow>
@@ -170,4 +134,51 @@ const TeamMembersComponent = ({
   );
 };
 
-export default withSetFlashMessage(TeamMembersComponent);
+TeamMembersComponent.propTypes = {
+  team: PropTypes.shape({
+    team_users: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        node: PropTypes.shape({
+          id: PropTypes.string.isRequired,
+          status: PropTypes.string.isRequired,
+          user: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            dbid: PropTypes.number.isRequired,
+            is_bot: PropTypes.bool.isRequired,
+            name: PropTypes.string.isRequired,
+            email: PropTypes.string.isRequired,
+            profile_image: PropTypes.string.isRequired,
+          }).isRequired,
+        }).isRequired,
+      }).isRequired),
+    }).isRequired,
+  }).isRequired,
+};
+
+export default createFragmentContainer(TeamMembersComponent, {
+  team: graphql`
+    fragment TeamMembersComponent_team on Team {
+      id
+      ...TeamMemberActions_team
+      team_users(first: 10000, status: ["invited", "member", "banned"]) {
+        edges {
+          node {
+            id
+            status
+            role
+            user {
+              id
+              dbid
+              email
+              is_bot
+              name
+              profile_image
+            }
+            ...TeamMemberActions_teamUser
+            ...ChangeUserRole_teamUser
+          }
+        }
+      }
+    }
+  `,
+});

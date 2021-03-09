@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { FormattedMessage } from 'react-intl';
@@ -308,8 +309,11 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
-  // TODO: Specify prop shapes
-  team: PropTypes.object.isRequired,
+  team: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
   // TODO: Specify prop shapes
   route: PropTypes.object.isRequired,
   // TODO: Specify prop shapes
@@ -320,4 +324,15 @@ TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default TeamComponent;
+export default createFragmentContainer(TeamComponent, {
+  team: graphql`
+    fragment TeamComponent_team on Team {
+      id
+      dbid
+      name
+      slug
+      permissions
+      ...TeamDetails_team
+    }
+  `,
+});

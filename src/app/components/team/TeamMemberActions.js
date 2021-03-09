@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { commitMutation, graphql } from 'react-relay/compat';
+import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import IconMoreVert from '@material-ui/icons/MoreVert';
 import IconButton from '@material-ui/core/IconButton';
@@ -32,6 +33,15 @@ const TeamMemberActions = ({
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
       ), 'error');
+    };
+
+    const onSuccess = () => {
+      setFlashMessage((
+        <FormattedMessage
+          id="teamMemberActions.userRemoved"
+          defaultMessage="The user has been removed"
+        />
+      ), 'success');
     };
 
     commitMutation(Relay.Store, {
@@ -66,6 +76,12 @@ const TeamMemberActions = ({
         deletedIDFieldName: 'deletedId',
       }],
       onError: onFailure,
+      onCompleted: (response, errors) => {
+        if (errors) {
+          return onFailure(errors);
+        }
+        return onSuccess();
+      },
     });
   };
 
@@ -112,6 +128,60 @@ const TeamMemberActions = ({
     });
   };
 
+  const handleCancelInvite = () => {
+    setAnchorEl(null);
+    const onFailure = (errors) => {
+      setFlashMessage((
+        getErrorMessageForRelayModernProblem(errors)
+        || <GenericUnknownErrorMessage />
+      ), 'error');
+    };
+
+    const onSuccess = () => {
+      setFlashMessage((
+        <FormattedMessage
+          id="teamMemberActions.invitationCanceled"
+          defaultMessage="Invite canceled!"
+          description="Sucess notification confirming that invitation was canceled"
+        />
+      ), 'success');
+    };
+
+    commitMutation(Relay.Store, {
+      mutation: graphql`
+        mutation TeamMemberActionsCancelInviteMutation($input: ResendCancelInvitationInput!) {
+          resendCancelInvitation(input: $input) {
+            success
+            team {
+              team_users(first: 10000, status: ["invited", "member", "banned"]) {
+                edges {
+                  node {
+                    id
+                    status
+                    role
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          email: teamUser.user.email,
+          action: 'cancel',
+        },
+      },
+      onError: onFailure,
+      onCompleted: (response, errors) => {
+        if (errors) {
+          return onFailure(errors);
+        }
+        return onSuccess();
+      },
+    });
+  };
+
   const handleCopyToClipboard = () => {
     setAnchorEl(null);
     setFlashMessage((
@@ -145,7 +215,12 @@ const TeamMemberActions = ({
             </MenuItem>
           </CopyToClipboard>
         ) : null }
-        <MenuItem onClick={() => confirmRemoveUser(teamUser.id)}>
+        <MenuItem
+          onClick={() => (teamUser.status === 'invited' ?
+            handleCancelInvite() :
+            confirmRemoveUser(teamUser.id))
+          }
+        >
           <FormattedMessage
             id="teamMembers.remove"
             defaultMessage="Remove"
@@ -189,4 +264,36 @@ const TeamMemberActions = ({
   );
 };
 
-export default withSetFlashMessage(TeamMemberActions);
+
+TeamMemberActions.propTypes = {
+  setFlashMessage: PropTypes.func.isRequired,
+  teamUser: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    status: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default createFragmentContainer(withSetFlashMessage(TeamMemberActions), {
+  teamUser: graphql`
+    fragment TeamMemberActions_teamUser on TeamUser {
+      id
+      status
+      user {
+        name
+        email
+      }
+    }
+  `,
+  team: graphql`
+    fragment TeamMemberActions_team on Team {
+      id
+    }
+  `,
+});

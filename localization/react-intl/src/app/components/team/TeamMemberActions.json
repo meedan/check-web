@@ -1,8 +1,17 @@
 [
   {
+    "id": "teamMemberActions.userRemoved",
+    "defaultMessage": "The user has been removed"
+  },
+  {
     "id": "teamMemberActions.invitationSent",
     "description": "Sucess notification confirming that invitation was sent to user",
     "defaultMessage": "Invite sent!"
+  },
+  {
+    "id": "teamMemberActions.invitationCanceled",
+    "description": "Sucess notification confirming that invitation was canceled",
+    "defaultMessage": "Invite canceled!"
   },
   {
     "id": "teamMemberActions.copiedToClipboard",

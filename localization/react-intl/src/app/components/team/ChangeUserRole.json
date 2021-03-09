@@ -1,0 +1,18 @@
+[
+  {
+    "id": "changeUserRole.dialogTitle",
+    "defaultMessage": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+  },
+  {
+    "id": "changeUserRole.changingTo",
+    "defaultMessage": "You will be changing {userLabel}'s role to {newRole}."
+  },
+  {
+    "id": "changeUserRole.learnMore",
+    "defaultMessage": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+  },
+  {
+    "id": "teamMembers.remove",
+    "defaultMessage": "Remove"
+  }
+]

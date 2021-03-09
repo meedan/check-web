@@ -55,13 +55,6 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           get_report
           get_report_design_image_template
           verification_statuses
-          contacts(first: 1) {
-            edges {
-              node {
-                web
-              }
-            }
-          }
         }
       }
     `,

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
@@ -162,6 +163,15 @@ const InviteDialog = ({
       </DialogActions>
     </Dialog>
   );
+};
+
+InviteDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withSetFlashMessage(InviteDialog);
