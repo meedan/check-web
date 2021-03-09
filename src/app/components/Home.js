@@ -209,12 +209,6 @@ class HomeComponent extends Component {
 
     const routeIsPublic = children && children.props.route.public;
 
-    if (this.state.token && 'invitation_response' in location.query) {
-      return (
-        <InviteNewAccount />
-      );
-    }
-
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
         return (
@@ -255,6 +249,12 @@ class HomeComponent extends Component {
       }
       return false;
     })();
+
+    if (loggedIn && user.completed_signup) {
+      return (
+        <InviteNewAccount teamSlug={teamSlug} />
+      );
+    }
 
     const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
 
@@ -329,6 +329,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         is_admin
         accepted_terms
         last_accepted_terms_at
+        completed_signup,
         name
         login
         permissions

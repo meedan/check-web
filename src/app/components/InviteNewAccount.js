@@ -2,7 +2,7 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
@@ -51,8 +51,8 @@ const InviteNewAccountComponent = ({ user }) => {
   const [email, setEmail] = React.useState(user.email);
   const [password, setPassword] = React.useState('');
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
-  const [checkedTos, setCheckedTos] = React.useState(false);
-  const [checkedPp, setCheckedPp] = React.useState(false);
+  const [checkedTos, setCheckedTos] = React.useState(user.accepted_terms);
+  const [checkedPp, setCheckedPp] = React.useState(user.accepted_terms);
 
   const { team_user: teamUser } = user;
 
@@ -65,7 +65,7 @@ const InviteNewAccountComponent = ({ user }) => {
       };
 
       const onSuccess = () => {
-        browserHistory.push(`/${teamUser.team.slug}`);
+        window.location.reload();
       };
 
       commitMutation(Relay.Store, {
@@ -92,6 +92,7 @@ const InviteNewAccountComponent = ({ user }) => {
             password,
             accept_terms: true,
             current_team_id: teamUser.team.dbid,
+            completed_signup: false,
           },
         },
         onError: onFailure,
@@ -171,6 +172,7 @@ const InviteNewAccountComponent = ({ user }) => {
               <TextField
                 margin="normal"
                 fullWidth
+                variant="outlined"
                 type="email"
                 name="email"
                 value={email}
@@ -192,6 +194,7 @@ const InviteNewAccountComponent = ({ user }) => {
                 required
                 margin="normal"
                 fullWidth
+                variant="outlined"
                 name="name"
                 value={name}
                 className="login__name-input"
@@ -212,6 +215,7 @@ const InviteNewAccountComponent = ({ user }) => {
                 required
                 margin="normal"
                 fullWidth
+                variant="outlined"
                 type="password"
                 name="password"
                 value={password}
@@ -232,6 +236,7 @@ const InviteNewAccountComponent = ({ user }) => {
                 required
                 margin="normal"
                 fullWidth
+                variant="outlined"
                 type="password"
                 name="passwordConfirmation"
                 value={passwordConfirmation}
@@ -278,47 +283,47 @@ const InviteNewAccountComponent = ({ user }) => {
   );
 };
 
-const InviteNewAccount = ({ params }) => {
-  // const teamSlug = params.slug;
-  console.log('params', params);
-  const teamSlug = 'eita';
-  return (
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query InviteNewAccountQuery($teamSlug: String!) {
-          me {
-            id
-            dbid
-            name
-            email
-            login
-            team_user(team_slug: $teamSlug) {
-              team {
-                dbid
-                name
-                slug
-              }
-              invited_by {
-                name
-              }
+const InviteNewAccount = ({ teamSlug }) => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query InviteNewAccountQuery($teamSlug: String!) {
+        me {
+          id
+          dbid
+          name
+          email
+          login
+          accepted_terms
+          team_user(team_slug: $teamSlug) {
+            team {
+              dbid
+              name
+              slug
+            }
+            invited_by {
+              name
             }
           }
         }
-      `}
-      variables={{
-        teamSlug,
-      }}
-      render={({ error, props }) => {
-        if (!error && props) {
-          return <InviteNewAccountComponent user={props.me} />;
-        }
+      }
+    `}
+    variables={{
+      teamSlug,
+    }}
+    render={({ error, props }) => {
+      if (!error && props) {
+        return <InviteNewAccountComponent user={props.me} />;
+      }
 
-        // TODO: We need a better error handling in the future, standardized with other components
-        return null;
-      }}
-    />
-  );
+      // TODO: We need a better error handling in the future, standardized with other components
+      return null;
+    }}
+  />
+);
+
+InviteNewAccount.propTypes = {
+  teamSlug: PropTypes.string.isRequired,
 };
 
 export default InviteNewAccount;

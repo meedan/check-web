@@ -244,6 +244,7 @@ class Login extends React.Component {
                     <TextField
                       margin="normal"
                       fullWidth
+                      variant="outlined"
                       name="name"
                       value={this.state.name}
                       className="login__name-input"
@@ -257,6 +258,7 @@ class Login extends React.Component {
                   <TextField
                     margin="normal"
                     fullWidth
+                    variant="outlined"
                     type="email"
                     name="email"
                     value={this.state.email}
@@ -274,6 +276,7 @@ class Login extends React.Component {
                   <TextField
                     margin="normal"
                     fullWidth
+                    variant="outlined"
                     type="password"
                     name="password"
                     value={this.state.password}
@@ -295,6 +298,7 @@ class Login extends React.Component {
                     <TextField
                       margin="normal"
                       fullWidth
+                      variant="outlined"
                       name="otp_attempt"
                       value={this.state.otp_attempt}
                       className="login__otp_attempt-input"
@@ -314,6 +318,7 @@ class Login extends React.Component {
                     <TextField
                       margin="normal"
                       fullWidth
+                      variant="outlined"
                       type="password"
                       name="passwordConfirmation"
                       value={this.state.passwordConfirmation}
