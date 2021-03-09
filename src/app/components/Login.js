@@ -385,6 +385,7 @@ class Login extends React.Component {
                     />
                     <Button
                       color="primary"
+                      id="register"
                       onClick={this.handleSwitchToRegister}
                     >
                       <FormattedMessage
@@ -402,6 +403,7 @@ class Login extends React.Component {
                     />
                     <Button
                       color="primary"
+                      id="login"
                       onClick={this.handleSwitchToLogin}
                     >
                       <FormattedMessage
