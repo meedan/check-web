@@ -329,7 +329,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         is_admin
         accepted_terms
         last_accepted_terms_at
-        completed_signup,
+        completed_signup
         name
         login
         permissions
