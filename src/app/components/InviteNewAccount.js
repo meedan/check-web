@@ -92,7 +92,7 @@ const InviteNewAccountComponent = ({ user }) => {
             password,
             accept_terms: true,
             current_team_id: teamUser.team.dbid,
-            completed_signup: false,
+            completed_signup: true,
           },
         },
         onError: onFailure,
