@@ -221,7 +221,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         languages={languages}
         onChange={handleChangeLanguage}
       />
-      <ContentColumn large noCenter>
+      <ContentColumn large>
         <SettingsHeader
           title={
             <FormattedMessage

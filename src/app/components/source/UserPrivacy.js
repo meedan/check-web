@@ -131,7 +131,6 @@ class UserPrivacy extends Component {
     );
 
     const { providers } = this.props.user;
-    providers.splice(providers.indexOf('google_oauth2'), 1);
 
     return (
       <div id="user__privacy">

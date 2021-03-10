@@ -9,12 +9,12 @@ import FooterRelay from '../relay/containers/FooterRelay';
 import Login from './Login';
 import { stringHelper } from '../customHelpers';
 import PageTitle from './PageTitle';
-import { FadeIn, ContentColumn, units } from '../styles/js/shared';
+import { FadeIn, ContentColumn } from '../styles/js/shared';
 
 const LoginContainer = props => (
   <Typography component="div" variant="body2" gutterBottom>
     <PageTitle>
-      <ContentColumn style={{ maxWidth: units(82) }} id="login-container" className="login-container">
+      <ContentColumn center id="login-container" className="login-container">
         <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
 
         <p style={{ marginTop: 16, textAlign: 'center' }}>
