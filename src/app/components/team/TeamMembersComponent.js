@@ -44,7 +44,7 @@ const TeamMembersComponent = ({
         helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"
         actionButton={
           <Button
-            className="team-members__invite-button"
+            id="team-members__invite-button"
             color="primary"
             disabled={!can(team.permissions, 'invite Members')}
             variant="contained"
@@ -87,7 +87,7 @@ const TeamMembersComponent = ({
             </TableHead>
             <TableBody>
               { team.team_users.edges.filter(tu => !tu.node.user.is_bot).map(tu => (
-                <TableRow key={tu.node.id}>
+                <TableRow key={tu.node.id} className="team-members__user-row">
                   <TableCell>
                     <StyledTwoColumns>
                       <StyledSmallColumn>

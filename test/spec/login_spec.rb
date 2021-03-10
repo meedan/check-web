@@ -19,11 +19,12 @@ shared_examples 'login' do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
-    wait_for_selector('.team-members__invite-button').click
-    wait_for_selector('.invite-member-email-input input').send_keys('user-email@email.com')
-    wait_for_selector('.team-invite-members__dialog-submit-button').click
-    wait_for_selector('.message')
-    expect(@driver.page_source.include?('Invitation was sent')).to be(true)
+    wait_for_selector('#team-members__invite-button').click
+    wait_for_selector('#invite-dialog__email-input').send_keys('user-email@email.com')
+    wait_for_selector('#invite-dialog__submit').click
+    wait_for_selector_list_size('.team-members__user-row', 2)
+    expect(@driver.page_source.include?('user-email@email.com')).to be(true)
+    expect(@driver.page_source.include?('Pending')).to be(true)
   end
 
   it 'should redirect to login screen by the join team link', bin2: true do

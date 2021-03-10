@@ -83,7 +83,7 @@ const TeamIntegrations = ({ team }) => {
         if (props) {
           return (
             <Box className="team-integrations">
-              <ContentColumn large>
+              <ContentColumn>
                 <SettingsHeader
                   title={
                     <FormattedMessage

@@ -130,6 +130,8 @@ const InviteDialog = ({
       </DialogTitle>
       <DialogContent>
         <TextField
+          id="invite-dialog__email-input"
+          name="invite-dialog__email-input"
           label={
             <FormattedMessage
               id="inviteDialog.textInputLabel"

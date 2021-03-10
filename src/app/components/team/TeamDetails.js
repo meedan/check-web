@@ -104,7 +104,7 @@ const TeamDetails = ({
         }
         actionButton={
           <Button
-            className="team-details__update-button"
+            id="team-details__update-button"
             color="primary"
             variant="contained"
             onClick={handleSave}
@@ -126,8 +126,9 @@ const TeamDetails = ({
                 size={avatarSizeLarge}
               />
               { !editProfileImg ?
-                <StyledAvatarEditButton className="team__edit-avatar-button">
+                <StyledAvatarEditButton>
                   <Button
+                    id="team-details__edit-avatar-button"
                     color="primary"
                     onClick={() => setEditProfileImg(true)}
                     disabled={!canEditTeam}
@@ -149,6 +150,7 @@ const TeamDetails = ({
                 : null }
               <div>
                 <TextField
+                  id="team-details__name-input"
                   defaultValue={team.name}
                   disabled={!canEditTeam}
                   fullWidth
@@ -165,6 +167,7 @@ const TeamDetails = ({
               </div>
               <div>
                 <TextField
+                  id="team-details__description-input"
                   defaultValue={team.description}
                   disabled={!canEditTeam}
                   fullWidth
