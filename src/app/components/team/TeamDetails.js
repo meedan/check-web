@@ -6,17 +6,19 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import CreateTeamDialog from './CreateTeamDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamAvatar from './TeamAvatar';
-import Can from '../Can';
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import UploadFile from '../UploadFile';
 import globalStrings from '../../globalStrings';
 import { getErrorMessage } from '../../helpers';
-import { ContentColumn, avatarSizeLarge } from '../../styles/js/shared';
+import { ContentColumn, avatarSizeLarge, checkBlue } from '../../styles/js/shared';
 import {
   StyledTwoColumns,
   StyledBigColumn,
@@ -35,6 +37,12 @@ const TeamDetails = ({
   const [description, setDescription] = React.useState(team.description);
   const [editProfileImg, setEditProfileImg] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
+
+  const canEditTeam = can(team.permissions, 'update Team');
+
+  const handleHelp = () => {
+    window.open('https://help.checkmedia.org/en/articles/3648432-workflow-settings#duplicate-workspace-settings');
+  };
 
   const handleImageChange = (file) => {
     setAvatar(file);
@@ -100,7 +108,7 @@ const TeamDetails = ({
             color="primary"
             variant="contained"
             onClick={handleSave}
-            disabled={isSaving}
+            disabled={!canEditTeam || isSaving}
           >
             <FormattedMessage
               id="teamDetails.update"
@@ -122,6 +130,7 @@ const TeamDetails = ({
                   <Button
                     color="primary"
                     onClick={() => setEditProfileImg(true)}
+                    disabled={!canEditTeam}
                   >
                     <FormattedMessage {...globalStrings.edit} />
                   </Button>
@@ -141,6 +150,7 @@ const TeamDetails = ({
               <div>
                 <TextField
                   defaultValue={team.name}
+                  disabled={!canEditTeam}
                   fullWidth
                   label={
                     <FormattedMessage
@@ -156,6 +166,7 @@ const TeamDetails = ({
               <div>
                 <TextField
                   defaultValue={team.description}
+                  disabled={!canEditTeam}
                   fullWidth
                   label={
                     <FormattedMessage
@@ -175,23 +186,27 @@ const TeamDetails = ({
         </CardContent>
       </Card>
       <Box mt={2}>
-        <Can permissions={team.permissions} permission="duplicate Team">
-          <Button
-            id="team-details__duplicate-button"
-            color="primary"
-            variant="contained"
-            onClick={() => setShowDuplicateTeamDialog(true)}
-          >
-            <FormattedMessage
-              id="teamDetails.duplicateWorkspace"
-              defaultMessage="Duplicate workspace"
-            />
-          </Button>
-          { showDuplicateTeamDialog ?
-            <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} /> :
-            null
-          }
-        </Can>
+        <Button
+          id="team-details__duplicate-button"
+          color="primary"
+          disabled={!can(team.permissions, 'duplicate Team')}
+          variant="contained"
+          onClick={() => setShowDuplicateTeamDialog(true)}
+        >
+          <FormattedMessage
+            id="teamDetails.duplicateWorkspace"
+            defaultMessage="Duplicate workspace"
+          />
+        </Button>
+        <IconButton onClick={handleHelp}>
+          <Box clone color={checkBlue}>
+            <HelpIcon />
+          </Box>
+        </IconButton>
+        { showDuplicateTeamDialog ?
+          <CreateTeamDialog onDismiss={() => setShowDuplicateTeamDialog(false)} team={team} /> :
+          null
+        }
       </Box>
     </ContentColumn>
   );
@@ -204,5 +219,6 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
     name
     description
     avatar
+    permissions
   }
 `);

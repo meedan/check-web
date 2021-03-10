@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -192,6 +193,10 @@ const TeamMemberActions = ({
     ), 'success');
   };
 
+  if (!can(teamUser.permissions, 'update TeamUser')) {
+    return null;
+  }
+
   return (
     <React.Fragment>
       <IconButton
@@ -285,6 +290,7 @@ export default createFragmentContainer(withSetFlashMessage(TeamMemberActions), {
     fragment TeamMemberActions_teamUser on TeamUser {
       id
       status
+      permissions
       user {
         name
         email

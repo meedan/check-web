@@ -4,6 +4,8 @@ import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { commitMutation, graphql, createFragmentContainer } from 'react-relay/compat';
 import RoleSelect from './RoleSelect';
+import { can } from '../Can';
+import ExternalLink from '../ExternalLink';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
@@ -21,6 +23,10 @@ const ChangeUserRole = ({
         getErrorMessageForRelayModernProblem(errors)
         || <GenericUnknownErrorMessage />
       ), 'error');
+    };
+
+    const onSuccess = () => {
+      setNewRole(null);
     };
 
     commitMutation(Relay.Store, {
@@ -41,12 +47,19 @@ const ChangeUserRole = ({
         },
       },
       onError: onFailure,
+      onCompleted: (response, errors) => {
+        if (errors) {
+          return onFailure(errors);
+        }
+        return onSuccess();
+      },
     });
   };
 
   return (
     <React.Fragment>
       <RoleSelect
+        disabled={!can(teamUser.permissions, 'update TeamUser')}
         value={teamUser.role}
         onChange={e => setNewRole(e.target.value)}
       />
@@ -82,7 +95,14 @@ const ChangeUserRole = ({
                 values={{
                   userLabel: teamUser.user.name || teamUser.user.email,
                   newRole,
-                  helpCenterLink: '',
+                  helpCenterLink: (
+                    <ExternalLink url="https://help.checkmedia.org/en/articles/3336431-permissions-in-check">
+                      <FormattedMessage
+                        id="changeUserRole.helpCenter"
+                        defaultMessage="Help Center"
+                      />
+                    </ExternalLink>
+                  ),
                 }}
               />
             </p>
@@ -92,8 +112,9 @@ const ChangeUserRole = ({
         onProceed={() => handleChangeRole(teamUser.id, newRole)}
         proceedLabel={
           <FormattedMessage
-            id="teamMembers.remove"
-            defaultMessage="Remove"
+            id="changeUserRole.proceedLabel"
+            defaultMessage="Change role to {newRole}"
+            values={{ newRole }}
           />
         }
       />
@@ -120,6 +141,7 @@ export default createFragmentContainer(withSetFlashMessage(ChangeUserRole), {
       id
       status
       role
+      permissions
       user {
         name
         email

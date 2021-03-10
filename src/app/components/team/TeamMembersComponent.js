@@ -15,6 +15,8 @@ import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
 import TeamMemberActions from './TeamMemberActions';
+import { can } from '../Can';
+import TimeBefore from '../TimeBefore';
 import { ContentColumn } from '../../styles/js/shared';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
 
@@ -44,6 +46,7 @@ const TeamMembersComponent = ({
           <Button
             className="team-members__invite-button"
             color="primary"
+            disabled={!can(team.permissions, 'invite Members')}
             variant="contained"
             onClick={() => setInviteDialogOpen(true)}
           >
@@ -112,8 +115,10 @@ const TeamMembersComponent = ({
                     </StyledTwoColumns>
                   </TableCell>
                   <TableCell>
-                    { /* FIXME: Add last active data */ }
-                    -
+                    { tu.node.user.last_active_at ?
+                      <TimeBefore date={new Date(tu.node.user.last_active_at)} />
+                      : '-'
+                    }
                   </TableCell>
                   <TableCell>
                     <ChangeUserRole teamUser={tu.node} />
@@ -159,6 +164,7 @@ export default createFragmentContainer(TeamMembersComponent, {
   team: graphql`
     fragment TeamMembersComponent_team on Team {
       id
+      permissions
       ...TeamMemberActions_team
       team_users(first: 10000, status: ["invited", "member", "banned"]) {
         edges {
@@ -171,6 +177,7 @@ export default createFragmentContainer(TeamMembersComponent, {
               dbid
               email
               is_bot
+              last_active_at
               name
               profile_image
             }

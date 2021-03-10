@@ -12,7 +12,11 @@
     "defaultMessage": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
   },
   {
-    "id": "teamMembers.remove",
-    "defaultMessage": "Remove"
+    "id": "changeUserRole.helpCenter",
+    "defaultMessage": "Help Center"
+  },
+  {
+    "id": "changeUserRole.proceedLabel",
+    "defaultMessage": "Change role to {newRole}"
   }
 ]
