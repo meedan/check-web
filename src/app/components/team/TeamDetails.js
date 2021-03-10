@@ -66,7 +66,7 @@ const TeamDetails = ({
       setFlashMessage((
         <FormattedMessage
           id="teamDetails.savedSuccessfully"
-          defaultMessage="Workspace details saved sucessfully"
+          defaultMessage="Workspace details saved successfully"
         />
       ), 'success');
     };

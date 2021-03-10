@@ -1,7 +1,7 @@
 [
   {
     "id": "inviteDialog.invitationSent",
-    "description": "Sucess notification confirming that invitations were sent to users",
+    "description": "Success notification confirming that invitations were sent to users",
     "defaultMessage": "Invites sent!"
   },
   {

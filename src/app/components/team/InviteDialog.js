@@ -52,7 +52,7 @@ const InviteDialog = ({
         <FormattedMessage
           id="inviteDialog.invitationSent"
           defaultMessage="Invites sent!"
-          description="Sucess notification confirming that invitations were sent to users"
+          description="Success notification confirming that invitations were sent to users"
         />
       ), 'success');
       onClose();
