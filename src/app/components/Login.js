@@ -1,17 +1,15 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { FaSlack } from 'react-icons/fa';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import EmailIcon from '@material-ui/icons/Email';
+import { FcGoogle } from 'react-icons/fc';
 import { browserHistory, Link } from 'react-router';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import TextField from '@material-ui/core/TextField';
 import Card from '@material-ui/core/Card';
 import styled from 'styled-components';
 import Message from './Message';
-import UploadFile from './UploadFile';
 import UserTosForm from './UserTosForm';
 import { login, request } from '../redux/actions';
 import { FormattedGlobalMessage } from './MappedMessage';
@@ -21,21 +19,8 @@ import CheckError from '../CheckError';
 import {
   units,
   mediaQuery,
-  caption,
-  body2,
   title1,
-  subheading2,
   black54,
-  black38,
-  black32,
-  checkBlue,
-  twitterBlue,
-  facebookBlue,
-  slackGreen,
-  white,
-  boxShadow,
-  transitionSpeedFast,
-  defaultBorderRadius,
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
@@ -46,55 +31,6 @@ const StyledSubHeader = styled.h2`
   margin-top: ${units(2)};
 `;
 
-const StyledLabel = styled.div`
-  font: ${subheading2};
-  color: ${black32};
-  margin-top: ${units(2)};
-`;
-
-const StyledEnhancedButton = styled(ButtonBase)`
-  border: 0;
-  width: ${units(39)};
-  margin: ${units(2)} 0 0 !important;
-  background-color: ${white} !important;
-  height: 100%!important;
-  padding: ${units(1)}!important;
-  box-shadow: ${boxShadow(1)};
-  transition: box-shadow ${transitionSpeedFast} ease-in-out;
-  border-radius: ${defaultBorderRadius};
-  text-align: ${props => props.theme.dir === 'rtl' ? 'right' : 'left'};
-
-  &:hover {
-    box-shadow: ${boxShadow(2)};
-  }
-
-  > div {
-    height: ${units(6)};
-  }
-
-  ${mediaQuery.handheld`
-    width: 100% !important;
-  `}
-
-  svg {
-    width: ${units(3)};
-    height: ${units(3)};
-  }
-
-  h4 {
-    color: ${black38};
-    font: ${caption};
-    margin: 0;
-  }
-
-  h3 {
-    color: ${checkBlue};
-    font: ${body2};
-    font-weight: 500;
-    margin: 0;
-  }
-`;
-
 const StyledCard = styled(Card)`
   padding: ${units(11)} ${units(15)} ${units(3)} !important;
   ${mediaQuery.handheld`
@@ -102,26 +38,15 @@ const StyledCard = styled(Card)`
   `}
 `;
 
-const BigButtons = styled.div`
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 0 ${units(3)};
-`;
-
 const styles = {
   logo: {
     margin: '0 auto',
     display: 'block',
   },
-  buttonGroup: {
-    marginTop: units(8),
-  },
   primaryButton: {
     display: 'block',
     margin: `${units(2)} auto`,
-    maxWidth: units(21),
+    width: '80%',
   },
   secondaryButton: {
     display: 'block',
@@ -129,46 +54,19 @@ const styles = {
     maxWidth: units(26),
     margin: `${units(2)} auto`,
   },
+  googleButton: {
+    border: '2px solid #D5D5D5',
+  },
+  orDivider: {
+    padding: `${units(3)} 0`,
+  },
 };
-
-const Row = styled.div`
-  display: flex;
-  flex-flow: row nowrap;
-`;
-
-const Column = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
-  margin: ${units(0.5)} ${units(1)};
-`;
-
-const BigButton = ({
-  className, icon, id, onClick, headerText, subheaderText,
-}) => (
-  <StyledEnhancedButton id={id} className={className} onClick={onClick}>
-    <Row>
-      <Column>{icon}</Column>
-      <Column>
-        <h3>{headerText}</h3>
-        {subheaderText ?
-          <h4>
-            <FormattedMessage
-              id="login.disclaimer"
-              defaultMessage="We won’t publish without your permission"
-            />
-          </h4> : null
-        }
-      </Column>
-    </Row>
-  </StyledEnhancedButton>
-);
 
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       type: 'login', // or 'register'
-      image: null,
       message: null,
       name: '',
       email: '',
@@ -189,14 +87,6 @@ class Login extends React.Component {
     } else {
       this.registerEmail();
     }
-  }
-
-  handleImageChange = (file) => {
-    this.setState({ image: file, message: null });
-  }
-
-  handleImageError = (file, message) => {
-    this.setState({ image: null, message });
   }
 
   handleCheckTos() {
@@ -250,7 +140,6 @@ class Login extends React.Component {
       'api_user[name]': this.state.name,
       'api_user[password]': this.state.password,
       'api_user[password_confirmation]': this.state.passwordConfirmation,
-      'api_user[image]': this.state.image,
     };
 
     const failureCallback = (transaction) => {
@@ -316,6 +205,35 @@ class Login extends React.Component {
                   defaultMessage="Register"
                 />}
             </StyledSubHeader>
+            {this.state.type === 'login' ?
+              <Button
+                fullWidth
+                style={styles.googleButton}
+                onClick={this.oAuthLogin.bind(this, 'google_oauth2')}
+                startIcon={<FcGoogle />}
+              >
+                <FormattedMessage
+                  id="login.withGoogle"
+                  defaultMessage="Sign in with Google"
+                />
+              </Button> : null
+            }
+            {this.state.type === 'login' ?
+              <Grid container alignItems="center" spacing={3} style={styles.orDivider}>
+                <Grid item xs>
+                  <Divider />
+                </Grid>
+                <Grid item>
+                  <FormattedMessage
+                    id="login.emailLogin"
+                    defaultMessage="Or, sign in with your email"
+                  />
+                </Grid>
+                <Grid item xs>
+                  <Divider />
+                </Grid>
+              </Grid> : null
+            }
             <Message message={this.state.message} />
             {this.state.registrationSubmitted ?
               null :
@@ -326,12 +244,13 @@ class Login extends React.Component {
                     <TextField
                       margin="normal"
                       fullWidth
+                      variant="outlined"
                       name="name"
                       value={this.state.name}
                       className="login__name-input"
                       inputRef={(i) => { this.inputName = i; }}
                       onChange={this.handleFieldChange.bind(this)}
-                      label={<FormattedMessage id="login.nameLabel" defaultMessage="Your name" />}
+                      label={<FormattedMessage id="login.nameLabel" defaultMessage="Name" />}
                     />
                   </div>}
 
@@ -339,6 +258,7 @@ class Login extends React.Component {
                   <TextField
                     margin="normal"
                     fullWidth
+                    variant="outlined"
                     type="email"
                     name="email"
                     value={this.state.email}
@@ -346,7 +266,7 @@ class Login extends React.Component {
                     inputRef={(i) => { this.inputEmail = i; }}
                     onChange={this.handleFieldChange.bind(this)}
                     label={
-                      <FormattedMessage id="login.emailLabel" defaultMessage="Email address" />
+                      <FormattedMessage id="login.emailLabel" defaultMessage="Email" />
                     }
                     autoFocus
                   />
@@ -356,6 +276,7 @@ class Login extends React.Component {
                   <TextField
                     margin="normal"
                     fullWidth
+                    variant="outlined"
                     type="password"
                     name="password"
                     value={this.state.password}
@@ -377,6 +298,7 @@ class Login extends React.Component {
                     <TextField
                       margin="normal"
                       fullWidth
+                      variant="outlined"
                       name="otp_attempt"
                       value={this.state.otp_attempt}
                       className="login__otp_attempt-input"
@@ -396,6 +318,7 @@ class Login extends React.Component {
                     <TextField
                       margin="normal"
                       fullWidth
+                      variant="outlined"
                       type="password"
                       name="passwordConfirmation"
                       value={this.state.passwordConfirmation}
@@ -412,30 +335,28 @@ class Login extends React.Component {
 
                 {this.state.type === 'login' ?
                   null :
-                  <div>
-                    <StyledLabel>
-                      <FormattedMessage
-                        id="login.profilePicture"
-                        defaultMessage="Profile picture"
-                      />
-                    </StyledLabel>
-                    <UploadFile
-                      type="image"
-                      value={this.state.image}
-                      onChange={this.handleImageChange}
-                      onError={this.handleImageError}
-                    />
-                    <UserTosForm
-                      user={{}}
-                      showTitle={false}
-                      handleCheckTos={this.handleCheckTos.bind(this)}
-                      handleCheckPp={this.handleCheckPp.bind(this)}
-                      checkedTos={this.state.checkedTos}
-                      checkedPp={this.state.checkedPp}
-                    />
-                  </div> }
+                  <UserTosForm
+                    user={{}}
+                    showTitle={false}
+                    handleCheckTos={this.handleCheckTos.bind(this)}
+                    handleCheckPp={this.handleCheckPp.bind(this)}
+                    checkedTos={this.state.checkedTos}
+                    checkedPp={this.state.checkedPp}
+                  />}
 
-                <div className="login__actions" style={styles.buttonGroup}>
+                <div className="login__actions">
+                  {this.state.type === 'login' ?
+                    <span className="login__forgot-password">
+                      <Link to="/check/user/password-reset">
+                        <Button style={styles.secondaryButton}>
+                          <FormattedMessage
+                            id="loginEmail.lostPassword"
+                            defaultMessage="Forgot your password?"
+                          />
+                        </Button>
+                      </Link>
+                    </span>
+                    : null}
                   <Button
                     variant="contained"
                     color="primary"
@@ -451,98 +372,51 @@ class Login extends React.Component {
                       /> :
                       <FormattedMessage
                         id="login.signUp"
-                        defaultMessage="REGISTER"
+                        defaultMessage="Sign Up"
                       />
                     }
                   </Button>
-                  {this.state.type === 'login' ?
-                    <span className="login__forgot-password">
-                      <Link to="/check/user/password-reset">
-                        <Button style={styles.secondaryButton}>
-                          <FormattedMessage
-                            id="loginEmail.lostPassword"
-                            defaultMessage="Forgot password"
-                          />
-                        </Button>
-                      </Link>
-                    </span>
-                    : null}
                 </div>
+                {this.state.type === 'login' ? (
+                  <Typography component="div" align="center">
+                    <FormattedMessage
+                      id="login.newAccount"
+                      defaultMessage="Don't have an account ?"
+                    />
+                    <Button
+                      color="primary"
+                      id="register"
+                      onClick={this.handleSwitchToRegister}
+                    >
+                      <FormattedMessage
+                        id="login.signUpLink"
+                        defaultMessage="Sign up"
+                        description="allow user to create a new source"
+                      />
+                    </Button>
+                  </Typography>
+                ) : (
+                  <Typography component="div" align="center">
+                    <FormattedMessage
+                      id="login.alreadyHasAccount"
+                      defaultMessage="Already have an account ?"
+                    />
+                    <Button
+                      color="primary"
+                      id="login"
+                      onClick={this.handleSwitchToLogin}
+                    >
+                      <FormattedMessage
+                        id="login.signInLink"
+                        defaultMessage="Sign in"
+                        description="allow user to sing in with exisintg account"
+                      />
+                    </Button>
+                  </Typography>
+                )}
               </div>}
           </form>
         </StyledCard>
-
-        <BigButtons>
-          <BigButton
-            onClick={this.oAuthLogin.bind(this, 'slack')}
-            id="slack-login"
-            icon={<FaSlack style={{ color: slackGreen }} className="logo" />}
-            headerText={
-              <FormattedMessage
-                id="login.with"
-                defaultMessage="Continue with {provider}"
-                values={{ provider: 'Slack' }}
-              />
-            }
-            subheaderText
-          />
-
-          <BigButton
-            onClick={this.oAuthLogin.bind(this, 'twitter')}
-            id="twitter-login"
-            icon={<TwitterIcon style={{ color: twitterBlue }} className="logo" />}
-            headerText={
-              <FormattedMessage
-                id="login.with"
-                defaultMessage="Continue with {provider}"
-                values={{ provider: 'Twitter' }}
-              />
-            }
-            subheaderText
-          />
-
-          <BigButton
-            onClick={this.oAuthLogin.bind(this, 'facebook')}
-            id="facebook-login"
-            icon={<FacebookIcon style={{ color: facebookBlue }} className="logo" />}
-            headerText={
-              <FormattedMessage
-                id="login.with"
-                defaultMessage="Continue with {provider}"
-                values={{ provider: 'Facebook' }}
-              />
-            }
-            subheaderText
-          />
-
-          {this.state.type === 'login' ? (
-            <BigButton
-              id="register"
-              onClick={this.handleSwitchToRegister}
-              icon={<EmailIcon style={{ color: black54 }} />}
-              headerText={
-                <FormattedMessage
-                  id="login.newAccount"
-                  defaultMessage="Create a new account with email"
-                />
-              }
-              subheaderText={false}
-            />
-          ) : (
-            <BigButton
-              id="register"
-              onClick={this.handleSwitchToLogin}
-              icon={<EmailIcon style={{ color: black54 }} />}
-              headerText={
-                <FormattedMessage
-                  id="login.alreadyHasAccount"
-                  defaultMessage="I already have an account"
-                />
-              }
-              subheaderText={false}
-            />
-          )}
-        </BigButtons>
       </div>
     );
   }

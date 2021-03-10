@@ -62,7 +62,7 @@ function TeamMetadataRender({ team }) {
           className="metadata-tab__source"
         />
       </Tabs>
-      <ContentColumn large noCenter>
+      <ContentColumn large>
         <SettingsHeader
           title={
             associatedType === 'ProjectMedia' ?
