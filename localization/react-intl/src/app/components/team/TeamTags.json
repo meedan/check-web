@@ -69,6 +69,14 @@
   },
   {
     "id": "teamTags.confirmDeleteTitle",
-    "defaultMessage": "Are you sure you want to delete this tag?"
+    "defaultMessage": "Do you want to delete this tag?"
+  },
+  {
+    "id": "teamTags.confirmDeleteBody",
+    "defaultMessage": "{numTags, plural, one {The tag \"{tag}\" will be removed from one item.} other {The tag \"{tag}\" will be removed from # items.}}"
+  },
+  {
+    "id": "teamTags.confirmDeleteLabel",
+    "defaultMessage": "Delete tag"
   }
 ]

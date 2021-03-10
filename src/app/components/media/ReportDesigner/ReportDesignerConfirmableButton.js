@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import ConfirmDialog from '../../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -25,25 +24,34 @@ const ReportDesignerConfirmableButton = (props) => {
     setOpened(true);
   };
 
+  const otherProps = {};
+  if (props.cancelLabel) {
+    otherProps.cancelLabel = props.cancelLabel;
+  }
+  if (props.proceedLabel) {
+    otherProps.proceedLabel = props.proceedLabel;
+  }
+  if (!props.noCancel) {
+    otherProps.onCancel = handleClose;
+  }
+
   return (
     <React.Fragment>
-      <Tooltip title={props.tooltip}>
-        <Button
-          variant="contained"
-          disabled={props.disabled}
-          onClick={handleClick}
-          className={[classes.button, props.className].join(' ')}
-        >
-          {props.icon}
-          {props.label}
-        </Button>
-      </Tooltip>
-      <ConfirmDialog
+      <Button
+        variant="contained"
+        disabled={props.disabled}
+        onClick={handleClick}
+        className={[classes.button, props.className].join(' ')}
+      >
+        {props.icon}
+        {props.label}
+      </Button>
+      <ConfirmProceedDialog
         open={opened}
         title={props.title}
-        blurb={props.content}
-        handleClose={handleClose}
-        handleConfirm={props.onConfirm}
+        body={props.content}
+        onProceed={props.onConfirm || handleClose}
+        {...otherProps}
       />
     </React.Fragment>
   );
@@ -52,17 +60,23 @@ const ReportDesignerConfirmableButton = (props) => {
 ReportDesignerConfirmableButton.defaultProps = {
   disabled: false,
   className: '',
+  proceedLabel: null,
+  cancelLabel: null,
+  onConfirm: null,
+  noCancel: false,
 };
 
 ReportDesignerConfirmableButton.propTypes = {
   label: PropTypes.object.isRequired,
   icon: PropTypes.object.isRequired,
-  tooltip: PropTypes.object.isRequired,
   title: PropTypes.object.isRequired,
   content: PropTypes.object.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  cancelLabel: PropTypes.object,
+  proceedLabel: PropTypes.object,
+  noCancel: PropTypes.bool,
 };
 
 export default ReportDesignerConfirmableButton;

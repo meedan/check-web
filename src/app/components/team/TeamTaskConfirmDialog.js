@@ -8,36 +8,30 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
+import Typography from '@material-ui/core/Typography';
 import Message from '../Message';
-import { Row } from '../../styles/js/shared';
 
 class TeamTaskConfirmDialog extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      confirmed: false,
       keepCompleted: false,
     };
   }
-
-  handleConfirmation = () => {
-    this.setState({ confirmed: !this.state.confirmed });
-  };
 
   handlekeepCompleted= () => {
     this.setState({ keepCompleted: !this.state.keepCompleted });
   };
 
   handleCancel = () => {
-    this.setState({ confirmed: false, keepCompleted: false });
+    this.setState({ keepCompleted: false });
     if (this.props.handleClose) {
       this.props.handleClose();
     }
   }
 
   handleProceed = () => {
-    this.setState({ confirmed: false });
     if (this.props.handleConfirm) {
       this.props.handleConfirm(this.state.keepCompleted);
       this.setState({ keepCompleted: false });
@@ -73,31 +67,33 @@ class TeamTaskConfirmDialog extends React.Component {
       });
     }
 
+    const confirmDialogBlurbEditOrDelete = (
+      <FormattedMessage
+        id="teamTasks.confirmDeleteBlurb"
+        defaultMessage="The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
+        values={{
+          itemsNumber: affectedItems,
+          taskLabel: <strong>{this.props.task.label}</strong>,
+        }}
+      />
+    );
     const confirmDialogBlurb = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditBlurb"
         defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed."
       />,
-      editLabelOrDescription: <FormattedMessage
-        id="teamTasks.confirmEditLabelOrDescriptionBlurb"
-        defaultMessage="You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
-        values={{ itemsNumber: affectedItems }}
-      />,
-      delete: <FormattedMessage
-        id="teamTasks.confirmDeleteBlurb"
-        defaultMessage="You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
-        values={{ itemsNumber: affectedItems }}
-      />,
+      editLabelOrDescription: confirmDialogBlurbEditOrDelete,
+      delete: confirmDialogBlurbEditOrDelete,
     };
 
     const confirmkeepCompleted = {
       edit: <FormattedMessage
         id="teamTasks.confirmEditkeepCompleted"
-        defaultMessage="Keep the completed tasks, with their current name and description."
+        defaultMessage="Do not alter tasks that have been completed, and keep their existing answers."
       />,
       delete: <FormattedMessage
         id="teamTasks.confirmDeletekeepCompleted"
-        defaultMessage="Keep the completed tasks, with their current answers."
+        defaultMessage="Keep this task with answers in items where the task has been completed."
       />,
     };
     return (
@@ -109,49 +105,33 @@ class TeamTaskConfirmDialog extends React.Component {
           {confirmDialogTitle[this.props.action]}
         </DialogTitle>
         <DialogContent>
-          <Message message={this.props.message} />
-          <Box my={2} mx={0}>
-            { affectedItems > 0 ?
-              <div>
-                <Row>
-                  {confirmDialogBlurb[action]}
-                </Row>
-                { action !== 'edit' ?
-                  <Row>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          id="keep-dialog__checkbox"
-                          onChange={this.handlekeepCompleted.bind(this)}
-                          checked={this.state.keepCompleted}
-                        />
-                      }
-                      label={confirmkeepCompleted[this.props.action]}
-                    />
-                  </Row>
-                  : null
-                }
-                <Row>
-                  <FormattedMessage
-                    id="teamTasks.processMessage"
-                    defaultMessage="Do you want to proceed?"
-                  />
-                </Row>
-              </div> : null
-            }
-            <Row>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    id="confirm-dialog__checkbox"
-                    onChange={this.handleConfirmation.bind(this)}
-                    checked={this.state.confirmed}
-                  />
-                }
-                label={<FormattedMessage id="teamTasks.confirmAction" defaultMessage="Yes" />}
-              />
-            </Row>
-          </Box>
+          <Typography variant="body1" component="div" paragraph>
+            <Message message={this.props.message} />
+            <Box my={2} mx={0}>
+              { affectedItems > 0 ?
+                <div>
+                  <Box>
+                    {confirmDialogBlurb[action]}
+                  </Box>
+                  { action !== 'edit' ?
+                    <Box mt={2}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            id="keep-dialog__checkbox"
+                            onChange={this.handlekeepCompleted.bind(this)}
+                            checked={this.state.keepCompleted}
+                          />
+                        }
+                        label={confirmkeepCompleted[this.props.action]}
+                      />
+                    </Box>
+                    : null
+                  }
+                </div> : null
+              }
+            </Box>
+          </Typography>
         </DialogContent>
         <DialogActions>
           <Button
@@ -164,9 +144,13 @@ class TeamTaskConfirmDialog extends React.Component {
             id="confirm-dialog__confirm-action-button"
             onClick={this.handleProceed}
             color="primary"
-            disabled={this.props.disabled || !this.state.confirmed}
+            disabled={this.props.disabled}
+            variant="contained"
           >
-            <FormattedMessage id="teamTasks.continue" defaultMessage="Continue" />
+            { action === 'delete' ?
+              <FormattedMessage id="teamTasks.deleteTask" defaultMessage="Delete task" /> :
+              <FormattedMessage id="teamTasks.continue" defaultMessage="Edit task" />
+            }
           </Button>
         </DialogActions>
       </Dialog>

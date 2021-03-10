@@ -21,10 +21,14 @@
   },
   {
     "id": "rulesTableToolbar.deleteConfirmationTitle",
-    "defaultMessage": "Delete selected rules?"
+    "defaultMessage": "Do you want to delete the selected rules?"
   },
   {
     "id": "rulesTableToolbar.deleteConfirmationText",
-    "defaultMessage": "Are you sure you want to delete these rules?"
+    "defaultMessage": "{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
+  },
+  {
+    "id": "rulesTableToolbar.deleteConfirmationLabel",
+    "defaultMessage": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
   }
 ]

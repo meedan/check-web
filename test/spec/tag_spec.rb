@@ -57,7 +57,6 @@ shared_examples 'tag' do
     wait_for_selector('.tag__actions').click
     wait_for_selector('.tag__edit')
     wait_for_selector('.tag__delete').click
-    wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#tag__confirm')
     wait_for_selector_none('#tag__text-newtagedited')

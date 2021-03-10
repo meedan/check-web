@@ -33,6 +33,8 @@ addons:
   hosts:
     - minio
     - redis
+    - elasticsearch
+    - postgres
   snaps:
     - name: node
       channel: 12/stable  # must be same as check-web/Dockerfile

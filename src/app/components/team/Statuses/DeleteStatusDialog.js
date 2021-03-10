@@ -5,6 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Typography from '@material-ui/core/Typography';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const DeleteStatusDialog = ({
@@ -49,37 +50,31 @@ const DeleteStatusDialog = ({
         />
       }
       body={
-        <React.Fragment>
-          <p>
+        <div>
+          <Typography variant="body1" component="p" paragraph>
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
               // FIXME Transifex does not accept a plural form at string start (wrongly)
               // that's why I moved "There" outside.
-              defaultMessage="There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
+              defaultMessage="There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
               values={{
 
                 itemsCount: deleteStatus.items_count,
                 statusLabel: <strong>{deleteStatus.label}</strong>,
               }}
             />
-            { deleteStatus.items_count > 1 ? (
-              <span>
-                {' '}
-                <FormattedMessage
-                  id="deleteStatusDialog.alternatively"
-                  defaultMessage="Alternatively, you can change each item status individually."
-                />
-              </span>
-            ) : null }
-          </p>
+          </Typography>
           { deleteStatus.published_reports_count ?
-            <p>
+            <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="deleteStatusDialog.itemsPublishedMessage"
-                defaultMessage="{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
-                values={{ publishedCount: deleteStatus.published_reports_count }}
+                defaultMessage="{publishedCount, plural, one {One item is currently published} other {# items are currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+                values={{
+                  publishedCount: deleteStatus.published_reports_count,
+                  statusLabel: <strong>{deleteStatus.label}</strong>,
+                }}
               />
-            </p>
+            </Typography>
             : null
           }
           <div>
@@ -108,7 +103,7 @@ const DeleteStatusDialog = ({
               </Select>
             </FormControl>
           </div>
-        </React.Fragment>
+        </div>
       }
       onCancel={onCancel}
       onProceed={handleSubmit}

@@ -8,6 +8,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import UpdateProjectMutation from '../../relay/mutations/UpdateProjectMutation';
 import PageTitle from '../PageTitle';
 import ProjectRoute from '../../relay/ProjectRoute';
@@ -17,6 +18,7 @@ import { ContentColumn } from '../../styles/js/shared';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
 class ProjectEditComponent extends Component {
   constructor(props) {
@@ -25,6 +27,7 @@ class ProjectEditComponent extends Component {
     this.state = {
       title: this.props.project.title,
       description: this.props.project.description,
+      showConfirmUpdateProjectDialog: false,
     };
   }
 
@@ -85,8 +88,12 @@ class ProjectEditComponent extends Component {
     )
   );
 
+  confirmUpdateProject(e) {
+    this.setState({ showConfirmUpdateProjectDialog: true });
+    e.preventDefault();
+  }
 
-  updateProject(e) {
+  updateProject() {
     const { project: { id } } = this.props;
     const { title, description } = this.state;
 
@@ -117,8 +124,6 @@ class ProjectEditComponent extends Component {
     );
 
     this.backToProject();
-
-    e.preventDefault();
   }
 
   render() {
@@ -129,7 +134,7 @@ class ProjectEditComponent extends Component {
         <section className="project-edit">
           <ContentColumn>
             <Card>
-              <form className="project-edit__form" onSubmit={this.updateProject.bind(this)}>
+              <form className="project-edit__form" onSubmit={this.confirmUpdateProject.bind(this)}>
                 <CardContent>
                   <TextField
                     name="name"
@@ -142,6 +147,7 @@ class ProjectEditComponent extends Component {
                     autoComplete="off"
                     onChange={this.handleTitleChange.bind(this)}
                     margin="normal"
+                    variant="outlined"
                   />
 
                   <TextField
@@ -161,6 +167,7 @@ class ProjectEditComponent extends Component {
                     autoComplete="off"
                     onChange={this.handleDescriptionChange.bind(this)}
                     margin="normal"
+                    variant="outlined"
                   />
                 </CardContent>
                 <CardActions>
@@ -184,6 +191,29 @@ class ProjectEditComponent extends Component {
             </Card>
           </ContentColumn>
         </section>
+        <ConfirmProceedDialog
+          open={this.state.showConfirmUpdateProjectDialog}
+          title={
+            <FormattedMessage
+              id="projectEdit.confirmProceedTitle"
+              defaultMessage="Are you sure you want to change this list?"
+            />
+          }
+          body={(
+            <div>
+              <Typography variant="body1" component="p" paragraph>
+                <FormattedMessage
+                  id="projectEdit.confirmProceedBody"
+                  defaultMessage="Changes made to this list will be reflected for everyone in this workspace."
+                />
+              </Typography>
+            </div>
+          )}
+          proceedLabel={<FormattedMessage id="projectEdit.confirmProceedLabel" defaultMessage="Save changes" />}
+          onProceed={this.updateProject.bind(this)}
+          cancelLabel={<FormattedMessage id="projectEdit.confirmCancelLabel" defaultMessage="Go back" />}
+          onCancel={() => { this.setState({ showConfirmUpdateProjectDialog: false }); }}
+        />
       </PageTitle>
     );
   }

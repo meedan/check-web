@@ -16,39 +16,31 @@
     "defaultMessage": "Are you sure you want to edit this metadata?"
   },
   {
+    "id": "teamTasks.confirmDeleteBlurb",
+    "defaultMessage": "The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
+  },
+  {
     "id": "teamTasks.confirmEditBlurb",
     "defaultMessage": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed."
   },
   {
-    "id": "teamTasks.confirmEditLabelOrDescriptionBlurb",
-    "defaultMessage": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
-  },
-  {
-    "id": "teamTasks.confirmDeleteBlurb",
-    "defaultMessage": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
-  },
-  {
     "id": "teamTasks.confirmEditkeepCompleted",
-    "defaultMessage": "Keep the completed tasks, with their current name and description."
+    "defaultMessage": "Do not alter tasks that have been completed, and keep their existing answers."
   },
   {
     "id": "teamTasks.confirmDeletekeepCompleted",
-    "defaultMessage": "Keep the completed tasks, with their current answers."
-  },
-  {
-    "id": "teamTasks.processMessage",
-    "defaultMessage": "Do you want to proceed?"
-  },
-  {
-    "id": "teamTasks.confirmAction",
-    "defaultMessage": "Yes"
+    "defaultMessage": "Keep this task with answers in items where the task has been completed."
   },
   {
     "id": "teamTasks.cancelAction",
     "defaultMessage": "Cancel"
   },
   {
+    "id": "teamTasks.deleteTask",
+    "defaultMessage": "Delete task"
+  },
+  {
     "id": "teamTasks.continue",
-    "defaultMessage": "Continue"
+    "defaultMessage": "Edit task"
   }
 ]

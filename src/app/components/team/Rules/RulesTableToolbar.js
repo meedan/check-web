@@ -10,7 +10,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 import SettingsHeader from '../SettingsHeader';
-import ConfirmDialog from '../../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -95,22 +95,34 @@ const RulesTableToolbar = (props) => {
             </IconButton>
           </Tooltip>
         </Toolbar> : null }
-      <ConfirmDialog
+      <ConfirmProceedDialog
         open={showDeleteConfirmationDialog}
         title={
           <FormattedMessage
             id="rulesTableToolbar.deleteConfirmationTitle"
-            defaultMessage="Delete selected rules?"
+            defaultMessage="Do you want to delete the selected rules?"
           />
         }
-        blurb={
+        body={
+          <div>
+            <Typography variant="body1" component="p" paragraph>
+              <FormattedMessage
+                id="rulesTableToolbar.deleteConfirmationText"
+                defaultMessage="{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
+                values={{ numSelected }}
+              />
+            </Typography>
+          </div>
+        }
+        proceedLabel={
           <FormattedMessage
-            id="rulesTableToolbar.deleteConfirmationText"
-            defaultMessage="Are you sure you want to delete these rules?"
+            id="rulesTableToolbar.deleteConfirmationLabel"
+            defaultMessage="{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
+            values={{ numSelected }}
           />
         }
-        handleClose={handleCloseDialogs}
-        handleConfirm={handleDeleteConfirmed}
+        onProceed={handleDeleteConfirmed}
+        onCancel={handleCloseDialogs}
       />
     </React.Fragment>
   );
