@@ -1,7 +1,7 @@
 import React from 'react';
 import { mountWithIntl, getStore } from '../../../../../test/unit/helpers/intl-test';
 
-import SlackConfig from './index';
+import { SlackConfig } from './index';
 
 describe('<SlackConfig />', () => {
   const ownerUser = {
@@ -14,6 +14,8 @@ describe('<SlackConfig />', () => {
 
   const team = {
     slug: 'team-slug',
+    id: 'TeamID!@#$',
+    get_slack_notifications_enabled: 0,
   };
 
   it('should render component for team admins', () => {
@@ -29,6 +31,6 @@ describe('<SlackConfig />', () => {
     const wrapper = mountWithIntl(<SlackConfig
       team={team}
     />);
-    expect(wrapper.html()).toEqual('');
+    expect(wrapper.html()).toEqual(null);
   });
 });

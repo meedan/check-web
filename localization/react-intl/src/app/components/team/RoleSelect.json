@@ -1,14 +1,14 @@
 [
   {
-    "id": "RoleSelect.collaborator",
+    "id": "roleSelect.collaborator",
     "defaultMessage": "Collaborator"
   },
   {
-    "id": "RoleSelect.editor",
+    "id": "roleSelect.editor",
     "defaultMessage": "Editor"
   },
   {
-    "id": "RoleSelect.admin",
+    "id": "roleSelect.admin",
     "defaultMessage": "Admin"
   }
 ]
