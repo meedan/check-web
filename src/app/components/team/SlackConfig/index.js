@@ -154,6 +154,8 @@ SlackConfig.propTypes = {
   }).isRequired,
 };
 
+export { SlackConfig };
+
 export default createFragmentContainer(injectIntl(SlackConfig), graphql`
   fragment SlackConfig_team on Team {
     id
