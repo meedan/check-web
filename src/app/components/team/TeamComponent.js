@@ -291,7 +291,7 @@ class TeamComponent extends Component {
             ? <TeamReport team={team} />
             : null }
           { isSettings && tab === 'integrations'
-            ? <TeamIntegrations team={team} />
+            ? <TeamIntegrations />
             : null }
           { isReadOnly && tab === 'tags'
             ? <TeamTags team={team} />

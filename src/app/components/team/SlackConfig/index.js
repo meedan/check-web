@@ -1,5 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
@@ -145,4 +146,18 @@ SlackConfig.contextTypes = {
   store: PropTypes.object,
 };
 
-export default injectIntl(SlackConfig);
+SlackConfig.propTypes = {
+  team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    get_slack_notifications_enabled: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
+export default createFragmentContainer(injectIntl(SlackConfig), graphql`
+  fragment SlackConfig_team on Team {
+    id
+    slug
+    get_slack_notifications_enabled
+  }
+`);

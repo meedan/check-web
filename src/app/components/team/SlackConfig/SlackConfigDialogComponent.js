@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
@@ -373,4 +373,20 @@ SlackConfigDialogComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default withSetFlashMessage(SlackConfigDialogComponent);
+export default createFragmentContainer(withSetFlashMessage(SlackConfigDialogComponent), graphql`
+  fragment SlackConfigDialogComponent_team on Team {
+    id
+    slackWebhook: get_slack_webhook
+    slackChannel: get_slack_channel
+    projects(first: 10000) {
+      edges {
+        node {
+          id
+          dbid
+          title
+          get_slack_events
+        }
+      }
+    }
+  }
+`);
