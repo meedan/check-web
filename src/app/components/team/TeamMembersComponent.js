@@ -4,6 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -11,6 +12,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { makeStyles } from '@material-ui/core/styles';
 import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
@@ -20,10 +22,20 @@ import TimeBefore from '../TimeBefore';
 import { ContentColumn } from '../../styles/js/shared';
 import { StyledTwoColumns, StyledBigColumn, StyledSmallColumn } from '../../styles/js/HeaderCard';
 
+const useStyles = makeStyles(theme => ({
+  pending: {
+    border: '1px solid black',
+    padding: theme.spacing(0.5),
+    marginTop: theme.spacing(0.5),
+    borderRadius: '5px',
+  },
+}));
+
 const TeamMembersComponent = ({
   team,
 }) => {
   const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
+  const classes = useStyles();
 
   return (
     <ContentColumn>
@@ -97,13 +109,15 @@ const TeamMembersComponent = ({
                         { tu.node.status === 'invited' ? (
                           <React.Fragment>
                             <div>{tu.node.user.email}</div>
-                            <div>
-                              <FormattedMessage
-                                id="teamMembers.pending"
-                                defaultMessage="Pending"
-                                description="Label for invite pending acceptance"
-                              />
-                            </div>
+                            <Box mt={0.5}>
+                              <span className={classes.pending}>
+                                <FormattedMessage
+                                  id="teamMembers.pending"
+                                  defaultMessage="Pending"
+                                  description="Label for invite pending acceptance"
+                                />
+                              </span>
+                            </Box>
                           </React.Fragment>
                         ) : (
                           <React.Fragment>
@@ -116,7 +130,7 @@ const TeamMembersComponent = ({
                   </TableCell>
                   <TableCell>
                     { tu.node.user.last_active_at ?
-                      <TimeBefore date={new Date(tu.node.user.last_active_at)} />
+                      <TimeBefore date={new Date(tu.node.user.last_active_at * 1000)} />
                       : '-'
                     }
                   </TableCell>
