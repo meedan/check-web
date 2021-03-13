@@ -12,7 +12,9 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import { makeStyles } from '@material-ui/core/styles';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import ChangeUserRole from './ChangeUserRole';
 import InviteDialog from './InviteDialog';
 import SettingsHeader from './SettingsHeader';
@@ -35,7 +37,28 @@ const TeamMembersComponent = ({
   team,
 }) => {
   const [inviteDialogOpen, setInviteDialogOpen] = React.useState(false);
+  const [sortParam, setSortParam] = React.useState(null);
+  const [sortDirection, setSortDirection] = React.useState('asc');
   const classes = useStyles();
+
+  const toggleSort = (param) => {
+    setSortParam(param);
+    if (sortParam === param) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortDirection('asc');
+    }
+  };
+
+  const sortFunc = {
+    name: (a, b) => (a.node.user.name > b.node.user.name ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
+    last_active_at: (a, b) => ((a.node.user.last_active_at > b.node.user.last_active_at) ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
+    role: (a, b) => ((a.node.role > b.node.role) ? 1 : -1) * (sortDirection === 'asc' ? 1 : -1),
+  };
+
+  const sortedMembers = sortParam ?
+    team.team_users.edges.slice().sort(sortFunc[sortParam]) :
+    team.team_users.edges;
 
   return (
     <ContentColumn>
@@ -79,26 +102,59 @@ const TeamMembersComponent = ({
                     id="teamMembers.tableHeaderName"
                     defaultMessage="Name"
                     description="Column header in members table."
-                  />
+                  >
+                    { text => (
+                      <TableSortLabel
+                        active={sortParam === 'name'}
+                        direction={sortDirection || undefined}
+                        onClick={() => toggleSort('name')}
+                        IconComponent={KeyboardArrowDownIcon}
+                      >
+                        {text}
+                      </TableSortLabel>
+                    )}
+                  </FormattedMessage>
                 </TableCell>
                 <TableCell>
                   <FormattedMessage
                     id="teamMembers.tableHeaderLastActive"
                     defaultMessage="Last active"
                     description="Column header in members table."
-                  />
+                  >
+                    { text => (
+                      <TableSortLabel
+                        active={sortParam === 'last_active_at'}
+                        direction={sortDirection || undefined}
+                        onClick={() => toggleSort('last_active_at')}
+                        IconComponent={KeyboardArrowDownIcon}
+                      >
+                        {text}
+                      </TableSortLabel>
+                    )}
+                  </FormattedMessage>
                 </TableCell>
                 <TableCell>
                   <FormattedMessage
                     id="teamMembers.tableHeaderRole"
                     defaultMessage="Workspace permission"
                     description="Column header in members table."
-                  />
+                  >
+                    { text => (
+                      <TableSortLabel
+                        active={sortParam === 'role'}
+                        direction={sortDirection || undefined}
+                        onClick={() => toggleSort('role')}
+                        IconComponent={KeyboardArrowDownIcon}
+                      >
+                        {text}
+                      </TableSortLabel>
+                    )}
+                  </FormattedMessage>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              { team.team_users.edges.filter(tu => !tu.node.user.is_bot).map(tu => (
+              { sortedMembers.filter(tu => !tu.node.user.is_bot).map(tu => (
                 <TableRow key={tu.node.id} className="team-members__user-row">
                   <TableCell>
                     <StyledTwoColumns>
@@ -135,8 +191,10 @@ const TeamMembersComponent = ({
                     }
                   </TableCell>
                   <TableCell>
-                    <ChangeUserRole teamUser={tu.node} />
-                    <TeamMemberActions team={team} teamUser={tu.node} />
+                    <Box display="flex">
+                      <ChangeUserRole teamUser={tu.node} />
+                      <TeamMemberActions team={team} teamUser={tu.node} />
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
@@ -160,6 +218,7 @@ TeamMembersComponent.propTypes = {
         node: PropTypes.shape({
           id: PropTypes.string.isRequired,
           status: PropTypes.string.isRequired,
+          role: PropTypes.string.isRequired,
           user: PropTypes.shape({
             id: PropTypes.string.isRequired,
             dbid: PropTypes.number.isRequired,
