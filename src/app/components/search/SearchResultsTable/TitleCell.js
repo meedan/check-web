@@ -53,7 +53,10 @@ const useStyles = makeStyles({
     overflow: 'hidden',
   },
   similarityIcon: {
-    margin: units(1),
+    marginRight: units(0.5),
+    display: 'inline-block',
+    verticalAlign: 'middle',
+    fontSize: 18,
   },
 });
 
@@ -105,8 +108,16 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
           <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
         ) : null}
         <Box display="flex" alignItems="center">
-          <IconOrNothing isMain={isMain} isSecondary={isSecondary} className={classes.similarityIcon} />
-          <TitleText classes={classes} title={title} description={description} />
+          <TitleText
+            classes={classes}
+            title={
+              <React.Fragment>
+                <IconOrNothing isMain={isMain} isSecondary={isSecondary} className={classes.similarityIcon} />
+                {title}
+              </React.Fragment>
+            }
+            description={description}
+          />
         </Box>
       </MaybeLink>
     </TableCell>
