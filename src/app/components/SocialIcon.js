@@ -7,6 +7,7 @@ import TwitterIcon from '@material-ui/icons/Twitter';
 import YouTubeIcon from '@material-ui/icons/YouTube';
 import LinkIcon from '@material-ui/icons/Link';
 import { FaSlack } from 'react-icons/fa';
+import { FcGoogle } from 'react-icons/fc';
 import {
   slackGreen,
   twitterBlue,
@@ -43,6 +44,9 @@ const SocialIcon = ({ domain, inColor }) => {
   case 'facebook.com':
   case 'facebook':
     return <FacebookIcon fontSize="inherit" className="logo" classes={{ root: classes.facebook }} />;
+  case 'google.com':
+  case 'google_oauth2':
+    return <FcGoogle fontSize="inherit" className="logo" />;
   default:
     return <LinkIcon fontSize="inherit" />;
   }

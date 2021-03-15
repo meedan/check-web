@@ -12,12 +12,15 @@ import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import IconPlay from '@material-ui/icons/PlayArrow';
 import IconPause from '@material-ui/icons/Pause';
+import HelpIcon from '@material-ui/icons/HelpOutline';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ReportDesignerCopyToClipboard from './ReportDesignerCopyToClipboard';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import ReportDesignerEditButton from './ReportDesignerEditButton';
 import MediaStatus from '../MediaStatus';
-import { completedGreen, inProgressYellow, brandSecondary } from '../../../styles/js/shared';
+import { completedGreen, inProgressYellow, brandSecondary, checkBlue } from '../../../styles/js/shared';
+import { getStatus } from '../../../helpers';
+import { languageLabel } from '../../../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
   publish: {
@@ -38,6 +41,17 @@ const useStyles = makeStyles(theme => ({
     marginRight: theme.spacing(2),
     marginLeft: theme.spacing(2),
   },
+  correctionLink: {
+    display: 'inline-flex',
+    gap: `${theme.spacing(0.5)}px`,
+    color: checkBlue,
+    '&:visited': {
+      color: checkBlue,
+    },
+    '&:hover': {
+      textDecoration: 'none',
+    },
+  },
 }));
 
 const ReportDesignerTopBar = (props) => {
@@ -48,11 +62,56 @@ const ReportDesignerTopBar = (props) => {
     state,
     editing,
     data,
+    defaultLanguage,
     intl,
   } = props;
 
   const [resendToPrevious, setResendToPrevious] = React.useState(false);
   const [statusChanging, setStatusChanging] = React.useState(false);
+
+  // By default, there is no report at all - so we can't publish, of course
+  let cantPublishReason = (
+    <FormattedMessage
+      id="reportDesignerToolbar.cantPublishInitial"
+      defaultMessage="You must have at least Report Text or Visual Card selected in order to publish the report."
+    />
+  );
+  const defaultReport = data.options.find(r => r.language === defaultLanguage);
+  // If text report and visual card are not set for the default language, can't publish (we need at least one of them)
+  if (defaultReport && !defaultReport.use_visual_card && !defaultReport.use_text_message) {
+    cantPublishReason = (
+      <FormattedMessage
+        id="reportDesignerToolbar.cantPublishDefault"
+        defaultMessage="The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
+        values={{ language: languageLabel(defaultLanguage) }}
+      />
+    );
+  }
+  // If there is no visual card and the text report is selected but has no content, we can't publish
+  if (defaultReport && !defaultReport.use_visual_card && defaultReport.use_text_message &&
+    defaultReport.text.length === 0 && defaultReport.title.length === 0) {
+    cantPublishReason = (
+      <FormattedMessage
+        id="reportDesignerToolbar.cantPublishText"
+        defaultMessage="You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+      />
+    );
+  }
+  // We can publish if there is a default report with either visual card or non-empty text report
+  if (defaultReport && (defaultReport.use_visual_card || (defaultReport.use_text_message &&
+    (defaultReport.text.length > 0 || defaultReport.title.length > 0)))) {
+    cantPublishReason = null;
+  }
+  // We can't publish if the status is the initial one
+  if (media.last_status === media.team.verification_statuses.default) {
+    cantPublishReason = (
+      <FormattedMessage
+        id="reportDesignerToolbar.cantPublishStatus"
+        defaultMessage="Your item still has the default status {status} and must be changed to a different status before it can be published."
+        values={{ status: <strong>{getStatus(media.team.verification_statuses, media.last_status, defaultLanguage, defaultLanguage).label}</strong> }}
+      />
+    );
+  }
 
   const readOnly = props.readOnly || statusChanging;
   const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
@@ -166,7 +225,7 @@ const ReportDesignerTopBar = (props) => {
             { !editing && state === 'paused' ?
               <ReportDesignerConfirmableButton
                 className={classes.publish}
-                disabled={readOnly || !props.canPublish}
+                disabled={readOnly}
                 label={
                   <FormattedMessage
                     id="reportDesigner.publish"
@@ -174,38 +233,31 @@ const ReportDesignerTopBar = (props) => {
                   />
                 }
                 icon={<IconPlay />}
-                tooltip={
-                  props.canPublish ?
-                    <FormattedMessage
-                      id="reportDesigner.canPublish"
-                      defaultMessage="Publish report"
-                    /> :
-                    <FormattedMessage
-                      id="reportDesigner.cannotPublish"
-                      defaultMessage="Fill in at least the report text or image to publish your report. Make sure to create a report for the primary language ({language})."
-                      values={{
-                        language: props.defaultLanguage,
-                      }}
-                    />
-                }
                 title={
                   <React.Fragment>
+                    {/* Can't publish report */}
+                    { cantPublishReason ?
+                      <FormattedMessage
+                        id="reportDesigner.cantPublishTitle"
+                        defaultMessage="Your report is not ready to be published"
+                      /> : null }
+
                     {/* Sending report for the first time */}
-                    { !data.last_published ?
+                    { !cantPublishReason && !data.last_published ?
                       <FormattedMessage
                         id="reportDesigner.confirmPublishTitle"
                         defaultMessage="Ready to publish your report?"
                       /> : null }
 
                     {/* Re-sending a report after a status change */}
-                    { statusChanged ?
+                    { !cantPublishReason && statusChanged ?
                       <FormattedMessage
                         id="reportDesigner.confirmRepublishResendTitle"
-                        defaultMessage="Ready to publish your correction?"
+                        defaultMessage="Ready to publish your changes?"
                       /> : null }
 
                     {/* Re-sending a report with the same status */}
-                    { data.last_published && !statusChanged ?
+                    { !cantPublishReason && data.last_published && !statusChanged ?
                       <FormattedMessage
                         id="reportDesigner.confirmRepublishTitle"
                         defaultMessage="Ready to publish your changes?"
@@ -214,28 +266,52 @@ const ReportDesignerTopBar = (props) => {
                 }
                 content={
                   <Box>
+                    {/* Can't publish report */}
+                    { cantPublishReason ? <Typography>{cantPublishReason}</Typography> : null }
                     {/* Sending report for the first time */}
-                    { !data.last_published && media.demand > 0 ?
+                    { !cantPublishReason && !data.last_published && media.demand > 0 ?
                       <Typography>
                         <FormattedMessage
                           id="reportDesigner.confirmPublishText"
-                          defaultMessage="{demand, plural, one {You are about to send this report to the user who requested this item.} other {You are about to send this report to the # users who requested this item.}}"
+                          defaultMessage="{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
                           values={{ demand: media.demand }}
+                        />
+                      </Typography> : null }
+
+                    { !cantPublishReason ?
+                      <Typography paragraph>
+                        <FormattedMessage
+                          id="reportDesigner.confirmPublishText2"
+                          defaultMessage="All future users who request this item will receive this version of the report while it remains published."
                         />
                       </Typography> : null }
 
                     {/* Re-sending a report after a status change */}
-                    { statusChanged && media.demand > 0 ?
+                    { !cantPublishReason && statusChanged && media.demand > 0 ?
                       <Typography>
                         <FormattedMessage
                           id="reportDesigner.confirmRepublishResendText"
-                          defaultMessage="{demand, plural, one {Your correction will be sent to the user who has received the previous report.} other {Your correction will be sent to the # users who have received the previous report.}}"
-                          values={{ demand: media.demand }}
+                          defaultMessage="{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
+                          values={{
+                            demand: media.demand,
+                            correctionLink: (
+                              <React.Fragment>
+                                <a href="https://help.checkmedia.org/en/articles/5013901-tipline-report-confirmation-updates-and-corrections" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                                  <FormattedMessage
+                                    id="reportDesigner.correction"
+                                    defaultMessage="correction"
+                                  />
+                                  {' '}
+                                  <HelpIcon />
+                                </a>
+                              </React.Fragment>
+                            ),
+                          }}
                         />
                       </Typography> : null }
 
                     {/* Re-sending a report with the same status */}
-                    { data.last_published && !statusChanged && media.demand > 0 ?
+                    { !cantPublishReason && data.last_published && !statusChanged && media.demand > 0 ?
                       <Box className={classes.confirmation}>
                         <FormControlLabel
                           control={
@@ -248,32 +324,78 @@ const ReportDesignerTopBar = (props) => {
                           label={
                             <FormattedMessage
                               id="reportDesigner.republishAndResend"
-                              defaultMessage="{demand, plural, one {Also send correction to the user who already received the previous version of this report} other {Also send correction to the # users who already received the previous version of this report}}"
-                              values={{ demand: media.demand }}
+                              defaultMessage="{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
+                              values={{
+                                demand: media.demand,
+                                correctionLink: (
+                                  <React.Fragment>
+                                    <a href="https://help.checkmedia.org" rel="noopener noreferrer" className={classes.correctionLink} target="_blank">
+                                      <FormattedMessage
+                                        id="reportDesigner.correction"
+                                        defaultMessage="correction"
+                                      />
+                                      {' '}
+                                      <HelpIcon />
+                                    </a>
+                                  </React.Fragment>
+                                ),
+                              }}
                             />
                           }
                         />
                       </Box> : null }
-
-                    <Typography>
-                      <FormattedMessage
-                        id="reportDesigner.confirmPublishText2"
-                        defaultMessage="In the future, users who request this item will receive your report while it remains published."
-                      />
-                    </Typography>
                   </Box>
                 }
-                onConfirm={() => {
-                  if (data.last_published) {
-                    if (statusChanged || resendToPrevious) {
-                      props.onStateChange('republish_and_resend', 'published');
-                    } else {
-                      props.onStateChange('republish_but_not_resend', 'published');
+                cancelLabel={
+                  <FormattedMessage
+                    id="reportDesigner.cancelPublish"
+                    defaultMessage="Go back"
+                  />
+                }
+                proceedLabel={
+                  <React.Fragment>
+                    {/* Can't publish report */}
+                    { cantPublishReason ?
+                      <FormattedMessage
+                        id="reportDesigner.cantPublish"
+                        defaultMessage="Go back to editing"
+                      /> : null }
+                    {/* Sending report for the first time */}
+                    { !cantPublishReason && !data.last_published ?
+                      <FormattedMessage
+                        id="reportDesigner.confirmPublish"
+                        defaultMessage="Publish report"
+                      /> : null }
+                    {/* Re-sending a report with the same status */}
+                    { !cantPublishReason && data.last_published && !statusChanged ?
+                      <FormattedMessage
+                        id="reportDesigner.confirmPublishSameStatus"
+                        defaultMessage="Publish changes"
+                      /> : null }
+                    {/* Re-sending a report after a status change */}
+                    { !cantPublishReason && statusChanged ?
+                      <FormattedMessage
+                        id="reportDesigner.confirmPublishStatusChange"
+                        defaultMessage="Publish changes and send correction"
+                      /> : null }
+                  </React.Fragment>
+                }
+                noCancel={Boolean(cantPublishReason)}
+                onConfirm={
+                  cantPublishReason ?
+                    null :
+                    () => {
+                      if (data.last_published) {
+                        if (statusChanged || resendToPrevious) {
+                          props.onStateChange('republish_and_resend', 'published');
+                        } else {
+                          props.onStateChange('republish_but_not_resend', 'published');
+                        }
+                      } else {
+                        props.onStateChange('publish', 'published');
+                      }
                     }
-                  } else {
-                    props.onStateChange('publish', 'published');
-                  }
-                }}
+                }
               /> : null }
             { !editing && state === 'published' ?
               <ReportDesignerConfirmableButton
@@ -286,25 +408,31 @@ const ReportDesignerTopBar = (props) => {
                   />
                 }
                 icon={<IconPause />}
-                tooltip={
-                  <FormattedMessage
-                    id="reportDesigner.pauseReport"
-                    defaultMessage="Pause report"
-                  />
-                }
                 title={
                   <FormattedMessage
                     id="reportDesigner.confirmPauseTitle"
-                    defaultMessage="You are about to pause the report"
+                    defaultMessage="Do you want to pause the report?"
                   />
                 }
                 content={
                   <Typography>
                     <FormattedMessage
                       id="reportDesigner.confirmPauseText"
-                      defaultMessage="This report will not be sent to users until it is published again. Do you want to continue?"
+                      defaultMessage="This will stop the report from being sent out to users until it is published again."
                     />
                   </Typography>
+                }
+                cancelLabel={
+                  <FormattedMessage
+                    id="reportDesigner.cancelPause"
+                    defaultMessage="Go back"
+                  />
+                }
+                proceedLabel={
+                  <FormattedMessage
+                    id="reportDesigner.confirmPause"
+                    defaultMessage="Pause report"
+                  />
                 }
                 onConfirm={() => {
                   props.onStateChange('pause', 'paused');
@@ -330,7 +458,6 @@ ReportDesignerTopBar.defaultProps = {
 ReportDesignerTopBar.propTypes = {
   state: PropTypes.oneOf(['paused', 'published']).isRequired,
   editing: PropTypes.bool.isRequired,
-  canPublish: PropTypes.bool.isRequired,
   media: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   defaultLanguage: PropTypes.string.isRequired,

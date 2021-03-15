@@ -10,7 +10,7 @@ import SettingsHeader from './SettingsHeader';
 import TeamBots from './TeamBots';
 import { ContentColumn } from '../../styles/js/shared';
 
-const TeamIntegrations = ({ team }) => {
+const TeamIntegrations = () => {
   const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
 
   return (
@@ -41,6 +41,7 @@ const TeamIntegrations = ({ team }) => {
                   }
                 }
               }
+              ...SlackConfig_team
             }
             team_bots_approved(first: 10000) {
               edges {
@@ -83,7 +84,7 @@ const TeamIntegrations = ({ team }) => {
         if (props) {
           return (
             <Box className="team-integrations">
-              <ContentColumn large>
+              <ContentColumn>
                 <SettingsHeader
                   title={
                     <FormattedMessage
@@ -101,7 +102,7 @@ const TeamIntegrations = ({ team }) => {
                 />
                 <Box className="team-integrations__integrations">
                   <TeamBots {...props} />
-                  <SlackConfig team={team} />
+                  <SlackConfig team={props.root.current_team} />
                 </Box>
               </ContentColumn>
             </Box>

@@ -1,0 +1,31 @@
+[
+  {
+    "id": "teamDetails.savedSuccessfully",
+    "defaultMessage": "Workspace details saved successfully"
+  },
+  {
+    "id": "teamDetails.title",
+    "description": "Title for workspace details page",
+    "defaultMessage": "Workspace details"
+  },
+  {
+    "id": "teamDetails.subtitle",
+    "defaultMessage": "Add details to your Check workspace"
+  },
+  {
+    "id": "teamDetails.update",
+    "defaultMessage": "Update"
+  },
+  {
+    "id": "teamDetails.workspaceName",
+    "defaultMessage": "Workspace name"
+  },
+  {
+    "id": "teamDetails.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "teamDetails.duplicateWorkspace",
+    "defaultMessage": "Duplicate workspace"
+  }
+]

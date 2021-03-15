@@ -1,0 +1,22 @@
+[
+  {
+    "id": "inviteDialog.invitationSent",
+    "description": "Success notification confirming that invitations were sent to users",
+    "defaultMessage": "Invites sent!"
+  },
+  {
+    "id": "inviteDialog.title",
+    "description": "Invite workspace members dialog title",
+    "defaultMessage": "Invite workspace members"
+  },
+  {
+    "id": "inviteDialog.textInputLabel",
+    "description": "Label to input for invited emails. Requires that multiple emails be entered separated by comma.",
+    "defaultMessage": "Emails, comma separated"
+  },
+  {
+    "id": "inviteDialog.submit",
+    "description": "Button to submit invitations.",
+    "defaultMessage": "Invite"
+  }
+]

@@ -1,7 +1,7 @@
 shared_examples 'media actions' do
   it 'should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok', bin2: true do
     # from facebook
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161')
+    api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161?1')
     wait_for_selector('.media-detail')
     wait_for_selector('iframe')
     wait_for_selector('.project-header__back-button').click

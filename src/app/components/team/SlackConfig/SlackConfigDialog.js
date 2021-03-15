@@ -10,19 +10,7 @@ const SlackConfigDialog = ({ teamSlug, onCancel }) => (
     query={graphql`
       query SlackConfigDialogQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
-          id
-          slackWebhook: get_slack_webhook
-          slackChannel: get_slack_channel
-          projects(first: 10000) {
-            edges {
-              node {
-                id
-                dbid
-                title
-                get_slack_events
-              }
-            }
-          }
+          ...SlackConfigDialogComponent_team
         }
       }
     `}

@@ -17,11 +17,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import SettingsHeader from './SettingsHeader';
-import TagTextCount from './TagTextCount';
-import ConfirmDialog from '../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import SortSelector from '../layout/SortSelector';
 import FilterPopup from '../layout/FilterPopup';
 import TeamRoute from '../../relay/TeamRoute';
@@ -549,19 +549,34 @@ class TeamTagsComponent extends Component {
               {this.tagsList(tag_texts)}
             </CardContent>
           </Card>
-          <ConfirmDialog
-            open={this.state.dialogOpen}
-            title={
-              <FormattedMessage
-                id="teamTags.confirmDeleteTitle"
-                defaultMessage="Are you sure you want to delete this tag?"
-              />
-            }
-            checkBoxLabel={<TagTextCount tag={this.state.tagToBeDeleted} />}
-            disabled={this.state.deleting || !this.state.tagToBeDeleted}
-            handleClose={this.handleCloseDialog.bind(this)}
-            handleConfirm={this.handleDestroy.bind(this)}
-          />
+          { this.state.tagToBeDeleted ?
+            <ConfirmProceedDialog
+              open={this.state.dialogOpen}
+              title={
+                <FormattedMessage
+                  id="teamTags.confirmDeleteTitle"
+                  defaultMessage="Do you want to delete this tag?"
+                />
+              }
+              body={(
+                <div>
+                  <Typography variant="body1" component="p" paragraph>
+                    <FormattedMessage
+                      id="teamTags.confirmDeleteBody"
+                      defaultMessage='{numTags, plural, one {The tag "{tag}" will be removed from one item.} other {The tag "{tag}" will be removed from # items.}}'
+                      values={{
+                        numTags: this.state.tagToBeDeleted.tags_count,
+                        tag: this.state.tagToBeDeleted.text,
+                      }}
+                    />
+                  </Typography>
+                </div>
+              )}
+              proceedDisabled={this.state.deleting || !this.state.tagToBeDeleted}
+              proceedLabel={<FormattedMessage id="teamTags.confirmDeleteLabel" defaultMessage="Delete tag" />}
+              onProceed={this.handleDestroy.bind(this)}
+              onCancel={this.handleCloseDialog.bind(this)}
+            /> : null }
         </ContentColumn>
       </StyledTeamTags>
     );

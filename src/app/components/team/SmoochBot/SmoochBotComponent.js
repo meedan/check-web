@@ -177,7 +177,7 @@ const SmoochBotComponent = ({
           languages={languages}
           onChange={handleChangeLanguage}
         /> : null }
-      <ContentColumn large noCenter>
+      <ContentColumn large>
         <SettingsHeader
           title={
             <FormattedMessage

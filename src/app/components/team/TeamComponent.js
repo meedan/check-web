@@ -1,34 +1,28 @@
 import React, { Component } from 'react';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import deepEqual from 'deep-equal';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import Box from '@material-ui/core/Box';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import styled from 'styled-components';
+import TeamDetails from './TeamDetails';
 import TeamLanguages from './Languages';
 import TeamRules from './Rules';
 import TeamStatuses from './Statuses';
+import SmoochBot from './SmoochBot';
 import TeamTags from './TeamTags';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
-import TeamInfo from './TeamInfo';
-import TeamInfoEdit from './TeamInfoEdit';
 import TeamMembers from './TeamMembers';
 import TeamLists from './TeamLists';
 import TeamIntegrations from './TeamIntegrations';
-import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
 import CheckContext from '../../CheckContext';
-import SmoochBot from './SmoochBot';
-import {
-  ContentColumn,
-  backgroundMain,
-  brandSecondary,
-} from '../../styles/js/shared';
+import { backgroundMain, brandSecondary } from '../../styles/js/shared';
 
 const StyledTabs = styled(Tabs)`
   background-color: ${brandSecondary};
@@ -43,18 +37,22 @@ const StyledTeamContainer = styled.div`
 `;
 
 class TeamComponent extends Component {
+  // FIXME Is this still needed?
   componentDidMount() {
     this.setContextTeam();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return !deepEqual(nextProps, this.props) || !deepEqual(nextState, this.state);
+  // FIXME Is this still needed?
+  shouldComponentUpdate(nextProps) {
+    return !deepEqual(nextProps, this.props);
   }
 
+  // FIXME Is this still needed?
   componentDidUpdate() {
     this.setContextTeam();
   }
 
+  // FIXME Is this still needed?
   setContextTeam() {
     const context = new CheckContext(this);
     const store = context.getContextStore();
@@ -73,43 +71,32 @@ class TeamComponent extends Component {
 
   handleTabChange = (e, tab) => {
     const { team } = this.props;
-    const path = `/${team.slug}/settings/${tab}`;
+    const path = tab === 'members' || tab === 'edit' ?
+      `/${team.slug}/${tab}` :
+      `/${team.slug}/settings/${tab}`;
     browserHistory.push(path);
   };
 
   render() {
     const { team } = this.props;
     const { action } = this.props.route;
-    const isEditing = (action === 'edit') && can(team.permissions, 'update Team');
     const isSettings = (action === 'settings') && can(team.permissions, 'update Team');
     const isReadOnly = (action === 'settings') && can(team.permissions, 'read Team');
-
-    const context = new CheckContext(this).getContextStore();
-
-    const TeamPageContent = (
-      <ContentColumn>
-        <TeamMembers {...this.props} />
-      </ContentColumn>
-    );
-
-    const HeaderContent = () => (
-      <Box pt={3} pb={3}>
-        { isEditing ?
-          <TeamInfoEdit team={team} /> :
-          <TeamInfo team={team} context={context} />
-        }
-      </Box>
-    );
 
     const userRole = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug);
     const isAdmin = userRole === 'admin';
     const isAdminOrEditor = userRole === 'admin' || userRole === 'editor';
+
     let { tab } = this.props.params;
+
     if (!tab) {
       tab = 'lists';
-    }
-    if (!isAdminOrEditor) {
-      tab = 'tags';
+
+      if (action === 'main') {
+        tab = 'members';
+      } else if (!isAdminOrEditor) {
+        tab = 'tags';
+      }
     }
 
     const TeamSettingsTabs = () => {
@@ -244,19 +231,47 @@ class TeamComponent extends Component {
         );
       }
 
-      return null;
+      return (
+        <StyledTabs
+          indicatorColor="primary"
+          textColor="primary"
+          value={tab}
+          onChange={this.handleTabChange}
+        >
+          <Tab
+            className="team-settings__members-tab"
+            label={
+              <FormattedMessage
+                id="teamSettings.members"
+                defaultMessage="Members"
+              />
+            }
+            value="members"
+          />
+          <Tab
+            className="team-settings__details-tab"
+            label={
+              <FormattedMessage
+                id="teamSettings.details"
+                defaultMessage="Workspace details"
+              />
+            }
+            value="edit"
+          />
+        </StyledTabs>
+      );
     };
 
     return (
       <PageTitle team={team}>
         <StyledTeamContainer className="team">
-          <HeaderCard>
-            <ContentColumn>
-              { isSettings ? null : <HeaderContent /> }
-            </ContentColumn>
-            <TeamSettingsTabs />
-          </HeaderCard>
-          { !isEditing && !isSettings && !isReadOnly ? TeamPageContent : null }
+          <TeamSettingsTabs />
+          { tab === 'members'
+            ? <TeamMembers teamSlug={team.slug} />
+            : null }
+          { tab === 'edit'
+            ? <TeamDetails team={team} />
+            : null }
           { isSettings && tab === 'lists'
             ? <TeamLists key={tab} />
             : null }
@@ -276,7 +291,7 @@ class TeamComponent extends Component {
             ? <TeamReport team={team} />
             : null }
           { isSettings && tab === 'integrations'
-            ? <TeamIntegrations team={team} />
+            ? <TeamIntegrations />
             : null }
           { isReadOnly && tab === 'tags'
             ? <TeamTags team={team} />
@@ -294,11 +309,30 @@ class TeamComponent extends Component {
 }
 
 TeamComponent.propTypes = {
-  classes: PropTypes.object.isRequired,
+  team: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired,
+    permissions: PropTypes.string.isRequired,
+  }).isRequired,
+  // TODO: Specify prop shapes
+  route: PropTypes.object.isRequired,
+  // TODO: Specify prop shapes
+  params: PropTypes.object.isRequired,
 };
 
 TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-export default TeamComponent;
+export default createFragmentContainer(TeamComponent, {
+  team: graphql`
+    fragment TeamComponent_team on Team {
+      id
+      dbid
+      name
+      slug
+      permissions
+      ...TeamDetails_team
+    }
+  `,
+});

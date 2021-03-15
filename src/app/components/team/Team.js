@@ -1,29 +1,38 @@
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import TeamRoute from '../../relay/TeamRoute';
 import TeamComponent from './TeamComponent';
-import teamFragment from '../../relay/teamFragment';
 
-const TeamContainer = Relay.createContainer(TeamComponent, {
-  initialVariables: {
-    pageSize: 20,
-  },
-  fragments: {
-    team: () => teamFragment,
-  },
-});
+const renderQuery = ({ error, props }, { route, params }) => {
+  if (!error && props) {
+    return <TeamComponent team={props.team} route={route} params={params} />;
+  }
+
+  // TODO: We need a better error handling in the future, standardized with other components
+  return null;
+};
 
 const Team = (props) => {
-  const slug = props.params.team || '';
-  if (slug === '') {
+  const teamSlug = props.params.team || '';
+
+  if (teamSlug === '') {
     return null;
   }
-  const route = new TeamRoute({ teamSlug: slug });
+
   return (
-    <Relay.RootContainer
-      Component={TeamContainer}
-      route={route}
-      renderFetched={data => <TeamContainer {...props} {...data} />}
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query TeamQuery($teamSlug: String!) {
+          team(slug: $teamSlug) {
+            ...TeamComponent_team
+          }
+        }
+      `}
+      variables={{
+        teamSlug,
+      }}
+      render={data => renderQuery(data, props)}
     />
   );
 };

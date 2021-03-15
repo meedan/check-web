@@ -65,6 +65,15 @@ const SearchKeywordConfigComponent = ({
     ),
   },
   {
+    value: 'accounts',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.accounts"
+        defaultMessage="Source"
+      />
+    ),
+  },
+  {
     value: '',
     label: '',
   },

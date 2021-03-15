@@ -11,6 +11,7 @@ import MomentUtils from '@date-io/moment';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
+import InviteNewAccount from './InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
@@ -207,6 +208,7 @@ class HomeComponent extends Component {
     const routeSlug = HomeComponent.routeSlug(children);
 
     const routeIsPublic = children && children.props.route.public;
+
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
         return (
@@ -247,6 +249,12 @@ class HomeComponent extends Component {
       }
       return false;
     })();
+
+    if (loggedIn && !user.completed_signup) {
+      return (
+        <InviteNewAccount teamSlug={teamSlug} />
+      );
+    }
 
     const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
 
@@ -321,6 +329,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         is_admin
         accepted_terms
         last_accepted_terms_at
+        completed_signup
         name
         login
         permissions

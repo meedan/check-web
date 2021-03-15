@@ -13,7 +13,7 @@ import LanguageSwitcher from '../../LanguageSwitcher';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
-import ConfirmDialog from '../../layout/ConfirmDialog';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
 import {
@@ -69,11 +69,6 @@ const ReportDesignerComponent = (props) => {
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const currentReportIndex = findReportIndex(data, currentLanguage);
   hasUnsavedChanges = !deepEqual(data, propsToData(props, defaultLanguage));
-  const defaultReportIsSet = data.options.filter(r => (
-    (r.language === defaultLanguage) &&
-    (r.use_visual_card || (r.use_text_message && r.text.length > 0))
-  )).length === 1;
-  const canPublish = defaultReportIsSet;
 
   const confirmCloseBrowserWindow = (e) => {
     if (hasUnsavedChanges) {
@@ -272,7 +267,6 @@ const ReportDesignerComponent = (props) => {
           media.archived > CheckArchivedFlags.NONE ||
           pending
         }
-        canPublish={canPublish}
         onStatusChange={handleStatusChange}
         onStateChange={(action, state) => { handleSave(action, state); }}
         onSave={() => { handleSave('save'); }}
@@ -309,28 +303,38 @@ const ReportDesignerComponent = (props) => {
           />
         </Box>
       </Box>
-      <ConfirmDialog
+      <ConfirmProceedDialog
         open={leaveLocation}
         title={
           <FormattedMessage
             id="reportDesigner.confirmLeaveTitle"
-            defaultMessage="Leave without saving?"
+            defaultMessage="Do you want to leave without saving?"
           />
         }
-        blurb={
-          <FormattedMessage
-            id="reportDesigner.confirmLeaveText"
-            defaultMessage="If you leave, you will lose your changes."
-          />
+        body={
+          <div>
+            <Typography variant="body1" component="p" paragraph>
+              <FormattedMessage
+                id="reportDesigner.confirmLeaveText"
+                defaultMessage="You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
+              />
+            </Typography>
+          </div>
         }
-        continueButtonLabel={
+        proceedLabel={
           <FormattedMessage
             id="reportDesigner.confirmLeaveButtonLabel"
-            defaultMessage="Leave"
+            defaultMessage="Leave without saving"
           />
         }
-        handleClose={handleCancelLeave}
-        handleConfirm={handleConfirmLeave}
+        onProceed={handleConfirmLeave}
+        cancelLabel={
+          <FormattedMessage
+            id="reportDesigner.cancelLeaveButtonLabel"
+            defaultMessage="Go back"
+          />
+        }
+        onCancel={handleCancelLeave}
       />
     </React.Fragment>
   );

@@ -460,7 +460,7 @@ class UserInfoEdit extends React.Component {
     }
 
     return (
-      <ContentColumn noPadding>
+      <ContentColumn>
         <Message message={this.state.message} />
         <StyledTwoColumns>
           <StyledSmallColumn>
