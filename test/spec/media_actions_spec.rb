@@ -3,8 +3,8 @@ shared_examples 'media actions' do
     # from facebook
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161?1')
     wait_for_selector('.media-detail')
-    wait_for_selector('iframe')
-    wait_for_selector('.project-header__back-button').click
+    expect(@driver.page_source.downcase.include?('facebook')).to be(true)
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-form')
     expect(wait_for_selector_list('.media__heading').length == 1).to be(true)
     ['https://twitter.com/TheWho/status/890135323216367616', 'https://www.youtube.com/watch?v=ykLgjhBnik0', 'https://www.instagram.com/p/BRYob0dA1SC/', 'https://www.tiktok.com/@scout2015/video/6771039287917038854'].each do |url|
@@ -129,8 +129,8 @@ shared_examples 'media actions' do
     api_create_team_project_and_link_and_redirect_to_media_page url
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1.positive?).to be(true)
-    wait_for_selector('#media-actions-bar__add-to')
-    wait_for_selector('.project-header__back-button').click
+    wait_for_selector('.media-detail')
+    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('.medias__item')
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media__link')
