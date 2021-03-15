@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -11,6 +12,12 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../MappedMessage';
+
+const useStyles = makeStyles(theme => ({
+  confirmProceedDialogButtons: {
+    gap: `${theme.spacing(1)}px`,
+  },
+}));
 
 const ConfirmProceedDialog = ({
   open,
@@ -25,6 +32,7 @@ const ConfirmProceedDialog = ({
   typeTextToConfirm,
 }) => {
   const [confirmationText, setConfirmationText] = React.useState('');
+  const classes = useStyles();
 
   return (
     <Dialog open={open}>
@@ -63,7 +71,7 @@ const ConfirmProceedDialog = ({
           </Box> : null }
       </DialogContent>
       <DialogActions>
-        <Box m={2}>
+        <Box m={2} display="flex" className={classes.confirmProceedDialogButtons}>
           { onCancel ?
             <Button className="confirm-proceed-dialog__cancel" onClick={onCancel}>
               { cancelLabel ||

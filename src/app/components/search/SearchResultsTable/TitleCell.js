@@ -41,12 +41,11 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
   },
-  title: ({ isRead, isSecondary }) => ({
+  title: ({ isRead }) => ({
     maxHeight: units(5),
     color: black87,
     overflow: 'hidden',
     fontWeight: isRead ? 'normal' : 'bold',
-    opacity: isSecondary ? 0.75 : 1,
   }),
   description: {
     maxHeight: units(5),
@@ -99,7 +98,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
     is_main: isMain,
     is_secondary: isSecondary,
   } = projectMedia;
-  const classes = useStyles({ isRead, isSecondary });
+  const classes = useStyles({ isRead });
 
   return (
     <TableCell className="media__heading" component="th" scope="row">
