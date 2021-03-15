@@ -1,154 +1,173 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import Message from './Message';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
-import ChangePasswordMutation from '../relay/mutations/ChangePasswordMutation';
 import { getErrorMessage } from '../helpers';
+import { units } from '../styles/js/shared';
 
-// TODO Read this from the backend.
-const passwordLength = {
-  min: 8,
-  max: 128,
-};
+const useStyles = makeStyles({
+  marginTop: {
+    marginTop: `${units(3)}`,
+  },
+});
 
-class ChangePasswordComponent extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      submitDisabled: true,
-      errorMsg: '',
-    };
-  }
+function ChangePasswordComponent({
+  type,
+  showCurrentPassword,
+  token,
+  showConfirm,
+}) {
+  const [submitDisabled, setSubmitDisabled] = React.useState(true);
+  const [errorMsg, setErrorMsg] = React.useState(null);
+  const [currentPassword, setCurrentPassword] = React.useState(null);
+  const [password, setPassword] = React.useState(null);
+  const [passwordConfirmation, setPasswordConfirmation] = React.useState(null);
 
-  handleChangeCurrentPassword(e) {
-    this.setState({ current_password: e.target.value });
-  }
+  const passwordLength = { min: 8, max: 128 };
 
-  handleChangePassword(e) {
-    this.setState({ new_password: e.target.value });
-  }
+  const handleChangeCurrentPassword = (e) => {
+    setCurrentPassword(e.target.value);
+  };
 
-  handleChangePasswordConfirm(e) {
-    const { new_password: password } = this.state;
-    const { value: password_confirmation } = e.target;
+  const handleChangePassword = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const handleChangePasswordConfirm = (e) => {
+    const { value } = e.target;
     const bothFilled =
-      password.length >= passwordLength.min && password_confirmation.length >= passwordLength.min;
-    const samePass = password === password_confirmation;
-    const errorMsg = bothFilled && !samePass ? (
+      password.length >= passwordLength.min && value.length >= passwordLength.min;
+    const samePass = password === value;
+    const message = bothFilled && !samePass ? (
       <FormattedMessage
         id="passwordChange.unmatchingPasswords"
         defaultMessage="Passwords didn't match"
       />
     ) : null;
-    this.setState({ password_confirmation, errorMsg });
-    this.setState({ submitDisabled: !(bothFilled && samePass) });
-  }
+    setPasswordConfirmation(value);
+    setErrorMsg(message);
+    setSubmitDisabled(!(bothFilled && samePass));
+  };
 
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     const onFailure = (transaction) => {
       const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-      if (this.props.type === 'reset-password') {
+      if (type === 'reset-password') {
         browserHistory.push({ pathname: '/check/user/password-reset', state: { errorMsg: message } });
         return;
       }
-      this.setState({ errorMsg: message });
+      setErrorMsg(message);
     };
 
     const onSuccess = () => {
-      if (this.props.type === 'update-password') {
+      if (type === 'update-password') {
         window.location.reload();
       } else {
-        this.props.show_confirm();
+        showConfirm();
       }
     };
 
-    if (!this.state.submitDisabled) {
+    if (!submitDisabled) {
       let id = 0;
-      if (this.props.type === 'update-password') {
+      if (type === 'update-password') {
         id = this.props.user.dbid;
       }
-      Relay.Store.commitUpdate(
-        new ChangePasswordMutation({
-          reset_password_token: this.props.token,
-          current_password: this.state.current_password,
-          password: this.state.new_password,
-          password_confirmation: this.state.password_confirmation,
-          id,
-        }),
-        { onSuccess, onFailure },
-      );
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation ChangePasswordComponentChangePasswordMutation($input: ChangePasswordInput!) {
+            changePassword(input: $input) {
+              success
+            }
+          }
+        `,
+        variables: {
+          input: {
+            reset_password_token: token,
+            password,
+            password_confirmation: passwordConfirmation,
+            current_password: currentPassword,
+            id,
+          },
+        },
+        onCompleted: ({ response, error }) => {
+          if (error) {
+            return onFailure(error);
+          }
+          return onSuccess(response);
+        },
+        onError: onFailure,
+      });
     }
     e.preventDefault();
-  }
+  };
 
-  render() {
-    const { show_current_password } = this.props;
+  const classes = useStyles();
 
-    return (
-      <div className="user-password-change__password-input">
-        <div style={{ color: 'red', textAlign: 'center' }}>
-          {this.state.errorMsg}
-        </div>
-        {show_current_password === true ? (
+  return (
+    <div className="user-password-change__password-input">
+      <Message message={errorMsg} />
+      {showCurrentPassword === true ? (
+        <TextField
+          className="user-password-change__password-input-field"
+          id="password-change-password-input-current"
+          type="password"
+          onChange={(e) => { handleChangeCurrentPassword(e); }}
+          fullWidth
+          label={
+            <FormattedMessage
+              id="passwordChange.currentPassword"
+              defaultMessage="Current password"
+            />
+          }
+        />
+      ) : null}
+      <TextField
+        className="user-password-change__password-input-field"
+        id="password-change-password-input"
+        type="password"
+        onChange={(e) => { handleChangePassword(e); }}
+        fullWidth
+        label={
           <FormattedMessage
-            id="passwordChange.currentPassword"
-            defaultMessage="Current password"
-          >
-            {label => (
-              <TextField
-                className="user-password-change__password-input-field"
-                id="password-change-password-input-current"
-                type="password"
-                placeholder={label /* TODO why not label={label}? */}
-                onChange={this.handleChangeCurrentPassword.bind(this)}
-              />
-            )}
-          </FormattedMessage>
-        ) : null}
-        <br />
-        <FormattedMessage
-          id="passwordChange.newPassword"
-          defaultMessage="New password (minimum {min} characters)"
-          values={{ min: passwordLength.min }}
-        >
-          {label => (
-            <TextField
-              className="user-password-change__password-input-field"
-              id="password-change-password-input"
-              type="password"
-              placeholder={label /* TODO why not label={label}? */}
-              onChange={this.handleChangePassword.bind(this)}
-            />
-          )}
-        </FormattedMessage>
-        <br />
-        <FormattedMessage id="passwordChange.confirmPassword" defaultMessage="Confirm password">
-          {label => (
-            <TextField
-              className="user-password-change__password-input-field"
-              id="password-change-password-input-confirm"
-              type="password"
-              placeholder={label /* TODO why not label={label}? */}
-              onChange={this.handleChangePasswordConfirm.bind(this)}
-            />
-          )}
-        </FormattedMessage>
-        <br />
+            id="passwordChange.newPassword"
+            defaultMessage="New password (minimum {min} characters)"
+            values={{ min: passwordLength.min }}
+          />
+        }
+      />
+      <TextField
+        className="user-password-change__password-input-field"
+        id="password-change-password-input-confirm"
+        type="password"
+        onChange={(e) => { handleChangePasswordConfirm(e); }}
+        fullWidth
+        label={
+          <FormattedMessage
+            id="passwordChange.confirmPassword"
+            defaultMessage="Confirm password"
+          />
+        }
+      />
+      <Typography component="div" align="center">
         <Button
           variant="contained"
-          className="user-password-change__submit-button"
-          onClick={this.handleSubmit.bind(this)}
+          className={['user-password-change__submit-button', classes.marginTop].join(' ')}
+          onClick={(e) => { handleSubmit(e); }}
           color="primary"
-          disabled={this.state.submitDisabled}
+          disabled={submitDisabled}
         >
           <FormattedMessage id="passwordChange.changePassword" defaultMessage="Change password" />
         </Button>
-      </div>
-    );
-  }
+      </Typography>
+    </div>
+  );
 }
 
 export default ChangePasswordComponent;

@@ -7,8 +7,6 @@ import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import styled from 'styled-components';
 import Message from './Message';
 import UserTosForm from './UserTosForm';
 import { login, request } from '../redux/actions';
@@ -18,25 +16,10 @@ import { getErrorObjects } from '../helpers';
 import CheckError from '../CheckError';
 import {
   units,
-  mediaQuery,
-  title1,
   black54,
+  StyledSubHeader,
+  StyledCard,
 } from '../styles/js/shared';
-
-const StyledSubHeader = styled.h2`
-  font: ${title1};
-  font-weight: 600;
-  color: ${black54};
-  text-align: center;
-  margin-top: ${units(2)};
-`;
-
-const StyledCard = styled(Card)`
-  padding: ${units(11)} ${units(15)} ${units(3)} !important;
-  ${mediaQuery.handheld`
-    padding: ${units(8)} ${units(4)} ${units(3)} !important;
-  `}
-`;
 
 const styles = {
   logo: {

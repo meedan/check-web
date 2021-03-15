@@ -2,6 +2,7 @@ import styled, { css, keyframes } from 'styled-components';
 import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
 import Checkbox from '@material-ui/core/Checkbox';
+import Card from '@material-ui/core/Card';
 import { stripUnit, rgba } from 'polished';
 
 // Styles for overriding material UI
@@ -386,6 +387,21 @@ export const HeaderTitle = styled.h3`
   `}
   ${mediaQuery.handheld`
      max-width: 18vw;
+  `}
+`;
+
+export const StyledSubHeader = styled.h2`
+  font: ${title1};
+  font-weight: 600;
+  color: ${black54};
+  text-align: center;
+  margin-top: ${units(2)};
+`;
+
+export const StyledCard = styled(Card)`
+  padding: ${units(11)} ${units(15)} ${units(3)} !important;
+  ${mediaQuery.handheld`
+    padding: ${units(8)} ${units(4)} ${units(3)} !important;
   `}
 `;
 

@@ -497,7 +497,7 @@ class UserSecurity extends Component {
             <CardContent>
               <ChangePasswordComponent
                 type="update-password"
-                show_current_password={can_enable_otp}
+                showCurrentPassword={can_enable_otp}
                 user={this.props.user}
               />
             </CardContent>
