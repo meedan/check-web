@@ -75,7 +75,7 @@ function UserConfirmPage({ params }) {
               />) : null
             }
           </StyledSubHeader>
-          <Typography component="div" paragraph>
+          <Typography component="div" align="center" paragraph>
             { params.confirmType === 'confirmed' ?
               (<FormattedMessage
                 id="userConfirmed.confrimMessage"
