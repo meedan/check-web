@@ -25,7 +25,7 @@ before_install:
 - d=configurator/check/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
 before_script:
 - docker-compose build
-- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- docker-compose -f docker-compose.yml -f docker-test.yml up
 - until curl --silent -I -f --fail http://localhost:3000 ; do printf .; sleep 1; done
 - until curl --silent -I -f --fail http://localhost:3333 ; do printf .; sleep 1; done
 - docker-compose exec web npm install
