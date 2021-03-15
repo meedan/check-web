@@ -22,7 +22,7 @@ before_install:
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
 - d=configurator/check/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
 # config files
-- d=configurator/check/travis/check-web/; for f in $(find $d -type f); do cp "$f" "check-web/${f/$d/}"; done
+- d=configurator/check/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
 before_script:
 - docker-compose build
 - docker-compose -f docker-compose.yml -f docker-test.yml up -d
