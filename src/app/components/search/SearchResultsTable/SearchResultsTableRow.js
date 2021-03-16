@@ -14,8 +14,9 @@ const swallowClick = (ev) => {
 
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
-    cursor: dbid ? 'pointer' : 'auto',
+    cursor: dbid ? 'pointer' : 'wait',
     background: isRead ? opaqueBlack03 : 'transparent',
+    textDecoration: 'none',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {
@@ -62,7 +63,7 @@ export default function SearchResultsTableRow({
       hover={!!dbid} // only allow hover when clickable
     >
       <TableCell padding="checkbox" onClick={swallowClick}>
-        <Checkbox checked={checked} onChange={handleChangeChecked} />
+        { !projectMedia.is_secondary ? <Checkbox checked={checked} onChange={handleChangeChecked} /> : null }
       </TableCell>
       {columnDefs.map(({ cellComponent: Cell, field, type }) => (
         <Cell
@@ -85,7 +86,8 @@ SearchResultsTableRow.propTypes = {
   }).isRequired).isRequired,
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number, // or null/0
-    is_read: PropTypes.bool,
+    is_read: PropTypes.bool, // or null
+    is_secondary: PropTypes.bool, // or null
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
   checked: PropTypes.bool.isRequired,

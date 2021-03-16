@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, createFragmentContainer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import IconButton from '@material-ui/core/IconButton';
 import { FormattedMessage } from 'react-intl';
@@ -26,7 +26,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         <Row>
-          <IconButton component={Link} to={listUrl} className="project-header__back-button">
+          <IconButton onClick={() => browserHistory.push(listUrl)} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
           <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>

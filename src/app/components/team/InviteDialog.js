@@ -76,6 +76,7 @@ const InviteDialog = ({
                     id
                     status
                     role
+                    permissions
                     user {
                       id
                       dbid

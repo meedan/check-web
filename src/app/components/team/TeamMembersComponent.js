@@ -31,6 +31,19 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(0.5),
     borderRadius: '5px',
   },
+  mainCell: {
+    maxWidth: theme.spacing(60),
+    overflow: 'hidden',
+  },
+  dateCell: {
+    minWidth: theme.spacing(18),
+    whiteSpace: 'nowrap',
+  },
+  textEllipsis: {
+    maxWidth: theme.spacing(40),
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+  },
 }));
 
 const TeamMembersComponent = ({
@@ -61,7 +74,7 @@ const TeamMembersComponent = ({
     team.team_users.edges;
 
   return (
-    <ContentColumn>
+    <ContentColumn large>
       <SettingsHeader
         title={
           <FormattedMessage
@@ -97,7 +110,7 @@ const TeamMembersComponent = ({
           <Table>
             <TableHead>
               <TableRow>
-                <TableCell>
+                <TableCell className={classes.mainCell}>
                   <FormattedMessage
                     id="teamMembers.tableHeaderName"
                     defaultMessage="Name"
@@ -115,7 +128,7 @@ const TeamMembersComponent = ({
                     )}
                   </FormattedMessage>
                 </TableCell>
-                <TableCell>
+                <TableCell className={classes.dateCell}>
                   <FormattedMessage
                     id="teamMembers.tableHeaderLastActive"
                     defaultMessage="Last active"
@@ -156,7 +169,7 @@ const TeamMembersComponent = ({
             <TableBody>
               { sortedMembers.filter(tu => !tu.node.user.is_bot).map(tu => (
                 <TableRow key={tu.node.id} className="team-members__user-row">
-                  <TableCell>
+                  <TableCell className={classes.mainCell}>
                     <StyledTwoColumns>
                       <StyledSmallColumn>
                         <Avatar alt={tu.node.user.name} src={tu.node.user.profile_image} />
@@ -164,7 +177,12 @@ const TeamMembersComponent = ({
                       <StyledBigColumn>
                         { tu.node.status === 'invited' ? (
                           <React.Fragment>
-                            <div>{tu.node.user.email}</div>
+                            <div
+                              title={tu.node.user.email}
+                              className={classes.textEllipsis}
+                            >
+                              {tu.node.user.email}
+                            </div>
                             <Box mt={0.5}>
                               <span className={classes.pending}>
                                 <FormattedMessage
@@ -177,14 +195,19 @@ const TeamMembersComponent = ({
                           </React.Fragment>
                         ) : (
                           <React.Fragment>
-                            <div>{tu.node.user.name}</div>
-                            <div>{tu.node.user.email}</div>
+                            <div className={classes.textEllipsis}>{tu.node.user.name}</div>
+                            <div
+                              title={tu.node.user.email}
+                              className={classes.textEllipsis}
+                            >
+                              {tu.node.user.email}
+                            </div>
                           </React.Fragment>
                         )}
                       </StyledBigColumn>
                     </StyledTwoColumns>
                   </TableCell>
-                  <TableCell>
+                  <TableCell className={classes.dateCell}>
                     { tu.node.user.last_active_at ?
                       <TimeBefore date={new Date(tu.node.user.last_active_at * 1000)} />
                       : '-'

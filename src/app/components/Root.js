@@ -9,9 +9,7 @@ import Home from './Home';
 import RootLocale from './RootLocale';
 import NotFound from './NotFound';
 import AccessDenied from './AccessDenied';
-import UserAlreadyConfirmed from './UserAlreadyConfirmed';
-import UserConfirmed from './UserConfirmed';
-import UserUnconfirmed from './UserUnconfirmed';
+import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
 import User from './source/User';
@@ -61,9 +59,7 @@ class Root extends Component {
             <Router history={browserHistory} onUpdate={Root.logPageView}>
               <Route path="/" component={Home}>
                 <IndexRoute component={Team} />
-                <Route path="check/user/already-confirmed" component={UserAlreadyConfirmed} public />
-                <Route path="check/user/confirmed" component={UserConfirmed} public />
-                <Route path="check/user/unconfirmed" component={UserUnconfirmed} public />
+                <Route path="check/user/confirm/:confirmType" component={UserConfirmPage} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
                 <Route path="check/forbidden" component={AccessDenied} public />
