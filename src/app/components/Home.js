@@ -190,11 +190,13 @@ class HomeComponent extends Component {
   }
 
   loginCallback() {
-    if (this.state.path !== '/check/user/password-change' &&
-      this.state.path !== '/check/user/confirmed') {
-      window.location.assign(this.state.path);
-    } else {
+    if (
+      this.state.path === '/check/user/password-change' ||
+      /^\/check\/user\/confirm/.test(this.state.path)
+    ) {
       window.location.assign('/');
+    } else {
+      window.location.assign(this.state.path);
     }
     this.setState({ error: false, path: null });
   }
