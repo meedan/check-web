@@ -129,7 +129,11 @@ class Login extends React.Component {
     const successCallback = () => {
       this.setState({ message: null });
       this.props.loginCallback();
-      browserHistory.push('/');
+      if (window.location.pathname === '/') {
+        window.location.reload();
+      } else {
+        browserHistory.push('/');
+      }
     };
 
     request('post', 'users/sign_in', failureCallback, successCallback, params);
