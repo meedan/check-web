@@ -14,9 +14,7 @@ const useStyles = makeStyles({
     display: 'flex',
     minWidth: units(45),
     maxWidth: units(110),
-    '&:hover': {
-      textDecoration: 'none',
-    },
+    textDecoration: 'none',
   },
   thumbnail: {
     display: 'block',

@@ -14,8 +14,9 @@ const swallowClick = (ev) => {
 
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
-    cursor: dbid ? 'pointer' : 'auto',
+    cursor: dbid ? 'pointer' : 'wait',
     background: isRead ? opaqueBlack03 : 'transparent',
+    textDecoration: 'none',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {

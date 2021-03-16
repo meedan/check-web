@@ -21,6 +21,7 @@ import {
   Row,
   body1,
   units,
+  opaqueBlack54,
 } from '../styles/js/shared';
 
 const useStylesBigEmptySpaceInSidebar = makeStyles({
@@ -119,6 +120,12 @@ class DrawerNavigationComponent extends Component {
       }
     };
 
+    // FIXME: Replace with current practices of styling. Actually, should we? Questions...
+    const linkStyle = {
+      color: opaqueBlack54,
+      textDecoration: 'none',
+    };
+
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
         <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
@@ -128,7 +135,7 @@ class DrawerNavigationComponent extends Component {
             <DrawerProjects team={team.slug} />
             {currentUserIsMember ? (
               <div>
-                <Link to={`/${team.slug}/unconfirmed`} className="project-list__link-unconfirmed">
+                <Link style={linkStyle} to={`/${team.slug}/unconfirmed`} className="project-list__link-unconfirmed">
                   <MenuItem className="project-list__item-unconfirmed">
                     <ListItemIcon>
                       <ErrorIcon />
@@ -145,7 +152,7 @@ class DrawerNavigationComponent extends Component {
                     />
                   </MenuItem>
                 </Link>
-                <Link to={`/${team.slug}/trash`} className="project-list__link-trash">
+                <Link style={linkStyle} to={`/${team.slug}/trash`} className="project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
                     <ListItemIcon>
                       <DeleteIcon />
