@@ -14,6 +14,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import CreateProject from '../project/CreateProject';
 import TeamRoute from '../../relay/TeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
+import { opaqueBlack54 } from '../../styles/js/shared';
 
 const Styles = theme => ({
   root: {
@@ -36,6 +37,11 @@ const useProjectLinkStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     whiteSpace: 'nowrap',
+    textDecoration: 'none',
+    '&:hover': {
+      color: opaqueBlack54,
+      textDecoration: 'underline',
+    },
   },
 
   title: {
@@ -44,11 +50,13 @@ const useProjectLinkStyles = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     paddingRight: theme.spacing(1),
+    color: opaqueBlack54,
   },
 
   count: {
     display: 'block',
     flex: '0 0 auto',
+    color: opaqueBlack54,
   },
 }));
 

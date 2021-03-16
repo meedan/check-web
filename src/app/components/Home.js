@@ -256,7 +256,7 @@ class HomeComponent extends Component {
       );
     }
 
-    const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
+    const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
 
     return (
       <React.Fragment>
@@ -275,7 +275,7 @@ class HomeComponent extends Component {
           <BrowserSupport />
           <UserTos user={user} />
           <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            {showDrawer ? (
+            {!isMediaPage && loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}

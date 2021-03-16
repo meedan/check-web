@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import { Link, browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -21,11 +21,12 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
   },
-  logoAndName: {
+  link: {
     flex: '1 1 auto',
     overflow: 'hidden', // shrink when team name is too long
     display: 'flex',
     alignItems: 'center',
+    textDecoration: 'none',
   },
   logo: {
     flex: '0 0 auto',
@@ -36,14 +37,14 @@ const useStyles = makeStyles(theme => ({
     font: subheading1,
     fontWeight: 500,
     color: black87,
+    '&:hover': {
+      textDecoration: 'underline',
+    },
   },
   settings: {
     flex: '0 0 auto',
   },
 }));
-
-const LinkWithRef = React.forwardRef((props, ref) => <Link {...props} innerRef={ref} />);
-LinkWithRef.displayName = 'LinkWithRef';
 
 const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
   const classes = useStyles();
@@ -59,7 +60,7 @@ const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
   return (
     <div className={classes.root}>
       <Link
-        className={`team-header__drawer-team-link ${classes.logoAndName}`}
+        className={`team-header__drawer-team-link ${classes.link}`}
         to={`/${team.slug}/`}
       >
         <TeamAvatar className={classes.logo} size={units(5.5)} team={team} />
@@ -74,8 +75,7 @@ const DrawerHeader = ({ team, loggedIn, currentUserIsMember }) => {
         >
           <IconButton
             className={`team-menu__team-settings-button ${classes.settings}`}
-            component={LinkWithRef}
-            to={`/${team.slug}/settings`}
+            onClick={() => browserHistory.push(`/${team.slug}/settings`)}
             edge="end"
           >
             <SettingsIcon />
