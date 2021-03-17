@@ -18,7 +18,12 @@ import { getErrorMessage, getErrorObjects } from '../../helpers';
 import { withSetFlashMessage } from '../FlashMessage';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
-import { units, opaqueBlack10, StyledPasswordChange } from '../../styles/js/shared';
+import {
+  ContentColumn,
+  StyledCard,
+  units,
+  opaqueBlack10,
+} from '../../styles/js/shared';
 
 const messages = defineMessages({
   passwordInput: {
@@ -492,8 +497,8 @@ class UserSecurity extends Component {
         <h2 style={style}>
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
         </h2>
-        <StyledPasswordChange>
-          <Card style={style} className="user-password-change__card">
+        <ContentColumn center className="user-password-reset__component">
+          <StyledCard>
             <CardContent>
               <ChangePasswordComponent
                 type="update-password"
@@ -501,8 +506,8 @@ class UserSecurity extends Component {
                 user={this.props.user}
               />
             </CardContent>
-          </Card>
-        </StyledPasswordChange>
+          </StyledCard>
+        </ContentColumn>
       </div>
     );
   }

@@ -189,48 +189,6 @@ export const avatarSize = units(5);
 export const avatarSizeSmall = units(4);
 export const avatarSizeExtraSmall = units(3);
 
-export const StyledPasswordChange = styled.div`
-  .user-password-change__card {
-    margin: ${units(9)} auto auto;
-    max-width: ${columnWidthMedium};
-    text-align: center;
-  }
-
-  .user-password-change__confirm-card {
-    margin: ${units(10)} auto auto;
-    max-width: ${columnWidthMedium};
-  }
-
-  .user-password-change__password-input-field {
-    margin-top: ${units(1)};
-    text-align: start;
-    width: ${units(50)} !important;
-  }
-
-  .user-password-change__logo {
-    display: block;
-    margin: ${units(7)} auto 0;
-  }
-
-  .user-password-change__title {
-    color: ${black54};
-    display: block;
-    margin: ${units(1)} auto;
-    font: ${title1};
-    font-weight: 600;
-    text-align: center;
-  }
-
-  .user-password-change__submit-button {
-    margin-bottom: ${units(6)};
-    margin-top: ${units(3)};
-  }
-
-  .user-password-change__actions {
-    text-align: end;
-  }
-`;
-
 export const MuiTheme = {
   palette: {
     type: 'light',

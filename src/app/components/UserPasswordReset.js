@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
-import { FormattedMessage } from 'react-intl';
+import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -10,8 +10,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
+import CheckAgreeTerms from './CheckAgreeTerms';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
@@ -26,12 +28,13 @@ const useStyles = makeStyles({
     margin: '0 auto',
     display: 'block',
   },
-  marginTop: {
-    marginTop: `${units(9)}`,
+  bestViewed: {
+    marginTop: `${units(2)}`,
+    textAlign: 'center',
   },
 });
 
-function UserPasswordReset() {
+const UserPasswordReset = (props) => {
   const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
   const [submitDisabled, setSubmitDisabled] = React.useState(true);
   const [expiry, setExpiry] = React.useState(0);
@@ -110,8 +113,8 @@ function UserPasswordReset() {
     e.preventDefault();
   };
 
-  // const previousErrorMsg = this.props.location.state && this.props.location.state.errorMsg;
-  const previousErrorMsg = false;
+  const previousErrorMsg = props.location.state && props.location.state.errorMsg;
+
   const pagetitleMessage = (
     <FormattedMessage
       id="passwordReset.title"
@@ -124,8 +127,11 @@ function UserPasswordReset() {
 
   return (
     <PageTitle>
+      <p className={classes.bestViewed}>
+        <FormattedHTMLMessage {...globalStrings.bestViewed} />
+      </p>
       <ContentColumn center className="user-password-reset__component">
-        <StyledCard className={classes.marginTop}>
+        <StyledCard>
           <FormattedGlobalMessage messageKey="appNameHuman">
             {appNameHuman => (
               <img
@@ -188,10 +194,13 @@ function UserPasswordReset() {
             </CardActions>,
           ]}
         </StyledCard>
+        <Box my={4}>
+          <CheckAgreeTerms />
+        </Box>
       </ContentColumn>
     </PageTitle>
   );
-}
+};
 
 UserPasswordReset.contextTypes = {
   store: PropTypes.object,

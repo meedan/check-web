@@ -53,6 +53,10 @@ const globalStrings = defineMessages({
     id: 'global.update',
     defaultMessage: 'Update',
   },
+  bestViewed: {
+    id: 'global.bestViewed',
+    defaultMessage: 'Best viewed with <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.',
+  },
 });
 
 export default globalStrings;
