@@ -5,12 +5,12 @@ import { browserHistory } from 'react-router';
 import { FormattedHTMLMessage, FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
@@ -146,7 +146,6 @@ const UserPasswordReset = (props) => {
             { pagetitleMessage }
           </StyledSubHeader>
           { showConfirmDialog ? [
-            <CardHeader key="usr-1" title={<FormattedMessage id="passwordReset.confirmedTitle" defaultMessage="Password reset sent" />} />,
             <CardContent key="usr-2">
               <FormattedMessage
                 id="passwordReset.confirmedText"
@@ -158,15 +157,16 @@ const UserPasswordReset = (props) => {
                 }}
               />
             </CardContent>,
-            <CardActions key="usr-3" className="user-password-reset__actions">
+            <Typography component="div" align="center">
               <Button
                 color="primary"
+                variant="contained"
                 disabled={submitDisabled}
                 onClick={handleSignIn}
               >
                 <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />
               </Button>
-            </CardActions>,
+            </Typography>,
           ] : [
             <CardContent key="usr-2">
               { previousErrorMsg ? <p>{previousErrorMsg}</p> : null }
