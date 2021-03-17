@@ -146,7 +146,7 @@ class CheckContext {
 
     const userCurrentTeam = userData.current_team;
     if (!userCurrentTeam) {
-      redirectToPreviousPageOr('/check/teams/find');
+      redirectToPreviousPageOr('/check/me/workspaces');
       return;
     }
     let projectNode = null;
