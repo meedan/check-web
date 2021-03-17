@@ -49,6 +49,7 @@ COPY . ${DEPLOYDIR}/latest
 #    && sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/${DEPLOY_BRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json 
 RUN ls -l ${DEPLOYDIR}/latest/relay.json
+RUN cat ${DEPLOYDIR}/latest/relay.json
 RUN sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 # Create default configs for build to succeed
