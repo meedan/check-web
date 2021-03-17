@@ -65,7 +65,7 @@ describe('<DeleteStatusDialog />', () => {
     />);
     expect(wrapper.html()).toMatch('There are 5 items with the status');
     expect(wrapper.html()).toMatch('In Progress');
-    expect(wrapper.html()).toMatch('3 items are currently published');
+    expect(wrapper.html()).toMatch('There are 3 items currently published');
     expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
   });
 
