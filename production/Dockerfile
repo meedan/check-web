@@ -45,9 +45,8 @@ COPY package-lock.json ${DEPLOYDIR}/latest
 RUN npm install
 COPY . ${DEPLOYDIR}/latest
 
-# get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
+# get the relay.json file from github.com/meedan/check-api that corresponds to the DEPLOY_BRANCH passed to build.
 RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/${DEPLOYBRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json 
-RUN ls -l ${DEPLOYDIR}/latest/relay.json
 RUN sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 # Create default configs for build to succeed
