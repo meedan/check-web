@@ -13,7 +13,7 @@
   },
   {
     "id": "deleteStatusDialog.itemsPublishedMessage",
-    "defaultMessage": "{publishedCount, plural, one {One item is currently published} other {# items are currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+    "defaultMessage": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
   },
   {
     "id": "statusesComponent.moveItemsAndDelete",

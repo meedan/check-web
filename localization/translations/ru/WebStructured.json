@@ -83,15 +83,6 @@
 	"ProjectBlankState.createMedia": {
 		"string": "Добавить ссылку или текст"
 	},
-	"RoleSelect.admin": {
-		"string": "Admin"
-	},
-	"RoleSelect.collaborator": {
-		"string": "Collaborator"
-	},
-	"RoleSelect.editor": {
-		"string": "Редактор"
-	},
 	"TeamInviteMembers.emailInput": {
 		"string": "Email"
 	},
@@ -151,6 +142,14 @@
 	},
 	"TeamMembershipRequestsListItem.deny": {
 		"string": "Отклонить"
+	},
+	"UserConfirmPage.alreadyConfirmed": {
+		"string": "Account Already Confirmed",
+		"developer_comment": "Message for accounts already confirmed"
+	},
+	"UserConfirmPage.confirmed": {
+		"string": "Account Confirmed",
+		"developer_comment": "Message for confirmed accounts"
 	},
 	"UserConnectedAccount.addAnother": {
 		"string": "Привязать ещё один аккаунт"
@@ -644,6 +643,21 @@
 		"string": "Сохранить",
 		"developer_comment": "Save media source label"
 	},
+	"changeUserRole.changingTo": {
+		"string": "You will be changing {userLabel}'s role to {newRole}."
+	},
+	"changeUserRole.dialogTitle": {
+		"string": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+	},
+	"changeUserRole.helpCenter": {
+		"string": "Help Center"
+	},
+	"changeUserRole.learnMore": {
+		"string": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+	},
+	"changeUserRole.proceedLabel": {
+		"string": "Change role to {newRole}"
+	},
 	"claimReview.claim": {
 		"string": "Высказывание:"
 	},
@@ -653,8 +667,14 @@
 	"claimReview.reviewedBy": {
 		"string": "Факт-чек ({reviewer}):"
 	},
-	"confirmProceed.confirm": {
-		"string": "Подтвердить и продолжить"
+	"confirmProceedDialog.confirmationText": {
+		"string": "Type \"{text}\" to permanently delete this language and all content in this language."
+	},
+	"confirmProceedDialog.confirmationTextPlaceholder": {
+		"string": "Type here"
+	},
+	"confirmProceedDialog.continue": {
+		"string": "Continue"
 	},
 	"createMedia.addItem": {
 		"string": "Добавить материал"
@@ -692,24 +712,8 @@
 	"createMedia.video": {
 		"string": "Видео"
 	},
-	"createMediaSource.confirm": {
-		"string": "Do you want to use the existing sources for this media?",
-		"developer_comment": "Confirm message to relate media to an existing source"
-	},
 	"createMediaSource.createSource": {
 		"string": "Create source"
-	},
-	"createMediaSource.existDescription": {
-		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
-		"developer_comment": "Text to inform user about existing source"
-	},
-	"createMediaSource.existingSource": {
-		"string": "Existing source URL",
-		"developer_comment": "Dialog title for existing source with same primary url"
-	},
-	"createMediaSource.useExistingSource": {
-		"string": "Use existing source",
-		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"createProject.addProject": {
 		"string": "Создать список"
@@ -834,17 +838,14 @@
 	"datetimeTaskResponse.timeIs": {
 		"string": "Посмотреть на time.is"
 	},
-	"deleteStatusDialog.alternatively": {
-		"string": "Вы также можете поменять статус каждого материала вручную."
-	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Один из этих материалов уже опубликован.} few {Уже опубликованных материалов с данным статусом: #.} many {Уже опубликованных материалов с данным статусом: #.} other {Уже опубликованных материалов с данным статусом: #.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+		"string": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Переместить материалы в"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Статус {statusLabel} находится в использовании (материалов: {itemsCount, plural, one {1} other {#}}). Чтобы удалить данный статус, нужно изменить статус всех этих материалов на другой."
+		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "Чтобы удалить этот статус, необходимо снять его с существующих материалов ({itemsCount, plural, one {1} other {#}})"
@@ -1029,6 +1030,53 @@
 	"imageUploadRespondTask.cancelTask": {
 		"string": "Отменить"
 	},
+	"inviteDialog.invitationSent": {
+		"string": "Invites sent!",
+		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.submit": {
+		"string": "Invite",
+		"developer_comment": "Button to submit invitations."
+	},
+	"inviteDialog.textInputLabel": {
+		"string": "Emails, comma separated",
+		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
+	},
+	"inviteDialog.title": {
+		"string": "Invite workspace members",
+		"developer_comment": "Invite workspace members dialog title"
+	},
+	"inviteNewAccount.createAccount": {
+		"string": "Create Account",
+		"developer_comment": "Submit button for create a new account"
+	},
+	"inviteNewAccount.createMessage": {
+		"string": "You need to create an account for <b>{email}</b>",
+		"developer_comment": "Inform your to create a new account for signup"
+	},
+	"inviteNewAccount.invitedBy": {
+		"string": "{name} has invited you to join the workspace"
+	},
+	"inviteNewAccountemailLabel": {
+		"string": "Email",
+		"developer_comment": "Label for user email field"
+	},
+	"inviteNewAccountnameLabel": {
+		"string": "Name",
+		"developer_comment": "Label for user name field"
+	},
+	"inviteNewAccountpasswordConfirmLabel": {
+		"string": "Password confirmation",
+		"developer_comment": "Label for password confirmation field"
+	},
+	"inviteNewAccountpasswordLabel": {
+		"string": "Password (minimum 8 characters)",
+		"developer_comment": "Label for password field"
+	},
+	"inviteNewAccounttosMissing": {
+		"string": "You must agree to the Terms of Service and Privacy Policy",
+		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
+	},
 	"joinTeamComponent.alreadyRequested": {
 		"string": "Вы уже отправили заявку на участие в {team}."
 	},
@@ -1061,6 +1109,9 @@
 	},
 	"languageListItem.default": {
 		"string": "{language} (по умолчанию)"
+	},
+	"languageListItem.deleteConfirmationText": {
+		"string": "Delete {language} and all content"
 	},
 	"languagePickerDialog.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -1138,22 +1189,22 @@
 		"string": "Загрузить ещё"
 	},
 	"login.alreadyHasAccount": {
-		"string": "У меня уже есть аккаунт"
+		"string": "Already have an account ?"
 	},
 	"login.contactSupport": {
 		"string": "Если вам нужна помощь, напишите на <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
-	"login.disclaimer": {
-		"string": "(мы не пишем ничего без разрешения)"
-	},
 	"login.emailLabel": {
 		"string": "Email"
 	},
+	"login.emailLogin": {
+		"string": "Or, sign in with your email"
+	},
 	"login.nameLabel": {
-		"string": "Имя"
+		"string": "Name"
 	},
 	"login.newAccount": {
-		"string": "Создать аккаунт"
+		"string": "Don't have an account ?"
 	},
 	"login.otpAttemptLabel": {
 		"string": "Токен двухфакторной аутентификации"
@@ -1167,17 +1218,22 @@
 	"login.passwordLabel": {
 		"string": "Пароль (минимум 8 символов)"
 	},
-	"login.profilePicture": {
-		"string": "Аватар"
-	},
 	"login.registerTitle": {
 		"string": "Регистрация"
 	},
 	"login.signIn": {
 		"string": "ВОЙТИ"
 	},
+	"login.signInLink": {
+		"string": "Sign in",
+		"developer_comment": "allow user to sing in with exisintg account"
+	},
 	"login.signUp": {
-		"string": "Зарегистрироваться"
+		"string": "Sign Up"
+	},
+	"login.signUpLink": {
+		"string": "Sign up",
+		"developer_comment": "allow user to create a new source"
 	},
 	"login.title": {
 		"string": "Вход"
@@ -1185,14 +1241,14 @@
 	"login.tosMissing": {
 		"string": "Вы должны согласиться с Условиями использования и Политикой приватности"
 	},
-	"login.with": {
-		"string": "Войти через {provider}"
+	"login.withGoogle": {
+		"string": "Sign in with Google"
 	},
 	"loginContainer.agreeTerms": {
 		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
 	},
 	"loginEmail.lostPassword": {
-		"string": "Восстановить пароль"
+		"string": "Forgot your password?"
 	},
 	"media.byAttribution": {
 		"string": "{typeLabel} ({attribution})"
@@ -1354,19 +1410,19 @@
 		"string": "Снять с публикации и обновить содержимое"
 	},
 	"mediaAnalysis.confirmButtonLabel2": {
-		"string": "Заменить содержимое"
+		"string": "Overwrite report content"
 	},
 	"mediaAnalysis.confirmText1": {
 		"string": "Чтобы отредактировать отчёт, его необходимо снять с публикации. Вы хотите снять отчёт с публикации и обновить его содержимое?"
 	},
 	"mediaAnalysis.confirmText2": {
-		"string": "Вы хотите обновить содержимое отчёта? Все правки будут потеряны."
+		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
 	},
 	"mediaAnalysis.confirmTitle1": {
 		"string": "Отчёт уже опубликован"
 	},
 	"mediaAnalysis.confirmTitle2": {
-		"string": "Заменить существующий отчёт?"
+		"string": "Overwrite existing report content?"
 	},
 	"mediaAnalysis.content": {
 		"string": "Контент"
@@ -1787,11 +1843,17 @@
 	"projectActions.assignOrUnassign": {
 		"string": "Assign list to…"
 	},
-	"projectActions.confirmDeleteProject": {
-		"string": "Вы уверены, что хотите удалить этот список? Все материалы из удаляемого списка всё ещё будут доступны в общем списке «Все материалы»."
+	"projectActions.deleteProjectBody": {
+		"string": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+	},
+	"projectActions.deleteProjectTitle": {
+		"string": "Are you sure you want to delete this list?"
 	},
 	"projectActions.destroy": {
 		"string": "Удалить"
+	},
+	"projectActions.proceedLabel": {
+		"string": "Delete list"
 	},
 	"projectActions.projectDeleted": {
 		"string": "Список успешно удалён."
@@ -1819,6 +1881,18 @@
 	},
 	"projectAssignment.title": {
 		"string": "Назначить список соавторам"
+	},
+	"projectEdit.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEdit.confirmProceedBody": {
+		"string": "Changes made to this list will be reflected for everyone in this workspace."
+	},
+	"projectEdit.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEdit.confirmProceedTitle": {
+		"string": "Are you sure you want to change this list?"
 	},
 	"projectEdit.descriptionField": {
 		"string": "Описание"
@@ -1874,44 +1948,65 @@
 	"reportDesigner.canPublish": {
 		"string": "Опубликовать отчёт"
 	},
-	"reportDesigner.cannotPublish": {
-		"string": "Заполните по меньшей мере текст отчёта или изображение, чтобы опубликовать отчёт. Убедитесь, что создали отчёт для основного языка ({language})."
+	"reportDesigner.cancelLeaveButtonLabel": {
+		"string": "Go back"
+	},
+	"reportDesigner.cancelPause": {
+		"string": "Go back"
+	},
+	"reportDesigner.cancelPublish": {
+		"string": "Go back"
 	},
 	"reportDesigner.cantPublish": {
-		"string": "Выберите как минимум текст или изображение, чтобы опубликовать отчёт"
+		"string": "Go back to editing"
+	},
+	"reportDesigner.cantPublishTitle": {
+		"string": "Your report is not ready to be published"
 	},
 	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Выйти"
+		"string": "Leave without saving"
 	},
 	"reportDesigner.confirmLeaveText": {
-		"string": "Если вы закроете окно, вы потеряете все изменения."
+		"string": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
 	},
 	"reportDesigner.confirmLeaveTitle": {
-		"string": "Выйти без сохранения?"
+		"string": "Do you want to leave without saving?"
+	},
+	"reportDesigner.confirmPause": {
+		"string": "Pause report"
 	},
 	"reportDesigner.confirmPauseText": {
-		"string": "Этот отчёт не будет отправляться пользователям, пока он не будет снова одобрен для публикации. Вы хотите продолжить?"
+		"string": "This will stop the report from being sent out to users until it is published again."
 	},
 	"reportDesigner.confirmPauseTitle": {
-		"string": "Подтвердите приостановку отчёта"
+		"string": "Do you want to pause the report?"
+	},
+	"reportDesigner.confirmPublish": {
+		"string": "Publish report"
+	},
+	"reportDesigner.confirmPublishSameStatus": {
+		"string": "Publish changes"
+	},
+	"reportDesigner.confirmPublishStatusChange": {
+		"string": "Publish changes and send correction"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {Этот отчёт будет отправлен пользователю, который запросил этот материал.} few {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.} many {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.} other {Этот отчёт будет отправлен всем пользователям (#), которые запросили этот материал.}}"
+		"string": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать ваш отчёт, пока он остаётся опубликованным."
+		"string": "All future users who request this item will receive this version of the report while it remains published."
 	},
 	"reportDesigner.confirmPublishTitle": {
 		"string": "Вы готовы опубликовать отчёт?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Скорректированный отчёт будет отправлен пользователю, который запрашивал предыдущую версию} few {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию} many {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию} other {Скорректированный отчёт будет отправлен пользователям (#), которые запрашивали предыдущую версию}}"
+		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
-		"string": "Вы готовы опубликовать корректировку?"
+		"string": "Ready to publish your changes?"
 	},
 	"reportDesigner.confirmRepublishText": {
 		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
@@ -1933,6 +2028,9 @@
 	},
 	"reportDesigner.copyShareUrl": {
 		"string": "Публичный URL"
+	},
+	"reportDesigner.correction": {
+		"string": "correction"
 	},
 	"reportDesigner.darkOverlay": {
 		"string": "Затемнение"
@@ -1987,7 +2085,7 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Также отправить отредактированную версию пользователю, который запрашивал предыдущую версию отчёта} few {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта} many {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта} other {Также отправить отредактированную версию пользователям (#), которые запрашивали предыдущую версию отчёта}}"
+		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
 	"reportDesigner.save": {
 		"string": "Сохранить"
@@ -2025,6 +2123,18 @@
 	"reportDesigner.warning": {
 		"string": "Внимание! Распространение URL или кода для вставки сделает материал публичным. Вы уверены?"
 	},
+	"reportDesignerToolbar.cantPublishDefault": {
+		"string": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
+	},
+	"reportDesignerToolbar.cantPublishInitial": {
+		"string": "You must have at least Report Text or Visual Card selected in order to publish the report."
+	},
+	"reportDesignerToolbar.cantPublishStatus": {
+		"string": "Your item still has the default status {status} and must be changed to a different status before it can be published."
+	},
+	"reportDesignerToolbar.cantPublishText": {
+		"string": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+	},
 	"reportStatusCell.paused": {
 		"string": "Приостановлен"
 	},
@@ -2033,6 +2143,15 @@
 	},
 	"reportStatusCell.unpublished": {
 		"string": "Неопубликован"
+	},
+	"roleSelect.admin": {
+		"string": "Admin"
+	},
+	"roleSelect.collaborator": {
+		"string": "Collaborator"
+	},
+	"roleSelect.editor": {
+		"string": "Editor"
 	},
 	"rule.copyOf": {
 		"string": "Копия правила «{ruleName}»"
@@ -2064,11 +2183,14 @@
 	"ruleToolbar.delete": {
 		"string": "Удалить"
 	},
+	"ruleToolbar.deleteConfirmationLabel": {
+		"string": "Delete rule"
+	},
 	"ruleToolbar.deleteConfirmationText": {
-		"string": "Вы уверены, что хотите удалить это правило?"
+		"string": "You cannot undo this action."
 	},
 	"ruleToolbar.deleteConfirmationTitle": {
-		"string": "Удалить правило?"
+		"string": "Are you sure you want to delete this rule?"
 	},
 	"ruleToolbar.duplicate": {
 		"string": "Дублировать"
@@ -2100,11 +2222,14 @@
 	"rulesTableToolbar.delete": {
 		"string": "Удалить"
 	},
+	"rulesTableToolbar.deleteConfirmationLabel": {
+		"string": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
+	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "Вы уверены, что хотите удалить эти правила?"
+		"string": "{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
-		"string": "Удалить выбранные правила?"
+		"string": "Do you want to delete the selected rules?"
 	},
 	"rulesTableToolbar.save": {
 		"string": "Сохранить"
@@ -2220,6 +2345,9 @@
 	"search.userHeading": {
 		"string": "Автор"
 	},
+	"searchKeywordConfig.accounts": {
+		"string": "Source"
+	},
 	"searchKeywordConfig.allMetadataAnswers": {
 		"string": "Все ответы на метаданные"
 	},
@@ -2274,6 +2402,30 @@
 	},
 	"setProjectMediaSource.saveButton": {
 		"string": "Сохранить"
+	},
+	"setSourceDialog.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"setSourceDialog.existDescription": {
+		"string": "An the source <b>{name}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"setSourceDialog.existDescriptionWithUrl": {
+		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"setSourceDialog.existingSource": {
+		"string": "Existing source name",
+		"developer_comment": "Dialog title for existing source with same name"
+	},
+	"setSourceDialog.existingSourceWithUrl": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"setSourceDialog.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"settingsHeader.save": {
 		"string": "Сохранить"
@@ -2644,23 +2796,38 @@
 		"string": "Add name",
 		"developer_comment": "label for create source name"
 	},
-	"statusListItem.confirmDefaultBody": {
-		"string": "{language} станет языком по умолчанию: бот будет отвечать на нём, если пользователь напишет на языке, которого нет в списке поддерживаемых. "
+	"statusListItem.confirmDefaultBody1": {
+		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
+	},
+	"statusListItem.confirmDefaultBody2": {
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
-		"string": "Задать по умолчанию"
+		"string": "Set {language} as default"
 	},
 	"statusListItem.confirmDefaultTitle": {
-		"string": "Сделать языком по умолчанию?"
+		"string": "Do you want to set the default language to {language}?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "{language} язык перестанет поддерживаться при отправке контента, вместо него будет использоваться язык по умолчанию."
+		"string": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
 	},
 	"statusListItem.confirmDeleteBody2": {
-		"string": "Это также относится к боту Tipline, статусам и отчётам."
+		"string": "Users will receive this content in the default language {language} instead."
+	},
+	"statusListItem.confirmDeleteDefaultBody": {
+		"string": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+	},
+	"statusListItem.confirmDeleteDefaultLabel": {
+		"string": "Go back and change"
+	},
+	"statusListItem.confirmDeleteDefaultTitle": {
+		"string": "You must first change the default language"
+	},
+	"statusListItem.confirmDeleteLabel": {
+		"string": "Delete language and all content"
 	},
 	"statusListItem.confirmDeleteTitle": {
-		"string": "Удалить язык?"
+		"string": "Do you want to delete this content language?"
 	},
 	"statusListItem.default": {
 		"string": "{statusLabel} (по умолчанию)"
@@ -2670,6 +2837,18 @@
 	},
 	"statusListItem.noDescription": {
 		"string": "Без описания"
+	},
+	"statusListItem.translationNeededBody1": {
+		"string": "Not all statuses are currently translated into {language}!"
+	},
+	"statusListItem.translationNeededBody2": {
+		"string": "Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
+	},
+	"statusListItem.translationNeededLabel": {
+		"string": "Go back and translate statuses"
+	},
+	"statusListItem.translationNeededTitle": {
+		"string": "You need to translate all statuses into {language}"
 	},
 	"statusesComponent.blurbSecondary": {
 		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
@@ -2924,6 +3103,28 @@
 	"teamComponent.website": {
 		"string": "Сайт"
 	},
+	"teamDetails.description": {
+		"string": "Description"
+	},
+	"teamDetails.duplicateWorkspace": {
+		"string": "Duplicate workspace"
+	},
+	"teamDetails.savedSuccessfully": {
+		"string": "Workspace details saved successfully"
+	},
+	"teamDetails.subtitle": {
+		"string": "Add details to your Check workspace"
+	},
+	"teamDetails.title": {
+		"string": "Workspace details",
+		"developer_comment": "Title for workspace details page"
+	},
+	"teamDetails.update": {
+		"string": "Update"
+	},
+	"teamDetails.workspaceName": {
+		"string": "Workspace name"
+	},
 	"teamInfo.duplicateTeam": {
 		"string": "Дублировать"
 	},
@@ -3028,23 +3229,66 @@
 	"teamListsItem.show": {
 		"string": "Показать"
 	},
-	"teamMembersComponent.editButton": {
-		"string": "Редактировать"
+	"teamMemberActions.copiedToClipboard": {
+		"string": "The email has been copied to the clipboard"
 	},
-	"teamMembersComponent.editDoneButton": {
-		"string": "Ок"
+	"teamMemberActions.invitationCanceled": {
+		"string": "Invite canceled!",
+		"developer_comment": "Sucess notification confirming that invitation was canceled"
+	},
+	"teamMemberActions.invitationSent": {
+		"string": "Invite sent!",
+		"developer_comment": "Sucess notification confirming that invitation was sent to user"
+	},
+	"teamMemberActions.userRemoved": {
+		"string": "The user has been removed"
+	},
+	"teamMembers.copyEmail": {
+		"string": "Copy email"
+	},
+	"teamMembers.invite": {
+		"string": "Invite"
+	},
+	"teamMembers.pending": {
+		"string": "Pending",
+		"developer_comment": "Label for invite pending acceptance"
+	},
+	"teamMembers.remove": {
+		"string": "Remove"
+	},
+	"teamMembers.removeDialogBody": {
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+	},
+	"teamMembers.removeDialogTitle": {
+		"string": "Remove {userLabel}"
+	},
+	"teamMembers.resendInvite": {
+		"string": "Resend invite"
+	},
+	"teamMembers.subtitle": {
+		"string": "Invite and manage users"
+	},
+	"teamMembers.tableHeaderLastActive": {
+		"string": "Last active",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.tableHeaderName": {
+		"string": "Name",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.tableHeaderRole": {
+		"string": "Workspace permission",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.title": {
+		"string": "Members",
+		"developer_comment": "Title for workspace members management page"
+	},
+	"teamMembers.tooltip": {
+		"string": "Manage member"
 	},
 	"teamMembersComponent.inviteLink": {
 		"string": "Чтобы пригласить коллег в группу {teamName}, отправьте им эту ссылку:"
-	},
-	"teamMembersComponent.mainHeading": {
-		"string": "Участники"
-	},
-	"teamMembersComponent.pendingInvitations": {
-		"string": "Отправленные приглашения"
-	},
-	"teamMembershipRequests.requestsToJoin": {
-		"string": "Заявки на вступление"
 	},
 	"teamMenu.teamSettings": {
 		"string": "Настройки проекта"
@@ -3140,6 +3384,9 @@
 	"teamSettings.Tags": {
 		"string": "Тэги"
 	},
+	"teamSettings.details": {
+		"string": "Workspace details"
+	},
 	"teamSettings.integrations": {
 		"string": "Интеграция"
 	},
@@ -3148,6 +3395,9 @@
 	},
 	"teamSettings.lists": {
 		"string": "Списки"
+	},
+	"teamSettings.members": {
+		"string": "Members"
 	},
 	"teamSettings.metadata": {
 		"string": "Метаданные"
@@ -3170,8 +3420,14 @@
 	"teamTags.addTag": {
 		"string": "Добавить тэг"
 	},
+	"teamTags.confirmDeleteBody": {
+		"string": "{numTags, plural, one {The tag \"{tag}\" will be removed from one item.} other {The tag \"{tag}\" will be removed from # items.}}"
+	},
+	"teamTags.confirmDeleteLabel": {
+		"string": "Delete tag"
+	},
 	"teamTags.confirmDeleteTitle": {
-		"string": "Вы уверены, что хотите удалить этот тэг?"
+		"string": "Do you want to delete this tag?"
 	},
 	"teamTags.counter": {
 		"string": "{total, plural, =0 {Нет тэгов} one {1 тэг (скрыто фильтрами: {hidden})} other {Тэгов: # (скрыто фильтрами: {hidden})}}"
@@ -3234,7 +3490,7 @@
 		"string": "Да"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
+		"string": "The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Вы уверены, что хотите удалить эти метаданные?"
@@ -3243,13 +3499,10 @@
 		"string": "Вы уверены, что хотите удалить вопрос?"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Оставить отвеченные вопросы и их текущие ответы."
+		"string": "Keep this task with answers in items where the task has been completed."
 	},
 	"teamTasks.confirmEditBlurb": {
 		"string": "Это действие изменит все связанные вопросы кроме тех, на которые уже есть ответы."
-	},
-	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Вы уверены, что хотите отредактировать эти метаданные?"
@@ -3258,13 +3511,16 @@
 		"string": "Вы уверены, что хотите отредактировать этот вопрос?"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Оставить отвеченные вопросы и их текущие заголовки и описания."
+		"string": "Do not alter tasks that have been completed, and keep their existing answers."
 	},
 	"teamTasks.continue": {
-		"string": "Продолжить"
+		"string": "Edit task"
 	},
 	"teamTasks.delete": {
 		"string": "Удалить"
+	},
+	"teamTasks.deleteTask": {
+		"string": "Delete task"
 	},
 	"teamTasks.edit": {
 		"string": "Редактировать"
@@ -3283,9 +3539,6 @@
 	},
 	"teamTasks.metadataSubtitle": {
 		"string": "Add custom metadata fields to items."
-	},
-	"teamTasks.processMessage": {
-		"string": "Вы уверены, что хотите продолжить?"
 	},
 	"teamTasks.projFilter": {
 		"string": "Показать вопросы в"
@@ -3363,7 +3616,7 @@
 		"string": "Очистить корзину"
 	},
 	"trash.emptyTrashConfirmationText": {
-		"string": "Вы уверены? Это действие навсегда удалит {itemsCount, plural, one {1 материал} other {материалы (#)}} and {notesCount, plural, one {1 заметку} other {заметки (#)}}."
+		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
 	},
 	"trash.title": {
 		"string": "Корзина"
@@ -3434,11 +3687,33 @@
 	"userComponents.security": {
 		"string": "Безопасность"
 	},
+	"userConfirmPage.agreeTerms": {
+		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+	},
+	"userConfirmPage.contactSupport": {
+		"string": "For support contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"userConfirmPage.signIn": {
+		"string": "Sign In",
+		"developer_comment": "Sign in button"
+	},
+	"userConfirmed.alreadyConfrimMessage": {
+		"string": "Oops! Your account is already confirmed. Please sign in to get started.",
+		"developer_comment": "Message for user who already confirmed before"
+	},
+	"userConfirmed.confrimMessage": {
+		"string": "Thanks for confirming your email address! Now you can sign in.",
+		"developer_comment": "Message for confirmed user"
+	},
 	"userConfirmed.heading": {
 		"string": "Аккаунт подтвержден"
 	},
 	"userConfirmed.message": {
 		"string": "Спасибо, что подтвердили email. Теперь можете войти."
+	},
+	"userConfirmed.unConfrimMessage": {
+		"string": "Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists.",
+		"developer_comment": "Message for unconfirmed users"
 	},
 	"userEmail.emailInputHint": {
 		"string": "email@example.com"
