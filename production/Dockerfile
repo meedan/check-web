@@ -20,7 +20,8 @@ ENV DEPLOYUSER=checkdeploy \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
     LANGUAGE=C.UTF-8 \
-    AWS_DEFAULT_REGION=eu-west-1
+    AWS_DEFAULT_REGION=eu-west-1 \
+    DEPLOY_BRANCH=${DEPLOY_BRANCH}
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
@@ -44,7 +45,7 @@ RUN npm install
 COPY . ${DEPLOYDIR}/latest
 
 # get the relay.json file from github.com/meedan/check-api that corresponds to the current local git branch (defaults to 'develop')
-RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/$DEPLOY_BRANCH/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
+RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/${DEPLOY_BRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json \
     && sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 # Create default configs for build to succeed
