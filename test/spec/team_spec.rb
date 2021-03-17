@@ -1,7 +1,9 @@
 shared_examples 'team' do
   it 'should be able to find a team after signing up', bin3: true do
     api_register_and_login_with_email
-    @driver.navigate.to @config['self_url']
+    @driver.navigate.to("#{@config['self_url']}/check/me/workspaces")
+    wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
+    @driver.navigate.to "#{@config['self_url']}/check/teams/find"
     wait_for_selector('.find-team-card')
     expect(@driver.page_source.include?('Find an existing workspace')).to be(true)
 

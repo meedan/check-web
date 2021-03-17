@@ -21,6 +21,7 @@ import {
   mediaQuery,
   title1,
   black54,
+  checkBlue,
 } from '../styles/js/shared';
 
 const StyledSubHeader = styled.h2`
@@ -234,7 +235,12 @@ class Login extends React.Component {
                 </Grid>
               </Grid> : null
             }
-            <Message message={this.state.message} />
+            <Message
+              message={this.state.message}
+              style={this.state.registrationSubmitted ? {
+                backgroundColor: checkBlue,
+              } : null}
+            />
             {this.state.registrationSubmitted ?
               null :
               <div>
