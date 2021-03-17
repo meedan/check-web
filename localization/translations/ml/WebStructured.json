@@ -1062,7 +1062,7 @@
 		"developer_comment": "Label for user email field"
 	},
 	"inviteNewAccountnameLabel": {
-		"string": "Name",
+		"string": "പേര്",
 		"developer_comment": "Label for user name field"
 	},
 	"inviteNewAccountpasswordConfirmLabel": {
@@ -1201,7 +1201,7 @@
 		"string": "Or, sign in with your email"
 	},
 	"login.nameLabel": {
-		"string": "Name"
+		"string": "പേര്"
 	},
 	"login.newAccount": {
 		"string": "Don't have an account ?"
@@ -2346,7 +2346,7 @@
 		"string": "Created by"
 	},
 	"searchKeywordConfig.accounts": {
-		"string": "Source"
+		"string": "ഉറവിടം"
 	},
 	"searchKeywordConfig.allMetadataAnswers": {
 		"string": "All metadata answers"
@@ -3250,7 +3250,7 @@
 		"string": "Invite"
 	},
 	"teamMembers.pending": {
-		"string": "Pending",
+		"string": "തീര്‍ന്നിട്ടില്ല",
 		"developer_comment": "Label for invite pending acceptance"
 	},
 	"teamMembers.remove": {
@@ -3273,7 +3273,7 @@
 		"developer_comment": "Column header in members table."
 	},
 	"teamMembers.tableHeaderName": {
-		"string": "Name",
+		"string": "പേര്",
 		"developer_comment": "Column header in members table."
 	},
 	"teamMembers.tableHeaderRole": {

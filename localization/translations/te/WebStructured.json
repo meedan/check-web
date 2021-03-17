@@ -3250,7 +3250,7 @@
 		"string": "Invite"
 	},
 	"teamMembers.pending": {
-		"string": "Pending",
+		"string": "పెండింగ్ లొ ఉన్నది ",
 		"developer_comment": "Label for invite pending acceptance"
 	},
 	"teamMembers.remove": {
