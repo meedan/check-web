@@ -83,15 +83,6 @@
 	"ProjectBlankState.createMedia": {
 		"string": "يرجى إضافة رابط أو نص"
 	},
-	"RoleSelect.admin": {
-		"string": "Admin"
-	},
-	"RoleSelect.collaborator": {
-		"string": "Collaborator"
-	},
-	"RoleSelect.editor": {
-		"string": "محرر(ة)"
-	},
 	"TeamInviteMembers.emailInput": {
 		"string": "البريد الإلكتروني"
 	},
@@ -151,6 +142,14 @@
 	},
 	"TeamMembershipRequestsListItem.deny": {
 		"string": "رفض"
+	},
+	"UserConfirmPage.alreadyConfirmed": {
+		"string": "تم تأكيد الحساب سابقاً",
+		"developer_comment": "Message for accounts already confirmed"
+	},
+	"UserConfirmPage.confirmed": {
+		"string": "تم تأكيد الحساب",
+		"developer_comment": "Message for confirmed accounts"
 	},
 	"UserConnectedAccount.addAnother": {
 		"string": "إضافة حساب آخر"
@@ -644,6 +643,21 @@
 		"string": "حفظ",
 		"developer_comment": "Save media source label"
 	},
+	"changeUserRole.changingTo": {
+		"string": "You will be changing {userLabel}'s role to {newRole}."
+	},
+	"changeUserRole.dialogTitle": {
+		"string": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+	},
+	"changeUserRole.helpCenter": {
+		"string": "Help Center"
+	},
+	"changeUserRole.learnMore": {
+		"string": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+	},
+	"changeUserRole.proceedLabel": {
+		"string": "Change role to {newRole}"
+	},
 	"claimReview.claim": {
 		"string": "الإدعاء : "
 	},
@@ -653,8 +667,14 @@
 	"claimReview.reviewedBy": {
 		"string": "تمّ التحقق بواسطة {reviewer} : "
 	},
-	"confirmProceed.confirm": {
-		"string": "تأكيد ومتابعة"
+	"confirmProceedDialog.confirmationText": {
+		"string": "Type \"{text}\" to permanently delete this language and all content in this language."
+	},
+	"confirmProceedDialog.confirmationTextPlaceholder": {
+		"string": "أكتب هنا"
+	},
+	"confirmProceedDialog.continue": {
+		"string": "متابعة"
 	},
 	"createMedia.addItem": {
 		"string": "إضافة عنصر"
@@ -692,24 +712,8 @@
 	"createMedia.video": {
 		"string": "فيديو"
 	},
-	"createMediaSource.confirm": {
-		"string": "Do you want to use the existing sources for this media?",
-		"developer_comment": "Confirm message to relate media to an existing source"
-	},
 	"createMediaSource.createSource": {
 		"string": "Create source"
-	},
-	"createMediaSource.existDescription": {
-		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
-		"developer_comment": "Text to inform user about existing source"
-	},
-	"createMediaSource.existingSource": {
-		"string": "Existing source URL",
-		"developer_comment": "Dialog title for existing source with same primary url"
-	},
-	"createMediaSource.useExistingSource": {
-		"string": "Use existing source",
-		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"createProject.addProject": {
 		"string": "إنشاء قائمة"
@@ -834,17 +838,14 @@
 	"datetimeTaskResponse.timeIs": {
 		"string": "عرض هذا النطاق الزمني على time.is"
 	},
-	"deleteStatusDialog.alternatively": {
-		"string": "أو بالمقابل، بإمكانكم تغيير حالة كل عنصر على حدة."
-	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, zero {لا يوجد عنصر منشور حاليا.} one {أحد هذه العنصر منشور حاليا,} two {عنصران منشوران من هذه العنصار حاليا.} few {# عناصر منشورة من هذه العناصر حاليا.} many {# عنصر منشور من هذه العناصر حاليا.} other {# من هذه العناصر منشور حاليا.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+		"string": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "نقل العناصر إلى"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "هناك {itemsCount, plural, one {عنصر واحد} other {# عنصر}} في الحالة {statusLabel} بحاجة إلى تغيير إلى حالات أخرى قبل حذف هذه الحالة."
+		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}"
@@ -1029,6 +1030,53 @@
 	"imageUploadRespondTask.cancelTask": {
 		"string": "إلغاء"
 	},
+	"inviteDialog.invitationSent": {
+		"string": "Invites sent!",
+		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.submit": {
+		"string": "إرسال دعوة",
+		"developer_comment": "Button to submit invitations."
+	},
+	"inviteDialog.textInputLabel": {
+		"string": "Emails, comma separated",
+		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
+	},
+	"inviteDialog.title": {
+		"string": "Invite workspace members",
+		"developer_comment": "Invite workspace members dialog title"
+	},
+	"inviteNewAccount.createAccount": {
+		"string": "Create Account",
+		"developer_comment": "Submit button for create a new account"
+	},
+	"inviteNewAccount.createMessage": {
+		"string": "You need to create an account for <b>{email}</b>",
+		"developer_comment": "Inform your to create a new account for signup"
+	},
+	"inviteNewAccount.invitedBy": {
+		"string": "{name} has invited you to join the workspace"
+	},
+	"inviteNewAccountemailLabel": {
+		"string": "البريد الإلكتروني",
+		"developer_comment": "Label for user email field"
+	},
+	"inviteNewAccountnameLabel": {
+		"string": "الاسم",
+		"developer_comment": "Label for user name field"
+	},
+	"inviteNewAccountpasswordConfirmLabel": {
+		"string": "تأكيد كلمة السر",
+		"developer_comment": "Label for password confirmation field"
+	},
+	"inviteNewAccountpasswordLabel": {
+		"string": "كلمة السر (الحد الأدنى ٨ حروف)",
+		"developer_comment": "Label for password field"
+	},
+	"inviteNewAccounttosMissing": {
+		"string": "يجب أن توافقين على شروط الاستخدام وسياسة الخصوصية",
+		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
+	},
 	"joinTeamComponent.alreadyRequested": {
 		"string": "لقد طلبت الانضمام إلى {team} مسبقاً."
 	},
@@ -1061,6 +1109,9 @@
 	},
 	"languageListItem.default": {
 		"string": "{language} (الافتراضية)"
+	},
+	"languageListItem.deleteConfirmationText": {
+		"string": "Delete {language} and all content"
 	},
 	"languagePickerDialog.optionLabel": {
 		"string": "{languageName} ({languageCode})"
@@ -1138,22 +1189,22 @@
 		"string": "تحميل أكثر"
 	},
 	"login.alreadyHasAccount": {
-		"string": "لدي حساب بالفعل"
+		"string": "Already have an account ?"
 	},
 	"login.contactSupport": {
 		"string": "للدعم تواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
-	"login.disclaimer": {
-		"string": "لن يتم أي نشر بدون موافقتك"
-	},
 	"login.emailLabel": {
-		"string": "بريدك الإلكتروني"
+		"string": "البريد الإلكتروني"
+	},
+	"login.emailLogin": {
+		"string": "Or, sign in with your email"
 	},
 	"login.nameLabel": {
-		"string": "اسمك"
+		"string": "الاسم"
 	},
 	"login.newAccount": {
-		"string": "تسجيل حساب جديد بالبريد الإلكتروني"
+		"string": "Don't have an account ?"
 	},
 	"login.otpAttemptLabel": {
 		"string": "رمز المصادقة الثنائية"
@@ -1167,17 +1218,22 @@
 	"login.passwordLabel": {
 		"string": "كلمة السر (الحد الأدنى ٨ حروف)"
 	},
-	"login.profilePicture": {
-		"string": "صورة الملف الشخصي"
-	},
 	"login.registerTitle": {
 		"string": "تسجيل حساب جديد"
 	},
 	"login.signIn": {
 		"string": "تسجيل الدخول"
 	},
+	"login.signInLink": {
+		"string": "تسجيل الدخول",
+		"developer_comment": "allow user to sing in with exisintg account"
+	},
 	"login.signUp": {
-		"string": "تسجيل حساب جديد"
+		"string": "Sign Up"
+	},
+	"login.signUpLink": {
+		"string": "Sign up",
+		"developer_comment": "allow user to create a new source"
 	},
 	"login.title": {
 		"string": "تسجيل الدخول"
@@ -1185,14 +1241,14 @@
 	"login.tosMissing": {
 		"string": "يجب أن توافقين على شروط الاستخدام وسياسة الخصوصية"
 	},
-	"login.with": {
-		"string": "متابعة استخدام {provider}"
+	"login.withGoogle": {
+		"string": "Sign in with Google"
 	},
 	"loginContainer.agreeTerms": {
 		"string": "بتسجيل الإشتراك أنت توافقين على {tosLink}  و {ppLink} لدى {appName}."
 	},
 	"loginEmail.lostPassword": {
-		"string": "نسيت كلمة السر"
+		"string": "Forgot your password?"
 	},
 	"media.byAttribution": {
 		"string": "{typeLabel} من {attribution}"
@@ -1354,19 +1410,19 @@
 		"string": "إيقاف التقرير وتحديث المحتوى"
 	},
 	"mediaAnalysis.confirmButtonLabel2": {
-		"string": "الكتابة فوق المحتوى"
+		"string": "Overwrite report content"
 	},
 	"mediaAnalysis.confirmText1": {
 		"string": "لا بد من إيقاف التقرير للتمكُّن من تحريره. هل تريدين إيقاف التقرير وتحديثه بالمحتوى الجديد؟"
 	},
 	"mediaAnalysis.confirmText2": {
-		"string": "تحديث التقرير بهذا المحتوى الجديد؟ سيتم فُقدان كل عمليّة تحرير."
+		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
 	},
 	"mediaAnalysis.confirmTitle1": {
 		"string": "التقرير الحالي منشور"
 	},
 	"mediaAnalysis.confirmTitle2": {
-		"string": "الكتابة فوق التقرير الموجود؟"
+		"string": "Overwrite existing report content?"
 	},
 	"mediaAnalysis.content": {
 		"string": "المحتوى"
@@ -1787,11 +1843,17 @@
 	"projectActions.assignOrUnassign": {
 		"string": "Assign list to…"
 	},
-	"projectActions.confirmDeleteProject": {
-		"string": "متأكّدون من حذف هذه القائمة؟ ستظل جميع عناصرها متاحة من خلال قائمة 'كل العناصر'."
+	"projectActions.deleteProjectBody": {
+		"string": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+	},
+	"projectActions.deleteProjectTitle": {
+		"string": "Are you sure you want to delete this list?"
 	},
 	"projectActions.destroy": {
 		"string": "حذف"
+	},
+	"projectActions.proceedLabel": {
+		"string": "حذف القائمة"
 	},
 	"projectActions.projectDeleted": {
 		"string": "تم حذف القائمة بنجاح."
@@ -1819,6 +1881,18 @@
 	},
 	"projectAssignment.title": {
 		"string": "تكليف القائمة لشركاء"
+	},
+	"projectEdit.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEdit.confirmProceedBody": {
+		"string": "Changes made to this list will be reflected for everyone in this workspace."
+	},
+	"projectEdit.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEdit.confirmProceedTitle": {
+		"string": "Are you sure you want to change this list?"
 	},
 	"projectEdit.descriptionField": {
 		"string": "الوصف"
@@ -1874,44 +1948,65 @@
 	"reportDesigner.canPublish": {
 		"string": "نشر التقرير"
 	},
-	"reportDesigner.cannotPublish": {
-		"string": "يرجى تعبئة التقرير بنص أو صورة على الأقل، والتأكد من إنشاء تقرير للغة الرئيسية ({language})."
+	"reportDesigner.cancelLeaveButtonLabel": {
+		"string": "Go back"
+	},
+	"reportDesigner.cancelPause": {
+		"string": "Go back"
+	},
+	"reportDesigner.cancelPublish": {
+		"string": "Go back"
 	},
 	"reportDesigner.cantPublish": {
-		"string": "يرجى اختيار نص أو صورة من التقرير على الأقل  لنشره"
+		"string": "Go back to editing"
+	},
+	"reportDesigner.cantPublishTitle": {
+		"string": "Your report is not ready to be published"
 	},
 	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "مغادرة"
+		"string": "Leave without saving"
 	},
 	"reportDesigner.confirmLeaveText": {
-		"string": "إذا غادرت الآن، ستفقدين تعديلاتك. "
+		"string": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
 	},
 	"reportDesigner.confirmLeaveTitle": {
-		"string": "مغادرة دون حفظ؟"
+		"string": "Do you want to leave without saving?"
+	},
+	"reportDesigner.confirmPause": {
+		"string": "إيقاف التقرير"
 	},
 	"reportDesigner.confirmPauseText": {
-		"string": "لن يتم إرسال هذا التقرير إلى المستخدمين حتى يتم نشره مرّة ثانية. هل تودين المتابعة؟"
+		"string": "This will stop the report from being sent out to users until it is published again."
 	},
 	"reportDesigner.confirmPauseTitle": {
-		"string": "انت على وشك إيقاف التقرير"
+		"string": "Do you want to pause the report?"
+	},
+	"reportDesigner.confirmPublish": {
+		"string": "نشر التقرير"
+	},
+	"reportDesigner.confirmPublishSameStatus": {
+		"string": "Publish changes"
+	},
+	"reportDesigner.confirmPublishStatusChange": {
+		"string": "Publish changes and send correction"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, zero {لا يوجد مستخدم طلب هذا العنصر.} one {انت على وشك إرسال هذا التقرير للمستخدم الذى طلب هذا العنصر.} two {انت على وشك إرسال هذا التقرير للمستخدمين اللذين طلبا هذا العنصر.} few {انت على وشك إرسال هذا التقرير إلى # مستخدمين طلبوا هذا العنصر.} many {انت على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.} other {انت على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.}}"
+		"string": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": " في المستقبل، سيستلم المستخدمين تقريرك طالما هو منشور."
+		"string": "All future users who request this item will receive this version of the report while it remains published."
 	},
 	"reportDesigner.confirmPublishTitle": {
 		"string": "هل التقرير جاهز للنّشر؟ "
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, zero {لن يتم إرسال تصحيحاتك إلى أحد.} one {سيتم إرسال تصحيحاتك إلى المستخدم الذي استلم التقرير السابق.} two {سيتم إرسال تصحيحاتك إلى المستخدمين اللذين استلما التقرير السابق.} few {سيتم إرسال تصحيحاتك إلى # مستخدمين استلموا التقرير السابق.} many {سيتم إرسال تصحيحاتك إلى # مستخدم استلموا التقرير السابق.} other {سيتم إرسال تصحيحاتك إلى # مستخدم سبق وان استلموا التقرير السابق.}}"
+		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
 	"reportDesigner.confirmRepublishResendText2": {
 		"string": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير."
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
-		"string": "هل التصحيحات جاهزة للنّشر؟ "
+		"string": "هل هذه التغييرات جاهزة للنّشر؟ "
 	},
 	"reportDesigner.confirmRepublishText": {
 		"string": "في المستقبل، سيستلم المستخدمين الذين يطلبون هذا العنصر، هذا الإصدار الجديد من التقرير."
@@ -1933,6 +2028,9 @@
 	},
 	"reportDesigner.copyShareUrl": {
 		"string": "نسخ رابط المشاركة"
+	},
+	"reportDesigner.correction": {
+		"string": "correction"
 	},
 	"reportDesigner.darkOverlay": {
 		"string": "غطاء معتم"
@@ -1987,7 +2085,7 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, zero {لا أحد استلم بالفعل الإصدار السابق من التقرير.} one {إرسال التصحيحات أيضا إلى المستخدم الذى استلم بالفعل الإصدار السابق من التقرير.} two {إرسال التصحيحات أيضا إلى المستخدمين اللذين استلما بالفعل الإصدار السابق من التقرير.} few {إرسال التصحيحات أيضا إلى # مستخدمين استلموا بالفعل الإصدار السابق من التقرير.} many {إرسال التصحيحات أيضا إلى # مستخدم استلموا بالفعل الإصدار السابق من التقرير.} other {إرسال التصحيحات كذلك إلى # مستخدم(ة) سبق وإن استلموا الإصدار السابق من هذا التقرير.}}"
+		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
 	"reportDesigner.save": {
 		"string": "حفظ"
@@ -2025,6 +2123,18 @@
 	"reportDesigner.warning": {
 		"string": "تحذير — هذه المشاركة ستكشف معلومات إلى أشخاص خارج مساحة عمل خاصّة. الرجاء توخ الحذر عند المتابعة."
 	},
+	"reportDesignerToolbar.cantPublishDefault": {
+		"string": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
+	},
+	"reportDesignerToolbar.cantPublishInitial": {
+		"string": "You must have at least Report Text or Visual Card selected in order to publish the report."
+	},
+	"reportDesignerToolbar.cantPublishStatus": {
+		"string": "Your item still has the default status {status} and must be changed to a different status before it can be published."
+	},
+	"reportDesignerToolbar.cantPublishText": {
+		"string": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+	},
 	"reportStatusCell.paused": {
 		"string": "موقوف"
 	},
@@ -2033,6 +2143,15 @@
 	},
 	"reportStatusCell.unpublished": {
 		"string": "غير منشور"
+	},
+	"roleSelect.admin": {
+		"string": "Admin"
+	},
+	"roleSelect.collaborator": {
+		"string": "Collaborator"
+	},
+	"roleSelect.editor": {
+		"string": "محرّر(ة)"
 	},
 	"rule.copyOf": {
 		"string": "نسخة من {ruleName}"
@@ -2064,11 +2183,14 @@
 	"ruleToolbar.delete": {
 		"string": "حذف"
 	},
+	"ruleToolbar.deleteConfirmationLabel": {
+		"string": "Delete rule"
+	},
 	"ruleToolbar.deleteConfirmationText": {
-		"string": "هل أنت متأكد(ة) من حذف هذه القاعدة؟"
+		"string": "You cannot undo this action."
 	},
 	"ruleToolbar.deleteConfirmationTitle": {
-		"string": "حذف القاعدة؟"
+		"string": "هل أنت متأكد(ة) من حذف هذه القاعدة؟"
 	},
 	"ruleToolbar.duplicate": {
 		"string": "تكرار"
@@ -2100,11 +2222,14 @@
 	"rulesTableToolbar.delete": {
 		"string": "حذف"
 	},
+	"rulesTableToolbar.deleteConfirmationLabel": {
+		"string": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
+	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "متأكد(ة) من حذف هذه القواعد؟"
+		"string": "{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
-		"string": "حذف القواعد المحددة؟"
+		"string": "Do you want to delete the selected rules?"
 	},
 	"rulesTableToolbar.save": {
 		"string": "حفظ"
@@ -2220,6 +2345,9 @@
 	"search.userHeading": {
 		"string": "تم الإنشاء بواسطة"
 	},
+	"searchKeywordConfig.accounts": {
+		"string": "المصدر"
+	},
 	"searchKeywordConfig.allMetadataAnswers": {
 		"string": "جميع إجابات البيانات الوصفيّة"
 	},
@@ -2274,6 +2402,30 @@
 	},
 	"setProjectMediaSource.saveButton": {
 		"string": "حفظ"
+	},
+	"setSourceDialog.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"setSourceDialog.existDescription": {
+		"string": "An the source <b>{name}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"setSourceDialog.existDescriptionWithUrl": {
+		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"setSourceDialog.existingSource": {
+		"string": "Existing source name",
+		"developer_comment": "Dialog title for existing source with same name"
+	},
+	"setSourceDialog.existingSourceWithUrl": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"setSourceDialog.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"settingsHeader.save": {
 		"string": "حفظ"
@@ -2644,23 +2796,38 @@
 		"string": "Add name",
 		"developer_comment": "label for create source name"
 	},
-	"statusListItem.confirmDefaultBody": {
-		"string": "ستصبح {language} هي اللغة الافتراضية للرّد على المستخدمين الذين يتفاعلون مع البوت بأي لغات أخرى غير تلك الموجودة في هذه القائمة."
+	"statusListItem.confirmDefaultBody1": {
+		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
+	},
+	"statusListItem.confirmDefaultBody2": {
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
-		"string": "التحديد  كافتراضيّة"
+		"string": "Set {language} as default"
 	},
 	"statusListItem.confirmDefaultTitle": {
-		"string": "تعيينها كلغة افتراضية؟"
+		"string": "Do you want to set the default language to {language}?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "سيتم إيقاف إرسال المحتويات باللغة {language} ، واستخدام اللغة الإفتراضية بدلاً منها."
+		"string": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
 	},
 	"statusListItem.confirmDeleteBody2": {
-		"string": "يشمل هذا المحتويات في بوت الخط السّاخن (Tipline) والحالات والتقرير."
+		"string": "Users will receive this content in the default language {language} instead."
+	},
+	"statusListItem.confirmDeleteDefaultBody": {
+		"string": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+	},
+	"statusListItem.confirmDeleteDefaultLabel": {
+		"string": "Go back and change"
+	},
+	"statusListItem.confirmDeleteDefaultTitle": {
+		"string": "You must first change the default language"
+	},
+	"statusListItem.confirmDeleteLabel": {
+		"string": "Delete language and all content"
 	},
 	"statusListItem.confirmDeleteTitle": {
-		"string": "حذف هذه اللغة؟"
+		"string": "Do you want to delete this content language?"
 	},
 	"statusListItem.default": {
 		"string": "{statusLabel} (الإفتراضية)"
@@ -2670,6 +2837,18 @@
 	},
 	"statusListItem.noDescription": {
 		"string": "لا يوجد وصف"
+	},
+	"statusListItem.translationNeededBody1": {
+		"string": "Not all statuses are currently translated into {language}!"
+	},
+	"statusListItem.translationNeededBody2": {
+		"string": "Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
+	},
+	"statusListItem.translationNeededLabel": {
+		"string": "Go back and translate statuses"
+	},
+	"statusListItem.translationNeededTitle": {
+		"string": "You need to translate all statuses into {language}"
 	},
 	"statusesComponent.blurbSecondary": {
 		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
@@ -2924,6 +3103,28 @@
 	"teamComponent.website": {
 		"string": "الموقع الإلكتروني"
 	},
+	"teamDetails.description": {
+		"string": "الوصف"
+	},
+	"teamDetails.duplicateWorkspace": {
+		"string": "تكرار مساحة العمل"
+	},
+	"teamDetails.savedSuccessfully": {
+		"string": "Workspace details saved successfully"
+	},
+	"teamDetails.subtitle": {
+		"string": "Add details to your Check workspace"
+	},
+	"teamDetails.title": {
+		"string": "Workspace details",
+		"developer_comment": "Title for workspace details page"
+	},
+	"teamDetails.update": {
+		"string": "تحديث"
+	},
+	"teamDetails.workspaceName": {
+		"string": "Workspace name"
+	},
 	"teamInfo.duplicateTeam": {
 		"string": "تكرار"
 	},
@@ -3028,23 +3229,66 @@
 	"teamListsItem.show": {
 		"string": "عرض"
 	},
-	"teamMembersComponent.editButton": {
-		"string": "تحرير"
+	"teamMemberActions.copiedToClipboard": {
+		"string": "The email has been copied to the clipboard"
 	},
-	"teamMembersComponent.editDoneButton": {
-		"string": "إتمام"
+	"teamMemberActions.invitationCanceled": {
+		"string": "Invite canceled!",
+		"developer_comment": "Sucess notification confirming that invitation was canceled"
+	},
+	"teamMemberActions.invitationSent": {
+		"string": "Invite sent!",
+		"developer_comment": "Sucess notification confirming that invitation was sent to user"
+	},
+	"teamMemberActions.userRemoved": {
+		"string": "The user has been removed"
+	},
+	"teamMembers.copyEmail": {
+		"string": "Copy email"
+	},
+	"teamMembers.invite": {
+		"string": "إرسال دعوة"
+	},
+	"teamMembers.pending": {
+		"string": "مُعَلَّق",
+		"developer_comment": "Label for invite pending acceptance"
+	},
+	"teamMembers.remove": {
+		"string": "إزالة"
+	},
+	"teamMembers.removeDialogBody": {
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+	},
+	"teamMembers.removeDialogTitle": {
+		"string": "Remove {userLabel}"
+	},
+	"teamMembers.resendInvite": {
+		"string": "Resend invite"
+	},
+	"teamMembers.subtitle": {
+		"string": "Invite and manage users"
+	},
+	"teamMembers.tableHeaderLastActive": {
+		"string": "Last active",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.tableHeaderName": {
+		"string": "الاسم",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.tableHeaderRole": {
+		"string": "Workspace permission",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.title": {
+		"string": "أعضاء",
+		"developer_comment": "Title for workspace members management page"
+	},
+	"teamMembers.tooltip": {
+		"string": "Manage member"
 	},
 	"teamMembersComponent.inviteLink": {
 		"string": "لدعوة زملائك للانضمام لفريق {teamName} يمكنك إرسال هذا الرابط إليهم:"
-	},
-	"teamMembersComponent.mainHeading": {
-		"string": "أعضاء"
-	},
-	"teamMembersComponent.pendingInvitations": {
-		"string": "الدعوات الحالية"
-	},
-	"teamMembershipRequests.requestsToJoin": {
-		"string": "طلبات الانضمام"
 	},
 	"teamMenu.teamSettings": {
 		"string": "إعدادات مساحة العمل"
@@ -3140,6 +3384,9 @@
 	"teamSettings.Tags": {
 		"string": "الوسوم"
 	},
+	"teamSettings.details": {
+		"string": "Workspace details"
+	},
 	"teamSettings.integrations": {
 		"string": "التكاملات"
 	},
@@ -3148,6 +3395,9 @@
 	},
 	"teamSettings.lists": {
 		"string": "القوائم"
+	},
+	"teamSettings.members": {
+		"string": "أعضاء"
 	},
 	"teamSettings.metadata": {
 		"string": "البيانات الوصفيّة"
@@ -3170,8 +3420,14 @@
 	"teamTags.addTag": {
 		"string": "إضافة الوسم"
 	},
+	"teamTags.confirmDeleteBody": {
+		"string": "{numTags, plural, one {The tag \"{tag}\" will be removed from one item.} other {The tag \"{tag}\" will be removed from # items.}}"
+	},
+	"teamTags.confirmDeleteLabel": {
+		"string": "حذف الوسم"
+	},
 	"teamTags.confirmDeleteTitle": {
-		"string": "هل أنت متأكد(ة)  من حذف هذا الوسم؟"
+		"string": "Do you want to delete this tag?"
 	},
 	"teamTags.counter": {
 		"string": "{total, plural, =0 {لا توجد وسوم} one {وسم واحد ({hidden} مُصفاة)} other {# وسوم ({hidden} مُصفاة)}}"
@@ -3234,7 +3490,7 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "You are about to delete the selected tasks from {itemsNumber, plural, one {# item} other {# items}}. If you proceed, the answers to these tasks will also be deleted."
+		"string": "The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"
@@ -3243,13 +3499,10 @@
 		"string": "هل أنت متأكد(ة) من حذف هذه المهمة؟"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "الإبقاء على المهام المكتملة بإجاباتهم الحالية."
+		"string": "Keep this task with answers in items where the task has been completed."
 	},
 	"teamTasks.confirmEditBlurb": {
 		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل."
-	},
-	"teamTasks.confirmEditLabelOrDescriptionBlurb": {
-		"string": "You are about to edit tasks in {itemsNumber, plural, one {# item} other {# items}}. If you proceed, all those tasks will also be modified."
 	},
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من تحرير هذه البيانات الوصفيّة؟"
@@ -3258,13 +3511,16 @@
 		"string": "هل أنت متأكد(ة) من تحرير هذه المهمة؟"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
-		"string": "الإبقاء على المهام المكتملة باسمائها ووصفها الحاليين."
+		"string": "Do not alter tasks that have been completed, and keep their existing answers."
 	},
 	"teamTasks.continue": {
-		"string": "متابعة"
+		"string": "تحرير المهمة"
 	},
 	"teamTasks.delete": {
 		"string": "حذف"
+	},
+	"teamTasks.deleteTask": {
+		"string": "حذف المهمة"
 	},
 	"teamTasks.edit": {
 		"string": "تحرير"
@@ -3283,9 +3539,6 @@
 	},
 	"teamTasks.metadataSubtitle": {
 		"string": "Add custom metadata fields to items."
-	},
-	"teamTasks.processMessage": {
-		"string": "هل تودّون المتابعة؟"
 	},
 	"teamTasks.projFilter": {
 		"string": "عرض المهام في"
@@ -3363,7 +3616,7 @@
 		"string": "إفراغ سلة المهملات"
 	},
 	"trash.emptyTrashConfirmationText": {
-		"string": "هل أنت متأكد(ة)؟ هذا سيحذف {itemsCount, plural, one {عنصر واحد} other {# عنصر}} و {notesCount, plural, one {تعليق واحد} other {# تعليق}} بشكل نهائي."
+		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
 	},
 	"trash.title": {
 		"string": "سلة المهملات"
@@ -3434,11 +3687,33 @@
 	"userComponents.security": {
 		"string": "الأمان"
 	},
+	"userConfirmPage.agreeTerms": {
+		"string": "بتسجيل الإشتراك أنت توافقين على {tosLink}  و {ppLink} لدى {appName}."
+	},
+	"userConfirmPage.contactSupport": {
+		"string": "للدعم تواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"userConfirmPage.signIn": {
+		"string": "تسجيل الدخول",
+		"developer_comment": "Sign in button"
+	},
+	"userConfirmed.alreadyConfrimMessage": {
+		"string": "Oops! Your account is already confirmed. Please sign in to get started.",
+		"developer_comment": "Message for user who already confirmed before"
+	},
+	"userConfirmed.confrimMessage": {
+		"string": "شكراً لتأكيد عنوان البريد الإلكتروني. يمكنك اﻵن تسجيل الدخول.",
+		"developer_comment": "Message for confirmed user"
+	},
 	"userConfirmed.heading": {
 		"string": "تم تأكيد الحساب"
 	},
 	"userConfirmed.message": {
 		"string": "شكراً لتأكيد عنوان البريد الإلكتروني. يمكنك اﻵن تسجيل الدخول."
+	},
+	"userConfirmed.unConfrimMessage": {
+		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تأكيد حسابك. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة.",
+		"developer_comment": "Message for unconfirmed users"
 	},
 	"userEmail.emailInputHint": {
 		"string": "email@example.com"
