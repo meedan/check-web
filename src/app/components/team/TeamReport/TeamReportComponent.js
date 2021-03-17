@@ -107,7 +107,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
         languages={languages}
         onChange={setCurrentLanguage}
       />
-      <ContentColumn large noCenter>
+      <ContentColumn large>
         <SettingsHeader
           title={
             <FormattedMessage

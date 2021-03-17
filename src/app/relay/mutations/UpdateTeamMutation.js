@@ -16,7 +16,6 @@ class UpdateTeamMutation extends Relay.Mutation {
           name
           id
           description
-          contacts
           avatar
           get_slack_notifications_enabled
           get_slack_webhook
@@ -97,7 +96,6 @@ class UpdateTeamMutation extends Relay.Mutation {
               get_slack_channel,
               get_report,
               get_rules,
-              contacts(first: 1) { edges { node { web, location, phone } } }
             }
           }`,
         ],

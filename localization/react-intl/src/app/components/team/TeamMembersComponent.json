@@ -1,22 +1,35 @@
 [
   {
-    "id": "teamMembersComponent.pendingInvitations",
-    "defaultMessage": "Pending invitations"
-  },
-  {
-    "id": "teamMembershipRequests.requestsToJoin",
-    "defaultMessage": "Requests to join"
-  },
-  {
-    "id": "teamMembersComponent.mainHeading",
+    "id": "teamMembers.title",
+    "description": "Title for workspace members management page",
     "defaultMessage": "Members"
   },
   {
-    "id": "teamMembersComponent.editDoneButton",
-    "defaultMessage": "Done"
+    "id": "teamMembers.subtitle",
+    "defaultMessage": "Invite and manage users"
   },
   {
-    "id": "teamMembersComponent.editButton",
-    "defaultMessage": "Edit"
+    "id": "teamMembers.invite",
+    "defaultMessage": "Invite"
+  },
+  {
+    "id": "teamMembers.tableHeaderName",
+    "description": "Column header in members table.",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "teamMembers.tableHeaderLastActive",
+    "description": "Column header in members table.",
+    "defaultMessage": "Last active"
+  },
+  {
+    "id": "teamMembers.tableHeaderRole",
+    "description": "Column header in members table.",
+    "defaultMessage": "Workspace permission"
+  },
+  {
+    "id": "teamMembers.pending",
+    "description": "Label for invite pending acceptance",
+    "defaultMessage": "Pending"
   }
 ]

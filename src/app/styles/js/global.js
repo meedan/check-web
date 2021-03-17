@@ -1,10 +1,10 @@
 import {
-  opaqueBlack54,
+  checkBlue,
   white,
   body1,
+  black,
   black87,
   title1,
-  opaqueBlack87,
   subheading1,
 } from './shared';
 
@@ -28,7 +28,7 @@ export const layout = `
 
 export const typography = `
   body {
-    color: ${opaqueBlack54};
+    color: ${black};
     font: ${body1};
   }
 
@@ -49,17 +49,14 @@ export const typography = `
   }
 
   a {
-    color: ${opaqueBlack54};
-    text-decoration: none;
+    color: ${checkBlue};
 
     &:hover {
-      color: ${opaqueBlack87};
-      text-decoration: underline;
-      transition: color .4s;
+      color: ${checkBlue};
     }
 
     &:visited {
-      color: ${opaqueBlack54};
+      color: ${checkBlue};
     }
 
     &:not([href]) {

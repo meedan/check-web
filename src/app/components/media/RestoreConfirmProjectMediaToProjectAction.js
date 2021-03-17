@@ -101,7 +101,7 @@ function RestoreConfirmProjectMediaToProjectAction({
       <SelectProjectDialog
         open={isDialogOpen}
         team={team}
-        excludeProjectDbids={projectMedia.project_ids}
+        excludeProjectDbids={[]}
         title={
           <FormattedMessage
             id="mediaActionsBar.dialogRestoreOrConfirmToListTitle"

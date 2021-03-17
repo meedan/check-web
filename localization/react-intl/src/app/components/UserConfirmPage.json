@@ -1,0 +1,52 @@
+[
+  {
+    "id": "browser.support.message",
+    "defaultMessage": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>."
+  },
+  {
+    "id": "UserConfirmPage.confirmed",
+    "description": "Message for confirmed accounts",
+    "defaultMessage": "Account Confirmed"
+  },
+  {
+    "id": "UserConfirmPage.alreadyConfirmed",
+    "description": "Message for accounts already confirmed",
+    "defaultMessage": "Account Already Confirmed"
+  },
+  {
+    "id": "userConfirmed.confrimMessage",
+    "description": "Message for confirmed user",
+    "defaultMessage": "Thanks for confirming your email address! Now you can sign in."
+  },
+  {
+    "id": "userConfirmed.alreadyConfrimMessage",
+    "description": "Message for user who already confirmed before",
+    "defaultMessage": "Oops! Your account is already confirmed. Please sign in to get started."
+  },
+  {
+    "id": "userConfirmed.unConfrimMessage",
+    "description": "Message for unconfirmed users",
+    "defaultMessage": "Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "userConfirmPage.signIn",
+    "description": "Sign in button",
+    "defaultMessage": "Sign In"
+  },
+  {
+    "id": "userConfirmPage.agreeTerms",
+    "defaultMessage": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+  },
+  {
+    "id": "tos.title",
+    "defaultMessage": "Terms of Service"
+  },
+  {
+    "id": "privacy.policy.title",
+    "defaultMessage": "Privacy Policy"
+  },
+  {
+    "id": "userConfirmPage.contactSupport",
+    "defaultMessage": "For support contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+  }
+]

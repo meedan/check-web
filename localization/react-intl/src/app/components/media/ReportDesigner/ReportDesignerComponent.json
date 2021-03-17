@@ -9,14 +9,18 @@
   },
   {
     "id": "reportDesigner.confirmLeaveTitle",
-    "defaultMessage": "Leave without saving?"
+    "defaultMessage": "Do you want to leave without saving?"
   },
   {
     "id": "reportDesigner.confirmLeaveText",
-    "defaultMessage": "If you leave, you will lose your changes."
+    "defaultMessage": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
   },
   {
     "id": "reportDesigner.confirmLeaveButtonLabel",
-    "defaultMessage": "Leave"
+    "defaultMessage": "Leave without saving"
+  },
+  {
+    "id": "reportDesigner.cancelLeaveButtonLabel",
+    "defaultMessage": "Go back"
   }
 ]

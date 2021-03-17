@@ -45,7 +45,7 @@
   },
   {
     "id": "mediaAnalysis.confirmTitle2",
-    "defaultMessage": "Overwrite existing report?"
+    "defaultMessage": "Overwrite existing report content?"
   },
   {
     "id": "mediaAnalysis.confirmText1",
@@ -53,7 +53,7 @@
   },
   {
     "id": "mediaAnalysis.confirmText2",
-    "defaultMessage": "Do you want to update the report with this new content? All edits will be lost."
+    "defaultMessage": "Do you want to update the report with this new content? All content currently in the report will be lost."
   },
   {
     "id": "mediaAnalysis.confirmButtonLabel1",
@@ -61,6 +61,6 @@
   },
   {
     "id": "mediaAnalysis.confirmButtonLabel2",
-    "defaultMessage": "Overwrite content"
+    "defaultMessage": "Overwrite report content"
   }
 ]

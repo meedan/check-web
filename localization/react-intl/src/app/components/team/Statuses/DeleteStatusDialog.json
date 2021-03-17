@@ -9,15 +9,11 @@
   },
   {
     "id": "deleteStatusDialog.statusInUseMessage",
-    "defaultMessage": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to other statuses before deleting this status."
-  },
-  {
-    "id": "deleteStatusDialog.alternatively",
-    "defaultMessage": "Alternatively, you can change each item status individually."
+    "defaultMessage": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
   },
   {
     "id": "deleteStatusDialog.itemsPublishedMessage",
-    "defaultMessage": "{publishedCount, plural, one {One of those items is currently published.} other {# of those items are currently published.}} Upon moving them to another status, the reports will be paused. Please review those items to re-publish them."
+    "defaultMessage": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
   },
   {
     "id": "statusesComponent.moveItemsAndDelete",

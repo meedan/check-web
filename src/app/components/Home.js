@@ -11,6 +11,7 @@ import MomentUtils from '@date-io/moment';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Header from './Header';
 import LoginContainer from './LoginContainer';
+import InviteNewAccount from './InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
 import CheckContext from '../CheckContext';
 import DrawerNavigation from './DrawerNavigation';
@@ -189,11 +190,13 @@ class HomeComponent extends Component {
   }
 
   loginCallback() {
-    if (this.state.path !== '/check/user/password-change' &&
-      this.state.path !== '/check/user/confirmed') {
-      window.location.assign(this.state.path);
-    } else {
+    if (
+      this.state.path === '/check/user/password-change' ||
+      /^\/check\/user\/confirm/.test(this.state.path)
+    ) {
       window.location.assign('/');
+    } else {
+      window.location.assign(this.state.path);
     }
     this.setState({ error: false, path: null });
   }
@@ -207,6 +210,7 @@ class HomeComponent extends Component {
     const routeSlug = HomeComponent.routeSlug(children);
 
     const routeIsPublic = children && children.props.route.public;
+
     if (!routeIsPublic && !this.state.token) {
       if (this.state.error) {
         return (
@@ -248,7 +252,13 @@ class HomeComponent extends Component {
       return false;
     })();
 
-    const showDrawer = !/\/media\/[0-9]+/.test(window.location.pathname);
+    if (loggedIn && !user.completed_signup) {
+      return (
+        <InviteNewAccount teamSlug={teamSlug} />
+      );
+    }
+
+    const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
 
     return (
       <React.Fragment>
@@ -260,13 +270,14 @@ class HomeComponent extends Component {
               user_id={user.dbid}
               email={user.email}
               name={user.name}
+              check_workspace={teamSlug}
             /> : null
           }
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
           <BrowserSupport />
           <UserTos user={user} />
           <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            {showDrawer ? (
+            {!isMediaPage && loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
@@ -320,6 +331,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
         is_admin
         accepted_terms
         last_accepted_terms_at
+        completed_signup
         name
         login
         permissions

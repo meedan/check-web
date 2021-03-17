@@ -101,7 +101,7 @@ function AddProjectMediaToProjectAction({ team, projectMedia, className }) {
         setFlashMessage((
           getErrorMessageForRelayModernProblem(errors)
           || <GenericUnknownErrorMessage />
-        ), 'success');
+        ), 'error');
       },
     });
   }, [

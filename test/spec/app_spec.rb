@@ -155,20 +155,20 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should access user confirmed page', bin5: true do
-      @driver.navigate.to "#{@config['self_url']}/check/user/confirmed"
-      title = wait_for_selector('.main-title')
+      @driver.navigate.to "#{@config['self_url']}/check/user/confirm/confirmed"
+      title = wait_for_selector('.confirm__heading')
       expect(title.text == 'Account Confirmed').to be(true)
     end
 
     it 'should access user unconfirmed page', bin5: true do
-      @driver.navigate.to "#{@config['self_url']}/check/user/unconfirmed"
-      title = wait_for_selector('.main-title')
-      expect(title.text == 'Error').to be(true)
+      @driver.navigate.to "#{@config['self_url']}/check/user/confirm/unconfirmed"
+      unconfirmed_msg = wait_for_selector('.confirm_content').text
+      expect(unconfirmed_msg.include?('Sorry, an error occurred while confirming your account')).to be(true)
     end
 
     it 'should access user already confirmed page', bin5: true do
-      @driver.navigate.to "#{@config['self_url']}/check/user/already-confirmed"
-      title = wait_for_selector('.main-title')
+      @driver.navigate.to "#{@config['self_url']}/check/user/confirm/already-confirmed"
+      title = wait_for_selector('.confirm__heading')
       expect(title.text == 'Account Already Confirmed').to be(true)
     end
 

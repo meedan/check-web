@@ -1,6 +1,14 @@
 [
   {
-    "id": "confirmProceed.confirm",
-    "defaultMessage": "Confirm and proceed"
+    "id": "confirmProceedDialog.confirmationText",
+    "defaultMessage": "Type \"{text}\" to permanently delete this language and all content in this language."
+  },
+  {
+    "id": "confirmProceedDialog.confirmationTextPlaceholder",
+    "defaultMessage": "Type here"
+  },
+  {
+    "id": "confirmProceedDialog.continue",
+    "defaultMessage": "Continue"
   }
 ]

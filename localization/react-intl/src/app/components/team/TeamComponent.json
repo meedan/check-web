@@ -38,5 +38,13 @@
   {
     "id": "teamSettings.integrations",
     "defaultMessage": "Integrations"
+  },
+  {
+    "id": "teamSettings.members",
+    "defaultMessage": "Members"
+  },
+  {
+    "id": "teamSettings.details",
+    "defaultMessage": "Workspace details"
   }
 ]

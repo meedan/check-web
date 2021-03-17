@@ -38,7 +38,7 @@ describe('<DeleteStatusDialog />', () => {
     expect(wrapper.html()).toMatch('Move items and delete status');
   });
 
-  it('should display message that four items is using the status', () => {
+  it('should display message that four items are using the status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
       defaultValue={statuses[0]}
       onCancel={() => {}}
@@ -48,7 +48,6 @@ describe('<DeleteStatusDialog />', () => {
       statuses={statuses}
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
-    expect(wrapper.html()).toMatch('Alternatively, you can change each item status individually');
     expect(wrapper.html()).toMatch('False');
     expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('Move items and delete status');
@@ -66,7 +65,7 @@ describe('<DeleteStatusDialog />', () => {
     />);
     expect(wrapper.html()).toMatch('There are 5 items with the status');
     expect(wrapper.html()).toMatch('In Progress');
-    expect(wrapper.html()).toMatch('3 of those items are currently published');
+    expect(wrapper.html()).toMatch('There are 3 items currently published');
     expect(wrapper.find('.confirm-proceed-dialog__cancel').hostNodes()).toHaveLength(1);
   });
 
@@ -80,6 +79,6 @@ describe('<DeleteStatusDialog />', () => {
       statuses={statuses}
     />);
     expect(wrapper.html()).toMatch('There are 4 items with the status');
-    expect(wrapper.html()).not.toMatch('those items are currently published');
+    expect(wrapper.html()).not.toMatch('items are currently published');
   });
 });

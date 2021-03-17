@@ -5,7 +5,7 @@ import TableCell from '@material-ui/core/TableCell';
 import LayersIcon from '@material-ui/icons/Layers';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import { units, black87, checkBlue } from '../../../styles/js/shared';
+import { units, black87, checkBlue, opaqueBlack54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
@@ -14,9 +14,7 @@ const useStyles = makeStyles({
     display: 'flex',
     minWidth: units(45),
     maxWidth: units(110),
-    '&:hover': {
-      textDecoration: 'none',
-    },
+    textDecoration: 'none',
   },
   thumbnail: {
     display: 'block',
@@ -49,6 +47,7 @@ const useStyles = makeStyles({
   }),
   description: {
     maxHeight: units(5),
+    color: opaqueBlack54,
     overflow: 'hidden',
   },
   similarityIcon: {

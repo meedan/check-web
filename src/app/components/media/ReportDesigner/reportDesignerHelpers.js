@@ -8,9 +8,6 @@ export function defaultOptions(media, language) {
     language,
     team.get_language,
   );
-  const teamUrl = team.contacts && team.contacts.edges[0] ?
-    team.contacts.edges[0].node.web :
-    '';
   const default_reports = team.get_report || {};
   const default_report = default_reports[language] || {};
   const isDefaultLanguage = (language === team.get_language);
@@ -29,10 +26,7 @@ export function defaultOptions(media, language) {
     theme_color: getStatusStyle(status, 'color'),
   };
   if (default_report.use_url) {
-    options.url = default_report.url;
-    if (!options.url || options.url === '') {
-      options.url = teamUrl ? teamUrl.substring(0, 40) : '';
-    }
+    options.url = default_report.url || '';
   }
   return options;
 }

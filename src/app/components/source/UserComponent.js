@@ -12,7 +12,6 @@ import UserPrivacy from './UserPrivacy';
 import UserSecurity from './UserSecurity';
 import UserInfoEdit from './UserInfoEdit';
 import { can } from '../Can';
-import HeaderCard from '../HeaderCard';
 import PageTitle from '../PageTitle';
 import CheckContext from '../../CheckContext';
 import SwitchTeamsComponent from '../team/SwitchTeamsComponent';
@@ -64,66 +63,64 @@ class UserComponent extends React.Component {
     return (
       <PageTitle prefix={user.name}>
         <div className="source">
-          <HeaderCard>
-            <ContentColumn>
-              <HeaderContent />
-              { isEditing ?
-                null : (
-                  <Tabs
-                    indicatorColor="primary"
-                    textColor="primary"
-                    value={this.state.showTab}
-                    onChange={this.handleTabChange}
-                  >
+          <ContentColumn>
+            <HeaderContent />
+            { isEditing ?
+              null : (
+                <Tabs
+                  indicatorColor="primary"
+                  textColor="primary"
+                  value={this.state.showTab}
+                  onChange={this.handleTabChange}
+                >
+                  <Tab
+                    id="teams-tab"
+                    label={
+                      <FormattedMessage
+                        id="userComponent.teams"
+                        defaultMessage="Workspaces"
+                      />
+                    }
+                    value="workspaces"
+                  />
+                  <Tab
+                    id="assignments-tab"
+                    label={
+                      <FormattedMessage
+                        id="userComponents.assignments"
+                        defaultMessage="Assignments"
+                      />
+                    }
+                    value="assignments"
+                  />
+                  { isUserSelf ?
                     <Tab
-                      id="teams-tab"
+                      id="privacy-tab"
                       label={
                         <FormattedMessage
-                          id="userComponent.teams"
-                          defaultMessage="Workspaces"
+                          id="userComponents.privacy"
+                          defaultMessage="Privacy"
                         />
                       }
-                      value="workspaces"
-                    />
+                      value="privacy"
+                    /> : null
+                  }
+                  { isUserSelf ?
                     <Tab
-                      id="assignments-tab"
+                      id="security-tab"
                       label={
                         <FormattedMessage
-                          id="userComponents.assignments"
-                          defaultMessage="Assignments"
+                          id="userComponents.security"
+                          defaultMessage="Security"
                         />
                       }
-                      value="assignments"
-                    />
-                    { isUserSelf ?
-                      <Tab
-                        id="privacy-tab"
-                        label={
-                          <FormattedMessage
-                            id="userComponents.privacy"
-                            defaultMessage="Privacy"
-                          />
-                        }
-                        value="privacy"
-                      /> : null
-                    }
-                    { isUserSelf ?
-                      <Tab
-                        id="security-tab"
-                        label={
-                          <FormattedMessage
-                            id="userComponents.security"
-                            defaultMessage="Security"
-                          />
-                        }
-                        value="security"
-                      /> : null
-                    }
-                  </Tabs>
-                )
-              }
-            </ContentColumn>
-          </HeaderCard>
+                      value="security"
+                    /> : null
+                  }
+                </Tabs>
+              )
+            }
+          </ContentColumn>
           <ContentColumn>
             { isEditing ?
               null :
