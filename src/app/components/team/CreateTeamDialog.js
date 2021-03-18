@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
-import { graphql, commitMutation } from 'react-relay/compat';
+import { graphql, createFragmentContainer, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -217,4 +217,10 @@ CreateTeamDialog.propTypes = {
   }),
 };
 
-export default CreateTeamDialog;
+export default createFragmentContainer(CreateTeamDialog, graphql`
+  fragment CreateTeamDialog_team on Team {
+    id
+    name
+    slug
+  }
+`);
