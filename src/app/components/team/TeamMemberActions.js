@@ -282,6 +282,7 @@ TeamMemberActions.propTypes = {
   }).isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -300,6 +301,7 @@ export default createFragmentContainer(withSetFlashMessage(TeamMemberActions), {
   team: graphql`
     fragment TeamMemberActions_team on Team {
       id
+      name
     }
   `,
 });
