@@ -223,5 +223,6 @@ export default createFragmentContainer(withSetFlashMessage(TeamDetails), graphql
     description
     avatar
     permissions
+    ...CreateTeamDialog_team
   }
 `);
