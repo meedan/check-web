@@ -17,7 +17,6 @@ import CheckAgreeTerms from './CheckAgreeTerms';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
-  units,
   ContentColumn,
   StyledSubHeader,
   StyledCard,
@@ -27,10 +26,6 @@ const useStyles = makeStyles({
   logo: {
     margin: '0 auto',
     display: 'block',
-  },
-  bestViewed: {
-    marginTop: `${units(2)}`,
-    textAlign: 'center',
   },
 });
 
@@ -127,9 +122,9 @@ const UserPasswordReset = (props) => {
 
   return (
     <PageTitle>
-      <p className={classes.bestViewed}>
+      <Box m={2} align="center">
         <FormattedHTMLMessage {...globalStrings.bestViewed} />
-      </p>
+      </Box>
       <ContentColumn center className="user-password-reset__component">
         <StyledCard>
           <FormattedGlobalMessage messageKey="appNameHuman">
@@ -176,7 +171,7 @@ const UserPasswordReset = (props) => {
                   id="password-reset-email-input"
                   type="email"
                   label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
-                  onChange={(e) => { handleChange(e); }}
+                  onChange={handleChange}
                   helperText={errorMsg}
                   error={errorMsg}
                   fullWidth
@@ -188,7 +183,7 @@ const UserPasswordReset = (props) => {
               <Button onClick={handleGoBack}>
                 <FormattedMessage {...globalStrings.cancel} />
               </Button>
-              <Button color="primary" disabled={submitDisabled} onClick={(e) => { handleSubmit(e); }}>
+              <Button color="primary" disabled={submitDisabled} onClick={handleSubmit}>
                 { pagetitleMessage }
               </Button>
             </CardActions>,

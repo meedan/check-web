@@ -10,13 +10,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Message from './Message';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import { getErrorMessage } from '../helpers';
-import { units } from '../styles/js/shared';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   marginTop: {
-    marginTop: `${units(3)}`,
+    marginTop: theme.spacing(3),
   },
-});
+}));
 
 function ChangePasswordComponent({
   type,
@@ -132,7 +131,7 @@ function ChangePasswordComponent({
         className="user-password-change__password-input-field"
         id="password-change-password-input"
         type="password"
-        onChange={(e) => { handleChangePassword(e); }}
+        onChange={handleChangePassword}
         fullWidth
         label={
           <FormattedMessage
@@ -146,7 +145,7 @@ function ChangePasswordComponent({
         className="user-password-change__password-input-field"
         id="password-change-password-input-confirm"
         type="password"
-        onChange={(e) => { handleChangePasswordConfirm(e); }}
+        onChange={handleChangePasswordConfirm}
         fullWidth
         label={
           <FormattedMessage
@@ -159,7 +158,7 @@ function ChangePasswordComponent({
         <Button
           variant="contained"
           className={['user-password-change__submit-button', classes.marginTop].join(' ')}
-          onClick={(e) => { handleSubmit(e); }}
+          onClick={handleSubmit}
           color="primary"
           disabled={submitDisabled}
         >

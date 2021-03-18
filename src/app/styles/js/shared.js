@@ -348,6 +348,7 @@ export const HeaderTitle = styled.h3`
   `}
 `;
 
+// FIXME: use Typography and/or a dedicated component under components/layout
 export const StyledSubHeader = styled.h2`
   font: ${title1};
   font-weight: 600;
@@ -356,6 +357,7 @@ export const StyledSubHeader = styled.h2`
   margin-top: ${units(2)};
 `;
 
+// FIXME: rename and use dedicated component under components/layout
 export const StyledCard = styled(Card)`
   padding: ${units(11)} ${units(15)} ${units(3)} !important;
   ${mediaQuery.handheld`

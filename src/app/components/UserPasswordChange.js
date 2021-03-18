@@ -13,7 +13,6 @@ import CheckAgreeTerms from './CheckAgreeTerms';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
-  units,
   ContentColumn,
   StyledSubHeader,
   StyledCard,
@@ -23,10 +22,6 @@ const useStyles = makeStyles({
   logo: {
     margin: '0 auto',
     display: 'block',
-  },
-  bestViewed: {
-    marginTop: `${units(2)}`,
-    textAlign: 'center',
   },
 });
 
@@ -52,9 +47,9 @@ function UserPasswordChange() {
 
   return (
     <PageTitle>
-      <p className={classes.bestViewed}>
+      <Box m={2} align="center">
         <FormattedHTMLMessage {...globalStrings.bestViewed} />
-      </p>
+      </Box>
       <ContentColumn center className="user-password-reset__component">
         <StyledCard>
           <FormattedGlobalMessage messageKey="appNameHuman">
@@ -75,7 +70,7 @@ function UserPasswordChange() {
           </StyledSubHeader>
 
           { showConfirmDialog ?
-            <div>
+            <React.Fragment>
               <CardContent>
                 <FormattedMessage
                   id="passwordChange.successMsg"
@@ -87,7 +82,7 @@ function UserPasswordChange() {
                   <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
                 </Button>
               </CardActions>
-            </div> :
+            </React.Fragment> :
             <div className="user-password-change__card">
               <CardContent>
                 <ChangePasswordComponent

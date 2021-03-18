@@ -20,7 +20,6 @@ import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import {
   ContentColumn,
-  StyledCard,
   units,
   opaqueBlack10,
 } from '../../styles/js/shared';
@@ -498,7 +497,7 @@ class UserSecurity extends Component {
           <FormattedMessage id="userSecurity.changePassword" defaultMessage="Change password" />
         </h2>
         <ContentColumn center className="user-password-reset__component">
-          <StyledCard>
+          <Card>
             <CardContent>
               <ChangePasswordComponent
                 type="update-password"
@@ -506,7 +505,7 @@ class UserSecurity extends Component {
                 user={this.props.user}
               />
             </CardContent>
-          </StyledCard>
+          </Card>
         </ContentColumn>
       </div>
     );

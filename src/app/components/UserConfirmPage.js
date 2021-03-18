@@ -40,10 +40,6 @@ const useStyles = makeStyles({
     margin: '0 auto',
     display: 'block',
   },
-  marginTop: {
-    marginTop: `${units(2)}`,
-    textAlign: 'center',
-  },
 });
 
 function UserConfirmPage({ params }) {
@@ -52,9 +48,9 @@ function UserConfirmPage({ params }) {
   return (
     <Typography component="div" variant="body2" gutterBottom>
       <PageTitle>
-        <p className={classes.marginTop}>
+        <Box m={2} align="center">
           <FormattedHTMLMessage {...globalStrings.bestViewed} />
-        </p>
+        </Box>
         <ContentColumn center className="user-confirm-page__component">
           <StyledCard>
             <FormattedGlobalMessage messageKey="appNameHuman">
