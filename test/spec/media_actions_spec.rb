@@ -131,6 +131,7 @@ shared_examples 'media actions' do
     expect(id1.positive?).to be(true)
     wait_for_selector('.media-detail')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
+    wait_for_selector('.search__results')
     wait_for_selector('.medias__item')
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media__link')
