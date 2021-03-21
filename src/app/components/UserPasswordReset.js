@@ -141,7 +141,7 @@ const UserPasswordReset = (props) => {
             { pagetitleMessage }
           </StyledSubHeader>
           { showConfirmDialog ? [
-            <CardContent key="usr-2">
+            <CardContent key="usr-2" className="user-password-reset__sent_password">
               <FormattedMessage
                 id="passwordReset.confirmedText"
                 defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}. Please note that the link in this email will expire in {expiry} hours."
