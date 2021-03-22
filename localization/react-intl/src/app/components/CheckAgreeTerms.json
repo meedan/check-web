@@ -1,6 +1,6 @@
 [
   {
-    "id": "loginContainer.agreeTerms",
+    "id": "CheckAgreeTerms.agreeTerms",
     "defaultMessage": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
   },
   {
