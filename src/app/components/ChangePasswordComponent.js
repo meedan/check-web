@@ -125,6 +125,8 @@ function ChangePasswordComponent({
               defaultMessage="Current password"
             />
           }
+          variant="outlined"
+          margin="normal"
         />
       ) : null}
       <TextField
@@ -140,6 +142,8 @@ function ChangePasswordComponent({
             values={{ min: passwordLength.min }}
           />
         }
+        variant="outlined"
+        margin="normal"
       />
       <TextField
         className="user-password-change__password-input-field"
@@ -153,6 +157,8 @@ function ChangePasswordComponent({
             defaultMessage="Confirm password"
           />
         }
+        variant="outlined"
+        margin="normal"
       />
       <Typography component="div" align="center">
         <Button

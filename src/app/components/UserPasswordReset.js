@@ -96,12 +96,7 @@ const UserPasswordReset = (props) => {
             email,
           },
         },
-        onCompleted: ({ response, error }) => {
-          if (error) {
-            return onFailure(error);
-          }
-          return onSuccess(response);
-        },
+        onCompleted: onSuccess,
         onError: onFailure,
       });
     }
@@ -174,6 +169,8 @@ const UserPasswordReset = (props) => {
                   onChange={handleChange}
                   helperText={errorMsg}
                   error={errorMsg}
+                  variant="outlined"
+                  margin="normal"
                   fullWidth
                   autoFocus
                 />
