@@ -2,9 +2,6 @@
 
 cd test
 npm run test:unit
-cd -
-./scripts/uncovered-files
-cd test
+./../scripts/uncovered-files
 bundle install
 ./parallel-test.sh
-cd -

@@ -39,7 +39,8 @@
     "test:ff": "cd test && bundle exec rspec --fail-fast && cd ..",
     "test:bins": "grep -rI 'bin[0-9]' test/spec | grep -v '#' | sed 's/.*\\(bin[0-9]\\).*/\\1/g' | sort | uniq -c",
     "test:unit:lint": "eslint src/app",
-    "test:integration:lint": "cd test/spec && bundle install && bundle exec rubocop && cd .."
+    "test:integration:lint": "cd test/spec && bundle install && bundle exec rubocop && cd ..",
+    "tests": "cd test && ./run-tests.sh"
   },
   "authors": [
     "Meedan"
