@@ -10,7 +10,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import TextField from '@material-ui/core/TextField';
+import ListItemText from '@material-ui/core/ListItemText';
 import RoleSelect from './RoleSelect';
+import Message from '../Message';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import globalStrings from '../../globalStrings';
@@ -24,6 +26,7 @@ const InviteDialog = ({
 }) => {
   const [inviteEmails, setInviteEmails] = React.useState([]);
   const [inviteRole, setInviteRole] = React.useState('collaborator');
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const handleChangeEmails = (e) => {
     const emails = e.target.value.split(',');
@@ -47,15 +50,37 @@ const InviteDialog = ({
       ), 'error');
     };
 
-    const onSuccess = () => {
-      setFlashMessage((
-        <FormattedMessage
-          id="inviteDialog.invitationSent"
-          defaultMessage="Invites sent!"
-          description="Success notification confirming that invitations were sent to users"
-        />
-      ), 'success');
-      onClose();
+    const onSuccess = (response) => {
+      const { userInvitation: { errors } } = response;
+      if (errors.length > 0) {
+        const message = (
+          errors.map(msg => (
+            <ListItemText primary={msg.error} />
+          ))
+        );
+        if (inviteEmails.length > errors.length) {
+          message.push(
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  id="inviteDialog.sentOtherInvitation"
+                  defaultMessage="Sent other invites."
+                  description="Success message when user send multiple invitations and some emails fail and other mails success."
+                />
+              }
+            />);
+        }
+        setErrorMessage(message);
+      } else {
+        setFlashMessage((
+          <FormattedMessage
+            id="inviteDialog.invitationSent"
+            defaultMessage="Invites sent!"
+            description="Success notification confirming that invitations were sent to users"
+          />
+        ), 'success');
+        onClose();
+      }
     };
 
     const invites = inviteEmails.map(email => ({
@@ -67,7 +92,7 @@ const InviteDialog = ({
       mutation: graphql`
         mutation InviteDialogMutation($input: UserInvitationInput!) {
           userInvitation(input: $input) {
-            success
+            errors
             team {
               id
               team_users(first: 10000, status: ["invited", "member", "banned"]) {
@@ -107,12 +132,7 @@ const InviteDialog = ({
         edgeName: 'team_userEdge',
       }],
       onError: onFailure,
-      onCompleted: (response, errors) => {
-        if (errors) {
-          return onFailure(errors);
-        }
-        return onSuccess();
-      },
+      onCompleted: onSuccess,
     });
   };
 
@@ -130,6 +150,7 @@ const InviteDialog = ({
         />
       </DialogTitle>
       <DialogContent>
+        <Message message={errorMessage} />
         <TextField
           id="invite-dialog__email-input"
           name="invite-dialog__email-input"
