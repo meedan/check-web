@@ -73,14 +73,6 @@ const MediaAnalysis = ({ projectMedia }) => {
   const [title, setTitle] = React.useState(getValue('title') || getDefaultValue('title'));
   const [content, setContent] = React.useState(getValue('content') || getDefaultValue('description'));
 
-  const setInitialDatePublished = (fields, fieldName) => {
-    const dataFields = fields;
-    if (fieldName !== 'date_published' && getValue('date_published') === null) {
-      dataFields.date_published = Date.now() / 1000;
-    }
-    return dataFields;
-  };
-
   const handleFocus = () => {
     if (!editing) {
       setEditing(true);
@@ -101,9 +93,8 @@ const MediaAnalysis = ({ projectMedia }) => {
     setEditing(false);
     if (value !== getValue(field) && canEdit) {
       setSaving(true);
-      let fields = {};
+      const fields = {};
       fields[field] = value;
-      fields = setInitialDatePublished(fields, field);
       commitMutation(Relay.Store, {
         mutation: graphql`
           mutation MediaAnalysisUpdateAnalysisMutation($input: UpdateDynamicInput!) {
