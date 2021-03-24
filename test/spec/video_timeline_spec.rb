@@ -10,8 +10,8 @@ shared_examples 'videotimeline' do
     wait_for_selector('#comment').send_keys('my note')
     @driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
     wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
-    wait_for_selector('.MuiAvatar-img')
-    expect(@driver.find_elements(:class, 'MuiAvatar-img').size).to eq 1
+    wait_for_selector('.MuiAvatar-circle')
+    expect(@driver.find_elements(:class, 'MuiAvatar-circle').size).to eq 1
     wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
     @driver.navigate.refresh
     wait_for_selector('#video-media-card__playback-rate')
@@ -19,15 +19,15 @@ shared_examples 'videotimeline' do
     wait_for_selector('.annotation__card-content')
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
-    wait_for_selector('.MuiAvatar-img').click
+    wait_for_selector('.MuiAvatar-circle').click
     # add a new note
     wait_for_selector('#comment').send_keys('new note')
     wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
     # delet note
     wait_for_selector("button[aria-label='Delete thread']").click
-    wait_for_selector_none('.MuiAvatar-img')
-    expect(@driver.find_elements(:class, 'MuiAvatar-img').size).to eq 0
+    wait_for_selector_none('.MuiAvatar-circle')
+    expect(@driver.find_elements(:class, 'MuiAvatar-circle').size).to eq 0
     wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
     @driver.navigate.refresh
     wait_for_selector('.media-detail')

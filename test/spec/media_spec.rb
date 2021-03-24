@@ -66,11 +66,11 @@ shared_examples 'media' do |type|
 
   it 'should autorefresh page when media is created', bin1: true do
     create_media_depending_on_type
+    wait_for_selector('.media')
     wait_for_selector('.project-header__back-button').click
+    wait_for_selector_list_size('.medias__item', 1, :css, 30)
     wait_for_selector('#search-input')
     url = @driver.current_url
-    wait_for_selector('#search__open-dialog-button')
-    wait_for_selector_list_size('.medias__item', 1)
     expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
     current_window = @driver.window_handles.last
     @driver.execute_script("window.open('#{url}')")
@@ -78,7 +78,7 @@ shared_examples 'media' do |type|
     @driver.switch_to.window(@driver.window_handles.last)
     wait_for_selector('.avatar')
     create_media('Auto-Refresh')
-    wait_for_selector('.medias__item')
+    wait_for_selector_list_size('.medias__item', 2, :css, 30)
     @driver.execute_script('window.close()')
     @driver.switch_to.window(current_window)
     wait_for_selector_list_size('.medias__item', 2, :css, 30)
