@@ -329,7 +329,7 @@ const MediaAnalysis = ({ projectMedia }) => {
                 defaultMessage="Date published"
               />
             }
-            value={getValue('date_published') ? new Date(parseInt(getValue('date_published'), 10) * 1000) : new Date()}
+            value={getValue('date_published') ? new Date(parseInt(getValue('date_published'), 10) * 1000) : null}
             inputVariant="outlined"
             disabled={!canEdit}
             format="MMMM DD, YYYY"

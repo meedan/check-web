@@ -5,10 +5,8 @@ import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import styled from 'styled-components';
 import Message from './Message';
 import UserTosForm from './UserTosForm';
 import { FormattedGlobalMessage } from './MappedMessage';
@@ -17,16 +15,9 @@ import { stringHelper } from '../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
 import {
   units,
-  mediaQuery,
   ContentColumn,
+  StyledCard,
 } from '../styles/js/shared';
-
-const StyledCard = styled(Card)`
-  padding: ${units(11)} ${units(15)} ${units(3)} !important;
-  ${mediaQuery.handheld`
-    padding: ${units(8)} ${units(4)} ${units(3)} !important;
-  `}
-`;
 
 const useStyles = makeStyles({
   logo: {
