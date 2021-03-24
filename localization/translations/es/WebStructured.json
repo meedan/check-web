@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "La respuesta de la tarea contiene una palabra clave"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Por favor consulta tu correo electrónico para verificar tu cuenta."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Para verlo mejor usa <a href=\"https://www.google.com/chrome/browser/desktop/\"> Chrome para Escritorio</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} está optimizada para Google Chrome en escritorio."
 	},
@@ -963,6 +963,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Para verlo mejor usa <a href=\"https://www.google.com/chrome/browser/desktop/\"> Chrome para Escritorio</a>."
 	},
 	"global.cancel": {
 		"string": "Cancelar"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Las contraseñas no coincidieron"
 	},
-	"passwordReset.cancel": {
-		"string": "Cancelar"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Te enviamos un correo electrónico de {adminemail} con instrucciones para restablecer tu contraseña. Asegúrate de que no esté en tu buzón de spam. Si no recibes nuestros correos electrónicos de restablecimiento de contraseña, comunícate con {supportemail}. Por favor ten en cuenta que el enlace de este correo electrónico caducará en {expire} horas."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Restablecimiento de contraseña enviado"
 	},
 	"passwordReset.email": {
 		"string": "Correo electrónico"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Lo sentimos, este correo electrónico no fue encontrado. Ponte en contacto con {supportEmail} si crees que esto es un error."
+		"string": "Lo sentimos, este correo electrónico no fue encontrado. Ponte en contacto con {supportEmail} si crees que esto es un error.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Por favor, escribe un correo electrónico válido."
+		"string": "Por favor, escribe un correo electrónico válido.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Iniciar sesión "
-	},
-	"passwordReset.submit": {
-		"string": "Reestablecer contraseña"
 	},
 	"passwordReset.text": {
 		"string": "Escribe tu correo electrónico y te enviremos las instrucciones. "
 	},
 	"passwordReset.title": {
-		"string": "Reestablecer contraseña"
+		"string": "Reestablecer contraseña",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Política Privacidad"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "Seguridad"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Para soporte contactate con <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Inicia sesión ",

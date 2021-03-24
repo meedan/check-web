@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "Ответ содержит ключевое слово"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Пожалуйста, проверьте почту, чтобы подтвердить аккаунт."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Оптимизировано для десктопной версии <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} оптимизирован для десктопной версии Chrome."
 	},
@@ -963,6 +963,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Оптимизировано для десктопной версии <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome</a>."
 	},
 	"global.cancel": {
 		"string": "Отменить"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Пароли не совпадают"
 	},
-	"passwordReset.cancel": {
-		"string": "Отменить"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Вам отправлено письмо от {adminEmail} с инструкциями по сбросу пароля. Ссылка в письме действует {expiry} ч. Если вы не получили письмо, проверьте папку со спамом. Если наши письма вам не приходят, свяжитесь с нами: {supportEmail}."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Проверьте почту"
 	},
 	"passwordReset.email": {
 		"string": "Email"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Извините, аккаунт с данным email не найден. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}."
+		"string": "Извините, аккаунт с данным email не найден. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Пожалуйста, укажите корректный email."
+		"string": "Пожалуйста, укажите корректный email.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Войти"
-	},
-	"passwordReset.submit": {
-		"string": "Сбросить пароль"
 	},
 	"passwordReset.text": {
 		"string": "Укажите свой email, и мы вышлем вам письмо с инструкциями."
 	},
 	"passwordReset.title": {
-		"string": "Сбросить пароль"
+		"string": "Сбросить пароль",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Политика приватности"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "Безопасность"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Если вам нужна помощь, напишите на <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Войти",
