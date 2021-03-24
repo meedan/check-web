@@ -81,7 +81,7 @@ shared_examples 'media' do |type|
     wait_for_selector_list_size('.medias__item', 2, :css, 30)
     @driver.execute_script('window.close()')
     @driver.switch_to.window(current_window)
-    wait_for_selector_list_size('.medias__item', 2, :css, 30)
+    wait_for_selector_list_size('.medias__item', 2, :css, 40)
     @wait.until { @driver.page_source.include?('Auto-Refresh') }
     expect(@driver.find_elements(:css, '.media__heading').size == 2).to be(true)
     expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
