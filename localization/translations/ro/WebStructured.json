@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "Răspunsul la sarcină conține cuvântul-cheie"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "Prin înregistrare, agreați {appName} {tosLink} și {ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Verificați mesajele primite pe e-mail pentru a verifica contul."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Punte"
 	},
-	"browser.support.message": {
-		"string": "Cel mai bine se vizualizează cu <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pentru Desktop</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} este optimizată pentru Google Chrome pe desktop."
 	},
@@ -963,6 +963,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Verifică"
+	},
+	"global.bestViewed": {
+		"string": "Cel mai bine se vizualizează cu <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pentru Desktop</a>."
 	},
 	"global.cancel": {
 		"string": "Anulează"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Parolele nu se potrivesc"
 	},
-	"passwordReset.cancel": {
-		"string": "Anulează"
-	},
 	"passwordReset.confirmedText": {
 		"string": "V-am trimis un mesaj pe e-mail de pe {adminEmail} cu instrucțiunile de resetare a parolei. Verificați să nu fi ajuns în dosarul de spam. Dacă nu primiți mesajele noastre pentru resetarea parolei, contactați {supportEmail}. Atenție! Linkul din acest mesaj va expira în {expiry} (de) ore."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Informațiile pentru resetarea parolei au fost trimise"
 	},
 	"passwordReset.email": {
 		"string": "E-mail"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Ne pare rău, nu am găsit această adresă de e-mail. Contactați {supportEmail} dacă s-a produs o eroare."
+		"string": "Ne pare rău, nu am găsit această adresă de e-mail. Contactați {supportEmail} dacă s-a produs o eroare.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Introduceți o adresă de e-mail validă."
+		"string": "Introduceți o adresă de e-mail validă.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Conectare"
-	},
-	"passwordReset.submit": {
-		"string": "Resetează parola"
 	},
 	"passwordReset.text": {
 		"string": "Adăugați adresa dvs. și veți primi un mesaj cu instrucțiuni privind următorii pași."
 	},
 	"passwordReset.title": {
-		"string": "Resetează parola"
+		"string": "Resetează parola",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Politica de confidențialitate"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "Securitate"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "Prin înregistrare, agreați {appName} {tosLink} și {ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Pentru asistență, contactați <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Conectare",

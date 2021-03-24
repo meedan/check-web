@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "إجابة المهمة تتضمن كلمة مفتاحية"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "بتسجيل الإشتراك أنت توافقين على {tosLink}  و {ppLink} لدى {appName}."
+	},
 	"ConfirmEmail.content": {
 		"string": "يرجى مراجعة بريدك الالكتروني للتحقق من حسابك."
 	},
@@ -200,7 +203,7 @@
 		"string": "رمز التحقق"
 	},
 	"UserUtil.admin": {
-		"string": "Admin"
+		"string": "المسؤول"
 	},
 	"UserUtil.collaborator": {
 		"string": "Collaborator"
@@ -245,7 +248,7 @@
 		"string": "إنشاء مساحة عمل"
 	},
 	"addTeamPage.titleFind": {
-		"string": "العثور على مساحة العمل موجودة"
+		"string": "العثور على مساحة العمل الموجودة"
 	},
 	"annotation.acceptSuggestion": {
 		"string": "قبول"
@@ -257,7 +260,7 @@
 		"string": "عذراً ، لقد واجهنا الخطأ التالي أثناء أرشفة العنصر إلى {name}: \"{message}\". يرجى أعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"annotation.archiverSuccess": {
-		"string": "في حالة إختفاء هذا الرابط يمكنك <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">الحصول على نسخة إحتياطية في {name}</a>."
+		"string": "في حالة اختفاء هذا الرابط يمكنك <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">الحصول على نسخة احتياطية في {name}</a>."
 	},
 	"annotation.archiverWait": {
 		"string": "لقد تم إرسال هذا الرابط للحفاظ في {name} وسوف يظهر رابط النسخة اﻹحتياطية هنا عندما يصبح متاحاً."
@@ -299,7 +302,7 @@
 		"string": "نتيجة التصنيف:"
 	},
 	"annotation.flagAdult": {
-		"string": "إباحية"
+		"string": "للبالغين"
 	},
 	"annotation.flagLikelihood0": {
 		"string": "غير معروف"
@@ -395,16 +398,16 @@
 		"string": "قام(ت) {author} بحذف تعليق على مهمة : {title}{note}"
 	},
 	"annotation.reportReceived": {
-		"string": "Report sent on {date}"
+		"string": "أُرسِل التقرير في {date}"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Report update sent on {date}"
+		"string": "ُأُرسِل تحديث للتقرير في {date}"
 	},
 	"annotation.seeHowThisBotWorks": {
 		"string": "فحص كيفية عمل هذا البوت"
 	},
 	"annotation.similarCreated": {
-		"string": "Confirmed similar by {author}: {title}"
+		"string": "قام {author} بالتأكد من تشابُهه : {title}"
 	},
 	"annotation.similarDestroyed": {
 		"string": "Confirmed similar detached by {author}: {title}"
@@ -425,10 +428,10 @@
 		"string": "تم القبول من {user}"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Suggested match by {author}: {title}"
+		"string": "قام {author} باقتراح توافق : {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Suggested match rejected by {author}: {title}"
+		"string": "رفض {author} اقتراح التوافق المُقترَح : {title}"
 	},
 	"annotation.suggestionRejected": {
 		"string": "تم الرّفض من {user}"
@@ -473,7 +476,7 @@
 		"string": "البحث في الأعضاء"
 	},
 	"autoCompleteMediaItem.cantSelectPublished": {
-		"string": "Media cannot be imported from items that have their report published"
+		"string": "لا يمكن استيراد المواد اﻹعلامية من عناصر قد نُشر تقريرها"
 	},
 	"autoCompleteMediaItem.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء البحث. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -482,13 +485,13 @@
 		"string": "‏‏لم يتم العثور على عناصر مطابقة"
 	},
 	"autoCompleteMediaItem.results": {
-		"string": "{count, plural, one {# result} other {# results}}"
+		"string": "{count, plural, zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجةً} other {# نتيجةٍ}}"
 	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "بحث"
 	},
 	"autoCompleteMediaItem.searchSettings": {
-		"string": "Search settings"
+		"string": "إعدادات البحث"
 	},
 	"autoCompleteMediaItem.searching": {
 		"string": "البحث جارٍ…"
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "أفضل تصفح على <a href=\"https://www.google.com/chrome/browser/desktop/\">  كروم نسخة سطح المكتب </a>."
-	},
 	"browserSupport.message": {
 		"string": "يعمل {appName} بأفضل صورة على متصفح كروم نسخة سطح المكتب.  "
 	},
@@ -579,7 +579,7 @@
 		"string": "إلغاء"
 	},
 	"bulkActions.confirm": {
-		"string": "النقل من الغير مؤكد"
+		"string": "النقل من غير المؤكد"
 	},
 	"bulkActions.dialogAddTitle": {
 		"string": "إضافة إلى قائمة آخرى"
@@ -616,10 +616,10 @@
 		"developer_comment": "Banner displayed after items are removed successfully from list"
 	},
 	"bulkActions.restore": {
-		"string": "استعادة من سلة المهملات"
+		"string": "الاستعادة من سلة المهملات"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "ارسال العناصر المحددة إلى سلة المهملات"
+		"string": "إرسال العناصر المحددة إلى سلة المهملات"
 	},
 	"bulkActions.trash": {
 		"string": "استعادة العناصر المحددة ونقلها إلى قائمة أخرى"
@@ -650,7 +650,7 @@
 		"string": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
 	},
 	"changeUserRole.helpCenter": {
-		"string": "Help Center"
+		"string": "مركز المساعدة"
 	},
 	"changeUserRole.learnMore": {
 		"string": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
@@ -719,7 +719,7 @@
 		"string": "إنشاء قائمة"
 	},
 	"createProject.error": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً ، لقد واجهنا خطأ ما أثناء تحديث القائمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"createProject.newProjectName": {
 		"string": "عنوان القائمة"
@@ -818,7 +818,7 @@
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء إنشاء المهمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"datetimeRespondTask.answerTask": {
-		"string": "إجابة"
+		"string": "الإجابة عن المهمة"
 	},
 	"datetimeRespondTask.cancelTask": {
 		"string": "إلغاء"
@@ -964,6 +964,9 @@
 	"global.appNameHuman": {
 		"string": "Check"
 	},
+	"global.bestViewed": {
+		"string": "التصفح أفضل على <a href=\"https://www.google.com/chrome/browser/desktop/\">كروم للحاسوب</a>."
+	},
 	"global.cancel": {
 		"string": "إلغاء"
 	},
@@ -1070,11 +1073,11 @@
 		"developer_comment": "Label for password confirmation field"
 	},
 	"inviteNewAccountpasswordLabel": {
-		"string": "كلمة السر (الحد الأدنى ٨ حروف)",
+		"string": "كلمة السر (الحد الأدنى 8 حروف)",
 		"developer_comment": "Label for password field"
 	},
 	"inviteNewAccounttosMissing": {
-		"string": "يجب أن توافقين على شروط الاستخدام وسياسة الخصوصية",
+		"string": "يجب عليك الموافقة على شروط الاستخدام وسياسة الخصوصية",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
 	},
 	"joinTeamComponent.alreadyRequested": {
@@ -1186,13 +1189,13 @@
 		"string": "آخر تحديث"
 	},
 	"loadMore.loadMore": {
-		"string": "تحميل أكثر"
+		"string": "تحميل المزيد"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
 	},
 	"login.contactSupport": {
-		"string": "للدعم تواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+		"string": "للدعم يمكنك التواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"login.emailLabel": {
 		"string": "البريد الإلكتروني"
@@ -1239,7 +1242,7 @@
 		"string": "تسجيل الدخول"
 	},
 	"login.tosMissing": {
-		"string": "يجب أن توافقين على شروط الاستخدام وسياسة الخصوصية"
+		"string": "يجب عليك الموافقة على شروط الاستخدام وسياسة الخصوصية"
 	},
 	"login.withGoogle": {
 		"string": "Sign in with Google"
@@ -1458,7 +1461,7 @@
 		"string": "تم اكمالها"
 	},
 	"mediaComponent.metadata": {
-		"string": "بيانات وصفيّة"
+		"string": "البيانات الوصفيّة"
 	},
 	"mediaComponent.notes": {
 		"string": "الملحوظات"
@@ -1515,7 +1518,7 @@
 		"string": "آخر مطالعة:"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
+		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "الأرشيفات:"
@@ -1571,7 +1574,7 @@
 		"string": "غير منشور"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
+		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
 	},
 	"mediaItem.similarMedia": {
 		"string": "{count} similar media"
@@ -1604,7 +1607,7 @@
 		"string": "إضافة عنصر ذي صلة"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {# related item} other {# related items}}"
+		"string": "{count, plural, zero {لا توجد عناصر ذات صلة} one {عنصر واحد ذو صلة} two {عنصران ذوَا صلة} few {# عناصر ذات صلة} many {# عنصرا ذو صلة} other {# عنصرٍ ذي صلة}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "لم يمكن إضافة العنصر ذي الصلة"
@@ -1625,7 +1628,7 @@
 		"string": "لا توجد طلبات"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
+		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
 	},
 	"mediaSearch.error": {
 		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "كلماتي السر غير مطابقتان"
 	},
-	"passwordReset.cancel": {
-		"string": "إلغاء"
-	},
 	"passwordReset.confirmedText": {
 		"string": "لقد أرسلنا إليك بريداً إلكترونياً من طرف {adminEmail} يحتوي على إرشادات لإعادة تعيين كلمة السر. يرجى التأكّد من أن هذا المرسل خارج تصفية البريد الإعلاني المزعج. إن لم يصل الإيميل، يرجى اﻹتصال بنا على {supportEmail}.  مع العلم بأن صلاحية الرابط في هذا الإيميل ستنتهي بعد {expiry} ساعات."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "تم إرسال بريد إلكتروني لإعادة تعيين كلمة السر"
 	},
 	"passwordReset.email": {
 		"string": "البريد الإلكتروني"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "عذراً ، لم نستطع إيجاد هذا العنوان الإلكتروني. يرجى التواصل مع {supportEmail} إن كان هناك خطأ ما."
+		"string": "عذراً ، لم نستطع إيجاد هذا العنوان الإلكتروني. يرجى التواصل مع {supportEmail} إن كان هناك خطأ ما.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "يرجى أدخال عنوان إلكتروني صحيح."
+		"string": "يرجى أدخال عنوان إلكتروني صحيح.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "تسجيل الدخول"
-	},
-	"passwordReset.submit": {
-		"string": "إعادة تعيين كلمة السر"
 	},
 	"passwordReset.text": {
 		"string": "يرجى إدخال بريدك إلكتروني لإعادة تعيين كلمة السر."
 	},
 	"passwordReset.title": {
-		"string": "إعادة تعيين كلمة السر"
+		"string": "إعادة تعيين كلمة السر",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "سياسة الخصوصية"
@@ -1871,7 +1868,7 @@
 		"string": "غير مُكَلَّف"
 	},
 	"projectAssignment.notes": {
-		"string": "الملاحظات"
+		"string": "الملحوظات"
 	},
 	"projectAssignment.notesTitle": {
 		"string": "إضافة ملاحظة للبريد الإلكتروني"
@@ -2145,7 +2142,7 @@
 		"string": "غير منشور"
 	},
 	"roleSelect.admin": {
-		"string": "Admin"
+		"string": "المسؤول"
 	},
 	"roleSelect.collaborator": {
 		"string": "Collaborator"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "الأمان"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "بتسجيل الإشتراك أنت توافقين على {tosLink}  و {ppLink} لدى {appName}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "للدعم تواصل معنا على <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "تسجيل الدخول",

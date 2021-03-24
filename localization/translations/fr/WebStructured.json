@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "La réponse de la tâche comprend un mot-clé"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "En vous inscrivant, vous acceptez les {tosLink} et la {ppLink} de {appName}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Veuillez consulter vos courriels afin de confirmer votre compte."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Affichage optimal avec<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} est optimisée pour Chrome pour ordinateur de Google."
 	},
@@ -964,6 +964,9 @@
 	"global.appNameHuman": {
 		"string": "Check"
 	},
+	"global.bestViewed": {
+		"string": "Affichage optimal avec<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>."
+	},
 	"global.cancel": {
 		"string": "Annuler"
 	},
@@ -1135,7 +1138,7 @@
 		"string": "Ajoutez de nouvelles langues à votre espace de travail afin de créer des rapports, des robots de ligne de signalement et des états en plusieurs langues pour communiquer avec les utilisateurs."
 	},
 	"languagesComponent.title": {
-		"string": "Langages"
+		"string": "Langues"
 	},
 	"list.Demand": {
 		"string": "Demandes"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Les mots de passe ne correspondent pas"
 	},
-	"passwordReset.cancel": {
-		"string": "Annuler"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Nous vous avons envoyé un courriel de {adminEmail} avec des instructions pour réinitialiser votre mot de passe. Assurez-vous qu’il n’est pas dans vos indésirables/pourriels. Si vous ne recevez pas nos courriels de réinitialisation du mot de passe, contactez {supportEmail}. Veuillez noter que le lien indiqué dans ce courriel expirera dans {expiry} heures."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Le courriel de réinitialisation du mot de passe a été envoyé"
 	},
 	"passwordReset.email": {
 		"string": "Adresse courriel"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Désolé, cette adresse courriel n’a pas été trouvée. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+		"string": "Désolé, cette adresse courriel n’a pas été trouvée. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Veuillez saisir une adresse courriel valide."
+		"string": "Veuillez saisir une adresse courriel valide.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Connexion"
-	},
-	"passwordReset.submit": {
-		"string": "Réinitialiser le mot de passe"
 	},
 	"passwordReset.text": {
 		"string": "Ajoutez votre adresse et un courriel vous sera envoyé avec de plus amples instructions."
 	},
 	"passwordReset.title": {
-		"string": "Réinitialiser le mot de passe"
+		"string": "Réinitialiser le mot de passe",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Politique de confidentialité"
@@ -3687,12 +3684,6 @@
 	"userComponents.security": {
 		"string": "Sécurité"
 	},
-	"userConfirmPage.agreeTerms": {
-		"string": "En vous inscrivant, vous acceptez les {tosLink} et la {ppLink} de {appName}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Pour de l’assistance, contactez <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
-	},
 	"userConfirmPage.signIn": {
 		"string": "Connexion",
 		"developer_comment": "Sign in button"
@@ -3712,7 +3703,7 @@
 		"string": "Nous vous remercions d’avoir confirmé votre adresse courriel. Vous pouvez maintenant vous connecter."
 	},
 	"userConfirmed.unConfrimMessage": {
-		"string": "Désolé, une erreur est survenue lors de la confirmation de votre compte. Veuillez réessayer et contacter {supportEmail} si la situation persiste.",
+		"string": "Désolé, une erreur est survenue lors de la confirmation de votre compte. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste.",
 		"developer_comment": "Message for unconfirmed users"
 	},
 	"userEmail.emailInputHint": {
@@ -3800,7 +3791,7 @@
 		"string": "Politique de confidentialité"
 	},
 	"userPrivacy.seeInformationButton": {
-		"string": "Afficher mes rensignements"
+		"string": "Afficher mes renseignements"
 	},
 	"userPrivacy.seeInformationText": {
 		"string": "Nous vous enverrons un fichier avec le contenu et les données que vous avez créés et générés sur {appName}. Vous pouvez le conserver pour vos dossiers ou le transférer à un autre service."

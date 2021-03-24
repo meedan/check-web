@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "May nilalamang keyword ang sagot sa gawain"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "Sa pag-sign in, sumasang-ayon ka sa {appName} {tosLink} at {ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Mangyaring tingnan ang iyong email para maberipika ang iyong account."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Tulay"
 	},
-	"browser.support.message": {
-		"string": "Pinakamainam tingnan gamit ang <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome para sa Desktop</a>."
-	},
 	"browserSupport.message": {
 		"string": "Naka-optimize ang {appName} para sa Google Chrome sa desktop."
 	},
@@ -963,6 +963,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Pinakamainam tingnan gamit ang <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome para sa Desktop</a>."
 	},
 	"global.cancel": {
 		"string": "Kanselahin"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Hindi tugma ang mga password"
 	},
-	"passwordReset.cancel": {
-		"string": "Kanselahin"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Nagpadala kami sa iyo ng email mula sa {adminEmail} na may mga panuto sa pag-reset ng iyong password. Siguruhing hindi ito napunta sa iyong spam mailbox. Kung sakaling hindi mo natatanggap ang aming mga email sa pag-reset ng password, makipag-ugnay sa {supportEmail}. Mangyaring tandaan na ang link sa loob ng email na ito ay lilipas pagkatapos ng {expiry} hours."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Naipadala ang password reset"
 	},
 	"passwordReset.email": {
 		"string": "Email"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Paumanhin, hindi matagpuan ang email na ito. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali."
+		"string": "Paumanhin, hindi matagpuan ang email na ito. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Magbigay ng wastong email address."
+		"string": "Magbigay ng wastong email address.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Mag-sign In"
-	},
-	"passwordReset.submit": {
-		"string": "I-reset ang Password"
 	},
 	"passwordReset.text": {
 		"string": "Idagdag ang iyong address at may ipadadalang email na may mga karagdagang panuto."
 	},
 	"passwordReset.title": {
-		"string": "I-reset ang password"
+		"string": "I-reset ang password",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Patakaran sa Pagkapribado"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "Seguridad"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "Sa pag-sign in, sumasang-ayon ka sa {appName} {tosLink} at {ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Para sa suporta, makipag-ugnay sa <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Mag-sign in",

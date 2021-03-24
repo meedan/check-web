@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "Jibu la kazi lina neno msingi"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "Kwa kujisajili, unakubaliana na {appName} {tosLink} na{ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Tafadhali angalia barua pepe yako kuthibitisha akaunti yako."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Inatazamwa bora na<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome ya Eneo Kazi</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} imeboreshwa kwa Google Chrome kwenye eneo kazi. "
 	},
@@ -963,6 +963,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Inatazamwa bora na<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome ya Eneo Kazi</a>."
 	},
 	"global.cancel": {
 		"string": "Ghairi"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Nenosiri hazilingani"
 	},
-	"passwordReset.cancel": {
-		"string": "Ghairi"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Tumetuma barua pepe kutoka kwa {adminEmail} na maagizo ya kuweka upya nenosiri lako. Hakikisha haikufika kwenye sanduku lako la barua taka. Iwapo haupati barua pepe za kuweka upya nenosiri lako, wasiliana na {supportEmail}. Tafadhali zingatia kuwa kiungo katika barua pepe hii muda wake utaisha baada ya saa {expiry}. "
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Kuweka upya nenosiri imetumwa"
 	},
 	"passwordReset.email": {
 		"string": "Barua pepe"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Samahani. barua pepe hii haikupatikana. Tafadhali wasiliana na {supportEmail} iwapo unadhania hii ni hitilafu. "
+		"string": "Samahani. barua pepe hii haikupatikana. Tafadhali wasiliana na {supportEmail} iwapo unadhania hii ni hitilafu. ",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Tafadhali weka barua pepe halali."
+		"string": "Tafadhali weka barua pepe halali.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Ingia"
-	},
-	"passwordReset.submit": {
-		"string": "Weka upya nenosiri"
 	},
 	"passwordReset.text": {
 		"string": "Ongeza anwani yako na barua pepe yenye maelezo zaidi itatumwa."
 	},
 	"passwordReset.title": {
-		"string": "Weka upya nenosiri"
+		"string": "Weka upya nenosiri",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Sera Faragha"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "Usalama"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "Kwa kujisajili, unakubaliana na {appName} {tosLink} na{ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Kwa msaada, wasiliana na <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Ingia",

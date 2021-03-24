@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "Task answer contains keyword"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Please check your email to verify your account."
 	},
@@ -556,9 +559,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} is optimized for Google Chrome on desktop."
 	},
@@ -963,6 +963,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>."
 	},
 	"global.cancel": {
 		"string": "Cancel"
@@ -1807,35 +1810,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Passwords didn't match"
 	},
-	"passwordReset.cancel": {
-		"string": "Cancel"
-	},
 	"passwordReset.confirmedText": {
 		"string": "We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}. Please note that the link in this email will expire in {expiry} hours."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Password reset sent"
 	},
 	"passwordReset.email": {
 		"string": "Email"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Sorry, this email was not found. Please contact {supportEmail} if you think this is an error."
+		"string": "Sorry, this email was not found. Please contact {supportEmail} if you think this is an error.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Please enter a valid email address."
+		"string": "Please enter a valid email address.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Sign In"
-	},
-	"passwordReset.submit": {
-		"string": "Reset Password"
 	},
 	"passwordReset.text": {
 		"string": "Add your address and an email will be sent with further instructions."
 	},
 	"passwordReset.title": {
-		"string": "Reset password"
+		"string": "Reset password",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Privacy Policy"
@@ -3686,12 +3683,6 @@
 	},
 	"userComponents.security": {
 		"string": "Security"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "For support contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Sign In",
