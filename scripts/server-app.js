@@ -37,14 +37,14 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/js/*.bundle.js', (req, res, next) => {
+app.get('/js/*.bundle*.js', (req, res, next) => {
   req.url = `${req.url}.gz`;
   res.set('Content-Encoding', 'gzip');
   res.set('Content-Type', 'text/javascript');
   next();
 });
 
-app.get('/*.chunk.js', (req, res, next) => {
+app.get('/*.chunk*.js', (req, res, next) => {
   const filename = req.url.replace(/^.*\//, '');
   req.url = `/js/${filename}.gz`;
   res.set('Content-Encoding', 'gzip');

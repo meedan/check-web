@@ -14,6 +14,7 @@ const zlib = require('zlib');
 const localesRegExp = new RegExp(`/(${locales.join('|')})$`);
 
 const NODE_ENV = process.env.NODE_ENV || 'production';
+const BUNDLE_PREFIX = process.env.BUNDLE_PREFIX ? `.${process.env.BUNDLE_PREFIX}` : '';
 
 const nodeModulesPrefix = path.resolve(__dirname, '../node_modules') + '/';
 const reactIntlLocaleDataPrefix = `${nodeModulesPrefix}react-intl/locale-data/`;
@@ -28,8 +29,8 @@ module.exports = {
   devtool: NODE_ENV === 'production' ? 'source-map' : 'eval-cheap-module-source-map',
   output: {
     path: path.join(__dirname, '../build/web/js'),
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].chunk.js'
+    filename: `[name].bundle${BUNDLE_PREFIX}.js`,
+    chunkFilename: `[name].chunk${BUNDLE_PREFIX}.js`
   },
   watchOptions: {
     ignored: /node_modules/,
@@ -49,7 +50,7 @@ module.exports = {
         // "vendor.chunk.js" chunk.
         vendor: {
           name: 'vendor',
-          filename: 'vendor.bundle.js', // we link to it directly in our HTML
+          filename: `vendor.bundle${BUNDLE_PREFIX}.js`, // we link to it directly in our HTML
           chunks: 'all',
           enforce: true,
           test({ resource }) {

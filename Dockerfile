@@ -34,4 +34,4 @@ RUN true \
 
 # startup
 EXPOSE 3333
-CMD ["tini", "--", "bash", "-c", "npm install && npm run serve:dev"]
+CMD ["tini", "--", "bash", "-c", "export BUNDLE_PREFIX=$(date '+%Y%m%d%H%M%S') && npm install && npm run serve:dev"]
