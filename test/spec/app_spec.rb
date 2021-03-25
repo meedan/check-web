@@ -241,13 +241,11 @@ shared_examples 'app' do |webdriver_url|
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
       # item created from "all items" page
       wait_for_selector('a[href$="/all-items"]').click
-      wait_for_selector_list_size('.medias__item', 1, :css, 30)
       create_media('claim 2', false)
-      wait_for_selector_list_size('.medias__item', 2, :css, 30)
       wait_for_selector('.media__heading', :css, 20, true).click
       wait_for_selector('#media-detail__report-designer')
       wait_for_selector('.project-header__back-button').click
-      wait_for_selector_list_size('.medias__item', 1)
+      wait_for_selector_list_size('.medias__item', 1, :css, 30)
       wait_for_selector('#create-media__add-item')
       expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
     end

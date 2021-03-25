@@ -28,6 +28,7 @@ shared_examples 'metadata' do
     expect(task.text).to eq 'my metadata - Edited'
     @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector('.reorder__button-down').click
+    wait_for_text_change('my metadata - Edited', '.team-tasks__task-label > span > span', :css)
     task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
     expect(task.text).to eq 'my data time metadata'
 
