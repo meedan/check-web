@@ -9,8 +9,8 @@ MAINTAINER sysops@meedan.com
 ARG DEPLOY_BRANCH
 ENV DEPLOYBRANCH=$DEPLOY_BRANCH
 
-ARG bundle_prefix
-ENV BUNDLE_PREFIX=$bundle_prefix
+ARG TIMESTAMP
+ENV BUNDLE_PREFIX=$TIMESTAMP
 
 # consolidate ENV for one cache layer
 ENV DEPLOYUSER=checkdeploy \
