@@ -208,7 +208,7 @@ shared_examples 'task' do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__tasks-tab', :css, 30).click
-    wait_for_selector("//span[contains(text(), 'Tasks')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'No default tasks')]", :xpath)
     expect(@driver.page_source.include?('No default tasks to display')).to be(true)
     expect(@driver.page_source.include?('New teamwide task')).to be(false)
 

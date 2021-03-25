@@ -67,6 +67,7 @@ shared_examples 'media' do |type|
   it 'should autorefresh page when media is created', bin1: true do
     create_media_depending_on_type
     wait_for_selector('.media')
+    wait_for_selector("//span[contains(text(), '1 of 1')]", :xpath)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector_list_size('.medias__item', 1, :css, 30)
     wait_for_selector('#search-input')
@@ -82,7 +83,7 @@ shared_examples 'media' do |type|
     @driver.execute_script('window.close()')
     @driver.switch_to.window(current_window)
     @wait.until { @driver.window_handles.length == 1 }
-    wait_for_selector_list_size('.medias__item', 2, :css, 40)
+    wait_for_selector_list_size('.medias__item', 2, :css, 50)
     expect(@driver.find_elements(:css, '.media__heading').size == 2).to be(true)
     expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
   end
