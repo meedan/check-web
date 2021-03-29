@@ -17,6 +17,9 @@ const ReportDesignerConfirmableButton = (props) => {
   const [opened, setOpened] = React.useState(false);
 
   const handleClose = () => {
+    if (props.onClose) {
+      props.onClose();
+    }
     setOpened(false);
   };
 
@@ -63,6 +66,7 @@ ReportDesignerConfirmableButton.defaultProps = {
   proceedLabel: null,
   cancelLabel: null,
   onConfirm: null,
+  onClose: null,
   noCancel: false,
 };
 
@@ -72,6 +76,7 @@ ReportDesignerConfirmableButton.propTypes = {
   title: PropTypes.object.isRequired,
   content: PropTypes.object.isRequired,
   onConfirm: PropTypes.func,
+  onClose: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   cancelLabel: PropTypes.object,
