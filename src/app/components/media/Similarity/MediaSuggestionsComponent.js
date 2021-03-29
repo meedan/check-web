@@ -88,7 +88,6 @@ const MediaSuggestionsComponent = ({
   const classes = useStyles();
   const itemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
   const [index, setIndex] = React.useState(0);
-  const [saving, setSaving] = React.useState(false);
 
   const relationship = relationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
@@ -112,12 +111,10 @@ const MediaSuggestionsComponent = ({
     }
   };
 
-  const handleCompleted = () => {
-    setSaving(false);
-  };
+  const handleCompleted = () => {};
 
   const handleConfirm = () => {
-    setSaving(true);
+    handleNext();
 
     const relationship_type = 'confirmed_sibling';
 
@@ -199,7 +196,7 @@ const MediaSuggestionsComponent = ({
   };
 
   const handleReject = () => {
-    setSaving(true);
+    handleNext();
 
     const mutation = graphql`
       mutation MediaSuggestionsComponentDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
@@ -258,7 +255,7 @@ const MediaSuggestionsComponent = ({
     <React.Fragment>
       <Column className="media__column">
         <Box className={classes.suggestionsTopBar}>
-          <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" disabled={saving} className={classes.suggestionsBackButton}>
+          <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
             <FormattedMessage
               id="mediaSuggestionsComponent.back"
               defaultMessage="Back"
@@ -288,14 +285,14 @@ const MediaSuggestionsComponent = ({
             </IconButton>
           </Box>
           <Box display="flex" alignItems="center">
-            <IconButton onClick={handlePrevious} disabled={!hasPrevious || saving}>
+            <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
               <KeyboardArrowLeftIcon fontSize="large" />
             </IconButton>
             <IconButton
               onClick={handleConfirm}
               style={{ color: completedGreen }}
-              disabled={total === 0 || saving}
-              className={total === 0 || saving ? classes.disabled : ''}
+              disabled={total === 0}
+              className={total === 0 ? classes.disabled : ''}
               id="similarity-media-item__accept-relationship"
             >
               <CheckCircleOutlineIcon fontSize="large" />
@@ -303,13 +300,13 @@ const MediaSuggestionsComponent = ({
             <IconButton
               onClick={handleReject}
               style={{ color: alertRed }}
-              disabled={total === 0 || saving}
-              className={total === 0 || saving ? classes.disabled : ''}
+              disabled={total === 0}
+              className={total === 0 ? classes.disabled : ''}
               id="similarity-media-item__reject-relationship"
             >
               <HighlightOffIcon fontSize="large" />
             </IconButton>
-            <IconButton onClick={handleNext} disabled={!hasNext || saving}>
+            <IconButton onClick={handleNext} disabled={!hasNext}>
               <KeyboardArrowRightIcon fontSize="large" />
             </IconButton>
           </Box>
