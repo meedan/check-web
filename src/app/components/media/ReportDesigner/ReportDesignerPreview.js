@@ -121,7 +121,7 @@ const ReportDesignerPreview = (props) => {
       { data.use_text_message ?
         <Box className={classes.messagePreview}>
           { text.length ? (
-            <ParsedText text={text.join('\n\n')} block />
+            <ParsedText text={text.join('\n\n')} truncateFileUrls={false} block />
           ) : (
             <FormattedMessage
               id="reportDesigner.addText"
