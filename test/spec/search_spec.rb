@@ -13,7 +13,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should filter by status and search by keywords', bin2: true, quick: true do
+  it 'should filter by status and search by keywords', bin5: true, quick: true do
     api_create_claim_and_go_to_search_page
     expect(@driver.page_source.include?('My search result')).to be(true)
     create_media('media 2')
@@ -56,6 +56,7 @@ shared_examples 'search' do
     # reset filter
     wait_for_selector("//span[contains(text(), 'Reset')]", :xpath).click
     wait_for_selector('#search-query__submit-button').click
+    wait_for_selector_none('#search-query__cancel-button')
     wait_for_selector_list_size('.media__heading', 2)
     expect(@driver.page_source.include?('My search result')).to be(true)
     # search by keyword
@@ -66,7 +67,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should filter item by status on trash page', bin2: true do
+  it 'should filter item by status on trash page', bin5: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
@@ -100,7 +101,7 @@ shared_examples 'search' do
     expect(page_source_body.include?('My search result')).to be(true)
   end
 
-  it 'should search and change sort criteria', bin2: true do
+  it 'should search and change sort criteria', bin5: true do
     api_create_claim_and_go_to_search_page
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)

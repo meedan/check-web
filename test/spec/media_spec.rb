@@ -111,7 +111,7 @@ shared_examples 'media' do |type|
     expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
 
-  it 'should restore item from trash from item page', bin2: true do
+  it 'should restore item from trash from item page', bin6: true do
     create_media_depending_on_type
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
@@ -137,7 +137,7 @@ shared_examples 'media' do |type|
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
   end
 
-  it 'should restore items from the trash', bin2: true do
+  it 'should restore items from the trash', bin5: true do
     create_media_depending_on_type
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click

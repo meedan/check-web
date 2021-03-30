@@ -2,7 +2,7 @@ shared_examples 'media actions' do
   it 'should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok', bin2: true do
     # from facebook
     api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161?1')
-    wait_for_selector('.media-detail')
+    wait_for_selector('.more-less')
     expect(@driver.page_source.downcase.include?('facebook')).to be(true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
     wait_for_selector('#search-form')

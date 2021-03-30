@@ -28,10 +28,6 @@ before_script:
 - docker-compose -f docker-compose.yml -f docker-test.yml up -d
 - until curl --silent -I -f --fail http://localhost:3000 ; do printf .; sleep 1; done
 - until curl --silent -I -f --fail http://localhost:3333 ; do printf .; sleep 1; done
-# - docker-compose exec web npm install
-# - docker-compose exec web npm run build
-# - docker-compose exec web npm run publish &
-# - sleep 5
 - docker-compose exec web npm run test:unit:lint || travis_terminate 1;
 - docker-compose exec web npm run test:integration:lint || travis_terminate 1;
 script: docker-compose exec web npm run tests

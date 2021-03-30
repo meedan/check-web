@@ -43,21 +43,6 @@ shared_examples 'app' do |webdriver_url|
     @failing_tests = {}
   end
 
-  unless ENV['SKIP_CONFIG_JS_OVERWRITE']
-    around(:all) do |block|
-      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
-      begin
-        block.run
-      ensure
-        begin
-          FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
-        rescue Errno::ENOENT
-          puts 'Could not copy config.js to ../build/web/js/'
-        end
-      end
-    end
-  end
-
   before :each do |example|
     $caller_name = example.metadata[:description_args]
   end
@@ -114,6 +99,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'report'
     include_examples 'rules'
     include_examples 'search'
+    # include_examples 'source'
     include_examples 'status'
     include_examples 'task'
     include_examples 'tag'
@@ -265,10 +251,10 @@ shared_examples 'app' do |webdriver_url|
     it 'should set metatags', bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
       request_api('make_team_public', { slug: get_team })
-      wait_for_selector('.media-detail')
+      wait_for_selector('.more-less')
       url = @driver.current_url.to_s
       @driver.navigate.to url
-      wait_for_selector('.media-detail')
+      wait_for_selector('.more-less')
       site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
       expect(site == 'check').to be(true)
       twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')

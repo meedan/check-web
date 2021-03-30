@@ -28,7 +28,7 @@ shared_examples 'videotimeline' do
     wait_for_selector("button[aria-label='Delete thread']").click
     wait_for_selector_none('.MuiAvatar-circle')
     expect(@driver.find_elements(:class, 'MuiAvatar-circle').size).to eq 0
-    wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
+    wait_for_selector('button.MuiIconButton-sizeSmall').click # close timeline button
     @driver.navigate.refresh
     wait_for_selector('.media-detail')
     wait_for_selector('.media-tab__comments').click
@@ -55,7 +55,7 @@ shared_examples 'videotimeline' do
     wait_for_selector('.MuiChip-icon').click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
     expect(@driver.page_source.include?('Timeline')).to be(true)
-    wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
+    wait_for_selector('button.MuiIconButton-sizeSmall').click # close timeline button
     wait_for_selector("//span[contains(text(), 'my videotag')]", :xpath).click
     wait_for_selector('#search-input')
     expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # check the redirect

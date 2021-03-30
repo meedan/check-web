@@ -4,7 +4,7 @@ shared_examples 'metadata' do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__metadata-tab', :css, 30).click
-    wait_for_selector("//span[contains(text(), 'Metadata')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
 
     # Create metadata
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
@@ -42,7 +42,8 @@ shared_examples 'metadata' do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__metadata-tab', :css, 30).click
-    wait_for_selector("//span[contains(text(), 'Metadata')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
+    wait_for_selector('.create-task__add-button')
 
     # Create metadata
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
