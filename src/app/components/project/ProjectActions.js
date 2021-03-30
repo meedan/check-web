@@ -12,6 +12,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
+import ProjectEditDialog from './ProjectEditDialog';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import CheckContext from '../../CheckContext';
@@ -22,10 +23,15 @@ class ProjectActions extends Component {
     openAssignPopup: false,
     showConfirmDeleteProjectDialog: false,
     projectDeletionConfirmed: false,
+    showEditProjectDialog: false,
   };
 
-  handleEdit = () => {
-    browserHistory.push(`${window.location.pathname.match(/.*\/project\/\d+/)[0]}/edit`);
+  handleStartEdit = () => {
+    this.setState({ showEditProjectDialog: true, anchorEl: null });
+  };
+
+  handleFinishEdit = () => {
+    this.setState({ showEditProjectDialog: false });
   };
 
   handleOpenMenu = (e) => {
@@ -103,7 +109,7 @@ class ProjectActions extends Component {
         <MenuItem
           key="projectActions.edit"
           className="project-actions__edit"
-          onClick={this.handleEdit}
+          onClick={this.handleStartEdit}
         >
           <ListItemText
             primary={
@@ -188,15 +194,17 @@ class ProjectActions extends Component {
           onCancel={this.handleCloseDialog.bind(this)}
           onProceed={this.handleDestroy.bind(this)}
         />
-        {
-          this.state.openAssignPopup ?
-            <ProjectAssignment
-              assignmentDialogOpened={Boolean(this.state.anchorEl)}
-              onDismiss={this.handleAssignClose}
-              project={project}
-            />
-            : null
-        }
+        { this.state.openAssignPopup ?
+          <ProjectAssignment
+            assignmentDialogOpened={Boolean(this.state.anchorEl)}
+            project={project}
+            onDismiss={this.handleAssignClose}
+          /> : null }
+        { this.state.showEditProjectDialog ?
+          <ProjectEditDialog
+            projectDbid={project.dbid}
+            onDismiss={this.handleFinishEdit}
+          /> : null }
       </React.Fragment>
     );
   }
