@@ -44,6 +44,9 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  actionsCell: {
+    gap: `${theme.spacing(3)}px`,
+  },
 }));
 
 const TeamMembersComponent = ({
@@ -214,7 +217,7 @@ const TeamMembersComponent = ({
                     }
                   </TableCell>
                   <TableCell>
-                    <Box display="flex">
+                    <Box display="flex" className={classes.actionsCell}>
                       <ChangeUserRole teamUser={tu.node} />
                       <TeamMemberActions team={team} teamUser={tu.node} />
                     </Box>
