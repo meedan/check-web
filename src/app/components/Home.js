@@ -3,6 +3,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Favicon from 'react-favicon';
+import isEqual from 'lodash.isequal';
 import styled, { createGlobalStyle } from 'styled-components';
 import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -163,6 +164,11 @@ class HomeComponent extends Component {
 
   componentWillMount() {
     this.setContext();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+    !isEqual(this.props, nextProps);
   }
 
   componentWillUpdate() {
