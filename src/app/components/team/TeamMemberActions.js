@@ -100,7 +100,7 @@ const TeamMemberActions = ({
         <FormattedMessage
           id="teamMemberActions.invitationSent"
           defaultMessage="Invite sent!"
-          description="Sucess notification confirming that invitation was sent to user"
+          description="Success notification confirming that invitation was sent to user"
         />
       ), 'success');
     };
@@ -143,7 +143,7 @@ const TeamMemberActions = ({
         <FormattedMessage
           id="teamMemberActions.invitationCanceled"
           defaultMessage="Invite canceled!"
-          description="Sucess notification confirming that invitation was canceled"
+          description="Success notification confirming that invitation was canceled"
         />
       ), 'success');
     };

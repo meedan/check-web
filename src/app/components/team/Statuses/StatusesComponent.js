@@ -109,11 +109,14 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   }
 
   const handleDelete = ({ status_id, fallback_status_id }) => {
-    const onCompleted = (response, error) => {
-      if (error) {
-        handleError(error);
-      }
+    const onCompleted = () => {
       setDeleteStatus(null);
+      setFlashMessage((
+        <FormattedMessage
+          id="statusesComponent.deleted"
+          defaultMessage="Status deleted successfully!"
+        />
+      ), 'success');
     };
     const onError = (error) => {
       handleError(error);
@@ -131,17 +134,22 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   const handleSubmit = (newStatuses, showSuccessMessage) => {
-    const onCompleted = (response, error) => {
-      if (error) {
-        handleError(error);
-      }
+    const onCompleted = () => {
       setAddingNewStatus(false);
       setSelectedStatus(null);
-      if (showSuccessMessage) {
+      if (showSuccessMessage === 'saved') {
         setFlashMessage((
           <FormattedMessage
             id="statusesComponent.saved"
-            defaultMessage="Statuses saved sucessfully!"
+            defaultMessage="Statuses saved successfully!"
+          />
+        ), 'success');
+      }
+      if (showSuccessMessage === 'created') {
+        setFlashMessage((
+          <FormattedMessage
+            id="statusesComponent.created"
+            defaultMessage="Status created successfully!"
           />
         ), 'success');
       }
@@ -173,7 +181,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
     }
 
     newStatuses.statuses = newStatusesArray;
-    handleSubmit(newStatuses);
+    handleSubmit(newStatuses, (addingNewStatus ? 'created' : null));
   };
 
   const handleCancelEdit = () => {
@@ -209,7 +217,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const handleTranslateStatuses = (newStatusesArray) => {
     const newStatuses = { ...team.verification_statuses };
     newStatuses.statuses = newStatusesArray;
-    handleSubmit(newStatuses, true);
+    handleSubmit(newStatuses, 'saved');
   };
 
   return (

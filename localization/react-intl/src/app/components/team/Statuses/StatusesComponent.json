@@ -4,8 +4,16 @@
     "defaultMessage": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
   },
   {
+    "id": "statusesComponent.deleted",
+    "defaultMessage": "Status deleted successfully!"
+  },
+  {
     "id": "statusesComponent.saved",
-    "defaultMessage": "Statuses saved sucessfully!"
+    "defaultMessage": "Statuses saved successfully!"
+  },
+  {
+    "id": "statusesComponent.created",
+    "defaultMessage": "Status created successfully!"
   },
   {
     "id": "statusesComponent.title",
