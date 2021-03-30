@@ -5,12 +5,12 @@
   },
   {
     "id": "teamMemberActions.invitationSent",
-    "description": "Sucess notification confirming that invitation was sent to user",
+    "description": "Success notification confirming that invitation was sent to user",
     "defaultMessage": "Invite sent!"
   },
   {
     "id": "teamMemberActions.invitationCanceled",
-    "description": "Sucess notification confirming that invitation was canceled",
+    "description": "Success notification confirming that invitation was canceled",
     "defaultMessage": "Invite canceled!"
   },
   {

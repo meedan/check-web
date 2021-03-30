@@ -164,6 +164,8 @@ class TagMenuComponent extends Component {
       .concat(this.state.tagsToAdd)
       .filter(text => !this.state.tagsToRemove.includes(text));
 
+    const isBrowserExtension = (window.parent !== window);
+
     return (
       <React.Fragment>
         <StyledIconButton
@@ -179,7 +181,7 @@ class TagMenuComponent extends Component {
           onClose={this.closeMenu}
         >
           <div>
-            <TagInput media={media} onChange={this.handleChange} />
+            { isBrowserExtension ? null : <TagInput media={media} onChange={this.handleChange} /> }
             <TagPicker
               team={media.team}
               searchValue={this.state.searchValue}
