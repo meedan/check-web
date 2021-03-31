@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
-import isEqual from 'lodash.isequal';
 import CreateProjectMedia from '../media/CreateMedia';
 import Can from '../Can';
 import { black87, units, Row, FlexRow } from '../../styles/js/shared';
@@ -25,48 +24,39 @@ const OffsetButton = styled.div`
   text-align: end;
 `;
 
-class Toolbar extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return !isEqual(this.state, nextState) ||
-           !isEqual(this.props, nextProps);
+const Toolbar = ({
+  actions,
+  title,
+  project,
+  page,
+  team,
+  search,
+}) => {
+  let perms = { permissions: {}, permission: '' };
+  if (project) {
+    perms = { permissions: project.permissions, permission: 'create Media' };
+  } else if (team) {
+    perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
   }
 
-  render() {
-    const {
-      actions,
-      title,
-      project,
-      page,
-      team,
-      search,
-    } = this.props;
-
-    let perms = { permissions: {}, permission: '' };
-    if (project) {
-      perms = { permissions: project.permissions, permission: 'create Media' };
-    } else if (team) {
-      perms = { permissions: team.permissions, permission: 'create ProjectMedia' };
-    }
-
-    return (
-      <StyledToolbar className="toolbar">
-        <FlexRow>
-          <Row>
-            <span className="toolbar__title">{title}</span>
-            {actions}
-          </Row>
-          {['trash', 'unconfirmed'].indexOf(page) === -1 ? (
-            <Can {...perms}>
-              <OffsetButton>
-                <CreateProjectMedia search={search} project={project} team={team} />
-              </OffsetButton>
-            </Can>
-          ) : null}
-        </FlexRow>
-      </StyledToolbar>
-    );
-  }
-}
+  return (
+    <StyledToolbar className="toolbar">
+      <FlexRow>
+        <Row>
+          <span className="toolbar__title">{title}</span>
+          {actions}
+        </Row>
+        {['trash', 'unconfirmed'].indexOf(page) === -1 ? (
+          <Can {...perms}>
+            <OffsetButton>
+              <CreateProjectMedia search={search} project={project} team={team} />
+            </OffsetButton>
+          </Can>
+        ) : null}
+      </FlexRow>
+    </StyledToolbar>
+  );
+};
 
 Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
