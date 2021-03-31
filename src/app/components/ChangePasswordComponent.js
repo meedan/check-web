@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
@@ -22,6 +23,7 @@ function ChangePasswordComponent({
   showCurrentPassword,
   token,
   showConfirm,
+  user,
 }) {
   const [submitDisabled, setSubmitDisabled] = React.useState(true);
   const [errorMsg, setErrorMsg] = React.useState(null);
@@ -76,7 +78,7 @@ function ChangePasswordComponent({
     if (!submitDisabled) {
       let id = 0;
       if (type === 'update-password') {
-        id = this.props.user.dbid;
+        id = user.dbid;
       }
       commitMutation(Relay.Store, {
         mutation: graphql`
@@ -174,5 +176,20 @@ function ChangePasswordComponent({
     </div>
   );
 }
+
+ChangePasswordComponent.defaultProps = {
+  showCurrentPassword: false,
+  token: null,
+  showConfirm: null,
+  user: null,
+};
+
+ChangePasswordComponent.propTypes = {
+  type: PropTypes.string.isRequired,
+  showCurrentPassword: PropTypes.string,
+  token: PropTypes.string,
+  showConfirm: PropTypes.func,
+  user: PropTypes.object,
+};
 
 export default ChangePasswordComponent;
