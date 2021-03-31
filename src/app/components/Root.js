@@ -16,7 +16,6 @@ import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
 import AddTeamPage from './team/AddTeamPage';
-import JoinTeam from './team/JoinTeam';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
 import Unconfirmed from './team/Unconfirmed';
@@ -24,7 +23,6 @@ import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
 import Project from './project/Project';
-import ProjectEdit from './project/ProjectEdit';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 
@@ -70,7 +68,6 @@ class Root extends Component {
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams/new" component={AddTeamPage} />
-                <Route path="check/teams/find(/:slug)" component={AddTeamPage} />
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/media/:mediaId" component={MediaPage} public />
@@ -85,8 +82,6 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/project/:projectId/media/:mediaId/metadata" component={MediaTasks} />
                 <Route path=":team/project/:projectId/media/:mediaId/source" component={MediaSource} />
-                <Route path=":team/join" component={JoinTeam} />
-                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/all-items(/:query)" component={AllItems} public />
                 <Route path=":team/trash(/:query)" component={Trash} />

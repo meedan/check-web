@@ -56,6 +56,7 @@ const SmoochBotResourceEditor = ({
   intl,
   installationId,
   resource,
+  hasTitle,
   onDelete,
   onChange,
 }) => {
@@ -107,22 +108,23 @@ const SmoochBotResourceEditor = ({
   return (
     <React.Fragment>
       <Box display="flex" flexWrap="wrap">
-        <TextField
-          key={Math.random().toString().substring(2, 10)}
-          label={
-            <FormattedMessage
-              id="smoochBotResourceEditor.title"
-              defaultMessage="Bot resource title"
-            />
-          }
-          className={classes.spaced}
-          defaultValue={resource.smooch_custom_resource_title}
-          onBlur={(event) => {
-            onChange('smooch_custom_resource_title', event.target.value.trim());
-          }}
-          variant="outlined"
-          fullWidth
-        />
+        { hasTitle ?
+          <TextField
+            key={Math.random().toString().substring(2, 10)}
+            label={
+              <FormattedMessage
+                id="smoochBotResourceEditor.title"
+                defaultMessage="Bot resource title"
+              />
+            }
+            className={classes.spaced}
+            defaultValue={resource.smooch_custom_resource_title}
+            onBlur={(event) => {
+              onChange('smooch_custom_resource_title', event.target.value.trim());
+            }}
+            variant="outlined"
+            fullWidth
+          /> : null }
 
         <TextField
           key={Math.random().toString().substring(2, 10)}
@@ -203,7 +205,7 @@ const SmoochBotResourceEditor = ({
             />
           }
           className={classes.spaced}
-          defaultValue={resource.smooch_custom_resource_number_of_articles}
+          defaultValue={resource.smooch_custom_resource_number_of_articles || 0}
           onBlur={(event) => {
             onChange('smooch_custom_resource_number_of_articles', parseInt(event.target.value, 10));
           }}
@@ -224,23 +226,30 @@ const SmoochBotResourceEditor = ({
         </IconButton>
       </Box>
 
-      <Box display="flex">
-        <Button variant="outlined" onClick={onDelete} className={classes.spaced}>
-          <FormattedMessage
-            id="smoochBotResourceEditor.delete"
-            defaultMessage="Delete"
-          />
-        </Button>
-      </Box>
+      { onDelete ?
+        <Box display="flex">
+          <Button variant="outlined" onClick={onDelete} className={classes.spaced}>
+            <FormattedMessage
+              id="smoochBotResourceEditor.delete"
+              defaultMessage="Delete"
+            />
+          </Button>
+        </Box> : null }
     </React.Fragment>
   );
+};
+
+SmoochBotResourceEditor.defaultProps = {
+  onDelete: null,
+  hasTitle: true,
 };
 
 SmoochBotResourceEditor.propTypes = {
   installationId: PropTypes.string.isRequired,
   resource: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
+  hasTitle: PropTypes.bool,
   intl: intlShape.isRequired,
 };
 

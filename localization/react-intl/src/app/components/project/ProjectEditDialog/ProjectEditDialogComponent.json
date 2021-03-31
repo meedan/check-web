@@ -1,0 +1,42 @@
+[
+  {
+    "id": "projectEditDialogComponent.ialogComponent.defaultErrorMessage",
+    "defaultMessage": "Could not update list details."
+  },
+  {
+    "id": "projectEditDialogComponent.ialogComponent.savedSuccessfully",
+    "defaultMessage": "List details updated successfully."
+  },
+  {
+    "id": "projectEditDialogComponent.title",
+    "defaultMessage": "List details"
+  },
+  {
+    "id": "projectEditDialogComponent.titleField",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "projectEditDialogComponent.descriptionField",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "projectEditDialogComponent.saveButton",
+    "defaultMessage": "Update"
+  },
+  {
+    "id": "projectEditDialogComponent.confirmProceedTitle",
+    "defaultMessage": "Are you sure you want to change this list?"
+  },
+  {
+    "id": "projectEditDialogComponent.confirmProceedBody",
+    "defaultMessage": "Changes made to this list will be reflected for everyone in this workspace."
+  },
+  {
+    "id": "projectEditDialogComponent.confirmProceedLabel",
+    "defaultMessage": "Save changes"
+  },
+  {
+    "id": "projectEditDialogComponent.confirmCancelLabel",
+    "defaultMessage": "Go back"
+  }
+]

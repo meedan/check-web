@@ -8,6 +8,10 @@
     "defaultMessage": "Media content"
   },
   {
+    "id": "searchKeywordConfig.mediaUrl",
+    "defaultMessage": "Media URL"
+  },
+  {
     "id": "searchKeywordConfig.analysisTitle",
     "defaultMessage": "Analysis title"
   },

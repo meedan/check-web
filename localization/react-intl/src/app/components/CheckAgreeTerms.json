@@ -1,0 +1,18 @@
+[
+  {
+    "id": "CheckAgreeTerms.agreeTerms",
+    "defaultMessage": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+  },
+  {
+    "id": "tos.title",
+    "defaultMessage": "Terms of Service"
+  },
+  {
+    "id": "privacy.policy.title",
+    "defaultMessage": "Privacy Policy"
+  },
+  {
+    "id": "login.contactSupport",
+    "defaultMessage": "For support contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+  }
+]

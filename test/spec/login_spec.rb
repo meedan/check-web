@@ -27,17 +27,6 @@ shared_examples 'login' do
     expect(@driver.page_source.include?('Pending')).to be(true)
   end
 
-  it 'should redirect to login screen by the join team link', bin2: true do
-    team = "team#{Time.now.to_i}"
-    api_create_team(team: team)
-    api_logout
-    @driver.quit
-    @driver = new_driver
-    @driver.navigate.to "#{@config['self_url']}/#{team}/join"
-    wait_for_selector('.message')
-    expect(@driver.page_source.include?('First you need to register. Once registered, you can request to join the workspace.')).to be(true)
-  end
-
   it 'should not reset password', bin5: true do
     @driver.navigate.to @config['self_url']
     reset_password('test@meedan.com')
@@ -72,6 +61,7 @@ shared_examples 'login' do
     wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none('.user-password-reset__email-input')
     expect(@driver.page_source.include?('email was not found')).to be(false)
-    expect(@driver.page_source.include?('Password reset sent')).to be(true)
+    send_msg = wait_for_selector('.user-password-reset__sent_password').text
+    expect(send_msg.include?("We've sent you an email")).to be(true)
   end
 end

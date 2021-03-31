@@ -67,26 +67,30 @@ const socialTags = (metadata, config, url) => {
   ].join('\n');
 };
 
-module.exports = ({ config, metadata, url }) => `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>${metadata ? metadata.title : capitalize(config.appName)}</title>
-        ${socialTags(metadata, config, url)}
-        <link href="/images/logo/${config.appName || 'favicon'}.ico" rel="icon">
-        <script src="/js/config.js" defer="defer"></script>
-        <script src="/js/vendor.bundle.js" defer="defer"></script>
-        <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
-        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
-        ${heapAnalytics(config)}
-      </head>
-      <body>
-        <div id="root"></div>
-        ${uptimeMonitoring(config)}
-      </body>
-      <script src="/js/index.bundle.js" defer="defer"></script>
-    </html>
+module.exports = ({ config, metadata, url }) => {
+  const BUNDLE_PREFIX = process.env.BUNDLE_PREFIX ? `.${process.env.BUNDLE_PREFIX}` : '';
+
+  return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <title>${metadata ? metadata.title : capitalize(config.appName)}</title>
+          ${socialTags(metadata, config, url)}
+          <link href="/images/logo/${config.appName || 'favicon'}.ico" rel="icon">
+          <script src="/js/config.js" defer="defer"></script>
+          <script src="/js/vendor.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>
+          <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+          <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono" rel="stylesheet" type="text/css">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />
+          ${heapAnalytics(config)}
+        </head>
+        <body>
+          <div id="root"></div>
+          ${uptimeMonitoring(config)}
+        </body>
+        <script src="/js/index.bundle${BUNDLE_PREFIX}.js" defer="defer"></script>
+      </html>
   `;
+};

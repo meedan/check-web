@@ -4,6 +4,10 @@
     "defaultMessage": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
   },
   {
+    "id": "projectEdit.title",
+    "defaultMessage": "List details"
+  },
+  {
     "id": "projectEdit.titleField",
     "defaultMessage": "Title"
   },
@@ -13,7 +17,7 @@
   },
   {
     "id": "projectEdit.saveButton",
-    "defaultMessage": "Save"
+    "defaultMessage": "Update"
   },
   {
     "id": "projectEdit.confirmProceedTitle",

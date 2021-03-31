@@ -351,7 +351,6 @@ class Task extends Component {
 
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task } = this.props;
-    const isTask = task.fieldset === 'tasks';
 
     if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
       const editingResponseData = getResponseData(this.state.editingResponse);
@@ -470,7 +469,7 @@ class Task extends Component {
             </Box>
           </div>
           : null}
-        { by && byPictures && isTask ?
+        { by && byPictures ?
           <Box
             className="task__resolver"
             display="flex"
@@ -551,7 +550,7 @@ class Task extends Component {
     const taskActions = media.archived === CheckArchivedFlags.NONE ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
-        { data.by && isTask ?
+        { data.by ?
           <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
             <Box component="small" display="flex">
               <UserAvatars users={byPictures} />

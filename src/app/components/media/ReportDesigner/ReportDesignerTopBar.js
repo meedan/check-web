@@ -87,8 +87,8 @@ const ReportDesignerTopBar = (props) => {
       />
     );
   }
-  // If there is no visual card and the text report is selected but has no content, we can't publish
-  if (defaultReport && !defaultReport.use_visual_card && defaultReport.use_text_message &&
+  // If the text report is selected but has no content, we can't publish
+  if (defaultReport && defaultReport.use_text_message &&
     defaultReport.text.length === 0 && defaultReport.title.length === 0) {
     cantPublishReason = (
       <FormattedMessage
@@ -98,8 +98,10 @@ const ReportDesignerTopBar = (props) => {
     );
   }
   // We can publish if there is a default report with either visual card or non-empty text report
-  if (defaultReport && (defaultReport.use_visual_card || (defaultReport.use_text_message &&
-    (defaultReport.text.length > 0 || defaultReport.title.length > 0)))) {
+  const hasValidTextReport = defaultReport.use_text_message && (defaultReport.text.length > 0 || defaultReport.title.length > 0);
+  const noInvalidTextReport = !defaultReport.use_text_message || hasValidTextReport;
+  if (defaultReport && ((defaultReport.use_visual_card && noInvalidTextReport) ||
+                        (!defaultReport.use_visual_card && hasValidTextReport))) {
     cantPublishReason = null;
   }
   // We can't publish if the status is the initial one
@@ -381,6 +383,7 @@ const ReportDesignerTopBar = (props) => {
                   </React.Fragment>
                 }
                 noCancel={Boolean(cantPublishReason)}
+                onClose={cantPublishReason ? props.onEdit : null}
                 onConfirm={
                   cantPublishReason ?
                     null :

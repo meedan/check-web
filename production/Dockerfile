@@ -9,6 +9,9 @@ MAINTAINER sysops@meedan.com
 ARG DEPLOY_BRANCH
 ENV DEPLOYBRANCH=$DEPLOY_BRANCH
 
+ARG TIMESTAMP
+ENV BUNDLE_PREFIX=$TIMESTAMP
+
 # consolidate ENV for one cache layer
 ENV DEPLOYUSER=checkdeploy \
     DEPLOYDIR=/app \
@@ -22,7 +25,7 @@ ENV DEPLOYUSER=checkdeploy \
     LC_ALL=C.UTF-8 \
     LANG=C.UTF-8 \
     LANGUAGE=C.UTF-8 \
-    AWS_DEFAULT_REGION=eu-west-1 
+    AWS_DEFAULT_REGION=eu-west-1
 
 # user config
 RUN useradd ${DEPLOYUSER} -s /bin/bash -d ${DEPLOYDIR}/latest
@@ -46,7 +49,7 @@ RUN npm install
 COPY . ${DEPLOYDIR}/latest
 
 # get the relay.json file from github.com/meedan/check-api that corresponds to the DEPLOY_BRANCH passed to build.
-RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/${DEPLOYBRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json 
+RUN curl --silent https://raw.githubusercontent.com/meedan/check-api/${DEPLOYBRANCH}/public/relay.json -o ${DEPLOYDIR}/latest/relay.json
 RUN sed "s|/api/public/relay.json|${DEPLOYDIR}/latest/relay.json|" < config-build.js.example > ${DEPLOYDIR}/latest/config-build.js
 
 # Create default configs for build to succeed

@@ -38,6 +38,15 @@ const SearchKeywordConfigComponent = ({
     ),
   },
   {
+    value: 'url',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.mediaUrl"
+        defaultMessage="Media URL"
+      />
+    ),
+  },
+  {
     value: 'analysis_title',
     label: (
       <FormattedMessage

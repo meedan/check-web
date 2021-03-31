@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "Ответ содержит ключевое слово"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Пожалуйста, проверьте почту, чтобы подтвердить аккаунт."
 	},
@@ -240,9 +243,6 @@
 	},
 	"addLanguageAction.title": {
 		"string": "Выберите новый язык"
-	},
-	"addTeamPage.titleCreate": {
-		"string": "Новый проект"
 	},
 	"addTeamPage.titleFind": {
 		"string": "Найти существующий проект"
@@ -556,9 +556,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Оптимизировано для десктопной версии <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} оптимизирован для десктопной версии Chrome."
 	},
@@ -750,9 +747,6 @@
 	},
 	"createTeam.mainHeading": {
 		"string": "Новый проект"
-	},
-	"createTeam.requestToJoin": {
-		"string": "Вы также можете отправить запрос на участие в уже существующем проекте."
 	},
 	"createTeam.slugAvailable": {
 		"string": "Доступно!"
@@ -964,6 +958,9 @@
 	"global.appNameHuman": {
 		"string": "Check"
 	},
+	"global.bestViewed": {
+		"string": "Оптимизировано для десктопной версии <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome</a>."
+	},
 	"global.cancel": {
 		"string": "Отменить"
 	},
@@ -1015,9 +1012,6 @@
 	"home.invalidTeamInvitation": {
 		"string": "Извините, но проект, в который вас пригласили, не существует. Если считаете, что это ошибка, пожалуйста, свяжитесь с нами: {supportEmail}."
 	},
-	"home.needRegister": {
-		"string": "Сначала нужно зарегистрироваться. Потом вы сможете отправить заявку на присоединение к проекту."
-	},
 	"home.somethingWrong": {
 		"string": "Извините, произошла ошибка. Пожалуйста, перезагрузите страницу. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 	},
@@ -1033,6 +1027,10 @@
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.sentOtherInvitation": {
+		"string": "Sent other invites.",
+		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
 		"string": "Пригласить",
@@ -1434,7 +1432,7 @@
 		"string": "Копируем..."
 	},
 	"mediaAnalysis.date": {
-		"string": "Дата публикации"
+		"string": "Published article date"
 	},
 	"mediaAnalysis.error": {
 		"string": "Не удалось сохранить! Последнее сохранение {ago}"
@@ -1774,8 +1772,19 @@
 	"network.stillWorking": {
 		"string": "Загрузка..."
 	},
+	"notFound.back": {
+		"string": "Go to my profile page",
+		"developer_comment": "Go to profile page button"
+	},
+	"notFound.pageTitle": {
+		"string": "Page not found"
+	},
+	"notFound.text": {
+		"string": "If you are trying to access an existing workspace, please contact the workspace owner."
+	},
 	"notFound.title": {
-		"string": "Не найдено"
+		"string": "Oh no! This page does not exist or you do not have authorized access.",
+		"developer_comment": "Not found page title"
 	},
 	"pageTitle.appNameHuman": {
 		"string": "Check"
@@ -1807,35 +1816,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Пароли не совпадают"
 	},
-	"passwordReset.cancel": {
-		"string": "Отменить"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Вам отправлено письмо от {adminEmail} с инструкциями по сбросу пароля. Ссылка в письме действует {expiry} ч. Если вы не получили письмо, проверьте папку со спамом. Если наши письма вам не приходят, свяжитесь с нами: {supportEmail}."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Проверьте почту"
 	},
 	"passwordReset.email": {
 		"string": "Email"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Извините, аккаунт с данным email не найден. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}."
+		"string": "Извините, аккаунт с данным email не найден. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Пожалуйста, укажите корректный email."
+		"string": "Пожалуйста, укажите корректный email.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Войти"
-	},
-	"passwordReset.submit": {
-		"string": "Сбросить пароль"
 	},
 	"passwordReset.text": {
 		"string": "Укажите свой email, и мы вышлем вам письмо с инструкциями."
 	},
 	"passwordReset.title": {
-		"string": "Сбросить пароль"
+		"string": "Сбросить пароль",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Политика приватности"
@@ -1901,9 +1904,42 @@
 		"string": "В процессе редактирования списка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 	},
 	"projectEdit.saveButton": {
-		"string": "Сохранить"
+		"string": "Обновить"
+	},
+	"projectEdit.title": {
+		"string": "List details"
 	},
 	"projectEdit.titleField": {
+		"string": "Заголовок"
+	},
+	"projectEditDialogComponent.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEditDialogComponent.confirmProceedBody": {
+		"string": "Changes made to this list will be reflected for everyone in this workspace."
+	},
+	"projectEditDialogComponent.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEditDialogComponent.confirmProceedTitle": {
+		"string": "Are you sure you want to change this list?"
+	},
+	"projectEditDialogComponent.descriptionField": {
+		"string": "Описание"
+	},
+	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
+		"string": "Could not update list details."
+	},
+	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
+		"string": "List details updated successfully."
+	},
+	"projectEditDialogComponent.saveButton": {
+		"string": "Обновить"
+	},
+	"projectEditDialogComponent.title": {
+		"string": "List details"
+	},
+	"projectEditDialogComponent.titleField": {
 		"string": "Заголовок"
 	},
 	"projectHeader.allItems": {
@@ -2373,6 +2409,9 @@
 	"searchKeywordConfig.mediaTitle": {
 		"string": "Заголовок медиа-файла"
 	},
+	"searchKeywordConfig.mediaUrl": {
+		"string": "Media URL"
+	},
 	"searchKeywordConfig.metadata": {
 		"string": "Метаданные"
 	},
@@ -2514,6 +2553,9 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "Меню, где пользователю предлагается выбрать из нескольких вариантов. Это сообщение автоматически отправляется пользователю сразу после приветствия. «9» не может быть использовано как вариант ответа в главном меню."
 	},
+	"smoochBot.descriptionNoAction": {
+		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Сообщение, отправляемое пользователю, если его ответа нет в вариантах меню."
 	},
@@ -2555,6 +2597,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "Главное меню"
+	},
+	"smoochBot.labelNoAction": {
+		"string": "No action from user"
 	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "Опция недоступна"
@@ -2853,6 +2898,12 @@
 	"statusesComponent.blurbSecondary": {
 		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
 	},
+	"statusesComponent.created": {
+		"string": "Status created successfully!"
+	},
+	"statusesComponent.deleted": {
+		"string": "Status deleted successfully!"
+	},
 	"statusesComponent.error": {
 		"string": "Извините, во время обновления статусов произошла ошибка. Пожалуйста, попробуйте ещё раз. Если ошибка повторяется, свяжитесь с нами: {supportEmail}."
 	},
@@ -2863,7 +2914,7 @@
 		"string": "Новый статус"
 	},
 	"statusesComponent.saved": {
-		"string": "Статусы сохранены успешно!"
+		"string": "Statuses saved successfully!"
 	},
 	"statusesComponent.subtitle": {
 		"string": "Пользователи видят статус, когда получают отчёты."
@@ -3103,6 +3154,30 @@
 	"teamComponent.website": {
 		"string": "Сайт"
 	},
+	"teamDataComponent.formLinkText": {
+		"string": "this short form"
+	},
+	"teamDataComponent.notSet1": {
+		"string": "Click the button below to open your data report in a new window."
+	},
+	"teamDataComponent.notSet2": {
+		"string": "To request any customization of your data report, please reach out to support."
+	},
+	"teamDataComponent.set1": {
+		"string": "Fill {thisShortForm} to request access to your data report."
+	},
+	"teamDataComponent.set2": {
+		"string": "Your data report will be enabled within one business day."
+	},
+	"teamDataComponent.subtitle": {
+		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
+	},
+	"teamDataComponent.title": {
+		"string": "Workspace data"
+	},
+	"teamDataComponent.viewDataReport": {
+		"string": "View data report"
+	},
 	"teamDetails.description": {
 		"string": "Описание"
 	},
@@ -3234,11 +3309,11 @@
 	},
 	"teamMemberActions.invitationCanceled": {
 		"string": "Invite canceled!",
-		"developer_comment": "Sucess notification confirming that invitation was canceled"
+		"developer_comment": "Success notification confirming that invitation was canceled"
 	},
 	"teamMemberActions.invitationSent": {
 		"string": "Invite sent!",
-		"developer_comment": "Sucess notification confirming that invitation was sent to user"
+		"developer_comment": "Success notification confirming that invitation was sent to user"
 	},
 	"teamMemberActions.userRemoved": {
 		"string": "The user has been removed"
@@ -3383,6 +3458,9 @@
 	},
 	"teamSettings.Tags": {
 		"string": "Тэги"
+	},
+	"teamSettings.data": {
+		"string": "Data"
 	},
 	"teamSettings.details": {
 		"string": "Workspace details"
@@ -3686,12 +3764,6 @@
 	},
 	"userComponents.security": {
 		"string": "Безопасность"
-	},
-	"userConfirmPage.agreeTerms": {
-		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Если вам нужна помощь, напишите на <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"userConfirmPage.signIn": {
 		"string": "Войти",

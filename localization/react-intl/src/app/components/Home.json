@@ -1,9 +1,5 @@
 [
   {
-    "id": "home.needRegister",
-    "defaultMessage": "First you need to register. Once registered, you can request to join the workspace."
-  },
-  {
     "id": "home.somethingWrong",
     "defaultMessage": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
   },

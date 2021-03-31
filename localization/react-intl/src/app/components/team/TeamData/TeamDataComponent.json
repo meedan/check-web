@@ -1,0 +1,34 @@
+[
+  {
+    "id": "teamDataComponent.title",
+    "defaultMessage": "Workspace data"
+  },
+  {
+    "id": "teamDataComponent.subtitle",
+    "defaultMessage": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
+  },
+  {
+    "id": "teamDataComponent.notSet1",
+    "defaultMessage": "Click the button below to open your data report in a new window."
+  },
+  {
+    "id": "teamDataComponent.viewDataReport",
+    "defaultMessage": "View data report"
+  },
+  {
+    "id": "teamDataComponent.notSet2",
+    "defaultMessage": "To request any customization of your data report, please reach out to support."
+  },
+  {
+    "id": "teamDataComponent.set1",
+    "defaultMessage": "Fill {thisShortForm} to request access to your data report."
+  },
+  {
+    "id": "teamDataComponent.formLinkText",
+    "defaultMessage": "this short form"
+  },
+  {
+    "id": "teamDataComponent.set2",
+    "defaultMessage": "Your data report will be enabled within one business day."
+  }
+]

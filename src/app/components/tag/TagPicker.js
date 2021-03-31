@@ -15,7 +15,7 @@ const StyledNotFound = styled.div`
 
 const StyledTagPickerArea = styled.div`
   padding: ${units(2)};
-  height: ${units(32)};
+  max-height: ${units(32)};
   overflow-y: auto;
   border: 1px solid ${opaqueBlack05};
   background-color: ${opaqueBlack02};

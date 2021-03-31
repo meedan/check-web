@@ -9,6 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
+import CheckAgreeTerms from './CheckAgreeTerms';
+import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
   ContentColumn,
@@ -38,10 +40,6 @@ const useStyles = makeStyles({
     margin: '0 auto',
     display: 'block',
   },
-  marginTop: {
-    marginTop: `${units(2)}`,
-    textAlign: 'center',
-  },
 });
 
 function UserConfirmPage({ params }) {
@@ -50,9 +48,9 @@ function UserConfirmPage({ params }) {
   return (
     <Typography component="div" variant="body2" gutterBottom>
       <PageTitle>
-        <p className={classes.marginTop}>
-          <FormattedHTMLMessage id="browser.support.message" defaultMessage='Best viewed with <a href="https://www.google.com/chrome/browser/desktop/">Chrome for Desktop</a>.' />
-        </p>
+        <Box m={2} align="center">
+          <FormattedHTMLMessage {...globalStrings.bestViewed} />
+        </Box>
         <ContentColumn center className="user-confirm-page__component">
           <StyledCard>
             <FormattedGlobalMessage messageKey="appNameHuman">
@@ -120,25 +118,7 @@ function UserConfirmPage({ params }) {
             </Typography>
           </StyledCard>
           <Box my={4}>
-            <p style={{ textAlign: 'center' }}>
-              <FormattedMessage
-                id="userConfirmPage.agreeTerms"
-                defaultMessage="By signing up, you agree to the {appName} {tosLink} and {ppLink}."
-                values={{
-                  appName: (<FormattedGlobalMessage messageKey="appNameHuman" />),
-                  tosLink: <a className="confirm-container__footer-link" target="_blank" rel="noopener noreferrer" href={stringHelper('TOS_URL')}><FormattedMessage id="tos.title" defaultMessage="Terms of Service" /></a>,
-                  ppLink: <a className="confirm-container__footer-link" target="_blank" rel="noopener noreferrer" href={stringHelper('PP_URL')}><FormattedMessage id="privacy.policy.title" defaultMessage="Privacy&nbsp;Policy" /></a>,
-                }}
-              />
-            </p>
-
-            <p style={{ textAlign: 'center' }}>
-              <FormattedHTMLMessage
-                id="userConfirmPage.contactSupport"
-                defaultMessage='For support contact <a href="mailto:{supportEmail}">{supportEmail}</a>.'
-                values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-              />
-            </p>
+            <CheckAgreeTerms />
           </Box>
         </ContentColumn>
       </PageTitle>

@@ -17,6 +17,9 @@
 	"AddCustomFilters.taskTextLabel": {
 		"string": "La réponse de la tâche comprend un mot-clé"
 	},
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "En vous inscrivant, vous acceptez les {tosLink} et la {ppLink} de {appName}."
+	},
 	"ConfirmEmail.content": {
 		"string": "Veuillez consulter vos courriels afin de confirmer votre compte."
 	},
@@ -240,9 +243,6 @@
 	},
 	"addLanguageAction.title": {
 		"string": "Choisir une nouvelle langue"
-	},
-	"addTeamPage.titleCreate": {
-		"string": "Créer un espace de travail"
 	},
 	"addTeamPage.titleFind": {
 		"string": "Chercher un espace de travail existant"
@@ -556,9 +556,6 @@
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
-	"browser.support.message": {
-		"string": "Affichage optimal avec<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>."
-	},
 	"browserSupport.message": {
 		"string": "{appName} est optimisée pour Chrome pour ordinateur de Google."
 	},
@@ -751,9 +748,6 @@
 	"createTeam.mainHeading": {
 		"string": "Créer un espace de travail"
 	},
-	"createTeam.requestToJoin": {
-		"string": "Vous pouvez aussi demander à vous joindre à un espace de travail existant."
-	},
 	"createTeam.slugAvailable": {
 		"string": "Disponible"
 	},
@@ -932,7 +926,7 @@
 		"string": "URL de l’espace de travail"
 	},
 	"footer.madeBy": {
-		"string": "Check : vérifier en ligne les nouvelles de dernière heure. Créée avec ✨ par {meedan}"
+		"string": "Check : vérifier les nouvelles de dernière heure en ligne. Créée avec ✨ par {meedan}"
 	},
 	"geoLocationRespondTask.error": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de la tâche. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
@@ -963,6 +957,9 @@
 	},
 	"global.appNameHuman": {
 		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Affichage optimal avec<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome pour ordinateur</a>."
 	},
 	"global.cancel": {
 		"string": "Annuler"
@@ -1015,9 +1012,6 @@
 	"home.invalidTeamInvitation": {
 		"string": "Désolé, l’espace de travail auquel vous avez été invité est introuvable. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
 	},
-	"home.needRegister": {
-		"string": "Vous devez d’abord vous inscrire. Après inscription, vous pouvez demander à vous joindre à l’espace de travail."
-	},
 	"home.somethingWrong": {
 		"string": "Désolé, une erreur est survenue. Veuillez actualiser votre navigateur et contacter {supportEmail} si la situation persiste."
 	},
@@ -1033,6 +1027,10 @@
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.sentOtherInvitation": {
+		"string": "Sent other invites.",
+		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
 		"string": "Inviter",
@@ -1135,7 +1133,7 @@
 		"string": "Ajoutez de nouvelles langues à votre espace de travail afin de créer des rapports, des robots de ligne de signalement et des états en plusieurs langues pour communiquer avec les utilisateurs."
 	},
 	"languagesComponent.title": {
-		"string": "Langages"
+		"string": "Langues"
 	},
 	"list.Demand": {
 		"string": "Demandes"
@@ -1434,7 +1432,7 @@
 		"string": "Copie…"
 	},
 	"mediaAnalysis.date": {
-		"string": "Date de publication"
+		"string": "Published article date"
 	},
 	"mediaAnalysis.error": {
 		"string": "Impossible d’enregistrer. Dernier enregistrement il y a {ago}"
@@ -1774,8 +1772,19 @@
 	"network.stillWorking": {
 		"string": "Toujours en cours…"
 	},
+	"notFound.back": {
+		"string": "Go to my profile page",
+		"developer_comment": "Go to profile page button"
+	},
+	"notFound.pageTitle": {
+		"string": "Page not found"
+	},
+	"notFound.text": {
+		"string": "If you are trying to access an existing workspace, please contact the workspace owner."
+	},
 	"notFound.title": {
-		"string": "Introuvable"
+		"string": "Oh no! This page does not exist or you do not have authorized access.",
+		"developer_comment": "Not found page title"
 	},
 	"pageTitle.appNameHuman": {
 		"string": "Check"
@@ -1807,35 +1816,29 @@
 	"passwordChange.unmatchingPasswords": {
 		"string": "Les mots de passe ne correspondent pas"
 	},
-	"passwordReset.cancel": {
-		"string": "Annuler"
-	},
 	"passwordReset.confirmedText": {
 		"string": "Nous vous avons envoyé un courriel de {adminEmail} avec des instructions pour réinitialiser votre mot de passe. Assurez-vous qu’il n’est pas dans vos indésirables/pourriels. Si vous ne recevez pas nos courriels de réinitialisation du mot de passe, contactez {supportEmail}. Veuillez noter que le lien indiqué dans ce courriel expirera dans {expiry} heures."
-	},
-	"passwordReset.confirmedTitle": {
-		"string": "Le courriel de réinitialisation du mot de passe a été envoyé"
 	},
 	"passwordReset.email": {
 		"string": "Adresse courriel"
 	},
 	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Désolé, cette adresse courriel n’a pas été trouvée. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur."
+		"string": "Désolé, cette adresse courriel n’a pas été trouvée. Veuillez contacter {supportEmail} si vous pensez que c’est une erreur.",
+		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Veuillez saisir une adresse courriel valide."
+		"string": "Veuillez saisir une adresse courriel valide.",
+		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
 		"string": "Connexion"
-	},
-	"passwordReset.submit": {
-		"string": "Réinitialiser le mot de passe"
 	},
 	"passwordReset.text": {
 		"string": "Ajoutez votre adresse et un courriel vous sera envoyé avec de plus amples instructions."
 	},
 	"passwordReset.title": {
-		"string": "Réinitialiser le mot de passe"
+		"string": "Réinitialiser le mot de passe",
+		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
 		"string": "Politique de confidentialité"
@@ -1853,7 +1856,7 @@
 		"string": "Supprimer"
 	},
 	"projectActions.proceedLabel": {
-		"string": "Supprimer une liste"
+		"string": "Supprimer la liste"
 	},
 	"projectActions.projectDeleted": {
 		"string": "La liste a été supprimée avec succès."
@@ -1901,9 +1904,42 @@
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de la liste. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
 	},
 	"projectEdit.saveButton": {
-		"string": "Enregistrer"
+		"string": "Mettre à jour"
+	},
+	"projectEdit.title": {
+		"string": "List details"
 	},
 	"projectEdit.titleField": {
+		"string": "Titre"
+	},
+	"projectEditDialogComponent.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEditDialogComponent.confirmProceedBody": {
+		"string": "Changes made to this list will be reflected for everyone in this workspace."
+	},
+	"projectEditDialogComponent.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEditDialogComponent.confirmProceedTitle": {
+		"string": "Are you sure you want to change this list?"
+	},
+	"projectEditDialogComponent.descriptionField": {
+		"string": "Description"
+	},
+	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
+		"string": "Could not update list details."
+	},
+	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
+		"string": "List details updated successfully."
+	},
+	"projectEditDialogComponent.saveButton": {
+		"string": "Mettre à jour"
+	},
+	"projectEditDialogComponent.title": {
+		"string": "List details"
+	},
+	"projectEditDialogComponent.titleField": {
 		"string": "Titre"
 	},
 	"projectHeader.allItems": {
@@ -2373,6 +2409,9 @@
 	"searchKeywordConfig.mediaTitle": {
 		"string": "Titre des médias"
 	},
+	"searchKeywordConfig.mediaUrl": {
+		"string": "Media URL"
+	},
 	"searchKeywordConfig.metadata": {
 		"string": "Métadonnées"
 	},
@@ -2514,6 +2553,9 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "Un menu qui demande à l’utilisateur de choisir parmi un ensemble d’options. Ce message suit automatiquement le message d’accueil. 9 ne peut pas être utilisé comme option dans le menu principal."
 	},
+	"smoochBot.descriptionNoAction": {
+		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Le message envoyé si la réponse de l’utilisateur à un menu ne correspond pas à un scénario de menu valide."
 	},
@@ -2555,6 +2597,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "Menu principal"
+	},
+	"smoochBot.labelNoAction": {
+		"string": "No action from user"
 	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "L’option n’est pas proposée"
@@ -2853,6 +2898,12 @@
 	"statusesComponent.blurbSecondary": {
 		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits."
 	},
+	"statusesComponent.created": {
+		"string": "Status created successfully!"
+	},
+	"statusesComponent.deleted": {
+		"string": "Status deleted successfully!"
+	},
 	"statusesComponent.error": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
 	},
@@ -2863,7 +2914,7 @@
 		"string": "Nouvel état"
 	},
 	"statusesComponent.saved": {
-		"string": "Les états ont été enregistrés avec succès."
+		"string": "Statuses saved successfully!"
 	},
 	"statusesComponent.subtitle": {
 		"string": "Le titre de l’état est visible quand les rapports sont envoyés aux utilisateurs."
@@ -3103,6 +3154,30 @@
 	"teamComponent.website": {
 		"string": "Site Web"
 	},
+	"teamDataComponent.formLinkText": {
+		"string": "this short form"
+	},
+	"teamDataComponent.notSet1": {
+		"string": "Click the button below to open your data report in a new window."
+	},
+	"teamDataComponent.notSet2": {
+		"string": "To request any customization of your data report, please reach out to support."
+	},
+	"teamDataComponent.set1": {
+		"string": "Fill {thisShortForm} to request access to your data report."
+	},
+	"teamDataComponent.set2": {
+		"string": "Your data report will be enabled within one business day."
+	},
+	"teamDataComponent.subtitle": {
+		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
+	},
+	"teamDataComponent.title": {
+		"string": "Workspace data"
+	},
+	"teamDataComponent.viewDataReport": {
+		"string": "View data report"
+	},
 	"teamDetails.description": {
 		"string": "Description"
 	},
@@ -3234,11 +3309,11 @@
 	},
 	"teamMemberActions.invitationCanceled": {
 		"string": "Invite canceled!",
-		"developer_comment": "Sucess notification confirming that invitation was canceled"
+		"developer_comment": "Success notification confirming that invitation was canceled"
 	},
 	"teamMemberActions.invitationSent": {
 		"string": "Invite sent!",
-		"developer_comment": "Sucess notification confirming that invitation was sent to user"
+		"developer_comment": "Success notification confirming that invitation was sent to user"
 	},
 	"teamMemberActions.userRemoved": {
 		"string": "The user has been removed"
@@ -3383,6 +3458,9 @@
 	},
 	"teamSettings.Tags": {
 		"string": "Balises"
+	},
+	"teamSettings.data": {
+		"string": "Data"
 	},
 	"teamSettings.details": {
 		"string": "Workspace details"
@@ -3687,12 +3765,6 @@
 	"userComponents.security": {
 		"string": "Sécurité"
 	},
-	"userConfirmPage.agreeTerms": {
-		"string": "En vous inscrivant, vous acceptez les {tosLink} et la {ppLink} de {appName}."
-	},
-	"userConfirmPage.contactSupport": {
-		"string": "Pour de l’assistance, contactez <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
-	},
 	"userConfirmPage.signIn": {
 		"string": "Connexion",
 		"developer_comment": "Sign in button"
@@ -3712,7 +3784,7 @@
 		"string": "Nous vous remercions d’avoir confirmé votre adresse courriel. Vous pouvez maintenant vous connecter."
 	},
 	"userConfirmed.unConfrimMessage": {
-		"string": "Désolé, une erreur est survenue lors de la confirmation de votre compte. Veuillez réessayer et contacter {supportEmail} si la situation persiste.",
+		"string": "Désolé, une erreur est survenue lors de la confirmation de votre compte. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste.",
 		"developer_comment": "Message for unconfirmed users"
 	},
 	"userEmail.emailInputHint": {
@@ -3800,7 +3872,7 @@
 		"string": "Politique de confidentialité"
 	},
 	"userPrivacy.seeInformationButton": {
-		"string": "Afficher mes rensignements"
+		"string": "Afficher mes renseignements"
 	},
 	"userPrivacy.seeInformationText": {
 		"string": "Nous vous enverrons un fichier avec le contenu et les données que vous avez créés et générés sur {appName}. Vous pouvez le conserver pour vos dossiers ou le transférer à un autre service."
