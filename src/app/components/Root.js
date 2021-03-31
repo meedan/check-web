@@ -24,7 +24,6 @@ import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
 import Project from './project/Project';
-import ProjectEdit from './project/ProjectEdit';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 
@@ -86,7 +85,6 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId/metadata" component={MediaTasks} />
                 <Route path=":team/project/:projectId/media/:mediaId/source" component={MediaSource} />
                 <Route path=":team/join" component={JoinTeam} />
-                <Route path=":team/project/:projectId/edit" component={ProjectEdit} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} public />
                 <Route path=":team/all-items(/:query)" component={AllItems} public />
                 <Route path=":team/trash(/:query)" component={Trash} />

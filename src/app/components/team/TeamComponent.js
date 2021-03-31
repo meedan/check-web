@@ -13,6 +13,7 @@ import TeamRules from './Rules';
 import TeamStatuses from './Statuses';
 import SmoochBot from './SmoochBot';
 import TeamTags from './TeamTags';
+import TeamData from './TeamData';
 import TeamTasks from './TeamTasks';
 import TeamReport from './TeamReport';
 import TeamMembers from './TeamMembers';
@@ -142,6 +143,18 @@ class TeamComponent extends Component {
                   />
                 }
                 value="tipline"
+              />
+              : null }
+            {isAdminOrEditor ?
+              <Tab
+                className="team-settings__data-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.data"
+                    defaultMessage="Data"
+                  />
+                }
+                value="data"
               />
               : null }
             { can(team.permissions, 'mange TeamTask') ?
@@ -280,6 +293,9 @@ class TeamComponent extends Component {
             : null }
           { isSettings && tab === 'tipline'
             ? <SmoochBot currentUser={this.getCurrentUser()} />
+            : null }
+          { isSettings && tab === 'data'
+            ? <TeamData teamSlug={team.slug} />
             : null }
           { isSettings && tab === 'tasks'
             ? <TeamTasks key={tab} team={team} fieldset="tasks" />

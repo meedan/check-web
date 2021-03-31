@@ -12,6 +12,10 @@
     "defaultMessage": "Tipline"
   },
   {
+    "id": "teamSettings.data",
+    "defaultMessage": "Data"
+  },
+  {
     "id": "teamSettings.tasks",
     "defaultMessage": "Tasks"
   },
