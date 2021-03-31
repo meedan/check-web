@@ -217,7 +217,7 @@ const SmoochBotConfig = (props) => {
                   </Box>
                   <SmoochBotResourceEditor
                     installationId={props.installationId}
-                    resource={value.smooch_workflows[currentWorkflowIndex][currentOption]}
+                    resource={value.smooch_workflows[currentWorkflowIndex][currentOption] || {}}
                     onChange={handleChangeMultiTextField}
                     hasTitle={false}
                   />
