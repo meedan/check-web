@@ -46,9 +46,5 @@
   {
     "id": "createTeam.submitButton",
     "defaultMessage": "Create"
-  },
-  {
-    "id": "createTeam.requestToJoin",
-    "defaultMessage": "You can also request to join an existing workspace."
   }
 ]

@@ -123,19 +123,19 @@ shared_examples 'app' do |webdriver_url|
     it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
 
-    it 'should redirect to access denied page', bin1: true do
+    it 'should redirect to not found page when access is denied', bin1: true do
       user = api_register_and_login_with_email
       api_logout
       api_register_and_login_with_email
       @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab').click
       wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
-      expect(@driver.page_source.include?('Access Denied')).to be(false)
-      expect((@driver.current_url.to_s =~ %r{/forbidden$}).nil?).to be(true)
+      expect(@driver.page_source.include?('page does not exist')).to be(false)
+      expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(true)
       @driver.navigate.to(@config['self_url'] + "/check/user/#{user.dbid}") # unauthorized page
-      wait_for_selector('.main-title')
-      expect(@driver.page_source.include?('Access Denied')).to be(true)
-      expect((@driver.current_url.to_s =~ %r{/forbidden$}).nil?).to be(false)
+      wait_for_selector('.not-found__component')
+      expect(@driver.page_source.include?('page does not exist')).to be(true)
+      expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
 
     it 'should localize interface based on browser language', bin6: true do
@@ -174,8 +174,8 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should redirect to 404 page', bin4: true do
       @driver.navigate.to "#{@config['self_url']}/something-that/does-not-exist"
-      title = wait_for_selector('.main-title')
-      expect(title.text == 'Not Found').to be(true)
+      title = wait_for_selector('.not-found__component')
+      expect(title.text).to match(/page does not exist/)
     end
 
     it 'should redirect to login screen if not logged in', bin5: true do
@@ -201,8 +201,8 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('#create-media__add-item')
       url = @driver.current_url.to_s
       @driver.navigate.to url.gsub(%r{project/([0-9]+).*}, 'project/999')
-      title = wait_for_selector('.main-title')
-      expect(title.text == 'Not Found').to be(true)
+      title = wait_for_selector('.not-found__component')
+      expect(title.text).to match(/page does not exist/)
       expect((@driver.current_url.to_s =~ %r{/not-found$}).nil?).to be(false)
     end
 
@@ -212,9 +212,9 @@ shared_examples 'app' do |webdriver_url|
       url = data.full_url
       url = url[0..data.full_url.index('project') + 7] + t1[:project].dbid.to_s + url[url.index('/media')..url.length - 1]
       @driver.navigate.to url
-      wait_for_selector('main-title', :class)
-      title = wait_for_selector('.main-title')
-      expect(title.text == 'Not Found').to be(true)
+      wait_for_selector('not-found__component', :class)
+      title = wait_for_selector('.not-found__component')
+      expect(title.text).to match(/page does not exist/)
     end
 
     it 'should go back to the right url from the item page', bin3: true do

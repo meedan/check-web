@@ -2,9 +2,5 @@
   {
     "id": "addTeamPage.titleFind",
     "defaultMessage": "Find an existing workspace"
-  },
-  {
-    "id": "addTeamPage.titleCreate",
-    "defaultMessage": "Create a workspace"
   }
 ]

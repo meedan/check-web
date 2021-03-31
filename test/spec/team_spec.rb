@@ -1,32 +1,4 @@
 shared_examples 'team' do
-  it 'should be able to find a team after signing up', bin3: true do
-    api_register_and_login_with_email
-    @driver.navigate.to("#{@config['self_url']}/check/me/workspaces")
-    wait_for_selector("//span[contains(text(), 'Create')]", :xpath)
-    @driver.navigate.to "#{@config['self_url']}/check/teams/find"
-    wait_for_selector('.find-team-card')
-    expect(@driver.page_source.include?('Find an existing workspace')).to be(true)
-
-    # return error for non existing team
-    fill_field('#team-slug-container', 'non-existing-slug')
-    wait_for_selector('.find-team__submit-button').click
-    wait_for_selector('.find-team-card')
-    expect(@driver.page_source.include?('Workspace not found!')).to be(true)
-
-    # redirect to /team-slug/join if team exists
-    # /team-slug/join in turn redirects to team page because already member
-    @driver.navigate.to "#{@config['self_url']}/check/teams/new"
-    wait_for_selector('.create-team__submit-button')
-    team = "existing-team-#{Time.now.to_i}"
-    api_create_team(team: team)
-    @driver.navigate.to "#{@config['self_url']}/check/teams/find"
-    wait_for_selector('.find-team__form')
-    fill_field('#team-slug-container', team)
-    wait_for_selector('.find-team__submit-button').click
-    wait_for_selector('.team')
-    expect(@driver.page_source.include?(team)).to be(true)
-  end
-
   it 'should show teams at /check/teams', bin1: true do
     api_create_team
     @driver.navigate.to "#{@config['self_url']}/check/teams"

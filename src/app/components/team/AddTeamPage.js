@@ -2,31 +2,20 @@ import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import CreateTeamCard from './CreateTeamCard';
-import FindTeamCard from './FindTeamCard';
 import PageTitle from '../PageTitle';
 import { ContentColumn } from '../../styles/js/shared';
 import FindPublicTeamRoute from '../../relay/FindPublicTeamRoute';
 import RelayContainer from '../../relay/RelayContainer';
 
-const AddTeamComponent = (props) => {
-  const mode = props.route.path === 'check/teams/find(/:slug)' ? 'find' : 'create';
-
-  return (
-    <PageTitle prefix={mode === 'find'
-      ? <FormattedMessage id="addTeamPage.titleFind" defaultMessage="Find an existing workspace" />
-      : <FormattedMessage id="addTeamPage.titleCreate" defaultMessage="Create a workspace" />
-    }
-    >
-      <main className="create-team">
-        <ContentColumn narrow>
-          { mode === 'find' ?
-            <FindTeamCard {...props} /> : <CreateTeamCard />
-          }
-        </ContentColumn>
-      </main>
-    </PageTitle>
-  );
-};
+const AddTeamComponent = () => (
+  <PageTitle prefix={<FormattedMessage id="addTeamPage.titleFind" defaultMessage="Find an existing workspace" />}>
+    <main className="create-team">
+      <ContentColumn narrow>
+        <CreateTeamCard />
+      </ContentColumn>
+    </main>
+  </PageTitle>
+);
 
 const AddTeamContainer = Relay.createContainer(AddTeamComponent, {
   fragments: {
