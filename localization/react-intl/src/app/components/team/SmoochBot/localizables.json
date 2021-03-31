@@ -20,6 +20,10 @@
     "defaultMessage": "Query received"
   },
   {
+    "id": "smoochBot.labelNoAction",
+    "defaultMessage": "No action from user"
+  },
+  {
     "id": "smoochBot.labelOptionNotAvailable",
     "defaultMessage": "Option not available"
   },
@@ -58,6 +62,10 @@
   {
     "id": "smoochBot.descriptionQueryReceived",
     "defaultMessage": "The confirmation sent to the user after a valid query from the user has been received."
+  },
+  {
+    "id": "smoochBot.descriptionNoAction",
+    "defaultMessage": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
   },
   {
     "id": "smoochBot.descriptionOptionNotAvailable",
