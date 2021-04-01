@@ -43,6 +43,19 @@ shared_examples 'app' do |webdriver_url|
     @failing_tests = {}
   end
 
+  around(:all) do |block|
+    FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    begin
+      block.run
+    ensure
+      begin
+        FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
+      rescue Errno::ENOENT
+        puts 'Could not copy config.js to ../build/web/js/'
+      end
+    end
+  end
+
   before :each do |example|
     $caller_name = example.metadata[:description_args]
   end
