@@ -1,6 +1,20 @@
 [
   {
+    "id": "notFound.pageTitle",
+    "defaultMessage": "Page not found"
+  },
+  {
     "id": "notFound.title",
-    "defaultMessage": "Not Found"
+    "description": "Not found page title",
+    "defaultMessage": "Oh no! This page does not exist or you do not have authorized access."
+  },
+  {
+    "id": "notFound.text",
+    "defaultMessage": "If you are trying to access an existing workspace, please contact the workspace owner."
+  },
+  {
+    "id": "notFound.back",
+    "description": "Go to profile page button",
+    "defaultMessage": "Go to my profile page"
   }
 ]

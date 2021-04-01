@@ -244,9 +244,6 @@
 	"addLanguageAction.title": {
 		"string": "Chagua lugha mpya"
 	},
-	"addTeamPage.titleCreate": {
-		"string": "Unda eneo la kazi"
-	},
 	"addTeamPage.titleFind": {
 		"string": "Tafuta eneo la kazi liliopo"
 	},
@@ -751,9 +748,6 @@
 	"createTeam.mainHeading": {
 		"string": "Unda eneo la kazi"
 	},
-	"createTeam.requestToJoin": {
-		"string": "Unaweza pia kuomba kujiunga na eneo la kazi liliopo"
-	},
 	"createTeam.slugAvailable": {
 		"string": "Inapatikana!"
 	},
@@ -1018,9 +1012,6 @@
 	"home.invalidTeamInvitation": {
 		"string": "Samahani, eneo la kazi ambapo ulialikwa halipatikani. Tafadhali wasiliana na {supportEmail} iwapo unadhani hii ni hitilafu. "
 	},
-	"home.needRegister": {
-		"string": "Kwanza unahitaji kusajili. Ukisha jisajili, unaweza kuomba kujiunga kwenye eneo la kazi."
-	},
 	"home.somethingWrong": {
 		"string": "Samahani, hitilafu imetokea. Tafadhali pakia upya kivinjari na uwasiliane na {supportEmail} iwapo hali itaendelea. "
 	},
@@ -1036,6 +1027,10 @@
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.sentOtherInvitation": {
+		"string": "Sent other invites.",
+		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
 		"string": "Alika",
@@ -1437,7 +1432,7 @@
 		"string": "Inanakili…"
 	},
 	"mediaAnalysis.date": {
-		"string": "Tarehe iliyochapishwa"
+		"string": "Published article date"
 	},
 	"mediaAnalysis.error": {
 		"string": "Haikuweza kuhifadhi! Uhifadhi wa mwisho {ago}"
@@ -1777,8 +1772,19 @@
 	"network.stillWorking": {
 		"string": "Bado inafanya kazi... "
 	},
+	"notFound.back": {
+		"string": "Go to my profile page",
+		"developer_comment": "Go to profile page button"
+	},
+	"notFound.pageTitle": {
+		"string": "Page not found"
+	},
+	"notFound.text": {
+		"string": "If you are trying to access an existing workspace, please contact the workspace owner."
+	},
 	"notFound.title": {
-		"string": "Haijapatikana"
+		"string": "Oh no! This page does not exist or you do not have authorized access.",
+		"developer_comment": "Not found page title"
 	},
 	"pageTitle.appNameHuman": {
 		"string": "Check"
@@ -1898,9 +1904,42 @@
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha orodha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea. "
 	},
 	"projectEdit.saveButton": {
-		"string": "Hifadhi"
+		"string": "Sasisha"
+	},
+	"projectEdit.title": {
+		"string": "List details"
 	},
 	"projectEdit.titleField": {
+		"string": "Kichwa"
+	},
+	"projectEditDialogComponent.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEditDialogComponent.confirmProceedBody": {
+		"string": "Changes made to this list will be reflected for everyone in this workspace."
+	},
+	"projectEditDialogComponent.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEditDialogComponent.confirmProceedTitle": {
+		"string": "Are you sure you want to change this list?"
+	},
+	"projectEditDialogComponent.descriptionField": {
+		"string": "Maelezo"
+	},
+	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
+		"string": "Could not update list details."
+	},
+	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
+		"string": "List details updated successfully."
+	},
+	"projectEditDialogComponent.saveButton": {
+		"string": "Sasisha"
+	},
+	"projectEditDialogComponent.title": {
+		"string": "List details"
+	},
+	"projectEditDialogComponent.titleField": {
 		"string": "Kichwa"
 	},
 	"projectHeader.allItems": {
@@ -2370,6 +2409,9 @@
 	"searchKeywordConfig.mediaTitle": {
 		"string": "Kichwa cha vyombo vya habari"
 	},
+	"searchKeywordConfig.mediaUrl": {
+		"string": "Media URL"
+	},
 	"searchKeywordConfig.metadata": {
 		"string": "Metadata"
 	},
@@ -2511,6 +2553,9 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "Menyu inayomuuliza mtumiaji kuchagua kati ya seti ya chaguzi. Ujumbe huu hufuata moja kwa moja ujumbe wa Salamu. 9 haiwezi kutumiwa kama chaguo katika menyu kuu."
 	},
+	"smoochBot.descriptionNoAction": {
+		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Ujumbe unaotumwa iwapo jibu la mtumiaji kwa menyu ni batili kwa mazingira ya menyu."
 	},
@@ -2552,6 +2597,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "Menyu kuu"
+	},
+	"smoochBot.labelNoAction": {
+		"string": "No action from user"
 	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "Chaguo halipatikani"
@@ -2850,6 +2898,12 @@
 	"statusesComponent.blurbSecondary": {
 		"string": "Tafsiri hali zilizo kwenye lugha nyinginezo ili kuzionyesha katika lugha asili kwenye ripoti zako za uthibitisho."
 	},
+	"statusesComponent.created": {
+		"string": "Status created successfully!"
+	},
+	"statusesComponent.deleted": {
+		"string": "Status deleted successfully!"
+	},
 	"statusesComponent.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusaisihsa hali. Tafadhali jaribu tena na uwasiliane na {supportEmail}  iwapo hali itaendelea."
 	},
@@ -2860,7 +2914,7 @@
 		"string": "Hali mpya"
 	},
 	"statusesComponent.saved": {
-		"string": "Hali imehifadhiwa kwa mafanikio!"
+		"string": "Statuses saved successfully!"
 	},
 	"statusesComponent.subtitle": {
 		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
@@ -3100,6 +3154,30 @@
 	"teamComponent.website": {
 		"string": "Tovuti"
 	},
+	"teamDataComponent.formLinkText": {
+		"string": "this short form"
+	},
+	"teamDataComponent.notSet1": {
+		"string": "Click the button below to open your data report in a new window."
+	},
+	"teamDataComponent.notSet2": {
+		"string": "To request any customization of your data report, please reach out to support."
+	},
+	"teamDataComponent.set1": {
+		"string": "Fill {thisShortForm} to request access to your data report."
+	},
+	"teamDataComponent.set2": {
+		"string": "Your data report will be enabled within one business day."
+	},
+	"teamDataComponent.subtitle": {
+		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
+	},
+	"teamDataComponent.title": {
+		"string": "Workspace data"
+	},
+	"teamDataComponent.viewDataReport": {
+		"string": "View data report"
+	},
 	"teamDetails.description": {
 		"string": "Maelezo"
 	},
@@ -3231,11 +3309,11 @@
 	},
 	"teamMemberActions.invitationCanceled": {
 		"string": "Invite canceled!",
-		"developer_comment": "Sucess notification confirming that invitation was canceled"
+		"developer_comment": "Success notification confirming that invitation was canceled"
 	},
 	"teamMemberActions.invitationSent": {
 		"string": "Invite sent!",
-		"developer_comment": "Sucess notification confirming that invitation was sent to user"
+		"developer_comment": "Success notification confirming that invitation was sent to user"
 	},
 	"teamMemberActions.userRemoved": {
 		"string": "The user has been removed"
@@ -3380,6 +3458,9 @@
 	},
 	"teamSettings.Tags": {
 		"string": "Lebo"
+	},
+	"teamSettings.data": {
+		"string": "Data"
 	},
 	"teamSettings.details": {
 		"string": "Workspace details"
