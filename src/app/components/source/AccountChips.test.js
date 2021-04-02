@@ -1,5 +1,6 @@
 /* global describe, expect, it */
 import React from 'react';
+import Chip from '@material-ui/core/Chip';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import InstagramIcon from '@material-ui/icons/Instagram';
 import LinkIcon from '@material-ui/icons/Link';
@@ -33,7 +34,7 @@ describe('<AccountChips />', () => {
     ];
 
     const accountChips = mountWithIntl(<AccountChips accounts={accounts} />);
-    expect(accountChips.find('.media-tags__tag')).toHaveLength(6);
+    expect(accountChips.find(Chip)).toHaveLength(3);
     expect(accountChips.find(FacebookIcon)).toHaveLength(1);
     expect(accountChips.find(TwitterIcon)).toHaveLength(1);
     expect(accountChips.find(LinkIcon)).toHaveLength(1);

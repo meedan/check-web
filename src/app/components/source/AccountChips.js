@@ -23,6 +23,7 @@ const AccountChips = ({ accounts }) => {
           <Box component="span" mr={1} key={account.id}>
             <a className={classes.link} href={account.url} target="_blank" rel="noopener noreferrer">
               <Chip
+                className="account-chips__chip"
                 icon={<div><SocialIcon domain={account.provider} /></div>}
                 onClick={() => {}}
                 label={account.metadata.username || account.metadata.url}
