@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import { makeStyles } from '@material-ui/core/styles';
-import { languageName } from '../../LanguageRegistry';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
+import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
   parseStringUnixTimestamp,
@@ -18,7 +19,6 @@ import {
   units,
   black38,
   black54,
-  black87,
   checkBlue,
   caption,
   Row,
@@ -61,17 +61,6 @@ const StyledReportReceived = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: ${units(2)};
-`;
-
-// FIXME: Convert styled-components to useStyles
-const StyledRequest = styled.div`
-  font-size: ${units(1.75)};
-  color: ${black87};
-
-  a, a:visited, a:hover {
-    color: ${checkBlue};
-    text-decoration: underline;
-  }
 `;
 
 const SmoochIcon = ({ name }) => {
@@ -212,16 +201,16 @@ const TiplineRequest = ({
           </span>
         </StyledReportReceived> : null }
       <div className="annotation__card-content">
-        {messageText ? (
-          <StyledRequest>
+        <Typography variant="body2">
+          { messageText ? (
             <ParsedText text={parseText(messageText, projectMedia, activity)} />
-          </StyledRequest>
-        ) : (
-          <FormattedMessage
-            id="annotation.smoochNoMessage"
-            defaultMessage="No message was sent with the request"
-          />
-        )}
+          ) : (
+            <FormattedMessage
+              id="annotation.smoochNoMessage"
+              defaultMessage="No message was sent with the request"
+            />
+          )}
+        </Typography>
       </div>
     </div>
   );
