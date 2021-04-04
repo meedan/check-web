@@ -15,7 +15,7 @@ import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotSettings from './SmoochBotSettings';
-import { placeholders } from './localizables';
+import { labels, descriptions, placeholders } from './localizables';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -209,6 +209,19 @@ const SmoochBotConfig = (props) => {
               </Button>
             </Box>
             <Box flexGrow="1" className={classes.box}>
+              { currentOption === 'smooch_message_smooch_bot_no_action' ?
+                <React.Fragment>
+                  <Box m={1}>
+                    <Typography variant="subtitle2" component="div">{labels[currentOption]}</Typography>
+                    <Typography component="div">{descriptions[currentOption]}</Typography>
+                  </Box>
+                  <SmoochBotResourceEditor
+                    installationId={props.installationId}
+                    resource={value.smooch_workflows[currentWorkflowIndex][currentOption] || {}}
+                    onChange={handleChangeMultiTextField}
+                    hasTitle={false}
+                  />
+                </React.Fragment> : null }
               { currentOption === 'smooch_message_smooch_bot_tos' ?
                 <SmoochBotMultiTextEditor
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
@@ -219,7 +232,7 @@ const SmoochBotConfig = (props) => {
                   field={currentOption}
                   currentLanguage={currentLanguage}
                 /> : null }
-              { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' ?
+              { /^smooch_message_smooch_bot_/.test(currentOption) && currentOption !== 'smooch_message_smooch_bot_tos' && currentOption !== 'smooch_message_smooch_bot_no_action' ?
                 <SmoochBotTextEditor
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
                   onChange={handleChangeTextField}

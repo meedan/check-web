@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import XRegExp from 'xregexp';
 import {
   FormattedMessage,
@@ -9,7 +9,6 @@ import {
   injectIntl,
 } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
-import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -235,14 +234,6 @@ class CreateTeamCard extends React.Component {
             </CardActions>
           </form>
         </Card>
-        <Box mt={2}>
-          <Link to="/check/teams/find" className="create-team__toggle-find">
-            <FormattedMessage
-              id="createTeam.requestToJoin"
-              defaultMessage="You can also request to join an existing workspace."
-            />
-          </Link>
-        </Box>
       </div>
     );
   }

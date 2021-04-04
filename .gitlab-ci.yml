@@ -57,7 +57,7 @@ build_live:
     - apk add --no-cache curl jq python3 py3-pip git
     - pip install awscli==1.18.194
     - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-    - docker build --build-arg DEPLOY_BRANCH=master -f production/Dockerfile -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  .
+    - docker build --build-arg DEPLOY_BRANCH=master --build-arg TIMESTAMP=$(date '+%Y%m%d%H%M%S') -f production/Dockerfile -t "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"  .
     - docker push "$ECR_API_BASE_URL/live/check/web:$CI_COMMIT_SHA"
   only:
     - master

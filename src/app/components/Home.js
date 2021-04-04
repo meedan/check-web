@@ -50,16 +50,6 @@ function buildLoginContainerMessage(flashMessage, error, childRoute, queryString
     message = flashMessage;
 
     // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
-    if (!message && /^[^/]+\/join$/.test(childRoute.path)) {
-      message = (
-        <FormattedMessage
-          id="home.needRegister"
-          defaultMessage="First you need to register. Once registered, you can request to join the workspace."
-        />
-      );
-    }
-
-    // TODO Don't parse error messages because they may be l10n'd - use error codes instead.
     if (
       error &&
       message &&

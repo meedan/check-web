@@ -244,9 +244,6 @@
 	"addLanguageAction.title": {
 		"string": "اختيار لغة جديدة"
 	},
-	"addTeamPage.titleCreate": {
-		"string": "إنشاء مساحة عمل"
-	},
 	"addTeamPage.titleFind": {
 		"string": "العثور على مساحة العمل الموجودة"
 	},
@@ -751,9 +748,6 @@
 	"createTeam.mainHeading": {
 		"string": "إنشاء مساحة عمل"
 	},
-	"createTeam.requestToJoin": {
-		"string": "يمكنك أيضا طلب الانضمام الى مساحة عمل موجودة بالفعل."
-	},
 	"createTeam.slugAvailable": {
 		"string": "متاح"
 	},
@@ -1018,9 +1012,6 @@
 	"home.invalidTeamInvitation": {
 		"string": "عذراً، لم نستطع إيجاد مساحة العمل التى تم دعوتك إليها. يرجى التواصل مع {supportEmail} إن كنت تعتقدين ان هناك خطأ ما."
 	},
-	"home.needRegister": {
-		"string": "يرجى تسجيل الدخول قبل طلب الانضمام لمساحة العمل."
-	},
 	"home.somethingWrong": {
 		"string": "عذراً ، لقد واجهنا خطأ ما. يرجى أعادة المحاولة بتحديث المستعرض والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
@@ -1036,6 +1027,10 @@
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.sentOtherInvitation": {
+		"string": "Sent other invites.",
+		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
 		"string": "إرسال دعوة",
@@ -1437,7 +1432,7 @@
 		"string": "النسخ جارٍ…"
 	},
 	"mediaAnalysis.date": {
-		"string": "تاريخ النشر"
+		"string": "Published article date"
 	},
 	"mediaAnalysis.error": {
 		"string": "لم تنجح عملية الحفظ! آخر حفظ قبل {ago}"
@@ -1777,8 +1772,19 @@
 	"network.stillWorking": {
 		"string": "العمل جارٍ…"
 	},
+	"notFound.back": {
+		"string": "Go to my profile page",
+		"developer_comment": "Go to profile page button"
+	},
+	"notFound.pageTitle": {
+		"string": "Page not found"
+	},
+	"notFound.text": {
+		"string": "If you are trying to access an existing workspace, please contact the workspace owner."
+	},
 	"notFound.title": {
-		"string": "غير موجود"
+		"string": "Oh no! This page does not exist or you do not have authorized access.",
+		"developer_comment": "Not found page title"
 	},
 	"pageTitle.appNameHuman": {
 		"string": "Check"
@@ -1898,9 +1904,42 @@
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث القائمة. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"projectEdit.saveButton": {
-		"string": "حفظ"
+		"string": "تحديث"
+	},
+	"projectEdit.title": {
+		"string": "List details"
 	},
 	"projectEdit.titleField": {
+		"string": "العنوان"
+	},
+	"projectEditDialogComponent.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEditDialogComponent.confirmProceedBody": {
+		"string": "Changes made to this list will be reflected for everyone in this workspace."
+	},
+	"projectEditDialogComponent.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEditDialogComponent.confirmProceedTitle": {
+		"string": "Are you sure you want to change this list?"
+	},
+	"projectEditDialogComponent.descriptionField": {
+		"string": "الوصف"
+	},
+	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
+		"string": "Could not update list details."
+	},
+	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
+		"string": "List details updated successfully."
+	},
+	"projectEditDialogComponent.saveButton": {
+		"string": "تحديث"
+	},
+	"projectEditDialogComponent.title": {
+		"string": "List details"
+	},
+	"projectEditDialogComponent.titleField": {
 		"string": "العنوان"
 	},
 	"projectHeader.allItems": {
@@ -2370,6 +2409,9 @@
 	"searchKeywordConfig.mediaTitle": {
 		"string": "عنوان المادة الإعلامية"
 	},
+	"searchKeywordConfig.mediaUrl": {
+		"string": "Media URL"
+	},
 	"searchKeywordConfig.metadata": {
 		"string": "البيانات الوصفيّة"
 	},
@@ -2511,6 +2553,9 @@
 	"smoochBot.descriptionMainMenu": {
 		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية."
 	},
+	"smoochBot.descriptionNoAction": {
+		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "الرسالة التى سيتم إرسالها اذا كان سيناريو رد المستخدم على قائمة ما لا يصلح  للقائمة."
 	},
@@ -2552,6 +2597,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "القائمة الرئيسية"
+	},
+	"smoochBot.labelNoAction": {
+		"string": "No action from user"
 	},
 	"smoochBot.labelOptionNotAvailable": {
 		"string": "الخيار غير متاح"
@@ -2850,6 +2898,12 @@
 	"statusesComponent.blurbSecondary": {
 		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
 	},
+	"statusesComponent.created": {
+		"string": "Status created successfully!"
+	},
+	"statusesComponent.deleted": {
+		"string": "Status deleted successfully!"
+	},
 	"statusesComponent.error": {
 		"string": "عذراً ، حدث خطأ أثناء تحديث الحالات. يرجى المحاولة ثانية و التواصل مع {supportEmail} إن استمرت المشكلة."
 	},
@@ -2860,7 +2914,7 @@
 		"string": "حالة جديدة"
 	},
 	"statusesComponent.saved": {
-		"string": "تم حفظ الحالات بنجاح!"
+		"string": "Statuses saved successfully!"
 	},
 	"statusesComponent.subtitle": {
 		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
@@ -3100,6 +3154,30 @@
 	"teamComponent.website": {
 		"string": "الموقع الإلكتروني"
 	},
+	"teamDataComponent.formLinkText": {
+		"string": "this short form"
+	},
+	"teamDataComponent.notSet1": {
+		"string": "Click the button below to open your data report in a new window."
+	},
+	"teamDataComponent.notSet2": {
+		"string": "To request any customization of your data report, please reach out to support."
+	},
+	"teamDataComponent.set1": {
+		"string": "Fill {thisShortForm} to request access to your data report."
+	},
+	"teamDataComponent.set2": {
+		"string": "Your data report will be enabled within one business day."
+	},
+	"teamDataComponent.subtitle": {
+		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
+	},
+	"teamDataComponent.title": {
+		"string": "Workspace data"
+	},
+	"teamDataComponent.viewDataReport": {
+		"string": "View data report"
+	},
 	"teamDetails.description": {
 		"string": "الوصف"
 	},
@@ -3231,11 +3309,11 @@
 	},
 	"teamMemberActions.invitationCanceled": {
 		"string": "Invite canceled!",
-		"developer_comment": "Sucess notification confirming that invitation was canceled"
+		"developer_comment": "Success notification confirming that invitation was canceled"
 	},
 	"teamMemberActions.invitationSent": {
 		"string": "Invite sent!",
-		"developer_comment": "Sucess notification confirming that invitation was sent to user"
+		"developer_comment": "Success notification confirming that invitation was sent to user"
 	},
 	"teamMemberActions.userRemoved": {
 		"string": "The user has been removed"
@@ -3380,6 +3458,9 @@
 	},
 	"teamSettings.Tags": {
 		"string": "الوسوم"
+	},
+	"teamSettings.data": {
+		"string": "Data"
 	},
 	"teamSettings.details": {
 		"string": "Workspace details"
