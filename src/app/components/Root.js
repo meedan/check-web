@@ -8,14 +8,12 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Home from './Home';
 import RootLocale from './RootLocale';
 import NotFound from './NotFound';
-import AccessDenied from './AccessDenied';
 import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
 import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
-import AddTeamPage from './team/AddTeamPage';
 import Teams from './team/Teams';
 import Trash from './team/Trash';
 import Unconfirmed from './team/Unconfirmed';
@@ -60,14 +58,12 @@ class Root extends Component {
                 <Route path="check/user/confirm/:confirmType" component={UserConfirmPage} public />
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
-                <Route path="check/forbidden" component={AccessDenied} public />
                 <Route path="check/not-found" component={NotFound} public />
 
                 <Route path="check/user/:userId/edit" isEditing component={User} />
                 <Route path="check/user/:userId(/:tab)" component={User} />
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
-                <Route path="check/teams/new" component={AddTeamPage} />
                 <Route path="check/teams" component={Teams} />
 
                 <Route path=":team/media/:mediaId" component={MediaPage} public />
