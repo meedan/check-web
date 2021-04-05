@@ -133,46 +133,6 @@ export function boxShadow(level) {
   return null;
 }
 
-// ===================================================================
-// Inline CSS
-//
-// The following styles are applied to a component using the style prop:
-//
-// <Foo style={somethingStyle} />
-// ===================================================================
-
-export const listStyle = {
-  padding: '0',
-  borderBottom: `${borderWidthSmall} solid ${black05}`,
-};
-
-export const listItemStyle = {
-  borderTop: `${borderWidthSmall} solid ${black05}`,
-};
-
-export const listItemButtonStyle = {
-  marginTop: `${units(1)}`,
-};
-
-export const buttonInButtonGroupStyle = {
-  marginRight: `${units(1)}`,
-};
-
-export const cardInCardGroupStyle = {
-  marginBottom: `${units(2)}`,
-};
-
-export const selectStyle = {
-  minWidth: `${units(20)}`,
-};
-
-export const listItemWithButtonsStyle =
-  Object.assign(listItemStyle, {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  });
-
 // CSS Helpers
 //
 // Can be applied in a stylesheet or added to a styled component.
@@ -458,30 +418,6 @@ export const AlignOpposite = styled.div`
   ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
   ${props => props.theme.dir === 'rtl' ? 'left: 0px' : 'right: 0px'};
   width: fit-content;
-`;
-
-// Material style Chip
-// Deprecated: use the material-ui/chip component instead
-export const chipStyles = `
-    background-color: ${black05};
-    border: 0;
-    border-radius: 30px;
-    color: ${black54};
-    cursor: pointer;
-    display: inline-block;
-    font: ${body2};
-    margin: ${units(0.5)};
-    padding: ${units(0.5)} ${units(2)};
-
-    &--selected {
-      background-color: ${black10};
-      color: ${black87};
-    }
-
-    &:hover {
-      background-color: ${black16};
-    }
-  }
 `;
 
 // Tags (ensure wrapping, alignment when many tags)

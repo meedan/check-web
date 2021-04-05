@@ -18,10 +18,9 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import CreateTeamDialog from './CreateTeamDialog';
 import {
   defaultBorderRadius,
-  listStyle,
-  listItemButtonStyle,
   white,
   black05,
+  black87,
 } from '../../styles/js/shared';
 import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 import DeleteTeamUserMutation from '../../relay/mutations/DeleteTeamUserMutation';
@@ -137,7 +136,7 @@ class SwitchTeamsComponent extends Component {
           }
         />
         { (joinedTeams.length + pendingTeams.length) ?
-          <List className="teams" style={listStyle}>
+          <List className="teams">
             {joinedTeams.map(team => (
               <ListItem
                 key={team.slug}
@@ -152,6 +151,7 @@ class SwitchTeamsComponent extends Component {
                 </ListItemAvatar>
                 <ListItemText
                   primary={team.name}
+                  style={{ color: black87 }}
                   secondary={
                     <FormattedMessage
                       id="switchTeams.member"
@@ -190,7 +190,6 @@ class SwitchTeamsComponent extends Component {
                 <ListItemSecondaryAction>
                   <Button
                     className="switch-team__cancel-request"
-                    style={listItemButtonStyle}
                     onClick={this.cancelRequest.bind(this, team)}
                   >
                     <FormattedMessage id="switchTeams.cancelJoinRequest" defaultMessage="Cancel" />
