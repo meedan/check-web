@@ -14,7 +14,7 @@ import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { black87, headline, units, Row } from '../../styles/js/shared';
+import { black87, black54, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { isBotInstalled } from '../../helpers';
@@ -367,7 +367,7 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
             <Row className="search__list-header-title-and-filter">
-              <div style={{ font: headline }} className="project__title" title={title}>
+              <div style={{ font: headline, color: black54 }} className="project__title" title={title}>
                 {title}
               </div>
               <SearchQuery

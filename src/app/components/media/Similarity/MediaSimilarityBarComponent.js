@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     textAlign: 'center',
     color: black54,
+    textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none',
     },

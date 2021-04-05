@@ -34,21 +34,21 @@ const SocialIcon = ({ domain, inColor }) => {
     return <FaSlack className="logo" classes={{ root: classes.slack }} />;
   case 'twitter.com':
   case 'twitter':
-    return <TwitterIcon fontSize="inherit" className="logo" classes={{ root: classes.twitter }} />;
+    return <TwitterIcon className="logo" classes={{ root: classes.twitter }} />;
   case 'youtube.com':
   case 'youtube':
-    return <YouTubeIcon fontSize="inherit" className="logo" classes={{ root: classes.youtube }} />;
+    return <YouTubeIcon className="logo" classes={{ root: classes.youtube }} />;
   case 'instagram.com':
   case 'instagram':
-    return <InstagramIcon fontSize="inherit" className="logo" />;
+    return <InstagramIcon className="logo" />;
   case 'facebook.com':
   case 'facebook':
-    return <FacebookIcon fontSize="inherit" className="logo" classes={{ root: classes.facebook }} />;
+    return <FacebookIcon className="logo" classes={{ root: classes.facebook }} />;
   case 'google.com':
   case 'google_oauth2':
-    return <FcGoogle fontSize="inherit" className="logo" />;
+    return <FcGoogle className="logo" />;
   default:
-    return <LinkIcon fontSize="inherit" />;
+    return <LinkIcon />;
   }
 };
 SocialIcon.defaultProps = {

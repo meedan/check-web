@@ -49,6 +49,10 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textDecoration: 'none',
+    '&:hover': {
+      color: 'black',
+    },
     '&:visited': {
       color: 'black',
     },
