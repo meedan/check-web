@@ -1,4 +1,5 @@
 #!/bin/bash
+cd ..
 echo 'Listing uncovered files...'
 npm run test:unit 2>/dev/null | grep '|' | grep '\.js' | sed 's/\.js.*/.js/g' | sed 's/^ *//g' | sort > /tmp/covered.txt
 find src -name "*.js" | sed 's/^.*\///g' | sort > /tmp/all.txt
@@ -13,3 +14,4 @@ echo 'Number of covered files: '
 cat /tmp/covered.txt | wc -l
 echo 'Total number of files: '
 cat /tmp/all.txt | wc -l
+cd -

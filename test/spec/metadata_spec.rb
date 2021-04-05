@@ -3,8 +3,8 @@ shared_examples 'metadata' do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'Metadata')]", :xpath)
+    wait_for_selector('.team-settings__metadata-tab', :css, 30).click
+    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
 
     # Create metadata
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
@@ -15,6 +15,7 @@ shared_examples 'metadata' do
 
     # Edit metadata
     edit_team_data_field('my metadata - Edited')
+    wait_for_selector("//span[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
     # create 'data and time' metadata
@@ -27,6 +28,7 @@ shared_examples 'metadata' do
     expect(task.text).to eq 'my metadata - Edited'
     @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector('.reorder__button-down').click
+    wait_for_text_change('my metadata - Edited', '.team-tasks__task-label > span > span', :css)
     task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
     expect(task.text).to eq 'my data time metadata'
 
@@ -39,8 +41,9 @@ shared_examples 'metadata' do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'Metadata')]", :xpath)
+    wait_for_selector('.team-settings__metadata-tab', :css, 30).click
+    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
+    wait_for_selector('.create-task__add-button')
 
     # Create metadata
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
@@ -53,8 +56,7 @@ shared_examples 'metadata' do
     wait_for_selector('#search-input')
     # create media and to go media page
     create_media('media', false)
-    item = wait_for_selector('.medias__item', :css, 20, true)
-    item.click
+    wait_for_selector('.medias__item', :css, 20, true).click
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task-type__free_text')
     expect(@driver.page_source.include?('my metadata')).to be(true)
