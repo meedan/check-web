@@ -32,7 +32,7 @@ module LoginSpecHelpers
     fill_field('.login__password-confirmation input', '12345678')
     agree_to_tos(false)
     press_button('#submit-register-or-login')
-    wait_for_selector_none('.login__name')
+    wait_for_selector('.message')
     confirm_email(email)
     sleep 3
     login_with_email(true, email) if should_login

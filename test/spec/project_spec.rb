@@ -58,6 +58,7 @@ shared_examples 'project' do
     @driver.navigate.to @config['self_url']
     new_title = "Changed title #{Time.now.to_i}"
     new_description = "Set description #{Time.now.to_i}"
+    wait_for_selector('#search-input')
     expect(@driver.page_source.include?(new_title)).to be(false)
     expect(@driver.page_source.include?(new_description)).to be(false)
     # 7204 edit title and description separately

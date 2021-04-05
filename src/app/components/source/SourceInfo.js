@@ -583,6 +583,7 @@ function SourceInfo({
               }
               { can(source.permissions, 'create Account') ?
                 <Button
+                  className="source__add-link-button"
                   onClick={() => { setSecondaryUrl({ url: '', error: '', addNewLink: true }); }}
                   disabled={Boolean(secondaryUrl.addNewLink || !mainAccount || primaryUrl.error)}
                   startIcon={<AddCircleOutlineIcon />}
