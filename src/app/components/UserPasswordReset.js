@@ -14,8 +14,10 @@ import Typography from '@material-ui/core/Typography';
 import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
+import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
+import { getErrorMessageForRelayModernProblem } from '../helpers';
 import {
   ContentColumn,
   StyledSubHeader,
@@ -32,7 +34,6 @@ const useStyles = makeStyles({
 const UserPasswordReset = (props) => {
   const [showConfirmDialog, setShowConfirmDialog] = React.useState(false);
   const [submitDisabled, setSubmitDisabled] = React.useState(true);
-  const [expiry, setExpiry] = React.useState(0);
   const [errorMsg, setErrorMsg] = React.useState(null);
   const [email, setEmail] = React.useState(null);
 
@@ -60,25 +61,14 @@ const UserPasswordReset = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const onFailure = () => {
-      const message = (
-        <FormattedMessage
-          id="passwordReset.emailNotFoundContactSupport"
-          defaultMessage="Sorry, this email was not found. Please contact {supportEmail} if you think this is an error."
-          values={{
-            supportEmail: stringHelper('SUPPORT_EMAIL'),
-          }}
-          description="Error message for not found email"
-        />
-      );
+    const onFailure = (error) => {
+      const message = getErrorMessageForRelayModernProblem(error) || <GenericUnknownErrorMessage />;
       setErrorMsg(message);
       setSubmitDisabled(true);
     };
 
-    const onSuccess = (response) => {
-      // TODO Handle `success !== true`
+    const onSuccess = () => {
       setShowConfirmDialog(true);
-      setExpiry(response.resetPassword.expiry);
     };
 
     if (!submitDisabled) {
@@ -87,7 +77,6 @@ const UserPasswordReset = (props) => {
           mutation UserPasswordResetResetPasswordMutation($input: ResetPasswordInput!) {
             resetPassword(input: $input) {
               success
-              expiry
             }
           }
         `,
@@ -139,11 +128,10 @@ const UserPasswordReset = (props) => {
             <CardContent key="usr-2" className="user-password-reset__sent_password">
               <FormattedMessage
                 id="passwordReset.confirmedText"
-                defaultMessage="We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}. Please note that the link in this email will expire in {expiry} hours."
+                defaultMessage="If this email exists, you will receive an email to reset your password from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
                 values={{
                   adminEmail: stringHelper('ADMIN_EMAIL'),
                   supportEmail: stringHelper('SUPPORT_EMAIL'),
-                  expiry: Math.floor(expiry / 3600),
                 }}
               />
             </CardContent>,
