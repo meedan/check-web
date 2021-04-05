@@ -1,28 +1,54 @@
 import React from 'react';
-import styled from 'styled-components';
+import PropTypes from 'prop-types';
+import { makeStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+import Chip from '@material-ui/core/Chip';
 import SocialIcon from '../SocialIcon';
-import { units, chipStyles } from '../../styles/js/shared';
 
-const StyledTag = styled.li`
-  ${chipStyles}
-`;
+const useStyles = makeStyles({
+  link: {
+    textDecoration: 'none',
+  },
+});
 
-const AccountChips = (props) => {
-  if (!props.accounts) return null;
+const AccountChips = ({ accounts }) => {
+  if (!accounts) return null;
+
+  const classes = useStyles();
 
   return (
-    <div className="media-tags">
-      <ul className="media-tags__list">
-        {props.accounts.map(account => (
-          <StyledTag key={account.id} className="media-tags__tag">
-            <SocialIcon domain={account.provider} />
-            <a href={account.url} style={{ margin: `0 ${units(1)}` }} target="_blank" rel="noopener noreferrer">
-              { account.metadata.username || account.metadata.url }
+    <div className="account-chips">
+      <ul className="account-chips__list">
+        { accounts.map(account => (
+          <Box component="span" mr={1} key={account.id}>
+            <a className={classes.link} href={account.url} target="_blank" rel="noopener noreferrer">
+              <Chip
+                className="account-chips__chip"
+                icon={<div><SocialIcon domain={account.provider} /></div>}
+                onClick={() => {}}
+                label={account.metadata.username || account.metadata.url}
+              />
             </a>
-          </StyledTag>))}
+          </Box>
+        ))}
       </ul>
     </div>
   );
+};
+
+AccountChips.defaultProps = {
+  accounts: null,
+};
+
+AccountChips.propTypes = {
+  accounts: PropTypes.arrayOf(PropTypes.shape({
+    url: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    metadata: PropTypes.shape({
+      username: PropTypes.string,
+      url: PropTypes.string.isRequired,
+    }),
+  })),
 };
 
 export default AccountChips;

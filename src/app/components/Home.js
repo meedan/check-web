@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Favicon from 'react-favicon';
 import isEqual from 'lodash.isequal';
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
@@ -18,19 +18,10 @@ import DrawerNavigation from './DrawerNavigation';
 import { FlashMessageContext, FlashMessage, withSetFlashMessage } from './FlashMessage';
 import UserTos from './UserTos';
 import { withClientSessionId } from '../ClientSessionId';
-import { layout, typography, localeAr, removeYellowAutocomplete } from '../styles/js/global';
 import { stringHelper } from '../customHelpers';
 import { bemClass } from '../helpers';
 import { FormattedGlobalMessage } from './MappedMessage';
 import MeRoute from '../relay/MeRoute';
-
-// Global styles
-const GlobalStyle = createGlobalStyle([`
-  ${layout}
-  ${typography}
-  ${localeAr}
-  ${removeYellowAutocomplete}
-`]);
 
 const Wrapper = styled.div`
   display: flex;
@@ -252,7 +243,6 @@ class HomeComponent extends Component {
 
     return (
       <React.Fragment>
-        <GlobalStyle />
         <MuiPickersUtilsProvider utils={MomentUtils}>
           {config.intercomAppId && user.dbid && window.parent === window ?
             <Intercom
