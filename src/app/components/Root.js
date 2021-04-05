@@ -66,24 +66,24 @@ class Root extends Component {
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams" component={Teams} />
 
-                <Route path=":team/media/:mediaId" component={MediaPage} public />
-                <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} public />
+                <Route path=":team/media/:mediaId" component={MediaPage} />
+                <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
                 <Route path=":team/media/:mediaId/suggested-matches" component={MediaPage} view="suggestedMatches" />
                 <Route path=":team/media/:mediaId/similar-media" component={MediaPage} view="similarMedia" />
-                <Route path=":team/media/:mediaId/report" component={ReportDesigner} public />
+                <Route path=":team/media/:mediaId/report" component={ReportDesigner} />
                 <Route path=":team/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/media/:mediaId/metadata" component={MediaTasks} />
                 <Route path=":team/media/:mediaId/source" component={MediaSource} />
-                <Route path=":team/project/:projectId/media/:mediaId/report" component={ReportDesigner} public />
+                <Route path=":team/project/:projectId/media/:mediaId/report" component={ReportDesigner} />
                 <Route path=":team/project/:projectId/media/:mediaId/tasks" component={MediaTasks} />
                 <Route path=":team/project/:projectId/media/:mediaId/metadata" component={MediaTasks} />
                 <Route path=":team/project/:projectId/media/:mediaId/source" component={MediaSource} />
-                <Route path=":team/project/:projectId(/:query)" component={Project} public />
-                <Route path=":team/all-items(/:query)" component={AllItems} public />
+                <Route path=":team/project/:projectId(/:query)" component={Project} />
+                <Route path=":team/all-items(/:query)" component={AllItems} />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team/unconfirmed(/:query)" component={Unconfirmed} />
                 <Route path=":team/settings(/:tab)" action="settings" component={Team} />
-                <Route path=":team(/:tab)" action="main" component={Team} public />
+                <Route path=":team(/:tab)" action="main" component={Team} />
 
                 <Route path="*" component={NotFound} public />
               </Route>
