@@ -1,0 +1,19 @@
+window.config = {
+  appName: 'check',
+  selfHost: 'check-web-caiosba.ngrok.io',
+  restBaseUrl: 'http://check-api-caiosba.ngrok.io/api/',
+  // Uncomment line below to send requests to Apollo
+  // relayPath: 'http://localhost:3300/api/graphql',
+  relayPath: 'http://check-api-caiosba.ngrok.io/api/graphql',
+  relayHeaders: {
+    'X-Check-Token': ''
+  },
+  penderUrl: 'http://pender-caiosba.ngrok.io',
+  pusherKey: 'da49a58cda87ede509ee',
+  pusherCluster: 'mt1',
+  pusherDebug: true,
+  mapboxApiKey: "pk.eyJ1IjoibWVlZGFuIiwiYSI6ImNqNmpsN3F5cDE3M3AyeW1xY2VpaHZybXEifQ.XpDu6rzlVTe0n0N7LAW2AA",
+  opencageApiKey: 'bcb69c5b891146dca8ac77ccc2682259',
+  intercomAppId: 'g83jxb64',
+  googleMapsApiKey: 'AIzaSyAv1s564OYz2vseEAuVula6y3PWJ_Uh4oQ', // WARNING That's a Montage key
+}
