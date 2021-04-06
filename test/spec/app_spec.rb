@@ -172,6 +172,7 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should redirect to 404 page', bin4: true do
+      api_register_and_login_with_email
       @driver.navigate.to "#{@config['self_url']}/something-that-does-not-exist"
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
