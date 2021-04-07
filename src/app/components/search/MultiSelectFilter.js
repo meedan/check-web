@@ -1,15 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Autocomplete from '@material-ui/lab/Autocomplete';
+import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
+    minWidth: '200px',
   },
-}));
+});
 
 const MultiSelectFilter = ({
   options,
@@ -30,26 +30,28 @@ const MultiSelectFilter = ({
   }
 
   return (
-    <Autocomplete
-      multiple
-      key={label}
-      className={classes.root}
-      limitTags={3}
-      options={options}
-      getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
-      getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
-      value={selected}
-      filterSelectedOptions
-      renderInput={params => (
-        <TextField
-          {...params}
-          variant="outlined"
-          label={label}
-        />
-      )}
-      onChange={handleChange}
-      fullWidth
-    />
+    <Box maxWidth="350px" m={1}>
+      <Autocomplete
+        multiple
+        key={label}
+        className={classes.root}
+        limitTags={3}
+        options={options}
+        getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
+        getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
+        value={selected}
+        filterSelectedOptions
+        renderInput={params => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label={label}
+          />
+        )}
+        onChange={handleChange}
+        fullWidth
+      />
+    </Box>
   );
 };
 

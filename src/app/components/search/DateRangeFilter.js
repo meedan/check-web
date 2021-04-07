@@ -7,7 +7,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
-import { StyledFilterRow } from './SearchQueryComponent';
 import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
@@ -92,7 +91,6 @@ class DateRangeFilter extends React.Component {
     }
 
     const label = {
-      date: <FormattedMessage id="search.dateHeading" defaultMessage="Time Range" />,
       created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
       last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
@@ -100,51 +98,48 @@ class DateRangeFilter extends React.Component {
     };
 
     return (
-      <StyledFilterRow>
-        <h4>{ label.date }</h4>
-        <div>
-          <FlexRow>
-            <FormControl variant="outlined" className={classes.selectFormControl}>
-              <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-              <Select onChange={this.handleChangeType} value={this.valueType}>
-                <MenuItem value="created_at">
-                  {label.created_at}
-                </MenuItem>
-                <MenuItem value="last_seen">
-                  {label.last_seen}
-                </MenuItem>
-                <MenuItem value="updated_at">
-                  {label.updated_at}
-                </MenuItem>
-                <MenuItem value="published_at">
-                  {label.published_at}
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <DatePicker
-              inputVariant="outlined"
-              label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
-              className="date-range__start-date"
-              onChange={this.handleChangeStartDate}
-              maxDate={this.endDateStringOrNull || undefined}
-              okLabel={<FormattedMessage {...globalStrings.ok} />}
-              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-              value={this.startDateStringOrNull}
-              style={{ margin: `0 ${units(2)}` }}
-            />
-            <DatePicker
-              inputVariant="outlined"
-              label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
-              className="date-range__end-date"
-              onChange={this.handleChangeEndDate}
-              minDate={this.startDateStringOrNull || undefined}
-              okLabel={<FormattedMessage {...globalStrings.ok} />}
-              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-              value={this.endDateStringOrNull}
-            />
-          </FlexRow>
-        </div>
-      </StyledFilterRow>
+      <div>
+        <FlexRow>
+          <FormControl variant="outlined" className={classes.selectFormControl}>
+            <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
+            <Select onChange={this.handleChangeType} value={this.valueType}>
+              <MenuItem value="created_at">
+                {label.created_at}
+              </MenuItem>
+              <MenuItem value="last_seen">
+                {label.last_seen}
+              </MenuItem>
+              <MenuItem value="updated_at">
+                {label.updated_at}
+              </MenuItem>
+              <MenuItem value="published_at">
+                {label.published_at}
+              </MenuItem>
+            </Select>
+          </FormControl>
+          <DatePicker
+            inputVariant="outlined"
+            label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
+            className="date-range__start-date"
+            onChange={this.handleChangeStartDate}
+            maxDate={this.endDateStringOrNull || undefined}
+            okLabel={<FormattedMessage {...globalStrings.ok} />}
+            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            value={this.startDateStringOrNull}
+            style={{ margin: `0 ${units(2)}` }}
+          />
+          <DatePicker
+            inputVariant="outlined"
+            label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
+            className="date-range__end-date"
+            onChange={this.handleChangeEndDate}
+            minDate={this.startDateStringOrNull || undefined}
+            okLabel={<FormattedMessage {...globalStrings.ok} />}
+            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            value={this.endDateStringOrNull}
+          />
+        </FlexRow>
+      </div>
     );
   }
 }
