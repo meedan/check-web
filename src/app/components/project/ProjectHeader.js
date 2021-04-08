@@ -17,6 +17,8 @@ class ProjectHeaderComponent extends React.PureComponent {
     let pageTitle;
     if (/\/trash(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
+    } else if (/\/unconfirmed(\/|$)/.test(listUrl)) {
+      pageTitle = <FormattedMessage id="projectHeader.unconfirmed" defaultMessage="Unconfirmed" />;
     } else if (project) {
       pageTitle = project.title;
     } else {
