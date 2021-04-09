@@ -12,6 +12,7 @@ import LocationOnIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import GradeIcon from '@material-ui/icons/Grade';
 import IconFileUpload from '@material-ui/icons/CloudUpload';
+import NumberIcon from '../../icons/NumberIcon';
 
 class CreateTaskMenu extends React.Component {
   constructor(props) {
@@ -75,6 +76,17 @@ class CreateTaskMenu extends React.Component {
             <ListItemText
               primary={
                 <FormattedMessage id="tasks.shortAnswer" defaultMessage="Text" />
+              }
+            />
+          </MenuItem>
+          <MenuItem
+            className="create-task__add-number"
+            onClick={() => this.handleSelectType('number')}
+          >
+            <ListItemIcon><NumberIcon /></ListItemIcon>
+            <ListItemText
+              primary={
+                <FormattedMessage id="tasks.number" defaultMessage="Number" />
               }
             />
           </MenuItem>
