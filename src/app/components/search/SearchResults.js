@@ -331,9 +331,6 @@ class SearchResultsComponent extends React.PureComponent {
 
     projectMedias.forEach((pm) => {
       if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
-        if (pm.project_media_project) {
-          selectedProjectMediaProjectIds.push(pm.project_media_project.id);
-        }
         selectedProjectMediaDbids.push(pm.dbid);
       }
     });
@@ -541,7 +538,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_secondary
               requests_count
               list_columns_values
-              project_media_project(project_id: $projectId) {
+              project {
                 dbid
                 id
               }

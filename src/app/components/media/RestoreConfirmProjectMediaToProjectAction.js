@@ -126,7 +126,7 @@ RestoreConfirmProjectMediaToProjectAction.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-    project_ids: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    project_id: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   }).isRequired,
 };
 
@@ -149,7 +149,7 @@ export default createFragmentContainer(RestoreConfirmProjectMediaToProjectAction
     fragment RestoreConfirmProjectMediaToProjectAction_projectMedia on ProjectMedia {
       id
       dbid
-      project_ids
+      project_id
       archived
     }
   `,

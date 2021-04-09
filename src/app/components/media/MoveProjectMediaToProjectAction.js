@@ -12,25 +12,17 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 function commitMoveProjectMediaToProject({
-  projectMedia, projectMediaProject, fromProject, toProject, onSuccess, onFailure,
+  projectMedia, fromProject, toProject, onSuccess, onFailure,
 }) {
   return commitMutation(Relay.Store, {
     mutation: graphql`
-      mutation MoveProjectMediaToProjectActionMutation($input: UpdateProjectMediaProjectInput!) {
-        updateProjectMediaProject(input: $input) {
-          project_media_project {
+      mutation MoveProjectMediaToProjectActionMutation($input: UpdateProjectMediaInput!) {
+        updateProjectMedia(input: $input) {
+          project_media {
             id
             project_id
             project {
               id
-            }
-            project_media {
-              id
-              project_ids
-              # FIXME: we're missing "projects" here. Add RANGE_ADD/RANGE_DELETE.
-              # [adamhooper, 2020-07-17] in the meantime, I'm altering other files
-              # so nobody ever queries "ProjectMedia.projects". Maybe we can nix
-              # the connection entirely? :)
             }
           }
           project {
@@ -55,19 +47,12 @@ function commitMoveProjectMediaToProject({
       }
     `,
     optimisticResponse: {
-      updateProjectMediaProject: {
-        project_media_project: {
-          id: projectMediaProject.id,
+      updateProjectMedia: {
+        project_media: {
+          id: projectMedia.id,
           project_id: toProject.dbid,
           project: {
             id: toProject.id,
-          },
-          project_media: {
-            id: projectMedia.id,
-            project_ids: [
-              ...projectMedia.project_ids.filter(id => id !== fromProject.dbid),
-              toProject.dbid,
-            ].sort((a, b) => a - b),
           },
         },
         project: {
@@ -106,7 +91,7 @@ function commitMoveProjectMediaToProject({
 }
 
 function MoveProjectMediaToProjectAction({
-  team, project, projectMedia, projectMediaProject, className,
+  team, project, projectMedia, className,
 }) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
@@ -118,7 +103,6 @@ function MoveProjectMediaToProjectAction({
     setIsSaving(true);
     commitMoveProjectMediaToProject({
       projectMedia,
-      projectMediaProject,
       fromProject: project,
       toProject,
       onSuccess: () => {
@@ -135,7 +119,7 @@ function MoveProjectMediaToProjectAction({
       },
     });
   }, [
-    setFlashMessage, team, project, projectMedia, projectMediaProject, setIsDialogOpen, setIsSaving,
+    setFlashMessage, team, project, projectMedia, setIsDialogOpen, setIsSaving,
   ]);
 
   return (
@@ -153,7 +137,7 @@ function MoveProjectMediaToProjectAction({
       <SelectProjectDialog
         open={isDialogOpen}
         team={team}
-        excludeProjectDbids={projectMedia.project_ids}
+        excludeProjectDbids={projectMedia.project_id}
         title={
           <FormattedMessage
             id="mediaActionsBar.dialogMoveTitle"
@@ -174,14 +158,11 @@ MoveProjectMediaToProjectAction.propTypes = {
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-    project_ids: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+    project_id: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
   }).isRequired,
   project: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-  }).isRequired,
-  projectMediaProject: PropTypes.shape({
-    id: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -196,12 +177,7 @@ export default createFragmentContainer(MoveProjectMediaToProjectAction, {
     fragment MoveProjectMediaToProjectAction_projectMedia on ProjectMedia {
       id
       dbid
-      project_ids
-    }
-  `,
-  projectMediaProject: graphql`
-    fragment MoveProjectMediaToProjectAction_projectMediaProject on ProjectMediaProject {
-      id
+      project_id
     }
   `,
   project: graphql`
