@@ -119,6 +119,8 @@ class ShortTextRespondTask extends React.Component {
     const response = typeof this.state.response !== 'undefined' && this.state.response !== null
       ? this.state.response : this.props.response || '';
 
+    const textFieldProps = this.props.textFieldProps || {};
+
     return (
       <div>
         <TextField
@@ -135,6 +137,7 @@ class ShortTextRespondTask extends React.Component {
           variant="outlined"
           fullWidth
           multiline
+          {...textFieldProps}
         />
         {this.state.focus || this.props.response ? actionBtns : null}
       </div>

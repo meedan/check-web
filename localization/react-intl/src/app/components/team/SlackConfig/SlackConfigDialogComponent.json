@@ -13,7 +13,7 @@
   },
   {
     "id": "slackConfigDialogComponent.webhook",
-    "defaultMessage": "Slack webhook"
+    "defaultMessage": "Slack incoming webhook"
   },
   {
     "id": "slackConfigDialogComponent.event",

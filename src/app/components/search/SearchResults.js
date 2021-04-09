@@ -292,6 +292,11 @@ class SearchResultsComponent extends React.PureComponent {
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
     }
+    if (searchUrlPrefix.endsWith('/unconfirmed')) {
+      // Usually, `listPath` can be inferred from the route params. With `unconfirmed` it can't,
+      // so we'll give it to the receiving page. (See <MediaPage>.)
+      urlParams.set('listPath', searchUrlPrefix);
+    }
     if (Object.keys(cleanQuery).length > 0) {
       urlParams.set('listQuery', JSON.stringify(cleanQuery));
     }
