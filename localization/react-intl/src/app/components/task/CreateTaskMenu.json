@@ -12,6 +12,10 @@
     "defaultMessage": "Text"
   },
   {
+    "id": "tasks.number",
+    "defaultMessage": "Number"
+  },
+  {
     "id": "tasks.chooseOne",
     "defaultMessage": "Single select"
   },

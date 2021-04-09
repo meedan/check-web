@@ -19,6 +19,7 @@ import TaskLog from './TaskLog';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import ShortTextRespondTask from './ShortTextRespondTask';
+import NumberRespondTask from './NumberRespondTask';
 import GeolocationRespondTask from './GeolocationRespondTask';
 import GeolocationTaskResponse from './GeolocationTaskResponse';
 import DatetimeRespondTask from './DatetimeRespondTask';
@@ -367,6 +368,15 @@ class Task extends Component {
                 onDismiss={this.handleCancelEditResponse}
               />
               : null}
+            {task.type === 'number' ?
+              <NumberRespondTask
+                fieldset={task.fieldset}
+                task={task}
+                response={editingResponseText}
+                onSubmit={this.handleUpdateResponse}
+                onDismiss={this.handleCancelEditResponse}
+              />
+              : null}
             {task.type === 'geolocation' ?
               <GeolocationRespondTask
                 fieldset={task.fieldset}
@@ -426,6 +436,11 @@ class Task extends Component {
         {task.type === 'free_text' ?
           <div className="task__response">
             <ParsedText text={response} />
+          </div>
+          : null}
+        {task.type === 'number' ?
+          <div className="task__response" style={{ textAlign: 'right' }}>
+            {response}
           </div>
           : null}
         {task.type === 'geolocation' ?
@@ -608,6 +623,13 @@ class Task extends Component {
                   <div className="task__response-inputs">
                     {task.type === 'free_text' ?
                       <ShortTextRespondTask
+                        task={task}
+                        fieldset={task.fieldset}
+                        onSubmit={this.handleSubmitResponse}
+                      />
+                      : null}
+                    {task.type === 'number' ?
+                      <NumberRespondTask
                         task={task}
                         fieldset={task.fieldset}
                         onSubmit={this.handleSubmitResponse}
