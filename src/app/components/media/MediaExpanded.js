@@ -241,7 +241,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         description
         language_code
         language
-        project_ids
+        project_id
         pusher_channel
         dynamic_annotation_language {
           id
@@ -284,7 +284,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 });
 
 const MediaExpanded = (props) => {
-  const projectId = getCurrentProjectId(props.media.project_ids);
+  const projectId = getCurrentProjectId(props.media.project_id);
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 

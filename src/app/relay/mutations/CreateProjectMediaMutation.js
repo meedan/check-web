@@ -49,7 +49,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       url: this.props.url,
       quote: this.props.quote,
       quote_attributions: this.props.quoteAttributions,
-      add_to_project_id: this.props.project ? this.props.project.dbid : null,
+      project_id: this.props.project ? this.props.project.dbid : null,
     };
     if (this.props.related_to_id) {
       vars.related_to_id = this.props.related_to_id;

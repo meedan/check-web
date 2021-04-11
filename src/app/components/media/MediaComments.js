@@ -237,7 +237,7 @@ const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPush
 });
 
 const MediaComments = (props) => {
-  const projectId = getCurrentProjectId(props.media.project_ids);
+  const projectId = getCurrentProjectId(props.media.project_id);
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 

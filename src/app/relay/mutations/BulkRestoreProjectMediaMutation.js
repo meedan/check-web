@@ -26,7 +26,7 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
     return {
       ids: this.props.ids,
       archived: CheckArchivedFlags.NONE,
-      add_to_project_id: this.props.dstProject.dbid,
+      project_id: this.props.dstProject.dbid,
     };
   }
 

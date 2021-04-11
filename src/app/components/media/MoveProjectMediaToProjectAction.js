@@ -75,18 +75,13 @@ function commitMoveProjectMediaToProject({
     },
     variables: {
       input: {
-        project_media_id: projectMedia.dbid,
+        id: projectMedia.id,
         project_id: toProject.dbid,
         previous_project_id: fromProject.dbid,
       },
     },
     onError: onFailure,
-    onCompleted: ({ data, errors }) => {
-      if (errors) {
-        return onFailure(errors);
-      }
-      return onSuccess(data);
-    },
+    onCompleted: onSuccess,
   });
 }
 
@@ -137,7 +132,7 @@ function MoveProjectMediaToProjectAction({
       <SelectProjectDialog
         open={isDialogOpen}
         team={team}
-        excludeProjectDbids={projectMedia.project_id}
+        excludeProjectDbids={[projectMedia.project_id]}
         title={
           <FormattedMessage
             id="mediaActionsBar.dialogMoveTitle"

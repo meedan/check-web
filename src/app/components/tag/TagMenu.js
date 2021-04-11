@@ -249,7 +249,7 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
 // eslint-disable-next-line react/no-multi-comp
 class TagMenu extends React.PureComponent {
   render() {
-    const projectId = getCurrentProjectId(this.props.media.project_ids);
+    const projectId = getCurrentProjectId(this.props.media.project_id);
     const ids = `${this.props.media.dbid},${projectId}`;
     const route = new MediaRoute({ ids });
 

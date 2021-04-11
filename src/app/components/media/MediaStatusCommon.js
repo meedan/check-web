@@ -57,7 +57,7 @@ class MediaStatusCommon extends Component {
 
   handleEdit() {
     const { media } = this.props;
-    const projectId = getCurrentProjectId(media.project_ids);
+    const projectId = getCurrentProjectId(media.project_id);
     const projectPart = projectId ? `/project/${projectId}` : '';
     browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }

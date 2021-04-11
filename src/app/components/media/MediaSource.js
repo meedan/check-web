@@ -156,7 +156,7 @@ const MediaSource = ({ projectMedia, params }) => {
   if (params) {
     ids = `${params.mediaId},${params.projectId}`;
   } else {
-    const projectId = getCurrentProjectId(projectMedia.project_ids);
+    const projectId = getCurrentProjectId(projectMedia.project_id);
     ids = `${projectMedia.dbid},${projectId}`;
   }
 
