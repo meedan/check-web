@@ -53,7 +53,7 @@ const TeamDataComponent = ({ dataReportUrl }) => (
                 defaultMessage="Fill {thisShortForm} to request access to your data report."
                 values={{
                   thisShortForm: (
-                    <a href="https://airtable.com/shrbTBHwiHIu6ZDLT" target="_blank" rel="noopener noreferrer">
+                    <a href="https://airtable.com/shrWpaztZ2SzD5TrA" target="_blank" rel="noopener noreferrer">
                       <FormattedMessage id="teamDataComponent.formLinkText" defaultMessage="this short form" />
                     </a>
                   ),
