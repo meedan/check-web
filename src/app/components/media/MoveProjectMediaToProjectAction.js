@@ -14,6 +14,42 @@ import { getErrorMessageForRelayModernProblem } from '../../helpers';
 function commitMoveProjectMediaToProject({
   projectMedia, fromProject, toProject, onSuccess, onFailure,
 }) {
+  const variables = {
+    input: {
+      id: projectMedia.id,
+      project_id: toProject.dbid,
+    },
+  };
+  const optimisticResponse = {
+    updateProjectMedia: {
+      project_media: {
+        id: projectMedia.id,
+        project_id: toProject.dbid,
+        project: {
+          id: toProject.id,
+        },
+      },
+      project: {
+        id: toProject.id,
+        medias_count: toProject.medias_count + 1,
+        search: {
+          id: toProject.search_id,
+          number_of_results: toProject.medias_count + 1,
+        },
+      },
+    },
+  };
+  if (fromProject) {
+    optimisticResponse.updateProjectMedia.project_was = {
+      id: fromProject.id,
+      medias_count: fromProject.medias_count - 1,
+      search: {
+        id: fromProject.search_id,
+        number_of_results: fromProject.medias_count - 1,
+      },
+    };
+    variables.input.previous_project_id = fromProject.dbid;
+  }
   return commitMutation(Relay.Store, {
     mutation: graphql`
       mutation MoveProjectMediaToProjectActionMutation($input: UpdateProjectMediaInput!) {
@@ -46,40 +82,8 @@ function commitMoveProjectMediaToProject({
         }
       }
     `,
-    optimisticResponse: {
-      updateProjectMedia: {
-        project_media: {
-          id: projectMedia.id,
-          project_id: toProject.dbid,
-          project: {
-            id: toProject.id,
-          },
-        },
-        project: {
-          id: toProject.id,
-          medias_count: toProject.medias_count + 1,
-          search: {
-            id: toProject.search_id,
-            number_of_results: toProject.medias_count + 1,
-          },
-        },
-        project_was: {
-          id: fromProject.id,
-          medias_count: fromProject.medias_count - 1,
-          search: {
-            id: fromProject.search_id,
-            number_of_results: fromProject.medias_count - 1,
-          },
-        },
-      },
-    },
-    variables: {
-      input: {
-        id: projectMedia.id,
-        project_id: toProject.dbid,
-        previous_project_id: fromProject.dbid,
-      },
-    },
+    optimisticResponse,
+    variables,
     onError: onFailure,
     onCompleted: onSuccess,
   });

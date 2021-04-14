@@ -24,22 +24,16 @@ class BulkMoveProjectMediaMutation extends Relay.Mutation {
     const vars = {
       ids: this.props.ids,
       move_to: this.props.dstProject.dbid,
-      previous_project_id: this.props.srcProject.dbid,
     };
+    if (this.props.srcProject) {
+      vars.previous_project_id = this.props.srcProject.dbid;
+    }
     return vars;
   }
 
   getOptimisticResponse() {
-    return {
+    const response = {
       ids: this.props.ids,
-      project_was: {
-        id: this.props.srcProject.id,
-        medias_count: this.props.srcProject.medias_count - this.props.ids.length,
-      },
-      check_search_project_was: {
-        id: this.props.srcProject.search_id,
-        number_of_results: this.props.srcProject.medias_count - this.props.ids.length,
-      },
       project: {
         id: this.props.dstProject.id,
         medias_count: this.props.dstProject.medias_count + this.props.ids.length,
@@ -49,27 +43,41 @@ class BulkMoveProjectMediaMutation extends Relay.Mutation {
         number_of_results: this.props.dstProject.medias_count + this.props.ids.length,
       },
     };
+    if (this.props.srcProject) {
+      response.project_was = {
+        id: this.props.srcProject.id,
+        medias_count: this.props.srcProject.medias_count - this.props.ids.length,
+      };
+      response.check_search_project = {
+        id: this.props.srcProject.search_id,
+        number_of_results: this.props.srcProject.medias_count - this.props.ids.length,
+      };
+    }
+    return response;
   }
 
   getConfigs() {
-    return [
+    const config = [
       {
         type: 'FIELDS_CHANGE',
         fieldIDs: {
           project: this.props.dstProject.id,
           check_search_project: this.props.dstProject.search_id,
-          project_was: this.props.srcProject.id,
-          check_search_project_was: this.props.srcProject.search_id,
         },
       },
-      {
+    ];
+    if (this.props.srcProject) {
+      config[0].fieldIDs.project_was = this.props.srcProject.id;
+      config[0].fieldIDs.check_search_project_was = this.props.srcProject.search_id;
+      config.push({
         type: 'NODE_DELETE',
         parentName: 'check_search_project_was',
         parentID: this.props.srcProject.search_id,
         connectionName: 'medias',
         deletedIDFieldName: 'ids',
-      },
-    ];
+      });
+    }
+    return config;
   }
 
   static fragments = {

@@ -233,7 +233,7 @@ class BulkActions extends React.Component {
       moveButtonMessage = (
         <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
       );
-    } else if (project) {
+    } else {
       moveAction = true;
       moveTooltipMessage = (
         <FormattedMessage
@@ -324,7 +324,9 @@ class BulkActions extends React.Component {
     default:
       actionButtons = (
         <React.Fragment>
-          { project ? modalToMove : null }
+          <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
+            {modalToMove}
+          </Can>
           {deleteButton}
         </React.Fragment>
       );
