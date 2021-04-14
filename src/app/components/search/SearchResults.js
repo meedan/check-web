@@ -6,6 +6,7 @@ import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
+import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchQuery from './SearchQuery';
@@ -23,8 +24,7 @@ import { isBotInstalled } from '../../helpers';
 const pageSize = 50;
 
 const StyledListHeader = styled.div`
-  padding: ${units(2)};
-  margin: 0;
+  margin: ${units(2)};
   /* max-width: calc(100vw - ${units(34)}); Seems unecessary*/
 
   .search__list-header-filter-row {
@@ -390,16 +390,18 @@ class SearchResultsComponent extends React.PureComponent {
               : null}
           </Row>
         </StyledListHeader>
-        <SearchQueryCopy
-          className="search-query"
-          key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}
-          query={unsortedQuery}
-          onChange={this.handleChangeQuery}
-          project={this.props.project}
-          hideFields={this.props.hideFields}
-          title={this.props.title}
-          team={team}
-        />
+        <Box m={2}>
+          <SearchQueryCopy
+            className="search-query"
+            key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}
+            query={unsortedQuery}
+            onChange={this.handleChangeQuery}
+            project={this.props.project}
+            hideFields={this.props.hideFields}
+            title={this.props.title}
+            team={team}
+          />
+        </Box>
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}

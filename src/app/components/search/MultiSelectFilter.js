@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
+import CustomAutocomplete from '../layout/CustomAutocomplete';
 
 const useStyles = makeStyles({
   root: {
@@ -14,6 +12,7 @@ const useStyles = makeStyles({
 const MultiSelectFilter = ({
   options,
   label,
+  icon,
   onChange,
   selected,
   hide,
@@ -30,28 +29,16 @@ const MultiSelectFilter = ({
   }
 
   return (
-    <Box maxWidth="350px" m={1}>
-      <Autocomplete
-        multiple
-        key={label}
-        className={classes.root}
-        limitTags={3}
-        options={options}
-        getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
-        getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
-        value={selected}
-        filterSelectedOptions
-        renderInput={params => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label={label}
-          />
-        )}
-        onChange={handleChange}
-        fullWidth
-      />
-    </Box>
+    <CustomAutocomplete
+      className={classes.root}
+      defaultValue={selected}
+      icon={icon}
+      label={label}
+      getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
+      getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
+      onChange={handleChange}
+      options={options}
+    />
   );
 };
 
@@ -66,7 +53,7 @@ MultiSelectFilter.propTypes = {
     PropTypes.object,
     PropTypes.string,
   ])).isRequired,
-  label: PropTypes.object.isRequired,
+  label: PropTypes.node.isRequired,
   onChange: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,

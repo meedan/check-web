@@ -24,16 +24,16 @@
     "defaultMessage": "Imported report"
   },
   {
-    "id": "search.categoriesHeading",
-    "defaultMessage": "Tags"
-  },
-  {
     "id": "search.any",
     "defaultMessage": "Any"
   },
   {
     "id": "search.all",
     "defaultMessage": "All"
+  },
+  {
+    "id": "search.categoriesHeading",
+    "defaultMessage": "Tags"
   },
   {
     "id": "search.show",
