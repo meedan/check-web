@@ -278,36 +278,6 @@ function capitalize(text) {
 }
 
 /**
-* Get current project based on curent location and media.projects
-*/
-function getCurrentProject(projects) {
-  let project = null;
-  let currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
-  if (currentProjectId) {
-    currentProjectId = parseInt(currentProjectId[1], 10);
-    project = projects.edges.find(p => parseInt(p.node.dbid, 10) === currentProjectId);
-    if (project) {
-      project = project.node;
-    }
-  }
-  return project;
-}
-
-/**
-* Get current project id based on curent location and media.projects
-*/
-function getCurrentProjectId(projectIds) {
-  const currentProjectId = window.location.pathname.match(/project\/([0-9]+)/);
-  let projectId = currentProjectId ? parseInt(currentProjectId[1], 10) : null;
-  if (projectId && projectIds) {
-    if (projectIds !== projectId) {
-      projectId = null;
-    }
-  }
-  return projectId;
-}
-
-/**
  * Return a JavaScript `Date` from a stringified UNIX timestamp.
  *
  * TODO don't pass stringified UNIX timestamps over the wire. Use ISO8601 ... or
@@ -357,8 +327,6 @@ export {
   getErrorObjects,
   emojify,
   capitalize,
-  getCurrentProject,
-  getCurrentProjectId,
   parseStringUnixTimestamp,
   botName,
 };

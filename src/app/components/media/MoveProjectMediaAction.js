@@ -52,7 +52,7 @@ function commitMoveProjectMediaToProject({
   }
   return commitMutation(Relay.Store, {
     mutation: graphql`
-      mutation MoveProjectMediaToProjectActionMutation($input: UpdateProjectMediaInput!) {
+      mutation MoveProjectMediaActionMutation($input: UpdateProjectMediaInput!) {
         updateProjectMedia(input: $input) {
           project_media {
             id
@@ -89,7 +89,7 @@ function commitMoveProjectMediaToProject({
   });
 }
 
-function MoveProjectMediaToProjectAction({
+function MoveProjectMediaAction({
   team, project, projectMedia, className,
 }) {
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -152,7 +152,7 @@ function MoveProjectMediaToProjectAction({
     </React.Fragment>
   );
 }
-MoveProjectMediaToProjectAction.propTypes = {
+MoveProjectMediaAction.propTypes = {
   className: PropTypes.string.isRequired,
   projectMedia: PropTypes.shape({
     id: PropTypes.string.isRequired,
@@ -165,22 +165,22 @@ MoveProjectMediaToProjectAction.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(MoveProjectMediaToProjectAction, {
+export default createFragmentContainer(MoveProjectMediaAction, {
   team: graphql`
-    fragment MoveProjectMediaToProjectAction_team on Team {
+    fragment MoveProjectMediaAction_team on Team {
       slug
       ...SelectProjectDialog_team
     }
   `,
   projectMedia: graphql`
-    fragment MoveProjectMediaToProjectAction_projectMedia on ProjectMedia {
+    fragment MoveProjectMediaAction_projectMedia on ProjectMedia {
       id
       dbid
       project_id
     }
   `,
   project: graphql`
-    fragment MoveProjectMediaToProjectAction_project on Project {
+    fragment MoveProjectMediaAction_project on Project {
       id
       dbid
       medias_count  # for mutation to decrease it

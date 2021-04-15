@@ -9,7 +9,6 @@ import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import ProfileLink from '../layout/ProfileLink';
 import UserTooltip from '../user/UserTooltip';
-import { getCurrentProjectId } from '../../helpers';
 
 class MediaCommentsComponent extends Component {
   componentDidMount() {
@@ -237,7 +236,7 @@ const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPush
 });
 
 const MediaComments = (props) => {
-  const projectId = getCurrentProjectId(props.media.project_id);
+  const projectId = props.media.project_id;
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 

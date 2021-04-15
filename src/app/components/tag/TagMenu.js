@@ -18,7 +18,7 @@ import RelayContainer from '../../relay/RelayContainer';
 import CheckContext from '../../CheckContext';
 import { createTag } from '../../relay/mutations/CreateTagMutation';
 import { deleteTag } from '../../relay/mutations/DeleteTagMutation';
-import { getCurrentProjectId, getErrorMessage } from '../../helpers';
+import { getErrorMessage } from '../../helpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledIconButton = withStyles(theme => ({
@@ -249,7 +249,7 @@ const TagMenuContainer = Relay.createContainer(withSetFlashMessage(TagMenuCompon
 // eslint-disable-next-line react/no-multi-comp
 class TagMenu extends React.PureComponent {
   render() {
-    const projectId = getCurrentProjectId(this.props.media.project_id);
+    const projectId = this.props.media.project_id;
     const ids = `${this.props.media.dbid},${projectId}`;
     const route = new MediaRoute({ ids });
 

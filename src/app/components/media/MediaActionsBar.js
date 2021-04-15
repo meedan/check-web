@@ -17,7 +17,7 @@ import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
 import MultiSelector from '../layout/MultiSelector';
-import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
+import MoveProjectMediaAction from './MoveProjectMediaAction';
 import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
@@ -249,7 +249,7 @@ class MediaActionsBarComponent extends Component {
       <div className={classes.root}>
         { media.archived === CheckArchivedFlags.NONE ?
           <div>
-            <MoveProjectMediaToProjectAction
+            <MoveProjectMediaAction
               team={this.props.media.team}
               project={project}
               projectMedia={this.props.media}
@@ -381,7 +381,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
-        ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
+        ${MoveProjectMediaAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
@@ -401,7 +401,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
         }
         project {
           id
-          ${MoveProjectMediaToProjectAction.getFragment('project')}
+          ${MoveProjectMediaAction.getFragment('project')}
           dbid
           title
           search_id
@@ -430,7 +430,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           }
         }
         team {
-          ${MoveProjectMediaToProjectAction.getFragment('team')}
+          ${MoveProjectMediaAction.getFragment('team')}
           ${RestoreConfirmProjectMediaToProjectAction.getFragment('team')}
           id
           dbid
