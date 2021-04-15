@@ -9,8 +9,8 @@ import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withPusher, pusherShape } from '../../pusher';
-import SearchQuery from './SearchQuery';
-import SearchQueryCopy from './SearchQueryCopy';
+import SearchKeyword from './SearchKeyword';
+import SearchFields from './SearchFields';
 import Toolbar from './Toolbar';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
@@ -371,9 +371,9 @@ class SearchResultsComponent extends React.PureComponent {
               <div style={{ font: headline, color: black54 }} className="project__title" title={title}>
                 {title}
               </div>
-              <SearchQuery
+              <SearchKeyword
                 className="search-query"
-                key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}
+                key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
                 query={unsortedQuery}
                 onChange={this.handleChangeQuery}
                 project={this.props.project}
@@ -391,9 +391,9 @@ class SearchResultsComponent extends React.PureComponent {
           </Row>
         </StyledListHeader>
         <Box m={2}>
-          <SearchQueryCopy
+          <SearchFields
             className="search-query"
-            key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}
+            key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
             query={unsortedQuery}
             onChange={this.handleChangeQuery}
             project={this.props.project}
@@ -519,8 +519,8 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         pusher_channel,
         team {
           ${BulkActions.getFragment('team')}
-          ${SearchQuery.getFragment('team')}
-          ${SearchQueryCopy.getFragment('team')}
+          ${SearchKeyword.getFragment('team')}
+          ${SearchFields.getFragment('team')}
           id
           slug
           search_id,

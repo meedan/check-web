@@ -1,0 +1,74 @@
+[
+  {
+    "id": "search.showClaims",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "search.showLinks",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "search.showImages",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "search.showVideos",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "search.showAudios",
+    "defaultMessage": "Audio"
+  },
+  {
+    "id": "search.showBlank",
+    "defaultMessage": "Imported report"
+  },
+  {
+    "id": "search.any",
+    "defaultMessage": "Any"
+  },
+  {
+    "id": "search.all",
+    "defaultMessage": "All"
+  },
+  {
+    "id": "search.categoriesHeading",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "search.show",
+    "defaultMessage": "Media type"
+  },
+  {
+    "id": "search.statusHeading",
+    "defaultMessage": "Item status"
+  },
+  {
+    "id": "search.userHeading",
+    "defaultMessage": "Created by"
+  },
+  {
+    "id": "search.language",
+    "defaultMessage": "Language"
+  },
+  {
+    "id": "search.projectHeading",
+    "defaultMessage": "List"
+  },
+  {
+    "id": "search.assignedTo",
+    "defaultMessage": "Assigned to"
+  },
+  {
+    "id": "search.readHeading",
+    "defaultMessage": "Read"
+  },
+  {
+    "id": "search.applyFilters",
+    "defaultMessage": "Apply filter"
+  },
+  {
+    "id": "search.clear",
+    "defaultMessage": "Clear filter"
+  }
+]

@@ -77,9 +77,6 @@ const typeLabels = defineMessages({
 class SearchQueryComponent extends React.Component {
   constructor(props) {
     super(props);
-
-    this.searchInput = React.createRef();
-
     this.state = {
       query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
       addedFields: [],
@@ -200,15 +197,6 @@ class SearchQueryComponent extends React.Component {
 
   handleCustomFilterChange = (value) => {
     this.setState({ query: { ...this.state.query, ...value } });
-  }
-
-  handleKeywordConfigChange = (value) => {
-    const newQuery = { ...this.state.query, ...value };
-    if (Object.keys(value.keyword_fields).length === 0) {
-      delete newQuery.keyword_fields;
-    }
-    const callback = this.state.query.keyword ? this.handleApplyFilters : null;
-    this.setState({ query: newQuery }, callback);
   }
 
   handleStatusClick = (statusCodes) => {
