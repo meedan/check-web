@@ -45,10 +45,7 @@ class MediaDetail extends React.Component {
     const path = this.props.location
       ? this.props.location.pathname
       : window.location.pathname;
-    let projectId = null;
-    if (media.project_ids && media.project_ids.length > 0) {
-      projectId = media.project_ids[media.project_ids.length - 1];
-    }
+    let projectId = media.project_id;
     if (/project\/([0-9]+)/.test(path)) {
       projectId = path.match(/project\/([0-9]+)/).pop();
     }

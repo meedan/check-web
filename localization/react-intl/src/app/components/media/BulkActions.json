@@ -10,16 +10,6 @@
     "defaultMessage": "Items moved from Unconfirmed to '{toProject}'"
   },
   {
-    "id": "bulkActions.addedSuccessfully",
-    "description": "Banner displayed after items are added successfully to list",
-    "defaultMessage": "Items added to list."
-  },
-  {
-    "id": "bulkActions.removedSuccessfully",
-    "description": "Banner displayed after items are removed successfully from list",
-    "defaultMessage": "Items removed from this list."
-  },
-  {
     "id": "bulkActions.movedSuccessfully",
     "description": "Banner displayed after items are moved successfully",
     "defaultMessage": "Items moved to '{toProject}'"
@@ -67,21 +57,5 @@
   {
     "id": "bulkActions.moveTitle",
     "defaultMessage": "Move to list"
-  },
-  {
-    "id": "bulkActions.add",
-    "defaultMessage": "Add selected items to another list"
-  },
-  {
-    "id": "bulkActions.addTo",
-    "defaultMessage": "Add to…"
-  },
-  {
-    "id": "bulkActions.dialogAddTitle",
-    "defaultMessage": "Add to a different list"
-  },
-  {
-    "id": "bulkActions.addTitle",
-    "defaultMessage": "Add"
   }
 ]

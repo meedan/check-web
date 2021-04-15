@@ -12,7 +12,7 @@ import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
 import styled from 'styled-components';
 import { can } from '../Can';
 import CheckContext from '../../CheckContext';
-import { getStatus, getErrorMessage, bemClass, getCurrentProjectId } from '../../helpers';
+import { getStatus, getErrorMessage, bemClass } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import { withSetFlashMessage } from '../FlashMessage';
 
@@ -57,7 +57,7 @@ class MediaStatusCommon extends Component {
 
   handleEdit() {
     const { media } = this.props;
-    const projectId = getCurrentProjectId(media.project_ids);
+    const projectId = media.project_id;
     const projectPart = projectId ? `/project/${projectId}` : '';
     browserHistory.push(`/${media.team.slug}${projectPart}/media/${media.dbid}/embed`);
   }

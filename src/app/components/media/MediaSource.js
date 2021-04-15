@@ -7,7 +7,6 @@ import ChangeMediaSource from './ChangeMediaSource';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
 import { can } from '../Can';
-import { getCurrentProjectId } from '../../helpers';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -156,7 +155,7 @@ const MediaSource = ({ projectMedia, params }) => {
   if (params) {
     ids = `${params.mediaId},${params.projectId}`;
   } else {
-    const projectId = getCurrentProjectId(projectMedia.project_ids);
+    const projectId = projectMedia.project_id;
     ids = `${projectMedia.dbid},${projectId}`;
   }
 

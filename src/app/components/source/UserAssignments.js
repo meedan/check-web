@@ -231,7 +231,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
                 embed_path
                 quote
               }
-              project_ids
+              project_id
               report_type
               team {
                 id

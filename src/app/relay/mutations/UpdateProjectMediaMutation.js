@@ -25,7 +25,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           log_count,
           archived,
           permissions,
-          project_ids,
+          project_id,
           media {
             metadata,
             url,
@@ -132,7 +132,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       archived: this.props.archived,
     };
     if (this.props.dstProj) {
-      vars.add_to_project_id = this.props.dstProj.dbid;
+      vars.project_id = this.props.dstProj.dbid;
     }
     if (this.props.source_id) {
       vars.source_id = this.props.source_id;
