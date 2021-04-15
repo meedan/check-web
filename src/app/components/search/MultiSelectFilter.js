@@ -17,6 +17,7 @@ const MultiSelectFilter = ({
   selected,
   hide,
   labelProp,
+  append,
 }) => {
   const classes = useStyles();
 
@@ -38,6 +39,7 @@ const MultiSelectFilter = ({
       getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
       onChange={handleChange}
       options={options}
+      append={append}
     />
   );
 };

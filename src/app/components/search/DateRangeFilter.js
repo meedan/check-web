@@ -2,13 +2,38 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
+import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
+import InputBase from '@material-ui/core/InputBase';
 import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
+import DateRangeIcon from '@material-ui/icons/DateRange';
 import { FlexRow, units } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
+
+const StyledInputBase = withStyles({
+  root: {
+    backgroundColor: '#ddd',
+    padding: '0 4px',
+    height: '36px',
+  },
+})(InputBase);
+
+const StyledInputBaseStart = withStyles({
+  root: {
+    borderBottomLeftRadius: '4px',
+    borderTopLeftRadius: '4px',
+  },
+})(StyledInputBase);
+
+const StyledInputBaseEnd = withStyles({
+  root: {
+    borderBottomRightRadius: '4px',
+    borderTopRightRadius: '4px',
+  },
+})(StyledInputBase);
 
 const Styles = {
   selectFormControl: {
@@ -102,24 +127,18 @@ class DateRangeFilter extends React.Component {
         <FlexRow>
           <FormControl variant="outlined" className={classes.selectFormControl}>
             <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-            <Select onChange={this.handleChangeType} value={this.valueType}>
-              <MenuItem value="created_at">
-                {label.created_at}
-              </MenuItem>
-              <MenuItem value="last_seen">
-                {label.last_seen}
-              </MenuItem>
-              <MenuItem value="updated_at">
-                {label.updated_at}
-              </MenuItem>
-              <MenuItem value="published_at">
-                {label.published_at}
-              </MenuItem>
+            <Select
+              onChange={this.handleChangeType}
+              value={this.valueType}
+              input={<StyledInputBaseStart startAdornment={<Box pr={1}><DateRangeIcon /></Box>} />}
+            >
+              <MenuItem value="created_at"> { label.created_at } </MenuItem>
+              <MenuItem value="last_seen"> { label.last_seen } </MenuItem>
+              <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
+              <MenuItem value="published_at"> { label.published_at } </MenuItem>
             </Select>
           </FormControl>
           <DatePicker
-            inputVariant="outlined"
-            label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
             className="date-range__start-date"
             onChange={this.handleChangeStartDate}
             maxDate={this.endDateStringOrNull || undefined}
@@ -127,16 +146,41 @@ class DateRangeFilter extends React.Component {
             cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
             value={this.startDateStringOrNull}
             style={{ margin: `0 ${units(2)}` }}
+            TextFieldComponent={({ onClick, value, onChange }) => (
+              <FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date">
+                { text => (
+                  <StyledInputBase
+                    type="text"
+                    placeholder={text}
+                    onClick={onClick}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+              </FormattedMessage>
+            )}
           />
           <DatePicker
             inputVariant="outlined"
-            label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
             className="date-range__end-date"
             onChange={this.handleChangeEndDate}
             minDate={this.startDateStringOrNull || undefined}
             okLabel={<FormattedMessage {...globalStrings.ok} />}
             cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
             value={this.endDateStringOrNull}
+            TextFieldComponent={({ onClick, value, onChange }) => (
+              <FormattedMessage id="search.pickDateTo" defaultMessage="Ending date">
+                { text => (
+                  <StyledInputBaseEnd
+                    type="text"
+                    placeholder={text}
+                    onClick={onClick}
+                    value={value}
+                    onChange={onChange}
+                  />
+                )}
+              </FormattedMessage>
+            )}
           />
         </FlexRow>
       </div>

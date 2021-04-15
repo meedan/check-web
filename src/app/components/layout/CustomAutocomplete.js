@@ -137,6 +137,7 @@ export default function CustomizedHook({
   getOptionSelected,
   options,
   onChange,
+  append,
 }) {
   const {
     getRootProps,
@@ -170,6 +171,7 @@ export default function CustomizedHook({
             <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
           )) }
           <input {...getInputProps()} />
+          { append }
         </InputWrapper>
       </div>
       { groupedOptions.length > 0 ? (

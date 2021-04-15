@@ -22,10 +22,10 @@ import MultiSelectFilter from './MultiSelectFilter';
 import CheckContext from '../../CheckContext';
 import { brandHighlight, Row } from '../../styles/js/shared';
 
-const styles = theme => ({
+const styles = ({
   noHoverButton: {
     minWidth: 0,
-    margin: theme.spacing(1),
+    margin: 0,
     '&:hover': {
       background: 'transparent',
     },
@@ -364,7 +364,7 @@ class SearchQueryComponent extends React.Component {
       <div>
         <Row flexWrap>
           { this.filterIsAdded('range') ?
-            <Box maxWidth="400px" m={1}>
+            <Box maxWidth="400px" mr={1}>
               <DateRangeFilter
                 hide={this.hideField('date')}
                 onChange={this.handleDateChange}
@@ -379,6 +379,7 @@ class SearchQueryComponent extends React.Component {
               <FormattedMessage id="search.categoriesHeading" defaultMessage="Tags">
                 { label => (
                   <MultiSelectFilter
+                    append={<AnyAll />}
                     label={label}
                     icon={<LocalOfferIcon />}
                     hide={this.hideField('tags') || !plainTagsTexts.length}
@@ -391,7 +392,6 @@ class SearchQueryComponent extends React.Component {
                   />
                 )}
               </FormattedMessage>
-              <AnyAll />
             </Box> : null }
 
           { this.filterIsAdded('show') ?
@@ -521,9 +521,9 @@ class SearchQueryComponent extends React.Component {
               </IconButton>
             </Tooltip>
           ) : null}
-
-          <AddFilterMenu onSelect={this.handleAddField} />
         </Row>
+
+        <AddFilterMenu onSelect={this.handleAddField} />
       </div>
     );
   }
