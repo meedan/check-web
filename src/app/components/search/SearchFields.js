@@ -16,11 +16,7 @@ export default Relay.createContainer(SearchFieldsComponent, {
             }
           }
         }
-        pusher_channel
         dynamic_search_fields_json_schema
-        rules_search_fields_json_schema
-        name
-        slug
         projects(first: 10000) {
           edges {
             node {

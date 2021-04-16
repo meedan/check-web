@@ -15,9 +15,7 @@ import styled from 'styled-components';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
-import CheckContext from '../../CheckContext';
 import {
-  white,
   black16,
   black54,
   brandHighlight,
@@ -53,18 +51,6 @@ const StyledPopper = styled(Popper)`
 `;
 
 const styles = theme => ({
-  margin: {
-    marginLeft: theme.spacing(1),
-    padding: `5px ${units(2)}`,
-  },
-  filterInactive: {
-    border: `${borderWidthLarge} solid ${black16}`,
-  },
-  filterActive: {
-    color: white,
-    backgroundColor: brandHighlight,
-    border: `${borderWidthLarge} solid ${brandHighlight}`,
-  },
   inputInactive: {
     borderRadius: theme.spacing(0.5),
     border: `${borderWidthLarge} solid ${black16}`,
@@ -95,7 +81,7 @@ const styles = theme => ({
   },
 });
 
-class SearchQueryComponent extends React.Component {
+class SearchKeywordComponent extends React.Component {
   constructor(props) {
     super(props);
 
@@ -113,14 +99,6 @@ class SearchQueryComponent extends React.Component {
 
   componentWillUnmount() {
     this.unsubscribe();
-  }
-
-  getContext() {
-    return new CheckContext(this);
-  }
-
-  currentContext() {
-    return this.getContext().getContextStore();
   }
 
   cleanup = (query) => {
@@ -256,7 +234,7 @@ class SearchQueryComponent extends React.Component {
 
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
-    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchQueryComponent', (data, run) => {
+    pusher.subscribe(team.pusher_channel).bind('tagtext_updated', 'SearchKeywordComponent', (data, run) => {
       if (clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
@@ -270,7 +248,7 @@ class SearchQueryComponent extends React.Component {
       return false;
     });
 
-    pusher.subscribe(team.pusher_channel).bind('project_updated', 'SearchQueryComponent', (data, run) => {
+    pusher.subscribe(team.pusher_channel).bind('project_updated', 'SearchKeywordComponent', (data, run) => {
       if (clientSessionId !== data.actor_session_id) {
         if (run) {
           this.props.relay.forceFetch();
@@ -287,8 +265,8 @@ class SearchQueryComponent extends React.Component {
 
   unsubscribe() {
     const { pusher, team } = this.props;
-    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchQueryComponent');
-    pusher.unsubscribe(team.pusher_channel, 'project_updated', 'SearchQueryComponent');
+    pusher.unsubscribe(team.pusher_channel, 'tagtext_updated', 'SearchKeywordComponent');
+    pusher.unsubscribe(team.pusher_channel, 'project_updated', 'SearchKeywordComponent');
   }
 
   render() {
@@ -401,7 +379,7 @@ class SearchQueryComponent extends React.Component {
             </StyledPopper>
           </form>
 
-          {(this.filterIsActive() || this.keywordIsActive()) ? (
+          { this.keywordIsActive() ? (
             <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
               <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
                 <ClearIcon style={{ color: brandHighlight }} />
@@ -414,21 +392,29 @@ class SearchQueryComponent extends React.Component {
   }
 }
 
-SearchQueryComponent.propTypes = {
+SearchKeywordComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({
-    dynamic_search_fields_json_schema: PropTypes.shape({
-      properties: PropTypes.object.isRequired,
+    dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
+    pusher_channel: PropTypes.string.isRequired,
+    verification_statuses: PropTypes.shape({
+      statuses: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+      }).isRequired), // undefined during optimistic update
     }).isRequired,
+    projects: PropTypes.shape({
+      edges: PropTypes.arrayOf(PropTypes.shape({
+        dbid: PropTypes.number,
+        title: PropTypes.string,
+      })),
+    }),
   }).isRequired,
 };
 
-SearchQueryComponent.contextTypes = {
-  store: PropTypes.object,
-};
-
-export default withStyles(styles)(withPusher(SearchQueryComponent));
+export default withStyles(styles)(withPusher(SearchKeywordComponent));

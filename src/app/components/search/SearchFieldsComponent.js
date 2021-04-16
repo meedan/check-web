@@ -19,7 +19,6 @@ import CustomFiltersManager from './CustomFiltersManager';
 import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
-import CheckContext from '../../CheckContext';
 import { brandHighlight, Row } from '../../styles/js/shared';
 
 const styles = ({
@@ -74,21 +73,13 @@ const typeLabels = defineMessages({
   },
 });
 
-class SearchQueryComponent extends React.Component {
+class SearchFieldsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
       addedFields: [],
     };
-  }
-
-  getContext() {
-    return new CheckContext(this);
-  }
-
-  currentContext() {
-    return this.getContext().getContextStore();
   }
 
   cleanup = (query) => {
@@ -124,14 +115,9 @@ class SearchQueryComponent extends React.Component {
     if (!deepEqual(cleanQuery, this.props.query)) {
       this.props.onChange(cleanQuery);
     } else {
-      this.setState({ query: cleanQuery });
+      this.setState({ query: cleanQuery, addedFields: [] });
     }
   }
-
-  keywordIsActive = () => {
-    const { query } = this.props;
-    return query.keyword && query.keyword.trim() !== '';
-  };
 
   filterIsAdded = field => this.state.addedFields.includes(field) || this.props.query[field];
 
@@ -146,6 +132,7 @@ class SearchQueryComponent extends React.Component {
       'dynamic',
       'users',
       'read',
+      'show',
       'team_tasks',
     ];
     return filterFields.some(key => !!query[key]) || this.state.addedFields.length > 0;
@@ -280,6 +267,7 @@ class SearchQueryComponent extends React.Component {
   }
 
   handleClickClear = () => {
+    this.setState({ addedFields: [] });
     this.props.onChange({});
   }
 
@@ -502,7 +490,7 @@ class SearchQueryComponent extends React.Component {
             </Button>
             : null
           }
-          {(this.filterIsActive() || this.keywordIsActive()) ? (
+          { this.filterIsActive() ? (
             <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
               <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
                 <ClearIcon style={{ color: brandHighlight }} />
@@ -517,7 +505,7 @@ class SearchQueryComponent extends React.Component {
   }
 }
 
-SearchQueryComponent.propTypes = {
+SearchFieldsComponent.propTypes = {
   classes: PropTypes.object.isRequired,
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
@@ -528,9 +516,8 @@ SearchQueryComponent.propTypes = {
   }).isRequired,
 };
 
-SearchQueryComponent.contextTypes = {
-  store: PropTypes.object,
+SearchFieldsComponent.contextTypes = {
   intl: intlShape.isRequired,
 };
 
-export default withStyles(styles)(injectIntl(SearchQueryComponent));
+export default withStyles(styles)(injectIntl(SearchFieldsComponent));
