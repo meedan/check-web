@@ -24,12 +24,12 @@
     "defaultMessage": "Imported report"
   },
   {
-    "id": "search.any",
-    "defaultMessage": "Any"
+    "id": "search.or",
+    "defaultMessage": "Or"
   },
   {
-    "id": "search.all",
-    "defaultMessage": "All"
+    "id": "search.and",
+    "defaultMessage": "And"
   },
   {
     "id": "search.categoriesHeading",

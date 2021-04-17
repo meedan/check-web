@@ -222,7 +222,8 @@ class SearchFieldsComponent extends React.Component {
     });
   }
 
-  handleTagsOperator(operator) {
+  handleTagsOperator() {
+    const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
     this.setState({
       query: { ...this.state.query, tags_operator: operator },
     });
@@ -274,16 +275,14 @@ class SearchFieldsComponent extends React.Component {
   render() {
     const { team, classes } = this.props;
     const { statuses } = team.verification_statuses;
-    let projects = [];
-    if (team.projects) {
-      projects = team.projects.edges.slice().sort((a, b) =>
-        a.node.title.localeCompare(b.node.title));
-    }
-    let users = [];
-    if (team.users) {
-      users = team.users.edges.slice().sort((a, b) =>
-        a.node.name.localeCompare(b.node.name));
-    }
+
+    const projects = team.projects ?
+      team.projects.edges.slice()
+        .sort((a, b) => a.node.title.localeCompare(b.node.title)) : [];
+
+    const users = team.users ?
+      team.users.edges.slice()
+        .sort((a, b) => a.node.name.localeCompare(b.node.name)) : [];
 
     const plainTagsTexts = team.tag_texts ?
       team.tag_texts.edges.map(t => t.node.text) : [];
@@ -309,31 +308,17 @@ class SearchFieldsComponent extends React.Component {
     }
 
     const AnyAll = () => (
-      <React.Fragment>
-        <Button
-          onClick={() => { this.handleTagsOperator('or'); }}
-          style={this.tagsOperatorIs('or') ? { color: brandHighlight } : {}}
-          classes={{ root: classes.noHoverButton }}
-          disableRipple
-        >
-          <FormattedMessage
-            id="search.any"
-            defaultMessage="Any"
-          />
-        </Button>
-        <div> | </div>
-        <Button
-          onClick={() => { this.handleTagsOperator('and'); }}
-          style={this.tagsOperatorIs('and') ? { color: brandHighlight } : {}}
-          classes={{ root: classes.noHoverButton }}
-          disableRipple
-        >
-          <FormattedMessage
-            id="search.all"
-            defaultMessage="All"
-          />
-        </Button>
-      </React.Fragment>
+      <Button
+        onClick={() => this.handleTagsOperator()}
+        style={{ color: brandHighlight }}
+        classes={{ root: classes.noHoverButton }}
+        disableRipple
+      >
+        { this.tagsOperatorIs('or') ?
+          <FormattedMessage id="search.or" defaultMessage="Or" /> :
+          <FormattedMessage id="search.and" defaultMessage="And" />
+        }
+      </Button>
     );
 
     return (
@@ -351,110 +336,134 @@ class SearchFieldsComponent extends React.Component {
           }
 
           { !this.hideField('tags') && plainTagsTexts.length && this.filterIsAdded('tags') ?
-            <Box display="flex" alignItems="center">
-              <FormattedMessage id="search.categoriesHeading" defaultMessage="Tags">
-                { label => (
-                  <MultiSelectFilter
-                    append={<AnyAll />}
-                    label={label}
-                    icon={<LocalOfferIcon />}
-                    hide={this.hideField('tags') || !plainTagsTexts.length}
-                    selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
-                    options={plainTagsTexts}
-                    labelProp=""
-                    onChange={(newValue) => {
-                      this.handleTagClick(newValue);
-                    }}
-                  />
-                )}
-              </FormattedMessage>
-            </Box> : null }
+            <FormattedMessage id="search.categoriesHeading" defaultMessage="Tags">
+              { label => (
+                <MultiSelectFilter
+                  append={<AnyAll />}
+                  label={label}
+                  icon={<LocalOfferIcon />}
+                  hide={this.hideField('tags') || !plainTagsTexts.length}
+                  selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
+                  options={plainTagsTexts}
+                  labelProp=""
+                  onChange={(newValue) => {
+                    this.handleTagClick(newValue);
+                  }}
+                />
+              )}
+            </FormattedMessage>
+            : null
+          }
 
           { this.filterIsAdded('show') ?
-            <MultiSelectFilter
-              label={<FormattedMessage id="search.show" defaultMessage="Media type" />}
-              icon={<DescriptionIcon />}
-              hide={this.hideField('type')}
-              selected={types.filter(t => this.showIsSelected(t.value))}
-              options={types}
-              onChange={(newValue) => {
-                this.handleShowClick(newValue.map(t => t.value));
-              }}
-            />
+            <FormattedMessage id="search.show" defaultMessage="Media type">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  icon={<DescriptionIcon />}
+                  hide={this.hideField('type')}
+                  selected={types.filter(t => this.showIsSelected(t.value))}
+                  options={types}
+                  onChange={(newValue) => {
+                    this.handleShowClick(newValue.map(t => t.value));
+                  }}
+                />
+              )}
+            </FormattedMessage>
             : null
           }
 
           { this.filterIsAdded('verification_status') ?
-            <MultiSelectFilter
-              label={<FormattedMessage id="search.statusHeading" defaultMessage="Item status" />}
-              icon={<LabelIcon />}
-              hide={this.hideField('status')}
-              selected={statuses.filter(s => this.statusIsSelected(s.id))}
-              options={statuses}
-              onChange={(newValue) => {
-                this.handleStatusClick(newValue.map(s => s.id));
-              }}
-            />
+            <FormattedMessage id="search.statusHeading" defaultMessage="Item status">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  icon={<LabelIcon />}
+                  hide={this.hideField('status')}
+                  selected={statuses.filter(s => this.statusIsSelected(s.id))}
+                  options={statuses}
+                  onChange={(newValue) => {
+                    this.handleStatusClick(newValue.map(s => s.id));
+                  }}
+                />
+              )}
+            </FormattedMessage>
             : null
           }
 
           { this.filterIsAdded('users') ?
-            <MultiSelectFilter
-              label={<FormattedMessage id="search.userHeading" defaultMessage="Created by" />}
-              icon={<PersonIcon />}
-              hide={this.hideField('user') || !users.length}
-              selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
-              options={users.map(u => u.node)}
-              labelProp="name"
-              onChange={(newValue) => {
-                this.handleUserClick(newValue.map(u => u.dbid));
-              }}
-            />
+            <FormattedMessage id="search.userHeading" defaultMessage="Created by">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  icon={<PersonIcon />}
+                  hide={this.hideField('user') || !users.length}
+                  selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
+                  options={users.map(u => u.node)}
+                  labelProp="name"
+                  onChange={(newValue) => {
+                    this.handleUserClick(newValue.map(u => u.dbid));
+                  }}
+                />
+              )}
+            </FormattedMessage>
             : null
           }
 
           {/* The only dynamic filter available right now is language */}
 
           { this.filterIsAdded('dynamic') ?
-            <MultiSelectFilter
-              label={<FormattedMessage id="search.language" defaultMessage="Language" />}
-              icon={<LanguageIcon />}
-              hide={this.hideField('dynamic') || !languages.length}
-              selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
-              options={languages}
-              onChange={(newValue) => {
-                this.handleDynamicClick('language', newValue.map(t => t.value));
-              }}
-            />
+            <FormattedMessage id="search.language" defaultMessage="Language">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  icon={<LanguageIcon />}
+                  hide={this.hideField('dynamic') || !languages.length}
+                  selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
+                  options={languages}
+                  onChange={(newValue) => {
+                    this.handleDynamicClick('language', newValue.map(t => t.value));
+                  }}
+                />
+              )}
+            </FormattedMessage>
             : null
           }
 
           { this.filterIsAdded('projects') ?
-            <MultiSelectFilter
-              label={<FormattedMessage id="search.projectHeading" defaultMessage="List" />}
-              hide={this.hideField('project') || !projects.length}
-              selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
-              options={projects.map(p => p.node)}
-              labelProp="title"
-              onChange={(newValue) => {
-                this.handleProjectClick(newValue.map(p => p.dbid));
-              }}
-            />
+            <FormattedMessage id="search.projectHeading" defaultMessage="List">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  hide={this.hideField('project') || !projects.length}
+                  selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
+                  options={projects.map(p => p.node)}
+                  labelProp="title"
+                  onChange={(newValue) => {
+                    this.handleProjectClick(newValue.map(p => p.dbid));
+                  }}
+                />
+              )}
+            </FormattedMessage>
             : null
           }
 
           { this.filterIsAdded('assigned_to') ?
-            <MultiSelectFilter
-              label={<FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" />}
-              icon={<PersonIcon />}
-              hide={this.hideField('assignment') || !users.length}
-              selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
-              options={users.map(u => u.node)}
-              labelProp="name"
-              onChange={(newValue) => {
-                this.handleAssignedUserClick(newValue.map(u => u.dbid));
-              }}
-            />
+            <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to">
+              { label => (
+                <MultiSelectFilter
+                  label={label}
+                  icon={<PersonIcon />}
+                  hide={this.hideField('assignment') || !users.length}
+                  selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
+                  options={users.map(u => u.node)}
+                  labelProp="name"
+                  onChange={(newValue) => {
+                    this.handleAssignedUserClick(newValue.map(u => u.dbid));
+                  }}
+                />
+              )}
+            </FormattedMessage>
             : null
           }
 
@@ -480,26 +489,26 @@ class SearchFieldsComponent extends React.Component {
               query={this.state.query}
             /> : null
           }
-          { this.state.addedFields.length ?
-            <Button
-              id="search-query__submit-button"
-              color="primary"
-              onClick={this.handleSubmit}
-            >
-              <FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" />
-            </Button>
-            : null
-          }
-          { this.filterIsActive() ? (
-            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
-              <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon style={{ color: brandHighlight }} />
-              </IconButton>
-            </Tooltip>
-          ) : null}
         </Row>
 
         <AddFilterMenu onSelect={this.handleAddField} />
+        { this.state.addedFields.length || this.filterIsActive() ?
+          <Button
+            id="search-query__submit-button"
+            color="primary"
+            onClick={this.handleSubmit}
+          >
+            <FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" />
+          </Button>
+          : null
+        }
+        { this.filterIsActive() ? (
+          <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" />}>
+            <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
+              <ClearIcon style={{ color: brandHighlight }} />
+            </IconButton>
+          </Tooltip>
+        ) : null}
       </div>
     );
   }

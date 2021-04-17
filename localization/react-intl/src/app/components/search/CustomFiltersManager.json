@@ -1,6 +1,6 @@
 [
   {
-    "id": "CustomFiltersManager.addFilters",
-    "defaultMessage": "Add filters"
+    "id": "customFiltersManager.label",
+    "defaultMessage": "Custom fields"
   }
 ]

@@ -4,11 +4,11 @@ import useAutocomplete from '@material-ui/lab/useAutocomplete';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import styled from 'styled-components';
+import { checkBlue } from '../../styles/js/shared';
 
 // FIXME: Get rid of styled-components
 // Based on example from material-ui doc: https://material-ui.com/components/autocomplete/#useautocomplete
 const InputWrapper = styled('div')`
-  min-width: 150px;
   height: 36px;
   background-color: #ddd;
   border-radius: 4px;
@@ -116,7 +116,7 @@ const Listbox = styled('ul')`
     font-weight: 600;
 
     & svg {
-      color: #1890ff;
+      color: ${checkBlue};
     }
   }
 
@@ -135,6 +135,7 @@ export default function CustomizedHook({
   icon,
   getOptionLabel,
   getOptionSelected,
+  label,
   options,
   onChange,
   append,
@@ -158,6 +159,11 @@ export default function CustomizedHook({
     getOptionSelected,
   });
 
+  const otherInputProps = value.length ? {} : {
+    placeholder: label,
+    style: { minWidth: 100 },
+  };
+
   return (
     <div>
       <div {...getRootProps()}>
@@ -170,7 +176,7 @@ export default function CustomizedHook({
           { value.map((option, index) => (
             <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
           )) }
-          <input {...getInputProps()} />
+          <input {...getInputProps()} {...otherInputProps} />
           { append }
         </InputWrapper>
       </div>

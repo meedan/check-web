@@ -15,8 +15,8 @@
   },
   {
     "id": "addFilterMenu.itemType",
-    "description": "Menu option to enable searching items by item type",
-    "defaultMessage": "Item type"
+    "description": "Menu option to enable searching items by media type",
+    "defaultMessage": "Media type"
   },
   {
     "id": "addFilterMenu.itemStatus",

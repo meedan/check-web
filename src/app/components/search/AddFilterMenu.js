@@ -57,8 +57,8 @@ const AddFilterMenu = ({ onSelect }) => {
           </ListItemIcon>
           <FormattedMessage
             id="addFilterMenu.itemType"
-            defaultMessage="Item type"
-            description="Menu option to enable searching items by item type"
+            defaultMessage="Media type"
+            description="Menu option to enable searching items by media type"
           />
         </MenuItem>
         <MenuItem onClick={() => handleSelect('verification_status')}>
