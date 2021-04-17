@@ -325,7 +325,7 @@ class SearchFieldsComponent extends React.Component {
       <div>
         <Row flexWrap>
           { this.filterIsAdded('range') ?
-            <Box maxWidth="400px" mr={1}>
+            <Box maxWidth="400px" mr={1} mb={1}>
               <DateRangeFilter
                 hide={this.hideField('date')}
                 onChange={this.handleDateChange}

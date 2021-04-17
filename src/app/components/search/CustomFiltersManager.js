@@ -73,16 +73,18 @@ const CustomFiltersManager = ({
 
   return (
     <React.Fragment>
-      <Button
-        classes={classesButton}
-        onClick={e => setAnchorEl(e.currentTarget)}
-        disableRipple
-      >
-        <FormattedMessage
-          id="customFiltersManager.label"
-          defaultMessage="Custom fields"
-        />
-      </Button>
+      <Box maxWidth="400px" mr={1} mb={1}>
+        <Button
+          classes={classesButton}
+          onClick={e => setAnchorEl(e.currentTarget)}
+          disableRipple
+        >
+          <FormattedMessage
+            id="customFiltersManager.label"
+            defaultMessage="Custom fields"
+          />
+        </Button>
+      </Box>
       <Popover
         anchorEl={anchorEl}
         anchorOrigin={{
