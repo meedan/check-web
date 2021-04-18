@@ -1,0 +1,54 @@
+[
+  {
+    "id": "smoochBotIntegrationButton.defaultErrorMessage",
+    "defaultMessage": "Something went wrong"
+  },
+  {
+    "id": "smoochBotIntegrationButton.savedSuccessfully",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "smoochBotIntegrationButton.online",
+    "defaultMessage": "Online"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connect",
+    "defaultMessage": "Connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.tipline",
+    "defaultMessage": "{platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.status",
+    "defaultMessage": "Status: Online"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disconnect",
+    "defaultMessage": "Disconnect from this account"
+  },
+  {
+    "id": "smoochBotIntegrationButton.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connectTipline",
+    "defaultMessage": "Connect tipline to {platform}"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disclaimer",
+    "defaultMessage": "We don't store this information. This is just used to configure the integration."
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectTitle",
+    "defaultMessage": "Confirm disconnection of {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectText",
+    "defaultMessage": "This cannot be undone."
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirm",
+    "defaultMessage": "Confirm"
+  }
+]

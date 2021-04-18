@@ -1,0 +1,42 @@
+[
+  {
+    "id": "smoochBotIntegrations.phoneNumber",
+    "defaultMessage": "Connected telephone: {link}"
+  },
+  {
+    "id": "smoochBotIntegrations.account",
+    "defaultMessage": "Connected account: {link}"
+  },
+  {
+    "id": "smoochBotIntegrations.page",
+    "defaultMessage": "Connected page: {link}"
+  },
+  {
+    "id": "smoochBotIntegrations.telegramBotToken",
+    "defaultMessage": "Telegram bot token"
+  },
+  {
+    "id": "smoochBotIntegrations.telegramBot",
+    "defaultMessage": "Connected Telegram bot: {link}"
+  },
+  {
+    "id": "smoochBotIntegrations.viberPublicAccountToken",
+    "defaultMessage": "Viber public account token"
+  },
+  {
+    "id": "smoochBotIntegrations.viberPublicAccount",
+    "defaultMessage": "Connected Viber public account: {name}"
+  },
+  {
+    "id": "smoochBotIntegrations.lineChannelAccessToken",
+    "defaultMessage": "LINE channel access token"
+  },
+  {
+    "id": "smoochBotIntegrations.lineChannelSecret",
+    "defaultMessage": "LINE channel secret"
+  },
+  {
+    "id": "smoochBotIntegrations.lineWebhook",
+    "defaultMessage": "Copy this webhook URL to your LINE settings"
+  }
+]

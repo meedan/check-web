@@ -52,5 +52,17 @@
   {
     "id": "teamReportComponent.twitter",
     "defaultMessage": "Twitter account name"
+  },
+  {
+    "id": "teamReportComponent.telegram",
+    "defaultMessage": "Telegram bot username"
+  },
+  {
+    "id": "teamReportComponent.viber",
+    "defaultMessage": "Viber public account URI"
+  },
+  {
+    "id": "teamReportComponent.line",
+    "defaultMessage": "LINE channel"
   }
 ]

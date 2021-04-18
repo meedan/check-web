@@ -58,6 +58,12 @@ export const slackGreen = '#2eb67d';
 export const youTubeRed = '#ff0000';
 // https://whatsappbrand.com/#color
 export const whatsappGreen = '#25D366';
+// https://www.schemecolor.com/telegram-color.php
+export const telegramBlue = '#0088CC';
+// https://www.viber.com/en/brand-center/
+export const viberPurple = '#7360f2';
+// https://line.me/en/logo
+export const lineGreen = '#00b900';
 
 // Units
 export function units(unit) {

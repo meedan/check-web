@@ -215,6 +215,7 @@ const SmoochBotComponent = ({
                 userRole={userRole}
                 currentLanguage={currentLanguage}
                 languages={languages}
+                enabledIntegrations={installation.node.smooch_enabled_integrations}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
                 { currentUser.is_admin ?
