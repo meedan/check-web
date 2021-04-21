@@ -46,7 +46,8 @@ class TaskTypeSelector extends React.Component {
           {this.props.selected.length ?
             <FormattedMessage
               id="taskTypeSelector.numTypes"
-              defaultMessage="{length, number} selected"
+              defaultMessage="{length, plural, one {# selected} other {# selected}}"
+              description="Label for number of selected tasks"
               values={{ length: this.props.selected.length }}
             /> :
             <FormattedMessage id="taskTypeSelector.allTypes" defaultMessage="All tasks" />

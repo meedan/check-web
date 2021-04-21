@@ -6,6 +6,7 @@
   },
   {
     "id": "createMediaSource.createSource",
+    "description": "Label for button to create a new source",
     "defaultMessage": "Create source"
   },
   {

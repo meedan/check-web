@@ -583,6 +583,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.similarDestroyed"
                 defaultMessage="Confirmed similar detached by {author}: {title}"
+                description="Tells that one item previously confirmed as similar has been detached from current item."
                 values={{
                   title: emojify(target.title),
                   author: authorName,

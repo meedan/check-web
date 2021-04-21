@@ -440,6 +440,7 @@ class SearchResultsComponent extends React.PureComponent {
                       <FormattedMessage
                         id="searchResults.withSelection"
                         defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                        description="Label for number of selected items"
                         values={{
                           selectedCount: selectedProjectMediaIds.length,
                         }}

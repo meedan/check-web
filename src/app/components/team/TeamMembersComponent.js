@@ -89,7 +89,8 @@ const TeamMembersComponent = ({
         subtitle={
           <FormattedMessage
             id="teamMembers.subtitle"
-            defaultMessage="Invite and manage users"
+            defaultMessage="Invite and manage users."
+            description="Subtitle for workspace members management page"
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/3336431-permissions-in-check"

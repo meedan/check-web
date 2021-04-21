@@ -55,7 +55,7 @@ const DeleteStatusDialog = ({
             { /* FIXME Transifex does not accept a plural form at string start (wrongly), that's why I moved "There" outside.  -- Karim, 21 Jul 2020 */}
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
-              defaultMessage="There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
+              defaultMessage="There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
               values={{
                 itemsCount: deleteStatus.items_count,
                 statusLabel: <strong>{deleteStatus.label}</strong>,
@@ -67,7 +67,7 @@ const DeleteStatusDialog = ({
               { /* FIXME Transifex does not accept a plural form at string start (wrongly), that's why I moved "There" outside.  -- Alex, 17 Mar 2021 */}
               <FormattedMessage
                 id="deleteStatusDialog.itemsPublishedMessage"
-                defaultMessage="There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+                defaultMessage="There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
                 values={{
                   publishedCount: deleteStatus.published_reports_count,
                   statusLabel: <strong>{deleteStatus.label}</strong>,

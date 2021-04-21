@@ -5,8 +5,8 @@ import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 
 const headCells = [
-  { id: 'name', label: <FormattedMessage id="rulesTableHead.name" defaultMessage="Name" /> },
-  { id: 'updated_at', label: <FormattedMessage id="rulesTableHead.updated" defaultMessage="Updated" /> },
+  { id: 'name', label: <FormattedMessage id="rulesTableHead.name" defaultMessage="Name" description="Table header for rule names" /> },
+  { id: 'updated_at', label: <FormattedMessage id="rulesTableHead.updated" defaultMessage="Updated" description="Table header for rule update dates" /> },
 ];
 
 const RulesTableHead = () => (

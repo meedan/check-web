@@ -1,7 +1,8 @@
 [
   {
     "id": "projectSelector.numProjs",
-    "defaultMessage": "{length, number} selected"
+    "description": "Label for number of selected lists",
+    "defaultMessage": "{length, plural, one {# selected} other {# selected}}"
   },
   {
     "id": "projectSelector.allProjs",

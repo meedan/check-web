@@ -235,6 +235,7 @@ function CreateMediaSource({
           <FormattedMessage
             id="createMediaSource.createSource"
             defaultMessage="Create source"
+            description="Label for button to create a new source"
           />
         </Button>
       </div>

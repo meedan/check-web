@@ -49,10 +49,12 @@
   },
   {
     "id": "login.signIn",
+    "description": "Sign in button label",
     "defaultMessage": "SIGN IN"
   },
   {
     "id": "login.signUp",
+    "description": "Sign up button label",
     "defaultMessage": "Sign Up"
   },
   {
@@ -61,7 +63,7 @@
   },
   {
     "id": "login.signUpLink",
-    "description": "allow user to create a new source",
+    "description": "Button label. Switches from 'logging in' to 'create new account' mode",
     "defaultMessage": "Sign up"
   },
   {
@@ -70,7 +72,7 @@
   },
   {
     "id": "login.signInLink",
-    "description": "allow user to sing in with exisintg account",
+    "description": "Button label. Switches from 'create new account' to 'logging in' mode",
     "defaultMessage": "Sign in"
   }
 ]

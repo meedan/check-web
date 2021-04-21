@@ -12,12 +12,12 @@
   {
     "id": "setSourceDialog.existDescriptionWithUrl",
     "description": "Text to inform user about existing source",
-    "defaultMessage": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
+    "defaultMessage": "The source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
   },
   {
     "id": "setSourceDialog.existDescription",
     "description": "Text to inform user about existing source",
-    "defaultMessage": "An the source <b>{name}</b> already exists."
+    "defaultMessage": "The source <b>{name}</b> already exists."
   },
   {
     "id": "setSourceDialog.confirm",

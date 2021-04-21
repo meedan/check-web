@@ -17,10 +17,12 @@
   },
   {
     "id": "editStatusDialog.toggleStatusMessage",
+    "description": "Checkbox option to send a message to the user who requested the item",
     "defaultMessage": "Send message to requester"
   },
   {
     "id": "editStatusDialog.messageDescription",
+    "description": "Accompanying description for editStatusDialog.toggleStatusMessage",
     "defaultMessage": "Send a message to the user who requested the item when you change an item to this status."
   },
   {
