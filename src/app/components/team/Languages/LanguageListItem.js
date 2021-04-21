@@ -298,7 +298,8 @@ const LanguageListItem = ({ code, team, intl }) => {
             <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="statusListItem.confirmDeleteBody1"
-                defaultMessage="All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
+                defaultMessage="All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently."
+                description="Warning about content being lost after deleting a language"
                 values={{ language: languageLabel(code) }}
               />
             </Typography>
@@ -325,7 +326,8 @@ const LanguageListItem = ({ code, team, intl }) => {
             <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="statusListItem.confirmDeleteDefaultBody"
-                defaultMessage="You cannot delete the default language. You must make a different language default before you can delete {language}."
+                defaultMessage="You cannot delete the default language. You must set a different default language before you can delete {language}."
+                description="Message warning user to set a new default language before deleting the current one"
                 values={{ language: <strong>{languageLabel(defaultLanguage)}</strong> }}
               />
             </Typography>

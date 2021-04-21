@@ -89,6 +89,7 @@
   },
   {
     "id": "annotation.similarDestroyed",
+    "description": "Tells that one item previously confirmed as similar has been detached from current item.",
     "defaultMessage": "Confirmed similar detached by {author}: {title}"
   },
   {

@@ -9,6 +9,7 @@
   },
   {
     "id": "searchResults.withSelection",
+    "description": "Label for number of selected items",
     "defaultMessage": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
   },
   {

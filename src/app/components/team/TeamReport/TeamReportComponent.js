@@ -202,7 +202,8 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   label={
                     <FormattedMessage
                       id="teamReportComponent.urlLabel"
-                      defaultMessage="Prompt ({max} characters max)"
+                      defaultMessage="Short url ({max} characters max)"
+                      description="Label for url field in report settings"
                       values={{
                         max: 30,
                       }}
@@ -239,8 +240,9 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   inputProps={{ maxLength: 30 }}
                   label={
                     <FormattedMessage
-                      id="teamReportComponent.urlLabel"
-                      defaultMessage="Prompt ({max} characters max)"
+                      id="teamReportComponent.signatureLabel"
+                      defaultMessage="Signature ({max} characters max)"
+                      description="Label for signature field in report settings"
                       values={{
                         max: 30,
                       }}

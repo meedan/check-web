@@ -146,7 +146,7 @@ const InviteDialog = ({
         <FormattedMessage
           id="inviteDialog.title"
           defaultMessage="Invite workspace members"
-          description="Invite workspace members dialog title"
+          description="Dialog title for inviting members to workspace"
         />
       </DialogTitle>
       <DialogContent>
@@ -157,7 +157,7 @@ const InviteDialog = ({
           label={
             <FormattedMessage
               id="inviteDialog.textInputLabel"
-              defaultMessage="Emails, comma separated"
+              defaultMessage="Email addresses, comma separated"
               description="Label to input for invited emails. Requires that multiple emails be entered separated by comma."
             />
           }

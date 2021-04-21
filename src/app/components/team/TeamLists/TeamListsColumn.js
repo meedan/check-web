@@ -66,7 +66,13 @@ TeamListsColumn.defaultProps = {
   onMoveUp: null,
   onMoveDown: null,
   style: {},
-  placeholder: <FormattedMessage id="teamListsColumn.none" defaultMessage="None available" />,
+  placeholder: (
+    <FormattedMessage
+      id="teamListsColumn.none"
+      defaultMessage="None available"
+      description="Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
+    />
+  ),
 };
 
 TeamListsColumn.propTypes = {

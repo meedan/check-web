@@ -289,7 +289,13 @@ class BulkActions extends React.Component {
               />
             }
             cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
-            submitLabel={<FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move to list" />}
+            submitLabel={
+              <FormattedMessage
+                id="bulkActions.moveTitle"
+                defaultMessage="Move to list"
+                description="Label for button to commit action of moving item to the selected list"
+              />
+            }
             submitButtonClassName="media-bulk-actions__move-button"
             onSubmit={(dstProj) => {
               this.setState({ dstProj }, () => (

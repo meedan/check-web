@@ -138,6 +138,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
           <FormattedMessage
             id="createTeamDialog.dialogTitleCreate"
             defaultMessage="Create new workspace"
+            description="Dialog title for creating a new workspace"
           /> }
       </DialogTitle>
       <DialogContent>
