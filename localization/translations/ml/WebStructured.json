@@ -211,9 +211,6 @@
 	"UserUtil.editor": {
 		"string": "Editor"
 	},
-	"accessDenied.title": {
-		"string": "പ്രവേശനം തടഞ്ഞിരിക്കുന്നു"
-	},
 	"addAnnotation.addImage": {
 		"string": "Add an image"
 	},
@@ -243,9 +240,6 @@
 	},
 	"addLanguageAction.title": {
 		"string": "Choose a new language"
-	},
-	"addTeamPage.titleFind": {
-		"string": "Find an existing workspace"
 	},
 	"annotation.acceptSuggestion": {
 		"string": "Accept"
@@ -367,6 +361,9 @@
 	"annotation.openInSlack": {
 		"string": "Open in Slack"
 	},
+	"annotation.openInTelegram": {
+		"string": "Open in Telegram"
+	},
 	"annotation.penderArchiveResponse": {
 		"string": "Keep has taken a screenshot of this URL."
 	},
@@ -407,7 +404,8 @@
 		"string": "Confirmed similar by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Confirmed similar detached by {author}: {title}"
+		"string": "Confirmed similar detached by {author}: {title}",
+		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
 		"string": "No message was sent with the request"
@@ -520,66 +518,17 @@
 	"blankMediaCard.defaultErrorMessage": {
 		"string": "Could not save item"
 	},
-	"bot.cantChange": {
-		"string": "Sorry, an error occurred while updating the bot. Please try again and contact {supportEmail} if the condition persists."
-	},
-	"bot.install": {
-		"string": "Install"
-	},
-	"bot.installed": {
-		"string": "Installed"
-	},
-	"bot.installs": {
-		"string": "Installs"
-	},
-	"bot.madeBy": {
-		"string": "Made by {teamLink}"
-	},
-	"bot.permissions": {
-		"string": "Permissions"
-	},
-	"bot.permissionsText": {
-		"string": "This bot has an access level of {role}."
-	},
-	"bot.sourceCode": {
-		"string": "View source code"
-	},
-	"bot.updatedAt": {
-		"string": "Updated"
-	},
-	"bot.version": {
-		"string": "Version"
-	},
-	"botGarden.botGarden": {
-		"string": "Bot Garden"
-	},
 	"bridge.pageTitle.appNameHuman": {
 		"string": "Bridge"
 	},
 	"browserSupport.message": {
 		"string": "{appName} is optimized for Google Chrome on desktop."
 	},
-	"bulkActions.add": {
-		"string": "Add selected items to another list"
-	},
-	"bulkActions.addTitle": {
-		"string": "Add"
-	},
-	"bulkActions.addTo": {
-		"string": "Add to…"
-	},
-	"bulkActions.addedSuccessfully": {
-		"string": "Items added to list.",
-		"developer_comment": "Banner displayed after items are added successfully to list"
-	},
 	"bulkActions.cancelButton": {
 		"string": "Cancel"
 	},
 	"bulkActions.confirm": {
 		"string": "Move from Unconfirmed"
-	},
-	"bulkActions.dialogAddTitle": {
-		"string": "Add to a different list"
 	},
 	"bulkActions.dialogMoveTitle": {
 		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
@@ -588,7 +537,8 @@
 		"string": "Move selected items to another list"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Move to list"
+		"string": "Move to list",
+		"developer_comment": "Label for button to commit action of moving item to the selected list"
 	},
 	"bulkActions.moveTo": {
 		"string": "Move to…"
@@ -607,10 +557,6 @@
 	"bulkActions.movedSuccessfully": {
 		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
-	},
-	"bulkActions.removedSuccessfully": {
-		"string": "Items removed from this list.",
-		"developer_comment": "Banner displayed after items are removed successfully from list"
 	},
 	"bulkActions.restore": {
 		"string": "Restore from Trash"
@@ -665,7 +611,7 @@
 		"string": "Fact-checked by {reviewer}:"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to permanently delete this language and all content in this language."
+		"string": "Type \"{text}\" to confirm this operation permanently."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Type here"
@@ -710,7 +656,8 @@
 		"string": "Video"
 	},
 	"createMediaSource.createSource": {
-		"string": "Create source"
+		"string": "Create source",
+		"developer_comment": "Label for button to create a new source"
 	},
 	"createProject.addProject": {
 		"string": "Create list"
@@ -736,42 +683,6 @@
 	"createTask.newTask": {
 		"string": "New task"
 	},
-	"createTeam.blurb": {
-		"string": "Create a workspace for your organization, or just for yourself:"
-	},
-	"createTeam.createTeamError": {
-		"string": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
-	},
-	"createTeam.displayName": {
-		"string": "Workspace Name"
-	},
-	"createTeam.mainHeading": {
-		"string": "Create a workspace"
-	},
-	"createTeam.slugAvailable": {
-		"string": "Available!"
-	},
-	"createTeam.slugChecking": {
-		"string": "Checking availability…"
-	},
-	"createTeam.slugUnavailable": {
-		"string": "Sorry, this slug is unavailable. Please try another one."
-	},
-	"createTeam.submitButton": {
-		"string": "Create"
-	},
-	"createTeam.teamNameHint": {
-		"string": "Workspace Name"
-	},
-	"createTeam.teamSlugHint": {
-		"string": "Workspace URL"
-	},
-	"createTeam.title": {
-		"string": "Create a workspace"
-	},
-	"createTeam.url": {
-		"string": "Team URL"
-	},
 	"createTeamDialog.cancel": {
 		"string": "Cancel"
 	},
@@ -788,7 +699,8 @@
 		"string": "All settings from this workspace will be duplicated. No content will be added."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Create new workspace",
+		"developer_comment": "Dialog title for creating a new workspace"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Duplicate workspace"
@@ -833,13 +745,13 @@
 		"string": "View this timezone on time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Move items to"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
+		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
@@ -863,7 +775,8 @@
 		"string": "Add status"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Send a message to the user who requested the item when you change an item to this status."
+		"string": "Send a message to the user who requested the item when you change an item to this status.",
+		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Description"
@@ -881,7 +794,8 @@
 		"string": "Edit status"
 	},
 	"editStatusDialog.toggleStatusMessage": {
-		"string": "Send message to requester"
+		"string": "Send message to requester",
+		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Edit metadata field"
@@ -903,27 +817,6 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Cancel"
-	},
-	"findTeamCard.blurb": {
-		"string": "Request to join an existing workspace by adding its name here, or get started by creating your own."
-	},
-	"findTeamCard.createYourOwn": {
-		"string": "You can also create your own workspace."
-	},
-	"findTeamCard.mainHeading": {
-		"string": "Find an existing workspace"
-	},
-	"findTeamCard.submitButton": {
-		"string": "Find workspace"
-	},
-	"findTeamCard.teamNotFound": {
-		"string": "Workspace not found!"
-	},
-	"findTeamCard.teamSlugHint": {
-		"string": "Workspace URL"
-	},
-	"findTeamCard.url": {
-		"string": "Workspace URL"
 	},
 	"footer.madeBy": {
 		"string": "Check: Verify breaking news online. Made with ✨ by {meedan}"
@@ -1037,12 +930,12 @@
 		"developer_comment": "Button to submit invitations."
 	},
 	"inviteDialog.textInputLabel": {
-		"string": "Emails, comma separated",
+		"string": "Email addresses, comma separated",
 		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
 	},
 	"inviteDialog.title": {
 		"string": "Invite workspace members",
-		"developer_comment": "Invite workspace members dialog title"
+		"developer_comment": "Dialog title for inviting members to workspace"
 	},
 	"inviteNewAccount.createAccount": {
 		"string": "Create Account",
@@ -1074,36 +967,6 @@
 	"inviteNewAccounttosMissing": {
 		"string": "You must agree to the Terms of Service and Privacy Policy",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
-	},
-	"joinTeamComponent.alreadyRequested": {
-		"string": "You already requested to join {team}."
-	},
-	"joinTeamComponent.autoApprove": {
-		"string": "Thanks for joining {team}! You can start contributing right away."
-	},
-	"joinTeamComponent.blurbGraf": {
-		"string": "To request to join {team}, click below:"
-	},
-	"joinTeamComponent.buttonSubmit": {
-		"string": "Request to Join"
-	},
-	"joinTeamComponent.buttonSubmitted": {
-		"string": "Request Sent"
-	},
-	"joinTeamComponent.error": {
-		"string": "Sorry, an error occurred while sending your request. Please try again and contact {supportEmail} if the condition persists."
-	},
-	"joinTeamComponent.mainHeading": {
-		"string": "Request to join"
-	},
-	"joinTeamComponent.requestHasBeenSent": {
-		"string": "Your request has been sent to the workspace administrators for approval."
-	},
-	"joinTeamComponent.success": {
-		"string": "Thanks for your interest in joining {team}! A workspace administrator will review your application soon."
-	},
-	"joinTeamComponent.title": {
-		"string": "Join Workspace"
 	},
 	"languageListItem.default": {
 		"string": "{language} (default)"
@@ -1220,18 +1083,20 @@
 		"string": "Register"
 	},
 	"login.signIn": {
-		"string": "SIGN IN"
+		"string": "SIGN IN",
+		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
 		"string": "Sign in",
-		"developer_comment": "allow user to sing in with exisintg account"
+		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign Up"
+		"string": "Sign Up",
+		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
 		"string": "Sign up",
-		"developer_comment": "allow user to create a new source"
+		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
 		"string": "Sign in"
@@ -1572,7 +1437,7 @@
 		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count} similar media"
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
@@ -1641,13 +1506,15 @@
 		"string": "{current} of {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar"
+		"string": "Similar",
+		"developer_comment": "Adjective, plural. Heading for a list of similar items"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Click on an item"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main"
+		"string": "Main",
+		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Notes"
@@ -1700,13 +1567,15 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Similar media"
+		"string": "Similar media",
+		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
 		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Suggested media"
+		"string": "Suggested media",
+		"developer_comment": "Plural. Heading for the number of suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
@@ -1817,14 +1686,10 @@
 		"string": "Passwords didn't match"
 	},
 	"passwordReset.confirmedText": {
-		"string": "We've sent you an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}. Please note that the link in this email will expire in {expiry} hours."
+		"string": "If this email exists, you will receive an email to reset your password from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Email"
-	},
-	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Sorry, this email was not found. Please contact {supportEmail} if you think this is an error.",
-		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
 		"string": "Please enter a valid email address.",
@@ -1948,11 +1813,15 @@
 	"projectHeader.trash": {
 		"string": "Trash"
 	},
+	"projectHeader.unconfirmed": {
+		"string": "Unconfirmed"
+	},
 	"projectSelector.allProjs": {
 		"string": "All lists"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, number} selected"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected lists"
 	},
 	"projects.addProject": {
 		"string": "Add list"
@@ -2247,10 +2116,12 @@
 		"string": "Rules saved successfully!"
 	},
 	"rulesTableHead.name": {
-		"string": "പേര്"
+		"string": "പേര്",
+		"developer_comment": "Table header for rule names"
 	},
 	"rulesTableHead.updated": {
-		"string": "Updated"
+		"string": "Updated",
+		"developer_comment": "Table header for rule update dates"
 	},
 	"rulesTableToolbar.add": {
 		"string": "New rule"
@@ -2425,7 +2296,8 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
+		"developer_comment": "Label for number of selected items"
 	},
 	"sentence.lastSeparator": {
 		"string": "and"
@@ -2447,11 +2319,11 @@
 		"developer_comment": "Confirm message to relate media to an existing source"
 	},
 	"setSourceDialog.existDescription": {
-		"string": "An the source <b>{name}</b> already exists.",
+		"string": "The source <b>{name}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existDescriptionWithUrl": {
-		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"string": "The source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existingSource": {
@@ -2536,7 +2408,7 @@
 		"string": "Send notifications to Slack channels when items are added to specific lists"
 	},
 	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
+		"string": "Slack incoming webhook"
 	},
 	"smoochBot.addResource": {
 		"string": "Add resource"
@@ -2686,6 +2558,75 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
+	},
+	"smoochBotIntegrationButton.cancel": {
+		"string": "Cancel"
+	},
+	"smoochBotIntegrationButton.confirm": {
+		"string": "Confirm"
+	},
+	"smoochBotIntegrationButton.confirmDisconnectText": {
+		"string": "This cannot be undone."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTitle": {
+		"string": "Confirm disconnection of {platform} tipline"
+	},
+	"smoochBotIntegrationButton.connect": {
+		"string": "Connect"
+	},
+	"smoochBotIntegrationButton.connectTipline": {
+		"string": "Connect tipline to {platform}"
+	},
+	"smoochBotIntegrationButton.defaultErrorMessage": {
+		"string": "Something went wrong"
+	},
+	"smoochBotIntegrationButton.disclaimer": {
+		"string": "We don't store this information. This is just used to configure the integration."
+	},
+	"smoochBotIntegrationButton.disconnect": {
+		"string": "Disconnect from this account"
+	},
+	"smoochBotIntegrationButton.online": {
+		"string": "Online"
+	},
+	"smoochBotIntegrationButton.savedSuccessfully": {
+		"string": "Done"
+	},
+	"smoochBotIntegrationButton.status": {
+		"string": "Status: Online"
+	},
+	"smoochBotIntegrationButton.tipline": {
+		"string": "{platform} tipline"
+	},
+	"smoochBotIntegrations.account": {
+		"string": "Connected account: {link}"
+	},
+	"smoochBotIntegrations.lineChannelAccessToken": {
+		"string": "LINE channel access token"
+	},
+	"smoochBotIntegrations.lineChannelSecret": {
+		"string": "LINE channel secret"
+	},
+	"smoochBotIntegrations.lineWebhook": {
+		"string": "Copy this webhook URL to your LINE settings"
+	},
+	"smoochBotIntegrations.page": {
+		"string": "Connected page: {link}"
+	},
+	"smoochBotIntegrations.phoneNumber": {
+		"string": "Connected telephone: {link}"
+	},
+	"smoochBotIntegrations.telegramBot": {
+		"string": "Connected Telegram bot: {link}"
+	},
+	"smoochBotIntegrations.telegramBotToken": {
+		"string": "Telegram bot token"
+	},
+	"smoochBotIntegrations.viberPublicAccount": {
+		"string": "Connected Viber public account: {name}"
+	},
+	"smoochBotIntegrations.viberPublicAccountToken": {
+		"string": "Viber public account token"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Scenario"
@@ -2854,13 +2795,15 @@
 		"string": "Do you want to set the default language to {language}?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
+		"string": "All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently.",
+		"developer_comment": "Warning about content being lost after deleting a language"
 	},
 	"statusListItem.confirmDeleteBody2": {
 		"string": "Users will receive this content in the default language {language} instead."
 	},
 	"statusListItem.confirmDeleteDefaultBody": {
-		"string": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+		"string": "You cannot delete the default language. You must set a different default language before you can delete {language}.",
+		"developer_comment": "Message warning user to set a new default language before deleting the current one"
 	},
 	"statusListItem.confirmDeleteDefaultLabel": {
 		"string": "Go back and change"
@@ -3014,7 +2957,8 @@
 		"string": "All tasks"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "{length, number} selected"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.add": {
 		"string": "Save"
@@ -3075,6 +3019,9 @@
 	},
 	"tasks.goToSettings": {
 		"string": "Go to settings"
+	},
+	"tasks.number": {
+		"string": "Number"
 	},
 	"tasks.shortAnswer": {
 		"string": "Text"
@@ -3173,7 +3120,8 @@
 		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
 	},
 	"teamDataComponent.title": {
-		"string": "Workspace data"
+		"string": "Workspace data",
+		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.viewDataReport": {
 		"string": "View data report"
@@ -3188,11 +3136,12 @@
 		"string": "Workspace details saved successfully"
 	},
 	"teamDetails.subtitle": {
-		"string": "Add details to your Check workspace"
+		"string": "Add details to your Check workspace.",
+		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
 		"string": "Workspace details",
-		"developer_comment": "Title for workspace details page"
+		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
 		"string": "Update"
@@ -3255,7 +3204,8 @@
 		"string": "Lists settings"
 	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "None available",
+		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
 		"string": "Save changes for all lists"
@@ -3341,7 +3291,8 @@
 		"string": "Resend invite"
 	},
 	"teamMembers.subtitle": {
-		"string": "Invite and manage users"
+		"string": "Invite and manage users.",
+		"developer_comment": "Subtitle for workspace members management page"
 	},
 	"teamMembers.tableHeaderLastActive": {
 		"string": "Last active",
@@ -3374,19 +3325,19 @@
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Metadata",
-		"developer_comment": "Title for item Metadata"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
 		"string": "Add custom metadata fields to items.",
-		"developer_comment": "Metadata item subtitle"
+		"developer_comment": "Subtitle for metadata settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Add custom data ields to the source tab.",
-		"developer_comment": "Metadata source subtitle"
+		"string": "Add custom data fields to the source tab.",
+		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
 		"string": "Source metadata",
-		"developer_comment": "Ttle for source Metadata"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReport.disclaimer": {
 		"string": "Disclaimer"
@@ -3428,6 +3379,9 @@
 	"teamReportComponent.introductionSub": {
 		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
 	},
+	"teamReportComponent.line": {
+		"string": "LINE channel"
+	},
 	"teamReportComponent.save": {
 		"string": "Save"
 	},
@@ -3438,8 +3392,15 @@
 	"teamReportComponent.signature": {
 		"string": "Signature"
 	},
+	"teamReportComponent.signatureLabel": {
+		"string": "Signature ({max} characters max)",
+		"developer_comment": "Label for signature field in report settings"
+	},
 	"teamReportComponent.subtitle": {
 		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.telegram": {
+		"string": "Telegram bot username"
 	},
 	"teamReportComponent.title": {
 		"string": "Default report settings"
@@ -3451,7 +3412,11 @@
 		"string": "Website URL"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Prompt ({max} characters max)"
+		"string": "Short url ({max} characters max)",
+		"developer_comment": "Label for url field in report settings"
+	},
+	"teamReportComponent.viber": {
+		"string": "Viber public account URI"
 	},
 	"teamReportComponent.whatsapp": {
 		"string": "WhatsApp number"
