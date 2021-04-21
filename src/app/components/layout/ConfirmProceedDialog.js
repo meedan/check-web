@@ -49,7 +49,7 @@ const ConfirmProceedDialog = ({
               <strong>
                 <FormattedMessage
                   id="confirmProceedDialog.confirmationText"
-                  defaultMessage='Type "{text}" to permanently delete this language and all content in this language.'
+                  defaultMessage='Type "{text}" to confirm this operation permanently.'
                   values={{ text: typeTextToConfirm }}
                 />
               </strong>

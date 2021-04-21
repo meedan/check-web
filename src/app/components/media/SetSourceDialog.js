@@ -37,7 +37,7 @@ function SetSourceDialog({
           { primaryUrl ?
             <FormattedHTMLMessage
               id="setSourceDialog.existDescriptionWithUrl"
-              defaultMessage="An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
+              defaultMessage="The source <b>{name}</b> with the primary URL <b>{url}</b> already exists."
               values={{
                 name: sourceName,
                 url: primaryUrl,
@@ -46,7 +46,7 @@ function SetSourceDialog({
             /> :
             <FormattedHTMLMessage
               id="setSourceDialog.existDescription"
-              defaultMessage="An the source <b>{name}</b> already exists."
+              defaultMessage="The source <b>{name}</b> already exists."
               values={{
                 name: sourceName,
               }}

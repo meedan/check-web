@@ -7,7 +7,6 @@ import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import UserTooltip from '../user/UserTooltip';
 import ProfileLink from '../layout/ProfileLink';
-import { getCurrentProjectId } from '../../helpers';
 
 class MediaLogComponent extends Component {
   static propTypes = {
@@ -258,7 +257,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
 });
 
 const MediaLog = (props) => {
-  const projectId = getCurrentProjectId(props.media.project_ids);
+  const projectId = props.media.project_id;
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 

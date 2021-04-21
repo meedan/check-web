@@ -10,7 +10,6 @@ import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
 import TiplineRequest from '../annotations/TiplineRequest';
-import { getCurrentProjectId } from '../../helpers';
 
 class MediaRequestsComponent extends Component {
   componentDidMount() {
@@ -218,7 +217,7 @@ const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withP
 });
 
 const MediaRequests = (props) => {
-  const projectId = getCurrentProjectId(props.media.project_ids);
+  const projectId = props.media.project_id;
   const ids = `${props.media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
   const { media, style, all } = props;

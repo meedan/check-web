@@ -72,9 +72,9 @@ class TagInput extends React.Component {
       if (currentProjectId) {
         [path, currentProjectId] = currentProjectId;
       }
-      if (pm.project_ids.length > 0 && currentProjectId
-        && pm.project_ids.indexOf(parseInt(currentProjectId, 10)) === -1) {
-        const newPath = window.location.pathname.replace(path, `project/${pm.project_ids.pop()}`);
+      if (pm.project_id && currentProjectId
+        && pm.project_id !== parseInt(currentProjectId, 10)) {
+        const newPath = window.location.pathname.replace(path, `project/${pm.project_id}`);
         window.location.assign(newPath);
       }
     };

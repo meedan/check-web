@@ -221,7 +221,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
           label={
             <FormattedMessage
               id="slackConfigDialogComponent.webhook"
-              defaultMessage="Slack webhook"
+              defaultMessage="Slack incoming webhook"
             />
           }
           id="slack-config__webhook"

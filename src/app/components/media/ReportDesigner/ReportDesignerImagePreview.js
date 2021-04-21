@@ -34,6 +34,9 @@ function tweakIframeDom({
   fillInOrHide('#whatsapp', defaultReport.whatsapp);
   fillInOrHide('#facebook', defaultReport.facebook ? `m.me/${defaultReport.facebook}` : null);
   fillInOrHide('#twitter', defaultReport.twitter ? `@${defaultReport.twitter}` : null);
+  fillInOrHide('#telegram', defaultReport.telegram ? `t.me/${defaultReport.telegram}` : null);
+  fillInOrHide('#viber', defaultReport.viber ? defaultReport.viber : null);
+  fillInOrHide('#line', defaultReport.line ? defaultReport.line : null);
 }
 
 function ReportImagePreview({

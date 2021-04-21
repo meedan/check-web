@@ -69,12 +69,12 @@ function TeamMetadataRender({ team }) {
               <FormattedMessage
                 id="teamMetadataRender.itemTitle"
                 defaultMessage="Metadata"
-                description="Title for item Metadata"
+                description="Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
               /> :
               <FormattedMessage
                 id="teamMetadataRender.sourceTitle"
                 defaultMessage="Source metadata"
-                description="Ttle for source Metadata"
+                description="Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
               />
           }
           subtitle={
@@ -82,12 +82,12 @@ function TeamMetadataRender({ team }) {
               <FormattedMessage
                 id="teamMetadataRender.metadataItemSubtitle"
                 defaultMessage="Add custom metadata fields to items."
-                description="Metadata item subtitle"
+                description="Subtitle for metadata settings screen applied to Items"
               /> :
               <FormattedMessage
                 id="teamMetadataRender.metadataSourceSubtitle"
-                defaultMessage="Add custom data ields to the source tab."
-                description="Metadata source subtitle"
+                defaultMessage="Add custom data fields to the source tab."
+                description="Subtitle for metadata settings screen applied to Sources"
               />
           }
           helpUrl="https://help.checkmedia.org/en/articles/4346772-metadata"

@@ -293,6 +293,11 @@ class SearchResultsComponent extends React.PureComponent {
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
     }
+    if (searchUrlPrefix.endsWith('/unconfirmed')) {
+      // Usually, `listPath` can be inferred from the route params. With `unconfirmed` it can't,
+      // so we'll give it to the receiving page. (See <MediaPage>.)
+      urlParams.set('listPath', searchUrlPrefix);
+    }
     if (Object.keys(cleanQuery).length > 0) {
       urlParams.set('listQuery', JSON.stringify(cleanQuery));
     }
@@ -332,9 +337,6 @@ class SearchResultsComponent extends React.PureComponent {
 
     projectMedias.forEach((pm) => {
       if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
-        if (pm.project_media_project) {
-          selectedProjectMediaProjectIds.push(pm.project_media_project.id);
-        }
         selectedProjectMediaDbids.push(pm.dbid);
       }
     });
@@ -451,6 +453,7 @@ class SearchResultsComponent extends React.PureComponent {
                       <FormattedMessage
                         id="searchResults.withSelection"
                         defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                        description="Label for number of selected items"
                         values={{
                           selectedCount: selectedProjectMediaIds.length,
                         }}
@@ -555,7 +558,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_secondary
               requests_count
               list_columns_values
-              project_media_project(project_id: $projectId) {
+              project {
                 dbid
                 id
               }

@@ -17,10 +17,12 @@
   },
   {
     "id": "mediaSimilarityBarComponent.similarMedia",
+    "description": "Plural. Heading for the number of similar media",
     "defaultMessage": "Similar media"
   },
   {
     "id": "mediaSimilarityBarComponent.suggestedMatches",
+    "description": "Plural. Heading for the number of suggested media",
     "defaultMessage": "Suggested media"
   }
 ]

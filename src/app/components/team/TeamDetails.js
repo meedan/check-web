@@ -93,13 +93,14 @@ const TeamDetails = ({
           <FormattedMessage
             id="teamDetails.title"
             defaultMessage="Workspace details"
-            description="Title for workspace details page"
+            description="Title for details page of current workspace"
           />
         }
         subtitle={
           <FormattedMessage
             id="teamDetails.subtitle"
-            defaultMessage="Add details to your Check workspace"
+            defaultMessage="Add details to your Check workspace."
+            description="Subtitle for details page of current workspace"
           />
         }
         actionButton={

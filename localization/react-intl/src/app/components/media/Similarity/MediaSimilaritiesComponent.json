@@ -1,10 +1,12 @@
 [
   {
     "id": "mediaSimilarities.mainItem",
+    "description": "Adjective, singular. Refers to the main item, as opposed to other similar items",
     "defaultMessage": "Main"
   },
   {
     "id": "mediaSimilarities.allSimilarMedia",
+    "description": "Adjective, plural. Heading for a list of similar items",
     "defaultMessage": "Similar"
   },
   {

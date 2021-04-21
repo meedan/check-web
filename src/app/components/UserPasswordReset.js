@@ -29,6 +29,9 @@ const useStyles = makeStyles({
     margin: '0 auto',
     display: 'block',
   },
+  confirmText: {
+    lineHeight: '1.5em',
+  },
 });
 
 const UserPasswordReset = (props) => {
@@ -125,7 +128,7 @@ const UserPasswordReset = (props) => {
             { pagetitleMessage }
           </StyledSubHeader>
           { showConfirmDialog ? [
-            <CardContent key="usr-2" className="user-password-reset__sent_password">
+            <CardContent key="usr-2" className={['user-password-reset__sent_password', classes.confirmText].join(' ')} >
               <FormattedMessage
                 id="passwordReset.confirmedText"
                 defaultMessage="If this email exists, you will receive an email to reset your password from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."

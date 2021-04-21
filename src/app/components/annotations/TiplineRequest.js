@@ -8,6 +8,9 @@ import CheckIcon from '@material-ui/icons/Check';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import TelegramIcon from '@material-ui/icons/Telegram';
+import ViberIcon from '../../icons/ViberIcon';
+import LineIcon from '../../icons/LineIcon';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import { languageName } from '../../LanguageRegistry';
@@ -25,6 +28,9 @@ import {
   twitterBlue,
   facebookBlue,
   whatsappGreen,
+  telegramBlue,
+  viberPurple,
+  lineGreen,
   completedGreen,
   separationGray,
 } from '../../styles/js/shared';
@@ -78,12 +84,15 @@ const SmoochIcon = ({ name }) => {
     );
   case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
   case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
+  case 'telegram': return <TelegramIcon style={{ color: telegramBlue }} />;
+  case 'viber': return <ViberIcon style={{ color: viberPurple }} />;
+  case 'line': return <LineIcon style={{ color: lineGreen }} />;
   default: return null;
   }
 };
 
 SmoochIcon.propTypes = {
-  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter']).isRequired,
+  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -157,7 +166,7 @@ const TiplineRequest = ({
           <span className="separation_dot">
             <TimeBefore date={updatedAt} />
           </span>
-          { smoochSlackUrl ?
+          { messageType !== 'telegram' && smoochSlackUrl ?
             <span className="separation_dot">
               <a
                 target="_blank"
@@ -166,6 +175,18 @@ const TiplineRequest = ({
                 href={smoochSlackUrl}
               >
                 <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
+              </a>
+            </span> : null }
+          { /* We don't support human-to-human conversation on Slack for Telegram, but we can allow a conversation directly in Telegram */ }
+          { messageType === 'telegram' && smoochExternalId ?
+            <span className="separation_dot">
+              <a
+                target="_blank"
+                style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
+                rel="noopener noreferrer"
+                href={`https://t.me/${smoochExternalId.replace(/^@/, '')}`}
+              >
+                <FormattedMessage id="annotation.openInTelegram" defaultMessage="Open in Telegram" />
               </a>
             </span> : null }
         </span>

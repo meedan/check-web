@@ -61,16 +61,25 @@ function previewIntroduction(data, media) {
 function previewFooter(defaultReport) {
   const footer = [];
   if (defaultReport.signature) {
-    footer.push(`_${defaultReport.signature}_`);
+    footer.push(defaultReport.signature);
   }
   if (defaultReport.whatsapp) {
-    footer.push(`_WhatsApp: ${defaultReport.whatsapp}_`);
+    footer.push(`WhatsApp: ${defaultReport.whatsapp}`);
   }
   if (defaultReport.facebook) {
-    footer.push(`_FB Messenger: m.me/${defaultReport.facebook}_`);
+    footer.push(`FB Messenger: m.me/${defaultReport.facebook}`);
   }
   if (defaultReport.twitter) {
-    footer.push(`_Twitter: twitter.com/${defaultReport.twitter}_`);
+    footer.push(`Twitter: twitter.com/${defaultReport.twitter}`);
+  }
+  if (defaultReport.telegram) {
+    footer.push(`Telegram: t.me/${defaultReport.telegram.replace(/_/g, '%5F')}`);
+  }
+  if (defaultReport.viber) {
+    footer.push(`Viber: ${defaultReport.viber}`);
+  }
+  if (defaultReport.line) {
+    footer.push(`LINE: ${defaultReport.line}`);
   }
   return footer.join('\n');
 }

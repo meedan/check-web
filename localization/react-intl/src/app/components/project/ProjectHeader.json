@@ -4,6 +4,10 @@
     "defaultMessage": "Trash"
   },
   {
+    "id": "projectHeader.unconfirmed",
+    "defaultMessage": "Unconfirmed"
+  },
+  {
     "id": "projectHeader.allItems",
     "defaultMessage": "All items"
   }

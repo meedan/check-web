@@ -26,6 +26,7 @@ import TeamSelect from '../team/TeamSelect';
 import UserRoute from '../../relay/UserRoute';
 import CheckContext from '../../CheckContext';
 import { AlignOpposite } from '../../styles/js/shared';
+import NumberIcon from '../../icons/NumberIcon';
 
 const messages = defineMessages({
   filterByTeam: {
@@ -36,6 +37,7 @@ const messages = defineMessages({
 
 const icons = {
   free_text: <ShortTextIcon />,
+  number: <NumberIcon />,
   single_choice: <RadioButtonCheckedIcon />,
   multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
   geolocation: <LocationOnIcon />,
@@ -229,7 +231,7 @@ const UserAssignmentsContainer = Relay.createContainer(injectIntl(UserAssignment
                 embed_path
                 quote
               }
-              project_ids
+              project_id
               report_type
               team {
                 id

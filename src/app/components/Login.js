@@ -358,10 +358,12 @@ class Login extends React.Component {
                       <FormattedMessage
                         id="login.signIn"
                         defaultMessage="SIGN IN"
+                        description="Sign in button label"
                       /> :
                       <FormattedMessage
                         id="login.signUp"
                         defaultMessage="Sign Up"
+                        description="Sign up button label"
                       />
                     }
                   </Button>
@@ -380,7 +382,7 @@ class Login extends React.Component {
                       <FormattedMessage
                         id="login.signUpLink"
                         defaultMessage="Sign up"
-                        description="allow user to create a new source"
+                        description="Button label. Switches from 'logging in' to 'create new account' mode"
                       />
                     </Button>
                   </Typography>
@@ -398,7 +400,7 @@ class Login extends React.Component {
                       <FormattedMessage
                         id="login.signInLink"
                         defaultMessage="Sign in"
-                        description="allow user to sing in with exisintg account"
+                        description="Button label. Switches from 'create new account' to 'logging in' mode"
                       />
                     </Button>
                   </Typography>

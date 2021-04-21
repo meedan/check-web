@@ -16,9 +16,7 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchiveProjectMediaMutation';
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
-import BulkUpdateProjectMediaProjectsMutation from '../../relay/mutations/BulkUpdateProjectMediaProjectsMutation';
-import BulkDeleteProjectMediaProjectsMutation from '../../relay/mutations/BulkDeleteProjectMediaProjectsMutation';
-import BulkCreateProjectMediaProjectsMutation from '../../relay/mutations/BulkCreateProjectMediaProjectsMutation';
+import BulkMoveProjectMediaMutation from '../../relay/mutations/BulkMoveProjectMediaMutation';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const useStyles = makeStyles(theme => ({
@@ -67,9 +65,7 @@ class BulkActions extends React.Component {
     super(props);
     this.state = {
       openMoveDialog: false,
-      openAddDialog: false,
       dstProj: null,
-      dstProjForAdd: null,
     };
   }
 
@@ -79,70 +75,14 @@ class BulkActions extends React.Component {
     }
   }
 
-  addSelected() {
-    if (this.props.selectedMedia.length > 0) {
-      this.setState({ openAddDialog: true });
-    }
-  }
-
   handleCloseDialogs() {
-    this.setState({ openMoveDialog: false, openAddDialog: false });
+    this.setState({ openMoveDialog: false });
   }
 
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
     this.props.setFlashMessage(message, 'error');
   };
-
-  handleAdd() {
-    const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="bulkActions.addedSuccessfully"
-          defaultMessage="Items added to list."
-          description="Banner displayed after items are added successfully to list"
-        />
-      );
-      this.props.setFlashMessage(message, 'success');
-      this.setState({ openAddDialog: false, dstProjForAdd: null });
-      this.props.onUnselectAll();
-    };
-
-    if (this.props.selectedMedia.length && this.state.dstProjForAdd) {
-      Relay.Store.commitUpdate(
-        new BulkCreateProjectMediaProjectsMutation({
-          projectMediaDbids: this.props.selectedProjectMediaDbids,
-          project: this.state.dstProjForAdd,
-        }),
-        { onSuccess, onFailure: this.fail },
-      );
-    }
-  }
-
-  handleRemoveSelectedFromList() {
-    const onSuccess = () => {
-      const message = (
-        <FormattedMessage
-          id="bulkActions.removedSuccessfully"
-          defaultMessage="Items removed from this list."
-          description="Banner displayed after items are removed successfully from list"
-        />
-      );
-      this.props.setFlashMessage(message, 'success');
-      this.props.onUnselectAll();
-    };
-
-    if (this.props.selectedMedia.length) {
-      Relay.Store.commitUpdate(
-        new BulkDeleteProjectMediaProjectsMutation({
-          ids: this.props.selectedProjectMediaProjectIds,
-          projectMediaIds: this.props.selectedMedia,
-          project: this.props.project,
-        }),
-        { onSuccess, onFailure: this.fail },
-      );
-    }
-  }
 
   handleMove() {
     const onSuccess = () => {
@@ -172,9 +112,8 @@ class BulkActions extends React.Component {
 
     if (this.props.selectedMedia.length && this.state.dstProj) {
       Relay.Store.commitUpdate(
-        new BulkUpdateProjectMediaProjectsMutation({
-          ids: this.props.selectedProjectMediaProjectIds,
-          projectMediaIds: this.props.selectedMedia,
+        new BulkMoveProjectMediaMutation({
+          ids: this.props.selectedMedia,
           dstProject: this.state.dstProj,
           srcProject: this.props.project,
         }),
@@ -294,7 +233,7 @@ class BulkActions extends React.Component {
       moveButtonMessage = (
         <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
       );
-    } else if (project) {
+    } else {
       moveAction = true;
       moveTooltipMessage = (
         <FormattedMessage
@@ -350,7 +289,13 @@ class BulkActions extends React.Component {
               />
             }
             cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
-            submitLabel={<FormattedMessage id="bulkActions.moveTitle" defaultMessage="Move to list" />}
+            submitLabel={
+              <FormattedMessage
+                id="bulkActions.moveTitle"
+                defaultMessage="Move to list"
+                description="Label for button to commit action of moving item to the selected list"
+              />
+            }
             submitButtonClassName="media-bulk-actions__move-button"
             onSubmit={(dstProj) => {
               this.setState({ dstProj }, () => (
@@ -385,42 +330,9 @@ class BulkActions extends React.Component {
     default:
       actionButtons = (
         <React.Fragment>
-          <ButtonWithTooltip
-            title={
-              <FormattedMessage
-                id="bulkActions.add"
-                defaultMessage="Add selected items to another list"
-              />
-            }
-            id="media-bulk-actions__add-icon"
-            disabled={disabled}
-            onClick={this.addSelected.bind(this)}
-            color="primary"
-            variant="contained"
-          >
-            <FormattedMessage id="bulkActions.addTo" defaultMessage="Add to…" />
-          </ButtonWithTooltip>
-          <SelectProjectDialog
-            open={this.state.openAddDialog}
-            excludeProjectDbids={project ? [project.dbid] : []}
-            team={team}
-            title={
-              <FormattedMessage
-                id="bulkActions.dialogAddTitle"
-                defaultMessage="Add to a different list"
-              />
-            }
-            cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
-            submitLabel={<FormattedMessage id="bulkActions.addTitle" defaultMessage="Add" />}
-            submitButtonClassName="media-bulk-actions__add-button"
-            onSubmit={(dstProjForAdd) => {
-              this.setState({ dstProjForAdd }, this.handleAdd);
-            }}
-            onCancel={this.handleCloseDialogs.bind(this)}
-          />
-
-          { project ? modalToMove : null }
-
+          <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
+            {modalToMove}
+          </Can>
           {deleteButton}
         </React.Fragment>
       );
