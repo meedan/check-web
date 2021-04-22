@@ -9,7 +9,14 @@ const config = {
     // OPTIONAL
     // Remove key if not needed
     //
-    heapAppId: '<HEAP APP ID>',
+    heapAppId: null, // '<HEAP APP ID>',
+
+    // Uptime is used for monitoring of real user activity with a javascript callback https://uptime.com/
+    //
+    // OPTIONAL
+    // Remove key if not needed
+    //
+    uptimeId: null, // '<UPTIME ID>',
   },
   test: {
     appName: 'check',
