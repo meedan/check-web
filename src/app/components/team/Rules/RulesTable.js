@@ -79,7 +79,7 @@ export default function RulesTable(props) {
     if (orderBy === 'name') {
       return a.name.localeCompare(b.name);
     } else if (orderBy === 'updated_at') {
-      return a > b ? -1 : 1;
+      return a.updated_at > b.updated_at ? -1 : 1;
     }
     return 1;
   });
