@@ -30,5 +30,25 @@
   {
     "id": "CustomTeamTaskFilter.entityMetadataLabel",
     "defaultMessage": "Select metadata"
+  },
+  {
+    "id": "customFiltersManager.label",
+    "defaultMessage": "Custom fields"
+  },
+  {
+    "id": "CustomTeamTaskFilter.textNoValue",
+    "defaultMessage": "\"{entity}\" contains no value"
+  },
+  {
+    "id": "CustomTeamTaskFilter.textAnyValue",
+    "defaultMessage": "\"{entity}\" contains any value"
+  },
+  {
+    "id": "CustomTeamTaskFilter.choiceFilter",
+    "defaultMessage": "\"{entity}\" has value {value}"
+  },
+  {
+    "id": "CustomTeamTaskFilter.textFilter",
+    "defaultMessage": "\"{entity}\" contains {value}"
   }
 ]

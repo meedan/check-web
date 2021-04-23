@@ -106,6 +106,13 @@ class SearchFieldsComponent extends React.Component {
   }
 
   handleAddField = (field) => {
+    if (field === 'team_tasks') {
+      const newQuery = {};
+      newQuery.team_tasks = this.state.query.team_tasks ?
+        [...this.state.query.team_tasks, {}] : [{}];
+      this.handleCustomFilterChange(newQuery);
+    }
+
     const addedFields = [...this.state.addedFields, field];
     this.setState({ addedFields });
   };
