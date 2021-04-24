@@ -8,31 +8,38 @@ import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
 import CustomFilter from './CustomFilter';
+import { opaqueBlack10 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   metadataChoiceLabel: {
     id: 'CustomTeamTaskFilter.metadataChoiceLabel',
     defaultMessage: 'Metadata has specific value',
+    description: 'Label for custom field configuration to allow filtering by metadata value',
   },
   metadataTextLabel: {
     id: 'CustomTeamTaskFilter.metadataTextLabel',
     defaultMessage: 'Metadata contains keyword',
+    description: 'Label for custom field to allow configuration filtering by metadata keyword',
   },
   taskChoiceLabel: {
     id: 'CustomTeamTaskFilter.taskChoiceLabel',
     defaultMessage: 'Task has specific answer',
+    description: 'Label for custom field configuration to allow filtering by task answer',
   },
   taskTextLabel: {
     id: 'CustomTeamTaskFilter.taskTextLabel',
     defaultMessage: 'Task answer contains keyword',
+    description: 'Label for custom field configuration to allow filtering by task keyword',
   },
   noValue: {
     id: 'CustomTeamTaskFilter.noValue',
     defaultMessage: 'No value is set',
+    description: 'Label for custom field configuration to allow filtering by task or metadata with no value set',
   },
   anyValue: {
     id: 'CustomTeamTaskFilter.anyValue',
     defaultMessage: 'Any value is set',
+    description: 'Label for custom field configuration to allow filtering by task or metadata with any value set',
   },
 });
 
@@ -48,11 +55,11 @@ const useStyles = makeStyles({
 const useStylesButton = makeStyles({
   root: {
     '&:hover': {
-      backgroundColor: '#ddd',
+      backgroundColor: opaqueBlack10,
     },
   },
   text: {
-    backgroundColor: '#ddd',
+    backgroundColor: opaqueBlack10,
   },
   label: {
     textTransform: 'none',
@@ -220,9 +227,17 @@ const CustomTeamTaskFilter = ({
   const filterEntityOptions = buildFilterEntityOptions();
   const filterEntityValueOptions = buildFilterEntityValueOptions();
   const filterEntityLabel = filterType === 'task_text' || filterType === 'task_choice' ? (
-    <FormattedMessage id="CustomTeamTaskFilter.entityTaskLabel" defaultMessage="Select task" />
+    <FormattedMessage
+      id="CustomTeamTaskFilter.entityTaskLabel"
+      defaultMessage="Select task"
+      description="Label for input to select specific task to filter by"
+    />
   ) : (
-    <FormattedMessage id="CustomTeamTaskFilter.entityMetadataLabel" defaultMessage="Select metadata" />
+    <FormattedMessage
+      id="CustomTeamTaskFilter.entityMetadataLabel"
+      defaultMessage="Select metadata"
+      description="Label for input to select specific metadata to filter by"
+    />
   );
 
   const FilterLabel = () => {
@@ -230,7 +245,8 @@ const CustomTeamTaskFilter = ({
       return (
         <FormattedMessage
           id="customFiltersManager.label"
-          defaultMessage="Custom fields"
+          defaultMessage="Custom field"
+          description="Placeholder label for custom field when not fully configured"
         />
       );
     }
@@ -241,8 +257,9 @@ const CustomTeamTaskFilter = ({
       return (
         <FormattedMessage
           id="CustomTeamTaskFilter.textNoValue"
-          defaultMessage='"{entity}" contains no value'
-          values={{ entity: task.node.label }}
+          defaultMessage='"{field}" contains no value'
+          description="Label for custom field when metadata or task response contains no value"
+          values={{ field: task.node.label }}
         />
       );
     }
@@ -251,8 +268,9 @@ const CustomTeamTaskFilter = ({
       return (
         <FormattedMessage
           id="CustomTeamTaskFilter.textAnyValue"
-          defaultMessage='"{entity}" contains any value'
-          values={{ entity: task.node.label, value: filterEntityValue }}
+          defaultMessage='"{field}" contains any value'
+          description="Label for custom field when metadata or task response contains any value"
+          values={{ field: task.node.label, value: filterEntityValue }}
         />
       );
     }
@@ -261,8 +279,9 @@ const CustomTeamTaskFilter = ({
       return (
         <FormattedMessage
           id="CustomTeamTaskFilter.choiceFilter"
-          defaultMessage='"{entity}" has value {value}'
-          values={{ entity: task.node.label, value: filterEntityValue }}
+          defaultMessage='"{field}" has value {value}'
+          description="Label for custom field when metadata or task response contains specific value"
+          values={{ field: task.node.label, value: filterEntityValue }}
         />
       );
     }
@@ -271,8 +290,9 @@ const CustomTeamTaskFilter = ({
       return (
         <FormattedMessage
           id="CustomTeamTaskFilter.textFilter"
-          defaultMessage='"{entity}" contains {value}'
-          values={{ entity: task.node.label, value: filterEntityValue }}
+          defaultMessage='"{field}" contains {value}'
+          description="Label for custom field when metadata or task response contains keyword"
+          values={{ field: task.node.label, value: filterEntityValue }}
         />
       );
     }

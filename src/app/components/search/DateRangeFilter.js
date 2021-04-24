@@ -10,30 +10,30 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import { FlexRow, units } from '../../styles/js/shared';
+import { FlexRow, units, opaqueBlack10 } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
-const StyledInputBase = withStyles({
+const StyledInputBase = withStyles(theme => ({
   root: {
-    backgroundColor: '#ddd',
-    padding: '0 4px',
-    height: '36px',
+    backgroundColor: opaqueBlack10,
+    padding: `0 ${theme.spacing(0.5)}px`,
+    height: theme.spacing(4.5),
   },
-})(InputBase);
+}))(InputBase);
 
-const StyledInputBaseStart = withStyles({
+const StyledInputBaseStart = withStyles(theme => ({
   root: {
-    borderBottomLeftRadius: '4px',
-    borderTopLeftRadius: '4px',
+    borderBottomLeftRadius: theme.spacing(0.5),
+    borderTopLeftRadius: theme.spacing(0.5),
   },
-})(StyledInputBase);
+}))(StyledInputBase);
 
-const StyledInputBaseEnd = withStyles({
+const StyledInputBaseEnd = withStyles(theme => ({
   root: {
-    borderBottomRightRadius: '4px',
-    borderTopRightRadius: '4px',
+    borderBottomRightRadius: theme.spacing(0.5),
+    borderTopRightRadius: theme.spacing(0.5),
   },
-})(StyledInputBase);
+}))(StyledInputBase);
 
 const Styles = {
   selectFormControl: {

@@ -1,74 +1,92 @@
 [
   {
     "id": "search.showClaims",
+    "description": "Describes media type Text",
     "defaultMessage": "Text"
   },
   {
     "id": "search.showLinks",
+    "description": "Describes media type Link",
     "defaultMessage": "Link"
   },
   {
     "id": "search.showImages",
+    "description": "Describes media type Image",
     "defaultMessage": "Image"
   },
   {
     "id": "search.showVideos",
+    "description": "Describes media type Video",
     "defaultMessage": "Video"
   },
   {
     "id": "search.showAudios",
+    "description": "Describes media type Audio",
     "defaultMessage": "Audio"
   },
   {
     "id": "search.showBlank",
+    "description": "Describes media type unspecified",
     "defaultMessage": "Imported report"
   },
   {
     "id": "search.or",
+    "description": "Logical operator to be applied when filtering by multiple tags",
     "defaultMessage": "Or"
   },
   {
     "id": "search.and",
+    "description": "Logical operator to be applied when filtering by multiple tags",
     "defaultMessage": "And"
   },
   {
     "id": "search.categoriesHeading",
+    "description": "Placeholder label for field to filter by tags",
     "defaultMessage": "Tags"
   },
   {
     "id": "search.show",
+    "description": "Placeholder label for field to filter by media type",
     "defaultMessage": "Media type"
   },
   {
     "id": "search.statusHeading",
+    "description": "Placeholder label for field to filter by status",
     "defaultMessage": "Item status"
   },
   {
     "id": "search.userHeading",
+    "description": "Placeholder label for field to filter by item creator",
     "defaultMessage": "Created by"
   },
   {
     "id": "search.language",
+    "description": "Placeholder label for field to filter by language",
     "defaultMessage": "Language"
   },
   {
     "id": "search.projectHeading",
+    "description": "Placeholder label for field to filter by lists to which items belong",
     "defaultMessage": "List"
   },
   {
     "id": "search.assignedTo",
+    "description": "Placeholder label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
   },
   {
     "id": "search.readHeading",
+    "description": "Label for field to filter by 'item is marked' as read",
     "defaultMessage": "Read"
   },
   {
     "id": "search.applyFilters",
+    "description": "Button to perform query with specified filters",
     "defaultMessage": "Apply filter"
   },
   {
     "id": "search.clear",
+    "description": "Tooltip for button to remove any applied filters",
     "defaultMessage": "Clear filter"
   }
 ]

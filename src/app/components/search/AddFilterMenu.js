@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -23,15 +24,23 @@ const AddFilterMenu = ({ onSelect }) => {
 
   return (
     <React.Fragment>
-      <Button startIcon={<AddCircleOutlineIcon />} onClick={e => setAnchorEl(e.currentTarget)}>
-        <FormattedMessage id="addFilterMenu.addFilter" defaultMessage="Add filter" />
+      <Button
+        id="add-filter-menu__open-button"
+        startIcon={<AddCircleOutlineIcon />}
+        onClick={e => setAnchorEl(e.currentTarget)}
+      >
+        <FormattedMessage
+          id="addFilterMenu.addFilter"
+          defaultMessage="Add filter"
+          description="Button that opens menu with filter field options"
+        />
       </Button>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => handleSelect('range')}>
+        <MenuItem id="add-filter-menu__time-range" onClick={() => handleSelect('range')}>
           <ListItemIcon>
             <DateRangeIcon />
           </ListItemIcon>
@@ -41,7 +50,7 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Menu option to enable searching items by time range"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('tags')}>
+        <MenuItem id="add-filter-menu__tags" onClick={() => handleSelect('tags')}>
           <ListItemIcon>
             <LocalOfferIcon />
           </ListItemIcon>
@@ -51,17 +60,17 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Menu option to enable searching items by tags"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('show')}>
+        <MenuItem id="add-filter-menu__media-type" onClick={() => handleSelect('show')}>
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>
           <FormattedMessage
-            id="addFilterMenu.itemType"
+            id="addFilterMenu.mediaType"
             defaultMessage="Media type"
             description="Menu option to enable searching items by media type"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('verification_status')}>
+        <MenuItem id="add-filter-menu__status" onClick={() => handleSelect('verification_status')}>
           <ListItemIcon>
             <LabelIcon />
           </ListItemIcon>
@@ -71,7 +80,7 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Menu option to enable searching items by item status"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('users')}>
+        <MenuItem id="add-filter-menu__created-by" onClick={() => handleSelect('users')}>
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
@@ -81,7 +90,7 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Menu option to enable searching items by author"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('dynamic')}>
+        <MenuItem id="add-filter-menu__language" onClick={() => handleSelect('dynamic')}>
           <ListItemIcon>
             <LanguageIcon />
           </ListItemIcon>
@@ -91,7 +100,7 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Menu option to enable searching items by language"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('assigned_to')}>
+        <MenuItem id="add-filter-menu__time-assigned-to" onClick={() => handleSelect('assigned_to')}>
           <ListItemIcon>
             <PersonIcon />
           </ListItemIcon>
@@ -101,7 +110,7 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Menu option to enable searching items by assigned users"
           />
         </MenuItem>
-        <MenuItem onClick={() => handleSelect('team_tasks')}>
+        <MenuItem id="add-filter-menu__team-tasks" onClick={() => handleSelect('team_tasks')}>
           <ListItemIcon>
             <StarIcon />
           </ListItemIcon>
@@ -114,6 +123,10 @@ const AddFilterMenu = ({ onSelect }) => {
       </Menu>
     </React.Fragment>
   );
+};
+
+AddFilterMenu.propTypes = {
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default AddFilterMenu;

@@ -1,13 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
 import CustomAutocomplete from '../layout/CustomAutocomplete';
-
-const useStyles = makeStyles({
-  root: {
-    minWidth: '200px',
-  },
-});
 
 const MultiSelectFilter = ({
   options,
@@ -19,8 +12,6 @@ const MultiSelectFilter = ({
   labelProp,
   append,
 }) => {
-  const classes = useStyles();
-
   const handleChange = (event, newValue) => {
     onChange(newValue);
   };
@@ -31,7 +22,6 @@ const MultiSelectFilter = ({
 
   return (
     <CustomAutocomplete
-      className={classes.root}
       defaultValue={selected}
       icon={icon}
       label={label}
@@ -45,9 +35,11 @@ const MultiSelectFilter = ({
 };
 
 MultiSelectFilter.defaultProps = {
+  icon: null,
   selected: [],
   hide: false,
   labelProp: 'label',
+  append: null,
 };
 
 MultiSelectFilter.propTypes = {
@@ -56,6 +48,7 @@ MultiSelectFilter.propTypes = {
     PropTypes.string,
   ])).isRequired,
   label: PropTypes.node.isRequired,
+  icon: PropTypes.element,
   onChange: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
@@ -63,6 +56,7 @@ MultiSelectFilter.propTypes = {
   ])),
   hide: PropTypes.bool,
   labelProp: PropTypes.string,
+  append: PropTypes.node,
 };
 
 export default MultiSelectFilter;

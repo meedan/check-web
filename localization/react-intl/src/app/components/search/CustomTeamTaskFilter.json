@@ -1,54 +1,67 @@
 [
   {
     "id": "CustomTeamTaskFilter.metadataChoiceLabel",
+    "description": "Label for custom field configuration to allow filtering by metadata value",
     "defaultMessage": "Metadata has specific value"
   },
   {
     "id": "CustomTeamTaskFilter.metadataTextLabel",
+    "description": "Label for custom field to allow configuration filtering by metadata keyword",
     "defaultMessage": "Metadata contains keyword"
   },
   {
     "id": "CustomTeamTaskFilter.taskChoiceLabel",
+    "description": "Label for custom field configuration to allow filtering by task answer",
     "defaultMessage": "Task has specific answer"
   },
   {
     "id": "CustomTeamTaskFilter.taskTextLabel",
+    "description": "Label for custom field configuration to allow filtering by task keyword",
     "defaultMessage": "Task answer contains keyword"
   },
   {
     "id": "CustomTeamTaskFilter.noValue",
+    "description": "Label for custom field configuration to allow filtering by task or metadata with no value set",
     "defaultMessage": "No value is set"
   },
   {
     "id": "CustomTeamTaskFilter.anyValue",
+    "description": "Label for custom field configuration to allow filtering by task or metadata with any value set",
     "defaultMessage": "Any value is set"
   },
   {
     "id": "CustomTeamTaskFilter.entityTaskLabel",
+    "description": "Label for input to select specific task to filter by",
     "defaultMessage": "Select task"
   },
   {
     "id": "CustomTeamTaskFilter.entityMetadataLabel",
+    "description": "Label for input to select specific metadata to filter by",
     "defaultMessage": "Select metadata"
   },
   {
     "id": "customFiltersManager.label",
-    "defaultMessage": "Custom fields"
+    "description": "Placeholder label for custom field when not fully configured",
+    "defaultMessage": "Custom field"
   },
   {
     "id": "CustomTeamTaskFilter.textNoValue",
-    "defaultMessage": "\"{entity}\" contains no value"
+    "description": "Label for custom field when metadata or task response contains no value",
+    "defaultMessage": "\"{field}\" contains no value"
   },
   {
     "id": "CustomTeamTaskFilter.textAnyValue",
-    "defaultMessage": "\"{entity}\" contains any value"
+    "description": "Label for custom field when metadata or task response contains any value",
+    "defaultMessage": "\"{field}\" contains any value"
   },
   {
     "id": "CustomTeamTaskFilter.choiceFilter",
-    "defaultMessage": "\"{entity}\" has value {value}"
+    "description": "Label for custom field when metadata or task response contains specific value",
+    "defaultMessage": "\"{field}\" has value {value}"
   },
   {
     "id": "CustomTeamTaskFilter.textFilter",
-    "defaultMessage": "\"{entity}\" contains {value}"
+    "description": "Label for custom field when metadata or task response contains keyword",
+    "defaultMessage": "\"{field}\" contains {value}"
   }
 ]

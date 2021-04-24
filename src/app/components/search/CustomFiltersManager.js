@@ -3,10 +3,13 @@ import PropTypes from 'prop-types';
 import CustomTeamTaskFilter from './CustomTeamTaskFilter';
 
 const CustomFiltersManager = ({
+  hide,
   team,
   onFilterChange,
   query,
 }) => {
+  if (hide) { return null; }
+
   const handleTeamTaskFilterChange = (teamTaskFilter, index) => {
     const newQuery = {};
     newQuery.team_tasks = query.team_tasks ? [...query.team_tasks] : [];
@@ -35,7 +38,13 @@ const CustomFiltersManager = ({
   ));
 };
 
+CustomFiltersManager.defaultProps = {
+  hide: false,
+};
+
 CustomFiltersManager.propTypes = {
+  hide: PropTypes.bool,
+  team: PropTypes.object.isRequired,
   onFilterChange: PropTypes.func.isRequired,
   query: PropTypes.shape({
     team_tasks: PropTypes.arrayOf(PropTypes.shape({
@@ -44,7 +53,6 @@ CustomFiltersManager.propTypes = {
       response_type: PropTypes.string,
     })),
   }).isRequired,
-  team: PropTypes.object.isRequired,
 };
 
 export default CustomFiltersManager;
