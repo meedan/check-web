@@ -42,4 +42,11 @@ window.config = {
   // Only needed for video timeline map
   //
   googleMapsApiKey: null, // '<GOOGLE MAPS API KEY>',
+
+  // Google Analytics is used to track website activity https://analytics.google.com
+  //
+  // OPTIONAL
+  // Only needed for tracking website
+  //
+  googleAnalyticsCode: null, // '<GOOGLE ANALYTICS CODE>',
 }

@@ -12,9 +12,6 @@ class UpdateUserMutation extends Relay.Mutation {
     if (this.props.current_team_id) {
       vars.current_team_id = this.props.current_team_id;
     }
-    if (this.props.current_project_id) {
-      vars.current_project_id = this.props.current_project_id;
-    }
     if (this.props.accept_terms) {
       vars.accept_terms = this.props.accept_terms;
     }

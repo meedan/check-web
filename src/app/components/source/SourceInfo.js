@@ -10,7 +10,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
-import { Link } from 'react-router';
 import LinkifyIt from 'linkify-it';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -341,7 +340,7 @@ function SourceInfo({
             <StyledName className="source__name">
               {sourceName}
             </StyledName>
-            <Link to={sourceMediasLink}>
+            <a href={sourceMediasLink} target="_blank" rel="noopener noreferrer">
               <FormattedMessage
                 id="sourceInfo.mediasCount"
                 defaultMessage="{mediasCount, plural, one {1 item} other {# items}}"
@@ -350,7 +349,7 @@ function SourceInfo({
                   mediasCount: source.medias_count || 0,
                 }}
               />
-            </Link>
+            </a>
           </StyledBigColumn>
         </StyledTwoColumns>
         <div className={classes.sourceInfoRight}>

@@ -60,6 +60,9 @@ function previewIntroduction(data, media) {
 
 function previewFooter(defaultReport) {
   const footer = [];
+  if (!defaultReport.use_signature) {
+    return '';
+  }
   if (defaultReport.signature) {
     footer.push(defaultReport.signature);
   }

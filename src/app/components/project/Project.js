@@ -9,7 +9,6 @@ import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
-import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -28,17 +27,6 @@ class ProjectComponent extends React.PureComponent {
     const context = this.getContext();
     const currentContext = this.currentContext();
     const newContext = {};
-
-    if (currentContext.currentUser &&
-       (!currentContext.project || currentContext.project.dbid !== this.props.project.dbid)) {
-      Relay.Store.commitUpdate(
-        new UpdateUserMutation({
-          current_project_id: this.props.project.dbid,
-          current_user_id: currentContext.currentUser.id,
-        }),
-        { onSuccess: () => {}, onFailure: () => {} },
-      );
-    }
 
     newContext.project = this.props.project;
 
