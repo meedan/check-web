@@ -139,7 +139,6 @@ class DateRangeFilter extends React.Component {
             </Select>
           </FormControl>
           <DatePicker
-            className="date-range__start-date"
             onChange={this.handleChangeStartDate}
             maxDate={this.endDateStringOrNull || undefined}
             okLabel={<FormattedMessage {...globalStrings.ok} />}
@@ -150,6 +149,7 @@ class DateRangeFilter extends React.Component {
               <FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date">
                 { text => (
                   <StyledInputBase
+                    className="date-range__start-date"
                     type="text"
                     placeholder={text}
                     onClick={onClick}
@@ -162,7 +162,6 @@ class DateRangeFilter extends React.Component {
           />
           <DatePicker
             inputVariant="outlined"
-            className="date-range__end-date"
             onChange={this.handleChangeEndDate}
             minDate={this.startDateStringOrNull || undefined}
             okLabel={<FormattedMessage {...globalStrings.ok} />}
@@ -172,6 +171,7 @@ class DateRangeFilter extends React.Component {
               <FormattedMessage id="search.pickDateTo" defaultMessage="Ending date">
                 { text => (
                   <StyledInputBaseEnd
+                    className="date-range__end-date"
                     type="text"
                     placeholder={text}
                     onClick={onClick}

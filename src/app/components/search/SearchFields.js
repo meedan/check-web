@@ -487,7 +487,7 @@ class SearchFields extends React.Component {
         <AddFilterMenu onSelect={this.handleAddField} />
         { this.state.addedFields.length || this.filterIsActive() ?
           <Button
-            id="search-query__submit-button"
+            id="search-fields__submit-button"
             color="primary"
             onClick={this.handleSubmit}
           >
@@ -497,7 +497,7 @@ class SearchFields extends React.Component {
         }
         { this.filterIsActive() ? (
           <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
-            <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
+            <IconButton id="search-fields__clear-button" onClick={this.handleClickClear}>
               <ClearIcon style={{ color: brandHighlight }} />
             </IconButton>
           </Tooltip>

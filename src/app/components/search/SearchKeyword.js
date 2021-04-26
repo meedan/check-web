@@ -379,7 +379,7 @@ class SearchKeyword extends React.Component {
 
           { this.keywordIsActive() ? (
             <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
-              <IconButton id="search-query__clear-button" onClick={this.handleClickClear}>
+              <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
                 <ClearIcon style={{ color: brandHighlight }} />
               </IconButton>
             </Tooltip>

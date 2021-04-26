@@ -50,7 +50,7 @@ const Tag = styled(({
 }) => (
   <div className={`custom-ac__tag ${className}`} {...props}>
     <span>{label}</span>
-    <CloseIcon onClick={onDelete} />
+    <CloseIcon className="custom-ac__tag-remove" onClick={onDelete} />
   </div>
 ))`
   display: flex;
@@ -177,7 +177,7 @@ export default function CustomizedHook({
           { value.map((option, index) => (
             <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
           )) }
-          <input {...getInputProps()} {...otherInputProps} />
+          <input className="custom-ac__input" {...getInputProps()} {...otherInputProps} />
           { append }
         </InputWrapper>
       </div>
