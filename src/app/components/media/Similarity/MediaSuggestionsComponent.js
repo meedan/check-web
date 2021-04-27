@@ -264,7 +264,7 @@ const MediaSuggestionsComponent = ({
           <Typography variant="button" display="block" className={classes.title}>
             <FormattedMessage
               id="mediaSuggestionsComponent.title"
-              defaultMessage="{current} of {total} suggested media"
+              defaultMessage="{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
               values={{
                 current: total === 0 ? 0 : index + 1,
                 total,

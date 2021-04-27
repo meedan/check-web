@@ -1,7 +1,7 @@
 [
   {
     "id": "smoochBotIntegrations.phoneNumber",
-    "defaultMessage": "Connected telephone: {link}"
+    "defaultMessage": "Connected phone number: {link}"
   },
   {
     "id": "smoochBotIntegrations.account",
