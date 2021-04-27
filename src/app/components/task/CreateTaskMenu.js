@@ -86,7 +86,11 @@ class CreateTaskMenu extends React.Component {
             <ListItemIcon><NumberIcon /></ListItemIcon>
             <ListItemText
               primary={
-                <FormattedMessage id="tasks.number" defaultMessage="Number" />
+                <FormattedMessage
+                  id="tasks.number"
+                  defaultMessage="Number"
+                  description="Label for a task type that requires a numeric value as answer"
+                />
               }
             />
           </MenuItem>

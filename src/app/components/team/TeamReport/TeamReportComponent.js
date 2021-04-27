@@ -202,8 +202,8 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   label={
                     <FormattedMessage
                       id="teamReportComponent.urlLabel"
-                      defaultMessage="Short url ({max} characters max)"
-                      description="Label for url field in report settings"
+                      defaultMessage="Short URL ({max} characters max)"
+                      description="Label for URL field in report settings"
                       values={{
                         max: 30,
                       }}
