@@ -1,26 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(2),
-  },
-}));
+import CustomAutocomplete from '../layout/CustomAutocomplete';
 
 const MultiSelectFilter = ({
   options,
   label,
+  icon,
   onChange,
   selected,
   hide,
   labelProp,
+  append,
 }) => {
-  const classes = useStyles();
-
   const handleChange = (event, newValue) => {
     onChange(newValue);
   };
@@ -30,33 +21,25 @@ const MultiSelectFilter = ({
   }
 
   return (
-    <Autocomplete
-      multiple
-      key={label}
-      className={classes.root}
-      limitTags={3}
-      options={options}
+    <CustomAutocomplete
+      defaultValue={selected}
+      icon={icon}
+      label={label}
       getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
       getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
-      value={selected}
-      filterSelectedOptions
-      renderInput={params => (
-        <TextField
-          {...params}
-          variant="outlined"
-          label={label}
-        />
-      )}
       onChange={handleChange}
-      fullWidth
+      options={options}
+      append={append}
     />
   );
 };
 
 MultiSelectFilter.defaultProps = {
+  icon: null,
   selected: [],
   hide: false,
   labelProp: 'label',
+  append: null,
 };
 
 MultiSelectFilter.propTypes = {
@@ -64,7 +47,8 @@ MultiSelectFilter.propTypes = {
     PropTypes.object,
     PropTypes.string,
   ])).isRequired,
-  label: PropTypes.object.isRequired,
+  label: PropTypes.node.isRequired,
+  icon: PropTypes.element,
   onChange: PropTypes.func.isRequired,
   selected: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
@@ -72,6 +56,7 @@ MultiSelectFilter.propTypes = {
   ])),
   hide: PropTypes.bool,
   labelProp: PropTypes.string,
+  append: PropTypes.node,
 };
 
 export default MultiSelectFilter;
