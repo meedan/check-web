@@ -1,9 +1,5 @@
 [
   {
-    "id": "search.dateHeading",
-    "defaultMessage": "Time Range"
-  },
-  {
     "id": "search.dateSubmittedHeading",
     "defaultMessage": "Submitted"
   },
