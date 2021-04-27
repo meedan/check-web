@@ -5,15 +5,15 @@
   },
   {
     "id": "statusesComponent.deleted",
-    "defaultMessage": "Status deleted successfully!"
+    "defaultMessage": "Status deleted successfully."
   },
   {
     "id": "statusesComponent.saved",
-    "defaultMessage": "Statuses saved successfully!"
+    "defaultMessage": "Statuses saved successfully."
   },
   {
     "id": "statusesComponent.created",
-    "defaultMessage": "Status created successfully!"
+    "defaultMessage": "Status created successfully."
   },
   {
     "id": "statusesComponent.title",

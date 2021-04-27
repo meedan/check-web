@@ -190,7 +190,7 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.assignmentsUpdated"
-          defaultMessage="Assignments updated successfully!"
+          defaultMessage="Assignments updated successfully."
         />
       );
       this.props.setFlashMessage(message, 'success');

@@ -2,7 +2,7 @@
   {
     "id": "inviteDialog.sentOtherInvitation",
     "description": "Success message when user send multiple invitations and some emails fail and other mails success.",
-    "defaultMessage": "Sent other invites."
+    "defaultMessage": "The other invites were sent successfully."
   },
   {
     "id": "inviteDialog.invitationSent",

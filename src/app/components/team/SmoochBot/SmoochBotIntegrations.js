@@ -32,7 +32,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           isOnline('whatsapp') ?
             <FormattedMessage
               id="smoochBotIntegrations.phoneNumber"
-              defaultMessage="Connected telephone: {link}"
+              defaultMessage="Connected phone number: {link}"
               values={{
                 link: (
                   <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} target="_blank" rel="noopener noreferrer">

@@ -1,6 +1,0 @@
-[
-  {
-    "id": "media.retweetsCount",
-    "defaultMessage": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
-  }
-]
