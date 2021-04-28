@@ -1,22 +1,4 @@
 {
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Selecionar metadados"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Selecionar tarefa"
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Os metadados têm um valor específico"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Os metadados contêm uma palavra-chave"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "A tarefa tem uma resposta específica"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "A resposta da tarefa contém uma palavra-chave"
-	},
 	"CheckAgreeTerms.agreeTerms": {
 		"string": "Ao se registrar, você concorda com o {appName} {tosLink} e o {ppLink}."
 	},
@@ -38,32 +20,53 @@
 	"CustomFilter.selectValueLabel": {
 		"string": "Selecionar valor"
 	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Adicionar filtros"
-	},
 	"CustomTeamTaskFilter.anyValue": {
-		"string": "Um valor qualquer foi definido"
+		"string": "Um valor qualquer foi definido",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.choiceFilter": {
+		"string": "\"{field}\" has value {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Selecionar metadados"
+		"string": "Selecionar metadados",
+		"developer_comment": "Label for input to select specific metadata to filter by"
 	},
 	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Selecionar tarefa"
+		"string": "Selecionar tarefa",
+		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Os metadados têm um valor específico"
+		"string": "Os metadados têm um valor específico",
+		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Os metadados contêm uma palavra-chave"
+		"string": "Os metadados contêm uma palavra-chave",
+		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "Nenhum valor foi definido"
+		"string": "Nenhum valor foi definido",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "A tarefa tem uma resposta específica"
+		"string": "A tarefa tem uma resposta específica",
+		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "A resposta da tarefa contém uma palavra-chave"
+		"string": "A resposta da tarefa contém uma palavra-chave",
+		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
+	},
+	"CustomTeamTaskFilter.textAnyValue": {
+		"string": "\"{field}\" contains any value",
+		"developer_comment": "Label for custom field when metadata or task response contains any value"
+	},
+	"CustomTeamTaskFilter.textFilter": {
+		"string": "\"{field}\" contains {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains keyword"
+	},
+	"CustomTeamTaskFilter.textNoValue": {
+		"string": "\"{field}\" contains no value",
+		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
 		"string": "Terminado"
@@ -85,66 +88,6 @@
 	},
 	"ProjectBlankState.createMedia": {
 		"string": "Insira um link ou texto"
-	},
-	"TeamInviteMembers.emailInput": {
-		"string": "Endereço de e-mail"
-	},
-	"TeamInviteMembers.emailMultipleInput": {
-		"string": "Separe e-mails por vírgulas"
-	},
-	"TeamInviteMembers.existsEmail": {
-		"string": "Já é membro."
-	},
-	"TeamInviteMembers.invalidEmail": {
-		"string": "Este endereço de e-mail não é válido."
-	},
-	"TeamInviteMembers.invitedEmail": {
-		"string": "Já convidado(a)."
-	},
-	"TeamInviteMembers.newInvite": {
-		"string": "Convidar membros"
-	},
-	"TeamMembersInvitedListItem.cancel": {
-		"string": "Cancelar convite"
-	},
-	"TeamMembersInvitedListItem.resend": {
-		"string": "Reenviar"
-	},
-	"TeamMembersListItem.collaborator": {
-		"string": "Collaborator"
-	},
-	"TeamMembersListItem.confirmDeleteMemberBlurb": {
-		"string": "Este usuário(a) será removido(a) de {team}"
-	},
-	"TeamMembersListItem.confirmDeleteMemberTitle": {
-		"string": "Tem certeza de que deseja remover {user}?"
-	},
-	"TeamMembersListItem.confirmEditMemberTitle": {
-		"string": "Tem certeza que deseja mudar o papel de {user}?"
-	},
-	"TeamMembersListItem.confirmLeaveBlurb": {
-		"string": "Você será removido(a) de {team}"
-	},
-	"TeamMembersListItem.confirmLeaveTitle": {
-		"string": "Tem certeza que deseja sair de {team}?"
-	},
-	"TeamMembersListItem.deleteMember": {
-		"string": "Remover membro"
-	},
-	"TeamMembersListItem.editor": {
-		"string": "Editor(a)"
-	},
-	"TeamMembersListItem.leaveTeam": {
-		"string": "Sair do espaço de trabalho"
-	},
-	"TeamMembersListItem.singleOwner": {
-		"string": "Antes de sair do espaço de trabalho, transfira a propriedade deste a outro membro."
-	},
-	"TeamMembershipRequestsListItem.approve": {
-		"string": "Aprovar"
-	},
-	"TeamMembershipRequestsListItem.deny": {
-		"string": "Recusar"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Conta já confirmada",
@@ -225,6 +168,42 @@
 	},
 	"addAnnotation.submitButton": {
 		"string": "Enviar"
+	},
+	"addFilterMenu.addFilter": {
+		"string": "Add filter",
+		"developer_comment": "Button that opens menu with filter field options"
+	},
+	"addFilterMenu.assignedTo": {
+		"string": "Assigned to",
+		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.createdBy": {
+		"string": "Created by",
+		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.customFields": {
+		"string": "Custom fields",
+		"developer_comment": "Menu option to enable searching items by custom fields"
+	},
+	"addFilterMenu.itemStatus": {
+		"string": "Item status",
+		"developer_comment": "Menu option to enable searching items by item status"
+	},
+	"addFilterMenu.language": {
+		"string": "Language",
+		"developer_comment": "Menu option to enable searching items by language"
+	},
+	"addFilterMenu.mediaType": {
+		"string": "Media type",
+		"developer_comment": "Menu option to enable searching items by media type"
+	},
+	"addFilterMenu.tags": {
+		"string": "Tags",
+		"developer_comment": "Menu option to enable searching items by tags"
+	},
+	"addFilterMenu.timeRange": {
+		"string": "Time range",
+		"developer_comment": "Menu option to enable searching items by time range"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Adicionar idioma"
@@ -503,24 +482,6 @@
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Não foi possível salvar o item"
 	},
-	"blankMediaCard.addItem": {
-		"string": "Adicionar item"
-	},
-	"blankMediaCard.confirmButtonLabel": {
-		"string": "Suspender o relatório e atualizar o conteúdo"
-	},
-	"blankMediaCard.confirmText": {
-		"string": "O seguinte item já tem um relatório publicado:\n              {link}\n              Se você prosseguir, tanto o status quanto o relatório serão substituídos, e o relatório será suspenso."
-	},
-	"blankMediaCard.confirmTitle": {
-		"string": "Substituir o relatório e o status?"
-	},
-	"blankMediaCard.defaultErrorMessage": {
-		"string": "Não foi possível salvar o item"
-	},
-	"bridge.pageTitle.appNameHuman": {
-		"string": "Bridge"
-	},
 	"browserSupport.message": {
 		"string": "{appName} é otimizado para Chrome para desktop da Google."
 	},
@@ -601,15 +562,6 @@
 	"changeUserRole.proceedLabel": {
 		"string": "Change role to {newRole}"
 	},
-	"claimReview.claim": {
-		"string": "Afirmação: "
-	},
-	"claimReview.claimedBy": {
-		"string": "Afirmação feita por: "
-	},
-	"claimReview.reviewedBy": {
-		"string": "Checagem de fatos por {reviewer}: "
-	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Type \"{text}\" to confirm this operation permanently."
 	},
@@ -674,15 +626,6 @@
 	"createProject.titleBlank": {
 		"string": "Adicione sua primeira lista"
 	},
-	"createRelatedMedia.addSecondaryItem": {
-		"string": "Adicionar item secundário"
-	},
-	"createRelatedMedia.addToPrimaryItem": {
-		"string": "Adicionar ao item principal"
-	},
-	"createTask.newTask": {
-		"string": "Nova tarefa"
-	},
 	"createTeamDialog.cancel": {
 		"string": "Cancelar"
 	},
@@ -722,6 +665,10 @@
 	},
 	"createTeamTask.errorTask": {
 		"string": "Desculpe, ocorreu um erro ao criar a tarefa. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+	},
+	"customFiltersManager.label": {
+		"string": "Custom field",
+		"developer_comment": "Placeholder label for custom field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
 		"string": "Responder à tarefa"
@@ -911,18 +858,12 @@
 	"home.successInvitation": {
 		"string": "Bem-vindo(a) ao {appName}. Por favor, faça o login com a senha que você recebeu no e-mail de boas-vindas."
 	},
-	"imageUploadRespondTask.answerTask": {
-		"string": "Responder à tarefa"
-	},
-	"imageUploadRespondTask.cancelTask": {
-		"string": "Cancelar"
-	},
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "Sent other invites.",
+		"string": "The other invites were sent successfully.",
 		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
@@ -1046,9 +987,6 @@
 	"list.updated": {
 		"string": "Atualizado"
 	},
-	"loadMore.loadMore": {
-		"string": "Carregar mais"
-	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
 	},
@@ -1107,26 +1045,11 @@
 	"login.withGoogle": {
 		"string": "Sign in with Google"
 	},
-	"loginContainer.agreeTerms": {
-		"string": "Ao se registrar, você concorda com o {appName} {tosLink} e o {ppLink}."
-	},
 	"loginEmail.lostPassword": {
 		"string": "Forgot your password?"
 	},
-	"media.byAttribution": {
-		"string": "{typeLabel} por {attribution}"
-	},
-	"media.confirmLeave": {
-		"string": "{count, plural, one {Tem certeza que deseja sair? Você ainda tem uma tarefa obrigatória que lhe foi atribuída  e que ainda não foi respondida.} other {Tem certeza de que deseja sair? Você ainda tem # tarefas obrigatórias que lhe foram atribuídas e que ainda não foram respondidas.}}"
-	},
 	"media.normalSpeed": {
 		"string": "Velocidade normal"
-	},
-	"media.onDomain": {
-		"string": "{typeLabel} em {domain}"
-	},
-	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
 	},
 	"media.typeAudio": {
 		"string": "Áudio"
@@ -1137,41 +1060,17 @@
 	"media.typeClaim": {
 		"string": "Texto"
 	},
-	"media.typeFacebook": {
-		"string": "Postagem do Facebook"
-	},
 	"media.typeImage": {
 		"string": "Imagem"
-	},
-	"media.typeInstagram": {
-		"string": "Instagram"
 	},
 	"media.typeLink": {
 		"string": "Link"
 	},
-	"media.typePage": {
-		"string": "Página"
-	},
-	"media.typeTiktok": {
-		"string": "Vídeo do TikTok"
-	},
-	"media.typeTwitter": {
-		"string": "Tweet"
-	},
 	"media.typeVideo": {
 		"string": "Vídeo"
 	},
-	"media.typeYoutube": {
-		"string": "Vídeo do YouTube"
-	},
-	"mediaActions.addToList": {
-		"string": "Adicionar à lista"
-	},
 	"mediaActions.assignOrUnassign": {
 		"string": "Assign to…"
-	},
-	"mediaActions.edit": {
-		"string": "Editar título e descrição"
 	},
 	"mediaActions.history": {
 		"string": "Histórico do item"
@@ -1179,17 +1078,8 @@
 	"mediaActions.lockStatus": {
 		"string": "Bloquear status"
 	},
-	"mediaActions.move": {
-		"string": "Mover"
-	},
 	"mediaActions.refresh": {
 		"string": "Recarregar"
-	},
-	"mediaActions.removeFromList": {
-		"string": "Remover da lista"
-	},
-	"mediaActions.restore": {
-		"string": "Restaurar da lixeira"
 	},
 	"mediaActions.sendToTrash": {
 		"string": "Enviar para a lixeira"
@@ -1199,12 +1089,6 @@
 	},
 	"mediaActions.unlockStatus": {
 		"string": "Desbloquear status"
-	},
-	"mediaActionsBar.add": {
-		"string": "Adicionar"
-	},
-	"mediaActionsBar.addTo": {
-		"string": "Adicionar a..."
 	},
 	"mediaActionsBar.assignmentNotes": {
 		"string": "Notas"
@@ -1216,16 +1100,13 @@
 		"string": "Atribuir item aos(às) colaboradore(a)s"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "As atribuições foram atualizadas com sucesso!"
+		"string": "Assignments updated successfully."
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Cancelar"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirmar"
-	},
-	"mediaActionsBar.dialogAddToListTitle": {
-		"string": "Adicionar a uma lista diferente"
 	},
 	"mediaActionsBar.dialogMoveTitle": {
 		"string": "Mover para uma lista diferente"
@@ -1250,12 +1131,6 @@
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Relatório publicado"
-	},
-	"mediaActionsBar.removeFromList": {
-		"string": "Remover da lista"
-	},
-	"mediaActionsBar.removedFromList": {
-		"string": "Removido da lista"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
 		"string": "Mover para a lista"
@@ -1344,32 +1219,8 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Tarefas do item"
 	},
-	"mediaCondensed.requests": {
-		"string": "{count} solicitações"
-	},
-	"mediaDetail.cancelButton": {
-		"string": "Cancelar"
-	},
-	"mediaDetail.doneButton": {
-		"string": "Concluído"
-	},
-	"mediaDetail.editReport": {
-		"string": "Editar"
-	},
-	"mediaDetail.editReportError": {
-		"string": "Desculpe, ocorreu um erro ao atualizar o item. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"mediaDetail.mediaDescription": {
-		"string": "Descrição"
-	},
-	"mediaDetail.mediaTitle": {
-		"string": "Título"
-	},
 	"mediaDetail.trash": {
 		"string": "Lixeira"
-	},
-	"mediaExpanded.addToImportedReport": {
-		"string": "Adicionar ao relatório importado"
 	},
 	"mediaExpanded.firstSeen": {
 		"string": "Visto pela primeira vez:"
@@ -1448,20 +1299,8 @@
 	"mediaMetadata.Timeline": {
 		"string": "Cronologia"
 	},
-	"mediaMetadata.addedToList": {
-		"string": "Adicionar à lista {listName}"
-	},
 	"mediaMetadata.download": {
 		"string": "Baixar"
-	},
-	"mediaRelated.loadMore": {
-		"string": "Carregar mais"
-	},
-	"mediaRelated.primaryItem": {
-		"string": "Item principal"
-	},
-	"mediaRelated.secondaryItems": {
-		"string": "Itens secundários"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Adicionar relação"
@@ -1581,17 +1420,8 @@
 		"string": "Change",
 		"developer_comment": "allow user to change a project media source"
 	},
-	"mediaStatus.cancelMessage": {
-		"string": "Cancelar"
-	},
 	"mediaStatus.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"mediaStatus.messageDescription": {
-		"string": "Por favor, insira um comentário. Ele será reenviado ao(à) autor(a) para informá-lo(a) que a solicitação dele(a) será fechada."
-	},
-	"mediaStatus.noteHint": {
-		"string": "Pressione ENTER para enviar"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Voltar"
@@ -1618,10 +1448,7 @@
 		"string": "Solicitações"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total} suggested media"
-	},
-	"mediaTags.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar a tag. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Menos"
@@ -1655,9 +1482,6 @@
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
 	},
-	"pageTitle.appNameHuman": {
-		"string": "Check"
-	},
 	"passwordChange.changePassword": {
 		"string": "Modificar senha"
 	},
@@ -1686,7 +1510,7 @@
 		"string": "As senhas não coincidem"
 	},
 	"passwordReset.confirmedText": {
-		"string": "If this email exists, you will receive an email to reset your password from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "E-mail"
@@ -1749,33 +1573,6 @@
 	},
 	"projectAssignment.title": {
 		"string": "Atribuir lista aos(às) colaboradore(a)s"
-	},
-	"projectEdit.confirmCancelLabel": {
-		"string": "Go back"
-	},
-	"projectEdit.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
-	},
-	"projectEdit.confirmProceedLabel": {
-		"string": "Save changes"
-	},
-	"projectEdit.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
-	},
-	"projectEdit.descriptionField": {
-		"string": "Descrição"
-	},
-	"projectEdit.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar a lista. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"projectEdit.saveButton": {
-		"string": "Atualizar"
-	},
-	"projectEdit.title": {
-		"string": "List details"
-	},
-	"projectEdit.titleField": {
-		"string": "Título"
 	},
 	"projectEditDialogComponent.confirmCancelLabel": {
 		"string": "Go back"
@@ -1850,9 +1647,6 @@
 	"reportDesigner.back": {
 		"string": "Voltar para anotação"
 	},
-	"reportDesigner.canPublish": {
-		"string": "Publicar o relatório"
-	},
 	"reportDesigner.cancelLeaveButtonLabel": {
 		"string": "Go back"
 	},
@@ -1907,23 +1701,14 @@
 	"reportDesigner.confirmRepublishResendText": {
 		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
-	"reportDesigner.confirmRepublishResendText2": {
-		"string": "A partir de agora, os(as) usuários(as) que solicitarem este item receberão esta nova versão do relatório."
-	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Pronto(a) para publicar suas modificações?"
-	},
-	"reportDesigner.confirmRepublishText": {
-		"string": "A partir de agora, os(as) usuários(as) que solicitarem este item receberão esta nova versão do relatório."
 	},
 	"reportDesigner.confirmRepublishTitle": {
 		"string": "Pronto(a) para publicar suas modificações?"
 	},
 	"reportDesigner.content": {
 		"string": "Conteúdo ({max} caracteres no máximo)"
-	},
-	"reportDesigner.copyButton": {
-		"string": "Copiar"
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Copiado"
@@ -1945,9 +1730,6 @@
 	},
 	"reportDesigner.description": {
 		"string": "Conteúdo ({max} caracteres no máximo)"
-	},
-	"reportDesigner.disclaimer": {
-		"string": "Isenção de responsabilidade"
 	},
 	"reportDesigner.edit": {
 		"string": "Editar"
@@ -1973,17 +1755,11 @@
 	"reportDesigner.pause": {
 		"string": "Suspender"
 	},
-	"reportDesigner.pauseReport": {
-		"string": "Suspender o relatório"
-	},
 	"reportDesigner.publish": {
 		"string": "Publicar"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Remover imagem"
-	},
-	"reportDesigner.reportEditorTitle": {
-		"string": "Selecione o conteúdo para enviar em seu relatório"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Pré-visualização do relatório",
@@ -2009,9 +1785,6 @@
 	},
 	"reportDesigner.textTitle": {
 		"string": "Título ({max} caracteres no máximo)"
-	},
-	"reportDesigner.themeColor": {
-		"string": "Cor do tema"
 	},
 	"reportDesigner.title": {
 		"string": "Crie seu relatório"
@@ -2113,7 +1886,7 @@
 		"string": "Não foi possível salvar a regra"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "As regras foram atualizadas com sucesso!"
+		"string": "Rules saved successfully."
 	},
 	"rulesTableHead.name": {
 		"string": "Nome",
@@ -2150,35 +1923,28 @@
 	"rulesTableToolbar.title": {
 		"string": "Regras"
 	},
-	"search.Filter": {
-		"string": "Filtro"
-	},
-	"search.all": {
-		"string": "Todas"
-	},
 	"search.allClaimsTitle": {
 		"string": "Todos os itens"
 	},
-	"search.any": {
-		"string": "Qualquer uma"
+	"search.and": {
+		"string": "And",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.applyFilters": {
-		"string": "Filtro"
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
-		"string": "Atribuído a"
-	},
-	"search.cancel": {
-		"string": "Cancelar"
+		"string": "Atribuído a",
+		"developer_comment": "Placeholder label for field to filter by assigned users"
 	},
 	"search.categoriesHeading": {
-		"string": "Tags"
+		"string": "Tags",
+		"developer_comment": "Placeholder label for field to filter by tags"
 	},
 	"search.clear": {
-		"string": "Limpar filtro"
-	},
-	"search.dateHeading": {
-		"string": "Intervalo de tempo"
+		"string": "Limpar filtro",
+		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Último envio"
@@ -2193,16 +1959,23 @@
 		"string": "Atualizado"
 	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árvore + Folha</td><td>Itens com ambos \"Árvore\" E \"Folha\" </td></tr>\n                        <tr><td>|</td><td>Árvore | Folha </td><td>Itens com alternativamente \"Árvore\" OU \"Folha\"</td></tr>\n                        <tr><td>()</td><td>Árvore + (Folha | Ramo)</td><td>Itens com \"Árvore\" E \"Folha\" OU itens com \"Árvore\" E \"Ramo\"</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Saiba mais sobre as técnicas de pesquisa\n                      </a>\n                    </div>"
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árvore + Folha</td><td>Itens com ambos \"Árvore\" E \"Folha\" </td></tr>\n                        <tr><td>|</td><td>Árvore | Folha </td><td>Itens com alternativamente \"Árvore\" OU \"Folha\"</td></tr>\n                        <tr><td>()</td><td>Árvore + (Folha | Ramo)</td><td>Itens com \"Árvore\" E \"Folha\" OU itens com \"Árvore\" E \"Ramo\"</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Saiba mais sobre as técnicas de pesquisa\n                      </a>\n                    </div>",
+		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
-		"string": "Buscar"
+		"string": "Buscar",
+		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Idioma"
+		"string": "Idioma",
+		"developer_comment": "Placeholder label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Próxima página"
+	},
+	"search.or": {
+		"string": "Or",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.pickDateFrom": {
 		"string": "Data inicial"
@@ -2214,43 +1987,48 @@
 		"string": "Página anterior"
 	},
 	"search.projectHeading": {
-		"string": "Lista"
+		"string": "Lista",
+		"developer_comment": "Placeholder label for field to filter by lists to which items belong"
 	},
 	"search.readHeading": {
-		"string": "Lido"
-	},
-	"search.reset": {
-		"string": "Redefinir"
+		"string": "Lido",
+		"developer_comment": "Label for field to filter by 'item is marked' as read"
 	},
 	"search.show": {
-		"string": "Formato da mídia"
+		"string": "Formato da mídia",
+		"developer_comment": "Placeholder label for field to filter by media type"
 	},
 	"search.showAudios": {
-		"string": "Áudio"
+		"string": "Áudio",
+		"developer_comment": "Describes media type Audio"
 	},
 	"search.showBlank": {
-		"string": "Relatório importado"
+		"string": "Relatório importado",
+		"developer_comment": "Describes media type unspecified"
 	},
 	"search.showClaims": {
-		"string": "Texto"
+		"string": "Texto",
+		"developer_comment": "Describes media type Text"
 	},
 	"search.showImages": {
-		"string": "Imagem"
+		"string": "Imagem",
+		"developer_comment": "Describes media type Image"
 	},
 	"search.showLinks": {
-		"string": "Link"
+		"string": "Link",
+		"developer_comment": "Describes media type Link"
 	},
 	"search.showVideos": {
-		"string": "Vídeo"
+		"string": "Vídeo",
+		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Status do item"
-	},
-	"search.title": {
-		"string": "Todos os itens"
+		"string": "Status do item",
+		"developer_comment": "Placeholder label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Criado por"
+		"string": "Criado por",
+		"developer_comment": "Placeholder label for field to filter by item creator"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "Fonte"
@@ -2305,15 +2083,6 @@
 	"sentence.separator": {
 		"string": ","
 	},
-	"setProjectMediaSource.cancelButton": {
-		"string": "Cancelar"
-	},
-	"setProjectMediaSource.choose": {
-		"string": "Choose a source"
-	},
-	"setProjectMediaSource.saveButton": {
-		"string": "Salvar"
-	},
 	"setSourceDialog.confirm": {
 		"string": "Do you want to use the existing sources for this media?",
 		"developer_comment": "Confirm message to relate media to an existing source"
@@ -2362,14 +2131,8 @@
 	"singleChoiceTask.value": {
 		"string": "Valor"
 	},
-	"slackConfig.menuTooltip": {
-		"string": "Configurações de integração"
-	},
 	"slackConfig.text": {
 		"string": "Send notifications to Slack channels when items are added to specific lists"
-	},
-	"slackConfig.title": {
-		"string": "Integração com Slack"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "Todas as outras atividades"
@@ -2399,7 +2162,7 @@
 		"string": "Salvar"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Configurações do Slack salvas com sucesso!"
+		"string": "Slack settings saved successfully."
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Enviar notificações para"
@@ -2426,7 +2189,7 @@
 		"string": "Um menu pedindo ao(à) usuário(a) para escolher entre um conjunto de opções. Esta mensagem segue automaticamente a mensagem de saudação. '9' não pode ser usado como uma opção no menu principal."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "A mensagem é enviada se a resposta do(a) usuário(a) a um menu não corresponder a um cenário de menu válido."
@@ -2614,7 +2377,7 @@
 		"string": "Connected page: {link}"
 	},
 	"smoochBotIntegrations.phoneNumber": {
-		"string": "Connected telephone: {link}"
+		"string": "Connected phone number: {link}"
 	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Connected Telegram bot: {link}"
@@ -2696,27 +2459,6 @@
 	},
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
-	},
-	"smoochBotSelectReport.cancel": {
-		"string": "Cancelar"
-	},
-	"smoochBotSelectReport.confirm": {
-		"string": "Confirmar"
-	},
-	"smoochBotSelectReport.dialogDescription": {
-		"string": "Procure o título do item que você deseja enviar como relatório. O bot responderá ao(à) usuário(a) com esse relatório. O relatório deve ter sido concluído antes que você possa procurá-lo aqui."
-	},
-	"smoochBotSelectReport.dialogTitle": {
-		"string": "Selecione um relatório"
-	},
-	"smoochBotSettings.connectToFacebook": {
-		"string": "Connect to Facebook"
-	},
-	"smoochBotSettings.connectToTwitter": {
-		"string": "Connect to Twitter"
-	},
-	"smoochBotSettings.connectToWhatsApp": {
-		"string": "Connect to WhatsApp"
 	},
 	"sortSelect.az": {
 		"string": "A a Z"
@@ -2842,10 +2584,10 @@
 		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully!"
+		"string": "Status created successfully."
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully!"
+		"string": "Status deleted successfully."
 	},
 	"statusesComponent.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -2857,7 +2599,7 @@
 		"string": "Novo status"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully!"
+		"string": "Statuses saved successfully."
 	},
 	"statusesComponent.subtitle": {
 		"string": "O título do status é exibido quando os relatório são enviados aos(às) usuários(as)."
@@ -2904,9 +2646,6 @@
 	},
 	"tagPicker.tagNotFound": {
 		"string": "Tag #{tag} não encontrada."
-	},
-	"tagTextCount.acknowledge": {
-		"string": "{count, plural, =0 {Sim} one {Entendo que, ao excluir essa tag, ela será removida de uma mídia.} other {Entendo que, ao excluir essa tag, ela será removida de # mídias.}}"
 	},
 	"task.answeredBy": {
 		"string": "Completada por {byName}"
@@ -3002,9 +2741,6 @@
 	"tasks.description": {
 		"string": "Descrição (opcional)"
 	},
-	"tasks.done": {
-		"string": "Terminado"
-	},
 	"tasks.editAssignment": {
 		"string": "Editar atribuição"
 	},
@@ -3021,7 +2757,8 @@
 		"string": "Ir para configurações"
 	},
 	"tasks.number": {
-		"string": "Number"
+		"string": "Number",
+		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.shortAnswer": {
 		"string": "Texto"
@@ -3055,51 +2792,6 @@
 	},
 	"teamBots.success": {
 		"string": "Configurações salvas."
-	},
-	"teamComponent.cancelButton": {
-		"string": "Cancelar"
-	},
-	"teamComponent.editButton": {
-		"string": "Editar perfil"
-	},
-	"teamComponent.editError": {
-		"string": "Desculpe, ocorreu um erro ao atualizar o espaço de trabalho. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"teamComponent.invalidLink": {
-		"string": "Por favor, insira uma URL válida"
-	},
-	"teamComponent.location": {
-		"string": "Localização"
-	},
-	"teamComponent.noProjects": {
-		"string": "Nenhuma lista"
-	},
-	"teamComponent.phone": {
-		"string": "Telefone"
-	},
-	"teamComponent.private": {
-		"string": "Privado"
-	},
-	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Atribuído a um membro} other {Atribuído a # membros}}"
-	},
-	"teamComponent.projects": {
-		"string": "Listas"
-	},
-	"teamComponent.public": {
-		"string": "Público"
-	},
-	"teamComponent.saveButton": {
-		"string": "Salvar"
-	},
-	"teamComponent.teamDescription": {
-		"string": "Descrição"
-	},
-	"teamComponent.teamName": {
-		"string": "Nome"
-	},
-	"teamComponent.website": {
-		"string": "Website"
 	},
 	"teamDataComponent.formLinkText": {
 		"string": "this short form"
@@ -3149,59 +2841,11 @@
 	"teamDetails.workspaceName": {
 		"string": "Workspace name"
 	},
-	"teamInfo.duplicateTeam": {
-		"string": "Duplicar"
-	},
-	"teamInfo.editTeam": {
-		"string": "Editar"
-	},
 	"teamIntegrations.subtitle": {
 		"string": "Third party tools to enhance productivity."
 	},
 	"teamIntegrations.title": {
 		"string": "Integrações"
-	},
-	"teamInviteCard.copied": {
-		"string": "COPIAR"
-	},
-	"teamInviteCard.copy": {
-		"string": "COPIADO!"
-	},
-	"teamInviteCard.title": {
-		"string": "Convidar membros"
-	},
-	"teamInviteMembers.addAnother": {
-		"string": "Adicionar outro"
-	},
-	"teamInviteMembers.addMany": {
-		"string": "Adicionar vários(as)"
-	},
-	"teamInviteMembers.addSeparate": {
-		"string": "Adicionar separadamente"
-	},
-	"teamInviteMembers.cancelAdd": {
-		"string": "Cancelar"
-	},
-	"teamInviteMembers.customInvitation": {
-		"string": "Nota de convite (opcional)"
-	},
-	"teamInviteMembers.inviteMember": {
-		"string": "Convidar"
-	},
-	"teamInviteMembers.inviteMembers": {
-		"string": "Os membros serão convidados como"
-	},
-	"teamInviteMembers.resendEmailSuccess": {
-		"string": "Convite enviado com sucesso"
-	},
-	"teamInviteMembers.send": {
-		"string": "Enviar"
-	},
-	"teamLists.description": {
-		"string": "Selecione todas as colunas que você deseja exibir em todas as suas listas."
-	},
-	"teamLists.title": {
-		"string": "Configurações de listas"
 	},
 	"teamListsColumn.none": {
 		"string": "None available",
@@ -3313,9 +2957,6 @@
 	"teamMembers.tooltip": {
 		"string": "Manage member"
 	},
-	"teamMembersComponent.inviteLink": {
-		"string": "Para convidar colegas para participar {link}, envie-lhes este link:"
-	},
 	"teamMenu.teamSettings": {
 		"string": "Configurações do espaço de trabalho"
 	},
@@ -3338,33 +2979,6 @@
 	"teamMetadataRender.sourceTitle": {
 		"string": "Source metadata",
 		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
-	},
-	"teamReport.disclaimer": {
-		"string": "Isenção de responsabilidade"
-	},
-	"teamReport.disclaimerSub": {
-		"string": "Isenção de responsabilidade que será exibida na parte inferior do relatório com a logotipo do espaço de trabalho."
-	},
-	"teamReport.introduction": {
-		"string": "Introdução"
-	},
-	"teamReport.introductionSub": {
-		"string": "Use o indicador {query_date} para exibir a data da consulta original. Use {status} para comunicar o status do artigo."
-	},
-	"teamReport.save": {
-		"string": "Salvar"
-	},
-	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
-	},
-	"teamReport.title": {
-		"string": "Configurações do relatório"
-	},
-	"teamReport.updateFail": {
-		"string": "Desculpe, ocorreu um erro ao atualizar as configurações do relatório. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"teamReport.updateSuccess": {
-		"string": "As configurações do relatório foram atualizadas com sucesso!"
 	},
 	"teamReportComponent.defaultErrorMessage": {
 		"string": "Could not save report settings.",
@@ -3412,8 +3026,8 @@
 		"string": "Website URL"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Short url ({max} characters max)",
-		"developer_comment": "Label for url field in report settings"
+		"string": "Short URL ({max} characters max)",
+		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {
 		"string": "Viber public account URI"
@@ -3520,12 +3134,6 @@
 	"teamTags.tooltip": {
 		"string": "Filtrar e classificar a lista"
 	},
-	"teamTasks.blank": {
-		"string": "Nenhuma tarefa padrão para exibir"
-	},
-	"teamTasks.blankMetadata": {
-		"string": "Não há campos de metadados"
-	},
 	"teamTasks.cancelAction": {
 		"string": "Cancelar"
 	},
@@ -3568,32 +3176,11 @@
 	"teamTasks.edit": {
 		"string": "Editar"
 	},
-	"teamTasks.filter": {
-		"string": "Filtrar tarefas"
-	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Nenhuma tarefa} one {1 tarefa} other {# tarefas}}"
 	},
 	"teamTasks.filterLabelHidden": {
 		"string": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
-	},
-	"teamTasks.metadata": {
-		"string": "Metadados"
-	},
-	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
-	},
-	"teamTasks.projFilter": {
-		"string": "Mostrar tarefas em"
-	},
-	"teamTasks.tasks": {
-		"string": "Tarefas"
-	},
-	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
-	},
-	"teamTasks.typeFilter": {
-		"string": "Tipo da tarefa"
 	},
 	"teamTasksRender.blank": {
 		"string": "Nenhuma tarefa padrão para exibir",
@@ -3649,18 +3236,6 @@
 	"translateStatuses.status": {
 		"string": "Status"
 	},
-	"translationNeededDialog.body": {
-		"string": "Para fazer do {language} o idioma padrão, você deve primeiro traduzir todos os status existentes para {language} na aba de configurações de Status."
-	},
-	"translationNeededDialog.title": {
-		"string": "Traduções de status necessárias"
-	},
-	"trash.emptyTrash": {
-		"string": "Esvaziar a lixeira"
-	},
-	"trash.emptyTrashConfirmationText": {
-		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
-	},
 	"trash.title": {
 		"string": "Lixeira"
 	},
@@ -3687,30 +3262,6 @@
 	},
 	"uploadFile.videoMessage": {
 		"string": "Deposite um arquivo de vídeo aqui, ou clique para carregar um arquivo (tamanho máximo: {video_max_size}, extensões permitidas: {video_extensions})"
-	},
-	"uploadImage.changeFile": {
-		"string": "{filename} (clique ou deposite para modificar)"
-	},
-	"uploadImage.fileTooLarge": {
-		"string": "O tamanho do arquivo deve ser inferior a {size}. Por favor, tente com um arquivo menor."
-	},
-	"uploadImage.invalidExtension": {
-		"string": "O nome do arquivo não pode conter extensões \"{extension}\". Por favor, tente com nomes de arquivos que tenham este formato: {allowed_types}."
-	},
-	"uploadImage.message": {
-		"string": "Deposite um arquivo de imagem aqui, ou clique para carregar um arquivo (tamanho máximo: {upload_max_size}, extensões permitidas: {upload_extensions}, dimensões permitidas entre {upload_min_dimensions} e {upload_max_dimensions} pixels)"
-	},
-	"uploadImage.videoMessage": {
-		"string": "Deposite um arquivo de vídeo aqui, ou clique para carregar um arquivo (tamanho máximo: {video_max_size}, extensões permitidas: {video_extensions})"
-	},
-	"userAlreadyConfirmed.heading": {
-		"string": "Conta já confirmada"
-	},
-	"userAlreadyConfirmed.login": {
-		"string": "entrar"
-	},
-	"userAlreadyConfirmed.message": {
-		"string": "Oops! Sua conta já foi confirmada. Por favor, {login} para começar."
 	},
 	"userAssignments.blank": {
 		"string": "Nenhuma atividade"
@@ -3741,12 +3292,6 @@
 	"userConfirmed.confrimMessage": {
 		"string": "Agradecemos por confirmar seu endereço de e-mail! Agora você pode iniciar uma sessão.",
 		"developer_comment": "Message for confirmed user"
-	},
-	"userConfirmed.heading": {
-		"string": "Conta Confirmada"
-	},
-	"userConfirmed.message": {
-		"string": "Agradecemos por confirmar seu endereço de e-mail! Agora você pode iniciar uma sessão."
 	},
 	"userConfirmed.unConfrimMessage": {
 		"string": "Desculpe, ocorreu um erro ao confirmar sua conta. Por favor, tente novamente e entre em  contato com {supportEmail} se o problema persistir.",
@@ -3811,9 +3356,6 @@
 	},
 	"userInfoEdit.userSendEmailNotification": {
 		"string": "Receber notificações de e-mail"
-	},
-	"userMenu.edit": {
-		"string": "Editar perfil"
 	},
 	"userPrivacy.connectedAccounts": {
 		"string": "Contas conectadas"
@@ -3958,15 +3500,6 @@
 	},
 	"userTos.validation": {
 		"string": "Você deve concordar com os Termos de Serviço e com a Política de Privacidade"
-	},
-	"userUnconfirmed.heading": {
-		"string": "Erro"
-	},
-	"userUnconfirmed.message": {
-		"string": "Desculpe, ocorreu um erro ao confirmar sua conta. Por favor, tente novamente e entre em  contato com {supportEmail} se o problema persistir."
-	},
-	"video.normalSpeed": {
-		"string": "Velocidade normal"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Este item não pôde ser identificado. Ele pode ter sido removido, ou pode estar visível apenas para os(as) usuários(as) que estão logados. Clique no link acima para navegar até ele."

@@ -1,22 +1,4 @@
 {
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Selectează metadatele"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Selectează sarcina"
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Metadatele au o valoare specifică"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Metadatele conțin cuvântul-cheie"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "Sarcina are un răspuns specific"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "Răspunsul la sarcină conține cuvântul-cheie"
-	},
 	"CheckAgreeTerms.agreeTerms": {
 		"string": "Prin înregistrare, agreați {appName} {tosLink} și {ppLink}."
 	},
@@ -38,32 +20,53 @@
 	"CustomFilter.selectValueLabel": {
 		"string": "Selectează valoarea"
 	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Adaugă filtre"
-	},
 	"CustomTeamTaskFilter.anyValue": {
-		"string": "Setat pe orice valoare"
+		"string": "Setat pe orice valoare",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.choiceFilter": {
+		"string": "\"{field}\" has value {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Selectează metadatele"
+		"string": "Selectează metadatele",
+		"developer_comment": "Label for input to select specific metadata to filter by"
 	},
 	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Selectează sarcina"
+		"string": "Selectează sarcina",
+		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Metadatele au o valoare specifică"
+		"string": "Metadatele au o valoare specifică",
+		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadatele conțin cuvântul-cheie"
+		"string": "Metadatele conțin cuvântul-cheie",
+		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "Nicio valoare setată"
+		"string": "Nicio valoare setată",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "Sarcina are un răspuns specific"
+		"string": "Sarcina are un răspuns specific",
+		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Răspunsul la sarcină conține cuvântul-cheie"
+		"string": "Răspunsul la sarcină conține cuvântul-cheie",
+		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
+	},
+	"CustomTeamTaskFilter.textAnyValue": {
+		"string": "\"{field}\" contains any value",
+		"developer_comment": "Label for custom field when metadata or task response contains any value"
+	},
+	"CustomTeamTaskFilter.textFilter": {
+		"string": "\"{field}\" contains {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains keyword"
+	},
+	"CustomTeamTaskFilter.textNoValue": {
+		"string": "\"{field}\" contains no value",
+		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
 		"string": "Terminat"
@@ -85,66 +88,6 @@
 	},
 	"ProjectBlankState.createMedia": {
 		"string": "Adăugați un link sau text"
-	},
-	"TeamInviteMembers.emailInput": {
-		"string": "Adresă de e-mail"
-	},
-	"TeamInviteMembers.emailMultipleInput": {
-		"string": "Separați adresele de e-mail prin virgule"
-	},
-	"TeamInviteMembers.existsEmail": {
-		"string": "Este deja membru."
-	},
-	"TeamInviteMembers.invalidEmail": {
-		"string": "Adresă de e-mail nevalidă."
-	},
-	"TeamInviteMembers.invitedEmail": {
-		"string": "Deja invitat."
-	},
-	"TeamInviteMembers.newInvite": {
-		"string": "Invită membri"
-	},
-	"TeamMembersInvitedListItem.cancel": {
-		"string": "Anulează invitația"
-	},
-	"TeamMembersInvitedListItem.resend": {
-		"string": "Retransmite"
-	},
-	"TeamMembersListItem.collaborator": {
-		"string": "Colaborator"
-	},
-	"TeamMembersListItem.confirmDeleteMemberBlurb": {
-		"string": "Utilizatorul va fi eliminat din echipa {team}"
-	},
-	"TeamMembersListItem.confirmDeleteMemberTitle": {
-		"string": "Sigur vreți să eliminați utilizatorul {user}?"
-	},
-	"TeamMembersListItem.confirmEditMemberTitle": {
-		"string": "Sigur vreți să modificați rolul utilizatorului {user}?"
-	},
-	"TeamMembersListItem.confirmLeaveBlurb": {
-		"string": "Veți fi eliminat(ă) din echipa {team}"
-	},
-	"TeamMembersListItem.confirmLeaveTitle": {
-		"string": "Sigur vreți să părăsiți echipa {team}?"
-	},
-	"TeamMembersListItem.deleteMember": {
-		"string": "Elimină membrul"
-	},
-	"TeamMembersListItem.editor": {
-		"string": "Editor"
-	},
-	"TeamMembersListItem.leaveTeam": {
-		"string": "Ieși din spațiul de lucru"
-	},
-	"TeamMembersListItem.singleOwner": {
-		"string": "Înainte de a putea ieși din spațiul de lucru, transferați unui alt membru statutul de coordonator."
-	},
-	"TeamMembershipRequestsListItem.approve": {
-		"string": "Aprobă"
-	},
-	"TeamMembershipRequestsListItem.deny": {
-		"string": "Respinge"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Cont deja confirmat",
@@ -225,6 +168,42 @@
 	},
 	"addAnnotation.submitButton": {
 		"string": "Trimite"
+	},
+	"addFilterMenu.addFilter": {
+		"string": "Add filter",
+		"developer_comment": "Button that opens menu with filter field options"
+	},
+	"addFilterMenu.assignedTo": {
+		"string": "Alocat lui",
+		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.createdBy": {
+		"string": "Creat de",
+		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.customFields": {
+		"string": "Custom fields",
+		"developer_comment": "Menu option to enable searching items by custom fields"
+	},
+	"addFilterMenu.itemStatus": {
+		"string": "Stare element",
+		"developer_comment": "Menu option to enable searching items by item status"
+	},
+	"addFilterMenu.language": {
+		"string": "Limba",
+		"developer_comment": "Menu option to enable searching items by language"
+	},
+	"addFilterMenu.mediaType": {
+		"string": "Tip de medii",
+		"developer_comment": "Menu option to enable searching items by media type"
+	},
+	"addFilterMenu.tags": {
+		"string": "Etichete",
+		"developer_comment": "Menu option to enable searching items by tags"
+	},
+	"addFilterMenu.timeRange": {
+		"string": "Time range",
+		"developer_comment": "Menu option to enable searching items by time range"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Adaugă limba"
@@ -503,24 +482,6 @@
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Elementul nu a putut fi salvat"
 	},
-	"blankMediaCard.addItem": {
-		"string": "Adaugă elementul"
-	},
-	"blankMediaCard.confirmButtonLabel": {
-		"string": "Trece raportul în pauză și actualizează conținutul"
-	},
-	"blankMediaCard.confirmText": {
-		"string": "Următorul element are deja un raport publicat:\n              {link}\n              Dacă veți continua, atât starea, cât și raportul vor fi suprascrise și raportul va trece în pauză."
-	},
-	"blankMediaCard.confirmTitle": {
-		"string": "Suprascrieți raportul și starea?"
-	},
-	"blankMediaCard.defaultErrorMessage": {
-		"string": "Elementul nu a putut fi salvat"
-	},
-	"bridge.pageTitle.appNameHuman": {
-		"string": "Punte"
-	},
 	"browserSupport.message": {
 		"string": "{appName} este optimizată pentru Google Chrome pe desktop."
 	},
@@ -601,15 +562,6 @@
 	"changeUserRole.proceedLabel": {
 		"string": "Schimbă rolul în {newRole}"
 	},
-	"claimReview.claim": {
-		"string": "Alegație:"
-	},
-	"claimReview.claimedBy": {
-		"string": "De către:"
-	},
-	"claimReview.reviewedBy": {
-		"string": "Fapte verificate de {reviewer}:"
-	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Type \"{text}\" to confirm this operation permanently."
 	},
@@ -674,15 +626,6 @@
 	"createProject.titleBlank": {
 		"string": "Adăugați prima dvs. listă"
 	},
-	"createRelatedMedia.addSecondaryItem": {
-		"string": "Adaugă ca element secundar"
-	},
-	"createRelatedMedia.addToPrimaryItem": {
-		"string": "Adaugă la elementul primar"
-	},
-	"createTask.newTask": {
-		"string": "Sarcină nouă"
-	},
 	"createTeamDialog.cancel": {
 		"string": "Anulează"
 	},
@@ -722,6 +665,10 @@
 	},
 	"createTeamTask.errorTask": {
 		"string": "Ne pare rău, s-a produs o eroare la crearea sarcinii. Încercați din nou și contactați {supportEmail} dacă situația persistă."
+	},
+	"customFiltersManager.label": {
+		"string": "Custom field",
+		"developer_comment": "Placeholder label for custom field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
 		"string": "Rezolvă sarcina"
@@ -911,18 +858,12 @@
 	"home.successInvitation": {
 		"string": "Bine ați venit în {appName}. Vă rugăm să vă conectați cu ajutorul parolei, pe care ați primit-o în mesajul de bun venit pe e-mail."
 	},
-	"imageUploadRespondTask.answerTask": {
-		"string": "Rezolvă sarcina"
-	},
-	"imageUploadRespondTask.cancelTask": {
-		"string": "Anulează"
-	},
 	"inviteDialog.invitationSent": {
 		"string": "Invitațiile au fost trimise!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "Trimite alte invitații.",
+		"string": "The other invites were sent successfully.",
 		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
@@ -1046,9 +987,6 @@
 	"list.updated": {
 		"string": "Actualizată"
 	},
-	"loadMore.loadMore": {
-		"string": "Încarcă mai mult"
-	},
 	"login.alreadyHasAccount": {
 		"string": "Aveți deja un cont?"
 	},
@@ -1107,26 +1045,11 @@
 	"login.withGoogle": {
 		"string": "Autentificare cu Google"
 	},
-	"loginContainer.agreeTerms": {
-		"string": "Prin înregistrare, agreați {appName} {tosLink} și {ppLink}."
-	},
 	"loginEmail.lostPassword": {
 		"string": "Parolă uitată?"
 	},
-	"media.byAttribution": {
-		"string": "{typeLabel} de {attribution}"
-	},
-	"media.confirmLeave": {
-		"string": "{count, plural, one {Sigur vreți să ieșiți? Mai aveți încă o sarcină alocată, care nu are niciun răspuns} few {Sigur vreți să ieșiți? Mai aveți încă # sarcini alocate, care nu au niciun răspuns} other {Sigur vreți să ieșiți? Mai aveți încă # de sarcini alocate, care nu au niciun răspuns}}"
-	},
 	"media.normalSpeed": {
 		"string": "Viteză normală"
-	},
-	"media.onDomain": {
-		"string": "{typeLabel} pe {domain}"
-	},
-	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 redistribuire} few {# redistribuiri} other {# de ReTweet}}"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
@@ -1137,41 +1060,17 @@
 	"media.typeClaim": {
 		"string": "Text"
 	},
-	"media.typeFacebook": {
-		"string": "Postare pe Facebook"
-	},
 	"media.typeImage": {
 		"string": "Imagine"
-	},
-	"media.typeInstagram": {
-		"string": "Instagram"
 	},
 	"media.typeLink": {
 		"string": "Link"
 	},
-	"media.typePage": {
-		"string": "Pagina"
-	},
-	"media.typeTiktok": {
-		"string": "TikTok video"
-	},
-	"media.typeTwitter": {
-		"string": "Postare pe Twitter"
-	},
 	"media.typeVideo": {
 		"string": "Video"
 	},
-	"media.typeYoutube": {
-		"string": "Videoclip pe YouTube"
-	},
-	"mediaActions.addToList": {
-		"string": "Adaugă în listă"
-	},
 	"mediaActions.assignOrUnassign": {
 		"string": "Alocare lui..."
-	},
-	"mediaActions.edit": {
-		"string": "Editează titlul și descrierea"
 	},
 	"mediaActions.history": {
 		"string": "Istoricul elementului"
@@ -1179,17 +1078,8 @@
 	"mediaActions.lockStatus": {
 		"string": "Blochează starea"
 	},
-	"mediaActions.move": {
-		"string": "Mută"
-	},
 	"mediaActions.refresh": {
 		"string": "Împrospătează"
-	},
-	"mediaActions.removeFromList": {
-		"string": "Elimină din listă"
-	},
-	"mediaActions.restore": {
-		"string": "Restaurează din coșul de gunoi"
 	},
 	"mediaActions.sendToTrash": {
 		"string": "Trimite la coșul de gunoi"
@@ -1199,12 +1089,6 @@
 	},
 	"mediaActions.unlockStatus": {
 		"string": "Deblochează starea"
-	},
-	"mediaActionsBar.add": {
-		"string": "Adaugă"
-	},
-	"mediaActionsBar.addTo": {
-		"string": "Adaugă în..."
 	},
 	"mediaActionsBar.assignmentNotes": {
 		"string": "Note"
@@ -1216,16 +1100,13 @@
 		"string": "Alocă elementul colaboratorilor"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Alocări actualizate cu succes!"
+		"string": "Assignments updated successfully."
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Anulează"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirmă"
-	},
-	"mediaActionsBar.dialogAddToListTitle": {
-		"string": "Adaugă într-o listă diferită"
 	},
 	"mediaActionsBar.dialogMoveTitle": {
 		"string": "Mută într-o listă diferită"
@@ -1250,12 +1131,6 @@
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Raport publicat"
-	},
-	"mediaActionsBar.removeFromList": {
-		"string": "Elimină din listă"
-	},
-	"mediaActionsBar.removedFromList": {
-		"string": "Eliminat din listă"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
 		"string": "Mută în listă"
@@ -1344,32 +1219,8 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Sarcinile elementului"
 	},
-	"mediaCondensed.requests": {
-		"string": "{count} cereri"
-	},
-	"mediaDetail.cancelButton": {
-		"string": "Anulează"
-	},
-	"mediaDetail.doneButton": {
-		"string": "Terminat"
-	},
-	"mediaDetail.editReport": {
-		"string": "Editează"
-	},
-	"mediaDetail.editReportError": {
-		"string": "Ne pare rău, s-a produs o eroare la actualizarea elementului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
-	},
-	"mediaDetail.mediaDescription": {
-		"string": "Descriere"
-	},
-	"mediaDetail.mediaTitle": {
-		"string": "Titlu"
-	},
 	"mediaDetail.trash": {
 		"string": "Coș de gunoi"
-	},
-	"mediaExpanded.addToImportedReport": {
-		"string": "Adaugă la raportul importat"
 	},
 	"mediaExpanded.firstSeen": {
 		"string": "Prima dată văzut:"
@@ -1448,20 +1299,8 @@
 	"mediaMetadata.Timeline": {
 		"string": "Cronologie"
 	},
-	"mediaMetadata.addedToList": {
-		"string": "Adăugat în lista {listName}"
-	},
 	"mediaMetadata.download": {
 		"string": "Descarcă"
-	},
-	"mediaRelated.loadMore": {
-		"string": "Încarcă mai mult"
-	},
-	"mediaRelated.primaryItem": {
-		"string": "Element primar"
-	},
-	"mediaRelated.secondaryItems": {
-		"string": "Elemente secundare"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Adaugă relație"
@@ -1581,17 +1420,8 @@
 		"string": "Change",
 		"developer_comment": "allow user to change a project media source"
 	},
-	"mediaStatus.cancelMessage": {
-		"string": "Anulează"
-	},
 	"mediaStatus.error": {
 		"string": "Ne pare rău, s-a produs o eroare la actualizarea stării. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
-	},
-	"mediaStatus.messageDescription": {
-		"string": "Vă rugăm să adăugați un comentariu. El va fi transmis celui, care a făcut postarea inițială, pentru a-i informa că solicitarea lor va fi închisă."
-	},
-	"mediaStatus.noteHint": {
-		"string": "Pentru a trimite tastați ENTER"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Înapoi"
@@ -1618,10 +1448,7 @@
 		"string": "Cereri"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} din {total} (de) medii recomandate"
-	},
-	"mediaTags.error": {
-		"string": "Ne pare rău, s-a produs o eroare la actualizarea etichetei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Mai puțin"
@@ -1655,9 +1482,6 @@
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
 	},
-	"pageTitle.appNameHuman": {
-		"string": "Verifică"
-	},
 	"passwordChange.changePassword": {
 		"string": "Schimbă parola"
 	},
@@ -1686,7 +1510,7 @@
 		"string": "Parolele nu se potrivesc"
 	},
 	"passwordReset.confirmedText": {
-		"string": "If this email exists, you will receive an email to reset your password from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "E-mail"
@@ -1749,33 +1573,6 @@
 	},
 	"projectAssignment.title": {
 		"string": "Alocă lista colaboratorilor"
-	},
-	"projectEdit.confirmCancelLabel": {
-		"string": "Go back"
-	},
-	"projectEdit.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
-	},
-	"projectEdit.confirmProceedLabel": {
-		"string": "Save changes"
-	},
-	"projectEdit.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
-	},
-	"projectEdit.descriptionField": {
-		"string": "Descriere"
-	},
-	"projectEdit.error": {
-		"string": "Ne pare rău, s-a produs o eroare la actualizarea listei. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
-	},
-	"projectEdit.saveButton": {
-		"string": "Actualizează"
-	},
-	"projectEdit.title": {
-		"string": "List details"
-	},
-	"projectEdit.titleField": {
-		"string": "Titlu"
 	},
 	"projectEditDialogComponent.confirmCancelLabel": {
 		"string": "Go back"
@@ -1850,9 +1647,6 @@
 	"reportDesigner.back": {
 		"string": "Înapoi la adnotare"
 	},
-	"reportDesigner.canPublish": {
-		"string": "Publică raportul"
-	},
 	"reportDesigner.cancelLeaveButtonLabel": {
 		"string": "Go back"
 	},
@@ -1907,23 +1701,14 @@
 	"reportDesigner.confirmRepublishResendText": {
 		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
-	"reportDesigner.confirmRepublishResendText2": {
-		"string": "În viitor, utilizatorii care vor solicita elementul vor primi această versiune nouă a raportului."
-	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Sunteți gata să publicați modificările?"
-	},
-	"reportDesigner.confirmRepublishText": {
-		"string": "În viitor, utilizatorii care vor solicita elementul vor primi această versiune nouă a raportului."
 	},
 	"reportDesigner.confirmRepublishTitle": {
 		"string": "Sunteți gata să publicați modificările?"
 	},
 	"reportDesigner.content": {
 		"string": "Conținut (max. {max} caractere)"
-	},
-	"reportDesigner.copyButton": {
-		"string": "Copiază"
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Copiat"
@@ -1945,9 +1730,6 @@
 	},
 	"reportDesigner.description": {
 		"string": "Conținut (max. {max} caractere)"
-	},
-	"reportDesigner.disclaimer": {
-		"string": "Declinarea răspunderii"
 	},
 	"reportDesigner.edit": {
 		"string": "Editează"
@@ -1973,17 +1755,11 @@
 	"reportDesigner.pause": {
 		"string": "Pune în pauză"
 	},
-	"reportDesigner.pauseReport": {
-		"string": "Pune raportul în pauză"
-	},
 	"reportDesigner.publish": {
 		"string": "Publică"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Elimină imaginea"
-	},
-	"reportDesigner.reportEditorTitle": {
-		"string": "Selectați conținutul de transmis cu raportul"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Previzualizare raport",
@@ -2009,9 +1785,6 @@
 	},
 	"reportDesigner.textTitle": {
 		"string": "Titlu (max. {max} caractere)"
-	},
-	"reportDesigner.themeColor": {
-		"string": "Culoarea temei"
 	},
 	"reportDesigner.title": {
 		"string": "Creați formatul raportului"
@@ -2113,7 +1886,7 @@
 		"string": "Regulile nu au putut fi salvate"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Regulile au fost salvate cu succes!"
+		"string": "Rules saved successfully."
 	},
 	"rulesTableHead.name": {
 		"string": "Denumire",
@@ -2150,35 +1923,28 @@
 	"rulesTableToolbar.title": {
 		"string": "Reguli"
 	},
-	"search.Filter": {
-		"string": "Filtrează"
-	},
-	"search.all": {
-		"string": "Toate"
-	},
 	"search.allClaimsTitle": {
 		"string": "Toate elementele"
 	},
-	"search.any": {
-		"string": "Oricare"
+	"search.and": {
+		"string": "Și",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.applyFilters": {
-		"string": "Filtrează"
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
-		"string": "Alocat lui"
-	},
-	"search.cancel": {
-		"string": "Anulează"
+		"string": "Alocat lui",
+		"developer_comment": "Placeholder label for field to filter by assigned users"
 	},
 	"search.categoriesHeading": {
-		"string": "Etichete"
+		"string": "Etichete",
+		"developer_comment": "Placeholder label for field to filter by tags"
 	},
 	"search.clear": {
-		"string": "Anulează filtrarea"
-	},
-	"search.dateHeading": {
-		"string": "Interval de timp"
+		"string": "Anulează filtrarea",
+		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Ultimul transmis"
@@ -2193,16 +1959,23 @@
 		"string": "Actualizată"
 	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Copac + Frunză</td><td>Elemente cu Copac ȘI Frunză</td></tr>\n                        <tr><td>|</td><td>Copac | Frunză</td><td>Elemente cu Copac SAU Frunză</td></tr>\n                        <tr><td>()</td><td>Copac + (Frunză | Ramură)</td><td>Elemente cu Copac ȘI Frunză sau elemente cu Copac ȘI Ramură</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Aflați mai multe despre tehnicile de căutare\n                      </a>\n                    </div>"
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Copac + Frunză</td><td>Elemente cu Copac ȘI Frunză</td></tr>\n                        <tr><td>|</td><td>Copac | Frunză</td><td>Elemente cu Copac SAU Frunză</td></tr>\n                        <tr><td>()</td><td>Copac + (Frunză | Ramură)</td><td>Elemente cu Copac ȘI Frunză sau elemente cu Copac ȘI Ramură</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Aflați mai multe despre tehnicile de căutare\n                      </a>\n                    </div>",
+		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
-		"string": "Căutare"
+		"string": "Căutare",
+		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Limba"
+		"string": "Limba",
+		"developer_comment": "Placeholder label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Pagina următoare"
+	},
+	"search.or": {
+		"string": "Sau",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.pickDateFrom": {
 		"string": "Data începeri"
@@ -2214,43 +1987,48 @@
 		"string": "Pagina anterioară"
 	},
 	"search.projectHeading": {
-		"string": "Listă"
+		"string": "Listă",
+		"developer_comment": "Placeholder label for field to filter by lists to which items belong"
 	},
 	"search.readHeading": {
-		"string": "Citit"
-	},
-	"search.reset": {
-		"string": "Resetare"
+		"string": "Citit",
+		"developer_comment": "Label for field to filter by 'item is marked' as read"
 	},
 	"search.show": {
-		"string": "Tip de medii"
+		"string": "Tip de medii",
+		"developer_comment": "Placeholder label for field to filter by media type"
 	},
 	"search.showAudios": {
-		"string": "Audio"
+		"string": "Audio",
+		"developer_comment": "Describes media type Audio"
 	},
 	"search.showBlank": {
-		"string": "Raport importat"
+		"string": "Raport importat",
+		"developer_comment": "Describes media type unspecified"
 	},
 	"search.showClaims": {
-		"string": "Text"
+		"string": "Text",
+		"developer_comment": "Describes media type Text"
 	},
 	"search.showImages": {
-		"string": "Imagine"
+		"string": "Imagine",
+		"developer_comment": "Describes media type Image"
 	},
 	"search.showLinks": {
-		"string": "Link"
+		"string": "Link",
+		"developer_comment": "Describes media type Link"
 	},
 	"search.showVideos": {
-		"string": "Video"
+		"string": "Video",
+		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Stare element"
-	},
-	"search.title": {
-		"string": "Toate elementele"
+		"string": "Stare element",
+		"developer_comment": "Placeholder label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Creat de"
+		"string": "Creat de",
+		"developer_comment": "Placeholder label for field to filter by item creator"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "Sursă"
@@ -2305,15 +2083,6 @@
 	"sentence.separator": {
 		"string": ","
 	},
-	"setProjectMediaSource.cancelButton": {
-		"string": "Anulează"
-	},
-	"setProjectMediaSource.choose": {
-		"string": "Alege o sursă"
-	},
-	"setProjectMediaSource.saveButton": {
-		"string": "Salvează"
-	},
 	"setSourceDialog.confirm": {
 		"string": "Vreți să folosiți sursele existente pentru acest mediu?",
 		"developer_comment": "Confirm message to relate media to an existing source"
@@ -2362,14 +2131,8 @@
 	"singleChoiceTask.value": {
 		"string": "Valoare"
 	},
-	"slackConfig.menuTooltip": {
-		"string": "Setări de integrare"
-	},
 	"slackConfig.text": {
 		"string": "Trimite notificări către canalele Slack când sunt adăugate elemente la liste specifice"
-	},
-	"slackConfig.title": {
-		"string": "Integrare Slack"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "Toată cealaltă activitate"
@@ -2399,7 +2162,7 @@
 		"string": "Salvează"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Setări Slack salvate cu succes!"
+		"string": "Slack settings saved successfully."
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Trimite notificări către"
@@ -2426,7 +2189,7 @@
 		"string": "Este un meniu care îi cere utilizatorului să aleagă dintr-un set de opțiuni. Acest mesaj va urma automat după mesajul de întâmpinare. 9 nu poate fi folosit ca opțiune în meniul principal."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Mesaj transmis dacă răspunsul utilizatorului la un meniu nu este un scenariu de meniu valid."
@@ -2614,7 +2377,7 @@
 		"string": "Connected page: {link}"
 	},
 	"smoochBotIntegrations.phoneNumber": {
-		"string": "Connected telephone: {link}"
+		"string": "Connected phone number: {link}"
 	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Connected Telegram bot: {link}"
@@ -2696,27 +2459,6 @@
 	},
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
-	},
-	"smoochBotSelectReport.cancel": {
-		"string": "Anulează"
-	},
-	"smoochBotSelectReport.confirm": {
-		"string": "Confirmă"
-	},
-	"smoochBotSelectReport.dialogDescription": {
-		"string": "Căutați titlul elementului pe care vreți să îl trimiteți ca raport. Robotul va răspunde utilizatorului cu acest raport. Raportul trebuie finalizat înainte de a-l putea căuta aici."
-	},
-	"smoochBotSelectReport.dialogTitle": {
-		"string": "Selectează un raport"
-	},
-	"smoochBotSettings.connectToFacebook": {
-		"string": "Connect to Facebook"
-	},
-	"smoochBotSettings.connectToTwitter": {
-		"string": "Connect to Twitter"
-	},
-	"smoochBotSettings.connectToWhatsApp": {
-		"string": "Connect to WhatsApp"
 	},
 	"sortSelect.az": {
 		"string": "De la A la Z"
@@ -2842,10 +2584,10 @@
 		"string": "Traduceți stările în limbi secundare pentru afișarea lor în limbile naționale în rapoartele de verificare a faptelor."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully!"
+		"string": "Status created successfully."
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully!"
+		"string": "Status deleted successfully."
 	},
 	"statusesComponent.error": {
 		"string": "Ne pare rău, s-a produs o eroare la actualizarea stărilor. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
@@ -2857,7 +2599,7 @@
 		"string": "Stare nouă"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully!"
+		"string": "Statuses saved successfully."
 	},
 	"statusesComponent.subtitle": {
 		"string": "Titlul stării este vizibil când rapoartele sunt transmise utilizatorilor."
@@ -2904,9 +2646,6 @@
 	},
 	"tagPicker.tagNotFound": {
 		"string": "Eticheta #{tag} nu a fost găsită."
-	},
-	"tagTextCount.acknowledge": {
-		"string": "{count, plural, =0 {Da} one {Înțeleg că ștergerea acestei etichete o va scoate de pe un element media.} other {Înțeleg că ștergerea etichetei o va scoate de pe # elemente media.}}"
 	},
 	"task.answeredBy": {
 		"string": "Finalizată de {byName}"
@@ -3002,9 +2741,6 @@
 	"tasks.description": {
 		"string": "Descriere (opțional)"
 	},
-	"tasks.done": {
-		"string": "Terminat"
-	},
 	"tasks.editAssignment": {
 		"string": "Editează alocarea"
 	},
@@ -3021,7 +2757,8 @@
 		"string": "Deschide setările"
 	},
 	"tasks.number": {
-		"string": "Number"
+		"string": "Number",
+		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.shortAnswer": {
 		"string": "Text"
@@ -3055,51 +2792,6 @@
 	},
 	"teamBots.success": {
 		"string": "Setările au fost actualizate!"
-	},
-	"teamComponent.cancelButton": {
-		"string": "Anulează"
-	},
-	"teamComponent.editButton": {
-		"string": "Editează profilul"
-	},
-	"teamComponent.editError": {
-		"string": "Ne pare rău, s-a produs o eroare la actualizarea spațiului de lucru. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
-	},
-	"teamComponent.invalidLink": {
-		"string": "Introduceți un URL valid"
-	},
-	"teamComponent.location": {
-		"string": "Loc"
-	},
-	"teamComponent.noProjects": {
-		"string": "Nicio listă"
-	},
-	"teamComponent.phone": {
-		"string": "Număr de telefon"
-	},
-	"teamComponent.private": {
-		"string": "Privat"
-	},
-	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Alocată unui membru} few {Alocată la # membri} other {Alocată la # de membri}}"
-	},
-	"teamComponent.projects": {
-		"string": "Liste"
-	},
-	"teamComponent.public": {
-		"string": "Public"
-	},
-	"teamComponent.saveButton": {
-		"string": "Salvează"
-	},
-	"teamComponent.teamDescription": {
-		"string": "Descriere"
-	},
-	"teamComponent.teamName": {
-		"string": "Denumire"
-	},
-	"teamComponent.website": {
-		"string": "Pagină web"
 	},
 	"teamDataComponent.formLinkText": {
 		"string": "this short form"
@@ -3149,59 +2841,11 @@
 	"teamDetails.workspaceName": {
 		"string": "Denumire spațiu de lucru"
 	},
-	"teamInfo.duplicateTeam": {
-		"string": "Duplică"
-	},
-	"teamInfo.editTeam": {
-		"string": "Editează"
-	},
 	"teamIntegrations.subtitle": {
 		"string": "Instrumente de la terți pentru creșterea productivității."
 	},
 	"teamIntegrations.title": {
 		"string": "Integrări"
-	},
-	"teamInviteCard.copied": {
-		"string": "COPIAZĂ"
-	},
-	"teamInviteCard.copy": {
-		"string": "COPIAT!"
-	},
-	"teamInviteCard.title": {
-		"string": "Invită membri"
-	},
-	"teamInviteMembers.addAnother": {
-		"string": "Adaugă altul"
-	},
-	"teamInviteMembers.addMany": {
-		"string": "Adaugă mai mulți"
-	},
-	"teamInviteMembers.addSeparate": {
-		"string": "Adaugă separat"
-	},
-	"teamInviteMembers.cancelAdd": {
-		"string": "Anulează"
-	},
-	"teamInviteMembers.customInvitation": {
-		"string": "Notă la invitație (opțional)"
-	},
-	"teamInviteMembers.inviteMember": {
-		"string": "Invită"
-	},
-	"teamInviteMembers.inviteMembers": {
-		"string": "Membrii vor fi invitați ca"
-	},
-	"teamInviteMembers.resendEmailSuccess": {
-		"string": "Invitația a fost trimisă cu succes"
-	},
-	"teamInviteMembers.send": {
-		"string": "Trimite"
-	},
-	"teamLists.description": {
-		"string": "Selectați toate coloanele pe care le vreți afișate în toate listele."
-	},
-	"teamLists.title": {
-		"string": "Setări liste"
 	},
 	"teamListsColumn.none": {
 		"string": "Niciunul disponibil",
@@ -3313,9 +2957,6 @@
 	"teamMembers.tooltip": {
 		"string": "Manage member"
 	},
-	"teamMembersComponent.inviteLink": {
-		"string": "Pentru a invita colegii să se alăture echipei {teamName}, trimiteți-le acest link:"
-	},
 	"teamMenu.teamSettings": {
 		"string": "Setări spațiu de lucru"
 	},
@@ -3338,33 +2979,6 @@
 	"teamMetadataRender.sourceTitle": {
 		"string": "Source metadata",
 		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
-	},
-	"teamReport.disclaimer": {
-		"string": "Declinarea răspunderii"
-	},
-	"teamReport.disclaimerSub": {
-		"string": "Declinare a răspunderii care va fi afișată în partea de jos a raportului, împreună cu logo-ul spațiului de lucru."
-	},
-	"teamReport.introduction": {
-		"string": "Introducere"
-	},
-	"teamReport.introductionSub": {
-		"string": "Folosiți substituentul {query_date} pentru afișarea datei interogării inițiale. Folosiți {status} pentru a comunica starea articolului."
-	},
-	"teamReport.save": {
-		"string": "Salvează"
-	},
-	"teamReport.subtitle": {
-		"string": "Conținutul setat aici poate fi editat în fiecare raport individual."
-	},
-	"teamReport.title": {
-		"string": "Setări implicte de rapoarte"
-	},
-	"teamReport.updateFail": {
-		"string": "Ne pare rău, s-a produs o eroare la actualizarea setărilor raportului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
-	},
-	"teamReport.updateSuccess": {
-		"string": "Setările raportului au fost actualizate cu succes!"
 	},
 	"teamReportComponent.defaultErrorMessage": {
 		"string": "Could not save report settings.",
@@ -3412,8 +3026,8 @@
 		"string": "Website URL"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Short url ({max} characters max)",
-		"developer_comment": "Label for url field in report settings"
+		"string": "Short URL ({max} characters max)",
+		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {
 		"string": "Viber public account URI"
@@ -3520,12 +3134,6 @@
 	"teamTags.tooltip": {
 		"string": "Filtrează și sortează lista"
 	},
-	"teamTasks.blank": {
-		"string": "Nicio sarcină implicită de afișat"
-	},
-	"teamTasks.blankMetadata": {
-		"string": "Niciun câmp de metadate"
-	},
 	"teamTasks.cancelAction": {
 		"string": "Anulează"
 	},
@@ -3568,32 +3176,11 @@
 	"teamTasks.edit": {
 		"string": "Editează"
 	},
-	"teamTasks.filter": {
-		"string": "Filtrează sarcinile"
-	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Nicio sarcină} one {1 sarcină} other {# sarcini}}"
 	},
 	"teamTasks.filterLabelHidden": {
 		"string": "{total, plural, =0 {Nicio sarcină} one {1 sarcină ({hidden} ascunsă de filtre)} other {# sarcini ({hidden} ascunse de filtre)}}"
-	},
-	"teamTasks.metadata": {
-		"string": "Metadate"
-	},
-	"teamTasks.metadataSubtitle": {
-		"string": "Adaugă câmpuri personalizate de metadate la elemente."
-	},
-	"teamTasks.projFilter": {
-		"string": "Afișează sarcinile în"
-	},
-	"teamTasks.tasks": {
-		"string": "Sarcini"
-	},
-	"teamTasks.tasksSubtitle": {
-		"string": "Adaugă sarcini personalizate la elemente."
-	},
-	"teamTasks.typeFilter": {
-		"string": "Tip sarcină"
 	},
 	"teamTasksRender.blank": {
 		"string": "Nicio sarcină implicită de afișat",
@@ -3649,18 +3236,6 @@
 	"translateStatuses.status": {
 		"string": "Stare"
 	},
-	"translationNeededDialog.body": {
-		"string": "Pentru a face {language} limba implicită, trebuie să traduceți mai întâi stările existente în {language}, folosind fila de setare a stărilor."
-	},
-	"translationNeededDialog.title": {
-		"string": "Necesită traducerea stărilor"
-	},
-	"trash.emptyTrash": {
-		"string": "Golește coșul"
-	},
-	"trash.emptyTrashConfirmationText": {
-		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
-	},
 	"trash.title": {
 		"string": "Coș de gunoi"
 	},
@@ -3687,30 +3262,6 @@
 	},
 	"uploadFile.videoMessage": {
 		"string": "Plasați aici un fișier video sau dați clic pentru încărcarea unui fișier (mărime max.: {video_max_size}, extensii permise: {video_extensions})"
-	},
-	"uploadImage.changeFile": {
-		"string": "{filename} (dați clic sau plasați pentru modificare)"
-	},
-	"uploadImage.fileTooLarge": {
-		"string": "Mărimea fișierului trebuie să fie mai mică de {size}. Încercați cu un fișier mai mic."
-	},
-	"uploadImage.invalidExtension": {
-		"string": "Fișierul nu poate fi de tipul \"{extension}\". Încercați cu următoarele tipuri de fișiere: {allowed_types}."
-	},
-	"uploadImage.message": {
-		"string": "Plasați aici un fișier de imagine sau dați clic pentru încărcarea unui fișier (mărime max.: {upload_max_size}, extensii permise: {upload_extensions}, dimensiuni permise între {upload_min_dimensions} și {upload_max_dimensions} pixels)"
-	},
-	"uploadImage.videoMessage": {
-		"string": "Plasați aici un fișier video sau dați clic pentru încărcarea unui fișier (mărime max.: {video_max_size}, extensii permise: {video_extensions})"
-	},
-	"userAlreadyConfirmed.heading": {
-		"string": "Cont deja confirmat"
-	},
-	"userAlreadyConfirmed.login": {
-		"string": "conectare"
-	},
-	"userAlreadyConfirmed.message": {
-		"string": "Ups! Contul dvs. a fost deja confirmat. Vă rugăm {login} pentru a începe."
 	},
 	"userAssignments.blank": {
 		"string": "Nicio activitate"
@@ -3741,12 +3292,6 @@
 	"userConfirmed.confrimMessage": {
 		"string": "Vă mulțumim pentru confirmarea adresei de e-mail! Acum puteți intra în cont.",
 		"developer_comment": "Message for confirmed user"
-	},
-	"userConfirmed.heading": {
-		"string": "Cont confirmat"
-	},
-	"userConfirmed.message": {
-		"string": "Vă mulțumim pentru confirmarea adresei de e-mail! Acum puteți intra în cont."
 	},
 	"userConfirmed.unConfrimMessage": {
 		"string": "Ne pare rău, s-a produs o eroare la confirmarea contului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă.",
@@ -3811,9 +3356,6 @@
 	},
 	"userInfoEdit.userSendEmailNotification": {
 		"string": "Primește notificări prin e-mail"
-	},
-	"userMenu.edit": {
-		"string": "Editează profilul"
 	},
 	"userPrivacy.connectedAccounts": {
 		"string": "Conturi conectate"
@@ -3958,15 +3500,6 @@
 	},
 	"userTos.validation": {
 		"string": "Trebuie să fiți de acord cu Termenii de utilizare a serviciilor și Politica de confidențialitate"
-	},
-	"userUnconfirmed.heading": {
-		"string": "Eroare"
-	},
-	"userUnconfirmed.message": {
-		"string": "Ne pare rău, s-a produs o eroare la confirmarea contului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
-	},
-	"video.normalSpeed": {
-		"string": "Viteză normală"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Elementul nu a putut fi identificat. Este posibil să fi fost eliminat sau este vizibil numai pentru utilizatorii autentificați. Dați clic pe linkul de deasupra ca să ajungeți la el."

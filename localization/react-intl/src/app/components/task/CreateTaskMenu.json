@@ -13,6 +13,7 @@
   },
   {
     "id": "tasks.number",
+    "description": "Label for a task type that requires a numeric value as answer",
     "defaultMessage": "Number"
   },
   {

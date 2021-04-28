@@ -1,5 +1,15 @@
 [
   {
+    "id": "smoochBotIntegrationButton.confirmationMessage",
+    "description": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "defaultMessage": "Disconnect {platform}"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmationMessagePermanent",
+    "description": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "defaultMessage": "Disconnect {platform} permanently"
+  },
+  {
     "id": "smoochBotIntegrationButton.defaultErrorMessage",
     "defaultMessage": "Something went wrong"
   },
@@ -41,11 +51,18 @@
   },
   {
     "id": "smoochBotIntegrationButton.confirmDisconnectTitle",
-    "defaultMessage": "Confirm disconnection of {platform} tipline"
+    "description": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Disconnect {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectTextPermanent",
+    "description": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected."
   },
   {
     "id": "smoochBotIntegrationButton.confirmDisconnectText",
-    "defaultMessage": "This cannot be undone."
+    "description": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account."
   },
   {
     "id": "smoochBotIntegrationButton.confirm",

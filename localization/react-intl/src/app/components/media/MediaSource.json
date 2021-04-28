@@ -1,7 +1,0 @@
-[
-  {
-    "id": "mediaSource.changeSource",
-    "description": "allow user to change a project media source",
-    "defaultMessage": "Change"
-  }
-]

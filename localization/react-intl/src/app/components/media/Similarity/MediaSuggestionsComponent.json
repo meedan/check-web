@@ -5,7 +5,7 @@
   },
   {
     "id": "mediaSuggestionsComponent.title",
-    "defaultMessage": "{current} of {total} suggested media"
+    "defaultMessage": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
   },
   {
     "id": "mediaSuggestionsComponent.question",

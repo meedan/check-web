@@ -34,7 +34,6 @@ const CustomFilter = ({
   filterEntityValue,
   filterEntityValueOptions,
   onChangeFilterEntityValue,
-  onAdd,
   onRemove,
 }) => {
   const filterTypeLabel = <FormattedMessage id="CustomFilter.filterBy" defaultMessage="Filter by" />;
@@ -70,7 +69,6 @@ const CustomFilter = ({
       allowRemove
       center
       color={brandHighlight}
-      onAdd={onAdd}
       onRemove={onRemove}
     >
       {[
@@ -168,7 +166,6 @@ CustomFilter.propTypes = {
     value: PropTypes.string.isRequired,
   })),
   onChangeFilterEntityValue: PropTypes.func.isRequired,
-  onAdd: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 

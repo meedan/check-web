@@ -50,9 +50,11 @@ const RuleOperatorWrapper = (props) => {
           <Box display="flex" justifyContent="space-between" className={classes.box}>
             { index === props.children.length - 1 ?
               <Box justifyContent={props.center ? 'center' : null} display="flex">
-                <IconButton onClick={handleAdd} className={classes.button}>
-                  <AddCircleOutlineIcon style={{ color: props.color }} />
-                </IconButton>
+                { props.onAdd ? (
+                  <IconButton onClick={handleAdd} className={classes.button}>
+                    <AddCircleOutlineIcon style={{ color: props.color }} />
+                  </IconButton>
+                ) : null }
               </Box> :
               <Box>
                 { props.operators.map((operator, index2) => (

@@ -33,7 +33,7 @@ shared_examples 'login' do
     reset_password('test@meedan.com')
     wait_for_selector_none('.user-password-reset__email-input')
     send_msg = wait_for_selector('.user-password-reset__sent_password').text
-    expect(send_msg.include?('If this email exists, you will receive an email to reset your password')).to be(true)
+    expect(send_msg.include?('If this email address exists, you will receive an email from')).to be(true)
   end
 
   it 'should redirect to login page if not logged in and team is private', bin4: true do
@@ -61,6 +61,6 @@ shared_examples 'login' do
     wait_for_selector('.user-password-reset__actions button + button').click
     wait_for_selector_none('.user-password-reset__email-input')
     send_msg = wait_for_selector('.user-password-reset__sent_password').text
-    expect(send_msg.include?('If this email exists, you will receive an email to reset your password')).to be(true)
+    expect(send_msg.include?('If this email address exists, you will receive an email from')).to be(true)
   end
 end

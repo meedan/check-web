@@ -131,7 +131,7 @@ const UserPasswordReset = (props) => {
             <CardContent key="usr-2" className={['user-password-reset__sent_password', classes.confirmText].join(' ')} >
               <FormattedMessage
                 id="passwordReset.confirmedText"
-                defaultMessage="If this email exists, you will receive an email to reset your password from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+                defaultMessage="If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
                 values={{
                   adminEmail: stringHelper('ADMIN_EMAIL'),
                   supportEmail: stringHelper('SUPPORT_EMAIL'),
