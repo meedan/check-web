@@ -59,7 +59,7 @@ const StyledThreeColumnLayout = styled.div`
 
   /* Right Column */
   .media__annotations-column {
-    border-left: 1px solid ${brandSecondary};
+    border-left: 2px solid ${brandSecondary};
     padding-top: 0;
     padding-left: 0;
     padding-right: 0;
@@ -78,7 +78,7 @@ const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: ${units(2)};
-  border-right: 1px solid ${brandSecondary};
+  border-right: 2px solid ${brandSecondary};
 `;
 
 class MediaComponent extends Component {
