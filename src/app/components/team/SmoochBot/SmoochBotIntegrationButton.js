@@ -2,43 +2,72 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
-import { black05, black87, completedGreen } from '../../../styles/js/shared';
+import { black05, black87, alertRed, completedGreen } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 
 const useStyles = makeStyles(theme => ({
+  smoochBotIntegrationButton: {
+    margin: theme.spacing(1),
+    background: black05,
+    flex: '1 1 0px',
+    minWidth: 250,
+    justifyContent: 'space-between',
+    '&:hover': {
+      background: black05,
+    },
+  },
   smoochBotIntegrationButtonIcon: {
     color: 'white',
     padding: theme.spacing(0.5),
     display: 'flex',
     borderRadius: theme.spacing(1),
   },
-  smoochBotIntegrationButton: {
-    margin: theme.spacing(1),
-    background: black05,
+  smoochBotIntegrationButtonLabel: {
+    textAlign: 'left',
+    width: '100%',
+    whiteSpace: 'nowrap',
+    textTransform: 'none',
   },
   smoochBotIntegrationButtonFlag: {
-    border: '2px solid transparent',
-    borderRadius: theme.spacing(1),
+    border: '1px solid transparent',
+    borderRadius: 3,
     padding: theme.spacing(0.5),
     fontSize: '10px !important',
     fontWeight: 'bold',
+    minWidth: 80,
   },
   smoochBotIntegrationButtonConnected: {
-    color: completedGreen,
-    borderColor: completedGreen,
+    color: 'white',
+    backgroundColor: completedGreen,
   },
   smoochBotIntegrationButtonDisconnected: {
     color: black87,
     borderColor: black87,
   },
+  smoochBotIntegrationButtonWarning: {
+    color: alertRed,
+  },
 }));
+
+const messages = defineMessages({
+  confirmationMessage: {
+    id: 'smoochBotIntegrationButton.confirmationMessage',
+    defaultMessage: 'Disconnect {platform}',
+    description: '"Disconnect" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.',
+  },
+  confirmationMessagePermanent: {
+    id: 'smoochBotIntegrationButton.confirmationMessagePermanent',
+    defaultMessage: 'Disconnect {platform} permanently',
+    description: '"Disconnect" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.',
+  },
+});
 
 const SmoochBotIntegrationButton = ({
   installationId,
@@ -51,6 +80,8 @@ const SmoochBotIntegrationButton = ({
   color,
   online,
   disabled,
+  permanentDisconnection,
+  intl,
   setFlashMessage,
 }) => {
   const classes = useStyles();
@@ -216,7 +247,9 @@ const SmoochBotIntegrationButton = ({
         className={classes.smoochBotIntegrationButton}
         disabled={disabled}
       >
-        {label}
+        <Box className={classes.smoochBotIntegrationButtonLabel}>
+          {label}
+        </Box>
       </Button>
 
       <ConfirmProceedDialog
@@ -294,18 +327,33 @@ const SmoochBotIntegrationButton = ({
         title={
           <FormattedMessage
             id="smoochBotIntegrationButton.confirmDisconnectTitle"
-            defaultMessage="Confirm disconnection of {platform} tipline"
+            defaultMessage="Disconnect {platform} tipline"
             values={{ platform: label }}
+            description="Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
           />
         }
         body={
-          <FormattedMessage
-            id="smoochBotIntegrationButton.confirmDisconnectText"
-            defaultMessage="This cannot be undone."
-            values={{ platform: label }}
-          />
+          permanentDisconnection ?
+            <strong className={classes.smoochBotIntegrationButtonWarning}>
+              <FormattedMessage
+                id="smoochBotIntegrationButton.confirmDisconnectTextPermanent"
+                defaultMessage="Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected."
+                values={{ platform: label }}
+                description="Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+              />
+            </strong> :
+            <FormattedMessage
+              id="smoochBotIntegrationButton.confirmDisconnectText"
+              defaultMessage="Disconnecting this {platform} account will prevent any user to interact with the tipline through that account."
+              values={{ platform: label }}
+              description="Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+            />
         }
-        typeTextToConfirm={label}
+        typeTextToConfirm={
+          permanentDisconnection ?
+            intl.formatMessage(messages.confirmationMessagePermanent, { platform: label }) :
+            intl.formatMessage(messages.confirmationMessage, { platform: label })
+        }
         proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.confirm" defaultMessage="Confirm" />}
         onProceed={handleDisconnect}
         isSaving={saving}
@@ -320,6 +368,7 @@ SmoochBotIntegrationButton.defaultProps = {
   url: null,
   params: [],
   info: null,
+  permanentDisconnection: false,
 };
 
 SmoochBotIntegrationButton.propTypes = {
@@ -336,6 +385,8 @@ SmoochBotIntegrationButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   icon: PropTypes.node.isRequired,
   color: PropTypes.string.isRequired,
+  permanentDisconnection: PropTypes.bool,
+  intl: intlShape.isRequired,
 };
 
-export default withSetFlashMessage(SmoochBotIntegrationButton);
+export default withSetFlashMessage(injectIntl(SmoochBotIntegrationButton));

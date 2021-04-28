@@ -49,7 +49,7 @@ const ConfirmProceedDialog = ({
               <strong>
                 <FormattedMessage
                   id="confirmProceedDialog.confirmationText"
-                  defaultMessage='Type "{text}" to confirm this operation permanently.'
+                  defaultMessage='Type "{text}" to confirm.'
                   values={{ text: typeTextToConfirm }}
                 />
               </strong>
