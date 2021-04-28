@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import InputLabel from '@material-ui/core/InputLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
@@ -14,9 +15,6 @@ import SmoochBotIntegrations from './SmoochBotIntegrations';
 const useStyles = makeStyles(theme => ({
   field: {
     marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  checkbox: {
     marginBottom: theme.spacing(2),
   },
   chip: {
@@ -63,17 +61,18 @@ const SmoochBotSettings = (props) => {
 
         if (schema.type === 'boolean') {
           return (
-            <FormControlLabel
-              key={`${field}-${value}`}
-              className={classes.checkbox}
-              control={
-                <Checkbox
-                  defaultChecked={value || schema.default}
-                  onChange={(event) => { handleChange(field, event.target.checked); }}
-                />
-              }
-              label={schema.title}
-            />
+            <React.Fragment key={`${field}-${value}`}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    defaultChecked={value || schema.default}
+                    onChange={(event) => { handleChange(field, event.target.checked); }}
+                  />
+                }
+                label={schema.title}
+              />
+              <FormHelperText>{schema.description}</FormHelperText>
+            </React.Fragment>
           );
         }
 
@@ -110,6 +109,7 @@ const SmoochBotSettings = (props) => {
                   </MenuItem>
                 ))}
               </Select>
+              <FormHelperText>{schema.description}</FormHelperText>
             </FormControl>
           );
         }
@@ -145,6 +145,7 @@ const SmoochBotSettings = (props) => {
               }
               handleChange(field, newValue);
             }}
+            helperText={schema.description}
             variant="outlined"
             fullWidth
             {...otherProps}
