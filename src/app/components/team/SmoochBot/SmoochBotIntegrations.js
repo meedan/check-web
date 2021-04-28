@@ -18,7 +18,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
   const isOnline = name => Object.keys(enabledIntegrations).indexOf(name) > -1;
 
   return (
-    <Box display="flex" justifyContent="center" mt={2} flexWrap="wrap">
+    <Box display="flex" justifyContent="space-between" mt={2} flexWrap="wrap">
       <SmoochBotIntegrationButton
         installationId={installationId}
         disabled={!isSmoochSet}
@@ -42,6 +42,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
               }}
             /> : null
         }
+        permanentDisconnection
       />
       <SmoochBotIntegrationButton
         installationId={installationId}
@@ -71,7 +72,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
         installationId={installationId}
         disabled={!isSmoochSet}
         type="messenger"
-        label="Facebook Messenger"
+        label="Messenger"
         url={settings.smooch_facebook_authorization_url}
         icon={<FacebookIcon />}
         color={facebookBlue}

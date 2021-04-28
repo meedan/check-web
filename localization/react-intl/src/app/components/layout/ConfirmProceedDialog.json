@@ -1,7 +1,7 @@
 [
   {
     "id": "confirmProceedDialog.confirmationText",
-    "defaultMessage": "Type \"{text}\" to confirm this operation permanently."
+    "defaultMessage": "Type \"{text}\" to confirm."
   },
   {
     "id": "confirmProceedDialog.confirmationTextPlaceholder",
