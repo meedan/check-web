@@ -174,11 +174,11 @@
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.assignedTo": {
-		"string": "Assigned to",
+		"string": "Atribuído a",
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.createdBy": {
-		"string": "Created by",
+		"string": "Criado por",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.customFields": {
@@ -186,15 +186,15 @@
 		"developer_comment": "Menu option to enable searching items by custom fields"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Item status",
+		"string": "Status do item",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
-		"string": "Language",
+		"string": "Idioma",
 		"developer_comment": "Menu option to enable searching items by language"
 	},
 	"addFilterMenu.mediaType": {
-		"string": "Media type",
+		"string": "Formato da mídia",
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
 	"addFilterMenu.tags": {
@@ -563,7 +563,7 @@
 		"string": "Change role to {newRole}"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to confirm this operation permanently."
+		"string": "Type \"{text}\" to confirm."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Digite aqui"
@@ -1927,7 +1927,7 @@
 		"string": "Todos os itens"
 	},
 	"search.and": {
-		"string": "And",
+		"string": "E",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.applyFilters": {
@@ -1974,7 +1974,7 @@
 		"string": "Próxima página"
 	},
 	"search.or": {
-		"string": "Or",
+		"string": "Ou",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.pickDateFrom": {
@@ -2329,10 +2329,24 @@
 		"string": "Confirmar"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
-		"string": "This cannot be undone."
+		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
+		"string": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTitle": {
-		"string": "Confirm disconnection of {platform} tipline"
+		"string": "Disconnect {platform} tipline",
+		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmationMessage": {
+		"string": "Disconnect {platform}",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.confirmationMessagePermanent": {
+		"string": "Disconnect {platform} permanently",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Conectar"
