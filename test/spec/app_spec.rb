@@ -271,8 +271,6 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.more-less')
       site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
       expect(site == 'check').to be(true)
-      twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
-      expect(twitter_title == 'This is a test').to be(true)
     end
 
     it 'should show current team content on sidebar when viewing profile', bin3: true do
