@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { black05, black87, alertRed, completedGreen } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
@@ -54,6 +55,9 @@ const useStyles = makeStyles(theme => ({
   smoochBotIntegrationButtonWarning: {
     color: alertRed,
   },
+  smoochBotIntegrationButtonHeader: {
+    marginBottom: 0,
+  },
 }));
 
 const messages = defineMessages({
@@ -81,6 +85,8 @@ const SmoochBotIntegrationButton = ({
   online,
   disabled,
   permanentDisconnection,
+  skipUrlConfirmation,
+  helpUrl,
   intl,
   setFlashMessage,
 }) => {
@@ -97,17 +103,21 @@ const SmoochBotIntegrationButton = ({
     setOpenConfirmDialog(false);
   };
 
+  const handleOpenUrl = () => {
+    const win = window.open(url);
+    const timer = window.setInterval(() => {
+      if (win.closed) {
+        window.clearInterval(timer);
+        window.location.reload();
+      }
+    }, 500);
+  };
+
   const handleClick = () => {
     if (online) {
       setOpenInfoDialog(true);
-    } else if (url) {
-      const win = window.open(url);
-      const timer = window.setInterval(() => {
-        if (win.closed) {
-          window.clearInterval(timer);
-          window.location.reload();
-        }
-      }, 500);
+    } else if (url && skipUrlConfirmation) {
+      handleOpenUrl();
     } else if (params) {
       setOpenFormDialog(true);
     }
@@ -283,16 +293,22 @@ const SmoochBotIntegrationButton = ({
       <ConfirmProceedDialog
         open={openFormDialog}
         title={
-          <FormattedMessage
-            id="smoochBotIntegrationButton.connectTipline"
-            defaultMessage="Connect tipline to {platform}"
-            values={{ platform: label }}
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="smoochBotIntegrationButton.connectTipline"
+                defaultMessage="Connect to {platform} tipline"
+                values={{ platform: label }}
+              />
+            }
+            helpUrl={helpUrl}
+            className={classes.smoochBotIntegrationButtonHeader}
           />
         }
         body={
           <Box>
             {params.map(param => (
-              <Box mb={1} key={param.key}>
+              <Box key={param.key}>
                 <TextField
                   key={param.key}
                   label={param.label}
@@ -304,19 +320,31 @@ const SmoochBotIntegrationButton = ({
                 />
               </Box>
             ))}
-            <Box mt={3}>
+            <Box>
               <Typography variant="body1" component="p" paragraph>
-                <FormattedMessage
-                  id="smoochBotIntegrationButton.disclaimer"
-                  defaultMessage="We don't store this information. This is just used to configure the integration."
-                />
+                { url ?
+                  <FormattedMessage
+                    id="smoochBotIntegrationButton.disclaimerForUrl"
+                    defaultMessage="Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
+                    values={{ platform: label }}
+                    description="The platform here can be Twitter, Facebook, etc."
+                  /> :
+                  <FormattedMessage
+                    id="smoochBotIntegrationButton.disclaimer"
+                    defaultMessage="We don't store this information. This is just used to configure the integration."
+                  />
+                }
               </Typography>
             </Box>
           </Box>
         }
         proceedDisabled={Object.keys(paramValues).sort().join(',') !== params.map(p => p.key).sort().join(',')}
-        proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.connect" defaultMessage="Connect" />}
-        onProceed={handleConnect}
+        proceedLabel={
+          url ?
+            <FormattedMessage id="smoochBotIntegrationButton.readyToConnect" defaultMessage="I'm ready to connect" /> :
+            <FormattedMessage id="smoochBotIntegrationButton.connect" defaultMessage="Connect" />
+        }
+        onProceed={url ? handleOpenUrl : handleConnect}
         isSaving={saving}
         cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" />}
         onCancel={() => { setOpenFormDialog(false); }}
@@ -369,6 +397,7 @@ SmoochBotIntegrationButton.defaultProps = {
   params: [],
   info: null,
   permanentDisconnection: false,
+  skipUrlConfirmation: false,
 };
 
 SmoochBotIntegrationButton.propTypes = {
@@ -376,6 +405,7 @@ SmoochBotIntegrationButton.propTypes = {
   type: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
   url: PropTypes.string, // if null, "params" must be provided
+  skipUrlConfirmation: PropTypes.bool,
   params: PropTypes.arrayOf(PropTypes.shape({
     label: PropTypes.object, // <FormattedMessage />
     key: PropTypes.string,
@@ -386,6 +416,7 @@ SmoochBotIntegrationButton.propTypes = {
   icon: PropTypes.node.isRequired,
   color: PropTypes.string.isRequired,
   permanentDisconnection: PropTypes.bool,
+  helpUrl: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
 };
 

@@ -31,7 +31,7 @@ class ProjectHeaderComponent extends React.PureComponent {
           <IconButton onClick={() => browserHistory.push(listUrl)} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
-          <HeaderTitle className="project-header__title" style={{ maxWidth: '100%' }}>
+          <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle}>
             <Text ellipsis>
               {pageTitle}
             </Text>

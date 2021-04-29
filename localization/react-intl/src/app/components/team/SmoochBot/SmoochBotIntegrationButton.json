@@ -43,11 +43,20 @@
   },
   {
     "id": "smoochBotIntegrationButton.connectTipline",
-    "defaultMessage": "Connect tipline to {platform}"
+    "defaultMessage": "Connect to {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disclaimerForUrl",
+    "description": "The platform here can be Twitter, Facebook, etc.",
+    "defaultMessage": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
   },
   {
     "id": "smoochBotIntegrationButton.disclaimer",
     "defaultMessage": "We don't store this information. This is just used to configure the integration."
+  },
+  {
+    "id": "smoochBotIntegrationButton.readyToConnect",
+    "defaultMessage": "I'm ready to connect"
   },
   {
     "id": "smoochBotIntegrationButton.confirmDisconnectTitle",

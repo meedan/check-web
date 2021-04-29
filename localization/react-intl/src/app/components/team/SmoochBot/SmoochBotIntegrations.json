@@ -1,5 +1,10 @@
 [
   {
+    "id": "smoochBotIntegrations.title",
+    "description": "Title of Settings tab in the tipline settings page",
+    "defaultMessage": "Messaging services"
+  },
+  {
     "id": "smoochBotIntegrations.phoneNumber",
     "defaultMessage": "Connected phone number: {link}"
   },

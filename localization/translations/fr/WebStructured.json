@@ -25,7 +25,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
 	},
 	"CustomTeamTaskFilter.choiceFilter": {
-		"string": "\"{field}\" has value {value}",
+		"string": "« {field} » a la valeur {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
@@ -57,15 +57,15 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
-		"string": "\"{field}\" contains any value",
+		"string": "« {field} » comprend n’importe quelle valeur",
 		"developer_comment": "Label for custom field when metadata or task response contains any value"
 	},
 	"CustomTeamTaskFilter.textFilter": {
-		"string": "\"{field}\" contains {value}",
+		"string": "\"{field}\" comprend {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains keyword"
 	},
 	"CustomTeamTaskFilter.textNoValue": {
-		"string": "\"{field}\" contains no value",
+		"string": "« {field} » ne comprend aucune valeur",
 		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
@@ -170,39 +170,39 @@
 		"string": "Envoyer"
 	},
 	"addFilterMenu.addFilter": {
-		"string": "Add filter",
+		"string": "Ajouter un filtre",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.assignedTo": {
-		"string": "Assigned to",
+		"string": "Attribué à",
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.createdBy": {
-		"string": "Created by",
+		"string": "Créé par",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.customFields": {
-		"string": "Custom fields",
+		"string": "Champs personnalisés",
 		"developer_comment": "Menu option to enable searching items by custom fields"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Item status",
+		"string": "État de l’élément",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
-		"string": "Language",
+		"string": "Langue",
 		"developer_comment": "Menu option to enable searching items by language"
 	},
 	"addFilterMenu.mediaType": {
-		"string": "Media type",
+		"string": "Type de média",
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
 	"addFilterMenu.tags": {
-		"string": "Tags",
+		"string": "Étiquettes",
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Time range",
+		"string": "Plage de dates",
 		"developer_comment": "Menu option to enable searching items by time range"
 	},
 	"addLanguageAction.addLanguage": {
@@ -563,7 +563,7 @@
 		"string": "Changer le rôle en {newRole}"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Tapez « {text} » pour confirmer cette opération de façon permanente."
+		"string": "Type \"{text}\" to confirm."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Tapez ici"
@@ -667,7 +667,7 @@
 		"string": "Désolé, une erreur est survenue lors de la création de la tâche. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
 	},
 	"customFiltersManager.label": {
-		"string": "Custom field",
+		"string": "Champ personnalisé",
 		"developer_comment": "Placeholder label for custom field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
@@ -863,7 +863,7 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully.",
+		"string": "Les autres invitations ont été envoyées avec succès.",
 		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
@@ -1100,7 +1100,7 @@
 		"string": "Attribuer l’élément à des collaborateurs"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully."
+		"string": "Les attributions ont été mises à jour avec succès."
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Annuler"
@@ -1448,7 +1448,7 @@
 		"string": "Demandes"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+		"string": "{current} de {total, plural, one {# média suggéré} other {# médias suggérés}}"
 	},
 	"moreLess.less": {
 		"string": "Moins"
@@ -1510,7 +1510,7 @@
 		"string": "Les mots de passe ne correspondent pas"
 	},
 	"passwordReset.confirmedText": {
-		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+		"string": "Si cette adresse courriel existe, vous recevrez un courriel de {adminEmail} avec des instructions pour réinitialiser votre mot de passe. Assurez-vous qu’il n’est pas dans vos indésirables/pourriels. Si vous ne recevez pas nos courriels de réinitialisation du mot de passe, contactez {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Adresse courriel"
@@ -1886,7 +1886,7 @@
 		"string": "Impossible d’enregistrer les règles"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Rules saved successfully."
+		"string": "Les règles ont été enregistrées avec succès."
 	},
 	"rulesTableHead.name": {
 		"string": "Nom",
@@ -1927,11 +1927,11 @@
 		"string": "Tous les éléments"
 	},
 	"search.and": {
-		"string": "And",
+		"string": "Et",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.applyFilters": {
-		"string": "Apply filter",
+		"string": "Appliquer le filtre",
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
@@ -1974,7 +1974,7 @@
 		"string": "Page suivante"
 	},
 	"search.or": {
-		"string": "Or",
+		"string": "Ou",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.pickDateFrom": {
@@ -2162,7 +2162,7 @@
 		"string": "Enregistrer"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully."
+		"string": "Les paramètres de Slack ont été enregistrés avec succès."
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Envoyer des notifications à"
@@ -2189,7 +2189,7 @@
 		"string": "Un menu qui demande à l’utilisateur de choisir parmi un ensemble d’options. Ce message suit automatiquement le message d’accueil. 9 ne peut pas être utilisé comme option dans le menu principal."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "Ce message sera présenté aux utilisateurs si, après le début d’une conversation, ils ne sélectionnent pas une des options : soit recevoir une ressource soit envoyer du contenu à vérifier. Ce message sera aussi présenté aux utilisateurs qui ont envoyé du contenu sans attendre d’y être invités."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Le message envoyé si la réponse de l’utilisateur à un menu ne correspond pas à un scénario de menu valide."
@@ -2329,10 +2329,24 @@
 		"string": "Confirmer"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
-		"string": "Cette opération ne peut pas être annulée."
+		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
+		"string": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTitle": {
-		"string": "Confirmer la déconnexion de la ligne de signalement {platform}"
+		"string": "Disconnect {platform} tipline",
+		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmationMessage": {
+		"string": "Disconnect {platform}",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.confirmationMessagePermanent": {
+		"string": "Disconnect {platform} permanently",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Connecter"
@@ -2377,7 +2391,7 @@
 		"string": "Page connectée : {link}"
 	},
 	"smoochBotIntegrations.phoneNumber": {
-		"string": "Connected phone number: {link}"
+		"string": "Numéro de téléphone connecté : {link}"
 	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Robot Telegram connecté : {link}"
@@ -2584,10 +2598,10 @@
 		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully."
+		"string": "L’état a été créé avec succès."
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully."
+		"string": "L’état a été supprimé avec succès."
 	},
 	"statusesComponent.error": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et contacter {supportEmail} si la situation persiste."
@@ -2599,7 +2613,7 @@
 		"string": "Nouvel état"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully."
+		"string": "Les états ont été enregistrés avec succès."
 	},
 	"statusesComponent.subtitle": {
 		"string": "Le titre de l’état est visible quand les rapports sont envoyés aux utilisateurs."
@@ -3026,7 +3040,7 @@
 		"string": "URL du site Web"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Short URL ({max} characters max)",
+		"string": "URL courte (maximum de {max} caractères)",
 		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {
