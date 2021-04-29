@@ -188,7 +188,7 @@ class DrawerProjectsComponent extends Component {
             <Tooltip title={
               this.props.showAddProj
                 ? <FormattedMessage id="projects.dismiss" defaultMessage="Dismiss" />
-                : <FormattedMessage id="projects.addProject" defaultMessage="Add list" />
+                : <FormattedMessage id="projects.addProject" defaultMessage="Add folder" />
             }
             >
               <Button
@@ -201,7 +201,7 @@ class DrawerProjectsComponent extends Component {
                   paddingRight: '10px',
                 }}
               >
-                <FormattedMessage id="projects.newList" defaultMessage="+ New list" />
+                <FormattedMessage id="projects.newList" defaultMessage="+ New folder" />
               </Button>
             </Tooltip>
             <CreateProject

@@ -66,8 +66,8 @@
   },
   {
     "id": "search.projectHeading",
-    "description": "Placeholder label for field to filter by lists to which items belong",
-    "defaultMessage": "List"
+    "description": "Placeholder label for field to filter by folders to which items belong",
+    "defaultMessage": "Folder"
   },
   {
     "id": "search.assignedTo",

@@ -429,7 +429,7 @@ class SearchFields extends React.Component {
             )}
           </FormattedMessage>
 
-          <FormattedMessage id="search.projectHeading" defaultMessage="List" description="Placeholder label for field to filter by lists to which items belong">
+          <FormattedMessage id="search.projectHeading" defaultMessage="Folder" description="Placeholder label for field to filter by folders to which items belong">
             { label => (
               <MultiSelectFilter
                 label={label}

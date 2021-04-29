@@ -114,7 +114,7 @@ class ProjectAssignmentComponent extends Component {
         <DialogTitle>
           <FormattedMessage
             id="projectAssignment.title"
-            defaultMessage="Assign list to collaborators"
+            defaultMessage="Assign folder to collaborators"
           />
         </DialogTitle>
         <DialogContent>

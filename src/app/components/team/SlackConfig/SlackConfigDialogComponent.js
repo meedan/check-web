@@ -210,7 +210,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
           <Typography variant="body1" component="div">
             <FormattedMessage
               id="slackConfigDialogComponent.title"
-              defaultMessage="Send notifications to Slack channels when items are added to specific lists"
+              defaultMessage="Send notifications to Slack channels when items are added to specific folders"
             />
           </Typography>
         </Box>
@@ -271,7 +271,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
                           label={
                             <FormattedMessage
                               id="slackConfigDialogComponent.ifItemAddedTo"
-                              defaultMessage="If item is in list"
+                              defaultMessage="If item is in folder"
                             />
                           }
                           variant="outlined"

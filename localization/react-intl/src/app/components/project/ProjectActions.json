@@ -1,11 +1,11 @@
 [
   {
     "id": "projectActions.projectDeleted",
-    "defaultMessage": "List deleted successfully."
+    "defaultMessage": "Folder deleted successfully."
   },
   {
     "id": "projectActions.projectNotDeleted",
-    "defaultMessage": "Sorry, could not delete list."
+    "defaultMessage": "Sorry, could not delete folder."
   },
   {
     "id": "ProjectActions.edit",
@@ -13,7 +13,7 @@
   },
   {
     "id": "projectActions.assignOrUnassign",
-    "defaultMessage": "Assign list to…"
+    "defaultMessage": "Assign folder to…"
   },
   {
     "id": "projectActions.destroy",
@@ -21,18 +21,18 @@
   },
   {
     "id": "ProjectActions.tooltip",
-    "defaultMessage": "List actions"
+    "defaultMessage": "Folder actions"
   },
   {
     "id": "projectActions.deleteProjectTitle",
-    "defaultMessage": "Are you sure you want to delete this list?"
+    "defaultMessage": "Are you sure you want to delete this folder?"
   },
   {
     "id": "projectActions.deleteProjectBody",
-    "defaultMessage": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+    "defaultMessage": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
   },
   {
     "id": "projectActions.proceedLabel",
-    "defaultMessage": "Delete list"
+    "defaultMessage": "Delete folder"
   }
 ]

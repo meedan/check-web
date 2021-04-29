@@ -69,7 +69,7 @@ class ProjectActions extends Component {
       const message = (
         <FormattedMessage
           id="projectActions.projectDeleted"
-          defaultMessage="List deleted successfully."
+          defaultMessage="Folder deleted successfully."
         />
       );
       this.props.setFlashMessage(message, 'success');
@@ -80,7 +80,7 @@ class ProjectActions extends Component {
       const message = (
         <FormattedMessage
           id="projectActions.projectNotDeleted"
-          defaultMessage="Sorry, could not delete list."
+          defaultMessage="Sorry, could not delete folder."
         />
       );
       this.props.setFlashMessage(message, 'error');
@@ -128,7 +128,7 @@ class ProjectActions extends Component {
         >
           <ListItemText
             primary={
-              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign list to…" />
+              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign folder to…" />
             }
           />
         </MenuItem>));
@@ -159,7 +159,7 @@ class ProjectActions extends Component {
         <IconButton
           className="project-actions"
           tooltip={
-            <FormattedMessage id="ProjectActions.tooltip" defaultMessage="List actions" />
+            <FormattedMessage id="ProjectActions.tooltip" defaultMessage="Folder actions" />
           }
           onClick={this.handleOpenMenu}
         >
@@ -177,7 +177,7 @@ class ProjectActions extends Component {
           title={
             <FormattedMessage
               id="projectActions.deleteProjectTitle"
-              defaultMessage="Are you sure you want to delete this list?"
+              defaultMessage="Are you sure you want to delete this folder?"
             />
           }
           body={(
@@ -185,12 +185,12 @@ class ProjectActions extends Component {
               <Typography variant="body1" component="p" paragraph>
                 <FormattedMessage
                   id="projectActions.deleteProjectBody"
-                  defaultMessage='The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the "All items" list'
+                  defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
                 />
               </Typography>
             </div>
           )}
-          proceedLabel={<FormattedMessage id="projectActions.proceedLabel" defaultMessage="Delete list" />}
+          proceedLabel={<FormattedMessage id="projectActions.proceedLabel" defaultMessage="Delete folder" />}
           onCancel={this.handleCloseDialog.bind(this)}
           onProceed={this.handleDestroy.bind(this)}
         />

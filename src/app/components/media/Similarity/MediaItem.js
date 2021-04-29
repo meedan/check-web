@@ -442,7 +442,7 @@ const MediaItem = ({
           <FormattedMessage
             id="detachDialog.dialogdetachedToListTitle"
             defaultMessage="Move detached item to…"
-            description="Dialog title prompting user to select a destination list for the item"
+            description="Dialog title prompting user to select a destination folder for the item"
           />
         }
         cancelLabel={
@@ -455,7 +455,7 @@ const MediaItem = ({
         submitLabel={
           <FormattedMessage
             id="detachDialog.detached"
-            defaultMessage="Move to list"
+            defaultMessage="Move to folder"
             description="Button to commit the action of moving item"
           />
         }

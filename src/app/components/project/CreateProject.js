@@ -56,7 +56,7 @@ class CreateProject extends React.Component {
       const fallbackMessage = (
         <FormattedMessage
           id="createProject.error"
-          defaultMessage="Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+          defaultMessage="Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       );
@@ -96,7 +96,7 @@ class CreateProject extends React.Component {
     const disabled = !visible;
 
     const textInput = (
-      <FormattedMessage id="createProject.newProjectName" defaultMessage="List name">
+      <FormattedMessage id="createProject.newProjectName" defaultMessage="Folder name">
         {placeholder => (
           <TextField
             key={visible /* re-render -- and thus autofocus -- when visible becomes true */}
@@ -118,7 +118,7 @@ class CreateProject extends React.Component {
 
     const submitButton = (
       <Button type="submit" color="primary" disabled={disabled || !this.state.name}>
-        <FormattedMessage id="createProject.addProject" defaultMessage="Create list" />
+        <FormattedMessage id="createProject.addProject" defaultMessage="Create folder" />
       </Button>
     );
 
@@ -132,8 +132,8 @@ class CreateProject extends React.Component {
         >
           <CardHeader
             title={team.projects.edges.length
-              ? <FormattedMessage id="createProject.title" defaultMessage="Add a list" />
-              : <FormattedMessage id="createProject.titleBlank" defaultMessage="Add your first list" />
+              ? <FormattedMessage id="createProject.title" defaultMessage="Add a folder" />
+              : <FormattedMessage id="createProject.titleBlank" defaultMessage="Add your first folder" />
             }
           />
           <CardContent>

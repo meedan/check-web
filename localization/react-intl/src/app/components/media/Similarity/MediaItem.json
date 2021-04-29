@@ -59,7 +59,7 @@
   },
   {
     "id": "detachDialog.dialogdetachedToListTitle",
-    "description": "Dialog title prompting user to select a destination list for the item",
+    "description": "Dialog title prompting user to select a destination folder for the item",
     "defaultMessage": "Move detached item to…"
   },
   {
@@ -70,6 +70,6 @@
   {
     "id": "detachDialog.detached",
     "description": "Button to commit the action of moving item",
-    "defaultMessage": "Move to list"
+    "defaultMessage": "Move to folder"
   }
 ]

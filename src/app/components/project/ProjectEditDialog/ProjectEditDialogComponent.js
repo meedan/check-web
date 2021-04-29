@@ -39,7 +39,7 @@ const ProjectEditDialogComponent = ({ project, onDismiss, setFlashMessage }) => 
     setFlashMessage((
       <FormattedMessage
         id="projectEditDialogComponent.ialogComponent.defaultErrorMessage"
-        defaultMessage="Could not update list details."
+        defaultMessage="Could not update folder details."
       />
     ), 'error');
   };
@@ -50,7 +50,7 @@ const ProjectEditDialogComponent = ({ project, onDismiss, setFlashMessage }) => 
     setFlashMessage((
       <FormattedMessage
         id="projectEditDialogComponent.ialogComponent.savedSuccessfully"
-        defaultMessage="List details updated successfully."
+        defaultMessage="Folder details updated successfully."
       />
     ), 'success');
   };
@@ -107,7 +107,7 @@ const ProjectEditDialogComponent = ({ project, onDismiss, setFlashMessage }) => 
       <DialogTitle>
         <FormattedMessage
           id="projectEditDialogComponent.title"
-          defaultMessage="List details"
+          defaultMessage="Folder details"
         />
       </DialogTitle>
       <DialogContent className="project-edit project-edit__form">
@@ -168,7 +168,7 @@ const ProjectEditDialogComponent = ({ project, onDismiss, setFlashMessage }) => 
         title={
           <FormattedMessage
             id="projectEditDialogComponent.confirmProceedTitle"
-            defaultMessage="Are you sure you want to change this list?"
+            defaultMessage="Are you sure you want to change this folder?"
           />
         }
         body={(
@@ -176,7 +176,7 @@ const ProjectEditDialogComponent = ({ project, onDismiss, setFlashMessage }) => 
             <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="projectEditDialogComponent.confirmProceedBody"
-                defaultMessage="Changes made to this list will be reflected for everyone in this workspace."
+                defaultMessage="Changes made to this folder will be reflected for everyone in this workspace."
               />
             </Typography>
           </Box>
