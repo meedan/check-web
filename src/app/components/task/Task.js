@@ -428,7 +428,7 @@ class Task extends Component {
       );
     }
     let fileUploadPath = null;
-    if (task.type === 'file_upload' && responseObj.file_data && responseObj.file_data.length) {
+    if (task.type === 'file_upload' && responseObj && responseObj.file_data && responseObj.file_data.length) {
       [fileUploadPath] = responseObj.file_data;
     }
     return (
@@ -521,6 +521,7 @@ class Task extends Component {
       response, by, byPictures,
     } = data;
     const currentUser = this.getCurrentUser();
+    const isArchived = !(media.archived === CheckArchivedFlags.NONE);
 
     task.cannotAct = (!response && !can(media.permissions, 'create Task') && !can(task.permissions, 'destroy Task'));
 
@@ -562,7 +563,7 @@ class Task extends Component {
 
     const zeroAnswer = task.responses.edges.length === 0;
 
-    const taskActions = media.archived === CheckArchivedFlags.NONE ? (
+    const taskActions = !isArchived ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
         { data.by ?
@@ -600,7 +601,7 @@ class Task extends Component {
 
     let taskBody = null;
     if ((!response || task.responses.edges.length > 1)
-      && media.archived === CheckArchivedFlags.NONE) {
+      && !isArchived) {
       taskBody = (
         <div>
           <StyledTaskResponses>
@@ -679,7 +680,7 @@ class Task extends Component {
         </div>
       );
     } else {
-      taskBody = this.renderTaskResponse(task.first_response, response, false, false, false);
+      taskBody = !isArchived ? this.renderTaskResponse(task.first_response, response, false, false, false) : null;
     }
 
     task.project_media = Object.assign({}, this.props.media);
