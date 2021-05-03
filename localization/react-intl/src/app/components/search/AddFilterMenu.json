@@ -6,8 +6,8 @@
   },
   {
     "id": "addFilterMenu.timeRange",
-    "description": "Menu option to enable searching items by time range",
-    "defaultMessage": "Time range"
+    "description": "Menu option to enable searching items by date range",
+    "defaultMessage": "Date range"
   },
   {
     "id": "addFilterMenu.tags",

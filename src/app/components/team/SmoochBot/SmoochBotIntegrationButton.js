@@ -365,9 +365,8 @@ const SmoochBotIntegrationButton = ({
             <strong className={classes.smoochBotIntegrationButtonWarning}>
               <FormattedMessage
                 id="smoochBotIntegrationButton.confirmDisconnectTextPermanent"
-                defaultMessage="Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected."
-                values={{ platform: label }}
-                description="Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+                defaultMessage="Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected."
+                description="Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
               />
             </strong> :
             <FormattedMessage
