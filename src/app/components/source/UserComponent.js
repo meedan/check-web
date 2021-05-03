@@ -27,13 +27,6 @@ class UserComponent extends React.Component {
     };
   }
 
-  componentWillMount() {
-    const { user } = this.props;
-    if (!user.is_active) {
-      browserHistory.push('/check/forbidden');
-    }
-  }
-
   getContext() {
     return new CheckContext(this).getContextStore();
   }

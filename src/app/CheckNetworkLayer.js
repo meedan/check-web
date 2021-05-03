@@ -63,8 +63,6 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
       const team = this._init.team();
       if (team !== '') {
         browserHistory.push('/');
-      } else if (window.location.pathname !== '/check/forbidden') {
-        browserHistory.push('/check/forbidden');
       }
     }
   }
