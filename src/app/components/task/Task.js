@@ -428,7 +428,7 @@ class Task extends Component {
       );
     }
     let fileUploadPath = null;
-    if (task.type === 'file_upload' && responseObj.file_data && responseObj.file_data.length) {
+    if (task.type === 'file_upload' && responseObj && responseObj.file_data && responseObj.file_data.length) {
       [fileUploadPath] = responseObj.file_data;
     }
     return (
@@ -521,6 +521,7 @@ class Task extends Component {
       response, by, byPictures,
     } = data;
     const currentUser = this.getCurrentUser();
+    const isArchived = !(media.archived === CheckArchivedFlags.NONE);
 
     task.cannotAct = (!response && !can(media.permissions, 'create Task') && !can(task.permissions, 'destroy Task'));
 
@@ -562,7 +563,7 @@ class Task extends Component {
 
     const zeroAnswer = task.responses.edges.length === 0;
 
-    const taskActions = media.archived === CheckArchivedFlags.NONE ? (
+    const taskActions = !isArchived ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
         { data.by ?
@@ -599,87 +600,88 @@ class Task extends Component {
     );
 
     let taskBody = null;
-    if ((!response || task.responses.edges.length > 1)
-      && media.archived === CheckArchivedFlags.NONE) {
-      taskBody = (
-        <div>
-          <StyledTaskResponses>
-            {task.responses.edges.map((singleResponse) => {
-              const singleResponseData = getResponseData(singleResponse.node);
-              return this.renderTaskResponse(
-                singleResponse.node,
-                singleResponseData.response,
-                singleResponseData.by,
-                singleResponseData.byPictures,
-                true,
-              );
-            })}
-          </StyledTaskResponses>
-          {zeroAnswer ?
-            <Can permissions={media.permissions} permission="create Dynamic">
-              <div>
-                <form name={`task-response-${task.id}`}>
+    if (!isArchived) {
+      if ((!response || task.responses.edges.length > 1)) {
+        taskBody = (
+          <div>
+            <StyledTaskResponses>
+              {task.responses.edges.map((singleResponse) => {
+                const singleResponseData = getResponseData(singleResponse.node);
+                return this.renderTaskResponse(
+                  singleResponse.node,
+                  singleResponseData.response,
+                  singleResponseData.by,
+                  singleResponseData.byPictures,
+                  true,
+                );
+              })}
+            </StyledTaskResponses>
+            {zeroAnswer ?
+              <Can permissions={media.permissions} permission="create Dynamic">
+                <div>
+                  <form name={`task-response-${task.id}`}>
 
-                  <div className="task__response-inputs">
-                    {task.type === 'free_text' ?
-                      <ShortTextRespondTask
-                        task={task}
-                        fieldset={task.fieldset}
-                        onSubmit={this.handleSubmitResponse}
-                      />
-                      : null}
-                    {task.type === 'number' ?
-                      <NumberRespondTask
-                        task={task}
-                        fieldset={task.fieldset}
-                        onSubmit={this.handleSubmitResponse}
-                      />
-                      : null}
-                    {task.type === 'geolocation' ?
-                      <GeolocationRespondTask
-                        fieldset={task.fieldset}
-                        onSubmit={this.handleSubmitResponse}
-                      /> : null}
-                    {task.type === 'datetime' ?
-                      <DatetimeRespondTask
-                        timezones={task.jsonoptions}
-                        fieldset={task.fieldset}
-                        onSubmit={this.handleSubmitResponse}
-                      />
-                      : null}
-                    {task.type === 'single_choice' ?
-                      <SingleChoiceTask
-                        fieldset={task.fieldset}
-                        mode="respond"
-                        response={response}
-                        jsonoptions={task.jsonoptions}
-                        onSubmit={this.handleSubmitResponse}
-                      />
-                      : null}
-                    {task.type === 'multiple_choice' ?
-                      <MultiSelectTask
-                        fieldset={task.fieldset}
-                        mode="respond"
-                        jsonresponse={response}
-                        jsonoptions={task.jsonoptions}
-                        onSubmit={this.handleSubmitResponse}
-                      />
-                      : null}
-                    {task.type === 'file_upload' ?
-                      <FileUploadRespondTask
-                        fieldset={task.fieldset}
-                        task={task}
-                        onSubmit={this.handleSubmitResponse}
-                      />
-                      : null}
-                  </div>
-                </form>
-              </div>
-            </Can> : null}
-        </div>
-      );
-    } else {
-      taskBody = this.renderTaskResponse(task.first_response, response, false, false, false);
+                    <div className="task__response-inputs">
+                      {task.type === 'free_text' ?
+                        <ShortTextRespondTask
+                          task={task}
+                          fieldset={task.fieldset}
+                          onSubmit={this.handleSubmitResponse}
+                        />
+                        : null}
+                      {task.type === 'number' ?
+                        <NumberRespondTask
+                          task={task}
+                          fieldset={task.fieldset}
+                          onSubmit={this.handleSubmitResponse}
+                        />
+                        : null}
+                      {task.type === 'geolocation' ?
+                        <GeolocationRespondTask
+                          fieldset={task.fieldset}
+                          onSubmit={this.handleSubmitResponse}
+                        /> : null}
+                      {task.type === 'datetime' ?
+                        <DatetimeRespondTask
+                          timezones={task.jsonoptions}
+                          fieldset={task.fieldset}
+                          onSubmit={this.handleSubmitResponse}
+                        />
+                        : null}
+                      {task.type === 'single_choice' ?
+                        <SingleChoiceTask
+                          fieldset={task.fieldset}
+                          mode="respond"
+                          response={response}
+                          jsonoptions={task.jsonoptions}
+                          onSubmit={this.handleSubmitResponse}
+                        />
+                        : null}
+                      {task.type === 'multiple_choice' ?
+                        <MultiSelectTask
+                          fieldset={task.fieldset}
+                          mode="respond"
+                          jsonresponse={response}
+                          jsonoptions={task.jsonoptions}
+                          onSubmit={this.handleSubmitResponse}
+                        />
+                        : null}
+                      {task.type === 'file_upload' ?
+                        <FileUploadRespondTask
+                          fieldset={task.fieldset}
+                          task={task}
+                          onSubmit={this.handleSubmitResponse}
+                        />
+                        : null}
+                    </div>
+                  </form>
+                </div>
+              </Can> : null}
+          </div>
+        );
+      } else {
+        taskBody = this.renderTaskResponse(task.first_response, response, false, false, false);
+      }
     }
 
     task.project_media = Object.assign({}, this.props.media);
