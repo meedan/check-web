@@ -10,9 +10,9 @@
     "defaultMessage": "Date range"
   },
   {
-    "id": "addFilterMenu.tags",
+    "id": "addFilterMenu.tag",
     "description": "Menu option to enable searching items by tags",
-    "defaultMessage": "Tags"
+    "defaultMessage": "Tag"
   },
   {
     "id": "addFilterMenu.mediaType",
@@ -37,11 +37,11 @@
   {
     "id": "addFilterMenu.assignedTo",
     "description": "Menu option to enable searching items by assigned users",
-    "defaultMessage": "Assigned to"
+    "defaultMessage": "Assignment"
   },
   {
-    "id": "addFilterMenu.customFields",
-    "description": "Menu option to enable searching items by custom fields",
-    "defaultMessage": "Custom fields"
+    "id": "addFilterMenu.metadata",
+    "description": "Menu option to enable searching items by metadata fields",
+    "defaultMessage": "Metadata"
   }
 ]
