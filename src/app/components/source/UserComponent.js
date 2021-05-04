@@ -30,7 +30,7 @@ class UserComponent extends React.Component {
   componentWillMount() {
     const { user } = this.props;
     if (!user.is_active) {
-      browserHistory.push('/check/forbidden');
+      browserHistory.push('/check/not-found');
     }
   }
 
