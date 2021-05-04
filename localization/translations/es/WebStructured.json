@@ -25,7 +25,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
 	},
 	"CustomTeamTaskFilter.choiceFilter": {
-		"string": "\"{field}\" has value {value}",
+		"string": "“{field}” tiene valor {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
@@ -57,15 +57,15 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
-		"string": "\"{field}\" contains any value",
+		"string": "“{field}” contiene algún valor",
 		"developer_comment": "Label for custom field when metadata or task response contains any value"
 	},
 	"CustomTeamTaskFilter.textFilter": {
-		"string": "\"{field}\" contains {value}",
+		"string": "“{field}” contiene {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains keyword"
 	},
 	"CustomTeamTaskFilter.textNoValue": {
-		"string": "\"{field}\" contains no value",
+		"string": "“{field}” no contiene ningún valor",
 		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
@@ -182,7 +182,7 @@
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.customFields": {
-		"string": "Custom fields",
+		"string": "Campos personalizados",
 		"developer_comment": "Menu option to enable searching items by custom fields"
 	},
 	"addFilterMenu.itemStatus": {
@@ -202,8 +202,8 @@
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Time range",
-		"developer_comment": "Menu option to enable searching items by time range"
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Añadir idioma"
@@ -563,7 +563,7 @@
 		"string": "Cambiar rol a {newRole}"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to confirm."
+		"string": "Escribe “{text}” para confirmar."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Escribe aquí"
@@ -667,7 +667,7 @@
 		"string": "Lo sentimos, se produjo un error al crear la tarea. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"customFiltersManager.label": {
-		"string": "Custom field",
+		"string": "Campo personalizado",
 		"developer_comment": "Placeholder label for custom field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
@@ -715,7 +715,7 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Mover ítem adosado a...",
+		"string": "Mover ítem separado a...",
 		"developer_comment": "Dialog title prompting user to select a destination list for the item"
 	},
 	"editStatusDialog.addButton": {
@@ -863,7 +863,7 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully.",
+		"string": "Las demás invitaciones fueron enviadas exitosamente.",
 		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
@@ -1100,7 +1100,7 @@
 		"string": "Asignar ítem a lo(a)s colaboradore(a)s"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully."
+		"string": "¡Las asignaciones se han actualizado con éxito!"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Cancelar"
@@ -1256,7 +1256,7 @@
 		"string": "Detach"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Ítem adosado a '{toProject}'",
+		"string": "Ítem separado a '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
@@ -1448,7 +1448,7 @@
 		"string": "Solicitudes"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+		"string": "{current} de {total, plural, one {# suggested media} other {# suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Menos"
@@ -1510,7 +1510,7 @@
 		"string": "Las contraseñas no coincidieron"
 	},
 	"passwordReset.confirmedText": {
-		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+		"string": "Si este correo existe, recibirás un correo electrónico de {adminEmail} con instrucciones para reestablecer tu clave. Asegurate de que no haya terminado en la carpeta de spam de tu correo. Si no estás recibiendo nuestros correos de restablecimiento de claves, contacta {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Correo electrónico"
@@ -1886,7 +1886,7 @@
 		"string": "No se pudo guardar las reglas"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Rules saved successfully."
+		"string": "¡Las reglas se han guardado con éxito!"
 	},
 	"rulesTableHead.name": {
 		"string": "Nombre",
@@ -1931,7 +1931,7 @@
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.applyFilters": {
-		"string": "Apply filter",
+		"string": "Aplicar filtro",
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
@@ -2162,7 +2162,7 @@
 		"string": "Guardar"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully."
+		"string": "¡Las configuraciones de Slack se guardaron con éxito!"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Enviar notificación a"
@@ -2189,7 +2189,7 @@
 		"string": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "Este mensaje se enviará a las(os) usuarias(os) si, después de iniciar una conversación, no seleccionan ninguna de las opciones: recibir un recurso o enviar contenido para verificar. Este mensaje también se enviará a las(os) usuarias(os) que enviaron contenido sin esperar el mensaje de consulta."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "El mensaje enviado si la respuesta del usuario a un menú no es un escenario de menú válido."
@@ -2329,30 +2329,30 @@
 		"string": "Confirmar"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
-		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"string": "Desconectar esta cuenta de {platform} evitará que cualquier usuaria(o) interactúe con la Línea de Ayuda a través de esa cuenta. ",
 		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
-		"string": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected.",
-		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTitle": {
-		"string": "Disconnect {platform} tipline",
+		"string": "Desconectar tipline de {platform}",
 		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
-		"string": "Disconnect {platform}",
+		"string": "Desconectar {platform}",
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
-		"string": "Disconnect {platform} permanently",
+		"string": "Desconectar {platform} permanentemente.",
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Conectar"
 	},
 	"smoochBotIntegrationButton.connectTipline": {
-		"string": "Conectar línea de ayuda a {platform}"
+		"string": "Connect to {platform} tipline"
 	},
 	"smoochBotIntegrationButton.defaultErrorMessage": {
 		"string": "Algo salió mal."
@@ -2360,11 +2360,18 @@
 	"smoochBotIntegrationButton.disclaimer": {
 		"string": "No almacenamos esta información. Esto es sólo utilizado para configurar la integración."
 	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
 	"smoochBotIntegrationButton.disconnect": {
 		"string": "Desconectar de esta cuenta"
 	},
 	"smoochBotIntegrationButton.online": {
 		"string": "En línea"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
 	},
 	"smoochBotIntegrationButton.savedSuccessfully": {
 		"string": "Listo"
@@ -2391,13 +2398,17 @@
 		"string": "Página conectada: {link}"
 	},
 	"smoochBotIntegrations.phoneNumber": {
-		"string": "Connected phone number: {link}"
+		"string": "Número de teléfono conectado: {link}"
 	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Bot de Telegram conectado: {link}"
 	},
 	"smoochBotIntegrations.telegramBotToken": {
 		"string": "Token del bot de Telegram"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
 	},
 	"smoochBotIntegrations.viberPublicAccount": {
 		"string": "Cuenta pública de Viber conectada: {name}"
@@ -2598,10 +2609,10 @@
 		"string": "Traduce los estados en idiomas secundarios para mostrarlos en idiomas locales en tus informes de verificación de datos."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully."
+		"string": "¡Estado creado exitosamente!"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully."
+		"string": "¡Estado eliminado exitosamente!"
 	},
 	"statusesComponent.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar los estados. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
@@ -2613,7 +2624,7 @@
 		"string": "Nuevo estado"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully."
+		"string": "¡Estado guardado exitosamente!"
 	},
 	"statusesComponent.subtitle": {
 		"string": "El título del estado es visible cuando se envían informes a los(as) usuarios(as)."
@@ -3040,7 +3051,7 @@
 		"string": "URL de la página web"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Short URL ({max} characters max)",
+		"string": "URL corta ({max} characters max)",
 		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {

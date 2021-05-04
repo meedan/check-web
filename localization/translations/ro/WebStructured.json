@@ -202,8 +202,8 @@
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Time range",
-		"developer_comment": "Menu option to enable searching items by time range"
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Adaugă limba"
@@ -2333,8 +2333,8 @@
 		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
-		"string": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected.",
-		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTitle": {
 		"string": "Disconnect {platform} tipline",
@@ -2352,7 +2352,7 @@
 		"string": "Conectare"
 	},
 	"smoochBotIntegrationButton.connectTipline": {
-		"string": "Connect tipline to {platform}"
+		"string": "Connect to {platform} tipline"
 	},
 	"smoochBotIntegrationButton.defaultErrorMessage": {
 		"string": "Something went wrong"
@@ -2360,11 +2360,18 @@
 	"smoochBotIntegrationButton.disclaimer": {
 		"string": "We don't store this information. This is just used to configure the integration."
 	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
 	"smoochBotIntegrationButton.disconnect": {
 		"string": "Disconnect from this account"
 	},
 	"smoochBotIntegrationButton.online": {
 		"string": "Online"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
 	},
 	"smoochBotIntegrationButton.savedSuccessfully": {
 		"string": "Terminat"
@@ -2398,6 +2405,10 @@
 	},
 	"smoochBotIntegrations.telegramBotToken": {
 		"string": "Telegram bot token"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
 	},
 	"smoochBotIntegrations.viberPublicAccount": {
 		"string": "Connected Viber public account: {name}"
