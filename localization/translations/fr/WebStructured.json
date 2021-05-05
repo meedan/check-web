@@ -202,8 +202,8 @@
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Plage de dates",
-		"developer_comment": "Menu option to enable searching items by time range"
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Ajouter une langue"
@@ -563,7 +563,7 @@
 		"string": "Changer le rôle en {newRole}"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to confirm."
+		"string": "Tapez « {text} » pour confirmer."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Tapez ici"
@@ -934,7 +934,7 @@
 		"string": "(valeur par défaut)"
 	},
 	"languagesComponent.blurb": {
-		"string": "Ajoutez de nouvelles langues à votre espace de travail afin de créer des rapports, des robots de ligne de signalement et des états en plusieurs langues pour communiquer avec les utilisateurs."
+		"string": "Ajoutez de nouvelles langues à votre espace de travail afin de créer des rapports, des robots de ligne info et des états en plusieurs langues pour communiquer avec les utilisateurs."
 	},
 	"languagesComponent.title": {
 		"string": "Langues"
@@ -2180,7 +2180,7 @@
 		"string": "Le premier message envoyé à l’utilisateur. Il présente votre organisation et le service que vous proposez grâce à ce robot."
 	},
 	"smoochBot.descriptionInactive": {
-		"string": "Ce message est envoyé à tout utilisateur qui a envoyé un message à la ligne de signalement quand le robot Check Message est défini comme inactif."
+		"string": "Ce message est envoyé à tout utilisateur qui a envoyé un message à la ligne info si le robot Check Message est défini comme inactif."
 	},
 	"smoochBot.descriptionInvalidFormat": {
 		"string": "Message automatique envoyé à l’utilisateur s’il a envoyé un fichier qui n’est pas pris en charge par Check."
@@ -2243,7 +2243,7 @@
 		"string": "Déclaration de confidentialité"
 	},
 	"smoochBot.labelQueryPrompt": {
-		"string": "Invite de demande"
+		"string": "Message-guide de demande"
 	},
 	"smoochBot.labelQueryReceived": {
 		"string": "La demande a été reçue"
@@ -2303,7 +2303,7 @@
 		"string": "Contactez-nous pour mettre l’intégration en place"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Impossible d’enregistrer les paramètres de la ligne de signalement.",
+		"string": "Impossible d’enregistrer les paramètres de la ligne info.",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
 	"smoochBotComponent.install": {
@@ -2313,14 +2313,14 @@
 		"string": "Enregistrer les paramètres"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Les paramètres de la ligne de signalement ont été enregistrés avec succès.",
+		"string": "Les paramètres de la ligne info ont été enregistrés avec succès.",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
 		"string": "Créez des robots dialogueurs automatisés afin de recevoir du contenu de votre auditoire."
 	},
 	"smoochBotComponent.title": {
-		"string": "Ligne de signalement"
+		"string": "Ligne info"
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Annuler"
@@ -2329,30 +2329,30 @@
 		"string": "Confirmer"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
-		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"string": "La déconnexion de ce compte {platform} empêchera tout utilisateur d’interagir avec la ligne info grâce à ce compte.",
 		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
-		"string": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected.",
-		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTitle": {
-		"string": "Disconnect {platform} tipline",
+		"string": "Déconnecter la ligne info {platform}",
 		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
-		"string": "Disconnect {platform}",
+		"string": "Déconnecter {platform}",
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
-		"string": "Disconnect {platform} permanently",
+		"string": "Déconnecter {platform} de façon permanente",
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Connecter"
 	},
 	"smoochBotIntegrationButton.connectTipline": {
-		"string": "Connecter la ligne de signalement à {platform}"
+		"string": "Connect to {platform} tipline"
 	},
 	"smoochBotIntegrationButton.defaultErrorMessage": {
 		"string": "Un problème est survenu"
@@ -2360,11 +2360,18 @@
 	"smoochBotIntegrationButton.disclaimer": {
 		"string": "Nous n’enregistrons pas ces renseignements. Ils ne sont utilisés que pour configurer l’intégration."
 	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
 	"smoochBotIntegrationButton.disconnect": {
 		"string": "Se déconnecter de ce compte"
 	},
 	"smoochBotIntegrationButton.online": {
 		"string": "En ligne"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
 	},
 	"smoochBotIntegrationButton.savedSuccessfully": {
 		"string": "Terminé"
@@ -2373,7 +2380,7 @@
 		"string": "État : En ligne"
 	},
 	"smoochBotIntegrationButton.tipline": {
-		"string": "Ligne de signalement {platform}"
+		"string": "Ligne info {platform}"
 	},
 	"smoochBotIntegrations.account": {
 		"string": "Compte connecté : {link}"
@@ -2398,6 +2405,10 @@
 	},
 	"smoochBotIntegrations.telegramBotToken": {
 		"string": "Jeton du robot Telegram"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
 	},
 	"smoochBotIntegrations.viberPublicAccount": {
 		"string": "Compte public Viber connecté : {name}"
@@ -2430,7 +2441,7 @@
 		"string": "Menu principal"
 	},
 	"smoochBotMenuOption.queryState": {
-		"string": "Invite de demande"
+		"string": "Message-guide de demande"
 	},
 	"smoochBotMenuOption.resource": {
 		"string": "Rapport"
@@ -2542,7 +2553,7 @@
 		"string": "La langue par défaut sera changée de {currentDefaultLanguage} à {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "La langue {language} deviendra la langue de réponse par défaut aux utilisateurs par le robot de la Ligne de signalement, dans États et Rapport s’ils interagissent avec le robot dans une langue qui n’apparaît pas dans cette liste, ou s’il n’y a pas de traduction proposée pour cette langue."
+		"string": "La langue {language} deviendra la langue de réponse par défaut aux utilisateurs par le robot de la Ligne info, dans États et Rapport s’ils interagissent avec le robot dans une langue qui n’apparaît pas dans cette liste, ou s’il n’y a pas de traduction proposée pour cette langue."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Définir {language} par défaut"
@@ -2551,7 +2562,7 @@
 		"string": "Voulez-vous définir la langue {language} comme langue par défaut ?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "Tout le contenu en {language} des onglets « Ligne de signalement », « États » et « Rapport » seront supprimés irrémédiablement.",
+		"string": "Tout le contenu en {language} des onglets « Ligne info », « États » et « Rapport » seront supprimés irrémédiablement.",
 		"developer_comment": "Warning about content being lost after deleting a language"
 	},
 	"statusListItem.confirmDeleteBody2": {
@@ -2823,7 +2834,7 @@
 		"string": "Votre rapport de données sera activé en moins d’un jour ouvrable."
 	},
 	"teamDataComponent.subtitle": {
-		"string": "Téléchargez les données et les métadonnées de Check. Obtenez une vue précise et des analyses sur l’utilisation des espaces de travail et de la ligne de signalement."
+		"string": "Téléchargez les données et les métadonnées de Check. Obtenez une vue précise et des analyses sur l’utilisation des espaces de travail et de la ligne info."
 	},
 	"teamDataComponent.title": {
 		"string": "Données de l’espace de travail",
@@ -3086,7 +3097,7 @@
 		"string": "Tâches"
 	},
 	"teamSettings.tipline": {
-		"string": "ligne de signalement"
+		"string": "Ligne info"
 	},
 	"teamTags.addTag": {
 		"string": "Ajouter une étiquette"
