@@ -22,7 +22,7 @@ const MultiSelectFilter = ({
 
   return (
     <CustomAutocomplete
-      defaultValue={selected}
+      value={selected}
       icon={icon}
       label={label}
       getOptionLabel={option => labelProp === '' ? option : option[labelProp]}

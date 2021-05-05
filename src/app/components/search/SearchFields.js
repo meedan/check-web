@@ -345,153 +345,192 @@ class SearchFields extends React.Component {
       </NoHoverButton>
     );
 
+    const fields = [];
+
+    if (!(!this.filterIsAdded('range') || this.hideField('date'))) {
+      fields.push(
+        <Box maxWidth="400px" mr={1} mb={1}>
+          { /* TODO: Move Box margin inside `DateRangeFilter` */ }
+          <DateRangeFilter
+            hide={!this.filterIsAdded('range') || this.hideField('date')}
+            onChange={this.handleDateChange}
+            value={this.state.query.range}
+          />
+        </Box>,
+      );
+    }
+    if (!((!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length)) {
+      fields.push(
+        <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
+          { label => (
+            <MultiSelectFilter
+              switchAndOr={<AnyAll />}
+              label={label}
+              icon={<LocalOfferIcon />}
+              hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
+              selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
+              options={plainTagsTexts}
+              labelProp=""
+              onChange={(newValue) => {
+                this.handleTagClick(newValue);
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('show') || this.hideField('type'))) {
+      fields.push(
+        <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<DescriptionIcon />}
+              hide={!this.filterIsAdded('show') || this.hideField('type')}
+              selected={types.filter(t => this.showIsSelected(t.value))}
+              options={types}
+              onChange={(newValue) => {
+                this.handleShowClick(newValue.map(t => t.value));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('verification_status') || this.hideField('status'))) {
+      fields.push(
+        <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<LabelIcon />}
+              hide={!this.filterIsAdded('verification_status') || this.hideField('status')}
+              selected={statuses.filter(s => this.statusIsSelected(s.id))}
+              options={statuses}
+              onChange={(newValue) => {
+                this.handleStatusClick(newValue.map(s => s.id));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('users') || this.hideField('user') || !users.length)) {
+      fields.push(
+        <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              hide={!this.filterIsAdded('users') || this.hideField('user') || !users.length}
+              selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
+              options={users.map(u => u.node)}
+              labelProp="name"
+              onChange={(newValue) => {
+                this.handleUserClick(newValue.map(u => u.dbid));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length)) {
+      // The only dynamic filter available right now is language
+      fields.push(
+        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<LanguageIcon />}
+              hide={!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length}
+              selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
+              options={languages}
+              onChange={(newValue) => {
+                this.handleDynamicClick('language', newValue.map(t => t.value));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('projects') || this.hideField('project') || !projects.length)) {
+      fields.push(
+        <FormattedMessage id="search.projectHeading" defaultMessage="List is" description="Prefix label for field to filter by lists to which items belong">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              hide={!this.filterIsAdded('projects') || this.hideField('project') || !projects.length}
+              selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
+              options={projects.map(p => p.node)}
+              labelProp="title"
+              onChange={(newValue) => {
+                this.handleProjectClick(newValue.map(p => p.dbid));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length)) {
+      fields.push(
+        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              hide={!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length}
+              selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
+              options={users.map(u => u.node)}
+              labelProp="name"
+              onChange={(newValue) => {
+                this.handleAssignedUserClick(newValue.map(u => u.dbid));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('read') || this.hideField('read'))) {
+      fields.push(
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.readIsSelected(true)}
+              onChange={(e) => { this.handleReadClick(e.target.checked); }}
+            />
+          }
+          label={
+            <FormattedMessage id="search.readHeading" defaultMessage="Read" description="Label for field to filter by 'item is marked' as read" />
+          }
+        />,
+      );
+    }
+    if (!(!this.filterIsAdded('team_tasks') || this.hideField('team_tasks'))) {
+      fields.push(
+        <CustomFiltersManager
+          hide={!this.filterIsAdded('team_tasks') || this.hideField('team_tasks')}
+          onFilterChange={this.handleCustomFilterChange}
+          team={team}
+          query={this.state.query}
+        />,
+      );
+    }
+
     return (
       <div>
         <Row flexWrap>
-          { /* TODO: Move Box margin inside `DateRangeFilter` */ }
-          { !(!this.filterIsAdded('range') || this.hideField('date')) ?
-            <Box maxWidth="400px" mr={1} mb={1}>
-              <DateRangeFilter
-                hide={!this.filterIsAdded('range') || this.hideField('date')}
-                onChange={this.handleDateChange}
-                value={this.state.query.range}
-              />
-            </Box> : null
-          }
-
-          <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
-            { label => (
-              <MultiSelectFilter
-                switchAndOr={<AnyAll />}
-                label={label}
-                icon={<LocalOfferIcon />}
-                hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
-                selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
-                options={plainTagsTexts}
-                labelProp=""
-                onChange={(newValue) => {
-                  this.handleTagClick(newValue);
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<DescriptionIcon />}
-                hide={!this.filterIsAdded('show') || this.hideField('type')}
-                selected={types.filter(t => this.showIsSelected(t.value))}
-                options={types}
-                onChange={(newValue) => {
-                  this.handleShowClick(newValue.map(t => t.value));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<LabelIcon />}
-                hide={!this.filterIsAdded('verification_status') || this.hideField('status')}
-                selected={statuses.filter(s => this.statusIsSelected(s.id))}
-                options={statuses}
-                onChange={(newValue) => {
-                  this.handleStatusClick(newValue.map(s => s.id));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<PersonIcon />}
-                hide={!this.filterIsAdded('users') || this.hideField('user') || !users.length}
-                selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
-                options={users.map(u => u.node)}
-                labelProp="name"
-                onChange={(newValue) => {
-                  this.handleUserClick(newValue.map(u => u.dbid));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          {/* The only dynamic filter available right now is language */}
-
-          <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<LanguageIcon />}
-                hide={!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length}
-                selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
-                options={languages}
-                onChange={(newValue) => {
-                  this.handleDynamicClick('language', newValue.map(t => t.value));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.projectHeading" defaultMessage="List is" description="Prefix label for field to filter by lists to which items belong">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                hide={!this.filterIsAdded('projects') || this.hideField('project') || !projects.length}
-                selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
-                options={projects.map(p => p.node)}
-                labelProp="title"
-                onChange={(newValue) => {
-                  this.handleProjectClick(newValue.map(p => p.dbid));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<PersonIcon />}
-                hide={!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length}
-                selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
-                options={users.map(u => u.node)}
-                labelProp="name"
-                onChange={(newValue) => {
-                  this.handleAssignedUserClick(newValue.map(u => u.dbid));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          { !this.filterIsAdded('read') || this.hideField('read') ?
-            null : (
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.readIsSelected(true)}
-                    onChange={(e) => { this.handleReadClick(e.target.checked); }}
-                  />
-                }
-                label={
-                  <FormattedMessage id="search.readHeading" defaultMessage="Read" description="Label for field to filter by 'item is marked' as read" />
-                }
-              />
-            )
-          }
-
-          <CustomFiltersManager
-            hide={!this.filterIsAdded('team_tasks') || this.hideField('team_tasks')}
-            onFilterChange={this.handleCustomFilterChange}
-            team={team}
-            query={this.state.query}
-          />
+          { fields.map((field, index) => index > 0 ? (
+            <Box display="flex" alignItems="center">
+              <Box mr={1} mb={1} height="36px" display="flex" alignItems="center">
+                <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
+              </Box>
+              {field}
+            </Box>
+          ) : (
+            <span>
+              {field}
+            </span>
+          )) }
         </Row>
 
         <AddFilterMenu onSelect={this.handleAddField} />

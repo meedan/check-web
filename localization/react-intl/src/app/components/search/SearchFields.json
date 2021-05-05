@@ -80,6 +80,11 @@
     "defaultMessage": "Read"
   },
   {
+    "id": "search.fieldAnd",
+    "description": "Logical operator to be applied when filtering by multiple fields",
+    "defaultMessage": "AND"
+  },
+  {
     "id": "search.applyFilters",
     "description": "Button to perform query with specified filters",
     "defaultMessage": "Apply filter"

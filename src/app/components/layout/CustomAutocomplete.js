@@ -165,7 +165,7 @@ const Listbox = styled('ul')`
 `;
 
 const CustomAutocomplete = ({
-  defaultValue,
+  value,
   icon,
   intl,
   getOptionLabel,
@@ -182,11 +182,10 @@ const CustomAutocomplete = ({
     getListboxProps,
     getOptionProps,
     groupedOptions,
-    value,
     focused,
     setAnchorEl,
   } = useAutocomplete({
-    defaultValue,
+    value,
     multiple: true,
     options: options || [],
     onChange,
@@ -214,7 +213,7 @@ const CustomAutocomplete = ({
             </Box>
           ) : null }
           { value.map((option, index) => (
-            <React.Fragment>
+            <React.Fragment key={getOptionLabel(option)}>
               { index > 0 ? switchAndOr : null }
               <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
             </React.Fragment>
