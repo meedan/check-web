@@ -41,37 +41,37 @@
   },
   {
     "id": "search.categoriesHeading",
-    "description": "Placeholder label for field to filter by tags",
-    "defaultMessage": "Tags"
+    "description": "Prefix label for field to filter by tags",
+    "defaultMessage": "Tag is"
   },
   {
     "id": "search.show",
-    "description": "Placeholder label for field to filter by media type",
-    "defaultMessage": "Media type"
+    "description": "Prefix label for field to filter by media type",
+    "defaultMessage": "Media type is"
   },
   {
     "id": "search.statusHeading",
-    "description": "Placeholder label for field to filter by status",
-    "defaultMessage": "Item status"
+    "description": "Prefix label for field to filter by status",
+    "defaultMessage": "Item status is"
   },
   {
     "id": "search.userHeading",
-    "description": "Placeholder label for field to filter by item creator",
+    "description": "Prefix label for field to filter by item creator",
     "defaultMessage": "Created by"
   },
   {
     "id": "search.language",
-    "description": "Placeholder label for field to filter by language",
-    "defaultMessage": "Language"
+    "description": "Prefix label for field to filter by language",
+    "defaultMessage": "Language is"
   },
   {
     "id": "search.projectHeading",
-    "description": "Placeholder label for field to filter by lists to which items belong",
-    "defaultMessage": "List"
+    "description": "Prefix label for field to filter by lists to which items belong",
+    "defaultMessage": "List is"
   },
   {
     "id": "search.assignedTo",
-    "description": "Placeholder label for field to filter by assigned users",
+    "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
   },
   {

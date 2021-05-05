@@ -1,16 +1,27 @@
 import React from 'react';
+import { defineMessages, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import useAutocomplete from '@material-ui/lab/useAutocomplete';
+import AddIcon from '@material-ui/icons/Add';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import { makeStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import { checkBlue } from '../../styles/js/shared';
+
+const messages = defineMessages({
+  select: {
+    id: 'customAutocomplete.select',
+    defaultMessage: 'Select',
+    description: 'Verb. Label for generic dropdown component',
+  },
+});
 
 // FIXME: Get rid of styled-components
 // Based on example from material-ui doc: https://material-ui.com/components/autocomplete/#useautocomplete
 const InputWrapper = styled('div')`
   height: 36px;
-  background-color: #ddd;
+  background-color: #eee;
   border-radius: 4px;
   padding: 1px;
   margin-right: 8px;
@@ -29,7 +40,6 @@ const InputWrapper = styled('div')`
 
   & input {
     font-size: 14px;
-    height: 30px;
     background-color: transparent;
     box-sizing: border-box;
     padding: 4px 6px;
@@ -42,49 +52,72 @@ const InputWrapper = styled('div')`
   }
 `;
 
-const Tag = styled(({
+const useTagStyles = makeStyles({
+  root: {
+    display: 'flex',
+    alignItems: 'center',
+    height: '24px',
+    margin: '2px',
+    lineHeight: '22px',
+    color: 'white',
+    backgroundColor: checkBlue,
+    borderRadius: '2px',
+    boxSizing: 'content-box',
+    padding: '0 4px 0 10px',
+    outline: 0,
+    overflow: 'hidden',
+    '& :focus': {
+      borderColor: '#40a9ff',
+      backgroundColor: '#e6f7ff',
+    },
+    '& span': {
+      overflow: 'hidden',
+      whiteSpace: 'nowrap',
+      textOverflow: 'ellipsis',
+    },
+    '& svg': {
+      fontSize: '12px',
+      cursor: 'pointer',
+      padding: '4px',
+      width: '24px',
+      height: '24px',
+    },
+  },
+});
+
+const Tag = ({
   label,
   onDelete,
   className,
   ...props
-}) => (
-  <div className={`custom-ac__tag ${className}`} {...props}>
-    <span>{label}</span>
-    <CloseIcon className="custom-ac__tag-remove" onClick={onDelete} />
-  </div>
-))`
-  display: flex;
-  align-items: center;
-  height: 24px;
-  margin: 2px;
-  line-height: 22px;
-  background-color: #eee;
-  border: 1px solid #e8e8e8;
-  border-radius: 2px;
-  box-sizing: content-box;
-  padding: 0 4px 0 10px;
-  outline: 0;
-  overflow: hidden;
+}) => {
+  const classes = useTagStyles();
+  return (
+    <div className={`custom-ac__tag ${className} ${classes.root}`} {...props}>
+      <span>{label}</span>
+      <CloseIcon className="custom-ac__tag-remove" onClick={onDelete} />
+    </div>
+  );
+};
 
-  &:focus {
-    border-color: #40a9ff;
-    background-color: #e6f7ff;
-  }
+const usePlusButtonStyles = makeStyles({
+  root: {
+    height: '36px',
+    borderLeft: '2px solid white',
+    alignItems: 'center',
+    display: 'flex',
+    cursor: 'pointer',
+  },
+});
 
-  & span {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  & svg {
-    font-size: 12px;
-    cursor: pointer;
-    padding: 4px;
-    width: 24px;
-    height: 24px;
-  }
-`;
+const PlusButton = ({ children }) => {
+  const classes = usePlusButtonStyles();
+  return (
+    <div className={classes.root}>
+      {children}
+    </div>
+  );
+};
 
 const Listbox = styled('ul')`
   width: 300px;
@@ -131,16 +164,17 @@ const Listbox = styled('ul')`
   }
 `;
 
-export default function CustomizedHook({
+const CustomAutocomplete = ({
   defaultValue,
   icon,
+  intl,
   getOptionLabel,
   getOptionSelected,
   label,
   options,
   onChange,
-  append,
-}) {
+  switchAndOr,
+}) => {
   const {
     getRootProps,
     getInputProps,
@@ -161,7 +195,7 @@ export default function CustomizedHook({
   });
 
   const otherInputProps = value.length ? {} : {
-    placeholder: label,
+    placeholder: intl.formatMessage(messages.select),
     style: { minWidth: 100 },
   };
 
@@ -170,15 +204,25 @@ export default function CustomizedHook({
       <div {...getRootProps()}>
         <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
           { icon ? (
-            <Box px={0.5}>
+            <Box px={0.5} display="flex" alignItems="center">
               {icon}
             </Box>
           ) : null }
+          { label ? (
+            <Box px={0.5} display="flex" alignItems="center">
+              {label}
+            </Box>
+          ) : null }
           { value.map((option, index) => (
-            <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
+            <React.Fragment>
+              { index > 0 ? switchAndOr : null }
+              <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
+            </React.Fragment>
           )) }
           <input className="custom-ac__input" {...getInputProps()} {...otherInputProps} />
-          { append }
+          <PlusButton>
+            <AddIcon fontSize="small" onClick={getInputProps().onMouseDown} />
+          </PlusButton>
         </InputWrapper>
       </div>
       { groupedOptions.length > 0 ? (
@@ -193,4 +237,10 @@ export default function CustomizedHook({
       ) : null }
     </div>
   );
-}
+};
+
+CustomAutocomplete.propTypes = {
+
+};
+
+export default injectIntl(CustomAutocomplete);

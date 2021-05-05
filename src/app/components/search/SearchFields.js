@@ -15,6 +15,7 @@ import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import deepEqual from 'deep-equal';
 import CustomFiltersManager from './CustomFiltersManager';
 // eslint-disable-next-line no-unused-vars
@@ -22,16 +23,22 @@ import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomT
 import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
-import { brandHighlight, Row } from '../../styles/js/shared';
+import { Row, opaqueBlack54 } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
-    color: brandHighlight,
+    borderRadius: 0,
+    borderLeft: '2px solid white',
+    borderRight: '2px solid white',
+    height: '36px',
     minWidth: 0,
     margin: 0,
     '&:hover': {
       background: 'transparent',
     },
+  },
+  text: {
+    color: opaqueBlack54,
   },
 })(Button);
 
@@ -341,18 +348,21 @@ class SearchFields extends React.Component {
     return (
       <div>
         <Row flexWrap>
-          <Box maxWidth="400px" mr={1} mb={1}>
-            <DateRangeFilter
-              hide={!this.filterIsAdded('range') || this.hideField('date')}
-              onChange={this.handleDateChange}
-              value={this.state.query.range}
-            />
-          </Box>
+          { /* TODO: Move Box margin inside `DateRangeFilter` */ }
+          { !(!this.filterIsAdded('range') || this.hideField('date')) ?
+            <Box maxWidth="400px" mr={1} mb={1}>
+              <DateRangeFilter
+                hide={!this.filterIsAdded('range') || this.hideField('date')}
+                onChange={this.handleDateChange}
+                value={this.state.query.range}
+              />
+            </Box> : null
+          }
 
-          <FormattedMessage id="search.categoriesHeading" defaultMessage="Tags" description="Placeholder label for field to filter by tags">
+          <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
             { label => (
               <MultiSelectFilter
-                append={<AnyAll />}
+                switchAndOr={<AnyAll />}
                 label={label}
                 icon={<LocalOfferIcon />}
                 hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
@@ -366,7 +376,7 @@ class SearchFields extends React.Component {
             )}
           </FormattedMessage>
 
-          <FormattedMessage id="search.show" defaultMessage="Media type" description="Placeholder label for field to filter by media type">
+          <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -381,7 +391,7 @@ class SearchFields extends React.Component {
             )}
           </FormattedMessage>
 
-          <FormattedMessage id="search.statusHeading" defaultMessage="Item status" description="Placeholder label for field to filter by status">
+          <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -396,7 +406,7 @@ class SearchFields extends React.Component {
             )}
           </FormattedMessage>
 
-          <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Placeholder label for field to filter by item creator">
+          <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -414,7 +424,7 @@ class SearchFields extends React.Component {
 
           {/* The only dynamic filter available right now is language */}
 
-          <FormattedMessage id="search.language" defaultMessage="Language" description="Placeholder label for field to filter by language">
+          <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -429,7 +439,7 @@ class SearchFields extends React.Component {
             )}
           </FormattedMessage>
 
-          <FormattedMessage id="search.projectHeading" defaultMessage="List" description="Placeholder label for field to filter by lists to which items belong">
+          <FormattedMessage id="search.projectHeading" defaultMessage="List is" description="Prefix label for field to filter by lists to which items belong">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -444,7 +454,7 @@ class SearchFields extends React.Component {
             )}
           </FormattedMessage>
 
-          <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Placeholder label for field to filter by assigned users">
+          <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -486,19 +496,17 @@ class SearchFields extends React.Component {
 
         <AddFilterMenu onSelect={this.handleAddField} />
         { this.state.addedFields.length || this.filterIsActive() ?
-          <Button
-            id="search-fields__submit-button"
-            color="primary"
-            onClick={this.handleSubmit}
-          >
-            <FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />
-          </Button>
+          <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
+            <IconButton id="search-fields__submit-button" onClick={this.handleSubmit}>
+              <PlayArrowIcon color="primary" />
+            </IconButton>
+          </Tooltip>
           : null
         }
         { this.filterIsActive() ? (
           <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
             <IconButton id="search-fields__clear-button" onClick={this.handleClickClear}>
-              <ClearIcon style={{ color: brandHighlight }} />
+              <ClearIcon color="primary" />
             </IconButton>
           </Tooltip>
         ) : null}

@@ -10,7 +10,7 @@ const MultiSelectFilter = ({
   selected,
   hide,
   labelProp,
-  append,
+  switchAndOr,
 }) => {
   const handleChange = (event, newValue) => {
     onChange(newValue);
@@ -29,7 +29,7 @@ const MultiSelectFilter = ({
       getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
       onChange={handleChange}
       options={options}
-      append={append}
+      switchAndOr={switchAndOr}
     />
   );
 };
@@ -39,7 +39,7 @@ MultiSelectFilter.defaultProps = {
   selected: [],
   hide: false,
   labelProp: 'label',
-  append: null,
+  switchAndOr: null,
 };
 
 MultiSelectFilter.propTypes = {
@@ -56,7 +56,7 @@ MultiSelectFilter.propTypes = {
   ])),
   hide: PropTypes.bool,
   labelProp: PropTypes.string,
-  append: PropTypes.node,
+  switchAndOr: PropTypes.node,
 };
 
 export default MultiSelectFilter;
