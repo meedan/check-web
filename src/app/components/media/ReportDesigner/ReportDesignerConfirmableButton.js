@@ -45,8 +45,8 @@ const ReportDesignerConfirmableButton = (props) => {
         disabled={props.disabled}
         onClick={handleClick}
         className={[classes.button, props.className].join(' ')}
+        startIcon={props.icon}
       >
-        {props.icon}
         {props.label}
       </Button>
       <ConfirmProceedDialog
