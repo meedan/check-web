@@ -40,6 +40,13 @@ const AddFilterMenu = ({ onSelect }) => {
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
+        <MenuItem disabled>
+          <FormattedMessage
+            id="addFilterMenu.filterBy"
+            defaultMessage="Filter by"
+            description="Header to menu of filter field types"
+          />
+        </MenuItem>
         <MenuItem id="add-filter-menu__time-range" onClick={() => handleSelect('range')}>
           <ListItemIcon>
             <DateRangeIcon />

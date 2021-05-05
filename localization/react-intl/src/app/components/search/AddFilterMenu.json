@@ -5,6 +5,11 @@
     "defaultMessage": "Add filter"
   },
   {
+    "id": "addFilterMenu.filterBy",
+    "description": "Header to menu of filter field types",
+    "defaultMessage": "Filter by"
+  },
+  {
     "id": "addFilterMenu.timeRange",
     "description": "Menu option to enable searching items by date range",
     "defaultMessage": "Date range"
