@@ -25,7 +25,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
 	},
 	"CustomTeamTaskFilter.choiceFilter": {
-		"string": "\"{field}\" has value {value}",
+		"string": "الحقل \"{field}\" قيمته هي {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
@@ -57,15 +57,15 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
-		"string": "\"{field}\" contains any value",
+		"string": "الحقل \"{field}\" يحتوي أي قيمة",
 		"developer_comment": "Label for custom field when metadata or task response contains any value"
 	},
 	"CustomTeamTaskFilter.textFilter": {
-		"string": "\"{field}\" contains {value}",
+		"string": "الحقل \"{field}\" يحتوي على {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains keyword"
 	},
 	"CustomTeamTaskFilter.textNoValue": {
-		"string": "\"{field}\" contains no value",
+		"string": "الحقل \"{field}\" لا يحتوي على أي قيمة",
 		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
@@ -170,7 +170,7 @@
 		"string": "إرسال"
 	},
 	"addFilterMenu.addFilter": {
-		"string": "Add filter",
+		"string": "إضافة فلتر",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.assignedTo": {
@@ -182,7 +182,7 @@
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.customFields": {
-		"string": "Custom fields",
+		"string": "الحقول المخصصة",
 		"developer_comment": "Menu option to enable searching items by custom fields"
 	},
 	"addFilterMenu.itemStatus": {
@@ -202,8 +202,8 @@
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Time range",
-		"developer_comment": "Menu option to enable searching items by time range"
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "إضافة لغة"
@@ -563,7 +563,7 @@
 		"string": "تغيير الدور إلى {newRole}"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to confirm."
+		"string": "يُرجى كتابة \"{text}\" لتأكيد هذه العملية."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "يُرجى الكتابة هنا"
@@ -667,7 +667,7 @@
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء إنشاء المهمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"customFiltersManager.label": {
-		"string": "Custom field",
+		"string": "حقل مُخصَّص",
 		"developer_comment": "Placeholder label for custom field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
@@ -692,13 +692,13 @@
 		"string": "عرض هذا النطاق الزمني على time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "هناك {publishedCount, plural, one {عنصر واحد منشور حاليا} other {# عنصر منشور حاليا}} في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة مؤقتا. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى."
+		"string": "هناك {publishedCount, plural, one {عنصر واحد منشور حاليا} other {# عنصر منشور حاليا}} ذات الحالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة مؤقتا. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "نقل العناصر إلى"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "هناك {itemsCount, plural, one {عنصر واحد في حالة {statusLabel} بحاجة إلى تغيير} other {# عنصر في حالة {statusLabel} بحاجة إلى تغيير}} إلى حالة أخرى قبل أن تتمكن من حذف هذه الحالة."
+		"string": "هناك {itemsCount, plural, one {عنصر واحد في حالة {statusLabel} بحاجة إلى تغيير} other {# عنصر في حالة {statusLabel} بحاجة إلى تغيير}} إلى حالة أخرى قبل تمكُّنك من حذف هذه الحالة."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}"
@@ -863,7 +863,7 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully.",
+		"string": "أُرسلَت بعض الدعوات بنجاح.",
 		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
 	},
 	"inviteDialog.submit": {
@@ -1100,7 +1100,7 @@
 		"string": "تكليف العنصر لشركاء"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully."
+		"string": "حُدثَت التكليفات بنجاح."
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "إلغاء"
@@ -1448,7 +1448,7 @@
 		"string": "الطلبات"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+		"string": "{current} من مجموع {total, plural, one {مادة إعلامية واحدة مقترحة} other {# مادة إعلامية مقترحة}}"
 	},
 	"moreLess.less": {
 		"string": "الأقل"
@@ -1510,7 +1510,7 @@
 		"string": "كلماتي السر غير مطابقتان"
 	},
 	"passwordReset.confirmedText": {
-		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+		"string": "إذا كان هذا البريد الالكتروني موجودا بالفعل فسوف تصلك رسالة من طرف {adminEmail} تحتوي على إرشادات لإعادة تعيين كلمة السر. يرجى التأكّد من أن هذه الرسالة خارج تصفية البريد الإعلاني المزعج. إن لم تصل إليك رسالة إعادة تعيين كلمة السر، يرجى الاتصال بنا على {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "البريد الإلكتروني"
@@ -1886,7 +1886,7 @@
 		"string": "لم يمكننا حفظ القواعد"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Rules saved successfully."
+		"string": "حُفظَت القواعد بنجاح."
 	},
 	"rulesTableHead.name": {
 		"string": "الاسم",
@@ -1931,7 +1931,7 @@
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.applyFilters": {
-		"string": "Apply filter",
+		"string": "تفعيل الفلتر",
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
@@ -2162,7 +2162,7 @@
 		"string": "حفظ"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully."
+		"string": "حُفظَت إعدادات Slack بنجاح."
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "إرسال تنبيهات إلى"
@@ -2189,7 +2189,7 @@
 		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "هذه الرسالة سوف تُرسَل إلى المستخدمين بعد بداية محادثة إذا لم يحددوا أحد الخيارين : إما خيار استلام مورد وإما خيار إرسال محتوى للتحقق منه. ستُرسَل الرسالة أيضا للمستخدمين الذين قاموا بإرسال محتوى دون انتظار موجه الاستعلامات."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "الرسالة التى سيتم إرسالها اذا كان سيناريو رد المستخدم على قائمة ما لا يصلح  للقائمة."
@@ -2329,30 +2329,30 @@
 		"string": "تأكيد"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
-		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"string": "فصل الحساب {platform} سيمنع أي مستخدم من التفاعل مع خط التبليغ والاقتراحات من خلال هذا الحساب.",
 		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
-		"string": "Warning! Disconnecting a {platform} number is permanent. You will not be able to reconnect it after it is disconnected.",
-		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
 	},
 	"smoochBotIntegrationButton.confirmDisconnectTitle": {
-		"string": "Disconnect {platform} tipline",
+		"string": "فصل خط التبليغ والاقتراحات الخاص بمنصة {platform}",
 		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
-		"string": "Disconnect {platform}",
+		"string": "فصل {platform}",
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
-		"string": "Disconnect {platform} permanently",
+		"string": "فصل {platform} نهائيا",
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "اتصل"
 	},
 	"smoochBotIntegrationButton.connectTipline": {
-		"string": "وصل خط التبليغ بمنصة {platform}"
+		"string": "Connect to {platform} tipline"
 	},
 	"smoochBotIntegrationButton.defaultErrorMessage": {
 		"string": "حدث شيء غير جيد."
@@ -2360,11 +2360,18 @@
 	"smoochBotIntegrationButton.disclaimer": {
 		"string": "نحن لا نحفظ هذه المعلومة. إنها تٌستخدَم فقط لتهيئة التكاملات."
 	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
 	"smoochBotIntegrationButton.disconnect": {
 		"string": "فصل الحساب."
 	},
 	"smoochBotIntegrationButton.online": {
 		"string": "متصل"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
 	},
 	"smoochBotIntegrationButton.savedSuccessfully": {
 		"string": "تمَّ"
@@ -2391,13 +2398,17 @@
 		"string": "الصفحة المتصلة: {link}"
 	},
 	"smoochBotIntegrations.phoneNumber": {
-		"string": "Connected phone number: {link}"
+		"string": "رقم الهاتف المتصل: {link}"
 	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "بوت تليجرام المتصل: {link}"
 	},
 	"smoochBotIntegrations.telegramBotToken": {
 		"string": "شارة بوت تليجرام"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
 	},
 	"smoochBotIntegrations.viberPublicAccount": {
 		"string": "حساب Viber العمومي المتصل: {name}"
@@ -2598,10 +2609,10 @@
 		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully."
+		"string": "تم إنشاء الحالة بنجاح."
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully."
+		"string": "حُذفَت الحالة بنجاح."
 	},
 	"statusesComponent.error": {
 		"string": "عذراً ، حدث خطأ أثناء تحديث الحالات. يرجى المحاولة ثانية و التواصل مع {supportEmail} إن استمرت المشكلة."
@@ -2613,7 +2624,7 @@
 		"string": "حالة جديدة"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully."
+		"string": "حُفظَت الحالات بنجاح."
 	},
 	"statusesComponent.subtitle": {
 		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
@@ -3040,7 +3051,7 @@
 		"string": "رابط الموقع الإلكتروني"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Short URL ({max} characters max)",
+		"string": "الرابط المختصر (الحد الأقصى : {max} حرفا)",
 		"developer_comment": "Label for URL field in report settings"
 	},
 	"teamReportComponent.viber": {

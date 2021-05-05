@@ -46,8 +46,8 @@ const AddFilterMenu = ({ onSelect }) => {
           </ListItemIcon>
           <FormattedMessage
             id="addFilterMenu.timeRange"
-            defaultMessage="Time range"
-            description="Menu option to enable searching items by time range"
+            defaultMessage="Date range"
+            description="Menu option to enable searching items by date range"
           />
         </MenuItem>
         <MenuItem id="add-filter-menu__tags" onClick={() => handleSelect('tags')}>
