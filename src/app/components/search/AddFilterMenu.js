@@ -75,8 +75,8 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
             <LocalOfferIcon />
           </ListItemIcon>
           <FormattedMessage
-            id="addFilterMenu.tags"
-            defaultMessage="Tags"
+            id="addFilterMenu.tag"
+            defaultMessage="Tag"
             description="Menu option to enable searching items by tags"
           />
         </MenuItem>
@@ -126,7 +126,7 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
           </ListItemIcon>
           <FormattedMessage
             id="addFilterMenu.assignedTo"
-            defaultMessage="Assigned to"
+            defaultMessage="Assignment"
             description="Menu option to enable searching items by assigned users"
           />
         </MenuItem>
@@ -135,9 +135,9 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
             <StarIcon />
           </ListItemIcon>
           <FormattedMessage
-            id="addFilterMenu.customFields"
-            defaultMessage="Custom fields"
-            description="Menu option to enable searching items by custom fields"
+            id="addFilterMenu.metadata"
+            defaultMessage="Metadata"
+            description="Menu option to enable searching items by metadata fields"
           />
         </MenuItem>
       </Menu>
