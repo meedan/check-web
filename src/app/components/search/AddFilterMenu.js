@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
+import FolderIcon from '@material-ui/icons/Folder';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
@@ -14,7 +15,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-const AddFilterMenu = ({ onSelect }) => {
+const AddFilterMenu = ({ hideOptions, onSelect }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleSelect = (field) => {
@@ -47,6 +48,18 @@ const AddFilterMenu = ({ onSelect }) => {
             description="Header to menu of filter field types"
           />
         </MenuItem>
+        { hideOptions.includes('projects') ? null : (
+          <MenuItem id="add-filter-menu__folder" onClick={() => handleSelect('projects')}>
+            <ListItemIcon>
+              <FolderIcon />
+            </ListItemIcon>
+            <FormattedMessage
+              id="addFilterMenu.folder"
+              defaultMessage="Folder"
+              description="Menu option to enable searching items by folder"
+            />
+          </MenuItem>
+        )}
         <MenuItem id="add-filter-menu__time-range" onClick={() => handleSelect('range')}>
           <ListItemIcon>
             <DateRangeIcon />
@@ -132,7 +145,12 @@ const AddFilterMenu = ({ onSelect }) => {
   );
 };
 
+AddFilterMenu.defaultProps = {
+  hideOptions: [],
+};
+
 AddFilterMenu.propTypes = {
+  hideOptions: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func.isRequired,
 };
 

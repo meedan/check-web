@@ -10,6 +10,11 @@
     "defaultMessage": "Filter by"
   },
   {
+    "id": "addFilterMenu.folder",
+    "description": "Menu option to enable searching items by folder",
+    "defaultMessage": "Folder"
+  },
+  {
     "id": "addFilterMenu.timeRange",
     "description": "Menu option to enable searching items by date range",
     "defaultMessage": "Date range"

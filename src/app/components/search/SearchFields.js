@@ -547,7 +547,7 @@ class SearchFields extends React.Component {
           )) }
         </Row>
 
-        <AddFilterMenu onSelect={this.handleAddField} />
+        <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
         { this.state.addedFields.length || this.filterIsActive() ?
           <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
             <IconButton id="search-fields__submit-button" onClick={this.handleSubmit}>
