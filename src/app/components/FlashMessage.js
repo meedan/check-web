@@ -160,7 +160,7 @@ const FlashMessage = withSnackbar(withClientSessionId(({ clientSessionId, enqueu
 
   const isInitialMount = useInitialMount();
 
-  if (isInitialMount && clientSessionId) {
+  if (isInitialMount && clientSessionId && config.pusherKey) {
     // eslint-disable-next-line no-undef
     const pusher = new Pusher(config.pusherKey, {
       cluster: config.pusherCluster,

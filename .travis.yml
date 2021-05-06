@@ -9,20 +9,30 @@ before_install:
 # Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
 # https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
 - export TRAVIS_TAG=0.0.0
-# extract configs
-- git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
 # pender
 - export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $PENDER_BRANCH for Pender"
 - git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
-- d=configurator/check/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
+- cd pender
+- cp config/config.yml.example config/config.yml
+- cp config/database.yml.example config/database.yml
+- cp config/sidekiq.yml.example config/sidekiq.yml
+- cd -
 # check api
 - export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
-- d=configurator/check/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
+- cd check-api
+- cp config/config.yml.example config/config.yml
+- cp config/database.yml.example config/database.yml
+- cp config/sidekiq.yml.example config/sidekiq.yml
+- cd -
 # config files
-- d=configurator/check/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
+- cp test/config.js.example config.js
+- cp test/config.js.example test/config.js
+- cp config-build.js.example config-build.js
+- cp config-server.js.example config-server.js
+- cp test/config.yml.example test/config.yml
 before_script:
 - docker-compose build
 - docker-compose -f docker-compose.yml -f docker-test.yml up -d
@@ -30,7 +40,7 @@ before_script:
 - until curl --silent -I -f --fail http://localhost:3333 ; do printf .; sleep 1; done
 - docker-compose exec web npm run test:unit:lint || travis_terminate 1;
 - docker-compose exec web npm run test:integration:lint || travis_terminate 1;
-script: docker-compose exec web npm run tests
+script: docker-compose exec -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID web npm run tests
 after_script:
 - cat file.json
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"

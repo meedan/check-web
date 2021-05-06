@@ -176,6 +176,10 @@ module AppSpecHelpers
     self
   end
 
+  def get_config(config_variable)
+    ENV[config_variable] || @config[config_variable]
+  end
+
   def save_screenshot(title, driver = nil)
     path = "/tmp/ #{(0...8).map { rand(65..90).chr }.join}.png"
     if driver
@@ -183,7 +187,7 @@ module AppSpecHelpers
     else
       @driver.save_screenshot(path)
     end
-    auth_header = { 'Authorization' => "Client-ID #{@config['imgur_client_id']}" }
+    auth_header = { 'Authorization' => "Client-ID #{get_config('IMGUR_CLIENT_ID')}" }
     image = Base64.strict_encode64(File.open(path).read)
     body = { image: image, type: 'file' }
     count = 0
