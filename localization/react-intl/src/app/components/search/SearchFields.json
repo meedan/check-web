@@ -40,6 +40,11 @@
     "defaultMessage": "And"
   },
   {
+    "id": "search.folderHeading",
+    "description": "Prefix label for field to filter by folder to which items belong",
+    "defaultMessage": "Folder is"
+  },
+  {
     "id": "search.categoriesHeading",
     "description": "Prefix label for field to filter by tags",
     "defaultMessage": "Tag is"
@@ -63,11 +68,6 @@
     "id": "search.language",
     "description": "Prefix label for field to filter by language",
     "defaultMessage": "Language is"
-  },
-  {
-    "id": "search.projectHeading",
-    "description": "Prefix label for field to filter by lists to which items belong",
-    "defaultMessage": "List is"
   },
   {
     "id": "search.assignedTo",

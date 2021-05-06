@@ -11,6 +11,7 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
+import FolderIcon from '@material-ui/icons/Folder';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
@@ -143,7 +144,15 @@ class SearchFields extends React.Component {
     }
   }
 
-  filterIsAdded = field => this.state.addedFields.includes(field) || this.props.query[field];
+  filterIsAdded = (field) => {
+    if (this.state.addedFields.includes(field) || this.props.query[field]) {
+      return true;
+    }
+    if (field === 'projects') {
+      return Boolean(this.props.project);
+    }
+    return false;
+  }
 
   filterIsActive = () => {
     const { query } = this.props;
@@ -170,6 +179,9 @@ class SearchFields extends React.Component {
   }
 
   projectIsSelected(projectId) {
+    if (this.props.project && this.props.project.dbid === projectId) {
+      return true;
+    }
     const array = this.state.query.projects;
     return array ? array.includes(projectId) : false;
   }
@@ -299,7 +311,7 @@ class SearchFields extends React.Component {
   }
 
   render() {
-    const { team } = this.props;
+    const { team, project } = this.props;
     const { statuses } = team.verification_statuses;
 
     const projects = team.projects ?
@@ -346,7 +358,26 @@ class SearchFields extends React.Component {
     );
 
     const fields = [];
-
+    if (!(!this.filterIsAdded('projects') || !projects.length)) {
+      fields.push(
+        <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<FolderIcon />}
+              hide={!this.filterIsAdded('projects') || !projects.length}
+              selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
+              options={projects.map(p => p.node)}
+              labelProp="title"
+              onChange={(newValue) => {
+                this.handleProjectClick(newValue.map(p => p.dbid));
+              }}
+              readOnly={Boolean(project)}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
     if (!(!this.filterIsAdded('range') || this.hideField('date'))) {
       fields.push(
         <Box maxWidth="400px" mr={1} mb={1}>
@@ -453,24 +484,6 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('projects') || this.hideField('project') || !projects.length)) {
-      fields.push(
-        <FormattedMessage id="search.projectHeading" defaultMessage="List is" description="Prefix label for field to filter by lists to which items belong">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              hide={!this.filterIsAdded('projects') || this.hideField('project') || !projects.length}
-              selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
-              options={projects.map(p => p.node)}
-              labelProp="title"
-              onChange={(newValue) => {
-                this.handleProjectClick(newValue.map(p => p.dbid));
-              }}
-            />
-          )}
-        </FormattedMessage>,
-      );
-    }
     if (!(!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length)) {
       fields.push(
         <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
@@ -519,6 +532,7 @@ class SearchFields extends React.Component {
     return (
       <div>
         <Row flexWrap>
+          { /* FIXME: Each child in a list should have a unique "key" prop */}
           { fields.map((field, index) => index > 0 ? (
             <Box display="flex" alignItems="center">
               <Box mr={1} mb={1} height="36px" display="flex" alignItems="center">
@@ -554,7 +568,14 @@ class SearchFields extends React.Component {
   }
 }
 
+SearchFields.defaultProps = {
+  project: null,
+};
+
 SearchFields.propTypes = {
+  project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({

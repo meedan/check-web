@@ -11,6 +11,7 @@ const MultiSelectFilter = ({
   hide,
   labelProp,
   switchAndOr,
+  readOnly,
 }) => {
   const handleChange = (event, newValue) => {
     onChange(newValue);
@@ -30,6 +31,7 @@ const MultiSelectFilter = ({
       onChange={handleChange}
       options={options}
       switchAndOr={switchAndOr}
+      readOnly={readOnly}
     />
   );
 };
@@ -40,6 +42,7 @@ MultiSelectFilter.defaultProps = {
   hide: false,
   labelProp: 'label',
   switchAndOr: null,
+  readOnly: false,
 };
 
 MultiSelectFilter.propTypes = {
@@ -57,6 +60,7 @@ MultiSelectFilter.propTypes = {
   hide: PropTypes.bool,
   labelProp: PropTypes.string,
   switchAndOr: PropTypes.node,
+  readOnly: PropTypes.bool,
 };
 
 export default MultiSelectFilter;

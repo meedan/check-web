@@ -89,13 +89,16 @@ const Tag = ({
   label,
   onDelete,
   className,
+  readOnly,
   ...props
 }) => {
   const classes = useTagStyles();
   return (
     <div className={`custom-ac__tag ${className} ${classes.root}`} {...props}>
       <span>{label}</span>
-      <CloseIcon className="custom-ac__tag-remove" onClick={onDelete} />
+      { readOnly ? null : (
+        <CloseIcon className="custom-ac__tag-remove" onClick={onDelete} />
+      )}
     </div>
   );
 };
@@ -174,6 +177,7 @@ const CustomAutocomplete = ({
   options,
   onChange,
   switchAndOr,
+  readOnly,
 }) => {
   const {
     getRootProps,
@@ -215,13 +219,25 @@ const CustomAutocomplete = ({
           { value.map((option, index) => (
             <React.Fragment key={getOptionLabel(option)}>
               { index > 0 ? switchAndOr : null }
-              <Tag label={getOptionLabel(option)} {...getTagProps({ index })} />
+              <Tag
+                label={getOptionLabel(option)}
+                readOnly={readOnly}
+                {...getTagProps({ index })}
+              />
             </React.Fragment>
           )) }
-          <input className="custom-ac__input" {...getInputProps()} {...otherInputProps} />
-          <PlusButton>
-            <AddIcon fontSize="small" onClick={getInputProps().onMouseDown} />
-          </PlusButton>
+          { readOnly ? null : (
+            <React.Fragment>
+              <input
+                className="custom-ac__input"
+                {...getInputProps()}
+                {...otherInputProps}
+              />
+              <PlusButton>
+                <AddIcon fontSize="small" onClick={getInputProps().onMouseDown} />
+              </PlusButton>
+            </React.Fragment>
+          )}
         </InputWrapper>
       </div>
       { groupedOptions.length > 0 ? (
