@@ -135,6 +135,7 @@ class DrawerNavigationComponent extends Component {
             <DrawerProjects team={team.slug} />
             {currentUserIsMember ? (
               <div>
+                <Divider />
                 <Link style={linkStyle} to={`/${team.slug}/unconfirmed`} className="project-list__link-unconfirmed">
                   <MenuItem className="project-list__item-unconfirmed">
                     <ListItemIcon>
@@ -152,6 +153,7 @@ class DrawerNavigationComponent extends Component {
                     />
                   </MenuItem>
                 </Link>
+                <Divider />
                 <Link style={linkStyle} to={`/${team.slug}/trash`} className="project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
                     <ListItemIcon>

@@ -21,6 +21,8 @@ import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
 import Project from './project/Project';
+import ProjectGroup from './project/ProjectGroup';
+import SavedSearch from './search/SavedSearch';
 import AllItems from './search/AllItems';
 import MediaSource from './media/MediaSource';
 
@@ -59,13 +61,11 @@ class Root extends Component {
                 <Route path="check/user/password-reset" component={UserPasswordReset} public />
                 <Route path="check/user/password-change" component={UserPasswordChange} public />
                 <Route path="check/not-found" component={NotFound} public />
-
                 <Route path="check/user/:userId/edit" isEditing component={User} />
                 <Route path="check/user/:userId(/:tab)" component={User} />
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams" component={Teams} />
-
                 <Route path=":team/media/:mediaId" component={MediaPage} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
                 <Route path=":team/media/:mediaId/suggested-matches" component={MediaPage} view="suggestedMatches" />
@@ -79,12 +79,13 @@ class Root extends Component {
                 <Route path=":team/project/:projectId/media/:mediaId/metadata" component={MediaTasks} />
                 <Route path=":team/project/:projectId/media/:mediaId/source" component={MediaSource} />
                 <Route path=":team/project/:projectId(/:query)" component={Project} />
+                <Route path=":team/collection/:projectGroupId(/:query)" component={ProjectGroup} />
+                <Route path=":team/list/:savedSearchId(/:query)" component={SavedSearch} />
                 <Route path=":team/all-items(/:query)" component={AllItems} />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team/unconfirmed(/:query)" component={Unconfirmed} />
                 <Route path=":team/settings(/:tab)" action="settings" component={Team} />
                 <Route path=":team(/:tab)" action="main" component={Team} />
-
                 <Route path="*" component={NotFound} public />
               </Route>
             </Router>
