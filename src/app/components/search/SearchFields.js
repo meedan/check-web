@@ -137,7 +137,7 @@ class SearchFields extends React.Component {
 
   handleApplyFilters() {
     const cleanQuery = this.cleanup(this.state.query);
-    if (!deepEqual(cleanQuery, this.props.query)) {
+    if (this.filterIsApplicable(cleanQuery)) {
       this.props.onChange(cleanQuery);
     } else {
       this.setState({ query: cleanQuery, addedFields: [] });
@@ -152,7 +152,7 @@ class SearchFields extends React.Component {
       return Boolean(this.props.project);
     }
     return false;
-  }
+  };
 
   filterIsActive = () => {
     const { query } = this.props;
@@ -169,6 +169,11 @@ class SearchFields extends React.Component {
       'team_tasks',
     ];
     return filterFields.some(key => !!query[key]) || this.state.addedFields.length > 0;
+  };
+
+  filterIsApplicable = () => {
+    const cleanQuery = this.cleanup(this.state.query);
+    return (!deepEqual(cleanQuery, this.props.query));
   };
 
   // TODO: Merge most *IsSelected and handle*Click into shared functions where possible
@@ -548,7 +553,7 @@ class SearchFields extends React.Component {
         </Row>
 
         <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
-        { this.state.addedFields.length || this.filterIsActive() ?
+        { this.state.addedFields.length || this.filterIsApplicable() ?
           <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
             <IconButton id="search-fields__submit-button" onClick={this.handleSubmit}>
               <PlayArrowIcon color="primary" />

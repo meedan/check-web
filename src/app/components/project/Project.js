@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ProjectActions from './ProjectActions';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
@@ -64,6 +65,7 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
+          icon={<FolderOutlinedIcon />}
           listDescription={project.description}
           listActions={<ProjectActions project={project} />}
           teamSlug={routeParams.team}

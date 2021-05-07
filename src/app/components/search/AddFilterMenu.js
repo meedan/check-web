@@ -5,6 +5,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -13,7 +15,12 @@ import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+
+const StyledButton = withStyles({
+  text: {
+    textTransform: 'none',
+  },
+})(Button);
 
 const AddFilterMenu = ({ hideOptions, onSelect }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,9 +32,9 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
 
   return (
     <React.Fragment>
-      <Button
+      <StyledButton
         id="add-filter-menu__open-button"
-        startIcon={<AddCircleOutlineIcon />}
+        startIcon={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
       >
         <FormattedMessage
@@ -35,7 +42,7 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
           defaultMessage="Add filter"
           description="Button that opens menu with filter field options"
         />
-      </Button>
+      </StyledButton>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

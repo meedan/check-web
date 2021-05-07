@@ -64,6 +64,7 @@ export default function Search({
   query,
   searchUrlPrefix,
   title,
+  icon,
 }) {
   let timestampedQuery = query;
   if (!noFilters(query, project)) {
@@ -81,6 +82,7 @@ export default function Search({
       page={page}
       hideFields={hideFields}
       title={title}
+      icon={icon}
       query={timestampedQuery}
     />
   );
