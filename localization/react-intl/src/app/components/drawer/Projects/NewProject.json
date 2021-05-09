@@ -6,7 +6,7 @@
   },
   {
     "id": "newProject.savedSuccessfully",
-    "description": "Generic error message displayed when a collection, folder or list is created",
+    "description": "Generic message displayed when a collection, folder or list is created",
     "defaultMessage": "Created successfully"
   },
   {

@@ -9,11 +9,15 @@
   },
   {
     "id": "ProjectActions.edit",
-    "defaultMessage": "Edit name and description"
+    "defaultMessage": "Rename"
   },
   {
     "id": "projectActions.assignOrUnassign",
-    "defaultMessage": "Assign folder to…"
+    "defaultMessage": "Assign to…"
+  },
+  {
+    "id": "projectActions.move",
+    "defaultMessage": "Move to…"
   },
   {
     "id": "projectActions.destroy",

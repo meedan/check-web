@@ -19,17 +19,32 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import Can from '../../Can';
+import { brandSecondary } from '../../../styles/js/shared';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   projectsComponentList: {
     padding: 0,
     display: 'flex',
     flexDirection: 'column',
     flex: '1 1 auto', // take up _all_ remaining vertical space in the <DrawerNavigationComponent>
-    overflow: 'hidden', // shrink when the list is too long
+    overflow: 'hidden',
   },
   projectsComponentPlus: {
     minWidth: 0,
+  },
+  projectsComponentCollectionExpanded: {
+    background: brandSecondary,
+  },
+  projectsComponentNestedList: {
+    paddingLeft: theme.spacing(3),
+  },
+  projectsComponentScroll: {
+    overflow: 'auto',
+    flex: '1',
+  },
+  projectsComponentButton: {
+    paddingTop: 0,
+    paddingBottom: 0,
   },
 }));
 
@@ -39,14 +54,24 @@ const ProjectsComponent = ({
   projectGroups,
   savedSearches,
 }) => {
+  const pathParts = window.location.pathname.split('/');
+
   const classes = useStyles();
+
   const [folderMenuAnchor, setFolderMenuAnchor] = React.useState(null);
   const [showNewFolderDialog, setShowNewFolderDialog] = React.useState(false);
   const [showNewCollectionDialog, setShowNewCollectionDialog] = React.useState(false);
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
+  const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
+
+  const isActive = (type, id) => type === activeItem.type && id === activeItem.id;
 
   const handleAllItems = () => {
     browserHistory.push(`/${team.slug}/all-items`);
+  };
+
+  const handleClick = (route, id) => {
+    setActiveItem({ type: route, id });
   };
 
   // Projects that are not under a group
@@ -71,7 +96,7 @@ const ProjectsComponent = ({
             <Box display="flex" alignItems="center">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); }}>
+                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); }} className={classes.projectsComponentButton}>
                   <AddIcon />
                 </IconButton>
               </Can>
@@ -102,24 +127,54 @@ const ProjectsComponent = ({
           </ListItemText>
         </ListItem>
 
-        {projectGroups.map(projectGroup => <ProjectsListItem routePrefix="collection" icon={<FolderSpecialIcon />} project={projectGroup} teamSlug={team.slug} />)}
+        <Divider />
 
-        {rootProjects.map(project => <ProjectsListItem routePrefix="project" icon={<FolderOpenIcon />} project={project} teamSlug={team.slug} />)}
+        <Box className={classes.projectsComponentScroll}>
+          {projectGroups.map((projectGroup) => {
+            const groupIsActive = isActive('collection', projectGroup.dbid);
+            const groupComponent = <ProjectsListItem routePrefix="collection" icon={<FolderSpecialIcon />} project={projectGroup} teamSlug={team.slug} onClick={handleClick} isActive={groupIsActive} />;
+            // Expand the project group if a project under it is currently active
+            if (groupIsActive ||
+                (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
+              const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
+              if (childProjects.length === 0) {
+                return groupComponent;
+              }
+              return (
+                <Box className={groupIsActive ? classes.projectsComponentCollectionExpanded : ''}>
+                  {groupComponent}
+                  <List>
+                    {childProjects.map(project => (
+                      <ProjectsListItem routePrefix="project" icon={<FolderOpenIcon />} project={project} teamSlug={team.slug} onClick={handleClick} isActive={isActive('project', project.dbid)} className={classes.projectsComponentNestedList} />
+                    ))}
+                  </List>
+                </Box>
+              );
+            }
+            return groupComponent;
+          })}
 
+          {rootProjects.map(project => <ProjectsListItem routePrefix="project" icon={<FolderOpenIcon />} project={project} teamSlug={team.slug} onClick={handleClick} isActive={isActive('project', project.dbid)} />)}
+        </Box>
+
+        <Divider />
         <ListItem>
           <ListItemText>
             <Box display="flex" alignItems="center">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Lists" />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={() => { setShowNewListDialog(true); }}>
+                <IconButton onClick={() => { setShowNewListDialog(true); }} className={classes.projectsComponentButton}>
                   <AddIcon />
                 </IconButton>
               </Can>
             </Box>
           </ListItemText>
         </ListItem>
+        <Divider />
 
-        {savedSearches.map(search => <ProjectsListItem routePrefix="list" icon={<ListIcon />} project={search} teamSlug={team.slug} />)}
+        <Box className={classes.projectsComponentScroll}>
+          {savedSearches.map(search => <ProjectsListItem routePrefix="list" icon={<ListIcon />} project={search} teamSlug={team.slug} onClick={handleClick} isActive={isActive('list', search.dbid)} />)}
+        </Box>
       </List>
 
       <NewProject

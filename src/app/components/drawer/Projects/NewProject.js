@@ -93,7 +93,7 @@ const NewProject = ({
       <FormattedMessage
         id="newProject.savedSuccessfully"
         defaultMessage="Created successfully"
-        description="Generic error message displayed when a collection, folder or list is created"
+        description="Generic message displayed when a collection, folder or list is created"
       />
     ), 'success');
     onClose();

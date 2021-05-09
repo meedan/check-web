@@ -6,17 +6,35 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import { brandSecondary } from '../../../styles/js/shared';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   projectsListItemLabel: {
     fontSize: 14,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  projectsListItemActive: {
+    background: brandSecondary,
+  },
+  projectsListItemActiveText: {
+    fontWeight: 'bold',
+  },
+  projectsListItemIcon: {
+    minWidth: theme.spacing(4),
+  },
 }));
 
+function kFormatter(num) {
+  // https://stackoverflow.com/a/9461657
+  return Math.abs(num) > 999 ? `${Math.sign(num) * ((Math.abs(num) / 1000).toFixed(1))}k` : Math.sign(num) * Math.abs(num);
+}
+
 const ProjectsListItem = ({
+  onClick,
+  isActive,
+  className,
   teamSlug,
   project,
   icon,
@@ -25,22 +43,38 @@ const ProjectsListItem = ({
   const classes = useStyles();
 
   const handleClick = () => {
+    if (onClick) {
+      onClick(routePrefix, project.dbid);
+    }
     browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}`);
   };
 
   return (
-    <ListItem button onClick={handleClick} title={project.title}>
-      <ListItemIcon>
+    <ListItem
+      button
+      onClick={handleClick}
+      title={project.title}
+      className={isActive ? [classes.projectsListItemActive, className] : className}
+    >
+      <ListItemIcon className={classes.projectsListItemIcon}>
         {icon}
       </ListItemIcon>
       <ListItemText classes={{ primary: classes.projectsListItemLabel }}>
-        {project.title}
+        <span className={isActive ? classes.projectsListItemActiveText : ''}>
+          {project.title}
+        </span>
       </ListItemText>
       <ListItemSecondaryAction>
-        {project.medias_count}
+        {kFormatter(parseInt(project.medias_count, 10))}
       </ListItemSecondaryAction>
     </ListItem>
   );
+};
+
+ProjectsListItem.defaultProps = {
+  onClick: null,
+  isActive: false,
+  className: '',
 };
 
 ProjectsListItem.propTypes = {
@@ -52,6 +86,9 @@ ProjectsListItem.propTypes = {
     title: PropTypes.string.isRequired,
     medias_count: PropTypes.number.isRequired,
   }).isRequired,
+  onClick: PropTypes.func,
+  isActive: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export default ProjectsListItem;

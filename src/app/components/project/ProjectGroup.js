@@ -13,7 +13,6 @@ const ProjectGroup = ({ routeParams }) => (
         project_group(id: $id) {
           dbid
           title
-          medias_count
         }
       }
     `}

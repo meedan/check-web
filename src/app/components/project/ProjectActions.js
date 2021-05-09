@@ -13,6 +13,7 @@ import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import DeleteProjectMutation from '../../relay/mutations/DeleteProjectMutation';
 import ProjectAssignment from './ProjectAssignment';
 import ProjectEditDialog from './ProjectEditDialog';
+import ProjectMoveDialog from './ProjectMoveDialog';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import CheckContext from '../../CheckContext';
@@ -24,6 +25,7 @@ class ProjectActions extends Component {
     showConfirmDeleteProjectDialog: false,
     projectDeletionConfirmed: false,
     showEditProjectDialog: false,
+    showMoveDialog: false,
   };
 
   handleStartEdit = () => {
@@ -32,6 +34,14 @@ class ProjectActions extends Component {
 
   handleFinishEdit = () => {
     this.setState({ showEditProjectDialog: false });
+  };
+
+  handleStartMove = () => {
+    this.setState({ showMoveDialog: true, anchorEl: null });
+  };
+
+  handleFinishMove = () => {
+    this.setState({ showMoveDialog: false });
   };
 
   handleOpenMenu = (e) => {
@@ -113,7 +123,7 @@ class ProjectActions extends Component {
         >
           <ListItemText
             primary={
-              <FormattedMessage id="ProjectActions.edit" defaultMessage="Edit name and description" />
+              <FormattedMessage id="ProjectActions.edit" defaultMessage="Rename" />
             }
           />
         </MenuItem>));
@@ -128,7 +138,22 @@ class ProjectActions extends Component {
         >
           <ListItemText
             primary={
-              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign folder to…" />
+              <FormattedMessage id="projectActions.assignOrUnassign" defaultMessage="Assign to…" />
+            }
+          />
+        </MenuItem>));
+    }
+
+    if (can(project.permissions, 'update Project')) {
+      menuItems.push((
+        <MenuItem
+          key="projectActions.move"
+          className="project-actions__move"
+          onClick={this.handleStartMove}
+        >
+          <ListItemText
+            primary={
+              <FormattedMessage id="projectActions.move" defaultMessage="Move to…" />
             }
           />
         </MenuItem>));
@@ -205,6 +230,8 @@ class ProjectActions extends Component {
             projectDbid={project.dbid}
             onDismiss={this.handleFinishEdit}
           /> : null }
+        { this.state.showMoveDialog ?
+          <ProjectMoveDialog onCancel={this.handleFinishMove} projectId={project.id} /> : null }
       </React.Fragment>
     );
   }

@@ -14,6 +14,7 @@ class BulkMoveProjectMediaMutation extends Relay.Mutation {
         check_search_project { id, number_of_results }
         check_search_team { id, number_of_results }
         project { id, medias_count }
+        project_group { id, medias_count }
         project_was { id, medias_count }
         check_search_project_was { id, number_of_results }
       }
