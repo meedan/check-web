@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
+import { injectIntl, intlShape } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -28,14 +29,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function kFormatter(num) {
-  if (Number.isNaN(num)) {
-    return null;
-  }
-  // https://stackoverflow.com/a/9461657
-  return Math.abs(num) > 999 ? `${Math.sign(num) * ((Math.abs(num) / 1000).toFixed(1))}k` : Math.sign(num) * Math.abs(num);
-}
-
 const ProjectsListItem = ({
   index,
   onClick,
@@ -47,6 +40,7 @@ const ProjectsListItem = ({
   project,
   icon,
   routePrefix,
+  intl,
 }) => {
   const classes = useStyles();
 
@@ -74,7 +68,8 @@ const ProjectsListItem = ({
         </span>
       </ListItemText>
       <ListItemSecondaryAction title={project.medias_count}>
-        {kFormatter(parseInt(project.medias_count, 10))}
+        { !Number.isNaN(parseInt(project.medias_count, 10)) ?
+          new Intl.NumberFormat(intl.locale, { notation: 'compact', compactDisplay: 'short' }).format(project.medias_count) : null }
       </ListItemSecondaryAction>
     </ListItem>
   );
@@ -138,6 +133,7 @@ ProjectsListItem.propTypes = {
     title: PropTypes.string.isRequired,
     medias_count: PropTypes.number.isRequired,
   }).isRequired,
+  intl: intlShape.isRequired,
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
@@ -146,4 +142,4 @@ ProjectsListItem.propTypes = {
   index: PropTypes.number,
 };
 
-export default ProjectsListItem;
+export default injectIntl(ProjectsListItem);

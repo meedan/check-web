@@ -180,11 +180,11 @@ const ProjectsComponent = ({
 
   return (
     <React.Fragment>
-      <List className={classes.projectsComponentList}>
+      <List className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
         { saving ? <Box className={classes.projectsComponentMask} /> : null }
 
         {/* All items */}
-        <ListItem button onClick={handleAllItems}>
+        <ListItem button onClick={handleAllItems} className="projects-list__all-items">
           <ListItemText>
             <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" />
           </ListItemText>
@@ -235,7 +235,7 @@ const ProjectsComponent = ({
         <Divider />
 
         {/* Collections and their folders */}
-        <DragDropContext onDragEnd={handleDropped}>
+        <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
           <Box className={classes.projectsComponentScroll}>
             {projectGroups.map((projectGroup) => {
               const groupIsActive = isActive('collection', projectGroup.dbid);
@@ -253,7 +253,7 @@ const ProjectsComponent = ({
 
               // Expand the project group if a project under it is currently active
               if (groupIsActive ||
-                  (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
+                  (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
                 const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
                 if (childProjects.length === 0) {
                   return groupComponent;

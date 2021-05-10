@@ -66,6 +66,20 @@ const ProjectGroup = ({ routeParams }) => (
                     mutation ProjectGroupDestroyProjectGroupMutation($input: DestroyProjectGroupInput!) {
                       destroyProjectGroup(input: $input) {
                         deletedId
+                        team {
+                          id
+                          projects(first: 10000) {
+                            edges {
+                              node {
+                                id
+                                dbid
+                                title
+                                medias_count
+                                project_group_id
+                              }
+                            }
+                          }
+                        }
                       }
                     }
                   `}

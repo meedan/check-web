@@ -26,6 +26,10 @@ class ProjectComponent extends React.PureComponent {
   }
 
   setContextProject() {
+    if (!this.props.project) {
+      return false;
+    }
+
     const context = this.getContext();
     const currentContext = this.currentContext();
     const newContext = {};
@@ -46,6 +50,8 @@ class ProjectComponent extends React.PureComponent {
     if (notFound) {
       browserHistory.push('/check/not-found');
     }
+
+    return true;
   }
 
   currentContext() {
@@ -54,6 +60,10 @@ class ProjectComponent extends React.PureComponent {
 
   render() {
     const { project, routeParams } = this.props;
+
+    if (!project) {
+      return null;
+    }
 
     const query = {
       ...safelyParseJSON(routeParams.query, {}),
@@ -92,6 +102,9 @@ class ProjectComponent extends React.PureComponent {
                 mutation ProjectDestroyProjectMutation($input: DestroyProjectInput!) {
                   destroyProject(input: $input) {
                     deletedId
+                    team {
+                      id
+                    }
                   }
                 }
               `}

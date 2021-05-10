@@ -14,6 +14,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../MappedMessage';
 
 const useStyles = makeStyles(theme => ({
+  confirmProceedDialogContent: {
+    minWidth: 600,
+  },
   confirmProceedDialogButtons: {
     gap: `${theme.spacing(1)}px`,
   },
@@ -39,7 +42,7 @@ const ConfirmProceedDialog = ({
       <DialogTitle>
         {title}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.confirmProceedDialogContent}>
         <Box>
           {body}
         </Box>

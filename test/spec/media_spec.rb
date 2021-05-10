@@ -24,7 +24,7 @@ shared_examples 'media' do |type|
 
   it 'should go from one item to another', bin2: true do
     create_media_depending_on_type(nil, 3)
-    wait_for_selector('.projects__list')
+    wait_for_selector('.projects-list')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')

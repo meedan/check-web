@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
@@ -34,6 +35,10 @@ const ProjectActions = ({
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const { team } = object;
+
+  if (!team) {
+    return null;
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -110,12 +115,44 @@ const ProjectActions = ({
           handleError();
         } else {
           handleSuccess(response);
-          window.location.assign(`/${team.slug}/all-items`);
+          browserHistory.push(`/${team.slug}/all-items`);
         }
       },
       onError: () => {
         handleError();
       },
+      optimisticResponse: {
+        destroyProject: {
+          deletedId: object.id,
+          team: {
+            id: team.id,
+          },
+        },
+      },
+      configs: [
+        {
+          type: 'RANGE_DELETE',
+          parentID: team.id,
+          pathToConnection: ['team', 'projects'],
+          deletedIDFieldName: 'deletedId',
+        },
+        {
+          type: 'RANGE_DELETE',
+          parentID: team.id,
+          pathToConnection: ['team', 'project_groups'],
+          deletedIDFieldName: 'deletedId',
+        },
+        {
+          type: 'RANGE_DELETE',
+          parentID: team.id,
+          pathToConnection: ['team', 'saved_searches'],
+          deletedIDFieldName: 'deletedId',
+        },
+        {
+          type: 'NODE_DELETE',
+          deletedIDFieldName: 'deletedId',
+        },
+      ],
     });
   };
 

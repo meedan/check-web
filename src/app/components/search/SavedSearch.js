@@ -65,6 +65,9 @@ const SavedSearch = ({ routeParams }) => (
                     mutation SavedSearchDestroySavedSearchMutation($input: DestroySavedSearchInput!) {
                       destroySavedSearch(input: $input) {
                         deletedId
+                        team {
+                          id
+                        }
                       }
                     }
                   `}
