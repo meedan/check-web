@@ -40,6 +40,7 @@ const Projects = () => {
             projects(first: 10000) {
               edges {
                 node {
+                  id
                   dbid
                   title
                   medias_count
@@ -50,6 +51,7 @@ const Projects = () => {
             project_groups(first: 10000) {
               edges {
                 node {
+                  id
                   dbid
                   title
                   medias_count
@@ -59,6 +61,7 @@ const Projects = () => {
             saved_searches(first: 10000) {
               edges {
                 node {
+                  id
                   dbid
                   title
                   filters

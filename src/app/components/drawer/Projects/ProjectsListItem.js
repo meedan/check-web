@@ -6,6 +6,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import RootRef from '@material-ui/core/RootRef';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
 import { brandSecondary } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -35,8 +37,11 @@ function kFormatter(num) {
 }
 
 const ProjectsListItem = ({
+  index,
   onClick,
   isActive,
+  isDroppable,
+  isDraggable,
   className,
   teamSlug,
   project,
@@ -52,12 +57,13 @@ const ProjectsListItem = ({
     browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}`);
   };
 
-  return (
+  const Item = listItemProps => (
     <ListItem
       button
       onClick={handleClick}
       title={project.title}
       className={isActive ? [classes.projectsListItemActive, className] : className}
+      {...listItemProps}
     >
       <ListItemIcon className={classes.projectsListItemIcon}>
         {icon}
@@ -67,17 +73,59 @@ const ProjectsListItem = ({
           {project.title}
         </span>
       </ListItemText>
-      <ListItemSecondaryAction>
+      <ListItemSecondaryAction title={project.medias_count}>
         {kFormatter(parseInt(project.medias_count, 10))}
       </ListItemSecondaryAction>
     </ListItem>
   );
+
+  const droppableId = `droppable-${routePrefix}-${project.dbid}`;
+
+  if (isDroppable) {
+    return (
+      <Droppable droppableId={droppableId}>
+        {provided => (
+          <RootRef rootRef={provided.innerRef}>
+            <Item />
+            {provided.placeholder}
+          </RootRef>
+        )}
+      </Droppable>
+    );
+  }
+
+  if (isDraggable) {
+    return (
+      <Droppable droppableId={droppableId}>
+        {provided => (
+          <RootRef rootRef={provided.innerRef}>
+            <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}`} index={index}>
+              {provided2 => (
+                <Item
+                  ContainerComponent="li"
+                  ContainerProps={{ ref: provided2.innerRef }}
+                  {...provided2.draggableProps}
+                  {...provided2.dragHandleProps}
+                />
+              )}
+            </Draggable>
+            {provided.placeholder}
+          </RootRef>
+        )}
+      </Droppable>
+    );
+  }
+
+  return <Item />;
 };
 
 ProjectsListItem.defaultProps = {
+  index: null,
   onClick: null,
   isActive: false,
   className: '',
+  isDroppable: false,
+  isDraggable: false,
 };
 
 ProjectsListItem.propTypes = {
@@ -85,6 +133,7 @@ ProjectsListItem.propTypes = {
   icon: PropTypes.node.isRequired,
   routePrefix: PropTypes.string.isRequired,
   project: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     medias_count: PropTypes.number.isRequired,
@@ -92,6 +141,9 @@ ProjectsListItem.propTypes = {
   onClick: PropTypes.func,
   isActive: PropTypes.bool,
   className: PropTypes.string,
+  isDroppable: PropTypes.bool,
+  isDraggable: PropTypes.bool,
+  index: PropTypes.number,
 };
 
 export default ProjectsListItem;

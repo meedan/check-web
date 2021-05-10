@@ -52,6 +52,7 @@ const ProjectMoveDialogComponent = ({
         mutation ProjectMoveDialogComponentUpdateProjectMutation($input: UpdateProjectInput!) {
           updateProject(input: $input) {
             project {
+              id
               project_group_id
             }
           }
