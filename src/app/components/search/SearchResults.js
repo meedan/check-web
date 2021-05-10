@@ -25,21 +25,10 @@ const pageSize = 50;
 
 const StyledListHeader = styled.div`
   margin: ${units(2)};
-  /* max-width: calc(100vw - ${units(34)}); Seems unecessary*/
 
   .search__list-header-filter-row {
     justify-content: space-between;
     display: flex;
-  }
-
-  .search__list-header-title-and-filter {
-    justify-content: space-between;
-    display: flex;
-    width: 66%;
-  }
-
-  .search-query {
-    margin-left: auto;
   }
 
   .project__title {
@@ -310,6 +299,7 @@ class SearchResultsComponent extends React.PureComponent {
       query,
       project,
       title,
+      icon,
       listActions,
       listDescription,
     } = this.props;
@@ -369,22 +359,27 @@ class SearchResultsComponent extends React.PureComponent {
       <React.Fragment>
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
-            <Row className="search__list-header-title-and-filter">
-              <div style={{ font: headline, color: black54 }} className="project__title" title={title}>
-                {title}
-              </div>
-              <SearchKeyword
-                className="search-query"
-                key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
-                query={unsortedQuery}
-                onChange={this.handleChangeQuery}
-                project={this.props.project}
-                hideFields={this.props.hideFields}
-                title={this.props.title}
-                team={team}
-              />
-            </Row>
-            {listActions}
+            <div
+              className="project__title"
+              title={title}
+              style={{
+                font: headline,
+                color: black54,
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }{title}{listActions}
+            </div>
+            <SearchKeyword
+              key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
+              query={unsortedQuery}
+              onChange={this.handleChangeQuery}
+              project={this.props.project}
+              hideFields={this.props.hideFields}
+              title={this.props.title}
+              team={team}
+            />
           </Row>
           <Row className="project__description">
             {listDescription && listDescription.trim().length ?
@@ -394,7 +389,6 @@ class SearchResultsComponent extends React.PureComponent {
         </StyledListHeader>
         <Box m={2}>
           <SearchFields
-            className="search-query"
             key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
             query={unsortedQuery}
             onChange={this.handleChangeQuery}
