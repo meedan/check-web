@@ -22,8 +22,8 @@ const ReportDesignerEditButton = (props) => {
       disabled={props.disabled}
       onClick={props.onClick}
       className={classes.button}
+      startIcon={<IconEdit />}
     >
-      <IconEdit />
       {props.label}
     </Button>
   );
