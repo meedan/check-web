@@ -1,0 +1,53 @@
+[
+  {
+    "id": "projectActions.defaultErrorMessage",
+    "description": "Generic error message displayed when it's not possible to update or delete a collection, folder or list",
+    "defaultMessage": "Error, please try again"
+  },
+  {
+    "id": "projectActions.savedSuccessfully",
+    "description": "Generic success message displayed when a collection, folder or list is updated or deleted",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "projectActions.tooltip",
+    "defaultMessage": "Actions"
+  },
+  {
+    "id": "projectActions.rename",
+    "description": "'Rename' here is an infinitive verb",
+    "defaultMessage": "Rename"
+  },
+  {
+    "id": "projectActions.delete",
+    "description": "'Delete' here is an infinitive verb",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "projectActions.move",
+    "description": "'Move' here is an infinitive verb",
+    "defaultMessage": "Move to…"
+  },
+  {
+    "id": "projectsComponent.renameType",
+    "description": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list",
+    "defaultMessage": "Rename {type}"
+  },
+  {
+    "id": "projectsComponent.title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "projectsComponent.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "projectActions.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "projectsComponent.deleteType",
+    "description": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list",
+    "defaultMessage": "Delete {type}"
+  }
+]

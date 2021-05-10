@@ -2,8 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
+import { FormattedMessage } from 'react-intl';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
+import ProjectActions from '../drawer/Projects/ProjectActions';
 
 const ProjectGroup = ({ routeParams }) => (
   <QueryRenderer
@@ -11,8 +13,15 @@ const ProjectGroup = ({ routeParams }) => (
     query={graphql`
       query ProjectGroupQuery($id: ID!) {
         project_group(id: $id) {
+          id
           dbid
           title
+          description
+          team {
+            id
+            slug
+            permissions
+          }
         }
       }
     `}
@@ -33,9 +42,39 @@ const ProjectGroup = ({ routeParams }) => (
               mediaUrlPrefix={`/${routeParams.team}/media`}
               title={props.project_group.title}
               listDescription={props.project_group.description}
+              listActions={
+                <ProjectActions
+                  object={props.project_group}
+                  name={<FormattedMessage id="projectGroup.name" defaultMessage="collection" />}
+                  updateMutation={graphql`
+                    mutation ProjectGroupUpdateProjectGroupMutation($input: UpdateProjectGroupInput!) {
+                      updateProjectGroup(input: $input) {
+                        project_group {
+                          title
+                          description
+                        }
+                      }
+                    }
+                  `}
+                  deleteMessage={
+                    <FormattedMessage
+                      id="projectGroup.deleteMessage"
+                      defaultMessage="If you delete this collection, all folders will still be accessible, outside of the collection."
+                    />
+                  }
+                  deleteMutation={graphql`
+                    mutation ProjectGroupDestroyProjectGroupMutation($input: DestroyProjectGroupInput!) {
+                      destroyProjectGroup(input: $input) {
+                        deletedId
+                      }
+                    }
+                  `}
+                />
+              }
               teamSlug={routeParams.team}
               query={query}
               hideFields={['read', 'project']}
+              page="collection"
             />
           </div>
         );

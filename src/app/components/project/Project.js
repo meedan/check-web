@@ -2,13 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
-import ProjectActions from './ProjectActions';
+import { graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
+import ProjectActions from '../drawer/Projects/ProjectActions';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -65,7 +67,36 @@ class ProjectComponent extends React.PureComponent {
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
           listDescription={project.description}
-          listActions={<ProjectActions project={project} />}
+          listActions={
+            <ProjectActions
+              isMoveable
+              object={project}
+              name={<FormattedMessage id="project.name" defaultMessage="folder" />}
+              updateMutation={graphql`
+                mutation ProjectUpdateProjectMutation($input: UpdateProjectInput!) {
+                  updateProject(input: $input) {
+                    project {
+                      title
+                      description
+                    }
+                  }
+                }
+              `}
+              deleteMessage={
+                <FormattedMessage
+                  id="project.deleteMessage"
+                  defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
+                />
+              }
+              deleteMutation={graphql`
+                mutation ProjectDestroyProjectMutation($input: DestroyProjectInput!) {
+                  destroyProject(input: $input) {
+                    deletedId
+                  }
+                }
+              `}
+            />
+          }
           teamSlug={routeParams.team}
           project={project}
           query={query}
@@ -100,6 +131,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           slug,
           search_id,
           medias_count,
+          permissions,
           verification_statuses,
           public_team {
             id,

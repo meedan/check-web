@@ -180,7 +180,7 @@ NewProject.defaultProps = {
 };
 
 NewProject.propTypes = {
-  type: PropTypes.oneOf(['folder', 'collection']).isRequired,
+  type: PropTypes.oneOf(['folder', 'collection', 'list']).isRequired,
   teamId: PropTypes.number.isRequired,
   open: PropTypes.bool,
   noDescription: PropTypes.bool,
