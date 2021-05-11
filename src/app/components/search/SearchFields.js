@@ -2,9 +2,7 @@ import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import Switch from '@material-ui/core/Switch';
@@ -24,24 +22,7 @@ import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomT
 import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
-import { Row, opaqueBlack54 } from '../../styles/js/shared';
-
-const NoHoverButton = withStyles({
-  root: {
-    borderRadius: 0,
-    borderLeft: '2px solid white',
-    borderRight: '2px solid white',
-    height: '36px',
-    minWidth: 0,
-    margin: 0,
-    '&:hover': {
-      background: 'transparent',
-    },
-  },
-  text: {
-    color: opaqueBlack54,
-  },
-})(Button);
+import { Row } from '../../styles/js/shared';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -144,14 +125,12 @@ class SearchFields extends React.Component {
     }
   }
 
-  filterIsAdded = (field) => {
-    if (this.state.addedFields.includes(field) || this.props.query[field]) {
-      return true;
-    }
+  fieldIsDisplayed = (field) => {
     if (field === 'projects') {
       return Boolean(this.props.project);
     }
-    return false;
+
+    return this.state.addedFields.includes(field) || this.props.query[field];
   };
 
   filterIsActive = () => {
@@ -224,7 +203,7 @@ class SearchFields extends React.Component {
     });
   }
 
-  handleTagsOperator() {
+  handleTagsOperator = () => {
     const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
     this.setState({
       query: { ...this.state.query, tags_operator: operator },
@@ -309,27 +288,14 @@ class SearchFields extends React.Component {
       });
     }
 
-    const AnyAll = () => (
-      <NoHoverButton
-        onClick={() => this.handleTagsOperator()}
-        disableRipple
-      >
-        { this.tagsOperatorIs('or') ?
-          <FormattedMessage id="search.or" defaultMessage="Or" description="Logical operator to be applied when filtering by multiple tags" /> :
-          <FormattedMessage id="search.and" defaultMessage="And" description="Logical operator to be applied when filtering by multiple tags" />
-        }
-      </NoHoverButton>
-    );
-
     const fields = [];
-    if (!(!this.filterIsAdded('projects') || !projects.length)) {
+    if (this.fieldIsDisplayed('projects')) {
       fields.push(
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<FolderIcon />}
-              hide={!this.filterIsAdded('projects') || !projects.length}
               selected={project ? [`${project.dbid}`] : this.state.query.projects}
               options={projects.map(p => ({ label: p.node.title, value: `${p.node.dbid}` }))}
               onChange={this.handleProjectClick}
@@ -339,45 +305,43 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('range') || this.hideField('date'))) {
+    if (this.fieldIsDisplayed('range')) {
       fields.push(
         <Box maxWidth="400px" mr={1} mb={1}>
           { /* TODO: Move Box margin inside `DateRangeFilter` */ }
           <DateRangeFilter
-            hide={!this.filterIsAdded('range') || this.hideField('date')}
             onChange={this.handleDateChange}
             value={this.state.query.range}
           />
         </Box>,
       );
     }
-    if (!((!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length)) {
+    if (this.fieldIsDisplayed('tags')) {
       fields.push(
         <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
           { label => (
             <MultiSelectFilter
-              switchAndOr={<AnyAll />}
               label={label}
               icon={<LocalOfferIcon />}
-              hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
               selected={this.state.query.tags}
               options={plainTagsTexts.map(t => ({ label: t, value: t }))}
               onChange={(newValue) => {
                 this.handleTagClick(newValue);
               }}
+              onToggleOperator={this.handleTagsOperator}
+              operator={this.state.query.tags_operator}
             />
           )}
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('show') || this.hideField('type'))) {
+    if (this.fieldIsDisplayed('show')) {
       fields.push(
         <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<DescriptionIcon />}
-              hide={!this.filterIsAdded('show') || this.hideField('type')}
               selected={this.state.query.show}
               options={types}
               onChange={this.handleShowClick}
@@ -386,14 +350,13 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('verification_status') || this.hideField('status'))) {
+    if (this.fieldIsDisplayed('verification_status')) {
       fields.push(
         <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<LabelIcon />}
-              hide={!this.filterIsAdded('verification_status') || this.hideField('status')}
               selected={this.state.query.verification_status}
               options={statuses.map(s => ({ label: s.label, value: s.id }))}
               onChange={this.handleStatusClick}
@@ -402,14 +365,13 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('users') || this.hideField('user') || !users.length)) {
+    if (this.fieldIsDisplayed('users')) {
       fields.push(
         <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<PersonIcon />}
-              hide={!this.filterIsAdded('users') || this.hideField('user') || !users.length}
               selected={this.state.query.users}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handleUserClick}
@@ -418,7 +380,7 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length)) {
+    if (this.fieldIsDisplayed('dynamic')) {
       // The only dynamic filter available right now is language
       fields.push(
         <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
@@ -426,7 +388,6 @@ class SearchFields extends React.Component {
             <MultiSelectFilter
               label={label}
               icon={<LanguageIcon />}
-              hide={!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length}
               selected={this.state.query.dynamic && this.state.query.dynamic.language}
               options={languages}
               onChange={newValue => this.handleDynamicClick('language', newValue)}
@@ -435,14 +396,13 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    if (!(!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length)) {
+    if (this.fieldIsDisplayed('assigned_to')) {
       fields.push(
         <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<PersonIcon />}
-              hide={!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length}
               selected={this.state.query.assigned_to}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handleAssignedUserClick}
@@ -452,7 +412,7 @@ class SearchFields extends React.Component {
       );
     }
     // TODO: Remove "read" field related code if it's not going to be used
-    if (!(!this.filterIsAdded('read') || this.hideField('read'))) {
+    if (this.fieldIsDisplayed('read')) {
       fields.push(
         <FormControlLabel
           control={
@@ -467,10 +427,9 @@ class SearchFields extends React.Component {
         />,
       );
     }
-    if (!(!this.filterIsAdded('team_tasks') || this.hideField('team_tasks'))) {
+    if (this.fieldIsDisplayed('team_tasks')) {
       fields.push(
         <CustomFiltersManager
-          hide={!this.filterIsAdded('team_tasks') || this.hideField('team_tasks')}
           onFilterChange={this.handleCustomFilterChange}
           team={team}
           query={this.state.query}

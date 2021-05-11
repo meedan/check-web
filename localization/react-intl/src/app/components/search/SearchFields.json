@@ -30,16 +30,6 @@
     "defaultMessage": "Imported report"
   },
   {
-    "id": "search.or",
-    "description": "Logical operator to be applied when filtering by multiple tags",
-    "defaultMessage": "Or"
-  },
-  {
-    "id": "search.and",
-    "description": "Logical operator to be applied when filtering by multiple tags",
-    "defaultMessage": "And"
-  },
-  {
     "id": "search.folderHeading",
     "description": "Prefix label for field to filter by folder to which items belong",
     "defaultMessage": "Folder is"

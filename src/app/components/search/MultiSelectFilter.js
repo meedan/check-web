@@ -10,7 +10,37 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
 import MultiSelector from '../layout/MultiSelector';
-import { checkBlue } from '../../styles/js/shared';
+import { checkBlue, opaqueBlack54 } from '../../styles/js/shared';
+
+const NoHoverButton = withStyles({
+  root: {
+    borderRadius: 0,
+    borderLeft: '2px solid white',
+    borderRight: '2px solid white',
+    height: '36px',
+    minWidth: 0,
+    margin: 0,
+    '&:hover': {
+      background: 'transparent',
+    },
+  },
+  text: {
+    color: opaqueBlack54,
+  },
+})(Button);
+
+const OperatorToggle = ({ onClick, operator }) => (
+  <NoHoverButton
+    onClick={onClick}
+    disabled={!onClick}
+    disableRipple
+  >
+    { operator === 'and' ?
+      <FormattedMessage id="search.and" defaultMessage="And" description="Logical operator to be applied when filtering by multiple tags" /> :
+      <FormattedMessage id="search.or" defaultMessage="Or" description="Logical operator to be applied when filtering by multiple tags" />
+    }
+  </NoHoverButton>
+);
 
 // FIXME: Get rid of styled-components
 // Based on example from material-ui doc: https://material-ui.com/components/autocomplete/#useautocomplete
@@ -106,7 +136,8 @@ const MultiSelectFilter = ({
   label,
   options,
   onChange,
-  switchAndOr,
+  onToggleOperator,
+  operator,
   readOnly,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
@@ -116,12 +147,8 @@ const MultiSelectFilter = ({
     return option ? option.label : '';
   };
 
-  console.log('selected', selected);
-  console.log('options', options);
-
   const handleTagDelete = (value) => {
     const newValue = [...selected.filter(o => o !== value)];
-    console.log('newValue', newValue);
     onChange(newValue);
   };
 
@@ -141,7 +168,12 @@ const MultiSelectFilter = ({
           ) : null }
           { selected.map((value, index) => (
             <React.Fragment key={getLabelForValue(value)}>
-              { index > 0 && switchAndOr ? switchAndOr : null }
+              { index > 0 ? (
+                <OperatorToggle
+                  onClick={onToggleOperator}
+                  operator={operator}
+                />
+              ) : null }
               <Tag
                 label={getLabelForValue(value)}
                 onDelete={() => handleTagDelete(value)}
@@ -149,7 +181,12 @@ const MultiSelectFilter = ({
               />
             </React.Fragment>
           )) }
-          { selected.length > 0 && showSelect && switchAndOr ? switchAndOr : null }
+          { selected.length > 0 && showSelect ? (
+            <OperatorToggle
+              onClick={onToggleOperator}
+              operator={operator}
+            />
+          ) : null }
           { (selected.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
               options={options}
@@ -227,7 +264,7 @@ const CustomSelectDropdown = ({
 MultiSelectFilter.defaultProps = {
   icon: null,
   selected: [],
-  switchAndOr: null,
+  onToggleOperator: null,
   readOnly: false,
 };
 
@@ -243,7 +280,7 @@ MultiSelectFilter.propTypes = {
     PropTypes.object,
     PropTypes.string,
   ])),
-  switchAndOr: PropTypes.node,
+  onToggleOperator: PropTypes.func,
   readOnly: PropTypes.bool,
 };
 
