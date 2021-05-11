@@ -4,6 +4,7 @@ import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import { graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
@@ -76,6 +77,7 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
+          icon={<FolderOutlinedIcon />}
           listDescription={project.description}
           listActions={
             <ProjectActions
@@ -113,7 +115,7 @@ class ProjectComponent extends React.PureComponent {
           teamSlug={routeParams.team}
           project={project}
           query={query}
-          hideFields={['project', 'read']}
+          hideFields={['projects', 'read']}
         />
       </div>
     );

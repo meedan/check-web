@@ -258,31 +258,31 @@ shared_examples 'task' do
     expect(@driver.page_source.include?('No default tasks to display')).to be(true)
   end
 
-  it 'should search map in geolocation task', bin3: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
-    wait_for_selector('.media-detail')
+  # it 'should search map in geolocation task', bin3: true do
+  #   api_create_team_project_and_claim_and_redirect_to_media_page
+  #   wait_for_selector('.media-detail')
 
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    wait_for_size_change(0, 'annotations__list-item', :class)
-    wait_for_selector('#item-history__close-button').click
-    wait_for_selector('.media-tab__tasks').click
+  #   wait_for_selector('.media-actions__icon').click
+  #   wait_for_selector('.media-actions__history').click
+  #   wait_for_size_change(0, 'annotations__list-item', :class)
+  #   wait_for_selector('#item-history__close-button').click
+  #   wait_for_selector('.media-tab__tasks').click
 
-    # Create a task
-    expect(@driver.page_source.include?('Where?')).to be(false)
-    expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
-    create_task(task_type_class: '.create-task__add-geolocation', task_name: 'Where?')
-    expect(@driver.page_source.include?('Where?')).to be(true)
+  #   # Create a task
+  #   expect(@driver.page_source.include?('Where?')).to be(false)
+  #   expect(@driver.page_source.include?('Task "Where?" created by')).to be(false)
+  #   create_task(task_type_class: '.create-task__add-geolocation', task_name: 'Where?')
+  #   expect(@driver.page_source.include?('Where?')).to be(true)
 
-    # Search map
-    expect(@driver.page_source.include?('Brazil')).to be(false)
-    wait_for_selector('#task__response-geolocation-name')
-    fill_field('#geolocationsearch', 'Sao Paulo ')
-    wait_for_selector('#geolocationsearch-option-0')
-    wait_for_selector('#geolocationsearch').click
-    wait_for_selector('#geolocationsearch').send_keys(:arrow_down)
-    @driver.action.send_keys(:enter).perform
-    wait_for_text_change(' ', '#task__response-geolocation-name')
-    expect(@driver.page_source.include?('Brazil')).to be(true)
-  end
+  #   # Search map
+  #   expect(@driver.page_source.include?('Brazil')).to be(false)
+  #   wait_for_selector('#task__response-geolocation-name')
+  #   fill_field('#geolocationsearch', 'Sao Paulo ')
+  #   wait_for_selector('#geolocationsearch-option-0')
+  #   wait_for_selector('#geolocationsearch').click
+  #   wait_for_selector('#geolocationsearch').send_keys(:arrow_down)
+  #   @driver.action.send_keys(:enter).perform
+  #   wait_for_text_change(' ', '#task__response-geolocation-name')
+  #   expect(@driver.page_source.include?('Brazil')).to be(true)
+  # end
 end

@@ -40,44 +40,49 @@
     "defaultMessage": "And"
   },
   {
+    "id": "search.folderHeading",
+    "description": "Prefix label for field to filter by folder to which items belong",
+    "defaultMessage": "Folder is"
+  },
+  {
     "id": "search.categoriesHeading",
-    "description": "Placeholder label for field to filter by tags",
-    "defaultMessage": "Tags"
+    "description": "Prefix label for field to filter by tags",
+    "defaultMessage": "Tag is"
   },
   {
     "id": "search.show",
-    "description": "Placeholder label for field to filter by media type",
-    "defaultMessage": "Media type"
+    "description": "Prefix label for field to filter by media type",
+    "defaultMessage": "Media type is"
   },
   {
     "id": "search.statusHeading",
-    "description": "Placeholder label for field to filter by status",
-    "defaultMessage": "Item status"
+    "description": "Prefix label for field to filter by status",
+    "defaultMessage": "Item status is"
   },
   {
     "id": "search.userHeading",
-    "description": "Placeholder label for field to filter by item creator",
+    "description": "Prefix label for field to filter by item creator",
     "defaultMessage": "Created by"
   },
   {
     "id": "search.language",
-    "description": "Placeholder label for field to filter by language",
-    "defaultMessage": "Language"
-  },
-  {
-    "id": "search.projectHeading",
-    "description": "Placeholder label for field to filter by folders to which items belong",
-    "defaultMessage": "Folder"
+    "description": "Prefix label for field to filter by language",
+    "defaultMessage": "Language is"
   },
   {
     "id": "search.assignedTo",
-    "description": "Placeholder label for field to filter by assigned users",
+    "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
   },
   {
     "id": "search.readHeading",
     "description": "Label for field to filter by 'item is marked' as read",
     "defaultMessage": "Read"
+  },
+  {
+    "id": "search.fieldAnd",
+    "description": "Logical operator to be applied when filtering by multiple fields",
+    "defaultMessage": "AND"
   },
   {
     "id": "search.applyFilters",

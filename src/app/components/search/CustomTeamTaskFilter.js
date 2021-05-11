@@ -245,8 +245,8 @@ const CustomTeamTaskFilter = ({
       return (
         <FormattedMessage
           id="customFiltersManager.label"
-          defaultMessage="Custom field"
-          description="Placeholder label for custom field when not fully configured"
+          defaultMessage="Metadata is"
+          description="Placeholder label for metadata field when not fully configured"
         />
       );
     }

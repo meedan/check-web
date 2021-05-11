@@ -5,16 +5,24 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
+import FolderIcon from '@material-ui/icons/Folder';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 
-const AddFilterMenu = ({ onSelect }) => {
+const StyledButton = withStyles({
+  text: {
+    textTransform: 'none',
+  },
+})(Button);
+
+const AddFilterMenu = ({ hideOptions, onSelect }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleSelect = (field) => {
@@ -24,9 +32,9 @@ const AddFilterMenu = ({ onSelect }) => {
 
   return (
     <React.Fragment>
-      <Button
+      <StyledButton
         id="add-filter-menu__open-button"
-        startIcon={<AddCircleOutlineIcon />}
+        startIcon={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
       >
         <FormattedMessage
@@ -34,12 +42,31 @@ const AddFilterMenu = ({ onSelect }) => {
           defaultMessage="Add filter"
           description="Button that opens menu with filter field options"
         />
-      </Button>
+      </StyledButton>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
+        <MenuItem disabled>
+          <FormattedMessage
+            id="addFilterMenu.filterBy"
+            defaultMessage="Filter by"
+            description="Header to menu of filter field types"
+          />
+        </MenuItem>
+        { hideOptions.includes('projects') ? null : (
+          <MenuItem id="add-filter-menu__folder" onClick={() => handleSelect('projects')}>
+            <ListItemIcon>
+              <FolderIcon />
+            </ListItemIcon>
+            <FormattedMessage
+              id="addFilterMenu.folder"
+              defaultMessage="Folder"
+              description="Menu option to enable searching items by folder"
+            />
+          </MenuItem>
+        )}
         <MenuItem id="add-filter-menu__time-range" onClick={() => handleSelect('range')}>
           <ListItemIcon>
             <DateRangeIcon />
@@ -55,8 +82,8 @@ const AddFilterMenu = ({ onSelect }) => {
             <LocalOfferIcon />
           </ListItemIcon>
           <FormattedMessage
-            id="addFilterMenu.tags"
-            defaultMessage="Tags"
+            id="addFilterMenu.tag"
+            defaultMessage="Tag"
             description="Menu option to enable searching items by tags"
           />
         </MenuItem>
@@ -106,7 +133,7 @@ const AddFilterMenu = ({ onSelect }) => {
           </ListItemIcon>
           <FormattedMessage
             id="addFilterMenu.assignedTo"
-            defaultMessage="Assigned to"
+            defaultMessage="Assignment"
             description="Menu option to enable searching items by assigned users"
           />
         </MenuItem>
@@ -115,9 +142,9 @@ const AddFilterMenu = ({ onSelect }) => {
             <StarIcon />
           </ListItemIcon>
           <FormattedMessage
-            id="addFilterMenu.customFields"
-            defaultMessage="Custom fields"
-            description="Menu option to enable searching items by custom fields"
+            id="addFilterMenu.metadata"
+            defaultMessage="Metadata"
+            description="Menu option to enable searching items by metadata fields"
           />
         </MenuItem>
       </Menu>
@@ -125,7 +152,12 @@ const AddFilterMenu = ({ onSelect }) => {
   );
 };
 
+AddFilterMenu.defaultProps = {
+  hideOptions: [],
+};
+
 AddFilterMenu.propTypes = {
+  hideOptions: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func.isRequired,
 };
 

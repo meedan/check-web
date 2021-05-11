@@ -11,10 +11,12 @@ import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
+import FolderIcon from '@material-ui/icons/Folder';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import deepEqual from 'deep-equal';
 import CustomFiltersManager from './CustomFiltersManager';
 // eslint-disable-next-line no-unused-vars
@@ -22,16 +24,22 @@ import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomT
 import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
-import { brandHighlight, Row } from '../../styles/js/shared';
+import { Row, opaqueBlack54 } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
-    color: brandHighlight,
+    borderRadius: 0,
+    borderLeft: '2px solid white',
+    borderRight: '2px solid white',
+    height: '36px',
     minWidth: 0,
     margin: 0,
     '&:hover': {
       background: 'transparent',
     },
+  },
+  text: {
+    color: opaqueBlack54,
   },
 })(Button);
 
@@ -129,14 +137,22 @@ class SearchFields extends React.Component {
 
   handleApplyFilters() {
     const cleanQuery = this.cleanup(this.state.query);
-    if (!deepEqual(cleanQuery, this.props.query)) {
+    if (this.filterIsApplicable(cleanQuery)) {
       this.props.onChange(cleanQuery);
     } else {
       this.setState({ query: cleanQuery, addedFields: [] });
     }
   }
 
-  filterIsAdded = field => this.state.addedFields.includes(field) || this.props.query[field];
+  filterIsAdded = (field) => {
+    if (this.state.addedFields.includes(field) || this.props.query[field]) {
+      return true;
+    }
+    if (field === 'projects') {
+      return Boolean(this.props.project);
+    }
+    return false;
+  };
 
   filterIsActive = () => {
     const { query } = this.props;
@@ -155,6 +171,11 @@ class SearchFields extends React.Component {
     return filterFields.some(key => !!query[key]) || this.state.addedFields.length > 0;
   };
 
+  filterIsApplicable = () => {
+    const cleanQuery = this.cleanup(this.state.query);
+    return (!deepEqual(cleanQuery, this.props.query));
+  };
+
   // TODO: Merge most *IsSelected and handle*Click into shared functions where possible
 
   statusIsSelected(statusCode) {
@@ -163,6 +184,9 @@ class SearchFields extends React.Component {
   }
 
   projectIsSelected(projectId) {
+    if (this.props.project && this.props.project.dbid === projectId) {
+      return true;
+    }
     const array = this.state.query.projects;
     return array ? array.includes(projectId) : false;
   }
@@ -292,7 +316,7 @@ class SearchFields extends React.Component {
   }
 
   render() {
-    const { team } = this.props;
+    const { team, project } = this.props;
     const { statuses } = team.verification_statuses;
 
     const projects = team.projects ?
@@ -338,167 +362,209 @@ class SearchFields extends React.Component {
       </NoHoverButton>
     );
 
+    const fields = [];
+    if (!(!this.filterIsAdded('projects') || !projects.length)) {
+      fields.push(
+        <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<FolderIcon />}
+              hide={!this.filterIsAdded('projects') || !projects.length}
+              selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
+              options={projects.map(p => p.node)}
+              labelProp="title"
+              onChange={(newValue) => {
+                this.handleProjectClick(newValue.map(p => p.dbid));
+              }}
+              readOnly={Boolean(project)}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('range') || this.hideField('date'))) {
+      fields.push(
+        <Box maxWidth="400px" mr={1} mb={1}>
+          { /* TODO: Move Box margin inside `DateRangeFilter` */ }
+          <DateRangeFilter
+            hide={!this.filterIsAdded('range') || this.hideField('date')}
+            onChange={this.handleDateChange}
+            value={this.state.query.range}
+          />
+        </Box>,
+      );
+    }
+    if (!((!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length)) {
+      fields.push(
+        <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
+          { label => (
+            <MultiSelectFilter
+              switchAndOr={<AnyAll />}
+              label={label}
+              icon={<LocalOfferIcon />}
+              hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
+              selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
+              options={plainTagsTexts}
+              labelProp=""
+              onChange={(newValue) => {
+                this.handleTagClick(newValue);
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('show') || this.hideField('type'))) {
+      fields.push(
+        <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<DescriptionIcon />}
+              hide={!this.filterIsAdded('show') || this.hideField('type')}
+              selected={types.filter(t => this.showIsSelected(t.value))}
+              options={types}
+              onChange={(newValue) => {
+                this.handleShowClick(newValue.map(t => t.value));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('verification_status') || this.hideField('status'))) {
+      fields.push(
+        <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<LabelIcon />}
+              hide={!this.filterIsAdded('verification_status') || this.hideField('status')}
+              selected={statuses.filter(s => this.statusIsSelected(s.id))}
+              options={statuses}
+              onChange={(newValue) => {
+                this.handleStatusClick(newValue.map(s => s.id));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('users') || this.hideField('user') || !users.length)) {
+      fields.push(
+        <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              hide={!this.filterIsAdded('users') || this.hideField('user') || !users.length}
+              selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
+              options={users.map(u => u.node)}
+              labelProp="name"
+              onChange={(newValue) => {
+                this.handleUserClick(newValue.map(u => u.dbid));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length)) {
+      // The only dynamic filter available right now is language
+      fields.push(
+        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<LanguageIcon />}
+              hide={!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length}
+              selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
+              options={languages}
+              onChange={(newValue) => {
+                this.handleDynamicClick('language', newValue.map(t => t.value));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length)) {
+      fields.push(
+        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              hide={!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length}
+              selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
+              options={users.map(u => u.node)}
+              labelProp="name"
+              onChange={(newValue) => {
+                this.handleAssignedUserClick(newValue.map(u => u.dbid));
+              }}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (!(!this.filterIsAdded('read') || this.hideField('read'))) {
+      fields.push(
+        <FormControlLabel
+          control={
+            <Switch
+              checked={this.readIsSelected(true)}
+              onChange={(e) => { this.handleReadClick(e.target.checked); }}
+            />
+          }
+          label={
+            <FormattedMessage id="search.readHeading" defaultMessage="Read" description="Label for field to filter by 'item is marked' as read" />
+          }
+        />,
+      );
+    }
+    if (!(!this.filterIsAdded('team_tasks') || this.hideField('team_tasks'))) {
+      fields.push(
+        <CustomFiltersManager
+          hide={!this.filterIsAdded('team_tasks') || this.hideField('team_tasks')}
+          onFilterChange={this.handleCustomFilterChange}
+          team={team}
+          query={this.state.query}
+        />,
+      );
+    }
+
     return (
       <div>
         <Row flexWrap>
-          <Box maxWidth="400px" mr={1} mb={1}>
-            <DateRangeFilter
-              hide={!this.filterIsAdded('range') || this.hideField('date')}
-              onChange={this.handleDateChange}
-              value={this.state.query.range}
-            />
-          </Box>
-
-          <FormattedMessage id="search.categoriesHeading" defaultMessage="Tags" description="Placeholder label for field to filter by tags">
-            { label => (
-              <MultiSelectFilter
-                append={<AnyAll />}
-                label={label}
-                icon={<LocalOfferIcon />}
-                hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
-                selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
-                options={plainTagsTexts}
-                labelProp=""
-                onChange={(newValue) => {
-                  this.handleTagClick(newValue);
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.show" defaultMessage="Media type" description="Placeholder label for field to filter by media type">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<DescriptionIcon />}
-                hide={!this.filterIsAdded('show') || this.hideField('type')}
-                selected={types.filter(t => this.showIsSelected(t.value))}
-                options={types}
-                onChange={(newValue) => {
-                  this.handleShowClick(newValue.map(t => t.value));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.statusHeading" defaultMessage="Item status" description="Placeholder label for field to filter by status">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<LabelIcon />}
-                hide={!this.filterIsAdded('verification_status') || this.hideField('status')}
-                selected={statuses.filter(s => this.statusIsSelected(s.id))}
-                options={statuses}
-                onChange={(newValue) => {
-                  this.handleStatusClick(newValue.map(s => s.id));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Placeholder label for field to filter by item creator">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<PersonIcon />}
-                hide={!this.filterIsAdded('users') || this.hideField('user') || !users.length}
-                selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
-                options={users.map(u => u.node)}
-                labelProp="name"
-                onChange={(newValue) => {
-                  this.handleUserClick(newValue.map(u => u.dbid));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          {/* The only dynamic filter available right now is language */}
-
-          <FormattedMessage id="search.language" defaultMessage="Language" description="Placeholder label for field to filter by language">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<LanguageIcon />}
-                hide={!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length}
-                selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
-                options={languages}
-                onChange={(newValue) => {
-                  this.handleDynamicClick('language', newValue.map(t => t.value));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.projectHeading" defaultMessage="Folder" description="Placeholder label for field to filter by folders to which items belong">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                hide={!this.filterIsAdded('projects') || this.hideField('project') || !projects.length}
-                selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
-                options={projects.map(p => p.node)}
-                labelProp="title"
-                onChange={(newValue) => {
-                  this.handleProjectClick(newValue.map(p => p.dbid));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Placeholder label for field to filter by assigned users">
-            { label => (
-              <MultiSelectFilter
-                label={label}
-                icon={<PersonIcon />}
-                hide={!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length}
-                selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
-                options={users.map(u => u.node)}
-                labelProp="name"
-                onChange={(newValue) => {
-                  this.handleAssignedUserClick(newValue.map(u => u.dbid));
-                }}
-              />
-            )}
-          </FormattedMessage>
-
-          { !this.filterIsAdded('read') || this.hideField('read') ?
-            null : (
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={this.readIsSelected(true)}
-                    onChange={(e) => { this.handleReadClick(e.target.checked); }}
-                  />
-                }
-                label={
-                  <FormattedMessage id="search.readHeading" defaultMessage="Read" description="Label for field to filter by 'item is marked' as read" />
-                }
-              />
-            )
-          }
-
-          <CustomFiltersManager
-            hide={!this.filterIsAdded('team_tasks') || this.hideField('team_tasks')}
-            onFilterChange={this.handleCustomFilterChange}
-            team={team}
-            query={this.state.query}
-          />
+          { /* FIXME: Each child in a list should have a unique "key" prop */}
+          { fields.map((field, index) => index > 0 ? (
+            <Box display="flex" alignItems="center">
+              <Box mr={1} mb={1} height="36px" display="flex" alignItems="center">
+                <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
+              </Box>
+              {field}
+            </Box>
+          ) : (
+            <span>
+              {field}
+            </span>
+          )) }
         </Row>
 
-        <AddFilterMenu onSelect={this.handleAddField} />
-        { this.state.addedFields.length || this.filterIsActive() ?
-          <Button
-            id="search-fields__submit-button"
-            color="primary"
-            onClick={this.handleSubmit}
-          >
-            <FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />
-          </Button>
+        <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
+        { this.state.addedFields.length || this.filterIsApplicable() ?
+          <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
+            <IconButton id="search-fields__submit-button" onClick={this.handleSubmit}>
+              <PlayArrowIcon color="primary" />
+            </IconButton>
+          </Tooltip>
           : null
         }
         { this.filterIsActive() ? (
           <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
             <IconButton id="search-fields__clear-button" onClick={this.handleClickClear}>
-              <ClearIcon style={{ color: brandHighlight }} />
+              <ClearIcon color="primary" />
             </IconButton>
           </Tooltip>
         ) : null}
@@ -507,7 +573,14 @@ class SearchFields extends React.Component {
   }
 }
 
+SearchFields.defaultProps = {
+  project: null,
+};
+
 SearchFields.propTypes = {
+  project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({

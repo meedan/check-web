@@ -10,7 +10,8 @@ const MultiSelectFilter = ({
   selected,
   hide,
   labelProp,
-  append,
+  switchAndOr,
+  readOnly,
 }) => {
   const handleChange = (event, newValue) => {
     onChange(newValue);
@@ -22,14 +23,15 @@ const MultiSelectFilter = ({
 
   return (
     <CustomAutocomplete
-      defaultValue={selected}
+      value={selected}
       icon={icon}
       label={label}
       getOptionLabel={option => labelProp === '' ? option : option[labelProp]}
       getOptionSelected={(option, value) => (JSON.stringify(option) === JSON.stringify(value))}
       onChange={handleChange}
       options={options}
-      append={append}
+      switchAndOr={switchAndOr}
+      readOnly={readOnly}
     />
   );
 };
@@ -39,7 +41,8 @@ MultiSelectFilter.defaultProps = {
   selected: [],
   hide: false,
   labelProp: 'label',
-  append: null,
+  switchAndOr: null,
+  readOnly: false,
 };
 
 MultiSelectFilter.propTypes = {
@@ -56,7 +59,8 @@ MultiSelectFilter.propTypes = {
   ])),
   hide: PropTypes.bool,
   labelProp: PropTypes.string,
-  append: PropTypes.node,
+  switchAndOr: PropTypes.node,
+  readOnly: PropTypes.bool,
 };
 
 export default MultiSelectFilter;

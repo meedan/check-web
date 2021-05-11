@@ -174,7 +174,7 @@ shared_examples 'search' do
   end
 
   it 'should search for reverse images', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/Megadeth/status/1351583846718869504'
+    api_create_team_project_and_link_and_redirect_to_media_page 'https://www.globo.com/'
     card = wait_for_selector_list('.media-detail').length
     expect(card == 1).to be(true)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
