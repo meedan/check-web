@@ -153,7 +153,6 @@ class DrawerNavigationComponent extends Component {
                     />
                   </MenuItem>
                 </Link>
-                <Divider />
                 <Link style={linkStyle} to={`/${team.slug}/trash`} className="project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
                     <ListItemIcon>

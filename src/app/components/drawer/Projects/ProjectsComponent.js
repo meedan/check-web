@@ -246,8 +246,6 @@ const ProjectsComponent = ({
           </ListItemText>
         </ListItem>
 
-        <Divider />
-
         {/* Collections and their folders */}
         <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
           <Box className={classes.projectsComponentScroll}>
@@ -327,7 +325,6 @@ const ProjectsComponent = ({
             </Box>
           </ListItemText>
         </ListItem>
-        <Divider />
 
         {/* Lists */}
         <Box className={classes.projectsComponentScroll}>

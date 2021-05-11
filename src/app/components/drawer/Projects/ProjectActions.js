@@ -75,12 +75,15 @@ const ProjectActions = ({
     setSaving(true);
 
     const input = {
-      title: newTitle,
       id: object.id,
     };
 
-    if (!noDescription) {
+    if (!noDescription && newDescription) {
       input.description = newDescription;
+    }
+
+    if (newTitle) {
+      input.title = newTitle;
     }
 
     commitMutation(Store, {
@@ -253,7 +256,7 @@ const ProjectActions = ({
               /> : null }
           </Box>
         }
-        proceedDisabled={!newTitle}
+        proceedDisabled={!newTitle && !object.title}
         proceedLabel={
           <FormattedMessage
             id="projectsComponent.renameType"
