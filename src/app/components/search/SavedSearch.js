@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import ListIcon from '@material-ui/icons/List';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
@@ -30,9 +31,11 @@ const SavedSearch = ({ routeParams }) => (
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        const savedQuery = props.saved_search.filters || {};
+        // Weird Relay error happens here if "filters" is a JSON object instead of a JSON string...
+        // "Uncaught TypeError: Cannot assign to read only property '<filter name>' of object '#<Object>'"
+        const savedQuery = props.saved_search.filters || '{}';
         const query = {
-          ...savedQuery,
+          ...JSON.parse(savedQuery),
           ...safelyParseJSON(routeParams.query, {}),
         };
 
@@ -41,6 +44,7 @@ const SavedSearch = ({ routeParams }) => (
             <Search
               searchUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}`}
               mediaUrlPrefix={`/${routeParams.team}/media`}
+              icon={<ListIcon />}
               listActions={
                 <ProjectActions
                   noDescription
@@ -50,6 +54,7 @@ const SavedSearch = ({ routeParams }) => (
                     mutation SavedSearchUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {
                       updateSavedSearch(input: $input) {
                         saved_search {
+                          id
                           title
                         }
                       }
@@ -76,6 +81,7 @@ const SavedSearch = ({ routeParams }) => (
               title={props.saved_search.title}
               teamSlug={routeParams.team}
               query={query}
+              savedSearch={props.saved_search}
               hideFields={['read', 'project']}
               page="list"
             />

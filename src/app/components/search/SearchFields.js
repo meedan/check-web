@@ -24,6 +24,7 @@ import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomT
 import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
+import SaveList from './SaveList';
 import { Row, opaqueBlack54 } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
@@ -559,15 +560,15 @@ class SearchFields extends React.Component {
               <PlayArrowIcon color="primary" />
             </IconButton>
           </Tooltip>
-          : null
-        }
+          : null }
         { this.filterIsActive() ? (
           <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
             <IconButton id="search-fields__clear-button" onClick={this.handleClickClear}>
               <ClearIcon color="primary" />
             </IconButton>
           </Tooltip>
-        ) : null}
+        ) : null }
+        <SaveList team={team} query={this.state.query} project={project} savedSearch={this.props.savedSearch} />
       </div>
     );
   }
@@ -575,15 +576,24 @@ class SearchFields extends React.Component {
 
 SearchFields.defaultProps = {
   project: null,
+  savedSearch: null,
 };
 
 SearchFields.propTypes = {
   project: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }),
+  savedSearch: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    filters: PropTypes.string.isRequired,
+  }),
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
     projects: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired,
@@ -602,6 +612,8 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
   fragment SearchFields_team on Team {
     id
     dbid
+    slug
+    permissions
     verification_statuses
     tag_texts(first: 10000) {
       edges {

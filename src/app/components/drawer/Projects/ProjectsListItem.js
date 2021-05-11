@@ -58,6 +58,7 @@ const ProjectsListItem = ({
       button
       onClick={handleClick}
       title={project.title}
+      key={`${project.id}-${project.title}`}
       className={isActive ? [classes.projectsListItemActive, defaultClassName].join(' ') : defaultClassName}
       {...listItemProps}
     >

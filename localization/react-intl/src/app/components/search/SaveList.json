@@ -1,0 +1,39 @@
+[
+  {
+    "id": "saveList.defaultErrorMessage",
+    "description": "Error message displayed when it's not possible to save a list",
+    "defaultMessage": "Could not save list, please try again"
+  },
+  {
+    "id": "saveList.savedSuccessfully",
+    "description": "Success message displayed when a list is saved",
+    "defaultMessage": "List saved successfully"
+  },
+  {
+    "id": "saveList.saveList",
+    "description": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list",
+    "defaultMessage": "Save list"
+  },
+  {
+    "id": "saveList.newList",
+    "defaultMessage": "Save list"
+  },
+  {
+    "id": "saveList.title",
+    "defaultMessage": "Enter new list name"
+  },
+  {
+    "id": "saveList.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "saveList.update",
+    "description": "'Save' here is an infinitive verb",
+    "defaultMessage": "Save changes to the list \"{listName}\""
+  },
+  {
+    "id": "saveList.create",
+    "description": "'Create' here is an infinitive verb",
+    "defaultMessage": "Create new list"
+  }
+]

@@ -4,7 +4,7 @@ import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { browserHistory, withRouter } from 'react-router';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
@@ -67,22 +67,30 @@ const ProjectsComponent = ({
   projects,
   projectGroups,
   savedSearches,
+  location,
   setFlashMessage,
 }) => {
-  const pathParts = window.location.pathname.split('/');
-
   const classes = useStyles();
 
   const [folderMenuAnchor, setFolderMenuAnchor] = React.useState(null);
   const [showNewFolderDialog, setShowNewFolderDialog] = React.useState(false);
   const [showNewCollectionDialog, setShowNewCollectionDialog] = React.useState(false);
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
-  const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
   const [saving, setSaving] = React.useState(false);
 
+  // Get/set which list item should be highlighted
+  const pathParts = window.location.pathname.split('/');
+  const [activeItem, setActiveItem] = React.useState({ type: pathParts[2], id: parseInt(pathParts[3], 10) });
+  React.useEffect(() => {
+    const path = location.pathname.split('/');
+    if (activeItem.type !== path[2] || activeItem.id !== path[3]) {
+      setActiveItem({ type: path[2], id: parseInt(path[3], 10) });
+    }
+  }, [location.pathname]);
   const isActive = (type, id) => type === activeItem.type && id === activeItem.id;
 
   const handleAllItems = () => {
+    setActiveItem({ type: 'all-items', id: null });
     browserHistory.push(`/${team.slug}/all-items`);
   };
 
@@ -184,7 +192,11 @@ const ProjectsComponent = ({
         { saving ? <Box className={classes.projectsComponentMask} /> : null }
 
         {/* All items */}
-        <ListItem button onClick={handleAllItems} className="projects-list__all-items">
+        <ListItem
+          button
+          onClick={handleAllItems}
+          className={activeItem.type === 'all-items' ? ['projects-list__all-items', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
+        >
           <ListItemText>
             <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" />
           </ListItemText>
@@ -390,4 +402,4 @@ ProjectsComponent.propTypes = {
   }).isRequired).isRequired,
 };
 
-export default withSetFlashMessage(ProjectsComponent);
+export default withSetFlashMessage(withRouter(ProjectsComponent));

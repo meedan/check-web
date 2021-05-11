@@ -99,6 +99,7 @@ const NewProject = ({
         description="Generic message displayed when a collection, folder or list is created"
       />
     ), 'success');
+    setNewTitle('');
     onClose();
   };
 
@@ -167,6 +168,7 @@ const NewProject = ({
             /> : null }
         </React.Fragment>
       }
+      proceedDisabled={!newTitle}
       proceedLabel={buttonLabel}
       onProceed={handleCreate}
       isSaving={saving}

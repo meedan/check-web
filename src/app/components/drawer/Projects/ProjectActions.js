@@ -67,6 +67,7 @@ const ProjectActions = ({
         description="Generic success message displayed when a collection, folder or list is updated or deleted"
       />
     ), 'success');
+    setNewTitle('');
     handleClose();
   };
 
@@ -252,6 +253,7 @@ const ProjectActions = ({
               /> : null }
           </Box>
         }
+        proceedDisabled={!newTitle}
         proceedLabel={
           <FormattedMessage
             id="projectsComponent.renameType"

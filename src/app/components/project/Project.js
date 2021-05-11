@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
 import { graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
@@ -77,7 +77,7 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
-          icon={<FolderOutlinedIcon />}
+          icon={<FolderOpenIcon />}
           listDescription={project.description}
           listActions={
             <ProjectActions
@@ -88,6 +88,7 @@ class ProjectComponent extends React.PureComponent {
                 mutation ProjectUpdateProjectMutation($input: UpdateProjectInput!) {
                   updateProject(input: $input) {
                     project {
+                      id
                       title
                       description
                     }

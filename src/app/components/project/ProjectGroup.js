@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import ProjectActions from '../drawer/Projects/ProjectActions';
@@ -40,6 +41,7 @@ const ProjectGroup = ({ routeParams }) => (
             <Search
               searchUrlPrefix={`/${routeParams.team}/collection/${routeParams.projectGroupId}`}
               mediaUrlPrefix={`/${routeParams.team}/media`}
+              icon={<FolderSpecialIcon />}
               title={props.project_group.title}
               listDescription={props.project_group.description}
               listActions={
@@ -50,6 +52,7 @@ const ProjectGroup = ({ routeParams }) => (
                     mutation ProjectGroupUpdateProjectGroupMutation($input: UpdateProjectGroupInput!) {
                       updateProjectGroup(input: $input) {
                         project_group {
+                          id
                           title
                           description
                         }
