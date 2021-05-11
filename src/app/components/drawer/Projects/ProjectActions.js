@@ -232,6 +232,7 @@ const ProjectActions = ({
               onChange={(e) => { setNewTitle(e.target.value); }}
               variant="outlined"
               margin="normal"
+              className="project-actions__edit-title"
               fullWidth
             />
             { !noDescription ?
@@ -246,6 +247,7 @@ const ProjectActions = ({
                 onChange={(e) => { setNewDescription(e.target.value); }}
                 variant="outlined"
                 margin="normal"
+                className="project-actions__edit-description"
                 fullWidth
               /> : null }
           </Box>

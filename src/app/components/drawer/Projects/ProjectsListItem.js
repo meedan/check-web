@@ -51,12 +51,14 @@ const ProjectsListItem = ({
     browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}`);
   };
 
+  const defaultClassName = ['project-list__link', className].join(' ');
+
   const Item = listItemProps => (
     <ListItem
       button
       onClick={handleClick}
       title={project.title}
-      className={isActive ? [classes.projectsListItemActive, className] : className}
+      className={isActive ? [classes.projectsListItemActive, defaultClassName].join(' ') : defaultClassName}
       {...listItemProps}
     >
       <ListItemIcon className={classes.projectsListItemIcon}>

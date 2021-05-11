@@ -143,7 +143,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
-    wait_for_selector('.message').click
+    wait_for_selector('.message')
     wait_for_selector('.project-header__back-button').click
     expect(@driver.find_elements(:css, '.medias__item').empty?)
     wait_for_selector('.project-list__item-trash').click # Go to the trash page
@@ -154,7 +154,7 @@ shared_examples 'media' do |type|
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-bulk-actions__move-button').click
-    wait_for_selector('.message').click
+    wait_for_selector('.message')
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)

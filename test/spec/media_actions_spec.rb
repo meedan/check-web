@@ -203,13 +203,8 @@ shared_examples 'media actions' do
   it 'should move media to another project from item page', bin2: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
-    wait_for_selector('.drawer__create-project-button').click
-    wait_for_selector('.create-project-form input[name="title"]').send_keys('project 2')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector_none('.media__heading', :css, 5)
+    create_project('project 2')
     wait_for_selector('.project-list__link', index: 0).click
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
-    wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector('#media-bulk-actions__actions')
     wait_for_selector('.media__heading').click
     wait_for_selector('#media-actions-bar__move-to').click
@@ -219,8 +214,8 @@ shared_examples 'media actions' do
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('My search result')).to be(true)
-    wait_for_selector('.project-list__link', index: 1).click
-    wait_for_selector_none('.media__heading', :css, 5)
+    wait_for_selector('.project-list__link', index: 0).click
+    wait_for_selector_none('.media__heading', :css, 10)
     expect(page_source_body.include?('My search result')).to be(false)
   end
 end

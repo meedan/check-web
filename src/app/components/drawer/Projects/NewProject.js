@@ -148,6 +148,7 @@ const NewProject = ({
             onChange={(e) => { setNewTitle(e.target.value); }}
             variant="outlined"
             margin="normal"
+            className="new-project__title"
             fullWidth
           />
           { !noDescription ?
@@ -161,6 +162,7 @@ const NewProject = ({
               onChange={(e) => { setNewDescription(e.target.value); }}
               variant="outlined"
               margin="normal"
+              className="new-project__description"
               fullWidth
             /> : null }
         </React.Fragment>

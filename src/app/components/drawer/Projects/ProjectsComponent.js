@@ -201,7 +201,7 @@ const ProjectsComponent = ({
             <Box display="flex" alignItems="center">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); }} className={classes.projectsComponentButton}>
+                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
                   <AddIcon />
                 </IconButton>
               </Can>
@@ -216,6 +216,7 @@ const ProjectsComponent = ({
                     setFolderMenuAnchor(null);
                     setShowNewFolderDialog(true);
                   }}
+                  className="projects-list__add-folder"
                 >
                   <FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" />
                 </MenuItem>
@@ -224,6 +225,7 @@ const ProjectsComponent = ({
                     setFolderMenuAnchor(null);
                     setShowNewCollectionDialog(true);
                   }}
+                  className="projects-list__add-collection"
                 >
                   <FormattedMessage id="projectsComponent.newCollection" defaultMessage="New collection" />
                 </MenuItem>

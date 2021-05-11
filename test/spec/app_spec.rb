@@ -240,7 +240,7 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('#media-bulk-actions')
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
       # item created from "all items" page
-      wait_for_selector('a[href$="/all-items"]').click
+      wait_for_selector('.projects-list__all-items').click
       create_media('claim 2', false)
       wait_for_selector('.media__heading', :css, 20, true).click
       wait_for_selector('#media-detail__report-designer')
@@ -280,7 +280,7 @@ shared_examples 'app' do |webdriver_url|
       api_create_team_and_project(user: user)
       @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab')
-      wait_for_selector('.projects-list__all-items')
+      wait_for_selector('.team-header__drawer-team-link')
     end
   end
 end
