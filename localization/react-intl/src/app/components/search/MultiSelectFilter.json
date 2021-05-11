@@ -1,0 +1,12 @@
+[
+  {
+    "id": "customAutocomplete.select",
+    "description": "Verb. Label for generic dropdown component",
+    "defaultMessage": "Select"
+  },
+  {
+    "id": "customAutocomplete.done",
+    "description": "Label for closing dropdown when user is done selecting tags",
+    "defaultMessage": "Done"
+  }
+]

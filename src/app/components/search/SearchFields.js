@@ -176,49 +176,8 @@ class SearchFields extends React.Component {
     return (!deepEqual(cleanQuery, this.props.query));
   };
 
-  // TODO: Merge most *IsSelected and handle*Click into shared functions where possible
-
-  statusIsSelected(statusCode) {
-    const array = this.state.query.verification_status;
-    return array ? array.includes(statusCode) : false;
-  }
-
-  projectIsSelected(projectId) {
-    if (this.props.project && this.props.project.dbid === projectId) {
-      return true;
-    }
-    const array = this.state.query.projects;
-    return array ? array.includes(projectId) : false;
-  }
-
-  userIsSelected(userId) {
-    const array = this.state.query.users;
-    return array ? array.includes(userId) : false;
-  }
-
-  assignedUserIsSelected(userId) {
-    const array = this.state.query.assigned_to;
-    return array ? array.includes(userId) : false;
-  }
-
   readIsSelected(isRead) {
     return this.state.query.read === isRead;
-  }
-
-  tagIsSelected(tag) {
-    const array = this.state.query.tags;
-    return array ? array.includes(tag) : false;
-  }
-
-  showIsSelected(type) {
-    const array = this.state.query.show;
-    return array ? array.includes(type) : false;
-  }
-
-  dynamicIsSelected(field, value) {
-    const dynamic = this.state.query.dynamic || {};
-    const array = dynamic[field];
-    return array ? array.includes(value) : false;
   }
 
   handleDateChange = (value) => {
@@ -235,31 +194,31 @@ class SearchFields extends React.Component {
     });
   }
 
-  handleProjectClick(projectIds) {
+  handleProjectClick = (projectIds) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'projects', projectIds),
     });
   }
 
-  handleUserClick(userIds) {
+  handleUserClick = (userIds) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'users', userIds),
     });
   }
 
-  handleAssignedUserClick(userIds) {
+  handleAssignedUserClick = (userIds) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'assigned_to', userIds),
     });
   }
 
-  handleReadClick(isRead) {
+  handleReadClick = (isRead) => {
     this.setState({
       query: { ...this.state.query, read: isRead },
     });
   }
 
-  handleTagClick(tags) {
+  handleTagClick = (tags) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'tags', tags),
     });
@@ -280,13 +239,13 @@ class SearchFields extends React.Component {
     return currentOperator === operator;
   }
 
-  handleShowClick(type) {
+  handleShowClick = (type) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'show', type),
     });
   }
 
-  handleDynamicClick(field, newValue) {
+  handleDynamicClick = (field, newValue) => {
     const { query } = this.state;
     const oldDynamic = query.dynamic ? query.dynamic : {};
     const newDynamic = updateStateQueryArrayValue(oldDynamic, field, newValue);
@@ -371,12 +330,9 @@ class SearchFields extends React.Component {
               label={label}
               icon={<FolderIcon />}
               hide={!this.filterIsAdded('projects') || !projects.length}
-              selected={projects.map(p => p.node).filter(p => this.projectIsSelected(p.dbid))}
-              options={projects.map(p => p.node)}
-              labelProp="title"
-              onChange={(newValue) => {
-                this.handleProjectClick(newValue.map(p => p.dbid));
-              }}
+              selected={project ? [`${project.dbid}`] : this.state.query.projects}
+              options={projects.map(p => ({ label: p.node.title, value: `${p.node.dbid}` }))}
+              onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
             />
           )}
@@ -404,9 +360,8 @@ class SearchFields extends React.Component {
               label={label}
               icon={<LocalOfferIcon />}
               hide={(!this.filterIsAdded('tags') || this.hideField('tags')) || !plainTagsTexts.length}
-              selected={plainTagsTexts.filter(t => this.tagIsSelected(t))}
-              options={plainTagsTexts}
-              labelProp=""
+              selected={this.state.query.tags}
+              options={plainTagsTexts.map(t => ({ label: t, value: t }))}
               onChange={(newValue) => {
                 this.handleTagClick(newValue);
               }}
@@ -423,11 +378,9 @@ class SearchFields extends React.Component {
               label={label}
               icon={<DescriptionIcon />}
               hide={!this.filterIsAdded('show') || this.hideField('type')}
-              selected={types.filter(t => this.showIsSelected(t.value))}
+              selected={this.state.query.show}
               options={types}
-              onChange={(newValue) => {
-                this.handleShowClick(newValue.map(t => t.value));
-              }}
+              onChange={this.handleShowClick}
             />
           )}
         </FormattedMessage>,
@@ -441,11 +394,9 @@ class SearchFields extends React.Component {
               label={label}
               icon={<LabelIcon />}
               hide={!this.filterIsAdded('verification_status') || this.hideField('status')}
-              selected={statuses.filter(s => this.statusIsSelected(s.id))}
-              options={statuses}
-              onChange={(newValue) => {
-                this.handleStatusClick(newValue.map(s => s.id));
-              }}
+              selected={this.state.query.verification_status}
+              options={statuses.map(s => ({ label: s.label, value: s.id }))}
+              onChange={this.handleStatusClick}
             />
           )}
         </FormattedMessage>,
@@ -459,12 +410,9 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               hide={!this.filterIsAdded('users') || this.hideField('user') || !users.length}
-              selected={users.map(u => u.node).filter(u => this.userIsSelected(u.dbid))}
-              options={users.map(u => u.node)}
-              labelProp="name"
-              onChange={(newValue) => {
-                this.handleUserClick(newValue.map(u => u.dbid));
-              }}
+              selected={this.state.query.users}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handleUserClick}
             />
           )}
         </FormattedMessage>,
@@ -479,11 +427,9 @@ class SearchFields extends React.Component {
               label={label}
               icon={<LanguageIcon />}
               hide={!this.filterIsAdded('dynamic') || this.hideField('dynamic') || !languages.length}
-              selected={languages.filter(l => this.dynamicIsSelected('language', l.value))}
+              selected={this.state.query.dynamic && this.state.query.dynamic.language}
               options={languages}
-              onChange={(newValue) => {
-                this.handleDynamicClick('language', newValue.map(t => t.value));
-              }}
+              onChange={newValue => this.handleDynamicClick('language', newValue)}
             />
           )}
         </FormattedMessage>,
@@ -497,17 +443,15 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               hide={!this.filterIsAdded('assigned_to') || this.hideField('assignment') || !users.length}
-              selected={users.map(u => u.node).filter(u => this.assignedUserIsSelected(u.dbid))}
-              options={users.map(u => u.node)}
-              labelProp="name"
-              onChange={(newValue) => {
-                this.handleAssignedUserClick(newValue.map(u => u.dbid));
-              }}
+              selected={this.state.query.assigned_to}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handleAssignedUserClick}
             />
           )}
         </FormattedMessage>,
       );
     }
+    // TODO: Remove "read" field related code if it's not going to be used
     if (!(!this.filterIsAdded('read') || this.hideField('read'))) {
       fields.push(
         <FormControlLabel
