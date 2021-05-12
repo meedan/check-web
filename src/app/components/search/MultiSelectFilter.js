@@ -49,8 +49,6 @@ const InputWrapper = styled('div')`
   background-color: #eee;
   border-radius: 4px;
   padding-right: 4px;
-  margin-right: 8px;
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
@@ -151,6 +149,11 @@ const MultiSelectFilter = ({
     onChange(newValue);
   };
 
+  const handleSelect = (value) => {
+    setShowSelect(false);
+    onChange(value);
+  };
+
   return (
     <div>
       <div className="multi-select-filter">
@@ -190,7 +193,7 @@ const MultiSelectFilter = ({
             <CustomSelectDropdown
               options={options}
               selected={selected}
-              onSubmit={onChange}
+              onSubmit={handleSelect}
             />
           ) : null}
           { readOnly ? null : (
