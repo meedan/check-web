@@ -307,8 +307,7 @@ class SearchFields extends React.Component {
     }
     if (this.fieldIsDisplayed('range')) {
       fields.push(
-        <Box maxWidth="400px" mr={1} mb={1}>
-          { /* TODO: Move Box margin inside `DateRangeFilter` */ }
+        <Box maxWidth="400px">
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.state.query.range}
@@ -439,38 +438,37 @@ class SearchFields extends React.Component {
 
     return (
       <div>
-        <Row flexWrap>
+        <Row style={{ gap: '8px' }}>
           { /* FIXME: Each child in a list should have a unique "key" prop */}
           { fields.map((field, index) => index > 0 ? (
-            <Box display="flex" alignItems="center">
-              <Box mr={1} mb={1} height="36px" display="flex" alignItems="center">
+            <React.Fragment>
+              <Box height="36px" display="flex" alignItems="center">
                 <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
               </Box>
               {field}
-            </Box>
+            </React.Fragment>
           ) : (
             <span>
               {field}
             </span>
           )) }
+          <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
+          { this.state.addedFields.length || this.filterIsApplicable() ?
+            <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
+              <IconButton id="search-fields__submit-button" onClick={this.handleSubmit} size="small">
+                <PlayArrowIcon color="primary" />
+              </IconButton>
+            </Tooltip>
+            : null
+          }
+          { this.filterIsActive() ? (
+            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
+              <IconButton id="search-fields__clear-button" onClick={this.handleClickClear} size="small">
+                <ClearIcon color="primary" />
+              </IconButton>
+            </Tooltip>
+          ) : null}
         </Row>
-
-        <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
-        { this.state.addedFields.length || this.filterIsApplicable() ?
-          <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
-            <IconButton id="search-fields__submit-button" onClick={this.handleSubmit}>
-              <PlayArrowIcon color="primary" />
-            </IconButton>
-          </Tooltip>
-          : null
-        }
-        { this.filterIsActive() ? (
-          <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
-            <IconButton id="search-fields__clear-button" onClick={this.handleClickClear}>
-              <ClearIcon color="primary" />
-            </IconButton>
-          </Tooltip>
-        ) : null}
       </div>
     );
   }

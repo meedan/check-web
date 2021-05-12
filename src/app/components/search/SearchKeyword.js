@@ -280,7 +280,7 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     return (
-      <div style={{ minWidth: 350 }}>
+      <div>
         <PageTitle prefix={title} team={this.props.team} />
         <Row>
           <form

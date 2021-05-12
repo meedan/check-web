@@ -17,6 +17,9 @@ import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 
 const StyledButton = withStyles({
+  root: {
+    height: '36px',
+  },
   text: {
     textTransform: 'none',
   },
@@ -36,6 +39,7 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
         id="add-filter-menu__open-button"
         startIcon={<AddIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
+        size="small"
       >
         <FormattedMessage
           id="addFilterMenu.addFilter"
