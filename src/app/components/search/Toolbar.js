@@ -46,7 +46,7 @@ const Toolbar = ({
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
-        {['trash', 'unconfirmed'].indexOf(page) === -1 ? (
+        {['trash', 'unconfirmed', 'collection', 'list'].indexOf(page) === -1 ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} project={project} team={team} />

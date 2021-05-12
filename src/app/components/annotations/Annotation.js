@@ -1066,7 +1066,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.projectMoved"
-              defaultMessage="Moved from list {previousProject} to {currentProject} by {author}"
+              defaultMessage="Moved from folder {previousProject} to {currentProject} by {author}"
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>

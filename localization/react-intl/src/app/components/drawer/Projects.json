@@ -9,10 +9,10 @@
   },
   {
     "id": "projects.addProject",
-    "defaultMessage": "Add list"
+    "defaultMessage": "Add folder"
   },
   {
     "id": "projects.newList",
-    "defaultMessage": "+ New list"
+    "defaultMessage": "+ New folder"
   }
 ]

@@ -105,11 +105,11 @@ function RestoreConfirmProjectMediaToProjectAction({
         title={
           <FormattedMessage
             id="mediaActionsBar.dialogRestoreOrConfirmToListTitle"
-            defaultMessage="Move item to list…"
+            defaultMessage="Move item to folder…"
           />
         }
         cancelLabel={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}
-        submitLabel={<FormattedMessage id="mediaActionsBar.restoreOrConfirm" defaultMessage="Move to list" />}
+        submitLabel={<FormattedMessage id="mediaActionsBar.restoreOrConfirm" defaultMessage="Move to folder" />}
         submitButtonClassName="media-actions-bar__add-button"
         onCancel={closeDialog}
         onSubmit={handleSubmit}

@@ -1,0 +1,10 @@
+[
+  {
+    "id": "projectGroup.name",
+    "defaultMessage": "collection"
+  },
+  {
+    "id": "projectGroup.deleteMessage",
+    "defaultMessage": "If you delete this collection, all folders will still be accessible, outside of the collection."
+  }
+]

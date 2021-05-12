@@ -252,7 +252,7 @@ const TeamMemberActions = ({
         body={
           <FormattedMessage
             id="teamMembers.removeDialogBody"
-            defaultMessage="{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+            defaultMessage="{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
             values={{ userLabel: teamUser.user.name || teamUser.user.email, teamName: team.name }}
           />
         }

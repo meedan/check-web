@@ -22,6 +22,7 @@ import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomT
 import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
+import SaveList from './SaveList';
 import { Row } from '../../styles/js/shared';
 
 /**
@@ -125,13 +126,10 @@ class SearchFields extends React.Component {
     }
   }
 
-  fieldIsDisplayed = (field) => {
-    if (field === 'projects') {
-      return Boolean(this.props.project);
-    }
-
-    return this.state.addedFields.includes(field) || this.props.query[field];
-  };
+  fieldIsDisplayed = field => (
+    (field === 'projects' && Boolean(this.props.project)) ||
+    (this.state.addedFields.includes(field) || this.props.query[field])
+  );
 
   filterIsActive = () => {
     const { query } = this.props;
@@ -290,13 +288,14 @@ class SearchFields extends React.Component {
 
     const fields = [];
     if (this.fieldIsDisplayed('projects')) {
+      const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
       fields.push(
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<FolderIcon />}
-              selected={project ? [`${project.dbid}`] : this.state.query.projects}
+              selected={project ? [`${project.dbid}`] : selectedProjects}
               options={projects.map(p => ({ label: p.node.title, value: `${p.node.dbid}` }))}
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
@@ -459,15 +458,15 @@ class SearchFields extends React.Component {
                 <PlayArrowIcon color="primary" />
               </IconButton>
             </Tooltip>
-            : null
-          }
+            : null }
           { this.filterIsActive() ? (
             <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
               <IconButton id="search-fields__clear-button" onClick={this.handleClickClear} size="small">
                 <ClearIcon color="primary" />
               </IconButton>
             </Tooltip>
-          ) : null}
+          ) : null }
+          <SaveList team={team} query={this.state.query} project={project} savedSearch={this.props.savedSearch} />
         </Row>
       </div>
     );
@@ -476,15 +475,24 @@ class SearchFields extends React.Component {
 
 SearchFields.defaultProps = {
   project: null,
+  savedSearch: null,
 };
 
 SearchFields.propTypes = {
   project: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }),
+  savedSearch: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    filters: PropTypes.string.isRequired,
+  }),
   query: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
   team: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
     projects: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired,
@@ -503,6 +511,8 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
   fragment SearchFields_team on Team {
     id
     dbid
+    slug
+    permissions
     verification_statuses
     tag_texts(first: 10000) {
       edges {

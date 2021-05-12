@@ -1,0 +1,24 @@
+[
+  {
+    "id": "newProject.defaultErrorMessage",
+    "description": "Generic error message displayed when it's not possible to create a collection, folder or list",
+    "defaultMessage": "Could not create, please try again"
+  },
+  {
+    "id": "newProject.savedSuccessfully",
+    "description": "Generic message displayed when a collection, folder or list is created",
+    "defaultMessage": "Created successfully"
+  },
+  {
+    "id": "projectsComponent.title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "projectsComponent.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "newProject.cancel",
+    "defaultMessage": "Cancel"
+  }
+]

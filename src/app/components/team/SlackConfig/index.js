@@ -120,7 +120,7 @@ class SlackConfig extends React.Component {
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage
                 id="slackConfig.text"
-                defaultMessage="Send notifications to Slack channels when items are added to specific lists"
+                defaultMessage="Send notifications to Slack channels when items are added to specific folders"
               />
               <Switch
                 className="slack-config__switch"

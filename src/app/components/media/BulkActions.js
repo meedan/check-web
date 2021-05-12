@@ -216,7 +216,7 @@ class BulkActions extends React.Component {
       moveTooltipMessage = (
         <FormattedMessage
           id="bulkActions.trash"
-          defaultMessage="Restore selected items and move items to another list"
+          defaultMessage="Restore selected items and move items to another folder"
         />
       );
       moveButtonMessage = (
@@ -227,7 +227,7 @@ class BulkActions extends React.Component {
       moveTooltipMessage = (
         <FormattedMessage
           id="bulkActions.unconfirmed"
-          defaultMessage="Confirm selected items and move items to another list"
+          defaultMessage="Confirm selected items and move items to another folder"
         />
       );
       moveButtonMessage = (
@@ -238,7 +238,7 @@ class BulkActions extends React.Component {
       moveTooltipMessage = (
         <FormattedMessage
           id="bulkActions.move"
-          defaultMessage="Move selected items to another list"
+          defaultMessage="Move selected items to another folder"
         />
       );
       moveButtonMessage = (
@@ -282,7 +282,7 @@ class BulkActions extends React.Component {
             title={
               <FormattedMessage
                 id="bulkActions.dialogMoveTitle"
-                defaultMessage="{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+                defaultMessage="{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
                 values={{
                   selectedCount: this.props.selectedMedia.length,
                 }}
@@ -292,8 +292,8 @@ class BulkActions extends React.Component {
             submitLabel={
               <FormattedMessage
                 id="bulkActions.moveTitle"
-                defaultMessage="Move to list"
-                description="Label for button to commit action of moving item to the selected list"
+                defaultMessage="Move to folder"
+                description="Label for button to commit action of moving item to the selected folder"
               />
             }
             submitButtonClassName="media-bulk-actions__move-button"
