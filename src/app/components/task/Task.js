@@ -52,6 +52,7 @@ const StyledWordBreakDiv = styled.div`
 
   .task {
     box-shadow: none;
+    border: 0;
     border-bottom: 1px solid ${separationGray};
     border-radius: 0;
     margin-bottom: 0 !important;
