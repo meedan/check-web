@@ -301,6 +301,7 @@ class SearchResultsComponent extends React.PureComponent {
       project,
       title,
       icon,
+      page,
       listActions,
       listDescription,
     } = this.props;
@@ -314,7 +315,6 @@ class SearchResultsComponent extends React.PureComponent {
     const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
-    const isProject = !!this.props.project;
     const sortParams = query.sort ? {
       key: query.sort,
       ascending: query.sort_type !== 'DESC',
@@ -335,9 +335,18 @@ class SearchResultsComponent extends React.PureComponent {
     let content = null;
 
     if (count === 0) {
-      if (isProject) {
-        content = <ProjectBlankState project={this.props.project} />;
-      }
+      content = (
+        <ProjectBlankState
+          message={
+            <FormattedMessage
+              id="projectBlankState.blank"
+              defaultMessage="There are no items in this {page}"
+              values={{ page }}
+              description="'page' here can be folder, collection or list"
+            />
+          }
+        />
+      );
     } else {
       content = (
         <SearchResultsTable

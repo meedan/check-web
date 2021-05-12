@@ -116,6 +116,7 @@ class ProjectComponent extends React.PureComponent {
           teamSlug={routeParams.team}
           project={project}
           query={query}
+          page="folder"
           hideFields={['projects', 'read']}
         />
       </div>
