@@ -156,21 +156,21 @@ shared_examples 'media actions' do
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
+    expect(@driver.page_source.include?('There are no items')).to be(true)
 
     # Go to the second project make sure that there is no claim
     @driver.navigate.to p2url
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?(claim)).to be(false)
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
+    expect(@driver.page_source.include?('There are no items')).to be(true)
 
     # Create a claim under project 2
     create_media(claim)
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?('Add a link or text')).to be(false)
+    expect(@driver.page_source.include?('There are no items')).to be(false)
     wait_for_selector('.media__heading a') # wait for backend to process claim
 
     # Move the claim to another project
@@ -184,20 +184,20 @@ shared_examples 'media actions' do
     expect(@driver.current_url.to_s == p1url).to be(true)
     wait_for_selector_list_size('.medias__item', 1)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?('Add a link or text')).to be(false)
+    expect(@driver.page_source.include?('There are no items')).to be(false)
 
     # Go back to the second project and make sure that the claim is not there anymore
     @driver.navigate.to p2url
     wait_for_selector('.search__results')
     expect(@driver.page_source.include?('1 / 1')).to be(false)
-    expect(@driver.page_source.include?('Add a link or text')).to be(true)
+    expect(@driver.page_source.include?('There are no items')).to be(true)
 
     # Reload the first project page and make sure that the claim is there
     @driver.navigate.to p1url
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?(claim)).to be(true)
     expect(@driver.page_source.include?('1 / 1')).to be(true)
-    expect(@driver.page_source.include?('Add a link or text')).to be(false)
+    expect(@driver.page_source.include?('There are no items')).to be(false)
   end
 
   it 'should move media to another project from item page', bin2: true do

@@ -347,7 +347,8 @@ class SearchResultsComponent extends React.PureComponent {
               /> :
               <FormattedMessage
                 id="projectBlankState.blank"
-                defaultMessage="No results"
+                defaultMessage="There are no items"
+                description="This message is displayed when an items page is empty"
               />
           }
         />

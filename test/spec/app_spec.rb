@@ -225,12 +225,12 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector_list_size('.medias__item', 1, :css, 30)
       wait_for_selector('#create-media__add-item')
       expect(@driver.current_url.to_s.match(%r{/project/[0-9]+$}).nil?).to be(false) # project page
-      expect(@driver.page_source.include?('Add a link or text')).to be(false)
+      expect(@driver.page_source.include?('There are no items')).to be(false)
       # send this item to trash go to the item page and go back to trash page
       wait_for_selector('input[type=checkbox]').click
       wait_for_selector('.media-bulk-actions__delete-icon').click
-      wait_for_selector("//span[contains(text(), 'Add a link or text')]", :xpath)
-      expect(@driver.page_source.include?('Add a link or text')).to be(true)
+      wait_for_selector("//span[contains(text(), 'There are no items')]", :xpath)
+      expect(@driver.page_source.include?('There are no items')).to be(true)
       @driver.navigate.to "#{@config['self_url']}/#{get_team}/trash"
       wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
       wait_for_selector('.medias__item', :css, 20, true)
