@@ -127,7 +127,13 @@ class MultiSelector extends React.Component {
           <div style={{ padding: units(2) }}>
             <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
               {placeholder => (
-                <TextField onChange={this.handleChange} placeholder={placeholder} fullWidth />
+                <TextField
+                  className="multiselector__search-input"
+                  onChange={this.handleChange}
+                  placeholder={placeholder}
+                  variant="outlined"
+                  fullWidth
+                />
               )}
             </FormattedMessage>
           </div>
@@ -190,12 +196,14 @@ class MultiSelector extends React.Component {
           </FormGroup>
         </StyledMultiSelectorArea>
         <StyledActions>
-          <Button onClick={onDismiss}>
-            { this.props.cancelLabel ?
-              this.props.cancelLabel
-              : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
-            }
-          </Button>
+          { onDismiss ? (
+            <Button onClick={onDismiss}>
+              { this.props.cancelLabel ?
+                this.props.cancelLabel
+                : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
+              }
+            </Button>
+          ) : null }
           <Button
             className="multi__selector-save"
             color="primary"
@@ -218,6 +226,7 @@ MultiSelector.defaultProps = {
   allowToggleAll: false,
   cancelLabel: null,
   submitLabel: null,
+  onDismiss: null,
 };
 
 MultiSelector.propTypes = {
@@ -230,7 +239,7 @@ MultiSelector.propTypes = {
   })).isRequired,
   selected: PropTypes.arrayOf(PropTypes.string).isRequired,
   submitLabel: PropTypes.node,
-  onDismiss: PropTypes.func.isRequired,
+  onDismiss: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 

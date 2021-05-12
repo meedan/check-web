@@ -9,7 +9,7 @@ export default function SubmittedCell({ projectMedia }) {
 SubmittedCell.propTypes = {
   projectMedia: PropTypes.shape({
     list_columns_values: PropTypes.shape({
-      created_at_timestamp: PropTypes.string.isRequired,
+      created_at_timestamp: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
 };
