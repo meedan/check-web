@@ -338,12 +338,17 @@ class SearchResultsComponent extends React.PureComponent {
       content = (
         <ProjectBlankState
           message={
-            <FormattedMessage
-              id="projectBlankState.blank"
-              defaultMessage="There are no items in this {page}"
-              values={{ page }}
-              description="'page' here can be folder, collection or list"
-            />
+            page ?
+              <FormattedMessage
+                id="projectBlankState.blankPage"
+                defaultMessage="There are no items in this {page}"
+                values={{ page }}
+                description="'page' here can be folder, collection or list"
+              /> :
+              <FormattedMessage
+                id="projectBlankState.blank"
+                defaultMessage="No results"
+              />
           }
         />
       );

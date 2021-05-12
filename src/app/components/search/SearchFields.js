@@ -126,13 +126,10 @@ class SearchFields extends React.Component {
     }
   }
 
-  fieldIsDisplayed = (field) => {
-    if (field === 'projects') {
-      return Boolean(this.props.project);
-    }
-
-    return this.state.addedFields.includes(field) || this.props.query[field];
-  };
+  fieldIsDisplayed = field => (
+    (field === 'projects' && Boolean(this.props.project)) ||
+    (this.state.addedFields.includes(field) || this.props.query[field])
+  );
 
   filterIsActive = () => {
     const { query } = this.props;
@@ -291,13 +288,14 @@ class SearchFields extends React.Component {
 
     const fields = [];
     if (this.fieldIsDisplayed('projects')) {
+      const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
       fields.push(
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<FolderIcon />}
-              selected={project ? [`${project.dbid}`] : this.state.query.projects}
+              selected={project ? [`${project.dbid}`] : selectedProjects}
               options={projects.map(p => ({ label: p.node.title, value: `${p.node.dbid}` }))}
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
