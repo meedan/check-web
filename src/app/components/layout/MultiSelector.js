@@ -128,6 +128,7 @@ class MultiSelector extends React.Component {
             <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
               {placeholder => (
                 <TextField
+                  className="multiselector__search-input"
                   onChange={this.handleChange}
                   placeholder={placeholder}
                   variant="outlined"

@@ -26,18 +26,16 @@ shared_examples 'search' do
     wait_for_selector('#search-input')
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-ac__input').send_keys('verified')
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.custom-ac__input').send_keys('false')
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('input#verified').click
+    wait_for_selector('input#false').click
+    wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
     expect(page_source_body.include?('My search result')).to be(false)
-    wait_for_selector('.custom-ac__input')
+    wait_for_selector('.multi-select-filter')
     expect(@driver.page_source.include?('media 2')).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(false)
-    selected = @driver.find_elements(:css, '.custom-ac__tag')
+    selected = @driver.find_elements(:css, '.multi-select-filter__tag')
     expect(selected.size == 2).to be(true)
     # reset filter
     wait_for_selector('#search-fields__clear-button').click
@@ -67,11 +65,11 @@ shared_examples 'search' do
     # use filter option
     wait_for_selector('#add-filter-menu__open-button').click
     wait_for_selector('#add-filter-menu__status').click
-    wait_for_selector('.custom-ac__input').send_keys('in progress')
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('input#in_progress').click
+    wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
-    wait_for_selector('.custom-ac__input')
+    wait_for_selector('.multi-select-filter')
     expect(page_source_body.include?('My search result')).to be(false)
     # reset filter
     @driver.navigate.refresh
@@ -130,7 +128,7 @@ shared_examples 'search' do
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
     wait_for_selector('#search-fields__clear-button')
-    selected = @driver.find_elements(:css, '.custom-ac__tag')
+    selected = @driver.find_elements(:css, '.multi-select-filter__tag')
     expect(selected.size == 1).to be(true)
   end
 

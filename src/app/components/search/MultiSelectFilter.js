@@ -96,16 +96,15 @@ const useTagStyles = makeStyles({
 const Tag = ({
   label,
   onDelete,
-  className,
   readOnly,
   ...props
 }) => {
   const classes = useTagStyles();
   return (
-    <div className={`custom-ac__tag ${className} ${classes.root}`} {...props}>
+    <div className={`multi-select-filter__tag ${classes.root}`} {...props}>
       <span>{label}</span>
       { readOnly ? null : (
-        <CloseIcon className="custom-ac__tag-remove" onClick={onDelete} />
+        <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
       )}
     </div>
   );
@@ -154,7 +153,7 @@ const MultiSelectFilter = ({
 
   return (
     <div>
-      <div>
+      <div className="multi-select-filter">
         <InputWrapper>
           { icon ? (
             <Box px={0.5} display="flex" alignItems="center">
@@ -230,7 +229,11 @@ const CustomSelectDropdown = ({
 
   return (
     <Box mx={0.5}>
-      <SelectButton endIcon={<KeyboardArrowDownIcon />} onClick={e => setAnchorEl(e.currentTarget)}>
+      <SelectButton
+        className="custom-select-dropdown__select-button"
+        endIcon={<KeyboardArrowDownIcon />}
+        onClick={e => setAnchorEl(e.currentTarget)}
+      >
         <FormattedMessage
           id="customAutocomplete.select"
           defaultMessage="Select"
