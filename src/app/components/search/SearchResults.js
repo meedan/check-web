@@ -31,10 +31,11 @@ const StyledListHeader = styled.div`
     display: flex;
   }
 
-  .project__title {
+  .project__title-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 500px;
   }
 
   .project__description {
@@ -369,7 +370,11 @@ class SearchResultsComponent extends React.PureComponent {
                 alignItems: 'center',
               }}
             >
-              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }{title}{listActions}
+              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
+              <span className="project__title-text">
+                {title}
+              </span>
+              {listActions}
             </div>
             <SearchKeyword
               key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}

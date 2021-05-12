@@ -12,7 +12,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 
 const ProjectMoveDialogComponent = ({
   team,
-  projectId,
+  project,
   projectGroups,
   onCancel,
   setFlashMessage,
@@ -55,12 +55,21 @@ const ProjectMoveDialogComponent = ({
               id
               project_group_id
             }
+            project_group {
+              id
+              medias_count
+            }
+            project_group_was {
+              id
+              medias_count
+            }
           }
         }
       `,
       variables: {
         input: {
-          id: projectId,
+          id: project.id,
+          previous_project_group_id: project.project_group_id,
           project_group_id: selectedGroup.dbid,
         },
       },
@@ -132,6 +141,7 @@ const ProjectMoveDialogComponent = ({
             options={projectGroups}
             autoHighlight
             getOptionLabel={option => option.title}
+            defaultValue={projectGroups.find(option => option.dbid === project.project_group_id)}
             renderInput={params => (
               <TextField
                 {...params}
@@ -155,7 +165,10 @@ const ProjectMoveDialogComponent = ({
 };
 
 ProjectMoveDialogComponent.propTypes = {
-  projectId: PropTypes.string.isRequired,
+  project: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    project_group_id: PropTypes.number.isRequired,
+  }).isRequired,
   team: PropTypes.shape({
     name: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,

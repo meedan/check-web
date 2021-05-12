@@ -141,6 +141,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         permissions,
         search_id,
         medias_count,
+        project_group_id,
         team {
           id,
           dbid,

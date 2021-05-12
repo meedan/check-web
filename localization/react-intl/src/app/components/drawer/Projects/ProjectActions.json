@@ -29,6 +29,11 @@
     "defaultMessage": "Move to…"
   },
   {
+    "id": "projectActions.moveOut",
+    "description": "Menu option to move a folder out of a collection",
+    "defaultMessage": "Move out"
+  },
+  {
     "id": "projectsComponent.renameType",
     "description": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list",
     "defaultMessage": "Rename {type}"

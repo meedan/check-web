@@ -11,6 +11,12 @@ const useStyles = makeStyles({
   },
 });
 
+function truncate(str) {
+  const length = 32;
+  const dots = str.length > length ? '...' : '';
+  return `${str.substring(0, length)}${dots}`;
+}
+
 export default function FolderCell({ projectMedia }) {
   const classes = useStyles();
   const title = projectMedia.list_columns_values.folder;
@@ -21,8 +27,8 @@ export default function FolderCell({ projectMedia }) {
 
   return (
     <TableCell>
-      <div className={classes.title}>
-        {title}
+      <div className={classes.title} title={title}>
+        {typeof title === 'string' ? truncate(title) : title}
       </div>
     </TableCell>
   );

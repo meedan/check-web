@@ -131,14 +131,13 @@ const ProjectsComponent = ({
               id
               project_group_id
             }
-            team {
-              project_groups(first: 10000) {
-                edges {
-                  node {
-                    medias_count
-                  }
-                }
-              }
+            project_group {
+              id
+              medias_count
+            }
+            project_group_was {
+              id
+              medias_count
             }
           }
         }

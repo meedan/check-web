@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { commitMutation } from 'react-relay/compat';
+import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
@@ -160,6 +160,44 @@ const ProjectActions = ({
     });
   };
 
+  const handleMoveOut = () => {
+    setSaving(true);
+
+    commitMutation(Store, {
+      mutation: graphql`
+        mutation ProjectActionsUpdateProjectMutation($input: UpdateProjectInput!) {
+          updateProject(input: $input) {
+            project {
+              id
+              project_group_id
+            }
+            project_group_was {
+              id
+              medias_count
+            }
+          }
+        }
+      `,
+      variables: {
+        input: {
+          id: object.id,
+          previous_project_group_id: object.project_group_id,
+          project_group_id: null,
+        },
+      },
+      onCompleted: (response, error) => {
+        if (error) {
+          handleError();
+        } else {
+          handleSuccess(response);
+        }
+      },
+      onError: () => {
+        handleError();
+      },
+    });
+  };
+
   return (
     <Can permissions={team.permissions} permission="create Project">
       <IconButton
@@ -206,6 +244,18 @@ const ProjectActions = ({
                   id="projectActions.move"
                   defaultMessage="Move to…"
                   description="'Move' here is an infinitive verb"
+                />
+              }
+            />
+          </MenuItem> : null }
+        { isMoveable && object.project_group_id ?
+          <MenuItem className="project-actions__move-out" onClick={handleMoveOut}>
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  id="projectActions.moveOut"
+                  defaultMessage="Move out"
+                  description="Menu option to move a folder out of a collection"
                 />
               }
             />
@@ -305,7 +355,7 @@ const ProjectActions = ({
       { showMoveDialog ?
         <ProjectMoveDialog
           onCancel={handleClose}
-          projectId={object.id}
+          project={object}
         /> : null }
     </Can>
   );
@@ -323,6 +373,7 @@ ProjectActions.propTypes = {
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
+    project_group_id: PropTypes.number,
     team: PropTypes.shape({
       id: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
