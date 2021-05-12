@@ -23,24 +23,7 @@ import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
 import SaveList from './SaveList';
-import { Row, opaqueBlack54 } from '../../styles/js/shared';
-
-const NoHoverButton = withStyles({
-  root: {
-    borderRadius: 0,
-    borderLeft: '2px solid white',
-    borderRight: '2px solid white',
-    height: '36px',
-    minWidth: 0,
-    margin: 0,
-    '&:hover': {
-      background: 'transparent',
-    },
-  },
-  text: {
-    color: opaqueBlack54,
-  },
-})(Button);
+import { Row } from '../../styles/js/shared';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
