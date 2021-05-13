@@ -302,7 +302,7 @@ const CustomTeamTaskFilter = ({
 
   return (
     <React.Fragment>
-      <Box maxWidth="400px" mr={1} mb={1}>
+      <Box maxWidth="400px">
         <Button
           classes={classesButton}
           disableRipple
