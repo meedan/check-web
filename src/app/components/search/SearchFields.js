@@ -138,21 +138,7 @@ class SearchFields extends React.Component {
     }
   }
 
-  filterIsActive = () => {
-    const { query } = this.props;
-    const filterFields = [
-      'range',
-      'verification_status',
-      'projects',
-      'tags',
-      'type',
-      'dynamic',
-      'users',
-      'show',
-      'team_tasks',
-    ];
-    return filterFields.some(key => !!query[key]);
-  };
+  filterIsActive = () => this.state.query && JSON.stringify(this.state.query) !== '{}';
 
   filterIsApplicable = () => {
     const cleanQuery = this.cleanup(this.state.query);
