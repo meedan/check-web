@@ -5,11 +5,9 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
-import FolderIcon from '@material-ui/icons/Folder';
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
@@ -143,7 +141,6 @@ class SearchFields extends React.Component {
       'type',
       'dynamic',
       'users',
-      'read',
       'show',
       'team_tasks',
     ];
@@ -154,10 +151,6 @@ class SearchFields extends React.Component {
     const cleanQuery = this.cleanup(this.state.query);
     return (!deepEqual(cleanQuery, this.props.query));
   };
-
-  readIsSelected(isRead) {
-    return this.state.query.read === isRead;
-  }
 
   handleDateChange = (value) => {
     this.setState({ query: { ...this.state.query, range: value } });
@@ -188,12 +181,6 @@ class SearchFields extends React.Component {
   handleAssignedUserClick = (userIds) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'assigned_to', userIds),
-    });
-  }
-
-  handleReadClick = (isRead) => {
-    this.setState({
-      query: { ...this.state.query, read: isRead },
     });
   }
 
@@ -295,7 +282,7 @@ class SearchFields extends React.Component {
           { label => (
             <MultiSelectFilter
               label={label}
-              icon={<FolderIcon />}
+              icon={<FolderOutlinedIcon />}
               selected={project ? [`${project.dbid}`] : this.state.query.projects}
               options={projects.map(p => ({ label: p.node.title, value: `${p.node.dbid}` }))}
               onChange={this.handleProjectClick}
@@ -410,22 +397,6 @@ class SearchFields extends React.Component {
         </FormattedMessage>,
       );
     }
-    // TODO: Remove "read" field related code if it's not going to be used
-    if (this.fieldIsDisplayed('read')) {
-      fields.push(
-        <FormControlLabel
-          control={
-            <Switch
-              checked={this.readIsSelected(true)}
-              onChange={(e) => { this.handleReadClick(e.target.checked); }}
-            />
-          }
-          label={
-            <FormattedMessage id="search.readHeading" defaultMessage="Read" description="Label for field to filter by 'item is marked' as read" />
-          }
-        />,
-      );
-    }
     if (this.fieldIsDisplayed('team_tasks')) {
       fields.push(
         <CustomFiltersManager
@@ -438,7 +409,7 @@ class SearchFields extends React.Component {
 
     return (
       <div>
-        <Row style={{ gap: '8px' }}>
+        <Row flexWrap style={{ gap: '8px' }}>
           { /* FIXME: Each child in a list should have a unique "key" prop */}
           { fields.map((field, index) => index > 0 ? (
             <React.Fragment>
@@ -452,7 +423,11 @@ class SearchFields extends React.Component {
               {field}
             </span>
           )) }
-          <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
+          <AddFilterMenu
+            hideOptions={this.props.hideFields}
+            addedFields={this.state.addedFields}
+            onSelect={this.handleAddField}
+          />
           { this.state.addedFields.length || this.filterIsApplicable() ?
             <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
               <IconButton id="search-fields__submit-button" onClick={this.handleSubmit} size="small">

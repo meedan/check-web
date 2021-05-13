@@ -10,7 +10,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import styled from 'styled-components';
 import MultiSelector from '../layout/MultiSelector';
-import { checkBlue, opaqueBlack54 } from '../../styles/js/shared';
+import { checkBlue } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
@@ -24,8 +24,8 @@ const NoHoverButton = withStyles({
       background: 'transparent',
     },
   },
-  text: {
-    color: opaqueBlack54,
+  disabled: {
+    color: 'black !important',
   },
 })(Button);
 
@@ -33,6 +33,7 @@ const OperatorToggle = ({ onClick, operator }) => (
   <NoHoverButton
     onClick={onClick}
     disabled={!onClick}
+    color="primary"
     disableRipple
   >
     { operator === 'and' ?
@@ -111,6 +112,7 @@ const Tag = ({
 const usePlusButtonStyles = makeStyles({
   root: {
     height: '36px',
+    paddingLeft: '4px',
     borderLeft: '2px solid white',
     alignItems: 'center',
     display: 'flex',
@@ -133,6 +135,7 @@ const MultiSelectFilter = ({
   label,
   options,
   onChange,
+  onRemove,
   onToggleOperator,
   operator,
   readOnly,
@@ -196,6 +199,9 @@ const MultiSelectFilter = ({
               onSubmit={handleSelect}
             />
           ) : null}
+          <Box px={0.5} display="flex" alignItems="center">
+            <CloseIcon fontSize="small" onClick={onRemove} />
+          </Box>
           { readOnly ? null : (
             <PlusButton>
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />

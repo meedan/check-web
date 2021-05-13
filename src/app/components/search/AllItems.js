@@ -12,7 +12,6 @@ export default function AllItems({ routeParams }) {
       title={<FormattedMessage id="search.allClaimsTitle" defaultMessage="All items" />}
       query={safelyParseJSON(routeParams.query, {})}
       teamSlug={routeParams.team}
-      hideFields={['read']}
     />
   );
 }

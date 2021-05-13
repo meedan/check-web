@@ -65,11 +65,6 @@
     "defaultMessage": "Assigned to"
   },
   {
-    "id": "search.readHeading",
-    "description": "Label for field to filter by 'item is marked' as read",
-    "defaultMessage": "Read"
-  },
-  {
     "id": "search.fieldAnd",
     "description": "Logical operator to be applied when filtering by multiple fields",
     "defaultMessage": "AND"
