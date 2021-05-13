@@ -130,6 +130,7 @@ const PlusButton = ({ children }) => {
 };
 
 const MultiSelectFilter = ({
+  allowSearch,
   selected = [],
   icon,
   label,
@@ -194,6 +195,7 @@ const MultiSelectFilter = ({
           ) : null }
           { (selected.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
+              allowSearch={allowSearch}
               options={options}
               selected={selected}
               onSubmit={handleSelect}
@@ -226,6 +228,7 @@ const SelectButton = withStyles({
 })(Button);
 
 const CustomSelectDropdown = ({
+  allowSearch,
   options,
   selected,
   onSubmit,
@@ -255,7 +258,7 @@ const CustomSelectDropdown = ({
         onClose={() => setAnchorEl(null)}
       >
         <MultiSelector
-          allowSearch
+          allowSearch={allowSearch}
           options={options}
           selected={selected}
           onSubmit={handleSubmit}
@@ -274,6 +277,7 @@ const CustomSelectDropdown = ({
 
 
 MultiSelectFilter.defaultProps = {
+  allowSearch: true,
   icon: null,
   selected: [],
   onToggleOperator: null,
@@ -281,6 +285,7 @@ MultiSelectFilter.defaultProps = {
 };
 
 MultiSelectFilter.propTypes = {
+  allowSearch: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,

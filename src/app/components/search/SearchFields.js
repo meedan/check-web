@@ -351,6 +351,7 @@ class SearchFields extends React.Component {
         <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
           { label => (
             <MultiSelectFilter
+              allowSearch={false}
               label={label}
               icon={<DescriptionIcon />}
               selected={this.state.query.show}
@@ -427,6 +428,7 @@ class SearchFields extends React.Component {
         <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
           { label => (
             <MultiSelectFilter
+              allowSearch={false}
               label={label}
               icon={<ReportIcon />}
               selected={this.state.query.report_status}
