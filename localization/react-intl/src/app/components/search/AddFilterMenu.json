@@ -45,6 +45,11 @@
     "defaultMessage": "Metadata"
   },
   {
+    "id": "addFilterMenu.reportStatus",
+    "description": "Menu option to enable searching items by report status",
+    "defaultMessage": "Report status"
+  },
+  {
     "id": "addFilterMenu.addFilter",
     "description": "Button that opens menu with filter field options",
     "defaultMessage": "Add filter"

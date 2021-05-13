@@ -15,6 +15,7 @@ import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
+import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 
 const StyledButton = withStyles({
   root: {
@@ -142,6 +143,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.metadata"
         defaultMessage="Metadata"
         description="Menu option to enable searching items by metadata fields"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__report-status',
+    key: 'report_status',
+    icon: <ReportIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.reportStatus"
+        defaultMessage="Report status"
+        description="Menu option to enable searching items by report status"
       />
     ),
   }];
