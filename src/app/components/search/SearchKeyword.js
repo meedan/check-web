@@ -226,8 +226,10 @@ class SearchKeyword extends React.Component {
   }
 
   handleClickClear = () => {
-    this.props.onChange({});
-  }
+    const newQuery = { ...this.state.query };
+    delete newQuery.keyword;
+    this.setState({ query: newQuery }, this.handleApplyFilters);
+  };
 
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
@@ -382,9 +384,9 @@ class SearchKeyword extends React.Component {
           </form>
 
           { this.keywordIsActive() ? (
-            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
+            <Tooltip title={<FormattedMessage id="searchKeyword.clear" defaultMessage="Clear keyword search" description="Tooltip for button to remove any applied keyword search" />}>
               <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon style={{ color: brandHighlight }} />
+                <ClearIcon color="primary" />
               </IconButton>
             </Tooltip>
           ) : null}

@@ -242,8 +242,9 @@ class SearchFields extends React.Component {
 
   handleClickClear = () => {
     this.setState({ addedFields: [] });
-    this.props.onChange({});
-  }
+    const { keyword } = this.state.query;
+    this.props.onChange({ keyword });
+  };
 
   render() {
     const { team, project } = this.props;
@@ -453,6 +454,8 @@ class SearchFields extends React.Component {
       );
     }
 
+    console.log('keys', Object.keys(this.props.query));
+
     return (
       <div>
         <Row flexWrap style={{ gap: '8px' }}>
@@ -482,7 +485,7 @@ class SearchFields extends React.Component {
             </Tooltip>
             : null }
           { this.filterIsActive() ? (
-            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
+            <Tooltip title={<FormattedMessage id="searchFields.clear" defaultMessage="Clear filters" description="Tooltip for button to remove any applied filters" />}>
               <IconButton id="search-fields__clear-button" onClick={this.handleClickClear} size="small">
                 <ClearIcon color="primary" />
               </IconButton>

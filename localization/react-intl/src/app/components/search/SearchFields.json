@@ -95,8 +95,8 @@
     "defaultMessage": "Apply filter"
   },
   {
-    "id": "search.clear",
+    "id": "searchFields.clear",
     "description": "Tooltip for button to remove any applied filters",
-    "defaultMessage": "Clear filter"
+    "defaultMessage": "Clear filters"
   }
 ]
