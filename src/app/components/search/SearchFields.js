@@ -14,6 +14,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import deepEqual from 'deep-equal';
 import CustomFiltersManager from './CustomFiltersManager';
 // eslint-disable-next-line no-unused-vars
@@ -134,6 +135,7 @@ class SearchFields extends React.Component {
 
   fieldIsDisplayed = field => (
     (field === 'projects' && Boolean(this.props.project)) ||
+    (field === 'project_group_id' && Boolean(this.props.projectGroup)) ||
     this.state.query[field] ||
     this.state.addedFields.includes(field)
   );
@@ -144,12 +146,15 @@ class SearchFields extends React.Component {
       'range',
       'verification_status',
       'projects',
+      'project_group_id',
       'tags',
       'type',
       'dynamic',
       'users',
       'show',
+      'assigned_to',
       'team_tasks',
+      'report_status',
     ];
     return filterFields.some(key => !!query[key]) || this.state.addedFields.length > 0;
   };
@@ -194,6 +199,12 @@ class SearchFields extends React.Component {
   handleReportStatusClick = (statuses) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'report_status', statuses),
+    });
+  }
+
+  handleProjectGroupClick = (projectGroupDbids) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'project_group_id', projectGroupDbids),
     });
   }
 
@@ -255,15 +266,17 @@ class SearchFields extends React.Component {
   };
 
   render() {
-    const { team, project } = this.props;
+    const { team, project, projectGroup } = this.props;
     const { statuses } = team.verification_statuses;
 
     // Folder options are grouped by collection
     // FIXME: Simplify the code below and improve its performance
     const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
     let projectOptions = [];
+    const projectGroupOptions = [];
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
       const subProjects = [];
+      projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
       projects.filter(p => p.project_group_id === pg.dbid).forEach((p) => {
         subProjects.push({ label: p.title, value: `${p.dbid}` });
       });
@@ -326,6 +339,24 @@ class SearchFields extends React.Component {
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
               onRemove={() => this.handleRemoveField('projects')}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
+    if (this.fieldIsDisplayed('project_group_id')) {
+      const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
+      fields.push(
+        <FormattedMessage id="search.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<FolderSpecialIcon />}
+              selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
+              options={projectGroupOptions}
+              onChange={this.handleProjectGroupClick}
+              readOnly={Boolean(projectGroup)}
+              onRemove={() => this.handleRemoveField('project_group_id')}
             />
           )}
         </FormattedMessage>,
@@ -494,6 +525,7 @@ class SearchFields extends React.Component {
           <AddFilterMenu
             hideOptions={this.props.hideFields}
             addedFields={this.state.addedFields}
+            query={this.state.query}
             onSelect={this.handleAddField}
           />
           { this.state.addedFields.length || this.filterIsApplicable() ?
@@ -510,7 +542,7 @@ class SearchFields extends React.Component {
               </IconButton>
             </Tooltip>
           ) : null }
-          <SaveList team={team} query={this.state.query} project={project} savedSearch={this.props.savedSearch} />
+          <SaveList team={team} query={this.state.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} />
         </Row>
       </div>
     );
@@ -519,11 +551,15 @@ class SearchFields extends React.Component {
 
 SearchFields.defaultProps = {
   project: null,
+  projectGroup: null,
   savedSearch: null,
 };
 
 SearchFields.propTypes = {
   project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
+  projectGroup: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }),
   savedSearch: PropTypes.shape({

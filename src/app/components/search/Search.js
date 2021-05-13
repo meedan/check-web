@@ -22,7 +22,7 @@ export function urlFromSearchQuery(query, path) {
   return Object.keys(query).length === 0 ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
-export function noFilters(query_, project) {
+export function noFilters(query_, project, projectGroup) {
   const query = { ...query_ };
   delete query.timestamp;
   if (Object.keys(query).indexOf('archived') > -1) {
@@ -37,6 +37,15 @@ export function noFilters(query_, project) {
         query.projects[0] === project.dbid))
   ) {
     delete query.projects;
+  }
+  if (
+    query.project_group_id &&
+    (query.project_group_id.length === 0 ||
+      (projectGroup &&
+        query.project_group_id.length === 1 &&
+        query.project_group_id[0] === projectGroup.dbid))
+  ) {
+    delete query.project_group_id;
   }
   if (query.verification_status && query.verification_status.length === 0) {
     delete query.verification_status;
@@ -61,6 +70,7 @@ export default function Search({
   page,
   teamSlug,
   project,
+  projectGroup,
   savedSearch,
   query,
   searchUrlPrefix,
@@ -68,7 +78,7 @@ export default function Search({
   icon,
 }) {
   let timestampedQuery = query;
-  if (!noFilters(query, project)) {
+  if (!noFilters(query, project, projectGroup)) {
     timestampedQuery = { ...query, timestamp: new Date().getTime() };
   }
 
@@ -78,6 +88,7 @@ export default function Search({
       mediaUrlPrefix={mediaUrlPrefix}
       teamSlug={teamSlug}
       project={project}
+      projectGroup={projectGroup}
       savedSearch={savedSearch}
       listActions={listActions}
       listDescription={listDescription}
@@ -91,6 +102,7 @@ export default function Search({
 }
 Search.defaultProps = {
   project: null,
+  projectGroup: null,
   savedSearch: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: undefined,
@@ -103,6 +115,7 @@ Search.propTypes = {
   listDescription: PropTypes.string, // or undefined
   listActions: PropTypes.node, // or undefined
   project: PropTypes.object, // or null
+  projectGroup: PropTypes.object, // or null
   savedSearch: PropTypes.object, // or null
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,

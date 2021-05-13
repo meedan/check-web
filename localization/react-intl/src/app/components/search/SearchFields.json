@@ -40,6 +40,11 @@
     "defaultMessage": "Folder is"
   },
   {
+    "id": "search.collection",
+    "description": "Prefix label for field to filter by collection",
+    "defaultMessage": "Collection is"
+  },
+  {
     "id": "search.categoriesHeading",
     "description": "Prefix label for field to filter by tags",
     "defaultMessage": "Tag is"

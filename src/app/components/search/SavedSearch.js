@@ -21,6 +21,7 @@ const SavedSearch = ({ routeParams }) => (
           team {
             id
             slug
+            name
             permissions
           }
         }
@@ -63,7 +64,8 @@ const SavedSearch = ({ routeParams }) => (
                   deleteMessage={
                     <FormattedMessage
                       id="savedSearch.deleteMessage"
-                      defaultMessage="Are you sure? This list is shared among all users of Check demo. After deleting it, no user will be able to access it."
+                      defaultMessage="Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+                      values={{ teamName: props.saved_search.team ? props.saved_search.team.name : '' }}
                     />
                   }
                   deleteMutation={graphql`

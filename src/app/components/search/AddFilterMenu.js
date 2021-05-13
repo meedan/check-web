@@ -16,6 +16,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 
 const StyledButton = withStyles({
   root: {
@@ -29,6 +30,7 @@ const StyledButton = withStyles({
 const AddFilterMenu = ({
   addedFields,
   hideOptions,
+  query,
   onSelect,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -157,6 +159,18 @@ const AddFilterMenu = ({
         description="Menu option to enable searching items by report status"
       />
     ),
+  },
+  {
+    id: 'add-filter-menu__project-group-id',
+    key: 'project_group_id',
+    icon: <FolderSpecialIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.collection"
+        defaultMessage="Collection"
+        description="Menu option to enable searching items by collection"
+      />
+    ),
   }];
 
   return (
@@ -190,7 +204,12 @@ const AddFilterMenu = ({
             id={o.id}
             key={o.key}
             onClick={() => handleSelect(o.key)}
-            disabled={addedFields.includes(o.key)}
+            disabled={(
+              query[o.key] ||
+              addedFields.includes(o.key) ||
+              ((addedFields.includes('projects') || query.projects) && o.key === 'project_group_id') ||
+              ((addedFields.includes('project_group_id') || query.project_group_id) && o.key === 'projects')
+            )}
           >
             <ListItemIcon>
               {o.icon}
@@ -206,11 +225,13 @@ const AddFilterMenu = ({
 AddFilterMenu.defaultProps = {
   addedFields: [],
   hideOptions: [],
+  query: {},
 };
 
 AddFilterMenu.propTypes = {
   addedFields: PropTypes.arrayOf(PropTypes.string),
   hideOptions: PropTypes.arrayOf(PropTypes.string),
+  query: PropTypes.object,
   onSelect: PropTypes.func.isRequired,
 };
 

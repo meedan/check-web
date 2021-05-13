@@ -50,6 +50,11 @@
     "defaultMessage": "Report status"
   },
   {
+    "id": "addFilterMenu.collection",
+    "description": "Menu option to enable searching items by collection",
+    "defaultMessage": "Collection"
+  },
+  {
     "id": "addFilterMenu.addFilter",
     "description": "Button that opens menu with filter field options",
     "defaultMessage": "Add filter"
