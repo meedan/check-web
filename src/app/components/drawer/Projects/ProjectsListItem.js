@@ -48,7 +48,10 @@ const ProjectsListItem = ({
     if (onClick) {
       onClick(routePrefix, project.dbid);
     }
-    browserHistory.push(`/${teamSlug}/${routePrefix}/${project.dbid}`);
+    const destination = `/${teamSlug}/${routePrefix}/${project.dbid}`;
+    if (window.location.pathname !== destination) {
+      browserHistory.push(destination);
+    }
   };
 
   const defaultClassName = ['project-list__link', className].join(' ');
@@ -97,7 +100,7 @@ const ProjectsListItem = ({
       <Droppable droppableId={droppableId}>
         {provided => (
           <RootRef rootRef={provided.innerRef}>
-            <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}`} index={index}>
+            <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
               {provided2 => (
                 <Item
                   ContainerComponent="li"
@@ -135,6 +138,7 @@ ProjectsListItem.propTypes = {
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     medias_count: PropTypes.number.isRequired,
+    project_group_id: PropTypes.number,
   }).isRequired,
   intl: intlShape.isRequired,
   onClick: PropTypes.func,

@@ -2,10 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
+import TextField from '@material-ui/core/TextField';
+import SettingsHeader from '../../team/SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
+
+const useStyles = makeStyles(theme => ({
+  newProjectHeader: {
+    marginBottom: theme.spacing(-3),
+    paddingBottom: 0,
+  },
+}));
 
 const NewProject = ({
   type,
@@ -14,9 +23,11 @@ const NewProject = ({
   title,
   teamId,
   buttonLabel,
+  helpUrl,
   onClose,
   setFlashMessage,
 }) => {
+  const classes = useStyles();
   const [newTitle, setNewTitle] = React.useState('');
   const [newDescription, setNewDescription] = React.useState('');
   const [saving, setSaving] = React.useState(false);
@@ -136,7 +147,13 @@ const NewProject = ({
   return (
     <ConfirmProceedDialog
       open={open}
-      title={title}
+      title={
+        <SettingsHeader
+          title={title}
+          helpUrl={helpUrl}
+          className={classes.newProjectHeader}
+        />
+      }
       body={
         <React.Fragment>
           <TextField
@@ -191,6 +208,7 @@ NewProject.propTypes = {
   title: PropTypes.object.isRequired,
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
+  helpUrl: PropTypes.string.isRequired,
 };
 
 export default withSetFlashMessage(NewProject);

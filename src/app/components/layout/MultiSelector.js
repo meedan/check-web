@@ -103,7 +103,7 @@ class MultiSelector extends React.Component {
   filter = (options) => {
     const { filter } = this.state;
     if (filter) {
-      return options.filter(o => o.label.toLowerCase().includes(filter.toLowerCase()));
+      return options.filter(o => Object.values(o).join(' ').toLowerCase().includes(filter.toLowerCase()));
     }
     return options;
   };
@@ -160,12 +160,12 @@ class MultiSelector extends React.Component {
               options.map((o, index) => {
                 if (o.value === '' && o.label === '') {
                   return (
-                    <Divider key={`multiselector-dividider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
+                    <Divider key={`multiselector-divider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
                   );
                 }
                 if (o.value === '') {
                   return (
-                    <Typography variant="button">
+                    <Typography variant="button" key={`multiselector-header-${index.toString()}`}>
                       {o.label}
                     </Typography>
                   );

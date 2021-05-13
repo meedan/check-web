@@ -64,8 +64,8 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamListsComponent.defaultErrorMessage"
-        defaultMessage="Could not save folder settings."
-        description="Warning displayed if an error occurred when saving folder settings"
+        defaultMessage="Could not save column settings."
+        description="Warning displayed if an error occurred when saving column settings"
       />
     ), 'error');
   };
@@ -75,8 +75,8 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamListsComponent.savedSuccessfully"
-        defaultMessage="Folder settings saved successfully."
-        description="Banner displayed when folder settings are saved successfully"
+        defaultMessage="Column settings saved successfully."
+        description="Banner displayed when column settings are saved successfully"
       />
     ), 'success');
   };
@@ -164,13 +164,13 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           title={
             <FormattedMessage
               id="teamListsComponent.title"
-              defaultMessage="Folder settings"
+              defaultMessage="Columns settings"
             />
           }
           subtitle={
             <FormattedMessage
               id="teamListsComponent.description"
-              defaultMessage="Select all the columns you want to display in all your folders."
+              defaultMessage="Select all the columns you want to display in all your folders, collections and lists."
             />
           }
           helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"
@@ -238,19 +238,19 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
         title={
           <FormattedMessage
             id="teamListsComponent.confirmSaveTitle"
-            defaultMessage="Workspace folder change"
+            defaultMessage="Workspace columns change"
           />
         }
         blurb={
           <FormattedMessage
             id="teamListsComponent.confirmSaveText"
-            defaultMessage="Are you sure? Your changes will affect all folders and be visible by all users in your workspace."
+            defaultMessage="Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
           />
         }
         continueButtonLabel={
           <FormattedMessage
             id="teamListsComponent.buttonLabel"
-            defaultMessage="Save changes for all folders"
+            defaultMessage="Save changes"
           />
         }
         handleClose={handleCloseDialogs}

@@ -45,6 +45,11 @@
     "defaultMessage": "Language"
   },
   {
+    "id": "addFilterMenu.reportStatus",
+    "description": "Menu option to enable searching items by report status",
+    "defaultMessage": "Report status"
+  },
+  {
     "id": "addFilterMenu.assignedTo",
     "description": "Menu option to enable searching items by assigned users",
     "defaultMessage": "Assignment"

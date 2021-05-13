@@ -15,6 +15,7 @@ import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
+import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 
 const StyledButton = withStyles({
   root: {
@@ -129,6 +130,16 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
             id="addFilterMenu.language"
             defaultMessage="Language"
             description="Menu option to enable searching items by language"
+          />
+        </MenuItem>
+        <MenuItem id="add-filter-menu__report-status" onClick={() => handleSelect('report_status')}>
+          <ListItemIcon>
+            <ReportIcon />
+          </ListItemIcon>
+          <FormattedMessage
+            id="addFilterMenu.reportStatus"
+            defaultMessage="Report status"
+            description="Menu option to enable searching items by report status"
           />
         </MenuItem>
         <MenuItem id="add-filter-menu__time-assigned-to" onClick={() => handleSelect('assigned_to')}>
