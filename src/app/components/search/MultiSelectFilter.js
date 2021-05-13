@@ -57,6 +57,10 @@ const InputWrapper = styled('div')`
   &.focused {
     background-color: #ccc;
   }
+
+  .multi-select-filter__remove {
+    cursor: pointer;
+  }
 `;
 
 const useTagStyles = makeStyles({
@@ -142,6 +146,7 @@ const MultiSelectFilter = ({
   readOnly,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
+  const [showDeleteIcon, setShowDeleteIcon] = React.useState(false);
 
   const getLabelForValue = (value) => {
     const option = options.find(o => o.value === value);
@@ -155,23 +160,23 @@ const MultiSelectFilter = ({
 
   const handleSelect = (value) => {
     setShowSelect(false);
+    setShowDeleteIcon(false);
     onChange(value);
   };
 
   return (
     <div>
       <div className="multi-select-filter">
-        <InputWrapper>
-          { icon ? (
-            <Box px={0.5} display="flex" alignItems="center">
-              {icon}
-            </Box>
-          ) : null }
-          { label ? (
-            <Box px={0.5} display="flex" alignItems="center" whiteSpace="nowrap">
-              {label}
-            </Box>
-          ) : null }
+        <InputWrapper
+          onMouseEnter={() => setShowDeleteIcon(true)}
+          onMouseLeave={() => setShowDeleteIcon(false)}
+        >
+          <Box px={0.5} display="flex" alignItems="center">
+            { showDeleteIcon && !readOnly ? <CloseIcon className="multi-select-filter__remove" onClick={onRemove} /> : icon }
+          </Box>
+          <Box px={0.5} display="flex" alignItems="center" whiteSpace="nowrap">
+            {label}
+          </Box>
           { selected.map((value, index) => (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
@@ -201,9 +206,6 @@ const MultiSelectFilter = ({
               onSubmit={handleSelect}
             />
           ) : null}
-          <Box px={0.5} display="flex" alignItems="center">
-            <CloseIcon fontSize="small" onClick={onRemove} />
-          </Box>
           { readOnly ? null : (
             <PlusButton>
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />

@@ -116,6 +116,13 @@ class SearchFields extends React.Component {
     this.setState({ addedFields });
   };
 
+  handleRemoveField = (field) => {
+    const newQuery = { ...this.state.query };
+    delete newQuery[field];
+    const addedFields = this.state.addedFields.filter(a => a !== field);
+    this.setState({ query: newQuery, addedFields });
+  };
+
   handleApplyFilters() {
     const cleanQuery = this.cleanup(this.state.query);
     if (this.filterIsApplicable(cleanQuery)) {
@@ -127,7 +134,8 @@ class SearchFields extends React.Component {
 
   fieldIsDisplayed = field => (
     (field === 'projects' && Boolean(this.props.project)) ||
-    (this.state.addedFields.includes(field) || this.props.query[field])
+    this.state.query[field] ||
+    this.state.addedFields.includes(field)
   );
 
   filterIsActive = () => {
@@ -313,6 +321,7 @@ class SearchFields extends React.Component {
               options={projectOptions}
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
+              onRemove={() => this.handleRemoveField('projects')}
             />
           )}
         </FormattedMessage>,
@@ -324,6 +333,7 @@ class SearchFields extends React.Component {
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.state.query.range}
+            onRemove={() => this.handleRemoveField('range')}
           />
         </Box>,
       );
@@ -342,6 +352,7 @@ class SearchFields extends React.Component {
               }}
               onToggleOperator={this.handleTagsOperator}
               operator={this.state.query.tags_operator}
+              onRemove={() => this.handleRemoveField('tags')}
             />
           )}
         </FormattedMessage>,
@@ -358,6 +369,7 @@ class SearchFields extends React.Component {
               selected={this.state.query.show}
               options={types}
               onChange={this.handleShowClick}
+              onRemove={() => this.handleRemoveField('show')}
             />
           )}
         </FormattedMessage>,
@@ -373,6 +385,7 @@ class SearchFields extends React.Component {
               selected={this.state.query.verification_status}
               options={statuses.map(s => ({ label: s.label, value: s.id }))}
               onChange={this.handleStatusClick}
+              onRemove={() => this.handleRemoveField('verification_status')}
             />
           )}
         </FormattedMessage>,
@@ -388,6 +401,7 @@ class SearchFields extends React.Component {
               selected={this.state.query.users}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handleUserClick}
+              onRemove={() => this.handleRemoveField('users')}
             />
           )}
         </FormattedMessage>,
@@ -404,6 +418,7 @@ class SearchFields extends React.Component {
               selected={this.state.query.dynamic && this.state.query.dynamic.language}
               options={languages}
               onChange={newValue => this.handleDynamicClick('language', newValue)}
+              onRemove={() => this.handleRemoveField('dynamic')}
             />
           )}
         </FormattedMessage>,
@@ -419,6 +434,7 @@ class SearchFields extends React.Component {
               selected={this.state.query.assigned_to}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handleAssignedUserClick}
+              onRemove={() => this.handleRemoveField('assigned_to')}
             />
           )}
         </FormattedMessage>,
@@ -439,6 +455,7 @@ class SearchFields extends React.Component {
                 { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
               ]}
               onChange={this.handleReportStatusClick}
+              onRemove={() => this.handleRemoveField('report_status')}
             />
           )}
         </FormattedMessage>,
@@ -453,8 +470,6 @@ class SearchFields extends React.Component {
         />,
       );
     }
-
-    console.log('keys', Object.keys(this.props.query));
 
     return (
       <div>
