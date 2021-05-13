@@ -30,6 +30,11 @@
     "defaultMessage": "Imported report"
   },
   {
+    "id": "search.notInAny",
+    "description": "Label displayed before listing all folders that are not part of any collection",
+    "defaultMessage": "Not in any collection"
+  },
+  {
     "id": "search.folderHeading",
     "description": "Prefix label for field to filter by folder to which items belong",
     "defaultMessage": "Folder is"

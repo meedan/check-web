@@ -277,7 +277,11 @@ class SearchFields extends React.Component {
       orphanProjects.push({ label: p.title, value: `${p.dbid}` });
     });
     if (orphanProjects.length > 0) {
-      projectOptions.push({ label: '', value: '', orphanProjects: orphanProjects.map(op => op.label).join(',') });
+      projectOptions.push({
+        label: <FormattedMessage id="search.notInAny" defaultMessage="Not in any collection" description="Label displayed before listing all folders that are not part of any collection" />,
+        value: '',
+        orphanProjects: orphanProjects.map(op => op.label).join(','),
+      });
       projectOptions = projectOptions.concat(orphanProjects);
     }
 
