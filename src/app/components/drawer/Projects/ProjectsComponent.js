@@ -128,7 +128,7 @@ const ProjectsComponent = ({
     ), 'success');
   };
 
-  const handleMove = (projectId, projectGroupDbid) => {
+  const handleMove = (projectId, projectGroupDbid, previousProjectGroupDbid) => {
     setSaving(true);
 
     commitMutation(Store, {
@@ -155,6 +155,7 @@ const ProjectsComponent = ({
         input: {
           id: projectId,
           project_group_id: projectGroupDbid,
+          previous_project_group_id: previousProjectGroupDbid,
         },
       },
       onCompleted: (response, error) => {
@@ -177,12 +178,16 @@ const ProjectsComponent = ({
   };
 
   const handleDropped = (result) => {
-    // Dropped outside a valid destination
+    const source = result.draggableId.split('-');
+
+    // Dropped outside a valid destination: remove from any collection
     if (!result.destination) {
+      if (source[3] !== 'null') {
+        handleMove(source[2], null, parseInt(source[3], 10));
+      }
       return false;
     }
     const target = result.destination.droppableId.split('-');
-    const source = result.draggableId.split('-');
 
     // Project (folder) being moved to a project group (collection)
     if (source[1] === 'project' && target[1] === 'collection') {
@@ -191,7 +196,7 @@ const ProjectsComponent = ({
 
     // Project (folder) being moved out from a group (collection)
     } else if (source[1] === 'project' && source[3] !== 'null') {
-      handleMove(source[2], null);
+      handleMove(source[2], null, parseInt(source[3], 10));
 
     // Anything else is not valid
     } else {

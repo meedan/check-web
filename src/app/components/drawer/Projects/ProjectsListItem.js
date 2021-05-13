@@ -88,7 +88,9 @@ const ProjectsListItem = ({
         {provided => (
           <RootRef rootRef={provided.innerRef}>
             <Item />
-            {provided.placeholder}
+            <div style={{ display: 'none' }}>
+              {provided.placeholder}
+            </div>
           </RootRef>
         )}
       </Droppable>
