@@ -1,11 +1,11 @@
 [
   {
     "id": "projectSelector.numProjs",
-    "description": "Label for number of selected lists",
+    "description": "Label for number of selected folders",
     "defaultMessage": "{length, plural, one {# selected} other {# selected}}"
   },
   {
     "id": "projectSelector.allProjs",
-    "defaultMessage": "All lists"
+    "defaultMessage": "All folders"
   }
 ]

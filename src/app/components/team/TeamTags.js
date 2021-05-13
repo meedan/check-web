@@ -528,7 +528,7 @@ class TeamTagsComponent extends Component {
                 search={this.state.search}
                 onSearchChange={this.handleSearchChange}
                 label={filterLabel}
-                tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
+                tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort folder" />}
               >
                 <div style={{ marginTop: units(2) }}>
                   <SortSelector

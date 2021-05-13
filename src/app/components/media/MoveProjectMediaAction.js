@@ -140,7 +140,7 @@ function MoveProjectMediaAction({
         title={
           <FormattedMessage
             id="mediaActionsBar.dialogMoveTitle"
-            defaultMessage="Move to a different list"
+            defaultMessage="Move to a different folder"
           />
         }
         cancelLabel={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}

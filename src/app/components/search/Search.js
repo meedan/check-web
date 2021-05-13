@@ -61,6 +61,7 @@ export default function Search({
   page,
   teamSlug,
   project,
+  savedSearch,
   query,
   searchUrlPrefix,
   title,
@@ -77,6 +78,7 @@ export default function Search({
       mediaUrlPrefix={mediaUrlPrefix}
       teamSlug={teamSlug}
       project={project}
+      savedSearch={savedSearch}
       listActions={listActions}
       listDescription={listDescription}
       page={page}
@@ -89,6 +91,7 @@ export default function Search({
 }
 Search.defaultProps = {
   project: null,
+  savedSearch: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
   hideFields: undefined,
   listDescription: undefined,
@@ -100,6 +103,7 @@ Search.propTypes = {
   listDescription: PropTypes.string, // or undefined
   listActions: PropTypes.node, // or undefined
   project: PropTypes.object, // or null
+  savedSearch: PropTypes.object, // or null
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined

@@ -1,0 +1,44 @@
+[
+  {
+    "id": "projectMoveDialogComponent.couldNotMove",
+    "description": "Error message displayed when it's not possible to move folder to a collection",
+    "defaultMessage": "Could not move folder to collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.movedSuccessfully",
+    "description": "Message displayed when a folder is moved to a collection",
+    "defaultMessage": "Folder moved to collection successfully"
+  },
+  {
+    "id": "projectMoveDialogComponent.noCollectionsTitle",
+    "defaultMessage": "Move folder to a collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.noCollectionsText",
+    "defaultMessage": "There are no collections in {teamName}. You need to create a collection first."
+  },
+  {
+    "id": "projectMoveDialogComponent.proceedLabel",
+    "defaultMessage": "Create a new collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.newCollection",
+    "defaultMessage": "New collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.createCollection",
+    "defaultMessage": "Create collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.moveTitle",
+    "defaultMessage": "Move folder to a collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.choose",
+    "defaultMessage": "Choose a collection"
+  },
+  {
+    "id": "projectMoveDialogComponent.proceedLabel2",
+    "defaultMessage": "Move to collection"
+  }
+]

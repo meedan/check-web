@@ -9,7 +9,7 @@
   },
   {
     "id": "slackConfigDialogComponent.title",
-    "defaultMessage": "Send notifications to Slack channels when items are added to specific lists"
+    "defaultMessage": "Send notifications to Slack channels when items are added to specific folders"
   },
   {
     "id": "slackConfigDialogComponent.webhook",
@@ -25,7 +25,7 @@
   },
   {
     "id": "slackConfigDialogComponent.ifItemAddedTo",
-    "defaultMessage": "If item is in list"
+    "defaultMessage": "If item is in folder"
   },
   {
     "id": "slackConfigDialogComponent.channel",

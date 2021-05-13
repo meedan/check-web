@@ -1,0 +1,53 @@
+[
+  {
+    "id": "projectsComponent.couldNotMove",
+    "description": "Error message displayed when it's not possible to move folder to a collection",
+    "defaultMessage": "Could not move folder to collection"
+  },
+  {
+    "id": "projectsComponent.movedSuccessfully",
+    "description": "Message displayed when a folder is moved to a collection",
+    "defaultMessage": "Folder moved to collection successfully"
+  },
+  {
+    "id": "projectsComponent.invalidMove",
+    "description": "Message displayed when a folder is moved to something that is not a collection",
+    "defaultMessage": "Folders can just be moved to collections"
+  },
+  {
+    "id": "projectsComponent.allItems",
+    "defaultMessage": "All items"
+  },
+  {
+    "id": "projectsComponent.folders",
+    "defaultMessage": "Folders"
+  },
+  {
+    "id": "projectsComponent.newFolder",
+    "defaultMessage": "New folder"
+  },
+  {
+    "id": "projectsComponent.newCollection",
+    "defaultMessage": "New collection"
+  },
+  {
+    "id": "projectsComponent.lists",
+    "defaultMessage": "Lists"
+  },
+  {
+    "id": "projectsComponent.createFolder",
+    "defaultMessage": "Create folder"
+  },
+  {
+    "id": "projectsComponent.createCollection",
+    "defaultMessage": "Create collection"
+  },
+  {
+    "id": "projectsComponent.newList",
+    "defaultMessage": "New list"
+  },
+  {
+    "id": "projectsComponent.createList",
+    "defaultMessage": "Create list"
+  }
+]

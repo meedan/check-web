@@ -32,10 +32,10 @@ class ProjectSelector extends React.Component {
             <FormattedMessage
               id="projectSelector.numProjs"
               defaultMessage="{length, plural, one {# selected} other {# selected}}"
-              description="Label for number of selected lists"
+              description="Label for number of selected folders"
               values={{ length: this.props.selected.length }}
             /> :
-            <FormattedMessage id="projectSelector.allProjs" defaultMessage="All lists" />
+            <FormattedMessage id="projectSelector.allProjs" defaultMessage="All folders" />
           }
         </Button>
         <Menu

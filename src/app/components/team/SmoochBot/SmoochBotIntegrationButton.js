@@ -265,10 +265,16 @@ const SmoochBotIntegrationButton = ({
       <ConfirmProceedDialog
         open={openInfoDialog}
         title={
-          <FormattedMessage
-            id="smoochBotIntegrationButton.tipline"
-            defaultMessage="{platform} tipline"
-            values={{ platform: label }}
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="smoochBotIntegrationButton.tipline"
+                defaultMessage="{platform} tipline"
+                values={{ platform: label }}
+              />
+            }
+            helpUrl={helpUrl}
+            className={classes.smoochBotIntegrationButtonHeader}
           />
         }
         body={(

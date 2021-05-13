@@ -20,7 +20,7 @@
   },
   {
     "id": "bulkActions.trash",
-    "defaultMessage": "Restore selected items and move items to another list"
+    "defaultMessage": "Restore selected items and move items to another folder"
   },
   {
     "id": "bulkActions.restore",
@@ -28,7 +28,7 @@
   },
   {
     "id": "bulkActions.unconfirmed",
-    "defaultMessage": "Confirm selected items and move items to another list"
+    "defaultMessage": "Confirm selected items and move items to another folder"
   },
   {
     "id": "bulkActions.confirm",
@@ -36,7 +36,7 @@
   },
   {
     "id": "bulkActions.move",
-    "defaultMessage": "Move selected items to another list"
+    "defaultMessage": "Move selected items to another folder"
   },
   {
     "id": "bulkActions.moveTo",
@@ -48,7 +48,7 @@
   },
   {
     "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+    "defaultMessage": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
   },
   {
     "id": "bulkActions.cancelButton",
@@ -56,7 +56,7 @@
   },
   {
     "id": "bulkActions.moveTitle",
-    "description": "Label for button to commit action of moving item to the selected list",
-    "defaultMessage": "Move to list"
+    "description": "Label for button to commit action of moving item to the selected folder",
+    "defaultMessage": "Move to folder"
   }
 ]

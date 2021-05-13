@@ -52,6 +52,7 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           share_count: 0,
           report_status: 'unpublished',
           tags_as_sentence: '',
+          folder: '',
           media_published_at: 0,
           comment_count: 0,
           reaction_count: 0,

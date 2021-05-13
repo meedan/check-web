@@ -62,5 +62,10 @@
   {
     "id": "list.suggestionsCount",
     "defaultMessage": "Suggested matches"
+  },
+  {
+    "id": "list.folder",
+    "description": "Table header for column that shows the folder title an item is in",
+    "defaultMessage": "Folder"
   }
 ]

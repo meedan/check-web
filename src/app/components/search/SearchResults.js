@@ -31,10 +31,11 @@ const StyledListHeader = styled.div`
     display: flex;
   }
 
-  .project__title {
+  .project__title-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 500px;
   }
 
   .project__description {
@@ -301,6 +302,7 @@ class SearchResultsComponent extends React.PureComponent {
       project,
       title,
       icon,
+      page,
       listActions,
       listDescription,
     } = this.props;
@@ -314,7 +316,6 @@ class SearchResultsComponent extends React.PureComponent {
     const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
-    const isProject = !!this.props.project;
     const sortParams = query.sort ? {
       key: query.sort,
       ascending: query.sort_type !== 'DESC',
@@ -335,9 +336,24 @@ class SearchResultsComponent extends React.PureComponent {
     let content = null;
 
     if (count === 0) {
-      if (isProject) {
-        content = <ProjectBlankState project={this.props.project} />;
-      }
+      content = (
+        <ProjectBlankState
+          message={
+            page ?
+              <FormattedMessage
+                id="projectBlankState.blankPage"
+                defaultMessage="There are no items in this {page}"
+                values={{ page }}
+                description="'page' here can be folder, collection or list"
+              /> :
+              <FormattedMessage
+                id="projectBlankState.blank"
+                defaultMessage="There are no items"
+                description="This message is displayed when an items page is empty"
+              />
+          }
+        />
+      );
     } else {
       content = (
         <SearchResultsTable
@@ -370,7 +386,11 @@ class SearchResultsComponent extends React.PureComponent {
                 alignItems: 'center',
               }}
             >
-              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }{title}{listActions}
+              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
+              <span className="project__title-text">
+                {title}
+              </span>
+              {listActions}
             </div>
             <SearchKeyword
               key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
@@ -394,6 +414,7 @@ class SearchResultsComponent extends React.PureComponent {
             query={unsortedQuery}
             onChange={this.handleChangeQuery}
             project={this.props.project}
+            savedSearch={this.props.savedSearch}
             hideFields={this.props.hideFields}
             title={this.props.title}
             team={team}

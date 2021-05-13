@@ -1,0 +1,10 @@
+[
+  {
+    "id": "project.name",
+    "defaultMessage": "folder"
+  },
+  {
+    "id": "project.deleteMessage",
+    "defaultMessage": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+  }
+]
