@@ -77,7 +77,6 @@ class SearchFields extends React.Component {
     super(props);
     this.state = {
       query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
-      addedFields: [],
     };
   }
 
@@ -101,26 +100,33 @@ class SearchFields extends React.Component {
         delete cleanQuery.range;
       }
     }
+    Object.keys(query).forEach((key) => {
+      if (Array.isArray(cleanQuery[key]) && (cleanQuery[key].length === 0)) {
+        delete cleanQuery[key];
+      }
+    });
     return cleanQuery;
   }
 
   handleAddField = (field) => {
+    const newQuery = { ...this.state.query };
+
     if (field === 'team_tasks') {
-      const newQuery = {};
       newQuery.team_tasks = this.state.query.team_tasks ?
         [...this.state.query.team_tasks, {}] : [{}];
-      this.handleCustomFilterChange(newQuery);
+    } else if (field === 'range') {
+      newQuery.range = {};
+    } else {
+      newQuery[field] = [];
     }
 
-    const addedFields = [...this.state.addedFields, field];
-    this.setState({ addedFields });
+    this.setState({ query: newQuery });
   };
 
   handleRemoveField = (field) => {
     const newQuery = { ...this.state.query };
     delete newQuery[field];
-    const addedFields = this.state.addedFields.filter(a => a !== field);
-    this.setState({ query: newQuery, addedFields });
+    this.setState({ query: newQuery });
   };
 
   handleApplyFilters() {
@@ -128,15 +134,9 @@ class SearchFields extends React.Component {
     if (this.filterIsApplicable(cleanQuery)) {
       this.props.onChange(cleanQuery);
     } else {
-      this.setState({ query: cleanQuery, addedFields: [] });
+      this.setState({ query: cleanQuery });
     }
   }
-
-  fieldIsDisplayed = field => (
-    (field === 'projects' && Boolean(this.props.project)) ||
-    this.state.query[field] ||
-    this.state.addedFields.includes(field)
-  );
 
   filterIsActive = () => {
     const { query } = this.props;
@@ -151,7 +151,7 @@ class SearchFields extends React.Component {
       'show',
       'team_tasks',
     ];
-    return filterFields.some(key => !!query[key]) || this.state.addedFields.length > 0;
+    return filterFields.some(key => !!query[key]);
   };
 
   filterIsApplicable = () => {
@@ -239,17 +239,12 @@ class SearchFields extends React.Component {
     }
   }
 
-  hideField(field) {
-    return this.props.hideFields ? this.props.hideFields.indexOf(field) > -1 : false;
-  }
-
   handleSubmit = (ev) => {
     ev.preventDefault();
     this.handleApplyFilters();
   }
 
   handleClickClear = () => {
-    this.setState({ addedFields: [] });
     const { keyword } = this.state.query;
     this.props.onChange({ keyword });
   };
@@ -308,10 +303,10 @@ class SearchFields extends React.Component {
       });
     }
 
-    const fields = [];
-    if (this.fieldIsDisplayed('projects')) {
-      const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
-      fields.push(
+    const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
+
+    const fieldComponents = {
+      projects: (
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
           { label => (
             <MultiSelectFilter
@@ -324,22 +319,18 @@ class SearchFields extends React.Component {
               onRemove={() => this.handleRemoveField('projects')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('range')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      range: (
         <Box maxWidth="400px">
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.state.query.range}
             onRemove={() => this.handleRemoveField('range')}
           />
-        </Box>,
-      );
-    }
-    if (this.fieldIsDisplayed('tags')) {
-      fields.push(
+        </Box>
+      ),
+      tags: (
         <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
           { label => (
             <MultiSelectFilter
@@ -355,11 +346,9 @@ class SearchFields extends React.Component {
               onRemove={() => this.handleRemoveField('tags')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('show')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      show: (
         <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
           { label => (
             <MultiSelectFilter
@@ -372,11 +361,9 @@ class SearchFields extends React.Component {
               onRemove={() => this.handleRemoveField('show')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('verification_status')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      verification_status: (
         <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
           { label => (
             <MultiSelectFilter
@@ -388,11 +375,9 @@ class SearchFields extends React.Component {
               onRemove={() => this.handleRemoveField('verification_status')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('users')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      users: (
         <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
           { label => (
             <MultiSelectFilter
@@ -404,44 +389,9 @@ class SearchFields extends React.Component {
               onRemove={() => this.handleRemoveField('users')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('dynamic')) {
-      // The only dynamic filter available right now is language
-      fields.push(
-        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<LanguageIcon />}
-              selected={this.state.query.dynamic && this.state.query.dynamic.language}
-              options={languages}
-              onChange={newValue => this.handleDynamicClick('language', newValue)}
-              onRemove={() => this.handleRemoveField('dynamic')}
-            />
-          )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('assigned_to')) {
-      fields.push(
-        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<PersonIcon />}
-              selected={this.state.query.assigned_to}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
-              onChange={this.handleAssignedUserClick}
-              onRemove={() => this.handleRemoveField('assigned_to')}
-            />
-          )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('report_status')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      report_status: (
         <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
           { label => (
             <MultiSelectFilter
@@ -458,41 +408,73 @@ class SearchFields extends React.Component {
               onRemove={() => this.handleRemoveField('report_status')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('team_tasks')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      dynamic: (
+        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<LanguageIcon />}
+              selected={this.state.query.dynamic && this.state.query.dynamic.language}
+              options={languages}
+              onChange={newValue => this.handleDynamicClick('language', newValue)}
+              onRemove={() => this.handleRemoveField('dynamic')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      assigned_to: (
+        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              selected={this.state.query.assigned_to}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handleAssignedUserClick}
+              onRemove={() => this.handleRemoveField('assigned_to')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      team_tasks: (
         <CustomFiltersManager
           onFilterChange={this.handleCustomFilterChange}
           team={team}
           query={this.state.query}
-        />,
-      );
+        />
+      ),
+    };
+
+    let fieldKeys = [];
+    if (this.props.project) {
+      fieldKeys.push('projects');
     }
+    fieldKeys = fieldKeys.concat(Object.keys(this.state.query));
 
     return (
       <div>
         <Row flexWrap style={{ gap: '8px' }}>
           { /* FIXME: Each child in a list should have a unique "key" prop */}
-          { fields.map((field, index) => index > 0 ? (
+          { fieldKeys.map((key, index) => index > 0 ? (
             <React.Fragment>
               <Box height="36px" display="flex" alignItems="center">
                 <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
               </Box>
-              {field}
+              { fieldComponents[key] }
             </React.Fragment>
           ) : (
             <span>
-              {field}
+              { fieldComponents[key] }
             </span>
           )) }
           <AddFilterMenu
             hideOptions={this.props.hideFields}
-            addedFields={this.state.addedFields}
+            addedFields={fieldKeys}
             onSelect={this.handleAddField}
           />
-          { this.state.addedFields.length || this.filterIsApplicable() ?
+          { this.filterIsApplicable() ?
             <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
               <IconButton id="search-fields__submit-button" onClick={this.handleSubmit} size="small">
                 <PlayArrowIcon color="primary" />

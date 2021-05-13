@@ -55,16 +55,6 @@
     "defaultMessage": "Created by"
   },
   {
-    "id": "search.language",
-    "description": "Prefix label for field to filter by language",
-    "defaultMessage": "Language is"
-  },
-  {
-    "id": "search.assignedTo",
-    "description": "Prefix label for field to filter by assigned users",
-    "defaultMessage": "Assigned to"
-  },
-  {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
     "defaultMessage": "Report status is"
@@ -83,6 +73,16 @@
     "id": "search.reportStatusPublished",
     "description": "Refers to a report status",
     "defaultMessage": "Published"
+  },
+  {
+    "id": "search.language",
+    "description": "Prefix label for field to filter by language",
+    "defaultMessage": "Language is"
+  },
+  {
+    "id": "search.assignedTo",
+    "description": "Prefix label for field to filter by assigned users",
+    "defaultMessage": "Assigned to"
   },
   {
     "id": "search.fieldAnd",
