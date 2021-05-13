@@ -70,6 +70,26 @@
     "defaultMessage": "Read"
   },
   {
+    "id": "search.reportStatus",
+    "description": "Prefix label for field to filter by report status",
+    "defaultMessage": "Report status is"
+  },
+  {
+    "id": "search.reportStatusUnpublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "search.reportStatusPaused",
+    "description": "Refers to a report status",
+    "defaultMessage": "Paused"
+  },
+  {
+    "id": "search.reportStatusPublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Published"
+  },
+  {
     "id": "search.fieldAnd",
     "description": "Logical operator to be applied when filtering by multiple fields",
     "defaultMessage": "AND"

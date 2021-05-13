@@ -38,6 +38,11 @@ const StyledNotFound = styled.div`
   justify-content: center;
 `;
 
+const StyledCategory = styled(Typography)`
+  color: ${black54};
+  margin-top: ${units(1)} !important;
+`;
+
 class MultiSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -103,7 +108,7 @@ class MultiSelector extends React.Component {
   filter = (options) => {
     const { filter } = this.state;
     if (filter) {
-      return options.filter(o => o.label.toLowerCase().includes(filter.toLowerCase()));
+      return options.filter(o => Object.values(o).join(' ').toLowerCase().includes(filter.toLowerCase()));
     }
     return options;
   };
@@ -160,14 +165,14 @@ class MultiSelector extends React.Component {
               options.map((o, index) => {
                 if (o.value === '' && o.label === '') {
                   return (
-                    <Divider key={`multiselector-dividider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
+                    <Divider key={`multiselector-divider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
                   );
                 }
                 if (o.value === '') {
                   return (
-                    <Typography variant="button">
+                    <StyledCategory key={`multiselector-header-${index.toString()}`}>
                       {o.label}
-                    </Typography>
+                    </StyledCategory>
                   );
                 }
                 return (

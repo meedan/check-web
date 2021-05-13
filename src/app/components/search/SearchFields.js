@@ -15,6 +15,7 @@ import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import deepEqual from 'deep-equal';
 import CustomFiltersManager from './CustomFiltersManager';
 // eslint-disable-next-line no-unused-vars
@@ -189,6 +190,12 @@ class SearchFields extends React.Component {
     });
   }
 
+  handleReportStatusClick = (statuses) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'report_status', statuses),
+    });
+  }
+
   handleReadClick = (isRead) => {
     this.setState({
       query: { ...this.state.query, read: isRead },
@@ -255,9 +262,28 @@ class SearchFields extends React.Component {
     const { team, project } = this.props;
     const { statuses } = team.verification_statuses;
 
-    const projects = team.projects ?
-      team.projects.edges.slice()
-        .sort((a, b) => a.node.title.localeCompare(b.node.title)) : [];
+    // Folder options are grouped by collection
+    // FIXME: Simplify the code below and improve its performance
+    const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
+    let projectOptions = [];
+    team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
+      const subProjects = [];
+      projects.filter(p => p.project_group_id === pg.dbid).forEach((p) => {
+        subProjects.push({ label: p.title, value: `${p.dbid}` });
+      });
+      if (subProjects.length > 0) {
+        projectOptions.push({ label: pg.title, value: '', projectsTitles: subProjects.map(sp => sp.label).join(',') });
+        projectOptions = projectOptions.concat(subProjects);
+      }
+    });
+    const orphanProjects = [];
+    projects.filter(p => !p.project_group_id).forEach((p) => {
+      orphanProjects.push({ label: p.title, value: `${p.dbid}` });
+    });
+    if (orphanProjects.length > 0) {
+      projectOptions.push({ label: '', value: '', orphanProjects: orphanProjects.map(op => op.label).join(',') });
+      projectOptions = projectOptions.concat(orphanProjects);
+    }
 
     const users = team.users ?
       team.users.edges.slice()
@@ -296,7 +322,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<FolderIcon />}
               selected={project ? [`${project.dbid}`] : selectedProjects}
-              options={projects.map(p => ({ label: p.node.title, value: `${p.node.dbid}` }))}
+              options={projectOptions}
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
             />
@@ -425,6 +451,25 @@ class SearchFields extends React.Component {
         />,
       );
     }
+    if (this.fieldIsDisplayed('report_status')) {
+      fields.push(
+        <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<ReportIcon />}
+              selected={this.state.query.report_status}
+              options={[
+                { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
+                { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
+                { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+              ]}
+              onChange={this.handleReportStatusClick}
+            />
+          )}
+        </FormattedMessage>,
+      );
+    }
     if (this.fieldIsDisplayed('team_tasks')) {
       fields.push(
         <CustomFiltersManager
@@ -529,6 +574,15 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
           dbid
           id
           description
+          project_group_id
+        }
+      }
+    }
+    project_groups(first: 10000) {
+      edges {
+        node {
+          title
+          dbid
         }
       }
     }

@@ -6,8 +6,8 @@
   },
   {
     "id": "projectsComponent.movedSuccessfully",
-    "description": "Message displayed when a folder is moved to a collection",
-    "defaultMessage": "Folder moved to collection successfully"
+    "description": "Message displayed when a folder is moved to or from a collection",
+    "defaultMessage": "Folder moved successfully"
   },
   {
     "id": "projectsComponent.invalidMove",
@@ -31,8 +31,14 @@
     "defaultMessage": "New collection"
   },
   {
+    "id": "projectsComponent.noFolders",
+    "description": "Displayed under a collection when there are no folders in it",
+    "defaultMessage": "No folders in this collection"
+  },
+  {
     "id": "projectsComponent.lists",
-    "defaultMessage": "Lists"
+    "description": "List of items with some filters applied",
+    "defaultMessage": "Filtered lists"
   },
   {
     "id": "projectsComponent.createFolder",
