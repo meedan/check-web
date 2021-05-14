@@ -140,7 +140,7 @@ const SaveList = ({
   const handleSave = () => {
     setSaving(true);
 
-    const queryToBeSaved = JSON.parse(JSON.stringify(query));
+    let queryToBeSaved = {};
 
     // If it's a folder, add the project.id as a filter
     if (project) {
@@ -151,6 +151,8 @@ const SaveList = ({
     if (projectGroup) {
       queryToBeSaved.project_group_id = [projectGroup.dbid];
     }
+
+    queryToBeSaved = { ...queryToBeSaved, ...query };
 
     const input = {
       filters: JSON.stringify(queryToBeSaved),

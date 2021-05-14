@@ -283,6 +283,7 @@ class SearchFields extends React.Component {
 
     const users = team.users ?
       team.users.edges.slice()
+        .filter(u => !u.node.is_bot)
         .sort((a, b) => a.node.name.localeCompare(b.node.name)) : [];
 
     const plainTagsTexts = team.tag_texts ?
@@ -594,6 +595,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
           id
           dbid
           name
+          is_bot
         }
       }
     }

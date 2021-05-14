@@ -203,11 +203,7 @@ const AddFilterMenu = ({
             id={o.id}
             key={o.key}
             onClick={() => handleSelect(o.key)}
-            disabled={(
-              addedFields.includes(o.key) ||
-              (addedFields.includes('projects') && o.key === 'project_group_id') ||
-              (addedFields.includes('project_group_id') && o.key === 'projects')
-            )}
+            disabled={addedFields.includes(o.key)}
           >
             <ListItemIcon>
               {o.icon}
