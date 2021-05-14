@@ -7,9 +7,9 @@ import Popover from '@material-ui/core/Popover';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
+import SelectButton from './SelectButton';
 import { checkBlue } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
@@ -191,18 +191,6 @@ const MultiSelectFilter = ({
   );
 };
 
-const SelectButton = withStyles({
-  root: {
-    backgroundColor: '#ddd',
-    padding: '0 8px',
-    fontWeight: 'normal',
-  },
-  text: {
-    color: '#777',
-    textTransform: 'none',
-  },
-})(Button);
-
 const CustomSelectDropdown = ({
   allowSearch,
   options,
@@ -217,17 +205,7 @@ const CustomSelectDropdown = ({
 
   return (
     <Box mx={0.5}>
-      <SelectButton
-        className="custom-select-dropdown__select-button"
-        endIcon={<KeyboardArrowDownIcon />}
-        onClick={e => setAnchorEl(e.currentTarget)}
-      >
-        <FormattedMessage
-          id="customAutocomplete.select"
-          defaultMessage="Select"
-          description="Verb. Label for generic dropdown component"
-        />
-      </SelectButton>
+      <SelectButton onClick={e => setAnchorEl(e.currentTarget)} />
       <Popover
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}

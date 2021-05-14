@@ -80,16 +80,18 @@ const ProjectsListItem = ({
     </ListItem>
   );
 
-  const droppableId = `droppable-${routePrefix}-${project.dbid}`;
+  const droppableId = `droppable-${routePrefix}-${project.dbid}-${project.project_group_id}`;
 
   if (isDroppable) {
     return (
       <Droppable droppableId={droppableId}>
         {provided => (
           <RootRef rootRef={provided.innerRef}>
-            <Item />
-            <div style={{ display: 'none' }}>
-              {provided.placeholder}
+            <div>
+              <Item />
+              <div style={{ display: 'none' }}>
+                {provided.placeholder}
+              </div>
             </div>
           </RootRef>
         )}
@@ -102,17 +104,19 @@ const ProjectsListItem = ({
       <Droppable droppableId={droppableId}>
         {provided => (
           <RootRef rootRef={provided.innerRef}>
-            <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
-              {provided2 => (
-                <Item
-                  ContainerComponent="li"
-                  ContainerProps={{ ref: provided2.innerRef }}
-                  {...provided2.draggableProps}
-                  {...provided2.dragHandleProps}
-                />
-              )}
-            </Draggable>
-            {provided.placeholder}
+            <div>
+              <Draggable key={project.dbid} draggableId={`draggable-${routePrefix}-${project.id}-${project.project_group_id}`} index={index}>
+                {provided2 => (
+                  <Item
+                    ContainerComponent="li"
+                    ContainerProps={{ ref: provided2.innerRef }}
+                    {...provided2.draggableProps}
+                    {...provided2.dragHandleProps}
+                  />
+                )}
+              </Draggable>
+              {provided.placeholder}
+            </div>
           </RootRef>
         )}
       </Droppable>
@@ -139,7 +143,7 @@ ProjectsListItem.propTypes = {
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-    medias_count: PropTypes.number.isRequired,
+    medias_count: PropTypes.number,
     project_group_id: PropTypes.number,
   }).isRequired,
   intl: intlShape.isRequired,

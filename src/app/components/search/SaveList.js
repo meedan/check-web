@@ -318,7 +318,7 @@ SaveList.propTypes = {
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
-    slug: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
   }).isRequired,
   query: PropTypes.object.isRequired,

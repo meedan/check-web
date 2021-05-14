@@ -1,13 +1,7 @@
 [
   {
-    "id": "projectBlankState.blankPage",
-    "description": "'page' here can be folder, collection or list",
-    "defaultMessage": "There are no items in this {page}"
-  },
-  {
     "id": "projectBlankState.blank",
-    "description": "This message is displayed when an items page is empty",
-    "defaultMessage": "There are no items"
+    "defaultMessage": "There are no items here."
   },
   {
     "id": "search.previousPage",

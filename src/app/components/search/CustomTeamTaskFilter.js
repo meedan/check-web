@@ -8,8 +8,9 @@ import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
 import RemoveableWrapper from './RemoveableWrapper';
+import SelectButton from './SelectButton';
 import CustomFilter from './CustomFilter';
-import { opaqueBlack07 } from '../../styles/js/shared';
+import { opaqueBlack07, checkBlue } from '../../styles/js/shared';
 
 const messages = defineMessages({
   metadataChoiceLabel: {
@@ -44,17 +45,29 @@ const messages = defineMessages({
   },
 });
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     zIndex: 1000,
   },
   paper: {
     maxWidth: '360px',
   },
-});
+  metadataIs: {
+    marginRight: theme.spacing(1),
+  },
+  customTeamTaskFilterSelected: {
+    backgroundColor: checkBlue,
+    color: 'white',
+    borderRadius: 2,
+    height: 24,
+    padding: `0 ${theme.spacing(0.5)}px`,
+  },
+}));
 
 const useStylesButton = makeStyles({
   root: {
+    height: 36,
+    overflow: 'hidden',
     '&:hover': {
       backgroundColor: opaqueBlack07,
     },
@@ -244,11 +257,16 @@ const CustomTeamTaskFilter = ({
   const FilterLabel = () => {
     if (!filterEntityValue || !filter) {
       return (
-        <FormattedMessage
-          id="customFiltersManager.label"
-          defaultMessage="Metadata is"
-          description="Placeholder label for metadata field when not fully configured"
-        />
+        <React.Fragment>
+          <span className={classes.metadataIs}>
+            <FormattedMessage
+              id="customFiltersManager.label"
+              defaultMessage="Metadata is"
+              description="Placeholder label for metadata field when not fully configured"
+            />
+          </span>
+          <SelectButton onClick={() => {}} />
+        </React.Fragment>
       );
     }
 
@@ -312,7 +330,9 @@ const CustomTeamTaskFilter = ({
             <RemoveableWrapper icon={<StarIcon />} onRemove={handleRemove} boxProps={{ p: 0 }} />
           }
         >
-          <FilterLabel />
+          <span className={(!filterEntityValue || !filter) ? '' : classes.customTeamTaskFilterSelected}>
+            <FilterLabel />
+          </span>
         </Button>
       </Box>
       <Popover

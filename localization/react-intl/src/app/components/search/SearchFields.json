@@ -52,7 +52,7 @@
   {
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
-    "defaultMessage": "Media type is"
+    "defaultMessage": "Type is"
   },
   {
     "id": "search.statusHeading",

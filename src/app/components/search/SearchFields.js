@@ -344,7 +344,7 @@ class SearchFields extends React.Component {
         </FormattedMessage>
       ),
       range: (
-        <Box maxWidth="400px">
+        <Box maxWidth="700px">
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.state.query.range}
@@ -371,7 +371,7 @@ class SearchFields extends React.Component {
         </FormattedMessage>
       ),
       show: (
-        <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
+        <FormattedMessage id="search.show" defaultMessage="Type is" description="Prefix label for field to filter by media type">
           { label => (
             <MultiSelectFilter
               allowSearch={false}
@@ -473,24 +473,29 @@ class SearchFields extends React.Component {
     if (this.props.project) fieldKeys.push('projects');
     if (this.props.projectGroup) fieldKeys.push('project_group_id');
 
-    fieldKeys = fieldKeys.concat(Object.keys(this.state.query).filter(k => k !== 'keyword'));
+    fieldKeys = fieldKeys.concat(Object.keys(this.state.query).filter(k => k !== 'keyword' && fieldComponents[k]));
 
     return (
       <div>
         <Row flexWrap style={{ gap: '8px' }}>
-          { /* FIXME: Each child in a list should have a unique "key" prop */}
-          { fieldKeys.map((key, index) => index > 0 ? (
-            <React.Fragment>
-              <Box height="36px" display="flex" alignItems="center">
-                <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
-              </Box>
-              { fieldComponents[key] }
-            </React.Fragment>
-          ) : (
-            <span>
-              { fieldComponents[key] }
-            </span>
-          )) }
+          { fieldKeys.map((key, index) => {
+            if (index > 0) {
+              return (
+                <React.Fragment key={key}>
+                  <Box height="36px" display="flex" alignItems="center">
+                    <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
+                  </Box>
+                  { fieldComponents[key] }
+                </React.Fragment>
+              );
+            }
+
+            return (
+              <span key={key}>
+                { fieldComponents[key] }
+              </span>
+            );
+          })}
           <AddFilterMenu
             hideOptions={this.props.hideFields}
             addedFields={fieldKeys}

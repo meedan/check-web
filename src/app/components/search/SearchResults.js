@@ -314,7 +314,6 @@ class SearchResultsComponent extends React.PureComponent {
       projectGroup,
       title,
       icon,
-      page,
       listActions,
       listDescription,
     } = this.props;
@@ -351,18 +350,10 @@ class SearchResultsComponent extends React.PureComponent {
       content = (
         <ProjectBlankState
           message={
-            page ?
-              <FormattedMessage
-                id="projectBlankState.blankPage"
-                defaultMessage="There are no items in this {page}"
-                values={{ page }}
-                description="'page' here can be folder, collection or list"
-              /> :
-              <FormattedMessage
-                id="projectBlankState.blank"
-                defaultMessage="There are no items"
-                description="This message is displayed when an items page is empty"
-              />
+            <FormattedMessage
+              id="projectBlankState.blank"
+              defaultMessage="There are no items here."
+            />
           }
         />
       );

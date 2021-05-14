@@ -198,6 +198,10 @@ const ProjectsComponent = ({
     } else if (source[1] === 'project' && source[3] !== 'null') {
       handleMove(source[2], null, parseInt(source[3], 10));
 
+    // Project (folder) being moved to a project (folder) inside a project group (collection), so, assume the collection as destination
+    } else if (source[1] === 'project' && target[1] === 'project' && target[3] !== 'null') {
+      handleMove(source[2], parseInt(target[3], 10));
+
     // Anything else is not valid
     } else {
       setFlashMessage((
@@ -279,6 +283,7 @@ const ProjectsComponent = ({
               const groupIsActive = isActive('collection', projectGroup.dbid);
               const groupComponent = (
                 <ProjectsListItem
+                  key={projectGroup.id}
                   routePrefix="collection"
                   icon={<FolderSpecialIcon />}
                   project={projectGroup}
@@ -299,7 +304,7 @@ const ProjectsComponent = ({
                   (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
                 const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
                 return (
-                  <Box className={groupIsActive ? classes.projectsComponentCollectionExpanded : ''}>
+                  <Box className={groupIsActive ? classes.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
                     {groupComponent}
                     <List>
                       { childProjects.length === 0 ?
@@ -311,6 +316,7 @@ const ProjectsComponent = ({
                         <React.Fragment>
                           {childProjects.sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
                             <ProjectsListItem
+                              key={project.id}
                               index={index}
                               routePrefix="project"
                               icon={<FolderOpenIcon />}
@@ -335,6 +341,7 @@ const ProjectsComponent = ({
             {/* Folders that are not inside any collection */}
             {projects.filter(p => !p.project_group_id).sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
               <ProjectsListItem
+                key={project.id}
                 index={index}
                 routePrefix="project"
                 icon={<FolderOpenIcon />}
@@ -368,6 +375,7 @@ const ProjectsComponent = ({
         <Box className={classes.projectsComponentScroll}>
           {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
             <ProjectsListItem
+              key={search.id}
               routePrefix="list"
               icon={<ListIcon />}
               project={search}
@@ -435,11 +443,13 @@ ProjectsComponent.propTypes = {
     medias_count: PropTypes.number.isRequired,
   }).isRequired).isRequired,
   projectGroups: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     medias_count: PropTypes.number.isRequired,
   }).isRequired).isRequired,
   savedSearches: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,

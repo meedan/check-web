@@ -120,6 +120,6 @@ Search.propTypes = {
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  page: PropTypes.oneOf(['trash']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
 };
