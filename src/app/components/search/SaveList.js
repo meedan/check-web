@@ -74,6 +74,7 @@ const useStyles = makeStyles(theme => ({
 const SaveList = ({
   team,
   project,
+  projectGroup,
   savedSearch,
   query,
   setFlashMessage,
@@ -94,8 +95,8 @@ const SaveList = ({
   const objectType = currentPath[1];
 
   const handleClick = () => {
-    // From the "All Items" page and a folder page, we can just create a new list
-    if (objectType === 'all-items' || objectType === 'project') {
+    // From the "All Items" page, collection page and a folder page, we can just create a new list
+    if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection') {
       setShowNewDialog(true);
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {
@@ -139,10 +140,16 @@ const SaveList = ({
   const handleSave = () => {
     setSaving(true);
 
-    // If it's a folder, add the project.id as a filter
     const queryToBeSaved = JSON.parse(JSON.stringify(query));
+
+    // If it's a folder, add the project.id as a filter
     if (project) {
       queryToBeSaved.projects = [project.dbid];
+    }
+
+    // If it's a collection, add the projectGroup.id as a filter
+    if (projectGroup) {
+      queryToBeSaved.project_group_id = [projectGroup.dbid];
     }
 
     const input = {
@@ -178,8 +185,8 @@ const SaveList = ({
     });
   };
 
-  // Just show the button on: "All Items" and folder (create a list) or list (create a new list or update list)
-  if (['all-items', 'project', 'list'].indexOf(objectType) === -1) {
+  // Just show the button on: "All Items", collection and folder (create a list) or list (create a new list or update list)
+  if (['all-items', 'project', 'list', 'collection'].indexOf(objectType) === -1) {
     return null;
   }
 
@@ -301,6 +308,7 @@ const SaveList = ({
 
 SaveList.defaultProps = {
   project: null,
+  projectGroup: null,
   savedSearch: null,
 };
 
@@ -313,6 +321,9 @@ SaveList.propTypes = {
   }).isRequired,
   query: PropTypes.object.isRequired,
   project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
+  projectGroup: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }),
   savedSearch: PropTypes.shape({

@@ -25,6 +25,8 @@ const NewProject = ({
   buttonLabel,
   helpUrl,
   onClose,
+  errorMessage,
+  successMessage,
   setFlashMessage,
 }) => {
   const classes = useStyles();
@@ -92,24 +94,12 @@ const NewProject = ({
 
   const handleError = () => {
     setSaving(false);
-    setFlashMessage((
-      <FormattedMessage
-        id="newProject.defaultErrorMessage"
-        defaultMessage="Could not create, please try again"
-        description="Generic error message displayed when it's not possible to create a collection, folder or list"
-      />
-    ), 'error');
+    setFlashMessage(errorMessage, 'error');
   };
 
   const handleSuccess = () => {
     setSaving(false);
-    setFlashMessage((
-      <FormattedMessage
-        id="newProject.savedSuccessfully"
-        defaultMessage="Created successfully"
-        description="Generic message displayed when a collection, folder or list is created"
-      />
-    ), 'success');
+    setFlashMessage(successMessage, 'success');
     setNewTitle('');
     onClose();
   };
@@ -209,6 +199,8 @@ NewProject.propTypes = {
   buttonLabel: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   helpUrl: PropTypes.string.isRequired,
+  errorMessage: PropTypes.node.isRequired,
+  successMessage: PropTypes.node.isRequired,
 };
 
 export default withSetFlashMessage(NewProject);

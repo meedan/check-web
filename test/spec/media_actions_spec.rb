@@ -174,6 +174,7 @@ shared_examples 'media actions' do
     wait_for_selector('.media__heading a') # wait for backend to process claim
 
     # Move the claim to another project
+    @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
     wait_for_selector('#media-bulk-actions__move-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')

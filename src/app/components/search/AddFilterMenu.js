@@ -16,6 +16,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 
 const StyledButton = withStyles({
   root: {
@@ -47,6 +48,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.folder"
         defaultMessage="Folder"
         description="Menu option to enable searching items by folder"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__project-group-id',
+    key: 'project_group_id',
+    icon: <FolderSpecialIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.collection"
+        defaultMessage="Collection"
+        description="Menu option to enable searching items by collection"
       />
     ),
   },
@@ -99,6 +112,18 @@ const AddFilterMenu = ({
     ),
   },
   {
+    id: 'add-filter-menu__report-status',
+    key: 'report_status',
+    icon: <ReportIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.reportStatus"
+        defaultMessage="Report status"
+        description="Menu option to enable searching items by report status"
+      />
+    ),
+  },
+  {
     id: 'add-filter-menu__created-by',
     key: 'users',
     icon: <PersonIcon />,
@@ -145,18 +170,6 @@ const AddFilterMenu = ({
         description="Menu option to enable searching items by metadata fields"
       />
     ),
-  },
-  {
-    id: 'add-filter-menu__report-status',
-    key: 'report_status',
-    icon: <ReportIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.reportStatus"
-        defaultMessage="Report status"
-        description="Menu option to enable searching items by report status"
-      />
-    ),
   }];
 
   return (
@@ -190,7 +203,11 @@ const AddFilterMenu = ({
             id={o.id}
             key={o.key}
             onClick={() => handleSelect(o.key)}
-            disabled={addedFields.includes(o.key)}
+            disabled={(
+              addedFields.includes(o.key) ||
+              (addedFields.includes('projects') && o.key === 'project_group_id') ||
+              (addedFields.includes('project_group_id') && o.key === 'projects')
+            )}
           >
             <ListItemIcon>
               {o.icon}

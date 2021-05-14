@@ -23,11 +23,13 @@
     "defaultMessage": "Folders"
   },
   {
-    "id": "projectsComponent.newFolder",
+    "id": "projectsComponent.newFolderMenu",
+    "description": "Menu item for creating new folder",
     "defaultMessage": "New folder"
   },
   {
-    "id": "projectsComponent.newCollection",
+    "id": "projectsComponent.newCollectionMenu",
+    "description": "Menu item for creating new collection",
     "defaultMessage": "New collection"
   },
   {
@@ -41,12 +43,44 @@
     "defaultMessage": "Filtered lists"
   },
   {
+    "id": "projectsComponent.newFolder",
+    "description": "Dialog title for creating new folder",
+    "defaultMessage": "New folder"
+  },
+  {
     "id": "projectsComponent.createFolder",
+    "description": "Button label for creating new folder",
     "defaultMessage": "Create folder"
   },
   {
+    "id": "projectsComponent.newFolderErrorMessage",
+    "description": "Error message when creating new folder fails",
+    "defaultMessage": "Could not create folder, please try again"
+  },
+  {
+    "id": "projectsComponent.newFolderSuccessMessage",
+    "description": "Success message when new folder is created",
+    "defaultMessage": "Folder created successfully"
+  },
+  {
+    "id": "projectsComponent.newCollection",
+    "description": "Dialog title for creating new collection",
+    "defaultMessage": "New collection"
+  },
+  {
     "id": "projectsComponent.createCollection",
+    "description": "Button label for creating new collection",
     "defaultMessage": "Create collection"
+  },
+  {
+    "id": "projectsComponent.newCollectionErrorMessage",
+    "description": "Error message when creating new collection fails",
+    "defaultMessage": "Could not create collection, please try again"
+  },
+  {
+    "id": "projectsComponent.newCollectionSuccessMessage",
+    "description": "Success message when new collection is created",
+    "defaultMessage": "Collection created successfully"
   },
   {
     "id": "projectsComponent.newList",
@@ -55,5 +89,15 @@
   {
     "id": "projectsComponent.createList",
     "defaultMessage": "Create list"
+  },
+  {
+    "id": "projectsComponent.newListErrorMessage",
+    "description": "Error message when creating new list fails",
+    "defaultMessage": "Could not create list, please try again"
+  },
+  {
+    "id": "projectsComponent.newListSuccessMessage",
+    "description": "Success message when new list is created",
+    "defaultMessage": "List created successfully"
   }
 ]

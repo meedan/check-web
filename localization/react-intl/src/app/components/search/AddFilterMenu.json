@@ -5,6 +5,11 @@
     "defaultMessage": "Folder"
   },
   {
+    "id": "addFilterMenu.collection",
+    "description": "Menu option to enable searching items by collection",
+    "defaultMessage": "Collection"
+  },
+  {
     "id": "addFilterMenu.timeRange",
     "description": "Menu option to enable searching items by date range",
     "defaultMessage": "Date range"
@@ -25,6 +30,11 @@
     "defaultMessage": "Item status"
   },
   {
+    "id": "addFilterMenu.reportStatus",
+    "description": "Menu option to enable searching items by report status",
+    "defaultMessage": "Report status"
+  },
+  {
     "id": "addFilterMenu.createdBy",
     "description": "Menu option to enable searching items by author",
     "defaultMessage": "Created by"
@@ -43,11 +53,6 @@
     "id": "addFilterMenu.metadata",
     "description": "Menu option to enable searching items by metadata fields",
     "defaultMessage": "Metadata"
-  },
-  {
-    "id": "addFilterMenu.reportStatus",
-    "description": "Menu option to enable searching items by report status",
-    "defaultMessage": "Report status"
   },
   {
     "id": "addFilterMenu.addFilter",

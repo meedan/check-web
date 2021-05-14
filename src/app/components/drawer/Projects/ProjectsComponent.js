@@ -256,7 +256,7 @@ const ProjectsComponent = ({
                   }}
                   className="projects-list__add-folder"
                 >
-                  <FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" />
+                  <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
@@ -265,7 +265,7 @@ const ProjectsComponent = ({
                   }}
                   className="projects-list__add-collection"
                 >
-                  <FormattedMessage id="projectsComponent.newCollection" defaultMessage="New collection" />
+                  <FormattedMessage id="projectsComponent.newCollectionMenu" defaultMessage="New collection" description="Menu item for creating new collection" />
                 </MenuItem>
               </Menu>
             </Box>
@@ -386,9 +386,11 @@ const ProjectsComponent = ({
         teamId={team.dbid}
         open={showNewFolderDialog}
         onClose={() => { setShowNewFolderDialog(false); }}
-        title={<FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" />}
-        buttonLabel={<FormattedMessage id="projectsComponent.createFolder" defaultMessage="Create folder" />}
+        title={<FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" description="Dialog title for creating new folder" />}
+        buttonLabel={<FormattedMessage id="projectsComponent.createFolder" defaultMessage="Create folder" description="Button label for creating new folder" />}
         helpUrl="http://help.checkmedia.org/en/articles/5229479-folders-and-collections"
+        errorMessage={<FormattedMessage id="projectsComponent.newFolderErrorMessage" defaultMessage="Could not create folder, please try again" description="Error message when creating new folder fails" />}
+        successMessage={<FormattedMessage id="projectsComponent.newFolderSuccessMessage" defaultMessage="Folder created successfully" description="Success message when new folder is created" />}
       />
 
       <NewProject
@@ -396,9 +398,11 @@ const ProjectsComponent = ({
         teamId={team.dbid}
         open={showNewCollectionDialog}
         onClose={() => { setShowNewCollectionDialog(false); }}
-        title={<FormattedMessage id="projectsComponent.newCollection" defaultMessage="New collection" />}
-        buttonLabel={<FormattedMessage id="projectsComponent.createCollection" defaultMessage="Create collection" />}
+        title={<FormattedMessage id="projectsComponent.newCollection" defaultMessage="New collection" description="Dialog title for creating new collection" />}
+        buttonLabel={<FormattedMessage id="projectsComponent.createCollection" defaultMessage="Create collection" description="Button label for creating new collection" />}
         helpUrl="http://help.checkmedia.org/en/articles/5229479-folders-and-collections"
+        errorMessage={<FormattedMessage id="projectsComponent.newCollectionErrorMessage" defaultMessage="Could not create collection, please try again" description="Error message when creating new collection fails" />}
+        successMessage={<FormattedMessage id="projectsComponent.newCollectionSuccessMessage" defaultMessage="Collection created successfully" description="Success message when new collection is created" />}
       />
 
       <NewProject
@@ -409,6 +413,8 @@ const ProjectsComponent = ({
         title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" />}
         buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" />}
         helpUrl="https://help.checkmedia.org/en/articles/5229474-filtered-lists"
+        errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
+        successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
         noDescription
       />
     </React.Fragment>
