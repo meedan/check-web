@@ -53,7 +53,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamReportComponent.defaultErrorMessage"
-        defaultMessage="Could not save report settings."
+        defaultMessage="Could not save report settings"
         description="Warning displayed if an error occurred when saving report settings"
       />
     ), 'error');
@@ -64,7 +64,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamReportComponent.savedSuccessfully"
-        defaultMessage="Report settings saved successfully."
+        defaultMessage="Report settings saved successfully"
         description="Banner displayed when report settings are saved successfully"
       />
     ), 'success');

@@ -198,11 +198,11 @@
   },
   {
     "id": "annotation.movedToTrash",
-    "defaultMessage": "Moved to the trash by {author}"
+    "defaultMessage": "Moved to Trash by {author}"
   },
   {
     "id": "annotation.movedFromTrash",
-    "defaultMessage": "Moved out of the trash by {author}"
+    "defaultMessage": "Moved out of Trash by {author}"
   },
   {
     "id": "annotation.teamCopied",

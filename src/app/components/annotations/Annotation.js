@@ -1088,7 +1088,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.movedToTrash"
-              defaultMessage="Moved to the trash by {author}"
+              defaultMessage="Moved to Trash by {author}"
               values={{
                 author: authorName,
               }}
@@ -1100,7 +1100,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.movedFromTrash"
-              defaultMessage="Moved out of the trash by {author}"
+              defaultMessage="Moved out of Trash by {author}"
               values={{
                 author: authorName,
               }}
