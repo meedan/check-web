@@ -41,6 +41,7 @@ const RemoveableWrapper = ({
     <InputWrapper
       onMouseEnter={() => setShowDeleteIcon(true)}
       onMouseLeave={() => setShowDeleteIcon(false)}
+      style={readOnly ? { minHeight: 36 } : {}}
     >
       <Box display="flex" alignItems="center" {...boxProps}>
         { showDeleteIcon && !readOnly ? <CloseIcon className="multi-select-filter__remove" onClick={handleClick} /> : icon }
