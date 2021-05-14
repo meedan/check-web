@@ -64,8 +64,8 @@ const InviteDialog = ({
               primary={
                 <FormattedMessage
                   id="inviteDialog.sentOtherInvitation"
-                  defaultMessage="The other invites were sent successfully."
-                  description="Success message when user send multiple invitations and some emails fail and other mails success."
+                  defaultMessage="The other invites were sent successfully"
+                  description="Message displayed when user sends multiple invitations but some emails fail and others succeed"
                 />
               }
             />);

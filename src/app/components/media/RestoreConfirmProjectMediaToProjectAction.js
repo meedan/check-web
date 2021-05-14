@@ -65,7 +65,7 @@ function RestoreConfirmProjectMediaToProjectAction({
           (
             <FormattedMessage
               id="mediaActionsBar.movedRestoreBack"
-              defaultMessage="Restored from trash, redirecting…"
+              defaultMessage="Restored from Trash, redirecting…"
             />
           ) :
           (
@@ -94,7 +94,7 @@ function RestoreConfirmProjectMediaToProjectAction({
         onClick={openDialog}
       >
         { projectMedia.archived === CheckArchivedFlags.TRASHED ?
-          <FormattedMessage id="mediaActionsBar.restoreTo" defaultMessage="Restore from trash" />
+          <FormattedMessage id="mediaActionsBar.restoreTo" defaultMessage="Restore from Trash" />
           : <FormattedMessage id="mediaActionsBar.confirmTo" defaultMessage="Confirm" />
         }
       </Button>

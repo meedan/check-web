@@ -100,7 +100,7 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedToTrash"
-          defaultMessage="Sent to {trash}"
+          defaultMessage="The item was moved to {trash}"
           values={{
             trash: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
@@ -190,7 +190,7 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.assignmentsUpdated"
-          defaultMessage="Assignments updated successfully."
+          defaultMessage="Assignments updated successfully"
         />
       );
       this.props.setFlashMessage(message, 'success');

@@ -1,7 +1,7 @@
 [
   {
     "id": "mediaActionsBar.movedRestoreBack",
-    "defaultMessage": "Restored from trash, redirecting…"
+    "defaultMessage": "Restored from Trash, redirecting…"
   },
   {
     "id": "mediaActionsBar.movedConfirmBack",
@@ -9,7 +9,7 @@
   },
   {
     "id": "mediaActionsBar.restoreTo",
-    "defaultMessage": "Restore from trash"
+    "defaultMessage": "Restore from Trash"
   },
   {
     "id": "mediaActionsBar.confirmTo",

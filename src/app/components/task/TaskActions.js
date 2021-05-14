@@ -88,7 +88,7 @@ class TaskActions extends React.Component {
           className="task-actions__assign"
           onClick={() => this.handleAction('edit_assignment')}
         >
-          <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign / Unassign" />
+          <FormattedMessage id="task.assignOrUnassign" defaultMessage="Assign/Unassign" />
         </MenuItem>
       ));
     }

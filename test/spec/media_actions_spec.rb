@@ -16,13 +16,13 @@ shared_examples 'media actions' do
   it 'should create an item and assign it', bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media')
-    expect(@driver.page_source.include?('Assigments updated successfully.')).to be(false)
+    expect(@driver.page_source.include?('Assigments updated successfully')).to be(false)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__assign').click
     wait_for_selector('input[type=checkbox]').click
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('.message')
-    expect(@driver.page_source.include?('Assignments updated successfully.')).to be(true)
+    expect(@driver.page_source.include?('Assignments updated successfully')).to be(true)
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__history').click
     wait_for_selector('.annotation__timestamp')

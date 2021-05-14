@@ -64,7 +64,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamListsComponent.defaultErrorMessage"
-        defaultMessage="Could not save column settings."
+        defaultMessage="Could not save column settings"
         description="Warning displayed if an error occurred when saving column settings"
       />
     ), 'error');
@@ -75,7 +75,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamListsComponent.savedSuccessfully"
-        defaultMessage="Column settings saved successfully."
+        defaultMessage="Column settings saved successfully"
         description="Banner displayed when column settings are saved successfully"
       />
     ), 'success');
