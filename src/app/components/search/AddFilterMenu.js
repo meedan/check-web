@@ -16,6 +16,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 
 const StyledButton = withStyles({
   root: {
@@ -26,13 +27,150 @@ const StyledButton = withStyles({
   },
 })(Button);
 
-const AddFilterMenu = ({ hideOptions, onSelect }) => {
+const AddFilterMenu = ({
+  addedFields,
+  hideOptions,
+  onSelect,
+}) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleSelect = (field) => {
     setAnchorEl(null);
     onSelect(field);
   };
+
+  const options = [{
+    id: 'add-filter-menu__folder',
+    key: 'projects',
+    icon: <FolderIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.folder"
+        defaultMessage="Folder"
+        description="Menu option to enable searching items by folder"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__project-group-id',
+    key: 'project_group_id',
+    icon: <FolderSpecialIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.collection"
+        defaultMessage="Collection"
+        description="Menu option to enable searching items by collection"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__time-range',
+    key: 'range',
+    icon: <DateRangeIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.timeRange"
+        defaultMessage="Date range"
+        description="Menu option to enable searching items by date range"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__tags',
+    key: 'tags',
+    icon: <LocalOfferIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.tag"
+        defaultMessage="Tag"
+        description="Menu option to enable searching items by tags"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__media-type',
+    key: 'show',
+    icon: <DescriptionIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.mediaType"
+        defaultMessage="Media type"
+        description="Menu option to enable searching items by media type"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__status',
+    key: 'verification_status',
+    icon: <LabelIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.itemStatus"
+        defaultMessage="Item status"
+        description="Menu option to enable searching items by item status"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__report-status',
+    key: 'report_status',
+    icon: <ReportIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.reportStatus"
+        defaultMessage="Report status"
+        description="Menu option to enable searching items by report status"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__created-by',
+    key: 'users',
+    icon: <PersonIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.createdBy"
+        defaultMessage="Created by"
+        description="Menu option to enable searching items by author"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__language',
+    key: 'dynamic',
+    icon: <LanguageIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.language"
+        defaultMessage="Language"
+        description="Menu option to enable searching items by language"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__time-assigned-to',
+    key: 'assigned_to',
+    icon: <PersonIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.assignedTo"
+        defaultMessage="Assignment"
+        description="Menu option to enable searching items by assigned users"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__team-tasks',
+    key: 'team_tasks',
+    icon: <StarIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.metadata"
+        defaultMessage="Metadata"
+        description="Menu option to enable searching items by metadata fields"
+      />
+    ),
+  }];
 
   return (
     <React.Fragment>
@@ -60,118 +198,35 @@ const AddFilterMenu = ({ hideOptions, onSelect }) => {
             description="Header to menu of filter field types"
           />
         </MenuItem>
-        { hideOptions.includes('projects') ? null : (
-          <MenuItem id="add-filter-menu__folder" onClick={() => handleSelect('projects')}>
+        { options.map(o => hideOptions.includes(o.key) ? null : (
+          <MenuItem
+            id={o.id}
+            key={o.key}
+            onClick={() => handleSelect(o.key)}
+            disabled={(
+              addedFields.includes(o.key) ||
+              (addedFields.includes('projects') && o.key === 'project_group_id') ||
+              (addedFields.includes('project_group_id') && o.key === 'projects')
+            )}
+          >
             <ListItemIcon>
-              <FolderIcon />
+              {o.icon}
             </ListItemIcon>
-            <FormattedMessage
-              id="addFilterMenu.folder"
-              defaultMessage="Folder"
-              description="Menu option to enable searching items by folder"
-            />
+            {o.label}
           </MenuItem>
-        )}
-        <MenuItem id="add-filter-menu__time-range" onClick={() => handleSelect('range')}>
-          <ListItemIcon>
-            <DateRangeIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.timeRange"
-            defaultMessage="Date range"
-            description="Menu option to enable searching items by date range"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__tags" onClick={() => handleSelect('tags')}>
-          <ListItemIcon>
-            <LocalOfferIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.tag"
-            defaultMessage="Tag"
-            description="Menu option to enable searching items by tags"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__media-type" onClick={() => handleSelect('show')}>
-          <ListItemIcon>
-            <DescriptionIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.mediaType"
-            defaultMessage="Media type"
-            description="Menu option to enable searching items by media type"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__status" onClick={() => handleSelect('verification_status')}>
-          <ListItemIcon>
-            <LabelIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.itemStatus"
-            defaultMessage="Item status"
-            description="Menu option to enable searching items by item status"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__created-by" onClick={() => handleSelect('users')}>
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.createdBy"
-            defaultMessage="Created by"
-            description="Menu option to enable searching items by author"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__language" onClick={() => handleSelect('dynamic')}>
-          <ListItemIcon>
-            <LanguageIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.language"
-            defaultMessage="Language"
-            description="Menu option to enable searching items by language"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__report-status" onClick={() => handleSelect('report_status')}>
-          <ListItemIcon>
-            <ReportIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.reportStatus"
-            defaultMessage="Report status"
-            description="Menu option to enable searching items by report status"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__time-assigned-to" onClick={() => handleSelect('assigned_to')}>
-          <ListItemIcon>
-            <PersonIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.assignedTo"
-            defaultMessage="Assignment"
-            description="Menu option to enable searching items by assigned users"
-          />
-        </MenuItem>
-        <MenuItem id="add-filter-menu__team-tasks" onClick={() => handleSelect('team_tasks')}>
-          <ListItemIcon>
-            <StarIcon />
-          </ListItemIcon>
-          <FormattedMessage
-            id="addFilterMenu.metadata"
-            defaultMessage="Metadata"
-            description="Menu option to enable searching items by metadata fields"
-          />
-        </MenuItem>
+        )) }
       </Menu>
     </React.Fragment>
   );
 };
 
 AddFilterMenu.defaultProps = {
+  addedFields: [],
   hideOptions: [],
 };
 
 AddFilterMenu.propTypes = {
+  addedFields: PropTypes.arrayOf(PropTypes.string),
   hideOptions: PropTypes.arrayOf(PropTypes.string),
   onSelect: PropTypes.func.isRequired,
 };

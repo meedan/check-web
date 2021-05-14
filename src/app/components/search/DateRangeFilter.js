@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
-import Box from '@material-ui/core/Box';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -10,14 +9,16 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import DateRangeIcon from '@material-ui/icons/DateRange';
-import { FlexRow, units, opaqueBlack10 } from '../../styles/js/shared';
+import RemoveableWrapper from './RemoveableWrapper';
+import { FlexRow, units, opaqueBlack07 } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
 const StyledInputBase = withStyles(theme => ({
   root: {
-    backgroundColor: opaqueBlack10,
+    backgroundColor: opaqueBlack07,
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
+    fontSize: 14,
   },
 }))(InputBase);
 
@@ -25,6 +26,7 @@ const StyledInputBaseStart = withStyles(theme => ({
   root: {
     borderBottomLeftRadius: theme.spacing(0.5),
     borderTopLeftRadius: theme.spacing(0.5),
+    fontSize: 14,
   },
 }))(StyledInputBase);
 
@@ -110,7 +112,7 @@ class DateRangeFilter extends React.Component {
   }
 
   render() {
-    const { hide, classes } = this.props;
+    const { hide, classes, onRemove } = this.props;
     if (hide) {
       return null;
     }
@@ -130,7 +132,13 @@ class DateRangeFilter extends React.Component {
             <Select
               onChange={this.handleChangeType}
               value={this.valueType}
-              input={<StyledInputBaseStart startAdornment={<Box pr={1}><DateRangeIcon /></Box>} />}
+              input={
+                <StyledInputBaseStart
+                  startAdornment={
+                    <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                  }
+                />
+              }
             >
               <MenuItem value="created_at"> { label.created_at } </MenuItem>
               <MenuItem value="last_seen"> { label.last_seen } </MenuItem>
@@ -223,6 +231,7 @@ DateRangeFilter.propTypes = {
     }),
   ]),
   onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default withStyles(Styles)(DateRangeFilter);

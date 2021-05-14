@@ -117,7 +117,7 @@ class ProjectComponent extends React.PureComponent {
           project={project}
           query={query}
           page="folder"
-          hideFields={['projects', 'read']}
+          hideFields={['projects', 'project_group_id']}
         />
       </div>
     );

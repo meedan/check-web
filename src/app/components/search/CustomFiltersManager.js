@@ -21,6 +21,9 @@ const CustomFiltersManager = ({
     const newQuery = {};
     newQuery.team_tasks = query.team_tasks ? [...query.team_tasks] : [];
     newQuery.team_tasks.splice(index, 1);
+    if (newQuery.team_tasks.length === 0) {
+      delete newQuery.team_tasks;
+    }
     onFilterChange(newQuery);
   };
 

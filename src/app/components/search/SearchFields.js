@@ -5,17 +5,16 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
-import FolderIcon from '@material-ui/icons/Folder';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import deepEqual from 'deep-equal';
 import CustomFiltersManager from './CustomFiltersManager';
 // eslint-disable-next-line no-unused-vars
@@ -79,7 +78,6 @@ class SearchFields extends React.Component {
     super(props);
     this.state = {
       query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
-      addedFields: [],
     };
   }
 
@@ -103,19 +101,33 @@ class SearchFields extends React.Component {
         delete cleanQuery.range;
       }
     }
+    Object.keys(query).forEach((key) => {
+      if (Array.isArray(cleanQuery[key]) && (cleanQuery[key].length === 0)) {
+        delete cleanQuery[key];
+      }
+    });
     return cleanQuery;
   }
 
   handleAddField = (field) => {
+    const newQuery = { ...this.state.query };
+
     if (field === 'team_tasks') {
-      const newQuery = {};
       newQuery.team_tasks = this.state.query.team_tasks ?
         [...this.state.query.team_tasks, {}] : [{}];
-      this.handleCustomFilterChange(newQuery);
+    } else if (field === 'range') {
+      newQuery.range = { created_at: {} };
+    } else {
+      newQuery[field] = [];
     }
 
-    const addedFields = [...this.state.addedFields, field];
-    this.setState({ addedFields });
+    this.setState({ query: newQuery });
+  };
+
+  handleRemoveField = (field) => {
+    const newQuery = { ...this.state.query };
+    delete newQuery[field];
+    this.setState({ query: newQuery });
   };
 
   handleApplyFilters() {
@@ -123,47 +135,27 @@ class SearchFields extends React.Component {
     if (this.filterIsApplicable(cleanQuery)) {
       this.props.onChange(cleanQuery);
     } else {
-      this.setState({ query: cleanQuery, addedFields: [] });
+      this.setState({ query: cleanQuery });
     }
   }
 
-  fieldIsDisplayed = field => (
-    (field === 'projects' && Boolean(this.props.project)) ||
-    (this.state.addedFields.includes(field) || this.props.query[field])
-  );
-
-  filterIsActive = () => {
-    const { query } = this.props;
-    const filterFields = [
-      'range',
-      'verification_status',
-      'projects',
-      'tags',
-      'type',
-      'dynamic',
-      'users',
-      'read',
-      'show',
-      'team_tasks',
-    ];
-    return filterFields.some(key => !!query[key]) || this.state.addedFields.length > 0;
-  };
+  filterIsActive = () => Object.keys(this.state.query).filter(k => k !== 'keyword').length > 0;
 
   filterIsApplicable = () => {
     const cleanQuery = this.cleanup(this.state.query);
     return (!deepEqual(cleanQuery, this.props.query));
   };
 
-  readIsSelected(isRead) {
-    return this.state.query.read === isRead;
-  }
-
   handleDateChange = (value) => {
     this.setState({ query: { ...this.state.query, range: value } });
   }
 
   handleCustomFilterChange = (value) => {
-    this.setState({ query: { ...this.state.query, ...value } });
+    const query = { ...this.state.query, ...value };
+    if (JSON.stringify(value) === '{}') {
+      delete query.team_tasks;
+    }
+    this.setState({ query });
   }
 
   handleStatusClick = (statusCodes) => {
@@ -196,9 +188,9 @@ class SearchFields extends React.Component {
     });
   }
 
-  handleReadClick = (isRead) => {
+  handleProjectGroupClick = (projectGroupDbids) => {
     this.setState({
-      query: { ...this.state.query, read: isRead },
+      query: updateStateQueryArrayValue(this.state.query, 'project_group_id', projectGroupDbids),
     });
   }
 
@@ -244,30 +236,30 @@ class SearchFields extends React.Component {
     }
   }
 
-  hideField(field) {
-    return this.props.hideFields ? this.props.hideFields.indexOf(field) > -1 : false;
-  }
-
   handleSubmit = (ev) => {
     ev.preventDefault();
     this.handleApplyFilters();
   }
 
   handleClickClear = () => {
-    this.setState({ addedFields: [] });
-    this.props.onChange({});
-  }
+    const { keyword } = this.state.query;
+    const newQuery = { keyword };
+    this.setState({ query: newQuery });
+    this.props.onChange(newQuery);
+  };
 
   render() {
-    const { team, project } = this.props;
+    const { team, project, projectGroup } = this.props;
     const { statuses } = team.verification_statuses;
 
     // Folder options are grouped by collection
     // FIXME: Simplify the code below and improve its performance
     const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
     let projectOptions = [];
+    const projectGroupOptions = [];
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
       const subProjects = [];
+      projectGroupOptions.push({ label: pg.title, value: `${pg.dbid}` });
       projects.filter(p => p.project_group_id === pg.dbid).forEach((p) => {
         subProjects.push({ label: p.title, value: `${p.dbid}` });
       });
@@ -281,7 +273,11 @@ class SearchFields extends React.Component {
       orphanProjects.push({ label: p.title, value: `${p.dbid}` });
     });
     if (orphanProjects.length > 0) {
-      projectOptions.push({ label: '', value: '', orphanProjects: orphanProjects.map(op => op.label).join(',') });
+      projectOptions.push({
+        label: <FormattedMessage id="search.notInAny" defaultMessage="Not in any collection" description="Label displayed before listing all folders that are not part of any collection" />,
+        value: '',
+        orphanProjects: orphanProjects.map(op => op.label).join(','),
+      });
       projectOptions = projectOptions.concat(orphanProjects);
     }
 
@@ -312,36 +308,50 @@ class SearchFields extends React.Component {
       });
     }
 
-    const fields = [];
-    if (this.fieldIsDisplayed('projects')) {
-      const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
-      fields.push(
+    const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
+    const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
+
+    const fieldComponents = {
+      projects: (
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
           { label => (
             <MultiSelectFilter
               label={label}
-              icon={<FolderIcon />}
+              icon={<FolderOpenIcon />}
               selected={project ? [`${project.dbid}`] : selectedProjects}
               options={projectOptions}
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
+              onRemove={() => this.handleRemoveField('projects')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('range')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      project_group_id: (
+        <FormattedMessage id="search.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<FolderSpecialIcon />}
+              selected={projectGroup ? [`${projectGroup.dbid}`] : selectedProjectGroups}
+              options={projectGroupOptions}
+              onChange={this.handleProjectGroupClick}
+              readOnly={Boolean(projectGroup)}
+              onRemove={() => this.handleRemoveField('project_group_id')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      range: (
         <Box maxWidth="400px">
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.state.query.range}
+            onRemove={() => this.handleRemoveField('range')}
           />
-        </Box>,
-      );
-    }
-    if (this.fieldIsDisplayed('tags')) {
-      fields.push(
+        </Box>
+      ),
+      tags: (
         <FormattedMessage id="search.categoriesHeading" defaultMessage="Tag is" description="Prefix label for field to filter by tags">
           { label => (
             <MultiSelectFilter
@@ -354,28 +364,27 @@ class SearchFields extends React.Component {
               }}
               onToggleOperator={this.handleTagsOperator}
               operator={this.state.query.tags_operator}
+              onRemove={() => this.handleRemoveField('tags')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('show')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      show: (
         <FormattedMessage id="search.show" defaultMessage="Media type is" description="Prefix label for field to filter by media type">
           { label => (
             <MultiSelectFilter
+              allowSearch={false}
               label={label}
               icon={<DescriptionIcon />}
               selected={this.state.query.show}
               options={types}
               onChange={this.handleShowClick}
+              onRemove={() => this.handleRemoveField('show')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('verification_status')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      verification_status: (
         <FormattedMessage id="search.statusHeading" defaultMessage="Item status is" description="Prefix label for field to filter by status">
           { label => (
             <MultiSelectFilter
@@ -384,13 +393,12 @@ class SearchFields extends React.Component {
               selected={this.state.query.verification_status}
               options={statuses.map(s => ({ label: s.label, value: s.id }))}
               onChange={this.handleStatusClick}
+              onRemove={() => this.handleRemoveField('verification_status')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('users')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      users: (
         <FormattedMessage id="search.userHeading" defaultMessage="Created by" description="Prefix label for field to filter by item creator">
           { label => (
             <MultiSelectFilter
@@ -399,63 +407,16 @@ class SearchFields extends React.Component {
               selected={this.state.query.users}
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handleUserClick}
+              onRemove={() => this.handleRemoveField('users')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('dynamic')) {
-      // The only dynamic filter available right now is language
-      fields.push(
-        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<LanguageIcon />}
-              selected={this.state.query.dynamic && this.state.query.dynamic.language}
-              options={languages}
-              onChange={newValue => this.handleDynamicClick('language', newValue)}
-            />
-          )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('assigned_to')) {
-      fields.push(
-        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
-          { label => (
-            <MultiSelectFilter
-              label={label}
-              icon={<PersonIcon />}
-              selected={this.state.query.assigned_to}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
-              onChange={this.handleAssignedUserClick}
-            />
-          )}
-        </FormattedMessage>,
-      );
-    }
-    // TODO: Remove "read" field related code if it's not going to be used
-    if (this.fieldIsDisplayed('read')) {
-      fields.push(
-        <FormControlLabel
-          control={
-            <Switch
-              checked={this.readIsSelected(true)}
-              onChange={(e) => { this.handleReadClick(e.target.checked); }}
-            />
-          }
-          label={
-            <FormattedMessage id="search.readHeading" defaultMessage="Read" description="Label for field to filter by 'item is marked' as read" />
-          }
-        />,
-      );
-    }
-    if (this.fieldIsDisplayed('report_status')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      report_status: (
         <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
           { label => (
             <MultiSelectFilter
+              allowSearch={false}
               label={label}
               icon={<ReportIcon />}
               selected={this.state.query.report_status}
@@ -465,39 +426,76 @@ class SearchFields extends React.Component {
                 { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
               ]}
               onChange={this.handleReportStatusClick}
+              onRemove={() => this.handleRemoveField('report_status')}
             />
           )}
-        </FormattedMessage>,
-      );
-    }
-    if (this.fieldIsDisplayed('team_tasks')) {
-      fields.push(
+        </FormattedMessage>
+      ),
+      dynamic: (
+        <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<LanguageIcon />}
+              selected={this.state.query.dynamic && this.state.query.dynamic.language}
+              options={languages}
+              onChange={newValue => this.handleDynamicClick('language', newValue)}
+              onRemove={() => this.handleRemoveField('dynamic')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      assigned_to: (
+        <FormattedMessage id="search.assignedTo" defaultMessage="Assigned to" description="Prefix label for field to filter by assigned users">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              selected={this.state.query.assigned_to}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handleAssignedUserClick}
+              onRemove={() => this.handleRemoveField('assigned_to')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      team_tasks: (
         <CustomFiltersManager
           onFilterChange={this.handleCustomFilterChange}
           team={team}
           query={this.state.query}
-        />,
-      );
-    }
+        />
+      ),
+    };
+
+    let fieldKeys = [];
+    if (this.props.project) fieldKeys.push('projects');
+    if (this.props.projectGroup) fieldKeys.push('project_group_id');
+
+    fieldKeys = fieldKeys.concat(Object.keys(this.state.query).filter(k => k !== 'keyword'));
 
     return (
       <div>
-        <Row style={{ gap: '8px' }}>
+        <Row flexWrap style={{ gap: '8px' }}>
           { /* FIXME: Each child in a list should have a unique "key" prop */}
-          { fields.map((field, index) => index > 0 ? (
+          { fieldKeys.map((key, index) => index > 0 ? (
             <React.Fragment>
               <Box height="36px" display="flex" alignItems="center">
                 <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
               </Box>
-              {field}
+              { fieldComponents[key] }
             </React.Fragment>
           ) : (
             <span>
-              {field}
+              { fieldComponents[key] }
             </span>
           )) }
-          <AddFilterMenu hideOptions={this.props.hideFields} onSelect={this.handleAddField} />
-          { this.state.addedFields.length || this.filterIsApplicable() ?
+          <AddFilterMenu
+            hideOptions={this.props.hideFields}
+            addedFields={fieldKeys}
+            onSelect={this.handleAddField}
+          />
+          { this.filterIsApplicable() ?
             <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
               <IconButton id="search-fields__submit-button" onClick={this.handleSubmit} size="small">
                 <PlayArrowIcon color="primary" />
@@ -505,13 +503,13 @@ class SearchFields extends React.Component {
             </Tooltip>
             : null }
           { this.filterIsActive() ? (
-            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
+            <Tooltip title={<FormattedMessage id="searchFields.clear" defaultMessage="Clear filters" description="Tooltip for button to remove any applied filters" />}>
               <IconButton id="search-fields__clear-button" onClick={this.handleClickClear} size="small">
                 <ClearIcon color="primary" />
               </IconButton>
             </Tooltip>
           ) : null }
-          <SaveList team={team} query={this.state.query} project={project} savedSearch={this.props.savedSearch} />
+          <SaveList team={team} query={this.state.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} />
         </Row>
       </div>
     );
@@ -520,11 +518,15 @@ class SearchFields extends React.Component {
 
 SearchFields.defaultProps = {
   project: null,
+  projectGroup: null,
   savedSearch: null,
 };
 
 SearchFields.propTypes = {
   project: PropTypes.shape({
+    dbid: PropTypes.number.isRequired,
+  }),
+  projectGroup: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
   }),
   savedSearch: PropTypes.shape({

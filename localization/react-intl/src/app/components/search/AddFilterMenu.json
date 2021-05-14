@@ -1,18 +1,13 @@
 [
   {
-    "id": "addFilterMenu.addFilter",
-    "description": "Button that opens menu with filter field options",
-    "defaultMessage": "Add filter"
-  },
-  {
-    "id": "addFilterMenu.filterBy",
-    "description": "Header to menu of filter field types",
-    "defaultMessage": "Filter by"
-  },
-  {
     "id": "addFilterMenu.folder",
     "description": "Menu option to enable searching items by folder",
     "defaultMessage": "Folder"
+  },
+  {
+    "id": "addFilterMenu.collection",
+    "description": "Menu option to enable searching items by collection",
+    "defaultMessage": "Collection"
   },
   {
     "id": "addFilterMenu.timeRange",
@@ -35,6 +30,11 @@
     "defaultMessage": "Item status"
   },
   {
+    "id": "addFilterMenu.reportStatus",
+    "description": "Menu option to enable searching items by report status",
+    "defaultMessage": "Report status"
+  },
+  {
     "id": "addFilterMenu.createdBy",
     "description": "Menu option to enable searching items by author",
     "defaultMessage": "Created by"
@@ -45,11 +45,6 @@
     "defaultMessage": "Language"
   },
   {
-    "id": "addFilterMenu.reportStatus",
-    "description": "Menu option to enable searching items by report status",
-    "defaultMessage": "Report status"
-  },
-  {
     "id": "addFilterMenu.assignedTo",
     "description": "Menu option to enable searching items by assigned users",
     "defaultMessage": "Assignment"
@@ -58,5 +53,15 @@
     "id": "addFilterMenu.metadata",
     "description": "Menu option to enable searching items by metadata fields",
     "defaultMessage": "Metadata"
+  },
+  {
+    "id": "addFilterMenu.addFilter",
+    "description": "Button that opens menu with filter field options",
+    "defaultMessage": "Add filter"
+  },
+  {
+    "id": "addFilterMenu.filterBy",
+    "description": "Header to menu of filter field types",
+    "defaultMessage": "Filter by"
   }
 ]

@@ -8,9 +8,9 @@ import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import styled from 'styled-components';
 import MultiSelector from '../layout/MultiSelector';
-import { checkBlue, opaqueBlack54 } from '../../styles/js/shared';
+import RemoveableWrapper from './RemoveableWrapper';
+import { checkBlue } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
@@ -24,8 +24,8 @@ const NoHoverButton = withStyles({
       background: 'transparent',
     },
   },
-  text: {
-    color: opaqueBlack54,
+  disabled: {
+    color: 'black !important',
   },
 })(Button);
 
@@ -33,6 +33,7 @@ const OperatorToggle = ({ onClick, operator }) => (
   <NoHoverButton
     onClick={onClick}
     disabled={!onClick}
+    color="primary"
     disableRipple
   >
     { operator === 'and' ?
@@ -41,22 +42,6 @@ const OperatorToggle = ({ onClick, operator }) => (
     }
   </NoHoverButton>
 );
-
-// FIXME: Get rid of styled-components
-// Based on example from material-ui doc: https://material-ui.com/components/autocomplete/#useautocomplete
-const InputWrapper = styled('div')`
-  height: 36px;
-  background-color: #eee;
-  border-radius: 4px;
-  padding-right: 4px;
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-
-  &.focused {
-    background-color: #ccc;
-  }
-`;
 
 const useTagStyles = makeStyles({
   root: {
@@ -111,6 +96,7 @@ const Tag = ({
 const usePlusButtonStyles = makeStyles({
   root: {
     height: '36px',
+    paddingLeft: '4px',
     borderLeft: '2px solid white',
     alignItems: 'center',
     display: 'flex',
@@ -128,16 +114,19 @@ const PlusButton = ({ children }) => {
 };
 
 const MultiSelectFilter = ({
+  allowSearch,
   selected = [],
   icon,
   label,
   options,
   onChange,
+  onRemove,
   onToggleOperator,
   operator,
   readOnly,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
+  const [version, setVersion] = React.useState(0);
 
   const getLabelForValue = (value) => {
     const option = options.find(o => o.value === value);
@@ -151,23 +140,17 @@ const MultiSelectFilter = ({
 
   const handleSelect = (value) => {
     setShowSelect(false);
+    setVersion(version + 1); // Force refresh of wrapper component
     onChange(value);
   };
 
   return (
     <div>
       <div className="multi-select-filter">
-        <InputWrapper>
-          { icon ? (
-            <Box px={0.5} display="flex" alignItems="center">
-              {icon}
-            </Box>
-          ) : null }
-          { label ? (
-            <Box px={0.5} display="flex" alignItems="center" whiteSpace="nowrap">
-              {label}
-            </Box>
-          ) : null }
+        <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version} boxProps={{ px: 0.5 }}>
+          <Box px={0.5} display="flex" alignItems="center" whiteSpace="nowrap">
+            {label}
+          </Box>
           { selected.map((value, index) => (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
@@ -191,6 +174,7 @@ const MultiSelectFilter = ({
           ) : null }
           { (selected.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
+              allowSearch={allowSearch}
               options={options}
               selected={selected}
               onSubmit={handleSelect}
@@ -201,7 +185,7 @@ const MultiSelectFilter = ({
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />
             </PlusButton>
           )}
-        </InputWrapper>
+        </RemoveableWrapper>
       </div>
     </div>
   );
@@ -220,6 +204,7 @@ const SelectButton = withStyles({
 })(Button);
 
 const CustomSelectDropdown = ({
+  allowSearch,
   options,
   selected,
   onSubmit,
@@ -249,7 +234,7 @@ const CustomSelectDropdown = ({
         onClose={() => setAnchorEl(null)}
       >
         <MultiSelector
-          allowSearch
+          allowSearch={allowSearch}
           options={options}
           selected={selected}
           onSubmit={handleSubmit}
@@ -268,6 +253,7 @@ const CustomSelectDropdown = ({
 
 
 MultiSelectFilter.defaultProps = {
+  allowSearch: true,
   icon: null,
   selected: [],
   onToggleOperator: null,
@@ -275,6 +261,7 @@ MultiSelectFilter.defaultProps = {
 };
 
 MultiSelectFilter.propTypes = {
+  allowSearch: PropTypes.bool,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,

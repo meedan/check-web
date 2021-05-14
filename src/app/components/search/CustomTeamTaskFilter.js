@@ -7,8 +7,9 @@ import Button from '@material-ui/core/Button';
 import Popover from '@material-ui/core/Popover';
 import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
+import RemoveableWrapper from './RemoveableWrapper';
 import CustomFilter from './CustomFilter';
-import { opaqueBlack10 } from '../../styles/js/shared';
+import { opaqueBlack07 } from '../../styles/js/shared';
 
 const messages = defineMessages({
   metadataChoiceLabel: {
@@ -55,11 +56,11 @@ const useStyles = makeStyles({
 const useStylesButton = makeStyles({
   root: {
     '&:hover': {
-      backgroundColor: opaqueBlack10,
+      backgroundColor: opaqueBlack07,
     },
   },
   text: {
-    backgroundColor: opaqueBlack10,
+    backgroundColor: opaqueBlack07,
   },
   label: {
     textTransform: 'none',
@@ -302,12 +303,14 @@ const CustomTeamTaskFilter = ({
 
   return (
     <React.Fragment>
-      <Box maxWidth="400px" mr={1} mb={1}>
+      <Box maxWidth="400px">
         <Button
           classes={classesButton}
           disableRipple
           onClick={e => setAnchorEl(e.currentTarget)}
-          startIcon={<StarIcon />}
+          startIcon={
+            <RemoveableWrapper icon={<StarIcon />} onRemove={handleRemove} boxProps={{ p: 0 }} />
+          }
         >
           <FilterLabel />
         </Button>

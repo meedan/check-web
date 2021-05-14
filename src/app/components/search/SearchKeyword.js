@@ -3,6 +3,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import IconButton from '@material-ui/core/IconButton';
@@ -154,7 +155,6 @@ class SearchKeyword extends React.Component {
       'type',
       'dynamic',
       'users',
-      'read',
       'team_tasks',
     ];
     return filterFields.some(key => !!query[key]);
@@ -226,8 +226,10 @@ class SearchKeyword extends React.Component {
   }
 
   handleClickClear = () => {
-    this.props.onChange({});
-  }
+    const newQuery = { ...this.state.query };
+    delete newQuery.keyword;
+    this.setState({ query: newQuery }, this.handleApplyFilters);
+  };
 
   subscribe() {
     const { pusher, clientSessionId, team } = this.props;
@@ -289,58 +291,62 @@ class SearchKeyword extends React.Component {
             onSubmit={this.handleSubmit}
             autoComplete="off"
           >
-            <FormattedMessage id="search.inputHint" defaultMessage="Search" description="Placeholder for search keywords input">
-              { placeholder => (
-                <InputBase
-                  classes={{
-                    root: (
-                      this.keywordIsActive() || this.keywordConfigIsActive() ?
-                        classes.inputActive :
-                        classes.inputInactive
-                    ),
-                  }}
-                  placeholder={placeholder}
-                  name="search-input"
-                  id="search-input"
-                  defaultValue={this.state.query.keyword || ''}
-                  onBlur={this.handleBlur}
-                  onChange={this.handleInputChange}
-                  ref={this.searchInput}
-                  InputProps={{
-                    disableUnderline: true,
-                    startAdornment: (
-                      <InputAdornment
-                        classes={{
-                          root: classes.startAdornmentRoot,
-                        }}
-                      >
-                        <SearchIcon />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment
-                        classes={{
-                          root: classes.endAdornmentRoot,
-                          filled: (
-                            this.keywordConfigIsActive() ?
-                              classes.endAdornmentActive :
-                              classes.endAdornmentInactive
-                          ),
-                        }}
-                        variant="filled"
-                      >
-                        <SearchKeywordMenu
-                          teamSlug={this.props.team.slug}
-                          onChange={this.handleKeywordConfigChange}
-                          query={this.state.query}
-                        />
-                      </InputAdornment>
-                    ),
-                  }}
-                  autoFocus
-                />
-              )}
-            </FormattedMessage>
+            <Box width="450px">
+              <FormattedMessage id="search.inputHint" defaultMessage="Search" description="Placeholder for search keywords input">
+                { placeholder => (
+                  <InputBase
+                    classes={{
+                      root: (
+                        this.keywordIsActive() || this.keywordConfigIsActive() ?
+                          classes.inputActive :
+                          classes.inputInactive
+                      ),
+                    }}
+                    placeholder={placeholder}
+                    name="search-input"
+                    id="search-input"
+                    defaultValue={this.state.query.keyword || ''}
+                    onBlur={this.handleBlur}
+                    onChange={this.handleInputChange}
+                    ref={this.searchInput}
+                    InputProps={{
+                      disableUnderline: true,
+                      startAdornment: (
+                        <InputAdornment
+                          classes={{
+                            root: classes.startAdornmentRoot,
+                          }}
+                        >
+                          <SearchIcon />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment
+                          classes={{
+                            root: classes.endAdornmentRoot,
+                            filled: (
+                              this.keywordConfigIsActive() ?
+                                classes.endAdornmentActive :
+                                classes.endAdornmentInactive
+                            ),
+                          }}
+                          variant="filled"
+                        >
+                          <SearchKeywordMenu
+                            teamSlug={this.props.team.slug}
+                            onChange={this.handleKeywordConfigChange}
+                            query={this.state.query}
+                            anchorParent={() => this.searchInput.current}
+                          />
+                        </InputAdornment>
+                      ),
+                    }}
+                    autoFocus
+                    fullWidth
+                  />
+                )}
+              </FormattedMessage>
+            </Box>
             <StyledPopper
               id="search-help"
               open={
@@ -378,9 +384,9 @@ class SearchKeyword extends React.Component {
           </form>
 
           { this.keywordIsActive() ? (
-            <Tooltip title={<FormattedMessage id="search.clear" defaultMessage="Clear filter" description="Tooltip for button to remove any applied filters" />}>
+            <Tooltip title={<FormattedMessage id="searchKeyword.clear" defaultMessage="Clear keyword search" description="Tooltip for button to remove any applied keyword search" />}>
               <IconButton id="search-keyword__clear-button" onClick={this.handleClickClear}>
-                <ClearIcon style={{ color: brandHighlight }} />
+                <ClearIcon color="primary" />
               </IconButton>
             </Tooltip>
           ) : null}

@@ -30,9 +30,19 @@
     "defaultMessage": "Imported report"
   },
   {
+    "id": "search.notInAny",
+    "description": "Label displayed before listing all folders that are not part of any collection",
+    "defaultMessage": "Not in any collection"
+  },
+  {
     "id": "search.folderHeading",
     "description": "Prefix label for field to filter by folder to which items belong",
     "defaultMessage": "Folder is"
+  },
+  {
+    "id": "search.collection",
+    "description": "Prefix label for field to filter by collection",
+    "defaultMessage": "Collection is"
   },
   {
     "id": "search.categoriesHeading",
@@ -55,21 +65,6 @@
     "defaultMessage": "Created by"
   },
   {
-    "id": "search.language",
-    "description": "Prefix label for field to filter by language",
-    "defaultMessage": "Language is"
-  },
-  {
-    "id": "search.assignedTo",
-    "description": "Prefix label for field to filter by assigned users",
-    "defaultMessage": "Assigned to"
-  },
-  {
-    "id": "search.readHeading",
-    "description": "Label for field to filter by 'item is marked' as read",
-    "defaultMessage": "Read"
-  },
-  {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
     "defaultMessage": "Report status is"
@@ -90,6 +85,16 @@
     "defaultMessage": "Published"
   },
   {
+    "id": "search.language",
+    "description": "Prefix label for field to filter by language",
+    "defaultMessage": "Language is"
+  },
+  {
+    "id": "search.assignedTo",
+    "description": "Prefix label for field to filter by assigned users",
+    "defaultMessage": "Assigned to"
+  },
+  {
     "id": "search.fieldAnd",
     "description": "Logical operator to be applied when filtering by multiple fields",
     "defaultMessage": "AND"
@@ -100,8 +105,8 @@
     "defaultMessage": "Apply filter"
   },
   {
-    "id": "search.clear",
+    "id": "searchFields.clear",
     "description": "Tooltip for button to remove any applied filters",
-    "defaultMessage": "Clear filter"
+    "defaultMessage": "Clear filters"
   }
 ]

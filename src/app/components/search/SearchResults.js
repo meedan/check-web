@@ -40,7 +40,8 @@ const StyledListHeader = styled.div`
 
   .project__description {
     max-width: 30%;
-    max-height: ${units(4)};
+    padding-top: ${units(0.5)};
+    height: ${units(4)};
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -69,12 +70,12 @@ const StyledSearchResultsWrapper = styled.div`
 `;
 
 /**
- * Delete `esoffset`, `timestamp`, and maybe `projects` -- whenever
+ * Delete `esoffset`, `timestamp`, and maybe `projects` and `project_group_id` -- whenever
  * they can be inferred from the URL or defaults.
  *
  * This is useful for building simple-as-possible URLs.
  */
-function simplifyQuery(query, project) {
+function simplifyQuery(query, project, projectGroup) {
   const ret = { ...query };
   delete ret.esoffset;
   delete ret.timestamp;
@@ -86,6 +87,15 @@ function simplifyQuery(query, project) {
     )
   ) {
     delete ret.projects;
+  }
+  if (
+    ret.project_group_id &&
+    (
+      ret.project_group_id.length === 0 ||
+      (ret.project_group_id.length === 1 && projectGroup && ret.project_group_id[0] === projectGroup.dbid)
+    )
+  ) {
+    delete ret.project_group_id;
   }
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
@@ -200,7 +210,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   handleChangeSortParams = (sortParams) => {
-    const { query, project } = this.props;
+    const { query, project, projectGroup } = this.props;
 
     const newQuery = { ...query };
     if (sortParams === null) {
@@ -210,13 +220,13 @@ class SearchResultsComponent extends React.PureComponent {
       newQuery.sort = sortParams.key;
       newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
-    const cleanQuery = simplifyQuery(newQuery, project);
+    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     this.navigateToQuery(cleanQuery);
   }
 
   handleChangeQuery = (newQuery /* minus sort data */) => {
-    const { query, project } = this.props;
-    const cleanQuery = simplifyQuery(newQuery, project);
+    const { query, project, projectGroup } = this.props;
+    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     if (query.sort) {
       cleanQuery.sort = query.sort;
     }
@@ -238,10 +248,11 @@ class SearchResultsComponent extends React.PureComponent {
     const {
       query,
       project,
+      projectGroup,
       searchUrlPrefix,
     } = this.props;
 
-    const cleanQuery = simplifyQuery(query, project);
+    const cleanQuery = simplifyQuery(query, project, projectGroup);
     if (offset > 0) {
       cleanQuery.esoffset = offset;
     }
@@ -269,12 +280,13 @@ class SearchResultsComponent extends React.PureComponent {
     const {
       query,
       project,
+      projectGroup,
       search,
       searchUrlPrefix,
       mediaUrlPrefix,
     } = this.props;
 
-    const cleanQuery = simplifyQuery(query, project);
+    const cleanQuery = simplifyQuery(query, project, projectGroup);
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = this.beginIndex + itemIndexInPage;
     const urlParams = new URLSearchParams();
@@ -299,6 +311,7 @@ class SearchResultsComponent extends React.PureComponent {
     const {
       query,
       project,
+      projectGroup,
       title,
       icon,
       page,
@@ -367,7 +380,7 @@ class SearchResultsComponent extends React.PureComponent {
       );
     }
 
-    const unsortedQuery = simplifyQuery(query, project); // nix .projects
+    const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects and .project_group_id
     delete unsortedQuery.sort;
     delete unsortedQuery.sort_type;
 
@@ -413,6 +426,7 @@ class SearchResultsComponent extends React.PureComponent {
             query={unsortedQuery}
             onChange={this.handleChangeQuery}
             project={this.props.project}
+            projectGroup={this.props.projectGroup}
             savedSearch={this.props.savedSearch}
             hideFields={this.props.hideFields}
             title={this.props.title}
@@ -505,6 +519,7 @@ class SearchResultsComponent extends React.PureComponent {
 
 SearchResultsComponent.defaultProps = {
   project: null,
+  projectGroup: null,
 };
 
 SearchResultsComponent.propTypes = {
@@ -518,6 +533,10 @@ SearchResultsComponent.propTypes = {
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
   }).isRequired,
   project: PropTypes.shape({
+    id: PropTypes.string.isRequired, // TODO fill in props
+    dbid: PropTypes.number.isRequired,
+  }), // may be null
+  projectGroup: PropTypes.shape({
     id: PropTypes.string.isRequired, // TODO fill in props
     dbid: PropTypes.number.isRequired,
   }), // may be null

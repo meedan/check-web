@@ -62,7 +62,7 @@ Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
 };
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'unconfirmed', 'collection', 'folder', 'list']), // FIXME find a cleaner way to render Trash differently
 };
 
 export default injectIntl(Toolbar);

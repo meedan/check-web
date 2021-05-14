@@ -30,14 +30,12 @@ const ExtraMediaActions = ({
   showVideoAnnotation,
   onVideoAnnoToggle,
   reverseImageSearchGoogle,
-  ctTextSearch,
 }) => {
   const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
   const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
   const isPicture = !!projectMedia.picture;
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || allowsVideoAnnotation;
-  const allowsTextSearch = projectMedia.media.type === 'Claim' || projectMedia.media.type === 'Link';
   const classes = useStyles();
 
   return (
@@ -70,18 +68,6 @@ const ExtraMediaActions = ({
             defaultMessage="Google Image Search"
           />
         </Button> : null }
-      { allowsTextSearch ?
-        <Button
-          size="small"
-          classes={classes}
-          onClick={ctTextSearch}
-          variant="outlined"
-        >
-          <FormattedMessage
-            id="mediaMetadata.ctTextSearch"
-            defaultMessage="CrowdTangle Text Search"
-          />
-        </Button> : null }
     </div>
   );
 };
@@ -91,21 +77,6 @@ class MediaExpandedActions extends React.Component {
   reverseImageSearchGoogle() {
     const imagePath = this.props.projectMedia.picture;
     window.open(`https://www.google.com/searchbyimage?image_url=${imagePath}`);
-  }
-
-  ctTextSearch() {
-    let text = '';
-    const { media } = this.props.projectMedia;
-    // Link
-    if (media && media.metadata && media.metadata.title) {
-      text = media.metadata.title;
-    }
-    // Claim
-    if (media && media.quote) {
-      text = media.quote.match(/^[^.!?\n]*/);
-      text = text ? text[0] : media.quote;
-    }
-    window.open(`https://apps.crowdtangle.com/search/results?platform=facebook&postTypes=&producerTypes=3,1,2&q=${encodeURIComponent(text)}&sortBy=score&sortOrder=desc&timeframe=1month`);
   }
 
   render() {
@@ -127,7 +98,6 @@ class MediaExpandedActions extends React.Component {
               onVideoAnnoToggle={onVideoAnnoToggle}
               showVideoAnnotation={showVideoAnnotation}
               reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
-              ctTextSearch={this.ctTextSearch.bind(this)}
             />
             { (projectMedia.media && projectMedia.media.file_path) ?
               <div

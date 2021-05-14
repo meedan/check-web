@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SettingsIcon from '@material-ui/icons/Settings';
-import Menu from '@material-ui/core/Menu';
 import SearchKeywordContainer from './SearchKeywordContainer';
 
 const SearchKeywordMenu = ({
   teamSlug,
   query,
   onChange,
+  anchorParent,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClose = () => setAnchorEl(null);
@@ -19,19 +19,15 @@ const SearchKeywordMenu = ({
 
   return (
     <React.Fragment>
-      <SettingsIcon onClick={e => setAnchorEl(e.target)} />
-      <Menu
+      <SettingsIcon onClick={() => setAnchorEl(anchorParent)} />
+      <SearchKeywordContainer
+        teamSlug={teamSlug}
+        query={query}
+        onDismiss={handleClose}
+        onSubmit={handleChange}
         anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-      >
-        <SearchKeywordContainer
-          teamSlug={teamSlug}
-          query={query}
-          onDismiss={handleClose}
-          onSubmit={handleChange}
-        />
-      </Menu>
+        handleClose={handleClose}
+      />
     </React.Fragment>
   );
 };

@@ -21,6 +21,7 @@ const SavedSearch = ({ routeParams }) => (
           team {
             id
             slug
+            name
             permissions
           }
         }
@@ -34,10 +35,9 @@ const SavedSearch = ({ routeParams }) => (
         // Weird Relay error happens here if "filters" is a JSON object instead of a JSON string...
         // "Uncaught TypeError: Cannot assign to read only property '<filter name>' of object '#<Object>'"
         const savedQuery = props.saved_search.filters || '{}';
-        const query = {
-          ...JSON.parse(savedQuery),
-          ...safelyParseJSON(routeParams.query, {}),
-        };
+        const query = routeParams.query ?
+          safelyParseJSON(routeParams.query, {}) :
+          safelyParseJSON(savedQuery, {});
 
         return (
           <div className="saved-search">
@@ -63,7 +63,8 @@ const SavedSearch = ({ routeParams }) => (
                   deleteMessage={
                     <FormattedMessage
                       id="savedSearch.deleteMessage"
-                      defaultMessage="Are you sure? This list is shared among all users of Check demo. After deleting it, no user will be able to access it."
+                      defaultMessage="Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+                      values={{ teamName: props.saved_search.team ? props.saved_search.team.name : '' }}
                     />
                   }
                   deleteMutation={graphql`
@@ -82,7 +83,6 @@ const SavedSearch = ({ routeParams }) => (
               teamSlug={routeParams.team}
               query={query}
               savedSearch={props.saved_search}
-              hideFields={['read']}
               page="list"
             />
           </div>

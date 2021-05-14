@@ -8,10 +8,6 @@
     "defaultMessage": "Google Image Search"
   },
   {
-    "id": "mediaMetadata.ctTextSearch",
-    "defaultMessage": "CrowdTangle Text Search"
-  },
-  {
     "id": "mediaMetadata.download",
     "defaultMessage": "Download"
   }

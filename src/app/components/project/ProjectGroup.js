@@ -33,7 +33,7 @@ const ProjectGroup = ({ routeParams }) => (
       if (!error && props) {
         const query = {
           ...safelyParseJSON(routeParams.query, {}),
-          project_group_id: props.project_group.dbid,
+          project_group_id: [props.project_group.dbid],
         };
 
         return (
@@ -89,8 +89,9 @@ const ProjectGroup = ({ routeParams }) => (
                 />
               }
               teamSlug={routeParams.team}
+              projectGroup={props.project_group}
               query={query}
-              hideFields={['read', 'project']}
+              hideFields={['projects', 'project_group_id']}
               page="collection"
             />
           </div>

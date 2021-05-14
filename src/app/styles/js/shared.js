@@ -42,6 +42,7 @@ export const opaqueBlack38 = '#9e9e9e';
 export const opaqueBlack23 = '#c4c4c4';
 export const opaqueBlack16 = '#d6d6d6';
 export const opaqueBlack10 = '#e5e5e5';
+export const opaqueBlack07 = '#eeeeee';
 export const opaqueBlack05 = '#f2f2f2';
 export const opaqueBlack03 = '#f8f8f8';
 export const opaqueBlack02 = '#fafafa';
