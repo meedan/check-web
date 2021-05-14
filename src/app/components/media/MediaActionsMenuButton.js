@@ -115,7 +115,7 @@ class MediaActionsMenuButton extends React.PureComponent {
           onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
         >
           <ListItemText
-            primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to trash" />}
+            primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Move to Trash" />}
           />
         </MenuItem>));
     }

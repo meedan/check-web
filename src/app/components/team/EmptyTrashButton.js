@@ -75,7 +75,7 @@ class EmptyTrashComponent extends Component {
         <ConfirmDialog
           message={this.state.message}
           open={this.state.open}
-          title={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />}
+          title={<FormattedMessage id="trash.emptyTrash" defaultMessage="Empty Trash" />}
           blurb={<FormattedMessage
             id="trash.emptyTrashConfirmationText"
             defaultMessage="Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
@@ -96,7 +96,7 @@ class EmptyTrashComponent extends Component {
             onClick={this.handleOpen}
             disabled={this.state.emptyTrashDisabled || number_of_results === 0}
           >
-            <FormattedMessage id="trash.emptyTrash" defaultMessage="Empty trash" />
+            <FormattedMessage id="trash.emptyTrash" defaultMessage="Empty Trash" />
           </Button>
         </Can>
       </div>

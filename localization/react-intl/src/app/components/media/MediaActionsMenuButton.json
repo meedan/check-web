@@ -17,7 +17,7 @@
   },
   {
     "id": "mediaActions.sendToTrash",
-    "defaultMessage": "Send to trash"
+    "defaultMessage": "Move to Trash"
   },
   {
     "id": "mediaActions.history",

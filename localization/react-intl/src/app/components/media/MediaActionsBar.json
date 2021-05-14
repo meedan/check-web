@@ -1,7 +1,7 @@
 [
   {
     "id": "mediaActionsBar.movedToTrash",
-    "defaultMessage": "Sent to {trash}"
+    "defaultMessage": "The item was moved to {trash}"
   },
   {
     "id": "mediaDetail.trash",
@@ -9,7 +9,7 @@
   },
   {
     "id": "mediaActionsBar.assignmentsUpdated",
-    "defaultMessage": "Assignments updated successfully."
+    "defaultMessage": "Assignments updated successfully"
   },
   {
     "id": "mediaActionsBar.publishedReport",

@@ -2,12 +2,12 @@
   {
     "id": "teamListsComponent.defaultErrorMessage",
     "description": "Warning displayed if an error occurred when saving column settings",
-    "defaultMessage": "Could not save column settings."
+    "defaultMessage": "Could not save column settings"
   },
   {
     "id": "teamListsComponent.savedSuccessfully",
     "description": "Banner displayed when column settings are saved successfully",
-    "defaultMessage": "Column settings saved successfully."
+    "defaultMessage": "Column settings saved successfully"
   },
   {
     "id": "teamListsComponent.title",
