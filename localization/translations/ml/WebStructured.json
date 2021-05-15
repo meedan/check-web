@@ -81,10 +81,10 @@
 		"string": "Search…"
 	},
 	"ProjectActions.edit": {
-		"string": "Edit name and description"
+		"string": "Rename"
 	},
 	"ProjectActions.tooltip": {
-		"string": "List actions"
+		"string": "Folder actions"
 	},
 	"ProjectBlankState.createMedia": {
 		"string": "Add a link or text"
@@ -174,16 +174,24 @@
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.assignedTo": {
-		"string": "Assigned to",
+		"string": "Assignment",
 		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.collection": {
+		"string": "Collection",
+		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "Created by",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
-	"addFilterMenu.customFields": {
-		"string": "Custom fields",
-		"developer_comment": "Menu option to enable searching items by custom fields"
+	"addFilterMenu.filterBy": {
+		"string": "Filter by",
+		"developer_comment": "Header to menu of filter field types"
+	},
+	"addFilterMenu.folder": {
+		"string": "Folder",
+		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemStatus": {
 		"string": "Item status",
@@ -197,8 +205,16 @@
 		"string": "Media type",
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
-	"addFilterMenu.tags": {
-		"string": "Tags",
+	"addFilterMenu.metadata": {
+		"string": "Metadata",
+		"developer_comment": "Menu option to enable searching items by metadata fields"
+	},
+	"addFilterMenu.reportStatus": {
+		"string": "Report status",
+		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.tag": {
+		"string": "ടാഗ്",
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
@@ -326,10 +342,10 @@
 		"string": "Metadata field \"{fieldLabel}\" filled by {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Moved out of the trash by {author}"
+		"string": "Moved out of Trash by {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "Moved to the trash by {author}"
+		"string": "Moved to Trash by {author}"
 	},
 	"annotation.newReport": {
 		"string": "Item added by {author}"
@@ -356,7 +372,7 @@
 		"string": "Permalink"
 	},
 	"annotation.projectMoved": {
-		"string": "Moved from list {previousProject} to {currentProject} by {author}"
+		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "Reject"
@@ -492,14 +508,14 @@
 		"string": "Move from Unconfirmed"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
 	},
 	"bulkActions.move": {
-		"string": "Move selected items to another list"
+		"string": "Move selected items to another folder"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Move to list",
-		"developer_comment": "Label for button to commit action of moving item to the selected list"
+		"string": "Move to folder",
+		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
 		"string": "Move to…"
@@ -526,10 +542,10 @@
 		"string": "Send selected items to Trash"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move items to another list"
+		"string": "Restore selected items and move items to another folder"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Confirm selected items and move items to another list"
+		"string": "Confirm selected items and move items to another folder"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Cancel",
@@ -612,19 +628,19 @@
 		"developer_comment": "Label for button to create a new source"
 	},
 	"createProject.addProject": {
-		"string": "Create list"
+		"string": "Create folder"
 	},
 	"createProject.error": {
-		"string": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"createProject.newProjectName": {
-		"string": "List name"
+		"string": "Folder name"
 	},
 	"createProject.title": {
-		"string": "Add a list"
+		"string": "Add a folder"
 	},
 	"createProject.titleBlank": {
-		"string": "Add your first list"
+		"string": "Add your first folder"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Cancel"
@@ -666,9 +682,17 @@
 	"createTeamTask.errorTask": {
 		"string": "Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists."
 	},
+	"customAutocomplete.done": {
+		"string": "Done",
+		"developer_comment": "Label for closing dropdown when user is done selecting tags"
+	},
+	"customAutocomplete.select": {
+		"string": "Select",
+		"developer_comment": "Verb. Label for generic dropdown component"
+	},
 	"customFiltersManager.label": {
-		"string": "Custom field",
-		"developer_comment": "Placeholder label for custom field when not fully configured"
+		"string": "Metadata is",
+		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
 		"string": "Answer task"
@@ -704,19 +728,19 @@
 		"string": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
 	},
 	"destinationProjects.choose": {
-		"string": "Choose a list"
+		"string": "Choose a folder"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Cancel",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Move to list",
+		"string": "Move to folder",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
 		"string": "Move detached item to…",
-		"developer_comment": "Dialog title prompting user to select a destination list for the item"
+		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Add status"
@@ -863,8 +887,8 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully.",
-		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
+		"string": "The other invites were sent successfully",
+		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
 		"string": "Invite",
@@ -965,6 +989,10 @@
 	},
 	"list.commentCount": {
 		"string": "FB Comments"
+	},
+	"list.folder": {
+		"string": "Folder",
+		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
 		"string": "Media published"
@@ -1082,7 +1110,7 @@
 		"string": "Refresh"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Send to trash"
+		"string": "Move to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Item actions"
@@ -1100,7 +1128,7 @@
 		"string": "Assign item to collaborators"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully."
+		"string": "Assignments updated successfully"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Cancel"
@@ -1109,10 +1137,10 @@
 		"string": "Confirm"
 	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Move to a different list"
+		"string": "Move to a different folder"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Move item to list…"
+		"string": "Move item to folder…"
 	},
 	"mediaActionsBar.move": {
 		"string": "Move"
@@ -1124,19 +1152,19 @@
 		"string": "Confirmed, redirecting…"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Restored from trash, redirecting…"
+		"string": "Restored from Trash, redirecting…"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "Sent to {trash}"
+		"string": "The item was moved to {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Published report"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Move to list"
+		"string": "Move to folder"
 	},
 	"mediaActionsBar.restoreTo": {
-		"string": "Restore from trash"
+		"string": "Restore from Trash"
 	},
 	"mediaActionsBar.unpublishedReport": {
 		"string": "Unpublished report"
@@ -1294,7 +1322,7 @@
 		"string": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Image Search"
+		"string": "Google Image Search"
 	},
 	"mediaMetadata.Timeline": {
 		"string": "Timeline"
@@ -1468,6 +1496,9 @@
 	"network.stillWorking": {
 		"string": "Still working…"
 	},
+	"newProject.cancel": {
+		"string": "Cancel"
+	},
 	"notFound.back": {
 		"string": "Go to my profile page",
 		"developer_comment": "Go to profile page button"
@@ -1532,26 +1563,62 @@
 	"privacy.policy.title": {
 		"string": "Privacy Policy"
 	},
+	"project.deleteMessage": {
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+	},
+	"project.name": {
+		"string": "folder"
+	},
 	"projectActions.assignOrUnassign": {
-		"string": "Assign list to…"
+		"string": "Assign to…"
+	},
+	"projectActions.cancel": {
+		"string": "Cancel"
+	},
+	"projectActions.defaultErrorMessage": {
+		"string": "Error, please try again",
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+	},
+	"projectActions.delete": {
+		"string": "Delete",
+		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectActions.deleteProjectBody": {
-		"string": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
 	},
 	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this list?"
+		"string": "Are you sure you want to delete this folder?"
 	},
 	"projectActions.destroy": {
 		"string": "Delete"
 	},
+	"projectActions.move": {
+		"string": "Move to…",
+		"developer_comment": "'Move' here is an infinitive verb"
+	},
+	"projectActions.moveOut": {
+		"string": "Move out",
+		"developer_comment": "Menu option to move a folder out of a collection"
+	},
 	"projectActions.proceedLabel": {
-		"string": "Delete list"
+		"string": "Delete folder"
 	},
 	"projectActions.projectDeleted": {
-		"string": "List deleted successfully."
+		"string": "Folder deleted successfully."
 	},
 	"projectActions.projectNotDeleted": {
-		"string": "Sorry, could not delete list."
+		"string": "Sorry, could not delete folder."
+	},
+	"projectActions.rename": {
+		"string": "Rename",
+		"developer_comment": "'Rename' here is an infinitive verb"
+	},
+	"projectActions.savedSuccessfully": {
+		"string": "Done",
+		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
+	},
+	"projectActions.tooltip": {
+		"string": "Actions"
 	},
 	"projectAssignment.assignedTo": {
 		"string": "Assigned to"
@@ -1572,37 +1639,46 @@
 		"string": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
 	},
 	"projectAssignment.title": {
-		"string": "Assign list to collaborators"
+		"string": "Assign folder to collaborators"
+	},
+	"projectBlankState.blank": {
+		"string": "There are no items here."
 	},
 	"projectEditDialogComponent.confirmCancelLabel": {
 		"string": "Go back"
 	},
 	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
+		"string": "Changes made to this folder will be reflected for everyone in this workspace."
 	},
 	"projectEditDialogComponent.confirmProceedLabel": {
 		"string": "Save changes"
 	},
 	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
+		"string": "Are you sure you want to change this folder?"
 	},
 	"projectEditDialogComponent.descriptionField": {
 		"string": "Description"
 	},
 	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update list details."
+		"string": "Could not update folder details."
 	},
 	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "List details updated successfully."
+		"string": "Folder details updated successfully."
 	},
 	"projectEditDialogComponent.saveButton": {
 		"string": "Update"
 	},
 	"projectEditDialogComponent.title": {
-		"string": "List details"
+		"string": "Folder details"
 	},
 	"projectEditDialogComponent.titleField": {
 		"string": "Title"
+	},
+	"projectGroup.deleteMessage": {
+		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+	},
+	"projectGroup.name": {
+		"string": "collection"
 	},
 	"projectHeader.allItems": {
 		"string": "All items"
@@ -1613,15 +1689,47 @@
 	"projectHeader.unconfirmed": {
 		"string": "Unconfirmed"
 	},
+	"projectMoveDialogComponent.choose": {
+		"string": "Choose a collection"
+	},
+	"projectMoveDialogComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectMoveDialogComponent.createCollection": {
+		"string": "Create collection"
+	},
+	"projectMoveDialogComponent.moveTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.movedSuccessfully": {
+		"string": "Folder moved to collection successfully",
+		"developer_comment": "Message displayed when a folder is moved to a collection"
+	},
+	"projectMoveDialogComponent.newCollection": {
+		"string": "New collection"
+	},
+	"projectMoveDialogComponent.noCollectionsText": {
+		"string": "There are no collections in {teamName}. You need to create a collection first."
+	},
+	"projectMoveDialogComponent.noCollectionsTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.proceedLabel": {
+		"string": "Create a new collection"
+	},
+	"projectMoveDialogComponent.proceedLabel2": {
+		"string": "Move to collection"
+	},
 	"projectSelector.allProjs": {
-		"string": "All lists"
+		"string": "All folders"
 	},
 	"projectSelector.numProjs": {
 		"string": "{length, plural, one {# selected} other {# selected}}",
-		"developer_comment": "Label for number of selected lists"
+		"developer_comment": "Label for number of selected folders"
 	},
 	"projects.addProject": {
-		"string": "Add list"
+		"string": "Add folder"
 	},
 	"projects.allClaims": {
 		"string": "All items"
@@ -1630,13 +1738,107 @@
 		"string": "Dismiss"
 	},
 	"projects.newList": {
-		"string": "+ New list"
+		"string": "+ New folder"
 	},
 	"projects.trash": {
 		"string": "Trash"
 	},
 	"projects.unconfirmed": {
 		"string": "Unconfirmed"
+	},
+	"projectsComponent.allItems": {
+		"string": "All items"
+	},
+	"projectsComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectsComponent.createCollection": {
+		"string": "Create collection",
+		"developer_comment": "Button label for creating new collection"
+	},
+	"projectsComponent.createFolder": {
+		"string": "Create folder",
+		"developer_comment": "Button label for creating new folder"
+	},
+	"projectsComponent.createList": {
+		"string": "Create list"
+	},
+	"projectsComponent.deleteType": {
+		"string": "Delete {type}",
+		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.description": {
+		"string": "Description"
+	},
+	"projectsComponent.folders": {
+		"string": "Folders"
+	},
+	"projectsComponent.invalidMove": {
+		"string": "Folders can just be moved to collections",
+		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
+	},
+	"projectsComponent.lists": {
+		"string": "Filtered lists",
+		"developer_comment": "List of items with some filters applied"
+	},
+	"projectsComponent.movedSuccessfully": {
+		"string": "Folder moved successfully",
+		"developer_comment": "Message displayed when a folder is moved to or from a collection"
+	},
+	"projectsComponent.newCollection": {
+		"string": "New collection",
+		"developer_comment": "Dialog title for creating new collection"
+	},
+	"projectsComponent.newCollectionErrorMessage": {
+		"string": "Could not create collection, please try again",
+		"developer_comment": "Error message when creating new collection fails"
+	},
+	"projectsComponent.newCollectionMenu": {
+		"string": "New collection",
+		"developer_comment": "Menu item for creating new collection"
+	},
+	"projectsComponent.newCollectionSuccessMessage": {
+		"string": "Collection created successfully",
+		"developer_comment": "Success message when new collection is created"
+	},
+	"projectsComponent.newFolder": {
+		"string": "New folder",
+		"developer_comment": "Dialog title for creating new folder"
+	},
+	"projectsComponent.newFolderErrorMessage": {
+		"string": "Could not create folder, please try again",
+		"developer_comment": "Error message when creating new folder fails"
+	},
+	"projectsComponent.newFolderMenu": {
+		"string": "New folder",
+		"developer_comment": "Menu item for creating new folder"
+	},
+	"projectsComponent.newFolderSuccessMessage": {
+		"string": "Folder created successfully",
+		"developer_comment": "Success message when new folder is created"
+	},
+	"projectsComponent.newList": {
+		"string": "New list"
+	},
+	"projectsComponent.newListErrorMessage": {
+		"string": "Could not create list, please try again",
+		"developer_comment": "Error message when creating new list fails"
+	},
+	"projectsComponent.newListSuccessMessage": {
+		"string": "List created successfully",
+		"developer_comment": "Success message when new list is created"
+	},
+	"projectsComponent.noFolders": {
+		"string": "No folders in this collection",
+		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.renameType": {
+		"string": "Rename {type}",
+		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.title": {
+		"string": "Title"
 	},
 	"reportDesigner.addIntro": {
 		"string": "Add content to the introduction"
@@ -1886,7 +2088,7 @@
 		"string": "Could not save rules"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Rules saved successfully."
+		"string": "Rules saved successfully"
 	},
 	"rulesTableHead.name": {
 		"string": "പേര്",
@@ -1918,10 +2120,49 @@
 		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Create automations to organize folders and customize your workflow."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Rules"
+	},
+	"saveList.cancel": {
+		"string": "Cancel"
+	},
+	"saveList.create": {
+		"string": "Create new list",
+		"developer_comment": "'Create' here is an infinitive verb"
+	},
+	"saveList.defaultErrorMessage": {
+		"string": "Could not save list, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save a list"
+	},
+	"saveList.newList": {
+		"string": "Save list"
+	},
+	"saveList.saveList": {
+		"string": "Save list",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+	},
+	"saveList.savedSuccessfully": {
+		"string": "List saved successfully",
+		"developer_comment": "Success message displayed when a list is saved"
+	},
+	"saveList.title": {
+		"string": "Enter new list name"
+	},
+	"saveList.update": {
+		"string": "Save changes to the list \"{listName}\"",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
+	"savedSearch.deleteMessage": {
+		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+	},
+	"savedSearch.name": {
+		"string": "list"
+	},
+	"search.afterDate": {
+		"string": "after",
+		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
 		"string": "All items"
@@ -1930,21 +2171,29 @@
 		"string": "And",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
+	"search.anyDate": {
+		"string": "any date",
+		"developer_comment": "Date picker placeholder"
+	},
 	"search.applyFilters": {
 		"string": "Apply filter",
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
 		"string": "Assigned to",
-		"developer_comment": "Placeholder label for field to filter by assigned users"
+		"developer_comment": "Prefix label for field to filter by assigned users"
+	},
+	"search.beforeDate": {
+		"string": "and before",
+		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.categoriesHeading": {
-		"string": "Tags",
-		"developer_comment": "Placeholder label for field to filter by tags"
+		"string": "Tag is",
+		"developer_comment": "Prefix label for field to filter by tags"
 	},
-	"search.clear": {
-		"string": "Clear filter",
-		"developer_comment": "Tooltip for button to remove any applied filters"
+	"search.collection": {
+		"string": "Collection is",
+		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Last submitted"
@@ -1958,6 +2207,14 @@
 	"search.dateUpdatedHeading": {
 		"string": "Updated"
 	},
+	"search.fieldAnd": {
+		"string": "AND",
+		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+	},
+	"search.folderHeading": {
+		"string": "Folder is",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
 	"search.help": {
 		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>",
 		"developer_comment": "Instructions for usage of logical operators on search input"
@@ -1967,36 +2224,42 @@
 		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Language",
-		"developer_comment": "Placeholder label for field to filter by language"
+		"string": "Language is",
+		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Next page"
+	},
+	"search.notInAny": {
+		"string": "Not in any collection",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
 		"string": "Or",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
-	"search.pickDateFrom": {
-		"string": "Starting date"
-	},
-	"search.pickDateTo": {
-		"string": "Ending date"
-	},
 	"search.previousPage": {
 		"string": "Previous page"
 	},
-	"search.projectHeading": {
-		"string": "List",
-		"developer_comment": "Placeholder label for field to filter by lists to which items belong"
+	"search.reportStatus": {
+		"string": "Report status is",
+		"developer_comment": "Prefix label for field to filter by report status"
 	},
-	"search.readHeading": {
-		"string": "Read",
-		"developer_comment": "Label for field to filter by 'item is marked' as read"
+	"search.reportStatusPaused": {
+		"string": "Paused",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusPublished": {
+		"string": "Published",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusUnpublished": {
+		"string": "Unpublished",
+		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
-		"string": "Media type",
-		"developer_comment": "Placeholder label for field to filter by media type"
+		"string": "Type is",
+		"developer_comment": "Prefix label for field to filter by media type"
 	},
 	"search.showAudios": {
 		"string": "Audio",
@@ -2023,12 +2286,20 @@
 		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Item status",
-		"developer_comment": "Placeholder label for field to filter by status"
+		"string": "Item status is",
+		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
 		"string": "Created by",
-		"developer_comment": "Placeholder label for field to filter by item creator"
+		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFields.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"searchKeyword.clear": {
+		"string": "Clear keyword search",
+		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "ഉറവിടം"
@@ -2132,7 +2403,7 @@
 		"string": "Value"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "All other activity"
@@ -2153,7 +2424,7 @@
 		"string": "Event"
 	},
 	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "If item is in list"
+		"string": "If item is in folder"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "New notification"
@@ -2162,13 +2433,13 @@
 		"string": "Save"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully."
+		"string": "Slack settings saved successfully"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Send notifications to"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Slack incoming webhook"
@@ -2303,7 +2574,7 @@
 		"string": "Contact us to setup"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Could not save tipline settings.",
+		"string": "Could not save tipline settings",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
 	"smoochBotComponent.install": {
@@ -2313,7 +2584,7 @@
 		"string": "Save settings"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Tipline settings saved successfully.",
+		"string": "Tipline settings saved successfully",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
@@ -2553,7 +2824,7 @@
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Set {language} as default"
@@ -2609,10 +2880,10 @@
 		"string": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully."
+		"string": "Status created successfully"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully."
+		"string": "Status deleted successfully"
 	},
 	"statusesComponent.error": {
 		"string": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
@@ -2624,7 +2895,7 @@
 		"string": "New status"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully."
+		"string": "Statuses saved successfully"
 	},
 	"statusesComponent.subtitle": {
 		"string": "The status title is visible when reports are sent to users."
@@ -2676,7 +2947,7 @@
 		"string": "Completed by {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "Assign / Unassign"
+		"string": "Assign/Unassign"
 	},
 	"task.assignedTo": {
 		"string": "Assigned to {name}"
@@ -2877,23 +3148,23 @@
 		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "Save changes for all lists"
+		"string": "Save changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Workspace list change"
+		"string": "Workspace columns change"
 	},
 	"teamListsComponent.createMetadata": {
 		"string": "Create new metadata field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
-		"string": "Could not save list settings.",
-		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+		"string": "Could not save column settings",
+		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Select all the columns you want to display in all your lists."
+		"string": "Select all the columns you want to display in all your folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "Displayed columns"
@@ -2905,11 +3176,11 @@
 		"string": "Metadata"
 	},
 	"teamListsComponent.savedSuccessfully": {
-		"string": "List settings saved successfully.",
-		"developer_comment": "Banner displayed when list settings are saved successfully"
+		"string": "Column settings saved successfully",
+		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "List settings"
+		"string": "Columns settings"
 	},
 	"teamListsItem.general": {
 		"string": "General"
@@ -2951,7 +3222,7 @@
 		"string": "Remove"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
 	},
 	"teamMembers.removeDialogTitle": {
 		"string": "Remove {userLabel}"
@@ -3006,7 +3277,7 @@
 		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
-		"string": "Could not save report settings.",
+		"string": "Could not save report settings",
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
@@ -3025,7 +3296,7 @@
 		"string": "Save"
 	},
 	"teamReportComponent.savedSuccessfully": {
-		"string": "Report settings saved successfully.",
+		"string": "Report settings saved successfully",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
@@ -3076,7 +3347,7 @@
 		"string": "Languages"
 	},
 	"teamSettings.lists": {
-		"string": "Lists"
+		"string": "Columns"
 	},
 	"teamSettings.members": {
 		"string": "Members"
@@ -3157,7 +3428,7 @@
 		"string": "Tags"
 	},
 	"teamTags.tooltip": {
-		"string": "Filter and sort list"
+		"string": "Filter and sort folder"
 	},
 	"teamTasks.cancelAction": {
 		"string": "Cancel"
