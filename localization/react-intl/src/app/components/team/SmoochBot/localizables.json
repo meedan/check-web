@@ -65,7 +65,7 @@
   },
   {
     "id": "smoochBot.descriptionNoAction",
-    "defaultMessage": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+    "defaultMessage": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
   },
   {
     "id": "smoochBot.descriptionOptionNotAvailable",

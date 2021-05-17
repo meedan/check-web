@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: 12,
     textAlign: 'center',
     color: black54,
+    textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none',
     },
@@ -145,6 +146,7 @@ const MediaSimilarityBarComponent = ({
             <FormattedMessage
               id="mediaSimilarityBarComponent.similarMedia"
               defaultMessage="Similar media"
+              description="Plural. Heading for the number of similar media"
             />
             <br />
             <span className={classes.similarMediaCount}>{confirmedSimilarCount}</span>
@@ -157,6 +159,7 @@ const MediaSimilarityBarComponent = ({
             <FormattedMessage
               id="mediaSimilarityBarComponent.suggestedMatches"
               defaultMessage="Suggested media"
+              description="Plural. Heading for the number of suggested media"
             />
             <br />
             <span className={classes.suggestionsCount}>{suggestionsCount}</span>

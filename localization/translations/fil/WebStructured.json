@@ -1,22 +1,4 @@
 {
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Mamili ng metadata"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Mamili ng gawain"
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "May tiyak na value ang metadata"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "May nilalamang keyword ang metadata"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "May tiyak na sagot ang gawain"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "May nilalamang keyword ang sagot sa gawain"
-	},
 	"CheckAgreeTerms.agreeTerms": {
 		"string": "Sa pag-sign in, sumasang-ayon ka sa {appName} {tosLink} at {ppLink}."
 	},
@@ -38,32 +20,53 @@
 	"CustomFilter.selectValueLabel": {
 		"string": "Mamili ng value"
 	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Magdagdag ng filter"
-	},
 	"CustomTeamTaskFilter.anyValue": {
-		"string": "Anumang value ay nakatakda"
+		"string": "Anumang value ay nakatakda",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.choiceFilter": {
+		"string": "\"{field}\" has value {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Mamili ng metadata"
+		"string": "Mamili ng metadata",
+		"developer_comment": "Label for input to select specific metadata to filter by"
 	},
 	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Mamili ng gawain"
+		"string": "Mamili ng gawain",
+		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "May tiyak na value ang metadata"
+		"string": "May tiyak na value ang metadata",
+		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "May nilalamang keyword ang metadata"
+		"string": "May nilalamang keyword ang metadata",
+		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "Walang nakatakdang value"
+		"string": "Walang nakatakdang value",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "May tiyak na sagot ang gawain"
+		"string": "May tiyak na sagot ang gawain",
+		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "May nilalamang keyword ang sagot sa gawain"
+		"string": "May nilalamang keyword ang sagot sa gawain",
+		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
+	},
+	"CustomTeamTaskFilter.textAnyValue": {
+		"string": "\"{field}\" contains any value",
+		"developer_comment": "Label for custom field when metadata or task response contains any value"
+	},
+	"CustomTeamTaskFilter.textFilter": {
+		"string": "\"{field}\" contains {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains keyword"
+	},
+	"CustomTeamTaskFilter.textNoValue": {
+		"string": "\"{field}\" contains no value",
+		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
 		"string": "Tapos na"
@@ -78,73 +81,13 @@
 		"string": "Maghanap..."
 	},
 	"ProjectActions.edit": {
-		"string": "I-edit ang pangalan at pagkakalarawan"
+		"string": "Rename"
 	},
 	"ProjectActions.tooltip": {
-		"string": "Mga aksyong panlistahan"
+		"string": "Folder actions"
 	},
 	"ProjectBlankState.createMedia": {
 		"string": "Magdagdag ng link o teksto"
-	},
-	"TeamInviteMembers.emailInput": {
-		"string": "Email address"
-	},
-	"TeamInviteMembers.emailMultipleInput": {
-		"string": "Gumamit ng kuwit para ipaghiwalay ang mga email"
-	},
-	"TeamInviteMembers.existsEmail": {
-		"string": "Miyembro na."
-	},
-	"TeamInviteMembers.invalidEmail": {
-		"string": "Hindi wastong email address."
-	},
-	"TeamInviteMembers.invitedEmail": {
-		"string": "Naanyaya na."
-	},
-	"TeamInviteMembers.newInvite": {
-		"string": "Mag-anyaya ng mga miyembro"
-	},
-	"TeamMembersInvitedListItem.cancel": {
-		"string": "Kanselahin ang paanyaya"
-	},
-	"TeamMembersInvitedListItem.resend": {
-		"string": "Muling ipadala"
-	},
-	"TeamMembersListItem.collaborator": {
-		"string": "Collaborator"
-	},
-	"TeamMembersListItem.confirmDeleteMemberBlurb": {
-		"string": "Ang user ay matatanggal mula sa {team}"
-	},
-	"TeamMembersListItem.confirmDeleteMemberTitle": {
-		"string": "Sigurado ka bang nais mong tanggalin si {user}?"
-	},
-	"TeamMembersListItem.confirmEditMemberTitle": {
-		"string": "Sigurado ka bang nais mong palitan ang papel ni {user}?"
-	},
-	"TeamMembersListItem.confirmLeaveBlurb": {
-		"string": "Tatanggalin ka mula sa {team}"
-	},
-	"TeamMembersListItem.confirmLeaveTitle": {
-		"string": "Sigurado ka bang nais mong umalis sa {team}?"
-	},
-	"TeamMembersListItem.deleteMember": {
-		"string": "Tanggalin ang miyembro"
-	},
-	"TeamMembersListItem.editor": {
-		"string": "Tagapag-edit"
-	},
-	"TeamMembersListItem.leaveTeam": {
-		"string": "Umalis sa workspace"
-	},
-	"TeamMembersListItem.singleOwner": {
-		"string": "Bago umalis sa workspace, mangyaring ilipat ang pagmamay-ari sa ibang miyembro."
-	},
-	"TeamMembershipRequestsListItem.approve": {
-		"string": "Aprubahan"
-	},
-	"TeamMembershipRequestsListItem.deny": {
-		"string": "Tanggihan"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Kumpirmado na ang Account",
@@ -211,9 +154,6 @@
 	"UserUtil.editor": {
 		"string": "Tagapag-edit"
 	},
-	"accessDenied.title": {
-		"string": "Tinanggihan ang Pag-access"
-	},
 	"addAnnotation.addImage": {
 		"string": "Magdagdag ng larawan"
 	},
@@ -229,6 +169,58 @@
 	"addAnnotation.submitButton": {
 		"string": "Isumite"
 	},
+	"addFilterMenu.addFilter": {
+		"string": "Add filter",
+		"developer_comment": "Button that opens menu with filter field options"
+	},
+	"addFilterMenu.assignedTo": {
+		"string": "Assignment",
+		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.collection": {
+		"string": "Collection",
+		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.createdBy": {
+		"string": "Ginawa ni",
+		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.filterBy": {
+		"string": "I-filter ayon sa",
+		"developer_comment": "Header to menu of filter field types"
+	},
+	"addFilterMenu.folder": {
+		"string": "Folder",
+		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemStatus": {
+		"string": "Status ng item",
+		"developer_comment": "Menu option to enable searching items by item status"
+	},
+	"addFilterMenu.language": {
+		"string": "Wika",
+		"developer_comment": "Menu option to enable searching items by language"
+	},
+	"addFilterMenu.mediaType": {
+		"string": "Uri ng media",
+		"developer_comment": "Menu option to enable searching items by media type"
+	},
+	"addFilterMenu.metadata": {
+		"string": "Metadata",
+		"developer_comment": "Menu option to enable searching items by metadata fields"
+	},
+	"addFilterMenu.reportStatus": {
+		"string": "Iulat ang status",
+		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.tag": {
+		"string": "Tag",
+		"developer_comment": "Menu option to enable searching items by tags"
+	},
+	"addFilterMenu.timeRange": {
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
+	},
 	"addLanguageAction.addLanguage": {
 		"string": "Magdagdag ng wika"
 	},
@@ -243,9 +235,6 @@
 	},
 	"addLanguageAction.title": {
 		"string": "Pumili ng bagong wika"
-	},
-	"addTeamPage.titleFind": {
-		"string": "Maghanap ng dati nang workspace"
 	},
 	"annotation.acceptSuggestion": {
 		"string": "Tanggapin"
@@ -353,10 +342,10 @@
 		"string": "Patlang pang-metadata na \"{fieldLabel}\" na pinunan ni {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Inalis sa basurahan ni {author}"
+		"string": "Moved out of Trash by {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "Inilipat sa basurahan ni {author}"
+		"string": "Moved to Trash by {author}"
 	},
 	"annotation.newReport": {
 		"string": "Item na idinagdag ni {author}"
@@ -366,6 +355,9 @@
 	},
 	"annotation.openInSlack": {
 		"string": "Buksan sa Slack"
+	},
+	"annotation.openInTelegram": {
+		"string": "Open in Telegram"
 	},
 	"annotation.penderArchiveResponse": {
 		"string": "Kumuha ang Keep ng screenshot ng URL na ito."
@@ -380,7 +372,7 @@
 		"string": "Permalink"
 	},
 	"annotation.projectMoved": {
-		"string": "Inilipat mula sa listahang {previousProject} papunta sa {currentProject} ni {author}"
+		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "Tanggihan"
@@ -407,7 +399,8 @@
 		"string": "Confirmed similar by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Confirmed similar detached by {author}: {title}"
+		"string": "Confirmed similar detached by {author}: {title}",
+		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
 		"string": "Walang naipadalang mensahe kasama ng kahilingan."
@@ -505,72 +498,8 @@
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Hindi ma-save ang item"
 	},
-	"blankMediaCard.addItem": {
-		"string": "Magdagdag ng item"
-	},
-	"blankMediaCard.confirmButtonLabel": {
-		"string": "Pahintuin ang ulat at i-update ang nilalaman"
-	},
-	"blankMediaCard.confirmText": {
-		"string": "Meron nang nakalathalang ulat ang sumusunod na item:\n              {link}\n              Kung magpapatuloy, parehong mapapalitan ang status at ang ulat, at mahihinto ang ulat."
-	},
-	"blankMediaCard.confirmTitle": {
-		"string": "Palitan ang ulat at status?"
-	},
-	"blankMediaCard.defaultErrorMessage": {
-		"string": "Hindi ma-save ang item"
-	},
-	"bot.cantChange": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang bot. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"bot.install": {
-		"string": "I-install"
-	},
-	"bot.installed": {
-		"string": "Naka-install"
-	},
-	"bot.installs": {
-		"string": "Mga install"
-	},
-	"bot.madeBy": {
-		"string": "Gawa ng {teamLink}"
-	},
-	"bot.permissions": {
-		"string": "Mga pahintulot"
-	},
-	"bot.permissionsText": {
-		"string": "Ang bot na ito ay may antas ng pag-access ng {role}."
-	},
-	"bot.sourceCode": {
-		"string": "Tingnan ang source code"
-	},
-	"bot.updatedAt": {
-		"string": "In-update"
-	},
-	"bot.version": {
-		"string": "Bersyon"
-	},
-	"botGarden.botGarden": {
-		"string": "Bot Garden"
-	},
-	"bridge.pageTitle.appNameHuman": {
-		"string": "Tulay"
-	},
 	"browserSupport.message": {
 		"string": "Naka-optimize ang {appName} para sa Google Chrome sa desktop."
-	},
-	"bulkActions.add": {
-		"string": "Idagdag ang mga piniling item sa ibang listahan"
-	},
-	"bulkActions.addTitle": {
-		"string": "Idagdag"
-	},
-	"bulkActions.addTo": {
-		"string": "Idagdag sa…"
-	},
-	"bulkActions.addedSuccessfully": {
-		"string": "Idinagdag ang mga item sa listahan.",
-		"developer_comment": "Banner displayed after items are added successfully to list"
 	},
 	"bulkActions.cancelButton": {
 		"string": "Kanselahin"
@@ -578,17 +507,15 @@
 	"bulkActions.confirm": {
 		"string": "Move from Unconfirmed"
 	},
-	"bulkActions.dialogAddTitle": {
-		"string": "Idagdag sa ibang listahan"
-	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Ilipat ang # item sa listahan...} other {Ilipat ang # item sa listahan...}}"
+		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
 	},
 	"bulkActions.move": {
-		"string": "Ilipat ang mga piniling item sa ibang listahan"
+		"string": "Move selected items to another folder"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Ilipat sa listahan"
+		"string": "Move to folder",
+		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
 		"string": "Ilipat sa…"
@@ -608,10 +535,6 @@
 		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
-	"bulkActions.removedSuccessfully": {
-		"string": "Itinanggal ang mga item mula sa listahang ito.",
-		"developer_comment": "Banner displayed after items are removed successfully from list"
-	},
 	"bulkActions.restore": {
 		"string": "Restore from Trash"
 	},
@@ -619,10 +542,10 @@
 		"string": "Send selected items to Trash"
 	},
 	"bulkActions.trash": {
-		"string": "Ibalik ang mga piniling item at ilipat sa ibang listahan"
+		"string": "Restore selected items and move items to another folder"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Kumpirmahin ang mga piniling item at ilipat ang mga ito sa ibang listahan"
+		"string": "Confirm selected items and move items to another folder"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Kanselahin",
@@ -655,17 +578,8 @@
 	"changeUserRole.proceedLabel": {
 		"string": "Change role to {newRole}"
 	},
-	"claimReview.claim": {
-		"string": "Pahayag:"
-	},
-	"claimReview.claimedBy": {
-		"string": "Ipinahayag ni:"
-	},
-	"claimReview.reviewedBy": {
-		"string": "Na-fact-check ni {reviewer}:"
-	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to permanently delete this language and all content in this language."
+		"string": "Type \"{text}\" to confirm."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Type here"
@@ -710,67 +624,23 @@
 		"string": "Video"
 	},
 	"createMediaSource.createSource": {
-		"string": "Create source"
+		"string": "Create source",
+		"developer_comment": "Label for button to create a new source"
 	},
 	"createProject.addProject": {
-		"string": "Gumawa ng listahan"
+		"string": "Create folder"
 	},
 	"createProject.error": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang listahan. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"createProject.newProjectName": {
-		"string": "Pangalan ng listahan"
+		"string": "Folder name"
 	},
 	"createProject.title": {
-		"string": "Magdagdag ng listahan"
+		"string": "Add a folder"
 	},
 	"createProject.titleBlank": {
-		"string": "Magdagdag ng iyong unang listahan"
-	},
-	"createRelatedMedia.addSecondaryItem": {
-		"string": "Magdagdag ng sekundaryong item"
-	},
-	"createRelatedMedia.addToPrimaryItem": {
-		"string": "Idagdag sa pangunahing item"
-	},
-	"createTask.newTask": {
-		"string": "Bagong gawain"
-	},
-	"createTeam.blurb": {
-		"string": "Gumawa ng workspace para sa iyong organisasyon, o para lang sa iyo:"
-	},
-	"createTeam.createTeamError": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang workspace. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"createTeam.displayName": {
-		"string": "Pangalan ng Workspace"
-	},
-	"createTeam.mainHeading": {
-		"string": "Gumawa ng workspace"
-	},
-	"createTeam.slugAvailable": {
-		"string": "Available!"
-	},
-	"createTeam.slugChecking": {
-		"string": "Tinitingnan ang availability…"
-	},
-	"createTeam.slugUnavailable": {
-		"string": "Paumanhin, hindi available ang slug na ito. Mangyaring sumubok ng isa pa."
-	},
-	"createTeam.submitButton": {
-		"string": "Gumawa"
-	},
-	"createTeam.teamNameHint": {
-		"string": "Pangalan ng Workspace"
-	},
-	"createTeam.teamSlugHint": {
-		"string": "URL ng Workspace"
-	},
-	"createTeam.title": {
-		"string": "Gumawa ng workspace"
-	},
-	"createTeam.url": {
-		"string": "URL ng Team"
+		"string": "Add your first folder"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Kanselahin"
@@ -788,7 +658,8 @@
 		"string": "All settings from this workspace will be duplicated. No content will be added."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Create new workspace",
+		"developer_comment": "Dialog title for creating a new workspace"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "I-duplicate ang workspace"
@@ -810,6 +681,18 @@
 	},
 	"createTeamTask.errorTask": {
 		"string": "Paumanhin, may naganap na error habang nililikha ang gawain. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"customAutocomplete.done": {
+		"string": "Tapos na",
+		"developer_comment": "Label for closing dropdown when user is done selecting tags"
+	},
+	"customAutocomplete.select": {
+		"string": "Select",
+		"developer_comment": "Verb. Label for generic dropdown component"
+	},
+	"customFiltersManager.label": {
+		"string": "Metadata is",
+		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
 		"string": "Sagutin ang gawain"
@@ -833,37 +716,38 @@
 		"string": "Tingnan itong timezone sa time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Ilipat ang mga item sa"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
+		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "Kailangan mong baguhin ang status ng {itemsCount, plural, one {one item} other {# items}} para mabura ang status na ito"
 	},
 	"destinationProjects.choose": {
-		"string": "Mamili ng listahan"
+		"string": "Choose a folder"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Kanselahin",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Ilipat sa listahan",
+		"string": "Move to folder",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
 		"string": "Move detached item to…",
-		"developer_comment": "Dialog title prompting user to select a destination list for the item"
+		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Magdagdag ng status"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Send a message to the user who requested the item when you change an item to this status."
+		"string": "Send a message to the user who requested the item when you change an item to this status.",
+		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Pagkakalarawan"
@@ -881,7 +765,8 @@
 		"string": "I-edit ang status"
 	},
 	"editStatusDialog.toggleStatusMessage": {
-		"string": "Send message to requester"
+		"string": "Send message to requester",
+		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "I-edit ang patlang pang-metadata"
@@ -903,27 +788,6 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Kanselahin"
-	},
-	"findTeamCard.blurb": {
-		"string": "Para humiling na sumali sa dati nang workspace, ilagay ang pangalan dito, o kaya magsimula sa paggawa ng sarili mong workspace."
-	},
-	"findTeamCard.createYourOwn": {
-		"string": "Pwede ka ring gumawa ng sarili mong workspace."
-	},
-	"findTeamCard.mainHeading": {
-		"string": "Maghanap ng dati nang workspace"
-	},
-	"findTeamCard.submitButton": {
-		"string": "Maghanap ng workspace"
-	},
-	"findTeamCard.teamNotFound": {
-		"string": "Hindi matagpuan ang workspace!"
-	},
-	"findTeamCard.teamSlugHint": {
-		"string": "URL ng workspace"
-	},
-	"findTeamCard.url": {
-		"string": "URL ng workspace"
 	},
 	"footer.madeBy": {
 		"string": "Check: Verify breaking news online. Made with ✨ by {meedan}"
@@ -1018,31 +882,25 @@
 	"home.successInvitation": {
 		"string": "Maligayang pagdating sa {appName}. Mangyaring mag-login gamit ang password na iyong natanggap sa pambungad na email."
 	},
-	"imageUploadRespondTask.answerTask": {
-		"string": "Sagutin ang gawain"
-	},
-	"imageUploadRespondTask.cancelTask": {
-		"string": "Kanselahin"
-	},
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "Sent other invites.",
-		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
+		"string": "The other invites were sent successfully",
+		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
 		"string": "Mag-anyaya",
 		"developer_comment": "Button to submit invitations."
 	},
 	"inviteDialog.textInputLabel": {
-		"string": "Emails, comma separated",
+		"string": "Email addresses, comma separated",
 		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
 	},
 	"inviteDialog.title": {
 		"string": "Invite workspace members",
-		"developer_comment": "Invite workspace members dialog title"
+		"developer_comment": "Dialog title for inviting members to workspace"
 	},
 	"inviteNewAccount.createAccount": {
 		"string": "Create Account",
@@ -1074,36 +932,6 @@
 	"inviteNewAccounttosMissing": {
 		"string": "Kailangan mong sumang-ayon sa mga Tuntunin ng Serbisyo at Patakaran sa Pagkapribado",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
-	},
-	"joinTeamComponent.alreadyRequested": {
-		"string": "Humiling ka nang makasali sa {team}."
-	},
-	"joinTeamComponent.autoApprove": {
-		"string": "Salamat sa pagsali sa {team}! Maaari ka nang magsimulang mag-ambag."
-	},
-	"joinTeamComponent.blurbGraf": {
-		"string": "Para humiling na makasali sa {team}, mag-click sa ibaba:"
-	},
-	"joinTeamComponent.buttonSubmit": {
-		"string": "Kahilingan para Sumali"
-	},
-	"joinTeamComponent.buttonSubmitted": {
-		"string": "Naipadala ang Kahilingan"
-	},
-	"joinTeamComponent.error": {
-		"string": "Paumanhin, may naganap na error habang pinadadala ang iyong kahilingan. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"joinTeamComponent.mainHeading": {
-		"string": "Kahilingan para sumali"
-	},
-	"joinTeamComponent.requestHasBeenSent": {
-		"string": "Naipadala na ang iyong kahilingan sa mga workspace administrator para aprubahan."
-	},
-	"joinTeamComponent.success": {
-		"string": "Salamat sa iyong interes sa pagsali sa {team}! Susuriin ng isang workspace administrator ang iyong aplikasyon sa lalong madaling panahon."
-	},
-	"joinTeamComponent.title": {
-		"string": "Sumali sa Workspace"
 	},
 	"languageListItem.default": {
 		"string": "{language} (default)"
@@ -1162,6 +990,10 @@
 	"list.commentCount": {
 		"string": "Mga Komento sa FB"
 	},
+	"list.folder": {
+		"string": "Folder",
+		"developer_comment": "Table header for column that shows the folder title an item is in"
+	},
 	"list.mediaPublishedAt": {
 		"string": "Nailathala ang media"
 	},
@@ -1182,9 +1014,6 @@
 	},
 	"list.updated": {
 		"string": "In-update"
-	},
-	"loadMore.loadMore": {
-		"string": "Mag-load ng iba pa"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
@@ -1220,18 +1049,20 @@
 		"string": "Magrehistro"
 	},
 	"login.signIn": {
-		"string": "MAG-SIGN IN"
+		"string": "MAG-SIGN IN",
+		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
 		"string": "Mag-sign in",
-		"developer_comment": "allow user to sing in with exisintg account"
+		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign Up"
+		"string": "Sign Up",
+		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
 		"string": "Sign up",
-		"developer_comment": "allow user to create a new source"
+		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
 		"string": "Mag-sign in"
@@ -1242,26 +1073,11 @@
 	"login.withGoogle": {
 		"string": "Sign in with Google"
 	},
-	"loginContainer.agreeTerms": {
-		"string": "Sa pag-sign in, sumasang-ayon ka sa {appName} {tosLink} at {ppLink}."
-	},
 	"loginEmail.lostPassword": {
 		"string": "Forgot your password?"
 	},
-	"media.byAttribution": {
-		"string": "{typeLabel} ni {attribution}"
-	},
-	"media.confirmLeave": {
-		"string": "{count, plural, one {Sigurado ka bang nais mong umalis? May isa pang kinakailangang gawaing nakatalaga sa iyo na hindi mo pa nasasagutan} other {Sigurado ka ba na gusto mong umalis? Meron ka pang # kinakailangang gawaing nakatalaga sa iyo na hindi mo pa nasasagutan}}"
-	},
 	"media.normalSpeed": {
 		"string": "Karaniwang bilis"
-	},
-	"media.onDomain": {
-		"string": "{typeLabel} sa {domain}"
-	},
-	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweet}}"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
@@ -1272,41 +1088,17 @@
 	"media.typeClaim": {
 		"string": "Teksto"
 	},
-	"media.typeFacebook": {
-		"string": "Paskil sa Facebook"
-	},
 	"media.typeImage": {
 		"string": "Larawan"
-	},
-	"media.typeInstagram": {
-		"string": "Instagram"
 	},
 	"media.typeLink": {
 		"string": "Link"
 	},
-	"media.typePage": {
-		"string": "Pahina"
-	},
-	"media.typeTiktok": {
-		"string": "Video sa TikTok"
-	},
-	"media.typeTwitter": {
-		"string": "Tweet"
-	},
 	"media.typeVideo": {
 		"string": "Video"
 	},
-	"media.typeYoutube": {
-		"string": "YouTube video"
-	},
-	"mediaActions.addToList": {
-		"string": "Idagdag sa listahan"
-	},
 	"mediaActions.assignOrUnassign": {
 		"string": "Assign to…"
-	},
-	"mediaActions.edit": {
-		"string": "I-edit ang pamagat at pagkakalarawan"
 	},
 	"mediaActions.history": {
 		"string": "Kasaysayan ng item"
@@ -1314,32 +1106,17 @@
 	"mediaActions.lockStatus": {
 		"string": "I-lock ang status"
 	},
-	"mediaActions.move": {
-		"string": "Ilipat"
-	},
 	"mediaActions.refresh": {
 		"string": "I-refresh"
 	},
-	"mediaActions.removeFromList": {
-		"string": "Tanggalin sa listahan"
-	},
-	"mediaActions.restore": {
-		"string": "Ibalik galing sa basurahan"
-	},
 	"mediaActions.sendToTrash": {
-		"string": "Ipadala sa basurahan"
+		"string": "Move to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Mga aksyong pang-item"
 	},
 	"mediaActions.unlockStatus": {
 		"string": "I-unlock ang status"
-	},
-	"mediaActionsBar.add": {
-		"string": "Idagdag"
-	},
-	"mediaActionsBar.addTo": {
-		"string": "Idagdag sa…"
 	},
 	"mediaActionsBar.assignmentNotes": {
 		"string": "Mga note"
@@ -1351,7 +1128,7 @@
 		"string": "Italaga ang item sa mga katuwang"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Matagumpay na in-update ang mga assignment!"
+		"string": "Assignments updated successfully"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Kanselahin"
@@ -1359,14 +1136,11 @@
 	"mediaActionsBar.confirmTo": {
 		"string": "Kumpirmahin"
 	},
-	"mediaActionsBar.dialogAddToListTitle": {
-		"string": "Idagdag sa ibang listahan"
-	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Ilipat sa ibang listahan"
+		"string": "Move to a different folder"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Ilipat ang item sa listahan..."
+		"string": "Move item to folder…"
 	},
 	"mediaActionsBar.move": {
 		"string": "Ilipat"
@@ -1378,25 +1152,19 @@
 		"string": "Kumpirmado, nagre-redirect..."
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Ibinalik galing sa basurahan, nagre-redirect..."
+		"string": "Restored from Trash, redirecting…"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "Ipinadala sa {trash}"
+		"string": "The item was moved to {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Nailathala ang ulat"
 	},
-	"mediaActionsBar.removeFromList": {
-		"string": "Tanggalin sa listahan"
-	},
-	"mediaActionsBar.removedFromList": {
-		"string": "Tinanggal sa listahan"
-	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Ilipat sa listahan"
+		"string": "Move to folder"
 	},
 	"mediaActionsBar.restoreTo": {
-		"string": "Ibalik galing sa basurahan"
+		"string": "Restore from Trash"
 	},
 	"mediaActionsBar.unpublishedReport": {
 		"string": "Itinanggal sa pagkakalathala ang ulat"
@@ -1479,32 +1247,8 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Mga gawaing pang-item"
 	},
-	"mediaCondensed.requests": {
-		"string": "{count} na kahilingan"
-	},
-	"mediaDetail.cancelButton": {
-		"string": "Kanselahin"
-	},
-	"mediaDetail.doneButton": {
-		"string": "Tapos na"
-	},
-	"mediaDetail.editReport": {
-		"string": "I-edit"
-	},
-	"mediaDetail.editReportError": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang item. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"mediaDetail.mediaDescription": {
-		"string": "Pagkakalarawan"
-	},
-	"mediaDetail.mediaTitle": {
-		"string": "Pamagat"
-	},
 	"mediaDetail.trash": {
 		"string": "Basurahan"
-	},
-	"mediaExpanded.addToImportedReport": {
-		"string": "Idagdag sa inangkat na ulat"
 	},
 	"mediaExpanded.firstSeen": {
 		"string": "Unang nakita:"
@@ -1572,31 +1316,19 @@
 		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count} similar media"
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Paumanhin, may naganap na error habang inu-update ang wika. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Paghanap ng Larawan"
+		"string": "Google Image Search"
 	},
 	"mediaMetadata.Timeline": {
 		"string": "Timeline"
 	},
-	"mediaMetadata.addedToList": {
-		"string": "Idinagdag sa listahang {listName}"
-	},
 	"mediaMetadata.download": {
 		"string": "I-download"
-	},
-	"mediaRelated.loadMore": {
-		"string": "Mag-load ng iba pa"
-	},
-	"mediaRelated.primaryItem": {
-		"string": "Pangunahing item"
-	},
-	"mediaRelated.secondaryItems": {
-		"string": "Mga sekundaryong item"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Magdagdag ng kaugnayan"
@@ -1641,13 +1373,15 @@
 		"string": "{current} ng {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar"
+		"string": "Similar",
+		"developer_comment": "Adjective, plural. Heading for a list of similar items"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Mag-click sa isang item"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main"
+		"string": "Main",
+		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Mga note"
@@ -1700,29 +1434,22 @@
 		"string": "Iminungkahi na ang media na ito ay katulad ng isa pang item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Katulad na media"
+		"string": "Katulad na media",
+		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
 		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Suggested media"
+		"string": "Suggested media",
+		"developer_comment": "Plural. Heading for the number of suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
 		"developer_comment": "allow user to change a project media source"
 	},
-	"mediaStatus.cancelMessage": {
-		"string": "Kanselahin"
-	},
 	"mediaStatus.error": {
 		"string": "Paumanhin, may naganap na error habang inu-update ang status. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"mediaStatus.messageDescription": {
-		"string": "Mangyaring magdagdag ng komento. Ipadadala ito pabalik sa orihinal na nagpaskil para ipaalam sa kanila na isasara ang kanilang kahilingan."
-	},
-	"mediaStatus.noteHint": {
-		"string": "Pindutin ang ENTER para isumite"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Bumalik"
@@ -1749,10 +1476,7 @@
 		"string": "Mga kahilingan"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total} suggested media"
-	},
-	"mediaTags.error": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang tag. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Bawasan"
@@ -1772,6 +1496,9 @@
 	"network.stillWorking": {
 		"string": "Ginagawa pa..."
 	},
+	"newProject.cancel": {
+		"string": "Kanselahin"
+	},
 	"notFound.back": {
 		"string": "Go to my profile page",
 		"developer_comment": "Go to profile page button"
@@ -1785,9 +1512,6 @@
 	"notFound.title": {
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
-	},
-	"pageTitle.appNameHuman": {
-		"string": "Check"
 	},
 	"passwordChange.changePassword": {
 		"string": "Palitan ang password"
@@ -1817,14 +1541,10 @@
 		"string": "Hindi tugma ang mga password"
 	},
 	"passwordReset.confirmedText": {
-		"string": "Nagpadala kami sa iyo ng email mula sa {adminEmail} na may mga panuto sa pag-reset ng iyong password. Siguruhing hindi ito napunta sa iyong spam mailbox. Kung sakaling hindi mo natatanggap ang aming mga email sa pag-reset ng password, makipag-ugnay sa {supportEmail}. Mangyaring tandaan na ang link sa loob ng email na ito ay lilipas pagkatapos ng {expiry} hours."
+		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Email"
-	},
-	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Paumanhin, hindi matagpuan ang email na ito. Mangyaring makipag-ugnay sa {supportEmail} kung sa tingin mo ay isa itong pagkakamali.",
-		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
 		"string": "Magbigay ng wastong email address.",
@@ -1843,26 +1563,62 @@
 	"privacy.policy.title": {
 		"string": "Patakaran sa Pagkapribado"
 	},
+	"project.deleteMessage": {
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+	},
+	"project.name": {
+		"string": "folder"
+	},
 	"projectActions.assignOrUnassign": {
-		"string": "Assign list to…"
+		"string": "Assign to…"
+	},
+	"projectActions.cancel": {
+		"string": "Kanselahin"
+	},
+	"projectActions.defaultErrorMessage": {
+		"string": "Error, mangyaring sumubok muli",
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+	},
+	"projectActions.delete": {
+		"string": "Burahin",
+		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectActions.deleteProjectBody": {
-		"string": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
 	},
 	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this list?"
+		"string": "Are you sure you want to delete this folder?"
 	},
 	"projectActions.destroy": {
 		"string": "Burahin"
 	},
+	"projectActions.move": {
+		"string": "Ilipat sa…",
+		"developer_comment": "'Move' here is an infinitive verb"
+	},
+	"projectActions.moveOut": {
+		"string": "Move out",
+		"developer_comment": "Menu option to move a folder out of a collection"
+	},
 	"projectActions.proceedLabel": {
-		"string": "Burahin ang listahan"
+		"string": "Delete folder"
 	},
 	"projectActions.projectDeleted": {
-		"string": "Matagumpay na nabura ang listahan."
+		"string": "Folder deleted successfully."
 	},
 	"projectActions.projectNotDeleted": {
-		"string": "Paumanhin, hindi mabura ang listahan."
+		"string": "Sorry, could not delete folder."
+	},
+	"projectActions.rename": {
+		"string": "Rename",
+		"developer_comment": "'Rename' here is an infinitive verb"
+	},
+	"projectActions.savedSuccessfully": {
+		"string": "Tapos na",
+		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
+	},
+	"projectActions.tooltip": {
+		"string": "Actions"
 	},
 	"projectAssignment.assignedTo": {
 		"string": "Itinalaga kay"
@@ -1883,64 +1639,46 @@
 		"string": "Tapos na! Ipinalalaganap ang mga assignment sa mga item at gawain. Makatatanggap ka ng email kapag handa na ito."
 	},
 	"projectAssignment.title": {
-		"string": "Italaga ang listahan sa mga katuwang"
+		"string": "Assign folder to collaborators"
 	},
-	"projectEdit.confirmCancelLabel": {
-		"string": "Go back"
-	},
-	"projectEdit.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
-	},
-	"projectEdit.confirmProceedLabel": {
-		"string": "Save changes"
-	},
-	"projectEdit.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
-	},
-	"projectEdit.descriptionField": {
-		"string": "Pagkakalarawan"
-	},
-	"projectEdit.error": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang listahan. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"projectEdit.saveButton": {
-		"string": "I-update"
-	},
-	"projectEdit.title": {
-		"string": "List details"
-	},
-	"projectEdit.titleField": {
-		"string": "Pamagat"
+	"projectBlankState.blank": {
+		"string": "There are no items here."
 	},
 	"projectEditDialogComponent.confirmCancelLabel": {
 		"string": "Go back"
 	},
 	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
+		"string": "Changes made to this folder will be reflected for everyone in this workspace."
 	},
 	"projectEditDialogComponent.confirmProceedLabel": {
 		"string": "Save changes"
 	},
 	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
+		"string": "Are you sure you want to change this folder?"
 	},
 	"projectEditDialogComponent.descriptionField": {
 		"string": "Pagkakalarawan"
 	},
 	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update list details."
+		"string": "Could not update folder details."
 	},
 	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "List details updated successfully."
+		"string": "Folder details updated successfully."
 	},
 	"projectEditDialogComponent.saveButton": {
 		"string": "I-update"
 	},
 	"projectEditDialogComponent.title": {
-		"string": "List details"
+		"string": "Folder details"
 	},
 	"projectEditDialogComponent.titleField": {
 		"string": "Pamagat"
+	},
+	"projectGroup.deleteMessage": {
+		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+	},
+	"projectGroup.name": {
+		"string": "collection"
 	},
 	"projectHeader.allItems": {
 		"string": "Lahat ng mga item"
@@ -1948,14 +1686,50 @@
 	"projectHeader.trash": {
 		"string": "Basurahan"
 	},
+	"projectHeader.unconfirmed": {
+		"string": "Hindi kumpirmado"
+	},
+	"projectMoveDialogComponent.choose": {
+		"string": "Choose a collection"
+	},
+	"projectMoveDialogComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectMoveDialogComponent.createCollection": {
+		"string": "Create collection"
+	},
+	"projectMoveDialogComponent.moveTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.movedSuccessfully": {
+		"string": "Folder moved to collection successfully",
+		"developer_comment": "Message displayed when a folder is moved to a collection"
+	},
+	"projectMoveDialogComponent.newCollection": {
+		"string": "New collection"
+	},
+	"projectMoveDialogComponent.noCollectionsText": {
+		"string": "There are no collections in {teamName}. You need to create a collection first."
+	},
+	"projectMoveDialogComponent.noCollectionsTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.proceedLabel": {
+		"string": "Create a new collection"
+	},
+	"projectMoveDialogComponent.proceedLabel2": {
+		"string": "Move to collection"
+	},
 	"projectSelector.allProjs": {
-		"string": "Lahat ng listahan"
+		"string": "All folders"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, number} ang pinili"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected folders"
 	},
 	"projects.addProject": {
-		"string": "Magdagdag ng listahan"
+		"string": "Add folder"
 	},
 	"projects.allClaims": {
 		"string": "Lahat ng mga item"
@@ -1964,13 +1738,107 @@
 		"string": "I-dismiss"
 	},
 	"projects.newList": {
-		"string": "+ Bagong listahan"
+		"string": "+ New folder"
 	},
 	"projects.trash": {
 		"string": "Basurahan"
 	},
 	"projects.unconfirmed": {
 		"string": "Hindi kumpirmado"
+	},
+	"projectsComponent.allItems": {
+		"string": "Lahat ng mga item"
+	},
+	"projectsComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectsComponent.createCollection": {
+		"string": "Create collection",
+		"developer_comment": "Button label for creating new collection"
+	},
+	"projectsComponent.createFolder": {
+		"string": "Create folder",
+		"developer_comment": "Button label for creating new folder"
+	},
+	"projectsComponent.createList": {
+		"string": "Gumawa ng listahan"
+	},
+	"projectsComponent.deleteType": {
+		"string": "Delete {type}",
+		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.description": {
+		"string": "Pagkakalarawan"
+	},
+	"projectsComponent.folders": {
+		"string": "Folders"
+	},
+	"projectsComponent.invalidMove": {
+		"string": "Folders can just be moved to collections",
+		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
+	},
+	"projectsComponent.lists": {
+		"string": "Filtered lists",
+		"developer_comment": "List of items with some filters applied"
+	},
+	"projectsComponent.movedSuccessfully": {
+		"string": "Folder moved successfully",
+		"developer_comment": "Message displayed when a folder is moved to or from a collection"
+	},
+	"projectsComponent.newCollection": {
+		"string": "New collection",
+		"developer_comment": "Dialog title for creating new collection"
+	},
+	"projectsComponent.newCollectionErrorMessage": {
+		"string": "Could not create collection, please try again",
+		"developer_comment": "Error message when creating new collection fails"
+	},
+	"projectsComponent.newCollectionMenu": {
+		"string": "New collection",
+		"developer_comment": "Menu item for creating new collection"
+	},
+	"projectsComponent.newCollectionSuccessMessage": {
+		"string": "Collection created successfully",
+		"developer_comment": "Success message when new collection is created"
+	},
+	"projectsComponent.newFolder": {
+		"string": "New folder",
+		"developer_comment": "Dialog title for creating new folder"
+	},
+	"projectsComponent.newFolderErrorMessage": {
+		"string": "Could not create folder, please try again",
+		"developer_comment": "Error message when creating new folder fails"
+	},
+	"projectsComponent.newFolderMenu": {
+		"string": "New folder",
+		"developer_comment": "Menu item for creating new folder"
+	},
+	"projectsComponent.newFolderSuccessMessage": {
+		"string": "Folder created successfully",
+		"developer_comment": "Success message when new folder is created"
+	},
+	"projectsComponent.newList": {
+		"string": "New list"
+	},
+	"projectsComponent.newListErrorMessage": {
+		"string": "Could not create list, please try again",
+		"developer_comment": "Error message when creating new list fails"
+	},
+	"projectsComponent.newListSuccessMessage": {
+		"string": "List created successfully",
+		"developer_comment": "Success message when new list is created"
+	},
+	"projectsComponent.noFolders": {
+		"string": "No folders in this collection",
+		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.renameType": {
+		"string": "Rename {type}",
+		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.title": {
+		"string": "Pamagat"
 	},
 	"reportDesigner.addIntro": {
 		"string": "Magdagdag ng laman sa panimula"
@@ -1980,9 +1848,6 @@
 	},
 	"reportDesigner.back": {
 		"string": "Bumalik sa anotasyon"
-	},
-	"reportDesigner.canPublish": {
-		"string": "Ilathala ang ulat"
 	},
 	"reportDesigner.cancelLeaveButtonLabel": {
 		"string": "Go back"
@@ -2038,23 +1903,14 @@
 	"reportDesigner.confirmRepublishResendText": {
 		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
-	"reportDesigner.confirmRepublishResendText2": {
-		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap nitong bagong bersyon ng ulat."
-	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Handa ka na bang ilathala ang iyong mga binago?"
-	},
-	"reportDesigner.confirmRepublishText": {
-		"string": "Sa hinaharap, ang mga user na humihiling sa item na ito ay makatatanggap nitong bagong bersyon ng ulat."
 	},
 	"reportDesigner.confirmRepublishTitle": {
 		"string": "Handa ka na bang ilathala ang iyong mga binago?"
 	},
 	"reportDesigner.content": {
 		"string": "Nilalaman (hindi hihigit sa {max} karakter)"
-	},
-	"reportDesigner.copyButton": {
-		"string": "Kopyahin"
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Kinopya"
@@ -2076,9 +1932,6 @@
 	},
 	"reportDesigner.description": {
 		"string": "Nilalaman (hindi hihigit sa {max} karakter)"
-	},
-	"reportDesigner.disclaimer": {
-		"string": "Disclaimer"
 	},
 	"reportDesigner.edit": {
 		"string": "I-edit"
@@ -2104,17 +1957,11 @@
 	"reportDesigner.pause": {
 		"string": "Ihinto"
 	},
-	"reportDesigner.pauseReport": {
-		"string": "Ihinto ang ulat"
-	},
 	"reportDesigner.publish": {
 		"string": "Ilathala"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Tanggalin ang larawan"
-	},
-	"reportDesigner.reportEditorTitle": {
-		"string": "Piliin ang nilalamang ipadadala sa iyong ulat"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Preview ng report",
@@ -2140,9 +1987,6 @@
 	},
 	"reportDesigner.textTitle": {
 		"string": "Pamagat (hindi hihigit sa {max} karakter)"
-	},
-	"reportDesigner.themeColor": {
-		"string": "Kulay ng tema"
 	},
 	"reportDesigner.title": {
 		"string": "Disenyuhan ang iyong ulat"
@@ -2244,13 +2088,15 @@
 		"string": "Hindi ma-save ang mga panuntunan"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Matagumpay na nai-save ang mga panuntunan!"
+		"string": "Rules saved successfully"
 	},
 	"rulesTableHead.name": {
-		"string": "Pangalan"
+		"string": "Pangalan",
+		"developer_comment": "Table header for rule names"
 	},
 	"rulesTableHead.updated": {
-		"string": "In-update"
+		"string": "In-update",
+		"developer_comment": "Table header for rule update dates"
 	},
 	"rulesTableToolbar.add": {
 		"string": "Bagong panuntunan"
@@ -2274,40 +2120,80 @@
 		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Create automations to organize folders and customize your workflow."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Mga panuntunan"
 	},
-	"search.Filter": {
-		"string": "Filter"
+	"saveList.cancel": {
+		"string": "Kanselahin"
 	},
-	"search.all": {
-		"string": "Lahat"
+	"saveList.create": {
+		"string": "Create new list",
+		"developer_comment": "'Create' here is an infinitive verb"
+	},
+	"saveList.defaultErrorMessage": {
+		"string": "Could not save list, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save a list"
+	},
+	"saveList.newList": {
+		"string": "Save list"
+	},
+	"saveList.saveList": {
+		"string": "Save list",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+	},
+	"saveList.savedSuccessfully": {
+		"string": "List saved successfully",
+		"developer_comment": "Success message displayed when a list is saved"
+	},
+	"saveList.title": {
+		"string": "Enter new list name"
+	},
+	"saveList.update": {
+		"string": "Save changes to the list \"{listName}\"",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
+	"savedSearch.deleteMessage": {
+		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+	},
+	"savedSearch.name": {
+		"string": "list"
+	},
+	"search.afterDate": {
+		"string": "after",
+		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
 		"string": "Lahat ng mga item"
 	},
-	"search.any": {
-		"string": "Kahit ano"
+	"search.and": {
+		"string": "At",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.anyDate": {
+		"string": "any date",
+		"developer_comment": "Date picker placeholder"
 	},
 	"search.applyFilters": {
-		"string": "Filter"
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
-		"string": "Itinalaga kay"
+		"string": "Itinalaga kay",
+		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
-	"search.cancel": {
-		"string": "Kanselahin"
+	"search.beforeDate": {
+		"string": "and before",
+		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.categoriesHeading": {
-		"string": "Mga tag"
+		"string": "Tag is",
+		"developer_comment": "Prefix label for field to filter by tags"
 	},
-	"search.clear": {
-		"string": "Tanggalin ang filter"
-	},
-	"search.dateHeading": {
-		"string": "Saklaw ng Oras"
+	"search.collection": {
+		"string": "Collection is",
+		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Huling isinumite"
@@ -2321,65 +2207,99 @@
 	"search.dateUpdatedHeading": {
 		"string": "In-update noong"
 	},
+	"search.fieldAnd": {
+		"string": "AND",
+		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+	},
+	"search.folderHeading": {
+		"string": "Folder is",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
 	"search.help": {
-		"string": "<table>\n                    <tbody>\n                      <tr><td>+</td><td>Puno+Dahon</td><td>Mga item na may parehong Puno AT Dahon</td></tr>\n                      <tr><td>|</td><td>Puno | Dahon</td><td>Mga item na may alinman sa Puno O Dahon</td></tr>\n                       <tr><td>()</td><td>Puno + (Dahon | Sanga)</td><td>Mga item na may Puno AT Dahon O mga item na may Puno AT Sanga</td></tr>\n                       </tbody>\n                     </table>\n                     <div>\n                       <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Dagdagan ang kaalaman tungkol sa mga pamamaraan sa paghahanap\n                        </a>\n                      </div>"
+		"string": "<table>\n                    <tbody>\n                      <tr><td>+</td><td>Puno+Dahon</td><td>Mga item na may parehong Puno AT Dahon</td></tr>\n                      <tr><td>|</td><td>Puno | Dahon</td><td>Mga item na may alinman sa Puno O Dahon</td></tr>\n                       <tr><td>()</td><td>Puno + (Dahon | Sanga)</td><td>Mga item na may Puno AT Dahon O mga item na may Puno AT Sanga</td></tr>\n                       </tbody>\n                     </table>\n                     <div>\n                       <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Dagdagan ang kaalaman tungkol sa mga pamamaraan sa paghahanap\n                        </a>\n                      </div>",
+		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
-		"string": "Maghanap"
+		"string": "Maghanap",
+		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Wika"
+		"string": "Language is",
+		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Kasunod na pahina"
 	},
-	"search.pickDateFrom": {
-		"string": "Petsang nagsimula"
+	"search.notInAny": {
+		"string": "Not in any collection",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
-	"search.pickDateTo": {
-		"string": "Petsang nagtapos"
+	"search.or": {
+		"string": "O",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
 		"string": "Nakaraang pahina"
 	},
-	"search.projectHeading": {
-		"string": "Listahan"
+	"search.reportStatus": {
+		"string": "Report status is",
+		"developer_comment": "Prefix label for field to filter by report status"
 	},
-	"search.readHeading": {
-		"string": "Nabasa na"
+	"search.reportStatusPaused": {
+		"string": "Inihinto",
+		"developer_comment": "Refers to a report status"
 	},
-	"search.reset": {
-		"string": "I-reset"
+	"search.reportStatusPublished": {
+		"string": "Inilathala",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusUnpublished": {
+		"string": "Itinanggal sa pagkakalathala",
+		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
-		"string": "Uri ng media"
+		"string": "Type is",
+		"developer_comment": "Prefix label for field to filter by media type"
 	},
 	"search.showAudios": {
-		"string": "Audio"
+		"string": "Audio",
+		"developer_comment": "Describes media type Audio"
 	},
 	"search.showBlank": {
-		"string": "Inangkat na ulat"
+		"string": "Inangkat na ulat",
+		"developer_comment": "Describes media type unspecified"
 	},
 	"search.showClaims": {
-		"string": "Tektso"
+		"string": "Tektso",
+		"developer_comment": "Describes media type Text"
 	},
 	"search.showImages": {
-		"string": "Larawan"
+		"string": "Larawan",
+		"developer_comment": "Describes media type Image"
 	},
 	"search.showLinks": {
-		"string": "Link"
+		"string": "Link",
+		"developer_comment": "Describes media type Link"
 	},
 	"search.showVideos": {
-		"string": "Video"
+		"string": "Video",
+		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Status ng item"
-	},
-	"search.title": {
-		"string": "Lahat ng mga item"
+		"string": "Ang status ng item ay",
+		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Ginawa ni"
+		"string": "Ginawa ni",
+		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFields.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"searchKeyword.clear": {
+		"string": "Clear keyword search",
+		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "Source"
@@ -2425,7 +2345,8 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
+		"developer_comment": "Label for number of selected items"
 	},
 	"sentence.lastSeparator": {
 		"string": "at"
@@ -2433,25 +2354,16 @@
 	"sentence.separator": {
 		"string": ","
 	},
-	"setProjectMediaSource.cancelButton": {
-		"string": "Kanselahin"
-	},
-	"setProjectMediaSource.choose": {
-		"string": "Choose a source"
-	},
-	"setProjectMediaSource.saveButton": {
-		"string": "I-save"
-	},
 	"setSourceDialog.confirm": {
 		"string": "Do you want to use the existing sources for this media?",
 		"developer_comment": "Confirm message to relate media to an existing source"
 	},
 	"setSourceDialog.existDescription": {
-		"string": "An the source <b>{name}</b> already exists.",
+		"string": "The source <b>{name}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existDescriptionWithUrl": {
-		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"string": "The source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existingSource": {
@@ -2490,14 +2402,8 @@
 	"singleChoiceTask.value": {
 		"string": "Value"
 	},
-	"slackConfig.menuTooltip": {
-		"string": "Mga setting pang-integration"
-	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
-	},
-	"slackConfig.title": {
-		"string": "Integration sa Slack"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "Lahat ng iba pang aktibidad"
@@ -2518,7 +2424,7 @@
 		"string": "Kaganapan"
 	},
 	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Kung nasa listahan ang item"
+		"string": "If item is in folder"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "Bagong abiso"
@@ -2527,16 +2433,16 @@
 		"string": "I-save"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Matagumpay na na-save ang mga setting ng Slack!"
+		"string": "Slack settings saved successfully"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Magpadala ng mga abiso sa"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
+		"string": "Slack incoming webhook"
 	},
 	"smoochBot.addResource": {
 		"string": "Magdagdag ng resource"
@@ -2554,7 +2460,7 @@
 		"string": "Isang talaang nagsasabi sa user na pumili mula sa hanay ng mga pagpipilian. Ang mensaheng ito ay awtomatikong kasunod ng mensaheng Pagbati. Hindi magagamit ang 9 bilang pagpipilian sa pangunahing talaan."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Ang mensaheng pinadadala kapag ang tugon ng user sa menu ay hindi wastong senaryong pantalaan."
@@ -2668,7 +2574,7 @@
 		"string": "Makipag-ugnay sa amin para sa setup"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Could not save tipline settings.",
+		"string": "Could not save tipline settings",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
 	"smoochBotComponent.install": {
@@ -2678,7 +2584,7 @@
 		"string": "Save settings"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Tipline settings saved successfully.",
+		"string": "Tipline settings saved successfully",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
@@ -2686,6 +2592,100 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
+	},
+	"smoochBotIntegrationButton.cancel": {
+		"string": "Kanselahin"
+	},
+	"smoochBotIntegrationButton.confirm": {
+		"string": "Kumpirmahin"
+	},
+	"smoochBotIntegrationButton.confirmDisconnectText": {
+		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTitle": {
+		"string": "Disconnect {platform} tipline",
+		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmationMessage": {
+		"string": "Disconnect {platform}",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.confirmationMessagePermanent": {
+		"string": "Disconnect {platform} permanently",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.connect": {
+		"string": "Kumonekta"
+	},
+	"smoochBotIntegrationButton.connectTipline": {
+		"string": "Connect to {platform} tipline"
+	},
+	"smoochBotIntegrationButton.defaultErrorMessage": {
+		"string": "Something went wrong"
+	},
+	"smoochBotIntegrationButton.disclaimer": {
+		"string": "We don't store this information. This is just used to configure the integration."
+	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
+	"smoochBotIntegrationButton.disconnect": {
+		"string": "Disconnect from this account"
+	},
+	"smoochBotIntegrationButton.online": {
+		"string": "Online"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
+	},
+	"smoochBotIntegrationButton.savedSuccessfully": {
+		"string": "Tapos na"
+	},
+	"smoochBotIntegrationButton.status": {
+		"string": "Status: Online"
+	},
+	"smoochBotIntegrationButton.tipline": {
+		"string": "{platform} tipline"
+	},
+	"smoochBotIntegrations.account": {
+		"string": "Connected account: {link}"
+	},
+	"smoochBotIntegrations.lineChannelAccessToken": {
+		"string": "LINE channel access token"
+	},
+	"smoochBotIntegrations.lineChannelSecret": {
+		"string": "LINE channel secret"
+	},
+	"smoochBotIntegrations.lineWebhook": {
+		"string": "Copy this webhook URL to your LINE settings"
+	},
+	"smoochBotIntegrations.page": {
+		"string": "Connected page: {link}"
+	},
+	"smoochBotIntegrations.phoneNumber": {
+		"string": "Connected phone number: {link}"
+	},
+	"smoochBotIntegrations.telegramBot": {
+		"string": "Connected Telegram bot: {link}"
+	},
+	"smoochBotIntegrations.telegramBotToken": {
+		"string": "Telegram bot token"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
+	},
+	"smoochBotIntegrations.viberPublicAccount": {
+		"string": "Connected Viber public account: {name}"
+	},
+	"smoochBotIntegrations.viberPublicAccountToken": {
+		"string": "Viber public account token"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Senaryo"
@@ -2756,27 +2756,6 @@
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
 	},
-	"smoochBotSelectReport.cancel": {
-		"string": "Kanselahin"
-	},
-	"smoochBotSelectReport.confirm": {
-		"string": "Kumpirmahin"
-	},
-	"smoochBotSelectReport.dialogDescription": {
-		"string": "Hanapin ang pamagat ng item na nais mong ipadala bilang ulat. Tutugon ang bot sa user kasama ang ulat na ito. Kailangang makumpleto ang ulat bago ito mahanap dito."
-	},
-	"smoochBotSelectReport.dialogTitle": {
-		"string": "Mamili ng ulat"
-	},
-	"smoochBotSettings.connectToFacebook": {
-		"string": "Connect to Facebook"
-	},
-	"smoochBotSettings.connectToTwitter": {
-		"string": "Connect to Twitter"
-	},
-	"smoochBotSettings.connectToWhatsApp": {
-		"string": "Connect to WhatsApp"
-	},
 	"sortSelect.az": {
 		"string": "A hanggang Z"
 	},
@@ -2845,7 +2824,7 @@
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Set {language} as default"
@@ -2854,13 +2833,15 @@
 		"string": "Do you want to set the default language to {language}?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
+		"string": "All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently.",
+		"developer_comment": "Warning about content being lost after deleting a language"
 	},
 	"statusListItem.confirmDeleteBody2": {
 		"string": "Users will receive this content in the default language {language} instead."
 	},
 	"statusListItem.confirmDeleteDefaultBody": {
-		"string": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+		"string": "You cannot delete the default language. You must set a different default language before you can delete {language}.",
+		"developer_comment": "Message warning user to set a new default language before deleting the current one"
 	},
 	"statusListItem.confirmDeleteDefaultLabel": {
 		"string": "Go back and change"
@@ -2899,10 +2880,10 @@
 		"string": "Isalin ang mga status sa mga sekondaryong wika para maipakita sila sa mga lokal na wika sa iyong mga ulat pang-fact check."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully!"
+		"string": "Status created successfully"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully!"
+		"string": "Status deleted successfully"
 	},
 	"statusesComponent.error": {
 		"string": "Paumanhin, may naganap na error habang inu-update ang mga status. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
@@ -2914,7 +2895,7 @@
 		"string": "Bagong status"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully!"
+		"string": "Statuses saved successfully"
 	},
 	"statusesComponent.subtitle": {
 		"string": "Makikita ang pamagat ng status kapag nagpapadala ng ulat sa mga user."
@@ -2962,14 +2943,11 @@
 	"tagPicker.tagNotFound": {
 		"string": "Hindi matagpuan ang tag na #{tag}"
 	},
-	"tagTextCount.acknowledge": {
-		"string": "{count, plural, =0 {Oo} isa {Naiintindihan ko na sa pagbura ng tag na ito, matatanggal ito mula sa isang media item} iba pa {Naiintindihan ko na sa pagbura ng tag na ito, matatanggal ito mula sa # media item.}}"
-	},
 	"task.answeredBy": {
 		"string": "Kinumpleto ni {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "Magtalaga / Magtanggal sa Pagkakatalaga"
+		"string": "Assign/Unassign"
 	},
 	"task.assignedTo": {
 		"string": "Itinalaga kay {name}"
@@ -3014,7 +2992,8 @@
 		"string": "Lahat ng gawain"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "{length, number} ang pinili"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.add": {
 		"string": "I-save"
@@ -3058,9 +3037,6 @@
 	"tasks.description": {
 		"string": "Pagkakalarawan (hindi kinakailangan)"
 	},
-	"tasks.done": {
-		"string": "Tapos na"
-	},
 	"tasks.editAssignment": {
 		"string": "I-edit ang assignment"
 	},
@@ -3075,6 +3051,10 @@
 	},
 	"tasks.goToSettings": {
 		"string": "Pumunta sa settings"
+	},
+	"tasks.number": {
+		"string": "Number",
+		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.shortAnswer": {
 		"string": "Teksto"
@@ -3109,51 +3089,6 @@
 	"teamBots.success": {
 		"string": "Na-update ang mga setting!"
 	},
-	"teamComponent.cancelButton": {
-		"string": "Kanselahin"
-	},
-	"teamComponent.editButton": {
-		"string": "I-edit ang profile"
-	},
-	"teamComponent.editError": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang workspace. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"teamComponent.invalidLink": {
-		"string": "Mangyaring maglagay ng wastong URL"
-	},
-	"teamComponent.location": {
-		"string": "Lokasyon"
-	},
-	"teamComponent.noProjects": {
-		"string": "Walang listahan"
-	},
-	"teamComponent.phone": {
-		"string": "Numero ng telepono"
-	},
-	"teamComponent.private": {
-		"string": "Pribado"
-	},
-	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Nakatalaga sa isang miyembro} other {Nakatalaga sa # miyembro}}"
-	},
-	"teamComponent.projects": {
-		"string": "Mga listahan"
-	},
-	"teamComponent.public": {
-		"string": "Publiko"
-	},
-	"teamComponent.saveButton": {
-		"string": "I-save"
-	},
-	"teamComponent.teamDescription": {
-		"string": "Pagkakalarawan"
-	},
-	"teamComponent.teamName": {
-		"string": "Pangalan"
-	},
-	"teamComponent.website": {
-		"string": "Website"
-	},
 	"teamDataComponent.formLinkText": {
 		"string": "this short form"
 	},
@@ -3173,7 +3108,8 @@
 		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
 	},
 	"teamDataComponent.title": {
-		"string": "Workspace data"
+		"string": "Workspace data",
+		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.viewDataReport": {
 		"string": "View data report"
@@ -3188,11 +3124,12 @@
 		"string": "Workspace details saved successfully"
 	},
 	"teamDetails.subtitle": {
-		"string": "Add details to your Check workspace"
+		"string": "Add details to your Check workspace.",
+		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
 		"string": "Workspace details",
-		"developer_comment": "Title for workspace details page"
+		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
 		"string": "I-update"
@@ -3200,81 +3137,34 @@
 	"teamDetails.workspaceName": {
 		"string": "Workspace name"
 	},
-	"teamInfo.duplicateTeam": {
-		"string": "I-duplicate"
-	},
-	"teamInfo.editTeam": {
-		"string": "I-edit"
-	},
 	"teamIntegrations.subtitle": {
 		"string": "Third party tools to enhance productivity."
 	},
 	"teamIntegrations.title": {
 		"string": "Mga integration"
 	},
-	"teamInviteCard.copied": {
-		"string": "KOPYAHIN"
-	},
-	"teamInviteCard.copy": {
-		"string": "NAKOPYA!"
-	},
-	"teamInviteCard.title": {
-		"string": "Mag-anyaya ng mga miyembro"
-	},
-	"teamInviteMembers.addAnother": {
-		"string": "Magdagdag ng isa pa"
-	},
-	"teamInviteMembers.addMany": {
-		"string": "Magdagdag ng marami"
-	},
-	"teamInviteMembers.addSeparate": {
-		"string": "Magdagdag ng hiwalay"
-	},
-	"teamInviteMembers.cancelAdd": {
-		"string": "Kanselahin"
-	},
-	"teamInviteMembers.customInvitation": {
-		"string": "Mensaheng paanyaya (hindi kinakailangan)"
-	},
-	"teamInviteMembers.inviteMember": {
-		"string": "Mag-anyaya"
-	},
-	"teamInviteMembers.inviteMembers": {
-		"string": "Anyayahan ang mga miyembro bilang"
-	},
-	"teamInviteMembers.resendEmailSuccess": {
-		"string": "Matagumpay na naipadala ang paanyaya."
-	},
-	"teamInviteMembers.send": {
-		"string": "Ipadala"
-	},
-	"teamLists.description": {
-		"string": "Piliin ang mga haliging nais mong ipakita sa lahat ng iyong mga listahan\n"
-	},
-	"teamLists.title": {
-		"string": "Mga setting panlistahan"
-	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "None available",
+		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "I-save ang mga pagbabago para sa lahat ng listahan"
+		"string": "Save changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Sigurado ka ba? Ang mga pagbabago mo ay makaaapekto sa lahat ng listahan at makikita ng lahat ng mga user sa iyong workspace."
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Pagbabago sa listahang pang-workspace"
+		"string": "Workspace columns change"
 	},
 	"teamListsComponent.createMetadata": {
 		"string": "Create new metadata field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
-		"string": "Hindi mai-save ang mga setting panlistahan.",
-		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+		"string": "Could not save column settings",
+		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Piliin ang mga haliging nais mong ipakita sa lahat ng iyong mga listahan"
+		"string": "Select all the columns you want to display in all your folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "Displayed columns"
@@ -3286,11 +3176,11 @@
 		"string": "Metadata"
 	},
 	"teamListsComponent.savedSuccessfully": {
-		"string": "Matagumpay na nai-save ang mga setting panlistahan.",
-		"developer_comment": "Banner displayed when list settings are saved successfully"
+		"string": "Column settings saved successfully",
+		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Mga setting panlistahan"
+		"string": "Columns settings"
 	},
 	"teamListsItem.general": {
 		"string": "General"
@@ -3332,7 +3222,7 @@
 		"string": "Tanggalin"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
 	},
 	"teamMembers.removeDialogTitle": {
 		"string": "Remove {userLabel}"
@@ -3341,7 +3231,8 @@
 		"string": "Resend invite"
 	},
 	"teamMembers.subtitle": {
-		"string": "Invite and manage users"
+		"string": "Invite and manage users.",
+		"developer_comment": "Subtitle for workspace members management page"
 	},
 	"teamMembers.tableHeaderLastActive": {
 		"string": "Last active",
@@ -3362,9 +3253,6 @@
 	"teamMembers.tooltip": {
 		"string": "Manage member"
 	},
-	"teamMembersComponent.inviteLink": {
-		"string": "Para makapag-anyaya ng mga kasamahang sumali sa {teamName}, ipadala ang link na ito:"
-	},
 	"teamMenu.teamSettings": {
 		"string": "Mga setting ng workspace"
 	},
@@ -3374,49 +3262,22 @@
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Metadata",
-		"developer_comment": "Title for item Metadata"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
 		"string": "Add custom metadata fields to items.",
-		"developer_comment": "Metadata item subtitle"
+		"developer_comment": "Subtitle for metadata settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Add custom data ields to the source tab.",
-		"developer_comment": "Metadata source subtitle"
+		"string": "Add custom data fields to the source tab.",
+		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
 		"string": "Source metadata",
-		"developer_comment": "Ttle for source Metadata"
-	},
-	"teamReport.disclaimer": {
-		"string": "Disclaimer"
-	},
-	"teamReport.disclaimerSub": {
-		"string": "Disclaimer na ipakikita sa ilalim ng ulat kasama ang logo ng workspace."
-	},
-	"teamReport.introduction": {
-		"string": "Panimula"
-	},
-	"teamReport.introductionSub": {
-		"string": "Gamitin ang placeholder na {query_date} para ipakita ang petsa ng orihinal na katanungan. Gamitin ang {status} para ipabatid ang status ng artikulo."
-	},
-	"teamReport.save": {
-		"string": "I-save"
-	},
-	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
-	},
-	"teamReport.title": {
-		"string": "Mga default na setting ng ulat"
-	},
-	"teamReport.updateFail": {
-		"string": "Paumanhin, may naganap na error habang inu-update ang mga setting ng ulat. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"teamReport.updateSuccess": {
-		"string": "Matagumpay na na-update ang mga setting ng ulat!"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
-		"string": "Could not save report settings.",
+		"string": "Could not save report settings",
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
@@ -3428,18 +3289,28 @@
 	"teamReportComponent.introductionSub": {
 		"string": "Gamitin ang placeholder na {query_date} para ipakita ang petsa ng orihinal na katanungan. Gamitin ang {status} para ipabatid ang status ng artikulo."
 	},
+	"teamReportComponent.line": {
+		"string": "LINE channel"
+	},
 	"teamReportComponent.save": {
 		"string": "I-save"
 	},
 	"teamReportComponent.savedSuccessfully": {
-		"string": "Report settings saved successfully.",
+		"string": "Report settings saved successfully",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
 		"string": "Signature"
 	},
+	"teamReportComponent.signatureLabel": {
+		"string": "Signature ({max} characters max)",
+		"developer_comment": "Label for signature field in report settings"
+	},
 	"teamReportComponent.subtitle": {
 		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.telegram": {
+		"string": "Telegram bot username"
 	},
 	"teamReportComponent.title": {
 		"string": "Mga default na setting ng ulat"
@@ -3451,7 +3322,11 @@
 		"string": "Website URL"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Prompt ({max} characters max)"
+		"string": "Short URL ({max} characters max)",
+		"developer_comment": "Label for URL field in report settings"
+	},
+	"teamReportComponent.viber": {
+		"string": "Viber public account URI"
 	},
 	"teamReportComponent.whatsapp": {
 		"string": "WhatsApp number"
@@ -3472,7 +3347,7 @@
 		"string": "Mga wika"
 	},
 	"teamSettings.lists": {
-		"string": "Mga listahan"
+		"string": "Columns"
 	},
 	"teamSettings.members": {
 		"string": "Mga miyembro"
@@ -3553,13 +3428,7 @@
 		"string": "Mga tag"
 	},
 	"teamTags.tooltip": {
-		"string": "I-filter at isaayos ang listahan"
-	},
-	"teamTasks.blank": {
-		"string": "Walang mapapakitang default na gawain"
-	},
-	"teamTasks.blankMetadata": {
-		"string": "Walang mga patlang pang-metadata"
+		"string": "Filter and sort folder"
 	},
 	"teamTasks.cancelAction": {
 		"string": "Kanselahin"
@@ -3603,32 +3472,11 @@
 	"teamTasks.edit": {
 		"string": "I-edit"
 	},
-	"teamTasks.filter": {
-		"string": "I-filter ang mga gawain"
-	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
 	},
 	"teamTasks.filterLabelHidden": {
 		"string": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
-	},
-	"teamTasks.metadata": {
-		"string": "Metadata"
-	},
-	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
-	},
-	"teamTasks.projFilter": {
-		"string": "Ipakita ang mga gawain sa"
-	},
-	"teamTasks.tasks": {
-		"string": "Mga Gawain"
-	},
-	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
-	},
-	"teamTasks.typeFilter": {
-		"string": "Uri ng gawain"
 	},
 	"teamTasksRender.blank": {
 		"string": "Walang mapapakitang default na gawain",
@@ -3684,18 +3532,6 @@
 	"translateStatuses.status": {
 		"string": "Status"
 	},
-	"translationNeededDialog.body": {
-		"string": "Para gawing default na wika ang {language}, kailangan munang isalin sa {language} ang lahat ng mga dating status sa setting tab ng Status."
-	},
-	"translationNeededDialog.title": {
-		"string": "Kinakailangan ang pagsasalin ng status"
-	},
-	"trash.emptyTrash": {
-		"string": "Ubusin ang laman ng basurahan"
-	},
-	"trash.emptyTrashConfirmationText": {
-		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
-	},
 	"trash.title": {
 		"string": "Basurahan"
 	},
@@ -3722,30 +3558,6 @@
 	},
 	"uploadFile.videoMessage": {
 		"string": "Maglagay ng video file dito, o mag-click para makapag-upload ng file (maximum na laki: {video_max_size}, mga pinahihintulutang extension: {upload_extensions})"
-	},
-	"uploadImage.changeFile": {
-		"string": "{filename} (mag-click o maglagay rito para palitan)"
-	},
-	"uploadImage.fileTooLarge": {
-		"string": "Hindi dapat hihigit sa {size} ang laki ng file. Mangyaring sumubok ng mas maliit na file."
-	},
-	"uploadImage.invalidExtension": {
-		"string": "Ang file na ito ay hindi maaaring magkaroon ng uring \"{extension}\". Mangyaring sumubok muli gamit ang mga sumusunod na uri ng file: {allowed_types}."
-	},
-	"uploadImage.message": {
-		"string": "Maglagay ng larawan na file dito, o mag-click para makapag-upload ng file (maximum na laki: {upload_max_size}, mga pinahihintulutang extension: {upload_extensions}, mga pinahihintulutang sukat nasa pagitan ng {upload_min_dimensions} at {upload_max_dimensions} pixels)"
-	},
-	"uploadImage.videoMessage": {
-		"string": "Maglagay ng video file dito, o mag-click para makapag-upload ng file (maximum na laki: {video_max_size}, mga pinahihintulutang extension: {upload_extensions})"
-	},
-	"userAlreadyConfirmed.heading": {
-		"string": "Kumpirmado na ang Account"
-	},
-	"userAlreadyConfirmed.login": {
-		"string": "login"
-	},
-	"userAlreadyConfirmed.message": {
-		"string": "Ay! Kumpirmado na ang iyong account. Mangyaring {login} para makapagsimula."
 	},
 	"userAssignments.blank": {
 		"string": "Walang aktibidad"
@@ -3776,12 +3588,6 @@
 	"userConfirmed.confrimMessage": {
 		"string": "Salamat sa pagkumpirma ng iyong email address! Pwede ka nang mag-sign in.",
 		"developer_comment": "Message for confirmed user"
-	},
-	"userConfirmed.heading": {
-		"string": "Kumpirmado ang Account"
-	},
-	"userConfirmed.message": {
-		"string": "Salamat sa pagkumpirma ng iyong email address! Pwede ka nang mag-sign in."
 	},
 	"userConfirmed.unConfrimMessage": {
 		"string": "Paumanhin, may naganap na error habang kinukumpirma ang iyong account. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon.",
@@ -3846,9 +3652,6 @@
 	},
 	"userInfoEdit.userSendEmailNotification": {
 		"string": "Tumanggap ng mga abiso sa email"
-	},
-	"userMenu.edit": {
-		"string": "I-edit ang profile"
 	},
 	"userPrivacy.connectedAccounts": {
 		"string": "Mga konektadong account"
@@ -3993,15 +3796,6 @@
 	},
 	"userTos.validation": {
 		"string": "Kailangan mong sumang-ayon sa mga Tuntunin ng Serbisyo at Patakaran sa Pagkapribado"
-	},
-	"userUnconfirmed.heading": {
-		"string": "Error"
-	},
-	"userUnconfirmed.message": {
-		"string": "Paumanhin, may naganap na error habang kinukumpirma ang iyong account. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
-	},
-	"video.normalSpeed": {
-		"string": "Karaniwang bilis"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Hindi matukoy ang item na ito. Maaaring tinanggal ito o makikita lang ng mga user na naka-log in. Mag-click sa itaas para puntahan ito. "

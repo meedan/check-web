@@ -1,6 +1,7 @@
 [
   {
     "id": "teamDataComponent.title",
+    "description": "Header for the stored data page of the current team",
     "defaultMessage": "Workspace data"
   },
   {

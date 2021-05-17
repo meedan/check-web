@@ -17,8 +17,7 @@ import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
 import MultiSelector from '../layout/MultiSelector';
-import AddProjectMediaToProjectAction from './AddProjectMediaToProjectAction';
-import MoveProjectMediaToProjectAction from './MoveProjectMediaToProjectAction';
+import MoveProjectMediaAction from './MoveProjectMediaAction';
 import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
@@ -74,8 +73,8 @@ class MediaActionsBarComponent extends Component {
   }
 
   currentProject() {
-    const { project_media_project: projectMediaProject } = this.props.media;
-    return projectMediaProject ? projectMediaProject.project : null;
+    const { project } = this.props.media;
+    return project;
   }
 
   fail(transaction) {
@@ -101,7 +100,7 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.movedToTrash"
-          defaultMessage="Sent to {trash}"
+          defaultMessage="The item was moved to {trash}"
           values={{
             trash: (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
@@ -191,7 +190,7 @@ class MediaActionsBarComponent extends Component {
       const message = (
         <FormattedMessage
           id="mediaActionsBar.assignmentsUpdated"
-          defaultMessage="Assignments updated successfully!"
+          defaultMessage="Assignments updated successfully"
         />
       );
       this.props.setFlashMessage(message, 'success');
@@ -228,7 +227,7 @@ class MediaActionsBarComponent extends Component {
       return null;
     }
 
-    const { project_media_project: projectMediaProject } = media;
+    const { project } = media;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const options = [];
@@ -250,22 +249,12 @@ class MediaActionsBarComponent extends Component {
       <div className={classes.root}>
         { media.archived === CheckArchivedFlags.NONE ?
           <div>
-            <AddProjectMediaToProjectAction
+            <MoveProjectMediaAction
               team={this.props.media.team}
+              project={project}
               projectMedia={this.props.media}
               className={classes.spacedButton}
             />
-
-            {projectMediaProject ? (
-              <MoveProjectMediaToProjectAction
-                team={this.props.media.team}
-                project={projectMediaProject.project}
-                projectMedia={this.props.media}
-                projectMediaProject={projectMediaProject}
-                className={classes.spacedButton}
-              />
-            ) : null }
-
             <Button
               onClick={MediaActionsBarComponent.handleReportDesigner}
               id="media-detail__report-designer"
@@ -392,12 +381,11 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id
-        ${AddProjectMediaToProjectAction.getFragment('projectMedia')}
-        ${MoveProjectMediaToProjectAction.getFragment('projectMedia')}
+        ${MoveProjectMediaAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}
         ${RestoreConfirmProjectMediaToProjectAction.getFragment('projectMedia')}
         dbid
-        project_ids
+        project_id
         title
         demand
         description
@@ -411,18 +399,14 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           id
           data
         }
-        project_media_project(project_id: $projectId){
+        project {
           id
-          ${MoveProjectMediaToProjectAction.getFragment('projectMediaProject')}
-          project {
-            id
-            ${MoveProjectMediaToProjectAction.getFragment('project')}
-            dbid
-            title
-            search_id
-            search { id, number_of_results }
-            medias_count
-          }
+          ${MoveProjectMediaAction.getFragment('project')}
+          dbid
+          title
+          search_id
+          search { id, number_of_results }
+          medias_count
         }
         media {
           url
@@ -446,8 +430,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
           }
         }
         team {
-          ${AddProjectMediaToProjectAction.getFragment('team')}
-          ${MoveProjectMediaToProjectAction.getFragment('team')}
+          ${MoveProjectMediaAction.getFragment('team')}
           ${RestoreConfirmProjectMediaToProjectAction.getFragment('team')}
           id
           dbid

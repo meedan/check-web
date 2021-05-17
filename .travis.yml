@@ -1,48 +1,6 @@
-sudo: required
+language: minimal
 dist: bionic
-language: ruby
-rvm: "2.4"  # must be same as check-api/.travis.yml
-cache:
-  directories:
-    - "/tmp/bundler"
-services:
-  - docker
-  - postgresql
-  - xvfb
-addons:
-  postgresql: "11"
-  apt:
-    packages:
-    - build-essential
-    - chromium-browser
-    - chromium-chromedriver
-    - curl
-    - fonts-liberation
-    - imagemagick
-    - libappindicator1
-    - libexif-dev
-    - libnss3
-    - libnss3-dev
-    - libssl-dev
-    - lsof
-    - python-setuptools
-    - libtag1-dev
-    - unzip
-    - wget
-    - libidn11-dev
-  hosts:
-    - minio
-    - redis
-    - elasticsearch
-    - postgres
-  snaps:
-    - name: node
-      channel: 12/stable  # must be same as check-web/Dockerfile
-      confinement: classic
 before_install:
-- sudo apt-get remove google-chrome-stable  # Travis comes with it, and its version doesn't match chromedriver's
-- export TEST_ENV_NUMBER=0
-- export CHROMEDRIVER_URL=http://localhost:9515
 # Set a UTF-8 capabable locale
 - export LC_ALL=C.UTF-8
 - export LANG=C.UTF-8
@@ -51,53 +9,40 @@ before_install:
 # Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
 # https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
 - export TRAVIS_TAG=0.0.0
-# extract configs
-- git clone https://${TOKEN}:x-oauth-basic@github.com/meedan/configurator ./configurator
+# docker
+- echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 # pender
-# also starts minio and redis
 - export PENDER_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/pender.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $PENDER_BRANCH for Pender"
 - git clone --branch=$PENDER_BRANCH https://github.com/meedan/pender.git
-- d=configurator/$APP/travis/pender/; for f in $(find $d -type f); do cp "$f" "pender/${f/$d/}"; done
 - cd pender
-- docker-compose build
-- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- cp config/config.yml.example config/config.yml
+- cp config/database.yml.example config/database.yml
+- cp config/sidekiq.yml.example config/sidekiq.yml
 - cd -
 # check api
-- psql -c 'create database checkdesk_test0;' -U postgres
-- docker run -d --name elasticsearch -p 9200:9200 -p 9300:9300 -e "discovery.type=single-node" docker.elastic.co/elasticsearch/elasticsearch:7.9.2
-- docker exec elasticsearch elasticsearch-plugin install analysis-icu
-- docker restart elasticsearch
-- until curl --silent -XGET --fail http://localhost:9200; do printf '.'; sleep 1; done
-- curl --silent -XPUT http://localhost:9200/check_api_tests0
 - export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
-- d=configurator/$APP/travis/check-api/; for f in $(find $d -type f); do cp "$f" "check-api/${f/$d/}"; done
 - cd check-api
-- bundle install --path=/tmp/bundler
-- bundle exec rake db:migrate RAILS_ENV=test
-- bundle exec rake lapis:api_keys:create_default RAILS_ENV=test
-- bundle exec sidekiq -L log/sidekiq.log -d
-- RAILS_ENV=test bundle exec puma -w 3 -t 8:60 --preload -b tcp://127.0.0.1:3000 >/dev/null &
+- cp config/config.yml.example config/config.yml
+- cp config/database.yml.example config/database.yml
+- cp config/sidekiq.yml.example config/sidekiq.yml
 - cd -
-- export RAILS_ENV=development
-# chromedriver
-- chromedriver --port=9515 >/dev/null 2>/dev/null &
-# ruby / bundler / rspec
-- cd test && bundle install --path=/tmp/bundler && cd -
 # config files
-- d=configurator/$APP/travis/check-web/; for f in $(find $d -type f); do cp "$f" "${f/$d/}"; done
-install:
-- npm install
+- cp test/config.js.example config.js
+- cp test/config.js.example test/config.js
+- cp config-build.js.example config-build.js
+- cp config-server.js.example config-server.js
+- cp test/config.yml.example test/config.yml
 before_script:
-- npm run build
-- export SERVER_PORT=3333
-- npm run publish &
-- sleep 5
-- cd test/spec && bundle exec rubocop || travis_terminate 1;
-- cd -
-script: npm run test:lint && npm run test:unit && ./scripts/uncovered-files && cd test && ./parallel-test.sh
+- docker-compose build
+- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- until curl --silent -I -f --fail http://localhost:3000 ; do printf .; sleep 1; done
+- until curl --silent -I -f --fail http://localhost:3333 ; do printf .; sleep 1; done
+- docker-compose exec web npm run test:unit:lint || travis_terminate 1;
+- docker-compose exec web npm run test:integration:lint || travis_terminate 1;
+script: docker-compose exec -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID web npm run tests
 after_script:
 - cat file.json
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
@@ -106,4 +51,7 @@ notifications:
     secure: TAPzV/OeN5hl8JSGrqPcAtFO/NWa9IqMbyzuUpCZgNP9EbobmlTPx55mopI647rwVIQZM1RL+2SapHJbT7XCAjJ+uvzSQd0b/LaS/aXLKFcS3bBDcvKAUeCcCYUiDz7x832EYg0fsVErR2dZPxvuPtWtwrOlOaOo8HB1uVHjvKo20Wnr/J4+VNTGvhQ5awdmpHMh+KrWpjQi4Ta9zWOTmSYh3qhgaLKjIKXanoaWen87VJB6Jy8nJ3Bo6t3r3+sbCRN9/LUZ8sVcJnvzlKdOtiLGkz8u2YG2c8UD+iUt2VOk0o5L/o8YPoeukJyFuAHAdLrjOelwHCAD2dRfrpQG7y/8G0vjJRXg8DRaVBVIl9vpYM6lyVIw5I6a9XDbUeOnBAWHE3uj/xH0X0vcRREE5py6tbt1KPUBS9rc8JGdCW3ZXVZAXA+1cijR3AAZUZ0YEf9WKLYhsTFW9lYlDcmkrWgVD9vbtPGDg95sbtuB+H5dkEAOBkf2YGkqzO+aaQKLDHkib/1v4C1+T5lXqlWZUrP8EuRwWs6xJlhi6w72AZLo7kVmfGA3ZdKfVcPCqr83YBfhL0WbwgT94L+5STELxw/PhsyNyOM/sRLQgR24ga/lcg2+L395VIPrQvhgKc26yHBuqW2P6FSOEGMyEcZ34N1TMTtRF7/lkRmXyKt4zuc=
 env:
   matrix:
-    - APP=check
+  - APP=check
+  global:
+  - secure: SHSKfib1p+bG7im65hi+mtjSP1JVHvsUGEuPI9yQsrVzLBJfVEXlEv8508js3LnLpzQensP3drrItfkb9P3bjH+vB1CyfgTIQcT5WbZbZfi6fKneQ3ldYjBSmzlu9pYnWra9GCWdy9ftORBBy3OP3kZn7a2CkQGpWd8TAVrr3gOST277fbQara0DxIc8/j5UTQDzBRag34ZvYPErK14dVrZlc9cDwA56MWlNmj7Q9ITzyyskOQH2Wx0Xm0qSBg4zlQ5LWOiijSVb5ijs4OpO2JEsZfh4TBjrq898r7tAEgeSx7ZG85Mfrakdv0w85+ymkp5dGK36EqYrNOcMhfLRsBNXkkUmDoELOYPhZNXZ9ZETkJnXz1UTWmB7KC+2/CjxkomtMIxX192kVOW1ZgchNCVgfEjBBZpq2PlTeCWO26PTIYodL4eMYp+0aSUWA0ePHgW+D6gunw5qKL/C4xeKtvI+OhR67g8eyAZ5RrTGUViUUuCA3xi3n9KXmX2WS1MVxaX7xE+I7+1+nH4r2nnQSIn3EPO9IKUFIXrX15OwistUPr9CzaUyG2KjtVwYB2lEwGU333RqDSg7GisqgeIVXrYYW4l1HdX7psBPMP06zg00OP3fkDmnIcsSKfbWSCpv+qzbRZr32n9VORVLxd6nfvjKRM2l40GJa3TAqZm0fxw=
+  - secure: OxOxd2Q07D1MWopP+L6Ckf6i3y8m7+pKKgmXYBSgfUJ7lNO7dl7/WQqS5cif1g2FNgZN+s99Zk0bwWoXxChmogHLH7nHkL8QGpJNMXYfgAKWR6wMhK43fWiR1SGNdu8X0d+Wt7yJoE3bUWMSZFKPuQyv6OVQUaFWKafGyQv5ZPP9iOjH3BGoHYL4lh72q9v+Bxs+hkWdtj8A8aXHTfBhm/1fBSxflHoosa5SBIcUmi/XRyWBxrZID2nrtz9+ixzQq8nwterWU2fM+Y24nPP1pt8finlta2v/haq11qzyaorm/bHN3KGNtVYDLA5znn9eUMyfWCu0e0xcdQUUKYonWnQNv5k9RCDBW9a6vPQAV/L93irx1xhHcKM6aahnCVKvmrHW6iD8SU7swAP+3KTZ4tOoCeo+sIgbzBicMSnjA4f9IwDwsS4DASg97j1uZe4w1h3eOJGt7qHNS7qg8uFQnqXGd/pIXizc+qmVdMaXpoLT7ATrkuY2LzLDsHNSduNpDio2SSoE0yY3V2h5JJl9VTFzyX8rj4MquiGWSEdr/f3N5cXRu9UKHbL8YIXCe01Umn2eTWhskvDglyWiKKEc2CrEsdmPQrVSq1z/5Ymwo012Nx8p3zwogAHHCV0AruCCHjklfYugznbxi2dOlRG75ck3+CzOkDE2CwH5l7BzB5E=

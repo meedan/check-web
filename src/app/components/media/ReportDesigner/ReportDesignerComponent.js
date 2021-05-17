@@ -293,7 +293,7 @@ const ReportDesignerComponent = (props) => {
             currentLanguage={currentLanguage}
             languages={languages}
             onChange={handleChangeLanguage}
-            onSetDefault={handleSetDefaultLanguage}
+            onSetDefault={editing ? handleSetDefaultLanguage : null}
           />
           <ReportDesignerForm
             data={data.options[currentReportIndex]}

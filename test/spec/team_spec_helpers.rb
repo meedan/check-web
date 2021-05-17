@@ -40,7 +40,7 @@ module TeamSpecHelpers
   def select_team(options)
     wait_for_selector('#teams-tab').click
     wait_for_selector("//*[contains(text(), '#{options[:name]}')]", :xpath).click
-    wait_for_selector('.projects__list a[href$="/all-items"]')
+    wait_for_selector('.projects-list__all-items')
     wait_for_selector('.project__title')
     wait_for_selector('.team-header__drawer-team-link').click
     wait_for_selector('.team')

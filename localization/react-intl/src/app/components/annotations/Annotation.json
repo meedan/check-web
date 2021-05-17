@@ -89,6 +89,7 @@
   },
   {
     "id": "annotation.similarDestroyed",
+    "description": "Tells that one item previously confirmed as similar has been detached from current item.",
     "defaultMessage": "Confirmed similar detached by {author}: {title}"
   },
   {
@@ -193,15 +194,15 @@
   },
   {
     "id": "annotation.projectMoved",
-    "defaultMessage": "Moved from list {previousProject} to {currentProject} by {author}"
+    "defaultMessage": "Moved from folder {previousProject} to {currentProject} by {author}"
   },
   {
     "id": "annotation.movedToTrash",
-    "defaultMessage": "Moved to the trash by {author}"
+    "defaultMessage": "Moved to Trash by {author}"
   },
   {
     "id": "annotation.movedFromTrash",
-    "defaultMessage": "Moved out of the trash by {author}"
+    "defaultMessage": "Moved out of Trash by {author}"
   },
   {
     "id": "annotation.teamCopied",

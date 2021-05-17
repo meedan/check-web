@@ -2,12 +2,12 @@
   {
     "id": "teamReportComponent.defaultErrorMessage",
     "description": "Warning displayed if an error occurred when saving report settings",
-    "defaultMessage": "Could not save report settings."
+    "defaultMessage": "Could not save report settings"
   },
   {
     "id": "teamReportComponent.savedSuccessfully",
     "description": "Banner displayed when report settings are saved successfully",
-    "defaultMessage": "Report settings saved successfully."
+    "defaultMessage": "Report settings saved successfully"
   },
   {
     "id": "teamReportComponent.title",
@@ -35,11 +35,17 @@
   },
   {
     "id": "teamReportComponent.urlLabel",
-    "defaultMessage": "Prompt ({max} characters max)"
+    "description": "Label for URL field in report settings",
+    "defaultMessage": "Short URL ({max} characters max)"
   },
   {
     "id": "teamReportComponent.signature",
     "defaultMessage": "Signature"
+  },
+  {
+    "id": "teamReportComponent.signatureLabel",
+    "description": "Label for signature field in report settings",
+    "defaultMessage": "Signature ({max} characters max)"
   },
   {
     "id": "teamReportComponent.whatsapp",
@@ -52,5 +58,17 @@
   {
     "id": "teamReportComponent.twitter",
     "defaultMessage": "Twitter account name"
+  },
+  {
+    "id": "teamReportComponent.telegram",
+    "defaultMessage": "Telegram bot username"
+  },
+  {
+    "id": "teamReportComponent.viber",
+    "defaultMessage": "Viber public account URI"
+  },
+  {
+    "id": "teamReportComponent.line",
+    "defaultMessage": "LINE channel"
   }
 ]

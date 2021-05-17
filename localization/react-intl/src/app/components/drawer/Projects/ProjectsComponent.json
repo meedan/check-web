@@ -1,0 +1,103 @@
+[
+  {
+    "id": "projectsComponent.couldNotMove",
+    "description": "Error message displayed when it's not possible to move folder to a collection",
+    "defaultMessage": "Could not move folder to collection"
+  },
+  {
+    "id": "projectsComponent.movedSuccessfully",
+    "description": "Message displayed when a folder is moved to or from a collection",
+    "defaultMessage": "Folder moved successfully"
+  },
+  {
+    "id": "projectsComponent.invalidMove",
+    "description": "Message displayed when a folder is moved to something that is not a collection",
+    "defaultMessage": "Folders can just be moved to collections"
+  },
+  {
+    "id": "projectsComponent.allItems",
+    "defaultMessage": "All items"
+  },
+  {
+    "id": "projectsComponent.folders",
+    "defaultMessage": "Folders"
+  },
+  {
+    "id": "projectsComponent.newFolderMenu",
+    "description": "Menu item for creating new folder",
+    "defaultMessage": "New folder"
+  },
+  {
+    "id": "projectsComponent.newCollectionMenu",
+    "description": "Menu item for creating new collection",
+    "defaultMessage": "New collection"
+  },
+  {
+    "id": "projectsComponent.noFolders",
+    "description": "Displayed under a collection when there are no folders in it",
+    "defaultMessage": "No folders in this collection"
+  },
+  {
+    "id": "projectsComponent.lists",
+    "description": "List of items with some filters applied",
+    "defaultMessage": "Filtered lists"
+  },
+  {
+    "id": "projectsComponent.newFolder",
+    "description": "Dialog title for creating new folder",
+    "defaultMessage": "New folder"
+  },
+  {
+    "id": "projectsComponent.createFolder",
+    "description": "Button label for creating new folder",
+    "defaultMessage": "Create folder"
+  },
+  {
+    "id": "projectsComponent.newFolderErrorMessage",
+    "description": "Error message when creating new folder fails",
+    "defaultMessage": "Could not create folder, please try again"
+  },
+  {
+    "id": "projectsComponent.newFolderSuccessMessage",
+    "description": "Success message when new folder is created",
+    "defaultMessage": "Folder created successfully"
+  },
+  {
+    "id": "projectsComponent.newCollection",
+    "description": "Dialog title for creating new collection",
+    "defaultMessage": "New collection"
+  },
+  {
+    "id": "projectsComponent.createCollection",
+    "description": "Button label for creating new collection",
+    "defaultMessage": "Create collection"
+  },
+  {
+    "id": "projectsComponent.newCollectionErrorMessage",
+    "description": "Error message when creating new collection fails",
+    "defaultMessage": "Could not create collection, please try again"
+  },
+  {
+    "id": "projectsComponent.newCollectionSuccessMessage",
+    "description": "Success message when new collection is created",
+    "defaultMessage": "Collection created successfully"
+  },
+  {
+    "id": "projectsComponent.newList",
+    "defaultMessage": "New list"
+  },
+  {
+    "id": "projectsComponent.createList",
+    "defaultMessage": "Create list"
+  },
+  {
+    "id": "projectsComponent.newListErrorMessage",
+    "description": "Error message when creating new list fails",
+    "defaultMessage": "Could not create list, please try again"
+  },
+  {
+    "id": "projectsComponent.newListSuccessMessage",
+    "description": "Success message when new list is created",
+    "defaultMessage": "List created successfully"
+  }
+]

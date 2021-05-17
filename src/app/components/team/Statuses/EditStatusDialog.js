@@ -141,6 +141,7 @@ const EditStatusDialog = ({
                 <FormattedMessage
                   id="editStatusDialog.toggleStatusMessage"
                   defaultMessage="Send message to requester"
+                  description="Checkbox option to send a message to the user who requested the item"
                 />
               }
             />
@@ -148,6 +149,7 @@ const EditStatusDialog = ({
               <FormattedMessage
                 id="editStatusDialog.messageDescription"
                 defaultMessage="Send a message to the user who requested the item when you change an item to this status."
+                description="Accompanying description for editStatusDialog.toggleStatusMessage"
               />
             </Typography>
             <TextField

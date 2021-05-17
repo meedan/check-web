@@ -3,17 +3,20 @@ shared_examples 'search' do
     api_create_claim_and_go_to_search_page
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?('My search result')).to be(true)
-    wait_for_selector('#search__open-dialog-button').click
+    wait_for_selector('#add-filter-menu__open-button').click
+    wait_for_selector('#add-filter-menu__time-range').click
     wait_for_selector('.date-range__start-date input').click
+    # Click OK on date picker dialog to select today's date
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
     wait_for_selector('.date-range__end-date input').click
+    # Click OK on date picker dialog to select today's date
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector('#search-query__submit-button').click
+    wait_for_selector('#search-fields__submit-button').click
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should filter by status and search by keywords', bin2: true, quick: true do
+  it 'should filter by status and search by keywords', bin5: true, quick: true do
     api_create_claim_and_go_to_search_page
     expect(@driver.page_source.include?('My search result')).to be(true)
     create_media('media 2')
@@ -21,41 +24,21 @@ shared_examples 'search' do
     change_the_status_to('.media-status__menu-item--false', false)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
-    wait_for_selector('#search__open-dialog-button').click
-    wait_for_selector('#search-query__cancel-button')
-    wait_for_selector('button[title=Open]').click
-    wait_for_selector_list('.MuiOutlinedInput-input')[4].send_keys('verified')
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector_list('.MuiOutlinedInput-input')[4].send_keys('false')
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('#search-query__submit-button').click
+    wait_for_selector('#add-filter-menu__open-button').click
+    wait_for_selector('#add-filter-menu__status').click
+    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('input#verified').click
+    wait_for_selector('input#false').click
+    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('#search-fields__submit-button').click
     expect(page_source_body.include?('My search result')).to be(false)
-    attempts = 0
-    @driver.navigate.refresh
-    while !page_source_body.include?('media 2') && attempts < 30
-      wait_for_selector('#search__open-dialog-button').click
-      wait_for_selector('#search-query__cancel-button')
-      if @driver.page_source.include?('False')
-        wait_for_selector_list('.MuiChip-deletable > svg')[1].click
-      else
-        wait_for_selector_list('.MuiOutlinedInput-input')[4].send_keys('false')
-        @driver.action.send_keys(:arrow_down).perform
-        @driver.action.send_keys(:enter).perform
-      end
-      wait_for_selector('#search-query__submit-button').click
-      sleep 1
-      attempts += 1
-    end
+    wait_for_selector('.multi-select-filter')
     expect(@driver.page_source.include?('media 2')).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(false)
-    wait_for_selector('#search__open-dialog-button').click
-    selected = @driver.find_elements(:css, '.MuiChip-deletable')
-    expect(selected.size == 1).to be(true)
+    selected = @driver.find_elements(:css, '.multi-select-filter__tag')
+    expect(selected.size == 2).to be(true)
     # reset filter
-    wait_for_selector("//span[contains(text(), 'Reset')]", :xpath).click
-    wait_for_selector('#search-query__submit-button').click
+    wait_for_selector('#search-fields__clear-button').click
     wait_for_selector_list_size('.media__heading', 2)
     expect(@driver.page_source.include?('My search result')).to be(true)
     # search by keyword
@@ -66,7 +49,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should filter item by status on trash page', bin2: true do
+  it 'should filter item by status on trash page', bin5: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
     wait_for_selector('.media__heading').click
@@ -80,27 +63,23 @@ shared_examples 'search' do
     wait_for_selector('.project-list__item-trash').click # Go to the trash page
     wait_for_selector('.media__heading')
     # use filter option
-    wait_for_selector('#search__open-dialog-button').click
-    wait_for_selector('#search-query__cancel-button')
-    wait_for_selector_list('.MuiOutlinedInput-input')[4].send_keys('in progress')
-    @driver.action.send_keys(:arrow_down).perform
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('#search-query__submit-button').click
-    wait_for_selector_none('#search-query__cancel-button')
+    wait_for_selector('#add-filter-menu__open-button').click
+    wait_for_selector('#add-filter-menu__status').click
+    wait_for_selector('.custom-select-dropdown__select-button').click
+    wait_for_selector('input#in_progress').click
+    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('#search-fields__submit-button').click
+    wait_for_selector('.multi-select-filter')
     expect(page_source_body.include?('My search result')).to be(false)
     # reset filter
     @driver.navigate.refresh
     wait_for_selector('#search-input')
-    wait_for_selector('#search__open-dialog-button').click
-    wait_for_selector('#search-query__cancel-button')
-    wait_for_selector('#search-query__reset-button').click
-    wait_for_selector('#search-query__submit-button').click
-    wait_for_selector_none('#search-query__cancel-button')
+    wait_for_selector('#search-fields__clear-button').click
     wait_for_selector('.media__heading')
     expect(page_source_body.include?('My search result')).to be(true)
   end
 
-  it 'should search and change sort criteria', bin2: true do
+  it 'should search and change sort criteria', bin5: true do
     api_create_claim_and_go_to_search_page
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
@@ -145,12 +124,11 @@ shared_examples 'search' do
     api_create_claim_and_go_to_search_page
     expect((@driver.title =~ /False/).nil?).to be(true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022verification_status\u0022%3A%5B\u0022false\u0022%5D%7D"
-    wait_for_selector('#search-query__clear-button')
+    wait_for_selector('#search-fields__clear-button')
     expect((@driver.title =~ /False/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(false)
-    wait_for_selector('#search__open-dialog-button').click
-    wait_for_selector('#search-query__cancel-button')
-    selected = @driver.find_elements(:css, '.MuiChip-deletable')
+    wait_for_selector('#search-fields__clear-button')
+    selected = @driver.find_elements(:css, '.multi-select-filter__tag')
     expect(selected.size == 1).to be(true)
   end
 
@@ -164,7 +142,8 @@ shared_examples 'search' do
     wait_for_selector_none('.medias__item', :css, 10)
     expect(@driver.page_source.include?('My search result')).to be(false)
 
-    wait_for_selector('#search__open-dialog-button').click
+    # wait_for_selector('#add-filter-menu__open-button').click
+    # wait_for_selector('#add-filter-menu__time-range').click
     wait_for_selector('.date-range__start-date input').click
 
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
@@ -172,7 +151,7 @@ shared_examples 'search' do
     wait_for_selector('.date-range__end-date input').click
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
     wait_for_selector_none('body>div[role=dialog]')  # wait for mui-picker background to fade away
-    wait_for_selector('#search-query__submit-button:not(:disabled)').click
+    wait_for_selector('#search-fields__submit-button').click
     wait_for_selector_none('.medias__item', :css, 10)
     expect(@driver.page_source.include?('My search result')).to be(false)
   end
@@ -193,7 +172,7 @@ shared_examples 'search' do
   end
 
   it 'should search for reverse images', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/Megadeth/status/1351583846718869504'
+    api_create_team_project_and_link_and_redirect_to_media_page 'https://www.globo.com/'
     card = wait_for_selector_list('.media-detail').length
     expect(card == 1).to be(true)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
@@ -208,7 +187,6 @@ shared_examples 'search' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
     wait_for_selector('.project-header__back-button').click
-    wait_for_selector('#search__open-dialog-button')
     create_image('test.png')
     old = wait_for_selector_list('.medias__item').length
     wait_for_selector('#search-input').click

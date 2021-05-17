@@ -63,6 +63,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
                 <FormattedMessage
                   id="mediaSimilarities.mainItem"
                   defaultMessage="Main"
+                  description="Adjective, singular. Refers to the main item, as opposed to other similar items"
                 />
               </Typography>
             </Box>
@@ -79,6 +80,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
             <FormattedMessage
               id="mediaSimilarities.allSimilarMedia"
               defaultMessage="Similar"
+              description="Adjective, plural. Heading for a list of similar items"
             />
           </Typography>
         </Box>

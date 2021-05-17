@@ -1,21 +1,21 @@
 [
   {
     "id": "teamListsComponent.defaultErrorMessage",
-    "description": "Warning displayed if an error occurred when saving list settings",
-    "defaultMessage": "Could not save list settings."
+    "description": "Warning displayed if an error occurred when saving column settings",
+    "defaultMessage": "Could not save column settings"
   },
   {
     "id": "teamListsComponent.savedSuccessfully",
-    "description": "Banner displayed when list settings are saved successfully",
-    "defaultMessage": "List settings saved successfully."
+    "description": "Banner displayed when column settings are saved successfully",
+    "defaultMessage": "Column settings saved successfully"
   },
   {
     "id": "teamListsComponent.title",
-    "defaultMessage": "List settings"
+    "defaultMessage": "Columns settings"
   },
   {
     "id": "teamListsComponent.description",
-    "defaultMessage": "Select all the columns you want to display in all your lists."
+    "defaultMessage": "Select all the columns you want to display in all your folders, collections and lists."
   },
   {
     "id": "settingsHeader.save",
@@ -39,14 +39,14 @@
   },
   {
     "id": "teamListsComponent.confirmSaveTitle",
-    "defaultMessage": "Workspace list change"
+    "defaultMessage": "Workspace columns change"
   },
   {
     "id": "teamListsComponent.confirmSaveText",
-    "defaultMessage": "Are you sure? Your changes will affect all lists and be visible by all users in your workspace."
+    "defaultMessage": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
   },
   {
     "id": "teamListsComponent.buttonLabel",
-    "defaultMessage": "Save changes for all lists"
+    "defaultMessage": "Save changes"
   }
 ]

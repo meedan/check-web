@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  number: {
+    textAlign: 'right',
+  },
 });
 
 export default function MetadataCell({ projectMedia, field, type }) {
@@ -34,6 +37,9 @@ export default function MetadataCell({ projectMedia, field, type }) {
     switch (type) {
     case 'free_text':
       value = typeof value === 'string' ? truncate(value) : value;
+      break;
+    case 'number':
+      value = <span className={classes.number}>{value}</span>;
       break;
     case 'file_upload':
       value = <b>{value}</b>;

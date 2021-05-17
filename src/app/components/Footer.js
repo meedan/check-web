@@ -13,10 +13,6 @@ const StyledFooter = styled.footer`
   margin: ${units(4)} 0;
   padding: ${units(1)} 0;
   text-align: center;
-
-  a, a:hover {
-    color: inherit;
-  }
 `;
 
 const Footer = () => (

@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { browserHistory } from 'react-router';
 import Relay from 'react-relay/classic';
-import ProjectActions from './ProjectActions';
+import { graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
-import UpdateUserMutation from '../../relay/mutations/UpdateUserMutation';
+import ProjectActions from '../drawer/Projects/ProjectActions';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -25,20 +27,13 @@ class ProjectComponent extends React.PureComponent {
   }
 
   setContextProject() {
+    if (!this.props.project) {
+      return false;
+    }
+
     const context = this.getContext();
     const currentContext = this.currentContext();
     const newContext = {};
-
-    if (currentContext.currentUser &&
-       (!currentContext.project || currentContext.project.dbid !== this.props.project.dbid)) {
-      Relay.Store.commitUpdate(
-        new UpdateUserMutation({
-          current_project_id: this.props.project.dbid,
-          current_user_id: currentContext.currentUser.id,
-        }),
-        { onSuccess: () => {}, onFailure: () => {} },
-      );
-    }
 
     newContext.project = this.props.project;
 
@@ -56,6 +51,8 @@ class ProjectComponent extends React.PureComponent {
     if (notFound) {
       browserHistory.push('/check/not-found');
     }
+
+    return true;
   }
 
   currentContext() {
@@ -64,6 +61,10 @@ class ProjectComponent extends React.PureComponent {
 
   render() {
     const { project, routeParams } = this.props;
+
+    if (!project) {
+      return null;
+    }
 
     const query = {
       ...safelyParseJSON(routeParams.query, {}),
@@ -76,12 +77,47 @@ class ProjectComponent extends React.PureComponent {
           searchUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}`}
           mediaUrlPrefix={`/${routeParams.team}/project/${routeParams.projectId}/media`}
           title={project.title}
+          icon={<FolderOpenIcon />}
           listDescription={project.description}
-          listActions={<ProjectActions project={project} />}
+          listActions={
+            <ProjectActions
+              isMoveable
+              object={project}
+              name={<FormattedMessage id="project.name" defaultMessage="folder" />}
+              updateMutation={graphql`
+                mutation ProjectUpdateProjectMutation($input: UpdateProjectInput!) {
+                  updateProject(input: $input) {
+                    project {
+                      id
+                      title
+                      description
+                    }
+                  }
+                }
+              `}
+              deleteMessage={
+                <FormattedMessage
+                  id="project.deleteMessage"
+                  defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
+                />
+              }
+              deleteMutation={graphql`
+                mutation ProjectDestroyProjectMutation($input: DestroyProjectInput!) {
+                  destroyProject(input: $input) {
+                    deletedId
+                    team {
+                      id
+                    }
+                  }
+                }
+              `}
+            />
+          }
           teamSlug={routeParams.team}
           project={project}
           query={query}
-          hideFields={['project', 'read']}
+          page="folder"
+          hideFields={['projects']}
         />
       </div>
     );
@@ -106,12 +142,14 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         permissions,
         search_id,
         medias_count,
+        project_group_id,
         team {
           id,
           dbid,
           slug,
           search_id,
           medias_count,
+          permissions,
           verification_statuses,
           public_team {
             id,

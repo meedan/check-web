@@ -1,22 +1,4 @@
 {
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Выберите метаданные"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Выберите вопрос"
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "У метаданных есть конкретное значение"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Метаданные содержат ключевое слово"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "На вопрос есть конкретный ответ"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "Ответ содержит ключевое слово"
-	},
 	"CheckAgreeTerms.agreeTerms": {
 		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
 	},
@@ -38,32 +20,53 @@
 	"CustomFilter.selectValueLabel": {
 		"string": "Выберите значение"
 	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Фильтры"
-	},
 	"CustomTeamTaskFilter.anyValue": {
-		"string": "Любое значение"
+		"string": "Любое значение",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.choiceFilter": {
+		"string": "\"{field}\" has value {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Выберите метаданные"
+		"string": "Выберите метаданные",
+		"developer_comment": "Label for input to select specific metadata to filter by"
 	},
 	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Выберите вопрос"
+		"string": "Выберите вопрос",
+		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "У метаданных есть конкретное значение"
+		"string": "У метаданных есть конкретное значение",
+		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Метаданные содержат ключевое слово"
+		"string": "Метаданные содержат ключевое слово",
+		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "Нет значения"
+		"string": "Нет значения",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "На вопрос есть конкретный ответ"
+		"string": "На вопрос есть конкретный ответ",
+		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Ответ содержит ключевое слово"
+		"string": "Ответ содержит ключевое слово",
+		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
+	},
+	"CustomTeamTaskFilter.textAnyValue": {
+		"string": "\"{field}\" contains any value",
+		"developer_comment": "Label for custom field when metadata or task response contains any value"
+	},
+	"CustomTeamTaskFilter.textFilter": {
+		"string": "\"{field}\" contains {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains keyword"
+	},
+	"CustomTeamTaskFilter.textNoValue": {
+		"string": "\"{field}\" contains no value",
+		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
 		"string": "Ок"
@@ -78,73 +81,13 @@
 		"string": "Искать..."
 	},
 	"ProjectActions.edit": {
-		"string": "Редактировать название и описание"
+		"string": "Rename"
 	},
 	"ProjectActions.tooltip": {
-		"string": "Действия со списками"
+		"string": "Folder actions"
 	},
 	"ProjectBlankState.createMedia": {
 		"string": "Добавить ссылку или текст"
-	},
-	"TeamInviteMembers.emailInput": {
-		"string": "Email"
-	},
-	"TeamInviteMembers.emailMultipleInput": {
-		"string": "Адреса через запятую"
-	},
-	"TeamInviteMembers.existsEmail": {
-		"string": "Уже является участником."
-	},
-	"TeamInviteMembers.invalidEmail": {
-		"string": "Некорректный email."
-	},
-	"TeamInviteMembers.invitedEmail": {
-		"string": "Уже приглашён."
-	},
-	"TeamInviteMembers.newInvite": {
-		"string": "Пригласить участников"
-	},
-	"TeamMembersInvitedListItem.cancel": {
-		"string": "Отменить приглашение"
-	},
-	"TeamMembersInvitedListItem.resend": {
-		"string": "Отправить заново"
-	},
-	"TeamMembersListItem.collaborator": {
-		"string": "Collaborator"
-	},
-	"TeamMembersListItem.confirmDeleteMemberBlurb": {
-		"string": "Пользователь будет удалён из {team}"
-	},
-	"TeamMembersListItem.confirmDeleteMemberTitle": {
-		"string": "Вы уверены, что хотите удалить {user}?"
-	},
-	"TeamMembersListItem.confirmEditMemberTitle": {
-		"string": "Вы уверены, что хотите изменить роль для {user}?"
-	},
-	"TeamMembersListItem.confirmLeaveBlurb": {
-		"string": "Вы будете удалены из {team}"
-	},
-	"TeamMembersListItem.confirmLeaveTitle": {
-		"string": "Вы уверены, что хотите покинуть {team}?"
-	},
-	"TeamMembersListItem.deleteMember": {
-		"string": "Удалить участника"
-	},
-	"TeamMembersListItem.editor": {
-		"string": "Редактор"
-	},
-	"TeamMembersListItem.leaveTeam": {
-		"string": "Покинуть проект"
-	},
-	"TeamMembersListItem.singleOwner": {
-		"string": "Прежде чем покинуть проект, пожалуйста, назначьте владельцем проекта другого участника."
-	},
-	"TeamMembershipRequestsListItem.approve": {
-		"string": "Одобрить"
-	},
-	"TeamMembershipRequestsListItem.deny": {
-		"string": "Отклонить"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Аккаунт уже подтверждён",
@@ -211,9 +154,6 @@
 	"UserUtil.editor": {
 		"string": "Редактор"
 	},
-	"accessDenied.title": {
-		"string": "Отказано в доступе"
-	},
 	"addAnnotation.addImage": {
 		"string": "Добавить изображение"
 	},
@@ -229,6 +169,58 @@
 	"addAnnotation.submitButton": {
 		"string": "Отправить"
 	},
+	"addFilterMenu.addFilter": {
+		"string": "Add filter",
+		"developer_comment": "Button that opens menu with filter field options"
+	},
+	"addFilterMenu.assignedTo": {
+		"string": "Назначено",
+		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.collection": {
+		"string": "Collection",
+		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.createdBy": {
+		"string": "Автор",
+		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.filterBy": {
+		"string": "Фильтр по",
+		"developer_comment": "Header to menu of filter field types"
+	},
+	"addFilterMenu.folder": {
+		"string": "Folder",
+		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemStatus": {
+		"string": "Item status",
+		"developer_comment": "Menu option to enable searching items by item status"
+	},
+	"addFilterMenu.language": {
+		"string": "Язык",
+		"developer_comment": "Menu option to enable searching items by language"
+	},
+	"addFilterMenu.mediaType": {
+		"string": "Тип материала",
+		"developer_comment": "Menu option to enable searching items by media type"
+	},
+	"addFilterMenu.metadata": {
+		"string": "Метаданные",
+		"developer_comment": "Menu option to enable searching items by metadata fields"
+	},
+	"addFilterMenu.reportStatus": {
+		"string": "Статус отчёта",
+		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.tag": {
+		"string": "Тэг",
+		"developer_comment": "Menu option to enable searching items by tags"
+	},
+	"addFilterMenu.timeRange": {
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
+	},
 	"addLanguageAction.addLanguage": {
 		"string": "Добавить язык"
 	},
@@ -243,9 +235,6 @@
 	},
 	"addLanguageAction.title": {
 		"string": "Выберите новый язык"
-	},
-	"addTeamPage.titleFind": {
-		"string": "Найти существующий проект"
 	},
 	"annotation.acceptSuggestion": {
 		"string": "Принять"
@@ -353,10 +342,10 @@
 		"string": "Метаданные \"{fieldLabel}\" заполнены ({author}): {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Возвращено из корзины ({author})"
+		"string": "Moved out of Trash by {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "Перемещено в корзину ({author})"
+		"string": "Moved to Trash by {author}"
 	},
 	"annotation.newReport": {
 		"string": "Материал добавлен ({author})"
@@ -366,6 +355,9 @@
 	},
 	"annotation.openInSlack": {
 		"string": "Открыть в Slack"
+	},
+	"annotation.openInTelegram": {
+		"string": "Open in Telegram"
 	},
 	"annotation.penderArchiveResponse": {
 		"string": "Keep сохранил скриншот с этого URL. "
@@ -380,7 +372,7 @@
 		"string": "Ссылка"
 	},
 	"annotation.projectMoved": {
-		"string": "Перемещено из списка {previousProject} в {currentProject} ({author})"
+		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "Отклонить"
@@ -407,7 +399,8 @@
 		"string": "Confirmed similar by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Confirmed similar detached by {author}: {title}"
+		"string": "Confirmed similar detached by {author}: {title}",
+		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
 		"string": "Вместе с запросом не было отправлено сообщение"
@@ -505,72 +498,8 @@
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Не удалось сохранить материал"
 	},
-	"blankMediaCard.addItem": {
-		"string": "Добавить материал"
-	},
-	"blankMediaCard.confirmButtonLabel": {
-		"string": "Снять с публикации и обновить содержимое"
-	},
-	"blankMediaCard.confirmText": {
-		"string": "У данного материала уже есть опубликованный отчёт:\n              {link}\n              При обновлении статус и отчёт будут заменены, и публикация отчёта будет приостановлена."
-	},
-	"blankMediaCard.confirmTitle": {
-		"string": "Заменить отчёт и статус?"
-	},
-	"blankMediaCard.defaultErrorMessage": {
-		"string": "Не удалось сохранить материал"
-	},
-	"bot.cantChange": {
-		"string": "В процессе редактирования бота произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"bot.install": {
-		"string": "Установить"
-	},
-	"bot.installed": {
-		"string": "Установлен"
-	},
-	"bot.installs": {
-		"string": "Установок"
-	},
-	"bot.madeBy": {
-		"string": "Разработчик: {teamLink}"
-	},
-	"bot.permissions": {
-		"string": "Разрешения"
-	},
-	"bot.permissionsText": {
-		"string": "Уровень доступа этого бота: {role}."
-	},
-	"bot.sourceCode": {
-		"string": "Исходный код"
-	},
-	"bot.updatedAt": {
-		"string": "Обновлено"
-	},
-	"bot.version": {
-		"string": "Версия"
-	},
-	"botGarden.botGarden": {
-		"string": "Боты"
-	},
-	"bridge.pageTitle.appNameHuman": {
-		"string": "Bridge"
-	},
 	"browserSupport.message": {
 		"string": "{appName} оптимизирован для десктопной версии Chrome."
-	},
-	"bulkActions.add": {
-		"string": "Добавить выбранное к другому списку"
-	},
-	"bulkActions.addTitle": {
-		"string": "Добавить"
-	},
-	"bulkActions.addTo": {
-		"string": "Добавить в..."
-	},
-	"bulkActions.addedSuccessfully": {
-		"string": "Материалы добавлены в список.",
-		"developer_comment": "Banner displayed after items are added successfully to list"
 	},
 	"bulkActions.cancelButton": {
 		"string": "Отменить"
@@ -578,17 +507,15 @@
 	"bulkActions.confirm": {
 		"string": "Move from unconfirmed"
 	},
-	"bulkActions.dialogAddTitle": {
-		"string": "Добавить к другому списку"
-	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
 	},
 	"bulkActions.move": {
-		"string": "Переместить выбранное в другой список"
+		"string": "Move selected items to another folder"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Move to list"
+		"string": "Move to folder",
+		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
 		"string": "Переместить в..."
@@ -608,10 +535,6 @@
 		"string": "Items moved to '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
-	"bulkActions.removedSuccessfully": {
-		"string": "Материалы удалены из списка.",
-		"developer_comment": "Banner displayed after items are removed successfully from list"
-	},
 	"bulkActions.restore": {
 		"string": "Восстановить из корзины"
 	},
@@ -619,10 +542,10 @@
 		"string": "Отправить выбранное в корзину"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move items to another list"
+		"string": "Restore selected items and move items to another folder"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Confirm selected items and move items to another list"
+		"string": "Confirm selected items and move items to another folder"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Отменить",
@@ -655,17 +578,8 @@
 	"changeUserRole.proceedLabel": {
 		"string": "Change role to {newRole}"
 	},
-	"claimReview.claim": {
-		"string": "Высказывание:"
-	},
-	"claimReview.claimedBy": {
-		"string": "Автор высказывания:"
-	},
-	"claimReview.reviewedBy": {
-		"string": "Факт-чек ({reviewer}):"
-	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to permanently delete this language and all content in this language."
+		"string": "Type \"{text}\" to confirm."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Введите \"confirm\""
@@ -710,67 +624,23 @@
 		"string": "Видео"
 	},
 	"createMediaSource.createSource": {
-		"string": "Create source"
+		"string": "Create source",
+		"developer_comment": "Label for button to create a new source"
 	},
 	"createProject.addProject": {
-		"string": "Создать список"
+		"string": "Create folder"
 	},
 	"createProject.error": {
-		"string": "В процессе редактирования списка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"createProject.newProjectName": {
-		"string": "Название списка"
+		"string": "Folder name"
 	},
 	"createProject.title": {
-		"string": "Добавить список"
+		"string": "Add a folder"
 	},
 	"createProject.titleBlank": {
-		"string": "Добавьте ваш первый список"
-	},
-	"createRelatedMedia.addSecondaryItem": {
-		"string": "Добавить вторичный материал"
-	},
-	"createRelatedMedia.addToPrimaryItem": {
-		"string": "Добавить к основному материалу"
-	},
-	"createTask.newTask": {
-		"string": "Новый вопрос"
-	},
-	"createTeam.blurb": {
-		"string": "Создайте проект для своей организации или для себя:"
-	},
-	"createTeam.createTeamError": {
-		"string": "В процессе редактирования проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"createTeam.displayName": {
-		"string": "Название проекта"
-	},
-	"createTeam.mainHeading": {
-		"string": "Новый проект"
-	},
-	"createTeam.slugAvailable": {
-		"string": "Доступно!"
-	},
-	"createTeam.slugChecking": {
-		"string": "Проверяем доступность..."
-	},
-	"createTeam.slugUnavailable": {
-		"string": "Этот идентификатор недоступен. Пожалуйста, попробуйте выбрать другой."
-	},
-	"createTeam.submitButton": {
-		"string": "Создать"
-	},
-	"createTeam.teamNameHint": {
-		"string": "Название проекта"
-	},
-	"createTeam.teamSlugHint": {
-		"string": "URL проекта"
-	},
-	"createTeam.title": {
-		"string": "Новый проект"
-	},
-	"createTeam.url": {
-		"string": "URL группы"
+		"string": "Add your first folder"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Отменить"
@@ -788,7 +658,8 @@
 		"string": "All settings from this workspace will be duplicated. No content will be added."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace"
+		"string": "Create new workspace",
+		"developer_comment": "Dialog title for creating a new workspace"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Клонировать проект"
@@ -810,6 +681,18 @@
 	},
 	"createTeamTask.errorTask": {
 		"string": "В процессе создания задачи произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+	},
+	"customAutocomplete.done": {
+		"string": "Ок",
+		"developer_comment": "Label for closing dropdown when user is done selecting tags"
+	},
+	"customAutocomplete.select": {
+		"string": "Select",
+		"developer_comment": "Verb. Label for generic dropdown component"
+	},
+	"customFiltersManager.label": {
+		"string": "Metadata is",
+		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
 		"string": "Ответить на вопрос"
@@ -833,37 +716,38 @@
 		"string": "Посмотреть на time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Переместить материалы в"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
+		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "Чтобы удалить этот статус, необходимо снять его с существующих материалов ({itemsCount, plural, one {1} other {#}})"
 	},
 	"destinationProjects.choose": {
-		"string": "Выберите список"
+		"string": "Choose a folder"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Отменить",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Move to list",
+		"string": "Move to folder",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
 		"string": "Move detached item to…",
-		"developer_comment": "Dialog title prompting user to select a destination list for the item"
+		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Добавить статус"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Send a message to the user who requested the item when you change an item to this status."
+		"string": "Send a message to the user who requested the item when you change an item to this status.",
+		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Описание"
@@ -881,7 +765,8 @@
 		"string": "Редактировать статус"
 	},
 	"editStatusDialog.toggleStatusMessage": {
-		"string": "Send message to requester"
+		"string": "Send message to requester",
+		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Редактировать поле для метаданных"
@@ -903,27 +788,6 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Отменить"
-	},
-	"findTeamCard.blurb": {
-		"string": "Введите название существующего проекта, чтобы подать заявку на участие, или создайте свой."
-	},
-	"findTeamCard.createYourOwn": {
-		"string": "Вы также можете создать свой собственный проект."
-	},
-	"findTeamCard.mainHeading": {
-		"string": "Найти существующий проект"
-	},
-	"findTeamCard.submitButton": {
-		"string": "Найти проект"
-	},
-	"findTeamCard.teamNotFound": {
-		"string": "Проект не найден!"
-	},
-	"findTeamCard.teamSlugHint": {
-		"string": "URL проекта"
-	},
-	"findTeamCard.url": {
-		"string": "URL проекта"
 	},
 	"footer.madeBy": {
 		"string": "Check: проверка горячих новостей онлайн. Сделано с ✨ в {meedan}"
@@ -1018,31 +882,25 @@
 	"home.successInvitation": {
 		"string": "Добро пожаловать в {appName}. Пожалуйста, войдите с паролем, который получили в приветственном email."
 	},
-	"imageUploadRespondTask.answerTask": {
-		"string": "Ответить на вопрос"
-	},
-	"imageUploadRespondTask.cancelTask": {
-		"string": "Отменить"
-	},
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "Sent other invites.",
-		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
+		"string": "The other invites were sent successfully",
+		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
 		"string": "Пригласить",
 		"developer_comment": "Button to submit invitations."
 	},
 	"inviteDialog.textInputLabel": {
-		"string": "Emails, comma separated",
+		"string": "Email addresses, comma separated",
 		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
 	},
 	"inviteDialog.title": {
 		"string": "Invite workspace members",
-		"developer_comment": "Invite workspace members dialog title"
+		"developer_comment": "Dialog title for inviting members to workspace"
 	},
 	"inviteNewAccount.createAccount": {
 		"string": "Create Account",
@@ -1074,36 +932,6 @@
 	"inviteNewAccounttosMissing": {
 		"string": "Вы должны согласиться с Условиями использования и Политикой приватности",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
-	},
-	"joinTeamComponent.alreadyRequested": {
-		"string": "Вы уже отправили заявку на участие в {team}."
-	},
-	"joinTeamComponent.autoApprove": {
-		"string": "Спасибо, что присоединились к проекту «{team}»! Вы можете сразу же начинать принимать в нём участие."
-	},
-	"joinTeamComponent.blurbGraf": {
-		"string": "Чтобы запросить доступ к {team}, нажмите:"
-	},
-	"joinTeamComponent.buttonSubmit": {
-		"string": "Отправить запрос"
-	},
-	"joinTeamComponent.buttonSubmitted": {
-		"string": "Запрос отправлен"
-	},
-	"joinTeamComponent.error": {
-		"string": "В процессе отправки запроса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"joinTeamComponent.mainHeading": {
-		"string": "Заявка на участие"
-	},
-	"joinTeamComponent.requestHasBeenSent": {
-		"string": "Ваш запрос был отправлен на одобрение администраторам проекта."
-	},
-	"joinTeamComponent.success": {
-		"string": "Спасибо за ваш интерес к проекту «{team}»! Администратор проекта скоро проверит вашу заявку."
-	},
-	"joinTeamComponent.title": {
-		"string": "Участвовать в проекте"
 	},
 	"languageListItem.default": {
 		"string": "{language} (по умолчанию)"
@@ -1162,6 +990,10 @@
 	"list.commentCount": {
 		"string": "Комментарии FB"
 	},
+	"list.folder": {
+		"string": "Folder",
+		"developer_comment": "Table header for column that shows the folder title an item is in"
+	},
 	"list.mediaPublishedAt": {
 		"string": "Опубликовано"
 	},
@@ -1182,9 +1014,6 @@
 	},
 	"list.updated": {
 		"string": "Обновлено"
-	},
-	"loadMore.loadMore": {
-		"string": "Загрузить ещё"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
@@ -1220,18 +1049,20 @@
 		"string": "Регистрация"
 	},
 	"login.signIn": {
-		"string": "ВОЙТИ"
+		"string": "ВОЙТИ",
+		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
 		"string": "Вход",
-		"developer_comment": "allow user to sing in with exisintg account"
+		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign Up"
+		"string": "Sign Up",
+		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
 		"string": "Sign up",
-		"developer_comment": "allow user to create a new source"
+		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
 		"string": "Вход"
@@ -1242,26 +1073,11 @@
 	"login.withGoogle": {
 		"string": "Sign in with Google"
 	},
-	"loginContainer.agreeTerms": {
-		"string": "Регистрация означает ваше согласие со следующими документами сервиса {appName}: {tosLink} и {ppLink}."
-	},
 	"loginEmail.lostPassword": {
 		"string": "Forgot your password?"
 	},
-	"media.byAttribution": {
-		"string": "{typeLabel} ({attribution})"
-	},
-	"media.confirmLeave": {
-		"string": "{count, plural, one {Вы уверены, что хотите выйти? На вас назначен вопрос, на который ещё нет ответа} few {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)} many {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)} other {Вы уверены, что хотите выйти? На вас назначены вопросы, на которые ещё нет ответа (#)}}"
-	},
 	"media.normalSpeed": {
 		"string": "Обычная скорость"
-	},
-	"media.onDomain": {
-		"string": "{typeLabel} на {domain}"
-	},
-	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 ретвит} few {ретвитов: #} many {ретвитов: #} other {ретвитов: #}}"
 	},
 	"media.typeAudio": {
 		"string": "Аудио"
@@ -1272,41 +1088,17 @@
 	"media.typeClaim": {
 		"string": "Текст"
 	},
-	"media.typeFacebook": {
-		"string": "Пост в Facebook"
-	},
 	"media.typeImage": {
 		"string": "Изображение"
-	},
-	"media.typeInstagram": {
-		"string": "Instagram"
 	},
 	"media.typeLink": {
 		"string": "Ссылка"
 	},
-	"media.typePage": {
-		"string": "Страница"
-	},
-	"media.typeTiktok": {
-		"string": "TikTok video"
-	},
-	"media.typeTwitter": {
-		"string": "Твит"
-	},
 	"media.typeVideo": {
 		"string": "Видео"
 	},
-	"media.typeYoutube": {
-		"string": "Видео YouTube"
-	},
-	"mediaActions.addToList": {
-		"string": "Добавить к списку"
-	},
 	"mediaActions.assignOrUnassign": {
 		"string": "Assign to…"
-	},
-	"mediaActions.edit": {
-		"string": "Редактировать заголовок и описание"
 	},
 	"mediaActions.history": {
 		"string": "История материала"
@@ -1314,32 +1106,17 @@
 	"mediaActions.lockStatus": {
 		"string": "Заблокировать статус"
 	},
-	"mediaActions.move": {
-		"string": "Переместить"
-	},
 	"mediaActions.refresh": {
 		"string": "Обновить"
 	},
-	"mediaActions.removeFromList": {
-		"string": "Удалить из списка"
-	},
-	"mediaActions.restore": {
-		"string": "Восстановить из корзины"
-	},
 	"mediaActions.sendToTrash": {
-		"string": "Отправить в корзину"
+		"string": "Move to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Действия с вопросами"
 	},
 	"mediaActions.unlockStatus": {
 		"string": "Разблокировать статус"
-	},
-	"mediaActionsBar.add": {
-		"string": "Добавить"
-	},
-	"mediaActionsBar.addTo": {
-		"string": "Добавить в..."
 	},
 	"mediaActionsBar.assignmentNotes": {
 		"string": "Заметки"
@@ -1351,7 +1128,7 @@
 		"string": "Назначить материал соавторам"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Назначения задач успешно обновлены!"
+		"string": "Assignments updated successfully"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Отменить"
@@ -1359,14 +1136,11 @@
 	"mediaActionsBar.confirmTo": {
 		"string": "Подтверждение"
 	},
-	"mediaActionsBar.dialogAddToListTitle": {
-		"string": "Добавить к другому списку"
-	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Переместить в другой список"
+		"string": "Move to a different folder"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Move item to list…"
+		"string": "Move item to folder…"
 	},
 	"mediaActionsBar.move": {
 		"string": "Переместить"
@@ -1378,22 +1152,16 @@
 		"string": "Confirmed, redirecting…"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Restored from trash, redirecting…"
+		"string": "Restored from Trash, redirecting…"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "Отправлено в {trash}"
+		"string": "The item was moved to {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Опубликованный отчёт"
 	},
-	"mediaActionsBar.removeFromList": {
-		"string": "Удалить из списка"
-	},
-	"mediaActionsBar.removedFromList": {
-		"string": "Удалено из списка"
-	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Move to list"
+		"string": "Move to folder"
 	},
 	"mediaActionsBar.restoreTo": {
 		"string": "Восстановить из корзины"
@@ -1479,32 +1247,8 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Вопросы по материалу"
 	},
-	"mediaCondensed.requests": {
-		"string": "Запросов: {count}"
-	},
-	"mediaDetail.cancelButton": {
-		"string": "Отменить"
-	},
-	"mediaDetail.doneButton": {
-		"string": "Ок"
-	},
-	"mediaDetail.editReport": {
-		"string": "Редактировать"
-	},
-	"mediaDetail.editReportError": {
-		"string": "В процессе редактирования материала произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"mediaDetail.mediaDescription": {
-		"string": "Описание"
-	},
-	"mediaDetail.mediaTitle": {
-		"string": "Заголовок"
-	},
 	"mediaDetail.trash": {
 		"string": "Корзина"
-	},
-	"mediaExpanded.addToImportedReport": {
-		"string": "Добавить в существующий отчёт"
 	},
 	"mediaExpanded.firstSeen": {
 		"string": "Первое появление:"
@@ -1572,31 +1316,19 @@
 		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count} similar media"
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "В процессе обновления языка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Поиск по картинкам"
+		"string": "Google Image Search"
 	},
 	"mediaMetadata.Timeline": {
 		"string": "Таймлайн"
 	},
-	"mediaMetadata.addedToList": {
-		"string": "Добавлено к списку {listName}"
-	},
 	"mediaMetadata.download": {
 		"string": "Скачать"
-	},
-	"mediaRelated.loadMore": {
-		"string": "Загрузить ещё"
-	},
-	"mediaRelated.primaryItem": {
-		"string": "Основной материал"
-	},
-	"mediaRelated.secondaryItems": {
-		"string": "Вторичные материалы"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Add relation"
@@ -1641,13 +1373,15 @@
 		"string": "{current} из {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar"
+		"string": "Similar",
+		"developer_comment": "Adjective, plural. Heading for a list of similar items"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Click on an item"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main"
+		"string": "Main",
+		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Заметки"
@@ -1700,29 +1434,22 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Похожие медиа-файлы"
+		"string": "Похожие медиа-файлы",
+		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
 		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Suggested media"
+		"string": "Suggested media",
+		"developer_comment": "Plural. Heading for the number of suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Change",
 		"developer_comment": "allow user to change a project media source"
 	},
-	"mediaStatus.cancelMessage": {
-		"string": "Отменить"
-	},
 	"mediaStatus.error": {
 		"string": "В процессе редактирования статуса произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"mediaStatus.messageDescription": {
-		"string": "Пожалуйста, добавьте комментарий для отправителя. Комментарий будет добавлен к сообщению о закрытии запроса."
-	},
-	"mediaStatus.noteHint": {
-		"string": "Нажмите ENTER для отправки"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Назад"
@@ -1749,10 +1476,7 @@
 		"string": "Запросы"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total} suggested media"
-	},
-	"mediaTags.error": {
-		"string": "В процессе редактирования тэга произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
+		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Меньше"
@@ -1772,6 +1496,9 @@
 	"network.stillWorking": {
 		"string": "Загрузка..."
 	},
+	"newProject.cancel": {
+		"string": "Отменить"
+	},
 	"notFound.back": {
 		"string": "Go to my profile page",
 		"developer_comment": "Go to profile page button"
@@ -1785,9 +1512,6 @@
 	"notFound.title": {
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
-	},
-	"pageTitle.appNameHuman": {
-		"string": "Check"
 	},
 	"passwordChange.changePassword": {
 		"string": "Изменить пароль"
@@ -1817,14 +1541,10 @@
 		"string": "Пароли не совпадают"
 	},
 	"passwordReset.confirmedText": {
-		"string": "Вам отправлено письмо от {adminEmail} с инструкциями по сбросу пароля. Ссылка в письме действует {expiry} ч. Если вы не получили письмо, проверьте папку со спамом. Если наши письма вам не приходят, свяжитесь с нами: {supportEmail}."
+		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Email"
-	},
-	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Извините, аккаунт с данным email не найден. Если вы считаете, что это ошибка, свяжитесь с нами: {supportEmail}.",
-		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
 		"string": "Пожалуйста, укажите корректный email.",
@@ -1843,26 +1563,62 @@
 	"privacy.policy.title": {
 		"string": "Политика приватности"
 	},
+	"project.deleteMessage": {
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+	},
+	"project.name": {
+		"string": "folder"
+	},
 	"projectActions.assignOrUnassign": {
-		"string": "Assign list to…"
+		"string": "Assign to…"
+	},
+	"projectActions.cancel": {
+		"string": "Отменить"
+	},
+	"projectActions.defaultErrorMessage": {
+		"string": "Ошибка. Пожалуйста, попробуйте ещё раз",
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+	},
+	"projectActions.delete": {
+		"string": "Удалить",
+		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectActions.deleteProjectBody": {
-		"string": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
 	},
 	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this list?"
+		"string": "Are you sure you want to delete this folder?"
 	},
 	"projectActions.destroy": {
 		"string": "Удалить"
 	},
+	"projectActions.move": {
+		"string": "Переместить в...",
+		"developer_comment": "'Move' here is an infinitive verb"
+	},
+	"projectActions.moveOut": {
+		"string": "Move out",
+		"developer_comment": "Menu option to move a folder out of a collection"
+	},
 	"projectActions.proceedLabel": {
-		"string": "Удалять списки"
+		"string": "Delete folder"
 	},
 	"projectActions.projectDeleted": {
-		"string": "Список успешно удалён."
+		"string": "Folder deleted successfully."
 	},
 	"projectActions.projectNotDeleted": {
-		"string": "Извините, не удалось удалить список."
+		"string": "Sorry, could not delete folder."
+	},
+	"projectActions.rename": {
+		"string": "Rename",
+		"developer_comment": "'Rename' here is an infinitive verb"
+	},
+	"projectActions.savedSuccessfully": {
+		"string": "Ок",
+		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
+	},
+	"projectActions.tooltip": {
+		"string": "Actions"
 	},
 	"projectAssignment.assignedTo": {
 		"string": "Назначено"
@@ -1883,64 +1639,46 @@
 		"string": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
 	},
 	"projectAssignment.title": {
-		"string": "Назначить список соавторам"
+		"string": "Assign folder to collaborators"
 	},
-	"projectEdit.confirmCancelLabel": {
-		"string": "Go back"
-	},
-	"projectEdit.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
-	},
-	"projectEdit.confirmProceedLabel": {
-		"string": "Save changes"
-	},
-	"projectEdit.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
-	},
-	"projectEdit.descriptionField": {
-		"string": "Описание"
-	},
-	"projectEdit.error": {
-		"string": "В процессе редактирования списка произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"projectEdit.saveButton": {
-		"string": "Обновить"
-	},
-	"projectEdit.title": {
-		"string": "List details"
-	},
-	"projectEdit.titleField": {
-		"string": "Заголовок"
+	"projectBlankState.blank": {
+		"string": "There are no items here."
 	},
 	"projectEditDialogComponent.confirmCancelLabel": {
 		"string": "Go back"
 	},
 	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
+		"string": "Changes made to this folder will be reflected for everyone in this workspace."
 	},
 	"projectEditDialogComponent.confirmProceedLabel": {
 		"string": "Save changes"
 	},
 	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
+		"string": "Are you sure you want to change this folder?"
 	},
 	"projectEditDialogComponent.descriptionField": {
 		"string": "Описание"
 	},
 	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update list details."
+		"string": "Could not update folder details."
 	},
 	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "List details updated successfully."
+		"string": "Folder details updated successfully."
 	},
 	"projectEditDialogComponent.saveButton": {
 		"string": "Обновить"
 	},
 	"projectEditDialogComponent.title": {
-		"string": "List details"
+		"string": "Folder details"
 	},
 	"projectEditDialogComponent.titleField": {
 		"string": "Заголовок"
+	},
+	"projectGroup.deleteMessage": {
+		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+	},
+	"projectGroup.name": {
+		"string": "collection"
 	},
 	"projectHeader.allItems": {
 		"string": "Все материалы"
@@ -1948,14 +1686,50 @@
 	"projectHeader.trash": {
 		"string": "Корзина"
 	},
+	"projectHeader.unconfirmed": {
+		"string": "Unconfirmed"
+	},
+	"projectMoveDialogComponent.choose": {
+		"string": "Choose a collection"
+	},
+	"projectMoveDialogComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectMoveDialogComponent.createCollection": {
+		"string": "Create collection"
+	},
+	"projectMoveDialogComponent.moveTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.movedSuccessfully": {
+		"string": "Folder moved to collection successfully",
+		"developer_comment": "Message displayed when a folder is moved to a collection"
+	},
+	"projectMoveDialogComponent.newCollection": {
+		"string": "New collection"
+	},
+	"projectMoveDialogComponent.noCollectionsText": {
+		"string": "There are no collections in {teamName}. You need to create a collection first."
+	},
+	"projectMoveDialogComponent.noCollectionsTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.proceedLabel": {
+		"string": "Create a new collection"
+	},
+	"projectMoveDialogComponent.proceedLabel2": {
+		"string": "Move to collection"
+	},
 	"projectSelector.allProjs": {
-		"string": "Все списки"
+		"string": "All folders"
 	},
 	"projectSelector.numProjs": {
-		"string": "Выбрано: {length, number}"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected folders"
 	},
 	"projects.addProject": {
-		"string": "Добавить список"
+		"string": "Add folder"
 	},
 	"projects.allClaims": {
 		"string": "Все материалы"
@@ -1964,13 +1738,107 @@
 		"string": "Отменить"
 	},
 	"projects.newList": {
-		"string": "+ Новый список"
+		"string": "+ New folder"
 	},
 	"projects.trash": {
 		"string": "Корзина"
 	},
 	"projects.unconfirmed": {
 		"string": "Unconfirmed"
+	},
+	"projectsComponent.allItems": {
+		"string": "Все материалы"
+	},
+	"projectsComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectsComponent.createCollection": {
+		"string": "Create collection",
+		"developer_comment": "Button label for creating new collection"
+	},
+	"projectsComponent.createFolder": {
+		"string": "Create folder",
+		"developer_comment": "Button label for creating new folder"
+	},
+	"projectsComponent.createList": {
+		"string": "Создать список"
+	},
+	"projectsComponent.deleteType": {
+		"string": "Delete {type}",
+		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.description": {
+		"string": "Описание"
+	},
+	"projectsComponent.folders": {
+		"string": "Folders"
+	},
+	"projectsComponent.invalidMove": {
+		"string": "Folders can just be moved to collections",
+		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
+	},
+	"projectsComponent.lists": {
+		"string": "Filtered lists",
+		"developer_comment": "List of items with some filters applied"
+	},
+	"projectsComponent.movedSuccessfully": {
+		"string": "Folder moved successfully",
+		"developer_comment": "Message displayed when a folder is moved to or from a collection"
+	},
+	"projectsComponent.newCollection": {
+		"string": "New collection",
+		"developer_comment": "Dialog title for creating new collection"
+	},
+	"projectsComponent.newCollectionErrorMessage": {
+		"string": "Could not create collection, please try again",
+		"developer_comment": "Error message when creating new collection fails"
+	},
+	"projectsComponent.newCollectionMenu": {
+		"string": "New collection",
+		"developer_comment": "Menu item for creating new collection"
+	},
+	"projectsComponent.newCollectionSuccessMessage": {
+		"string": "Collection created successfully",
+		"developer_comment": "Success message when new collection is created"
+	},
+	"projectsComponent.newFolder": {
+		"string": "New folder",
+		"developer_comment": "Dialog title for creating new folder"
+	},
+	"projectsComponent.newFolderErrorMessage": {
+		"string": "Could not create folder, please try again",
+		"developer_comment": "Error message when creating new folder fails"
+	},
+	"projectsComponent.newFolderMenu": {
+		"string": "New folder",
+		"developer_comment": "Menu item for creating new folder"
+	},
+	"projectsComponent.newFolderSuccessMessage": {
+		"string": "Folder created successfully",
+		"developer_comment": "Success message when new folder is created"
+	},
+	"projectsComponent.newList": {
+		"string": "New list"
+	},
+	"projectsComponent.newListErrorMessage": {
+		"string": "Could not create list, please try again",
+		"developer_comment": "Error message when creating new list fails"
+	},
+	"projectsComponent.newListSuccessMessage": {
+		"string": "List created successfully",
+		"developer_comment": "Success message when new list is created"
+	},
+	"projectsComponent.noFolders": {
+		"string": "No folders in this collection",
+		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.renameType": {
+		"string": "Rename {type}",
+		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.title": {
+		"string": "Заголовок"
 	},
 	"reportDesigner.addIntro": {
 		"string": "Добавить контент ко вступлению"
@@ -1980,9 +1848,6 @@
 	},
 	"reportDesigner.back": {
 		"string": "Назад к аннотации"
-	},
-	"reportDesigner.canPublish": {
-		"string": "Опубликовать отчёт"
 	},
 	"reportDesigner.cancelLeaveButtonLabel": {
 		"string": "Go back"
@@ -2038,23 +1903,14 @@
 	"reportDesigner.confirmRepublishResendText": {
 		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
-	"reportDesigner.confirmRepublishResendText2": {
-		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
-	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Вы готовы опубликовать изменения?"
-	},
-	"reportDesigner.confirmRepublishText": {
-		"string": "Пользователи, запрашивающие этот материал в дальнейшем, будут получать текущую (обновлённую) версию отчёта."
 	},
 	"reportDesigner.confirmRepublishTitle": {
 		"string": "Вы готовы опубликовать изменения?"
 	},
 	"reportDesigner.content": {
 		"string": "Контент (до {max} символов)"
-	},
-	"reportDesigner.copyButton": {
-		"string": "Копировать"
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Скопировано"
@@ -2076,9 +1932,6 @@
 	},
 	"reportDesigner.description": {
 		"string": "Контент (до {max} символов)"
-	},
-	"reportDesigner.disclaimer": {
-		"string": "Отказ от ответственности"
 	},
 	"reportDesigner.edit": {
 		"string": "Редактировать"
@@ -2104,17 +1957,11 @@
 	"reportDesigner.pause": {
 		"string": "Приостановить"
 	},
-	"reportDesigner.pauseReport": {
-		"string": "Приостановить отчёт"
-	},
 	"reportDesigner.publish": {
 		"string": "Опубликовать"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Удалить изображение"
-	},
-	"reportDesigner.reportEditorTitle": {
-		"string": "Выберите контент для вашего отчёта"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Превью отчёта",
@@ -2140,9 +1987,6 @@
 	},
 	"reportDesigner.textTitle": {
 		"string": "Заголовок (до {max} символов)"
-	},
-	"reportDesigner.themeColor": {
-		"string": "Основной цвет"
 	},
 	"reportDesigner.title": {
 		"string": "Создайте свой отчёт"
@@ -2244,13 +2088,15 @@
 		"string": "Не удалось сохранить правила"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Правила сохранены успешно!"
+		"string": "Rules saved successfully"
 	},
 	"rulesTableHead.name": {
-		"string": "Название"
+		"string": "Название",
+		"developer_comment": "Table header for rule names"
 	},
 	"rulesTableHead.updated": {
-		"string": "Обновлено"
+		"string": "Обновлено",
+		"developer_comment": "Table header for rule update dates"
 	},
 	"rulesTableToolbar.add": {
 		"string": "Новое правило"
@@ -2274,40 +2120,80 @@
 		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize lists and customize your workflow."
+		"string": "Create automations to organize folders and customize your workflow."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Правила"
 	},
-	"search.Filter": {
-		"string": "Фильтровать"
+	"saveList.cancel": {
+		"string": "Отменить"
 	},
-	"search.all": {
-		"string": "Все"
+	"saveList.create": {
+		"string": "Create new list",
+		"developer_comment": "'Create' here is an infinitive verb"
+	},
+	"saveList.defaultErrorMessage": {
+		"string": "Could not save list, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save a list"
+	},
+	"saveList.newList": {
+		"string": "Save list"
+	},
+	"saveList.saveList": {
+		"string": "Save list",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+	},
+	"saveList.savedSuccessfully": {
+		"string": "List saved successfully",
+		"developer_comment": "Success message displayed when a list is saved"
+	},
+	"saveList.title": {
+		"string": "Enter new list name"
+	},
+	"saveList.update": {
+		"string": "Save changes to the list \"{listName}\"",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
+	"savedSearch.deleteMessage": {
+		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+	},
+	"savedSearch.name": {
+		"string": "list"
+	},
+	"search.afterDate": {
+		"string": "after",
+		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
 		"string": "Все материалы"
 	},
-	"search.any": {
-		"string": "Любое"
+	"search.and": {
+		"string": "И",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.anyDate": {
+		"string": "any date",
+		"developer_comment": "Date picker placeholder"
 	},
 	"search.applyFilters": {
-		"string": "Фильтровать"
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
-		"string": "Назначено"
+		"string": "Назначено",
+		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
-	"search.cancel": {
-		"string": "Отменить"
+	"search.beforeDate": {
+		"string": "and before",
+		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.categoriesHeading": {
-		"string": "Тэги"
+		"string": "Tag is",
+		"developer_comment": "Prefix label for field to filter by tags"
 	},
-	"search.clear": {
-		"string": "Очистить фильтр"
-	},
-	"search.dateHeading": {
-		"string": "Временной промежуток"
+	"search.collection": {
+		"string": "Collection is",
+		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Отредактировано"
@@ -2321,65 +2207,99 @@
 	"search.dateUpdatedHeading": {
 		"string": "Обновлено"
 	},
+	"search.fieldAnd": {
+		"string": "AND",
+		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+	},
+	"search.folderHeading": {
+		"string": "Folder is",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Альфа + Бета</td><td>Результаты, где есть И Альфа, И Бета</td></tr>\n                        <tr><td>|</td><td>Альфа | Бета</td><td>Результаты, где есть Альфа ИЛИ Бета</td></tr>\n                        <tr><td>()</td><td>Альфа + (Бета | Гамма)</td><td>Результаты, где есть ИЛИ Альфа И Бета, ИЛИ Альфа И Гамма</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Узнать больше о методах поиска\n                      </a>\n                    </div>"
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Альфа + Бета</td><td>Результаты, где есть И Альфа, И Бета</td></tr>\n                        <tr><td>|</td><td>Альфа | Бета</td><td>Результаты, где есть Альфа ИЛИ Бета</td></tr>\n                        <tr><td>()</td><td>Альфа + (Бета | Гамма)</td><td>Результаты, где есть ИЛИ Альфа И Бета, ИЛИ Альфа И Гамма</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Узнать больше о методах поиска\n                      </a>\n                    </div>",
+		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
-		"string": "Искать"
+		"string": "Искать",
+		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Язык"
+		"string": "Language is",
+		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Следующая"
 	},
-	"search.pickDateFrom": {
-		"string": "Дата начала"
+	"search.notInAny": {
+		"string": "Not in any collection",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
-	"search.pickDateTo": {
-		"string": "Дата окончания"
+	"search.or": {
+		"string": "Или",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
 		"string": "Предыдущая"
 	},
-	"search.projectHeading": {
-		"string": "Список"
+	"search.reportStatus": {
+		"string": "Report status is",
+		"developer_comment": "Prefix label for field to filter by report status"
 	},
-	"search.readHeading": {
-		"string": "Прочитано"
+	"search.reportStatusPaused": {
+		"string": "Приостановлен",
+		"developer_comment": "Refers to a report status"
 	},
-	"search.reset": {
-		"string": "Сбросить"
+	"search.reportStatusPublished": {
+		"string": "Опубликован",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusUnpublished": {
+		"string": "Неопубликован",
+		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
-		"string": "Тип материала"
+		"string": "Type is",
+		"developer_comment": "Prefix label for field to filter by media type"
 	},
 	"search.showAudios": {
-		"string": "Аудио"
+		"string": "Аудио",
+		"developer_comment": "Describes media type Audio"
 	},
 	"search.showBlank": {
-		"string": "Отчёт (импорт)"
+		"string": "Отчёт (импорт)",
+		"developer_comment": "Describes media type unspecified"
 	},
 	"search.showClaims": {
-		"string": "Текст"
+		"string": "Текст",
+		"developer_comment": "Describes media type Text"
 	},
 	"search.showImages": {
-		"string": "Изображение"
+		"string": "Изображение",
+		"developer_comment": "Describes media type Image"
 	},
 	"search.showLinks": {
-		"string": "Ссылка"
+		"string": "Ссылка",
+		"developer_comment": "Describes media type Link"
 	},
 	"search.showVideos": {
-		"string": "Видео"
+		"string": "Видео",
+		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Item status"
-	},
-	"search.title": {
-		"string": "Все материалы"
+		"string": "Статус материала совпадает с указанным",
+		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Автор"
+		"string": "Автор",
+		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFields.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"searchKeyword.clear": {
+		"string": "Clear keyword search",
+		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "Источник"
@@ -2425,7 +2345,8 @@
 		"string": "{count, plural, one {1 / 1} few {} many {} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
+		"developer_comment": "Label for number of selected items"
 	},
 	"sentence.lastSeparator": {
 		"string": "и"
@@ -2433,25 +2354,16 @@
 	"sentence.separator": {
 		"string": ", "
 	},
-	"setProjectMediaSource.cancelButton": {
-		"string": "Отменить"
-	},
-	"setProjectMediaSource.choose": {
-		"string": "Choose a source"
-	},
-	"setProjectMediaSource.saveButton": {
-		"string": "Сохранить"
-	},
 	"setSourceDialog.confirm": {
 		"string": "Do you want to use the existing sources for this media?",
 		"developer_comment": "Confirm message to relate media to an existing source"
 	},
 	"setSourceDialog.existDescription": {
-		"string": "An the source <b>{name}</b> already exists.",
+		"string": "The source <b>{name}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existDescriptionWithUrl": {
-		"string": "An the source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"string": "The source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existingSource": {
@@ -2490,14 +2402,8 @@
 	"singleChoiceTask.value": {
 		"string": "Значение"
 	},
-	"slackConfig.menuTooltip": {
-		"string": "Настройки интеграции"
-	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
-	},
-	"slackConfig.title": {
-		"string": "Интеграция со Slack"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "Прочая активность"
@@ -2518,7 +2424,7 @@
 		"string": "Событие"
 	},
 	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Если материал в списке"
+		"string": "If item is in folder"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "Новое уведомление"
@@ -2527,16 +2433,16 @@
 		"string": "Сохранить"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Настройки Slack сохранены успешно!"
+		"string": "Slack settings saved successfully"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Отправлять уведомления в"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific lists"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.webhook": {
-		"string": "Webhook Slack"
+		"string": "Slack incoming webhook"
 	},
 	"smoochBot.addResource": {
 		"string": "Добавить ресурс"
@@ -2554,7 +2460,7 @@
 		"string": "Меню, где пользователю предлагается выбрать из нескольких вариантов. Это сообщение автоматически отправляется пользователю сразу после приветствия. «9» не может быть использовано как вариант ответа в главном меню."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Сообщение, отправляемое пользователю, если его ответа нет в вариантах меню."
@@ -2668,7 +2574,7 @@
 		"string": "Свяжитесь с нами для настройки"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Could not save tipline settings.",
+		"string": "Could not save tipline settings",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
 	"smoochBotComponent.install": {
@@ -2678,7 +2584,7 @@
 		"string": "Save settings"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Tipline settings saved successfully.",
+		"string": "Tipline settings saved successfully",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
@@ -2686,6 +2592,100 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
+	},
+	"smoochBotIntegrationButton.cancel": {
+		"string": "Отменить"
+	},
+	"smoochBotIntegrationButton.confirm": {
+		"string": "Подтверждение"
+	},
+	"smoochBotIntegrationButton.confirmDisconnectText": {
+		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTitle": {
+		"string": "Disconnect {platform} tipline",
+		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmationMessage": {
+		"string": "Disconnect {platform}",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.confirmationMessagePermanent": {
+		"string": "Disconnect {platform} permanently",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.connect": {
+		"string": "Привязать"
+	},
+	"smoochBotIntegrationButton.connectTipline": {
+		"string": "Connect to {platform} tipline"
+	},
+	"smoochBotIntegrationButton.defaultErrorMessage": {
+		"string": "Something went wrong"
+	},
+	"smoochBotIntegrationButton.disclaimer": {
+		"string": "We don't store this information. This is just used to configure the integration."
+	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
+	"smoochBotIntegrationButton.disconnect": {
+		"string": "Disconnect from this account"
+	},
+	"smoochBotIntegrationButton.online": {
+		"string": "Online"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
+	},
+	"smoochBotIntegrationButton.savedSuccessfully": {
+		"string": "Ок"
+	},
+	"smoochBotIntegrationButton.status": {
+		"string": "Status: Online"
+	},
+	"smoochBotIntegrationButton.tipline": {
+		"string": "{platform} tipline"
+	},
+	"smoochBotIntegrations.account": {
+		"string": "Connected account: {link}"
+	},
+	"smoochBotIntegrations.lineChannelAccessToken": {
+		"string": "LINE channel access token"
+	},
+	"smoochBotIntegrations.lineChannelSecret": {
+		"string": "LINE channel secret"
+	},
+	"smoochBotIntegrations.lineWebhook": {
+		"string": "Copy this webhook URL to your LINE settings"
+	},
+	"smoochBotIntegrations.page": {
+		"string": "Connected page: {link}"
+	},
+	"smoochBotIntegrations.phoneNumber": {
+		"string": "Connected phone number: {link}"
+	},
+	"smoochBotIntegrations.telegramBot": {
+		"string": "Connected Telegram bot: {link}"
+	},
+	"smoochBotIntegrations.telegramBotToken": {
+		"string": "Telegram bot token"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
+	},
+	"smoochBotIntegrations.viberPublicAccount": {
+		"string": "Connected Viber public account: {name}"
+	},
+	"smoochBotIntegrations.viberPublicAccountToken": {
+		"string": "Viber public account token"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Сценарий"
@@ -2756,27 +2756,6 @@
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
 	},
-	"smoochBotSelectReport.cancel": {
-		"string": "Отменить"
-	},
-	"smoochBotSelectReport.confirm": {
-		"string": "Подтверждение"
-	},
-	"smoochBotSelectReport.dialogDescription": {
-		"string": "Через поиск по заголовкам выберите материал, который хотите отправить как отчёт. Бот ответит этим отчётом пользоввателю. Отчёт должен быть завершён, чтобы его можно было выбрать."
-	},
-	"smoochBotSelectReport.dialogTitle": {
-		"string": "Выберите отчёт"
-	},
-	"smoochBotSettings.connectToFacebook": {
-		"string": "Connect to Facebook"
-	},
-	"smoochBotSettings.connectToTwitter": {
-		"string": "Connect to Twitter"
-	},
-	"smoochBotSettings.connectToWhatsApp": {
-		"string": "Connect to WhatsApp"
-	},
 	"sortSelect.az": {
 		"string": "А — Я"
 	},
@@ -2845,7 +2824,7 @@
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Set {language} as default"
@@ -2854,13 +2833,15 @@
 		"string": "Do you want to set the default language to {language}?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
+		"string": "All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently.",
+		"developer_comment": "Warning about content being lost after deleting a language"
 	},
 	"statusListItem.confirmDeleteBody2": {
 		"string": "Users will receive this content in the default language {language} instead."
 	},
 	"statusListItem.confirmDeleteDefaultBody": {
-		"string": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+		"string": "You cannot delete the default language. You must set a different default language before you can delete {language}.",
+		"developer_comment": "Message warning user to set a new default language before deleting the current one"
 	},
 	"statusListItem.confirmDeleteDefaultLabel": {
 		"string": "Go back and change"
@@ -2899,10 +2880,10 @@
 		"string": "Переведите названия статусов, чтобы пользователи могли видеть их на родном языке в ваших отчётах."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully!"
+		"string": "Status created successfully"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully!"
+		"string": "Status deleted successfully"
 	},
 	"statusesComponent.error": {
 		"string": "Извините, во время обновления статусов произошла ошибка. Пожалуйста, попробуйте ещё раз. Если ошибка повторяется, свяжитесь с нами: {supportEmail}."
@@ -2914,7 +2895,7 @@
 		"string": "Новый статус"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully!"
+		"string": "Statuses saved successfully"
 	},
 	"statusesComponent.subtitle": {
 		"string": "Пользователи видят статус, когда получают отчёты."
@@ -2962,14 +2943,11 @@
 	"tagPicker.tagNotFound": {
 		"string": "Тэг #{tag} не найден."
 	},
-	"tagTextCount.acknowledge": {
-		"string": "{count, plural, =0 {Да} one {При удалении этого тэга он будет снят с материала, на который он назначен.} other {При удалении этого тэга он будет снят со всех материалов, на которые он назначен. Материалов: #.}}"
-	},
 	"task.answeredBy": {
 		"string": "Выполнено {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "Назначить / Снять"
+		"string": "Assign/Unassign"
 	},
 	"task.assignedTo": {
 		"string": "Назначено {name}"
@@ -3014,7 +2992,8 @@
 		"string": "Все вопросы"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "Выбрано: {length, number}"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.add": {
 		"string": "Сохранить"
@@ -3058,9 +3037,6 @@
 	"tasks.description": {
 		"string": "Описание (необязательно)"
 	},
-	"tasks.done": {
-		"string": "Ок"
-	},
 	"tasks.editAssignment": {
 		"string": "Редактировать назначение"
 	},
@@ -3075,6 +3051,10 @@
 	},
 	"tasks.goToSettings": {
 		"string": "К настройкам"
+	},
+	"tasks.number": {
+		"string": "Number",
+		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.shortAnswer": {
 		"string": "Текст"
@@ -3109,51 +3089,6 @@
 	"teamBots.success": {
 		"string": "Настройки обновлены!"
 	},
-	"teamComponent.cancelButton": {
-		"string": "Отменить"
-	},
-	"teamComponent.editButton": {
-		"string": "Редактировать профиль"
-	},
-	"teamComponent.editError": {
-		"string": "В процессе редактирования проекта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"teamComponent.invalidLink": {
-		"string": "Пожалуйста, введите корректный URL"
-	},
-	"teamComponent.location": {
-		"string": "Местонахождение"
-	},
-	"teamComponent.noProjects": {
-		"string": "Нет списков"
-	},
-	"teamComponent.phone": {
-		"string": "Номер телефона"
-	},
-	"teamComponent.private": {
-		"string": "Закрытая"
-	},
-	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Назначено одному участнику} few {Назначено участникам (#)} many {Назначено участникам (#)} other {Назначено участникам (#)}}"
-	},
-	"teamComponent.projects": {
-		"string": "Списки"
-	},
-	"teamComponent.public": {
-		"string": "Публичная"
-	},
-	"teamComponent.saveButton": {
-		"string": "Сохранить"
-	},
-	"teamComponent.teamDescription": {
-		"string": "Описание"
-	},
-	"teamComponent.teamName": {
-		"string": "Название"
-	},
-	"teamComponent.website": {
-		"string": "Сайт"
-	},
 	"teamDataComponent.formLinkText": {
 		"string": "this short form"
 	},
@@ -3173,7 +3108,8 @@
 		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
 	},
 	"teamDataComponent.title": {
-		"string": "Workspace data"
+		"string": "Workspace data",
+		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.viewDataReport": {
 		"string": "View data report"
@@ -3188,11 +3124,12 @@
 		"string": "Workspace details saved successfully"
 	},
 	"teamDetails.subtitle": {
-		"string": "Add details to your Check workspace"
+		"string": "Add details to your Check workspace.",
+		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
 		"string": "Workspace details",
-		"developer_comment": "Title for workspace details page"
+		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
 		"string": "Обновить"
@@ -3200,81 +3137,34 @@
 	"teamDetails.workspaceName": {
 		"string": "Workspace name"
 	},
-	"teamInfo.duplicateTeam": {
-		"string": "Дублировать"
-	},
-	"teamInfo.editTeam": {
-		"string": "Редактировать"
-	},
 	"teamIntegrations.subtitle": {
 		"string": "Third party tools to enhance productivity."
 	},
 	"teamIntegrations.title": {
 		"string": "Интеграция"
 	},
-	"teamInviteCard.copied": {
-		"string": "КОПИРОВАТЬ"
-	},
-	"teamInviteCard.copy": {
-		"string": "Скопировано!"
-	},
-	"teamInviteCard.title": {
-		"string": "Пригласить участников"
-	},
-	"teamInviteMembers.addAnother": {
-		"string": "Добавить ещё"
-	},
-	"teamInviteMembers.addMany": {
-		"string": "Добавить несколько"
-	},
-	"teamInviteMembers.addSeparate": {
-		"string": "Добавить по одному"
-	},
-	"teamInviteMembers.cancelAdd": {
-		"string": "Отменить"
-	},
-	"teamInviteMembers.customInvitation": {
-		"string": "Заметка (необязательно)"
-	},
-	"teamInviteMembers.inviteMember": {
-		"string": "Пригласить"
-	},
-	"teamInviteMembers.inviteMembers": {
-		"string": "Участники будут приглашены как"
-	},
-	"teamInviteMembers.resendEmailSuccess": {
-		"string": "Приглашение отправлено"
-	},
-	"teamInviteMembers.send": {
-		"string": "Отправить"
-	},
-	"teamLists.description": {
-		"string": "Выберите столбцы, которые хотите отображать во всех списках."
-	},
-	"teamLists.title": {
-		"string": "Настройки списков"
-	},
 	"teamListsColumn.none": {
-		"string": "None available"
+		"string": "None available",
+		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "Сохранить изменения для всех списков"
+		"string": "Save changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Вы уверены? Ваши изменения затронут все списки и отразятся на всех пользователях проекта."
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Изменение списка проекта"
+		"string": "Workspace columns change"
 	},
 	"teamListsComponent.createMetadata": {
 		"string": "Create new metadata field"
 	},
 	"teamListsComponent.defaultErrorMessage": {
-		"string": "Не удалось сохранить настройки списка.",
-		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+		"string": "Could not save column settings",
+		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Выберите столбцы, которые хотите отображать во всех списках."
+		"string": "Select all the columns you want to display in all your folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "Displayed columns"
@@ -3286,11 +3176,11 @@
 		"string": "Метаданные"
 	},
 	"teamListsComponent.savedSuccessfully": {
-		"string": "Настройки списка сохранены успешно.",
-		"developer_comment": "Banner displayed when list settings are saved successfully"
+		"string": "Column settings saved successfully",
+		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Настройки списка"
+		"string": "Columns settings"
 	},
 	"teamListsItem.general": {
 		"string": "General"
@@ -3332,7 +3222,7 @@
 		"string": "Удалить"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
 	},
 	"teamMembers.removeDialogTitle": {
 		"string": "Remove {userLabel}"
@@ -3341,7 +3231,8 @@
 		"string": "Resend invite"
 	},
 	"teamMembers.subtitle": {
-		"string": "Invite and manage users"
+		"string": "Invite and manage users.",
+		"developer_comment": "Subtitle for workspace members management page"
 	},
 	"teamMembers.tableHeaderLastActive": {
 		"string": "Last active",
@@ -3362,9 +3253,6 @@
 	"teamMembers.tooltip": {
 		"string": "Manage member"
 	},
-	"teamMembersComponent.inviteLink": {
-		"string": "Чтобы пригласить коллег в группу {teamName}, отправьте им эту ссылку:"
-	},
 	"teamMenu.teamSettings": {
 		"string": "Настройки проекта"
 	},
@@ -3374,49 +3262,22 @@
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Метаданные",
-		"developer_comment": "Title for item Metadata"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
 		"string": "Add custom metadata fields to items.",
-		"developer_comment": "Metadata item subtitle"
+		"developer_comment": "Subtitle for metadata settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Add custom data ields to the source tab.",
-		"developer_comment": "Metadata source subtitle"
+		"string": "Add custom data fields to the source tab.",
+		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
 		"string": "Source metadata",
-		"developer_comment": "Ttle for source Metadata"
-	},
-	"teamReport.disclaimer": {
-		"string": "Отказ от ответственности"
-	},
-	"teamReport.disclaimerSub": {
-		"string": "Заявление об отказе от ответственности (дисклеймер), которое будет отображено рядом с логотипом проекта в нижней части отчёта."
-	},
-	"teamReport.introduction": {
-		"string": "Вступление"
-	},
-	"teamReport.introductionSub": {
-		"string": "Используйте подстановку {query_date}, чтобы вставить дату запроса. Используйте {status} для отображения текущего статуса статьи."
-	},
-	"teamReport.save": {
-		"string": "Сохранить"
-	},
-	"teamReport.subtitle": {
-		"string": "The content you set here can be edited in each individual report."
-	},
-	"teamReport.title": {
-		"string": "Настройки отчёта по умолчанию"
-	},
-	"teamReport.updateFail": {
-		"string": "В процессе изменения настроек отчёта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"teamReport.updateSuccess": {
-		"string": "Настройки отчёта успешно обновлены!"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
-		"string": "Could not save report settings.",
+		"string": "Could not save report settings",
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
@@ -3428,18 +3289,28 @@
 	"teamReportComponent.introductionSub": {
 		"string": "Используйте подстановку {query_date}, чтобы вставить дату запроса. Используйте {status} для отображения текущего статуса статьи."
 	},
+	"teamReportComponent.line": {
+		"string": "LINE channel"
+	},
 	"teamReportComponent.save": {
 		"string": "Сохранить"
 	},
 	"teamReportComponent.savedSuccessfully": {
-		"string": "Report settings saved successfully.",
+		"string": "Report settings saved successfully",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
 		"string": "Signature"
 	},
+	"teamReportComponent.signatureLabel": {
+		"string": "Signature ({max} characters max)",
+		"developer_comment": "Label for signature field in report settings"
+	},
 	"teamReportComponent.subtitle": {
 		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.telegram": {
+		"string": "Telegram bot username"
 	},
 	"teamReportComponent.title": {
 		"string": "Настройки отчёта по умолчанию"
@@ -3451,7 +3322,11 @@
 		"string": "Website URL"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Prompt ({max} characters max)"
+		"string": "Short URL ({max} characters max)",
+		"developer_comment": "Label for URL field in report settings"
+	},
+	"teamReportComponent.viber": {
+		"string": "Viber public account URI"
 	},
 	"teamReportComponent.whatsapp": {
 		"string": "WhatsApp number"
@@ -3472,7 +3347,7 @@
 		"string": "Языки"
 	},
 	"teamSettings.lists": {
-		"string": "Списки"
+		"string": "Columns"
 	},
 	"teamSettings.members": {
 		"string": "Участники"
@@ -3553,13 +3428,7 @@
 		"string": "Тэги"
 	},
 	"teamTags.tooltip": {
-		"string": "Фильтр и сортировка"
-	},
-	"teamTasks.blank": {
-		"string": "Нет вопросов по умолчанию"
-	},
-	"teamTasks.blankMetadata": {
-		"string": "Нет полей для метаданных"
+		"string": "Filter and sort folder"
 	},
 	"teamTasks.cancelAction": {
 		"string": "Отменить"
@@ -3603,32 +3472,11 @@
 	"teamTasks.edit": {
 		"string": "Редактировать"
 	},
-	"teamTasks.filter": {
-		"string": "Фильтр вопросов"
-	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Нет вопросов} one {1 вопрос} other {Вопросов: #}}"
 	},
 	"teamTasks.filterLabelHidden": {
 		"string": "{total, plural, =0 {Нет вопросов} one {1 вопрос (скрыто фильтрами: {hidden})} other {Вопросов: # (скрыто фильтрами: {hidden})}}"
-	},
-	"teamTasks.metadata": {
-		"string": "Метаданные"
-	},
-	"teamTasks.metadataSubtitle": {
-		"string": "Add custom metadata fields to items."
-	},
-	"teamTasks.projFilter": {
-		"string": "Показать вопросы в"
-	},
-	"teamTasks.tasks": {
-		"string": "Вопросы"
-	},
-	"teamTasks.tasksSubtitle": {
-		"string": "Add custom tasks to items."
-	},
-	"teamTasks.typeFilter": {
-		"string": "Тип вопроса"
 	},
 	"teamTasksRender.blank": {
 		"string": "Нет вопросов по умолчанию",
@@ -3684,18 +3532,6 @@
 	"translateStatuses.status": {
 		"string": "Статус"
 	},
-	"translationNeededDialog.body": {
-		"string": "Чтобы сделать {language} языком по умолчанию, вы должны перевести на {language} все статусы в разделе настроек «Статусы»."
-	},
-	"translationNeededDialog.title": {
-		"string": "Необходим перевод статусов"
-	},
-	"trash.emptyTrash": {
-		"string": "Очистить корзину"
-	},
-	"trash.emptyTrashConfirmationText": {
-		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
-	},
 	"trash.title": {
 		"string": "Корзина"
 	},
@@ -3722,30 +3558,6 @@
 	},
 	"uploadFile.videoMessage": {
 		"string": "Перетащите файл или нажмите здесь для загрузки видео (максимальный размер: {video_max_size}, допустимые форматы: {video_extensions})"
-	},
-	"uploadImage.changeFile": {
-		"string": "{filename} (нажмите или перетащите для изменения)"
-	},
-	"uploadImage.fileTooLarge": {
-		"string": "Размер файла должен быть меньше {size}. Пожалуйста, попробуйте файл меньшего размера."
-	},
-	"uploadImage.invalidExtension": {
-		"string": "Файлы \"{extension}\" не разрешены. Разрешенные форматы: {allowed_types}."
-	},
-	"uploadImage.message": {
-		"string": "Перетащите файл или нажмите здесь для загрузки изображения (максимальный размер: {upload_max_size}, допустимые форматы: {upload_extensions}, допустимое разрешение: от {upload_min_dimensions} до {upload_max_dimensions})"
-	},
-	"uploadImage.videoMessage": {
-		"string": "Перетащите файл или нажмите здесь для загрузки видео (максимальный размер: {video_max_size}, допустимые форматы: {video_extensions})"
-	},
-	"userAlreadyConfirmed.heading": {
-		"string": "Аккаунт уже подтверждён"
-	},
-	"userAlreadyConfirmed.login": {
-		"string": "войдите"
-	},
-	"userAlreadyConfirmed.message": {
-		"string": "Ой! Ваш аккаунт уже подтверждён. Пожалуйста, {login}, чтобы начать."
 	},
 	"userAssignments.blank": {
 		"string": "Нет активности"
@@ -3776,12 +3588,6 @@
 	"userConfirmed.confrimMessage": {
 		"string": "Спасибо, что подтвердили email. Теперь можете войти.",
 		"developer_comment": "Message for confirmed user"
-	},
-	"userConfirmed.heading": {
-		"string": "Аккаунт подтвержден"
-	},
-	"userConfirmed.message": {
-		"string": "Спасибо, что подтвердили email. Теперь можете войти."
 	},
 	"userConfirmed.unConfrimMessage": {
 		"string": "В процессе подтверждения аккаунта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}.",
@@ -3846,9 +3652,6 @@
 	},
 	"userInfoEdit.userSendEmailNotification": {
 		"string": "Получать уведомления по email"
-	},
-	"userMenu.edit": {
-		"string": "Редактировать"
 	},
 	"userPrivacy.connectedAccounts": {
 		"string": "Привязанные аккаунты"
@@ -3993,15 +3796,6 @@
 	},
 	"userTos.validation": {
 		"string": "Вы должны согласиться с Условиями использования и Политикой приватности"
-	},
-	"userUnconfirmed.heading": {
-		"string": "Ошибка"
-	},
-	"userUnconfirmed.message": {
-		"string": "В процессе подтверждения аккаунта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
-	},
-	"video.normalSpeed": {
-		"string": "Обычная скорость"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Не удалось идентифицировать этот материал. Возможно, он удалён или доступен только авторизованным пользователям. Нажмите выше, чтобы открыть его."

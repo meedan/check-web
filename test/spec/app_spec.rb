@@ -43,17 +43,15 @@ shared_examples 'app' do |webdriver_url|
     @failing_tests = {}
   end
 
-  unless ENV['SKIP_CONFIG_JS_OVERWRITE']
-    around(:all) do |block|
-      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+  around(:all) do |block|
+    FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    begin
+      block.run
+    ensure
       begin
-        block.run
-      ensure
-        begin
-          FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
-        rescue Errno::ENOENT
-          puts 'Could not copy config.js to ../build/web/js/'
-        end
+        FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
+      rescue Errno::ENOENT
+        puts 'Could not copy config.js to ../build/web/js/'
       end
     end
   end
@@ -114,6 +112,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'report'
     include_examples 'rules'
     include_examples 'search'
+    # include_examples 'source'
     include_examples 'status'
     include_examples 'task'
     include_examples 'tag'
@@ -173,7 +172,8 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should redirect to 404 page', bin4: true do
-      @driver.navigate.to "#{@config['self_url']}/something-that/does-not-exist"
+      api_register_and_login_with_email
+      @driver.navigate.to "#{@config['self_url']}/something-that-does-not-exist"
       title = wait_for_selector('.not-found__component')
       expect(title.text).to match(/page does not exist/)
     end
@@ -220,15 +220,18 @@ shared_examples 'app' do |webdriver_url|
     it 'should go back to the right url from the item page', bin3: true do
       # item created in a project
       api_create_team_project_and_claim_and_redirect_to_media_page
-      wait_for_selector('.card')
+      wait_for_selector('.media')
       wait_for_selector('.project-header__back-button').click
+      wait_for_selector_list_size('.medias__item', 1, :css, 30)
       wait_for_selector('#create-media__add-item')
       expect(@driver.current_url.to_s.match(%r{/project/[0-9]+$}).nil?).to be(false) # project page
+      expect(@driver.page_source.include?('There are no items')).to be(false)
       # send this item to trash go to the item page and go back to trash page
       wait_for_selector('input[type=checkbox]').click
       wait_for_selector('.media-bulk-actions__delete-icon').click
-      wait_for_selector_none('.media__heading')
-      wait_for_selector('.project-list__item-trash').click # Go to the trash page
+      wait_for_selector("//span[contains(text(), 'There are no items')]", :xpath)
+      expect(@driver.page_source.include?('There are no items')).to be(true)
+      @driver.navigate.to "#{@config['self_url']}/#{get_team}/trash"
       wait_for_selector("//span[contains(text(), 'Trash')]", :xpath)
       wait_for_selector('.medias__item', :css, 20, true)
       wait_for_selector('.media__heading').click
@@ -237,12 +240,12 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('#media-bulk-actions')
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
       # item created from "all items" page
-      wait_for_selector('a[href$="/all-items"]').click
+      wait_for_selector('.projects-list__all-items').click
       create_media('claim 2', false)
-      item = wait_for_selector('.media__heading', :css, 20, true)
-      item.click
+      wait_for_selector('.media__heading', :css, 20, true).click
       wait_for_selector('#media-detail__report-designer')
       wait_for_selector('.project-header__back-button').click
+      wait_for_selector_list_size('.medias__item', 1, :css, 30)
       wait_for_selector('#create-media__add-item')
       expect(@driver.current_url.to_s.match(/all-items/).nil?).to be(false) # all items page
     end
@@ -262,14 +265,12 @@ shared_examples 'app' do |webdriver_url|
     it 'should set metatags', bin5: true do
       api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
       request_api('make_team_public', { slug: get_team })
-      wait_for_selector('.media-detail')
+      wait_for_selector('.more-less')
       url = @driver.current_url.to_s
       @driver.navigate.to url
-      wait_for_selector('.media-detail')
+      wait_for_selector('.more-less')
       site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
       expect(site == 'check').to be(true)
-      twitter_title = @driver.find_element(:css, 'meta[name="twitter\\:title"]').attribute('content')
-      expect(twitter_title == 'This is a test').to be(true)
     end
 
     it 'should show current team content on sidebar when viewing profile', bin3: true do
@@ -277,7 +278,7 @@ shared_examples 'app' do |webdriver_url|
       api_create_team_and_project(user: user)
       @driver.navigate.to("#{@config['self_url']}/check/me")
       wait_for_selector('#teams-tab')
-      wait_for_selector('.projects__list a[href$="/all-items"]')
+      wait_for_selector('.team-header__drawer-team-link')
     end
   end
 end

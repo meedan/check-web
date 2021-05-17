@@ -64,8 +64,8 @@ const InviteDialog = ({
               primary={
                 <FormattedMessage
                   id="inviteDialog.sentOtherInvitation"
-                  defaultMessage="Sent other invites."
-                  description="Success message when user send multiple invitations and some emails fail and other mails success."
+                  defaultMessage="The other invites were sent successfully"
+                  description="Message displayed when user sends multiple invitations but some emails fail and others succeed"
                 />
               }
             />);
@@ -146,7 +146,7 @@ const InviteDialog = ({
         <FormattedMessage
           id="inviteDialog.title"
           defaultMessage="Invite workspace members"
-          description="Invite workspace members dialog title"
+          description="Dialog title for inviting members to workspace"
         />
       </DialogTitle>
       <DialogContent>
@@ -157,7 +157,7 @@ const InviteDialog = ({
           label={
             <FormattedMessage
               id="inviteDialog.textInputLabel"
-              defaultMessage="Emails, comma separated"
+              defaultMessage="Email addresses, comma separated"
               description="Label to input for invited emails. Requires that multiple emails be entered separated by comma."
             />
           }

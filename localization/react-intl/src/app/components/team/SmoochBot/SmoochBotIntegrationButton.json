@@ -1,0 +1,80 @@
+[
+  {
+    "id": "smoochBotIntegrationButton.confirmationMessage",
+    "description": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "defaultMessage": "Disconnect {platform}"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmationMessagePermanent",
+    "description": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "defaultMessage": "Disconnect {platform} permanently"
+  },
+  {
+    "id": "smoochBotIntegrationButton.defaultErrorMessage",
+    "defaultMessage": "Something went wrong"
+  },
+  {
+    "id": "smoochBotIntegrationButton.savedSuccessfully",
+    "defaultMessage": "Done"
+  },
+  {
+    "id": "smoochBotIntegrationButton.online",
+    "defaultMessage": "Online"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connect",
+    "defaultMessage": "Connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.tipline",
+    "defaultMessage": "{platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.status",
+    "defaultMessage": "Status: Online"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disconnect",
+    "defaultMessage": "Disconnect from this account"
+  },
+  {
+    "id": "smoochBotIntegrationButton.cancel",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "smoochBotIntegrationButton.connectTipline",
+    "defaultMessage": "Connect to {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.disclaimerForUrl",
+    "description": "The platform here can be Twitter, Facebook, etc.",
+    "defaultMessage": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline."
+  },
+  {
+    "id": "smoochBotIntegrationButton.disclaimer",
+    "defaultMessage": "We don't store this information. This is just used to configure the integration."
+  },
+  {
+    "id": "smoochBotIntegrationButton.readyToConnect",
+    "defaultMessage": "I'm ready to connect"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectTitle",
+    "description": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Disconnect {platform} tipline"
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectTextPermanent",
+    "description": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number.",
+    "defaultMessage": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected."
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirmDisconnectText",
+    "description": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.).",
+    "defaultMessage": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account."
+  },
+  {
+    "id": "smoochBotIntegrationButton.confirm",
+    "defaultMessage": "Confirm"
+  }
+]

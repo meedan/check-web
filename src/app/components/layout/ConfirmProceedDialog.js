@@ -14,6 +14,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { FormattedGlobalMessage } from '../MappedMessage';
 
 const useStyles = makeStyles(theme => ({
+  confirmProceedDialogContent: {
+    minWidth: 600,
+  },
   confirmProceedDialogButtons: {
     gap: `${theme.spacing(1)}px`,
   },
@@ -39,7 +42,7 @@ const ConfirmProceedDialog = ({
       <DialogTitle>
         {title}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={classes.confirmProceedDialogContent}>
         <Box>
           {body}
         </Box>
@@ -49,7 +52,7 @@ const ConfirmProceedDialog = ({
               <strong>
                 <FormattedMessage
                   id="confirmProceedDialog.confirmationText"
-                  defaultMessage='Type "{text}" to permanently delete this language and all content in this language.'
+                  defaultMessage='Type "{text}" to confirm.'
                   values={{ text: typeTextToConfirm }}
                 />
               </strong>

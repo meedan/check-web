@@ -134,7 +134,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
   const handleSuccess = () => {
     setSaving(false);
     onCancel();
-    setFlashMessage(<FormattedMessage id="slackConfigDialogComponent.savedSuccessfully" defaultMessage="Slack settings saved successfully!" />, 'success');
+    setFlashMessage(<FormattedMessage id="slackConfigDialogComponent.savedSuccessfully" defaultMessage="Slack settings saved successfully" />, 'success');
   };
 
   const handleSubmit = () => {
@@ -210,7 +210,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
           <Typography variant="body1" component="div">
             <FormattedMessage
               id="slackConfigDialogComponent.title"
-              defaultMessage="Send notifications to Slack channels when items are added to specific lists"
+              defaultMessage="Send notifications to Slack channels when items are added to specific folders"
             />
           </Typography>
         </Box>
@@ -221,7 +221,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
           label={
             <FormattedMessage
               id="slackConfigDialogComponent.webhook"
-              defaultMessage="Slack webhook"
+              defaultMessage="Slack incoming webhook"
             />
           }
           id="slack-config__webhook"
@@ -271,7 +271,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
                           label={
                             <FormattedMessage
                               id="slackConfigDialogComponent.ifItemAddedTo"
-                              defaultMessage="If item is in list"
+                              defaultMessage="If item is in folder"
                             />
                           }
                           variant="outlined"

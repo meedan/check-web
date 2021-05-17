@@ -42,6 +42,7 @@ export const opaqueBlack38 = '#9e9e9e';
 export const opaqueBlack23 = '#c4c4c4';
 export const opaqueBlack16 = '#d6d6d6';
 export const opaqueBlack10 = '#e5e5e5';
+export const opaqueBlack07 = '#eeeeee';
 export const opaqueBlack05 = '#f2f2f2';
 export const opaqueBlack03 = '#f8f8f8';
 export const opaqueBlack02 = '#fafafa';
@@ -58,6 +59,12 @@ export const slackGreen = '#2eb67d';
 export const youTubeRed = '#ff0000';
 // https://whatsappbrand.com/#color
 export const whatsappGreen = '#25D366';
+// https://www.schemecolor.com/telegram-color.php
+export const telegramBlue = '#0088CC';
+// https://www.viber.com/en/brand-center/
+export const viberPurple = '#7360f2';
+// https://line.me/en/logo
+export const lineGreen = '#00b900';
 
 // Units
 export function units(unit) {
@@ -132,46 +139,6 @@ export function boxShadow(level) {
 
   return null;
 }
-
-// ===================================================================
-// Inline CSS
-//
-// The following styles are applied to a component using the style prop:
-//
-// <Foo style={somethingStyle} />
-// ===================================================================
-
-export const listStyle = {
-  padding: '0',
-  borderBottom: `${borderWidthSmall} solid ${black05}`,
-};
-
-export const listItemStyle = {
-  borderTop: `${borderWidthSmall} solid ${black05}`,
-};
-
-export const listItemButtonStyle = {
-  marginTop: `${units(1)}`,
-};
-
-export const buttonInButtonGroupStyle = {
-  marginRight: `${units(1)}`,
-};
-
-export const cardInCardGroupStyle = {
-  marginBottom: `${units(2)}`,
-};
-
-export const selectStyle = {
-  minWidth: `${units(20)}`,
-};
-
-export const listItemWithButtonsStyle =
-  Object.assign(listItemStyle, {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  });
 
 // CSS Helpers
 //
@@ -458,30 +425,6 @@ export const AlignOpposite = styled.div`
   ${props => props.theme.dir === 'rtl' ? 'margin-right: auto' : 'margin-left: auto'};
   ${props => props.theme.dir === 'rtl' ? 'left: 0px' : 'right: 0px'};
   width: fit-content;
-`;
-
-// Material style Chip
-// Deprecated: use the material-ui/chip component instead
-export const chipStyles = `
-    background-color: ${black05};
-    border: 0;
-    border-radius: 30px;
-    color: ${black54};
-    cursor: pointer;
-    display: inline-block;
-    font: ${body2};
-    margin: ${units(0.5)};
-    padding: ${units(0.5)} ${units(2)};
-
-    &--selected {
-      background-color: ${black10};
-      color: ${black87};
-    }
-
-    &:hover {
-      background-color: ${black16};
-    }
-  }
 `;
 
 // Tags (ensure wrapping, alignment when many tags)

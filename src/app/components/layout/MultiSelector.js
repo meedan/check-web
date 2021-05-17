@@ -38,6 +38,11 @@ const StyledNotFound = styled.div`
   justify-content: center;
 `;
 
+const StyledCategory = styled(Typography)`
+  color: ${black54};
+  margin-top: ${units(1)} !important;
+`;
+
 class MultiSelector extends React.Component {
   constructor(props) {
     super(props);
@@ -103,7 +108,7 @@ class MultiSelector extends React.Component {
   filter = (options) => {
     const { filter } = this.state;
     if (filter) {
-      return options.filter(o => o.label.toLowerCase().includes(filter.toLowerCase()));
+      return options.filter(o => Object.values(o).join(' ').toLowerCase().includes(filter.toLowerCase()));
     }
     return options;
   };
@@ -127,7 +132,13 @@ class MultiSelector extends React.Component {
           <div style={{ padding: units(2) }}>
             <FormattedMessage id="MultiSelector.search" defaultMessage="Search…">
               {placeholder => (
-                <TextField onChange={this.handleChange} placeholder={placeholder} fullWidth />
+                <TextField
+                  className="multiselector__search-input"
+                  onChange={this.handleChange}
+                  placeholder={placeholder}
+                  variant="outlined"
+                  fullWidth
+                />
               )}
             </FormattedMessage>
           </div>
@@ -154,14 +165,14 @@ class MultiSelector extends React.Component {
               options.map((o, index) => {
                 if (o.value === '' && o.label === '') {
                   return (
-                    <Divider key={`multiselector-dividider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
+                    <Divider key={`multiselector-divider-${index.toString()}`} style={{ marginTop: units(1), marginBottom: units(1) }} />
                   );
                 }
                 if (o.value === '') {
                   return (
-                    <Typography variant="button">
+                    <StyledCategory key={`multiselector-header-${index.toString()}`}>
                       {o.label}
-                    </Typography>
+                    </StyledCategory>
                   );
                 }
                 return (
@@ -190,12 +201,14 @@ class MultiSelector extends React.Component {
           </FormGroup>
         </StyledMultiSelectorArea>
         <StyledActions>
-          <Button onClick={onDismiss}>
-            { this.props.cancelLabel ?
-              this.props.cancelLabel
-              : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
-            }
-          </Button>
+          { onDismiss ? (
+            <Button onClick={onDismiss}>
+              { this.props.cancelLabel ?
+                this.props.cancelLabel
+                : <FormattedMessage id="multiSelector.cancel" defaultMessage="Cancel" />
+              }
+            </Button>
+          ) : null }
           <Button
             className="multi__selector-save"
             color="primary"
@@ -218,6 +231,7 @@ MultiSelector.defaultProps = {
   allowToggleAll: false,
   cancelLabel: null,
   submitLabel: null,
+  onDismiss: null,
 };
 
 MultiSelector.propTypes = {
@@ -230,7 +244,7 @@ MultiSelector.propTypes = {
   })).isRequired,
   selected: PropTypes.arrayOf(PropTypes.string).isRequired,
   submitLabel: PropTypes.node,
-  onDismiss: PropTypes.func.isRequired,
+  onDismiss: PropTypes.func,
   onSubmit: PropTypes.func.isRequired,
 };
 

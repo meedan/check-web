@@ -4,6 +4,10 @@
     "defaultMessage": "Open in Slack"
   },
   {
+    "id": "annotation.openInTelegram",
+    "defaultMessage": "Open in Telegram"
+  },
+  {
     "id": "annotation.reportReceived",
     "defaultMessage": "Report sent on {date}"
   },

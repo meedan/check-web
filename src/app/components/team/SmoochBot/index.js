@@ -25,6 +25,7 @@ const SmoochBot = ({ currentUser }) => {
                   node {
                     id
                     json_settings
+                    smooch_enabled_integrations
                     team_bot: bot_user {
                       id
                       dbid

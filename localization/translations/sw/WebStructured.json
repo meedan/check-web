@@ -1,22 +1,4 @@
 {
-	"AddCustomFilters.entityMetadataLabel": {
-		"string": "Chagua metadata"
-	},
-	"AddCustomFilters.entityTaskLabel": {
-		"string": "Chagua kazi"
-	},
-	"AddCustomFilters.metadataChoiceLabel": {
-		"string": "Metadata ina thamani maalum"
-	},
-	"AddCustomFilters.metadataTextLabel": {
-		"string": "Metadata ina neno msingi"
-	},
-	"AddCustomFilters.taskChoiceLabel": {
-		"string": "Kazi ina jibu maalum"
-	},
-	"AddCustomFilters.taskTextLabel": {
-		"string": "Jibu la kazi lina neno msingi"
-	},
 	"CheckAgreeTerms.agreeTerms": {
 		"string": "Kwa kujisajili, unakubaliana na {appName} {tosLink} na{ppLink}."
 	},
@@ -38,32 +20,53 @@
 	"CustomFilter.selectValueLabel": {
 		"string": "Chagua thamani"
 	},
-	"CustomFiltersManager.addFilters": {
-		"string": "Ongeza vichujio"
-	},
 	"CustomTeamTaskFilter.anyValue": {
-		"string": "Thamani yoyote imewekwa"
+		"string": "Thamani yoyote imewekwa",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.choiceFilter": {
+		"string": "\"{field}\" has value {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Chagua metadata"
+		"string": "Chagua metadata",
+		"developer_comment": "Label for input to select specific metadata to filter by"
 	},
 	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Chagua kazi"
+		"string": "Chagua kazi",
+		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Metadata ina thamani maalum"
+		"string": "Metadata ina thamani maalum",
+		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadata ina neno msingi"
+		"string": "Metadata ina neno msingi",
+		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "Hakuna dhamana iliyowekwa"
+		"string": "Hakuna dhamana iliyowekwa",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "Kazi ina jibu maalum"
+		"string": "Kazi ina jibu maalum",
+		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Jibu la kazi lina neno msingi"
+		"string": "Jibu la kazi lina neno msingi",
+		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
+	},
+	"CustomTeamTaskFilter.textAnyValue": {
+		"string": "\"{field}\" contains any value",
+		"developer_comment": "Label for custom field when metadata or task response contains any value"
+	},
+	"CustomTeamTaskFilter.textFilter": {
+		"string": "\"{field}\" contains {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains keyword"
+	},
+	"CustomTeamTaskFilter.textNoValue": {
+		"string": "\"{field}\" contains no value",
+		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
 		"string": "Imekamilika"
@@ -78,73 +81,13 @@
 		"string": "Tafuta..."
 	},
 	"ProjectActions.edit": {
-		"string": "Hariri jina na maelezo"
+		"string": "Rename"
 	},
 	"ProjectActions.tooltip": {
-		"string": "Orodhesha hatua "
+		"string": "Folder actions"
 	},
 	"ProjectBlankState.createMedia": {
 		"string": "Ongeza  kiungo au maandishi"
-	},
-	"TeamInviteMembers.emailInput": {
-		"string": "Barua pepe"
-	},
-	"TeamInviteMembers.emailMultipleInput": {
-		"string": "Tenganisha anwani za barua pepe na koma"
-	},
-	"TeamInviteMembers.existsEmail": {
-		"string": "Tayari wewe ni mwanachama."
-	},
-	"TeamInviteMembers.invalidEmail": {
-		"string": "Barua pepe sio halali."
-	},
-	"TeamInviteMembers.invitedEmail": {
-		"string": "Tayari umealikwa."
-	},
-	"TeamInviteMembers.newInvite": {
-		"string": "Alika wanachama"
-	},
-	"TeamMembersInvitedListItem.cancel": {
-		"string": "Ghairi mwaliko"
-	},
-	"TeamMembersInvitedListItem.resend": {
-		"string": "Tuma tena"
-	},
-	"TeamMembersListItem.collaborator": {
-		"string": "Collaborator"
-	},
-	"TeamMembersListItem.confirmDeleteMemberBlurb": {
-		"string": "Mtumiaji ataondolewa kutoka kwa {team}"
-	},
-	"TeamMembersListItem.confirmDeleteMemberTitle": {
-		"string": "Una uhakika unatoka kuondoa {user}?"
-	},
-	"TeamMembersListItem.confirmEditMemberTitle": {
-		"string": "Una na uhakika unataka kubadilisha jukumu la {user}?"
-	},
-	"TeamMembersListItem.confirmLeaveBlurb": {
-		"string": "Utaondolewa kutoka kwa {team}"
-	},
-	"TeamMembersListItem.confirmLeaveTitle": {
-		"string": "Una uhakika unatoka kwenye {team}?"
-	},
-	"TeamMembersListItem.deleteMember": {
-		"string": "Ondoa mwanachama"
-	},
-	"TeamMembersListItem.editor": {
-		"string": "Mhariri"
-	},
-	"TeamMembersListItem.leaveTeam": {
-		"string": "Ondoka kwenye eneo la kazi"
-	},
-	"TeamMembersListItem.singleOwner": {
-		"string": "Kabla ya kuondoka kwa eneo la kazi, tafadhali hamisha umiliki hadi kwa mwanachama mwingine. "
-	},
-	"TeamMembershipRequestsListItem.approve": {
-		"string": "Kubali"
-	},
-	"TeamMembershipRequestsListItem.deny": {
-		"string": "Kataa"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Akaunti Tayari Imethibitishwa",
@@ -211,9 +154,6 @@
 	"UserUtil.editor": {
 		"string": "Mhariri"
 	},
-	"accessDenied.title": {
-		"string": "Ufikiaji Umekataliwa"
-	},
 	"addAnnotation.addImage": {
 		"string": "Ongeza picha"
 	},
@@ -229,6 +169,58 @@
 	"addAnnotation.submitButton": {
 		"string": "Tuma"
 	},
+	"addFilterMenu.addFilter": {
+		"string": "Add filter",
+		"developer_comment": "Button that opens menu with filter field options"
+	},
+	"addFilterMenu.assignedTo": {
+		"string": "Kazi",
+		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.collection": {
+		"string": "Collection",
+		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.createdBy": {
+		"string": "Imetengenezwa na",
+		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.filterBy": {
+		"string": "Chuja na",
+		"developer_comment": "Header to menu of filter field types"
+	},
+	"addFilterMenu.folder": {
+		"string": "Folder",
+		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemStatus": {
+		"string": "Hali ya kipengee",
+		"developer_comment": "Menu option to enable searching items by item status"
+	},
+	"addFilterMenu.language": {
+		"string": "Lugha",
+		"developer_comment": "Menu option to enable searching items by language"
+	},
+	"addFilterMenu.mediaType": {
+		"string": "Aina ya media",
+		"developer_comment": "Menu option to enable searching items by media type"
+	},
+	"addFilterMenu.metadata": {
+		"string": "Metadata",
+		"developer_comment": "Menu option to enable searching items by metadata fields"
+	},
+	"addFilterMenu.reportStatus": {
+		"string": "Ripoti hali",
+		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.tag": {
+		"string": "Tagi",
+		"developer_comment": "Menu option to enable searching items by tags"
+	},
+	"addFilterMenu.timeRange": {
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
+	},
 	"addLanguageAction.addLanguage": {
 		"string": "Ongeza lugha"
 	},
@@ -243,9 +235,6 @@
 	},
 	"addLanguageAction.title": {
 		"string": "Chagua lugha mpya"
-	},
-	"addTeamPage.titleFind": {
-		"string": "Tafuta eneo la kazi liliopo"
 	},
 	"annotation.acceptSuggestion": {
 		"string": "Imekubaliwa"
@@ -353,10 +342,10 @@
 		"string": "Uga wa Metadata \"{fieldLabel}\" {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Imetolewa kutoka kwa taka na {author}"
+		"string": "Moved out of Trash by {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "Imehamishwa hadi kwa taka na {author}"
+		"string": "Moved to Trash by {author}"
 	},
 	"annotation.newReport": {
 		"string": "Kipengee kimeongezwa na {author}"
@@ -366,6 +355,9 @@
 	},
 	"annotation.openInSlack": {
 		"string": "Fungua kwa Slack"
+	},
+	"annotation.openInTelegram": {
+		"string": "Open in Telegram"
 	},
 	"annotation.penderArchiveResponse": {
 		"string": "Keep imechukua kielezo-skrini cha URL hii."
@@ -380,7 +372,7 @@
 		"string": "Kiungo cha kudumu"
 	},
 	"annotation.projectMoved": {
-		"string": "Imehamishwa kutoka kwa orodha {previousProject} hadi {currentProject} na {author}"
+		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "Kataa"
@@ -407,7 +399,8 @@
 		"string": "Imethibitishwa sawa na {mwandishi}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Imethibitishwa kama hiyo imetengwa na {mwandishi}: {title}"
+		"string": "Imethibitishwa kama hiyo imetengwa na {mwandishi}: {title}",
+		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
 		"string": "Hakuna ujumbe uliotumwa na ombi hili"
@@ -505,72 +498,8 @@
 	"blankMediaButton.defaultErrorMessage": {
 		"string": "Haikuweza kuhifadhi kipengee"
 	},
-	"blankMediaCard.addItem": {
-		"string": "Ongeza kipengee"
-	},
-	"blankMediaCard.confirmButtonLabel": {
-		"string": "Sitisha ripoti na usasishe maudhui"
-	},
-	"blankMediaCard.confirmText": {
-		"string": "Kipengee kifuatacho tayari kina ripoti iliyochapishwa:\n{link}\nIwapo utaendelea, hali na ripoti zitaandikwa juu, na ripoti itasitishwa.\n\n"
-	},
-	"blankMediaCard.confirmTitle": {
-		"string": "Ungependa kuandika juu ya ripoti na hali?"
-	},
-	"blankMediaCard.defaultErrorMessage": {
-		"string": "Haikuweza kuhifadhi kipengee"
-	},
-	"bot.cantChange": {
-		"string": "Samahani, hitilafu imetokea wakati unasasisha boti. Tafadhali jaribu tena na uwasiliane na {supportEmail} hali hii ikiendelea."
-	},
-	"bot.install": {
-		"string": "Sakinisha "
-	},
-	"bot.installed": {
-		"string": "Imesakinishwa"
-	},
-	"bot.installs": {
-		"string": "Masakinisho"
-	},
-	"bot.madeBy": {
-		"string": "Imetengenezwa na {kiungo cha timu}"
-	},
-	"bot.permissions": {
-		"string": "Ruhusa"
-	},
-	"bot.permissionsText": {
-		"string": "Boti hii ina kiwango cha ufikiaji cha {role}."
-	},
-	"bot.sourceCode": {
-		"string": "Angalia msimbo wa chanzo"
-	},
-	"bot.updatedAt": {
-		"string": "Imesasishwa"
-	},
-	"bot.version": {
-		"string": "Toleo"
-	},
-	"botGarden.botGarden": {
-		"string": "Bustani la Boti "
-	},
-	"bridge.pageTitle.appNameHuman": {
-		"string": "Bridge"
-	},
 	"browserSupport.message": {
 		"string": "{appName} imeboreshwa kwa Google Chrome kwenye eneo kazi. "
-	},
-	"bulkActions.add": {
-		"string": "Ongeza vipengee vilivyochaguliwa hadi orodha nyingine"
-	},
-	"bulkActions.addTitle": {
-		"string": "Ongeza"
-	},
-	"bulkActions.addTo": {
-		"string": "Ongeza kwa..."
-	},
-	"bulkActions.addedSuccessfully": {
-		"string": "Vipengee vimeongezwa kwenye orodha.",
-		"developer_comment": "Banner displayed after items are added successfully to list"
 	},
 	"bulkActions.cancelButton": {
 		"string": "Ghairi"
@@ -578,17 +507,15 @@
 	"bulkActions.confirm": {
 		"string": "Hoja kutoka kwa haijathibitishwa"
 	},
-	"bulkActions.dialogAddTitle": {
-		"string": "Ongeza kwenye orodha tofauti"
-	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
 	},
 	"bulkActions.move": {
-		"string": "Hamisha vipengee vilivyochaguliwa hadi orodha nyingine"
+		"string": "Move selected items to another folder"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Sogeza kwenye orodha"
+		"string": "Move to folder",
+		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
 		"string": "Hamisha kwa..."
@@ -608,10 +535,6 @@
 		"string": "Vitu vimehamishiwa kwenye '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
-	"bulkActions.removedSuccessfully": {
-		"string": "Vipengee vimeondolewa kwenye orodha hii.",
-		"developer_comment": "Banner displayed after items are removed successfully from list"
-	},
 	"bulkActions.restore": {
 		"string": "Rejesha kutoka kwa taka "
 	},
@@ -619,10 +542,10 @@
 		"string": "Tuma vipengee vilivyochaguliwa hadi taka"
 	},
 	"bulkActions.trash": {
-		"string": "Rejesha vitu vilivyochaguliwa na uhamishe vitu kwenye orodha nyingine"
+		"string": "Restore selected items and move items to another folder"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Thibitisha vitu vilivyochaguliwa na uhamishe vitu kwenye orodha nyingine"
+		"string": "Confirm selected items and move items to another folder"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Ghairi",
@@ -655,17 +578,8 @@
 	"changeUserRole.proceedLabel": {
 		"string": "Change role to {newRole}"
 	},
-	"claimReview.claim": {
-		"string": "Dai:"
-	},
-	"claimReview.claimedBy": {
-		"string": "Imedaiwa na: "
-	},
-	"claimReview.reviewedBy": {
-		"string": "Ukweli imehakikiwa na {reviewer}:"
-	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to permanently delete this language and all content in this language."
+		"string": "Type \"{text}\" to confirm."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
 		"string": "Type here"
@@ -710,67 +624,23 @@
 		"string": "Video"
 	},
 	"createMediaSource.createSource": {
-		"string": "Unda chanzo"
+		"string": "Unda chanzo",
+		"developer_comment": "Label for button to create a new source"
 	},
 	"createProject.addProject": {
-		"string": "Unda orodha "
+		"string": "Create folder"
 	},
 	"createProject.error": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusasisha orodha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea. "
+		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"createProject.newProjectName": {
-		"string": "Jina la orodha"
+		"string": "Folder name"
 	},
 	"createProject.title": {
-		"string": "Ongeza orodha"
+		"string": "Add a folder"
 	},
 	"createProject.titleBlank": {
-		"string": "Ongeza orodha yako ya kwanza"
-	},
-	"createRelatedMedia.addSecondaryItem": {
-		"string": "Ongeza bidhaa ya pili"
-	},
-	"createRelatedMedia.addToPrimaryItem": {
-		"string": "Ongeza kwenye bidhaa ya msingi"
-	},
-	"createTask.newTask": {
-		"string": "Kazi mpya"
-	},
-	"createTeam.blurb": {
-		"string": "Unda eneo la kazi la shirika lako, au yako tu:"
-	},
-	"createTeam.createTeamError": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusasisha eneo la kazi. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
-	},
-	"createTeam.displayName": {
-		"string": "Jina la Eneo la Kazi"
-	},
-	"createTeam.mainHeading": {
-		"string": "Unda eneo la kazi"
-	},
-	"createTeam.slugAvailable": {
-		"string": "Inapatikana!"
-	},
-	"createTeam.slugChecking": {
-		"string": "Inaangalia upatikanaji..."
-	},
-	"createTeam.slugUnavailable": {
-		"string": "Samahani, slug hii hakipatikani. Tafadhali jaribu nyingine."
-	},
-	"createTeam.submitButton": {
-		"string": "Unda"
-	},
-	"createTeam.teamNameHint": {
-		"string": "Jina la Eneo la Kazi"
-	},
-	"createTeam.teamSlugHint": {
-		"string": "URL ya eneo la kazi"
-	},
-	"createTeam.title": {
-		"string": "Unda eneo la kazi"
-	},
-	"createTeam.url": {
-		"string": "URL ya Timu"
+		"string": "Add your first folder"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Ghairi"
@@ -788,7 +658,8 @@
 		"string": "Mipangilio yote kutoka kwa nafasi hii ya kazi itadhibitiwa. Hakuna maudhui yataongezwa."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Unda nafasi mpya ya ulingo"
+		"string": "Unda nafasi mpya ya ulingo",
+		"developer_comment": "Dialog title for creating a new workspace"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Ulingo wa kazi uliorudiwa"
@@ -810,6 +681,18 @@
 	},
 	"createTeamTask.errorTask": {
 		"string": "Samahani, hitilafu ilitokea wakati wa kuunda kazi. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
+	},
+	"customAutocomplete.done": {
+		"string": "Imekamilika",
+		"developer_comment": "Label for closing dropdown when user is done selecting tags"
+	},
+	"customAutocomplete.select": {
+		"string": "Select",
+		"developer_comment": "Verb. Label for generic dropdown component"
+	},
+	"customFiltersManager.label": {
+		"string": "Metadata is",
+		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
 		"string": "Jibu kazi"
@@ -833,37 +716,38 @@
 		"string": "Angalia ukanda huu wa saa kwenye time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "There {publishedCount, plural, one {is one item} other {are # items}} currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Hamisha vipengee hadi"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item} other {are # items}} with the status {statusLabel} that must be changed to another status before you can delete this status."
+		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "Unahitaji kubadilisha hali ya {itemsCount, plural, one {one item} other {# items}} ili kufuta hali hii"
 	},
 	"destinationProjects.choose": {
-		"string": "Chagua orodha"
+		"string": "Choose a folder"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Ghairi",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Sogeza kwenye orodha",
+		"string": "Move to folder",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
 		"string": "Hamisha kipengee kilichotengwa hadi…",
-		"developer_comment": "Dialog title prompting user to select a destination list for the item"
+		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Ongeza hali"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Tuma ujumbe kwa mtumiaji aliyeomba kipengee hicho unapobadilisha kitu kuwa hali hii."
+		"string": "Tuma ujumbe kwa mtumiaji aliyeomba kipengee hicho unapobadilisha kitu kuwa hali hii.",
+		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Maelezo"
@@ -881,7 +765,8 @@
 		"string": "Hariri hali"
 	},
 	"editStatusDialog.toggleStatusMessage": {
-		"string": "Tuma ujumbe kwa mwombaji"
+		"string": "Tuma ujumbe kwa mwombaji",
+		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"editTaskDialog.editMetadata": {
 		"string": "Hariri sehemu ya metadata"
@@ -903,27 +788,6 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Ghairi"
-	},
-	"findTeamCard.blurb": {
-		"string": "Omba kujiunga na eneo la kazi liliopo kwa kuongeza jina lake hapa, au anza kwa kuunda yako."
-	},
-	"findTeamCard.createYourOwn": {
-		"string": "Unaweza pia kuunda eneo lako la kazi."
-	},
-	"findTeamCard.mainHeading": {
-		"string": "Tafuta eneo la kazi liliopo"
-	},
-	"findTeamCard.submitButton": {
-		"string": "Tafuta eneo la kazi"
-	},
-	"findTeamCard.teamNotFound": {
-		"string": "Eneo la kazi halikupatikana"
-	},
-	"findTeamCard.teamSlugHint": {
-		"string": "URL ya eneo la kazi"
-	},
-	"findTeamCard.url": {
-		"string": "URL ya eneo la kazi"
 	},
 	"footer.madeBy": {
 		"string": "Check: Thibitisha habari za hivi punde mtandaoni. Imeundwa na ✨ {meedan}"
@@ -1018,31 +882,25 @@
 	"home.successInvitation": {
 		"string": "Karibu kwa {appName}. Tafadhali ingia na nenosiri ambalo ulipokea kwenye barua pepe ya makaribisho. "
 	},
-	"imageUploadRespondTask.answerTask": {
-		"string": "Jibu kazi"
-	},
-	"imageUploadRespondTask.cancelTask": {
-		"string": "Ghairi"
-	},
 	"inviteDialog.invitationSent": {
 		"string": "Invites sent!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "Sent other invites.",
-		"developer_comment": "Success message when user send multiple invitations and some emails fail and other mails success."
+		"string": "The other invites were sent successfully",
+		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
 		"string": "Alika",
 		"developer_comment": "Button to submit invitations."
 	},
 	"inviteDialog.textInputLabel": {
-		"string": "Emails, comma separated",
+		"string": "Email addresses, comma separated",
 		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
 	},
 	"inviteDialog.title": {
 		"string": "Invite workspace members",
-		"developer_comment": "Invite workspace members dialog title"
+		"developer_comment": "Dialog title for inviting members to workspace"
 	},
 	"inviteNewAccount.createAccount": {
 		"string": "Create Account",
@@ -1074,36 +932,6 @@
 	"inviteNewAccounttosMissing": {
 		"string": "Ni lazima uyakubali Masharti ya Huduma na Sera ya Faragha",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
-	},
-	"joinTeamComponent.alreadyRequested": {
-		"string": "Tayari umetuma ombi la kujiunga {team}."
-	},
-	"joinTeamComponent.autoApprove": {
-		"string": "Asante kwa kujiunga na {team}! Unaweza kuanza kuchangia mara moja."
-	},
-	"joinTeamComponent.blurbGraf": {
-		"string": "Kutuma ombi la kujiunga na {team}, bonyeza hapo chini: "
-	},
-	"joinTeamComponent.buttonSubmit": {
-		"string": "Omba kujiunga"
-	},
-	"joinTeamComponent.buttonSubmitted": {
-		"string": "Ombi Limetumwa"
-	},
-	"joinTeamComponent.error": {
-		"string": "Samahani, hitilafu ilitokea wakati wa kutuma ombi lako. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
-	},
-	"joinTeamComponent.mainHeading": {
-		"string": "Omba kujiunga"
-	},
-	"joinTeamComponent.requestHasBeenSent": {
-		"string": "Ombi lako limetumwa kwa wasimamizi wa eneo la kazi ili kupata idhini."
-	},
-	"joinTeamComponent.success": {
-		"string": "Asante sana kwa hamu yako ya kujiunga na {team}! Msimamizi wa eneo la kazi atakagua ombi lako hivi karibuni."
-	},
-	"joinTeamComponent.title": {
-		"string": "Jiunge na eneo la kazi"
 	},
 	"languageListItem.default": {
 		"string": "{language} (msingi)"
@@ -1162,6 +990,10 @@
 	"list.commentCount": {
 		"string": "Maoni ya FB"
 	},
+	"list.folder": {
+		"string": "Folder",
+		"developer_comment": "Table header for column that shows the folder title an item is in"
+	},
 	"list.mediaPublishedAt": {
 		"string": "Imechapishwa kwenye vyombo vya habari"
 	},
@@ -1182,9 +1014,6 @@
 	},
 	"list.updated": {
 		"string": "Imesasishwa"
-	},
-	"loadMore.loadMore": {
-		"string": "Pakia zaidi"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
@@ -1220,18 +1049,20 @@
 		"string": "Sajili"
 	},
 	"login.signIn": {
-		"string": "INGIA"
+		"string": "INGIA",
+		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
 		"string": "Ingia",
-		"developer_comment": "allow user to sing in with exisintg account"
+		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign Up"
+		"string": "Sign Up",
+		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
 		"string": "Sign up",
-		"developer_comment": "allow user to create a new source"
+		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
 		"string": "Ingia"
@@ -1242,26 +1073,11 @@
 	"login.withGoogle": {
 		"string": "Sign in with Google"
 	},
-	"loginContainer.agreeTerms": {
-		"string": "Kwa kujisajili, unakubaliana na {appName} {tosLink} na{ppLink}."
-	},
 	"loginEmail.lostPassword": {
 		"string": "Forgot your password?"
 	},
-	"media.byAttribution": {
-		"string": "{typeLabel} na {attribution}"
-	},
-	"media.confirmLeave": {
-		"string": "{count, plural, one {Are you sure you want to leave? You still have one required task assigned to you that is not answered} other {Are you sure you want to leave? You still have # required tasks assigned to you that are not answered}}"
-	},
 	"media.normalSpeed": {
 		"string": "Kasi ya kawaida"
-	},
-	"media.onDomain": {
-		"string": "{typeLabel} kwenye {domain}"
-	},
-	"media.retweetsCount": {
-		"string": "{retweetsCount, plural, one {1 retweet} other {# retweets}}"
 	},
 	"media.typeAudio": {
 		"string": "Sauti"
@@ -1272,41 +1088,17 @@
 	"media.typeClaim": {
 		"string": "Ujumbe"
 	},
-	"media.typeFacebook": {
-		"string": "Chapisho la Facebook"
-	},
 	"media.typeImage": {
 		"string": "Picha"
-	},
-	"media.typeInstagram": {
-		"string": "Instagram"
 	},
 	"media.typeLink": {
 		"string": "Kiungo"
 	},
-	"media.typePage": {
-		"string": "Ukurasa"
-	},
-	"media.typeTiktok": {
-		"string": "Video ya TickTok"
-	},
-	"media.typeTwitter": {
-		"string": "Tweet"
-	},
 	"media.typeVideo": {
 		"string": "Video"
 	},
-	"media.typeYoutube": {
-		"string": "Video ya YouTube"
-	},
-	"mediaActions.addToList": {
-		"string": "Ongeza kwenye orodha"
-	},
 	"mediaActions.assignOrUnassign": {
 		"string": "Pangia…"
-	},
-	"mediaActions.edit": {
-		"string": "Hariri mada na maelezo"
 	},
 	"mediaActions.history": {
 		"string": "Historia ya kipengee"
@@ -1314,32 +1106,17 @@
 	"mediaActions.lockStatus": {
 		"string": "Funga hali"
 	},
-	"mediaActions.move": {
-		"string": "Hamisha"
-	},
 	"mediaActions.refresh": {
 		"string": "Pakia upya"
 	},
-	"mediaActions.removeFromList": {
-		"string": "Ondoa kutoka orodha"
-	},
-	"mediaActions.restore": {
-		"string": "Rejesha kutoka kwa taka "
-	},
 	"mediaActions.sendToTrash": {
-		"string": "Tuma kwa taka"
+		"string": "Move to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Hatua ya kipengee"
 	},
 	"mediaActions.unlockStatus": {
 		"string": "Fungua hali"
-	},
-	"mediaActionsBar.add": {
-		"string": "Ongeza"
-	},
-	"mediaActionsBar.addTo": {
-		"string": "Ongeza kwa..."
 	},
 	"mediaActionsBar.assignmentNotes": {
 		"string": "Vidokezo"
@@ -1351,7 +1128,7 @@
 		"string": "Wape washiriki vipengee"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Kazi zimesashishwa kwa mafanikio!"
+		"string": "Assignments updated successfully"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Ghairi"
@@ -1359,14 +1136,11 @@
 	"mediaActionsBar.confirmTo": {
 		"string": "Thibitisha"
 	},
-	"mediaActionsBar.dialogAddToListTitle": {
-		"string": "Ongeza kwenye orodha tofauti"
-	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Hamisha kwa orodha tofauti"
+		"string": "Move to a different folder"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Sogeza kipengee kwenye orodha…"
+		"string": "Move item to folder…"
 	},
 	"mediaActionsBar.move": {
 		"string": "Hamisha"
@@ -1378,22 +1152,16 @@
 		"string": "Imethibitishwa, inaelekeza tena…"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Imerejeshwa kutoka kwenye tupio, inaelekeza tena…"
+		"string": "Restored from Trash, redirecting…"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "Imetumwa kwa {trash}"
+		"string": "The item was moved to {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Ripoti iliyochapishwa"
 	},
-	"mediaActionsBar.removeFromList": {
-		"string": "Ondoa kutoka orodha"
-	},
-	"mediaActionsBar.removedFromList": {
-		"string": "Imeondolewa kwenye orodha"
-	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Sogeza kwenye orodha"
+		"string": "Move to folder"
 	},
 	"mediaActionsBar.restoreTo": {
 		"string": "Rejesha kutoka kwa taka "
@@ -1479,32 +1247,8 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Kazi za kipengee"
 	},
-	"mediaCondensed.requests": {
-		"string": "Maombi {count}"
-	},
-	"mediaDetail.cancelButton": {
-		"string": "Ghairi"
-	},
-	"mediaDetail.doneButton": {
-		"string": "Imekamilika"
-	},
-	"mediaDetail.editReport": {
-		"string": "Hariri"
-	},
-	"mediaDetail.editReportError": {
-		"string": "Samahani, hitilafu ilitokea wakati wa kusasisha kipengee. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
-	},
-	"mediaDetail.mediaDescription": {
-		"string": "Maelezo"
-	},
-	"mediaDetail.mediaTitle": {
-		"string": "Kichwa"
-	},
 	"mediaDetail.trash": {
 		"string": "Taka"
-	},
-	"mediaExpanded.addToImportedReport": {
-		"string": "Ongeza kwenye ripoti iliyoletwa"
 	},
 	"mediaExpanded.firstSeen": {
 		"string": "Ulionekana mwanzo:"
@@ -1572,31 +1316,19 @@
 		"string": "{count, plural, one {# request} other {# requests}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count} media zinazofanana"
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha lugha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Utafutaji wa Picha"
+		"string": "Google Image Search"
 	},
 	"mediaMetadata.Timeline": {
 		"string": "Kalenda ya matukio"
 	},
-	"mediaMetadata.addedToList": {
-		"string": "Imeongezwa kwenye orodha {listName}"
-	},
 	"mediaMetadata.download": {
 		"string": "Pakua"
-	},
-	"mediaRelated.loadMore": {
-		"string": "Pakia zaidi"
-	},
-	"mediaRelated.primaryItem": {
-		"string": "Kipengee msingi"
-	},
-	"mediaRelated.secondaryItems": {
-		"string": "Vipengee vya pili"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Ongeza uhusiano"
@@ -1641,13 +1373,15 @@
 		"string": "{current} ya {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar"
+		"string": "Similar",
+		"developer_comment": "Adjective, plural. Heading for a list of similar items"
 	},
 	"mediaSimilarities.clickOnItem": {
 		"string": "Bonyeza kwenye bidhaa"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main"
+		"string": "Main",
+		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
 	},
 	"mediaSimilarities.notes": {
 		"string": "Vidokezo"
@@ -1700,29 +1434,22 @@
 		"string": "Vyombo vya habari hivi vimependekezwa kuwa sawa na kipengee kingine"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Vyombo vya habari sawa"
+		"string": "Vyombo vya habari sawa",
+		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
 		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Suggested media"
+		"string": "Suggested media",
+		"developer_comment": "Plural. Heading for the number of suggested media"
 	},
 	"mediaSource.changeSource": {
 		"string": "Badilisha",
 		"developer_comment": "allow user to change a project media source"
 	},
-	"mediaStatus.cancelMessage": {
-		"string": "Ghairi"
-	},
 	"mediaStatus.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusasisha hali. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
-	},
-	"mediaStatus.messageDescription": {
-		"string": "Tafadhali ongeza maoni. Yatatumwa kwa mtumaji asili ili kumfahamisha kuwa ombi lako litafungwa.  "
-	},
-	"mediaStatus.noteHint": {
-		"string": "Bonyeza INGIZA kutuma"
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Nyuma"
@@ -1749,10 +1476,7 @@
 		"string": "Maombi"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total} suggested media"
-	},
-	"mediaTags.error": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusasisha lebo. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
+		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Kidogo"
@@ -1772,6 +1496,9 @@
 	"network.stillWorking": {
 		"string": "Bado inafanya kazi... "
 	},
+	"newProject.cancel": {
+		"string": "Ghairi"
+	},
 	"notFound.back": {
 		"string": "Go to my profile page",
 		"developer_comment": "Go to profile page button"
@@ -1785,9 +1512,6 @@
 	"notFound.title": {
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
-	},
-	"pageTitle.appNameHuman": {
-		"string": "Check"
 	},
 	"passwordChange.changePassword": {
 		"string": "Badilisha nenosiri"
@@ -1817,14 +1541,10 @@
 		"string": "Nenosiri hazilingani"
 	},
 	"passwordReset.confirmedText": {
-		"string": "Tumetuma barua pepe kutoka kwa {adminEmail} na maagizo ya kuweka upya nenosiri lako. Hakikisha haikufika kwenye sanduku lako la barua taka. Iwapo haupati barua pepe za kuweka upya nenosiri lako, wasiliana na {supportEmail}. Tafadhali zingatia kuwa kiungo katika barua pepe hii muda wake utaisha baada ya saa {expiry}. "
+		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Barua pepe"
-	},
-	"passwordReset.emailNotFoundContactSupport": {
-		"string": "Samahani. barua pepe hii haikupatikana. Tafadhali wasiliana na {supportEmail} iwapo unadhania hii ni hitilafu. ",
-		"developer_comment": "Error message for not found email"
 	},
 	"passwordReset.emailNotValid": {
 		"string": "Tafadhali weka barua pepe halali.",
@@ -1843,26 +1563,62 @@
 	"privacy.policy.title": {
 		"string": "Sera Faragha"
 	},
+	"project.deleteMessage": {
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+	},
+	"project.name": {
+		"string": "folder"
+	},
 	"projectActions.assignOrUnassign": {
-		"string": "Peana orodha kwa…"
+		"string": "Pangia…"
+	},
+	"projectActions.cancel": {
+		"string": "Ghairi"
+	},
+	"projectActions.defaultErrorMessage": {
+		"string": "Kosa, tafadhali jaribu tena",
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+	},
+	"projectActions.delete": {
+		"string": "Futa",
+		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectActions.deleteProjectBody": {
-		"string": "The list will be deleted for everyone in this workspace. All items in the list will still be accessible in the \"All items\" list"
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
 	},
 	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this list?"
+		"string": "Are you sure you want to delete this folder?"
 	},
 	"projectActions.destroy": {
 		"string": "Futa"
 	},
+	"projectActions.move": {
+		"string": "Hamisha kwa...",
+		"developer_comment": "'Move' here is an infinitive verb"
+	},
+	"projectActions.moveOut": {
+		"string": "Move out",
+		"developer_comment": "Menu option to move a folder out of a collection"
+	},
 	"projectActions.proceedLabel": {
-		"string": "Futa orodha"
+		"string": "Delete folder"
 	},
 	"projectActions.projectDeleted": {
-		"string": "Orodha imefanikiwa kufutwa."
+		"string": "Folder deleted successfully."
 	},
 	"projectActions.projectNotDeleted": {
-		"string": "Samahani, haikuweza kufuta orodha."
+		"string": "Sorry, could not delete folder."
+	},
+	"projectActions.rename": {
+		"string": "Rename",
+		"developer_comment": "'Rename' here is an infinitive verb"
+	},
+	"projectActions.savedSuccessfully": {
+		"string": "Imekamilika",
+		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
+	},
+	"projectActions.tooltip": {
+		"string": "Actions"
 	},
 	"projectAssignment.assignedTo": {
 		"string": "Imepangiwa"
@@ -1883,64 +1639,46 @@
 		"string": "Imekamilika! Kazi sasa zinaenea kwa vitu na majukumu. Utapokea barua pepe ikiwa tayari."
 	},
 	"projectAssignment.title": {
-		"string": "Wape washiriki orodha"
+		"string": "Assign folder to collaborators"
 	},
-	"projectEdit.confirmCancelLabel": {
-		"string": "Go back"
-	},
-	"projectEdit.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
-	},
-	"projectEdit.confirmProceedLabel": {
-		"string": "Save changes"
-	},
-	"projectEdit.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
-	},
-	"projectEdit.descriptionField": {
-		"string": "Maelezo"
-	},
-	"projectEdit.error": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusasisha orodha. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea. "
-	},
-	"projectEdit.saveButton": {
-		"string": "Sasisha"
-	},
-	"projectEdit.title": {
-		"string": "List details"
-	},
-	"projectEdit.titleField": {
-		"string": "Kichwa"
+	"projectBlankState.blank": {
+		"string": "There are no items here."
 	},
 	"projectEditDialogComponent.confirmCancelLabel": {
 		"string": "Go back"
 	},
 	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this list will be reflected for everyone in this workspace."
+		"string": "Changes made to this folder will be reflected for everyone in this workspace."
 	},
 	"projectEditDialogComponent.confirmProceedLabel": {
 		"string": "Save changes"
 	},
 	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this list?"
+		"string": "Are you sure you want to change this folder?"
 	},
 	"projectEditDialogComponent.descriptionField": {
 		"string": "Maelezo"
 	},
 	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update list details."
+		"string": "Could not update folder details."
 	},
 	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "List details updated successfully."
+		"string": "Folder details updated successfully."
 	},
 	"projectEditDialogComponent.saveButton": {
 		"string": "Sasisha"
 	},
 	"projectEditDialogComponent.title": {
-		"string": "List details"
+		"string": "Folder details"
 	},
 	"projectEditDialogComponent.titleField": {
 		"string": "Kichwa"
+	},
+	"projectGroup.deleteMessage": {
+		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+	},
+	"projectGroup.name": {
+		"string": "collection"
 	},
 	"projectHeader.allItems": {
 		"string": "Vipengee vyote"
@@ -1948,14 +1686,50 @@
 	"projectHeader.trash": {
 		"string": "Taka"
 	},
+	"projectHeader.unconfirmed": {
+		"string": "Haijathibitishwa"
+	},
+	"projectMoveDialogComponent.choose": {
+		"string": "Choose a collection"
+	},
+	"projectMoveDialogComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectMoveDialogComponent.createCollection": {
+		"string": "Create collection"
+	},
+	"projectMoveDialogComponent.moveTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.movedSuccessfully": {
+		"string": "Folder moved to collection successfully",
+		"developer_comment": "Message displayed when a folder is moved to a collection"
+	},
+	"projectMoveDialogComponent.newCollection": {
+		"string": "New collection"
+	},
+	"projectMoveDialogComponent.noCollectionsText": {
+		"string": "There are no collections in {teamName}. You need to create a collection first."
+	},
+	"projectMoveDialogComponent.noCollectionsTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.proceedLabel": {
+		"string": "Create a new collection"
+	},
+	"projectMoveDialogComponent.proceedLabel2": {
+		"string": "Move to collection"
+	},
 	"projectSelector.allProjs": {
-		"string": "Orodha zote"
+		"string": "All folders"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, number} iliyochaguliwa"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected folders"
 	},
 	"projects.addProject": {
-		"string": "Ongeza orodha"
+		"string": "Add folder"
 	},
 	"projects.allClaims": {
 		"string": "Vipengee vyote"
@@ -1964,13 +1738,107 @@
 		"string": "Ondoa"
 	},
 	"projects.newList": {
-		"string": "+ Orodha mpya"
+		"string": "+ New folder"
 	},
 	"projects.trash": {
 		"string": "Taka"
 	},
 	"projects.unconfirmed": {
 		"string": "Haijathibitishwa"
+	},
+	"projectsComponent.allItems": {
+		"string": "Vipengee vyote"
+	},
+	"projectsComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectsComponent.createCollection": {
+		"string": "Create collection",
+		"developer_comment": "Button label for creating new collection"
+	},
+	"projectsComponent.createFolder": {
+		"string": "Create folder",
+		"developer_comment": "Button label for creating new folder"
+	},
+	"projectsComponent.createList": {
+		"string": "Unda orodha "
+	},
+	"projectsComponent.deleteType": {
+		"string": "Delete {type}",
+		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.description": {
+		"string": "Maelezo"
+	},
+	"projectsComponent.folders": {
+		"string": "Folders"
+	},
+	"projectsComponent.invalidMove": {
+		"string": "Folders can just be moved to collections",
+		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
+	},
+	"projectsComponent.lists": {
+		"string": "Filtered lists",
+		"developer_comment": "List of items with some filters applied"
+	},
+	"projectsComponent.movedSuccessfully": {
+		"string": "Folder moved successfully",
+		"developer_comment": "Message displayed when a folder is moved to or from a collection"
+	},
+	"projectsComponent.newCollection": {
+		"string": "New collection",
+		"developer_comment": "Dialog title for creating new collection"
+	},
+	"projectsComponent.newCollectionErrorMessage": {
+		"string": "Could not create collection, please try again",
+		"developer_comment": "Error message when creating new collection fails"
+	},
+	"projectsComponent.newCollectionMenu": {
+		"string": "New collection",
+		"developer_comment": "Menu item for creating new collection"
+	},
+	"projectsComponent.newCollectionSuccessMessage": {
+		"string": "Collection created successfully",
+		"developer_comment": "Success message when new collection is created"
+	},
+	"projectsComponent.newFolder": {
+		"string": "New folder",
+		"developer_comment": "Dialog title for creating new folder"
+	},
+	"projectsComponent.newFolderErrorMessage": {
+		"string": "Could not create folder, please try again",
+		"developer_comment": "Error message when creating new folder fails"
+	},
+	"projectsComponent.newFolderMenu": {
+		"string": "New folder",
+		"developer_comment": "Menu item for creating new folder"
+	},
+	"projectsComponent.newFolderSuccessMessage": {
+		"string": "Folder created successfully",
+		"developer_comment": "Success message when new folder is created"
+	},
+	"projectsComponent.newList": {
+		"string": "New list"
+	},
+	"projectsComponent.newListErrorMessage": {
+		"string": "Could not create list, please try again",
+		"developer_comment": "Error message when creating new list fails"
+	},
+	"projectsComponent.newListSuccessMessage": {
+		"string": "List created successfully",
+		"developer_comment": "Success message when new list is created"
+	},
+	"projectsComponent.noFolders": {
+		"string": "No folders in this collection",
+		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.renameType": {
+		"string": "Rename {type}",
+		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.title": {
+		"string": "Kichwa"
 	},
 	"reportDesigner.addIntro": {
 		"string": "Ongeza maudhui kwa utangulizi"
@@ -1980,9 +1848,6 @@
 	},
 	"reportDesigner.back": {
 		"string": "Rejelea kwa ufafanuzi"
-	},
-	"reportDesigner.canPublish": {
-		"string": "Chapisha ripoti"
 	},
 	"reportDesigner.cancelLeaveButtonLabel": {
 		"string": "Go back"
@@ -2038,23 +1903,14 @@
 	"reportDesigner.confirmRepublishResendText": {
 		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
-	"reportDesigner.confirmRepublishResendText2": {
-		"string": "Siku za usoni, watumiaji watakaoomba kipengee hiki watapokea tolea hili jipya la ripoti."
-	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Uko tayari kuchapisha mabadiliko yako?"
-	},
-	"reportDesigner.confirmRepublishText": {
-		"string": "Siku za usoni, watumiaji watakaoomba kipengee hiki watapokea tolea hili jipya la ripoti."
 	},
 	"reportDesigner.confirmRepublishTitle": {
 		"string": "Uko tayari kuchapisha mabadiliko yako?"
 	},
 	"reportDesigner.content": {
 		"string": "Maudhui ({max} characters max)"
-	},
-	"reportDesigner.copyButton": {
-		"string": "Nakili"
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Imenakiliwa"
@@ -2076,9 +1932,6 @@
 	},
 	"reportDesigner.description": {
 		"string": "Maudhui ({max} characters max)"
-	},
-	"reportDesigner.disclaimer": {
-		"string": "Kanusho"
 	},
 	"reportDesigner.edit": {
 		"string": "Hariri"
@@ -2104,17 +1957,11 @@
 	"reportDesigner.pause": {
 		"string": "Sitisha"
 	},
-	"reportDesigner.pauseReport": {
-		"string": "Sitisha ripoti"
-	},
 	"reportDesigner.publish": {
 		"string": "Chapisha"
 	},
 	"reportDesigner.removeImage": {
 		"string": "Ondoa picha"
-	},
-	"reportDesigner.reportEditorTitle": {
-		"string": "Chagua maudhui ya kutuma kwenye ripoti yako."
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Hakiki ya ripoti",
@@ -2140,9 +1987,6 @@
 	},
 	"reportDesigner.textTitle": {
 		"string": "Kichwa ({max} characters max)"
-	},
-	"reportDesigner.themeColor": {
-		"string": "Rangi ya mandhari"
 	},
 	"reportDesigner.title": {
 		"string": "Buni ripoti yako"
@@ -2244,13 +2088,15 @@
 		"string": "Haikuweza kuhifadhi masharti"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Masharti yamehifadhiwa kwa mafanikio!"
+		"string": "Rules saved successfully"
 	},
 	"rulesTableHead.name": {
-		"string": "Jina"
+		"string": "Jina",
+		"developer_comment": "Table header for rule names"
 	},
 	"rulesTableHead.updated": {
-		"string": "Imesasishwa"
+		"string": "Imesasishwa",
+		"developer_comment": "Table header for rule update dates"
 	},
 	"rulesTableToolbar.add": {
 		"string": "Sharti jipya"
@@ -2274,40 +2120,80 @@
 		"string": "{numSelected, plural, one {# selected} other {# selected}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Unda mitambo ili kupanga orodha na ubadilishe utendakazi wako"
+		"string": "Create automations to organize folders and customize your workflow."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Masharti"
 	},
-	"search.Filter": {
-		"string": "Chuja"
+	"saveList.cancel": {
+		"string": "Ghairi"
 	},
-	"search.all": {
-		"string": "Wote"
+	"saveList.create": {
+		"string": "Create new list",
+		"developer_comment": "'Create' here is an infinitive verb"
+	},
+	"saveList.defaultErrorMessage": {
+		"string": "Could not save list, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save a list"
+	},
+	"saveList.newList": {
+		"string": "Save list"
+	},
+	"saveList.saveList": {
+		"string": "Save list",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+	},
+	"saveList.savedSuccessfully": {
+		"string": "List saved successfully",
+		"developer_comment": "Success message displayed when a list is saved"
+	},
+	"saveList.title": {
+		"string": "Enter new list name"
+	},
+	"saveList.update": {
+		"string": "Save changes to the list \"{listName}\"",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
+	"savedSearch.deleteMessage": {
+		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+	},
+	"savedSearch.name": {
+		"string": "list"
+	},
+	"search.afterDate": {
+		"string": "after",
+		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
 		"string": "Vipengee vyote"
 	},
-	"search.any": {
-		"string": "Yoyote"
+	"search.and": {
+		"string": "Na",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.anyDate": {
+		"string": "any date",
+		"developer_comment": "Date picker placeholder"
 	},
 	"search.applyFilters": {
-		"string": "Chuja"
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
-		"string": "Imepangiwa"
+		"string": "Imepangiwa",
+		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
-	"search.cancel": {
-		"string": "Ghairi"
+	"search.beforeDate": {
+		"string": "and before",
+		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.categoriesHeading": {
-		"string": "Lebo"
+		"string": "Tag is",
+		"developer_comment": "Prefix label for field to filter by tags"
 	},
-	"search.clear": {
-		"string": "Ondoa kichujio"
-	},
-	"search.dateHeading": {
-		"string": "Muda Mbalimbali"
+	"search.collection": {
+		"string": "Collection is",
+		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Iliwasilishwa mwisho"
@@ -2321,65 +2207,99 @@
 	"search.dateUpdatedHeading": {
 		"string": "Imesasishwa"
 	},
+	"search.fieldAnd": {
+		"string": "AND",
+		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+	},
+	"search.folderHeading": {
+		"string": "Folder is",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Mti + Jani</td><td>Vipengee vyenye Mti NA Jani</td></tr>\n                        <tr><td>|</td><td>Mti I Jani</td><td>Vipengee vyenye aidha Mti au Jani</td></tr>\n                        <tr><td>()</td><td>Mti + (Jani I Tawi)</td><td>Vipengee vyemye Mti NA Jani AU viipengee vyenye Mti NA Tawi</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Jifunze zaidi kuhusu mbinu ya kutafuta\n                      </a>\n</div>"
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Mti + Jani</td><td>Vipengee vyenye Mti NA Jani</td></tr>\n                        <tr><td>|</td><td>Mti I Jani</td><td>Vipengee vyenye aidha Mti au Jani</td></tr>\n                        <tr><td>()</td><td>Mti + (Jani I Tawi)</td><td>Vipengee vyemye Mti NA Jani AU viipengee vyenye Mti NA Tawi</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Jifunze zaidi kuhusu mbinu ya kutafuta\n                      </a>\n</div>",
+		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
-		"string": "Tafuta"
+		"string": "Tafuta",
+		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Lugha"
+		"string": "Language is",
+		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Ukurasa ufuatao"
 	},
-	"search.pickDateFrom": {
-		"string": "Tarehe ya kuanza"
+	"search.notInAny": {
+		"string": "Not in any collection",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
-	"search.pickDateTo": {
-		"string": "Tarehe ya kumalisha"
+	"search.or": {
+		"string": "Au",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
 		"string": "Ukurasa wa awali"
 	},
-	"search.projectHeading": {
-		"string": "Orodha"
+	"search.reportStatus": {
+		"string": "Report status is",
+		"developer_comment": "Prefix label for field to filter by report status"
 	},
-	"search.readHeading": {
-		"string": "Imesomwa"
+	"search.reportStatusPaused": {
+		"string": "Imesitishwa.",
+		"developer_comment": "Refers to a report status"
 	},
-	"search.reset": {
-		"string": "Weka upya"
+	"search.reportStatusPublished": {
+		"string": "Imechapishwa",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusUnpublished": {
+		"string": "Haijachapishwa",
+		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
-		"string": "Aina ya media"
+		"string": "Type is",
+		"developer_comment": "Prefix label for field to filter by media type"
 	},
 	"search.showAudios": {
-		"string": "Sauti"
+		"string": "Sauti",
+		"developer_comment": "Describes media type Audio"
 	},
 	"search.showBlank": {
-		"string": "Ripoti iliyoletwa"
+		"string": "Ripoti iliyoletwa",
+		"developer_comment": "Describes media type unspecified"
 	},
 	"search.showClaims": {
-		"string": "Ujumbe"
+		"string": "Ujumbe",
+		"developer_comment": "Describes media type Text"
 	},
 	"search.showImages": {
-		"string": "Picha"
+		"string": "Picha",
+		"developer_comment": "Describes media type Image"
 	},
 	"search.showLinks": {
-		"string": "Kiungo"
+		"string": "Kiungo",
+		"developer_comment": "Describes media type Link"
 	},
 	"search.showVideos": {
-		"string": "Video"
+		"string": "Video",
+		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Hali ya kipengee"
-	},
-	"search.title": {
-		"string": "Vipengee vyote"
+		"string": "Hali ya kipengee ni",
+		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Imetengenezwa na"
+		"string": "Imetengenezwa na",
+		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFields.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"searchKeyword.clear": {
+		"string": "Clear keyword search",
+		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
 		"string": "Chanzo"
@@ -2425,7 +2345,8 @@
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
+		"developer_comment": "Label for number of selected items"
 	},
 	"sentence.lastSeparator": {
 		"string": "na"
@@ -2433,25 +2354,16 @@
 	"sentence.separator": {
 		"string": ","
 	},
-	"setProjectMediaSource.cancelButton": {
-		"string": "Ghairi"
-	},
-	"setProjectMediaSource.choose": {
-		"string": "Chagua chanzo"
-	},
-	"setProjectMediaSource.saveButton": {
-		"string": "Hifadhi"
-	},
 	"setSourceDialog.confirm": {
 		"string": "Je! Unataka kutumia vyanzo vilivyopo kwa media hii?",
 		"developer_comment": "Confirm message to relate media to an existing source"
 	},
 	"setSourceDialog.existDescription": {
-		"string": "An the source <b>{name}</b> already exists.",
+		"string": "The source <b>{name}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existDescriptionWithUrl": {
-		"string": "Chanzo 1 {jina} 1 na URL msingi 2 {url} 2 tayari ipo.",
+		"string": "The source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
 		"developer_comment": "Text to inform user about existing source"
 	},
 	"setSourceDialog.existingSource": {
@@ -2490,14 +2402,8 @@
 	"singleChoiceTask.value": {
 		"string": "Thamani"
 	},
-	"slackConfig.menuTooltip": {
-		"string": "Mipangilio ya ujumuishaji"
-	},
 	"slackConfig.text": {
-		"string": "Tuma arifa kwenye vituo vya Slack wakati vitu vinaongezwa kwenye orodha maalum"
-	},
-	"slackConfig.title": {
-		"string": "Ujumuishaji wa Slack"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "Shughuli nyingine zote"
@@ -2518,7 +2424,7 @@
 		"string": "Tukio"
 	},
 	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Ikiwa bidhaa iko kwenye orodha"
+		"string": "If item is in folder"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "Arifa mpya"
@@ -2527,16 +2433,16 @@
 		"string": "Hifadhi"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Mipangilio ya Slack imehifadhiwa kwa mafanikio!"
+		"string": "Slack settings saved successfully"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Tuma arifa kwa"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Tuma arifa kwenye vituo vya Slack wakati vitu vinaongezwa kwenye orodha maalum"
+		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
 	"slackConfigDialogComponent.webhook": {
-		"string": "Slack webhook"
+		"string": "Slack incoming webhook"
 	},
 	"smoochBot.addResource": {
 		"string": "Ongeza rasilimali"
@@ -2554,7 +2460,7 @@
 		"string": "Menyu inayomuuliza mtumiaji kuchagua kati ya seti ya chaguzi. Ujumbe huu hufuata moja kwa moja ujumbe wa Salamu. 9 haiwezi kutumiwa kama chaguo katika menyu kuu."
 	},
 	"smoochBot.descriptionNoAction": {
-		"string": "This message will be sent to users if after a conversation is initiated, they do not select options either receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
 	},
 	"smoochBot.descriptionOptionNotAvailable": {
 		"string": "Ujumbe unaotumwa iwapo jibu la mtumiaji kwa menyu ni batili kwa mazingira ya menyu."
@@ -2668,7 +2574,7 @@
 		"string": "Wasiliana nasi kusanidi"
 	},
 	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Imeshindwa kuhifadhi mipangilio ya laini ya ncha.",
+		"string": "Could not save tipline settings",
 		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
 	"smoochBotComponent.install": {
@@ -2678,7 +2584,7 @@
 		"string": "Hifadhi mipangilio"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Mipangilio ya vidokezo imehifadhiwa kwa mafanikio.",
+		"string": "Tipline settings saved successfully",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
@@ -2686,6 +2592,100 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
+	},
+	"smoochBotIntegrationButton.cancel": {
+		"string": "Ghairi"
+	},
+	"smoochBotIntegrationButton.confirm": {
+		"string": "Thibitisha"
+	},
+	"smoochBotIntegrationButton.confirmDisconnectText": {
+		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTitle": {
+		"string": "Disconnect {platform} tipline",
+		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmationMessage": {
+		"string": "Disconnect {platform}",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.confirmationMessagePermanent": {
+		"string": "Disconnect {platform} permanently",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.connect": {
+		"string": "Unganisha"
+	},
+	"smoochBotIntegrationButton.connectTipline": {
+		"string": "Connect to {platform} tipline"
+	},
+	"smoochBotIntegrationButton.defaultErrorMessage": {
+		"string": "Something went wrong"
+	},
+	"smoochBotIntegrationButton.disclaimer": {
+		"string": "We don't store this information. This is just used to configure the integration."
+	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
+	"smoochBotIntegrationButton.disconnect": {
+		"string": "Disconnect from this account"
+	},
+	"smoochBotIntegrationButton.online": {
+		"string": "Online"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
+	},
+	"smoochBotIntegrationButton.savedSuccessfully": {
+		"string": "Imekamilika"
+	},
+	"smoochBotIntegrationButton.status": {
+		"string": "Status: Online"
+	},
+	"smoochBotIntegrationButton.tipline": {
+		"string": "{platform} tipline"
+	},
+	"smoochBotIntegrations.account": {
+		"string": "Connected account: {link}"
+	},
+	"smoochBotIntegrations.lineChannelAccessToken": {
+		"string": "LINE channel access token"
+	},
+	"smoochBotIntegrations.lineChannelSecret": {
+		"string": "LINE channel secret"
+	},
+	"smoochBotIntegrations.lineWebhook": {
+		"string": "Copy this webhook URL to your LINE settings"
+	},
+	"smoochBotIntegrations.page": {
+		"string": "Connected page: {link}"
+	},
+	"smoochBotIntegrations.phoneNumber": {
+		"string": "Connected phone number: {link}"
+	},
+	"smoochBotIntegrations.telegramBot": {
+		"string": "Connected Telegram bot: {link}"
+	},
+	"smoochBotIntegrations.telegramBotToken": {
+		"string": "Telegram bot token"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
+	},
+	"smoochBotIntegrations.viberPublicAccount": {
+		"string": "Connected Viber public account: {name}"
+	},
+	"smoochBotIntegrations.viberPublicAccountToken": {
+		"string": "Viber public account token"
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Mazingira"
@@ -2756,27 +2756,6 @@
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
 	},
-	"smoochBotSelectReport.cancel": {
-		"string": "Ghairi"
-	},
-	"smoochBotSelectReport.confirm": {
-		"string": "Thibitisha"
-	},
-	"smoochBotSelectReport.dialogDescription": {
-		"string": "Tafuta kichwa cha kipengee unachotaka kutuma kama ripoti. Boti itamjibu mtumiaji na ripoti hii. Ripoti yapaswa kukamilishwa kabla haujaitafuta hapa."
-	},
-	"smoochBotSelectReport.dialogTitle": {
-		"string": "Chagua ripoti"
-	},
-	"smoochBotSettings.connectToFacebook": {
-		"string": "Connect to Facebook"
-	},
-	"smoochBotSettings.connectToTwitter": {
-		"string": "Connect to Twitter"
-	},
-	"smoochBotSettings.connectToWhatsApp": {
-		"string": "Connect to WhatsApp"
-	},
 	"sortSelect.az": {
 		"string": "A hadi Z"
 	},
@@ -2845,7 +2824,7 @@
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Set {language} as default"
@@ -2854,13 +2833,15 @@
 		"string": "Do you want to set the default language to {language}?"
 	},
 	"statusListItem.confirmDeleteBody1": {
-		"string": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
+		"string": "All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently.",
+		"developer_comment": "Warning about content being lost after deleting a language"
 	},
 	"statusListItem.confirmDeleteBody2": {
 		"string": "Users will receive this content in the default language {language} instead."
 	},
 	"statusListItem.confirmDeleteDefaultBody": {
-		"string": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+		"string": "You cannot delete the default language. You must set a different default language before you can delete {language}.",
+		"developer_comment": "Message warning user to set a new default language before deleting the current one"
 	},
 	"statusListItem.confirmDeleteDefaultLabel": {
 		"string": "Go back and change"
@@ -2899,10 +2880,10 @@
 		"string": "Tafsiri hali zilizo kwenye lugha nyinginezo ili kuzionyesha katika lugha asili kwenye ripoti zako za uthibitisho."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully!"
+		"string": "Status created successfully"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully!"
+		"string": "Status deleted successfully"
 	},
 	"statusesComponent.error": {
 		"string": "Samahani, hitilafu imetokea wakati wa kusaisihsa hali. Tafadhali jaribu tena na uwasiliane na {supportEmail}  iwapo hali itaendelea."
@@ -2914,7 +2895,7 @@
 		"string": "Hali mpya"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully!"
+		"string": "Statuses saved successfully"
 	},
 	"statusesComponent.subtitle": {
 		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
@@ -2962,14 +2943,11 @@
 	"tagPicker.tagNotFound": {
 		"string": "Lebo #{tag} haijapatikana."
 	},
-	"tagTextCount.acknowledge": {
-		"string": "{count, plural, =0 {Yes} moja {Naelewa ya kuwa kwa kufuta lebo hii, itaondolewa kutoka kipengee kimoja cha midia.} nyingine {Naelewa ya kuwa kwa kufuta lebo hii, itaondolewa kutoka kwa vipengee # vya midia.}}"
-	},
 	"task.answeredBy": {
 		"string": "Imekamilishwa na {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "Panga / Pangua"
+		"string": "Assign/Unassign"
 	},
 	"task.assignedTo": {
 		"string": "Imepangiwa kwa {name}"
@@ -3014,7 +2992,8 @@
 		"string": "Kazi zote"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "{length, number} iliyochaguliwa"
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.add": {
 		"string": "Hifadhi"
@@ -3058,9 +3037,6 @@
 	"tasks.description": {
 		"string": "Maelezo (hiari)"
 	},
-	"tasks.done": {
-		"string": "Imekamilika"
-	},
 	"tasks.editAssignment": {
 		"string": "Hariri kazi"
 	},
@@ -3075,6 +3051,10 @@
 	},
 	"tasks.goToSettings": {
 		"string": "Nenda kwa mipangilio"
+	},
+	"tasks.number": {
+		"string": "Number",
+		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.shortAnswer": {
 		"string": "Ujumbe"
@@ -3109,51 +3089,6 @@
 	"teamBots.success": {
 		"string": "Mipangilio imesasishwa!"
 	},
-	"teamComponent.cancelButton": {
-		"string": "Ghairi"
-	},
-	"teamComponent.editButton": {
-		"string": "Hariri wasifu"
-	},
-	"teamComponent.editError": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusasisha eneo la kazi. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
-	},
-	"teamComponent.invalidLink": {
-		"string": "Tafadhali ingiza URL halali"
-	},
-	"teamComponent.location": {
-		"string": "Eneo"
-	},
-	"teamComponent.noProjects": {
-		"string": "Hakuna orodha"
-	},
-	"teamComponent.phone": {
-		"string": "Nambari ya simu"
-	},
-	"teamComponent.private": {
-		"string": "Faragha"
-	},
-	"teamComponent.projectAssignmentsCount": {
-		"string": "{count, plural, one {Assigned to one member} other {Assigned to # members}}"
-	},
-	"teamComponent.projects": {
-		"string": "Orodha"
-	},
-	"teamComponent.public": {
-		"string": "Wazi"
-	},
-	"teamComponent.saveButton": {
-		"string": "Hifadhi"
-	},
-	"teamComponent.teamDescription": {
-		"string": "Maelezo"
-	},
-	"teamComponent.teamName": {
-		"string": "Jina"
-	},
-	"teamComponent.website": {
-		"string": "Tovuti"
-	},
 	"teamDataComponent.formLinkText": {
 		"string": "this short form"
 	},
@@ -3173,7 +3108,8 @@
 		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
 	},
 	"teamDataComponent.title": {
-		"string": "Workspace data"
+		"string": "Workspace data",
+		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.viewDataReport": {
 		"string": "View data report"
@@ -3188,11 +3124,12 @@
 		"string": "Workspace details saved successfully"
 	},
 	"teamDetails.subtitle": {
-		"string": "Add details to your Check workspace"
+		"string": "Add details to your Check workspace.",
+		"developer_comment": "Subtitle for details page of current workspace"
 	},
 	"teamDetails.title": {
 		"string": "Workspace details",
-		"developer_comment": "Title for workspace details page"
+		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
 		"string": "Sasisha"
@@ -3200,81 +3137,34 @@
 	"teamDetails.workspaceName": {
 		"string": "Jina la ulingo"
 	},
-	"teamInfo.duplicateTeam": {
-		"string": "Nakili"
-	},
-	"teamInfo.editTeam": {
-		"string": "Hariri"
-	},
 	"teamIntegrations.subtitle": {
 		"string": "Zana za mtu mwingine kuongeza tija."
 	},
 	"teamIntegrations.title": {
 		"string": "Mijumuisho"
 	},
-	"teamInviteCard.copied": {
-		"string": "Nakili"
-	},
-	"teamInviteCard.copy": {
-		"string": "IMENAKILIWA!"
-	},
-	"teamInviteCard.title": {
-		"string": "Alika wanachama"
-	},
-	"teamInviteMembers.addAnother": {
-		"string": "Ongeza nyingine"
-	},
-	"teamInviteMembers.addMany": {
-		"string": "Ongeza nyingi"
-	},
-	"teamInviteMembers.addSeparate": {
-		"string": "Ongeza tofauti"
-	},
-	"teamInviteMembers.cancelAdd": {
-		"string": "Ghairi"
-	},
-	"teamInviteMembers.customInvitation": {
-		"string": "Barua ya mwaliko (hiari)"
-	},
-	"teamInviteMembers.inviteMember": {
-		"string": "Alika"
-	},
-	"teamInviteMembers.inviteMembers": {
-		"string": "Wanachama wataalikwa kama"
-	},
-	"teamInviteMembers.resendEmailSuccess": {
-		"string": "Mwaliko umetumwa kwa mafanikio"
-	},
-	"teamInviteMembers.send": {
-		"string": "Tuma"
-	},
-	"teamLists.description": {
-		"string": "Chagua nguzo zote unazotaka kuonyesha kwenye orodha zako zote."
-	},
-	"teamLists.title": {
-		"string": "Orodha ya mipangilio"
-	},
 	"teamListsColumn.none": {
-		"string": "Haipatikani"
+		"string": "Haipatikani",
+		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
 	},
 	"teamListsComponent.buttonLabel": {
-		"string": "Hifadhi mabadiliko ya orodha zote"
+		"string": "Save changes"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Una uhakika? Mabadiliko yako yataathiri orodha zote na yataonekana na watumiaji wote katika eneo lako la kazi."
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Mabadiliko ya orodha ya eneo la kazi"
+		"string": "Workspace columns change"
 	},
 	"teamListsComponent.createMetadata": {
 		"string": "Unda uwanja mpya wa metadata"
 	},
 	"teamListsComponent.defaultErrorMessage": {
-		"string": "Haikuweza kuhifadhi mipangilio ya orodha.",
-		"developer_comment": "Warning displayed if an error occurred when saving list settings"
+		"string": "Could not save column settings",
+		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Chagua nguzo zote unazotaka kuonyesha kwenye orodha zako zote."
+		"string": "Select all the columns you want to display in all your folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "Safu wima zilizoonyeshwa"
@@ -3286,11 +3176,11 @@
 		"string": "Metadata"
 	},
 	"teamListsComponent.savedSuccessfully": {
-		"string": "Mipangilio ya orodha imehifadhiwa.",
-		"developer_comment": "Banner displayed when list settings are saved successfully"
+		"string": "Column settings saved successfully",
+		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Mipangilio ya orodha"
+		"string": "Columns settings"
 	},
 	"teamListsItem.general": {
 		"string": "Mkuu"
@@ -3332,7 +3222,7 @@
 		"string": "Ondoa"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, lists and files."
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
 	},
 	"teamMembers.removeDialogTitle": {
 		"string": "Remove {userLabel}"
@@ -3341,7 +3231,8 @@
 		"string": "Resend invite"
 	},
 	"teamMembers.subtitle": {
-		"string": "Invite and manage users"
+		"string": "Invite and manage users.",
+		"developer_comment": "Subtitle for workspace members management page"
 	},
 	"teamMembers.tableHeaderLastActive": {
 		"string": "Last active",
@@ -3362,9 +3253,6 @@
 	"teamMembers.tooltip": {
 		"string": "Manage member"
 	},
-	"teamMembersComponent.inviteLink": {
-		"string": "Kualika wanafanyakazi wenzako kujiunga na {teamName}, watumie kiungo hiki:"
-	},
 	"teamMenu.teamSettings": {
 		"string": "Mipangilio ya eneo la kazi"
 	},
@@ -3374,49 +3262,22 @@
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Metadata",
-		"developer_comment": "Title for item Metadata"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
 		"string": "Ongeza sehemu za metadata maalum kwa vipengee.",
-		"developer_comment": "Metadata item subtitle"
+		"developer_comment": "Subtitle for metadata settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Ongeza viunzi vya data maalum kwenye kichupo cha chanzo.",
-		"developer_comment": "Metadata source subtitle"
+		"string": "Add custom data fields to the source tab.",
+		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
 		"string": "Chanzo metadata",
-		"developer_comment": "Ttle for source Metadata"
-	},
-	"teamReport.disclaimer": {
-		"string": "Kanusho"
-	},
-	"teamReport.disclaimerSub": {
-		"string": "Kanusho litakaloonyeshwa chini ya ripoti na lebo ya eneo la kazi."
-	},
-	"teamReport.introduction": {
-		"string": "Utangulizi"
-	},
-	"teamReport.introductionSub": {
-		"string": "Tumia {query_date} nafasi kuonyesha tarehe ya swali halisi. Tumia {status} kuwasilisha hali ya nakala."
-	},
-	"teamReport.save": {
-		"string": "Hifadhi"
-	},
-	"teamReport.subtitle": {
-		"string": "Yaliyomo unayoweka hapa yanaweza kuhaririwa katika kila ripoti ya kibinafsi."
-	},
-	"teamReport.title": {
-		"string": "Mipangilio msingi ya ripoti"
-	},
-	"teamReport.updateFail": {
-		"string": "Samahani, hitilafu imetokea wakati wa kusasisha mipangilio ya ripoti. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea. "
-	},
-	"teamReport.updateSuccess": {
-		"string": "Mipangilio ya ripoti imesashiswa kwa mafanikio!"
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
-		"string": "Imeshindwa kuhifadhi mipangilio ya ripoti.",
+		"string": "Could not save report settings",
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
@@ -3428,18 +3289,28 @@
 	"teamReportComponent.introductionSub": {
 		"string": "Tumia {query_date} nafasi kuonyesha tarehe ya swali halisi. Tumia {status} kuwasilisha hali ya nakala."
 	},
+	"teamReportComponent.line": {
+		"string": "LINE channel"
+	},
 	"teamReportComponent.save": {
 		"string": "Hifadhi"
 	},
 	"teamReportComponent.savedSuccessfully": {
-		"string": "Ripoti mipangilio imehifadhiwa kwa mafanikio.",
+		"string": "Report settings saved successfully",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
 		"string": "Sahihi"
 	},
+	"teamReportComponent.signatureLabel": {
+		"string": "Signature ({max} characters max)",
+		"developer_comment": "Label for signature field in report settings"
+	},
 	"teamReportComponent.subtitle": {
 		"string": "Yaliyomo unayoweka hapa yanaweza kuhaririwa katika kila ripoti ya kibinafsi."
+	},
+	"teamReportComponent.telegram": {
+		"string": "Telegram bot username"
 	},
 	"teamReportComponent.title": {
 		"string": "Mipangilio msingi ya ripoti"
@@ -3451,7 +3322,11 @@
 		"string": "URL ya Tovuti"
 	},
 	"teamReportComponent.urlLabel": {
-		"string": "Haraka (herufi {max})"
+		"string": "Short URL ({max} characters max)",
+		"developer_comment": "Label for URL field in report settings"
+	},
+	"teamReportComponent.viber": {
+		"string": "Viber public account URI"
 	},
 	"teamReportComponent.whatsapp": {
 		"string": "Nambari ya WhatsApp"
@@ -3472,7 +3347,7 @@
 		"string": "Lugha"
 	},
 	"teamSettings.lists": {
-		"string": "Orodha"
+		"string": "Columns"
 	},
 	"teamSettings.members": {
 		"string": "Wanachama"
@@ -3553,13 +3428,7 @@
 		"string": "Lebo"
 	},
 	"teamTags.tooltip": {
-		"string": "Chuja na upange orodha"
-	},
-	"teamTasks.blank": {
-		"string": "Hakuna kazi msingi za kuonyesha"
-	},
-	"teamTasks.blankMetadata": {
-		"string": "Hakuna sehemu za metadata"
+		"string": "Filter and sort folder"
 	},
 	"teamTasks.cancelAction": {
 		"string": "Ghairi"
@@ -3603,32 +3472,11 @@
 	"teamTasks.edit": {
 		"string": "Hariri"
 	},
-	"teamTasks.filter": {
-		"string": "Chuja kazi"
-	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {No tasks} moja {1 task} nyingine {# tasks}}"
 	},
 	"teamTasks.filterLabelHidden": {
 		"string": "{total, plural, =0 {No tasks} moja {1 task ({hidden} hidden by filters)} nyingine {# tasks ({hidden} hidden by filters)}}"
-	},
-	"teamTasks.metadata": {
-		"string": "Metadata"
-	},
-	"teamTasks.metadataSubtitle": {
-		"string": "Ongeza sehemu za metadata maalum kwa vipengee."
-	},
-	"teamTasks.projFilter": {
-		"string": "Onyesha kazi kwa"
-	},
-	"teamTasks.tasks": {
-		"string": "Kazi"
-	},
-	"teamTasks.tasksSubtitle": {
-		"string": "Ongeza kazi za kawaida kwa vitu."
-	},
-	"teamTasks.typeFilter": {
-		"string": "Aina la kazi"
 	},
 	"teamTasksRender.blank": {
 		"string": "Hakuna kazi msingi za kuonyesha",
@@ -3684,18 +3532,6 @@
 	"translateStatuses.status": {
 		"string": "Hali"
 	},
-	"translationNeededDialog.body": {
-		"string": "Ili kuifanya {language} kuwa lugha ya msingi, lazima kwanza utafsiri hali zote zilizopo hadi {language} kwenye kichupo cha mipangilio ya Hali."
-	},
-	"translationNeededDialog.title": {
-		"string": "Tafsiri ya hali inahitajika"
-	},
-	"trash.emptyTrash": {
-		"string": "Safisha taka"
-	},
-	"trash.emptyTrashConfirmationText": {
-		"string": "Are you sure? This will permanently delete {itemsCount, plural, one {# item} other {# items}} and {notesCount, plural, one {# annotation} other {# annotations}}."
-	},
 	"trash.title": {
 		"string": "Taka"
 	},
@@ -3722,30 +3558,6 @@
 	},
 	"uploadFile.videoMessage": {
 		"string": "Weka faili ya video hapa, au bonyeza kupakia faili (saizi ya juu: {upload_max_dimensions}, viongezeo vinavyokubaliwa: {video_extensions})"
-	},
-	"uploadImage.changeFile": {
-		"string": "{filename} (bonyeza au shusha kubadilisha)"
-	},
-	"uploadImage.fileTooLarge": {
-		"string": "Faili yapaswa iwe chini ya {size}. Tafadhali jaribu na faili ndogo. "
-	},
-	"uploadImage.invalidExtension": {
-		"string": "Faili haiwezi kuwa na aina \"{extension}\". Tafadhali jaribu na aina zifuatazo: {allowed_types}. "
-	},
-	"uploadImage.message": {
-		"string": "Weka faili ya picha hapa, au bonyeza kupakia faili (saizi ya juu: {upload_max_size}, viongezeo vinavyokubaliwa: {upload_extensions}, vipimo vinavyokubaliwa ni kati ya pikseli {upload_min_dimensions} na {upload_max_dimensions})"
-	},
-	"uploadImage.videoMessage": {
-		"string": "Weka faili ya video hapa, au bonyeza kupakia faili (saizi ya juu: {upload_max_dimensions}, viongezeo vinavyokubaliwa: {video_extensions})"
-	},
-	"userAlreadyConfirmed.heading": {
-		"string": "Akaunti Tayari Imethibitishwa"
-	},
-	"userAlreadyConfirmed.login": {
-		"string": "ingia"
-	},
-	"userAlreadyConfirmed.message": {
-		"string": "Du! Akaunti yako tayari imethibitishwa. Tafadhali {login} kuanza. "
 	},
 	"userAssignments.blank": {
 		"string": "Hamna shughuli "
@@ -3776,12 +3588,6 @@
 	"userConfirmed.confrimMessage": {
 		"string": "Asante kwa kuthibitisha anwani yako ya barua pepe! Sasa unaweza kuingia.",
 		"developer_comment": "Message for confirmed user"
-	},
-	"userConfirmed.heading": {
-		"string": "Akaunti Imethibitishwa"
-	},
-	"userConfirmed.message": {
-		"string": "Asante kwa kuthibitisha anwani yako ya barua pepe! Sasa unaweza kuingia."
 	},
 	"userConfirmed.unConfrimMessage": {
 		"string": "Samahani, hitilafu imetokea ukithibitisha akaunti yako. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea.",
@@ -3846,9 +3652,6 @@
 	},
 	"userInfoEdit.userSendEmailNotification": {
 		"string": "Pokea arifu za barua pepe"
-	},
-	"userMenu.edit": {
-		"string": "Hariri wasifu"
 	},
 	"userPrivacy.connectedAccounts": {
 		"string": "Akaunti zilizounganishwa"
@@ -3993,15 +3796,6 @@
 	},
 	"userTos.validation": {
 		"string": "Ni lazima uyakubali Masharti ya Huduma na Sera ya Faragha"
-	},
-	"userUnconfirmed.heading": {
-		"string": "Hitilafu"
-	},
-	"userUnconfirmed.message": {
-		"string": "Samahani, hitilafu imetokea ukithibitisha akaunti yako. Tafadhali jaribu tena na uwasiliane na {supportEmail} iwapo hali itaendelea."
-	},
-	"video.normalSpeed": {
-		"string": "Kasi ya kawaida"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Kipengee hiki hakiwezi kutambuliwa. Inaweza kuwa imeondolewa, au inaweza tu kuonekana kwa watumiaji ambao wameingia. Bonyeza kiungo hapo juu ili uende kwenye hiyo."

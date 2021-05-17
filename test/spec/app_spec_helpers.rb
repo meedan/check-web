@@ -163,17 +163,20 @@ module AppSpecHelpers
   def edit_project(options)
     wait_for_selector('.project-actions').click
     wait_for_selector('.project-actions__edit').click
-    update_field('#project-title-field', options[:title]) if options[:title]
+    update_field('.project-actions__edit-title input', options[:title]) if options[:title]
     unless options[:description].nil?
-      wait_for_selector('#project-description-field').send_keys(:control, 'a', :delete)
+      wait_for_selector('.project-actions__edit-description input').send_keys(:control, 'a', :delete)
       @driver.action.send_keys(" \b").perform
       sleep 1
-      update_field('#project-description-field', options[:description])
+      update_field('.project-actions__edit-description input', options[:description])
     end
-    wait_for_selector('button.project-edit__editing-button--save').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('.project-edit__editing-button--cancel')
+    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('.message')
     self
+  end
+
+  def get_config(config_variable)
+    ENV[config_variable] || @config[config_variable]
   end
 
   def save_screenshot(title, driver = nil)
@@ -183,7 +186,7 @@ module AppSpecHelpers
     else
       @driver.save_screenshot(path)
     end
-    auth_header = { 'Authorization' => "Client-ID #{@config['imgur_client_id']}" }
+    auth_header = { 'Authorization' => "Client-ID #{get_config('IMGUR_CLIENT_ID')}" }
     image = Base64.strict_encode64(File.open(path).read)
     body = { image: image, type: 'file' }
     count = 0
@@ -281,9 +284,14 @@ module AppSpecHelpers
 
   def create_project(project_name)
     name = project_name || "Project #{Time.now.to_i}"
-    wait_for_selector('.drawer__create-project-button').click
-    wait_for_selector('.create-project-form input').send_keys(name)
-    wait_for_selector('.create-project-form button').click
+    wait_for_selector('.projects-list__add-folder-or-collection').click
+    wait_for_selector('.projects-list__add-folder').click
+    wait_for_selector('.new-project__title input').send_keys(name)
+    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('.message')
+    # I'm getting "stale element reference" here:
+    # wait_for_selector_list('.project-list__link').last.click
+    @driver.execute_script("var items = document.querySelectorAll('.project-list__link') ; items[items.length - 1].click()")
     wait_for_selector('.project')
   end
 

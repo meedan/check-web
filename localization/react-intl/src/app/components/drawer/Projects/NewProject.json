@@ -1,0 +1,14 @@
+[
+  {
+    "id": "projectsComponent.title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "projectsComponent.description",
+    "defaultMessage": "Description"
+  },
+  {
+    "id": "newProject.cancel",
+    "defaultMessage": "Cancel"
+  }
+]

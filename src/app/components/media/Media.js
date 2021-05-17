@@ -21,7 +21,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         read_by_me: is_read(by_me: true)
         permissions
         pusher_channel
-        project_ids
+        project_id
         requests_count
         picture
         is_confirmed_similar_to_another_item

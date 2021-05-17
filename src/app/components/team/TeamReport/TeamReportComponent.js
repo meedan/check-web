@@ -14,6 +14,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
+import TelegramIcon from '@material-ui/icons/Telegram';
+import ViberIcon from '../../../icons/ViberIcon';
+import LineIcon from '../../../icons/LineIcon';
 
 import SettingsHeader from '../SettingsHeader';
 import LanguageSwitcher from '../../LanguageSwitcher';
@@ -24,6 +27,9 @@ import {
   whatsappGreen,
   facebookBlue,
   twitterBlue,
+  telegramBlue,
+  viberPurple,
+  lineGreen,
 } from '../../../styles/js/shared';
 
 const TeamReportComponent = ({ team, setFlashMessage }) => {
@@ -47,7 +53,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamReportComponent.defaultErrorMessage"
-        defaultMessage="Could not save report settings."
+        defaultMessage="Could not save report settings"
         description="Warning displayed if an error occurred when saving report settings"
       />
     ), 'error');
@@ -58,7 +64,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     setFlashMessage((
       <FormattedMessage
         id="teamReportComponent.savedSuccessfully"
-        defaultMessage="Report settings saved successfully."
+        defaultMessage="Report settings saved successfully"
         description="Banner displayed when report settings are saved successfully"
       />
     ), 'success');
@@ -196,7 +202,8 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   label={
                     <FormattedMessage
                       id="teamReportComponent.urlLabel"
-                      defaultMessage="Prompt ({max} characters max)"
+                      defaultMessage="Short URL ({max} characters max)"
+                      description="Label for URL field in report settings"
                       values={{
                         max: 30,
                       }}
@@ -233,8 +240,9 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                   inputProps={{ maxLength: 30 }}
                   label={
                     <FormattedMessage
-                      id="teamReportComponent.urlLabel"
-                      defaultMessage="Prompt ({max} characters max)"
+                      id="teamReportComponent.signatureLabel"
+                      defaultMessage="Signature ({max} characters max)"
+                      description="Label for signature field in report settings"
                       values={{
                         max: 30,
                       }}
@@ -316,6 +324,78 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                       <InputAdornment position="start">
                         <TwitterIcon style={{ color: twitterBlue }} />
                         {' @ '}
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  fullWidth
+                />
+              </Box>
+              <Box width={0.5} mt={1} mb={2}>
+                <TextField
+                  id="telegram"
+                  key={`telegram-${currentLanguage}`}
+                  value={report.telegram || ''}
+                  disabled={!report.use_signature}
+                  onChange={(e) => { handleChange('telegram', e.target.value); }}
+                  label={
+                    <FormattedMessage
+                      id="teamReportComponent.telegram"
+                      defaultMessage="Telegram bot username"
+                    />
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <TelegramIcon style={{ color: telegramBlue }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  fullWidth
+                />
+              </Box>
+              <Box width={0.5} mt={1} mb={2}>
+                <TextField
+                  id="viber"
+                  key={`viber-${currentLanguage}`}
+                  value={report.viber || ''}
+                  disabled={!report.use_signature}
+                  onChange={(e) => { handleChange('viber', e.target.value); }}
+                  label={
+                    <FormattedMessage
+                      id="teamReportComponent.viber"
+                      defaultMessage="Viber public account URI"
+                    />
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <ViberIcon style={{ color: viberPurple }} />
+                      </InputAdornment>
+                    ),
+                  }}
+                  variant="outlined"
+                  fullWidth
+                />
+              </Box>
+              <Box width={0.5} mt={1} mb={2}>
+                <TextField
+                  id="line"
+                  key={`line-${currentLanguage}`}
+                  value={report.line || ''}
+                  disabled={!report.use_signature}
+                  onChange={(e) => { handleChange('line', e.target.value); }}
+                  label={
+                    <FormattedMessage
+                      id="teamReportComponent.line"
+                      defaultMessage="LINE channel"
+                    />
+                  }
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LineIcon style={{ color: lineGreen }} />
                       </InputAdornment>
                     ),
                   }}

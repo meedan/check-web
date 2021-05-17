@@ -6,15 +6,17 @@ import { Link, browserHistory } from 'react-router';
 import styled from 'styled-components';
 import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
+import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withPusher, pusherShape } from '../../pusher';
-import SearchQuery from './SearchQuery';
+import SearchKeyword from './SearchKeyword';
+import SearchFields from './SearchFields';
 import Toolbar from './Toolbar';
 import ParsedText from '../ParsedText';
 import BulkActions from '../media/BulkActions';
 import MediasLoading from '../media/MediasLoading';
 import ProjectBlankState from '../project/ProjectBlankState';
-import { black87, headline, units, Row } from '../../styles/js/shared';
+import { black87, black54, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
 import { isBotInstalled } from '../../helpers';
@@ -22,34 +24,24 @@ import { isBotInstalled } from '../../helpers';
 const pageSize = 50;
 
 const StyledListHeader = styled.div`
-  padding: ${units(2)};
-  margin: 0;
-  /* max-width: calc(100vw - ${units(34)}); Seems unecessary*/
+  margin: ${units(2)};
 
   .search__list-header-filter-row {
     justify-content: space-between;
     display: flex;
   }
 
-  .search__list-header-title-and-filter {
-    justify-content: space-between;
-    display: flex;
-    width: 66%;
-  }
-
-  .search-query {
-    margin-left: auto;
-  }
-
-  .project__title {
+  .project__title-text {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    max-width: 500px;
   }
 
   .project__description {
     max-width: 30%;
-    max-height: ${units(4)};
+    padding-top: ${units(0.5)};
+    height: ${units(4)};
     overflow: hidden;
     text-overflow: ellipsis;
   }
@@ -78,12 +70,12 @@ const StyledSearchResultsWrapper = styled.div`
 `;
 
 /**
- * Delete `esoffset`, `timestamp`, and maybe `projects` -- whenever
+ * Delete `esoffset`, `timestamp`, and maybe `projects` and `project_group_id` -- whenever
  * they can be inferred from the URL or defaults.
  *
  * This is useful for building simple-as-possible URLs.
  */
-function simplifyQuery(query, project) {
+function simplifyQuery(query, project, projectGroup) {
   const ret = { ...query };
   delete ret.esoffset;
   delete ret.timestamp;
@@ -95,6 +87,15 @@ function simplifyQuery(query, project) {
     )
   ) {
     delete ret.projects;
+  }
+  if (
+    ret.project_group_id &&
+    (
+      ret.project_group_id.length === 0 ||
+      (ret.project_group_id.length === 1 && projectGroup && ret.project_group_id[0] === projectGroup.dbid)
+    )
+  ) {
+    delete ret.project_group_id;
   }
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
@@ -209,7 +210,7 @@ class SearchResultsComponent extends React.PureComponent {
   }
 
   handleChangeSortParams = (sortParams) => {
-    const { query, project } = this.props;
+    const { query, project, projectGroup } = this.props;
 
     const newQuery = { ...query };
     if (sortParams === null) {
@@ -219,13 +220,13 @@ class SearchResultsComponent extends React.PureComponent {
       newQuery.sort = sortParams.key;
       newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
-    const cleanQuery = simplifyQuery(newQuery, project);
+    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     this.navigateToQuery(cleanQuery);
   }
 
   handleChangeQuery = (newQuery /* minus sort data */) => {
-    const { query, project } = this.props;
-    const cleanQuery = simplifyQuery(newQuery, project);
+    const { query, project, projectGroup } = this.props;
+    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     if (query.sort) {
       cleanQuery.sort = query.sort;
     }
@@ -247,10 +248,11 @@ class SearchResultsComponent extends React.PureComponent {
     const {
       query,
       project,
+      projectGroup,
       searchUrlPrefix,
     } = this.props;
 
-    const cleanQuery = simplifyQuery(query, project);
+    const cleanQuery = simplifyQuery(query, project, projectGroup);
     if (offset > 0) {
       cleanQuery.esoffset = offset;
     }
@@ -278,17 +280,23 @@ class SearchResultsComponent extends React.PureComponent {
     const {
       query,
       project,
+      projectGroup,
       search,
       searchUrlPrefix,
       mediaUrlPrefix,
     } = this.props;
 
-    const cleanQuery = simplifyQuery(query, project);
+    const cleanQuery = simplifyQuery(query, project, projectGroup);
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = this.beginIndex + itemIndexInPage;
     const urlParams = new URLSearchParams();
     if (searchUrlPrefix.endsWith('/trash')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
+      // so we'll give it to the receiving page. (See <MediaPage>.)
+      urlParams.set('listPath', searchUrlPrefix);
+    }
+    if (searchUrlPrefix.endsWith('/unconfirmed')) {
+      // Usually, `listPath` can be inferred from the route params. With `unconfirmed` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
     }
@@ -303,7 +311,9 @@ class SearchResultsComponent extends React.PureComponent {
     const {
       query,
       project,
+      projectGroup,
       title,
+      icon,
       listActions,
       listDescription,
     } = this.props;
@@ -317,7 +327,6 @@ class SearchResultsComponent extends React.PureComponent {
     const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
     const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
 
-    const isProject = !!this.props.project;
     const sortParams = query.sort ? {
       key: query.sort,
       ascending: query.sort_type !== 'DESC',
@@ -331,9 +340,6 @@ class SearchResultsComponent extends React.PureComponent {
 
     projectMedias.forEach((pm) => {
       if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
-        if (pm.project_media_project) {
-          selectedProjectMediaProjectIds.push(pm.project_media_project.id);
-        }
         selectedProjectMediaDbids.push(pm.dbid);
       }
     });
@@ -341,9 +347,16 @@ class SearchResultsComponent extends React.PureComponent {
     let content = null;
 
     if (count === 0) {
-      if (isProject) {
-        content = <ProjectBlankState project={this.props.project} />;
-      }
+      content = (
+        <ProjectBlankState
+          message={
+            <FormattedMessage
+              id="projectBlankState.blank"
+              defaultMessage="There are no items here."
+            />
+          }
+        />
+      );
     } else {
       content = (
         <SearchResultsTable
@@ -358,7 +371,7 @@ class SearchResultsComponent extends React.PureComponent {
       );
     }
 
-    const unsortedQuery = simplifyQuery(query, project); // nix .projects
+    const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects and .project_group_id
     delete unsortedQuery.sort;
     delete unsortedQuery.sort_type;
 
@@ -366,22 +379,31 @@ class SearchResultsComponent extends React.PureComponent {
       <React.Fragment>
         <StyledListHeader>
           <Row className="search__list-header-filter-row">
-            <Row className="search__list-header-title-and-filter">
-              <div style={{ font: headline }} className="project__title" title={title}>
+            <div
+              className="project__title"
+              title={title}
+              style={{
+                font: headline,
+                color: black54,
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
+              <span className="project__title-text">
                 {title}
-              </div>
-              <SearchQuery
-                className="search-query"
-                key={JSON.stringify(unsortedQuery) /* TODO make <SearchQuery> stateless */}
-                query={unsortedQuery}
-                onChange={this.handleChangeQuery}
-                project={this.props.project}
-                hideFields={this.props.hideFields}
-                title={this.props.title}
-                team={team}
-              />
-            </Row>
-            {listActions}
+              </span>
+              {listActions}
+            </div>
+            <SearchKeyword
+              key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
+              query={unsortedQuery}
+              onChange={this.handleChangeQuery}
+              project={this.props.project}
+              hideFields={this.props.hideFields}
+              title={this.props.title}
+              team={team}
+            />
           </Row>
           <Row className="project__description">
             {listDescription && listDescription.trim().length ?
@@ -389,6 +411,19 @@ class SearchResultsComponent extends React.PureComponent {
               : null}
           </Row>
         </StyledListHeader>
+        <Box m={2}>
+          <SearchFields
+            key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
+            query={unsortedQuery}
+            onChange={this.handleChangeQuery}
+            project={this.props.project}
+            projectGroup={this.props.projectGroup}
+            savedSearch={this.props.savedSearch}
+            hideFields={this.props.hideFields}
+            title={this.props.title}
+            team={team}
+          />
+        </Box>
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
@@ -438,6 +473,7 @@ class SearchResultsComponent extends React.PureComponent {
                       <FormattedMessage
                         id="searchResults.withSelection"
                         defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                        description="Label for number of selected items"
                         values={{
                           selectedCount: selectedProjectMediaIds.length,
                         }}
@@ -474,6 +510,7 @@ class SearchResultsComponent extends React.PureComponent {
 
 SearchResultsComponent.defaultProps = {
   project: null,
+  projectGroup: null,
 };
 
 SearchResultsComponent.propTypes = {
@@ -487,6 +524,10 @@ SearchResultsComponent.propTypes = {
     medias: PropTypes.shape({ edges: PropTypes.array.isRequired }).isRequired,
   }).isRequired,
   project: PropTypes.shape({
+    id: PropTypes.string.isRequired, // TODO fill in props
+    dbid: PropTypes.number.isRequired,
+  }), // may be null
+  projectGroup: PropTypes.shape({
     id: PropTypes.string.isRequired, // TODO fill in props
     dbid: PropTypes.number.isRequired,
   }), // may be null
@@ -506,7 +547,8 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
         pusher_channel,
         team {
           ${BulkActions.getFragment('team')}
-          ${SearchQuery.getFragment('team')}
+          ${SearchKeyword.getFragment('team')}
+          ${SearchFields.getFragment('team')}
           id
           slug
           search_id,
@@ -541,7 +583,7 @@ const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsCom
               is_secondary
               requests_count
               list_columns_values
-              project_media_project(project_id: $projectId) {
+              project {
                 dbid
                 id
               }

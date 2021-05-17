@@ -5,12 +5,13 @@
   },
   {
     "id": "teamDetails.title",
-    "description": "Title for workspace details page",
+    "description": "Title for details page of current workspace",
     "defaultMessage": "Workspace details"
   },
   {
     "id": "teamDetails.subtitle",
-    "defaultMessage": "Add details to your Check workspace"
+    "description": "Subtitle for details page of current workspace",
+    "defaultMessage": "Add details to your Check workspace."
   },
   {
     "id": "teamDetails.update",

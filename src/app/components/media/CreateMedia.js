@@ -31,11 +31,9 @@ class CreateProjectMedia extends React.Component {
     const error = getErrorObjects(transaction);
     if (Array.isArray(error) && error.length > 0) {
       if (error[0].code === CheckError.codes.DUPLICATED) {
-        message = null;
         browserHistory.push(error[0].data.url);
-      } else {
-        message = error[0].message; // eslint-disable-line prefer-destructuring
       }
+      message = error[0].message; // eslint-disable-line prefer-destructuring
     }
     this.props.setFlashMessage(message, 'error');
   };

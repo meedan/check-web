@@ -42,22 +42,12 @@ shared_examples 'project' do
     expect(@driver.find_elements(:class, 'project-actions').empty?).to be(true)
   end
 
-  it 'should create a project for a team', bin3: true do
-    api_create_team
-    @driver.navigate.to @config['self_url']
-    project_name = "Project #{Time.now}"
-    create_project(project_name)
-    expect(@driver.current_url.to_s.match(%r{/project/[0-9]+$}).nil?).to be(false)
-    wait_for_selector('.team-header__drawer-team-link').click
-    element = wait_for_selector('.project-list__link > span')
-    expect(element.text == project_name).to be(true)
-  end
-
   it 'should edit project', bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     new_title = "Changed title #{Time.now.to_i}"
     new_description = "Set description #{Time.now.to_i}"
+    wait_for_selector('#search-input')
     expect(@driver.page_source.include?(new_title)).to be(false)
     expect(@driver.page_source.include?(new_description)).to be(false)
     # 7204 edit title and description separately
@@ -101,14 +91,13 @@ shared_examples 'project' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
-    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[7].click
+    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[8].click
     wait_for_selector('#team-lists__item-4-status button').click
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector('#confirm-dialog__checkbox').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector('.message').click
-    wait_for_selector_none('.message')
-    wait_for_selector('.project-list__link-all').click
+    wait_for_selector('.message')
+    wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(false)

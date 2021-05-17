@@ -28,6 +28,7 @@ import UpdateTeamTaskMutation from '../../relay/mutations/UpdateTeamTaskMutation
 import DeleteTeamTaskMutation from '../../relay/mutations/DeleteTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
 import { black16 } from '../../styles/js/shared';
+import NumberIcon from '../../icons/NumberIcon';
 
 const styles = theme => ({
   container: {
@@ -252,6 +253,7 @@ class TeamTasksListItem extends React.Component {
 
     const icon = {
       free_text: <ShortTextIcon />,
+      number: <NumberIcon />,
       geolocation: <LocationIcon />,
       datetime: <DateRangeIcon />,
       single_choice: <RadioButtonCheckedIcon />,

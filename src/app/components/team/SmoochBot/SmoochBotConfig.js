@@ -264,6 +264,8 @@ const SmoochBotConfig = (props) => {
           schema={settingsSchema}
           currentUser={props.currentUser}
           onChange={handleUpdateSetting}
+          enabledIntegrations={props.enabledIntegrations}
+          installationId={props.installationId}
         /> : null }
     </React.Fragment>
   );
@@ -276,6 +278,7 @@ SmoochBotConfig.propTypes = {
   schema: PropTypes.object.isRequired,
   currentUser: PropTypes.object.isRequired,
   userRole: PropTypes.string.isRequired,
+  enabledIntegrations: PropTypes.object.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

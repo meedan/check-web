@@ -3,17 +3,42 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
+import InputBase from '@material-ui/core/InputBase';
 import FormLabel from '@material-ui/core/FormLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
-import { StyledFilterRow } from './SearchQueryComponent';
-import { FlexRow, units } from '../../styles/js/shared';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import RemoveableWrapper from './RemoveableWrapper';
+import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
+
+const StyledInputBase = withStyles(theme => ({
+  root: {
+    backgroundColor: opaqueBlack07,
+    padding: `0 ${theme.spacing(0.5)}px`,
+    height: theme.spacing(4.5),
+    fontSize: 14,
+    width: 175,
+  },
+}))(InputBase);
+
+const StyledInputBaseDate = withStyles(() => ({
+  root: {
+    width: 110,
+  },
+}))(StyledInputBase);
 
 const Styles = {
   selectFormControl: {
     flexShrink: 0,
+  },
+  dateRangeFilterSelected: {
+    backgroundColor: checkBlue,
+    color: 'white',
+    height: 24,
+    margin: '6px 3px',
+    borderRadius: 2,
   },
 };
 
@@ -86,13 +111,13 @@ class DateRangeFilter extends React.Component {
   }
 
   render() {
-    const { hide, classes } = this.props;
+    const { hide, classes, onRemove } = this.props;
+
     if (hide) {
       return null;
     }
 
     const label = {
-      date: <FormattedMessage id="search.dateHeading" defaultMessage="Time Range" />,
       created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
       last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
       updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
@@ -100,51 +125,81 @@ class DateRangeFilter extends React.Component {
     };
 
     return (
-      <StyledFilterRow>
-        <h4>{ label.date }</h4>
-        <div>
-          <FlexRow>
-            <FormControl variant="outlined" className={classes.selectFormControl}>
-              <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-              <Select onChange={this.handleChangeType} value={this.valueType}>
-                <MenuItem value="created_at">
-                  {label.created_at}
-                </MenuItem>
-                <MenuItem value="last_seen">
-                  {label.last_seen}
-                </MenuItem>
-                <MenuItem value="updated_at">
-                  {label.updated_at}
-                </MenuItem>
-                <MenuItem value="published_at">
-                  {label.published_at}
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <DatePicker
-              inputVariant="outlined"
-              label={<FormattedMessage id="search.pickDateFrom" defaultMessage="Starting date" />}
-              className="date-range__start-date"
-              onChange={this.handleChangeStartDate}
-              maxDate={this.endDateStringOrNull || undefined}
-              okLabel={<FormattedMessage {...globalStrings.ok} />}
-              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-              value={this.startDateStringOrNull}
-              style={{ margin: `0 ${units(2)}` }}
-            />
-            <DatePicker
-              inputVariant="outlined"
-              label={<FormattedMessage id="search.pickDateTo" defaultMessage="Ending date" />}
-              className="date-range__end-date"
-              onChange={this.handleChangeEndDate}
-              minDate={this.startDateStringOrNull || undefined}
-              okLabel={<FormattedMessage {...globalStrings.ok} />}
-              cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-              value={this.endDateStringOrNull}
-            />
-          </FlexRow>
-        </div>
-      </StyledFilterRow>
+      <div style={{ background: opaqueBlack07 }}>
+        <FlexRow>
+          <FormControl variant="outlined" className={classes.selectFormControl}>
+            <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
+            <Select
+              onChange={this.handleChangeType}
+              value={this.valueType}
+              input={
+                <StyledInputBase
+                  startAdornment={
+                    <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                  }
+                />
+              }
+            >
+              <MenuItem value="created_at"> { label.created_at } </MenuItem>
+              <MenuItem value="last_seen"> { label.last_seen } </MenuItem>
+              <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
+              <MenuItem value="published_at"> { label.published_at } </MenuItem>
+            </Select>
+          </FormControl>
+          <DatePicker
+            onChange={this.handleChangeStartDate}
+            maxDate={this.endDateStringOrNull || undefined}
+            okLabel={<FormattedMessage {...globalStrings.ok} />}
+            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            value={this.startDateStringOrNull}
+            style={{ margin: `0 ${units(2)}` }}
+            TextFieldComponent={({ onClick, value, onChange }) => (
+              <div>
+                <FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />
+                {' '}
+                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+                  { text => (
+                    <StyledInputBaseDate
+                      className={value ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
+                      type="text"
+                      placeholder={text}
+                      onClick={onClick}
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+            )}
+          />
+          <DatePicker
+            inputVariant="outlined"
+            onChange={this.handleChangeEndDate}
+            minDate={this.startDateStringOrNull || undefined}
+            okLabel={<FormattedMessage {...globalStrings.ok} />}
+            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+            value={this.endDateStringOrNull}
+            TextFieldComponent={({ onClick, value, onChange }) => (
+              <div>
+                <FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />
+                {' '}
+                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+                  { text => (
+                    <StyledInputBaseDate
+                      className={value ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
+                      type="text"
+                      placeholder={text}
+                      onClick={onClick}
+                      value={value}
+                      onChange={onChange}
+                    />
+                  )}
+                </FormattedMessage>
+              </div>
+            )}
+          />
+        </FlexRow>
+      </div>
     );
   }
 }
@@ -184,6 +239,7 @@ DateRangeFilter.propTypes = {
     }),
   ]),
   onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default withStyles(Styles)(DateRangeFilter);

@@ -13,7 +13,6 @@ import UserUtil from '../user/UserUtil';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
-import { getCurrentProjectId } from '../../helpers';
 import {
   subheading2,
   body1,
@@ -271,7 +270,7 @@ const MediaTasks = (props) => {
       dbid: parseInt(params.mediaId, 10),
     };
     if (params.projectId) {
-      media.project_ids = [parseInt(params.projectId, 10)];
+      media.project_id = parseInt(params.projectId, 10);
     }
   }
 
@@ -286,10 +285,7 @@ const MediaTasks = (props) => {
     }
   }
 
-  let projectId = null;
-  if (media.project_ids && media.project_ids.length > 0) {
-    projectId = getCurrentProjectId(media.project_ids);
-  }
+  const projectId = media.project_id;
   const ids = `${media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 

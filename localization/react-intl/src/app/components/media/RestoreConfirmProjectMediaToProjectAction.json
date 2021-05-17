@@ -1,7 +1,7 @@
 [
   {
     "id": "mediaActionsBar.movedRestoreBack",
-    "defaultMessage": "Restored from trash, redirecting…"
+    "defaultMessage": "Restored from Trash, redirecting…"
   },
   {
     "id": "mediaActionsBar.movedConfirmBack",
@@ -9,7 +9,7 @@
   },
   {
     "id": "mediaActionsBar.restoreTo",
-    "defaultMessage": "Restore from trash"
+    "defaultMessage": "Restore from Trash"
   },
   {
     "id": "mediaActionsBar.confirmTo",
@@ -17,7 +17,7 @@
   },
   {
     "id": "mediaActionsBar.dialogRestoreOrConfirmToListTitle",
-    "defaultMessage": "Move item to list…"
+    "defaultMessage": "Move item to folder…"
   },
   {
     "id": "mediaActionsBar.cancelButton",
@@ -25,6 +25,6 @@
   },
   {
     "id": "mediaActionsBar.restoreOrConfirm",
-    "defaultMessage": "Move to list"
+    "defaultMessage": "Move to folder"
   }
 ]

@@ -9,6 +9,7 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import IconFileUpload from '@material-ui/icons/CloudUpload';
 import MultiSelector from '../layout/MultiSelector';
+import NumberIcon from '../../icons/NumberIcon';
 
 class TaskTypeSelector extends React.Component {
   state = {};
@@ -32,6 +33,7 @@ class TaskTypeSelector extends React.Component {
     const { anchorEl } = this.state;
     const options = [];
     options.push({ label: 'Short Text', value: 'free_text', icon: <ShortTextIcon /> });
+    options.push({ label: 'Number', value: 'number', icon: <NumberIcon /> });
     options.push({ label: 'Location', value: 'geolocation', icon: <LocationIcon /> });
     options.push({ label: 'Datetime', value: 'datetime', icon: <DateRangeIcon /> });
     options.push({ label: 'Single Choice', value: 'single_choice', icon: <RadioButtonCheckedIcon /> });
@@ -44,7 +46,8 @@ class TaskTypeSelector extends React.Component {
           {this.props.selected.length ?
             <FormattedMessage
               id="taskTypeSelector.numTypes"
-              defaultMessage="{length, number} selected"
+              defaultMessage="{length, plural, one {# selected} other {# selected}}"
+              description="Label for number of selected tasks"
               values={{ length: this.props.selected.length }}
             /> :
             <FormattedMessage id="taskTypeSelector.allTypes" defaultMessage="All tasks" />

@@ -16,6 +16,7 @@ const TeamDataComponent = ({ dataReportUrl }) => (
         <FormattedMessage
           id="teamDataComponent.title"
           defaultMessage="Workspace data"
+          description="Header for the stored data page of the current team"
         />
       }
       subtitle={

@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 import CheckIcon from '@material-ui/icons/Check';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TwitterIcon from '@material-ui/icons/Twitter';
-import { makeStyles } from '@material-ui/core/styles';
-import { languageName } from '../../LanguageRegistry';
+import TelegramIcon from '@material-ui/icons/Telegram';
+import ViberIcon from '../../icons/ViberIcon';
+import LineIcon from '../../icons/LineIcon';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
+import { languageName } from '../../LanguageRegistry';
 import {
   emojify,
   parseStringUnixTimestamp,
@@ -18,13 +22,15 @@ import {
   units,
   black38,
   black54,
-  black87,
   checkBlue,
   caption,
   Row,
   twitterBlue,
   facebookBlue,
   whatsappGreen,
+  telegramBlue,
+  viberPurple,
+  lineGreen,
   completedGreen,
   separationGray,
 } from '../../styles/js/shared';
@@ -63,17 +69,6 @@ const StyledReportReceived = styled.div`
   margin-bottom: ${units(2)};
 `;
 
-// FIXME: Convert styled-components to useStyles
-const StyledRequest = styled.div`
-  font-size: ${units(1.75)};
-  color: ${black87};
-
-  a, a:visited, a:hover {
-    color: ${checkBlue};
-    text-decoration: underline;
-  }
-`;
-
 const SmoochIcon = ({ name }) => {
   switch (name) {
   case 'whatsapp':
@@ -89,12 +84,15 @@ const SmoochIcon = ({ name }) => {
     );
   case 'messenger': return <FacebookIcon style={{ color: facebookBlue }} />;
   case 'twitter': return <TwitterIcon style={{ color: twitterBlue }} />;
+  case 'telegram': return <TelegramIcon style={{ color: telegramBlue }} />;
+  case 'viber': return <ViberIcon style={{ color: viberPurple }} />;
+  case 'line': return <LineIcon style={{ color: lineGreen }} />;
   default: return null;
   }
 };
 
 SmoochIcon.propTypes = {
-  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter']).isRequired,
+  name: PropTypes.oneOf(['whatsapp', 'messenger', 'twitter', 'telegram', 'viber', 'line']).isRequired,
 };
 
 const useStyles = makeStyles(theme => ({
@@ -168,7 +166,7 @@ const TiplineRequest = ({
           <span className="separation_dot">
             <TimeBefore date={updatedAt} />
           </span>
-          { smoochSlackUrl ?
+          { messageType !== 'telegram' && smoochSlackUrl ?
             <span className="separation_dot">
               <a
                 target="_blank"
@@ -177,6 +175,18 @@ const TiplineRequest = ({
                 href={smoochSlackUrl}
               >
                 <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
+              </a>
+            </span> : null }
+          { /* We don't support human-to-human conversation on Slack for Telegram, but we can allow a conversation directly in Telegram */ }
+          { messageType === 'telegram' && smoochExternalId ?
+            <span className="separation_dot">
+              <a
+                target="_blank"
+                style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
+                rel="noopener noreferrer"
+                href={`https://t.me/${smoochExternalId.replace(/^@/, '')}`}
+              >
+                <FormattedMessage id="annotation.openInTelegram" defaultMessage="Open in Telegram" />
               </a>
             </span> : null }
         </span>
@@ -212,16 +222,16 @@ const TiplineRequest = ({
           </span>
         </StyledReportReceived> : null }
       <div className="annotation__card-content">
-        {messageText ? (
-          <StyledRequest>
+        <Typography variant="body2">
+          { messageText ? (
             <ParsedText text={parseText(messageText, projectMedia, activity)} />
-          </StyledRequest>
-        ) : (
-          <FormattedMessage
-            id="annotation.smoochNoMessage"
-            defaultMessage="No message was sent with the request"
-          />
-        )}
+          ) : (
+            <FormattedMessage
+              id="annotation.smoochNoMessage"
+              defaultMessage="No message was sent with the request"
+            />
+          )}
+        </Typography>
       </div>
     </div>
   );

@@ -49,6 +49,10 @@ const useStyles = makeStyles(theme => ({
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
+    textDecoration: 'none',
+    '&:hover': {
+      color: 'black',
+    },
     '&:visited': {
       color: 'black',
     },
@@ -308,7 +312,7 @@ const MediaItem = ({
                 { projectMedia.linked_items_count && !mainProjectMedia.id ?
                   <FormattedMessage
                     id="mediaItem.similarMedia"
-                    defaultMessage="{count} similar media"
+                    defaultMessage="{count, plural, one {# similar media} other {# similar media}}"
                     values={{
                       count: projectMedia.linked_items_count,
                     }}
@@ -438,7 +442,7 @@ const MediaItem = ({
           <FormattedMessage
             id="detachDialog.dialogdetachedToListTitle"
             defaultMessage="Move detached item to…"
-            description="Dialog title prompting user to select a destination list for the item"
+            description="Dialog title prompting user to select a destination folder for the item"
           />
         }
         cancelLabel={
@@ -451,7 +455,7 @@ const MediaItem = ({
         submitLabel={
           <FormattedMessage
             id="detachDialog.detached"
-            defaultMessage="Move to list"
+            defaultMessage="Move to folder"
             description="Button to commit the action of moving item"
           />
         }

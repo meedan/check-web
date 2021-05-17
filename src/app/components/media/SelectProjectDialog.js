@@ -57,7 +57,7 @@ function SelectProjectDialog({
               autoFocus
               name="project-title"
               label={
-                <FormattedMessage id="destinationProjects.choose" defaultMessage="Choose a list" />
+                <FormattedMessage id="destinationProjects.choose" defaultMessage="Choose a folder" />
               }
               variant="outlined"
             />

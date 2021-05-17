@@ -1,8 +1,8 @@
 [
   {
     "id": "inviteDialog.sentOtherInvitation",
-    "description": "Success message when user send multiple invitations and some emails fail and other mails success.",
-    "defaultMessage": "Sent other invites."
+    "description": "Message displayed when user sends multiple invitations but some emails fail and others succeed",
+    "defaultMessage": "The other invites were sent successfully"
   },
   {
     "id": "inviteDialog.invitationSent",
@@ -11,13 +11,13 @@
   },
   {
     "id": "inviteDialog.title",
-    "description": "Invite workspace members dialog title",
+    "description": "Dialog title for inviting members to workspace",
     "defaultMessage": "Invite workspace members"
   },
   {
     "id": "inviteDialog.textInputLabel",
     "description": "Label to input for invited emails. Requires that multiple emails be entered separated by comma.",
-    "defaultMessage": "Emails, comma separated"
+    "defaultMessage": "Email addresses, comma separated"
   },
   {
     "id": "inviteDialog.submit",

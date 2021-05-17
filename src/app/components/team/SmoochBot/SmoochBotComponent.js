@@ -44,7 +44,7 @@ const SmoochBotComponent = ({
     setFlashMessage((
       <FormattedMessage
         id="smoochBotComponent.defaultErrorMessage"
-        defaultMessage="Could not save tipline settings."
+        defaultMessage="Could not save tipline settings"
         description="Warning displayed if an error occurred when saving tipline settings"
       />
     ), 'error');
@@ -55,7 +55,7 @@ const SmoochBotComponent = ({
     setFlashMessage((
       <FormattedMessage
         id="smoochBotComponent.savedSuccessfully"
-        defaultMessage="Tipline settings saved successfully."
+        defaultMessage="Tipline settings saved successfully"
         description="Banner displayed when tipline settings are saved successfully"
       />
     ), 'success');
@@ -215,6 +215,7 @@ const SmoochBotComponent = ({
                 userRole={userRole}
                 currentLanguage={currentLanguage}
                 languages={languages}
+                enabledIntegrations={installation.node.smooch_enabled_integrations}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
                 { currentUser.is_admin ?

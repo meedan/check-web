@@ -14,6 +14,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
         project_mediaEdge,
         project_media
         project { id, medias_count },
+        project_group { id, medias_count },
         related_to {
           id
         }
@@ -49,7 +50,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
       url: this.props.url,
       quote: this.props.quote,
       quote_attributions: this.props.quoteAttributions,
-      add_to_project_id: this.props.project ? this.props.project.dbid : null,
+      project_id: this.props.project ? this.props.project.dbid : null,
     };
     if (this.props.related_to_id) {
       vars.related_to_id = this.props.related_to_id;
@@ -112,6 +113,10 @@ class CreateProjectMediaMutation extends Relay.Mutation {
               id
               medias_count
             }
+          },
+          project_group {
+            id
+            medias_count
           },
           check_search_team {
             id

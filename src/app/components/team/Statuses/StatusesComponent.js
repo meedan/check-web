@@ -114,7 +114,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
       setFlashMessage((
         <FormattedMessage
           id="statusesComponent.deleted"
-          defaultMessage="Status deleted successfully!"
+          defaultMessage="Status deleted successfully"
         />
       ), 'success');
     };
@@ -141,7 +141,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         setFlashMessage((
           <FormattedMessage
             id="statusesComponent.saved"
-            defaultMessage="Statuses saved successfully!"
+            defaultMessage="Statuses saved successfully"
           />
         ), 'success');
       }
@@ -149,7 +149,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         setFlashMessage((
           <FormattedMessage
             id="statusesComponent.created"
-            defaultMessage="Status created successfully!"
+            defaultMessage="Status created successfully"
           />
         ), 'success');
       }

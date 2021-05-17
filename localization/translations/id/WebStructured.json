@@ -1,0 +1,3803 @@
+{
+	"CheckAgreeTerms.agreeTerms": {
+		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+	},
+	"ConfirmEmail.content": {
+		"string": "Mohon periksa surel Anda untuk memverifikasi akun Anda"
+	},
+	"ConfirmEmail.resendConfirmation": {
+		"string": "Resend"
+	},
+	"ConfirmEmail.title": {
+		"string": "Confirm your email"
+	},
+	"CustomFilter.filterBy": {
+		"string": "Filter by"
+	},
+	"CustomFilter.keywordsLabel": {
+		"string": "Type a list of keywords separated by commas"
+	},
+	"CustomFilter.selectValueLabel": {
+		"string": "Select value"
+	},
+	"CustomTeamTaskFilter.anyValue": {
+		"string": "Any value is set",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.choiceFilter": {
+		"string": "\"{field}\" has value {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains specific value"
+	},
+	"CustomTeamTaskFilter.entityMetadataLabel": {
+		"string": "Select metadata",
+		"developer_comment": "Label for input to select specific metadata to filter by"
+	},
+	"CustomTeamTaskFilter.entityTaskLabel": {
+		"string": "Select task",
+		"developer_comment": "Label for input to select specific task to filter by"
+	},
+	"CustomTeamTaskFilter.metadataChoiceLabel": {
+		"string": "Metadata has specific value",
+		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
+	},
+	"CustomTeamTaskFilter.metadataTextLabel": {
+		"string": "Metadata contains keyword",
+		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
+	},
+	"CustomTeamTaskFilter.noValue": {
+		"string": "No value is set",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
+	},
+	"CustomTeamTaskFilter.taskChoiceLabel": {
+		"string": "Task has specific answer",
+		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
+	},
+	"CustomTeamTaskFilter.taskTextLabel": {
+		"string": "Task answer contains keyword",
+		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
+	},
+	"CustomTeamTaskFilter.textAnyValue": {
+		"string": "\"{field}\" contains any value",
+		"developer_comment": "Label for custom field when metadata or task response contains any value"
+	},
+	"CustomTeamTaskFilter.textFilter": {
+		"string": "\"{field}\" contains {value}",
+		"developer_comment": "Label for custom field when metadata or task response contains keyword"
+	},
+	"CustomTeamTaskFilter.textNoValue": {
+		"string": "\"{field}\" contains no value",
+		"developer_comment": "Label for custom field when metadata or task response contains no value"
+	},
+	"FilterPopup.close": {
+		"string": "Done"
+	},
+	"ItemHistoryDialog.title": {
+		"string": "Item history"
+	},
+	"MultiSelector.all": {
+		"string": "All"
+	},
+	"MultiSelector.search": {
+		"string": "Search…"
+	},
+	"ProjectActions.edit": {
+		"string": "Rename"
+	},
+	"ProjectActions.tooltip": {
+		"string": "Folder actions"
+	},
+	"ProjectBlankState.createMedia": {
+		"string": "Add a link or text"
+	},
+	"UserConfirmPage.alreadyConfirmed": {
+		"string": "Account Already Confirmed",
+		"developer_comment": "Message for accounts already confirmed"
+	},
+	"UserConfirmPage.confirmed": {
+		"string": "Account Confirmed",
+		"developer_comment": "Message for confirmed accounts"
+	},
+	"UserConnectedAccount.addAnother": {
+		"string": "Add another account"
+	},
+	"UserConnectedAccount.connectButton": {
+		"string": "Connect"
+	},
+	"UserConnectedAccount.disconnectAccountConfirmationText": {
+		"string": "Are you sure? This will disconnect login account."
+	},
+	"UserConnectedAccount.disconnectAccountTitle": {
+		"string": "Disconnect account"
+	},
+	"UserConnectedAccount.disconnectButton": {
+		"string": "Disconnect"
+	},
+	"UserMenu.about": {
+		"string": "About"
+	},
+	"UserMenu.pp": {
+		"string": "Privacy policy"
+	},
+	"UserMenu.signOut": {
+		"string": "Sign Out"
+	},
+	"UserMenu.tos": {
+		"string": "Terms of service"
+	},
+	"UserMenu.training": {
+		"string": "Training and documentation"
+	},
+	"UserMenu.userSettings": {
+		"string": "User settings"
+	},
+	"UserPrivacy.deleteAccount": {
+		"string": "Delete Account"
+	},
+	"UserSecurity.passwordError": {
+		"string": "Incorrect password"
+	},
+	"UserSecurity.passwordInput": {
+		"string": "Current Password"
+	},
+	"UserSecurity.verifyError": {
+		"string": "Incorrect validation code"
+	},
+	"UserSecurity.verifyInput": {
+		"string": "Validation Code"
+	},
+	"UserUtil.admin": {
+		"string": "Admin"
+	},
+	"UserUtil.collaborator": {
+		"string": "Collaborator"
+	},
+	"UserUtil.editor": {
+		"string": "Editor"
+	},
+	"addAnnotation.addImage": {
+		"string": "Add an image"
+	},
+	"addAnnotation.error": {
+		"string": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"addAnnotation.inputHint": {
+		"string": "Add a note"
+	},
+	"addAnnotation.invalidCommand": {
+		"string": "Invalid command"
+	},
+	"addAnnotation.submitButton": {
+		"string": "Submit"
+	},
+	"addFilterMenu.addFilter": {
+		"string": "Add filter",
+		"developer_comment": "Button that opens menu with filter field options"
+	},
+	"addFilterMenu.assignedTo": {
+		"string": "Assignment",
+		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.collection": {
+		"string": "Collection",
+		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.createdBy": {
+		"string": "Created by",
+		"developer_comment": "Menu option to enable searching items by author"
+	},
+	"addFilterMenu.filterBy": {
+		"string": "Filter by",
+		"developer_comment": "Header to menu of filter field types"
+	},
+	"addFilterMenu.folder": {
+		"string": "Folder",
+		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemStatus": {
+		"string": "Item status",
+		"developer_comment": "Menu option to enable searching items by item status"
+	},
+	"addFilterMenu.language": {
+		"string": "Bahasa",
+		"developer_comment": "Menu option to enable searching items by language"
+	},
+	"addFilterMenu.mediaType": {
+		"string": "Media type",
+		"developer_comment": "Menu option to enable searching items by media type"
+	},
+	"addFilterMenu.metadata": {
+		"string": "Metadata",
+		"developer_comment": "Menu option to enable searching items by metadata fields"
+	},
+	"addFilterMenu.reportStatus": {
+		"string": "Report status",
+		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.tag": {
+		"string": "Label",
+		"developer_comment": "Menu option to enable searching items by tags"
+	},
+	"addFilterMenu.timeRange": {
+		"string": "Date range",
+		"developer_comment": "Menu option to enable searching items by date range"
+	},
+	"addLanguageAction.addLanguage": {
+		"string": "Add language"
+	},
+	"addLanguageAction.newLanguage": {
+		"string": "New language"
+	},
+	"addLanguageAction.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"addLanguageAction.selectLanguage": {
+		"string": "Select a language"
+	},
+	"addLanguageAction.title": {
+		"string": "Choose a new language"
+	},
+	"annotation.acceptSuggestion": {
+		"string": "Accept"
+	},
+	"annotation.addedComment": {
+		"string": "Task note added by {author}: {title}{note}"
+	},
+	"annotation.archiverError": {
+		"string": "Sorry, the following error occurred while archiving the item to {name}: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists."
+	},
+	"annotation.archiverSuccess": {
+		"string": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>."
+	},
+	"annotation.archiverWait": {
+		"string": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
+	},
+	"annotation.assignmentChanged": {
+		"string": "Task assigned to {assigneeTo} by {author}: {title}"
+	},
+	"annotation.assignmentRemoved": {
+		"string": "Task unassigned from {assigneeFrom} by {author}: {title}"
+	},
+	"annotation.changedJsonSchema": {
+		"string": "JSON Schema of task {title} changed by {author}"
+	},
+	"annotation.deleteButton": {
+		"string": "Delete"
+	},
+	"annotation.deletedComment": {
+		"string": "Comment deleted by {author}: {comment}"
+	},
+	"annotation.embedCodeCopied": {
+		"string": "An embed code of the item has been generated and copied. The item may now be publicly viewable."
+	},
+	"annotation.embedLabelRemoved": {
+		"string": "Item title removed by {author}: {title}"
+	},
+	"annotation.embedLabelUpdated": {
+		"string": "Item title edited by {author}: {title}"
+	},
+	"annotation.embedNoteCreated": {
+		"string": "Item description added by {author}: {description}"
+	},
+	"annotation.embedNoteRemoved": {
+		"string": "Item description removed by {author}: {description}"
+	},
+	"annotation.embedNoteUpdated": {
+		"string": "Item description edited by {author}: {description}"
+	},
+	"annotation.flag": {
+		"string": "Classification result:"
+	},
+	"annotation.flagAdult": {
+		"string": "Adult"
+	},
+	"annotation.flagLikelihood0": {
+		"string": "Unknown"
+	},
+	"annotation.flagLikelihood1": {
+		"string": "Very unlikely"
+	},
+	"annotation.flagLikelihood2": {
+		"string": "Unlikely"
+	},
+	"annotation.flagLikelihood3": {
+		"string": "Possible"
+	},
+	"annotation.flagLikelihood4": {
+		"string": "Likely"
+	},
+	"annotation.flagLikelihood5": {
+		"string": "Very likely"
+	},
+	"annotation.flagMedical": {
+		"string": "Medical"
+	},
+	"annotation.flagRacy": {
+		"string": "Racy"
+	},
+	"annotation.flagSpam": {
+		"string": "Spam"
+	},
+	"annotation.flagViolence": {
+		"string": "Violence"
+	},
+	"annotation.mediaAssigned": {
+		"string": "Item assigned to {name} by {author}"
+	},
+	"annotation.mediaAssignmentCreated": {
+		"string": "Item assigned to {name} by {author}"
+	},
+	"annotation.mediaAssignmentDeleted": {
+		"string": "Item unassigned from {name} by {author}"
+	},
+	"annotation.mediaUnassigned": {
+		"string": "Item unassigned from {name} by {author}"
+	},
+	"annotation.menuTooltip": {
+		"string": "Annotation actions"
+	},
+	"annotation.metadataCreated": {
+		"string": "Metadata field created by {author}: {fieldLabel}"
+	},
+	"annotation.metadataResponse": {
+		"string": "Metadata field \"{fieldLabel}\" filled by {author}: {response}"
+	},
+	"annotation.movedFromTrash": {
+		"string": "Moved out of Trash by {author}"
+	},
+	"annotation.movedToTrash": {
+		"string": "Moved to Trash by {author}"
+	},
+	"annotation.newReport": {
+		"string": "Item added by {author}"
+	},
+	"annotation.noAnnotationsYet": {
+		"string": "No activity"
+	},
+	"annotation.openInSlack": {
+		"string": "Open in Slack"
+	},
+	"annotation.openInTelegram": {
+		"string": "Open in Telegram"
+	},
+	"annotation.penderArchiveResponse": {
+		"string": "Keep has taken a screenshot of this URL."
+	},
+	"annotation.penderArchiveResponseError": {
+		"string": "Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+	},
+	"annotation.penderArchiveWait": {
+		"string": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
+	},
+	"annotation.permalink": {
+		"string": "Permalink"
+	},
+	"annotation.projectMoved": {
+		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
+	},
+	"annotation.rejectSuggestion": {
+		"string": "Reject"
+	},
+	"annotation.relationshipCreated": {
+		"string": "Related item added by {author}: {title}"
+	},
+	"annotation.relationshipDestroyed": {
+		"string": "Related item removed by {author}: {title}"
+	},
+	"annotation.removedComment": {
+		"string": "Task note deleted by {author}: {title}{note}"
+	},
+	"annotation.reportReceived": {
+		"string": "Report sent on {date}"
+	},
+	"annotation.reportUpdateReceived": {
+		"string": "Report update sent on {date}"
+	},
+	"annotation.seeHowThisBotWorks": {
+		"string": "See how this bot works"
+	},
+	"annotation.similarCreated": {
+		"string": "Confirmed similar by {author}: {title}"
+	},
+	"annotation.similarDestroyed": {
+		"string": "Confirmed similar detached by {author}: {title}",
+		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
+	},
+	"annotation.smoochNoMessage": {
+		"string": "No message was sent with the request"
+	},
+	"annotation.statusLocked": {
+		"string": "Item status locked by {author}"
+	},
+	"annotation.statusSetHeader": {
+		"string": "Status set to {status} by {author}"
+	},
+	"annotation.statusUnlocked": {
+		"string": "Item status unlocked by {author}"
+	},
+	"annotation.suggestionAccepted": {
+		"string": "Accepted by {user}"
+	},
+	"annotation.suggestionCreated": {
+		"string": "Suggested match by {author}: {title}"
+	},
+	"annotation.suggestionDestroyed": {
+		"string": "Suggested match rejected by {author}: {title}"
+	},
+	"annotation.suggestionRejected": {
+		"string": "Rejected by {user}"
+	},
+	"annotation.taggedHeader": {
+		"string": "Tagged #{tag} by {author}"
+	},
+	"annotation.taskAssignmentCreated": {
+		"string": "Task assigned to {name} by {author}: {title}"
+	},
+	"annotation.taskAssignmentDeleted": {
+		"string": "Task unassigned from {name} by {author}: {title}"
+	},
+	"annotation.taskCreated": {
+		"string": "Task created by {author}: {task}"
+	},
+	"annotation.taskLabelUpdated": {
+		"string": "Task edited by {author}: {title}"
+	},
+	"annotation.taskNoteCreated": {
+		"string": "Task note added by {author}: {title}{note}"
+	},
+	"annotation.taskNoteUpdated": {
+		"string": "Task note edited by {author}: {title}{note}"
+	},
+	"annotation.taskResolve": {
+		"string": "Task completed by {author}: {task}{response}"
+	},
+	"annotation.teamCopied": {
+		"string": "Copied from workspace {previousTeam} by {author}"
+	},
+	"annotation.titleChanged": {
+		"string": "Item title edited by {author}: {title}"
+	},
+	"annotations.loadMore": {
+		"string": "Load more"
+	},
+	"attribution.noResults": {
+		"string": "No results"
+	},
+	"attribution.search": {
+		"string": "Search members"
+	},
+	"autoCompleteMediaItem.cantSelectPublished": {
+		"string": "Media cannot be imported from items that have their report published"
+	},
+	"autoCompleteMediaItem.error": {
+		"string": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"autoCompleteMediaItem.notFound": {
+		"string": "No matches found"
+	},
+	"autoCompleteMediaItem.results": {
+		"string": "{count, plural, one {# result} other {# results}}"
+	},
+	"autoCompleteMediaItem.searchItem": {
+		"string": "Search"
+	},
+	"autoCompleteMediaItem.searchSettings": {
+		"string": "Search settings"
+	},
+	"autoCompleteMediaItem.searching": {
+		"string": "Searching…"
+	},
+	"blankMediaButton.addItem": {
+		"string": "Add item"
+	},
+	"blankMediaButton.addToImportedReport": {
+		"string": "Add to imported report"
+	},
+	"blankMediaButton.addToReport": {
+		"string": "Add to report"
+	},
+	"blankMediaButton.defaultErrorMessage": {
+		"string": "Could not save item"
+	},
+	"browserSupport.message": {
+		"string": "{appName} is optimized for Google Chrome on desktop."
+	},
+	"bulkActions.cancelButton": {
+		"string": "Cancel"
+	},
+	"bulkActions.confirm": {
+		"string": "Move from Unconfirmed"
+	},
+	"bulkActions.dialogMoveTitle": {
+		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
+	},
+	"bulkActions.move": {
+		"string": "Move selected items to another folder"
+	},
+	"bulkActions.moveTitle": {
+		"string": "Move to folder",
+		"developer_comment": "Label for button to commit action of moving item to the selected folder"
+	},
+	"bulkActions.moveTo": {
+		"string": "Move to…"
+	},
+	"bulkActions.moveToTrashSuccessfully": {
+		"string": "Items moved to the Trash."
+	},
+	"bulkActions.movedConfirmSuccessfully": {
+		"string": "Items moved from Unconfirmed to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedRestoreSuccessfully": {
+		"string": "Items moved from Trash to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.movedSuccessfully": {
+		"string": "Items moved to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
+	},
+	"bulkActions.restore": {
+		"string": "Restore from Trash"
+	},
+	"bulkActions.sendItemsToTrash": {
+		"string": "Send selected items to Trash"
+	},
+	"bulkActions.trash": {
+		"string": "Restore selected items and move items to another folder"
+	},
+	"bulkActions.unconfirmed": {
+		"string": "Confirm selected items and move items to another folder"
+	},
+	"changeMediaSource.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Cancel change media source action"
+	},
+	"changeMediaSource.choose": {
+		"string": "Choose a source",
+		"developer_comment": "Change media source label"
+	},
+	"changeMediaSource.createSource": {
+		"string": "Create new",
+		"developer_comment": "allow user to create a new source"
+	},
+	"changeMediaSource.saveButton": {
+		"string": "Save",
+		"developer_comment": "Save media source label"
+	},
+	"changeUserRole.changingTo": {
+		"string": "You will be changing {userLabel}'s role to {newRole}."
+	},
+	"changeUserRole.dialogTitle": {
+		"string": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+	},
+	"changeUserRole.helpCenter": {
+		"string": "Help Center"
+	},
+	"changeUserRole.learnMore": {
+		"string": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+	},
+	"changeUserRole.proceedLabel": {
+		"string": "Change role to {newRole}"
+	},
+	"confirmProceedDialog.confirmationText": {
+		"string": "Type \"{text}\" to confirm."
+	},
+	"confirmProceedDialog.confirmationTextPlaceholder": {
+		"string": "Type here"
+	},
+	"confirmProceedDialog.continue": {
+		"string": "Continue"
+	},
+	"createMedia.addItem": {
+		"string": "Add Item"
+	},
+	"createMedia.addNew": {
+		"string": "Add new item"
+	},
+	"createMedia.addNewItem": {
+		"string": "Add new item"
+	},
+	"createMedia.audio": {
+		"string": "Audio"
+	},
+	"createMedia.error": {
+		"string": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"createMedia.existing": {
+		"string": "Add existing item"
+	},
+	"createMedia.image": {
+		"string": "Photo"
+	},
+	"createMedia.link": {
+		"string": "Tautan"
+	},
+	"createMedia.mediaInput": {
+		"string": "Paste or type"
+	},
+	"createMedia.quote": {
+		"string": "Teks"
+	},
+	"createMedia.quoteInput": {
+		"string": "Paste or type a text"
+	},
+	"createMedia.video": {
+		"string": "Video"
+	},
+	"createMediaSource.createSource": {
+		"string": "Create source",
+		"developer_comment": "Label for button to create a new source"
+	},
+	"createProject.addProject": {
+		"string": "Create folder"
+	},
+	"createProject.error": {
+		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"createProject.newProjectName": {
+		"string": "Folder name"
+	},
+	"createProject.title": {
+		"string": "Add a folder"
+	},
+	"createProject.titleBlank": {
+		"string": "Add your first folder"
+	},
+	"createTeamDialog.cancel": {
+		"string": "Cancel"
+	},
+	"createTeamDialog.create": {
+		"string": "Create"
+	},
+	"createTeamDialog.creating": {
+		"string": "Creating…"
+	},
+	"createTeamDialog.defaultErrorMessage": {
+		"string": "Could not create new workspace"
+	},
+	"createTeamDialog.description": {
+		"string": "All settings from this workspace will be duplicated. No content will be added."
+	},
+	"createTeamDialog.dialogTitleCreate": {
+		"string": "Create new workspace",
+		"developer_comment": "Dialog title for creating a new workspace"
+	},
+	"createTeamDialog.dialogTitleDuplicate": {
+		"string": "Gandakan ruang kerja"
+	},
+	"createTeamDialog.duplicating": {
+		"string": "Duplicating…"
+	},
+	"createTeamDialog.duplice": {
+		"string": "Duplicate"
+	},
+	"createTeamDialog.name": {
+		"string": "Workspace name"
+	},
+	"createTeamDialog.url": {
+		"string": "URL Ruang kerja"
+	},
+	"createTeamTask.errorMetadata": {
+		"string": "Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"createTeamTask.errorTask": {
+		"string": "Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"customAutocomplete.done": {
+		"string": "Done",
+		"developer_comment": "Label for closing dropdown when user is done selecting tags"
+	},
+	"customAutocomplete.select": {
+		"string": "Select",
+		"developer_comment": "Verb. Label for generic dropdown component"
+	},
+	"customFiltersManager.label": {
+		"string": "Metadata is",
+		"developer_comment": "Placeholder label for metadata field when not fully configured"
+	},
+	"datetimeRespondTask.answerTask": {
+		"string": "Answer task"
+	},
+	"datetimeRespondTask.cancelTask": {
+		"string": "Cancel"
+	},
+	"datetimeRespondTask.pickDate": {
+		"string": "Pick a date"
+	},
+	"datetimeRespondTask.time": {
+		"string": "Pick a time"
+	},
+	"datetimeRespondTask.timezone": {
+		"string": "Select a timezone"
+	},
+	"datetimeTaskResponse.invalidTimestamp": {
+		"string": "Error: Invalid timestamp"
+	},
+	"datetimeTaskResponse.timeIs": {
+		"string": "View this timezone on time.is"
+	},
+	"deleteStatusDialog.itemsPublishedMessage": {
+		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+	},
+	"deleteStatusDialog.moveItemsTo": {
+		"string": "Move items to"
+	},
+	"deleteStatusDialog.statusInUseMessage": {
+		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
+	},
+	"deleteStatusDialog.statusInUseTitle": {
+		"string": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
+	},
+	"destinationProjects.choose": {
+		"string": "Choose a folder"
+	},
+	"detachDialog.cancelButton": {
+		"string": "Cancel",
+		"developer_comment": "Button to dismiss the dialog"
+	},
+	"detachDialog.detached": {
+		"string": "Move to folder",
+		"developer_comment": "Button to commit the action of moving item"
+	},
+	"detachDialog.dialogdetachedToListTitle": {
+		"string": "Move detached item to…",
+		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
+	},
+	"editStatusDialog.addButton": {
+		"string": "Add status"
+	},
+	"editStatusDialog.messageDescription": {
+		"string": "Send a message to the user who requested the item when you change an item to this status.",
+		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
+	},
+	"editStatusDialog.statusDescription": {
+		"string": "Description"
+	},
+	"editStatusDialog.statusMessage": {
+		"string": "Message"
+	},
+	"editStatusDialog.statusTitle": {
+		"string": "Status ({maxLength} characters max)"
+	},
+	"editStatusDialog.title": {
+		"string": "Add a new status"
+	},
+	"editStatusDialog.titleEdit": {
+		"string": "Edit status"
+	},
+	"editStatusDialog.toggleStatusMessage": {
+		"string": "Send message to requester",
+		"developer_comment": "Checkbox option to send a message to the user who requested the item"
+	},
+	"editTaskDialog.editMetadata": {
+		"string": "Edit metadata field"
+	},
+	"editTaskDialog.editTask": {
+		"string": "Edit task"
+	},
+	"editTaskDialog.newMetadata": {
+		"string": "New metadata field"
+	},
+	"editTaskDialog.newTask": {
+		"string": "New task"
+	},
+	"fetchBot.contactUs": {
+		"string": "Contact us to setup"
+	},
+	"fileUploadRespondTask.answerTask": {
+		"string": "Answer task"
+	},
+	"fileUploadRespondTask.cancelTask": {
+		"string": "Cancel"
+	},
+	"footer.madeBy": {
+		"string": "Check: Verify breaking news online. Made with ✨ by {meedan}"
+	},
+	"geoLocationRespondTask.error": {
+		"string": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"geoLocationRespondTask.invalidCoords": {
+		"string": "Invalid coordinates"
+	},
+	"geoLocationRespondTask.notFound": {
+		"string": "Sorry, this place was not found. Please try another search."
+	},
+	"geoLocationRespondTask.searching": {
+		"string": "Searching…"
+	},
+	"geolocationRespondTask.answerTask": {
+		"string": "Answer task"
+	},
+	"geolocationRespondTask.cancelTask": {
+		"string": "Cancel"
+	},
+	"geolocationRespondTask.coordinates": {
+		"string": "Latitude, Longitude"
+	},
+	"geolocationRespondTask.placeName": {
+		"string": "Customize place name"
+	},
+	"geolocationRespondTask.searchMap": {
+		"string": "Search the map"
+	},
+	"global.appNameHuman": {
+		"string": "Check"
+	},
+	"global.bestViewed": {
+		"string": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>."
+	},
+	"global.cancel": {
+		"string": "Cancel"
+	},
+	"global.close": {
+		"string": "Close"
+	},
+	"global.confirm": {
+		"string": "Confirm"
+	},
+	"global.delete": {
+		"string": "Delete"
+	},
+	"global.edit": {
+		"string": "Edit"
+	},
+	"global.ok": {
+		"string": "OK"
+	},
+	"global.save": {
+		"string": "Save"
+	},
+	"global.submit": {
+		"string": "Submit"
+	},
+	"global.submitting": {
+		"string": "Submitting…"
+	},
+	"global.tags": {
+		"string": "Tags"
+	},
+	"global.unknownError": {
+		"string": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"global.update": {
+		"string": "Update"
+	},
+	"headerActions.signIn": {
+		"string": "Sign In"
+	},
+	"home.invalidExpiredInvitation": {
+		"string": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
+	},
+	"home.invalidInvitation": {
+		"string": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
+	},
+	"home.invalidNoInvitation": {
+		"string": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
+	},
+	"home.invalidTeamInvitation": {
+		"string": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
+	},
+	"home.somethingWrong": {
+		"string": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
+	},
+	"home.successInvitation": {
+		"string": "Welcome to {appName}. Please login with the password that you received in the welcome email."
+	},
+	"inviteDialog.invitationSent": {
+		"string": "Invites sent!",
+		"developer_comment": "Success notification confirming that invitations were sent to users"
+	},
+	"inviteDialog.sentOtherInvitation": {
+		"string": "The other invites were sent successfully",
+		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
+	},
+	"inviteDialog.submit": {
+		"string": "Invite",
+		"developer_comment": "Button to submit invitations."
+	},
+	"inviteDialog.textInputLabel": {
+		"string": "Email addresses, comma separated",
+		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
+	},
+	"inviteDialog.title": {
+		"string": "Invite workspace members",
+		"developer_comment": "Dialog title for inviting members to workspace"
+	},
+	"inviteNewAccount.createAccount": {
+		"string": "Create Account",
+		"developer_comment": "Submit button for create a new account"
+	},
+	"inviteNewAccount.createMessage": {
+		"string": "You need to create an account for <b>{email}</b>",
+		"developer_comment": "Inform your to create a new account for signup"
+	},
+	"inviteNewAccount.invitedBy": {
+		"string": "{name} has invited you to join the workspace"
+	},
+	"inviteNewAccountemailLabel": {
+		"string": "Surel",
+		"developer_comment": "Label for user email field"
+	},
+	"inviteNewAccountnameLabel": {
+		"string": "Nama",
+		"developer_comment": "Label for user name field"
+	},
+	"inviteNewAccountpasswordConfirmLabel": {
+		"string": "Password confirmation",
+		"developer_comment": "Label for password confirmation field"
+	},
+	"inviteNewAccountpasswordLabel": {
+		"string": "Password (minimum 8 characters)",
+		"developer_comment": "Label for password field"
+	},
+	"inviteNewAccounttosMissing": {
+		"string": "You must agree to the Terms of Service and Privacy Policy",
+		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
+	},
+	"languageListItem.default": {
+		"string": "{language} (default)"
+	},
+	"languageListItem.deleteConfirmationText": {
+		"string": "Delete {language} and all content"
+	},
+	"languagePickerDialog.optionLabel": {
+		"string": "{languageName} ({languageCode})"
+	},
+	"languagePickerDialog.selectLanguage": {
+		"string": "Select a language"
+	},
+	"languagePickerDialog.title": {
+		"string": "Choose a language"
+	},
+	"languagePickerDialog.unknownLanguage": {
+		"string": "Unknown language"
+	},
+	"languageSwitcher.makeDefault": {
+		"string": "Set as default language for this item"
+	},
+	"languageSwitcher.primaryLanguage": {
+		"string": "(default)"
+	},
+	"languagesComponent.blurb": {
+		"string": "Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
+	},
+	"languagesComponent.title": {
+		"string": "Languages"
+	},
+	"list.Demand": {
+		"string": "Requests"
+	},
+	"list.FirstSeen": {
+		"string": "Submitted"
+	},
+	"list.Item": {
+		"string": "Perihal"
+	},
+	"list.LastSeen": {
+		"string": "Last submitted"
+	},
+	"list.LinkedItems": {
+		"string": "Similar media"
+	},
+	"list.ShareCount": {
+		"string": "FB Shares"
+	},
+	"list.Status": {
+		"string": "Status"
+	},
+	"list.Type": {
+		"string": "Type"
+	},
+	"list.commentCount": {
+		"string": "FB Comments"
+	},
+	"list.folder": {
+		"string": "Folder",
+		"developer_comment": "Table header for column that shows the folder title an item is in"
+	},
+	"list.mediaPublishedAt": {
+		"string": "Media published"
+	},
+	"list.reactCount": {
+		"string": "FB Reactions"
+	},
+	"list.relatedCount": {
+		"string": "Related"
+	},
+	"list.reportStatus": {
+		"string": "Report status"
+	},
+	"list.suggestionsCount": {
+		"string": "Suggested matches"
+	},
+	"list.tags": {
+		"string": "Tags"
+	},
+	"list.updated": {
+		"string": "Updated"
+	},
+	"login.alreadyHasAccount": {
+		"string": "Already have an account ?"
+	},
+	"login.contactSupport": {
+		"string": "For support contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+	},
+	"login.emailLabel": {
+		"string": "Surel"
+	},
+	"login.emailLogin": {
+		"string": "Or, sign in with your email"
+	},
+	"login.nameLabel": {
+		"string": "Nama"
+	},
+	"login.newAccount": {
+		"string": "Don't have an account ?"
+	},
+	"login.otpAttemptLabel": {
+		"string": "Two-Factor Authentication Token"
+	},
+	"login.passwordConfirmLabel": {
+		"string": "Password confirmation"
+	},
+	"login.passwordInputHint": {
+		"string": "Password"
+	},
+	"login.passwordLabel": {
+		"string": "Password (minimum 8 characters)"
+	},
+	"login.registerTitle": {
+		"string": "Register"
+	},
+	"login.signIn": {
+		"string": "SIGN IN",
+		"developer_comment": "Sign in button label"
+	},
+	"login.signInLink": {
+		"string": "Sign in",
+		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
+	},
+	"login.signUp": {
+		"string": "Sign Up",
+		"developer_comment": "Sign up button label"
+	},
+	"login.signUpLink": {
+		"string": "Sign up",
+		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
+	},
+	"login.title": {
+		"string": "Sign in"
+	},
+	"login.tosMissing": {
+		"string": "You must agree to the Terms of Service and Privacy Policy"
+	},
+	"login.withGoogle": {
+		"string": "Sign in with Google"
+	},
+	"loginEmail.lostPassword": {
+		"string": "Forgot your password?"
+	},
+	"media.normalSpeed": {
+		"string": "Normal speed"
+	},
+	"media.typeAudio": {
+		"string": "Audio"
+	},
+	"media.typeBlank": {
+		"string": "Imported report"
+	},
+	"media.typeClaim": {
+		"string": "Teks"
+	},
+	"media.typeImage": {
+		"string": "Gambar"
+	},
+	"media.typeLink": {
+		"string": "Tautan"
+	},
+	"media.typeVideo": {
+		"string": "Video"
+	},
+	"mediaActions.assignOrUnassign": {
+		"string": "Assign to…"
+	},
+	"mediaActions.history": {
+		"string": "Item history"
+	},
+	"mediaActions.lockStatus": {
+		"string": "Lock status"
+	},
+	"mediaActions.refresh": {
+		"string": "Refresh"
+	},
+	"mediaActions.sendToTrash": {
+		"string": "Move to Trash"
+	},
+	"mediaActions.tooltip": {
+		"string": "Item actions"
+	},
+	"mediaActions.unlockStatus": {
+		"string": "Unlock status"
+	},
+	"mediaActionsBar.assignmentNotes": {
+		"string": "Catatan"
+	},
+	"mediaActionsBar.assignmentNotesTitle": {
+		"string": "Add a note to the email"
+	},
+	"mediaActionsBar.assignmentTitle": {
+		"string": "Assign item to collaborators"
+	},
+	"mediaActionsBar.assignmentsUpdated": {
+		"string": "Assignments updated successfully"
+	},
+	"mediaActionsBar.cancelButton": {
+		"string": "Cancel"
+	},
+	"mediaActionsBar.confirmTo": {
+		"string": "Confirm"
+	},
+	"mediaActionsBar.dialogMoveTitle": {
+		"string": "Move to a different folder"
+	},
+	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
+		"string": "Move item to folder…"
+	},
+	"mediaActionsBar.move": {
+		"string": "Move"
+	},
+	"mediaActionsBar.moveTo": {
+		"string": "Move to…"
+	},
+	"mediaActionsBar.movedConfirmBack": {
+		"string": "Confirmed, redirecting…"
+	},
+	"mediaActionsBar.movedRestoreBack": {
+		"string": "Restored from Trash, redirecting…"
+	},
+	"mediaActionsBar.movedToTrash": {
+		"string": "The item was moved to {trash}"
+	},
+	"mediaActionsBar.publishedReport": {
+		"string": "Published report"
+	},
+	"mediaActionsBar.restoreOrConfirm": {
+		"string": "Move to folder"
+	},
+	"mediaActionsBar.restoreTo": {
+		"string": "Restore from Trash"
+	},
+	"mediaActionsBar.unpublishedReport": {
+		"string": "Unpublished report"
+	},
+	"mediaAnalysis.analysis": {
+		"string": "Analysis"
+	},
+	"mediaAnalysis.confirmButtonLabel1": {
+		"string": "Pause report and update content"
+	},
+	"mediaAnalysis.confirmButtonLabel2": {
+		"string": "Overwrite report content"
+	},
+	"mediaAnalysis.confirmText1": {
+		"string": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+	},
+	"mediaAnalysis.confirmText2": {
+		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
+	},
+	"mediaAnalysis.confirmTitle1": {
+		"string": "Current report is published"
+	},
+	"mediaAnalysis.confirmTitle2": {
+		"string": "Overwrite existing report content?"
+	},
+	"mediaAnalysis.content": {
+		"string": "Content"
+	},
+	"mediaAnalysis.copyToReport": {
+		"string": "Copy to report"
+	},
+	"mediaAnalysis.copying": {
+		"string": "Copying…"
+	},
+	"mediaAnalysis.date": {
+		"string": "Published article date"
+	},
+	"mediaAnalysis.error": {
+		"string": "Could not save! Last save {ago}"
+	},
+	"mediaAnalysis.publishedArticle": {
+		"string": "Published article URL"
+	},
+	"mediaAnalysis.saved": {
+		"string": "Saved {ago}"
+	},
+	"mediaAnalysis.saving": {
+		"string": "Saving…"
+	},
+	"mediaAnalysis.title": {
+		"string": "Title"
+	},
+	"mediaComments.noNote": {
+		"string": "No note"
+	},
+	"mediaComponent.answered": {
+		"string": "completed"
+	},
+	"mediaComponent.metadata": {
+		"string": "Metadata"
+	},
+	"mediaComponent.notes": {
+		"string": "Catatan"
+	},
+	"mediaComponent.related": {
+		"string": "Related"
+	},
+	"mediaComponent.requests": {
+		"string": "Requests"
+	},
+	"mediaComponent.source": {
+		"string": "Sumber"
+	},
+	"mediaComponent.tasks": {
+		"string": "Tugas"
+	},
+	"mediaComponent.timelineTab": {
+		"string": "Timeline"
+	},
+	"mediaComponent.verificationTasks": {
+		"string": "Item tasks"
+	},
+	"mediaDetail.trash": {
+		"string": "Trash"
+	},
+	"mediaExpanded.firstSeen": {
+		"string": "First seen:"
+	},
+	"mediaExpanded.lastSeen": {
+		"string": "Last seen:"
+	},
+	"mediaExpanded.requests": {
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaExpandedArchives.archives": {
+		"string": "Archives:"
+	},
+	"mediaExpandedMetadata.comments": {
+		"string": "FB Comments"
+	},
+	"mediaExpandedMetadata.publishedOn": {
+		"string": "Published on"
+	},
+	"mediaExpandedMetadata.reactions": {
+		"string": "FB Reactions"
+	},
+	"mediaExpandedMetadata.shares": {
+		"string": "FB Shares"
+	},
+	"mediaItem.addedBy": {
+		"string": "Added by {name}"
+	},
+	"mediaItem.confirmedBy": {
+		"string": "Confirmed by {name}"
+	},
+	"mediaItem.detach": {
+		"string": "Detach"
+	},
+	"mediaItem.detachedSuccessfully": {
+		"string": "Item detached to '{toProject}'",
+		"developer_comment": "Banner displayed after items are detached successfully"
+	},
+	"mediaItem.doneRedirecting": {
+		"string": "Done, redirecting to new main item…"
+	},
+	"mediaItem.error": {
+		"string": "Error, please try again"
+	},
+	"mediaItem.lastSubmitted": {
+		"string": "Last submitted {timeAgo}",
+		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
+	},
+	"mediaItem.pinAsMain": {
+		"string": "Pin as main"
+	},
+	"mediaItem.pinning": {
+		"string": "Pinning…"
+	},
+	"mediaItem.reportPaused": {
+		"string": "Paused"
+	},
+	"mediaItem.reportPublished": {
+		"string": "Published"
+	},
+	"mediaItem.reportUnpublished": {
+		"string": "Unpublished"
+	},
+	"mediaItem.requests": {
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaItem.similarMedia": {
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
+	},
+	"mediaLanguageChip.error": {
+		"string": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"mediaMetadata.ImageSearch": {
+		"string": "Google Image Search"
+	},
+	"mediaMetadata.Timeline": {
+		"string": "Timeline"
+	},
+	"mediaMetadata.download": {
+		"string": "Download"
+	},
+	"mediaRelatedComponent.addSimilar": {
+		"string": "Add relation"
+	},
+	"mediaRelatedComponent.count": {
+		"string": "{count, plural, one {# related item} other {# related items}}"
+	},
+	"mediaRelatedComponent.defaultErrorMessage": {
+		"string": "Could not add related item"
+	},
+	"mediaRelatedComponent.dialogTitle": {
+		"string": "Add relation"
+	},
+	"mediaRelatedComponent.savedSuccessfully": {
+		"string": "Related item added successfully"
+	},
+	"mediaRelatedComponent.submitButton": {
+		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+	},
+	"mediaRequests.allRequests": {
+		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
+	},
+	"mediaRequests.noRequest": {
+		"string": "No requests"
+	},
+	"mediaRequests.thisRequests": {
+		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaSearch.error": {
+		"string": "Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+	},
+	"mediaSearch.itemWentAway": {
+		"string": "Not found"
+	},
+	"mediaSearch.nextItem": {
+		"string": "Next item"
+	},
+	"mediaSearch.previousItem": {
+		"string": "Previous item"
+	},
+	"mediaSearch.xOfY": {
+		"string": "{current} of {total}"
+	},
+	"mediaSimilarities.allSimilarMedia": {
+		"string": "Similar",
+		"developer_comment": "Adjective, plural. Heading for a list of similar items"
+	},
+	"mediaSimilarities.clickOnItem": {
+		"string": "Click on an item"
+	},
+	"mediaSimilarities.mainItem": {
+		"string": "Main",
+		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
+	},
+	"mediaSimilarities.notes": {
+		"string": "Catatan"
+	},
+	"mediaSimilarities.requests": {
+		"string": "Requests"
+	},
+	"mediaSimilarityBarAdd.addAsSimilar": {
+		"string": "Export all media"
+	},
+	"mediaSimilarityBarAdd.addSimilar": {
+		"string": "Add similar"
+	},
+	"mediaSimilarityBarAdd.addSimilarItem": {
+		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThis": {
+		"string": "Import similar media into this item"
+	},
+	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
+		"string": "Import similar media from other items"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilar": {
+		"string": "Export all media to another item"
+	},
+	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
+		"string": "Export all media to another item"
+	},
+	"mediaSimilarityBarAdd.addToImportedReport": {
+		"string": "Add to imported report"
+	},
+	"mediaSimilarityBarAdd.defaultErrorMessage": {
+		"string": "Could not add similar item",
+		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
+	},
+	"mediaSimilarityBarAdd.exportTooltip": {
+		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
+	},
+	"mediaSimilarityBarAdd.savedSuccessfully": {
+		"string": "Similar item added successfully",
+		"developer_comment": "Banner displayed when similar item is added successfully"
+	},
+	"mediaSimilarityBarComponent.back": {
+		"string": "Back"
+	},
+	"mediaSimilarityBarComponent.hasMain": {
+		"string": "This media has been added as similar to another item"
+	},
+	"mediaSimilarityBarComponent.hasSuggestedMain": {
+		"string": "This media has been suggested to be similar to another item"
+	},
+	"mediaSimilarityBarComponent.similarMedia": {
+		"string": "Similar media",
+		"developer_comment": "Plural. Heading for the number of similar media"
+	},
+	"mediaSimilarityBarComponent.similarMediaWithValue": {
+		"string": "{count, plural, one {# similar media} other {# similar media}}"
+	},
+	"mediaSimilarityBarComponent.suggestedMatches": {
+		"string": "Suggested media",
+		"developer_comment": "Plural. Heading for the number of suggested media"
+	},
+	"mediaSource.changeSource": {
+		"string": "Change",
+		"developer_comment": "allow user to change a project media source"
+	},
+	"mediaStatus.error": {
+		"string": "Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"mediaSuggestionsComponent.back": {
+		"string": "Back"
+	},
+	"mediaSuggestionsComponent.goBack": {
+		"string": "Back to main view"
+	},
+	"mediaSuggestionsComponent.noNotes": {
+		"string": "No notes"
+	},
+	"mediaSuggestionsComponent.noRequests": {
+		"string": "No requests"
+	},
+	"mediaSuggestionsComponent.noSuggestions": {
+		"string": "There is no suggested media."
+	},
+	"mediaSuggestionsComponent.notes": {
+		"string": "Catatan"
+	},
+	"mediaSuggestionsComponent.question": {
+		"string": "Is the suggested media similar to the main?"
+	},
+	"mediaSuggestionsComponent.requests": {
+		"string": "Requests"
+	},
+	"mediaSuggestionsComponent.title": {
+		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+	},
+	"moreLess.less": {
+		"string": "Less"
+	},
+	"moreLess.more": {
+		"string": "More"
+	},
+	"multiSelector.cancel": {
+		"string": "Cancel"
+	},
+	"multiSelector.empty": {
+		"string": "No items found"
+	},
+	"network.noResponse": {
+		"string": "Couldn't connect to {app}, please make sure you're connected to the internet"
+	},
+	"network.stillWorking": {
+		"string": "Still working…"
+	},
+	"newProject.cancel": {
+		"string": "Cancel"
+	},
+	"notFound.back": {
+		"string": "Go to my profile page",
+		"developer_comment": "Go to profile page button"
+	},
+	"notFound.pageTitle": {
+		"string": "Page not found"
+	},
+	"notFound.text": {
+		"string": "If you are trying to access an existing workspace, please contact the workspace owner."
+	},
+	"notFound.title": {
+		"string": "Oh no! This page does not exist or you do not have authorized access.",
+		"developer_comment": "Not found page title"
+	},
+	"passwordChange.changePassword": {
+		"string": "Change password"
+	},
+	"passwordChange.confirmPassword": {
+		"string": "Confirm password"
+	},
+	"passwordChange.currentPassword": {
+		"string": "Current password"
+	},
+	"passwordChange.newPassword": {
+		"string": "New password (minimum {min} characters)"
+	},
+	"passwordChange.signIn": {
+		"string": "Got it"
+	},
+	"passwordChange.successMsg": {
+		"string": "You're all set. Now you can log in with your new password."
+	},
+	"passwordChange.successTitle": {
+		"string": "Password updated"
+	},
+	"passwordChange.title": {
+		"string": "Change password"
+	},
+	"passwordChange.unmatchingPasswords": {
+		"string": "Passwords didn't match"
+	},
+	"passwordReset.confirmedText": {
+		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+	},
+	"passwordReset.email": {
+		"string": "Surel"
+	},
+	"passwordReset.emailNotValid": {
+		"string": "Please enter a valid email address.",
+		"developer_comment": "Error message for invalid email address"
+	},
+	"passwordReset.signIn": {
+		"string": "Sign In"
+	},
+	"passwordReset.text": {
+		"string": "Add your address and an email will be sent with further instructions."
+	},
+	"passwordReset.title": {
+		"string": "Reset password",
+		"developer_comment": "Reset password page title"
+	},
+	"privacy.policy.title": {
+		"string": "Privacy Policy"
+	},
+	"project.deleteMessage": {
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+	},
+	"project.name": {
+		"string": "folder"
+	},
+	"projectActions.assignOrUnassign": {
+		"string": "Assign to…"
+	},
+	"projectActions.cancel": {
+		"string": "Cancel"
+	},
+	"projectActions.defaultErrorMessage": {
+		"string": "Error, please try again",
+		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
+	},
+	"projectActions.delete": {
+		"string": "Delete",
+		"developer_comment": "'Delete' here is an infinitive verb"
+	},
+	"projectActions.deleteProjectBody": {
+		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+	},
+	"projectActions.deleteProjectTitle": {
+		"string": "Are you sure you want to delete this folder?"
+	},
+	"projectActions.destroy": {
+		"string": "Delete"
+	},
+	"projectActions.move": {
+		"string": "Move to…",
+		"developer_comment": "'Move' here is an infinitive verb"
+	},
+	"projectActions.moveOut": {
+		"string": "Move out",
+		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.proceedLabel": {
+		"string": "Delete folder"
+	},
+	"projectActions.projectDeleted": {
+		"string": "Folder deleted successfully."
+	},
+	"projectActions.projectNotDeleted": {
+		"string": "Sorry, could not delete folder."
+	},
+	"projectActions.rename": {
+		"string": "Rename",
+		"developer_comment": "'Rename' here is an infinitive verb"
+	},
+	"projectActions.savedSuccessfully": {
+		"string": "Done",
+		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
+	},
+	"projectActions.tooltip": {
+		"string": "Actions"
+	},
+	"projectAssignment.assignedTo": {
+		"string": "Ditugaskan pada"
+	},
+	"projectAssignment.more": {
+		"string": "+{count} more"
+	},
+	"projectAssignment.notAssigned": {
+		"string": "Not assigned"
+	},
+	"projectAssignment.notes": {
+		"string": "Catatan"
+	},
+	"projectAssignment.notesTitle": {
+		"string": "Add a note to the email"
+	},
+	"projectAssignment.processing": {
+		"string": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
+	},
+	"projectAssignment.title": {
+		"string": "Assign folder to collaborators"
+	},
+	"projectBlankState.blank": {
+		"string": "There are no items here."
+	},
+	"projectEditDialogComponent.confirmCancelLabel": {
+		"string": "Go back"
+	},
+	"projectEditDialogComponent.confirmProceedBody": {
+		"string": "Changes made to this folder will be reflected for everyone in this workspace."
+	},
+	"projectEditDialogComponent.confirmProceedLabel": {
+		"string": "Save changes"
+	},
+	"projectEditDialogComponent.confirmProceedTitle": {
+		"string": "Are you sure you want to change this folder?"
+	},
+	"projectEditDialogComponent.descriptionField": {
+		"string": "Description"
+	},
+	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
+		"string": "Could not update folder details."
+	},
+	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
+		"string": "Folder details updated successfully."
+	},
+	"projectEditDialogComponent.saveButton": {
+		"string": "Update"
+	},
+	"projectEditDialogComponent.title": {
+		"string": "Folder details"
+	},
+	"projectEditDialogComponent.titleField": {
+		"string": "Title"
+	},
+	"projectGroup.deleteMessage": {
+		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+	},
+	"projectGroup.name": {
+		"string": "collection"
+	},
+	"projectHeader.allItems": {
+		"string": "All items"
+	},
+	"projectHeader.trash": {
+		"string": "Trash"
+	},
+	"projectHeader.unconfirmed": {
+		"string": "Unconfirmed"
+	},
+	"projectMoveDialogComponent.choose": {
+		"string": "Choose a collection"
+	},
+	"projectMoveDialogComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectMoveDialogComponent.createCollection": {
+		"string": "Create collection"
+	},
+	"projectMoveDialogComponent.moveTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.movedSuccessfully": {
+		"string": "Folder moved to collection successfully",
+		"developer_comment": "Message displayed when a folder is moved to a collection"
+	},
+	"projectMoveDialogComponent.newCollection": {
+		"string": "New collection"
+	},
+	"projectMoveDialogComponent.noCollectionsText": {
+		"string": "There are no collections in {teamName}. You need to create a collection first."
+	},
+	"projectMoveDialogComponent.noCollectionsTitle": {
+		"string": "Move folder to a collection"
+	},
+	"projectMoveDialogComponent.proceedLabel": {
+		"string": "Create a new collection"
+	},
+	"projectMoveDialogComponent.proceedLabel2": {
+		"string": "Move to collection"
+	},
+	"projectSelector.allProjs": {
+		"string": "All folders"
+	},
+	"projectSelector.numProjs": {
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected folders"
+	},
+	"projects.addProject": {
+		"string": "Add folder"
+	},
+	"projects.allClaims": {
+		"string": "All items"
+	},
+	"projects.dismiss": {
+		"string": "Dismiss"
+	},
+	"projects.newList": {
+		"string": "+ New folder"
+	},
+	"projects.trash": {
+		"string": "Trash"
+	},
+	"projects.unconfirmed": {
+		"string": "Unconfirmed"
+	},
+	"projectsComponent.allItems": {
+		"string": "All items"
+	},
+	"projectsComponent.couldNotMove": {
+		"string": "Could not move folder to collection",
+		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
+	},
+	"projectsComponent.createCollection": {
+		"string": "Create collection",
+		"developer_comment": "Button label for creating new collection"
+	},
+	"projectsComponent.createFolder": {
+		"string": "Create folder",
+		"developer_comment": "Button label for creating new folder"
+	},
+	"projectsComponent.createList": {
+		"string": "Create list"
+	},
+	"projectsComponent.deleteType": {
+		"string": "Delete {type}",
+		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.description": {
+		"string": "Description"
+	},
+	"projectsComponent.folders": {
+		"string": "Folders"
+	},
+	"projectsComponent.invalidMove": {
+		"string": "Folders can just be moved to collections",
+		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
+	},
+	"projectsComponent.lists": {
+		"string": "Filtered lists",
+		"developer_comment": "List of items with some filters applied"
+	},
+	"projectsComponent.movedSuccessfully": {
+		"string": "Folder moved successfully",
+		"developer_comment": "Message displayed when a folder is moved to or from a collection"
+	},
+	"projectsComponent.newCollection": {
+		"string": "New collection",
+		"developer_comment": "Dialog title for creating new collection"
+	},
+	"projectsComponent.newCollectionErrorMessage": {
+		"string": "Could not create collection, please try again",
+		"developer_comment": "Error message when creating new collection fails"
+	},
+	"projectsComponent.newCollectionMenu": {
+		"string": "New collection",
+		"developer_comment": "Menu item for creating new collection"
+	},
+	"projectsComponent.newCollectionSuccessMessage": {
+		"string": "Collection created successfully",
+		"developer_comment": "Success message when new collection is created"
+	},
+	"projectsComponent.newFolder": {
+		"string": "New folder",
+		"developer_comment": "Dialog title for creating new folder"
+	},
+	"projectsComponent.newFolderErrorMessage": {
+		"string": "Could not create folder, please try again",
+		"developer_comment": "Error message when creating new folder fails"
+	},
+	"projectsComponent.newFolderMenu": {
+		"string": "New folder",
+		"developer_comment": "Menu item for creating new folder"
+	},
+	"projectsComponent.newFolderSuccessMessage": {
+		"string": "Folder created successfully",
+		"developer_comment": "Success message when new folder is created"
+	},
+	"projectsComponent.newList": {
+		"string": "New list"
+	},
+	"projectsComponent.newListErrorMessage": {
+		"string": "Could not create list, please try again",
+		"developer_comment": "Error message when creating new list fails"
+	},
+	"projectsComponent.newListSuccessMessage": {
+		"string": "List created successfully",
+		"developer_comment": "Success message when new list is created"
+	},
+	"projectsComponent.noFolders": {
+		"string": "No folders in this collection",
+		"developer_comment": "Displayed under a collection when there are no folders in it"
+	},
+	"projectsComponent.renameType": {
+		"string": "Rename {type}",
+		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.title": {
+		"string": "Title"
+	},
+	"reportDesigner.addIntro": {
+		"string": "Add content to the introduction"
+	},
+	"reportDesigner.addText": {
+		"string": "Add content to the text message"
+	},
+	"reportDesigner.back": {
+		"string": "Back to annotation"
+	},
+	"reportDesigner.cancelLeaveButtonLabel": {
+		"string": "Go back"
+	},
+	"reportDesigner.cancelPause": {
+		"string": "Go back"
+	},
+	"reportDesigner.cancelPublish": {
+		"string": "Go back"
+	},
+	"reportDesigner.cantPublish": {
+		"string": "Go back to editing"
+	},
+	"reportDesigner.cantPublishTitle": {
+		"string": "Your report is not ready to be published"
+	},
+	"reportDesigner.confirmLeaveButtonLabel": {
+		"string": "Leave without saving"
+	},
+	"reportDesigner.confirmLeaveText": {
+		"string": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
+	},
+	"reportDesigner.confirmLeaveTitle": {
+		"string": "Do you want to leave without saving?"
+	},
+	"reportDesigner.confirmPause": {
+		"string": "Pause report"
+	},
+	"reportDesigner.confirmPauseText": {
+		"string": "This will stop the report from being sent out to users until it is published again."
+	},
+	"reportDesigner.confirmPauseTitle": {
+		"string": "Do you want to pause the report?"
+	},
+	"reportDesigner.confirmPublish": {
+		"string": "Publish report"
+	},
+	"reportDesigner.confirmPublishSameStatus": {
+		"string": "Publish changes"
+	},
+	"reportDesigner.confirmPublishStatusChange": {
+		"string": "Publish changes and send correction"
+	},
+	"reportDesigner.confirmPublishText": {
+		"string": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
+	},
+	"reportDesigner.confirmPublishText2": {
+		"string": "All future users who request this item will receive this version of the report while it remains published."
+	},
+	"reportDesigner.confirmPublishTitle": {
+		"string": "Ready to publish your report?"
+	},
+	"reportDesigner.confirmRepublishResendText": {
+		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
+	},
+	"reportDesigner.confirmRepublishResendTitle": {
+		"string": "Ready to publish your changes?"
+	},
+	"reportDesigner.confirmRepublishTitle": {
+		"string": "Ready to publish your changes?"
+	},
+	"reportDesigner.content": {
+		"string": "Content ({max} characters max)"
+	},
+	"reportDesigner.copyButtonInactive": {
+		"string": "Copied"
+	},
+	"reportDesigner.copyEmbedCode": {
+		"string": "Copy embed code"
+	},
+	"reportDesigner.copyShareUrl": {
+		"string": "Copy share URL"
+	},
+	"reportDesigner.correction": {
+		"string": "correction"
+	},
+	"reportDesigner.darkOverlay": {
+		"string": "Dark overlay"
+	},
+	"reportDesigner.datePublished": {
+		"string": "Date published"
+	},
+	"reportDesigner.description": {
+		"string": "Content ({max} characters max)"
+	},
+	"reportDesigner.edit": {
+		"string": "Edit"
+	},
+	"reportDesigner.error": {
+		"string": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"reportDesigner.firstSent": {
+		"string": "First published"
+	},
+	"reportDesigner.headline": {
+		"string": "Title ({max} characters max)"
+	},
+	"reportDesigner.introduction": {
+		"string": "Introduction"
+	},
+	"reportDesigner.introductionSub": {
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+	},
+	"reportDesigner.nothingToPreview": {
+		"string": "Start creating your report to preview what users will see when they receive it."
+	},
+	"reportDesigner.pause": {
+		"string": "Pause"
+	},
+	"reportDesigner.publish": {
+		"string": "Publish"
+	},
+	"reportDesigner.removeImage": {
+		"string": "Remove image"
+	},
+	"reportDesigner.reportImagePreviewTitle": {
+		"string": "Report preview",
+		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
+	},
+	"reportDesigner.republishAndResend": {
+		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
+	},
+	"reportDesigner.save": {
+		"string": "Save"
+	},
+	"reportDesigner.sentCount": {
+		"string": "Reports sent"
+	},
+	"reportDesigner.statusLabel": {
+		"string": "Status label ({max} characters max)"
+	},
+	"reportDesigner.textError": {
+		"string": "You must either provide text for the report or uncheck the 'Report text' box"
+	},
+	"reportDesigner.textMessage": {
+		"string": "Report text"
+	},
+	"reportDesigner.textTitle": {
+		"string": "Title ({max} characters max)"
+	},
+	"reportDesigner.title": {
+		"string": "Design your report"
+	},
+	"reportDesigner.url": {
+		"string": "Website URL ({max} characters max)"
+	},
+	"reportDesigner.useDefaultImage": {
+		"string": "Use default image"
+	},
+	"reportDesigner.visualCard": {
+		"string": "Visual card"
+	},
+	"reportDesigner.warning": {
+		"string": "Warning — sharing this will expose information to people outside your private workspace. Proceed with caution."
+	},
+	"reportDesignerToolbar.cantPublishDefault": {
+		"string": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
+	},
+	"reportDesignerToolbar.cantPublishInitial": {
+		"string": "You must have at least Report Text or Visual Card selected in order to publish the report."
+	},
+	"reportDesignerToolbar.cantPublishStatus": {
+		"string": "Your item still has the default status {status} and must be changed to a different status before it can be published."
+	},
+	"reportDesignerToolbar.cantPublishText": {
+		"string": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+	},
+	"reportStatusCell.paused": {
+		"string": "Paused"
+	},
+	"reportStatusCell.published": {
+		"string": "Published"
+	},
+	"reportStatusCell.unpublished": {
+		"string": "Unpublished"
+	},
+	"roleSelect.admin": {
+		"string": "Admin"
+	},
+	"roleSelect.collaborator": {
+		"string": "Collaborator"
+	},
+	"roleSelect.editor": {
+		"string": "Editor"
+	},
+	"rule.copyOf": {
+		"string": "Copy of {ruleName}"
+	},
+	"ruleBody.if": {
+		"string": "If"
+	},
+	"ruleBody.ruleName": {
+		"string": "Nama"
+	},
+	"ruleBody.ruleNameValidation": {
+		"string": "Rule name is required"
+	},
+	"ruleBody.then": {
+		"string": "Then"
+	},
+	"ruleOperatorWrapper.and": {
+		"string": "And"
+	},
+	"ruleOperatorWrapper.or": {
+		"string": "Or"
+	},
+	"ruleOperatorWrapper.removeTheAbove": {
+		"string": "Remove item above"
+	},
+	"ruleToolbar.back": {
+		"string": "Back"
+	},
+	"ruleToolbar.delete": {
+		"string": "Delete"
+	},
+	"ruleToolbar.deleteConfirmationLabel": {
+		"string": "Delete rule"
+	},
+	"ruleToolbar.deleteConfirmationText": {
+		"string": "You cannot undo this action."
+	},
+	"ruleToolbar.deleteConfirmationTitle": {
+		"string": "Are you sure you want to delete this rule?"
+	},
+	"ruleToolbar.duplicate": {
+		"string": "Duplicate"
+	},
+	"ruleToolbar.leaveConfirmationText": {
+		"string": "If you continue, you will lose your changes."
+	},
+	"ruleToolbar.leaveConfirmationTitle": {
+		"string": "Close without saving?"
+	},
+	"ruleToolbar.more": {
+		"string": "More"
+	},
+	"rulesComponent.defaultErrorMessage": {
+		"string": "Could not save rules"
+	},
+	"rulesComponent.savedSuccessfully": {
+		"string": "Rules saved successfully"
+	},
+	"rulesTableHead.name": {
+		"string": "Nama",
+		"developer_comment": "Table header for rule names"
+	},
+	"rulesTableHead.updated": {
+		"string": "Updated",
+		"developer_comment": "Table header for rule update dates"
+	},
+	"rulesTableToolbar.add": {
+		"string": "New rule"
+	},
+	"rulesTableToolbar.delete": {
+		"string": "Delete"
+	},
+	"rulesTableToolbar.deleteConfirmationLabel": {
+		"string": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
+	},
+	"rulesTableToolbar.deleteConfirmationText": {
+		"string": "{numSelected, plural, one {You have selected # rule for deletion. Do you want to delete it? You cannot undo this action.} other {You have selected # rules for deletion. Do you want to delete all of them? You cannot undo this action.}}"
+	},
+	"rulesTableToolbar.deleteConfirmationTitle": {
+		"string": "Do you want to delete the selected rules?"
+	},
+	"rulesTableToolbar.save": {
+		"string": "Save"
+	},
+	"rulesTableToolbar.selected": {
+		"string": "{numSelected, plural, one {# selected} other {# selected}}"
+	},
+	"rulesTableToolbar.subtitle": {
+		"string": "Create automations to organize folders and customize your workflow."
+	},
+	"rulesTableToolbar.title": {
+		"string": "Rules"
+	},
+	"saveList.cancel": {
+		"string": "Cancel"
+	},
+	"saveList.create": {
+		"string": "Create new list",
+		"developer_comment": "'Create' here is an infinitive verb"
+	},
+	"saveList.defaultErrorMessage": {
+		"string": "Could not save list, please try again",
+		"developer_comment": "Error message displayed when it's not possible to save a list"
+	},
+	"saveList.newList": {
+		"string": "Save list"
+	},
+	"saveList.saveList": {
+		"string": "Save list",
+		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
+	},
+	"saveList.savedSuccessfully": {
+		"string": "List saved successfully",
+		"developer_comment": "Success message displayed when a list is saved"
+	},
+	"saveList.title": {
+		"string": "Enter new list name"
+	},
+	"saveList.update": {
+		"string": "Save changes to the list \"{listName}\"",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
+	"savedSearch.deleteMessage": {
+		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+	},
+	"savedSearch.name": {
+		"string": "list"
+	},
+	"search.afterDate": {
+		"string": "after",
+		"developer_comment": "String displayed before a date picker"
+	},
+	"search.allClaimsTitle": {
+		"string": "All items"
+	},
+	"search.and": {
+		"string": "And",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.anyDate": {
+		"string": "any date",
+		"developer_comment": "Date picker placeholder"
+	},
+	"search.applyFilters": {
+		"string": "Apply filter",
+		"developer_comment": "Button to perform query with specified filters"
+	},
+	"search.assignedTo": {
+		"string": "Ditugaskan pada",
+		"developer_comment": "Prefix label for field to filter by assigned users"
+	},
+	"search.beforeDate": {
+		"string": "and before",
+		"developer_comment": "String displayed between after and before date pickers"
+	},
+	"search.categoriesHeading": {
+		"string": "Tag is",
+		"developer_comment": "Prefix label for field to filter by tags"
+	},
+	"search.collection": {
+		"string": "Collection is",
+		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"search.dateLastSubmittedHeading": {
+		"string": "Last submitted"
+	},
+	"search.datePublishedHeading": {
+		"string": "Published"
+	},
+	"search.dateSubmittedHeading": {
+		"string": "Submitted"
+	},
+	"search.dateUpdatedHeading": {
+		"string": "Updated"
+	},
+	"search.fieldAnd": {
+		"string": "AND",
+		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+	},
+	"search.folderHeading": {
+		"string": "Folder is",
+		"developer_comment": "Prefix label for field to filter by folder to which items belong"
+	},
+	"search.help": {
+		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                        <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                        <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Learn more about search techniques\n                      </a>\n                    </div>",
+		"developer_comment": "Instructions for usage of logical operators on search input"
+	},
+	"search.inputHint": {
+		"string": "Search",
+		"developer_comment": "Placeholder for search keywords input"
+	},
+	"search.language": {
+		"string": "Language is",
+		"developer_comment": "Prefix label for field to filter by language"
+	},
+	"search.nextPage": {
+		"string": "Next page"
+	},
+	"search.notInAny": {
+		"string": "Not in any collection",
+		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
+	},
+	"search.or": {
+		"string": "Or",
+		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.previousPage": {
+		"string": "Previous page"
+	},
+	"search.reportStatus": {
+		"string": "Report status is",
+		"developer_comment": "Prefix label for field to filter by report status"
+	},
+	"search.reportStatusPaused": {
+		"string": "Paused",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusPublished": {
+		"string": "Published",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.reportStatusUnpublished": {
+		"string": "Unpublished",
+		"developer_comment": "Refers to a report status"
+	},
+	"search.show": {
+		"string": "Type is",
+		"developer_comment": "Prefix label for field to filter by media type"
+	},
+	"search.showAudios": {
+		"string": "Audio",
+		"developer_comment": "Describes media type Audio"
+	},
+	"search.showBlank": {
+		"string": "Imported report",
+		"developer_comment": "Describes media type unspecified"
+	},
+	"search.showClaims": {
+		"string": "Teks",
+		"developer_comment": "Describes media type Text"
+	},
+	"search.showImages": {
+		"string": "Gambar",
+		"developer_comment": "Describes media type Image"
+	},
+	"search.showLinks": {
+		"string": "Tautan",
+		"developer_comment": "Describes media type Link"
+	},
+	"search.showVideos": {
+		"string": "Video",
+		"developer_comment": "Describes media type Video"
+	},
+	"search.statusHeading": {
+		"string": "Item status is",
+		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.userHeading": {
+		"string": "Created by",
+		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFields.clear": {
+		"string": "Clear filters",
+		"developer_comment": "Tooltip for button to remove any applied filters"
+	},
+	"searchKeyword.clear": {
+		"string": "Clear keyword search",
+		"developer_comment": "Tooltip for button to remove any applied keyword search"
+	},
+	"searchKeywordConfig.accounts": {
+		"string": "Sumber"
+	},
+	"searchKeywordConfig.allMetadataAnswers": {
+		"string": "All metadata answers"
+	},
+	"searchKeywordConfig.allNotes": {
+		"string": "All notes"
+	},
+	"searchKeywordConfig.allTaskAnswers": {
+		"string": "All task answers",
+		"developer_comment": "This options applies keyword search across all task answers"
+	},
+	"searchKeywordConfig.allTaskComments": {
+		"string": "All task comments"
+	},
+	"searchKeywordConfig.analysisContent": {
+		"string": "Analysis content"
+	},
+	"searchKeywordConfig.analysisTitle": {
+		"string": "Analysis title"
+	},
+	"searchKeywordConfig.mediaContent": {
+		"string": "Media content"
+	},
+	"searchKeywordConfig.mediaTitle": {
+		"string": "Media title"
+	},
+	"searchKeywordConfig.mediaUrl": {
+		"string": "Media URL"
+	},
+	"searchKeywordConfig.metadata": {
+		"string": "Metadata"
+	},
+	"searchKeywordConfig.tags": {
+		"string": "Tags"
+	},
+	"searchKeywordConfig.tasks": {
+		"string": "Tugas"
+	},
+	"searchResults.itemsCount": {
+		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+	},
+	"searchResults.withSelection": {
+		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
+		"developer_comment": "Label for number of selected items"
+	},
+	"sentence.lastSeparator": {
+		"string": "and"
+	},
+	"sentence.separator": {
+		"string": ","
+	},
+	"setSourceDialog.confirm": {
+		"string": "Do you want to use the existing sources for this media?",
+		"developer_comment": "Confirm message to relate media to an existing source"
+	},
+	"setSourceDialog.existDescription": {
+		"string": "The source <b>{name}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"setSourceDialog.existDescriptionWithUrl": {
+		"string": "The source <b>{name}</b> with the primary URL <b>{url}</b> already exists.",
+		"developer_comment": "Text to inform user about existing source"
+	},
+	"setSourceDialog.existingSource": {
+		"string": "Existing source name",
+		"developer_comment": "Dialog title for existing source with same name"
+	},
+	"setSourceDialog.existingSourceWithUrl": {
+		"string": "Existing source URL",
+		"developer_comment": "Dialog title for existing source with same primary url"
+	},
+	"setSourceDialog.useExistingSource": {
+		"string": "Use existing source",
+		"developer_comment": "Submit button to relate media to an existing source"
+	},
+	"settingsHeader.save": {
+		"string": "Save"
+	},
+	"shortTextRespondTask.answerTask": {
+		"string": "Answer task"
+	},
+	"shortTextRespondTask.cancelTask": {
+		"string": "Cancel"
+	},
+	"shortTextRespondTask.responseHint": {
+		"string": "Answer here."
+	},
+	"singleChoiceTask.addOther": {
+		"string": "Add \"Other\""
+	},
+	"singleChoiceTask.addValue": {
+		"string": "Add Option"
+	},
+	"singleChoiceTask.other": {
+		"string": "Other"
+	},
+	"singleChoiceTask.value": {
+		"string": "Value"
+	},
+	"slackConfig.text": {
+		"string": "Send notifications to Slack channels when items are added to specific folders"
+	},
+	"slackConfigDialogComponent.allOtherActivity": {
+		"string": "All other activity"
+	},
+	"slackConfigDialogComponent.allWorkspaceActivity": {
+		"string": "All workspace activity"
+	},
+	"slackConfigDialogComponent.cancel": {
+		"string": "Cancel"
+	},
+	"slackConfigDialogComponent.channel": {
+		"string": "Slack channel"
+	},
+	"slackConfigDialogComponent.defaultErrorMessage": {
+		"string": "Could not save Slack settings"
+	},
+	"slackConfigDialogComponent.event": {
+		"string": "Event"
+	},
+	"slackConfigDialogComponent.ifItemAddedTo": {
+		"string": "If item is in folder"
+	},
+	"slackConfigDialogComponent.new": {
+		"string": "New notification"
+	},
+	"slackConfigDialogComponent.save": {
+		"string": "Save"
+	},
+	"slackConfigDialogComponent.savedSuccessfully": {
+		"string": "Slack settings saved successfully"
+	},
+	"slackConfigDialogComponent.sendNotificationsTo": {
+		"string": "Send notifications to"
+	},
+	"slackConfigDialogComponent.title": {
+		"string": "Send notifications to Slack channels when items are added to specific folders"
+	},
+	"slackConfigDialogComponent.webhook": {
+		"string": "Slack incoming webhook"
+	},
+	"smoochBot.addResource": {
+		"string": "Add resource"
+	},
+	"smoochBot.descriptionGreeting": {
+		"string": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot."
+	},
+	"smoochBot.descriptionInactive": {
+		"string": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive."
+	},
+	"smoochBot.descriptionInvalidFormat": {
+		"string": "An automatic message sent to the user when they have sent a file that is not supported by Check."
+	},
+	"smoochBot.descriptionMainMenu": {
+		"string": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu."
+	},
+	"smoochBot.descriptionNoAction": {
+		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
+	},
+	"smoochBot.descriptionOptionNotAvailable": {
+		"string": "The message sent if the user response to a menu is not a valid menu scenario."
+	},
+	"smoochBot.descriptionPrivacyStatementContent": {
+		"string": "Privacy Statement content. Edit the text below, or replace it with custom content."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting": {
+		"string": "By default, the following Privacy Statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
+	},
+	"smoochBot.descriptionPrivacyStatementGreeting2": {
+		"string": "The option '9' must be referenced for users to access the Privacy Statement on the Main menu."
+	},
+	"smoochBot.descriptionQueryPrompt": {
+		"string": "The message asking the user to submit content for a fact-check."
+	},
+	"smoochBot.descriptionQueryReceived": {
+		"string": "The confirmation sent to the user after a valid query from the user has been received."
+	},
+	"smoochBot.descriptionReportUpdated": {
+		"string": "The message sent to the user when status of a report has changed. The report must be completed for this message to be sent."
+	},
+	"smoochBot.descriptionSecondaryMenu": {
+		"string": "An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message."
+	},
+	"smoochBot.footnoteGreeting": {
+		"string": "The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
+	},
+	"smoochBot.footnoteGreeting2": {
+		"string": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page."
+	},
+	"smoochBot.labelGreeting": {
+		"string": "Greeting"
+	},
+	"smoochBot.labelInactive": {
+		"string": "Notice of inactivity"
+	},
+	"smoochBot.labelInvalidFormat": {
+		"string": "Invalid format"
+	},
+	"smoochBot.labelMainMenu": {
+		"string": "Main menu"
+	},
+	"smoochBot.labelNoAction": {
+		"string": "No action from user"
+	},
+	"smoochBot.labelOptionNotAvailable": {
+		"string": "Option not available"
+	},
+	"smoochBot.labelPrivacyStatement": {
+		"string": "Privacy Statement"
+	},
+	"smoochBot.labelQueryPrompt": {
+		"string": "Query prompt"
+	},
+	"smoochBot.labelQueryReceived": {
+		"string": "Query received"
+	},
+	"smoochBot.labelReportUpdated": {
+		"string": "Report updated"
+	},
+	"smoochBot.labelSecondaryMenu": {
+		"string": "Secondary menu"
+	},
+	"smoochBot.menuKeywords": {
+		"string": "Keywords separated by comma"
+	},
+	"smoochBot.newResourceTitle": {
+		"string": "New bot resource"
+	},
+	"smoochBot.placeholderGreeting": {
+		"string": "Hi! Welcome to [Name of your organization]’s fact-checking bot."
+	},
+	"smoochBot.placeholderInactive": {
+		"string": "❌Thank you for your message. Our fact-checking service is currently *inactive.*\n\nContact us at *[email or other contact]* for further inquiries."
+	},
+	"smoochBot.placeholderInvalidFormat": {
+		"string": "❌Sorry, we can't accept this type of message for verification at this time.\n\nWe can accept most images, videos, links, text messages, and shared WhatsApp messages."
+	},
+	"smoochBot.placeholderMainMenu": {
+		"string": "📌*Main Menu*\n\n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)"
+	},
+	"smoochBot.placeholderOptionNotAvailable": {
+		"string": "🤖I'm sorry, I didn't understand your message. Please try again!"
+	},
+	"smoochBot.placeholderQueryPrompt": {
+		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
+	},
+	"smoochBot.placeholderQueryReceived": {
+		"string": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n\n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
+	},
+	"smoochBot.placeholderReportUpdated": {
+		"string": "❗️The fact-check that we sent to you has been *updated* with new information:"
+	},
+	"smoochBot.placeholderSecondaryMenu": {
+		"string": "*Information about Coronavirus disease (COVID-19)* 🦠\n\n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n\n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
+	},
+	"smoochBot.scenarios": {
+		"string": "Scenarios"
+	},
+	"smoochBot.settings": {
+		"string": "Settings"
+	},
+	"smoochBot.title": {
+		"string": "Design your bot"
+	},
+	"smoochBot.tos": {
+		"string": "Terms of Service ({language})"
+	},
+	"smoochBotComponent.contactUs": {
+		"string": "Contact us to setup"
+	},
+	"smoochBotComponent.defaultErrorMessage": {
+		"string": "Could not save tipline settings",
+		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
+	},
+	"smoochBotComponent.install": {
+		"string": "Install"
+	},
+	"smoochBotComponent.save": {
+		"string": "Save settings"
+	},
+	"smoochBotComponent.savedSuccessfully": {
+		"string": "Tipline settings saved successfully",
+		"developer_comment": "Banner displayed when tipline settings are saved successfully"
+	},
+	"smoochBotComponent.subtitle": {
+		"string": "Create automated conversational bots to receive content from your audience."
+	},
+	"smoochBotComponent.title": {
+		"string": "Tipline"
+	},
+	"smoochBotIntegrationButton.cancel": {
+		"string": "Cancel"
+	},
+	"smoochBotIntegrationButton.confirm": {
+		"string": "Confirm"
+	},
+	"smoochBotIntegrationButton.confirmDisconnectText": {
+		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTextPermanent": {
+		"string": "Warning! Disconnecting a WhatsApp number is permanent. You will not be able to reconnect it after it is disconnected.",
+		"developer_comment": "Explanation displayed on the confirmation modal when a tipline administrator wants to disconnect a WhatsApp number."
+	},
+	"smoochBotIntegrationButton.confirmDisconnectTitle": {
+		"string": "Disconnect {platform} tipline",
+		"developer_comment": "Title of the confirmation modal displayed when a tipline administrator wants to disconnect some specific platform (Twitter, Facebook, etc.)."
+	},
+	"smoochBotIntegrationButton.confirmationMessage": {
+		"string": "Disconnect {platform}",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.confirmationMessagePermanent": {
+		"string": "Disconnect {platform} permanently",
+		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+	},
+	"smoochBotIntegrationButton.connect": {
+		"string": "Connect"
+	},
+	"smoochBotIntegrationButton.connectTipline": {
+		"string": "Connect to {platform} tipline"
+	},
+	"smoochBotIntegrationButton.defaultErrorMessage": {
+		"string": "Something went wrong"
+	},
+	"smoochBotIntegrationButton.disclaimer": {
+		"string": "We don't store this information. This is just used to configure the integration."
+	},
+	"smoochBotIntegrationButton.disclaimerForUrl": {
+		"string": "Before proceeding, make sure that you are logged in the {platform} account you wish to connect to the tipline.",
+		"developer_comment": "The platform here can be Twitter, Facebook, etc."
+	},
+	"smoochBotIntegrationButton.disconnect": {
+		"string": "Disconnect from this account"
+	},
+	"smoochBotIntegrationButton.online": {
+		"string": "Online"
+	},
+	"smoochBotIntegrationButton.readyToConnect": {
+		"string": "I'm ready to connect"
+	},
+	"smoochBotIntegrationButton.savedSuccessfully": {
+		"string": "Done"
+	},
+	"smoochBotIntegrationButton.status": {
+		"string": "Status: Online"
+	},
+	"smoochBotIntegrationButton.tipline": {
+		"string": "{platform} tipline"
+	},
+	"smoochBotIntegrations.account": {
+		"string": "Connected account: {link}"
+	},
+	"smoochBotIntegrations.lineChannelAccessToken": {
+		"string": "LINE channel access token"
+	},
+	"smoochBotIntegrations.lineChannelSecret": {
+		"string": "LINE channel secret"
+	},
+	"smoochBotIntegrations.lineWebhook": {
+		"string": "Copy this webhook URL to your LINE settings"
+	},
+	"smoochBotIntegrations.page": {
+		"string": "Connected page: {link}"
+	},
+	"smoochBotIntegrations.phoneNumber": {
+		"string": "Connected phone number: {link}"
+	},
+	"smoochBotIntegrations.telegramBot": {
+		"string": "Connected Telegram bot: {link}"
+	},
+	"smoochBotIntegrations.telegramBotToken": {
+		"string": "Telegram bot token"
+	},
+	"smoochBotIntegrations.title": {
+		"string": "Messaging services",
+		"developer_comment": "Title of Settings tab in the tipline settings page"
+	},
+	"smoochBotIntegrations.viberPublicAccount": {
+		"string": "Connected Viber public account: {name}"
+	},
+	"smoochBotIntegrations.viberPublicAccountToken": {
+		"string": "Viber public account token"
+	},
+	"smoochBotMenuEditor.scenario": {
+		"string": "Scenario"
+	},
+	"smoochBotMenuOption.action": {
+		"string": "Respond with"
+	},
+	"smoochBotMenuOption.add": {
+		"string": "Create \"{resourceName}\""
+	},
+	"smoochBotMenuOption.condition": {
+		"string": "The following keyword is matched"
+	},
+	"smoochBotMenuOption.errorTos": {
+		"string": "'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
+	},
+	"smoochBotMenuOption.if": {
+		"string": "If"
+	},
+	"smoochBotMenuOption.languageAction": {
+		"string": "{languageName} (main menu)"
+	},
+	"smoochBotMenuOption.mainState": {
+		"string": "Main menu"
+	},
+	"smoochBotMenuOption.queryState": {
+		"string": "Query prompt"
+	},
+	"smoochBotMenuOption.resource": {
+		"string": "Report"
+	},
+	"smoochBotMenuOption.secondaryState": {
+		"string": "Secondary menu"
+	},
+	"smoochBotMenuOption.selectMessage": {
+		"string": "Select message"
+	},
+	"smoochBotMenuOption.then": {
+		"string": "Then"
+	},
+	"smoochBotMultiTextEditor.errorNine": {
+		"string": "The option '9' must be included for users to access the Privacy Statement"
+	},
+	"smoochBotResourceEditor.addContent": {
+		"string": "Add content manually"
+	},
+	"smoochBotResourceEditor.delete": {
+		"string": "Delete"
+	},
+	"smoochBotResourceEditor.error": {
+		"string": "This URL does not seem to be a valid RSS feed"
+	},
+	"smoochBotResourceEditor.load": {
+		"string": "Load"
+	},
+	"smoochBotResourceEditor.numberOfArticles": {
+		"string": "Number of articles to return"
+	},
+	"smoochBotResourceEditor.rss": {
+		"string": "Add content from RSS feed"
+	},
+	"smoochBotResourceEditor.rssPlaceholder": {
+		"string": "Public URL that returns N articles in RSS format"
+	},
+	"smoochBotResourceEditor.title": {
+		"string": "Bot resource title"
+	},
+	"smoochBotResourceEditor.url": {
+		"string": "URL"
+	},
+	"sortSelect.az": {
+		"string": "A to Z"
+	},
+	"sortSelect.lu": {
+		"string": "Least used"
+	},
+	"sortSelect.mu": {
+		"string": "Most used"
+	},
+	"sortSelect.nf": {
+		"string": "Newest first"
+	},
+	"sortSelect.of": {
+		"string": "Oldest first"
+	},
+	"sortSelect.za": {
+		"string": "Z to A"
+	},
+	"sourceInfo.addLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Allow user to relate a new link to media source"
+	},
+	"sourceInfo.addSecondaryLink": {
+		"string": "Add a secondary URL",
+		"developer_comment": "Label for add a new source secondary URL"
+	},
+	"sourceInfo.createNew": {
+		"string": "Create new",
+		"developer_comment": "Create a new media source label"
+	},
+	"sourceInfo.invalidLink": {
+		"string": "Please enter a valid URL",
+		"developer_comment": "Error message for invalid link"
+	},
+	"sourceInfo.mainAccount": {
+		"string": "Main source URL",
+		"developer_comment": "URL for first account related to media souce"
+	},
+	"sourceInfo.mainName": {
+		"string": "Main name",
+		"developer_comment": "Source name"
+	},
+	"sourceInfo.mediasCount": {
+		"string": "{mediasCount, plural, one {1 item} other {# items}}",
+		"developer_comment": "show source media counts"
+	},
+	"sourceInfo.primaryLink": {
+		"string": "Add main source URL",
+		"developer_comment": "Allow user to add a main source URL"
+	},
+	"sourceInfo.saved": {
+		"string": "Saved {ago}"
+	},
+	"sourceInfo.saving": {
+		"string": "Saving…"
+	},
+	"sourceInfo.secondaryAccounts": {
+		"string": "Secondary source URLs",
+		"developer_comment": "URLs for source accounts except first account"
+	},
+	"sourceInfo.sourceName": {
+		"string": "Add name",
+		"developer_comment": "label for create source name"
+	},
+	"statusListItem.confirmDefaultBody1": {
+		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
+	},
+	"statusListItem.confirmDefaultBody2": {
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
+	},
+	"statusListItem.confirmDefaultButton": {
+		"string": "Set {language} as default"
+	},
+	"statusListItem.confirmDefaultTitle": {
+		"string": "Do you want to set the default language to {language}?"
+	},
+	"statusListItem.confirmDeleteBody1": {
+		"string": "All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently.",
+		"developer_comment": "Warning about content being lost after deleting a language"
+	},
+	"statusListItem.confirmDeleteBody2": {
+		"string": "Users will receive this content in the default language {language} instead."
+	},
+	"statusListItem.confirmDeleteDefaultBody": {
+		"string": "You cannot delete the default language. You must set a different default language before you can delete {language}.",
+		"developer_comment": "Message warning user to set a new default language before deleting the current one"
+	},
+	"statusListItem.confirmDeleteDefaultLabel": {
+		"string": "Go back and change"
+	},
+	"statusListItem.confirmDeleteDefaultTitle": {
+		"string": "You must first change the default language"
+	},
+	"statusListItem.confirmDeleteLabel": {
+		"string": "Delete language and all content"
+	},
+	"statusListItem.confirmDeleteTitle": {
+		"string": "Do you want to delete this content language?"
+	},
+	"statusListItem.default": {
+		"string": "{statusLabel} (default)"
+	},
+	"statusListItem.makeDefault": {
+		"string": "Make default"
+	},
+	"statusListItem.noDescription": {
+		"string": "No description"
+	},
+	"statusListItem.translationNeededBody1": {
+		"string": "Not all statuses are currently translated into {language}!"
+	},
+	"statusListItem.translationNeededBody2": {
+		"string": "Before you can make {language} the default language you must first translate all existing statuses into {language} in the Statuses settings tab."
+	},
+	"statusListItem.translationNeededLabel": {
+		"string": "Go back and translate statuses"
+	},
+	"statusListItem.translationNeededTitle": {
+		"string": "You need to translate all statuses into {language}"
+	},
+	"statusesComponent.blurbSecondary": {
+		"string": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+	},
+	"statusesComponent.created": {
+		"string": "Status created successfully"
+	},
+	"statusesComponent.deleted": {
+		"string": "Status deleted successfully"
+	},
+	"statusesComponent.error": {
+		"string": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"statusesComponent.moveItemsAndDelete": {
+		"string": "Move items and delete status"
+	},
+	"statusesComponent.newStatus": {
+		"string": "New status"
+	},
+	"statusesComponent.saved": {
+		"string": "Statuses saved successfully"
+	},
+	"statusesComponent.subtitle": {
+		"string": "The status title is visible when reports are sent to users."
+	},
+	"statusesComponent.title": {
+		"string": "{languageName} statuses",
+		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
+	},
+	"switchTeams.cancelJoinRequest": {
+		"string": "Cancel"
+	},
+	"switchTeams.error": {
+		"string": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"switchTeams.joinRequestMessage": {
+		"string": "You requested to join"
+	},
+	"switchTeams.member": {
+		"string": "{membersCount, plural, one {# member} other {# members}}"
+	},
+	"switchTeams.newTeamLink": {
+		"string": "Create"
+	},
+	"switchTeams.noTeams": {
+		"string": "Not a member of any workspace."
+	},
+	"tagInput.addTag": {
+		"string": "Add Tag"
+	},
+	"tagInput.error": {
+		"string": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"tagInput.search": {
+		"string": "Search or add new tag"
+	},
+	"tagMenu.done": {
+		"string": "Done"
+	},
+	"tagMenu.tooltip": {
+		"string": "Edit tags"
+	},
+	"tagPicker.emptyTags": {
+		"string": "There are currently no tags for this workspace."
+	},
+	"tagPicker.tagNotFound": {
+		"string": "Tag #{tag} not found."
+	},
+	"task.answeredBy": {
+		"string": "Completed by {byName}"
+	},
+	"task.assignOrUnassign": {
+		"string": "Assign/Unassign"
+	},
+	"task.assignedTo": {
+		"string": "Assigned to {name}"
+	},
+	"task.confirmDelete": {
+		"string": "Are you sure you want to delete this task?"
+	},
+	"task.confirmDeleteResponse": {
+		"string": "Are you sure you want to delete this answer?"
+	},
+	"task.confirmDeleteResponseTitle": {
+		"string": "Delete answer?"
+	},
+	"task.confirmDeleteTitle": {
+		"string": "Delete task?"
+	},
+	"task.delete": {
+		"string": "Delete task"
+	},
+	"task.deleteResponse": {
+		"string": "Delete answer"
+	},
+	"task.edit": {
+		"string": "Edit task"
+	},
+	"task.editAttribution": {
+		"string": "Edit attribution"
+	},
+	"task.editResponse": {
+		"string": "Edit answer"
+	},
+	"taskActions.tooltipMetadata": {
+		"string": "Metadata actions"
+	},
+	"taskActions.tooltipTask": {
+		"string": "Task actions"
+	},
+	"taskLog.bubbleTooltip": {
+		"string": "Toggle log"
+	},
+	"taskTypeSelector.allTypes": {
+		"string": "All tasks"
+	},
+	"taskTypeSelector.numTypes": {
+		"string": "{length, plural, one {# selected} other {# selected}}",
+		"developer_comment": "Label for number of selected tasks"
+	},
+	"tasks.add": {
+		"string": "Save"
+	},
+	"tasks.addMetadata": {
+		"string": "New metadata"
+	},
+	"tasks.addTask": {
+		"string": "New task"
+	},
+	"tasks.answer": {
+		"string": "Answer Task"
+	},
+	"tasks.assign": {
+		"string": "Assign"
+	},
+	"tasks.attributionSlogan": {
+		"string": "For the task, \"{label}\""
+	},
+	"tasks.blankMetadata": {
+		"string": "No metadata fields"
+	},
+	"tasks.blankTasks": {
+		"string": "No tasks"
+	},
+	"tasks.cancelAdd": {
+		"string": "Cancel"
+	},
+	"tasks.cancelEdit": {
+		"string": "Cancel"
+	},
+	"tasks.chooseMultiple": {
+		"string": "Multiple select"
+	},
+	"tasks.chooseOne": {
+		"string": "Single select"
+	},
+	"tasks.datetime": {
+		"string": "Date and time"
+	},
+	"tasks.description": {
+		"string": "Description (optional)"
+	},
+	"tasks.editAssignment": {
+		"string": "Edit assignment"
+	},
+	"tasks.editAttribution": {
+		"string": "Edit attribution"
+	},
+	"tasks.fileUpload": {
+		"string": "File upload"
+	},
+	"tasks.geolocation": {
+		"string": "Lokasi"
+	},
+	"tasks.goToSettings": {
+		"string": "Go to settings"
+	},
+	"tasks.number": {
+		"string": "Number",
+		"developer_comment": "Label for a task type that requires a numeric value as answer"
+	},
+	"tasks.shortAnswer": {
+		"string": "Teks"
+	},
+	"tasks.showInBrowserExtension": {
+		"string": "Show in browser extension"
+	},
+	"tasks.showInProj": {
+		"string": "Show tasks in"
+	},
+	"tasks.taskPrompt": {
+		"string": "Prompt"
+	},
+	"tasks.teamwideNudge": {
+		"string": "Default tasks"
+	},
+	"tasks.timezones": {
+		"string": "Timezones available to complete the task"
+	},
+	"teamBots.fail": {
+		"string": "Error! Please try again."
+	},
+	"teamBots.noSettings": {
+		"string": "There are no settings for this bot."
+	},
+	"teamBots.save": {
+		"string": "Save"
+	},
+	"teamBots.settings": {
+		"string": "Settings"
+	},
+	"teamBots.success": {
+		"string": "Settings updated!"
+	},
+	"teamDataComponent.formLinkText": {
+		"string": "this short form"
+	},
+	"teamDataComponent.notSet1": {
+		"string": "Click the button below to open your data report in a new window."
+	},
+	"teamDataComponent.notSet2": {
+		"string": "To request any customization of your data report, please reach out to support."
+	},
+	"teamDataComponent.set1": {
+		"string": "Fill {thisShortForm} to request access to your data report."
+	},
+	"teamDataComponent.set2": {
+		"string": "Your data report will be enabled within one business day."
+	},
+	"teamDataComponent.subtitle": {
+		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
+	},
+	"teamDataComponent.title": {
+		"string": "Workspace data",
+		"developer_comment": "Header for the stored data page of the current team"
+	},
+	"teamDataComponent.viewDataReport": {
+		"string": "View data report"
+	},
+	"teamDetails.description": {
+		"string": "Description"
+	},
+	"teamDetails.duplicateWorkspace": {
+		"string": "Gandakan ruang kerja"
+	},
+	"teamDetails.savedSuccessfully": {
+		"string": "Workspace details saved successfully"
+	},
+	"teamDetails.subtitle": {
+		"string": "Add details to your Check workspace.",
+		"developer_comment": "Subtitle for details page of current workspace"
+	},
+	"teamDetails.title": {
+		"string": "Workspace details",
+		"developer_comment": "Title for details page of current workspace"
+	},
+	"teamDetails.update": {
+		"string": "Update"
+	},
+	"teamDetails.workspaceName": {
+		"string": "Workspace name"
+	},
+	"teamIntegrations.subtitle": {
+		"string": "Third party tools to enhance productivity."
+	},
+	"teamIntegrations.title": {
+		"string": "Integrations"
+	},
+	"teamListsColumn.none": {
+		"string": "None available",
+		"developer_comment": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide"
+	},
+	"teamListsComponent.buttonLabel": {
+		"string": "Save changes"
+	},
+	"teamListsComponent.confirmSaveText": {
+		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+	},
+	"teamListsComponent.confirmSaveTitle": {
+		"string": "Workspace columns change"
+	},
+	"teamListsComponent.createMetadata": {
+		"string": "Create new metadata field"
+	},
+	"teamListsComponent.defaultErrorMessage": {
+		"string": "Could not save column settings",
+		"developer_comment": "Warning displayed if an error occurred when saving column settings"
+	},
+	"teamListsComponent.description": {
+		"string": "Select all the columns you want to display in all your folders, collections and lists."
+	},
+	"teamListsComponent.displayedColumns": {
+		"string": "Displayed columns"
+	},
+	"teamListsComponent.generalColumns": {
+		"string": "General"
+	},
+	"teamListsComponent.metadataColumns": {
+		"string": "Metadata"
+	},
+	"teamListsComponent.savedSuccessfully": {
+		"string": "Column settings saved successfully",
+		"developer_comment": "Banner displayed when column settings are saved successfully"
+	},
+	"teamListsComponent.title": {
+		"string": "Columns settings"
+	},
+	"teamListsItem.general": {
+		"string": "General"
+	},
+	"teamListsItem.hide": {
+		"string": "Hide"
+	},
+	"teamListsItem.metadata": {
+		"string": "Metadata"
+	},
+	"teamListsItem.show": {
+		"string": "Show"
+	},
+	"teamMemberActions.copiedToClipboard": {
+		"string": "The email has been copied to the clipboard"
+	},
+	"teamMemberActions.invitationCanceled": {
+		"string": "Invite canceled!",
+		"developer_comment": "Success notification confirming that invitation was canceled"
+	},
+	"teamMemberActions.invitationSent": {
+		"string": "Invite sent!",
+		"developer_comment": "Success notification confirming that invitation was sent to user"
+	},
+	"teamMemberActions.userRemoved": {
+		"string": "The user has been removed"
+	},
+	"teamMembers.copyEmail": {
+		"string": "Copy email"
+	},
+	"teamMembers.invite": {
+		"string": "Invite"
+	},
+	"teamMembers.pending": {
+		"string": "Tertunda",
+		"developer_comment": "Label for invite pending acceptance"
+	},
+	"teamMembers.remove": {
+		"string": "Remove"
+	},
+	"teamMembers.removeDialogBody": {
+		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
+	},
+	"teamMembers.removeDialogTitle": {
+		"string": "Remove {userLabel}"
+	},
+	"teamMembers.resendInvite": {
+		"string": "Resend invite"
+	},
+	"teamMembers.subtitle": {
+		"string": "Invite and manage users.",
+		"developer_comment": "Subtitle for workspace members management page"
+	},
+	"teamMembers.tableHeaderLastActive": {
+		"string": "Last active",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.tableHeaderName": {
+		"string": "Nama",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.tableHeaderRole": {
+		"string": "Workspace permission",
+		"developer_comment": "Column header in members table."
+	},
+	"teamMembers.title": {
+		"string": "Members",
+		"developer_comment": "Title for workspace members management page"
+	},
+	"teamMembers.tooltip": {
+		"string": "Manage member"
+	},
+	"teamMenu.teamSettings": {
+		"string": "Workspace settings"
+	},
+	"teamMetadataRender.blankMetadata": {
+		"string": "No metadata fields",
+		"developer_comment": "Text for empty metadata"
+	},
+	"teamMetadataRender.itemTitle": {
+		"string": "Metadata",
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
+	},
+	"teamMetadataRender.metadataItemSubtitle": {
+		"string": "Add custom metadata fields to items.",
+		"developer_comment": "Subtitle for metadata settings screen applied to Items"
+	},
+	"teamMetadataRender.metadataSourceSubtitle": {
+		"string": "Add custom data fields to the source tab.",
+		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
+	},
+	"teamMetadataRender.sourceTitle": {
+		"string": "Source metadata",
+		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
+	},
+	"teamReportComponent.defaultErrorMessage": {
+		"string": "Could not save report settings",
+		"developer_comment": "Warning displayed if an error occurred when saving report settings"
+	},
+	"teamReportComponent.facebook": {
+		"string": "Facebook page name"
+	},
+	"teamReportComponent.introduction": {
+		"string": "Introduction"
+	},
+	"teamReportComponent.introductionSub": {
+		"string": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
+	},
+	"teamReportComponent.line": {
+		"string": "LINE channel"
+	},
+	"teamReportComponent.save": {
+		"string": "Save"
+	},
+	"teamReportComponent.savedSuccessfully": {
+		"string": "Report settings saved successfully",
+		"developer_comment": "Banner displayed when report settings are saved successfully"
+	},
+	"teamReportComponent.signature": {
+		"string": "Signature"
+	},
+	"teamReportComponent.signatureLabel": {
+		"string": "Signature ({max} characters max)",
+		"developer_comment": "Label for signature field in report settings"
+	},
+	"teamReportComponent.subtitle": {
+		"string": "The content you set here can be edited in each individual report."
+	},
+	"teamReportComponent.telegram": {
+		"string": "Telegram bot username"
+	},
+	"teamReportComponent.title": {
+		"string": "Default report settings"
+	},
+	"teamReportComponent.twitter": {
+		"string": "Twitter account name"
+	},
+	"teamReportComponent.url": {
+		"string": "Website URL"
+	},
+	"teamReportComponent.urlLabel": {
+		"string": "Short URL ({max} characters max)",
+		"developer_comment": "Label for URL field in report settings"
+	},
+	"teamReportComponent.viber": {
+		"string": "Viber public account URI"
+	},
+	"teamReportComponent.whatsapp": {
+		"string": "WhatsApp number"
+	},
+	"teamSettings.Tags": {
+		"string": "Tags"
+	},
+	"teamSettings.data": {
+		"string": "Data"
+	},
+	"teamSettings.details": {
+		"string": "Workspace details"
+	},
+	"teamSettings.integrations": {
+		"string": "Integrations"
+	},
+	"teamSettings.languages": {
+		"string": "Languages"
+	},
+	"teamSettings.lists": {
+		"string": "Columns"
+	},
+	"teamSettings.members": {
+		"string": "Members"
+	},
+	"teamSettings.metadata": {
+		"string": "Metadata"
+	},
+	"teamSettings.report": {
+		"string": "Report"
+	},
+	"teamSettings.rules": {
+		"string": "Rules"
+	},
+	"teamSettings.statuses": {
+		"string": "Statuses"
+	},
+	"teamSettings.tasks": {
+		"string": "Tugas"
+	},
+	"teamSettings.tipline": {
+		"string": "Tipline"
+	},
+	"teamTags.addTag": {
+		"string": "Add tag"
+	},
+	"teamTags.confirmDeleteBody": {
+		"string": "{numTags, plural, one {The tag \"{tag}\" will be removed from one item.} other {The tag \"{tag}\" will be removed from # items.}}"
+	},
+	"teamTags.confirmDeleteLabel": {
+		"string": "Delete tag"
+	},
+	"teamTags.confirmDeleteTitle": {
+		"string": "Do you want to delete this tag?"
+	},
+	"teamTags.counter": {
+		"string": "{total, plural, =0 {No tags} one {1 tag ({hidden} hidden by filters)} other {# tags ({hidden} hidden by filters)}}"
+	},
+	"teamTags.counterNoHidden": {
+		"string": "{total, plural, =0 {No tags} one {1 tag} other {# tags}}"
+	},
+	"teamTags.deleteTag": {
+		"string": "Delete tag"
+	},
+	"teamTags.description": {
+		"string": "Tags can be added to media, items and sources."
+	},
+	"teamTags.editTag": {
+		"string": "Edit tag"
+	},
+	"teamTags.fail": {
+		"string": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"teamTags.failDelete": {
+		"string": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"teamTags.failMove": {
+		"string": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"teamTags.failUpdate": {
+		"string": "Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"teamTags.itemsCount": {
+		"string": "{count, plural, =0 {no items} one {1 item} other {# items}}"
+	},
+	"teamTags.menuTooltip": {
+		"string": "Tag actions"
+	},
+	"teamTags.new": {
+		"string": "New tag"
+	},
+	"teamTags.newTag": {
+		"string": "New tag"
+	},
+	"teamTags.noTags": {
+		"string": "No tags"
+	},
+	"teamTags.title": {
+		"string": "Tags"
+	},
+	"teamTags.tooltip": {
+		"string": "Filter and sort folder"
+	},
+	"teamTasks.cancelAction": {
+		"string": "Cancel"
+	},
+	"teamTasks.confirmAction": {
+		"string": "Yes"
+	},
+	"teamTasks.confirmDeleteBlurb": {
+		"string": "The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
+	},
+	"teamTasks.confirmDeleteMetadataTitle": {
+		"string": "Are you sure you want to delete this metadata?"
+	},
+	"teamTasks.confirmDeleteTaskTitle": {
+		"string": "Are you sure you want to delete this task?"
+	},
+	"teamTasks.confirmDeletekeepCompleted": {
+		"string": "Keep this task with answers in items where the task has been completed."
+	},
+	"teamTasks.confirmEditBlurb": {
+		"string": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed."
+	},
+	"teamTasks.confirmEditMetadataTitle": {
+		"string": "Are you sure you want to edit this metadata?"
+	},
+	"teamTasks.confirmEditTaskTitle": {
+		"string": "Are you sure you want to edit this task?"
+	},
+	"teamTasks.confirmEditkeepCompleted": {
+		"string": "Do not alter tasks that have been completed, and keep their existing answers."
+	},
+	"teamTasks.continue": {
+		"string": "Edit task"
+	},
+	"teamTasks.delete": {
+		"string": "Delete"
+	},
+	"teamTasks.deleteTask": {
+		"string": "Delete task"
+	},
+	"teamTasks.edit": {
+		"string": "Edit"
+	},
+	"teamTasks.filterLabel": {
+		"string": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
+	},
+	"teamTasks.filterLabelHidden": {
+		"string": "{total, plural, =0 {No tasks} one {1 task ({hidden} hidden by filters)} other {# tasks ({hidden} hidden by filters)}}"
+	},
+	"teamTasksRender.blank": {
+		"string": "No default tasks to display",
+		"developer_comment": "Text for empty tasks"
+	},
+	"teamTasksRender.filter": {
+		"string": "Filter tasks",
+		"developer_comment": "Filter tasks"
+	},
+	"teamTasksRender.projFilter": {
+		"string": "Show tasks in",
+		"developer_comment": "filter tasks by projects"
+	},
+	"teamTasksRender.tasks": {
+		"string": "Tugas",
+		"developer_comment": "Tasks title"
+	},
+	"teamTasksRender.tasksSubtitle": {
+		"string": "Add custom tasks to items.",
+		"developer_comment": "Tasks subtitle"
+	},
+	"teamTasksRender.typeFilter": {
+		"string": "Task type",
+		"developer_comment": "filter tasks by type"
+	},
+	"teams.title": {
+		"string": "Workspaces"
+	},
+	"teams.userTeams": {
+		"string": "{name}'s workspaces"
+	},
+	"teams.yourTeams": {
+		"string": "Workspaces"
+	},
+	"tos.title": {
+		"string": "Terms of Service"
+	},
+	"translateStatuses.continueAndSave": {
+		"string": "Continue and save"
+	},
+	"translateStatuses.message": {
+		"string": "Message"
+	},
+	"translateStatuses.missingTranslations": {
+		"string": "Missing translations"
+	},
+	"translateStatuses.missingTranslationsBody": {
+		"string": "Some statuses are missing translations. Users may not be able to read untranslated statuses."
+	},
+	"translateStatuses.missingTranslationsBody2": {
+		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.status": {
+		"string": "Status"
+	},
+	"trash.title": {
+		"string": "Trash"
+	},
+	"unconfirmed.title": {
+		"string": "Unconfirmed"
+	},
+	"uploadFile.audioMessage": {
+		"string": "Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
+	},
+	"uploadFile.changeFile": {
+		"string": "{filename} (click or drop to change)"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+	},
+	"uploadFile.fileTooLarge": {
+		"string": "The file size should be less than {size}. Please try with a smaller file."
+	},
+	"uploadFile.invalidExtension": {
+		"string": "The file cannot have type \"{extension}\". Please try with the following file types: {allowed_types}."
+	},
+	"uploadFile.message": {
+		"string": "Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
+	},
+	"uploadFile.videoMessage": {
+		"string": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
+	},
+	"userAssignments.blank": {
+		"string": "No activity"
+	},
+	"userAssignments.filterByTeam": {
+		"string": "Filter by workspace"
+	},
+	"userComponent.teams": {
+		"string": "Workspaces"
+	},
+	"userComponents.assignments": {
+		"string": "Assignments"
+	},
+	"userComponents.privacy": {
+		"string": "Privacy"
+	},
+	"userComponents.security": {
+		"string": "Security"
+	},
+	"userConfirmPage.signIn": {
+		"string": "Sign In",
+		"developer_comment": "Sign in button"
+	},
+	"userConfirmed.alreadyConfrimMessage": {
+		"string": "Oops! Your account is already confirmed. Please sign in to get started.",
+		"developer_comment": "Message for user who already confirmed before"
+	},
+	"userConfirmed.confrimMessage": {
+		"string": "Thanks for confirming your email address! Now you can sign in.",
+		"developer_comment": "Message for confirmed user"
+	},
+	"userConfirmed.unConfrimMessage": {
+		"string": "Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists.",
+		"developer_comment": "Message for unconfirmed users"
+	},
+	"userEmail.emailInputHint": {
+		"string": "email@example.com"
+	},
+	"userEmail.emailInputLabel": {
+		"string": "Surel"
+	},
+	"userEmail.skip": {
+		"string": "Skip"
+	},
+	"userEmail.submit": {
+		"string": "Submit"
+	},
+	"userEmail.text": {
+		"string": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\""
+	},
+	"userEmail.title": {
+		"string": "Add your email"
+	},
+	"userInfo.dateJoined": {
+		"string": "Joined {date}"
+	},
+	"userInfo.teamsCount": {
+		"string": "{teamsCount, plural, one {# workspace} other {# workspaces}}"
+	},
+	"userInfoEdit.addLink": {
+		"string": "Add Link"
+	},
+	"userInfoEdit.addLinkHelper": {
+		"string": "Add a link to a web page or social media profile. Note: this does not affect your login method."
+	},
+	"userInfoEdit.addLinkLabel": {
+		"string": "Add a link"
+	},
+	"userInfoEdit.editError": {
+		"string": "Sorry, an error occurred while updating your profile. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"userInfoEdit.emailConfirmed": {
+		"string": "✔ Address confirmed"
+	},
+	"userInfoEdit.emailPendingConfirm": {
+		"string": "⚠ Confirmation pending"
+	},
+	"userInfoEdit.invalidLink": {
+		"string": "Please enter a valid URL"
+	},
+	"userInfoEdit.nameError": {
+		"string": "Name can't be blank"
+	},
+	"userInfoEdit.sourceBio": {
+		"string": "Bio"
+	},
+	"userInfoEdit.sourceName": {
+		"string": "Nama"
+	},
+	"userInfoEdit.userEmail": {
+		"string": "Surel"
+	},
+	"userInfoEdit.userSendEmailNotification": {
+		"string": "Receive email notifications"
+	},
+	"userPrivacy.connectedAccounts": {
+		"string": "Connected accounts"
+	},
+	"userPrivacy.delete": {
+		"string": "Delete your account"
+	},
+	"userPrivacy.deleteAccountButton": {
+		"string": "Delete my account"
+	},
+	"userPrivacy.deleteAccountConfirmationText": {
+		"string": "Are you sure? This will remove your account and log you out of the app."
+	},
+	"userPrivacy.deleteAccountText": {
+		"string": "If you delete your account, your personal information will be erased. Comments, annotations, and workspace activity will become pseudonymous and remain on {appName}."
+	},
+	"userPrivacy.description": {
+		"string": "Please review our {ppLink} to learn how {appName} uses and stores your information."
+	},
+	"userPrivacy.ppLink": {
+		"string": "Kebijakan Pribadi"
+	},
+	"userPrivacy.seeInformationButton": {
+		"string": "See my information"
+	},
+	"userPrivacy.seeInformationText": {
+		"string": "We will send you a file with the content and data you created and generated on {appName}. This can be kept for your records or transferred to another service."
+	},
+	"userPrivacy.stopProcessingButton": {
+		"string": "Request to stop processing"
+	},
+	"userPrivacy.stopProcessingText": {
+		"string": "You can request {appName} to stop processing your information under certain conditions."
+	},
+	"userPrivacy.title": {
+		"string": "Your information"
+	},
+	"userSecurity.authenticateDescription": {
+		"string": "Enter your current password to confirm your identity:"
+	},
+	"userSecurity.authenticateHeader": {
+		"string": "Step 1: Authenticate"
+	},
+	"userSecurity.backupDescription": {
+		"string": "We strongly suggest that you generate and print backup codes using the button below. These are single-use codes to be used instead of 2FA login in the event that you lose access to your 2FA device."
+	},
+	"userSecurity.backupHeader": {
+		"string": "Step 4: Backup codes"
+	},
+	"userSecurity.backupNote": {
+		"string": "Note: Existing backup codes will be invalidated by clicking this button."
+	},
+	"userSecurity.changePassword": {
+		"string": "Change password"
+	},
+	"userSecurity.disableAuthenticateDescription": {
+		"string": "Enter your password to disable two-factor authentication:"
+	},
+	"userSecurity.disableTwofactor": {
+		"string": "Disable"
+	},
+	"userSecurity.downloadDescription": {
+		"string": "You'll need a two-factor app, like Google Authenticator, on your smartphone to proceed:"
+	},
+	"userSecurity.downloadHeader": {
+		"string": "Step 2: Download"
+	},
+	"userSecurity.enableTwofactor": {
+		"string": "Enable"
+	},
+	"userSecurity.failedfulLoginText": {
+		"string": "Receive a notification for {loginTrial} consecutive failed login attempts"
+	},
+	"userSecurity.generateGackup": {
+		"string": "Generate backup code"
+	},
+	"userSecurity.notification": {
+		"string": "Notification"
+	},
+	"userSecurity.qrcodeDescription": {
+		"string": "Using your two-factor app, scan this QR code:"
+	},
+	"userSecurity.qrcodeHeader": {
+		"string": "Step 3: Scan"
+	},
+	"userSecurity.requireTwoFactorAuth": {
+		"string": "Require two-factor authentication"
+	},
+	"userSecurity.successfulLoginText": {
+		"string": "Receive a notification for logins from a new location or device"
+	},
+	"userSecurity.suggestTwoFactorForSocialAccounts": {
+		"string": "In order to enable 2FA, you need to create a password on Check. Please do so in the 'Change password' section below."
+	},
+	"userSecurity.twoFactorAuthentication": {
+		"string": "Two factor authentication"
+	},
+	"userSecurity.verifyDescription": {
+		"string": "To enable two-factor authentication, enter the 6-digit code from your two-factor app:"
+	},
+	"userSecurity.verifyHeader": {
+		"string": "Step 5: Verify"
+	},
+	"userTooltip.dateJoined": {
+		"string": "Joined {date} • {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
+	},
+	"userTos.agreePp": {
+		"string": "I agree that Meedan may process personal information I choose to share, including information revealing my racial or ethnic origin, political opinions, religious or philosophical beliefs, trade-union membership, photographs, or information on my sexual orientation. Such information will be deleted if I delete my account as stated in the Privacy Policy."
+	},
+	"userTos.agreeTos": {
+		"string": "I agree to the Terms of Service."
+	},
+	"userTos.commGuidelines": {
+		"string": "We ask that you also read our {communityGuidelinesLink} for using {appName}."
+	},
+	"userTos.commGuidelinesLink": {
+		"string": "Community Guidelines"
+	},
+	"userTos.disclaimer": {
+		"string": "Please review our {tosLink} and our {ppLink} and consent to the following:"
+	},
+	"userTos.disclaimerUpdate": {
+		"string": "We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
+	},
+	"userTos.ppLink": {
+		"string": "Kebijakan Pribadi"
+	},
+	"userTos.save": {
+		"string": "Save"
+	},
+	"userTos.termsLastUpdatedAt": {
+		"string": "Last updated {lastUpdated}"
+	},
+	"userTos.title": {
+		"string": "Terms of Service and Privacy Policy"
+	},
+	"userTos.titleUpdated": {
+		"string": "Updated Terms and Privacy Policy"
+	},
+	"userTos.tosLink": {
+		"string": "Terms of Service"
+	},
+	"userTos.validation": {
+		"string": "You must agree to the Terms of Service and Privacy Policy"
+	},
+	"webPageMediaCard.Error": {
+		"string": "This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
+	}
+}

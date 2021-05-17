@@ -2,32 +2,82 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
+import Popover from '@material-ui/core/Popover';
+import { makeStyles } from '@material-ui/core/styles';
+import StarIcon from '@material-ui/icons/Star';
+import RemoveableWrapper from './RemoveableWrapper';
+import SelectButton from './SelectButton';
 import CustomFilter from './CustomFilter';
+import { opaqueBlack07, checkBlue } from '../../styles/js/shared';
 
 const messages = defineMessages({
   metadataChoiceLabel: {
     id: 'CustomTeamTaskFilter.metadataChoiceLabel',
     defaultMessage: 'Metadata has specific value',
+    description: 'Label for custom field configuration to allow filtering by metadata value',
   },
   metadataTextLabel: {
     id: 'CustomTeamTaskFilter.metadataTextLabel',
     defaultMessage: 'Metadata contains keyword',
+    description: 'Label for custom field to allow configuration filtering by metadata keyword',
   },
   taskChoiceLabel: {
     id: 'CustomTeamTaskFilter.taskChoiceLabel',
     defaultMessage: 'Task has specific answer',
+    description: 'Label for custom field configuration to allow filtering by task answer',
   },
   taskTextLabel: {
     id: 'CustomTeamTaskFilter.taskTextLabel',
     defaultMessage: 'Task answer contains keyword',
+    description: 'Label for custom field configuration to allow filtering by task keyword',
   },
   noValue: {
     id: 'CustomTeamTaskFilter.noValue',
     defaultMessage: 'No value is set',
+    description: 'Label for custom field configuration to allow filtering by task or metadata with no value set',
   },
   anyValue: {
     id: 'CustomTeamTaskFilter.anyValue',
     defaultMessage: 'Any value is set',
+    description: 'Label for custom field configuration to allow filtering by task or metadata with any value set',
+  },
+});
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    zIndex: 1000,
+  },
+  paper: {
+    maxWidth: '360px',
+  },
+  metadataIs: {
+    marginRight: theme.spacing(1),
+  },
+  customTeamTaskFilterSelected: {
+    backgroundColor: checkBlue,
+    color: 'white',
+    borderRadius: 2,
+    height: 24,
+    padding: `0 ${theme.spacing(0.5)}px`,
+  },
+}));
+
+const useStylesButton = makeStyles({
+  root: {
+    height: 36,
+    overflow: 'hidden',
+    '&:hover': {
+      backgroundColor: opaqueBlack07,
+    },
+  },
+  text: {
+    backgroundColor: opaqueBlack07,
+  },
+  label: {
+    textTransform: 'none',
+    fontWeight: 'normal',
   },
 });
 
@@ -52,7 +102,6 @@ const CustomTeamTaskFilter = ({
   index,
   intl,
   team: { team_tasks },
-  onAdd,
   onRemove,
   onFilterChange,
 }) => {
@@ -71,10 +120,14 @@ const CustomTeamTaskFilter = ({
   const getEntityFromFilter = f => f ? Number(f.id) : null;
   const getEntityValueFromFilter = f => f ? f.response : null;
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [filterType, setFilterType] = React.useState(getTypeFromFilter(filter));
-  const [filterEntity, setFilterEntity] = React.useState(getEntityFromFilter(filter));
 
+  const [filterEntity, setFilterEntity] = React.useState(getEntityFromFilter(filter));
   const filterEntityValue = getEntityValueFromFilter(filter);
+
+  const classes = useStyles();
+  const classesButton = useStylesButton();
 
   const handleChangeFilterType = (value) => {
     setFilterType(value);
@@ -188,26 +241,127 @@ const CustomTeamTaskFilter = ({
   const filterEntityOptions = buildFilterEntityOptions();
   const filterEntityValueOptions = buildFilterEntityValueOptions();
   const filterEntityLabel = filterType === 'task_text' || filterType === 'task_choice' ? (
-    <FormattedMessage id="CustomTeamTaskFilter.entityTaskLabel" defaultMessage="Select task" />
+    <FormattedMessage
+      id="CustomTeamTaskFilter.entityTaskLabel"
+      defaultMessage="Select task"
+      description="Label for input to select specific task to filter by"
+    />
   ) : (
-    <FormattedMessage id="CustomTeamTaskFilter.entityMetadataLabel" defaultMessage="Select metadata" />
+    <FormattedMessage
+      id="CustomTeamTaskFilter.entityMetadataLabel"
+      defaultMessage="Select metadata"
+      description="Label for input to select specific metadata to filter by"
+    />
   );
 
+  const FilterLabel = () => {
+    if (!filterEntityValue || !filter) {
+      return (
+        <React.Fragment>
+          <span className={classes.metadataIs}>
+            <FormattedMessage
+              id="customFiltersManager.label"
+              defaultMessage="Metadata is"
+              description="Placeholder label for metadata field when not fully configured"
+            />
+          </span>
+          <SelectButton onClick={() => {}} />
+        </React.Fragment>
+      );
+    }
+
+    const task = team_tasks.edges.find(t => String(t.node.dbid) === filter.id);
+
+    if (filterEntityValue === 'NO_VALUE') {
+      return (
+        <FormattedMessage
+          id="CustomTeamTaskFilter.textNoValue"
+          defaultMessage='"{field}" contains no value'
+          description="Label for custom field when metadata or task response contains no value"
+          values={{ field: task.node.label }}
+        />
+      );
+    }
+
+    if (filterEntityValue === 'ANY_VALUE') {
+      return (
+        <FormattedMessage
+          id="CustomTeamTaskFilter.textAnyValue"
+          defaultMessage='"{field}" contains any value'
+          description="Label for custom field when metadata or task response contains any value"
+          values={{ field: task.node.label, value: filterEntityValue }}
+        />
+      );
+    }
+
+    if (filterType === 'task_choice' || filterType === 'metadata_choice') {
+      return (
+        <FormattedMessage
+          id="CustomTeamTaskFilter.choiceFilter"
+          defaultMessage='"{field}" has value {value}'
+          description="Label for custom field when metadata or task response contains specific value"
+          values={{ field: task.node.label, value: filterEntityValue }}
+        />
+      );
+    }
+
+    if (filterType === 'task_text' || filterType === 'metadata_text') {
+      return (
+        <FormattedMessage
+          id="CustomTeamTaskFilter.textFilter"
+          defaultMessage='"{field}" contains {value}'
+          description="Label for custom field when metadata or task response contains keyword"
+          values={{ field: task.node.label, value: filterEntityValue }}
+        />
+      );
+    }
+
+    return null;
+  };
+
   return (
-    <CustomFilter
-      filterType={filterType}
-      filterEntity={filterEntity}
-      filterEntityValue={filterEntityValue}
-      filterEntityLabel={filterEntityLabel}
-      filterTypeOptions={filterTypeOptions}
-      filterEntityOptions={filterEntityOptions}
-      filterEntityValueOptions={filterEntityValueOptions}
-      onAdd={onAdd}
-      onRemove={handleRemove}
-      onChangeFilterType={handleChangeFilterType}
-      onChangeFilterEntity={handleChangeFilterEntity}
-      onChangeFilterEntityValue={handleChangeFilterEntityValue}
-    />
+    <React.Fragment>
+      <Box maxWidth="400px">
+        <Button
+          classes={classesButton}
+          disableRipple
+          onClick={e => setAnchorEl(e.currentTarget)}
+          startIcon={
+            <RemoveableWrapper icon={<StarIcon />} onRemove={handleRemove} boxProps={{ p: 0 }} />
+          }
+        >
+          <span className={(!filterEntityValue || !filter) ? '' : classes.customTeamTaskFilterSelected}>
+            <FilterLabel />
+          </span>
+        </Button>
+      </Box>
+      <Popover
+        anchorEl={anchorEl}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        classes={classes}
+        onClose={() => setAnchorEl(null)}
+        open={Boolean(anchorEl)}
+      >
+        <Box width={360} p={2}>
+          <CustomFilter
+            filterType={filterType}
+            filterEntity={filterEntity}
+            filterEntityValue={filterEntityValue}
+            filterEntityLabel={filterEntityLabel}
+            filterTypeOptions={filterTypeOptions}
+            filterEntityOptions={filterEntityOptions}
+            filterEntityValueOptions={filterEntityValueOptions}
+            onRemove={handleRemove}
+            onChangeFilterType={handleChangeFilterType}
+            onChangeFilterEntity={handleChangeFilterEntity}
+            onChangeFilterEntityValue={handleChangeFilterEntityValue}
+          />
+        </Box>
+      </Popover>
+    </React.Fragment>
   );
 };
 
@@ -233,7 +387,6 @@ CustomTeamTaskFilter.propTypes = {
       })),
     }),
   }).isRequired,
-  onAdd: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
   onFilterChange: PropTypes.func.isRequired,
 };

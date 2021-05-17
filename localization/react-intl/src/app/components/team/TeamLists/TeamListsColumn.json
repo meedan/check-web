@@ -1,6 +1,7 @@
 [
   {
     "id": "teamListsColumn.none",
+    "description": "Placeholder text when there are no columns left for selection when the user is customizing which ones they want to show or hide",
     "defaultMessage": "None available"
   }
 ]

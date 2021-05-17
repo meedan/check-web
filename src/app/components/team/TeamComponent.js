@@ -115,7 +115,7 @@ class TeamComponent extends Component {
                 label={
                   <FormattedMessage
                     id="teamSettings.lists"
-                    defaultMessage="Lists"
+                    defaultMessage="Columns"
                   />
                 }
                 value="lists"

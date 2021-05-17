@@ -5,15 +5,15 @@
   },
   {
     "id": "slackConfigDialogComponent.savedSuccessfully",
-    "defaultMessage": "Slack settings saved successfully!"
+    "defaultMessage": "Slack settings saved successfully"
   },
   {
     "id": "slackConfigDialogComponent.title",
-    "defaultMessage": "Send notifications to Slack channels when items are added to specific lists"
+    "defaultMessage": "Send notifications to Slack channels when items are added to specific folders"
   },
   {
     "id": "slackConfigDialogComponent.webhook",
-    "defaultMessage": "Slack webhook"
+    "defaultMessage": "Slack incoming webhook"
   },
   {
     "id": "slackConfigDialogComponent.event",
@@ -25,7 +25,7 @@
   },
   {
     "id": "slackConfigDialogComponent.ifItemAddedTo",
-    "defaultMessage": "If item is in list"
+    "defaultMessage": "If item is in folder"
   },
   {
     "id": "slackConfigDialogComponent.channel",

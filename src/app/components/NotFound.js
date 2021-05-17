@@ -17,7 +17,7 @@ const NotFound = () => (
       />
     }
   >
-    <ContentColumn center className="not-found__component">
+    <ContentColumn center className="not-found__component" style={{ marginTop: 80 }}>
       <CheckStyledCard
         title={
           <FormattedMessage

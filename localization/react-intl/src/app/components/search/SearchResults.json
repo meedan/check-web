@@ -1,5 +1,9 @@
 [
   {
+    "id": "projectBlankState.blank",
+    "defaultMessage": "There are no items here."
+  },
+  {
     "id": "search.previousPage",
     "defaultMessage": "Previous page"
   },
@@ -9,6 +13,7 @@
   },
   {
     "id": "searchResults.withSelection",
+    "description": "Label for number of selected items",
     "defaultMessage": "{selectedCount, plural, one {(# selected)} other {(# selected)}}"
   },
   {

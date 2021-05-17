@@ -136,40 +136,38 @@ class TeamTagsComponent extends Component {
     this.setState({ dialogOpen: false });
   }
 
-  handleUpdate(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      const text = document.getElementById('tag__edit').value;
-      const tag = this.state.editing;
-      this.setState({ search: '', editing: null });
-      if (text.length > 0 && tag.text !== text) {
-        const onSuccess = () => {
-          this.setState({
-            message: null,
-            highlight: text,
-          });
-        };
-        const onFailure = () => {
-          this.setState({
-            editing: tag,
-            message: <FormattedMessage
-              id="teamTags.failUpdate"
-              defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
-              values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-            />,
-          });
-        };
+  handleUpdate() {
+    const text = document.getElementById('tag__edit').value;
+    const tag = this.state.editing;
+    this.setState({ search: '', editing: null });
+    if (text.length > 0 && tag.text !== text) {
+      const onSuccess = () => {
+        this.setState({
+          message: null,
+          highlight: text,
+        });
+      };
+      const onFailure = () => {
+        this.setState({
+          editing: tag,
+          message: <FormattedMessage
+            id="teamTags.failUpdate"
+            defaultMessage="Sorry, an error occurred while updating the tag. Please try again and contact {supportEmail} if the condition persists."
+            values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+          />,
+        });
+      };
 
-        Relay.Store.commitUpdate(
-          new UpdateTagTextMutation({
-            team: this.props.team,
-            tagText: {
-              id: tag.id,
-              text,
-            },
-          }),
-          { onSuccess, onFailure },
-        );
-      }
+      Relay.Store.commitUpdate(
+        new UpdateTagTextMutation({
+          team: this.props.team,
+          tagText: {
+            id: tag.id,
+            text,
+          },
+        }),
+        { onSuccess, onFailure },
+      );
     }
   }
 
@@ -370,8 +368,14 @@ class TeamTagsComponent extends Component {
                   style={{ paddingTop: 0, paddingBottom: 0 }}
                   id="tag__edit"
                   autoFocus
-                  onKeyPress={this.handleUpdate.bind(this)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                      this.handleUpdate();
+                    }
+                  }}
+                  onBlur={this.handleUpdate.bind(this)}
                   defaultValue={tag.text}
+                  variant="outlined"
                 />
                 {' '}
                 <Tooltip title={this.props.intl.formatMessage(globalStrings.cancel)}>
@@ -524,7 +528,7 @@ class TeamTagsComponent extends Component {
                 search={this.state.search}
                 onSearchChange={this.handleSearchChange}
                 label={filterLabel}
-                tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort list" />}
+                tooltip={<FormattedMessage id="teamTags.tooltip" defaultMessage="Filter and sort folder" />}
               >
                 <div style={{ marginTop: units(2) }}>
                   <SortSelector

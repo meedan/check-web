@@ -583,6 +583,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.similarDestroyed"
                 defaultMessage="Confirmed similar detached by {author}: {title}"
+                description="Tells that one item previously confirmed as similar has been detached from current item."
                 values={{
                   title: emojify(target.title),
                   author: authorName,
@@ -1065,7 +1066,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.projectMoved"
-              defaultMessage="Moved from list {previousProject} to {currentProject} by {author}"
+              defaultMessage="Moved from folder {previousProject} to {currentProject} by {author}"
               values={{
                 previousProject: (
                   <Link to={urlPrefix + previousProject.dbid}>
@@ -1087,7 +1088,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.movedToTrash"
-              defaultMessage="Moved to the trash by {author}"
+              defaultMessage="Moved to Trash by {author}"
               values={{
                 author: authorName,
               }}
@@ -1099,7 +1100,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.movedFromTrash"
-              defaultMessage="Moved out of the trash by {author}"
+              defaultMessage="Moved out of Trash by {author}"
               values={{
                 author: authorName,
               }}

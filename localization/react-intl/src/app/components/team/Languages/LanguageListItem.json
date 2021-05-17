@@ -33,7 +33,7 @@
   },
   {
     "id": "statusListItem.confirmDefaultBody2",
-    "defaultMessage": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
+    "defaultMessage": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
   },
   {
     "id": "statusListItem.confirmDefaultButton",
@@ -45,7 +45,8 @@
   },
   {
     "id": "statusListItem.confirmDeleteBody1",
-    "defaultMessage": "All content for the Tipline bot, Statuses and Reports in {language} will be deleted permanently."
+    "description": "Warning about content being lost after deleting a language",
+    "defaultMessage": "All content in {language} for the 'Tipline', 'Statuses' and 'Report' tabs will be deleted permanently."
   },
   {
     "id": "statusListItem.confirmDeleteBody2",
@@ -61,7 +62,8 @@
   },
   {
     "id": "statusListItem.confirmDeleteDefaultBody",
-    "defaultMessage": "You cannot delete the default language. You must make a different language default before you can delete {language}."
+    "description": "Message warning user to set a new default language before deleting the current one",
+    "defaultMessage": "You cannot delete the default language. You must set a different default language before you can delete {language}."
   },
   {
     "id": "statusListItem.confirmDeleteDefaultLabel",

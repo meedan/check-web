@@ -1,7 +1,8 @@
 [
   {
     "id": "taskTypeSelector.numTypes",
-    "defaultMessage": "{length, number} selected"
+    "description": "Label for number of selected tasks",
+    "defaultMessage": "{length, plural, one {# selected} other {# selected}}"
   },
   {
     "id": "taskTypeSelector.allTypes",

@@ -62,7 +62,7 @@ const RulesTableToolbar = (props) => {
         subtitle={
           <FormattedMessage
             id="rulesTableToolbar.subtitle"
-            defaultMessage="Create automations to organize lists and customize your workflow."
+            defaultMessage="Create automations to organize folders and customize your workflow."
           />
         }
         helpUrl="https://help.checkmedia.org/en/articles/4842057-automation-and-filtering-rules"

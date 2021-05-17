@@ -1,0 +1,17 @@
+[
+  {
+    "id": "search.and",
+    "description": "Logical operator to be applied when filtering by multiple tags",
+    "defaultMessage": "And"
+  },
+  {
+    "id": "search.or",
+    "description": "Logical operator to be applied when filtering by multiple tags",
+    "defaultMessage": "Or"
+  },
+  {
+    "id": "customAutocomplete.done",
+    "description": "Label for closing dropdown when user is done selecting tags",
+    "defaultMessage": "Done"
+  }
+]

@@ -53,7 +53,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?(' - EDIT')).to be(true)
   end
 
-  it 'should install and uninstall bot', bin5: true do
+  it 'should install and uninstall bot', bin6: true do
     team = "team#{Time.now.to_i}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}/settings/integrations"

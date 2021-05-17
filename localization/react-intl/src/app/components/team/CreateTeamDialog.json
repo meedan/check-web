@@ -9,6 +9,7 @@
   },
   {
     "id": "createTeamDialog.dialogTitleCreate",
+    "description": "Dialog title for creating a new workspace",
     "defaultMessage": "Create new workspace"
   },
   {

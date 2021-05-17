@@ -45,7 +45,7 @@ const RulesComponent = (props) => {
   };
 
   const handleSuccess = () => {
-    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully!" />, 'success');
+    props.setFlashMessage(<FormattedMessage id="rulesComponent.savedSuccessfully" defaultMessage="Rules saved successfully" />, 'success');
   };
 
   const handleUpdateRules = (newRules, commit) => {

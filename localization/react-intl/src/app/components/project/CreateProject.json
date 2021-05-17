@@ -1,22 +1,22 @@
 [
   {
     "id": "createProject.error",
-    "defaultMessage": "Sorry, an error occurred while updating the list. Please try again and contact {supportEmail} if the condition persists."
+    "defaultMessage": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "createProject.newProjectName",
-    "defaultMessage": "List name"
+    "defaultMessage": "Folder name"
   },
   {
     "id": "createProject.addProject",
-    "defaultMessage": "Create list"
+    "defaultMessage": "Create folder"
   },
   {
     "id": "createProject.title",
-    "defaultMessage": "Add a list"
+    "defaultMessage": "Add a folder"
   },
   {
     "id": "createProject.titleBlank",
-    "defaultMessage": "Add your first list"
+    "defaultMessage": "Add your first folder"
   }
 ]

@@ -10,16 +10,6 @@
     "defaultMessage": "Items moved from Unconfirmed to '{toProject}'"
   },
   {
-    "id": "bulkActions.addedSuccessfully",
-    "description": "Banner displayed after items are added successfully to list",
-    "defaultMessage": "Items added to list."
-  },
-  {
-    "id": "bulkActions.removedSuccessfully",
-    "description": "Banner displayed after items are removed successfully from list",
-    "defaultMessage": "Items removed from this list."
-  },
-  {
     "id": "bulkActions.movedSuccessfully",
     "description": "Banner displayed after items are moved successfully",
     "defaultMessage": "Items moved to '{toProject}'"
@@ -30,7 +20,7 @@
   },
   {
     "id": "bulkActions.trash",
-    "defaultMessage": "Restore selected items and move items to another list"
+    "defaultMessage": "Restore selected items and move items to another folder"
   },
   {
     "id": "bulkActions.restore",
@@ -38,7 +28,7 @@
   },
   {
     "id": "bulkActions.unconfirmed",
-    "defaultMessage": "Confirm selected items and move items to another list"
+    "defaultMessage": "Confirm selected items and move items to another folder"
   },
   {
     "id": "bulkActions.confirm",
@@ -46,7 +36,7 @@
   },
   {
     "id": "bulkActions.move",
-    "defaultMessage": "Move selected items to another list"
+    "defaultMessage": "Move selected items to another folder"
   },
   {
     "id": "bulkActions.moveTo",
@@ -58,7 +48,7 @@
   },
   {
     "id": "bulkActions.dialogMoveTitle",
-    "defaultMessage": "{selectedCount, plural, one {Move 1 item to list…} other {Move # items to list…}}"
+    "defaultMessage": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
   },
   {
     "id": "bulkActions.cancelButton",
@@ -66,22 +56,7 @@
   },
   {
     "id": "bulkActions.moveTitle",
-    "defaultMessage": "Move to list"
-  },
-  {
-    "id": "bulkActions.add",
-    "defaultMessage": "Add selected items to another list"
-  },
-  {
-    "id": "bulkActions.addTo",
-    "defaultMessage": "Add to…"
-  },
-  {
-    "id": "bulkActions.dialogAddTitle",
-    "defaultMessage": "Add to a different list"
-  },
-  {
-    "id": "bulkActions.addTitle",
-    "defaultMessage": "Add"
+    "description": "Label for button to commit action of moving item to the selected folder",
+    "defaultMessage": "Move to folder"
   }
 ]
