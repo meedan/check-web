@@ -12,7 +12,7 @@
   {
     "id": "projectsComponent.invalidMove",
     "description": "Message displayed when a folder is moved to something that is not a collection",
-    "defaultMessage": "Folders can just be moved to collections"
+    "defaultMessage": "Folders can only be moved to collections"
   },
   {
     "id": "projectsComponent.allItems",
