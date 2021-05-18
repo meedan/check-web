@@ -207,7 +207,7 @@ const ProjectsComponent = ({
       setFlashMessage((
         <FormattedMessage
           id="projectsComponent.invalidMove"
-          defaultMessage="Folders can just be moved to collections"
+          defaultMessage="Folders can only be moved to collections"
           description="Message displayed when a folder is moved to something that is not a collection"
         />
       ), 'info');

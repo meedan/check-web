@@ -62,7 +62,7 @@ const ProjectGroup = ({ routeParams }) => (
                   deleteMessage={
                     <FormattedMessage
                       id="projectGroup.deleteMessage"
-                      defaultMessage="If you delete this collection, all folders will still be accessible, outside of the collection."
+                      defaultMessage="If you delete this collection, all folders will still be accessible outside of the collection."
                     />
                   }
                   deleteMutation={graphql`

@@ -164,13 +164,15 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
           title={
             <FormattedMessage
               id="teamListsComponent.title"
-              defaultMessage="Columns settings"
+              defaultMessage="Column settings"
+              description="Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
             />
           }
           subtitle={
             <FormattedMessage
               id="teamListsComponent.description"
               defaultMessage="Select all the columns you want to display in all your folders, collections and lists."
+              description="Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
             />
           }
           helpUrl="http://help.checkmedia.org/en/articles/4637158-list-settings"

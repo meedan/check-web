@@ -11,10 +11,12 @@
   },
   {
     "id": "teamListsComponent.title",
-    "defaultMessage": "Columns settings"
+    "description": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists.",
+    "defaultMessage": "Column settings"
   },
   {
     "id": "teamListsComponent.description",
+    "description": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists.",
     "defaultMessage": "Select all the columns you want to display in all your folders, collections and lists."
   },
   {
