@@ -33,7 +33,6 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     display: 'block',
-    textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 12,
     textAlign: 'center',

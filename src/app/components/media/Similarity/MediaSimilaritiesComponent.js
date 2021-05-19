@@ -24,7 +24,6 @@ function sort(items) {
 
 const useStyles = makeStyles(() => ({
   similarityTitle: {
-    textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 12,
     color: black54,

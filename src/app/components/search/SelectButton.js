@@ -13,7 +13,6 @@ const StyledButton = withStyles({
   },
   text: {
     color: '#777',
-    textTransform: 'none',
   },
 })(Button);
 

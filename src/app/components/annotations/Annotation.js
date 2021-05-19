@@ -114,7 +114,6 @@ const StyledPrimaryColumn = styled.div`
 
   .annotation__status {
     font: ${caption};
-    text-transform: uppercase;
     margin: 0 3px;
   }
 `;
