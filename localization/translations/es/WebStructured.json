@@ -80,15 +80,6 @@
 	"MultiSelector.search": {
 		"string": "Buscar..."
 	},
-	"ProjectActions.edit": {
-		"string": "Rename"
-	},
-	"ProjectActions.tooltip": {
-		"string": "Folder actions"
-	},
-	"ProjectBlankState.createMedia": {
-		"string": "Añadir un enlace o texto"
-	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Esta cuenta ya ha sido confirmada",
 		"developer_comment": "Message for accounts already confirmed"
@@ -210,7 +201,7 @@
 		"developer_comment": "Menu option to enable searching items by metadata fields"
 	},
 	"addFilterMenu.reportStatus": {
-		"string": "Estado de Informe",
+		"string": "Estado de informe",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.tag": {
@@ -626,21 +617,6 @@
 	"createMediaSource.createSource": {
 		"string": "Crear fuente",
 		"developer_comment": "Label for button to create a new source"
-	},
-	"createProject.addProject": {
-		"string": "Create folder"
-	},
-	"createProject.error": {
-		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
-	},
-	"createProject.newProjectName": {
-		"string": "Folder name"
-	},
-	"createProject.title": {
-		"string": "Add a folder"
-	},
-	"createProject.titleBlank": {
-		"string": "Add your first folder"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Cancelar"
@@ -1164,7 +1140,7 @@
 		"string": "Move to folder"
 	},
 	"mediaActionsBar.restoreTo": {
-		"string": "Recuperar de la papelera"
+		"string": "Recuperar de la Papelera"
 	},
 	"mediaActionsBar.unpublishedReport": {
 		"string": "Informe sin publicar"
@@ -1569,9 +1545,6 @@
 	"project.name": {
 		"string": "folder"
 	},
-	"projectActions.assignOrUnassign": {
-		"string": "Asignar a..."
-	},
 	"projectActions.cancel": {
 		"string": "Cancelar"
 	},
@@ -1583,15 +1556,6 @@
 		"string": "Eliminar ",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
-	"projectActions.deleteProjectBody": {
-		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
-	},
-	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this folder?"
-	},
-	"projectActions.destroy": {
-		"string": "Eliminar "
-	},
 	"projectActions.move": {
 		"string": "Mover a...",
 		"developer_comment": "'Move' here is an infinitive verb"
@@ -1599,15 +1563,6 @@
 	"projectActions.moveOut": {
 		"string": "Move out",
 		"developer_comment": "Menu option to move a folder out of a collection"
-	},
-	"projectActions.proceedLabel": {
-		"string": "Delete folder"
-	},
-	"projectActions.projectDeleted": {
-		"string": "Folder deleted successfully."
-	},
-	"projectActions.projectNotDeleted": {
-		"string": "Sorry, could not delete folder."
 	},
 	"projectActions.rename": {
 		"string": "Rename",
@@ -1620,62 +1575,14 @@
 	"projectActions.tooltip": {
 		"string": "Acciones"
 	},
-	"projectAssignment.assignedTo": {
-		"string": "Asignado a"
-	},
 	"projectAssignment.more": {
 		"string": "+{count} más"
-	},
-	"projectAssignment.notAssigned": {
-		"string": "No asignado"
-	},
-	"projectAssignment.notes": {
-		"string": "Notas"
-	},
-	"projectAssignment.notesTitle": {
-		"string": "Add a note to the email"
-	},
-	"projectAssignment.processing": {
-		"string": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
-	},
-	"projectAssignment.title": {
-		"string": "Assign folder to collaborators"
 	},
 	"projectBlankState.blank": {
 		"string": "There are no items here."
 	},
-	"projectEditDialogComponent.confirmCancelLabel": {
-		"string": "Regresar"
-	},
-	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this folder will be reflected for everyone in this workspace."
-	},
-	"projectEditDialogComponent.confirmProceedLabel": {
-		"string": "Guardar cambios"
-	},
-	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this folder?"
-	},
-	"projectEditDialogComponent.descriptionField": {
-		"string": "Descripción "
-	},
-	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update folder details."
-	},
-	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "Folder details updated successfully."
-	},
-	"projectEditDialogComponent.saveButton": {
-		"string": "Actualizar"
-	},
-	"projectEditDialogComponent.title": {
-		"string": "Folder details"
-	},
-	"projectEditDialogComponent.titleField": {
-		"string": "Título"
-	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
 	},
 	"projectGroup.name": {
 		"string": "collection"
@@ -1728,18 +1635,6 @@
 		"string": "{length, plural, one {# seleccionada} other {# seleccionadas}}",
 		"developer_comment": "Label for number of selected folders"
 	},
-	"projects.addProject": {
-		"string": "Add folder"
-	},
-	"projects.allClaims": {
-		"string": "Todos los ítems"
-	},
-	"projects.dismiss": {
-		"string": "Descartar"
-	},
-	"projects.newList": {
-		"string": "+ New folder"
-	},
 	"projects.trash": {
 		"string": "Papelera"
 	},
@@ -1775,7 +1670,7 @@
 		"string": "Folders"
 	},
 	"projectsComponent.invalidMove": {
-		"string": "Folders can just be moved to collections",
+		"string": "Folders can only be moved to collections",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
@@ -2573,10 +2468,6 @@
 	"smoochBotComponent.contactUs": {
 		"string": "Contáctanos para configurar"
 	},
-	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Could not save tipline settings",
-		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
-	},
 	"smoochBotComponent.install": {
 		"string": "Instalar"
 	},
@@ -3164,7 +3055,8 @@
 		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Select all the columns you want to display in all your folders, collections and lists."
+		"string": "Select all the columns you want to display in all your folders, collections and lists.",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "Columnas mostradas"
@@ -3180,7 +3072,8 @@
 		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Columns settings"
+		"string": "Column settings",
+		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsItem.general": {
 		"string": "General"
