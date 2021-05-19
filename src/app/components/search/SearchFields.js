@@ -32,7 +32,7 @@ import { Row } from '../../styles/js/shared';
  * the `key` filter rather than return an empty array.
  */
 function updateStateQueryArrayValue(query, key, newArray) {
-  if (newArray === undefined || newArray.length === 0) {
+  if (newArray === undefined) {
     const newQuery = { ...query };
     delete newQuery[key];
     return newQuery;
