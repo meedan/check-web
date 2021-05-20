@@ -205,12 +205,16 @@ export const MuiTheme = {
         '@media (min-width: 0px)': {
           minWidth: 0,
         },
+        textTransform: 'none',
       },
       wrapper: {
         alignItems: 'flex-start',
       },
     },
     MuiButton: {
+      root: {
+        textTransform: 'none',
+      },
       contained: {
         boxShadow: 'none',
       },

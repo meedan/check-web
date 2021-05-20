@@ -22,9 +22,6 @@ const StyledButton = withStyles({
   root: {
     height: '36px',
   },
-  text: {
-    textTransform: 'none',
-  },
 })(Button);
 
 const AddFilterMenu = ({

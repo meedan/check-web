@@ -36,7 +36,6 @@ const StyledUserConfirmation = styled.span`
   display: inline-block;
   font-weight: 700;
   margin: 0 ${units(1)};
-  text-transform: uppercase;
 `;
 
 // TODO Fix a11y issues

@@ -6,7 +6,6 @@ import { black54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(() => ({
   button: {
-    textTransform: 'uppercase',
     paddingLeft: 0,
     paddingRight: 0,
     minWidth: 0,
