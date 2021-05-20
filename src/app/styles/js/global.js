@@ -67,6 +67,11 @@ export const typography = `
     }
   }
 
+  a.link__internal {
+    color: ${black};
+    text-decoration: none;
+  }
+
   p {
     margin-top: 0;
   }
