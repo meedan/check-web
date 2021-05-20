@@ -53,7 +53,6 @@ const useStyles = makeStyles(theme => ({
   noMedia: {
     color: 'black',
     textAlign: 'center',
-    textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 14,
   },

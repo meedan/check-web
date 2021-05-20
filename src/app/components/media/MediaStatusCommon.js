@@ -25,7 +25,6 @@ const StyledMediaStatus = styled.div`
 const useStyles = makeStyles({
   statusLabel: props => ({
     color: props.color,
-    textTransform: 'uppercase',
   }),
 });
 

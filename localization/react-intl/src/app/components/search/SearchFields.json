@@ -97,7 +97,7 @@
   {
     "id": "search.fieldAnd",
     "description": "Logical operator to be applied when filtering by multiple fields",
-    "defaultMessage": "AND"
+    "defaultMessage": "and"
   },
   {
     "id": "search.applyFilters",

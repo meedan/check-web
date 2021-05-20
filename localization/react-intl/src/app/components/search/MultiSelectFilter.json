@@ -2,12 +2,12 @@
   {
     "id": "search.and",
     "description": "Logical operator to be applied when filtering by multiple tags",
-    "defaultMessage": "And"
+    "defaultMessage": "and"
   },
   {
     "id": "search.or",
     "description": "Logical operator to be applied when filtering by multiple tags",
-    "defaultMessage": "Or"
+    "defaultMessage": "or"
   },
   {
     "id": "customAutocomplete.done",

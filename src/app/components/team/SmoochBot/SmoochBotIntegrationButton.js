@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'left',
     width: '100%',
     whiteSpace: 'nowrap',
-    textTransform: 'none',
   },
   smoochBotIntegrationButtonFlag: {
     border: '1px solid transparent',

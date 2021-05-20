@@ -32,7 +32,6 @@ const StyledTabLabel = styled.span`
   align-items: center;
   color: ${props => props.active ? black87 : black54} !important;
   font: ${caption};
-  text-transform: none;
   svg {
     padding: 0 ${units(0.5)};
     color: ${props => props.active ? black87 : black38} !important;
