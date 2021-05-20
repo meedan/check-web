@@ -265,7 +265,7 @@ const LanguageListItem = ({ code, team, intl }) => {
               <Typography variant="body1" component="p" paragraph>
                 <FormattedMessage
                   id="statusListItem.confirmDefaultBody2"
-                  defaultMessage="{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
+                  defaultMessage="{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
                   values={{ language: <strong>{languageLabel(code)}</strong> }}
                 />
               </Typography>

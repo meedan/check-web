@@ -80,15 +80,6 @@
 	"MultiSelector.search": {
 		"string": "بحث..."
 	},
-	"ProjectActions.edit": {
-		"string": "Rename"
-	},
-	"ProjectActions.tooltip": {
-		"string": "Folder actions"
-	},
-	"ProjectBlankState.createMedia": {
-		"string": "يرجى إضافة رابط أو نص"
-	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "تم تأكيد الحساب سابقاً",
 		"developer_comment": "Message for accounts already confirmed"
@@ -178,7 +169,7 @@
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.collection": {
-		"string": "Collection",
+		"string": "المجموعة",
 		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.createdBy": {
@@ -190,7 +181,7 @@
 		"developer_comment": "Header to menu of filter field types"
 	},
 	"addFilterMenu.folder": {
-		"string": "Folder",
+		"string": "مجلد",
 		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemStatus": {
@@ -342,10 +333,10 @@
 		"string": "تم ملأ حقل البيانات الوصفيّة \"{fieldLabel}\" بواسطة {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Moved out of Trash by {author}"
+		"string": "قام(ت) {author} بنقله خارج سلة المهملات"
 	},
 	"annotation.movedToTrash": {
-		"string": "Moved to Trash by {author}"
+		"string": "قام(ت) {author} بنقله إلى سلة المهملات"
 	},
 	"annotation.newReport": {
 		"string": "قام(ت) {author} بإضافة العنصر"
@@ -372,7 +363,7 @@
 		"string": "الرابط الثابت"
 	},
 	"annotation.projectMoved": {
-		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
+		"string": "قام(ت) {author} بنقله من مجلد {previousProject} إلى {currentProject}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "رفض"
@@ -508,13 +499,13 @@
 		"string": "النقل من غير المؤكد"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
+		"string": "{selectedCount, plural, zero {عدم نقل أي عنصر} one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصر إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
 	},
 	"bulkActions.move": {
-		"string": "Move selected items to another folder"
+		"string": "نقل ‏‏العناصر المحددة إلى مجلد آخر"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Move to folder",
+		"string": "نقل إلى مجلد",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
@@ -542,10 +533,10 @@
 		"string": "إرسال العناصر المحددة إلى سلة المهملات"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move items to another folder"
+		"string": "استعادة العناصر المحددة ونقلها إلى مجلد آخر"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Confirm selected items and move items to another folder"
+		"string": "يرجى تأكيد تحديد العناصر ونقلها إلى مجلد آخر"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "إلغاء",
@@ -627,21 +618,6 @@
 		"string": "إنشاء مصدر",
 		"developer_comment": "Label for button to create a new source"
 	},
-	"createProject.addProject": {
-		"string": "Create folder"
-	},
-	"createProject.error": {
-		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
-	},
-	"createProject.newProjectName": {
-		"string": "Folder name"
-	},
-	"createProject.title": {
-		"string": "Add a folder"
-	},
-	"createProject.titleBlank": {
-		"string": "Add your first folder"
-	},
 	"createTeamDialog.cancel": {
 		"string": "إلغاء"
 	},
@@ -687,11 +663,11 @@
 		"developer_comment": "Label for closing dropdown when user is done selecting tags"
 	},
 	"customAutocomplete.select": {
-		"string": "Select",
+		"string": "تحديد",
 		"developer_comment": "Verb. Label for generic dropdown component"
 	},
 	"customFiltersManager.label": {
-		"string": "Metadata is",
+		"string": "البيانات الوصفية هي",
 		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
@@ -728,14 +704,14 @@
 		"string": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}"
 	},
 	"destinationProjects.choose": {
-		"string": "Choose a folder"
+		"string": "إختيار مجلد"
 	},
 	"detachDialog.cancelButton": {
 		"string": "إلغاء",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Move to folder",
+		"string": "نقل إلى مجلد",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
@@ -887,7 +863,7 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully",
+		"string": "تم إرسال بعض الدعوات بنجاح",
 		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
@@ -991,7 +967,7 @@
 		"string": "تعليقات فيسبوك"
 	},
 	"list.folder": {
-		"string": "Folder",
+		"string": "مجلد",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
@@ -1110,7 +1086,7 @@
 		"string": "تحديث"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Move to Trash"
+		"string": "نقل إلى سلة المهملات"
 	},
 	"mediaActions.tooltip": {
 		"string": "إجراءات العنصر"
@@ -1128,7 +1104,7 @@
 		"string": "تكليف العنصر لشركاء"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully"
+		"string": "تم تحديث التكليفات بنجاح"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "إلغاء"
@@ -1137,10 +1113,10 @@
 		"string": "تأكيد"
 	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Move to a different folder"
+		"string": "نقل إلى مجلد آخر"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Move item to folder…"
+		"string": "نقل العنصر إلى مجلد…"
 	},
 	"mediaActionsBar.move": {
 		"string": "نقل"
@@ -1152,16 +1128,16 @@
 		"string": "تم التأكيد، إعادة التوجيه جارية…"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Restored from Trash, redirecting…"
+		"string": "تمت الاستعادة من سلة المهملات، جارٍ إعادة التوجيه…"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "The item was moved to {trash}"
+		"string": "تم نقل العنصر إلى {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "تقرير منشور"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Move to folder"
+		"string": "نقل إلى مجلد"
 	},
 	"mediaActionsBar.restoreTo": {
 		"string": "الاستعادة من سلة المهملات"
@@ -1322,7 +1298,7 @@
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Google Image Search"
+		"string": "بحث عن طريق الصور في Google"
 	},
 	"mediaMetadata.Timeline": {
 		"string": "الجدول الزمني"
@@ -1564,13 +1540,10 @@
 		"string": "سياسة الخصوصية"
 	},
 	"project.deleteMessage": {
-		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+		"string": "سوف يتم حذف المجلد لجميع من في مساحة العمل. ستبقى جميع العناصر في المجلد متاحة في مجلد \"كل العناصر\""
 	},
 	"project.name": {
-		"string": "folder"
-	},
-	"projectActions.assignOrUnassign": {
-		"string": "تكليف إلى…"
+		"string": "المجلد"
 	},
 	"projectActions.cancel": {
 		"string": "إلغاء"
@@ -1583,34 +1556,16 @@
 		"string": "حذف",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
-	"projectActions.deleteProjectBody": {
-		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
-	},
-	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this folder?"
-	},
-	"projectActions.destroy": {
-		"string": "حذف"
-	},
 	"projectActions.move": {
 		"string": "نقل إلى...",
 		"developer_comment": "'Move' here is an infinitive verb"
 	},
 	"projectActions.moveOut": {
-		"string": "Move out",
+		"string": "نقل إلى الخارج",
 		"developer_comment": "Menu option to move a folder out of a collection"
 	},
-	"projectActions.proceedLabel": {
-		"string": "Delete folder"
-	},
-	"projectActions.projectDeleted": {
-		"string": "Folder deleted successfully."
-	},
-	"projectActions.projectNotDeleted": {
-		"string": "Sorry, could not delete folder."
-	},
 	"projectActions.rename": {
-		"string": "Rename",
+		"string": "تغيير الاسم",
 		"developer_comment": "'Rename' here is an infinitive verb"
 	},
 	"projectActions.savedSuccessfully": {
@@ -1620,65 +1575,17 @@
 	"projectActions.tooltip": {
 		"string": "الإجراءات"
 	},
-	"projectAssignment.assignedTo": {
-		"string": "مُكَلَّف إلى"
-	},
 	"projectAssignment.more": {
 		"string": "+{count} أكثر"
 	},
-	"projectAssignment.notAssigned": {
-		"string": "غير مُكَلَّف"
-	},
-	"projectAssignment.notes": {
-		"string": "الملحوظات"
-	},
-	"projectAssignment.notesTitle": {
-		"string": "إضافة ملاحظة للبريد الإلكتروني"
-	},
-	"projectAssignment.processing": {
-		"string": "تم! سوف تنتشر هذه التكليفات إلى العناصر والمهام وسيتم إخطارك عبر البريد الإلكتروني عندما تكون جاهزة."
-	},
-	"projectAssignment.title": {
-		"string": "Assign folder to collaborators"
-	},
 	"projectBlankState.blank": {
-		"string": "There are no items here."
-	},
-	"projectEditDialogComponent.confirmCancelLabel": {
-		"string": "العودة"
-	},
-	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this folder will be reflected for everyone in this workspace."
-	},
-	"projectEditDialogComponent.confirmProceedLabel": {
-		"string": "حفظ التغييرات"
-	},
-	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this folder?"
-	},
-	"projectEditDialogComponent.descriptionField": {
-		"string": "الوصف"
-	},
-	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update folder details."
-	},
-	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "Folder details updated successfully."
-	},
-	"projectEditDialogComponent.saveButton": {
-		"string": "تحديث"
-	},
-	"projectEditDialogComponent.title": {
-		"string": "Folder details"
-	},
-	"projectEditDialogComponent.titleField": {
-		"string": "العنوان"
+		"string": "لا يوجد عناصر هنا."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
 	},
 	"projectGroup.name": {
-		"string": "collection"
+		"string": "المجموعة"
 	},
 	"projectHeader.allItems": {
 		"string": "كل العناصر"
@@ -1690,55 +1597,43 @@
 		"string": "غير مؤكد"
 	},
 	"projectMoveDialogComponent.choose": {
-		"string": "Choose a collection"
+		"string": "اختيار مجموعة"
 	},
 	"projectMoveDialogComponent.couldNotMove": {
-		"string": "Could not move folder to collection",
+		"string": "لم نتمكن من نقل المجلد إلى المجموعة",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectMoveDialogComponent.createCollection": {
-		"string": "Create collection"
+		"string": "إنشاء مجموعة"
 	},
 	"projectMoveDialogComponent.moveTitle": {
-		"string": "Move folder to a collection"
+		"string": "نقل المجلد إلى مجموعة"
 	},
 	"projectMoveDialogComponent.movedSuccessfully": {
-		"string": "Folder moved to collection successfully",
+		"string": "تم نقل المجلد إلى المجموعة بنجاح",
 		"developer_comment": "Message displayed when a folder is moved to a collection"
 	},
 	"projectMoveDialogComponent.newCollection": {
-		"string": "New collection"
+		"string": "مجموعة جديدة"
 	},
 	"projectMoveDialogComponent.noCollectionsText": {
-		"string": "There are no collections in {teamName}. You need to create a collection first."
+		"string": "لا توجد مجموعة في {teamName}. يجب عليك إنشاء مجموعة أولا."
 	},
 	"projectMoveDialogComponent.noCollectionsTitle": {
-		"string": "Move folder to a collection"
+		"string": "نقل المجلد إلى مجموعة"
 	},
 	"projectMoveDialogComponent.proceedLabel": {
-		"string": "Create a new collection"
+		"string": "إنشاء مجموعة جديدة"
 	},
 	"projectMoveDialogComponent.proceedLabel2": {
-		"string": "Move to collection"
+		"string": "نقل إلى المجموعة"
 	},
 	"projectSelector.allProjs": {
-		"string": "All folders"
+		"string": "كل المجلدات"
 	},
 	"projectSelector.numProjs": {
 		"string": "{length, plural, zero {لا قوائم محددة} one {واحدة محدد} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
 		"developer_comment": "Label for number of selected folders"
-	},
-	"projects.addProject": {
-		"string": "Add folder"
-	},
-	"projects.allClaims": {
-		"string": "كل العناصر"
-	},
-	"projects.dismiss": {
-		"string": "تجاهل"
-	},
-	"projects.newList": {
-		"string": "+ New folder"
 	},
 	"projects.trash": {
 		"string": "سلة المهملات"
@@ -1750,91 +1645,91 @@
 		"string": "كل العناصر"
 	},
 	"projectsComponent.couldNotMove": {
-		"string": "Could not move folder to collection",
+		"string": "لم نتمكن من نقل المجلد إلى المجموعة",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectsComponent.createCollection": {
-		"string": "Create collection",
+		"string": "انشاء مجموعة",
 		"developer_comment": "Button label for creating new collection"
 	},
 	"projectsComponent.createFolder": {
-		"string": "Create folder",
+		"string": "إنشاء مجلد",
 		"developer_comment": "Button label for creating new folder"
 	},
 	"projectsComponent.createList": {
 		"string": "إنشاء قائمة"
 	},
 	"projectsComponent.deleteType": {
-		"string": "Delete {type}",
+		"string": "حذف {type}",
 		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.description": {
 		"string": "الوصف"
 	},
 	"projectsComponent.folders": {
-		"string": "Folders"
+		"string": "المجلدات"
 	},
 	"projectsComponent.invalidMove": {
-		"string": "Folders can just be moved to collections",
+		"string": "Folders can only be moved to collections",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "Filtered lists",
+		"string": "القوائم التي تم تصفيتها",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
-		"string": "Folder moved successfully",
+		"string": "تم نقل المجلد بنجاح",
 		"developer_comment": "Message displayed when a folder is moved to or from a collection"
 	},
 	"projectsComponent.newCollection": {
-		"string": "New collection",
+		"string": "مجموعة جديدة",
 		"developer_comment": "Dialog title for creating new collection"
 	},
 	"projectsComponent.newCollectionErrorMessage": {
-		"string": "Could not create collection, please try again",
+		"string": "لم نتمكن من إنشاء المجموعة، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message when creating new collection fails"
 	},
 	"projectsComponent.newCollectionMenu": {
-		"string": "New collection",
+		"string": "مجموعة جديدة",
 		"developer_comment": "Menu item for creating new collection"
 	},
 	"projectsComponent.newCollectionSuccessMessage": {
-		"string": "Collection created successfully",
+		"string": "تم إنشاء المجموعة بنجاح",
 		"developer_comment": "Success message when new collection is created"
 	},
 	"projectsComponent.newFolder": {
-		"string": "New folder",
+		"string": "مجلد جديد",
 		"developer_comment": "Dialog title for creating new folder"
 	},
 	"projectsComponent.newFolderErrorMessage": {
-		"string": "Could not create folder, please try again",
+		"string": "لم نتمكن من إنشاء المجلد، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message when creating new folder fails"
 	},
 	"projectsComponent.newFolderMenu": {
-		"string": "New folder",
+		"string": "مجلد جديد",
 		"developer_comment": "Menu item for creating new folder"
 	},
 	"projectsComponent.newFolderSuccessMessage": {
-		"string": "Folder created successfully",
+		"string": "تم إنشاء المجلد بنجاح",
 		"developer_comment": "Success message when new folder is created"
 	},
 	"projectsComponent.newList": {
-		"string": "New list"
+		"string": "قائمة جديدة"
 	},
 	"projectsComponent.newListErrorMessage": {
-		"string": "Could not create list, please try again",
+		"string": "لم نتمكن من إنشاء القائمة، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message when creating new list fails"
 	},
 	"projectsComponent.newListSuccessMessage": {
-		"string": "List created successfully",
+		"string": "تم إنشاء القائمة بنجاح",
 		"developer_comment": "Success message when new list is created"
 	},
 	"projectsComponent.noFolders": {
-		"string": "No folders in this collection",
+		"string": "لا يوجد مجلدات في هذه المجموعة",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.renameType": {
-		"string": "Rename {type}",
+		"string": "تغيير اسم {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.title": {
@@ -2088,7 +1983,7 @@
 		"string": "لم يمكننا حفظ القواعد"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Rules saved successfully"
+		"string": "تم حفظ القواعد بنجاح"
 	},
 	"rulesTableHead.name": {
 		"string": "الاسم",
@@ -2120,7 +2015,7 @@
 		"string": "{numSelected, plural, zero {لا قاعدة محددة} one {# محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize folders and customize your workflow."
+		"string": "إنشاء آليات لتنظيم المجلدات وتخصيص سير العمل."
 	},
 	"rulesTableToolbar.title": {
 		"string": "القواعد"
@@ -2129,39 +2024,39 @@
 		"string": "إلغاء"
 	},
 	"saveList.create": {
-		"string": "Create new list",
+		"string": "إنشاء قائمة جديدة",
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "Could not save list, please try again",
+		"string": "لم نتمكن من حفظ القائمة، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
-		"string": "Save list"
+		"string": "حفظ القائمة"
 	},
 	"saveList.saveList": {
-		"string": "Save list",
+		"string": "حفظ القائمة",
 		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
 	},
 	"saveList.savedSuccessfully": {
-		"string": "List saved successfully",
+		"string": "تم حفظ القائمة بنجاح",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
-		"string": "Enter new list name"
+		"string": "إدخال اسم جديد للقائمة"
 	},
 	"saveList.update": {
-		"string": "Save changes to the list \"{listName}\"",
+		"string": "حفظ التغييرات إلى القائمة \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+		"string": "هل أنت متأكد(ة)؟ هذه القائمة تم مشاركتها بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها."
 	},
 	"savedSearch.name": {
-		"string": "list"
+		"string": "القائمة"
 	},
 	"search.afterDate": {
-		"string": "after",
+		"string": "بعد",
 		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
@@ -2172,7 +2067,7 @@
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
-		"string": "any date",
+		"string": "أي تاريخ",
 		"developer_comment": "Date picker placeholder"
 	},
 	"search.applyFilters": {
@@ -2184,15 +2079,15 @@
 		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
 	"search.beforeDate": {
-		"string": "and before",
+		"string": "وقبل",
 		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.categoriesHeading": {
-		"string": "Tag is",
+		"string": "الوسم هو",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
 	"search.collection": {
-		"string": "Collection is",
+		"string": "المجموعة هي",
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
@@ -2208,11 +2103,11 @@
 		"string": "تاريخ آخر تحديث"
 	},
 	"search.fieldAnd": {
-		"string": "AND",
+		"string": "و",
 		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
-		"string": "Folder is",
+		"string": "المجلد هو",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
@@ -2224,14 +2119,14 @@
 		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Language is",
+		"string": "اللغة هي",
 		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "الصفحة التالية"
 	},
 	"search.notInAny": {
-		"string": "Not in any collection",
+		"string": "ليس في أي مجموعة",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
@@ -2242,7 +2137,7 @@
 		"string": "الصفحة السابقة"
 	},
 	"search.reportStatus": {
-		"string": "Report status is",
+		"string": "حالة التقرير هي",
 		"developer_comment": "Prefix label for field to filter by report status"
 	},
 	"search.reportStatusPaused": {
@@ -2258,7 +2153,7 @@
 		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
-		"string": "Type is",
+		"string": "النوع هو",
 		"developer_comment": "Prefix label for field to filter by media type"
 	},
 	"search.showAudios": {
@@ -2294,7 +2189,7 @@
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
 	"searchFields.clear": {
-		"string": "Clear filters",
+		"string": "إلغاء التصفيات",
 		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"searchKeyword.clear": {
@@ -2572,10 +2467,6 @@
 	},
 	"smoochBotComponent.contactUs": {
 		"string": "تواصل معنا للتثبيت"
-	},
-	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Could not save tipline settings",
-		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
 	},
 	"smoochBotComponent.install": {
 		"string": "تثبيت"
@@ -3105,7 +2996,7 @@
 		"string": "سوف يصبح تقرير بياناتك ممكنا خلال يوم عمل واحد."
 	},
 	"teamDataComponent.subtitle": {
-		"string": "تحميل البيانات والبيانات الوصفية من Check. يمكنك الحصول على تحليل ورؤية دقيقة حول استخدام مساحة العمل وخط التبليغ."
+		"string": "تحميل البيانات والبيانات الوصفية من Check. يمكنك الحصول على تحليل ورؤية دقيقة حول استخدام مساحة العمل والخط الساخن."
 	},
 	"teamDataComponent.title": {
 		"string": "بيانات مساحة العمل",
@@ -3164,7 +3055,8 @@
 		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Select all the columns you want to display in all your folders, collections and lists."
+		"string": "Select all the columns you want to display in all your folders, collections and lists.",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "الأعمدة المعروضة"
@@ -3180,7 +3072,8 @@
 		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Columns settings"
+		"string": "Column settings",
+		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsItem.general": {
 		"string": "عام"

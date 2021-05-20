@@ -1,10 +1,5 @@
 [
   {
-    "id": "smoochBotComponent.defaultErrorMessage",
-    "description": "Warning displayed if an error occurred when saving tipline settings",
-    "defaultMessage": "Could not save tipline settings"
-  },
-  {
     "id": "smoochBotComponent.savedSuccessfully",
     "description": "Banner displayed when tipline settings are saved successfully",
     "defaultMessage": "Tipline settings saved successfully"

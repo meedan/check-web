@@ -15,6 +15,7 @@ import { placeholders } from './localizables';
 import Can from '../../Can';
 import { ContentColumn } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 
 const SmoochBotComponent = ({
   team,
@@ -41,13 +42,7 @@ const SmoochBotComponent = ({
 
   const handleError = () => {
     setSaving(false);
-    setFlashMessage((
-      <FormattedMessage
-        id="smoochBotComponent.defaultErrorMessage"
-        defaultMessage="Could not save tipline settings"
-        description="Warning displayed if an error occurred when saving tipline settings"
-      />
-    ), 'error');
+    setFlashMessage((<GenericUnknownErrorMessage />), 'error');
   };
 
   const handleSuccess = () => {
