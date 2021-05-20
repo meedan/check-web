@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { browserHistory } from 'react-router';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -50,12 +50,6 @@ const updateMutation = graphql`
     }
   }
 `;
-
-const StyledButton = withStyles({
-  text: {
-    textTransform: 'none',
-  },
-})(Button);
 
 const useStyles = makeStyles(theme => ({
   saveListCreate: {
@@ -211,7 +205,7 @@ const SaveList = ({
     <React.Fragment>
 
       {/* The "Save list" button */}
-      <StyledButton
+      <Button
         id="save-list__button"
         className={classes.saveListButton}
         startIcon={<ListIcon />}
@@ -222,7 +216,7 @@ const SaveList = ({
           defaultMessage="Save list"
           description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
         />
-      </StyledButton>
+      </Button>
 
       {/* Create a new list */}
       <ConfirmProceedDialog

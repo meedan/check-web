@@ -37,8 +37,8 @@ const OperatorToggle = ({ onClick, operator }) => (
     disableRipple
   >
     { operator === 'and' ?
-      <FormattedMessage id="search.and" defaultMessage="And" description="Logical operator to be applied when filtering by multiple tags" /> :
-      <FormattedMessage id="search.or" defaultMessage="Or" description="Logical operator to be applied when filtering by multiple tags" />
+      <FormattedMessage id="search.and" defaultMessage="and" description="Logical operator to be applied when filtering by multiple tags" /> :
+      <FormattedMessage id="search.or" defaultMessage="or" description="Logical operator to be applied when filtering by multiple tags" />
     }
   </NoHoverButton>
 );

@@ -33,9 +33,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-  title: {
-    textTransform: 'uppercase',
-  },
   box: {
     border: `2px solid ${opaqueBlack23}`,
     marginTop: theme.spacing(1),

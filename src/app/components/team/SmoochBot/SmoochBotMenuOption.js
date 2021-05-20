@@ -30,9 +30,6 @@ const useStyles = makeStyles(theme => ({
   thenTitle: {
     color: checkBlue,
   },
-  title: {
-    textTransform: 'uppercase',
-  },
   caption: {
     margin: `0 ${theme.spacing(1)}px`,
   },

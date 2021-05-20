@@ -483,7 +483,7 @@ class SearchFields extends React.Component {
               return (
                 <React.Fragment key={key}>
                   <Box height="36px" display="flex" alignItems="center">
-                    <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
+                    <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator to be applied when filtering by multiple fields" />
                   </Box>
                   { fieldComponents[key] }
                 </React.Fragment>

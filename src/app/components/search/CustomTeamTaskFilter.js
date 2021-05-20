@@ -76,7 +76,6 @@ const useStylesButton = makeStyles({
     backgroundColor: opaqueBlack07,
   },
   label: {
-    textTransform: 'none',
     fontWeight: 'normal',
   },
 });
