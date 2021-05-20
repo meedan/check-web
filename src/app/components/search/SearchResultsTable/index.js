@@ -32,6 +32,7 @@ const AllPossibleColumns = [
     field: 'item',
     headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
     cellComponent: TitleCell,
+    sortKey: 'title',
   },
   {
     field: 'demand',
