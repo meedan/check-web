@@ -72,8 +72,7 @@ const MediaSimilarityBarComponent = ({
   showBackButton,
 }) => {
   const classes = useStyles();
-  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-  const linkPrefix = `/${teamSlug}/media/${projectMediaDbid}`;
+  const linkPrefix = window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+/)[0];
 
   const MaybeLink = ({ to, style, children }) => {
     if (to) {
