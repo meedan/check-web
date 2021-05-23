@@ -3,6 +3,7 @@ import Relay from 'react-relay/classic';
 import MeRoute from '../../relay/MeRoute';
 import UserComponent from './UserComponent';
 import userFragment from '../../relay/userFragment';
+import MediasLoading from '../media/MediasLoading';
 
 const MeContainer = Relay.createContainer(UserComponent, {
   fragments: {
@@ -16,6 +17,7 @@ const Me = (props) => {
     <Relay.RootContainer
       Component={MeContainer}
       route={route}
+      renderLoading={() => <MediasLoading />}
       renderFetched={data => <MeContainer {...props} {...data} />}
     />
   );
