@@ -1,5 +1,14 @@
 [
   {
+    "id": "destinationProjects.none",
+    "description": "Label used for folders that are not in any collection",
+    "defaultMessage": "Not in any collection"
+  },
+  {
+    "id": "destinationProjects.empty",
+    "defaultMessage": "No folders in this collection"
+  },
+  {
     "id": "destinationProjects.choose",
     "defaultMessage": "Choose a folder"
   }

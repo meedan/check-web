@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from '@material-ui/core/Button';
@@ -10,7 +10,20 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 
+const messages = defineMessages({
+  notInAnyCollection: {
+    id: 'destinationProjects.none',
+    defaultMessage: 'Not in any collection',
+    description: 'Label used for folders that are not in any collection',
+  },
+  noFolders: {
+    id: 'destinationProjects.empty',
+    defaultMessage: 'No folders in this collection',
+  },
+});
+
 function SelectProjectDialog({
+  intl,
   open,
   team,
   excludeProjectDbids,
@@ -27,9 +40,28 @@ function SelectProjectDialog({
     onSubmit(value);
   }, [onSubmit, value]);
 
-  const filteredProjects = team.projects.edges
-    .map(({ node }) => node)
-    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid));
+  // Collections
+  const projectGroups = team.project_groups.edges.map(({ node }) => node);
+
+  // Fill in the collection title for each folder, even if "not in any collection"
+  const projects = team.projects.edges
+    .map(({ node }) => {
+      const projectGroup = projectGroups.find(pg => pg.dbid === node.project_group_id) ||
+                           { title: intl.formatMessage(messages.notInAnyCollection) };
+      return { ...node, projectGroupTitle: projectGroup.title };
+    });
+
+  // Add "empty folders" to empty collections, so they appear in the drop-down as well
+  projectGroups.forEach((pg) => {
+    if (!projects.find(p => p.project_group_id === pg.dbid)) {
+      projects.push({ projectGroupTitle: pg.title, title: intl.formatMessage(messages.noFolders) });
+    }
+  });
+
+  // Lastly, sort options by collection title and exclude some options
+  const filteredProjects = projects
+    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid))
+    .sort((a, b) => a.projectGroupTitle.localeCompare(b.projectGroupTitle));
 
   const handleChange = React.useCallback((ev, newValue, reason) => {
     switch (reason) {
@@ -50,7 +82,8 @@ function SelectProjectDialog({
           onChange={handleChange}
           getOptionLabel={option => option.title}
           getOptionSelected={(option, val) => val !== null && option.id === val.id}
-          groupBy={() => team.name /* show team name on top of all options */}
+          getOptionDisabled={option => !option.dbid}
+          groupBy={option => option.projectGroupTitle}
           renderInput={params => (
             <TextField
               {...params}
@@ -78,7 +111,9 @@ function SelectProjectDialog({
     </Dialog>
   );
 }
+
 SelectProjectDialog.propTypes = {
+  intl: intlShape.isRequired,
   open: PropTypes.bool.isRequired,
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   excludeProjectDbids: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
@@ -90,16 +125,25 @@ SelectProjectDialog.propTypes = {
   onSubmit: PropTypes.func.isRequired, // func(<Project>) => undefined
 };
 
-export default createFragmentContainer(SelectProjectDialog, {
+export default createFragmentContainer(injectIntl(SelectProjectDialog), {
   team: graphql`
     fragment SelectProjectDialog_team on Team {
       name
+      project_groups(first: 10000) {
+        edges {
+          node {
+            dbid
+            title
+          }
+        }
+      }
       projects(first: 10000) {
         edges {
           node {
             id
             dbid
             title
+            project_group_id
             medias_count  # For optimistic updates when adding/moving items
             search_id  # For optimistic updates when adding/moving items
           }
