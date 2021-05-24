@@ -427,7 +427,7 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
-            actions={projectMedias.length ?
+            actions={projectMedias.length && selectedProjectMediaDbids.length ?
               <BulkActions
                 parentComponent={this}
                 count={this.props.search ? this.props.search.number_of_results : 0}
