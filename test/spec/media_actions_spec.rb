@@ -206,7 +206,6 @@ shared_examples 'media actions' do
     wait_for_selector('#search-input')
     create_project('project 2')
     wait_for_selector('.project-list__link', index: 1).click
-    wait_for_selector('#media-bulk-actions__actions')
     wait_for_selector('.media__heading').click
     wait_for_selector('#media-actions-bar__move-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')

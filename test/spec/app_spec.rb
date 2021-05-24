@@ -237,10 +237,10 @@ shared_examples 'app' do |webdriver_url|
       wait_for_selector('.media__heading').click
       wait_for_selector('.media-actions__icon')
       wait_for_selector('.project-header__back-button').click
-      wait_for_selector('#media-bulk-actions')
+      all = wait_for_selector('.projects-list__all-items')
       expect(@driver.current_url.to_s.match(/trash/).nil?).to be(false) # trash page
       # item created from "all items" page
-      wait_for_selector('.projects-list__all-items').click
+      all.click
       create_media('claim 2', false)
       wait_for_selector('.media__heading', :css, 20, true).click
       wait_for_selector('#media-detail__report-designer')
