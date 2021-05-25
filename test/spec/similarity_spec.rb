@@ -4,7 +4,7 @@ shared_examples 'similarity' do
     wait_for_selector('.search__results-heading')
     project_url = @driver.current_url.to_s
     create_project('list')
-    wait_for_selector('.project-list__link')
+    wait_for_selector('.project-list__header')
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
@@ -60,7 +60,7 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.media__heading', 2)
     project_url = @driver.current_url.to_s
     create_project('list')
-    wait_for_selector('.project-list__link')
+    wait_for_selector('.project-list__header')
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
