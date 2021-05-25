@@ -101,13 +101,13 @@ const TeamTagsActions = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => { setShowEditDialog(true); }}>
+        <MenuItem onClick={() => { setAnchorEl(null); setShowEditDialog(true); }}>
           <FormattedMessage
             id="teamTagsActions.edit"
             defaultMessage="Edit"
           />
         </MenuItem>
-        <MenuItem onClick={() => { setShowDeleteDialog(true); }}>
+        <MenuItem onClick={() => { setAnchorEl(null); setShowDeleteDialog(true); }}>
           <FormattedMessage
             id="teamTagsActions.delete"
             defaultMessage="Delete"

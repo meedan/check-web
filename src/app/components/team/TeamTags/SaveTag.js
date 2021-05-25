@@ -49,10 +49,10 @@ const SaveTag = ({
 
   // Find the first rule associated with this tag
   let tagRuleIndex = -1;
-  if (tag) {
+  if (tag && rules) {
     tagRuleIndex = rules.findIndex(r => r.actions[0].action_definition === 'add_tag' && r.actions[0].action_value === tag.text);
   }
-  const tagRule = tagRuleIndex > -1 ? rules[tagRuleIndex] : defaultRule;
+  const tagRule = (tagRuleIndex > -1 && rules) ? rules[tagRuleIndex] : defaultRule;
   const initialRule = JSON.parse(JSON.stringify(tagRule));
 
   const [text, setText] = React.useState(tag ? tag.text : '');
@@ -88,7 +88,7 @@ const SaveTag = ({
   };
 
   const handleSaveRule = () => {
-    const newRules = rules.slice();
+    const newRules = rules ? rules.slice() : [];
     const newRule = {
       ...rule,
       name: `Rule for tag "${text}"`,
@@ -248,15 +248,10 @@ const SaveTag = ({
       )}
       proceedDisabled={saving}
       proceedLabel={
-        tag ?
-          <FormattedMessage
-            id="saveTag.titleEdit"
-            defaultMessage="Edit tag"
-          /> :
-          <FormattedMessage
-            id="saveTag.titleCreate"
-            defaultMessage="Create new tag"
-          />
+        <FormattedMessage
+          id="saveTag.save"
+          defaultMessage="Save tag"
+        />
       }
       onCancel={onCancel}
       onProceed={handleSave}

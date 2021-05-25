@@ -47,7 +47,7 @@ shared_examples 'tag' do
   #   # Search tag by keyword
   #   wait_for_selector('.filter-popup > div > button > span > svg').click
   #   wait_for_selector('input[name=sort-select]')
-  #   wait_for_selector("input[placeholder='Search…']").send_keys('edited')
+  #   wait_for_selector("input[placeholder='Search']").send_keys('edited')
   #   @driver.action.send_keys(:enter).perform
   #   wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
   #   expect(@driver.page_source.include?('newtagedited')).to be(true)
