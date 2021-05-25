@@ -70,7 +70,7 @@ class TeamTaskConfirmDialog extends React.Component {
     const confirmDialogBlurbEditOrDelete = (
       <FormattedMessage
         id="teamTasks.confirmDeleteBlurb"
-        defaultMessage="The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
+        defaultMessage="{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
         values={{
           itemsNumber: affectedItems,
           taskLabel: <strong>{this.props.task.label}</strong>,
