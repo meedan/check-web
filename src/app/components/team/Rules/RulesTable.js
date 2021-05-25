@@ -33,9 +33,12 @@ const useStyles = makeStyles(theme => ({
 
 export default function RulesTable(props) {
   const { rules } = props;
-  const rows = rules.map((rule, index) => (
-    { name: rule.name, updated_at: rule.updated_at, index }
-  ));
+  const rows = rules.map((rule, index) => ({
+    name: rule.name,
+    updated_at: rule.updated_at,
+    actions: rule.actions,
+    index,
+  }));
 
   const classes = useStyles();
   const [selected, setSelected] = React.useState([]);
@@ -104,7 +107,7 @@ export default function RulesTable(props) {
                 onSort={handleSort}
               />
               <TableBody>
-                {sortedRows.map((row) => {
+                {sortedRows.filter(r => !/add_tag/.test(JSON.stringify(r.actions))).map((row) => {
                   const { name, index } = row;
                   const isItemSelected = isSelected(index);
                   const labelId = `rules-table-checkbox-${index}`;

@@ -1,0 +1,36 @@
+[
+  {
+    "id": "teamTagsActions.couldNotDelete",
+    "description": "Error message displayed when it's not possible to delete a team tag",
+    "defaultMessage": "Could not delete tag"
+  },
+  {
+    "id": "teamTagsActions.deletedSuccessfully",
+    "description": "Message displayed when a team tag is deleted",
+    "defaultMessage": "Tag deleted successfully"
+  },
+  {
+    "id": "teamTagsActions.tooltip",
+    "defaultMessage": "Manage tag"
+  },
+  {
+    "id": "teamTagsActions.edit",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "teamTagsActions.delete",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "teamTagsActions.removeDialogTitle",
+    "defaultMessage": "Delete tag \"{tag}\""
+  },
+  {
+    "id": "teamTagsActions.removeDialogBody",
+    "defaultMessage": "Tag \"{tag}\" will be removed from {count} items."
+  },
+  {
+    "id": "teamTagsActions.remove",
+    "defaultMessage": "Delete tag"
+  }
+]

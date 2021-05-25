@@ -1,0 +1,24 @@
+[
+  {
+    "id": "createTag.couldNotCreate",
+    "description": "Error message displayed when it's not possible to create a team tag",
+    "defaultMessage": "Could not create tag"
+  },
+  {
+    "id": "createTag.createdSuccessfully",
+    "description": "Message displayed when a team tag is created",
+    "defaultMessage": "Tag created successfully"
+  },
+  {
+    "id": "createTag.title",
+    "defaultMessage": "Create new tag"
+  },
+  {
+    "id": "createTag.name",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "createTag.rule",
+    "defaultMessage": "Automatically tag items matching the following conditions:"
+  }
+]
