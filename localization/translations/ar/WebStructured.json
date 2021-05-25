@@ -205,7 +205,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.tag": {
-		"string": "العلامة",
+		"string": "الوسم",
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
@@ -333,10 +333,10 @@
 		"string": "تم ملأ حقل البيانات الوصفيّة \"{fieldLabel}\" بواسطة {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "قام(ت) {author} بنقله خارج سلة المهملات"
+		"string": "نُقل خارج سلة المهملات من طرف {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "قام(ت) {author} بنقله إلى سلة المهملات"
+		"string": "نُقل إلى سلة المهملات من طرف {author}"
 	},
 	"annotation.newReport": {
 		"string": "قام(ت) {author} بإضافة العنصر"
@@ -363,7 +363,7 @@
 		"string": "الرابط الثابت"
 	},
 	"annotation.projectMoved": {
-		"string": "قام(ت) {author} بنقله من مجلد {previousProject} إلى {currentProject}"
+		"string": "نُقل من المجلد {previousProject} إلى {currentProject} من طرف {author}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "رفض"
@@ -418,7 +418,7 @@
 		"string": "تم الرّفض من {user}"
 	},
 	"annotation.taggedHeader": {
-		"string": "قام(ت) {author} بإضافة وسم #{tag}"
+		"string": "قام(ت) {author} بإضافة الوسم ‎#{tag}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "قام(ت) {author} بتكليف مهمة إلى {name} : {title}"
@@ -499,7 +499,7 @@
 		"string": "النقل من غير المؤكد"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, zero {عدم نقل أي عنصر} one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصر إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
+		"string": "{selectedCount, plural, zero {لن يُنقَل أي عنصر} one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصرا إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
 	},
 	"bulkActions.move": {
 		"string": "نقل ‏‏العناصر المحددة إلى مجلد آخر"
@@ -618,6 +618,23 @@
 		"string": "إنشاء مصدر",
 		"developer_comment": "Label for button to create a new source"
 	},
+	"createTag.couldNotCreate": {
+		"string": "Could not create tag",
+		"developer_comment": "Error message displayed when it's not possible to create a team tag"
+	},
+	"createTag.createdSuccessfully": {
+		"string": "Tag created successfully",
+		"developer_comment": "Message displayed when a team tag is created"
+	},
+	"createTag.name": {
+		"string": "Name"
+	},
+	"createTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"createTag.title": {
+		"string": "Create new tag"
+	},
 	"createTeamDialog.cancel": {
 		"string": "إلغاء"
 	},
@@ -692,19 +709,26 @@
 		"string": "عرض هذا النطاق الزمني على time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "هناك {publishedCount, plural, one {عنصر واحد منشور حاليا} other {# عنصر منشور حاليا}} ذات الحالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة مؤقتا. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى."
+		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "نقل العناصر إلى"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "هناك {itemsCount, plural, one {عنصر واحد في حالة {statusLabel} بحاجة إلى تغيير} other {# عنصر في حالة {statusLabel} بحاجة إلى تغيير}} إلى حالة أخرى قبل تمكُّنك من حذف هذه الحالة."
+		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "أنت بحاجة إلى تغيير حالة {itemsCount, plural, one {عنصر واحد} other {# عنصر}}"
+		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
 	"destinationProjects.choose": {
-		"string": "إختيار مجلد"
+		"string": "اختيار مجلد"
+	},
+	"destinationProjects.empty": {
+		"string": "No folders in this collection"
+	},
+	"destinationProjects.none": {
+		"string": "Not in any collection",
+		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
 		"string": "إلغاء",
@@ -863,7 +887,7 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "تم إرسال بعض الدعوات بنجاح",
+		"string": "أُرسلَت بعض الدعوات بنجاح",
 		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
@@ -967,7 +991,7 @@
 		"string": "تعليقات فيسبوك"
 	},
 	"list.folder": {
-		"string": "مجلد",
+		"string": "المجلد",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
@@ -1025,7 +1049,7 @@
 		"string": "تسجيل حساب جديد"
 	},
 	"login.signIn": {
-		"string": "تسجيل الدخول",
+		"string": "Sign in",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1033,7 +1057,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "تسجيل حساب جديد",
+		"string": "Sign up",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1104,7 +1128,7 @@
 		"string": "تكليف العنصر لشركاء"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "تم تحديث التكليفات بنجاح"
+		"string": "حُدثَت التكليفات بنجاح"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "إلغاء"
@@ -1128,10 +1152,10 @@
 		"string": "تم التأكيد، إعادة التوجيه جارية…"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "تمت الاستعادة من سلة المهملات، جارٍ إعادة التوجيه…"
+		"string": "تمت الاستعادة من سلة المهملات، تجري الآن إعادة التوجيه…"
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "تم نقل العنصر إلى {trash}"
+		"string": "نُقل العنصر إلى {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "تقرير منشور"
@@ -1452,7 +1476,7 @@
 		"string": "الطلبات"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} من مجموع {total, plural, one {مادة إعلامية واحدة مقترحة} other {# مادة إعلامية مقترحة}}"
+		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "الأقل"
@@ -1540,7 +1564,7 @@
 		"string": "سياسة الخصوصية"
 	},
 	"project.deleteMessage": {
-		"string": "سوف يتم حذف المجلد لجميع من في مساحة العمل. ستبقى جميع العناصر في المجلد متاحة في مجلد \"كل العناصر\""
+		"string": "سوف يُحذَف المجلد لجميع من في مساحة العمل. ستبقى جميع العناصر في المجلد متاحة في مجلد \"كل العناصر\""
 	},
 	"project.name": {
 		"string": "المجلد"
@@ -1579,10 +1603,10 @@
 		"string": "+{count} أكثر"
 	},
 	"projectBlankState.blank": {
-		"string": "لا يوجد عناصر هنا."
+		"string": "لا توجد عناصر هنا."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
+		"string": "إذا حذفت هذه المجموعة، ستظل جميع المجلدات متاحة خارج هذه المجموعة."
 	},
 	"projectGroup.name": {
 		"string": "المجموعة"
@@ -1600,7 +1624,7 @@
 		"string": "اختيار مجموعة"
 	},
 	"projectMoveDialogComponent.couldNotMove": {
-		"string": "لم نتمكن من نقل المجلد إلى المجموعة",
+		"string": "تعذر نقل المجلد إلى المجموعة",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectMoveDialogComponent.createCollection": {
@@ -1610,7 +1634,7 @@
 		"string": "نقل المجلد إلى مجموعة"
 	},
 	"projectMoveDialogComponent.movedSuccessfully": {
-		"string": "تم نقل المجلد إلى المجموعة بنجاح",
+		"string": "لقد نُقل المجلد إلى المجموعة بنجاح",
 		"developer_comment": "Message displayed when a folder is moved to a collection"
 	},
 	"projectMoveDialogComponent.newCollection": {
@@ -1645,7 +1669,7 @@
 		"string": "كل العناصر"
 	},
 	"projectsComponent.couldNotMove": {
-		"string": "لم نتمكن من نقل المجلد إلى المجموعة",
+		"string": "تعذر نقل المجلد إلى المجموعة",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectsComponent.createCollection": {
@@ -1670,7 +1694,7 @@
 		"string": "المجلدات"
 	},
 	"projectsComponent.invalidMove": {
-		"string": "Folders can only be moved to collections",
+		"string": "لا يمكن نقل المجلدات إلا إلى مجموعات",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
@@ -1678,7 +1702,7 @@
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
-		"string": "تم نقل المجلد بنجاح",
+		"string": "لقد نُقل المجلد بنجاح",
 		"developer_comment": "Message displayed when a folder is moved to or from a collection"
 	},
 	"projectsComponent.newCollection": {
@@ -1686,7 +1710,7 @@
 		"developer_comment": "Dialog title for creating new collection"
 	},
 	"projectsComponent.newCollectionErrorMessage": {
-		"string": "لم نتمكن من إنشاء المجموعة، يرجى المحاولة مرة أخرى",
+		"string": "تعذَّر إنشاء المجموعة، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message when creating new collection fails"
 	},
 	"projectsComponent.newCollectionMenu": {
@@ -1694,7 +1718,7 @@
 		"developer_comment": "Menu item for creating new collection"
 	},
 	"projectsComponent.newCollectionSuccessMessage": {
-		"string": "تم إنشاء المجموعة بنجاح",
+		"string": "لقد أُنشئَت المجموعة بنجاح",
 		"developer_comment": "Success message when new collection is created"
 	},
 	"projectsComponent.newFolder": {
@@ -1702,7 +1726,7 @@
 		"developer_comment": "Dialog title for creating new folder"
 	},
 	"projectsComponent.newFolderErrorMessage": {
-		"string": "لم نتمكن من إنشاء المجلد، يرجى المحاولة مرة أخرى",
+		"string": "تعذَّر إنشاء المجلد، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message when creating new folder fails"
 	},
 	"projectsComponent.newFolderMenu": {
@@ -1717,15 +1741,15 @@
 		"string": "قائمة جديدة"
 	},
 	"projectsComponent.newListErrorMessage": {
-		"string": "لم نتمكن من إنشاء القائمة، يرجى المحاولة مرة أخرى",
+		"string": "تعذَّر إنشاء القائمة، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message when creating new list fails"
 	},
 	"projectsComponent.newListSuccessMessage": {
-		"string": "تم إنشاء القائمة بنجاح",
+		"string": "لقد أُنشئَت القائمة بنجاح",
 		"developer_comment": "Success message when new list is created"
 	},
 	"projectsComponent.noFolders": {
-		"string": "لا يوجد مجلدات في هذه المجموعة",
+		"string": "لا توجد مجلدات في هذه المجموعة",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.renameType": {
@@ -1983,7 +2007,7 @@
 		"string": "لم يمكننا حفظ القواعد"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "تم حفظ القواعد بنجاح"
+		"string": "حُفظَت القواعد بنجاح"
 	},
 	"rulesTableHead.name": {
 		"string": "الاسم",
@@ -2028,7 +2052,7 @@
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "لم نتمكن من حفظ القائمة، يرجى المحاولة مرة أخرى",
+		"string": "تعذَّر حفظ القائمة، يرجى المحاولة مرة أخرى",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
@@ -2039,7 +2063,7 @@
 		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
 	},
 	"saveList.savedSuccessfully": {
-		"string": "تم حفظ القائمة بنجاح",
+		"string": "لقد حُفظَت القائمة بنجاح",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
@@ -2048,6 +2072,29 @@
 	"saveList.update": {
 		"string": "حفظ التغييرات إلى القائمة \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
+	},
+	"saveTag.couldNotSave": {
+		"string": "Could not save tag",
+		"developer_comment": "Error message displayed when it's not possible to save a team tag"
+	},
+	"saveTag.name": {
+		"string": "Name"
+	},
+	"saveTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"saveTag.save": {
+		"string": "Save tag"
+	},
+	"saveTag.savedSuccessfully": {
+		"string": "Tag saved successfully",
+		"developer_comment": "Message displayed when a team tag is saved"
+	},
+	"saveTag.titleCreate": {
+		"string": "Create new tag"
+	},
+	"saveTag.titleEdit": {
+		"string": "Edit tag"
 	},
 	"savedSearch.deleteMessage": {
 		"string": "هل أنت متأكد(ة)؟ هذه القائمة تم مشاركتها بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها."
@@ -2063,7 +2110,7 @@
 		"string": "كل العناصر"
 	},
 	"search.and": {
-		"string": "و",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2103,7 +2150,7 @@
 		"string": "تاريخ آخر تحديث"
 	},
 	"search.fieldAnd": {
-		"string": "و",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
@@ -2130,7 +2177,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "أو",
+		"string": "or",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
@@ -2193,7 +2240,7 @@
 		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"searchKeyword.clear": {
-		"string": "Clear keyword search",
+		"string": "إلغاء بحث الكلمات المفتاحية",
 		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
@@ -2298,7 +2345,7 @@
 		"string": "القيمة"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific folders"
+		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "كل الأنشطة الأخرى"
@@ -2319,7 +2366,7 @@
 		"string": "الحدث"
 	},
 	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "If item is in folder"
+		"string": "إذا كان العنصر في مجلد"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "تنبيه جديد"
@@ -2328,16 +2375,16 @@
 		"string": "حفظ"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully"
+		"string": "لقد حُفظَت إعدادات Slack بنجاح"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "إرسال تنبيهات إلى"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific folders"
+		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
 	},
 	"slackConfigDialogComponent.webhook": {
-		"string": "Slack incoming webhook"
+		"string": "مِشبَك Slack الوارد "
 	},
 	"smoochBot.addResource": {
 		"string": "إضافة مورد"
@@ -2475,7 +2522,7 @@
 		"string": "احفظ الإعدادات"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Tipline settings saved successfully",
+		"string": "لقد حُفظَت إعدادات الخط الساخن بنجاح",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
@@ -2715,7 +2762,7 @@
 		"string": "هذا سيغير اللغة الإفتراضية من {currentDefaultLanguage} إلى {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
+		"string": "إذا تفاعل المستخدمون مع البوت باستخدام لغة ليست في هذا المجلد، أو أن الترجمة إلى تلك اللغة لم تكن متاحة، فستصبح {language} اللغة الافتراضية للرد على المستخدمين في كل من بوت الخط الساخن، والحالة والتقرير."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "ضبط {language} كلغة افتراضية"
@@ -2771,10 +2818,10 @@
 		"string": "بإمكانكم ترجمة الحالات إلى اللغات الثانوية لتظهر باللغات المحلية في تقارير تقصي الحقائق الخاصة بكم."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully"
+		"string": "أُنشئَت الحالة بنجاح"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully"
+		"string": "حُذفَت الحالة بنجاح"
 	},
 	"statusesComponent.error": {
 		"string": "عذراً ، حدث خطأ أثناء تحديث الحالات. يرجى المحاولة ثانية و التواصل مع {supportEmail} إن استمرت المشكلة."
@@ -2786,7 +2833,7 @@
 		"string": "حالة جديدة"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully"
+		"string": "حُفظَت الحالات بنجاح"
 	},
 	"statusesComponent.subtitle": {
 		"string": "سيكون عنوان الحالة ظاهرًا عند إرسال التقارير إلى المستخدمين."
@@ -2814,13 +2861,13 @@
 		"string": "ليس عضو في أي مساحة عمل"
 	},
 	"tagInput.addTag": {
-		"string": "إضافة وسم"
+		"string": "إضافة الوسم"
 	},
 	"tagInput.error": {
-		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد حدث خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"tagInput.search": {
-		"string": "للبحث عن أو إضافة وسوم جديدة"
+		"string": "للبحث عن الوسوم أو لإضافة وسوم جديدة"
 	},
 	"tagMenu.done": {
 		"string": "إتمام"
@@ -2832,13 +2879,13 @@
 		"string": "لا توجد وسوم حاليا في مساحة العمل هذه."
 	},
 	"tagPicker.tagNotFound": {
-		"string": "الوسم {tag}# غير موجود."
+		"string": "إن الوسم {tag}# غير موجود."
 	},
 	"task.answeredBy": {
 		"string": "تم الاستكمال بواسطة {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "Assign/Unassign"
+		"string": "تكليف أو إلغاء التكليف"
 	},
 	"task.assignedTo": {
 		"string": "مُكَلَّف إلى {name}"
@@ -3042,20 +3089,20 @@
 		"string": "حفظ التغييرات"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+		"string": "أأنت على يقين من ذلك؟ ستؤثر تغييراتك على جميع المجلدات، كما ستكون المجموعات والقوائم ظاهرة لجميع المستخدمين في مساحة عملك."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Workspace columns change"
+		"string": "تغيير في أعمدة مساحة العمل"
 	},
 	"teamListsComponent.createMetadata": {
 		"string": "إنشاء حقل جديد للبيانات الوصفية"
 	},
 	"teamListsComponent.defaultErrorMessage": {
-		"string": "Could not save column settings",
+		"string": "تعذَّر حفظ إعدادات الأعمدة",
 		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Select all the columns you want to display in all your folders, collections and lists.",
+		"string": "يرجى تحديد جميع الأعمدة التي لديك الحاجة لعرضها في جميع مجلداتك ومجموعاتك وقوائمك.",
 		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
@@ -3068,11 +3115,11 @@
 		"string": "بيانات وصفيّة"
 	},
 	"teamListsComponent.savedSuccessfully": {
-		"string": "Column settings saved successfully",
+		"string": "لقد حُفظَت إعدادات الأعمدة بنجاح",
 		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Column settings",
+		"string": "إعدادات الأعمدة",
 		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsItem.general": {
@@ -3115,7 +3162,7 @@
 		"string": "إزالة"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
+		"string": "لن يكون بإمكان المستخدم {userLabel} الوصول إلى مساحة عمل {teamName}، بما في ذلك جميع : محتوياته ومجلداته وملفاته."
 	},
 	"teamMembers.removeDialogTitle": {
 		"string": "إزالة {userLabel}"
@@ -3170,7 +3217,7 @@
 		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
-		"string": "Could not save report settings",
+		"string": "تعذَّر حفظ إعدادات التقرير",
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
@@ -3189,7 +3236,7 @@
 		"string": "حفظ"
 	},
 	"teamReportComponent.savedSuccessfully": {
-		"string": "Report settings saved successfully",
+		"string": "لقد حُفظَت إعدادات التقرير بنجاح",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
@@ -3240,7 +3287,7 @@
 		"string": "اللغات"
 	},
 	"teamSettings.lists": {
-		"string": "Columns"
+		"string": "الأعمدة"
 	},
 	"teamSettings.members": {
 		"string": "الأعضاء"
@@ -3267,40 +3314,40 @@
 		"string": "إضافة الوسم"
 	},
 	"teamTags.confirmDeleteBody": {
-		"string": "{numTags, plural, zero {لن تُحذَف العلامة « {tag} » من أي عنصر.} one {سوف تُحذَف العلامة « {tag} » من عنصر واحد.} two {سوف تُحذَف العلامة « {tag} » من عنصرين.} few {سوف تُحذَف العلامة « {tag} » من # عناصر.} many {سوف تُحذَف العلامة « {tag} » من # عنصرا.} other {سوف تُحذَف العلامة « {tag} » من # عنصر.}}"
+		"string": "{numTags, plural, zero {لن يُحذَف الوسم « {tag} » من أي عنصر.} one {سوف يُحذَف الوسم « {tag} » من عنصر واحد.} two {سوف يُحذَف الوسم « {tag} » من عنصرين.} few {سوف يُحذَف الوسم « {tag} » من # عناصر.} many {سوف يُحذَف الوسم « {tag} » من # عنصرا.} other {سوف يُحذَف الوسم « {tag} » من # عنصر.}}"
 	},
 	"teamTags.confirmDeleteLabel": {
 		"string": "حذف الوسم"
 	},
 	"teamTags.confirmDeleteTitle": {
-		"string": "ألديك الرغبة في حذف هذه العلامة ؟"
+		"string": "ألديك الرغبة في حذف هذا الوسم ؟"
 	},
 	"teamTags.counter": {
 		"string": "{total, plural, =0 {لا توجد وسوم} one {وسم واحد ({hidden} مُصفاة)} other {# وسوم ({hidden} مُصفاة)}}"
 	},
 	"teamTags.counterNoHidden": {
-		"string": "{total, plural, =0 {لا توجد وسوم} one {وسم واحد} other {# علامات}}"
+		"string": "{total, plural, =0 {لا توجد وسوم} one {وسم واحد} other {# وسوم}}"
 	},
 	"teamTags.deleteTag": {
 		"string": "حذف الوسم"
 	},
 	"teamTags.description": {
-		"string": "يمكن إضافة الوسوم إلى المواد الإعلامية والعناصر والمصادر."
+		"string": "يمكن إضافة الوسوم إلى المواد الإعلامية والعناصر وكذا المصادر."
 	},
 	"teamTags.editTag": {
 		"string": "تحرير الوسم"
 	},
 	"teamTags.fail": {
-		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد حدث خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.failDelete": {
-		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد حدث خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.failMove": {
-		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد حدث خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.failUpdate": {
-		"string": "عذراً، لقد واجهنا خطأ ما اثناء تحديث الوسم. يرجى أعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
+		"string": "عذراً، لقد حدث خطأ ما أثناء تحديث الوسم. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"teamTags.itemsCount": {
 		"string": "{count, plural, =0 {لا توجد عناصر} one {عنصر واحد} other {# عناصر}}"
@@ -3321,7 +3368,55 @@
 		"string": "الوسوم"
 	},
 	"teamTags.tooltip": {
-		"string": "Filter and sort folder"
+		"string": "تصفية وترتيب المجلد"
+	},
+	"teamTagsActions.couldNotDelete": {
+		"string": "Could not delete tag",
+		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
+	},
+	"teamTagsActions.delete": {
+		"string": "Delete"
+	},
+	"teamTagsActions.deletedSuccessfully": {
+		"string": "Tag deleted successfully",
+		"developer_comment": "Message displayed when a team tag is deleted"
+	},
+	"teamTagsActions.edit": {
+		"string": "Edit"
+	},
+	"teamTagsActions.remove": {
+		"string": "Delete tag"
+	},
+	"teamTagsActions.removeDialogBody": {
+		"string": "Tag \"{tag}\" will be removed from {count} items."
+	},
+	"teamTagsActions.removeDialogTitle": {
+		"string": "Delete tag \"{tag}\""
+	},
+	"teamTagsActions.tooltip": {
+		"string": "Manage tag"
+	},
+	"teamTagsComponent.newTag": {
+		"string": "New tag"
+	},
+	"teamTagsComponent.search": {
+		"string": "Search"
+	},
+	"teamTagsComponent.tableHeaderName": {
+		"string": "Name",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderTagsCount": {
+		"string": "Items",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderUpdatedAt": {
+		"string": "Updated",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.title": {
+		"string": "Tags",
+		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
 		"string": "إلغاء"
@@ -3330,7 +3425,7 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "تمت مهمة {taskLabel} وانتهت إلى {itemsNumber, plural, one {عنصر واحد} other {# عنصر}}."
+		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"

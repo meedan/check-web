@@ -618,6 +618,23 @@
 		"string": "Create source",
 		"developer_comment": "Label for button to create a new source"
 	},
+	"createTag.couldNotCreate": {
+		"string": "Could not create tag",
+		"developer_comment": "Error message displayed when it's not possible to create a team tag"
+	},
+	"createTag.createdSuccessfully": {
+		"string": "Tag created successfully",
+		"developer_comment": "Message displayed when a team tag is created"
+	},
+	"createTag.name": {
+		"string": "Name"
+	},
+	"createTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"createTag.title": {
+		"string": "Create new tag"
+	},
 	"createTeamDialog.cancel": {
 		"string": "Отменить"
 	},
@@ -692,19 +709,26 @@
 		"string": "Посмотреть на time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Переместить материалы в"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
+		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Чтобы удалить этот статус, необходимо снять его с существующих материалов ({itemsCount, plural, one {1} other {#}})"
+		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Choose a folder"
+	},
+	"destinationProjects.empty": {
+		"string": "No folders in this collection"
+	},
+	"destinationProjects.none": {
+		"string": "Not in any collection",
+		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Отменить",
@@ -1025,7 +1049,7 @@
 		"string": "Регистрация"
 	},
 	"login.signIn": {
-		"string": "ВОЙТИ",
+		"string": "Sign in",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1033,7 +1057,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign Up",
+		"string": "Sign up",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1452,7 +1476,7 @@
 		"string": "Запросы"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Меньше"
@@ -2049,6 +2073,29 @@
 		"string": "Save changes to the list \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveTag.couldNotSave": {
+		"string": "Could not save tag",
+		"developer_comment": "Error message displayed when it's not possible to save a team tag"
+	},
+	"saveTag.name": {
+		"string": "Name"
+	},
+	"saveTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"saveTag.save": {
+		"string": "Save tag"
+	},
+	"saveTag.savedSuccessfully": {
+		"string": "Tag saved successfully",
+		"developer_comment": "Message displayed when a team tag is saved"
+	},
+	"saveTag.titleCreate": {
+		"string": "Create new tag"
+	},
+	"saveTag.titleEdit": {
+		"string": "Edit tag"
+	},
 	"savedSearch.deleteMessage": {
 		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
 	},
@@ -2063,7 +2110,7 @@
 		"string": "Все материалы"
 	},
 	"search.and": {
-		"string": "И",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2103,7 +2150,7 @@
 		"string": "Обновлено"
 	},
 	"search.fieldAnd": {
-		"string": "AND",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
@@ -2130,7 +2177,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "Или",
+		"string": "or",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
@@ -3323,6 +3370,54 @@
 	"teamTags.tooltip": {
 		"string": "Filter and sort folder"
 	},
+	"teamTagsActions.couldNotDelete": {
+		"string": "Could not delete tag",
+		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
+	},
+	"teamTagsActions.delete": {
+		"string": "Delete"
+	},
+	"teamTagsActions.deletedSuccessfully": {
+		"string": "Tag deleted successfully",
+		"developer_comment": "Message displayed when a team tag is deleted"
+	},
+	"teamTagsActions.edit": {
+		"string": "Edit"
+	},
+	"teamTagsActions.remove": {
+		"string": "Delete tag"
+	},
+	"teamTagsActions.removeDialogBody": {
+		"string": "Tag \"{tag}\" will be removed from {count} items."
+	},
+	"teamTagsActions.removeDialogTitle": {
+		"string": "Delete tag \"{tag}\""
+	},
+	"teamTagsActions.tooltip": {
+		"string": "Manage tag"
+	},
+	"teamTagsComponent.newTag": {
+		"string": "New tag"
+	},
+	"teamTagsComponent.search": {
+		"string": "Search"
+	},
+	"teamTagsComponent.tableHeaderName": {
+		"string": "Name",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderTagsCount": {
+		"string": "Items",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderUpdatedAt": {
+		"string": "Updated",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.title": {
+		"string": "Tags",
+		"developer_comment": "Title for the tags settings page"
+	},
 	"teamTasks.cancelAction": {
 		"string": "Отменить"
 	},
@@ -3330,7 +3425,7 @@
 		"string": "Да"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
+		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Вы уверены, что хотите удалить эти метаданные?"

@@ -169,7 +169,7 @@
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.collection": {
-		"string": "Collection",
+		"string": "Colección",
 		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.createdBy": {
@@ -181,7 +181,7 @@
 		"developer_comment": "Header to menu of filter field types"
 	},
 	"addFilterMenu.folder": {
-		"string": "Folder",
+		"string": "Carpeta",
 		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemStatus": {
@@ -333,10 +333,10 @@
 		"string": "Campo de metadatos \"{fieldLabel}\" llenado por {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Moved out of Trash by {author}"
+		"string": "Sacado de la Papelera por {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "Moved to Trash by {author}"
+		"string": "Movido a la Papelera por {author}"
 	},
 	"annotation.newReport": {
 		"string": "Ítem añadido por {author}"
@@ -363,7 +363,7 @@
 		"string": "Enlace permanente"
 	},
 	"annotation.projectMoved": {
-		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
+		"string": "Movido de la carpeta {previousProject} a {currentProject} por {author}"
 	},
 	"annotation.rejectSuggestion": {
 		"string": "Rechazar"
@@ -499,13 +499,13 @@
 		"string": "Mover de Sin Confirmar"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
+		"string": "{selectedCount, plural, one {Mover 1 ítem a la carpeta...} other {Mover # ítems a la carpeta...}}"
 	},
 	"bulkActions.move": {
-		"string": "Move selected items to another folder"
+		"string": "Mover ítems seleccionados a otra carpeta"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Move to folder",
+		"string": "Mover a carpeta",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
@@ -533,10 +533,10 @@
 		"string": "Send selected items to Trash"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move items to another folder"
+		"string": "Recuperar ítems seleccionados y mover ítems a otra carpeta"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Confirm selected items and move items to another folder"
+		"string": "Confirmar ítems seleccionados y mover ítems a otra carpeta"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Cancelar",
@@ -618,6 +618,23 @@
 		"string": "Crear fuente",
 		"developer_comment": "Label for button to create a new source"
 	},
+	"createTag.couldNotCreate": {
+		"string": "Could not create tag",
+		"developer_comment": "Error message displayed when it's not possible to create a team tag"
+	},
+	"createTag.createdSuccessfully": {
+		"string": "Tag created successfully",
+		"developer_comment": "Message displayed when a team tag is created"
+	},
+	"createTag.name": {
+		"string": "Name"
+	},
+	"createTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"createTag.title": {
+		"string": "Create new tag"
+	},
 	"createTeamDialog.cancel": {
 		"string": "Cancelar"
 	},
@@ -663,11 +680,11 @@
 		"developer_comment": "Label for closing dropdown when user is done selecting tags"
 	},
 	"customAutocomplete.select": {
-		"string": "Select",
+		"string": "Seleccionar",
 		"developer_comment": "Verb. Label for generic dropdown component"
 	},
 	"customFiltersManager.label": {
-		"string": "Metadata is",
+		"string": "Metadatos son",
 		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
@@ -692,26 +709,33 @@
 		"string": "Ver esta zona horaria en time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "Hay {publishedCount, plural, one {is one item currently published} other {are # items currently published}} con el estado {statusLabel}. Si continuas, todos los ítems publicados con este estado serán pausados. Debes revisar aquellos ítems para volver a publicarlos."
+		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Mover ítems a"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "Hay {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} que {are # items with the status {statusLabel} that must be changed}} a otro estado antes de que puedas cambiar el estado."
+		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "Debes cambiar el estado de {itemsCount, plural, one {one item} other {# items}} para eliminar este estado"
+		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
 	"destinationProjects.choose": {
-		"string": "Choose a folder"
+		"string": "Elegir una carpeta"
+	},
+	"destinationProjects.empty": {
+		"string": "No folders in this collection"
+	},
+	"destinationProjects.none": {
+		"string": "Not in any collection",
+		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Cancelar",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Move to folder",
+		"string": "Mover a carpeta",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
@@ -863,7 +887,7 @@
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully",
+		"string": "Las otras invitaciones fueron enviadas exitosamente.",
 		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
@@ -967,7 +991,7 @@
 		"string": "Comentarios en FB"
 	},
 	"list.folder": {
-		"string": "Folder",
+		"string": "Carpeta",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
@@ -1025,7 +1049,7 @@
 		"string": "Registrarse"
 	},
 	"login.signIn": {
-		"string": "INICIAR SESIÓN ",
+		"string": "Sign in",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1033,7 +1057,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Inicia Sesión",
+		"string": "Sign up",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1086,7 +1110,7 @@
 		"string": "Actualizar "
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Move to Trash"
+		"string": "Mover a Papelera"
 	},
 	"mediaActions.tooltip": {
 		"string": "Acciones de los ítems"
@@ -1104,7 +1128,7 @@
 		"string": "Asignar ítem a lo(a)s colaboradore(a)s"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully"
+		"string": "¡Las asignaciones se han actualizado exitosamente!"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Cancelar"
@@ -1113,10 +1137,10 @@
 		"string": "Confirmar"
 	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Move to a different folder"
+		"string": "Mover  a una carpeta diferente"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Move item to folder…"
+		"string": "Mover ítem a carpeta..."
 	},
 	"mediaActionsBar.move": {
 		"string": "Mover"
@@ -1128,16 +1152,16 @@
 		"string": "Confirmed, redirecting…"
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Restored from Trash, redirecting…"
+		"string": "Recuperado de Papelera, redireccionando..."
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "The item was moved to {trash}"
+		"string": "El ítem se movió a {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Informe publicado"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Move to folder"
+		"string": "Mover a carpeta"
 	},
 	"mediaActionsBar.restoreTo": {
 		"string": "Recuperar de la Papelera"
@@ -1298,7 +1322,7 @@
 		"string": "Lo sentimos, se produjo un error al actualizar el idioma. Por favor, intentalo nuevamente y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Google Image Search"
+		"string": "Búsqueda de Imágenes de Google"
 	},
 	"mediaMetadata.Timeline": {
 		"string": "Cronología"
@@ -1452,7 +1476,7 @@
 		"string": "Solicitudes"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} de {total, plural, one {# suggested media} other {# suggested medias}}"
+		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Menos"
@@ -1540,10 +1564,10 @@
 		"string": "Política Privacidad"
 	},
 	"project.deleteMessage": {
-		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+		"string": "La carpeta se eliminará para todas(os) en esta área de trabajo. Todos los ítems en la carpeta seguirán estando accesibles en la carpeta \"Todos los ítems\"."
 	},
 	"project.name": {
-		"string": "folder"
+		"string": "carpeta"
 	},
 	"projectActions.cancel": {
 		"string": "Cancelar"
@@ -1561,11 +1585,11 @@
 		"developer_comment": "'Move' here is an infinitive verb"
 	},
 	"projectActions.moveOut": {
-		"string": "Move out",
+		"string": "Sacar",
 		"developer_comment": "Menu option to move a folder out of a collection"
 	},
 	"projectActions.rename": {
-		"string": "Rename",
+		"string": "Renombrar",
 		"developer_comment": "'Rename' here is an infinitive verb"
 	},
 	"projectActions.savedSuccessfully": {
@@ -1579,13 +1603,13 @@
 		"string": "+{count} más"
 	},
 	"projectBlankState.blank": {
-		"string": "There are no items here."
+		"string": "No hay ítems aquí. "
 	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
+		"string": "Si eliminas esta colección, todas las carpetas seguirán estando accesibles fuera de la colección."
 	},
 	"projectGroup.name": {
-		"string": "collection"
+		"string": "colección"
 	},
 	"projectHeader.allItems": {
 		"string": "Todos los ítems"
@@ -1597,39 +1621,39 @@
 		"string": "Sin Confirmar"
 	},
 	"projectMoveDialogComponent.choose": {
-		"string": "Choose a collection"
+		"string": "Elegir una colección"
 	},
 	"projectMoveDialogComponent.couldNotMove": {
-		"string": "Could not move folder to collection",
+		"string": "No se pudo mover la carpeta a la colección",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectMoveDialogComponent.createCollection": {
-		"string": "Create collection"
+		"string": "Crear colección"
 	},
 	"projectMoveDialogComponent.moveTitle": {
-		"string": "Move folder to a collection"
+		"string": "Mover carpeta a una colección"
 	},
 	"projectMoveDialogComponent.movedSuccessfully": {
-		"string": "Folder moved to collection successfully",
+		"string": "Carpeta movida a la colección exitosamente",
 		"developer_comment": "Message displayed when a folder is moved to a collection"
 	},
 	"projectMoveDialogComponent.newCollection": {
-		"string": "New collection"
+		"string": "Nueva colección"
 	},
 	"projectMoveDialogComponent.noCollectionsText": {
-		"string": "There are no collections in {teamName}. You need to create a collection first."
+		"string": "No hay colecciones en {teamName}. Tienes que crear una colección primero."
 	},
 	"projectMoveDialogComponent.noCollectionsTitle": {
-		"string": "Move folder to a collection"
+		"string": "Mover carpeta a una colección"
 	},
 	"projectMoveDialogComponent.proceedLabel": {
-		"string": "Create a new collection"
+		"string": "Crear una nueva colección"
 	},
 	"projectMoveDialogComponent.proceedLabel2": {
-		"string": "Move to collection"
+		"string": "Mover a colección"
 	},
 	"projectSelector.allProjs": {
-		"string": "All folders"
+		"string": "Todas las carpetas"
 	},
 	"projectSelector.numProjs": {
 		"string": "{length, plural, one {# seleccionada} other {# seleccionadas}}",
@@ -1645,91 +1669,91 @@
 		"string": "Todos los ítems"
 	},
 	"projectsComponent.couldNotMove": {
-		"string": "Could not move folder to collection",
+		"string": "No se pudo mover la carpeta a la colección",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectsComponent.createCollection": {
-		"string": "Create collection",
+		"string": "Crear colección",
 		"developer_comment": "Button label for creating new collection"
 	},
 	"projectsComponent.createFolder": {
-		"string": "Create folder",
+		"string": "Crear carpeta",
 		"developer_comment": "Button label for creating new folder"
 	},
 	"projectsComponent.createList": {
 		"string": "Crear lista"
 	},
 	"projectsComponent.deleteType": {
-		"string": "Delete {type}",
+		"string": "Eliminar {type}",
 		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.description": {
 		"string": "Descripción "
 	},
 	"projectsComponent.folders": {
-		"string": "Folders"
+		"string": "Carpetas"
 	},
 	"projectsComponent.invalidMove": {
-		"string": "Folders can only be moved to collections",
+		"string": "Las carpetas solo se pueden mover a colecciones",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "Filtered lists",
+		"string": "Listas filtradas",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
-		"string": "Folder moved successfully",
+		"string": "Carpeta movida exitosamente",
 		"developer_comment": "Message displayed when a folder is moved to or from a collection"
 	},
 	"projectsComponent.newCollection": {
-		"string": "New collection",
+		"string": "Nueva colección",
 		"developer_comment": "Dialog title for creating new collection"
 	},
 	"projectsComponent.newCollectionErrorMessage": {
-		"string": "Could not create collection, please try again",
+		"string": "No se pudo crear la colección, por favor vuelve a intentarlo",
 		"developer_comment": "Error message when creating new collection fails"
 	},
 	"projectsComponent.newCollectionMenu": {
-		"string": "New collection",
+		"string": "Nueva colección",
 		"developer_comment": "Menu item for creating new collection"
 	},
 	"projectsComponent.newCollectionSuccessMessage": {
-		"string": "Collection created successfully",
+		"string": "Colección creada exitosamente",
 		"developer_comment": "Success message when new collection is created"
 	},
 	"projectsComponent.newFolder": {
-		"string": "New folder",
+		"string": "Nueva carpeta",
 		"developer_comment": "Dialog title for creating new folder"
 	},
 	"projectsComponent.newFolderErrorMessage": {
-		"string": "Could not create folder, please try again",
+		"string": "No se pudo crear la carpeta, por favor vuelve a intentar",
 		"developer_comment": "Error message when creating new folder fails"
 	},
 	"projectsComponent.newFolderMenu": {
-		"string": "New folder",
+		"string": "Nueva carpeta",
 		"developer_comment": "Menu item for creating new folder"
 	},
 	"projectsComponent.newFolderSuccessMessage": {
-		"string": "Folder created successfully",
+		"string": "Carpeta creada exitosamente",
 		"developer_comment": "Success message when new folder is created"
 	},
 	"projectsComponent.newList": {
-		"string": "New list"
+		"string": "Nueva lista"
 	},
 	"projectsComponent.newListErrorMessage": {
-		"string": "Could not create list, please try again",
+		"string": "No se pudo crear la lista, por favor vuelve a intentar",
 		"developer_comment": "Error message when creating new list fails"
 	},
 	"projectsComponent.newListSuccessMessage": {
-		"string": "List created successfully",
+		"string": "Lista creada exitosamente",
 		"developer_comment": "Success message when new list is created"
 	},
 	"projectsComponent.noFolders": {
-		"string": "No folders in this collection",
+		"string": "No hay carpetas en esta colección",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.renameType": {
-		"string": "Rename {type}",
+		"string": "Renombrar {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.title": {
@@ -1983,7 +2007,7 @@
 		"string": "No se pudo guardar las reglas"
 	},
 	"rulesComponent.savedSuccessfully": {
-		"string": "Rules saved successfully"
+		"string": "Reglas guardadas exitosamente"
 	},
 	"rulesTableHead.name": {
 		"string": "Nombre",
@@ -2015,7 +2039,7 @@
 		"string": "{numSelected, plural, one {# seleccionado} other {# seleccionados}}"
 	},
 	"rulesTableToolbar.subtitle": {
-		"string": "Create automations to organize folders and customize your workflow."
+		"string": "Crea automatizaciones para organizar carpetas y personalizar tu flujo de trabajo."
 	},
 	"rulesTableToolbar.title": {
 		"string": "Reglas"
@@ -2024,50 +2048,73 @@
 		"string": "Cancelar"
 	},
 	"saveList.create": {
-		"string": "Create new list",
+		"string": "Crear nueva lista",
 		"developer_comment": "'Create' here is an infinitive verb"
 	},
 	"saveList.defaultErrorMessage": {
-		"string": "Could not save list, please try again",
+		"string": "No se pudo guardar la lista, por favor vuelve a intentar",
 		"developer_comment": "Error message displayed when it's not possible to save a list"
 	},
 	"saveList.newList": {
-		"string": "Save list"
+		"string": "Guardar lista"
 	},
 	"saveList.saveList": {
-		"string": "Save list",
+		"string": "Guardar lista",
 		"developer_comment": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
 	},
 	"saveList.savedSuccessfully": {
-		"string": "List saved successfully",
+		"string": "Lista guardada existosamente",
 		"developer_comment": "Success message displayed when a list is saved"
 	},
 	"saveList.title": {
-		"string": "Enter new list name"
+		"string": "Introduce el nuevo nombre de la lista"
 	},
 	"saveList.update": {
-		"string": "Save changes to the list \"{listName}\"",
+		"string": "Guardar cambios a la lista \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveTag.couldNotSave": {
+		"string": "Could not save tag",
+		"developer_comment": "Error message displayed when it's not possible to save a team tag"
+	},
+	"saveTag.name": {
+		"string": "Name"
+	},
+	"saveTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"saveTag.save": {
+		"string": "Save tag"
+	},
+	"saveTag.savedSuccessfully": {
+		"string": "Tag saved successfully",
+		"developer_comment": "Message displayed when a team tag is saved"
+	},
+	"saveTag.titleCreate": {
+		"string": "Create new tag"
+	},
+	"saveTag.titleEdit": {
+		"string": "Edit tag"
+	},
 	"savedSearch.deleteMessage": {
-		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
+		"string": "¿Está segura(o)? Esta lista se comparte entre todas(os) las(os) usuarias(os) de {teamName}. Después de eliminarla, ningún(a) usuaria(o) podrá acceder a ella."
 	},
 	"savedSearch.name": {
-		"string": "list"
+		"string": "lista"
 	},
 	"search.afterDate": {
-		"string": "after",
+		"string": "después ",
 		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
 		"string": "Todos los ítems"
 	},
 	"search.and": {
-		"string": "Y",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
-		"string": "any date",
+		"string": "cualquier fecha",
 		"developer_comment": "Date picker placeholder"
 	},
 	"search.applyFilters": {
@@ -2079,15 +2126,15 @@
 		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
 	"search.beforeDate": {
-		"string": "and before",
+		"string": "y antes",
 		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.categoriesHeading": {
-		"string": "Tag is",
+		"string": "Etiqueta es",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
 	"search.collection": {
-		"string": "Collection is",
+		"string": "Colección es",
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
@@ -2103,11 +2150,11 @@
 		"string": "Actualizado"
 	},
 	"search.fieldAnd": {
-		"string": "Y",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
-		"string": "Folder is",
+		"string": "Carpeta es",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
@@ -2119,25 +2166,25 @@
 		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
-		"string": "Language is",
+		"string": "Idioma es",
 		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Página siguiente"
 	},
 	"search.notInAny": {
-		"string": "Not in any collection",
+		"string": "No está en ninguna colección",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "O",
+		"string": "or",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
 		"string": "Página anterior"
 	},
 	"search.reportStatus": {
-		"string": "Report status is",
+		"string": "Estado de informe es",
 		"developer_comment": "Prefix label for field to filter by report status"
 	},
 	"search.reportStatusPaused": {
@@ -2153,7 +2200,7 @@
 		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
-		"string": "Type is",
+		"string": "Tipo es",
 		"developer_comment": "Prefix label for field to filter by media type"
 	},
 	"search.showAudios": {
@@ -2189,11 +2236,11 @@
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
 	"searchFields.clear": {
-		"string": "Clear filters",
+		"string": "Limpiar filtros",
 		"developer_comment": "Tooltip for button to remove any applied filters"
 	},
 	"searchKeyword.clear": {
-		"string": "Clear keyword search",
+		"string": "Limpiar búsqueda de palabras clave",
 		"developer_comment": "Tooltip for button to remove any applied keyword search"
 	},
 	"searchKeywordConfig.accounts": {
@@ -2298,7 +2345,7 @@
 		"string": "Valor"
 	},
 	"slackConfig.text": {
-		"string": "Send notifications to Slack channels when items are added to specific folders"
+		"string": "Enviar notificaciones a los canales de Slack cuando se agregan ítems a carpetas específicas"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
 		"string": "All other activity"
@@ -2319,7 +2366,7 @@
 		"string": "Evento"
 	},
 	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "If item is in folder"
+		"string": "Si el ítem esta en la carpeta"
 	},
 	"slackConfigDialogComponent.new": {
 		"string": "Nueva notificación"
@@ -2328,13 +2375,13 @@
 		"string": "Guardar"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
-		"string": "Slack settings saved successfully"
+		"string": "Configuraciones de Slack guardadas exitosamente"
 	},
 	"slackConfigDialogComponent.sendNotificationsTo": {
 		"string": "Enviar notificación a"
 	},
 	"slackConfigDialogComponent.title": {
-		"string": "Send notifications to Slack channels when items are added to specific folders"
+		"string": "Enviar notificaciones a los canales de Slack cuando se agreguen ítems a carpetas específicas"
 	},
 	"slackConfigDialogComponent.webhook": {
 		"string": "Webhook de Slack entrante"
@@ -2475,7 +2522,7 @@
 		"string": "Guardar configuraciones"
 	},
 	"smoochBotComponent.savedSuccessfully": {
-		"string": "Tipline settings saved successfully",
+		"string": "Configuraciones de la Tipline guardadas exitosamente.",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
 	"smoochBotComponent.subtitle": {
@@ -2715,7 +2762,7 @@
 		"string": "Esto cambiará el idioma por defecto de {currentDefaultLanguage} a {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
+		"string": "{language} se convertirá en el idioma predeterminado para responder a las(os) usuarias(os) en el bot de la Tipline, Estado o Informe si interactúan con el bot en cualquier idioma que no esté en esta carpeta, o si no hay una traducción disponible para ese idioma."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Establecer {language} por defecto"
@@ -2771,10 +2818,10 @@
 		"string": "Traduce los estados en idiomas secundarios para mostrarlos en idiomas locales en tus informes de verificación de datos."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully"
+		"string": "Estado creado exitosamente"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully"
+		"string": "Estado eliminado exitosamente"
 	},
 	"statusesComponent.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar los estados. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
@@ -2786,7 +2833,7 @@
 		"string": "Nuevo estado"
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully"
+		"string": "Estados guardados exitosamente"
 	},
 	"statusesComponent.subtitle": {
 		"string": "El título del estado es visible cuando se envían informes a los(as) usuarios(as)."
@@ -2838,7 +2885,7 @@
 		"string": "Completada por {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "Assign/Unassign"
+		"string": "Assignar/Desasignar"
 	},
 	"task.assignedTo": {
 		"string": "Asignado a {name}"
@@ -3042,20 +3089,20 @@
 		"string": "Guardar cambios"
 	},
 	"teamListsComponent.confirmSaveText": {
-		"string": "Are you sure? Your changes will affect all folders, collections and lists and be visible by all users in your workspace."
+		"string": "¿Estás segura(o)? Tus cambios afectarán a todas las carpetas, colecciones y listas y serán visibles para todas(os) las(os) usuarias(os) en tu área de trabajo."
 	},
 	"teamListsComponent.confirmSaveTitle": {
-		"string": "Workspace columns change"
+		"string": "Cambios de columnas del área de trabajo"
 	},
 	"teamListsComponent.createMetadata": {
 		"string": "Crear nuevo campo de metadatos"
 	},
 	"teamListsComponent.defaultErrorMessage": {
-		"string": "Could not save column settings",
+		"string": "No se pudo guardar la configuración de columna",
 		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Select all the columns you want to display in all your folders, collections and lists.",
+		"string": "Selecciona todas las columnas que deseas mostrar en todas tus carpetas, colecciones y listas.",
 		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
@@ -3068,11 +3115,11 @@
 		"string": "Metadato"
 	},
 	"teamListsComponent.savedSuccessfully": {
-		"string": "Column settings saved successfully",
+		"string": "Configuración de columna guardada exitosamente",
 		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Column settings",
+		"string": "Configuracion de columna",
 		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsItem.general": {
@@ -3115,7 +3162,7 @@
 		"string": "Eliminar"
 	},
 	"teamMembers.removeDialogBody": {
-		"string": "{userLabel} will no longer have access to {teamName}'s workspace, including all content, folders and files."
+		"string": "{userLabel} no tendrá más acceso al área de trabajo de {teamName}, incluyendo todos los contenidos, listas y archivos. "
 	},
 	"teamMembers.removeDialogTitle": {
 		"string": "Eliminar {userLabel}"
@@ -3170,7 +3217,7 @@
 		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
-		"string": "Could not save report settings",
+		"string": "No se guardaron las configuraciones del informe",
 		"developer_comment": "Warning displayed if an error occurred when saving report settings"
 	},
 	"teamReportComponent.facebook": {
@@ -3189,7 +3236,7 @@
 		"string": "Guardar"
 	},
 	"teamReportComponent.savedSuccessfully": {
-		"string": "Report settings saved successfully",
+		"string": "Configuraciones del informe guardadas exitosamente",
 		"developer_comment": "Banner displayed when report settings are saved successfully"
 	},
 	"teamReportComponent.signature": {
@@ -3240,7 +3287,7 @@
 		"string": "Idiomas"
 	},
 	"teamSettings.lists": {
-		"string": "Columns"
+		"string": "Columnas"
 	},
 	"teamSettings.members": {
 		"string": "Miembros"
@@ -3321,7 +3368,55 @@
 		"string": "Etiquetas"
 	},
 	"teamTags.tooltip": {
-		"string": "Filter and sort folder"
+		"string": "Filtrar y ordenar carpeta"
+	},
+	"teamTagsActions.couldNotDelete": {
+		"string": "Could not delete tag",
+		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
+	},
+	"teamTagsActions.delete": {
+		"string": "Delete"
+	},
+	"teamTagsActions.deletedSuccessfully": {
+		"string": "Tag deleted successfully",
+		"developer_comment": "Message displayed when a team tag is deleted"
+	},
+	"teamTagsActions.edit": {
+		"string": "Edit"
+	},
+	"teamTagsActions.remove": {
+		"string": "Delete tag"
+	},
+	"teamTagsActions.removeDialogBody": {
+		"string": "Tag \"{tag}\" will be removed from {count} items."
+	},
+	"teamTagsActions.removeDialogTitle": {
+		"string": "Delete tag \"{tag}\""
+	},
+	"teamTagsActions.tooltip": {
+		"string": "Manage tag"
+	},
+	"teamTagsComponent.newTag": {
+		"string": "New tag"
+	},
+	"teamTagsComponent.search": {
+		"string": "Search"
+	},
+	"teamTagsComponent.tableHeaderName": {
+		"string": "Name",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderTagsCount": {
+		"string": "Items",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderUpdatedAt": {
+		"string": "Updated",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.title": {
+		"string": "Tags",
+		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
 		"string": "Cancelar"
@@ -3330,7 +3425,7 @@
 		"string": "Sí"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "La tarea {taskLabel} ha sido completada en {itemsNumber, plural, one {# item} other {# items}}."
+		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "¿Estás seguro(a) que quieres eliminar este metadato?"
