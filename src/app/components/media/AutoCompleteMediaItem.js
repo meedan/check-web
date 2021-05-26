@@ -161,6 +161,14 @@ const AutoCompleteMediaItem = (props, context) => {
               team {
                 id
                 name
+                project_groups(first: 10000) {
+                  edges {
+                    node {
+                      dbid
+                      title
+                    }
+                  }
+                }
                 projects(first: 10000) {
                   edges {
                     node {

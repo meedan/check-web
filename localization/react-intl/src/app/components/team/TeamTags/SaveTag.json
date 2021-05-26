@@ -1,0 +1,32 @@
+[
+  {
+    "id": "saveTag.couldNotSave",
+    "description": "Error message displayed when it's not possible to save a team tag",
+    "defaultMessage": "Could not save tag"
+  },
+  {
+    "id": "saveTag.savedSuccessfully",
+    "description": "Message displayed when a team tag is saved",
+    "defaultMessage": "Tag saved successfully"
+  },
+  {
+    "id": "saveTag.titleEdit",
+    "defaultMessage": "Edit tag"
+  },
+  {
+    "id": "saveTag.titleCreate",
+    "defaultMessage": "Create new tag"
+  },
+  {
+    "id": "saveTag.name",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "saveTag.rule",
+    "defaultMessage": "Automatically tag items matching the following conditions:"
+  },
+  {
+    "id": "saveTag.save",
+    "defaultMessage": "Save tag"
+  }
+]

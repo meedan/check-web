@@ -227,8 +227,10 @@ const MediaAnalysis = ({ projectMedia }) => {
     <Box>
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center">
-          <Typography variant="button" component="div">
-            <FormattedMessage id="mediaAnalysis.analysis" defaultMessage="Analysis" />
+          <Typography variant="body" component="div">
+            <strong>
+              <FormattedMessage id="mediaAnalysis.analysis" defaultMessage="Analysis" />
+            </strong>
           </Typography>
           <Typography variant="caption" component="div" className={classes.saved}>
             { saving ?

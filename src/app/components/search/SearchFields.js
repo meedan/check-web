@@ -32,7 +32,7 @@ import { Row } from '../../styles/js/shared';
  * the `key` filter rather than return an empty array.
  */
 function updateStateQueryArrayValue(query, key, newArray) {
-  if (newArray === undefined || newArray.length === 0) {
+  if (newArray === undefined) {
     const newQuery = { ...query };
     delete newQuery[key];
     return newQuery;
@@ -483,7 +483,7 @@ class SearchFields extends React.Component {
               return (
                 <React.Fragment key={key}>
                   <Box height="36px" display="flex" alignItems="center">
-                    <FormattedMessage id="search.fieldAnd" defaultMessage="AND" description="Logical operator to be applied when filtering by multiple fields" />
+                    <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator to be applied when filtering by multiple fields" />
                   </Box>
                   { fieldComponents[key] }
                 </React.Fragment>

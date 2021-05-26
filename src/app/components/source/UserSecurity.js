@@ -216,7 +216,6 @@ class UserSecurity extends Component {
 
     const subTitleStyle = {
       margin: '5px 0px',
-      textTransform: 'uppercase',
     };
 
     const divBackupStyle = {

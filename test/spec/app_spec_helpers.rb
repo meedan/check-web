@@ -215,7 +215,7 @@ module AppSpecHelpers
       []
     end
 
-    chrome_args = %w[disable-gpu no-sandbox disable-dev-shm-usage]
+    chrome_args = %w[disable-gpu no-sandbox disable-dev-shm-usage --window-size=1320,850]
 
     chrome_options = {
       extensions: extensions,

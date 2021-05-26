@@ -12,6 +12,7 @@ shared_examples 'project' do
     wait_for_selector('.project-list__link-trash')
     wait_for_selector('.project__title')
     wait_for_selector('.team-header__drawer-team-link').click
+    wait_for_selector('.project-list__header').click
     wait_for_selector('.project-list__link').click
     wait_for_selector_none('.team-members__edit-button', :css, 10)
 

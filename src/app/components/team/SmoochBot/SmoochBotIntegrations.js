@@ -49,7 +49,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="whatsapp"
           label="WhatsApp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline#h_7122ffbcd0"
+          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7122ffbcd0"
           icon={<WhatsAppIcon />}
           color={whatsappGreen}
           online={isOnline('whatsapp')}
@@ -76,7 +76,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="twitter"
           label="Twitter"
           url={settings.smooch_twitter_authorization_url}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline#h_3776ec6766"
+          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_5cfcbe09c7"
           icon={<TwitterIcon />}
           color={twitterBlue}
           online={isOnline('twitter')}
@@ -101,7 +101,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           type="messenger"
           label="Messenger"
           url={settings.smooch_facebook_authorization_url}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline#h_c047b00335"
+          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_7e76e39cac"
           icon={<FacebookIcon />}
           color={facebookBlue}
           online={isOnline('messenger')}
@@ -128,7 +128,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<TelegramIcon />}
           color={telegramBlue}
           online={isOnline('telegram')}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline#h_dfb7709c05"
+          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
           params={[
             {
               key: 'token',
@@ -158,7 +158,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<ViberIcon />}
           color={viberPurple}
           online={isOnline('viber')}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline#h_895bbda0a6"
+          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
           params={[
             {
               key: 'token',
@@ -184,7 +184,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<LineIcon />}
           color={lineGreen}
           online={isOnline('line')}
-          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipeline#h_1eb9ebebee"
+          helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
           params={[
             {
               key: 'channelAccessToken',

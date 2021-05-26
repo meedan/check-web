@@ -15,10 +15,10 @@
 		"string": "Filter by"
 	},
 	"CustomFilter.keywordsLabel": {
-		"string": "Type a list of keywords separated by commas"
+		"string": "Ketik daftar kata-kata kunci dipisahkan dengan tanda koma"
 	},
 	"CustomFilter.selectValueLabel": {
-		"string": "Select value"
+		"string": "Pilih nilai"
 	},
 	"CustomTeamTaskFilter.anyValue": {
 		"string": "Any value is set",
@@ -29,15 +29,15 @@
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
-		"string": "Select metadata",
+		"string": "Pilih metadata",
 		"developer_comment": "Label for input to select specific metadata to filter by"
 	},
 	"CustomTeamTaskFilter.entityTaskLabel": {
-		"string": "Select task",
+		"string": "Pilih tugas",
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
-		"string": "Metadata has specific value",
+		"string": "Metadata dengan nilai spesifik",
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
@@ -49,11 +49,11 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
-		"string": "Task has specific answer",
+		"string": "Tugas dengan jawaban spesifik",
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Task answer contains keyword",
+		"string": "Jawaban tugas mengandung kata kunci",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
@@ -79,15 +79,6 @@
 	},
 	"MultiSelector.search": {
 		"string": "Search…"
-	},
-	"ProjectActions.edit": {
-		"string": "Rename"
-	},
-	"ProjectActions.tooltip": {
-		"string": "Folder actions"
-	},
-	"ProjectBlankState.createMedia": {
-		"string": "Add a link or text"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Account Already Confirmed",
@@ -210,7 +201,7 @@
 		"developer_comment": "Menu option to enable searching items by metadata fields"
 	},
 	"addFilterMenu.reportStatus": {
-		"string": "Report status",
+		"string": "Status laporan",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.tag": {
@@ -288,37 +279,37 @@
 		"string": "Classification result:"
 	},
 	"annotation.flagAdult": {
-		"string": "Adult"
+		"string": "Dewasa"
 	},
 	"annotation.flagLikelihood0": {
-		"string": "Unknown"
+		"string": "Tidak diketahui"
 	},
 	"annotation.flagLikelihood1": {
-		"string": "Very unlikely"
+		"string": "Sangat tidak mungkin"
 	},
 	"annotation.flagLikelihood2": {
-		"string": "Unlikely"
+		"string": "Tidak mungkin"
 	},
 	"annotation.flagLikelihood3": {
-		"string": "Possible"
+		"string": "Mungkin"
 	},
 	"annotation.flagLikelihood4": {
-		"string": "Likely"
+		"string": "Bisa saja"
 	},
 	"annotation.flagLikelihood5": {
-		"string": "Very likely"
+		"string": "Sangat mungkin"
 	},
 	"annotation.flagMedical": {
-		"string": "Medical"
+		"string": "Medis"
 	},
 	"annotation.flagRacy": {
-		"string": "Racy"
+		"string": "Rasial"
 	},
 	"annotation.flagSpam": {
 		"string": "Spam"
 	},
 	"annotation.flagViolence": {
-		"string": "Violence"
+		"string": "Kekerasan"
 	},
 	"annotation.mediaAssigned": {
 		"string": "Item assigned to {name} by {author}"
@@ -627,20 +618,22 @@
 		"string": "Create source",
 		"developer_comment": "Label for button to create a new source"
 	},
-	"createProject.addProject": {
-		"string": "Create folder"
+	"createTag.couldNotCreate": {
+		"string": "Could not create tag",
+		"developer_comment": "Error message displayed when it's not possible to create a team tag"
 	},
-	"createProject.error": {
-		"string": "Sorry, an error occurred while updating the folder. Please try again and contact {supportEmail} if the condition persists."
+	"createTag.createdSuccessfully": {
+		"string": "Tag created successfully",
+		"developer_comment": "Message displayed when a team tag is created"
 	},
-	"createProject.newProjectName": {
-		"string": "Folder name"
+	"createTag.name": {
+		"string": "Name"
 	},
-	"createProject.title": {
-		"string": "Add a folder"
+	"createTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
 	},
-	"createProject.titleBlank": {
-		"string": "Add your first folder"
+	"createTag.title": {
+		"string": "Create new tag"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Cancel"
@@ -716,19 +709,26 @@
 		"string": "View this timezone on time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Move items to"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
+		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
+		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Choose a folder"
+	},
+	"destinationProjects.empty": {
+		"string": "No folders in this collection"
+	},
+	"destinationProjects.none": {
+		"string": "Not in any collection",
+		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
 		"string": "Cancel",
@@ -750,7 +750,7 @@
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.statusDescription": {
-		"string": "Description"
+		"string": "Deskripsi"
 	},
 	"editStatusDialog.statusMessage": {
 		"string": "Message"
@@ -772,7 +772,7 @@
 		"string": "Edit metadata field"
 	},
 	"editTaskDialog.editTask": {
-		"string": "Edit task"
+		"string": "Sunting tugas"
 	},
 	"editTaskDialog.newMetadata": {
 		"string": "New metadata field"
@@ -853,7 +853,7 @@
 		"string": "Submitting…"
 	},
 	"global.tags": {
-		"string": "Tags"
+		"string": "Label-label"
 	},
 	"global.unknownError": {
 		"string": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
@@ -964,19 +964,19 @@
 		"string": "Languages"
 	},
 	"list.Demand": {
-		"string": "Requests"
+		"string": "Permintaan"
 	},
 	"list.FirstSeen": {
-		"string": "Submitted"
+		"string": "Diserahkan"
 	},
 	"list.Item": {
 		"string": "Perihal"
 	},
 	"list.LastSeen": {
-		"string": "Last submitted"
+		"string": "Diserahkan Terakhir"
 	},
 	"list.LinkedItems": {
-		"string": "Similar media"
+		"string": "Media serupa"
 	},
 	"list.ShareCount": {
 		"string": "FB Shares"
@@ -985,7 +985,7 @@
 		"string": "Status"
 	},
 	"list.Type": {
-		"string": "Type"
+		"string": "Tipe"
 	},
 	"list.commentCount": {
 		"string": "FB Comments"
@@ -995,25 +995,25 @@
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
-		"string": "Media published"
+		"string": "Media diterbitkan"
 	},
 	"list.reactCount": {
 		"string": "FB Reactions"
 	},
 	"list.relatedCount": {
-		"string": "Related"
+		"string": "Terkait"
 	},
 	"list.reportStatus": {
-		"string": "Report status"
+		"string": "Status laporan"
 	},
 	"list.suggestionsCount": {
 		"string": "Suggested matches"
 	},
 	"list.tags": {
-		"string": "Tags"
+		"string": "Label-label"
 	},
 	"list.updated": {
-		"string": "Updated"
+		"string": "Diperbarui"
 	},
 	"login.alreadyHasAccount": {
 		"string": "Already have an account ?"
@@ -1049,7 +1049,7 @@
 		"string": "Register"
 	},
 	"login.signIn": {
-		"string": "SIGN IN",
+		"string": "Sign in",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1057,7 +1057,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign Up",
+		"string": "Sign up",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1110,7 +1110,7 @@
 		"string": "Refresh"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Move to Trash"
+		"string": "Pindahkan ke Tong Sampah"
 	},
 	"mediaActions.tooltip": {
 		"string": "Item actions"
@@ -1230,10 +1230,10 @@
 		"string": "Catatan"
 	},
 	"mediaComponent.related": {
-		"string": "Related"
+		"string": "Terkait"
 	},
 	"mediaComponent.requests": {
-		"string": "Requests"
+		"string": "Permintaan"
 	},
 	"mediaComponent.source": {
 		"string": "Sumber"
@@ -1387,7 +1387,7 @@
 		"string": "Catatan"
 	},
 	"mediaSimilarities.requests": {
-		"string": "Requests"
+		"string": "Permintaan"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1434,7 +1434,7 @@
 		"string": "This media has been suggested to be similar to another item"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Similar media",
+		"string": "Media serupa",
 		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
@@ -1473,10 +1473,10 @@
 		"string": "Is the suggested media similar to the main?"
 	},
 	"mediaSuggestionsComponent.requests": {
-		"string": "Requests"
+		"string": "Permintaan"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
 	},
 	"moreLess.less": {
 		"string": "Less"
@@ -1569,9 +1569,6 @@
 	"project.name": {
 		"string": "folder"
 	},
-	"projectActions.assignOrUnassign": {
-		"string": "Assign to…"
-	},
 	"projectActions.cancel": {
 		"string": "Cancel"
 	},
@@ -1583,15 +1580,6 @@
 		"string": "Delete",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
-	"projectActions.deleteProjectBody": {
-		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
-	},
-	"projectActions.deleteProjectTitle": {
-		"string": "Are you sure you want to delete this folder?"
-	},
-	"projectActions.destroy": {
-		"string": "Delete"
-	},
 	"projectActions.move": {
 		"string": "Move to…",
 		"developer_comment": "'Move' here is an infinitive verb"
@@ -1599,15 +1587,6 @@
 	"projectActions.moveOut": {
 		"string": "Move out",
 		"developer_comment": "Menu option to move a folder out of a collection"
-	},
-	"projectActions.proceedLabel": {
-		"string": "Delete folder"
-	},
-	"projectActions.projectDeleted": {
-		"string": "Folder deleted successfully."
-	},
-	"projectActions.projectNotDeleted": {
-		"string": "Sorry, could not delete folder."
 	},
 	"projectActions.rename": {
 		"string": "Rename",
@@ -1620,68 +1599,20 @@
 	"projectActions.tooltip": {
 		"string": "Actions"
 	},
-	"projectAssignment.assignedTo": {
-		"string": "Ditugaskan pada"
-	},
 	"projectAssignment.more": {
 		"string": "+{count} more"
-	},
-	"projectAssignment.notAssigned": {
-		"string": "Not assigned"
-	},
-	"projectAssignment.notes": {
-		"string": "Catatan"
-	},
-	"projectAssignment.notesTitle": {
-		"string": "Add a note to the email"
-	},
-	"projectAssignment.processing": {
-		"string": "Done! The assignments are now propagating to items and tasks. You will receive an email when it's ready."
-	},
-	"projectAssignment.title": {
-		"string": "Assign folder to collaborators"
 	},
 	"projectBlankState.blank": {
 		"string": "There are no items here."
 	},
-	"projectEditDialogComponent.confirmCancelLabel": {
-		"string": "Go back"
-	},
-	"projectEditDialogComponent.confirmProceedBody": {
-		"string": "Changes made to this folder will be reflected for everyone in this workspace."
-	},
-	"projectEditDialogComponent.confirmProceedLabel": {
-		"string": "Save changes"
-	},
-	"projectEditDialogComponent.confirmProceedTitle": {
-		"string": "Are you sure you want to change this folder?"
-	},
-	"projectEditDialogComponent.descriptionField": {
-		"string": "Description"
-	},
-	"projectEditDialogComponent.ialogComponent.defaultErrorMessage": {
-		"string": "Could not update folder details."
-	},
-	"projectEditDialogComponent.ialogComponent.savedSuccessfully": {
-		"string": "Folder details updated successfully."
-	},
-	"projectEditDialogComponent.saveButton": {
-		"string": "Update"
-	},
-	"projectEditDialogComponent.title": {
-		"string": "Folder details"
-	},
-	"projectEditDialogComponent.titleField": {
-		"string": "Title"
-	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible, outside of the collection."
+		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
 	},
 	"projectGroup.name": {
 		"string": "collection"
 	},
 	"projectHeader.allItems": {
-		"string": "All items"
+		"string": "Semua perihal"
 	},
 	"projectHeader.trash": {
 		"string": "Trash"
@@ -1728,18 +1659,6 @@
 		"string": "{length, plural, one {# selected} other {# selected}}",
 		"developer_comment": "Label for number of selected folders"
 	},
-	"projects.addProject": {
-		"string": "Add folder"
-	},
-	"projects.allClaims": {
-		"string": "All items"
-	},
-	"projects.dismiss": {
-		"string": "Dismiss"
-	},
-	"projects.newList": {
-		"string": "+ New folder"
-	},
 	"projects.trash": {
 		"string": "Trash"
 	},
@@ -1747,7 +1666,7 @@
 		"string": "Unconfirmed"
 	},
 	"projectsComponent.allItems": {
-		"string": "All items"
+		"string": "Semua perihal"
 	},
 	"projectsComponent.couldNotMove": {
 		"string": "Could not move folder to collection",
@@ -1758,7 +1677,7 @@
 		"developer_comment": "Button label for creating new collection"
 	},
 	"projectsComponent.createFolder": {
-		"string": "Create folder",
+		"string": "Buat folder",
 		"developer_comment": "Button label for creating new folder"
 	},
 	"projectsComponent.createList": {
@@ -1769,13 +1688,13 @@
 		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.description": {
-		"string": "Description"
+		"string": "Deskripsi"
 	},
 	"projectsComponent.folders": {
 		"string": "Folders"
 	},
 	"projectsComponent.invalidMove": {
-		"string": "Folders can just be moved to collections",
+		"string": "Folders can only be moved to collections",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
@@ -2037,7 +1956,7 @@
 		"string": "Copy of {ruleName}"
 	},
 	"ruleBody.if": {
-		"string": "If"
+		"string": "Jika"
 	},
 	"ruleBody.ruleName": {
 		"string": "Nama"
@@ -2046,7 +1965,7 @@
 		"string": "Rule name is required"
 	},
 	"ruleBody.then": {
-		"string": "Then"
+		"string": "Lalu"
 	},
 	"ruleOperatorWrapper.and": {
 		"string": "And"
@@ -2095,7 +2014,7 @@
 		"developer_comment": "Table header for rule names"
 	},
 	"rulesTableHead.updated": {
-		"string": "Updated",
+		"string": "Diperbarui",
 		"developer_comment": "Table header for rule update dates"
 	},
 	"rulesTableToolbar.add": {
@@ -2123,7 +2042,7 @@
 		"string": "Create automations to organize folders and customize your workflow."
 	},
 	"rulesTableToolbar.title": {
-		"string": "Rules"
+		"string": "Peraturan"
 	},
 	"saveList.cancel": {
 		"string": "Cancel"
@@ -2154,6 +2073,29 @@
 		"string": "Save changes to the list \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveTag.couldNotSave": {
+		"string": "Could not save tag",
+		"developer_comment": "Error message displayed when it's not possible to save a team tag"
+	},
+	"saveTag.name": {
+		"string": "Name"
+	},
+	"saveTag.rule": {
+		"string": "Automatically tag items matching the following conditions:"
+	},
+	"saveTag.save": {
+		"string": "Save tag"
+	},
+	"saveTag.savedSuccessfully": {
+		"string": "Tag saved successfully",
+		"developer_comment": "Message displayed when a team tag is saved"
+	},
+	"saveTag.titleCreate": {
+		"string": "Create new tag"
+	},
+	"saveTag.titleEdit": {
+		"string": "Edit tag"
+	},
 	"savedSearch.deleteMessage": {
 		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
 	},
@@ -2165,10 +2107,10 @@
 		"developer_comment": "String displayed before a date picker"
 	},
 	"search.allClaimsTitle": {
-		"string": "All items"
+		"string": "Semua perihal"
 	},
 	"search.and": {
-		"string": "And",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2196,19 +2138,19 @@
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
-		"string": "Last submitted"
+		"string": "Diserahkan Terakhir"
 	},
 	"search.datePublishedHeading": {
 		"string": "Published"
 	},
 	"search.dateSubmittedHeading": {
-		"string": "Submitted"
+		"string": "Diserahkan"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "Updated"
+		"string": "Diperbarui"
 	},
 	"search.fieldAnd": {
-		"string": "AND",
+		"string": "and",
 		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
@@ -2235,7 +2177,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "Or",
+		"string": "or",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
@@ -2286,7 +2228,7 @@
 		"developer_comment": "Describes media type Video"
 	},
 	"search.statusHeading": {
-		"string": "Item status is",
+		"string": "Status perihal adalah",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
@@ -2336,7 +2278,7 @@
 		"string": "Metadata"
 	},
 	"searchKeywordConfig.tags": {
-		"string": "Tags"
+		"string": "Label-label"
 	},
 	"searchKeywordConfig.tasks": {
 		"string": "Tugas"
@@ -2397,7 +2339,7 @@
 		"string": "Add Option"
 	},
 	"singleChoiceTask.other": {
-		"string": "Other"
+		"string": "Lainnya"
 	},
 	"singleChoiceTask.value": {
 		"string": "Value"
@@ -2573,10 +2515,6 @@
 	"smoochBotComponent.contactUs": {
 		"string": "Contact us to setup"
 	},
-	"smoochBotComponent.defaultErrorMessage": {
-		"string": "Could not save tipline settings",
-		"developer_comment": "Warning displayed if an error occurred when saving tipline settings"
-	},
 	"smoochBotComponent.install": {
 		"string": "Install"
 	},
@@ -2703,7 +2641,7 @@
 		"string": "'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
 	},
 	"smoochBotMenuOption.if": {
-		"string": "If"
+		"string": "Jika"
 	},
 	"smoochBotMenuOption.languageAction": {
 		"string": "{languageName} (main menu)"
@@ -2724,7 +2662,7 @@
 		"string": "Select message"
 	},
 	"smoochBotMenuOption.then": {
-		"string": "Then"
+		"string": "Lalu"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
 		"string": "The option '9' must be included for users to access the Privacy Statement"
@@ -2965,13 +2903,13 @@
 		"string": "Delete task?"
 	},
 	"task.delete": {
-		"string": "Delete task"
+		"string": "Hapus tugas"
 	},
 	"task.deleteResponse": {
 		"string": "Delete answer"
 	},
 	"task.edit": {
-		"string": "Edit task"
+		"string": "Sunting tugas"
 	},
 	"task.editAttribution": {
 		"string": "Edit attribution"
@@ -3115,7 +3053,7 @@
 		"string": "View data report"
 	},
 	"teamDetails.description": {
-		"string": "Description"
+		"string": "Deskripsi"
 	},
 	"teamDetails.duplicateWorkspace": {
 		"string": "Gandakan ruang kerja"
@@ -3164,7 +3102,8 @@
 		"developer_comment": "Warning displayed if an error occurred when saving column settings"
 	},
 	"teamListsComponent.description": {
-		"string": "Select all the columns you want to display in all your folders, collections and lists."
+		"string": "Select all the columns you want to display in all your folders, collections and lists.",
+		"developer_comment": "Subtitle for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsComponent.displayedColumns": {
 		"string": "Displayed columns"
@@ -3180,7 +3119,8 @@
 		"developer_comment": "Banner displayed when column settings are saved successfully"
 	},
 	"teamListsComponent.title": {
-		"string": "Columns settings"
+		"string": "Column settings",
+		"developer_comment": "Header for Column settings page, where users can configure the visibility of columns in folders, collections and lists."
 	},
 	"teamListsItem.general": {
 		"string": "General"
@@ -3332,7 +3272,7 @@
 		"string": "WhatsApp number"
 	},
 	"teamSettings.Tags": {
-		"string": "Tags"
+		"string": "Label-label"
 	},
 	"teamSettings.data": {
 		"string": "Data"
@@ -3359,7 +3299,7 @@
 		"string": "Report"
 	},
 	"teamSettings.rules": {
-		"string": "Rules"
+		"string": "Peraturan"
 	},
 	"teamSettings.statuses": {
 		"string": "Statuses"
@@ -3371,7 +3311,7 @@
 		"string": "Tipline"
 	},
 	"teamTags.addTag": {
-		"string": "Add tag"
+		"string": "Tambahkan label"
 	},
 	"teamTags.confirmDeleteBody": {
 		"string": "{numTags, plural, one {The tag \"{tag}\" will be removed from one item.} other {The tag \"{tag}\" will be removed from # items.}}"
@@ -3425,10 +3365,58 @@
 		"string": "No tags"
 	},
 	"teamTags.title": {
-		"string": "Tags"
+		"string": "Label-label"
 	},
 	"teamTags.tooltip": {
 		"string": "Filter and sort folder"
+	},
+	"teamTagsActions.couldNotDelete": {
+		"string": "Could not delete tag",
+		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
+	},
+	"teamTagsActions.delete": {
+		"string": "Delete"
+	},
+	"teamTagsActions.deletedSuccessfully": {
+		"string": "Tag deleted successfully",
+		"developer_comment": "Message displayed when a team tag is deleted"
+	},
+	"teamTagsActions.edit": {
+		"string": "Edit"
+	},
+	"teamTagsActions.remove": {
+		"string": "Delete tag"
+	},
+	"teamTagsActions.removeDialogBody": {
+		"string": "Tag \"{tag}\" will be removed from {count} items."
+	},
+	"teamTagsActions.removeDialogTitle": {
+		"string": "Delete tag \"{tag}\""
+	},
+	"teamTagsActions.tooltip": {
+		"string": "Manage tag"
+	},
+	"teamTagsComponent.newTag": {
+		"string": "New tag"
+	},
+	"teamTagsComponent.search": {
+		"string": "Search"
+	},
+	"teamTagsComponent.tableHeaderName": {
+		"string": "Name",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderTagsCount": {
+		"string": "Items",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.tableHeaderUpdatedAt": {
+		"string": "Updated",
+		"developer_comment": "Column header in tags table."
+	},
+	"teamTagsComponent.title": {
+		"string": "Tags",
+		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
 		"string": "Cancel"
@@ -3437,7 +3425,7 @@
 		"string": "Yes"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "The task {taskLabel} has been completed in {itemsNumber, plural, one {# item} other {# items}}."
+		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Are you sure you want to delete this metadata?"
@@ -3461,13 +3449,13 @@
 		"string": "Do not alter tasks that have been completed, and keep their existing answers."
 	},
 	"teamTasks.continue": {
-		"string": "Edit task"
+		"string": "Sunting tugas"
 	},
 	"teamTasks.delete": {
 		"string": "Delete"
 	},
 	"teamTasks.deleteTask": {
-		"string": "Delete task"
+		"string": "Hapus tugas"
 	},
 	"teamTasks.edit": {
 		"string": "Edit"

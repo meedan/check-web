@@ -53,7 +53,6 @@ const useStyles = makeStyles(theme => ({
   noMedia: {
     color: 'black',
     textAlign: 'center',
-    textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 14,
   },
@@ -264,7 +263,7 @@ const MediaSuggestionsComponent = ({
           <Typography variant="button" display="block" className={classes.title}>
             <FormattedMessage
               id="mediaSuggestionsComponent.title"
-              defaultMessage="{current} of {total, plural, one {# suggested media} other {# suggested medias}}"
+              defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
               values={{
                 current: total === 0 ? 0 : index + 1,
                 total,

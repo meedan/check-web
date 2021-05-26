@@ -310,7 +310,7 @@ class TeamComponent extends Component {
             ? <TeamIntegrations />
             : null }
           { isReadOnly && tab === 'tags'
-            ? <TeamTags team={team} />
+            ? <TeamTags teamSlug={team.slug} />
             : null }
           { isSettings && tab === 'statuses'
             ? <TeamStatuses teamSlug={team.slug} />

@@ -45,17 +45,16 @@ const DeleteStatusDialog = ({
       title={
         <FormattedMessage
           id="deleteStatusDialog.statusInUseTitle"
-          defaultMessage="You need to change the status of {itemsCount, plural, one {one item} other {# items}} to delete this status"
+          defaultMessage="{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
           values={{ itemsCount: deleteStatus.items_count }}
         />
       }
       body={
         <div>
           <Typography variant="body1" component="p" paragraph>
-            { /* FIXME Transifex does not accept a plural form at string start (wrongly), that's why I moved "There" outside.  -- Karim, 21 Jul 2020 */}
             <FormattedMessage
               id="deleteStatusDialog.statusInUseMessage"
-              defaultMessage="There {itemsCount, plural, one {is one item with the status {statusLabel} that must be changed} other {are # items with the status {statusLabel} that must be changed}} to another status before you can delete this status."
+              defaultMessage="{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
               values={{
                 itemsCount: deleteStatus.items_count,
                 statusLabel: <strong>{deleteStatus.label}</strong>,
@@ -64,10 +63,9 @@ const DeleteStatusDialog = ({
           </Typography>
           { deleteStatus.published_reports_count ?
             <Typography variant="body1" component="p" paragraph>
-              { /* FIXME Transifex does not accept a plural form at string start (wrongly), that's why I moved "There" outside.  -- Alex, 17 Mar 2021 */}
               <FormattedMessage
                 id="deleteStatusDialog.itemsPublishedMessage"
-                defaultMessage="There {publishedCount, plural, one {is one item currently published} other {are # items currently published}} with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them."
+                defaultMessage="{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
                 values={{
                   publishedCount: deleteStatus.published_reports_count,
                   statusLabel: <strong>{deleteStatus.label}</strong>,

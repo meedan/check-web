@@ -50,12 +50,12 @@
   {
     "id": "login.signIn",
     "description": "Sign in button label",
-    "defaultMessage": "SIGN IN"
+    "defaultMessage": "Sign in"
   },
   {
     "id": "login.signUp",
     "description": "Sign up button label",
-    "defaultMessage": "Sign Up"
+    "defaultMessage": "Sign up"
   },
   {
     "id": "login.newAccount",

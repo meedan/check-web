@@ -33,9 +33,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-  title: {
-    textTransform: 'uppercase',
-  },
   box: {
     border: `2px solid ${opaqueBlack23}`,
     marginTop: theme.spacing(1),
@@ -67,26 +64,27 @@ const RuleBody = (props) => {
   };
 
   return (
-    <Paper className={classes.paper}>
-      <TextField
-        key={rule.name}
-        name="rule-name"
-        defaultValue={rule.name}
-        helperText={
-          <FormattedMessage
-            id="ruleBody.ruleNameValidation"
-            defaultMessage="Rule name is required"
-          />
-        }
-        label={
-          <FormattedMessage
-            id="ruleBody.ruleName"
-            defaultMessage="Name"
-          />
-        }
-        onBlur={handleUpdateRuleName}
-        fullWidth
-      />
+    <Paper className={classes.paper} style={props.noMargin ? { padding: 0 } : {}}>
+      { !props.hideName ?
+        <TextField
+          key={rule.name}
+          name="rule-name"
+          defaultValue={rule.name}
+          helperText={
+            <FormattedMessage
+              id="ruleBody.ruleNameValidation"
+              defaultMessage="Rule name is required"
+            />
+          }
+          label={
+            <FormattedMessage
+              id="ruleBody.ruleName"
+              defaultMessage="Name"
+            />
+          }
+          onBlur={handleUpdateRuleName}
+          fullWidth
+        /> : null }
       <RuleOperatorWrapper
         center
         color={brandHighlight}
@@ -166,64 +164,74 @@ const RuleBody = (props) => {
           );
         })}
       </RuleOperatorWrapper>
-      <Paper className={[classes.paper, classes.paper2, classes.thenGroup, 'rules__actions'].join(' ')}>
-        <Typography className={[classes.title, classes.thenTitle].join(' ')} component="div" variant="subtitle1">
-          <FormattedMessage
-            id="ruleBody.then"
-            defaultMessage="Then"
-          />
-        </Typography>
-        <RuleOperatorWrapper
-          center={false}
-          color={checkBlue}
-          operator="and"
-          operators={['and']}
-          onSetOperator={() => {}}
-          onAdd={() => {
-            rule.actions.push({ action_definition: '', action_value: '' });
-            props.onChangeRule(rule);
-          }}
-          onRemove={(i) => {
-            rule.actions.splice(i, 1);
-            props.onChangeRule(rule);
-          }}
-        >
-          {rule.actions.map((action, i) => {
-            const actions = props.schema.properties.rules.items.properties.actions.items;
-            const actionsDefinition = actions.properties.action_definition;
-            const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
-            return (
-              <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
-                <RuleField
-                  definition={actionsDefinition}
-                  value={action.action_definition}
-                  onChange={(value) => {
-                    rule.actions[i].action_definition = value;
-                    rule.actions[i].action_value = '';
-                    props.onChangeRule(rule);
-                  }}
-                />
-                { conditionalField ?
+      { !props.hideActions ?
+        <Paper className={[classes.paper, classes.paper2, classes.thenGroup, 'rules__actions'].join(' ')}>
+          <Typography className={[classes.title, classes.thenTitle].join(' ')} component="div" variant="subtitle1">
+            <FormattedMessage
+              id="ruleBody.then"
+              defaultMessage="Then"
+            />
+          </Typography>
+          <RuleOperatorWrapper
+            center={false}
+            color={checkBlue}
+            operator="and"
+            operators={['and']}
+            onSetOperator={() => {}}
+            onAdd={() => {
+              rule.actions.push({ action_definition: '', action_value: '' });
+              props.onChangeRule(rule);
+            }}
+            onRemove={(i) => {
+              rule.actions.splice(i, 1);
+              props.onChangeRule(rule);
+            }}
+          >
+            {rule.actions.map((action, i) => {
+              const actions = props.schema.properties.rules.items.properties.actions.items;
+              const actionsDefinition = actions.properties.action_definition;
+              const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
+              return (
+                <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>
                   <RuleField
-                    definition={conditionalField.action_value}
-                    value={action.action_value}
+                    definition={actionsDefinition}
+                    value={action.action_definition}
                     onChange={(value) => {
-                      rule.actions[i].action_value = value;
+                      rule.actions[i].action_definition = value;
+                      rule.actions[i].action_value = '';
                       props.onChangeRule(rule);
                     }}
-                  /> : null }
-              </Box>
-            );
-          })}
-        </RuleOperatorWrapper>
-      </Paper>
+                  />
+                  { conditionalField ?
+                    <RuleField
+                      definition={conditionalField.action_value}
+                      value={action.action_value}
+                      onChange={(value) => {
+                        rule.actions[i].action_value = value;
+                        props.onChangeRule(rule);
+                      }}
+                    /> : null }
+                </Box>
+              );
+            })}
+          </RuleOperatorWrapper>
+        </Paper> : null }
     </Paper>
   );
+};
+
+RuleBody.defaultProps = {
+  hideName: false,
+  hideActions: false,
+  noMargin: false,
 };
 
 RuleBody.propTypes = {
   rule: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
+  hideName: PropTypes.bool,
+  hideActions: PropTypes.bool,
+  noMargin: PropTypes.bool,
   onChangeRule: PropTypes.func.isRequired,
 };
 

@@ -357,12 +357,12 @@ class Login extends React.Component {
                     {this.state.type === 'login' ?
                       <FormattedMessage
                         id="login.signIn"
-                        defaultMessage="SIGN IN"
+                        defaultMessage="Sign in"
                         description="Sign in button label"
                       /> :
                       <FormattedMessage
                         id="login.signUp"
-                        defaultMessage="Sign Up"
+                        defaultMessage="Sign up"
                         description="Sign up button label"
                       />
                     }

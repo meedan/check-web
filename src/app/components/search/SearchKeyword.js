@@ -1,30 +1,28 @@
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import IconButton from '@material-ui/core/IconButton';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import InputBase from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearIcon from '@material-ui/icons/Clear';
-import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
+import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import {
-  black16,
   black54,
-  brandHighlight,
   Row,
   units,
   caption,
-  borderWidthLarge,
+  black16,
+  brandHighlight,
 } from '../../styles/js/shared';
 
 const StyledPopper = styled(Popper)`
@@ -53,20 +51,6 @@ const StyledPopper = styled(Popper)`
 `;
 
 const styles = theme => ({
-  inputInactive: {
-    borderRadius: theme.spacing(0.5),
-    border: `${borderWidthLarge} solid ${black16}`,
-  },
-  inputActive: {
-    borderRadius: theme.spacing(0.5),
-    border: `${borderWidthLarge} solid ${brandHighlight}`,
-  },
-  startAdornmentRoot: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: theme.spacing(6),
-    height: theme.spacing(6),
-  },
   endAdornmentRoot: {
     cursor: 'pointer',
     display: 'flex',
@@ -292,60 +276,35 @@ class SearchKeyword extends React.Component {
             autoComplete="off"
           >
             <Box width="450px">
-              <FormattedMessage id="search.inputHint" defaultMessage="Search" description="Placeholder for search keywords input">
-                { placeholder => (
-                  <InputBase
+              <SearchField
+                isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
+                inputBaseProps={{
+                  defaultValue: this.state.query.keyword || '',
+                  onBlur: this.handleBlur,
+                  onChange: this.handleInputChange,
+                  ref: this.searchInput,
+                }}
+                endAdornment={
+                  <InputAdornment
                     classes={{
-                      root: (
-                        this.keywordIsActive() || this.keywordConfigIsActive() ?
-                          classes.inputActive :
-                          classes.inputInactive
+                      root: classes.endAdornmentRoot,
+                      filled: (
+                        this.keywordConfigIsActive() ?
+                          classes.endAdornmentActive :
+                          classes.endAdornmentInactive
                       ),
                     }}
-                    placeholder={placeholder}
-                    name="search-input"
-                    id="search-input"
-                    defaultValue={this.state.query.keyword || ''}
-                    onBlur={this.handleBlur}
-                    onChange={this.handleInputChange}
-                    ref={this.searchInput}
-                    InputProps={{
-                      disableUnderline: true,
-                      startAdornment: (
-                        <InputAdornment
-                          classes={{
-                            root: classes.startAdornmentRoot,
-                          }}
-                        >
-                          <SearchIcon />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment
-                          classes={{
-                            root: classes.endAdornmentRoot,
-                            filled: (
-                              this.keywordConfigIsActive() ?
-                                classes.endAdornmentActive :
-                                classes.endAdornmentInactive
-                            ),
-                          }}
-                          variant="filled"
-                        >
-                          <SearchKeywordMenu
-                            teamSlug={this.props.team.slug}
-                            onChange={this.handleKeywordConfigChange}
-                            query={this.state.query}
-                            anchorParent={() => this.searchInput.current}
-                          />
-                        </InputAdornment>
-                      ),
-                    }}
-                    autoFocus
-                    fullWidth
-                  />
-                )}
-              </FormattedMessage>
+                    variant="filled"
+                  >
+                    <SearchKeywordMenu
+                      teamSlug={this.props.team.slug}
+                      onChange={this.handleKeywordConfigChange}
+                      query={this.state.query}
+                      anchorParent={() => this.searchInput.current}
+                    />
+                  </InputAdornment>
+                }
+              />
             </Box>
             <StyledPopper
               id="search-help"

@@ -33,7 +33,6 @@ const useStyles = makeStyles(theme => ({
   },
   link: {
     display: 'block',
-    textTransform: 'uppercase',
     fontWeight: 'bold',
     fontSize: 12,
     textAlign: 'center',
@@ -73,8 +72,12 @@ const MediaSimilarityBarComponent = ({
   showBackButton,
 }) => {
   const classes = useStyles();
-  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
-  const linkPrefix = `/${teamSlug}/media/${projectMediaDbid}`;
+  const linkPrefix = window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+/);
+
+  // This component should be used only on an item page
+  if (!linkPrefix) {
+    return null;
+  }
 
   const MaybeLink = ({ to, style, children }) => {
     if (to) {
@@ -140,7 +143,7 @@ const MediaSimilarityBarComponent = ({
           </Box> : null }
         { !showBackButton ?
           <MaybeLink
-            to={confirmedSimilarCount > 0 ? `${linkPrefix}/similar-media` : null}
+            to={confirmedSimilarCount > 0 ? `${linkPrefix[0]}/similar-media` : null}
             style={confirmedSimilarCount > 0 ? { color: checkBlue } : {}}
           >
             <FormattedMessage
@@ -153,7 +156,7 @@ const MediaSimilarityBarComponent = ({
           </MaybeLink> : null }
         { showSuggestionsCount ?
           <MaybeLink
-            to={suggestionsCount > 0 ? `${linkPrefix}/suggested-matches` : null}
+            to={suggestionsCount > 0 ? `${linkPrefix[0]}/suggested-matches` : null}
             style={suggestionsCount > 0 ? { color: brandHighlight } : {}}
           >
             <FormattedMessage

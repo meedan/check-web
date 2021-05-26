@@ -1,0 +1,26 @@
+[
+  {
+    "id": "teamTagsComponent.title",
+    "description": "Title for the tags settings page",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "teamTagsComponent.newTag",
+    "defaultMessage": "New tag"
+  },
+  {
+    "id": "teamTagsComponent.tableHeaderName",
+    "description": "Column header in tags table.",
+    "defaultMessage": "Name"
+  },
+  {
+    "id": "teamTagsComponent.tableHeaderUpdatedAt",
+    "description": "Column header in tags table.",
+    "defaultMessage": "Updated"
+  },
+  {
+    "id": "teamTagsComponent.tableHeaderTagsCount",
+    "description": "Column header in tags table.",
+    "defaultMessage": "Items"
+  }
+]
