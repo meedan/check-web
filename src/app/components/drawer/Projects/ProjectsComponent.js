@@ -65,6 +65,9 @@ const useStyles = makeStyles(theme => ({
     cursor: 'pointer',
     padding: theme.spacing(1),
   },
+  projectsComponentChevron: {
+    marginRight: theme.spacing(1),
+  },
 }));
 
 const ProjectsComponent = ({
@@ -246,7 +249,7 @@ const ProjectsComponent = ({
 
         {/* Folders: create new folder or collection */}
         <ListItem onClick={() => { setFoldersExpanded(!foldersExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
-          { foldersExpanded ? <ExpandLess /> : <ExpandMore /> }
+          { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
@@ -371,7 +374,7 @@ const ProjectsComponent = ({
 
         {/* Lists: create new list */}
         <ListItem onClick={() => { setListsExpanded(!listsExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
-          { listsExpanded ? <ExpandLess /> : <ExpandMore /> }
+          { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
