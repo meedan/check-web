@@ -93,6 +93,7 @@ const TeamTagsActions = ({
       <IconButton
         tooltip={<FormattedMessage id="teamTagsActions.tooltip" defaultMessage="Manage tag" />}
         onClick={e => setAnchorEl(e.currentTarget)}
+        style={{ padding: 0 }}
       >
         <IconMoreVert />
       </IconButton>

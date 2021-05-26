@@ -13,10 +13,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
-import TextField from '@material-ui/core/TextField';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import SearchIcon from '@material-ui/icons/Search';
-import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchField from '../../search/SearchField';
 import SaveTag from './SaveTag';
 import TeamTagsActions from './TeamTagsActions';
 import TimeBefore from '../../TimeBefore';
@@ -34,8 +32,7 @@ const useStyles = makeStyles(theme => ({
   },
   teamTagsSearchField: {
     background: 'white',
-    padding: 0,
-    margin: `0 ${theme.spacing(28)}px`,
+    margin: `0 ${theme.spacing(27)}px`,
   },
 }));
 
@@ -47,6 +44,7 @@ const TeamTagsComponent = ({
   rulesSchema,
   tags,
 }) => {
+  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
   const classes = useStyles();
   const [sortParam, setSortParam] = React.useState('text');
   const [sortDirection, setSortDirection] = React.useState('asc');
@@ -91,27 +89,19 @@ const TeamTagsComponent = ({
           </Can>
         }
         extra={
-          <TextField
-            label={<FormattedMessage id="teamTagsComponent.search" defaultMessage="Search" />}
-            onChange={(e) => { setSearchTerm(e.target.value); }}
-            variant="outlined"
-            margin="normal"
-            size="small"
-            className={classes.teamTagsSearchField}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment>
-                  <SearchIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
+          <Box className={classes.teamTagsSearchField}>
+            <SearchField
+              inputBaseProps={{
+                onChange: (e) => { setSearchTerm(e.target.value); },
+              }}
+            />
+          </Box>
         }
       />
       <Card>
         <CardContent className={classes.teamTagsCardComponent}>
           <TableContainer>
-            <Table>
+            <Table stickyHeader>
               <TableHead>
                 <TableRow>
                   <TableCell>
@@ -181,7 +171,9 @@ const TeamTagsComponent = ({
                       <TimeBefore date={tag.updated_at} />
                     </TableCell>
                     <TableCell className={classes.teamTagsTableCell}>
-                      {tag.tags_count}
+                      <a href={`/${teamSlug}/all-items/%7B"tags"%3A%5B"${tag.text}"%5D%7D`} target="_blank" rel="noopener noreferrer">
+                        {tag.tags_count}
+                      </a>
                     </TableCell>
                     <TableCell className={classes.teamTagsTableCell}>
                       <Can permissions={permissions} permission="create TagText">

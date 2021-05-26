@@ -9,10 +9,6 @@
     "defaultMessage": "New tag"
   },
   {
-    "id": "teamTagsComponent.search",
-    "defaultMessage": "Search"
-  },
-  {
     "id": "teamTagsComponent.tableHeaderName",
     "description": "Column header in tags table.",
     "defaultMessage": "Name"
