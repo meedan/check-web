@@ -94,7 +94,8 @@ shared_examples 'app' do |webdriver_url|
         flaky['imgur'] = link
         @failing_tests[example.description] = flaky
       end
-      print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
+      # print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
+      print " [Test #{example.description} failed! Check screenshot at #{link}"
     end
   end
 
