@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
+const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
 // TODO once we reach react-relay 8.0, uncomment for simpler build end.
 // (Also, delete the relay-compiler stuff form gulpfile.)
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
@@ -81,6 +82,10 @@ module.exports = {
       },
       test: /\.js$|\.css$|\.html$/,
     }),
+    new UnusedFilesWebpackPlugin({
+      failOnUnused: true,
+      patterns: ['src/app/**/*.js'],
+    }),
   ],
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
@@ -107,7 +112,11 @@ module.exports = {
       exclude: /node_modules/,
       include: [
         path.join(__dirname, '../src/app')
-      ]
+      ],
+      options: {
+        failOnError: true,
+        failOnWarning: true,
+      },
     }, {
       test: /\.css?$/,
       use: ['style-loader', 'raw-loader']

@@ -50,6 +50,7 @@
         "import/no-extraneous-dependencies": "off",
         "import/no-unresolved": "off",
         "import/extensions": "off",
+        "import/no-unused-modules": [1, {"unusedExports": true}],
 
         // TODO
         "class-methods-use-this": ["error", { "exceptMethods": ["getMutation", "getFatQuery", "getConfigs"] }],
