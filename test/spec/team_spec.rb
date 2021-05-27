@@ -20,7 +20,7 @@ shared_examples 'team' do
     wait_for_selector('#team-details__update-button')
     wait_for_selector('#team-details__duplicate-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    update_field('#create-team-dialog__name-input',"duplicated-team")
+    update_field('#create-team-dialog__name-input', 'duplicated-team')
     wait_for_selector('.create-team-dialog__confirm-button').click
     wait_for_selector_none('.create-team-dialog__confirm-button')
     @driver.navigate.to "#{@config['self_url']}/check/teams"
@@ -108,19 +108,19 @@ shared_examples 'team' do
 
   it 'should check user permissions', bin5: true do
     utp = api_create_team_project_and_two_users
-    #log in as admin
+    # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.project-list__link', index: 0).click
-    create_media("text")
+    create_media('text')
 
-    #log in as colaborator
+    # log in as colaborator
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('button#team-members__invite-button')
     # do not be able to invite a member
     expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length == 1)
-     # do not be able to see member icon menu 
+    # do not be able to see member icon menu
     expect(@driver.find_elements(:css, '.team-members__icon-menu').empty?).to be(true)
     # do not be able to duplicate or edit workspace detail
     wait_for_selector('.team-settings__details-tab').click
@@ -143,7 +143,7 @@ shared_examples 'team' do
     wait_for_selector('.media-detail')
     expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
 
-    #log in as admin
+    # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     # edit team member role
@@ -155,16 +155,16 @@ shared_examples 'team' do
     wait_for_selector('.team-settings__languages-tab')
     expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to be == 11
 
-    #log in as editor
+    # log in as editor
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('button#team-members__invite-button')
     # be able to invite a member
-    expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length == 0)
+    expect(@driver.find_elements(:css, 'button#team-members__invite-button[disabled=""]').length.zero?)
     # be able to edit workspace detail
     wait_for_selector('.team-settings__details-tab').click
     wait_for_selector('#team-details__name-input')
-    expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length == 0)
+    expect(@driver.find_elements(:css, 'button#team-details__update-button[disabled=""]').length.zero?)
     # do not be able to edit workspace detail
     expect(@driver.find_elements(:css, 'button#team-details__duplicate-button[disabled=""]').length == 1)
     # do not be able to see language and integration config tabs

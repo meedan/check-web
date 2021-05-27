@@ -7,7 +7,7 @@ shared_examples 'source' do
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(wait_for_selector('.source__name').text == 'G1').to be(true)
-    wait_for_selector('#source__name-input').send_keys("- Edited")
+    wait_for_selector('#source__name-input').send_keys('- Edited')
     @driver.action.send_keys(:enter).perform
     wait_for_text_change('Globo', '.source__name', :css)
     expect(wait_for_selector('.source__name').text == 'G1- Edited').to be(true)
@@ -16,7 +16,7 @@ shared_examples 'source' do
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 1).to be(true)
     # add a secondary link
     wait_for_selector('.source__add-link-button').click
-    wait_for_selector('#source__link-input-new').send_keys("https://www.bbc.com/news/uk")
+    wait_for_selector('#source__link-input-new').send_keys('https://www.bbc.com/news/uk')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#source__link-item0')
     # remove main link
@@ -28,7 +28,7 @@ shared_examples 'source' do
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 1).to be(true)
     wait_for_selector('.source__add-link-button').click
     # try add the same source again
-    wait_for_selector('#source__link-input-new').send_keys("https://www.bbc.com/news/uk")
+    wait_for_selector('#source__link-input-new').send_keys('https://www.bbc.com/news/uk')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#source__link-input-new-helper-text')
     expect(@driver.page_source.include?('Account has already been taken')).to be(true)
@@ -40,7 +40,7 @@ shared_examples 'source' do
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(wait_for_selector('.source__name').text == 'CNN Brasil').to be(true)
-    wait_for_selector('.project-header__back-button').click 
+    wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
     wait_for_selector_list_size('.medias__item', 1)
     # create another media and add a existing source
