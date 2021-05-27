@@ -374,7 +374,7 @@ const ProjectsComponent = ({
 
         {/* Lists: create new list */}
         <ListItem onClick={() => { setListsExpanded(!listsExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
-          { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
+          { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
