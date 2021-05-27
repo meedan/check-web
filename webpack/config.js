@@ -3,6 +3,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CompressionPlugin = require('compression-webpack-plugin');
 const UnusedFilesWebpackPlugin = require('unused-files-webpack-plugin').default;
+const WarningsToErrorsPlugin = require('warnings-to-errors-webpack-plugin');
 // TODO once we reach react-relay 8.0, uncomment for simpler build end.
 // (Also, delete the relay-compiler stuff form gulpfile.)
 // const RelayCompilerWebpackPlugin = require('relay-compiler-webpack-plugin');
@@ -86,6 +87,7 @@ module.exports = {
       failOnUnused: true,
       patterns: ['src/app/**/*.js'],
     }),
+    new WarningsToErrorsPlugin(),
   ],
   resolve: {
     alias: {app: path.join(__dirname, '../src/app')},
