@@ -10,17 +10,6 @@ function bemClass(baseClass, modifierBoolean, modifierSuffix) {
 }
 
 /**
- * TODO
- */
-function bemClassFromMediaStatus(baseClass, mediaStatus) {
-  return bemClass(
-    baseClass,
-    (mediaStatus && mediaStatus.length),
-    `--${mediaStatus.toLowerCase().replace(/[ _]/g, '-')}`,
-  );
-}
-
-/**
  * Parse a JSON string without throwing an exception.
  */
 function safelyParseJSON(jsonString, invalid = null) {
@@ -29,13 +18,6 @@ function safelyParseJSON(jsonString, invalid = null) {
   } catch (e) {
     return invalid;
   }
-}
-
-/**
- * Safely traverse an object to return a nested property.
- */
-function nested(path, obj) {
-  return path.reduce((parent, child) => (parent && parent[child]) ? parent[child] : null, obj);
 }
 
 /**
@@ -64,7 +46,6 @@ function getStatus(statusesParam, id, language, defaultLanguage) {
 
 /**
  * Safely get a status style.
- * TODO Deprecate in favour of `nested`.
  */
 function getStatusStyle(status, property) {
   try {
@@ -79,28 +60,6 @@ function getStatusStyle(status, property) {
  */
 function truncateLength(text, length = 70) {
   return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
-}
-
-/**
- * Send a web browser notification.
- */
-function notify(title, body, url, icon, name) {
-  if (!Notification) {
-    return false;
-  }
-
-  if (Notification.permission !== 'granted') {
-    Notification.requestPermission();
-  } else {
-    const notification = new Notification(title, { icon, body });
-    notification.onclick = () => {
-      window.open(url, name);
-      window.focus();
-      notification.close();
-    };
-  }
-
-  return true;
 }
 
 /**
@@ -270,14 +229,6 @@ function emojify(text) {
 }
 
 /**
- * Capitalize word
- * https://stackoverflow.com/a/7592235/209184
- */
-function capitalize(text) {
-  return text.replace(/(?:^|\s)\S/g, a => a.toUpperCase());
-}
-
-/**
  * Return a JavaScript `Date` from a stringified UNIX timestamp.
  *
  * TODO don't pass stringified UNIX timestamps over the wire. Use ISO8601 ... or
@@ -306,27 +257,23 @@ function botName(bot) {
   return bot.name === 'Smooch' ? 'Tipline' : bot.name;
 }
 
-export {
+export { // eslint-disable-line import/no-unused-modules
   bemClass,
-  bemClassFromMediaStatus,
   safelyParseJSON,
-  nested,
   getStatus,
   getStatusStyle,
   isBotInstalled,
-  notify,
   truncateLength,
   unhumanizeSize,
   convertNumbers2English,
   encodeSvgDataUri,
-  validateURL,
+  validateURL, // TODO: Verify if it is worthy using this for all URL validations across the app
   getFilters,
   getErrorMessage,
   getErrorMessageForRelayModernProblem,
   getErrorObjectsForRelayModernProblem,
   getErrorObjects,
   emojify,
-  capitalize,
   parseStringUnixTimestamp,
   botName,
 };
