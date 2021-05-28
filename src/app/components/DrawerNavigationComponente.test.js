@@ -30,8 +30,8 @@ describe('<DrawerNavigationComponent />', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/members/'
-      }
+        pathname: '/team/members/',
+      },
     });
     const params = { team: 'team' };
     getStore().currentUser = currentUser;
@@ -93,8 +93,8 @@ describe('<DrawerNavigationComponent />', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/members/'
-      }
+        pathname: '/team/members/',
+      },
     });
     const params = { team: 'team' };
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
@@ -119,8 +119,8 @@ describe('<DrawerNavigationComponent />', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
-        pathname: '/team/members/'
-      }
+        pathname: '/team/members/',
+      },
     });
     const params = { team: 'team' };
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
