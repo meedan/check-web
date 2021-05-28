@@ -27,7 +27,12 @@ describe('<DrawerNavigationComponent />', () => {
   };
 
   it('renders with projects in team context if user is logged in and a member', () => {
-    const location = { pathname: '/team/members' };
+    global.window = Object.create(window);
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname: '/team/members/'
+      }
+    });
     const params = { team: 'team' };
     getStore().currentUser = currentUser;
     getStore().team = privateTeam;
@@ -38,7 +43,6 @@ describe('<DrawerNavigationComponent />', () => {
       loggedIn
       currentUserIsMember
       team={privateTeam}
-      location={location}
       pusher={pusher}
       clientSessionId="checkClientSessionId"
       params={params}
@@ -84,9 +88,14 @@ describe('<DrawerNavigationComponent />', () => {
     />);
     expect(header.find(DrawerProjects)).toHaveLength(0);
   });
-  // TODO: Review
+
   it('renders with projects in team context if user is not logged in and it is a public team', () => {
-    const location = { pathname: '/team/members' };
+    global.window = Object.create(window);
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname: '/team/members/'
+      }
+    });
     const params = { team: 'team' };
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = undefined;
@@ -97,7 +106,6 @@ describe('<DrawerNavigationComponent />', () => {
       loggedIn={false}
       currentUserIsMember={false}
       team={publicTeam}
-      location={location}
       pusher={pusher}
       clientSessionId="checkClientSessionId"
       params={params}
@@ -108,7 +116,12 @@ describe('<DrawerNavigationComponent />', () => {
   });
 
   it('does not render UserMenuItems if user is not logged in', () => {
-    const location = { pathname: '/team/members' };
+    global.window = Object.create(window);
+    Object.defineProperty(window, 'location', {
+      value: {
+        pathname: '/team/members/'
+      }
+    });
     const params = { team: 'team' };
     const pusher = { subscribe: jest.fn(() => ({ bind: jest.fn() })), unsubscribe: jest.fn() };
     getStore().currentUser = currentUser;
@@ -119,7 +132,6 @@ describe('<DrawerNavigationComponent />', () => {
       loggedIn={false}
       currentUserIsMember={false}
       team={publicTeam}
-      location={location}
       params={params}
       classes={{ paper: 'check-paper' }}
       pusher={pusher}
