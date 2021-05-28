@@ -37,7 +37,7 @@ before_install:
 - cp test/config.yml.example test/config.yml
 before_script:
 - docker-compose build
-- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- docker-compose -f docker-compose.yml -f docker-test.yml up --abort-on-container-exit &
 - until curl --silent -I -f --fail http://localhost:3000 ; do printf .; sleep 1; done
 - until curl --silent -I -f --fail http://localhost:3333 ; do printf .; sleep 1; done
 - docker-compose exec web npm run test:unit:lint || travis_terminate 1;
