@@ -147,6 +147,7 @@ const NewProject = ({
       body={
         <React.Fragment>
           <TextField
+            id="new-project__title"
             label={
               <FormattedMessage
                 id="projectsComponent.title"
