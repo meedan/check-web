@@ -86,6 +86,9 @@ module.exports = {
     new UnusedFilesWebpackPlugin({
       failOnUnused: true,
       patterns: ['src/app/**/*.js'],
+      globOptions: {
+        ignore: ['src/app/**/*.test.js'],
+      },
     }),
     new WarningsToErrorsPlugin(),
   ],
