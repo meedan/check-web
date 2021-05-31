@@ -4,8 +4,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
 
-export const bli = 'please fail travis build';
-
 // Styles for overriding material UI
 // General colors
 //
