@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, withRouter } from 'react-router';
 import Box from '@material-ui/core/Box';
+import Collapse from '@material-ui/core/Collapse';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
@@ -16,6 +17,8 @@ import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ListIcon from '@material-ui/icons/List';
 import AddIcon from '@material-ui/icons/Add';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { DragDropContext } from 'react-beautiful-dnd';
@@ -30,8 +33,8 @@ const useStyles = makeStyles(theme => ({
     padding: 0,
     display: 'flex',
     flexDirection: 'column',
-    flex: '1 1 auto', // take up _all_ remaining vertical space in the <DrawerNavigationComponent>
-    overflow: 'hidden',
+    flex: 1,
+    overflow: 'auto',
   },
   projectsComponentPlus: {
     minWidth: 0,
@@ -42,13 +45,11 @@ const useStyles = makeStyles(theme => ({
   projectsComponentNestedList: {
     paddingLeft: theme.spacing(3),
   },
-  projectsComponentScroll: {
-    overflow: 'auto',
-    flex: '1',
+  projectsComponentCollapse: {
+    minHeight: 'auto !important',
   },
   projectsComponentButton: {
-    paddingTop: 0,
-    paddingBottom: 0,
+    padding: 0,
   },
   projectsComponentMask: {
     position: 'absolute',
@@ -59,6 +60,13 @@ const useStyles = makeStyles(theme => ({
     background: 'white',
     opacity: 0.7,
     zIndex: 1,
+  },
+  projectsComponentHeader: {
+    cursor: 'pointer',
+    padding: theme.spacing(1),
+  },
+  projectsComponentChevron: {
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -78,6 +86,8 @@ const ProjectsComponent = ({
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
+  const [foldersExpanded, setFoldersExpanded] = React.useState(false);
+  const [listsExpanded, setListsExpanded] = React.useState(false);
 
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
@@ -238,12 +248,13 @@ const ProjectsComponent = ({
         <Divider />
 
         {/* Folders: create new folder or collection */}
-        <ListItem>
+        <ListItem onClick={() => { setFoldersExpanded(!foldersExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
+          { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
+                <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
                   <AddIcon />
                 </IconButton>
               </Can>
@@ -254,18 +265,20 @@ const ProjectsComponent = ({
                 onClose={() => { setFolderMenuAnchor(null); }}
               >
                 <MenuItem
-                  onClick={() => {
+                  onClick={(e) => {
                     setFolderMenuAnchor(null);
                     setShowNewFolderDialog(true);
+                    e.stopPropagation();
                   }}
                   className="projects-list__add-folder"
                 >
                   <FormattedMessage id="projectsComponent.newFolderMenu" defaultMessage="New folder" description="Menu item for creating new folder" />
                 </MenuItem>
                 <MenuItem
-                  onClick={() => {
+                  onClick={(e) => {
                     setFolderMenuAnchor(null);
                     setShowNewCollectionDialog(true);
+                    e.stopPropagation();
                   }}
                   className="projects-list__add-collection"
                 >
@@ -277,93 +290,96 @@ const ProjectsComponent = ({
         </ListItem>
 
         {/* Collections and their folders */}
-        <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
-          <Box className={classes.projectsComponentScroll}>
-            {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
-              const groupIsActive = isActive('collection', projectGroup.dbid);
-              const groupComponent = (
+        <Collapse in={foldersExpanded} className={classes.projectsComponentCollapse}>
+          <DragDropContext onDragEnd={handleDropped} key={`${projectGroups.length}-${projects.length}`}>
+            <Box>
+              {projectGroups.sort((a, b) => (a.title.localeCompare(b.title))).map((projectGroup) => {
+                const groupIsActive = isActive('collection', projectGroup.dbid);
+                const groupComponent = (
+                  <ProjectsListItem
+                    key={projectGroup.id}
+                    routePrefix="collection"
+                    icon={<FolderSpecialIcon />}
+                    project={projectGroup}
+                    teamSlug={team.slug}
+                    onClick={handleClick}
+                    isActive={groupIsActive}
+                    isDroppable
+                  />
+                );
+
+                // We can stop here if this group should be collapsed
+                if (collapsed) {
+                  return groupComponent;
+                }
+
+                // Expand the project group if a project under it is currently active
+                if (groupIsActive ||
+                    (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
+                  const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
+                  return (
+                    <Box className={groupIsActive ? classes.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
+                      {groupComponent}
+                      <List>
+                        { childProjects.length === 0 ?
+                          <ListItem disabled dense>
+                            <ListItemText>
+                              <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
+                            </ListItemText>
+                          </ListItem> :
+                          <React.Fragment>
+                            {childProjects.sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
+                              <ProjectsListItem
+                                key={project.id}
+                                index={index}
+                                routePrefix="project"
+                                icon={<FolderOpenIcon />}
+                                project={project}
+                                teamSlug={team.slug}
+                                onClick={handleClick}
+                                isActive={isActive('project', project.dbid)}
+                                className={classes.projectsComponentNestedList}
+                                isDraggable
+                              />
+                            ))}
+                          </React.Fragment>
+                        }
+                      </List>
+                    </Box>
+                  );
+                }
+
+                return groupComponent;
+              })}
+
+              {/* Folders that are not inside any collection */}
+              {projects.filter(p => !p.project_group_id).sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
                 <ProjectsListItem
-                  key={projectGroup.id}
-                  routePrefix="collection"
-                  icon={<FolderSpecialIcon />}
-                  project={projectGroup}
+                  key={project.id}
+                  index={index}
+                  routePrefix="project"
+                  icon={<FolderOpenIcon />}
+                  project={project}
                   teamSlug={team.slug}
                   onClick={handleClick}
-                  isActive={groupIsActive}
-                  isDroppable
+                  isActive={isActive('project', project.dbid)}
+                  isDraggable
                 />
-              );
-
-              // We can stop here if this group should be collapsed
-              if (collapsed) {
-                return groupComponent;
-              }
-
-              // Expand the project group if a project under it is currently active
-              if (groupIsActive ||
-                  (activeItem.type === 'project' && projects.find(p => p.dbid === activeItem.id) && projects.find(p => p.dbid === activeItem.id).project_group_id === projectGroup.dbid)) {
-                const childProjects = projects.filter(p => p.project_group_id === projectGroup.dbid);
-                return (
-                  <Box className={groupIsActive ? classes.projectsComponentCollectionExpanded : ''} key={projectGroup.id}>
-                    {groupComponent}
-                    <List>
-                      { childProjects.length === 0 ?
-                        <ListItem disabled dense>
-                          <ListItemText>
-                            <FormattedMessage id="projectsComponent.noFolders" defaultMessage="No folders in this collection" description="Displayed under a collection when there are no folders in it" />
-                          </ListItemText>
-                        </ListItem> :
-                        <React.Fragment>
-                          {childProjects.sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
-                            <ProjectsListItem
-                              key={project.id}
-                              index={index}
-                              routePrefix="project"
-                              icon={<FolderOpenIcon />}
-                              project={project}
-                              teamSlug={team.slug}
-                              onClick={handleClick}
-                              isActive={isActive('project', project.dbid)}
-                              className={classes.projectsComponentNestedList}
-                              isDraggable
-                            />
-                          ))}
-                        </React.Fragment>
-                      }
-                    </List>
-                  </Box>
-                );
-              }
-
-              return groupComponent;
-            })}
-
-            {/* Folders that are not inside any collection */}
-            {projects.filter(p => !p.project_group_id).sort((a, b) => (a.title.localeCompare(b.title))).map((project, index) => (
-              <ProjectsListItem
-                key={project.id}
-                index={index}
-                routePrefix="project"
-                icon={<FolderOpenIcon />}
-                project={project}
-                teamSlug={team.slug}
-                onClick={handleClick}
-                isActive={isActive('project', project.dbid)}
-                isDraggable
-              />
-            ))}
-          </Box>
-        </DragDropContext>
+              ))}
+            </Box>
+          </DragDropContext>
+        </Collapse>
 
         <Divider />
 
         {/* Lists: create new list */}
-        <ListItem>
+        <ListItem onClick={() => { setListsExpanded(!listsExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
+          { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
-            <Box display="flex" alignItems="center">
+            <Box display="flex" alignItems="center" justifyContent="space-between">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
-                <IconButton onClick={() => { setShowNewListDialog(true); }} className={classes.projectsComponentButton}>
+                <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
                   <AddIcon />
                 </IconButton>
               </Can>
@@ -372,19 +388,21 @@ const ProjectsComponent = ({
         </ListItem>
 
         {/* Lists */}
-        <Box className={classes.projectsComponentScroll}>
-          {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
-            <ProjectsListItem
-              key={search.id}
-              routePrefix="list"
-              icon={<ListIcon />}
-              project={search}
-              teamSlug={team.slug}
-              onClick={handleClick}
-              isActive={isActive('list', search.dbid)}
-            />
-          ))}
-        </Box>
+        <Collapse in={listsExpanded} className={classes.projectsComponentCollapse}>
+          <Box>
+            {savedSearches.sort((a, b) => (a.title.localeCompare(b.title))).map(search => (
+              <ProjectsListItem
+                key={search.id}
+                routePrefix="list"
+                icon={<ListIcon />}
+                project={search}
+                teamSlug={team.slug}
+                onClick={handleClick}
+                isActive={isActive('list', search.dbid)}
+              />
+            ))}
+          </Box>
+        </Collapse>
       </List>
 
       {/* Dialogs to create new folder, collection or list */}

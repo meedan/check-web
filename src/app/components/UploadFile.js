@@ -74,7 +74,7 @@ const UploadMessage = ({ type, about }) => {
       defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
       values={{
         upload_max_size: about.upload_max_size,
-        upload_extensions: about.upload_extensions,
+        upload_extensions: about.upload_extensions.join(', '),
         upload_max_dimensions: about.upload_max_dimensions,
         upload_min_dimensions: about.upload_min_dimensions,
       }}
@@ -86,7 +86,7 @@ const UploadMessage = ({ type, about }) => {
       defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
       values={{
         video_max_size: about.video_max_size,
-        video_extensions: about.video_extensions,
+        video_extensions: about.video_extensions.join(', '),
       }}
     />
   );
@@ -96,7 +96,7 @@ const UploadMessage = ({ type, about }) => {
       defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
       values={{
         audio_max_size: about.audio_max_size,
-        audio_extensions: about.audio_extensions,
+        audio_extensions: about.audio_extensions.join(', '),
       }}
     />
   );
@@ -106,7 +106,7 @@ const UploadMessage = ({ type, about }) => {
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
       values={{
         file_max_size: about.file_max_size,
-        file_extensions: about.file_extensions,
+        file_extensions: about.file_extensions.join(', '),
       }}
     />
   );
@@ -118,11 +118,11 @@ UploadMessage.propTypes = {
   type: PropTypes.oneOf(['image', 'video', 'audio', 'file']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
-    upload_extensions: PropTypes.string.isRequired,
+    upload_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     upload_max_dimensions: PropTypes.string.isRequired,
     upload_min_dimensions: PropTypes.string.isRequired,
     video_max_size: PropTypes.string.isRequired,
-    video_extensions: PropTypes.string.isRequired,
+    video_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     audio_max_size: PropTypes.string.isRequired,
     audio_extensions: PropTypes.string.isRequired,
     file_max_size: PropTypes.string.isRequired,
@@ -154,13 +154,13 @@ class UploadFileComponent extends React.PureComponent {
       extensions = about.file_extensions;
       maxSize = about.file_max_size;
     }
-    const valid_extensions = extensions.toLowerCase().split(/[\s,]+/);
+    const valid_extensions = extensions.map(ext => ext.toLowerCase());
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
     if (valid_extensions.length > 0 && valid_extensions.indexOf(extension) < 0) {
       onError(file, <FormattedMessage
         id="uploadFile.invalidExtension"
         defaultMessage='The file cannot have type "{extension}". Please try with the following file types: {allowed_types}.'
-        values={{ extension, allowed_types: extensions }}
+        values={{ extension, allowed_types: extensions.join(', ') }}
       />);
       return;
     }
