@@ -70,9 +70,7 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "^25.4.0",
-    "unused-files-webpack-plugin": "^3.4.0",
-    "warnings-to-errors-webpack-plugin": "^2.0.1"
+    "jest": "^25.4.0"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -177,7 +175,9 @@
     "styled-components": "^5.0.1",
     "superagent": "^3.3.0",
     "sync-request": "^4.0.3",
+    "unused-files-webpack-plugin": "^3.4.0",
     "url-regex": "^3.2.0",
+    "warnings-to-errors-webpack-plugin": "^2.0.1",
     "webpack": "^4.42.1",
     "whatwg-fetch": "^2.0.1",
     "xregexp": "^3.1.1"
