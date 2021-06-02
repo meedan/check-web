@@ -241,6 +241,11 @@ class HomeComponent extends Component {
 
     const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
 
+    let userTiplines = '';
+    if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
+      userTiplines = Object.keys(user.current_team.team_bot_installation.smooch_enabled_integrations).join(', ');
+    }
+
     return (
       <React.Fragment>
         <MuiPickersUtilsProvider utils={MomentUtils}>
@@ -251,6 +256,8 @@ class HomeComponent extends Component {
               email={user.email}
               name={user.name}
               check_workspace={teamSlug}
+              tipline={userTiplines}
+              data={(user && user.current_team) ? user.current_team.get_data_report_url : ''}
             /> : null
           }
           <Favicon url={`/images/logo/${config.appName}.ico`} animated={false} />
@@ -338,7 +345,11 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
           avatar
           name
           slug
-          projects(first: 10000) {
+          get_data_report_url
+          team_bot_installation(bot_identifier: "smooch") {
+            smooch_enabled_integrations
+          }
+          projects(first: 1) {
             edges {
               node {
                 id

@@ -38,7 +38,7 @@
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && bundle exec rspec --fail-fast && cd ..",
     "test:bins": "grep -rI 'bin[0-9]' test/spec | grep -v '#' | sed 's/.*\\(bin[0-9]\\).*/\\1/g' | sort | uniq -c",
-    "test:unit:lint": "eslint src/app",
+    "test:unit:lint": "eslint --max-warnings=0 src/app",
     "test:integration:lint": "cd test/spec && bundle install && bundle exec rubocop && cd ..",
     "tests": "cd test && ./run-tests.sh"
   },
@@ -175,7 +175,9 @@
     "styled-components": "^5.0.1",
     "superagent": "^3.3.0",
     "sync-request": "^4.0.3",
+    "unused-files-webpack-plugin": "^3.4.0",
     "url-regex": "^3.2.0",
+    "warnings-to-errors-webpack-plugin": "^2.0.1",
     "webpack": "^4.42.1",
     "whatwg-fetch": "^2.0.1",
     "xregexp": "^3.1.1"

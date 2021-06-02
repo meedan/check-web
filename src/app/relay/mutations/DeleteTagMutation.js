@@ -66,5 +66,4 @@ const deleteTag = (obj, onSuccess, onFailure) => {
   );
 };
 
-export default DeleteTagMutation;
-export { deleteTag };
+export { deleteTag }; // eslint-disable-line import/prefer-default-export

@@ -23,6 +23,7 @@ import AddFilterMenu from './AddFilterMenu';
 import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
 import SaveList from './SaveList';
+import { languageLabel } from '../../LanguageRegistry';
 import { Row } from '../../styles/js/shared';
 
 /**
@@ -298,16 +299,7 @@ class SearchFields extends React.Component {
       { value: 'blank', label: this.props.intl.formatMessage(typeLabels.blank) },
     ];
 
-    const languages = [];
-    if (team.dynamic_search_fields_json_schema.properties &&
-        team.dynamic_search_fields_json_schema.properties.language) {
-      team.dynamic_search_fields_json_schema.properties.language.items.enum.forEach((value, i) => {
-        languages.push({
-          value,
-          label: team.dynamic_search_fields_json_schema.properties.language.items.enumNames[i],
-        });
-      });
-    }
+    const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
 
     const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
     const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
@@ -550,9 +542,7 @@ SearchFields.propTypes = {
     projects: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired,
     tag_texts: PropTypes.object.isRequired,
-    dynamic_search_fields_json_schema: PropTypes.shape({
-      properties: PropTypes.object.isRequired,
-    }).isRequired,
+    get_languages: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -567,6 +557,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     slug
     permissions
     verification_statuses
+    get_languages
     tag_texts(first: 10000) {
       edges {
         node {
@@ -574,7 +565,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         }
       }
     }
-    dynamic_search_fields_json_schema
     projects(first: 10000) {
       edges {
         node {
