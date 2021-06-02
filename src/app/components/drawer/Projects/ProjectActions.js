@@ -276,6 +276,7 @@ const ProjectActions = ({
         body={
           <Box>
             <TextField
+              id="project-actions__edit-title-input"
               label={
                 <FormattedMessage
                   id="projectsComponent.title"
@@ -291,6 +292,7 @@ const ProjectActions = ({
             />
             { !noDescription ?
               <TextField
+                id="project-actions__edit-description-input"
                 label={
                   <FormattedMessage
                     id="projectsComponent.description"

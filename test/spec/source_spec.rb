@@ -4,6 +4,7 @@ shared_examples 'source' do
   it 'should check, edit and remove source info', bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://g1.globo.com/'
     wait_for_selector('.media')
+    wait_for_selector('.media-tags__list')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
     expect(wait_for_selector('.source__name').text == 'G1').to be(true)

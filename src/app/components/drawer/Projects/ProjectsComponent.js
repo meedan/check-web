@@ -380,7 +380,7 @@ const ProjectsComponent = ({
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
-                  <AddIcon />
+                  <AddIcon id="projects-list__add-filtered-list" />
                 </IconButton>
               </Can>
             </Box>

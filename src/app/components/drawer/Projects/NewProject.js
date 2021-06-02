@@ -162,6 +162,7 @@ const NewProject = ({
           />
           { !noDescription ?
             <TextField
+              id="new-project__description"
               label={
                 <FormattedMessage
                   id="projectsComponent.description"
