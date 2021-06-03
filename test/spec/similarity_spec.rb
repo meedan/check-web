@@ -3,7 +3,7 @@ shared_examples 'similarity' do
     api_create_team_project_claims_sources_and_redirect_to_project_page 3, 0
     wait_for_selector('.search__results-heading')
     project_url = @driver.current_url.to_s
-    create_folder_or_collection('list', '.projects-list__add-folder-or-collection')
+    create_folder_or_collection('list', '.projects-list__add-folder')
     wait_for_selector('.project-list__header')
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
@@ -59,7 +59,7 @@ shared_examples 'similarity' do
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)
     project_url = @driver.current_url.to_s
-    create_folder_or_collection('list', '.projects-list__add-folder-or-collection')
+    create_folder_or_collection('list', '.projects-list__add-folder')
     wait_for_selector('.project-list__header')
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')

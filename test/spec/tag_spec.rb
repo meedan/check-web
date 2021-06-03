@@ -62,7 +62,7 @@ shared_examples 'tag' do
     fill_field('#team-tags__name-input', 'tag added automatically')
     wait_for_selector('.MuiAutocomplete-popupIndicator').click
     wait_for_selector('.MuiAutocomplete-inputFocused').click
-    @driver.action.send_keys('item title contains').perform
+    @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector('textarea').send_keys('new media')

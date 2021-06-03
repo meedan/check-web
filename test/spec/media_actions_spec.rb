@@ -204,7 +204,7 @@ shared_examples 'media actions' do
   it 'should move media to another project from item page', bin2: true do
     api_create_claim_and_go_to_search_page
     wait_for_selector('#search-input')
-    create_folder_or_collection('project 2', '.projects-list__add-folder-or-collection')
+    create_folder_or_collection('project 2', '.projects-list__add-folder')
     wait_for_selector('.project-list__link', index: 1)
     wait_for_selector('.project-list__header span span').click
     wait_for_selector('.project-list__link', index: 1).click
