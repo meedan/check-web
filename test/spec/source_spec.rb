@@ -6,7 +6,7 @@ shared_examples 'source' do
     wait_for_selector('.media')
     wait_for_selector('.media-tags__list')
     wait_for_selector('.media-tab__source').click
-    wait_for_selector('.source__name')
+    wait_for_selector('.source__card-card')
     expect(wait_for_selector('.source__name').text == 'G1').to be(true)
     wait_for_selector('#source__name-input').send_keys('- Edited')
     @driver.action.send_keys(:enter).perform
