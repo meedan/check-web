@@ -10,8 +10,8 @@ shared_examples 'source' do
     expect(wait_for_selector('.source__name').text == 'G1').to be(true)
     wait_for_selector('#source__name-input').send_keys('- Edited')
     @driver.action.send_keys(:enter).perform
-    wait_for_text_change('Globo', '.source__name', :css)
-    expect(wait_for_selector('.source__name').text == 'G1- Edited').to be(true)
+    wait_for_text_change('Globo', '#source__name-input', :css)
+    expect(@driver.page_source.include?('G1- Edited')).to be(true)
     # check main link
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://g1.globo.com/').to be(true)
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 1).to be(true)
