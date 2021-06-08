@@ -106,7 +106,7 @@ shared_examples 'team' do
     expect(@driver.page_source.include?('hooks.slack.com/services')).to be(true)
   end
 
-  it 'should check user permissions', bin5: true do
+  it 'should manage user permissions', bin5: true do
     utp = api_create_team_project_and_two_users
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
@@ -148,6 +148,7 @@ shared_examples 'team' do
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
     # edit team member role
     change_the_member_role_to('li.role-editor')
     expect(wait_for_selector('input[name="role-select"]', index: 1).property('value')).to eq 'editor'
