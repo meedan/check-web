@@ -146,7 +146,7 @@ class MediaTasksComponent extends Component {
   }
 
   render() {
-    const { fieldset, onTimelineCommentOpen } = this.props;
+    const { fieldset, onTimelineCommentOpen, about } = this.props;
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const currentUserRole = UserUtil.myRole(
       this.getContext().currentUser,
@@ -155,6 +155,9 @@ class MediaTasksComponent extends Component {
 
     const itemTasks = fieldset === 'tasks' ? media.item_tasks : media.item_metadata;
     const isBrowserExtension = (window.parent !== window);
+
+    // eslint-disable-next-line
+    console.log('MediaTasks: render before return', itemTasks.edges, media, fieldset);
 
     return (
       <StyledAnnotationRow>
@@ -188,7 +191,7 @@ class MediaTasksComponent extends Component {
               </FlexRow> : null }
             <CreateTask style={{ marginLeft: 'auto' }} media={media} />
           </div> : null }
-        <Tasks tasks={itemTasks.edges} media={media} fieldset={fieldset} />
+        <Tasks tasks={itemTasks.edges} media={media} about={about} fieldset={fieldset} />
       </StyledAnnotationRow>
     );
   }
@@ -237,6 +240,20 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
 
 const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
   fragments: {
+    about: () => Relay.QL`
+      fragment on About {
+        upload_max_size
+        upload_extensions
+        video_max_size
+        video_extensions
+        audio_max_size
+        audio_extensions
+        file_max_size
+        file_extensions
+        upload_max_dimensions
+        upload_min_dimensions
+      }
+    `,
     media: () => Relay.QL`
       fragment on ProjectMedia {
         id

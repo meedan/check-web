@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
+import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect } from '@meedan/check-ui';
 import styled from 'styled-components';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
@@ -41,7 +45,14 @@ import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import UpdateDynamicMutation from '../../relay/mutations/UpdateDynamicMutation';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteDynamicMutation from '../../relay/mutations/DeleteDynamicMutation';
-import { Row, units, black16, black87, separationGray, checkBlue } from '../../styles/js/shared';
+import {
+  Row,
+  units,
+  black16,
+  black87,
+  separationGray,
+  checkBlue,
+} from '../../styles/js/shared';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 const StyledWordBreakDiv = styled.div`
@@ -93,24 +104,54 @@ const StyledTaskResponses = styled.div`
   }
 `;
 
+const StyledAnnotatorInformation = styled.div`
+  img {
+    max-width: 25px;
+    float: left;
+  }
+  p {
+    padding-left: ${units(2)};
+    margin: ${units(2)};
+  }
+`;
+
+const StyledMapEditor = styled.div`
+  #map-edit {
+    width: 100%;
+    height: 500px;
+  }
+`;
+
+const StyledFieldInformation = styled.div`
+  margin-bottom: ${units(2)};
+`;
+
 function getResponseData(response) {
   const data = {};
 
   if (response) {
     data.by = [];
     data.byPictures = [];
-    response.attribution.edges.forEach((user) => {
-      const u = user.node;
-      data.by.push(<ProfileLink teamUser={u.team_user || null} />);
-      data.byPictures.push(u);
-    });
-    const fields = JSON.parse(response.content);
-    if (Array.isArray(fields)) {
-      fields.forEach((field) => {
-        if (/^response_/.test(field.field_name) && field.value && field.value !== '') {
-          data.response = field.value;
-        }
+    if (response.attribution) {
+      response.attribution.edges.forEach((user) => {
+        const u = user.node;
+        data.by.push(<ProfileLink teamUser={u.team_user || null} />);
+        data.byPictures.push(u);
       });
+    }
+    if (response.content) {
+      const fields = JSON.parse(response.content);
+      if (Array.isArray(fields)) {
+        fields.forEach((field) => {
+          if (
+            /^response_/.test(field.field_name) &&
+            field.value &&
+            field.value !== ''
+          ) {
+            data.response = field.value;
+          }
+        });
+      }
     }
   }
 
@@ -122,6 +163,13 @@ class Task extends Component {
   constructor(props) {
     super(props);
 
+    let textValue;
+    if (props.task.type === 'multiple_choice' || props.task.type === 'single_choice') {
+      textValue = this.getMultiselectInitialValue(props.task);
+    } else {
+      textValue = props.task.first_response_value;
+    }
+
     this.state = {
       editingQuestion: false,
       message: null,
@@ -131,11 +179,34 @@ class Task extends Component {
       editingAttribution: false,
       expand: true,
       isSaving: false,
+      textValue,
     };
   }
 
+  getMultiselectInitialValue = (node) => {
+    let initialDynamic;
+    try {
+      if (node.type === 'multiple_choice') {
+        initialDynamic = JSON.parse(
+          JSON.parse(node?.first_response?.content)[0].value,
+        );
+      } else if (node.type === 'single_choice') {
+        initialDynamic = JSON.parse(node?.first_response?.content)[0].value;
+      }
+    } catch (exception) {
+      if (node.type === 'multiple_choice') {
+        initialDynamic = { selected: [] };
+      } else if (node.type === 'single_choice') {
+        initialDynamic = '';
+      }
+    }
+    return initialDynamic;
+  }
+
   getAssignment() {
-    const assignment = document.getElementById(`attribution-${this.props.task.dbid}`);
+    const assignment = document.getElementById(
+      `attribution-${this.props.task.dbid}`,
+    );
     if (assignment) {
       return assignment.value;
     }
@@ -147,7 +218,10 @@ class Task extends Component {
   }
 
   fail = (transaction) => {
-    const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
+    const message = getErrorMessage(
+      transaction,
+      <GenericUnknownErrorMessage />,
+    );
     this.setState({ message, isSaving: false });
   };
 
@@ -188,7 +262,23 @@ class Task extends Component {
     const fields = {};
     fields[`response_${task.type}`] = response;
 
-    const parentType = task.annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+    const parentType = task.annotated_type
+      .replace(/([a-z])([A-Z])/, '$1_$2')
+      .toLowerCase();
+
+    // eslint-disable-next-line
+    console.log('SubmitResponse', response, file, media, task, {
+      operation: 'answer',
+      annotated: media,
+      parent_type: parentType,
+      file,
+      user: this.getCurrentUser(),
+      task: {
+        id: task.id,
+        fields,
+        annotation_type: `task_response_${task.type}`,
+      },
+    });
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
@@ -209,13 +299,16 @@ class Task extends Component {
 
   handleUpdateResponse = (edited_response, file) => {
     const { media, task } = this.props;
+    // eslint-disable-next-line
+    console.log('updateResponse', edited_response, file, media, task);
     this.setState({ isSaving: true });
 
-    const onSuccess = () => this.setState({
-      message: null,
-      editingResponse: false,
-      isSaving: false,
-    });
+    const onSuccess = () =>
+      this.setState({
+        message: null,
+        editingResponse: false,
+        isSaving: false,
+      });
 
     const onFailure = (transaction) => {
       this.setState({ editingResponse: true });
@@ -262,7 +355,9 @@ class Task extends Component {
       assigned_to_ids: this.getAssignment(),
     };
 
-    const parentType = task.annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+    const parentType = task.annotated_type
+      .replace(/([a-z])([A-Z])/, '$1_$2')
+      .toLowerCase();
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
@@ -282,9 +377,12 @@ class Task extends Component {
     const { task } = this.props;
     task.assigned_to_ids = value;
 
-    const onSuccess = () => this.setState({ message: null, editingAssignment: false });
+    const onSuccess = () =>
+      this.setState({ message: null, editingAssignment: false });
 
-    const parentType = task.annotated_type.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
+    const parentType = task.annotated_type
+      .replace(/([a-z])([A-Z])/, '$1_$2')
+      .toLowerCase();
 
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
@@ -299,7 +397,8 @@ class Task extends Component {
   };
 
   handleUpdateAttribution = (value) => {
-    const onSuccess = () => this.setState({ message: null, editingAttribution: false });
+    const onSuccess = () =>
+      this.setState({ message: null, editingAttribution: false });
 
     Relay.Store.commitUpdate(
       new UpdateDynamicMutation({
@@ -332,7 +431,7 @@ class Task extends Component {
     );
   };
 
-  submitDeleteTaskResponse = () => {
+  submitDeleteTaskResponse = (deleteId) => {
     const { task } = this.props;
     const { deleteResponse } = this.state;
     this.setState({ isSaving: true });
@@ -341,26 +440,235 @@ class Task extends Component {
       this.setState({ deleteResponse: null, isSaving: false });
     };
 
+    let id = null;
+    if (task.type.fieldset === 'metadata') {
+      id = deleteId;
+    } else {
+      ({ id } = deleteResponse);
+    }
+
     Relay.Store.commitUpdate(
       new DeleteDynamicMutation({
         parent_type: 'task',
         annotated: task,
-        id: deleteResponse.id,
+        id,
       }),
       { onSuccess, onFailure: this.fail },
     );
   };
 
-  renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
-    const { task } = this.props;
+  generateMessages = about => (
+    {
+      MetadataLocation: {
+        customize: (
+          <FormattedMessage
+            id="metadata.location.customize"
+            defaultMessage="Customize place name"
+            description="This is a label that appears on a text field, related to a pin on a map. The user may type any text of their choice here and name the place they are pinning. They can also modify suggested place names here."
+          />
+        ),
+        coordinates: (
+          <FormattedMessage
+            id="metadata.location.coordinates"
+            defaultMessage="Latitude, longitude"
+            description="This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
+          />
+        ),
+        coordinatesHelper: (
+          <FormattedMessage
+            id="metadata.location.coordinates.helper"
+            defaultMessage="Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty."
+            description="This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
+          />
+        ),
+        search: (
+          <FormattedMessage
+            id="metadata.location.search"
+            defaultMessage="Search the map"
+            description="This is a label that appears on a text field. If the user begins to type a location they will receive a list of suggested place names."
+          />
+        ),
+      },
+      MetadataFile: {
+        dropFile: (
+          <FormattedMessage
+            id="metadata.file.dropFile"
+            defaultMessage="Drag and drop a file here, or click to upload a file (max size: {fileSizeLabel}, allowed extensions: {extensions})"
+            description="This message appears in a rectangle, instructing the user that they can use their mouse to drag and drop a file, or click to pull up a file selector menu. This also tells them the maximum allowed file size, and the valid types of files that the user can upload. The `fileSizeLabel` variable will read something like '1.0 MB', and the 'extensions' variable is a list of valid file extensions. Neither will be localized."
+            values={{
+              fileSizeLabel: about.file_max_size,
+              extensions: about.file_extensions.join(', '),
+            }}
+          />
+        ),
+        errorTooManyFiles: (
+          <FormattedMessage
+            id="metadata.file.tooManyFiles"
+            defaultMessage="You can only upload one file here. Please try uploading one file."
+            description="This message appears when a user tries to add two or more files at once to the file upload widget."
+          />
+        ),
 
-    if (this.state.editingResponse && this.state.editingResponse.id === responseObj.id) {
+        errorInvalidFile: (
+          <FormattedMessage
+            id="metadata.file.invalidFile"
+            defaultMessage="This is not a valid file. Please try again with a different file."
+            description="This message appears when a user tries to add two or more files at once to the file upload widget."
+          />
+        ),
+
+        errorFileTooBig: (
+          <FormattedMessage
+            id="metadata.file.tooBig"
+            defaultMessage="This file is too big. The maximum allowed file size is {fileSizeLabel}. Please try again with a different file."
+            description="This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
+            values={{
+              fileSizeLabel: about.file_max_size,
+            }}
+          />
+        ),
+
+        errorFileType: (
+          <FormattedMessage
+            id="metadata.file.wrongType"
+            defaultMessage="This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file."
+            description="This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+            values={{
+              extensions: about.file_extensions.join(', '),
+            }}
+          />
+        ),
+      },
+    }
+  );
+
+  renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
+    const { task, about } = this.props;
+    // eslint-disable-next-line
+    console.log('Task.js: renderTaskResponse top', task.type, task, response, responseObj, by, byPictures);
+
+    const messages = task.fieldset === 'metadata' ? this.generateMessages(about) : {};
+
+    const EditButton = () => (
+      <Button onClick={() => this.handleAction('edit_response', responseObj)} className="metadata-edit">
+        <FormattedMessage
+          id="metadata.edit"
+          defaultMessage="Edit"
+          description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+        />
+      </Button>
+    );
+
+    const CancelButton = () => (
+      <Button
+        className="metadata-cancel"
+        onClick={this.handleCancelEditResponse}
+      >
+        <FormattedMessage
+          id="metadata.cancel"
+          defaultMessage="Cancel"
+          description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+        />
+      </Button>
+    );
+
+    const SaveButton = (props) => {
+      const { disabled, uploadables, mutationPayload } = props;
+      const payload = mutationPayload?.response_multiple_choice || mutationPayload?.response_single_choice || null;
+      return (
+        <Button
+          className="metadata-save"
+          onClick={() => (responseObj ? this.handleUpdateResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null) : this.handleSubmitResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null))}
+          disabled={disabled}
+        >
+          <FormattedMessage
+            id="metadata.save"
+            defaultMessage="Save"
+            description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+          />
+        </Button>
+      );
+    };
+
+    const DeleteButton = (props) => {
+      const { onClick } = props;
+      return (
+        <Button
+          className="metadata-delete"
+          onClick={() => {
+            if (onClick) {
+              onClick();
+            }
+            this.submitDeleteTaskResponse(task.first_response.id);
+          }}
+        >
+          <FormattedMessage
+            id="metadata.delete"
+            defaultMessage="Delete"
+            description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+          />
+        </Button>
+      );
+    };
+
+    const FieldInformation = () => (
+      <StyledFieldInformation>
+        <Typography variant="h6">{task.label}</Typography>
+        <Typography variant="subtitle2">{task.description}</Typography>
+      </StyledFieldInformation>
+    );
+
+    const AnnotatorInformation = () => (
+      responseObj && responseObj.annotator ?
+        <StyledAnnotatorInformation>
+          <img
+            src={responseObj.annotator.user.source.image}
+            alt=""
+          />
+          <Typography variant="body1">
+            Completed by{' '}
+            <a
+              href={`/check/user/${responseObj.annotator.user.dbid}`}
+            >
+              {responseObj.annotator.user.name}
+            </a>
+          </Typography>
+        </StyledAnnotatorInformation>
+        : null
+    );
+
+    if (
+      this.state.editingResponse && responseObj &&
+      this.state.editingResponse.id === responseObj.id
+    ) {
       const editingResponseData = getResponseData(this.state.editingResponse);
       const editingResponseText = editingResponseData.response;
+      // eslint-disable-next-line
+      console.log('HEY we are editing');
       return (
         <div className="task__editing">
           <form name={`edit-response-${this.state.editingResponse.id}`}>
-            {task.type === 'free_text' ?
+            {task.type === 'free_text' && task.fieldset === 'metadata' ? (
+              <MetadataText
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            ) : null}
+            {task.type === 'free_text' && task.fieldset === 'tasks' ? (
               <ShortTextRespondTask
                 fieldset={task.fieldset}
                 task={task}
@@ -368,8 +676,8 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
-              : null}
-            {task.type === 'number' ?
+            ) : null}
+            {task.type === 'number' && task.fieldset === 'tasks' ? (
               <NumberRespondTask
                 fieldset={task.fieldset}
                 task={task}
@@ -377,16 +685,79 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
-              : null}
-            {task.type === 'geolocation' ?
+            ) : null}
+            {task.type === 'number' && task.fieldset === 'metadata' ? (
+              <MetadataNumber
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            ) : null}
+            {task.type === 'geolocation' && task.fieldset === 'metadata' ? (
+              <StyledMapEditor>
+                <MetadataLocation
+                  node={task}
+                  DeleteButton={DeleteButton}
+                  CancelButton={CancelButton}
+                  SaveButton={SaveButton}
+                  EditButton={EditButton}
+                  AnnotatorInformation={AnnotatorInformation}
+                  FieldInformation={FieldInformation}
+                  hasData={task.first_response_value}
+                  isEditing
+                  metadataValue={
+                    this.state.textValue
+                  }
+                  setMetadataValue={(textValue) => {
+                    this.setState({ textValue });
+                  }}
+                  mapboxApiKey={config.mapboxApiKey}
+                  messages={messages.MetadataLocation}
+                />
+              </StyledMapEditor>
+            ) : null}
+            {task.type === 'geolocation' && task.fieldset === 'tasks' ? (
               <GeolocationRespondTask
                 fieldset={task.fieldset}
                 response={editingResponseText}
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
-              : null}
-            {task.type === 'datetime' ?
+            ) : null}
+            {task.type === 'datetime' && task.fieldset === 'metadata' ? (
+              <MetadataDate
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            ) : null}
+            {task.type === 'datetime' && task.fieldset === 'tasks' ? (
               <DatetimeRespondTask
                 fieldset={task.fieldset}
                 response={editingResponseText}
@@ -394,8 +765,29 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
-              : null}
-            {task.type === 'single_choice' ?
+            ) : null}
+            {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
+              <MetadataMultiselect
+                isSingle
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            ) : null}
+            {task.type === 'single_choice' && task.fieldset === 'tasks' ? (
               <SingleChoiceTask
                 fieldset={task.fieldset}
                 mode="edit_response"
@@ -404,8 +796,28 @@ class Task extends Component {
                 onDismiss={this.handleCancelEditResponse}
                 onSubmit={this.handleUpdateResponse}
               />
-              : null}
-            {task.type === 'multiple_choice' ?
+            ) : null}
+            {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
+              <MetadataMultiselect
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            ) : null}
+            {task.type === 'multiple_choice' && task.fieldset === 'tasks' ? (
               <MultiSelectTask
                 fieldset={task.fieldset}
                 mode="edit_response"
@@ -414,8 +826,29 @@ class Task extends Component {
                 onDismiss={this.handleCancelEditResponse}
                 onSubmit={this.handleUpdateResponse}
               />
-              : null}
-            {task.type === 'file_upload' ?
+            ) : null}
+            {task.type === 'file_upload' && task.fieldset === 'metadata' ? (
+              <MetadataFile
+                node={task}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+                extensions={about.file_extensions}
+                messages={messages.MetadataFile}
+              />
+            ) : null}
+            {task.type === 'file_upload' && task.fieldset === 'tasks' ? (
               <FileUploadRespondTask
                 fieldset={task.fieldset}
                 task={task}
@@ -423,55 +856,186 @@ class Task extends Component {
                 onSubmit={this.handleUpdateResponse}
                 onDismiss={this.handleCancelEditResponse}
               />
-              : null}
+            ) : null}
           </form>
         </div>
       );
     }
     let fileUploadPath = null;
-    if (task.type === 'file_upload' && responseObj && responseObj.file_data && responseObj.file_data.length) {
+    if (
+      task.type === 'file_upload' &&
+      responseObj &&
+      responseObj.file_data &&
+      responseObj.file_data.length
+    ) {
       [fileUploadPath] = responseObj.file_data;
     }
+    // eslint-disable-next-line
+    console.log('HEY we are NOT editing');
     return (
       <StyledWordBreakDiv className="task__resolved">
-        {task.type === 'free_text' ?
+        {task.type === 'free_text' && task.fieldset === 'tasks' ?
           <div className="task__response">
             <ParsedText text={response} />
           </div>
           : null}
-        {task.type === 'number' ?
+        {task.type === 'free_text' && task.fieldset === 'metadata' ? (
+          <MetadataText
+            node={task}
+            classes={{}}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={false}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+          />
+        ) : null}
+        {task.type === 'number' && task.fieldset === 'tasks' ? (
           <div className="task__response" style={{ textAlign: 'right' }}>
             {response}
           </div>
-          : null}
-        {task.type === 'geolocation' ?
+        ) : null}
+        {task.type === 'number' && task.fieldset === 'metadata' ? (
+          <MetadataNumber
+            node={task}
+            classes={{}}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={false}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+          />
+        ) : null}
+        {task.type === 'geolocation' && task.fieldset === 'tasks' ? (
           <div className="task__response">
             <GeolocationTaskResponse response={response} />
           </div>
-          : null}
-        {task.type === 'datetime' ?
+        ) : null}
+        {task.type === 'geolocation' && task.fieldset === 'metadata' ? (
+          <StyledMapEditor>
+            <MetadataLocation
+              node={task}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={!!task?.first_response_value}
+              isEditing={false}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={(textValue) => {
+                this.setState({ textValue });
+              }}
+              mapboxApiKey={config.mapboxApiKey}
+              messages={messages.MetadataLocation}
+            />
+          </StyledMapEditor>
+        ) : null}
+        {task.type === 'datetime' && task.fieldset === 'metadata' ? (
+          <MetadataDate
+            node={task}
+            classes={{}}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={false}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+          />
+        ) : null}
+        {task.type === 'datetime' && task.fieldset === 'tasks' ? (
           <div className="task__response">
             <DatetimeTaskResponse response={response} />
           </div>
-          : null}
-        {task.type === 'single_choice' ?
+        ) : null}
+        {task.type === 'single_choice' && task.fieldset === 'tasks' ? (
           <SingleChoiceTask
             mode="show_response"
             response={response}
             jsonoptions={task.jsonoptions}
           />
-          : null}
-        {task.type === 'multiple_choice' ?
+        ) : null}
+        {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
+          <MetadataMultiselect
+            isSingle
+            node={task}
+            classes={{}}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={false}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+          />
+        ) : null}
+        {task.type === 'multiple_choice' && task.fieldset === 'tasks' ? (
           <MultiSelectTask
             mode="show_response"
             jsonresponse={response}
             jsonoptions={task.jsonoptions}
           />
-          : null}
-        {task.type === 'file_upload' ?
+        ) : null}
+        {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
+          <MetadataMultiselect
+            node={task}
+            classes={{}}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={false}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+          />
+        ) : null}
+        {task.type === 'file_upload' && task.fieldset === 'tasks' ? (
           <div className="task__response">
             <Box component="p" textAlign="center">
-              { fileUploadPath ?
+              {fileUploadPath ? (
                 <Box
                   component="a"
                   href={fileUploadPath}
@@ -480,12 +1044,35 @@ class Task extends Component {
                   color={checkBlue}
                 >
                   {response}
-                </Box> :
-                <CircularProgress /> }
+                </Box>
+              ) : (
+                <CircularProgress />
+              )}
             </Box>
           </div>
-          : null}
-        { by && byPictures ?
+        ) : null}
+        {task.type === 'file_upload' && task.fieldset === 'metadata' ? (
+          <MetadataFile
+            node={task}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={false}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+            extensions={about.file_extensions}
+            messages={messages.MetadataFile}
+          />
+        ) : null}
+        {by && byPictures ? (
           <Box
             className="task__resolver"
             display="flex"
@@ -503,28 +1090,33 @@ class Task extends Component {
                 />
               </Box>
             </Box>
-            { showEditIcon && can(responseObj.permissions, 'update Dynamic') ?
+            {showEditIcon && can(responseObj.permissions, 'update Dynamic') ? (
               <EditIcon
                 style={{ width: 16, height: 16, cursor: 'pointer' }}
                 onClick={() => this.handleAction('edit_response', responseObj)}
-              /> : null }
-          </Box> : null }
+              />
+            ) : null}
+          </Box>
+        ) : null}
       </StyledWordBreakDiv>
     );
   }
 
   render() {
+    // eslint-disable-next-line
+    console.log('Task.js: render top', this.props);
     const { task: teamTask, media } = this.props;
     const task = { ...teamTask };
     const isTask = task.fieldset === 'tasks';
     const data = getResponseData(task.first_response);
-    const {
-      response, by, byPictures,
-    } = data;
+    const { response, by, byPictures } = data;
     const currentUser = this.getCurrentUser();
     const isArchived = !(media.archived === CheckArchivedFlags.NONE);
 
-    task.cannotAct = (!response && !can(media.permissions, 'create Task') && !can(task.permissions, 'destroy Task'));
+    task.cannotAct =
+      !response &&
+      !can(media.permissions, 'create Task') &&
+      !can(task.permissions, 'destroy Task');
 
     let taskAssigned = false;
     const taskAnswered = !!response;
@@ -532,7 +1124,9 @@ class Task extends Component {
     const assignments = task.assignments.edges;
     const assignmentComponents = [];
     assignments.forEach((assignment) => {
-      assignmentComponents.push(<ProfileLink teamUser={assignment.node.team_user || null} />);
+      assignmentComponents.push(
+        <ProfileLink teamUser={assignment.node.team_user || null} />,
+      );
       if (currentUser && assignment.node.dbid === currentUser.dbid) {
         taskAssigned = true;
       }
@@ -567,23 +1161,34 @@ class Task extends Component {
     const taskActions = !isArchived ? (
       <Box display="flex" alignItems="center">
         {taskAssignment}
-        { data.by ?
-          <Box className="task__resolver" display="flex" alignItems="center" margin={2}>
+        {data.by ? (
+          <Box
+            className="task__resolver"
+            display="flex"
+            alignItems="center"
+            margin={2}
+          >
             <Box component="small" display="flex">
               <UserAvatars users={byPictures} />
               <Box component="span" lineHeight="24px" px={1}>
-                { response ?
+                {response ? (
                   <FormattedMessage
                     id="task.answeredBy"
                     defaultMessage="Completed by {byName}"
                     values={{ byName: <Sentence list={by} /> }}
-                  /> : null }
+                  />
+                ) : null}
               </Box>
             </Box>
           </Box>
-          : null}
+        ) : null}
         <Box marginLeft="auto">
-          <TaskActions task={task} media={media} response={response} onSelect={this.handleAction} />
+          <TaskActions
+            task={task}
+            media={media}
+            response={response}
+            onSelect={this.handleAction}
+          />
         </Box>
       </Box>
     ) : null;
@@ -602,7 +1207,7 @@ class Task extends Component {
 
     let taskBody = null;
     if (!isArchived) {
-      if ((!response || task.responses.edges.length > 1)) {
+      if (!response || task.responses.edges.length > 1) {
         taskBody = (
           <div>
             <StyledTaskResponses>
@@ -617,39 +1222,60 @@ class Task extends Component {
                 );
               })}
             </StyledTaskResponses>
-            {zeroAnswer ?
+
+            {zeroAnswer && task.fieldset === 'metadata' ? (
               <Can permissions={media.permissions} permission="create Dynamic">
                 <div>
                   <form name={`task-response-${task.id}`}>
-
                     <div className="task__response-inputs">
-                      {task.type === 'free_text' ?
+                      {
+                        this.renderTaskResponse(
+                          task.first_response,
+                          response,
+                          false,
+                          false,
+                          false,
+                        )
+                      }
+                    </div>
+                  </form>
+                </div>
+              </Can>
+            ) : null}
+
+            {zeroAnswer && task.fieldset === 'tasks' ? (
+              <Can permissions={media.permissions} permission="create Dynamic">
+                <div>
+                  <form name={`task-response-${task.id}`}>
+                    <div className="task__response-inputs">
+                      {task.type === 'free_text' ? (
                         <ShortTextRespondTask
                           task={task}
                           fieldset={task.fieldset}
                           onSubmit={this.handleSubmitResponse}
                         />
-                        : null}
-                      {task.type === 'number' ?
+                      ) : null}
+                      {task.type === 'number' ? (
                         <NumberRespondTask
                           task={task}
                           fieldset={task.fieldset}
                           onSubmit={this.handleSubmitResponse}
                         />
-                        : null}
-                      {task.type === 'geolocation' ?
+                      ) : null}
+                      {task.type === 'geolocation' ? (
                         <GeolocationRespondTask
                           fieldset={task.fieldset}
                           onSubmit={this.handleSubmitResponse}
-                        /> : null}
-                      {task.type === 'datetime' ?
+                        />
+                      ) : null}
+                      {task.type === 'datetime' ? (
                         <DatetimeRespondTask
                           timezones={task.jsonoptions}
                           fieldset={task.fieldset}
                           onSubmit={this.handleSubmitResponse}
                         />
-                        : null}
-                      {task.type === 'single_choice' ?
+                      ) : null}
+                      {task.type === 'single_choice' ? (
                         <SingleChoiceTask
                           fieldset={task.fieldset}
                           mode="respond"
@@ -657,8 +1283,8 @@ class Task extends Component {
                           jsonoptions={task.jsonoptions}
                           onSubmit={this.handleSubmitResponse}
                         />
-                        : null}
-                      {task.type === 'multiple_choice' ?
+                      ) : null}
+                      {task.type === 'multiple_choice' ? (
                         <MultiSelectTask
                           fieldset={task.fieldset}
                           mode="respond"
@@ -666,22 +1292,29 @@ class Task extends Component {
                           jsonoptions={task.jsonoptions}
                           onSubmit={this.handleSubmitResponse}
                         />
-                        : null}
-                      {task.type === 'file_upload' ?
+                      ) : null}
+                      {task.type === 'file_upload' ? (
                         <FileUploadRespondTask
                           fieldset={task.fieldset}
                           task={task}
                           onSubmit={this.handleSubmitResponse}
                         />
-                        : null}
+                      ) : null}
                     </div>
                   </form>
                 </div>
-              </Can> : null}
+              </Can>
+            ) : null}
           </div>
         );
       } else {
-        taskBody = this.renderTaskResponse(task.first_response, response, false, false, false);
+        taskBody = this.renderTaskResponse(
+          task.first_response,
+          response,
+          false,
+          false,
+          false,
+        );
       }
     }
 
@@ -702,7 +1335,18 @@ class Task extends Component {
       className.push('task__assigned-to-current-user');
     }
 
-    return ( // Task cards
+    // TODO style overall container for metadata here
+    if (task.fieldset === 'metadata') {
+      return (
+        <div>
+          {taskBody}
+          <Divider />
+        </div>
+      );
+    }
+
+    return (
+      // Task cards
       <StyledWordBreakDiv>
         <Box clone mb={1}>
           <Card
@@ -728,19 +1372,15 @@ class Task extends Component {
             <Collapse in={this.state.expand} timeout="auto">
               <CardContent className="task__card-text">
                 <Message message={this.state.message} />
-                <Box marginBottom={2}>
-                  {taskBody}
-                </Box>
+                <Box marginBottom={2}>{taskBody}</Box>
               </CardContent>
               {taskActions}
-              { isTask ?
-                <TaskLog task={task} response={response} /> : null
-              }
+              {isTask ? <TaskLog task={task} response={response} /> : null}
             </Collapse>
           </Card>
         </Box>
 
-        { this.state.editingQuestion ?
+        {this.state.editingQuestion ? (
           <EditTaskDialog
             task={task}
             message={this.state.message}
@@ -749,15 +1389,17 @@ class Task extends Component {
             onSubmit={this.handleUpdateTask}
             noOptions
           />
-          : null
-        }
+        ) : null}
 
-        { this.state.editingAssignment ?
+        {this.state.editingAssignment ? (
           <AttributionDialog
             taskType={task.type}
             open={this.state.editingAssignment}
             title={
-              <FormattedMessage id="tasks.editAssignment" defaultMessage="Edit assignment" />
+              <FormattedMessage
+                id="tasks.editAssignment"
+                defaultMessage="Edit assignment"
+              />
             }
             blurb={
               <FormattedMessage
@@ -769,15 +1411,18 @@ class Task extends Component {
             selectedUsers={assignments}
             onDismiss={() => this.setState({ editingAssignment: false })}
             onSubmit={this.handleUpdateAssignment}
-          /> : null
-        }
+          />
+        ) : null}
 
-        { this.state.editingAttribution ?
+        {this.state.editingAttribution ? (
           <AttributionDialog
             taskType={task.type}
             open={this.state.editingAttribution}
             title={
-              <FormattedMessage id="tasks.editAttribution" defaultMessage="Edit attribution" />
+              <FormattedMessage
+                id="tasks.editAttribution"
+                defaultMessage="Edit attribution"
+              />
             }
             blurb={
               <FormattedMessage
@@ -789,8 +1434,8 @@ class Task extends Component {
             selectedUsers={task.first_response.attribution.edges}
             onDismiss={() => this.setState({ editingAttribution: false })}
             onSubmit={this.handleUpdateAttribution}
-          /> : null
-        }
+          />
+        ) : null}
 
         <ConfirmProceedDialog
           body={
@@ -806,7 +1451,12 @@ class Task extends Component {
           onProceed={this.submitDeleteTask}
           open={this.state.deletingTask}
           proceedLabel={<FormattedGlobalMessage messageKey="delete" />}
-          title={<FormattedMessage id="task.confirmDeleteTitle" defaultMessage="Delete task?" />}
+          title={
+            <FormattedMessage
+              id="task.confirmDeleteTitle"
+              defaultMessage="Delete task?"
+            />
+          }
         />
 
         <ConfirmProceedDialog
@@ -823,7 +1473,12 @@ class Task extends Component {
           onProceed={this.submitDeleteTaskResponse}
           open={this.state.deleteResponse}
           proceedLabel={<FormattedGlobalMessage messageKey="delete" />}
-          title={<FormattedMessage id="task.confirmDeleteResponseTitle" defaultMessage="Delete answer?" />}
+          title={
+            <FormattedMessage
+              id="task.confirmDeleteResponseTitle"
+              defaultMessage="Delete answer?"
+            />
+          }
         />
       </StyledWordBreakDiv>
     );
@@ -840,7 +1495,9 @@ export default Relay.createContainer(Task, {
   },
   prepareVariables: vars => ({
     ...vars,
-    teamSlug: /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null,
+    teamSlug: /^\/([^/]+)/.test(window.location.pathname)
+      ? window.location.pathname.match(/^\/([^/]+)/)[1]
+      : null,
   }),
   fragments: {
     task: () => Relay.QL`
@@ -923,6 +1580,7 @@ export default Relay.createContainer(Task, {
             }
           }
         }
+        first_response_value,
         first_response {
           id,
           dbid,
