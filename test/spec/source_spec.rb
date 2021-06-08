@@ -4,7 +4,7 @@ shared_examples 'source' do
   it 'should check, edit and remove source info', bin2: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://g1.globo.com/'
     wait_for_selector('.media')
-    wait_for_selector('.media-tags__list')
+    wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__card-card')
     expect(wait_for_selector('.source__name').text == 'G1').to be(true)
@@ -25,7 +25,7 @@ shared_examples 'source' do
     puts 'remove main link'
     wait_for_selector_list('.source__remove-link-button')[0].click
     puts 'wait main link change'
-    wait_for_text_change('https://edition.cnn.com', '#main_source__link', :css)
+    wait_for_selector_none('input[value="https://g1.globo.com/"]')
     # check that the main link was changed
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/news/uk').to be(true)
     puts 'after change link'
