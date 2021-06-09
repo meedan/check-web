@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-i
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -24,7 +25,7 @@ import DateRangeFilter from './DateRangeFilter';
 import MultiSelectFilter from './MultiSelectFilter';
 import SaveList from './SaveList';
 import { languageLabel } from '../../LanguageRegistry';
-import { Row } from '../../styles/js/shared';
+import { Row, checkBlue } from '../../styles/js/shared';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -248,6 +249,13 @@ class SearchFields extends React.Component {
     this.setState({ query: newQuery });
     this.props.onChange(newQuery);
   };
+
+  handleOperatorClick = () => {
+    const operator = this.state.query.operator === 'OR' ? 'AND' : 'OR';
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'operator', operator),
+    });
+  }
 
   render() {
     const { team, project, projectGroup } = this.props;
@@ -474,9 +482,12 @@ class SearchFields extends React.Component {
             if (index > 0) {
               return (
                 <React.Fragment key={key}>
-                  <Box height="36px" display="flex" alignItems="center">
-                    <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator to be applied when filtering by multiple fields" />
-                  </Box>
+                  <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
+                    { this.state.query.operator === 'OR' ?
+                      <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+                      <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+                    }
+                  </Button>
                   { fieldComponents[key] }
                 </React.Fragment>
               );

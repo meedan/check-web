@@ -95,8 +95,13 @@
     "defaultMessage": "Assigned to"
   },
   {
+    "id": "search.fieldOr",
+    "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
+    "defaultMessage": "or"
+  },
+  {
     "id": "search.fieldAnd",
-    "description": "Logical operator to be applied when filtering by multiple fields",
+    "description": "Logical operator 'AND' to be applied when filtering by multiple fields",
     "defaultMessage": "and"
   },
   {
