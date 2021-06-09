@@ -151,6 +151,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
           </Typography> : null }
         <TextField
           value={name}
+          id="create-team-dialog__name-input"
           label={
             <FormattedMessage
               id="createTeamDialog.name"
@@ -193,7 +194,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
             defaultMessage="Cancel"
           />
         </Button>
-        <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving || !name}>
+        <Button color="primary" variant="contained" className="create-team-dialog__confirm-button" onClick={handleSubmit} disabled={saving || !name}>
           { team && saving ? <FormattedMessage id="createTeamDialog.duplicating" defaultMessage="Duplicating…" /> : null }
           { team && !saving ? <FormattedMessage id="createTeamDialog.duplice" defaultMessage="Duplicate" /> : null }
           { !team && saving ? <FormattedMessage id="createTeamDialog.creating" defaultMessage="Creating…" /> : null }

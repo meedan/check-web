@@ -23,7 +23,7 @@ require_relative './task_spec'
 require_relative './task_spec_helpers'
 require_relative './video_timeline_spec'
 require_relative './similarity_spec'
-# require_relative './source_spec.rb'
+require_relative './source_spec'
 
 CONFIG = YAML.load_file('config.yml')
 
@@ -112,7 +112,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'report'
     include_examples 'rules'
     include_examples 'search'
-    # include_examples 'source'
+    include_examples 'source'
     include_examples 'status'
     include_examples 'task'
     include_examples 'tag'

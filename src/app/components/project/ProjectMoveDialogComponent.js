@@ -144,6 +144,7 @@ const ProjectMoveDialogComponent = ({
             defaultValue={projectGroups.find(option => option.dbid === project.project_group_id)}
             renderInput={params => (
               <TextField
+                id="project-move-dialog__input"
                 {...params}
                 label={<FormattedMessage id="projectMoveDialogComponent.choose" defaultMessage="Choose a collection" />}
                 variant="outlined"

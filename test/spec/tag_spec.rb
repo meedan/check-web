@@ -1,68 +1,94 @@
 shared_examples 'tag' do
-  # it 'should manage and search team tags', bin6: true do
-  #   # Create team and go to team page that should not contain any tag
-  #   team = "tag-team-#{Time.now.to_i}"
-  #   api_create_team(team: team)
-  #   @driver.navigate.to "#{@config['self_url']}/#{team}"
-  #   wait_for_selector('.team-menu__team-settings-button').click
-  #   wait_for_selector('.team-settings__tasks-tab')
-  #   wait_for_selector('.team-settings__tags-tab').click
-  #   wait_for_selector_none('team-tasks')
-  #   expect(@driver.page_source.include?('No tags')).to be(true)
-  #   expect(@driver.page_source.include?('newtag')).to be(false)
+  it 'should manage and search team tags', bin6: true do
+    # Create team and go to team page that should not contain any tag
+    team = "team#{Time.now.to_i}"
+    create_team_and_go_to_settings_page(team)
+    wait_for_selector('.team-settings__tags-tab').click
+    wait_for_selector('#search-input')
+    expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
+    expect(@driver.page_source.include?('newtag')).to be(false)
 
-  #   # Create tag
-  #   wait_for_selector('#team-tags__create').click
-  #   wait_for_selector('#tag__new')
-  #   fill_field('#tag__new', 'newtag')
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector('body').click
-  #   wait_for_selector('#tag__text-newtag')
-  #   expect(@driver.page_source.include?('No tags')).to be(false)
-  #   expect(@driver.page_source.include?('1 tag')).to be(true)
-  #   expect(@driver.page_source.include?('newtag')).to be(true)
-  #   expect(@driver.page_source.include?('newtagedited')).to be(false)
+    # Create tag
+    add_team_tag('newtag')
+    wait_for_selector('.team-tags__row')
+    expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(false)
+    expect(@driver.page_source.include?('1 / 1')).to be(true)
+    expect(@driver.page_source.include?('newtag')).to be(true)
 
-  #   # Edit tag
-  #   wait_for_selector('.tag__actions').click
-  #   wait_for_selector('.tag__delete')
-  #   wait_for_selector('.tag__edit').click
-  #   wait_for_selector('#tag__edit')
-  #   fill_field('#tag__edit', 'edited')
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector('body').click
-  #   wait_for_selector('#tag__text-newtagedited')
-  #   expect(@driver.page_source.include?('1 tag')).to be(true)
-  #   expect(@driver.page_source.include?('newtagedited')).to be(true)
+    # Edit tag
+    expect(@driver.page_source.include?('newtagedited')).to be(false)
+    wait_for_selector('.team-tags-actions__icon').click
+    wait_for_selector('.team-tags-actions__edit').click
+    wait_for_selector('#confirm-dialog__confirm-action-button')
+    fill_field('#team-tags__name-input', 'edited')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
+    expect(@driver.page_source.include?('newtagedited')).to be(true)
 
-  #   # Create another tag
-  #   wait_for_selector('#team-tags__create').click
-  #   wait_for_selector('#tag__new')
-  #   fill_field('#tag__new', 'tag2')
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector('body').click
-  #   wait_for_selector('#tag__text-tag2')
-  #   expect(@driver.page_source.include?('tag2')).to be(true)
+    # Create another tag
+    expect(@driver.page_source.include?('tag2')).to be(false)
+    add_team_tag('tag2')
+    expect(@driver.page_source.include?('2 / 2')).to be(true)
+    expect(@driver.page_source.include?('tag2')).to be(true)
 
-  #   # Search tag by keyword
-  #   wait_for_selector('.filter-popup > div > button > span > svg').click
-  #   wait_for_selector('input[name=sort-select]')
-  #   wait_for_selector("input[placeholder='Search']").send_keys('edited')
-  #   @driver.action.send_keys(:enter).perform
-  #   wait_for_selector("//span[contains(text(), 'Done')]", :xpath).click
-  #   expect(@driver.page_source.include?('newtagedited')).to be(true)
-  #   expect(@driver.page_source.include?('tag2')).to be(false)
+    # Search tag by keyword
+    wait_for_selector('#search-input').send_keys('edited')
+    @driver.action.send_keys(:enter).perform
+    expect(@driver.page_source.include?('1 / 2')).to be(true)
+    expect(@driver.page_source.include?('newtagedited')).to be(true)
+    expect(@driver.page_source.include?('tag2')).to be(false)
 
-  #   # Delete tag
-  #   wait_for_selector('.tag__actions').click
-  #   wait_for_selector('.tag__edit')
-  #   wait_for_selector('.tag__delete').click
-  #   wait_for_selector('#confirm-dialog__confirm-action-button').click
-  #   wait_for_selector_none('#tag__confirm')
-  #   wait_for_selector_none('#tag__text-newtagedited')
-  #   expect(@driver.page_source.include?('No tags')).to be(true)
-  #   expect(@driver.page_source.include?('newtagedited')).to be(false)
-  # end
+    # Delete tag
+    wait_for_selector('.team-tags-actions__icon').click
+    wait_for_selector('.team-tags-actions__destroy').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
+    expect(@driver.page_source.include?('0 / 1')).to be(true)
+    expect(@driver.page_source.include?('newtagedited')).to be(false)
+    expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
+  end
+
+  it 'should add a tag rule and use tag filter', bin3: true, quick: true do
+    team = "team#{Time.now.to_i}"
+    create_team_and_go_to_settings_page(team)
+    # create a tag
+    wait_for_selector('.team-settings__tags-tab').click
+    wait_for_selector('#search-input')
+    expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
+    expect(@driver.page_source.include?('newtag')).to be(false)
+    wait_for_selector('#team-tags__create').click
+    wait_for_selector('#confirm-dialog__confirm-action-button')
+    fill_field('#team-tags__name-input', 'tag added automatically')
+    wait_for_selector('.MuiAutocomplete-popupIndicator').click
+    wait_for_selector('.MuiAutocomplete-inputFocused').click
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('textarea').send_keys('new media')
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector('.team-tags__row')
+    expect(@driver.page_source.include?('tag added automatically')).to be(true)
+    # check that it does not have a item using this tag
+    expect(wait_for_selector('td > a').text == '0').to be(true)
+    tag_url = @driver.current_url
+    # create a media
+    wait_for_selector('.projects-list__all-items').click
+    create_media('new media')
+    wait_for_selector('.media__heading').click
+    wait_for_selector('.media-tags__tag')
+    expect(@driver.page_source.include?('tag added automatically')).to be(true)
+    # click on the tag and go to search page with the tag filter and see the item
+    wait_for_selector('.media-tags__tag').click
+    wait_for_selector('#search-input')
+    wait_for_selector('.multi-select-filter__tag')
+    expect(@driver.page_source.include?('tag added automatically')).to be(true)
+    expect(@driver.page_source.include?('new media')).to be(true)
+    # go to team tag page and see one item using the tag
+    @driver.navigate.to tag_url
+    wait_for_selector('.team-tags__row')
+    expect(wait_for_selector('td > a').text == '1').to be(true)
+  end
 
   it 'should add a tag, reject duplicated and delete tag', bin3: true, quick: true do
     api_create_team_project_and_claim_and_redirect_to_media_page

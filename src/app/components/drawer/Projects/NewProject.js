@@ -147,6 +147,7 @@ const NewProject = ({
       body={
         <React.Fragment>
           <TextField
+            id="new-project__title"
             label={
               <FormattedMessage
                 id="projectsComponent.title"
@@ -161,6 +162,7 @@ const NewProject = ({
           />
           { !noDescription ?
             <TextField
+              id="new-project__description"
               label={
                 <FormattedMessage
                   id="projectsComponent.description"

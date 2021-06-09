@@ -45,6 +45,7 @@ function ChangeMediaSource({
       <Button
         style={{ color: 'blue' }}
         onClick={() => { createNewClick(input); }}
+        id="media-source__create-button"
       >
         <FormattedMessage
           id="changeMediaSource.createSource"
@@ -92,7 +93,11 @@ function ChangeMediaSource({
         )}
       />
       <div>
-        <Button color="primary" onClick={onCancel}>
+        <Button
+          color="primary"
+          onClick={onCancel}
+          className="media-source__cancel-button"
+        >
           <FormattedMessage
             id="changeMediaSource.cancelButton"
             defaultMessage="Cancel"
@@ -101,7 +106,7 @@ function ChangeMediaSource({
         </Button>
         <Button
           color="primary"
-          className="project-media-source-save-action"
+          className="media-source__save-button"
           onClick={() => { onSubmit(value); }}
           disabled={!value}
         >

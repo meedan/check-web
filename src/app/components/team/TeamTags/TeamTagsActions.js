@@ -94,6 +94,7 @@ const TeamTagsActions = ({
         tooltip={<FormattedMessage id="teamTagsActions.tooltip" defaultMessage="Manage tag" />}
         onClick={e => setAnchorEl(e.currentTarget)}
         style={{ padding: 0 }}
+        className="team-tags-actions__icon"
       >
         <IconMoreVert />
       </IconButton>
@@ -102,13 +103,13 @@ const TeamTagsActions = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem onClick={() => { setAnchorEl(null); setShowEditDialog(true); }}>
+        <MenuItem className="team-tags-actions__edit" onClick={() => { setAnchorEl(null); setShowEditDialog(true); }}>
           <FormattedMessage
             id="teamTagsActions.edit"
             defaultMessage="Edit"
           />
         </MenuItem>
-        <MenuItem onClick={() => { setAnchorEl(null); setShowDeleteDialog(true); }}>
+        <MenuItem className="team-tags-actions__destroy" onClick={() => { setAnchorEl(null); setShowDeleteDialog(true); }}>
           <FormattedMessage
             id="teamTagsActions.delete"
             defaultMessage="Delete"
