@@ -387,6 +387,8 @@ const ProjectsComponent = ({
           </ListItemText>
         </ListItem>
 
+        { listsExpanded ? null : <Divider /> }
+
         {/* Lists */}
         <Collapse in={listsExpanded} className={classes.projectsComponentCollapse}>
           <Box>
