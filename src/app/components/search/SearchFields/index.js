@@ -17,15 +17,14 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import deepEqual from 'deep-equal';
-import CustomFiltersManager from './CustomFiltersManager';
-// eslint-disable-next-line no-unused-vars
-import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomTeamTaskFilter_team fragment
-import AddFilterMenu from './AddFilterMenu';
-import DateRangeFilter from './DateRangeFilter';
-import MultiSelectFilter from './MultiSelectFilter';
-import SaveList from './SaveList';
-import { languageLabel } from '../../LanguageRegistry';
-import { Row, checkBlue } from '../../styles/js/shared';
+import CustomFiltersManager from '../CustomFiltersManager';
+import AddFilterMenu from '../AddFilterMenu';
+import DateRangeFilter from '../DateRangeFilter';
+import MultiSelectFilter from '../MultiSelectFilter';
+import SaveList from '../SaveList';
+import { languageLabel } from '../../../LanguageRegistry';
+import { Row, checkBlue } from '../../../styles/js/shared';
+import SearchFieldSource from './SearchFieldSource';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -199,6 +198,12 @@ class SearchFields extends React.Component {
   handleTagClick = (tags) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'tags', tags),
+    });
+  }
+
+  handleSourceClick = (sources) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'sources', sources),
     });
   }
 
@@ -467,6 +472,14 @@ class SearchFields extends React.Component {
           query={this.state.query}
         />
       ),
+      sources: (
+        <SearchFieldSource
+          teamSlug={team.slug}
+          selected={this.state.query.sources}
+          onChange={(newValue) => { this.handleSourceClick(newValue); }}
+          onRemove={() => this.handleRemoveField('sources')}
+        />
+      ),
     };
 
     let fieldKeys = [];
@@ -548,6 +561,7 @@ SearchFields.propTypes = {
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
     projects: PropTypes.object.isRequired,
@@ -605,6 +619,5 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         }
       }
     }
-    ...CustomTeamTaskFilter_team
   }
 `);

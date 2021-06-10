@@ -1,0 +1,117 @@
+[
+  {
+    "id": "search.showClaims",
+    "description": "Describes media type Text",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "search.showLinks",
+    "description": "Describes media type Link",
+    "defaultMessage": "Link"
+  },
+  {
+    "id": "search.showImages",
+    "description": "Describes media type Image",
+    "defaultMessage": "Image"
+  },
+  {
+    "id": "search.showVideos",
+    "description": "Describes media type Video",
+    "defaultMessage": "Video"
+  },
+  {
+    "id": "search.showAudios",
+    "description": "Describes media type Audio",
+    "defaultMessage": "Audio"
+  },
+  {
+    "id": "search.showBlank",
+    "description": "Describes media type unspecified",
+    "defaultMessage": "Imported report"
+  },
+  {
+    "id": "search.notInAny",
+    "description": "Label displayed before listing all folders that are not part of any collection",
+    "defaultMessage": "Not in any collection"
+  },
+  {
+    "id": "search.folderHeading",
+    "description": "Prefix label for field to filter by folder to which items belong",
+    "defaultMessage": "Folder is"
+  },
+  {
+    "id": "search.collection",
+    "description": "Prefix label for field to filter by collection",
+    "defaultMessage": "Collection is"
+  },
+  {
+    "id": "search.categoriesHeading",
+    "description": "Prefix label for field to filter by tags",
+    "defaultMessage": "Tag is"
+  },
+  {
+    "id": "search.show",
+    "description": "Prefix label for field to filter by media type",
+    "defaultMessage": "Type is"
+  },
+  {
+    "id": "search.statusHeading",
+    "description": "Prefix label for field to filter by status",
+    "defaultMessage": "Item status is"
+  },
+  {
+    "id": "search.userHeading",
+    "description": "Prefix label for field to filter by item creator",
+    "defaultMessage": "Created by"
+  },
+  {
+    "id": "search.reportStatus",
+    "description": "Prefix label for field to filter by report status",
+    "defaultMessage": "Report status is"
+  },
+  {
+    "id": "search.reportStatusUnpublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "search.reportStatusPaused",
+    "description": "Refers to a report status",
+    "defaultMessage": "Paused"
+  },
+  {
+    "id": "search.reportStatusPublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "search.language",
+    "description": "Prefix label for field to filter by language",
+    "defaultMessage": "Language is"
+  },
+  {
+    "id": "search.assignedTo",
+    "description": "Prefix label for field to filter by assigned users",
+    "defaultMessage": "Assigned to"
+  },
+  {
+    "id": "search.fieldOr",
+    "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "search.fieldAnd",
+    "description": "Logical operator 'AND' to be applied when filtering by multiple fields",
+    "defaultMessage": "and"
+  },
+  {
+    "id": "search.applyFilters",
+    "description": "Button to perform query with specified filters",
+    "defaultMessage": "Apply filter"
+  },
+  {
+    "id": "searchFields.clear",
+    "description": "Tooltip for button to remove any applied filters",
+    "defaultMessage": "Clear filters"
+  }
+]

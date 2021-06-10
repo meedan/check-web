@@ -50,6 +50,11 @@
     "defaultMessage": "Assignment"
   },
   {
+    "id": "addFilterMenu.source",
+    "description": "Menu option to enable searching items by source",
+    "defaultMessage": "Source"
+  },
+  {
     "id": "addFilterMenu.metadata",
     "description": "Menu option to enable searching items by metadata fields",
     "defaultMessage": "Metadata"
