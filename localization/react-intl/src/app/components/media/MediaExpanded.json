@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mediaExpanded.extractedText",
+    "description": "Label for text extracted from an image",
+    "defaultMessage": "Extracted text:"
+  }
+]
