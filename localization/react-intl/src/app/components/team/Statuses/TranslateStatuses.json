@@ -22,5 +22,15 @@
   {
     "id": "translateStatuses.continueAndSave",
     "defaultMessage": "Continue and save"
+  },
+  {
+    "id": "translateStatuses.saveStatusTitle",
+    "description": "Confirmation dialog title. 'Save' here is in infinitive form.",
+    "defaultMessage": "Save status translation"
+  },
+  {
+    "id": "translateStatuses.saveStatusMessage",
+    "description": "Confirmation dialog description",
+    "defaultMessage": "If labels changed, any published report in this language with this status will be updated with the new label and paused."
   }
 ]
