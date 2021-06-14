@@ -190,10 +190,15 @@ class MediaExpandedComponent extends Component {
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
           <MediaExpandedSecondRow projectMedia={media} />
-          { media.extracted_text ?
-            <TypographyBlack54 variant="body2" color={black54}>
-              <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Extracted text:" description="Label for text extracted from an image" />
-            </TypographyBlack54> : null
+          { isImage ?
+            <Box mb={2}>
+              <TypographyBlack54 variant="body2" color={black54}>
+                { media.extracted_text ?
+                  <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Text extracted from image:" description="Label for text extracted from the image below" /> :
+                  <FormattedMessage id="mediaExpanded.noExtractedText" defaultMessage="No text extracted from this image" description="Label when text extracted from an image is not available" />
+                }
+              </TypographyBlack54>
+            </Box> : null
           }
           <MoreLess>
             <Typography variant="body2">

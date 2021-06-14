@@ -1,7 +1,12 @@
 [
   {
     "id": "mediaExpanded.extractedText",
-    "description": "Label for text extracted from an image",
-    "defaultMessage": "Extracted text:"
+    "description": "Label for text extracted from the image below",
+    "defaultMessage": "Text extracted from image:"
+  },
+  {
+    "id": "mediaExpanded.noExtractedText",
+    "description": "Label when text extracted from an image is not available",
+    "defaultMessage": "No text extracted from this image"
   }
 ]

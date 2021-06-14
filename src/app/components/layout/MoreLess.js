@@ -18,7 +18,7 @@ const TextButton = withStyles({
   },
 })(Button);
 
-const MaxHeight = units(60);
+const MaxHeight = units(12.5); // ~5 lines of text
 
 const StyledMoreLessArea = styled.div`
   ${props => props.isExpanded ? null : `max-height: ${MaxHeight}; overflow: hidden;`}
