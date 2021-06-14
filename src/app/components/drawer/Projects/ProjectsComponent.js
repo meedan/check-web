@@ -411,7 +411,7 @@ const ProjectsComponent = ({
 
       <NewProject
         type="folder"
-        teamId={team.dbid}
+        team={team}
         open={showNewFolderDialog}
         onClose={() => { setShowNewFolderDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" description="Dialog title for creating new folder" />}
@@ -423,7 +423,7 @@ const ProjectsComponent = ({
 
       <NewProject
         type="collection"
-        teamId={team.dbid}
+        team={team}
         open={showNewCollectionDialog}
         onClose={() => { setShowNewCollectionDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newCollection" defaultMessage="New collection" description="Dialog title for creating new collection" />}
@@ -435,7 +435,7 @@ const ProjectsComponent = ({
 
       <NewProject
         type="list"
-        teamId={team.dbid}
+        team={team}
         open={showNewListDialog}
         onClose={() => { setShowNewListDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" />}

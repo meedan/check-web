@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
@@ -21,7 +22,7 @@ const NewProject = ({
   open,
   noDescription,
   title,
-  teamId,
+  team,
   buttonLabel,
   helpUrl,
   onClose,
@@ -75,6 +76,9 @@ const NewProject = ({
     list: graphql`
       mutation NewProjectCreateSavedSearchMutation($input: CreateSavedSearchInput!) {
         createSavedSearch(input: $input) {
+          saved_search {
+            dbid
+          }
           team {
             saved_searches(first: 10000) {
               edges {
@@ -109,7 +113,7 @@ const NewProject = ({
 
     const input = {
       title: newTitle,
-      team_id: teamId,
+      team_id: team.dbid,
     };
 
     if (!noDescription) {
@@ -126,6 +130,10 @@ const NewProject = ({
           handleError();
         } else {
           handleSuccess(response);
+          if (type === 'list') {
+            const listId = response.createSavedSearch.saved_search.dbid;
+            browserHistory.push(`/${team.slug}/list/${listId}`);
+          }
         }
       },
       onError: () => {
@@ -194,7 +202,7 @@ NewProject.defaultProps = {
 
 NewProject.propTypes = {
   type: PropTypes.oneOf(['folder', 'collection', 'list']).isRequired,
-  teamId: PropTypes.number.isRequired,
+  team: PropTypes.object.isRequired,
   open: PropTypes.bool,
   noDescription: PropTypes.bool,
   title: PropTypes.object.isRequired,
