@@ -115,7 +115,7 @@ const ProjectMoveDialogComponent = ({
         <NewProject
           open={showNewCollection}
           type="collection"
-          teamId={team.dbid}
+          team={team}
           onClose={() => { setShowNewCollection(false); }}
           title={<FormattedMessage id="projectMoveDialogComponent.newCollection" defaultMessage="New collection" />}
           buttonLabel={<FormattedMessage id="projectMoveDialogComponent.createCollection" defaultMessage="Create collection" />}
