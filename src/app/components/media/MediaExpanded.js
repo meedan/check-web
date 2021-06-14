@@ -200,11 +200,13 @@ class MediaExpandedComponent extends Component {
               </TypographyBlack54>
             </Box> : null
           }
-          <MoreLess>
-            <Typography variant="body2">
-              <ParsedText text={description} />
-            </Typography>
-          </MoreLess>
+          <Box mb={2}>
+            <MoreLess>
+              <Typography variant="body2">
+                <ParsedText text={description} />
+              </Typography>
+            </MoreLess>
+          </Box>
           <MediaExpandedUrl url={media.media.url} />
           <MediaExpandedArchives projectMedia={media} />
           <MediaExpandedMetadata projectMedia={media} />
