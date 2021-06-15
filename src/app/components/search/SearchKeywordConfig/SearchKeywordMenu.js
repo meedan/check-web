@@ -20,14 +20,15 @@ const SearchKeywordMenu = ({
   return (
     <React.Fragment>
       <SettingsIcon onClick={() => setAnchorEl(anchorParent)} />
-      <SearchKeywordContainer
-        teamSlug={teamSlug}
-        query={query}
-        onDismiss={handleClose}
-        onSubmit={handleChange}
-        anchorEl={anchorEl}
-        handleClose={handleClose}
-      />
+      { anchorEl ?
+        <SearchKeywordContainer
+          teamSlug={teamSlug}
+          query={query}
+          onDismiss={handleClose}
+          onSubmit={handleChange}
+          anchorEl={anchorEl}
+          handleClose={handleClose}
+        /> : null }
     </React.Fragment>
   );
 };

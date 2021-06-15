@@ -50,17 +50,4 @@ class UpdateSourceMutation extends Relay.Mutation {
   }
 }
 
-const refreshSource = (id, onSuccess, onFailure) => {
-  Relay.Store.commitUpdate(
-    new UpdateSourceMutation({
-      source: {
-        refresh_accounts: 1,
-        id,
-      },
-    }),
-    { onSuccess, onFailure },
-  );
-};
-
 export default UpdateSourceMutation;
-export { refreshSource };

@@ -17,6 +17,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
+import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 
 const StyledButton = withStyles({
   root: {
@@ -153,6 +154,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.assignedTo"
         defaultMessage="Assignment"
         description="Menu option to enable searching items by assigned users"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__time-source',
+    key: 'sources',
+    icon: <SettingsInputAntennaIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.source"
+        defaultMessage="Source"
+        description="Menu option to enable searching items by source"
       />
     ),
   },

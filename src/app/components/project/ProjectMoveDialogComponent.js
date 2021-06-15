@@ -115,7 +115,7 @@ const ProjectMoveDialogComponent = ({
         <NewProject
           open={showNewCollection}
           type="collection"
-          teamId={team.dbid}
+          team={team}
           onClose={() => { setShowNewCollection(false); }}
           title={<FormattedMessage id="projectMoveDialogComponent.newCollection" defaultMessage="New collection" />}
           buttonLabel={<FormattedMessage id="projectMoveDialogComponent.createCollection" defaultMessage="Create collection" />}
@@ -144,6 +144,7 @@ const ProjectMoveDialogComponent = ({
             defaultValue={projectGroups.find(option => option.dbid === project.project_group_id)}
             renderInput={params => (
               <TextField
+                id="project-move-dialog__input"
                 {...params}
                 label={<FormattedMessage id="projectMoveDialogComponent.choose" defaultMessage="Choose a collection" />}
                 variant="outlined"

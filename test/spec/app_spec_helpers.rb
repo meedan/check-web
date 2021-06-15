@@ -282,12 +282,12 @@ module AppSpecHelpers
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
   end
 
-  def create_project(project_name)
+  def create_folder_or_collection(project_name, project_type_selector)
     name = project_name || "Project #{Time.now.to_i}"
     wait_for_selector('.projects-list__add-folder-or-collection').click
-    wait_for_selector('.projects-list__add-folder').click
+    wait_for_selector(project_type_selector).click
     wait_for_selector('.new-project__title input').send_keys(name)
-    wait_for_selector('.confirm-proceed-dialog__proceed').click
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.message')
     # I'm getting "stale element reference" here:
     # wait_for_selector_list('.project-list__link').last.click
@@ -303,5 +303,17 @@ module AppSpecHelpers
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.message').click
     wait_for_selector_none('#create-media-dialog__dismiss-button')
+  end
+
+  def move_folder_to_collection(collection_title)
+    wait_for_selector('.project-actions__icon').click
+    wait_for_selector('.project-actions__move').click
+    wait_for_selector('.confirm-proceed-dialog__cancel')
+    wait_for_selector('.MuiAutocomplete-popupIndicator').click
+    wait_for_selector('.MuiAutocomplete-inputFocused').click
+    @driver.action.send_keys(:enter).send_keys(collection_title)
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
   end
 end

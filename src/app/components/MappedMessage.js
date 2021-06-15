@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import globalStrings from '../globalStrings';
 
 function mapMessage(intl, msgObj, msgKey, values) {
@@ -22,13 +22,7 @@ FormattedGlobalMessage.propTypes = {
   messageKey: PropTypes.oneOf(Object.keys(globalStrings)).isRequired,
 };
 
-const MappedMessage = props => (
-  <span>{mapMessage(props.intl, props.msgObj, props.msgKey, props.values)}</span>
-);
-
-export default injectIntl(MappedMessage);
 export {
-  mapMessage,
   mapGlobalMessage,
   FormattedGlobalMessage,
 };

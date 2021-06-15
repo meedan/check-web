@@ -7,7 +7,7 @@
   {
     "id": "CustomTeamTaskFilter.metadataTextLabel",
     "description": "Label for custom field to allow configuration filtering by metadata keyword",
-    "defaultMessage": "Metadata contains keyword"
+    "defaultMessage": "Metadata value"
   },
   {
     "id": "CustomTeamTaskFilter.taskChoiceLabel",
@@ -17,7 +17,7 @@
   {
     "id": "CustomTeamTaskFilter.taskTextLabel",
     "description": "Label for custom field configuration to allow filtering by task keyword",
-    "defaultMessage": "Task answer contains keyword"
+    "defaultMessage": "Task answer"
   },
   {
     "id": "CustomTeamTaskFilter.noValue",

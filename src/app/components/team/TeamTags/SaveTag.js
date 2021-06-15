@@ -227,6 +227,7 @@ const SaveTag = ({
       body={(
         <React.Fragment>
           <TextField
+            id="team-tags__name-input"
             defaultValue={text}
             label={<FormattedMessage id="saveTag.name" defaultMessage="Name" />}
             onBlur={(e) => { setText(e.target.value); }}

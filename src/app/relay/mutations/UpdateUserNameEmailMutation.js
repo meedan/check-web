@@ -52,5 +52,4 @@ const updateUserNameEmail = (id, name, email, sendNotification, onSuccess, onFai
   );
 };
 
-export default UpdateUserNameEmailMutation;
-export { updateUserNameEmail };
+export { updateUserNameEmail }; // eslint-disable-line import/prefer-default-export

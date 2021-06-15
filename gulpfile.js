@@ -132,7 +132,7 @@ gulp.task('react-relay:build:watch', () => spawnPromise([...RelayCommand, '--wat
 gulp.task('webpack:build:web:dev', (callback) => {
   const devConfig = {
     ...webpackConfig,
-    bail: false, // don't stop on error
+    bail: (process.env.MODE === 'test'), // Exit on error if on test mode
     mode: 'development',
     watch: true,
   };

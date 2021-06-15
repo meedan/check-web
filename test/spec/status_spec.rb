@@ -18,6 +18,7 @@ shared_examples 'status' do
     wait_for_selector('.status-actions__edit').click
     update_field('#edit-status-dialog__status-name', 'new status')
     wait_for_selector('.edit-status-dialog__submit').click
+    wait_for_selector('.confirm-proceed-dialog__proceed').click
     wait_for_selector_none('.edit-status-dialog__dismiss')
     expect(@driver.page_source.include?('new status')).to be(true)
     expect(@driver.page_source.include?('Unstarted')).to be(false)

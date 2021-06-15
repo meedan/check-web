@@ -380,12 +380,14 @@ const ProjectsComponent = ({
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
-                  <AddIcon />
+                  <AddIcon id="projects-list__add-filtered-list" />
                 </IconButton>
               </Can>
             </Box>
           </ListItemText>
         </ListItem>
+
+        { listsExpanded ? null : <Divider /> }
 
         {/* Lists */}
         <Collapse in={listsExpanded} className={classes.projectsComponentCollapse}>
@@ -409,7 +411,7 @@ const ProjectsComponent = ({
 
       <NewProject
         type="folder"
-        teamId={team.dbid}
+        team={team}
         open={showNewFolderDialog}
         onClose={() => { setShowNewFolderDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newFolder" defaultMessage="New folder" description="Dialog title for creating new folder" />}
@@ -421,7 +423,7 @@ const ProjectsComponent = ({
 
       <NewProject
         type="collection"
-        teamId={team.dbid}
+        team={team}
         open={showNewCollectionDialog}
         onClose={() => { setShowNewCollectionDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newCollection" defaultMessage="New collection" description="Dialog title for creating new collection" />}
@@ -433,7 +435,7 @@ const ProjectsComponent = ({
 
       <NewProject
         type="list"
-        teamId={team.dbid}
+        team={team}
         open={showNewListDialog}
         onClose={() => { setShowNewListDialog(false); }}
         title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" />}

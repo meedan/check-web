@@ -4,6 +4,7 @@ import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-i
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Button from '@material-ui/core/Button';
 import Tooltip from '@material-ui/core/Tooltip';
 import ClearIcon from '@material-ui/icons/Clear';
 import DescriptionIcon from '@material-ui/icons/Description';
@@ -16,14 +17,16 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import deepEqual from 'deep-equal';
-import CustomFiltersManager from './CustomFiltersManager';
+import CustomFiltersManager from '../CustomFiltersManager';
+import AddFilterMenu from '../AddFilterMenu';
+import DateRangeFilter from '../DateRangeFilter';
+import MultiSelectFilter from '../MultiSelectFilter';
+import SaveList from '../SaveList';
+import { languageLabel } from '../../../LanguageRegistry';
+import { Row, checkBlue } from '../../../styles/js/shared';
+import SearchFieldSource from './SearchFieldSource';
 // eslint-disable-next-line no-unused-vars
-import CustomTeamTaskFilter from './CustomTeamTaskFilter'; // Needed for CustomTeamTaskFilter_team fragment
-import AddFilterMenu from './AddFilterMenu';
-import DateRangeFilter from './DateRangeFilter';
-import MultiSelectFilter from './MultiSelectFilter';
-import SaveList from './SaveList';
-import { Row } from '../../styles/js/shared';
+import CustomTeamTaskFilter from '../CustomTeamTaskFilter'; // Needed for CustomTeamTaskFilter_team fragment
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -200,6 +203,12 @@ class SearchFields extends React.Component {
     });
   }
 
+  handleSourceClick = (sources) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'sources', sources),
+    });
+  }
+
   handleTagsOperator = () => {
     const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
     this.setState({
@@ -247,6 +256,13 @@ class SearchFields extends React.Component {
     this.setState({ query: newQuery });
     this.props.onChange(newQuery);
   };
+
+  handleOperatorClick = () => {
+    const operator = this.state.query.operator === 'OR' ? 'AND' : 'OR';
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'operator', operator),
+    });
+  }
 
   render() {
     const { team, project, projectGroup } = this.props;
@@ -298,16 +314,7 @@ class SearchFields extends React.Component {
       { value: 'blank', label: this.props.intl.formatMessage(typeLabels.blank) },
     ];
 
-    const languages = [];
-    if (team.dynamic_search_fields_json_schema.properties &&
-        team.dynamic_search_fields_json_schema.properties.language) {
-      team.dynamic_search_fields_json_schema.properties.language.items.enum.forEach((value, i) => {
-        languages.push({
-          value,
-          label: team.dynamic_search_fields_json_schema.properties.language.items.enumNames[i],
-        });
-      });
-    }
+    const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
 
     const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
     const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
@@ -467,6 +474,14 @@ class SearchFields extends React.Component {
           query={this.state.query}
         />
       ),
+      sources: (
+        <SearchFieldSource
+          teamSlug={team.slug}
+          selected={this.state.query.sources}
+          onChange={(newValue) => { this.handleSourceClick(newValue); }}
+          onRemove={() => this.handleRemoveField('sources')}
+        />
+      ),
     };
 
     let fieldKeys = [];
@@ -482,9 +497,12 @@ class SearchFields extends React.Component {
             if (index > 0) {
               return (
                 <React.Fragment key={key}>
-                  <Box height="36px" display="flex" alignItems="center">
-                    <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator to be applied when filtering by multiple fields" />
-                  </Box>
+                  <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
+                    { this.state.query.operator === 'OR' ?
+                      <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+                      <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+                    }
+                  </Button>
                   { fieldComponents[key] }
                 </React.Fragment>
               );
@@ -545,14 +563,13 @@ SearchFields.propTypes = {
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     dbid: PropTypes.number.isRequired,
+    slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
     verification_statuses: PropTypes.object.isRequired,
     projects: PropTypes.object.isRequired,
     users: PropTypes.object.isRequired,
     tag_texts: PropTypes.object.isRequired,
-    dynamic_search_fields_json_schema: PropTypes.shape({
-      properties: PropTypes.object.isRequired,
-    }).isRequired,
+    get_languages: PropTypes.string.isRequired,
   }).isRequired,
 };
 
@@ -567,6 +584,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     slug
     permissions
     verification_statuses
+    get_languages
     tag_texts(first: 10000) {
       edges {
         node {
@@ -574,7 +592,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         }
       }
     }
-    dynamic_search_fields_json_schema
     projects(first: 10000) {
       edges {
         node {

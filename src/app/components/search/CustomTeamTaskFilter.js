@@ -20,7 +20,7 @@ const messages = defineMessages({
   },
   metadataTextLabel: {
     id: 'CustomTeamTaskFilter.metadataTextLabel',
-    defaultMessage: 'Metadata contains keyword',
+    defaultMessage: 'Metadata value',
     description: 'Label for custom field to allow configuration filtering by metadata keyword',
   },
   taskChoiceLabel: {
@@ -30,7 +30,7 @@ const messages = defineMessages({
   },
   taskTextLabel: {
     id: 'CustomTeamTaskFilter.taskTextLabel',
-    defaultMessage: 'Task answer contains keyword',
+    defaultMessage: 'Task answer',
     description: 'Label for custom field configuration to allow filtering by task keyword',
   },
   noValue: {
@@ -86,7 +86,7 @@ const isMetadataChoice = t =>
 
 const isMetadataText = t =>
   t.node.fieldset === 'metadata' &&
-  t.node.type === 'free_text';
+  (t.node.type === 'free_text' || t.node.type === 'file_upload');
 
 const isTaskChoice = t =>
   t.node.fieldset === 'tasks' &&
@@ -94,7 +94,7 @@ const isTaskChoice = t =>
 
 const isTaskText = t =>
   t.node.fieldset === 'tasks' &&
-  t.node.type === 'free_text';
+  (t.node.type === 'free_text' || t.node.type === 'file_upload');
 
 const CustomTeamTaskFilter = ({
   filter,

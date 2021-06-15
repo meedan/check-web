@@ -12,7 +12,7 @@ export function searchQueryFromUrl() {
   return queryString ? searchQueryFromUrlQuery(queryString[2]) : {};
 }
 
-export function searchPrefixFromUrl() {
+function searchPrefixFromUrl() {
   const queryString = window.location.pathname.match(/.*\/(all-items|trash|project\/[0-9]+)/);
   return queryString ? queryString[0] : null;
 }
@@ -22,7 +22,7 @@ export function urlFromSearchQuery(query, path) {
   return Object.keys(query).length === 0 ? prefix : `${prefix}/${encodeURIComponent(JSON.stringify(query))}`;
 }
 
-export function noFilters(query_, project, projectGroup) {
+function noFilters(query_, project, projectGroup) {
   const query = { ...query_ };
   delete query.timestamp;
   if (Object.keys(query).indexOf('archived') > -1) {

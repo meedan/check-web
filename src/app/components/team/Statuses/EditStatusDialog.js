@@ -15,6 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import ColorPicker from '../../layout/ColorPicker';
 import { isBotInstalled } from '../../../helpers';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const maxLength = 35;
 
@@ -43,6 +44,7 @@ const EditStatusDialog = ({
   const [statusColor, setStatusColor] = React.useState(status ? status.style.color : '#000000');
   const [statusMessage, setStatusMessage] = React.useState(status ? status.locales[defaultLanguage].message : '');
   const [statusMessageEnabled, setStatusMessageEnabled] = React.useState(status ? Boolean(status.should_send_message) : false);
+  const [showSaveConfirmDialog, setShowSaveConfirmDialog] = React.useState(false);
 
   const handleSubmit = () => {
     const locales = status && status.locales ? { ...status.locales } : {};
@@ -62,6 +64,14 @@ const EditStatusDialog = ({
     };
 
     onSubmit(newStatus);
+  };
+
+  const handleConfirmSubmit = () => {
+    if (status && status.label !== statusLabel) {
+      setShowSaveConfirmDialog(true);
+    } else {
+      handleSubmit();
+    }
   };
 
   return (
@@ -179,7 +189,7 @@ const EditStatusDialog = ({
         <Button
           className="edit-status-dialog__submit"
           disabled={!statusLabel}
-          onClick={handleSubmit}
+          onClick={handleConfirmSubmit}
           color="primary"
           variant="contained"
         >
@@ -193,6 +203,24 @@ const EditStatusDialog = ({
           )}
         </Button>
       </DialogActions>
+      <ConfirmProceedDialog
+        open={showSaveConfirmDialog}
+        title={
+          <FormattedMessage
+            id="editStatusDialog.saveStatusTitle"
+            defaultMessage="Save status"
+            description="Confirmation dialog title. 'Save' here is in infinitive form."
+          />
+        }
+        body={
+          <FormattedMessage
+            id="editStatusDialog.saveStatusMessage"
+            defaultMessage="Any published report with this status will be updated with the new label and paused."
+            description="Confirmation dialog description"
+          />
+        }
+        onProceed={handleSubmit}
+      />
     </Dialog>
   );
 };

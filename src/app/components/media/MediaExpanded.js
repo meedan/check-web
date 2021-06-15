@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
@@ -6,6 +7,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
+import { withStyles } from '@material-ui/core/styles';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaExpandedActions from './MediaExpandedActions';
 import MediaExpandedArchives from './MediaExpandedArchives';
@@ -23,7 +25,13 @@ import BlankMediaButton from './BlankMediaButton';
 import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
-import { units } from '../../styles/js/shared';
+import { units, black54 } from '../../styles/js/shared';
+
+const TypographyBlack54 = withStyles({
+  root: {
+    color: black54,
+  },
+})(Typography);
 
 class MediaExpandedComponent extends Component {
   constructor(props) {
@@ -172,7 +180,7 @@ class MediaExpandedComponent extends Component {
 
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
-    const { description } = media.media.metadata;
+    const description = media.extracted_text ? media.extracted_text.data.text : media.media.metadata.description;
 
     return (
       <React.Fragment>
@@ -182,11 +190,23 @@ class MediaExpandedComponent extends Component {
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
           <MediaExpandedSecondRow projectMedia={media} />
-          <MoreLess>
-            <Typography variant="body2">
-              <ParsedText text={description} />
-            </Typography>
-          </MoreLess>
+          { isImage ?
+            <Box mb={2}>
+              <TypographyBlack54 variant="body2" color={black54}>
+                { media.extracted_text ?
+                  <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Text extracted from image:" description="Label for text extracted from the image below" /> :
+                  <FormattedMessage id="mediaExpanded.noExtractedText" defaultMessage="No text extracted from this image" description="Label when text extracted from an image is not available" />
+                }
+              </TypographyBlack54>
+            </Box> : null
+          }
+          <Box mb={2}>
+            <MoreLess>
+              <Typography variant="body2">
+                <ParsedText text={description} />
+              </Typography>
+            </MoreLess>
+          </Box>
           <MediaExpandedUrl url={media.media.url} />
           <MediaExpandedArchives projectMedia={media} />
           <MediaExpandedMetadata projectMedia={media} />
@@ -241,6 +261,9 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         description
         language_code
         language
+        extracted_text: annotation(annotation_type: "extracted_text") {
+          data
+        }
         project_id
         pusher_channel
         dynamic_annotation_language {

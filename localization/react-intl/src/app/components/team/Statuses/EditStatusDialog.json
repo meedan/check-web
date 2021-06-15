@@ -32,5 +32,15 @@
   {
     "id": "editStatusDialog.addButton",
     "defaultMessage": "Add status"
+  },
+  {
+    "id": "editStatusDialog.saveStatusTitle",
+    "description": "Confirmation dialog title. 'Save' here is in infinitive form.",
+    "defaultMessage": "Save status"
+  },
+  {
+    "id": "editStatusDialog.saveStatusMessage",
+    "description": "Confirmation dialog description",
+    "defaultMessage": "Any published report with this status will be updated with the new label and paused."
   }
 ]

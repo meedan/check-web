@@ -161,7 +161,7 @@ const SmoochBotIntegrationButton = ({
         smoochBotRemoveIntegration(input: $input) {
           team_bot_installation {
             id
-            smooch_enabled_integrations
+            smooch_enabled_integrations(force: true)
           }
         }
       }
@@ -196,7 +196,7 @@ const SmoochBotIntegrationButton = ({
         smoochBotAddIntegration(input: $input) {
           team_bot_installation {
             id
-            smooch_enabled_integrations
+            smooch_enabled_integrations(force: true)
           }
         }
       }
