@@ -14,6 +14,7 @@ export default function MediaPage({ route, routeParams, location }) {
 
   const teamSlug = routeParams.team;
   const projectId = parseInt(routeParams.projectId, 10) || null;
+  const listId = parseInt(routeParams.listId, 10) || null;
   const projectMediaId = parseInt(routeParams.mediaId, 10) || null;
   let currentView = 'default';
   if (route && route.view) {
@@ -32,6 +33,7 @@ export default function MediaPage({ route, routeParams, location }) {
       buildSiblingUrl={buildSiblingUrl}
       teamSlug={teamSlug}
       projectId={projectId}
+      listId={listId}
       projectMediaId={projectMediaId}
       view={currentView}
     />
@@ -45,6 +47,7 @@ MediaPage.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     projectId: PropTypes.string, // or undefined
+    listId: PropTypes.string, // or undefined
     mediaId: PropTypes.string.isRequired,
   }).isRequired,
   location: PropTypes.shape({

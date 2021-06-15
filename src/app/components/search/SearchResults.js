@@ -290,16 +290,12 @@ class SearchResultsComponent extends React.PureComponent {
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = this.beginIndex + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.endsWith('/trash')) {
+    if (searchUrlPrefix.endsWith('/trash') || searchUrlPrefix.endsWith('/unconfirmed')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
     }
-    if (searchUrlPrefix.endsWith('/unconfirmed')) {
-      // Usually, `listPath` can be inferred from the route params. With `unconfirmed` it can't,
-      // so we'll give it to the receiving page. (See <MediaPage>.)
-      urlParams.set('listPath', searchUrlPrefix);
-    }
+
     if (Object.keys(cleanQuery).length > 0) {
       urlParams.set('listQuery', JSON.stringify(cleanQuery));
     }
