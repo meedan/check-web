@@ -41,7 +41,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "البيانات الوصفيّة تتضمن كلمة مفتاحية",
+		"string": "Metadata value",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
@@ -53,11 +53,11 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "إجابة المهمة تتضمن كلمة مفتاحية",
+		"string": "Task answer",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
-		"string": "يحتوي الحقل \"{field}\" أي قيمة",
+		"string": "يحوي الحقل \"{field}\" كل القيم الممكنة",
 		"developer_comment": "Label for custom field when metadata or task response contains any value"
 	},
 	"CustomTeamTaskFilter.textFilter": {
@@ -165,7 +165,7 @@
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.assignedTo": {
-		"string": "التكليف",
+		"string": "التخصيصات",
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.collection": {
@@ -203,6 +203,10 @@
 	"addFilterMenu.reportStatus": {
 		"string": "حالة التقرير",
 		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.source": {
+		"string": "Source",
+		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
 		"string": "الوسم",
@@ -243,10 +247,10 @@
 		"string": "لقد تم إرسال هذا الرابط للحفاظ في {name} وسوف يظهر رابط النسخة اﻹحتياطية هنا عندما يصبح متاحاً."
 	},
 	"annotation.assignmentChanged": {
-		"string": "قام(ت) {author} بتكليف مهمة إلى {assigneeTo} : {title}"
+		"string": "قام المؤلف {author} بتعيين مهمة لـ {assigneeTo} : {title}"
 	},
 	"annotation.assignmentRemoved": {
-		"string": "قام(ت) {author} بإلغاء تكليف مهمة عن {assigneeFrom} : {title}"
+		"string": "قام المؤلف {author} بإزالة مهمة عن {assigneeFrom} : {title}"
 	},
 	"annotation.changedJsonSchema": {
 		"string": "قام(ت) {author} بتعديل مخطط JSON الخاص بمهمة {title}"
@@ -312,16 +316,16 @@
 		"string": "عنف"
 	},
 	"annotation.mediaAssigned": {
-		"string": "قام(ت) {author} بتكليف العنصر إلى {name}"
+		"string": "قام المؤلف {author} بتخصيص العنصر لـ {name}"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "قام(ت) {author} بتكليف العنصر إلى {name}"
+		"string": "قام المؤلف {author} بتخصيص العنصر لـ {name}"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "قام(ت) {author} بإلغاء تكليف العنصر عن {name}"
+		"string": "قام المؤلف {author} بإلغاء تخصيص العنصر عن {name}"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "قام(ت) {author} بإلغاء تكليف العنصر عن {name}"
+		"string": "قام المؤلف {author} بإلغاء تخصيص العنصر عن {name}"
 	},
 	"annotation.menuTooltip": {
 		"string": "إجراءات التعقيبات"
@@ -421,10 +425,10 @@
 		"string": "قام(ت) {author} بإضافة الوسم ‎#{tag}"
 	},
 	"annotation.taskAssignmentCreated": {
-		"string": "قام(ت) {author} بتكليف مهمة إلى {name} : {title}"
+		"string": "قام المؤلف {author} بتعيين مهمة لـ {name} : {title}"
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "قام(ت) {author} بإلغاء تكليف مهمة عن {name} : {title}"
+		"string": "قام المؤلف {author} بإزالة مهمة عن {name} : {title}"
 	},
 	"annotation.taskCreated": {
 		"string": "قام(ت) {author} بإضافة مهمة : {task}"
@@ -619,21 +623,21 @@
 		"developer_comment": "Label for button to create a new source"
 	},
 	"createTag.couldNotCreate": {
-		"string": "Could not create tag",
+		"string": "تعذَّر إنشاء الوسم",
 		"developer_comment": "Error message displayed when it's not possible to create a team tag"
 	},
 	"createTag.createdSuccessfully": {
-		"string": "Tag created successfully",
+		"string": "لقد أُنشِيء الوسم بنجاح",
 		"developer_comment": "Message displayed when a team tag is created"
 	},
 	"createTag.name": {
-		"string": "Name"
+		"string": "الاسم"
 	},
 	"createTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "إضافة الوسم تلقائيا للعناصر التي تحقق الشروط التالية:"
 	},
 	"createTag.title": {
-		"string": "Create new tag"
+		"string": "إنشاء وسم جديد"
 	},
 	"createTeamDialog.cancel": {
 		"string": "إلغاء"
@@ -709,25 +713,25 @@
 		"string": "عرض هذا النطاق الزمني على time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
+		"string": "{publishedCount, plural, zero {لا يوجد عنصر منشور حاليا في حالة {statusLabel}.} one {هناك عنصر واحد منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصر المنشور بهذه الحالة. يجب عليك مراجعة هذه العنصر إذا أردت إعادة نشره مرة أخرى.} two {هناك عنصران منشوران حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصرين المنشورين بهذه الحالة. يجب عليك مراجعة هذين العنصرين إذا أردت إعادة نشرهما مرة أخرى.} few {هناك # عناصر منشورة حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} many {هناك # عنصرا منشورا حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} other {هناك # عنصر منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "نقل العناصر إلى"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+		"string": "{itemsCount, plural, zero {لا يوجد أي عنصر في حالة {statusLabel}.} one {هناك عنصر واحد في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} two {هناك عنصران في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} few {هناك # عناصر في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} many {هناك # عنصرا في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} other {هناك # عنصر في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
+		"string": "{itemsCount, plural, zero {لست بحاجة إلى تغيير حالة أي عنصر لحذف هذه الحالة} one {أنت بحاجة إلى تغيير حالة عنصر واحد لحذف هذه الحالة} two {أنت بحاجة إلى تغيير حالة عنصرين لحذف هذه الحالة} few {أنت بحاجة إلى تغيير حالة # عناصر لحذف هذه الحالة} many {أنت بحاجة إلى تغيير حالة # عنصرا لحذف هذه الحالة} other {أنت بحاجة إلى تغيير حالة # عنصر لحذف هذه الحالة}}"
 	},
 	"destinationProjects.choose": {
 		"string": "اختيار مجلد"
 	},
 	"destinationProjects.empty": {
-		"string": "No folders in this collection"
+		"string": "لا توجد مجلدات في هذه المجموعة"
 	},
 	"destinationProjects.none": {
-		"string": "Not in any collection",
+		"string": "ليس في أي مجموعة",
 		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
@@ -748,6 +752,14 @@
 	"editStatusDialog.messageDescription": {
 		"string": "إرسال رسالة إلى المستخدم الذي طلب العنصر عندما تقوم بتغيير عنصر إلى هذه الحالة.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
+	},
+	"editStatusDialog.saveStatusMessage": {
+		"string": "Any published report with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"editStatusDialog.saveStatusTitle": {
+		"string": "Save status",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "الوصف"
@@ -1049,7 +1061,7 @@
 		"string": "تسجيل حساب جديد"
 	},
 	"login.signIn": {
-		"string": "Sign in",
+		"string": "تسجيل الدخول",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1057,7 +1069,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign up",
+		"string": "تسجيل حساب جديد",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1098,7 +1110,7 @@
 		"string": "فيديو"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "تكليف إلى…"
+		"string": "تخصيص لـ…"
 	},
 	"mediaActions.history": {
 		"string": "تاريخ العنصر"
@@ -1125,10 +1137,10 @@
 		"string": "إضافة ملاحظة للإيميل"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "تكليف العنصر لشركاء"
+		"string": "تخصيص العنصر للشركاء"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "حُدثَت التكليفات بنجاح"
+		"string": "حُدثَ توزيع الأدوار بنجاح"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "إلغاء"
@@ -1250,11 +1262,19 @@
 	"mediaDetail.trash": {
 		"string": "سلة المهملات"
 	},
+	"mediaExpanded.extractedText": {
+		"string": "Text extracted from image:",
+		"developer_comment": "Label for text extracted from the image below"
+	},
 	"mediaExpanded.firstSeen": {
 		"string": "أوّل مطالعة: "
 	},
 	"mediaExpanded.lastSeen": {
 		"string": "آخر مطالعة:"
+	},
+	"mediaExpanded.noExtractedText": {
+		"string": "No text extracted from this image",
+		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
@@ -1476,7 +1496,7 @@
 		"string": "الطلبات"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+		"string": "{total, plural, zero {لا شيء (« {current} ») من مجموع # مادة إعلامية المقترحة} one {{current} من مادة إعلامية واحدة مقترحة} two {{current} من مجموع مادتين إعلاميتين مقترحتين} few {{current} من مجموع # مواد إعلامية مقترحة} many {{current} من مجموع # مادة إعلامية مقترحة} other {{current} من مجموع # مادة إعلامية مقترحة}}"
 	},
 	"moreLess.less": {
 		"string": "الأقل"
@@ -2074,30 +2094,30 @@
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveTag.couldNotSave": {
-		"string": "Could not save tag",
+		"string": "تعذَّر حفظ الوسم",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "Name"
+		"string": "الاسم"
 	},
 	"saveTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "إضافة الوسم تلقائيا للعناصر التي تحقق الشروط التالية:"
 	},
 	"saveTag.save": {
-		"string": "Save tag"
+		"string": "حفظ الوسم"
 	},
 	"saveTag.savedSuccessfully": {
-		"string": "Tag saved successfully",
+		"string": "لقد حُفظ الوسم بنجاح",
 		"developer_comment": "Message displayed when a team tag is saved"
 	},
 	"saveTag.titleCreate": {
-		"string": "Create new tag"
+		"string": "إنشاء وسم جديد"
 	},
 	"saveTag.titleEdit": {
-		"string": "Edit tag"
+		"string": "تحرير الوسم"
 	},
 	"savedSearch.deleteMessage": {
-		"string": "هل أنت متأكد(ة)؟ هذه القائمة تم مشاركتها بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها."
+		"string": "أأنت على يقين من ذلك ؟ لقد تمت مشاركة هذه القائمة بين كل مستخدمي {teamName}. لن يتمكن أي مستخدم من الوصول إليها بعد حذفها."
 	},
 	"savedSearch.name": {
 		"string": "القائمة"
@@ -2110,7 +2130,7 @@
 		"string": "كل العناصر"
 	},
 	"search.and": {
-		"string": "and",
+		"string": "و",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2122,7 +2142,7 @@
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.assignedTo": {
-		"string": "مُكَلَّف إلى",
+		"string": "مُخصَّص لـ",
 		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
 	"search.beforeDate": {
@@ -2150,8 +2170,12 @@
 		"string": "تاريخ آخر تحديث"
 	},
 	"search.fieldAnd": {
-		"string": "and",
-		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+		"string": "و",
+		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
+	},
+	"search.fieldOr": {
+		"string": "or",
+		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
 		"string": "المجلد هو",
@@ -2177,7 +2201,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "or",
+		"string": "أو",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
@@ -2234,6 +2258,10 @@
 	"search.userHeading": {
 		"string": "تم الإنشاء بواسطة",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldSource.label": {
+		"string": "Source is",
+		"developer_comment": "Prefix label for field to filter by source"
 	},
 	"searchFields.clear": {
 		"string": "إلغاء التصفيات",
@@ -2885,10 +2913,10 @@
 		"string": "تم الاستكمال بواسطة {byName}"
 	},
 	"task.assignOrUnassign": {
-		"string": "تكليف أو إلغاء التكليف"
+		"string": "التخصيص أو إلغاؤه"
 	},
 	"task.assignedTo": {
-		"string": "مُكَلَّف إلى {name}"
+		"string": "مُخصَّص لـ {name}"
 	},
 	"task.confirmDelete": {
 		"string": "أأنت على يقين من رغبتك في حذف هذه المهمة ؟"
@@ -2946,7 +2974,7 @@
 		"string": "الإجابة عن المهمة"
 	},
 	"tasks.assign": {
-		"string": "تكليف"
+		"string": "تخصيص"
 	},
 	"tasks.attributionSlogan": {
 		"string": "للمهمة \"{label}\""
@@ -2976,7 +3004,7 @@
 		"string": "الوصف (اختياري)"
 	},
 	"tasks.editAssignment": {
-		"string": "تحرير التكليف"
+		"string": "تحرير التخصيص"
 	},
 	"tasks.editAttribution": {
 		"string": "تحرير اﻹسناد"
@@ -3004,7 +3032,7 @@
 		"string": "عرض المهام في"
 	},
 	"tasks.taskPrompt": {
-		"string": "المحث على السؤال"
+		"string": "المحث"
 	},
 	"tasks.teamwideNudge": {
 		"string": "المهمات الإفتراضية"
@@ -3371,51 +3399,48 @@
 		"string": "تصفية وترتيب المجلد"
 	},
 	"teamTagsActions.couldNotDelete": {
-		"string": "Could not delete tag",
+		"string": "تعذَّر حذف الوسم",
 		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
 	},
 	"teamTagsActions.delete": {
-		"string": "Delete"
+		"string": "حذف"
 	},
 	"teamTagsActions.deletedSuccessfully": {
-		"string": "Tag deleted successfully",
+		"string": "لقد حُذف الوسم بنجاح",
 		"developer_comment": "Message displayed when a team tag is deleted"
 	},
 	"teamTagsActions.edit": {
-		"string": "Edit"
+		"string": "تحرير"
 	},
 	"teamTagsActions.remove": {
-		"string": "Delete tag"
+		"string": "حذف الوسم"
 	},
 	"teamTagsActions.removeDialogBody": {
-		"string": "Tag \"{tag}\" will be removed from {count} items."
+		"string": "سوف يُحذَف الوسم \"{tag}\" من {count} عنصر."
 	},
 	"teamTagsActions.removeDialogTitle": {
-		"string": "Delete tag \"{tag}\""
+		"string": "حذف الوسم \"{tag}\""
 	},
 	"teamTagsActions.tooltip": {
-		"string": "Manage tag"
+		"string": "إدارة الوسم"
 	},
 	"teamTagsComponent.newTag": {
-		"string": "New tag"
-	},
-	"teamTagsComponent.search": {
-		"string": "Search"
+		"string": "وسم جديد"
 	},
 	"teamTagsComponent.tableHeaderName": {
-		"string": "Name",
+		"string": "الاسم",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
-		"string": "Items",
+		"string": "العناصر",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderUpdatedAt": {
-		"string": "Updated",
+		"string": "مُحدَّث",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "Tags",
+		"string": "الوسوم",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
@@ -3425,7 +3450,7 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
+		"string": "{itemsNumber, plural, zero {لقد تمت المهمة {taskLabel} بدون تغيير في أي عنصر. } one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصرا.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"
@@ -3517,6 +3542,14 @@
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "إذا كانت رسالة لحالة معينة غير مترجمة، فلن يستلم الرسالة أي شخص يتقدم بطلب باللغة غير المترجمة."
 	},
+	"translateStatuses.saveStatusMessage": {
+		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"translateStatuses.saveStatusTitle": {
+		"string": "Save status translation",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
+	},
 	"translateStatuses.status": {
 		"string": "الحالة"
 	},
@@ -3557,7 +3590,7 @@
 		"string": "مساحات العمل"
 	},
 	"userComponents.assignments": {
-		"string": "التكليفات"
+		"string": "التخصيصات"
 	},
 	"userComponents.privacy": {
 		"string": "الخصوصية"

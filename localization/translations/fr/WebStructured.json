@@ -41,7 +41,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Les métadonnées comprennent un mot-clé",
+		"string": "Metadata value",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
@@ -53,7 +53,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "La réponse de la tâche comprend un mot-clé",
+		"string": "Task answer",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
@@ -203,6 +203,10 @@
 	"addFilterMenu.reportStatus": {
 		"string": "État du rapport",
 		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.source": {
+		"string": "Source",
+		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
 		"string": "Étiquette",
@@ -619,21 +623,21 @@
 		"developer_comment": "Label for button to create a new source"
 	},
 	"createTag.couldNotCreate": {
-		"string": "Could not create tag",
+		"string": "Impossible de créer l’étiquette",
 		"developer_comment": "Error message displayed when it's not possible to create a team tag"
 	},
 	"createTag.createdSuccessfully": {
-		"string": "Tag created successfully",
+		"string": "L’étiquette a été créée avec succès",
 		"developer_comment": "Message displayed when a team tag is created"
 	},
 	"createTag.name": {
-		"string": "Name"
+		"string": "Nom"
 	},
 	"createTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "Étiqueter automatiquement les éléments qui correspondent aux conditions suivantes :"
 	},
 	"createTag.title": {
-		"string": "Create new tag"
+		"string": "Créer une nouvelle étiquette"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Annuler"
@@ -709,25 +713,25 @@
 		"string": "Afficher ce fuseau horaire sur time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
+		"string": "{publishedCount, plural, one {Il existe un élément publié actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.} other {Il existe # éléments publiés actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Déplacer les éléments vers"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+		"string": "{itemsCount, plural, one {Il existe un élément dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.} other {Il existe # éléments dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
+		"string": "{itemsCount, plural, one {Vous devez changer l’état d’un élément pour supprimer cet état} other {Vous devez changer l’état de # éléments pour supprimer cet état}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Choisissez un dossier"
 	},
 	"destinationProjects.empty": {
-		"string": "No folders in this collection"
+		"string": "Il n’y a aucun dossier dans cette collection"
 	},
 	"destinationProjects.none": {
-		"string": "Not in any collection",
+		"string": "N’est dans aucune collection",
 		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
@@ -748,6 +752,14 @@
 	"editStatusDialog.messageDescription": {
 		"string": "Si vous appliquez cet état à un élément, envoyer un message à l’utilisateur qui a demandé l’élément.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
+	},
+	"editStatusDialog.saveStatusMessage": {
+		"string": "Any published report with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"editStatusDialog.saveStatusTitle": {
+		"string": "Save status",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Description"
@@ -1049,7 +1061,7 @@
 		"string": "Inscription"
 	},
 	"login.signIn": {
-		"string": "Sign in",
+		"string": "Connexion",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1057,7 +1069,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign up",
+		"string": "S’inscrire",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1250,11 +1262,19 @@
 	"mediaDetail.trash": {
 		"string": "Corbeille"
 	},
+	"mediaExpanded.extractedText": {
+		"string": "Text extracted from image:",
+		"developer_comment": "Label for text extracted from the image below"
+	},
 	"mediaExpanded.firstSeen": {
 		"string": "Vu pour la première fois :"
 	},
 	"mediaExpanded.lastSeen": {
 		"string": "Vu pour la dernière fois :"
+	},
+	"mediaExpanded.noExtractedText": {
+		"string": "No text extracted from this image",
+		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# demande} other {# demandes}}"
@@ -1476,7 +1496,7 @@
 		"string": "Demandes"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+		"string": "{total, plural, one {{current} de # média suggéré} other {{current} de # médias suggérés}}"
 	},
 	"moreLess.less": {
 		"string": "Moins"
@@ -2074,27 +2094,27 @@
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveTag.couldNotSave": {
-		"string": "Could not save tag",
+		"string": "Impossible d’enregistrer l’étiquette",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "Name"
+		"string": "Nom"
 	},
 	"saveTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "Étiqueter automatiquement les éléments qui correspondent aux conditions suivantes :"
 	},
 	"saveTag.save": {
-		"string": "Save tag"
+		"string": "Enregistrer l’étiquette"
 	},
 	"saveTag.savedSuccessfully": {
-		"string": "Tag saved successfully",
+		"string": "L’étiquette a été enregistrée avec succès",
 		"developer_comment": "Message displayed when a team tag is saved"
 	},
 	"saveTag.titleCreate": {
-		"string": "Create new tag"
+		"string": "Créer une nouvelle étiquette"
 	},
 	"saveTag.titleEdit": {
-		"string": "Edit tag"
+		"string": "Modifier l’étiquette"
 	},
 	"savedSearch.deleteMessage": {
 		"string": "Confirmez-vous ? Cette liste est partagée avec tous les utilisateurs de {teamName}. Après suppression, personne ne pourra y accéder."
@@ -2110,7 +2130,7 @@
 		"string": "Tous les éléments"
 	},
 	"search.and": {
-		"string": "and",
+		"string": "et",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2150,8 +2170,12 @@
 		"string": "Mise à jour"
 	},
 	"search.fieldAnd": {
-		"string": "and",
-		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+		"string": "et",
+		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
+	},
+	"search.fieldOr": {
+		"string": "or",
+		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
 		"string": "Le dossier est",
@@ -2177,7 +2201,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "or",
+		"string": "ou",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
@@ -2234,6 +2258,10 @@
 	"search.userHeading": {
 		"string": "Créé par",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldSource.label": {
+		"string": "Source is",
+		"developer_comment": "Prefix label for field to filter by source"
 	},
 	"searchFields.clear": {
 		"string": "Effacer les filtres",
@@ -3371,51 +3399,48 @@
 		"string": "Filtrer et trier le dossier"
 	},
 	"teamTagsActions.couldNotDelete": {
-		"string": "Could not delete tag",
+		"string": "Impossible de supprimer l’étiquette",
 		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
 	},
 	"teamTagsActions.delete": {
-		"string": "Delete"
+		"string": "Supprimer"
 	},
 	"teamTagsActions.deletedSuccessfully": {
-		"string": "Tag deleted successfully",
+		"string": "L’étiquette a été supprimé avec succès",
 		"developer_comment": "Message displayed when a team tag is deleted"
 	},
 	"teamTagsActions.edit": {
-		"string": "Edit"
+		"string": "Modifier"
 	},
 	"teamTagsActions.remove": {
-		"string": "Delete tag"
+		"string": "Supprimer l’étiquette"
 	},
 	"teamTagsActions.removeDialogBody": {
-		"string": "Tag \"{tag}\" will be removed from {count} items."
+		"string": "L’étiquette « {tag} » sera supprimée de {count} éléments."
 	},
 	"teamTagsActions.removeDialogTitle": {
-		"string": "Delete tag \"{tag}\""
+		"string": "Supprimer l’étiquette « {tag} »"
 	},
 	"teamTagsActions.tooltip": {
-		"string": "Manage tag"
+		"string": "Gérer l’étiquette"
 	},
 	"teamTagsComponent.newTag": {
-		"string": "New tag"
-	},
-	"teamTagsComponent.search": {
-		"string": "Search"
+		"string": "Nouvelle étiquette"
 	},
 	"teamTagsComponent.tableHeaderName": {
-		"string": "Name",
+		"string": "Nom",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
-		"string": "Items",
+		"string": "Éléments",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderUpdatedAt": {
-		"string": "Updated",
+		"string": "Mises à jour",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "Tags",
+		"string": "Étiquettes",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
@@ -3425,7 +3450,7 @@
 		"string": "Oui"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
+		"string": "{itemsNumber, plural, one {La tâche {taskLabel} a été achevée dans # élément.} other {La tâche {taskLabel} a été achevée dans # éléments.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Voulez-vous vraiment supprimer ces métadonnées ?"
@@ -3516,6 +3541,14 @@
 	},
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "Si le message d’un état n’est pas traduit dans une langue, tout demandeur qui utilisera cette langue ne recevra aucun message."
+	},
+	"translateStatuses.saveStatusMessage": {
+		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"translateStatuses.saveStatusTitle": {
+		"string": "Save status translation",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"translateStatuses.status": {
 		"string": "État"

@@ -41,7 +41,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Метаданные содержат ключевое слово",
+		"string": "Metadata value",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
@@ -53,7 +53,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Ответ содержит ключевое слово",
+		"string": "Task answer",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
@@ -203,6 +203,10 @@
 	"addFilterMenu.reportStatus": {
 		"string": "Статус отчёта",
 		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.source": {
+		"string": "Source",
+		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
 		"string": "Тэг",
@@ -627,7 +631,7 @@
 		"developer_comment": "Message displayed when a team tag is created"
 	},
 	"createTag.name": {
-		"string": "Name"
+		"string": "Название"
 	},
 	"createTag.rule": {
 		"string": "Automatically tag items matching the following conditions:"
@@ -748,6 +752,14 @@
 	"editStatusDialog.messageDescription": {
 		"string": "Send a message to the user who requested the item when you change an item to this status.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
+	},
+	"editStatusDialog.saveStatusMessage": {
+		"string": "Any published report with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"editStatusDialog.saveStatusTitle": {
+		"string": "Save status",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Описание"
@@ -1049,7 +1061,7 @@
 		"string": "Регистрация"
 	},
 	"login.signIn": {
-		"string": "Sign in",
+		"string": "Вход",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1250,11 +1262,19 @@
 	"mediaDetail.trash": {
 		"string": "Корзина"
 	},
+	"mediaExpanded.extractedText": {
+		"string": "Text extracted from image:",
+		"developer_comment": "Label for text extracted from the image below"
+	},
 	"mediaExpanded.firstSeen": {
 		"string": "Первое появление:"
 	},
 	"mediaExpanded.lastSeen": {
 		"string": "Последнее появление:"
+	},
+	"mediaExpanded.noExtractedText": {
+		"string": "No text extracted from this image",
+		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# request} other {# requests}}"
@@ -2078,7 +2098,7 @@
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "Name"
+		"string": "Название"
 	},
 	"saveTag.rule": {
 		"string": "Automatically tag items matching the following conditions:"
@@ -2094,7 +2114,7 @@
 		"string": "Create new tag"
 	},
 	"saveTag.titleEdit": {
-		"string": "Edit tag"
+		"string": "Редактировать тэг"
 	},
 	"savedSearch.deleteMessage": {
 		"string": "Are you sure? This list is shared among all users of {teamName}. After deleting it, no user will be able to access it."
@@ -2110,7 +2130,7 @@
 		"string": "Все материалы"
 	},
 	"search.and": {
-		"string": "and",
+		"string": "и",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2150,8 +2170,12 @@
 		"string": "Обновлено"
 	},
 	"search.fieldAnd": {
-		"string": "and",
-		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+		"string": "и",
+		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
+	},
+	"search.fieldOr": {
+		"string": "or",
+		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
 		"string": "Folder is",
@@ -2234,6 +2258,10 @@
 	"search.userHeading": {
 		"string": "Автор",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldSource.label": {
+		"string": "Source is",
+		"developer_comment": "Prefix label for field to filter by source"
 	},
 	"searchFields.clear": {
 		"string": "Clear filters",
@@ -3375,17 +3403,17 @@
 		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
 	},
 	"teamTagsActions.delete": {
-		"string": "Delete"
+		"string": "Удалить"
 	},
 	"teamTagsActions.deletedSuccessfully": {
 		"string": "Tag deleted successfully",
 		"developer_comment": "Message displayed when a team tag is deleted"
 	},
 	"teamTagsActions.edit": {
-		"string": "Edit"
+		"string": "Редактировать"
 	},
 	"teamTagsActions.remove": {
-		"string": "Delete tag"
+		"string": "Удалить тэг"
 	},
 	"teamTagsActions.removeDialogBody": {
 		"string": "Tag \"{tag}\" will be removed from {count} items."
@@ -3397,13 +3425,10 @@
 		"string": "Manage tag"
 	},
 	"teamTagsComponent.newTag": {
-		"string": "New tag"
-	},
-	"teamTagsComponent.search": {
-		"string": "Search"
+		"string": "Новый тэг"
 	},
 	"teamTagsComponent.tableHeaderName": {
-		"string": "Name",
+		"string": "Название",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
@@ -3411,11 +3436,11 @@
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderUpdatedAt": {
-		"string": "Updated",
+		"string": "Обновлено",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "Tags",
+		"string": "Тэги",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
@@ -3516,6 +3541,14 @@
 	},
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
+	},
+	"translateStatuses.saveStatusMessage": {
+		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"translateStatuses.saveStatusTitle": {
+		"string": "Save status translation",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"translateStatuses.status": {
 		"string": "Статус"
