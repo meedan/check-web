@@ -1,18 +1,18 @@
 {
 	"CheckAgreeTerms.agreeTerms": {
-		"string": "By signing up, you agree to the {appName} {tosLink} and {ppLink}."
+		"string": "Dengan mendaftar, Anda setuju dengan {appName} {tosLink} dan {ppLink}."
 	},
 	"ConfirmEmail.content": {
 		"string": "Mohon periksa surel Anda untuk memverifikasi akun Anda"
 	},
 	"ConfirmEmail.resendConfirmation": {
-		"string": "Resend"
+		"string": "Kirim ulang"
 	},
 	"ConfirmEmail.title": {
-		"string": "Confirm your email"
+		"string": "Konfirmasi surel Anda"
 	},
 	"CustomFilter.filterBy": {
-		"string": "Filter by"
+		"string": "Saring berdasarkan"
 	},
 	"CustomFilter.keywordsLabel": {
 		"string": "Ketik daftar kata-kata kunci dipisahkan dengan tanda koma"
@@ -25,7 +25,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
 	},
 	"CustomTeamTaskFilter.choiceFilter": {
-		"string": "\"{field}\" has value {value}",
+		"string": "\"{field}\" memiliki nilai {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
@@ -41,11 +41,11 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadata contains keyword",
+		"string": "Metadata value",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "No value is set",
+		"string": "Tidak ada nilai diatur",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
@@ -53,131 +53,131 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Jawaban tugas mengandung kata kunci",
+		"string": "Task answer",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
-		"string": "\"{field}\" contains any value",
+		"string": "\"{field}\" mengandung nilai",
 		"developer_comment": "Label for custom field when metadata or task response contains any value"
 	},
 	"CustomTeamTaskFilter.textFilter": {
-		"string": "\"{field}\" contains {value}",
+		"string": "\"{field}\" mengandung {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains keyword"
 	},
 	"CustomTeamTaskFilter.textNoValue": {
-		"string": "\"{field}\" contains no value",
+		"string": "\"{field}\" tidak mengandung nilai",
 		"developer_comment": "Label for custom field when metadata or task response contains no value"
 	},
 	"FilterPopup.close": {
-		"string": "Done"
+		"string": "Selesai"
 	},
 	"ItemHistoryDialog.title": {
-		"string": "Item history"
+		"string": "Riwayat perihal"
 	},
 	"MultiSelector.all": {
-		"string": "All"
+		"string": "Semua"
 	},
 	"MultiSelector.search": {
-		"string": "Search…"
+		"string": "Cari..."
 	},
 	"UserConfirmPage.alreadyConfirmed": {
-		"string": "Account Already Confirmed",
+		"string": "Akun Sudah Dikonfirmasi",
 		"developer_comment": "Message for accounts already confirmed"
 	},
 	"UserConfirmPage.confirmed": {
-		"string": "Account Confirmed",
+		"string": "Akun Dikonfirmasi",
 		"developer_comment": "Message for confirmed accounts"
 	},
 	"UserConnectedAccount.addAnother": {
-		"string": "Add another account"
+		"string": "Tambahkan akun lain"
 	},
 	"UserConnectedAccount.connectButton": {
-		"string": "Connect"
+		"string": "Sambungkan"
 	},
 	"UserConnectedAccount.disconnectAccountConfirmationText": {
-		"string": "Are you sure? This will disconnect login account."
+		"string": "Apakah Anda yakin? Ini akan memutus sambungan akun yang digunakan untuk masuk."
 	},
 	"UserConnectedAccount.disconnectAccountTitle": {
-		"string": "Disconnect account"
+		"string": "Putus sambungan akun"
 	},
 	"UserConnectedAccount.disconnectButton": {
-		"string": "Disconnect"
+		"string": "Putuskan sambungan"
 	},
 	"UserMenu.about": {
-		"string": "About"
+		"string": "Mengenai"
 	},
 	"UserMenu.pp": {
-		"string": "Privacy policy"
+		"string": "Kebijakan privasi"
 	},
 	"UserMenu.signOut": {
-		"string": "Sign Out"
+		"string": "Keluar"
 	},
 	"UserMenu.tos": {
-		"string": "Terms of service"
+		"string": "Persyaratan layanan"
 	},
 	"UserMenu.training": {
-		"string": "Training and documentation"
+		"string": "Pelatihan dan dokumentasi"
 	},
 	"UserMenu.userSettings": {
-		"string": "User settings"
+		"string": "Pengaturan pengguna"
 	},
 	"UserPrivacy.deleteAccount": {
-		"string": "Delete Account"
+		"string": "Hapus Akun"
 	},
 	"UserSecurity.passwordError": {
-		"string": "Incorrect password"
+		"string": "Kata sandi salah"
 	},
 	"UserSecurity.passwordInput": {
-		"string": "Current Password"
+		"string": "Kata sandi saat ini"
 	},
 	"UserSecurity.verifyError": {
-		"string": "Incorrect validation code"
+		"string": "Kode validasi salah"
 	},
 	"UserSecurity.verifyInput": {
-		"string": "Validation Code"
+		"string": "Kode Validasi"
 	},
 	"UserUtil.admin": {
-		"string": "Admin"
+		"string": "Administrator"
 	},
 	"UserUtil.collaborator": {
-		"string": "Collaborator"
+		"string": "Kolaborator"
 	},
 	"UserUtil.editor": {
-		"string": "Editor"
+		"string": "Penyunting"
 	},
 	"addAnnotation.addImage": {
-		"string": "Add an image"
+		"string": "Tambahkan sebuah gambar"
 	},
 	"addAnnotation.error": {
-		"string": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, sebuah galat terjadi saat memperbarui perihal. Mohon coba lagi nanti dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"addAnnotation.inputHint": {
-		"string": "Add a note"
+		"string": "Tambahkan catatan"
 	},
 	"addAnnotation.invalidCommand": {
-		"string": "Invalid command"
+		"string": "Perintah salah"
 	},
 	"addAnnotation.submitButton": {
-		"string": "Submit"
+		"string": "Masukkan"
 	},
 	"addFilterMenu.addFilter": {
-		"string": "Add filter",
+		"string": "Tambahkan saringan",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
 	"addFilterMenu.assignedTo": {
-		"string": "Assignment",
+		"string": "Penugasan",
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.collection": {
-		"string": "Collection",
+		"string": "Koleksi",
 		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.createdBy": {
-		"string": "Created by",
+		"string": "Dibuat oleh",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.filterBy": {
-		"string": "Filter by",
+		"string": "Saring berdasarkan",
 		"developer_comment": "Header to menu of filter field types"
 	},
 	"addFilterMenu.folder": {
@@ -185,7 +185,7 @@
 		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Item status",
+		"string": "Status perihal",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
@@ -193,7 +193,7 @@
 		"developer_comment": "Menu option to enable searching items by language"
 	},
 	"addFilterMenu.mediaType": {
-		"string": "Media type",
+		"string": "Tipe media",
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
 	"addFilterMenu.metadata": {
@@ -204,79 +204,83 @@
 		"string": "Status laporan",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
+	"addFilterMenu.source": {
+		"string": "Source",
+		"developer_comment": "Menu option to enable searching items by source"
+	},
 	"addFilterMenu.tag": {
 		"string": "Label",
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Date range",
+		"string": "Jangka waktu",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addLanguageAction.addLanguage": {
-		"string": "Add language"
+		"string": "Tambahkan bahasa"
 	},
 	"addLanguageAction.newLanguage": {
-		"string": "New language"
+		"string": "Bahasa baru"
 	},
 	"addLanguageAction.optionLabel": {
 		"string": "{languageName} ({languageCode})"
 	},
 	"addLanguageAction.selectLanguage": {
-		"string": "Select a language"
+		"string": "Pilih bahasa"
 	},
 	"addLanguageAction.title": {
-		"string": "Choose a new language"
+		"string": "Pilih bahasa baru"
 	},
 	"annotation.acceptSuggestion": {
-		"string": "Accept"
+		"string": "Terima"
 	},
 	"annotation.addedComment": {
-		"string": "Task note added by {author}: {title}{note}"
+		"string": "Catatan tugas ditambahkan oleh {author}: {title}{note}"
 	},
 	"annotation.archiverError": {
-		"string": "Sorry, the following error occurred while archiving the item to {name}: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, kesalahan terjadi saat mengarsipkan perihal ke {name}: \"{message}.\" Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"annotation.archiverSuccess": {
-		"string": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>."
+		"string": "Jika perihal berada diluar jaringan, Anda dapat <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">mengakses cadangan di {name}</a>."
 	},
 	"annotation.archiverWait": {
-		"string": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
+		"string": "Perihal ini diarsipkan di {name}. Tautan arsip akan ditampilkan di sini saat siap."
 	},
 	"annotation.assignmentChanged": {
-		"string": "Task assigned to {assigneeTo} by {author}: {title}"
+		"string": "Tugas diserahkan ke {assigneeTo} oleh {author}: {title}"
 	},
 	"annotation.assignmentRemoved": {
-		"string": "Task unassigned from {assigneeFrom} by {author}: {title}"
+		"string": "Tugas dicabut dari {assigneeFrom} oleh {author}: {title}"
 	},
 	"annotation.changedJsonSchema": {
-		"string": "JSON Schema of task {title} changed by {author}"
+		"string": "Skema JSON dari tugas {title} diubah oleh {author}"
 	},
 	"annotation.deleteButton": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"annotation.deletedComment": {
-		"string": "Comment deleted by {author}: {comment}"
+		"string": "Komentar dihapus oleh {author}: {comment}"
 	},
 	"annotation.embedCodeCopied": {
-		"string": "An embed code of the item has been generated and copied. The item may now be publicly viewable."
+		"string": "Kode penanaman dari perihal ini telah dibuat dan disalin. Perihal ini sekarang akan dapat dilihat secara publik."
 	},
 	"annotation.embedLabelRemoved": {
-		"string": "Item title removed by {author}: {title}"
+		"string": "Judul perihal dihapus oleh {author}: {title}"
 	},
 	"annotation.embedLabelUpdated": {
-		"string": "Item title edited by {author}: {title}"
+		"string": "Judul perihal disunting oleh {author}: {title}"
 	},
 	"annotation.embedNoteCreated": {
-		"string": "Item description added by {author}: {description}"
+		"string": "Deskripsi perihal ditambahkan oleh {author}: {description}"
 	},
 	"annotation.embedNoteRemoved": {
-		"string": "Item description removed by {author}: {description}"
+		"string": "Deskripsi perihal dihapus oleh {author}: {description}"
 	},
 	"annotation.embedNoteUpdated": {
-		"string": "Item description edited by {author}: {description}"
+		"string": "Deskripsi perihal disunting oleh {author}: {description}"
 	},
 	"annotation.flag": {
-		"string": "Classification result:"
+		"string": "Hasil klasifikasi:"
 	},
 	"annotation.flagAdult": {
 		"string": "Dewasa"
@@ -312,606 +316,614 @@
 		"string": "Kekerasan"
 	},
 	"annotation.mediaAssigned": {
-		"string": "Item assigned to {name} by {author}"
+		"string": "Perihal diserahkan kepada {name} oleh {author}"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "Item assigned to {name} by {author}"
+		"string": "Perihal diserahkan ke {name} oleh {author}"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "Item unassigned from {name} by {author}"
+		"string": "Perihal dicabut dari {name} oleh {author}"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "Item unassigned from {name} by {author}"
+		"string": "Perihal dicabut dari {name} oleh {author}"
 	},
 	"annotation.menuTooltip": {
-		"string": "Annotation actions"
+		"string": "Tindakan pencatatan"
 	},
 	"annotation.metadataCreated": {
-		"string": "Metadata field created by {author}: {fieldLabel}"
+		"string": "Ruas metadata dibuat oleh {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Metadata field \"{fieldLabel}\" filled by {author}: {response}"
+		"string": "Ruas metadata \"{fieldLabel}\" diisi oleh {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Moved out of Trash by {author}"
+		"string": "Dibuang ke Tong Sampah oleh {author}"
 	},
 	"annotation.movedToTrash": {
-		"string": "Moved to Trash by {author}"
+		"string": "Dibuang ke Tong Sampah oleh {author}"
 	},
 	"annotation.newReport": {
-		"string": "Item added by {author}"
+		"string": "Perihal ditambahkan oleh {author}"
 	},
 	"annotation.noAnnotationsYet": {
-		"string": "No activity"
+		"string": "Tidak ada aktivitas"
 	},
 	"annotation.openInSlack": {
-		"string": "Open in Slack"
+		"string": "Buka di Slack"
 	},
 	"annotation.openInTelegram": {
-		"string": "Open in Telegram"
+		"string": "Buka di Telegram"
 	},
 	"annotation.penderArchiveResponse": {
-		"string": "Keep has taken a screenshot of this URL."
+		"string": "Keep mengambil tangkapan layar dari URL ini."
 	},
 	"annotation.penderArchiveResponseError": {
-		"string": "Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, sebuah galat terjadi saat mengambil tangkapan layar dari perihal ini. Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"annotation.penderArchiveWait": {
-		"string": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
+		"string": "Tangkapan layar dari perihal ini diambil oleh Keep. Kembali dalam beberapa menit untuk melihatnya."
 	},
 	"annotation.permalink": {
 		"string": "Permalink"
 	},
 	"annotation.projectMoved": {
-		"string": "Moved from folder {previousProject} to {currentProject} by {author}"
+		"string": "Dipindahkan dari folder {previousProject} ke {currentProject} oleh {author}"
 	},
 	"annotation.rejectSuggestion": {
-		"string": "Reject"
+		"string": "Tolak"
 	},
 	"annotation.relationshipCreated": {
-		"string": "Related item added by {author}: {title}"
+		"string": "Perihal terkait ditambahkan oleh {author}: {title}"
 	},
 	"annotation.relationshipDestroyed": {
-		"string": "Related item removed by {author}: {title}"
+		"string": "Perihal terkait dihapus oleh {author}: {title}"
 	},
 	"annotation.removedComment": {
-		"string": "Task note deleted by {author}: {title}{note}"
+		"string": "Catatan tugas dihapus oleh {author}: {title}{note} "
 	},
 	"annotation.reportReceived": {
-		"string": "Report sent on {date}"
+		"string": "Laporan dikirimkan pada {date}"
 	},
 	"annotation.reportUpdateReceived": {
-		"string": "Report update sent on {date}"
+		"string": "Pembaruan laporan dikirimkan pada {date}"
 	},
 	"annotation.seeHowThisBotWorks": {
-		"string": "See how this bot works"
+		"string": "Lihat bagaimana bot ini bekerja"
 	},
 	"annotation.similarCreated": {
-		"string": "Confirmed similar by {author}: {title}"
+		"string": "Dikonfirmasi serupa oleh {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
 		"string": "Confirmed similar detached by {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
-		"string": "No message was sent with the request"
+		"string": "Tidak ada pesan dikirimkan dengan permintaan ini"
 	},
 	"annotation.statusLocked": {
-		"string": "Item status locked by {author}"
+		"string": "Status perihal dikunci oleh {author}"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status set to {status} by {author}"
+		"string": "Status diatur ke {status} oleh {author}"
 	},
 	"annotation.statusUnlocked": {
-		"string": "Item status unlocked by {author}"
+		"string": "Status perihal dibuka kuncinya oleh {author}"
 	},
 	"annotation.suggestionAccepted": {
-		"string": "Accepted by {user}"
+		"string": "Diterima oleh {user}"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Suggested match by {author}: {title}"
+		"string": "DIsarankan cocok oleh {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Suggested match rejected by {author}: {title}"
+		"string": "Kecocokan yang disarankan oleh {author}: {title}`"
 	},
 	"annotation.suggestionRejected": {
-		"string": "Rejected by {user}"
+		"string": "Ditolak oleh {user}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tagged #{tag} by {author}"
+		"string": "Ditandai #{tag} oleh {author}"
 	},
 	"annotation.taskAssignmentCreated": {
-		"string": "Task assigned to {name} by {author}: {title}"
+		"string": "Tugas diserahkan ke {name} oleh{author}: {title}  "
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "Task unassigned from {name} by {author}: {title}"
+		"string": "Tugas dicabut dari {name} oleh {author}: {title}"
 	},
 	"annotation.taskCreated": {
-		"string": "Task created by {author}: {task}"
+		"string": "Tugas dibuat oleh {author}: {task}"
 	},
 	"annotation.taskLabelUpdated": {
-		"string": "Task edited by {author}: {title}"
+		"string": "Tugas disunting oleh {author}: {title}"
 	},
 	"annotation.taskNoteCreated": {
-		"string": "Task note added by {author}: {title}{note}"
+		"string": "Catatan tugas ditambahkan oleh {author}: {title}{note}"
 	},
 	"annotation.taskNoteUpdated": {
-		"string": "Task note edited by {author}: {title}{note}"
+		"string": "Catatan tugas disunting oleh {author}: {title}{note}"
 	},
 	"annotation.taskResolve": {
-		"string": "Task completed by {author}: {task}{response}"
+		"string": "Tugas diselesaikan oleh {author}: {task} {response}"
 	},
 	"annotation.teamCopied": {
-		"string": "Copied from workspace {previousTeam} by {author}"
+		"string": "Disalin dari ruang kerja {previousTeam} oleh {author}"
 	},
 	"annotation.titleChanged": {
-		"string": "Item title edited by {author}: {title}"
+		"string": "Judul perihal disunting oleh {author}: {title}"
 	},
 	"annotations.loadMore": {
-		"string": "Load more"
+		"string": "Muat lebih"
 	},
 	"attribution.noResults": {
-		"string": "No results"
+		"string": "Tidak ada hasil"
 	},
 	"attribution.search": {
-		"string": "Search members"
+		"string": "Cari anggota"
 	},
 	"autoCompleteMediaItem.cantSelectPublished": {
-		"string": "Media cannot be imported from items that have their report published"
+		"string": "Media tidak dapat diimpor dari perihal yang laporannya telah diterbitkan"
 	},
 	"autoCompleteMediaItem.error": {
-		"string": "Sorry, an error occurred while searching. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, sebuah galat terjadi saat melakukan pencarian. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"autoCompleteMediaItem.notFound": {
-		"string": "No matches found"
+		"string": "Tidak ada kecocokan"
 	},
 	"autoCompleteMediaItem.results": {
-		"string": "{count, plural, one {# result} other {# results}}"
+		"string": "{count, plural, other {# hasil}}"
 	},
 	"autoCompleteMediaItem.searchItem": {
-		"string": "Search"
+		"string": "Cari"
 	},
 	"autoCompleteMediaItem.searchSettings": {
-		"string": "Search settings"
+		"string": "Pengaturan pencarian"
 	},
 	"autoCompleteMediaItem.searching": {
-		"string": "Searching…"
+		"string": "Mencari..."
 	},
 	"blankMediaButton.addItem": {
-		"string": "Add item"
+		"string": "Tambah perihal"
 	},
 	"blankMediaButton.addToImportedReport": {
-		"string": "Add to imported report"
+		"string": "Tambah ke laporan yang diimpor"
 	},
 	"blankMediaButton.addToReport": {
-		"string": "Add to report"
+		"string": "Tambah ke laporan"
 	},
 	"blankMediaButton.defaultErrorMessage": {
-		"string": "Could not save item"
+		"string": "Tidak dapat menyimpan perihal"
 	},
 	"browserSupport.message": {
-		"string": "{appName} is optimized for Google Chrome on desktop."
+		"string": "{appName} dioptimisasi untuk Google Chrome untuk desktop."
 	},
 	"bulkActions.cancelButton": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"bulkActions.confirm": {
-		"string": "Move from Unconfirmed"
+		"string": "Pindahkan dari Belum Dikonfirmasi"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
+		"string": "{selectedCount, plural, other {Pindahkan # perihal ke folder...}}"
 	},
 	"bulkActions.move": {
-		"string": "Move selected items to another folder"
+		"string": "Pindahkan perihal yang dipilih ke folder lainnya"
 	},
 	"bulkActions.moveTitle": {
-		"string": "Move to folder",
+		"string": "Pindahkan ke folder",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveTo": {
-		"string": "Move to…"
+		"string": "Pindahkan ke..."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
-		"string": "Items moved to the Trash."
+		"string": "Perihal dibuang ke Tong Sampah."
 	},
 	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Items moved from Unconfirmed to '{toProject}'",
+		"string": "Perihal dipindahkan dari Belum Dikonfirmasi ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Items moved from Trash to '{toProject}'",
+		"string": "Perihal dipindahkan dari Tong Sampah ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
-		"string": "Items moved to '{toProject}'",
+		"string": "Perihal dipindahkan ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.restore": {
-		"string": "Restore from Trash"
+		"string": "Kembalikan dari Tong Sampah"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Send selected items to Trash"
+		"string": "Buang perihal yang dipilih ke Tong Sampah"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move items to another folder"
+		"string": "Kembalikan perihal yang dipilih dan pindahkan ke folder lain"
 	},
 	"bulkActions.unconfirmed": {
-		"string": "Confirm selected items and move items to another folder"
+		"string": "Konfirmasi perihal yang dipilih dan pindahkan ke folder lain"
 	},
 	"changeMediaSource.cancelButton": {
-		"string": "Cancel",
+		"string": "Batalkan",
 		"developer_comment": "Cancel change media source action"
 	},
 	"changeMediaSource.choose": {
-		"string": "Choose a source",
+		"string": "Pilih sebuah sumber",
 		"developer_comment": "Change media source label"
 	},
 	"changeMediaSource.createSource": {
-		"string": "Create new",
+		"string": "Buat baru",
 		"developer_comment": "allow user to create a new source"
 	},
 	"changeMediaSource.saveButton": {
-		"string": "Save",
+		"string": "Simpan",
 		"developer_comment": "Save media source label"
 	},
 	"changeUserRole.changingTo": {
-		"string": "You will be changing {userLabel}'s role to {newRole}."
+		"string": "Anda akan mengubah peran {userLabel} menjadi {newRole}."
 	},
 	"changeUserRole.dialogTitle": {
-		"string": "Are you sure you want to change {userLabel}'s role from {currentRole} to {newRole}?"
+		"string": "Apa Anda yakin ingin mengubah peran {userLabel} dari {currentRole} ke {newRole}?"
 	},
 	"changeUserRole.helpCenter": {
-		"string": "Help Center"
+		"string": "Pusat Bantuan"
 	},
 	"changeUserRole.learnMore": {
-		"string": "To learn more about permissions for the {newRole} role, see the article about role permissions in our {helpCenterLink}."
+		"string": "Untuk mempelajari lebih lanjut tentang perizinan untuk peran {newRole}, lihat artikel mengenai perizinan peran pada {helpCenterLink} kami."
 	},
 	"changeUserRole.proceedLabel": {
-		"string": "Change role to {newRole}"
+		"string": "Ganti peran ke {newRole}"
 	},
 	"confirmProceedDialog.confirmationText": {
-		"string": "Type \"{text}\" to confirm."
+		"string": "Ketik \"{text}\" untuk mengkonfirmasi."
 	},
 	"confirmProceedDialog.confirmationTextPlaceholder": {
-		"string": "Type here"
+		"string": "Ketik di sini"
 	},
 	"confirmProceedDialog.continue": {
-		"string": "Continue"
+		"string": "Lanjutkan"
 	},
 	"createMedia.addItem": {
-		"string": "Add Item"
+		"string": "Tambahkan perihal"
 	},
 	"createMedia.addNew": {
-		"string": "Add new item"
+		"string": "Tambahkan perihal baru"
 	},
 	"createMedia.addNewItem": {
-		"string": "Add new item"
+		"string": "Tambahkan perihal baru"
 	},
 	"createMedia.audio": {
 		"string": "Audio"
 	},
 	"createMedia.error": {
-		"string": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, sebuah galat terjadi saat menyerahkan perihal ini. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"createMedia.existing": {
-		"string": "Add existing item"
+		"string": "Tambahkan perihal yang ada"
 	},
 	"createMedia.image": {
-		"string": "Photo"
+		"string": "Foto"
 	},
 	"createMedia.link": {
 		"string": "Tautan"
 	},
 	"createMedia.mediaInput": {
-		"string": "Paste or type"
+		"string": "Tempel atau ketik"
 	},
 	"createMedia.quote": {
 		"string": "Teks"
 	},
 	"createMedia.quoteInput": {
-		"string": "Paste or type a text"
+		"string": "Tempel atau ketik sebuah teks"
 	},
 	"createMedia.video": {
 		"string": "Video"
 	},
 	"createMediaSource.createSource": {
-		"string": "Create source",
+		"string": "Buat sumber",
 		"developer_comment": "Label for button to create a new source"
 	},
 	"createTag.couldNotCreate": {
-		"string": "Could not create tag",
+		"string": "Tidak dapat membuat label",
 		"developer_comment": "Error message displayed when it's not possible to create a team tag"
 	},
 	"createTag.createdSuccessfully": {
-		"string": "Tag created successfully",
+		"string": "Label berhasil dibuat",
 		"developer_comment": "Message displayed when a team tag is created"
 	},
 	"createTag.name": {
-		"string": "Name"
+		"string": "Nama"
 	},
 	"createTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "Tandai perihal secara otomatis yang cocok dengan kondisi berikut:"
 	},
 	"createTag.title": {
-		"string": "Create new tag"
+		"string": "Buat label baru"
 	},
 	"createTeamDialog.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"createTeamDialog.create": {
-		"string": "Create"
+		"string": "Buat"
 	},
 	"createTeamDialog.creating": {
-		"string": "Creating…"
+		"string": "Membuat..."
 	},
 	"createTeamDialog.defaultErrorMessage": {
-		"string": "Could not create new workspace"
+		"string": "Tidak dapat membuat ruang kerja baru"
 	},
 	"createTeamDialog.description": {
-		"string": "All settings from this workspace will be duplicated. No content will be added."
+		"string": "Semua setelan dari ruang kerja ini akan digandakan. Tidak ada konten yang akan ditambahkan."
 	},
 	"createTeamDialog.dialogTitleCreate": {
-		"string": "Create new workspace",
+		"string": "Buat ruang kerja baru",
 		"developer_comment": "Dialog title for creating a new workspace"
 	},
 	"createTeamDialog.dialogTitleDuplicate": {
 		"string": "Gandakan ruang kerja"
 	},
 	"createTeamDialog.duplicating": {
-		"string": "Duplicating…"
+		"string": "Menggandakan..."
 	},
 	"createTeamDialog.duplice": {
-		"string": "Duplicate"
+		"string": "Gandakan"
 	},
 	"createTeamDialog.name": {
-		"string": "Workspace name"
+		"string": "Nama ruang kerja"
 	},
 	"createTeamDialog.url": {
 		"string": "URL Ruang kerja"
 	},
 	"createTeamTask.errorMetadata": {
-		"string": "Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, terjadi galat saat memperbarui ruas metadata. Mohon coba lagi dan kontak {supportEmail} jika keadaaanya berlanjut."
 	},
 	"createTeamTask.errorTask": {
-		"string": "Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, terjadi galat saat membuat tugas. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut. "
 	},
 	"customAutocomplete.done": {
-		"string": "Done",
+		"string": "Selesai",
 		"developer_comment": "Label for closing dropdown when user is done selecting tags"
 	},
 	"customAutocomplete.select": {
-		"string": "Select",
+		"string": "Pilih",
 		"developer_comment": "Verb. Label for generic dropdown component"
 	},
 	"customFiltersManager.label": {
-		"string": "Metadata is",
+		"string": "Metadata adalah",
 		"developer_comment": "Placeholder label for metadata field when not fully configured"
 	},
 	"datetimeRespondTask.answerTask": {
-		"string": "Answer task"
+		"string": "Jawab tugas"
 	},
 	"datetimeRespondTask.cancelTask": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"datetimeRespondTask.pickDate": {
-		"string": "Pick a date"
+		"string": "Pilih tanggal"
 	},
 	"datetimeRespondTask.time": {
-		"string": "Pick a time"
+		"string": "Pilih waktu"
 	},
 	"datetimeRespondTask.timezone": {
-		"string": "Select a timezone"
+		"string": "Piluh zona waktu"
 	},
 	"datetimeTaskResponse.invalidTimestamp": {
-		"string": "Error: Invalid timestamp"
+		"string": "Galat: Stempel waktu salah"
 	},
 	"datetimeTaskResponse.timeIs": {
-		"string": "View this timezone on time.is"
+		"string": "Lihat zona waktu ini di time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
+		"string": "{publishedCount, plural, other {Ada # perihal yang sedang diterbitkan dengan status {statusLabel}. Jika Anda melanjutkannya, semua perihal yang telah diterbitkan dengan status ini akan dijeda. Anda harus meninjau perihal tersebut untuk menerbitkan ulang.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
-		"string": "Move items to"
+		"string": "Pindahkan perihal ke"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+		"string": "{itemsCount, plural, other {Ada # perihal dengan status {statusLabel} yang harus diubah statusnya sebelum Anda dapat menghapusnya.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
+		"string": "{itemsCount, plural, other {Anda perlu mengubah status dari perihal # untuk mengapus status ini}}"
 	},
 	"destinationProjects.choose": {
-		"string": "Choose a folder"
+		"string": "Pilih sebuah folder"
 	},
 	"destinationProjects.empty": {
-		"string": "No folders in this collection"
+		"string": "Tidak ada folder dalam koleksi"
 	},
 	"destinationProjects.none": {
-		"string": "Not in any collection",
+		"string": "Tidak ada di koleksi manapun",
 		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
-		"string": "Cancel",
+		"string": "Batalkan",
 		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
-		"string": "Move to folder",
+		"string": "Pindahkan ke folder",
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Move detached item to…",
+		"string": "Pindahkan perhial terpisah ke...",
 		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
 	},
 	"editStatusDialog.addButton": {
-		"string": "Add status"
+		"string": "Tambahkan status"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Send a message to the user who requested the item when you change an item to this status.",
+		"string": "Kirim pesan ke pengguna yang meminta perihal saat Anda mengubah perihal ke status ini.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
+	},
+	"editStatusDialog.saveStatusMessage": {
+		"string": "Any published report with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"editStatusDialog.saveStatusTitle": {
+		"string": "Save status",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Deskripsi"
 	},
 	"editStatusDialog.statusMessage": {
-		"string": "Message"
+		"string": "Pesan"
 	},
 	"editStatusDialog.statusTitle": {
-		"string": "Status ({maxLength} characters max)"
+		"string": "Status (jumlah karakter maksimal{maxLength})"
 	},
 	"editStatusDialog.title": {
-		"string": "Add a new status"
+		"string": "Tambahkan status baru"
 	},
 	"editStatusDialog.titleEdit": {
-		"string": "Edit status"
+		"string": "Sunting status"
 	},
 	"editStatusDialog.toggleStatusMessage": {
-		"string": "Send message to requester",
+		"string": "Kirim pesan ke pemohon",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"editTaskDialog.editMetadata": {
-		"string": "Edit metadata field"
+		"string": "Sunting ruas metadata"
 	},
 	"editTaskDialog.editTask": {
 		"string": "Sunting tugas"
 	},
 	"editTaskDialog.newMetadata": {
-		"string": "New metadata field"
+		"string": "Ruas metadata baru"
 	},
 	"editTaskDialog.newTask": {
-		"string": "New task"
+		"string": "Tugas baru"
 	},
 	"fetchBot.contactUs": {
-		"string": "Contact us to setup"
+		"string": "Kontak kami untuk pengaturan"
 	},
 	"fileUploadRespondTask.answerTask": {
-		"string": "Answer task"
+		"string": "Jawab tugas"
 	},
 	"fileUploadRespondTask.cancelTask": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"footer.madeBy": {
-		"string": "Check: Verify breaking news online. Made with ✨ by {meedan}"
+		"string": "Check: Verifikasi berita daring, Dibuat dengan ✨oleh {meedan}"
 	},
 	"geoLocationRespondTask.error": {
-		"string": "Sorry, an error occurred while updating the task. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, terjadi galat saat memperbarui tugas. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"geoLocationRespondTask.invalidCoords": {
-		"string": "Invalid coordinates"
+		"string": "Kordinat salah"
 	},
 	"geoLocationRespondTask.notFound": {
-		"string": "Sorry, this place was not found. Please try another search."
+		"string": "Maaf, tempat tidak ditemukan. Mohon lakukan pencarian lain."
 	},
 	"geoLocationRespondTask.searching": {
-		"string": "Searching…"
+		"string": "Mencari..."
 	},
 	"geolocationRespondTask.answerTask": {
-		"string": "Answer task"
+		"string": "Jawab tugas"
 	},
 	"geolocationRespondTask.cancelTask": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"geolocationRespondTask.coordinates": {
-		"string": "Latitude, Longitude"
+		"string": "Garis Lintang. Garis Bujur"
 	},
 	"geolocationRespondTask.placeName": {
-		"string": "Customize place name"
+		"string": "Kustomisasi nama tempat"
 	},
 	"geolocationRespondTask.searchMap": {
-		"string": "Search the map"
+		"string": "Cari petanya"
 	},
 	"global.appNameHuman": {
 		"string": "Check"
 	},
 	"global.bestViewed": {
-		"string": "Best viewed with <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome for Desktop</a>."
+		"string": "Terlihat paling baik dengan <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome untuk Desktop</a>."
 	},
 	"global.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"global.close": {
-		"string": "Close"
+		"string": "Tutup"
 	},
 	"global.confirm": {
-		"string": "Confirm"
+		"string": "Konfirmasi"
 	},
 	"global.delete": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"global.edit": {
-		"string": "Edit"
+		"string": "Sunting"
 	},
 	"global.ok": {
 		"string": "OK"
 	},
 	"global.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"global.submit": {
-		"string": "Submit"
+		"string": "Masukkan"
 	},
 	"global.submitting": {
-		"string": "Submitting…"
+		"string": "Menyerahkan..."
 	},
 	"global.tags": {
 		"string": "Label-label"
 	},
 	"global.unknownError": {
-		"string": "Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, sebuah galat terjadi. Mohon coba lagi nanti dan kontak {supportEmail} jika keadaan terus berlanjut. "
 	},
 	"global.update": {
-		"string": "Update"
+		"string": "Perbarui"
 	},
 	"headerActions.signIn": {
-		"string": "Sign In"
+		"string": "Masuk"
 	},
 	"home.invalidExpiredInvitation": {
-		"string": "Sorry, the invitation you received was expired. Please contact {supportEmail} if you think this is an error."
+		"string": "Maaf, undangan yang Anda terima telah kedaluwarsa. Mohon kontak {supportEmail} jika Anda pikir ini adalah kesalahan."
 	},
 	"home.invalidInvitation": {
-		"string": "Sorry, an error occurred while processing your invitation. Please contact {supportEmail}."
+		"string": "Maaf, sebuah galat terjadi saat memproses undangan Anda. Mohon kontak {supportEmail}."
 	},
 	"home.invalidNoInvitation": {
-		"string": "Sorry, the invitation you received was not found. Please contact {supportEmail} if you think this is an error."
+		"string": "Maaf, undangan yang Anda terima tidak ditemukan. Mohon kontak {supportEmail} jika Anda pikir ini adalah kesalahan."
 	},
 	"home.invalidTeamInvitation": {
-		"string": "Sorry, the workspace to which you were invited was not found. Please contact {supportEmail} if you think this is an error."
+		"string": "Maaf ruang kerja yang mengundang anda tidak di temukan. Mohon hubungi {supportEmail} jika Anda pikir ini adalah kesalahan."
 	},
 	"home.somethingWrong": {
-		"string": "Sorry, an error occurred. Please refresh your browser and contact {supportEmail} if the condition persists."
+		"string": "Maaf, sebuah galat terjadi. Mohon segarkan peramban Anda dan kontak {supportEmail} jika kondisinya terus berlanjut."
 	},
 	"home.successInvitation": {
-		"string": "Welcome to {appName}. Please login with the password that you received in the welcome email."
+		"string": "Selamat datang di {appName}. Mohon masuk dengan kata sandi yang Anda terima dalam pesan selamat datang."
 	},
 	"inviteDialog.invitationSent": {
-		"string": "Invites sent!",
+		"string": "Undangan terkirim!",
 		"developer_comment": "Success notification confirming that invitations were sent to users"
 	},
 	"inviteDialog.sentOtherInvitation": {
-		"string": "The other invites were sent successfully",
+		"string": "Undangan lainnya berhasil dikirim",
 		"developer_comment": "Message displayed when user sends multiple invitations but some emails fail and others succeed"
 	},
 	"inviteDialog.submit": {
-		"string": "Invite",
+		"string": "Undang",
 		"developer_comment": "Button to submit invitations."
 	},
 	"inviteDialog.textInputLabel": {
-		"string": "Email addresses, comma separated",
+		"string": "Alamat surel, dipisah dengan koma",
 		"developer_comment": "Label to input for invited emails. Requires that multiple emails be entered separated by comma."
 	},
 	"inviteDialog.title": {
-		"string": "Invite workspace members",
+		"string": "Undang anggota ruang kerja",
 		"developer_comment": "Dialog title for inviting members to workspace"
 	},
 	"inviteNewAccount.createAccount": {
-		"string": "Create Account",
+		"string": "Buat Akun",
 		"developer_comment": "Submit button for create a new account"
 	},
 	"inviteNewAccount.createMessage": {
-		"string": "You need to create an account for <b>{email}</b>",
+		"string": "Anda perlu membuat Akun untuk <b>{email}</b>",
 		"developer_comment": "Inform your to create a new account for signup"
 	},
 	"inviteNewAccount.invitedBy": {
-		"string": "{name} has invited you to join the workspace"
+		"string": "{name} mengundang Anda untuk bergabung ke ruang kerja"
 	},
 	"inviteNewAccountemailLabel": {
 		"string": "Surel",
@@ -922,46 +934,46 @@
 		"developer_comment": "Label for user name field"
 	},
 	"inviteNewAccountpasswordConfirmLabel": {
-		"string": "Password confirmation",
+		"string": "Konfirmasi kata sandi",
 		"developer_comment": "Label for password confirmation field"
 	},
 	"inviteNewAccountpasswordLabel": {
-		"string": "Password (minimum 8 characters)",
+		"string": "Kata sandi (minimal 8 karakter)",
 		"developer_comment": "Label for password field"
 	},
 	"inviteNewAccounttosMissing": {
-		"string": "You must agree to the Terms of Service and Privacy Policy",
+		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi",
 		"developer_comment": "Error message for check Terms and Privacy Privacy boxes"
 	},
 	"languageListItem.default": {
-		"string": "{language} (default)"
+		"string": "{language} (bawaan)"
 	},
 	"languageListItem.deleteConfirmationText": {
-		"string": "Delete {language} and all content"
+		"string": "Hapus {language} dan semua kontennya"
 	},
 	"languagePickerDialog.optionLabel": {
 		"string": "{languageName} ({languageCode})"
 	},
 	"languagePickerDialog.selectLanguage": {
-		"string": "Select a language"
+		"string": "Pilih bahasa"
 	},
 	"languagePickerDialog.title": {
-		"string": "Choose a language"
+		"string": "Pilih bahasa"
 	},
 	"languagePickerDialog.unknownLanguage": {
-		"string": "Unknown language"
+		"string": "Bahasa tidak diketahui"
 	},
 	"languageSwitcher.makeDefault": {
-		"string": "Set as default language for this item"
+		"string": "Pilih sebagai bahasa bawaan untuk perihal ini"
 	},
 	"languageSwitcher.primaryLanguage": {
-		"string": "(default)"
+		"string": "(bawaan)"
 	},
 	"languagesComponent.blurb": {
-		"string": "Add new languages to your workspace in order to create reports, tipline bots and statuses in multiple languages when communicating with users."
+		"string": "Tambahkan bahasa baru ke ruang kerja Anda untuk membuat laporan, tipline bot dan status dalam beberapa bahasa saat berkomunikasi dengan para pengguna."
 	},
 	"languagesComponent.title": {
-		"string": "Languages"
+		"string": "Bahasa"
 	},
 	"list.Demand": {
 		"string": "Permintaan"
@@ -979,7 +991,7 @@
 		"string": "Media serupa"
 	},
 	"list.ShareCount": {
-		"string": "FB Shares"
+		"string": "Dibagikan di FB"
 	},
 	"list.Status": {
 		"string": "Status"
@@ -988,7 +1000,7 @@
 		"string": "Tipe"
 	},
 	"list.commentCount": {
-		"string": "FB Comments"
+		"string": "Komentar di FB"
 	},
 	"list.folder": {
 		"string": "Folder",
@@ -998,7 +1010,7 @@
 		"string": "Media diterbitkan"
 	},
 	"list.reactCount": {
-		"string": "FB Reactions"
+		"string": "Reaksi di FB"
 	},
 	"list.relatedCount": {
 		"string": "Terkait"
@@ -1007,7 +1019,7 @@
 		"string": "Status laporan"
 	},
 	"list.suggestionsCount": {
-		"string": "Suggested matches"
+		"string": "Kecocokan yang disarankan"
 	},
 	"list.tags": {
 		"string": "Label-label"
@@ -1016,74 +1028,74 @@
 		"string": "Diperbarui"
 	},
 	"login.alreadyHasAccount": {
-		"string": "Already have an account ?"
+		"string": "Sudah memiliki akun?"
 	},
 	"login.contactSupport": {
-		"string": "For support contact <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
+		"string": "Untuk dukungan hubungi <a href=\"mailto:{supportEmail}\">{supportEmail}</a>."
 	},
 	"login.emailLabel": {
 		"string": "Surel"
 	},
 	"login.emailLogin": {
-		"string": "Or, sign in with your email"
+		"string": "Atau, masuk dengan surel Anda"
 	},
 	"login.nameLabel": {
 		"string": "Nama"
 	},
 	"login.newAccount": {
-		"string": "Don't have an account ?"
+		"string": "Tidak memiliki akun?"
 	},
 	"login.otpAttemptLabel": {
-		"string": "Two-Factor Authentication Token"
+		"string": "Token Autentikasi Dua-Langkah"
 	},
 	"login.passwordConfirmLabel": {
-		"string": "Password confirmation"
+		"string": "Konfirmasi kata sandi"
 	},
 	"login.passwordInputHint": {
-		"string": "Password"
+		"string": "Kata sandi"
 	},
 	"login.passwordLabel": {
-		"string": "Password (minimum 8 characters)"
+		"string": "Kata sandi (minimal 8 karakter)"
 	},
 	"login.registerTitle": {
-		"string": "Register"
+		"string": "Daftar"
 	},
 	"login.signIn": {
-		"string": "Sign in",
+		"string": "Masuk",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
-		"string": "Sign in",
+		"string": "Masuk",
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign up",
+		"string": "Daftar",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
-		"string": "Sign up",
+		"string": "Daftar",
 		"developer_comment": "Button label. Switches from 'logging in' to 'create new account' mode"
 	},
 	"login.title": {
-		"string": "Sign in"
+		"string": "Masuk"
 	},
 	"login.tosMissing": {
-		"string": "You must agree to the Terms of Service and Privacy Policy"
+		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi"
 	},
 	"login.withGoogle": {
-		"string": "Sign in with Google"
+		"string": "Masuk dengan Google"
 	},
 	"loginEmail.lostPassword": {
-		"string": "Forgot your password?"
+		"string": "Lupa kata sandi Anda?"
 	},
 	"media.normalSpeed": {
-		"string": "Normal speed"
+		"string": "Kecepatan normal"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
 	},
 	"media.typeBlank": {
-		"string": "Imported report"
+		"string": "Laporan yang diimpor"
 	},
 	"media.typeClaim": {
 		"string": "Teks"
@@ -1098,16 +1110,16 @@
 		"string": "Video"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Assign to…"
+		"string": "Diserahkan ke..."
 	},
 	"mediaActions.history": {
-		"string": "Item history"
+		"string": "Riwayat perihal"
 	},
 	"mediaActions.lockStatus": {
-		"string": "Lock status"
+		"string": "Status kunci"
 	},
 	"mediaActions.refresh": {
-		"string": "Refresh"
+		"string": "Segarkan"
 	},
 	"mediaActions.sendToTrash": {
 		"string": "Pindahkan ke Tong Sampah"
@@ -1122,106 +1134,106 @@
 		"string": "Catatan"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
-		"string": "Add a note to the email"
+		"string": "Tambahkan catatan untuk surel"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "Assign item to collaborators"
+		"string": "Serahkan perihal ke kolaborator"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Assignments updated successfully"
+		"string": "Penyerahan tugas berhasil diperbarui"
 	},
 	"mediaActionsBar.cancelButton": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"mediaActionsBar.confirmTo": {
-		"string": "Confirm"
+		"string": "Konfirmasi"
 	},
 	"mediaActionsBar.dialogMoveTitle": {
-		"string": "Move to a different folder"
+		"string": "Pindahkan ke folder lain"
 	},
 	"mediaActionsBar.dialogRestoreOrConfirmToListTitle": {
-		"string": "Move item to folder…"
+		"string": "Pindahkan perihal ke folder..."
 	},
 	"mediaActionsBar.move": {
-		"string": "Move"
+		"string": "Pindahkan"
 	},
 	"mediaActionsBar.moveTo": {
-		"string": "Move to…"
+		"string": "Pindahkan ke..."
 	},
 	"mediaActionsBar.movedConfirmBack": {
-		"string": "Confirmed, redirecting…"
+		"string": "Dikonfirmasi, mengalihkan..."
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Restored from Trash, redirecting…"
+		"string": "Dipulihkan dari Tong Sampah, mengalihkan..."
 	},
 	"mediaActionsBar.movedToTrash": {
-		"string": "The item was moved to {trash}"
+		"string": "Perihal telah dipindahkan ke {trash}"
 	},
 	"mediaActionsBar.publishedReport": {
-		"string": "Published report"
+		"string": "Laporan yang sudah diterbitkan"
 	},
 	"mediaActionsBar.restoreOrConfirm": {
-		"string": "Move to folder"
+		"string": "Pindahkan ke folder"
 	},
 	"mediaActionsBar.restoreTo": {
-		"string": "Restore from Trash"
+		"string": "Kembalikan dari Tong Sampah"
 	},
 	"mediaActionsBar.unpublishedReport": {
-		"string": "Unpublished report"
+		"string": "Laporan yang belum diterbitkan"
 	},
 	"mediaAnalysis.analysis": {
-		"string": "Analysis"
+		"string": "Analisis"
 	},
 	"mediaAnalysis.confirmButtonLabel1": {
-		"string": "Pause report and update content"
+		"string": "Tunda laporan dan perbarui kontennya"
 	},
 	"mediaAnalysis.confirmButtonLabel2": {
-		"string": "Overwrite report content"
+		"string": "Ganti konten laporan"
 	},
 	"mediaAnalysis.confirmText1": {
-		"string": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+		"string": "Anda perlu menunda laporan Anda untuk menyuntingnya. Apakah Anda ingin menunda laporan dan memperbaruinya dengan konten baru?"
 	},
 	"mediaAnalysis.confirmText2": {
-		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
+		"string": "Apakah Anda ingin memperbarui laporan dengan konten baru ini? Semua konten yang sekarang berada di dalam laporan akan hilang."
 	},
 	"mediaAnalysis.confirmTitle1": {
-		"string": "Current report is published"
+		"string": "Laporan terkini telah diterbitkan"
 	},
 	"mediaAnalysis.confirmTitle2": {
-		"string": "Overwrite existing report content?"
+		"string": "Ganti konten laporan yang sudah ada?"
 	},
 	"mediaAnalysis.content": {
-		"string": "Content"
+		"string": "Konten"
 	},
 	"mediaAnalysis.copyToReport": {
-		"string": "Copy to report"
+		"string": "Salin ke laporan"
 	},
 	"mediaAnalysis.copying": {
-		"string": "Copying…"
+		"string": "Menyalin..."
 	},
 	"mediaAnalysis.date": {
-		"string": "Published article date"
+		"string": "Tanggal artikel diterbitkan"
 	},
 	"mediaAnalysis.error": {
-		"string": "Could not save! Last save {ago}"
+		"string": "Tidak dapat menyimpan! Terakhir disimpan {ago}"
 	},
 	"mediaAnalysis.publishedArticle": {
-		"string": "Published article URL"
+		"string": "URL artikel yang diterbitkan"
 	},
 	"mediaAnalysis.saved": {
-		"string": "Saved {ago}"
+		"string": "Disimpan {ago}"
 	},
 	"mediaAnalysis.saving": {
-		"string": "Saving…"
+		"string": "Menyimpan..."
 	},
 	"mediaAnalysis.title": {
-		"string": "Title"
+		"string": "Judu"
 	},
 	"mediaComments.noNote": {
-		"string": "No note"
+		"string": "Tidak ada catatan"
 	},
 	"mediaComponent.answered": {
-		"string": "completed"
+		"string": "selesai"
 	},
 	"mediaComponent.metadata": {
 		"string": "Metadata"
@@ -1242,145 +1254,153 @@
 		"string": "Tugas"
 	},
 	"mediaComponent.timelineTab": {
-		"string": "Timeline"
+		"string": "Lini masa"
 	},
 	"mediaComponent.verificationTasks": {
-		"string": "Item tasks"
+		"string": "Tugas perihal"
 	},
 	"mediaDetail.trash": {
-		"string": "Trash"
+		"string": "Tong Sampah"
+	},
+	"mediaExpanded.extractedText": {
+		"string": "Text extracted from image:",
+		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First seen:"
+		"string": "Pertama dilihat:"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last seen:"
+		"string": "Terakhir dilihat:"
+	},
+	"mediaExpanded.noExtractedText": {
+		"string": "No text extracted from this image",
+		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
+		"string": "{count, plural, other {# permintaan}}"
 	},
 	"mediaExpandedArchives.archives": {
-		"string": "Archives:"
+		"string": "Arsip:"
 	},
 	"mediaExpandedMetadata.comments": {
-		"string": "FB Comments"
+		"string": "Komentar di FB"
 	},
 	"mediaExpandedMetadata.publishedOn": {
-		"string": "Published on"
+		"string": "Diterbitkan pada"
 	},
 	"mediaExpandedMetadata.reactions": {
-		"string": "FB Reactions"
+		"string": "Reaksi di FB"
 	},
 	"mediaExpandedMetadata.shares": {
-		"string": "FB Shares"
+		"string": "Dibagikan di FB"
 	},
 	"mediaItem.addedBy": {
-		"string": "Added by {name}"
+		"string": "Ditambahkan oleh {name}"
 	},
 	"mediaItem.confirmedBy": {
-		"string": "Confirmed by {name}"
+		"string": "Dikonfirmasi oleh {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Detach"
+		"string": "Lepas tautan"
 	},
 	"mediaItem.detachedSuccessfully": {
-		"string": "Item detached to '{toProject}'",
+		"string": "Perihal dilepas tautkan ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "Done, redirecting to new main item…"
+		"string": "Selesai, mengalihkan ke perihal utama yang baru..."
 	},
 	"mediaItem.error": {
-		"string": "Error, please try again"
+		"string": "Galat, mohon coba lagi"
 	},
 	"mediaItem.lastSubmitted": {
-		"string": "Last submitted {timeAgo}",
+		"string": "Terakhir diserahkan {timeAgo}",
 		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
 	},
 	"mediaItem.pinAsMain": {
-		"string": "Pin as main"
+		"string": "Sematkan sebagai yang utama"
 	},
 	"mediaItem.pinning": {
-		"string": "Pinning…"
+		"string": "Menyematkan..."
 	},
 	"mediaItem.reportPaused": {
-		"string": "Paused"
+		"string": "Ditunda"
 	},
 	"mediaItem.reportPublished": {
-		"string": "Published"
+		"string": "Diterbitkan"
 	},
 	"mediaItem.reportUnpublished": {
-		"string": "Unpublished"
+		"string": "Belum diterbitkan"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
+		"string": "{count, plural, other {# permintaan}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# similar media} other {# similar media}}"
+		"string": "{count, plural, other {# media serupa}}"
 	},
 	"mediaLanguageChip.error": {
-		"string": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, terjadi galat saat memperbarui bahasa. Mohon coba lagi dan kontak {supportEmail} jika kondisinya terus berlanjut."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Google Image Search"
+		"string": "Pencarian Gambar Google"
 	},
 	"mediaMetadata.Timeline": {
-		"string": "Timeline"
+		"string": "Lini masa"
 	},
 	"mediaMetadata.download": {
-		"string": "Download"
+		"string": "Unduh"
 	},
 	"mediaRelatedComponent.addSimilar": {
-		"string": "Add relation"
+		"string": "Tambahkan relasi"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {# related item} other {# related items}}"
+		"string": "{count, plural, other {# perihal terkait}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
-		"string": "Could not add related item"
+		"string": "Tidak dapat menambahkan perihal terkait"
 	},
 	"mediaRelatedComponent.dialogTitle": {
-		"string": "Add relation"
+		"string": "Tambahkan relasi"
 	},
 	"mediaRelatedComponent.savedSuccessfully": {
-		"string": "Related item added successfully"
+		"string": "Perihal terkait berhasil ditambahkan"
 	},
 	"mediaRelatedComponent.submitButton": {
-		"string": "{count, plural, one {Add relation for one item} other {Add relation for # items}}"
+		"string": "{count, plural, other {Tambahkan relasi untuk # perihal}}"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {# request across all media} other {# requests across all media}}"
+		"string": "{count, plural, other {# permintaan di semua media}}"
 	},
 	"mediaRequests.noRequest": {
-		"string": "No requests"
+		"string": "Tidak ada permintaan"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {# request} other {# requests}}"
+		"string": "{count, plural, other {# permintaan}}"
 	},
 	"mediaSearch.error": {
-		"string": "Sorry, the following error occurred: {message}. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, terjadi galat berikut: {message}. Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika kondisinya terus berlanjut."
 	},
 	"mediaSearch.itemWentAway": {
-		"string": "Not found"
+		"string": "Tidak ditemukan"
 	},
 	"mediaSearch.nextItem": {
-		"string": "Next item"
+		"string": "Perihal selanjutnya"
 	},
 	"mediaSearch.previousItem": {
-		"string": "Previous item"
+		"string": "Perihal sebelumnya"
 	},
 	"mediaSearch.xOfY": {
-		"string": "{current} of {total}"
+		"string": "{current} dari {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar",
+		"string": "Serupa",
 		"developer_comment": "Adjective, plural. Heading for a list of similar items"
 	},
 	"mediaSimilarities.clickOnItem": {
-		"string": "Click on an item"
+		"string": "Klik pada sebuah perihal"
 	},
 	"mediaSimilarities.mainItem": {
-		"string": "Main",
+		"string": "Utama",
 		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
 	},
 	"mediaSimilarities.notes": {
@@ -1390,93 +1410,93 @@
 		"string": "Permintaan"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
-		"string": "Export all media"
+		"string": "Ekspor semua media"
 	},
 	"mediaSimilarityBarAdd.addSimilar": {
 		"string": "Add similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Import all media from one item} other {Import all media from # items}}"
+		"string": "{count, plural, other {Impor semua media dari # perihal}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import similar media into this item"
+		"string": "Impor media yang serupa ke dalam perihal ini"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Import similar media from other items"
+		"string": "Impor media serupa dari perihal lainnya"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Export all media to another item"
+		"string": "Ekspor semua media ke perihal lain"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Export all media to another item"
+		"string": "Ekspor semua media ke perihal lain"
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
-		"string": "Add to imported report"
+		"string": "Tambah ke laporan yang diimpor"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Could not add similar item",
+		"string": "Tidak dapat menambahkan perihal serupa",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
-		"string": "Media from this item cannot be exported if this item is attached to a main item or if its report is published"
+		"string": "Media dari perihal ini tidak dapat diekspor jika perihal ini melekat ke perihal utama atau laporannya telah diterbitkan"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Similar item added successfully",
+		"string": "Perihal serupa berhasil ditambahkan",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.back": {
-		"string": "Back"
+		"string": "Kembali"
 	},
 	"mediaSimilarityBarComponent.hasMain": {
-		"string": "This media has been added as similar to another item"
+		"string": "Media ini telah ditambahkan sebagai serupa dengan perihal lain"
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "This media has been suggested to be similar to another item"
+		"string": "Media ini disarankan serupa dengan perihal lain"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Media serupa",
 		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, one {# similar media} other {# similar media}}"
+		"string": "{count, plural, other {# media serupa}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
-		"string": "Suggested media",
+		"string": "Media yang disarankan",
 		"developer_comment": "Plural. Heading for the number of suggested media"
 	},
 	"mediaSource.changeSource": {
-		"string": "Change",
+		"string": "Ubah",
 		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.error": {
-		"string": "Sorry, an error occurred while updating the status. Please try again and contact {supportEmail} if the condition persists."
+		"string": "Maaf, terjadi galat saat memperbarui status. Mohon coba lagi nanti dan kontak {supportEmail} jika kondisinya terus berlanjut."
 	},
 	"mediaSuggestionsComponent.back": {
-		"string": "Back"
+		"string": "Kembali"
 	},
 	"mediaSuggestionsComponent.goBack": {
-		"string": "Back to main view"
+		"string": "Kembali ke tampilan utama"
 	},
 	"mediaSuggestionsComponent.noNotes": {
-		"string": "No notes"
+		"string": "Tidak ada catatan"
 	},
 	"mediaSuggestionsComponent.noRequests": {
-		"string": "No requests"
+		"string": "Tidak ada permintaan"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
-		"string": "There is no suggested media."
+		"string": "Tidak ada media yang disarankan."
 	},
 	"mediaSuggestionsComponent.notes": {
 		"string": "Catatan"
 	},
 	"mediaSuggestionsComponent.question": {
-		"string": "Is the suggested media similar to the main?"
+		"string": "Apakah media yang disarankan serupa dengan yang utama?"
 	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Permintaan"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+		"string": "{total, plural, other {{current} dari # media yang disarankan}}"
 	},
 	"moreLess.less": {
 		"string": "Less"
@@ -1485,195 +1505,195 @@
 		"string": "More"
 	},
 	"multiSelector.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"multiSelector.empty": {
-		"string": "No items found"
+		"string": "Perihal tidak ditemukan"
 	},
 	"network.noResponse": {
-		"string": "Couldn't connect to {app}, please make sure you're connected to the internet"
+		"string": "Tidak dapat tersambung ke {app}, pastikan Anda tersambung ke internet"
 	},
 	"network.stillWorking": {
-		"string": "Still working…"
+		"string": "Masih bekerja..."
 	},
 	"newProject.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"notFound.back": {
-		"string": "Go to my profile page",
+		"string": "Pergi ke halaman profil saya",
 		"developer_comment": "Go to profile page button"
 	},
 	"notFound.pageTitle": {
-		"string": "Page not found"
+		"string": "Halaman tidak ditemukan"
 	},
 	"notFound.text": {
-		"string": "If you are trying to access an existing workspace, please contact the workspace owner."
+		"string": "Jika Anda mencoba mengakses ruang kerja yang telah ada, mohon kontak pemilik ruang kerja."
 	},
 	"notFound.title": {
-		"string": "Oh no! This page does not exist or you do not have authorized access.",
+		"string": "Oh tidak! Halaman ini tidak ada atau Anda tidak memiliki akses.",
 		"developer_comment": "Not found page title"
 	},
 	"passwordChange.changePassword": {
-		"string": "Change password"
+		"string": "Ganti kata sandi"
 	},
 	"passwordChange.confirmPassword": {
-		"string": "Confirm password"
+		"string": "Konfirmasi kata sandi"
 	},
 	"passwordChange.currentPassword": {
-		"string": "Current password"
+		"string": "Kata sandi saat ini"
 	},
 	"passwordChange.newPassword": {
-		"string": "New password (minimum {min} characters)"
+		"string": "Kata sandi baru (minimal {min} karakter)"
 	},
 	"passwordChange.signIn": {
 		"string": "Got it"
 	},
 	"passwordChange.successMsg": {
-		"string": "You're all set. Now you can log in with your new password."
+		"string": "Anda siap. Sekarang Anda dapat masuk dengan kata sandi baru Anda."
 	},
 	"passwordChange.successTitle": {
-		"string": "Password updated"
+		"string": "Kata sandi diperbarui"
 	},
 	"passwordChange.title": {
-		"string": "Change password"
+		"string": "Ganti kata sandi"
 	},
 	"passwordChange.unmatchingPasswords": {
-		"string": "Passwords didn't match"
+		"string": "Kata sandi tidak cocok"
 	},
 	"passwordReset.confirmedText": {
-		"string": "If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+		"string": "Jika alamat surel ini ada, Anda akan menerima pesan dari {adminEmail} dengan instruksi untuk mengatur ulang kata sandi Anda. Pastikan pesannya tidak berakhir di kotak spam. Jika Anda tidak menerima pesan tersebut, kontak {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Surel"
 	},
 	"passwordReset.emailNotValid": {
-		"string": "Please enter a valid email address.",
+		"string": "Mohon masukkan alamat surel yang valid.",
 		"developer_comment": "Error message for invalid email address"
 	},
 	"passwordReset.signIn": {
-		"string": "Sign In"
+		"string": "Masuk"
 	},
 	"passwordReset.text": {
-		"string": "Add your address and an email will be sent with further instructions."
+		"string": "Tambahkan alamat surel Anda dan sebuah pesan akan dikirimkan dengan instruksi lebih lanjut."
 	},
 	"passwordReset.title": {
-		"string": "Reset password",
+		"string": "Atur ulang kata sandi",
 		"developer_comment": "Reset password page title"
 	},
 	"privacy.policy.title": {
-		"string": "Privacy Policy"
+		"string": "Kebijakan Privasi"
 	},
 	"project.deleteMessage": {
-		"string": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+		"string": "Folder ini akan dihapus bagi semua orang di dalam ruang kerja ini. Semua perihal di dalam folder akan tetap dapat diakses di dalam folder \"Semua Perihal\""
 	},
 	"project.name": {
 		"string": "folder"
 	},
 	"projectActions.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"projectActions.defaultErrorMessage": {
-		"string": "Error, please try again",
+		"string": "Galat, mohon coba lagi",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
 	},
 	"projectActions.delete": {
-		"string": "Delete",
+		"string": "Hapus",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectActions.move": {
-		"string": "Move to…",
+		"string": "Pindahkan ke...",
 		"developer_comment": "'Move' here is an infinitive verb"
 	},
 	"projectActions.moveOut": {
-		"string": "Move out",
+		"string": "Pindahkan ke luar",
 		"developer_comment": "Menu option to move a folder out of a collection"
 	},
 	"projectActions.rename": {
-		"string": "Rename",
+		"string": "Ganti nama",
 		"developer_comment": "'Rename' here is an infinitive verb"
 	},
 	"projectActions.savedSuccessfully": {
-		"string": "Done",
+		"string": "Selesai",
 		"developer_comment": "Generic success message displayed when a collection, folder or list is updated or deleted"
 	},
 	"projectActions.tooltip": {
-		"string": "Actions"
+		"string": "Tindakan"
 	},
 	"projectAssignment.more": {
-		"string": "+{count} more"
+		"string": "+{count} lebih"
 	},
 	"projectBlankState.blank": {
-		"string": "There are no items here."
+		"string": "Tidak ada perihal di sini."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
+		"string": "Jika Anda menghapus koleksi ini, semua folder akan tetap dapat diakses di luar dari koleksi."
 	},
 	"projectGroup.name": {
-		"string": "collection"
+		"string": "koleksi"
 	},
 	"projectHeader.allItems": {
 		"string": "Semua perihal"
 	},
 	"projectHeader.trash": {
-		"string": "Trash"
+		"string": "Tong Sampah"
 	},
 	"projectHeader.unconfirmed": {
-		"string": "Unconfirmed"
+		"string": "Belum Dikonfirmasi"
 	},
 	"projectMoveDialogComponent.choose": {
-		"string": "Choose a collection"
+		"string": "Pilih sebuah koleksi"
 	},
 	"projectMoveDialogComponent.couldNotMove": {
-		"string": "Could not move folder to collection",
+		"string": "Tidak dapat memindahkan folder ini ke koleksi",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectMoveDialogComponent.createCollection": {
-		"string": "Create collection"
+		"string": "Buat koleksi"
 	},
 	"projectMoveDialogComponent.moveTitle": {
-		"string": "Move folder to a collection"
+		"string": "Pindahkan folder ke sebuah koleksi"
 	},
 	"projectMoveDialogComponent.movedSuccessfully": {
-		"string": "Folder moved to collection successfully",
+		"string": "Folder berhasil dipindahkan ke dalam koleksi",
 		"developer_comment": "Message displayed when a folder is moved to a collection"
 	},
 	"projectMoveDialogComponent.newCollection": {
-		"string": "New collection"
+		"string": "Koleksi baru"
 	},
 	"projectMoveDialogComponent.noCollectionsText": {
-		"string": "There are no collections in {teamName}. You need to create a collection first."
+		"string": "Tidak ada koleksi dalam {teamName}. Anda perlu membuatnya terlebih dahulu."
 	},
 	"projectMoveDialogComponent.noCollectionsTitle": {
-		"string": "Move folder to a collection"
+		"string": "Pindahkan folder ke sebuah koleksi"
 	},
 	"projectMoveDialogComponent.proceedLabel": {
-		"string": "Create a new collection"
+		"string": "Buat koleksi baru"
 	},
 	"projectMoveDialogComponent.proceedLabel2": {
-		"string": "Move to collection"
+		"string": "Pindahkan ke koleksi"
 	},
 	"projectSelector.allProjs": {
-		"string": "All folders"
+		"string": "Semua folder"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, plural, one {# selected} other {# selected}}",
+		"string": "{length, plural, other {# dipilih}}",
 		"developer_comment": "Label for number of selected folders"
 	},
 	"projects.trash": {
-		"string": "Trash"
+		"string": "Tong Sampah"
 	},
 	"projects.unconfirmed": {
-		"string": "Unconfirmed"
+		"string": "Belum Dikonfirmasi"
 	},
 	"projectsComponent.allItems": {
 		"string": "Semua perihal"
 	},
 	"projectsComponent.couldNotMove": {
-		"string": "Could not move folder to collection",
+		"string": "Tidak dapat memindahkan folder ini ke koleksi",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectsComponent.createCollection": {
-		"string": "Create collection",
+		"string": "Buat koleksi",
 		"developer_comment": "Button label for creating new collection"
 	},
 	"projectsComponent.createFolder": {
@@ -1681,158 +1701,158 @@
 		"developer_comment": "Button label for creating new folder"
 	},
 	"projectsComponent.createList": {
-		"string": "Create list"
+		"string": "Buat daftar"
 	},
 	"projectsComponent.deleteType": {
-		"string": "Delete {type}",
+		"string": "Hapus {type}",
 		"developer_comment": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.description": {
 		"string": "Deskripsi"
 	},
 	"projectsComponent.folders": {
-		"string": "Folders"
+		"string": "Folder"
 	},
 	"projectsComponent.invalidMove": {
-		"string": "Folders can only be moved to collections",
+		"string": "Folder hanya dapat dipindahkan ke koleksi",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
 	},
 	"projectsComponent.lists": {
-		"string": "Filtered lists",
+		"string": "Daftar yang disaring",
 		"developer_comment": "List of items with some filters applied"
 	},
 	"projectsComponent.movedSuccessfully": {
-		"string": "Folder moved successfully",
+		"string": "Folder berhasil dipndahkan",
 		"developer_comment": "Message displayed when a folder is moved to or from a collection"
 	},
 	"projectsComponent.newCollection": {
-		"string": "New collection",
+		"string": "Koleksi baru",
 		"developer_comment": "Dialog title for creating new collection"
 	},
 	"projectsComponent.newCollectionErrorMessage": {
-		"string": "Could not create collection, please try again",
+		"string": "Tidak dapat membuat koleksi, mohon coba lagi",
 		"developer_comment": "Error message when creating new collection fails"
 	},
 	"projectsComponent.newCollectionMenu": {
-		"string": "New collection",
+		"string": "Koleksi baru",
 		"developer_comment": "Menu item for creating new collection"
 	},
 	"projectsComponent.newCollectionSuccessMessage": {
-		"string": "Collection created successfully",
+		"string": "Koleksi berhasil dibuat",
 		"developer_comment": "Success message when new collection is created"
 	},
 	"projectsComponent.newFolder": {
-		"string": "New folder",
+		"string": "Folder baru",
 		"developer_comment": "Dialog title for creating new folder"
 	},
 	"projectsComponent.newFolderErrorMessage": {
-		"string": "Could not create folder, please try again",
+		"string": "Tidak dapat membuat folder, mohon coba lagi",
 		"developer_comment": "Error message when creating new folder fails"
 	},
 	"projectsComponent.newFolderMenu": {
-		"string": "New folder",
+		"string": "Folder baru",
 		"developer_comment": "Menu item for creating new folder"
 	},
 	"projectsComponent.newFolderSuccessMessage": {
-		"string": "Folder created successfully",
+		"string": "Folder berhasil dibuat",
 		"developer_comment": "Success message when new folder is created"
 	},
 	"projectsComponent.newList": {
-		"string": "New list"
+		"string": "Daftar baru"
 	},
 	"projectsComponent.newListErrorMessage": {
-		"string": "Could not create list, please try again",
+		"string": "Tidak dapat membuat daftar, mohon coba lagi",
 		"developer_comment": "Error message when creating new list fails"
 	},
 	"projectsComponent.newListSuccessMessage": {
-		"string": "List created successfully",
+		"string": "Daftar berhasil dibuat",
 		"developer_comment": "Success message when new list is created"
 	},
 	"projectsComponent.noFolders": {
-		"string": "No folders in this collection",
+		"string": "Tidak ada folder dalam koleksi",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.renameType": {
-		"string": "Rename {type}",
+		"string": "Ganti nama {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.title": {
-		"string": "Title"
+		"string": "Judu"
 	},
 	"reportDesigner.addIntro": {
-		"string": "Add content to the introduction"
+		"string": "Tambahkan konten ke perkenalan"
 	},
 	"reportDesigner.addText": {
-		"string": "Add content to the text message"
+		"string": "Tambahkan konten ke pesan teks"
 	},
 	"reportDesigner.back": {
-		"string": "Back to annotation"
+		"string": "Kembali ke pencatatan"
 	},
 	"reportDesigner.cancelLeaveButtonLabel": {
-		"string": "Go back"
+		"string": "Kembali"
 	},
 	"reportDesigner.cancelPause": {
-		"string": "Go back"
+		"string": "Kembali"
 	},
 	"reportDesigner.cancelPublish": {
-		"string": "Go back"
+		"string": "Kembali"
 	},
 	"reportDesigner.cantPublish": {
-		"string": "Go back to editing"
+		"string": "Kembali menyunting"
 	},
 	"reportDesigner.cantPublishTitle": {
-		"string": "Your report is not ready to be published"
+		"string": "Laporan Anda belum siap untuk diterbitkan"
 	},
 	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Leave without saving"
+		"string": "Pergi tanpa menyimpan"
 	},
 	"reportDesigner.confirmLeaveText": {
-		"string": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
+		"string": "Anda saat ini memiliki perubahan yang belum disimpan. Jika Anda pergi sekarang, Anda akan kehilangan perubahan yang belum disimpan!"
 	},
 	"reportDesigner.confirmLeaveTitle": {
-		"string": "Do you want to leave without saving?"
+		"string": "Apakah Anda ingin pergi tanpa menyimpan?"
 	},
 	"reportDesigner.confirmPause": {
-		"string": "Pause report"
+		"string": "Tunda laporan"
 	},
 	"reportDesigner.confirmPauseText": {
-		"string": "This will stop the report from being sent out to users until it is published again."
+		"string": "Ini akan menghentikan laporan dikirimkan ke para pengguna sampai laporannya diterbitkan lagi."
 	},
 	"reportDesigner.confirmPauseTitle": {
-		"string": "Do you want to pause the report?"
+		"string": "Apakah Anda ingin menunda laporannya?"
 	},
 	"reportDesigner.confirmPublish": {
-		"string": "Publish report"
+		"string": "Terbitkan laporan"
 	},
 	"reportDesigner.confirmPublishSameStatus": {
-		"string": "Publish changes"
+		"string": "Terbitkan perubahan"
 	},
 	"reportDesigner.confirmPublishStatusChange": {
-		"string": "Publish changes and send correction"
+		"string": "Terbitkan perubahan dan kirimkan koreksi"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {You are about to send this report to the user who has requested this item.} other {You are about to send this report to the # users who have requested this item.}}"
+		"string": "{demand, plural, other {Anda akan mengirimkan laporan ini ke # pengguna yang meminta perihal ini.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
-		"string": "All future users who request this item will receive this version of the report while it remains published."
+		"string": "Semua pengguna yang akan datang yang meminta perihal ini akan menerima laporan versi ini saat masih terbit."
 	},
 	"reportDesigner.confirmPublishTitle": {
-		"string": "Ready to publish your report?"
+		"string": "Siap untuk menerbitkan laporan Anda?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Because the status has changed, the updated report will be sent as a {correctionLink} to the user who has received the previous version of this report.} other {Because the status has changed, the updated report will be sent as a {correctionLink} to the # users who have received the previous version of this report.}}"
+		"string": "{demand, plural, other {Karena statusnya berubah, laporan yang telah diperbarui akan dikirimkan sebagai {correctionLink}ke pengguna yang telah menerima versi sebelumnya dari laporan ini.}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
-		"string": "Ready to publish your changes?"
+		"string": "Siap untuk menerbitkan perubahan Anda?"
 	},
 	"reportDesigner.confirmRepublishTitle": {
-		"string": "Ready to publish your changes?"
+		"string": "Siap untuk menerbitkan perubahan Anda?"
 	},
 	"reportDesigner.content": {
-		"string": "Content ({max} characters max)"
+		"string": "Konten (maksimal {max} karakter)"
 	},
 	"reportDesigner.copyButtonInactive": {
-		"string": "Copied"
+		"string": "Disalin"
 	},
 	"reportDesigner.copyEmbedCode": {
 		"string": "Copy embed code"
@@ -1850,10 +1870,10 @@
 		"string": "Date published"
 	},
 	"reportDesigner.description": {
-		"string": "Content ({max} characters max)"
+		"string": "Konten (maksimal {max} karakter)"
 	},
 	"reportDesigner.edit": {
-		"string": "Edit"
+		"string": "Sunting"
 	},
 	"reportDesigner.error": {
 		"string": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
@@ -1890,7 +1910,7 @@
 		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
 	},
 	"reportDesigner.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"reportDesigner.sentCount": {
 		"string": "Reports sent"
@@ -1935,22 +1955,22 @@
 		"string": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
 	},
 	"reportStatusCell.paused": {
-		"string": "Paused"
+		"string": "Ditunda"
 	},
 	"reportStatusCell.published": {
-		"string": "Published"
+		"string": "Diterbitkan"
 	},
 	"reportStatusCell.unpublished": {
-		"string": "Unpublished"
+		"string": "Belum diterbitkan"
 	},
 	"roleSelect.admin": {
-		"string": "Admin"
+		"string": "Administrator"
 	},
 	"roleSelect.collaborator": {
-		"string": "Collaborator"
+		"string": "Kolaborator"
 	},
 	"roleSelect.editor": {
-		"string": "Editor"
+		"string": "Penyunting"
 	},
 	"rule.copyOf": {
 		"string": "Copy of {ruleName}"
@@ -1977,10 +1997,10 @@
 		"string": "Remove item above"
 	},
 	"ruleToolbar.back": {
-		"string": "Back"
+		"string": "Kembali"
 	},
 	"ruleToolbar.delete": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"ruleToolbar.deleteConfirmationLabel": {
 		"string": "Delete rule"
@@ -1992,7 +2012,7 @@
 		"string": "Are you sure you want to delete this rule?"
 	},
 	"ruleToolbar.duplicate": {
-		"string": "Duplicate"
+		"string": "Gandakan"
 	},
 	"ruleToolbar.leaveConfirmationText": {
 		"string": "If you continue, you will lose your changes."
@@ -2021,7 +2041,7 @@
 		"string": "New rule"
 	},
 	"rulesTableToolbar.delete": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"rulesTableToolbar.deleteConfirmationLabel": {
 		"string": "{numSelected, plural, one {Delete # rule} other {Delete # rules}}"
@@ -2033,7 +2053,7 @@
 		"string": "Do you want to delete the selected rules?"
 	},
 	"rulesTableToolbar.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"rulesTableToolbar.selected": {
 		"string": "{numSelected, plural, one {# selected} other {# selected}}"
@@ -2045,7 +2065,7 @@
 		"string": "Peraturan"
 	},
 	"saveList.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"saveList.create": {
 		"string": "Create new list",
@@ -2078,10 +2098,10 @@
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "Name"
+		"string": "Nama"
 	},
 	"saveTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "Tandai perihal secara otomatis yang cocok dengan kondisi berikut:"
 	},
 	"saveTag.save": {
 		"string": "Save tag"
@@ -2091,7 +2111,7 @@
 		"developer_comment": "Message displayed when a team tag is saved"
 	},
 	"saveTag.titleCreate": {
-		"string": "Create new tag"
+		"string": "Buat label baru"
 	},
 	"saveTag.titleEdit": {
 		"string": "Edit tag"
@@ -2141,7 +2161,7 @@
 		"string": "Diserahkan Terakhir"
 	},
 	"search.datePublishedHeading": {
-		"string": "Published"
+		"string": "Diterbitkan"
 	},
 	"search.dateSubmittedHeading": {
 		"string": "Diserahkan"
@@ -2151,7 +2171,11 @@
 	},
 	"search.fieldAnd": {
 		"string": "and",
-		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
+	},
+	"search.fieldOr": {
+		"string": "or",
+		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
 		"string": "Folder is",
@@ -2162,7 +2186,7 @@
 		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
-		"string": "Search",
+		"string": "Cari",
 		"developer_comment": "Placeholder for search keywords input"
 	},
 	"search.language": {
@@ -2173,7 +2197,7 @@
 		"string": "Next page"
 	},
 	"search.notInAny": {
-		"string": "Not in any collection",
+		"string": "Tidak ada di koleksi manapun",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
@@ -2188,15 +2212,15 @@
 		"developer_comment": "Prefix label for field to filter by report status"
 	},
 	"search.reportStatusPaused": {
-		"string": "Paused",
+		"string": "Ditunda",
 		"developer_comment": "Refers to a report status"
 	},
 	"search.reportStatusPublished": {
-		"string": "Published",
+		"string": "Diterbitkan",
 		"developer_comment": "Refers to a report status"
 	},
 	"search.reportStatusUnpublished": {
-		"string": "Unpublished",
+		"string": "Belum diterbitkan",
 		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
@@ -2208,7 +2232,7 @@
 		"developer_comment": "Describes media type Audio"
 	},
 	"search.showBlank": {
-		"string": "Imported report",
+		"string": "Laporan yang diimpor",
 		"developer_comment": "Describes media type unspecified"
 	},
 	"search.showClaims": {
@@ -2232,8 +2256,12 @@
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Created by",
+		"string": "Dibuat oleh",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldSource.label": {
+		"string": "Source is",
+		"developer_comment": "Prefix label for field to filter by source"
 	},
 	"searchFields.clear": {
 		"string": "Clear filters",
@@ -2321,13 +2349,13 @@
 		"developer_comment": "Submit button to relate media to an existing source"
 	},
 	"settingsHeader.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"shortTextRespondTask.answerTask": {
-		"string": "Answer task"
+		"string": "Jawab tugas"
 	},
 	"shortTextRespondTask.cancelTask": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"shortTextRespondTask.responseHint": {
 		"string": "Answer here."
@@ -2354,7 +2382,7 @@
 		"string": "All workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"slackConfigDialogComponent.channel": {
 		"string": "Slack channel"
@@ -2372,7 +2400,7 @@
 		"string": "New notification"
 	},
 	"slackConfigDialogComponent.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"slackConfigDialogComponent.savedSuccessfully": {
 		"string": "Slack settings saved successfully"
@@ -2513,7 +2541,7 @@
 		"string": "Terms of Service ({language})"
 	},
 	"smoochBotComponent.contactUs": {
-		"string": "Contact us to setup"
+		"string": "Kontak kami untuk pengaturan"
 	},
 	"smoochBotComponent.install": {
 		"string": "Install"
@@ -2532,10 +2560,10 @@
 		"string": "Tipline"
 	},
 	"smoochBotIntegrationButton.cancel": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"smoochBotIntegrationButton.confirm": {
-		"string": "Confirm"
+		"string": "Konfirmasi"
 	},
 	"smoochBotIntegrationButton.confirmDisconnectText": {
 		"string": "Disconnecting this {platform} account will prevent any user to interact with the tipline through that account.",
@@ -2558,7 +2586,7 @@
 		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
-		"string": "Connect"
+		"string": "Sambungkan"
 	},
 	"smoochBotIntegrationButton.connectTipline": {
 		"string": "Connect to {platform} tipline"
@@ -2583,7 +2611,7 @@
 		"string": "I'm ready to connect"
 	},
 	"smoochBotIntegrationButton.savedSuccessfully": {
-		"string": "Done"
+		"string": "Selesai"
 	},
 	"smoochBotIntegrationButton.status": {
 		"string": "Status: Online"
@@ -2653,7 +2681,7 @@
 		"string": "Query prompt"
 	},
 	"smoochBotMenuOption.resource": {
-		"string": "Report"
+		"string": "Laporan"
 	},
 	"smoochBotMenuOption.secondaryState": {
 		"string": "Secondary menu"
@@ -2671,7 +2699,7 @@
 		"string": "Add content manually"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": "This URL does not seem to be a valid RSS feed"
@@ -2721,7 +2749,7 @@
 		"developer_comment": "Label for add a new source secondary URL"
 	},
 	"sourceInfo.createNew": {
-		"string": "Create new",
+		"string": "Buat baru",
 		"developer_comment": "Create a new media source label"
 	},
 	"sourceInfo.invalidLink": {
@@ -2745,10 +2773,10 @@
 		"developer_comment": "Allow user to add a main source URL"
 	},
 	"sourceInfo.saved": {
-		"string": "Saved {ago}"
+		"string": "Disimpan {ago}"
 	},
 	"sourceInfo.saving": {
-		"string": "Saving…"
+		"string": "Menyimpan..."
 	},
 	"sourceInfo.secondaryAccounts": {
 		"string": "Secondary source URLs",
@@ -2843,7 +2871,7 @@
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
 	},
 	"switchTeams.cancelJoinRequest": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"switchTeams.error": {
 		"string": "Sorry, an error occurred while updating the workspace. Please try again and contact {supportEmail} if the condition persists."
@@ -2855,7 +2883,7 @@
 		"string": "{membersCount, plural, one {# member} other {# members}}"
 	},
 	"switchTeams.newTeamLink": {
-		"string": "Create"
+		"string": "Buat"
 	},
 	"switchTeams.noTeams": {
 		"string": "Not a member of any workspace."
@@ -2870,7 +2898,7 @@
 		"string": "Search or add new tag"
 	},
 	"tagMenu.done": {
-		"string": "Done"
+		"string": "Selesai"
 	},
 	"tagMenu.tooltip": {
 		"string": "Edit tags"
@@ -2934,13 +2962,13 @@
 		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.add": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"tasks.addMetadata": {
 		"string": "New metadata"
 	},
 	"tasks.addTask": {
-		"string": "New task"
+		"string": "Tugas baru"
 	},
 	"tasks.answer": {
 		"string": "Answer Task"
@@ -2958,10 +2986,10 @@
 		"string": "No tasks"
 	},
 	"tasks.cancelAdd": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"tasks.cancelEdit": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Multiple select"
@@ -3019,7 +3047,7 @@
 		"string": "There are no settings for this bot."
 	},
 	"teamBots.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"teamBots.settings": {
 		"string": "Settings"
@@ -3070,10 +3098,10 @@
 		"developer_comment": "Title for details page of current workspace"
 	},
 	"teamDetails.update": {
-		"string": "Update"
+		"string": "Perbarui"
 	},
 	"teamDetails.workspaceName": {
-		"string": "Workspace name"
+		"string": "Nama ruang kerja"
 	},
 	"teamIntegrations.subtitle": {
 		"string": "Third party tools to enhance productivity."
@@ -3152,7 +3180,7 @@
 		"string": "Copy email"
 	},
 	"teamMembers.invite": {
-		"string": "Invite"
+		"string": "Undang"
 	},
 	"teamMembers.pending": {
 		"string": "Tertunda",
@@ -3233,7 +3261,7 @@
 		"string": "LINE channel"
 	},
 	"teamReportComponent.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"teamReportComponent.savedSuccessfully": {
 		"string": "Report settings saved successfully",
@@ -3284,7 +3312,7 @@
 		"string": "Integrations"
 	},
 	"teamSettings.languages": {
-		"string": "Languages"
+		"string": "Bahasa"
 	},
 	"teamSettings.lists": {
 		"string": "Columns"
@@ -3296,7 +3324,7 @@
 		"string": "Metadata"
 	},
 	"teamSettings.report": {
-		"string": "Report"
+		"string": "Laporan"
 	},
 	"teamSettings.rules": {
 		"string": "Peraturan"
@@ -3375,14 +3403,14 @@
 		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
 	},
 	"teamTagsActions.delete": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"teamTagsActions.deletedSuccessfully": {
 		"string": "Tag deleted successfully",
 		"developer_comment": "Message displayed when a team tag is deleted"
 	},
 	"teamTagsActions.edit": {
-		"string": "Edit"
+		"string": "Sunting"
 	},
 	"teamTagsActions.remove": {
 		"string": "Delete tag"
@@ -3399,11 +3427,8 @@
 	"teamTagsComponent.newTag": {
 		"string": "New tag"
 	},
-	"teamTagsComponent.search": {
-		"string": "Search"
-	},
 	"teamTagsComponent.tableHeaderName": {
-		"string": "Name",
+		"string": "Nama",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
@@ -3411,15 +3436,15 @@
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderUpdatedAt": {
-		"string": "Updated",
+		"string": "Diperbarui",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "Tags",
+		"string": "Label-label",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
-		"string": "Cancel"
+		"string": "Batalkan"
 	},
 	"teamTasks.confirmAction": {
 		"string": "Yes"
@@ -3452,13 +3477,13 @@
 		"string": "Sunting tugas"
 	},
 	"teamTasks.delete": {
-		"string": "Delete"
+		"string": "Hapus"
 	},
 	"teamTasks.deleteTask": {
 		"string": "Hapus tugas"
 	},
 	"teamTasks.edit": {
-		"string": "Edit"
+		"string": "Sunting"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
@@ -3506,7 +3531,7 @@
 		"string": "Continue and save"
 	},
 	"translateStatuses.message": {
-		"string": "Message"
+		"string": "Pesan"
 	},
 	"translateStatuses.missingTranslations": {
 		"string": "Missing translations"
@@ -3517,14 +3542,22 @@
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
 	},
+	"translateStatuses.saveStatusMessage": {
+		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"translateStatuses.saveStatusTitle": {
+		"string": "Save status translation",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
+	},
 	"translateStatuses.status": {
 		"string": "Status"
 	},
 	"trash.title": {
-		"string": "Trash"
+		"string": "Tong Sampah"
 	},
 	"unconfirmed.title": {
-		"string": "Unconfirmed"
+		"string": "Belum Dikonfirmasi"
 	},
 	"uploadFile.audioMessage": {
 		"string": "Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
@@ -3548,7 +3581,7 @@
 		"string": "Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
 	},
 	"userAssignments.blank": {
-		"string": "No activity"
+		"string": "Tidak ada aktivitas"
 	},
 	"userAssignments.filterByTeam": {
 		"string": "Filter by workspace"
@@ -3566,7 +3599,7 @@
 		"string": "Security"
 	},
 	"userConfirmPage.signIn": {
-		"string": "Sign In",
+		"string": "Masuk",
 		"developer_comment": "Sign in button"
 	},
 	"userConfirmed.alreadyConfrimMessage": {
@@ -3591,7 +3624,7 @@
 		"string": "Skip"
 	},
 	"userEmail.submit": {
-		"string": "Submit"
+		"string": "Masukkan"
 	},
 	"userEmail.text": {
 		"string": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\""
@@ -3660,7 +3693,7 @@
 		"string": "Please review our {ppLink} to learn how {appName} uses and stores your information."
 	},
 	"userPrivacy.ppLink": {
-		"string": "Kebijakan Pribadi"
+		"string": "Kebijakan Privasi"
 	},
 	"userPrivacy.seeInformationButton": {
 		"string": "See my information"
@@ -3693,7 +3726,7 @@
 		"string": "Note: Existing backup codes will be invalidated by clicking this button."
 	},
 	"userSecurity.changePassword": {
-		"string": "Change password"
+		"string": "Ganti kata sandi"
 	},
 	"userSecurity.disableAuthenticateDescription": {
 		"string": "Enter your password to disable two-factor authentication:"
@@ -3768,7 +3801,7 @@
 		"string": "Kebijakan Pribadi"
 	},
 	"userTos.save": {
-		"string": "Save"
+		"string": "Simpan"
 	},
 	"userTos.termsLastUpdatedAt": {
 		"string": "Last updated {lastUpdated}"
@@ -3783,7 +3816,7 @@
 		"string": "Terms of Service"
 	},
 	"userTos.validation": {
-		"string": "You must agree to the Terms of Service and Privacy Policy"
+		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi"
 	},
 	"webPageMediaCard.Error": {
 		"string": "This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."

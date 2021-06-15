@@ -41,7 +41,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadato contiene una palabra clave",
+		"string": "Metadata value",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
@@ -53,7 +53,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "La respuesta de la tarea contiene una palabra clave",
+		"string": "Task answer",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
@@ -173,7 +173,7 @@
 		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.createdBy": {
-		"string": "Created by",
+		"string": "Creado por",
 		"developer_comment": "Menu option to enable searching items by author"
 	},
 	"addFilterMenu.filterBy": {
@@ -185,7 +185,7 @@
 		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemStatus": {
-		"string": "Item status",
+		"string": "Estado del ítem",
 		"developer_comment": "Menu option to enable searching items by item status"
 	},
 	"addFilterMenu.language": {
@@ -203,6 +203,10 @@
 	"addFilterMenu.reportStatus": {
 		"string": "Estado de informe",
 		"developer_comment": "Menu option to enable searching items by report status"
+	},
+	"addFilterMenu.source": {
+		"string": "Source",
+		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
 		"string": "Etiqueta",
@@ -519,7 +523,7 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
-		"string": "Items moved from Trash to '{toProject}'",
+		"string": "Ítems movidos desde la Papelera a '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedSuccessfully": {
@@ -530,7 +534,7 @@
 		"string": "Recuperar de la papelera"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Send selected items to Trash"
+		"string": "Enviar ítems seleccionados a la Papelera"
 	},
 	"bulkActions.trash": {
 		"string": "Recuperar ítems seleccionados y mover ítems a otra carpeta"
@@ -619,21 +623,21 @@
 		"developer_comment": "Label for button to create a new source"
 	},
 	"createTag.couldNotCreate": {
-		"string": "Could not create tag",
+		"string": "No se pudo crear la etiqueta",
 		"developer_comment": "Error message displayed when it's not possible to create a team tag"
 	},
 	"createTag.createdSuccessfully": {
-		"string": "Tag created successfully",
+		"string": "¡Etiqueta creada exitosamente!",
 		"developer_comment": "Message displayed when a team tag is created"
 	},
 	"createTag.name": {
-		"string": "Name"
+		"string": "Nombre"
 	},
 	"createTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "Etiquetar automáticamente ítems cumpliendo con las siguientes condiciones:"
 	},
 	"createTag.title": {
-		"string": "Create new tag"
+		"string": "Crear nueva etiqueta"
 	},
 	"createTeamDialog.cancel": {
 		"string": "Cancelar"
@@ -709,25 +713,25 @@
 		"string": "Ver esta zona horaria en time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
+		"string": "{publishedCount, plural, one {Hay un ítem publicado actualmente con el estado {statusLabel}. Si continúas, se pausaran todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlso.} other {Hay # ítems publicados actualmente con el estado {statusLabel}. Si continuas, se pausarán todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlos.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Mover ítems a"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+		"string": "{itemsCount, plural, one {Hay un ítems con el estado {statusLabel} que debe ser cambiado a otro estado antes que puedas eliminar este estado.} other {Hay # ítems con el estado {statusLabel} que deben ser cambiados a otro estado antes que puedas eliminar este estado.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
+		"string": "{itemsCount, plural, one {Debes cambiar el estado de un ítem para poder eliminar este estado} other {Debes cambiar el estado de # ítems para eliminar este estado}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Elegir una carpeta"
 	},
 	"destinationProjects.empty": {
-		"string": "No folders in this collection"
+		"string": "No hay carpetas en esta colección"
 	},
 	"destinationProjects.none": {
-		"string": "Not in any collection",
+		"string": "No está en ninguna colección",
 		"developer_comment": "Label used for folders that are not in any collection"
 	},
 	"detachDialog.cancelButton": {
@@ -748,6 +752,14 @@
 	"editStatusDialog.messageDescription": {
 		"string": "Envía un mensaje al usuario(a) que solicitó el ítem cuando cambies un ítem a este estado.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
+	},
+	"editStatusDialog.saveStatusMessage": {
+		"string": "Any published report with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"editStatusDialog.saveStatusTitle": {
+		"string": "Save status",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
 		"string": "Descripción"
@@ -850,7 +862,7 @@
 		"string": "Subir"
 	},
 	"global.submitting": {
-		"string": "Submitting…"
+		"string": "Enviando..."
 	},
 	"global.tags": {
 		"string": "Etiquetas"
@@ -952,7 +964,7 @@
 		"string": "Idioma desconocido"
 	},
 	"languageSwitcher.makeDefault": {
-		"string": "Set as default language for this item"
+		"string": "Establecer como idioma predeterminado para este ítem"
 	},
 	"languageSwitcher.primaryLanguage": {
 		"string": "(predeterminado)"
@@ -967,13 +979,13 @@
 		"string": "Solicitudes"
 	},
 	"list.FirstSeen": {
-		"string": "Submitted"
+		"string": "Enviado"
 	},
 	"list.Item": {
 		"string": "Ítem"
 	},
 	"list.LastSeen": {
-		"string": "Last submitted"
+		"string": "Enviado por última vez"
 	},
 	"list.LinkedItems": {
 		"string": "Medios similares"
@@ -1007,7 +1019,7 @@
 		"string": "Estado de Informe"
 	},
 	"list.suggestionsCount": {
-		"string": "Suggested matches"
+		"string": "Coincidencias sugeridas"
 	},
 	"list.tags": {
 		"string": "Etiquetas"
@@ -1049,7 +1061,7 @@
 		"string": "Registrarse"
 	},
 	"login.signIn": {
-		"string": "Sign in",
+		"string": "Iniciar sesión",
 		"developer_comment": "Sign in button label"
 	},
 	"login.signInLink": {
@@ -1057,7 +1069,7 @@
 		"developer_comment": "Button label. Switches from 'create new account' to 'logging in' mode"
 	},
 	"login.signUp": {
-		"string": "Sign up",
+		"string": "Registrarse",
 		"developer_comment": "Sign up button label"
 	},
 	"login.signUpLink": {
@@ -1122,7 +1134,7 @@
 		"string": "Notas"
 	},
 	"mediaActionsBar.assignmentNotesTitle": {
-		"string": "Add a note to the email"
+		"string": "Añadir una nota al correo electrónico"
 	},
 	"mediaActionsBar.assignmentTitle": {
 		"string": "Asignar ítem a lo(a)s colaboradore(a)s"
@@ -1149,7 +1161,7 @@
 		"string": "Mover a..."
 	},
 	"mediaActionsBar.movedConfirmBack": {
-		"string": "Confirmed, redirecting…"
+		"string": "Confirmado, redireccionando..."
 	},
 	"mediaActionsBar.movedRestoreBack": {
 		"string": "Recuperado de Papelera, redireccionando..."
@@ -1250,11 +1262,19 @@
 	"mediaDetail.trash": {
 		"string": "Papelera"
 	},
+	"mediaExpanded.extractedText": {
+		"string": "Text extracted from image:",
+		"developer_comment": "Label for text extracted from the image below"
+	},
 	"mediaExpanded.firstSeen": {
 		"string": "Visto por primera vez: "
 	},
 	"mediaExpanded.lastSeen": {
 		"string": "Visto por última vez: "
+	},
+	"mediaExpanded.noExtractedText": {
+		"string": "No text extracted from this image",
+		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
@@ -1281,39 +1301,39 @@
 		"string": "Confirmado por {name}"
 	},
 	"mediaItem.detach": {
-		"string": "Detach"
+		"string": "Separar"
 	},
 	"mediaItem.detachedSuccessfully": {
 		"string": "Ítem separado a '{toProject}'",
 		"developer_comment": "Banner displayed after items are detached successfully"
 	},
 	"mediaItem.doneRedirecting": {
-		"string": "Done, redirecting to new main item…"
+		"string": "Hecho, redireccionando a nuevo ítem principal..."
 	},
 	"mediaItem.error": {
-		"string": "Error, please try again"
+		"string": "Error, por favor intenta otra vez"
 	},
 	"mediaItem.lastSubmitted": {
 		"string": "Último envío {timeAgo}",
 		"developer_comment": "Here timeAgo is a relative time, for example, '10 minutes ago' or 'yesterday'"
 	},
 	"mediaItem.pinAsMain": {
-		"string": "Pin as main"
+		"string": "Fijar como principal"
 	},
 	"mediaItem.pinning": {
 		"string": "Fijando..."
 	},
 	"mediaItem.reportPaused": {
-		"string": "Paused"
+		"string": "Pausado"
 	},
 	"mediaItem.reportPublished": {
 		"string": "Publicado"
 	},
 	"mediaItem.reportUnpublished": {
-		"string": "Unpublished"
+		"string": "Sin publicar"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {# solicitudes} other {# requests}}"
+		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
 	},
 	"mediaItem.similarMedia": {
 		"string": "{count, plural, one {# medio similar} other {# medios similares}}"
@@ -1331,19 +1351,19 @@
 		"string": "Descarga"
 	},
 	"mediaRelatedComponent.addSimilar": {
-		"string": "Add relation"
+		"string": "Añadir relación"
 	},
 	"mediaRelatedComponent.count": {
 		"string": "{count, plural, one {# ítem relacionado} other {# ítems relacionados}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
-		"string": "Could not add related item"
+		"string": "No se pudo añadir ítem relacionado"
 	},
 	"mediaRelatedComponent.dialogTitle": {
-		"string": "Add relation"
+		"string": "Añadir relación"
 	},
 	"mediaRelatedComponent.savedSuccessfully": {
-		"string": "Related item added successfully"
+		"string": "Ítem relacionado añadido exitosamente"
 	},
 	"mediaRelatedComponent.submitButton": {
 		"string": "{count, plural, one {Añadir relación para un ítem} other {Añadir relación para # ítems}}"
@@ -1399,42 +1419,42 @@
 		"string": "{count, plural, one {Importar todos los medios de un ítem} other {Importar todos los medios de los # ítems}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Import similar media into this item"
+		"string": "Importar medios similares en este ítem"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
 		"string": "Importar medios similares de otros ítems"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
-		"string": "Export all media to another item"
+		"string": "Exportar todos los medios a otro ítem"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilarTitle": {
-		"string": "Export all media to another item"
+		"string": "Exportar todos los medios a otro ítem"
 	},
 	"mediaSimilarityBarAdd.addToImportedReport": {
 		"string": "Añadir al informe importado"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Could not add similar item",
+		"string": "No se pudo añadir ítem similar",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
 		"string": "Medios de este ítem no pueden ser exportados si este ítem está adjunto al ítem principal o si su reporte está publicado."
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Similar item added successfully",
+		"string": "Ítem similar añadido exitosamente",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.back": {
 		"string": "Volver"
 	},
 	"mediaSimilarityBarComponent.hasMain": {
-		"string": "This media has been added as similar to another item"
+		"string": "Este medio ha sido añadido como similar a otro ítem"
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "This media has been suggested to be similar to another item"
+		"string": "Este medio ha sido sugerido como similar a otro ítem"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Similar media",
+		"string": "Medios similares",
 		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
@@ -1455,7 +1475,7 @@
 		"string": "Volver"
 	},
 	"mediaSuggestionsComponent.goBack": {
-		"string": "Back to main view"
+		"string": "Volver a vista principal"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Sin notas"
@@ -1470,13 +1490,13 @@
 		"string": "Notas"
 	},
 	"mediaSuggestionsComponent.question": {
-		"string": "Is the suggested media similar to the main?"
+		"string": "¿El medio sugerido es similar al principal?"
 	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Solicitudes"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+		"string": "{total, plural, one {{current}de # medio sugerido} other {{current}de # medios sugeridos}}"
 	},
 	"moreLess.less": {
 		"string": "Menos"
@@ -1573,7 +1593,7 @@
 		"string": "Cancelar"
 	},
 	"projectActions.defaultErrorMessage": {
-		"string": "Error, please try again",
+		"string": "Error, por favor intenta otra vez",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
 	},
 	"projectActions.delete": {
@@ -1941,7 +1961,7 @@
 		"string": "Publicado"
 	},
 	"reportStatusCell.unpublished": {
-		"string": "Unpublished"
+		"string": "Sin publicar"
 	},
 	"roleSelect.admin": {
 		"string": "Admin"
@@ -2074,27 +2094,27 @@
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveTag.couldNotSave": {
-		"string": "Could not save tag",
+		"string": "No se pudo guardar la etiqueta",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
 	},
 	"saveTag.name": {
-		"string": "Name"
+		"string": "Nombre"
 	},
 	"saveTag.rule": {
-		"string": "Automatically tag items matching the following conditions:"
+		"string": "Etiquetar automáticamente ítems que cumplan con las siguientes condiciones:"
 	},
 	"saveTag.save": {
-		"string": "Save tag"
+		"string": "Guadar etiqueta"
 	},
 	"saveTag.savedSuccessfully": {
-		"string": "Tag saved successfully",
+		"string": "Etiqueta guradada exitosamente",
 		"developer_comment": "Message displayed when a team tag is saved"
 	},
 	"saveTag.titleCreate": {
-		"string": "Create new tag"
+		"string": "Crear nueva etiqueta"
 	},
 	"saveTag.titleEdit": {
-		"string": "Edit tag"
+		"string": "Editar etiqueta"
 	},
 	"savedSearch.deleteMessage": {
 		"string": "¿Está segura(o)? Esta lista se comparte entre todas(os) las(os) usuarias(os) de {teamName}. Después de eliminarla, ningún(a) usuaria(o) podrá acceder a ella."
@@ -2110,7 +2130,7 @@
 		"string": "Todos los ítems"
 	},
 	"search.and": {
-		"string": "and",
+		"string": "y",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.anyDate": {
@@ -2150,8 +2170,12 @@
 		"string": "Actualizado"
 	},
 	"search.fieldAnd": {
-		"string": "and",
-		"developer_comment": "Logical operator to be applied when filtering by multiple fields"
+		"string": "y",
+		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
+	},
+	"search.fieldOr": {
+		"string": "or",
+		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
 		"string": "Carpeta es",
@@ -2177,7 +2201,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "or",
+		"string": "o",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
 	},
 	"search.previousPage": {
@@ -2196,7 +2220,7 @@
 		"developer_comment": "Refers to a report status"
 	},
 	"search.reportStatusUnpublished": {
-		"string": "Unpublished",
+		"string": "Sin publicar",
 		"developer_comment": "Refers to a report status"
 	},
 	"search.show": {
@@ -2232,8 +2256,12 @@
 		"developer_comment": "Prefix label for field to filter by status"
 	},
 	"search.userHeading": {
-		"string": "Created by",
+		"string": "Creado por",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldSource.label": {
+		"string": "Source is",
+		"developer_comment": "Prefix label for field to filter by source"
 	},
 	"searchFields.clear": {
 		"string": "Limpiar filtros",
@@ -2247,29 +2275,29 @@
 		"string": "Fuente"
 	},
 	"searchKeywordConfig.allMetadataAnswers": {
-		"string": "All metadata answers"
+		"string": "Todas las respuestas de metadatos"
 	},
 	"searchKeywordConfig.allNotes": {
-		"string": "All notes"
+		"string": "Todas las notas"
 	},
 	"searchKeywordConfig.allTaskAnswers": {
-		"string": "All task answers",
+		"string": "Todas las respuestas de tarea",
 		"developer_comment": "This options applies keyword search across all task answers"
 	},
 	"searchKeywordConfig.allTaskComments": {
-		"string": "All task comments"
+		"string": "Todos los comentarios de tareas"
 	},
 	"searchKeywordConfig.analysisContent": {
-		"string": "Analysis content"
+		"string": "Contenido del análisis"
 	},
 	"searchKeywordConfig.analysisTitle": {
-		"string": "Analysis title"
+		"string": "Título del análisis"
 	},
 	"searchKeywordConfig.mediaContent": {
-		"string": "Media content"
+		"string": "Contenido de medios"
 	},
 	"searchKeywordConfig.mediaTitle": {
-		"string": "Media title"
+		"string": "Título de medios"
 	},
 	"searchKeywordConfig.mediaUrl": {
 		"string": "URL de medios"
@@ -2348,7 +2376,7 @@
 		"string": "Enviar notificaciones a los canales de Slack cuando se agregan ítems a carpetas específicas"
 	},
 	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "All other activity"
+		"string": "Todas las demás actividades"
 	},
 	"slackConfigDialogComponent.allWorkspaceActivity": {
 		"string": "Toda la actividad del área de trabajo"
@@ -2390,7 +2418,7 @@
 		"string": "Añadir recurso"
 	},
 	"smoochBot.descriptionGreeting": {
-		"string": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot."
+		"string": "El primer mensaje que se envía a la/el usuaria(o). Presenta tu organización y el servicio que brindas a través de este bot. "
 	},
 	"smoochBot.descriptionInactive": {
 		"string": "Este mensaje se envía a cualquier usuario que haya enviado un mensaje a la Tipline cuando el bot de Check Message está configurado como inactivo."
@@ -2399,7 +2427,7 @@
 		"string": "Un mensaje automático enviado al usuario cuando han enviado un archivo que no es compatible con Check."
 	},
 	"smoochBot.descriptionMainMenu": {
-		"string": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu."
+		"string": "Un menú solicitando a la/el usuaria(o) que elija entre un conjunto de opciones. Este mensaje sigue automáticamente al Mensaje de saludo. 9 no se puede utilizar como una opción en el menú principal."
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "Este mensaje se enviará a las(os) usuarias(os) si, después de iniciar una conversación, no seleccionan ninguna de las opciones: recibir un recurso o enviar contenido para verificar. Este mensaje también se enviará a las(os) usuarias(os) que enviaron contenido sin esperar el mensaje de consulta."
@@ -2408,13 +2436,13 @@
 		"string": "El mensaje enviado si la respuesta del usuario a un menú no es un escenario de menú válido."
 	},
 	"smoochBot.descriptionPrivacyStatementContent": {
-		"string": "Privacy Statement content. Edit the text below, or replace it with custom content."
+		"string": "Contenido de la Declaración de Privacidad. Edita el texto debajo o reemplázalo con contenido personalizado."
 	},
 	"smoochBot.descriptionPrivacyStatementGreeting": {
-		"string": "By default, the following Privacy Statement is available to all users. When replacing it with a custom one, you must do so for each language your bot is active in."
+		"string": "Por defecto, la siguiente Declaración de Privacidad está disponible para todas(os) las(os) usuarias(os). Al reemplazarla por una personalizada, debes hacerlo para cada idioma en el que tu bot esté activo. "
 	},
 	"smoochBot.descriptionPrivacyStatementGreeting2": {
-		"string": "The option '9' must be referenced for users to access the Privacy Statement on the Main menu."
+		"string": "La opción '9' debe estar referenciada para que las(os) usuarias(os) accedan a la Declaración de Privacidad en el Menú principal."
 	},
 	"smoochBot.descriptionQueryPrompt": {
 		"string": "El mensaje que le pide al usuario que envíe una solicitud de verificación."
@@ -2429,10 +2457,10 @@
 		"string": "Un menú opcional que le pide al usuario que elija entre un conjunto de opciones. Cuando un usuario responde con una de las opciones, el bot puede enviarle un informe o dirigirlo a otro mensaje."
 	},
 	"smoochBot.footnoteGreeting": {
-		"string": "The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
+		"string": "La siguiente declaración y opción se añadirán automáticamente al final de este mensaje: \"Nunca compartiremos tu información de identificación personal. Responde 9 para leer nuestra Declaración de Privacidad y Propósito\". "
 	},
 	"smoochBot.footnoteGreeting2": {
-		"string": "The default Privacy Statement can be replaced with a custom one under the option 'Privacy Statement' on this page."
+		"string": "La Declaración de Privacidad predeterminada se puede reemplazar por una personalizada bajo la opción 'Declaración de Privacidad' en esta página. "
 	},
 	"smoochBot.labelGreeting": {
 		"string": "Saludo"
@@ -2453,7 +2481,7 @@
 		"string": "Opción no disponible"
 	},
 	"smoochBot.labelPrivacyStatement": {
-		"string": "Privacy Statement"
+		"string": "Declaración de Privacidad"
 	},
 	"smoochBot.labelQueryPrompt": {
 		"string": "Petición de consulta"
@@ -2468,7 +2496,7 @@
 		"string": "Menú secundario"
 	},
 	"smoochBot.menuKeywords": {
-		"string": "Keywords separated by comma"
+		"string": "Palabras clave separadas por coma"
 	},
 	"smoochBot.newResourceTitle": {
 		"string": "Nuevo recurso del bot"
@@ -2489,7 +2517,7 @@
 		"string": "🤖Lo siento, no entendí tu mensaje ¡Inténtalo de nuevo!"
 	},
 	"smoochBot.placeholderQueryPrompt": {
-		"string": "*Please enter the question, link, picture, video or audio that you want fact-checked,* followed by any context related to that item. Your request will be sent to fact-checkers about 15 seconds after your last message.\n\n*Reply 0 (or 📌)* to cancel and go back to the *Main Menu*"
+		"string": "* Por favor, ingresa la pregunta, el enlace, la imagen, el video o audio que deseas verificar,* seguido de cualquier contexto relacionado con ese ítem. Tu solicitud se enviará a los comprobadores de hechos unos 15 segundos después de tu último mensaje. *Responde 0 (o 📌)* para cancelar y volver al *Menú Principal* "
 	},
 	"smoochBot.placeholderQueryReceived": {
 		"string": "¡Gracias! Tu solicitud ha sido recibida. Las respuestas se están agregando y ordenando, y estamos trabajando para verificar tus preguntas.\n\n✔️*Sigue este enlace para obtener una lista actualizada de preguntas comunes que hemos verificado:* [ Enlace a una página de verificación de hechos en su sitio web ]\n\n👉*Responde con cualquier texto* para volver al *Menú Principal* 📌"
@@ -2638,7 +2666,7 @@
 		"string": "La siguiente palabra clave ha sido relacionada"
 	},
 	"smoochBotMenuOption.errorTos": {
-		"string": "'9' will redirect to the terms of service. It cannot be used as an option in the main menu."
+		"string": "\"9\" redirigirá a los términos de servicio. No se puede utilizar como una opción en el menú principal. "
 	},
 	"smoochBotMenuOption.if": {
 		"string": "Si"
@@ -2665,7 +2693,7 @@
 		"string": "Entonces"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
-		"string": "The option '9' must be included for users to access the Privacy Statement"
+		"string": "Se debe incluir la opción \"9\" para que las(os) usuarias(os) accedan a la Declaración de Privacidad"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "Añadir contenido manualmente"
@@ -3126,7 +3154,7 @@
 		"string": "General"
 	},
 	"teamListsItem.hide": {
-		"string": "Hide"
+		"string": "Ocultar"
 	},
 	"teamListsItem.metadata": {
 		"string": "Metadato"
@@ -3371,51 +3399,48 @@
 		"string": "Filtrar y ordenar carpeta"
 	},
 	"teamTagsActions.couldNotDelete": {
-		"string": "Could not delete tag",
+		"string": "No se pudo eliminar la etiqueta",
 		"developer_comment": "Error message displayed when it's not possible to delete a team tag"
 	},
 	"teamTagsActions.delete": {
-		"string": "Delete"
+		"string": "Eliminar "
 	},
 	"teamTagsActions.deletedSuccessfully": {
-		"string": "Tag deleted successfully",
+		"string": "Etiqueta eliminada exitosamente",
 		"developer_comment": "Message displayed when a team tag is deleted"
 	},
 	"teamTagsActions.edit": {
-		"string": "Edit"
+		"string": "Editar"
 	},
 	"teamTagsActions.remove": {
-		"string": "Delete tag"
+		"string": "Eliminar etiqueta"
 	},
 	"teamTagsActions.removeDialogBody": {
-		"string": "Tag \"{tag}\" will be removed from {count} items."
+		"string": "La etiqueta \"{tag}\" será eliminada de {count} ítems. "
 	},
 	"teamTagsActions.removeDialogTitle": {
-		"string": "Delete tag \"{tag}\""
+		"string": "Eliminar etiqueta \"{tag}\""
 	},
 	"teamTagsActions.tooltip": {
-		"string": "Manage tag"
+		"string": "Administrar etiqueta"
 	},
 	"teamTagsComponent.newTag": {
-		"string": "New tag"
-	},
-	"teamTagsComponent.search": {
-		"string": "Search"
+		"string": "Nueva etiqueta"
 	},
 	"teamTagsComponent.tableHeaderName": {
-		"string": "Name",
+		"string": "Nombre",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderTagsCount": {
-		"string": "Items",
+		"string": "Ítems",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.tableHeaderUpdatedAt": {
-		"string": "Updated",
+		"string": "Actualizado",
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "Tags",
+		"string": "Etiquetas",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
@@ -3425,7 +3450,7 @@
 		"string": "Sí"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
+		"string": "{itemsNumber, plural, one {La tarea {taskLabel} ha sido completada en # ítem.} other {La tarea {taskLabel} ha sido completada en # ítems.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "¿Estás seguro(a) que quieres eliminar este metadato?"
@@ -3517,6 +3542,14 @@
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "Si el mensaje para un estado no está traducido en un idioma, ningún solicitante utilizando ese idioma recibirá el mensaje. "
 	},
+	"translateStatuses.saveStatusMessage": {
+		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
+		"developer_comment": "Confirmation dialog description"
+	},
+	"translateStatuses.saveStatusTitle": {
+		"string": "Save status translation",
+		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
+	},
 	"translateStatuses.status": {
 		"string": "Estado"
 	},
@@ -3574,7 +3607,7 @@
 		"developer_comment": "Message for user who already confirmed before"
 	},
 	"userConfirmed.confrimMessage": {
-		"string": "Thanks for confirming your email address! Now you can sign in.",
+		"string": "¡Gracias por confirmar tu dirección de correo electrónico! Ahora puedes iniciar sesión.",
 		"developer_comment": "Message for confirmed user"
 	},
 	"userConfirmed.unConfrimMessage": {
@@ -3600,7 +3633,7 @@
 		"string": "Añade tu correo electrónico"
 	},
 	"userInfo.dateJoined": {
-		"string": "Joined {date}"
+		"string": "Se unió {date}"
 	},
 	"userInfo.teamsCount": {
 		"string": "{teamsCount, plural, one {# espacio de trabajo} other {# áreas de trabajo}}"
@@ -3786,6 +3819,6 @@
 		"string": "Debe aceptar los Términos del Servicio y la Política de Privacidad"
 	},
 	"webPageMediaCard.Error": {
-		"string": "This item could not be identified. It may have been removed, or may only be visible to users who are logged in. Click the link above to navigate to it."
+		"string": "No se pudo identificar este ítem. Puede que se haya eliminado o que sólo sea visible para las(os) usuarias(os) que hayan iniciado sesión. Haz clic en el enlace de arriba para navegar hasta él. "
 	}
 }
