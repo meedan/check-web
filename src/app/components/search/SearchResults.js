@@ -8,6 +8,8 @@ import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
@@ -109,9 +111,11 @@ class SearchResultsComponent extends React.PureComponent {
     super(props);
 
     this.pusherChannel = null;
-
+    const { query } = this.props;
+    const showSimilar = 'show_similar' in query ? query.show_similar : false;
     this.state = {
       selectedProjectMediaIds: [],
+      showSimilar,
     };
   }
 
@@ -233,6 +237,15 @@ class SearchResultsComponent extends React.PureComponent {
     if (query.sort_type) {
       cleanQuery.sort_type = query.sort_type;
     }
+    this.navigateToQuery(cleanQuery);
+  }
+
+  handleShowSimilarSwitch = () => {
+    const { query, project, projectGroup } = this.props;
+    const { showSimilar } = this.state;
+    const newQuery = { ...query };
+    newQuery.show_similar = !showSimilar;
+    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     this.navigateToQuery(cleanQuery);
   }
 
@@ -427,6 +440,20 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
+            similarAction={
+              <FormControlLabel
+                value="start"
+                control={
+                  <Switch
+                    className="search-show-similar__switch"
+                    checked={this.state.showSimilar}
+                    onClick={this.handleShowSimilarSwitch}
+                  />
+                }
+                label="Show similar"
+                labelPlacement="start"
+              />
+            }
             actions={projectMedias.length && selectedProjectMediaDbids.length ?
               <BulkActions
                 parentComponent={this}
