@@ -451,7 +451,6 @@ class SearchResultsComponent extends React.PureComponent {
             similarAction={
               <FormControlLabel
                 classes={{ labelPlacementStart: classes.similarSwitch }}
-                value="start"
                 control={
                   <Switch
                     className="search-show-similar__switch"
