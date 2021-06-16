@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
@@ -70,6 +71,12 @@ const StyledSearchResultsWrapper = styled.div`
     }
   }
 `;
+
+const Styles = theme => ({
+  similarSwitch: {
+    marginLeft: theme.spacing(0),
+  },
+});
 
 /**
  * Delete `esoffset`, `timestamp`, and maybe `projects` and `project_group_id` -- whenever
@@ -329,6 +336,7 @@ class SearchResultsComponent extends React.PureComponent {
       icon,
       listActions,
       listDescription,
+      classes,
     } = this.props;
 
     const projectMedias = this.props.search.medias
@@ -442,6 +450,7 @@ class SearchResultsComponent extends React.PureComponent {
             team={team}
             similarAction={
               <FormControlLabel
+                classes={{ labelPlacementStart: classes.similarSwitch }}
                 value="start"
                 control={
                   <Switch
@@ -450,7 +459,13 @@ class SearchResultsComponent extends React.PureComponent {
                     onClick={this.handleShowSimilarSwitch}
                   />
                 }
-                label="Show similar"
+                label={
+                  <FormattedMessage
+                    id="search.showSimilar"
+                    defaultMessage="Show similar"
+                    description="Allow user to show/hide secondary items"
+                  />
+                }
                 labelPlacement="start"
               />
             }
@@ -562,7 +577,7 @@ SearchResultsComponent.propTypes = {
   mediaUrlPrefix: PropTypes.string.isRequired,
 };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
+const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
   initialVariables: {
     projectId: 0,
     pageSize,
