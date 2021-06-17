@@ -156,9 +156,6 @@ class MediaTasksComponent extends Component {
     const itemTasks = fieldset === 'tasks' ? media.item_tasks : media.item_metadata;
     const isBrowserExtension = (window.parent !== window);
 
-    // eslint-disable-next-line
-    console.log('MediaTasks: render before return', itemTasks.edges, media, fieldset);
-
     return (
       <StyledAnnotationRow>
         { fieldset === 'metadata' ?

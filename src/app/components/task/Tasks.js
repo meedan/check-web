@@ -51,9 +51,6 @@ const Tasks = ({
     );
   }
 
-  // eslint-disable-next-line
-  console.log('Tasks.js: return render',tasks)
-
   let output = null;
 
   if (!isMetadata) {

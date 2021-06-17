@@ -266,20 +266,6 @@ class Task extends Component {
       .replace(/([a-z])([A-Z])/, '$1_$2')
       .toLowerCase();
 
-    // eslint-disable-next-line
-    console.log('SubmitResponse', response, file, media, task, {
-      operation: 'answer',
-      annotated: media,
-      parent_type: parentType,
-      file,
-      user: this.getCurrentUser(),
-      task: {
-        id: task.id,
-        fields,
-        annotation_type: `task_response_${task.type}`,
-      },
-    });
-
     Relay.Store.commitUpdate(
       new UpdateTaskMutation({
         operation: 'answer',
@@ -299,8 +285,6 @@ class Task extends Component {
 
   handleUpdateResponse = (edited_response, file) => {
     const { media, task } = this.props;
-    // eslint-disable-next-line
-    console.log('updateResponse', edited_response, file, media, task);
     this.setState({ isSaving: true });
 
     const onSuccess = () =>
@@ -441,7 +425,7 @@ class Task extends Component {
     };
 
     let id = null;
-    if (task.type.fieldset === 'metadata') {
+    if (task.fieldset === 'metadata') {
       id = deleteId;
     } else {
       ({ id } = deleteResponse);
@@ -544,9 +528,6 @@ class Task extends Component {
 
   renderTaskResponse(responseObj, response, by, byPictures, showEditIcon) {
     const { task, about } = this.props;
-    // eslint-disable-next-line
-    console.log('Task.js: renderTaskResponse top', task.type, task, response, responseObj, by, byPictures);
-
     const messages = task.fieldset === 'metadata' ? this.generateMessages(about) : {};
 
     const EditButton = () => (
@@ -643,8 +624,6 @@ class Task extends Component {
     ) {
       const editingResponseData = getResponseData(this.state.editingResponse);
       const editingResponseText = editingResponseData.response;
-      // eslint-disable-next-line
-      console.log('HEY we are editing');
       return (
         <div className="task__editing">
           <form name={`edit-response-${this.state.editingResponse.id}`}>
@@ -870,8 +849,6 @@ class Task extends Component {
     ) {
       [fileUploadPath] = responseObj.file_data;
     }
-    // eslint-disable-next-line
-    console.log('HEY we are NOT editing');
     return (
       <StyledWordBreakDiv className="task__resolved">
         {task.type === 'free_text' && task.fieldset === 'tasks' ?
@@ -1103,8 +1080,6 @@ class Task extends Component {
   }
 
   render() {
-    // eslint-disable-next-line
-    console.log('Task.js: render top', this.props);
     const { task: teamTask, media } = this.props;
     const task = { ...teamTask };
     const isTask = task.fieldset === 'tasks';
@@ -1213,12 +1188,16 @@ class Task extends Component {
             <StyledTaskResponses>
               {task.responses.edges.map((singleResponse) => {
                 const singleResponseData = getResponseData(singleResponse.node);
-                return this.renderTaskResponse(
-                  singleResponse.node,
-                  singleResponseData.response,
-                  singleResponseData.by,
-                  singleResponseData.byPictures,
-                  true,
+                return (
+                  <div className="task__response">
+                    {this.renderTaskResponse(
+                      singleResponse.node,
+                      singleResponseData.response,
+                      singleResponseData.by,
+                      singleResponseData.byPictures,
+                      true,
+                    )}
+                  </div>
                 );
               })}
             </StyledTaskResponses>
@@ -1308,12 +1287,16 @@ class Task extends Component {
           </div>
         );
       } else {
-        taskBody = this.renderTaskResponse(
-          task.first_response,
-          response,
-          false,
-          false,
-          false,
+        taskBody = (
+          <div className="task__response">
+            {this.renderTaskResponse(
+              task.first_response,
+              response,
+              false,
+              false,
+              false,
+            )}
+          </div>
         );
       }
     }
