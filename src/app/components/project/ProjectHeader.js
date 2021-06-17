@@ -11,7 +11,12 @@ import { Row, Text, HeaderTitle } from '../../styles/js/shared';
 
 class ProjectHeaderComponent extends React.PureComponent {
   render() {
-    const { params, project, location } = this.props;
+    const {
+      params,
+      project,
+      saved_search,
+      location,
+    } = this.props;
     const { listUrl } = getListUrlQueryAndIndex(params, location.query);
 
     let pageTitle;
@@ -21,6 +26,8 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.unconfirmed" defaultMessage="Unconfirmed" />;
     } else if (project) {
       pageTitle = project.title;
+    } else if (saved_search) {
+      pageTitle = saved_search.title;
     } else {
       pageTitle = <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />;
     }
@@ -60,19 +67,32 @@ const ProjectPlaceholder = { title: '' };
 
 const ProjectHeader = ({ location, params }) => {
   const commonProps = { location, params };
+  let query = null;
 
   if (params.projectId) {
+    query = graphql`
+      query ProjectHeaderProjectQuery($projectId: String!) {
+        project(id: $projectId) {
+          ...ProjectHeaderContainer_project
+        }
+      }
+    `;
+  } else if (params.listId) {
+    query = graphql`
+      query ProjectHeaderListQuery($listId: ID!) {
+        saved_search(id: $listId) {
+          title
+        }
+      }
+    `;
+  }
+
+  if (params.projectId || params.listId) {
     return (
       <QueryRenderer
         environment={Relay.Store}
-        query={graphql`
-          query ProjectHeaderQuery($projectId: String!) {
-            project(id: $projectId) {
-              ...ProjectHeaderContainer_project
-            }
-          }
-        `}
-        variables={{ projectId: params.projectId }}
+        query={query}
+        variables={{ projectId: params.projectId, listId: params.listId }}
         render={({ props }) => (
           props
             ? <ProjectHeaderContainer {...commonProps} {...props} />
