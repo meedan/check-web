@@ -71,7 +71,7 @@ const ProjectHeader = ({ location, params }) => {
 
   if (params.projectId) {
     query = graphql`
-      query ProjectHeaderQuery($projectId: String!) {
+      query ProjectHeaderProjectQuery($projectId: String!) {
         project(id: $projectId) {
           ...ProjectHeaderContainer_project
         }
@@ -79,7 +79,7 @@ const ProjectHeader = ({ location, params }) => {
     `;
   } else if (params.listId) {
     query = graphql`
-      query ProjectHeaderQuery($listId: ID!) {
+      query ProjectHeaderListQuery($listId: ID!) {
         saved_search(id: $listId) {
           title
         }
