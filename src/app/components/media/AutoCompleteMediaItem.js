@@ -107,7 +107,7 @@ const AutoCompleteMediaItem = (props, context) => {
     show: props.typesToShow || ['claims', 'links', 'images', 'videos', 'audios'],
     eslimit: 50,
     archived: CheckArchivedFlags.NONE,
-    include_related_items: Boolean(props.customFilter),
+    show_similar: Boolean(props.customFilter),
   };
   if (keywordFields) {
     query.keyword_fields = keywordFields;

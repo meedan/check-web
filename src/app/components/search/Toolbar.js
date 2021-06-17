@@ -26,6 +26,7 @@ const OffsetButton = styled.div`
 
 const Toolbar = ({
   actions,
+  similarAction,
   title,
   project,
   page,
@@ -43,6 +44,7 @@ const Toolbar = ({
     <StyledToolbar className="toolbar">
       <FlexRow>
         <Row>
+          {similarAction}
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
