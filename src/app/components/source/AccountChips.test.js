@@ -1,4 +1,3 @@
-/* global describe, expect, it */
 import React from 'react';
 import Chip from '@material-ui/core/Chip';
 import FacebookIcon from '@material-ui/icons/Facebook';
