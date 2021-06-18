@@ -28,6 +28,10 @@
     "defaultMessage": "Tags"
   },
   {
+    "id": "teamSettings.similarity",
+    "defaultMessage": "Similarity"
+  },
+  {
     "id": "teamSettings.languages",
     "defaultMessage": "Languages"
   },

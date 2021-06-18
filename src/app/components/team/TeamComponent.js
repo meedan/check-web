@@ -19,6 +19,7 @@ import TeamReport from './TeamReport';
 import TeamMembers from './TeamMembers';
 import TeamLists from './TeamLists';
 import TeamIntegrations from './TeamIntegrations';
+import TeamSimilarity from './Similarity';
 import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
@@ -194,6 +195,18 @@ class TeamComponent extends Component {
               /> : null }
             {isAdmin ?
               <Tab
+                className="team-settings__similarity-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.similarity"
+                    defaultMessage="Similarity"
+                  />
+                }
+                value="similarity"
+              />
+              : null }
+            {isAdmin ?
+              <Tab
                 className="team-settings__languages-tab"
                 label={
                   <FormattedMessage
@@ -317,6 +330,9 @@ class TeamComponent extends Component {
             : null }
           { isSettings && tab === 'languages'
             ? <TeamLanguages teamSlug={team.slug} />
+            : null }
+          { isSettings && tab === 'similarity'
+            ? <TeamSimilarity teamSlug={team.slug} />
             : null }
         </StyledTeamContainer>
       </PageTitle>

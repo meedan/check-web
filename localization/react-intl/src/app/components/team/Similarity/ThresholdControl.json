@@ -1,0 +1,20 @@
+[
+  {
+    "id": "thresholdControl.matching",
+    "description": "Label for similarity matching threshold control",
+    "defaultMessage": "Matching threshold"
+  },
+  {
+    "id": "thresholdControl.suggestion",
+    "description": "Label for similarity suggestion threshold control",
+    "defaultMessage": "Suggestion threshold"
+  },
+  {
+    "id": "thresholdControl.matchingExplainer",
+    "defaultMessage": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+  },
+  {
+    "id": "thresholdControl.suggestionExplainer",
+    "defaultMessage": "If the confidence score is above this ratio, items will be suggested as similar."
+  }
+]

@@ -1,0 +1,26 @@
+[
+  {
+    "id": "similarityComponent.title",
+    "description": "Title to similarity matching settings page",
+    "defaultMessage": "Similarity matching"
+  },
+  {
+    "id": "similarityComponent.blurb",
+    "description": "Subtitle to similarity matching settings page",
+    "defaultMessage": "Automatically group items together if they are similar."
+  },
+  {
+    "id": "similarityComponent.masterSwitchLabel",
+    "defaultMessage": "Automated matching if OFF"
+  },
+  {
+    "id": "similarityComponent.titleInternal",
+    "description": "Title to similarity matching page, Meedan restricted settings",
+    "defaultMessage": "Internal settings"
+  },
+  {
+    "id": "similarityComponent.blurbInternal",
+    "description": "Subtitle to similarity matching page, Meedan restricted settings",
+    "defaultMessage": "Meedan employees see these settings, but users don't."
+  }
+]
