@@ -79,7 +79,6 @@ shared_examples 'task' do
     task = wait_for_selector('.task__label-container > div > span') # first task
     expect(task.text).to eq 'Task 1'
     wait_for_selector('.reorder__button-down').click
-    sleep 2
     task2 = wait_for_selector('.task__label-container > div > span') # the second becomes the first
     expect(task2.text).to eq 'Task 2'
   end

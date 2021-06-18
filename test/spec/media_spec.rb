@@ -39,9 +39,7 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Second item
-    sleep 2
     wait_for_selector('.media-search__next-item').click
-    sleep 2
     wait_for_selector('.media-search__next-item')
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
@@ -53,9 +51,7 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Third item
-    sleep 2
     wait_for_selector('.media-search__next-item').click
-    sleep 2
     wait_for_selector('.media-search__next-item')
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
