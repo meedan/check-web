@@ -194,14 +194,18 @@ shared_examples 'team' do
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
 
     # Navigate to second team
+    sleep 2
     wait_for_selector('.header__user-menu').click
+    sleep 2
     wait_for_selector('a[href="/check/me"]').click
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/\"]")
 
     # Navigate back to first team
+    sleep 2
     wait_for_selector('.header__user-menu').click
+    sleep 2
     wait_for_selector('a[href="/check/me"]').click
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click

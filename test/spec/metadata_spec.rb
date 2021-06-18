@@ -76,7 +76,6 @@ shared_examples 'metadata' do
     # delete response
     wait_for_selector('.metadata-delete').click
     wait_for_selector_none('.metadata-delete')
-    wait_for_selector_none('.task__response')
     expect(@driver.page_source.include?('answer - edited')).to be(false)
   end
 end

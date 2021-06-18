@@ -857,24 +857,26 @@ class Task extends Component {
           </div>
           : null}
         {task.type === 'free_text' && task.fieldset === 'metadata' ? (
-          <MetadataText
-            node={task}
-            classes={{}}
-            DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
-            EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
-            FieldInformation={FieldInformation}
-            hasData={task.first_response_value}
-            isEditing={false}
-            metadataValue={
-              this.state.textValue
-            }
-            setMetadataValue={(textValue) => {
-              this.setState({ textValue });
-            }}
-          />
+          <div className="task__response">
+            <MetadataText
+              node={task}
+              classes={{}}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={false}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={(textValue) => {
+                this.setState({ textValue });
+              }}
+            />
+          </div>
         ) : null}
         {task.type === 'number' && task.fieldset === 'tasks' ? (
           <div className="task__response" style={{ textAlign: 'right' }}>
@@ -882,24 +884,26 @@ class Task extends Component {
           </div>
         ) : null}
         {task.type === 'number' && task.fieldset === 'metadata' ? (
-          <MetadataNumber
-            node={task}
-            classes={{}}
-            DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
-            EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
-            FieldInformation={FieldInformation}
-            hasData={task.first_response_value}
-            isEditing={false}
-            metadataValue={
-              this.state.textValue
-            }
-            setMetadataValue={(textValue) => {
-              this.setState({ textValue });
-            }}
-          />
+          <div className="task__response">
+            <MetadataNumber
+              node={task}
+              classes={{}}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={false}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={(textValue) => {
+                this.setState({ textValue });
+              }}
+            />
+          </div>
         ) : null}
         {task.type === 'geolocation' && task.fieldset === 'tasks' ? (
           <div className="task__response">
@@ -908,15 +912,41 @@ class Task extends Component {
         ) : null}
         {task.type === 'geolocation' && task.fieldset === 'metadata' ? (
           <StyledMapEditor>
-            <MetadataLocation
+            <div className="task__response">
+              <MetadataLocation
+                node={task}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={!!task?.first_response_value}
+                isEditing={false}
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+                mapboxApiKey={config.mapboxApiKey}
+                messages={messages.MetadataLocation}
+              />
+            </div>
+          </StyledMapEditor>
+        ) : null}
+        {task.type === 'datetime' && task.fieldset === 'metadata' ? (
+          <div className="task__response">
+            <MetadataDate
               node={task}
+              classes={{}}
               DeleteButton={DeleteButton}
               CancelButton={CancelButton}
               SaveButton={SaveButton}
               EditButton={EditButton}
               AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
-              hasData={!!task?.first_response_value}
+              hasData={task.first_response_value}
               isEditing={false}
               metadataValue={
                 this.state.textValue
@@ -924,30 +954,8 @@ class Task extends Component {
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
-              mapboxApiKey={config.mapboxApiKey}
-              messages={messages.MetadataLocation}
             />
-          </StyledMapEditor>
-        ) : null}
-        {task.type === 'datetime' && task.fieldset === 'metadata' ? (
-          <MetadataDate
-            node={task}
-            classes={{}}
-            DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
-            EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
-            FieldInformation={FieldInformation}
-            hasData={task.first_response_value}
-            isEditing={false}
-            metadataValue={
-              this.state.textValue
-            }
-            setMetadataValue={(textValue) => {
-              this.setState({ textValue });
-            }}
-          />
+          </div>
         ) : null}
         {task.type === 'datetime' && task.fieldset === 'tasks' ? (
           <div className="task__response">
@@ -962,25 +970,27 @@ class Task extends Component {
           />
         ) : null}
         {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
-          <MetadataMultiselect
-            isSingle
-            node={task}
-            classes={{}}
-            DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
-            EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
-            FieldInformation={FieldInformation}
-            hasData={task.first_response_value}
-            isEditing={false}
-            metadataValue={
-              this.state.textValue
-            }
-            setMetadataValue={(textValue) => {
-              this.setState({ textValue });
-            }}
-          />
+          <div className="task__response">
+            <MetadataMultiselect
+              isSingle
+              node={task}
+              classes={{}}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={false}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={(textValue) => {
+                this.setState({ textValue });
+              }}
+            />
+          </div>
         ) : null}
         {task.type === 'multiple_choice' && task.fieldset === 'tasks' ? (
           <MultiSelectTask
@@ -990,24 +1000,26 @@ class Task extends Component {
           />
         ) : null}
         {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
-          <MetadataMultiselect
-            node={task}
-            classes={{}}
-            DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
-            EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
-            FieldInformation={FieldInformation}
-            hasData={task.first_response_value}
-            isEditing={false}
-            metadataValue={
-              this.state.textValue
-            }
-            setMetadataValue={(textValue) => {
-              this.setState({ textValue });
-            }}
-          />
+          <div className="task__response">
+            <MetadataMultiselect
+              node={task}
+              classes={{}}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={false}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={(textValue) => {
+                this.setState({ textValue });
+              }}
+            />
+          </div>
         ) : null}
         {task.type === 'file_upload' && task.fieldset === 'tasks' ? (
           <div className="task__response">
@@ -1029,25 +1041,27 @@ class Task extends Component {
           </div>
         ) : null}
         {task.type === 'file_upload' && task.fieldset === 'metadata' ? (
-          <MetadataFile
-            node={task}
-            DeleteButton={DeleteButton}
-            CancelButton={CancelButton}
-            SaveButton={SaveButton}
-            EditButton={EditButton}
-            AnnotatorInformation={AnnotatorInformation}
-            FieldInformation={FieldInformation}
-            hasData={task.first_response_value}
-            isEditing={false}
-            metadataValue={
-              this.state.textValue
-            }
-            setMetadataValue={(textValue) => {
-              this.setState({ textValue });
-            }}
-            extensions={about.file_extensions}
-            messages={messages.MetadataFile}
-          />
+          <div className="task__response">
+            <MetadataFile
+              node={task}
+              DeleteButton={DeleteButton}
+              CancelButton={CancelButton}
+              SaveButton={SaveButton}
+              EditButton={EditButton}
+              AnnotatorInformation={AnnotatorInformation}
+              FieldInformation={FieldInformation}
+              hasData={task.first_response_value}
+              isEditing={false}
+              metadataValue={
+                this.state.textValue
+              }
+              setMetadataValue={(textValue) => {
+                this.setState({ textValue });
+              }}
+              extensions={about.file_extensions}
+              messages={messages.MetadataFile}
+            />
+          </div>
         ) : null}
         {by && byPictures ? (
           <Box
@@ -1188,16 +1202,12 @@ class Task extends Component {
             <StyledTaskResponses>
               {task.responses.edges.map((singleResponse) => {
                 const singleResponseData = getResponseData(singleResponse.node);
-                return (
-                  <div className="task__response">
-                    {this.renderTaskResponse(
-                      singleResponse.node,
-                      singleResponseData.response,
-                      singleResponseData.by,
-                      singleResponseData.byPictures,
-                      true,
-                    )}
-                  </div>
+                return this.renderTaskResponse(
+                  singleResponse.node,
+                  singleResponseData.response,
+                  singleResponseData.by,
+                  singleResponseData.byPictures,
+                  true,
                 );
               })}
             </StyledTaskResponses>
@@ -1287,16 +1297,12 @@ class Task extends Component {
           </div>
         );
       } else {
-        taskBody = (
-          <div className="task__response">
-            {this.renderTaskResponse(
-              task.first_response,
-              response,
-              false,
-              false,
-              false,
-            )}
-          </div>
+        taskBody = this.renderTaskResponse(
+          task.first_response,
+          response,
+          false,
+          false,
+          false,
         );
       }
     }
