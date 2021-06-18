@@ -1324,7 +1324,6 @@ class Task extends Component {
       className.push('task__assigned-to-current-user');
     }
 
-    // TODO style overall container for metadata here
     if (task.fieldset === 'metadata') {
       return (
         <div>
