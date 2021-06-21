@@ -1,19 +1,19 @@
 window.config = {
   appName: 'check',
-  selfHost: 'localhost:3333',
-  restBaseUrl: 'http://localhost:3000/api/',
-  relayPath: 'http://localhost:3000/api/graphql',
+  selfHost: 'web:3333',
+  restBaseUrl: 'http://api:3000/api/',
+  relayPath: 'http://api:3000/api/graphql',
   relayHeaders: {
     'X-Check-Token': ''
   },
-  penderUrl: 'http://localhost:3200',
+  penderUrl: 'http://pender:3200',
 
   // Pusher is used for push notifications from backend to frontend https://pusher.com/channels
   //
   // REQUIRED
   //
-  pusherKey: null, // '<PUSHER KEY>',
-  pusherCluster: null, // '<PUSHER CLUSTER>',
+  pusherKey: 'pusherKey', // '<PUSHER KEY>',
+  pusherCluster: 'pusherCluster', // '<PUSHER CLUSTER>',
   pusherDebug: true,
 
   // Mapbox is used to show maps on geolocation tasks https://www.mapbox.com/
@@ -35,18 +35,4 @@ window.config = {
   // OPTIONAL
   //
   intercomAppId: null, // '<INTERCOM APP ID>',
-
-  // Google Maps is used to show maps for the video timeline https://cloud.google.com/maps-platform/
-  //
-  // OPTIONAL
-  // Only needed for video timeline map
-  //
-  googleMapsApiKey: null, // '<GOOGLE MAPS API KEY>',
-
-  // Google Analytics is used to track website activity https://analytics.google.com
-  //
-  // OPTIONAL
-  // Only needed for tracking website
-  //
-  googleAnalyticsCode: null, // '<GOOGLE ANALYTICS CODE>',
 }

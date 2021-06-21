@@ -24,3 +24,5 @@ __generated__/
 dist
 .idea/
 basic-auth.sh
+.yalc/
+yalc.lock

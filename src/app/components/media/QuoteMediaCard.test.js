@@ -1,4 +1,3 @@
-/* global describe, expect, it */
 import React from 'react';
 import { mount } from 'enzyme';
 import QuoteMediaCard from './QuoteMediaCard.js';

@@ -51,7 +51,7 @@ const StyledImage = styled.div`
         height: ${avatarSize};
       `);
   })()}
-  `;
+`;
 
 class SourcePicture extends Component {
   constructor(props) {
@@ -166,7 +166,7 @@ class SourcePicture extends Component {
         alt="avatar"
         size={this.props.size}
         type={this.props.type}
-        className={`${this.props.className}`}
+        className={this.props.className}
         onError={this.handleAvatarError.bind(this)}
         style={this.props.style}
         avatarUrl={this.state.avatarUrl}

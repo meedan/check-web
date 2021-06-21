@@ -1,4 +1,3 @@
-/* globals describe, expect, it */
 import { mergeIntervals, getTimelineData } from './MediaTimelineUtils';
 
 describe('Media Timeline Utils', () => {
