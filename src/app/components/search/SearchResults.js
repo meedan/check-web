@@ -76,6 +76,9 @@ const Styles = theme => ({
   similarSwitch: {
     marginLeft: theme.spacing(0),
   },
+  inactiveColor: {
+    color: 'rgb(238, 238, 238)',
+  },
 });
 
 /**
@@ -450,8 +453,10 @@ class SearchResultsComponent extends React.PureComponent {
                 control={
                   <Switch
                     className="search-show-similar__switch"
+                    classes={{ colorSecondary: classes.inactiveColor }}
                     checked={this.state.showSimilar}
                     onClick={this.handleShowSimilarSwitch}
+                    color="secondary"
                   />
                 }
                 label={
