@@ -17,6 +17,7 @@ import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect } from '@meedan/check-ui';
 import styled from 'styled-components';
+import moment from 'moment';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
 import TaskLog from './TaskLog';
@@ -105,13 +106,9 @@ const StyledTaskResponses = styled.div`
 `;
 
 const StyledAnnotatorInformation = styled.div`
-  img {
-    max-width: 25px;
-    float: left;
-  }
   p {
-    padding-left: ${units(2)};
-    margin: ${units(2)};
+    font-size: 9px;
+    color: #979797;
   }
 `;
 
@@ -124,6 +121,20 @@ const StyledMapEditor = styled.div`
 
 const StyledFieldInformation = styled.div`
   margin-bottom: ${units(2)};
+`;
+
+const StyledMetadataButton = styled.div`
+  button {
+    background-color: #f4f4f4;
+    margin-top: ${units(1)};
+  }
+  button:hover {
+    background-color: #ddd;
+  }
+`;
+
+const StyledDivider = styled.div`
+  margin-top: ${units(1)};
 `;
 
 function getResponseData(response) {
@@ -531,64 +542,72 @@ class Task extends Component {
     const messages = task.fieldset === 'metadata' ? this.generateMessages(about) : {};
 
     const EditButton = () => (
-      <Button onClick={() => this.handleAction('edit_response', responseObj)} className="metadata-edit">
-        <FormattedMessage
-          id="metadata.edit"
-          defaultMessage="Edit"
-          description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
-        />
-      </Button>
+      <StyledMetadataButton>
+        <Button onClick={() => this.handleAction('edit_response', responseObj)} className="metadata-edit">
+          <FormattedMessage
+            id="metadata.edit"
+            defaultMessage="Edit"
+            description="This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+          />
+        </Button>
+      </StyledMetadataButton>
     );
 
     const CancelButton = () => (
-      <Button
-        className="metadata-cancel"
-        onClick={this.handleCancelEditResponse}
-      >
-        <FormattedMessage
-          id="metadata.cancel"
-          defaultMessage="Cancel"
-          description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
-        />
-      </Button>
+      <StyledMetadataButton>
+        <Button
+          className="metadata-cancel"
+          onClick={this.handleCancelEditResponse}
+        >
+          <FormattedMessage
+            id="metadata.cancel"
+            defaultMessage="Cancel"
+            description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+          />
+        </Button>
+      </StyledMetadataButton>
     );
 
     const SaveButton = (props) => {
       const { disabled, uploadables, mutationPayload } = props;
       const payload = mutationPayload?.response_multiple_choice || mutationPayload?.response_single_choice || null;
       return (
-        <Button
-          className="metadata-save"
-          onClick={() => (responseObj ? this.handleUpdateResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null) : this.handleSubmitResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null))}
-          disabled={disabled}
-        >
-          <FormattedMessage
-            id="metadata.save"
-            defaultMessage="Save"
-            description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
-          />
-        </Button>
+        <StyledMetadataButton>
+          <Button
+            className="metadata-save"
+            onClick={() => (responseObj ? this.handleUpdateResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null) : this.handleSubmitResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null))}
+            disabled={disabled}
+          >
+            <FormattedMessage
+              id="metadata.save"
+              defaultMessage="Save"
+              description="This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+            />
+          </Button>
+        </StyledMetadataButton>
       );
     };
 
     const DeleteButton = (props) => {
       const { onClick } = props;
       return (
-        <Button
-          className="metadata-delete"
-          onClick={() => {
-            if (onClick) {
-              onClick();
-            }
-            this.submitDeleteTaskResponse(task.first_response.id);
-          }}
-        >
-          <FormattedMessage
-            id="metadata.delete"
-            defaultMessage="Delete"
-            description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
-          />
-        </Button>
+        <StyledMetadataButton>
+          <Button
+            className="metadata-delete"
+            onClick={() => {
+              if (onClick) {
+                onClick();
+              }
+              this.submitDeleteTaskResponse(task.first_response.id);
+            }}
+          >
+            <FormattedMessage
+              id="metadata.delete"
+              defaultMessage="Delete"
+              description="This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+            />
+          </Button>
+        </StyledMetadataButton>
       );
     };
 
@@ -599,24 +618,29 @@ class Task extends Component {
       </StyledFieldInformation>
     );
 
-    const AnnotatorInformation = () => (
-      responseObj && responseObj.annotator ?
-        <StyledAnnotatorInformation>
-          <img
-            src={responseObj.annotator.user.source.image}
-            alt=""
-          />
-          <Typography variant="body1">
-            Completed by{' '}
-            <a
-              href={`/check/user/${responseObj.annotator.user.dbid}`}
-            >
-              {responseObj.annotator.user.name}
-            </a>
-          </Typography>
-        </StyledAnnotatorInformation>
-        : null
-    );
+    const AnnotatorInformation = () => {
+      let updated_at;
+      try {
+        updated_at = JSON.parse(responseObj.content)[0]?.updated_at;
+      } catch (exception) {
+        updated_at = null;
+      }
+      const timeAgo = moment(updated_at).fromNow();
+      return (
+        responseObj && responseObj.annotator ? (
+          <StyledAnnotatorInformation>
+            <Typography variant="body1">
+              Saved {timeAgo} by{' '}
+              <a
+                href={`/check/user/${responseObj.annotator.user.dbid}`}
+              >
+                {responseObj.annotator.user.name}
+              </a>
+            </Typography>
+          </StyledAnnotatorInformation>)
+          : null
+      );
+    };
 
     if (
       this.state.editingResponse && responseObj &&
@@ -1328,7 +1352,9 @@ class Task extends Component {
       return (
         <div>
           {taskBody}
-          <Divider />
+          <StyledDivider>
+            <Divider />
+          </StyledDivider>
         </div>
       );
     }
