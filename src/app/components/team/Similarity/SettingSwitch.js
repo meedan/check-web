@@ -5,6 +5,7 @@ import Switch from '@material-ui/core/Switch';
 const SettingSwitch = ({
   label,
   checked,
+  disabled,
   explainer,
   onChange,
 }) => (
@@ -12,6 +13,7 @@ const SettingSwitch = ({
     <Box display="flex" alignItems="center">
       <Switch
         checked={checked}
+        disabled={disabled}
         onChange={onChange}
       />
       <strong>{label}</strong>

@@ -1,17 +1,106 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
+import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 import CardContent from '@material-ui/core/CardContent';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SettingSwitch from './SettingSwitch';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
+import Can from '../../Can';
+import { withSetFlashMessage } from '../../FlashMessage';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
+import { safelyParseJSON } from '../../../helpers';
 import { ContentColumn } from '../../../styles/js/shared';
 
-const SimilarityComponent = ({ team }) => {
-  console.log('team', team);
+const SimilarityComponent = ({
+  team,
+  setFlashMessage,
+  user,
+}) => {
+  const isSuperAdmin = user.is_admin;
+  const alegre_settings = safelyParseJSON(team.alegre_bot.alegre_settings); // TODO: Check with Sawy why JsonStringType is not parsed already
+
+  const [settings, setSettings] = React.useState(alegre_settings);
+  const [vectorModelToggle, setVectorModelToggle] = React.useState((
+    alegre_settings.text_similarity_model === 'xlm-r-bert-base-nli-stsb-mean-tokens' ||
+    alegre_settings.text_similarity_model === 'indian-sbert'
+  ));
+
+  const handleSettingsChange = (key, value) => {
+    const newSettings = { ...settings };
+    newSettings[key] = value;
+    setSettings(newSettings);
+  };
+
+  const handleThresholdChange = (key, newValue) => {
+    handleSettingsChange(key, newValue / 100);
+  };
+
+  const handleVectorModelToggle = (useVectorModel) => {
+    if (!useVectorModel) {
+      handleSettingsChange('text_similarity_model', 'elasticsearch');
+    } else {
+      handleSettingsChange('text_similarity_model', 'xlm-r-bert-base-nli-stsb-mean-tokens');
+    }
+    setVectorModelToggle(useVectorModel);
+  };
+
+  const [saving, setSaving] = React.useState(false);
+
+  const handleError = () => {
+    setSaving(false);
+    setFlashMessage((<GenericUnknownErrorMessage />), 'error');
+  };
+
+  const handleSuccess = () => {
+    setSaving(false);
+    setFlashMessage((
+      <FormattedMessage
+        id="similarityComponent.savedSuccessfully"
+        defaultMessage="Similarity settings saved successfully"
+        description="Banner displayed when similarity settings are saved successfully"
+      />
+    ), 'success');
+  };
+
+  const handleSave = () => {
+    setSaving(true);
+
+    const mutation = graphql`
+      mutation SimilarityComponentUpdateTeamBotInstallationMutation($input: UpdateTeamBotInstallationInput!) {
+        updateTeamBotInstallation(input: $input) {
+          team_bot_installation {
+            id
+            json_settings
+          }
+        }
+      }
+    `;
+
+    commitMutation(Store, {
+      mutation,
+      variables: {
+        input: {
+          id: team.alegre_bot.id,
+          json_settings: JSON.stringify(settings),
+        },
+      },
+      onCompleted: handleSuccess,
+      onError: handleError,
+    });
+  };
+
+  const hasError =
+    (settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold) ||
+    (settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold) ||
+    (settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold);
 
   return (
     <React.Fragment>
@@ -32,72 +121,144 @@ const SimilarityComponent = ({ team }) => {
             />
           }
           helpUrl="https://help.checkmedia.org/en/articles/4285291-content-language" // FIXME add correct KB url
+          actionButton={
+            team.alegre_bot ?
+              <Can permissions={team.permissions} permission="update Team">
+                <Button color="primary" variant="contained" id="similarity-component__save" onClick={handleSave} disabled={saving || hasError}>
+                  <FormattedMessage id="similarityComponent.save" defaultMessage="Save" />
+                </Button>
+              </Can> : null
+          }
         />
         <Card>
           <CardContent>
             <SettingSwitch
-              checked
-              onChange={() => {}}
+              checked={settings.master_similarity_enabled}
+              onChange={() => handleSettingsChange('master_similarity_enabled', !settings.master_similarity_enabled)}
               label={
-                <FormattedMessage
-                  id="similarityComponent.masterSwitchLabel"
-                  defaultMessage="Automated matching if OFF" // TODO: This copy looks weird, validate it
-                />
+                settings.master_similarity_enabled ?
+                  <FormattedMessage id="similarityComponent.masterSwitchLabelOn" defaultMessage="Automated matching is ON" /> :
+                  <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
               }
             />
           </CardContent>
         </Card>
-        { /* FIXME: Show card below only for Check superadmins */ }
-        <SettingsHeader
-          title={
-            <FormattedMessage
-              id="similarityComponent.titleInternal"
-              defaultMessage="Internal settings"
-              description="Title to similarity matching page, Meedan restricted settings"
+        { settings.master_similarity_enabled && isSuperAdmin ? (
+          <React.Fragment>
+            <SettingsHeader
+              title={
+                <FormattedMessage
+                  id="similarityComponent.titleInternal"
+                  defaultMessage="Internal settings"
+                  description="Title to similarity matching page, Meedan restricted settings"
+                />
+              }
+              subtitle={
+                <FormattedMessage
+                  id="similarityComponent.blurbInternal"
+                  defaultMessage="Meedan employees see these settings, but users don't."
+                  description="Subtitle to similarity matching page, Meedan restricted settings"
+                />
+              }
             />
-          }
-          subtitle={
-            <FormattedMessage
-              id="similarityComponent.blurbInternal"
-              defaultMessage="Meedan employees see these settings, but users don't."
-              description="Subtitle to similarity matching page, Meedan restricted settings"
-            />
-          }
-        />
-        <Card>
-          { /* TODO: Validate if worthy localizing internal settings */ }
-          <CardContent>
-            <Box mb={4}>
-              <SettingSwitch
-                checked
-                onChange={() => {}}
-                label="Elastic search"
-                explainer="ElasticSearch is meant for sintatic matching. It finds sentences that are written in a similar way, even if their meanings differ."
-              />
-              <ThresholdControl type="matching" />
-              <ThresholdControl type="suggestion" />
-            </Box>
-            <Box mb={4}>
-              <SettingSwitch
-                checked
-                onChange={() => {}}
-                label="Vector model"
-                explainer="Allow for cross lingual matches as well as deeper semantic matches that ElasticSearch may not catch directly."
-              />
-              <ThresholdControl type="matching" />
-              <ThresholdControl type="suggestion" />
-            </Box>
-            <Box mb={4}>
-              <SettingSwitch
-                checked
-                onChange={() => {}}
-                label="Image matching"
-              />
-              <ThresholdControl type="matching" />
-              <ThresholdControl type="suggestion" />
-            </Box>
-          </CardContent>
-        </Card>
+            <Card>
+              { /* TODO: Validate if worthy localizing internal settings */ }
+              <CardContent>
+                <Box mb={4}>
+                  <SettingSwitch
+                    checked={settings.text_similarity_enabled}
+                    onChange={() => handleSettingsChange('text_similarity_enabled', !settings.text_similarity_enabled)}
+                    label="Text matching"
+                    explainer="Uses Elasticsearch for basic syntactic matching. It finds sentences that are written in a similar way, even if their meanings differ."
+                  />
+                  <ThresholdControl
+                    value={settings.text_elasticsearch_matching_threshold * 100}
+                    onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
+                    disabled={!settings.text_similarity_enabled}
+                    type="matching"
+                    label="Elasticsearch matching threshold"
+                  />
+                  <ThresholdControl
+                    value={settings.text_elasticsearch_suggestion_threshold * 100}
+                    onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
+                    disabled={!settings.text_similarity_enabled}
+                    type="suggestion"
+                    label="Elasticsearch suggestion threshold"
+                    error={(settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold)}
+                  />
+                </Box>
+                <Box mb={4}>
+                  <Box ml={6}>
+                    <SettingSwitch
+                      checked={settings.text_similarity_enabled && vectorModelToggle}
+                      disabled={!settings.text_similarity_enabled}
+                      onChange={() => handleVectorModelToggle(!vectorModelToggle)}
+                      label="Vector model"
+                      explainer="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
+                    />
+                    <Box ml={7}>
+                      <RadioGroup
+                        name="vector-model"
+                        value={settings.text_similarity_model}
+                        onChange={e => handleSettingsChange('text_similarity_model', e.target.value)}
+                      >
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value="xlm-r-bert-base-nli-stsb-mean-tokens"
+                          control={<Radio />}
+                          label="Means tokens - Covers all languages"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value="indian-sbert"
+                          control={<Radio />}
+                          label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                        />
+                      </RadioGroup>
+                    </Box>
+                    <ThresholdControl
+                      value={settings.text_vector_matching_threshold * 100}
+                      onChange={(e, newValue) => handleThresholdChange('text_vector_matching_threshold', newValue)}
+                      disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                      type="matching"
+                      label="Vector model matching threshold"
+                    />
+                    <ThresholdControl
+                      value={settings.text_vector_suggestion_threshold * 100}
+                      onChange={(e, newValue) => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
+                      disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                      type="suggestion"
+                      label="Vector model suggestion threshold"
+                      error={(settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold)}
+                    />
+                  </Box>
+                </Box>
+                <Box mb={4}>
+                  <SettingSwitch
+                    checked={settings.image_similarity_enabled}
+                    onChange={() => handleSettingsChange('image_similarity_enabled', !settings.image_similarity_enabled)}
+                    label="Image matching"
+                  />
+                  <ThresholdControl
+                    value={settings.image_hash_matching_threshold * 100}
+                    onChange={(e, newValue) => handleThresholdChange('image_hash_matching_threshold', newValue)}
+                    disabled={!settings.image_similarity_enabled}
+                    type="matching"
+                    label="Image matching threshold"
+                  />
+                  <ThresholdControl
+                    value={settings.image_hash_suggestion_threshold * 100}
+                    onChange={(e, newValue) => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
+                    disabled={!settings.image_similarity_enabled}
+                    type="suggestion"
+                    label="Image suggestion threshold"
+                    error={(settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold)}
+                  />
+                </Box>
+              </CardContent>
+            </Card>
+          </React.Fragment>
+        ) : null }
       </ContentColumn>
     </React.Fragment>
   );
@@ -108,11 +269,20 @@ SimilarityComponent.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
+  setFlashMessage: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    is_admin: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
-export default createFragmentContainer(SimilarityComponent, graphql`
+export default createFragmentContainer(withSetFlashMessage(SimilarityComponent), graphql`
   fragment SimilarityComponent_team on Team {
     id
     name
+    permissions
+    alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+      id
+      alegre_settings
+    }
   }
 `);

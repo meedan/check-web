@@ -1,5 +1,10 @@
 [
   {
+    "id": "similarityComponent.savedSuccessfully",
+    "description": "Banner displayed when similarity settings are saved successfully",
+    "defaultMessage": "Similarity settings saved successfully"
+  },
+  {
     "id": "similarityComponent.title",
     "description": "Title to similarity matching settings page",
     "defaultMessage": "Similarity matching"
@@ -10,8 +15,16 @@
     "defaultMessage": "Automatically group items together if they are similar."
   },
   {
-    "id": "similarityComponent.masterSwitchLabel",
-    "defaultMessage": "Automated matching if OFF"
+    "id": "similarityComponent.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "similarityComponent.masterSwitchLabelOn",
+    "defaultMessage": "Automated matching is ON"
+  },
+  {
+    "id": "similarityComponent.masterSwitchLabelOff",
+    "defaultMessage": "Automated matching is OFF"
   },
   {
     "id": "similarityComponent.titleInternal",
