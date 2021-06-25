@@ -1,4 +1,3 @@
-/* globals describe, expect, it, jest */
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import config from 'config';

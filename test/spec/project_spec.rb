@@ -170,9 +170,9 @@ shared_examples 'project' do
     wait_for_selector('.media__heading').click
     # answer the metadata
     wait_for_selector('.media-tab__metadata').click
-    wait_for_selector('#task__response-input').send_keys('answer')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector_none('#task__response-input')
+    wait_for_selector('#metadata-input').send_keys('answer')
+    wait_for_selector('.metadata-save').click
+    wait_for_selector_none('#metadata-input')
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click

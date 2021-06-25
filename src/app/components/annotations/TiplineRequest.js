@@ -177,18 +177,6 @@ const TiplineRequest = ({
                 <FormattedMessage id="annotation.openInSlack" defaultMessage="Open in Slack" />
               </a>
             </span> : null }
-          { /* We don't support human-to-human conversation on Slack for Telegram, but we can allow a conversation directly in Telegram */ }
-          { messageType === 'telegram' && smoochExternalId ?
-            <span className="separation_dot">
-              <a
-                target="_blank"
-                style={{ margin: `0 ${units(0.5)}`, textDecoration: 'underline' }}
-                rel="noopener noreferrer"
-                href={`https://t.me/${smoochExternalId.replace(/^@/, '')}`}
-              >
-                <FormattedMessage id="annotation.openInTelegram" defaultMessage="Open in Telegram" />
-              </a>
-            </span> : null }
         </span>
       </StyledRequestHeader>
       { smoochReportReceivedAt && !smoochReportUpdateReceivedAt ?

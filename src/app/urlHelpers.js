@@ -32,9 +32,13 @@ const pageSize = 20;
 function getListUrlQueryAndIndex(routeParams, locationQuery) {
   let { listPath } = locationQuery;
   if (!listPath) {
-    listPath = routeParams.projectId
-      ? `/${routeParams.team}/project/${routeParams.projectId}`
-      : `/${routeParams.team}/all-items`;
+    if (routeParams.projectId) {
+      listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
+    } else if (routeParams.listId) {
+      listPath = `/${routeParams.team}/list/${routeParams.listId}`;
+    } else {
+      listPath = `/${routeParams.team}/all-items`;
+    }
   }
 
   const projectId = parseInt(routeParams.projectId, 10) || null;

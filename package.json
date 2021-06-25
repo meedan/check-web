@@ -18,7 +18,8 @@
     "build": "rm -rf build/web && npm run build:gulp",
     "build:gulp": "NODE_ENV=production gulp build:web",
     "build:dev": "NODE_ENV=development gulp build:web:dev",
-    "serve:dev": "NODE_ENV=development gulp serve:dev",
+    "link:ui": "yalc link @meedan/check-ui",
+    "serve:dev": "NODE_ENV=development yalc link @meedan/check-ui && gulp serve:dev",
     "transifex:download": "gulp transifex:download && gulp transifex:translations",
     "transifex:upload": "gulp transifex:prepare && gulp transifex:upload",
     "transifex:prepare": "gulp transifex:prepare",
@@ -56,7 +57,7 @@
       "lcov"
     ],
     "moduleNameMapper": {
-      "\\.(css)$": "<rootDir>/test/unit/__mocks__/fileMock.js",
+      "\\.(css|png)$": "<rootDir>/test/unit/__mocks__/fileMock.js",
       "^config$": "<rootDir>/test/unit/__mocks__/config.json"
     },
     "roots": [
@@ -68,15 +69,17 @@
     ]
   },
   "devDependencies": {
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "jest": "^25.4.0"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
+    "@babel/eslint-parser": "^7.14.5",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-modules-commonjs": "^7.14.0",
     "@babel/plugin-transform-runtime": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
     "@babel/preset-react": "^7.9.4",
@@ -86,10 +89,9 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/pickers": "^3.2.10",
-    "@meedan/check-ui": "0.0.78",
+    "@meedan/check-ui": "0.1.2",
     "@meedan/react-jsonschema-form-material-ui-v1": "^99.0.0",
     "@react-google-maps/api": "1.8.7",
-    "babel-eslint": "^7.1.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-react-intl": "^3.5.1",
     "babel-plugin-relay": "^1.7.0",
@@ -101,14 +103,15 @@
     "deep-equal": "^1.0.1",
     "email-validator": "^2.0.4",
     "escape-html": "^1.0.3",
-    "eslint": "4.13.1",
+    "eslint": "^7.28.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-loader": "^3.0.3",
-    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-require-path-exists": "1.1.7",
     "express": "^4.14.0",
+    "file-loader": "^6.2.0",
     "graphql": "^14.6.0",
     "gulp": "^4.0.2",
     "gulp-json-editor": "^2.2.1",
@@ -142,12 +145,12 @@
     "prop-types": "^15.6.2",
     "raw-loader": "^0.5.1",
     "rc-tooltip": "^3.5.0",
-    "react": "^16.13.1",
+    "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-color": "^2.17.0",
     "react-copy-to-clipboard": "^5.0.0",
     "react-document-title": "^2.0.2",
-    "react-dom": "^16.13.1",
+    "react-dom": "^17.0.2",
     "react-dropzone": "^3.5.3",
     "react-emoji-render": "^0.4.5",
     "react-favicon": "0.0.8",
@@ -180,6 +183,7 @@
     "warnings-to-errors-webpack-plugin": "^2.0.1",
     "webpack": "^4.42.1",
     "whatwg-fetch": "^2.0.1",
-    "xregexp": "^3.1.1"
+    "xregexp": "^3.1.1",
+    "yalc": "^1.0.0-pre.53"
   }
 }
