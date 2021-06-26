@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
+import OcrButton from './OcrButton';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   Row,
@@ -68,6 +69,12 @@ const ExtraMediaActions = ({
             defaultMessage="Google Image Search"
           />
         </Button> : null }
+      <OcrButton
+        projectMediaId={projectMedia.id}
+        projectMediaType={projectMedia.media.type}
+        hasExtractedText={Boolean(projectMedia.extracted_text)}
+        classes={classes}
+      />
     </div>
   );
 };
@@ -161,6 +168,9 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     dbid
     picture
     title
+    extracted_text: annotation(annotation_type: "extracted_text") {
+      data
+    }
     media {
       quote
       type
