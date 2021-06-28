@@ -19,6 +19,10 @@ import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { safelyParseJSON } from '../../../helpers';
 import { ContentColumn } from '../../../styles/js/shared';
 
+const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
+const INDIAN_MODEL = 'indian-sbert';
+const ELASTICSEARCH_MODEL = 'elasticsearch';
+
 const SimilarityComponent = ({
   team,
   setFlashMessage,
@@ -29,8 +33,8 @@ const SimilarityComponent = ({
 
   const [settings, setSettings] = React.useState(alegre_settings);
   const [vectorModelToggle, setVectorModelToggle] = React.useState((
-    alegre_settings.text_similarity_model === 'xlm-r-bert-base-nli-stsb-mean-tokens' ||
-    alegre_settings.text_similarity_model === 'indian-sbert'
+    alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
+    alegre_settings.text_similarity_model === INDIAN_MODEL
   ));
 
   const handleSettingsChange = (key, value) => {
@@ -45,9 +49,9 @@ const SimilarityComponent = ({
 
   const handleVectorModelToggle = (useVectorModel) => {
     if (!useVectorModel) {
-      handleSettingsChange('text_similarity_model', 'elasticsearch');
+      handleSettingsChange('text_similarity_model', ELASTICSEARCH_MODEL);
     } else {
-      handleSettingsChange('text_similarity_model', 'xlm-r-bert-base-nli-stsb-mean-tokens');
+      handleSettingsChange('text_similarity_model', MEAN_TOKENS_MODEL);
     }
     setVectorModelToggle(useVectorModel);
   };
@@ -132,37 +136,26 @@ const SimilarityComponent = ({
         />
         <Card>
           <CardContent>
-            <SettingSwitch
-              checked={settings.master_similarity_enabled}
-              onChange={() => handleSettingsChange('master_similarity_enabled', !settings.master_similarity_enabled)}
-              label={
-                settings.master_similarity_enabled ?
-                  <FormattedMessage id="similarityComponent.masterSwitchLabelOn" defaultMessage="Automated matching is ON" /> :
-                  <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
-              }
-            />
+            <Box mt={2.5}>
+              <SettingSwitch
+                checked={settings.master_similarity_enabled}
+                onChange={() => handleSettingsChange('master_similarity_enabled', !settings.master_similarity_enabled)}
+                label={
+                  settings.master_similarity_enabled ?
+                    <FormattedMessage id="similarityComponent.masterSwitchLabelOn" defaultMessage="Automated matching is ON" /> :
+                    <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
+                }
+              />
+            </Box>
           </CardContent>
         </Card>
         { settings.master_similarity_enabled && isSuperAdmin ? (
           <React.Fragment>
             <SettingsHeader
-              title={
-                <FormattedMessage
-                  id="similarityComponent.titleInternal"
-                  defaultMessage="Internal settings"
-                  description="Title to similarity matching page, Meedan restricted settings"
-                />
-              }
-              subtitle={
-                <FormattedMessage
-                  id="similarityComponent.blurbInternal"
-                  defaultMessage="Meedan employees see these settings, but users don't."
-                  description="Subtitle to similarity matching page, Meedan restricted settings"
-                />
-              }
+              title="Internal settings"
+              subtitle="Meedan employees see these settings, but users don't."
             />
             <Card>
-              { /* TODO: Validate if worthy localizing internal settings */ }
               <CardContent>
                 <Box mb={4}>
                   <SettingSwitch
@@ -172,14 +165,14 @@ const SimilarityComponent = ({
                     explainer="Uses Elasticsearch for basic syntactic matching. It finds sentences that are written in a similar way, even if their meanings differ."
                   />
                   <ThresholdControl
-                    value={settings.text_elasticsearch_matching_threshold * 100}
+                    value={Number(settings.text_elasticsearch_matching_threshold * 100).toFixed()}
                     onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
                     disabled={!settings.text_similarity_enabled}
                     type="matching"
                     label="Elasticsearch matching threshold"
                   />
                   <ThresholdControl
-                    value={settings.text_elasticsearch_suggestion_threshold * 100}
+                    value={Number(settings.text_elasticsearch_suggestion_threshold * 100).toFixed()}
                     onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
                     disabled={!settings.text_similarity_enabled}
                     type="suggestion"
@@ -196,7 +189,7 @@ const SimilarityComponent = ({
                       label="Vector model"
                       explainer="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
                     />
-                    <Box ml={7}>
+                    <Box ml={7} mb={2}>
                       <RadioGroup
                         name="vector-model"
                         value={settings.text_similarity_model}
@@ -217,14 +210,14 @@ const SimilarityComponent = ({
                       </RadioGroup>
                     </Box>
                     <ThresholdControl
-                      value={settings.text_vector_matching_threshold * 100}
+                      value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
                       onChange={(e, newValue) => handleThresholdChange('text_vector_matching_threshold', newValue)}
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       type="matching"
                       label="Vector model matching threshold"
                     />
                     <ThresholdControl
-                      value={settings.text_vector_suggestion_threshold * 100}
+                      value={Number(settings.text_vector_suggestion_threshold * 100).toFixed()}
                       onChange={(e, newValue) => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       type="suggestion"
@@ -240,14 +233,14 @@ const SimilarityComponent = ({
                     label="Image matching"
                   />
                   <ThresholdControl
-                    value={settings.image_hash_matching_threshold * 100}
+                    value={Number(settings.image_hash_matching_threshold * 100).toFixed()}
                     onChange={(e, newValue) => handleThresholdChange('image_hash_matching_threshold', newValue)}
                     disabled={!settings.image_similarity_enabled}
                     type="matching"
                     label="Image matching threshold"
                   />
                   <ThresholdControl
-                    value={settings.image_hash_suggestion_threshold * 100}
+                    value={Number(settings.image_hash_suggestion_threshold * 100).toFixed()}
                     onChange={(e, newValue) => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
                     disabled={!settings.image_similarity_enabled}
                     type="suggestion"

@@ -25,15 +25,5 @@
   {
     "id": "similarityComponent.masterSwitchLabelOff",
     "defaultMessage": "Automated matching is OFF"
-  },
-  {
-    "id": "similarityComponent.titleInternal",
-    "description": "Title to similarity matching page, Meedan restricted settings",
-    "defaultMessage": "Internal settings"
-  },
-  {
-    "id": "similarityComponent.blurbInternal",
-    "description": "Subtitle to similarity matching page, Meedan restricted settings",
-    "defaultMessage": "Meedan employees see these settings, but users don't."
   }
 ]

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Switch from '@material-ui/core/Switch';
 
@@ -24,6 +25,17 @@ const SettingSwitch = ({
   </Box>
 );
 
-// TODO: PropTypes
+SettingSwitch.defaultProps = {
+  disabled: false,
+  explainer: null,
+};
+
+SettingSwitch.propTypes = {
+  label: PropTypes.node.isRequired,
+  checked: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
+  explainer: PropTypes.node,
+  onChange: PropTypes.func.isRequired,
+};
 
 export default SettingSwitch;
