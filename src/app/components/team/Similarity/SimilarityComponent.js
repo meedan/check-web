@@ -16,7 +16,6 @@ import SettingsHeader from '../SettingsHeader';
 import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
-import { safelyParseJSON } from '../../../helpers';
 import { ContentColumn } from '../../../styles/js/shared';
 
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
@@ -29,7 +28,7 @@ const SimilarityComponent = ({
   user,
 }) => {
   const isSuperAdmin = user.is_admin;
-  const alegre_settings = safelyParseJSON(team.alegre_bot.alegre_settings); // TODO: Check with Sawy why JsonStringType is not parsed already
+  const { alegre_settings } = team.alegre_bot;
 
   const [settings, setSettings] = React.useState(alegre_settings);
   const [vectorModelToggle, setVectorModelToggle] = React.useState((
