@@ -88,6 +88,7 @@ class TeamComponent extends Component {
     const userRole = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug);
     const isAdmin = userRole === 'admin';
     const isAdminOrEditor = userRole === 'admin' || userRole === 'editor';
+    const isAlegreBotInstalled = Boolean(team.alegre_bot);
 
     let { tab } = this.props.params;
 
@@ -193,7 +194,7 @@ class TeamComponent extends Component {
                 }
                 value="tags"
               /> : null }
-            {isAdmin ?
+            {isAdmin && isAlegreBotInstalled ?
               <Tab
                 className="team-settings__similarity-tab"
                 label={
@@ -365,6 +366,9 @@ export default createFragmentContainer(TeamComponent, {
       slug
       permissions
       ...TeamDetails_team
+      alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+        id
+      }
     }
   `,
 });

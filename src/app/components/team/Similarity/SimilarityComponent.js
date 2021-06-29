@@ -103,7 +103,8 @@ const SimilarityComponent = ({
   const hasError =
     (settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold) ||
     (settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold) ||
-    (settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold);
+    (settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold) ||
+    (settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold);
 
   return (
     <React.Fragment>
@@ -245,6 +246,28 @@ const SimilarityComponent = ({
                     type="suggestion"
                     label="Image suggestion threshold"
                     error={(settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold)}
+                  />
+                </Box>
+                <Box mb={4}>
+                  <SettingSwitch
+                    checked={settings.video_similarity_enabled}
+                    onChange={() => handleSettingsChange('video_similarity_enabled', !settings.video_similarity_enabled)}
+                    label="Video matching"
+                  />
+                  <ThresholdControl
+                    value={Number(settings.video_hash_matching_threshold * 100).toFixed()}
+                    onChange={(e, newValue) => handleThresholdChange('video_hash_matching_threshold', newValue)}
+                    disabled={!settings.video_similarity_enabled}
+                    type="matching"
+                    label="Video matching threshold"
+                  />
+                  <ThresholdControl
+                    value={Number(settings.video_hash_suggestion_threshold * 100).toFixed()}
+                    onChange={(e, newValue) => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
+                    disabled={!settings.video_similarity_enabled}
+                    type="suggestion"
+                    label="Video suggestion threshold"
+                    error={(settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold)}
                   />
                 </Box>
               </CardContent>
