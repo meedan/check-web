@@ -41,7 +41,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadata value",
+		"string": "مضمون البيانات الوصفية",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
@@ -53,7 +53,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Task answer",
+		"string": "إجابة المهمة",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
@@ -205,7 +205,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.source": {
-		"string": "Source",
+		"string": "المصدر",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
@@ -351,9 +351,6 @@
 	"annotation.openInSlack": {
 		"string": "فتح في Slack"
 	},
-	"annotation.openInTelegram": {
-		"string": "فتح في تليجرام"
-	},
 	"annotation.penderArchiveResponse": {
 		"string": "أتخذ Keep  لقطة شاشة للرّابط."
 	},
@@ -470,7 +467,7 @@
 		"string": "‏‏لم يتم العثور على عناصر مطابقة"
 	},
 	"autoCompleteMediaItem.results": {
-		"string": "{count, plural, zero {لا توجد نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجةً} other {# نتيجةٍ}}"
+		"string": "{count, plural, one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجةً} other {# نتيجةٍ}}"
 	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "بحث"
@@ -503,7 +500,7 @@
 		"string": "النقل من غير المؤكد"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, zero {لن يُنقَل أي عنصر} one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصرا إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
+		"string": "{selectedCount, plural, one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصرا إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
 	},
 	"bulkActions.move": {
 		"string": "نقل ‏‏العناصر المحددة إلى مجلد آخر"
@@ -713,16 +710,16 @@
 		"string": "عرض هذا النطاق الزمني على time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, zero {لا يوجد عنصر منشور حاليا في حالة {statusLabel}.} one {هناك عنصر واحد منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصر المنشور بهذه الحالة. يجب عليك مراجعة هذه العنصر إذا أردت إعادة نشره مرة أخرى.} two {هناك عنصران منشوران حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصرين المنشورين بهذه الحالة. يجب عليك مراجعة هذين العنصرين إذا أردت إعادة نشرهما مرة أخرى.} few {هناك # عناصر منشورة حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} many {هناك # عنصرا منشورا حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} other {هناك # عنصر منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.}}"
+		"string": "{publishedCount, plural, one {هناك عنصر واحد منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصر المنشور بهذه الحالة. يجب عليك مراجعة هذه العنصر إذا أردت إعادة نشره مرة أخرى.} two {هناك عنصران منشوران حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف العنصرين المنشورين بهذه الحالة. يجب عليك مراجعة هذين العنصرين إذا أردت إعادة نشرهما مرة أخرى.} few {هناك # عناصر منشورة حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} many {هناك # عنصرا منشورا حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.} other {هناك # عنصر منشور حاليا في حالة {statusLabel}. إذا تابعت، سيتم إيقاف جميع العناصر المنشورة بهذه الحالة. يجب عليك مراجعة هذه العناصر إذا أردت إعادة نشرها مرة أخرى.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "نقل العناصر إلى"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, zero {لا يوجد أي عنصر في حالة {statusLabel}.} one {هناك عنصر واحد في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} two {هناك عنصران في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} few {هناك # عناصر في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} many {هناك # عنصرا في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} other {هناك # عنصر في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.}}"
+		"string": "{itemsCount, plural, one {هناك عنصر واحد في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} two {هناك عنصران في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} few {هناك # عناصر في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} many {هناك # عنصرا في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.} other {هناك # عنصر في حالة {statusLabel} بحاجة إلى تغيير إلى حالة أخرى قبل التمكن من حذف هذه الحالة.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, zero {لست بحاجة إلى تغيير حالة أي عنصر لحذف هذه الحالة} one {أنت بحاجة إلى تغيير حالة عنصر واحد لحذف هذه الحالة} two {أنت بحاجة إلى تغيير حالة عنصرين لحذف هذه الحالة} few {أنت بحاجة إلى تغيير حالة # عناصر لحذف هذه الحالة} many {أنت بحاجة إلى تغيير حالة # عنصرا لحذف هذه الحالة} other {أنت بحاجة إلى تغيير حالة # عنصر لحذف هذه الحالة}}"
+		"string": "{itemsCount, plural, one {أنت بحاجة إلى تغيير حالة عنصر واحد لحذف هذه الحالة} two {أنت بحاجة إلى تغيير حالة عنصرين لحذف هذه الحالة} few {أنت بحاجة إلى تغيير حالة # عناصر لحذف هذه الحالة} many {أنت بحاجة إلى تغيير حالة # عنصرا لحذف هذه الحالة} other {أنت بحاجة إلى تغيير حالة # عنصر لحذف هذه الحالة}}"
 	},
 	"destinationProjects.choose": {
 		"string": "اختيار مجلد"
@@ -754,11 +751,11 @@
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.saveStatusMessage": {
-		"string": "Any published report with this status will be updated with the new label and paused.",
+		"string": "سيتم تحديث أي تقرير منشور بهذه الحالة بالعنوان الجديد ثم إيقافه.",
 		"developer_comment": "Confirmation dialog description"
 	},
 	"editStatusDialog.saveStatusTitle": {
-		"string": "Save status",
+		"string": "حفظ الحالة",
 		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"editStatusDialog.statusDescription": {
@@ -1263,7 +1260,7 @@
 		"string": "سلة المهملات"
 	},
 	"mediaExpanded.extractedText": {
-		"string": "Text extracted from image:",
+		"string": "النص المستخلص من الصورة:",
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
@@ -1273,11 +1270,11 @@
 		"string": "آخر مطالعة:"
 	},
 	"mediaExpanded.noExtractedText": {
-		"string": "No text extracted from this image",
+		"string": "لا يوجد نص مستخلص من هذه الصورة",
 		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
+		"string": "{count, plural, one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "الأرشيفات:"
@@ -1333,10 +1330,10 @@
 		"string": "غير منشور"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
+		"string": "{count, plural, one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, zero {لا توجد أي مادة إعلامية متشابهة} one {مادة إعلامية واحدة متشابهة} two {مادتان إعلاميتان متشابهتان} few {# مواد إعلامية متشابهة} many {# مادة إعلامية متشابهة} other {# مادة إعلامية متشابهة}}"
+		"string": "{count, plural, one {مادة إعلامية واحدة متشابهة} two {مادتان إعلاميتان متشابهتان} few {# مواد إعلامية متشابهة} many {# مادة إعلامية متشابهة} other {# مادة إعلامية متشابهة}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث اللغة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1354,7 +1351,7 @@
 		"string": "إضافة عنصر ذي صلة"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, zero {لا توجد عناصر ذات صلة} one {عنصر واحد ذو صلة} two {عنصران ذوَا صلة} few {# عناصر ذات صلة} many {# عنصرا ذو صلة} other {# عنصرٍ ذي صلة}}"
+		"string": "{count, plural, one {عنصر واحد ذو صلة} two {عنصران ذوَا صلة} few {# عناصر ذات صلة} many {# عنصرا ذو صلة} other {# عنصرٍ ذي صلة}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "لم يمكن إضافة العنصر ذي الصلة"
@@ -1366,16 +1363,16 @@
 		"string": "تمت إضافة العنصر ذي الصلة بنجاح"
 	},
 	"mediaRelatedComponent.submitButton": {
-		"string": "{count, plural, zero {عدم إضافة أي صلة} one {إضافة صلة مع عنصر واحد} two {إضافة صلة مع عنصرين} few {إضافة صلة مع # عناصر} many {إضافة صلة مع # عنصرا} other {إضافة صلة مع # عنصر}}"
+		"string": "{count, plural, one {إضافة صلة مع عنصر واحد} two {إضافة صلة مع عنصرين} few {إضافة صلة مع # عناصر} many {إضافة صلة مع # عنصرا} other {إضافة صلة مع # عنصر}}"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, zero {لا يوجد أي طلب عبر جميع المواد الإعلامية} one {طلب واحد عبر جميع المواد الإعلامية} two {طلبان عبر جميع المواد الإعلامية} few {# طلبات عبر جميع المواد الإعلامية} many {# طلبا عبر جميع المواد الإعلامية } other {# طلب عبر جميع المواد الإعلامية }}"
+		"string": "{count, plural, one {طلب واحد عبر جميع المواد الإعلامية} two {طلبان عبر جميع المواد الإعلامية} few {# طلبات عبر جميع المواد الإعلامية} many {# طلبا عبر جميع المواد الإعلامية } other {# طلب عبر جميع المواد الإعلامية }}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "لا توجد طلبات"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
+		"string": "{count, plural, one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
 	},
 	"mediaSearch.error": {
 		"string": "عذراً ، لقد واجهنا الخطأ التالي: {message}. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -1416,7 +1413,7 @@
 		"string": "إضافة مشابه"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, zero {عدم استيراد المواد الإعلامية من أي عنصر} one {استيراد كل المواد الإعلامية من عنصر واحد} two {استيراد كل المواد الإعلامية من عنصرين} few {استيراد كل المواد الإعلامية من # عناصر} many {استيراد كل المواد الإعلامية من # عنصرا} other {استيراد كل المواد الإعلامية من # عنصر}}"
+		"string": "{count, plural, one {استيراد كل المواد الإعلامية من عنصر واحد} two {استيراد كل المواد الإعلامية من عنصرين} few {استيراد كل المواد الإعلامية من # عناصر} many {استيراد كل المواد الإعلامية من # عنصرا} other {استيراد كل المواد الإعلامية من # عنصر}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "استيراد مواد إعلامية مشابهة لهذا العنصر"
@@ -1458,7 +1455,7 @@
 		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, zero {لا توجد مادة إعلامية متشابهة} one {مادة إعلامية واحدة متشابهة} two {مادتان إعلاميتان متشابهتان} few {# مواد إعلامية متشابهة} many {# مادة إعلامية متشابهة} other {# مادة إعلامية متشابهة}}"
+		"string": "{count, plural, one {مادة إعلامية واحدة متشابهة} two {مادتان إعلاميتان متشابهتان} few {# مواد إعلامية متشابهة} many {# مادة إعلامية متشابهة} other {# مادة إعلامية متشابهة}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "المواد الإعلامية المقترحة",
@@ -1496,7 +1493,59 @@
 		"string": "الطلبات"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, zero {لا شيء (« {current} ») من مجموع # مادة إعلامية المقترحة} one {{current} من مادة إعلامية واحدة مقترحة} two {{current} من مجموع مادتين إعلاميتين مقترحتين} few {{current} من مجموع # مواد إعلامية مقترحة} many {{current} من مجموع # مادة إعلامية مقترحة} other {{current} من مجموع # مادة إعلامية مقترحة}}"
+		"string": "{total, plural, one {{current} من مادة إعلامية واحدة مقترحة} two {{current} من مجموع مادتين إعلاميتين مقترحتين} few {{current} من مجموع # مواد إعلامية مقترحة} many {{current} من مجموع # مادة إعلامية مقترحة} other {{current} من مجموع # مادة إعلامية مقترحة}}"
+	},
+	"metadata.cancel": {
+		"string": "إلغاء",
+		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+	},
+	"metadata.delete": {
+		"string": "حذف",
+		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+	},
+	"metadata.edit": {
+		"string": "تحرير",
+		"developer_comment": "This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+	},
+	"metadata.file.dropFile": {
+		"string": "يُرجى سحب ثم إسقاط ملف هنا، أو بالضغط على زر الفأرة لرفع ملف (الحجم الأقصى: {fileSizeLabel}، الأنواع المسموحة: {extensions})",
+		"developer_comment": "This message appears in a rectangle, instructing the user that they can use their mouse to drag and drop a file, or click to pull up a file selector menu. This also tells them the maximum allowed file size, and the valid types of files that the user can upload. The `fileSizeLabel` variable will read something like '1.0 MB', and the 'extensions' variable is a list of valid file extensions. Neither will be localized."
+	},
+	"metadata.file.invalidFile": {
+		"string": "هذا الملف غير صالح. يرجى إعادة المحاولة باستخدام ملف آخر.",
+		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+	},
+	"metadata.file.tooBig": {
+		"string": "الملف كبير جدا. الحجم الأقصي للملف هو {fileSizeLabel}. يرجى إعادة المحاولة باستخدام ملف آخر.",
+		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
+	},
+	"metadata.file.tooManyFiles": {
+		"string": "لا يمكن رفع أكثر من ملف هنا. يرجى محاولة رفع ملف واحد.",
+		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+	},
+	"metadata.file.wrongType": {
+		"string": "نوع هذا الملف غير مقبول. أنواع الملفات المقبولة تشمل: {extensions}. يرجى المحاولة مرة أخرى باستخدام ملف آخر.",
+		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+	},
+	"metadata.location.coordinates": {
+		"string": "خط العرض، خط الطول",
+		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
+	},
+	"metadata.location.coordinates.helper": {
+		"string": "Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty.",
+		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
+	},
+	"metadata.location.customize": {
+		"string": "تصحيح اسم المكان",
+		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. The user may type any text of their choice here and name the place they are pinning. They can also modify suggested place names here."
+	},
+	"metadata.location.search": {
+		"string": "البحث في الخريطة",
+		"developer_comment": "This is a label that appears on a text field. If the user begins to type a location they will receive a list of suggested place names."
+	},
+	"metadata.save": {
+		"string": "حفظ",
+		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
 	},
 	"moreLess.less": {
 		"string": "الأقل"
@@ -1532,6 +1581,22 @@
 	"notFound.title": {
 		"string": "للأسف! هذه الصفحة غير موجودة أو غير مصرح لك بالوصول إليها.",
 		"developer_comment": "Not found page title"
+	},
+	"ocrButton.defaultErrorMessage": {
+		"string": "Could not extract text from image",
+		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
+	},
+	"ocrButton.inProgress": {
+		"string": "Text extraction in progress...",
+		"developer_comment": "Message displayed while text is being extracted from an image"
+	},
+	"ocrButton.label": {
+		"string": "Extract text from image",
+		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
+	},
+	"ocrButton.textExtractedSuccessfully": {
+		"string": "Text extraction completed",
+		"developer_comment": "Banner displayed when text extraction operation for an image is done"
 	},
 	"passwordChange.changePassword": {
 		"string": "تغيير كلمة السر"
@@ -1676,7 +1741,7 @@
 		"string": "كل المجلدات"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, plural, zero {لا قوائم محددة} one {واحدة محدد} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
+		"string": "{length, plural, one {واحدة محدد} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
 		"developer_comment": "Label for number of selected folders"
 	},
 	"projects.trash": {
@@ -1831,7 +1896,7 @@
 		"string": "نشر التعديلات وإرسال تصحيح"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, zero {لا يوجد مستخدم طلب هذا العنصر.} one {إنك على وشك إرسال هذا التقرير إلى مستخدم واحد طلب هذا العنصر.} two {إنك على وشك إرسال هذا التقرير إلى مستخدمَيْن طلبَا هذا العنصر.} few {إنك على وشك إرسال هذا التقرير إلى # مستخدمين طلبوا هذا العنصر.} many {إنك على وشك إرسال هذا التقرير إلى # مستخدما طلبوا هذا العنصر.} other {إنك على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.}}"
+		"string": "{demand, plural, one {إنك على وشك إرسال هذا التقرير إلى مستخدم واحد طلب هذا العنصر.} two {إنك على وشك إرسال هذا التقرير إلى مستخدمَيْن طلبَا هذا العنصر.} few {إنك على وشك إرسال هذا التقرير إلى # مستخدمين طلبوا هذا العنصر.} many {إنك على وشك إرسال هذا التقرير إلى # مستخدما طلبوا هذا العنصر.} other {إنك على وشك إرسال هذا التقرير إلى # مستخدم طلبوا هذا العنصر.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "سوف يستلم هذا الإصدار من التقرير كل المستخدمين الذين يطلبون هذا العنصر في المستقبل طالما ظل منشورا."
@@ -1840,7 +1905,7 @@
 		"string": "هل التقرير جاهز للنّشر؟ "
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, zero {لن يتم إرسال التقرير المحدث على هيئة {correctionLink} إلى أي مستخدم.} one {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى مستخدم واحد استلم الإصدار السابق من التقرير.} two {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى مستخدمَيْن اثنين استلما الإصدار السابق من التقرير.} few {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى # مستخدمين استلموا الإصدار السابق من التقرير.} many {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى # مستخدما استلموا الإصدار السابق من التقرير.} other {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى # مستخدم استلموا الإصدار السابق من التقرير.}}"
+		"string": "{demand, plural, one {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى مستخدم واحد استلم الإصدار السابق من التقرير.} two {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى مستخدمَيْن اثنين استلما الإصدار السابق من التقرير.} few {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى # مستخدمين استلموا الإصدار السابق من التقرير.} many {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى # مستخدما استلموا الإصدار السابق من التقرير.} other {بسبب تغير الحالة، سيتم إرسال التقرير المحدث على هيئة {correctionLink} إلى # مستخدم استلموا الإصدار السابق من التقرير.}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "هل هذه التغييرات جاهزة للنّشر؟ "
@@ -1907,7 +1972,7 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, zero {لن يتم إرسال التصحيحات على هيئة {correctionLink} إلى أي مستخدم.} one {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى مستخدم واحد استلم الإصدار السابق من هذا التقرير.} two {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى مستخدمَيْن اثنين استلما الإصدار السابق من هذا التقرير.} few {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدمين استلموا الإصدار السابق من هذا التقرير.} many {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدما استلموا الإصدار السابق من هذا التقرير.} other {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدم استلموا الإصدار السابق من هذا التقرير.}}"
+		"string": "{demand, plural, one {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى مستخدم واحد استلم الإصدار السابق من هذا التقرير.} two {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى مستخدمَيْن اثنين استلما الإصدار السابق من هذا التقرير.} few {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدمين استلموا الإصدار السابق من هذا التقرير.} many {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدما استلموا الإصدار السابق من هذا التقرير.} other {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدم استلموا الإصدار السابق من هذا التقرير.}}"
 	},
 	"reportDesigner.save": {
 		"string": "حفظ"
@@ -2044,10 +2109,10 @@
 		"string": "حذف"
 	},
 	"rulesTableToolbar.deleteConfirmationLabel": {
-		"string": "{numSelected, plural, zero {عدم حذف أي قاعدة} one {حذف قاعدة واحدة} two {حذف قاعدتان} few {حذف # قواعد} many {حذف # قاعدة} other {حذف # قاعدة}}"
+		"string": "{numSelected, plural, one {حذف قاعدة واحدة} two {حذف قاعدتان} few {حذف # قواعد} many {حذف # قاعدة} other {حذف # قاعدة}}"
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "{numSelected, plural, zero {لم تحدد أي قاعدة للحذف} one {لقد حددت قاعدة واحدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} two {لقد حددت قاعدتان للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} few {لقد حددت # قواعد للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} many {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} other {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.}}"
+		"string": "{numSelected, plural, one {لقد حددت قاعدة واحدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} two {لقد حددت قاعدتان للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} few {لقد حددت # قواعد للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} many {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.} other {لقد حددت # قاعدة للحذف. هل تريد حذفها كلها؟ لا يمكنك التراجع عن هذا الإجراء.}}"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
 		"string": "هل تريد حذف القواعد المحددة؟"
@@ -2056,7 +2121,7 @@
 		"string": "حفظ"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, zero {لا قاعدة محددة} one {# محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}"
+		"string": "{numSelected, plural, one {# محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "إنشاء آليات لتنظيم المجلدات وتخصيص سير العمل."
@@ -2174,7 +2239,7 @@
 		"developer_comment": "Logical operator 'AND' to be applied when filtering by multiple fields"
 	},
 	"search.fieldOr": {
-		"string": "or",
+		"string": "أو",
 		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.folderHeading": {
@@ -2247,6 +2312,10 @@
 		"string": "الرابط",
 		"developer_comment": "Describes media type Link"
 	},
+	"search.showSimilar": {
+		"string": "Show similar",
+		"developer_comment": "Allow user to show/hide secondary items"
+	},
 	"search.showVideos": {
 		"string": "فيديو",
 		"developer_comment": "Describes media type Video"
@@ -2260,7 +2329,7 @@
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
 	"searchFieldSource.label": {
-		"string": "Source is",
+		"string": "المصدر هو",
 		"developer_comment": "Prefix label for field to filter by source"
 	},
 	"searchFields.clear": {
@@ -2312,10 +2381,10 @@
 		"string": "المهام"
 	},
 	"searchResults.itemsCount": {
-		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
+		"string": "{count, plural, one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, zero {(لا عنصر محدد)} one {(واحد محدد)} two {(إثنان محددان)} few {(# محددة)} many {(# محددة)} other {(# محددة)}}",
+		"string": "{selectedCount, plural, one {(واحد محدد)} two {(إثنان محددان)} few {(# محددة)} many {(# محددة)} other {(# محددة)}}",
 		"developer_comment": "Label for number of selected items"
 	},
 	"sentence.lastSeparator": {
@@ -2359,6 +2428,27 @@
 	},
 	"shortTextRespondTask.responseHint": {
 		"string": "يرجى كتابة اﻹجابة هنا."
+	},
+	"similarityComponent.blurb": {
+		"string": "Automatically group items together if they are similar.",
+		"developer_comment": "Subtitle to similarity matching settings page"
+	},
+	"similarityComponent.masterSwitchLabelOff": {
+		"string": "Automated matching is OFF"
+	},
+	"similarityComponent.masterSwitchLabelOn": {
+		"string": "Automated matching is ON"
+	},
+	"similarityComponent.save": {
+		"string": "حفظ"
+	},
+	"similarityComponent.savedSuccessfully": {
+		"string": "Similarity settings saved successfully",
+		"developer_comment": "Banner displayed when similarity settings are saved successfully"
+	},
+	"similarityComponent.title": {
+		"string": "Similarity matching",
+		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
 		"string": "إضافة \"غير ذلك\""
@@ -2765,7 +2855,7 @@
 		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
-		"string": "{mediasCount, plural, zero {لا وجود لأي عنصر} one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}}",
+		"string": "{mediasCount, plural, one {عنصر واحد} two {عنصران} few {# عناصر} many {# عنصرا} other {# عنصر}}",
 		"developer_comment": "show source media counts"
 	},
 	"sourceInfo.primaryLink": {
@@ -2790,7 +2880,7 @@
 		"string": "هذا سيغير اللغة الإفتراضية من {currentDefaultLanguage} إلى {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "إذا تفاعل المستخدمون مع البوت باستخدام لغة ليست في هذا المجلد، أو أن الترجمة إلى تلك اللغة لم تكن متاحة، فستصبح {language} اللغة الافتراضية للرد على المستخدمين في كل من بوت الخط الساخن، والحالة والتقرير."
+		"string": "إذا قام المستخدمون بالتفاعل مع البوت باستخدام لغة ليست في هذه القائمة أو لم تكن هناك ترجمة متاحة لهذه اللغة فستصبح اللغة الافتراضية هي اللغة {language} للرد على المستخدمين في بوت الخط الساخن أو الحالة أو التقرير."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "ضبط {language} كلغة افتراضية"
@@ -2880,7 +2970,7 @@
 		"string": "لقد أرسلت طلب انضمام للفريق"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, zero {لا يوجد أي عضو} one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوا} other {# عضو}}"
+		"string": "{membersCount, plural, one {عضو واحد} two {عضوان} few {# أعضاء} many {# عضوا} other {# عضو}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "إنشاء"
@@ -2958,7 +3048,7 @@
 		"string": "جميع المهام"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "{length, plural, zero {لا شيء محدد} one {واحدة محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
+		"string": "{length, plural, one {واحدة محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
 		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.add": {
@@ -3329,6 +3419,9 @@
 	"teamSettings.rules": {
 		"string": "القواعد"
 	},
+	"teamSettings.similarity": {
+		"string": "التشابهات"
+	},
 	"teamSettings.statuses": {
 		"string": "الحالات"
 	},
@@ -3342,7 +3435,7 @@
 		"string": "إضافة الوسم"
 	},
 	"teamTags.confirmDeleteBody": {
-		"string": "{numTags, plural, zero {لن يُحذَف الوسم « {tag} » من أي عنصر.} one {سوف يُحذَف الوسم « {tag} » من عنصر واحد.} two {سوف يُحذَف الوسم « {tag} » من عنصرين.} few {سوف يُحذَف الوسم « {tag} » من # عناصر.} many {سوف يُحذَف الوسم « {tag} » من # عنصرا.} other {سوف يُحذَف الوسم « {tag} » من # عنصر.}}"
+		"string": "{numTags, plural, one {سوف يُحذَف الوسم « {tag} » من عنصر واحد.} two {سوف يُحذَف الوسم « {tag} » من عنصرين.} few {سوف يُحذَف الوسم « {tag} » من # عناصر.} many {سوف يُحذَف الوسم « {tag} » من # عنصرا.} other {سوف يُحذَف الوسم « {tag} » من # عنصر.}}"
 	},
 	"teamTags.confirmDeleteLabel": {
 		"string": "حذف الوسم"
@@ -3450,7 +3543,7 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, zero {لقد تمت المهمة {taskLabel} بدون تغيير في أي عنصر. } one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصرا.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}"
+		"string": "{itemsNumber, plural, one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصرا.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"
@@ -3524,6 +3617,16 @@
 	"teams.yourTeams": {
 		"string": "مساحات العمل"
 	},
+	"thresholdControl.matchingExplainer": {
+		"string": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+	},
+	"thresholdControl.suggestionExplainer": {
+		"string": "If the confidence score is above this ratio, items will be suggested as similar."
+	},
+	"thresholdControl.suggestionGreaterThanMatchingError": {
+		"string": "The suggestion threshold cannot be higher than the matching one.",
+		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
+	},
 	"tos.title": {
 		"string": "شروط الاستخدام"
 	},
@@ -3541,14 +3644,6 @@
 	},
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "إذا كانت رسالة لحالة معينة غير مترجمة، فلن يستلم الرسالة أي شخص يتقدم بطلب باللغة غير المترجمة."
-	},
-	"translateStatuses.saveStatusMessage": {
-		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
-		"developer_comment": "Confirmation dialog description"
-	},
-	"translateStatuses.saveStatusTitle": {
-		"string": "Save status translation",
-		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"translateStatuses.status": {
 		"string": "الحالة"
@@ -3636,7 +3731,7 @@
 		"string": "تاريخ الانضمام {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, zero {لا وجود لأي مساحة للعمل} one {مساحة واحدة للعمل} two {مساحتان للعمل} few {# مساحات للعمل} many {# مساحة للعمل} other {# مساحة للعمل}}"
+		"string": "{teamsCount, plural, one {مساحة واحدة للعمل} two {مساحتان للعمل} few {# مساحات للعمل} many {# مساحة للعمل} other {# مساحة للعمل}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "إضافة رابط"

@@ -205,7 +205,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.source": {
-		"string": "Source",
+		"string": "ഉറവിടം",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
@@ -350,9 +350,6 @@
 	},
 	"annotation.openInSlack": {
 		"string": "Open in Slack"
-	},
-	"annotation.openInTelegram": {
-		"string": "Open in Telegram"
 	},
 	"annotation.penderArchiveResponse": {
 		"string": "Keep has taken a screenshot of this URL."
@@ -1498,6 +1495,58 @@
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
 	},
+	"metadata.cancel": {
+		"string": "Cancel",
+		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+	},
+	"metadata.delete": {
+		"string": "Delete",
+		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+	},
+	"metadata.edit": {
+		"string": "Edit",
+		"developer_comment": "This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+	},
+	"metadata.file.dropFile": {
+		"string": "Drag and drop a file here, or click to upload a file (max size: {fileSizeLabel}, allowed extensions: {extensions})",
+		"developer_comment": "This message appears in a rectangle, instructing the user that they can use their mouse to drag and drop a file, or click to pull up a file selector menu. This also tells them the maximum allowed file size, and the valid types of files that the user can upload. The `fileSizeLabel` variable will read something like '1.0 MB', and the 'extensions' variable is a list of valid file extensions. Neither will be localized."
+	},
+	"metadata.file.invalidFile": {
+		"string": "This is not a valid file. Please try again with a different file.",
+		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+	},
+	"metadata.file.tooBig": {
+		"string": "This file is too big. The maximum allowed file size is {fileSizeLabel}. Please try again with a different file.",
+		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
+	},
+	"metadata.file.tooManyFiles": {
+		"string": "You can only upload one file here. Please try uploading one file.",
+		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+	},
+	"metadata.file.wrongType": {
+		"string": "This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file.",
+		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+	},
+	"metadata.location.coordinates": {
+		"string": "Latitude, longitude",
+		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
+	},
+	"metadata.location.coordinates.helper": {
+		"string": "Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty.",
+		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
+	},
+	"metadata.location.customize": {
+		"string": "Customize place name",
+		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. The user may type any text of their choice here and name the place they are pinning. They can also modify suggested place names here."
+	},
+	"metadata.location.search": {
+		"string": "Search the map",
+		"developer_comment": "This is a label that appears on a text field. If the user begins to type a location they will receive a list of suggested place names."
+	},
+	"metadata.save": {
+		"string": "Save",
+		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+	},
 	"moreLess.less": {
 		"string": "Less"
 	},
@@ -1532,6 +1581,22 @@
 	"notFound.title": {
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
+	},
+	"ocrButton.defaultErrorMessage": {
+		"string": "Could not extract text from image",
+		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
+	},
+	"ocrButton.inProgress": {
+		"string": "Text extraction in progress...",
+		"developer_comment": "Message displayed while text is being extracted from an image"
+	},
+	"ocrButton.label": {
+		"string": "Extract text from image",
+		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
+	},
+	"ocrButton.textExtractedSuccessfully": {
+		"string": "Text extraction completed",
+		"developer_comment": "Banner displayed when text extraction operation for an image is done"
 	},
 	"passwordChange.changePassword": {
 		"string": "Change password"
@@ -2247,6 +2312,10 @@
 		"string": "ലിങ്ക് ",
 		"developer_comment": "Describes media type Link"
 	},
+	"search.showSimilar": {
+		"string": "Show similar",
+		"developer_comment": "Allow user to show/hide secondary items"
+	},
 	"search.showVideos": {
 		"string": "Video",
 		"developer_comment": "Describes media type Video"
@@ -2359,6 +2428,27 @@
 	},
 	"shortTextRespondTask.responseHint": {
 		"string": "Answer here."
+	},
+	"similarityComponent.blurb": {
+		"string": "Automatically group items together if they are similar.",
+		"developer_comment": "Subtitle to similarity matching settings page"
+	},
+	"similarityComponent.masterSwitchLabelOff": {
+		"string": "Automated matching is OFF"
+	},
+	"similarityComponent.masterSwitchLabelOn": {
+		"string": "Automated matching is ON"
+	},
+	"similarityComponent.save": {
+		"string": "Save"
+	},
+	"similarityComponent.savedSuccessfully": {
+		"string": "Similarity settings saved successfully",
+		"developer_comment": "Banner displayed when similarity settings are saved successfully"
+	},
+	"similarityComponent.title": {
+		"string": "Similarity matching",
+		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
 		"string": "Add \"Other\""
@@ -2790,7 +2880,7 @@
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Set {language} as default"
@@ -3329,6 +3419,9 @@
 	"teamSettings.rules": {
 		"string": "Rules"
 	},
+	"teamSettings.similarity": {
+		"string": "Similarity"
+	},
 	"teamSettings.statuses": {
 		"string": "Statuses"
 	},
@@ -3524,6 +3617,16 @@
 	"teams.yourTeams": {
 		"string": "Workspaces"
 	},
+	"thresholdControl.matchingExplainer": {
+		"string": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+	},
+	"thresholdControl.suggestionExplainer": {
+		"string": "If the confidence score is above this ratio, items will be suggested as similar."
+	},
+	"thresholdControl.suggestionGreaterThanMatchingError": {
+		"string": "The suggestion threshold cannot be higher than the matching one.",
+		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
+	},
 	"tos.title": {
 		"string": "Terms of Service"
 	},
@@ -3541,14 +3644,6 @@
 	},
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
-	},
-	"translateStatuses.saveStatusMessage": {
-		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
-		"developer_comment": "Confirmation dialog description"
-	},
-	"translateStatuses.saveStatusTitle": {
-		"string": "Save status translation",
-		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"translateStatuses.status": {
 		"string": "Status"
