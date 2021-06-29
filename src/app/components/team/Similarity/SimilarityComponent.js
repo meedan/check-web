@@ -103,7 +103,8 @@ const SimilarityComponent = ({
   const hasError =
     (settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold) ||
     (settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold) ||
-    (settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold);
+    (settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold) ||
+    (settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold);
 
   return (
     <React.Fragment>
