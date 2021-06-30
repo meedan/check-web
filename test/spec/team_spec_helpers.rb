@@ -75,6 +75,7 @@ module TeamSpecHelpers
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
   end
 
+  # FIXME: Update install_bot helper to current UI
   def install_bot(team, bot_name)
     api_create_bot
     @driver.navigate.to "#{@config['self_url']}/#{team}"
