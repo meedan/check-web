@@ -8,6 +8,9 @@ import NextIcon from '@material-ui/icons/KeyboardArrowRight';
 import PrevIcon from '@material-ui/icons/KeyboardArrowLeft';
 import Box from '@material-ui/core/Box';
 import Tooltip from '@material-ui/core/Tooltip';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
+import { withStyles } from '@material-ui/core/styles';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
@@ -69,6 +72,15 @@ const StyledSearchResultsWrapper = styled.div`
   }
 `;
 
+const Styles = theme => ({
+  similarSwitch: {
+    marginLeft: theme.spacing(0),
+  },
+  inactiveColor: {
+    color: 'rgb(238, 238, 238)',
+  },
+});
+
 /**
  * Delete `esoffset`, `timestamp`, and maybe `projects` and `project_group_id` -- whenever
  * they can be inferred from the URL or defaults.
@@ -109,9 +121,11 @@ class SearchResultsComponent extends React.PureComponent {
     super(props);
 
     this.pusherChannel = null;
-
+    const { query } = this.props;
+    const showSimilar = 'show_similar' in query ? query.show_similar : false;
     this.state = {
       selectedProjectMediaIds: [],
+      showSimilar,
     };
   }
 
@@ -236,6 +250,15 @@ class SearchResultsComponent extends React.PureComponent {
     this.navigateToQuery(cleanQuery);
   }
 
+  handleShowSimilarSwitch = () => {
+    const { query, project, projectGroup } = this.props;
+    const { showSimilar } = this.state;
+    const newQuery = { ...query };
+    newQuery.show_similar = !showSimilar;
+    const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
+    this.navigateToQuery(cleanQuery);
+  }
+
   navigateToQuery(query) {
     const { searchUrlPrefix } = this.props;
     const path = Object.keys(query).length > 0
@@ -290,16 +313,12 @@ class SearchResultsComponent extends React.PureComponent {
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = this.beginIndex + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.endsWith('/trash')) {
+    if (searchUrlPrefix.endsWith('/trash') || searchUrlPrefix.endsWith('/unconfirmed')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
     }
-    if (searchUrlPrefix.endsWith('/unconfirmed')) {
-      // Usually, `listPath` can be inferred from the route params. With `unconfirmed` it can't,
-      // so we'll give it to the receiving page. (See <MediaPage>.)
-      urlParams.set('listPath', searchUrlPrefix);
-    }
+
     if (Object.keys(cleanQuery).length > 0) {
       urlParams.set('listQuery', JSON.stringify(cleanQuery));
     }
@@ -316,6 +335,7 @@ class SearchResultsComponent extends React.PureComponent {
       icon,
       listActions,
       listDescription,
+      classes,
     } = this.props;
 
     const projectMedias = this.props.search.medias
@@ -427,6 +447,28 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
+            similarAction={
+              <FormControlLabel
+                classes={{ labelPlacementStart: classes.similarSwitch }}
+                control={
+                  <Switch
+                    className="search-show-similar__switch"
+                    classes={{ colorSecondary: classes.inactiveColor }}
+                    checked={this.state.showSimilar}
+                    onClick={this.handleShowSimilarSwitch}
+                    color="secondary"
+                  />
+                }
+                label={
+                  <FormattedMessage
+                    id="search.showSimilar"
+                    defaultMessage="Show similar"
+                    description="Allow user to show/hide secondary items"
+                  />
+                }
+                labelPlacement="start"
+              />
+            }
             actions={projectMedias.length && selectedProjectMediaDbids.length ?
               <BulkActions
                 parentComponent={this}
@@ -535,7 +577,7 @@ SearchResultsComponent.propTypes = {
   mediaUrlPrefix: PropTypes.string.isRequired,
 };
 
-const SearchResultsContainer = Relay.createContainer(withPusher(SearchResultsComponent), {
+const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
   initialVariables: {
     projectId: 0,
     pageSize,

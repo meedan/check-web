@@ -18,7 +18,7 @@ class DeleteDynamicMutation extends Relay.Mutation {
   getFatQuery() {
     switch (this.props.parent_type) {
     case 'task':
-      return Relay.QL`fragment on DestroyDynamicPayload { deletedId, task { id, first_response, responses } }`;
+      return Relay.QL`fragment on DestroyDynamicPayload { deletedId, task { id, first_response, first_response_value, responses } }`;
     default:
       return Relay.QL`fragment on DestroyDynamicPayload { deletedId }`;
     }

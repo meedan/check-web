@@ -43,7 +43,7 @@ const SavedSearch = ({ routeParams }) => (
           <div className="saved-search">
             <Search
               searchUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}`}
-              mediaUrlPrefix={`/${routeParams.team}/media`}
+              mediaUrlPrefix={`/${routeParams.team}/list/${routeParams.savedSearchId}/media`}
               icon={<ListIcon />}
               listActions={
                 <ProjectActions

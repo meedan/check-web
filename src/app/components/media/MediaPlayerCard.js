@@ -1,10 +1,10 @@
 import React from 'react';
-import { Player } from '@meedan/check-ui';
 import Box from '@material-ui/core/Box';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import { Player } from '@meedan/check-ui';
 import { FormattedMessage } from 'react-intl';
 import AspectRatio from '../layout/AspectRatio';
 import { units } from '../../styles/js/shared';

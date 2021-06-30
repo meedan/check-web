@@ -58,21 +58,24 @@ shared_examples 'metadata' do
     create_media('media', false)
     wait_for_selector('.medias__item', :css, 20, true).click
     wait_for_selector('.media-tab__metadata').click
-    wait_for_selector('.task-type__free_text')
+    wait_for_selector('.task__response-inputs')
     expect(@driver.page_source.include?('my metadata')).to be(true)
 
     # answer the metadata
-    wait_for_selector('#task__response-input').send_keys('answer')
-    @driver.action.send_keys(:enter).perform
+    wait_for_selector('#metadata-input').send_keys('answer')
+    wait_for_selector('.metadata-save').click
 
     # edit response
     expect(@driver.page_source.include?('answer - edited')).to be(false)
-    edit_task_response(selector: '#task__response-input', response: 'answer - edited')
+    wait_for_selector('.metadata-edit').click
+    wait_for_selector('#metadata-input').send_keys(' - edited')
+    wait_for_selector('.metadata-save').click
+    wait_for_selector_none('.metdata-cancel')
     expect(@driver.page_source.include?('answer - edited')).to be(true)
 
     # delete response
-    delete_task_response
-    wait_for_selector_none('.task__response')
+    wait_for_selector('.metadata-delete').click
+    wait_for_selector_none('.metadata-delete')
     expect(@driver.page_source.include?('answer - edited')).to be(false)
   end
 end

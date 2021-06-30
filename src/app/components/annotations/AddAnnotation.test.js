@@ -1,4 +1,3 @@
-/* global describe, expect, it */
 import React from 'react';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import AddAnnotation from './AddAnnotation';

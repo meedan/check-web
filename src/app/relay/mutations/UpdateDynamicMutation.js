@@ -36,7 +36,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
         }`;
       }
       return Relay.QL`fragment on UpdateDynamicPayload {
-        task { id, first_response, responses }
+        task { id, first_response, responses, first_response_value }
         project_media { id, log, log_count }
       }`;
     default:

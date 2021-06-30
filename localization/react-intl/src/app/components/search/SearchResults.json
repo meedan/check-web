@@ -4,6 +4,11 @@
     "defaultMessage": "There are no items here."
   },
   {
+    "id": "search.showSimilar",
+    "description": "Allow user to show/hide secondary items",
+    "defaultMessage": "Show similar"
+  },
+  {
     "id": "search.previousPage",
     "defaultMessage": "Previous page"
   },

@@ -13,7 +13,7 @@ class UpdateTaskMutation extends Relay.Mutation {
       case 'project_media':
         return Relay.QL`fragment on UpdateTaskPayload {
           versionEdge,
-          task { responses, first_response },
+          task { responses, first_response, first_response_value },
           project_media { last_status, id, log_count },
         }`;
       case 'source':

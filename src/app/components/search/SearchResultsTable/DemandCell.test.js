@@ -1,4 +1,3 @@
-/* global describe, expect, it */
 import React from 'react';
 import DemandCell from './DemandCell';
 import { mountWithIntlProvider } from '../../../../../test/unit/helpers/intl-test';

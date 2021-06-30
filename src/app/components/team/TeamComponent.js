@@ -19,6 +19,7 @@ import TeamReport from './TeamReport';
 import TeamMembers from './TeamMembers';
 import TeamLists from './TeamLists';
 import TeamIntegrations from './TeamIntegrations';
+import TeamSimilarity from './Similarity';
 import PageTitle from '../PageTitle';
 import { can } from '../Can';
 import UserUtil from '../user/UserUtil';
@@ -87,6 +88,7 @@ class TeamComponent extends Component {
     const userRole = UserUtil.myRole(this.getCurrentUser(), this.props.team.slug);
     const isAdmin = userRole === 'admin';
     const isAdminOrEditor = userRole === 'admin' || userRole === 'editor';
+    const isAlegreBotInstalled = Boolean(team.alegre_bot);
 
     let { tab } = this.props.params;
 
@@ -192,6 +194,18 @@ class TeamComponent extends Component {
                 }
                 value="tags"
               /> : null }
+            {isAdmin && isAlegreBotInstalled ?
+              <Tab
+                className="team-settings__similarity-tab"
+                label={
+                  <FormattedMessage
+                    id="teamSettings.similarity"
+                    defaultMessage="Similarity"
+                  />
+                }
+                value="similarity"
+              />
+              : null }
             {isAdmin ?
               <Tab
                 className="team-settings__languages-tab"
@@ -318,6 +332,9 @@ class TeamComponent extends Component {
           { isSettings && tab === 'languages'
             ? <TeamLanguages teamSlug={team.slug} />
             : null }
+          { isSettings && tab === 'similarity'
+            ? <TeamSimilarity teamSlug={team.slug} />
+            : null }
         </StyledTeamContainer>
       </PageTitle>
     );
@@ -349,6 +366,9 @@ export default createFragmentContainer(TeamComponent, {
       slug
       permissions
       ...TeamDetails_team
+      alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+        id
+      }
     }
   `,
 });

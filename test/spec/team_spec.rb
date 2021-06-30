@@ -154,8 +154,10 @@ shared_examples 'team' do
     expect(wait_for_selector('input[name="role-select"]', index: 1).property('value')).to eq 'editor'
     # see all the team config tabs
     wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__languages-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
+    wait_for_selector('.team-settings__integrations-tab').click
+    wait_for_selector('.team-bots__alegre-uninstalled').click
+    wait_for_selector('.team-settings__similarity-tab')
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 12
 
     # log in as editor
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")

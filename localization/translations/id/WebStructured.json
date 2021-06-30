@@ -41,11 +41,11 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
 	},
 	"CustomTeamTaskFilter.metadataTextLabel": {
-		"string": "Metadata value",
+		"string": "Nilai metadata",
 		"developer_comment": "Label for custom field to allow configuration filtering by metadata keyword"
 	},
 	"CustomTeamTaskFilter.noValue": {
-		"string": "Tidak ada nilai diatur",
+		"string": "Tidak ada nilai yang diatur",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
@@ -53,7 +53,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task answer"
 	},
 	"CustomTeamTaskFilter.taskTextLabel": {
-		"string": "Task answer",
+		"string": "Jawaban tugas",
 		"developer_comment": "Label for custom field configuration to allow filtering by task keyword"
 	},
 	"CustomTeamTaskFilter.textAnyValue": {
@@ -149,7 +149,7 @@
 		"string": "Tambahkan sebuah gambar"
 	},
 	"addAnnotation.error": {
-		"string": "Maaf, sebuah galat terjadi saat memperbarui perihal. Mohon coba lagi nanti dan kontak {supportEmail} jika keadaannya terus berlanjut."
+		"string": "Maaf, sebuah kesalahan terjadi saat memperbarui perihal. Silakan coba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"addAnnotation.inputHint": {
 		"string": "Tambahkan catatan"
@@ -158,7 +158,7 @@
 		"string": "Perintah salah"
 	},
 	"addAnnotation.submitButton": {
-		"string": "Masukkan"
+		"string": "Serahkan"
 	},
 	"addFilterMenu.addFilter": {
 		"string": "Tambahkan saringan",
@@ -205,7 +205,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.source": {
-		"string": "Source",
+		"string": "Sumber",
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.tag": {
@@ -213,7 +213,7 @@
 		"developer_comment": "Menu option to enable searching items by tags"
 	},
 	"addFilterMenu.timeRange": {
-		"string": "Jangka waktu",
+		"string": "Rentang tanggal",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addLanguageAction.addLanguage": {
@@ -238,19 +238,19 @@
 		"string": "Catatan tugas ditambahkan oleh {author}: {title}{note}"
 	},
 	"annotation.archiverError": {
-		"string": "Maaf, kesalahan terjadi saat mengarsipkan perihal ke {name}: \"{message}.\" Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
+		"string": "Maaf, kesalahan berikut terjadi saat mengarsipkan perihal ke {name}: \"{message}.\" Silakan segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"annotation.archiverSuccess": {
-		"string": "Jika perihal berada diluar jaringan, Anda dapat <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">mengakses cadangan di {name}</a>."
+		"string": "Jika perihal berada di luar jaringan, Anda dapat <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">mengakses cadangan di {name}</a>."
 	},
 	"annotation.archiverWait": {
 		"string": "Perihal ini diarsipkan di {name}. Tautan arsip akan ditampilkan di sini saat siap."
 	},
 	"annotation.assignmentChanged": {
-		"string": "Tugas diserahkan ke {assigneeTo} oleh {author}: {title}"
+		"string": "Tugas diberikan ke {assigneeTo} oleh {author}: {title}"
 	},
 	"annotation.assignmentRemoved": {
-		"string": "Tugas dicabut dari {assigneeFrom} oleh {author}: {title}"
+		"string": "Tugas dibatalkan dari {assigneeFrom} oleh {author}: {title}"
 	},
 	"annotation.changedJsonSchema": {
 		"string": "Skema JSON dari tugas {title} diubah oleh {author}"
@@ -295,10 +295,10 @@
 		"string": "Tidak mungkin"
 	},
 	"annotation.flagLikelihood3": {
-		"string": "Mungkin"
+		"string": "Bisa jadi"
 	},
 	"annotation.flagLikelihood4": {
-		"string": "Bisa saja"
+		"string": "Mungkin"
 	},
 	"annotation.flagLikelihood5": {
 		"string": "Sangat mungkin"
@@ -307,7 +307,7 @@
 		"string": "Medis"
 	},
 	"annotation.flagRacy": {
-		"string": "Rasial"
+		"string": "Cabul"
 	},
 	"annotation.flagSpam": {
 		"string": "Spam"
@@ -316,28 +316,28 @@
 		"string": "Kekerasan"
 	},
 	"annotation.mediaAssigned": {
-		"string": "Perihal diserahkan kepada {name} oleh {author}"
+		"string": "Perihal ditugaskan kepada {name} oleh {author}"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "Perihal diserahkan ke {name} oleh {author}"
+		"string": "Perihal ditugaskan ke {name} oleh {author}"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "Perihal dicabut dari {name} oleh {author}"
+		"string": "Perihal dibatalkan dari {name} oleh {author}"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "Perihal dicabut dari {name} oleh {author}"
+		"string": "Perihal dibatalkan dari {name} oleh {author}"
 	},
 	"annotation.menuTooltip": {
 		"string": "Tindakan pencatatan"
 	},
 	"annotation.metadataCreated": {
-		"string": "Ruas metadata dibuat oleh {author}: {fieldLabel}"
+		"string": "Bidang metadata dibuat oleh {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Ruas metadata \"{fieldLabel}\" diisi oleh {author}: {response}"
+		"string": "Bidang metadata \"{fieldLabel}\" diisi oleh {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
-		"string": "Dibuang ke Tong Sampah oleh {author}"
+		"string": "Dikeluarkan dari Tong Sampah oleh {author}"
 	},
 	"annotation.movedToTrash": {
 		"string": "Dibuang ke Tong Sampah oleh {author}"
@@ -351,14 +351,11 @@
 	"annotation.openInSlack": {
 		"string": "Buka di Slack"
 	},
-	"annotation.openInTelegram": {
-		"string": "Buka di Telegram"
-	},
 	"annotation.penderArchiveResponse": {
-		"string": "Keep mengambil tangkapan layar dari URL ini."
+		"string": "Keep telah mengambil tangkapan layar dari URL ini."
 	},
 	"annotation.penderArchiveResponseError": {
-		"string": "Maaf, sebuah galat terjadi saat mengambil tangkapan layar dari perihal ini. Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
+		"string": "Maaf, sebuah kesalahan terjadi saat mengambil tangkapan layar dari perihal ini. Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"annotation.penderArchiveWait": {
 		"string": "Tangkapan layar dari perihal ini diambil oleh Keep. Kembali dalam beberapa menit untuk melihatnya."
@@ -391,14 +388,14 @@
 		"string": "Lihat bagaimana bot ini bekerja"
 	},
 	"annotation.similarCreated": {
-		"string": "Dikonfirmasi serupa oleh {author}: {title}"
+		"string": "Dikonfirmasi mirip oleh {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
 		"string": "Confirmed similar detached by {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
-		"string": "Tidak ada pesan dikirimkan dengan permintaan ini"
+		"string": "Tidak ada pesan yang dikirimkan dengan permintaan ini"
 	},
 	"annotation.statusLocked": {
 		"string": "Status perihal dikunci oleh {author}"
@@ -413,10 +410,10 @@
 		"string": "Diterima oleh {user}"
 	},
 	"annotation.suggestionCreated": {
-		"string": "DIsarankan cocok oleh {author}: {title}"
+		"string": "Disarankan cocok oleh {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Kecocokan yang disarankan oleh {author}: {title}`"
+		"string": "Disarankan tidak cocok oleh {author}: {title}"
 	},
 	"annotation.suggestionRejected": {
 		"string": "Ditolak oleh {user}"
@@ -428,7 +425,7 @@
 		"string": "Tugas diserahkan ke {name} oleh{author}: {title}  "
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "Tugas dicabut dari {name} oleh {author}: {title}"
+		"string": "Tugas dibatalkan dari {name} oleh {author}: {title}"
 	},
 	"annotation.taskCreated": {
 		"string": "Tugas dibuat oleh {author}: {task}"
@@ -464,10 +461,10 @@
 		"string": "Media tidak dapat diimpor dari perihal yang laporannya telah diterbitkan"
 	},
 	"autoCompleteMediaItem.error": {
-		"string": "Maaf, sebuah galat terjadi saat melakukan pencarian. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
+		"string": "Maaf, sebuah kesalahan terjadi saat melakukan pencarian. Silakan coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"autoCompleteMediaItem.notFound": {
-		"string": "Tidak ada kecocokan"
+		"string": "Tidak ada kecocokan yang ditemukan"
 	},
 	"autoCompleteMediaItem.results": {
 		"string": "{count, plural, other {# hasil}}"
@@ -494,7 +491,7 @@
 		"string": "Tidak dapat menyimpan perihal"
 	},
 	"browserSupport.message": {
-		"string": "{appName} dioptimisasi untuk Google Chrome untuk desktop."
+		"string": "{appName} dioptimisasi untuk Google Chrome pada desktop."
 	},
 	"bulkActions.cancelButton": {
 		"string": "Batalkan"
@@ -595,10 +592,10 @@
 		"string": "Audio"
 	},
 	"createMedia.error": {
-		"string": "Maaf, sebuah galat terjadi saat menyerahkan perihal ini. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
+		"string": "Maaf, sebuah kesalahan terjadi saat menyerahkan perihal ini. Silakan coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"createMedia.existing": {
-		"string": "Tambahkan perihal yang ada"
+		"string": "Tambahkan perihal yang sudah ada"
 	},
 	"createMedia.image": {
 		"string": "Foto"
@@ -652,7 +649,7 @@
 		"string": "Tidak dapat membuat ruang kerja baru"
 	},
 	"createTeamDialog.description": {
-		"string": "Semua setelan dari ruang kerja ini akan digandakan. Tidak ada konten yang akan ditambahkan."
+		"string": "Semua pengaturan dari ruang kerja ini akan digandakan. Tidak ada konten yang akan ditambahkan."
 	},
 	"createTeamDialog.dialogTitleCreate": {
 		"string": "Buat ruang kerja baru",
@@ -671,13 +668,13 @@
 		"string": "Nama ruang kerja"
 	},
 	"createTeamDialog.url": {
-		"string": "URL Ruang kerja"
+		"string": "URL ruang kerja"
 	},
 	"createTeamTask.errorMetadata": {
-		"string": "Maaf, terjadi galat saat memperbarui ruas metadata. Mohon coba lagi dan kontak {supportEmail} jika keadaaanya berlanjut."
+		"string": "Maaf, terjadi kesalahan saat memperbarui bidang metadata. Silakan coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"createTeamTask.errorTask": {
-		"string": "Maaf, terjadi galat saat membuat tugas. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut. "
+		"string": "Maaf, terjadi kesalahan saat membuat tugas. Silakan coba lagi dan kontak {supportEmail} jika keadaannya berlanjut. "
 	},
 	"customAutocomplete.done": {
 		"string": "Selesai",
@@ -704,16 +701,16 @@
 		"string": "Pilih waktu"
 	},
 	"datetimeRespondTask.timezone": {
-		"string": "Piluh zona waktu"
+		"string": "Pilih zona waktu"
 	},
 	"datetimeTaskResponse.invalidTimestamp": {
-		"string": "Galat: Stempel waktu salah"
+		"string": "Kesalahan: Stempel waktu salah"
 	},
 	"datetimeTaskResponse.timeIs": {
 		"string": "Lihat zona waktu ini di time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, other {Ada # perihal yang sedang diterbitkan dengan status {statusLabel}. Jika Anda melanjutkannya, semua perihal yang telah diterbitkan dengan status ini akan dijeda. Anda harus meninjau perihal tersebut untuk menerbitkan ulang.}}"
+		"string": "{publishedCount, plural, other {Ada # perihal yang sedang diterbitkan dengan status {statusLabel}. Jika Anda melanjutkannya, semua perihal yang telah diterbitkan dengan status ini akan ditunda. Anda harus meninjau perihal tersebut untuk menerbitkan ulang.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Pindahkan perihal ke"
@@ -722,13 +719,13 @@
 		"string": "{itemsCount, plural, other {Ada # perihal dengan status {statusLabel} yang harus diubah statusnya sebelum Anda dapat menghapusnya.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, other {Anda perlu mengubah status dari perihal # untuk mengapus status ini}}"
+		"string": "{itemsCount, plural, other {Anda perlu mengubah status dari # perihal untuk menghapus status ini}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Pilih sebuah folder"
 	},
 	"destinationProjects.empty": {
-		"string": "Tidak ada folder dalam koleksi"
+		"string": "Tidak ada folder dalam koleksi ini"
 	},
 	"destinationProjects.none": {
 		"string": "Tidak ada di koleksi manapun",
@@ -743,14 +740,14 @@
 		"developer_comment": "Button to commit the action of moving item"
 	},
 	"detachDialog.dialogdetachedToListTitle": {
-		"string": "Pindahkan perhial terpisah ke...",
+		"string": "Pindahkan perihal terpisah ke...",
 		"developer_comment": "Dialog title prompting user to select a destination folder for the item"
 	},
 	"editStatusDialog.addButton": {
 		"string": "Tambahkan status"
 	},
 	"editStatusDialog.messageDescription": {
-		"string": "Kirim pesan ke pengguna yang meminta perihal saat Anda mengubah perihal ke status ini.",
+		"string": "Kirim pesan ke pengguna yang meminta perihal tersebut saat Anda mengubah perihal ke status ini.",
 		"developer_comment": "Accompanying description for editStatusDialog.toggleStatusMessage"
 	},
 	"editStatusDialog.saveStatusMessage": {
@@ -781,13 +778,13 @@
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"editTaskDialog.editMetadata": {
-		"string": "Sunting ruas metadata"
+		"string": "Sunting bidang metadata"
 	},
 	"editTaskDialog.editTask": {
 		"string": "Sunting tugas"
 	},
 	"editTaskDialog.newMetadata": {
-		"string": "Ruas metadata baru"
+		"string": "Bidang metadata baru"
 	},
 	"editTaskDialog.newTask": {
 		"string": "Tugas baru"
@@ -802,16 +799,16 @@
 		"string": "Batalkan"
 	},
 	"footer.madeBy": {
-		"string": "Check: Verifikasi berita daring, Dibuat dengan ✨oleh {meedan}"
+		"string": "Check: Verifikasi berita terkini daring, Dibuat dengan ✨oleh {meedan}"
 	},
 	"geoLocationRespondTask.error": {
-		"string": "Maaf, terjadi galat saat memperbarui tugas. Mohon coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
+		"string": "Maaf, terjadi kesalahan saat memperbarui tugas. Silakan coba lagi dan kontak {supportEmail} jika keadaannya berlanjut."
 	},
 	"geoLocationRespondTask.invalidCoords": {
-		"string": "Kordinat salah"
+		"string": "Koordinat salah"
 	},
 	"geoLocationRespondTask.notFound": {
-		"string": "Maaf, tempat tidak ditemukan. Mohon lakukan pencarian lain."
+		"string": "Maaf, tempat ini tidak ditemukan. Silakan lakukan pencarian lain."
 	},
 	"geoLocationRespondTask.searching": {
 		"string": "Mencari..."
@@ -823,13 +820,13 @@
 		"string": "Batalkan"
 	},
 	"geolocationRespondTask.coordinates": {
-		"string": "Garis Lintang. Garis Bujur"
+		"string": "Garis Lintang, Garis Bujur"
 	},
 	"geolocationRespondTask.placeName": {
 		"string": "Kustomisasi nama tempat"
 	},
 	"geolocationRespondTask.searchMap": {
-		"string": "Cari petanya"
+		"string": "Cari peta"
 	},
 	"global.appNameHuman": {
 		"string": "Check"
@@ -859,16 +856,16 @@
 		"string": "Simpan"
 	},
 	"global.submit": {
-		"string": "Masukkan"
+		"string": "Serahkan"
 	},
 	"global.submitting": {
 		"string": "Menyerahkan..."
 	},
 	"global.tags": {
-		"string": "Label-label"
+		"string": "Label"
 	},
 	"global.unknownError": {
-		"string": "Maaf, sebuah galat terjadi. Mohon coba lagi nanti dan kontak {supportEmail} jika keadaan terus berlanjut. "
+		"string": "Maaf, sebuah kesalahan terjadi. Silakan coba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut. "
 	},
 	"global.update": {
 		"string": "Perbarui"
@@ -877,22 +874,22 @@
 		"string": "Masuk"
 	},
 	"home.invalidExpiredInvitation": {
-		"string": "Maaf, undangan yang Anda terima telah kedaluwarsa. Mohon kontak {supportEmail} jika Anda pikir ini adalah kesalahan."
+		"string": "Maaf, undangan yang Anda terima telah kedaluwarsa. Silakan kontak {supportEmail} jika Anda pikir ini adalah kesalahan."
 	},
 	"home.invalidInvitation": {
-		"string": "Maaf, sebuah galat terjadi saat memproses undangan Anda. Mohon kontak {supportEmail}."
+		"string": "Maaf, sebuah kesalahan terjadi saat memproses undangan Anda. Silakan kontak {supportEmail}."
 	},
 	"home.invalidNoInvitation": {
-		"string": "Maaf, undangan yang Anda terima tidak ditemukan. Mohon kontak {supportEmail} jika Anda pikir ini adalah kesalahan."
+		"string": "Maaf, undangan yang Anda terima tidak ditemukan. Silakan kontak {supportEmail} jika Anda pikir ini adalah kesalahan."
 	},
 	"home.invalidTeamInvitation": {
-		"string": "Maaf ruang kerja yang mengundang anda tidak di temukan. Mohon hubungi {supportEmail} jika Anda pikir ini adalah kesalahan."
+		"string": "Maaf, ruang kerja yang mengundang anda tidak ditemukan. Silakan hubungi {supportEmail} jika Anda pikir ini adalah kesalahan."
 	},
 	"home.somethingWrong": {
-		"string": "Maaf, sebuah galat terjadi. Mohon segarkan peramban Anda dan kontak {supportEmail} jika kondisinya terus berlanjut."
+		"string": "Maaf, sebuah kesalahan terjadi. Silakan segarkan peramban Anda dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"home.successInvitation": {
-		"string": "Selamat datang di {appName}. Mohon masuk dengan kata sandi yang Anda terima dalam pesan selamat datang."
+		"string": "Selamat datang di {appName}. Silakan masuk dengan kata sandi yang Anda terima dalam surel selamat datang."
 	},
 	"inviteDialog.invitationSent": {
 		"string": "Undangan terkirim!",
@@ -923,7 +920,7 @@
 		"developer_comment": "Inform your to create a new account for signup"
 	},
 	"inviteNewAccount.invitedBy": {
-		"string": "{name} mengundang Anda untuk bergabung ke ruang kerja"
+		"string": "{name} telah mengundang Anda untuk bergabung ke ruang kerja"
 	},
 	"inviteNewAccountemailLabel": {
 		"string": "Surel",
@@ -964,13 +961,13 @@
 		"string": "Bahasa tidak diketahui"
 	},
 	"languageSwitcher.makeDefault": {
-		"string": "Pilih sebagai bahasa bawaan untuk perihal ini"
+		"string": "Atur sebagai bahasa bawaan untuk perihal ini"
 	},
 	"languageSwitcher.primaryLanguage": {
 		"string": "(bawaan)"
 	},
 	"languagesComponent.blurb": {
-		"string": "Tambahkan bahasa baru ke ruang kerja Anda untuk membuat laporan, tipline bot dan status dalam beberapa bahasa saat berkomunikasi dengan para pengguna."
+		"string": "Tambahkan bahasa baru ke ruang kerja Anda untuk membuat laporan, bot tipline dan status dalam beberapa bahasa saat berkomunikasi dengan para pengguna."
 	},
 	"languagesComponent.title": {
 		"string": "Bahasa"
@@ -985,10 +982,10 @@
 		"string": "Perihal"
 	},
 	"list.LastSeen": {
-		"string": "Diserahkan Terakhir"
+		"string": "Terakhir Diserahkan"
 	},
 	"list.LinkedItems": {
-		"string": "Media serupa"
+		"string": "Media yang mirip"
 	},
 	"list.ShareCount": {
 		"string": "Dibagikan di FB"
@@ -1007,7 +1004,7 @@
 		"developer_comment": "Table header for column that shows the folder title an item is in"
 	},
 	"list.mediaPublishedAt": {
-		"string": "Media diterbitkan"
+		"string": "Media yang diterbitkan"
 	},
 	"list.reactCount": {
 		"string": "Reaksi di FB"
@@ -1022,7 +1019,7 @@
 		"string": "Kecocokan yang disarankan"
 	},
 	"list.tags": {
-		"string": "Label-label"
+		"string": "Label"
 	},
 	"list.updated": {
 		"string": "Diperbarui"
@@ -1110,13 +1107,13 @@
 		"string": "Video"
 	},
 	"mediaActions.assignOrUnassign": {
-		"string": "Diserahkan ke..."
+		"string": "Ditugaskan ke..."
 	},
 	"mediaActions.history": {
 		"string": "Riwayat perihal"
 	},
 	"mediaActions.lockStatus": {
-		"string": "Status kunci"
+		"string": "Kunci status"
 	},
 	"mediaActions.refresh": {
 		"string": "Segarkan"
@@ -1137,10 +1134,10 @@
 		"string": "Tambahkan catatan untuk surel"
 	},
 	"mediaActionsBar.assignmentTitle": {
-		"string": "Serahkan perihal ke kolaborator"
+		"string": "Tugaskan perihal ke kolaborator"
 	},
 	"mediaActionsBar.assignmentsUpdated": {
-		"string": "Penyerahan tugas berhasil diperbarui"
+		"string": "Penugasan berhasil diperbarui"
 	},
 	"mediaActionsBar.cancelButton": {
 		"string": "Batalkan"
@@ -1164,7 +1161,7 @@
 		"string": "Dikonfirmasi, mengalihkan..."
 	},
 	"mediaActionsBar.movedRestoreBack": {
-		"string": "Dipulihkan dari Tong Sampah, mengalihkan..."
+		"string": "Dikembalikan dari Tong Sampah, mengalihkan..."
 	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "Perihal telah dipindahkan ke {trash}"
@@ -1212,7 +1209,7 @@
 		"string": "Menyalin..."
 	},
 	"mediaAnalysis.date": {
-		"string": "Tanggal artikel diterbitkan"
+		"string": "Tanggal artikel yang diterbitkan"
 	},
 	"mediaAnalysis.error": {
 		"string": "Tidak dapat menyimpan! Terakhir disimpan {ago}"
@@ -1227,7 +1224,7 @@
 		"string": "Menyimpan..."
 	},
 	"mediaAnalysis.title": {
-		"string": "Judu"
+		"string": "Judul"
 	},
 	"mediaComments.noNote": {
 		"string": "Tidak ada catatan"
@@ -1311,7 +1308,7 @@
 		"string": "Selesai, mengalihkan ke perihal utama yang baru..."
 	},
 	"mediaItem.error": {
-		"string": "Galat, mohon coba lagi"
+		"string": "Terjadi kesalahan, silakan coba lagi"
 	},
 	"mediaItem.lastSubmitted": {
 		"string": "Terakhir diserahkan {timeAgo}",
@@ -1336,10 +1333,10 @@
 		"string": "{count, plural, other {# permintaan}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, other {# media serupa}}"
+		"string": "{count, plural, other {# media yang mirip}}"
 	},
 	"mediaLanguageChip.error": {
-		"string": "Maaf, terjadi galat saat memperbarui bahasa. Mohon coba lagi dan kontak {supportEmail} jika kondisinya terus berlanjut."
+		"string": "Maaf, terjadi kesalahan saat memperbarui bahasa. Silakan coba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Pencarian Gambar Google"
@@ -1378,7 +1375,7 @@
 		"string": "{count, plural, other {# permintaan}}"
 	},
 	"mediaSearch.error": {
-		"string": "Maaf, terjadi galat berikut: {message}. Mohon segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika kondisinya terus berlanjut."
+		"string": "Maaf, terjadi kesalahan berikut: {message}. Silakan segarkan perihal untuk mencoba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"mediaSearch.itemWentAway": {
 		"string": "Tidak ditemukan"
@@ -1393,7 +1390,7 @@
 		"string": "{current} dari {total}"
 	},
 	"mediaSimilarities.allSimilarMedia": {
-		"string": "Serupa",
+		"string": "Mirip",
 		"developer_comment": "Adjective, plural. Heading for a list of similar items"
 	},
 	"mediaSimilarities.clickOnItem": {
@@ -1419,10 +1416,10 @@
 		"string": "{count, plural, other {Impor semua media dari # perihal}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
-		"string": "Impor media yang serupa ke dalam perihal ini"
+		"string": "Impor media yang mirip ke dalam perihal ini"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThisTitle": {
-		"string": "Impor media serupa dari perihal lainnya"
+		"string": "Impor media yang mirip dari perihal lainnya"
 	},
 	"mediaSimilarityBarAdd.addThisToSimilar": {
 		"string": "Ekspor semua media ke perihal lain"
@@ -1434,31 +1431,31 @@
 		"string": "Tambah ke laporan yang diimpor"
 	},
 	"mediaSimilarityBarAdd.defaultErrorMessage": {
-		"string": "Tidak dapat menambahkan perihal serupa",
+		"string": "Tidak dapat menambahkan perihal yang mirip",
 		"developer_comment": "Warning displayed if an error occurred when adding a similar item"
 	},
 	"mediaSimilarityBarAdd.exportTooltip": {
 		"string": "Media dari perihal ini tidak dapat diekspor jika perihal ini melekat ke perihal utama atau laporannya telah diterbitkan"
 	},
 	"mediaSimilarityBarAdd.savedSuccessfully": {
-		"string": "Perihal serupa berhasil ditambahkan",
+		"string": "Perihal yang mirip berhasil ditambahkan",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
 	"mediaSimilarityBarComponent.back": {
 		"string": "Kembali"
 	},
 	"mediaSimilarityBarComponent.hasMain": {
-		"string": "Media ini telah ditambahkan sebagai serupa dengan perihal lain"
+		"string": "Media ini telah ditambahkan mirip dengan perihal lain"
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "Media ini disarankan serupa dengan perihal lain"
+		"string": "Media ini telah disarankan mirip dengan perihal lain"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
-		"string": "Media serupa",
+		"string": "Media yang mirip",
 		"developer_comment": "Plural. Heading for the number of similar media"
 	},
 	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, other {# media serupa}}"
+		"string": "{count, plural, other {# media yang mirip}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Media yang disarankan",
@@ -1469,7 +1466,7 @@
 		"developer_comment": "allow user to change a project media source"
 	},
 	"mediaStatus.error": {
-		"string": "Maaf, terjadi galat saat memperbarui status. Mohon coba lagi nanti dan kontak {supportEmail} jika kondisinya terus berlanjut."
+		"string": "Maaf, terjadi kesalahan saat memperbarui status. Silakan coba lagi dan kontak {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"mediaSuggestionsComponent.back": {
 		"string": "Kembali"
@@ -1490,13 +1487,65 @@
 		"string": "Catatan"
 	},
 	"mediaSuggestionsComponent.question": {
-		"string": "Apakah media yang disarankan serupa dengan yang utama?"
+		"string": "Apakah media yang disarankan mirip dengan yang utama?"
 	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Permintaan"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, other {{current} dari # media yang disarankan}}"
+	},
+	"metadata.cancel": {
+		"string": "Batalkan",
+		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
+	},
+	"metadata.delete": {
+		"string": "Hapus",
+		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
+	},
+	"metadata.edit": {
+		"string": "Sunting",
+		"developer_comment": "This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable."
+	},
+	"metadata.file.dropFile": {
+		"string": "Seret dan lepas sebuah berkas di sini, atau klik untuk mengunggah berkas (ukuran maksimal: {fileSizeLabel}, format yang diperbolehkan: {extensions})",
+		"developer_comment": "This message appears in a rectangle, instructing the user that they can use their mouse to drag and drop a file, or click to pull up a file selector menu. This also tells them the maximum allowed file size, and the valid types of files that the user can upload. The `fileSizeLabel` variable will read something like '1.0 MB', and the 'extensions' variable is a list of valid file extensions. Neither will be localized."
+	},
+	"metadata.file.invalidFile": {
+		"string": "Berkas ini tidak valid. Silakan coba lagi dengan berkas yang berbeda.",
+		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+	},
+	"metadata.file.tooBig": {
+		"string": "Berkas ini terlalu besar. Ukuran maksimal berkas adalah {fileSizeLabel}. Silakan coba lagi dengan berkas yang berbeda.",
+		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
+	},
+	"metadata.file.tooManyFiles": {
+		"string": "Anda hanya dapat mengunggah satu berkas di sini. Silakan coba mengunggah satu berkas.",
+		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
+	},
+	"metadata.file.wrongType": {
+		"string": "Ini bukanlah tipe berkas yang dapat diterima. Tipe format yang diterima termasuk: {extensions}. Silakan coba lagi dengan berkas yang berbeda.",
+		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+	},
+	"metadata.location.coordinates": {
+		"string": "Garis lintang, garis bujur",
+		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
+	},
+	"metadata.location.coordinates.helper": {
+		"string": "Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty.",
+		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
+	},
+	"metadata.location.customize": {
+		"string": "Kustomisasi nama tempat",
+		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. The user may type any text of their choice here and name the place they are pinning. They can also modify suggested place names here."
+	},
+	"metadata.location.search": {
+		"string": "Cari peta",
+		"developer_comment": "This is a label that appears on a text field. If the user begins to type a location they will receive a list of suggested place names."
+	},
+	"metadata.save": {
+		"string": "Simpan",
+		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
 	},
 	"moreLess.less": {
 		"string": "Less"
@@ -1508,7 +1557,7 @@
 		"string": "Batalkan"
 	},
 	"multiSelector.empty": {
-		"string": "Perihal tidak ditemukan"
+		"string": "Tidak ada perihal yang ditemukan"
 	},
 	"network.noResponse": {
 		"string": "Tidak dapat tersambung ke {app}, pastikan Anda tersambung ke internet"
@@ -1530,8 +1579,24 @@
 		"string": "Jika Anda mencoba mengakses ruang kerja yang telah ada, mohon kontak pemilik ruang kerja."
 	},
 	"notFound.title": {
-		"string": "Oh tidak! Halaman ini tidak ada atau Anda tidak memiliki akses.",
+		"string": "Oh tidak! Halaman ini tidak ada atau Anda tidak memiliki akses yang sah.",
 		"developer_comment": "Not found page title"
+	},
+	"ocrButton.defaultErrorMessage": {
+		"string": "Could not extract text from image",
+		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
+	},
+	"ocrButton.inProgress": {
+		"string": "Text extraction in progress...",
+		"developer_comment": "Message displayed while text is being extracted from an image"
+	},
+	"ocrButton.label": {
+		"string": "Extract text from image",
+		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
+	},
+	"ocrButton.textExtractedSuccessfully": {
+		"string": "Text extraction completed",
+		"developer_comment": "Banner displayed when text extraction operation for an image is done"
 	},
 	"passwordChange.changePassword": {
 		"string": "Ganti kata sandi"
@@ -1549,7 +1614,7 @@
 		"string": "Got it"
 	},
 	"passwordChange.successMsg": {
-		"string": "Anda siap. Sekarang Anda dapat masuk dengan kata sandi baru Anda."
+		"string": "Anda sudah siap. Sekarang Anda dapat masuk dengan kata sandi baru Anda."
 	},
 	"passwordChange.successTitle": {
 		"string": "Kata sandi diperbarui"
@@ -1561,7 +1626,7 @@
 		"string": "Kata sandi tidak cocok"
 	},
 	"passwordReset.confirmedText": {
-		"string": "Jika alamat surel ini ada, Anda akan menerima pesan dari {adminEmail} dengan instruksi untuk mengatur ulang kata sandi Anda. Pastikan pesannya tidak berakhir di kotak spam. Jika Anda tidak menerima pesan tersebut, kontak {supportEmail}."
+		"string": "Jika alamat surel ini ada, Anda akan menerima surel dari {adminEmail} dengan instruksi untuk mengatur ulang kata sandi Anda. Pastikan pesannya tidak berakhir di kotak spam. Jika Anda tidak menerima surel tersebut, kontak {supportEmail}."
 	},
 	"passwordReset.email": {
 		"string": "Surel"
@@ -1574,7 +1639,7 @@
 		"string": "Masuk"
 	},
 	"passwordReset.text": {
-		"string": "Tambahkan alamat surel Anda dan sebuah pesan akan dikirimkan dengan instruksi lebih lanjut."
+		"string": "Tambahkan alamat surel Anda dan sebuah surel akan dikirimkan dengan instruksi lebih lanjut."
 	},
 	"passwordReset.title": {
 		"string": "Atur ulang kata sandi",
@@ -1593,7 +1658,7 @@
 		"string": "Batalkan"
 	},
 	"projectActions.defaultErrorMessage": {
-		"string": "Galat, mohon coba lagi",
+		"string": "Terjadi kesalahan, silakan coba lagi",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
 	},
 	"projectActions.delete": {
@@ -1644,7 +1709,7 @@
 		"string": "Pilih sebuah koleksi"
 	},
 	"projectMoveDialogComponent.couldNotMove": {
-		"string": "Tidak dapat memindahkan folder ini ke koleksi",
+		"string": "Tidak dapat memindahkan folder ke koleksi",
 		"developer_comment": "Error message displayed when it's not possible to move folder to a collection"
 	},
 	"projectMoveDialogComponent.createCollection": {
@@ -1730,7 +1795,7 @@
 		"developer_comment": "Dialog title for creating new collection"
 	},
 	"projectsComponent.newCollectionErrorMessage": {
-		"string": "Tidak dapat membuat koleksi, mohon coba lagi",
+		"string": "Tidak dapat membuat koleksi, silakan coba lagi",
 		"developer_comment": "Error message when creating new collection fails"
 	},
 	"projectsComponent.newCollectionMenu": {
@@ -1746,7 +1811,7 @@
 		"developer_comment": "Dialog title for creating new folder"
 	},
 	"projectsComponent.newFolderErrorMessage": {
-		"string": "Tidak dapat membuat folder, mohon coba lagi",
+		"string": "Tidak dapat membuat folder, silakan coba lagi",
 		"developer_comment": "Error message when creating new folder fails"
 	},
 	"projectsComponent.newFolderMenu": {
@@ -1769,7 +1834,7 @@
 		"developer_comment": "Success message when new list is created"
 	},
 	"projectsComponent.noFolders": {
-		"string": "Tidak ada folder dalam koleksi",
+		"string": "Tidak ada folder dalam koleksi ini",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.renameType": {
@@ -1777,7 +1842,7 @@
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.title": {
-		"string": "Judu"
+		"string": "Judul"
 	},
 	"reportDesigner.addIntro": {
 		"string": "Tambahkan konten ke perkenalan"
@@ -1804,13 +1869,13 @@
 		"string": "Laporan Anda belum siap untuk diterbitkan"
 	},
 	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Pergi tanpa menyimpan"
+		"string": "Tinggalkan tanpa menyimpan"
 	},
 	"reportDesigner.confirmLeaveText": {
-		"string": "Anda saat ini memiliki perubahan yang belum disimpan. Jika Anda pergi sekarang, Anda akan kehilangan perubahan yang belum disimpan!"
+		"string": "Anda saat ini memiliki perubahan yang belum disimpan. Jika Anda tinggalkan sekarang, Anda akan kehilangan semua perubahan yang belum disimpan!"
 	},
 	"reportDesigner.confirmLeaveTitle": {
-		"string": "Apakah Anda ingin pergi tanpa menyimpan?"
+		"string": "Apakah Anda ingin meninggalkan tanpa menyimpan?"
 	},
 	"reportDesigner.confirmPause": {
 		"string": "Tunda laporan"
@@ -1840,7 +1905,7 @@
 		"string": "Siap untuk menerbitkan laporan Anda?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, other {Karena statusnya berubah, laporan yang telah diperbarui akan dikirimkan sebagai {correctionLink}ke pengguna yang telah menerima versi sebelumnya dari laporan ini.}}"
+		"string": "{demand, plural, other {Karena statusnya telah berubah, laporan yang telah diperbarui akan dikirimkan sebagai {correctionLink}ke # pengguna yang telah menerima versi sebelumnya dari laporan ini.}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Siap untuk menerbitkan perubahan Anda?"
@@ -1985,7 +2050,7 @@
 		"string": "Rule name is required"
 	},
 	"ruleBody.then": {
-		"string": "Lalu"
+		"string": "Maka"
 	},
 	"ruleOperatorWrapper.and": {
 		"string": "And"
@@ -2158,7 +2223,7 @@
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
-		"string": "Diserahkan Terakhir"
+		"string": "Terakhir Diserahkan"
 	},
 	"search.datePublishedHeading": {
 		"string": "Diterbitkan"
@@ -2247,6 +2312,10 @@
 		"string": "Tautan",
 		"developer_comment": "Describes media type Link"
 	},
+	"search.showSimilar": {
+		"string": "Show similar",
+		"developer_comment": "Allow user to show/hide secondary items"
+	},
 	"search.showVideos": {
 		"string": "Video",
 		"developer_comment": "Describes media type Video"
@@ -2306,7 +2375,7 @@
 		"string": "Metadata"
 	},
 	"searchKeywordConfig.tags": {
-		"string": "Label-label"
+		"string": "Label"
 	},
 	"searchKeywordConfig.tasks": {
 		"string": "Tugas"
@@ -2359,6 +2428,27 @@
 	},
 	"shortTextRespondTask.responseHint": {
 		"string": "Answer here."
+	},
+	"similarityComponent.blurb": {
+		"string": "Automatically group items together if they are similar.",
+		"developer_comment": "Subtitle to similarity matching settings page"
+	},
+	"similarityComponent.masterSwitchLabelOff": {
+		"string": "Automated matching is OFF"
+	},
+	"similarityComponent.masterSwitchLabelOn": {
+		"string": "Automated matching is ON"
+	},
+	"similarityComponent.save": {
+		"string": "Simpan"
+	},
+	"similarityComponent.savedSuccessfully": {
+		"string": "Similarity settings saved successfully",
+		"developer_comment": "Banner displayed when similarity settings are saved successfully"
+	},
+	"similarityComponent.title": {
+		"string": "Similarity matching",
+		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
 		"string": "Add \"Other\""
@@ -2690,7 +2780,7 @@
 		"string": "Select message"
 	},
 	"smoochBotMenuOption.then": {
-		"string": "Lalu"
+		"string": "Maka"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
 		"string": "The option '9' must be included for users to access the Privacy Statement"
@@ -2790,7 +2880,7 @@
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this folder, or if there is not a translation available for that language."
+		"string": "{language} will become the default language to respond to users in the Tipline bot, Status or Report if they interact with the bot in any language not on this list, or if there is not a translation available for that language."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Set {language} as default"
@@ -3300,7 +3390,7 @@
 		"string": "WhatsApp number"
 	},
 	"teamSettings.Tags": {
-		"string": "Label-label"
+		"string": "Label"
 	},
 	"teamSettings.data": {
 		"string": "Data"
@@ -3328,6 +3418,9 @@
 	},
 	"teamSettings.rules": {
 		"string": "Peraturan"
+	},
+	"teamSettings.similarity": {
+		"string": "Kemiripan"
 	},
 	"teamSettings.statuses": {
 		"string": "Statuses"
@@ -3393,7 +3486,7 @@
 		"string": "No tags"
 	},
 	"teamTags.title": {
-		"string": "Label-label"
+		"string": "Label"
 	},
 	"teamTags.tooltip": {
 		"string": "Filter and sort folder"
@@ -3440,7 +3533,7 @@
 		"developer_comment": "Column header in tags table."
 	},
 	"teamTagsComponent.title": {
-		"string": "Label-label",
+		"string": "Label",
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTasks.cancelAction": {
@@ -3524,6 +3617,16 @@
 	"teams.yourTeams": {
 		"string": "Workspaces"
 	},
+	"thresholdControl.matchingExplainer": {
+		"string": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+	},
+	"thresholdControl.suggestionExplainer": {
+		"string": "If the confidence score is above this ratio, items will be suggested as similar."
+	},
+	"thresholdControl.suggestionGreaterThanMatchingError": {
+		"string": "The suggestion threshold cannot be higher than the matching one.",
+		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
+	},
 	"tos.title": {
 		"string": "Terms of Service"
 	},
@@ -3541,14 +3644,6 @@
 	},
 	"translateStatuses.missingTranslationsBody2": {
 		"string": "If the message for a status is not translated in a language, any requester using that language will not receive the message."
-	},
-	"translateStatuses.saveStatusMessage": {
-		"string": "If labels changed, any published report in this language with this status will be updated with the new label and paused.",
-		"developer_comment": "Confirmation dialog description"
-	},
-	"translateStatuses.saveStatusTitle": {
-		"string": "Save status translation",
-		"developer_comment": "Confirmation dialog title. 'Save' here is in infinitive form."
 	},
 	"translateStatuses.status": {
 		"string": "Status"
@@ -3624,7 +3719,7 @@
 		"string": "Skip"
 	},
 	"userEmail.submit": {
-		"string": "Masukkan"
+		"string": "Serahkan"
 	},
 	"userEmail.text": {
 		"string": "To send you notifications, we need your email address. If you'd like to receive notifications, please enter your email address. Otherwise, click \"Skip\""
@@ -3798,7 +3893,7 @@
 		"string": "We've updated our {tosLink} and our {ppLink}. Please review and consent to the following:"
 	},
 	"userTos.ppLink": {
-		"string": "Kebijakan Pribadi"
+		"string": "Kebijakan Privasi"
 	},
 	"userTos.save": {
 		"string": "Simpan"

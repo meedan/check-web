@@ -38,7 +38,7 @@ function HeaderComponent(props) {
   const path = window.location.pathname;
 
   const tasksPage = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path);
-  const mediaPage = /^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+(\/suggested-matches|\/similar-media)?$/.test(path);
+  const mediaPage = /^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+(\/suggested-matches|\/similar-media)?$/.test(path);
   const sourcePage = /^\/[^/]+\/project\/[0-9]+\/source\/[0-9]+$/.test(path);
 
   if (tasksPage || (!mediaPage && !sourcePage)) {
