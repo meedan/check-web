@@ -124,7 +124,7 @@ const SimilarityComponent = ({
               description="Subtitle to similarity matching settings page"
             />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/4285291-content-language" // FIXME add correct KB url
+          helpUrl="https://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions"
           actionButton={
             team.alegre_bot ?
               <Can permissions={team.permissions} permission="update Team">
