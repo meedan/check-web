@@ -395,6 +395,13 @@ class SearchResultsComponent extends React.PureComponent {
     delete unsortedQuery.sort;
     delete unsortedQuery.sort_type;
 
+    let showSimilarAction = false;
+
+    if (team.alegre_bot) {
+      const { alegre_settings: settings } = team.alegre_bot;
+      showSimilarAction = settings.master_similarity_enabled;
+    }
+
     return (
       <React.Fragment>
         <StyledListHeader>
@@ -447,7 +454,7 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
-            similarAction={
+            similarAction={showSimilarAction ?
               <FormControlLabel
                 classes={{ labelPlacementStart: classes.similarSwitch }}
                 control={
@@ -467,7 +474,7 @@ class SearchResultsComponent extends React.PureComponent {
                   />
                 }
                 labelPlacement="start"
-              />
+              /> : null
             }
             actions={projectMedias.length && selectedProjectMediaDbids.length ?
               <BulkActions
@@ -600,16 +607,9 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
           verification_statuses,
           list_columns,
           medias_count,
-          team_bot_installations(first: 10000) {
-            edges {
-              node {
-                id
-                team_bot: bot_user {
-                  id
-                  identifier
-                }
-              }
-            }
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            id
+            alegre_settings
           }
         }
         medias(first: $pageSize) {
