@@ -61,7 +61,7 @@ class EditTaskDialog extends React.Component {
 
     let defaultOptions = [{ label: '' }, { label: '' }];
     if (props.taskType === 'datetime') {
-      defaultOptions = [];
+      defaultOptions = [{ code: 'UTC', label: 'UTC (0 GMT)', offset: 0 }];
     }
 
     this.state = {
@@ -138,6 +138,8 @@ class EditTaskDialog extends React.Component {
     if (this.props.taskType === 'single_choice' ||
         this.props.taskType === 'multiple_choice') {
       valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
+    } else if (this.props.taskType === 'datetime') {
+      valid = !!(label && label.trim()) && options.length > 0;
     } else {
       valid = !!(label && label.trim());
     }

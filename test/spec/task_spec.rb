@@ -79,8 +79,10 @@ shared_examples 'task' do
     task = wait_for_selector('.task__label-container > div > span') # first task
     expect(task.text).to eq 'Task 1'
     wait_for_selector('.reorder__button-down').click
-    task2 = wait_for_selector('.task__label-container > div > span') # the second becomes the first
-    expect(task2.text).to eq 'Task 2'
+    wait_for_text_change('Task 1', '.task__label-container > div > span', :css)
+    task = wait_for_selector('.task__label-container > div > span') # the second becomes the first
+    puts @driver.page_source
+    expect(task.text).to eq 'Task 2'
   end
 
   it 'should add, edit, answer, update answer and delete datetime task', bin3: true do
