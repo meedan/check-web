@@ -18,10 +18,10 @@ shared_examples 'metadata' do
     wait_for_selector("//span[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
-    # create 'data and time' metadata
-    expect(@driver.page_source.include?('my data time metadata')).to be(false)
-    create_team_data_field(task_type_class: '.create-task__add-datetime', task_name: 'my data time metadata')
-    expect(@driver.page_source.include?('my data time metadata')).to be(true)
+    # create 'date and time' metadata
+    expect(@driver.page_source.include?('my date time metadata')).to be(false)
+    create_team_data_field(task_type_class: '.create-task__add-datetime', task_name: 'my date time metadata')
+    expect(@driver.page_source.include?('my date time metadata')).to be(true)
 
     # change the metadata order
     task = wait_for_selector('.team-tasks__task-label > span > span') # first metadata
@@ -30,11 +30,11 @@ shared_examples 'metadata' do
     wait_for_selector('.reorder__button-down').click
     wait_for_text_change('my metadata - Edited', '.team-tasks__task-label > span > span', :css)
     task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
-    expect(task.text).to eq 'my data time metadata'
+    expect(task.text).to eq 'my date time metadata'
 
     # delete metadata
     delete_team_data_field
-    expect(@driver.page_source.include?('my data time metadata')).to be(false)
+    expect(@driver.page_source.include?('my date time metadata')).to be(false)
   end
 
   it 'should add, edit and delete a metadata response', bin5: true do
