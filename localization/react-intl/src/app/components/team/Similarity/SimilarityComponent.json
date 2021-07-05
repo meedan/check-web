@@ -25,5 +25,10 @@
   {
     "id": "similarityComponent.masterSwitchLabelOff",
     "defaultMessage": "Automated matching is OFF"
+  },
+  {
+    "id": "similarityComponent.dateThresholdLabel",
+    "description": "Similarity date threshold",
+    "defaultMessage": "Date threshold"
   }
 ]

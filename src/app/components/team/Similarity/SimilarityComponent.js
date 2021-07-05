@@ -10,6 +10,7 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { DatePicker } from '@material-ui/pickers';
 import SettingSwitch from './SettingSwitch';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
@@ -17,6 +18,7 @@ import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { ContentColumn } from '../../../styles/js/shared';
+import globalStrings from '../../../globalStrings';
 
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
@@ -158,6 +160,25 @@ const SimilarityComponent = ({
             <Card>
               <CardContent>
                 <Box mb={4}>
+                  <FormControlLabel
+                    control={
+                      <DatePicker
+                        value={settings.similarity_date_threshold ? new Date(parseInt(settings.similarity_date_threshold, 10) * 1000) : null}
+                        onChange={(date) => { handleSettingsChange('similarity_date_threshold', date.unix()); }}
+                        okLabel={<FormattedMessage {...globalStrings.ok} />}
+                        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                        format="MMMM DD, YYYY"
+                      />
+                    }
+                    label={
+                      <FormattedMessage
+                        id="similarityComponent.dateThresholdLabel"
+                        defaultMessage="Date threshold"
+                        description="Similarity date threshold"
+                      />
+                    }
+                    labelPlacement="start"
+                  />
                   <SettingSwitch
                     checked={settings.text_similarity_enabled}
                     onChange={() => handleSettingsChange('text_similarity_enabled', !settings.text_similarity_enabled)}
