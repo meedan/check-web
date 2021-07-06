@@ -58,6 +58,9 @@ class MultiSelector extends React.Component {
 
   handleChange = (e) => {
     this.setState({ filter: e.target.value });
+    if (this.props.onSearchChange) {
+      this.props.onSearchChange(e.target.value);
+    }
   };
 
   handleSelectCheckbox = (e, inputChecked) => {
@@ -141,6 +144,7 @@ class MultiSelector extends React.Component {
                 />
               )}
             </FormattedMessage>
+            { this.props.actionButton }
           </div>
           : null
         }
@@ -200,6 +204,7 @@ class MultiSelector extends React.Component {
             }
           </FormGroup>
         </StyledMultiSelectorArea>
+        { this.props.children }
         <StyledActions>
           { onDismiss ? (
             <Button onClick={onDismiss}>
@@ -230,6 +235,7 @@ MultiSelector.defaultProps = {
   allowSearch: false,
   allowToggleAll: false,
   cancelLabel: null,
+  children: null,
   submitLabel: null,
   onDismiss: null,
 };
@@ -238,6 +244,7 @@ MultiSelector.propTypes = {
   allowSearch: PropTypes.bool,
   allowToggleAll: PropTypes.bool,
   cancelLabel: PropTypes.node,
+  children: PropTypes.node,
   options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
