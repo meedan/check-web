@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
@@ -10,7 +10,8 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { DatePicker } from '@material-ui/pickers';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
 import SettingSwitch from './SettingSwitch';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
@@ -18,7 +19,6 @@ import Can from '../../Can';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { ContentColumn } from '../../../styles/js/shared';
-import globalStrings from '../../../globalStrings';
 
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
@@ -148,6 +148,34 @@ const SimilarityComponent = ({
                     <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
                 }
               />
+              <Box mb={2} ml={7}>
+                <Box display="flex" alignItems="center">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={settings.date_similarity_threshold_enabled}
+                        onChange={() => handleSettingsChange('date_similarity_threshold_enabled', !settings.date_similarity_threshold_enabled)}
+                      />
+                    }
+                    label={
+                      <FormattedMessage
+                        id="similarityComponent.dateThresholdSettings"
+                        defaultMessage="Limit matching to recently submitted content"
+                        description="Allow user to enable/disable similarity matching based on submitted date"
+                      />
+                    }
+                  />
+                </Box>
+                <Box ml={4}>
+                  <FormattedHTMLMessage
+                    id="similarityComponent.dateThreshold"
+                    defaultMessage="Similar content last submitted more than {textField} months ago will only be suggested"
+                    values={{
+                      textField: (<TextField variant="outlined" size="small" />),
+                    }}
+                  />
+                </Box>
+              </Box>
             </Box>
           </CardContent>
         </Card>
@@ -160,25 +188,6 @@ const SimilarityComponent = ({
             <Card>
               <CardContent>
                 <Box mb={4}>
-                  <FormControlLabel
-                    control={
-                      <DatePicker
-                        value={settings.similarity_date_threshold ? new Date(parseInt(settings.similarity_date_threshold, 10) * 1000) : null}
-                        onChange={(date) => { handleSettingsChange('similarity_date_threshold', date.unix()); }}
-                        okLabel={<FormattedMessage {...globalStrings.ok} />}
-                        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                        format="MMMM DD, YYYY"
-                      />
-                    }
-                    label={
-                      <FormattedMessage
-                        id="similarityComponent.dateThresholdLabel"
-                        defaultMessage="Date threshold"
-                        description="Similarity date threshold"
-                      />
-                    }
-                    labelPlacement="start"
-                  />
                   <SettingSwitch
                     checked={settings.text_similarity_enabled}
                     onChange={() => handleSettingsChange('text_similarity_enabled', !settings.text_similarity_enabled)}
