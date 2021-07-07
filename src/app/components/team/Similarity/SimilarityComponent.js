@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { createFragmentContainer, commitMutation, graphql } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import SettingSwitch from './SettingSwitch';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
@@ -24,11 +25,19 @@ const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
 
+const useStyles = makeStyles(theme => ({
+  dateThreshold: {
+    marginTop: theme.spacing(-1),
+    width: theme.spacing(10),
+  },
+}));
+
 const SimilarityComponent = ({
   team,
   setFlashMessage,
   user,
 }) => {
+  const classes = useStyles();
   const isSuperAdmin = user.is_admin;
   const { alegre_settings } = team.alegre_bot;
 
@@ -148,11 +157,12 @@ const SimilarityComponent = ({
                     <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
                 }
               />
-              <Box mb={2} ml={7}>
+              <Box mb={2} ml={7} color={settings.master_similarity_enabled ? '' : 'gray'}>
                 <Box display="flex" alignItems="center">
                   <FormControlLabel
                     control={
                       <Checkbox
+                        disabled={!settings.master_similarity_enabled}
                         checked={settings.date_similarity_threshold_enabled}
                         onChange={() => handleSettingsChange('date_similarity_threshold_enabled', !settings.date_similarity_threshold_enabled)}
                       />
@@ -167,11 +177,19 @@ const SimilarityComponent = ({
                   />
                 </Box>
                 <Box ml={4}>
-                  <FormattedHTMLMessage
+                  <FormattedMessage
                     id="similarityComponent.dateThreshold"
                     defaultMessage="Similar content last submitted more than {textField} months ago will only be suggested"
                     values={{
-                      textField: (<TextField variant="outlined" size="small" />),
+                      textField: <TextField
+                        className={classes.dateThreshold}
+                        variant="outlined"
+                        size="small"
+                        value={settings.similarity_date_threshold}
+                        onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
+                        type="number"
+                        disabled={!settings.date_similarity_threshold_enabled}
+                      />,
                     }}
                   />
                 </Box>
