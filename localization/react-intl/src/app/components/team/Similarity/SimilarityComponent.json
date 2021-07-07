@@ -33,6 +33,6 @@
   },
   {
     "id": "similarityComponent.dateThreshold",
-    "defaultMessage": "Similar content last submitted more than {textField} months ago will only be suggested"
+    "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
   }
 ]

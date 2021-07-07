@@ -26,9 +26,12 @@ const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
 
 const useStyles = makeStyles(theme => ({
-  dateThreshold: {
+  root: {
     marginTop: theme.spacing(-1),
     width: theme.spacing(10),
+  },
+  inputMarginDense: {
+    padding: '6px 8px',
   },
 }));
 
@@ -176,20 +179,26 @@ const SimilarityComponent = ({
                     }
                   />
                 </Box>
-                <Box ml={4}>
+                <Box ml={4} mt={1}>
                   <FormattedMessage
                     id="similarityComponent.dateThreshold"
-                    defaultMessage="Similar content last submitted more than {textField} months ago will only be suggested"
+                    defaultMessage="Similar content last submitted more than {maxTime} months ago will only be suggested"
                     values={{
-                      textField: <TextField
-                        className={classes.dateThreshold}
-                        variant="outlined"
-                        size="small"
-                        value={settings.similarity_date_threshold}
-                        onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
-                        type="number"
-                        disabled={!settings.date_similarity_threshold_enabled}
-                      />,
+                      maxTime: (
+                        <TextField
+                          classes={{ root: classes.root }}
+                          // Please note InputProps and inputProps are different things
+                          // The former goes to the React comp and the latter to the inner html `input` element
+                          InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
+                          inputProps={{ min: 0 }} // eslint-disable-line react/jsx-no-duplicate-props
+                          variant="outlined"
+                          size="small"
+                          value={settings.similarity_date_threshold}
+                          onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
+                          type="number"
+                          disabled={!settings.date_similarity_threshold_enabled}
+                        />
+                      ),
                     }}
                   />
                 </Box>
