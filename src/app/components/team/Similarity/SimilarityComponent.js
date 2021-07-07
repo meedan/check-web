@@ -10,6 +10,9 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import SettingSwitch from './SettingSwitch';
 import ThresholdControl from './ThresholdControl';
 import SettingsHeader from '../SettingsHeader';
@@ -22,11 +25,22 @@ const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginTop: theme.spacing(-1),
+    width: theme.spacing(10),
+  },
+  inputMarginDense: {
+    padding: '6px 8px',
+  },
+}));
+
 const SimilarityComponent = ({
   team,
   setFlashMessage,
   user,
 }) => {
+  const classes = useStyles();
   const isSuperAdmin = user.is_admin;
   const { alegre_settings } = team.alegre_bot;
 
@@ -146,6 +160,49 @@ const SimilarityComponent = ({
                     <FormattedMessage id="similarityComponent.masterSwitchLabelOff" defaultMessage="Automated matching is OFF" />
                 }
               />
+              <Box mb={2} ml={7} color={settings.master_similarity_enabled ? '' : 'gray'}>
+                <Box display="flex" alignItems="center">
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        disabled={!settings.master_similarity_enabled}
+                        checked={settings.date_similarity_threshold_enabled}
+                        onChange={() => handleSettingsChange('date_similarity_threshold_enabled', !settings.date_similarity_threshold_enabled)}
+                      />
+                    }
+                    label={
+                      <FormattedMessage
+                        id="similarityComponent.dateThresholdSettings"
+                        defaultMessage="Limit matching to recently submitted content"
+                        description="Allow user to enable/disable similarity matching based on submitted date"
+                      />
+                    }
+                  />
+                </Box>
+                <Box ml={4} mt={1}>
+                  <FormattedMessage
+                    id="similarityComponent.dateThreshold"
+                    defaultMessage="Similar content last submitted more than {maxTime} months ago will only be suggested"
+                    values={{
+                      maxTime: (
+                        <TextField
+                          classes={{ root: classes.root }}
+                          // Please note InputProps and inputProps are different things
+                          // The former goes to the React comp and the latter to the inner html `input` element
+                          InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
+                          inputProps={{ min: 0 }} // eslint-disable-line react/jsx-no-duplicate-props
+                          variant="outlined"
+                          size="small"
+                          value={settings.similarity_date_threshold}
+                          onChange={(e) => { handleSettingsChange('similarity_date_threshold', e.target.value); }}
+                          type="number"
+                          disabled={!settings.date_similarity_threshold_enabled}
+                        />
+                      ),
+                    }}
+                  />
+                </Box>
+              </Box>
             </Box>
           </CardContent>
         </Card>
