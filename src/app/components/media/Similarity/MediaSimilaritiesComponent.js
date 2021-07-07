@@ -13,7 +13,6 @@ import MediaRequests from '../MediaRequests';
 import MediaComments from '../MediaComments';
 import { Column, black54 } from '../../../styles/js/shared';
 import { can } from '../../Can';
-import { isBotInstalled } from '../../../helpers';
 
 function sort(items) {
   if (!items) {
@@ -99,7 +98,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
         ))}
       </Column>
       <Column className="media__annotations-column" overflow="hidden">
-        { isBotInstalled(projectMedia.team, 'smooch') ?
+        { projectMedia.team.smooch_bot ?
           <React.Fragment>
             <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
               <Tab
@@ -174,14 +173,8 @@ MediaSimilaritiesComponent.propTypes = {
     }).isRequired,
     team: PropTypes.shape({
       dbid: PropTypes.number.isRequired,
-      team_bot_installations: PropTypes.shape({
-        edges: PropTypes.arrayOf(PropTypes.shape({
-          node: PropTypes.shape({
-            team_bot: PropTypes.shape({
-              identifier: PropTypes.string,
-            }),
-          }),
-        })).isRequired,
+      smooch_bot: PropTypes.shape({
+        id: PropTypes.string,
       }).isRequired,
     }).isRequired,
   }).isRequired,
@@ -216,14 +209,8 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     team {
       dbid
       ...MediaItem_team
-      team_bot_installations(first: 10000) {
-        edges {
-          node {
-            team_bot: bot_user {
-              identifier
-            }
-          }
-        }
+      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+        id
       }
     }
   }

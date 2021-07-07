@@ -14,7 +14,6 @@ import SettingsHeader from '../SettingsHeader';
 import ConfirmDialog from '../../layout/ConfirmDialog';
 import { ContentColumn, black16 } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
-import { isBotInstalled } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -48,7 +47,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
   const availableColumns = [];
   // We must keep the original index
   columns.forEach((column, index) => {
-    if (isBotInstalled(team, 'smooch') ||
+    if (team.smooch_bot ||
         (column.key !== 'last_seen' && column.key !== 'demand')) {
       if (column.show) {
         columnsToShow.push(column.key);
@@ -271,14 +270,8 @@ TeamListsComponent.propTypes = {
       label: PropTypes.string.isRequired,
       show: PropTypes.bool.isRequired,
     }).isRequired).isRequired,
-    team_bot_installations: PropTypes.shape({
-      edges: PropTypes.arrayOf(PropTypes.shape({
-        node: PropTypes.shape({
-          team_bot: PropTypes.shape({
-            identifier: PropTypes.string,
-          }),
-        }),
-      })).isRequired,
+    smooch_bot: PropTypes.shape({
+      id: PropTypes.string,
     }).isRequired,
   }).isRequired,
   setFlashMessage: PropTypes.func.isRequired,

@@ -14,7 +14,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import { FormattedGlobalMessage } from '../../MappedMessage';
 import ColorPicker from '../../layout/ColorPicker';
-import { isBotInstalled } from '../../../helpers';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const maxLength = 35;
@@ -135,7 +134,7 @@ const EditStatusDialog = ({
           multiline
           rows={3}
         />
-        { isBotInstalled(team, 'smooch') ?
+        { team.smooch_bot ?
           <React.Fragment>
             <FormControlLabel
               control={
@@ -232,14 +231,8 @@ EditStatusDialog.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
   team: PropTypes.shape({
-    team_bot_installations: PropTypes.shape({
-      edges: PropTypes.arrayOf(PropTypes.shape({
-        node: PropTypes.shape({
-          team_bot: PropTypes.shape({
-            identifier: PropTypes.string,
-          }),
-        }),
-      })).isRequired,
+    smooch_bot: PropTypes.shape({
+      id: PropTypes.string,
     }).isRequired,
   }).isRequired,
 };

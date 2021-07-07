@@ -289,16 +289,8 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
           verification_statuses
           get_languages
           permissions
-          team_bot_installations(first: 10000) {
-            edges {
-              node {
-                id
-                team_bot: bot_user {
-                  id
-                  identifier
-                }
-              }
-            }
+          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
           }
         }
       }

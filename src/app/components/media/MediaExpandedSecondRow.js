@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import MediaTypeDisplayName from './MediaTypeDisplayName';
-import { isBotInstalled, parseStringUnixTimestamp } from '../../helpers';
+import { parseStringUnixTimestamp } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
   units,
@@ -28,7 +28,7 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
           <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First seen: " />
           <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
         </span>
-        { isBotInstalled(projectMedia.team, 'smooch') ?
+        { projectMedia.team.smooch_bot ?
           <span>
             <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
@@ -54,14 +54,8 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
 MediaExpandedSecondRow.propTypes = {
   projectMedia: PropTypes.shape({
     team: PropTypes.shape({
-      team_bot_installations: PropTypes.shape({
-        edges: PropTypes.arrayOf(PropTypes.shape({
-          node: PropTypes.shape({
-            team_bot: PropTypes.shape({
-              identifier: PropTypes.string.isRequired,
-            }).isRequired,
-          }).isRequired,
-        })).isRequired,
+      smooch_bot: PropTypes.shape({
+        id: PropTypes.string.isRequired,
       }),
     }).isRequired,
     media: PropTypes.shape({
