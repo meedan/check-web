@@ -18,9 +18,7 @@ describe('<TeamListsColumn />', () => {
   const team = {
     slug: 'new-team',
     id: '1',
-    team_bot_installations: {
-      edges: [],
-    },
+    smooch_bot: null,
   };
 
   it('should render team list column title and the list items', () => {

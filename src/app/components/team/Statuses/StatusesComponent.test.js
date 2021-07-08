@@ -34,9 +34,7 @@ const verification_statuses = {
 const team = {
   slug: 'new-team',
   id: '1',
-  team_bot_installations: {
-    edges: [],
-  },
+  smooch_bot: null,
   verification_statuses,
   verification_statuses_with_counters: verification_statuses,
   get_language: 'en',

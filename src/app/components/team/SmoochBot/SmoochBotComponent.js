@@ -29,10 +29,10 @@ const SmoochBotComponent = ({
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
-  const installation = team.team_bot_installations.edges.find(i => i.node.team_bot.name === 'Smooch');
-  const bot = installation ? installation.node.team_bot : null;
+  const installation = team.smooch_bot
+  const bot = installation ? installation.team_bot : null;
 
-  const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.node.json_settings) : {});
+  const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.json_settings) : {});
 
   const userRole = UserUtil.myRole(currentUser, team.slug);
 
@@ -74,7 +74,7 @@ const SmoochBotComponent = ({
       mutation,
       variables: {
         input: {
-          id: installation.node.id,
+          id: installation.id,
           json_settings: JSON.stringify(settings),
         },
       },
@@ -201,7 +201,7 @@ const SmoochBotComponent = ({
             { installation && bot ?
               <SmoochBotConfig
                 bot={bot}
-                installationId={installation.node.id}
+                installationId={installation.id}
                 schema={JSON.parse(bot.settings_as_json_schema)}
                 uiSchema={JSON.parse(bot.settings_ui_schema)}
                 value={settings}
@@ -210,7 +210,7 @@ const SmoochBotComponent = ({
                 userRole={userRole}
                 currentLanguage={currentLanguage}
                 languages={languages}
-                enabledIntegrations={installation.node.smooch_enabled_integrations}
+                enabledIntegrations={installation.smooch_enabled_integrations}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
                 { currentUser.is_admin ?
