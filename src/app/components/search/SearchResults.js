@@ -22,7 +22,6 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import { black87, black54, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
-import { isBotInstalled } from '../../helpers';
 
 const pageSize = 50;
 
@@ -351,7 +350,7 @@ class SearchResultsComponent extends React.PureComponent {
       key: query.sort,
       ascending: query.sort_type !== 'DESC',
     } : {
-      key: isBotInstalled(team, 'smooch') ? 'last_seen' : 'recent_added',
+      key: team.smooch_bot ? 'last_seen' : 'recent_added',
       ascending: false,
     };
 
@@ -600,16 +599,8 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
           verification_statuses,
           list_columns,
           medias_count,
-          team_bot_installations(first: 10000) {
-            edges {
-              node {
-                id
-                team_bot: bot_user {
-                  id
-                  identifier
-                }
-              }
-            }
+          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
           }
         }
         medias(first: $pageSize) {

@@ -19,9 +19,7 @@ describe('<TeamListsComponent />', () => {
     slug: 'new-team',
     id: '1',
     list_columns: columns,
-    team_bot_installations: {
-      edges: [],
-    },
+    smooch_bot: null,
   };
 
   const team2 = {
@@ -32,9 +30,7 @@ describe('<TeamListsComponent />', () => {
         index: 1, key: 'key-content1', label: 'label-content-1', show: true,
       },
     ],
-    team_bot_installations: {
-      edges: [],
-    },
+    smooch_bot: null,
   };
 
   it('should render all list columns', () => {
