@@ -29,7 +29,7 @@ const SmoochBotComponent = ({
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
 
-  const installation = team.smooch_bot
+  const installation = team.smooch_bot;
   const bot = installation ? installation.team_bot : null;
 
   const [settings, setSettings] = React.useState(installation ? JSON.parse(installation.json_settings) : {});
