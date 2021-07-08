@@ -233,7 +233,7 @@ EditStatusDialog.propTypes = {
   team: PropTypes.shape({
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
-    }).isRequired,
+    }),
   }).isRequired,
 };
 

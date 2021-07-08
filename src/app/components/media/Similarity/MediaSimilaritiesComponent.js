@@ -175,7 +175,7 @@ MediaSimilaritiesComponent.propTypes = {
       dbid: PropTypes.number.isRequired,
       smooch_bot: PropTypes.shape({
         id: PropTypes.string,
-      }).isRequired,
+      }),
     }).isRequired,
   }).isRequired,
 };

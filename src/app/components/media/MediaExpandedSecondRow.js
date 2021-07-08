@@ -55,7 +55,7 @@ MediaExpandedSecondRow.propTypes = {
   projectMedia: PropTypes.shape({
     team: PropTypes.shape({
       smooch_bot: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.string,
       }),
     }).isRequired,
     media: PropTypes.shape({

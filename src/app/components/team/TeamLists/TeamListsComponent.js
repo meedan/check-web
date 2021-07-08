@@ -272,7 +272,7 @@ TeamListsComponent.propTypes = {
     }).isRequired).isRequired,
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
-    }).isRequired,
+    }),
   }).isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };

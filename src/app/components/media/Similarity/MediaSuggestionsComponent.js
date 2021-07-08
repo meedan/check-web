@@ -401,8 +401,8 @@ MediaSuggestionsComponent.propTypes = {
   })).isRequired,
   team: PropTypes.shape({
     smooch_bot: PropTypes.shape({
-      identifier: PropTypes.string,
-    }).isRequired,
+      id: PropTypes.string,
+    }),
   }).isRequired,
 };
 
