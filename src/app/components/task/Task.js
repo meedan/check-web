@@ -472,7 +472,7 @@ class Task extends Component {
         coordinatesHelper: (
           <FormattedMessage
             id="metadata.location.coordinates.helper"
-            defaultMessage="Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty."
+            defaultMessage={'Should be a comma-separated pair of latitude and longitude coordinates like "-12.9, -38.15". Drag the map pin if you are having difficulty.'}
             description="This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
           />
         ),
