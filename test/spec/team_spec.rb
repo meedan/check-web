@@ -157,7 +157,7 @@ shared_examples 'team' do
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.team-bots__alegre-uninstalled').click
     wait_for_selector('.team-settings__similarity-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 12
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
 
     # log in as editor
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
@@ -174,7 +174,7 @@ shared_examples 'team' do
     # do not be able to see language and integration config tabs
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__rules-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to be == 9
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to be == 8
     expect(@driver.find_elements(:css, '.team-settings__languages-tab').empty?).to be(true)
     expect(@driver.find_elements(:css, '.team-settings__integrations-tab').empty?).to be(true)
     # be able to see folder actions icon

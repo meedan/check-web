@@ -359,16 +359,17 @@ class MediaComponent extends Component {
                     value="source"
                     className="media-tab__source"
                   />
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.tasks"
-                        defaultMessage="Tasks"
-                      />
-                    }
-                    value="tasks"
-                    className="media-tab__tasks"
-                  />
+                  { media.team.get_tasks_enabled ?
+                    <Tab
+                      label={
+                        <FormattedMessage
+                          id="mediaComponent.tasks"
+                          defaultMessage="Tasks"
+                        />
+                      }
+                      value="tasks"
+                      className="media-tab__tasks"
+                    /> : null }
                   <Tab
                     label={
                       <FormattedMessage
