@@ -12,7 +12,7 @@
   {
     "id": "ocrButton.inProgress",
     "description": "Message displayed while text is being extracted from an image",
-    "defaultMessage": "Text extraction in progress..."
+    "defaultMessage": "Text extraction in progress…"
   },
   {
     "id": "ocrButton.label",
