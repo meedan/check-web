@@ -1520,11 +1520,11 @@
 		"developer_comment": "This message appears when a user tries to upload a file that is too big. The 'fileSizeLabel' will read something like '1.0 MB' and will not be localized."
 	},
 	"metadata.file.tooManyFiles": {
-		"string": "Solo puedes subir un archivo aquí. Por favor intanta subir un archivo.",
+		"string": "Sólo puedes subir un archivo aquí. Por favor intanta subir un archivo.",
 		"developer_comment": "This message appears when a user tries to add two or more files at once to the file upload widget."
 	},
 	"metadata.file.wrongType": {
-		"string": "Este no es un tipo de archivo permitido. Los tipos de archivos permitidos incluyen: {extensions}. Por favor vuelve a intentarlo con un archivo diferente.",
+		"string": "Este no es un tipo de archivo permitido. Tipos de archivos permitidos incluyen: {extensions}. Por favor vuelve a intentarlo con un archivo diferente.",
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
 	},
 	"metadata.location.coordinates": {
@@ -1532,7 +1532,7 @@
 		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
 	},
 	"metadata.location.coordinates.helper": {
-		"string": "Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty.",
+		"string": "Should be a comma-separated pair of latitude and longitude coordinates like \"-12.9, -38.15\". Drag the map pin if you are having difficulty.",
 		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
 	},
 	"metadata.location.customize": {
@@ -1583,19 +1583,19 @@
 		"developer_comment": "Not found page title"
 	},
 	"ocrButton.defaultErrorMessage": {
-		"string": "Could not extract text from image",
+		"string": "No se pudo extraer texto de la imagen",
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
 	},
 	"ocrButton.inProgress": {
-		"string": "Text extraction in progress...",
+		"string": "Text extraction in progress…",
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extract text from image",
+		"string": "Extraer texto de imagen",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
-		"string": "Text extraction completed",
+		"string": "Extracción de texto completada",
 		"developer_comment": "Banner displayed when text extraction operation for an image is done"
 	},
 	"passwordChange.changePassword": {
@@ -2313,7 +2313,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Show similar",
+		"string": "Mostrar similar",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -2430,24 +2430,31 @@
 		"string": "Responder aquí."
 	},
 	"similarityComponent.blurb": {
-		"string": "Automatically group items together if they are similar.",
+		"string": "Agrupa automáticamente los ítems si son similares.",
 		"developer_comment": "Subtitle to similarity matching settings page"
 	},
+	"similarityComponent.dateThreshold": {
+		"string": "Similar content last submitted more than {maxTime} months ago will only be suggested"
+	},
+	"similarityComponent.dateThresholdSettings": {
+		"string": "Limit matching to recently submitted content",
+		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
+	},
 	"similarityComponent.masterSwitchLabelOff": {
-		"string": "Automated matching is OFF"
+		"string": "El emparejamiento automático está APAGADO"
 	},
 	"similarityComponent.masterSwitchLabelOn": {
-		"string": "Automated matching is ON"
+		"string": "El emparejamiento automático está ENCENDIDO"
 	},
 	"similarityComponent.save": {
 		"string": "Guardar"
 	},
 	"similarityComponent.savedSuccessfully": {
-		"string": "Similarity settings saved successfully",
+		"string": "Configuración de Similitud guardada con éxito",
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
 	},
 	"similarityComponent.title": {
-		"string": "Similarity matching",
+		"string": "Coincidencia de Similitud",
 		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
@@ -2880,7 +2887,7 @@
 		"string": "Esto cambiará el idioma por defecto de {currentDefaultLanguage} a {newDefaultLanguage}."
 	},
 	"statusListItem.confirmDefaultBody2": {
-		"string": "{language} será el idioma por defecto para responder a usuarios(as) en el bot de Tipline, Estado o Informe si interactúan con el bot en cualquier idioma fuera de esta lista, o si no hay una traducción disponible para ese idioma."
+		"string": "{language} será el idioma por defecto para responder a usuarias(os) en el bot de Tipline, Estado o Informe si interactúan con el bot en cualquier idioma fuera de esta lista, o si no hay una traducción disponible para ese idioma."
 	},
 	"statusListItem.confirmDefaultButton": {
 		"string": "Establecer {language} por defecto"
@@ -3618,13 +3625,13 @@
 		"string": "Áreas de trabajo"
 	},
 	"thresholdControl.matchingExplainer": {
-		"string": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+		"string": "Si la puntuación de confianza está por encima de este ratio, los ítems se emparejarán y los informes se enviarán automáticamente a las(os) usuarias(os)."
 	},
 	"thresholdControl.suggestionExplainer": {
-		"string": "If the confidence score is above this ratio, items will be suggested as similar."
+		"string": "Si la puntuación de confianza está por encima de este ratio, los ítems serán sugeridos como similares."
 	},
 	"thresholdControl.suggestionGreaterThanMatchingError": {
-		"string": "The suggestion threshold cannot be higher than the matching one.",
+		"string": "El umbral de sugerencia no puede ser superior al coincidente.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
 	"tos.title": {
