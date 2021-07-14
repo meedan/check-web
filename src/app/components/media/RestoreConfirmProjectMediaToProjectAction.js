@@ -142,7 +142,7 @@ export default createFragmentContainer(RestoreConfirmProjectMediaToProjectAction
         number_of_results
       }
       slug
-      ...SelectProjectDialog_team
+      # ...SelectProjectDialog_team
     }
   `,
   projectMedia: graphql`

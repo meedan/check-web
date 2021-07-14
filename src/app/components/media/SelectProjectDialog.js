@@ -1,7 +1,9 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
+import { QueryRenderer, graphql } from 'react-relay/compat';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -34,6 +36,8 @@ function SelectProjectDialog({
   onCancel,
   onSubmit,
 }) {
+  console.log('team', team);
+
   const [value, setValue] = React.useState(null);
   const handleSubmit = React.useCallback(() => {
     setValue(null);
@@ -44,7 +48,7 @@ function SelectProjectDialog({
   const projectGroups = team.project_groups.edges.map(({ node }) => node);
 
   // Fill in the collection title for each folder, even if "not in any collection"
-  const projects = team.projects.edges
+  const projects = team.myprojects.edges
     .map(({ node }) => {
       const projectGroup = projectGroups.find(pg => pg.dbid === node.project_group_id) ||
                            { title: intl.formatMessage(messages.notInAnyCollection) };
@@ -112,11 +116,15 @@ function SelectProjectDialog({
   );
 }
 
+SelectProjectDialog.defaultProps = {
+  excludeProjectDbids: [],
+};
+
 SelectProjectDialog.propTypes = {
   intl: intlShape.isRequired,
   open: PropTypes.bool.isRequired,
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
-  excludeProjectDbids: PropTypes.arrayOf(PropTypes.number.isRequired).isRequired,
+  excludeProjectDbids: PropTypes.arrayOf(PropTypes.number.isRequired),
   title: PropTypes.node.isRequired, // title (<FormattedMessage>)
   cancelLabel: PropTypes.node.isRequired,
   submitLabel: PropTypes.node.isRequired,
@@ -125,30 +133,62 @@ SelectProjectDialog.propTypes = {
   onSubmit: PropTypes.func.isRequired, // func(<Project>) => undefined
 };
 
-export default createFragmentContainer(injectIntl(SelectProjectDialog), {
-  team: graphql`
-    fragment SelectProjectDialog_team on Team {
-      name
-      project_groups(first: 10000) {
-        edges {
-          node {
-            dbid
-            title
-          }
-        }
-      }
-      projects(first: 10000) {
-        edges {
-          node {
+const SelectProjectDialogRenderer = (parentProps) => {
+  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+
+  // Not in a team context
+  if (teamSlug === 'check') {
+    return null;
+  }
+
+  console.log('teamSlug', teamSlug);
+  console.log('parentProps', parentProps);
+
+  return (
+    <QueryRenderer
+      environment={Relay.Store}
+      query={graphql`
+        query SelectProjectDialogRendererQuery($teamSlug: String!) {
+          team(slug: $teamSlug) {
             id
             dbid
-            title
-            project_group_id
-            medias_count  # For optimistic updates when adding/moving items
-            search_id  # For optimistic updates when adding/moving items
+            name
+            myprojects: projects(first: 4) {
+              edges {
+                node {
+                  id
+                  dbid
+                  title
+                }
+              }
+            }
+            project_groups(first: 10000) {
+              edges {
+                node {
+                  dbid
+                  title
+                }
+              }
+            }
           }
         }
-      }
-    }
-  `,
-});
+      `}
+      cacheConfig={{ force: true }}
+      variables={{
+        teamSlug,
+      }}
+      render={({ error, props }) => {
+        console.log('props', props);
+
+        if (!error && props) {
+          return (
+            <SelectProjectDialog {...parentProps} {...props} />
+          );
+        }
+        return null;
+      }}
+    />
+  );
+};
+
+export default injectIntl(SelectProjectDialogRenderer);

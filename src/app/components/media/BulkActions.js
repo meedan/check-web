@@ -356,7 +356,7 @@ BulkActions.propTypes = {
 
 export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
   fragment BulkActions_team on Team {
-    ...SelectProjectDialog_team
+    # ...SelectProjectDialog_team
     id
     medias_count
     permissions

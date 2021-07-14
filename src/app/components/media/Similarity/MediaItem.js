@@ -530,7 +530,7 @@ export default createFragmentContainer(withSetFlashMessage(MediaItem), {
   team: graphql`
     fragment MediaItem_team on Team {
       slug
-      ...SelectProjectDialog_team
+      # ...SelectProjectDialog_team
     }
   `,
 });

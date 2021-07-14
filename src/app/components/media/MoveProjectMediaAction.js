@@ -169,7 +169,7 @@ export default createFragmentContainer(MoveProjectMediaAction, {
   team: graphql`
     fragment MoveProjectMediaAction_team on Team {
       slug
-      ...SelectProjectDialog_team
+      # ...SelectProjectDialog_team
     }
   `,
   projectMedia: graphql`

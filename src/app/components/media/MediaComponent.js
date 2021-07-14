@@ -23,6 +23,7 @@ import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
 import MediaAnalysis from './MediaAnalysis';
 import MediaSource from './MediaSource';
+import SelectProjectDialog from './SelectProjectDialog';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import MediaSimilarities from './Similarity/MediaSimilarities';
@@ -290,6 +291,14 @@ class MediaComponent extends Component {
 
     return (
       <div>
+        <SelectProjectDialog
+          open
+          title="Bli"
+          cancelLabel="Cancel"
+          submitLabel="Subme"
+          onSubmit={() => {}}
+          onCancel={() => {}}
+        />
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
           <AnalysisColumn>
