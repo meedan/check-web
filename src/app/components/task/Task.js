@@ -119,6 +119,15 @@ const StyledMapEditor = styled.div`
   }
 `;
 
+const StyledMultiselect = styled.div`
+  .Mui-checked + .MuiFormControlLabel-label.Mui-disabled {
+    color: black;
+  }
+  .Mui-checked {
+    color: ${checkBlue} !important;
+  }
+`;
+
 const StyledFieldInformation = styled.div`
   margin-bottom: ${units(2)};
 `;
@@ -848,7 +857,6 @@ class Task extends Component {
                   this.setState({ textValue });
                 }}
                 extensions={about.file_extensions}
-                fileSizeMax={about.file_max_size_in_bytes}
                 messages={messages.MetadataFile}
               />
             ) : null}
@@ -996,25 +1004,27 @@ class Task extends Component {
         ) : null}
         {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
           <div className="task__response">
-            <MetadataMultiselect
-              isSingle
-              node={task}
-              classes={{}}
-              DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
-              EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
-              FieldInformation={FieldInformation}
-              hasData={task.first_response_value}
-              isEditing={false}
-              metadataValue={
-                this.state.textValue
-              }
-              setMetadataValue={(textValue) => {
-                this.setState({ textValue });
-              }}
-            />
+            <StyledMultiselect>
+              <MetadataMultiselect
+                isSingle
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing={false}
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            </StyledMultiselect>
           </div>
         ) : null}
         {task.type === 'multiple_choice' && task.fieldset === 'tasks' ? (
@@ -1026,24 +1036,26 @@ class Task extends Component {
         ) : null}
         {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
           <div className="task__response">
-            <MetadataMultiselect
-              node={task}
-              classes={{}}
-              DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
-              EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
-              FieldInformation={FieldInformation}
-              hasData={task.first_response_value}
-              isEditing={false}
-              metadataValue={
-                this.state.textValue
-              }
-              setMetadataValue={(textValue) => {
-                this.setState({ textValue });
-              }}
-            />
+            <StyledMultiselect>
+              <MetadataMultiselect
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing={false}
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            </StyledMultiselect>
           </div>
         ) : null}
         {task.type === 'file_upload' && task.fieldset === 'tasks' ? (
@@ -1085,7 +1097,6 @@ class Task extends Component {
               }}
               extensions={about.file_extensions}
               messages={messages.MetadataFile}
-              fileSizeMax={about.file_max_size_in_bytes}
             />
           </div>
         ) : null}
