@@ -6,6 +6,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
+import isEqual from 'lodash.isequal';
 import TeamRoute from '../../relay/TeamRoute';
 import CheckContext from '../../CheckContext';
 import { StyledTagsWrapper, units } from '../../styles/js/shared';
@@ -63,6 +64,11 @@ class AttributionComponent extends React.Component {
   // eslint-disable-next-line class-methods-use-this
   componentDidMount() {
     AttributionComponent.resize();
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    return !isEqual(this.state, nextState) ||
+    !isEqual(this.props, nextProps);
   }
 
   // eslint-disable-next-line class-methods-use-this
