@@ -848,6 +848,7 @@ class Task extends Component {
                   this.setState({ textValue });
                 }}
                 extensions={about.file_extensions}
+                fileSizeMax={about.file_max_size_in_bytes}
                 messages={messages.MetadataFile}
               />
             ) : null}
@@ -1084,6 +1085,7 @@ class Task extends Component {
               }}
               extensions={about.file_extensions}
               messages={messages.MetadataFile}
+              fileSizeMax={about.file_max_size_in_bytes}
             />
           </div>
         ) : null}
