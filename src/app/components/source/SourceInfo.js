@@ -808,6 +808,7 @@ export default createFragmentContainer(SourceInfo, {
                 }
               }
             }
+            first_response_value
             first_response {
               id,
               dbid,
