@@ -72,7 +72,7 @@ const MediaSimilarityBarComponent = ({
   showBackButton,
 }) => {
   const classes = useStyles();
-  const linkPrefix = window.location.pathname.match(/^\/[^/]+\/(project\/[0-9]+\/)?media\/[0-9]+/);
+  const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
 
   // This component should be used only on an item page
   if (!linkPrefix) {
