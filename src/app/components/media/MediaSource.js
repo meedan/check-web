@@ -28,7 +28,7 @@ function updateHeight() {
   sourceTabFrameTimer = setTimeout(updateHeight, 500);
 }
 
-const MediaSourceComponent = ({ projectMedia }) => {
+const MediaSourceComponent = ({ projectMedia, about }) => {
   const [action, setAction] = React.useState('view');
   const [newSourceName, setNewSourceName] = React.useState('');
   const classes = useStyles();
@@ -119,6 +119,7 @@ const MediaSourceComponent = ({ projectMedia }) => {
           <SourceInfo
             key={source ? source.id : 0}
             source={source}
+            about={about}
             team={team}
             projectMediaPermissions={projectMedia.permissions}
             onChangeClick={handleChangeSource}
@@ -179,6 +180,9 @@ const MediaSource = ({ projectMedia, params }) => {
               ...SourceInfo_source @arguments(teamSlug: $teamSlug)
             }
           }
+          about {
+            ...SourceInfo_about
+          }
         }
       `}
       variables={{
@@ -191,7 +195,7 @@ const MediaSource = ({ projectMedia, params }) => {
         }
 
         if (!error && props) {
-          return <MediaSourceComponent projectMedia={props.project_media} />;
+          return <MediaSourceComponent projectMedia={props.project_media} about={props.about} />;
         }
 
         // TODO: We need a better error handling in the future, standardized with other components

@@ -1532,7 +1532,7 @@
 		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
 	},
 	"metadata.location.coordinates.helper": {
-		"string": "Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty.",
+		"string": "Should be a comma-separated pair of latitude and longitude coordinates like \"-12.9, -38.15\". Drag the map pin if you are having difficulty.",
 		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
 	},
 	"metadata.location.customize": {
@@ -1583,19 +1583,19 @@
 		"developer_comment": "Not found page title"
 	},
 	"ocrButton.defaultErrorMessage": {
-		"string": "Could not extract text from image",
+		"string": "Impossible d’extraire le texte de l’image",
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
 	},
 	"ocrButton.inProgress": {
-		"string": "Text extraction in progress...",
+		"string": "Text extraction in progress…",
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extract text from image",
+		"string": "Extraire le texte de l’image",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
-		"string": "Text extraction completed",
+		"string": "L’extraction du texte est terminée",
 		"developer_comment": "Banner displayed when text extraction operation for an image is done"
 	},
 	"passwordChange.changePassword": {
@@ -2313,7 +2313,7 @@
 		"developer_comment": "Describes media type Link"
 	},
 	"search.showSimilar": {
-		"string": "Show similar",
+		"string": "Afficher les semblables",
 		"developer_comment": "Allow user to show/hide secondary items"
 	},
 	"search.showVideos": {
@@ -2430,24 +2430,31 @@
 		"string": "Répondre ici."
 	},
 	"similarityComponent.blurb": {
-		"string": "Automatically group items together if they are similar.",
+		"string": "Grouper automatiquement les éléments ensemble s’ils sont semblables",
 		"developer_comment": "Subtitle to similarity matching settings page"
 	},
+	"similarityComponent.dateThreshold": {
+		"string": "Similar content last submitted more than {maxTime} months ago will only be suggested"
+	},
+	"similarityComponent.dateThresholdSettings": {
+		"string": "Limit matching to recently submitted content",
+		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
+	},
 	"similarityComponent.masterSwitchLabelOff": {
-		"string": "Automated matching is OFF"
+		"string": "La correspondance automatisée est désactivée"
 	},
 	"similarityComponent.masterSwitchLabelOn": {
-		"string": "Automated matching is ON"
+		"string": "La correspondance automatisée est activée"
 	},
 	"similarityComponent.save": {
 		"string": "Enregistrer"
 	},
 	"similarityComponent.savedSuccessfully": {
-		"string": "Similarity settings saved successfully",
+		"string": "Les paramètres de similitude ont été enregistrés avec succès",
 		"developer_comment": "Banner displayed when similarity settings are saved successfully"
 	},
 	"similarityComponent.title": {
-		"string": "Similarity matching",
+		"string": "Correspondance des similitudes",
 		"developer_comment": "Title to similarity matching settings page"
 	},
 	"singleChoiceTask.addOther": {
@@ -3618,13 +3625,13 @@
 		"string": "Espaces de travail"
 	},
 	"thresholdControl.matchingExplainer": {
-		"string": "If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
+		"string": "Si la note de confiance dépasse ce ratio, les éléments seront considérés comme semblables et les rapports seront envoyés automatiquement aux utilisateurs."
 	},
 	"thresholdControl.suggestionExplainer": {
-		"string": "If the confidence score is above this ratio, items will be suggested as similar."
+		"string": "Si la note de confiance dépasse ce ratio, les éléments seront suggérés comme semblables."
 	},
 	"thresholdControl.suggestionGreaterThanMatchingError": {
-		"string": "The suggestion threshold cannot be higher than the matching one.",
+		"string": "Le seuil de suggestion ne peut pas être supérieur au seuil de correspondance.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
 	"tos.title": {

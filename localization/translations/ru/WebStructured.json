@@ -1532,7 +1532,7 @@
 		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
 	},
 	"metadata.location.coordinates.helper": {
-		"string": "Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty.",
+		"string": "Should be a comma-separated pair of latitude and longitude coordinates like \"-12.9, -38.15\". Drag the map pin if you are having difficulty.",
 		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
 	},
 	"metadata.location.customize": {
@@ -1587,7 +1587,7 @@
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
 	},
 	"ocrButton.inProgress": {
-		"string": "Text extraction in progress...",
+		"string": "Text extraction in progress…",
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
@@ -2432,6 +2432,13 @@
 	"similarityComponent.blurb": {
 		"string": "Automatically group items together if they are similar.",
 		"developer_comment": "Subtitle to similarity matching settings page"
+	},
+	"similarityComponent.dateThreshold": {
+		"string": "Similar content last submitted more than {maxTime} months ago will only be suggested"
+	},
+	"similarityComponent.dateThresholdSettings": {
+		"string": "Limit matching to recently submitted content",
+		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
 		"string": "Automated matching is OFF"

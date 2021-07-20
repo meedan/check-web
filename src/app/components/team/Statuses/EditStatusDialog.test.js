@@ -6,18 +6,14 @@ describe('<EditStatusDialog />', () => {
   const team = {
     slug: 'new-team',
     id: '1',
-    team_bot_installations: {
-      edges: [],
-    },
+    smooch_bot: null,
   };
 
   const team2 = {
     slug: 'new-team',
     id: '1',
-    team_bot_installations: {
-      edges: [{
-        node: { team_bot: { identifier: 'smooch' } },
-      }],
+    smooch_bot: {
+      id: '1',
     },
   };
 

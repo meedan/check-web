@@ -22,7 +22,6 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import { black87, black54, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
-import { isBotInstalled } from '../../helpers';
 
 const pageSize = 50;
 
@@ -351,7 +350,7 @@ class SearchResultsComponent extends React.PureComponent {
       key: query.sort,
       ascending: query.sort_type !== 'DESC',
     } : {
-      key: isBotInstalled(team, 'smooch') ? 'last_seen' : 'recent_added',
+      key: team.smooch_bot ? 'last_seen' : 'recent_added',
       ascending: false,
     };
 
@@ -394,13 +393,6 @@ class SearchResultsComponent extends React.PureComponent {
     const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects and .project_group_id
     delete unsortedQuery.sort;
     delete unsortedQuery.sort_type;
-
-    let showSimilarAction = false;
-
-    if (team.alegre_bot) {
-      const { alegre_settings: settings } = team.alegre_bot;
-      showSimilarAction = settings.master_similarity_enabled;
-    }
 
     return (
       <React.Fragment>
@@ -454,7 +446,7 @@ class SearchResultsComponent extends React.PureComponent {
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
             team={team}
-            similarAction={showSimilarAction ?
+            similarAction={
               <FormControlLabel
                 classes={{ labelPlacementStart: classes.similarSwitch }}
                 control={
@@ -474,7 +466,7 @@ class SearchResultsComponent extends React.PureComponent {
                   />
                 }
                 labelPlacement="start"
-              /> : null
+              />
             }
             actions={projectMedias.length && selectedProjectMediaDbids.length ?
               <BulkActions
@@ -607,9 +599,8 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
           verification_statuses,
           list_columns,
           medias_count,
-          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
-            alegre_settings
           }
         }
         medias(first: $pageSize) {

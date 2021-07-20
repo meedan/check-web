@@ -29,7 +29,6 @@ import {
   brandSecondary,
   backgroundMain,
 } from '../../../styles/js/shared';
-import { isBotInstalled } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -336,7 +335,7 @@ const MediaSuggestionsComponent = ({
         </Box>
       </Column>
       <Column className="media__annotations-column" overflow="hidden">
-        { isBotInstalled(team, 'smooch') ?
+        { team.smooch_bot ?
           <React.Fragment>
             <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
               <Tab
@@ -401,15 +400,9 @@ MediaSuggestionsComponent.propTypes = {
     target_id: PropTypes.number.isRequired,
   })).isRequired,
   team: PropTypes.shape({
-    team_bot_installations: PropTypes.shape({
-      edges: PropTypes.arrayOf(PropTypes.shape({
-        node: PropTypes.shape({
-          team_bot: PropTypes.shape({
-            identifier: PropTypes.string,
-          }),
-        }),
-      })).isRequired,
-    }).isRequired,
+    smooch_bot: PropTypes.shape({
+      id: PropTypes.string,
+    }),
   }).isRequired,
 };
 

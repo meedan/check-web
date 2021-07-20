@@ -123,6 +123,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           get_language
           get_report
           verification_statuses
+          get_tasks_enabled
           team_bots(first: 10000) {
             edges {
               node {

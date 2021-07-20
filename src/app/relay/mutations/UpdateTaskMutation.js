@@ -17,7 +17,7 @@ class UpdateTaskMutation extends Relay.Mutation {
           project_media { last_status, id, log_count },
         }`;
       case 'source':
-        return Relay.QL`fragment on UpdateTaskPayload { versionEdge, task { responses, first_response }, source { id } }`;
+        return Relay.QL`fragment on UpdateTaskPayload { versionEdge, task { responses, first_response, first_response_value }, source { id } }`;
       default:
         return '';
       }
@@ -30,7 +30,7 @@ class UpdateTaskMutation extends Relay.Mutation {
         project_media { last_status, log, id, log_count },
       }`;
     case 'source':
-      return Relay.QL`fragment on UpdateTaskPayload { task, source { id } }`;
+      return Relay.QL`fragment on UpdateTaskPayload { task { responses, first_response, first_response_value } , source { id } }`;
     default:
       return '';
     }

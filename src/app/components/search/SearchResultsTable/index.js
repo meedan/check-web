@@ -25,7 +25,7 @@ import CommentCountCell from './CommentCountCell';
 import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
-import { isBotInstalled, truncateLength } from '../../../helpers';
+import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
@@ -143,7 +143,7 @@ const AllPossibleColumns = [
 function buildColumnDefs(team) {
   const possibleColumns = AllPossibleColumns
     // "demand" and "last_seen" only appear if smooch bot is installed
-    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? isBotInstalled(team, 'smooch') : true);
+    .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
   const columns = [possibleColumns[0]];
   team.list_columns.forEach((listColumn) => {
     if (listColumn.show) {
