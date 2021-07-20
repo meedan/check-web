@@ -293,7 +293,7 @@ class MediaComponent extends Component {
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
           <AnalysisColumn>
-            <MediaAnalysis projectMedia={media} />
+            <MediaAnalysis projectMedia={media} onTimelineCommentOpen={this.onTimelineCommentOpen} />
           </AnalysisColumn>
           { view === 'default' ?
             <React.Fragment>
@@ -394,7 +394,7 @@ class MediaComponent extends Component {
                 { /* Set maxHeight to screen height - (media bar + tabs) */ }
                 <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
                   { this.state.showTab === 'requests' ? <MediaRequests media={media} all={!media.is_confirmed_similar_to_another_item} /> : null }
-                  { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
+                  { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
                   { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
                   { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
                   { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }

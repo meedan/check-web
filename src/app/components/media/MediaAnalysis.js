@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaAnalysis = ({ projectMedia }) => {
+const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
   const classes = useStyles();
   const [error, setError] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -342,7 +342,7 @@ const MediaAnalysis = ({ projectMedia }) => {
         </Box>
         <MediaTags
           projectMedia={projectMedia}
-          // onTimelineCommentOpen={onTimelineCommentOpen}
+          onTimelineCommentOpen={onTimelineCommentOpen}
         />
       </Box>
       <ConfirmProceedDialog
@@ -394,6 +394,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
 MediaAnalysis.propTypes = {
   projectMedia: PropTypes.object.isRequired,
+  onTimelineCommentOpen: PropTypes.func.isRequired,
 };
 
 export default MediaAnalysis;

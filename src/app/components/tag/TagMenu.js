@@ -117,7 +117,11 @@ class TagMenuComponent extends Component {
     const options = media.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
 
     const actionButton = searchValue && !options.includes(searchValue) ? (
-      <Button color="primary" onClick={() => this.handleAddNew(searchValue)}>
+      <Button
+        id="tag-menu__create-button"
+        color="primary"
+        onClick={() => this.handleAddNew(searchValue)}
+      >
         <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" />
       </Button>
     ) : null;
