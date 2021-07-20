@@ -7,10 +7,10 @@ import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
 import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import { MultiSelector } from '@meedan/check-ui';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import MultiSelector from '../layout/MultiSelector';
 import MediaRoute from '../../relay/MediaRoute';
 import RelayContainer from '../../relay/RelayContainer';
 import CheckContext from '../../CheckContext';
@@ -136,21 +136,33 @@ class TagMenuComponent extends Component {
           open={Boolean(this.state.anchorEl)}
           onClose={this.handleCloseMenu}
         >
-          <MultiSelector
-            actionButton={actionButton}
-            allowSearch
-            selected={selected}
-            options={options}
-            onSearchChange={this.handleChange}
-            onSubmit={this.handleSelect}
-            submitLabel={
-              <FormattedMessage
-                id="tagMenu.submit"
-                defaultMessage="Tag"
-                description="Verb, infinitive form. Button to commit action of tagging an item"
+          <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+            {placeholder => (
+              <MultiSelector
+                actionButton={actionButton}
+                allowSearch
+                inputPlaceholder={placeholder}
+                selected={selected}
+                options={options}
+                onDismiss={this.handleCloseMenu}
+                onSearchChange={this.handleChange}
+                onSubmit={this.handleSelect}
+                notFoundLabel={
+                  <FormattedMessage
+                    id="tagMenu.notFound"
+                    defaultMessage="No tags found"
+                  />
+                }
+                submitLabel={
+                  <FormattedMessage
+                    id="tagMenu.submit"
+                    defaultMessage="Tag"
+                    description="Verb, infinitive form. Button to commit action of tagging an item"
+                  />
+                }
               />
-            }
-          />
+            )}
+          </FormattedMessage>
         </Popover>
       </React.Fragment>
     );
