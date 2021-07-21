@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { DatePicker } from '@material-ui/pickers';
+import MediaTags from './MediaTags';
 import TimeBefore from '../TimeBefore';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
@@ -37,7 +38,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaAnalysis = ({ projectMedia }) => {
+const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
   const classes = useStyles();
   const [error, setError] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -336,8 +337,13 @@ const MediaAnalysis = ({ projectMedia }) => {
             disabled={!canEdit}
             format="MMMM DD, YYYY"
             onChange={(date) => { handleChange('date_published', date.unix()); }}
+            fullWidth
           />
         </Box>
+        <MediaTags
+          projectMedia={projectMedia}
+          onTimelineCommentOpen={onTimelineCommentOpen}
+        />
       </Box>
       <ConfirmProceedDialog
         open={showConfirmationDialog}
@@ -388,6 +394,7 @@ const MediaAnalysis = ({ projectMedia }) => {
 
 MediaAnalysis.propTypes = {
   projectMedia: PropTypes.object.isRequired,
+  onTimelineCommentOpen: PropTypes.func.isRequired,
 };
 
 export default MediaAnalysis;
