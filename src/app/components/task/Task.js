@@ -119,6 +119,15 @@ const StyledMapEditor = styled.div`
   }
 `;
 
+const StyledMultiselect = styled.div`
+  .Mui-checked + .MuiFormControlLabel-label.Mui-disabled {
+    color: black;
+  }
+  .Mui-checked {
+    color: ${checkBlue} !important;
+  }
+`;
+
 const StyledFieldInformation = styled.div`
   margin-bottom: ${units(2)};
 `;
@@ -472,7 +481,7 @@ class Task extends Component {
         coordinatesHelper: (
           <FormattedMessage
             id="metadata.location.coordinates.helper"
-            defaultMessage="Should be a comma-separated pair of latitude and longitude coordinates like '-12.9, -38.15'. Drag the map pin if you are having difficulty."
+            defaultMessage={'Should be a comma-separated pair of latitude and longitude coordinates like "-12.9, -38.15". Drag the map pin if you are having difficulty.'}
             description="This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
           />
         ),
@@ -995,25 +1004,27 @@ class Task extends Component {
         ) : null}
         {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
           <div className="task__response">
-            <MetadataMultiselect
-              isSingle
-              node={task}
-              classes={{}}
-              DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
-              EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
-              FieldInformation={FieldInformation}
-              hasData={task.first_response_value}
-              isEditing={false}
-              metadataValue={
-                this.state.textValue
-              }
-              setMetadataValue={(textValue) => {
-                this.setState({ textValue });
-              }}
-            />
+            <StyledMultiselect>
+              <MetadataMultiselect
+                isSingle
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing={false}
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            </StyledMultiselect>
           </div>
         ) : null}
         {task.type === 'multiple_choice' && task.fieldset === 'tasks' ? (
@@ -1025,24 +1036,26 @@ class Task extends Component {
         ) : null}
         {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
           <div className="task__response">
-            <MetadataMultiselect
-              node={task}
-              classes={{}}
-              DeleteButton={DeleteButton}
-              CancelButton={CancelButton}
-              SaveButton={SaveButton}
-              EditButton={EditButton}
-              AnnotatorInformation={AnnotatorInformation}
-              FieldInformation={FieldInformation}
-              hasData={task.first_response_value}
-              isEditing={false}
-              metadataValue={
-                this.state.textValue
-              }
-              setMetadataValue={(textValue) => {
-                this.setState({ textValue });
-              }}
-            />
+            <StyledMultiselect>
+              <MetadataMultiselect
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing={false}
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            </StyledMultiselect>
           </div>
         ) : null}
         {task.type === 'file_upload' && task.fieldset === 'tasks' ? (

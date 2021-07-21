@@ -239,17 +239,6 @@ function parseStringUnixTimestamp(s) {
 }
 
 /**
- * Return whether a team has a given bot installed or not
- */
-function isBotInstalled(team, identifier) {
-  return Boolean((
-    team
-    && team.team_bot_installations
-    && team.team_bot_installations.edges.some(edge => edge.node.team_bot.identifier === identifier)
-  ));
-}
-
-/**
  * Return the human bot name
  * FIXME: That should be changed in the backend actually
  */
@@ -262,7 +251,6 @@ export { // eslint-disable-line import/no-unused-modules
   safelyParseJSON,
   getStatus,
   getStatusStyle,
-  isBotInstalled,
   truncateLength,
   unhumanizeSize,
   convertNumbers2English,

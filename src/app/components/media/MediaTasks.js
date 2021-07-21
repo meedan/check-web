@@ -146,7 +146,7 @@ class MediaTasksComponent extends Component {
   }
 
   render() {
-    const { fieldset, onTimelineCommentOpen, about } = this.props;
+    const { fieldset, about } = this.props;
     const media = Object.assign(this.props.cachedMedia, this.props.media);
     const currentUserRole = UserUtil.myRole(
       this.getContext().currentUser,
@@ -161,10 +161,6 @@ class MediaTasksComponent extends Component {
         { fieldset === 'metadata' ?
           <div className="annotation-header-row metadata-row">
             <MediaLanguageChip projectMedia={media} />
-            <MediaTags
-              projectMedia={media}
-              onTimelineCommentOpen={onTimelineCommentOpen}
-            />
           </div> : null }
         { fieldset === 'tasks' && !isBrowserExtension ?
           <div className="annotation-header-row task-row">
@@ -246,6 +242,7 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
         audio_max_size
         audio_extensions
         file_max_size
+        file_max_size_in_bytes
         file_extensions
         upload_max_dimensions
         upload_min_dimensions

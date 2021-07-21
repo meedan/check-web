@@ -24,6 +24,14 @@
     "defaultMessage": "Assign item to collaborators"
   },
   {
+    "id": "multiSelector.search",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "MultiSelector.all",
+    "defaultMessage": "All"
+  },
+  {
     "id": "mediaActionsBar.assignmentNotesTitle",
     "defaultMessage": "Add a note to the email"
   },

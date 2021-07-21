@@ -85,7 +85,7 @@ const OcrButton = ({
       { pending ?
         <FormattedMessage
           id="ocrButton.inProgress"
-          defaultMessage="Text extraction in progress..."
+          defaultMessage="Text extraction in progress…"
           description="Message displayed while text is being extracted from an image"
         /> :
         <FormattedMessage

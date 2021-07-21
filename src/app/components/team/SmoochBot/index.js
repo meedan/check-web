@@ -20,24 +20,20 @@ const SmoochBot = ({ currentUser }) => {
               get_language
               get_languages
               permissions
-              team_bot_installations(first: 10000) {
-                edges {
-                  node {
-                    id
-                    json_settings
-                    smooch_enabled_integrations(force: true)
-                    team_bot: bot_user {
-                      id
-                      dbid
-                      avatar
-                      name
-                      identifier
-                      default
-                      settings_as_json_schema(team_slug: $teamSlug)
-                      settings_ui_schema
-                      description: get_description
-                    }
-                  }
+              smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+                id
+                json_settings
+                smooch_enabled_integrations(force: true)
+                team_bot: bot_user {
+                  id
+                  dbid
+                  avatar
+                  name
+                  identifier
+                  default
+                  settings_as_json_schema(team_slug: $teamSlug)
+                  settings_ui_schema
+                  description: get_description
                 }
               }
             }

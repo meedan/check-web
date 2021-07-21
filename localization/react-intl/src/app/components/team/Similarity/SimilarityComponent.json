@@ -25,5 +25,14 @@
   {
     "id": "similarityComponent.masterSwitchLabelOff",
     "defaultMessage": "Automated matching is OFF"
+  },
+  {
+    "id": "similarityComponent.dateThresholdSettings",
+    "description": "Allow user to enable/disable similarity matching based on submitted date",
+    "defaultMessage": "Limit matching to recently submitted content"
+  },
+  {
+    "id": "similarityComponent.dateThreshold",
+    "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
   }
 ]
