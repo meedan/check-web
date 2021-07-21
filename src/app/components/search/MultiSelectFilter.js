@@ -7,7 +7,7 @@ import Popover from '@material-ui/core/Popover';
 import AddIcon from '@material-ui/icons/Add';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
 import { checkBlue } from '../../styles/js/shared';
@@ -211,24 +211,19 @@ const CustomSelectDropdown = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
-          {placeholder => (
-            <MultiSelector
-              allowSearch={allowSearch}
-              inputPlaceholder={placeholder}
-              options={options}
-              selected={selected}
-              onSubmit={handleSubmit}
-              submitLabel={
-                <FormattedMessage
-                  id="customAutocomplete.done"
-                  defaultMessage="Done"
-                  description="Label for closing dropdown when user is done selecting tags"
-                />
-              }
+        <MultiSelector
+          allowSearch={allowSearch}
+          options={options}
+          selected={selected}
+          onSubmit={handleSubmit}
+          submitLabel={
+            <FormattedMessage
+              id="customAutocomplete.done"
+              defaultMessage="Done"
+              description="Label for closing dropdown when user is done selecting tags"
             />
-          )}
-        </FormattedMessage>
+          }
+        />
       </Popover>
     </Box>
   );

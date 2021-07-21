@@ -1,23 +1,10 @@
 [
   {
-    "id": "tagMenu.create",
-    "defaultMessage": "+ Create this tag"
-  },
-  {
     "id": "tagMenu.tooltip",
     "defaultMessage": "Edit tags"
   },
   {
-    "id": "multiSelector.search",
-    "defaultMessage": "Search…"
-  },
-  {
-    "id": "tagMenu.notFound",
-    "defaultMessage": "No tags found"
-  },
-  {
-    "id": "tagMenu.submit",
-    "description": "Verb, infinitive form. Button to commit action of tagging an item",
-    "defaultMessage": "Tag"
+    "id": "tagMenu.done",
+    "defaultMessage": "Done"
   }
 ]

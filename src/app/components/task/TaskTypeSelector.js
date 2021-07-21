@@ -8,9 +8,8 @@ import DateRangeIcon from '@material-ui/icons/DateRange';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import IconFileUpload from '@material-ui/icons/CloudUpload';
-import { MultiSelector } from '@meedan/check-ui';
+import MultiSelector from '../layout/MultiSelector';
 import NumberIcon from '../../icons/NumberIcon';
-import globalStrings from '../../globalStrings';
 
 class TaskTypeSelector extends React.Component {
   state = {};
@@ -62,8 +61,6 @@ class TaskTypeSelector extends React.Component {
           <MultiSelector
             allowToggleAll
             options={options}
-            toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
-            submitLabel={<FormattedMessage {...globalStrings.update} />}
             selected={this.props.selected}
             onDismiss={this.handleClose}
             onSubmit={this.handleSelect}

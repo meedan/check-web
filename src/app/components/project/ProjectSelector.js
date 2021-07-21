@@ -2,8 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import { MultiSelector } from '@meedan/check-ui';
-import globalStrings from '../../globalStrings';
+import MultiSelector from '../layout/MultiSelector';
 
 class ProjectSelector extends React.Component {
   state = {};
@@ -44,25 +43,17 @@ class ProjectSelector extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
-            {placeholder => (
-              <MultiSelector
-                allowSearch
-                allowToggleAll
-                inputPlaceholder={placeholder}
-                toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
-                cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                submitLabel={<FormattedMessage {...globalStrings.update} />}
-                options={this.props.projects.map(p => ({
-                  label: p.node.title,
-                  value: `${p.node.dbid}`,
-                }))}
-                selected={this.props.selected}
-                onDismiss={this.handleClose}
-                onSubmit={this.handleSelect}
-              />
-            )}
-          </FormattedMessage>
+          <MultiSelector
+            allowSearch
+            allowToggleAll
+            options={this.props.projects.map(p => ({
+              label: p.node.title,
+              value: `${p.node.dbid}`,
+            }))}
+            selected={this.props.selected}
+            onDismiss={this.handleClose}
+            onSubmit={this.handleSelect}
+          />
         </Menu>
       </div>
     );

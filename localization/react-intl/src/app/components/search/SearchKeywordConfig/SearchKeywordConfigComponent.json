@@ -51,9 +51,5 @@
   {
     "id": "searchKeywordConfig.tasks",
     "defaultMessage": "Tasks"
-  },
-  {
-    "id": "MultiSelector.all",
-    "defaultMessage": "All"
   }
 ]

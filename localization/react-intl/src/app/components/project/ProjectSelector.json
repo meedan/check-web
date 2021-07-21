@@ -7,13 +7,5 @@
   {
     "id": "projectSelector.allProjs",
     "defaultMessage": "All folders"
-  },
-  {
-    "id": "multiSelector.search",
-    "defaultMessage": "Search…"
-  },
-  {
-    "id": "MultiSelector.all",
-    "defaultMessage": "All"
   }
 ]
