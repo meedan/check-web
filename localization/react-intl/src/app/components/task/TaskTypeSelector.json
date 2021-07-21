@@ -7,9 +7,5 @@
   {
     "id": "taskTypeSelector.allTypes",
     "defaultMessage": "All tasks"
-  },
-  {
-    "id": "MultiSelector.all",
-    "defaultMessage": "All"
   }
 ]

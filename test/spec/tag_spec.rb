@@ -101,13 +101,12 @@ shared_examples 'tag' do
     @wait.until { @driver.page_source.include?(new_tag) }
     # Try to add duplicate
     wait_for_selector('.tag-menu__icon').click
-    fill_field('.multiselector__search-input input', new_tag)
-    wait_for_selector('#tag-menu__create-button').click
+    fill_field('#tag-input__tag-input', new_tag)
     @driver.action.send_keys(:enter).perform
     @wait.until { @driver.page_source.include?('Tag already exists') }
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.tag-menu__done').click
     # Verify that tag is not added and that error message is displayed
-    wait_for_selector_none('.multiselector__search-input input')
+    wait_for_selector_none('#tag-input__tag-input')
     expect(@driver.find_elements(:class, 'media-tags__tag').length).to eq 1
     delete_tag(new_tag)
     wait_for_selector_none('.media-tags__tag')

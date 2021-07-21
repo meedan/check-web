@@ -1,9 +1,10 @@
 module TagSpecHelpers
   def add_tag(tag_name)
     wait_for_selector('.tag-menu__icon').click
-    fill_field('.multiselector__search-input input', tag_name)
-    wait_for_selector('#tag-menu__create-button').click
-    wait_for_selector_none('.multiselector__search-input')
+    fill_field('#tag-input__tag-input', tag_name)
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.tag-menu__done').click
+    wait_for_selector_none('#tag-input__tag-input')
   end
 
   def add_team_tag(tag_name)
@@ -17,8 +18,8 @@ module TagSpecHelpers
 
   def delete_tag(_tag_name)
     wait_for_selector('.tag-menu__icon').click
-    wait_for_selector('.multiselector__search-input input')
+    wait_for_selector('#tag-input__tag-input')
     wait_for_selector('input[type=checkbox]').click
-    wait_for_selector('.multi__selector-save').click
+    wait_for_selector('.tag-menu__done').click
   end
 end

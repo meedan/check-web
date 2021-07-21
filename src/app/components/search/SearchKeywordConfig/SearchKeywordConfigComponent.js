@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { MultiSelector } from '@meedan/check-ui';
-import globalStrings from '../../../globalStrings';
+import MultiSelector from '../../layout/MultiSelector';
 
 const SearchKeywordConfigComponent = ({
   team,
@@ -189,9 +188,6 @@ const SearchKeywordConfigComponent = ({
     <MultiSelector
       allowToggleAll
       defaultAllSelected
-      toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
-      submitLabel={<FormattedMessage {...globalStrings.update} />}
-      cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
       options={options}
       selected={selected}
       onDismiss={onDismiss}
