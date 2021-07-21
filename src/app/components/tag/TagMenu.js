@@ -2,17 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Popover from '@material-ui/core/Popover';
 import { withStyles } from '@material-ui/core/styles';
-import TagInput from './TagInput';
-import TagPicker from './TagPicker';
+import LocalOfferOutlinedIcon from '@material-ui/icons/LocalOfferOutlined';
+import { MultiSelector } from '@meedan/check-ui';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
-import TagOutline from '../../../assets/images/tag/tag-outline';
 import MediaRoute from '../../relay/MediaRoute';
 import RelayContainer from '../../relay/RelayContainer';
 import CheckContext from '../../CheckContext';
@@ -37,9 +35,7 @@ class TagMenuComponent extends Component {
 
     this.state = {
       anchorEl: null,
-      searchValue: '',
-      tagsToAdd: [],
-      tagsToRemove: [],
+      searchValue: null,
     };
   }
 
@@ -50,76 +46,34 @@ class TagMenuComponent extends Component {
     this.props.setFlashMessage(message, 'error');
   };
 
-  handleChange = (searchValue) => {
-    this.setState({ searchValue });
-  };
-
   handleOpenMenu = (e) => {
     this.setState({ anchorEl: e.currentTarget });
     this.props.relay.forceFetch();
   };
 
-  closeMenu = () => {
-    this.setState({
-      anchorEl: null,
-      searchValue: '',
-      tagsToAdd: [],
-      tagsToRemove: [],
-    });
-  };
+  handleCloseMenu = () => this.setState({ anchorEl: null });
 
-  handleSubmit = () => {
+  handleChange = searchValue => this.setState({ searchValue });
+
+  handleSelect = (value) => {
     const tags = this.props.media.tags.edges.map(tag => tag.node.tag_text);
-    this.state.tagsToAdd.forEach((tag) => {
-      if (tags.indexOf(tag) === -1) {
-        this.handleCreateTag(tag);
-      }
+
+    tags.forEach((text) => {
+      if (!value.includes(text)) this.handleRemoveTag(text);
     });
-    this.state.tagsToRemove.forEach((tag) => {
-      if (tags.indexOf(tag) > -1) {
-        this.handleRemoveTag(tag);
-      }
+    value.forEach((val) => {
+      if (!tags.includes(val)) this.handleCreateTag(val);
     });
-    this.closeMenu();
+    this.handleCloseMenu();
   };
 
-  handleTagClick = (e, inputChecked) => {
-    if (inputChecked) {
-      this.handleTagToAdd(e.target.id);
-    } else {
-      this.handleTagToRemove(e.target.id);
-    }
-  }
-
-  handleTagToAdd(tag) {
-    const tagsToAdd = this.state.tagsToAdd.slice();
-    const tagsToRemove = this.state.tagsToRemove.slice();
-
-    if (tagsToRemove.indexOf(tag) > -1) {
-      tagsToRemove.splice(tagsToRemove.indexOf(tag), 1);
-    } else {
-      tagsToAdd.push(tag);
-    }
-
-    this.setState({ tagsToRemove, tagsToAdd });
-  }
-
-  handleTagToRemove(tag) {
-    const tagsToRemove = this.state.tagsToRemove.slice();
-    const tagsToAdd = this.state.tagsToAdd.slice();
-
-    if (tagsToAdd.indexOf(tag) > -1) {
-      tagsToAdd.splice(tagsToAdd.indexOf(tag), 1);
-    } else {
-      tagsToRemove.push(tag);
-    }
-
-    this.setState({ tagsToRemove, tagsToAdd });
-  }
+  handleAddNew = (value) => {
+    this.handleCreateTag(value);
+    this.handleCloseMenu();
+  };
 
   handleCreateTag(value) {
     const { media } = this.props;
-
     const context = new CheckContext(this).getContextStore();
 
     createTag(
@@ -135,7 +89,6 @@ class TagMenuComponent extends Component {
 
   handleRemoveTag = (value) => {
     const { media } = this.props;
-
     const removedTag = media.tags.edges.find(tag => tag.node.tag_text === value);
 
     if (!removedTag) {
@@ -154,17 +107,24 @@ class TagMenuComponent extends Component {
 
   render() {
     const { media } = this.props;
+    const { searchValue } = this.state;
 
     if (!can(media.permissions, 'update ProjectMedia') || media.archived > CheckArchivedFlags.NONE) {
       return null;
     }
 
-    const selected = media.tags.edges
-      .map(t => t.node.tag_text)
-      .concat(this.state.tagsToAdd)
-      .filter(text => !this.state.tagsToRemove.includes(text));
+    const selected = media.tags.edges.map(t => t.node.tag_text);
+    const options = media.team.tag_texts.edges.map(tt => ({ label: tt.node.text, value: tt.node.text }));
 
-    const isBrowserExtension = (window.parent !== window);
+    const actionButton = searchValue && !options.includes(searchValue) ? (
+      <Button
+        id="tag-menu__create-button"
+        color="primary"
+        onClick={() => this.handleAddNew(searchValue)}
+      >
+        <FormattedMessage id="tagMenu.create" defaultMessage="+ Create this tag" />
+      </Button>
+    ) : null;
 
     return (
       <React.Fragment>
@@ -173,31 +133,40 @@ class TagMenuComponent extends Component {
           tooltip={<FormattedMessage id="tagMenu.tooltip" defaultMessage="Edit tags" />}
           onClick={this.handleOpenMenu}
         >
-          <TagOutline />
+          <LocalOfferOutlinedIcon />
         </StyledIconButton>
         <Popover
           anchorEl={this.state.anchorEl}
           open={Boolean(this.state.anchorEl)}
-          onClose={this.closeMenu}
+          onClose={this.handleCloseMenu}
         >
-          <div>
-            { isBrowserExtension ? null : <TagInput media={media} onChange={this.handleChange} /> }
-            <TagPicker
-              team={media.team}
-              searchValue={this.state.searchValue}
-              selectedTags={selected}
-              onClick={this.handleTagClick}
-            />
-            <Box p={2} display="flex" flexDirection="row" justifyContent="flex-end">
-              <Button
-                className="tag-menu__done"
-                onClick={this.handleSubmit}
-                color="primary"
-              >
-                <FormattedMessage id="tagMenu.done" defaultMessage="Done" />
-              </Button>
-            </Box>
-          </div>
+          <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+            {placeholder => (
+              <MultiSelector
+                actionButton={actionButton}
+                allowSearch
+                inputPlaceholder={placeholder}
+                selected={selected}
+                options={options}
+                onDismiss={this.handleCloseMenu}
+                onSearchChange={this.handleChange}
+                onSubmit={this.handleSelect}
+                notFoundLabel={
+                  <FormattedMessage
+                    id="tagMenu.notFound"
+                    defaultMessage="No tags found"
+                  />
+                }
+                submitLabel={
+                  <FormattedMessage
+                    id="tagMenu.submit"
+                    defaultMessage="Tag"
+                    description="Verb, infinitive form. Button to commit action of tagging an item"
+                  />
+                }
+              />
+            )}
+          </FormattedMessage>
         </Popover>
       </React.Fragment>
     );

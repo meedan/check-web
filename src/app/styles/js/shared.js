@@ -42,7 +42,7 @@ export const opaqueBlack10 = '#e5e5e5';
 export const opaqueBlack07 = '#eeeeee';
 export const opaqueBlack05 = '#f2f2f2';
 export const opaqueBlack03 = '#f8f8f8';
-export const opaqueBlack02 = '#fafafa';
+export const opaqueBlack02 = '#fafafa'; // eslint-disable-line import/no-unused-modules
 
 // Social network colors
 //
