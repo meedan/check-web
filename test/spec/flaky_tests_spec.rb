@@ -22,7 +22,7 @@ module FlakyTests
   end
 
   def update_flaky_tests_file(failing_tests)
-    return if failing_tests.empty?
+    return if failing_tests.empty? || ENV['TRAVIS_BRANCH'].nil?
 
     file = JSON.parse(get_file_from_aws_bucket.get.body.read)
     failing_tests.each do |key, value|
@@ -48,7 +48,7 @@ module FlakyTests
         file[key] = test
       end
       create_file(file)
-      if @@key == 'flaky-tests/master.json' || @@key == 'flaky-tests/develop.json'
+      if ENV['TRAVIS_BRANCH'] == 'develop' || ENV['TRAVIS_BRANCH'] == 'master'
         get_file_from_aws_bucket.upload_file('file.json')
       end
     end
