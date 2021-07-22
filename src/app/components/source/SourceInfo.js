@@ -168,6 +168,7 @@ function commitDeleteAccountSource({ source, asId }) {
 }
 
 function SourceInfo({
+  about,
   source,
   team,
   projectMediaPermissions,
@@ -598,12 +599,13 @@ function SourceInfo({
           </Collapse>
         </Card>
       </Box>
-      <Tasks tasks={sourceMetadata} media={source} fieldset="metadata" />
+      <Tasks tasks={sourceMetadata} media={source} about={about} fieldset="metadata" />
     </div>
   );
 }
 
 SourceInfo.propTypes = {
+  about: PropTypes.object.isRequired, // GraphQL "About" object
   team: PropTypes.object.isRequired, // GraphQL "Team" object (current team)
   source: PropTypes.object.isRequired, // GraphQL "Source" object
   projectMediaPermissions: PropTypes.object.isRequired, // ProjectMedia permissions
@@ -612,6 +614,20 @@ SourceInfo.propTypes = {
 };
 
 export default createFragmentContainer(SourceInfo, {
+  about: graphql`
+    fragment SourceInfo_about on About {
+      upload_max_size
+      upload_extensions
+      video_max_size
+      video_extensions
+      audio_max_size
+      audio_extensions
+      file_max_size
+      file_extensions
+      upload_max_dimensions
+      upload_min_dimensions
+    }
+  `,
   source: graphql`
     fragment SourceInfo_source on Source
     @argumentDefinitions(teamSlug: { type: "String!"}) {
@@ -808,6 +824,7 @@ export default createFragmentContainer(SourceInfo, {
                 }
               }
             }
+            first_response_value
             first_response {
               id,
               dbid,

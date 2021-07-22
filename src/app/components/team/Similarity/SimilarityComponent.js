@@ -118,7 +118,8 @@ const SimilarityComponent = ({
     (settings.text_elasticsearch_suggestion_threshold > settings.text_elasticsearch_matching_threshold) ||
     (settings.text_vector_suggestion_threshold > settings.text_vector_matching_threshold) ||
     (settings.image_hash_suggestion_threshold > settings.image_hash_matching_threshold) ||
-    (settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold);
+    (settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold) ||
+    (settings.audio_hash_suggestion_threshold > settings.audio_hash_matching_threshold);
 
   return (
     <React.Fragment>
@@ -325,6 +326,28 @@ const SimilarityComponent = ({
                     type="suggestion"
                     label="Video suggestion threshold"
                     error={(settings.video_hash_suggestion_threshold > settings.video_hash_matching_threshold)}
+                  />
+                </Box>
+                <Box mb={4}>
+                  <SettingSwitch
+                    checked={settings.audio_similarity_enabled}
+                    onChange={() => handleSettingsChange('audio_similarity_enabled', !settings.audio_similarity_enabled)}
+                    label="Audio matching"
+                  />
+                  <ThresholdControl
+                    value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
+                    onChange={(e, newValue) => handleThresholdChange('audio_hash_matching_threshold', newValue)}
+                    disabled={!settings.audio_similarity_enabled}
+                    type="matching"
+                    label="Audio matching threshold"
+                  />
+                  <ThresholdControl
+                    value={Number(settings.audio_hash_suggestion_threshold * 100).toFixed()}
+                    onChange={(e, newValue) => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
+                    disabled={!settings.audio_similarity_enabled}
+                    type="suggestion"
+                    label="Audio suggestion threshold"
+                    error={(settings.audio_hash_suggestion_threshold > settings.audio_hash_matching_threshold)}
                   />
                 </Box>
               </CardContent>

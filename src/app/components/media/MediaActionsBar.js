@@ -12,11 +12,11 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
+import { MultiSelector } from '@meedan/check-ui';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaActionsMenuButton from './MediaActionsMenuButton';
-import MultiSelector from '../layout/MultiSelector';
 import MoveProjectMediaAction from './MoveProjectMediaAction';
 import RestoreConfirmProjectMediaToProjectAction from './RestoreConfirmProjectMediaToProjectAction';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
@@ -321,14 +321,22 @@ class MediaActionsBarComponent extends Component {
           </DialogTitle>
           <DialogContent>
             <Box display="flex" style={{ outline: 0 }}>
-              <MultiSelector
-                allowToggleAll
-                allowSearch
-                options={options}
-                selected={selected}
-                onDismiss={this.handleCloseDialogs.bind(this)}
-                onSubmit={this.handleAssignProjectMedia.bind(this)}
-              />
+              <FormattedMessage id="multiSelector.search" defaultMessage="Search…">
+                {placeholder => (
+                  <MultiSelector
+                    allowToggleAll
+                    allowSearch
+                    inputPlaceholder={placeholder}
+                    toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
+                    cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                    submitLabel={<FormattedMessage {...globalStrings.update} />}
+                    options={options}
+                    selected={selected}
+                    onDismiss={this.handleCloseDialogs.bind(this)}
+                    onSubmit={this.handleAssignProjectMedia.bind(this)}
+                  />
+                )}
+              </FormattedMessage>
               <div className={classes.spaced}>
                 <Typography variant="body1" component="div" className={classes.spaced}>
                   <FormattedMessage

@@ -15,7 +15,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
         dynamicEdge,
         source {
           id,
-          metadata: annotations(annotation_type: "metadata")
+          tasks,
         }
       }`;
     case 'project_media':
@@ -31,7 +31,7 @@ class UpdateDynamicMutation extends Relay.Mutation {
     case 'task':
       if (task.annotated_type === 'Source') {
         return Relay.QL`fragment on UpdateDynamicPayload {
-          task { id, first_response, responses }
+          task { id, first_response, responses, first_response_value }
           source { id }
         }`;
       }

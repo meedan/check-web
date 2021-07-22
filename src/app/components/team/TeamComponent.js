@@ -159,7 +159,7 @@ class TeamComponent extends Component {
                 value="data"
               />
               : null }
-            { can(team.permissions, 'mange TeamTask') ?
+            { team.get_tasks_enabled && can(team.permissions, 'mange TeamTask') ?
               <Tab
                 className="team-settings__tasks-tab"
                 label={
@@ -346,6 +346,7 @@ TeamComponent.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
+    get_tasks_enabled: PropTypes.bool.isRequired,
   }).isRequired,
   // TODO: Specify prop shapes
   route: PropTypes.object.isRequired,
@@ -365,6 +366,7 @@ export default createFragmentContainer(TeamComponent, {
       name
       slug
       permissions
+      get_tasks_enabled
       ...TeamDetails_team
       alegre_bot: team_bot_installation(bot_identifier: "alegre") {
         id

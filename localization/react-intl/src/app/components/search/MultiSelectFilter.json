@@ -10,6 +10,10 @@
     "defaultMessage": "or"
   },
   {
+    "id": "multiSelector.search",
+    "defaultMessage": "Search…"
+  },
+  {
     "id": "customAutocomplete.done",
     "description": "Label for closing dropdown when user is done selecting tags",
     "defaultMessage": "Done"
