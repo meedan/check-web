@@ -148,7 +148,7 @@ shared_examples 'team' do
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
-    wait_for_selector('.component__settings-header')
+    wait_for_selector('.role-select')
     # edit team member role
     change_the_member_role_to('li.role-editor')
     expect(wait_for_selector('input[name="role-select"]', index: 1).property('value')).to eq 'editor'
