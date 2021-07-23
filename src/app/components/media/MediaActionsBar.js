@@ -388,7 +388,6 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
   fragments: {
     media: () => Relay.QL`
       fragment on ProjectMedia {
-        test_alex_sawy: dbid
         id
         ${MoveProjectMediaAction.getFragment('projectMedia')}
         ${MediaActionsMenuButton.getFragment('projectMedia')}

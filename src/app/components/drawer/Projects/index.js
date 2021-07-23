@@ -33,10 +33,8 @@ const Projects = () => {
       query={graphql`
         query ProjectsQuery($teamSlug: String!) {
           team(slug: $teamSlug) {
-            id
             dbid
             slug
-            name
             medias_count
             permissions
             projects(first: 10000) {

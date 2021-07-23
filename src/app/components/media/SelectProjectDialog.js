@@ -36,8 +36,6 @@ function SelectProjectDialog({
   onCancel,
   onSubmit,
 }) {
-  console.log('team', team);
-
   const [value, setValue] = React.useState(null);
   const handleSubmit = React.useCallback(() => {
     setValue(null);
@@ -141,9 +139,6 @@ const SelectProjectDialogRenderer = (parentProps) => {
     return null;
   }
 
-  console.log('teamSlug', teamSlug);
-  console.log('parentProps', parentProps);
-
   return (
     <QueryRenderer
       environment={Relay.Store}
@@ -178,8 +173,6 @@ const SelectProjectDialogRenderer = (parentProps) => {
         teamSlug,
       }}
       render={({ error, props }) => {
-        console.log('props', props);
-
         if (!error && props) {
           return (
             <SelectProjectDialog {...parentProps} {...props} />
