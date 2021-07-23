@@ -100,7 +100,6 @@ function RestoreConfirmProjectMediaToProjectAction({
       </Button>
       <SelectProjectDialog
         open={isDialogOpen}
-        team={team}
         excludeProjectDbids={[]}
         title={
           <FormattedMessage
@@ -142,7 +141,6 @@ export default createFragmentContainer(RestoreConfirmProjectMediaToProjectAction
         number_of_results
       }
       slug
-      ...SelectProjectDialog_team
     }
   `,
   projectMedia: graphql`

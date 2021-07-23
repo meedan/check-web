@@ -111,7 +111,6 @@ const MediaItem = ({
   isSelected,
   showReportStatus,
   onSelect,
-  team,
 }) => {
   if (!projectMedia || !projectMedia.dbid) {
     return null;
@@ -437,7 +436,6 @@ const MediaItem = ({
       <SelectProjectDialog
         open={isDialogOpen}
         excludeProjectDbids={[]}
-        team={team}
         title={
           <FormattedMessage
             id="detachDialog.dialogdetachedToListTitle"
@@ -502,7 +500,6 @@ MediaItem.propTypes = {
     source_id: PropTypes.number, // Mandatory if canSwitch is true
     target_id: PropTypes.number, // Mandatory if canSwitch is true
   }),
-  team: PropTypes.object.isRequired, // FIXME: Use "shape" and specify all need fields
   canSwitch: PropTypes.bool,
   canDelete: PropTypes.bool,
   isSelected: PropTypes.bool,
@@ -525,12 +522,6 @@ export default createFragmentContainer(withSetFlashMessage(MediaItem), {
       report_status
       added_as_similar_by_name
       confirmed_as_similar_by_name
-    }
-  `,
-  team: graphql`
-    fragment MediaItem_team on Team {
-      slug
-      ...SelectProjectDialog_team
     }
   `,
 });
