@@ -66,7 +66,6 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
               </Typography>
             </Box>
             <MediaItem
-              team={projectMedia.team}
               projectMedia={projectMedia.confirmed_main_item}
               mainProjectMedia={projectMedia.confirmed_main_item}
               isSelected={projectMedia.confirmed_main_item.dbid === selectedProjectMediaDbid}
@@ -208,7 +207,6 @@ export default createFragmentContainer(MediaSimilaritiesComponent, graphql`
     }
     team {
       dbid
-      ...MediaItem_team
       smooch_bot: team_bot_installation(bot_identifier: "smooch") {
         id
       }
