@@ -2,7 +2,7 @@ module FlakyTests
   require 'json'
   require 'aws-sdk-s3'
 
-  @@key = if ENV['TRAVIS_BRANCH'] == 'master'
+  KEY = if ENV['TRAVIS_BRANCH'] == 'master'
           'flaky-tests/master.json'
         else
           'flaky-tests/develop.json'
@@ -18,7 +18,7 @@ module FlakyTests
     client = Aws::S3::Client.new(config)
     s3 = Aws::S3::Resource.new(client: client)
     bucket_name = 'check-web-travis'
-    s3.bucket(bucket_name).object(@@key)
+    s3.bucket(bucket_name).object(KEY)
   end
 
   def update_flaky_tests_file(failing_tests)
@@ -48,13 +48,15 @@ module FlakyTests
         file[key] = test
       end
       create_file(file)
-      if ENV['TRAVIS_BRANCH'] == 'develop' || ENV['TRAVIS_BRANCH'] == 'master'
-        get_file_from_aws_bucket.upload_file('file.json')
-      end
+      upload_file_to_aws
     end
   end
 
   def create_file(tests)
     File.write('file.json', JSON.dump(tests))
+  end
+
+  def upload_file_to_aws
+    get_file_from_aws_bucket.upload_file('file.json') if ENV['TRAVIS_BRANCH'] == 'develop' || ENV['TRAVIS_BRANCH'] == 'master'
   end
 end
