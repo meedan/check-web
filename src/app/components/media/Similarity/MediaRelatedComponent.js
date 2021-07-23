@@ -194,7 +194,6 @@ const MediaRelatedComponent = ({ projectMedia, setFlashMessage }) => {
       { projectMedia.default_relationships.edges.map(relationship => (
         <Box className={classes.spaced} key={relationship.node.id}>
           <MediaItem
-            team={projectMedia.team}
             projectMedia={
               relationship.node.source_id === projectMedia.dbid ?
                 relationship.node.target :
@@ -240,10 +239,6 @@ MediaRelatedComponent.propTypes = {
         }).isRequired,
       })).isRequired,
     }).isRequired,
-    team: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      dbid: PropTypes.number.isRequired,
-    }).isRequired,
   }).isRequired,
 };
 
@@ -267,11 +262,6 @@ export default createFragmentContainer(withSetFlashMessage(MediaRelatedComponent
           }
         }
       }
-    }
-    team {
-      id
-      dbid
-      ...MediaItem_team
     }
   }
 `);

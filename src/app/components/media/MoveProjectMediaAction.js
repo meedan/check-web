@@ -135,7 +135,6 @@ function MoveProjectMediaAction({
       </Button>
       <SelectProjectDialog
         open={isDialogOpen}
-        team={team}
         excludeProjectDbids={[projectMedia.project_id]}
         title={
           <FormattedMessage
@@ -169,7 +168,6 @@ export default createFragmentContainer(MoveProjectMediaAction, {
   team: graphql`
     fragment MoveProjectMediaAction_team on Team {
       slug
-      # ...SelectProjectDialog_team
     }
   `,
   projectMedia: graphql`

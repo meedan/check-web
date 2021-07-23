@@ -278,7 +278,6 @@ class BulkActions extends React.Component {
           <SelectProjectDialog
             open={this.state.openMoveDialog}
             excludeProjectDbids={project ? [project.dbid] : []}
-            team={team}
             title={
               <FormattedMessage
                 id="bulkActions.dialogMoveTitle"
@@ -356,7 +355,6 @@ BulkActions.propTypes = {
 
 export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`
   fragment BulkActions_team on Team {
-    # ...SelectProjectDialog_team
     id
     medias_count
     permissions
