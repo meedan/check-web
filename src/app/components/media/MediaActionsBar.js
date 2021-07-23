@@ -488,25 +488,13 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
 
 // eslint-disable-next-line react/no-multi-comp
 class MediaActionsBar extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      wait: true,
-    };
-  }
-
   render() {
     const { projectId, projectMediaId } = this.props;
     const ids = `${projectMediaId},${projectId}`;
     const projectIdValue = projectId == null ? 0 : projectId;
     const route = new MediaRoute({ ids, projectId: projectIdValue });
 
-    return this.state.wait === true ? (
-      <Button onClick={() => this.setState({ wait: false })}>
-        Run Query
-      </Button>
-    ) : (
+    return (
       <Relay.RootContainer
         Component={MediaActionsBarContainer}
         renderFetched={data => <MediaActionsBarContainer {...this.props} {...data} />}

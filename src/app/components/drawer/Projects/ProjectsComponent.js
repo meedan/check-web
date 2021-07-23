@@ -22,7 +22,6 @@ import ExpandMore from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { DragDropContext } from 'react-beautiful-dnd';
-import SelectProjectDialog from '../../media/SelectProjectDialog';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
 import Can from '../../Can';
@@ -229,14 +228,6 @@ const ProjectsComponent = ({
 
   return (
     <React.Fragment>
-      <SelectProjectDialog
-        open
-        title="Bli"
-        cancelLabel="Cancel"
-        submitLabel="Subme"
-        onSubmit={() => {}}
-        onCancel={() => {}}
-      />
       <List className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
         { saving ? <Box className={classes.projectsComponentMask} /> : null }
 

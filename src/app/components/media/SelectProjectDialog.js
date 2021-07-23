@@ -48,7 +48,7 @@ function SelectProjectDialog({
   const projectGroups = team.project_groups.edges.map(({ node }) => node);
 
   // Fill in the collection title for each folder, even if "not in any collection"
-  const projects = team.myprojects.edges
+  const projects = team.projects.edges
     .map(({ node }) => {
       const projectGroup = projectGroups.find(pg => pg.dbid === node.project_group_id) ||
                            { title: intl.formatMessage(messages.notInAnyCollection) };
@@ -153,7 +153,7 @@ const SelectProjectDialogRenderer = (parentProps) => {
             id
             dbid
             name
-            myprojects: projects(first: 4) {
+            projects(first: 10000) {
               edges {
                 node {
                   id
