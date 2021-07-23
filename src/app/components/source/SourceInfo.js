@@ -623,6 +623,7 @@ export default createFragmentContainer(SourceInfo, {
       audio_max_size
       audio_extensions
       file_max_size
+      file_max_size_in_bytes
       file_extensions
       upload_max_dimensions
       upload_min_dimensions
