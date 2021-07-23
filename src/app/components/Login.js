@@ -58,7 +58,6 @@ class Login extends React.Component {
       otp_attempt: '',
       passwordConfirmation: '',
       checkedTos: false,
-      checkedPp: false,
       showOtp: false,
     };
   }
@@ -75,10 +74,6 @@ class Login extends React.Component {
 
   handleCheckTos() {
     this.setState({ checkedTos: !this.state.checkedTos });
-  }
-
-  handleCheckPp() {
-    this.setState({ checkedPp: !this.state.checkedPp });
   }
 
   handleSwitchToRegister = () => {
@@ -142,7 +137,7 @@ class Login extends React.Component {
       browserHistory.push(window.location.pathname);
     };
 
-    if (this.state.checkedTos && this.state.checkedPp) {
+    if (this.state.checkedTos) {
       request('post', 'users', failureCallback, successCallback, params);
     } else {
       this.setState({
@@ -328,9 +323,7 @@ class Login extends React.Component {
                     user={{}}
                     showTitle={false}
                     handleCheckTos={this.handleCheckTos.bind(this)}
-                    handleCheckPp={this.handleCheckPp.bind(this)}
                     checkedTos={this.state.checkedTos}
-                    checkedPp={this.state.checkedPp}
                   />}
 
                 <div className="login__actions">
