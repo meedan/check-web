@@ -7,10 +7,10 @@ shared_examples 'source' do
     wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__card-card')
-    expect(wait_for_selector('.source__name').text == 'G1').to be(true)
+    expect(@driver.page_source.include?('G1- Edited')).to be(false)
     wait_for_selector('#source__name-input').send_keys('- Edited')
     @driver.action.send_keys(:enter).perform
-    wait_for_text_change('Globo', '#source__name-input', :css)
+    wait_for_text_change('G1', '.source__name', :css)
     expect(@driver.page_source.include?('G1- Edited')).to be(true)
     # check main link
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://g1.globo.com/').to be(true)
@@ -49,10 +49,10 @@ shared_examples 'source' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.media')
     wait_for_selector('.media-tab__source').click
-    wait_for_selector('.media-source__save-button')
+    wait_for_selector('#media-source__create-button')
     wait_for_selector('input[name=source-name]').send_keys('CNN')
     @driver.action.send_keys(:enter).perform
-    wait_for_selector('#media_source-change')
+    wait_for_selector('#main_source__link')
     expect(wait_for_selector('.source__name').text == 'CNN Brasil').to be(true)
   end
 
