@@ -69,6 +69,7 @@ module TeamSpecHelpers
 
   def change_the_member_role_to(rule_class)
     wait_for_selector('#mui-component-select-role-select', :css, 29, index: 1).click
+    wait_for_selector('ul[role=listbox]')
     wait_for_selector(rule_class).click
     wait_for_selector("//span[contains(text(), 'Are you sure you want to change')]", :xpath)
     wait_for_selector('.confirm-proceed-dialog__proceed').click
