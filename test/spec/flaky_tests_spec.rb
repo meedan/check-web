@@ -2,29 +2,29 @@ module FlakyTests
   require 'json'
   require 'aws-sdk-s3'
 
-  def get_file
+  KEY = if ENV['TRAVIS_BRANCH'] == 'master'
+          'flaky-tests/master.json'
+        else
+          'flaky-tests/develop.json'
+        end
+
+  def get_file_from_aws_bucket
     config = {
-      endpoint: @config['aws_endpoint'],
-      access_key_id: @config['aws_access_key_id'],
-      secret_access_key: @config['aws_secret_access_key'],
-      region: @config['aws_region']
+      endpoint: get_config('AWS_ENDPOINT'),
+      access_key_id: get_config('AWS_ACCESS_KEY_ID'),
+      secret_access_key: get_config('AWS_SECRET_ACCESS_KEY'),
+      region: get_config('AWS_REGION')
     }
     client = Aws::S3::Client.new(config)
     s3 = Aws::S3::Resource.new(client: client)
     bucket_name = 'check-web-travis'
-    current_branch = ENV['TRAVIS_BRANCH']
-    key = if current_branch == 'master'
-            'flaky-tests/master.json'
-          else
-            'flaky-tests/develop.json'
-          end
-    s3.bucket(bucket_name).object(key)
+    s3.bucket(bucket_name).object(KEY)
   end
 
   def update_flaky_tests_file(failing_tests)
-    return if failing_tests.empty?
+    return if failing_tests.empty? || ENV['TRAVIS_BRANCH'].nil?
 
-    file = JSON.parse(get_file.get.body.read)
+    file = JSON.parse(get_file_from_aws_bucket.get.body.read)
     failing_tests.each do |key, value|
       test = {}
       if file.key? key
@@ -48,11 +48,15 @@ module FlakyTests
         file[key] = test
       end
       create_file(file)
-      get_file.upload_file('file.json')
+      upload_file_to_aws
     end
   end
 
   def create_file(tests)
     File.write('file.json', JSON.dump(tests))
+  end
+
+  def upload_file_to_aws
+    get_file_from_aws_bucket.upload_file('file.json') if ENV['TRAVIS_BRANCH'] == 'develop' || ENV['TRAVIS_BRANCH'] == 'master'
   end
 end
