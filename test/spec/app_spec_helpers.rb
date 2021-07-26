@@ -108,8 +108,6 @@ module AppSpecHelpers
     unless element.nil?
       @driver.find_element(:css, '#tos__tos-agree').click
       sleep 1
-      @driver.find_element(:css, '#tos__pp-agree').click
-      sleep 1
       if should_submit
         @driver.find_element(:css, '#tos__save').click
         sleep 20
