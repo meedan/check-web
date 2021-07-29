@@ -124,6 +124,7 @@ const MultiSelectFilter = ({
   onToggleOperator,
   operator,
   readOnly,
+  single,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
@@ -178,6 +179,7 @@ const MultiSelectFilter = ({
               options={options}
               selected={selected}
               onSubmit={handleSelect}
+              single={single}
             />
           ) : null}
           { readOnly ? null : (
@@ -195,6 +197,7 @@ const CustomSelectDropdown = ({
   allowSearch,
   options,
   selected,
+  single,
   onSubmit,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -219,6 +222,7 @@ const CustomSelectDropdown = ({
               options={options}
               selected={selected}
               onSubmit={handleSubmit}
+              single={single}
               submitLabel={
                 <FormattedMessage
                   id="customAutocomplete.done"

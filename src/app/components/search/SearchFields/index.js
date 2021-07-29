@@ -180,6 +180,7 @@ class SearchFields extends React.Component {
   }
 
   handleAssignedUserClick = (userIds) => {
+    console.log('userIds', userIds);
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'assigned_to', userIds),
     });
@@ -622,5 +623,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
       }
     }
     ...CustomTeamTaskFilter_team
+    ...CustomFiltersManager_team
   }
 `);

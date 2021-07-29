@@ -104,6 +104,9 @@ const CustomTeamTaskFilter = ({
   onRemove,
   onFilterChange,
 }) => {
+  console.log('team_tasks', team_tasks);
+  console.log('filter', filter);
+
   const getTypeFromFilter = (f) => {
     let type = null;
     if (f) {
