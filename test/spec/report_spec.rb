@@ -36,13 +36,13 @@ shared_examples 'report' do
   it 'should create a image, change the status to in progress and generate a report', bin4: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
-    api_install_bot 'smooch'
     wait_for_selector('.project__description')
     create_image('test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading img')
     wait_for_selector('.media__heading a').click
     wait_for_selector('.card')
+    api_install_bot 'smooch'
     expect(@driver.page_source.include?('In Progress')).to be(false)
     change_the_status_to('.media-status__menu-item--in-progress', false)
     expect(@driver.page_source.include?('In Progress')).to be(true)
@@ -80,7 +80,7 @@ shared_examples 'report' do
     end
   end
 
-  it 'should set analysis information for an item and copy to report', bin2: true do
+  it 'should set analysis information for an item, generate a report and copy to report', bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     api_install_bot 'smooch'
     wait_for_selector('.media-detail')

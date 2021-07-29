@@ -183,7 +183,7 @@ module ApiHelpers
   def api_install_bot(bot)
     url = @driver.current_url.to_s
     team_slug = url.match(%r{^https?://[^/]+/([^/]+)})[1]
-    request_api 'install_bot', { bot: bot, team_slug: team_slug }
+    request_api 'install_bot', { bot: bot, slug: team_slug }
     @driver.navigate.to url
   end
 end
