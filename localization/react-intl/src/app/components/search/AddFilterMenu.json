@@ -40,6 +40,11 @@
     "defaultMessage": "Created by"
   },
   {
+    "id": "addFilterMenu.channel",
+    "description": "Menu option to enable searching items by channel",
+    "defaultMessage": "Channel"
+  },
+  {
     "id": "addFilterMenu.language",
     "description": "Menu option to enable searching items by language",
     "defaultMessage": "Language"
