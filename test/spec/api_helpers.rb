@@ -179,4 +179,10 @@ module ApiHelpers
     request_api 'suggest_similarity', { pm1: source, pm2: target, team_id: team_id }
     @driver.navigate.to @config['self_url']
   end
+
+  def api_install_bot(bot, team_slug)
+    url = @driver.current_url.to_s
+    request_api 'install_bot', { bot: bot, team_slug: team_slug }
+    @driver.navigate.to url
+  end
 end

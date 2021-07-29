@@ -7,6 +7,7 @@ shared_examples 'report' do
   }.each do |provider, url|
     it "should generate a report from #{provider} video", bin1: true do
       api_create_team_project_and_link_and_redirect_to_media_page(url)
+      api_install_bot 'smooch', get_team
       wait_for_selector('.media-detail')
       generate_a_report_and_copy_report_code
       @driver.navigate.to 'https://paste.ubuntu.com/'
@@ -21,6 +22,7 @@ shared_examples 'report' do
 
   it 'should generate a report from website link copy the code and insert in a blog', bin3: true do
     api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
+    api_install_bot 'smooch', get_team
     wait_for_selector('.media-detail')
     generate_a_report_and_copy_report_code
     @driver.navigate.to 'http://codemagic.gr/'
@@ -32,7 +34,8 @@ shared_examples 'report' do
   end
 
   it 'should create a image, change the status to in progress and generate a report', bin4: true do
-    api_create_team_and_project
+    data = api_create_team_and_project
+    api_install_bot 'smooch', data[:team].slug
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
     create_image('test.png')
@@ -56,6 +59,7 @@ shared_examples 'report' do
 
   it 'should generate a report, copy the share url and open the report page in a incognito window', bin5: true do
     api_create_team_project_and_claim_and_redirect_to_media_page('Embed Test')
+    api_install_bot 'smooch', get_team
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
@@ -78,6 +82,7 @@ shared_examples 'report' do
 
   it 'should set analysis information for an item and copy to report', bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
+    api_install_bot 'smooch', get_team
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my content')).to be(false)
     expect(@driver.page_source.include?('- my title')).to be(false)
