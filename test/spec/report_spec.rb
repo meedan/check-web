@@ -34,9 +34,9 @@ shared_examples 'report' do
   end
 
   it 'should create a image, change the status to in progress and generate a report', bin4: true do
-    data = api_create_team_and_project
-    api_install_bot 'smooch', data[:team].slug
+    api_create_team_and_project
     @driver.navigate.to @config['self_url']
+    api_install_bot 'smooch', get_team
     wait_for_selector('.project__description')
     create_image('test.png')
     wait_for_selector('.medias__item')
