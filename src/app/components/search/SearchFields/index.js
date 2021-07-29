@@ -25,6 +25,8 @@ import SaveList from '../SaveList';
 import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
+import SearchFieldChannel from './SearchFieldChannel';
+
 // eslint-disable-next-line no-unused-vars
 import CustomTeamTaskFilter from '../CustomTeamTaskFilter'; // Needed for CustomTeamTaskFilter_team fragment
 
@@ -176,6 +178,12 @@ class SearchFields extends React.Component {
   handleUserClick = (userIds) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'users', userIds),
+    });
+  }
+
+  handleChannelClick = (channelIds) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'channels', channelIds),
     });
   }
 
@@ -419,6 +427,13 @@ class SearchFields extends React.Component {
             />
           )}
         </FormattedMessage>
+      ),
+      channels: (
+        <SearchFieldChannel
+          selected={this.state.query.channels}
+          onChange={(newValue) => { this.handleChannelClick(newValue); }}
+          onRemove={() => this.handleRemoveField('channels')}
+        />
       ),
       report_status: (
         <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">

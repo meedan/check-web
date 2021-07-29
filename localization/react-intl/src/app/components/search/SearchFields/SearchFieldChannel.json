@@ -1,0 +1,7 @@
+[
+  {
+    "id": "SearchFieldChannel.label",
+    "description": "Prefix label for field to filter by item channel",
+    "defaultMessage": "Channel is"
+  }
+]
