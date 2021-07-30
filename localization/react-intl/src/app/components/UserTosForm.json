@@ -30,9 +30,5 @@
   {
     "id": "userTos.agreeTos",
     "defaultMessage": "I agree to the Terms of Service."
-  },
-  {
-    "id": "userTos.agreePp",
-    "defaultMessage": "I agree that Meedan may process personal information I choose to share, including information revealing my racial or ethnic origin, political opinions, religious or philosophical beliefs, trade-union membership, photographs, or information on my sexual orientation. Such information will be deleted if I delete my account as stated in the Privacy Policy."
   }
 ]

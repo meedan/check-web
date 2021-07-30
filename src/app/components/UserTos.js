@@ -20,16 +20,11 @@ class UserTosComponent extends Component {
     super(props);
     this.state = {
       checkedTos: false,
-      checkedPp: false,
     };
   }
 
   handleCheckTos() {
     this.setState({ checkedTos: !this.state.checkedTos });
-  }
-
-  handleCheckPp() {
-    this.setState({ checkedPp: !this.state.checkedPp });
   }
 
   handleSubmit() {
@@ -42,7 +37,7 @@ class UserTosComponent extends Component {
       });
     };
 
-    if (this.state.checkedTos && this.state.checkedPp) {
+    if (this.state.checkedTos) {
       Relay.Store.commitUpdate(
         new UpdateUserMutation({
           current_user_id: this.props.user.id,
@@ -54,7 +49,7 @@ class UserTosComponent extends Component {
   }
 
   handleValidate() {
-    if (!this.state.checkedTos || !this.state.checkedPp) {
+    if (!this.state.checkedTos) {
       this.setState({
         message: <FormattedMessage id="userTos.validation" defaultMessage="You must agree to the Terms of Service and Privacy Policy" />,
       });
@@ -71,7 +66,7 @@ class UserTosComponent extends Component {
           id="tos__save"
           color="primary"
           onClick={this.handleSubmit.bind(this)}
-          disabled={!this.state.checkedTos || !this.state.checkedPp}
+          disabled={!this.state.checkedTos}
         >
           <FormattedMessage id="userTos.save" defaultMessage="Save" />
         </Button>
@@ -102,9 +97,7 @@ class UserTosComponent extends Component {
             showTitle
             termsLastUpdatedAt={about.terms_last_updated_at}
             handleCheckTos={this.handleCheckTos.bind(this)}
-            handleCheckPp={this.handleCheckPp.bind(this)}
             checkedTos={this.state.checkedTos}
-            checkedPp={this.state.checkedPp}
           />
           { user && !user.last_accepted_terms_at ?
             <p>
