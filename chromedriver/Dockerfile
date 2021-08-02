@@ -1,5 +1,4 @@
-# FROM selenium/standalone-chrome-debug:3.141.59-20200730
-FROM selenium/standalone-chrome-debug:3.141.59-20210713
+FROM selenium/standalone-chrome-debug:3.141.59-20200730
 USER root
 RUN apt-get update -qq && apt-get install nginx --no-install-recommends -y
 COPY ./nginx.conf /etc/nginx/nginx.conf
