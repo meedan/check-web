@@ -109,6 +109,7 @@ const ProjectsComponent = ({
   };
 
   const handleSpecialLists = (listId) => {
+    setActiveItem({ type: listId, id: null });
     browserHistory.push(`/${team.slug}/${listId}`);
   };
 
@@ -256,7 +257,7 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
-            className="projects-list__tipline-inbox"
+            className={activeItem.type === 'tipline-inbox' ? ['projects-list__tipline-inbox', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__tipline-inbox'}
           >
             <ListItemIcon>
               <ForumIcon />
@@ -270,7 +271,7 @@ const ProjectsComponent = ({
           <ListItem
             button
             onClick={() => { handleSpecialLists('imported-reports'); }}
-            className="projects-list__imported-reports"
+            className={activeItem.type === 'imported-reports' ? ['projects-list__imported-reports', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__imported-reports'}
           >
             <ListItemIcon>
               <GetAppIcon />
