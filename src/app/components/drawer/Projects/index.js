@@ -37,6 +37,12 @@ const Projects = () => {
             slug
             medias_count
             permissions
+            smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+              id
+            }
+            fetch_bot: team_bot_installation(bot_identifier: "fetch") {
+              id
+            }
             projects(first: 10000) {
               edges {
                 node {
