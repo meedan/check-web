@@ -17,7 +17,7 @@ const SearchFieldChannelComponent = ({
 
   const { channels } = about;
   let options = Object.keys(channels).map(key => ({ label: key, value: `${channels[key]}` })).filter(c => c.label !== 'TIPLINE');
-  options = options.concat([{ label: 'All tiplines', value: 'all_tiplines' }, { label: '', value: '' }]);
+  options = options.concat([{ label: 'Any tipline', value: 'any_tipline' }, { label: '', value: '' }]);
 
   const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: key, value: `${channels.TIPLINE[key]}` }));
   options = options.concat(tiplines);

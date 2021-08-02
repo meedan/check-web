@@ -21,6 +21,9 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import GetAppIcon from '@material-ui/icons/GetApp';
+import ForumIcon from '@material-ui/icons/Forum';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
@@ -103,6 +106,10 @@ const ProjectsComponent = ({
   const handleAllItems = () => {
     setActiveItem({ type: 'all-items', id: null });
     browserHistory.push(`/${team.slug}/all-items`);
+  };
+
+  const handleSpecialLists = (listId) => {
+    browserHistory.push(`/${team.slug}/${listId}`);
   };
 
   const handleClick = (route, id) => {
@@ -244,6 +251,34 @@ const ProjectsComponent = ({
             {team.medias_count}
           </ListItemSecondaryAction>
         </ListItem>
+
+        { team.smooch_bot ?
+          <ListItem
+            button
+            onClick={() => { handleSpecialLists('tipline-inbox'); }}
+            className="projects-list__tipline-inbox"
+          >
+            <ListItemIcon>
+              <ForumIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" />
+            </ListItemText>
+          </ListItem> : null }
+
+        { team.fetch_bot ?
+          <ListItem
+            button
+            onClick={() => { handleSpecialLists('imported-reports'); }}
+            className="projects-list__imported-reports"
+          >
+            <ListItemIcon>
+              <GetAppIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" />
+            </ListItemText>
+          </ListItem> : null }
 
         <Divider />
 
