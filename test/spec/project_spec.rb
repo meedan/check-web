@@ -10,15 +10,18 @@ shared_examples 'project' do
     create_folder_or_collection('collection A', '.projects-list__add-collection')
     # move a folder to a collection
     wait_for_selector_list('.project-list__link')[1].click
-    wait_for_selector('.project-actions__icon').click
+    wait_for_selector('.project__title-text')
+    wait_for_selector('button.project-actions').click
     expect(@driver.find_elements(:css, '.project-actions__move-out').length.zero?).to be(true)
     @driver.navigate.refresh
     wait_for_selector('.search__form')
     move_folder_to_collection('collection A')
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
     # remove folder from collection
-    wait_for_selector('.project-actions__icon').click
+    wait_for_selector('button.project-actions').click
     expect(@driver.find_elements(:css, '.project-actions__move-out').length.zero?).to be(false)
     wait_for_selector('.project-actions__move-out').click
+    wait_for_selector_none('.project-actions__move-out')
     # move folder for the collection again
     move_folder_to_collection('collection A')
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
@@ -26,7 +29,8 @@ shared_examples 'project' do
     wait_for_selector('.project-list__header > svg').click
     # delete collection and check that the folder is still available
     wait_for_selector('.project-list__link').click
-    wait_for_selector('.project-actions__icon').click
+    wait_for_selector('.project__title-text')
+    wait_for_selector('button.project-actions').click
     wait_for_selector('.project-actions__destroy').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__confirm-action-button')

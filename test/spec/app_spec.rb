@@ -43,6 +43,7 @@ shared_examples 'app' do |webdriver_url|
   end
 
   around(:all) do |block|
+    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
     FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
     begin
       block.run

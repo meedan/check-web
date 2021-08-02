@@ -115,6 +115,7 @@ shared_examples 'team' do
     wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     create_media('text')
+    api_logout
 
     # log in as colaborator
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
@@ -144,6 +145,7 @@ shared_examples 'team' do
     wait_for_selector('.medias__item').click
     wait_for_selector('.media-detail')
     expect(@driver.find_elements(:css, '.media-status button').size).to eq 1
+    api_logout
 
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
@@ -158,6 +160,7 @@ shared_examples 'team' do
     wait_for_selector('.team-bots__alegre-uninstalled').click
     wait_for_selector('.team-settings__similarity-tab')
     expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
+    api_logout
 
     # log in as editor
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
