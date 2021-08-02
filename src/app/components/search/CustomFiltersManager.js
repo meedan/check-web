@@ -1,22 +1,40 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import StarIcon from '@material-ui/icons/Star';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MultiSelectFilter from './MultiSelectFilter';
-import CustomTeamTaskFilter from './CustomTeamTaskFilter';
+
+const messages = defineMessages({
+  noValue: {
+    id: 'CustomTeamTaskFilter.noValue',
+    defaultMessage: 'No value is set',
+    description: 'Label for custom field configuration to allow filtering by task or metadata with no value set',
+  },
+  anyValue: {
+    id: 'CustomTeamTaskFilter.anyValue',
+    defaultMessage: 'Any value is set',
+    description: 'Label for custom field configuration to allow filtering by task or metadata with any value set',
+  },
+  labelIs: {
+    id: 'CustomTeamTaskFilter.labelIs',
+    defaultMessage: '{title} is',
+    description: 'Label for custom filter field. E.g. "Location is", "Date of event is"',
+  },
+});
 
 const CustomFiltersManager = ({
   hide,
+  intl,
   team,
   onFilterChange,
   query,
 }) => {
   if (hide) { return null; }
-  console.log('team', team);
 
   const handleTeamTaskFilterChange = (teamTaskFilter, index) => {
-    console.log('teamTaskFilter', teamTaskFilter);
     const newQuery = {};
     newQuery.team_tasks = query.team_tasks ? [...query.team_tasks] : [];
     newQuery.team_tasks.splice(index, 1, teamTaskFilter);
@@ -34,51 +52,59 @@ const CustomFiltersManager = ({
   };
 
   const handleSelectMetadataField = (val, index) => {
-    console.log('val', val);
     const teamTask = team.team_tasks.edges.find(tt => tt.node.dbid.toString() === val);
-    console.log('teamTask', teamTask);
-    // daqui se deriva dbid (val) e task type e response_type
-    handleTeamTaskFilterChange({ id: val, response_type: 'choice' }, index);
+
+    handleTeamTaskFilterChange({
+      id: val,
+      response_type: teamTask.node.type.includes('choice') ? 'choice' : '', // FIXME: Can response_type be === tt.node.type??
+    }, index);
   };
 
   const filters = query.team_tasks && query.team_tasks.length > 0 ? query.team_tasks : [{}];
 
+  const icons = {
+    single_choice: <RadioButtonCheckedIcon />,
+    multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+  };
+
+  const fixedOptions = [
+    { label: intl.formatMessage(messages.anyValue), value: 'ANY_VALUE' },
+    { label: intl.formatMessage(messages.noValue), value: 'NO_VALUE' },
+    { label: '', value: '' },
+  ];
+
   return filters.map((filter, i) => {
     if (filter.response_type === 'choice') { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
       const teamTask = team.team_tasks.edges.find(tt => tt.node.dbid.toString() === filter.id);
+      const options = fixedOptions.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
 
       return (
         <MultiSelectFilter
-          label={teamTask.node.label}
-          icon={<StarIcon />} // TODO: Change icon based on team_task.node.type
-          options={teamTask.node.options.map(tt => ({ label: tt.label, value: tt.label }))}
-          onChange={() => {}}
-        />
-      );
-    }
-
-    if (filter.response_type) {
-      return (
-        <CustomTeamTaskFilter
-          key={filter.id || `uncommitted-filter-${i}`}
-          filter={filter}
-          index={i}
+          label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
+          icon={icons[teamTask.node.type]}
+          selected={filter.response}
+          options={options}
+          onChange={val => handleTeamTaskFilterChange({ ...filter, response: val })}
           onRemove={() => handleRemoveFilter(i)}
-          onFilterChange={handleTeamTaskFilterChange}
-          team={team}
+          single
         />
       );
     }
 
     return (
-      <FormattedMessage id="customFiltersManager.label" defaultMessage="Metadata is" description="Placeholder label for metadata field when not fully configured">
+      <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
         { label => (
           <MultiSelectFilter
             label={label}
             icon={<StarIcon />}
-            selected={[]}
-            options={team.team_tasks.edges.map(tt => ({ label: tt.node.label, value: tt.node.dbid.toString() }))}
+            options={team.team_tasks.edges.map(tt => ({
+              label: tt.node.label,
+              value: tt.node.dbid.toString(),
+              icon: icons[tt.node.type],
+              checkedIcon: icons[tt.node.type],
+            }))}
             onChange={val => handleSelectMetadataField(val, i)}
+            onRemove={() => handleRemoveFilter(i)}
             single
           />
         )}
@@ -104,7 +130,7 @@ CustomFiltersManager.propTypes = {
   }).isRequired,
 };
 
-export default createFragmentContainer(CustomFiltersManager, graphql`
+export default createFragmentContainer(injectIntl(CustomFiltersManager), graphql`
   fragment CustomFiltersManager_team on Team {
     team_tasks(first: 10000) {
       edges {

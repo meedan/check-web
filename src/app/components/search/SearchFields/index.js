@@ -26,7 +26,6 @@ import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 // eslint-disable-next-line no-unused-vars
-import CustomTeamTaskFilter from '../CustomTeamTaskFilter'; // Needed for CustomTeamTaskFilter_team fragment
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -180,7 +179,6 @@ class SearchFields extends React.Component {
   }
 
   handleAssignedUserClick = (userIds) => {
-    console.log('userIds', userIds);
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'assigned_to', userIds),
     });
@@ -622,7 +620,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         }
       }
     }
-    ...CustomTeamTaskFilter_team
     ...CustomFiltersManager_team
   }
 `);

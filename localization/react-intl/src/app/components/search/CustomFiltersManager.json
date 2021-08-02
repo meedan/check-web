@@ -1,0 +1,22 @@
+[
+  {
+    "id": "CustomTeamTaskFilter.noValue",
+    "description": "Label for custom field configuration to allow filtering by task or metadata with no value set",
+    "defaultMessage": "No value is set"
+  },
+  {
+    "id": "CustomTeamTaskFilter.anyValue",
+    "description": "Label for custom field configuration to allow filtering by task or metadata with any value set",
+    "defaultMessage": "Any value is set"
+  },
+  {
+    "id": "CustomTeamTaskFilter.labelIs",
+    "description": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\"",
+    "defaultMessage": "{title} is"
+  },
+  {
+    "id": "customFiltersManager.label",
+    "description": "Placeholder label for metadata field when not fully configured",
+    "defaultMessage": "Custom field is"
+  }
+]
