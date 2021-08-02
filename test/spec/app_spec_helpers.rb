@@ -304,7 +304,7 @@ module AppSpecHelpers
   end
 
   def move_folder_to_collection(collection_title)
-    wait_for_selector('.project-actions__icon').click
+    wait_for_selector('button.project-actions').click
     wait_for_selector('.project-actions__move').click
     wait_for_selector('.confirm-proceed-dialog__cancel')
     wait_for_selector('.MuiAutocomplete-popupIndicator').click
