@@ -13,32 +13,28 @@ const SearchFieldChannelComponent = ({
   onRemove,
   about,
 }) => {
-  const [localSelected, setLocalSelected] = React.useState(selected);
+  // const [localSelected, setLocalSelected] = React.useState(selected);
 
   const { channels } = about;
-  console.log('channels', channels);
   let options = Object.keys(channels).map(key => ({ label: key, value: `${channels[key]}` })).filter(c => c.label !== 'TIPLINE');
   options = options.concat([{ label: 'All tiplines', value: 'all_tiplines' }, { label: '', value: '' }]);
 
   const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: key, value: `${channels.TIPLINE[key]}` }));
   options = options.concat(tiplines);
 
-  console.log('options', options); // eslint-disable-line no-console
-
-  const handleSelectChange = (sel) => {
-    const newSelection = sel;
-    const allTiplinesIndex = sel.findIndex(s => s === 'all_tiplines');
-    if (allTiplinesIndex >= 0) {
-      newSelection.splice(allTiplinesIndex, 1);
-      tiplines.forEach((t) => {
-        if (!newSelection.includes(t.value)) {
-          newSelection.push(t.value);
-        }
-      });
-    }
-    console.log('newSelection', newSelection);
-    setLocalSelected(newSelection);
-  };
+  // const handleSelectChange = (sel) => {
+  //   const newSelection = sel;
+  //   const allTiplinesIndex = sel.findIndex(s => s === 'all_tiplines');
+  //   if (allTiplinesIndex >= 0) {
+  //     newSelection.splice(allTiplinesIndex, 1);
+  //     tiplines.forEach((t) => {
+  //       if (!newSelection.includes(t.value)) {
+  //         newSelection.push(t.value);
+  //       }
+  //     });
+  //   }
+  //   setLocalSelected(newSelection);
+  // };
 
   return (
     <FormattedMessage id="SearchFieldChannel.label" defaultMessage="Channel is" description="Prefix label for field to filter by item channel">
@@ -46,11 +42,11 @@ const SearchFieldChannelComponent = ({
         <MultiSelectFilter
           label={label}
           icon={<ForwardIcon />}
-          selected={localSelected}
+          selected={selected}
           options={options}
           onChange={(newValue) => { onChange(newValue); }}
           onRemove={onRemove}
-          onSelectChange={handleSelectChange}
+          // onSelectChange={handleSelectChange}
         />
       )}
     </FormattedMessage>
