@@ -16,10 +16,19 @@ const SearchFieldChannelComponent = ({
 }) => {
   const { channels } = about;
   let options = Object.keys(channels).map(key => ({ label: key, value: `${channels[key]}` })).filter(c => c.label !== 'TIPLINE');
-  options = options.concat([{ label: 'Any tipline', value: 'any_tipline' }, { label: '', value: '' }]);
+  options = options.concat([{ label: 'Any tipline', value: 'any_tipline', hasChildren: true }, { label: '', value: '' }]);
 
   const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: key, value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
   options = options.concat(tiplines);
+
+  const handleChange = (channelIds) => {
+    let channelIdsWithoutChildren = [...channelIds];
+    if (channelIds.includes('any_tipline')) {
+      const tiplineIds = tiplines.map(t => t.value);
+      channelIdsWithoutChildren = channelIds.filter(channelId => !tiplineIds.includes(channelId));
+    }
+    onChange(channelIdsWithoutChildren);
+  };
 
   return (
     <FormattedMessage id="SearchFieldChannel.label" defaultMessage="Channel is" description="Prefix label for field to filter by item channel">
@@ -29,7 +38,7 @@ const SearchFieldChannelComponent = ({
           icon={<ForwardIcon />}
           selected={selected}
           options={options}
-          onChange={value => onChange(value)}
+          onChange={handleChange}
           onRemove={onRemove}
           readOnly={readOnly}
         />

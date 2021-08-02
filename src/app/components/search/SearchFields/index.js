@@ -182,7 +182,6 @@ class SearchFields extends React.Component {
   }
 
   handleChannelClick = (channelIds) => {
-    console.log('channelIds', channelIds);
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'channels', channelIds),
     });
@@ -328,6 +327,8 @@ class SearchFields extends React.Component {
     const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
     const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
 
+    const isSpecialPage = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname);
+
     const fieldComponents = {
       projects: (
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
@@ -434,7 +435,7 @@ class SearchFields extends React.Component {
           selected={this.state.query.channels}
           onChange={this.handleChannelClick}
           onRemove={() => this.handleRemoveField('channels')}
-          // readOnly={}
+          readOnly={isSpecialPage}
         />
       ),
       report_status: (
