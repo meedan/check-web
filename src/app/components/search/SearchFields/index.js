@@ -182,6 +182,7 @@ class SearchFields extends React.Component {
   }
 
   handleChannelClick = (channelIds) => {
+    console.log('channelIds', channelIds);
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'channels', channelIds),
     });
@@ -431,8 +432,9 @@ class SearchFields extends React.Component {
       channels: (
         <SearchFieldChannel
           selected={this.state.query.channels}
-          onChange={(newValue) => { this.handleChannelClick(newValue); }}
+          onChange={this.handleChannelClick}
           onRemove={() => this.handleRemoveField('channels')}
+          // readOnly={}
         />
       ),
       report_status: (

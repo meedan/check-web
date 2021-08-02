@@ -12,29 +12,14 @@ const SearchFieldChannelComponent = ({
   onChange,
   onRemove,
   about,
+  readOnly,
 }) => {
-  // const [localSelected, setLocalSelected] = React.useState(selected);
-
   const { channels } = about;
   let options = Object.keys(channels).map(key => ({ label: key, value: `${channels[key]}` })).filter(c => c.label !== 'TIPLINE');
   options = options.concat([{ label: 'Any tipline', value: 'any_tipline' }, { label: '', value: '' }]);
 
-  const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: key, value: `${channels.TIPLINE[key]}` }));
+  const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: key, value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
   options = options.concat(tiplines);
-
-  // const handleSelectChange = (sel) => {
-  //   const newSelection = sel;
-  //   const allTiplinesIndex = sel.findIndex(s => s === 'all_tiplines');
-  //   if (allTiplinesIndex >= 0) {
-  //     newSelection.splice(allTiplinesIndex, 1);
-  //     tiplines.forEach((t) => {
-  //       if (!newSelection.includes(t.value)) {
-  //         newSelection.push(t.value);
-  //       }
-  //     });
-  //   }
-  //   setLocalSelected(newSelection);
-  // };
 
   return (
     <FormattedMessage id="SearchFieldChannel.label" defaultMessage="Channel is" description="Prefix label for field to filter by item channel">
@@ -44,9 +29,9 @@ const SearchFieldChannelComponent = ({
           icon={<ForwardIcon />}
           selected={selected}
           options={options}
-          onChange={(newValue) => { onChange(newValue); }}
+          onChange={value => onChange(value)}
           onRemove={onRemove}
-          // onSelectChange={handleSelectChange}
+          readOnly={readOnly}
         />
       )}
     </FormattedMessage>
