@@ -66,7 +66,7 @@ shared_examples 'team' do
     wait_for_selector('.team-bots__keep-installed').click
   end
 
-  it 'should add introduction to team report settings', bin5: true do
+  it 'should add introduction to team report settings', bin4: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__report-tab').click
@@ -90,8 +90,7 @@ shared_examples 'team' do
     wait_for_selector('.slack-config__switch').click
     wait_for_selector('.Mui-checked')
     wait_for_selector('.slack-config__settings').click
-    wait_for_selector('#slack-config__channel')
-    wait_for_selector("//span[contains(text(), 'Send notifications to Slack channels')]", :xpath)
+    wait_for_selector('div[role=dialog]')
     wait_for_selector('#slack-config__webhook').send_keys('https://hooks.slack.com/services/00000/0000000000')
     wait_for_selector('.slack-config__save').click
     wait_for_selector_none('.slack-config__save')

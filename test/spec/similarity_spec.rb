@@ -54,7 +54,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Claim 1')).to be(false)
   end
 
-  it 'should add and remove related items', bin5: true do
+  it 'should add and remove related items', bin6: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page 2, 0
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)

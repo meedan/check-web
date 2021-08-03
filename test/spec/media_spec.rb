@@ -41,7 +41,8 @@ shared_examples 'media' do |type|
     # Second item
     wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__next-item')
-    wait_for_selector('.media-search__actions-bar')
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
+
     wait_for_selector('.media-detail')
     expect(page_source_body.include?('1 of 3')).to be(false)
     expect(page_source_body.include?('2 of 3')).to be(true)
@@ -53,7 +54,7 @@ shared_examples 'media' do |type|
     # Third item
     wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__next-item')
-    wait_for_selector('.media-search__actions-bar')
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
     wait_for_selector('.media-detail')
 
     expect(page_source_body.include?('1 of 3')).to be(false)
@@ -139,13 +140,14 @@ shared_examples 'media' do |type|
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
   end
 
-  it 'should restore items from the trash', bin5: true do
+  it 'should restore items from the trash', bin2: true do
     create_media_depending_on_type
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
     wait_for_selector('.message').click
     wait_for_selector('.project-header__back-button').click
+    wait_for_selector('.projects-list')
     expect(@driver.find_elements(:css, '.medias__item').empty?)
     wait_for_selector('.project-list__item-trash').click # Go to the trash page
     wait_for_selector('.media__heading')
