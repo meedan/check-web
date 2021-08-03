@@ -43,6 +43,7 @@ shared_examples 'app' do |webdriver_url|
   end
 
   around(:all) do |block|
+    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
     FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
     begin
       block.run
@@ -218,6 +219,7 @@ shared_examples 'app' do |webdriver_url|
     it 'should go back to the right url from the item page', bin3: true do
       # item created in a project
       api_create_team_project_and_claim_and_redirect_to_media_page
+      api_install_bot 'smooch'
       wait_for_selector('.media')
       wait_for_selector('.project-header__back-button').click
       wait_for_selector_list_size('.medias__item', 1, :css, 30)

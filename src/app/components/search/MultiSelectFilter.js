@@ -121,6 +121,7 @@ const MultiSelectFilter = ({
   options,
   onChange,
   onRemove,
+  onSelectChange,
   onToggleOperator,
   operator,
   readOnly,
@@ -183,6 +184,7 @@ const MultiSelectFilter = ({
               selected={selectedArray}
               onSubmit={handleSelect}
               single={single}
+              onSelectChange={onSelectChange}
             />
           ) : null }
           { !readOnly && !single ? (
@@ -202,6 +204,7 @@ const CustomSelectDropdown = ({
   selected,
   single,
   onSubmit,
+  onSelectChange,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleSubmit = (value) => {
@@ -226,6 +229,7 @@ const CustomSelectDropdown = ({
               selected={selected}
               onSubmit={handleSubmit}
               single={single}
+              onSelectChange={onSelectChange}
               submitLabel={
                 <FormattedMessage
                   id="customAutocomplete.done"

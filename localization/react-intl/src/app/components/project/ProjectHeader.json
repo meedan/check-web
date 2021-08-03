@@ -8,6 +8,14 @@
     "defaultMessage": "Unconfirmed"
   },
   {
+    "id": "projectHeader.tiplineInbox",
+    "defaultMessage": "Tipline inbox"
+  },
+  {
+    "id": "projectHeader.importedReports",
+    "defaultMessage": "Imported reports"
+  },
+  {
     "id": "projectHeader.allItems",
     "defaultMessage": "All items"
   }

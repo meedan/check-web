@@ -312,7 +312,7 @@ class SearchResultsComponent extends React.PureComponent {
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = this.beginIndex + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.endsWith('/trash') || searchUrlPrefix.endsWith('/unconfirmed')) {
+    if (searchUrlPrefix.match('(/trash|/unconfirmed|/tipline-inbox|/imported-reports|/tipline-inbox)$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);

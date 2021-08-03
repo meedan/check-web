@@ -17,6 +17,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import StarIcon from '@material-ui/icons/Star';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
+import ForwardIcon from '@material-ui/icons/Forward';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 
 const StyledButton = withStyles({
@@ -130,6 +131,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.createdBy"
         defaultMessage="Created by"
         description="Menu option to enable searching items by author"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__channel',
+    key: 'channels',
+    icon: <ForwardIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.channel"
+        defaultMessage="Channel"
+        description="Menu option to enable searching items by channel"
       />
     ),
   },

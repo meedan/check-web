@@ -25,6 +25,8 @@ import SaveList from '../SaveList';
 import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
+import SearchFieldChannel from './SearchFieldChannel';
+
 // eslint-disable-next-line no-unused-vars
 
 /**
@@ -178,6 +180,12 @@ class SearchFields extends React.Component {
     });
   }
 
+  handleChannelClick = (channelIds) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'channels', channelIds),
+    });
+  }
+
   handleAssignedUserClick = (userIds) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'assigned_to', userIds),
@@ -318,6 +326,8 @@ class SearchFields extends React.Component {
     const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
     const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
 
+    const isSpecialPage = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname);
+
     const fieldComponents = {
       projects: (
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
@@ -418,6 +428,14 @@ class SearchFields extends React.Component {
             />
           )}
         </FormattedMessage>
+      ),
+      channels: (
+        <SearchFieldChannel
+          selected={this.state.query.channels}
+          onChange={this.handleChannelClick}
+          onRemove={() => this.handleRemoveField('channels')}
+          readOnly={isSpecialPage}
+        />
       ),
       report_status: (
         <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">

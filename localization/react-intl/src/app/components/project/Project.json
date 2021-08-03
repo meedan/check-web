@@ -1,5 +1,13 @@
 [
   {
+    "id": "project.onlyAdminsAndEditors",
+    "defaultMessage": "Only Admins and Editors"
+  },
+  {
+    "id": "project.onlyAdmins",
+    "defaultMessage": "Only Admins"
+  },
+  {
     "id": "project.name",
     "defaultMessage": "folder"
   },

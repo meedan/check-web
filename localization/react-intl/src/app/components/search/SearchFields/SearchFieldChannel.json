@@ -1,0 +1,27 @@
+[
+  {
+    "id": "searchFieldChannel.manual",
+    "description": "Filter option that refers to items created manually",
+    "defaultMessage": "Manual"
+  },
+  {
+    "id": "searchFieldChannel.browserExtension",
+    "description": "Filter option that refers to items created via the browser extension",
+    "defaultMessage": "Browser extension"
+  },
+  {
+    "id": "searchFieldChannel.api",
+    "description": "Filter option that refers to items created via the API",
+    "defaultMessage": "API"
+  },
+  {
+    "id": "searchFieldChannel.anyTipline",
+    "description": "Filter option that refers to items created via a tipline",
+    "defaultMessage": "Any tipline"
+  },
+  {
+    "id": "SearchFieldChannel.label",
+    "description": "Prefix label for field to filter by item channel",
+    "defaultMessage": "Channel is"
+  }
+]

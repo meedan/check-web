@@ -19,6 +19,14 @@
     "defaultMessage": "All items"
   },
   {
+    "id": "projectsComponent.tiplineInbox",
+    "defaultMessage": "Tipline inbox"
+  },
+  {
+    "id": "projectsComponent.importedReports",
+    "defaultMessage": "Imported reports"
+  },
+  {
     "id": "projectsComponent.folders",
     "defaultMessage": "Folders"
   },

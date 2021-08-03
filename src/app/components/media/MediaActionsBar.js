@@ -255,23 +255,24 @@ class MediaActionsBarComponent extends Component {
               projectMedia={this.props.media}
               className={classes.spacedButton}
             />
-            <Button
-              onClick={MediaActionsBarComponent.handleReportDesigner}
-              id="media-detail__report-designer"
-              variant="outlined"
-              className={classes.spacedButton}
-              startIcon={<IconReport />}
-            >
-              { published ?
-                <FormattedMessage
-                  id="mediaActionsBar.publishedReport"
-                  defaultMessage="Published report"
-                /> :
-                <FormattedMessage
-                  id="mediaActionsBar.unpublishedReport"
-                  defaultMessage="Unpublished report"
-                /> }
-            </Button>
+            { media.team && media.team.smooch_bot ?
+              <Button
+                onClick={MediaActionsBarComponent.handleReportDesigner}
+                id="media-detail__report-designer"
+                variant="outlined"
+                className={classes.spacedButton}
+                startIcon={<IconReport />}
+              >
+                { published ?
+                  <FormattedMessage
+                    id="mediaActionsBar.publishedReport"
+                    defaultMessage="Published report"
+                  /> :
+                  <FormattedMessage
+                    id="mediaActionsBar.unpublishedReport"
+                    defaultMessage="Unpublished report"
+                  /> }
+              </Button> : null }
           </div> :
           <div>
             <RestoreConfirmProjectMediaToProjectAction
