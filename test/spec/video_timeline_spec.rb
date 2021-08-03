@@ -1,6 +1,7 @@
 shared_examples 'videotimeline' do
   it 'should manage video notes', bin6: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
+    @driver.manage().window().maximize()
     wait_for_selector('.media-detail')
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
@@ -39,6 +40,7 @@ shared_examples 'videotimeline' do
 
   it 'should manage videotags', bin6: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
+    @driver.manage().window().maximize()
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my videotag')).to be(false)
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
