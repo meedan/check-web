@@ -98,6 +98,7 @@ class ProjectComponent extends React.PureComponent {
                     alignItems: 'center',
                     fontSize: 14,
                     marginLeft: units(2),
+                    gap: '4px',
                   }}
                 >
                   <VisibilityIcon /> {privacyLabel}
