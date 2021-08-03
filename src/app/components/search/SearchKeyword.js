@@ -91,7 +91,7 @@ class SearchKeyword extends React.Component {
     const cleanQuery = { ...query };
     if (query.team_tasks) {
       cleanQuery.team_tasks = query.team_tasks.filter(tt => (
-        tt.id && tt.response && tt.response_type
+        tt.id && tt.response && tt.task_type
       ));
       if (!cleanQuery.team_tasks.length) {
         delete cleanQuery.team_tasks;

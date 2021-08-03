@@ -56,7 +56,7 @@ const CustomFiltersManager = ({
 
     handleTeamTaskFilterChange({
       id: val,
-      response_type: teamTask.node.type.includes('choice') ? 'choice' : '', // FIXME: Can response_type be === tt.node.type??
+      task_type: teamTask.node.type,
     }, index);
   };
 
@@ -74,21 +74,24 @@ const CustomFiltersManager = ({
   ];
 
   return filters.map((filter, i) => {
-    if (filter.response_type === 'choice') { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
+    if (filter.id) {
       const teamTask = team.team_tasks.edges.find(tt => tt.node.dbid.toString() === filter.id);
-      const options = fixedOptions.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
 
-      return (
-        <MultiSelectFilter
-          label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
-          icon={icons[teamTask.node.type]}
-          selected={filter.response}
-          options={options}
-          onChange={val => handleTeamTaskFilterChange({ ...filter, response: val })}
-          onRemove={() => handleRemoveFilter(i)}
-          single
-        />
-      );
+      if (filter.task_type.includes('choice')) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
+        const options = fixedOptions.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
+
+        return (
+          <MultiSelectFilter
+            label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
+            icon={icons[teamTask.node.type]}
+            selected={filter.response}
+            options={options}
+            onChange={val => handleTeamTaskFilterChange({ ...filter, response: val })}
+            onRemove={() => handleRemoveFilter(i)}
+            single
+          />
+        );
+      }
     }
 
     return (
@@ -125,7 +128,7 @@ CustomFiltersManager.propTypes = {
     team_tasks: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
       response: PropTypes.string,
-      response_type: PropTypes.string,
+      task_type: PropTypes.string,
     })),
   }).isRequired,
 };
