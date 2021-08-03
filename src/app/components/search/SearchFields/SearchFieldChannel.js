@@ -58,7 +58,6 @@ const SearchFieldChannelComponent = ({
 
   options = options.concat([
     { label: intl.formatMessage(messages.anyTipline), value: 'any_tipline', hasChildren: true },
-    { label: '', value: '' },
   ]);
 
   const tiplines = Object.keys(channels.TIPLINE).map(key => ({ label: optionLabels[key], value: `${channels.TIPLINE[key]}`, parent: 'any_tipline' }));
