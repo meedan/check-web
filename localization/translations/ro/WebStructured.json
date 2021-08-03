@@ -71,6 +71,9 @@
 	"FilterPopup.close": {
 		"string": "Terminat"
 	},
+	"ImportedReports.title": {
+		"string": "Imported reports"
+	},
 	"ItemHistoryDialog.title": {
 		"string": "Istoricul elementului"
 	},
@@ -79,6 +82,10 @@
 	},
 	"MultiSelector.search": {
 		"string": "Caută..."
+	},
+	"SearchFieldChannel.label": {
+		"string": "Channel is",
+		"developer_comment": "Prefix label for field to filter by item channel"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Cont deja confirmat",
@@ -167,6 +174,10 @@
 	"addFilterMenu.assignedTo": {
 		"string": "Alocare",
 		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.channel": {
+		"string": "Channel",
+		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.collection": {
 		"string": "Collection",
@@ -1559,6 +1570,9 @@
 	"multiSelector.empty": {
 		"string": "Nu a fost găsit nici un element"
 	},
+	"multiSelector.search": {
+		"string": "Caută..."
+	},
 	"network.noResponse": {
 		"string": "Conectarea la {app} nu a fost posibilă, asigurați-vă că sunteți conectat(ă) la Internet"
 	},
@@ -1654,6 +1668,12 @@
 	"project.name": {
 		"string": "folder"
 	},
+	"project.onlyAdmins": {
+		"string": "Only Admins"
+	},
+	"project.onlyAdminsAndEditors": {
+		"string": "Only Admins and Editors"
+	},
 	"projectActions.cancel": {
 		"string": "Anulează"
 	},
@@ -1672,6 +1692,19 @@
 	"projectActions.moveOut": {
 		"string": "Move out",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.privacy": {
+		"string": "Change access",
+		"developer_comment": "'Change' here is an infinitive verb"
+	},
+	"projectActions.privacyMessageAdmins": {
+		"string": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+	},
+	"projectActions.privacyMessageAll": {
+		"string": "Anyone can see this folder, access its content and annotate it."
+	},
+	"projectActions.privacyMessageEditors": {
+		"string": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
 	},
 	"projectActions.rename": {
 		"string": "Rename",
@@ -1698,6 +1731,12 @@
 	},
 	"projectHeader.allItems": {
 		"string": "Toate elementele"
+	},
+	"projectHeader.importedReports": {
+		"string": "Imported reports"
+	},
+	"projectHeader.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectHeader.trash": {
 		"string": "Coș de gunoi"
@@ -1778,6 +1817,9 @@
 	"projectsComponent.folders": {
 		"string": "Folders"
 	},
+	"projectsComponent.importedReports": {
+		"string": "Imported reports"
+	},
 	"projectsComponent.invalidMove": {
 		"string": "Folders can only be moved to collections",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
@@ -1837,9 +1879,28 @@
 		"string": "No folders in this collection",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
+	"projectsComponent.privacyDialogButton": {
+		"string": "Update access"
+	},
+	"projectsComponent.privacyDialogOptionAdmins": {
+		"string": "Only Admins"
+	},
+	"projectsComponent.privacyDialogOptionAll": {
+		"string": "Everyone with access to this workspace"
+	},
+	"projectsComponent.privacyDialogOptionEditors": {
+		"string": "Only Admins and Editors"
+	},
+	"projectsComponent.privacyDialogTitle": {
+		"string": "Who can see this folder and its content",
+		"developer_comment": "Title for folder privacy dialog"
+	},
 	"projectsComponent.renameType": {
 		"string": "Rename {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectsComponent.title": {
 		"string": "Titlu"
@@ -2327,6 +2388,22 @@
 	"search.userHeading": {
 		"string": "Creat de",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldChannel.anyTipline": {
+		"string": "Any tipline",
+		"developer_comment": "Filter option that refers to items created via a tipline"
+	},
+	"searchFieldChannel.api": {
+		"string": "API",
+		"developer_comment": "Filter option that refers to items created via the API"
+	},
+	"searchFieldChannel.browserExtension": {
+		"string": "Browser extension",
+		"developer_comment": "Filter option that refers to items created via the browser extension"
+	},
+	"searchFieldChannel.manual": {
+		"string": "Manual",
+		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldSource.label": {
 		"string": "Source is",
@@ -2994,8 +3071,15 @@
 	"tagInput.search": {
 		"string": "Caută sau adaugă o etichetă nouă"
 	},
-	"tagMenu.done": {
-		"string": "Terminat"
+	"tagMenu.create": {
+		"string": "+ Create this tag"
+	},
+	"tagMenu.notFound": {
+		"string": "No tags found"
+	},
+	"tagMenu.submit": {
+		"string": "Etichetă",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
 		"string": "Editează etichetele"
@@ -3634,6 +3718,9 @@
 		"string": "The suggestion threshold cannot be higher than the matching one.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
+	"tiplineInbox.title": {
+		"string": "Tipline inbox"
+	},
 	"tos.title": {
 		"string": "Termeni de utilizare a serviciilor"
 	},
@@ -3880,9 +3967,6 @@
 	},
 	"userTooltip.dateJoined": {
 		"string": "S-a alăturat la {date} • {teamsCount, plural, =0 {Niciun spațiu de lucru} one {1 spațiu de lucru} other {# spații de lucru}}"
-	},
-	"userTos.agreePp": {
-		"string": "Sunt de acord ca Meedan să îmi poată procesa datele personale pe care aleg să le partajez, inclusiv informații ce îmi dezvăluie rasa sau etnia, opiniile politice, religioase sau filosofice, calitatea de membru de sindicat, fotografii sau informații privind orientarea mea sexuală. Aceste informații vor fi șterse dacă îmi șterg contul, conform prevederilor din Politica de confidențialitate."
 	},
 	"userTos.agreeTos": {
 		"string": "Sunt de acord cu Termenii de utilizare a serviciilor."
