@@ -34,6 +34,8 @@ const CustomFiltersManager = ({
 }) => {
   if (hide) { return null; }
 
+  const supportedTeamTasks = team.team_tasks.edges.filter(tt => tt.node.type.includes('choice'));
+
   const handleTeamTaskFilterChange = (teamTaskFilter, index) => {
     const newQuery = {};
     newQuery.team_tasks = query.team_tasks ? [...query.team_tasks] : [];
@@ -52,7 +54,7 @@ const CustomFiltersManager = ({
   };
 
   const handleSelectMetadataField = (val, index) => {
-    const teamTask = team.team_tasks.edges.find(tt => tt.node.dbid.toString() === val);
+    const teamTask = supportedTeamTasks.find(tt => tt.node.dbid.toString() === val);
 
     handleTeamTaskFilterChange({
       id: val,
@@ -68,17 +70,22 @@ const CustomFiltersManager = ({
   };
 
   const fixedOptions = [
-    { label: intl.formatMessage(messages.anyValue), value: 'ANY_VALUE' },
-    { label: intl.formatMessage(messages.noValue), value: 'NO_VALUE' },
+    { label: intl.formatMessage(messages.anyValue), value: 'ANY_VALUE', exclusive: true },
+    { label: intl.formatMessage(messages.noValue), value: 'NO_VALUE', exclusive: true },
     { label: '', value: '' },
   ];
 
   return filters.map((filter, i) => {
     if (filter.id) {
-      const teamTask = team.team_tasks.edges.find(tt => tt.node.dbid.toString() === filter.id);
+      const teamTask = supportedTeamTasks.find(tt => tt.node.dbid.toString() === filter.id);
 
       if (filter.task_type.includes('choice')) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
         const options = fixedOptions.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
+
+        const handleChoiceTaskFilterChange = (val) => {
+          const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') ? val[0] : val;
+          handleTeamTaskFilterChange({ ...filter, response });
+        };
 
         return (
           <MultiSelectFilter
@@ -86,9 +93,8 @@ const CustomFiltersManager = ({
             icon={icons[teamTask.node.type]}
             selected={filter.response}
             options={options}
-            onChange={val => handleTeamTaskFilterChange({ ...filter, response: val })}
+            onChange={handleChoiceTaskFilterChange}
             onRemove={() => handleRemoveFilter(i)}
-            single
           />
         );
       }
@@ -100,7 +106,7 @@ const CustomFiltersManager = ({
           <MultiSelectFilter
             label={label}
             icon={<StarIcon />}
-            options={team.team_tasks.edges.map(tt => ({
+            options={supportedTeamTasks.map(tt => ({
               label: tt.node.label,
               value: tt.node.dbid.toString(),
               icon: icons[tt.node.type],
