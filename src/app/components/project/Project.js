@@ -5,6 +5,7 @@ import Relay from 'react-relay/classic';
 import { graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
@@ -12,6 +13,7 @@ import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 import NotFound from '../NotFound';
 import ProjectActions from '../drawer/Projects/ProjectActions';
+import { units, black32 } from '../../styles/js/shared';
 
 class ProjectComponent extends React.PureComponent {
   componentDidMount() {
@@ -71,6 +73,13 @@ class ProjectComponent extends React.PureComponent {
       projects: [project.dbid],
     };
 
+    const privacyLabels = [
+      null,
+      <FormattedMessage id="project.onlyAdminsAndEditors" defaultMessage="Only Admins and Editors" />,
+      <FormattedMessage id="project.onlyAdmins" defaultMessage="Only Admins" />,
+    ];
+    const privacyLabel = privacyLabels[project.privacy];
+
     return (
       <div className="project">
         <Search
@@ -80,38 +89,53 @@ class ProjectComponent extends React.PureComponent {
           icon={<FolderOpenIcon />}
           listDescription={project.description}
           listActions={
-            <ProjectActions
-              isMoveable
-              object={project}
-              name={<FormattedMessage id="project.name" defaultMessage="folder" />}
-              updateMutation={graphql`
-                mutation ProjectUpdateProjectMutation($input: UpdateProjectInput!) {
-                  updateProject(input: $input) {
-                    project {
-                      id
-                      title
-                      description
+            <React.Fragment>
+              { project.privacy > 0 ?
+                <div
+                  style={{
+                    color: black32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    fontSize: 14,
+                    marginLeft: units(2),
+                  }}
+                >
+                  <VisibilityIcon /> {privacyLabel}
+                </div> : null }
+              <ProjectActions
+                isMoveable
+                hasPrivacySettings
+                object={project}
+                name={<FormattedMessage id="project.name" defaultMessage="folder" />}
+                updateMutation={graphql`
+                  mutation ProjectUpdateProjectMutation($input: UpdateProjectInput!) {
+                    updateProject(input: $input) {
+                      project {
+                        id
+                        title
+                        description
+                      }
                     }
                   }
+                `}
+                deleteMessage={
+                  <FormattedMessage
+                    id="project.deleteMessage"
+                    defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
+                  />
                 }
-              `}
-              deleteMessage={
-                <FormattedMessage
-                  id="project.deleteMessage"
-                  defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
-                />
-              }
-              deleteMutation={graphql`
-                mutation ProjectDestroyProjectMutation($input: DestroyProjectInput!) {
-                  destroyProject(input: $input) {
-                    deletedId
-                    team {
-                      id
+                deleteMutation={graphql`
+                  mutation ProjectDestroyProjectMutation($input: DestroyProjectInput!) {
+                    destroyProject(input: $input) {
+                      deletedId
+                      team {
+                        id
+                      }
                     }
                   }
-                }
-              `}
-            />
+                `}
+              />
+            </React.Fragment>
           }
           teamSlug={routeParams.team}
           project={project}
@@ -143,6 +167,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         search_id,
         medias_count,
         project_group_id,
+        privacy,
         team {
           id,
           dbid,
