@@ -146,11 +146,9 @@ export default createFragmentContainer(injectIntl(CustomFiltersManager), graphql
         node {
           id
           dbid
-          fieldset
           label
           options
           type
-          associated_type
         }
       }
     }
