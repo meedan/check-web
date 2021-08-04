@@ -71,6 +71,9 @@
 	"FilterPopup.close": {
 		"string": "إتمام"
 	},
+	"ImportedReports.title": {
+		"string": "Imported reports"
+	},
 	"ItemHistoryDialog.title": {
 		"string": "تاريخ العنصر"
 	},
@@ -79,6 +82,10 @@
 	},
 	"MultiSelector.search": {
 		"string": "بحث..."
+	},
+	"SearchFieldChannel.label": {
+		"string": "Channel is",
+		"developer_comment": "Prefix label for field to filter by item channel"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "تم تأكيد الحساب سابقاً",
@@ -167,6 +174,10 @@
 	"addFilterMenu.assignedTo": {
 		"string": "التخصيصات",
 		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.channel": {
+		"string": "Channel",
+		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.collection": {
 		"string": "المجموعة",
@@ -1532,7 +1543,7 @@
 		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
 	},
 	"metadata.location.coordinates.helper": {
-		"string": "Should be a comma-separated pair of latitude and longitude coordinates like \"-12.9, -38.15\". Drag the map pin if you are having difficulty.",
+		"string": "يجب أن يكون المحتوى مكونا من إحداثيات خطوط العرض والطول بينهما فاصلة مثل: \"‎-12.9, -38.15\". يمكنك سحب دبوس الخريطة إذا وجدت صعوبة في إدخال الإحداثيات.",
 		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
 	},
 	"metadata.location.customize": {
@@ -1558,6 +1569,9 @@
 	},
 	"multiSelector.empty": {
 		"string": "‏‏لم يتم العثور على عناصر"
+	},
+	"multiSelector.search": {
+		"string": "بحث..."
 	},
 	"network.noResponse": {
 		"string": "عذراً ، لم نتمكن من الاتصال مع {app}. الرجاء التأكد من الاتصال باﻹنترنت"
@@ -1587,7 +1601,7 @@
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
 	},
 	"ocrButton.inProgress": {
-		"string": "Text extraction in progress…",
+		"string": "يجري استخلاص النص من الصورة…",
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
@@ -1654,6 +1668,12 @@
 	"project.name": {
 		"string": "المجلد"
 	},
+	"project.onlyAdmins": {
+		"string": "Only Admins"
+	},
+	"project.onlyAdminsAndEditors": {
+		"string": "Only Admins and Editors"
+	},
 	"projectActions.cancel": {
 		"string": "إلغاء"
 	},
@@ -1672,6 +1692,19 @@
 	"projectActions.moveOut": {
 		"string": "نقل إلى الخارج",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.privacy": {
+		"string": "Change access",
+		"developer_comment": "'Change' here is an infinitive verb"
+	},
+	"projectActions.privacyMessageAdmins": {
+		"string": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+	},
+	"projectActions.privacyMessageAll": {
+		"string": "Anyone can see this folder, access its content and annotate it."
+	},
+	"projectActions.privacyMessageEditors": {
+		"string": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
 	},
 	"projectActions.rename": {
 		"string": "تغيير الاسم",
@@ -1698,6 +1731,12 @@
 	},
 	"projectHeader.allItems": {
 		"string": "كل العناصر"
+	},
+	"projectHeader.importedReports": {
+		"string": "Imported reports"
+	},
+	"projectHeader.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectHeader.trash": {
 		"string": "سلة المهملات"
@@ -1778,6 +1817,9 @@
 	"projectsComponent.folders": {
 		"string": "المجلدات"
 	},
+	"projectsComponent.importedReports": {
+		"string": "Imported reports"
+	},
 	"projectsComponent.invalidMove": {
 		"string": "لا يمكن نقل المجلدات إلا إلى مجموعات",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
@@ -1837,9 +1879,28 @@
 		"string": "لا توجد مجلدات في هذه المجموعة",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
+	"projectsComponent.privacyDialogButton": {
+		"string": "Update access"
+	},
+	"projectsComponent.privacyDialogOptionAdmins": {
+		"string": "Only Admins"
+	},
+	"projectsComponent.privacyDialogOptionAll": {
+		"string": "Everyone with access to this workspace"
+	},
+	"projectsComponent.privacyDialogOptionEditors": {
+		"string": "Only Admins and Editors"
+	},
+	"projectsComponent.privacyDialogTitle": {
+		"string": "Who can see this folder and its content",
+		"developer_comment": "Title for folder privacy dialog"
+	},
 	"projectsComponent.renameType": {
 		"string": "تغيير اسم {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectsComponent.title": {
 		"string": "العنوان"
@@ -2328,6 +2389,22 @@
 		"string": "تم الإنشاء بواسطة",
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
+	"searchFieldChannel.anyTipline": {
+		"string": "Any tipline",
+		"developer_comment": "Filter option that refers to items created via a tipline"
+	},
+	"searchFieldChannel.api": {
+		"string": "API",
+		"developer_comment": "Filter option that refers to items created via the API"
+	},
+	"searchFieldChannel.browserExtension": {
+		"string": "Browser extension",
+		"developer_comment": "Filter option that refers to items created via the browser extension"
+	},
+	"searchFieldChannel.manual": {
+		"string": "Manual",
+		"developer_comment": "Filter option that refers to items created manually"
+	},
 	"searchFieldSource.label": {
 		"string": "المصدر هو",
 		"developer_comment": "Prefix label for field to filter by source"
@@ -2434,10 +2511,10 @@
 		"developer_comment": "Subtitle to similarity matching settings page"
 	},
 	"similarityComponent.dateThreshold": {
-		"string": "Similar content last submitted more than {maxTime} months ago will only be suggested"
+		"string": "سيُقترَح فقط المحتوى المشابه الذي تم إرساله منذ أكثر من {maxTime} شهرا"
 	},
 	"similarityComponent.dateThresholdSettings": {
-		"string": "Limit matching to recently submitted content",
+		"string": "حصر التوافقات في المحتوي الذي تم إرساله حديثا",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
@@ -2994,8 +3071,15 @@
 	"tagInput.search": {
 		"string": "للبحث عن الوسوم أو لإضافة وسوم جديدة"
 	},
-	"tagMenu.done": {
-		"string": "إتمام"
+	"tagMenu.create": {
+		"string": "+ Create this tag"
+	},
+	"tagMenu.notFound": {
+		"string": "No tags found"
+	},
+	"tagMenu.submit": {
+		"string": "الوسم",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
 		"string": "تحرير الوسوم"
@@ -3634,6 +3718,9 @@
 		"string": "لا يمكن أن تزيد العتبة التي يظهر عندها الاقتراح عن المعدل الذي يتم عنده التوافق.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
+	"tiplineInbox.title": {
+		"string": "Tipline inbox"
+	},
 	"tos.title": {
 		"string": "شروط الاستخدام"
 	},
@@ -3880,9 +3967,6 @@
 	},
 	"userTooltip.dateJoined": {
 		"string": "انضم في  {date} • {teamsCount, plural, =0 {ليس عضواً في أي مساحة عمل} one {مساحة عمل واحدة} other {# مساحات عمل}}"
-	},
-	"userTos.agreePp": {
-		"string": "أوافق على أن تعالج  مؤسسة ميدان Meedan المعلومات الشخصية التي اخترت مشاركتها ، بما في ذلك المعلومات التي تكشف عن أصل عرقي، آراء سياسية، أو معتقدات دينية أو فلسفية ، أو عضويتي في أي نقابات، أو الصور الفوتوغرافية ، أو المعلومات المُتعلقّة بميولِي الجنسيّة. بموجب سياسة الخصوصية، أعلم أنّه سيتم حذف هذه المعلومات إذا حذفت حسابي."
 	},
 	"userTos.agreeTos": {
 		"string": "أوافق على شروط الاستخدام."
