@@ -40,20 +40,8 @@ shared_examples 'app' do |webdriver_url|
     @config = CONFIG
     @webdriver_url = webdriver_url
     @failing_tests = {}
-  end
-
-  around(:all) do |block|
     FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
     FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
-    begin
-      block.run
-    ensure
-      begin
-        FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
-      rescue Errno::ENOENT
-        puts 'Could not copy config.js to ../build/web/js/'
-      end
-    end
   end
 
   before :each do |example|
@@ -99,6 +87,8 @@ shared_examples 'app' do |webdriver_url|
   end
 
   after :all do
+    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
+    FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
     update_flaky_tests_file(@failing_tests)
   end
 
