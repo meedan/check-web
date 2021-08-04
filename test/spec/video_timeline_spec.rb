@@ -20,8 +20,8 @@ shared_examples 'videotimeline' do
     wait_for_selector('.annotation__card-content')
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
-    wait_for_selector('.rc-slider-mark-text')
-    wait_for_selector('.MuiAvatar-img').click
+    wait_for_selector('div[data-testid=entities-tags]')
+    wait_for_selector('.rc-slider-mark-text').click
     # add a new note
     wait_for_selector('#comment').send_keys('new note')
     wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
