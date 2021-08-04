@@ -28,7 +28,6 @@ import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
 
 // eslint-disable-next-line no-unused-vars
-import CustomTeamTaskFilter from '../CustomTeamTaskFilter'; // Needed for CustomTeamTaskFilter_team fragment
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -90,7 +89,7 @@ class SearchFields extends React.Component {
     const cleanQuery = { ...query };
     if (query.team_tasks) {
       cleanQuery.team_tasks = query.team_tasks.filter(tt => (
-        tt.id && tt.response && tt.response_type
+        tt.id && tt.response && tt.task_type
       ));
       if (!cleanQuery.team_tasks.length) {
         delete cleanQuery.team_tasks;
@@ -639,6 +638,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
         }
       }
     }
-    ...CustomTeamTaskFilter_team
+    ...CustomFiltersManager_team
   }
 `);
