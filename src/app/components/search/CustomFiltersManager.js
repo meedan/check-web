@@ -3,9 +3,14 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import StarIcon from '@material-ui/icons/Star';
+import ShortTextIcon from '@material-ui/icons/ShortText';
+import LocationIcon from '@material-ui/icons/LocationOn';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import IconFileUpload from '@material-ui/icons/CloudUpload';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import MultiSelectFilter from './MultiSelectFilter';
+import NumberIcon from '../../icons/NumberIcon';
 
 const messages = defineMessages({
   noValue: {
@@ -34,7 +39,7 @@ const CustomFiltersManager = ({
 }) => {
   if (hide) { return null; }
 
-  const supportedTeamTasks = team.team_tasks.edges.filter(tt => tt.node.type.includes('choice'));
+  const teamTasks = team.team_tasks.edges;
 
   const handleTeamTaskFilterChange = (teamTaskFilter, index) => {
     const newQuery = {};
@@ -54,7 +59,7 @@ const CustomFiltersManager = ({
   };
 
   const handleSelectMetadataField = (val, index) => {
-    const teamTask = supportedTeamTasks.find(tt => tt.node.dbid.toString() === val);
+    const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === val);
 
     handleTeamTaskFilterChange({
       id: val,
@@ -65,39 +70,45 @@ const CustomFiltersManager = ({
   const filters = query.team_tasks && query.team_tasks.length > 0 ? query.team_tasks : [{}];
 
   const icons = {
+    free_text: <ShortTextIcon />,
     single_choice: <RadioButtonCheckedIcon />,
     multiple_choice: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+    number: <NumberIcon />,
+    geolocation: <LocationIcon />,
+    datetime: <DateRangeIcon />,
+    file_upload: <IconFileUpload />,
   };
 
   const fixedOptions = [
     { label: intl.formatMessage(messages.anyValue), value: 'ANY_VALUE', exclusive: true },
     { label: intl.formatMessage(messages.noValue), value: 'NO_VALUE', exclusive: true },
-    { label: '', value: '' },
   ];
 
   return filters.map((filter, i) => {
-    if (filter.id) {
-      const teamTask = supportedTeamTasks.find(tt => tt.node.dbid.toString() === filter.id);
+    if (filter.id) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
+      const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === filter.id);
 
-      if (filter.task_type.includes('choice')) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
-        const options = fixedOptions.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
-
-        const handleChoiceTaskFilterChange = (val) => {
-          const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') ? val[0] : val;
-          handleTeamTaskFilterChange({ ...filter, response });
-        };
-
-        return (
-          <MultiSelectFilter
-            label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
-            icon={icons[teamTask.node.type]}
-            selected={filter.response}
-            options={options}
-            onChange={handleChoiceTaskFilterChange}
-            onRemove={() => handleRemoveFilter(i)}
-          />
-        );
+      let options = fixedOptions;
+      if (teamTask.node.options) {
+        options.push({ label: '', value: '' });
+        options = options.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
       }
+
+      const handleChoiceTaskFilterChange = (val) => {
+        const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') ? val[0] : val;
+        handleTeamTaskFilterChange({ ...filter, response });
+      };
+
+      return (
+        <MultiSelectFilter
+          label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
+          icon={icons[teamTask.node.type]}
+          selected={filter.response}
+          options={options}
+          onChange={handleChoiceTaskFilterChange}
+          onRemove={() => handleRemoveFilter(i)}
+        />
+      );
     }
 
     return (
@@ -106,7 +117,7 @@ const CustomFiltersManager = ({
           <MultiSelectFilter
             label={label}
             icon={<StarIcon />}
-            options={supportedTeamTasks.map(tt => ({
+            options={teamTasks.map(tt => ({
               label: tt.node.label,
               value: tt.node.dbid.toString(),
               icon: icons[tt.node.type],
