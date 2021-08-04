@@ -34,6 +34,7 @@ const SettingsHeader = ({
   actionButton,
   extra,
   className,
+  style,
 }) => {
   const classes = useStyles();
 
@@ -42,7 +43,7 @@ const SettingsHeader = ({
   };
 
   return (
-    <Box className={['component__settings-header', classes.settingsHeaderRoot, className].join(' ')}>
+    <Box className={['component__settings-header', classes.settingsHeaderRoot, className].join(' ')} style={style}>
       <Toolbar className={classes.settingsHeaderToolbar}>
         <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
           <Typography variant="h6" component="div">
@@ -74,6 +75,7 @@ SettingsHeader.defaultProps = {
   extra: null,
   helpUrl: null,
   className: '',
+  style: {},
 };
 
 SettingsHeader.propTypes = {
@@ -83,6 +85,7 @@ SettingsHeader.propTypes = {
   subtitle: PropTypes.node,
   extra: PropTypes.node,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default SettingsHeader;

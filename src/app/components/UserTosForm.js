@@ -115,32 +115,13 @@ class UserTosForm extends Component {
             }
           />
         </div>
-        <div style={{ margin: `${units(4)} 0` }}>
-          <FormControlLabel
-            control={
-              <Checkbox
-                id="tos__pp-agree"
-                onChange={this.props.handleCheckPp}
-                checked={this.props.checkedPp}
-              />
-            }
-            label={
-              <FormattedMessage
-                id="userTos.agreePp"
-                defaultMessage="I agree that Meedan may process personal information I choose to share, including information revealing my racial or ethnic origin, political opinions, religious or philosophical beliefs, trade-union membership, photographs, or information on my sexual orientation. Such information will be deleted if I delete my account as stated in the Privacy Policy."
-              />
-            }
-          />
-        </div>
       </div>
     );
   }
 }
 
 UserTosForm.propTypes = {
-  checkedPp: PropTypes.bool.isRequired,
   checkedTos: PropTypes.bool.isRequired,
-  handleCheckPp: PropTypes.func.isRequired,
   handleCheckTos: PropTypes.func.isRequired,
   showTitle: PropTypes.bool,
   termsLastUpdatedAt: PropTypes.number.isRequired,

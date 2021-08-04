@@ -43,13 +43,12 @@ const InviteNewAccountComponent = ({ user }) => {
   const [password, setPassword] = React.useState('');
   const [passwordConfirmation, setPasswordConfirmation] = React.useState('');
   const [checkedTos, setCheckedTos] = React.useState(user.accepted_terms);
-  const [checkedPp, setCheckedPp] = React.useState(user.accepted_terms);
 
   const { team_user: teamUser } = user;
 
   const onFormSubmit = (e) => {
     e.preventDefault();
-    if (checkedTos && checkedPp) {
+    if (checkedTos) {
       const onFailure = (errors) => {
         const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
         setMessage(errorMessage);
@@ -110,11 +109,6 @@ const InviteNewAccountComponent = ({ user }) => {
   const handleCheckTos = () => {
     setCheckedTos(!checkedTos);
   };
-
-  const handleCheckPp = () => {
-    setCheckedPp(!checkedPp);
-  };
-
 
   const classes = useStyles();
 
@@ -247,9 +241,7 @@ const InviteNewAccountComponent = ({ user }) => {
               user={{}}
               showTitle={false}
               handleCheckTos={handleCheckTos}
-              handleCheckPp={handleCheckPp}
               checkedTos={checkedTos}
-              checkedPp={checkedPp}
             />
             <div className="login__actions">
               <Button

@@ -8,14 +8,18 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import IconMoreVert from '@material-ui/icons/MoreVert';
+import Divider from '@material-ui/core/Divider';
+import Select from '@material-ui/core/Select';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import TextField from '@material-ui/core/TextField';
 import ProjectMoveDialog from '../../project/ProjectMoveDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import SettingsHeader from '../../team/SettingsHeader';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can';
+import { units } from '../../../styles/js/shared';
 
 const ProjectActions = ({
   name,
@@ -25,6 +29,7 @@ const ProjectActions = ({
   deleteMessage,
   noDescription,
   isMoveable,
+  hasPrivacySettings,
   setFlashMessage,
 }) => {
   const [newTitle, setNewTitle] = React.useState('');
@@ -34,7 +39,17 @@ const ProjectActions = ({
   const [showEditDialog, setShowEditDialog] = React.useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
+  const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
+  const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
   const { team } = object;
+
+  const privacyMessages = [
+    <FormattedMessage id="projectActions.privacyMessageAll" defaultMessage="Anyone can see this folder, access its content and annotate it." />,
+    <FormattedMessage id="projectActions.privacyMessageEditors" defaultMessage="Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved." />,
+    <FormattedMessage id="projectActions.privacyMessageAdmins" defaultMessage="Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved." />,
+  ];
+
+  const privacyMessage = privacyMessages[privacyValue];
 
   if (!team) {
     return null;
@@ -45,6 +60,7 @@ const ProjectActions = ({
     setShowEditDialog(false);
     setShowDeleteDialog(false);
     setShowMoveDialog(false);
+    setShowPrivacyDialog(false);
   };
 
   const handleError = () => {
@@ -160,7 +176,7 @@ const ProjectActions = ({
     });
   };
 
-  const handleMoveOut = () => {
+  const handleUpdateProject = (variables) => {
     setSaving(true);
 
     commitMutation(Store, {
@@ -169,6 +185,7 @@ const ProjectActions = ({
           updateProject(input: $input) {
             project {
               id
+              privacy
               project_group_id
             }
             project_group_was {
@@ -179,11 +196,7 @@ const ProjectActions = ({
         }
       `,
       variables: {
-        input: {
-          id: object.id,
-          previous_project_group_id: object.project_group_id,
-          project_group_id: null,
-        },
+        input: Object.assign({ id: object.id }, variables),
       },
       onCompleted: (response, error) => {
         if (error) {
@@ -196,6 +209,21 @@ const ProjectActions = ({
         handleError();
       },
     });
+  };
+
+  const handleMoveOut = () => {
+    handleUpdateProject({
+      previous_project_group_id: object.project_group_id,
+      project_group_id: null,
+    });
+  };
+
+  const handleChangePrivacy = (e) => {
+    setPrivacyValue(e.target.value);
+  };
+
+  const handleProceedPrivacy = () => {
+    handleUpdateProject({ privacy: privacyValue });
   };
 
   return (
@@ -260,6 +288,23 @@ const ProjectActions = ({
               }
             />
           </MenuItem> : null }
+        { hasPrivacySettings ?
+          <Can permissions={team.permissions} permission="set_privacy Project">
+            <React.Fragment>
+              <Divider />
+              <MenuItem className="project-actions__privacy" onClick={() => { setShowPrivacyDialog(true); }}>
+                <ListItemText
+                  primary={
+                    <FormattedMessage
+                      id="projectActions.privacy"
+                      defaultMessage="Change access"
+                      description="'Change' here is an infinitive verb"
+                    />
+                  }
+                />
+              </MenuItem>
+            </React.Fragment>
+          </Can> : null }
       </Menu>
 
       {/* "Edit" dialog */}
@@ -359,6 +404,63 @@ const ProjectActions = ({
           onCancel={handleClose}
           project={object}
         /> : null }
+
+      {/* "Privacy" dialog */}
+      <ConfirmProceedDialog
+        open={showPrivacyDialog}
+        title={
+          <SettingsHeader
+            title={
+              <FormattedMessage
+                id="projectsComponent.privacyDialogTitle"
+                defaultMessage="Who can see this folder and its content"
+                description="Title for folder privacy dialog"
+              />
+            }
+            helpUrl="https://help.checkmedia.org/en/articles/5229479-folders-and-collections"
+            style={{ marginBottom: units(-3), paddingBottom: 0 }}
+          />
+        }
+        body={
+          <Box>
+            <Box mb={1}>
+              <Select value={privacyValue} onChange={handleChangePrivacy} fullWidth variant="outlined">
+                <MenuItem value={0}>
+                  <FormattedMessage
+                    id="projectsComponent.privacyDialogOptionAll"
+                    defaultMessage="Everyone with access to this workspace"
+                  />
+                </MenuItem>
+                <MenuItem value={1}>
+                  <FormattedMessage
+                    id="projectsComponent.privacyDialogOptionEditors"
+                    defaultMessage="Only Admins and Editors"
+                  />
+                </MenuItem>
+                <MenuItem value={2}>
+                  <FormattedMessage
+                    id="projectsComponent.privacyDialogOptionAdmins"
+                    defaultMessage="Only Admins"
+                  />
+                </MenuItem>
+              </Select>
+            </Box>
+            <Typography variant="body1" component="p" paragraph>
+              {privacyMessage}
+            </Typography>
+          </Box>
+        }
+        proceedLabel={
+          <FormattedMessage
+            id="projectsComponent.privacyDialogButton"
+            defaultMessage="Update access"
+          />
+        }
+        onProceed={handleProceedPrivacy}
+        isSaving={saving}
+        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        onCancel={handleClose}
+      />
     </Can>
   );
 };
@@ -366,6 +468,7 @@ const ProjectActions = ({
 ProjectActions.defaultProps = {
   noDescription: false,
   isMoveable: false,
+  hasPrivacySettings: false,
 };
 
 ProjectActions.propTypes = {
@@ -376,6 +479,7 @@ ProjectActions.propTypes = {
     title: PropTypes.string.isRequired,
     description: PropTypes.string,
     project_group_id: PropTypes.number,
+    privacy: PropTypes.number,
     team: PropTypes.shape({
       id: PropTypes.string.isRequired,
       slug: PropTypes.string.isRequired,
@@ -387,6 +491,7 @@ ProjectActions.propTypes = {
   deleteMessage: PropTypes.object.isRequired,
   noDescription: PropTypes.bool,
   isMoveable: PropTypes.bool,
+  hasPrivacySettings: PropTypes.bool,
 };
 
 export default withSetFlashMessage(ProjectActions);

@@ -1,5 +1,17 @@
 [
   {
+    "id": "projectActions.privacyMessageAll",
+    "defaultMessage": "Anyone can see this folder, access its content and annotate it."
+  },
+  {
+    "id": "projectActions.privacyMessageEditors",
+    "defaultMessage": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+  },
+  {
+    "id": "projectActions.privacyMessageAdmins",
+    "defaultMessage": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+  },
+  {
     "id": "projectActions.defaultErrorMessage",
     "description": "Generic error message displayed when it's not possible to update or delete a collection, folder or list",
     "defaultMessage": "Error, please try again"
@@ -34,6 +46,11 @@
     "defaultMessage": "Move out"
   },
   {
+    "id": "projectActions.privacy",
+    "description": "'Change' here is an infinitive verb",
+    "defaultMessage": "Change access"
+  },
+  {
     "id": "projectsComponent.renameType",
     "description": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list",
     "defaultMessage": "Rename {type}"
@@ -54,5 +71,26 @@
     "id": "projectsComponent.deleteType",
     "description": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list",
     "defaultMessage": "Delete {type}"
+  },
+  {
+    "id": "projectsComponent.privacyDialogTitle",
+    "description": "Title for folder privacy dialog",
+    "defaultMessage": "Who can see this folder and its content"
+  },
+  {
+    "id": "projectsComponent.privacyDialogOptionAll",
+    "defaultMessage": "Everyone with access to this workspace"
+  },
+  {
+    "id": "projectsComponent.privacyDialogOptionEditors",
+    "defaultMessage": "Only Admins and Editors"
+  },
+  {
+    "id": "projectsComponent.privacyDialogOptionAdmins",
+    "defaultMessage": "Only Admins"
+  },
+  {
+    "id": "projectsComponent.privacyDialogButton",
+    "defaultMessage": "Update access"
   }
 ]

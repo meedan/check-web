@@ -71,6 +71,9 @@
 	"FilterPopup.close": {
 		"string": "Terminado"
 	},
+	"ImportedReports.title": {
+		"string": "Imported reports"
+	},
 	"ItemHistoryDialog.title": {
 		"string": "Histórico do item"
 	},
@@ -79,6 +82,10 @@
 	},
 	"MultiSelector.search": {
 		"string": "Buscar..."
+	},
+	"SearchFieldChannel.label": {
+		"string": "Channel is",
+		"developer_comment": "Prefix label for field to filter by item channel"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Conta já confirmada",
@@ -167,6 +174,10 @@
 	"addFilterMenu.assignedTo": {
 		"string": "Atribuição",
 		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.channel": {
+		"string": "Channel",
+		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.collection": {
 		"string": "Coleção",
@@ -1532,7 +1543,7 @@
 		"developer_comment": "This is a label that appears on a text field, related to a pin on a map. This contains the latitude and longitude coordinates of the map pin. If the user changes these numbers, the map pin moves. If the user moves the map pin, the numbers update to reflect the new pin location."
 	},
 	"metadata.location.coordinates.helper": {
-		"string": "Should be a comma-separated pair of latitude and longitude coordinates like \"-12.9, -38.15\". Drag the map pin if you are having difficulty.",
+		"string": "O par de coordenadas latitude e longitude deve ser separado por vírgula, como \"-12.9, -38.15\". Em caso de dificuldades, arraste o pino no mapa.",
 		"developer_comment": "This is a helper message that appears when someone enters text in the 'Latitude, longitude' text field that cannot be parsed as a valid pair of latitude and longitude coordinates. It tells the user that they need to provide valid coordinates and gives an example. It also tells them that they can do a drag action with the mouse on the visual map pin as an alternative to entering numbers in this field."
 	},
 	"metadata.location.customize": {
@@ -1558,6 +1569,9 @@
 	},
 	"multiSelector.empty": {
 		"string": "Nenhum item encontrado "
+	},
+	"multiSelector.search": {
+		"string": "Buscar..."
 	},
 	"network.noResponse": {
 		"string": "Não foi possível conectar-se ao {app}. Por favor, certifique-se de estar conectado(a) à internet"
@@ -1587,7 +1601,7 @@
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
 	},
 	"ocrButton.inProgress": {
-		"string": "Text extraction in progress…",
+		"string": "Extração do texto em andamento…",
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
@@ -1654,6 +1668,12 @@
 	"project.name": {
 		"string": "pasta"
 	},
+	"project.onlyAdmins": {
+		"string": "Only Admins"
+	},
+	"project.onlyAdminsAndEditors": {
+		"string": "Only Admins and Editors"
+	},
 	"projectActions.cancel": {
 		"string": "Cancelar"
 	},
@@ -1672,6 +1692,19 @@
 	"projectActions.moveOut": {
 		"string": "Retirar",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.privacy": {
+		"string": "Change access",
+		"developer_comment": "'Change' here is an infinitive verb"
+	},
+	"projectActions.privacyMessageAdmins": {
+		"string": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+	},
+	"projectActions.privacyMessageAll": {
+		"string": "Anyone can see this folder, access its content and annotate it."
+	},
+	"projectActions.privacyMessageEditors": {
+		"string": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
 	},
 	"projectActions.rename": {
 		"string": "Renomear",
@@ -1698,6 +1731,12 @@
 	},
 	"projectHeader.allItems": {
 		"string": "Todos os itens"
+	},
+	"projectHeader.importedReports": {
+		"string": "Imported reports"
+	},
+	"projectHeader.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectHeader.trash": {
 		"string": "Lixeira"
@@ -1778,6 +1817,9 @@
 	"projectsComponent.folders": {
 		"string": "Pastas"
 	},
+	"projectsComponent.importedReports": {
+		"string": "Imported reports"
+	},
 	"projectsComponent.invalidMove": {
 		"string": "Pastas só podem ser movidas para coleções.",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
@@ -1837,9 +1879,28 @@
 		"string": "Não há pastas nesta coleção",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
+	"projectsComponent.privacyDialogButton": {
+		"string": "Update access"
+	},
+	"projectsComponent.privacyDialogOptionAdmins": {
+		"string": "Only Admins"
+	},
+	"projectsComponent.privacyDialogOptionAll": {
+		"string": "Everyone with access to this workspace"
+	},
+	"projectsComponent.privacyDialogOptionEditors": {
+		"string": "Only Admins and Editors"
+	},
+	"projectsComponent.privacyDialogTitle": {
+		"string": "Who can see this folder and its content",
+		"developer_comment": "Title for folder privacy dialog"
+	},
 	"projectsComponent.renameType": {
 		"string": "Renomear {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectsComponent.title": {
 		"string": "Título"
@@ -2328,6 +2389,22 @@
 		"string": "Criado por",
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
+	"searchFieldChannel.anyTipline": {
+		"string": "Any tipline",
+		"developer_comment": "Filter option that refers to items created via a tipline"
+	},
+	"searchFieldChannel.api": {
+		"string": "API",
+		"developer_comment": "Filter option that refers to items created via the API"
+	},
+	"searchFieldChannel.browserExtension": {
+		"string": "Browser extension",
+		"developer_comment": "Filter option that refers to items created via the browser extension"
+	},
+	"searchFieldChannel.manual": {
+		"string": "Manual",
+		"developer_comment": "Filter option that refers to items created manually"
+	},
 	"searchFieldSource.label": {
 		"string": "A fonte é",
 		"developer_comment": "Prefix label for field to filter by source"
@@ -2434,10 +2511,10 @@
 		"developer_comment": "Subtitle to similarity matching settings page"
 	},
 	"similarityComponent.dateThreshold": {
-		"string": "Similar content last submitted more than {maxTime} months ago will only be suggested"
+		"string": "Conteúdos semelhantes enviados pela última vez há mais de {maxTime} meses serão somente sugeridos"
 	},
 	"similarityComponent.dateThresholdSettings": {
-		"string": "Limit matching to recently submitted content",
+		"string": "Limite de correspondência para conteúdos submetidos recentemente",
 		"developer_comment": "Allow user to enable/disable similarity matching based on submitted date"
 	},
 	"similarityComponent.masterSwitchLabelOff": {
@@ -2994,8 +3071,15 @@
 	"tagInput.search": {
 		"string": "Buscar ou adicionar nova tag"
 	},
-	"tagMenu.done": {
-		"string": "Terminado"
+	"tagMenu.create": {
+		"string": "+ Create this tag"
+	},
+	"tagMenu.notFound": {
+		"string": "No tags found"
+	},
+	"tagMenu.submit": {
+		"string": "Tag",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
 		"string": "Editar tags"
@@ -3634,6 +3718,9 @@
 		"string": "O limite de sugestão não pode ser maior do que o limite de correspondência.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
+	"tiplineInbox.title": {
+		"string": "Tipline inbox"
+	},
 	"tos.title": {
 		"string": "Termos de Serviço"
 	},
@@ -3880,9 +3967,6 @@
 	},
 	"userTooltip.dateJoined": {
 		"string": "Começou a participar em {date} • {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
-	},
-	"userTos.agreePp": {
-		"string": "Eu concordo que a Meedan pode processar informações pessoais que eu escolho compartilhar, incluindo informações que revelam minha origem étnica ou racial, opiniões políticas, religiosas ou crenças filosóficas, associação a sindicatos, fotos e informações sobre minha orientação sexual. Tais informações serão excluídas se eu excluir minha conta em conformidade com a Política de Privacidade."
 	},
 	"userTos.agreeTos": {
 		"string": "Eu concordo com os Termos de Serviço."

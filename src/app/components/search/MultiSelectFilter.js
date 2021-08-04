@@ -115,18 +115,22 @@ const PlusButton = ({ children }) => {
 
 const MultiSelectFilter = ({
   allowSearch,
-  selected = [],
+  selected,
   icon,
   label,
   options,
   onChange,
   onRemove,
+  onSelectChange,
   onToggleOperator,
   operator,
   readOnly,
+  single,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
+
+  const selectedArray = Array.isArray(selected) ? selected : [selected];
 
   const getLabelForValue = (value) => {
     const option = options.find(o => o.value === value);
@@ -134,7 +138,7 @@ const MultiSelectFilter = ({
   };
 
   const handleTagDelete = (value) => {
-    const newValue = [...selected.filter(o => o !== value)];
+    const newValue = [...selectedArray.filter(o => o !== value)];
     onChange(newValue);
   };
 
@@ -144,14 +148,15 @@ const MultiSelectFilter = ({
     onChange(value);
   };
 
+
   return (
     <div>
       <div className="multi-select-filter">
         <RemoveableWrapper icon={icon} readOnly={readOnly} onRemove={onRemove} key={version} boxProps={{ px: 0.5 }}>
-          <Box px={0.5} display="flex" alignItems="center" whiteSpace="nowrap">
+          <Box px={0.5} height={4.5} display="flex" alignItems="center" whiteSpace="nowrap">
             {label}
           </Box>
-          { selected.map((value, index) => (
+          { selectedArray.map((value, index) => (
             <React.Fragment key={getLabelForValue(value)}>
               { index > 0 ? (
                 <OperatorToggle
@@ -166,25 +171,27 @@ const MultiSelectFilter = ({
               />
             </React.Fragment>
           )) }
-          { selected.length > 0 && showSelect ? (
+          { selectedArray.length > 0 && showSelect ? (
             <OperatorToggle
               onClick={onToggleOperator}
               operator={operator}
             />
           ) : null }
-          { (selected.length === 0 || showSelect) && !readOnly ? (
+          { (selectedArray.length === 0 || showSelect) && !readOnly ? (
             <CustomSelectDropdown
               allowSearch={allowSearch}
               options={options}
-              selected={selected}
+              selected={selectedArray}
               onSubmit={handleSelect}
+              single={single}
+              onSelectChange={onSelectChange}
             />
-          ) : null}
-          { readOnly ? null : (
+          ) : null }
+          { !readOnly && !single ? (
             <PlusButton>
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />
             </PlusButton>
-          )}
+          ) : null }
         </RemoveableWrapper>
       </div>
     </div>
@@ -195,7 +202,9 @@ const CustomSelectDropdown = ({
   allowSearch,
   options,
   selected,
+  single,
   onSubmit,
+  onSelectChange,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleSubmit = (value) => {
@@ -219,6 +228,8 @@ const CustomSelectDropdown = ({
               options={options}
               selected={selected}
               onSubmit={handleSubmit}
+              single={single}
+              onSelectChange={onSelectChange}
               submitLabel={
                 <FormattedMessage
                   id="customAutocomplete.done"

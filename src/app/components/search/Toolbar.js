@@ -48,7 +48,7 @@ const Toolbar = ({
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
-        {['trash', 'unconfirmed', 'collection', 'list'].indexOf(page) === -1 ? (
+        {['trash', 'unconfirmed', 'collection', 'list', 'imported-reports', 'tipline-inbox'].indexOf(page) === -1 ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} project={project} team={team} />
@@ -64,7 +64,7 @@ Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
 };
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash', 'unconfirmed', 'collection', 'folder', 'list']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'unconfirmed', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox']), // FIXME find a cleaner way to render Trash differently
 };
 
 export default injectIntl(Toolbar);

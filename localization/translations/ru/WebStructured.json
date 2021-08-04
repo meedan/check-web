@@ -71,6 +71,9 @@
 	"FilterPopup.close": {
 		"string": "Ок"
 	},
+	"ImportedReports.title": {
+		"string": "Imported reports"
+	},
 	"ItemHistoryDialog.title": {
 		"string": "История материала"
 	},
@@ -79,6 +82,10 @@
 	},
 	"MultiSelector.search": {
 		"string": "Искать..."
+	},
+	"SearchFieldChannel.label": {
+		"string": "Channel is",
+		"developer_comment": "Prefix label for field to filter by item channel"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Аккаунт уже подтверждён",
@@ -167,6 +174,10 @@
 	"addFilterMenu.assignedTo": {
 		"string": "Назначено",
 		"developer_comment": "Menu option to enable searching items by assigned users"
+	},
+	"addFilterMenu.channel": {
+		"string": "Channel",
+		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.collection": {
 		"string": "Collection",
@@ -1559,6 +1570,9 @@
 	"multiSelector.empty": {
 		"string": "Нет результатов"
 	},
+	"multiSelector.search": {
+		"string": "Искать..."
+	},
 	"network.noResponse": {
 		"string": "Не удается подключиться к {app} — убедитесь, что интернет подключен"
 	},
@@ -1654,6 +1668,12 @@
 	"project.name": {
 		"string": "folder"
 	},
+	"project.onlyAdmins": {
+		"string": "Only Admins"
+	},
+	"project.onlyAdminsAndEditors": {
+		"string": "Only Admins and Editors"
+	},
 	"projectActions.cancel": {
 		"string": "Отменить"
 	},
@@ -1672,6 +1692,19 @@
 	"projectActions.moveOut": {
 		"string": "Move out",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.privacy": {
+		"string": "Change access",
+		"developer_comment": "'Change' here is an infinitive verb"
+	},
+	"projectActions.privacyMessageAdmins": {
+		"string": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+	},
+	"projectActions.privacyMessageAll": {
+		"string": "Anyone can see this folder, access its content and annotate it."
+	},
+	"projectActions.privacyMessageEditors": {
+		"string": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
 	},
 	"projectActions.rename": {
 		"string": "Rename",
@@ -1698,6 +1731,12 @@
 	},
 	"projectHeader.allItems": {
 		"string": "Все материалы"
+	},
+	"projectHeader.importedReports": {
+		"string": "Imported reports"
+	},
+	"projectHeader.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectHeader.trash": {
 		"string": "Корзина"
@@ -1778,6 +1817,9 @@
 	"projectsComponent.folders": {
 		"string": "Folders"
 	},
+	"projectsComponent.importedReports": {
+		"string": "Imported reports"
+	},
 	"projectsComponent.invalidMove": {
 		"string": "Folders can only be moved to collections",
 		"developer_comment": "Message displayed when a folder is moved to something that is not a collection"
@@ -1837,9 +1879,28 @@
 		"string": "No folders in this collection",
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
+	"projectsComponent.privacyDialogButton": {
+		"string": "Update access"
+	},
+	"projectsComponent.privacyDialogOptionAdmins": {
+		"string": "Only Admins"
+	},
+	"projectsComponent.privacyDialogOptionAll": {
+		"string": "Everyone with access to this workspace"
+	},
+	"projectsComponent.privacyDialogOptionEditors": {
+		"string": "Only Admins and Editors"
+	},
+	"projectsComponent.privacyDialogTitle": {
+		"string": "Who can see this folder and its content",
+		"developer_comment": "Title for folder privacy dialog"
+	},
 	"projectsComponent.renameType": {
 		"string": "Rename {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.tiplineInbox": {
+		"string": "Tipline inbox"
 	},
 	"projectsComponent.title": {
 		"string": "Заголовок"
@@ -2327,6 +2388,22 @@
 	"search.userHeading": {
 		"string": "Автор",
 		"developer_comment": "Prefix label for field to filter by item creator"
+	},
+	"searchFieldChannel.anyTipline": {
+		"string": "Any tipline",
+		"developer_comment": "Filter option that refers to items created via a tipline"
+	},
+	"searchFieldChannel.api": {
+		"string": "API",
+		"developer_comment": "Filter option that refers to items created via the API"
+	},
+	"searchFieldChannel.browserExtension": {
+		"string": "Browser extension",
+		"developer_comment": "Filter option that refers to items created via the browser extension"
+	},
+	"searchFieldChannel.manual": {
+		"string": "Manual",
+		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldSource.label": {
 		"string": "Source is",
@@ -2994,8 +3071,15 @@
 	"tagInput.search": {
 		"string": "Найти или добавить тэг"
 	},
-	"tagMenu.done": {
-		"string": "Ок"
+	"tagMenu.create": {
+		"string": "+ Create this tag"
+	},
+	"tagMenu.notFound": {
+		"string": "No tags found"
+	},
+	"tagMenu.submit": {
+		"string": "Тэг",
+		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
 	},
 	"tagMenu.tooltip": {
 		"string": "Редактировать тэги"
@@ -3634,6 +3718,9 @@
 		"string": "The suggestion threshold cannot be higher than the matching one.",
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
+	"tiplineInbox.title": {
+		"string": "Tipline inbox"
+	},
 	"tos.title": {
 		"string": "Условия использования"
 	},
@@ -3880,9 +3967,6 @@
 	},
 	"userTooltip.dateJoined": {
 		"string": "С нами с {date} • {teamsCount, plural, =0 {Нет проектов} one {1 проект} other {Проектов: #}}"
-	},
-	"userTos.agreePp": {
-		"string": "Я даю Meedan разрешение обрабатывать данные, которые я публикую в системе, включая персональные данные, которые могут содержать информацию о моей расовой или этнической принадлежности, политических взглядах, членстве в союзах и организациях, вероисповедании и сексуальной ориентации, а также фотографии и видеозаписи. Согласно политике конфиденциальности, у меня есть право запросить удаление аккаунта; при этом данная информация также будет удалена."
 	},
 	"userTos.agreeTos": {
 		"string": "Даю согласие с Условиями использования."

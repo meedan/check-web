@@ -108,8 +108,6 @@ module AppSpecHelpers
     unless element.nil?
       @driver.find_element(:css, '#tos__tos-agree').click
       sleep 1
-      @driver.find_element(:css, '#tos__pp-agree').click
-      sleep 1
       if should_submit
         @driver.find_element(:css, '#tos__save').click
         sleep 20
@@ -306,7 +304,7 @@ module AppSpecHelpers
   end
 
   def move_folder_to_collection(collection_title)
-    wait_for_selector('.project-actions__icon').click
+    wait_for_selector('button.project-actions').click
     wait_for_selector('.project-actions__move').click
     wait_for_selector('.confirm-proceed-dialog__cancel')
     wait_for_selector('.MuiAutocomplete-popupIndicator').click
