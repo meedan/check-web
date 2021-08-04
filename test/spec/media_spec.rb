@@ -145,11 +145,8 @@ shared_examples 'media' do |type|
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
-    wait_for_selector('.message').click
-    wait_for_selector('.project-header__back-button').click
-    wait_for_selector('.projects-list')
-    expect(@driver.find_elements(:css, '.medias__item').empty?)
-    wait_for_selector('.project-list__item-trash').click # Go to the trash page
+    wait_for_selector('.message')
+    wait_for_selector('#notistack-snackbar a').click
     wait_for_selector('.media__heading')
     wait_for_selector("table input[type='checkbox']").click
     wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
