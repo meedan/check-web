@@ -18,7 +18,6 @@ shared_examples 'videotimeline' do
     wait_for_selector('#video-media-card__playback-rate')
     wait_for_selector('.media-tab__comments').click
     wait_for_selector('.annotation__card-content')
-    wait_for_selector('.MuiAvatar-img')
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
     wait_for_selector('div[data-testid=entities-tags]')
