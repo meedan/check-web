@@ -29,6 +29,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
 
     # First item
     expect(page_source_body.include?('1 of 3')).to be(true)
