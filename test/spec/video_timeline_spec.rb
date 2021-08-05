@@ -26,7 +26,7 @@ shared_examples 'videotimeline' do
     wait_for_selector('#comment').send_keys('new note')
     wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
-    # delet note
+    # delete note
     wait_for_selector("button[aria-label='Delete thread']").click
     wait_for_selector_none('.MuiAvatar-circle')
     expect(@driver.find_elements(:class, 'MuiAvatar-circle').size).to eq 0
