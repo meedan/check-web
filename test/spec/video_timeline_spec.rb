@@ -1,6 +1,7 @@
 shared_examples 'videotimeline' do
   it 'should manage video notes', bin6: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
+    @driver.manage.window.maximize
     wait_for_selector('.media-detail')
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
@@ -19,12 +20,13 @@ shared_examples 'videotimeline' do
     wait_for_selector('.annotation__card-content')
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
-    wait_for_selector('.MuiAvatar-circle').click
+    wait_for_selector('div[data-testid=entities-tags]')
+    wait_for_selector('.rc-slider-mark-text').click
     # add a new note
     wait_for_selector('#comment').send_keys('new note')
     wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//p[contains(text(), 'new note')]", :xpath)
-    # delet note
+    # delete note
     wait_for_selector("button[aria-label='Delete thread']").click
     wait_for_selector_none('.MuiAvatar-circle')
     expect(@driver.find_elements(:class, 'MuiAvatar-circle').size).to eq 0
@@ -37,6 +39,7 @@ shared_examples 'videotimeline' do
 
   it 'should manage videotags', bin6: true do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
+    @driver.manage.window.maximize
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my videotag')).to be(false)
     wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
