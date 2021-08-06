@@ -6,7 +6,6 @@ shared_examples 'project' do
     expect(@driver.page_source.include?('Test Project')).to be(true)
     expect(@driver.page_source.include?('collection A')).to be(false)
     # create a collection
-    wait_for_selector('.project-list__header > svg').click
     create_folder_or_collection('collection A', '.projects-list__add-collection')
     # move a folder to a collection
     wait_for_selector_list('.project-list__link')[1].click
@@ -26,7 +25,6 @@ shared_examples 'project' do
     move_folder_to_collection('collection A')
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
     expect(@driver.page_source.include?('collection A')).to be(true)
-    wait_for_selector('.project-list__header > svg').click
     # delete collection and check that the folder is still available
     wait_for_selector('.project-list__link').click
     wait_for_selector('.project__title-text')
@@ -44,7 +42,6 @@ shared_examples 'project' do
     @driver.navigate.to @config['self_url']
     wait_for_selector('#search-form')
     # create a collection
-    wait_for_selector('.project-list__header > svg').click
     create_folder_or_collection('collection A', '.projects-list__add-collection')
     expect(@driver.page_source.include?('collection A- edited')).to be(false)
     # edit collection name

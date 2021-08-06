@@ -97,9 +97,9 @@ const ProjectsComponent = ({
   };
 
   const [foldersExpanded, setFoldersExpanded] =
-    React.useState(getBooleanPref('drawer.foldersExpanded'));
+    React.useState(getBooleanPref('drawer.foldersExpanded', true));
   const [listsExpanded, setListsExpanded] =
-    React.useState(getBooleanPref('drawer.listsExpanded'));
+    React.useState(getBooleanPref('drawer.listsExpanded', true));
 
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
