@@ -62,7 +62,6 @@ shared_examples 'project' do
     wait_for_selector('#new-project__title').send_keys('Filtered list')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    wait_for_selector_list('.project-list__header > svg')[1].click
     wait_for_selector_list('.project-list__link')[1].click
     wait_for_selector('div[title="Filtered list"]')
     url = @driver.current_url.to_s
@@ -110,7 +109,6 @@ shared_examples 'project' do
     wait_for_selector('.project-list__link-trash')
     wait_for_selector('.project__title')
     wait_for_selector('.team-header__drawer-team-link').click
-    wait_for_selector('.project-list__header').click
     wait_for_selector('.project-list__link').click
     wait_for_selector_none('.team-members__edit-button', :css, 10)
 
