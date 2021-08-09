@@ -11,6 +11,7 @@ shared_examples 'videotimeline' do
     wait_for_selector('#comment').send_keys('my note')
     @driver.execute_script('window.scrollTo(0, document.body.scrollHeight)')
     wait_for_selector("//button/span[contains(text(), 'Save')]", :xpath).click
+    wait_for_selector_none('#comment')
     wait_for_selector('.MuiAvatar-circle')
     expect(@driver.find_elements(:class, 'MuiAvatar-circle').size).to eq 1
     wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
