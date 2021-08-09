@@ -218,6 +218,7 @@ shared_examples 'app' do |webdriver_url|
       expect(@driver.page_source.include?('There are no items')).to be(false)
       # send this item to trash go to the item page and go back to trash page
       wait_for_selector('table input[type=checkbox]').click
+      wait_for_selector('#media-bulk-actions')
       wait_for_selector('.media-bulk-actions__delete-icon').click
       wait_for_selector("//span[contains(text(), 'There are no items')]", :xpath)
       expect(@driver.page_source.include?('There are no items')).to be(true)

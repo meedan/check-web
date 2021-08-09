@@ -154,6 +154,7 @@ shared_examples 'media' do |type|
     wait_for_selector('#media-bulk-actions__move-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
+    wait_for_selector('div[aria-expanded=false]')
     wait_for_selector('.media-bulk-actions__move-button').click
     wait_for_selector('.message')
     wait_for_selector('.project-list__header').click
