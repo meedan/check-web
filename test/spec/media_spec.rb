@@ -135,7 +135,6 @@ shared_examples 'media' do |type|
     wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
-    wait_for_selector('.project-list__header').click
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
@@ -157,7 +156,6 @@ shared_examples 'media' do |type|
     wait_for_selector('div[aria-expanded=false]')
     wait_for_selector('.media-bulk-actions__move-button').click
     wait_for_selector('.message')
-    wait_for_selector('.project-list__header').click
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)

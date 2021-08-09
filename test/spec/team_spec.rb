@@ -111,7 +111,6 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     create_media('text')
     api_logout
@@ -136,7 +135,6 @@ shared_examples 'team' do
     # do not be able to add, remove or edit a new folder
     expect(@driver.find_elements(:css, '.projects-list__add-folder-or-collection').empty?).to be(true)
     # do not be able to see project actions button
-    wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
@@ -180,7 +178,6 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, '.team-settings__languages-tab').empty?).to be(true)
     expect(@driver.find_elements(:css, '.team-settings__integrations-tab').empty?).to be(true)
     # be able to see folder actions icon
-    wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(false)
