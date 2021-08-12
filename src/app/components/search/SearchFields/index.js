@@ -26,6 +26,7 @@ import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
+import CheckChannels from '../../../CheckChannels';
 
 // eslint-disable-next-line no-unused-vars
 
@@ -319,6 +320,13 @@ class SearchFields extends React.Component {
 
     const selectedProjects = this.state.query.projects ? this.state.query.projects.map(p => `${p}`) : [];
     const selectedProjectGroups = this.state.query.project_group_id ? this.state.query.project_group_id.map(p => `${p}`) : [];
+    let selectedChannels = [];
+    if (/tipline-inbox/.test(window.location.pathname)) {
+      selectedChannels = [CheckChannels.ANYTIPLINE];
+    }
+    if (/imported-reports/.test(window.location.pathname)) {
+      selectedChannels = [CheckChannels.FETCH];
+    }
 
     const isSpecialPage = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname);
 
@@ -425,7 +433,7 @@ class SearchFields extends React.Component {
       ),
       channels: (
         <SearchFieldChannel
-          selected={this.state.query.channels}
+          selected={this.state.query.channels || selectedChannels}
           onChange={this.handleChannelClick}
           onRemove={() => this.handleRemoveField('channels')}
           readOnly={isSpecialPage}
@@ -498,6 +506,7 @@ class SearchFields extends React.Component {
     let fieldKeys = [];
     if (this.props.project) fieldKeys.push('projects');
     if (this.props.projectGroup) fieldKeys.push('project_group_id');
+    if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
 
     fieldKeys = fieldKeys.concat(Object.keys(this.state.query).filter(k => k !== 'keyword' && fieldComponents[k]));
 

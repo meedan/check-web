@@ -47,6 +47,9 @@ function noFilters(query_, project, projectGroup) {
   ) {
     delete query.project_group_id;
   }
+  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
+    delete query.channels;
+  }
   if (query.verification_status && query.verification_status.length === 0) {
     delete query.verification_status;
   }

@@ -10,10 +10,6 @@ export default function ImportedReports({ routeParams }) {
   const query = {
     ...safelyParseJSON(routeParams.query, {}),
     channels: [CheckChannels.FETCH],
-    parent: {
-      type: 'team',
-      slug: routeParams.team,
-    },
   };
 
   return (
@@ -24,6 +20,7 @@ export default function ImportedReports({ routeParams }) {
       icon={<GetAppIcon />}
       teamSlug={routeParams.team}
       query={query}
+      hideFields={['channels']}
       page="imported-reports"
     />
   );
