@@ -623,7 +623,9 @@ class Task extends Component {
     const FieldInformation = () => (
       <StyledFieldInformation>
         <Typography variant="h6">{task.label}</Typography>
-        <Typography variant="subtitle2">{task.description}</Typography>
+        <Typography variant="subtitle2">
+          <ParsedText text={task.description} />
+        </Typography>
       </StyledFieldInformation>
     );
 
