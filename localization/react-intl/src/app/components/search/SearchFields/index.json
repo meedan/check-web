@@ -25,11 +25,6 @@
     "defaultMessage": "Audio"
   },
   {
-    "id": "search.showBlank",
-    "description": "Describes media type unspecified",
-    "defaultMessage": "Imported report"
-  },
-  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"

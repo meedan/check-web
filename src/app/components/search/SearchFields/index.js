@@ -70,11 +70,6 @@ const typeLabels = defineMessages({
     defaultMessage: 'Audio',
     description: 'Describes media type Audio',
   },
-  blank: {
-    id: 'search.showBlank',
-    defaultMessage: 'Imported report',
-    description: 'Describes media type unspecified',
-  },
 });
 
 class SearchFields extends React.Component {
@@ -318,7 +313,6 @@ class SearchFields extends React.Component {
       { value: 'images', label: this.props.intl.formatMessage(typeLabels.image) },
       { value: 'videos', label: this.props.intl.formatMessage(typeLabels.video) },
       { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audio) },
-      { value: 'blank', label: this.props.intl.formatMessage(typeLabels.blank) },
     ];
 
     const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
