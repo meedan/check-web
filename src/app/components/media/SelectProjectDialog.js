@@ -154,6 +154,7 @@ const SelectProjectDialogRenderer = (parentProps) => {
                   id
                   dbid
                   title
+                  project_group_id
                   medias_count  # For optimistic updates when adding/moving items
                   search_id  # For optimistic updates when adding/moving items
                 }
