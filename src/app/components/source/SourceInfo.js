@@ -322,7 +322,7 @@ function SourceInfo({
   const accountSources = source.account_sources.edges;
   const mainAccount = accountSources[0];
   const secondaryAccounts = accountSources.slice(1);
-  const sourceMediasLink = urlFromSearchQuery({ sources: [source.dbid] }, `/${team.slug}/all-items`);
+  const sourceMediasLink = urlFromSearchQuery({ sources: [`${source.dbid}`] }, `/${team.slug}/all-items`);
   const { source_metadata } = source;
   const sourceMetadata = source_metadata ? source_metadata.edges : [];
 
