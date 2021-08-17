@@ -89,8 +89,17 @@ const ProjectsComponent = ({
   const [showNewListDialog, setShowNewListDialog] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
   const [collapsed, setCollapsed] = React.useState(false);
-  const [foldersExpanded, setFoldersExpanded] = React.useState(false);
-  const [listsExpanded, setListsExpanded] = React.useState(false);
+
+  const getBooleanPref = (key, fallback) => {
+    const inStore = window.storage.getValue(key);
+    if (inStore === null) return fallback;
+    return (inStore === 'true');
+  };
+
+  const [foldersExpanded, setFoldersExpanded] =
+    React.useState(getBooleanPref('drawer.foldersExpanded', true));
+  const [listsExpanded, setListsExpanded] =
+    React.useState(getBooleanPref('drawer.listsExpanded', true));
 
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
@@ -234,6 +243,16 @@ const ProjectsComponent = ({
     return true;
   };
 
+  const handleToggleFoldersExpand = () => {
+    setFoldersExpanded(!foldersExpanded);
+    window.storage.set('drawer.foldersExpanded', !foldersExpanded);
+  };
+
+  const handleToggleListsExpand = () => {
+    setListsExpanded(!listsExpanded);
+    window.storage.set('drawer.listsExpanded', !listsExpanded);
+  };
+
   return (
     <React.Fragment>
       <List className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
@@ -284,7 +303,7 @@ const ProjectsComponent = ({
         <Divider />
 
         {/* Folders: create new folder or collection */}
-        <ListItem onClick={() => { setFoldersExpanded(!foldersExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
+        <ListItem onClick={handleToggleFoldersExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between">
@@ -409,7 +428,7 @@ const ProjectsComponent = ({
         <Divider />
 
         {/* Lists: create new list */}
-        <ListItem onClick={() => { setListsExpanded(!listsExpanded); }} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
+        <ListItem onClick={handleToggleListsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between">

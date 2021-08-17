@@ -16,7 +16,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     backgroundColor: `${backgroundMain}`,
     display: 'flex',
-    height: 224,
+    minHeight: 224,
+    marginBottom: 50,
   },
   tabs: {
     backgroundColor: `${backgroundMain}`,

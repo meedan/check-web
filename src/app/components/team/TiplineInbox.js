@@ -10,10 +10,6 @@ export default function TiplineInbox({ routeParams }) {
   const query = {
     ...safelyParseJSON(routeParams.query, {}),
     channels: [CheckChannels.ANYTIPLINE],
-    parent: {
-      type: 'team',
-      slug: routeParams.team,
-    },
   };
 
   return (
@@ -24,6 +20,7 @@ export default function TiplineInbox({ routeParams }) {
       icon={<ForumIcon />}
       teamSlug={routeParams.team}
       query={query}
+      hideFields={['channels']}
       page="tipline-inbox"
     />
   );

@@ -29,6 +29,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
     wait_for_selector('.media-detail')
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
 
     # First item
     expect(page_source_body.include?('1 of 3')).to be(true)
@@ -41,7 +42,8 @@ shared_examples 'media' do |type|
     # Second item
     wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__next-item')
-    wait_for_selector('.media-search__actions-bar')
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
+
     wait_for_selector('.media-detail')
     expect(page_source_body.include?('1 of 3')).to be(false)
     expect(page_source_body.include?('2 of 3')).to be(true)
@@ -53,7 +55,7 @@ shared_examples 'media' do |type|
     # Third item
     wait_for_selector('.media-search__next-item').click
     wait_for_selector('.media-search__next-item')
-    wait_for_selector('.media-search__actions-bar')
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
     wait_for_selector('.media-detail')
 
     expect(page_source_body.include?('1 of 3')).to be(false)
@@ -133,30 +135,27 @@ shared_examples 'media' do |type|
     wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
-    wait_for_selector('.project-list__header').click
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
   end
 
-  it 'should restore items from the trash', bin5: true do
+  it 'should restore items from the trash', bin2: true do
     create_media_depending_on_type
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__send-to-trash').click
-    wait_for_selector('.message').click
-    wait_for_selector('.project-header__back-button').click
-    expect(@driver.find_elements(:css, '.medias__item').empty?)
-    wait_for_selector('.project-list__item-trash').click # Go to the trash page
+    wait_for_selector('.message')
+    wait_for_selector('#notistack-snackbar a').click
     wait_for_selector('.media__heading')
     wait_for_selector("table input[type='checkbox']").click
     wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
     wait_for_selector('#media-bulk-actions__move-to').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
+    wait_for_selector('div[aria-expanded=false]')
     wait_for_selector('.media-bulk-actions__move-button').click
     wait_for_selector('.message')
-    wait_for_selector('.project-list__header').click
     wait_for_selector('.project-list__link', index: 0).click # Go to target project
     wait_for_selector_list_size('.medias__item', 1, :css)
     expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)

@@ -66,7 +66,7 @@ shared_examples 'team' do
     wait_for_selector('.team-bots__keep-installed').click
   end
 
-  it 'should add introduction to team report settings', bin5: true do
+  it 'should add introduction to team report settings', bin4: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__report-tab').click
@@ -90,8 +90,7 @@ shared_examples 'team' do
     wait_for_selector('.slack-config__switch').click
     wait_for_selector('.Mui-checked')
     wait_for_selector('.slack-config__settings').click
-    wait_for_selector('#slack-config__channel')
-    wait_for_selector("//span[contains(text(), 'Send notifications to Slack channels')]", :xpath)
+    wait_for_selector('div[role=dialog]')
     wait_for_selector('#slack-config__webhook').send_keys('https://hooks.slack.com/services/00000/0000000000')
     wait_for_selector('.slack-config__save').click
     wait_for_selector_none('.slack-config__save')
@@ -112,7 +111,6 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
-    wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     create_media('text')
     api_logout
@@ -137,7 +135,6 @@ shared_examples 'team' do
     # do not be able to add, remove or edit a new folder
     expect(@driver.find_elements(:css, '.projects-list__add-folder-or-collection').empty?).to be(true)
     # do not be able to see project actions button
-    wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(true)
@@ -181,7 +178,6 @@ shared_examples 'team' do
     expect(@driver.find_elements(:css, '.team-settings__languages-tab').empty?).to be(true)
     expect(@driver.find_elements(:css, '.team-settings__integrations-tab').empty?).to be(true)
     # be able to see folder actions icon
-    wait_for_selector('.project-list__header > svg').click
     wait_for_selector('.project-list__link').click
     wait_for_selector('#search-form')
     expect(@driver.find_elements(:css, '.project-actions').empty?).to be(false)
@@ -199,15 +195,21 @@ shared_examples 'team' do
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
 
     # Navigate to second team
-    wait_for_selector('.header__user-menu').click
+    wait_for_selector('.header__user-menu')
+    wait_for_selector('.user-menu__role').click
+    wait_for_selector('.user-menu__logout')
     wait_for_selector('a[href="/check/me"]').click
+    wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t2.slug}").click
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t2.slug}/\"]")
 
     # Navigate back to first team
-    wait_for_selector('.header__user-menu').click
+    wait_for_selector('.header__user-menu')
+    wait_for_selector('.user-menu__role').click
+    wait_for_selector('.user-menu__logout')
     wait_for_selector('a[href="/check/me"]').click
+    wait_for_selector('.source__primary-info')
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")

@@ -232,7 +232,7 @@ class MediaActionsBarComponent extends Component {
 
     const options = [];
     media.team.team_users.edges.forEach((teamUser) => {
-      if (teamUser.node.status === 'member') {
+      if (teamUser.node.status === 'member' && !teamUser.node.user.is_bot) {
         const { user } = teamUser.node;
         options.push({ label: user.name, value: user.dbid.toString() });
       }
@@ -468,6 +468,7 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
                   dbid
                   name
                   is_active
+                  is_bot
                   source {
                     id
                     dbid

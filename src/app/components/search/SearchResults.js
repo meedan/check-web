@@ -81,7 +81,7 @@ const Styles = theme => ({
 });
 
 /**
- * Delete `esoffset`, `timestamp`, and maybe `projects` and `project_group_id` -- whenever
+ * Delete `esoffset`, `timestamp`, and maybe `projects`, `project_group_id` and `channels` -- whenever
  * they can be inferred from the URL or defaults.
  *
  * This is useful for building simple-as-possible URLs.
@@ -110,6 +110,9 @@ function simplifyQuery(query, project, projectGroup) {
   }
   if (ret.keyword && !ret.keyword.trim()) {
     delete ret.keyword;
+  }
+  if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
+    delete ret.channels;
   }
   return ret;
 }
@@ -390,7 +393,7 @@ class SearchResultsComponent extends React.PureComponent {
       );
     }
 
-    const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects and .project_group_id
+    const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects, .project_group_id and .channels
     delete unsortedQuery.sort;
     delete unsortedQuery.sort_type;
 

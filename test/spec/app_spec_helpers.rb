@@ -231,7 +231,7 @@ module AppSpecHelpers
 
   def generate_a_report_and_copy_report_code
     wait_for_selector('#media-detail__report-designer').click
-    wait_for_selector('.report-designer__actions-copy').click
+    wait_for_selector('.report-designer__copy-embed-code').click
   end
 
   def change_the_status_to(status_class, confirm)

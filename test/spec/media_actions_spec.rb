@@ -206,7 +206,6 @@ shared_examples 'media actions' do
     wait_for_selector('#search-input')
     create_folder_or_collection('project 2', '.projects-list__add-folder')
     wait_for_selector('.project-list__link', index: 1)
-    wait_for_selector('.project-list__header span span').click
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector('.media__heading').click
     wait_for_selector('#media-actions-bar__move-to').click
@@ -217,7 +216,6 @@ shared_examples 'media actions' do
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('.project-list__link', index: 1)
-    wait_for_selector('.project-list__header span span').click
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector_none('.media__heading', :css, 10)
     expect(page_source_body.include?('My search result')).to be(false)

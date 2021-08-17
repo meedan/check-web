@@ -16,7 +16,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should filter by status and search by keywords', bin5: true, quick: true do
+  it 'should filter by status and search by keywords', bin2: true, quick: true do
     api_create_claim_and_go_to_search_page
     expect(@driver.page_source.include?('My search result')).to be(true)
     create_media('media 2')
