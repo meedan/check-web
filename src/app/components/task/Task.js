@@ -1548,6 +1548,19 @@ export default Relay.createContainer(Task, {
         suggestions_count,
         log_count,
         team_task_id,
+        team_task {
+          id,
+          dbid,
+          label,
+          conditional_info,
+          description,
+          options,
+          type,
+          associated_type,
+          project_ids,
+          json_schema,
+          show_in_browser_extension,
+        },
         responses(first: 10000) {
           edges {
             node {

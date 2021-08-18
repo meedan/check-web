@@ -76,12 +76,34 @@ const Tasks = ({
     );
   }
 
+  // This function determines if we should show a metadata item based on conditional prerequisites
+  function showMetadataItem(task) {
+    const { conditional_info } = task.node.team_task;
+    if (conditional_info) {
+      try {
+        const parsedConditionalInfo = JSON.parse(conditional_info);
+        const { selectedFieldId, selectedConditional, selectedCondition } = parsedConditionalInfo;
+        const matchingTask = tasks.find(item => item.node.team_task_id === selectedFieldId);
+        if (selectedConditional === 'is' && matchingTask.node.first_response_value === selectedCondition) {
+          return true;
+        } else if (selectedConditional === 'is not' && matchingTask.node.first_response_value !== selectedCondition) {
+          return true;
+        }
+        return false;
+      } catch (e) {
+        throw (e);
+      }
+    }
+    return true;
+  }
+
   if (isMetadata) {
     output = (
       <StyledMetadataContainer>
         <ul className="tasks__list">
           {tasks
             .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+            .filter(showMetadataItem)
             .map(task => (
               <li key={task.node.dbid}>
                 { (isMetadata || isBrowserExtension) ? (

@@ -262,6 +262,11 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
               id,
               dbid,
               show_in_browser_extension,
+              team_task_id,
+              team_task {
+                conditional_info
+              },
+              first_response_value,
               ${Task.getFragment('task')},
             }
           }

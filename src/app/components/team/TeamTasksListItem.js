@@ -205,6 +205,7 @@ class TeamTasksListItem extends React.Component {
       label: task.label,
       description: task.description,
       show_in_browser_extension: task.show_in_browser_extension,
+      conditional_info: task.conditional_info,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
@@ -318,6 +319,7 @@ class TeamTasksListItem extends React.Component {
           <EditTaskDialog
             fieldset={this.props.fieldset}
             task={task}
+            tasks={this.props.tasks}
             message={this.state.message}
             taskType={task.type}
             onDismiss={this.handleCloseEdit}
@@ -339,11 +341,13 @@ TeamTasksListItem.propTypes = {
     label: PropTypes.string.isRequired,
     description: PropTypes.string,
     show_in_browser_extension: PropTypes.bool,
+    conditional_info: PropTypes.string,
     type: PropTypes.string.isRequired,
     json_options: PropTypes.string,
     json_project_ids: PropTypes.string,
     json_schema: PropTypes.string,
   }).isRequired,
+  tasks: PropTypes.array.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     projects: PropTypes.shape({
