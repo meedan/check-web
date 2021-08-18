@@ -69,6 +69,14 @@ const conditionalVerbs = [
     label: 'is not',
     test() {},
   },
+  {
+    label: 'is empty',
+    test() {},
+  },
+  {
+    label: 'is not empty',
+    test() {},
+  },
 ];
 
 class EditTaskDialog extends React.Component {
@@ -476,15 +484,19 @@ class EditTaskDialog extends React.Component {
                   { conditionalVerbs.map(verb => <option selected={this.state.selectedConditional === verb.label}>{verb.label}</option>) }
                 </Select>
               </StyledConditionalSelect>
-              <StyledConditionalSelect>
-                <Select
-                  native
-                  onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                  id="conditions"
-                >
-                  { this.prerequisiteFields.find(field => field.dbid === this.state.selectedFieldId)?.options.map(option => <option selected={this.state.selectedCondition === option.label}>{option.label}</option>) }
-                </Select>
-              </StyledConditionalSelect>
+              {
+                (this.state.selectedConditional !== 'is empty' &&
+                this.state.selectedConditional !== 'is not empty') ?
+                  <StyledConditionalSelect>
+                    <Select
+                      native
+                      onChange={this.handlePrerequisiteFieldChange.bind(this)}
+                      id="conditions"
+                    >
+                      { this.prerequisiteFields.find(field => field.dbid === this.state.selectedFieldId)?.options.map(option => <option selected={this.state.selectedCondition === option.label}>{option.label}</option>) }
+                    </Select>
+                  </StyledConditionalSelect> : null
+              }
             </>
             : null
           }

@@ -88,6 +88,10 @@ const Tasks = ({
           return true;
         } else if (selectedConditional === 'is not' && matchingTask.node.first_response_value !== selectedCondition) {
           return true;
+        } else if (selectedConditional === 'is empty' && matchingTask.node.first_response_value === null) {
+          return true;
+        } else if (selectedConditional === 'is not empty' && matchingTask.node.first_response_value !== null) {
+          return true;
         }
         return false;
       } catch (e) {
