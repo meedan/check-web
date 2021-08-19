@@ -2,13 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import Autocomplete from '@material-ui/lab/Autocomplete';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -16,10 +15,24 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
-import ForwardIcon from '@material-ui/icons/Forward';
-import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import EditIcon from '@material-ui/icons/Edit';
+import LabelIcon from '@material-ui/icons/Label';
+import DeleteIcon from '@material-ui/icons/Delete';
+import FolderOpenIcon from '@material-ui/icons/FolderOpen';
+import MultiSelectFilter from '../../search/MultiSelectFilter';
 import { safelyParseJSON } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
+
+const messages = defineMessages({
+  defaultLabel: {
+    id: 'slackConfigDialogComponent.defaultLabel',
+    defaultMessage: 'Notification {number}',
+    description: 'Default label for new notification. I.e.: Notification 1, Notification 2...',
+  },
+});
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,73 +60,103 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// For now, we just want to show on the UI
-// events of type "item_added"
-function eventsFromProjects(projects) {
-  const events = [];
-  projects.forEach((project) => {
-    if (project.get_slack_events) {
-      project.get_slack_events.forEach((event) => {
-        if (event.event === 'item_added') {
-          events.push({ projectId: project.id, channelName: event.slack_channel });
-        }
-      });
-    }
-  });
-  return events;
-}
+const AddEventButton = ({
+  onSelect,
+}) => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
-const updateProjectMutation = graphql`
-  mutation SlackConfigDialogComponentUpdateProjectMutation($input: UpdateProjectInput!) {
-    updateProject(input: $input) {
-      project {
-        id
-        get_slack_events
-      }
-    }
-  }
-`;
+  return (
+    <React.Fragment>
+      <Button onClick={e => setAnchorEl(e.currentTarget)}>
+        <FormattedMessage
+          id="slackConfigDialogComponent.addEvent"
+          defaultMessage="+ Add event"
+          description="Button label to event selector"
+        />
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+      >
+        <MenuItem className="add-event__any-activity" onClick={() => onSelect('any_activity')}>
+          <ListItemText
+            primary={
+              <FormattedMessage
+                id="slackConfigDialogComponent.anyActivity"
+                defaultMessage="Any workspace activity"
+                description="Selecting this event will trigger notification upon any workspace activity"
+              />
+            }
+          />
+        </MenuItem>
+        <MenuItem className="add-event__item-added" onClick={() => onSelect('item_added')}>
+          <ListItemText
+            primary={
+              <FormattedMessage
+                id="slackConfigDialogComponent.itemAdded"
+                defaultMessage="Item is added to folder"
+                description="Selecting this event will trigger notification whenever an item is added to or moved to a folder"
+              />
+            }
+          />
+        </MenuItem>
+        <MenuItem className="add-event__status-changed" onClick={() => onSelect('status_changed')}>
+          <ListItemText
+            primary={
+              <FormattedMessage
+                id="slackConfigDialogComponent.statusChanged"
+                defaultMessage="Status is changed to"
+                description="Selecting this event will trigger notification whenever an item status is changed"
+              />
+            }
+          />
+        </MenuItem>
+      </Menu>
+    </React.Fragment>
+  );
+};
 
-const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
+const SlackConfigDialogComponent = ({
+  intl,
+  team,
+  onCancel,
+  setFlashMessage,
+}) => {
   const projects = team.projects.edges.map(project => project.node);
+  const { statuses } = team.verification_statuses;
 
   const classes = useStyles();
   const [webhook, setWebhook] = React.useState(team.slackWebhook || '');
-  const [channel, setChannel] = React.useState(team.slackChannel || '#');
-  const [events, setEvents] = React.useState(eventsFromProjects(projects));
+  const [events, setEvents] = React.useState(team.slackNotifications || []);
   const [saving, setSaving] = React.useState(false);
+  const [editIndex, setEditIndex] = React.useState(null);
 
   const handleAdd = () => {
     const newEvents = events.slice(0);
-    newEvents.push({ projectId: '', channelName: '#' });
+    newEvents.push({ label: '', slack_channel: '#' });
     setEvents(newEvents);
   };
 
-  const handleRemove = (i) => {
-    let newEvents = events.slice(0);
-    const event = events[i];
-    if (event.projectId) {
-      commitMutation(Store, {
-        mutation: updateProjectMutation,
-        variables: {
-          input: {
-            id: event.projectId,
-            slack_events: '[]',
-          },
-        },
-      });
-    }
-    newEvents.splice(i, 1);
-    if (newEvents.length === 0) {
-      newEvents = [{ projectId: '', channelName: '#' }];
-    }
+  const handleRemove = (index) => {
+    const newEvents = events.slice(0);
+    newEvents.splice(index, 1);
+    setEvents(newEvents);
+  };
+
+  const handleRemoveType = (index) => {
+    const newEvents = events.slice(0);
+    newEvents.splice(index, 1, { ...newEvents[index], event_type: null });
     setEvents(newEvents);
   };
 
   const handleSetField = (i, field, value) => {
     const newEvents = events.slice(0);
-    newEvents[i][field] = value;
+    const event = { ...newEvents[i] };
+    event[field] = value;
+    newEvents.splice(i, 1, event);
     setEvents(newEvents);
+    setEditIndex(null);
   };
 
   const handleCancel = () => {
@@ -148,7 +191,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
             team {
               id
               slackWebhook: get_slack_webhook
-              slackChannel: get_slack_channel
+              slackNotifications: get_slack_notifications
             }
           }
         }
@@ -157,7 +200,7 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
         input: {
           id: team.id,
           slack_webhook: webhook,
-          slack_channel: channel,
+          slack_notifications: JSON.stringify(events),
         },
       },
       onCompleted: (response, error) => {
@@ -170,34 +213,6 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
       onError: (error) => {
         handleError(error);
       },
-    });
-
-    // Save Slack settings for each project
-    events.forEach((event) => {
-      if (event.projectId && event.channelName) {
-        commitMutation(Store, {
-          mutation: updateProjectMutation,
-          variables: {
-            input: {
-              id: event.projectId,
-              slack_events: JSON.stringify([{
-                event: 'item_added',
-                slack_channel: event.channelName,
-              }]),
-            },
-          },
-          onCompleted: (response, error) => {
-            if (error) {
-              handleError(error);
-            } else {
-              handleSuccess();
-            }
-          },
-          onError: (error) => {
-            handleError(error);
-          },
-        });
-      }
     });
   };
 
@@ -237,108 +252,135 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  <FormattedMessage
-                    id="slackConfigDialogComponent.event"
-                    defaultMessage="Event"
-                  />
+                  <Box mr={2} display="inline">
+                    <FormattedMessage
+                      id="slackConfigDialogComponent.notifications"
+                      defaultMessage="Notifications"
+                    />
+                  </Box>
+                  <Button
+                    color="primary"
+                    onClick={handleAdd}
+                    size="small"
+                    variant="contained"
+                  >
+                    <FormattedMessage id="slackConfigDialogComponent.new" defaultMessage="+ New" />
+                  </Button>
                 </TableCell>
-                <TableCell><ForwardIcon className={classes.icon} /></TableCell>
-                <TableCell>
-                  <FormattedMessage
-                    id="slackConfigDialogComponent.sendNotificationsTo"
-                    defaultMessage="Send notifications to"
-                  />
-                </TableCell>
-                <TableCell>{' '}</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               { events.map((event, i) => (
                 <TableRow key={Math.random().toString().substring(2, 10)}>
                   <TableCell>
-                    <Autocomplete
-                      value={projects.find(project => project.id === event.projectId) || {}}
-                      onChange={(e, newValue) => {
-                        if (newValue) {
-                          handleSetField(i, 'projectId', newValue.id);
+                    { editIndex === i ?
+                      <TextField
+                        label={
+                          <FormattedMessage
+                            id="slackConfigDialogComponent.label"
+                            defaultMessage="Label"
+                          />
                         }
-                      }}
-                      options={projects.sort((a, b) => (a.title.localeCompare(b.title)))}
-                      getOptionLabel={project => (project.title || '')}
-                      renderInput={params => (
-                        <TextField
-                          {...params}
-                          label={
-                            <FormattedMessage
-                              id="slackConfigDialogComponent.ifItemAddedTo"
-                              defaultMessage="If item is in folder"
-                            />
-                          }
-                          variant="outlined"
-                          fullWidth
-                        />
-                      )}
-                      fullWidth
-                    />
-                  </TableCell>
-                  <TableCell><ForwardIcon className={classes.icon} /></TableCell>
-                  <TableCell>
-                    <TextField
-                      label={
+                        defaultValue={event.label || intl.formatMessage(messages.defaultLabel, { number: i + 1 })}
+                        onBlur={(e) => { handleSetField(i, 'label', e.target.value); }}
+                        size="small"
+                        margin="normal"
+                        variant="outlined"
+                      />
+                      :
+                      <div>
+                        { event.label || intl.formatMessage(messages.defaultLabel, { number: i + 1 }) }
+                        <IconButton onClick={() => setEditIndex(i)}>
+                          <EditIcon className={classes.icon} />
+                        </IconButton>
+                        <IconButton onClick={() => { handleRemove(i); }}>
+                          <DeleteIcon className={classes.icon} />
+                        </IconButton>
+                      </div>
+                    }
+                    <Box display="flex" alignItems="center">
+                      <FormattedMessage
+                        id="slackConfigDialogComponent.if"
+                        defaultMessage="If"
+                        description="Header to event selector. E.g.: If 'Item is added to' ..."
+                      />
+                      <span style={{ width: '16px' }} />
+                      { event.event_type === 'item_added' ?
                         <FormattedMessage
-                          id="slackConfigDialogComponent.channel"
-                          defaultMessage="Slack channel"
-                        />
+                          id="slackConfigDialogComponent.itemIsAddedTo"
+                          defaultMessage="Item is added to"
+                          description="Label to folder selector component"
+                        >
+                          { label => (
+                            <MultiSelectFilter
+                              label={label}
+                              icon={<FolderOpenIcon />}
+                              selected={event.values}
+                              options={projects
+                                .sort((a, b) => (a.title.localeCompare(b.title)))
+                                .map(p => ({ label: p.title, value: p.dbid.toString() }))
+                              }
+                              onChange={val => handleSetField(i, 'values', val)}
+                              onRemove={() => handleRemoveType(i)}
+                            />
+                          )}
+                        </FormattedMessage>
+                        : null }
+                      { event.event_type === 'any_activity' ?
+                        <FormattedMessage
+                          id="slackConfigDialogComponent.anyActivity"
+                          defaultMessage="Any workspace activity"
+                          description="Selecting this event will trigger notification upon any workspace activity"
+                        /> : null
                       }
-                      defaultValue={event.channelName}
-                      onBlur={(e) => { handleSetField(i, 'channelName', e.target.value); }}
-                      variant="outlined"
-                      fullWidth
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <IconButton onClick={() => { handleRemove(i); }}>
-                      <CancelOutlinedIcon className={classes.icon} />
-                    </IconButton>
+                      { event.event_type === 'status_changed' ?
+                        <FormattedMessage
+                          id="slackConfigDialogComponent.statusChanged"
+                          defaultMessage="Status is changed to"
+                          description="Selecting this event will trigger notification whenever an item status is changed"
+                        >
+                          { label => (
+                            <MultiSelectFilter
+                              label={label}
+                              icon={<LabelIcon />}
+                              selected={event.values}
+                              options={statuses.map(s => ({ label: s.label, value: s.id }))}
+                              onChange={val => handleSetField(i, 'values', val)}
+                              onRemove={() => handleRemoveType(i)}
+                            />
+                          )}
+                        </FormattedMessage>
+                        : null }
+                      { !event.event_type ?
+                        <AddEventButton onSelect={val => handleSetField(i, 'event_type', val)} />
+                        : null }
+                    </Box>
+                    <Box display="flex" alignItems="center" mt={2}>
+                      <FormattedMessage
+                        id="slackConfigDialogComponent.then"
+                        defaultMessage="Then send notification to"
+                        description="Header to notification destination input. E.g.: Then send notification to '#general'"
+                      />
+                      <span style={{ width: '16px' }} />
+                      <TextField
+                        label={
+                          <FormattedMessage
+                            id="slackConfigDialogComponent.channel"
+                            defaultMessage="Slack channel"
+                          />
+                        }
+                        defaultValue={event.slack_channel}
+                        onBlur={(e) => { handleSetField(i, 'slack_channel', e.target.value); }}
+                        size="small"
+                        variant="outlined"
+                      />
+                    </Box>
                   </TableCell>
                 </TableRow>
               ))}
-              <TableRow>
-                <TableCell>
-                  { events.length > 0 ?
-                    <FormattedMessage
-                      id="slackConfigDialogComponent.allOtherActivity"
-                      defaultMessage="All other activity"
-                    /> :
-                    <FormattedMessage
-                      id="slackConfigDialogComponent.allWorkspaceActivity"
-                      defaultMessage="All workspace activity"
-                    /> }
-                </TableCell>
-                <TableCell><ForwardIcon className={classes.icon} /></TableCell>
-                <TableCell>
-                  <TextField
-                    label={
-                      <FormattedMessage
-                        id="slackConfigDialogComponent.channel"
-                        defaultMessage="Slack channel"
-                      />
-                    }
-                    id="slack-config__channel"
-                    value={channel}
-                    onChange={(e) => { setChannel(e.target.value); }}
-                    variant="outlined"
-                    fullWidth
-                  />
-                </TableCell>
-                <TableCell>{' '}</TableCell>
-              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
-        <Button color="primary" variant="contained" onClick={handleAdd}>
-          <FormattedMessage id="slackConfigDialogComponent.new" defaultMessage="New notification" />
-        </Button>
         <Box className={classes.footer} display="flex" justifyContent="flex-end">
           <Button onClick={handleCancel}>
             <FormattedMessage id="slackConfigDialogComponent.cancel" defaultMessage="Cancel" />
@@ -353,19 +395,17 @@ const SlackConfigDialogComponent = ({ team, onCancel, setFlashMessage }) => {
 };
 
 SlackConfigDialogComponent.propTypes = {
+  intl: intlShape.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    slackChannel: PropTypes.string,
     slackWebhook: PropTypes.string,
+    slackNotifications: PropTypes.array.isRequired,
+    verification_statuses: PropTypes.object.isRequired,
     projects: PropTypes.shape({
       edges: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string,
         dbid: PropTypes.number,
         title: PropTypes.string,
-        get_slack_events: PropTypes.arrayOf(PropTypes.shape({
-          event: PropTypes.string,
-          channel_name: PropTypes.string,
-        })),
       })),
     }),
   }).isRequired,
@@ -373,18 +413,18 @@ SlackConfigDialogComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
-export default createFragmentContainer(withSetFlashMessage(SlackConfigDialogComponent), graphql`
+export default createFragmentContainer(withSetFlashMessage(injectIntl(SlackConfigDialogComponent)), graphql`
   fragment SlackConfigDialogComponent_team on Team {
     id
     slackWebhook: get_slack_webhook
-    slackChannel: get_slack_channel
+    slackNotifications: get_slack_notifications
+    verification_statuses
     projects(first: 10000) {
       edges {
         node {
           id
           dbid
           title
-          get_slack_events
         }
       }
     }
