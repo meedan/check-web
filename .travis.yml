@@ -35,8 +35,8 @@ before_install:
 - cp config/sidekiq.yml.example config/sidekiq.yml
 # Change config to use Ngrok exposed port
 - TAB=$'\t'
-- sed -i '/storage_public_endpoint/ i \'"${TAB}"'\storage_asset_host: "http://travis-check.ngrok.io/check-api-test"' config/config.yml.example
-- sed -i '/storage_public_endpoint/ i \'"${TAB}"'\storage_endpoint: "http://travis-check.ngrok.io"' config/config.yml.example
+- sed -i '/storage_public_endpoint/ i \'"${TAB}"'\storage_asset_host:\ "http://travis-check.ngrok.io/check-api-test"' config/config.yml.example
+- sed -i '/storage_public_endpoint/ i \'"${TAB}"'\storage_endpoint:\ "http://travis-check.ngrok.io"' config/config.yml.example
 - cd -
 # config files
 - cp test/config.js.example config.js
