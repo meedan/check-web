@@ -48,7 +48,6 @@ const TeamTasks = ({ team, fieldset }) => {
                   project_ids
                   json_schema
                   show_in_browser_extension
-                  conditional_info
                 }
               }
             }

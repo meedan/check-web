@@ -501,7 +501,7 @@ class Task extends Component {
             description="This message appears in a rectangle, instructing the user that they can use their mouse to drag and drop a file, or click to pull up a file selector menu. This also tells them the maximum allowed file size, and the valid types of files that the user can upload. The `fileSizeLabel` variable will read something like '1.0 MB', and the 'extensions' variable is a list of valid file extensions. Neither will be localized."
             values={{
               fileSizeLabel: about ? about.file_max_size : '',
-              extensions: about ? about.file_extensions?.join(', ') : '',
+              extensions: about ? about.file_extensions.join(', ') : '',
             }}
           />
         ),
@@ -538,7 +538,7 @@ class Task extends Component {
             defaultMessage="This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file."
             description="This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
             values={{
-              extensions: about ? about.file_extensions?.join(', ') : '',
+              extensions: about ? about.file_extensions.join(', ') : '',
             }}
           />
         ),
@@ -1548,19 +1548,6 @@ export default Relay.createContainer(Task, {
         suggestions_count,
         log_count,
         team_task_id,
-        team_task {
-          id,
-          dbid,
-          label,
-          conditional_info,
-          description,
-          options,
-          type,
-          associated_type,
-          project_ids,
-          json_schema,
-          show_in_browser_extension,
-        },
         responses(first: 10000) {
           edges {
             node {
