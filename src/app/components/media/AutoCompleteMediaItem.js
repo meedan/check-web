@@ -105,7 +105,6 @@ const AutoCompleteMediaItem = (props, context) => {
   };
 
   const handleSettingsButton = (event) => {
-    console.log('event', event);
     setAnchorEl(event.currentTarget);
     setShowFilters(!showFilters);
   };
