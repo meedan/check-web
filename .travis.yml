@@ -4,8 +4,6 @@ before_install:
 # decrypt credentials for Alegre
 - openssl aes-256-cbc -K $encrypted_126f44c7828e_key -iv $encrypted_126f44c7828e_iv
   -in test/google_credentials.json.enc -out test/google_credentials.json -d
-- ls
-- cd test && ls
 # Set a UTF-8 capabable locale
 - export LC_ALL=C.UTF-8
 - export LANG=C.UTF-8
@@ -48,7 +46,7 @@ before_install:
 - git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
 - cd alegre
 - cp .env_file.test .env_file
-- cp ../check-web/test/google_credentials.json google_credentials.json
+- cp ../test/google_credentials.json google_credentials.json
 - cd -
 # config files
 - cp test/config.js.example config.js
