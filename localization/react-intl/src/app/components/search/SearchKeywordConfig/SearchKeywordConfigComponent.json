@@ -1,5 +1,9 @@
 [
   {
+    "id": "searchKeywordConfig.item",
+    "defaultMessage": "Item"
+  },
+  {
     "id": "searchKeywordConfig.mediaTitle",
     "defaultMessage": "Media title"
   },
@@ -28,6 +32,10 @@
     "defaultMessage": "Source"
   },
   {
+    "id": "searchKeywordConfig.ocr",
+    "defaultMessage": "Extracted text (OCR)"
+  },
+  {
     "id": "searchKeywordConfig.allTaskAnswers",
     "description": "This options applies keyword search across all task answers",
     "defaultMessage": "All task answers"
@@ -54,6 +62,6 @@
   },
   {
     "id": "MultiSelector.all",
-    "defaultMessage": "All"
+    "defaultMessage": "Search All"
   }
 ]
