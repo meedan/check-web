@@ -65,7 +65,7 @@ const StyledConditionalMultiSelect = styled.span`
     bottom: 4px;
     left: 250px;
     width: 50px;
-    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1));
+    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1) 60%, rgba(255,255,255,1));
     content: "";
   }
   .MuiChip-root {
