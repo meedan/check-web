@@ -123,7 +123,6 @@ services:
     volumes:
       - "./alegre:/app"
     depends_on:
-      - kibana
       - redis
       - elasticsearch
     env_file:
