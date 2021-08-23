@@ -46,13 +46,6 @@ module TeamSpecHelpers
     wait_for_selector('.team')
   end
 
-  def ask_join_team(options = {})
-    subdomain = options[:subdomain]
-    @driver.navigate.to "#{@config['self_url']}/#{subdomain}/join"
-    wait_for_selector('.join-team__button').click
-    wait_for_selector('.message')
-  end
-
   def approve_join_team(options = {})
     subdomain = options[:subdomain]
     @driver.navigate.to "#{@config['self_url']}/#{subdomain}"
@@ -76,17 +69,14 @@ module TeamSpecHelpers
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
   end
 
-  # FIXME: Update install_bot helper to current UI
-  def install_bot(team, bot_name)
-    api_create_bot
-    @driver.navigate.to "#{@config['self_url']}/#{team}"
-    wait_for_selector('.team-menu__team-settings-button').click
-    wait_for_selector('.team-settings__bots-tab').click
-    # Install bot
-    wait_for_selector('#team-bots__bot-garden-button').click
-    wait_for_selector('.bot-garden__bot-name')
-    wait_for_selector("//span[contains(text(), '#{bot_name}')]", :xpath).click
-    wait_for_selector('#bot__install-button').click
-    wait_for_selector_none('#bot__install-button')
+  def change_folder_access
+    wait_for_selector('.project__title-text')
+    wait_for_selector('button.project-actions').click
+    wait_for_selector("//span[contains(text(), 'Change access')]", :xpath).click
+    wait_for_selector('.MuiSelect-icon')
+    wait_for_selector('.MuiSelect-selectMenu').click
+    @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
   end
 end

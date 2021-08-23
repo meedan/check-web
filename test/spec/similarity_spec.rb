@@ -105,4 +105,23 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('claim 2')).to be(true)
     expect(@driver.page_source.include?('claim 3')).to be(false)
   end
+
+  it 'should extract text from a image', bin2: true do
+    api_create_team_and_project
+    @driver.navigate.to @config['self_url']
+    wait_for_selector('.project__description')
+    create_image('test.png')
+    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading').click
+    wait_for_selector('.image-media-card')
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    sleep 5 # wait for the image to be rendered
+    expect(@driver.page_source.include?('Text extracted from image')).to be(false)
+    expect(@driver.page_source.include?('RAILS')).to be(false)
+    wait_for_selector("//span[contains(text(), 'Extract text from image')]", :xpath).click
+    wait_for_selector('.message')
+    wait_for_selector_none("//span[contains(text(), 'Extract text from image')]", :xpath)
+    expect(@driver.page_source.include?('Text extracted from image')).to be(true)
+    expect(@driver.page_source.include?('RAILS')).to be(true)
+  end
 end

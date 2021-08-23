@@ -1,6 +1,9 @@
 language: minimal
 dist: bionic
 before_install:
+# decrypt credentials for Alegre
+- openssl aes-256-cbc -K $encrypted_126f44c7828e_key -iv $encrypted_126f44c7828e_iv
+  -in test/google_credentials.json.enc -out test/google_credentials.json -d
 # Set a UTF-8 capabable locale
 - export LC_ALL=C.UTF-8
 - export LANG=C.UTF-8
@@ -8,6 +11,11 @@ before_install:
 # Needed to fix error when installing Pender gems
 # Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
 # https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
+- curl https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok-stable-linux-amd64.zip
+- unzip ngrok-stable-linux-amd64.zip
+- chmod +x ngrok
+- ./ngrok authtoken $NGROK_TOKEN
+- ./ngrok http -hostname travis-check.ngrok.io 9000 >/dev/null &
 - export TRAVIS_TAG=0.0.0
 # docker
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
@@ -28,6 +36,17 @@ before_install:
 - cp config/config.yml.example config/config.yml
 - cp config/database.yml.example config/database.yml
 - cp config/sidekiq.yml.example config/sidekiq.yml
+# Change config file to use Ngrok exposed port
+- sed -i '/storage_public_endpoint/ i \  \storage_asset_host:\ '"'"'http://travis-check.ngrok.io/check-api-test'"'"'' config/config.yml
+- sed -i '/\ \storage_public_endpoint/ i \  \storage_endpoint:\ '"'"'http://travis-check.ngrok.io'"'"'' config/config.yml
+- cd -
+# Alegre
+- export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- echo "Using branch $ALEGRE_BRANCH for Alegre"
+- git clone --branch=$ALEGRE_BRANCH https://github.com/meedan/alegre.git
+- cd alegre
+- cp .env_file.test .env_file
+- cp ../test/google_credentials.json google_credentials.json
 - cd -
 # config files
 - cp test/config.js.example config.js
@@ -55,6 +74,7 @@ script:
 after_script:
 - docker-compose exec web bash -c "python -m json.tool test/file.json"
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
+- kill -9 $(pgrep ngrok)
 notifications:
   slack:
     secure: TAPzV/OeN5hl8JSGrqPcAtFO/NWa9IqMbyzuUpCZgNP9EbobmlTPx55mopI647rwVIQZM1RL+2SapHJbT7XCAjJ+uvzSQd0b/LaS/aXLKFcS3bBDcvKAUeCcCYUiDz7x832EYg0fsVErR2dZPxvuPtWtwrOlOaOo8HB1uVHjvKo20Wnr/J4+VNTGvhQ5awdmpHMh+KrWpjQi4Ta9zWOTmSYh3qhgaLKjIKXanoaWen87VJB6Jy8nJ3Bo6t3r3+sbCRN9/LUZ8sVcJnvzlKdOtiLGkz8u2YG2c8UD+iUt2VOk0o5L/o8YPoeukJyFuAHAdLrjOelwHCAD2dRfrpQG7y/8G0vjJRXg8DRaVBVIl9vpYM6lyVIw5I6a9XDbUeOnBAWHE3uj/xH0X0vcRREE5py6tbt1KPUBS9rc8JGdCW3ZXVZAXA+1cijR3AAZUZ0YEf9WKLYhsTFW9lYlDcmkrWgVD9vbtPGDg95sbtuB+H5dkEAOBkf2YGkqzO+aaQKLDHkib/1v4C1+T5lXqlWZUrP8EuRwWs6xJlhi6w72AZLo7kVmfGA3ZdKfVcPCqr83YBfhL0WbwgT94L+5STELxw/PhsyNyOM/sRLQgR24ga/lcg2+L395VIPrQvhgKc26yHBuqW2P6FSOEGMyEcZ34N1TMTtRF7/lkRmXyKt4zuc=
@@ -68,3 +88,4 @@ env:
   - secure: WtbsG4na6NHpHibPDvRc66YQKTuS76BqSRa4oDIazVkahGsGPnhrvlVTCPIbB62SOH5CsR2awEpeqEevqAnVuBk/TeEzGca1sVskIz5HKn/ihqGhIrI+ma0nb2jPFJUK0xKrMS/LPnU1k7eZSJJPnhQLEISfPR5CyG420lj+65iZacr1WAdk3/xkWwqmnXu47f5u+RmImd6WqkIGMi9Y+c8sieoTAmj+we1yB5uvTkP+kSw8ktznEA1ItP0elM2I6BYj9UHf6v12qYtx4ZSOCtS4VuNJkjb2iqgfpuYsBP4hEBUPbHlye2Ej6+nyFh4Be4dAxXOm6/lsMc0XYoBq9EYyNLHRdpu6gh0xYiAm+DEHPX75G2chTr5fztdZgMS99vHXr/C8f2bM0pB1cyCOYF701buIlIBmGZhRmC5O0m88sbo/l6sMjpicoUBjUXEwVeTDiaUDHn9kk+mZmWCEkMhq+ls33W4hOJDc7R5hG7dzokEZGryAWCmxFTxRCY79my8Va5/Tnk9tmADBIE9Hfm5ZRPf33HVCUpU4DdL7FXgUDHzAQuxuDD9KxsNhUqWwMKAkVBNyn3j5R9FitLM4UcsfGYDXgqNfaAvq1okk+ukgVp2ijHn8uekt4eEwYwa1s0ht7bgK06lS8vyJ5EoFbfjrkwVJluxS9b1bvc9qi1I=
   - secure: GMroHn2UjzOatv1/mPgHD95xalKFWSYcVZoxbJlVjXu7Bn2w+T7bM4NDStlsu3kOU4PhcsYE9tz+L2je6wZv1dRS7DQRMD3pNS3kfRINpvw3BMbYriOPwDwwQkaXZbr5JR0dykrCq2F7SdFB//qPNf/+hD9pyNizPauEZOwMKZlJycrvOb+1pDpqr1FsYLjxvafYBW4PC4yI/AlE7cs/wkZhhpglU+NKUPTrLXPFUbiZ58/PaPXvtBTg3VavLOEantU8JyRNFjvVkhEtvEfFkKBPoxZIeJ8trT+o7dhJThf+RWlY/SBjpJrc/MhdyuxgsvawewSXaZqx+Fy6EH05XuwvJ6JgCwlhOXC9UY+SorwqSKxKj458l6FZBfHQEFYNla4rAWXuslY0tcAGbNOT7BCsgKTe99RoKI6Od/zfqu+8qrS9giaHgcPrObIKZGtkcHvI18e44zHCVhadY6MBuBQBcXDxKll588PKRRgQmTLi6xJXlK+1UfDp0KbYS/XBrrUEwwAHlZ5ZL2bzx3HHpeHDBRRSsyXJFFo+kEdhmS4xg2Qg8eZm4v9IpCYjUX/vltcoW2BpSXAGd1RaBa7/svwbifNF8ODypEYsVe7KTzmYnOIbsyFYO8mHjk5ysXTOzIoL19fT6YIABuwRr9G+4MgU1ITqXk4LEcM8V0Hx2B4=
   - secure: URYEQWH4KXI6UDO9rS/D0UgSSmUnQ6lp55ga6CIycSSvEJ7m5qtUykwpfRW94wdm/zzMYtdHDawnQk5OCZpvU143Hz/3t0AfELZfNJilovLGe64W9JHxFrgvE0U56UlCpS2+n45EVm+X0+jLeDMiLmfEDPYsEgBxfaHq+fvYF3mv8zigO55MgraZLnRlYXgVdB9A7ZYo8uL4phxYf/sIoUSe9DzcyFhAOCpWdvzwPLV82EGrQ0FBf7EyfjdLkqmjJmqA5odNrMKejsQZ03ZNHivRDDoyMxH4ExunUhLzrrrMkP8OLkUJGpRgjWOnrWHCiwuiSYj2/RDrReJ/GOK1PGz88nGpYoEu+8C4DPOGW/k5LuCEQHmfE3dWsF8w+b0pJrsp1uMxDfy8JVZBbBNey5TrRbpVD4EIvXzIj1PAzL30uddPAYBHKmgGM58NWCOtzQlCG0H7FQQQopMp9jsjKR38Hv+IxkK7eULRN2Am75Sgw/EfVOpGBTXAdKpgKJuIK/wujP7OTGVzXuYrLMKo/ZrDKT3p1rZRTLWExo106rY7hj76xVvENgEhfPYCtdsZpMRalvDYc5v5FLX3YsTzgsh8jV10nM+nxJwOEaJTSuK6sv2/s8jeII8A62L23ETLVk8BJ/CxcMZ57g0slBYmg1xgtDe6/SWvtfkS9oZZO0U=
+  - secure: Jvj8in3SzKv4ApnMWQGrRx1y6rD//I8qTlScbaRLr3myWsE0XnaTb57u1ZrJ/QenVcX1yXj1kZYHfv9uZt97r0+76uI0AcA3B55GxWODJY444S0XK7pFsadzHTUQwVlEaTkoTnkhPXZESIB2EmRv6uhGehimCXIGrxBstfvX+BWR2003YcNLNNnWKxorNKtgf52+6zCrLpSJeYhPxzBErOG+MjegbmMaOCqDOiACqWEdRtyrfwpOCrU+2nUx4wa7cptoqaX2mt2R5XOwXyNCFatecE7ZUKg6f7rsuiXp3JqGT2IaZP5MNr9I00Cg3jb3+niYvZzYTWb5b9KK+cJ1q77nHXQLsbePoGW/Km7lLUDh1uKEG5UfXN1hz1kxBwVog6r7bqGN20CUsXk76by+cky0vAsPs+/eHzgQ73n+laCFLkLprmwmHUj6NgiDsuftvpBDIlR8ED34+dvUP/VUtp2Nq1O0RUul5JyzHXP/2lbiEuVwJxcfk2D17QsCNZhuGPmWP5FLQtyR+b1sgeWvFRGWv2EXK/MO+/cZFrFrBknXCdEe2aBICH0iizmj2vBy3KFt7ThMZADcl3De7wsahf/OlaXsgZj6Jy51+h1hIHd7zrrueZuAYH78mhLYmAZslYHheSu/J4zMPIthezavS8GoJbluyr5rhF3vNWkbrKE=

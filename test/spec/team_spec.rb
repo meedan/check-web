@@ -107,6 +107,8 @@ shared_examples 'team' do
 
   it 'should manage user permissions', bin5: true do
     utp = api_create_team_project_and_two_users
+    user_editor = api_create_and_confirm_user
+    api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
     # log in as admin
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
@@ -148,9 +150,6 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.role-select')
-    # edit team member role
-    change_the_member_role_to('li.role-editor')
-    expect(wait_for_selector('input[name="role-select"]', index: 1).property('value')).to eq 'editor'
     # see all the team config tabs
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__integrations-tab').click
@@ -160,7 +159,7 @@ shared_examples 'team' do
     api_logout
 
     # log in as editor
-    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('button#team-members__invite-button')
     # be able to invite a member
@@ -213,5 +212,60 @@ shared_examples 'team' do
     wait_for_selector('#teams-tab').click
     wait_for_selector("#switch-teams__link-to-#{t1.slug}").click
     wait_for_selector(".team-header__drawer-team-link[href=\"/#{t1.slug}/\"]")
+  end
+
+  it 'should manage folder access', bin1: true do
+    utp = api_create_team_project_and_two_users
+    user_editor = api_create_and_confirm_user
+    api_add_team_user(email: user_editor.email, slug: utp[:team]['slug'], role: 'editor')
+    # log in as colaborator and be able to see the folder
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
+    wait_for_selector('.project-list__header')
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
+    api_logout
+
+    # log in as editor and be able to see the folder
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
+    wait_for_selector('.project-list__header')
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
+    api_logout
+
+    # log in as admin and change folder acess to Only admins and Editors
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
+    wait_for_selector('.project-list__header')
+    wait_for_selector('.project-list__link').click
+    change_folder_access
+    api_logout
+
+    # log in as colaborator and do not be able to see the folder
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user2]['email']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
+    wait_for_selector('.project-list__header')
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 0
+    api_logout
+
+    # log in as admin and change folder acess to Only admins
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{utp[:user1]['email']}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
+    wait_for_selector('.project-list__header')
+    wait_for_selector('.project-list__link').click
+    change_folder_access
+    api_logout
+
+    # log in as editor and do not be able to see the folder
+    @driver.navigate.to("#{@config['api_path']}/test/session?email=#{user_editor.email}")
+    @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
+    wait_for_selector('.component__settings-header')
+    wait_for_selector('.project-list__header')
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 0
+    api_logout
   end
 end
