@@ -28,7 +28,7 @@ services:
   pender-background:
     environment:
       RAILS_ENV: test
-      SERVER_PORT: 
+      SERVER_PORT: 3200
   alegre:
     environment:
       BOILERPLATE_ENV: test
