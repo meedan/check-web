@@ -130,11 +130,15 @@ const SlackConfigDialogComponent = ({
   const [webhook, setWebhook] = React.useState(team.slackWebhook || '');
   const [events, setEvents] = React.useState(team.slackNotifications || []);
   const [saving, setSaving] = React.useState(false);
+  const [canSubmit, setCanSubmit] = React.useState(true);
   const [editIndex, setEditIndex] = React.useState(null);
+
+  const isIfFilledIncorrectly = event => !event.event_type || (event.event_type && event.event_type !== 'any_activity' && !event.values.length);
+  const isChannelFilledIncorrectly = event => !event.slack_channel.replace('#', '').trim();
 
   const handleAdd = () => {
     const newEvents = events.slice(0);
-    newEvents.push({ label: '', slack_channel: '#' });
+    newEvents.unshift({ label: '', values: [], slack_channel: '#' });
     setEvents(newEvents);
   };
 
@@ -146,14 +150,14 @@ const SlackConfigDialogComponent = ({
 
   const handleRemoveType = (index) => {
     const newEvents = events.slice(0);
-    newEvents.splice(index, 1, { ...newEvents[index], event_type: null });
+    newEvents.splice(index, 1, { ...newEvents[index], event_type: null, values: [] });
     setEvents(newEvents);
   };
 
   const handleSetField = (i, field, value) => {
     const newEvents = events.slice(0);
     const event = { ...newEvents[i] };
-    event[field] = value;
+    event[field] = field === 'slack_channel' && !value.startsWith('#') && !value.startsWith('@') ? `#${value}` : value;
     newEvents.splice(i, 1, event);
     setEvents(newEvents);
     setEditIndex(null);
@@ -181,39 +185,51 @@ const SlackConfigDialogComponent = ({
   };
 
   const handleSubmit = () => {
-    setSaving(true);
+    let noError = true;
+    events.forEach((e) => {
+      if (isIfFilledIncorrectly(e) || isChannelFilledIncorrectly(e)) {
+        noError = false;
+      }
+    });
+    if (events.length && !webhook) {
+      noError = false;
+    }
+    setCanSubmit(noError);
 
-    // Save Slack team settings
-    commitMutation(Store, {
-      mutation: graphql`
-        mutation SlackConfigDialogComponentUpdateTeamMutation($input: UpdateTeamInput!) {
-          updateTeam(input: $input) {
-            team {
-              id
-              slackWebhook: get_slack_webhook
-              slackNotifications: get_slack_notifications
+    if (noError) {
+      setSaving(true);
+      // Save Slack team settings
+      commitMutation(Store, {
+        mutation: graphql`
+          mutation SlackConfigDialogComponentUpdateTeamMutation($input: UpdateTeamInput!) {
+            updateTeam(input: $input) {
+              team {
+                id
+                slackWebhook: get_slack_webhook
+                slackNotifications: get_slack_notifications
+              }
             }
           }
-        }
-      `,
-      variables: {
-        input: {
-          id: team.id,
-          slack_webhook: webhook,
-          slack_notifications: JSON.stringify(events),
+        `,
+        variables: {
+          input: {
+            id: team.id,
+            slack_webhook: webhook,
+            slack_notifications: JSON.stringify(events),
+          },
         },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
+        onCompleted: (response, error) => {
+          if (error) {
+            handleError(error);
+          } else {
+            handleSuccess();
+          }
+        },
+        onError: (error) => {
           handleError(error);
-        } else {
-          handleSuccess();
-        }
-      },
-      onError: (error) => {
-        handleError(error);
-      },
-    });
+        },
+      });
+    }
   };
 
   return (
@@ -246,6 +262,15 @@ const SlackConfigDialogComponent = ({
           className={classes.spacing}
           fullWidth
         />
+        { !canSubmit && !webhook ?
+          <Box color="error.main" my={1}>
+            <FormattedMessage
+              id="slackConfigDialogComponent.noWebhookError"
+              defaultMessage="Please add the Slack webhook address"
+            />
+          </Box>
+          : null
+        }
 
         <TableContainer className={classes.spacing}>
           <Table>
@@ -278,7 +303,7 @@ const SlackConfigDialogComponent = ({
                         label={
                           <FormattedMessage
                             id="slackConfigDialogComponent.label"
-                            defaultMessage="Label"
+                            defaultMessage="Notification name"
                           />
                         }
                         defaultValue={event.label || intl.formatMessage(messages.defaultLabel, { number: i + 1 })}
@@ -355,7 +380,16 @@ const SlackConfigDialogComponent = ({
                         <AddEventButton onSelect={val => handleSetField(i, 'event_type', val)} />
                         : null }
                     </Box>
-                    <Box display="flex" alignItems="center" mt={2}>
+                    { !canSubmit && isIfFilledIncorrectly(event) ?
+                      <Box color="error.main" my={1}>
+                        <FormattedMessage
+                          id="slackConfigDialogComponent.noConditionError"
+                          defaultMessage="Please select a condition to send notifications"
+                        />
+                      </Box>
+                      : null
+                    }
+                    <Box display="flex" alignItems="center" mt={2} whiteSpace="nowrap">
                       <FormattedMessage
                         id="slackConfigDialogComponent.then"
                         defaultMessage="Then send notification to"
@@ -373,8 +407,18 @@ const SlackConfigDialogComponent = ({
                         onBlur={(e) => { handleSetField(i, 'slack_channel', e.target.value); }}
                         size="small"
                         variant="outlined"
+                        fullWidth
                       />
                     </Box>
+                    { !canSubmit && isChannelFilledIncorrectly(event) ?
+                      <Box color="error.main" my={1}>
+                        <FormattedMessage
+                          id="slackConfigDialogComponent.noChannelError"
+                          defaultMessage="Please add the Slack channel where notifications will be sent"
+                        />
+                      </Box>
+                      : null
+                    }
                   </TableCell>
                 </TableRow>
               ))}
