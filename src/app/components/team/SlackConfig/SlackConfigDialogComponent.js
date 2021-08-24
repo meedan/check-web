@@ -130,11 +130,25 @@ const SlackConfigDialogComponent = ({
   const [webhook, setWebhook] = React.useState(team.slackWebhook || '');
   const [events, setEvents] = React.useState(team.slackNotifications || []);
   const [saving, setSaving] = React.useState(false);
+  const [canSubmit, setCanSubmit] = React.useState(true);
   const [editIndex, setEditIndex] = React.useState(null);
+
+  const isIfFilledIncorrectly = event => !event.event_type || (event.event_type && event.event_type !== 'any_activity' && !event.values.length);
+  const isChannelFilledIncorrectly = event => !event.slack_channel.replace('#', '').trim();
+
+  const validate = () => {
+    let noError = true;
+    events.forEach((e) => {
+      if (isIfFilledIncorrectly(e) || isChannelFilledIncorrectly(e)) {
+        noError = false;
+      }
+      setCanSubmit(noError);
+    });
+  };
 
   const handleAdd = () => {
     const newEvents = events.slice(0);
-    newEvents.push({ label: '', slack_channel: '#' });
+    newEvents.unshift({ label: '', values: [], slack_channel: '#' });
     setEvents(newEvents);
   };
 
@@ -146,14 +160,14 @@ const SlackConfigDialogComponent = ({
 
   const handleRemoveType = (index) => {
     const newEvents = events.slice(0);
-    newEvents.splice(index, 1, { ...newEvents[index], event_type: null });
+    newEvents.splice(index, 1, { ...newEvents[index], event_type: null, values: [] });
     setEvents(newEvents);
   };
 
   const handleSetField = (i, field, value) => {
     const newEvents = events.slice(0);
     const event = { ...newEvents[i] };
-    event[field] = value;
+    event[field] = field === 'slack_channel' && !value.startsWith('#') && !value.startsWith('@') ? `#${value}` : value;
     newEvents.splice(i, 1, event);
     setEvents(newEvents);
     setEditIndex(null);
@@ -181,40 +195,50 @@ const SlackConfigDialogComponent = ({
   };
 
   const handleSubmit = () => {
-    setSaving(true);
-
-    // Save Slack team settings
-    commitMutation(Store, {
-      mutation: graphql`
-        mutation SlackConfigDialogComponentUpdateTeamMutation($input: UpdateTeamInput!) {
-          updateTeam(input: $input) {
-            team {
-              id
-              slackWebhook: get_slack_webhook
-              slackNotifications: get_slack_notifications
+    if (canSubmit) {
+      setSaving(true);
+      // Save Slack team settings
+      commitMutation(Store, {
+        mutation: graphql`
+          mutation SlackConfigDialogComponentUpdateTeamMutation($input: UpdateTeamInput!) {
+            updateTeam(input: $input) {
+              team {
+                id
+                slackWebhook: get_slack_webhook
+                slackNotifications: get_slack_notifications
+              }
             }
           }
-        }
-      `,
-      variables: {
-        input: {
-          id: team.id,
-          slack_webhook: webhook,
-          slack_notifications: JSON.stringify(events),
+        `,
+        variables: {
+          input: {
+            id: team.id,
+            slack_webhook: webhook,
+            slack_notifications: JSON.stringify(events),
+          },
         },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
+        onCompleted: (response, error) => {
+          if (error) {
+            handleError(error);
+          } else {
+            handleSuccess();
+          }
+        },
+        onError: (error) => {
           handleError(error);
-        } else {
-          handleSuccess();
-        }
-      },
-      onError: (error) => {
-        handleError(error);
-      },
-    });
+        },
+      });
+    }
   };
+
+  const isFirstRender = React.useRef(true);
+  React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false; // Skip first render
+      return;
+    }
+    handleSubmit();
+  }, [canSubmit]);
 
   return (
     <Box className={classes.root}>
@@ -278,7 +302,7 @@ const SlackConfigDialogComponent = ({
                         label={
                           <FormattedMessage
                             id="slackConfigDialogComponent.label"
-                            defaultMessage="Label"
+                            defaultMessage="Notification name"
                           />
                         }
                         defaultValue={event.label || intl.formatMessage(messages.defaultLabel, { number: i + 1 })}
@@ -355,7 +379,16 @@ const SlackConfigDialogComponent = ({
                         <AddEventButton onSelect={val => handleSetField(i, 'event_type', val)} />
                         : null }
                     </Box>
-                    <Box display="flex" alignItems="center" mt={2}>
+                    { !canSubmit && isIfFilledIncorrectly(event) ?
+                      <Box color="error.main" my={1}>
+                        <FormattedMessage
+                          id="slackConfigDialogComponent.noConditionError"
+                          defaultMessage="Please select a condition to send notifications"
+                        />
+                      </Box>
+                      : null
+                    }
+                    <Box display="flex" alignItems="center" mt={2} whiteSpace="nowrap">
                       <FormattedMessage
                         id="slackConfigDialogComponent.then"
                         defaultMessage="Then send notification to"
@@ -373,8 +406,18 @@ const SlackConfigDialogComponent = ({
                         onBlur={(e) => { handleSetField(i, 'slack_channel', e.target.value); }}
                         size="small"
                         variant="outlined"
+                        fullWidth
                       />
                     </Box>
+                    { !canSubmit && isChannelFilledIncorrectly(event) ?
+                      <Box color="error.main" my={1}>
+                        <FormattedMessage
+                          id="slackConfigDialogComponent.noChannelError"
+                          defaultMessage="Please add the Slack channel where notifications will be sent"
+                        />
+                      </Box>
+                      : null
+                    }
                   </TableCell>
                 </TableRow>
               ))}
@@ -385,7 +428,7 @@ const SlackConfigDialogComponent = ({
           <Button onClick={handleCancel}>
             <FormattedMessage id="slackConfigDialogComponent.cancel" defaultMessage="Cancel" />
           </Button>
-          <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving} className="slack-config__save">
+          <Button color="primary" variant="contained" onClick={validate} disabled={saving} className="slack-config__save">
             <FormattedMessage id="slackConfigDialogComponent.save" defaultMessage="Save" />
           </Button>
         </Box>

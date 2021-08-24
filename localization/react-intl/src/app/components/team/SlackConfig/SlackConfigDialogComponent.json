@@ -50,7 +50,7 @@
   },
   {
     "id": "slackConfigDialogComponent.label",
-    "defaultMessage": "Label"
+    "defaultMessage": "Notification name"
   },
   {
     "id": "slackConfigDialogComponent.if",
@@ -63,6 +63,10 @@
     "defaultMessage": "Item is added to"
   },
   {
+    "id": "slackConfigDialogComponent.noConditionError",
+    "defaultMessage": "Please select a condition to send notifications"
+  },
+  {
     "id": "slackConfigDialogComponent.then",
     "description": "Header to notification destination input. E.g.: Then send notification to '#general'",
     "defaultMessage": "Then send notification to"
@@ -70,6 +74,10 @@
   {
     "id": "slackConfigDialogComponent.channel",
     "defaultMessage": "Slack channel"
+  },
+  {
+    "id": "slackConfigDialogComponent.noChannelError",
+    "defaultMessage": "Please add the Slack channel where notifications will be sent"
   },
   {
     "id": "slackConfigDialogComponent.cancel",
