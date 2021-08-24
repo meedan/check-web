@@ -17,9 +17,13 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import { can } from '../../Can';
+import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import MediaExpanded from '../MediaExpanded';
 import MediaRequests from '../MediaRequests';
 import MediaComments from '../MediaComments';
+import { withSetFlashMessage } from '../../FlashMessage';
+import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
   Column,
   brandHighlight,
@@ -82,6 +86,7 @@ const useStyles = makeStyles(theme => ({
 const MediaSuggestionsComponent = ({
   relationships,
   team,
+  setFlashMessage,
 }) => {
   const classes = useStyles();
   const itemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
@@ -110,6 +115,11 @@ const MediaSuggestionsComponent = ({
   };
 
   const handleCompleted = () => {};
+
+  const onFailure = (errors) => {
+    const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
+    setFlashMessage(errorMessage, 'error');
+  };
 
   const handleConfirm = () => {
     handleNext();
@@ -184,12 +194,13 @@ const MediaSuggestionsComponent = ({
           relationship_target_type: relationship_type,
         },
       },
-      onCompleted: () => {
-        handleCompleted();
+      onCompleted: ({ response, error }) => {
+        if (error) {
+          return onFailure(error);
+        }
+        return handleCompleted(response);
       },
-      onError: () => {
-        handleCompleted();
-      },
+      onError: onFailure,
     });
   };
 
@@ -236,12 +247,13 @@ const MediaSuggestionsComponent = ({
           id: relationship.id,
         },
       },
-      onCompleted: () => {
-        handleCompleted();
+      onCompleted: ({ response, error }) => {
+        if (error) {
+          return onFailure(error);
+        }
+        return handleCompleted(response);
       },
-      onError: () => {
-        handleCompleted();
-      },
+      onError: onFailure,
     });
   };
 
@@ -286,24 +298,28 @@ const MediaSuggestionsComponent = ({
             <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
               <KeyboardArrowLeftIcon fontSize="large" />
             </IconButton>
-            <IconButton
-              onClick={handleConfirm}
-              style={{ color: completedGreen }}
-              disabled={total === 0}
-              className={total === 0 ? classes.disabled : ''}
-              id="similarity-media-item__accept-relationship"
-            >
-              <CheckCircleOutlineIcon fontSize="large" />
-            </IconButton>
-            <IconButton
-              onClick={handleReject}
-              style={{ color: alertRed }}
-              disabled={total === 0}
-              className={total === 0 ? classes.disabled : ''}
-              id="similarity-media-item__reject-relationship"
-            >
-              <HighlightOffIcon fontSize="large" />
-            </IconButton>
+            {can(team.permissions, 'update Relationship') ?
+              <IconButton
+                onClick={handleConfirm}
+                style={{ color: completedGreen }}
+                disabled={total === 0}
+                className={total === 0 ? classes.disabled : ''}
+                id="similarity-media-item__accept-relationship"
+              >
+                <CheckCircleOutlineIcon fontSize="large" />
+              </IconButton> : null
+            }
+            {can(team.permissions, 'destroy Relationship') ?
+              <IconButton
+                onClick={handleReject}
+                style={{ color: alertRed }}
+                disabled={total === 0}
+                className={total === 0 ? classes.disabled : ''}
+                id="similarity-media-item__reject-relationship"
+              >
+                <HighlightOffIcon fontSize="large" />
+              </IconButton> : null
+            }
             <IconButton onClick={handleNext} disabled={!hasNext}>
               <KeyboardArrowRightIcon fontSize="large" />
             </IconButton>
@@ -314,6 +330,7 @@ const MediaSuggestionsComponent = ({
             <MediaExpanded
               media={projectMedia}
               mediaUrl={itemUrl}
+              linkTitle
             /> :
             <Box justifyContent="center" className={classes.suggestionsNoMediaBox}>
               <Box mb={2}>
@@ -406,4 +423,4 @@ MediaSuggestionsComponent.propTypes = {
   }).isRequired,
 };
 
-export default MediaSuggestionsComponent;
+export default withSetFlashMessage(MediaSuggestionsComponent);

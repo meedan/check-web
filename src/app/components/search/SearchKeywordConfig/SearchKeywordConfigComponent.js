@@ -19,8 +19,16 @@ const SearchKeywordConfigComponent = ({
       selected = selected.concat(query.keyword_fields.team_tasks);
     }
   }
-
   let options = [{
+    value: '',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.item"
+        defaultMessage="Item"
+      />
+    ),
+  },
+  {
     value: 'title',
     label: (
       <FormattedMessage
@@ -80,6 +88,15 @@ const SearchKeywordConfigComponent = ({
       <FormattedMessage
         id="searchKeywordConfig.accounts"
         defaultMessage="Source"
+      />
+    ),
+  },
+  {
+    value: 'extracted_text',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.ocr"
+        defaultMessage="Extracted text (OCR)"
       />
     ),
   },
@@ -189,7 +206,7 @@ const SearchKeywordConfigComponent = ({
     <MultiSelector
       allowToggleAll
       defaultAllSelected
-      toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="All" />}
+      toggleAllLabel={<FormattedMessage id="MultiSelector.all" defaultMessage="Search All" />}
       submitLabel={<FormattedMessage {...globalStrings.update} />}
       cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
       options={options}

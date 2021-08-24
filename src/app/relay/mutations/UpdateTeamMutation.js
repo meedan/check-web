@@ -19,7 +19,6 @@ class UpdateTeamMutation extends Relay.Mutation {
           avatar
           get_slack_notifications_enabled
           get_slack_webhook
-          get_slack_channel
           get_report
           get_rules
           public_team
@@ -46,7 +45,6 @@ class UpdateTeamMutation extends Relay.Mutation {
       team_tasks: this.props.team_tasks,
       slack_notifications_enabled: this.props.slack_notifications_enabled,
       slack_webhook: this.props.slack_webhook,
-      slack_channel: this.props.slack_channel,
       report: this.props.report,
       rules: this.props.rules,
     };
@@ -93,7 +91,6 @@ class UpdateTeamMutation extends Relay.Mutation {
               name, id, description, avatar,
               get_slack_notifications_enabled,
               get_slack_webhook,
-              get_slack_channel,
               get_report,
               get_rules,
             }

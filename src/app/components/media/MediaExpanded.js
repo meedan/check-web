@@ -33,6 +33,23 @@ const TypographyBlack54 = withStyles({
   },
 })(Typography);
 
+const useStyles = () => ({
+  title: {
+    fontSize: 14,
+    lineHeight: '1.5em',
+    color: 'black',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    textDecoration: 'none',
+    '&:hover': {
+      color: 'black',
+    },
+    '&:visited': {
+      color: 'black',
+    },
+  },
+});
+
 class MediaExpandedComponent extends Component {
   constructor(props) {
     super(props);
@@ -89,6 +106,7 @@ class MediaExpandedComponent extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     const {
       media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
     } = this.props;
@@ -112,7 +130,7 @@ class MediaExpandedComponent extends Component {
     const isWebPage = media.media.url && data.provider === 'page';
     const isPender = media.media.url && data.provider !== 'page';
     const randomNumber = Math.floor(Math.random() * 1000000);
-    const { mediaUrl, mediaQuery } = this.props;
+    const { mediaUrl, mediaQuery, linkTitle } = this.props;
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
     const embedCard = (() => {
@@ -186,7 +204,12 @@ class MediaExpandedComponent extends Component {
       <React.Fragment>
         <CardHeader
           className="media-expanded__title"
-          title={truncateLength(title, 110)}
+          title={
+            linkTitle ?
+              <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
+                <strong>{truncateLength(title, 110)}</strong>
+              </a> : truncateLength(title, 110)
+          }
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
           <MediaExpandedSecondRow projectMedia={media} />
@@ -266,6 +289,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         }
         project_id
         pusher_channel
+        full_url
         dynamic_annotation_language {
           id
         }
@@ -312,4 +336,4 @@ const MediaExpanded = (props) => {
   );
 };
 
-export default MediaExpanded;
+export default withStyles(useStyles)(MediaExpanded);

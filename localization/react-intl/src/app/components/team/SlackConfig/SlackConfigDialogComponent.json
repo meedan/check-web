@@ -1,5 +1,30 @@
 [
   {
+    "id": "slackConfigDialogComponent.defaultLabel",
+    "description": "Default label for new notification. I.e.: Notification 1, Notification 2...",
+    "defaultMessage": "Notification {number}"
+  },
+  {
+    "id": "slackConfigDialogComponent.addEvent",
+    "description": "Button label to event selector",
+    "defaultMessage": "+ Add event"
+  },
+  {
+    "id": "slackConfigDialogComponent.anyActivity",
+    "description": "Selecting this event will trigger notification upon any workspace activity",
+    "defaultMessage": "Any workspace activity"
+  },
+  {
+    "id": "slackConfigDialogComponent.itemAdded",
+    "description": "Selecting this event will trigger notification whenever an item is added to or moved to a folder",
+    "defaultMessage": "Item is added to folder"
+  },
+  {
+    "id": "slackConfigDialogComponent.statusChanged",
+    "description": "Selecting this event will trigger notification whenever an item status is changed",
+    "defaultMessage": "Status is changed to"
+  },
+  {
     "id": "slackConfigDialogComponent.defaultErrorMessage",
     "defaultMessage": "Could not save Slack settings"
   },
@@ -16,32 +41,47 @@
     "defaultMessage": "Slack incoming webhook"
   },
   {
-    "id": "slackConfigDialogComponent.event",
-    "defaultMessage": "Event"
+    "id": "slackConfigDialogComponent.noWebhookError",
+    "defaultMessage": "Please add the Slack webhook address"
   },
   {
-    "id": "slackConfigDialogComponent.sendNotificationsTo",
-    "defaultMessage": "Send notifications to"
+    "id": "slackConfigDialogComponent.notifications",
+    "defaultMessage": "Notifications"
   },
   {
-    "id": "slackConfigDialogComponent.ifItemAddedTo",
-    "defaultMessage": "If item is in folder"
+    "id": "slackConfigDialogComponent.new",
+    "defaultMessage": "+ New"
+  },
+  {
+    "id": "slackConfigDialogComponent.label",
+    "defaultMessage": "Notification name"
+  },
+  {
+    "id": "slackConfigDialogComponent.if",
+    "description": "Header to event selector. E.g.: If 'Item is added to' ...",
+    "defaultMessage": "If"
+  },
+  {
+    "id": "slackConfigDialogComponent.itemIsAddedTo",
+    "description": "Label to folder selector component",
+    "defaultMessage": "Item is added to"
+  },
+  {
+    "id": "slackConfigDialogComponent.noConditionError",
+    "defaultMessage": "Please select a condition to send notifications"
+  },
+  {
+    "id": "slackConfigDialogComponent.then",
+    "description": "Header to notification destination input. E.g.: Then send notification to '#general'",
+    "defaultMessage": "Then send notification to"
   },
   {
     "id": "slackConfigDialogComponent.channel",
     "defaultMessage": "Slack channel"
   },
   {
-    "id": "slackConfigDialogComponent.allOtherActivity",
-    "defaultMessage": "All other activity"
-  },
-  {
-    "id": "slackConfigDialogComponent.allWorkspaceActivity",
-    "defaultMessage": "All workspace activity"
-  },
-  {
-    "id": "slackConfigDialogComponent.new",
-    "defaultMessage": "New notification"
+    "id": "slackConfigDialogComponent.noChannelError",
+    "defaultMessage": "Please add the Slack channel where notifications will be sent"
   },
   {
     "id": "slackConfigDialogComponent.cancel",

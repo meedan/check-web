@@ -59,7 +59,6 @@ const SearchField = ({ isActive, inputBaseProps, endAdornment }) => {
             ),
             endAdornment,
           }}
-          autoFocus
           fullWidth
         />
       )}
