@@ -10,13 +10,12 @@ shared_examples 'report' do
       api_install_bot 'smooch'
       wait_for_selector('.media-detail')
       generate_a_report_and_copy_report_code
-      @driver.navigate.to 'https://paste.ubuntu.com/'
-      title = "A report at #{Time.now.to_i}"
-      fill_field('#id_poster', title)
-      wait_for_selector('#id_content').send_keys(' ')
-      wait_for_selector('#id_content').send_keys(:control, 'v')
-      wait_for_text_change(' ', '#id_content', :css)
-      expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+      @driver.navigate.to 'https://paste.pleaseignore.com/'
+      wait_for_selector('.navbar-inner')
+      wait_for_selector('#text').send_keys(' ')
+      wait_for_selector('#text').send_keys(:control, 'v')
+      wait_for_text_change(' ', '#text', :css)
+      expect((@driver.find_element(:css, '#text').attribute('value') =~ /medias\.js/).nil?).to be(false)
     end
   end
 
@@ -48,13 +47,12 @@ shared_examples 'report' do
     expect(@driver.page_source.include?('In Progress')).to be(true)
     generate_a_report_and_copy_report_code
     expect(@driver.page_source.include?('In Progress')).to be(true)
-    @driver.navigate.to 'https://paste.ubuntu.com/'
-    title = "a report from image#{Time.now.to_i}"
-    fill_field('#id_poster', title)
-    wait_for_selector('#id_content').send_keys(' ')
-    wait_for_selector('#id_content').send_keys(:control, 'v')
-    wait_for_text_change(' ', '#id_content', :css)
-    expect((@driver.find_element(:css, '#id_content').attribute('value') =~ /medias\.js/).nil?).to be(false)
+    @driver.navigate.to 'https://paste.pleaseignore.com/'
+    wait_for_selector('.navbar-inner')
+    wait_for_selector('#text').send_keys(' ')
+    wait_for_selector('#text').send_keys(:control, 'v')
+    wait_for_text_change(' ', '#text', :css)
+    expect((@driver.find_element(:css, '#text').attribute('value') =~ /medias\.js/).nil?).to be(false)
   end
 
   it 'should generate a report, copy the share url and open the report page in a incognito window', bin5: true do
