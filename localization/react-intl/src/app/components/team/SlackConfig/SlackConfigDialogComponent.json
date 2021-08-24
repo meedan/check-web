@@ -41,6 +41,10 @@
     "defaultMessage": "Slack incoming webhook"
   },
   {
+    "id": "slackConfigDialogComponent.noWebhookError",
+    "defaultMessage": "Please add the Slack webhook address"
+  },
+  {
     "id": "slackConfigDialogComponent.notifications",
     "defaultMessage": "Notifications"
   },

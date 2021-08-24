@@ -190,8 +190,11 @@ const SlackConfigDialogComponent = ({
       if (isIfFilledIncorrectly(e) || isChannelFilledIncorrectly(e)) {
         noError = false;
       }
-      setCanSubmit(noError);
     });
+    if (events.length && !webhook) {
+      noError = false;
+    }
+    setCanSubmit(noError);
 
     if (noError) {
       setSaving(true);
@@ -259,6 +262,15 @@ const SlackConfigDialogComponent = ({
           className={classes.spacing}
           fullWidth
         />
+        { !canSubmit && !webhook ?
+          <Box color="error.main" my={1}>
+            <FormattedMessage
+              id="slackConfigDialogComponent.noWebhookError"
+              defaultMessage="Please add the Slack webhook address"
+            />
+          </Box>
+          : null
+        }
 
         <TableContainer className={classes.spacing}>
           <Table>
