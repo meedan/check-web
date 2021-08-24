@@ -136,16 +136,6 @@ const SlackConfigDialogComponent = ({
   const isIfFilledIncorrectly = event => !event.event_type || (event.event_type && event.event_type !== 'any_activity' && !event.values.length);
   const isChannelFilledIncorrectly = event => !event.slack_channel.replace('#', '').trim();
 
-  const validate = () => {
-    let noError = true;
-    events.forEach((e) => {
-      if (isIfFilledIncorrectly(e) || isChannelFilledIncorrectly(e)) {
-        noError = false;
-      }
-      setCanSubmit(noError);
-    });
-  };
-
   const handleAdd = () => {
     const newEvents = events.slice(0);
     newEvents.unshift({ label: '', values: [], slack_channel: '#' });
@@ -195,7 +185,15 @@ const SlackConfigDialogComponent = ({
   };
 
   const handleSubmit = () => {
-    if (canSubmit) {
+    let noError = true;
+    events.forEach((e) => {
+      if (isIfFilledIncorrectly(e) || isChannelFilledIncorrectly(e)) {
+        noError = false;
+      }
+      setCanSubmit(noError);
+    });
+
+    if (noError) {
       setSaving(true);
       // Save Slack team settings
       commitMutation(Store, {
@@ -230,15 +228,6 @@ const SlackConfigDialogComponent = ({
       });
     }
   };
-
-  const isFirstRender = React.useRef(true);
-  React.useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false; // Skip first render
-      return;
-    }
-    handleSubmit();
-  }, [canSubmit]);
 
   return (
     <Box className={classes.root}>
@@ -428,7 +417,7 @@ const SlackConfigDialogComponent = ({
           <Button onClick={handleCancel}>
             <FormattedMessage id="slackConfigDialogComponent.cancel" defaultMessage="Cancel" />
           </Button>
-          <Button color="primary" variant="contained" onClick={validate} disabled={saving} className="slack-config__save">
+          <Button color="primary" variant="contained" onClick={handleSubmit} disabled={saving} className="slack-config__save">
             <FormattedMessage id="slackConfigDialogComponent.save" defaultMessage="Save" />
           </Button>
         </Box>
