@@ -55,7 +55,7 @@ before_install:
 before_script:
 - docker-compose build
 - docker-compose -f docker-compose.yml -f docker-test.yml up -d
-- tail -f log/test.log &
+- tail -f check-api/log/test.log &
 - MAX_WEB_CURL=5;
 - until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
 - until curl --silent -I -f --fail http://localhost:5000; do printf .; sleep 1; done
