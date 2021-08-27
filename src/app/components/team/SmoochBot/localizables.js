@@ -8,6 +8,8 @@ const labels = {
   smooch_state_secondary: <FormattedMessage id="smoochBot.labelSecondaryMenu" defaultMessage="Secondary menu" />,
   smooch_state_query: <FormattedMessage id="smoochBot.labelQueryPrompt" defaultMessage="Query prompt" />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.labelQueryReceived" defaultMessage="Query received" />,
+  smooch_state_subscription: <FormattedMessage id="smoochBot.labelSubscription" defaultMessage="Subscription opt-in" />,
+  smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletter" defaultMessage="Newsletter" />,
   smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.labelNoAction" defaultMessage="No action from user" />,
   smooch_message_smooch_bot_option_not_available: <FormattedMessage id="smoochBot.labelOptionNotAvailable" defaultMessage="Option not available" />,
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.labelReportUpdated" defaultMessage="Report updated" />,
@@ -22,6 +24,16 @@ const descriptions = {
   smooch_state_secondary: <FormattedMessage id="smoochBot.descriptionSecondaryMenu" defaultMessage="An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message." />,
   smooch_state_query: <FormattedMessage id="smoochBot.descriptionQueryPrompt" defaultMessage="The message asking the user to submit content for a fact-check." />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.descriptionQueryReceived" defaultMessage="The confirmation sent to the user after a valid query from the user has been received." />,
+  smooch_state_subscription: <FormattedMessage id="smoochBot.descriptionSubscription" defaultMessage="Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send." />,
+  smooch_newsletter: (
+    <React.Fragment>
+      <FormattedMessage id="smoochBot.descriptionNewsletter1" defaultMessage="Please complete the steps below to send a weekly newsletter:" />
+      <br />
+      <FormattedMessage id="smoochBot.descriptionNewsletter2" defaultMessage="1. Compose your newsletter" />
+      <br />
+      <FormattedMessage id="smoochBot.descriptionNewsletter3" defaultMessage="2. Select a day and time of the week" />
+    </React.Fragment>
+  ),
   smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.descriptionNoAction" defaultMessage="This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt." />,
   smooch_message_smooch_bot_option_not_available: <FormattedMessage id="smoochBot.descriptionOptionNotAvailable" defaultMessage="The message sent if the user response to a menu is not a valid menu scenario." />,
   smooch_message_smooch_bot_result_changed: <FormattedMessage id="smoochBot.descriptionReportUpdated" defaultMessage="The message sent to the user when status of a report has changed. The report must be completed for this message to be sent." />,
@@ -89,6 +101,14 @@ const placeholders = defineMessages({
 ✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]
 
 👉*Reply with any text* to get back to the *Main Menu* 📌`,
+  },
+  smooch_state_subscription: {
+    id: 'smoochBot.placeholderSubscription',
+    defaultMessage: 'Type to compose your prompt for newsletter opt-in.',
+  },
+  smooch_newsletter: {
+    id: 'smoochBot.placeholderNewsletter',
+    defaultMessage: 'Type to compose your newsletter. You can add content from the RSS below.',
   },
   smooch_message_smooch_bot_option_not_available: {
     id: 'smoochBot.placeholderOptionNotAvailable',

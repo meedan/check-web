@@ -20,6 +20,14 @@
     "defaultMessage": "Query received"
   },
   {
+    "id": "smoochBot.labelSubscription",
+    "defaultMessage": "Subscription opt-in"
+  },
+  {
+    "id": "smoochBot.labelNewsletter",
+    "defaultMessage": "Newsletter"
+  },
+  {
     "id": "smoochBot.labelNoAction",
     "defaultMessage": "No action from user"
   },
@@ -62,6 +70,22 @@
   {
     "id": "smoochBot.descriptionQueryReceived",
     "defaultMessage": "The confirmation sent to the user after a valid query from the user has been received."
+  },
+  {
+    "id": "smoochBot.descriptionSubscription",
+    "defaultMessage": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+  },
+  {
+    "id": "smoochBot.descriptionNewsletter1",
+    "defaultMessage": "Please complete the steps below to send a weekly newsletter:"
+  },
+  {
+    "id": "smoochBot.descriptionNewsletter2",
+    "defaultMessage": "1. Compose your newsletter"
+  },
+  {
+    "id": "smoochBot.descriptionNewsletter3",
+    "defaultMessage": "2. Select a day and time of the week"
   },
   {
     "id": "smoochBot.descriptionNoAction",
@@ -122,6 +146,14 @@
   {
     "id": "smoochBot.placeholderQueryReceived",
     "defaultMessage": "Thank you! Your request has been received. Responses are being aggregated and sorted, and we're working on fact-checking your questions.\n\n✔️*Follow this link for an updated list of common questions that we have fact-checked:* [ Link to a page of fact-checks on your website ]\n\n👉*Reply with any text* to get back to the *Main Menu* 📌"
+  },
+  {
+    "id": "smoochBot.placeholderSubscription",
+    "defaultMessage": "Type to compose your prompt for newsletter opt-in."
+  },
+  {
+    "id": "smoochBot.placeholderNewsletter",
+    "defaultMessage": "Type to compose your newsletter. You can add content from the RSS below."
   },
   {
     "id": "smoochBot.placeholderOptionNotAvailable",
