@@ -8,8 +8,10 @@ FAIL=0
 # bundle exec rspec --tag bin1 spec/integration_spec.rb &
 # bundle exec rspec --tag bin2 spec/integration_spec.rb &
 # bundle exec rspec --tag bin5 spec/integration_spec.rb &
-bundle exec rspec --tag bin3 spec/integration_spec.rb &
-bundle exec rspec --tag bin4 spec/integration_spec.rb &
+# bundle exec rspec --tag bin3 spec/integration_spec.rb &
+# bundle exec rspec --tag bin4 spec/integration_spec.rb &
+bundle exec rspec --example 'debug' spec/integration_spec.rb &
+
 
 for job in `jobs -p`
 do
