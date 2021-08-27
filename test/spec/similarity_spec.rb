@@ -106,7 +106,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('claim 3')).to be(false)
   end
 
-  it 'should extract text from a image', bin2: true do
+  it 'should extract text from a image', bin3: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
