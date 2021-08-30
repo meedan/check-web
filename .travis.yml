@@ -14,7 +14,6 @@ before_install:
 - curl https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok-stable-linux-amd64.zip
 - unzip ngrok-stable-linux-amd64.zip
 - chmod +x ngrok
-- ./ngrok http 9000 >/dev/null &
 - export TRAVIS_TAG=0.0.0
 # docker
 - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
