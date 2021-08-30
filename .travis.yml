@@ -35,8 +35,6 @@ before_install:
 - cp config/config.yml.example config/config.yml
 - cp config/database.yml.example config/database.yml
 - cp config/sidekiq.yml.example config/sidekiq.yml
-# Change config file to use Ngrok exposed port
-- ./../test/ngrok.sh
 - cd -
 # Alegre
 - export ALEGRE_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/alegre.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
@@ -71,6 +69,8 @@ script:
   -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
   -e AWS_REGION=$AWS_REGION
   web npm run tests
+# Change config file to use Ngrok exposed port
+- ./test/ngrok.sh
 after_script:
 - docker-compose exec web bash -c "python -m json.tool test/file.json"
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
