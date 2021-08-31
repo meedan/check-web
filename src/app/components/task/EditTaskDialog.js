@@ -4,7 +4,6 @@ import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -250,21 +249,7 @@ class EditTaskDialog extends React.Component {
 
   render() {
     const isTask = this.props.fieldset === 'tasks';
-    const dialogTitle = () => {
-      if (this.props.task) {
-        return isTask ? (
-          <FormattedMessage id="editTaskDialog.editTask" defaultMessage="Edit task" />
-        ) : (
-          <FormattedMessage id="editTaskDialog.editMetadata" defaultMessage="Edit metadata field" />
-        );
-      }
 
-      return isTask ? (
-        <FormattedMessage id="editTaskDialog.newTask" defaultMessage="New task" />
-      ) : (
-        <FormattedMessage id="editTaskDialog.newMetadata" defaultMessage="New metadata field" />
-      );
-    };
     const handleHelp = () => {
       window.open('https://help.checkmedia.org/en/articles/4423863-using-the-check-browser-extension');
     };
@@ -278,7 +263,6 @@ class EditTaskDialog extends React.Component {
         maxWidth="md"
         fullWidth
       >
-        <DialogTitle>{dialogTitle()}</DialogTitle>
         <DialogContent>
           <Message message={this.props.message} />
 

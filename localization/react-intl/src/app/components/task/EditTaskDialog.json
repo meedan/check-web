@@ -16,22 +16,6 @@
     "defaultMessage": "Add \"Other\""
   },
   {
-    "id": "editTaskDialog.editTask",
-    "defaultMessage": "Edit task"
-  },
-  {
-    "id": "editTaskDialog.editMetadata",
-    "defaultMessage": "Edit metadata field"
-  },
-  {
-    "id": "editTaskDialog.newTask",
-    "defaultMessage": "New task"
-  },
-  {
-    "id": "editTaskDialog.newMetadata",
-    "defaultMessage": "New metadata field"
-  },
-  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"

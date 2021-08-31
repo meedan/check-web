@@ -156,12 +156,10 @@ class TeamTasksListItem extends React.Component {
 
   handleMenuEdit = () => {
     this.setState({ isEditing: true, action: 'edit' });
-    this.handleCloseMenu();
   };
 
   handleMenuDelete = () => {
     this.setState({ dialogOpen: true, action: 'delete' });
-    this.handleCloseMenu();
   };
 
   handleConfirmDialog = (keepCompleted) => {

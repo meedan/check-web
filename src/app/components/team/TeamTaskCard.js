@@ -18,6 +18,16 @@ const TeamTaskCard = ({
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
+  const handleMenuEdit = () => {
+    setAnchorEl(null);
+    onEdit();
+  };
+
+  const handleMenuDelete = () => {
+    setAnchorEl(null);
+    onDelete();
+  };
+
   return (
     <Box
       margin={2}
@@ -67,10 +77,10 @@ const TeamTaskCard = ({
         open={Boolean(anchorEl)}
         onClose={() => setAnchorEl(null)}
       >
-        <MenuItem className="team-tasks__edit-button" onClick={onEdit}>
+        <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
           <FormattedMessage id="teamTasks.edit" defaultMessage="Edit" />
         </MenuItem>
-        <MenuItem className="team-tasks__delete-button" onClick={onDelete}>
+        <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
           <FormattedMessage id="teamTasks.delete" defaultMessage="Delete" />
         </MenuItem>
       </Menu>
