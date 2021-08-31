@@ -20,6 +20,14 @@
     "defaultMessage": "{languageName} (main menu)"
   },
   {
+    "id": "smoochBotMenuOption.subscription",
+    "defaultMessage": "Subscription opt-in"
+  },
+  {
+    "id": "smoochBotMenuOption.subscriptionConfirmation",
+    "defaultMessage": "Subscription confirmation"
+  },
+  {
     "id": "smoochBotMenuOption.if",
     "defaultMessage": "If"
   },
