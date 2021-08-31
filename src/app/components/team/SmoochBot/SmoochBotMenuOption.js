@@ -59,7 +59,7 @@ const actionLabels = defineMessages({
     id: 'smoochBotMenuOption.languageAction',
     defaultMessage: '{languageName} (main menu)',
   },
-  subscription: {
+  subscription_state: {
     id: 'smoochBotMenuOption.subscription',
     defaultMessage: 'Subscription opt-in',
   },

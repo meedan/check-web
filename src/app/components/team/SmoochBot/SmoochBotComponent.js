@@ -65,6 +65,7 @@ const SmoochBotComponent = ({
           team_bot_installation {
             id
             json_settings
+            smooch_newsletter_information
           }
         }
       }
@@ -191,7 +192,7 @@ const SmoochBotComponent = ({
             installation ?
               <Can permissions={team.permissions} permission="update Team">
                 <Button color="primary" variant="contained" id="smooch-bot-component__save" onClick={handleSave} disabled={saving}>
-                  <FormattedMessage id="smoochBotComponent.save" defaultMessage="Save settings" />
+                  <FormattedMessage id="smoochBotComponent.save" defaultMessage="Publish" />
                 </Button>
               </Can> : null
           }
@@ -211,6 +212,7 @@ const SmoochBotComponent = ({
                 currentLanguage={currentLanguage}
                 languages={languages}
                 enabledIntegrations={installation.smooch_enabled_integrations}
+                newsletterInformation={installation.smooch_newsletter_information}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
                 { currentUser.is_admin ?

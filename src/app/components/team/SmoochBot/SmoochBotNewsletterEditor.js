@@ -16,6 +16,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { labels, descriptions, placeholders } from './localizables';
+import { inProgressYellow, completedGreen } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
 import timezones from '../../../timezones';
 
@@ -52,6 +53,14 @@ const useStyles = makeStyles(theme => ({
   schedule: {
     gap: '8px',
   },
+  active: {
+    background: completedGreen,
+    color: 'white',
+  },
+  paused: {
+    background: inProgressYellow,
+    color: 'white',
+  },
 }));
 
 const messages = defineMessages({
@@ -65,6 +74,7 @@ const SmoochBotNewsletterEditor = ({
   intl,
   installationId,
   newsletter,
+  newsletterInformation,
   onDelete,
   onChange,
 }) => {
@@ -113,6 +123,24 @@ const SmoochBotNewsletterEditor = ({
     <React.Fragment>
       <Box>
         <Typography variant="subtitle2" component="div">{labels.smooch_newsletter}</Typography>
+        <Box p={1} mt={1} mb={1} className={newsletterInformation.paused ? classes.paused : classes.active}>
+          <Typography component="div" variant="body2">
+            { newsletterInformation.paused ?
+              <FormattedMessage
+                id="smoochBotNewsletterEditor.paused"
+                defaultMessage="The newsletter is paused because the content has not been modified since the previous send-out"
+              /> :
+              <FormattedMessage
+                id="smoochBotNewsletterEditor.active"
+                defaultMessage="The newsletter will be sent to {count} users on {date}, {time}"
+                values={{
+                  count: newsletterInformation.subscribers_count,
+                  date: newsletterInformation.next_date,
+                  time: newsletterInformation.next_time,
+                }}
+              /> }
+          </Typography>
+        </Box>
         <Typography component="div" paragraph>{descriptions.smooch_newsletter}</Typography>
         <Typography variant="subtitle2" component="div" paragraph>
           <FormattedMessage
@@ -194,7 +222,7 @@ const SmoochBotNewsletterEditor = ({
                 <Typography>
                   <FormattedMessage
                     id="smoochBotNewsletterEditor.templateHeader"
-                    defaultMessage="You are receiving this message because you opted to receive our 'Weekly Facts' newsletter. Here is the most important information for this week:"
+                    defaultMessage="You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
                   />
                 </Typography>
                 <Divider className={classes.divider} />
@@ -300,6 +328,7 @@ SmoochBotNewsletterEditor.defaultProps = {
 SmoochBotNewsletterEditor.propTypes = {
   installationId: PropTypes.string.isRequired,
   newsletter: PropTypes.object.isRequired,
+  newsletterInformation: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   intl: intlShape.isRequired,

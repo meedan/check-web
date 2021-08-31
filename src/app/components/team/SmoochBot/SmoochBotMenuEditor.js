@@ -8,18 +8,36 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import AddIcon from '@material-ui/icons/Add';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuOption from './SmoochBotMenuOption';
 import { brandHighlight } from '../../../styles/js/shared';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   button: {
     color: brandHighlight,
   },
   iconButton: {
     color: brandHighlight,
     display: 'block',
+  },
+  content: {
+    flexWrap: 'wrap',
+  },
+  header: {
+    height: 'initial',
+    display: 'initial',
+    maxHeight: 'initial',
+    alignItems: 'initial',
+    whiteSpace: 'initial',
+    margin: 0,
+    width: '100%',
+  },
+  divider: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
   },
 }));
 
@@ -79,6 +97,21 @@ const SmoochBotMenuEditor = (props) => {
         value={props.value.smooch_menu_message}
         onChange={handleChangeText}
         field={props.field}
+        extraTextFieldProps={
+          props.textHeader ?
+            {
+              InputProps: {
+                className: classes.content,
+                startAdornment: (
+                  <InputAdornment position="start" className={classes.header}>
+                    {props.textHeader}
+                    <Divider className={classes.divider} />
+                  </InputAdornment>
+                ),
+              },
+            } :
+            {}
+        }
       />
       {menuOptions.map((option, index) => (
         <Box display="flex" key={Math.random().toString().substring(2, 10)}>
@@ -139,6 +172,7 @@ const SmoochBotMenuEditor = (props) => {
 SmoochBotMenuEditor.defaultProps = {
   value: { smooch_menu_message: null, smooch_menu_options: [] },
   resources: [],
+  textHeader: null,
 };
 
 SmoochBotMenuEditor.propTypes = {
@@ -148,6 +182,7 @@ SmoochBotMenuEditor.propTypes = {
   field: PropTypes.string.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
   currentLanguage: PropTypes.string.isRequired,
+  textHeader: PropTypes.object,
   onChange: PropTypes.func.isRequired,
 };
 

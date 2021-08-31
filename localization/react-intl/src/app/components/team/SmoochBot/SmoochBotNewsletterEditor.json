@@ -8,6 +8,14 @@
     "defaultMessage": "This URL does not seem to be a valid RSS feed"
   },
   {
+    "id": "smoochBotNewsletterEditor.paused",
+    "defaultMessage": "The newsletter is paused because the content has not been modified since the previous send-out"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.active",
+    "defaultMessage": "The newsletter will be sent to {count} users on {date}, {time}"
+  },
+  {
     "id": "smoochBotNewsletterEditor.note",
     "defaultMessage": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
   },
@@ -51,7 +59,7 @@
   },
   {
     "id": "smoochBotNewsletterEditor.templateHeader",
-    "defaultMessage": "You are receiving this message because you opted to receive our 'Weekly Facts' newsletter. Here is the most important information for this week:"
+    "defaultMessage": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
   },
   {
     "id": "smoochBotNewsletterEditor.rss",
