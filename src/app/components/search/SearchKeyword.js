@@ -200,10 +200,6 @@ class SearchKeyword extends React.Component {
     this.handleApplyFilters();
   }
 
-  handleBlur = () => {
-    this.handleApplyFilters();
-  }
-
   handlePopperClick = (ev) => {
     ev.preventDefault();
     this.setState({ isPopperClosed: true });
@@ -280,7 +276,6 @@ class SearchKeyword extends React.Component {
                 isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
                 inputBaseProps={{
                   defaultValue: this.state.query.keyword || '',
-                  onBlur: this.handleBlur,
                   onChange: this.handleInputChange,
                   ref: this.searchInput,
                 }}

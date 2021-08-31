@@ -63,6 +63,7 @@ function fetchJsonEnsuringOkAllowingAbort(url, params) {
 const AutoCompleteMediaItem = (props, context) => {
   const classes = useStyles();
   const teamSlug = context.store.getState().app.context.team.slug; // TODO make it a prop
+  const [anchorEl, setAnchorEl] = React.useState(null);
   const [searchText, setSearchText] = React.useState('');
   const [showFilters, setShowFilters] = React.useState(false);
   const [keywordFields, setKeywordFields] = React.useState(null);
@@ -100,6 +101,12 @@ const AutoCompleteMediaItem = (props, context) => {
 
   const handleChangeFilters = (filters) => {
     setKeywordFields(filters.keyword_fields);
+    setShowFilters(false);
+  };
+
+  const handleSettingsButton = (event) => {
+    setAnchorEl(event.currentTarget);
+    setShowFilters(!showFilters);
   };
 
   const query = {
@@ -291,7 +298,7 @@ const AutoCompleteMediaItem = (props, context) => {
           />
           { props.showFilters ?
             <IconButton
-              onClick={() => { setShowFilters(!showFilters); }}
+              onClick={handleSettingsButton}
               className={classes.searchSettingsButton}
             >
               <SettingsIcon />
@@ -351,6 +358,7 @@ const AutoCompleteMediaItem = (props, context) => {
             />
           </Typography>
           <SearchKeywordContainer
+            anchorEl={anchorEl}
             teamSlug={teamSlug}
             query={query}
             onDismiss={handleCloseFilters}

@@ -195,4 +195,74 @@ shared_examples 'search' do
     expect(old == current).to be(true)
     expect(current.positive?).to be(true)
   end
+
+  it 'should sort by title', bin1: true do
+    api_create_team_project_claims_sources_and_redirect_to_project_page 2
+    wait_for_selector_list('.medias__item')
+    claim1 = wait_for_selector_list('h4')[0].text
+    claim2 = wait_for_selector_list('h4')[1].text
+    expect(claim1 == 'Claim 1').to be(true)
+    expect(claim2 == 'Claim 0').to be(true)
+    wait_for_selector('.MuiTableSortLabel-iconDirectionDesc').click
+    wait_for_text_change('Claim 1', 'h4')
+    claim1 = wait_for_selector_list('h4')[0].text
+    claim2 = wait_for_selector_list('h4')[1].text
+    expect(claim1 == 'Claim 0').to be(true)
+    expect(claim2 == 'Claim 1').to be(true)
+  end
+
+  # commented until #CHECK-852 be fixed
+  # it 'should search by metadata uploaded file', bin1: true do
+  #   data = api_create_team_and_project
+  #   api_create_claim(data: data, quote: 'claim 1')
+  #   @driver.navigate.to @config['self_url']
+  #   wait_for_selector('.team-header__drawer-team-link').click
+  #   # @driver.navigate.to "#{@config['self_url']}/#{data[:team].dbid}/all-items/settings/metadata"
+  #   wait_for_selector('.team-menu__team-settings-button').click
+  #   wait_for_selector('.team-settings__metadata-tab', :css, 30).click
+  #   wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
+
+  #   # Create metadata
+  #   expect(@driver.page_source.include?('No metadata fields')).to be(true)
+  #   expect(@driver.page_source.include?('my metadata')).to be(false)
+  #   create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.create-task__add-file-upload', task_name: 'my metadata')
+  #   expect(@driver.page_source.include?('No metadata fields')).to be(false)
+  #   expect(@driver.page_source.include?('my metadata')).to be(true)
+
+  #   api_create_claim(data: data, quote: 'claim 2')
+  #   wait_for_selector('.projects-list__all-items').click
+  #   wait_for_selector('.medias__item')
+  #   expect(@driver.find_elements(:css, '.media__heading').size == 2).to be(true)
+
+  #   wait_for_selector('.media__heading').click
+  #   wait_for_selector('.media__annotations-tabs')
+  #   wait_for_selector('.task__response-inputs')
+  #   # answer the metadata
+  #   # wait_for_selector('.task__response > div div').click
+  #   # wait_for_selector("//span[contains(text(), 'Drag and drop a file here')]", :xpath).click
+  #   # @driver.find_element(:name, 'File Upload').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+  #   el = @driver.find_element(:xpath, "//span[contains(text(), 'Drag and drop a file here')
+  #   ]")
+  #   @driver.action.move_to(el).perform
+  #   wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+  #   sleep 10
+  #   wait_for_selector_none('.without-file')
+  #   wait_for_selector('#metadata-input').send_keys('answer')
+  #   wait_for_selector('.metadata-save').click
+
+  #   wait_for_selector('#search-input')
+  #   wait_for_selector('#add-filter-menu__open-button').click
+  #   wait_for_selector('#add-filter-menu__team-tasks').click
+  #   wait_for_selector('.custom-select-dropdown__select-button').click
+  #   wait_for_selector("//span[contains(text(), 'my metadata')]", :xpath).click
+  #   wait_for_selector('.multi__selector-save').click
+  #   wait_for_selector('.custom-select-dropdown__select-button').click
+  #   wait_for_selector('.multi__selector-save').click
+  #   wait_for_selector('#NO_VALUE').click
+  #   wait_for_selector('#search-fields__submit-button').click
+  #   wait_for_selector('.medias__item')
+  #   expect(@driver.find_elements(:css, '.media__heading').size == 1).to be(true)
+  #   expect(@driver.page_source.include?('claim 1')).to be(true)
+  #   expect(@driver.page_source.include?('claim 2')).to be(true)
+  # end
 end

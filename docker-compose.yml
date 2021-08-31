@@ -116,6 +116,19 @@ services:
       SERVER_PORT: 3200
     networks:
       - dev
+  alegre:
+    build: alegre
+    ports:
+      - "5000:5000"
+    volumes:
+      - "./alegre:/app"
+    depends_on:
+      - redis
+      - elasticsearch
+    env_file:
+      - alegre/.env_file
+    networks:
+      - dev
   web:
     build: .
     ports:

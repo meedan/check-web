@@ -30,7 +30,6 @@ class CreateTeamTask extends React.Component {
       label: task.label,
       description: task.description,
       show_in_browser_extension: task.show_in_browser_extension,
-      conditional_info: task.conditional_info,
       task_type: this.state.createType,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
@@ -86,7 +85,6 @@ class CreateTeamTask extends React.Component {
           <EditTaskDialog
             fieldset={this.props.fieldset}
             message={this.state.message}
-            tasks={this.props.tasks}
             taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}

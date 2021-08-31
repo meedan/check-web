@@ -38,29 +38,12 @@ shared_examples 'metadata' do
   end
 
   it 'should add, edit and delete a metadata response', bin5: true do
-    # Create team and go to team page that should not contain any task
-    team = "task-team-#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab', :css, 30).click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
-    wait_for_selector('.create-task__add-button')
-
-    # Create metadata
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
-    expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(task_type_class: '.create-task__add-short-answer', task_name: 'my metadata')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
-    expect(@driver.page_source.include?('my metadata')).to be(true)
-
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
+    api_create_team_project_metadata_and_media
     wait_for_selector('#search-input')
-    # create media and to go media page
-    create_media('media', false)
     wait_for_selector('.medias__item', :css, 20, true).click
+    wait_for_selector('.media__annotations-tabs')
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task__response-inputs')
-    expect(@driver.page_source.include?('my metadata')).to be(true)
-
     # answer the metadata
     wait_for_selector('#metadata-input').send_keys('answer')
     wait_for_selector('.metadata-save').click

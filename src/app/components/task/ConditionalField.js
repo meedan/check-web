@@ -87,14 +87,11 @@ const ConditionalField = ({ task, tasks, onChange }) => {
   };
 
   const handleDone = () => {
-    console.log('Done');
     const conditionalInfo = {
       selectedConditional,
       selectedFieldId,
       selectedCondition,
     };
-
-    console.log('conditionalInfo', conditionalInfo);
 
     if (onChange) {
       onChange({

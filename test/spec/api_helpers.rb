@@ -148,6 +148,10 @@ module ApiHelpers
     request_api 'create_team_project_and_two_users', {}
   end
 
+  def api_add_team_user(params = {})
+    request_api 'add_team_user', { email: params[:email], slug: params[:slug], role: params[:role] }
+  end
+
   def api_create_media(params = {})
     data = params[:data] || api_create_team_and_project
     url = params[:url] || @media_url
