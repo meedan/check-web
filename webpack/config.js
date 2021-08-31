@@ -104,7 +104,7 @@ module.exports = {
         ignore: ['src/app/**/*.test.js'],
       },
     }),
-    // new WarningsToErrorsPlugin(),
+    new WarningsToErrorsPlugin(),
   ],
   resolve: {
     alias: { app: path.join(__dirname, '../src/app') },
@@ -133,8 +133,8 @@ module.exports = {
         exclude: /node_modules/,
         include: [path.join(__dirname, '../src/app')],
         options: {
-          // failOnError: true,
-          // failOnWarning: true,
+          failOnError: true,
+          failOnWarning: true,
         },
       },
       {
