@@ -36,6 +36,10 @@
 		"string": "Select task",
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
+	"CustomTeamTaskFilter.labelIs": {
+		"string": "{title} is",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
+	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Metadata has specific value",
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
@@ -78,7 +82,7 @@
 		"string": "Item history"
 	},
 	"MultiSelector.all": {
-		"string": "All"
+		"string": "Search All"
 	},
 	"MultiSelector.search": {
 		"string": "Search…"
@@ -2439,6 +2443,9 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "Analysis title"
 	},
+	"searchKeywordConfig.item": {
+		"string": "Item"
+	},
 	"searchKeywordConfig.mediaContent": {
 		"string": "Media content"
 	},
@@ -2450,6 +2457,9 @@
 	},
 	"searchKeywordConfig.metadata": {
 		"string": "Metadata"
+	},
+	"searchKeywordConfig.ocr": {
+		"string": "Extracted text (OCR)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "Tags"
@@ -2549,11 +2559,13 @@
 	"slackConfig.text": {
 		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "All other activity"
+	"slackConfigDialogComponent.addEvent": {
+		"string": "+ Add event",
+		"developer_comment": "Button label to event selector"
 	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "All workspace activity"
+	"slackConfigDialogComponent.anyActivity": {
+		"string": "Any workspace activity",
+		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
 		"string": "Cancel"
@@ -2564,14 +2576,39 @@
 	"slackConfigDialogComponent.defaultErrorMessage": {
 		"string": "Could not save Slack settings"
 	},
-	"slackConfigDialogComponent.event": {
-		"string": "Event"
+	"slackConfigDialogComponent.defaultLabel": {
+		"string": "Notification {number}",
+		"developer_comment": "Default label for new notification. I.e.: Notification 1, Notification 2..."
 	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "If item is in folder"
+	"slackConfigDialogComponent.if": {
+		"string": "If",
+		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
+	},
+	"slackConfigDialogComponent.itemAdded": {
+		"string": "Item is added to folder",
+		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
+	},
+	"slackConfigDialogComponent.itemIsAddedTo": {
+		"string": "Item is added to",
+		"developer_comment": "Label to folder selector component"
+	},
+	"slackConfigDialogComponent.label": {
+		"string": "Notification name"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "New notification"
+		"string": "+ New"
+	},
+	"slackConfigDialogComponent.noChannelError": {
+		"string": "Please add the Slack channel where notifications will be sent"
+	},
+	"slackConfigDialogComponent.noConditionError": {
+		"string": "Please select a condition to send notifications"
+	},
+	"slackConfigDialogComponent.noWebhookError": {
+		"string": "Please add the Slack webhook address"
+	},
+	"slackConfigDialogComponent.notifications": {
+		"string": "Notifications"
 	},
 	"slackConfigDialogComponent.save": {
 		"string": "Save"
@@ -2579,8 +2616,13 @@
 	"slackConfigDialogComponent.savedSuccessfully": {
 		"string": "Slack settings saved successfully"
 	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Send notifications to"
+	"slackConfigDialogComponent.statusChanged": {
+		"string": "Status is changed to",
+		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
+	},
+	"slackConfigDialogComponent.then": {
+		"string": "Then send notification to",
+		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
 		"string": "Send notifications to Slack channels when items are added to specific folders"
@@ -2602,6 +2644,15 @@
 	},
 	"smoochBot.descriptionMainMenu": {
 		"string": "A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu."
+	},
+	"smoochBot.descriptionNewsletter1": {
+		"string": "Please complete the steps below to send a weekly newsletter:"
+	},
+	"smoochBot.descriptionNewsletter2": {
+		"string": "1. Compose your newsletter"
+	},
+	"smoochBot.descriptionNewsletter3": {
+		"string": "2. Select a day and time of the week"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
@@ -2630,6 +2681,9 @@
 	"smoochBot.descriptionSecondaryMenu": {
 		"string": "An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message."
 	},
+	"smoochBot.descriptionSubscription": {
+		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+	},
 	"smoochBot.footnoteGreeting": {
 		"string": "The following statement and option will be automatically added at the end of this message: 'We will never share your personally identifiable information. Reply 9 to read our Privacy and Purpose statement'."
 	},
@@ -2647,6 +2701,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "Main menu"
+	},
+	"smoochBot.labelNewsletter": {
+		"string": "Newsletter"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "No action from user"
@@ -2669,6 +2726,9 @@
 	"smoochBot.labelSecondaryMenu": {
 		"string": "Secondary menu"
 	},
+	"smoochBot.labelSubscription": {
+		"string": "Subscription opt-in"
+	},
 	"smoochBot.menuKeywords": {
 		"string": "Keywords separated by comma"
 	},
@@ -2687,6 +2747,9 @@
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*Main Menu*\n\n*Reply 1* (or 🔍) to submit a request for a fact-check about an article, video, image, or other content.\n*Reply 2* (or 🦠) to get the latest information about coronavirus disease (COVID-19)"
 	},
+	"smoochBot.placeholderNewsletter": {
+		"string": "Type to compose your newsletter. You can add content from the RSS below."
+	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖 माफ़ कीजिए, आपका सन्देश समझ में नहीं आया. कृपया दोबारा कोशिश करें!"
 	},
@@ -2701,6 +2764,9 @@
 	},
 	"smoochBot.placeholderSecondaryMenu": {
 		"string": "*Information about Coronavirus disease (COVID-19)* 🦠\n\n👉*Reply with any one of the following numbers (or emoji) to get information about that topic:*\n\n*1:* How do I protect myself and/or my family? 👨‍👩‍👧\n*2:* I think I might be getting sick 🤒\n*3:* How can I handle stress associated with COVID-19? ❤️\n*4:* Information about cases and recoveries globally 📊\n*5:* Latest updates from the World Health Organization 🌐\n\n*Reply 0* to get back to the *Main Menu* 📌"
+	},
+	"smoochBot.placeholderSubscription": {
+		"string": "Type to compose your prompt for newsletter opt-in."
 	},
 	"smoochBot.scenarios": {
 		"string": "Scenarios"
@@ -2721,7 +2787,7 @@
 		"string": "Install"
 	},
 	"smoochBotComponent.save": {
-		"string": "Save settings"
+		"string": "Publish"
 	},
 	"smoochBotComponent.savedSuccessfully": {
 		"string": "Tipline settings saved successfully",
@@ -2732,6 +2798,9 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
+	},
+	"smoochBotConfig.subscriptionHeader": {
+		"string": "You are currently {subscription_status} to our newsletter."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Cancel"
@@ -2863,11 +2932,88 @@
 	"smoochBotMenuOption.selectMessage": {
 		"string": "Select message"
 	},
+	"smoochBotMenuOption.subscription": {
+		"string": "Subscription opt-in"
+	},
+	"smoochBotMenuOption.subscriptionConfirmation": {
+		"string": "Subscription confirmation"
+	},
 	"smoochBotMenuOption.then": {
 		"string": "Then"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
 		"string": "The option '9' must be included for users to access the Privacy Statement"
+	},
+	"smoochBotNewsletterAt": {
+		"string": "at",
+		"developer_comment": "The context here is a time... for example, at 10am"
+	},
+	"smoochBotNewsletterEditor.active": {
+		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+	},
+	"smoochBotNewsletterEditor.day": {
+		"string": "Day of week"
+	},
+	"smoochBotNewsletterEditor.delete": {
+		"string": "Delete"
+	},
+	"smoochBotNewsletterEditor.error": {
+		"string": "This URL does not seem to be a valid RSS feed"
+	},
+	"smoochBotNewsletterEditor.friday": {
+		"string": "Friday"
+	},
+	"smoochBotNewsletterEditor.load": {
+		"string": "Load"
+	},
+	"smoochBotNewsletterEditor.monday": {
+		"string": "Monday"
+	},
+	"smoochBotNewsletterEditor.note": {
+		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	},
+	"smoochBotNewsletterEditor.numberOfArticles": {
+		"string": "Number of articles to return"
+	},
+	"smoochBotNewsletterEditor.paused": {
+		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
+	},
+	"smoochBotNewsletterEditor.rss": {
+		"string": "Add content from RSS feed"
+	},
+	"smoochBotNewsletterEditor.rssPlaceholder": {
+		"string": "Public URL that returns N articles in RSS format"
+	},
+	"smoochBotNewsletterEditor.saturday": {
+		"string": "Saturday"
+	},
+	"smoochBotNewsletterEditor.sendEvery": {
+		"string": "Send every",
+		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+	},
+	"smoochBotNewsletterEditor.sunday": {
+		"string": "Sunday"
+	},
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.thursday": {
+		"string": "Thursday"
+	},
+	"smoochBotNewsletterEditor.time": {
+		"string": "Time"
+	},
+	"smoochBotNewsletterEditor.timezone": {
+		"string": "Timezone"
+	},
+	"smoochBotNewsletterEditor.tuesday": {
+		"string": "Tuesday"
+	},
+	"smoochBotNewsletterEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotNewsletterEditor.wednesday": {
+		"string": "Wednesday"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "Add content manually"
