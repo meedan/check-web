@@ -1,8 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Switch from '@material-ui/core/Switch';
-import Select from '@material-ui/core/Select';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -12,14 +10,10 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import Typography from '@material-ui/core/Typography';
-import CancelIcon from '@material-ui/icons/Cancel';
+import ClearIcon from '@material-ui/icons/Clear';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import Input from '@material-ui/core/Input';
-import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
@@ -48,31 +42,6 @@ const StyledTaskAssignment = styled.div`
   }
 `;
 
-const StyledConditionalSelect = styled.span`
-  margin-left: ${units(2)};
-`;
-
-const StyledConditionalMultiSelect = styled.span`
-  margin-left: ${units(2)};
-  .MuiInputBase-root {
-    width: 300px;
-  }
-  #mui-component-select-multiple-conditions::after {
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 4px;
-    left: 250px;
-    width: 50px;
-    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1) 60%, rgba(255,255,255,1));
-    content: "";
-  }
-  .MuiChip-root {
-    max-width: 90px;
-  }
-`;
-
 const messages = defineMessages({
   value: {
     id: 'singleChoiceTask.value',
@@ -84,57 +53,16 @@ const messages = defineMessages({
   },
 });
 
-const conditionalVerbs = [
-  {
-    label: 'is...',
-    itemTypes: ['single_choice', 'multiple_choice'],
-    test() {},
-  },
-  {
-    label: 'is not...',
-    itemTypes: ['single_choice', 'multiple_choice'],
-    test() {},
-  },
-  {
-    label: 'is any of...',
-    itemTypes: ['multiple_choice'],
-    test() {},
-  },
-  {
-    label: 'is none of...',
-    itemTypes: ['multiple_choice'],
-    test() {},
-  },
-  {
-    label: 'is empty',
-    itemTypes: ['single_choice', 'multiple_choice'],
-    test() {},
-  },
-  {
-    label: 'is not empty',
-    itemTypes: ['single_choice', 'multiple_choice'],
-    test() {},
-  },
-];
-
 class EditTaskDialog extends React.Component {
   constructor(props) {
     super(props);
-
-    const { task, tasks } = props;
+    const { task } = props;
 
     let defaultOptions = [{ label: '' }, { label: '' }];
     if (props.taskType === 'datetime') {
       defaultOptions = [{ code: 'UTC', label: 'UTC (0 GMT)', offset: 0 }];
     }
 
-    // make array of all potential valid prerequisite fields (single selects that are not this one)
-    this.prerequisiteFields = tasks
-      .filter(item => item.type === 'single_choice' || item.type === 'multiple_choice')
-      .filter(item => item.dbid !== task?.dbid);
-
-    const parsedConditionalInfo = JSON.parse(task?.conditional_info || null);
-    const hasConditions = task ? parsedConditionalInfo?.selectedFieldId !== (null || undefined) : null;
     this.state = {
       label: task ? task.label : null,
       description: task ? task.description : null,
@@ -144,10 +72,6 @@ class EditTaskDialog extends React.Component {
       submitDisabled: true,
       showAssignmentField: false,
       editLabelOrDescription: false,
-      selectedFieldId: parsedConditionalInfo?.selectedFieldId || (this.prerequisiteFields.length > 0 ? this.prerequisiteFields[0].dbid : null),
-      selectedConditional: hasConditions ? parsedConditionalInfo?.selectedConditional : conditionalVerbs[0].label,
-      selectedCondition: hasConditions ? parsedConditionalInfo?.selectedCondition : this.prerequisiteFields[0]?.options[0]?.label,
-      hasConditions,
       hasOther: task ? task.options.some(option => option.other) : false,
     };
   }
@@ -233,30 +157,6 @@ class EditTaskDialog extends React.Component {
     this.validateTask(this.state.label, this.state.options);
   }
 
-  handleToggleHasConditions(e) {
-    this.setState({ hasConditions: e.target.checked });
-    this.validateTask(this.state.label, this.state.options);
-  }
-
-  handlePrerequisiteFieldChange(e) {
-    if (e.target.id === 'conditionals') {
-      this.setState({
-        selectedConditional: e.target.value,
-        selectedCondition: this.prerequisiteFields.find(field => field.dbid === this.state.selectedFieldId)?.options[0]?.label,
-      });
-    } else if (e.target.id === 'prerequisites') {
-      this.setState({
-        selectedFieldId: +e.target.value,
-        selectedCondition: this.prerequisiteFields.find(field => field.dbid === +e.target.value)?.options[0]?.label,
-      });
-    } else if (e.target.id === 'conditions') {
-      this.setState({ selectedCondition: e.target.value });
-    } else if (e.target.name === 'multiple-conditions') {
-      this.setState({ selectedCondition: e.target.value.join(', ') });
-    }
-    this.validateTask(this.state.label, this.state.options);
-  }
-
   handleSelectProjects = (projectsIds) => {
     const project_ids = projectsIds.map(id => parseInt(id, 10));
     this.setState({ project_ids });
@@ -270,17 +170,10 @@ class EditTaskDialog extends React.Component {
         .filter(item => item.label !== ''))
       : undefined;
 
-    const conditionalInfo = {
-      selectedConditional: this.state.selectedConditional,
-      selectedFieldId: this.state.selectedFieldId,
-      selectedCondition: this.state.selectedCondition,
-    };
-
     const task = {
       label: this.state.label,
       description: this.state.description,
       show_in_browser_extension: this.state.showInBrowserExtension,
-      conditional_info: this.state.hasConditions ? JSON.stringify(conditionalInfo) : null,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
       editLabelOrDescription: this.state.editLabelOrDescription,
@@ -325,11 +218,12 @@ class EditTaskDialog extends React.Component {
                   placeholder={`${formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
                   disabled={item.other}
+                  variant="outlined"
                 />
               </Box>
               {canRemove ?
                 <StyledIconButton>
-                  <CancelIcon
+                  <ClearIcon
                     key="create-task__remove-option-button"
                     className="create-task__remove-option-button create-task__md-icon"
                     onClick={this.handleRemoveOption.bind(this, index)}
@@ -391,7 +285,13 @@ class EditTaskDialog extends React.Component {
           <TextField
             id="task-label-input"
             className="tasks__task-label-input"
-            label={<FormattedMessage id="tasks.taskPrompt" defaultMessage="Prompt" />}
+            label={
+              <FormattedMessage
+                id="tasks.taskPrompt"
+                defaultMessage="Title"
+                description="Title field for custom annotation field"
+              />
+            }
             defaultValue={this.state.label}
             onChange={this.handleLabelChange.bind(this)}
             margin="normal"
@@ -493,127 +393,6 @@ class EditTaskDialog extends React.Component {
               </button> : null
             }
           </StyledTaskAssignment>
-          <Switch
-            checked={this.state.hasConditions}
-            onChange={this.handleToggleHasConditions.bind(this)}
-          />
-          <FormattedMessage
-            id="tasks.showIfCondition"
-            defaultMessage="Show field when condition is met"
-            description="This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-          />
-          <br />
-          { this.state.hasConditions ?
-            <>
-              <Typography variant="body1" component="span">
-                <FormattedMessage
-                  id="tasks.when"
-                  defaultMessage="When"
-                  description="We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
-                />
-              </Typography>
-              <StyledConditionalSelect>
-                <Select
-                  native
-                  onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                  id="prerequisites"
-                >
-                  { this.prerequisiteFields.map(field => <option value={field.dbid} selected={this.state.selectedFieldId === field.dbid}>{field.label}</option>) }
-                </Select>
-              </StyledConditionalSelect>
-              <StyledConditionalSelect>
-                <Select
-                  native
-                  onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                  id="conditionals"
-                >
-                  { conditionalVerbs
-                    .filter(verb => verb.itemTypes.includes(this.prerequisiteFields.find(field => field.dbid === this.state.selectedFieldId)?.type))
-                    .map(verb => <option selected={this.state.selectedConditional === verb.label}>{verb.label}</option>) }
-                </Select>
-              </StyledConditionalSelect>
-              {
-                /* eslint-disable react/jsx-closing-tag-location, react/jsx-indent */
-                {
-                  'is...': (<StyledConditionalSelect>
-                    <Select
-                      native
-                      onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                      id="conditions"
-                    >
-                      {
-                        this.prerequisiteFields
-                          .find(field => field.dbid === this.state.selectedFieldId)?.options
-                          .map(option => <option selected={this.state.selectedCondition === option.label}>{option.label}</option>)
-                      }
-                    </Select>
-                  </StyledConditionalSelect>),
-                  'is not...': (<StyledConditionalSelect>
-                    <Select
-                      native
-                      onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                      id="conditions"
-                    >
-                      {
-                        this.prerequisiteFields
-                          .find(field => field.dbid === this.state.selectedFieldId)?.options
-                          .map(option => <option selected={this.state.selectedCondition === option.label}>{option.label}</option>)
-                      }
-                    </Select>
-                  </StyledConditionalSelect>),
-                  'is any of...': (<StyledConditionalMultiSelect>
-                    <Select
-                      multiple
-                      name="multiple-conditions"
-                      value={this.state.selectedCondition.split(', ')}
-                      onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                      input={<Input id="select-multiple-chip" />}
-                      renderValue={selected => (
-                        <div>
-                          {selected.map(value => (
-                            <Chip key={value} label={value} />
-                          ))}
-                        </div>
-                      )}
-                    >
-                      {
-                        this.prerequisiteFields
-                          .find(field => field.dbid === this.state.selectedFieldId)?.options
-                          .map(option => <MenuItem key={option.label} value={option.label}>{option.label}</MenuItem>)
-                      }
-                    </Select>
-                  </StyledConditionalMultiSelect>),
-                  'is none of...': (<StyledConditionalMultiSelect>
-                    <Select
-                      multiple
-                      name="multiple-conditions"
-                      value={this.state.selectedCondition.split(', ')}
-                      onChange={this.handlePrerequisiteFieldChange.bind(this)}
-                      input={<Input id="select-multiple-chip" />}
-                      renderValue={selected => (
-                        <div>
-                          {selected.map(value => (
-                            <Chip key={value} label={value} />
-                          ))}
-                        </div>
-                      )}
-                    >
-                      {
-                        this.prerequisiteFields
-                          .find(field => field.dbid === this.state.selectedFieldId)?.options
-                          .map(option => <MenuItem key={option.label} value={option.label}>{option.label}</MenuItem>)
-                      }
-                    </Select>
-                  </StyledConditionalMultiSelect>),
-                  'is empty': null,
-                  'is not empty': null,
-                }[this.state.selectedConditional]
-                /* eslint-enable react/jsx-closing-tag-location */
-              }
-            </>
-            : null
-          }
-
         </DialogContent>
         <DialogActions>
           <Button
@@ -625,6 +404,7 @@ class EditTaskDialog extends React.Component {
           <Button
             className="create-task__dialog-submit-button"
             onClick={this.handleSubmitTask.bind(this)}
+            variant="contained"
             color="primary"
             disabled={this.state.submitDisabled}
           >
