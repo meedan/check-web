@@ -123,24 +123,25 @@ const SmoochBotNewsletterEditor = ({
     <React.Fragment>
       <Box>
         <Typography variant="subtitle2" component="div">{labels.smooch_newsletter}</Typography>
-        <Box p={1} mt={1} mb={1} className={newsletterInformation.paused ? classes.paused : classes.active}>
-          <Typography component="div" variant="body2">
-            { newsletterInformation.paused ?
-              <FormattedMessage
-                id="smoochBotNewsletterEditor.paused"
-                defaultMessage="The newsletter is paused because the content has not been modified since the previous send-out"
-              /> :
-              <FormattedMessage
-                id="smoochBotNewsletterEditor.active"
-                defaultMessage="The newsletter will be sent to {count} users on {date}, {time}"
-                values={{
-                  count: newsletterInformation.subscribers_count,
-                  date: newsletterInformation.next_date,
-                  time: newsletterInformation.next_time,
-                }}
-              /> }
-          </Typography>
-        </Box>
+        { newsletterInformation ?
+          <Box p={1} mt={1} mb={1} className={newsletterInformation.paused ? classes.paused : classes.active}>
+            <Typography component="div" variant="body2">
+              { newsletterInformation.paused ?
+                <FormattedMessage
+                  id="smoochBotNewsletterEditor.paused"
+                  defaultMessage="The newsletter is paused because the content has not been modified since the previous send-out"
+                /> :
+                <FormattedMessage
+                  id="smoochBotNewsletterEditor.active"
+                  defaultMessage="The newsletter will be sent to {count} users on {date}, {time}"
+                  values={{
+                    count: newsletterInformation.subscribers_count,
+                    date: newsletterInformation.next_date,
+                    time: newsletterInformation.next_time,
+                  }}
+                /> }
+            </Typography>
+          </Box> : null }
         <Typography component="div" paragraph>{descriptions.smooch_newsletter}</Typography>
         <Typography variant="subtitle2" component="div" paragraph>
           <FormattedMessage
@@ -152,13 +153,13 @@ const SmoochBotNewsletterEditor = ({
       <Box display="flex" justifyContent="flex-start" alignItems="center" mt={1} mb={1} className={classes.schedule}>
         <Typography>
           <FormattedMessage
-            id="smoochBotNewsletterSendEvery"
+            id="smoochBotNewsletterEditor.sendEvery"
             defaultMessage="Send every"
             description="After this string, there is a drop-down where the user can choose a day of the week"
           />
         </Typography>
         <Select
-          value={newsletter.smooch_newsletter_day || 'monday'}
+          value={newsletter.smooch_newsletter_day || 'none'}
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_day', event.target.value); }}
           startAdornment={
@@ -167,13 +168,14 @@ const SmoochBotNewsletterEditor = ({
             </InputAdornment>
           }
         >
-          <MenuItem value="monday"><FormattedMessage id="smoochBotNewsletterMonday" defaultMessage="Monday" /></MenuItem>
-          <MenuItem value="tuesday"><FormattedMessage id="smoochBotNewsletterTuesday" defaultMessage="Tuesday" /></MenuItem>
-          <MenuItem value="wednesday"><FormattedMessage id="smoochBotNewsletterWednesday" defaultMessage="Wednesday" /></MenuItem>
-          <MenuItem value="thursday"><FormattedMessage id="smoochBotNewsletterThursday" defaultMessage="Thursday" /></MenuItem>
-          <MenuItem value="friday"><FormattedMessage id="smoochBotNewsletterFriday" defaultMessage="Friday" /></MenuItem>
-          <MenuItem value="saturday"><FormattedMessage id="smoochBotNewsletterSaturday" defaultMessage="Saturday" /></MenuItem>
-          <MenuItem value="sunday"><FormattedMessage id="smoochBotNewsletterSunday" defaultMessage="Sunday" /></MenuItem>
+          <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.day" defaultMessage="Day of week" /></MenuItem>
+          <MenuItem value="monday"><FormattedMessage id="smoochBotNewsletterEditor.monday" defaultMessage="Monday" /></MenuItem>
+          <MenuItem value="tuesday"><FormattedMessage id="smoochBotNewsletterEditor.tuesday" defaultMessage="Tuesday" /></MenuItem>
+          <MenuItem value="wednesday"><FormattedMessage id="smoochBotNewsletterEditor.wednesday" defaultMessage="Wednesday" /></MenuItem>
+          <MenuItem value="thursday"><FormattedMessage id="smoochBotNewsletterEditor.thursday" defaultMessage="Thursday" /></MenuItem>
+          <MenuItem value="friday"><FormattedMessage id="smoochBotNewsletterEditor.friday" defaultMessage="Friday" /></MenuItem>
+          <MenuItem value="saturday"><FormattedMessage id="smoochBotNewsletterEditor.saturday" defaultMessage="Saturday" /></MenuItem>
+          <MenuItem value="sunday"><FormattedMessage id="smoochBotNewsletterEditor.sunday" defaultMessage="Sunday" /></MenuItem>
         </Select>
         <Typography>
           <FormattedMessage
@@ -183,7 +185,7 @@ const SmoochBotNewsletterEditor = ({
           />
         </Typography>
         <Select
-          value={newsletter.smooch_newsletter_time || '10'}
+          value={newsletter.smooch_newsletter_time || 'none'}
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_time', event.target.value); }}
           startAdornment={
@@ -192,13 +194,15 @@ const SmoochBotNewsletterEditor = ({
             </InputAdornment>
           }
         >
+          <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.time" defaultMessage="Time" /></MenuItem>
           { [...Array(24).keys()].map(hour => <MenuItem value={`${hour}`}>{`${hour}:00`}</MenuItem>) }
         </Select>
         <Select
-          value={newsletter.smooch_newsletter_timezone || 'UTC'}
+          value={newsletter.smooch_newsletter_timezone || 'none'}
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_timezone', event.target.value); }}
         >
+          <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.timezone" defaultMessage="Timezone" /></MenuItem>
           { Object.keys(timezones).sort().map(timezone => <MenuItem value={timezone}>{timezone}</MenuItem>) }
         </Select>
       </Box>

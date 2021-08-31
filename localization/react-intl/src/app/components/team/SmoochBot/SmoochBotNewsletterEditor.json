@@ -20,42 +20,54 @@
     "defaultMessage": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
   },
   {
-    "id": "smoochBotNewsletterSendEvery",
+    "id": "smoochBotNewsletterEditor.sendEvery",
     "description": "After this string, there is a drop-down where the user can choose a day of the week",
     "defaultMessage": "Send every"
   },
   {
-    "id": "smoochBotNewsletterMonday",
+    "id": "smoochBotNewsletterEditor.day",
+    "defaultMessage": "Day of week"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.monday",
     "defaultMessage": "Monday"
   },
   {
-    "id": "smoochBotNewsletterTuesday",
+    "id": "smoochBotNewsletterEditor.tuesday",
     "defaultMessage": "Tuesday"
   },
   {
-    "id": "smoochBotNewsletterWednesday",
+    "id": "smoochBotNewsletterEditor.wednesday",
     "defaultMessage": "Wednesday"
   },
   {
-    "id": "smoochBotNewsletterThursday",
+    "id": "smoochBotNewsletterEditor.thursday",
     "defaultMessage": "Thursday"
   },
   {
-    "id": "smoochBotNewsletterFriday",
+    "id": "smoochBotNewsletterEditor.friday",
     "defaultMessage": "Friday"
   },
   {
-    "id": "smoochBotNewsletterSaturday",
+    "id": "smoochBotNewsletterEditor.saturday",
     "defaultMessage": "Saturday"
   },
   {
-    "id": "smoochBotNewsletterSunday",
+    "id": "smoochBotNewsletterEditor.sunday",
     "defaultMessage": "Sunday"
   },
   {
     "id": "smoochBotNewsletterAt",
     "description": "The context here is a time... for example, at 10am",
     "defaultMessage": "at"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.time",
+    "defaultMessage": "Time"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.timezone",
+    "defaultMessage": "Timezone"
   },
   {
     "id": "smoochBotNewsletterEditor.templateHeader",
