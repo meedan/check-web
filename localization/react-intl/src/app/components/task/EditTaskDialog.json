@@ -21,16 +21,12 @@
     "defaultMessage": "Title"
   },
   {
-    "id": "tasks.description",
-    "defaultMessage": "Description (optional)"
+    "id": "tasks.chooseType",
+    "defaultMessage": "Choose a field type"
   },
   {
     "id": "tasks.timezones",
     "defaultMessage": "Timezones available to complete the task"
-  },
-  {
-    "id": "tasks.showInBrowserExtension",
-    "defaultMessage": "Show in browser extension"
   },
   {
     "id": "tasks.showInProj",

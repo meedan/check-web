@@ -30,7 +30,8 @@ const TeamTaskCard = ({
 
   return (
     <Box
-      margin={2}
+      my={2}
+      mr={2}
       bgcolor="#f6f6f6"
       border="2px solid #ced3e2"
       borderRadius="10px"
@@ -61,7 +62,7 @@ const TeamTaskCard = ({
             defaultMessage="Required"
             description="Toggle switch to make field required"
           />
-          <Switch />
+          <Switch checked={task.required} />
         </span>
         <span>
           <FormattedMessage
@@ -69,7 +70,7 @@ const TeamTaskCard = ({
             defaultMessage="Show in browser extension"
             description="Toggle switch to make field visible in the browser extension"
           />
-          <Switch />
+          <Switch checked={task.show_in_browser_extension} />
         </span>
       </Box>
       <Menu

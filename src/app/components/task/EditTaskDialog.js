@@ -6,36 +6,44 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import IconButton from '@material-ui/core/IconButton';
-import HelpIcon from '@material-ui/icons/HelpOutline';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import AddIcon from '@material-ui/icons/Add';
+import ShortTextIcon from '@material-ui/icons/ShortText';
+import LocationIcon from '@material-ui/icons/LocationOn';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
 import ProjectSelector from '../project/ProjectSelector';
+import NumberIcon from '../../icons/NumberIcon';
 import timezones from '../../timezones';
-import { units, StyledIconButton, caption, black54, Row, checkBlue } from '../../styles/js/shared';
-
-const StyledProjectsArea = styled.div`
-  margin-top: ${units(2)};
-`;
+import {
+  units,
+  StyledIconButton,
+  caption,
+  black54,
+  Row,
+} from '../../styles/js/shared';
 
 const StyledTaskAssignment = styled.div`
   margin-top ${units(2)};
 
-  .create-task__add-task-description-label, .create-task__add-assignment-button {
+  .create-task__add-assignment-button {
     bottom: ${units(2)};
     font: ${caption};
     padding: 0 ${units(1)};
     color: ${black54};
     cursor: pointer;
-  }
-
-  .create-task__add-assignment-button {
     border: 0;
     background: transparent;
   }
@@ -57,16 +65,12 @@ class EditTaskDialog extends React.Component {
     super(props);
     const { task } = props;
 
-    let defaultOptions = [{ label: '' }, { label: '' }];
-    if (props.taskType === 'datetime') {
-      defaultOptions = [{ code: 'UTC', label: 'UTC (0 GMT)', offset: 0 }];
-    }
-
     this.state = {
       label: task ? task.label : null,
+      taskType: task ? task.type : null,
       description: task ? task.description : null,
       showInBrowserExtension: task ? task.show_in_browser_extension : true,
-      options: task ? task.options : defaultOptions,
+      options: task ? task.options : [{ label: '' }, { label: '' }],
       project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
@@ -134,10 +138,10 @@ class EditTaskDialog extends React.Component {
   validateTask(label, options) {
     let valid = false;
 
-    if (this.props.taskType === 'single_choice' ||
-        this.props.taskType === 'multiple_choice') {
+    if (this.state.taskType === 'single_choice' ||
+        this.state.taskType === 'multiple_choice') {
       valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
-    } else if (this.props.taskType === 'datetime') {
+    } else if (this.state.taskType === 'datetime') {
       valid = !!(label && label.trim()) && options.length > 0;
     } else {
       valid = !!(label && label.trim());
@@ -160,6 +164,15 @@ class EditTaskDialog extends React.Component {
     const project_ids = projectsIds.map(id => parseInt(id, 10));
     this.setState({ project_ids });
     this.validateTask(this.state.label, this.state.options);
+  };
+
+  handleSelectType = (e) => {
+    const taskType = e.target.value;
+    let options = [{ label: '' }, { label: '' }];
+    if (taskType === 'datetime') {
+      options = [{ code: 'UTC', label: 'UTC (0 GMT)', offset: 0 }];
+    }
+    this.setState({ taskType, options });
   };
 
   handleSubmitTask() {
@@ -193,8 +206,8 @@ class EditTaskDialog extends React.Component {
       return null;
     }
 
-    if (this.props.taskType !== 'single_choice' &&
-        this.props.taskType !== 'multiple_choice') {
+    if (this.state.taskType !== 'single_choice' &&
+        this.state.taskType !== 'multiple_choice') {
       return null;
     }
 
@@ -207,7 +220,8 @@ class EditTaskDialog extends React.Component {
         {this.state.options.map((item, index) => (
           <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
             <Row>
-              <ChevronRightIcon />
+              { this.state.taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null}
+              { this.state.taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null}
               <Box clone py={0.5} px={1} width="75%">
                 <TextField
                   key="create-task__add-option-input"
@@ -232,16 +246,24 @@ class EditTaskDialog extends React.Component {
             </Row>
           </div>
         ))}
-        <Box mt={1} >
-          <Button onClick={this.handleAddValue.bind(this)}>
+        <Box mt={1} display="flex">
+          <Button
+            onClick={this.handleAddValue.bind(this)}
+            startIcon={<AddIcon />}
+            variant="contained"
+          >
             <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option" />
           </Button>
-          <Button
-            onClick={this.handleAddOther.bind(this)}
-            disabled={this.state.hasOther}
-          >
-            <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
-          </Button>
+          <Box ml={1}>
+            <Button
+              onClick={this.handleAddOther.bind(this)}
+              startIcon={<AddIcon />}
+              variant="contained"
+              disabled={this.state.hasOther}
+            >
+              <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
+            </Button>
+          </Box>
         </Box>
       </Box>
     );
@@ -250,9 +272,24 @@ class EditTaskDialog extends React.Component {
   render() {
     const isTask = this.props.fieldset === 'tasks';
 
-    const handleHelp = () => {
-      window.open('https://help.checkmedia.org/en/articles/4423863-using-the-check-browser-extension');
-    };
+    const types = [
+      {
+        label: 'Short Text',
+        value: 'free_text',
+        icon: <ShortTextIcon />,
+        description: 'A simple block of text',
+      },
+      { label: 'Number', value: 'number', icon: <NumberIcon /> },
+      { label: 'Location', value: 'geolocation', icon: <LocationIcon /> },
+      { label: 'Datetime', value: 'datetime', icon: <DateRangeIcon /> },
+      {
+        label: 'Single Choice',
+        value: 'single_choice',
+        icon: <RadioButtonCheckedIcon />,
+        description: 'Single select allows you to select a single option from predefined options in a list.',
+      },
+      { label: 'Choose multiple', value: 'multiple_choice', icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} /> },
+    ];
 
     return (
       <Dialog
@@ -265,7 +302,6 @@ class EditTaskDialog extends React.Component {
       >
         <DialogContent>
           <Message message={this.props.message} />
-
           <TextField
             id="task-label-input"
             className="tasks__task-label-input"
@@ -283,21 +319,28 @@ class EditTaskDialog extends React.Component {
             multiline
             fullWidth
           />
-          <TextField
-            id="task-description-input"
-            className="create-task__task-description-input"
-            label={
-              <FormattedMessage id="tasks.description" defaultMessage="Description (optional)" />
-            }
-            defaultValue={this.state.description}
-            onChange={this.handleDescriptionChange.bind(this)}
-            margin="normal"
-            variant="outlined"
-            multiline
-            fullWidth
-          />
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel id="edit-task-dialog__type-select-label">
+              <FormattedMessage
+                id="tasks.chooseType"
+                defaultMessage="Choose a field type"
+              />
+            </InputLabel>
+            <Select
+              onChange={this.handleSelectType}
+              labelId="edit-task-dialog__type-select-label"
+              id="edit-task-dialog__type-select"
+            >
+              {types.map(t => (
+                <MenuItem value={t.value}>
+                  <ListItemIcon>{t.icon}</ListItemIcon>
+                  {t.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
           <p />
-          { this.props.isTeamTask && this.props.taskType === 'datetime' ?
+          { this.props.isTeamTask && this.state.taskType === 'datetime' ?
             <Autocomplete
               multiple
               options={Object.values(timezones)}
@@ -322,40 +365,19 @@ class EditTaskDialog extends React.Component {
               )}
             /> : null }
           <p />
-          { this.props.isTeamTask ?
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.showInBrowserExtension}
-                  onChange={this.handleToogleShowInBrowserExtension.bind(this)}
-                />
-              }
-              label={
-                <Box display="flex" alignItems="center">
-                  <FormattedMessage
-                    id="tasks.showInBrowserExtension"
-                    defaultMessage="Show in browser extension"
-                  />
-                  <IconButton onClick={handleHelp}>
-                    <Box clone color={checkBlue}>
-                      <HelpIcon />
-                    </Box>
-                  </IconButton>
-                </Box>
-              }
-            /> : null }
-          <p />
           { this.props.projects && isTask ?
-            <StyledProjectsArea>
+            <Box mt={2}>
               <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
               <ProjectSelector
                 projects={this.props.projects}
                 selected={this.state.project_ids.map(id => `${id}`)}
                 onSelect={this.handleSelectProjects}
               />
-            </StyledProjectsArea>
+            </Box>
             : null
           }
+
+          { types.find(t => t.type === this.state.taskType)?.description }
 
           {this.renderOptions()}
 
@@ -365,7 +387,7 @@ class EditTaskDialog extends React.Component {
                 multi
                 selectedUsers={[]}
                 id="new"
-                taskType={this.props.taskType}
+                taskType={this.state.taskType}
               /> : null }
             { this.props.allowAssignment ?
               <button

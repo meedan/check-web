@@ -85,7 +85,6 @@ class CreateTeamTask extends React.Component {
           <EditTaskDialog
             fieldset={this.props.fieldset}
             message={this.state.message}
-            taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
             projects={projects ? projects.edges : null}
