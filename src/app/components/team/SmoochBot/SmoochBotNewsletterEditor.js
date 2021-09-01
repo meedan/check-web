@@ -130,7 +130,7 @@ const SmoochBotNewsletterEditor = ({
               { newsletterInformation.paused ?
                 <FormattedMessage
                   id="smoochBotNewsletterEditor.paused"
-                  defaultMessage="The newsletter is paused because the content has not been modified since the previous send-out"
+                  defaultMessage="To send your next newsletter, please add new content"
                 /> :
                 <FormattedMessage
                   id="smoochBotNewsletterEditor.active"

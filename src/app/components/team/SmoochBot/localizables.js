@@ -24,7 +24,7 @@ const descriptions = {
   smooch_state_secondary: <FormattedMessage id="smoochBot.descriptionSecondaryMenu" defaultMessage="An optional menu asking the user to choose from a set of options. When a user replies with one of the options, the bot can send a report or direct them to another bot message." />,
   smooch_state_query: <FormattedMessage id="smoochBot.descriptionQueryPrompt" defaultMessage="The message asking the user to submit content for a fact-check." />,
   smooch_message_smooch_bot_message_confirmed: <FormattedMessage id="smoochBot.descriptionQueryReceived" defaultMessage="The confirmation sent to the user after a valid query from the user has been received." />,
-  smooch_state_subscription: <FormattedMessage id="smoochBot.descriptionSubscription" defaultMessage="Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send." />,
+  smooch_state_subscription: <FormattedMessage id="smoochBot.descriptionSubscription" defaultMessage="Present the value of your newsletter to users. All users who opt-in will receive any future newsletter." />,
   smooch_newsletter: (
     <React.Fragment>
       <FormattedMessage id="smoochBot.descriptionNewsletter1" defaultMessage="Please complete the steps below to send a weekly newsletter:" />
