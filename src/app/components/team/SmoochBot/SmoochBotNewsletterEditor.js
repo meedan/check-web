@@ -75,6 +75,7 @@ const SmoochBotNewsletterEditor = ({
   installationId,
   newsletter,
   newsletterInformation,
+  teamName,
   onDelete,
   onChange,
 }) => {
@@ -226,7 +227,11 @@ const SmoochBotNewsletterEditor = ({
                 <Typography>
                   <FormattedMessage
                     id="smoochBotNewsletterEditor.templateHeader"
-                    defaultMessage="You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+                    defaultMessage="Hi! Here are your Weekly COVID-19 Facts. This newsletter is published on WhatsApp by {team}. Here are the most important facts for the week of {date}: "
+                    values={{
+                      team: teamName,
+                      date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
+                    }}
                   />
                 </Typography>
                 <Divider className={classes.divider} />
@@ -333,6 +338,7 @@ SmoochBotNewsletterEditor.propTypes = {
   installationId: PropTypes.string.isRequired,
   newsletter: PropTypes.object.isRequired,
   newsletterInformation: PropTypes.object.isRequired,
+  teamName: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   onDelete: PropTypes.func,
   intl: intlShape.isRequired,

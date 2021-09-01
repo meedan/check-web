@@ -281,6 +281,7 @@ const SmoochBotConfig = (props) => {
               { currentOption === 'smooch_newsletter' ?
                 <SmoochBotNewsletterEditor
                   installationId={props.installationId}
+                  teamName={props.teamName}
                   newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
                   newsletterInformation={props.newsletterInformation[currentLanguage]}
                   onChange={handleChangeNewsletter}
@@ -309,6 +310,7 @@ SmoochBotConfig.propTypes = {
   schema: PropTypes.object.isRequired,
   currentUser: PropTypes.object.isRequired,
   userRole: PropTypes.string.isRequired,
+  teamName: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   newsletterInformation: PropTypes.object.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389

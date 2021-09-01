@@ -17,6 +17,7 @@ const SmoochBot = ({ currentUser }) => {
               id
               dbid
               slug
+              name
               get_language
               get_languages
               permissions
