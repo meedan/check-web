@@ -1,0 +1,96 @@
+[
+  {
+    "id": "smoochBotNewsletterEditor.rssPlaceholder",
+    "defaultMessage": "Public URL that returns N articles in RSS format"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.error",
+    "defaultMessage": "This URL does not seem to be a valid RSS feed"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.paused",
+    "defaultMessage": "The newsletter is paused because the content has not been modified since the previous send-out"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.active",
+    "defaultMessage": "The newsletter will be sent to {count} users on {date}, {time}"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.note",
+    "defaultMessage": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+  },
+  {
+    "id": "smoochBotNewsletterEditor.sendEvery",
+    "description": "After this string, there is a drop-down where the user can choose a day of the week",
+    "defaultMessage": "Send every"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.day",
+    "defaultMessage": "Day of week"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.monday",
+    "defaultMessage": "Monday"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.tuesday",
+    "defaultMessage": "Tuesday"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.wednesday",
+    "defaultMessage": "Wednesday"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.thursday",
+    "defaultMessage": "Thursday"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.friday",
+    "defaultMessage": "Friday"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.saturday",
+    "defaultMessage": "Saturday"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.sunday",
+    "defaultMessage": "Sunday"
+  },
+  {
+    "id": "smoochBotNewsletterAt",
+    "description": "The context here is a time... for example, at 10am",
+    "defaultMessage": "at"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.time",
+    "defaultMessage": "Time"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.timezone",
+    "defaultMessage": "Timezone"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.templateHeader",
+    "defaultMessage": "Hi! Here are your Weekly COVID-19 Facts. This newsletter is published on WhatsApp by {team}. Here are the most important facts for the week of {date}:"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.rss",
+    "defaultMessage": "Add content from RSS feed"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.url",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.numberOfArticles",
+    "defaultMessage": "Number of articles to return"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.load",
+    "defaultMessage": "Load"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.delete",
+    "defaultMessage": "Delete"
+  }
+]

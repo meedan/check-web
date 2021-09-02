@@ -14,6 +14,7 @@ import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
 import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
+import SmoochBotNewsletterEditor from './SmoochBotNewsletterEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import { labels, descriptions, placeholders } from './localizables';
 
@@ -66,7 +67,7 @@ const SmoochBotConfig = (props) => {
     }
   }
 
-  const menuActions = props.schema.properties.smooch_workflows.items.properties.smooch_state_main
+  const menuActions = state => props.schema.properties.smooch_workflows.items.properties[state]
     .properties.smooch_menu_options.items.properties.smooch_menu_option_value.enum;
 
   const settings = Object.assign({}, value);
@@ -167,6 +168,21 @@ const SmoochBotConfig = (props) => {
     }
   };
 
+  const handleChangeNewsletter = (key, newValue) => {
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    if (!updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter) {
+      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter = {};
+    }
+    updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter[key] = newValue;
+    setValue(updatedValue);
+  };
+
+  const handleDeleteNewsletter = () => {
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    updatedValue.smooch_workflows[currentWorkflowIndex].smooch_newsletter = {};
+    setValue(updatedValue);
+  };
+
   return (
     <React.Fragment>
       <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
@@ -244,9 +260,16 @@ const SmoochBotConfig = (props) => {
                   field={currentOption}
                   value={value.smooch_workflows[currentWorkflowIndex][currentOption]}
                   resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
-                  menuActions={menuActions}
+                  menuActions={menuActions(currentOption)}
                   onChange={handleChangeMenu}
                   currentLanguage={currentLanguage}
+                  textHeader={
+                    currentOption === 'smooch_state_subscription' ?
+                      <FormattedMessage
+                        id="smoochBotConfig.subscriptionHeader"
+                        defaultMessage="You are currently {subscription_status} to our newsletter."
+                      /> : null
+                  }
                 /> : null }
               { currentResource ?
                 <SmoochBotResourceEditor
@@ -254,6 +277,15 @@ const SmoochBotConfig = (props) => {
                   resource={currentResource}
                   onChange={handleChangeResource}
                   onDelete={handleDeleteResource}
+                /> : null }
+              { currentOption === 'smooch_newsletter' ?
+                <SmoochBotNewsletterEditor
+                  installationId={props.installationId}
+                  teamName={props.teamName}
+                  newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
+                  newsletterInformation={props.newsletterInformation[currentLanguage]}
+                  onChange={handleChangeNewsletter}
+                  onDelete={handleDeleteNewsletter}
                 /> : null }
             </Box>
           </Box>
@@ -278,7 +310,9 @@ SmoochBotConfig.propTypes = {
   schema: PropTypes.object.isRequired,
   currentUser: PropTypes.object.isRequired,
   userRole: PropTypes.string.isRequired,
+  teamName: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
+  newsletterInformation: PropTypes.object.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

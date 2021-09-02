@@ -36,6 +36,10 @@
 		"string": "Selectează sarcina",
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
+	"CustomTeamTaskFilter.labelIs": {
+		"string": "{title} is",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
+	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Metadatele au o valoare specifică",
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
@@ -78,7 +82,7 @@
 		"string": "Istoricul elementului"
 	},
 	"MultiSelector.all": {
-		"string": "Toate"
+		"string": "Search All"
 	},
 	"MultiSelector.search": {
 		"string": "Caută..."
@@ -2439,6 +2443,9 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "Titlu analiză"
 	},
+	"searchKeywordConfig.item": {
+		"string": "Element"
+	},
 	"searchKeywordConfig.mediaContent": {
 		"string": "Conținut media"
 	},
@@ -2450,6 +2457,9 @@
 	},
 	"searchKeywordConfig.metadata": {
 		"string": "Metadate"
+	},
+	"searchKeywordConfig.ocr": {
+		"string": "Extracted text (OCR)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "Etichete"
@@ -2549,11 +2559,13 @@
 	"slackConfig.text": {
 		"string": "Send notifications to Slack channels when items are added to specific folders"
 	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Toată cealaltă activitate"
+	"slackConfigDialogComponent.addEvent": {
+		"string": "+ Add event",
+		"developer_comment": "Button label to event selector"
 	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Toată activitatea din spațiul de lucru"
+	"slackConfigDialogComponent.anyActivity": {
+		"string": "Any workspace activity",
+		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
 		"string": "Anulează"
@@ -2564,14 +2576,39 @@
 	"slackConfigDialogComponent.defaultErrorMessage": {
 		"string": "Setările Slack nu au putut fi salvate"
 	},
-	"slackConfigDialogComponent.event": {
-		"string": "Eveniment"
+	"slackConfigDialogComponent.defaultLabel": {
+		"string": "Notification {number}",
+		"developer_comment": "Default label for new notification. I.e.: Notification 1, Notification 2..."
 	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "If item is in folder"
+	"slackConfigDialogComponent.if": {
+		"string": "Dacă",
+		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
+	},
+	"slackConfigDialogComponent.itemAdded": {
+		"string": "Item is added to folder",
+		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
+	},
+	"slackConfigDialogComponent.itemIsAddedTo": {
+		"string": "Item is added to",
+		"developer_comment": "Label to folder selector component"
+	},
+	"slackConfigDialogComponent.label": {
+		"string": "Notification name"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "Notificare nouă"
+		"string": "+ New"
+	},
+	"slackConfigDialogComponent.noChannelError": {
+		"string": "Please add the Slack channel where notifications will be sent"
+	},
+	"slackConfigDialogComponent.noConditionError": {
+		"string": "Please select a condition to send notifications"
+	},
+	"slackConfigDialogComponent.noWebhookError": {
+		"string": "Please add the Slack webhook address"
+	},
+	"slackConfigDialogComponent.notifications": {
+		"string": "Notifications"
 	},
 	"slackConfigDialogComponent.save": {
 		"string": "Salvează"
@@ -2579,8 +2616,13 @@
 	"slackConfigDialogComponent.savedSuccessfully": {
 		"string": "Slack settings saved successfully"
 	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Trimite notificări către"
+	"slackConfigDialogComponent.statusChanged": {
+		"string": "Status is changed to",
+		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
+	},
+	"slackConfigDialogComponent.then": {
+		"string": "Then send notification to",
+		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
 		"string": "Send notifications to Slack channels when items are added to specific folders"
@@ -2602,6 +2644,15 @@
 	},
 	"smoochBot.descriptionMainMenu": {
 		"string": "Este un meniu care îi cere utilizatorului să aleagă dintr-un set de opțiuni. Acest mesaj va urma automat după mesajul de întâmpinare. 9 nu poate fi folosit ca opțiune în meniul principal."
+	},
+	"smoochBot.descriptionNewsletter1": {
+		"string": "Please complete the steps below to send a weekly newsletter:"
+	},
+	"smoochBot.descriptionNewsletter2": {
+		"string": "1. Compose your newsletter"
+	},
+	"smoochBot.descriptionNewsletter3": {
+		"string": "2. Select a day and time of the week"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "This message will be sent to users if, after a conversation is initiated, they do not select either option: receive a resource or submit content to verify. This message will also be sent to users who submitted content without waiting for the query prompt."
@@ -2630,6 +2681,9 @@
 	"smoochBot.descriptionSecondaryMenu": {
 		"string": "Un meniu opțional, care cere utilizatorului să aleagă dintr-un set de opțiuni. Când un utilizator răspunde cu una dintre opțiuni, robotul poate transmite un raport sau poate direcționa utilizatorul spre un alt mesaj automat."
 	},
+	"smoochBot.descriptionSubscription": {
+		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+	},
 	"smoochBot.footnoteGreeting": {
 		"string": "Următoarea declarație și opțiunea aferentă vor fi adăugate automat la sfârșitul mesajului: „Nu vă vom divulga niciodată datele cu caracter personal identificabile. Răspundeți cu 9 pentru a citi Declarație de confidențialitate și scopul colectării”."
 	},
@@ -2647,6 +2701,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "Meniu principal"
+	},
+	"smoochBot.labelNewsletter": {
+		"string": "Newsletter"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "No action from user"
@@ -2669,6 +2726,9 @@
 	"smoochBot.labelSecondaryMenu": {
 		"string": "Meniu secundar"
 	},
+	"smoochBot.labelSubscription": {
+		"string": "Subscription opt-in"
+	},
 	"smoochBot.menuKeywords": {
 		"string": "Cuvinte-cheie separate prin virgulă"
 	},
@@ -2687,6 +2747,9 @@
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*Meniu principal*\n\n*Răspundeți cu 1* (sau 🔍) pentru transmiterea unei cereri de verificare a unui articol, videoclip, a unei imagini sau a altui tip de conținut.\n*Răspundeți cu 2* (sau 🦠) pentru a obține cele mai noi informații despre coronavirus (COVID-19)"
 	},
+	"smoochBot.placeholderNewsletter": {
+		"string": "Type to compose your newsletter. You can add content from the RSS below."
+	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Ne pare rău, nu am înțeles mesajul. Vă rugăm să încercați din nou!"
 	},
@@ -2701,6 +2764,9 @@
 	},
 	"smoochBot.placeholderSecondaryMenu": {
 		"string": "*Informații despre coronavirus (COVID-19)* 🦠\n\n👉*Răspundeți cu oricare dintre următoarele numere (sau emoji) pentru a obține informații despre subiectul respectiv:*\n\n*1:* Cum mă protejez pe mine/Cum îmi protejez familia? 👨‍👩‍👧\n*2:* Cred că m-am îmbolnăvit 🤒\n*3:* Cum pot gestiona stresul legat de COVID-19? ❤️\n*4:* Informații despre cazuri și pacienți recuperați la nivel mondial 📊\n*5:* Cele mai recente actualizări de la Organizația Mondială a Sănătății 🌐\n\n*Răspundeți cu 0* pentru revenire în *meniul principal* 📌"
+	},
+	"smoochBot.placeholderSubscription": {
+		"string": "Type to compose your prompt for newsletter opt-in."
 	},
 	"smoochBot.scenarios": {
 		"string": "Scenarii"
@@ -2721,7 +2787,7 @@
 		"string": "Instalează"
 	},
 	"smoochBotComponent.save": {
-		"string": "Save settings"
+		"string": "Publică"
 	},
 	"smoochBotComponent.savedSuccessfully": {
 		"string": "Tipline settings saved successfully",
@@ -2732,6 +2798,9 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
+	},
+	"smoochBotConfig.subscriptionHeader": {
+		"string": "You are currently {subscription_status} to our newsletter."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Anulează"
@@ -2863,11 +2932,88 @@
 	"smoochBotMenuOption.selectMessage": {
 		"string": "Selectează mesajul"
 	},
+	"smoochBotMenuOption.subscription": {
+		"string": "Subscription opt-in"
+	},
+	"smoochBotMenuOption.subscriptionConfirmation": {
+		"string": "Subscription confirmation"
+	},
 	"smoochBotMenuOption.then": {
 		"string": "Atunci"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
 		"string": "Opțiunea „9” trebuie inclusă pentru utilizatori ca să acceseze Declarația de confidențialitate"
+	},
+	"smoochBotNewsletterAt": {
+		"string": "at",
+		"developer_comment": "The context here is a time... for example, at 10am"
+	},
+	"smoochBotNewsletterEditor.active": {
+		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+	},
+	"smoochBotNewsletterEditor.day": {
+		"string": "Day of week"
+	},
+	"smoochBotNewsletterEditor.delete": {
+		"string": "Șterge"
+	},
+	"smoochBotNewsletterEditor.error": {
+		"string": "URL-ul nu pare să fie un flux RSS valabil"
+	},
+	"smoochBotNewsletterEditor.friday": {
+		"string": "Friday"
+	},
+	"smoochBotNewsletterEditor.load": {
+		"string": "Încarcă"
+	},
+	"smoochBotNewsletterEditor.monday": {
+		"string": "Monday"
+	},
+	"smoochBotNewsletterEditor.note": {
+		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	},
+	"smoochBotNewsletterEditor.numberOfArticles": {
+		"string": "Număr de articole de inclus în rezultate"
+	},
+	"smoochBotNewsletterEditor.paused": {
+		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
+	},
+	"smoochBotNewsletterEditor.rss": {
+		"string": "Adaugă conținut din fluxul RSS"
+	},
+	"smoochBotNewsletterEditor.rssPlaceholder": {
+		"string": "URL public care dă ca rezultat articole N în format RSS"
+	},
+	"smoochBotNewsletterEditor.saturday": {
+		"string": "Saturday"
+	},
+	"smoochBotNewsletterEditor.sendEvery": {
+		"string": "Send every",
+		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+	},
+	"smoochBotNewsletterEditor.sunday": {
+		"string": "Sunday"
+	},
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.thursday": {
+		"string": "Thursday"
+	},
+	"smoochBotNewsletterEditor.time": {
+		"string": "Ora"
+	},
+	"smoochBotNewsletterEditor.timezone": {
+		"string": "Timezone"
+	},
+	"smoochBotNewsletterEditor.tuesday": {
+		"string": "Tuesday"
+	},
+	"smoochBotNewsletterEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotNewsletterEditor.wednesday": {
+		"string": "Wednesday"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "Adaugă conținut manual"

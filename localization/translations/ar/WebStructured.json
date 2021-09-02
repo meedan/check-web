@@ -1,6 +1,6 @@
 {
 	"CheckAgreeTerms.agreeTerms": {
-		"string": "بتسجيل الاشتراك فذلك يعني موافقتك على {tosLink}  و {ppLink} لدى {appName}."
+		"string": "إن تسجيل الاشتراك يعني موافقتك على {tosLink}  و {ppLink} لدى {appName}."
 	},
 	"ConfirmEmail.content": {
 		"string": "يرجى مراجعة بريدك الالكتروني للتحقق من حسابك."
@@ -35,6 +35,10 @@
 	"CustomTeamTaskFilter.entityTaskLabel": {
 		"string": "اختيار مهمة",
 		"developer_comment": "Label for input to select specific task to filter by"
+	},
+	"CustomTeamTaskFilter.labelIs": {
+		"string": "{title} is",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "البيانات الوصفية لها قيمة محددة",
@@ -72,19 +76,19 @@
 		"string": "إتمام"
 	},
 	"ImportedReports.title": {
-		"string": "Imported reports"
+		"string": "التقارير المستوردة"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "تاريخ العنصر"
 	},
 	"MultiSelector.all": {
-		"string": "الكل"
+		"string": "Search All"
 	},
 	"MultiSelector.search": {
 		"string": "بحث..."
 	},
 	"SearchFieldChannel.label": {
-		"string": "Channel is",
+		"string": "الغرفة هي",
 		"developer_comment": "Prefix label for field to filter by item channel"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
@@ -176,7 +180,7 @@
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.channel": {
-		"string": "Channel",
+		"string": "الغرفة",
 		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.collection": {
@@ -1669,10 +1673,10 @@
 		"string": "المجلد"
 	},
 	"project.onlyAdmins": {
-		"string": "Only Admins"
+		"string": "المديرون فقط"
 	},
 	"project.onlyAdminsAndEditors": {
-		"string": "Only Admins and Editors"
+		"string": "المديرون والمحررون فقط"
 	},
 	"projectActions.cancel": {
 		"string": "إلغاء"
@@ -1694,17 +1698,17 @@
 		"developer_comment": "Menu option to move a folder out of a collection"
 	},
 	"projectActions.privacy": {
-		"string": "Change access",
+		"string": "تغيير التصاريح",
 		"developer_comment": "'Change' here is an infinitive verb"
 	},
 	"projectActions.privacyMessageAdmins": {
-		"string": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+		"string": "إن المحررين والشركاء لن يتمكنوا من مشاهدة أو تصفح هذا المجلد أو أي عناصر فيه. سيُحتفظ بكل التعليقات."
 	},
 	"projectActions.privacyMessageAll": {
-		"string": "Anyone can see this folder, access its content and annotate it."
+		"string": "سيتمكن أي شخص من مشاهدة هذا المجلد ويتصفح محتوياته ويعقب عليه."
 	},
 	"projectActions.privacyMessageEditors": {
-		"string": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+		"string": "إن الشركاء لن يتمكنوا من مشاهدة أو تصفح هذا المجلد أو أي عناصر فيه. سيُحتفظ بكل التعليقات."
 	},
 	"projectActions.rename": {
 		"string": "تغيير الاسم",
@@ -1733,10 +1737,10 @@
 		"string": "كل العناصر"
 	},
 	"projectHeader.importedReports": {
-		"string": "Imported reports"
+		"string": "التقارير المستوردة"
 	},
 	"projectHeader.tiplineInbox": {
-		"string": "Tipline inbox"
+		"string": "صندوق بريد الخط الساخن"
 	},
 	"projectHeader.trash": {
 		"string": "سلة المهملات"
@@ -1818,7 +1822,7 @@
 		"string": "المجلدات"
 	},
 	"projectsComponent.importedReports": {
-		"string": "Imported reports"
+		"string": "التقارير المستوردة"
 	},
 	"projectsComponent.invalidMove": {
 		"string": "لا يمكن نقل المجلدات إلا إلى مجموعات",
@@ -1880,19 +1884,19 @@
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.privacyDialogButton": {
-		"string": "Update access"
+		"string": "تحديث التصاريح"
 	},
 	"projectsComponent.privacyDialogOptionAdmins": {
-		"string": "Only Admins"
+		"string": "المديرون فقط"
 	},
 	"projectsComponent.privacyDialogOptionAll": {
-		"string": "Everyone with access to this workspace"
+		"string": "كل الأشخاص الذين لديهم تصريح لمساحة العمل هذه"
 	},
 	"projectsComponent.privacyDialogOptionEditors": {
-		"string": "Only Admins and Editors"
+		"string": "المديرون والمحررون فقط"
 	},
 	"projectsComponent.privacyDialogTitle": {
-		"string": "Who can see this folder and its content",
+		"string": "من يستطيع مشاهدة هذا المجلد ومحتوياته",
 		"developer_comment": "Title for folder privacy dialog"
 	},
 	"projectsComponent.renameType": {
@@ -1900,7 +1904,7 @@
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Tipline inbox"
+		"string": "صندوق بريد الخط الساخن"
 	},
 	"projectsComponent.title": {
 		"string": "العنوان"
@@ -2390,19 +2394,19 @@
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
 	"searchFieldChannel.anyTipline": {
-		"string": "Any tipline",
+		"string": "أي خط ساخن",
 		"developer_comment": "Filter option that refers to items created via a tipline"
 	},
 	"searchFieldChannel.api": {
-		"string": "API",
+		"string": "بِواجهة برمجة التطبيقات",
 		"developer_comment": "Filter option that refers to items created via the API"
 	},
 	"searchFieldChannel.browserExtension": {
-		"string": "Browser extension",
+		"string": "امتداد المتصفح",
 		"developer_comment": "Filter option that refers to items created via the browser extension"
 	},
 	"searchFieldChannel.manual": {
-		"string": "Manual",
+		"string": "يدوي",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldSource.label": {
@@ -2439,6 +2443,9 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "عنوان التحليل"
 	},
+	"searchKeywordConfig.item": {
+		"string": "العنصر"
+	},
 	"searchKeywordConfig.mediaContent": {
 		"string": "محتوى المادة الإعلامية"
 	},
@@ -2450,6 +2457,9 @@
 	},
 	"searchKeywordConfig.metadata": {
 		"string": "البيانات الوصفيّة"
+	},
+	"searchKeywordConfig.ocr": {
+		"string": "Extracted text (OCR)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "الوسوم"
@@ -2549,11 +2559,13 @@
 	"slackConfig.text": {
 		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
 	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "كل الأنشطة الأخرى"
+	"slackConfigDialogComponent.addEvent": {
+		"string": "+ Add event",
+		"developer_comment": "Button label to event selector"
 	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "كل أنشطة مساحة العمل"
+	"slackConfigDialogComponent.anyActivity": {
+		"string": "Any workspace activity",
+		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
 		"string": "إلغاء"
@@ -2564,14 +2576,39 @@
 	"slackConfigDialogComponent.defaultErrorMessage": {
 		"string": "لم يمكننا حفظ إعدادات Slack"
 	},
-	"slackConfigDialogComponent.event": {
-		"string": "الحدث"
+	"slackConfigDialogComponent.defaultLabel": {
+		"string": "Notification {number}",
+		"developer_comment": "Default label for new notification. I.e.: Notification 1, Notification 2..."
 	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "إذا كان العنصر في مجلد"
+	"slackConfigDialogComponent.if": {
+		"string": "إذا",
+		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
+	},
+	"slackConfigDialogComponent.itemAdded": {
+		"string": "Item is added to folder",
+		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
+	},
+	"slackConfigDialogComponent.itemIsAddedTo": {
+		"string": "Item is added to",
+		"developer_comment": "Label to folder selector component"
+	},
+	"slackConfigDialogComponent.label": {
+		"string": "Notification name"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "تنبيه جديد"
+		"string": "+ New"
+	},
+	"slackConfigDialogComponent.noChannelError": {
+		"string": "Please add the Slack channel where notifications will be sent"
+	},
+	"slackConfigDialogComponent.noConditionError": {
+		"string": "Please select a condition to send notifications"
+	},
+	"slackConfigDialogComponent.noWebhookError": {
+		"string": "Please add the Slack webhook address"
+	},
+	"slackConfigDialogComponent.notifications": {
+		"string": "Notifications"
 	},
 	"slackConfigDialogComponent.save": {
 		"string": "حفظ"
@@ -2579,8 +2616,13 @@
 	"slackConfigDialogComponent.savedSuccessfully": {
 		"string": "لقد حُفظَت إعدادات Slack بنجاح"
 	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "إرسال تنبيهات إلى"
+	"slackConfigDialogComponent.statusChanged": {
+		"string": "Status is changed to",
+		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
+	},
+	"slackConfigDialogComponent.then": {
+		"string": "Then send notification to",
+		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
 		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
@@ -2602,6 +2644,15 @@
 	},
 	"smoochBot.descriptionMainMenu": {
 		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية."
+	},
+	"smoochBot.descriptionNewsletter1": {
+		"string": "Please complete the steps below to send a weekly newsletter:"
+	},
+	"smoochBot.descriptionNewsletter2": {
+		"string": "1. Compose your newsletter"
+	},
+	"smoochBot.descriptionNewsletter3": {
+		"string": "2. Select a day and time of the week"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "هذه الرسالة سوف تُرسَل إلى المستخدمين بعد بداية محادثة إذا لم يحددوا أحد الخيارين : إما خيار استلام مورد وإما خيار إرسال محتوى للتحقق منه. ستُرسَل الرسالة أيضا للمستخدمين الذين قاموا بإرسال محتوى دون انتظار موجه الاستعلامات."
@@ -2630,6 +2681,9 @@
 	"smoochBot.descriptionSecondaryMenu": {
 		"string": "قائمة اختيارية تطلب من المستخدمين الاختيار بين مجموعة من الخيارات. عندما يرد المستخدمين بأحد الخيارات، يستطيع البوت إرسال تقرير أو توجيه المستخدم إلى رسالة بوت أخرى."
 	},
+	"smoochBot.descriptionSubscription": {
+		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+	},
 	"smoochBot.footnoteGreeting": {
 		"string": "ستتم إضافة البيان والخيار التاليان إلى نهاية الرسالة تلقائياً: 'لن نقوم بمشاركة معلومات شخصية تحدد هويتك أبداً. يرجى الرد بِ 9 لقراءة بيان الخصوصية والغرض'."
 	},
@@ -2647,6 +2701,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "القائمة الرئيسية"
+	},
+	"smoochBot.labelNewsletter": {
+		"string": "Newsletter"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "لم يتخذ المستخدم أي إجراء"
@@ -2669,6 +2726,9 @@
 	"smoochBot.labelSecondaryMenu": {
 		"string": "القائمة الثانوية"
 	},
+	"smoochBot.labelSubscription": {
+		"string": "Subscription opt-in"
+	},
 	"smoochBot.menuKeywords": {
 		"string": "كلمات مفتاحية مفصولة بالفاصلة"
 	},
@@ -2687,6 +2747,9 @@
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*القائمة الرئيسة*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة، أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)"
 	},
+	"smoochBot.placeholderNewsletter": {
+		"string": "Type to compose your newsletter. You can add content from the RSS below."
+	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖أنا آسف، لم أفهم رسالتك. يرجى المحاولة ثانية!"
 	},
@@ -2701,6 +2764,9 @@
 	},
 	"smoochBot.placeholderSecondaryMenu": {
 		"string": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌"
+	},
+	"smoochBot.placeholderSubscription": {
+		"string": "Type to compose your prompt for newsletter opt-in."
 	},
 	"smoochBot.scenarios": {
 		"string": "سيناريوهات"
@@ -2721,7 +2787,7 @@
 		"string": "تثبيت"
 	},
 	"smoochBotComponent.save": {
-		"string": "احفظ الإعدادات"
+		"string": "نشر"
 	},
 	"smoochBotComponent.savedSuccessfully": {
 		"string": "لقد حُفظَت إعدادات الخط الساخن بنجاح",
@@ -2732,6 +2798,9 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "الخط الساخن"
+	},
+	"smoochBotConfig.subscriptionHeader": {
+		"string": "You are currently {subscription_status} to our newsletter."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "إلغاء"
@@ -2863,11 +2932,88 @@
 	"smoochBotMenuOption.selectMessage": {
 		"string": "اختيار رسالة"
 	},
+	"smoochBotMenuOption.subscription": {
+		"string": "Subscription opt-in"
+	},
+	"smoochBotMenuOption.subscriptionConfirmation": {
+		"string": "Subscription confirmation"
+	},
 	"smoochBotMenuOption.then": {
 		"string": "حينئذ"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
 		"string": "لا بد من تضمين خيار '9' حتى يتمكن المستخدمون من الوصول إلى بيان الخصوصية"
+	},
+	"smoochBotNewsletterAt": {
+		"string": "at",
+		"developer_comment": "The context here is a time... for example, at 10am"
+	},
+	"smoochBotNewsletterEditor.active": {
+		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+	},
+	"smoochBotNewsletterEditor.day": {
+		"string": "Day of week"
+	},
+	"smoochBotNewsletterEditor.delete": {
+		"string": "حذف"
+	},
+	"smoochBotNewsletterEditor.error": {
+		"string": " لا يبدو هذا الرابط صالحًا لموجز RSS"
+	},
+	"smoochBotNewsletterEditor.friday": {
+		"string": "Friday"
+	},
+	"smoochBotNewsletterEditor.load": {
+		"string": "تحميل"
+	},
+	"smoochBotNewsletterEditor.monday": {
+		"string": "Monday"
+	},
+	"smoochBotNewsletterEditor.note": {
+		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	},
+	"smoochBotNewsletterEditor.numberOfArticles": {
+		"string": "عدد المقالات المرتجعة"
+	},
+	"smoochBotNewsletterEditor.paused": {
+		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
+	},
+	"smoochBotNewsletterEditor.rss": {
+		"string": "إضافة محتوى من موجز RSS"
+	},
+	"smoochBotNewsletterEditor.rssPlaceholder": {
+		"string": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS"
+	},
+	"smoochBotNewsletterEditor.saturday": {
+		"string": "Saturday"
+	},
+	"smoochBotNewsletterEditor.sendEvery": {
+		"string": "Send every",
+		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+	},
+	"smoochBotNewsletterEditor.sunday": {
+		"string": "Sunday"
+	},
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.thursday": {
+		"string": "Thursday"
+	},
+	"smoochBotNewsletterEditor.time": {
+		"string": "الوقت"
+	},
+	"smoochBotNewsletterEditor.timezone": {
+		"string": "Timezone"
+	},
+	"smoochBotNewsletterEditor.tuesday": {
+		"string": "Tuesday"
+	},
+	"smoochBotNewsletterEditor.url": {
+		"string": "الرّابط"
+	},
+	"smoochBotNewsletterEditor.wednesday": {
+		"string": "Wednesday"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "إضافة محتوى يدويا"
@@ -3072,10 +3218,10 @@
 		"string": "للبحث عن الوسوم أو لإضافة وسوم جديدة"
 	},
 	"tagMenu.create": {
-		"string": "+ Create this tag"
+		"string": "+ إنشاء هذا الوسم"
 	},
 	"tagMenu.notFound": {
-		"string": "No tags found"
+		"string": "‏‏لم يعثر على وسوم"
 	},
 	"tagMenu.submit": {
 		"string": "الوسم",
@@ -3719,7 +3865,7 @@
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
 	"tiplineInbox.title": {
-		"string": "Tipline inbox"
+		"string": "صندوق بريد الخط الساخن"
 	},
 	"tos.title": {
 		"string": "شروط الاستخدام"
