@@ -14,5 +14,9 @@
   {
     "id": "smoochBot.addResource",
     "defaultMessage": "Add resource"
+  },
+  {
+    "id": "smoochBotConfig.subscriptionHeader",
+    "defaultMessage": "You are currently {subscription_status} to our newsletter."
   }
 ]

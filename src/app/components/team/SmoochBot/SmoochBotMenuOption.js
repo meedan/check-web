@@ -59,6 +59,14 @@ const actionLabels = defineMessages({
     id: 'smoochBotMenuOption.languageAction',
     defaultMessage: '{languageName} (main menu)',
   },
+  subscription_state: {
+    id: 'smoochBotMenuOption.subscription',
+    defaultMessage: 'Subscription opt-in',
+  },
+  subscription_confirmation: {
+    id: 'smoochBotMenuOption.subscriptionConfirmation',
+    defaultMessage: 'Subscription confirmation',
+  },
 });
 
 function keywordIsInvalid(field, keyword) {
@@ -125,22 +133,24 @@ const SmoochBotMenuOption = (props) => {
       });
     }
   });
-  props.languages.forEach((languageCode) => {
-    menuOptions.push({
-      title: props.intl.formatMessage(
-        actionLabels.language,
-        { languageName: languageLabel(languageCode) },
-      ),
-      value: languageCode,
+  if (props.field !== 'smooch_state_subscription') {
+    props.languages.forEach((languageCode) => {
+      menuOptions.push({
+        title: props.intl.formatMessage(
+          actionLabels.language,
+          { languageName: languageLabel(languageCode) },
+        ),
+        value: languageCode,
+      });
     });
-  });
-  props.resources.forEach((resource) => {
-    menuOptions.push({
-      title: resource.smooch_custom_resource_title,
-      id: resource.smooch_custom_resource_id,
-      value: 'custom_resource',
+    props.resources.forEach((resource) => {
+      menuOptions.push({
+        title: resource.smooch_custom_resource_title,
+        id: resource.smooch_custom_resource_id,
+        value: 'custom_resource',
+      });
     });
-  });
+  }
 
   return (
     <Paper className={classes.paper}>

@@ -36,6 +36,10 @@
 		"string": "Sélectionner la tâche",
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
+	"CustomTeamTaskFilter.labelIs": {
+		"string": "{title} is",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
+	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Les métadonnées ont une valeur précise",
 		"developer_comment": "Label for custom field configuration to allow filtering by metadata value"
@@ -72,19 +76,19 @@
 		"string": "Terminé"
 	},
 	"ImportedReports.title": {
-		"string": "Imported reports"
+		"string": "Rapports importés"
 	},
 	"ItemHistoryDialog.title": {
 		"string": "Historique de l’élément"
 	},
 	"MultiSelector.all": {
-		"string": "Tout"
+		"string": "Search All"
 	},
 	"MultiSelector.search": {
 		"string": "Recherche…"
 	},
 	"SearchFieldChannel.label": {
-		"string": "Channel is",
+		"string": "Le canal est",
 		"developer_comment": "Prefix label for field to filter by item channel"
 	},
 	"UserConfirmPage.alreadyConfirmed": {
@@ -176,7 +180,7 @@
 		"developer_comment": "Menu option to enable searching items by assigned users"
 	},
 	"addFilterMenu.channel": {
-		"string": "Channel",
+		"string": "Canal",
 		"developer_comment": "Menu option to enable searching items by channel"
 	},
 	"addFilterMenu.collection": {
@@ -1669,10 +1673,10 @@
 		"string": "dossier"
 	},
 	"project.onlyAdmins": {
-		"string": "Only Admins"
+		"string": "Seulement les administrateurs"
 	},
 	"project.onlyAdminsAndEditors": {
-		"string": "Only Admins and Editors"
+		"string": "Seulement les administrateurs et les rédacteurs"
 	},
 	"projectActions.cancel": {
 		"string": "Annuler"
@@ -1694,17 +1698,17 @@
 		"developer_comment": "Menu option to move a folder out of a collection"
 	},
 	"projectActions.privacy": {
-		"string": "Change access",
+		"string": "Changer l’accès",
 		"developer_comment": "'Change' here is an infinitive verb"
 	},
 	"projectActions.privacyMessageAdmins": {
-		"string": "Editors and collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+		"string": "Les rédacteurs et les collaborateurs ne pourront pas voir ce dossier et les éléments qu’il comprend ni y accéder. Toutes les annotations seront conservées."
 	},
 	"projectActions.privacyMessageAll": {
-		"string": "Anyone can see this folder, access its content and annotate it."
+		"string": "Tout le monde peut voir ce dossier, accéder à son contenu et l’annoter."
 	},
 	"projectActions.privacyMessageEditors": {
-		"string": "Collaborators will not be able to see or access this folder, or any items it contains. All annotations will be preserved."
+		"string": "Les collaborateurs ne pourront pas voir ce dossier et les éléments qu’il comprend ni y accéder. Toutes les annotations seront conservées."
 	},
 	"projectActions.rename": {
 		"string": "Renommer",
@@ -1733,10 +1737,10 @@
 		"string": "Tous les éléments"
 	},
 	"projectHeader.importedReports": {
-		"string": "Imported reports"
+		"string": "Rapports importés"
 	},
 	"projectHeader.tiplineInbox": {
-		"string": "Tipline inbox"
+		"string": "Boîte de réception Tipline"
 	},
 	"projectHeader.trash": {
 		"string": "Corbeille"
@@ -1818,7 +1822,7 @@
 		"string": "Dossiers"
 	},
 	"projectsComponent.importedReports": {
-		"string": "Imported reports"
+		"string": "Rapports importés"
 	},
 	"projectsComponent.invalidMove": {
 		"string": "Les dossiers ne peuvent être déplacés que vers des collections",
@@ -1880,19 +1884,19 @@
 		"developer_comment": "Displayed under a collection when there are no folders in it"
 	},
 	"projectsComponent.privacyDialogButton": {
-		"string": "Update access"
+		"string": "Mettre l’accès à jour"
 	},
 	"projectsComponent.privacyDialogOptionAdmins": {
-		"string": "Only Admins"
+		"string": "Seulement les administrateurs"
 	},
 	"projectsComponent.privacyDialogOptionAll": {
-		"string": "Everyone with access to this workspace"
+		"string": "Quiconque a accès à cet espace de travail"
 	},
 	"projectsComponent.privacyDialogOptionEditors": {
-		"string": "Only Admins and Editors"
+		"string": "Seulement les administrateurs et les rédacteurs"
 	},
 	"projectsComponent.privacyDialogTitle": {
-		"string": "Who can see this folder and its content",
+		"string": "Qui peut voir ce dossier et son contenu",
 		"developer_comment": "Title for folder privacy dialog"
 	},
 	"projectsComponent.renameType": {
@@ -1900,7 +1904,7 @@
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
 	"projectsComponent.tiplineInbox": {
-		"string": "Tipline inbox"
+		"string": "Boîte de réception Tipline"
 	},
 	"projectsComponent.title": {
 		"string": "Titre"
@@ -2390,7 +2394,7 @@
 		"developer_comment": "Prefix label for field to filter by item creator"
 	},
 	"searchFieldChannel.anyTipline": {
-		"string": "Any tipline",
+		"string": "N’importe quelle ligne info Tipline",
 		"developer_comment": "Filter option that refers to items created via a tipline"
 	},
 	"searchFieldChannel.api": {
@@ -2398,11 +2402,11 @@
 		"developer_comment": "Filter option that refers to items created via the API"
 	},
 	"searchFieldChannel.browserExtension": {
-		"string": "Browser extension",
+		"string": "Extension pour navigateurs",
 		"developer_comment": "Filter option that refers to items created via the browser extension"
 	},
 	"searchFieldChannel.manual": {
-		"string": "Manual",
+		"string": "Manuels",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldSource.label": {
@@ -2439,6 +2443,9 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "Titre des analyses"
 	},
+	"searchKeywordConfig.item": {
+		"string": "Élément"
+	},
 	"searchKeywordConfig.mediaContent": {
 		"string": "Contenu des médias"
 	},
@@ -2450,6 +2457,9 @@
 	},
 	"searchKeywordConfig.metadata": {
 		"string": "Métadonnées"
+	},
+	"searchKeywordConfig.ocr": {
+		"string": "Extracted text (OCR)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "Étiquettes"
@@ -2549,11 +2559,13 @@
 	"slackConfig.text": {
 		"string": "Envoyer des notifications aux canaux Slack si des éléments sont ajoutés à des dossiers précis"
 	},
-	"slackConfigDialogComponent.allOtherActivity": {
-		"string": "Toute autre activité"
+	"slackConfigDialogComponent.addEvent": {
+		"string": "+ Add event",
+		"developer_comment": "Button label to event selector"
 	},
-	"slackConfigDialogComponent.allWorkspaceActivity": {
-		"string": "Toute l’activité de l’espace de travail"
+	"slackConfigDialogComponent.anyActivity": {
+		"string": "Any workspace activity",
+		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
 		"string": "Annuler"
@@ -2564,14 +2576,39 @@
 	"slackConfigDialogComponent.defaultErrorMessage": {
 		"string": "Impossible d’enregistrer les paramètres de Slack"
 	},
-	"slackConfigDialogComponent.event": {
-		"string": "Événement"
+	"slackConfigDialogComponent.defaultLabel": {
+		"string": "Notification {number}",
+		"developer_comment": "Default label for new notification. I.e.: Notification 1, Notification 2..."
 	},
-	"slackConfigDialogComponent.ifItemAddedTo": {
-		"string": "Si l’élément est dans le dossier"
+	"slackConfigDialogComponent.if": {
+		"string": "Si",
+		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
+	},
+	"slackConfigDialogComponent.itemAdded": {
+		"string": "Item is added to folder",
+		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
+	},
+	"slackConfigDialogComponent.itemIsAddedTo": {
+		"string": "Item is added to",
+		"developer_comment": "Label to folder selector component"
+	},
+	"slackConfigDialogComponent.label": {
+		"string": "Notification name"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "Nouvelle notification"
+		"string": "+ New"
+	},
+	"slackConfigDialogComponent.noChannelError": {
+		"string": "Please add the Slack channel where notifications will be sent"
+	},
+	"slackConfigDialogComponent.noConditionError": {
+		"string": "Please select a condition to send notifications"
+	},
+	"slackConfigDialogComponent.noWebhookError": {
+		"string": "Please add the Slack webhook address"
+	},
+	"slackConfigDialogComponent.notifications": {
+		"string": "Notifications"
 	},
 	"slackConfigDialogComponent.save": {
 		"string": "Enregistrer"
@@ -2579,8 +2616,13 @@
 	"slackConfigDialogComponent.savedSuccessfully": {
 		"string": "Les paramètres de Slack ont été enregistrés avec succès"
 	},
-	"slackConfigDialogComponent.sendNotificationsTo": {
-		"string": "Envoyer des notifications à"
+	"slackConfigDialogComponent.statusChanged": {
+		"string": "Status is changed to",
+		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
+	},
+	"slackConfigDialogComponent.then": {
+		"string": "Then send notification to",
+		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
 		"string": "Envoyer des notifications aux canaux Slack si des éléments sont ajoutés à des dossiers précis"
@@ -2602,6 +2644,15 @@
 	},
 	"smoochBot.descriptionMainMenu": {
 		"string": "Un menu qui demande à l’utilisateur de choisir parmi un ensemble d’options. Ce message suit automatiquement le message d’accueil. 9 ne peut pas être utilisé comme option dans le menu principal."
+	},
+	"smoochBot.descriptionNewsletter1": {
+		"string": "Please complete the steps below to send a weekly newsletter:"
+	},
+	"smoochBot.descriptionNewsletter2": {
+		"string": "1. Compose your newsletter"
+	},
+	"smoochBot.descriptionNewsletter3": {
+		"string": "2. Select a day and time of the week"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "Ce message sera présenté aux utilisateurs si, après le début d’une conversation, ils ne sélectionnent pas une des options : soit recevoir une ressource soit envoyer du contenu à confirmer. Ce message sera aussi présenté aux utilisateurs qui ont envoyé du contenu sans attendre d’y être invités."
@@ -2630,6 +2681,9 @@
 	"smoochBot.descriptionSecondaryMenu": {
 		"string": "Un menu facultatif qui demande à l’utilisateur de choisir parmi un ensemble d’options. Quand un utilisateur répond par l’une des options, le robot peut envoyer un rapport ou les diriger vers un autre message du robot."
 	},
+	"smoochBot.descriptionSubscription": {
+		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+	},
 	"smoochBot.footnoteGreeting": {
 		"string": "La déclaration et l’option suivantes seront ajoutées automatiquement à la fin de ce message : « Nous ne partagerons jamais des renseignements qui peuvent vous identifier personnellement. Répondez 9 pour consulter notre Déclaration de confidentialité et d’objectif »."
 	},
@@ -2647,6 +2701,9 @@
 	},
 	"smoochBot.labelMainMenu": {
 		"string": "Menu principal"
+	},
+	"smoochBot.labelNewsletter": {
+		"string": "Newsletter"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "Aucune action de l’utilisateur"
@@ -2669,6 +2726,9 @@
 	"smoochBot.labelSecondaryMenu": {
 		"string": "Menu secondaire"
 	},
+	"smoochBot.labelSubscription": {
+		"string": "Subscription opt-in"
+	},
 	"smoochBot.menuKeywords": {
 		"string": "Mots-clés séparés par des virgules"
 	},
@@ -2687,6 +2747,9 @@
 	"smoochBot.placeholderMainMenu": {
 		"string": "📌*Menu principal*\n\n*Répondez 1* (ou 🔍) pour envoyer une demande de vérification des faits relatifs à un article, une vidéo, une image ou à tout autre contenu.\n*Répondez 2* (ou 🦠) pour obtenir les derniers renseignements sur la maladie à coronavirus (COVID-19)"
 	},
+	"smoochBot.placeholderNewsletter": {
+		"string": "Type to compose your newsletter. You can add content from the RSS below."
+	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Je suis désolé, je n’ai pas compris votre message. Veuillez réessayer."
 	},
@@ -2701,6 +2764,9 @@
 	},
 	"smoochBot.placeholderSecondaryMenu": {
 		"string": "*Renseignements sur la maladie à coronavirus (COVID-19)* 🦠\n\n👉*Répondez avec l’un des numéros suivants (ou émojis) pour obtenir des renseignements sur ce sujet : *\n\n*1 : * Comment puis-je me protéger ou protéger ma famille ? 👨‍👩‍👧\n*2 : * Je pense que je tombe peut-être malade 🤒\n*3 : * Comment puis-je gérer le stress associé à COVID-19 ? ❤️\n*4 : * Renseignements sur les cas et les guérisons à l’échelle planétaire 📊\n*5 : * Dernières mises à jour de l’Organisation mondiale de la santé 🌐\n\n*Répondez 0* pour revenir au *menu principal* 📌"
+	},
+	"smoochBot.placeholderSubscription": {
+		"string": "Type to compose your prompt for newsletter opt-in."
 	},
 	"smoochBot.scenarios": {
 		"string": "Scénarios"
@@ -2721,7 +2787,7 @@
 		"string": "Installer"
 	},
 	"smoochBotComponent.save": {
-		"string": "Enregistrer les paramètres"
+		"string": "Publier"
 	},
 	"smoochBotComponent.savedSuccessfully": {
 		"string": "Les paramètres du service Tipline ont été enregistrés avec succès",
@@ -2732,6 +2798,9 @@
 	},
 	"smoochBotComponent.title": {
 		"string": "Service Tipline"
+	},
+	"smoochBotConfig.subscriptionHeader": {
+		"string": "You are currently {subscription_status} to our newsletter."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Annuler"
@@ -2863,11 +2932,88 @@
 	"smoochBotMenuOption.selectMessage": {
 		"string": "Sélectionner un message"
 	},
+	"smoochBotMenuOption.subscription": {
+		"string": "Subscription opt-in"
+	},
+	"smoochBotMenuOption.subscriptionConfirmation": {
+		"string": "Subscription confirmation"
+	},
 	"smoochBotMenuOption.then": {
 		"string": "alors"
 	},
 	"smoochBotMultiTextEditor.errorNine": {
 		"string": "L’option « 9 » doit être comprise pour que les utilisateurs accèdent à la Déclaration de confidentialité"
+	},
+	"smoochBotNewsletterAt": {
+		"string": "at",
+		"developer_comment": "The context here is a time... for example, at 10am"
+	},
+	"smoochBotNewsletterEditor.active": {
+		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+	},
+	"smoochBotNewsletterEditor.day": {
+		"string": "Day of week"
+	},
+	"smoochBotNewsletterEditor.delete": {
+		"string": "Supprimer"
+	},
+	"smoochBotNewsletterEditor.error": {
+		"string": "Cette URL ne semble pas être un fil RSS valide"
+	},
+	"smoochBotNewsletterEditor.friday": {
+		"string": "Friday"
+	},
+	"smoochBotNewsletterEditor.load": {
+		"string": "Charger"
+	},
+	"smoochBotNewsletterEditor.monday": {
+		"string": "Monday"
+	},
+	"smoochBotNewsletterEditor.note": {
+		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	},
+	"smoochBotNewsletterEditor.numberOfArticles": {
+		"string": "Nombre d’articles à retourner"
+	},
+	"smoochBotNewsletterEditor.paused": {
+		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
+	},
+	"smoochBotNewsletterEditor.rss": {
+		"string": "Ajoute le contenu d’un fil RSS"
+	},
+	"smoochBotNewsletterEditor.rssPlaceholder": {
+		"string": "URL publique qui retourne N articles au format RSS"
+	},
+	"smoochBotNewsletterEditor.saturday": {
+		"string": "Saturday"
+	},
+	"smoochBotNewsletterEditor.sendEvery": {
+		"string": "Send every",
+		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+	},
+	"smoochBotNewsletterEditor.sunday": {
+		"string": "Sunday"
+	},
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.thursday": {
+		"string": "Thursday"
+	},
+	"smoochBotNewsletterEditor.time": {
+		"string": "Date et heure"
+	},
+	"smoochBotNewsletterEditor.timezone": {
+		"string": "Timezone"
+	},
+	"smoochBotNewsletterEditor.tuesday": {
+		"string": "Tuesday"
+	},
+	"smoochBotNewsletterEditor.url": {
+		"string": "URL"
+	},
+	"smoochBotNewsletterEditor.wednesday": {
+		"string": "Wednesday"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "Ajouter du contenu manuellement"
@@ -3072,10 +3218,10 @@
 		"string": "Chercher ou ajouter un nouvelle étiquette"
 	},
 	"tagMenu.create": {
-		"string": "+ Create this tag"
+		"string": "+ Créer cette étiquette"
 	},
 	"tagMenu.notFound": {
-		"string": "No tags found"
+		"string": "Aucune étiquette n’a été trouvée"
 	},
 	"tagMenu.submit": {
 		"string": "Étiquette",
@@ -3719,7 +3865,7 @@
 		"developer_comment": "Error message displayed when suggestion threshold is set higher than value of matching threshold"
 	},
 	"tiplineInbox.title": {
-		"string": "Tipline inbox"
+		"string": "Boîte de réception Tipline"
 	},
 	"tos.title": {
 		"string": "Conditions générales d’utilisation"
