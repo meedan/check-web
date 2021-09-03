@@ -15,6 +15,10 @@ const TeamTaskCard = ({
   task,
   onEdit,
   onDelete,
+  showInBrowserExtension,
+  setShowInBrowserExtension,
+  required,
+  setRequired,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -62,7 +66,10 @@ const TeamTaskCard = ({
             defaultMessage="Required"
             description="Toggle switch to make field required"
           />
-          <Switch checked={task.required} />
+          <Switch
+            onClick={() => setRequired(!required)}
+            checked={required}
+          />
         </span>
         <span>
           <FormattedMessage
@@ -70,7 +77,10 @@ const TeamTaskCard = ({
             defaultMessage="Show in browser extension"
             description="Toggle switch to make field visible in the browser extension"
           />
-          <Switch checked={task.show_in_browser_extension} />
+          <Switch
+            onClick={() => setShowInBrowserExtension(!showInBrowserExtension)}
+            checked={showInBrowserExtension}
+          />
         </span>
       </Box>
       <Menu
