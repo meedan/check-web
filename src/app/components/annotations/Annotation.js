@@ -480,7 +480,14 @@ class Annotation extends Component {
         );
       }
       break;
-    case 'destroy_comment':
+    case 'destroy_comment': {
+      let commentRemoved = null;
+      if (content === null) {
+        const changes = JSON.parse(activity.object_changes_json);
+        commentRemoved = changes.data[0].text;
+      } else {
+        commentRemoved = content.text;
+      }
       contentTemplate = (
         <em className="annotation__deleted">
           <FormattedMessage
@@ -488,11 +495,12 @@ class Annotation extends Component {
             defaultMessage="Comment deleted by {author}: {comment}"
             values={{
               author: authorName,
-              comment: <ParsedText text={content.text} block />,
+              comment: <ParsedText text={commentRemoved} block />,
             }}
           />
         </em>);
       break;
+    }
     case 'create_task':
       if (content.fieldset === 'tasks') {
         contentTemplate = (
