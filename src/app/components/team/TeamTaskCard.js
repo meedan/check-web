@@ -12,6 +12,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 const TeamTaskCard = ({
   children,
   icon,
+  index,
   task,
   onEdit,
   onDelete,
@@ -56,7 +57,8 @@ const TeamTaskCard = ({
         >
           <FormattedMessage
             id="teamTaskCard.menu"
-            defaultMessage="Field #"
+            defaultMessage="Field {number}"
+            values={{ number: index }}
             description="E.g. Field 1, Field 2..."
           />
         </Button>

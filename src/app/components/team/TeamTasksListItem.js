@@ -321,6 +321,7 @@ class TeamTasksListItem extends React.Component {
           <TeamTaskCard
             icon={icon[task.type]}
             task={this.props.task}
+            index={this.props.index}
             onEdit={this.handleMenuEdit}
             onDelete={this.handleMenuDelete}
             showInBrowserExtension={this.state.showInBrowserExtension}

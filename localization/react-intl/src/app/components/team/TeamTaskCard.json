@@ -2,7 +2,7 @@
   {
     "id": "teamTaskCard.menu",
     "description": "E.g. Field 1, Field 2...",
-    "defaultMessage": "Field #"
+    "defaultMessage": "Field {number}"
   },
   {
     "id": "teamTaskCard.required",

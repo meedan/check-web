@@ -14,8 +14,9 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
     <div>
       <Card>
         <List>
-          {props.project.teamTasks.map(task =>
+          {props.project.teamTasks.map((task, index) =>
             (<TeamTasksListItem
+              index={index + 1}
               key={`${task.label}-${task.type}`}
               task={task}
               tasks={props.project.teamTasks}
