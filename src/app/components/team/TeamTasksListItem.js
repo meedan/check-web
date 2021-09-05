@@ -146,7 +146,19 @@ class TeamTasksListItem extends React.Component {
       message: null,
       dialogOpen: false,
       editLabelOrDescription: false,
+      showInBrowserExtension: this.props.task?.show_in_browser_extension,
+      required: this.props.task?.required,
     };
+  }
+
+  setShowInBrowserExtension = (value) => {
+    this.setState({ showInBrowserExtension: value });
+    this.handleSubmitToggle({ showInBrowserExtension: value });
+  }
+
+  setRequired = (value) => {
+    this.setState({ required: value });
+    this.handleSubmitToggle({ required: value });
   }
 
   fail = (transaction) => {
@@ -209,16 +221,43 @@ class TeamTasksListItem extends React.Component {
       task_type: type,
       label: task.label,
       description: task.description,
-      show_in_browser_extension: task.show_in_browser_extension,
+      show_in_browser_extension: this.state.showInBrowserExtension,
+      required: this.state.required,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
       keep_completed_tasks: keepCompleted,
     };
+    // eslint-disable-next-line
+    console.log('~~teamtask', teamTask);
 
     const onSuccess = () => {
       this.handleCloseEdit();
       this.setState({ editedTask: null });
+    };
+
+    Relay.Store.commitUpdate(
+      new UpdateTeamTaskMutation({
+        team: this.props.team,
+        teamTask,
+      }),
+      { onSuccess, onFailure: this.fail },
+    );
+  };
+
+  handleSubmitToggle = (newValues) => {
+    const { task } = this.props;
+    const teamTask = {
+      id: task.id,
+      label: task.label,
+      show_in_browser_extension: newValues.showInBrowserExtension !== undefined ? newValues.showInBrowserExtension : task.show_in_browser_extension,
+      required: newValues.required !== undefined ? newValues.required : task.required,
+    };
+    // eslint-disable-next-line
+    console.log('~~YO', teamTask, newValues);
+
+    const onSuccess = () => {
+      this.handleCloseEdit();
     };
 
     Relay.Store.commitUpdate(
@@ -284,6 +323,10 @@ class TeamTasksListItem extends React.Component {
             task={this.props.task}
             onEdit={this.handleMenuEdit}
             onDelete={this.handleMenuDelete}
+            showInBrowserExtension={this.state.showInBrowserExtension}
+            setShowInBrowserExtension={this.setShowInBrowserExtension}
+            required={this.state.required}
+            setRequired={this.setRequired}
           >
             <ConditionalField
               task={this.props.task}

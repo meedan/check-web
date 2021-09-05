@@ -11,23 +11,28 @@ import { units } from '../../styles/js/shared';
 
 const StyledConditionalSelect = styled.span`
   margin-left: ${units(2)};
+  margin-top: ${units(2)};
 `;
 
 const StyledConditionalMultiSelect = styled.span`
   margin-left: ${units(2)};
   .MuiInputBase-root {
-    width: 300px;
+    width: 270px;
+    height: 38px;
   }
   #mui-component-select-multiple-conditions::after {
     display: block;
     position: absolute;
     right: 0;
     top: 0;
-    bottom: 4px;
-    left: 250px;
-    width: 50px;
-    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,1) 60%, rgba(255,255,255,1));
+    bottom: 1px;
+    left: 230px;
+    width: 40px;
+    background: linear-gradient(to right, rgba(246,246,246,0), rgba(246,246,246,1) 60%, rgba(246,246,246,1));
     content: "";
+  }
+  #mui-component-select-multiple-conditions {
+    height: ${units(3)};
   }
   .MuiChip-root {
     max-width: 90px;
@@ -103,13 +108,15 @@ const ConditionalField = ({ task, tasks, onChange }) => {
   };
 
   const handlePrerequisiteFieldChange = (e) => {
-    if (e.target.id === 'conditionals') {
+    // eslint-disable-next-line
+    console.log('selected', e.target.value, e.target, selectedConditional);
+    if (e.target.name === 'conditionals') {
       setSelectedConditional(e.target.value);
       setSelectedCondition(prerequisiteFields.find(field => field.dbid === selectedFieldId)?.options[0]?.label);
-    } else if (e.target.id === 'prerequisites') {
+    } else if (e.target.name === 'prerequisites') {
       setSelectedFieldId(+e.target.value);
       setSelectedCondition(prerequisiteFields.find(field => field.dbid === +e.target.value)?.options[0]?.label);
-    } else if (e.target.id === 'conditions') {
+    } else if (e.target.name === 'conditions') {
       setSelectedCondition(e.target.value);
     } else if (e.target.name === 'multiple-conditions') {
       setSelectedCondition(e.target.value.join(', '));
@@ -144,22 +151,22 @@ const ConditionalField = ({ task, tasks, onChange }) => {
           </Typography>
           <StyledConditionalSelect>
             <Select
-              native
               onChange={handlePrerequisiteFieldChange}
-              id="prerequisites"
+              value={selectedFieldId}
+              name="prerequisites"
             >
-              { prerequisiteFields.map(field => <option value={field.dbid} selected={selectedFieldId === field.dbid}>{field.label}</option>) }
+              { prerequisiteFields.map(field => <MenuItem value={field.dbid}>{field.label}</MenuItem>) }
             </Select>
           </StyledConditionalSelect>
           <StyledConditionalSelect>
             <Select
-              native
               onChange={handlePrerequisiteFieldChange}
-              id="conditionals"
+              value={selectedConditional}
+              name="conditionals"
             >
               { conditionalVerbs
                 .filter(verb => verb.itemTypes.includes(prerequisiteFields.find(field => field.dbid === selectedFieldId)?.type))
-                .map(verb => <option selected={selectedConditional === verb.label}>{verb.label}</option>) }
+                .map(verb => <MenuItem value={verb.label}>{verb.label}</MenuItem>) }
             </Select>
           </StyledConditionalSelect>
           {
@@ -167,27 +174,27 @@ const ConditionalField = ({ task, tasks, onChange }) => {
             {
               'is...': (<StyledConditionalSelect>
                 <Select
-                  native
                   onChange={handlePrerequisiteFieldChange}
-                  id="conditions"
+                  name="conditions"
+                  value={selectedCondition}
                 >
                   {
                     prerequisiteFields
                       .find(field => field.dbid === selectedFieldId)?.options
-                      .map(option => <option selected={selectedCondition === option.label}>{option.label}</option>)
+                      .map(option => <MenuItem value={option.label}>{option.label}</MenuItem>)
                   }
                 </Select>
               </StyledConditionalSelect>),
               'is not...': (<StyledConditionalSelect>
                 <Select
-                  native
                   onChange={handlePrerequisiteFieldChange}
-                  id="conditions"
+                  name="conditions"
+                  value={selectedCondition}
                 >
                   {
                     prerequisiteFields
                       .find(field => field.dbid === selectedFieldId)?.options
-                      .map(option => <option selected={selectedCondition === option.label}>{option.label}</option>)
+                      .map(option => <MenuItem value={option.label}>{option.label}</MenuItem>)
                   }
                 </Select>
               </StyledConditionalSelect>),
