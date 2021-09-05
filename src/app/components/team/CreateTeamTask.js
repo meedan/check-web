@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import CreateTaskMenu from '../task/CreateTaskMenu';
+import Button from '@material-ui/core/Button';
 import EditTaskDialog from '../task/EditTaskDialog';
 import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
@@ -12,25 +12,20 @@ class CreateTeamTask extends React.Component {
     super(props);
 
     this.state = {
-      createType: null,
+      dialogOpen: false,
       message: null,
     };
   }
 
-  handleSelectType = (createType) => {
-    this.setState({ createType });
-  };
-
-  handleClose = () => {
-    this.setState({ createType: null });
-  }
+  handleOpen = () => this.setState({ dialogOpen: true });
+  handleClose = () => this.setState({ dialogOpen: false });
 
   handleSubmitTask = (task) => {
     const teamTask = {
       label: task.label,
       description: task.description,
       show_in_browser_extension: task.show_in_browser_extension,
-      task_type: this.state.createType,
+      task_type: task.type,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
@@ -75,13 +70,19 @@ class CreateTeamTask extends React.Component {
     const { projects } = this.props.team;
 
     return (
-      <div>
-        <CreateTaskMenu
-          fieldset={this.props.fieldset}
-          onSelect={this.handleSelectType}
-          teamSettings
-        />
-        { this.state.createType ?
+      <React.Fragment>
+        <Button
+          onClick={this.handleOpen}
+          variant="contained"
+          color="primary"
+        >
+          <FormattedMessage
+            id="createTeamTask.addField"
+            defaultMessage="New annotation field"
+            description="Button that triggers creation of a new field"
+          />
+        </Button>
+        { this.state.dialogOpen ?
           <EditTaskDialog
             fieldset={this.props.fieldset}
             message={this.state.message}
@@ -92,7 +93,7 @@ class CreateTeamTask extends React.Component {
           />
           : null
         }
-      </div>
+      </React.Fragment>
     );
   }
 }

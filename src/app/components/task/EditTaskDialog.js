@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -21,6 +22,8 @@ import LocationIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { withStyles } from '@material-ui/core/styles';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
@@ -59,6 +62,13 @@ const messages = defineMessages({
     defaultMessage: 'Other',
   },
 });
+
+const styles = {
+  select: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+};
 
 class EditTaskDialog extends React.Component {
   constructor(props) {
@@ -138,13 +148,15 @@ class EditTaskDialog extends React.Component {
   validateTask(label, options) {
     let valid = false;
 
-    if (this.state.taskType === 'single_choice' ||
-        this.state.taskType === 'multiple_choice') {
-      valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
-    } else if (this.state.taskType === 'datetime') {
-      valid = !!(label && label.trim()) && options.length > 0;
-    } else {
-      valid = !!(label && label.trim());
+    if (this.state.taskType) {
+      if (this.state.taskType === 'single_choice' ||
+          this.state.taskType === 'multiple_choice') {
+        valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
+      } else if (this.state.taskType === 'datetime') {
+        valid = !!(label && label.trim()) && options.length > 0;
+      } else {
+        valid = !!(label && label.trim());
+      }
     }
 
     this.setState({ submitDisabled: !valid });
@@ -168,11 +180,15 @@ class EditTaskDialog extends React.Component {
 
   handleSelectType = (e) => {
     const taskType = e.target.value;
-    let options = [{ label: '' }, { label: '' }];
+    const { task } = this.props;
+    let options = task ? task.options : [{ label: '' }, { label: '' }];
     if (taskType === 'datetime') {
       options = [{ code: 'UTC', label: 'UTC (0 GMT)', offset: 0 }];
     }
-    this.setState({ taskType, options });
+    this.setState(
+      { taskType, options },
+      () => this.validateTask(this.state.label, this.state.options),
+    );
   };
 
   handleSubmitTask() {
@@ -184,6 +200,7 @@ class EditTaskDialog extends React.Component {
 
     const task = {
       label: this.state.label,
+      type: this.state.taskType,
       description: this.state.description,
       show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
@@ -216,79 +233,194 @@ class EditTaskDialog extends React.Component {
     const canRemove = this.state.options.length > 2;
 
     return (
-      <Box mt={2}>
-        {this.state.options.map((item, index) => (
-          <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
-            <Row>
-              { this.state.taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null}
-              { this.state.taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null}
-              <Box clone py={0.5} px={1} width="75%">
-                <TextField
-                  key="create-task__add-option-input"
-                  className="create-task__add-option-input"
-                  id={index.toString()}
-                  onChange={this.handleEditOption.bind(this)}
-                  placeholder={`${formatMessage(messages.value)} ${index + 1}`}
-                  value={item.label}
-                  disabled={item.other}
-                  variant="outlined"
-                />
-              </Box>
-              {canRemove ?
-                <StyledIconButton>
-                  <ClearIcon
-                    key="create-task__remove-option-button"
-                    className="create-task__remove-option-button create-task__md-icon"
-                    onClick={this.handleRemoveOption.bind(this, index)}
+      <React.Fragment>
+        <Divider />
+        <Box mt={1}>
+          {this.state.options.map((item, index) => (
+            <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
+              <Row>
+                { this.state.taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null}
+                { this.state.taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null}
+                <Box clone py={0.5} px={1} width="75%">
+                  <TextField
+                    key="create-task__add-option-input"
+                    className="create-task__add-option-input"
+                    id={index.toString()}
+                    onChange={this.handleEditOption.bind(this)}
+                    placeholder={`${formatMessage(messages.value)} ${index + 1}`}
+                    value={item.label}
+                    disabled={item.other}
+                    variant="outlined"
+                    margin="dense"
                   />
-                </StyledIconButton>
-                : null}
-            </Row>
-          </div>
-        ))}
-        <Box mt={1} display="flex">
-          <Button
-            onClick={this.handleAddValue.bind(this)}
-            startIcon={<AddIcon />}
-            variant="contained"
-          >
-            <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option" />
-          </Button>
-          <Box ml={1}>
+                </Box>
+                {canRemove ?
+                  <StyledIconButton>
+                    <ClearIcon
+                      key="create-task__remove-option-button"
+                      className="create-task__remove-option-button create-task__md-icon"
+                      onClick={this.handleRemoveOption.bind(this, index)}
+                    />
+                  </StyledIconButton>
+                  : null}
+              </Row>
+            </div>
+          ))}
+          <Box mt={1} display="flex">
             <Button
-              onClick={this.handleAddOther.bind(this)}
+              onClick={this.handleAddValue.bind(this)}
               startIcon={<AddIcon />}
               variant="contained"
-              disabled={this.state.hasOther}
             >
-              <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
+              <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option" />
             </Button>
+            <Box ml={1}>
+              <Button
+                onClick={this.handleAddOther.bind(this)}
+                startIcon={<AddIcon />}
+                variant="contained"
+                disabled={this.state.hasOther}
+              >
+                <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
+              </Button>
+            </Box>
           </Box>
         </Box>
-      </Box>
+      </React.Fragment>
     );
   }
 
   render() {
     const isTask = this.props.fieldset === 'tasks';
+    const { classes } = this.props;
 
     const types = [
       {
-        label: 'Short Text',
+        label: (
+          <FormattedMessage
+            id="tasks.textType"
+            defaultMessage="Text"
+            description="Label for text type field"
+          />
+        ),
         value: 'free_text',
         icon: <ShortTextIcon />,
-        description: 'A simple block of text',
+        description: (
+          <FormattedMessage
+            id="tasks.shortTextDescription"
+            defaultMessage="Allows you to enter text"
+            description="Description for text type field"
+          />
+        ),
       },
-      { label: 'Number', value: 'number', icon: <NumberIcon /> },
-      { label: 'Location', value: 'geolocation', icon: <LocationIcon /> },
-      { label: 'Datetime', value: 'datetime', icon: <DateRangeIcon /> },
       {
-        label: 'Single Choice',
+        label: (
+          <FormattedMessage
+            id="tasks.numberType"
+            defaultMessage="Number"
+            description="Label for number type field"
+          />
+        ),
+        value: 'number',
+        icon: <NumberIcon />,
+        description: (
+          <FormattedMessage
+            id="tasks.numberDescription"
+            defaultMessage="Allows you to enter a number"
+            description="Description for number type field"
+          />
+        ),
+      },
+      {
+        label: (
+          <FormattedMessage
+            id="tasks.locationType"
+            defaultMessage="Location"
+            description="Label for location type field"
+          />
+        ),
+        value: 'geolocation',
+        icon: <LocationIcon />,
+        description: (
+          <FormattedMessage
+            id="tasks.locationDescription"
+            defaultMessage="Allows you to add coordinates of a place, or search a place by name"
+            description="Description for location type field"
+          />
+        ),
+      },
+      {
+        label: (
+          <FormattedMessage
+            id="tasks.dateTimeType"
+            defaultMessage="Date and time"
+            description="Label for datetime type field"
+          />
+        ),
+        value: 'datetime',
+        icon: <DateRangeIcon />,
+        description: (
+          <FormattedMessage
+            id="tasks.datetimeDescription"
+            defaultMessage="Allows you to pick a date and time from the calendar"
+            description="Description for datetime type field"
+          />
+        ),
+      },
+      {
+        label: (
+          <FormattedMessage
+            id="tasks.singleChoiceType"
+            defaultMessage="Single select"
+            description="Label for single selection type field"
+          />
+        ),
         value: 'single_choice',
         icon: <RadioButtonCheckedIcon />,
-        description: 'Single select allows you to select a single option from predefined options in a list.',
+        description: (
+          <FormattedMessage
+            id="tasks.singleChoiceDescription"
+            defaultMessage="Allows you to select a single option from predefined options in a list"
+            description="Description for single selection type field"
+          />
+        ),
       },
-      { label: 'Choose multiple', value: 'multiple_choice', icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} /> },
+      {
+        label: (
+          <FormattedMessage
+            id="tasks.multipleChoiceType"
+            defaultMessage="Multiple select"
+            description="Label for multiple selection type field"
+          />
+        ),
+        value: 'multiple_choice',
+        icon: <CheckBoxIcon style={{ transform: 'scale(1,1)' }} />,
+        description: (
+          <FormattedMessage
+            id="tasks.multipleChoiceDescription"
+            defaultMessage="Allows you to select one or more predefined options"
+            description="Description for multiple selection type field"
+          />
+        ),
+      },
+      {
+        label: (
+          <FormattedMessage
+            id="tasks.fileUploadType"
+            defaultMessage="File upload"
+            description="Label for file upload type field"
+          />
+        ),
+        value: 'file_upload',
+        icon: <CloudUploadIcon />,
+        description: (
+          <FormattedMessage
+            id="tasks.fileUploadDescription"
+            defaultMessage="Allows you to upload a file"
+            description="Description for file upload type field"
+          />
+        ),
+      },
     ];
 
     return (
@@ -297,7 +429,7 @@ class EditTaskDialog extends React.Component {
         open
         onClose={this.props.onDismiss}
         scroll="paper"
-        maxWidth="md"
+        maxWidth="sm"
         fullWidth
       >
         <DialogContent>
@@ -319,7 +451,7 @@ class EditTaskDialog extends React.Component {
             multiline
             fullWidth
           />
-          <FormControl variant="outlined" fullWidth>
+          <FormControl variant="outlined" margin="normal" fullWidth>
             <InputLabel id="edit-task-dialog__type-select-label">
               <FormattedMessage
                 id="tasks.chooseType"
@@ -327,9 +459,17 @@ class EditTaskDialog extends React.Component {
               />
             </InputLabel>
             <Select
+              classes={{ root: classes.select }}
               onChange={this.handleSelectType}
               labelId="edit-task-dialog__type-select-label"
               id="edit-task-dialog__type-select"
+              value={this.state.taskType}
+              label={
+                <FormattedMessage
+                  id="tasks.chooseType"
+                  defaultMessage="Choose a field type"
+                />
+              }
             >
               {types.map(t => (
                 <MenuItem value={t.value}>
@@ -339,32 +479,40 @@ class EditTaskDialog extends React.Component {
               ))}
             </Select>
           </FormControl>
-          <p />
+          <Box mt={1} mb={2}>
+            { types.find(t => t.value === this.state.taskType)?.description }
+          </Box>
           { this.props.isTeamTask && this.state.taskType === 'datetime' ?
-            <Autocomplete
-              multiple
-              options={Object.values(timezones)}
-              getOptionLabel={option => option.label}
-              defaultValue={this.state.options}
-              filterSelectedOptions
-              onChange={(event, newValue) => {
-                this.setState({ options: newValue });
-                this.validateTask(this.state.label, newValue);
-              }}
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  variant="outlined"
-                  label={
-                    <FormattedMessage
-                      id="tasks.timezones"
-                      defaultMessage="Timezones available to complete the task"
-                    />
-                  }
-                />
-              )}
-            /> : null }
-          <p />
+            <Box mt={2}>
+              <Box mb={4}>
+                <Divider />
+              </Box>
+              <Autocomplete
+                multiple
+                options={Object.values(timezones)}
+                getOptionLabel={option => option.label}
+                defaultValue={this.state.options}
+                filterSelectedOptions
+                onChange={(event, newValue) => {
+                  this.setState({ options: newValue });
+                  this.validateTask(this.state.label, newValue);
+                }}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    variant="outlined"
+                    label={
+                      <FormattedMessage
+                        id="tasks.timezones"
+                        defaultMessage="Timezones available to complete the task"
+                      />
+                    }
+                  />
+                )}
+              />
+            </Box>
+            : null
+          }
           { this.props.projects && isTask ?
             <Box mt={2}>
               <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
@@ -376,8 +524,6 @@ class EditTaskDialog extends React.Component {
             </Box>
             : null
           }
-
-          { types.find(t => t.type === this.state.taskType)?.description }
 
           {this.renderOptions()}
 
@@ -422,4 +568,4 @@ class EditTaskDialog extends React.Component {
   }
 }
 
-export default injectIntl(EditTaskDialog);
+export default injectIntl(withStyles(styles)(EditTaskDialog));

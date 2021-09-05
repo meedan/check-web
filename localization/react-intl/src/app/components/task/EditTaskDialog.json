@@ -16,6 +16,76 @@
     "defaultMessage": "Add \"Other\""
   },
   {
+    "id": "tasks.textType",
+    "description": "Label for text type field",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "tasks.shortTextDescription",
+    "description": "Description for text type field",
+    "defaultMessage": "Allows you to enter text"
+  },
+  {
+    "id": "tasks.numberType",
+    "description": "Label for number type field",
+    "defaultMessage": "Number"
+  },
+  {
+    "id": "tasks.numberDescription",
+    "description": "Description for number type field",
+    "defaultMessage": "Allows you to enter a number"
+  },
+  {
+    "id": "tasks.locationType",
+    "description": "Label for location type field",
+    "defaultMessage": "Location"
+  },
+  {
+    "id": "tasks.locationDescription",
+    "description": "Description for location type field",
+    "defaultMessage": "Allows you to add coordinates of a place, or search a place by name"
+  },
+  {
+    "id": "tasks.dateTimeType",
+    "description": "Label for datetime type field",
+    "defaultMessage": "Date and time"
+  },
+  {
+    "id": "tasks.datetimeDescription",
+    "description": "Description for datetime type field",
+    "defaultMessage": "Allows you to pick a date and time from the calendar"
+  },
+  {
+    "id": "tasks.singleChoiceType",
+    "description": "Label for single selection type field",
+    "defaultMessage": "Single select"
+  },
+  {
+    "id": "tasks.singleChoiceDescription",
+    "description": "Description for single selection type field",
+    "defaultMessage": "Allows you to select a single option from predefined options in a list"
+  },
+  {
+    "id": "tasks.multipleChoiceType",
+    "description": "Label for multiple selection type field",
+    "defaultMessage": "Multiple select"
+  },
+  {
+    "id": "tasks.multipleChoiceDescription",
+    "description": "Description for multiple selection type field",
+    "defaultMessage": "Allows you to select one or more predefined options"
+  },
+  {
+    "id": "tasks.fileUploadType",
+    "description": "Label for file upload type field",
+    "defaultMessage": "File upload"
+  },
+  {
+    "id": "tasks.fileUploadDescription",
+    "description": "Description for file upload type field",
+    "defaultMessage": "Allows you to upload a file"
+  },
+  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"

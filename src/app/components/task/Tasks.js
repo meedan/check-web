@@ -97,7 +97,7 @@ const Tasks = ({
         const hasOther = matchingTask.node.team_task?.options?.some(item => item.other);
         if (hasOther) {
           // if there is an "Other" value, then extract it by convering our first_response_value to an array and filtering out known values
-          const otherValue = matchingTask.node.first_response_value.split(', ').filter(item => !matchingTask.node.team_task?.options?.some(option => option.label === item))[0];
+          const otherValue = matchingTask.node.first_response_value?.split(', ').filter(item => !matchingTask.node.team_task?.options?.some(option => option.label === item))[0];
           // replace "Other" in selectedCondition with that value
           selectedCondition = selectedCondition.replace(/\bOther\b/, otherValue);
         }
