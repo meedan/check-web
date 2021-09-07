@@ -483,7 +483,7 @@ class Annotation extends Component {
     case 'destroy_comment': {
       let commentRemoved = null;
       if (content === null) {
-        const changes = JSON.parse(activity.object_changes_json);
+        const changes = safelyParseJSON(activity.object_changes_json);
         commentRemoved = changes.data[0].text;
       } else {
         commentRemoved = content.text;
