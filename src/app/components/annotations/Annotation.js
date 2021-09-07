@@ -40,6 +40,7 @@ import {
   getStatusStyle,
   emojify,
   parseStringUnixTimestamp,
+  safelyParseJSON,
 } from '../../helpers';
 import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
