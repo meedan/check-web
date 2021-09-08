@@ -2,12 +2,17 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import Collapse from '@material-ui/core/Collapse';
 import Divider from '@material-ui/core/Divider';
+import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import TeamTaskCardForm from './TeamTaskCardForm';
+
 
 const TeamTaskCard = ({
   children,
@@ -22,6 +27,7 @@ const TeamTaskCard = ({
   setRequired,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [expanded, setExpanded] = React.useState(true);
 
   const handleMenuEdit = () => {
     setAnchorEl(null);
@@ -62,28 +68,30 @@ const TeamTaskCard = ({
             description="E.g. Field 1, Field 2..."
           />
         </Button>
-        <span>
-          <FormattedMessage
-            id="teamTaskCard.required"
-            defaultMessage="Required"
-            description="Toggle switch to make field required"
-          />
-          <Switch
-            onClick={() => setRequired(!required)}
-            checked={required}
-          />
-        </span>
-        <span>
-          <FormattedMessage
-            id="teamTaskCard.showInBrowserExtension"
-            defaultMessage="Show in browser extension"
-            description="Toggle switch to make field visible in the browser extension"
-          />
-          <Switch
-            onClick={() => setShowInBrowserExtension(!showInBrowserExtension)}
-            checked={showInBrowserExtension}
-          />
-        </span>
+        <Box display="flex">
+          <Box mr={4}>
+            <Switch
+              onClick={() => setRequired(!required)}
+              checked={required}
+            />
+            <FormattedMessage
+              id="teamTaskCard.required"
+              defaultMessage="Required"
+              description="Toggle switch to make field required"
+            />
+          </Box>
+          <span>
+            <Switch
+              onClick={() => setShowInBrowserExtension(!showInBrowserExtension)}
+              checked={showInBrowserExtension}
+            />
+            <FormattedMessage
+              id="teamTaskCard.showInBrowserExtension"
+              defaultMessage="Show in browser extension"
+              description="Toggle switch to make field visible in the browser extension"
+            />
+          </span>
+        </Box>
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -98,11 +106,19 @@ const TeamTaskCard = ({
         </MenuItem>
       </Menu>
       <Divider />
-      <Typography variant="body1">
-        <Box p={2} fontWeight="500">
-          {task.label}
-        </Box>
-      </Typography>
+      <Box display="flex" ml={1}>
+        <IconButton onClick={() => setExpanded(!expanded)}>
+          <ExpandMoreIcon />
+        </IconButton>
+        <Typography variant="body1">
+          <Box my={2} fontWeight="500">
+            {task.label}
+          </Box>
+        </Typography>
+      </Box>
+      <Collapse in={expanded}>
+        <TeamTaskCardForm task={task} />
+      </Collapse>
       <Divider />
       <Box px={2} py={1}>
         {children}
