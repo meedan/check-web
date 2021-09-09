@@ -1,25 +1,117 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
+import {
+  MetadataDate,
+  MetadataFile,
+  MetadataMultiselect,
+  MetadataNumber,
+  MetadataText,
+  MetadataLocation,
+} from '@meedan/check-ui';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 
 const TeamTaskCardForm = ({ task }) => (
   <Box mx={2} mb={2}>
-    {task.options.map(o => (
-      <Box display="flex" alignItems="center" p={1}>
-        { task.type === 'single_choice' ? <RadioButtonUncheckedIcon /> : null}
-        { task.type === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null}
-        <Box ml={2}>
-          {o.label}
-        </Box>
-      </Box>
-    ))}
-    { task.type === 'free_text' ?
-      <TextField
-        variant="outlined"
-        fullWidth
+    { (task.type === 'single_choice' || task.type === 'multiple_choice') ?
+      <MetadataMultiselect
+        isSingle={task.type === 'single_choice'}
         disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+      /> : null
+    }
+    { task.type === 'free_text' ?
+      <MetadataText
+        disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+      /> : null
+    }
+    { task.type === 'number' ?
+      <MetadataNumber
+        disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+      /> : null
+    }
+    { task.type === 'geolocation' ?
+      <MetadataLocation
+        disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+        mapboxApiKey={config.mapboxApiKey}
+        messages={{}}
+      /> : null
+    }
+    { task.type === 'datetime' ?
+      <MetadataDate
+        disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+      /> : null
+    }
+    { task.type === 'file_upload' ?
+      <MetadataFile
+        disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+        extensions={[]}
+        fileSizeMax=""
+        messages={{}}
       /> : null
     }
   </Box>
