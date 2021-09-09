@@ -85,13 +85,16 @@ const ConditionalField = ({ task, tasks, onChange }) => {
   const [selectedConditional, setSelectedConditional] = React.useState(hasConditionsInitial ? parsedConditionalInfo?.selectedConditional : conditionalVerbs[0].label);
   const [selectedCondition, setSelectedCondition] = React.useState(hasConditionsInitial ? parsedConditionalInfo?.selectedCondition : prerequisiteFields[0]?.options[0]?.label);
   const [hasConditions, setHasConditions] = React.useState(hasConditionsInitial);
+  const firstUpdate = React.useRef(true);
 
-  const handleToggleHasConditions = (e) => {
-    setHasConditions(e.target.checked);
-    // this.validateTask(this.state.label, this.state.options);
-  };
+  React.useEffect(() => {
+    // make sure useEffect does not fire on initial component render
+    // https://stackoverflow.com/a/53254028/4869657
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
 
-  const handleDone = () => {
     const conditionalInfo = {
       selectedConditional,
       selectedFieldId,
@@ -105,11 +108,13 @@ const ConditionalField = ({ task, tasks, onChange }) => {
         conditional_info: hasConditions ? JSON.stringify(conditionalInfo) : null,
       });
     }
+  }, [selectedConditional, selectedCondition, selectedFieldId, hasConditions]);
+
+  const handleToggleHasConditions = (e) => {
+    setHasConditions(e.target.checked);
   };
 
   const handlePrerequisiteFieldChange = (e) => {
-    // eslint-disable-next-line
-    console.log('selected', e.target.value, e.target, selectedConditional);
     if (e.target.name === 'conditionals') {
       setSelectedConditional(e.target.value);
       setSelectedCondition(prerequisiteFields.find(field => field.dbid === selectedFieldId)?.options[0]?.label);
@@ -122,10 +127,6 @@ const ConditionalField = ({ task, tasks, onChange }) => {
       setSelectedCondition(e.target.value.join(', '));
     }
     // this.validateTask(this.state.label, this.state.options);
-
-    if (selectedFieldId && selectedConditional && selectedCondition) {
-      handleDone();
-    }
   };
 
   return (
