@@ -228,8 +228,6 @@ class TeamTasksListItem extends React.Component {
       json_schema: task.jsonschema,
       keep_completed_tasks: keepCompleted,
     };
-    // eslint-disable-next-line
-    console.log('~~teamtask', teamTask);
 
     const onSuccess = () => {
       this.handleCloseEdit();
@@ -253,8 +251,6 @@ class TeamTasksListItem extends React.Component {
       show_in_browser_extension: newValues.showInBrowserExtension !== undefined ? newValues.showInBrowserExtension : task.show_in_browser_extension,
       required: newValues.required !== undefined ? newValues.required : task.required,
     };
-    // eslint-disable-next-line
-    console.log('~~YO', teamTask, newValues);
 
     const onSuccess = () => {
       this.handleCloseEdit();
