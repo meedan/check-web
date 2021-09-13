@@ -46,8 +46,9 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
       vertical: (variant === 'error') ? 'top' : 'bottom',
       horizontal: (variant === 'error') ? 'center' : 'left',
     };
-
-    enqueueSnackbar(message, { variant, persist, anchorOrigin });
+    // Handle message with HTML tags
+    const newHTMLMessage = (<div dangerouslySetInnerHTML={{ __html: message }} />); // eslint-disable-line react/no-danger
+    enqueueSnackbar(newHTMLMessage, { variant, persist, anchorOrigin });
   };
 
   return (
