@@ -13,14 +13,14 @@ const team = {
 };
 
 describe('<TeamTasksListItem />', () => {
-  it('should render icon, label and menu', () => {
+  it('should render component', () => {
     const wrapper = mountWithIntl(<TeamTasksListItem
-      task={task}
-      team={team}
+      index={0}
       fieldset=""
+      task={task}
+      tasks={[]}
+      team={team}
     />);
-    expect(wrapper.find('.team-tasks__task-icon').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.team-tasks__task-label').hostNodes()).toHaveLength(1);
-    expect(wrapper.find('.team-tasks__menu-item-button').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(1);
   });
 });

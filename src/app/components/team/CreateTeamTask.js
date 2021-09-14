@@ -73,6 +73,7 @@ class CreateTeamTask extends React.Component {
     return (
       <React.Fragment>
         <Button
+          className="create-task__add-button"
           onClick={this.handleOpen}
           variant="contained"
           color="primary"

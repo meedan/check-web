@@ -312,7 +312,7 @@ class TeamTasksListItem extends React.Component {
 
     return (
       <React.Fragment>
-        <Box display="flex" alignItems="center">
+        <Box display="flex" alignItems="center" className="team-tasks__list-item">
           <Reorder onMoveUp={this.handleMoveTaskUp} onMoveDown={this.handleMoveTaskDown} />
           <TeamTaskCard
             icon={icon[task.type]}
@@ -363,7 +363,9 @@ class TeamTasksListItem extends React.Component {
   }
 }
 
+
 TeamTasksListItem.propTypes = {
+  index: PropTypes.number.isRequired,
   task: PropTypes.shape({
     id: PropTypes.string.isRequired,
     label: PropTypes.string.isRequired,
@@ -374,6 +376,7 @@ TeamTasksListItem.propTypes = {
     json_project_ids: PropTypes.string,
     json_schema: PropTypes.string,
   }).isRequired,
+  tasks: PropTypes.array.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
     projects: PropTypes.shape({

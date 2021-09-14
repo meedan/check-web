@@ -86,7 +86,7 @@ class EditTaskDialog extends React.Component {
       submitDisabled: true,
       showAssignmentField: false,
       editLabelOrDescription: false,
-      hasOther: task ? task.options.some(option => option.other) : false,
+      hasOther: task ? task.options?.some(option => option.other) : false,
     };
   }
 
