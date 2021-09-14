@@ -11,5 +11,10 @@
     "id": "createTeamTask.addField",
     "description": "Button that triggers creation of a new field",
     "defaultMessage": "New annotation field"
+  },
+  {
+    "id": "createTeamTask.addTask",
+    "description": "Button that triggers creation of a new task",
+    "defaultMessage": "New task"
   }
 ]

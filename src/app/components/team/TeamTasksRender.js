@@ -94,7 +94,7 @@ function TeamTasksRender({ team }) {
         }
         helpUrl="https://help.checkmedia.org/en/articles/3648632-tasks"
         actionButton={
-          <CreateTeamTask fieldset="tasks" team={team} />
+          <CreateTeamTask fieldset="tasks" associatedType="ProjectMedia" team={team} />
         }
         extra={
           <FilterPopup

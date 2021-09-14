@@ -5,6 +5,7 @@
   },
   {
     "id": "teamSettings.metadata",
+    "description": "Label for annotation settings tab",
     "defaultMessage": "Annotation"
   },
   {

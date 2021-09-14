@@ -86,21 +86,22 @@
     "defaultMessage": "Allows you to upload a file"
   },
   {
+    "id": "tasks.chooseType",
+    "description": "Label for field type selection box",
+    "defaultMessage": "Choose a field type"
+  },
+  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"
   },
   {
-    "id": "tasks.chooseType",
-    "defaultMessage": "Choose a field type"
+    "id": "tasks.showInProj",
+    "defaultMessage": "Show tasks in"
   },
   {
     "id": "tasks.timezones",
     "defaultMessage": "Timezones available to complete the task"
-  },
-  {
-    "id": "tasks.showInProj",
-    "defaultMessage": "Show tasks in"
   },
   {
     "id": "tasks.assign",

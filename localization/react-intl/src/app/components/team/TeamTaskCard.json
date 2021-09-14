@@ -13,13 +13,5 @@
     "id": "teamTaskCard.showInBrowserExtension",
     "description": "Toggle switch to make field visible in the browser extension",
     "defaultMessage": "Show in browser extension"
-  },
-  {
-    "id": "teamTasks.edit",
-    "defaultMessage": "Edit"
-  },
-  {
-    "id": "teamTasks.delete",
-    "defaultMessage": "Delete"
   }
 ]

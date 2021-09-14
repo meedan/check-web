@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import {
   MetadataDate,
@@ -116,5 +117,11 @@ const TeamTaskCardForm = ({ task }) => (
     }
   </Box>
 );
+
+TeamTaskCardForm.propTypes = {
+  task: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
 export default TeamTaskCardForm;

@@ -126,7 +126,6 @@ const ConditionalField = ({ task, tasks, onChange }) => {
     } else if (e.target.name === 'multiple-conditions') {
       setSelectedCondition(e.target.value.join(', '));
     }
-    // this.validateTask(this.state.label, this.state.options);
   };
 
   return (

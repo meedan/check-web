@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
@@ -76,11 +77,18 @@ class CreateTeamTask extends React.Component {
           variant="contained"
           color="primary"
         >
-          <FormattedMessage
-            id="createTeamTask.addField"
-            defaultMessage="New annotation field"
-            description="Button that triggers creation of a new field"
-          />
+          { this.props.fieldset === 'metadata' ?
+            <FormattedMessage
+              id="createTeamTask.addField"
+              defaultMessage="New annotation field"
+              description="Button that triggers creation of a new field"
+            /> :
+            <FormattedMessage
+              id="createTeamTask.addTask"
+              defaultMessage="New task"
+              description="Button that triggers creation of a new task"
+            />
+          }
         </Button>
         { this.state.dialogOpen ?
           <EditTaskDialog
@@ -97,5 +105,15 @@ class CreateTeamTask extends React.Component {
     );
   }
 }
+
+CreateTeamTask.propTypes = {
+  fieldset: PropTypes.string.isRequired,
+  team: PropTypes.object.isRequired,
+  associatedType: PropTypes.string,
+};
+
+CreateTeamTask.defaultProps = {
+  associatedType: null,
+};
 
 export default CreateTeamTask;

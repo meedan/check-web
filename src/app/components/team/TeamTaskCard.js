@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -12,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import TeamTaskCardForm from './TeamTaskCardForm';
+import globalStrings from '../../globalStrings';
 
 
 const TeamTaskCard = ({
@@ -99,10 +101,10 @@ const TeamTaskCard = ({
         onClose={() => setAnchorEl(null)}
       >
         <MenuItem className="team-tasks__edit-button" onClick={handleMenuEdit}>
-          <FormattedMessage id="teamTasks.edit" defaultMessage="Edit" />
+          <FormattedMessage {...globalStrings.edit} />
         </MenuItem>
         <MenuItem className="team-tasks__delete-button" onClick={handleMenuDelete}>
-          <FormattedMessage id="teamTasks.delete" defaultMessage="Delete" />
+          <FormattedMessage {...globalStrings.delete} />
         </MenuItem>
       </Menu>
       <Divider />
@@ -125,6 +127,18 @@ const TeamTaskCard = ({
       </Box>
     </Box>
   );
+};
+
+TeamTaskCard.propTypes = {
+  icon: PropTypes.node.isRequired,
+  task: PropTypes.object.isRequired,
+  index: PropTypes.number.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  showInBrowserExtension: PropTypes.bool.isRequired,
+  setShowInBrowserExtension: PropTypes.func.isRequired,
+  required: PropTypes.bool.isRequired,
+  setRequired: PropTypes.func.isRequired,
 };
 
 export default TeamTaskCard;

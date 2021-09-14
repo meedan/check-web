@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
@@ -11,6 +12,7 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FormControl from '@material-ui/core/FormControl';
+import IconButton from '@material-ui/core/IconButton';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -32,7 +34,6 @@ import NumberIcon from '../../icons/NumberIcon';
 import timezones from '../../timezones';
 import {
   units,
-  StyledIconButton,
   caption,
   black54,
   Row,
@@ -77,7 +78,7 @@ class EditTaskDialog extends React.Component {
 
     this.state = {
       label: task ? task.label : null,
-      taskType: task ? task.type : null,
+      taskType: task ? task.type : (props.taskType || null),
       description: task ? task.description : null,
       showInBrowserExtension: task ? task.show_in_browser_extension : true,
       options: task ? task.options : [{ label: '' }, { label: '' }],
@@ -229,7 +230,6 @@ class EditTaskDialog extends React.Component {
     }
 
     const { formatMessage } = this.props.intl;
-
     const canRemove = this.state.options.length > 2;
 
     return (
@@ -255,13 +255,13 @@ class EditTaskDialog extends React.Component {
                   />
                 </Box>
                 {canRemove ?
-                  <StyledIconButton>
+                  <IconButton>
                     <ClearIcon
                       key="create-task__remove-option-button"
                       className="create-task__remove-option-button create-task__md-icon"
                       onClick={this.handleRemoveOption.bind(this, index)}
                     />
-                  </StyledIconButton>
+                  </IconButton>
                   : null}
               </Row>
             </div>
@@ -423,6 +423,44 @@ class EditTaskDialog extends React.Component {
       },
     ];
 
+    const FieldTypeSelect = () => this.props.isTeamTask ? (
+      <React.Fragment>
+        <FormControl variant="outlined" margin="normal" fullWidth>
+          <InputLabel id="edit-task-dialog__type-select-label">
+            <FormattedMessage
+              id="tasks.chooseType"
+              defaultMessage="Choose a field type"
+              description="Label for field type selection box"
+            />
+          </InputLabel>
+          <Select
+            classes={{ root: classes.select }}
+            onChange={this.handleSelectType}
+            labelId="edit-task-dialog__type-select-label"
+            id="edit-task-dialog__type-select"
+            value={this.state.taskType}
+            label={
+              <FormattedMessage
+                id="tasks.chooseType"
+                defaultMessage="Choose a field type"
+                description="Label for field type selection box"
+              />
+            }
+          >
+            {types.map(t => (
+              <MenuItem value={t.value}>
+                <ListItemIcon>{t.icon}</ListItemIcon>
+                {t.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        <Box mt={1} mb={2}>
+          { types.find(t => t.value === this.state.taskType)?.description }
+        </Box>
+      </React.Fragment>
+    ) : null;
+
     return (
       <Dialog
         className="create-task__dialog"
@@ -451,37 +489,21 @@ class EditTaskDialog extends React.Component {
             multiline
             fullWidth
           />
-          <FormControl variant="outlined" margin="normal" fullWidth>
-            <InputLabel id="edit-task-dialog__type-select-label">
-              <FormattedMessage
-                id="tasks.chooseType"
-                defaultMessage="Choose a field type"
-              />
-            </InputLabel>
-            <Select
-              classes={{ root: classes.select }}
-              onChange={this.handleSelectType}
-              labelId="edit-task-dialog__type-select-label"
-              id="edit-task-dialog__type-select"
-              value={this.state.taskType}
-              label={
-                <FormattedMessage
-                  id="tasks.chooseType"
-                  defaultMessage="Choose a field type"
+          <FieldTypeSelect />
+          { this.props.projects && isTask ?
+            <React.Fragment>
+              <Divider />
+              <Box my={2}>
+                <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
+                <ProjectSelector
+                  projects={this.props.projects}
+                  selected={this.state.project_ids.map(id => `${id}`)}
+                  onSelect={this.handleSelectProjects}
                 />
-              }
-            >
-              {types.map(t => (
-                <MenuItem value={t.value}>
-                  <ListItemIcon>{t.icon}</ListItemIcon>
-                  {t.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <Box mt={1} mb={2}>
-            { types.find(t => t.value === this.state.taskType)?.description }
-          </Box>
+              </Box>
+            </React.Fragment>
+            : null
+          }
           { this.props.isTeamTask && this.state.taskType === 'datetime' ?
             <Box mt={2}>
               <Box mb={4}>
@@ -509,17 +531,6 @@ class EditTaskDialog extends React.Component {
                     }
                   />
                 )}
-              />
-            </Box>
-            : null
-          }
-          { this.props.projects && isTask ?
-            <Box mt={2}>
-              <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
-              <ProjectSelector
-                projects={this.props.projects}
-                selected={this.state.project_ids.map(id => `${id}`)}
-                onSelect={this.handleSelectProjects}
               />
             </Box>
             : null
@@ -567,5 +578,28 @@ class EditTaskDialog extends React.Component {
     );
   }
 }
+
+EditTaskDialog.propTypes = {
+  allowAssignment: PropTypes.bool,
+  fieldset: PropTypes.string.isRequired,
+  isTeamTask: PropTypes.bool,
+  message: PropTypes.node,
+  noOptions: PropTypes.bool,
+  onDismiss: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  projects: PropTypes.array,
+  task: PropTypes.object,
+  taskType: PropTypes.string,
+};
+
+EditTaskDialog.defaultProps = {
+  allowAssignment: false,
+  isTeamTask: false,
+  message: null,
+  noOptions: false,
+  projects: null,
+  task: null,
+  taskType: null,
+};
 
 export default injectIntl(withStyles(styles)(EditTaskDialog));

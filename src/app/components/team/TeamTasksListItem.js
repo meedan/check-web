@@ -348,7 +348,6 @@ class TeamTasksListItem extends React.Component {
             <EditTaskDialog
               fieldset={this.props.fieldset}
               task={task}
-              tasks={this.props.tasks}
               message={this.state.message}
               taskType={task.type}
               onDismiss={this.handleCloseEdit}
