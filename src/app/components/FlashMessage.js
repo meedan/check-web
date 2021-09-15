@@ -46,9 +46,9 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
       vertical: (variant === 'error') ? 'top' : 'bottom',
       horizontal: (variant === 'error') ? 'center' : 'left',
     };
-    // Handle message with HTML tags
-    const newHTMLMessage = (<div dangerouslySetInnerHTML={{ __html: message }} />); // eslint-disable-line react/no-danger
-    enqueueSnackbar(newHTMLMessage, { variant, persist, anchorOrigin });
+
+    // Split into multiple message in case we have a multiple validation errors
+    message.split('<br />').forEach(msg => enqueueSnackbar(msg, { variant, persist, anchorOrigin }));
   };
 
   return (
