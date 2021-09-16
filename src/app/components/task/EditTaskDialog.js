@@ -447,7 +447,7 @@ class EditTaskDialog extends React.Component {
             }
           >
             {types.map(t => (
-              <MenuItem value={t.value}>
+              <MenuItem value={t.value} className={`edit-task-dialog__menu-item-${t.value}`}>
                 <ListItemIcon>{t.icon}</ListItemIcon>
                 {t.label}
               </MenuItem>
