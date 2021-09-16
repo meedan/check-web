@@ -69,9 +69,8 @@ const useStyles = makeStyles(theme => ({
   },
   bullet: {
     color: opaqueBlack38,
-    fontSize: theme.spacing(4),
+    fontSize: theme.spacing(2),
     marginRight: theme.spacing(1),
-    marginTop: -10,
   },
   textField: {
     border: `1px solid ${opaqueBlack23}`,
