@@ -59,6 +59,7 @@ const TeamTaskCard = ({
         alignItems="center"
       >
         <Button
+          className="team-tasks__menu-item-button"
           onClick={e => setAnchorEl(e.currentTarget)}
           startIcon={icon}
           endIcon={<ArrowDropDownIcon />}
@@ -113,7 +114,7 @@ const TeamTaskCard = ({
           <ExpandMoreIcon />
         </IconButton>
         <Typography variant="body1">
-          <Box my={2} fontWeight="500">
+          <Box my={2} fontWeight="500" className="team-tasks__task-label">
             {task.label}
           </Box>
         </Typography>

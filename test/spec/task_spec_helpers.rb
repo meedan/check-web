@@ -1,9 +1,11 @@
 module TaskSpecHelpers
   def create_task(params = {})
     wait_for_selector('.create-task__add-button').click
-    wait_for_selector('.create-task__add-short-answer')
-    wait_for_selector(params[:task_type_class]).click
     wait_for_selector('#task-label-input').send_keys(params[:task_name])
+    @driver.action.send_keys(:tab).perform
+    @driver.action.send_keys(:enter).perform
+    #wait_for_selector(params[:task_type_class]).click
+    @driver.action.send_keys(:enter).perform
     if params[:value1]
       wait_for_selector('input[placeholder="Value 1"').send_keys(params[:value1])
       wait_for_selector('input[placeholder="Value 2"').send_keys(params[:value2])

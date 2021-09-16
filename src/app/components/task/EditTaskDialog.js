@@ -425,7 +425,7 @@ class EditTaskDialog extends React.Component {
 
     const FieldTypeSelect = () => this.props.isTeamTask ? (
       <React.Fragment>
-        <FormControl variant="outlined" margin="normal" fullWidth>
+        <FormControl variant="outlined" margin="normal" fullWidth id="edit-task-dialog__type-select">
           <InputLabel id="edit-task-dialog__type-select-label">
             <FormattedMessage
               id="tasks.chooseType"
@@ -437,7 +437,6 @@ class EditTaskDialog extends React.Component {
             classes={{ root: classes.select }}
             onChange={this.handleSelectType}
             labelId="edit-task-dialog__type-select-label"
-            id="edit-task-dialog__type-select"
             value={this.state.taskType}
             label={
               <FormattedMessage

@@ -15,7 +15,7 @@ shared_examples 'metadata' do
 
     # Edit metadata
     edit_team_data_field('my metadata - Edited')
-    wait_for_selector("//span[contains(text(), 'Edited')]", :xpath)
+    wait_for_selector("//div[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
     # create 'date and time' metadata
@@ -24,12 +24,12 @@ shared_examples 'metadata' do
     expect(@driver.page_source.include?('my date time metadata')).to be(true)
 
     # change the metadata order
-    task = wait_for_selector('.team-tasks__task-label > span > span') # first metadata
+    task = wait_for_selector('.team-tasks__task-label') # first metadata
     expect(task.text).to eq 'my metadata - Edited'
     @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector('.reorder__button-down').click
-    wait_for_text_change('my metadata - Edited', '.team-tasks__task-label > span > span', :css)
-    task = wait_for_selector('.team-tasks__task-label > span > span') # the second becomes the first
+    wait_for_text_change('my metadata - Edited', '.team-tasks__task-label', :css)
+    task = wait_for_selector('.team-tasks__task-label') # the second becomes the first
     expect(task.text).to eq 'my date time metadata'
 
     # delete metadata
