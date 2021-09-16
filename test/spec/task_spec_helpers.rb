@@ -1,9 +1,10 @@
 module TaskSpecHelpers
   def create_task(params = {})
     wait_for_selector('.create-task__add-button').click
-    wait_for_selector('.create-task__add-short-answer')
-    wait_for_selector(params[:task_type_class]).click
     wait_for_selector('#task-label-input').send_keys(params[:task_name])
+    @driver.action.send_keys(:tab).perform
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector(params[:task_type_class]).click
     if params[:value1]
       wait_for_selector('input[placeholder="Value 1"').send_keys(params[:value1])
       wait_for_selector('input[placeholder="Value 2"').send_keys(params[:value2])
@@ -53,7 +54,7 @@ module TaskSpecHelpers
   end
 
   def answer_task(params = {})
-    if params[:task_type_class] == '.create-task__add-choose-one' || params[:task_type_class] == '.create-task__add-choose-multiple'
+    if params[:task_type_class] == '.edit-task-dialog__menu-item-single_choice' || params[:task_type_class] == '.edit-task-dialog__menu-item-multiple_choice'
       wait_for_selector(params[:choice], :id).click
       wait_for_selector(params[:choice_two], :id).click if params[:choice_two]
       wait_for_selector('.task__submit').click

@@ -5,7 +5,8 @@
   },
   {
     "id": "teamSettings.metadata",
-    "defaultMessage": "Metadata"
+    "description": "Label for annotation settings tab",
+    "defaultMessage": "Annotation"
   },
   {
     "id": "teamSettings.tipline",
