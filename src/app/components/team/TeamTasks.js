@@ -1,11 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
+import TeamTaskCardForm from './TeamTaskCardForm'; // eslint-disable-line no-unused-vars
 import TeamTasksRender from './TeamTasksRender';
 import TeamMetadataRender from './TeamMetadataRender';
 import { ContentColumn } from '../../styles/js/shared';
 
-const TeamTasksComponent = ({ team, fieldset }) => {
+const TeamTasksComponent = ({ team, fieldset, about }) => {
   const isTask = fieldset === 'tasks';
 
   return (
@@ -14,9 +15,11 @@ const TeamTasksComponent = ({ team, fieldset }) => {
         { isTask ?
           <TeamTasksRender
             team={team}
+            about={about}
           /> :
           <TeamMetadataRender
             team={team}
+            about={about}
           />
         }
       </ContentColumn>
@@ -32,6 +35,9 @@ const TeamTasks = ({ team, fieldset }) => {
       environment={Relay.Store}
       query={graphql`
         query TeamTasksQuery($slug: String!, $fieldset: String!) {
+          about {
+            ...TeamTaskCardForm_about
+          }
           team(slug: $slug) {
             id
             dbid
@@ -72,7 +78,7 @@ const TeamTasks = ({ team, fieldset }) => {
       }}
       render={({ error, props }) => {
         if (!error && props) {
-          return <TeamTasksComponent team={props.team} fieldset={fieldset} />;
+          return <TeamTasksComponent about={props.about} team={props.team} fieldset={fieldset} />;
         }
 
         // TODO: We need a better error handling in the future, standardized with other components

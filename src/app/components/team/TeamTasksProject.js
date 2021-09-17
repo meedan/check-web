@@ -23,6 +23,7 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
               tasks={props.project.teamTasks}
               fieldset={props.fieldset}
               team={props.team}
+              about={props.about}
             />))}
         </List>
       </Card>

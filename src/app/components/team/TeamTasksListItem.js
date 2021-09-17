@@ -324,6 +324,7 @@ class TeamTasksListItem extends React.Component {
             setShowInBrowserExtension={this.setShowInBrowserExtension}
             required={this.state.required}
             setRequired={this.setRequired}
+            about={this.props.about}
           >
             <ConditionalField
               task={this.props.task}

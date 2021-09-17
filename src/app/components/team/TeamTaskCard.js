@@ -17,6 +17,7 @@ import globalStrings from '../../globalStrings';
 
 
 const TeamTaskCard = ({
+  about,
   children,
   icon,
   index,
@@ -120,7 +121,7 @@ const TeamTaskCard = ({
         </Typography>
       </Box>
       <Collapse in={expanded}>
-        <TeamTaskCardForm task={task} />
+        <TeamTaskCardForm task={task} about={about} />
       </Collapse>
       <Divider />
       <Box px={2} py={1}>
