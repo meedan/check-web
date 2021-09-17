@@ -268,7 +268,7 @@ const SmoochBotNewsletterEditor = ({
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_timezone', event.target.value); }}
         >
-          <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.timezone" defaultMessage="Timezone" /></MenuItem>
+          <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.timezone" defaultMessage="Time zone" /></MenuItem>
           { Object.keys(timezones).sort().map(timezone => <MenuItem key={timezone} value={timezone}>{timezone}</MenuItem>) }
         </Select>
       </Box>
