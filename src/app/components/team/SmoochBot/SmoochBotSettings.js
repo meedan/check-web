@@ -115,6 +115,7 @@ const SmoochBotSettings = (props) => {
         }
 
         const otherProps = {};
+        const inputProps = {};
 
         if (schema.type === 'readonly') {
           otherProps.disabled = true;
@@ -122,6 +123,8 @@ const SmoochBotSettings = (props) => {
 
         if (schema.type === 'number') {
           otherProps.type = 'number';
+          inputProps.step = 5;
+          inputProps.min = 10;
         }
 
         if (field === 'smooch_urls_to_ignore') {
@@ -139,7 +142,7 @@ const SmoochBotSettings = (props) => {
             defaultValue={value || schema.default}
             className={classes.field}
             onBlur={(event) => {
-              let newValue = event.target.value;
+              let newValue = event.target.value.trim();
               if (schema.type === 'number') {
                 newValue = parseInt(newValue, 10);
               }
@@ -148,6 +151,7 @@ const SmoochBotSettings = (props) => {
             helperText={schema.description}
             variant="outlined"
             fullWidth
+            inputProps={inputProps}
             {...otherProps}
           />
         );

@@ -14,9 +14,11 @@ import EventIcon from '@material-ui/icons/Event';
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
-import { labels, descriptions, placeholders } from './localizables';
-import { inProgressYellow, completedGreen } from '../../../styles/js/shared';
+import { placeholders } from './localizables';
+import { inProgressYellow, completedGreen, opaqueBlack38, opaqueBlack23 } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
 import timezones from '../../../timezones';
 
@@ -61,6 +63,37 @@ const useStyles = makeStyles(theme => ({
     background: inProgressYellow,
     color: 'white',
   },
+  none: {
+    background: '#F6F6F6',
+    color: 'black',
+  },
+  bullet: {
+    color: opaqueBlack38,
+    fontSize: theme.spacing(2),
+    marginRight: theme.spacing(1),
+    height: theme.spacing(7),
+    alignItems: 'center',
+    display: 'flex',
+  },
+  bulletRss: {
+    color: opaqueBlack38,
+    fontSize: theme.spacing(2),
+    marginRight: theme.spacing(1),
+  },
+  textField: {
+    border: `1px solid ${opaqueBlack23}`,
+    borderRadius: theme.spacing(0.5),
+  },
+  bulletPoints: {
+    gap: `${theme.spacing(1)}px`,
+    padding: theme.spacing(1),
+    flexWrap: 'wrap',
+  },
+  rssEntry: {
+    overflowWrap: 'break-word',
+    wordWrap: 'break-word',
+    wordBreak: 'break-word',
+  },
 }));
 
 const messages = defineMessages({
@@ -75,8 +108,6 @@ const SmoochBotNewsletterEditor = ({
   installationId,
   newsletter,
   newsletterInformation,
-  teamName,
-  onDelete,
   onChange,
 }) => {
   const classes = useStyles();
@@ -86,6 +117,10 @@ const SmoochBotNewsletterEditor = ({
   const [refetch, setRefetch] = React.useState(1);
   const [loading, setLoading] = React.useState(false);
   const [rssPreview, setRssPreview] = React.useState(null);
+  const [rssEnabled, setRssEnabled] = React.useState(Boolean(url));
+  const body = newsletter.smooch_newsletter_body || '';
+  const bulletPoints = body.split(/\n+/);
+  const [numberOfBulletPoints, setNumberOfBulletPoints] = React.useState(bulletPoints.length || 1);
 
   const handleError = () => {
     setLoading(false);
@@ -115,15 +150,46 @@ const SmoochBotNewsletterEditor = ({
     onChange('smooch_newsletter_feed_url', '');
   };
 
-  const handleDelete = () => {
-    onDelete();
-    handleReset();
+  const handleChangeBulletPoint = (i, text) => {
+    if (!bulletPoints[i] || bulletPoints[i] !== text) {
+      const newBulletPoints = bulletPoints.slice();
+      newBulletPoints[i] = text.replaceAll('\n', ' ');
+      const newBody = newBulletPoints.join('\n\n');
+      onChange('smooch_newsletter_body', newBody);
+    }
+  };
+
+  const handleChangeNumberOfBulletPoints = (event) => {
+    const value = parseInt(event.target.value, 10);
+    const newBody = [];
+    [...Array(3).keys()].forEach((i) => {
+      if (i < value) {
+        newBody.push(bulletPoints[i]);
+      }
+    });
+    onChange('smooch_newsletter_body', newBody.join('\n\n'));
+    setNumberOfBulletPoints(value);
+  };
+
+  const handleToggleRss = (event) => {
+    const enabled = event.target.checked;
+    setRssEnabled(enabled);
+    if (enabled) {
+      onChange('smooch_newsletter_body', '');
+    } else {
+      handleReset();
+    }
   };
 
   return (
     <React.Fragment>
       <Box>
-        <Typography variant="subtitle2" component="div">{labels.smooch_newsletter}</Typography>
+        <Typography variant="subtitle2" component="div">
+          <FormattedMessage
+            id="smoochBotNewsletterEditor.title"
+            defaultMessage="Compose your newsletter"
+          />
+        </Typography>
         { newsletterInformation ?
           <Box p={1} mt={1} mb={1} className={newsletterInformation.paused ? classes.paused : classes.active}>
             <Typography component="div" variant="body2">
@@ -142,13 +208,19 @@ const SmoochBotNewsletterEditor = ({
                   }}
                 /> }
             </Typography>
-          </Box> : null }
-        <Typography component="div" paragraph>{descriptions.smooch_newsletter}</Typography>
-        <Typography variant="subtitle2" component="div" paragraph>
-          <FormattedMessage
-            id="smoochBotNewsletterEditor.note"
-            defaultMessage="Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
-          />
+          </Box> :
+          <Box p={1} mt={1} mb={1} className={classes.none}>
+            <Typography component="div" variant="body2">
+              <FormattedMessage
+                id="smoochBotNewsletterEditor.none"
+                defaultMessage="Please complete the steps below to send a weekly newsletter"
+              />
+            </Typography>
+          </Box> }
+        <Typography component="div" paragraph>
+          <strong>
+            <FormattedMessage id="smoochBotNewsletterEditor.firstStep" defaultMessage="1. Select a day and time of the week" description="This is an item in a bullet list of steps, this is the first step" />
+          </strong>
         </Typography>
       </Box>
       <Box display="flex" justifyContent="flex-start" alignItems="center" mt={1} mb={1} className={classes.schedule}>
@@ -196,7 +268,7 @@ const SmoochBotNewsletterEditor = ({
           }
         >
           <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.time" defaultMessage="Time" /></MenuItem>
-          { [...Array(24).keys()].map(hour => <MenuItem value={`${hour}`}>{`${hour}:00`}</MenuItem>) }
+          { [...Array(24).keys()].map(hour => <MenuItem key={hour} value={`${hour}`}>{`${hour}:00`}</MenuItem>) }
         </Select>
         <Select
           value={newsletter.smooch_newsletter_timezone || 'none'}
@@ -204,144 +276,196 @@ const SmoochBotNewsletterEditor = ({
           onChange={(event) => { onChange('smooch_newsletter_timezone', event.target.value); }}
         >
           <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.timezone" defaultMessage="Timezone" /></MenuItem>
-          { Object.keys(timezones).sort().map(timezone => <MenuItem value={timezone}>{timezone}</MenuItem>) }
+          { Object.keys(timezones).sort().map(timezone => <MenuItem key={timezone} value={timezone}>{timezone}</MenuItem>) }
         </Select>
       </Box>
-      <Box display="flex" flexWrap="wrap">
-        <TextField
-          key={Math.random().toString().substring(2, 10)}
-          placeholder={intl.formatMessage(placeholders.smooch_newsletter)}
-          defaultValue={newsletter.smooch_newsletter_body}
-          onBlur={(event) => {
-            onChange('smooch_newsletter_body', event.target.value);
-          }}
-          variant="outlined"
-          rows={5}
-          rowsMax={Infinity}
-          multiline
-          fullWidth
-          InputProps={{
-            className: classes.content,
-            startAdornment: (
-              <InputAdornment position="start" className={classes.rssPreview}>
-                <Typography>
-                  <FormattedMessage
-                    id="smoochBotNewsletterEditor.templateHeader"
-                    defaultMessage="Hi! Here are your Weekly COVID-19 Facts. This newsletter is published on WhatsApp by {team}. Here are the most important facts for the week of {date}: "
-                    values={{
-                      team: teamName,
-                      date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
-                    }}
-                  />
-                </Typography>
-                <Divider className={classes.divider} />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <InputAdornment position="end" className={classes.rssPreview}>
-                { rssPreview ?
-                  <React.Fragment>
-                    <Divider className={classes.divider} />
-                    <ParsedText text={rssPreview} block />
-                  </React.Fragment> : null }
-              </InputAdornment>
-            ),
-          }}
+      <Box>
+        <Typography component="div" paragraph>
+          <strong>
+            <FormattedMessage id="smoochBotNewsletterEditor.secondStep" defaultMessage="2. Add content manually, or via RSS Feed." description="This is an item in a bullet list of steps, this is the second step" />
+          </strong>
+          {' '}
+          <FormattedMessage id="smoochBotNewsletterEditor.secondStep2" defaultMessage="If the content is not changed between two scheduled sendouts, it will not be sent." />
+        </Typography>
+      </Box>
+      <Box mb={3}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={rssEnabled}
+              onChange={handleToggleRss}
+            />
+          }
+          label={
+            <FormattedMessage
+              id="smoochBotNewsletterEditor.toggleRss"
+              defaultMessage="Automatically update content using an RSS feed"
+            />
+          }
         />
-        { url && count && !error ?
-          <SmoochBotPreviewFeed
-            installationId={installationId}
-            feedUrl={url}
-            count={count}
-            refetch={refetch}
-            onError={handleError}
-            onSuccess={handleSuccess}
-          /> : null }
       </Box>
 
-      <Typography variant="subtitle2" component="div" className={classes.title}>
-        <FormattedMessage
-          id="smoochBotNewsletterEditor.rss"
-          defaultMessage="Add content from RSS feed"
-        />
-      </Typography>
-      <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'}>
-        <TextField
-          key={Math.random().toString().substring(2, 10)}
-          label={
-            <FormattedMessage
-              id="smoochBotNewsletterEditor.url"
-              defaultMessage="URL"
-            />
-          }
-          placeholder={intl.formatMessage(messages.rssPlaceholder)}
-          className={classes.spaced}
-          defaultValue={newsletter.smooch_newsletter_feed_url}
-          onBlur={(event) => {
-            onChange('smooch_newsletter_feed_url', event.target.value.trim());
-          }}
-          error={Boolean(error)}
-          helperText={error}
-          variant="outlined"
-          fullWidth
-        />
-
-        <TextField
-          key={Math.random().toString().substring(2, 10)}
-          type="number"
-          label={
-            <FormattedMessage
-              id="smoochBotNewsletterEditor.numberOfArticles"
-              defaultMessage="Number of articles to return"
-            />
-          }
-          className={classes.spaced}
-          defaultValue={newsletter.smooch_newsletter_number_of_articles || 0}
-          onBlur={(event) => {
-            onChange('smooch_newsletter_number_of_articles', parseInt(event.target.value, 10));
-          }}
-          inputProps={{ step: 1, min: 1, max: 50 }}
-          variant="outlined"
-          fullWidth
-        />
-
-        <Button variant="contained" color="primary" className={classes.spaced} onClick={handleLoad} disabled={loading}>
-          <FormattedMessage
-            id="smoochBotNewsletterEditor.load"
-            defaultMessage="Load"
+      { !rssEnabled ?
+        <Box>
+          <TextField
+            key={Math.random().toString().substring(2, 10)}
+            type="number"
+            label={
+              <FormattedMessage
+                id="smoochBotNewsletterEditor.numberOfBulletPoints"
+                defaultMessage="Number of bullet points"
+              />
+            }
+            defaultValue={numberOfBulletPoints}
+            onChange={handleChangeNumberOfBulletPoints}
+            inputProps={{ step: 1, min: 1, max: 3 }}
+            variant="outlined"
+            fullWidth
           />
-        </Button>
+          <Box mt={1} mb={1} className={classes.textField}>
+            <Box p={1}>
+              <Typography>
+                <FormattedMessage
+                  id="smoochBotNewsletterEditor.templateHeaderNoRss"
+                  defaultMessage="You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}: "
+                  values={{
+                    date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
+                  }}
+                />
+              </Typography>
+            </Box>
+            <Divider />
+            <Box display="flex" className={classes.bulletPoints} width={1}>
+              { [...Array(numberOfBulletPoints).keys()].map((value, i) => (
+                <Box display="flex" alignItems="start" width={1} key={value}>
+                  { numberOfBulletPoints > 1 ?
+                    <Box className={classes.bullet}>
+                      <span>●</span>
+                    </Box> : null }
+                  <TextField
+                    key={Math.random().toString().substring(2, 10)}
+                    placeholder={intl.formatMessage(placeholders.smooch_newsletter_bullet_point)}
+                    variant="outlined"
+                    defaultValue={bulletPoints[i]}
+                    onBlur={(event) => { handleChangeBulletPoint(i, event.target.value); }}
+                    rows="1"
+                    rowsMax={Infinity}
+                    multiline
+                    fullWidth
+                  />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Box> : null }
 
-        <IconButton onClick={handleReset}>
-          <CancelOutlinedIcon className={classes.icon} />
-        </IconButton>
-      </Box>
-
-      { onDelete ?
-        <Box display="flex">
-          <Button variant="outlined" onClick={handleDelete} className={classes.spaced}>
-            <FormattedMessage
-              id="smoochBotNewsletterEditor.delete"
-              defaultMessage="Delete"
+      { rssEnabled ?
+        <Box>
+          <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'}>
+            <TextField
+              key={Math.random().toString().substring(2, 10)}
+              label={
+                <FormattedMessage
+                  id="smoochBotNewsletterEditor.url"
+                  defaultMessage="URL"
+                />
+              }
+              placeholder={intl.formatMessage(messages.rssPlaceholder)}
+              className={classes.spaced}
+              defaultValue={newsletter.smooch_newsletter_feed_url}
+              onBlur={(event) => {
+                onChange('smooch_newsletter_feed_url', event.target.value.trim());
+              }}
+              error={Boolean(error)}
+              helperText={error}
+              variant="outlined"
+              fullWidth
             />
-          </Button>
+
+            <TextField
+              key={Math.random().toString().substring(2, 10)}
+              type="number"
+              label={
+                <FormattedMessage
+                  id="smoochBotNewsletterEditor.numberOfArticles"
+                  defaultMessage="Number of articles to return"
+                />
+              }
+              className={classes.spaced}
+              defaultValue={newsletter.smooch_newsletter_number_of_articles || 0}
+              onBlur={(event) => {
+                onChange('smooch_newsletter_number_of_articles', parseInt(event.target.value, 10));
+              }}
+              inputProps={{ step: 1, min: 1, max: 3 }}
+              variant="outlined"
+              fullWidth
+            />
+
+            <Button variant="contained" color="primary" className={classes.spaced} onClick={handleLoad} disabled={loading || !newsletter.smooch_newsletter_feed_url}>
+              <FormattedMessage
+                id="smoochBotNewsletterEditor.load"
+                defaultMessage="Load"
+              />
+            </Button>
+
+            <IconButton onClick={handleReset}>
+              <CancelOutlinedIcon className={classes.icon} />
+            </IconButton>
+          </Box>
+          <Box display="flex" flexWrap="wrap">
+            { rssPreview ?
+              <Box mt={1} mb={1} className={classes.textField}>
+                <Box p={1}>
+                  <Typography>
+                    <FormattedMessage
+                      id="smoochBotNewsletterEditor.templateHeaderNoRss"
+                      defaultMessage="You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}: "
+                      values={{
+                        date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
+                      }}
+                    />
+                  </Typography>
+                </Box>
+                <Divider />
+                <Box display="flex" className={classes.bulletPoints} width={1}>
+                  { rssPreview.split('\n\n').map(entry => (
+                    <Box display="flex" alignItems="start" width={1} key={entry}>
+                      { rssPreview.split('\n\n').length > 1 ?
+                        <Box className={classes.bulletRss}>
+                          <span>●</span>
+                        </Box> : null }
+                      <Typography className={classes.rssEntry}>
+                        <ParsedText text={entry} />
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box> : null }
+            { url && count && !error ?
+              <SmoochBotPreviewFeed
+                installationId={installationId}
+                feedUrl={url}
+                count={count}
+                refetch={refetch}
+                onError={handleError}
+                onSuccess={handleSuccess}
+              /> : null }
+          </Box>
         </Box> : null }
     </React.Fragment>
   );
 };
 
 SmoochBotNewsletterEditor.defaultProps = {
-  onDelete: null,
+  newsletterInformation: null,
 };
 
 SmoochBotNewsletterEditor.propTypes = {
   installationId: PropTypes.string.isRequired,
   newsletter: PropTypes.object.isRequired,
-  newsletterInformation: PropTypes.object.isRequired,
-  teamName: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
-  onDelete: PropTypes.func,
   intl: intlShape.isRequired,
+  newsletterInformation: PropTypes.object,
 };
 
 export default injectIntl(SmoochBotNewsletterEditor);
