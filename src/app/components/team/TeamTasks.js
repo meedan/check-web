@@ -36,7 +36,8 @@ const TeamTasks = ({ team, fieldset }) => {
       query={graphql`
         query TeamTasksQuery($slug: String!, $fieldset: String!) {
           about {
-            ...TeamTaskCardForm_about
+            file_max_size
+            file_extensions
           }
           team(slug: $slug) {
             id

@@ -38,6 +38,7 @@ TeamTasksProject.propTypes = {
   }).isRequired,
   fieldset: PropTypes.string.isRequired,
   team: PropTypes.object.isRequired,
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamTasksProject;

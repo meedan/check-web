@@ -141,6 +141,7 @@ TeamTaskCard.propTypes = {
   setShowInBrowserExtension: PropTypes.func.isRequired,
   required: PropTypes.bool.isRequired,
   setRequired: PropTypes.func.isRequired,
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamTaskCard;

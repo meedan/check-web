@@ -122,6 +122,7 @@ function TeamMetadataRender({ team, about }) {
 
 TeamMetadataRender.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamMetadataRender;

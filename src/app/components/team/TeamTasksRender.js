@@ -159,6 +159,7 @@ function TeamTasksRender({ team, about }) {
 
 TeamTasksRender.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamTasksRender;

@@ -392,6 +392,7 @@ TeamTasksListItem.propTypes = {
     }),
   }).isRequired,
   fieldset: PropTypes.string.isRequired,
+  about: PropTypes.object.isRequired,
 };
 
 export default (TeamTasksListItem);

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import {
@@ -165,11 +164,10 @@ TeamTaskCardForm.propTypes = {
   task: PropTypes.shape({
     type: PropTypes.string.isRequired,
   }).isRequired,
+  about: PropTypes.shape({
+    file_max_size: PropTypes.string.isRequired,
+    file_extensions: PropTypes.arrayOf(PropTypes.string).isRequired,
+  }).isRequired,
 };
 
-export default createFragmentContainer(TeamTaskCardForm, graphql`
-  fragment TeamTaskCardForm_about on About {
-    file_max_size
-    file_extensions
-  }
-`);
+export default TeamTaskCardForm;
