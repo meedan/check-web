@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TeamMetadataRender({ team }) {
+function TeamMetadataRender({ team, about }) {
   const [showTab, setShowTab] = React.useState('items');
   const classes = useStyles();
   const handleTabChange = (e, value) => {
@@ -103,6 +103,7 @@ function TeamMetadataRender({ team }) {
                 fieldset="metadata"
                 project={{ teamTasks: teamMetadata }}
                 team={team}
+                about={about}
               /> :
               <BlankState>
                 <FormattedMessage
@@ -121,6 +122,7 @@ function TeamMetadataRender({ team }) {
 
 TeamMetadataRender.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamMetadataRender;

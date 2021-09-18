@@ -11,7 +11,7 @@ import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
 
-function TeamTasksRender({ team }) {
+function TeamTasksRender({ team, about }) {
   const [projFilter, setProjFilter] = React.useState([]);
   const [typeFilter, setTypeFilter] = React.useState([]);
   const [search, setSearch] = React.useState('');
@@ -143,6 +143,7 @@ function TeamTasksRender({ team }) {
           fieldset="tasks"
           project={{ teamTasks: filteredTasks }}
           team={team}
+          about={about}
         /> :
         <BlankState>
           <FormattedMessage
@@ -158,6 +159,7 @@ function TeamTasksRender({ team }) {
 
 TeamTasksRender.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamTasksRender;
