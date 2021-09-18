@@ -23,6 +23,7 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
               tasks={props.project.teamTasks}
               fieldset={props.fieldset}
               team={props.team}
+              about={props.about}
             />))}
         </List>
       </Card>
@@ -37,6 +38,7 @@ TeamTasksProject.propTypes = {
   }).isRequired,
   fieldset: PropTypes.string.isRequired,
   team: PropTypes.object.isRequired,
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamTasksProject;
