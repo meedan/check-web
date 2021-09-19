@@ -106,8 +106,8 @@ const AddFilterMenu = ({
     label: (
       <FormattedMessage
         id="addFilterMenu.itemRead"
-        defaultMessage="Item read"
-        description="Menu option to enable searching items by item read"
+        defaultMessage="Item read/unread"
+        description="Menu option to enable searching items by item read/unread"
       />
     ),
   },

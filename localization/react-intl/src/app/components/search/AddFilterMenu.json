@@ -26,8 +26,8 @@
   },
   {
     "id": "addFilterMenu.itemRead",
-    "description": "Menu option to enable searching items by item read",
-    "defaultMessage": "Item read"
+    "description": "Menu option to enable searching items by item read/unread",
+    "defaultMessage": "Item read/unread"
   },
   {
     "id": "addFilterMenu.itemStatus",

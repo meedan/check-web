@@ -432,7 +432,7 @@ class SearchFields extends React.Component {
         </FormattedMessage>
       ),
       read: (
-        <FormattedMessage id="search.read" defaultMessage="Item read is" description="Prefix label for field to filter by media read">
+        <FormattedMessage id="search.read" defaultMessage="Item is" description="Prefix label for field to filter by media read">
           { label => (
             <MultiSelectFilter
               allowSearch={false}
