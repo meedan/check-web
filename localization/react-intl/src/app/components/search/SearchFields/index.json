@@ -25,6 +25,21 @@
     "defaultMessage": "Audio"
   },
   {
+    "id": "search.itemRead",
+    "description": "Describes media read",
+    "defaultMessage": "Read"
+  },
+  {
+    "id": "search.itemUnread",
+    "description": "Describes media unread",
+    "defaultMessage": "Unread"
+  },
+  {
+    "id": "search.noProject",
+    "description": "Label for none project to allow user filter items with no projects",
+    "defaultMessage": "None"
+  },
+  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
@@ -48,6 +63,11 @@
     "id": "search.show",
     "description": "Prefix label for field to filter by media type",
     "defaultMessage": "Type is"
+  },
+  {
+    "id": "search.read",
+    "description": "Prefix label for field to filter by media read",
+    "defaultMessage": "Item read is"
   },
   {
     "id": "search.statusHeading",

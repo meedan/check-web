@@ -25,6 +25,11 @@
     "defaultMessage": "Media type"
   },
   {
+    "id": "addFilterMenu.itemRead",
+    "description": "Menu option to enable searching items by item read",
+    "defaultMessage": "Item read"
+  },
+  {
     "id": "addFilterMenu.itemStatus",
     "description": "Menu option to enable searching items by item status",
     "defaultMessage": "Item status"
