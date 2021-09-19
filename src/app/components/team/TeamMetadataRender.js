@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function TeamMetadataRender({ team }) {
+function TeamMetadataRender({ team, about }) {
   const [showTab, setShowTab] = React.useState('items');
   const classes = useStyles();
   const handleTabChange = (e, value) => {
@@ -69,26 +69,26 @@ function TeamMetadataRender({ team }) {
             associatedType === 'ProjectMedia' ?
               <FormattedMessage
                 id="teamMetadataRender.itemTitle"
-                defaultMessage="Metadata"
-                description="Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
+                defaultMessage="Item annotation form"
+                description="Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
               /> :
               <FormattedMessage
                 id="teamMetadataRender.sourceTitle"
-                defaultMessage="Source metadata"
-                description="Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
+                defaultMessage="Source annotation form"
+                description="Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
               />
           }
           subtitle={
             associatedType === 'ProjectMedia' ?
               <FormattedMessage
                 id="teamMetadataRender.metadataItemSubtitle"
-                defaultMessage="Add custom metadata fields to items."
-                description="Subtitle for metadata settings screen applied to Items"
+                defaultMessage="Create dynamic forms to annotate items by adding fields."
+                description="Subtitle for annotation settings screen applied to Items"
               /> :
               <FormattedMessage
                 id="teamMetadataRender.metadataSourceSubtitle"
-                defaultMessage="Add custom data fields to the source tab."
-                description="Subtitle for metadata settings screen applied to Sources"
+                defaultMessage="Create dynamic forms to annotate sources by adding fields."
+                description="Subtitle for annotation settings screen applied to Sources"
               />
           }
           helpUrl="https://help.checkmedia.org/en/articles/4346772-metadata"
@@ -103,6 +103,7 @@ function TeamMetadataRender({ team }) {
                 fieldset="metadata"
                 project={{ teamTasks: teamMetadata }}
                 team={team}
+                about={about}
               /> :
               <BlankState>
                 <FormattedMessage
@@ -121,6 +122,7 @@ function TeamMetadataRender({ team }) {
 
 TeamMetadataRender.propTypes = {
   team: PropTypes.object.isRequired, // GraphQL "Team" object
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamMetadataRender;

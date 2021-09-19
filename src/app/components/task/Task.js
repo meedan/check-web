@@ -566,7 +566,10 @@ class Task extends Component {
       <StyledMetadataButton>
         <Button
           className="metadata-cancel"
-          onClick={this.handleCancelEditResponse}
+          onClick={() => {
+            this.setState({ editingResponse: false });
+            this.setState({ textValue: this.getMultiselectInitialValue(task) || task.first_response_value || '' });
+          }}
         >
           <FormattedMessage
             id="metadata.cancel"

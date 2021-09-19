@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
-import CreateTaskMenu from '../task/CreateTaskMenu';
+import Button from '@material-ui/core/Button';
 import EditTaskDialog from '../task/EditTaskDialog';
 import CreateTeamTaskMutation from '../../relay/mutations/CreateTeamTaskMutation';
 import { getErrorMessage } from '../../helpers';
@@ -12,25 +13,20 @@ class CreateTeamTask extends React.Component {
     super(props);
 
     this.state = {
-      createType: null,
+      dialogOpen: false,
       message: null,
     };
   }
 
-  handleSelectType = (createType) => {
-    this.setState({ createType });
-  };
-
-  handleClose = () => {
-    this.setState({ createType: null });
-  }
+  handleOpen = () => this.setState({ dialogOpen: true });
+  handleClose = () => this.setState({ dialogOpen: false });
 
   handleSubmitTask = (task) => {
     const teamTask = {
       label: task.label,
       description: task.description,
       show_in_browser_extension: task.show_in_browser_extension,
-      task_type: this.state.createType,
+      task_type: task.type,
       json_options: task.jsonoptions,
       json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
@@ -75,17 +71,30 @@ class CreateTeamTask extends React.Component {
     const { projects } = this.props.team;
 
     return (
-      <div>
-        <CreateTaskMenu
-          fieldset={this.props.fieldset}
-          onSelect={this.handleSelectType}
-          teamSettings
-        />
-        { this.state.createType ?
+      <React.Fragment>
+        <Button
+          className="create-task__add-button"
+          onClick={this.handleOpen}
+          variant="contained"
+          color="primary"
+        >
+          { this.props.fieldset === 'metadata' ?
+            <FormattedMessage
+              id="createTeamTask.addField"
+              defaultMessage="New annotation field"
+              description="Button that triggers creation of a new field"
+            /> :
+            <FormattedMessage
+              id="createTeamTask.addTask"
+              defaultMessage="New task"
+              description="Button that triggers creation of a new task"
+            />
+          }
+        </Button>
+        { this.state.dialogOpen ?
           <EditTaskDialog
             fieldset={this.props.fieldset}
             message={this.state.message}
-            taskType={this.state.createType}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
             projects={projects ? projects.edges : null}
@@ -93,9 +102,19 @@ class CreateTeamTask extends React.Component {
           />
           : null
         }
-      </div>
+      </React.Fragment>
     );
   }
 }
+
+CreateTeamTask.propTypes = {
+  fieldset: PropTypes.string.isRequired,
+  team: PropTypes.object.isRequired,
+  associatedType: PropTypes.string,
+};
+
+CreateTeamTask.defaultProps = {
+  associatedType: null,
+};
 
 export default CreateTeamTask;

@@ -142,7 +142,7 @@ const SmoochBotSettings = (props) => {
             defaultValue={value || schema.default}
             className={classes.field}
             onBlur={(event) => {
-              let newValue = event.target.value;
+              let newValue = event.target.value.trim();
               if (schema.type === 'number') {
                 newValue = parseInt(newValue, 10);
               }

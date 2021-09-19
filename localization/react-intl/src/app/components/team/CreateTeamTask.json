@@ -6,5 +6,15 @@
   {
     "id": "createTeamTask.errorMetadata",
     "defaultMessage": "Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
+  },
+  {
+    "id": "createTeamTask.addField",
+    "description": "Button that triggers creation of a new field",
+    "defaultMessage": "New annotation field"
+  },
+  {
+    "id": "createTeamTask.addTask",
+    "description": "Button that triggers creation of a new task",
+    "defaultMessage": "New task"
   }
 ]
