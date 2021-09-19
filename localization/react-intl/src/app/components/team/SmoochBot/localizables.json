@@ -73,7 +73,7 @@
   },
   {
     "id": "smoochBot.descriptionSubscription",
-    "defaultMessage": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+    "defaultMessage": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
   },
   {
     "id": "smoochBot.descriptionNewsletter1",
@@ -154,6 +154,10 @@
   {
     "id": "smoochBot.placeholderNewsletter",
     "defaultMessage": "Type to compose your newsletter. You can add content from the RSS below."
+  },
+  {
+    "id": "smoochBot.placeholderNewsletterBulletPoint",
+    "defaultMessage": "Type in to add content"
   },
   {
     "id": "smoochBot.placeholderOptionNotAvailable",

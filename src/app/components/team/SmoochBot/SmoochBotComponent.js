@@ -211,7 +211,6 @@ const SmoochBotComponent = ({
                 userRole={userRole}
                 currentLanguage={currentLanguage}
                 languages={languages}
-                teamName={team.name}
                 enabledIntegrations={installation.smooch_enabled_integrations}
                 newsletterInformation={installation.smooch_newsletter_information}
               /> :

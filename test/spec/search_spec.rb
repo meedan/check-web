@@ -225,7 +225,7 @@ shared_examples 'search' do
   #   # Create metadata
   #   expect(@driver.page_source.include?('No metadata fields')).to be(true)
   #   expect(@driver.page_source.include?('my metadata')).to be(false)
-  #   create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.create-task__add-file-upload', task_name: 'my metadata')
+  #   create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-file_upload', task_name: 'my metadata')
   #   expect(@driver.page_source.include?('No metadata fields')).to be(false)
   #   expect(@driver.page_source.include?('my metadata')).to be(true)
 

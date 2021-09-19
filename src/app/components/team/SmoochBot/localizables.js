@@ -110,6 +110,10 @@ const placeholders = defineMessages({
     id: 'smoochBot.placeholderNewsletter',
     defaultMessage: 'Type to compose your newsletter. You can add content from the RSS below.',
   },
+  smooch_newsletter_bullet_point: {
+    id: 'smoochBot.placeholderNewsletterBulletPoint',
+    defaultMessage: 'Type in to add content',
+  },
   smooch_message_smooch_bot_option_not_available: {
     id: 'smoochBot.placeholderOptionNotAvailable',
     defaultMessage: "🤖I'm sorry, I didn't understand your message. Please try again!",

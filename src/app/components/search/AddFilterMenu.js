@@ -18,6 +18,7 @@ import StarIcon from '@material-ui/icons/Star';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
+import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 
 const StyledButton = withStyles({
@@ -95,6 +96,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.mediaType"
         defaultMessage="Media type"
         description="Menu option to enable searching items by media type"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__read',
+    key: 'read',
+    icon: <MarkunreadIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.itemRead"
+        defaultMessage="Item read/unread"
+        description="Menu option to enable searching items by item read/unread"
       />
     ),
   },

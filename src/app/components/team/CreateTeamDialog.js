@@ -28,7 +28,7 @@ const CreateTeamDialog = ({ onDismiss, team }) => {
   const classes = useStyles();
   const [saving, setSaving] = React.useState(false);
   const [name, setName] = React.useState(team ? `Copy of ${team.name}` : '');
-  const [slug, setSlug] = React.useState(team ? `${team.slug}-copy-1` : '');
+  const [slug, setSlug] = React.useState(null);
   const [errorMessage, setErrorMessage] = React.useState(null);
   const autoSlug = name.toLowerCase().replace(/ /g, '-').replace(/[^-a-z0-9]/g, '').replace(/-+/g, '-');
 

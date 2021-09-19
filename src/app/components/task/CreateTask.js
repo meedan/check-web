@@ -112,7 +112,6 @@ class CreateTask extends Component {
         { this.state.type ?
           <EditTaskDialog
             fieldset="tasks"
-            media={media}
             message={this.state.message}
             taskType={this.state.type}
             onDismiss={this.handleCloseDialog.bind(this)}
