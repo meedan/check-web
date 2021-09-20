@@ -96,6 +96,10 @@
     "defaultMessage": "Title"
   },
   {
+    "id": "tasks.description",
+    "defaultMessage": "Description (optional)"
+  },
+  {
     "id": "tasks.showInProj",
     "defaultMessage": "Show tasks in"
   },
