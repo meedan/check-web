@@ -488,6 +488,19 @@ class EditTaskDialog extends React.Component {
             multiline
             fullWidth
           />
+          <TextField
+            id="task-description-input"
+            className="create-task__task-description-input"
+            label={
+              <FormattedMessage id="tasks.description" defaultMessage="Description (optional)" />
+            }
+            defaultValue={this.state.description}
+            onChange={this.handleDescriptionChange.bind(this)}
+            margin="normal"
+            variant="outlined"
+            multiline
+            fullWidth
+          />
           <FieldTypeSelect />
           { this.props.projects && isTask ?
             <React.Fragment>
