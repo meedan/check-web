@@ -24,7 +24,6 @@ const TiplineInbox = ({ routeParams }) => (
     render={({ error, props }) => {
       if (!error && props) {
         const defaultStatusId = props.team.verification_statuses.default;
-        console.log('routeParams', safelyParseJSON(routeParams.query, {})); // eslint-disable-line no-console
         const query = {
           read: ['0'],
           projects: ['-1'],
