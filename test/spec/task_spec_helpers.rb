@@ -3,6 +3,7 @@ module TaskSpecHelpers
     wait_for_selector('.create-task__add-button').click
     wait_for_selector('#task-label-input').send_keys(params[:task_name])
     @driver.action.send_keys(:tab).perform
+    @driver.action.send_keys(:tab).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector(params[:task_type_class]).click
     if params[:value1]
