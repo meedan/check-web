@@ -187,7 +187,11 @@ const SmoochBotResourceEditor = ({
           className={classes.spaced}
           defaultValue={resource.smooch_custom_resource_feed_url}
           onBlur={(event) => {
-            onChange('smooch_custom_resource_feed_url', event.target.value.trim());
+            let feedUrl = event.target.value.trim();
+            if (feedUrl !== '' && !/^https?:\/\//.test(feedUrl)) {
+              feedUrl = `https://${feedUrl}`;
+            }
+            onChange('smooch_custom_resource_feed_url', feedUrl);
           }}
           error={Boolean(error)}
           helperText={error}

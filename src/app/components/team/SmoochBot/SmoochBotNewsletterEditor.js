@@ -69,9 +69,16 @@ const useStyles = makeStyles(theme => ({
   },
   bullet: {
     color: opaqueBlack38,
-    fontSize: theme.spacing(4),
+    fontSize: theme.spacing(2),
     marginRight: theme.spacing(1),
-    marginTop: -10,
+    height: theme.spacing(7),
+    alignItems: 'center',
+    display: 'flex',
+  },
+  bulletRss: {
+    color: opaqueBlack38,
+    fontSize: theme.spacing(2),
+    marginRight: theme.spacing(1),
   },
   textField: {
     border: `1px solid ${opaqueBlack23}`,
@@ -146,7 +153,7 @@ const SmoochBotNewsletterEditor = ({
   const handleChangeBulletPoint = (i, text) => {
     if (!bulletPoints[i] || bulletPoints[i] !== text) {
       const newBulletPoints = bulletPoints.slice();
-      newBulletPoints[i] = text;
+      newBulletPoints[i] = text.replaceAll('\n', ' ');
       const newBody = newBulletPoints.join('\n\n');
       onChange('smooch_newsletter_body', newBody);
     }
@@ -330,10 +337,10 @@ const SmoochBotNewsletterEditor = ({
             <Divider />
             <Box display="flex" className={classes.bulletPoints} width={1}>
               { [...Array(numberOfBulletPoints).keys()].map((value, i) => (
-                <Box display="flex" alignItems="center" width={1} key={value}>
+                <Box display="flex" alignItems="start" width={1} key={value}>
                   { numberOfBulletPoints > 1 ?
                     <Box className={classes.bullet}>
-                      ●
+                      <span>●</span>
                     </Box> : null }
                   <TextField
                     key={Math.random().toString().substring(2, 10)}
@@ -341,6 +348,9 @@ const SmoochBotNewsletterEditor = ({
                     variant="outlined"
                     defaultValue={bulletPoints[i]}
                     onBlur={(event) => { handleChangeBulletPoint(i, event.target.value); }}
+                    rows="1"
+                    rowsMax={Infinity}
+                    multiline
                     fullWidth
                   />
                 </Box>
@@ -364,7 +374,11 @@ const SmoochBotNewsletterEditor = ({
               className={classes.spaced}
               defaultValue={newsletter.smooch_newsletter_feed_url}
               onBlur={(event) => {
-                onChange('smooch_newsletter_feed_url', event.target.value.trim());
+                let feedUrl = event.target.value.trim();
+                if (feedUrl !== '' && !/^https?:\/\//.test(feedUrl)) {
+                  feedUrl = `https://${feedUrl}`;
+                }
+                onChange('smooch_newsletter_feed_url', feedUrl);
               }}
               error={Boolean(error)}
               helperText={error}
@@ -421,8 +435,8 @@ const SmoochBotNewsletterEditor = ({
                   { rssPreview.split('\n\n').map(entry => (
                     <Box display="flex" alignItems="start" width={1} key={entry}>
                       { rssPreview.split('\n\n').length > 1 ?
-                        <Box className={classes.bullet}>
-                          ●
+                        <Box className={classes.bulletRss}>
+                          <span>●</span>
                         </Box> : null }
                       <Typography className={classes.rssEntry}>
                         <ParsedText text={entry} />
@@ -446,12 +460,16 @@ const SmoochBotNewsletterEditor = ({
   );
 };
 
+SmoochBotNewsletterEditor.defaultProps = {
+  newsletterInformation: null,
+};
+
 SmoochBotNewsletterEditor.propTypes = {
   installationId: PropTypes.string.isRequired,
   newsletter: PropTypes.object.isRequired,
-  newsletterInformation: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
+  newsletterInformation: PropTypes.object,
 };
 
 export default injectIntl(SmoochBotNewsletterEditor);

@@ -17,6 +17,7 @@ import globalStrings from '../../globalStrings';
 
 
 const TeamTaskCard = ({
+  about,
   children,
   icon,
   index,
@@ -25,8 +26,9 @@ const TeamTaskCard = ({
   onDelete,
   showInBrowserExtension,
   setShowInBrowserExtension,
-  required,
-  setRequired,
+  // TODO: Release on next sprint
+  // required,
+  // setRequired,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [expanded, setExpanded] = React.useState(true);
@@ -72,17 +74,19 @@ const TeamTaskCard = ({
           />
         </Button>
         <Box display="flex">
-          <Box mr={4}>
-            <Switch
-              onClick={() => setRequired(!required)}
-              checked={required}
-            />
-            <FormattedMessage
-              id="teamTaskCard.required"
-              defaultMessage="Required"
-              description="Toggle switch to make field required"
-            />
-          </Box>
+          { /* TODO: Release on next sprint
+            <Box mr={4}>
+              <Switch
+                onClick={() => setRequired(!required)}
+                checked={required}
+              />
+              <FormattedMessage
+                id="teamTaskCard.required"
+                defaultMessage="Required"
+                description="Toggle switch to make field required"
+              />
+            </Box>
+          */ }
           <span>
             <Switch
               onClick={() => setShowInBrowserExtension(!showInBrowserExtension)}
@@ -114,13 +118,16 @@ const TeamTaskCard = ({
           <ExpandMoreIcon />
         </IconButton>
         <Typography variant="body1">
-          <Box my={2} fontWeight="500" className="team-tasks__task-label">
-            {task.label}
+          <Box my={2} className="team-tasks__task-label">
+            <Box fontWeight="500">
+              {task.label}
+            </Box>
+            {task.description}
           </Box>
         </Typography>
       </Box>
       <Collapse in={expanded}>
-        <TeamTaskCardForm task={task} />
+        <TeamTaskCardForm task={task} about={about} />
       </Collapse>
       <Divider />
       <Box px={2} py={1}>
@@ -138,8 +145,10 @@ TeamTaskCard.propTypes = {
   onDelete: PropTypes.func.isRequired,
   showInBrowserExtension: PropTypes.bool.isRequired,
   setShowInBrowserExtension: PropTypes.func.isRequired,
-  required: PropTypes.bool.isRequired,
-  setRequired: PropTypes.func.isRequired,
+  // TODO: Release on next sprint
+  // required: PropTypes.bool.isRequired,
+  // setRequired: PropTypes.func.isRequired,
+  about: PropTypes.object.isRequired,
 };
 
 export default TeamTaskCard;
