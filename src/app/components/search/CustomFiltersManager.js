@@ -26,7 +26,7 @@ const messages = defineMessages({
   labelIs: {
     id: 'CustomTeamTaskFilter.labelIs',
     defaultMessage: '{title} is',
-    description: 'Label for custom filter field. E.g. "Location is", "Date of event is"',
+    description: 'Label for custom filter field. E.g. "Location is", "Date of event is". The title is input by user and can be basically anything.',
   },
 });
 
