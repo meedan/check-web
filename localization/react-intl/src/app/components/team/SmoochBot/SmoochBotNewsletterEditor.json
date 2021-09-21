@@ -76,6 +76,7 @@
   },
   {
     "id": "smoochBotNewsletterEditor.timezone",
+    "description": "Label for time zone selection",
     "defaultMessage": "Time zone"
   },
   {
