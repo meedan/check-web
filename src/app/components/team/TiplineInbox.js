@@ -14,7 +14,9 @@ const TiplineInbox = ({ routeParams }) => (
     query={graphql`
       query TiplineInboxQuery($slug: String!) {
         team(slug: $slug) {
+          id
           verification_statuses
+          get_tipline_inbox_filters
         }
       }
     `}
@@ -23,15 +25,26 @@ const TiplineInbox = ({ routeParams }) => (
     }}
     render={({ error, props }) => {
       if (!error && props) {
-        const defaultStatusId = props.team.verification_statuses.default;
-        const query = {
-          read: ['0'],
-          projects: ['-1'],
-          verification_status: [defaultStatusId],
-          ...safelyParseJSON(routeParams.query, {}),
-          channels: [CheckChannels.ANYTIPLINE],
-        };
-
+        const { team } = props;
+        const defaultStatusId = team.verification_statuses.default;
+        const savedQuery = team.get_tipline_inbox_filters || {};
+        let query = {};
+        if (typeof routeParams.query === 'undefined' && Object.keys(savedQuery).length > 0) {
+          query = savedQuery;
+        } else {
+          query = typeof routeParams.query === 'undefined' ?
+            {
+              read: ['0'],
+              projects: ['-1'],
+              verification_status: [defaultStatusId],
+              ...safelyParseJSON(routeParams.query, {}),
+              channels: [CheckChannels.ANYTIPLINE],
+            } :
+            {
+              ...safelyParseJSON(routeParams.query, {}),
+              channels: [CheckChannels.ANYTIPLINE],
+            };
+        }
         return (
           <Search
             searchUrlPrefix={`/${routeParams.team}/tipline-inbox`}
