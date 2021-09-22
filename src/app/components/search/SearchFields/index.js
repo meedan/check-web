@@ -23,6 +23,8 @@ import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
+import SaveTiplineInboxList from '../SaveTiplineInboxList';
+import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
@@ -597,6 +599,9 @@ class SearchFields extends React.Component {
             </Tooltip>
           ) : null }
           <SaveList team={team} query={this.state.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} />
+          { can(team.permissions, 'update Team') ?
+            <SaveTiplineInboxList team={team} query={this.state.query} />
+            : null }
         </Row>
       </div>
     );
@@ -648,6 +653,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     permissions
     verification_statuses
     get_languages
+    get_tipline_inbox_filters
     tag_texts(first: 10000) {
       edges {
         node {
