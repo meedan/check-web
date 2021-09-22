@@ -4,8 +4,8 @@
     "defaultMessage": "Requests"
   },
   {
-    "id": "mediaComponent.metadata",
-    "defaultMessage": "Metadata"
+    "id": "mediaComponent.annotation",
+    "defaultMessage": "Annotation"
   },
   {
     "id": "mediaComponent.source",
