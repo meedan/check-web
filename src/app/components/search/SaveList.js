@@ -15,7 +15,7 @@ import ListIcon from '@material-ui/icons/List';
 import { FormattedMessage } from 'react-intl';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../FlashMessage';
-import { can } from '../Can';
+import CheckChannels from '../../CheckChannels';
 import { checkBlue } from '../../styles/js/shared';
 
 const createMutation = graphql`
@@ -51,6 +51,16 @@ const updateMutation = graphql`
   }
 `;
 
+const updateTiplineInboxMutation = graphql`
+  mutation SaveListUpdateTeamMutation($input: UpdateTeamInput!) {
+    updateTeam(input: $input) {
+      team {
+        get_tipline_inbox_filters
+      }
+    }
+  }
+`;
+
 const useStyles = makeStyles(theme => ({
   saveListCreate: {
     whiteSpace: 'nowrap',
@@ -73,7 +83,7 @@ const SaveList = ({
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox)(\/([0-9]+))?/);
   const classes = useStyles();
 
   const [title, setTitle] = React.useState('');
@@ -88,6 +98,36 @@ const SaveList = ({
 
   const objectType = currentPath[1];
 
+  // Just show the button on: "All Items", collection and folder (create a list) or list (create a new list or update list)
+  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox'].indexOf(objectType) === -1) {
+    return null;
+  }
+
+  // Don't even show the button if there is nothing to be saved
+  if (!query || JSON.stringify(query) === '{}') {
+    return null;
+  }
+
+  // Don't show the button if it's a list and nothing changed
+  if (objectType === 'list' && savedSearch && JSON.stringify(query) === savedSearch.filters) {
+    return null;
+  }
+
+  // Don't show the button if it's a tipline inbox page and nothing changed
+  if (objectType === 'tipline-inbox') {
+    const defaultStatusId = team.verification_statuses.default;
+    const defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [defaultStatusId] };
+    // Don't show the button if it's a default list
+    if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
+      return null;
+    }
+    // Don't show the button if it's a saved search
+    const savedQuery = team.get_tipline_inbox_filters;
+    if (savedQuery && JSON.stringify(query) === JSON.stringify(savedQuery)) {
+      return null;
+    }
+  }
+
   const handleClick = () => {
     // From the "All Items" page, collection page and a folder page, we can just create a new list
     if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection') {
@@ -95,6 +135,9 @@ const SaveList = ({
     // From a list page, we can either create a new one or update the one we're seeing
     } else if (objectType === 'list') {
       setOperation('UPDATE');
+      setShowExistingDialog(true);
+    } else if (objectType === 'tipline-inbox') {
+      setOperation('UPDATET_TIPLINE');
       setShowExistingDialog(true);
     }
   };
@@ -133,24 +176,26 @@ const SaveList = ({
 
   const handleSave = () => {
     setSaving(true);
-
+    const input = {};
     let queryToBeSaved = {};
-
     // If it's a folder, add the project.id as a filter
     if (project) {
       queryToBeSaved.projects = [project.dbid];
     }
-
     // If it's a collection, add the projectGroup.id as a filter
     if (projectGroup) {
       queryToBeSaved.project_group_id = [projectGroup.dbid];
     }
-
+    if (objectType === 'tipline-inbox' && operation !== 'UPDATET_TIPLINE') {
+      queryToBeSaved.channels = [CheckChannels.ANYTIPLINE];
+    }
     queryToBeSaved = { ...queryToBeSaved, ...query };
 
-    const input = {
-      filters: JSON.stringify(queryToBeSaved),
-    };
+    if (operation === 'UPDATET_TIPLINE') {
+      input.tipline_inbox_filters = JSON.stringify(query);
+    } else {
+      input.filters = JSON.stringify(queryToBeSaved);
+    }
 
     let mutation = updateMutation;
 
@@ -161,6 +206,9 @@ const SaveList = ({
     } else if (operation === 'UPDATE') {
       input.id = savedSearch.id;
       mutation = updateMutation;
+    } else if (operation === 'UPDATET_TIPLINE') {
+      input.id = team.id;
+      mutation = updateTiplineInboxMutation;
     }
 
     commitMutation(Store, {
@@ -180,26 +228,6 @@ const SaveList = ({
       },
     });
   };
-
-  // Just show the button on: "All Items", collection and folder (create a list) or list (create a new list or update list)
-  if (['all-items', 'project', 'list', 'collection'].indexOf(objectType) === -1) {
-    return null;
-  }
-
-  // Don't even show the button if there is nothing to be saved
-  if (!query || JSON.stringify(query) === '{}') {
-    return null;
-  }
-
-  // Don't show the button if not permissioned
-  if (!can(team.permissions, 'update Team')) {
-    return null;
-  }
-
-  // Don't show the button if it's a list and nothing changed
-  if (objectType === 'list' && savedSearch && JSON.stringify(query) === savedSearch.filters) {
-    return null;
-  }
 
   return (
     <React.Fragment>
@@ -248,18 +276,25 @@ const SaveList = ({
       />
 
       {/* Create a new list or update an existing list */}
-      { savedSearch ?
+      { savedSearch || objectType === 'tipline-inbox' ?
         <ConfirmProceedDialog
           open={showExistingDialog}
           title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
           body={
             <FormControl fullWidth>
               <RadioGroup value={operation} onChange={(e) => { setOperation(e.target.value); }}>
-                <FormControlLabel
-                  value="UPDATE"
-                  control={<Radio />}
-                  label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
-                />
+                { savedSearch ?
+                  <FormControlLabel
+                    value="UPDATE"
+                    control={<Radio />}
+                    label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
+                  /> :
+                  <FormControlLabel
+                    value="UPDATET_TIPLINE"
+                    control={<Radio />}
+                    label={<FormattedMessage id="saveList.updateTiplineInbox" defaultMessage="Save changes to the list" description="'Save' here is an infinitive verb" />}
+                  />
+                }
                 <FormControlLabel
                   value="CREATE"
                   control={<Radio />}

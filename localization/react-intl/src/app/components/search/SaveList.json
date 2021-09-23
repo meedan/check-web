@@ -32,6 +32,11 @@
     "defaultMessage": "Save changes to the list \"{listName}\""
   },
   {
+    "id": "saveList.updateTiplineInbox",
+    "description": "'Save' here is an infinitive verb",
+    "defaultMessage": "Save changes to the list"
+  },
+  {
     "id": "saveList.create",
     "description": "'Create' here is an infinitive verb",
     "defaultMessage": "Create new list"
