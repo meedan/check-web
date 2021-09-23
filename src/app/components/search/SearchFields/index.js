@@ -16,12 +16,14 @@ import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
+import MarkunreadIcon from '@material-ui/icons/Markunread';
 import deepEqual from 'deep-equal';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
+import { can } from '../../Can';
 import { languageLabel } from '../../../LanguageRegistry';
 import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
@@ -70,6 +72,19 @@ const typeLabels = defineMessages({
     id: 'search.showAudios',
     defaultMessage: 'Audio',
     description: 'Describes media type Audio',
+  },
+});
+
+const readLabels = defineMessages({
+  read: {
+    id: 'search.itemRead',
+    defaultMessage: 'Read',
+    description: 'Describes media read',
+  },
+  unread: {
+    id: 'search.itemUnread',
+    defaultMessage: 'Unread',
+    description: 'Describes media unread',
   },
 });
 
@@ -156,6 +171,12 @@ class SearchFields extends React.Component {
       delete query.team_tasks;
     }
     this.setState({ query });
+  }
+
+  handleReadClick = (readValue) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'read', readValue),
+    });
   }
 
   handleStatusClick = (statusCodes) => {
@@ -274,7 +295,10 @@ class SearchFields extends React.Component {
     // Folder options are grouped by collection
     // FIXME: Simplify the code below and improve its performance
     const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
-    let projectOptions = [];
+    let projectOptions = [{
+      label: <FormattedMessage id="search.noProject" defaultMessage="None" description="Label for none project to allow user filter items with no projects" />,
+      value: '-1',
+    }];
     const projectGroupOptions = [];
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
       const subProjects = [];
@@ -314,6 +338,11 @@ class SearchFields extends React.Component {
       { value: 'images', label: this.props.intl.formatMessage(typeLabels.image) },
       { value: 'videos', label: this.props.intl.formatMessage(typeLabels.video) },
       { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audio) },
+    ];
+
+    const readValues = [
+      { value: '0', label: this.props.intl.formatMessage(readLabels.unread) },
+      { value: '1', label: this.props.intl.formatMessage(readLabels.read) },
     ];
 
     const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
@@ -399,6 +428,21 @@ class SearchFields extends React.Component {
               options={types}
               onChange={this.handleShowClick}
               onRemove={() => this.handleRemoveField('show')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      read: (
+        <FormattedMessage id="search.read" defaultMessage="Item is" description="Prefix label for field to filter by media read">
+          { label => (
+            <MultiSelectFilter
+              allowSearch={false}
+              label={label}
+              icon={<MarkunreadIcon />}
+              selected={this.state.query.read}
+              options={readValues}
+              onChange={this.handleReadClick}
+              onRemove={() => this.handleRemoveField('read')}
             />
           )}
         </FormattedMessage>
@@ -553,7 +597,9 @@ class SearchFields extends React.Component {
               </IconButton>
             </Tooltip>
           ) : null }
-          <SaveList team={team} query={this.state.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} />
+          { can(team.permissions, 'update Team') ?
+            <SaveList team={team} query={this.state.query} project={project} projectGroup={projectGroup} savedSearch={this.props.savedSearch} />
+            : null }
         </Row>
       </div>
     );
@@ -605,6 +651,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     permissions
     verification_statuses
     get_languages
+    get_tipline_inbox_filters
     tag_texts(first: 10000) {
       edges {
         node {

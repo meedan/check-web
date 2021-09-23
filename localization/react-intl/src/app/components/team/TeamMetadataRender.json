@@ -1,23 +1,23 @@
 [
   {
     "id": "teamMetadataRender.itemTitle",
-    "description": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items.",
-    "defaultMessage": "Metadata"
+    "description": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items.",
+    "defaultMessage": "Item annotation form"
   },
   {
     "id": "teamMetadataRender.sourceTitle",
-    "description": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources.",
-    "defaultMessage": "Source metadata"
+    "description": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources.",
+    "defaultMessage": "Source annotation form"
   },
   {
     "id": "teamMetadataRender.metadataItemSubtitle",
-    "description": "Subtitle for metadata settings screen applied to Items",
-    "defaultMessage": "Add custom metadata fields to items."
+    "description": "Subtitle for annotation settings screen applied to Items",
+    "defaultMessage": "Create dynamic forms to annotate items by adding fields."
   },
   {
     "id": "teamMetadataRender.metadataSourceSubtitle",
-    "description": "Subtitle for metadata settings screen applied to Sources",
-    "defaultMessage": "Add custom data fields to the source tab."
+    "description": "Subtitle for annotation settings screen applied to Sources",
+    "defaultMessage": "Create dynamic forms to annotate sources by adding fields."
   },
   {
     "id": "teamMetadataRender.blankMetadata",

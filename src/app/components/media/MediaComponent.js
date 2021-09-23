@@ -342,8 +342,8 @@ class MediaComponent extends Component {
                   <Tab
                     label={
                       <FormattedMessage
-                        id="mediaComponent.metadata"
-                        defaultMessage="Metadata"
+                        id="mediaComponent.annotation"
+                        defaultMessage="Annotation"
                       />
                     }
                     value="metadata"

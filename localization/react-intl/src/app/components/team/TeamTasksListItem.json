@@ -6,13 +6,5 @@
   {
     "id": "taskActions.tooltipMetadata",
     "defaultMessage": "Metadata actions"
-  },
-  {
-    "id": "teamTasks.edit",
-    "defaultMessage": "Edit"
-  },
-  {
-    "id": "teamTasks.delete",
-    "defaultMessage": "Delete"
   }
 ]

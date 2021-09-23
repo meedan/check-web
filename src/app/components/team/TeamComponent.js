@@ -129,7 +129,8 @@ class TeamComponent extends Component {
                 label={
                   <FormattedMessage
                     id="teamSettings.metadata"
-                    defaultMessage="Metadata"
+                    defaultMessage="Annotation"
+                    description="Label for annotation settings tab"
                   />
                 }
                 value="metadata"

@@ -289,7 +289,11 @@ const SlackConfigDialogComponent = ({
                     size="small"
                     variant="contained"
                   >
-                    <FormattedMessage id="slackConfigDialogComponent.new" defaultMessage="+ New" />
+                    <FormattedMessage
+                      id="slackConfigDialogComponent.new"
+                      defaultMessage="+ New"
+                      description="Button to create a new notification"
+                    />
                   </Button>
                 </TableCell>
               </TableRow>

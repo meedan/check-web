@@ -8,16 +8,25 @@
     "defaultMessage": "This URL does not seem to be a valid RSS feed"
   },
   {
+    "id": "smoochBotNewsletterEditor.title",
+    "defaultMessage": "Compose your newsletter"
+  },
+  {
     "id": "smoochBotNewsletterEditor.paused",
-    "defaultMessage": "The newsletter is paused because the content has not been modified since the previous send-out"
+    "defaultMessage": "To send your next newsletter, please add new content"
   },
   {
     "id": "smoochBotNewsletterEditor.active",
     "defaultMessage": "The newsletter will be sent to {count} users on {date}, {time}"
   },
   {
-    "id": "smoochBotNewsletterEditor.note",
-    "defaultMessage": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+    "id": "smoochBotNewsletterEditor.none",
+    "defaultMessage": "Please complete the steps below to send a weekly newsletter"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.firstStep",
+    "description": "This is an item in a bullet list of steps, this is the first step",
+    "defaultMessage": "1. Select a day and time of the week"
   },
   {
     "id": "smoochBotNewsletterEditor.sendEvery",
@@ -67,15 +76,29 @@
   },
   {
     "id": "smoochBotNewsletterEditor.timezone",
-    "defaultMessage": "Timezone"
+    "description": "Label for time zone selection",
+    "defaultMessage": "Time zone"
   },
   {
-    "id": "smoochBotNewsletterEditor.templateHeader",
-    "defaultMessage": "Hi! Here are your Weekly COVID-19 Facts. This newsletter is published on WhatsApp by {team}. Here are the most important facts for the week of {date}:"
+    "id": "smoochBotNewsletterEditor.secondStep",
+    "description": "This is an item in a bullet list of steps, this is the second step",
+    "defaultMessage": "2. Add content manually, or via RSS Feed."
   },
   {
-    "id": "smoochBotNewsletterEditor.rss",
-    "defaultMessage": "Add content from RSS feed"
+    "id": "smoochBotNewsletterEditor.secondStep2",
+    "defaultMessage": "If the content is not changed between two scheduled sendouts, it will not be sent."
+  },
+  {
+    "id": "smoochBotNewsletterEditor.toggleRss",
+    "defaultMessage": "Automatically update content using an RSS feed"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.numberOfBulletPoints",
+    "defaultMessage": "Number of bullet points"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.templateHeaderNoRss",
+    "defaultMessage": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
   },
   {
     "id": "smoochBotNewsletterEditor.url",
@@ -88,9 +111,5 @@
   {
     "id": "smoochBotNewsletterEditor.load",
     "defaultMessage": "Load"
-  },
-  {
-    "id": "smoochBotNewsletterEditor.delete",
-    "defaultMessage": "Delete"
   }
 ]

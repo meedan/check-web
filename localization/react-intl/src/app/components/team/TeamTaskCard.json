@@ -1,0 +1,12 @@
+[
+  {
+    "id": "teamTaskCard.menu",
+    "description": "E.g. Field 1, Field 2...",
+    "defaultMessage": "Field {number}"
+  },
+  {
+    "id": "teamTaskCard.showInBrowserExtension",
+    "description": "Toggle switch to make field visible in the browser extension",
+    "defaultMessage": "Show in browser extension"
+  }
+]

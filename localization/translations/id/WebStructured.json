@@ -37,8 +37,8 @@
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.labelIs": {
-		"string": "{title} is",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
+		"string": "{title} adalah",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Metadata dengan nilai spesifik",
@@ -82,7 +82,7 @@
 		"string": "Riwayat perihal"
 	},
 	"MultiSelector.all": {
-		"string": "Search All"
+		"string": "Cari Semua"
 	},
 	"MultiSelector.search": {
 		"string": "Cari..."
@@ -198,6 +198,10 @@
 	"addFilterMenu.folder": {
 		"string": "Folder",
 		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemRead": {
+		"string": "Item read/unread",
+		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
 		"string": "Status perihal",
@@ -685,6 +689,14 @@
 	"createTeamDialog.url": {
 		"string": "URL ruang kerja"
 	},
+	"createTeamTask.addField": {
+		"string": "New annotation field",
+		"developer_comment": "Button that triggers creation of a new field"
+	},
+	"createTeamTask.addTask": {
+		"string": "Tugas baru",
+		"developer_comment": "Button that triggers creation of a new task"
+	},
 	"createTeamTask.errorMetadata": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui bidang metadata. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya berlanjut."
 	},
@@ -791,18 +803,6 @@
 	"editStatusDialog.toggleStatusMessage": {
 		"string": "Kirim pesan ke pemohon",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
-	},
-	"editTaskDialog.editMetadata": {
-		"string": "Sunting bidang metadata"
-	},
-	"editTaskDialog.editTask": {
-		"string": "Sunting tugas"
-	},
-	"editTaskDialog.newMetadata": {
-		"string": "Bidang metadata baru"
-	},
-	"editTaskDialog.newTask": {
-		"string": "Tugas baru"
 	},
 	"fetchBot.contactUs": {
 		"string": "Hubungi kami untuk pengaturan"
@@ -1244,11 +1244,11 @@
 	"mediaComments.noNote": {
 		"string": "Tidak ada catatan"
 	},
+	"mediaComponent.annotation": {
+		"string": "Annotation"
+	},
 	"mediaComponent.answered": {
 		"string": "selesai"
-	},
-	"mediaComponent.metadata": {
-		"string": "Metadata"
 	},
 	"mediaComponent.notes": {
 		"string": "Catatan"
@@ -2223,6 +2223,10 @@
 		"string": "Simpan perubahan ke daftar \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.updateTiplineInbox": {
+		"string": "Save changes to the list",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
 	"saveTag.couldNotSave": {
 		"string": "Tidak dapat menyimpan label",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -2319,12 +2323,24 @@
 		"string": "Cari",
 		"developer_comment": "Placeholder for search keywords input"
 	},
+	"search.itemRead": {
+		"string": "Read",
+		"developer_comment": "Describes media read"
+	},
+	"search.itemUnread": {
+		"string": "Unread",
+		"developer_comment": "Describes media unread"
+	},
 	"search.language": {
 		"string": "Bahasa adalah",
 		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Halaman selanjutnya"
+	},
+	"search.noProject": {
+		"string": "None",
+		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
 	"search.notInAny": {
 		"string": "Tidak ada di koleksi manapun",
@@ -2336,6 +2352,10 @@
 	},
 	"search.previousPage": {
 		"string": "Halaman sebelumnya"
+	},
+	"search.read": {
+		"string": "Item is",
+		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.reportStatus": {
 		"string": "Status laporan adalah",
@@ -2459,7 +2479,7 @@
 		"string": "Metadata"
 	},
 	"searchKeywordConfig.ocr": {
-		"string": "Extracted text (OCR)"
+		"string": "Teks yang diekstraksi (OCR)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "Label"
@@ -2560,11 +2580,11 @@
 		"string": "Kirim notifikasi ke saluran Slack saat perihal ditambahkan ke folder tertentu"
 	},
 	"slackConfigDialogComponent.addEvent": {
-		"string": "+ Add event",
+		"string": "+ Tambah kegiatan",
 		"developer_comment": "Button label to event selector"
 	},
 	"slackConfigDialogComponent.anyActivity": {
-		"string": "Any workspace activity",
+		"string": "Setiap aktivitas ruang kerja",
 		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
@@ -2577,7 +2597,7 @@
 		"string": "Tidak dapat menyimpan pengaturan Slack"
 	},
 	"slackConfigDialogComponent.defaultLabel": {
-		"string": "Notification {number}",
+		"string": "Notifikasi {number}",
 		"developer_comment": "Default label for new notification. I.e.: Notification 1, Notification 2..."
 	},
 	"slackConfigDialogComponent.if": {
@@ -2585,30 +2605,31 @@
 		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
 	},
 	"slackConfigDialogComponent.itemAdded": {
-		"string": "Item is added to folder",
+		"string": "Perihal ditambahkan ke folder",
 		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
 	},
 	"slackConfigDialogComponent.itemIsAddedTo": {
-		"string": "Item is added to",
+		"string": "Perihal ditambahkan ke",
 		"developer_comment": "Label to folder selector component"
 	},
 	"slackConfigDialogComponent.label": {
-		"string": "Notification name"
+		"string": "Nama notifikasi"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "+ New"
+		"string": "+ Baru",
+		"developer_comment": "Button to create a new notification"
 	},
 	"slackConfigDialogComponent.noChannelError": {
-		"string": "Please add the Slack channel where notifications will be sent"
+		"string": "Silakan tambahkan saluran Slack tempat notifikasi akan dikirim"
 	},
 	"slackConfigDialogComponent.noConditionError": {
-		"string": "Please select a condition to send notifications"
+		"string": "Silakan pilih kondisi untuk mengirim notifikasi"
 	},
 	"slackConfigDialogComponent.noWebhookError": {
-		"string": "Please add the Slack webhook address"
+		"string": "Silakan tambahkan alamat webhook Slack"
 	},
 	"slackConfigDialogComponent.notifications": {
-		"string": "Notifications"
+		"string": "Notifikasi"
 	},
 	"slackConfigDialogComponent.save": {
 		"string": "Simpan"
@@ -2617,11 +2638,11 @@
 		"string": "Pengaturan Slack berhasil disimpan"
 	},
 	"slackConfigDialogComponent.statusChanged": {
-		"string": "Status is changed to",
+		"string": "Status diubah menjadi",
 		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
 	},
 	"slackConfigDialogComponent.then": {
-		"string": "Then send notification to",
+		"string": "Kemudian kirim notifikasi ke",
 		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
@@ -2646,13 +2667,13 @@
 		"string": "Menu yang meminta pengguna untuk memilih di antara serangkaian opsi. Pesan ini secara otomatis mengikuti pesan Sambutan. Angka 9 tidak dapat digunakan sebagai opsi di menu utama."
 	},
 	"smoochBot.descriptionNewsletter1": {
-		"string": "Please complete the steps below to send a weekly newsletter:"
+		"string": "Silakan selesaikan langkah-langkah di bawah ini untuk mengirim buletin mingguan:"
 	},
 	"smoochBot.descriptionNewsletter2": {
-		"string": "1. Compose your newsletter"
+		"string": "1. Tulis buletin Anda"
 	},
 	"smoochBot.descriptionNewsletter3": {
-		"string": "2. Select a day and time of the week"
+		"string": "2. Pilih hari dan waktu dalam seminggu"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "Pesan ini akan dikirim ke pengguna jika, setelah percakapan dimulai, mereka tidak memilih salah satu opsi: menerima materi atau menyerahkan konten untuk diverifikasi. Pesan ini juga akan dikirim ke pengguna yang menyerahkan konten tanpa menunggu pertanyaan pemicu."
@@ -2682,7 +2703,7 @@
 		"string": "Menu opsional yang meminta pengguna untuk memilih dari serangkaian opsi. Saat pengguna membalas dengan salah satu opsi, bot dapat mengirim laporan atau mengarahkan mereka ke bot pesan lain."
 	},
 	"smoochBot.descriptionSubscription": {
-		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+		"string": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
 	},
 	"smoochBot.footnoteGreeting": {
 		"string": "Pernyataan dan opsi berikut akan ditambahkan secara otomatis di akhir pesan ini: 'Kami tidak akan pernah membagikan informasi pengenal pribadi Anda. Balas dengan 9 untuk membaca pernyataan Privasi dan Tujuan kami'."
@@ -2703,7 +2724,7 @@
 		"string": "Menu utama"
 	},
 	"smoochBot.labelNewsletter": {
-		"string": "Newsletter"
+		"string": "Buletin"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "Tidak ada tindakan dari pengguna"
@@ -2727,7 +2748,7 @@
 		"string": "Menu sekunder"
 	},
 	"smoochBot.labelSubscription": {
-		"string": "Subscription opt-in"
+		"string": "Keikutsertaan berlangganan"
 	},
 	"smoochBot.menuKeywords": {
 		"string": "Kata kunci dipisahkan dengan koma"
@@ -2748,7 +2769,10 @@
 		"string": "📌*Menu Utama*\n\n*Balas dengan 1* (atau 🔍) untuk menyerahkan permintaan cek fakta tentang artikel, video, gambar, atau konten lainnya.\n*Balas dengan 2* (atau 🦠) untuk mendapatkan informasi terbaru tentang penyakit coronavirus (COVID-19)"
 	},
 	"smoochBot.placeholderNewsletter": {
-		"string": "Type to compose your newsletter. You can add content from the RSS below."
+		"string": "Ketik untuk menulis buletin Anda. Anda dapat menambahkan konten dari RSS di bawah ini."
+	},
+	"smoochBot.placeholderNewsletterBulletPoint": {
+		"string": "Type in to add content"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Maaf, saya tidak mengerti pesan Anda. Silakan coba lagi!"
@@ -2766,7 +2790,7 @@
 		"string": "*Informasi tentang penyakit Coronavirus (COVID-19)* 🦠\n\n👉*Balas dengan salah satu nomor berikut (atau emoji) untuk mendapatkan informasi tentang topik tersebut:*\n\n*1:* Bagaimana cara melindungi diri saya dan/atau keluarga saya? 👨‍👩‍👧\n*2:* Saya pikir saya mungkin sakit 🤒\n*3:* Bagaimana saya bisa menangani stres yang terkait dengan COVID-19? ❤️\n*4:* Informasi tentang kasus dan pemulihan secara global 📊\n*5:* Pembaruan terbaru dari Organisasi Kesehatan Dunia 🌐\n\n*Balas dengan 0* untuk kembali ke *Menu Utama* 📌"
 	},
 	"smoochBot.placeholderSubscription": {
-		"string": "Type to compose your prompt for newsletter opt-in."
+		"string": "Ketik untuk menulis permintaan Anda untuk keikutsertaan buletin."
 	},
 	"smoochBot.scenarios": {
 		"string": "Skenario"
@@ -2800,7 +2824,7 @@
 		"string": "Tipline"
 	},
 	"smoochBotConfig.subscriptionHeader": {
-		"string": "You are currently {subscription_status} to our newsletter."
+		"string": "Anda saat ini sedang {subscription_status} ke buletin kami."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Batalkan"
@@ -2933,10 +2957,10 @@
 		"string": "Pilih pesan"
 	},
 	"smoochBotMenuOption.subscription": {
-		"string": "Subscription opt-in"
+		"string": "Keikutsertaan berlangganan"
 	},
 	"smoochBotMenuOption.subscriptionConfirmation": {
-		"string": "Subscription confirmation"
+		"string": "Konfirmasi berlangganan"
 	},
 	"smoochBotMenuOption.then": {
 		"string": "Maka"
@@ -2945,75 +2969,90 @@
 		"string": "Opsi '9' harus disertakan agar pengguna dapat mengakses Pernyataan Privasi"
 	},
 	"smoochBotNewsletterAt": {
-		"string": "at",
+		"string": "pada",
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+		"string": "Buletin akan dikirim ke {count} pengguna pada {date}, {time}"
 	},
 	"smoochBotNewsletterEditor.day": {
-		"string": "Day of week"
-	},
-	"smoochBotNewsletterEditor.delete": {
-		"string": "Hapus"
+		"string": "Hari dalam minggu"
 	},
 	"smoochBotNewsletterEditor.error": {
 		"string": "URL ini tampaknya bukan umpan RSS yang valid"
 	},
+	"smoochBotNewsletterEditor.firstStep": {
+		"string": "1. Select a day and time of the week",
+		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	},
 	"smoochBotNewsletterEditor.friday": {
-		"string": "Friday"
+		"string": "Jumat"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "Muat"
 	},
 	"smoochBotNewsletterEditor.monday": {
-		"string": "Monday"
+		"string": "Senin"
 	},
-	"smoochBotNewsletterEditor.note": {
-		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	"smoochBotNewsletterEditor.none": {
+		"string": "Please complete the steps below to send a weekly newsletter"
 	},
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Jumlah artikel yang dikembalikan"
 	},
-	"smoochBotNewsletterEditor.paused": {
-		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
+	"smoochBotNewsletterEditor.numberOfBulletPoints": {
+		"string": "Number of bullet points"
 	},
-	"smoochBotNewsletterEditor.rss": {
-		"string": "Tambah konten dari umpan RSS"
+	"smoochBotNewsletterEditor.paused": {
+		"string": "To send your next newsletter, please add new content"
 	},
 	"smoochBotNewsletterEditor.rssPlaceholder": {
 		"string": "URL publik yang mengembalikan N artikel dalam format RSS"
 	},
 	"smoochBotNewsletterEditor.saturday": {
-		"string": "Saturday"
+		"string": "Sabtu"
+	},
+	"smoochBotNewsletterEditor.secondStep": {
+		"string": "2. Add content manually, or via RSS Feed.",
+		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+	},
+	"smoochBotNewsletterEditor.secondStep2": {
+		"string": "If the content is not changed between two scheduled sendouts, it will not be sent."
 	},
 	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Send every",
+		"string": "Kirim setiap",
 		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
 	},
 	"smoochBotNewsletterEditor.sunday": {
-		"string": "Sunday"
+		"string": "Minggu"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	"smoochBotNewsletterEditor.templateHeaderNoRss": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
-		"string": "Thursday"
+		"string": "Kamis"
 	},
 	"smoochBotNewsletterEditor.time": {
 		"string": "Waktu"
 	},
 	"smoochBotNewsletterEditor.timezone": {
-		"string": "Timezone"
+		"string": "Time zone",
+		"developer_comment": "Label for time zone selection"
+	},
+	"smoochBotNewsletterEditor.title": {
+		"string": "Compose your newsletter"
+	},
+	"smoochBotNewsletterEditor.toggleRss": {
+		"string": "Automatically update content using an RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
-		"string": "Tuesday"
+		"string": "Selasa"
 	},
 	"smoochBotNewsletterEditor.url": {
 		"string": "URL"
 	},
 	"smoochBotNewsletterEditor.wednesday": {
-		"string": "Wednesday"
+		"string": "Rabu"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "Tambah konten secara manual"
@@ -3324,8 +3363,20 @@
 	"tasks.chooseOne": {
 		"string": "Pilih satu"
 	},
+	"tasks.chooseType": {
+		"string": "Choose a field type",
+		"developer_comment": "Label for field type selection box"
+	},
+	"tasks.dateTimeType": {
+		"string": "Tanggal dan waktu",
+		"developer_comment": "Label for datetime type field"
+	},
 	"tasks.datetime": {
 		"string": "Tanggal dan waktu"
+	},
+	"tasks.datetimeDescription": {
+		"string": "Allows you to pick a date and time from the calendar",
+		"developer_comment": "Description for datetime type field"
 	},
 	"tasks.description": {
 		"string": "Deskripsi (opsional)"
@@ -3339,33 +3390,87 @@
 	"tasks.fileUpload": {
 		"string": "Unggahan berkas"
 	},
+	"tasks.fileUploadDescription": {
+		"string": "Allows you to upload a file",
+		"developer_comment": "Description for file upload type field"
+	},
+	"tasks.fileUploadType": {
+		"string": "Unggahan berkas",
+		"developer_comment": "Label for file upload type field"
+	},
 	"tasks.geolocation": {
 		"string": "Lokasi"
 	},
 	"tasks.goToSettings": {
 		"string": "Pergi ke pengaturan"
 	},
+	"tasks.locationDescription": {
+		"string": "Allows you to add coordinates of a place, or search a place by name",
+		"developer_comment": "Description for location type field"
+	},
+	"tasks.locationType": {
+		"string": "Lokasi",
+		"developer_comment": "Label for location type field"
+	},
+	"tasks.multipleChoiceDescription": {
+		"string": "Allows you to select one or more predefined options",
+		"developer_comment": "Description for multiple selection type field"
+	},
+	"tasks.multipleChoiceType": {
+		"string": "Pilih beberapa",
+		"developer_comment": "Label for multiple selection type field"
+	},
 	"tasks.number": {
 		"string": "Nomor",
 		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
+	"tasks.numberDescription": {
+		"string": "Allows you to enter a number",
+		"developer_comment": "Description for number type field"
+	},
+	"tasks.numberType": {
+		"string": "Nomor",
+		"developer_comment": "Label for number type field"
+	},
 	"tasks.shortAnswer": {
 		"string": "Teks"
 	},
-	"tasks.showInBrowserExtension": {
-		"string": "Tampilkan di ekstensi peramban"
+	"tasks.shortTextDescription": {
+		"string": "Allows you to enter text",
+		"developer_comment": "Description for text type field"
+	},
+	"tasks.showIfCondition": {
+		"string": "Show field when condition is met",
+		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
 	},
 	"tasks.showInProj": {
 		"string": "Tampilkan tugas di"
 	},
+	"tasks.singleChoiceDescription": {
+		"string": "Allows you to select a single option from predefined options in a list",
+		"developer_comment": "Description for single selection type field"
+	},
+	"tasks.singleChoiceType": {
+		"string": "Pilih satu",
+		"developer_comment": "Label for single selection type field"
+	},
 	"tasks.taskPrompt": {
-		"string": "Pemicu"
+		"string": "Judul",
+		"developer_comment": "Title field for custom annotation field"
 	},
 	"tasks.teamwideNudge": {
 		"string": "Tugas bawaan"
 	},
+	"tasks.textType": {
+		"string": "Teks",
+		"developer_comment": "Label for text type field"
+	},
 	"tasks.timezones": {
 		"string": "Zona waktu yang tersedia untuk menyelesaikan tugas"
+	},
+	"tasks.when": {
+		"string": "When",
+		"developer_comment": "We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
 	},
 	"teamBots.fail": {
 		"string": "Terjadi kesalahan! Silakan coba lagi."
@@ -3556,20 +3661,20 @@
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "Metadata",
-		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
+		"string": "Item annotation form",
+		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "Tambahkan bidang metadata kustom ke perihal.",
-		"developer_comment": "Subtitle for metadata settings screen applied to Items"
+		"string": "Create dynamic forms to annotate items by adding fields.",
+		"developer_comment": "Subtitle for annotation settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Tambahkan bidang data kustom ke tab sumber.",
-		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
+		"string": "Create dynamic forms to annotate sources by adding fields.",
+		"developer_comment": "Subtitle for annotation settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
-		"string": "Metadata sumber",
-		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
+		"string": "Source annotation form",
+		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
 		"string": "Tidak dapat menyimpan pengaturan laporan",
@@ -3648,7 +3753,8 @@
 		"string": "Anggota"
 	},
 	"teamSettings.metadata": {
-		"string": "Metadata"
+		"string": "Annotation",
+		"developer_comment": "Label for annotation settings tab"
 	},
 	"teamSettings.report": {
 		"string": "Laporan"
@@ -3773,6 +3879,14 @@
 		"string": "Label",
 		"developer_comment": "Title for the tags settings page"
 	},
+	"teamTaskCard.menu": {
+		"string": "Field {number}",
+		"developer_comment": "E.g. Field 1, Field 2..."
+	},
+	"teamTaskCard.showInBrowserExtension": {
+		"string": "Tampilkan di ekstensi peramban",
+		"developer_comment": "Toggle switch to make field visible in the browser extension"
+	},
 	"teamTasks.cancelAction": {
 		"string": "Batalkan"
 	},
@@ -3780,40 +3894,60 @@
 		"string": "Ya"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, other {Tugas {taskLabel} telah diselesaikan di # perihal.}}"
+		"string": "{itemsNumber, plural, other {Tugas {taskLabel} telah diselesaikan di # perihal.}}",
+		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
+	},
+	"teamTasks.confirmDeleteBlurbMetadata": {
+		"string": "{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}",
+		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
-		"string": "Anda yakin ingin menghapus metadata ini?"
+		"string": "Are you sure you want to delete this field?"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
 		"string": "Anda yakin ingin menghapus tugas ini?"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Simpan tugas ini dengan jawaban dalam perihal di mana tugas tersebut telah diselesaikan."
+		"string": "Simpan tugas ini dengan jawaban dalam perihal di mana tugas tersebut telah diselesaikan.",
+		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
+	},
+	"teamTasks.confirmDeletekeepCompletedMetadata": {
+		"string": "Keep this field with answers in items where it has been completed.",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
-		"string": "Tugas perihal terkait akan dimodifikasi sebagai konsekuensi dari penerapan perubahan ini, kecuali tugas yang telah diselesaikan."
+		"string": "Tugas perihal terkait akan dimodifikasi sebagai konsekuensi dari penerapan perubahan ini, kecuali tugas yang telah diselesaikan.",
+		"developer_comment": "Warning about existing instances of a task before performing changes to it"
+	},
+	"teamTasks.confirmEditBlurbMetadata": {
+		"string": "Related item fields will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "Anda yakin ingin menyunting metadata ini?"
+		"string": "Are you sure you want to edit this field?"
 	},
 	"teamTasks.confirmEditTaskTitle": {
 		"string": "Anda yakin ingin menyunting tugas ini?"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Jangan mengubah tugas yang telah diselesaikan, dan simpan jawaban yang sudah ada."
+		"string": "Jangan mengubah tugas yang telah diselesaikan, dan simpan jawaban yang sudah ada.",
+		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
+	},
+	"teamTasks.confirmEditkeepCompletedMetadata": {
+		"string": "Do not alter fields that have been completed, and keep their existing answers.",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
 		"string": "Sunting tugas"
 	},
-	"teamTasks.delete": {
-		"string": "Hapus"
+	"teamTasks.continueMetadata": {
+		"string": "Edit field"
+	},
+	"teamTasks.deleteMetadata": {
+		"string": "Delete field"
 	},
 	"teamTasks.deleteTask": {
 		"string": "Hapus tugas"
-	},
-	"teamTasks.edit": {
-		"string": "Sunting"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Tidak ada tugas} one {1 tugas} other {# tugas}}"
