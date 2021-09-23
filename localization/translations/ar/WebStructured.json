@@ -37,8 +37,8 @@
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.labelIs": {
-		"string": "{title} is",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
+		"string": "{title} هو",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "البيانات الوصفية لها قيمة محددة",
@@ -82,7 +82,7 @@
 		"string": "تاريخ العنصر"
 	},
 	"MultiSelector.all": {
-		"string": "Search All"
+		"string": "بحث في الكل"
 	},
 	"MultiSelector.search": {
 		"string": "بحث..."
@@ -198,6 +198,10 @@
 	"addFilterMenu.folder": {
 		"string": "مجلد",
 		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemRead": {
+		"string": "Item read/unread",
+		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
 		"string": "حالة العنصر",
@@ -685,6 +689,14 @@
 	"createTeamDialog.url": {
 		"string": "رابط مساحة العمل"
 	},
+	"createTeamTask.addField": {
+		"string": "New annotation field",
+		"developer_comment": "Button that triggers creation of a new field"
+	},
+	"createTeamTask.addTask": {
+		"string": "مهمة جديدة",
+		"developer_comment": "Button that triggers creation of a new task"
+	},
 	"createTeamTask.errorMetadata": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث حقل بيانات التعريف. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
@@ -791,18 +803,6 @@
 	"editStatusDialog.toggleStatusMessage": {
 		"string": "إرسال رسالة إلى الطالب",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
-	},
-	"editTaskDialog.editMetadata": {
-		"string": "تحرير حقل البيانات الوصفيّة"
-	},
-	"editTaskDialog.editTask": {
-		"string": "تحرير المهمة"
-	},
-	"editTaskDialog.newMetadata": {
-		"string": "إضافة حقل بيانات وصفيّة جديد"
-	},
-	"editTaskDialog.newTask": {
-		"string": "مهمة جديدة"
 	},
 	"fetchBot.contactUs": {
 		"string": "تواصل معنا للتثبيت"
@@ -1244,11 +1244,11 @@
 	"mediaComments.noNote": {
 		"string": "لا توجد ملحوظة"
 	},
+	"mediaComponent.annotation": {
+		"string": "Annotation"
+	},
 	"mediaComponent.answered": {
 		"string": "تم اكمالها"
-	},
-	"mediaComponent.metadata": {
-		"string": "البيانات الوصفيّة"
 	},
 	"mediaComponent.notes": {
 		"string": "الملحوظات"
@@ -2223,6 +2223,10 @@
 		"string": "حفظ التغييرات إلى القائمة \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.updateTiplineInbox": {
+		"string": "Save changes to the list",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
 	"saveTag.couldNotSave": {
 		"string": "تعذَّر حفظ الوسم",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -2319,12 +2323,24 @@
 		"string": "بحث",
 		"developer_comment": "Placeholder for search keywords input"
 	},
+	"search.itemRead": {
+		"string": "تمت القراءة",
+		"developer_comment": "Describes media read"
+	},
+	"search.itemUnread": {
+		"string": "لم تتم قراءته",
+		"developer_comment": "Describes media unread"
+	},
 	"search.language": {
 		"string": "اللغة هي",
 		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "الصفحة التالية"
+	},
+	"search.noProject": {
+		"string": "خالٍ",
+		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
 	"search.notInAny": {
 		"string": "ليس في أي مجموعة",
@@ -2336,6 +2352,10 @@
 	},
 	"search.previousPage": {
 		"string": "الصفحة السابقة"
+	},
+	"search.read": {
+		"string": "Item is",
+		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.reportStatus": {
 		"string": "حالة التقرير هي",
@@ -2459,7 +2479,7 @@
 		"string": "البيانات الوصفيّة"
 	},
 	"searchKeywordConfig.ocr": {
-		"string": "Extracted text (OCR)"
+		"string": "النص المستخلص (OCR)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "الوسوم"
@@ -2560,11 +2580,11 @@
 		"string": "إرسال تنبيهات إلى قنوات Slack عند إضافة عناصر إلى مجلدات محددة"
 	},
 	"slackConfigDialogComponent.addEvent": {
-		"string": "+ Add event",
+		"string": "+ إضافة حدث",
 		"developer_comment": "Button label to event selector"
 	},
 	"slackConfigDialogComponent.anyActivity": {
-		"string": "Any workspace activity",
+		"string": "أي نشاط في مساحة العمل",
 		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
@@ -2577,7 +2597,7 @@
 		"string": "لم يمكننا حفظ إعدادات Slack"
 	},
 	"slackConfigDialogComponent.defaultLabel": {
-		"string": "Notification {number}",
+		"string": "التنبيه {number}",
 		"developer_comment": "Default label for new notification. I.e.: Notification 1, Notification 2..."
 	},
 	"slackConfigDialogComponent.if": {
@@ -2585,30 +2605,31 @@
 		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
 	},
 	"slackConfigDialogComponent.itemAdded": {
-		"string": "Item is added to folder",
+		"string": "تمت إضافة العنصر إلى المجلد",
 		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
 	},
 	"slackConfigDialogComponent.itemIsAddedTo": {
-		"string": "Item is added to",
+		"string": "تمت إضافة العنصر إلى",
 		"developer_comment": "Label to folder selector component"
 	},
 	"slackConfigDialogComponent.label": {
-		"string": "Notification name"
+		"string": "اسم التنبيه"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "+ New"
+		"string": "+ جديد",
+		"developer_comment": "Button to create a new notification"
 	},
 	"slackConfigDialogComponent.noChannelError": {
-		"string": "Please add the Slack channel where notifications will be sent"
+		"string": "يرجى إضافة قناة Slack التي سيتم إرسال التنبيهات إليها"
 	},
 	"slackConfigDialogComponent.noConditionError": {
-		"string": "Please select a condition to send notifications"
+		"string": "يرجى تحديد شرط إرسال التنبيهات"
 	},
 	"slackConfigDialogComponent.noWebhookError": {
-		"string": "Please add the Slack webhook address"
+		"string": "يرجى إضافة عنوان ‫مِشبَك Slack‬"
 	},
 	"slackConfigDialogComponent.notifications": {
-		"string": "Notifications"
+		"string": "التنبيهات"
 	},
 	"slackConfigDialogComponent.save": {
 		"string": "حفظ"
@@ -2617,11 +2638,11 @@
 		"string": "لقد حُفظَت إعدادات Slack بنجاح"
 	},
 	"slackConfigDialogComponent.statusChanged": {
-		"string": "Status is changed to",
+		"string": "تم تغيير الحالة إلى",
 		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
 	},
 	"slackConfigDialogComponent.then": {
-		"string": "Then send notification to",
+		"string": "ثم أرسِل التنبيه إلى",
 		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
@@ -2646,13 +2667,13 @@
 		"string": "قائمة تطلب من المستخدم الاختيار بين مجموعة من الخيارات.  ستتبع هذه الرسالة رسالة الترحيب تلقائيا. لا يمكن استخدام الخيار 9 في القائمة الرئيسية."
 	},
 	"smoochBot.descriptionNewsletter1": {
-		"string": "Please complete the steps below to send a weekly newsletter:"
+		"string": "يرجى إكمال الخطوات بالأسفل لإرسال رسالة إخبارية أسبوعية:"
 	},
 	"smoochBot.descriptionNewsletter2": {
-		"string": "1. Compose your newsletter"
+		"string": "1. كتابة الرسالة الإخبارية"
 	},
 	"smoochBot.descriptionNewsletter3": {
-		"string": "2. Select a day and time of the week"
+		"string": "2. نحديد يوم ووقت معين في الأسبوع"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "هذه الرسالة سوف تُرسَل إلى المستخدمين بعد بداية محادثة إذا لم يحددوا أحد الخيارين : إما خيار استلام مورد وإما خيار إرسال محتوى للتحقق منه. ستُرسَل الرسالة أيضا للمستخدمين الذين قاموا بإرسال محتوى دون انتظار موجه الاستعلامات."
@@ -2682,7 +2703,7 @@
 		"string": "قائمة اختيارية تطلب من المستخدمين الاختيار بين مجموعة من الخيارات. عندما يرد المستخدمين بأحد الخيارات، يستطيع البوت إرسال تقرير أو توجيه المستخدم إلى رسالة بوت أخرى."
 	},
 	"smoochBot.descriptionSubscription": {
-		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+		"string": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
 	},
 	"smoochBot.footnoteGreeting": {
 		"string": "ستتم إضافة البيان والخيار التاليان إلى نهاية الرسالة تلقائياً: 'لن نقوم بمشاركة معلومات شخصية تحدد هويتك أبداً. يرجى الرد بِ 9 لقراءة بيان الخصوصية والغرض'."
@@ -2703,7 +2724,7 @@
 		"string": "القائمة الرئيسية"
 	},
 	"smoochBot.labelNewsletter": {
-		"string": "Newsletter"
+		"string": "الرسالة الإخبارية"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "لم يتخذ المستخدم أي إجراء"
@@ -2727,7 +2748,7 @@
 		"string": "القائمة الثانوية"
 	},
 	"smoochBot.labelSubscription": {
-		"string": "Subscription opt-in"
+		"string": "تسجيل الاشتراك"
 	},
 	"smoochBot.menuKeywords": {
 		"string": "كلمات مفتاحية مفصولة بالفاصلة"
@@ -2748,7 +2769,10 @@
 		"string": "📌*القائمة الرئيسة*\n\n*أرسلوا 1* (أو 🔍) لإرسال طلب تقصي الحقائق في مقال، فيديو، صورة، أو أي محتوى آخر.\n*أرسلوا 2* (أو 🦠) للحصول على آخر المعلومات عن مرض فيروس كورونا (كوفيد-19)"
 	},
 	"smoochBot.placeholderNewsletter": {
-		"string": "Type to compose your newsletter. You can add content from the RSS below."
+		"string": "يُرجى كتابة رسالتك الإخبارية. يمكنك إضافة محتوى من موجز RSS بالأسفل."
+	},
+	"smoochBot.placeholderNewsletterBulletPoint": {
+		"string": "Type in to add content"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖أنا آسف، لم أفهم رسالتك. يرجى المحاولة ثانية!"
@@ -2766,7 +2790,7 @@
 		"string": "*معلومات عن مرض فيروس كورونا (كوفيد-19)* 🦠\n\n👉*يرجى إرسال أي من الأرقام  (أو الرموز التعبيرية) التالية لكي تحصلوا على معلومات عن الموضوع المرتبط بها:*\n\n*1:* كيف أحمي نفسي و/أو عائلتي؟ 👨‍👩‍👧\n*2:* أظن أنني قد أصبت بالمرض 🤒\n*3:* كيف أتعامل مع الضّغط النفسي الناجم عن كوفيد-19؟ ❤️\n*4:* معلومات عن الإصابات والتعافي على مستوى العالم 📊\n*5:* آخر التحديثات من منظمة الصحة العالمية 🌐\n\n*أرسلوا 0* للعودة إلى *القائمة الرئيسية* 📌"
 	},
 	"smoochBot.placeholderSubscription": {
-		"string": "Type to compose your prompt for newsletter opt-in."
+		"string": "يُرجى كتابة توجيه الاشتراك في رسالتك الإخبارية."
 	},
 	"smoochBot.scenarios": {
 		"string": "سيناريوهات"
@@ -2800,7 +2824,7 @@
 		"string": "الخط الساخن"
 	},
 	"smoochBotConfig.subscriptionHeader": {
-		"string": "You are currently {subscription_status} to our newsletter."
+		"string": "أنت حاليا {subscription_status} في رسالتنا الإخبارية."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "إلغاء"
@@ -2933,10 +2957,10 @@
 		"string": "اختيار رسالة"
 	},
 	"smoochBotMenuOption.subscription": {
-		"string": "Subscription opt-in"
+		"string": "تسجيل الاشتراك"
 	},
 	"smoochBotMenuOption.subscriptionConfirmation": {
-		"string": "Subscription confirmation"
+		"string": "تأكيد الاشتراك"
 	},
 	"smoochBotMenuOption.then": {
 		"string": "حينئذ"
@@ -2945,75 +2969,90 @@
 		"string": "لا بد من تضمين خيار '9' حتى يتمكن المستخدمون من الوصول إلى بيان الخصوصية"
 	},
 	"smoochBotNewsletterAt": {
-		"string": "at",
+		"string": "في",
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+		"string": "سيتم إرسال الرسالة الإخبارية إلى {count} مستخدم في {date}، {time}"
 	},
 	"smoochBotNewsletterEditor.day": {
-		"string": "Day of week"
-	},
-	"smoochBotNewsletterEditor.delete": {
-		"string": "حذف"
+		"string": "اليوم الأسبوعي"
 	},
 	"smoochBotNewsletterEditor.error": {
-		"string": " لا يبدو هذا الرابط صالحًا لموجز RSS"
+		"string": " لا يبدو أن هذا الرابط لموجز RSS صحيح"
+	},
+	"smoochBotNewsletterEditor.firstStep": {
+		"string": "1. Select a day and time of the week",
+		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
 	},
 	"smoochBotNewsletterEditor.friday": {
-		"string": "Friday"
+		"string": "الجمعة"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "تحميل"
 	},
 	"smoochBotNewsletterEditor.monday": {
-		"string": "Monday"
+		"string": "الاثنين"
 	},
-	"smoochBotNewsletterEditor.note": {
-		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	"smoochBotNewsletterEditor.none": {
+		"string": "Please complete the steps below to send a weekly newsletter"
 	},
 	"smoochBotNewsletterEditor.numberOfArticles": {
-		"string": "عدد المقالات المرتجعة"
+		"string": "عدد المقالات المطلوبة"
+	},
+	"smoochBotNewsletterEditor.numberOfBulletPoints": {
+		"string": "Number of bullet points"
 	},
 	"smoochBotNewsletterEditor.paused": {
-		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
-	},
-	"smoochBotNewsletterEditor.rss": {
-		"string": "إضافة محتوى من موجز RSS"
+		"string": "To send your next newsletter, please add new content"
 	},
 	"smoochBotNewsletterEditor.rssPlaceholder": {
-		"string": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS"
+		"string": "الرابط العمومي الذي يعطي عددا من المقالات بصيغة RSS"
 	},
 	"smoochBotNewsletterEditor.saturday": {
-		"string": "Saturday"
+		"string": "السبت"
+	},
+	"smoochBotNewsletterEditor.secondStep": {
+		"string": "2. Add content manually, or via RSS Feed.",
+		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+	},
+	"smoochBotNewsletterEditor.secondStep2": {
+		"string": "If the content is not changed between two scheduled sendouts, it will not be sent."
 	},
 	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Send every",
+		"string": "إرسال في يوم",
 		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
 	},
 	"smoochBotNewsletterEditor.sunday": {
-		"string": "Sunday"
+		"string": "الأحد"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	"smoochBotNewsletterEditor.templateHeaderNoRss": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
-		"string": "Thursday"
+		"string": "الخميس"
 	},
 	"smoochBotNewsletterEditor.time": {
 		"string": "الوقت"
 	},
 	"smoochBotNewsletterEditor.timezone": {
-		"string": "Timezone"
+		"string": "Time zone",
+		"developer_comment": "Label for time zone selection"
+	},
+	"smoochBotNewsletterEditor.title": {
+		"string": "Compose your newsletter"
+	},
+	"smoochBotNewsletterEditor.toggleRss": {
+		"string": "Automatically update content using an RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
-		"string": "Tuesday"
+		"string": "الثلاثاء"
 	},
 	"smoochBotNewsletterEditor.url": {
-		"string": "الرّابط"
+		"string": "الرابط"
 	},
 	"smoochBotNewsletterEditor.wednesday": {
-		"string": "Wednesday"
+		"string": "الأربعاء"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "إضافة محتوى يدويا"
@@ -3324,8 +3363,20 @@
 	"tasks.chooseOne": {
 		"string": "تحديد واحد"
 	},
+	"tasks.chooseType": {
+		"string": "Choose a field type",
+		"developer_comment": "Label for field type selection box"
+	},
+	"tasks.dateTimeType": {
+		"string": "التاريخ والزمن",
+		"developer_comment": "Label for datetime type field"
+	},
 	"tasks.datetime": {
 		"string": "التاريخ والزمن"
+	},
+	"tasks.datetimeDescription": {
+		"string": "Allows you to pick a date and time from the calendar",
+		"developer_comment": "Description for datetime type field"
 	},
 	"tasks.description": {
 		"string": "الوصف (اختياري)"
@@ -3339,33 +3390,87 @@
 	"tasks.fileUpload": {
 		"string": "رفع الملف"
 	},
+	"tasks.fileUploadDescription": {
+		"string": "Allows you to upload a file",
+		"developer_comment": "Description for file upload type field"
+	},
+	"tasks.fileUploadType": {
+		"string": "رفع الملف",
+		"developer_comment": "Label for file upload type field"
+	},
 	"tasks.geolocation": {
 		"string": "الموقع"
 	},
 	"tasks.goToSettings": {
 		"string": "إلى الإعدادات"
 	},
+	"tasks.locationDescription": {
+		"string": "Allows you to add coordinates of a place, or search a place by name",
+		"developer_comment": "Description for location type field"
+	},
+	"tasks.locationType": {
+		"string": "الموقع",
+		"developer_comment": "Label for location type field"
+	},
+	"tasks.multipleChoiceDescription": {
+		"string": "Allows you to select one or more predefined options",
+		"developer_comment": "Description for multiple selection type field"
+	},
+	"tasks.multipleChoiceType": {
+		"string": "تحديد متعدد",
+		"developer_comment": "Label for multiple selection type field"
+	},
 	"tasks.number": {
 		"string": "العدد",
 		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
+	"tasks.numberDescription": {
+		"string": "Allows you to enter a number",
+		"developer_comment": "Description for number type field"
+	},
+	"tasks.numberType": {
+		"string": "العدد",
+		"developer_comment": "Label for number type field"
+	},
 	"tasks.shortAnswer": {
 		"string": "نص"
 	},
-	"tasks.showInBrowserExtension": {
-		"string": "إظهار في امتداد المتصفح"
+	"tasks.shortTextDescription": {
+		"string": "Allows you to enter text",
+		"developer_comment": "Description for text type field"
+	},
+	"tasks.showIfCondition": {
+		"string": "Show field when condition is met",
+		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
 	},
 	"tasks.showInProj": {
 		"string": "عرض المهام في"
 	},
+	"tasks.singleChoiceDescription": {
+		"string": "Allows you to select a single option from predefined options in a list",
+		"developer_comment": "Description for single selection type field"
+	},
+	"tasks.singleChoiceType": {
+		"string": "تحديد واحد",
+		"developer_comment": "Label for single selection type field"
+	},
 	"tasks.taskPrompt": {
-		"string": "المحث"
+		"string": "العنوان",
+		"developer_comment": "Title field for custom annotation field"
 	},
 	"tasks.teamwideNudge": {
 		"string": "المهمات الإفتراضية"
 	},
+	"tasks.textType": {
+		"string": "نص",
+		"developer_comment": "Label for text type field"
+	},
 	"tasks.timezones": {
 		"string": "المناطق الزمنية المتاحة لإكمال المهمة"
+	},
+	"tasks.when": {
+		"string": "متى",
+		"developer_comment": "We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
 	},
 	"teamBots.fail": {
 		"string": "خطأ! يرجى إعادة المحاولة."
@@ -3556,20 +3661,20 @@
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "بيانات وصفيّة",
-		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
+		"string": "Item annotation form",
+		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "إضافة حقول بيانات وصفية مخصصة إلى العناصر.",
-		"developer_comment": "Subtitle for metadata settings screen applied to Items"
+		"string": "Create dynamic forms to annotate items by adding fields.",
+		"developer_comment": "Subtitle for annotation settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "إضافة حقول بيانات مخصصة إلى تبويب المصدر.",
-		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
+		"string": "Create dynamic forms to annotate sources by adding fields.",
+		"developer_comment": "Subtitle for annotation settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
-		"string": " البيانات الوصفية للمصدر",
-		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
+		"string": "Source annotation form",
+		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
 		"string": "تعذَّر حفظ إعدادات التقرير",
@@ -3648,7 +3753,8 @@
 		"string": "الأعضاء"
 	},
 	"teamSettings.metadata": {
-		"string": "البيانات الوصفيّة"
+		"string": "Annotation",
+		"developer_comment": "Label for annotation settings tab"
 	},
 	"teamSettings.report": {
 		"string": "التقرير"
@@ -3773,6 +3879,14 @@
 		"string": "الوسوم",
 		"developer_comment": "Title for the tags settings page"
 	},
+	"teamTaskCard.menu": {
+		"string": "Field {number}",
+		"developer_comment": "E.g. Field 1, Field 2..."
+	},
+	"teamTaskCard.showInBrowserExtension": {
+		"string": "إظهار في امتداد المتصفح",
+		"developer_comment": "Toggle switch to make field visible in the browser extension"
+	},
 	"teamTasks.cancelAction": {
 		"string": "إلغاء"
 	},
@@ -3780,40 +3894,60 @@
 		"string": "نعم"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, zero {لقد تمت المهمة {taskLabel} بدون تغيير في أي عنصر. } one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصرا.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}"
+		"string": "{itemsNumber, plural, zero {لقد تمت المهمة {taskLabel} بدون تغيير في أي عنصر. } one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصرا.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}",
+		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
+	},
+	"teamTasks.confirmDeleteBlurbMetadata": {
+		"string": "{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}",
+		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
-		"string": "هل أنت متأكد(ة) من حذف هذه البيانات الوصفيّة؟"
+		"string": "Are you sure you want to delete this field?"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه المهمة؟"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "الإبقاء على هذه المهمة بإجاباتها في عناصر عند اكتمالها."
+		"string": "الإبقاء على هذه المهمة بإجاباتها في عناصر عند اكتمالها.",
+		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
+	},
+	"teamTasks.confirmDeletekeepCompletedMetadata": {
+		"string": "Keep this field with answers in items where it has been completed.",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
-		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل."
+		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل.",
+		"developer_comment": "Warning about existing instances of a task before performing changes to it"
+	},
+	"teamTasks.confirmEditBlurbMetadata": {
+		"string": "Related item fields will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "هل أنت متأكد(ة) من تحرير هذه البيانات الوصفيّة؟"
+		"string": "Are you sure you want to edit this field?"
 	},
 	"teamTasks.confirmEditTaskTitle": {
 		"string": "هل أنت متأكد(ة) من تحرير هذه المهمة؟"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
-		"string": "لا تقم بتغيير المهام المكتملة واحتفظ بإجاباتها الحالية."
+		"string": "لا تقم بتغيير المهام المكتملة واحتفظ بإجاباتها الحالية.",
+		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
+	},
+	"teamTasks.confirmEditkeepCompletedMetadata": {
+		"string": "Do not alter fields that have been completed, and keep their existing answers.",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
 		"string": "تحرير المهمة"
 	},
-	"teamTasks.delete": {
-		"string": "حذف"
+	"teamTasks.continueMetadata": {
+		"string": "Edit field"
+	},
+	"teamTasks.deleteMetadata": {
+		"string": "Delete field"
 	},
 	"teamTasks.deleteTask": {
 		"string": "حذف المهمة"
-	},
-	"teamTasks.edit": {
-		"string": "تحرير"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}"
