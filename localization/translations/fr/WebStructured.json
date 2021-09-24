@@ -37,8 +37,8 @@
 		"developer_comment": "Label for input to select specific task to filter by"
 	},
 	"CustomTeamTaskFilter.labelIs": {
-		"string": "{title} is",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\""
+		"string": "{title} est",
+		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Les métadonnées ont une valeur précise",
@@ -82,7 +82,7 @@
 		"string": "Historique de l’élément"
 	},
 	"MultiSelector.all": {
-		"string": "Search All"
+		"string": "Chercher tout"
 	},
 	"MultiSelector.search": {
 		"string": "Recherche…"
@@ -198,6 +198,10 @@
 	"addFilterMenu.folder": {
 		"string": "Dossier",
 		"developer_comment": "Menu option to enable searching items by folder"
+	},
+	"addFilterMenu.itemRead": {
+		"string": "Item read/unread",
+		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
 		"string": "État de l’élément",
@@ -685,6 +689,14 @@
 	"createTeamDialog.url": {
 		"string": "URL de l’espace de travail"
 	},
+	"createTeamTask.addField": {
+		"string": "New annotation field",
+		"developer_comment": "Button that triggers creation of a new field"
+	},
+	"createTeamTask.addTask": {
+		"string": "Nouvelle tâche",
+		"developer_comment": "Button that triggers creation of a new task"
+	},
 	"createTeamTask.errorMetadata": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour du champ des métadonnées. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
 	},
@@ -791,18 +803,6 @@
 	"editStatusDialog.toggleStatusMessage": {
 		"string": "Envoyer un message au demandeur",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
-	},
-	"editTaskDialog.editMetadata": {
-		"string": "Modifier le champ des métadonnées"
-	},
-	"editTaskDialog.editTask": {
-		"string": "Modifier la tâche"
-	},
-	"editTaskDialog.newMetadata": {
-		"string": "Nouveau champ de métadonnées"
-	},
-	"editTaskDialog.newTask": {
-		"string": "Nouvelle tâche"
 	},
 	"fetchBot.contactUs": {
 		"string": "Contactez-nous pour mettre l’intégration en place"
@@ -1244,11 +1244,11 @@
 	"mediaComments.noNote": {
 		"string": "Aucune note"
 	},
+	"mediaComponent.annotation": {
+		"string": "Annotation"
+	},
 	"mediaComponent.answered": {
 		"string": "achevées"
-	},
-	"mediaComponent.metadata": {
-		"string": "Métadonnées"
 	},
 	"mediaComponent.notes": {
 		"string": "Notes"
@@ -2223,6 +2223,10 @@
 		"string": "Enregistrer les changements dans la « {listName} » ?",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
+	"saveList.updateTiplineInbox": {
+		"string": "Save changes to the list",
+		"developer_comment": "'Save' here is an infinitive verb"
+	},
 	"saveTag.couldNotSave": {
 		"string": "Impossible d’enregistrer l’étiquette",
 		"developer_comment": "Error message displayed when it's not possible to save a team tag"
@@ -2319,12 +2323,24 @@
 		"string": "Recherche",
 		"developer_comment": "Placeholder for search keywords input"
 	},
+	"search.itemRead": {
+		"string": "Lu",
+		"developer_comment": "Describes media read"
+	},
+	"search.itemUnread": {
+		"string": "Non lu",
+		"developer_comment": "Describes media unread"
+	},
 	"search.language": {
 		"string": "La langue est",
 		"developer_comment": "Prefix label for field to filter by language"
 	},
 	"search.nextPage": {
 		"string": "Page suivante"
+	},
+	"search.noProject": {
+		"string": "Aucun",
+		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
 	"search.notInAny": {
 		"string": "N’est dans aucune collection",
@@ -2336,6 +2352,10 @@
 	},
 	"search.previousPage": {
 		"string": "Page précédente"
+	},
+	"search.read": {
+		"string": "Item is",
+		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.reportStatus": {
 		"string": "L’état du rapport est",
@@ -2459,7 +2479,7 @@
 		"string": "Métadonnées"
 	},
 	"searchKeywordConfig.ocr": {
-		"string": "Extracted text (OCR)"
+		"string": "Texte extrait (ROC)"
 	},
 	"searchKeywordConfig.tags": {
 		"string": "Étiquettes"
@@ -2560,11 +2580,11 @@
 		"string": "Envoyer des notifications aux canaux Slack si des éléments sont ajoutés à des dossiers précis"
 	},
 	"slackConfigDialogComponent.addEvent": {
-		"string": "+ Add event",
+		"string": "+ Ajouter un événement",
 		"developer_comment": "Button label to event selector"
 	},
 	"slackConfigDialogComponent.anyActivity": {
-		"string": "Any workspace activity",
+		"string": "N’importe quelle activité de l’espace de travail",
 		"developer_comment": "Selecting this event will trigger notification upon any workspace activity"
 	},
 	"slackConfigDialogComponent.cancel": {
@@ -2585,27 +2605,28 @@
 		"developer_comment": "Header to event selector. E.g.: If 'Item is added to' ..."
 	},
 	"slackConfigDialogComponent.itemAdded": {
-		"string": "Item is added to folder",
+		"string": "Un élément a été ajouté à un dossier",
 		"developer_comment": "Selecting this event will trigger notification whenever an item is added to or moved to a folder"
 	},
 	"slackConfigDialogComponent.itemIsAddedTo": {
-		"string": "Item is added to",
+		"string": "Un élément est ajouté à",
 		"developer_comment": "Label to folder selector component"
 	},
 	"slackConfigDialogComponent.label": {
-		"string": "Notification name"
+		"string": "Nom de la notification"
 	},
 	"slackConfigDialogComponent.new": {
-		"string": "+ New"
+		"string": "+ Nouvelle",
+		"developer_comment": "Button to create a new notification"
 	},
 	"slackConfigDialogComponent.noChannelError": {
-		"string": "Please add the Slack channel where notifications will be sent"
+		"string": "Veuillez ajouter le canal Slack où les notifications seront envoyées"
 	},
 	"slackConfigDialogComponent.noConditionError": {
-		"string": "Please select a condition to send notifications"
+		"string": "Veuillez sélectionner une condition d’envoi des notifications"
 	},
 	"slackConfigDialogComponent.noWebhookError": {
-		"string": "Please add the Slack webhook address"
+		"string": "Veuillez ajouter l’adresse du point d’ancrage Web Slack"
 	},
 	"slackConfigDialogComponent.notifications": {
 		"string": "Notifications"
@@ -2617,11 +2638,11 @@
 		"string": "Les paramètres de Slack ont été enregistrés avec succès"
 	},
 	"slackConfigDialogComponent.statusChanged": {
-		"string": "Status is changed to",
+		"string": "L’état a été changé en",
 		"developer_comment": "Selecting this event will trigger notification whenever an item status is changed"
 	},
 	"slackConfigDialogComponent.then": {
-		"string": "Then send notification to",
+		"string": "Envoyer ensuite une notification à",
 		"developer_comment": "Header to notification destination input. E.g.: Then send notification to '#general'"
 	},
 	"slackConfigDialogComponent.title": {
@@ -2646,13 +2667,13 @@
 		"string": "Un menu qui demande à l’utilisateur de choisir parmi un ensemble d’options. Ce message suit automatiquement le message d’accueil. 9 ne peut pas être utilisé comme option dans le menu principal."
 	},
 	"smoochBot.descriptionNewsletter1": {
-		"string": "Please complete the steps below to send a weekly newsletter:"
+		"string": "Veuillez exécuter les étapes suivantes pour envoyer une lettre hebdomadaire d’information :"
 	},
 	"smoochBot.descriptionNewsletter2": {
-		"string": "1. Compose your newsletter"
+		"string": "1.  Rédigez votre lettre d’information"
 	},
 	"smoochBot.descriptionNewsletter3": {
-		"string": "2. Select a day and time of the week"
+		"string": "2. Sélectionnez la date et l’heure de la semaine"
 	},
 	"smoochBot.descriptionNoAction": {
 		"string": "Ce message sera présenté aux utilisateurs si, après le début d’une conversation, ils ne sélectionnent pas une des options : soit recevoir une ressource soit envoyer du contenu à confirmer. Ce message sera aussi présenté aux utilisateurs qui ont envoyé du contenu sans attendre d’y être invités."
@@ -2682,7 +2703,7 @@
 		"string": "Un menu facultatif qui demande à l’utilisateur de choisir parmi un ensemble d’options. Quand un utilisateur répond par l’une des options, le robot peut envoyer un rapport ou les diriger vers un autre message du robot."
 	},
 	"smoochBot.descriptionSubscription": {
-		"string": "Present the value of your newsletter and collect opt-ins. All users who opt-in will automatically receive the newsletter you send."
+		"string": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
 	},
 	"smoochBot.footnoteGreeting": {
 		"string": "La déclaration et l’option suivantes seront ajoutées automatiquement à la fin de ce message : « Nous ne partagerons jamais des renseignements qui peuvent vous identifier personnellement. Répondez 9 pour consulter notre Déclaration de confidentialité et d’objectif »."
@@ -2703,7 +2724,7 @@
 		"string": "Menu principal"
 	},
 	"smoochBot.labelNewsletter": {
-		"string": "Newsletter"
+		"string": "Lettre d’information"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "Aucune action de l’utilisateur"
@@ -2727,7 +2748,7 @@
 		"string": "Menu secondaire"
 	},
 	"smoochBot.labelSubscription": {
-		"string": "Subscription opt-in"
+		"string": "Adhésion"
 	},
 	"smoochBot.menuKeywords": {
 		"string": "Mots-clés séparés par des virgules"
@@ -2748,7 +2769,10 @@
 		"string": "📌*Menu principal*\n\n*Répondez 1* (ou 🔍) pour envoyer une demande de vérification des faits relatifs à un article, une vidéo, une image ou à tout autre contenu.\n*Répondez 2* (ou 🦠) pour obtenir les derniers renseignements sur la maladie à coronavirus (COVID-19)"
 	},
 	"smoochBot.placeholderNewsletter": {
-		"string": "Type to compose your newsletter. You can add content from the RSS below."
+		"string": "Tapez pour rédiger votre lettre d’information. Vous pouvez ajouter du contenu du RSS ci-dessous."
+	},
+	"smoochBot.placeholderNewsletterBulletPoint": {
+		"string": "Type in to add content"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Je suis désolé, je n’ai pas compris votre message. Veuillez réessayer."
@@ -2766,7 +2790,7 @@
 		"string": "*Renseignements sur la maladie à coronavirus (COVID-19)* 🦠\n\n👉*Répondez avec l’un des numéros suivants (ou émojis) pour obtenir des renseignements sur ce sujet : *\n\n*1 : * Comment puis-je me protéger ou protéger ma famille ? 👨‍👩‍👧\n*2 : * Je pense que je tombe peut-être malade 🤒\n*3 : * Comment puis-je gérer le stress associé à COVID-19 ? ❤️\n*4 : * Renseignements sur les cas et les guérisons à l’échelle planétaire 📊\n*5 : * Dernières mises à jour de l’Organisation mondiale de la santé 🌐\n\n*Répondez 0* pour revenir au *menu principal* 📌"
 	},
 	"smoochBot.placeholderSubscription": {
-		"string": "Type to compose your prompt for newsletter opt-in."
+		"string": "Tapez pour rédiger votre invite d’adhésion à la lettre d’information."
 	},
 	"smoochBot.scenarios": {
 		"string": "Scénarios"
@@ -2800,7 +2824,7 @@
 		"string": "Service Tipline"
 	},
 	"smoochBotConfig.subscriptionHeader": {
-		"string": "You are currently {subscription_status} to our newsletter."
+		"string": "Vous êtes actuellement {subscription_status} à notre lettre d’information."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Annuler"
@@ -2933,10 +2957,10 @@
 		"string": "Sélectionner un message"
 	},
 	"smoochBotMenuOption.subscription": {
-		"string": "Subscription opt-in"
+		"string": "Adhésion"
 	},
 	"smoochBotMenuOption.subscriptionConfirmation": {
-		"string": "Subscription confirmation"
+		"string": "Confirmation d’adhésion"
 	},
 	"smoochBotMenuOption.then": {
 		"string": "alors"
@@ -2945,75 +2969,90 @@
 		"string": "L’option « 9 » doit être comprise pour que les utilisateurs accèdent à la Déclaration de confidentialité"
 	},
 	"smoochBotNewsletterAt": {
-		"string": "at",
+		"string": "à",
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "The newsletter will be sent to {count} users on {date}, {time}"
+		"string": "La lettre d’information sera envoyée à {count} utilisateurs le {date} à {time}"
 	},
 	"smoochBotNewsletterEditor.day": {
-		"string": "Day of week"
-	},
-	"smoochBotNewsletterEditor.delete": {
-		"string": "Supprimer"
+		"string": "Jour de la semaine"
 	},
 	"smoochBotNewsletterEditor.error": {
 		"string": "Cette URL ne semble pas être un fil RSS valide"
 	},
+	"smoochBotNewsletterEditor.firstStep": {
+		"string": "1. Select a day and time of the week",
+		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	},
 	"smoochBotNewsletterEditor.friday": {
-		"string": "Friday"
+		"string": "Vendredi"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "Charger"
 	},
 	"smoochBotNewsletterEditor.monday": {
-		"string": "Monday"
+		"string": "Lundi"
 	},
-	"smoochBotNewsletterEditor.note": {
-		"string": "Please note: if the content is not changed between two scheduled sendouts, it will not be sent."
+	"smoochBotNewsletterEditor.none": {
+		"string": "Please complete the steps below to send a weekly newsletter"
 	},
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Nombre d’articles à retourner"
 	},
-	"smoochBotNewsletterEditor.paused": {
-		"string": "The newsletter is paused because the content has not been modified since the previous send-out"
+	"smoochBotNewsletterEditor.numberOfBulletPoints": {
+		"string": "Number of bullet points"
 	},
-	"smoochBotNewsletterEditor.rss": {
-		"string": "Ajoute le contenu d’un fil RSS"
+	"smoochBotNewsletterEditor.paused": {
+		"string": "To send your next newsletter, please add new content"
 	},
 	"smoochBotNewsletterEditor.rssPlaceholder": {
 		"string": "URL publique qui retourne N articles au format RSS"
 	},
 	"smoochBotNewsletterEditor.saturday": {
-		"string": "Saturday"
+		"string": "Samedi"
+	},
+	"smoochBotNewsletterEditor.secondStep": {
+		"string": "2. Add content manually, or via RSS Feed.",
+		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+	},
+	"smoochBotNewsletterEditor.secondStep2": {
+		"string": "If the content is not changed between two scheduled sendouts, it will not be sent."
 	},
 	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Send every",
+		"string": "Envoyer le",
 		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
 	},
 	"smoochBotNewsletterEditor.sunday": {
-		"string": "Sunday"
+		"string": "Dimanche"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' newsletter. Here is the most important information for the week of {date}:"
+	"smoochBotNewsletterEditor.templateHeaderNoRss": {
+		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
-		"string": "Thursday"
+		"string": "Jeudi"
 	},
 	"smoochBotNewsletterEditor.time": {
 		"string": "Date et heure"
 	},
 	"smoochBotNewsletterEditor.timezone": {
-		"string": "Timezone"
+		"string": "Time zone",
+		"developer_comment": "Label for time zone selection"
+	},
+	"smoochBotNewsletterEditor.title": {
+		"string": "Compose your newsletter"
+	},
+	"smoochBotNewsletterEditor.toggleRss": {
+		"string": "Automatically update content using an RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
-		"string": "Tuesday"
+		"string": "Mardi"
 	},
 	"smoochBotNewsletterEditor.url": {
 		"string": "URL"
 	},
 	"smoochBotNewsletterEditor.wednesday": {
-		"string": "Wednesday"
+		"string": "Mercredi"
 	},
 	"smoochBotResourceEditor.addContent": {
 		"string": "Ajouter du contenu manuellement"
@@ -3324,8 +3363,20 @@
 	"tasks.chooseOne": {
 		"string": "Sélection simple"
 	},
+	"tasks.chooseType": {
+		"string": "Choose a field type",
+		"developer_comment": "Label for field type selection box"
+	},
+	"tasks.dateTimeType": {
+		"string": "Date et heure",
+		"developer_comment": "Label for datetime type field"
+	},
 	"tasks.datetime": {
 		"string": "Date et heure"
+	},
+	"tasks.datetimeDescription": {
+		"string": "Allows you to pick a date and time from the calendar",
+		"developer_comment": "Description for datetime type field"
 	},
 	"tasks.description": {
 		"string": "Description (facultative)"
@@ -3339,33 +3390,87 @@
 	"tasks.fileUpload": {
 		"string": "Téléversement d’un fichier"
 	},
+	"tasks.fileUploadDescription": {
+		"string": "Allows you to upload a file",
+		"developer_comment": "Description for file upload type field"
+	},
+	"tasks.fileUploadType": {
+		"string": "Téléversement d’un fichier",
+		"developer_comment": "Label for file upload type field"
+	},
 	"tasks.geolocation": {
 		"string": "Localisation"
 	},
 	"tasks.goToSettings": {
 		"string": "Accéder aux paramètres"
 	},
+	"tasks.locationDescription": {
+		"string": "Allows you to add coordinates of a place, or search a place by name",
+		"developer_comment": "Description for location type field"
+	},
+	"tasks.locationType": {
+		"string": "Localisation",
+		"developer_comment": "Label for location type field"
+	},
+	"tasks.multipleChoiceDescription": {
+		"string": "Allows you to select one or more predefined options",
+		"developer_comment": "Description for multiple selection type field"
+	},
+	"tasks.multipleChoiceType": {
+		"string": "Sélection multiple",
+		"developer_comment": "Label for multiple selection type field"
+	},
 	"tasks.number": {
 		"string": "Numéro",
 		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
+	"tasks.numberDescription": {
+		"string": "Allows you to enter a number",
+		"developer_comment": "Description for number type field"
+	},
+	"tasks.numberType": {
+		"string": "Numéro",
+		"developer_comment": "Label for number type field"
+	},
 	"tasks.shortAnswer": {
 		"string": "Texte"
 	},
-	"tasks.showInBrowserExtension": {
-		"string": "Afficher dans l’extension pour navigateurs"
+	"tasks.shortTextDescription": {
+		"string": "Allows you to enter text",
+		"developer_comment": "Description for text type field"
+	},
+	"tasks.showIfCondition": {
+		"string": "Show field when condition is met",
+		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
 	},
 	"tasks.showInProj": {
 		"string": "Afficher les tâches dans"
 	},
+	"tasks.singleChoiceDescription": {
+		"string": "Allows you to select a single option from predefined options in a list",
+		"developer_comment": "Description for single selection type field"
+	},
+	"tasks.singleChoiceType": {
+		"string": "Sélection simple",
+		"developer_comment": "Label for single selection type field"
+	},
 	"tasks.taskPrompt": {
-		"string": "Inivte"
+		"string": "Titre",
+		"developer_comment": "Title field for custom annotation field"
 	},
 	"tasks.teamwideNudge": {
 		"string": "Tâches par défaut"
 	},
+	"tasks.textType": {
+		"string": "Texte",
+		"developer_comment": "Label for text type field"
+	},
 	"tasks.timezones": {
 		"string": "Fuseaux horaires proposés pour achever la tâche"
+	},
+	"tasks.when": {
+		"string": "QUAND",
+		"developer_comment": "We have a form that says in English, 'When [selected field] [is / is not] [user-selected value]'. Where the parts between brackets are interactive drop-downs. The word for this field should indicate that the following user-selected conditions hold true."
 	},
 	"teamBots.fail": {
 		"string": "Une erreur s’est produite. Veuillez réessayer."
@@ -3556,20 +3661,20 @@
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "Métadonnées",
-		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to items generally, not any specific item or items."
+		"string": "Item annotation form",
+		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "Ajoutez des champs de métadonnées personnalisés aux éléments.",
-		"developer_comment": "Subtitle for metadata settings screen applied to Items"
+		"string": "Create dynamic forms to annotate items by adding fields.",
+		"developer_comment": "Subtitle for annotation settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Ajoutez des champs de données personnalisés à l’onglet source.",
-		"developer_comment": "Subtitle for metadata settings screen applied to Sources"
+		"string": "Create dynamic forms to annotate sources by adding fields.",
+		"developer_comment": "Subtitle for annotation settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
-		"string": "Métadonnées des sources",
-		"developer_comment": "Title for metadata settings screen. Refers to metadata applied to sources generally, not any specific source or sources."
+		"string": "Source annotation form",
+		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
 		"string": "Impossible d’enregistrer les paramètres du rapport",
@@ -3648,7 +3753,8 @@
 		"string": "Membres"
 	},
 	"teamSettings.metadata": {
-		"string": "Métadonnées"
+		"string": "Annotation",
+		"developer_comment": "Label for annotation settings tab"
 	},
 	"teamSettings.report": {
 		"string": "Rapport"
@@ -3773,6 +3879,14 @@
 		"string": "Étiquettes",
 		"developer_comment": "Title for the tags settings page"
 	},
+	"teamTaskCard.menu": {
+		"string": "Field {number}",
+		"developer_comment": "E.g. Field 1, Field 2..."
+	},
+	"teamTaskCard.showInBrowserExtension": {
+		"string": "Afficher dans l’extension pour navigateurs",
+		"developer_comment": "Toggle switch to make field visible in the browser extension"
+	},
 	"teamTasks.cancelAction": {
 		"string": "Annuler"
 	},
@@ -3780,40 +3894,60 @@
 		"string": "Oui"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {La tâche {taskLabel} a été achevée dans # élément.} other {La tâche {taskLabel} a été achevée dans # éléments.}}"
+		"string": "{itemsNumber, plural, one {La tâche {taskLabel} a été achevée dans # élément.} other {La tâche {taskLabel} a été achevée dans # éléments.}}",
+		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
+	},
+	"teamTasks.confirmDeleteBlurbMetadata": {
+		"string": "{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}",
+		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
-		"string": "Voulez-vous vraiment supprimer ces métadonnées ?"
+		"string": "Are you sure you want to delete this field?"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
 		"string": "Voulez-vous vraiment supprimer cette tâche ?"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Garder cette tâche avec les réponses dans les éléments quand la tâche a été achevée."
+		"string": "Garder cette tâche avec les réponses dans les éléments quand la tâche a été achevée.",
+		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
+	},
+	"teamTasks.confirmDeletekeepCompletedMetadata": {
+		"string": "Keep this field with answers in items where it has been completed.",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
-		"string": "L’application de cette modification modifiera les tâches d’éléments associées, sauf celles déjà achevées."
+		"string": "L’application de cette modification modifiera les tâches d’éléments associées, sauf celles déjà achevées.",
+		"developer_comment": "Warning about existing instances of a task before performing changes to it"
+	},
+	"teamTasks.confirmEditBlurbMetadata": {
+		"string": "Related item fields will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "Voulez-vous vraiment modifier ces métadonnées ?"
+		"string": "Are you sure you want to edit this field?"
 	},
 	"teamTasks.confirmEditTaskTitle": {
 		"string": "Voulez-vous vraiment modifier cette tâche ?"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Ne pas modifier les tâches qui ont été achevées et conserver leurs réponses existantes."
+		"string": "Ne pas modifier les tâches qui ont été achevées et conserver leurs réponses existantes.",
+		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
+	},
+	"teamTasks.confirmEditkeepCompletedMetadata": {
+		"string": "Do not alter fields that have been completed, and keep their existing answers.",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
 		"string": "Modifier la tâche"
 	},
-	"teamTasks.delete": {
-		"string": "Supprimer"
+	"teamTasks.continueMetadata": {
+		"string": "Edit field"
+	},
+	"teamTasks.deleteMetadata": {
+		"string": "Delete field"
 	},
 	"teamTasks.deleteTask": {
 		"string": "Supprimer la tâche"
-	},
-	"teamTasks.edit": {
-		"string": "Modifier"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Aucune tâche} one {une tâche} other {# tâches}}"
