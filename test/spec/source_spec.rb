@@ -19,6 +19,7 @@ shared_examples 'source' do
     wait_for_selector('.source__add-link-button').click
     wait_for_selector('#source__link-input-new').send_keys('https://www.bbc.com/news/uk')
     @driver.action.send_keys(:enter).perform
+    wait_for_selector_list_size('.source__remove-link-button', 2)
     wait_for_selector('#source__link-item0')
     # remove main link
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 2).to be(true)
