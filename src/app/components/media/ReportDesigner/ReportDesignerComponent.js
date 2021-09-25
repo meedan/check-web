@@ -28,6 +28,7 @@ import { checkBlue, backgroundMain } from '../../../styles/js/shared';
 import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDesignMutation';
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
+import { getListUrlQueryAndIndex } from '../../../urlHelpers';
 
 let hasUnsavedChanges = false;
 
@@ -254,6 +255,13 @@ const ReportDesignerComponent = (props) => {
     window.open('http://help.checkmedia.org/en/articles/3627266-check-message-report');
   };
 
+  const { routeParams, location } = props;
+  let prefixUrl = `/${team.slug}`;
+  if (routeParams.projectId || routeParams.listId) {
+    const { listUrl } = getListUrlQueryAndIndex(routeParams, location.query);
+    prefixUrl = listUrl;
+  }
+
   return (
     <React.Fragment>
       <ReportDesignerTopBar
@@ -271,6 +279,7 @@ const ReportDesignerComponent = (props) => {
         onStateChange={(action, state) => { handleSave(action, state); }}
         onSave={() => { handleSave('save'); }}
         onEdit={handleEdit}
+        prefixUrl={prefixUrl}
       />
       <Box display="flex" width="1">
         <Box flex="1" alignItems="flex-start" display="flex" className={[classes.preview, classes.section].join(' ')}>
