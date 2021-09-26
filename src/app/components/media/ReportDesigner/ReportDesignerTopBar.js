@@ -64,8 +64,8 @@ const ReportDesignerTopBar = (props) => {
     data,
     defaultLanguage,
     intl,
+    prefixUrl,
   } = props;
-
   const [resendToPrevious, setResendToPrevious] = React.useState(false);
   const [statusChanging, setStatusChanging] = React.useState(false);
 
@@ -119,7 +119,6 @@ const ReportDesignerTopBar = (props) => {
   const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
   const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
   const metadata = JSON.parse(media.oembed_metadata);
-  const itemUrl = metadata.permalink.replace(/^https?:\/\/[^/]+/, '');
   const shareUrl = metadata.embed_url;
   const statusChanged = !!(data.last_published && data.options && data.options.length &&
     data.options[0].previous_published_status_label &&
@@ -133,7 +132,7 @@ const ReportDesignerTopBar = (props) => {
   }
 
   const handleGoBack = () => {
-    browserHistory.push(itemUrl);
+    browserHistory.push(`${prefixUrl}/media/${media.dbid}`);
   };
 
   const handleStatusChanging = () => {
@@ -470,6 +469,7 @@ ReportDesignerTopBar.propTypes = {
   onEdit: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   intl: intlShape.isRequired,
+  prefixUrl: PropTypes.string.isRequired,
 };
 
 export default injectIntl(ReportDesignerTopBar);
