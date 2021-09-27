@@ -6,7 +6,8 @@ shared_examples 'source' do
     wait_for_selector('.media')
     wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
-    wait_for_selector('.source__card-card')
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    wait_for_selector('#media__source')
     expect(@driver.page_source.include?('G1')).to be(true)
     wait_for_selector('#source__name-input').send_keys('- Edited')
     @driver.action.send_keys(:enter).perform
