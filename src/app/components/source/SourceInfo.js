@@ -671,6 +671,9 @@ export default createFragmentContainer(SourceInfo, {
             pending_suggestions_count
             suggestions_count
             log_count
+            team_task {
+              conditional_info
+            }
             team_task_id
             responses(first: 10000) {
               edges {
