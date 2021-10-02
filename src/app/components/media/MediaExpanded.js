@@ -198,7 +198,8 @@ class MediaExpandedComponent extends Component {
 
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
-    const description = media.extracted_text ? media.extracted_text.data.text : media.media.metadata.description;
+    let description = media.extracted_text ? media.extracted_text.data.text : media.media.metadata.description;
+    description = media.transcription && media.transcription.data.text ? media.transcription.data.text : description;
 
     return (
       <React.Fragment>
@@ -220,6 +221,18 @@ class MediaExpandedComponent extends Component {
                   <FormattedMessage id="mediaExpanded.extractedText" defaultMessage="Text extracted from image:" description="Label for text extracted from the image below" /> :
                   <FormattedMessage id="mediaExpanded.noExtractedText" defaultMessage="No text extracted from this image" description="Label when text extracted from an image is not available" />
                 }
+              </TypographyBlack54>
+            </Box> : null
+          }
+          { isMedia ?
+            <Box mb={2}>
+              <TypographyBlack54 variant="body2" color={black54}>
+                { media.transcription && media.transcription.data.last_response.job_status === 'COMPLETED' ?
+                  <FormattedMessage id="mediaExpanded.transcriptionCompleted" defaultMessage="Audio transcribed from media:" description="Label for transcription from audio or video" /> : null }
+                { media.transcription && media.transcription.data.last_response.job_status === 'IN_PROGRESS' ?
+                  <FormattedMessage id="mediaExpanded.transcriptionInProgress" defaultMessage="Audio transcription in progress…" description="Label when transcription is in progress" /> : null }
+                { !media.transcription ?
+                  <FormattedMessage id="mediaExpanded.noTranscription" defaultMessage="No audio transcribed from this media" description="Label when transcription is not (yet) available" /> : null }
               </TypographyBlack54>
             </Box> : null
           }
@@ -285,6 +298,9 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         language_code
         language
         extracted_text: annotation(annotation_type: "extracted_text") {
+          data
+        }
+        transcription: annotation(annotation_type: "transcription") {
           data
         }
         project_id
