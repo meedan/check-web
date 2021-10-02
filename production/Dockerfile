@@ -37,7 +37,7 @@ RUN apt-get install -y graphicsmagick awscli jq
 RUN apt-get install -y libgnutls-openssl27 libgnutls30
 RUN update-ca-certificates
 RUN echo 'deb https://oss-binaries.phusionpassenger.com/apt/passenger buster main' > /etc/apt/sources.list.d/passenger.list 
-RUN apt-get update -oDebug::pkgAcquire::Worker=1 
+RUN apt-get update -qq
 RUN apt-get install -y passenger 
 
 # deployment scripts
