@@ -234,15 +234,15 @@ const Tasks = ({
           {
             isEditing ? (
               <div>
-                <Button variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
+                <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
                   <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
                 </Button>
-                <Button onClick={handleCancelAnnotations}>
+                <Button className="form-cancel" onClick={handleCancelAnnotations}>
                   <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel changes" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
                 </Button>
               </div>
             ) :
-              <Button variant="contained" onClick={handleEditAnnotations} color="primary">
+              <Button className="form-edit" variant="contained" onClick={handleEditAnnotations} color="primary">
                 <FormattedMessage id="metadata.form.edit" defaultMessage="Edit" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
               </Button>
           }
