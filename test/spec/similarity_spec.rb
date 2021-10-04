@@ -38,20 +38,23 @@ shared_examples 'similarity' do
     # pin similar item
     expect(wait_for_selector('.MuiCardHeader-title').text == 'Claim 2').to be(true)
     wait_for_selector('.media-similarity__menu-icon').click
-    wait_for_selector("//span[contains(text(), 'Pin as main')]", :xpath).click
+    wait_for_selector('.similarity-media-item__delete-relationship')
+    wait_for_selector('.similarity-media-item__pin-relationship').click
     wait_for_selector('.message')
     wait_for_selector("//span[contains(text(), 'Click on an item')]", :xpath)
     expect(wait_for_selector('.MuiCardHeader-title').text == 'Claim 0').to be(true)
     # remove similar item
-    expect(@driver.page_source.include?('Claim 1')).to be(true)
+    expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 3
     wait_for_selector('.media-similarity__menu-icon').click
-    wait_for_selector("//span[contains(text(), 'Detach')]", :xpath).click
+    wait_for_selector('.similarity-media-item__pin-relationship')
+    wait_for_selector('.similarity-media-item__delete-relationship').click
+    wait_for_selector('.media-item__add-button')
     wait_for_selector('input[name=project-title]').send_keys('list')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click
     wait_for_selector('.message')
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
-    expect(@driver.page_source.include?('Claim 1')).to be(false)
+    expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 2
   end
 
   it 'should add and remove related items', bin6: true do

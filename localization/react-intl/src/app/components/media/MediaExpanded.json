@@ -8,5 +8,20 @@
     "id": "mediaExpanded.noExtractedText",
     "description": "Label when text extracted from an image is not available",
     "defaultMessage": "No text extracted from this image"
+  },
+  {
+    "id": "mediaExpanded.transcriptionCompleted",
+    "description": "Label for transcription from audio or video",
+    "defaultMessage": "Audio transcribed from media:"
+  },
+  {
+    "id": "mediaExpanded.transcriptionInProgress",
+    "description": "Label when transcription is in progress",
+    "defaultMessage": "Audio transcription in progress…"
+  },
+  {
+    "id": "mediaExpanded.noTranscription",
+    "description": "Label when transcription is not (yet) available",
+    "defaultMessage": "No audio transcribed from this media"
   }
 ]
