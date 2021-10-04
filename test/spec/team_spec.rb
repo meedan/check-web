@@ -20,7 +20,7 @@ shared_examples 'team' do
     wait_for_selector('#team-details__update-button')
     wait_for_selector('#team-details__duplicate-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    update_field('#create-team-dialog__name-input', 'duplicated-team')
+    update_field('#create-team-dialog__name-input', "duplicated-team#{Time.now.to_i}")
     wait_for_selector('.create-team-dialog__confirm-button').click
     wait_for_selector_none('.create-team-dialog__confirm-button')
     @driver.navigate.to "#{@config['self_url']}/check/teams"
