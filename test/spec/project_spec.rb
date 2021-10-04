@@ -168,10 +168,11 @@ shared_examples 'project' do
     expect(@driver.page_source.include?('answer')).to be(false)
     wait_for_selector('.media__heading').click
     # answer the metadata
+    wait_for_selector('.form-edit').click
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('#metadata-input').send_keys('answer')
-    wait_for_selector('.metadata-save').click
-    wait_for_selector_none('#metadata-input')
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-cancel', 2)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
