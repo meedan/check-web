@@ -81,6 +81,8 @@ const ConditionalField = ({ task, tasks, onChange }) => {
     .filter(item => item.type === 'single_choice' || item.type === 'multiple_choice')
     .filter(item => item.dbid !== task?.dbid);
 
+  if (!prerequisiteFields.length) return null;
+
   const [selectedFieldId, setSelectedFieldId] = React.useState(parsedConditionalInfo?.selectedFieldId || (prerequisiteFields.length > 0 ? prerequisiteFields[0].dbid : null));
   const [selectedConditional, setSelectedConditional] = React.useState(hasConditionsInitial ? parsedConditionalInfo?.selectedConditional : conditionalVerbs[0].label);
   const [selectedCondition, setSelectedCondition] = React.useState(hasConditionsInitial ? parsedConditionalInfo?.selectedCondition : prerequisiteFields[0]?.options[0]?.label);
