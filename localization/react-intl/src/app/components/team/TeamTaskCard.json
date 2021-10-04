@@ -5,6 +5,11 @@
     "defaultMessage": "Field {number}"
   },
   {
+    "id": "teamTaskCard.required",
+    "description": "Toggle switch to make field required",
+    "defaultMessage": "Required"
+  },
+  {
     "id": "teamTaskCard.showInBrowserExtension",
     "description": "Toggle switch to make field visible in the browser extension",
     "defaultMessage": "Show in browser extension"

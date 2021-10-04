@@ -10,7 +10,6 @@ import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
 import Collapse from '@material-ui/core/Collapse';
-import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
@@ -105,11 +104,16 @@ const StyledTaskResponses = styled.div`
   }
 `;
 
-const StyledAnnotatorInformation = styled.div`
+const StyledAnnotatorInformation = styled.span`
+  display: inline-block;
   p {
     font-size: 9px;
     color: #979797;
   }
+`;
+
+const StyledRequired = styled.span`
+  color: red;
 `;
 
 const StyledMapEditor = styled.div`
@@ -136,14 +140,11 @@ const StyledMetadataButton = styled.div`
   button {
     background-color: #f4f4f4;
     margin-top: ${units(1)};
+    display: none;
   }
   button:hover {
     background-color: #ddd;
   }
-`;
-
-const StyledDivider = styled.div`
-  margin-top: ${units(1)};
 `;
 
 function getResponseData(response) {
@@ -301,6 +302,24 @@ class Task extends Component {
       }),
       { onSuccess, onFailure: this.fail },
     );
+  };
+
+  handleUpdateMultiselectMetadata = (textValue) => {
+    const { task } = this.props;
+    this.setState({ textValue });
+    const matchingTaskIndex = this.props.localResponses.findIndex(item => item.node.dbid === task.dbid);
+    const mutatedLocalResponses = this.props.localResponses;
+    if (task.type === 'single_choice') {
+      mutatedLocalResponses[matchingTaskIndex].node.first_response_value = textValue;
+    } else {
+      // value is an object, we transform it to a string separated by ', '
+      let tempValue = textValue.selected.join(', ');
+      if (textValue.other) {
+        tempValue += `, ${textValue.other}`;
+      }
+      mutatedLocalResponses[matchingTaskIndex].node.first_response_value = tempValue;
+    }
+    this.props.setLocalResponses([...mutatedLocalResponses]);
   };
 
   handleUpdateResponse = (edited_response, file) => {
@@ -581,13 +600,39 @@ class Task extends Component {
     );
 
     const SaveButton = (props) => {
-      const { disabled, uploadables, mutationPayload } = props;
-      const payload = mutationPayload?.response_multiple_choice || mutationPayload?.response_single_choice || null;
+      const {
+        disabled,
+        uploadables,
+        mutationPayload,
+        required,
+        empty,
+      } = props;
+      const payload =
+        mutationPayload?.response_multiple_choice ||
+        mutationPayload?.response_single_choice ||
+        null;
       return (
         <StyledMetadataButton>
           <Button
             className="metadata-save"
-            onClick={() => (responseObj ? this.handleUpdateResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null) : this.handleSubmitResponse(payload || this.state.textValue, uploadables ? uploadables['file[]'] : null))}
+            data-required={required}
+            data-empty={empty}
+            onClick={() => {
+              // if there's a blank submission, treat as a delete action
+              if (!payload && !this.state.textValue) {
+                this.submitDeleteTaskResponse(task.first_response.id);
+              } else if (responseObj) {
+                this.handleUpdateResponse(
+                  payload || this.state.textValue,
+                  uploadables ? uploadables['file[]'] : null,
+                );
+              } else {
+                this.handleSubmitResponse(
+                  payload || this.state.textValue,
+                  uploadables ? uploadables['file[]'] : null,
+                );
+              }
+            }}
             disabled={disabled}
           >
             <FormattedMessage
@@ -625,7 +670,7 @@ class Task extends Component {
 
     const FieldInformation = () => (
       <StyledFieldInformation>
-        <Typography variant="h6">{task.label}</Typography>
+        <Typography variant="h6">{task.label}<StyledRequired>{task.team_task.required ? ' *' : null}</StyledRequired></Typography>
         <Typography variant="subtitle2">
           <ParsedText text={task.description} />
         </Typography>
@@ -676,7 +721,9 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
@@ -714,7 +761,9 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
@@ -734,7 +783,9 @@ class Task extends Component {
                   AnnotatorInformation={AnnotatorInformation}
                   FieldInformation={FieldInformation}
                   hasData={task.first_response_value}
-                  isEditing
+                  isEditing={this.props.isEditing}
+                  disabled={!this.props.isEditing}
+                  required={task.team_task.required}
                   metadataValue={
                     this.state.textValue
                   }
@@ -765,7 +816,9 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
@@ -795,13 +848,13 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
+                setMetadataValue={this.handleUpdateMultiselectMetadata}
               />
             ) : null}
             {task.type === 'single_choice' && task.fieldset === 'tasks' ? (
@@ -825,13 +878,13 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
+                setMetadataValue={this.handleUpdateMultiselectMetadata}
               />
             ) : null}
             {task.type === 'multiple_choice' && task.fieldset === 'tasks' ? (
@@ -854,7 +907,9 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
@@ -907,7 +962,9 @@ class Task extends Component {
               AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
-              isEditing={false}
+              isEditing={this.props.isEditing}
+              disabled={!this.props.isEditing}
+              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
@@ -934,7 +991,9 @@ class Task extends Component {
               AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
-              isEditing={false}
+              isEditing={this.props.isEditing}
+              disabled={!this.props.isEditing}
+              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
@@ -961,7 +1020,9 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={!!task?.first_response_value}
-                isEditing={false}
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
@@ -986,7 +1047,9 @@ class Task extends Component {
               AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
-              isEditing={false}
+              isEditing={this.props.isEditing}
+              disabled={!this.props.isEditing}
+              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
@@ -1022,13 +1085,13 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing={false}
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
+                setMetadataValue={this.handleUpdateMultiselectMetadata}
               />
             </StyledMultiselect>
           </div>
@@ -1053,13 +1116,13 @@ class Task extends Component {
                 AnnotatorInformation={AnnotatorInformation}
                 FieldInformation={FieldInformation}
                 hasData={task.first_response_value}
-                isEditing={false}
+                isEditing={this.props.isEditing}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
                 metadataValue={
                   this.state.textValue
                 }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
+                setMetadataValue={this.handleUpdateMultiselectMetadata}
               />
             </StyledMultiselect>
           </div>
@@ -1094,7 +1157,9 @@ class Task extends Component {
               AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
               hasData={task.first_response_value}
-              isEditing={false}
+              isEditing={this.props.isEditing}
+              disabled={!this.props.isEditing}
+              required={task.team_task.required}
               metadataValue={
                 this.state.textValue
               }
@@ -1107,7 +1172,7 @@ class Task extends Component {
             />
           </div>
         ) : null}
-        {by && byPictures ? (
+        {by && byPictures && task.fieldset !== 'metadata' ? (
           <Box
             className="task__resolver"
             display="flex"
@@ -1372,9 +1437,6 @@ class Task extends Component {
       return (
         <div>
           {taskBody}
-          <StyledDivider>
-            <Divider />
-          </StyledDivider>
         </div>
       );
     }
@@ -1551,6 +1613,9 @@ export default Relay.createContainer(Task, {
         suggestions_count,
         log_count,
         team_task_id,
+        team_task {
+          required,
+        },
         responses(first: 10000) {
           edges {
             node {

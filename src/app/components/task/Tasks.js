@@ -2,19 +2,38 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Divider from '@material-ui/core/Divider';
 import styled from 'styled-components';
+import moment from 'moment';
 import Task from './Task';
 import ReorderTask from './ReorderTask';
 import BlankState from '../layout/BlankState';
 import { units } from '../../styles/js/shared';
+import { withSetFlashMessage } from '../FlashMessage';
 
 const StyledMetadataContainer = styled.div`
-  .tasks__list {
-    padding: ${units(4)};
-  }
   .tasks__list > li {
     margin-bottom: ${units(2)};
+    margin-left: ${units(2)};
+    margin-top: ${units(2)};
+  }
+`;
+
+const StyledFormControls = styled.div`
+  padding-left: ${units(2)};
+  padding-top: ${units(2)};
+  button {
+    margin-right: ${units(1)};
+  }
+`;
+
+const StyledAnnotatorInformation = styled.span`
+  display: inline-block;
+  p {
+    font-size: 9px;
+    color: #979797;
   }
 `;
 
@@ -23,12 +42,15 @@ const Tasks = ({
   tasks,
   media,
   about,
+  setFlashMessage,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
 
   const isBrowserExtension = (window.parent !== window);
   const isMetadata = fieldset === 'metadata';
+  const [isEditing, setIsEditing] = React.useState(false);
+  const [localResponses, setLocalResponses] = React.useState(tasks);
 
   if (tasks.length === 0) {
     return (
@@ -91,7 +113,7 @@ const Tasks = ({
         const parsedConditionalInfo = JSON.parse(conditional_info);
         const { selectedFieldId, selectedConditional } = parsedConditionalInfo;
         let { selectedCondition } = parsedConditionalInfo;
-        const matchingTask = tasks.find(item => item.node.team_task_id === selectedFieldId);
+        const matchingTask = localResponses.find(item => item.node.team_task_id === selectedFieldId);
 
         // check if there is an "Other" value by looking for the .other prop on options
         const hasOther = matchingTask.node.team_task?.options?.some(item => item.other);
@@ -130,23 +152,135 @@ const Tasks = ({
     return true;
   }
 
+  function isAnyRequiredFieldEmpty() {
+    // HTML data attributes cast booleans to strings, so we check for equality to
+    // the string "true" here
+    return Array.from(document.querySelectorAll('.metadata-save'))
+      .some(saveButton => saveButton.dataset.empty === 'true' && saveButton.dataset.required === 'true');
+  }
+
+  function handleEditAnnotations() {
+    document.querySelectorAll('.metadata-edit').forEach((editButton) => {
+      editButton.click();
+    });
+    setIsEditing(true);
+  }
+
+  function handleSaveAnnotations() {
+    if (isAnyRequiredFieldEmpty()) {
+      setFlashMessage((
+        <FormattedMessage
+          id="metadata.couldNotSave"
+          defaultMessage="Could not save, missing required field"
+          description="Error message displayed when it's not possible to save metadata due to a required field not being filled in."
+        />
+      ), 'error');
+      return;
+    }
+    document.querySelectorAll('.metadata-save').forEach((saveButton) => {
+      saveButton.click();
+    });
+    setIsEditing(false);
+  }
+
+  function handleCancelAnnotations() {
+    document.querySelectorAll('.metadata-cancel').forEach((cancelButton) => {
+      cancelButton.click();
+    });
+    setIsEditing(false);
+  }
+
+  function getLatestEditInfo() {
+    const latestDate = Math.max(...tasks
+      .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+      .filter(showMetadataItem)
+      .map((task) => {
+        let updated_at;
+        try {
+          updated_at = JSON.parse(task.node?.first_response?.content)[0]?.updated_at;
+        } catch (exception) {
+          updated_at = null;
+        }
+        return new Date(updated_at);
+      }));
+    if (!latestDate) {
+      return null;
+    }
+    const latestAuthor = tasks
+      .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+      .filter(showMetadataItem)
+      .find((task) => {
+        let updated_at;
+        try {
+          updated_at = JSON.parse(task.node?.first_response?.content)[0]?.updated_at;
+        } catch (exception) {
+          updated_at = null;
+        }
+        return new Date(updated_at).getTime() === latestDate;
+      });
+    return {
+      latestDate,
+      latestAuthorDbid: latestAuthor.node?.annotator?.user?.dbid,
+      latestAuthorName: latestAuthor.node?.annotator?.user?.name,
+    };
+  }
+
+  const latestEditInfo = getLatestEditInfo();
+
   if (isMetadata) {
     output = (
       <StyledMetadataContainer>
+        <StyledFormControls>
+          {
+            isEditing ? (
+              <div>
+                <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
+                  <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
+                </Button>
+                <Button className="form-cancel" onClick={handleCancelAnnotations}>
+                  <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel changes" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
+                </Button>
+              </div>
+            ) :
+              <Button className="form-edit" variant="contained" onClick={handleEditAnnotations} color="primary">
+                <FormattedMessage id="metadata.form.edit" defaultMessage="Edit" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
+              </Button>
+          }
+          <p>
+            {
+              latestEditInfo ? (
+                <StyledAnnotatorInformation>
+                  <Typography variant="body1">
+                    Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
+                    <a
+                      href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
+                    >
+                      {latestEditInfo.latestAuthorName}
+                    </a>
+                  </Typography>
+                </StyledAnnotatorInformation>
+              ) : '...'
+            }
+          </p>
+        </StyledFormControls>
+        <Divider />
         <ul className="tasks__list">
           {tasks
             .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
             .filter(showMetadataItem)
             .map(task => (
-              <li key={task.node.dbid}>
-                { (isMetadata || isBrowserExtension) ? (
-                  <Task task={task.node} media={media} about={about} />
-                ) : (
-                  <ReorderTask fieldset={fieldset} task={task.node}>
-                    <Task task={task.node} media={media} />
-                  </ReorderTask>
-                )}
-              </li>
+              <>
+                <li key={task.node.dbid}>
+                  { (isMetadata || isBrowserExtension) ? (
+                    <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
+                  ) : (
+                    <ReorderTask fieldset={fieldset} task={task.node}>
+                      <Task task={task.node} media={media} />
+                    </ReorderTask>
+                  )}
+                </li>
+                <Divider />
+              </>
             ))
           }
         </ul>
@@ -157,4 +291,4 @@ const Tasks = ({
   return output;
 };
 
-export default Tasks;
+export default withSetFlashMessage(Tasks);
