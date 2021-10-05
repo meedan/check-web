@@ -159,6 +159,19 @@ class MediaComponent extends Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const oldState = JSON.parse(JSON.stringify(this.state));
+    const newState = JSON.parse(JSON.stringify(nextState));
+    if (oldState.playerState) {
+      delete oldState.playerState;
+    }
+    if (newState.playerState) {
+      delete newState.playerState;
+    }
+    return JSON.stringify(newState) !== JSON.stringify(oldState) ||
+    JSON.stringify(this.props) !== JSON.stringify(nextProps);
+  }
+
   componentWillUpdate(nextProps) {
     if (this.props.media.dbid !== nextProps.media.dbid) {
       this.unsubscribe();
