@@ -297,6 +297,7 @@ module AppSpecHelpers
     wait_for_selector('#create-media-dialog__dismiss-button')
     wait_for_selector('#autocomplete-media-item').send_keys(item_name)
     wait_for_text_change(' ', '#autocomplete-media-item', :css)
+    wait_for_selector('#autocomplete-media-item-helper-text')
     wait_for_selector('.autocomplete-media-item__select').click
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.message').click

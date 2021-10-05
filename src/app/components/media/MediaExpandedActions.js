@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
 import OcrButton from './OcrButton';
+import TranscriptionButton from './TranscriptionButton';
 import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   Row,
@@ -73,6 +74,12 @@ const ExtraMediaActions = ({
         projectMediaId={projectMedia.id}
         projectMediaType={projectMedia.media.type}
         hasExtractedText={Boolean(projectMedia.extracted_text)}
+        classes={classes}
+      />
+      <TranscriptionButton
+        projectMediaId={projectMedia.id}
+        projectMediaType={projectMedia.media.type}
+        transcription={projectMedia.transcription}
         classes={classes}
       />
     </div>
@@ -168,6 +175,9 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     dbid
     picture
     title
+    transcription: annotation(annotation_type: "transcription") {
+      data
+    }
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
     }

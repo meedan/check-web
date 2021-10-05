@@ -6,11 +6,13 @@ shared_examples 'source' do
     wait_for_selector('.media')
     wait_for_selector('.tag-menu__icon')
     wait_for_selector('.media-tab__source').click
-    wait_for_selector('.source__card-card')
-    expect(@driver.page_source.include?('G1- Edited')).to be(false)
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    wait_for_selector('#media__source')
+    expect(@driver.page_source.include?('G1')).to be(true)
     wait_for_selector('#source__name-input').send_keys('- Edited')
     @driver.action.send_keys(:enter).perform
     wait_for_text_change('G1', '.source__name', :css)
+    wait_for_selector("//h1[contains(text(), 'G1- Edited')]", :xpath)
     expect(@driver.page_source.include?('G1- Edited')).to be(true)
     # check main link
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://g1.globo.com/').to be(true)
@@ -19,11 +21,11 @@ shared_examples 'source' do
     wait_for_selector('.source__add-link-button').click
     wait_for_selector('#source__link-input-new').send_keys('https://www.bbc.com/news/uk')
     @driver.action.send_keys(:enter).perform
-    wait_for_selector('#source__link-item0')
+    wait_for_selector_list_size('.source__remove-link-button', 2)
     # remove main link
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 2).to be(true)
     wait_for_selector_list('.source__remove-link-button')[0].click
-    wait_for_selector_none('input[value="https://g1.globo.com/"]')
+    wait_for_selector_none('input[value="https://g1.globo.com/"]', :css, 30)
     # check that the main link was changed
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/news/uk').to be(true)
     expect(@driver.find_elements(:css, '.source__remove-link-button').length == 1).to be(true)

@@ -26,9 +26,8 @@ const TeamTaskCard = ({
   onDelete,
   showInBrowserExtension,
   setShowInBrowserExtension,
-  // TODO: Release on next sprint
-  // required,
-  // setRequired,
+  required,
+  setRequired,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [expanded, setExpanded] = React.useState(true);
@@ -74,19 +73,17 @@ const TeamTaskCard = ({
           />
         </Button>
         <Box display="flex">
-          { /* TODO: Release on next sprint
-            <Box mr={4}>
-              <Switch
-                onClick={() => setRequired(!required)}
-                checked={required}
-              />
-              <FormattedMessage
-                id="teamTaskCard.required"
-                defaultMessage="Required"
-                description="Toggle switch to make field required"
-              />
-            </Box>
-          */ }
+          <Box mr={4}>
+            <Switch
+              onClick={() => setRequired(!required)}
+              checked={required}
+            />
+            <FormattedMessage
+              id="teamTaskCard.required"
+              defaultMessage="Required"
+              description="Toggle switch to make field required"
+            />
+          </Box>
           <span>
             <Switch
               onClick={() => setShowInBrowserExtension(!showInBrowserExtension)}
@@ -145,9 +142,8 @@ TeamTaskCard.propTypes = {
   onDelete: PropTypes.func.isRequired,
   showInBrowserExtension: PropTypes.bool.isRequired,
   setShowInBrowserExtension: PropTypes.func.isRequired,
-  // TODO: Release on next sprint
-  // required: PropTypes.bool.isRequired,
-  // setRequired: PropTypes.func.isRequired,
+  required: PropTypes.bool.isRequired,
+  setRequired: PropTypes.func.isRequired,
   about: PropTypes.object.isRequired,
 };
 

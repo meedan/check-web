@@ -45,20 +45,24 @@ shared_examples 'metadata' do
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task__response-inputs')
     # answer the metadata
+    wait_for_selector('.form-edit').click
     wait_for_selector('#metadata-input').send_keys('answer')
-    wait_for_selector('.metadata-save').click
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-cancel', 2)
+    expect(@driver.page_source.include?('answer - edited')).to be(false)
 
     # edit response
-    expect(@driver.page_source.include?('answer - edited')).to be(false)
-    wait_for_selector('.metadata-edit').click
+    wait_for_selector('.form-edit').click
     wait_for_selector('#metadata-input').send_keys(' - edited')
-    wait_for_selector('.metadata-save').click
-    wait_for_selector_none('.metdata-cancel')
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-cancel', 2)
     expect(@driver.page_source.include?('answer - edited')).to be(true)
 
     # delete response
-    wait_for_selector('.metadata-delete').click
-    wait_for_selector_none('.metadata-delete')
+    wait_for_selector('.form-edit').click
+    wait_for_selector('.clear-button').click
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-cancel', 2)
     expect(@driver.page_source.include?('answer - edited')).to be(false)
   end
 end

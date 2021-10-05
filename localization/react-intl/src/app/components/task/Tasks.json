@@ -10,5 +10,25 @@
   {
     "id": "tasks.goToSettings",
     "defaultMessage": "Go to settings"
+  },
+  {
+    "id": "metadata.couldNotSave",
+    "description": "Error message displayed when it's not possible to save metadata due to a required field not being filled in.",
+    "defaultMessage": "Could not save, missing required field"
+  },
+  {
+    "id": "metadata.form.save",
+    "description": "This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form.",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "metadata.form.cancel",
+    "description": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form.",
+    "defaultMessage": "Cancel changes"
+  },
+  {
+    "id": "metadata.form.edit",
+    "description": "This is a label on a button that the user presses in order to edit the items in the attached form.",
+    "defaultMessage": "Edit"
   }
 ]
