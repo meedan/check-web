@@ -55,7 +55,7 @@ shared_examples 'metadata' do
     wait_for_selector('.form-edit').click
     wait_for_selector('#metadata-input').send_keys(' - edited')
     wait_for_selector('.form-save').click
-    wait_for_selector_none('.form-cancel', 2)
+    wait_for_selector_none('.form-cancel', 10)
     expect(@driver.page_source.include?('answer - edited')).to be(true)
 
     # delete response
