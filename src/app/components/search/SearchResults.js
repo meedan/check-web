@@ -357,15 +357,6 @@ class SearchResultsComponent extends React.PureComponent {
       ascending: false,
     };
 
-    const selectedProjectMediaProjectIds = [];
-    const selectedProjectMediaDbids = [];
-
-    projectMedias.forEach((pm) => {
-      if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
-        selectedProjectMediaDbids.push(pm.dbid);
-      }
-    });
-
     let content = null;
 
     if (count === 0) {
@@ -471,15 +462,11 @@ class SearchResultsComponent extends React.PureComponent {
                 labelPlacement="start"
               />
             }
-            actions={projectMedias.length && selectedProjectMediaDbids.length ?
+            actions={projectMedias.length && selectedProjectMediaIds.length ?
               <BulkActions
-                parentComponent={this}
-                count={this.props.search ? this.props.search.number_of_results : 0}
                 team={team}
                 page={this.props.page}
                 project={this.props.project}
-                selectedProjectMediaProjectIds={selectedProjectMediaProjectIds}
-                selectedProjectMediaDbids={selectedProjectMediaDbids}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}

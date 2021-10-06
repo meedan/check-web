@@ -1,0 +1,11 @@
+[
+  {
+    "id": "multiSelector.search",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "bulkActionsMove.submitLabel",
+    "description": "Button for commiting the action of moving of a number of items in bulk",
+    "defaultMessage": "{numItems, plural, one {Move 1 item} other {Move # items}}"
+  }
+]
