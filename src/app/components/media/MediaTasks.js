@@ -214,6 +214,10 @@ const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent
               id
               dbid
               show_in_browser_extension
+              team_task_id
+              team_task {
+                conditional_info
+              },
               responses(first: 10000) {
                 edges {
                   node {
