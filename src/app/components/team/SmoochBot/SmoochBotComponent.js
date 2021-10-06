@@ -213,6 +213,7 @@ const SmoochBotComponent = ({
                 languages={languages}
                 enabledIntegrations={installation.smooch_enabled_integrations}
                 newsletterInformation={installation.smooch_newsletter_information}
+                teamName={team.name}
               /> :
               <Box display="flex" alignItems="center" justifyContent="center" mt={30} mb={30}>
                 { currentUser.is_admin ?

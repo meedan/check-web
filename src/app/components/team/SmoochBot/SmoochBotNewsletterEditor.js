@@ -108,6 +108,7 @@ const SmoochBotNewsletterEditor = ({
   installationId,
   newsletter,
   newsletterInformation,
+  teamName,
   onChange,
 }) => {
   const classes = useStyles();
@@ -332,9 +333,10 @@ const SmoochBotNewsletterEditor = ({
             <Box p={1}>
               <Typography>
                 <FormattedMessage
-                  id="smoochBotNewsletterEditor.templateHeaderNoRss"
-                  defaultMessage="You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}: "
+                  id="smoochBotNewsletterEditor.templateHeader"
+                  defaultMessage="Hi! Here are your weekly facts. This newsletter is published on WhatsApp by {teamName}. Here are the most important facts for the week of {date}:"
                   values={{
+                    teamName,
                     date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
                   }}
                 />
@@ -428,9 +430,10 @@ const SmoochBotNewsletterEditor = ({
                 <Box p={1}>
                   <Typography>
                     <FormattedMessage
-                      id="smoochBotNewsletterEditor.templateHeaderNoRss"
-                      defaultMessage="You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}: "
+                      id="smoochBotNewsletterEditor.templateHeader"
+                      defaultMessage="Hi! Here are your weekly facts. This newsletter is published on WhatsApp by {teamName}. Here are the most important facts for the week of {date}:"
                       values={{
+                        teamName,
                         date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
                       }}
                     />
@@ -476,6 +479,7 @@ SmoochBotNewsletterEditor.propTypes = {
   onChange: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   newsletterInformation: PropTypes.object,
+  teamName: PropTypes.string.isRequired,
 };
 
 export default injectIntl(SmoochBotNewsletterEditor);

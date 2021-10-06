@@ -97,8 +97,8 @@
     "defaultMessage": "Number of bullet points"
   },
   {
-    "id": "smoochBotNewsletterEditor.templateHeaderNoRss",
-    "defaultMessage": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
+    "id": "smoochBotNewsletterEditor.templateHeader",
+    "defaultMessage": "Hi! Here are your weekly facts. This newsletter is published on WhatsApp by {teamName}. Here are the most important facts for the week of {date}:"
   },
   {
     "id": "smoochBotNewsletterEditor.url",
