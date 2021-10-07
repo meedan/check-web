@@ -278,6 +278,7 @@ const SmoochBotConfig = (props) => {
                   newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
                   newsletterInformation={props.newsletterInformation[currentLanguage]}
                   onChange={handleChangeNewsletter}
+                  teamName={props.teamName}
                 /> : null }
             </Box>
           </Box>
@@ -304,6 +305,7 @@ SmoochBotConfig.propTypes = {
   userRole: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   newsletterInformation: PropTypes.object.isRequired,
+  teamName: PropTypes.string.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
