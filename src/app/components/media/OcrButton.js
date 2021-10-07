@@ -76,6 +76,7 @@ const OcrButton = ({
 
   return (
     <Button
+      id="ocr-button__extract-text"
       size="small"
       classes={classes}
       onClick={handleClick}
