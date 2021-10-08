@@ -98,7 +98,7 @@
   },
   {
     "id": "smoochBotNewsletterEditor.templateHeader",
-    "defaultMessage": "Hi! Here are your weekly facts. This newsletter is published on WhatsApp by {teamName}. Here are the most important facts for the week of {date}:"
+    "defaultMessage": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
   },
   {
     "id": "smoochBotNewsletterEditor.url",
@@ -111,5 +111,9 @@
   {
     "id": "smoochBotNewsletterEditor.load",
     "defaultMessage": "Load"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.templateHeaderRss",
+    "defaultMessage": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
   }
 ]
