@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import BulkActionsMenu from './BulkActionsMenu';
-// import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -65,20 +65,9 @@ class BulkActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // openMoveDialog: false,
       dstProj: null,
     };
   }
-
-  moveSelected() {
-    if (this.props.selectedMedia.length > 0) {
-      // this.setState({ openMoveDialog: true });
-    }
-  }
-
-  // handleCloseDialogs() {
-  //   this.setState({ openMoveDialog: false });
-  // }
 
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
@@ -107,7 +96,6 @@ class BulkActions extends React.Component {
         />
       );
       this.props.setFlashMessage(message, 'success');
-      // this.setState({ openMoveDialog: false, dstProj: null });
       this.setState({ dstProj: null });
       this.props.onUnselectAll();
     };
@@ -162,7 +150,6 @@ class BulkActions extends React.Component {
           />
         );
       this.props.setFlashMessage(message, 'success');
-      // this.setState({ openMoveDialog: false, dstProj: null });
       this.setState({ dstProj: null });
       this.props.onUnselectAll();
     };
@@ -267,64 +254,18 @@ class BulkActions extends React.Component {
 
     if (moveTooltipMessage) {
       modalToMove = (
-        <React.Fragment>
-          {/*
-            <ButtonWithTooltip
-              title={moveTooltipMessage}
-              id="media-bulk-actions__move-to"
-              onClick={this.moveSelected.bind(this)}
-              disabled={disabled}
-              color="primary"
-              variant="contained"
-            >
-              {moveButtonMessage}
-            </ButtonWithTooltip>
-          */}
-          <BulkActionsMenu
-            excludeProjectDbids={project ? [project.dbid] : []}
-            onMove={(dstProj) => {
-              this.setState({ dstProj }, () => (
-                moveAction
-                  ? this.handleMove()
-                  : this.handleRestoreOrConfirm({ archived_was: archivedWas })
-              ));
-            }}
-            selectedMedia={this.props.selectedMedia}
-            team={team}
-          />
-          {/*
-            <SelectProjectDialog
-              open={this.state.openMoveDialog}
-              excludeProjectDbids={project ? [project.dbid] : []}
-              title={
-                <FormattedMessage
-                  id="bulkActions.dialogMoveTitle"
-                  defaultMessage="{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
-                  values={{
-                    selectedCount: this.props.selectedMedia.length,
-                  }}
-                />
-              }
-              cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
-              submitLabel={
-                <FormattedMessage
-                  id="bulkActions.moveTitle"
-                  defaultMessage="Move to folder"
-                  description="Label for button to commit action of moving item to the selected folder"
-                />
-              }
-              submitButtonClassName="media-bulk-actions__move-button"
-              onSubmit={(dstProj) => {
-                this.setState({ dstProj }, () => (
-                  moveAction
-                    ? this.handleMove()
-                    : this.handleRestoreOrConfirm({ archived_was: archivedWas })
-                ));
-              }}
-              onCancel={this.handleCloseDialogs.bind(this)}
-            />
-          */}
-        </React.Fragment>
+        <BulkActionsMenu
+          excludeProjectDbids={project ? [project.dbid] : []}
+          onMove={(dstProj) => {
+            this.setState({ dstProj }, () => (
+              moveAction
+                ? this.handleMove()
+                : this.handleRestoreOrConfirm({ archived_was: archivedWas })
+            ));
+          }}
+          selectedMedia={this.props.selectedMedia}
+          team={team}
+        />
       );
     }
     switch (page) {
@@ -359,9 +300,9 @@ class BulkActions extends React.Component {
 
     return (
       <span id="media-bulk-actions">
-        <span id="media-bulk-actions__actions">
+        <Box id="media-bulk-actions__actions" display="flex" alignItems="center">
           { actionButtons }
-        </span>
+        </Box>
       </span>
     );
   }

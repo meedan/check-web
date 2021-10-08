@@ -4,6 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
@@ -30,10 +31,17 @@ const BulkActionsMenu = ({
   const handleMenuAssign = () => setMode('assign');
   const handleMenuChangeStatus = () => setMode('status');
 
+  const destFolders = team.projects.edges
+    .filter(({ node }) => !excludeProjectDbids.includes(node.dbid));
+
   const menuContent = {
     menu: (
       <React.Fragment>
-        <MenuItem className="bulk-actions-menu__move" onClick={handleMenuMove}>
+        <MenuItem
+          className="bulk-actions-menu__move"
+          onClick={handleMenuMove}
+          disabled={destFolders.length === 0}
+        >
           <FormattedMessage
             id="bulkActionsMenu.moveToFolder"
             defaultMessage="Move to folder"
@@ -66,20 +74,32 @@ const BulkActionsMenu = ({
     move: (
       <BulkActionsMove
         excludeProjectDbids={excludeProjectDbids}
+        selectedMedia={selectedMedia}
         onDismiss={handleClose}
         onSubmit={onMove}
-        selectedMedia={selectedMedia}
         team={team}
       />
     ),
     tag: (
-      <BulkActionsTag team={team} />
+      <BulkActionsTag
+        onDismiss={handleClose}
+        selectedMedia={selectedMedia}
+        team={team}
+      />
     ),
     assign: (
-      <BulkActionsAssign team={team} />
+      <BulkActionsAssign
+        onDismiss={handleClose}
+        selectedMedia={selectedMedia}
+        team={team}
+      />
     ),
     status: (
-      <BulkActionsStatus team={team} />
+      <BulkActionsStatus
+        onDismiss={handleClose}
+        selectedMedia={selectedMedia}
+        team={team}
+      />
     ),
   };
 
@@ -129,6 +149,13 @@ const BulkActionsMenuRenderer = (parentProps) => {
             id
             dbid
             name
+            projects(first: 10000) {
+              edges {
+                node {
+                  dbid
+                }
+              }
+            }
             ...BulkActionsAssign_team
             ...BulkActionsMove_team
             ...BulkActionsStatus_team
@@ -146,7 +173,7 @@ const BulkActionsMenuRenderer = (parentProps) => {
             <BulkActionsMenu {...parentProps} {...props} />
           );
         }
-        return null;
+        return <CircularProgress size={30} />;
       }}
     />
   );

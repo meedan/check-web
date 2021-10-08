@@ -14,7 +14,6 @@ const BulkActionsMove = ({
 }) => {
   const [selected, setSelected] = React.useState([]);
 
-  const numItems = selectedMedia.length;
   const options = team.projects.edges
     .filter(({ node }) => !excludeProjectDbids.includes(node.dbid))
     .map(p => ({ label: p.node.title, value: p.node.dbid.toString() }));
@@ -37,12 +36,18 @@ const BulkActionsMove = ({
           onDismiss={onDismiss}
           onSubmit={handleSubmit}
           onSelectChange={handleSelectChange}
+          notFoundLabel={
+            <FormattedMessage
+              id="bulkActionsMove.notFound"
+              defaultMessage="No folders found"
+            />
+          }
           single
           submitLabel={
             <FormattedMessage
               id="bulkActionsMove.submitLabel"
               defaultMessage="{numItems, plural, one {Move 1 item} other {Move # items}}"
-              values={{ numItems }}
+              values={{ numItems: selectedMedia.length }}
               description="Button for commiting the action of moving of a number of items in bulk"
             />
           }
@@ -53,7 +58,9 @@ const BulkActionsMove = ({
 };
 
 BulkActionsMove.propTypes = {
+  onDismiss: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  selectedMedia: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   team: PropTypes.shape({
     projects: PropTypes.object.isRequired,
   }).isRequired,
