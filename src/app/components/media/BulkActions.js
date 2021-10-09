@@ -264,6 +264,14 @@ class BulkActions extends React.Component {
             ));
           }}
           selectedMedia={this.props.selectedMedia}
+          /*
+            FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+            below to contain the PM objects as the tagging mutation currently requires dbids and
+            also for other requirements such as warning about published reports before bulk changing statuses
+            additional data is needed.
+            I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+          */
+          selectedProjectMedia={this.props.selectedProjectMedia}
           team={team}
         />
       );
@@ -314,6 +322,7 @@ BulkActions.propTypes = {
   page: PropTypes.string.isRequired,
   project: PropTypes.object.isRequired,
   selectedMedia: PropTypes.array.isRequired,
+  selectedProjectMedia: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
   onUnselectAll: PropTypes.func.isRequired,
 };
 

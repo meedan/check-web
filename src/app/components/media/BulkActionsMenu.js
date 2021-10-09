@@ -17,6 +17,7 @@ const BulkActionsMenu = ({
   excludeProjectDbids,
   onMove,
   selectedMedia,
+  selectedProjectMedia,
   team,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -83,7 +84,7 @@ const BulkActionsMenu = ({
     tag: (
       <BulkActionsTag
         onDismiss={handleClose}
-        selectedMedia={selectedMedia}
+        selectedMedia={selectedProjectMedia.map(pm => pm.dbid)}
         team={team}
       />
     ),
@@ -98,6 +99,7 @@ const BulkActionsMenu = ({
       <BulkActionsStatus
         onDismiss={handleClose}
         selectedMedia={selectedMedia}
+        selectedProjectMedia={selectedProjectMedia}
         team={team}
       />
     ),
@@ -129,7 +131,11 @@ const BulkActionsMenu = ({
 };
 
 BulkActionsMenu.propTypes = {
+  excludeProjectDbids: PropTypes.arrayOf(PropTypes.number).isRequired,
+  team: PropTypes.object.isRequired,
   onMove: PropTypes.func.isRequired,
+  selectedMedia: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectedProjectMedia: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 const BulkActionsMenuRenderer = (parentProps) => {

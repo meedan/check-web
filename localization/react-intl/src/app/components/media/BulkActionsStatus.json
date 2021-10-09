@@ -16,5 +16,15 @@
     "id": "bulkActionsStatus.submitLabel",
     "description": "Button for commiting the action of setting status of a number of items in bulk",
     "defaultMessage": "{numItems, plural, one {Set status of 1 item} other {Set status of # items}}"
+  },
+  {
+    "id": "bulkActionsStatus.dialogTitle",
+    "description": "Title of dialog warning after bulk updating item statuses",
+    "defaultMessage": "Some statuses could not be changed"
+  },
+  {
+    "id": "bulkActionsStatus.dialogBody",
+    "description": "Body of dialog warning that bulk updating item statuses could not be performed entirely",
+    "defaultMessage": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}"
   }
 ]

@@ -84,7 +84,7 @@ const BulkActionsTag = ({
         inputs.push({
           tag: v,
           annotated_type: 'ProjectMedia',
-          annotated_id: m,
+          annotated_id: `${m}`,
         });
       });
     });

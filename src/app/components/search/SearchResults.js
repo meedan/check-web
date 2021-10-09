@@ -357,6 +357,14 @@ class SearchResultsComponent extends React.PureComponent {
       ascending: false,
     };
 
+    const selectedProjectMedia = [];
+
+    projectMedias.forEach((pm) => {
+      if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
+        selectedProjectMedia.push(pm);
+      }
+    });
+
     let content = null;
 
     if (count === 0) {
@@ -462,11 +470,12 @@ class SearchResultsComponent extends React.PureComponent {
                 labelPlacement="start"
               />
             }
-            actions={projectMedias.length && selectedProjectMediaIds.length ?
+            actions={projectMedias.length && selectedProjectMedia.length ?
               <BulkActions
                 team={team}
                 page={this.props.page}
                 project={this.props.project}
+                selectedProjectMedia={selectedProjectMedia}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
@@ -604,6 +613,7 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               is_read
               is_main
               is_secondary
+              report_status # Needed by BulkActionsStatus
               requests_count
               list_columns_values
               project {
