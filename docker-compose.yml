@@ -1,7 +1,7 @@
 version: "2.2"
 volumes:
   elasticsearch:
-  postgres11:
+  postgres:
   redis:
   minio:
   web-node_modules:
