@@ -52,7 +52,6 @@ before_install:
 before_script:
 - docker-compose build
 - docker-compose -f docker-compose.yml -f docker-test.yml up -d
-- docker-compose logs -t -f &
 - ./ngrok http 9000 >/dev/null &
 - MAX_WEB_CURL=30;
 - until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
