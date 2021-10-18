@@ -11,6 +11,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import BulkActionsMenu from './BulkActionsMenu';
+import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -65,8 +66,19 @@ class BulkActions extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      openMoveDialog: false,
       dstProj: null,
     };
+  }
+
+  moveSelected() {
+    if (this.props.selectedMedia.length > 0) {
+      this.setState({ openMoveDialog: true });
+    }
+  }
+
+  handleCloseDialogs() {
+    this.setState({ openMoveDialog: false });
   }
 
   fail = (transaction) => {
@@ -195,72 +207,86 @@ class BulkActions extends React.Component {
       page, team, selectedMedia, project,
     } = this.props;
     const disabled = selectedMedia.length === 0;
-
-    let actionButtons = null;
     let modalToMove = null;
-    let moveTooltipMessage = null;
-    // let moveButtonMessage = null;
-    let archivedWas = CheckArchivedFlags.TRASHED;
-    let moveAction = false;
-    if (page === 'trash') {
-      moveTooltipMessage = (
-        <FormattedMessage
-          id="bulkActions.trash"
-          defaultMessage="Restore selected items and move items to another folder"
-        />
-      );
-      // moveButtonMessage = (
-      //   <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
-      // );
-    } else if (page === 'unconfirmed') {
-      archivedWas = CheckArchivedFlags.UNCONFIRMED;
-      moveTooltipMessage = (
-        <FormattedMessage
-          id="bulkActions.unconfirmed"
-          defaultMessage="Confirm selected items and move items to another folder"
-        />
-      );
-      // moveButtonMessage = (
-      //   <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
-      // );
-    } else {
-      moveAction = true;
-      moveTooltipMessage = (
-        <FormattedMessage
-          id="bulkActions.move"
-          defaultMessage="Move selected items to another folder"
-        />
-      );
-      // moveButtonMessage = (
-      //   <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to…" />
-      // );
-    }
-
-    const deleteButton = (
-      <IconButtonWithTooltip
-        title={
+    let permissionKey = 'bulk_update ProjectMedia';
+    if (page === 'trash' || page === 'unconfirmed') {
+      let archivedWas = null;
+      let moveTooltipMessage = null;
+      let moveButtonMessage = null;
+      if (page === 'trash') {
+        permissionKey = 'restore ProjectMedia';
+        archivedWas = CheckArchivedFlags.TRASHED;
+        moveTooltipMessage = (
           <FormattedMessage
-            id="bulkActions.sendItemsToTrash"
-            defaultMessage="Send selected items to Trash"
+            id="bulkActions.trash"
+            defaultMessage="Restore selected items and move items to another folder"
           />
-        }
-        disabled={disabled}
-        className="media-bulk-actions__delete-icon"
-        onClick={this.handleDelete.bind(this)}
-      >
-        <DeleteIcon />
-      </IconButtonWithTooltip>
-    );
-
-    if (moveTooltipMessage) {
+        );
+        moveButtonMessage = (
+          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
+        );
+      } else {
+        permissionKey = 'confirm ProjectMedia';
+        archivedWas = CheckArchivedFlags.UNCONFIRMED;
+        moveTooltipMessage = (
+          <FormattedMessage
+            id="bulkActions.unconfirmed"
+            defaultMessage="Confirm selected items and move items to another folder"
+          />
+        );
+        moveButtonMessage = (
+          <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
+        );
+      }
+      modalToMove = (
+        <React.Fragment>
+          <ButtonWithTooltip
+            title={moveTooltipMessage}
+            id="media-bulk-actions__move-to"
+            onClick={this.moveSelected.bind(this)}
+            disabled={disabled}
+            color="primary"
+            variant="contained"
+          >
+            {moveButtonMessage}
+          </ButtonWithTooltip>
+          <SelectProjectDialog
+            open={this.state.openMoveDialog}
+            excludeProjectDbids={project ? [project.dbid] : []}
+            title={
+              <FormattedMessage
+                id="bulkActions.dialogMoveTitle"
+                defaultMessage="{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
+                values={{
+                  selectedCount: this.props.selectedMedia.length,
+                }}
+              />
+            }
+            cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
+            submitLabel={
+              <FormattedMessage
+                id="bulkActions.moveTitle"
+                defaultMessage="Move to folder"
+                description="Label for button to commit action of moving item to the selected folder"
+              />
+            }
+            submitButtonClassName="media-bulk-actions__move-button"
+            onSubmit={(dstProj) => {
+              this.setState({ dstProj }, () => (
+                this.handleRestoreOrConfirm({ archived_was: archivedWas })
+              ));
+            }}
+            onCancel={this.handleCloseDialogs.bind(this)}
+          />
+        </React.Fragment>
+      );
+    } else {
       modalToMove = (
         <BulkActionsMenu
           excludeProjectDbids={project ? [project.dbid] : []}
           onMove={(dstProj) => {
             this.setState({ dstProj }, () => (
-              moveAction
-                ? this.handleMove()
-                : this.handleRestoreOrConfirm({ archived_was: archivedWas })
+              this.handleMove()
             ));
           }}
           selectedMedia={this.props.selectedMedia}
@@ -276,40 +302,34 @@ class BulkActions extends React.Component {
         />
       );
     }
-    switch (page) {
-    case 'trash':
-      actionButtons = (
-        <Can permission="restore ProjectMedia" permissions={team.permissions}>
-          {modalToMove}
-        </Can>
+
+    const deleteButton = page === 'trash' ? null :
+      (
+        <IconButtonWithTooltip
+          title={
+            <FormattedMessage
+              id="bulkActions.sendItemsToTrash"
+              defaultMessage="Send selected items to Trash"
+            />
+          }
+          disabled={disabled}
+          className="media-bulk-actions__delete-icon"
+          onClick={this.handleDelete.bind(this)}
+        >
+          <DeleteIcon />
+        </IconButtonWithTooltip>
       );
-      break;
-    case 'unconfirmed':
-      actionButtons = (
-        <React.Fragment>
-          <Can permission="confirm ProjectMedia" permissions={team.permissions}>
-            {modalToMove}
-          </Can>
-          {deleteButton}
-        </React.Fragment>
-      );
-      break;
-    default:
-      actionButtons = (
-        <React.Fragment>
-          <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
-            {modalToMove}
-          </Can>
-          {deleteButton}
-        </React.Fragment>
-      );
-      break;
-    }
+
 
     return (
       <span id="media-bulk-actions">
         <Box id="media-bulk-actions__actions" display="flex" alignItems="center">
-          { actionButtons }
+          <React.Fragment>
+            <Can permission={permissionKey} permissions={team.permissions}>
+              {modalToMove}
+            </Can>
+            {deleteButton}
+          </React.Fragment>
         </Box>
       </span>
     );

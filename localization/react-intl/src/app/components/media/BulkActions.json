@@ -23,12 +23,29 @@
     "defaultMessage": "Restore selected items and move items to another folder"
   },
   {
+    "id": "bulkActions.restore",
+    "defaultMessage": "Restore from Trash"
+  },
+  {
     "id": "bulkActions.unconfirmed",
     "defaultMessage": "Confirm selected items and move items to another folder"
   },
   {
-    "id": "bulkActions.move",
-    "defaultMessage": "Move selected items to another folder"
+    "id": "bulkActions.confirm",
+    "defaultMessage": "Move from Unconfirmed"
+  },
+  {
+    "id": "bulkActions.dialogMoveTitle",
+    "defaultMessage": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
+  },
+  {
+    "id": "bulkActions.cancelButton",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "bulkActions.moveTitle",
+    "description": "Label for button to commit action of moving item to the selected folder",
+    "defaultMessage": "Move to folder"
   },
   {
     "id": "bulkActions.sendItemsToTrash",
