@@ -147,17 +147,13 @@ class SearchKeyword extends React.Component {
     }
     cleanQuery.file_type = file_type;
     delete cleanQuery.keyword;
-    // eslint-disable-next-line
-    console.log('~~~transactionsuccess', cleanQuery, data);
     this.setState({
       isSaving: false,
       query: cleanQuery,
     });
   };
 
-  onUploadFailure = (transaction) => {
-    // eslint-disable-next-line
-    console.log('~~~transactionfail', transaction);
+  onUploadFailure = () => {
     this.setState({ isSaving: false });
   };
 
@@ -167,8 +163,6 @@ class SearchKeyword extends React.Component {
     delete cleanQuery.file_type;
     delete cleanQuery.file_handle;
     this.setState({ query: cleanQuery });
-    // eslint-disable-next-line
-    console.log('~~~setsearchtext', cleanQuery, this.state.query);
   }
 
   cleanup = (query) => {
