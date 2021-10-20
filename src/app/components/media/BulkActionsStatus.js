@@ -37,6 +37,7 @@ const BulkActionsStatus = ({
 
       const published = selectedProjectMedia.filter(pm => pm.report_status === 'published');
       setPublishedCount(published.length);
+      onDismiss();
     };
 
     commitMutation(Relay.Store, {
@@ -44,6 +45,16 @@ const BulkActionsStatus = ({
         mutation BulkActionsStatusMutation($input: UpdateProjectMediasInput!) {
           updateProjectMedias(input: $input) {
             ids
+            check_search_team {
+              medias(first: 10000) {
+                edges {
+                  node {
+                    id
+                    list_columns_values
+                  }
+                }
+              }
+            }
           }
         }
       `,
