@@ -108,6 +108,7 @@ const BulkActionsMenu = ({
   return (
     <React.Fragment>
       <Button
+        id="bulk-actions-menu__button"
         color="primary"
         variant="contained"
         onClick={e => setAnchorEl(e.currentTarget)}
