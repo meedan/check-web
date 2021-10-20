@@ -46,7 +46,7 @@ const BulkActionsStatus = ({
           updateProjectMedias(input: $input) {
             ids
             check_search_team {
-              medias(first: 10000) {
+              medias(first: 50) {
                 edges {
                   node {
                     id
