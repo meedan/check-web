@@ -153,7 +153,6 @@ class SearchKeyword extends React.Component {
       isSaving: false,
       query: cleanQuery,
     });
-    this.props.onChange(cleanQuery);
   };
 
   onUploadFailure = (transaction) => {
@@ -165,7 +164,11 @@ class SearchKeyword extends React.Component {
   setSearchText = (text) => {
     const cleanQuery = this.cleanup(this.state.query);
     cleanQuery.keyword = text;
+    delete cleanQuery.file_type;
+    delete cleanQuery.file_handle;
     this.setState({ query: cleanQuery });
+    // eslint-disable-next-line
+    console.log('~~~setsearchtext', cleanQuery, this.state.query);
   }
 
   cleanup = (query) => {
@@ -369,11 +372,15 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     const handleImageDismiss = () => {
+      const cleanQuery = this.cleanup(this.state.query);
+      delete cleanQuery.file_type;
+      delete cleanQuery.file_handle;
       this.setState({
         imgData: {
           data: '',
           name: '',
         },
+        query: cleanQuery,
       });
     };
 
