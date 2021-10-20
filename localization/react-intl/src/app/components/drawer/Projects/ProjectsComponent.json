@@ -51,6 +51,11 @@
     "defaultMessage": "Filtered lists"
   },
   {
+    "id": "projectsComponent.trends",
+    "description": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction.",
+    "defaultMessage": "Trends (Beta)"
+  },
+  {
     "id": "projectsComponent.newFolder",
     "description": "Dialog title for creating new folder",
     "defaultMessage": "New folder"

@@ -1,7 +1,12 @@
 [
   {
-    "id": "search.inputHint",
-    "description": "Placeholder for search keywords input",
-    "defaultMessage": "Search"
+    "id": "search.cancel",
+    "description": "A label on a button that lets a user cancel typing search text, deleting the text in the process.",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "search.setText",
+    "description": "A label on a button that lets a user set the text on an associated popup to the original input field.",
+    "defaultMessage": "Set text"
   }
 ]

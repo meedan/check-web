@@ -70,6 +70,11 @@
     "defaultMessage": "Metadata"
   },
   {
+    "id": "addFilterMenu.country",
+    "description": "Menu option to enable searching items by country",
+    "defaultMessage": "Country"
+  },
+  {
     "id": "addFilterMenu.addFilter",
     "description": "Button that opens menu with filter field options",
     "defaultMessage": "Add filter"

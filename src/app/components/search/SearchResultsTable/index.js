@@ -140,7 +140,21 @@ const AllPossibleColumns = [
   },
 ];
 
-function buildColumnDefs(team) {
+const showInTrends = [
+  'item',
+  'created_at_timestamp',
+  'last_seen',
+  'demand',
+  'linked_items_count',
+];
+
+function buildColumnDefs(team, resultType) {
+  if (resultType === 'trends') {
+    const trendColumns = AllPossibleColumns
+      .filter(column => showInTrends.includes(column.field));
+    return trendColumns;
+  }
+
   const possibleColumns = AllPossibleColumns
     // "demand" and "last_seen" only appear if smooch bot is installed
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
@@ -182,8 +196,9 @@ export default function SearchResultsTable({
   sortParams,
   onChangeSelectedIds,
   onChangeSortParams,
+  resultType,
 }) {
-  const columnDefs = React.useMemo(() => buildColumnDefs(team), [team]);
+  const columnDefs = React.useMemo(() => buildColumnDefs(team, resultType), [team]);
 
   const handleChangeProjectMediaChecked = React.useCallback((ev, projectMedia) => {
     const { id } = projectMedia;
@@ -218,6 +233,7 @@ export default function SearchResultsTable({
           sortParams={sortParams}
           onChangeSelectedIds={onChangeSelectedIds}
           onChangeSortParams={onChangeSortParams}
+          resultType={resultType}
         />
         <TableBody>
           {projectMedias.map(projectMedia => (
@@ -228,6 +244,7 @@ export default function SearchResultsTable({
               projectMediaUrl={buildProjectMediaUrl(projectMedia)}
               checked={selectedIds.includes(projectMedia.id)}
               onChangeChecked={handleChangeProjectMediaChecked}
+              resultType={resultType}
             />
           ))}
         </TableBody>
@@ -237,6 +254,7 @@ export default function SearchResultsTable({
 }
 SearchResultsTable.defaultProps = {
   sortParams: null,
+  resultType: 'default',
 };
 SearchResultsTable.propTypes = {
   team: PropTypes.object.isRequired,
@@ -249,4 +267,5 @@ SearchResultsTable.propTypes = {
   }), // or null for unsorted
   onChangeSelectedIds: PropTypes.func.isRequired, // func([1, 2, 3]) => undefined
   onChangeSortParams: PropTypes.func.isRequired, // func({ key, ascending }) => undefined
+  resultType: PropTypes.string,
 };
