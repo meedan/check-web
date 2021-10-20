@@ -1,0 +1,25 @@
+[
+  {
+    "id": "bulkActionsAssign.success",
+    "description": "Success message for bulk assignment action",
+    "defaultMessage": "Items assigned successfully"
+  },
+  {
+    "id": "tagMenu.search",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "bulkActionsAssign.notFound",
+    "defaultMessage": "No members found"
+  },
+  {
+    "id": "bulkActionsAssign.submitLabel",
+    "description": "Button for commiting the action of assigning of a number of items in bulk",
+    "defaultMessage": "{numItems, plural, one {Assign 1 item} other {Assign # items}}"
+  },
+  {
+    "id": "bulkActionsAssign.assignmentNotes",
+    "description": "Field for adding complementary information for the assignee",
+    "defaultMessage": "Add a note to email notification"
+  }
+]
