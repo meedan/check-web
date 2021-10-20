@@ -4,7 +4,7 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import ForumIcon from '@material-ui/icons/Forum';
+import PublicIcon from '@material-ui/icons/Public';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldCountry = ({
@@ -29,7 +29,7 @@ const SearchFieldCountry = ({
             { label => (
               <MultiSelectFilter
                 label={label}
-                icon={<ForumIcon />}
+                icon={<PublicIcon />}
                 selected={selected}
                 options={options}
                 onChange={(newValue) => { onChange(newValue); }}
