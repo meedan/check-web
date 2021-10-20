@@ -137,6 +137,15 @@ class SearchKeyword extends React.Component {
   onUploadSuccess = (data) => {
     const cleanQuery = this.cleanup(this.state.query);
     cleanQuery.file_handle = data.searchUpload?.file_handle;
+    let file_type;
+    if (this.state.imgData.type.match(/^video\//)) {
+      file_type = 'video';
+    } else if (this.state.imgData.type.match(/^image\//)) {
+      file_type = 'image';
+    } else if (this.state.imgData.type.match(/^audio\//)) {
+      file_type = 'audio';
+    }
+    cleanQuery.file_type = file_type;
     delete cleanQuery.keyword;
     // eslint-disable-next-line
     console.log('~~~transactionsuccess', cleanQuery, data);
