@@ -1,0 +1,24 @@
+[
+  {
+    "id": "tagMenu.create",
+    "defaultMessage": "+ Create this tag"
+  },
+  {
+    "id": "bulkActionsTag.success",
+    "description": "Success message for bulk tagging actions",
+    "defaultMessage": "Items tagged successfully"
+  },
+  {
+    "id": "tagMenu.search",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "tagMenu.notFound",
+    "defaultMessage": "No tags found"
+  },
+  {
+    "id": "bulkActionsTag.submitLabel",
+    "description": "Button for commiting the action of tagging of a number of items in bulk",
+    "defaultMessage": "{numItems, plural, one {Tag 1 item} other {Tag # items}}"
+  }
+]

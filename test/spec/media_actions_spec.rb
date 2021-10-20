@@ -176,11 +176,10 @@ shared_examples 'media actions' do
     # Move the claim to another project
     @driver.execute_script('window.scrollTo(0, 0)')
     wait_for_selector("tbody input[type='checkbox']:not(:checked)").click
-    wait_for_selector('#media-bulk-actions__move-to').click
-    wait_for_selector('input[name=project-title]').send_keys('Project')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.media-bulk-actions__move-button').click
-    wait_for_selector_none('input[name=project-title]') # wait for dialog to disappear
+    wait_for_selector('#bulk-actions-menu__button').click
+    wait_for_selector('.bulk-actions-menu__move').click
+    wait_for_selector('.MuiRadio-root .MuiIconButton-label input').click
+    wait_for_selector('.multi__selector-save').click
     @driver.navigate.to p1url
     expect(@driver.current_url.to_s == p1url).to be(true)
     wait_for_selector_list_size('.medias__item', 1)

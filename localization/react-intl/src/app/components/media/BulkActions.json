@@ -35,18 +35,6 @@
     "defaultMessage": "Move from Unconfirmed"
   },
   {
-    "id": "bulkActions.move",
-    "defaultMessage": "Move selected items to another folder"
-  },
-  {
-    "id": "bulkActions.moveTo",
-    "defaultMessage": "Move to…"
-  },
-  {
-    "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send selected items to Trash"
-  },
-  {
     "id": "bulkActions.dialogMoveTitle",
     "defaultMessage": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
   },
@@ -58,5 +46,9 @@
     "id": "bulkActions.moveTitle",
     "description": "Label for button to commit action of moving item to the selected folder",
     "defaultMessage": "Move to folder"
+  },
+  {
+    "id": "bulkActions.sendItemsToTrash",
+    "defaultMessage": "Send selected items to Trash"
   }
 ]

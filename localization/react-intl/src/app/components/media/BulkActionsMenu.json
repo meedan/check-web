@@ -1,0 +1,23 @@
+[
+  {
+    "id": "bulkActionsMenu.moveToFolder",
+    "defaultMessage": "Move to folder"
+  },
+  {
+    "id": "bulkActionsMenu.tag",
+    "defaultMessage": "Tag"
+  },
+  {
+    "id": "bulkActionsMenu.assign",
+    "defaultMessage": "Assign"
+  },
+  {
+    "id": "bulkActionsMenu.changeStatus",
+    "defaultMessage": "Change status"
+  },
+  {
+    "id": "bulkActionsMenu.action",
+    "description": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items.",
+    "defaultMessage": "Action"
+  }
+]
