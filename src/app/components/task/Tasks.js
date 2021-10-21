@@ -107,6 +107,10 @@ const Tasks = ({
 
   // This function determines if we should show a metadata item based on conditional prerequisites
   function showMetadataItem(task) {
+    // This response is in the DB but its team_task was deleted. This field should no longer render.
+    if (!task.node.team_task) {
+      return false;
+    }
     const { conditional_info } = task.node.team_task;
     if (conditional_info) {
       try {
@@ -114,6 +118,11 @@ const Tasks = ({
         const { selectedFieldId, selectedConditional } = parsedConditionalInfo;
         let { selectedCondition } = parsedConditionalInfo;
         const matchingTask = localResponses.find(item => item.node.team_task_id === selectedFieldId);
+
+        // There is no matching task, which means a conditional prerequisite was deleted. In this case we simply always show this field. See CHECK-986 for reasoning.
+        if (!matchingTask) {
+          return true;
+        }
 
         // check if there is an "Other" value by looking for the .other prop on options
         const hasOther = matchingTask.node.team_task?.options?.some(item => item.other);

@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import Button from '@material-ui/core/Button';
 import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
+import BulkActionsMenu from './BulkActionsMenu';
 import SelectProjectDialog from './SelectProjectDialog';
 import Can from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -106,7 +108,7 @@ class BulkActions extends React.Component {
         />
       );
       this.props.setFlashMessage(message, 'success');
-      this.setState({ openMoveDialog: false, dstProj: null });
+      this.setState({ dstProj: null });
       this.props.onUnselectAll();
     };
 
@@ -160,7 +162,7 @@ class BulkActions extends React.Component {
           />
         );
       this.props.setFlashMessage(message, 'success');
-      this.setState({ openMoveDialog: false, dstProj: null });
+      this.setState({ dstProj: null });
       this.props.onUnselectAll();
     };
 
@@ -205,64 +207,37 @@ class BulkActions extends React.Component {
       page, team, selectedMedia, project,
     } = this.props;
     const disabled = selectedMedia.length === 0;
-
-    let actionButtons = null;
     let modalToMove = null;
-    let moveTooltipMessage = null;
-    let moveButtonMessage = null;
-    let archivedWas = CheckArchivedFlags.TRASHED;
-    let moveAction = false;
-    if (page === 'trash') {
-      moveTooltipMessage = (
-        <FormattedMessage
-          id="bulkActions.trash"
-          defaultMessage="Restore selected items and move items to another folder"
-        />
-      );
-      moveButtonMessage = (
-        <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
-      );
-    } else if (page === 'unconfirmed') {
-      archivedWas = CheckArchivedFlags.UNCONFIRMED;
-      moveTooltipMessage = (
-        <FormattedMessage
-          id="bulkActions.unconfirmed"
-          defaultMessage="Confirm selected items and move items to another folder"
-        />
-      );
-      moveButtonMessage = (
-        <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
-      );
-    } else {
-      moveAction = true;
-      moveTooltipMessage = (
-        <FormattedMessage
-          id="bulkActions.move"
-          defaultMessage="Move selected items to another folder"
-        />
-      );
-      moveButtonMessage = (
-        <FormattedMessage id="bulkActions.moveTo" defaultMessage="Move to…" />
-      );
-    }
-
-    const deleteButton = (
-      <IconButtonWithTooltip
-        title={
+    let permissionKey = 'bulk_update ProjectMedia';
+    if (page === 'trash' || page === 'unconfirmed') {
+      let archivedWas = null;
+      let moveTooltipMessage = null;
+      let moveButtonMessage = null;
+      if (page === 'trash') {
+        permissionKey = 'restore ProjectMedia';
+        archivedWas = CheckArchivedFlags.TRASHED;
+        moveTooltipMessage = (
           <FormattedMessage
-            id="bulkActions.sendItemsToTrash"
-            defaultMessage="Send selected items to Trash"
+            id="bulkActions.trash"
+            defaultMessage="Restore selected items and move items to another folder"
           />
-        }
-        disabled={disabled}
-        className="media-bulk-actions__delete-icon"
-        onClick={this.handleDelete.bind(this)}
-      >
-        <DeleteIcon />
-      </IconButtonWithTooltip>
-    );
-
-    if (moveTooltipMessage) {
+        );
+        moveButtonMessage = (
+          <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
+        );
+      } else {
+        permissionKey = 'confirm ProjectMedia';
+        archivedWas = CheckArchivedFlags.UNCONFIRMED;
+        moveTooltipMessage = (
+          <FormattedMessage
+            id="bulkActions.unconfirmed"
+            defaultMessage="Confirm selected items and move items to another folder"
+          />
+        );
+        moveButtonMessage = (
+          <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
+        );
+      }
       modalToMove = (
         <React.Fragment>
           <ButtonWithTooltip
@@ -298,51 +273,64 @@ class BulkActions extends React.Component {
             submitButtonClassName="media-bulk-actions__move-button"
             onSubmit={(dstProj) => {
               this.setState({ dstProj }, () => (
-                moveAction
-                  ? this.handleMove()
-                  : this.handleRestoreOrConfirm({ archived_was: archivedWas })
+                this.handleRestoreOrConfirm({ archived_was: archivedWas })
               ));
             }}
             onCancel={this.handleCloseDialogs.bind(this)}
           />
         </React.Fragment>
       );
+    } else {
+      modalToMove = (
+        <BulkActionsMenu
+          excludeProjectDbids={project ? [project.dbid] : []}
+          onMove={(dstProj) => {
+            this.setState({ dstProj }, () => (
+              this.handleMove()
+            ));
+          }}
+          selectedMedia={this.props.selectedMedia}
+          /*
+            FIXME: The `selectedMedia` prop above contained IDs only, so I had to add the `selectedProjectMedia` prop
+            below to contain the PM objects as the tagging mutation currently requires dbids and
+            also for other requirements such as warning about published reports before bulk changing statuses
+            additional data is needed.
+            I suggest refactoring this later to nix the ID array and pass the ProjectMedia array only.
+          */
+          selectedProjectMedia={this.props.selectedProjectMedia}
+          team={team}
+        />
+      );
     }
-    switch (page) {
-    case 'trash':
-      actionButtons = (
-        <Can permission="restore ProjectMedia" permissions={team.permissions}>
-          {modalToMove}
-        </Can>
+
+    const deleteButton = page === 'trash' ? null :
+      (
+        <IconButtonWithTooltip
+          title={
+            <FormattedMessage
+              id="bulkActions.sendItemsToTrash"
+              defaultMessage="Send selected items to Trash"
+            />
+          }
+          disabled={disabled}
+          className="media-bulk-actions__delete-icon"
+          onClick={this.handleDelete.bind(this)}
+        >
+          <DeleteIcon />
+        </IconButtonWithTooltip>
       );
-      break;
-    case 'unconfirmed':
-      actionButtons = (
-        <React.Fragment>
-          <Can permission="confirm ProjectMedia" permissions={team.permissions}>
-            {modalToMove}
-          </Can>
-          {deleteButton}
-        </React.Fragment>
-      );
-      break;
-    default:
-      actionButtons = (
-        <React.Fragment>
-          <Can permission="bulk_update ProjectMedia" permissions={team.permissions}>
-            {modalToMove}
-          </Can>
-          {deleteButton}
-        </React.Fragment>
-      );
-      break;
-    }
+
 
     return (
       <span id="media-bulk-actions">
-        <span id="media-bulk-actions__actions">
-          { actionButtons }
-        </span>
+        <Box id="media-bulk-actions__actions" display="flex" alignItems="center">
+          <React.Fragment>
+            <Can permission={permissionKey} permissions={team.permissions}>
+              {modalToMove}
+            </Can>
+            {deleteButton}
+          </React.Fragment>
+        </Box>
       </span>
     );
   }
@@ -351,6 +339,11 @@ class BulkActions extends React.Component {
 BulkActions.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
   team: PropTypes.object.isRequired,
+  page: PropTypes.string.isRequired,
+  project: PropTypes.object.isRequired,
+  selectedMedia: PropTypes.array.isRequired,
+  selectedProjectMedia: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  onUnselectAll: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql`

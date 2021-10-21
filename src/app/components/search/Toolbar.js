@@ -32,6 +32,7 @@ const Toolbar = ({
   page,
   team,
   search,
+  resultType,
 }) => {
   let perms = { permissions: {}, permission: '' };
   if (project) {
@@ -48,7 +49,7 @@ const Toolbar = ({
           <span className="toolbar__title">{title}</span>
           {actions}
         </Row>
-        {['trash', 'unconfirmed', 'collection', 'list', 'imported-reports', 'tipline-inbox'].indexOf(page) === -1 ? (
+        {['trash', 'unconfirmed', 'collection', 'list', 'imported-reports', 'tipline-inbox'].indexOf(page) === -1 && resultType !== 'trends' ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} project={project} team={team} />

@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTableRow({
-  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked,
+  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType,
 }) {
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
@@ -62,9 +62,12 @@ export default function SearchResultsTableRow({
       className="medias__item" // for integration tests
       hover={!!dbid} // only allow hover when clickable
     >
-      <TableCell padding="checkbox" onClick={swallowClick}>
-        { !projectMedia.is_secondary ? <Checkbox checked={checked} onChange={handleChangeChecked} /> : null }
-      </TableCell>
+      { resultType !== 'trends' ? (
+        <TableCell padding="checkbox" onClick={swallowClick}>
+          { !projectMedia.is_secondary ? <Checkbox checked={checked} onChange={handleChangeChecked} /> : null }
+        </TableCell>
+      ) : null
+      }
       {columnDefs.map(({ cellComponent: Cell, field, type }) => (
         <Cell
           key={field}
@@ -79,6 +82,7 @@ export default function SearchResultsTableRow({
 }
 SearchResultsTableRow.defaultProps = {
   projectMediaUrl: null,
+  resultType: 'default',
 };
 SearchResultsTableRow.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
@@ -92,4 +96,5 @@ SearchResultsTableRow.propTypes = {
   projectMediaUrl: PropTypes.string, // or null
   checked: PropTypes.bool.isRequired,
   onChangeChecked: PropTypes.func.isRequired, // onChangeChecked(ev, projectMedia) => undefined
+  resultType: PropTypes.string,
 };

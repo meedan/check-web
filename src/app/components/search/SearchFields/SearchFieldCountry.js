@@ -4,11 +4,10 @@ import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
+import PublicIcon from '@material-ui/icons/Public';
 import MultiSelectFilter from '../MultiSelectFilter';
 
-const SearchFieldSource = ({
-  teamSlug,
+const SearchFieldCountry = ({
   selected,
   onChange,
   onRemove,
@@ -16,33 +15,21 @@ const SearchFieldSource = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldSourceQuery($teamSlug: String!) {
-        team(slug: $teamSlug) {
-          id
-          sources(first: 10000) {
-            edges {
-              node {
-                id
-                dbid
-                name
-              }
-            }
-          }
+      query SearchFieldCountryQuery {
+        about {
+          countries
         }
       }
     `}
-    variables={{
-      teamSlug,
-    }}
     render={({ error, props }) => {
       if (!error && props) {
-        const options = props.team.sources.edges.map(s => s.node).sort((a, b) => a.name.localeCompare(b.name)).map(s => ({ label: s.name, value: `${s.dbid}` }));
+        const options = props.about.countries.map(country => ({ label: country, value: country }));
         return (
-          <FormattedMessage id="searchFieldSource.label" defaultMessage="Source is" description="Prefix label for field to filter by source">
+          <FormattedMessage id="searchFieldCountry.label" defaultMessage="Country is" description="Prefix label for field to filter by country">
             { label => (
               <MultiSelectFilter
                 label={label}
-                icon={<SettingsInputAntennaIcon />}
+                icon={<PublicIcon />}
                 selected={selected}
                 options={options}
                 onChange={(newValue) => { onChange(newValue); }}
@@ -59,15 +46,14 @@ const SearchFieldSource = ({
   />
 );
 
-SearchFieldSource.defaultProps = {
+SearchFieldCountry.defaultProps = {
   selected: [],
 };
 
-SearchFieldSource.propTypes = {
-  teamSlug: PropTypes.string.isRequired,
+SearchFieldCountry.propTypes = {
   selected: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 
-export default SearchFieldSource;
+export default SearchFieldCountry;

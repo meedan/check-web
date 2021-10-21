@@ -23,10 +23,11 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
+    const params = { archived: CheckArchivedFlags.NONE, project_id: this.props.dstProject.dbid };
     return {
       ids: this.props.ids,
-      archived: CheckArchivedFlags.NONE,
-      project_id: this.props.dstProject.dbid,
+      action: 'archived',
+      params: JSON.stringify(params),
     };
   }
 

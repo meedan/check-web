@@ -22,13 +22,15 @@ class BulkArchiveProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
+    const params = { archived: CheckArchivedFlags.TRASHED };
     const vars = {
       ids: this.props.ids,
-      archived: CheckArchivedFlags.TRASHED,
+      action: 'archived',
     };
     if (this.props.project) {
-      vars.previous_project_id = this.props.project.dbid;
+      params.previous_project_id = this.props.project.dbid;
     }
+    vars.params = JSON.stringify(params);
     return vars;
   }
 

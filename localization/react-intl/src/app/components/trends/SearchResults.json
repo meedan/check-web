@@ -1,0 +1,7 @@
+[
+  {
+    "id": "search.noResults",
+    "description": "A message that appears when a user searches for similar items, but we could not find any results.",
+    "defaultMessage": "No results found."
+  }
+]

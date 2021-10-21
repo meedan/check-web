@@ -357,12 +357,11 @@ class SearchResultsComponent extends React.PureComponent {
       ascending: false,
     };
 
-    const selectedProjectMediaProjectIds = [];
-    const selectedProjectMediaDbids = [];
+    const selectedProjectMedia = [];
 
     projectMedias.forEach((pm) => {
       if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
-        selectedProjectMediaDbids.push(pm.dbid);
+        selectedProjectMedia.push(pm);
       }
     });
 
@@ -389,6 +388,7 @@ class SearchResultsComponent extends React.PureComponent {
           onChangeSelectedIds={this.handleChangeSelectedIds}
           onChangeSortParams={this.handleChangeSortParams}
           buildProjectMediaUrl={this.buildProjectMediaUrl}
+          resultType={this.props.resultType}
         />
       );
     }
@@ -425,6 +425,7 @@ class SearchResultsComponent extends React.PureComponent {
               hideFields={this.props.hideFields}
               title={this.props.title}
               team={team}
+              showExpand={this.props.showExpand}
             />
           </Row>
           <Row className="project__description">
@@ -448,6 +449,7 @@ class SearchResultsComponent extends React.PureComponent {
         </Box>
         <StyledSearchResultsWrapper className="search__results results">
           <Toolbar
+            resultType={this.props.resultType}
             team={team}
             similarAction={
               <FormControlLabel
@@ -471,15 +473,12 @@ class SearchResultsComponent extends React.PureComponent {
                 labelPlacement="start"
               />
             }
-            actions={projectMedias.length && selectedProjectMediaDbids.length ?
+            actions={projectMedias.length && selectedProjectMedia.length ?
               <BulkActions
-                parentComponent={this}
-                count={this.props.search ? this.props.search.number_of_results : 0}
                 team={team}
                 page={this.props.page}
                 project={this.props.project}
-                selectedProjectMediaProjectIds={selectedProjectMediaProjectIds}
-                selectedProjectMediaDbids={selectedProjectMediaDbids}
+                selectedProjectMedia={selectedProjectMedia}
                 selectedMedia={selectedProjectMediaIds}
                 onUnselectAll={this.onUnselectAll}
               /> : null}
@@ -555,6 +554,7 @@ class SearchResultsComponent extends React.PureComponent {
 SearchResultsComponent.defaultProps = {
   project: null,
   projectGroup: null,
+  showExpand: false,
 };
 
 SearchResultsComponent.propTypes = {
@@ -577,6 +577,7 @@ SearchResultsComponent.propTypes = {
   }), // may be null
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
+  showExpand: PropTypes.bool,
 };
 
 const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
@@ -617,6 +618,7 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               is_read
               is_main
               is_secondary
+              report_status # Needed by BulkActionsStatus
               requests_count
               list_columns_values
               project {

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "searchFieldCountry.label",
+    "description": "Prefix label for field to filter by country",
+    "defaultMessage": "Country is"
+  }
+]

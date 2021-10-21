@@ -22,13 +22,15 @@ class BulkMoveProjectMediaMutation extends Relay.Mutation {
   }
 
   getVariables() {
+    const params = { move_to: this.props.dstProject.dbid };
     const vars = {
       ids: this.props.ids,
-      move_to: this.props.dstProject.dbid,
+      action: 'move_to',
     };
     if (this.props.srcProject) {
-      vars.previous_project_id = this.props.srcProject.dbid;
+      params.previous_project_id = this.props.srcProject.dbid;
     }
+    vars.params = JSON.stringify(params);
     return vars;
   }
 
