@@ -9,7 +9,7 @@ export default function Trends({ routeParams }) {
   return (
     <Search
       searchUrlPrefix={`/${routeParams.team}/trends`}
-      mediaUrlPrefix={`/${routeParams.team}/media`}
+      mediaUrlPrefix="media"
       title={<FormattedMessage id="trends.title" defaultMessage="Trends" />}
       icon={<TrendingUpIcon />}
       query={safelyParseJSON(routeParams.query, {})}
