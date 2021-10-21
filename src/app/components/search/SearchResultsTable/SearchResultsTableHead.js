@@ -6,16 +6,18 @@ import SelectAllTh from './SelectAllTh';
 import SearchResultsTh from './SearchResultsTh';
 
 export default function SearchResultsTableHead({
-  columnDefs, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams,
+  columnDefs, selectedIds, projectMedias, sortParams, onChangeSelectedIds, onChangeSortParams, resultType,
 }) {
   return (
     <TableHead>
       <TableRow>
-        <SelectAllTh
-          selectedIds={selectedIds}
-          projectMedias={projectMedias}
-          onChangeSelectedIds={onChangeSelectedIds}
-        />
+        { resultType !== 'trends' ? (
+          <SelectAllTh
+            selectedIds={selectedIds}
+            projectMedias={projectMedias}
+            onChangeSelectedIds={onChangeSelectedIds}
+          />) : null
+        }
         {columnDefs.map(({
           headerText,
           sortKey,
@@ -40,6 +42,7 @@ export default function SearchResultsTableHead({
 }
 SearchResultsTableHead.defaultProps = {
   sortParams: null,
+  resultType: 'default',
 };
 SearchResultsTableHead.propTypes = {
   columnDefs: PropTypes.arrayOf(PropTypes.shape({
@@ -57,4 +60,5 @@ SearchResultsTableHead.propTypes = {
   }), // or null for unsorted
   onChangeSelectedIds: PropTypes.func.isRequired, // func([1, 2, 3]) => undefined
   onChangeSortParams: PropTypes.func.isRequired, // func({ key, ascending }) => undefined
+  resultType: PropTypes.string,
 };

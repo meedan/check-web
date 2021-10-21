@@ -29,8 +29,7 @@ import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
-
-// eslint-disable-next-line no-unused-vars
+import SearchFieldCountry from './SearchFieldCountry';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -230,6 +229,12 @@ class SearchFields extends React.Component {
   handleSourceClick = (sources) => {
     this.setState({
       query: updateStateQueryArrayValue(this.state.query, 'sources', sources),
+    });
+  }
+
+  handleCountryClick = (country) => {
+    this.setState({
+      query: updateStateQueryArrayValue(this.state.query, 'country', country),
     });
   }
 
@@ -543,6 +548,13 @@ class SearchFields extends React.Component {
           selected={this.state.query.sources}
           onChange={(newValue) => { this.handleSourceClick(newValue); }}
           onRemove={() => this.handleRemoveField('sources')}
+        />
+      ),
+      country: (
+        <SearchFieldCountry
+          selected={this.state.query.country}
+          onChange={(newValue) => { this.handleCountryClick(newValue); }}
+          onRemove={() => this.handleRemoveField('country')}
         />
       ),
     };

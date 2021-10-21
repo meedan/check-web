@@ -79,6 +79,8 @@ export default function Search({
   searchUrlPrefix,
   title,
   icon,
+  showExpand,
+  resultType,
 }) {
   let timestampedQuery = query;
   if (!noFilters(query, project, projectGroup)) {
@@ -100,6 +102,8 @@ export default function Search({
       title={title}
       icon={icon}
       query={timestampedQuery}
+      showExpand={showExpand}
+      resultType={resultType}
     />
   );
 }
@@ -108,9 +112,11 @@ Search.defaultProps = {
   projectGroup: null,
   savedSearch: null,
   page: undefined, // FIXME find a cleaner way to render Trash differently
-  hideFields: undefined,
+  hideFields: [],
   listDescription: undefined,
   listActions: undefined,
+  showExpand: false,
+  resultType: 'default',
 };
 Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
@@ -125,4 +131,6 @@ Search.propTypes = {
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
+  showExpand: PropTypes.bool,
+  resultType: PropTypes.string, // 'default' or 'trends', for now
 };
