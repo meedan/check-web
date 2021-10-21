@@ -37,7 +37,9 @@ const BulkActionsStatus = ({
 
       const published = selectedProjectMedia.filter(pm => pm.report_status === 'published');
       setPublishedCount(published.length);
-      onDismiss();
+      if (published.length === 0) {
+        onDismiss();
+      }
     };
 
     commitMutation(Relay.Store, {
