@@ -27,17 +27,19 @@ const BulkActionsStatus = ({
       onDismiss();
     };
     const onSuccess = () => {
-      setFlashMessage((
-        <FormattedMessage
-          id="bulkActionsStatus.success"
-          defaultMessage="Item statuses changed successfully"
-          description="Success message for bulk status change action"
-        />
-      ), 'success');
-
       const published = selectedProjectMedia.filter(pm => pm.report_status === 'published');
       setPublishedCount(published.length);
-      onDismiss();
+
+      if (published.length === 0) {
+        onDismiss();
+        setFlashMessage((
+          <FormattedMessage
+            id="bulkActionsStatus.success"
+            defaultMessage="Item statuses changed successfully"
+            description="Success message for bulk status change action"
+          />
+        ), 'success');
+      }
     };
 
     commitMutation(Relay.Store, {

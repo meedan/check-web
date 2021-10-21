@@ -325,7 +325,14 @@ class SearchResultsComponent extends React.PureComponent {
       urlParams.set('listQuery', JSON.stringify(cleanQuery));
     }
     urlParams.set('listIndex', String(listIndex));
-    return `${mediaUrlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
+
+    let urlPrefix = mediaUrlPrefix;
+    // If it's not an absolute path, prepend the team slug
+    if (!/^\//.test(urlPrefix) && projectMedia.team && projectMedia.team.slug) {
+      urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
+    }
+
+    return `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
   }
 
   render() {
@@ -626,6 +633,7 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
                 id
               }
               team {
+                slug
                 verification_statuses
               }
             }
