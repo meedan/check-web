@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
 import styled from 'styled-components';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
@@ -41,6 +41,7 @@ class AddAnnotation extends Component {
       isSubmitting: false,
       fileMode: false,
       canBeAutoChanged: true,
+      canSubmit: false,
     };
   }
 
@@ -90,6 +91,7 @@ class AddAnnotation extends Component {
       message: null,
       isSubmitting: false,
       fileMode: false,
+      canSubmit: false,
     });
   };
 
@@ -228,7 +230,8 @@ class AddAnnotation extends Component {
   }
 
   handleChange(e) {
-    this.setState({ cmd: e.target.value, message: null });
+    const canSubmit = e.target.value.trim().length > 0;
+    this.setState({ cmd: e.target.value, message: null, canSubmit });
   }
 
   handleFocus() {
@@ -342,7 +345,7 @@ class AddAnnotation extends Component {
           <FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note">
             {inputHint => (
               <TextField
-                placeholder={inputHint}
+                label={inputHint}
                 onFocus={this.handleFocus.bind(this)}
                 ref={(i) => { this.cmd = i; }}
                 error={Boolean(this.state.message)}
@@ -355,6 +358,7 @@ class AddAnnotation extends Component {
                 onKeyUp={this.handleKeyUp.bind(this)}
                 value={this.state.cmd}
                 onChange={this.handleChange.bind(this)}
+                variant="outlined"
               />
             )}
           </FormattedMessage>
@@ -368,16 +372,16 @@ class AddAnnotation extends Component {
           ) : null}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
             <div className="add-annotation__insert-photo">
-              <InsertPhotoIcon
+              <AttachFileIcon
                 id="add-annotation__switcher"
                 title={
-                  <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add an image" />
+                  <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add a file" />
                 }
                 className={this.state.fileMode ? 'add-annotation__file' : ''}
                 onClick={this.switchMode.bind(this)}
               />
             </div>
-            <Button color="primary" type="submit">
+            <Button color="primary" type="submit" disabled={!this.state.canSubmit}>
               <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
             </Button>
           </AddAnnotationButtonGroup>

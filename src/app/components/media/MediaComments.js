@@ -7,6 +7,7 @@ import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import MediasLoading from './MediasLoading';
 import Annotations from '../annotations/Annotations';
+import Comment from '../annotations/Comment';
 import ProfileLink from '../layout/ProfileLink';
 import UserTooltip from '../user/UserTooltip';
 
@@ -70,8 +71,9 @@ class MediaCommentsComponent extends Component {
     return (
       <div id="media__comments" className={classes.root}>
         <Annotations
+          component={Comment}
           showAddAnnotation
-          annotations={media.log.edges}
+          annotations={media.comments.edges}
           annotated={media}
           annotatedType="ProjectMedia"
           annotationsCount={media.annotations_count}
@@ -95,9 +97,6 @@ MediaCommentsComponent.propTypes = {
 };
 
 const pageSize = 10;
-const eventTypes = ['create_comment'];
-const fieldNames = [];
-const annotationTypes = [];
 
 const styles = theme => ({
   root: {
@@ -108,9 +107,6 @@ const styles = theme => ({
 const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaCommentsComponent)), {
   initialVariables: {
     pageSize,
-    eventTypes,
-    fieldNames,
-    annotationTypes,
     teamSlug: null,
   },
   prepareVariables: vars => ({
@@ -125,106 +121,32 @@ const MediaCommentsContainer = Relay.createContainer(withStyles(styles)(withPush
         archived
         pusher_channel
         annotations_count(annotation_type: "comment")
-        log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
+        comments(last: $pageSize) {
           edges {
             node {
               id,
               dbid,
-              item_type,
-              item_id,
-              event,
-              event_type,
+              content,
+              text,
+              annotation_type,
+              updated_at,
               created_at,
-              object_after,
-              object_changes_json,
-              meta,
-              user {
-                id,
-                dbid,
-                name,
-                is_active,
-                team_user(team_slug: $teamSlug) {
-                  ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                  ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
-                },
-                source {
+              permissions,
+              annotator {
+                user {
                   id,
                   dbid,
-                  image,
-                }
-              }
-              annotation {
-                id,
-                dbid,
-                content,
-                annotation_type,
-                updated_at,
-                created_at,
-                permissions,
-                medias(first: 10000) {
-                  edges {
-                    node {
-                      id,
-                      dbid,
-                      quote,
-                      published,
-                      url,
-                      last_status,
-                      last_status_obj {
-                        id
-                        dbid
-                        content
-                        assignments(first: 10000) {
-                          edges {
-                            node {
-                              id
-                              dbid
-                              name
-                              source {
-                                id
-                                dbid
-                                image
-                              }
-                            }
-                          }
-                        }
-                      }
-                      log_count,
-                      permissions,
-                      domain,
-                      team {
-                        slug,
-                        get_embed_whitelist
-                      }
-                      media {
-                        type,
-                        metadata
-                        embed_path,
-                        thumbnail_path,
-                        file_path,
-                        url,
-                        quote
-                      }
-                      user {
-                        dbid
-                        name
-                        is_active
-                        source {
-                          dbid
-                          image
-                        }
-                      }
-                    }
-                  }
-                }
-                annotator {
                   name,
-                  profile_image
-                }
-                version {
-                  id
-                  item_id
-                  item_type
+                  is_active,
+                  team_user(team_slug: $teamSlug) {
+                    ${ProfileLink.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                    ${UserTooltip.getFragment('teamUser')}, # FIXME: Make Annotation a container
+                  },
+                  source {
+                    id,
+                    dbid,
+                    image,
+                  }
                 }
               }
             }
