@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const TranscriptionButton = ({
   projectMediaId,
   projectMediaType,
-  classes,
+  // classes,
   transcription,
   setFlashMessage,
 }) => {
@@ -75,13 +77,14 @@ const TranscriptionButton = ({
   }
 
   return (
-    <Button
-      size="small"
-      classes={classes}
+    <MenuItem
+      id="transcription-button__request-transcription"
       onClick={handleClick}
-      variant="outlined"
       disabled={pending || (transcription && transcription.data && transcription.data.last_response.job_status)}
     >
+      <ListItemIcon>
+        <DescriptionOutlinedIcon />
+      </ListItemIcon>
       { pending ?
         <FormattedMessage
           id="transcriptionButton.inProgress"
@@ -93,19 +96,19 @@ const TranscriptionButton = ({
           defaultMessage="Transcribe audio"
           description="Button label - when this button is clicked, transcription operation starts"
         /> }
-    </Button>
+    </MenuItem>
   );
 };
 
 TranscriptionButton.defaultProps = {
-  classes: null,
+  // classes: null,
   transcription: null,
 };
 
 TranscriptionButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   projectMediaType: PropTypes.string.isRequired,
-  classes: PropTypes.any,
+  // classes: PropTypes.any,
   transcription: PropTypes.object,
   setFlashMessage: PropTypes.func.isRequired,
 };

@@ -3,29 +3,26 @@ import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
+import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Tooltip from '@material-ui/core/Tooltip';
-import { makeStyles } from '@material-ui/core/styles';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import Timeline from '@material-ui/icons/Timeline';
+import ImageSearch from '@material-ui/icons/ImageSearch';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
 import ExternalLink from '../ExternalLink';
 import OcrButton from './OcrButton';
 import TranscriptionButton from './TranscriptionButton';
-import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
-  Row,
+  // Row,
   units,
-  opaqueBlack05,
 } from '../../styles/js/shared';
 
 const StyledMetadata = styled.div`
   margin: ${units(1)} ${units(1)} 0;
 `;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    margin: `0 ${theme.spacing(0.5)}px`,
-  },
-}));
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -38,50 +35,108 @@ const ExtraMediaActions = ({
   const isPicture = !!projectMedia.picture;
   const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
   const allowsReverseSearch = isPicture || allowsVideoAnnotation;
-  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleMenuAndClose = (callback) => {
+    if (callback) callback();
+    setAnchorEl(null);
+  };
+
+  const labelObj = {
+    video: (
+      <FormattedMessage
+        id="mediaMetadata.videoActions"
+        defaultMessage="Video actions"
+        description="Actions menu for item of type Video"
+      />
+    ),
+    image: (
+      <FormattedMessage
+        id="mediaMetadata.imageActions"
+        defaultMessage="Image actions"
+        description="Actions menu for item of type Image"
+      />
+    ),
+    audio: (
+      <FormattedMessage
+        id="mediaMetadata.audioActions"
+        defaultMessage="Audio actions"
+        description="Actions menu for item of type Audio"
+      />
+    ),
+  };
+  let menuLabel = null;
+  if (isPicture) menuLabel = labelObj.image;
+  if (allowsVideoAnnotation) menuLabel = labelObj.video;
+  if (projectMedia.media.type === 'UploadedAudio') menuLabel = labelObj.audio;
+  if (!menuLabel) return null;
 
   return (
-    <div>
-      { allowsVideoAnnotation ?
-        <Button
-          size="small"
-          classes={classes}
-          color="primary"
-          disabled={showVideoAnnotation}
-          onClick={onVideoAnnoToggle}
-          variant="contained"
-          startIcon={<VideoAnnotationIcon color="action" />}
-        >
-          <FormattedMessage
-            id="mediaMetadata.Timeline"
-            defaultMessage="Timeline"
-          />
-        </Button>
-        : null }
-      { allowsReverseSearch ?
-        <Button
-          size="small"
-          classes={classes}
-          onClick={reverseImageSearchGoogle}
-          variant="outlined"
-        >
-          <FormattedMessage
-            id="mediaMetadata.ImageSearch"
-            defaultMessage="Google Image Search"
-          />
-        </Button> : null }
-      <OcrButton
-        projectMediaId={projectMedia.id}
-        projectMediaType={projectMedia.media.type}
-        hasExtractedText={Boolean(projectMedia.extracted_text)}
-        classes={classes}
-      />
-      <TranscriptionButton
-        projectMediaId={projectMedia.id}
-        projectMediaType={projectMedia.media.type}
-        transcription={projectMedia.transcription}
-        classes={classes}
-      />
+    <div className="media-expanded-actions">
+      <Button
+        id="media-expanded-actions__menu"
+        variant="outlined"
+        onClick={e => setAnchorEl(e.currentTarget)}
+        endIcon={<KeyboardArrowDownIcon />}
+      >
+        {menuLabel}
+      </Button>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+      >
+        { allowsVideoAnnotation ?
+          <MenuItem
+            disabled={showVideoAnnotation}
+            onClick={() => handleMenuAndClose(onVideoAnnoToggle)}
+          >
+            <ListItemIcon>
+              <Timeline />
+            </ListItemIcon>
+            <FormattedMessage
+              id="mediaMetadata.Timeline"
+              defaultMessage="Timeline"
+            />
+          </MenuItem> : null }
+        { allowsReverseSearch ?
+          <MenuItem
+            onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
+          >
+            <ListItemIcon>
+              <ImageSearch />
+            </ListItemIcon>
+            <FormattedMessage
+              id="mediaMetadata.ImageSearch"
+              defaultMessage="Reverse image search"
+              description="Menu option for performing reverse image searches on google or other engines"
+            />
+          </MenuItem> : null }
+        <TranscriptionButton
+          projectMediaId={projectMedia.id}
+          projectMediaType={projectMedia.media.type}
+          transcription={projectMedia.transcription}
+        />
+        <OcrButton
+          projectMediaId={projectMedia.id}
+          projectMediaType={projectMedia.media.type}
+          hasExtractedText={Boolean(projectMedia.extracted_text)}
+        />
+        { (projectMedia.media && projectMedia.media.file_path) ?
+          <MenuItem onClick={() => setAnchorEl(null)}>
+            <ListItemIcon>
+              <DownloadIcon />
+            </ListItemIcon>
+            <ExternalLink
+              url={projectMedia.media.file_path}
+              style={{ color: 'unset', textDecoration: 'none' }}
+            >
+              <FormattedMessage
+                id="mediaMetadata.download"
+                defaultMessage="Download"
+              />
+            </ExternalLink>
+          </MenuItem> : null }
+      </Menu>
     </div>
   );
 };
@@ -100,55 +155,19 @@ class MediaExpandedActions extends React.Component {
       showVideoAnnotation,
     } = this.props;
 
+    // <Row style={{ display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5) }}>
+
     return (
       <StyledMetadata className="media-detail__check-metadata">
         { (projectMedia.picture || (projectMedia.media && projectMedia.media.file_path) || (projectMedia.media.type === 'Claim' || projectMedia.media.type === 'Link')) ?
-          <Row style={{
-            display: 'flex', alignItems: 'center', marginBottom: units(2), marginLeft: units(-0.5), marginRight: units(-0.5),
-          }}
-          >
+          <Box width="100%" display="flex" justifyContent="flex-end">
             <ExtraMediaActions
               projectMedia={projectMedia}
               onVideoAnnoToggle={onVideoAnnoToggle}
               showVideoAnnotation={showVideoAnnotation}
               reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
             />
-            { (projectMedia.media && projectMedia.media.file_path) ?
-              <div
-                className="media-detail__download"
-                style={{
-                  alignSelf: 'flex-end',
-                  display: 'flex',
-                  marginRight: units(0.5),
-                  marginLeft: units(0.5),
-                }}
-              >
-                <ExternalLink
-                  url={this.props.projectMedia.media.file_path}
-                  style={{
-                    cursor: 'pointer',
-                    height: 36,
-                    overflow: 'hidden',
-                    borderRadius: '50%',
-                    background: opaqueBlack05,
-                    display: 'inline-block',
-                    textAlign: 'center',
-                    alignSelf: 'flex-end',
-                  }}
-                >
-                  <Tooltip
-                    title={
-                      <FormattedMessage
-                        id="mediaMetadata.download"
-                        defaultMessage="Download"
-                      />
-                    }
-                  >
-                    <DownloadIcon style={{ margin: 6 }} />
-                  </Tooltip>
-                </ExternalLink>
-              </div> : null }
-          </Row> : null }
+          </Box> : null }
       </StyledMetadata>
     );
   }

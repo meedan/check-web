@@ -1,11 +1,27 @@
 [
   {
+    "id": "mediaMetadata.videoActions",
+    "description": "Actions menu for item of type Video",
+    "defaultMessage": "Video actions"
+  },
+  {
+    "id": "mediaMetadata.imageActions",
+    "description": "Actions menu for item of type Image",
+    "defaultMessage": "Image actions"
+  },
+  {
+    "id": "mediaMetadata.audioActions",
+    "description": "Actions menu for item of type Audio",
+    "defaultMessage": "Audio actions"
+  },
+  {
     "id": "mediaMetadata.Timeline",
     "defaultMessage": "Timeline"
   },
   {
     "id": "mediaMetadata.ImageSearch",
-    "defaultMessage": "Google Image Search"
+    "description": "Menu option for performing reverse image searches on google or other engines",
+    "defaultMessage": "Reverse image search"
   },
   {
     "id": "mediaMetadata.download",
