@@ -15,6 +15,11 @@
     "defaultMessage": "Search with file"
   },
   {
+    "id": "search",
+    "description": "This is a label on a button that the user presses in order to execute a search query.",
+    "defaultMessage": "Search"
+  },
+  {
     "id": "searchKeyword.clear",
     "description": "Tooltip for button to remove any applied keyword search",
     "defaultMessage": "Clear keyword search"
