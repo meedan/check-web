@@ -11,6 +11,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
+import deepEqual from 'deep-equal';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
@@ -121,7 +122,7 @@ function simplifyQuery(query, project, projectGroup) {
 function SearchResultsComponent({
   pusher,
   clientSessionId,
-  query,
+  query: defaultQuery,
   search,
   project,
   projectGroup,
@@ -141,6 +142,7 @@ function SearchResultsComponent({
 }) {
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
+  const [query, setQuery] = React.useState(defaultQuery);
   const [showSimilar] = React.useState('show_similar' in query ? query.show_similar : false);
 
   React.useEffect(() => {
@@ -267,6 +269,53 @@ function SearchResultsComponent({
     return buildSearchUrlAtOffset(getBeginIndex() - pageSize);
   };
 
+  const cleanupQuery = (oldQuery) => {
+    const cleanQuery = { ...oldQuery };
+    if (oldQuery.team_tasks) {
+      cleanQuery.team_tasks = oldQuery.team_tasks.filter(tt => (
+        tt.id && tt.response && tt.task_type
+      ));
+      if (!cleanQuery.team_tasks.length) {
+        delete cleanQuery.team_tasks;
+      }
+    }
+    if (oldQuery.range) {
+      const datesObj =
+        oldQuery.range.created_at ||
+        oldQuery.range.updated_at ||
+        oldQuery.range.published_at ||
+        oldQuery.range.last_seen || {};
+      if (!datesObj.start_time && !datesObj.end_time) {
+        delete cleanQuery.range;
+      }
+    }
+    Object.keys(oldQuery).forEach((key) => {
+      if (Array.isArray(cleanQuery[key]) && (cleanQuery[key].length === 0)) {
+        delete cleanQuery[key];
+      }
+    });
+    return cleanQuery;
+  };
+
+  const handleApplyFilters = () => {
+    const cleanQuery = cleanupQuery(query);
+    if (!deepEqual(cleanQuery, query)) {
+      handleChangeQuery(cleanQuery);
+    } else {
+      // setQuery(cleanQuery);
+    }
+  };
+
+  const handleSubmit = () => {
+    const cleanQuery = cleanupQuery(query);
+    handleChangeQuery(cleanQuery);
+  };
+
+  // whenever the query state changes, we apply the filters
+  React.useEffect(() => {
+    handleApplyFilters();
+  }, [query]);
+
   /**
    * Build a URL for the 'ProjectMedia' page.
    *
@@ -370,9 +419,6 @@ function SearchResultsComponent({
   delete unsortedQuery.sort;
   delete unsortedQuery.sort_type;
 
-  // eslint-disable-next-line
-  console.log('~~~~~renderrrrr');
-
   return (
     <React.Fragment>
       <StyledListHeader>
@@ -394,14 +440,15 @@ function SearchResultsComponent({
             {listActions}
           </div>
           <SearchKeyword
-            key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
             query={unsortedQuery}
-            onChange={handleChangeQuery}
+            setQuery={setQuery}
             project={project}
             hideFields={hideFields}
             title={title}
             team={team}
             showExpand={showExpand}
+            cleanupQuery={cleanupQuery}
+            handleSubmit={handleSubmit}
           />
         </Row>
         <Row className="project__description">
@@ -414,6 +461,7 @@ function SearchResultsComponent({
         <SearchFields
           key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
           query={unsortedQuery}
+          setQuery={setQuery}
           onChange={handleChangeQuery}
           project={project}
           projectGroup={projectGroup}
