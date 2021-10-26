@@ -14,6 +14,7 @@ import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
+import AddAnnotation from './AddAnnotation';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import ParsedText from '../ParsedText';
@@ -131,37 +132,6 @@ const StyledAnnotationActionsWrapper = styled.div`
   margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
 `;
 
-const FlagName = ({ flag }) => {
-  switch (flag) {
-  case 'adult': return <FormattedMessage id="annotation.flagAdult" defaultMessage="Adult" />;
-  case 'medical': return <FormattedMessage id="annotation.flagMedical" defaultMessage="Medical" />;
-  case 'violence': return <FormattedMessage id="annotation.flagViolence" defaultMessage="Violence" />;
-  case 'racy': return <FormattedMessage id="annotation.flagRacy" defaultMessage="Racy" />;
-  case 'spam': return <FormattedMessage id="annotation.flagSpam" defaultMessage="Spam" />;
-  default: return null;
-  }
-};
-
-FlagName.propTypes = {
-  flag: PropTypes.oneOf(['adult', 'medical', 'violence', 'racy', 'spam']).isRequired,
-};
-
-const FlagLikelihood = ({ likelihood }) => {
-  switch (likelihood) {
-  case 0: return <FormattedMessage id="annotation.flagLikelihood0" defaultMessage="Unknown" />;
-  case 1: return <FormattedMessage id="annotation.flagLikelihood1" defaultMessage="Very unlikely" />;
-  case 2: return <FormattedMessage id="annotation.flagLikelihood2" defaultMessage="Unlikely" />;
-  case 3: return <FormattedMessage id="annotation.flagLikelihood3" defaultMessage="Possible" />;
-  case 4: return <FormattedMessage id="annotation.flagLikelihood4" defaultMessage="Likely" />;
-  case 5: return <FormattedMessage id="annotation.flagLikelihood5" defaultMessage="Very likely" />;
-  default: return null;
-  }
-};
-
-FlagLikelihood.propTypes = {
-  likelihood: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
-};
-
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Comment extends Component {
@@ -170,6 +140,7 @@ class Comment extends Component {
 
     this.state = {
       zoomedCommentImage: false,
+      editMode: false,
     };
   }
 
@@ -190,15 +161,19 @@ class Comment extends Component {
     this.setState({ anchorEl: null });
   };
 
+  handleEdit = () => {
+    this.setState({ editMode: true });
+    this.handleCloseMenu();
+  };
+
   handleDelete(id) {
     const onSuccess = () => {};
-    const destroy_attr = {
-      parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
-      annotated: this.props.annotated,
-      id,
-    };
     Relay.Store.commitUpdate(
-      new DeleteAnnotationMutation(destroy_attr),
+      new DeleteAnnotationMutation({
+        parent_type: this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase(),
+        annotated: this.props.annotated,
+        id,
+      }),
       { onSuccess, onFailure: this.fail },
     );
   }
@@ -217,8 +192,7 @@ class Comment extends Component {
   };
 
   render() {
-    console.log('Comment-props', this.props); // eslint-disable-line no-console
-    const { annotation } = this.props;
+    const { annotation, annotated } = this.props;
     let annotationActions = null;
     if (annotation && annotation.annotation_type) {
       const canUpdate = can(annotation.permissions, 'update Comment');
@@ -242,7 +216,7 @@ class Comment extends Component {
             {canUpdate ? (
               <MenuItem
                 className="annotation__update"
-                onClick={this.handleDelete.bind(this, annotation.id)}
+                onClick={this.handleEdit}
               >
                 <FormattedMessage id="annotation.editButton" defaultMessage="Edit" />
               </MenuItem>
@@ -286,7 +260,16 @@ class Comment extends Component {
       <div>
         <div className="annotation__card-content">
           <div >
-            <ParsedText text={commentText} />
+            { this.state.editMode ?
+              <AddAnnotation
+                cmdText={commentText}
+                annotated={annotated}
+                annotation={annotation}
+                annotatedType="ProjectMedia"
+                types={['comment']}
+              />
+              : <ParsedText text={commentText} />
+            }
           </div>
           {/* thumbnail */}
           {commentContent.original ?
@@ -319,7 +302,7 @@ class Comment extends Component {
             <CardContent
               className="annotation__card-text annotation__card-activity-comment"
             >
-              { authorName ?
+              { !authorName ?
                 <RCTooltip placement="top" overlay={<UserTooltip teamUser={user.team_user} />}>
                   <StyledAvatarColumn className="annotation__avatar-col">
                     <SourcePicture

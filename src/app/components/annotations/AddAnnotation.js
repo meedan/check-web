@@ -35,7 +35,7 @@ class AddAnnotation extends Component {
     super(props);
 
     this.state = {
-      cmd: '',
+      cmd: props.cmdText,
       image: null,
       message: null,
       isSubmitting: false,
@@ -133,6 +133,28 @@ class AddAnnotation extends Component {
           annotated_type,
           annotated_id,
         },
+      }),
+      { onFailure: this.fail, onSuccess: this.resetState },
+    );
+  }
+
+  updateComment(
+    annotated,
+    annotated_id,
+    annotated_type,
+    comment,
+    annotation,
+  ) {
+    const { currentUser: annotator } = this.getContext();
+    const image = this.state.fileMode ? this.state.image : '';
+
+    Relay.Store.commitUpdate(
+      new CreateCommentMutation({
+        annotator,
+        image,
+        context: this.getContext(),
+        text: comment,
+        annotation,
       }),
       { onFailure: this.fail, onSuccess: this.resetState },
     );
@@ -255,7 +277,7 @@ class AddAnnotation extends Component {
     } else {
       switch (command.type) {
       case 'comment':
-        action = this.addComment.bind(this);
+        action = this.props.annotation ? this.updateComment.bind(this) : this.addComment.bind(this);
         break;
       case 'tag':
         action = this.addTag.bind(this);
@@ -269,13 +291,14 @@ class AddAnnotation extends Component {
       }
 
       if (action) {
-        const { annotated, annotatedType: annotated_type } = this.props;
+        const { annotated, annotatedType: annotated_type, annotation } = this.props;
         action(
           annotated,
           annotated.dbid,
           annotated_type,
           command.args,
           command.type,
+          annotation,
         );
       } else {
         this.invalidCommand();
