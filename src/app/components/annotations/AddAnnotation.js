@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import styled from 'styled-components';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
@@ -18,6 +19,7 @@ import UploadFile from '../UploadFile';
 import { Row, black38, black87, units } from '../../styles/js/shared';
 import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
+import globalStrings from '../../globalStrings';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 
 class AddAnnotation extends Component {
@@ -341,7 +343,7 @@ class AddAnnotation extends Component {
       }
     `;
 
-    const { annotated, annotatedType } = this.props;
+    const { annotated, annotatedType, editMode } = this.props;
 
     if (annotated.archived > CheckArchivedFlags.NONE) {
       return null;
@@ -353,7 +355,7 @@ class AddAnnotation extends Component {
       return null;
     }
 
-    const inputHint = this.props.editMode ? (<FormattedMessage id="addAnnotation.inputEditHint" defaultMessage="Edit note" />)
+    const inputHint = editMode ? (<FormattedMessage id="addAnnotation.inputEditHint" defaultMessage="Edit note" />)
       : (<FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note" />);
     return (
       <form
@@ -367,7 +369,7 @@ class AddAnnotation extends Component {
           zIndex: 0,
         }}
       >
-        <div style={this.props.editMode ? null : { padding: `0 ${units(4)}` }}>
+        <div style={editMode ? null : { padding: `0 ${units(4)}` }}>
           <TextField
             label={inputHint}
             onFocus={this.handleFocus.bind(this)}
@@ -393,17 +395,27 @@ class AddAnnotation extends Component {
             />
           ) : null}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <div className="add-annotation__insert-photo">
-              <AttachFileIcon
-                id="add-annotation__switcher"
-                title={
-                  <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add a file" />
-                }
-                className={this.state.fileMode ? 'add-annotation__file' : ''}
-                onClick={this.switchMode.bind(this)}
-              />
-            </div>
-            <Button color="primary" type="submit" disabled={!this.state.canSubmit}>
+            <IconButton
+              className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
+              id="add-annotation__switcher"
+              title={
+                <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add a file" />
+              }
+              onClick={this.switchMode.bind(this)}
+            >
+              <AttachFileIcon />
+            </IconButton>
+            { editMode ?
+              <Button>
+                <FormattedMessage {...globalStrings.cancel} />
+              </Button> : null
+            }
+            <Button
+              color="primary"
+              type="submit"
+              variant="contained"
+              disabled={!this.state.canSubmit}
+            >
               <FormattedMessage id="addAnnotation.submitButton" defaultMessage="Submit" />
             </Button>
           </AddAnnotationButtonGroup>
