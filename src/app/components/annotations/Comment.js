@@ -4,11 +4,9 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
-import { stripUnit } from 'polished';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Menu from '@material-ui/core/Menu';
@@ -31,28 +29,18 @@ import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import {
   units,
-  white,
-  opaqueBlack16,
   black38,
   black54,
   black87,
-  borderWidthLarge,
   caption,
   breakWordStyles,
+  separationGray,
   Row,
 } from '../../styles/js/shared';
-
-const dotSize = borderWidthLarge;
-
-const dotOffset = stripUnit(units(4)) - stripUnit(dotSize);
 
 const StyledAnnotationCardWrapper = styled.div`
   width: 100%;
   z-index: initial !important;
-
-  > div > div {
-    padding-bottom: 0 !important;
-  }
 
   img {
     cursor: pointer;
@@ -82,29 +70,8 @@ const StyledPrimaryColumn = styled.div`
 `;
 
 const StyledAnnotationWrapper = styled.section`
-  position: relative;
-  display: flex;
-  padding: ${units(1)} 0;
-  position: relative;
-
-  &:not(.annotation--card) {
-    // The timeline dot
-    &::before {
-      background-color: ${opaqueBlack16};
-      border-radius: 100%;
-      content: '';
-      height: ${units(1)};
-      outline: ${dotSize} solid ${white};
-      position: absolute;
-      top: ${units(2)};
-      width: ${units(1)};
-      ${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${dotOffset}px;
-    }
-  }
-
   .annotation__card-text {
     display: flex;
-    padding: ${units(3)} ${units(2)} ${units(1)} !important;
   }
 
   .annotation__timestamp {
@@ -120,7 +87,6 @@ const StyledAnnotationMetadata = styled(Row)`
   color: ${black54};
   flex-flow: wrap row;
   font: ${caption};
-  margin-top: ${units(3)};
 
   .annotation__card-author {
     color: ${black87};
@@ -259,19 +225,17 @@ class Comment extends Component {
     const contentTemplate = (
       <div>
         <div className="annotation__card-content">
-          <div >
-            { this.state.editMode ?
-              <AddAnnotation
-                cmdText={commentText}
-                editMode={this.state.editMode}
-                annotated={annotated}
-                annotation={annotation}
-                annotatedType="ProjectMedia"
-                types={['comment']}
-              />
-              : <ParsedText text={commentText} />
-            }
-          </div>
+          { this.state.editMode ?
+            <AddAnnotation
+              cmdText={commentText}
+              editMode={this.state.editMode}
+              annotated={annotated}
+              annotation={annotation}
+              annotatedType="ProjectMedia"
+              types={['comment']}
+            />
+            : <ParsedText text={commentText} />
+          }
           {/* thumbnail */}
           {commentContent.original ?
             <div onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}>
@@ -299,45 +263,44 @@ class Comment extends Component {
         id={`annotation-${annotation.dbid}`}
       >
         <StyledAnnotationCardWrapper>
-          <Card>
-            <CardContent
-              className="annotation__card-text annotation__card-activity-comment"
-            >
-              { authorName ?
-                <RCTooltip placement="top" overlay={<UserTooltip teamUser={user.team_user} />}>
-                  <StyledAvatarColumn className="annotation__avatar-col">
-                    <SourcePicture
-                      className="avatar"
-                      type="user"
-                      size="small"
-                      object={user.source}
-                    />
-                  </StyledAvatarColumn>
-                </RCTooltip> : null }
+          <Box
+            p={2}
+            borderBottom={`1px ${separationGray} solid`}
+            className="annotation__card-text annotation__card-activity-comment"
+          >
+            { authorName ?
+              <RCTooltip placement="top" overlay={<UserTooltip teamUser={user.team_user} />}>
+                <StyledAvatarColumn className="annotation__avatar-col">
+                  <SourcePicture
+                    className="avatar"
+                    type="user"
+                    object={user.source}
+                  />
+                </StyledAvatarColumn>
+              </RCTooltip> : null }
 
-              <StyledPrimaryColumn>
-                <StyledAnnotationMetadata>
-                  <span className="annotation__card-footer">
-                    { authorName ?
-                      <ProfileLink
-                        className="annotation__card-author"
-                        teamUser={user.team_user}
-                      /> : null }
-                    <span>
-                      {timestamp}
-                    </span>
+            <StyledPrimaryColumn>
+              <StyledAnnotationMetadata>
+                <span className="annotation__card-footer">
+                  { authorName ?
+                    <ProfileLink
+                      className="annotation__card-author"
+                      teamUser={user.team_user}
+                    /> : null }
+                  <span>
+                    {timestamp}
                   </span>
+                </span>
 
-                  <StyledAnnotationActionsWrapper>
-                    {annotationActions}
-                  </StyledAnnotationActionsWrapper>
-                </StyledAnnotationMetadata>
-                <Typography variant="body1" component="div">
-                  {contentTemplate}
-                </Typography>
-              </StyledPrimaryColumn>
-            </CardContent>
-          </Card>
+                <StyledAnnotationActionsWrapper>
+                  {annotationActions}
+                </StyledAnnotationActionsWrapper>
+              </StyledAnnotationMetadata>
+              <Typography variant="body1" component="div">
+                {contentTemplate}
+              </Typography>
+            </StyledPrimaryColumn>
+          </Box>
         </StyledAnnotationCardWrapper>
       </StyledAnnotationWrapper>
     );

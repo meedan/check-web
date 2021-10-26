@@ -71,6 +71,7 @@ class MediaCommentsComponent extends Component {
     return (
       <div id="media__comments" className={classes.root}>
         <Annotations
+          noLink
           component={Comment}
           showAddAnnotation
           annotations={media.comments.edges}

@@ -367,7 +367,7 @@ class AddAnnotation extends Component {
           zIndex: 0,
         }}
       >
-        <div style={{ padding: `0 ${units(4)}` }}>
+        <div style={this.props.editMode ? null : { padding: `0 ${units(4)}` }}>
           <TextField
             label={inputHint}
             onFocus={this.handleFocus.bind(this)}
