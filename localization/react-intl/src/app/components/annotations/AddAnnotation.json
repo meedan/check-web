@@ -8,6 +8,10 @@
     "defaultMessage": "Invalid command"
   },
   {
+    "id": "addAnnotation.inputEditHint",
+    "defaultMessage": "Edit note"
+  },
+  {
     "id": "addAnnotation.inputHint",
     "defaultMessage": "Add a note"
   },

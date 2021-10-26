@@ -7,6 +7,7 @@ import Button from '@material-ui/core/Button';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import styled from 'styled-components';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
+import UpdateCommentMutation from '../../relay/mutations/UpdateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
 import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
 import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
@@ -143,18 +144,16 @@ class AddAnnotation extends Component {
     annotated_id,
     annotated_type,
     comment,
-    annotation,
   ) {
-    const { currentUser: annotator } = this.getContext();
     const image = this.state.fileMode ? this.state.image : '';
-
+    const { annotation } = this.props;
     Relay.Store.commitUpdate(
-      new CreateCommentMutation({
-        annotator,
+      new UpdateCommentMutation({
         image,
         context: this.getContext(),
         text: comment,
         annotation,
+        annotated,
       }),
       { onFailure: this.fail, onSuccess: this.resetState },
     );
@@ -277,7 +276,7 @@ class AddAnnotation extends Component {
     } else {
       switch (command.type) {
       case 'comment':
-        action = this.props.annotation ? this.updateComment.bind(this) : this.addComment.bind(this);
+        action = this.props.editMode ? this.updateComment.bind(this) : this.addComment.bind(this);
         break;
       case 'tag':
         action = this.addTag.bind(this);
@@ -291,14 +290,13 @@ class AddAnnotation extends Component {
       }
 
       if (action) {
-        const { annotated, annotatedType: annotated_type, annotation } = this.props;
+        const { annotated, annotatedType: annotated_type } = this.props;
         action(
           annotated,
           annotated.dbid,
           annotated_type,
           command.args,
           command.type,
-          annotation,
         );
       } else {
         this.invalidCommand();
@@ -343,15 +341,20 @@ class AddAnnotation extends Component {
       }
     `;
 
-    if (this.props.annotated.archived > CheckArchivedFlags.NONE ||
-      ((this.props.annotatedType === 'ProjectMedia' &&
-      !can(this.props.annotated.permissions, 'create Comment')) ||
-      (this.props.annotatedType === 'Task' &&
-      !can(this.props.annotated.permissions, 'update Task'))
-      )) {
+    const { annotated, annotatedType } = this.props;
+
+    if (annotated.archived > CheckArchivedFlags.NONE) {
+      return null;
+    }
+    if (annotatedType === 'ProjectMedia' && !(can(annotated.permissions, 'create Comment') || can(annotated.permissions, 'create Comment'))) {
+      return null;
+    }
+    if (annotatedType === 'Task' && !can(annotated.permissions, 'update Task')) {
       return null;
     }
 
+    const inputHint = this.props.editMode ? (<FormattedMessage id="addAnnotation.inputEditHint" defaultMessage="Edit note" />)
+      : (<FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note" />);
     return (
       <form
         className="add-annotation"
@@ -365,26 +368,22 @@ class AddAnnotation extends Component {
         }}
       >
         <div style={{ padding: `0 ${units(4)}` }}>
-          <FormattedMessage id="addAnnotation.inputHint" defaultMessage="Add a note">
-            {inputHint => (
-              <TextField
-                label={inputHint}
-                onFocus={this.handleFocus.bind(this)}
-                ref={(i) => { this.cmd = i; }}
-                error={Boolean(this.state.message)}
-                helperText={this.state.message}
-                name="cmd"
-                id="cmd-input"
-                multiline
-                fullWidth
-                onKeyPress={this.handleKeyPress.bind(this)}
-                onKeyUp={this.handleKeyUp.bind(this)}
-                value={this.state.cmd}
-                onChange={this.handleChange.bind(this)}
-                variant="outlined"
-              />
-            )}
-          </FormattedMessage>
+          <TextField
+            label={inputHint}
+            onFocus={this.handleFocus.bind(this)}
+            ref={(i) => { this.cmd = i; }}
+            error={Boolean(this.state.message)}
+            helperText={this.state.message}
+            name="cmd"
+            id="cmd-input"
+            multiline
+            fullWidth
+            onKeyPress={this.handleKeyPress.bind(this)}
+            onKeyUp={this.handleKeyUp.bind(this)}
+            value={this.state.cmd}
+            onChange={this.handleChange.bind(this)}
+            variant="outlined"
+          />
           {this.state.fileMode ? (
             <UploadFile
               type="image"

@@ -263,6 +263,7 @@ class Comment extends Component {
             { this.state.editMode ?
               <AddAnnotation
                 cmdText={commentText}
+                editMode={this.state.editMode}
                 annotated={annotated}
                 annotation={annotation}
                 annotatedType="ProjectMedia"
@@ -302,7 +303,7 @@ class Comment extends Component {
             <CardContent
               className="annotation__card-text annotation__card-activity-comment"
             >
-              { !authorName ?
+              { authorName ?
                 <RCTooltip placement="top" overlay={<UserTooltip teamUser={user.team_user} />}>
                   <StyledAvatarColumn className="annotation__avatar-col">
                     <SourcePicture
