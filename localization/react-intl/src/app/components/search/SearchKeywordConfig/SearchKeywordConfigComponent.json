@@ -53,8 +53,8 @@
     "defaultMessage": "All task comments"
   },
   {
-    "id": "searchKeywordConfig.metadata",
-    "defaultMessage": "Metadata"
+    "id": "searchKeywordConfig.annotation",
+    "defaultMessage": "Annotation"
   },
   {
     "id": "searchKeywordConfig.tasks",

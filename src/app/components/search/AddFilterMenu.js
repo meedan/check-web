@@ -202,9 +202,9 @@ const AddFilterMenu = ({
     icon: <StarIcon />,
     label: (
       <FormattedMessage
-        id="addFilterMenu.metadata"
-        defaultMessage="Metadata"
-        description="Menu option to enable searching items by metadata fields"
+        id="addFilterMenu.annotation"
+        defaultMessage="Annotation"
+        description="Menu option to enable searching items by annotation fields"
       />
     ),
   },
