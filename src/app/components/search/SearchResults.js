@@ -118,116 +118,99 @@ function simplifyQuery(query, project, projectGroup) {
 }
 
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
-class SearchResultsComponent extends React.PureComponent {
-  constructor(props) {
-    super(props);
+function SearchResultsComponent({
+  pusher,
+  clientSessionId,
+  query,
+  search,
+  project,
+  projectGroup,
+  searchUrlPrefix,
+  mediaUrlPrefix,
+  showExpand,
+  relay,
+  title,
+  icon,
+  listActions,
+  listDescription,
+  classes,
+  page,
+  resultType,
+  hideFields,
+  savedSearch,
+}) {
+  let pusherChannel = null;
+  const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
+  const [showSimilar] = React.useState('show_similar' in query ? query.show_similar : false);
 
-    this.pusherChannel = null;
-    const { query } = this.props;
-    const showSimilar = 'show_similar' in query ? query.show_similar : false;
-    this.state = {
-      selectedProjectMediaIds: [],
-      showSimilar,
-    };
-  }
+  React.useEffect(() => {
+    const projectId = project ? project.dbid : 0;
+    relay.setVariables({ projectId });
+  }, []); // run only once, on load
 
-  componentDidMount() {
-    this.setProjectId();
-    this.resubscribe();
-  }
-
-  componentDidUpdate() {
-    this.resubscribe();
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
-  onUnselectAll = () => {
-    this.setState({ selectedProjectMediaIds: [] });
+  const onUnselectAll = () => {
+    setSelectedProjectMediaIds([]);
   };
 
-  get beginIndex() {
-    return parseInt(this.props.query.esoffset /* may be invalid */, 10) || 0;
-  }
+  const getBeginIndex = () => parseInt(query.esoffset /* may be invalid */, 10) || 0;
 
-  get endIndex() {
-    return this.beginIndex + this.props.search.medias.edges.length;
-  }
+  const getEndIndex = () => getBeginIndex() + search.medias.edges.length;
 
-  get nextPageLocation() {
-    if (this.endIndex >= this.props.search.number_of_results) {
-      return null;
+  const unsubscribe = () => {
+    if (pusherChannel) {
+      pusher.unsubscribe(pusherChannel);
+      pusherChannel = null;
     }
-    return this.buildSearchUrlAtOffset(this.beginIndex + pageSize);
-  }
+  };
 
-  get previousPageLocation() {
-    if (this.beginIndex <= 0) {
-      return null;
-    }
-    return this.buildSearchUrlAtOffset(this.beginIndex - pageSize);
-  }
-
-  setProjectId() {
-    const { project } = this.props;
-    const projectId = project ? project.dbid : 0;
-    this.props.relay.setVariables({ projectId });
-  }
-
-  resubscribe() {
-    const { pusher, clientSessionId, search } = this.props;
-
-    if (this.pusherChannel !== search.pusher_channel) {
-      this.unsubscribe();
+  const resubscribe = () => {
+    if (pusherChannel !== search.pusher_channel) {
+      unsubscribe();
     }
 
     if (search.pusher_channel) {
       const channel = search.pusher_channel;
-      this.pusherChannel = channel;
+      pusherChannel = channel;
 
       pusher.subscribe(channel).bind('bulk_update_end', 'Search', (data, run) => {
         if (run) {
-          this.props.relay.forceFetch();
+          relay.forceFetch();
           return true;
         }
         return {
           id: `search-${channel}`,
-          callback: this.props.relay.forceFetch,
+          callback: relay.forceFetch,
         };
       });
 
       pusher.subscribe(channel).bind('media_updated', 'Search', (data, run) => {
         if (clientSessionId !== data.actor_session_id) {
           if (run) {
-            this.props.relay.forceFetch();
+            relay.forceFetch();
             return true;
           }
           return {
             id: `search-${channel}`,
-            callback: this.props.relay.forceFetch,
+            callback: relay.forceFetch,
           };
         }
         return false;
       });
     }
-  }
+  };
 
-  unsubscribe() {
-    if (this.pusherChannel) {
-      this.props.pusher.unsubscribe(this.pusherChannel);
-      this.pusherChannel = null;
-    }
-  }
+  const handleChangeSelectedIds = (newSelectedProjectMediaIds) => {
+    setSelectedProjectMediaIds(newSelectedProjectMediaIds);
+  };
 
-  handleChangeSelectedIds = (selectedProjectMediaIds) => {
-    this.setState({ selectedProjectMediaIds });
-  }
+  const navigateToQuery = (newQuery) => {
+    const path = Object.keys(newQuery).length > 0
+      ? `${searchUrlPrefix}/${encodeURIComponent(JSON.stringify(newQuery))}`
+      : searchUrlPrefix;
+    browserHistory.push(path);
+  };
 
-  handleChangeSortParams = (sortParams) => {
-    const { query, project, projectGroup } = this.props;
-
+  const handleChangeSortParams = (sortParams) => {
     const newQuery = { ...query };
     if (sortParams === null) {
       delete newQuery.sort;
@@ -237,11 +220,10 @@ class SearchResultsComponent extends React.PureComponent {
       newQuery.sort_type = sortParams.ascending ? 'ASC' : 'DESC';
     }
     const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
-    this.navigateToQuery(cleanQuery);
-  }
+    navigateToQuery(cleanQuery);
+  };
 
-  handleChangeQuery = (newQuery /* minus sort data */) => {
-    const { query, project, projectGroup } = this.props;
+  const handleChangeQuery = (newQuery /* minus sort data */) => {
     const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
     if (query.sort) {
       cleanQuery.sort = query.sort;
@@ -249,34 +231,17 @@ class SearchResultsComponent extends React.PureComponent {
     if (query.sort_type) {
       cleanQuery.sort_type = query.sort_type;
     }
-    this.navigateToQuery(cleanQuery);
-  }
+    navigateToQuery(cleanQuery);
+  };
 
-  handleShowSimilarSwitch = () => {
-    const { query, project, projectGroup } = this.props;
-    const { showSimilar } = this.state;
+  const handleShowSimilarSwitch = () => {
     const newQuery = { ...query };
     newQuery.show_similar = !showSimilar;
     const cleanQuery = simplifyQuery(newQuery, project, projectGroup);
-    this.navigateToQuery(cleanQuery);
-  }
+    navigateToQuery(cleanQuery);
+  };
 
-  navigateToQuery(query) {
-    const { searchUrlPrefix } = this.props;
-    const path = Object.keys(query).length > 0
-      ? `${searchUrlPrefix}/${encodeURIComponent(JSON.stringify(query))}`
-      : searchUrlPrefix;
-    browserHistory.push(path);
-  }
-
-  buildSearchUrlAtOffset = (offset) => {
-    const {
-      query,
-      project,
-      projectGroup,
-      searchUrlPrefix,
-    } = this.props;
-
+  const buildSearchUrlAtOffset = (offset) => {
     const cleanQuery = simplifyQuery(query, project, projectGroup);
     if (offset > 0) {
       cleanQuery.esoffset = offset;
@@ -286,7 +251,21 @@ class SearchResultsComponent extends React.PureComponent {
       return `${searchUrlPrefix}/${encodeURIComponent(JSON.stringify(cleanQuery))}`;
     }
     return searchUrlPrefix;
-  }
+  };
+
+  const getNextPageLocation = () => {
+    if (getEndIndex() >= search.number_of_results) {
+      return null;
+    }
+    return buildSearchUrlAtOffset(getBeginIndex() + pageSize);
+  };
+
+  const getPreviousPageLocation = () => {
+    if (getBeginIndex() <= 0) {
+      return null;
+    }
+    return buildSearchUrlAtOffset(getBeginIndex() - pageSize);
+  };
 
   /**
    * Build a URL for the 'ProjectMedia' page.
@@ -297,23 +276,14 @@ class SearchResultsComponent extends React.PureComponent {
    * `{ timestamp, esoffset, projects: [projectId] }` then the result can be `{}`
    * because enough data is in `mediaUrlPrefix` to infer the properties.
    */
-  buildProjectMediaUrl = (projectMedia) => {
+  const buildProjectMediaUrl = (projectMedia) => {
     if (!projectMedia.dbid) {
       return null;
     }
 
-    const {
-      query,
-      project,
-      projectGroup,
-      search,
-      searchUrlPrefix,
-      mediaUrlPrefix,
-    } = this.props;
-
     const cleanQuery = simplifyQuery(query, project, projectGroup);
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
-    const listIndex = this.beginIndex + itemIndexInPage;
+    const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
     if (searchUrlPrefix.match('(/trash|/unconfirmed|/tipline-inbox|/imported-reports|/tipline-inbox)$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
@@ -333,229 +303,227 @@ class SearchResultsComponent extends React.PureComponent {
     }
 
     return `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
-  }
+  };
 
-  render() {
-    const {
-      query,
-      project,
-      projectGroup,
-      title,
-      icon,
-      listActions,
-      listDescription,
-      classes,
-    } = this.props;
+  React.useEffect(() => {
+    resubscribe();
 
-    const projectMedias = this.props.search.medias
-      ? this.props.search.medias.edges.map(({ node }) => node)
-      : [];
-
-    const count = this.props.search.number_of_results;
-    const { team } = this.props.search;
-    const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
-    const selectedProjectMediaIds = this.state.selectedProjectMediaIds.filter(isIdInSearchResults);
-
-    const sortParams = query.sort ? {
-      key: query.sort,
-      ascending: query.sort_type !== 'DESC',
-    } : {
-      key: team.smooch_bot ? 'last_seen' : 'recent_added',
-      ascending: false,
+    return function cleanup() {
+      unsubscribe();
     };
+  });
 
-    const selectedProjectMedia = [];
+  const projectMedias = search.medias
+    ? search.medias.edges.map(({ node }) => node)
+    : [];
 
-    projectMedias.forEach((pm) => {
-      if (selectedProjectMediaIds.indexOf(pm.id) !== -1) {
-        selectedProjectMedia.push(pm);
-      }
-    });
+  const count = search.number_of_results;
+  const { team } = search;
+  const isIdInSearchResults = wantedId => projectMedias.some(({ id }) => id === wantedId);
+  const filteredSelectedProjectMediaIds = selectedProjectMediaIds.filter(isIdInSearchResults);
 
-    let content = null;
+  const sortParams = query.sort ? {
+    key: query.sort,
+    ascending: query.sort_type !== 'DESC',
+  } : {
+    key: team.smooch_bot ? 'last_seen' : 'recent_added',
+    ascending: false,
+  };
 
-    if (count === 0) {
-      content = (
-        <ProjectBlankState
-          message={
-            <FormattedMessage
-              id="projectBlankState.blank"
-              defaultMessage="There are no items here."
-            />
-          }
-        />
-      );
-    } else {
-      content = (
-        <SearchResultsTable
-          projectMedias={projectMedias}
-          team={team}
-          selectedIds={selectedProjectMediaIds}
-          sortParams={sortParams}
-          onChangeSelectedIds={this.handleChangeSelectedIds}
-          onChangeSortParams={this.handleChangeSortParams}
-          buildProjectMediaUrl={this.buildProjectMediaUrl}
-          resultType={this.props.resultType}
-        />
-      );
+  const selectedProjectMedia = [];
+
+  projectMedias.forEach((pm) => {
+    if (filteredSelectedProjectMediaIds.indexOf(pm.id) !== -1) {
+      selectedProjectMedia.push(pm);
     }
+  });
 
-    const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects, .project_group_id and .channels
-    delete unsortedQuery.sort;
-    delete unsortedQuery.sort_type;
+  let content = null;
 
-    return (
-      <React.Fragment>
-        <StyledListHeader>
-          <Row className="search__list-header-filter-row">
-            <div
-              className="project__title"
-              title={title}
-              style={{
-                font: headline,
-                color: black54,
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
-              <span className="project__title-text">
-                {title}
-              </span>
-              {listActions}
-            </div>
-            <SearchKeyword
-              key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
-              query={unsortedQuery}
-              onChange={this.handleChangeQuery}
-              project={this.props.project}
-              hideFields={this.props.hideFields}
-              title={this.props.title}
-              team={team}
-              showExpand={this.props.showExpand}
-            />
-          </Row>
-          <Row className="project__description">
-            {listDescription && listDescription.trim().length ?
-              <ParsedText text={listDescription} />
-              : null}
-          </Row>
-        </StyledListHeader>
-        <Box m={2}>
-          <SearchFields
-            key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
-            query={unsortedQuery}
-            onChange={this.handleChangeQuery}
-            project={this.props.project}
-            projectGroup={this.props.projectGroup}
-            savedSearch={this.props.savedSearch}
-            hideFields={this.props.hideFields}
-            title={this.props.title}
-            team={team}
+  if (count === 0) {
+    content = (
+      <ProjectBlankState
+        message={
+          <FormattedMessage
+            id="projectBlankState.blank"
+            defaultMessage="There are no items here."
           />
-        </Box>
-        <StyledSearchResultsWrapper className="search__results results">
-          <Toolbar
-            resultType={this.props.resultType}
-            team={team}
-            similarAction={
-              <FormControlLabel
-                classes={{ labelPlacementStart: classes.similarSwitch }}
-                control={
-                  <Switch
-                    className="search-show-similar__switch"
-                    classes={{ colorSecondary: classes.inactiveColor }}
-                    checked={this.state.showSimilar}
-                    onClick={this.handleShowSimilarSwitch}
-                    color="secondary"
-                  />
-                }
-                label={
-                  <FormattedMessage
-                    id="search.showSimilar"
-                    defaultMessage="Show similar"
-                    description="Allow user to show/hide secondary items"
-                  />
-                }
-                labelPlacement="start"
-              />
-            }
-            actions={projectMedias.length && selectedProjectMedia.length ?
-              <BulkActions
-                team={team}
-                page={this.props.page}
-                project={this.props.project}
-                selectedProjectMedia={selectedProjectMedia}
-                selectedMedia={selectedProjectMediaIds}
-                onUnselectAll={this.onUnselectAll}
-              /> : null}
-            title={count ?
-              <span className="search__results-heading">
-                <Tooltip title={
-                  <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
-                }
-                >
-                  {this.previousPageLocation ? (
-                    <Link
-                      className="search__previous-page search__nav"
-                      to={this.previousPageLocation}
-                    >
-                      <PrevIcon />
-                    </Link>
-                  ) : (
-                    <span className="search__previous-page search__nav">
-                      <PrevIcon />
-                    </span>
-                  )}
-                </Tooltip>
-                <span className="search__count">
-                  <FormattedMessage
-                    id="searchResults.itemsCount"
-                    defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
-                    values={{
-                      from: this.beginIndex + 1,
-                      to: this.endIndex,
-                      count,
-                    }}
-                  />
-                  {selectedProjectMediaIds.length ?
-                    <span>&nbsp;
-                      <FormattedMessage
-                        id="searchResults.withSelection"
-                        defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
-                        description="Label for number of selected items"
-                        values={{
-                          selectedCount: selectedProjectMediaIds.length,
-                        }}
-                      />
-                    </span> : null
-                  }
-                </span>
-                <Tooltip title={
-                  <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
-                }
-                >
-                  {this.nextPageLocation ? (
-                    <Link className="search__next-page search__nav" to={this.nextPageLocation}>
-                      <NextIcon />
-                    </Link>
-                  ) : (
-                    <span className="search__next-page search__nav">
-                      <NextIcon />
-                    </span>
-                  )}
-                </Tooltip>
-              </span> : null
-            }
-            project={project}
-            page={this.props.page}
-            search={this.props.search}
-          />
-          {content}
-        </StyledSearchResultsWrapper>
-      </React.Fragment>
+        }
+      />
+    );
+  } else {
+    content = (
+      <SearchResultsTable
+        projectMedias={projectMedias}
+        team={team}
+        selectedIds={filteredSelectedProjectMediaIds}
+        sortParams={sortParams}
+        onChangeSelectedIds={handleChangeSelectedIds}
+        onChangeSortParams={handleChangeSortParams}
+        buildProjectMediaUrl={buildProjectMediaUrl}
+        resultType={resultType}
+      />
     );
   }
+
+  const unsortedQuery = simplifyQuery(query, project, projectGroup); // nix .projects, .project_group_id and .channels
+  delete unsortedQuery.sort;
+  delete unsortedQuery.sort_type;
+
+  // eslint-disable-next-line
+  console.log('~~~~~renderrrrr');
+
+  return (
+    <React.Fragment>
+      <StyledListHeader>
+        <Row className="search__list-header-filter-row">
+          <div
+            className="project__title"
+            title={title}
+            style={{
+              font: headline,
+              color: black54,
+              display: 'flex',
+              alignItems: 'center',
+            }}
+          >
+            { icon ? <Box display="flex" alignItems="center" mr={2}>{icon}</Box> : null }
+            <span className="project__title-text">
+              {title}
+            </span>
+            {listActions}
+          </div>
+          <SearchKeyword
+            key={JSON.stringify(unsortedQuery) /* TODO make <SearchKeyword> stateless */}
+            query={unsortedQuery}
+            onChange={handleChangeQuery}
+            project={project}
+            hideFields={hideFields}
+            title={title}
+            team={team}
+            showExpand={showExpand}
+          />
+        </Row>
+        <Row className="project__description">
+          {listDescription && listDescription.trim().length ?
+            <ParsedText text={listDescription} />
+            : null}
+        </Row>
+      </StyledListHeader>
+      <Box m={2}>
+        <SearchFields
+          key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
+          query={unsortedQuery}
+          onChange={handleChangeQuery}
+          project={project}
+          projectGroup={projectGroup}
+          savedSearch={savedSearch}
+          hideFields={hideFields}
+          title={title}
+          team={team}
+        />
+      </Box>
+      <StyledSearchResultsWrapper className="search__results results">
+        <Toolbar
+          resultType={resultType}
+          team={team}
+          similarAction={
+            <FormControlLabel
+              classes={{ labelPlacementStart: classes.similarSwitch }}
+              control={
+                <Switch
+                  className="search-show-similar__switch"
+                  classes={{ colorSecondary: classes.inactiveColor }}
+                  checked={showSimilar}
+                  onClick={handleShowSimilarSwitch}
+                  color="secondary"
+                />
+              }
+              label={
+                <FormattedMessage
+                  id="search.showSimilar"
+                  defaultMessage="Show similar"
+                  description="Allow user to show/hide secondary items"
+                />
+              }
+              labelPlacement="start"
+            />
+          }
+          actions={projectMedias.length && selectedProjectMedia.length ?
+            <BulkActions
+              team={team}
+              page={page}
+              project={project}
+              selectedProjectMedia={selectedProjectMedia}
+              selectedMedia={filteredSelectedProjectMediaIds}
+              onUnselectAll={onUnselectAll}
+            /> : null}
+          title={count ?
+            <span className="search__results-heading">
+              <Tooltip title={
+                <FormattedMessage id="search.previousPage" defaultMessage="Previous page" />
+              }
+              >
+                {getPreviousPageLocation() ? (
+                  <Link
+                    className="search__previous-page search__nav"
+                    to={getPreviousPageLocation()}
+                  >
+                    <PrevIcon />
+                  </Link>
+                ) : (
+                  <span className="search__previous-page search__nav">
+                    <PrevIcon />
+                  </span>
+                )}
+              </Tooltip>
+              <span className="search__count">
+                <FormattedMessage
+                  id="searchResults.itemsCount"
+                  defaultMessage="{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+                  values={{
+                    from: getBeginIndex() + 1,
+                    to: getEndIndex(),
+                    count,
+                  }}
+                />
+                {filteredSelectedProjectMediaIds.length ?
+                  <span>&nbsp;
+                    <FormattedMessage
+                      id="searchResults.withSelection"
+                      defaultMessage="{selectedCount, plural, one {(# selected)} other {(# selected)}}"
+                      description="Label for number of selected items"
+                      values={{
+                        selectedCount: filteredSelectedProjectMediaIds.length,
+                      }}
+                    />
+                  </span> : null
+                }
+              </span>
+              <Tooltip title={
+                <FormattedMessage id="search.nextPage" defaultMessage="Next page" />
+              }
+              >
+                {getNextPageLocation() ? (
+                  <Link className="search__next-page search__nav" to={getNextPageLocation()}>
+                    <NextIcon />
+                  </Link>
+                ) : (
+                  <span className="search__next-page search__nav">
+                    <NextIcon />
+                  </span>
+                )}
+              </Tooltip>
+            </span> : null
+          }
+          project={project}
+          page={page}
+          search={search}
+        />
+        {content}
+      </StyledSearchResultsWrapper>
+    </React.Fragment>
+  );
 }
 
 SearchResultsComponent.defaultProps = {
