@@ -530,6 +530,14 @@ SearchResultsComponent.defaultProps = {
   project: null,
   projectGroup: null,
   showExpand: false,
+  icon: null,
+  listDescription: undefined,
+  listActions: undefined,
+  classes: {},
+  page: undefined, // FIXME find a cleaner way to render Trash differently
+  resultType: 'default',
+  hideFields: [],
+  savedSearch: null,
 };
 
 SearchResultsComponent.propTypes = {
@@ -553,6 +561,16 @@ SearchResultsComponent.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
   showExpand: PropTypes.bool,
+  relay: PropTypes.object.isRequired,
+  title: PropTypes.node.isRequired,
+  icon: PropTypes.node,
+  listActions: PropTypes.node, // or undefined
+  listDescription: PropTypes.string, // or undefined
+  classes: PropTypes.object,
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
+  resultType: PropTypes.string, // 'default' or 'trends', for now
+  hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  savedSearch: PropTypes.object, // or null
 };
 
 const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
