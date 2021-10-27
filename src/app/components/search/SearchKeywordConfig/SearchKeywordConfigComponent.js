@@ -164,7 +164,7 @@ const SearchKeywordConfigComponent = ({
   if (teamMetadata.length || teamTasks.length) {
     options = options.concat([{ value: '', label: '' }]);
     if (teamMetadata.length) {
-      const label = <FormattedMessage id="searchKeywordConfig.metadata" defaultMessage="Metadata" />;
+      const label = <FormattedMessage id="searchKeywordConfig.annotation" defaultMessage="Annotation" />;
       options = options.concat([{ value: '', label }]);
       options = options.concat(teamMetadata);
     }

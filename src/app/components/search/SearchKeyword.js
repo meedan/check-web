@@ -543,7 +543,11 @@ class SearchKeyword extends React.Component {
                     color="primary"
                     onClick={this.handleSubmit}
                   >
-                    Search
+                    <FormattedMessage
+                      id="search"
+                      defaultMessage="Search"
+                      description="This is a label on a button that the user presses in order to execute a search query."
+                    />
                   </Button>
                 </Grid>) : null
               }

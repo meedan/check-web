@@ -1,7 +1,7 @@
 version: "2.2"
 volumes:
   elasticsearch:
-  postgres11:
+  postgres:
   redis:
   minio:
   web-node_modules:
@@ -28,13 +28,26 @@ services:
     networks:
       - dev
   postgres:
-    image: postgres:11
+    build: ./alegre/postgres
     ports:
       - "5432:5432"
+    volumes:
+      - "postgres:/var/lib/postgresql/data"
     environment:
-      POSTGRES_PASSWORD: postgres
+      POSTGRESQL_POSTGRES_PASSWORD: postgres
+      POSTGRESQL_USERNAME: postgres
+      POSTGRESQL_PASSWORD: postgres
+      POSTGRESQL_DATABASE: alegre
       POSTGRES_USER: postgres
-      POSTGRES_DB: check-api-tests
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: alegre
+      REPMGR_PASSWORD: repmgrpassword
+      REPMGR_PRIMARY_HOST: pg-0
+      REPMGR_PRIMARY_PORT: 5432
+      REPMGR_PARTNER_NODES: pg-0,pg-1:5432
+      REPMGR_NODE_NAME: pg-0
+      REPMGR_NODE_NETWORK_NAME: pg-0
+      REPMGR_PORT_NUMBER: 5432
     networks:
       - dev
   redis:

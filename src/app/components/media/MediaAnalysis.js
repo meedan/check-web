@@ -12,10 +12,9 @@ import { DatePicker } from '@material-ui/pickers';
 import MediaTags from './MediaTags';
 import TimeBefore from '../TimeBefore';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import { parseStringUnixTimestamp, truncateLength } from '../../helpers';
+import { parseStringUnixTimestamp } from '../../helpers';
 import { propsToData, formatDate } from './ReportDesigner/reportDesignerHelpers';
 import { can } from '../Can';
-import { opaqueBlack54 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   saved: {
@@ -33,9 +32,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-  placeholder: {
-    color: opaqueBlack54,
-  },
 }));
 
 const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
@@ -49,17 +45,6 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
   const analysis = projectMedia.last_status_obj;
   const { picture } = projectMedia;
 
-  const getDefaultValue = (fieldName) => {
-    let defaultValue = null;
-    if (projectMedia.media && projectMedia.media.metadata) {
-      defaultValue = projectMedia.media.metadata[fieldName];
-    }
-    if (!defaultValue && projectMedia.quote) {
-      defaultValue = projectMedia.quote;
-    }
-    return defaultValue;
-  };
-
   const getValue = (fieldName) => {
     let fieldValue = null;
     const fieldObj = analysis.data.fields.find(field => (
@@ -71,8 +56,8 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
     return fieldValue;
   };
 
-  const [title, setTitle] = React.useState(getValue('title') || getDefaultValue('title'));
-  const [content, setContent] = React.useState(getValue('content') || getDefaultValue('description'));
+  const [title, setTitle] = React.useState(getValue('title'));
+  const [content, setContent] = React.useState(getValue('content'));
 
   const handleFocus = () => {
     if (!editing) {
@@ -150,8 +135,8 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
         dynamic_annotation_report_design: projectMedia.report,
       },
     };
-    const headline = getValue('title') || getDefaultValue('title') || '';
-    let description = getValue('content') || getDefaultValue('description') || '';
+    const headline = getValue('title') || '';
+    let description = getValue('content') || '';
     description = description.substring(0, 760);
     const fields = propsToData(props, language);
     fields.state = 'paused';
@@ -273,10 +258,7 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
             label={
               <FormattedMessage id="mediaAnalysis.title" defaultMessage="Title" />
             }
-            inputProps={{
-              className: title === getDefaultValue('title') ? classes.placeholder : null,
-            }}
-            value={truncateLength(title, 110)}
+            value={title}
             variant="outlined"
             rows={3}
             onBlur={(e) => { handleChange('title', e.target.value); }}
@@ -290,9 +272,6 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
         </Box>
         <Box display="flex" className={classes.box}>
           <TextField
-            inputProps={{
-              className: content === getDefaultValue('description') ? classes.placeholder : null,
-            }}
             label={
               <FormattedMessage
                 id="mediaAnalysis.content"
