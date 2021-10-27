@@ -11,7 +11,6 @@ import Tooltip from '@material-ui/core/Tooltip';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import { withStyles } from '@material-ui/core/styles';
-import deepEqual from 'deep-equal';
 import { withPusher, pusherShape } from '../../pusher';
 import SearchKeyword from './SearchKeyword';
 import SearchFields from './SearchFields';
@@ -93,19 +92,13 @@ function simplifyQuery(query, project, projectGroup) {
   delete ret.timestamp;
   if (
     ret.projects &&
-    (
-      ret.projects.length === 0 ||
-      (ret.projects.length === 1 && project && ret.projects[0] === project.dbid)
-    )
+    (ret.projects.length === 1 && project && ret.projects[0] === project.dbid)
   ) {
     delete ret.projects;
   }
   if (
     ret.project_group_id &&
-    (
-      ret.project_group_id.length === 0 ||
-      (ret.project_group_id.length === 1 && projectGroup && ret.project_group_id[0] === projectGroup.dbid)
-    )
+    (ret.project_group_id.length === 1 && projectGroup && ret.project_group_id[0] === projectGroup.dbid)
   ) {
     delete ret.project_group_id;
   }
@@ -297,24 +290,10 @@ function SearchResultsComponent({
     return cleanQuery;
   };
 
-  const handleApplyFilters = () => {
-    const cleanQuery = cleanupQuery(query);
-    if (!deepEqual(cleanQuery, query)) {
-      handleChangeQuery(cleanQuery);
-    } else {
-      // setQuery(cleanQuery);
-    }
-  };
-
   const handleSubmit = () => {
     const cleanQuery = cleanupQuery(query);
     handleChangeQuery(cleanQuery);
   };
-
-  // whenever the query state changes, we apply the filters
-  React.useEffect(() => {
-    handleApplyFilters();
-  }, [query]);
 
   /**
    * Build a URL for the 'ProjectMedia' page.
@@ -459,7 +438,6 @@ function SearchResultsComponent({
       </StyledListHeader>
       <Box m={2}>
         <SearchFields
-          key={JSON.stringify(unsortedQuery) /* TODO make <SearchFields> stateless */}
           query={unsortedQuery}
           setQuery={setQuery}
           onChange={handleChangeQuery}
@@ -469,6 +447,7 @@ function SearchResultsComponent({
           hideFields={hideFields}
           title={title}
           team={team}
+          handleSubmit={handleSubmit}
         />
       </Box>
       <StyledSearchResultsWrapper className="search__results results">
