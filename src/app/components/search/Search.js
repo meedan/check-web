@@ -117,6 +117,7 @@ Search.defaultProps = {
   listActions: undefined,
   showExpand: false,
   resultType: 'default',
+  icon: null,
 };
 Search.propTypes = {
   searchUrlPrefix: PropTypes.string.isRequired,
@@ -128,6 +129,7 @@ Search.propTypes = {
   savedSearch: PropTypes.object, // or null
   teamSlug: PropTypes.string.isRequired,
   title: PropTypes.node.isRequired,
+  icon: PropTypes.node,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
