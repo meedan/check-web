@@ -561,7 +561,8 @@
 		"developer_comment": "Field for adding complementary information for the assignee"
 	},
 	"bulkActionsAssign.notFound": {
-		"string": "No members found"
+		"string": "No members found",
+		"developer_comment": "Displayed when no member names match search input"
 	},
 	"bulkActionsAssign.submitLabel": {
 		"string": "{numItems, plural, one {Assign 1 item} other {Assign # items}}",
@@ -576,19 +577,24 @@
 		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
 	},
 	"bulkActionsMenu.assign": {
-		"string": "Pangia"
+		"string": "Pangia",
+		"developer_comment": "Menu option for bulk assigning selected items"
 	},
 	"bulkActionsMenu.changeStatus": {
-		"string": "Change status"
+		"string": "Change status",
+		"developer_comment": "Menu option for bulk changing statuses of selected items"
 	},
 	"bulkActionsMenu.moveToFolder": {
-		"string": "Move to folder"
+		"string": "Move to folder",
+		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
 	"bulkActionsMenu.tag": {
-		"string": "Tagi"
+		"string": "Tagi",
+		"developer_comment": "Menu option for bulk tagging selected items"
 	},
 	"bulkActionsMove.notFound": {
-		"string": "No folders found"
+		"string": "No folders found",
+		"developer_comment": "Displayed when no folder names match search input"
 	},
 	"bulkActionsMove.submitLabel": {
 		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
@@ -2580,7 +2586,8 @@
 		"string": "Kichwa cha uchambuzi"
 	},
 	"searchKeywordConfig.annotation": {
-		"string": "Annotation"
+		"string": "Annotation",
+		"developer_comment": "Header before a listing of annotation options"
 	},
 	"searchKeywordConfig.item": {
 		"string": "Kipengee"
@@ -2601,7 +2608,8 @@
 		"string": "Lebo"
 	},
 	"searchKeywordConfig.tasks": {
-		"string": "Kazi"
+		"string": "Kazi",
+		"developer_comment": "Header before a listing of task options"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
