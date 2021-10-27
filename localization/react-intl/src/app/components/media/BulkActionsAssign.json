@@ -10,6 +10,7 @@
   },
   {
     "id": "bulkActionsAssign.notFound",
+    "description": "Displayed when no member names match search input",
     "defaultMessage": "No members found"
   },
   {

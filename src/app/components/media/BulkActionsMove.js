@@ -40,6 +40,7 @@ const BulkActionsMove = ({
             <FormattedMessage
               id="bulkActionsMove.notFound"
               defaultMessage="No folders found"
+              description="Displayed when no folder names match search input"
             />
           }
           single

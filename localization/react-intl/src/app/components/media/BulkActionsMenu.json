@@ -1,18 +1,22 @@
 [
   {
     "id": "bulkActionsMenu.moveToFolder",
+    "description": "Menu option for bulk moving selected items into a folder",
     "defaultMessage": "Move to folder"
   },
   {
     "id": "bulkActionsMenu.tag",
+    "description": "Menu option for bulk tagging selected items",
     "defaultMessage": "Tag"
   },
   {
     "id": "bulkActionsMenu.assign",
+    "description": "Menu option for bulk assigning selected items",
     "defaultMessage": "Assign"
   },
   {
     "id": "bulkActionsMenu.changeStatus",
+    "description": "Menu option for bulk changing statuses of selected items",
     "defaultMessage": "Change status"
   },
   {

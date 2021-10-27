@@ -175,6 +175,10 @@
 		"string": "Añadir filtro",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotation": {
+		"string": "Anotación",
+		"developer_comment": "Menu option to enable searching items by annotation fields"
+	},
 	"addFilterMenu.assignedTo": {
 		"string": "Asignación",
 		"developer_comment": "Menu option to enable searching items by assigned users"
@@ -186,6 +190,10 @@
 	"addFilterMenu.collection": {
 		"string": "Colección",
 		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.country": {
+		"string": "Country",
+		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "Creado por",
@@ -200,7 +208,7 @@
 		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemRead": {
-		"string": "Item read/unread",
+		"string": "Ítem leido/sin leer",
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
@@ -214,10 +222,6 @@
 	"addFilterMenu.mediaType": {
 		"string": "Tipo de Medios",
 		"developer_comment": "Menu option to enable searching items by media type"
-	},
-	"addFilterMenu.metadata": {
-		"string": "Metadatos",
-		"developer_comment": "Menu option to enable searching items by metadata fields"
 	},
 	"addFilterMenu.reportStatus": {
 		"string": "Estado de informe",
@@ -521,15 +525,9 @@
 	"bulkActions.dialogMoveTitle": {
 		"string": "{selectedCount, plural, one {Mover 1 ítem a la carpeta...} other {Mover # ítems a la carpeta...}}"
 	},
-	"bulkActions.move": {
-		"string": "Mover ítems seleccionados a otra carpeta"
-	},
 	"bulkActions.moveTitle": {
 		"string": "Mover a carpeta",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
-	},
-	"bulkActions.moveTo": {
-		"string": "Mover a..."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Ítems movidos a la papelera."
@@ -557,6 +555,68 @@
 	},
 	"bulkActions.unconfirmed": {
 		"string": "Confirmar ítems seleccionados y mover ítems a otra carpeta"
+	},
+	"bulkActionsAssign.assignmentNotes": {
+		"string": "Add a note to email notification",
+		"developer_comment": "Field for adding complementary information for the assignee"
+	},
+	"bulkActionsAssign.notFound": {
+		"string": "No members found"
+	},
+	"bulkActionsAssign.submitLabel": {
+		"string": "{numItems, plural, one {Assign 1 item} other {Assign # items}}",
+		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
+	},
+	"bulkActionsAssign.success": {
+		"string": "Items assigned successfully",
+		"developer_comment": "Success message for bulk assignment action"
+	},
+	"bulkActionsMenu.action": {
+		"string": "Acción",
+		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+	},
+	"bulkActionsMenu.assign": {
+		"string": "Asignar"
+	},
+	"bulkActionsMenu.changeStatus": {
+		"string": "Change status"
+	},
+	"bulkActionsMenu.moveToFolder": {
+		"string": "Mover a carpeta"
+	},
+	"bulkActionsMenu.tag": {
+		"string": "Etiqueta"
+	},
+	"bulkActionsMove.notFound": {
+		"string": "No folders found"
+	},
+	"bulkActionsMove.submitLabel": {
+		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
+		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
+	},
+	"bulkActionsStatus.dialogBody": {
+		"string": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}",
+		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
+	},
+	"bulkActionsStatus.dialogTitle": {
+		"string": "Some statuses could not be changed",
+		"developer_comment": "Title of dialog warning after bulk updating item statuses"
+	},
+	"bulkActionsStatus.submitLabel": {
+		"string": "{numItems, plural, one {Set status of 1 item} other {Set status of # items}}",
+		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
+	},
+	"bulkActionsStatus.success": {
+		"string": "Item statuses changed successfully",
+		"developer_comment": "Success message for bulk status change action"
+	},
+	"bulkActionsTag.submitLabel": {
+		"string": "{numItems, plural, one {Tag 1 item} other {Tag # items}}",
+		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
+	},
+	"bulkActionsTag.success": {
+		"string": "Items tagged successfully",
+		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Cancelar",
@@ -690,7 +750,7 @@
 		"string": "URL del área de trabajo"
 	},
 	"createTeamTask.addField": {
-		"string": "New annotation field",
+		"string": "Nuevo campo de anotación",
 		"developer_comment": "Button that triggers creation of a new field"
 	},
 	"createTeamTask.addTask": {
@@ -1245,7 +1305,7 @@
 		"string": "Sin notas"
 	},
 	"mediaComponent.annotation": {
-		"string": "Annotation"
+		"string": "Anotación"
 	},
 	"mediaComponent.answered": {
 		"string": "completada"
@@ -1288,8 +1348,20 @@
 		"string": "No se extrajo texto de esta imagen",
 		"developer_comment": "Label when text extracted from an image is not available"
 	},
+	"mediaExpanded.noTranscription": {
+		"string": "No audio transcribed from this media",
+		"developer_comment": "Label when transcription is not (yet) available"
+	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
+	},
+	"mediaExpanded.transcriptionCompleted": {
+		"string": "Audio transcribed from media:",
+		"developer_comment": "Label for transcription from audio or video"
+	},
+	"mediaExpanded.transcriptionInProgress": {
+		"string": "Audio transcription in progress…",
+		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Archivos:"
@@ -1514,6 +1586,10 @@
 		"string": "Cancelar",
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
 	},
+	"metadata.couldNotSave": {
+		"string": "Could not save, missing required field",
+		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
+	},
 	"metadata.delete": {
 		"string": "Eliminar ",
 		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
@@ -1541,6 +1617,18 @@
 	"metadata.file.wrongType": {
 		"string": "Este no es un tipo de archivo permitido. Tipos de archivos permitidos incluyen: {extensions}. Por favor vuelve a intentarlo con un archivo diferente.",
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+	},
+	"metadata.form.cancel": {
+		"string": "Cancel changes",
+		"developer_comment": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form."
+	},
+	"metadata.form.edit": {
+		"string": "Editar",
+		"developer_comment": "This is a label on a button that the user presses in order to edit the items in the attached form."
+	},
+	"metadata.form.save": {
+		"string": "Guardar",
+		"developer_comment": "This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form."
 	},
 	"metadata.location.coordinates": {
 		"string": "Latitud, longitud",
@@ -1909,6 +1997,10 @@
 	"projectsComponent.title": {
 		"string": "Título"
 	},
+	"projectsComponent.trends": {
+		"string": "Trends (Beta)",
+		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
+	},
 	"reportDesigner.addIntro": {
 		"string": "Añadir contenido a la introducción"
 	},
@@ -2224,7 +2316,7 @@
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveList.updateTiplineInbox": {
-		"string": "Save changes to the list",
+		"string": "Guardar cambios a la lista",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveTag.couldNotSave": {
@@ -2256,6 +2348,10 @@
 	"savedSearch.name": {
 		"string": "lista"
 	},
+	"search": {
+		"string": "Buscar ",
+		"developer_comment": "This is a label on a button that the user presses in order to execute a search query."
+	},
 	"search.afterDate": {
 		"string": "después ",
 		"developer_comment": "String displayed before a date picker"
@@ -2282,6 +2378,10 @@
 	"search.beforeDate": {
 		"string": "y antes",
 		"developer_comment": "String displayed between after and before date pickers"
+	},
+	"search.cancel": {
+		"string": "Cancelar",
+		"developer_comment": "A label on a button that lets a user cancel typing search text, deleting the text in the process."
 	},
 	"search.categoriesHeading": {
 		"string": "Etiqueta es",
@@ -2311,12 +2411,16 @@
 		"string": "o",
 		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
+	"search.file": {
+		"string": "Search with file",
+		"developer_comment": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
+	},
 	"search.folderHeading": {
 		"string": "Carpeta es",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>Árbol + Hoja</td><td>Elementos con ambos Árbol Y Hoja</td></tr>\n                        <tr><td>|</td><td>Árbol | Hoja</td><td>Elementos con cualquiera Árbol O Hoja</td></tr>\n                        <tr><td>()</td><td>Árbol + (Hoja | Rama)</td><td>Elementos con Árbol Y Hoja o elementos con Árbol Y Rama</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Aprende más sobre técnicas de búsqueda\n                      </a>\n                    </div>",
+		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Learn more about search techniques\n                          </a>\n                        </div>",
 		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
@@ -2342,19 +2446,23 @@
 		"string": "Ninguna",
 		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
+	"search.noResults": {
+		"string": "No results found.",
+		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
+	},
 	"search.notInAny": {
 		"string": "No está en ninguna colección",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "o",
-		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+		"string": "OR",
+		"developer_comment": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
 	},
 	"search.previousPage": {
 		"string": "Página anterior"
 	},
 	"search.read": {
-		"string": "Item is",
+		"string": "Ítem es",
 		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.reportStatus": {
@@ -2372,6 +2480,10 @@
 	"search.reportStatusUnpublished": {
 		"string": "Sin publicar",
 		"developer_comment": "Refers to a report status"
+	},
+	"search.setText": {
+		"string": "Set text",
+		"developer_comment": "A label on a button that lets a user set the text on an associated popup to the original input field."
 	},
 	"search.show": {
 		"string": "Tipo es",
@@ -2429,6 +2541,10 @@
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
+	"searchFieldCountry.label": {
+		"string": "Country is",
+		"developer_comment": "Prefix label for field to filter by country"
+	},
 	"searchFieldSource.label": {
 		"string": "Fuente es",
 		"developer_comment": "Prefix label for field to filter by source"
@@ -2463,6 +2579,9 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "Título del análisis"
 	},
+	"searchKeywordConfig.annotation": {
+		"string": "Anotación"
+	},
 	"searchKeywordConfig.item": {
 		"string": "Ítem"
 	},
@@ -2474,9 +2593,6 @@
 	},
 	"searchKeywordConfig.mediaUrl": {
 		"string": "URL de medios"
-	},
-	"searchKeywordConfig.metadata": {
-		"string": "Metadatos"
 	},
 	"searchKeywordConfig.ocr": {
 		"string": "Texto extraído (OCR)"
@@ -2703,7 +2819,7 @@
 		"string": "Un menú opcional que le pide al usuario que elija entre un conjunto de opciones. Cuando un usuario responde con una de las opciones, el bot puede enviarle un informe o dirigirlo a otro mensaje."
 	},
 	"smoochBot.descriptionSubscription": {
-		"string": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
+		"string": "Presenta el valor de tu boletín a la(o)s usuaria(o)s. Toda(o)s la(o)s usuaria(o)s que se inscriban recibirán cualquier boletín futuro. "
 	},
 	"smoochBot.footnoteGreeting": {
 		"string": "La siguiente declaración y opción se añadirán automáticamente al final de este mensaje: \"Nunca compartiremos tu información de identificación personal. Responde 9 para leer nuestra Declaración de Privacidad y Propósito\". "
@@ -2772,7 +2888,7 @@
 		"string": "Escribe para componer tu boletín. Puedes añadir contenido del RSS a continuación."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Type in to add content"
+		"string": "Escribe para añadir contenido"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Lo siento, no entendí tu mensaje ¡Inténtalo de nuevo!"
@@ -2982,7 +3098,7 @@
 		"string": "Esta URL no parece ser una fuente RSS válida"
 	},
 	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. Select a day and time of the week",
+		"string": "1. Selecciona un día y hora de la semana",
 		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
 	},
 	"smoochBotNewsletterEditor.friday": {
@@ -2995,16 +3111,16 @@
 		"string": "Lunes"
 	},
 	"smoochBotNewsletterEditor.none": {
-		"string": "Please complete the steps below to send a weekly newsletter"
+		"string": "Por favor completa los pasos a continuación para enviar el boletín semanal"
 	},
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Número de artículos para mostrar"
 	},
 	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "Number of bullet points"
+		"string": "Número de viñetas"
 	},
 	"smoochBotNewsletterEditor.paused": {
-		"string": "To send your next newsletter, please add new content"
+		"string": "Para enviar tu próximo boletín, por favor añade contenido nuevo"
 	},
 	"smoochBotNewsletterEditor.rssPlaceholder": {
 		"string": "URL pública que muestra N artículos en formato RSS"
@@ -3013,11 +3129,11 @@
 		"string": "Sábado"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. Add content manually, or via RSS Feed.",
+		"string": "2. Añade contenido manualmente, o vía Fuente RSS.",
 		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "If the content is not changed between two scheduled sendouts, it will not be sent."
+		"string": "Si el contenido no se cambia entre dos envíos programados, no será enviado. "
 	},
 	"smoochBotNewsletterEditor.sendEvery": {
 		"string": "Enviar cada",
@@ -3026,8 +3142,11 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Domingo"
 	},
-	"smoochBotNewsletterEditor.templateHeaderNoRss": {
-		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.templateHeaderRss": {
+		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Jueves"
@@ -3036,14 +3155,14 @@
 		"string": "Tiempo"
 	},
 	"smoochBotNewsletterEditor.timezone": {
-		"string": "Time zone",
+		"string": "Zona horaria",
 		"developer_comment": "Label for time zone selection"
 	},
 	"smoochBotNewsletterEditor.title": {
-		"string": "Compose your newsletter"
+		"string": "Compón tu boletín"
 	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Automatically update content using an RSS feed"
+		"string": "Actualiza automáticamente el contenido usando una fuente RSS"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "Martes"
@@ -3262,6 +3381,9 @@
 	"tagMenu.notFound": {
 		"string": "Etiquetas no encontradas"
 	},
+	"tagMenu.search": {
+		"string": "Buscar..."
+	},
 	"tagMenu.submit": {
 		"string": "Etiqueta",
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
@@ -3364,7 +3486,7 @@
 		"string": "Selección única"
 	},
 	"tasks.chooseType": {
-		"string": "Choose a field type",
+		"string": "Elige un tipo de campo",
 		"developer_comment": "Label for field type selection box"
 	},
 	"tasks.dateTimeType": {
@@ -3375,7 +3497,7 @@
 		"string": "Fecha y hora"
 	},
 	"tasks.datetimeDescription": {
-		"string": "Allows you to pick a date and time from the calendar",
+		"string": "Te permite elegir una fecha y hora del calendario",
 		"developer_comment": "Description for datetime type field"
 	},
 	"tasks.description": {
@@ -3391,7 +3513,7 @@
 		"string": "Carga de archivo"
 	},
 	"tasks.fileUploadDescription": {
-		"string": "Allows you to upload a file",
+		"string": "Te permite subir un archivo",
 		"developer_comment": "Description for file upload type field"
 	},
 	"tasks.fileUploadType": {
@@ -3405,7 +3527,7 @@
 		"string": "Ir a configuración"
 	},
 	"tasks.locationDescription": {
-		"string": "Allows you to add coordinates of a place, or search a place by name",
+		"string": "Te permite añadir coodenadas de un lugar o buscar un lugar por nombre",
 		"developer_comment": "Description for location type field"
 	},
 	"tasks.locationType": {
@@ -3413,11 +3535,11 @@
 		"developer_comment": "Label for location type field"
 	},
 	"tasks.multipleChoiceDescription": {
-		"string": "Allows you to select one or more predefined options",
+		"string": "Te permite seleccionar una o mas opciones predefinidas",
 		"developer_comment": "Description for multiple selection type field"
 	},
 	"tasks.multipleChoiceType": {
-		"string": "Selección multiple",
+		"string": "Selección múltiple",
 		"developer_comment": "Label for multiple selection type field"
 	},
 	"tasks.number": {
@@ -3425,7 +3547,7 @@
 		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.numberDescription": {
-		"string": "Allows you to enter a number",
+		"string": "Te permite introducir un número",
 		"developer_comment": "Description for number type field"
 	},
 	"tasks.numberType": {
@@ -3436,18 +3558,18 @@
 		"string": "Texto"
 	},
 	"tasks.shortTextDescription": {
-		"string": "Allows you to enter text",
+		"string": "Permite introducir texto",
 		"developer_comment": "Description for text type field"
 	},
 	"tasks.showIfCondition": {
-		"string": "Show field when condition is met",
+		"string": "Mostrar campo cuando se cumpla la condición",
 		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
 	},
 	"tasks.showInProj": {
 		"string": "Mostrar tareas en"
 	},
 	"tasks.singleChoiceDescription": {
-		"string": "Allows you to select a single option from predefined options in a list",
+		"string": "Te permite seleccionar una sola opción de una lista de opciones predefinidas",
 		"developer_comment": "Description for single selection type field"
 	},
 	"tasks.singleChoiceType": {
@@ -3661,19 +3783,19 @@
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "Item annotation form",
+		"string": "Formulario de anotación de ítem",
 		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "Create dynamic forms to annotate items by adding fields.",
+		"string": "Crea formularios dinámicos para anotar ítems añadiendo campos.",
 		"developer_comment": "Subtitle for annotation settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Create dynamic forms to annotate sources by adding fields.",
+		"string": "Crea formularios dinámicos para anotar fuentes añadiendo campos.",
 		"developer_comment": "Subtitle for annotation settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
-		"string": "Source annotation form",
+		"string": "Formulario de anotación de fuente",
 		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
@@ -3753,7 +3875,7 @@
 		"string": "Miembros"
 	},
 	"teamSettings.metadata": {
-		"string": "Annotation",
+		"string": "Anotación",
 		"developer_comment": "Label for annotation settings tab"
 	},
 	"teamSettings.report": {
@@ -3880,8 +4002,12 @@
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTaskCard.menu": {
-		"string": "Field {number}",
+		"string": "Campo {number}",
 		"developer_comment": "E.g. Field 1, Field 2..."
+	},
+	"teamTaskCard.required": {
+		"string": "Requerido",
+		"developer_comment": "Toggle switch to make field required"
 	},
 	"teamTaskCard.showInBrowserExtension": {
 		"string": "Mostrar en la extensión del navegador",
@@ -3898,11 +4024,11 @@
 		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
-		"string": "{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}",
+		"string": "{itemsNumber, plural, one {El campo {fieldLabel} ha sido completado en # ítem.} other {El campo {fieldLabel} ha sido completado en # ítems.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
-		"string": "Are you sure you want to delete this field?"
+		"string": "¿Estás segura(o) que quieres eliminar este campo?"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
 		"string": "¿Estás seguro(a) que quieres eliminar esta tarea?"
@@ -3912,7 +4038,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
 	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
-		"string": "Keep this field with answers in items where it has been completed.",
+		"string": "Conservar este campo con respuestas en los ítems donde se haya completado. ",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
@@ -3920,11 +4046,11 @@
 		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
-		"string": "Related item fields will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"string": "Campos de ítems relacionados se modificarán como consecuencia de aplicar de este cambio, excepto aquellos que ya se hayan completado. ",
 		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "Are you sure you want to edit this field?"
+		"string": "¿Estás segura(o) que quieres editar este campo?"
 	},
 	"teamTasks.confirmEditTaskTitle": {
 		"string": "¿Estás seguro(a) que quieres editar esta tarea?"
@@ -3934,17 +4060,17 @@
 		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
 	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
-		"string": "Do not alter fields that have been completed, and keep their existing answers.",
+		"string": "No modificar los campos que se han completado, y conservar sus respuestas existentes. ",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
 		"string": "Editar tarea"
 	},
 	"teamTasks.continueMetadata": {
-		"string": "Edit field"
+		"string": "Editar campo"
 	},
 	"teamTasks.deleteMetadata": {
-		"string": "Delete field"
+		"string": "Eliminar campo"
 	},
 	"teamTasks.deleteTask": {
 		"string": "Eliminar tarea"
@@ -4004,6 +4130,22 @@
 	"tos.title": {
 		"string": "Términos del Servicio"
 	},
+	"transcriptionButton.defaultErrorMessage": {
+		"string": "Could not get transcription",
+		"developer_comment": "Warning displayed if an error occurred when transcribing an audio or video file"
+	},
+	"transcriptionButton.inProgress": {
+		"string": "Requesting transcription…",
+		"developer_comment": "Message displayed when transcription operation hasn't started yet"
+	},
+	"transcriptionButton.label": {
+		"string": "Transcribe audio",
+		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
+	},
+	"transcriptionButton.textExtractedSuccessfully": {
+		"string": "Transcription started, please come back in a few seconds to see it",
+		"developer_comment": "Banner displayed when transcription operation starts"
+	},
 	"translateStatuses.continueAndSave": {
 		"string": "Continuar y guardar"
 	},
@@ -4024,6 +4166,9 @@
 	},
 	"trash.title": {
 		"string": "Papelera"
+	},
+	"trends.title": {
+		"string": "Trends"
 	},
 	"unconfirmed.title": {
 		"string": "Sin Confirmar"
