@@ -164,12 +164,12 @@ const SearchKeywordConfigComponent = ({
   if (teamMetadata.length || teamTasks.length) {
     options = options.concat([{ value: '', label: '' }]);
     if (teamMetadata.length) {
-      const label = <FormattedMessage id="searchKeywordConfig.annotation" defaultMessage="Annotation" />;
+      const label = <FormattedMessage id="searchKeywordConfig.annotation" defaultMessage="Annotation" description="Header before a listing of annotation options" />;
       options = options.concat([{ value: '', label }]);
       options = options.concat(teamMetadata);
     }
     if (teamTasks.length) {
-      const label = <FormattedMessage id="searchKeywordConfig.tasks" defaultMessage="Tasks" />;
+      const label = <FormattedMessage id="searchKeywordConfig.tasks" defaultMessage="Tasks" description="Header before a listing of task options" />;
       options = options.concat([{ value: '', label }]);
       options = options.concat(teamTasks);
     }

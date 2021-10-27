@@ -85,6 +85,7 @@ const BulkActionsAssign = ({
             <FormattedMessage
               id="bulkActionsAssign.notFound"
               defaultMessage="No members found"
+              description="Displayed when no member names match search input"
             />
           }
           submitLabel={
