@@ -5,6 +5,7 @@
   },
   {
     "id": "bulkActionsMove.notFound",
+    "description": "Displayed when no folder names match search input",
     "defaultMessage": "No folders found"
   },
   {

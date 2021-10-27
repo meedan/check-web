@@ -46,28 +46,28 @@ const BulkActionsMenu = ({
           <FormattedMessage
             id="bulkActionsMenu.moveToFolder"
             defaultMessage="Move to folder"
-            description=""
+            description="Menu option for bulk moving selected items into a folder"
           />
         </MenuItem>
         <MenuItem className="bulk-actions-menu__tag" onClick={handleMenuTag}>
           <FormattedMessage
             id="bulkActionsMenu.tag"
             defaultMessage="Tag"
-            description=""
+            description="Menu option for bulk tagging selected items"
           />
         </MenuItem>
         <MenuItem className="bulk-actions-menu__assign" onClick={handleMenuAssign}>
           <FormattedMessage
             id="bulkActionsMenu.assign"
             defaultMessage="Assign"
-            description=""
+            description="Menu option for bulk assigning selected items"
           />
         </MenuItem>
         <MenuItem className="bulk-actions-menu__change-status" onClick={handleMenuChangeStatus}>
           <FormattedMessage
             id="bulkActionsMenu.changeStatus"
             defaultMessage="Change status"
-            description=""
+            description="Menu option for bulk changing statuses of selected items"
           />
         </MenuItem>
       </React.Fragment>

@@ -175,6 +175,10 @@
 		"string": "Add filter",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotation": {
+		"string": "Annotation",
+		"developer_comment": "Menu option to enable searching items by annotation fields"
+	},
 	"addFilterMenu.assignedTo": {
 		"string": "Assignment",
 		"developer_comment": "Menu option to enable searching items by assigned users"
@@ -186,6 +190,10 @@
 	"addFilterMenu.collection": {
 		"string": "Collection",
 		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.country": {
+		"string": "Country",
+		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "Ginawa ni",
@@ -214,10 +222,6 @@
 	"addFilterMenu.mediaType": {
 		"string": "Uri ng media",
 		"developer_comment": "Menu option to enable searching items by media type"
-	},
-	"addFilterMenu.metadata": {
-		"string": "Metadata",
-		"developer_comment": "Menu option to enable searching items by metadata fields"
 	},
 	"addFilterMenu.reportStatus": {
 		"string": "Iulat ang status",
@@ -521,15 +525,9 @@
 	"bulkActions.dialogMoveTitle": {
 		"string": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
 	},
-	"bulkActions.move": {
-		"string": "Move selected items to another folder"
-	},
 	"bulkActions.moveTitle": {
 		"string": "Move to folder",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
-	},
-	"bulkActions.moveTo": {
-		"string": "Ilipat sa…"
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Items moved to the Trash."
@@ -557,6 +555,74 @@
 	},
 	"bulkActions.unconfirmed": {
 		"string": "Confirm selected items and move items to another folder"
+	},
+	"bulkActionsAssign.assignmentNotes": {
+		"string": "Add a note to email notification",
+		"developer_comment": "Field for adding complementary information for the assignee"
+	},
+	"bulkActionsAssign.notFound": {
+		"string": "No members found",
+		"developer_comment": "Displayed when no member names match search input"
+	},
+	"bulkActionsAssign.submitLabel": {
+		"string": "{numItems, plural, one {Assign 1 item} other {Assign # items}}",
+		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
+	},
+	"bulkActionsAssign.success": {
+		"string": "Items assigned successfully",
+		"developer_comment": "Success message for bulk assignment action"
+	},
+	"bulkActionsMenu.action": {
+		"string": "Action",
+		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+	},
+	"bulkActionsMenu.assign": {
+		"string": "Italaga",
+		"developer_comment": "Menu option for bulk assigning selected items"
+	},
+	"bulkActionsMenu.changeStatus": {
+		"string": "Change status",
+		"developer_comment": "Menu option for bulk changing statuses of selected items"
+	},
+	"bulkActionsMenu.moveToFolder": {
+		"string": "Move to folder",
+		"developer_comment": "Menu option for bulk moving selected items into a folder"
+	},
+	"bulkActionsMenu.tag": {
+		"string": "Tag",
+		"developer_comment": "Menu option for bulk tagging selected items"
+	},
+	"bulkActionsMove.notFound": {
+		"string": "No folders found",
+		"developer_comment": "Displayed when no folder names match search input"
+	},
+	"bulkActionsMove.submitLabel": {
+		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
+		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
+	},
+	"bulkActionsStatus.dialogBody": {
+		"string": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}",
+		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
+	},
+	"bulkActionsStatus.dialogTitle": {
+		"string": "Some statuses could not be changed",
+		"developer_comment": "Title of dialog warning after bulk updating item statuses"
+	},
+	"bulkActionsStatus.submitLabel": {
+		"string": "{numItems, plural, one {Set status of 1 item} other {Set status of # items}}",
+		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
+	},
+	"bulkActionsStatus.success": {
+		"string": "Item statuses changed successfully",
+		"developer_comment": "Success message for bulk status change action"
+	},
+	"bulkActionsTag.submitLabel": {
+		"string": "{numItems, plural, one {Tag 1 item} other {Tag # items}}",
+		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
+	},
+	"bulkActionsTag.success": {
+		"string": "Items tagged successfully",
+		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "Kanselahin",
@@ -1288,8 +1354,20 @@
 		"string": "No text extracted from this image",
 		"developer_comment": "Label when text extracted from an image is not available"
 	},
+	"mediaExpanded.noTranscription": {
+		"string": "No audio transcribed from this media",
+		"developer_comment": "Label when transcription is not (yet) available"
+	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# request} other {# requests}}"
+	},
+	"mediaExpanded.transcriptionCompleted": {
+		"string": "Audio transcribed from media:",
+		"developer_comment": "Label for transcription from audio or video"
+	},
+	"mediaExpanded.transcriptionInProgress": {
+		"string": "Audio transcription in progress…",
+		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "Artsibo:"
@@ -1514,6 +1592,10 @@
 		"string": "Kanselahin",
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
 	},
+	"metadata.couldNotSave": {
+		"string": "Could not save, missing required field",
+		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
+	},
 	"metadata.delete": {
 		"string": "Burahin",
 		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
@@ -1541,6 +1623,18 @@
 	"metadata.file.wrongType": {
 		"string": "This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file.",
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+	},
+	"metadata.form.cancel": {
+		"string": "Cancel changes",
+		"developer_comment": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form."
+	},
+	"metadata.form.edit": {
+		"string": "I-edit",
+		"developer_comment": "This is a label on a button that the user presses in order to edit the items in the attached form."
+	},
+	"metadata.form.save": {
+		"string": "I-save",
+		"developer_comment": "This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form."
 	},
 	"metadata.location.coordinates": {
 		"string": "Latitude, longitude",
@@ -1909,6 +2003,10 @@
 	"projectsComponent.title": {
 		"string": "Pamagat"
 	},
+	"projectsComponent.trends": {
+		"string": "Trends (Beta)",
+		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
+	},
 	"reportDesigner.addIntro": {
 		"string": "Magdagdag ng laman sa panimula"
 	},
@@ -2256,6 +2354,10 @@
 	"savedSearch.name": {
 		"string": "list"
 	},
+	"search": {
+		"string": "Maghanap",
+		"developer_comment": "This is a label on a button that the user presses in order to execute a search query."
+	},
 	"search.afterDate": {
 		"string": "after",
 		"developer_comment": "String displayed before a date picker"
@@ -2282,6 +2384,10 @@
 	"search.beforeDate": {
 		"string": "and before",
 		"developer_comment": "String displayed between after and before date pickers"
+	},
+	"search.cancel": {
+		"string": "Kanselahin",
+		"developer_comment": "A label on a button that lets a user cancel typing search text, deleting the text in the process."
 	},
 	"search.categoriesHeading": {
 		"string": "Tag is",
@@ -2311,12 +2417,16 @@
 		"string": "or",
 		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
+	"search.file": {
+		"string": "Search with file",
+		"developer_comment": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
+	},
 	"search.folderHeading": {
 		"string": "Folder is",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
-		"string": "<table>\n                    <tbody>\n                      <tr><td>+</td><td>Puno+Dahon</td><td>Mga item na may parehong Puno AT Dahon</td></tr>\n                      <tr><td>|</td><td>Puno | Dahon</td><td>Mga item na may alinman sa Puno O Dahon</td></tr>\n                       <tr><td>()</td><td>Puno + (Dahon | Sanga)</td><td>Mga item na may Puno AT Dahon O mga item na may Puno AT Sanga</td></tr>\n                       </tbody>\n                     </table>\n                     <div>\n                       <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        Dagdagan ang kaalaman tungkol sa mga pamamaraan sa paghahanap\n                        </a>\n                      </div>",
+		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Learn more about search techniques\n                          </a>\n                        </div>",
 		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
@@ -2342,13 +2452,17 @@
 		"string": "None",
 		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
+	"search.noResults": {
+		"string": "No results found.",
+		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
+	},
 	"search.notInAny": {
 		"string": "Not in any collection",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "or",
-		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+		"string": "OR",
+		"developer_comment": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
 	},
 	"search.previousPage": {
 		"string": "Nakaraang pahina"
@@ -2372,6 +2486,10 @@
 	"search.reportStatusUnpublished": {
 		"string": "Itinanggal sa pagkakalathala",
 		"developer_comment": "Refers to a report status"
+	},
+	"search.setText": {
+		"string": "Set text",
+		"developer_comment": "A label on a button that lets a user set the text on an associated popup to the original input field."
 	},
 	"search.show": {
 		"string": "Type is",
@@ -2429,6 +2547,10 @@
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
+	"searchFieldCountry.label": {
+		"string": "Country is",
+		"developer_comment": "Prefix label for field to filter by country"
+	},
 	"searchFieldSource.label": {
 		"string": "Source is",
 		"developer_comment": "Prefix label for field to filter by source"
@@ -2463,6 +2585,10 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "Pamagat ng pagsusuri"
 	},
+	"searchKeywordConfig.annotation": {
+		"string": "Annotation",
+		"developer_comment": "Header before a listing of annotation options"
+	},
 	"searchKeywordConfig.item": {
 		"string": "Item"
 	},
@@ -2475,9 +2601,6 @@
 	"searchKeywordConfig.mediaUrl": {
 		"string": "Media URL"
 	},
-	"searchKeywordConfig.metadata": {
-		"string": "Metadata"
-	},
 	"searchKeywordConfig.ocr": {
 		"string": "Extracted text (OCR)"
 	},
@@ -2485,7 +2608,8 @@
 		"string": "Mga tag"
 	},
 	"searchKeywordConfig.tasks": {
-		"string": "Mga Gawain"
+		"string": "Mga Gawain",
+		"developer_comment": "Header before a listing of task options"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
@@ -3026,8 +3150,11 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Sunday"
 	},
-	"smoochBotNewsletterEditor.templateHeaderNoRss": {
-		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.templateHeaderRss": {
+		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Thursday"
@@ -3261,6 +3388,9 @@
 	},
 	"tagMenu.notFound": {
 		"string": "No tags found"
+	},
+	"tagMenu.search": {
+		"string": "Maghanap..."
 	},
 	"tagMenu.submit": {
 		"string": "Tag",
@@ -3883,6 +4013,10 @@
 		"string": "Field {number}",
 		"developer_comment": "E.g. Field 1, Field 2..."
 	},
+	"teamTaskCard.required": {
+		"string": "Required",
+		"developer_comment": "Toggle switch to make field required"
+	},
 	"teamTaskCard.showInBrowserExtension": {
 		"string": "Ipakita sa browser extension",
 		"developer_comment": "Toggle switch to make field visible in the browser extension"
@@ -4004,6 +4138,22 @@
 	"tos.title": {
 		"string": "Mga Tuntunin ng Serbisyo"
 	},
+	"transcriptionButton.defaultErrorMessage": {
+		"string": "Could not get transcription",
+		"developer_comment": "Warning displayed if an error occurred when transcribing an audio or video file"
+	},
+	"transcriptionButton.inProgress": {
+		"string": "Requesting transcription…",
+		"developer_comment": "Message displayed when transcription operation hasn't started yet"
+	},
+	"transcriptionButton.label": {
+		"string": "Transcribe audio",
+		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
+	},
+	"transcriptionButton.textExtractedSuccessfully": {
+		"string": "Transcription started, please come back in a few seconds to see it",
+		"developer_comment": "Banner displayed when transcription operation starts"
+	},
 	"translateStatuses.continueAndSave": {
 		"string": "Magpatuloy at i-save"
 	},
@@ -4024,6 +4174,9 @@
 	},
 	"trash.title": {
 		"string": "Basurahan"
+	},
+	"trends.title": {
+		"string": "Trends"
 	},
 	"unconfirmed.title": {
 		"string": "Hindi kumpirmado"
