@@ -2,6 +2,7 @@ require 'selenium-webdriver'
 require 'yaml'
 require_relative './spec_helper'
 require_relative './app_spec_helpers'
+require_relative './annotation_spec'
 require_relative './api_helpers'
 require_relative './flaky_tests_spec'
 require_relative './language_spec'
@@ -9,7 +10,6 @@ require_relative './login_spec'
 require_relative './login_spec_helpers'
 require_relative './media_actions_spec'
 require_relative './media_spec'
-require_relative './metadata_spec'
 require_relative './project_spec'
 require_relative './report_spec'
 require_relative './rules_spec'
@@ -82,7 +82,8 @@ shared_examples 'app' do |webdriver_url|
         flaky['imgur'] = link
         @failing_tests[example.description] = flaky
       end
-      print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
+      # print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
+      print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: ]"
     end
   end
 
@@ -97,7 +98,7 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'language'
     include_examples 'login'
     include_examples 'media actions'
-    include_examples 'metadata'
+    include_examples 'annotation'
     include_examples 'project'
     include_examples 'report'
     include_examples 'rules'

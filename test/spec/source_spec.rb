@@ -58,9 +58,27 @@ shared_examples 'source' do
     expect(wait_for_selector('.source__name').text == 'CNN Brasil').to be(true)
   end
 
-  it 'should add a new source for a media', bin6: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+  it 'should add a new source for a media, answer and edit the source annotation', bin6: true do
+    # Create team and go to team page that should not contain any task
+    team = "task-team-#{Time.now.to_i}"
+    create_team_and_go_to_settings_page(team)
+    wait_for_selector('.team-settings__metadata-tab').click
+    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
+    wait_for_selector('.metadata-tab__source').click
+    # Create source annotation
+    expect(@driver.page_source.include?('No metadata fields')).to be(true)
+    expect(@driver.page_source.include?('my metadata')).to be(false)
+    create_team_data_field(tab_class: '.metadata-tab__source', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my source annotation')
+    expect(@driver.page_source.include?('No metadata fields')).to be(false)
+    expect(@driver.page_source.include?('my source annotation')).to be(true)
+    # api_create_team_project_and_link 'https://www.cnnbrasil.com.br/'
+    @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
+    wait_for_selector('#search-input')
+    create_media('https://www.cnnbrasil.com.br/')
+    wait_for_selector('.media__heading').click
     wait_for_selector('.media')
+    @driver.manage.window.maximize
+    #create source
     wait_for_selector('.media-tab__source').click
     expect(@driver.page_source.include?('BBC')).to be(false)
     wait_for_selector("//span[contains(text(), 'Create new')]", :xpath).click
@@ -71,5 +89,18 @@ shared_examples 'source' do
     wait_for_selector_none('.source__edit-cancel-button')
     expect(wait_for_selector('.source__name').text == 'BBC').to be(true)
     expect(wait_for_selector('#main_source__link').attribute('value') == 'https://www.bbc.com/portuguese').to be(true)
+    # answer annotation response
+    wait_for_selector('.form-edit').click
+    wait_for_selector('#metadata-input').send_keys('annotation response')
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-save')
+    expect(@driver.page_source.include?('annotation response')).to be(true)
+    # edit annotation response
+    expect(@driver.page_source.include?('annotation response- edited')).to be(false)
+    wait_for_selector('.form-edit').click
+    wait_for_selector('#metadata-input').send_keys('- edited')
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-save')
+    expect(@driver.page_source.include?('annotation response- edited')).to be(true)
   end
 end

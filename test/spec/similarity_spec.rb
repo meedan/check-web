@@ -1,5 +1,6 @@
 shared_examples 'similarity' do
   it 'should import, export, list, pin and remove similarity items', bin5: true do
+    sleep 5 # wait for the items to be indexed in the Elasticsearch
     api_create_team_project_claims_sources_and_redirect_to_project_page 3, 0
     wait_for_selector('.search__results-heading')
     project_url = @driver.current_url.to_s
@@ -59,6 +60,7 @@ shared_examples 'similarity' do
 
   it 'should add and remove related items', bin6: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page 2, 0
+    sleep 5 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)
     project_url = @driver.current_url.to_s
