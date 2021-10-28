@@ -132,6 +132,10 @@ class Comment extends Component {
     this.handleCloseMenu();
   };
 
+  handleCloseEdit = () => {
+    this.setState({ editMode: false });
+  };
+
   handleDelete(id) {
     const onSuccess = () => {};
     Relay.Store.commitUpdate(
@@ -211,10 +215,7 @@ class Comment extends Component {
         : null;
     }
 
-    const updatedAt = parseStringUnixTimestamp(annotation.created_at);
-    const timestamp = updatedAt
-      ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
-      : null;
+    const createdAt = parseStringUnixTimestamp(annotation.created_at);
 
     const { user } = annotation.annotator;
     const authorName = user
@@ -229,6 +230,7 @@ class Comment extends Component {
             <AddAnnotation
               cmdText={commentText}
               editMode={this.state.editMode}
+              handleCloseEdit={this.handleCloseEdit}
               annotated={annotated}
               annotation={annotation}
               annotatedType="ProjectMedia"
@@ -264,7 +266,7 @@ class Comment extends Component {
       >
         <StyledAnnotationCardWrapper>
           <Box
-            p={2}
+            py={2}
             borderBottom={`1px ${separationGray} solid`}
             className="annotation__card-text annotation__card-activity-comment"
           >
@@ -288,7 +290,7 @@ class Comment extends Component {
                       teamUser={user.team_user}
                     /> : null }
                   <span>
-                    {timestamp}
+                    <span className="annotation__timestamp"><TimeBefore date={createdAt} /></span>
                   </span>
                 </span>
 

@@ -20,7 +20,7 @@ class UpdateCommentMutation extends Relay.Mutation {
 
   getFiles() {
     if (this.props.file) {
-      return { file: this.props.image };
+      return { file: this.props.file };
     }
     return {};
   }

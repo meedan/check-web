@@ -119,7 +119,7 @@ class CreateCommentMutation extends Relay.Mutation {
   }
 
   getFiles() {
-    return { file: this.props.image };
+    return { file: this.props.file };
   }
 
   getConfigs() {
@@ -129,8 +129,13 @@ class CreateCommentMutation extends Relay.Mutation {
 
     fieldIds[parent_type] = annotated.id;
 
+    let connectionName = 'comments';
+    let edgeName = 'commentEdge';
+
     if (parent_type === 'task') {
       fieldIds.project_media = annotated.project_media.id;
+      connectionName = 'log';
+      edgeName = 'versionEdge';
     }
 
     const configs = [
@@ -142,8 +147,8 @@ class CreateCommentMutation extends Relay.Mutation {
         type: 'RANGE_ADD',
         parentName: parent_type,
         parentID: annotated.id,
-        connectionName: 'comments',
-        edgeName: 'commentEdge',
+        connectionName,
+        edgeName,
         rangeBehaviors: () => ('append'),
       },
     ];

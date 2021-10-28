@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
+import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import UpdateCommentMutation from '../../relay/mutations/UpdateCommentMutation';
@@ -39,7 +40,7 @@ class AddAnnotation extends Component {
 
     this.state = {
       cmd: props.cmdText,
-      image: null,
+      file: null,
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -66,12 +67,13 @@ class AddAnnotation extends Component {
     }
   }
 
-  onImageChange = (file) => {
-    this.setState({ image: file, message: null });
+  onFileChange = (file) => {
+    const canSubmit = Boolean(this.state.cmd) || Boolean(file);
+    this.setState({ file, message: null, canSubmit });
   }
 
-  onImageError(file, message) {
-    this.setState({ image: null, message });
+  onFileError(file, message) {
+    this.setState({ file: null, message });
   }
 
   getContext() {
@@ -90,7 +92,7 @@ class AddAnnotation extends Component {
   resetState = () => {
     this.setState({
       cmd: '',
-      image: null,
+      file: null,
       message: null,
       isSubmitting: false,
       fileMode: false,
@@ -120,7 +122,7 @@ class AddAnnotation extends Component {
     comment,
   ) {
     const { currentUser: annotator } = this.getContext();
-    const image = this.state.fileMode ? this.state.image : '';
+    const file = this.state.fileMode ? this.state.file : '';
 
     Relay.Store.commitUpdate(
       new CreateCommentMutation({
@@ -129,7 +131,7 @@ class AddAnnotation extends Component {
           .toLowerCase(),
         annotator,
         annotated,
-        image,
+        file,
         context: this.getContext(),
         annotation: {
           text: comment,
@@ -147,17 +149,17 @@ class AddAnnotation extends Component {
     annotated_type,
     comment,
   ) {
-    const image = this.state.fileMode ? this.state.image : '';
+    const file = this.state.fileMode ? this.state.file : '';
     const { annotation } = this.props;
     Relay.Store.commitUpdate(
       new UpdateCommentMutation({
-        image,
+        file,
         context: this.getContext(),
         text: comment,
         annotation,
         annotated,
       }),
-      { onFailure: this.fail, onSuccess: this.resetState },
+      { onFailure: this.fail, onSuccess: this.props.handleCloseEdit },
     );
   }
 
@@ -253,7 +255,7 @@ class AddAnnotation extends Component {
   }
 
   handleChange(e) {
-    const canSubmit = e.target.value.trim().length > 0;
+    const canSubmit = e.target.value.trim().length > 0 || Boolean(this.state.file);
     this.setState({ cmd: e.target.value, message: null, canSubmit });
   }
 
@@ -263,9 +265,9 @@ class AddAnnotation extends Component {
 
   handleSubmit(e) {
     const command = AddAnnotation.parseCommand(this.state.cmd);
-    const image = this.state.fileMode ? this.state.image : null;
+    const file = this.state.fileMode ? this.state.file : null;
 
-    if (this.state.isSubmitting || (!this.state.cmd && !image)) {
+    if (this.state.isSubmitting || (!this.state.cmd && !file)) {
       e.preventDefault();
       return;
     }
@@ -369,7 +371,7 @@ class AddAnnotation extends Component {
           zIndex: 0,
         }}
       >
-        <div style={editMode ? null : { padding: `0 ${units(4)}` }}>
+        <div style={editMode ? null : { padding: `0 ${units(2)}` }}>
           <TextField
             label={inputHint}
             onFocus={this.handleFocus.bind(this)}
@@ -388,25 +390,24 @@ class AddAnnotation extends Component {
           />
           {this.state.fileMode ? (
             <UploadFile
-              type="image"
-              value={this.state.image}
-              onChange={this.onImageChange}
-              onError={this.onImageError}
+              type="file"
+              value={this.state.file}
+              onChange={this.onFileChange}
+              onError={this.onFileError}
             />
           ) : null}
           <AddAnnotationButtonGroup className="add-annotation__buttons">
-            <IconButton
-              className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
-              id="add-annotation__switcher"
-              title={
-                <FormattedMessage id="addAnnotation.addImage" defaultMessage="Add a file" />
-              }
-              onClick={this.switchMode.bind(this)}
-            >
-              <AttachFileIcon />
-            </IconButton>
+            <Tooltip title={<FormattedMessage id="addAnnotation.addFile" defaultMessage="Add a file" />} >
+              <IconButton
+                className={`add-annotation__insert-photo ${this.state.fileMode ? 'add-annotation__file' : ''}`}
+                id="add-annotation__switcher"
+                onClick={this.switchMode.bind(this)}
+              >
+                <AttachFileIcon />
+              </IconButton>
+            </Tooltip>
             { editMode ?
-              <Button>
+              <Button onClick={this.props.handleCloseEdit} >
                 <FormattedMessage {...globalStrings.cancel} />
               </Button> : null
             }
