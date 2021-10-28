@@ -22,7 +22,6 @@ import {
   Movie as MovieIcon,
   Image as ImageIcon,
 } from '@material-ui/icons';
-import deepEqual from 'deep-equal';
 import styled from 'styled-components';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
@@ -114,10 +113,12 @@ class SearchKeyword extends React.Component {
     super(props);
 
     this.searchInput = React.createRef();
+    this.initialQuery = {
+      keyword: props.query.keyword,
+    };
 
     this.state = {
       isSaving: false,
-      query: props.query, // CODE SMELL! Caller must use `key=` to reset state on prop change
       isPopperClosed: false, // user sets this once per page load
       imgData: {
         data: '',
@@ -135,7 +136,7 @@ class SearchKeyword extends React.Component {
   }
 
   onUploadSuccess = (data) => {
-    const cleanQuery = this.cleanup(this.state.query);
+    const cleanQuery = this.props.cleanupQuery(this.props.query);
     cleanQuery.file_handle = data.searchUpload?.file_handle;
     let file_type;
     if (this.state.imgData.type.match(/^video\//)) {
@@ -149,8 +150,8 @@ class SearchKeyword extends React.Component {
     delete cleanQuery.keyword;
     this.setState({
       isSaving: false,
-      query: cleanQuery,
     });
+    this.props.setQuery(cleanQuery);
   };
 
   onUploadFailure = () => {
@@ -158,43 +159,11 @@ class SearchKeyword extends React.Component {
   };
 
   setSearchText = (text) => {
-    const cleanQuery = this.cleanup(this.state.query);
+    const cleanQuery = this.props.cleanupQuery(this.props.query);
     cleanQuery.keyword = text;
     delete cleanQuery.file_type;
     delete cleanQuery.file_handle;
-    this.setState({ query: cleanQuery });
-  }
-
-  cleanup = (query) => {
-    const cleanQuery = { ...query };
-    if (query.team_tasks) {
-      cleanQuery.team_tasks = query.team_tasks.filter(tt => (
-        tt.id && tt.response && tt.task_type
-      ));
-      if (!cleanQuery.team_tasks.length) {
-        delete cleanQuery.team_tasks;
-      }
-    }
-    if (query.range) {
-      const datesObj =
-        query.range.created_at ||
-        query.range.updated_at ||
-        query.range.published_at ||
-        query.range.last_seen || {};
-      if (!datesObj.start_time && !datesObj.end_time) {
-        delete cleanQuery.range;
-      }
-    }
-    return cleanQuery;
-  }
-
-  handleApplyFilters() {
-    const cleanQuery = this.cleanup(this.state.query);
-    if (!deepEqual(cleanQuery, this.props.query)) {
-      this.props.onChange(cleanQuery);
-    } else {
-      this.setState({ query: cleanQuery });
-    }
+    this.props.setQuery(cleanQuery);
   }
 
   keywordIsActive = () => {
@@ -203,7 +172,7 @@ class SearchKeyword extends React.Component {
   };
 
   keywordConfigIsActive = () => {
-    const { query } = this.state;
+    const { query } = this.props;
     return query.keyword_fields;
   }
 
@@ -223,12 +192,11 @@ class SearchKeyword extends React.Component {
   }
 
   handleKeywordConfigChange = (value) => {
-    const newQuery = { ...this.state.query, ...value };
+    const newQuery = { ...this.props.query, ...value };
     if (Object.keys(value.keyword_fields).length === 0) {
       delete newQuery.keyword_fields;
     }
-    const callback = this.state.query.keyword ? this.handleApplyFilters : null;
-    this.setState({ query: newQuery }, callback);
+    this.props.setQuery(newQuery);
   }
 
   // Create title out of query parameters
@@ -265,17 +233,12 @@ class SearchKeyword extends React.Component {
   }
 
   handleInputChange = (ev, textOverride) => {
-    const { keyword, ...newQuery } = this.state.query;
+    const { keyword, ...newQuery } = this.props.query;
     const newKeyword = ev.target.value || textOverride;
     if (newKeyword) { // empty string => remove property from query
       newQuery.keyword = newKeyword;
     }
-    this.setState({ query: newQuery });
-  }
-
-  handleSubmit = (ev) => {
-    ev.preventDefault();
-    this.handleApplyFilters();
+    this.props.setQuery(newQuery);
   }
 
   handlePopperClick = (ev) => {
@@ -284,9 +247,9 @@ class SearchKeyword extends React.Component {
   }
 
   handleClickClear = () => {
-    const newQuery = { ...this.state.query };
+    const newQuery = { ...this.props.query };
     delete newQuery.keyword;
-    this.setState({ query: newQuery }, this.handleApplyFilters);
+    this.props.setQuery(newQuery);
   };
 
   subscribe() {
@@ -366,7 +329,7 @@ class SearchKeyword extends React.Component {
       : (this.props.title || (this.props.project ? this.props.project.title : null));
 
     const handleImageDismiss = () => {
-      const cleanQuery = this.cleanup(this.state.query);
+      const cleanQuery = this.props.cleanupQuery(this.props.query);
       delete cleanQuery.file_type;
       delete cleanQuery.file_handle;
       this.setState({
@@ -374,8 +337,8 @@ class SearchKeyword extends React.Component {
           data: '',
           name: '',
         },
-        query: cleanQuery,
       });
+      this.props.setQuery(cleanQuery);
     };
 
     /* eslint-disable jsx-a11y/media-has-caption */
@@ -409,7 +372,7 @@ class SearchKeyword extends React.Component {
           <form
             id="search-form"
             className="search__form"
-            onSubmit={this.handleSubmit}
+            onSubmit={this.props.handleSubmit}
             autoComplete="off"
           >
             <Grid
@@ -426,9 +389,9 @@ class SearchKeyword extends React.Component {
                     isActive={this.keywordIsActive() || this.keywordConfigIsActive()}
                     showExpand={this.props.showExpand}
                     setParentSearchText={this.setSearchText}
-                    searchText={this.state.query.keyword || ''}
+                    searchText={this.props.query.keyword || ''}
                     inputBaseProps={{
-                      defaultValue: this.state.query.keyword || '',
+                      defaultValue: this.props.query.keyword || '',
                       onChange: this.handleInputChange,
                       ref: this.searchInput,
                       disabled: this.state.imgData.data.length > 0,
@@ -448,7 +411,7 @@ class SearchKeyword extends React.Component {
                         <SearchKeywordMenu
                           teamSlug={this.props.team.slug}
                           onChange={this.handleKeywordConfigChange}
-                          query={this.state.query}
+                          query={this.props.query}
                           anchorParent={() => this.searchInput.current}
                         />
                       </InputAdornment>
@@ -462,7 +425,7 @@ class SearchKeyword extends React.Component {
                     // - user has typed something
                     // - user has not explicitly closed the help
                     // - search does not have modal expansion widget
-                    this.state.query.keyword !== this.props.query.keyword &&
+                    this.props.query.keyword !== this.initialQuery.keyword &&
                     !this.state.isPopperClosed &&
                     !this.props.showExpand
                   }
@@ -541,7 +504,7 @@ class SearchKeyword extends React.Component {
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={this.handleSubmit}
+                    onClick={this.props.handleSubmit}
                   >
                     <FormattedMessage
                       id="search"
@@ -575,7 +538,7 @@ SearchKeyword.propTypes = {
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
   query: PropTypes.object.isRequired,
-  onChange: PropTypes.func.isRequired, // onChange({ ... /* query */ }) => undefined
+  setQuery: PropTypes.func.isRequired,
   team: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
     slug: PropTypes.string.isRequired,
@@ -594,6 +557,8 @@ SearchKeyword.propTypes = {
     }),
   }).isRequired,
   showExpand: PropTypes.bool,
+  cleanupQuery: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(withStyles(styles)(withPusher(SearchKeyword)), graphql`
