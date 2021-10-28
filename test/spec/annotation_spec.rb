@@ -9,18 +9,18 @@ shared_examples 'annotation' do
     # Create annotation
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my metadata')
+    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my metadata')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     expect(@driver.page_source.include?('my metadata')).to be(true)
 
     # Edit annotation
-    edit_team_data_field('my metadata - Edited')
+    edit_annotation('my metadata - Edited')
     wait_for_selector("//div[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
     # create 'date and time' annotation
     expect(@driver.page_source.include?('my date time metadata')).to be(false)
-    create_team_data_field(task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my date time metadata')
+    create_annotation(task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my date time metadata')
     expect(@driver.page_source.include?('my date time metadata')).to be(true)
 
     # change the metadata annotation
@@ -33,7 +33,7 @@ shared_examples 'annotation' do
     expect(task.text).to eq 'my date time metadata'
 
     # delete annotation
-    delete_team_data_field
+    delete_annotation
     expect(@driver.page_source.include?('my date time metadata')).to be(false)
   end
 
@@ -68,7 +68,7 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('answer - edited')).to be(false)
   end
 
-  it "should add, and answer a datatime annotation", bin3: true do
+  it 'should add, and answer a datatime annotation', bin3: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
@@ -77,7 +77,7 @@ shared_examples 'annotation' do
     # Create annotation
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my  annotation')
+    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my  annotation')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
     wait_for_selector('#search-input')
@@ -96,7 +96,7 @@ shared_examples 'annotation' do
     wait_for_selector('.form-save').click
   end
 
-  it "should add, and answer a datatime annotation", bin3: true do
+  it 'should add, and answer a datatime annotation', bin3: true do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__metadata-tab').click
@@ -104,7 +104,7 @@ shared_examples 'annotation' do
     # Create annotation
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my  annotation')
+    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my  annotation')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
     wait_for_selector('#search-input')
@@ -123,7 +123,7 @@ shared_examples 'annotation' do
     wait_for_selector('.form-save').click
   end
 
-  it "should add, and answer a single choice annotation", bin3: true do
+  it 'should add, and answer a single choice annotation', bin3: true do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__metadata-tab').click
@@ -131,7 +131,7 @@ shared_examples 'annotation' do
     # Create annotation
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-single_choice', task_name: 'my  annotation', value1: "Foo" , value2: 'Bar' )
+    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-single_choice', task_name: 'my  annotation', value1: 'Foo', value2: 'Bar')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
     wait_for_selector('#search-input')
@@ -149,7 +149,7 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('Saved a few')).to be(true)
   end
 
-  it "should add, and answer a multiple choice annotation", bin3: true do
+  it 'should add, and answer a multiple choice annotation', bin3: true do
     # Create team and go to team page that should not contain any task
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
@@ -158,7 +158,7 @@ shared_examples 'annotation' do
     # Create annotation
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-multiple_choice', task_name: 'my  annotation', value1: "Foo" , value2: 'Bar' )
+    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-multiple_choice', task_name: 'my  annotation', value1: 'Foo', value2: 'Bar')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
     wait_for_selector('#search-input')
@@ -175,5 +175,4 @@ shared_examples 'annotation' do
     wait_for_selector('.form-save').click
     expect(@driver.page_source.include?('Saved a few')).to be(true)
   end
-
 end

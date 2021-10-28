@@ -3,6 +3,7 @@ require 'yaml'
 require_relative './spec_helper'
 require_relative './app_spec_helpers'
 require_relative './annotation_spec'
+require_relative './annotation_spec_helpers'
 require_relative './api_helpers'
 require_relative './flaky_tests_spec'
 require_relative './language_spec'
@@ -19,7 +20,6 @@ require_relative './tag_spec'
 require_relative './tag_spec_helpers'
 require_relative './team_spec'
 require_relative './team_spec_helpers'
-require_relative './task_spec_helpers'
 require_relative './video_timeline_spec'
 require_relative './similarity_spec'
 require_relative './source_spec'
@@ -28,9 +28,9 @@ CONFIG = YAML.load_file('config.yml')
 
 shared_examples 'app' do |webdriver_url|
   # Helpers
+  include AnnotationSpecHelpers
   include AppSpecHelpers
   include ApiHelpers
-  include TaskSpecHelpers
   include TagSpecHelpers
   include TeamSpecHelpers
   include LoginSpecHelpers
@@ -82,8 +82,7 @@ shared_examples 'app' do |webdriver_url|
         flaky['imgur'] = link
         @failing_tests[example.description] = flaky
       end
-      # print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: #{console_logs}]"
-      print " [Test #{example.description} failed! Check screenshot at #{link} and browser console output: ]"
+      print "[Test #{example.description} failed! Check screenshot at #{link}"
     end
   end
 

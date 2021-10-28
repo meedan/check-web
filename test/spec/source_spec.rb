@@ -68,7 +68,7 @@ shared_examples 'source' do
     # Create source annotation
     expect(@driver.page_source.include?('No metadata fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_team_data_field(tab_class: '.metadata-tab__source', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my source annotation')
+    create_annotation(tab_class: '.metadata-tab__source', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my source annotation')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     expect(@driver.page_source.include?('my source annotation')).to be(true)
     # api_create_team_project_and_link 'https://www.cnnbrasil.com.br/'
@@ -78,7 +78,7 @@ shared_examples 'source' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.media')
     @driver.manage.window.maximize
-    #create source
+    # create source
     wait_for_selector('.media-tab__source').click
     expect(@driver.page_source.include?('BBC')).to be(false)
     wait_for_selector("//span[contains(text(), 'Create new')]", :xpath).click
