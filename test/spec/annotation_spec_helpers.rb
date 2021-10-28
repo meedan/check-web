@@ -36,7 +36,7 @@ module AnnotationSpecHelpers
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
- end
+  end
 
   def answer_annotation(params = {})
     if params[:task_type_class] == '.edit-task-dialog__menu-item-single_choice' || params[:task_type_class] == '.edit-task-dialog__menu-item-multiple_choice'
