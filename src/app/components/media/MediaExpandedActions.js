@@ -113,6 +113,7 @@ const ExtraMediaActions = ({
         />
         { allowsReverseSearch ?
           <MenuItem
+            id="media-expanded-actions__reverse-image-search"
             onClick={() => handleMenuAndClose(reverseImageSearchGoogle)}
           >
             <ListItemIcon>
@@ -140,6 +141,7 @@ const ExtraMediaActions = ({
           </MenuItem> : null }
         { allowsVideoAnnotation ?
           <MenuItem
+            id="media-expanded-actions__timeline"
             disabled={showVideoAnnotation}
             onClick={() => handleMenuAndClose(onVideoAnnoToggle)}
           >
