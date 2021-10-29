@@ -101,6 +101,7 @@ const ExtraMediaActions = ({
               <FormattedMessage
                 id="mediaMetadata.download"
                 defaultMessage="Download"
+                description="Menu option for downloading the original file of current item"
               />
             </ExternalLink>
           </MenuItem> : null }
@@ -108,6 +109,7 @@ const ExtraMediaActions = ({
           projectMediaId={projectMedia.id}
           projectMediaType={projectMedia.media.type}
           transcription={projectMedia.transcription}
+          onClick={() => setAnchorEl(null)}
         />
         { allowsReverseSearch ?
           <MenuItem
@@ -147,6 +149,7 @@ const ExtraMediaActions = ({
             <FormattedMessage
               id="mediaMetadata.Timeline"
               defaultMessage="Timeline"
+              description="Menu options for displaying the video timeline tray"
             />
           </MenuItem> : null }
         <OcrButton
@@ -168,7 +171,9 @@ const ExtraMediaActions = ({
         <MenuItem onClick={() => handlePlaybackRateChange(0.25)}>0.25x</MenuItem>
         <MenuItem onClick={() => handlePlaybackRateChange(0.5)}>0.5x</MenuItem>
         <MenuItem onClick={() => handlePlaybackRateChange(0.75)}>0.75x</MenuItem>
-        <MenuItem onClick={() => handlePlaybackRateChange(1)}><FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" /></MenuItem>
+        <MenuItem onClick={() => handlePlaybackRateChange(1)}>
+          <FormattedMessage id="media.normalSpeed" defaultMessage="Normal speed" description="Sets video playback rate to original 1x speed" />
+        </MenuItem>
         <MenuItem onClick={() => handlePlaybackRateChange(1.25)}>1.25x</MenuItem>
         <MenuItem onClick={() => handlePlaybackRateChange(1.5)}>1.5x</MenuItem>
         <MenuItem onClick={() => handlePlaybackRateChange(1.75)}>1.75x</MenuItem>

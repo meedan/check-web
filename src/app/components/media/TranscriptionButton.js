@@ -11,9 +11,9 @@ import { withSetFlashMessage } from '../FlashMessage';
 const TranscriptionButton = ({
   projectMediaId,
   projectMediaType,
-  // classes,
   transcription,
   setFlashMessage,
+  onClick,
 }) => {
   const [pending, setPending] = React.useState(false);
 
@@ -70,6 +70,7 @@ const TranscriptionButton = ({
         handleError();
       },
     });
+    onClick();
   };
 
   if (projectMediaType !== 'UploadedAudio' && projectMediaType !== 'UploadedVideo') {
@@ -101,15 +102,14 @@ const TranscriptionButton = ({
 };
 
 TranscriptionButton.defaultProps = {
-  // classes: null,
   transcription: null,
 };
 
 TranscriptionButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   projectMediaType: PropTypes.string.isRequired,
-  // classes: PropTypes.any,
   transcription: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 

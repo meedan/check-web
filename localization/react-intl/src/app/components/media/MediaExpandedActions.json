@@ -16,6 +16,7 @@
   },
   {
     "id": "mediaMetadata.download",
+    "description": "Menu option for downloading the original file of current item",
     "defaultMessage": "Download"
   },
   {
@@ -30,10 +31,12 @@
   },
   {
     "id": "mediaMetadata.Timeline",
+    "description": "Menu options for displaying the video timeline tray",
     "defaultMessage": "Timeline"
   },
   {
     "id": "media.normalSpeed",
+    "description": "Sets video playback rate to original 1x speed",
     "defaultMessage": "Normal speed"
   }
 ]
