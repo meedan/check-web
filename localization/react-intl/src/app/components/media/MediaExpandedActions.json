@@ -15,8 +15,8 @@
     "defaultMessage": "Audio actions"
   },
   {
-    "id": "mediaMetadata.Timeline",
-    "defaultMessage": "Timeline"
+    "id": "mediaMetadata.download",
+    "defaultMessage": "Download"
   },
   {
     "id": "mediaMetadata.ImageSearch",
@@ -24,7 +24,16 @@
     "defaultMessage": "Reverse image search"
   },
   {
-    "id": "mediaMetadata.download",
-    "defaultMessage": "Download"
+    "id": "mediaMetadata.playbackSpeed",
+    "description": "Menu option for altering playback speed of video/audio clip",
+    "defaultMessage": "Playback speed"
+  },
+  {
+    "id": "mediaMetadata.Timeline",
+    "defaultMessage": "Timeline"
+  },
+  {
+    "id": "media.normalSpeed",
+    "defaultMessage": "Normal speed"
   }
 ]

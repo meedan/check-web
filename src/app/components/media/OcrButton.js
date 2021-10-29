@@ -13,6 +13,7 @@ const OcrButton = ({
   projectMediaType,
   hasExtractedText,
   setFlashMessage,
+  onClick,
 }) => {
   const [pending, setPending] = React.useState(false);
 
@@ -69,6 +70,7 @@ const OcrButton = ({
         handleError();
       },
     });
+    onClick();
   };
 
   if (projectMediaType !== 'UploadedImage' || hasExtractedText) {
@@ -107,6 +109,7 @@ OcrButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   projectMediaType: PropTypes.string.isRequired,
   hasExtractedText: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 

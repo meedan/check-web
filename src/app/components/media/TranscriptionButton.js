@@ -93,7 +93,7 @@ const TranscriptionButton = ({
         /> :
         <FormattedMessage
           id="transcriptionButton.label"
-          defaultMessage="Transcribe audio"
+          defaultMessage="Transcription"
           description="Button label - when this button is clicked, transcription operation starts"
         /> }
     </MenuItem>
