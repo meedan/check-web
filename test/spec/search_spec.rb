@@ -177,7 +177,7 @@ shared_examples 'search' do
     expect(card == 1).to be(true)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
     current_window = @driver.window_handles.last
-    wait_for_selector("#media-expanded-actions__menu").click
+    wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector("#media-expanded-actions__reverse-image-search").click
     @driver.switch_to.window(@driver.window_handles.last)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(false)

@@ -3,7 +3,7 @@ shared_examples 'videotimeline' do
     api_create_team_project_and_link_and_redirect_to_media_page 'https://www.youtube.com/watch?v=em8gwDcjPzU'
     @driver.manage.window.maximize
     wait_for_selector('.media-detail')
-    wait_for_selector("#media-expanded-actions__menu").click
+    wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector("#media-expanded-actions__timeline").click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
     expect(@driver.page_source.include?('Timeline')).to be(true)
@@ -21,7 +21,7 @@ shared_examples 'videotimeline' do
     wait_for_selector('.media-tab__comments').click
     wait_for_selector('.annotation__card-content')
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
-    wait_for_selector("#media-expanded-actions__menu").click
+    wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector("#media-expanded-actions__timeline").click
     wait_for_selector('div[data-testid=entities-tags]')
     wait_for_selector('.rc-slider-mark-text').click
@@ -45,7 +45,7 @@ shared_examples 'videotimeline' do
     @driver.manage.window.maximize
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my videotag')).to be(false)
-    wait_for_selector("#media-expanded-actions__menu").click
+    wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector("#media-expanded-actions__timeline").click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
     expect(@driver.page_source.include?('Timeline')).to be(true)
@@ -57,7 +57,7 @@ shared_examples 'videotimeline' do
     wait_for_selector("//p[contains(text(), 'my videotag')]", :xpath)
     wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
     wait_for_selector('.MuiChip-icon')
-    wait_for_selector("#media-expanded-actions__menu")
+    wait_for_selector('#media-expanded-actions__menu')
     expect(@driver.page_source.include?('my videotag')).to be(true) # check the videotag appears on the page
     wait_for_selector('.MuiChip-icon').click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
