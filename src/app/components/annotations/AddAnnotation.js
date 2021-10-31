@@ -39,7 +39,7 @@ class AddAnnotation extends Component {
     super(props);
 
     this.state = {
-      cmd: props.cmdText,
+      cmd: props.cmdText ? props.cmdText : '',
       file: null,
       message: null,
       isSubmitting: false,
@@ -390,7 +390,7 @@ class AddAnnotation extends Component {
           />
           {this.state.fileMode ? (
             <UploadFile
-              type="file"
+              type="image"
               value={this.state.file}
               onChange={this.onFileChange}
               onError={this.onFileError}
