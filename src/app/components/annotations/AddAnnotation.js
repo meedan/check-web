@@ -414,6 +414,7 @@ class AddAnnotation extends Component {
             <Button
               color="primary"
               type="submit"
+              id="add-annotation_submit"
               variant="contained"
               disabled={!this.state.canSubmit}
             >
