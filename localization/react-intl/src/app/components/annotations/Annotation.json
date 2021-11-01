@@ -48,6 +48,10 @@
     "defaultMessage": "Annotation actions"
   },
   {
+    "id": "annotation.editButton",
+    "defaultMessage": "Edit"
+  },
+  {
     "id": "annotation.deleteButton",
     "defaultMessage": "Delete"
   },
