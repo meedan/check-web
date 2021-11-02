@@ -4,7 +4,7 @@ shared_examples 'videotimeline' do
     @driver.manage.window.maximize
     wait_for_selector('.media-detail')
     wait_for_selector('#media-expanded-actions__menu').click
-    wait_for_selector("#media-expanded-actions__timeline").click
+    wait_for_selector('#media-expanded-actions__timeline').click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
     expect(@driver.page_source.include?('Timeline')).to be(true)
     # add a note
@@ -22,7 +22,7 @@ shared_examples 'videotimeline' do
     wait_for_selector('.annotation__card-content')
     expect(@driver.page_source.include?('my note')).to be(true) # check the video note appears on the note tab
     wait_for_selector('#media-expanded-actions__menu').click
-    wait_for_selector("#media-expanded-actions__timeline").click
+    wait_for_selector('#media-expanded-actions__timeline').click
     wait_for_selector('div[data-testid=entities-tags]')
     wait_for_selector('.rc-slider-mark-text').click
     # add a new note
@@ -46,7 +46,7 @@ shared_examples 'videotimeline' do
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my videotag')).to be(false)
     wait_for_selector('#media-expanded-actions__menu').click
-    wait_for_selector("#media-expanded-actions__timeline").click
+    wait_for_selector('#media-expanded-actions__timeline').click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
     expect(@driver.page_source.include?('Timeline')).to be(true)
     # add a videotag
