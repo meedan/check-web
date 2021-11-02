@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import Avatar from '@material-ui/core/Avatar';
 import LaunchIcon from '@material-ui/icons/Launch';
 import styled from 'styled-components';
+import '../../styles/css/tooltip.css';
 import { LocalizedRole } from './UserUtil';
 import ParsedText from '../ParsedText';
 import SocialIcon from '../SocialIcon';

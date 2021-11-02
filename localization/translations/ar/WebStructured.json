@@ -175,6 +175,10 @@
 		"string": "إضافة تصفية",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotation": {
+		"string": "التفسيرات",
+		"developer_comment": "Menu option to enable searching items by annotation fields"
+	},
 	"addFilterMenu.assignedTo": {
 		"string": "التخصيصات",
 		"developer_comment": "Menu option to enable searching items by assigned users"
@@ -186,6 +190,10 @@
 	"addFilterMenu.collection": {
 		"string": "المجموعة",
 		"developer_comment": "Menu option to enable searching items by collection"
+	},
+	"addFilterMenu.country": {
+		"string": "Country",
+		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
 		"string": "تم الإنشاء بواسطة",
@@ -200,7 +208,7 @@
 		"developer_comment": "Menu option to enable searching items by folder"
 	},
 	"addFilterMenu.itemRead": {
-		"string": "Item read/unread",
+		"string": "العنصر مقروء/غير مقروء",
 		"developer_comment": "Menu option to enable searching items by item read/unread"
 	},
 	"addFilterMenu.itemStatus": {
@@ -214,10 +222,6 @@
 	"addFilterMenu.mediaType": {
 		"string": "نوع المادة الإعلامية",
 		"developer_comment": "Menu option to enable searching items by media type"
-	},
-	"addFilterMenu.metadata": {
-		"string": "البيانات الوصفيّة",
-		"developer_comment": "Menu option to enable searching items by metadata fields"
 	},
 	"addFilterMenu.reportStatus": {
 		"string": "حالة التقرير",
@@ -521,15 +525,9 @@
 	"bulkActions.dialogMoveTitle": {
 		"string": "{selectedCount, plural, zero {لن يُنقَل أي عنصر} one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصرا إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
 	},
-	"bulkActions.move": {
-		"string": "نقل ‏‏العناصر المحددة إلى مجلد آخر"
-	},
 	"bulkActions.moveTitle": {
 		"string": "نقل إلى مجلد",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
-	},
-	"bulkActions.moveTo": {
-		"string": "نقل إلى..."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "تم إرسال العناصر إلى سلة المهملات."
@@ -557,6 +555,74 @@
 	},
 	"bulkActions.unconfirmed": {
 		"string": "يرجى تأكيد تحديد العناصر ونقلها إلى مجلد آخر"
+	},
+	"bulkActionsAssign.assignmentNotes": {
+		"string": "Add a note to email notification",
+		"developer_comment": "Field for adding complementary information for the assignee"
+	},
+	"bulkActionsAssign.notFound": {
+		"string": "No members found",
+		"developer_comment": "Displayed when no member names match search input"
+	},
+	"bulkActionsAssign.submitLabel": {
+		"string": "{numItems, plural, one {Assign 1 item} other {Assign # items}}",
+		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
+	},
+	"bulkActionsAssign.success": {
+		"string": "Items assigned successfully",
+		"developer_comment": "Success message for bulk assignment action"
+	},
+	"bulkActionsMenu.action": {
+		"string": "‏‏الإجراء",
+		"developer_comment": "Button for popping the actions menu. User has to pick which action to perform upon currently selected items."
+	},
+	"bulkActionsMenu.assign": {
+		"string": "تخصيص",
+		"developer_comment": "Menu option for bulk assigning selected items"
+	},
+	"bulkActionsMenu.changeStatus": {
+		"string": "Change status",
+		"developer_comment": "Menu option for bulk changing statuses of selected items"
+	},
+	"bulkActionsMenu.moveToFolder": {
+		"string": "نقل إلى مجلد",
+		"developer_comment": "Menu option for bulk moving selected items into a folder"
+	},
+	"bulkActionsMenu.tag": {
+		"string": "الوسم",
+		"developer_comment": "Menu option for bulk tagging selected items"
+	},
+	"bulkActionsMove.notFound": {
+		"string": "No folders found",
+		"developer_comment": "Displayed when no folder names match search input"
+	},
+	"bulkActionsMove.submitLabel": {
+		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
+		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
+	},
+	"bulkActionsStatus.dialogBody": {
+		"string": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}",
+		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
+	},
+	"bulkActionsStatus.dialogTitle": {
+		"string": "Some statuses could not be changed",
+		"developer_comment": "Title of dialog warning after bulk updating item statuses"
+	},
+	"bulkActionsStatus.submitLabel": {
+		"string": "{numItems, plural, one {Set status of 1 item} other {Set status of # items}}",
+		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
+	},
+	"bulkActionsStatus.success": {
+		"string": "Item statuses changed successfully",
+		"developer_comment": "Success message for bulk status change action"
+	},
+	"bulkActionsTag.submitLabel": {
+		"string": "{numItems, plural, one {Tag 1 item} other {Tag # items}}",
+		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
+	},
+	"bulkActionsTag.success": {
+		"string": "Items tagged successfully",
+		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"changeMediaSource.cancelButton": {
 		"string": "إلغاء",
@@ -690,7 +756,7 @@
 		"string": "رابط مساحة العمل"
 	},
 	"createTeamTask.addField": {
-		"string": "New annotation field",
+		"string": "إضافة حقل تفسير جديد",
 		"developer_comment": "Button that triggers creation of a new field"
 	},
 	"createTeamTask.addTask": {
@@ -1245,7 +1311,7 @@
 		"string": "لا توجد ملحوظة"
 	},
 	"mediaComponent.annotation": {
-		"string": "Annotation"
+		"string": "التفسير"
 	},
 	"mediaComponent.answered": {
 		"string": "تم اكمالها"
@@ -1288,8 +1354,20 @@
 		"string": "لا يوجد نص مستخلص من هذه الصورة",
 		"developer_comment": "Label when text extracted from an image is not available"
 	},
+	"mediaExpanded.noTranscription": {
+		"string": "No audio transcribed from this media",
+		"developer_comment": "Label when transcription is not (yet) available"
+	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, zero {لا وجود لأي طلب} one {طلب واحد} two {طلبان} few {# طلبات} many {# طلبا} other {# طلبٍ}}"
+	},
+	"mediaExpanded.transcriptionCompleted": {
+		"string": "Audio transcribed from media:",
+		"developer_comment": "Label for transcription from audio or video"
+	},
+	"mediaExpanded.transcriptionInProgress": {
+		"string": "Audio transcription in progress…",
+		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
 		"string": "الأرشيفات:"
@@ -1514,6 +1592,10 @@
 		"string": "إلغاء",
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
 	},
+	"metadata.couldNotSave": {
+		"string": "Could not save, missing required field",
+		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
+	},
 	"metadata.delete": {
 		"string": "حذف",
 		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
@@ -1541,6 +1623,18 @@
 	"metadata.file.wrongType": {
 		"string": "نوع هذا الملف غير مقبول. أنواع الملفات المقبولة تشمل: {extensions}. يرجى المحاولة مرة أخرى باستخدام ملف آخر.",
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
+	},
+	"metadata.form.cancel": {
+		"string": "Cancel changes",
+		"developer_comment": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form."
+	},
+	"metadata.form.edit": {
+		"string": "تحرير",
+		"developer_comment": "This is a label on a button that the user presses in order to edit the items in the attached form."
+	},
+	"metadata.form.save": {
+		"string": "حفظ",
+		"developer_comment": "This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form."
 	},
 	"metadata.location.coordinates": {
 		"string": "خط العرض، خط الطول",
@@ -1909,6 +2003,10 @@
 	"projectsComponent.title": {
 		"string": "العنوان"
 	},
+	"projectsComponent.trends": {
+		"string": "Trends (Beta)",
+		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
+	},
 	"reportDesigner.addIntro": {
 		"string": "إضافة محتوى إلى المقدمة"
 	},
@@ -2224,7 +2322,7 @@
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveList.updateTiplineInbox": {
-		"string": "Save changes to the list",
+		"string": "حفظ التغييرات في القائمة",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
 	"saveTag.couldNotSave": {
@@ -2256,6 +2354,10 @@
 	"savedSearch.name": {
 		"string": "القائمة"
 	},
+	"search": {
+		"string": "بحث",
+		"developer_comment": "This is a label on a button that the user presses in order to execute a search query."
+	},
 	"search.afterDate": {
 		"string": "بعد",
 		"developer_comment": "String displayed before a date picker"
@@ -2282,6 +2384,10 @@
 	"search.beforeDate": {
 		"string": "وقبل",
 		"developer_comment": "String displayed between after and before date pickers"
+	},
+	"search.cancel": {
+		"string": "إلغاء",
+		"developer_comment": "A label on a button that lets a user cancel typing search text, deleting the text in the process."
 	},
 	"search.categoriesHeading": {
 		"string": "الوسم هو",
@@ -2311,12 +2417,16 @@
 		"string": "أو",
 		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
+	"search.file": {
+		"string": "Search with file",
+		"developer_comment": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
+	},
 	"search.folderHeading": {
 		"string": "المجلد هو",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
-		"string": "<table>\n                      <tbody>\n                        <tr><td>+</td><td>شجرة + ورقة</td><td>العناصر التي فيها الشجرة و الورقة معا</td></tr>\n                        <tr><td>|</td><td>شجرة | ورقة</td><td>العناصر التي فيها الشجرة أو الورقة، أو هما معا</td></tr>\n                        <tr><td>()</td><td>شجرة + (ورقة | غصن)</td><td>العناصر التي فيها الشجرة و الورقة أو فيها الشجرة و الغصن</td></tr>\n                      </tbody>\n                    </table>\n                    <div>\n                      <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                        تعرف على المزيد من أساليب البحث\n                      </a>\n                    </div>",
+		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Learn more about search techniques\n                          </a>\n                        </div>",
 		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
@@ -2342,19 +2452,23 @@
 		"string": "خالٍ",
 		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
+	"search.noResults": {
+		"string": "لم يتم العثور على نتائج.",
+		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
+	},
 	"search.notInAny": {
 		"string": "ليس في أي مجموعة",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "أو",
-		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+		"string": "OR",
+		"developer_comment": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
 	},
 	"search.previousPage": {
 		"string": "الصفحة السابقة"
 	},
 	"search.read": {
-		"string": "Item is",
+		"string": "العنصر هو",
 		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.reportStatus": {
@@ -2372,6 +2486,10 @@
 	"search.reportStatusUnpublished": {
 		"string": "غير منشور",
 		"developer_comment": "Refers to a report status"
+	},
+	"search.setText": {
+		"string": "Set text",
+		"developer_comment": "A label on a button that lets a user set the text on an associated popup to the original input field."
 	},
 	"search.show": {
 		"string": "النوع هو",
@@ -2429,6 +2547,10 @@
 		"string": "يدوي",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
+	"searchFieldCountry.label": {
+		"string": "Country is",
+		"developer_comment": "Prefix label for field to filter by country"
+	},
 	"searchFieldSource.label": {
 		"string": "المصدر هو",
 		"developer_comment": "Prefix label for field to filter by source"
@@ -2463,6 +2585,10 @@
 	"searchKeywordConfig.analysisTitle": {
 		"string": "عنوان التحليل"
 	},
+	"searchKeywordConfig.annotation": {
+		"string": "التفسيرات",
+		"developer_comment": "Header before a listing of annotation options"
+	},
 	"searchKeywordConfig.item": {
 		"string": "العنصر"
 	},
@@ -2475,9 +2601,6 @@
 	"searchKeywordConfig.mediaUrl": {
 		"string": "رابط المادة الإعلامية"
 	},
-	"searchKeywordConfig.metadata": {
-		"string": "البيانات الوصفيّة"
-	},
 	"searchKeywordConfig.ocr": {
 		"string": "النص المستخلص (OCR)"
 	},
@@ -2485,7 +2608,8 @@
 		"string": "الوسوم"
 	},
 	"searchKeywordConfig.tasks": {
-		"string": "المهام"
+		"string": "المهام",
+		"developer_comment": "Header before a listing of task options"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
@@ -2703,7 +2827,7 @@
 		"string": "قائمة اختيارية تطلب من المستخدمين الاختيار بين مجموعة من الخيارات. عندما يرد المستخدمين بأحد الخيارات، يستطيع البوت إرسال تقرير أو توجيه المستخدم إلى رسالة بوت أخرى."
 	},
 	"smoochBot.descriptionSubscription": {
-		"string": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
+		"string": "يٌرجى القيام بدعاية تظهر فيها أهمية رسالتك الإخبارية للمستخدمين. سيستلم رسالتك الإخبارية تلقائيا كل المستخدمين المشتركين فيها."
 	},
 	"smoochBot.footnoteGreeting": {
 		"string": "ستتم إضافة البيان والخيار التاليان إلى نهاية الرسالة تلقائياً: 'لن نقوم بمشاركة معلومات شخصية تحدد هويتك أبداً. يرجى الرد بِ 9 لقراءة بيان الخصوصية والغرض'."
@@ -2772,7 +2896,7 @@
 		"string": "يُرجى كتابة رسالتك الإخبارية. يمكنك إضافة محتوى من موجز RSS بالأسفل."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Type in to add content"
+		"string": "يٌرجى الكتابة هنا لإضافة محتوى ما"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖أنا آسف، لم أفهم رسالتك. يرجى المحاولة ثانية!"
@@ -2982,7 +3106,7 @@
 		"string": " لا يبدو أن هذا الرابط لموجز RSS صحيح"
 	},
 	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. Select a day and time of the week",
+		"string": "1. تحديد يوم وساعة معينة في الأسبوع",
 		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
 	},
 	"smoochBotNewsletterEditor.friday": {
@@ -2995,16 +3119,16 @@
 		"string": "الاثنين"
 	},
 	"smoochBotNewsletterEditor.none": {
-		"string": "Please complete the steps below to send a weekly newsletter"
+		"string": "يرجى إكمال الخطوات بالأسفل لإرسال رسالة إخبارية أسبوعية"
 	},
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "عدد المقالات المطلوبة"
 	},
 	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "Number of bullet points"
+		"string": "عدد العناوين الإخبارية"
 	},
 	"smoochBotNewsletterEditor.paused": {
-		"string": "To send your next newsletter, please add new content"
+		"string": "يُرجى إضافة محتوى جديد، لكي يتم إرسال رسالتك الإخبارية اللاحقة"
 	},
 	"smoochBotNewsletterEditor.rssPlaceholder": {
 		"string": "الرابط العمومي الذي يعطي عددا من المقالات بصيغة RSS"
@@ -3013,11 +3137,11 @@
 		"string": "السبت"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. Add content manually, or via RSS Feed.",
+		"string": "2. إضافة المحتوى يدويا أو من خلال موجز RSS.",
 		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "If the content is not changed between two scheduled sendouts, it will not be sent."
+		"string": "إذا جاء وقت إرسال الرسالة، ولم يتم تغيير المحتوى المُرسَل في الرسالة السابقة، فلن يتم إرسالها."
 	},
 	"smoochBotNewsletterEditor.sendEvery": {
 		"string": "إرسال في يوم",
@@ -3026,8 +3150,11 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "الأحد"
 	},
-	"smoochBotNewsletterEditor.templateHeaderNoRss": {
-		"string": "You are receiving this message because you opted to receive our 'Weekly COVID-19 Facts' Newsletter. Here is the most important information for the week of {date}:"
+	"smoochBotNewsletterEditor.templateHeader": {
+		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+	},
+	"smoochBotNewsletterEditor.templateHeaderRss": {
+		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "الخميس"
@@ -3036,14 +3163,14 @@
 		"string": "الوقت"
 	},
 	"smoochBotNewsletterEditor.timezone": {
-		"string": "Time zone",
+		"string": "المنطقة الزمنية",
 		"developer_comment": "Label for time zone selection"
 	},
 	"smoochBotNewsletterEditor.title": {
-		"string": "Compose your newsletter"
+		"string": "كتابة الرسالة الإخبارية"
 	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Automatically update content using an RSS feed"
+		"string": "تحديث المحتوى تلقائيا باستخدام موجز RSS"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "الثلاثاء"
@@ -3262,6 +3389,9 @@
 	"tagMenu.notFound": {
 		"string": "‏‏لم يعثر على وسوم"
 	},
+	"tagMenu.search": {
+		"string": "بحث..."
+	},
 	"tagMenu.submit": {
 		"string": "الوسم",
 		"developer_comment": "Verb, infinitive form. Button to commit action of tagging an item"
@@ -3364,18 +3494,18 @@
 		"string": "تحديد واحد"
 	},
 	"tasks.chooseType": {
-		"string": "Choose a field type",
+		"string": "تحديد نوع الحقل",
 		"developer_comment": "Label for field type selection box"
 	},
 	"tasks.dateTimeType": {
-		"string": "التاريخ والزمن",
+		"string": "التاريخ والتوقيت",
 		"developer_comment": "Label for datetime type field"
 	},
 	"tasks.datetime": {
 		"string": "التاريخ والزمن"
 	},
 	"tasks.datetimeDescription": {
-		"string": "Allows you to pick a date and time from the calendar",
+		"string": "يتيح لك اختيار تاريخ وتوقيت محدد انطلاقا من التقويم",
 		"developer_comment": "Description for datetime type field"
 	},
 	"tasks.description": {
@@ -3391,7 +3521,7 @@
 		"string": "رفع الملف"
 	},
 	"tasks.fileUploadDescription": {
-		"string": "Allows you to upload a file",
+		"string": "يتيح لك رفع ملف",
 		"developer_comment": "Description for file upload type field"
 	},
 	"tasks.fileUploadType": {
@@ -3405,7 +3535,7 @@
 		"string": "إلى الإعدادات"
 	},
 	"tasks.locationDescription": {
-		"string": "Allows you to add coordinates of a place, or search a place by name",
+		"string": "يتيح لك إضافة إحداثيات موقع معين أو البحث عن مكان باسمه",
 		"developer_comment": "Description for location type field"
 	},
 	"tasks.locationType": {
@@ -3413,7 +3543,7 @@
 		"developer_comment": "Label for location type field"
 	},
 	"tasks.multipleChoiceDescription": {
-		"string": "Allows you to select one or more predefined options",
+		"string": "يتيح لك تحديد اختيار أو أكثر انطلاقا من الخيارات المُعرَّفة مسبقا",
 		"developer_comment": "Description for multiple selection type field"
 	},
 	"tasks.multipleChoiceType": {
@@ -3425,7 +3555,7 @@
 		"developer_comment": "Label for a task type that requires a numeric value as answer"
 	},
 	"tasks.numberDescription": {
-		"string": "Allows you to enter a number",
+		"string": "يتيح لك كتابة عدد ما",
 		"developer_comment": "Description for number type field"
 	},
 	"tasks.numberType": {
@@ -3436,22 +3566,22 @@
 		"string": "نص"
 	},
 	"tasks.shortTextDescription": {
-		"string": "Allows you to enter text",
+		"string": "يتيح لك كتابة نص ما",
 		"developer_comment": "Description for text type field"
 	},
 	"tasks.showIfCondition": {
-		"string": "Show field when condition is met",
+		"string": "إظهار الحقل عند تحقق الشرط",
 		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
 	},
 	"tasks.showInProj": {
 		"string": "عرض المهام في"
 	},
 	"tasks.singleChoiceDescription": {
-		"string": "Allows you to select a single option from predefined options in a list",
+		"string": "يتيح لك تحديد اختيار أو أكثر انطلاقا من الخيارات المُعرَّفة مسبقا في قائمة",
 		"developer_comment": "Description for single selection type field"
 	},
 	"tasks.singleChoiceType": {
-		"string": "تحديد واحد",
+		"string": "تحديد وحيد",
 		"developer_comment": "Label for single selection type field"
 	},
 	"tasks.taskPrompt": {
@@ -3661,19 +3791,19 @@
 		"developer_comment": "Text for empty metadata"
 	},
 	"teamMetadataRender.itemTitle": {
-		"string": "Item annotation form",
+		"string": "استمارة تفسيرات العنصر",
 		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to items generally, not any specific item or items."
 	},
 	"teamMetadataRender.metadataItemSubtitle": {
-		"string": "Create dynamic forms to annotate items by adding fields.",
+		"string": "إضافة حقول لتكوين نماذج ديناميكية للتعقيب على العناصر.",
 		"developer_comment": "Subtitle for annotation settings screen applied to Items"
 	},
 	"teamMetadataRender.metadataSourceSubtitle": {
-		"string": "Create dynamic forms to annotate sources by adding fields.",
+		"string": "إضافة حقول لتكوين نماذج ديناميكية للتعقيب على المصادر.",
 		"developer_comment": "Subtitle for annotation settings screen applied to Sources"
 	},
 	"teamMetadataRender.sourceTitle": {
-		"string": "Source annotation form",
+		"string": "استمارة تعقيبات المصدر",
 		"developer_comment": "Title for annotation settings screen. Refers to annotation applied to sources generally, not any specific source or sources."
 	},
 	"teamReportComponent.defaultErrorMessage": {
@@ -3753,7 +3883,7 @@
 		"string": "الأعضاء"
 	},
 	"teamSettings.metadata": {
-		"string": "Annotation",
+		"string": "التفسيرات",
 		"developer_comment": "Label for annotation settings tab"
 	},
 	"teamSettings.report": {
@@ -3880,8 +4010,12 @@
 		"developer_comment": "Title for the tags settings page"
 	},
 	"teamTaskCard.menu": {
-		"string": "Field {number}",
+		"string": "‫الحقل {number}",
 		"developer_comment": "E.g. Field 1, Field 2..."
+	},
+	"teamTaskCard.required": {
+		"string": "إجباري",
+		"developer_comment": "Toggle switch to make field required"
 	},
 	"teamTaskCard.showInBrowserExtension": {
 		"string": "إظهار في امتداد المتصفح",
@@ -3898,11 +4032,11 @@
 		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
-		"string": "{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}",
+		"string": "{itemsNumber, plural, zero {‫لا توجد عناصر فيها الحقل {fieldLabel}.} one {‫تم الانتهاء من الحقل {fieldLabel} في عنصر واحد.} two {‫تم الانتهاء من الحقل {fieldLabel} في عنصرين.} few {‫تم الانتهاء من الحقل {fieldLabel} في # عناصر.} many {‫تم الانتهاء من الحقل {fieldLabel} في # عنصرا.} other {‫تم الانتهاء من الحقل {fieldLabel} في # عنصر.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
-		"string": "Are you sure you want to delete this field?"
+		"string": "هل أنت على يقين من حذف هذا الحقل؟"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
 		"string": "هل أنت متأكد(ة) من حذف هذه المهمة؟"
@@ -3912,7 +4046,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
 	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
-		"string": "Keep this field with answers in items where it has been completed.",
+		"string": "الإبقاء على هذا الحقل بإجاباته في العناصر التي تم الانتهاء منها.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
@@ -3920,11 +4054,11 @@
 		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
-		"string": "Related item fields will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"string": "سيتم تعديل حقول العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم انتهاء منها بالفعل.",
 		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "Are you sure you want to edit this field?"
+		"string": "هل أنت على يقين من تحرير هذا الحقل؟"
 	},
 	"teamTasks.confirmEditTaskTitle": {
 		"string": "هل أنت متأكد(ة) من تحرير هذه المهمة؟"
@@ -3934,17 +4068,17 @@
 		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
 	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
-		"string": "Do not alter fields that have been completed, and keep their existing answers.",
+		"string": "يُرجى عدم إلحاق أي تغيير على الحقول المكتملة، كما يجب الاحتفاظ بإجاباتها الحالية.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
 		"string": "تحرير المهمة"
 	},
 	"teamTasks.continueMetadata": {
-		"string": "Edit field"
+		"string": "تحرير الحقل"
 	},
 	"teamTasks.deleteMetadata": {
-		"string": "Delete field"
+		"string": "حذف الحقل"
 	},
 	"teamTasks.deleteTask": {
 		"string": "حذف المهمة"
@@ -4004,6 +4138,22 @@
 	"tos.title": {
 		"string": "شروط الاستخدام"
 	},
+	"transcriptionButton.defaultErrorMessage": {
+		"string": "Could not get transcription",
+		"developer_comment": "Warning displayed if an error occurred when transcribing an audio or video file"
+	},
+	"transcriptionButton.inProgress": {
+		"string": "Requesting transcription…",
+		"developer_comment": "Message displayed when transcription operation hasn't started yet"
+	},
+	"transcriptionButton.label": {
+		"string": "Transcribe audio",
+		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
+	},
+	"transcriptionButton.textExtractedSuccessfully": {
+		"string": "Transcription started, please come back in a few seconds to see it",
+		"developer_comment": "Banner displayed when transcription operation starts"
+	},
 	"translateStatuses.continueAndSave": {
 		"string": "متابعة و حفظ"
 	},
@@ -4024,6 +4174,9 @@
 	},
 	"trash.title": {
 		"string": "سلة المهملات"
+	},
+	"trends.title": {
+		"string": "Trends"
 	},
 	"unconfirmed.title": {
 		"string": "غير مؤكد"
