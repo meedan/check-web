@@ -390,7 +390,7 @@ class AddAnnotation extends Component {
           />
           {this.state.fileMode ? (
             <UploadFile
-              type="image"
+              type="file"
               value={this.state.file}
               onChange={this.onFileChange}
               onError={this.onFileError}

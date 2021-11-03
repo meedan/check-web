@@ -4,7 +4,6 @@ import { FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
-import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
@@ -36,6 +35,7 @@ import {
   breakWordStyles,
   separationGray,
   Row,
+  checkBlue,
 } from '../../styles/js/shared';
 
 const StyledAnnotationCardWrapper = styled.div`
@@ -56,16 +56,11 @@ const StyledPrimaryColumn = styled.div`
 
   .annotation__card-content {
     ${breakWordStyles}
-    display: flex;
     width: 100%;
 
     & > span:first-child {
       flex: 1;
     }
-  }
-
-  .annotation__card-thumbnail {
-    padding: ${units(1)};
   }
 `;
 
@@ -103,19 +98,7 @@ const StyledAnnotationActionsWrapper = styled.div`
 class Comment extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      zoomedCommentImage: false,
-      editMode: false,
-    };
-  }
-
-  handleCloseCommentImage() {
-    this.setState({ zoomedCommentImage: false });
-  }
-
-  handleOpenCommentImage(image) {
-    this.setState({ zoomedCommentImage: image });
+    this.state = { editMode: false };
   }
 
   handleOpenMenu = (e) => {
@@ -226,36 +209,34 @@ class Comment extends Component {
     const contentTemplate = (
       <div>
         <div className="annotation__card-content">
-          { this.state.editMode ?
-            <AddAnnotation
-              cmdText={commentText}
-              editMode={this.state.editMode}
-              handleCloseEdit={this.handleCloseEdit}
-              annotated={annotated}
-              annotation={annotation}
-              annotatedType="ProjectMedia"
-              types={['comment']}
-            />
-            : <ParsedText text={commentText} />
-          }
-          {/* thumbnail */}
-          {commentContent.original ?
-            <div onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}>
-              <img
-                src={commentContent.thumbnail}
-                className="annotation__card-thumbnail"
-                alt=""
+          <div>
+            { this.state.editMode ?
+              <AddAnnotation
+                cmdText={commentText}
+                editMode={this.state.editMode}
+                handleCloseEdit={this.handleCloseEdit}
+                annotated={annotated}
+                annotation={annotation}
+                annotatedType="ProjectMedia"
+                types={['comment']}
               />
-            </div> : null}
+              : <ParsedText text={commentText} />
+            }
+          </div>
+          {/* comment file */}
+          {commentContent.file ?
+            <div>
+              <Box
+                component="a"
+                href={commentContent.file}
+                target="_blank"
+                rel="noreferrer noopener"
+                color={checkBlue}
+              >
+                {commentContent.file}
+              </Box>
+            </div> : null }
         </div>
-
-        {/* lightbox */}
-        {commentContent.original && !!this.state.zoomedCommentImage
-          ? <Lightbox
-            onCloseRequest={this.handleCloseCommentImage.bind(this)}
-            mainSrc={this.state.zoomedCommentImage}
-          />
-          : null}
       </div>
     );
 
