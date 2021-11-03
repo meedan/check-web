@@ -224,17 +224,17 @@ class Comment extends Component {
             }
           </div>
           {/* comment file */}
-          {commentContent.file ?
+          {commentContent.file_path ?
             <div>
               <Box
                 component="a"
-                href={commentContent.file}
+                href={commentContent.file_path}
                 target="_blank"
                 rel="noreferrer noopener"
                 color={checkBlue}
                 className="annotation__card-file"
               >
-                {commentContent.file}
+                {commentContent.file_name}
               </Box>
             </div> : null }
         </div>
