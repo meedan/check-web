@@ -1,0 +1,30 @@
+[
+  {
+    "id": "trendItem.lastSubmitted",
+    "description": "A label indicating that the following date is when an item was last submitted to the tip line",
+    "defaultMessage": "Last submitted"
+  },
+  {
+    "id": "trendItem.request",
+    "description": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'.",
+    "defaultMessage": "Request"
+  },
+  {
+    "id": "trendItem.requests",
+    "description": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'.",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "trendItem.main",
+    "description": "This is a header that indicates there is a primary claim the user is viewing, to distinguish it from secondary, similar claims",
+    "defaultMessage": "Main claim"
+  },
+  {
+    "id": "trendItem.media",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "trendItem.sortBy",
+    "defaultMessage": "Sort by"
+  }
+]

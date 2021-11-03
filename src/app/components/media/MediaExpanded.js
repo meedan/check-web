@@ -108,7 +108,7 @@ class MediaExpandedComponent extends Component {
   render() {
     const { classes } = this.props;
     const {
-      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady,
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, isTrends,
     } = this.props;
 
     const {
@@ -213,7 +213,7 @@ class MediaExpandedComponent extends Component {
           }
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
-          <MediaExpandedSecondRow projectMedia={media} />
+          <MediaExpandedSecondRow projectMedia={media} isTrends={isTrends} />
           { isImage ?
             <Box mb={2}>
               <TypographyBlack54 variant="body2" color={black54}>
@@ -248,14 +248,18 @@ class MediaExpandedComponent extends Component {
           <MediaExpandedMetadata projectMedia={media} />
           {embedCard}
         </CardContent>
-        <CardActions>
-          <MediaExpandedActions
-            onTimelineCommentOpen={onTimelineCommentOpen}
-            onVideoAnnoToggle={onVideoAnnoToggle}
-            showVideoAnnotation={showVideoAnnotation}
-            projectMedia={media}
-          />
-        </CardActions>
+        {
+          isTrends ? null : (
+            <CardActions>
+              <MediaExpandedActions
+                onTimelineCommentOpen={onTimelineCommentOpen}
+                onVideoAnnoToggle={onVideoAnnoToggle}
+                showVideoAnnotation={showVideoAnnotation}
+                projectMedia={media}
+              />
+            </CardActions>
+          )
+        }
       </React.Fragment>
     );
   }

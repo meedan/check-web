@@ -33,11 +33,13 @@ export default function SearchResultsTableRow({
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
 
+  const projectMediaOrTrendsUrl = resultType === 'trends' ? `/${projectMedia.team?.slug}/trends/media/${projectMedia.dbid}` : projectMediaUrl;
+
   const handleClick = React.useCallback(() => {
-    if (!projectMediaUrl) {
+    if (!projectMediaOrTrendsUrl) {
       return;
     }
-    browserHistory.push(projectMediaUrl);
+    browserHistory.push(projectMediaOrTrendsUrl);
   }, [projectMediaUrl]);
 
   const handleChangeChecked = React.useCallback((ev) => {
@@ -74,7 +76,7 @@ export default function SearchResultsTableRow({
           field={field}
           type={type}
           projectMedia={projectMedia}
-          projectMediaUrl={projectMediaUrl}
+          projectMediaUrl={projectMediaOrTrendsUrl}
         />
       ))}
     </TableRow>
