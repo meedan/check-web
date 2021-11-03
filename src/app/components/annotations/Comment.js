@@ -232,6 +232,7 @@ class Comment extends Component {
                 target="_blank"
                 rel="noreferrer noopener"
                 color={checkBlue}
+                className="annotation__card-file"
               >
                 {commentContent.file}
               </Box>
