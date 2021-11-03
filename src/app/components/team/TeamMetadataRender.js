@@ -91,7 +91,11 @@ function TeamMetadataRender({ team, about }) {
                 description="Subtitle for annotation settings screen applied to Sources"
               />
           }
-          helpUrl="https://help.checkmedia.org/en/articles/4346772-metadata"
+          helpUrl={
+            associatedType === 'ProjectMedia' ?
+              'https://help.checkmedia.org/en/articles/4346772-metadata' :
+              'https://help.checkmedia.org/en/articles/4837896-sources#h_bb2bd143fd'
+          }
           actionButton={
             <CreateTeamTask fieldset="metadata" associatedType={associatedType} team={team} />
           }

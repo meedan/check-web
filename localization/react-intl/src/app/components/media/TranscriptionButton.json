@@ -17,6 +17,6 @@
   {
     "id": "transcriptionButton.label",
     "description": "Button label - when this button is clicked, transcription operation starts",
-    "defaultMessage": "Transcribe audio"
+    "defaultMessage": "Transcription"
   }
 ]

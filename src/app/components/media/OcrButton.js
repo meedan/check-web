@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const OcrButton = ({
   projectMediaId,
   projectMediaType,
-  classes,
   hasExtractedText,
   setFlashMessage,
+  onClick,
 }) => {
   const [pending, setPending] = React.useState(false);
 
@@ -68,6 +70,7 @@ const OcrButton = ({
         handleError();
       },
     });
+    onClick();
   };
 
   if (projectMediaType !== 'UploadedImage' || hasExtractedText) {
@@ -75,14 +78,14 @@ const OcrButton = ({
   }
 
   return (
-    <Button
+    <MenuItem
       id="ocr-button__extract-text"
-      size="small"
-      classes={classes}
       onClick={handleClick}
-      variant="outlined"
       disabled={pending}
     >
+      <ListItemIcon>
+        <DescriptionOutlinedIcon />
+      </ListItemIcon>
       { pending ?
         <FormattedMessage
           id="ocrButton.inProgress"
@@ -91,23 +94,22 @@ const OcrButton = ({
         /> :
         <FormattedMessage
           id="ocrButton.label"
-          defaultMessage="Extract text from image"
+          defaultMessage="Image text extraction"
           description="Button label - when this button is clicked, text is extracted from image"
         /> }
-    </Button>
+    </MenuItem>
   );
 };
 
 OcrButton.defaultProps = {
-  classes: null,
   hasExtractedText: false,
 };
 
 OcrButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   projectMediaType: PropTypes.string.isRequired,
-  classes: PropTypes.any,
   hasExtractedText: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 

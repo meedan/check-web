@@ -93,6 +93,16 @@ const BulkActionsTag = ({
       mutation: graphql`
         mutation BulkActionsTagCreateTagsMutation($input: CreateTagsInput!) {
           createTags(input: $input) {
+            check_search_team {
+              medias(first: 50) {
+                edges {
+                  node {
+                    id
+                    list_columns_values
+                  }
+                }
+              }
+            }
             team {
               dbid
               tag_texts(first: 10000) {

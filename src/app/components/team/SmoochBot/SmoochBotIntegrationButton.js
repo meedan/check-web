@@ -12,6 +12,7 @@ import SettingsHeader from '../SettingsHeader';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { black05, black87, alertRed, completedGreen } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
+import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 
 const useStyles = makeStyles(theme => ({
   smoochBotIntegrationButton: {
@@ -132,14 +133,16 @@ const SmoochBotIntegrationButton = ({
     setParamValues(newParamValues);
   };
 
-  const handleError = () => {
-    setSaving(false);
-    setFlashMessage((
+  const handleError = (errors) => {
+    const fallbackMessage = (
       <FormattedMessage
         id="smoochBotIntegrationButton.defaultErrorMessage"
         defaultMessage="Something went wrong"
       />
-    ), 'error');
+    );
+    const errorMessage = getErrorMessageForRelayModernProblem(errors) || fallbackMessage;
+    setFlashMessage(errorMessage, 'error');
+    setSaving(false);
   };
 
   const handleSuccess = () => {
@@ -177,13 +180,13 @@ const SmoochBotIntegrationButton = ({
       },
       onCompleted: (response, error) => {
         if (error) {
-          handleError();
+          handleError(error);
         } else {
           handleSuccess(response);
         }
       },
-      onError: () => {
-        handleError();
+      onError: (error) => {
+        handleError(error);
       },
     });
   };
@@ -213,13 +216,13 @@ const SmoochBotIntegrationButton = ({
       },
       onCompleted: (response, error) => {
         if (error) {
-          handleError();
+          handleError(error);
         } else {
           handleSuccess(response);
         }
       },
-      onError: () => {
-        handleError();
+      onError: (error) => {
+        handleError(error);
       },
     });
   };

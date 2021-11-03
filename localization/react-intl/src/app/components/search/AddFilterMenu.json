@@ -65,9 +65,9 @@
     "defaultMessage": "Source"
   },
   {
-    "id": "addFilterMenu.metadata",
-    "description": "Menu option to enable searching items by metadata fields",
-    "defaultMessage": "Metadata"
+    "id": "addFilterMenu.annotation",
+    "description": "Menu option to enable searching items by annotation fields",
+    "defaultMessage": "Annotation"
   },
   {
     "id": "addFilterMenu.country",

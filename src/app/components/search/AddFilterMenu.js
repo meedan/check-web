@@ -20,7 +20,7 @@ import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
-import ForumIcon from '@material-ui/icons/Forum';
+import PublicIcon from '@material-ui/icons/Public';
 
 const StyledButton = withStyles({
   root: {
@@ -202,16 +202,16 @@ const AddFilterMenu = ({
     icon: <StarIcon />,
     label: (
       <FormattedMessage
-        id="addFilterMenu.metadata"
-        defaultMessage="Metadata"
-        description="Menu option to enable searching items by metadata fields"
+        id="addFilterMenu.annotation"
+        defaultMessage="Annotation"
+        description="Menu option to enable searching items by annotation fields"
       />
     ),
   },
   {
     id: 'add-filter-menu__country',
     key: 'country',
-    icon: <ForumIcon />,
+    icon: <PublicIcon />,
     label: (
       <FormattedMessage
         id="addFilterMenu.country"
