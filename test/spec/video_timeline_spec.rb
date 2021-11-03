@@ -44,7 +44,8 @@ shared_examples 'videotimeline' do
     @driver.manage.window.maximize
     wait_for_selector('.media-detail')
     expect(@driver.page_source.include?('my videotag')).to be(false)
-    wait_for_selector("//span[contains(text(), 'Timeline')]", :xpath).click
+    wait_for_selector('#media-expanded-actions__menu').click
+    wait_for_selector('#media-expanded-actions__timeline').click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
     expect(@driver.page_source.include?('Timeline')).to be(true)
     # add a videotag
@@ -55,7 +56,7 @@ shared_examples 'videotimeline' do
     wait_for_selector("//p[contains(text(), 'my videotag')]", :xpath)
     wait_for_selector('.MuiIconButton-sizeSmall').click # close timeline button
     wait_for_selector('.MuiChip-icon')
-    wait_for_selector('#video-media-card__playback-rate')
+    wait_for_selector('#media-expanded-actions__menu')
     expect(@driver.page_source.include?('my videotag')).to be(true) # check the videotag appears on the page
     wait_for_selector('.MuiChip-icon').click
     wait_for_selector('div[aria-labelledby=TimelineTab]')
