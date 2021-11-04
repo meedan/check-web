@@ -21,7 +21,6 @@ import {
   Row,
   body1,
   units,
-  opaqueBlack54,
 } from '../styles/js/shared';
 
 const useStylesBigEmptySpaceInSidebar = makeStyles({
@@ -120,12 +119,6 @@ class DrawerNavigationComponent extends Component {
       }
     };
 
-    // FIXME: Replace with current practices of styling. Actually, should we? Questions...
-    const linkStyle = {
-      color: opaqueBlack54,
-      textDecoration: 'none',
-    };
-
     return (
       <Drawer open variant="persistent" anchor="left" classes={classes}>
         <DrawerHeader team={team} loggedIn={loggedIn} currentUserIsMember={currentUserIsMember} />
@@ -136,9 +129,9 @@ class DrawerNavigationComponent extends Component {
             {currentUserIsMember ? (
               <div>
                 <Divider />
-                <Link style={linkStyle} to={`/${team.slug}/unconfirmed`} className="project-list__link-unconfirmed">
+                <Link to={`/${team.slug}/unconfirmed`} className="link__internal project-list__link-unconfirmed">
                   <MenuItem className="project-list__item-unconfirmed">
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.listItemIconRoot}>
                       <ErrorIcon />
                     </ListItemIcon>
                     <ListItemText
@@ -153,9 +146,9 @@ class DrawerNavigationComponent extends Component {
                     />
                   </MenuItem>
                 </Link>
-                <Link style={linkStyle} to={`/${team.slug}/trash`} className="project-list__link-trash">
+                <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
-                    <ListItemIcon>
+                    <ListItemIcon className={classes.listItemIconRoot}>
                       <DeleteIcon />
                     </ListItemIcon>
                     <ListItemText
@@ -204,7 +197,7 @@ DrawerNavigationComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const drawerStyles = {
+const drawerStyles = theme => ({
   paper: {
     width: units(32),
     minWidth: units(32),
@@ -217,6 +210,9 @@ const drawerStyles = {
     flexDirection: 'column',
     height: '100vh',
   },
-};
+  listItemIconRoot: {
+    minWidth: theme.spacing(4),
+  },
+});
 
 export default withStyles(drawerStyles)(withPusher(DrawerNavigationComponent));
