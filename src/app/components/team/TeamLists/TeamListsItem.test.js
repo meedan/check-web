@@ -81,13 +81,13 @@ describe('<TeamListsItem />', () => {
     expect(wrapper.find('.reorder__button-down').hostNodes()).toHaveLength(0);
   });
 
-  it('should display Metadata label', () => {
+  it('should display Annotation label', () => {
     const wrapper = mountWithIntl(<TeamListsItem
       team={team}
       column={column3}
       onToggle={() => {}}
     />);
-    expect(wrapper.html()).toMatch('Metadata');
+    expect(wrapper.html()).toMatch('Annotation');
     expect(wrapper.html()).not.toMatch('General');
     expect(wrapper.find('#team-lists__item-2-task_value_1').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('label-content-3');
@@ -100,7 +100,7 @@ describe('<TeamListsItem />', () => {
       onToggle={() => {}}
     />);
     expect(wrapper.html()).toMatch('General');
-    expect(wrapper.html()).not.toMatch('Metadata');
+    expect(wrapper.html()).not.toMatch('Annotation');
     expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
     expect(wrapper.html()).toMatch('label-content');
   });

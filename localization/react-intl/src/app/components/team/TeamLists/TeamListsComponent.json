@@ -33,7 +33,7 @@
   },
   {
     "id": "teamListsComponent.metadataColumns",
-    "defaultMessage": "Metadata"
+    "defaultMessage": "Annotation"
   },
   {
     "id": "teamListsComponent.createMetadata",

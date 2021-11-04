@@ -522,7 +522,7 @@ class Annotation extends Component {
           <span className="annotation__metadata-created">
             <FormattedMessage
               id="annotation.metadataCreated"
-              defaultMessage="Metadata field created by {author}: {fieldLabel}"
+              defaultMessage="Annotation field created by {author}: {fieldLabel}"
               values={{
                 fieldLabel: content.label,
                 author: authorName,
@@ -917,7 +917,7 @@ class Annotation extends Component {
             <span className="annotation__metadata-filled">
               <FormattedMessage
                 id="annotation.metadataResponse"
-                defaultMessage='Metadata field "{fieldLabel}" filled by {author}: {response}'
+                defaultMessage='Annotation field "{fieldLabel}" filled by {author}: {response}'
                 values={{
                   fieldLabel: activity.task.label,
                   author: authorName,
