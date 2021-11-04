@@ -15,9 +15,7 @@ import { withSetFlashMessage } from '../FlashMessage';
 
 const StyledMetadataContainer = styled.div`
   .tasks__list > li {
-    margin-bottom: ${units(2)};
-    margin-left: ${units(2)};
-    margin-top: ${units(2)};
+    margin: ${units(2)};
   }
 `;
 
