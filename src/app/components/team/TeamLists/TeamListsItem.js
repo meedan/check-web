@@ -85,7 +85,7 @@ const TeamListsItem = ({
             { /^task_value_/.test(key) ?
               <FormattedMessage
                 id="teamListsItem.metadata"
-                defaultMessage="Metadata"
+                defaultMessage="Annotation"
               /> :
               <FormattedMessage
                 id="teamListsItem.general"
