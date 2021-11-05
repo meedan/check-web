@@ -119,8 +119,7 @@ const useStyles = makeStyles(theme => ({
 
 const TrendsItemComponent = ({ project_media }) => {
   const classes = useStyles();
-  // eslint-disable-next-line
-  const similarItems = project_media.confirmed_similar_relationships?.edges?.map(item => item.node?.target);
+  const similarItems = project_media.similar_items?.edges.map(item => item.node);
   const mainItem = project_media;
   // value of -1 means the main claim, 0+ are indexes to similar items
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(project_media.id);
@@ -279,54 +278,48 @@ const TrendsItem = props => (
             file_path
             thumbnail_path
           }
-          confirmed_similar_relationships(first: 10000) {
+          similar_items(first: 1000) {
             edges {
               node {
                 id
-                target {
+                title
+                type
+                description
+                requests_count
+                updated_at
+                last_seen
+                created_at
+                picture
+                language_code
+                pusher_channel
+                dbid
+                project_id
+                domain
+                team {
                   id
-                  title
-                  type
-                  description
-                  requests_count
-                  updated_at
-                  last_seen
-                  created_at
-                  picture
-                  language_code
-                  pusher_channel
                   dbid
-                  project_id
-                  domain
-                  team {
-                    id
-                    dbid
-                    slug
-                    name
-                    get_language
-                    get_report
-                    get_tasks_enabled
-                    team_bots(first: 10000) {
-                      edges {
-                        node {
-                          login
-                        }
+                  slug
+                  name
+                  get_language
+                  get_report
+                  get_tasks_enabled
+                  team_bots(first: 10000) {
+                    edges {
+                      node {
+                        login
                       }
                     }
                   }
-                  media {
-                    url
-                    quote
-                    embed_path
-                    metadata
-                    type
-                    picture
-                    file_path
-                    thumbnail_path
-                  }
                 }
-                source {
-                  id
+                media {
+                  url
+                  quote
+                  embed_path
+                  metadata
+                  type
+                  picture
+                  file_path
+                  thumbnail_path
                 }
               }
             }
