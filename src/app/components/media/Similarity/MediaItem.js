@@ -18,6 +18,7 @@ import RemoveCircleOutlineIcon from '@material-ui/icons/RemoveCircleOutline';
 import SelectProjectDialog from '../SelectProjectDialog';
 import TimeBefore from '../../TimeBefore';
 import MediaTypeDisplayName from '../MediaTypeDisplayName';
+import globalStrings from '../../../globalStrings';
 import { parseStringUnixTimestamp, truncateLength } from '../../../helpers';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { brandSecondary, checkBlue, inProgressYellow, black32 } from '../../../styles/js/shared';
@@ -443,13 +444,7 @@ const MediaItem = ({
             description="Dialog title prompting user to select a destination folder for the item"
           />
         }
-        cancelLabel={
-          <FormattedMessage
-            id="detachDialog.cancelButton"
-            defaultMessage="Cancel"
-            description="Button to dismiss the dialog"
-          />
-        }
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         submitLabel={
           <FormattedMessage
             id="detachDialog.detached"

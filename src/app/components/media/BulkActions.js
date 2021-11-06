@@ -20,6 +20,7 @@ import BulkArchiveProjectMediaMutation from '../../relay/mutations/BulkArchivePr
 import BulkRestoreProjectMediaMutation from '../../relay/mutations/BulkRestoreProjectMediaMutation';
 import BulkMoveProjectMediaMutation from '../../relay/mutations/BulkMoveProjectMediaMutation';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import globalStrings from '../../globalStrings';
 
 const useStyles = makeStyles(theme => ({
   // buttonSpan: a <span> between a <Tooltip> and a <Button>. (The <Button> may be
@@ -262,7 +263,7 @@ class BulkActions extends React.Component {
                 }}
               />
             }
-            cancelLabel={<FormattedMessage id="bulkActions.cancelButton" defaultMessage="Cancel" />}
+            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
             submitLabel={
               <FormattedMessage
                 id="bulkActions.moveTitle"
