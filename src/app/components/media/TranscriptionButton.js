@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
+import MenuItem from '@material-ui/core/MenuItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const TranscriptionButton = ({
   projectMediaId,
   projectMediaType,
-  classes,
   transcription,
   setFlashMessage,
+  onClick,
 }) => {
   const [pending, setPending] = React.useState(false);
 
@@ -68,6 +70,7 @@ const TranscriptionButton = ({
         handleError();
       },
     });
+    onClick();
   };
 
   if (projectMediaType !== 'UploadedAudio' && projectMediaType !== 'UploadedVideo') {
@@ -75,13 +78,14 @@ const TranscriptionButton = ({
   }
 
   return (
-    <Button
-      size="small"
-      classes={classes}
+    <MenuItem
+      id="transcription-button__request-transcription"
       onClick={handleClick}
-      variant="outlined"
       disabled={pending || (transcription && transcription.data && transcription.data.last_response.job_status)}
     >
+      <ListItemIcon>
+        <DescriptionOutlinedIcon />
+      </ListItemIcon>
       { pending ?
         <FormattedMessage
           id="transcriptionButton.inProgress"
@@ -90,23 +94,22 @@ const TranscriptionButton = ({
         /> :
         <FormattedMessage
           id="transcriptionButton.label"
-          defaultMessage="Transcribe audio"
+          defaultMessage="Transcription"
           description="Button label - when this button is clicked, transcription operation starts"
         /> }
-    </Button>
+    </MenuItem>
   );
 };
 
 TranscriptionButton.defaultProps = {
-  classes: null,
   transcription: null,
 };
 
 TranscriptionButton.propTypes = {
   projectMediaId: PropTypes.string.isRequired,
   projectMediaType: PropTypes.string.isRequired,
-  classes: PropTypes.any,
   transcription: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 

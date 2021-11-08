@@ -104,4 +104,4 @@ const Header = (props) => {
   return <HeaderComponent {...props} />;
 };
 
-export { Header as default, HeaderComponent };
+export { Header, HeaderComponent };

@@ -56,6 +56,7 @@ class MediaExpandedComponent extends Component {
 
     this.state = {
       mediaVersion: false,
+      playbackRate: 1,
     };
   }
 
@@ -110,6 +111,7 @@ class MediaExpandedComponent extends Component {
     const {
       media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, isTrends,
     } = this.props;
+    const { playbackRate } = this.state;
 
     const {
       onTimelineCommentOpen,
@@ -143,7 +145,7 @@ class MediaExpandedComponent extends Component {
               filePath={filePath}
               coverImage={coverImage}
               {...{
-                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState,
+                playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState, playbackRate,
               }}
             />
           </div>
@@ -256,6 +258,8 @@ class MediaExpandedComponent extends Component {
                 onVideoAnnoToggle={onVideoAnnoToggle}
                 showVideoAnnotation={showVideoAnnotation}
                 projectMedia={media}
+                playbackRate={playbackRate}
+                onPlaybackRateChange={r => this.setState({ playbackRate: r })}
               />
             </CardActions>
           )

@@ -9,7 +9,7 @@ import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import Header from './Header';
+import { Header } from './Header';
 import LoginContainer from './LoginContainer';
 import InviteNewAccount from './InviteNewAccount';
 import BrowserSupport from './BrowserSupport';

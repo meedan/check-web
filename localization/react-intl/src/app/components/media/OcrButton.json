@@ -17,6 +17,6 @@
   {
     "id": "ocrButton.label",
     "description": "Button label - when this button is clicked, text is extracted from image",
-    "defaultMessage": "Extract text from image"
+    "defaultMessage": "Image text extraction"
   }
 ]

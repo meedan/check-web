@@ -1,14 +1,42 @@
 [
   {
-    "id": "mediaMetadata.Timeline",
-    "defaultMessage": "Timeline"
+    "id": "mediaMetadata.videoActions",
+    "description": "Actions menu for item of type Video",
+    "defaultMessage": "Video actions"
   },
   {
-    "id": "mediaMetadata.ImageSearch",
-    "defaultMessage": "Google Image Search"
+    "id": "mediaMetadata.imageActions",
+    "description": "Actions menu for item of type Image",
+    "defaultMessage": "Image actions"
+  },
+  {
+    "id": "mediaMetadata.audioActions",
+    "description": "Actions menu for item of type Audio",
+    "defaultMessage": "Audio actions"
   },
   {
     "id": "mediaMetadata.download",
+    "description": "Menu option for downloading the original file of current item",
     "defaultMessage": "Download"
+  },
+  {
+    "id": "mediaMetadata.ImageSearch",
+    "description": "Menu option for performing reverse image searches on google or other engines",
+    "defaultMessage": "Reverse image search"
+  },
+  {
+    "id": "mediaMetadata.playbackSpeed",
+    "description": "Menu option for altering playback speed of video/audio clip",
+    "defaultMessage": "Playback speed"
+  },
+  {
+    "id": "mediaMetadata.Timeline",
+    "description": "Menu options for displaying the video timeline tray",
+    "defaultMessage": "Timeline"
+  },
+  {
+    "id": "media.normalSpeed",
+    "description": "Sets video playback rate to original 1x speed",
+    "defaultMessage": "Normal speed"
   }
 ]

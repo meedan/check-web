@@ -8,12 +8,16 @@
     "defaultMessage": "Invalid command"
   },
   {
+    "id": "addAnnotation.inputEditHint",
+    "defaultMessage": "Edit note"
+  },
+  {
     "id": "addAnnotation.inputHint",
     "defaultMessage": "Add a note"
   },
   {
-    "id": "addAnnotation.addImage",
-    "defaultMessage": "Add an image"
+    "id": "addAnnotation.addFile",
+    "defaultMessage": "Add a file"
   },
   {
     "id": "addAnnotation.submitButton",

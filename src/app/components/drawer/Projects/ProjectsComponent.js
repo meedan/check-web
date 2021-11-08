@@ -67,10 +67,12 @@ const useStyles = makeStyles(theme => ({
   },
   projectsComponentHeader: {
     cursor: 'pointer',
-    padding: theme.spacing(1),
   },
   projectsComponentChevron: {
     marginRight: theme.spacing(1),
+  },
+  listItemIconRoot: {
+    minWidth: theme.spacing(4),
   },
 }));
 
@@ -261,7 +263,7 @@ const ProjectsComponent = ({
 
   return (
     <React.Fragment>
-      <List className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
+      <List dense className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
         { saving ? <Box className={classes.projectsComponentMask} /> : null }
 
         {/* All items */}
@@ -284,7 +286,7 @@ const ProjectsComponent = ({
             onClick={() => { handleSpecialLists('tipline-inbox'); }}
             className={activeItem.type === 'tipline-inbox' ? ['projects-list__tipline-inbox', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__tipline-inbox'}
           >
-            <ListItemIcon>
+            <ListItemIcon className={classes.listItemIconRoot}>
               <ForumIcon />
             </ListItemIcon>
             <ListItemText>
@@ -298,7 +300,7 @@ const ProjectsComponent = ({
             onClick={() => { handleSpecialLists('imported-reports'); }}
             className={activeItem.type === 'imported-reports' ? ['projects-list__imported-reports', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__imported-reports'}
           >
-            <ListItemIcon>
+            <ListItemIcon className={classes.listItemIconRoot}>
               <GetAppIcon />
             </ListItemIcon>
             <ListItemText>
@@ -312,7 +314,7 @@ const ProjectsComponent = ({
         <ListItem onClick={handleToggleFoldersExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
               <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
@@ -437,7 +439,7 @@ const ProjectsComponent = ({
         <ListItem onClick={handleToggleListsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
           { listsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
-            <Box display="flex" alignItems="center" justifyContent="space-between">
+            <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
               <FormattedMessage id="projectsComponent.lists" defaultMessage="Filtered lists" description="List of items with some filters applied" />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setShowNewListDialog(true); e.stopPropagation(); }} className={classes.projectsComponentButton}>
@@ -473,7 +475,7 @@ const ProjectsComponent = ({
             button
             onClick={handleTrends}
           >
-            <ListItemIcon>
+            <ListItemIcon className={classes.listItemIconRoot}>
               <TrendingUpIcon />
             </ListItemIcon>
             <ListItemText>

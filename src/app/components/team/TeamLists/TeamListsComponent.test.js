@@ -38,7 +38,7 @@ describe('<TeamListsComponent />', () => {
     expect(wrapper.find('.MuiTypography-subtitle2').hostNodes()).toHaveLength(3);
     expect(wrapper.html()).toMatch('Displayed columns');
     expect(wrapper.html()).toMatch('General');
-    expect(wrapper.html()).toMatch('Metadata');
+    expect(wrapper.html()).toMatch('Annotation');
   });
 
   it('should render create metadata button', () => {

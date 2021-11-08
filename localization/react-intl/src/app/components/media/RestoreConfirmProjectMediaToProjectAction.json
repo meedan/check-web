@@ -20,10 +20,6 @@
     "defaultMessage": "Move item to folder…"
   },
   {
-    "id": "mediaActionsBar.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "mediaActionsBar.restoreOrConfirm",
     "defaultMessage": "Move to folder"
   }

@@ -57,7 +57,7 @@ shared_examples 'media actions' do
     @driver.execute_script('window.close()')
     @driver.switch_to.window(current_window)
     wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotation__card-activity-create-comment')
+    wait_for_selector('.annotation__card-activity-comment')
     expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
   end
 
@@ -91,7 +91,7 @@ shared_examples 'media actions' do
     fill_field('#cmd-input', 'This is my comment with image')
     wait_for_selector('.add-annotation__insert-photo').click
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
-    wait_for_selector('.add-annotation__buttons button').click
+    wait_for_selector('#add-annotation_submit').click
     wait_for_selector_none('.with-file')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__history').click
@@ -101,18 +101,11 @@ shared_examples 'media actions' do
     # Verify that comment was added to annotations list
     wait_for_selector('.media-tab__comments').click
     expect(@driver.page_source.include?('This is my comment with image')).to be(true)
-    imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
+    # verify link and text
+    imgtext = @driver.find_element(:css, '.annotation__card-file').text
+    expect(imgtext.match(/test\.png$/).nil?).to be(false)
+    imgsrc = @driver.find_element(:css, '.annotation__card-file').attribute('href')
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
-
-    # Zoom image
-    expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(true)
-    wait_for_selector('.annotation__card-thumbnail').click
-
-    wait_for_selector('.ril-close')
-    expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(false)
-    @driver.action.send_keys(:escape).perform
-    @wait.until { @driver.find_elements(:css, '.ril-close').empty? }
-    expect(@driver.find_elements(:css, '.ril-image-current').empty?).to be(true)
 
     # Reload the page and verify that comment is still there
     @driver.navigate.refresh
@@ -120,7 +113,9 @@ shared_examples 'media actions' do
     wait_for_selector('.media-tab__comments').click
     wait_for_selector('.annotation--card')
     expect(@driver.page_source.include?('This is my comment with image')).to be(true)
-    imgsrc = @driver.find_element(:css, '.annotation__card-thumbnail').attribute('src')
+    imgtext = @driver.find_element(:css, '.annotation__card-file').text
+    expect(imgtext.match(/test\.png$/).nil?).to be(false)
+    imgsrc = @driver.find_element(:css, '.annotation__card-file').attribute('href')
     expect(imgsrc.match(/test\.png$/).nil?).to be(false)
   end
 
