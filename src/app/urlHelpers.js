@@ -29,13 +29,15 @@ const pageSize = 20;
  * `listQuery` entirely. (Callers may also omit `listPath` if it can be inferred
  * from the `routeParams`.)
  */
-function getListUrlQueryAndIndex(routeParams, locationQuery) {
+function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   let { listPath } = locationQuery;
   if (!listPath) {
     if (routeParams.projectId) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
     } else if (routeParams.listId) {
       listPath = `/${routeParams.team}/list/${routeParams.listId}`;
+    } else if (/\/trends\/media\/[0-9]+/.test(locationPathname)) {
+      listPath = `/${routeParams.team}/trends`;
     } else {
       listPath = `/${routeParams.team}/all-items`;
     }

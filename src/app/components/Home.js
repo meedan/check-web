@@ -114,6 +114,9 @@ class HomeComponent extends Component {
     if (!(children && children.props.route)) {
       return null;
     }
+    if (/\/trends\/media\/:mediaId/.test(children.props.route.path)) {
+      return 'trend-item';
+    }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';
     }
