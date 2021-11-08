@@ -22,7 +22,9 @@ import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import MediaExpanded from '../MediaExpanded';
 import MediaRequests from '../MediaRequests';
 import MediaComments from '../MediaComments';
+import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
+import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
   Column,
@@ -91,9 +93,13 @@ const MediaSuggestionsComponent = ({
   const classes = useStyles();
   const itemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
   const [index, setIndex] = React.useState(0);
+  const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
+  const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
   const relationship = relationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
+  const projectId = relationship ? relationship.target.project_id : null;
   const total = relationships.length;
   const hasNext = (index + 1 < total);
   const hasPrevious = (index > 0);
@@ -204,7 +210,8 @@ const MediaSuggestionsComponent = ({
     });
   };
 
-  const handleReject = () => {
+  const handleReject = (project) => {
+    setIsDialogOpen(false);
     handleNext();
 
     const mutation = graphql`
@@ -245,6 +252,7 @@ const MediaSuggestionsComponent = ({
       variables: {
         input: {
           id: relationship.id,
+          add_to_project_id: project.dbid,
         },
       },
       onCompleted: ({ response, error }) => {
@@ -310,15 +318,34 @@ const MediaSuggestionsComponent = ({
               </IconButton> : null
             }
             {can(team.permissions, 'destroy Relationship') ?
-              <IconButton
-                onClick={handleReject}
-                style={{ color: alertRed }}
-                disabled={total === 0}
-                className={total === 0 ? classes.disabled : ''}
-                id="similarity-media-item__reject-relationship"
-              >
-                <HighlightOffIcon fontSize="large" />
-              </IconButton> : null
+              <React.Fragment>
+                <IconButton
+                  onClick={openDialog}
+                  style={{ color: alertRed }}
+                  disabled={total === 0}
+                  className={total === 0 ? classes.disabled : ''}
+                  id="similarity-media-item__reject-relationship"
+                >
+                  <HighlightOffIcon fontSize="large" />
+                </IconButton>
+                <SelectProjectDialog
+                  open={isDialogOpen}
+                  excludeProjectDbids={[]}
+                  itemProjectDbid={projectId}
+                  showManualOrAutoOptions
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.dialogRejectTitle"
+                      defaultMessage="Choose a destination folder for this item"
+                    />
+                  }
+                  cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
+                  submitButtonClassName="media-actions-bar__add-button"
+                  onCancel={closeDialog}
+                  onSubmit={handleReject}
+                />
+              </React.Fragment> : null
             }
             <IconButton onClick={handleNext} disabled={!hasNext}>
               <KeyboardArrowRightIcon fontSize="large" />

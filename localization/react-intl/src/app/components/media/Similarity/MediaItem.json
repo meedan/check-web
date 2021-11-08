@@ -63,11 +63,6 @@
     "defaultMessage": "Move detached item to…"
   },
   {
-    "id": "detachDialog.cancelButton",
-    "description": "Button to dismiss the dialog",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "detachDialog.detached",
     "description": "Button to commit the action of moving item",
     "defaultMessage": "Move to folder"

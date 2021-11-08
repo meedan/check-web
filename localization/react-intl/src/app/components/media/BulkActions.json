@@ -39,10 +39,6 @@
     "defaultMessage": "{selectedCount, plural, one {Move 1 item to folder…} other {Move # items to folder…}}"
   },
   {
-    "id": "bulkActions.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "bulkActions.moveTitle",
     "description": "Label for button to commit action of moving item to the selected folder",
     "defaultMessage": "Move to folder"
