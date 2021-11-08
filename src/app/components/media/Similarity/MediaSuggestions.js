@@ -22,6 +22,10 @@ const MediaSuggestions = ({ projectMedia }) => {
                 node {
                   id
                   target_id
+                  target {
+                    dbid
+                    project_id
+                  }
                 }
               }
             }

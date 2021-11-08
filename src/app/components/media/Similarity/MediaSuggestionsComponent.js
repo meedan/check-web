@@ -99,6 +99,7 @@ const MediaSuggestionsComponent = ({
 
   const relationship = relationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
+  const projectId = relationship ? relationship.target.project_id : null;
   const total = relationships.length;
   const hasNext = (index + 1 < total);
   const hasPrevious = (index > 0);
@@ -330,6 +331,8 @@ const MediaSuggestionsComponent = ({
                 <SelectProjectDialog
                   open={isDialogOpen}
                   excludeProjectDbids={[]}
+                  itemProjectDbid={projectId}
+                  showManualOrAutoOptions
                   title={
                     <FormattedMessage
                       id="mediaSuggestionsComponent.dialogRejectTitle"
