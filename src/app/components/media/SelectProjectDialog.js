@@ -123,7 +123,7 @@ function SelectProjectDialog({
         { showManualOrAutoOptions ?
             <Box p={units(2)} >
               <RadioGroup
-                name="controlled-radio-buttons-group"
+                name="selected-project-dialog-maunal-auto"
                 value={userInput}
                 onChange={(e) => { handleSetFolderOptions(e.target.value); }}
               >

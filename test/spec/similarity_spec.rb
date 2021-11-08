@@ -101,6 +101,7 @@ shared_examples 'similarity' do
     wait_for_selector('#similarity-media-item__accept-relationship').click
     wait_for_selector("//span[contains(text(), '1 of 1 suggested media')]", :xpath)
     wait_for_selector('#similarity-media-item__reject-relationship').click
+    wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector('.media-page__back-button').click
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
