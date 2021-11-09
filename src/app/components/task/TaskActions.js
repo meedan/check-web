@@ -44,7 +44,7 @@ class TaskActions extends React.Component {
     const menuTooltip = isTask ? (
       <FormattedMessage id="taskActions.tooltipTask" defaultMessage="Task actions" />
     ) : (
-      <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Metadata actions" />
+      <FormattedMessage id="taskActions.tooltipMetadata" defaultMessage="Annotation actions" />
     );
 
     if (can(media.permissions, 'create Task') && isTask && !isBrowserExtension && !task.team_task_id) {

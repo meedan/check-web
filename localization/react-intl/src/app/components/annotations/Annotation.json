@@ -69,7 +69,7 @@
   },
   {
     "id": "annotation.metadataCreated",
-    "defaultMessage": "Metadata field created by {author}: {fieldLabel}"
+    "defaultMessage": "Annotation field created by {author}: {fieldLabel}"
   },
   {
     "id": "annotation.relationshipCreated",
@@ -162,7 +162,7 @@
   },
   {
     "id": "annotation.metadataResponse",
-    "defaultMessage": "Metadata field \"{fieldLabel}\" filled by {author}: {response}"
+    "defaultMessage": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
   },
   {
     "id": "annotation.archiverSuccess",

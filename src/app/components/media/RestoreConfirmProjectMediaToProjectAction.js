@@ -9,6 +9,7 @@ import { FlashMessageSetterContext } from '../FlashMessage';
 import UpdateProjectMediaMutation from '../../relay/mutations/UpdateProjectMediaMutation';
 import SelectProjectDialog from './SelectProjectDialog';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
+import globalStrings from '../../globalStrings';
 
 function handleRestore({
   team,
@@ -107,7 +108,7 @@ function RestoreConfirmProjectMediaToProjectAction({
             defaultMessage="Move item to folder…"
           />
         }
-        cancelLabel={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         submitLabel={<FormattedMessage id="mediaActionsBar.restoreOrConfirm" defaultMessage="Move to folder" />}
         submitButtonClassName="media-actions-bar__add-button"
         onCancel={closeDialog}

@@ -9,7 +9,7 @@ import Intercom from 'react-intercom';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import Header from './Header';
+import { Header } from './Header';
 import LoginContainer from './LoginContainer';
 import InviteNewAccount from './InviteNewAccount';
 import BrowserSupport from './BrowserSupport';
@@ -113,6 +113,9 @@ class HomeComponent extends Component {
   static routeSlug(children) {
     if (!(children && children.props.route)) {
       return null;
+    }
+    if (/\/trends\/media\/:mediaId/.test(children.props.route.path)) {
+      return 'trend-item';
     }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
       return 'media';

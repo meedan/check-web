@@ -103,6 +103,7 @@ shared_examples 'similarity' do
     wait_for_selector('#similarity-media-item__accept-relationship').click
     wait_for_selector("//span[contains(text(), '1 of 1 suggested media')]", :xpath)
     wait_for_selector('#similarity-media-item__reject-relationship').click
+    wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector('.media-page__back-button').click
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
@@ -122,13 +123,12 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
     expect(@driver.page_source.include?('Text extracted from image')).to be(false)
     expect(@driver.page_source.include?('RAILS')).to be(false)
-    sleep 30 # wait for text extraction
+    wait_for_selector('#media-expanded-actions__menu').click
+    wait_for_selector('#ocr-button__extract-text').click
+    sleep 15 # wait for text extraction
     @driver.navigate.refresh
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
-    wait_for_selector('#ocr-button__extract-text').click
-    wait_for_selector('.message')
-    wait_for_selector_none('#ocr-button__extract-text')
     expect(@driver.page_source.include?('Text extracted from image')).to be(true)
     expect(@driver.page_source.include?('RAILS')).to be(true)
   end

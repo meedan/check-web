@@ -1,0 +1,14 @@
+[
+  {
+    "id": "annotation.editButton",
+    "defaultMessage": "Edit"
+  },
+  {
+    "id": "annotation.deleteButton",
+    "defaultMessage": "Delete"
+  },
+  {
+    "id": "annotation.permalink",
+    "defaultMessage": "Permalink"
+  }
+]

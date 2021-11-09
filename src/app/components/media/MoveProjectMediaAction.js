@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import SelectProjectDialog from './SelectProjectDialog';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FlashMessageSetterContext } from '../FlashMessage';
+import globalStrings from '../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../helpers';
 
 function commitMoveProjectMediaToProject({
@@ -142,7 +143,7 @@ function MoveProjectMediaAction({
             defaultMessage="Move to a different folder"
           />
         }
-        cancelLabel={<FormattedMessage id="mediaActionsBar.cancelButton" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         submitLabel={<FormattedMessage id="mediaActionsBar.move" defaultMessage="Move" />}
         submitButtonClassName="media-actions-bar__move-button"
         onCancel={closeDialog}

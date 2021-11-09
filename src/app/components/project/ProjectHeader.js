@@ -17,7 +17,7 @@ class ProjectHeaderComponent extends React.PureComponent {
       saved_search,
       location,
     } = this.props;
-    const { listUrl } = getListUrlQueryAndIndex(params, location.query);
+    const { listUrl } = getListUrlQueryAndIndex(params, location.query, location.pathname);
 
     let pageTitle;
     if (/\/trash(\/|$)/.test(listUrl)) {
@@ -28,6 +28,8 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.tiplineInbox" defaultMessage="Tipline inbox" />;
     } else if (/\/imported-reports(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported reports" />;
+    } else if (/\/trends(\/|$)/.test(listUrl)) {
+      pageTitle = <FormattedMessage id="projectHeader.trends" defaultMessage="Trends" />;
     } else if (project) {
       pageTitle = project.title;
     } else if (saved_search) {

@@ -12,6 +12,14 @@
     "defaultMessage": "Is the suggested media similar to the main?"
   },
   {
+    "id": "mediaSuggestionsComponent.dialogRejectTitle",
+    "defaultMessage": "Choose a destination folder for this item"
+  },
+  {
+    "id": "mediaSuggestionsComponent.moveItem",
+    "defaultMessage": "Move item"
+  },
+  {
     "id": "mediaSuggestionsComponent.noSuggestions",
     "defaultMessage": "There is no suggested media."
   },
