@@ -276,6 +276,27 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
               first_response {
                 id
                 content
+                attribution(first: 1000) {
+                    edges {
+                      node {
+                        id,
+                        dbid,
+                        name,
+                        source {
+                          id,
+                          dbid,
+                          name,
+                        }
+                      }
+                    }
+                }
+                annotator {
+                  id
+                  user {
+                    dbid
+                    name
+                  }
+                }
               },
               annotator {
                 id
