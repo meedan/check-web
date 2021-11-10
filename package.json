@@ -89,7 +89,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/pickers": "^3.2.10",
-    "@meedan/check-ui": "^0.1.21",
+    "@meedan/check-ui": "^0.1.25",
     "@meedan/react-jsonschema-form-material-ui-v1": "^99.0.0",
     "@react-google-maps/api": "1.8.7",
     "babel-loader": "^8.1.0",

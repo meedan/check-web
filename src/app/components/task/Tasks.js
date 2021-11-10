@@ -227,8 +227,8 @@ const Tasks = ({
       });
     return {
       latestDate,
-      latestAuthorDbid: latestAuthor.node?.annotator?.user?.dbid,
-      latestAuthorName: latestAuthor.node?.annotator?.user?.name,
+      latestAuthorDbid: latestAuthor.node?.first_response?.annotator?.user?.dbid,
+      latestAuthorName: latestAuthor.node?.first_response?.annotator?.user?.name,
     };
   }
 
