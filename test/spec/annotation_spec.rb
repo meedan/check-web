@@ -40,7 +40,7 @@ shared_examples 'annotation' do
   it 'should add, edit and delete a annotation response', bin5: true do
     api_create_team_project_metadata_and_media
     wait_for_selector('#search-input')
-    wait_for_selector('.medias__item', :css, 20, true).click
+    wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')
     wait_for_selector('.media-tab__metadata').click
     wait_for_selector('.task__response-inputs')
@@ -51,7 +51,6 @@ shared_examples 'annotation' do
     wait_for_selector('.form-edit')
     expect(@driver.page_source.include?('answer')).to be(true)
     expect(@driver.page_source.include?('answer - edited')).to be(false)
-
     # edit response
     wait_for_selector('.form-edit').click
     wait_for_selector('#metadata-input').send_keys(' - edited')
@@ -59,7 +58,6 @@ shared_examples 'annotation' do
     wait_for_selector_none('.form-save')
     wait_for_selector("//span[contains(text(), 'answer - edited')]", :xpath)
     expect(@driver.page_source.include?('answer - edited')).to be(true)
-
     # delete response
     wait_for_selector('.form-edit').click
     wait_for_selector('.clear-button').click
@@ -68,23 +66,14 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('answer - edited')).to be(false)
   end
 
-  it 'should add, and answer a datatime annotation', bin3: true do
-    # Create team and go to team page that should not contain any task
-    team = "task-team-#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
-    # Create annotation
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
-    expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my  annotation')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
-    @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
+  it 'should add, and answer a datetime annotation', bin3: true do
+    api_create_team_project_metadata_and_media(@media_url, 'datetime', '[{"code":"UTC","label":"UTC (0 GMT)","offset":0}]')
     wait_for_selector('#search-input')
-    create_media('media')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media')
-
+    wait_for_selector('.medias__item').click
+    wait_for_selector('.media__annotations-tabs')
+    wait_for_selector('.media-tab__metadata').click
+    wait_for_selector('.task__response-inputs')
+    # answer the annotation
     wait_for_selector('.form-edit').click
     # clear the annotation
     wait_for_selector('.MuiOutlinedInput-input').click
@@ -94,85 +83,42 @@ shared_examples 'annotation' do
     wait_for_selector('.task__response input').click
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
     wait_for_selector('.form-save').click
-  end
-
-  it 'should add, and answer a datatime annotation', bin3: true do
-    team = "task-team-#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
-    # Create annotation
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
-    expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my  annotation')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
-    @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
-    wait_for_selector('#search-input')
-    create_media('media')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media')
-
-    wait_for_selector('.form-edit').click
-    # clear the annotation
-    wait_for_selector('.MuiOutlinedInput-input').click
-    wait_for_selector("//span[contains(text(), 'Clear')]", :xpath).click
-    wait_for_selector_none('.MuiPickersCalendarHeader-iconButton')
-    # answer the annotation
-    wait_for_selector('.task__response input').click
-    wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
-    wait_for_selector('.form-save').click
-  end
-
-  it 'should add, and answer a single choice annotation', bin3: true do
-    team = "task-team-#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
-    # Create annotation
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
-    expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-single_choice', task_name: 'my  annotation', value1: 'Foo', value2: 'Bar')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
-    @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
-    wait_for_selector('#search-input')
-    create_media('media')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media')
-
-    wait_for_selector('.form-edit').click
-    wait_for_selector('input[name=Foo]').click
-    wait_for_selector('.form-save').click
-
-    wait_for_selector('.form-edit').click
-    wait_for_selector('input[name=Bar]').click
-    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-save')
     expect(@driver.page_source.include?('Saved a few')).to be(true)
   end
 
-  it 'should add, and answer a multiple choice annotation', bin3: true do
-    # Create team and go to team page that should not contain any task
-    team = "task-team-#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
-    # Create annotation
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
-    expect(@driver.page_source.include?('my metadata')).to be(false)
-    create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-multiple_choice', task_name: 'my  annotation', value1: 'Foo', value2: 'Bar')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
-    @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
+  it 'should add, and answer a single choice annotation', bin5: true do
+    api_create_team_project_metadata_and_media(@media_url, 'single_choice', '[{"label": "Foo"}, {"label": "Bar"}]')
     wait_for_selector('#search-input')
-    create_media('media')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('.media')
-
+    wait_for_selector('.medias__item').click
+    wait_for_selector('.media__annotations-tabs')
+    wait_for_selector('.media-tab__metadata').click
+    # answer the annotation
     wait_for_selector('.form-edit').click
     wait_for_selector('input[name=Foo]').click
     wait_for_selector('.form-save').click
-
     wait_for_selector('.form-edit').click
     wait_for_selector('input[name=Bar]').click
     wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-save')
+    expect(@driver.page_source.include?('Saved a few')).to be(true)
+  end
+
+  it 'should add, and answer a multiple choice annotation', bin4: true do
+    api_create_team_project_metadata_and_media(@media_url, 'multiple_choice', '[{"label": "Foo"}, {"label": "Bar"}]')
+    wait_for_selector('#search-input')
+    wait_for_selector('.medias__item').click
+    wait_for_selector('.media__annotations-tabs')
+    wait_for_selector('.media-tab__metadata').click
+    wait_for_selector('.task__response-inputs')
+    # answer the annotation
+    wait_for_selector('.form-edit').click
+    wait_for_selector('input[name=Foo]').click
+    wait_for_selector('.form-save').click
+    wait_for_selector('.form-edit').click
+    wait_for_selector('input[name=Bar]').click
+    wait_for_selector('.form-save').click
+    wait_for_selector_none('.form-save')
     expect(@driver.page_source.include?('Saved a few')).to be(true)
   end
 end

@@ -71,10 +71,9 @@ shared_examples 'source' do
     create_annotation(tab_class: '.metadata-tab__source', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my source annotation')
     expect(@driver.page_source.include?('No metadata fields')).to be(false)
     expect(@driver.page_source.include?('my source annotation')).to be(true)
-    # api_create_team_project_and_link 'https://www.cnnbrasil.com.br/'
     @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
     wait_for_selector('#search-input')
-    create_media('https://www.cnnbrasil.com.br/')
+    create_media('media')
     wait_for_selector('.media__heading').click
     wait_for_selector('.media')
     @driver.manage.window.maximize
