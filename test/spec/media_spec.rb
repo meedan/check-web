@@ -66,31 +66,6 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(true)
   end
 
-  # it 'should autorefresh page when media is created', bin1: true do
-  #   create_media_depending_on_type
-  #   wait_for_selector('.media')
-  #   wait_for_selector("//span[contains(text(), '1 of 1')]", :xpath)
-  #   wait_for_selector('.project-header__back-button').click
-  #   wait_for_selector_list_size('.medias__item', 1, :css, 30)
-  #   wait_for_selector('#search-input')
-  #   url = @driver.current_url
-  #   expect(@driver.page_source.include?('Auto-Refresh')).to be(false)
-  #   current_window = @driver.window_handles.last
-  #   @driver.execute_script("window.open('#{url}')")
-  #   wait_for_selector('#search-input')
-  #   @driver.switch_to.window(@driver.window_handles.last)
-  #   wait_for_selector('.avatar')
-  #   create_media('Auto-Refresh')
-  #   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]", :xpath)
-  #   wait_for_selector_list_size('.medias__item', 2)
-  #   @driver.execute_script('window.close()')
-  #   @driver.switch_to.window(current_window)
-  #   @wait.until { @driver.window_handles.length == 1 }
-  #   wait_for_selector("//span[contains(text(), '1 - 2 / 2')]", :xpath)
-  #   expect(@driver.find_elements(:css, '.media__heading').size == 2).to be(true)
-  #   expect(@driver.page_source.include?('Auto-Refresh')).to be(true)
-  # end
-
   it 'should update notes count after delete annotation', bin3: true do
     create_media_depending_on_type
     wait_for_selector('.media-tab__comments').click

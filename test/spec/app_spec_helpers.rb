@@ -256,34 +256,6 @@ module AppSpecHelpers
     wait_for_selector('.annotation__card-thumbnail')
   end
 
-  def create_team_data_field(params = {})
-    create_task(params)
-  end
-
-  def edit_team_data_field(new_data_field_name, field = '#task-label-input')
-    wait_for_selector('.create-task__add-button')
-    wait_for_selector('.team-tasks__menu-item-button').click
-    wait_for_selector('.team-tasks__edit-button').click
-    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    if field == 'edit-task-dialog__type-select-label'
-      wait_for_selector(new_data_field_name).click
-    else
-      update_field(field, new_data_field_name)
-    end
-    wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none('#confirm-dialog__confirm-action-button')
-  end
-
-  def delete_team_data_field
-    wait_for_selector('.team-tasks__menu-item-button').click
-    wait_for_selector('.team-tasks__edit-button')
-    wait_for_selector('.team-tasks__delete-button').click
-    wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    wait_for_selector('#confirm-dialog__confirm-action-button').click
-    wait_for_selector_none("//span[contains(text(), 'Cancel')]", :xpath)
-  end
-
   def create_folder_or_collection(project_name, project_type_selector)
     name = project_name || "Project #{Time.now.to_i}"
     wait_for_selector('.projects-list__add-folder-or-collection').click

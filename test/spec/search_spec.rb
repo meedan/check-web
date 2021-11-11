@@ -45,7 +45,7 @@ shared_examples 'search' do
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
     wait_for_selector('#search-input').send_keys('search')
     @driver.action.send_keys(:enter).perform
-    wait_for_selector_list_size('.media__heading', 1)
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
@@ -87,7 +87,7 @@ shared_examples 'search' do
     expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
 
     wait_for_selector('th[data-field=linked_items_count] span').click
-    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(false)
     expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(true)
@@ -95,7 +95,7 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
 
     wait_for_selector('th[data-field=created_at_timestamp] span').click
-    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/related/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(false)
@@ -108,13 +108,13 @@ shared_examples 'search' do
     expect(@driver.current_url.to_s.match(/ASC|DESC/).nil?).to be(true)
 
     wait_for_selector('th[data-field=linked_items_count]').click
-    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/DESC/).nil?).to be(false)
     expect(@driver.current_url.to_s.match(/ASC/).nil?).to be(true)
     expect(@driver.page_source.include?('My search result')).to be(true)
 
     wait_for_selector('th[data-field=linked_items_count]').click
-    wait_for_selector('.medias__item')
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/DESC/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/ASC/).nil?).to be(false)
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -142,10 +142,7 @@ shared_examples 'search' do
     wait_for_selector_none('.medias__item', :css, 10)
     expect(@driver.page_source.include?('My search result')).to be(false)
 
-    # wait_for_selector('#add-filter-menu__open-button').click
-    # wait_for_selector('#add-filter-menu__time-range').click
     wait_for_selector('.date-range__start-date input').click
-
     wait_for_selector("//span[contains(text(), 'OK')]", :xpath).click
     wait_for_selector_none('body>div[role=dialog]')  # wait for mui-picker background to fade away
     wait_for_selector('.date-range__end-date input').click
@@ -159,13 +156,13 @@ shared_examples 'search' do
   it 'should change search sort and search criteria through URL', bin3: true do
     api_create_claim_and_go_to_search_page
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
-    wait_for_selector('#create-media__add-item')
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, 'th[data-field=linked_items_count]> span > svg').length).to eq 1
     expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').empty?).to be(true)
 
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022recent_added\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
-    wait_for_selector('#create-media__add-item')
+    wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, 'th[data-field=linked_items_count]> span > svg').empty?).to be(true)
     expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').length).to eq 1
