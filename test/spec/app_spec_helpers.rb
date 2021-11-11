@@ -260,12 +260,16 @@ module AppSpecHelpers
     create_task(params)
   end
 
-  def edit_team_data_field(new_data_field_name)
+  def edit_team_data_field(new_data_field_name, field = '#task-label-input')
     wait_for_selector('.create-task__add-button')
     wait_for_selector('.team-tasks__menu-item-button').click
     wait_for_selector('.team-tasks__edit-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
-    update_field('#task-label-input', new_data_field_name)
+    if field == 'edit-task-dialog__type-select-label'
+      wait_for_selector(new_data_field_name).click
+    else
+      update_field(field, new_data_field_name)
+    end
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__confirm-action-button')

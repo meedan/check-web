@@ -215,10 +215,11 @@ class TeamTasksListItem extends React.Component {
 
   handleSubmitTask = (keepCompleted) => {
     const task = this.state.editedTask;
-    const { id, type } = this.props.task;
+    const { id } = this.props.task;
+
     const teamTask = {
       id,
-      task_type: type,
+      task_type: task.type,
       label: task.label,
       description: task.description,
       show_in_browser_extension: this.state.showInBrowserExtension,

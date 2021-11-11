@@ -18,6 +18,11 @@ shared_examples 'metadata' do
     wait_for_selector("//div[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
+    # Edit metadata type
+    edit_team_data_field('.edit-task-dialog__menu-item-number', '#task-label-input')
+    wait_for_selector('input[type=number]')
+    expect(@driver.page_source.include?('number')).to be(true)
+
     # create 'date and time' metadata
     expect(@driver.page_source.include?('my date time metadata')).to be(false)
     create_team_data_field(task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my date time metadata')
