@@ -19,7 +19,7 @@ shared_examples 'annotation' do
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
     # Edit annotation type
-    edit_annotation('.edit-task-dialog__menu-item-number', 'edit-task-dialog__type-select-label')
+    edit_annotation('.edit-task-dialog__menu-item-number', 'edit type')
     wait_for_selector('input[type=number]')
     expect(@driver.page_source.include?('number')).to be(true)
 

@@ -24,9 +24,10 @@ module AnnotationSpecHelpers
     wait_for_selector('.team-tasks__edit-button').click
     wait_for_selector("//span[contains(text(), 'Cancel')]", :xpath)
     if field_type
+      wait_for_selector('.MuiSelect-selectMenu').click
       wait_for_selector(new_annotation).click
     else
-      update_field(field_type, new_annotation)
+      update_field('#task-label-input', new_annotation)
     end
     wait_for_selector('.create-task__dialog-submit-button').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
