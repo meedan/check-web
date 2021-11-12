@@ -158,10 +158,6 @@ class MediaTasksComponent extends Component {
 
     return (
       <StyledAnnotationRow>
-        { fieldset === 'metadata' ?
-          <div className="annotation-header-row metadata-row">
-            <MediaLanguageChip projectMedia={media} />
-          </div> : null }
         { fieldset === 'tasks' && !isBrowserExtension ?
           <div className="annotation-header-row task-row">
             { itemTasks.edges.length ?
