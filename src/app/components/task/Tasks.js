@@ -60,6 +60,28 @@ const Tasks = ({
   const [isEditing, setIsEditing] = React.useState(false);
   const [localResponses, setLocalResponses] = React.useState(tasks);
 
+  const confirmCloseBrowserWindow = (e) => {
+    if (isEditing) {
+      const message = 'Are you sure?'; // It's not displayed
+      e.returnValue = message;
+      return message;
+    }
+    e.preventDefault();
+    return '';
+  };
+
+  React.useEffect(() => {
+    if (isEditing) {
+      window.addEventListener('beforeunload', confirmCloseBrowserWindow);
+    } else {
+      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
+    };
+  }, [isEditing]);
+
   if (tasks.length === 0) {
     return (
       <React.Fragment>
