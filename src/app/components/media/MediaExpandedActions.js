@@ -14,9 +14,10 @@ import Timeline from '@material-ui/icons/Timeline';
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
 import ImageSearch from '@material-ui/icons/ImageSearch';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
-import ExternalLink from '../ExternalLink';
 import OcrButton from './OcrButton';
+import SensitiveContentMenuButton from './SensitiveContentMenuButton';
 import TranscriptionButton from './TranscriptionButton';
+import ExternalLink from '../ExternalLink';
 
 const ExtraMediaActions = ({
   projectMedia,
@@ -199,10 +200,22 @@ class MediaExpandedActions extends React.Component {
       onPlaybackRateChange,
     } = this.props;
 
+    const isUploadedAudio = projectMedia.media.type === 'UploadedAudio';
+    const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
+    const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
+    const isPicture = !!projectMedia.picture;
+    const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
+
+    if (!isPicture && !allowsVideoAnnotation && !isUploadedAudio) return null;
+
+
     return (
       <Box mt={1} mx={1} width="100%" className="media-detail__check-metadata">
         { (projectMedia.picture || (projectMedia.media && projectMedia.media.file_path) || (projectMedia.media.type === 'Claim' || projectMedia.media.type === 'Link')) ?
-          <Box width="100%" display="flex" justifyContent="flex-end">
+          <Box width="100%" display="flex" justifyContent="space-between">
+            <SensitiveContentMenuButton
+              projectMedia={projectMedia}
+            />
             <ExtraMediaActions
               projectMedia={projectMedia}
               onPlaybackRateChange={onPlaybackRateChange}
@@ -242,6 +255,16 @@ export default createFragmentContainer(MediaExpandedActions, graphql`
     }
     extracted_text: annotation(annotation_type: "extracted_text") {
       data
+    }
+    show_warning_cover
+    dynamic_annotation_flag {
+      id
+      dbid
+      content
+      data
+      annotator {
+        name
+      }
     }
     media {
       quote

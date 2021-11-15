@@ -135,15 +135,23 @@ class MediaExpandedComponent extends Component {
     const { mediaUrl, mediaQuery, linkTitle } = this.props;
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
+    console.log('media', media);
+
     const embedCard = (() => {
       if (isImage) {
-        return <ImageMediaCard imagePath={media.media.embed_path} />;
+        return (
+          <ImageMediaCard
+            contentWarning={media.dynamic_annotation_flag}
+            imagePath={media.media.embed_path}
+          />
+        );
       } else if (isMedia || isYoutube) {
         return (
           <div ref={this.props.playerRef}>
             <MediaPlayerCard
               filePath={filePath}
               coverImage={coverImage}
+              contentWarning={media.show_warning_cover}
               {...{
                 playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState, playbackRate,
               }}
@@ -160,6 +168,7 @@ class MediaExpandedComponent extends Component {
       } else if (isWebPage || !data.html) {
         return (
           <WebPageMediaCard
+            contentWarning={media.show_warning_cover}
             media={media}
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
@@ -316,6 +325,16 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         full_url
         dynamic_annotation_language {
           id
+        }
+        show_warning_cover
+        dynamic_annotation_flag {
+          id
+          dbid
+          content
+          data
+          annotator {
+            name
+          }
         }
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
