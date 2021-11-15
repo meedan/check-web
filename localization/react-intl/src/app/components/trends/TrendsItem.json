@@ -16,12 +16,11 @@
   },
   {
     "id": "trendItem.main",
-    "description": "This is a header that indicates there is a primary claim the user is viewing, to distinguish it from secondary, similar claims",
-    "defaultMessage": "Main claim"
+    "defaultMessage": "Media"
   },
   {
     "id": "trendItem.media",
-    "defaultMessage": "Media"
+    "defaultMessage": "Similar media"
   },
   {
     "id": "trendItem.sortBy",
