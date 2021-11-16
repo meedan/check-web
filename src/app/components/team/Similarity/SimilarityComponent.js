@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import SettingSwitch from './SettingSwitch';
 import ThresholdControl from './ThresholdControl';
@@ -32,6 +33,9 @@ const useStyles = makeStyles(theme => ({
   },
   inputMarginDense: {
     padding: '6px 8px',
+  },
+  transactionMargin: {
+    marginRight: theme.spacing(2),
   },
 }));
 
@@ -349,6 +353,64 @@ const SimilarityComponent = ({
                     label="Audio suggestion threshold"
                     error={(settings.audio_hash_suggestion_threshold > settings.audio_hash_matching_threshold)}
                   />
+                </Box>
+                <Box mb={4}>
+                  <SettingSwitch
+                    checked={settings.transcription_similarity_enabled}
+                    onChange={() => handleSettingsChange('transcription_similarity_enabled', !settings.transcription_similarity_enabled)}
+                    label="Automated transcription"
+                  />
+                  <Box mb={2} ml={7}>
+                    <Typography component="span" className={classes.transactionMargin}>
+                      <FormattedMessage
+                        id="similarityComponent.minimumDuration"
+                        defaultMessage="Minimum duration in seconds"
+                      />
+                    </Typography>
+                    <TextField
+                      classes={{ root: classes.root }}
+                      variant="outlined"
+                      size="small"
+                      value={settings.media_minimum_duration}
+                      onChange={(e) => { handleSettingsChange('media_minimum_duration', e.target.value); }}
+                      type="number"
+                      disabled={!settings.transcription_similarity_enabled}
+                    />
+                  </Box>
+                  <Box mb={2} ml={7}>
+                    <Typography component="span" className={classes.transactionMargin}>
+                      <FormattedMessage
+                        id="similarityComponent.maximumDuration"
+                        defaultMessage="Maximum duration in seconds"
+                      />
+                    </Typography>
+                    <TextField
+                      classes={{ root: classes.root }}
+                      variant="outlined"
+                      size="small"
+                      value={settings.media_maximum_duration}
+                      onChange={(e) => { handleSettingsChange('media_maximum_duration', e.target.value); }}
+                      type="number"
+                      disabled={!settings.transcription_similarity_enabled}
+                    />
+                  </Box>
+                  <Box mb={2} ml={7}>
+                    <Typography component="span" className={classes.transactionMargin}>
+                      <FormattedMessage
+                        id="similarityComponent.minimumRequests"
+                        defaultMessage="Minimum number of requests"
+                      />
+                    </Typography>
+                    <TextField
+                      classes={{ root: classes.root }}
+                      variant="outlined"
+                      size="small"
+                      value={settings.media_minimum_requests}
+                      onChange={(e) => { handleSettingsChange('media_minimum_requests', e.target.value); }}
+                      type="number"
+                      disabled={!settings.transcription_similarity_enabled}
+                    />
+                  </Box>
                 </Box>
               </CardContent>
             </Card>
