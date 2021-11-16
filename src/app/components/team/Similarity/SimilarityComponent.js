@@ -356,8 +356,8 @@ const SimilarityComponent = ({
                 </Box>
                 <Box mb={4}>
                   <SettingSwitch
-                    checked={settings.automatic_transcription_enabled}
-                    onChange={() => handleSettingsChange('automatic_transcription_enabled', !settings.automatic_transcription_enabled)}
+                    checked={settings.transcription_similarity_enabled}
+                    onChange={() => handleSettingsChange('transcription_similarity_enabled', !settings.transcription_similarity_enabled)}
                     label="Automated transcription"
                   />
                   <Box mb={2} ml={7}>
@@ -374,7 +374,7 @@ const SimilarityComponent = ({
                       value={settings.media_minimum_duration}
                       onChange={(e) => { handleSettingsChange('media_minimum_duration', e.target.value); }}
                       type="number"
-                      disabled={!settings.automatic_transcription_enabled}
+                      disabled={!settings.transcription_similarity_enabled}
                     />
                   </Box>
                   <Box mb={2} ml={7}>
@@ -391,7 +391,7 @@ const SimilarityComponent = ({
                       value={settings.media_maximum_duration}
                       onChange={(e) => { handleSettingsChange('media_maximum_duration', e.target.value); }}
                       type="number"
-                      disabled={!settings.automatic_transcription_enabled}
+                      disabled={!settings.transcription_similarity_enabled}
                     />
                   </Box>
                   <Box mb={2} ml={7}>
@@ -408,7 +408,7 @@ const SimilarityComponent = ({
                       value={settings.media_minimum_requests}
                       onChange={(e) => { handleSettingsChange('media_minimum_requests', e.target.value); }}
                       type="number"
-                      disabled={!settings.automatic_transcription_enabled}
+                      disabled={!settings.transcription_similarity_enabled}
                     />
                   </Box>
                 </Box>
