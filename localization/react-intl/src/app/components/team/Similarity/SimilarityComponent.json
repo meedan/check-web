@@ -34,5 +34,17 @@
   {
     "id": "similarityComponent.dateThreshold",
     "defaultMessage": "Similar content last submitted more than {maxTime} months ago will only be suggested"
+  },
+  {
+    "id": "similarityComponent.minimumDuration",
+    "defaultMessage": "Minimum duration in seconds"
+  },
+  {
+    "id": "similarityComponent.maximumDuration",
+    "defaultMessage": "Maximum duration in seconds"
+  },
+  {
+    "id": "similarityComponent.minimumRequests",
+    "defaultMessage": "Minimum number of requests"
   }
 ]
