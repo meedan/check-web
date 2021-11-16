@@ -57,6 +57,8 @@ const TeamTasks = ({ team, fieldset }) => {
                   show_in_browser_extension
                   required
                   conditional_info
+                  tasks_count
+                  tasks_with_answers_count
                 }
               }
             }
