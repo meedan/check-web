@@ -371,8 +371,8 @@ const SimilarityComponent = ({
                       classes={{ root: classes.root }}
                       variant="outlined"
                       size="small"
-                      value={settings.media_minimum_duration}
-                      onChange={(e) => { handleSettingsChange('media_minimum_duration', e.target.value); }}
+                      value={settings.transcription_minimum_duration}
+                      onChange={(e) => { handleSettingsChange('transcription_minimum_duration', e.target.value); }}
                       type="number"
                       disabled={!settings.transcription_similarity_enabled}
                     />
@@ -388,8 +388,8 @@ const SimilarityComponent = ({
                       classes={{ root: classes.root }}
                       variant="outlined"
                       size="small"
-                      value={settings.media_maximum_duration}
-                      onChange={(e) => { handleSettingsChange('media_maximum_duration', e.target.value); }}
+                      value={settings.transcription_maximum_duration}
+                      onChange={(e) => { handleSettingsChange('transcription_maximum_duration', e.target.value); }}
                       type="number"
                       disabled={!settings.transcription_similarity_enabled}
                     />
@@ -405,8 +405,8 @@ const SimilarityComponent = ({
                       classes={{ root: classes.root }}
                       variant="outlined"
                       size="small"
-                      value={settings.media_minimum_requests}
-                      onChange={(e) => { handleSettingsChange('media_minimum_requests', e.target.value); }}
+                      value={settings.transcription_minimum_requests}
+                      onChange={(e) => { handleSettingsChange('transcription_minimum_requests', e.target.value); }}
                       type="number"
                       disabled={!settings.transcription_similarity_enabled}
                     />
