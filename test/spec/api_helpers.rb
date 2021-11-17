@@ -166,9 +166,9 @@ module ApiHelpers
     request_api 'bot', {}
   end
 
-  def api_create_team_project_metadata_and_media(url = nil)
+  def api_create_team_project_metadata_and_media(url = nil, type = 'free_text', options = '[]')
     data = api_create_team_and_project
-    request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata' }
+    request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
     request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
   end

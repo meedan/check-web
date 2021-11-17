@@ -158,10 +158,6 @@ class MediaTasksComponent extends Component {
 
     return (
       <StyledAnnotationRow>
-        { fieldset === 'metadata' ?
-          <div className="annotation-header-row metadata-row">
-            <MediaLanguageChip projectMedia={media} />
-          </div> : null }
         { fieldset === 'tasks' && !isBrowserExtension ?
           <div className="annotation-header-row task-row">
             { itemTasks.edges.length ?
@@ -276,6 +272,27 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
               first_response {
                 id
                 content
+                attribution(first: 1000) {
+                    edges {
+                      node {
+                        id,
+                        dbid,
+                        name,
+                        source {
+                          id,
+                          dbid,
+                          name,
+                        }
+                      }
+                    }
+                }
+                annotator {
+                  id
+                  user {
+                    dbid
+                    name
+                  }
+                }
               },
               annotator {
                 id

@@ -1,10 +1,12 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import {
+  Box,
+  Typography,
+  Button,
+  Divider,
+} from '@material-ui/core';
 import styled from 'styled-components';
 import moment from 'moment';
 import Task from './Task';
@@ -21,10 +23,18 @@ const StyledMetadataContainer = styled.div`
 
 const StyledFormControls = styled.div`
   padding-left: ${units(2)};
-  padding-top: ${units(2)};
   button {
     margin-right: ${units(1)};
   }
+  display: flex;
+  align-items: center;
+  height: 63px;
+  position: sticky;
+  top: 0px;
+  z-index: 10000;
+  background-color: white;
+  box-shadow: 0 0 8px 4px rgba(170, 170, 170, 0.25);
+  clip-path: polygon(0% 0%, 100% 0%, 100.94% 107.30%, 0% 120%);
 `;
 
 const StyledAnnotatorInformation = styled.span`
@@ -49,6 +59,28 @@ const Tasks = ({
   const isMetadata = fieldset === 'metadata';
   const [isEditing, setIsEditing] = React.useState(false);
   const [localResponses, setLocalResponses] = React.useState(tasks);
+
+  const confirmCloseBrowserWindow = (e) => {
+    if (isEditing) {
+      const message = 'Are you sure?'; // It's not displayed
+      e.returnValue = message;
+      return message;
+    }
+    e.preventDefault();
+    return '';
+  };
+
+  React.useEffect(() => {
+    if (isEditing) {
+      window.addEventListener('beforeunload', confirmCloseBrowserWindow);
+    } else {
+      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
+    }
+
+    return () => {
+      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
+    };
+  }, [isEditing]);
 
   if (tasks.length === 0) {
     return (
@@ -197,7 +229,15 @@ const Tasks = ({
     setIsEditing(false);
   }
 
+  // returns -1 when no annotations yet exist, null when in a loading state, and an object otherwise
   function getLatestEditInfo() {
+    const noAnnotationsExist = tasks
+      .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+      .filter(showMetadataItem)
+      .every(task => task.node.first_response_value === null);
+    if (noAnnotationsExist) {
+      return -1;
+    }
     const latestDate = Math.max(...tasks
       .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
       .filter(showMetadataItem)
@@ -227,12 +267,32 @@ const Tasks = ({
       });
     return {
       latestDate,
-      latestAuthorDbid: latestAuthor.node?.annotator?.user?.dbid,
-      latestAuthorName: latestAuthor.node?.annotator?.user?.name,
+      latestAuthorDbid: latestAuthor.node?.first_response?.annotator?.user?.dbid,
+      latestAuthorName: latestAuthor.node?.first_response?.annotator?.user?.name,
     };
   }
 
   const latestEditInfo = getLatestEditInfo();
+
+  const LastEditedBy = () => {
+    if (latestEditInfo === -1) {
+      return null;
+    } else if (latestEditInfo === null) {
+      return <span>...</span>;
+    }
+    return (
+      <StyledAnnotatorInformation>
+        <Typography variant="body1">
+          Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
+          <a
+            href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
+          >
+            {latestEditInfo.latestAuthorName}
+          </a>
+        </Typography>
+      </StyledAnnotatorInformation>
+    );
+  };
 
   if (isMetadata) {
     output = (
@@ -253,22 +313,7 @@ const Tasks = ({
                 <FormattedMessage id="metadata.form.edit" defaultMessage="Edit" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
               </Button>
           }
-          <p>
-            {
-              latestEditInfo ? (
-                <StyledAnnotatorInformation>
-                  <Typography variant="body1">
-                    Saved {moment(latestEditInfo.latestDate).fromNow()} by{' '}
-                    <a
-                      href={`/check/user/${latestEditInfo.latestAuthorDbid}`}
-                    >
-                      {latestEditInfo.latestAuthorName}
-                    </a>
-                  </Typography>
-                </StyledAnnotatorInformation>
-              ) : '...'
-            }
-          </p>
+          <LastEditedBy />
         </StyledFormControls>
         <Divider />
         <ul className="tasks__list">

@@ -156,11 +156,14 @@
 	"UserUtil.editor": {
 		"string": "Editor / Editora"
 	},
-	"addAnnotation.addImage": {
-		"string": "Añadir una imagen "
+	"addAnnotation.addFile": {
+		"string": "Add a file"
 	},
 	"addAnnotation.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar el ítem. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
+	},
+	"addAnnotation.inputEditHint": {
+		"string": "Edit note"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Añadir una nota"
@@ -192,7 +195,7 @@
 		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.country": {
-		"string": "Country",
+		"string": "País",
 		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
@@ -284,6 +287,9 @@
 	"annotation.deletedComment": {
 		"string": "Comentario eliminado por {author}: {comment}"
 	},
+	"annotation.editButton": {
+		"string": "Editar"
+	},
 	"annotation.embedCodeCopied": {
 		"string": "Se ha generado y copiado un código de inserción del ítem. El ítem ahora puede ser visible públicamente."
 	},
@@ -354,10 +360,10 @@
 		"string": "Acciones de las anotaciones"
 	},
 	"annotation.metadataCreated": {
-		"string": "Campo de metadatos creado por {author}: {fieldLabel}"
+		"string": "Annotation field created by {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Campo de metadatos \"{fieldLabel}\" llenado por {author}: {response}"
+		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "Sacado de la Papelera por {author}"
@@ -516,9 +522,6 @@
 	"browserSupport.message": {
 		"string": "{appName} está optimizada para Google Chrome en escritorio."
 	},
-	"bulkActions.cancelButton": {
-		"string": "Cancelar"
-	},
 	"bulkActions.confirm": {
 		"string": "Mover de Sin Confirmar"
 	},
@@ -557,19 +560,19 @@
 		"string": "Confirmar ítems seleccionados y mover ítems a otra carpeta"
 	},
 	"bulkActionsAssign.assignmentNotes": {
-		"string": "Add a note to email notification",
+		"string": "Agregar una nota a la notificación por correo electrónico",
 		"developer_comment": "Field for adding complementary information for the assignee"
 	},
 	"bulkActionsAssign.notFound": {
-		"string": "No members found",
+		"string": "No se encontraron miembros",
 		"developer_comment": "Displayed when no member names match search input"
 	},
 	"bulkActionsAssign.submitLabel": {
-		"string": "{numItems, plural, one {Assign 1 item} other {Assign # items}}",
+		"string": "{numItems, plural, one {Asignar 1 ítem} other {Asignar # ítems}}",
 		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
 	},
 	"bulkActionsAssign.success": {
-		"string": "Items assigned successfully",
+		"string": "Ítems asignados exitosamente",
 		"developer_comment": "Success message for bulk assignment action"
 	},
 	"bulkActionsMenu.action": {
@@ -581,7 +584,7 @@
 		"developer_comment": "Menu option for bulk assigning selected items"
 	},
 	"bulkActionsMenu.changeStatus": {
-		"string": "Change status",
+		"string": "Cambiar estado",
 		"developer_comment": "Menu option for bulk changing statuses of selected items"
 	},
 	"bulkActionsMenu.moveToFolder": {
@@ -593,35 +596,35 @@
 		"developer_comment": "Menu option for bulk tagging selected items"
 	},
 	"bulkActionsMove.notFound": {
-		"string": "No folders found",
+		"string": "No se encontraron carpetas",
 		"developer_comment": "Displayed when no folder names match search input"
 	},
 	"bulkActionsMove.submitLabel": {
-		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
+		"string": "{numItems, plural, one {Mover 1 ítem} other {Mover # ítems}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
 	},
 	"bulkActionsStatus.dialogBody": {
-		"string": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}",
+		"string": "{publishedCount, plural, one {El estado de 1 ítem no pudo ser cambiado porque su reporte está actualmente publicado. Por favor edítalo individualmente.} other {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.}}",
 		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
 	},
 	"bulkActionsStatus.dialogTitle": {
-		"string": "Some statuses could not be changed",
+		"string": "Algunos estados no pudieron ser cambiados",
 		"developer_comment": "Title of dialog warning after bulk updating item statuses"
 	},
 	"bulkActionsStatus.submitLabel": {
-		"string": "{numItems, plural, one {Set status of 1 item} other {Set status of # items}}",
+		"string": "{numItems, plural, one {Establecer estado de 1 ítem} other {Establecer estado de # ítems}}",
 		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
 	},
 	"bulkActionsStatus.success": {
-		"string": "Item statuses changed successfully",
+		"string": "Los estados de ítems cambiaron exitosamente",
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Tag 1 item} other {Tag # items}}",
+		"string": "{numItems, plural, one {Etiqueta 1 ítem} other {Etiqueta # ítems}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
-		"string": "Items tagged successfully",
+		"string": "Ítems etiquetados con éxito",
 		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"changeMediaSource.cancelButton": {
@@ -814,19 +817,21 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {Debes cambiar el estado de un ítem para poder eliminar este estado} other {Debes cambiar el estado de # ítems para eliminar este estado}}"
 	},
+	"destinationProjects.addManually": {
+		"string": "Manually added content"
+	},
 	"destinationProjects.choose": {
 		"string": "Elegir una carpeta"
 	},
 	"destinationProjects.empty": {
 		"string": "No hay carpetas en esta colección"
 	},
+	"destinationProjects.itemFolder": {
+		"string": "Content for report"
+	},
 	"destinationProjects.none": {
 		"string": "No está en ninguna colección",
 		"developer_comment": "Label used for folders that are not in any collection"
-	},
-	"detachDialog.cancelButton": {
-		"string": "Cancelar",
-		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
 		"string": "Mover a carpeta",
@@ -1167,7 +1172,8 @@
 		"string": "¿Olvidaste tu clave?"
 	},
 	"media.normalSpeed": {
-		"string": "Velocidad normal"
+		"string": "Velocidad normal",
+		"developer_comment": "Sets video playback rate to original 1x speed"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
@@ -1219,9 +1225,6 @@
 	},
 	"mediaActionsBar.assignmentsUpdated": {
 		"string": "¡Las asignaciones se han actualizado exitosamente!"
-	},
-	"mediaActionsBar.cancelButton": {
-		"string": "Cancelar"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirmar"
@@ -1355,18 +1358,18 @@
 		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.noTranscription": {
-		"string": "No audio transcribed from this media",
+		"string": "No se ha transcrito el audio de este medio",
 		"developer_comment": "Label when transcription is not (yet) available"
 	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
 	},
 	"mediaExpanded.transcriptionCompleted": {
-		"string": "Audio transcribed from media:",
+		"string": "Audio transcrito de los medios:",
 		"developer_comment": "Label for transcription from audio or video"
 	},
 	"mediaExpanded.transcriptionInProgress": {
-		"string": "Audio transcription in progress…",
+		"string": "Transcripción de audio en progreso...",
 		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
@@ -1432,13 +1435,32 @@
 		"string": "Lo sentimos, se produjo un error al actualizar el idioma. Por favor, intentalo nuevamente y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Búsqueda de Imágenes de Google"
+		"string": "Búsqueda de imagen inversa",
+		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
 	"mediaMetadata.Timeline": {
-		"string": "Cronología"
+		"string": "Cronología",
+		"developer_comment": "Menu options for displaying the video timeline tray"
+	},
+	"mediaMetadata.audioActions": {
+		"string": "Audio actions",
+		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
-		"string": "Descarga"
+		"string": "Descarga",
+		"developer_comment": "Menu option for downloading the original file of current item"
+	},
+	"mediaMetadata.imageActions": {
+		"string": "Image actions",
+		"developer_comment": "Actions menu for item of type Image"
+	},
+	"mediaMetadata.playbackSpeed": {
+		"string": "Playback speed",
+		"developer_comment": "Menu option for altering playback speed of video/audio clip"
+	},
+	"mediaMetadata.videoActions": {
+		"string": "Video actions",
+		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Añadir relación"
@@ -1564,8 +1586,14 @@
 	"mediaSuggestionsComponent.back": {
 		"string": "Volver"
 	},
+	"mediaSuggestionsComponent.dialogRejectTitle": {
+		"string": "Choose a destination folder for this item"
+	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Volver a vista principal"
+	},
+	"mediaSuggestionsComponent.moveItem": {
+		"string": "Mover ítem"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Sin notas"
@@ -1593,7 +1621,7 @@
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
 	},
 	"metadata.couldNotSave": {
-		"string": "Could not save, missing required field",
+		"string": "No se ha podido guardar, falta un campo obligatorio",
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
 	},
 	"metadata.delete": {
@@ -1625,7 +1653,7 @@
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
 	},
 	"metadata.form.cancel": {
-		"string": "Cancel changes",
+		"string": "Cancelar cambios",
 		"developer_comment": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form."
 	},
 	"metadata.form.edit": {
@@ -1703,7 +1731,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extraer texto de imagen",
+		"string": "Image text extraction",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -1838,6 +1866,9 @@
 	},
 	"projectHeader.trash": {
 		"string": "Papelera"
+	},
+	"projectHeader.trends": {
+		"string": "Tendencias"
 	},
 	"projectHeader.unconfirmed": {
 		"string": "Sin Confirmar"
@@ -2004,7 +2035,7 @@
 		"string": "Título"
 	},
 	"projectsComponent.trends": {
-		"string": "Trends (Beta)",
+		"string": "Tendencias (Beta)",
 		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
 	},
 	"reportDesigner.addIntro": {
@@ -2418,7 +2449,7 @@
 		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.file": {
-		"string": "Search with file",
+		"string": "Búsqueda con archivo",
 		"developer_comment": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
 	},
 	"search.folderHeading": {
@@ -2426,7 +2457,7 @@
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
-		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Learn more about search techniques\n                          </a>\n                        </div>",
+		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Árbol + Hoja</td><td>Ítems con ambos Árbol Y Hoja</td></tr>\n                            <tr><td>|</td><td>Árbol | Hoja</td><td>Ítems con Árbol O Hoja</td></tr>\n                            <tr><td>()</td><td>Árbol + (Hoja | Rama)</td><td>Ítems con Árbol Y Hoja O ítems con Árbol Y Rama</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Aprende más sobre las técnicas de búsqueda\n                          </a>\n                        </div>",
 		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
@@ -2453,7 +2484,7 @@
 		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
 	"search.noResults": {
-		"string": "No results found.",
+		"string": "No se encontraron resultados",
 		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
 	},
 	"search.notInAny": {
@@ -2461,7 +2492,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "OR",
+		"string": "O",
 		"developer_comment": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
 	},
 	"search.previousPage": {
@@ -2488,7 +2519,7 @@
 		"developer_comment": "Refers to a report status"
 	},
 	"search.setText": {
-		"string": "Set text",
+		"string": "Establecer texto",
 		"developer_comment": "A label on a button that lets a user set the text on an associated popup to the original input field."
 	},
 	"search.show": {
@@ -2548,7 +2579,7 @@
 		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldCountry.label": {
-		"string": "Country is",
+		"string": "País es",
 		"developer_comment": "Prefix label for field to filter by country"
 	},
 	"searchFieldSource.label": {
@@ -2676,6 +2707,15 @@
 	},
 	"similarityComponent.masterSwitchLabelOn": {
 		"string": "El emparejamiento automático está ENCENDIDO"
+	},
+	"similarityComponent.maximumDuration": {
+		"string": "Maximum duration in seconds"
+	},
+	"similarityComponent.minimumDuration": {
+		"string": "Minimum duration in seconds"
+	},
+	"similarityComponent.minimumRequests": {
+		"string": "Minimum number of requests"
 	},
 	"similarityComponent.save": {
 		"string": "Guardar"
@@ -3151,10 +3191,10 @@
 		"string": "Domingo"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Jueves"
@@ -3702,7 +3742,7 @@
 		"string": "General"
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Metadato"
+		"string": "Anotación"
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Configuración de columna guardada exitosamente",
@@ -3719,7 +3759,7 @@
 		"string": "Ocultar"
 	},
 	"teamListsItem.metadata": {
-		"string": "Metadato"
+		"string": "Anotación"
 	},
 	"teamListsItem.show": {
 		"string": "Mostrar"
@@ -4139,19 +4179,19 @@
 		"string": "Términos del Servicio"
 	},
 	"transcriptionButton.defaultErrorMessage": {
-		"string": "Could not get transcription",
+		"string": "No se pudo obtener transcripción",
 		"developer_comment": "Warning displayed if an error occurred when transcribing an audio or video file"
 	},
 	"transcriptionButton.inProgress": {
-		"string": "Requesting transcription…",
+		"string": "Solicitando transcripción...",
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcribe audio",
+		"string": "Transcription",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
-		"string": "Transcription started, please come back in a few seconds to see it",
+		"string": "Comenzó la transcripción, por favor vuelve en unos segundos para verla",
 		"developer_comment": "Banner displayed when transcription operation starts"
 	},
 	"translateStatuses.continueAndSave": {
@@ -4175,8 +4215,29 @@
 	"trash.title": {
 		"string": "Papelera"
 	},
+	"trendItem.lastSubmitted": {
+		"string": "Enviado por última vez",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"trendItem.main": {
+		"string": "Medio"
+	},
+	"trendItem.media": {
+		"string": "Medios similares"
+	},
+	"trendItem.request": {
+		"string": "Request",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"trendItem.requests": {
+		"string": "Solicitudes",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"trendItem.sortBy": {
+		"string": "Sort by"
+	},
 	"trends.title": {
-		"string": "Trends"
+		"string": "Tendencias"
 	},
 	"unconfirmed.title": {
 		"string": "Sin Confirmar"

@@ -177,13 +177,13 @@ const TrendsItemComponent = ({ project_media }) => {
       <StyledBigColumn className="media__column">
         <Column>
           <Typography className={classes.columnTitle}>
-            <FormattedMessage id="trendItem.main" defaultMessage="Main claim" description="This is a header that indicates there is a primary claim the user is viewing, to distinguish it from secondary, similar claims" />
+            <FormattedMessage id="trendItem.main" defaultMessage="Media" />
           </Typography>
           <ItemCard item={mainItem} index={mainItem.id} />
           <Grid container alignItems="center">
             <Grid item xs={6}>
               <Typography className={classes.columnTitle}>
-                <FormattedMessage id="trendItem.media" defaultMessage="Media" />
+                <FormattedMessage id="trendItem.media" defaultMessage="Similar media" />
               </Typography>
             </Grid>
             <Grid item xs={6}>

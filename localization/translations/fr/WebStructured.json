@@ -156,11 +156,14 @@
 	"UserUtil.editor": {
 		"string": "Rédacteur"
 	},
-	"addAnnotation.addImage": {
-		"string": "Ajouter une image"
+	"addAnnotation.addFile": {
+		"string": "Add a file"
 	},
 	"addAnnotation.error": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’élément. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
+	},
+	"addAnnotation.inputEditHint": {
+		"string": "Edit note"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Ajoutez une note"
@@ -192,7 +195,7 @@
 		"developer_comment": "Menu option to enable searching items by collection"
 	},
 	"addFilterMenu.country": {
-		"string": "Country",
+		"string": "Pays",
 		"developer_comment": "Menu option to enable searching items by country"
 	},
 	"addFilterMenu.createdBy": {
@@ -276,13 +279,16 @@
 		"string": "L’attribution d’une tâche a été retirée de {attribueeFrom} par {author} : {title}"
 	},
 	"annotation.changedJsonSchema": {
-		"string": "Le schéma JSON de la tâche a été modifié par {author} : {title}"
+		"string": "Le schéma JSON de la tâche a été changé par {author} : {title}"
 	},
 	"annotation.deleteButton": {
 		"string": "Supprimer"
 	},
 	"annotation.deletedComment": {
 		"string": "Le commentaire a été supprimé par {author} : {comment}"
+	},
+	"annotation.editButton": {
+		"string": "Modifier"
 	},
 	"annotation.embedCodeCopied": {
 		"string": "Un code d’intégration de l’élément a été généré et copié. L’élément est maintenant visible publiquement."
@@ -354,10 +360,10 @@
 		"string": "Actions sur la note"
 	},
 	"annotation.metadataCreated": {
-		"string": "Le champ des métadonnées a été créé par {author} : {fieldLabel}"
+		"string": "Annotation field created by {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Le champ de métadonnées « {fieldLabel} » a été renseigné par {author} : {response}"
+		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "A été déplacé de la corbeille par {author}"
@@ -516,9 +522,6 @@
 	"browserSupport.message": {
 		"string": "{appName} est optimisée pour Chrome pour ordinateur de Google."
 	},
-	"bulkActions.cancelButton": {
-		"string": "Annuler"
-	},
 	"bulkActions.confirm": {
 		"string": "Déplacer de Non confirmés"
 	},
@@ -557,19 +560,19 @@
 		"string": "Confirmer les éléments sélectionnés et déplacer les éléments vers un autre dossier"
 	},
 	"bulkActionsAssign.assignmentNotes": {
-		"string": "Add a note to email notification",
+		"string": "Ajouter une note à la notification par courriel",
 		"developer_comment": "Field for adding complementary information for the assignee"
 	},
 	"bulkActionsAssign.notFound": {
-		"string": "No members found",
+		"string": "Aucun membre n’a été trouvé",
 		"developer_comment": "Displayed when no member names match search input"
 	},
 	"bulkActionsAssign.submitLabel": {
-		"string": "{numItems, plural, one {Assign 1 item} other {Assign # items}}",
+		"string": "{numItems, plural, one {Attribuer 1 élément} other {Attribuer # éléments}}",
 		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
 	},
 	"bulkActionsAssign.success": {
-		"string": "Items assigned successfully",
+		"string": "Les éléments ont été attribués avec succès",
 		"developer_comment": "Success message for bulk assignment action"
 	},
 	"bulkActionsMenu.action": {
@@ -581,7 +584,7 @@
 		"developer_comment": "Menu option for bulk assigning selected items"
 	},
 	"bulkActionsMenu.changeStatus": {
-		"string": "Change status",
+		"string": "Changer l’état",
 		"developer_comment": "Menu option for bulk changing statuses of selected items"
 	},
 	"bulkActionsMenu.moveToFolder": {
@@ -589,39 +592,39 @@
 		"developer_comment": "Menu option for bulk moving selected items into a folder"
 	},
 	"bulkActionsMenu.tag": {
-		"string": "Étiquette",
+		"string": "Étiqueter",
 		"developer_comment": "Menu option for bulk tagging selected items"
 	},
 	"bulkActionsMove.notFound": {
-		"string": "No folders found",
+		"string": "Aucun dossier n’a été trouvé",
 		"developer_comment": "Displayed when no folder names match search input"
 	},
 	"bulkActionsMove.submitLabel": {
-		"string": "{numItems, plural, one {Move 1 item} other {Move # items}}",
+		"string": "{numItems, plural, one {Déplacer 1 élément} other {Déplacer # éléments}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
 	},
 	"bulkActionsStatus.dialogBody": {
-		"string": "{publishedCount, plural, one {The status of 1 item could not be changed because its report is currently published. Please edit it individually.} other {The status of # items could not be changed because their reports are currently published. Please edit them individually.}}",
+		"string": "{publishedCount, plural, one {L’état d’un élément n’a pas pu être modifié, car son rapport est publié actuellement. Veuillez le modifier individuellement.} other {L’état de # éléments n’a pas pu être modifié, car leurs rapports sont publiés actuellement. Veuillez les modifier individuellement.}}",
 		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
 	},
 	"bulkActionsStatus.dialogTitle": {
-		"string": "Some statuses could not be changed",
+		"string": "Impossible de changer certains états",
 		"developer_comment": "Title of dialog warning after bulk updating item statuses"
 	},
 	"bulkActionsStatus.submitLabel": {
-		"string": "{numItems, plural, one {Set status of 1 item} other {Set status of # items}}",
+		"string": "{numItems, plural, one {Définir l’état d’un élément} other {Définir l’état de # éléments}}",
 		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
 	},
 	"bulkActionsStatus.success": {
-		"string": "Item statuses changed successfully",
+		"string": "Les états des éléments ont été changés avec succès",
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Tag 1 item} other {Tag # items}}",
+		"string": "{numItems, plural, one {Étiqueter 1 élément} other {Étiqueter # éléments}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
-		"string": "Items tagged successfully",
+		"string": "Les éléments ont été étiquetés avec succès",
 		"developer_comment": "Success message for bulk tagging actions"
 	},
 	"changeMediaSource.cancelButton": {
@@ -814,19 +817,21 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {Vous devez changer l’état d’un élément pour supprimer cet état} other {Vous devez changer l’état de # éléments pour supprimer cet état}}"
 	},
+	"destinationProjects.addManually": {
+		"string": "Manually added content"
+	},
 	"destinationProjects.choose": {
 		"string": "Choisissez un dossier"
 	},
 	"destinationProjects.empty": {
 		"string": "Il n’y a aucun dossier dans cette collection"
 	},
+	"destinationProjects.itemFolder": {
+		"string": "Content for report"
+	},
 	"destinationProjects.none": {
 		"string": "N’est dans aucune collection",
 		"developer_comment": "Label used for folders that are not in any collection"
-	},
-	"detachDialog.cancelButton": {
-		"string": "Annuler",
-		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
 		"string": "Déplacer vers le dossier",
@@ -1167,7 +1172,8 @@
 		"string": "Avez-vous oublié votre mot de passe ?"
 	},
 	"media.normalSpeed": {
-		"string": "Vitesse normale"
+		"string": "Vitesse normale",
+		"developer_comment": "Sets video playback rate to original 1x speed"
 	},
 	"media.typeAudio": {
 		"string": "Contenu sonore"
@@ -1219,9 +1225,6 @@
 	},
 	"mediaActionsBar.assignmentsUpdated": {
 		"string": "Les attributions ont été mises à jour avec succès"
-	},
-	"mediaActionsBar.cancelButton": {
-		"string": "Annuler"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirmer"
@@ -1355,18 +1358,18 @@
 		"developer_comment": "Label when text extracted from an image is not available"
 	},
 	"mediaExpanded.noTranscription": {
-		"string": "No audio transcribed from this media",
+		"string": "Aucun contenu sonore n’a été transcrit de ce média",
 		"developer_comment": "Label when transcription is not (yet) available"
 	},
 	"mediaExpanded.requests": {
 		"string": "{count, plural, one {# demande} other {# demandes}}"
 	},
 	"mediaExpanded.transcriptionCompleted": {
-		"string": "Audio transcribed from media:",
+		"string": "Contenu sonore transcrit du média :",
 		"developer_comment": "Label for transcription from audio or video"
 	},
 	"mediaExpanded.transcriptionInProgress": {
-		"string": "Audio transcription in progress…",
+		"string": "La transcription du contenu sonore est en cours…",
 		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
@@ -1432,13 +1435,32 @@
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de la langue. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Recherche d’images de Google"
+		"string": "Recherche inversée d’image",
+		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
 	"mediaMetadata.Timeline": {
-		"string": "Chronologie"
+		"string": "Chronologie",
+		"developer_comment": "Menu options for displaying the video timeline tray"
+	},
+	"mediaMetadata.audioActions": {
+		"string": "Audio actions",
+		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
-		"string": "Télécharger"
+		"string": "Télécharger",
+		"developer_comment": "Menu option for downloading the original file of current item"
+	},
+	"mediaMetadata.imageActions": {
+		"string": "Image actions",
+		"developer_comment": "Actions menu for item of type Image"
+	},
+	"mediaMetadata.playbackSpeed": {
+		"string": "Playback speed",
+		"developer_comment": "Menu option for altering playback speed of video/audio clip"
+	},
+	"mediaMetadata.videoActions": {
+		"string": "Video actions",
+		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Ajouter une association"
@@ -1564,8 +1586,14 @@
 	"mediaSuggestionsComponent.back": {
 		"string": "Retour"
 	},
+	"mediaSuggestionsComponent.dialogRejectTitle": {
+		"string": "Choose a destination folder for this item"
+	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Retour à la vue principale"
+	},
+	"mediaSuggestionsComponent.moveItem": {
+		"string": "Déplacer un élément"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Aucune note"
@@ -1593,7 +1621,7 @@
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will 'cancel' the editing action and all changes will revert."
 	},
 	"metadata.couldNotSave": {
-		"string": "Could not save, missing required field",
+		"string": "Impossible d’enregistrer, il manque un champ requis",
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
 	},
 	"metadata.delete": {
@@ -1625,7 +1653,7 @@
 		"developer_comment": "This message appears when a user tries to upload a file that is the wrong file type. The 'extensions' variable will be a list of file extensions (PDF, PNG, etc) and will not be localized."
 	},
 	"metadata.form.cancel": {
-		"string": "Cancel changes",
+		"string": "Annuler les changements",
 		"developer_comment": "This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form."
 	},
 	"metadata.form.edit": {
@@ -1703,7 +1731,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extraire le texte de l’image",
+		"string": "Image text extraction",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -1838,6 +1866,9 @@
 	},
 	"projectHeader.trash": {
 		"string": "Corbeille"
+	},
+	"projectHeader.trends": {
+		"string": "Tendances"
 	},
 	"projectHeader.unconfirmed": {
 		"string": "Non confirmés"
@@ -2004,7 +2035,7 @@
 		"string": "Titre"
 	},
 	"projectsComponent.trends": {
-		"string": "Trends (Beta)",
+		"string": "Tendances (bêta)",
 		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
 	},
 	"reportDesigner.addIntro": {
@@ -2418,7 +2449,7 @@
 		"developer_comment": "Logical operator 'OR' to be applied when filtering by multiple fields"
 	},
 	"search.file": {
-		"string": "Search with file",
+		"string": "Chercher un fichier",
 		"developer_comment": "This is a label on a button that the user presses in order to choose a video, image, or audio file that will be searched for. The file itself is not uploaded, so 'upload' would be the wrong verb to use here. This action opens a file picker prompt."
 	},
 	"search.folderHeading": {
@@ -2426,7 +2457,7 @@
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
 	},
 	"search.help": {
-		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Learn more about search techniques\n                          </a>\n                        </div>",
+		"string": "<table>\n                         <tbody>\n                           <tr><td>+</td><td>Arbre + Feuille</td><td>Éléments avec à la fois Arbre ET Feuille</td></tr>\n                           <tr><td>|</td><td>Arbre | Feuille</td><td>Éléments avec Arbre OU Feuille</td></tr>\n                           <tr><td>()</td><td>Arbre + (Feuille | Branche)</td><td>Eléments avec Arbre ET Feuille OU éléments avec Arbre ET Branche\n                         </tbody>\n                       </table>\n                       <div>\n                         <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                           Apprenez-en davantage sur les techniques de recherche\n                         </a>\n                       </div>",
 		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
@@ -2461,7 +2492,7 @@
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
 	},
 	"search.or": {
-		"string": "OR",
+		"string": "OU",
 		"developer_comment": "This is a label that appears between two mutually exclusive search options, indicating that you may select one option 'OR' the other."
 	},
 	"search.previousPage": {
@@ -2488,7 +2519,7 @@
 		"developer_comment": "Refers to a report status"
 	},
 	"search.setText": {
-		"string": "Set text",
+		"string": "Définir le texte",
 		"developer_comment": "A label on a button that lets a user set the text on an associated popup to the original input field."
 	},
 	"search.show": {
@@ -2548,7 +2579,7 @@
 		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldCountry.label": {
-		"string": "Country is",
+		"string": "Le pays est",
 		"developer_comment": "Prefix label for field to filter by country"
 	},
 	"searchFieldSource.label": {
@@ -2676,6 +2707,15 @@
 	},
 	"similarityComponent.masterSwitchLabelOn": {
 		"string": "La correspondance automatisée est activée"
+	},
+	"similarityComponent.maximumDuration": {
+		"string": "Maximum duration in seconds"
+	},
+	"similarityComponent.minimumDuration": {
+		"string": "Minimum duration in seconds"
+	},
+	"similarityComponent.minimumRequests": {
+		"string": "Minimum number of requests"
 	},
 	"similarityComponent.save": {
 		"string": "Enregistrer"
@@ -3151,10 +3191,10 @@
 		"string": "Dimanche"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Jeudi"
@@ -3702,7 +3742,7 @@
 		"string": "Général"
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Métadonnées"
+		"string": "Annotation"
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Les paramètres des colonnes ont été enregistrés avec succès",
@@ -3719,7 +3759,7 @@
 		"string": "Cacher"
 	},
 	"teamListsItem.metadata": {
-		"string": "Métadonnées"
+		"string": "Annotation"
 	},
 	"teamListsItem.show": {
 		"string": "Afficher"
@@ -4014,7 +4054,7 @@
 		"developer_comment": "E.g. Field 1, Field 2..."
 	},
 	"teamTaskCard.required": {
-		"string": "Requise",
+		"string": "Requis",
 		"developer_comment": "Toggle switch to make field required"
 	},
 	"teamTaskCard.showInBrowserExtension": {
@@ -4139,19 +4179,19 @@
 		"string": "Conditions générales d’utilisation"
 	},
 	"transcriptionButton.defaultErrorMessage": {
-		"string": "Could not get transcription",
+		"string": "Impossible d’obtenir la transcription",
 		"developer_comment": "Warning displayed if an error occurred when transcribing an audio or video file"
 	},
 	"transcriptionButton.inProgress": {
-		"string": "Requesting transcription…",
+		"string": "Demande de la transcription…",
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcribe audio",
+		"string": "Transcription",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
-		"string": "Transcription started, please come back in a few seconds to see it",
+		"string": "La transcription a démarré, veuillez revenir dans quelques secondes pour la visualiser",
 		"developer_comment": "Banner displayed when transcription operation starts"
 	},
 	"translateStatuses.continueAndSave": {
@@ -4175,8 +4215,29 @@
 	"trash.title": {
 		"string": "Corbeille"
 	},
+	"trendItem.lastSubmitted": {
+		"string": "Dernier envoi",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"trendItem.main": {
+		"string": "Média"
+	},
+	"trendItem.media": {
+		"string": "Médias semblables"
+	},
+	"trendItem.request": {
+		"string": "Request",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"trendItem.requests": {
+		"string": "Demandes",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"trendItem.sortBy": {
+		"string": "Sort by"
+	},
 	"trends.title": {
-		"string": "Trends"
+		"string": "Tendances"
 	},
 	"unconfirmed.title": {
 		"string": "Non confirmés"

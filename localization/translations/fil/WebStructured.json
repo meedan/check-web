@@ -156,11 +156,14 @@
 	"UserUtil.editor": {
 		"string": "Tagapag-edit"
 	},
-	"addAnnotation.addImage": {
-		"string": "Magdagdag ng larawan"
+	"addAnnotation.addFile": {
+		"string": "Add a file"
 	},
 	"addAnnotation.error": {
 		"string": "Paumanhin, may naganap na error habang inu-update ang item. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
+	},
+	"addAnnotation.inputEditHint": {
+		"string": "Edit note"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Magdagdag ng note"
@@ -284,6 +287,9 @@
 	"annotation.deletedComment": {
 		"string": "Komentong binura ni {author}: {comment}"
 	},
+	"annotation.editButton": {
+		"string": "I-edit"
+	},
 	"annotation.embedCodeCopied": {
 		"string": "Nakapagbuo at nakopya na ang embed code ng item. Makikita na ng publiko ang item."
 	},
@@ -354,10 +360,10 @@
 		"string": "Mga aksyong pang-anotasyon"
 	},
 	"annotation.metadataCreated": {
-		"string": "Patlang pang-metadata na gawa ni {author}: {fieldLabel}"
+		"string": "Annotation field created by {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Patlang pang-metadata na \"{fieldLabel}\" na pinunan ni {author}: {response}"
+		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "Moved out of Trash by {author}"
@@ -515,9 +521,6 @@
 	},
 	"browserSupport.message": {
 		"string": "Naka-optimize ang {appName} para sa Google Chrome sa desktop."
-	},
-	"bulkActions.cancelButton": {
-		"string": "Kanselahin"
 	},
 	"bulkActions.confirm": {
 		"string": "Move from Unconfirmed"
@@ -814,19 +817,21 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
+	"destinationProjects.addManually": {
+		"string": "Manually added content"
+	},
 	"destinationProjects.choose": {
 		"string": "Choose a folder"
 	},
 	"destinationProjects.empty": {
 		"string": "No folders in this collection"
 	},
+	"destinationProjects.itemFolder": {
+		"string": "Content for report"
+	},
 	"destinationProjects.none": {
 		"string": "Not in any collection",
 		"developer_comment": "Label used for folders that are not in any collection"
-	},
-	"detachDialog.cancelButton": {
-		"string": "Kanselahin",
-		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
 		"string": "Move to folder",
@@ -1167,7 +1172,8 @@
 		"string": "Forgot your password?"
 	},
 	"media.normalSpeed": {
-		"string": "Karaniwang bilis"
+		"string": "Karaniwang bilis",
+		"developer_comment": "Sets video playback rate to original 1x speed"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
@@ -1219,9 +1225,6 @@
 	},
 	"mediaActionsBar.assignmentsUpdated": {
 		"string": "Assignments updated successfully"
-	},
-	"mediaActionsBar.cancelButton": {
-		"string": "Kanselahin"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Kumpirmahin"
@@ -1432,13 +1435,32 @@
 		"string": "Paumanhin, may naganap na error habang inu-update ang wika. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Google Image Search"
+		"string": "Maghanap ng kaugnay ng larawan",
+		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
 	"mediaMetadata.Timeline": {
-		"string": "Timeline"
+		"string": "Timeline",
+		"developer_comment": "Menu options for displaying the video timeline tray"
+	},
+	"mediaMetadata.audioActions": {
+		"string": "Audio actions",
+		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
-		"string": "I-download"
+		"string": "I-download",
+		"developer_comment": "Menu option for downloading the original file of current item"
+	},
+	"mediaMetadata.imageActions": {
+		"string": "Image actions",
+		"developer_comment": "Actions menu for item of type Image"
+	},
+	"mediaMetadata.playbackSpeed": {
+		"string": "Playback speed",
+		"developer_comment": "Menu option for altering playback speed of video/audio clip"
+	},
+	"mediaMetadata.videoActions": {
+		"string": "Video actions",
+		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Magdagdag ng kaugnayan"
@@ -1564,8 +1586,14 @@
 	"mediaSuggestionsComponent.back": {
 		"string": "Bumalik"
 	},
+	"mediaSuggestionsComponent.dialogRejectTitle": {
+		"string": "Choose a destination folder for this item"
+	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Bumalik sa pangunahing pananaw"
+	},
+	"mediaSuggestionsComponent.moveItem": {
+		"string": "Ilipat ang item"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Walang note"
@@ -1703,7 +1731,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extract text from image",
+		"string": "Image text extraction",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -1838,6 +1866,9 @@
 	},
 	"projectHeader.trash": {
 		"string": "Basurahan"
+	},
+	"projectHeader.trends": {
+		"string": "Trends"
 	},
 	"projectHeader.unconfirmed": {
 		"string": "Hindi kumpirmado"
@@ -2677,6 +2708,15 @@
 	"similarityComponent.masterSwitchLabelOn": {
 		"string": "Automated matching is ON"
 	},
+	"similarityComponent.maximumDuration": {
+		"string": "Maximum duration in seconds"
+	},
+	"similarityComponent.minimumDuration": {
+		"string": "Minimum duration in seconds"
+	},
+	"similarityComponent.minimumRequests": {
+		"string": "Minimum number of requests"
+	},
 	"similarityComponent.save": {
 		"string": "I-save"
 	},
@@ -3151,10 +3191,10 @@
 		"string": "Sunday"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Thursday"
@@ -3702,7 +3742,7 @@
 		"string": "General"
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Metadata"
+		"string": "Annotation"
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Column settings saved successfully",
@@ -3719,7 +3759,7 @@
 		"string": "Itago"
 	},
 	"teamListsItem.metadata": {
-		"string": "Metadata"
+		"string": "Annotation"
 	},
 	"teamListsItem.show": {
 		"string": "Ipakita"
@@ -4147,7 +4187,7 @@
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcribe audio",
+		"string": "Transcription",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
@@ -4174,6 +4214,27 @@
 	},
 	"trash.title": {
 		"string": "Basurahan"
+	},
+	"trendItem.lastSubmitted": {
+		"string": "Huling isinumite",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"trendItem.main": {
+		"string": "Media"
+	},
+	"trendItem.media": {
+		"string": "Katulad na media"
+	},
+	"trendItem.request": {
+		"string": "Request",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"trendItem.requests": {
+		"string": "Mga kahilingan",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"trendItem.sortBy": {
+		"string": "Sort by"
 	},
 	"trends.title": {
 		"string": "Trends"
