@@ -39,7 +39,7 @@ class TeamTaskConfirmDialog extends React.Component {
   }
 
   render() {
-    const { projects } = this.props;
+    const { task } = this.props;
     let action = 'delete';
     if (this.props.action === 'edit') {
       action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
@@ -54,18 +54,6 @@ class TeamTaskConfirmDialog extends React.Component {
       edit: editConfirmDialogTitle,
       delete: deleteConfirmDialogTitle,
     };
-    let affectedItems = 0;
-    if (projects !== null) {
-      let { selectedProjects } = this.props;
-      if (action === 'editLabelOrDescription' && this.props.editedTask !== null) {
-        selectedProjects = JSON.parse(this.props.editedTask.json_project_ids);
-      }
-      projects.forEach((project) => {
-        if (selectedProjects.length === 0 || selectedProjects.indexOf(project.node.dbid) > -1) {
-          affectedItems += project.node.medias_count;
-        }
-      });
-    }
 
     const confirmDialogBlurbEditOrDelete = this.props.fieldset === 'tasks' ? (
       <FormattedMessage
@@ -73,7 +61,7 @@ class TeamTaskConfirmDialog extends React.Component {
         defaultMessage="{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
         description="Warning about existing completed instances of a task before performing deletion of it"
         values={{
-          itemsNumber: affectedItems,
+          itemsNumber: task.tasks_with_answers_count,
           taskLabel: <strong>{this.props.task.label}</strong>,
         }}
       />
@@ -83,7 +71,7 @@ class TeamTaskConfirmDialog extends React.Component {
         defaultMessage="{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}"
         description="Warning about existing completed instances of a field before performing deletion of it"
         values={{
-          itemsNumber: affectedItems,
+          itemsNumber: task.tasks_with_answers_count,
           fieldLabel: <strong>{this.props.task.label}</strong>,
         }}
       />
@@ -159,7 +147,7 @@ class TeamTaskConfirmDialog extends React.Component {
           <Typography variant="body1" component="div" paragraph>
             <Message message={this.props.message} />
             <Box my={2} mx={0}>
-              { affectedItems > 0 ?
+              { task.tasks_with_answers_count > 0 ?
                 <div>
                   <Box>
                     {confirmDialogBlurb[action]}
