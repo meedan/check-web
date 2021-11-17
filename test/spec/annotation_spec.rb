@@ -18,6 +18,11 @@ shared_examples 'annotation' do
     wait_for_selector("//div[contains(text(), 'Edited')]", :xpath)
     expect(@driver.page_source.include?('my metadata - Edited')).to be(true)
 
+    # Edit annotation type
+    edit_annotation('.edit-task-dialog__menu-item-number', 'edit type')
+    wait_for_selector('input[type=number]')
+    expect(@driver.page_source.include?('number')).to be(true)
+
     # create 'date and time' annotation
     expect(@driver.page_source.include?('my date time metadata')).to be(false)
     create_annotation(task_type_class: '.edit-task-dialog__menu-item-datetime', task_name: 'my date time metadata')

@@ -36,6 +36,8 @@ function submitMoveTeamTaskUp({
                   id
                   label
                   order
+                  tasks_count
+                  tasks_with_answers_count
                 }
               }
             }
@@ -75,6 +77,8 @@ function submitMoveTeamTaskDown({
                   id
                   label
                   order
+                  tasks_count
+                  tasks_with_answers_count
                 }
               }
             }
@@ -114,6 +118,8 @@ function submitTask({
                   id
                   label
                   order
+                  tasks_count
+                  tasks_with_answers_count
                 }
               }
             }
@@ -215,10 +221,11 @@ class TeamTasksListItem extends React.Component {
 
   handleSubmitTask = (keepCompleted) => {
     const task = this.state.editedTask;
-    const { id, type } = this.props.task;
+    const { id } = this.props.task;
+
     const teamTask = {
       id,
-      task_type: type,
+      task_type: task.type,
       label: task.label,
       description: task.description,
       show_in_browser_extension: this.state.showInBrowserExtension,
@@ -376,6 +383,8 @@ TeamTasksListItem.propTypes = {
     json_options: PropTypes.string,
     json_project_ids: PropTypes.string,
     json_schema: PropTypes.string,
+    tasks_with_answers_count: PropTypes.number,
+    tasks_count: PropTypes.number,
   }).isRequired,
   tasks: PropTypes.array.isRequired,
   team: PropTypes.shape({
