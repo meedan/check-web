@@ -462,19 +462,21 @@ class EditTaskDialog extends React.Component {
             ))}
           </Select>
         </FormControl>
-        { this.state.preventChangeTaskType ?
-          <StyledTaskCantUpdateType>
-            <FormattedMessage
-              id="tasks.cantChangeTypeMessage"
-              defaultMessage="The field type cannot be changed because answers have already been filled"
-              description="Message when team task has answers and type cannot be updated"
-            />
-          </StyledTaskCantUpdateType>
-          : null
-        }
         <Box mt={1} mb={2}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
+        { this.state.preventChangeTaskType ?
+          <Box mt={1} mb={2}>
+            <StyledTaskCantUpdateType>
+              <FormattedMessage
+                id="tasks.cantChangeTypeMessage"
+                defaultMessage="The field type cannot be changed because answers have already been filled"
+                description="Message when team task has answers and type cannot be updated"
+              />
+            </StyledTaskCantUpdateType>
+          </Box>
+          : null
+        }
       </React.Fragment>
     ) : null;
 
