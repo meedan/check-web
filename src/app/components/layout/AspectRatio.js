@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-import { black, black32, checkBlue, opaqueBlack38, units, white } from '../../styles/js/shared.js';
+import { opaqueBlack87, black32, checkBlue, opaqueBlack38, units, white } from '../../styles/js/shared.js';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -44,19 +44,19 @@ const useStyles = makeStyles(theme => ({
     left: 0,
     width: '100%',
     height: '100%',
-    backgroundColor: props.maskContent ? black : 'transparent',
+    backgroundColor: props.contentWarning ? opaqueBlack87 : 'transparent',
     zIndex: 100,
     color: 'white',
   }),
   icon: props => ({
     fontSize: '40px',
-    visibility: props.maskContent ? 'visible' : 'hidden',
+    visibility: props.contentWarning ? 'visible' : 'hidden',
   }),
   button: props => ({
     bottom: 0,
     color: 'white',
     minWidth: theme.spacing(22),
-    backgroundColor: props.maskContent ? 'transparent' : checkBlue,
+    backgroundColor: props.contentWarning ? 'transparent' : checkBlue,
     border: '2px solid white',
     '& :hover': {
       backgroundColor: 'unset',
@@ -65,14 +65,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const AspectRatioComponent = ({
-  annotatorName,
-  warningCategory,
   contentWarning,
+  warningCreator,
+  warningCategory,
   onClickExpand,
   children,
 }) => {
   const [maskContent, setMaskContent] = React.useState(contentWarning);
-  const classes = useStyles({ maskContent });
+  const classes = useStyles({ contentWarning: contentWarning && maskContent });
   return (
     <div className={classes.container}>
       <div className={classes.innerWrapper}>
@@ -85,7 +85,7 @@ const AspectRatioComponent = ({
             right: '0',
             top: '0',
             margin: units(2),
-            zIndex: maskContent ? 15 : 150,
+            zIndex: contentWarning && maskContent ? 15 : 150,
           }}
         >
           <FullscreenIcon style={{ width: units(4), height: units(4) }} />
@@ -102,13 +102,13 @@ const AspectRatioComponent = ({
             pb={4}
           >
             <VisibilityOffIcon className={classes.icon} />
-            <div style={{ visibility: maskContent ? 'visible' : 'hidden' }}>
+            <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
               <FormattedHTMLMessage
                 id="contentScreen.warning"
                 defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
                 description="Content warning displayed over sensitive content"
                 values={{
-                  user_name: annotatorName,
+                  user_name: warningCreator,
                   warning_category: warningCategory,
                 }}
               />

@@ -136,13 +136,21 @@ class MediaExpandedComponent extends Component {
     const { mediaUrl, mediaQuery, linkTitle } = this.props;
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
-    console.log('media', media);
+    let warningType = null;
+    if (media.dynamic_annotation_flag) {
+      const sortable = [...Object.entries(media.dynamic_annotation_flag.data.flags)];
+      sortable.sort((a, b) => b[1] - a[1]);
+      const type = sortable[0];
+      [warningType] = type;
+    }
 
     const embedCard = (() => {
       if (isImage) {
         return (
           <ImageMediaCard
-            contentWarning={media.dynamic_annotation_flag}
+            contentWarning={media.show_warning_cover}
+            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
+            warningCategory={warningType}
             imagePath={media.media.embed_path}
           />
         );
@@ -153,6 +161,8 @@ class MediaExpandedComponent extends Component {
               filePath={filePath}
               coverImage={coverImage}
               contentWarning={media.show_warning_cover}
+              warningCreator={media.dynamic_annotation_flag?.annotator?.name}
+              warningCategory={warningType}
               {...{
                 playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState, playbackRate,
               }}
@@ -170,6 +180,8 @@ class MediaExpandedComponent extends Component {
         return (
           <WebPageMediaCard
             contentWarning={media.show_warning_cover}
+            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
+            warningCategory={warningType}
             media={media}
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}

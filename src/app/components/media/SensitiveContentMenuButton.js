@@ -14,28 +14,32 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import globalStrings from '../../globalStrings';
 
 const SensitiveContentMenuButton = ({ projectMedia }) => {
-  const [anchorEl, setAnchorEl] = React.useState(false);
-  const [enableSwitch, setEnableSwitch] = React.useState(projectMedia.show_warning_cover);
+  let warningType = null;
 
-  const contentType = 'adult';
+  if (projectMedia.dynamic_annotation_flag) {
+    const sortable = [...Object.entries(projectMedia.dynamic_annotation_flag.data.flags)];
+    sortable.sort((a, b) => b[1] - a[1]);
+    const type = sortable[0];
+    [warningType] = type;
+  }
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [enableSwitch, setEnableSwitch] = React.useState(projectMedia.show_warning_cover);
+  const [contentType, setContentType] = React.useState(warningType);
 
   const handleSwitch = (e, inputChecked) => {
-    console.log('handleSwitch');
-    console.log('e', e);
-    console.log('inputChecked', inputChecked);
     setEnableSwitch(inputChecked);
   };
 
-  const handleSetContentType = () => {};
+  const handleSetContentType = (value) => {
+    setContentType(value);
+  };
 
   const submitFlagAnnotation = () => {
     const onFailure = () => {};
-    const onSuccess = () => {};
-    console.log('submitFlagAnnotation');
+    const onSuccess = () => { setAnchorEl(null); };
 
     if (!projectMedia.dynamic_annotation_flag) {
-      console.log('submitFlagAnnotation :: CREATE');
-
       commitMutation(Relay.Store, {
         mutation: graphql`
           mutation SensitiveContentMenuButtonCreateDynamicAnnotationFlagMutation($input: CreateDynamicAnnotationFlagInput!) {
@@ -45,6 +49,12 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
                 show_warning_cover
                 dynamic_annotation_flag {
                   id
+                  dbid
+                  content
+                  data
+                  annotator {
+                    name
+                  }
                 }
               }
             }
@@ -56,10 +66,10 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
             annotated_type: 'ProjectMedia',
             set_fields: JSON.stringify({
               flags: {
-                adult: 3,
-                spoof: 2,
-                medical: 0,
-                violence: 0,
+                adult: contentType === 'adult' ? 7 : 0,
+                spoof: 0,
+                medical: contentType === 'medical' ? 7 : 0,
+                violence: contentType === 'violence' ? 7 : 0,
                 racy: 0,
                 spam: 0,
               },
@@ -76,7 +86,50 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
         onError: onFailure,
       });
     } else {
-      console.log('submitFlagAnnotation :: UPDATE');
+      commitMutation(Relay.Store, {
+        mutation: graphql`
+          mutation SensitiveContentMenuButtonUpdateDynamicAnnotationFlagMutation($input: UpdateDynamicAnnotationFlagInput!) {
+            updateDynamicAnnotationFlag(input: $input) {
+              project_media {
+                id
+                show_warning_cover
+                dynamic_annotation_flag {
+                  id
+                  dbid
+                  content
+                  data
+                  annotator {
+                    name
+                  }
+                }
+              }
+            }
+          }
+        `,
+        variables: {
+          input: {
+            id: projectMedia.dynamic_annotation_flag.id,
+            set_fields: JSON.stringify({
+              flags: {
+                adult: contentType === 'adult' ? 7 : 0,
+                spoof: 0,
+                medical: contentType === 'medical' ? 7 : 0,
+                violence: contentType === 'violence' ? 7 : 0,
+                racy: 0,
+                spam: 0,
+              },
+              show_cover: enableSwitch,
+            }),
+          },
+        },
+        onCompleted: ({ response, error }) => {
+          if (error) {
+            return onFailure(error);
+          }
+          return onSuccess(response);
+        },
+        onError: onFailure,
+      });
     }
   };
 
@@ -86,13 +139,11 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
         startIcon={<VisibilityOffIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
       >
-        {anchorEl ? 'hello' : (
-          <FormattedMessage
-            id="sensitiveContentMenuButton.contentWarning"
-            defaultMessage="Content warning"
-            description="Button that pops sensitive content screen settings"
-          />
-        )}
+        <FormattedMessage
+          id="sensitiveContentMenuButton.contentWarning"
+          defaultMessage="Content warning"
+          description="Button that pops sensitive content screen settings"
+        />
       </Button>
       <Popover
         open={Boolean(anchorEl)}
@@ -159,6 +210,7 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
           </RadioGroup>
           <TextField
             variant="outlined"
+            fullWidth
           />
           <Box mt={2} display="flex" alignContent="flex-end">
             <Button onClick={() => setAnchorEl(null)}>

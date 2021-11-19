@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
 import LayersIcon from '@material-ui/icons/Layers';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import { units, black87, checkBlue, opaqueBlack54 } from '../../../styles/js/shared';
+import { units, black87, checkBlue, opaqueBlack54, opaqueBlack87 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
   root: {
@@ -24,6 +25,19 @@ const useStyles = makeStyles({
     objectFit: 'cover',
     flexShrink: 0,
     flexGrow: 0,
+  },
+  contentScreen: {
+    minWidth: units(10),
+    minHeight: units(10),
+    marginRight: units(1),
+    backgroundColor: opaqueBlack87,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  icon: {
+    fontSize: '40px',
+    color: 'white',
   },
   textBox: {
     // This is a <div>, not a <th> with vertical-align center, because we need
@@ -93,6 +107,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
     picture,
     title,
     description,
+    show_warning_cover: maskContent,
     is_read: isRead,
     is_main: isMain,
     is_secondary: isSecondary,
@@ -102,9 +117,10 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
   return (
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
-        {picture ? (
+        {picture && !maskContent ? (
           <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
         ) : null}
+        { maskContent ? <div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div> : null }
         <Box display="flex" alignItems="center">
           <TitleText
             classes={classes}

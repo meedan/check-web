@@ -1,11 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import WarningIcon from '@material-ui/icons/Warning';
 import ParsedText from '../../ParsedText';
 import ReportDesignerImagePreview from './ReportDesignerImagePreview';
 import { formatDate } from './reportDesignerHelpers';
+import { alertRed, opaqueBlack87 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +24,28 @@ const useStyles = makeStyles(theme => ({
     width: 502,
     color: 'black',
     lineHeight: '1.5em',
+  },
+  visualCardPreview: {
+    position: 'relative',
+  },
+  contentScreen: {
+    width: 500,
+    height: 500,
+    top: 0,
+    padding: '64px 40px 16px 40px',
+    backgroundColor: opaqueBlack87,
+    zIndex: 100,
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    color: 'white',
+    textAlign: 'center',
+  },
+  icon: {
+    fontSize: '80px',
+    color: alertRed,
   },
 }));
 
@@ -116,6 +141,8 @@ const ReportDesignerPreview = (props) => {
 
   const introduction = previewIntroduction(data, media);
 
+  const maskContent = media.media.picture === data.image;
+
   // Preview for the introduction, the text message, and the visual card
   return (
     <Box className={classes.root}>
@@ -161,6 +188,36 @@ const ReportDesignerPreview = (props) => {
             date={data.date || formatDate(new Date(), data.language)}
             defaultReport={defaultReport}
           />
+          { maskContent ? (
+            <div className={classes.contentScreen}>
+              <WarningIcon className={classes.icon} />
+              <Typography variant="h5">
+                <FormattedHTMLMessage
+                  id="reportDesigner.contentScreenHeader"
+                  defaultMessage="Content with warning cannot<br />be published as a visual card."
+                  description="Header for visual card when there's a content warning active and no alternative image is set"
+                />
+              </Typography>
+              <FormattedHTMLMessage
+                id="reportDesigner.uploadAlternative"
+                defaultMessage="Upload an alternative image or<br />uncheck the visual card option."
+                description="Header for visual card when there's a content warning active and no alternative image is set"
+              />
+              <div>
+                <FormattedMessage
+                  id="reportDesigner.incorrectWarning"
+                  defaultMessage="Was this content warning incorrectly applied?"
+                  description="Header for visual card when there's a content warning active and no alternative image is set"
+                />
+                <br />
+                <FormattedMessage
+                  id="reportDesigner.goBack"
+                  defaultMessage="Go back to the annotation page and remove the content warning."
+                  description="The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
+                />
+              </div>
+            </div>
+          ) : null }
         </Box> : null }
     </Box>
   );

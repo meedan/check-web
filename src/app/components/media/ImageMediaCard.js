@@ -23,6 +23,8 @@ class ImageMediaCard extends React.Component {
       <article className="image-media-card" style={{ textAlign: 'center' }}>
         <AspectRatio
           contentWarning={this.props.contentWarning}
+          warningCreator={this.props.warningCreator}
+          warningCategory={this.props.warningCategory}
           onClickExpand={this.handleOpenLightbox}
         >
           <img
