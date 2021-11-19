@@ -334,7 +334,8 @@ const SmoochBotNewsletterEditor = ({
               <Typography>
                 <FormattedMessage
                   id="smoochBotNewsletterEditor.templateHeader"
-                  defaultMessage="Hi! Here are your weekly facts. This newsletter is published on \{channel\} by {teamName}. Here are the most important facts for the week of {date}:"
+                  defaultMessage="Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+                  description="In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
                   values={{
                     teamName,
                     date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
@@ -431,7 +432,8 @@ const SmoochBotNewsletterEditor = ({
                   <Typography>
                     <FormattedMessage
                       id="smoochBotNewsletterEditor.templateHeaderRss"
-                      defaultMessage="Hi! Here are your weekly facts. This newsletter is published on \{channel\} by {teamName}. Here are the most important facts for the week of {date}:"
+                      defaultMessage="Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+                      description="In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
                       values={{
                         teamName,
                         date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),

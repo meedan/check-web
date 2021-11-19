@@ -91,6 +91,11 @@
     "defaultMessage": "Choose a field type"
   },
   {
+    "id": "tasks.cantChangeTypeMessage",
+    "description": "Message when team task has answers and type cannot be updated",
+    "defaultMessage": "The field type cannot be changed because answers have already been filled"
+  },
+  {
     "id": "tasks.taskPrompt",
     "description": "Title field for custom annotation field",
     "defaultMessage": "Title"

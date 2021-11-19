@@ -156,11 +156,14 @@
 	"UserUtil.editor": {
 		"string": "Editor"
 	},
-	"addAnnotation.addImage": {
-		"string": "Add an image"
+	"addAnnotation.addFile": {
+		"string": "Add a file"
 	},
 	"addAnnotation.error": {
 		"string": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+	},
+	"addAnnotation.inputEditHint": {
+		"string": "Edit note"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Add a note"
@@ -284,6 +287,9 @@
 	"annotation.deletedComment": {
 		"string": "Comment deleted by {author}: {comment}"
 	},
+	"annotation.editButton": {
+		"string": "Edit"
+	},
 	"annotation.embedCodeCopied": {
 		"string": "An embed code of the item has been generated and copied. The item may now be publicly viewable."
 	},
@@ -354,10 +360,10 @@
 		"string": "Annotation actions"
 	},
 	"annotation.metadataCreated": {
-		"string": "Metadata field created by {author}: {fieldLabel}"
+		"string": "Annotation field created by {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Metadata field \"{fieldLabel}\" filled by {author}: {response}"
+		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "Moved out of Trash by {author}"
@@ -515,9 +521,6 @@
 	},
 	"browserSupport.message": {
 		"string": "{appName} is optimized for Google Chrome on desktop."
-	},
-	"bulkActions.cancelButton": {
-		"string": "Cancel"
 	},
 	"bulkActions.confirm": {
 		"string": "Move from Unconfirmed"
@@ -814,19 +817,21 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
+	"destinationProjects.addManually": {
+		"string": "Manually added content"
+	},
 	"destinationProjects.choose": {
 		"string": "Choose a folder"
 	},
 	"destinationProjects.empty": {
 		"string": "No folders in this collection"
 	},
+	"destinationProjects.itemFolder": {
+		"string": "Content for report"
+	},
 	"destinationProjects.none": {
 		"string": "Not in any collection",
 		"developer_comment": "Label used for folders that are not in any collection"
-	},
-	"detachDialog.cancelButton": {
-		"string": "Cancel",
-		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
 		"string": "Move to folder",
@@ -1167,7 +1172,8 @@
 		"string": "Forgot your password?"
 	},
 	"media.normalSpeed": {
-		"string": "Normal speed"
+		"string": "Normal speed",
+		"developer_comment": "Sets video playback rate to original 1x speed"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
@@ -1219,9 +1225,6 @@
 	},
 	"mediaActionsBar.assignmentsUpdated": {
 		"string": "Assignments updated successfully"
-	},
-	"mediaActionsBar.cancelButton": {
-		"string": "Cancel"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirm"
@@ -1432,13 +1435,32 @@
 		"string": "Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Google Image Search"
+		"string": "Reverse image search",
+		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
 	"mediaMetadata.Timeline": {
-		"string": "Timeline"
+		"string": "Timeline",
+		"developer_comment": "Menu options for displaying the video timeline tray"
+	},
+	"mediaMetadata.audioActions": {
+		"string": "Audio actions",
+		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
-		"string": "Download"
+		"string": "Download",
+		"developer_comment": "Menu option for downloading the original file of current item"
+	},
+	"mediaMetadata.imageActions": {
+		"string": "Image actions",
+		"developer_comment": "Actions menu for item of type Image"
+	},
+	"mediaMetadata.playbackSpeed": {
+		"string": "Playback speed",
+		"developer_comment": "Menu option for altering playback speed of video/audio clip"
+	},
+	"mediaMetadata.videoActions": {
+		"string": "Video actions",
+		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Add relation"
@@ -1564,8 +1586,14 @@
 	"mediaSuggestionsComponent.back": {
 		"string": "Back"
 	},
+	"mediaSuggestionsComponent.dialogRejectTitle": {
+		"string": "Choose a destination folder for this item"
+	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Back to main view"
+	},
+	"mediaSuggestionsComponent.moveItem": {
+		"string": "Move item"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "No notes"
@@ -1703,7 +1731,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extract text from image",
+		"string": "Image text extraction",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -1838,6 +1866,9 @@
 	},
 	"projectHeader.trash": {
 		"string": "Trash"
+	},
+	"projectHeader.trends": {
+		"string": "Trends"
 	},
 	"projectHeader.unconfirmed": {
 		"string": "Unconfirmed"
@@ -2677,6 +2708,15 @@
 	"similarityComponent.masterSwitchLabelOn": {
 		"string": "Automated matching is ON"
 	},
+	"similarityComponent.maximumDuration": {
+		"string": "Maximum duration in seconds"
+	},
+	"similarityComponent.minimumDuration": {
+		"string": "Minimum duration in seconds"
+	},
+	"similarityComponent.minimumRequests": {
+		"string": "Minimum number of requests"
+	},
 	"similarityComponent.save": {
 		"string": "Save"
 	},
@@ -3151,10 +3191,12 @@
 		"string": "Sunday"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Thursday"
@@ -3702,7 +3744,7 @@
 		"string": "General"
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Metadata"
+		"string": "Annotation"
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Column settings saved successfully",
@@ -3719,7 +3761,7 @@
 		"string": "Hide"
 	},
 	"teamListsItem.metadata": {
-		"string": "Metadata"
+		"string": "Annotation"
 	},
 	"teamListsItem.show": {
 		"string": "Show"
@@ -4147,7 +4189,7 @@
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcribe audio",
+		"string": "Transcription",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
@@ -4174,6 +4216,27 @@
 	},
 	"trash.title": {
 		"string": "Trash"
+	},
+	"trendItem.lastSubmitted": {
+		"string": "Last submitted",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"trendItem.main": {
+		"string": "Media"
+	},
+	"trendItem.media": {
+		"string": "Similar media"
+	},
+	"trendItem.request": {
+		"string": "Request",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"trendItem.requests": {
+		"string": "Requests",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"trendItem.sortBy": {
+		"string": "Sort by"
 	},
 	"trends.title": {
 		"string": "Trends"

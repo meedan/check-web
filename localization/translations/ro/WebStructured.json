@@ -156,11 +156,14 @@
 	"UserUtil.editor": {
 		"string": "Editor"
 	},
-	"addAnnotation.addImage": {
-		"string": "Adaugă o imagine"
+	"addAnnotation.addFile": {
+		"string": "Add a file"
 	},
 	"addAnnotation.error": {
 		"string": "Ne pare rău, s-a produs o eroare la actualizarea elementului. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+	},
+	"addAnnotation.inputEditHint": {
+		"string": "Edit note"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Adaugă o notă"
@@ -284,6 +287,9 @@
 	"annotation.deletedComment": {
 		"string": "Comentariu șters de {author}: {comment}"
 	},
+	"annotation.editButton": {
+		"string": "Editează"
+	},
 	"annotation.embedCodeCopied": {
 		"string": "A fost generat și copiat un cod de încorporare a elementului. Acum elementul poate fi vizibil public. "
 	},
@@ -354,10 +360,10 @@
 		"string": "Acțiuni de adnotare"
 	},
 	"annotation.metadataCreated": {
-		"string": "Câmp de metadate creat de {author}: {fieldLabel}"
+		"string": "Annotation field created by {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Câmp de metadate „{fieldLabel}” completat de {author}: {response}"
+		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "Moved out of Trash by {author}"
@@ -515,9 +521,6 @@
 	},
 	"browserSupport.message": {
 		"string": "{appName} este optimizată pentru Google Chrome pe desktop."
-	},
-	"bulkActions.cancelButton": {
-		"string": "Anulează"
 	},
 	"bulkActions.confirm": {
 		"string": "Mută din neconfirmate"
@@ -814,19 +817,21 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
 	},
+	"destinationProjects.addManually": {
+		"string": "Manually added content"
+	},
 	"destinationProjects.choose": {
 		"string": "Choose a folder"
 	},
 	"destinationProjects.empty": {
 		"string": "No folders in this collection"
 	},
+	"destinationProjects.itemFolder": {
+		"string": "Content for report"
+	},
 	"destinationProjects.none": {
 		"string": "Not in any collection",
 		"developer_comment": "Label used for folders that are not in any collection"
-	},
-	"detachDialog.cancelButton": {
-		"string": "Anulează",
-		"developer_comment": "Button to dismiss the dialog"
 	},
 	"detachDialog.detached": {
 		"string": "Move to folder",
@@ -1167,7 +1172,8 @@
 		"string": "Parolă uitată?"
 	},
 	"media.normalSpeed": {
-		"string": "Viteză normală"
+		"string": "Viteză normală",
+		"developer_comment": "Sets video playback rate to original 1x speed"
 	},
 	"media.typeAudio": {
 		"string": "Audio"
@@ -1219,9 +1225,6 @@
 	},
 	"mediaActionsBar.assignmentsUpdated": {
 		"string": "Assignments updated successfully"
-	},
-	"mediaActionsBar.cancelButton": {
-		"string": "Anulează"
 	},
 	"mediaActionsBar.confirmTo": {
 		"string": "Confirmă"
@@ -1432,13 +1435,32 @@
 		"string": "Ne pare rău, a apărut o eroare la actualizarea limbii. Vă rugăm să încercați din nou și contactați {supportEmail} dacă situația persistă."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Google Image Search"
+		"string": "Căutare inversă de imagini",
+		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
 	"mediaMetadata.Timeline": {
-		"string": "Cronologie"
+		"string": "Cronologie",
+		"developer_comment": "Menu options for displaying the video timeline tray"
+	},
+	"mediaMetadata.audioActions": {
+		"string": "Audio actions",
+		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
-		"string": "Descarcă"
+		"string": "Descarcă",
+		"developer_comment": "Menu option for downloading the original file of current item"
+	},
+	"mediaMetadata.imageActions": {
+		"string": "Image actions",
+		"developer_comment": "Actions menu for item of type Image"
+	},
+	"mediaMetadata.playbackSpeed": {
+		"string": "Playback speed",
+		"developer_comment": "Menu option for altering playback speed of video/audio clip"
+	},
+	"mediaMetadata.videoActions": {
+		"string": "Video actions",
+		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
 		"string": "Adaugă relație"
@@ -1564,8 +1586,14 @@
 	"mediaSuggestionsComponent.back": {
 		"string": "Înapoi"
 	},
+	"mediaSuggestionsComponent.dialogRejectTitle": {
+		"string": "Choose a destination folder for this item"
+	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Înapoi la vizualizarea principală"
+	},
+	"mediaSuggestionsComponent.moveItem": {
+		"string": "Mutare element"
 	},
 	"mediaSuggestionsComponent.noNotes": {
 		"string": "Fără note"
@@ -1703,7 +1731,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Extract text from image",
+		"string": "Image text extraction",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -1838,6 +1866,9 @@
 	},
 	"projectHeader.trash": {
 		"string": "Coș de gunoi"
+	},
+	"projectHeader.trends": {
+		"string": "Trends"
 	},
 	"projectHeader.unconfirmed": {
 		"string": "Neconfirmat"
@@ -2677,6 +2708,15 @@
 	"similarityComponent.masterSwitchLabelOn": {
 		"string": "Automated matching is ON"
 	},
+	"similarityComponent.maximumDuration": {
+		"string": "Maximum duration in seconds"
+	},
+	"similarityComponent.minimumDuration": {
+		"string": "Minimum duration in seconds"
+	},
+	"similarityComponent.minimumRequests": {
+		"string": "Minimum number of requests"
+	},
 	"similarityComponent.save": {
 		"string": "Salvează"
 	},
@@ -3151,10 +3191,10 @@
 		"string": "Sunday"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on \\{channel\\} by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Thursday"
@@ -3702,7 +3742,7 @@
 		"string": "General"
 	},
 	"teamListsComponent.metadataColumns": {
-		"string": "Metadate"
+		"string": "Annotation"
 	},
 	"teamListsComponent.savedSuccessfully": {
 		"string": "Column settings saved successfully",
@@ -3719,7 +3759,7 @@
 		"string": "Ascunde"
 	},
 	"teamListsItem.metadata": {
-		"string": "Metadate"
+		"string": "Annotation"
 	},
 	"teamListsItem.show": {
 		"string": "Arată"
@@ -4147,7 +4187,7 @@
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcribe audio",
+		"string": "Transcription",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
@@ -4174,6 +4214,27 @@
 	},
 	"trash.title": {
 		"string": "Coș de gunoi"
+	},
+	"trendItem.lastSubmitted": {
+		"string": "Ultimul transmis",
+		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
+	},
+	"trendItem.main": {
+		"string": "Medii"
+	},
+	"trendItem.media": {
+		"string": "Medii similare"
+	},
+	"trendItem.request": {
+		"string": "Request",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
+	},
+	"trendItem.requests": {
+		"string": "Cereri",
+		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
+	},
+	"trendItem.sortBy": {
+		"string": "Sort by"
 	},
 	"trends.title": {
 		"string": "Trends"

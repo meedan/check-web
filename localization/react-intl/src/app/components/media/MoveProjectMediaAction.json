@@ -8,10 +8,6 @@
     "defaultMessage": "Move to a different folder"
   },
   {
-    "id": "mediaActionsBar.cancelButton",
-    "defaultMessage": "Cancel"
-  },
-  {
     "id": "mediaActionsBar.move",
     "defaultMessage": "Move"
   }

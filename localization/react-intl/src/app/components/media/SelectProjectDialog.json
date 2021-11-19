@@ -11,5 +11,13 @@
   {
     "id": "destinationProjects.choose",
     "defaultMessage": "Choose a folder"
+  },
+  {
+    "id": "destinationProjects.itemFolder",
+    "defaultMessage": "Content for report"
+  },
+  {
+    "id": "destinationProjects.addManually",
+    "defaultMessage": "Manually added content"
   }
 ]

@@ -217,7 +217,7 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
                 title={
                   <FormattedMessage
                     id="teamListsComponent.metadataColumns"
-                    defaultMessage="Metadata"
+                    defaultMessage="Annotation"
                   />
                 }
                 onToggle={handleToggle}

@@ -37,6 +37,7 @@ import {
   caption,
   black54,
   Row,
+  alertRed,
 } from '../../styles/js/shared';
 
 const StyledTaskAssignment = styled.div`
@@ -51,6 +52,10 @@ const StyledTaskAssignment = styled.div`
     border: 0;
     background: transparent;
   }
+`;
+
+const StyledTaskCantUpdateType = styled.div`
+  color: ${alertRed};
 `;
 
 const messages = defineMessages({
@@ -87,6 +92,7 @@ class EditTaskDialog extends React.Component {
       showAssignmentField: false,
       editLabelOrDescription: false,
       hasOther: task ? task.options?.some(option => option.other) : false,
+      preventChangeTaskType: task && task.tasks_with_answers_count > 0,
     };
   }
 
@@ -249,12 +255,12 @@ class EditTaskDialog extends React.Component {
                     onChange={this.handleEditOption.bind(this)}
                     placeholder={`${formatMessage(messages.value)} ${index + 1}`}
                     value={item.label}
-                    disabled={item.other}
+                    disabled={item.other || this.state.preventChangeTaskType}
                     variant="outlined"
                     margin="dense"
                   />
                 </Box>
-                {canRemove ?
+                {canRemove && !this.state.preventChangeTaskType ?
                   <IconButton>
                     <ClearIcon
                       key="create-task__remove-option-button"
@@ -271,6 +277,7 @@ class EditTaskDialog extends React.Component {
               onClick={this.handleAddValue.bind(this)}
               startIcon={<AddIcon />}
               variant="contained"
+              disabled={this.state.preventChangeTaskType}
             >
               <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option" />
             </Button>
@@ -279,7 +286,7 @@ class EditTaskDialog extends React.Component {
                 onClick={this.handleAddOther.bind(this)}
                 startIcon={<AddIcon />}
                 variant="contained"
-                disabled={this.state.hasOther}
+                disabled={this.state.hasOther || this.state.preventChangeTaskType}
               >
                 <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
               </Button>
@@ -438,6 +445,7 @@ class EditTaskDialog extends React.Component {
             onChange={this.handleSelectType}
             labelId="edit-task-dialog__type-select-label"
             value={this.state.taskType}
+            disabled={this.state.preventChangeTaskType}
             label={
               <FormattedMessage
                 id="tasks.chooseType"
@@ -457,6 +465,18 @@ class EditTaskDialog extends React.Component {
         <Box mt={1} mb={2}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
+        { this.state.preventChangeTaskType ?
+          <Box mt={1} mb={2}>
+            <StyledTaskCantUpdateType>
+              <FormattedMessage
+                id="tasks.cantChangeTypeMessage"
+                defaultMessage="The field type cannot be changed because answers have already been filled"
+                description="Message when team task has answers and type cannot be updated"
+              />
+            </StyledTaskCantUpdateType>
+          </Box>
+          : null
+        }
       </React.Fragment>
     ) : null;
 

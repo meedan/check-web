@@ -16,6 +16,10 @@
     "defaultMessage": "Imported reports"
   },
   {
+    "id": "projectHeader.trends",
+    "defaultMessage": "Trends"
+  },
+  {
     "id": "projectHeader.allItems",
     "defaultMessage": "All items"
   }

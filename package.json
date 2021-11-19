@@ -39,7 +39,7 @@
     "test:browsers:parallel": "cd test && PARALLEL_SPLIT_TEST_PROCESSES=2 parallel_split_test spec/browser_spec.rb && cd ..",
     "test:ff": "cd test && bundle exec rspec --fail-fast && cd ..",
     "test:bins": "grep -rI 'bin[0-9]' test/spec | grep -v '#' | sed 's/.*\\(bin[0-9]\\).*/\\1/g' | sort | uniq -c",
-    "test:unit:lint": "eslint --max-warnings=0 src/app",
+    "linter": "eslint --max-warnings=0 src/app",
     "test:integration:lint": "cd test/spec && bundle install && bundle exec rubocop && cd ..",
     "tests": "cd test && ./run-tests.sh"
   },
@@ -89,7 +89,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.52",
     "@material-ui/pickers": "^3.2.10",
-    "@meedan/check-ui": "^0.1.21",
+    "@meedan/check-ui": "^0.1.25",
     "@meedan/react-jsonschema-form-material-ui-v1": "^99.0.0",
     "@react-google-maps/api": "1.8.7",
     "babel-loader": "^8.1.0",
