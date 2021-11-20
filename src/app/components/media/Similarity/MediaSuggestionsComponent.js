@@ -91,7 +91,7 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const itemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
+  const mainItemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
   const [index, setIndex] = React.useState(0);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
@@ -99,13 +99,14 @@ const MediaSuggestionsComponent = ({
 
   const relationship = relationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
+  const itemUrl = window.location.pathname.replace(/[0-9]+\/suggested-matches$/, projectMedia.dbid);
   const projectId = relationship ? relationship.target.project_id : null;
   const total = relationships.length;
   const hasNext = (index + 1 < total);
   const hasPrevious = (index > 0);
 
   const handleGoBack = () => {
-    browserHistory.push(itemUrl);
+    browserHistory.push(mainItemUrl);
   };
 
   const handleNext = () => {
