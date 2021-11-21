@@ -99,7 +99,7 @@ const MediaSuggestionsComponent = ({
 
   const relationship = relationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
-  const itemUrl = window.location.pathname.replace(/[0-9]+\/suggested-matches$/, projectMedia.dbid);
+  const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/suggested-matches$/, projectMedia.dbid) : '';
   const projectId = relationship ? relationship.target.project_id : null;
   const total = relationships.length;
   const hasNext = (index + 1 < total);
