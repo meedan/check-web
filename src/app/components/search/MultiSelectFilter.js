@@ -126,6 +126,8 @@ const MultiSelectFilter = ({
   operator,
   readOnly,
   single,
+  onType,
+  inputPlaceholder,
 }) => {
   const [showSelect, setShowSelect] = React.useState(false);
   const [version, setVersion] = React.useState(0);
@@ -185,6 +187,8 @@ const MultiSelectFilter = ({
               onSubmit={handleSelect}
               single={single}
               onSelectChange={onSelectChange}
+              onType={onType}
+              inputPlaceholder={inputPlaceholder}
             />
           ) : null }
           { !readOnly && !single ? (
@@ -205,8 +209,11 @@ const CustomSelectDropdown = ({
   single,
   onSubmit,
   onSelectChange,
+  onType,
+  inputPlaceholder,
 }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
+
   const handleSubmit = (value) => {
     setAnchorEl(null);
     onSubmit(value);
@@ -224,12 +231,13 @@ const CustomSelectDropdown = ({
           {placeholder => (
             <MultiSelector
               allowSearch={allowSearch}
-              inputPlaceholder={placeholder}
+              inputPlaceholder={inputPlaceholder || placeholder}
               options={options}
               selected={selected}
               onSubmit={handleSubmit}
               single={single}
               onSelectChange={onSelectChange}
+              onSearchChange={onType}
               submitLabel={
                 <FormattedMessage
                   id="customAutocomplete.done"
@@ -245,13 +253,14 @@ const CustomSelectDropdown = ({
   );
 };
 
-
 MultiSelectFilter.defaultProps = {
   allowSearch: true,
   icon: null,
   selected: [],
   onToggleOperator: null,
   readOnly: false,
+  onType: null,
+  inputPlaceholder: null,
 };
 
 MultiSelectFilter.propTypes = {
@@ -269,6 +278,8 @@ MultiSelectFilter.propTypes = {
   ])),
   onToggleOperator: PropTypes.func,
   readOnly: PropTypes.bool,
+  onType: PropTypes.func,
+  inputPlaceholder: PropTypes.string,
 };
 
 export default MultiSelectFilter;
