@@ -25,6 +25,7 @@ import CommentCountCell from './CommentCountCell';
 import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
+import CreatorNameCell from './CreatorNameCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -137,6 +138,13 @@ const AllPossibleColumns = [
     field: 'folder',
     headerText: <FormattedMessage id="list.folder" defaultMessage="Folder" description="Table header for column that shows the folder title an item is in" />,
     cellComponent: FolderCell,
+  },
+  {
+    field: 'creator_name',
+    headerText: <FormattedMessage id="list.createdBy" defaultMessage="Created by" description="Table header for column that shows the creator name" />,
+    cellComponent: CreatorNameCell,
+    align: 'center',
+    sortKey: 'creator_name',
   },
 ];
 

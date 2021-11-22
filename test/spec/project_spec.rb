@@ -176,7 +176,7 @@ shared_examples 'project' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
-    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[8].click
+    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[9].click
     wait_for_selector('#team-lists__item-4-status button').click
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector('#confirm-dialog__checkbox').click
