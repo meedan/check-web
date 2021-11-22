@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
-import { FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -13,6 +13,7 @@ import MediaTags from './MediaTags';
 import TimeBefore from '../TimeBefore';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 import { parseStringUnixTimestamp } from '../../helpers';
+import CheckChannels from '../../CheckChannels';
 import { propsToData, formatDate } from './ReportDesigner/reportDesignerHelpers';
 import { can } from '../Can';
 
@@ -34,7 +35,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
+const messages = defineMessages({
+  import: {
+    id: 'mediaAnalysis.import',
+    defaultMessage: 'Import',
+    description: 'Creator that refers to items created via Fetch, ZAPIER or ZAPIER',
+  },
+  tipline: {
+    id: 'mediaAnalysis.tipline',
+    defaultMessage: 'Tipline',
+    description: 'Creator that refers to items created via tiplines',
+  },
+});
+
+const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen, intl }) => {
   const classes = useStyles();
   const [error, setError] = React.useState(false);
   const [saving, setSaving] = React.useState(false);
@@ -43,7 +57,12 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
   const analysis = projectMedia.last_status_obj;
-  const { picture } = projectMedia;
+  const {
+    picture,
+    creator_name: creatorName,
+    user_id: UserId,
+    channel,
+  } = projectMedia;
 
   const getValue = (fieldName) => {
     let fieldValue = null;
@@ -209,8 +228,21 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen }) => {
     }
   };
 
+  const showUserName = [CheckChannels.MANUAL, CheckChannels.BROWSER_EXTENSION].indexOf(channel.toString()) !== -1;
+
   return (
     <Box>
+      <Box my={2}>
+        <Typography variant="body" component="div">
+          <FormattedMessage
+            id="mediaAnalysis.createdBy"
+            defaultMessage="Item created by {name}"
+            values={{
+              name: showUserName ? <a href={`/check/user/${UserId}`}> {creatorName} </a> : intl.formatMessage(messages[creatorName.toLocaleLowerCase()]),
+            }}
+          />
+        </Typography>
+      </Box>
       <Box display="flex" alignItems="center" justifyContent="space-between">
         <Box display="flex" alignItems="center">
           <Typography variant="body" component="div">
@@ -376,4 +408,4 @@ MediaAnalysis.propTypes = {
   onTimelineCommentOpen: PropTypes.func.isRequired,
 };
 
-export default MediaAnalysis;
+export default injectIntl(MediaAnalysis);

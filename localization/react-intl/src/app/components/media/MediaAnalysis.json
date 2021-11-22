@@ -1,5 +1,19 @@
 [
   {
+    "id": "mediaAnalysis.import",
+    "description": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER",
+    "defaultMessage": "Import"
+  },
+  {
+    "id": "mediaAnalysis.tipline",
+    "description": "Creator that refers to items created via tiplines",
+    "defaultMessage": "Tipline"
+  },
+  {
+    "id": "mediaAnalysis.createdBy",
+    "defaultMessage": "Item created by {name}"
+  },
+  {
     "id": "mediaAnalysis.analysis",
     "defaultMessage": "Analysis"
   },
