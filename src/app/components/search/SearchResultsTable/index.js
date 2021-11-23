@@ -143,6 +143,8 @@ const AllPossibleColumns = [
     field: 'creator_name',
     headerText: <FormattedMessage id="list.createdBy" defaultMessage="Created by" description="Table header for column that shows the creator name" />,
     cellComponent: CreatorNameCell,
+    align: 'center',
+    sortKey: 'creator_name',
   },
 ];
 
