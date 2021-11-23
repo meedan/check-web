@@ -11,19 +11,26 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Switch from '@material-ui/core/Switch';
 import TextField from '@material-ui/core/TextField';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import { withSetFlashMessage } from '../FlashMessage';
+import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
+import { getErrorMessage } from '../../helpers';
 import globalStrings from '../../globalStrings';
 
 const SensitiveContentMenuButton = ({
   currentUserRole,
   projectMedia,
+  setFlashMessage,
 }) => {
   let warningType = null;
 
   if (projectMedia.dynamic_annotation_flag) {
-    const sortable = [
-      ...Object.entries(projectMedia.dynamic_annotation_flag.data.custom),
-      ...Object.entries(projectMedia.dynamic_annotation_flag.data.flags),
-    ];
+    // Sort by flag category likelihood and display most likely
+    let sortable = [];
+    // Put custom flag at beginning of array
+    if (projectMedia.dynamic_annotation_flag.data.custom) {
+      sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
+    }
+    sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.flags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
     [warningType] = type;
@@ -65,7 +72,10 @@ const SensitiveContentMenuButton = ({
   };
 
   const submitFlagAnnotation = () => {
-    const onFailure = () => {};
+    const onFailure = (error) => {
+      const message = getErrorMessage(error, <GenericUnknownErrorMessage />);
+      setFlashMessage(message, 'error');
+    };
     const onSuccess = () => { setAnchorEl(null); };
 
     if (!contentType) {
@@ -78,6 +88,7 @@ const SensitiveContentMenuButton = ({
 
     const fields = {
       show_cover: enableSwitch,
+      custom: {},
     };
 
     if (contentType !== 'other') {
@@ -90,8 +101,15 @@ const SensitiveContentMenuButton = ({
         spam: 0,
       };
     } else {
-      fields.custom = {};
       fields.custom[customType] = 7;
+      fields.flags = {
+        adult: 0,
+        spoof: 0,
+        medical: 0,
+        violence: 0,
+        racy: 0,
+        spam: 0,
+      };
     }
 
     if (!projectMedia.dynamic_annotation_flag) {
@@ -285,4 +303,4 @@ const SensitiveContentMenuButton = ({
 };
 
 // TODO createFragmentContainer
-export default SensitiveContentMenuButton;
+export default withSetFlashMessage(SensitiveContentMenuButton);

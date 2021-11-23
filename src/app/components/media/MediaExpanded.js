@@ -144,10 +144,13 @@ class MediaExpandedComponent extends Component {
 
     let warningType = null;
     if (media.dynamic_annotation_flag) {
-      const sortable = [
-        ...Object.entries(media.dynamic_annotation_flag.data.custom),
-        ...Object.entries(media.dynamic_annotation_flag.data.flags),
-      ];
+      // Sort by flag category likelihood and display most likely
+      let sortable = [];
+      // Put custom flag at beginning of array
+      if (media.dynamic_annotation_flag.data.custom) {
+        sortable = sortable.concat([...Object.entries(media.dynamic_annotation_flag.data.custom)]);
+      }
+      sortable = sortable.concat([...Object.entries(media.dynamic_annotation_flag.data.flags)]);
       sortable.sort((a, b) => b[1] - a[1]);
       const type = sortable[0];
       [warningType] = type;
