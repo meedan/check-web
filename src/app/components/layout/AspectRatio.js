@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage, FormattedHTMLMessage, injectIntl, defineMessages } from 'react-intl';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
@@ -64,12 +64,31 @@ const useStyles = makeStyles(theme => ({
   }),
 }));
 
+const messages = defineMessages({
+  adult: {
+    id: 'contentScreen.adult',
+    defaultMessage: 'Adult',
+    description: 'Content warning type: Adult',
+  },
+  medical: {
+    id: 'contentScreen.medical',
+    defaultMessage: 'Medical',
+    description: 'Content warning type: Medical',
+  },
+  violence: {
+    id: 'contentScreen.violence',
+    defaultMessage: 'Violence',
+    description: 'Content warning type: Violence',
+  },
+});
+
 const AspectRatioComponent = ({
   contentWarning,
   warningCreator,
   warningCategory,
   onClickExpand,
   children,
+  intl,
 }) => {
   const [maskContent, setMaskContent] = React.useState(contentWarning);
   const classes = useStyles({ contentWarning: contentWarning && maskContent });
@@ -109,7 +128,10 @@ const AspectRatioComponent = ({
                 description="Content warning displayed over sensitive content"
                 values={{
                   user_name: warningCreator,
-                  warning_category: warningCategory,
+                  warning_category: (
+                    (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+                    warningCategory
+                  ),
                 }}
               />
             </div>
@@ -146,4 +168,4 @@ AspectRatioComponent.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default AspectRatioComponent;
+export default injectIntl(AspectRatioComponent);

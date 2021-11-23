@@ -194,6 +194,7 @@ class MediaExpandedActions extends React.Component {
 
   render() {
     const {
+      currentUserRole,
       projectMedia,
       onVideoAnnoToggle,
       showVideoAnnotation,
@@ -208,13 +209,14 @@ class MediaExpandedActions extends React.Component {
 
     if (!isPicture && !allowsVideoAnnotation && !isUploadedAudio) return null;
 
-
     return (
       <Box mt={1} mx={1} width="100%" className="media-detail__check-metadata">
         { (projectMedia.picture || (projectMedia.media && projectMedia.media.file_path) || (projectMedia.media.type === 'Claim' || projectMedia.media.type === 'Link')) ?
           <Box width="100%" display="flex" justifyContent="space-between">
             <SensitiveContentMenuButton
+              currentUserRole={currentUserRole}
               projectMedia={projectMedia}
+              key={projectMedia.dynamic_annotation_flag}
             />
             <ExtraMediaActions
               projectMedia={projectMedia}

@@ -13,11 +13,17 @@ import TextField from '@material-ui/core/TextField';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import globalStrings from '../../globalStrings';
 
-const SensitiveContentMenuButton = ({ projectMedia }) => {
+const SensitiveContentMenuButton = ({
+  currentUserRole,
+  projectMedia,
+}) => {
   let warningType = null;
 
   if (projectMedia.dynamic_annotation_flag) {
-    const sortable = [...Object.entries(projectMedia.dynamic_annotation_flag.data.flags)];
+    const sortable = [
+      ...Object.entries(projectMedia.dynamic_annotation_flag.data.custom),
+      ...Object.entries(projectMedia.dynamic_annotation_flag.data.flags),
+    ];
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
     [warningType] = type;
@@ -25,7 +31,24 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [enableSwitch, setEnableSwitch] = React.useState(projectMedia.show_warning_cover);
-  const [contentType, setContentType] = React.useState(warningType);
+  const [contentType, setContentType] = React.useState((
+    warningType === 'adult' ||
+    warningType === 'medical' ||
+    warningType === 'violence' ?
+      warningType : 'other'
+  ));
+  const [customType, setCustomType] = React.useState((
+    warningType !== 'adult' &&
+    warningType !== 'medical' &&
+    warningType !== 'violence' ?
+      warningType : null
+  ));
+  const [formError, setFormError] = React.useState(null);
+
+  const handleCancel = () => {
+    setFormError(null);
+    setAnchorEl(null);
+  };
 
   const handleSwitch = (e, inputChecked) => {
     setEnableSwitch(inputChecked);
@@ -33,11 +56,43 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
 
   const handleSetContentType = (value) => {
     setContentType(value);
+    setCustomType(null);
+  };
+
+  const handleChangeCustom = (e) => {
+    setContentType('other');
+    setCustomType(e.target.value);
   };
 
   const submitFlagAnnotation = () => {
     const onFailure = () => {};
     const onSuccess = () => { setAnchorEl(null); };
+
+    if (!contentType) {
+      setFormError('no_warning_type');
+      return;
+    } else if (contentType === 'other' && !customType) {
+      setFormError('no_custom_type');
+      return;
+    }
+
+    const fields = {
+      show_cover: enableSwitch,
+    };
+
+    if (contentType !== 'other') {
+      fields.flags = {
+        adult: contentType === 'adult' ? 7 : 0,
+        spoof: 0,
+        medical: contentType === 'medical' ? 7 : 0,
+        violence: contentType === 'violence' ? 7 : 0,
+        racy: 0,
+        spam: 0,
+      };
+    } else {
+      fields.custom = {};
+      fields.custom[customType] = 7;
+    }
 
     if (!projectMedia.dynamic_annotation_flag) {
       commitMutation(Relay.Store, {
@@ -64,17 +119,7 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
           input: {
             annotated_id: projectMedia.dbid.toString(),
             annotated_type: 'ProjectMedia',
-            set_fields: JSON.stringify({
-              flags: {
-                adult: contentType === 'adult' ? 7 : 0,
-                spoof: 0,
-                medical: contentType === 'medical' ? 7 : 0,
-                violence: contentType === 'violence' ? 7 : 0,
-                racy: 0,
-                spam: 0,
-              },
-              show_cover: enableSwitch,
-            }),
+            set_fields: JSON.stringify(fields),
           },
         },
         onCompleted: ({ response, error }) => {
@@ -109,17 +154,7 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
         variables: {
           input: {
             id: projectMedia.dynamic_annotation_flag.id,
-            set_fields: JSON.stringify({
-              flags: {
-                adult: contentType === 'adult' ? 7 : 0,
-                spoof: 0,
-                medical: contentType === 'medical' ? 7 : 0,
-                violence: contentType === 'violence' ? 7 : 0,
-                racy: 0,
-                spam: 0,
-              },
-              show_cover: enableSwitch,
-            }),
+            set_fields: JSON.stringify(fields),
           },
         },
         onCompleted: ({ response, error }) => {
@@ -136,6 +171,11 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
   return (
     <React.Fragment>
       <Button
+        disabled={(
+          projectMedia.show_warning_cover &&
+          currentUserRole !== 'admin' &&
+          currentUserRole !== 'editor'
+        )}
         startIcon={<VisibilityOffIcon />}
         onClick={e => setAnchorEl(e.currentTarget)}
       >
@@ -159,7 +199,11 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
               description="Switch to enable sensitive content screen"
             />
           </Box>
-          <Box my={2} fontWeight="bold">
+          <Box
+            my={2}
+            fontWeight="bold"
+            color={formError === 'no_warning_type' ? 'red' : null}
+          >
             <FormattedMessage
               id="sensitiveContentMenuButton.selectCategory"
               defaultMessage="Select a category"
@@ -201,19 +245,29 @@ const SensitiveContentMenuButton = ({ projectMedia }) => {
             <FormControlLabel
               value="other"
               control={<Radio />}
-              label={<FormattedMessage
-                id="sensitiveContentMenuButton.typeOther"
-                defaultMessage="Type other"
-                description="Label for other content type"
-              />}
+              label={(
+                <FormattedMessage
+                  id="sensitiveContentMenuButton.typeOther"
+                  defaultMessage="Type other"
+                  description="Label for other content type"
+                >
+                  { label => (
+                    <TextField
+                      label={label}
+                      error={formError === 'no_custom_type'}
+                      value={customType}
+                      onChange={handleChangeCustom}
+                      variant="outlined"
+                      size="small"
+                      fullWidth
+                    />
+                  )}
+                </FormattedMessage>
+              )}
             />
           </RadioGroup>
-          <TextField
-            variant="outlined"
-            fullWidth
-          />
-          <Box mt={2} display="flex" alignContent="flex-end">
-            <Button onClick={() => setAnchorEl(null)}>
+          <Box mt={2} display="flex" justifyContent="flex-end">
+            <Button onClick={handleCancel}>
               <FormattedMessage {...globalStrings.cancel} />
             </Button>
             <Button

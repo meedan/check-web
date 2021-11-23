@@ -23,6 +23,7 @@ import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import BlankMediaButton from './BlankMediaButton';
+import UserUtil from '../user/UserUtil';
 import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
@@ -120,6 +121,11 @@ class MediaExpandedComponent extends Component {
       showVideoAnnotation,
     } = this.props;
 
+    const currentUserRole = UserUtil.myRole(
+      this.getContext().currentUser,
+      this.getContext().team.slug,
+    );
+
     const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
@@ -138,7 +144,10 @@ class MediaExpandedComponent extends Component {
 
     let warningType = null;
     if (media.dynamic_annotation_flag) {
-      const sortable = [...Object.entries(media.dynamic_annotation_flag.data.flags)];
+      const sortable = [
+        ...Object.entries(media.dynamic_annotation_flag.data.custom),
+        ...Object.entries(media.dynamic_annotation_flag.data.flags),
+      ];
       sortable.sort((a, b) => b[1] - a[1]);
       const type = sortable[0];
       [warningType] = type;
@@ -148,6 +157,7 @@ class MediaExpandedComponent extends Component {
       if (isImage) {
         return (
           <ImageMediaCard
+            key={media.dynamic_annotation_flag}
             contentWarning={media.show_warning_cover}
             warningCreator={media.dynamic_annotation_flag?.annotator?.name}
             warningCategory={warningType}
@@ -158,6 +168,7 @@ class MediaExpandedComponent extends Component {
         return (
           <div ref={this.props.playerRef}>
             <MediaPlayerCard
+              key={media.dynamic_annotation_flag}
               filePath={filePath}
               coverImage={coverImage}
               contentWarning={media.show_warning_cover}
@@ -179,6 +190,7 @@ class MediaExpandedComponent extends Component {
       } else if (isWebPage || !data.html) {
         return (
           <WebPageMediaCard
+            key={media.dynamic_annotation_flag}
             contentWarning={media.show_warning_cover}
             warningCreator={media.dynamic_annotation_flag?.annotator?.name}
             warningCategory={warningType}
@@ -277,6 +289,7 @@ class MediaExpandedComponent extends Component {
           isTrends ? null : (
             <CardActions>
               <MediaExpandedActions
+                currentUserRole={currentUserRole}
                 onTimelineCommentOpen={onTimelineCommentOpen}
                 onVideoAnnoToggle={onVideoAnnoToggle}
                 showVideoAnnotation={showVideoAnnotation}
