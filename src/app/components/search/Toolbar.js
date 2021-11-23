@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { injectIntl } from 'react-intl';
 import styled from 'styled-components';
 import CreateProjectMedia from '../media/CreateMedia';
+import ViewModeSwitcher from './ViewModeSwitcher';
 import Can from '../Can';
 import { black87, units, Row, FlexRow } from '../../styles/js/shared';
 
@@ -15,7 +16,7 @@ const StyledToolbar = styled.div`
 
   .toolbar__title {
     color: ${black87};
-    margin: ${units(2)} ${units(2)} ${units(2)} 0;
+    margin: ${units(2)};
   }
 `;
 
@@ -33,6 +34,8 @@ const Toolbar = ({
   team,
   search,
   resultType,
+  viewMode,
+  onChangeViewMode,
 }) => {
   let perms = { permissions: {}, permission: '' };
   if (project) {
@@ -48,6 +51,7 @@ const Toolbar = ({
           {similarAction}
           <span className="toolbar__title">{title}</span>
           {actions}
+          <ViewModeSwitcher viewMode={viewMode} onChangeViewMode={onChangeViewMode} />
         </Row>
         {['trash', 'unconfirmed', 'collection', 'list', 'imported-reports', 'tipline-inbox'].indexOf(page) === -1 && resultType !== 'trends' ? (
           <Can {...perms}>
@@ -63,9 +67,14 @@ const Toolbar = ({
 
 Toolbar.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
+  viewMode: 'shorter',
 };
+
 Toolbar.propTypes = {
   page: PropTypes.oneOf(['trash', 'unconfirmed', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox']), // FIXME find a cleaner way to render Trash differently
+  viewMode: PropTypes.oneOf(['shorter', 'longer']),
+  onChangeViewMode: PropTypes.func.isRequired,
+  // FIXME: Define other PropTypes
 };
 
 export default injectIntl(Toolbar);
