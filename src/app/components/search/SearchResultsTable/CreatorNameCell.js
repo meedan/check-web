@@ -17,7 +17,7 @@ export default function CreatorNameCell({ projectMedia }) {
   const creatorName = projectMedia.list_columns_values.creator_name;
 
   return (
-    <TableCell>
+    <TableCell align="center">
       <div className={classes.creatorName} >
         <span >{creatorName}</span>
       </div>
