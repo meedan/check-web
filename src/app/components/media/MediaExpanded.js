@@ -279,7 +279,7 @@ class MediaExpandedComponent extends Component {
               </Typography>
             </MoreLess>
           </Box>
-          <MediaLanguageChip projectMedia={media} />
+          <Box mb={2}><MediaLanguageChip projectMedia={media} /></Box>
           <MediaExpandedUrl url={media.media.url} />
           <MediaExpandedArchives projectMedia={media} />
           <MediaExpandedMetadata projectMedia={media} />

@@ -61,10 +61,17 @@ function SelectProjectDialog({
     }
   });
 
-  // Lastly, sort options by collection title and exclude some options
+  // Lastly, sort options by title and exclude some options
   const filteredProjects = projects
     .filter(({ dbid }) => !excludeProjectDbids.includes(dbid))
-    .sort((a, b) => a.projectGroupTitle.localeCompare(b.projectGroupTitle));
+    .sort((a, b) => {
+      // First sort by collection
+      if (a.projectGroupTitle !== b.projectGroupTitle) {
+        return a.projectGroupTitle.localeCompare(b.projectGroupTitle);
+      }
+      // Then sort alphabetically if they are in the same collection
+      return a.title.localeCompare(b.title);
+    });
 
   // Get Item folder
   let itemFolder = null;

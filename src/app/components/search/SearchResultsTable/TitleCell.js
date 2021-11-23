@@ -130,7 +130,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
                 {title}
               </React.Fragment>
             }
-            description={description}
+            description={description === title ? '' : description}
           />
         </Box>
       </MaybeLink>
