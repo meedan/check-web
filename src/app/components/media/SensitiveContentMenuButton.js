@@ -16,46 +16,46 @@ import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { getErrorMessage } from '../../helpers';
 import globalStrings from '../../globalStrings';
 
-const SensitiveContentMenuButton = ({
-  currentUserRole,
+const SensitiveContentMenu = ({
+  anchorEl,
+  onDismiss,
   projectMedia,
   setFlashMessage,
 }) => {
   let warningType = null;
+  let warningTypeCustom = null;
 
-  if (projectMedia.dynamic_annotation_flag) {
+  const {
+    dynamic_annotation_flag,
+    show_warning_cover,
+  } = projectMedia;
+
+  if (dynamic_annotation_flag && show_warning_cover) {
     // Sort by flag category likelihood and display most likely
     let sortable = [];
     // Put custom flag at beginning of array
-    if (projectMedia.dynamic_annotation_flag.data.custom) {
-      sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.custom)]);
+    if (dynamic_annotation_flag.data.custom) {
+      sortable = sortable.concat([...Object.entries(dynamic_annotation_flag.data.custom)]);
     }
-    sortable = sortable.concat([...Object.entries(projectMedia.dynamic_annotation_flag.data.flags)]);
+    sortable = sortable.concat([...Object.entries(dynamic_annotation_flag.data.flags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
     [warningType] = type;
+
+    if (
+      warningType !== 'adult' &&
+      warningType !== 'medical' &&
+      warningType !== 'violence'
+    ) {
+      warningTypeCustom = warningType;
+      warningType = 'other';
+    }
   }
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [enableSwitch, setEnableSwitch] = React.useState(projectMedia.show_warning_cover);
-  const [contentType, setContentType] = React.useState((
-    warningType === 'adult' ||
-    warningType === 'medical' ||
-    warningType === 'violence' ?
-      warningType : 'other'
-  ));
-  const [customType, setCustomType] = React.useState((
-    warningType !== 'adult' &&
-    warningType !== 'medical' &&
-    warningType !== 'violence' ?
-      warningType : null
-  ));
+  const [enableSwitch, setEnableSwitch] = React.useState(show_warning_cover);
+  const [contentType, setContentType] = React.useState(warningType);
+  const [customType, setCustomType] = React.useState(warningTypeCustom);
   const [formError, setFormError] = React.useState(null);
-
-  const handleCancel = () => {
-    setFormError(null);
-    setAnchorEl(null);
-  };
 
   const handleSwitch = (e, inputChecked) => {
     setEnableSwitch(inputChecked);
@@ -76,7 +76,7 @@ const SensitiveContentMenuButton = ({
       const message = getErrorMessage(error, <GenericUnknownErrorMessage />);
       setFlashMessage(message, 'error');
     };
-    const onSuccess = () => { setAnchorEl(null); };
+    const onSuccess = () => { onDismiss(); };
 
     if (!contentType) {
       setFormError('no_warning_type');
@@ -112,7 +112,7 @@ const SensitiveContentMenuButton = ({
       };
     }
 
-    if (!projectMedia.dynamic_annotation_flag) {
+    if (!dynamic_annotation_flag) {
       commitMutation(Relay.Store, {
         mutation: graphql`
           mutation SensitiveContentMenuButtonCreateDynamicAnnotationFlagMutation($input: CreateDynamicAnnotationFlagInput!) {
@@ -171,7 +171,7 @@ const SensitiveContentMenuButton = ({
         `,
         variables: {
           input: {
-            id: projectMedia.dynamic_annotation_flag.id,
+            id: dynamic_annotation_flag.id,
             set_fields: JSON.stringify(fields),
           },
         },
@@ -187,10 +187,126 @@ const SensitiveContentMenuButton = ({
   };
 
   return (
+    <Popover
+      open={Boolean(anchorEl)}
+      anchorEl={anchorEl}
+      onClose={onDismiss}
+    >
+      <Box p={2}>
+        <Box>
+          <Switch checked={enableSwitch} onChange={handleSwitch} />
+          <FormattedMessage
+            id="sensitiveContentMenuButton.enableSwitch"
+            defaultMessage="Enable content warning"
+            description="Switch to enable sensitive content screen"
+          />
+        </Box>
+        <Box
+          my={2}
+          fontWeight="bold"
+          color={formError === 'no_warning_type' ? 'red' : null}
+        >
+          <FormattedMessage
+            id="sensitiveContentMenuButton.selectCategory"
+            defaultMessage="Select a category"
+            description="Header for sensitive content types"
+          />
+        </Box>
+        <RadioGroup
+          name="select-sensitive-content-type"
+          value={contentType}
+          onChange={e => handleSetContentType(e.target.value)}
+        >
+          <FormControlLabel
+            disabled={!enableSwitch}
+            value="adult"
+            control={<Radio />}
+            label={<FormattedMessage
+              id="sensitiveContentMenuButton.adult"
+              defaultMessage="Adult (nudity, pornographic)"
+              description="Label for adult content type"
+            />}
+          />
+          <FormControlLabel
+            disabled={!enableSwitch}
+            value="medical"
+            control={<Radio />}
+            label={<FormattedMessage
+              id="sensitiveContentMenuButton.medical"
+              defaultMessage="Medical conditions/procedures"
+              description="Label for medical content type"
+            />}
+          />
+          <FormControlLabel
+            disabled={!enableSwitch}
+            value="violence"
+            control={<Radio />}
+            label={<FormattedMessage
+              id="sensitiveContentMenuButton.violence"
+              defaultMessage="Violence"
+              description="Label for violence content type"
+            />}
+          />
+          <FormControlLabel
+            disabled={!enableSwitch}
+            value="other"
+            control={<Radio />}
+            label={(
+              <FormattedMessage
+                id="sensitiveContentMenuButton.typeOther"
+                defaultMessage="Type other"
+                description="Label for other content type"
+              >
+                { label => (
+                  <TextField
+                    disabled={!enableSwitch}
+                    label={label}
+                    error={(
+                      formError === 'no_custom_type' &&
+                      contentType === 'other' &&
+                      !customType
+                    )}
+                    value={customType}
+                    onChange={handleChangeCustom}
+                    variant="outlined"
+                    size="small"
+                    fullWidth
+                  />
+                )}
+              </FormattedMessage>
+            )}
+          />
+        </RadioGroup>
+        <Box mt={2} display="flex" justifyContent="flex-end">
+          <Button onClick={onDismiss}>
+            <FormattedMessage {...globalStrings.cancel} />
+          </Button>
+          <Button
+            color="primary"
+            onClick={submitFlagAnnotation}
+            variant="contained"
+          >
+            <FormattedMessage {...globalStrings.save} />
+          </Button>
+        </Box>
+      </Box>
+    </Popover>
+  );
+};
+
+const SensitiveContentMenuButton = ({
+  currentUserRole,
+  projectMedia,
+  setFlashMessage,
+}) => {
+  const { show_warning_cover } = projectMedia;
+  const [anchorEl, setAnchorEl] = React.useState();
+
+  return (
     <React.Fragment>
       <Button
         disabled={(
-          projectMedia.show_warning_cover &&
+          show_warning_cover &&
           currentUserRole !== 'admin' &&
           currentUserRole !== 'editor'
         )}
@@ -203,101 +319,13 @@ const SensitiveContentMenuButton = ({
           description="Button that pops sensitive content screen settings"
         />
       </Button>
-      <Popover
-        open={Boolean(anchorEl)}
+      <SensitiveContentMenu
+        key={anchorEl}
         anchorEl={anchorEl}
-        onClose={() => setAnchorEl(null)}
-      >
-        <Box p={2}>
-          <Box>
-            <Switch checked={enableSwitch} onChange={handleSwitch} />
-            <FormattedMessage
-              id="sensitiveContentMenuButton.enableSwitch"
-              defaultMessage="Enable content warning"
-              description="Switch to enable sensitive content screen"
-            />
-          </Box>
-          <Box
-            my={2}
-            fontWeight="bold"
-            color={formError === 'no_warning_type' ? 'red' : null}
-          >
-            <FormattedMessage
-              id="sensitiveContentMenuButton.selectCategory"
-              defaultMessage="Select a category"
-              description="Header for sensitive content types"
-            />
-          </Box>
-          <RadioGroup
-            name="select-sensitive-content-type"
-            value={contentType}
-            onChange={e => handleSetContentType(e.target.value)}
-          >
-            <FormControlLabel
-              value="adult"
-              control={<Radio />}
-              label={<FormattedMessage
-                id="sensitiveContentMenuButton.adult"
-                defaultMessage="Adult (nudity, pornographic)"
-                description="Label for adult content type"
-              />}
-            />
-            <FormControlLabel
-              value="medical"
-              control={<Radio />}
-              label={<FormattedMessage
-                id="sensitiveContentMenuButton.medical"
-                defaultMessage="Medical conditions/procedures"
-                description="Label for medical content type"
-              />}
-            />
-            <FormControlLabel
-              value="violence"
-              control={<Radio />}
-              label={<FormattedMessage
-                id="sensitiveContentMenuButton.violence"
-                defaultMessage="Violence"
-                description="Label for violence content type"
-              />}
-            />
-            <FormControlLabel
-              value="other"
-              control={<Radio />}
-              label={(
-                <FormattedMessage
-                  id="sensitiveContentMenuButton.typeOther"
-                  defaultMessage="Type other"
-                  description="Label for other content type"
-                >
-                  { label => (
-                    <TextField
-                      label={label}
-                      error={formError === 'no_custom_type'}
-                      value={customType}
-                      onChange={handleChangeCustom}
-                      variant="outlined"
-                      size="small"
-                      fullWidth
-                    />
-                  )}
-                </FormattedMessage>
-              )}
-            />
-          </RadioGroup>
-          <Box mt={2} display="flex" justifyContent="flex-end">
-            <Button onClick={handleCancel}>
-              <FormattedMessage {...globalStrings.cancel} />
-            </Button>
-            <Button
-              color="primary"
-              onClick={submitFlagAnnotation}
-              variant="contained"
-            >
-              <FormattedMessage {...globalStrings.save} />
-            </Button>
-          </Box>
-        </Box>
-      </Popover>
+        onDismiss={() => setAnchorEl(null)}
+        projectMedia={projectMedia}
+        setFlashMessage={setFlashMessage}
+      />
     </React.Fragment>
   );
 };

@@ -141,7 +141,7 @@ const ReportDesignerPreview = (props) => {
 
   const introduction = previewIntroduction(data, media);
 
-  const maskContent = media.media.picture === data.image;
+  const maskContent = media.show_warning_cover && media.media.picture === data.image;
 
   // Preview for the introduction, the text message, and the visual card
   return (
