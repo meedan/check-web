@@ -95,70 +95,74 @@ const AspectRatioComponent = ({
   return (
     <div className={classes.container}>
       <div className={classes.innerWrapper}>
-        <IconButton
-          onClick={onClickExpand}
-          style={{
-            color: white,
-            backgroundColor: black32,
-            position: 'absolute',
-            right: '0',
-            top: '0',
-            margin: units(2),
-            zIndex: contentWarning && maskContent ? 15 : 150,
-          }}
-        >
-          <FullscreenIcon style={{ width: units(4), height: units(4) }} />
-        </IconButton>
-        {children}
-        <div className={classes.sensitiveScreen}>
-          <Box
-            display="flex"
-            flexDirection="column"
-            justifyContent="space-between"
-            height="100%"
-            alignItems="center"
-            pt={8}
-            pb={4}
+        { onClickExpand ?
+          <IconButton
+            onClick={onClickExpand}
+            style={{
+              color: white,
+              backgroundColor: black32,
+              position: 'absolute',
+              right: '0',
+              top: '0',
+              margin: units(2),
+              zIndex: contentWarning && maskContent ? 15 : 150,
+            }}
           >
-            <VisibilityOffIcon className={classes.icon} />
-            <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
-              <FormattedHTMLMessage
-                id="contentScreen.warning"
-                defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-                description="Content warning displayed over sensitive content"
-                values={{
-                  user_name: warningCreator,
-                  warning_category: (
-                    (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-                    warningCategory
-                  ),
-                }}
-              />
-            </div>
-            { contentWarning ? (
-              <Button
-                className={classes.button}
-                onClick={() => setMaskContent(!maskContent)}
-                size="small"
-                variant="outlined"
-              >
-                { maskContent ? (
-                  <FormattedMessage
-                    id="contentScreen.viewContentButton"
-                    defaultMessage="Temporarily view content"
-                    description="Button to enable view of sensitive content"
-                  />
-                ) : (
-                  <FormattedMessage
-                    id="contentScreen.hideContentButton"
-                    defaultMessage="Hide content"
-                    description="Button to disable view of sensitive content"
-                  />
-                )}
-              </Button>
-            ) : null}
-          </Box>
-        </div>
+            <FullscreenIcon style={{ width: units(4), height: units(4) }} />
+          </IconButton> : null
+        }
+        {children}
+        { contentWarning ?
+          <div className={classes.sensitiveScreen}>
+            <Box
+              display="flex"
+              flexDirection="column"
+              justifyContent="space-between"
+              height="100%"
+              alignItems="center"
+              pt={8}
+              pb={4}
+            >
+              <VisibilityOffIcon className={classes.icon} />
+              <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
+                <FormattedHTMLMessage
+                  id="contentScreen.warning"
+                  defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
+                  description="Content warning displayed over sensitive content"
+                  values={{
+                    user_name: warningCreator,
+                    warning_category: (
+                      (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+                      warningCategory
+                    ),
+                  }}
+                />
+              </div>
+              { contentWarning ? (
+                <Button
+                  className={classes.button}
+                  onClick={() => setMaskContent(!maskContent)}
+                  size="small"
+                  variant="outlined"
+                >
+                  { maskContent ? (
+                    <FormattedMessage
+                      id="contentScreen.viewContentButton"
+                      defaultMessage="Temporarily view content"
+                      description="Button to enable view of sensitive content"
+                    />
+                  ) : (
+                    <FormattedMessage
+                      id="contentScreen.hideContentButton"
+                      defaultMessage="Hide content"
+                      description="Button to disable view of sensitive content"
+                    />
+                  )}
+                </Button>
+              ) : null }
+            </Box>
+          </div> : null
+        }
       </div>
     </div>
   );
