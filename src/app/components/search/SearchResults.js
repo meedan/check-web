@@ -137,6 +137,7 @@ function SearchResultsComponent({
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
   const [query, setQuery] = React.useState(defaultQuery);
   const [showSimilar] = React.useState('show_similar' in query ? query.show_similar : false);
+  const [viewMode, setViewMode] = React.useState('shorter'); // or "longer"
 
   React.useEffect(() => {
     const projectId = project ? project.dbid : 0;
@@ -390,6 +391,7 @@ function SearchResultsComponent({
         onChangeSortParams={handleChangeSortParams}
         buildProjectMediaUrl={buildProjectMediaUrl}
         resultType={resultType}
+        viewMode={viewMode}
       />
     );
   }
@@ -454,6 +456,8 @@ function SearchResultsComponent({
         <Toolbar
           resultType={resultType}
           team={team}
+          viewMode={viewMode}
+          onChangeViewMode={setViewMode}
           similarAction={
             <FormControlLabel
               classes={{ labelPlacementStart: classes.similarSwitch }}
@@ -473,7 +477,7 @@ function SearchResultsComponent({
                   description="Allow user to show/hide secondary items"
                 />
               }
-              labelPlacement="start"
+              labelPlacement="end"
             />
           }
           actions={projectMedias.length && selectedProjectMedia.length ?

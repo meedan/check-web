@@ -1,0 +1,12 @@
+[
+  {
+    "id": "viewModeSwitcher.viewModeShorter",
+    "description": "Tooltip for button that makes titles shorter",
+    "defaultMessage": "See shorter titles"
+  },
+  {
+    "id": "viewModeSwitcher.viewModeLonger",
+    "description": "Tooltip for button that makes titles shorter",
+    "defaultMessage": "See longer titles"
+  }
+]
