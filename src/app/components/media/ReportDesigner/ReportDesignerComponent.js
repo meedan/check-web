@@ -356,4 +356,5 @@ ReportDesignerComponent.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
 };
 
+// TODO: createFragmentContainer
 export default withSetFlashMessage(ReportDesignerComponent);

@@ -4,7 +4,7 @@ import AspectRatio from '../layout/AspectRatio';
 
 const MediaPlayerCard = props => (
   <article className="video-media-card" style={{ position: 'relative' }}>
-    <AspectRatio>
+    <AspectRatio contentWarning={props.contentWarning}>
       { props.coverImage ? (
         <img
           src={props.coverImage}
