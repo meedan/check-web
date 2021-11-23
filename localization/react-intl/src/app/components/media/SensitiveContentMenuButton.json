@@ -1,10 +1,5 @@
 [
   {
-    "id": "sensitiveContentMenuButton.contentWarning",
-    "description": "Button that pops sensitive content screen settings",
-    "defaultMessage": "Content warning"
-  },
-  {
     "id": "sensitiveContentMenuButton.enableSwitch",
     "description": "Switch to enable sensitive content screen",
     "defaultMessage": "Enable content warning"
@@ -33,5 +28,10 @@
     "id": "sensitiveContentMenuButton.typeOther",
     "description": "Label for other content type",
     "defaultMessage": "Type other"
+  },
+  {
+    "id": "sensitiveContentMenuButton.contentWarning",
+    "description": "Button that pops sensitive content screen settings",
+    "defaultMessage": "Content warning"
   }
 ]
