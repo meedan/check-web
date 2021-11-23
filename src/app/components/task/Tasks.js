@@ -31,7 +31,7 @@ const StyledFormControls = styled.div`
   height: 63px;
   position: sticky;
   top: 0px;
-  z-index: 10000;
+  z-index: 1001;
   background-color: white;
   box-shadow: 0 0 8px 4px rgba(170, 170, 170, 0.25);
   clip-path: polygon(0% 0%, 100% 0%, 100.94% 107.30%, 0% 120%);
