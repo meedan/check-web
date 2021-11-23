@@ -114,6 +114,15 @@ const ReportDesignerTopBar = (props) => {
       />
     );
   }
+  // We Can't publish if using a visual card and there's a content warning and no alternative image is set
+  if (media.show_warning_cover && media.media.picture === data.options[0].image) {
+    cantPublishReason = (
+      <FormattedMessage
+        id="reportDesignerToolbar.cantPublishContentFlag"
+        defaultMessage="Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
+      />
+    );
+  }
 
   const readOnly = props.readOnly || statusChanging;
   const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);

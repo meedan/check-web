@@ -10,5 +10,25 @@
   {
     "id": "reportDesigner.addText",
     "defaultMessage": "Add content to the text message"
+  },
+  {
+    "id": "reportDesigner.contentScreenHeader",
+    "description": "Header for visual card when there's a content warning active and no alternative image is set",
+    "defaultMessage": "Content with warning cannot<br />be published as a visual card."
+  },
+  {
+    "id": "reportDesigner.uploadAlternative",
+    "description": "Header for visual card when there's a content warning active and no alternative image is set",
+    "defaultMessage": "Upload an alternative image or<br />uncheck the visual card option."
+  },
+  {
+    "id": "reportDesigner.incorrectWarning",
+    "description": "Header for visual card when there's a content warning active and no alternative image is set",
+    "defaultMessage": "Was this content warning incorrectly applied?"
+  },
+  {
+    "id": "reportDesigner.goBack",
+    "description": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation",
+    "defaultMessage": "Go back to the annotation page and remove the content warning."
   }
 ]

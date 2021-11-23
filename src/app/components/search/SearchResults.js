@@ -633,6 +633,7 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               id
               dbid
               picture
+              show_warning_cover
               title
               description
               is_read

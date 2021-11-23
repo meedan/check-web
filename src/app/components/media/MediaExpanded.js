@@ -23,6 +23,7 @@ import ImageMediaCard from './ImageMediaCard';
 import MediaPlayerCard from './MediaPlayerCard';
 import PenderCard from '../PenderCard';
 import BlankMediaButton from './BlankMediaButton';
+import UserUtil from '../user/UserUtil';
 import { truncateLength } from '../../helpers';
 import CheckContext from '../../CheckContext';
 import { withPusher, pusherShape } from '../../pusher';
@@ -120,6 +121,11 @@ class MediaExpandedComponent extends Component {
       showVideoAnnotation,
     } = this.props;
 
+    const currentUserRole = UserUtil.myRole(
+      this.getContext().currentUser,
+      this.getContext().team.slug,
+    );
+
     const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
     const isImage = media.media.type === 'UploadedImage';
     const isMedia = ['UploadedVideo', 'UploadedAudio'].indexOf(media.media.type) > -1;
@@ -136,15 +142,41 @@ class MediaExpandedComponent extends Component {
     const { mediaUrl, mediaQuery, linkTitle } = this.props;
     const coverImage = media.media.thumbnail_path || '/images/player_cover.svg';
 
+    let warningType = null;
+    if (media.dynamic_annotation_flag) {
+      // Sort by flag category likelihood and display most likely
+      let sortable = [];
+      // Put custom flag at beginning of array
+      if (media.dynamic_annotation_flag.data.custom) {
+        sortable = sortable.concat([...Object.entries(media.dynamic_annotation_flag.data.custom)]);
+      }
+      sortable = sortable.concat([...Object.entries(media.dynamic_annotation_flag.data.flags)]);
+      sortable.sort((a, b) => b[1] - a[1]);
+      const type = sortable[0];
+      [warningType] = type;
+    }
+
     const embedCard = (() => {
       if (isImage) {
-        return <ImageMediaCard imagePath={media.media.embed_path} />;
+        return (
+          <ImageMediaCard
+            key={media.dynamic_annotation_flag}
+            contentWarning={media.show_warning_cover}
+            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
+            warningCategory={warningType}
+            imagePath={media.media.embed_path}
+          />
+        );
       } else if (isMedia || isYoutube) {
         return (
           <div ref={this.props.playerRef}>
             <MediaPlayerCard
+              key={media.dynamic_annotation_flag}
               filePath={filePath}
               coverImage={coverImage}
+              contentWarning={media.show_warning_cover}
+              warningCreator={media.dynamic_annotation_flag?.annotator?.name}
+              warningCategory={warningType}
               {...{
                 playing, start, end, gaps, scrubTo, seekTo, onPlayerReady, setPlayerState, playbackRate,
               }}
@@ -161,6 +193,10 @@ class MediaExpandedComponent extends Component {
       } else if (isWebPage || !data.html) {
         return (
           <WebPageMediaCard
+            key={media.dynamic_annotation_flag}
+            contentWarning={media.show_warning_cover}
+            warningCreator={media.dynamic_annotation_flag?.annotator?.name}
+            warningCategory={warningType}
             media={media}
             mediaUrl={mediaUrl}
             mediaQuery={mediaQuery}
@@ -256,6 +292,7 @@ class MediaExpandedComponent extends Component {
           isTrends ? null : (
             <CardActions>
               <MediaExpandedActions
+                currentUserRole={currentUserRole}
                 onTimelineCommentOpen={onTimelineCommentOpen}
                 onVideoAnnoToggle={onVideoAnnoToggle}
                 showVideoAnnotation={showVideoAnnotation}
@@ -318,6 +355,16 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         full_url
         dynamic_annotation_language {
           id
+        }
+        show_warning_cover
+        dynamic_annotation_flag {
+          id
+          dbid
+          content
+          data
+          annotator {
+            name
+          }
         }
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}

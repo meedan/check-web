@@ -23,6 +23,9 @@ class WebPageMediaCard extends Component {
     const {
       media,
       data,
+      contentWarning,
+      warningCreator,
+      warningCategory,
     } = this.props;
 
     return (
@@ -36,7 +39,11 @@ class WebPageMediaCard extends Component {
           :
           <div>
             { media.picture ?
-              <AspectRatio>
+              <AspectRatio
+                contentWarning={contentWarning}
+                warningCreator={warningCreator}
+                warningCategory={warningCategory}
+              >
                 <img src={media.picture} alt="" onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
               </AspectRatio> : null
             }

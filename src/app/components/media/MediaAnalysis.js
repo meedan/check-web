@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { DatePicker } from '@material-ui/pickers';
 import MediaTags from './MediaTags';
 import TimeBefore from '../TimeBefore';
@@ -16,6 +17,7 @@ import { parseStringUnixTimestamp } from '../../helpers';
 import CheckChannels from '../../CheckChannels';
 import { propsToData, formatDate } from './ReportDesigner/reportDesignerHelpers';
 import { can } from '../Can';
+import { opaqueBlack87 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   saved: {
@@ -28,6 +30,20 @@ const useStyles = makeStyles(theme => ({
     objectFit: 'cover',
     marginRight: theme.dir === 'rtl' ? 0 : theme.spacing(1),
     marginLeft: theme.dir === 'rtl' ? theme.spacing(1) : 0,
+  },
+  contentScreen: {
+    minWidth: 93,
+    minHeight: 93,
+    backgroundColor: opaqueBlack87,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: theme.dir === 'rtl' ? 0 : theme.spacing(1),
+    marginLeft: theme.dir === 'rtl' ? theme.spacing(1) : 0,
+  },
+  icon: {
+    fontSize: '40px',
+    color: 'white',
   },
   box: {
     marginTop: theme.spacing(2),
@@ -57,6 +73,8 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen, intl }) => {
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
   const analysis = projectMedia.last_status_obj;
+  const maskContent = projectMedia.show_warning_cover;
+
   const {
     picture,
     creator_name: creatorName,
@@ -285,7 +303,15 @@ const MediaAnalysis = ({ projectMedia, onTimelineCommentOpen, intl }) => {
 
       <Box>
         <Box display="flex" className={classes.box}>
-          { picture ? <img src={picture} alt="" className={classes.image} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} /> : null }
+          { picture && !maskContent ? (
+            <img
+              src={picture}
+              alt=""
+              className={classes.image}
+              onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }}
+            />
+          ) : null }
+          { maskContent ? <div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div> : null }
           <TextField
             label={
               <FormattedMessage id="mediaAnalysis.title" defaultMessage="Title" />

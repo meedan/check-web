@@ -1,0 +1,32 @@
+[
+  {
+    "id": "contentScreen.adult",
+    "description": "Content warning type: Adult",
+    "defaultMessage": "Adult"
+  },
+  {
+    "id": "contentScreen.medical",
+    "description": "Content warning type: Medical",
+    "defaultMessage": "Medical"
+  },
+  {
+    "id": "contentScreen.violence",
+    "description": "Content warning type: Violence",
+    "defaultMessage": "Violence"
+  },
+  {
+    "id": "contentScreen.warning",
+    "description": "Content warning displayed over sensitive content",
+    "defaultMessage": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
+  },
+  {
+    "id": "contentScreen.viewContentButton",
+    "description": "Button to enable view of sensitive content",
+    "defaultMessage": "Temporarily view content"
+  },
+  {
+    "id": "contentScreen.hideContentButton",
+    "description": "Button to disable view of sensitive content",
+    "defaultMessage": "Hide content"
+  }
+]
