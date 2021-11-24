@@ -61,13 +61,13 @@ const SensitiveContentMenu = ({
     setEnableSwitch(inputChecked);
     if (!inputChecked) {
       setContentType(null);
-      setCustomType(null);
+      setCustomType('');
     }
   };
 
   const handleSetContentType = (value) => {
     setContentType(value);
-    setCustomType(null);
+    setCustomType('');
   };
 
   const handleChangeCustom = (e) => {
