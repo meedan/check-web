@@ -40,6 +40,7 @@ class WebPageMediaCard extends Component {
           <div>
             { media.picture ?
               <AspectRatio
+                key={contentWarning}
                 contentWarning={contentWarning}
                 warningCreator={warningCreator}
                 warningCategory={warningCategory}

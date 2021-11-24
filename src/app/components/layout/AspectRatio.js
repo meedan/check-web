@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -56,7 +57,7 @@ const useStyles = makeStyles(theme => ({
     bottom: 0,
     color: 'white',
     minWidth: theme.spacing(22),
-    backgroundColor: props.contentWarning ? 'transparent' : checkBlue,
+    backgroundColor: props.contentWarning ? 'black' : checkBlue,
     border: '2px solid white',
     '& :hover': {
       backgroundColor: 'unset',
@@ -125,25 +126,27 @@ const AspectRatioComponent = ({
             >
               <VisibilityOffIcon className={classes.icon} />
               <div style={{ visibility: contentWarning && maskContent ? 'visible' : 'hidden' }}>
-                <FormattedHTMLMessage
-                  id="contentScreen.warning"
-                  defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
-                  description="Content warning displayed over sensitive content"
-                  values={{
-                    user_name: warningCreator,
-                    warning_category: (
-                      (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
-                      warningCategory
-                    ),
-                  }}
-                />
+                <Typography variant="body1">
+                  <FormattedHTMLMessage
+                    id="contentScreen.warning"
+                    defaultMessage="<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>"
+                    description="Content warning displayed over sensitive content"
+                    values={{
+                      user_name: warningCreator,
+                      warning_category: (
+                        (messages[warningCategory] && intl.formatMessage(messages[warningCategory])) ||
+                        warningCategory
+                      ),
+                    }}
+                  />
+                </Typography>
               </div>
               { contentWarning ? (
                 <Button
                   className={classes.button}
                   onClick={() => setMaskContent(!maskContent)}
-                  size="small"
-                  variant="outlined"
+                  color="primary"
+                  variant="contained"
                 >
                   { maskContent ? (
                     <FormattedMessage
