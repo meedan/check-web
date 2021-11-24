@@ -270,6 +270,7 @@ const SensitiveContentMenu = ({
                       contentType === 'other' &&
                       !customType
                     )}
+                    inputProps={{ maxLength: 48 }}
                     value={customType}
                     onChange={handleChangeCustom}
                     variant="outlined"
