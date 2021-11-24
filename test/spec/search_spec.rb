@@ -194,14 +194,14 @@ shared_examples 'search' do
     expect(current.positive?).to be(true)
   end
 
-  it 'should sort by title', bin1: true do
+  it 'should sort by submission order', bin1: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page 2
     wait_for_selector_list('.medias__item')
     claim1 = wait_for_selector_list('h4')[0].text
     claim2 = wait_for_selector_list('h4')[1].text
     expect(claim1 == 'Claim 1').to be(true)
     expect(claim2 == 'Claim 0').to be(true)
-    wait_for_selector('.MuiTableSortLabel-iconDirectionDesc').click
+    wait_for_selector("//span[contains(text(), 'Submitted')]", :xpath).click
     wait_for_text_change('Claim 1', 'h4')
     claim1 = wait_for_selector_list('h4')[0].text
     claim2 = wait_for_selector_list('h4')[1].text
