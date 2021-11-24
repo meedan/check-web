@@ -7,7 +7,6 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units, black87, checkBlue, opaqueBlack54, opaqueBlack87 } from '../../../styles/js/shared';
-import { truncateLength } from '../../../helpers';
 
 const useStyles = makeStyles({
   root: {
@@ -52,16 +51,22 @@ const useStyles = makeStyles({
     lineHeight: units(2.5),
     flexDirection: 'column',
     justifyContent: 'center',
+    minWidth: 470,
   },
   title: ({ isRead }) => ({
     color: black87,
     fontWeight: isRead ? 'normal' : 'bold',
     overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
   }),
   description: {
     maxHeight: units(5),
     color: opaqueBlack54,
     overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
   },
   similarityIcon: {
     marginRight: units(0.5),
@@ -71,12 +76,14 @@ const useStyles = makeStyles({
   },
   titleViewModeLonger: {
     maxHeight: units(22),
+    '-webkit-line-clamp': 4,
   },
   titleViewModeShorter: {
     maxHeight: units(5),
+    '-webkit-line-clamp': 2,
   },
   cellViewModeLonger: {
-    height: units(26),
+    height: units(15),
   },
   cellViewModeShorter: {
     height: units(10),
@@ -143,10 +150,10 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
             title={
               <React.Fragment>
                 <IconOrNothing isMain={isMain} isSecondary={isSecondary} className={classes.similarityIcon} />
-                {viewMode === 'longer' ? truncateLength(title, 300) : truncateLength(title, 80)}
+                {title}
               </React.Fragment>
             }
-            description={description === title ? '' : truncateLength(description, 80)}
+            description={description === title ? '' : description}
             viewMode={viewMode}
           />
         </Box>
