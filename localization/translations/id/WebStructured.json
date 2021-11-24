@@ -38,7 +38,7 @@
 	},
 	"CustomTeamTaskFilter.labelIs": {
 		"string": "{title} adalah",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
+		"developer_comment": "Label for custom filter field. The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Metadata dengan nilai spesifik",
@@ -157,13 +157,13 @@
 		"string": "Penyunting"
 	},
 	"addAnnotation.addFile": {
-		"string": "Add a file"
+		"string": "Tambah sebuah berkas"
 	},
 	"addAnnotation.error": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui perihal. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"addAnnotation.inputEditHint": {
-		"string": "Edit note"
+		"string": "Sunting catatan"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Tambah sebuah catatan"
@@ -360,10 +360,10 @@
 		"string": "Tindakan anotasi"
 	},
 	"annotation.metadataCreated": {
-		"string": "Annotation field created by {author}: {fieldLabel}"
+		"string": "Bidang anotasi dibuat oleh {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
+		"string": "Bidang anotasi \"{fieldLabel}\" diisi oleh {author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "Dikeluarkan dari Tong Sampah oleh {author}"
@@ -667,6 +667,30 @@
 	"confirmProceedDialog.continue": {
 		"string": "Lanjutkan"
 	},
+	"contentScreen.adult": {
+		"string": "Dewasa",
+		"developer_comment": "Content warning type: Adult"
+	},
+	"contentScreen.hideContentButton": {
+		"string": "Hide content",
+		"developer_comment": "Button to disable view of sensitive content"
+	},
+	"contentScreen.medical": {
+		"string": "Medis",
+		"developer_comment": "Content warning type: Medical"
+	},
+	"contentScreen.viewContentButton": {
+		"string": "Temporarily view content",
+		"developer_comment": "Button to enable view of sensitive content"
+	},
+	"contentScreen.violence": {
+		"string": "Kekerasan",
+		"developer_comment": "Content warning type: Violence"
+	},
+	"contentScreen.warning": {
+		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "Tambah perihal"
 	},
@@ -818,7 +842,7 @@
 		"string": "{itemsCount, plural, other {Anda perlu mengubah status dari # perihal untuk menghapus status ini}}"
 	},
 	"destinationProjects.addManually": {
-		"string": "Manually added content"
+		"string": "Konten yang ditambahkan secara manual"
 	},
 	"destinationProjects.choose": {
 		"string": "Pilih sebuah folder"
@@ -827,7 +851,7 @@
 		"string": "Tidak ada folder dalam koleksi ini"
 	},
 	"destinationProjects.itemFolder": {
-		"string": "Content for report"
+		"string": "Konten untuk laporan"
 	},
 	"destinationProjects.none": {
 		"string": "Tidak ada di koleksi manapun",
@@ -1085,6 +1109,10 @@
 	"list.commentCount": {
 		"string": "Komentar di FB"
 	},
+	"list.createdBy": {
+		"string": "Dibuat oleh",
+		"developer_comment": "Table header for column that shows the creator name"
+	},
 	"list.folder": {
 		"string": "Folder",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
@@ -1292,11 +1320,18 @@
 	"mediaAnalysis.copying": {
 		"string": "Menyalin..."
 	},
+	"mediaAnalysis.createdBy": {
+		"string": "Item created by {name}"
+	},
 	"mediaAnalysis.date": {
 		"string": "Tanggal artikel yang diterbitkan"
 	},
 	"mediaAnalysis.error": {
 		"string": "Tidak dapat menyimpan! Terakhir disimpan {ago}"
+	},
+	"mediaAnalysis.import": {
+		"string": "Import",
+		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
 		"string": "URL artikel yang diterbitkan"
@@ -1306,6 +1341,10 @@
 	},
 	"mediaAnalysis.saving": {
 		"string": "Menyimpan..."
+	},
+	"mediaAnalysis.tipline": {
+		"string": "Tipline",
+		"developer_comment": "Creator that refers to items created via tiplines"
 	},
 	"mediaAnalysis.title": {
 		"string": "Judul"
@@ -1435,7 +1474,7 @@
 		"string": "Maaf, terjadi kesalahan saat memperbarui bahasa. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
 	},
 	"mediaMetadata.ImageSearch": {
-		"string": "Reverse image search",
+		"string": "Pencarian balik gambar",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
 	},
 	"mediaMetadata.Timeline": {
@@ -1443,7 +1482,7 @@
 		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
-		"string": "Audio actions",
+		"string": "Tindakan audio",
 		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
@@ -1451,15 +1490,15 @@
 		"developer_comment": "Menu option for downloading the original file of current item"
 	},
 	"mediaMetadata.imageActions": {
-		"string": "Image actions",
+		"string": "Tindakan gambar",
 		"developer_comment": "Actions menu for item of type Image"
 	},
 	"mediaMetadata.playbackSpeed": {
-		"string": "Playback speed",
+		"string": "Kecepatan pemutaran",
 		"developer_comment": "Menu option for altering playback speed of video/audio clip"
 	},
 	"mediaMetadata.videoActions": {
-		"string": "Video actions",
+		"string": "Tindakan video",
 		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
@@ -1587,7 +1626,7 @@
 		"string": "Kembali"
 	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
-		"string": "Choose a destination folder for this item"
+		"string": "Pilih folder tujuan untuk perihal ini"
 	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Kembali ke tampilan utama"
@@ -1731,7 +1770,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Image text extraction",
+		"string": "Pengambilan teks gambar",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -2110,6 +2149,10 @@
 	"reportDesigner.content": {
 		"string": "Konten (maksimal {max} karakter)"
 	},
+	"reportDesigner.contentScreenHeader": {
+		"string": "Content with warning cannot<br />be published as a visual card.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Disalin"
 	},
@@ -2140,8 +2183,16 @@
 	"reportDesigner.firstSent": {
 		"string": "Pertama kali diterbitkan"
 	},
+	"reportDesigner.goBack": {
+		"string": "Go back to the annotation page and remove the content warning.",
+		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
+	},
 	"reportDesigner.headline": {
 		"string": "Judul (maksimal {max} karakter)"
+	},
+	"reportDesigner.incorrectWarning": {
+		"string": "Was this content warning incorrectly applied?",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
 		"string": "Pengantar"
@@ -2189,6 +2240,10 @@
 	"reportDesigner.title": {
 		"string": "Rancang laporan Anda"
 	},
+	"reportDesigner.uploadAlternative": {
+		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.url": {
 		"string": "URL situs web (maksimal {max} karakter)"
 	},
@@ -2200,6 +2255,9 @@
 	},
 	"reportDesigner.warning": {
 		"string": "Peringatan — membagikan hal ini akan memaparkan informasi kepada orang-orang di luar ruang kerja privat Anda. Lanjutkan dengan hati-hati."
+	},
+	"reportDesignerToolbar.cantPublishContentFlag": {
+		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "Laporan untuk {language} tidak boleh kosong karena ini adalah bahasa bawaan. Anda harus memiliki konten dalam Teks Laporan atau Kartu Visual untuk {language}. Atau, Anda dapat mengeklik kanan pada tab untuk bahasa lain untuk menjadikannya bahasa bawaan."
@@ -2649,6 +2707,34 @@
 		"string": "{selectedCount, plural, other {(# dipilih)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"sensitiveContentMenuButton.adult": {
+		"string": "Dewasa (ketelanjangan, pornografi)",
+		"developer_comment": "Label for adult content type"
+	},
+	"sensitiveContentMenuButton.contentWarning": {
+		"string": "Content warning",
+		"developer_comment": "Button that pops sensitive content screen settings"
+	},
+	"sensitiveContentMenuButton.enableSwitch": {
+		"string": "Enable content warning",
+		"developer_comment": "Switch to enable sensitive content screen"
+	},
+	"sensitiveContentMenuButton.medical": {
+		"string": "Kondisi/prosedur medis",
+		"developer_comment": "Label for medical content type"
+	},
+	"sensitiveContentMenuButton.selectCategory": {
+		"string": "Select a category",
+		"developer_comment": "Header for sensitive content types"
+	},
+	"sensitiveContentMenuButton.typeOther": {
+		"string": "Type other",
+		"developer_comment": "Label for other content type"
+	},
+	"sensitiveContentMenuButton.violence": {
+		"string": "Kekerasan",
+		"developer_comment": "Label for violence content type"
+	},
 	"sentence.lastSeparator": {
 		"string": "dan"
 	},
@@ -2709,13 +2795,13 @@
 		"string": "Pencocokan otomatis AKTIF"
 	},
 	"similarityComponent.maximumDuration": {
-		"string": "Maximum duration in seconds"
+		"string": "Durasi maksimum dalam detik"
 	},
 	"similarityComponent.minimumDuration": {
-		"string": "Minimum duration in seconds"
+		"string": "Durasi minimum dalam detik"
 	},
 	"similarityComponent.minimumRequests": {
-		"string": "Minimum number of requests"
+		"string": "Jumlah minimum permintaan`"
 	},
 	"similarityComponent.save": {
 		"string": "Simpan"
@@ -3010,11 +3096,11 @@
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
 		"string": "Putus sambungan {platform}",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
 		"string": "Putus sambungan {platform} secara permanen",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Sambungkan"
@@ -3191,10 +3277,12 @@
 		"string": "Minggu"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hai! Berikut fakta mingguan Anda. Buletin ini diterbitkan di <channel> oleh {teamName}. Berikut adalah fakta terpenting untuk minggu ini per {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hai! Berikut fakta mingguan Anda. Buletin ini diterbitkan di <channel> oleh {teamName}. Berikut adalah fakta terpenting untuk minggu ini per {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Kamis"
@@ -3526,6 +3614,10 @@
 	},
 	"tasks.cancelEdit": {
 		"string": "Batalkan"
+	},
+	"tasks.cantChangeTypeMessage": {
+		"string": "Jenis bidang tidak dapat diubah karena telah terisi jawaban",
+		"developer_comment": "Message when team task has answers and type cannot be updated"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Pilih beberapa"
@@ -4175,6 +4267,14 @@
 	"tiplineInbox.title": {
 		"string": "Kotak masuk Tipline"
 	},
+	"toolbar.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"toolbar.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
 	"tos.title": {
 		"string": "Persyaratan Layanan"
 	},
@@ -4187,7 +4287,7 @@
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcription",
+		"string": "Transkripsi",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
@@ -4226,7 +4326,7 @@
 		"string": "Media yang mirip"
 	},
 	"trendItem.request": {
-		"string": "Request",
+		"string": "Permintaan",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
 	},
 	"trendItem.requests": {
@@ -4234,7 +4334,7 @@
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
 	"trendItem.sortBy": {
-		"string": "Sort by"
+		"string": "Urutkan berdasarkan"
 	},
 	"trends.title": {
 		"string": "Tren"
@@ -4497,6 +4597,14 @@
 	},
 	"userTos.validation": {
 		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi"
+	},
+	"viewModeSwitcher.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"viewModeSwitcher.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Perihal ini tidak dapat diidentifikasi. Perihal tersebut mungkin telah dihapus, atau mungkin hanya dapat dilihat oleh pengguna yang sudah masuk. Klik tautan di atas untuk berpindah ke sana."

@@ -38,7 +38,7 @@
 	},
 	"CustomTeamTaskFilter.labelIs": {
 		"string": "{title} est",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
+		"developer_comment": "Label for custom filter field. The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Les métadonnées ont une valeur précise",
@@ -157,13 +157,13 @@
 		"string": "Rédacteur"
 	},
 	"addAnnotation.addFile": {
-		"string": "Add a file"
+		"string": "Ajouter un fichier"
 	},
 	"addAnnotation.error": {
 		"string": "Désolé, une erreur est survenue lors de la mise à jour de l’élément. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
 	},
 	"addAnnotation.inputEditHint": {
-		"string": "Edit note"
+		"string": "Modifier la note"
 	},
 	"addAnnotation.inputHint": {
 		"string": "Ajoutez une note"
@@ -360,10 +360,10 @@
 		"string": "Actions sur la note"
 	},
 	"annotation.metadataCreated": {
-		"string": "Annotation field created by {author}: {fieldLabel}"
+		"string": "Le champ d’annotation a été créé par {author} : {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
+		"string": "Le champ d’annotation « {fieldLabel} » a été renseigné par {author} : {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "A été déplacé de la corbeille par {author}"
@@ -667,6 +667,30 @@
 	"confirmProceedDialog.continue": {
 		"string": "Poursuivre"
 	},
+	"contentScreen.adult": {
+		"string": "Adulte",
+		"developer_comment": "Content warning type: Adult"
+	},
+	"contentScreen.hideContentButton": {
+		"string": "Hide content",
+		"developer_comment": "Button to disable view of sensitive content"
+	},
+	"contentScreen.medical": {
+		"string": "Médical",
+		"developer_comment": "Content warning type: Medical"
+	},
+	"contentScreen.viewContentButton": {
+		"string": "Temporarily view content",
+		"developer_comment": "Button to enable view of sensitive content"
+	},
+	"contentScreen.violence": {
+		"string": "Violence",
+		"developer_comment": "Content warning type: Violence"
+	},
+	"contentScreen.warning": {
+		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "Ajouter un élément"
 	},
@@ -818,7 +842,7 @@
 		"string": "{itemsCount, plural, one {Vous devez changer l’état d’un élément pour supprimer cet état} other {Vous devez changer l’état de # éléments pour supprimer cet état}}"
 	},
 	"destinationProjects.addManually": {
-		"string": "Manually added content"
+		"string": "Contenu ajouté manuellement"
 	},
 	"destinationProjects.choose": {
 		"string": "Choisissez un dossier"
@@ -1085,6 +1109,10 @@
 	"list.commentCount": {
 		"string": "Commentaires sur Facebook"
 	},
+	"list.createdBy": {
+		"string": "Créé par",
+		"developer_comment": "Table header for column that shows the creator name"
+	},
 	"list.folder": {
 		"string": "Dossier",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
@@ -1292,11 +1320,18 @@
 	"mediaAnalysis.copying": {
 		"string": "Copie…"
 	},
+	"mediaAnalysis.createdBy": {
+		"string": "Item created by {name}"
+	},
 	"mediaAnalysis.date": {
 		"string": "Date de l’article publié"
 	},
 	"mediaAnalysis.error": {
 		"string": "Impossible d’enregistrer. Dernier enregistrement il y a {ago}"
+	},
+	"mediaAnalysis.import": {
+		"string": "Import",
+		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
 		"string": "URL de l’article publié"
@@ -1306,6 +1341,10 @@
 	},
 	"mediaAnalysis.saving": {
 		"string": "Enregistrement…"
+	},
+	"mediaAnalysis.tipline": {
+		"string": "Service Tipline",
+		"developer_comment": "Creator that refers to items created via tiplines"
 	},
 	"mediaAnalysis.title": {
 		"string": "Titre"
@@ -1443,7 +1482,7 @@
 		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
-		"string": "Audio actions",
+		"string": "Actions sur des contenus sonores",
 		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
@@ -1451,15 +1490,15 @@
 		"developer_comment": "Menu option for downloading the original file of current item"
 	},
 	"mediaMetadata.imageActions": {
-		"string": "Image actions",
+		"string": "Actions sur des images",
 		"developer_comment": "Actions menu for item of type Image"
 	},
 	"mediaMetadata.playbackSpeed": {
-		"string": "Playback speed",
+		"string": "Vitesse de lecture",
 		"developer_comment": "Menu option for altering playback speed of video/audio clip"
 	},
 	"mediaMetadata.videoActions": {
-		"string": "Video actions",
+		"string": "Actions sur des vidéos",
 		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
@@ -1587,7 +1626,7 @@
 		"string": "Retour"
 	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
-		"string": "Choose a destination folder for this item"
+		"string": "Choisir un dossier de destination pour cet élément"
 	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Retour à la vue principale"
@@ -1731,7 +1770,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Image text extraction",
+		"string": "Extraction du texte de l’image",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -2110,6 +2149,10 @@
 	"reportDesigner.content": {
 		"string": "Contenu (maximum de {max} caractères)"
 	},
+	"reportDesigner.contentScreenHeader": {
+		"string": "Content with warning cannot<br />be published as a visual card.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Copié"
 	},
@@ -2140,8 +2183,16 @@
 	"reportDesigner.firstSent": {
 		"string": "Première publication"
 	},
+	"reportDesigner.goBack": {
+		"string": "Go back to the annotation page and remove the content warning.",
+		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
+	},
 	"reportDesigner.headline": {
 		"string": "Titre (maximum de {max} caractères)"
+	},
+	"reportDesigner.incorrectWarning": {
+		"string": "Was this content warning incorrectly applied?",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
 		"string": "Introduction"
@@ -2189,6 +2240,10 @@
 	"reportDesigner.title": {
 		"string": "Concevoir votre rapport"
 	},
+	"reportDesigner.uploadAlternative": {
+		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.url": {
 		"string": "URL du site Web (maximum de {max} caractères)"
 	},
@@ -2200,6 +2255,9 @@
 	},
 	"reportDesigner.warning": {
 		"string": "Avertissement : Partager l’activité de vérification révélera des renseignements à des personnes hors de votre espace de travail privé. Faites preuve de prudence."
+	},
+	"reportDesignerToolbar.cantPublishContentFlag": {
+		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "Le rapport ne peut pas être vide en {language}, car c’est la langue par défaut. Vous devez avoir du contenu dans « Texte du rapport » ou dans « Carte visuelle » pour cette langue : {language}. Vous pouvez aussi cliquer à droite sur l’onglet d’une autre langue pour la définir comme langue par défaut."
@@ -2649,6 +2707,34 @@
 		"string": "{selectedCount, plural, one {(# sélectionné)} other {(# sélectionnés)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"sensitiveContentMenuButton.adult": {
+		"string": "Adulte (nudité, pornographie)",
+		"developer_comment": "Label for adult content type"
+	},
+	"sensitiveContentMenuButton.contentWarning": {
+		"string": "Content warning",
+		"developer_comment": "Button that pops sensitive content screen settings"
+	},
+	"sensitiveContentMenuButton.enableSwitch": {
+		"string": "Enable content warning",
+		"developer_comment": "Switch to enable sensitive content screen"
+	},
+	"sensitiveContentMenuButton.medical": {
+		"string": "Conditions ou actes médicaux",
+		"developer_comment": "Label for medical content type"
+	},
+	"sensitiveContentMenuButton.selectCategory": {
+		"string": "Select a category",
+		"developer_comment": "Header for sensitive content types"
+	},
+	"sensitiveContentMenuButton.typeOther": {
+		"string": "Type other",
+		"developer_comment": "Label for other content type"
+	},
+	"sensitiveContentMenuButton.violence": {
+		"string": "Violence",
+		"developer_comment": "Label for violence content type"
+	},
 	"sentence.lastSeparator": {
 		"string": "et"
 	},
@@ -2709,13 +2795,13 @@
 		"string": "La correspondance automatisée est activée"
 	},
 	"similarityComponent.maximumDuration": {
-		"string": "Maximum duration in seconds"
+		"string": "Durée maximale en secondes"
 	},
 	"similarityComponent.minimumDuration": {
-		"string": "Minimum duration in seconds"
+		"string": "Durée minimale en secondes"
 	},
 	"similarityComponent.minimumRequests": {
-		"string": "Minimum number of requests"
+		"string": "Nombre minimal de demandes"
 	},
 	"similarityComponent.save": {
 		"string": "Enregistrer"
@@ -3010,11 +3096,11 @@
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
 		"string": "Déconnecter {platform}",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
 		"string": "Déconnecter {platform} de façon permanente",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Connecter"
@@ -3191,10 +3277,12 @@
 		"string": "Dimanche"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Bonjour. Voici vos faits hebdomadaires. Cette lettre d’information est publiée sur <channel> par {teamName}. Voici les faits les plus importants pour la semaine du {date} :",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Bonjour. Voici vos faits hebdomadaires. Cette lettre d’information est publiée sur <channel> par {teamName}. Voici les faits les plus importants pour la semaine du {date} :",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Jeudi"
@@ -3526,6 +3614,10 @@
 	},
 	"tasks.cancelEdit": {
 		"string": "Annuler"
+	},
+	"tasks.cantChangeTypeMessage": {
+		"string": "Le type de champ ne peut pas être changé, car des réponses ont déjà été inscrites",
+		"developer_comment": "Message when team task has answers and type cannot be updated"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Sélection multiple"
@@ -4175,6 +4267,14 @@
 	"tiplineInbox.title": {
 		"string": "Boîte de réception Tipline"
 	},
+	"toolbar.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"toolbar.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
 	"tos.title": {
 		"string": "Conditions générales d’utilisation"
 	},
@@ -4226,7 +4326,7 @@
 		"string": "Médias semblables"
 	},
 	"trendItem.request": {
-		"string": "Request",
+		"string": "Demande",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
 	},
 	"trendItem.requests": {
@@ -4234,7 +4334,7 @@
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
 	"trendItem.sortBy": {
-		"string": "Sort by"
+		"string": "Trier par"
 	},
 	"trends.title": {
 		"string": "Tendances"
@@ -4497,6 +4597,14 @@
 	},
 	"userTos.validation": {
 		"string": "Vous devez accepter les Conditions générales d’utilisation et la Politique de confidentialité"
+	},
+	"viewModeSwitcher.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"viewModeSwitcher.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Cet élément n’a pas pu être identifié. Il a peut-être été supprimé ou n’est visible que pour les utilisateurs connectés. Cliquez sur le lien ci-dessus pour y accéder."

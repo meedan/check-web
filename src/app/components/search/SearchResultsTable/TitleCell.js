@@ -48,21 +48,25 @@ const useStyles = makeStyles({
     flexShrink: 1,
     whiteSpace: 'normal',
     overflowWrap: 'anywhere', // long URLs shouldn't affect page width
-    height: units(10),
     lineHeight: units(2.5),
     flexDirection: 'column',
     justifyContent: 'center',
+    minWidth: 470,
   },
   title: ({ isRead }) => ({
-    maxHeight: units(5),
     color: black87,
-    overflow: 'hidden',
     fontWeight: isRead ? 'normal' : 'bold',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
   }),
   description: {
     maxHeight: units(5),
     color: opaqueBlack54,
     overflow: 'hidden',
+    display: '-webkit-box',
+    '-webkit-box-orient': 'vertical',
+    '-webkit-line-clamp': 2,
   },
   similarityIcon: {
     marginRight: units(0.5),
@@ -70,15 +74,32 @@ const useStyles = makeStyles({
     verticalAlign: 'middle',
     fontSize: 18,
   },
+  titleViewModeLonger: {
+    maxHeight: units(22),
+    '-webkit-line-clamp': 4,
+  },
+  titleViewModeShorter: {
+    maxHeight: units(5),
+    '-webkit-line-clamp': 2,
+  },
+  cellViewModeLonger: {
+    height: units(15),
+  },
+  cellViewModeShorter: {
+    height: units(10),
+  },
 });
 
 const TitleText = ({
   classes,
   title,
   description,
+  viewMode,
 }) => (
-  <div className={classes.textBox}>
-    <h4 className={classes.title}>{title}</h4>
+  <div className={viewMode === 'longer' ? [classes.textBox, classes.cellViewModeLonger].join(' ') : [classes.textBox, classes.cellViewModeShorter].join(' ')}>
+    <h4 className={viewMode === 'longer' ? [classes.title, classes.titleViewModeLonger].join(' ') : [classes.title, classes.titleViewModeShorter].join(' ')}>
+      {title}
+    </h4>
     {description ? (
       <div className={classes.description}>{description}</div>
     ) : null}
@@ -102,7 +123,7 @@ const IconOrNothing = ({ isMain, isSecondary, className }) => {
   return null;
 };
 
-const TitleCell = ({ projectMedia, projectMediaUrl }) => {
+const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
   const {
     picture,
     title,
@@ -118,7 +139,9 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
     <TableCell className="media__heading" component="th" scope="row">
       <MaybeLink className={classes.root} to={projectMediaUrl}>
         {picture && !maskContent ? (
-          <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
+          <Box display="flex" alignItems="center">
+            <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
+          </Box>
         ) : null}
         { maskContent ? <div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div> : null }
         <Box display="flex" alignItems="center">
@@ -131,6 +154,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
               </React.Fragment>
             }
             description={description === title ? '' : description}
+            viewMode={viewMode}
           />
         </Box>
       </MaybeLink>
@@ -139,6 +163,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl }) => {
 };
 TitleCell.defaultProps = {
   projectMediaUrl: null,
+  viewMode: 'shorter',
 };
 TitleCell.propTypes = {
   projectMedia: PropTypes.shape({
@@ -150,6 +175,7 @@ TitleCell.propTypes = {
     is_secondary: PropTypes.bool, // or null
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
+  viewMode: PropTypes.oneOf(['shorter', 'longer']),
 };
 
 export default TitleCell;

@@ -1,12 +1,12 @@
 [
   {
     "id": "smoochBotIntegrationButton.confirmationMessage",
-    "description": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "description": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
     "defaultMessage": "Disconnect {platform}"
   },
   {
     "id": "smoochBotIntegrationButton.confirmationMessagePermanent",
-    "description": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
+    "description": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.",
     "defaultMessage": "Disconnect {platform} permanently"
   },
   {

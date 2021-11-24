@@ -64,12 +64,12 @@ const messages = defineMessages({
   confirmationMessage: {
     id: 'smoochBotIntegrationButton.confirmationMessage',
     defaultMessage: 'Disconnect {platform}',
-    description: '"Disconnect" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.',
+    description: 'The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.',
   },
   confirmationMessagePermanent: {
     id: 'smoochBotIntegrationButton.confirmationMessagePermanent',
     defaultMessage: 'Disconnect {platform} permanently',
-    description: '"Disconnect" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.',
+    description: 'The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline.',
   },
 });
 
