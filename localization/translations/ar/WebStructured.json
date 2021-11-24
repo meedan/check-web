@@ -38,7 +38,7 @@
 	},
 	"CustomTeamTaskFilter.labelIs": {
 		"string": "{title} هو",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
+		"developer_comment": "Label for custom filter field. The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "البيانات الوصفية لها قيمة محددة",
@@ -157,13 +157,13 @@
 		"string": "محرر(ة)"
 	},
 	"addAnnotation.addFile": {
-		"string": "Add a file"
+		"string": "إضافة ملف"
 	},
 	"addAnnotation.error": {
 		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث العنصر. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"addAnnotation.inputEditHint": {
-		"string": "Edit note"
+		"string": "تحرير ملحوظة"
 	},
 	"addAnnotation.inputHint": {
 		"string": "إضافة ملاحظة"
@@ -360,10 +360,10 @@
 		"string": "إجراءات التعقيبات"
 	},
 	"annotation.metadataCreated": {
-		"string": "Annotation field created by {author}: {fieldLabel}"
+		"string": "‫لقد تم إنشاء حقل التعقيب من طرف {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
+		"string": "‫لقد تم ملء حقل التعقيب « {fieldLabel} » من طرف{author}: {response}"
 	},
 	"annotation.movedFromTrash": {
 		"string": "نُقل خارج سلة المهملات من طرف {author}"
@@ -667,6 +667,30 @@
 	"confirmProceedDialog.continue": {
 		"string": "متابعة"
 	},
+	"contentScreen.adult": {
+		"string": "للبالغين",
+		"developer_comment": "Content warning type: Adult"
+	},
+	"contentScreen.hideContentButton": {
+		"string": "Hide content",
+		"developer_comment": "Button to disable view of sensitive content"
+	},
+	"contentScreen.medical": {
+		"string": "طبية",
+		"developer_comment": "Content warning type: Medical"
+	},
+	"contentScreen.viewContentButton": {
+		"string": "Temporarily view content",
+		"developer_comment": "Button to enable view of sensitive content"
+	},
+	"contentScreen.violence": {
+		"string": "عنف",
+		"developer_comment": "Content warning type: Violence"
+	},
+	"contentScreen.warning": {
+		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "إضافة عنصر"
 	},
@@ -818,7 +842,7 @@
 		"string": "{itemsCount, plural, zero {لست بحاجة إلى تغيير حالة أي عنصر لحذف هذه الحالة} one {أنت بحاجة إلى تغيير حالة عنصر واحد لحذف هذه الحالة} two {أنت بحاجة إلى تغيير حالة عنصرين لحذف هذه الحالة} few {أنت بحاجة إلى تغيير حالة # عناصر لحذف هذه الحالة} many {أنت بحاجة إلى تغيير حالة # عنصرا لحذف هذه الحالة} other {أنت بحاجة إلى تغيير حالة # عنصر لحذف هذه الحالة}}"
 	},
 	"destinationProjects.addManually": {
-		"string": "Manually added content"
+		"string": "المحتويات التي تمت إضافتها يدويا"
 	},
 	"destinationProjects.choose": {
 		"string": "اختيار مجلد"
@@ -827,7 +851,7 @@
 		"string": "لا توجد مجلدات في هذه المجموعة"
 	},
 	"destinationProjects.itemFolder": {
-		"string": "Content for report"
+		"string": "محتويات لأجل التقرير"
 	},
 	"destinationProjects.none": {
 		"string": "ليس في أي مجموعة",
@@ -1085,6 +1109,10 @@
 	"list.commentCount": {
 		"string": "تعليقات فيسبوك"
 	},
+	"list.createdBy": {
+		"string": "تم الإنشاء بواسطة",
+		"developer_comment": "Table header for column that shows the creator name"
+	},
 	"list.folder": {
 		"string": "المجلد",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
@@ -1292,11 +1320,18 @@
 	"mediaAnalysis.copying": {
 		"string": "النسخ جارٍ…"
 	},
+	"mediaAnalysis.createdBy": {
+		"string": "Item created by {name}"
+	},
 	"mediaAnalysis.date": {
 		"string": "تاريخ نشر المقال"
 	},
 	"mediaAnalysis.error": {
 		"string": "لم تنجح عملية الحفظ! آخر حفظ قبل {ago}"
+	},
+	"mediaAnalysis.import": {
+		"string": "Import",
+		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
 		"string": "رابط المقال المنشور"
@@ -1306,6 +1341,10 @@
 	},
 	"mediaAnalysis.saving": {
 		"string": "الحفظ جارٍ…"
+	},
+	"mediaAnalysis.tipline": {
+		"string": "الخط الساخن",
+		"developer_comment": "Creator that refers to items created via tiplines"
 	},
 	"mediaAnalysis.title": {
 		"string": "العنوان"
@@ -1443,7 +1482,7 @@
 		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
-		"string": "Audio actions",
+		"string": "إجراءات عناصر الصوت",
 		"developer_comment": "Actions menu for item of type Audio"
 	},
 	"mediaMetadata.download": {
@@ -1451,15 +1490,15 @@
 		"developer_comment": "Menu option for downloading the original file of current item"
 	},
 	"mediaMetadata.imageActions": {
-		"string": "Image actions",
+		"string": "إجراءات عناصر الصور",
 		"developer_comment": "Actions menu for item of type Image"
 	},
 	"mediaMetadata.playbackSpeed": {
-		"string": "Playback speed",
+		"string": "سرعة التشغيل",
 		"developer_comment": "Menu option for altering playback speed of video/audio clip"
 	},
 	"mediaMetadata.videoActions": {
-		"string": "Video actions",
+		"string": "إجراءات الفيديو",
 		"developer_comment": "Actions menu for item of type Video"
 	},
 	"mediaRelatedComponent.addSimilar": {
@@ -1587,7 +1626,7 @@
 		"string": "عودة"
 	},
 	"mediaSuggestionsComponent.dialogRejectTitle": {
-		"string": "Choose a destination folder for this item"
+		"string": "اختيار مجلد لهذا العنصر"
 	},
 	"mediaSuggestionsComponent.goBack": {
 		"string": "عودة إلى العرض الرئيسي"
@@ -1731,7 +1770,7 @@
 		"developer_comment": "Message displayed while text is being extracted from an image"
 	},
 	"ocrButton.label": {
-		"string": "Image text extraction",
+		"string": "استخلاص النص من الصورة",
 		"developer_comment": "Button label - when this button is clicked, text is extracted from image"
 	},
 	"ocrButton.textExtractedSuccessfully": {
@@ -2110,6 +2149,10 @@
 	"reportDesigner.content": {
 		"string": "المحتوى (بحد أقصى {max} حرف)"
 	},
+	"reportDesigner.contentScreenHeader": {
+		"string": "Content with warning cannot<br />be published as a visual card.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "‏‏تم النسخ"
 	},
@@ -2140,8 +2183,16 @@
 	"reportDesigner.firstSent": {
 		"string": "أوّل نشر"
 	},
+	"reportDesigner.goBack": {
+		"string": "Go back to the annotation page and remove the content warning.",
+		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
+	},
 	"reportDesigner.headline": {
 		"string": "العنوان (بحد أقصى {max} حرف)"
+	},
+	"reportDesigner.incorrectWarning": {
+		"string": "Was this content warning incorrectly applied?",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
 		"string": "المقدمة"
@@ -2189,6 +2240,10 @@
 	"reportDesigner.title": {
 		"string": "تصميم تقريرك"
 	},
+	"reportDesigner.uploadAlternative": {
+		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.url": {
 		"string": "عنوان الموقع (بحد أقصى {max} حرف)"
 	},
@@ -2200,6 +2255,9 @@
 	},
 	"reportDesigner.warning": {
 		"string": "تحذير — هذه المشاركة ستكشف معلومات إلى أشخاص خارج مساحة عمل خاصّة. الرجاء توخ الحذر عند المتابعة."
+	},
+	"reportDesignerToolbar.cantPublishContentFlag": {
+		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "لا يمكن أن يكون التقرير فارغا باللغة {language} لأنها هي اللغة الافتراضية. لا بد من وجود محتوى باللغة {language} في نص التقرير أو البطاقة المرئية. كبديل عن ذلك، يمكنك الضغط على الزر اﻷيمن للفأرة فوق تبويب لغة أخرى لجعلها اللغة الإفتراضية."
@@ -2649,6 +2707,34 @@
 		"string": "{selectedCount, plural, zero {(لا عنصر محدد)} one {(واحد محدد)} two {(إثنان محددان)} few {(# محددة)} many {(# محددة)} other {(# محددة)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"sensitiveContentMenuButton.adult": {
+		"string": "إباحي (عري، صور خليعة)",
+		"developer_comment": "Label for adult content type"
+	},
+	"sensitiveContentMenuButton.contentWarning": {
+		"string": "Content warning",
+		"developer_comment": "Button that pops sensitive content screen settings"
+	},
+	"sensitiveContentMenuButton.enableSwitch": {
+		"string": "Enable content warning",
+		"developer_comment": "Switch to enable sensitive content screen"
+	},
+	"sensitiveContentMenuButton.medical": {
+		"string": "حالات (أو إجراءات) طبية",
+		"developer_comment": "Label for medical content type"
+	},
+	"sensitiveContentMenuButton.selectCategory": {
+		"string": "Select a category",
+		"developer_comment": "Header for sensitive content types"
+	},
+	"sensitiveContentMenuButton.typeOther": {
+		"string": "Type other",
+		"developer_comment": "Label for other content type"
+	},
+	"sensitiveContentMenuButton.violence": {
+		"string": "عنف",
+		"developer_comment": "Label for violence content type"
+	},
 	"sentence.lastSeparator": {
 		"string": "و"
 	},
@@ -2709,13 +2795,13 @@
 		"string": "خاصية التوافق التلقائي مشغَّلة"
 	},
 	"similarityComponent.maximumDuration": {
-		"string": "Maximum duration in seconds"
+		"string": "الحد الأقصى للمدة (بالثواني)"
 	},
 	"similarityComponent.minimumDuration": {
-		"string": "Minimum duration in seconds"
+		"string": "الحد الأدنى للمدة (بالثواني)"
 	},
 	"similarityComponent.minimumRequests": {
-		"string": "Minimum number of requests"
+		"string": "العدد الأدنى للطلبات"
 	},
 	"similarityComponent.save": {
 		"string": "حفظ"
@@ -3010,11 +3096,11 @@
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
 		"string": "فصل {platform}",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
 		"string": "فصل {platform} نهائيا",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "اتصل"
@@ -3191,10 +3277,12 @@
 		"string": "الأحد"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "‫أهلا! إليك النشرة الجامعة الأسبوعية. هذه الرسالة الإخبارية قد تم نشرها في <channel> بواسطة {teamName}. إليك أهم الحقائق للأسبوع {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "‫أهلا! إليك النشرة الجامعة الأسبوعية. هذه الرسالة الإخبارية قد تم نشرها في <channel> بواسطة {teamName}. إليك أهم الحقائق للأسبوع {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "الخميس"
@@ -3526,6 +3614,10 @@
 	},
 	"tasks.cancelEdit": {
 		"string": "إلغاء"
+	},
+	"tasks.cantChangeTypeMessage": {
+		"string": "لا يمكن تغيير نوع الحقل لأنه قد مُليءَ من قبل ببعض الإجابات.",
+		"developer_comment": "Message when team task has answers and type cannot be updated"
 	},
 	"tasks.chooseMultiple": {
 		"string": "تحديد متعدد"
@@ -4175,6 +4267,14 @@
 	"tiplineInbox.title": {
 		"string": "صندوق بريد الخط الساخن"
 	},
+	"toolbar.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"toolbar.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
 	"tos.title": {
 		"string": "شروط الاستخدام"
 	},
@@ -4187,7 +4287,7 @@
 		"developer_comment": "Message displayed when transcription operation hasn't started yet"
 	},
 	"transcriptionButton.label": {
-		"string": "Transcription",
+		"string": "التفريغ النصي للصوت",
 		"developer_comment": "Button label - when this button is clicked, transcription operation starts"
 	},
 	"transcriptionButton.textExtractedSuccessfully": {
@@ -4226,7 +4326,7 @@
 		"string": "المواد الإعلامية المتشابهة"
 	},
 	"trendItem.request": {
-		"string": "Request",
+		"string": "طلب",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'."
 	},
 	"trendItem.requests": {
@@ -4234,7 +4334,7 @@
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
 	"trendItem.sortBy": {
-		"string": "Sort by"
+		"string": "ترتيب بواسطة"
 	},
 	"trends.title": {
 		"string": "التوجهات العامة"
@@ -4497,6 +4597,14 @@
 	},
 	"userTos.validation": {
 		"string": "تجب الموافقة على شروط الاستخدام وسياسة الخصوصية"
+	},
+	"viewModeSwitcher.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"viewModeSwitcher.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
 		"string": "لم يمكن تعريف هذا العنصر. ربّما تم حذفه، أو قد يكون ظاهراً فقط  للمستخدمين الذين سجّلوا الدخول. يرجى نقر الرابط أعلاه للإنتقال إليه."

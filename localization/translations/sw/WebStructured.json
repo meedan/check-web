@@ -38,7 +38,7 @@
 	},
 	"CustomTeamTaskFilter.labelIs": {
 		"string": "{title} is",
-		"developer_comment": "Label for custom filter field. E.g. \"Location is\", \"Date of event is\". The title is input by user and can be basically anything."
+		"developer_comment": "Label for custom filter field. The title is input by user and can be basically anything."
 	},
 	"CustomTeamTaskFilter.metadataChoiceLabel": {
 		"string": "Metadata ina thamani maalum",
@@ -667,6 +667,30 @@
 	"confirmProceedDialog.continue": {
 		"string": "Endelea"
 	},
+	"contentScreen.adult": {
+		"string": "Mtu  mzima ",
+		"developer_comment": "Content warning type: Adult"
+	},
+	"contentScreen.hideContentButton": {
+		"string": "Hide content",
+		"developer_comment": "Button to disable view of sensitive content"
+	},
+	"contentScreen.medical": {
+		"string": "Matibabu",
+		"developer_comment": "Content warning type: Medical"
+	},
+	"contentScreen.viewContentButton": {
+		"string": "Temporarily view content",
+		"developer_comment": "Button to enable view of sensitive content"
+	},
+	"contentScreen.violence": {
+		"string": "Vurugu ",
+		"developer_comment": "Content warning type: Violence"
+	},
+	"contentScreen.warning": {
+		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"developer_comment": "Content warning displayed over sensitive content"
+	},
 	"createMedia.addItem": {
 		"string": "Ongeza kipengee "
 	},
@@ -1085,6 +1109,10 @@
 	"list.commentCount": {
 		"string": "Maoni ya FB"
 	},
+	"list.createdBy": {
+		"string": "Imetengenezwa na",
+		"developer_comment": "Table header for column that shows the creator name"
+	},
 	"list.folder": {
 		"string": "Folder",
 		"developer_comment": "Table header for column that shows the folder title an item is in"
@@ -1292,11 +1320,18 @@
 	"mediaAnalysis.copying": {
 		"string": "Inanakili…"
 	},
+	"mediaAnalysis.createdBy": {
+		"string": "Item created by {name}"
+	},
 	"mediaAnalysis.date": {
 		"string": "Published article date"
 	},
 	"mediaAnalysis.error": {
 		"string": "Haikuweza kuhifadhi! Uhifadhi wa mwisho {ago}"
+	},
+	"mediaAnalysis.import": {
+		"string": "Import",
+		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
 		"string": "URL ya nakala iliyochapishwa"
@@ -1306,6 +1341,10 @@
 	},
 	"mediaAnalysis.saving": {
 		"string": "Inahifadhi…"
+	},
+	"mediaAnalysis.tipline": {
+		"string": "Tipline",
+		"developer_comment": "Creator that refers to items created via tiplines"
 	},
 	"mediaAnalysis.title": {
 		"string": "Kichwa"
@@ -2110,6 +2149,10 @@
 	"reportDesigner.content": {
 		"string": "Maudhui ({max} characters max)"
 	},
+	"reportDesigner.contentScreenHeader": {
+		"string": "Content with warning cannot<br />be published as a visual card.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Imenakiliwa"
 	},
@@ -2140,8 +2183,16 @@
 	"reportDesigner.firstSent": {
 		"string": "Iliyochapishwa kwanza"
 	},
+	"reportDesigner.goBack": {
+		"string": "Go back to the annotation page and remove the content warning.",
+		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
+	},
 	"reportDesigner.headline": {
 		"string": "Kichwa ({max} characters max)"
+	},
+	"reportDesigner.incorrectWarning": {
+		"string": "Was this content warning incorrectly applied?",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
 		"string": "Utangulizi"
@@ -2189,6 +2240,10 @@
 	"reportDesigner.title": {
 		"string": "Buni ripoti yako"
 	},
+	"reportDesigner.uploadAlternative": {
+		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
+	},
 	"reportDesigner.url": {
 		"string": "URL ya Wavuti ({max} characters max)"
 	},
@@ -2200,6 +2255,9 @@
 	},
 	"reportDesigner.warning": {
 		"string": "Tahadhari - kushiriki hili maelez kwa watu nje ya eneo lako la kazi wla kibinafsi. Endelea kwa uangalifu."
+	},
+	"reportDesignerToolbar.cantPublishContentFlag": {
+		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "The report for {language} cannot be empty because it is the default language. You must have content in Report Text or Visual Card for {language}. Or, you can right-click on the tab for another language to make it the default language."
@@ -2649,6 +2707,34 @@
 		"string": "{selectedCount, plural, one {(# selected)} other {(# selected)}}",
 		"developer_comment": "Label for number of selected items"
 	},
+	"sensitiveContentMenuButton.adult": {
+		"string": "Adult (nudity, pornographic)",
+		"developer_comment": "Label for adult content type"
+	},
+	"sensitiveContentMenuButton.contentWarning": {
+		"string": "Content warning",
+		"developer_comment": "Button that pops sensitive content screen settings"
+	},
+	"sensitiveContentMenuButton.enableSwitch": {
+		"string": "Enable content warning",
+		"developer_comment": "Switch to enable sensitive content screen"
+	},
+	"sensitiveContentMenuButton.medical": {
+		"string": "Medical conditions/procedures",
+		"developer_comment": "Label for medical content type"
+	},
+	"sensitiveContentMenuButton.selectCategory": {
+		"string": "Select a category",
+		"developer_comment": "Header for sensitive content types"
+	},
+	"sensitiveContentMenuButton.typeOther": {
+		"string": "Type other",
+		"developer_comment": "Label for other content type"
+	},
+	"sensitiveContentMenuButton.violence": {
+		"string": "Vurugu ",
+		"developer_comment": "Label for violence content type"
+	},
 	"sentence.lastSeparator": {
 		"string": "na"
 	},
@@ -3010,11 +3096,11 @@
 	},
 	"smoochBotIntegrationButton.confirmationMessage": {
 		"string": "Disconnect {platform}",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.confirmationMessagePermanent": {
 		"string": "Disconnect {platform} permanently",
-		"developer_comment": "\"Disconnect\" here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
+		"developer_comment": "The word *Disconnect* here is an imperative verb... this is what the user needs to type in a field in order to confirm the disconnection of a platform (Twitter, Facebook, etc.) from the tipline."
 	},
 	"smoochBotIntegrationButton.connect": {
 		"string": "Unganisha"
@@ -3191,10 +3277,12 @@
 		"string": "Sunday"
 	},
 	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
+		"string": "Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:",
+		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
 	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Thursday"
@@ -3526,6 +3614,10 @@
 	},
 	"tasks.cancelEdit": {
 		"string": "Ghairi"
+	},
+	"tasks.cantChangeTypeMessage": {
+		"string": "The field type cannot be changed because answers have already been filled",
+		"developer_comment": "Message when team task has answers and type cannot be updated"
 	},
 	"tasks.chooseMultiple": {
 		"string": "Chaguo nyingi"
@@ -4175,6 +4267,14 @@
 	"tiplineInbox.title": {
 		"string": "Tipline inbox"
 	},
+	"toolbar.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"toolbar.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
 	"tos.title": {
 		"string": "Masharti ya Huduma"
 	},
@@ -4497,6 +4597,14 @@
 	},
 	"userTos.validation": {
 		"string": "Ni lazima uyakubali Masharti ya Huduma na Sera ya Faragha"
+	},
+	"viewModeSwitcher.viewModeLonger": {
+		"string": "See longer titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
+	},
+	"viewModeSwitcher.viewModeShorter": {
+		"string": "See shorter titles",
+		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {
 		"string": "Kipengee hiki hakiwezi kutambuliwa. Inaweza kuwa imeondolewa, au inaweza tu kuonekana kwa watumiaji ambao wameingia. Bonyeza kiungo hapo juu ili uende kwenye hiyo."
