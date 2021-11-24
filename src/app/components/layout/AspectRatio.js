@@ -38,6 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   sensitiveScreen: props => ({
+    pointerEvents: 'none',
     position: 'absolute',
     top: 0,
     right: 0,
@@ -54,6 +55,7 @@ const useStyles = makeStyles(theme => ({
     visibility: props.contentWarning ? 'visible' : 'hidden',
   }),
   button: props => ({
+    pointerEvents: 'auto',
     bottom: 0,
     color: 'white',
     minWidth: theme.spacing(22),
@@ -112,7 +114,7 @@ const AspectRatioComponent = ({
             <FullscreenIcon style={{ width: units(4), height: units(4) }} />
           </IconButton> : null
         }
-        {children}
+        { !maskContent ? children : null }
         { contentWarning ?
           <div className={classes.sensitiveScreen}>
             <Box
