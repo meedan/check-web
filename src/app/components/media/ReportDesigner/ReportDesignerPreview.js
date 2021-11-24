@@ -142,6 +142,7 @@ const ReportDesignerPreview = (props) => {
   const introduction = previewIntroduction(data, media);
 
   const maskContent = media.show_warning_cover && media.media.picture === data.image;
+  const originalMediaImage = !media.show_warning_cover ? media.media.picture : null;
 
   // Preview for the introduction, the text message, and the visual card
   return (
@@ -180,7 +181,7 @@ const ReportDesignerPreview = (props) => {
                 // data.image is either String (from backend) or File (from upload).
                 // <ReportImagePreview> needs String.
                 ? (data.image.preview || data.image)
-                : media.media.picture
+                : originalMediaImage
             }
             teamAvatar={media.team.avatar}
             params={data}

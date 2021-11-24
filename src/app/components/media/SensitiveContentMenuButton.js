@@ -59,6 +59,10 @@ const SensitiveContentMenu = ({
 
   const handleSwitch = (e, inputChecked) => {
     setEnableSwitch(inputChecked);
+    if (!inputChecked) {
+      setContentType(null);
+      setCustomType(null);
+    }
   };
 
   const handleSetContentType = (value) => {
@@ -78,10 +82,15 @@ const SensitiveContentMenu = ({
     };
     const onSuccess = () => { onDismiss(); };
 
-    if (!contentType) {
+    if (enableSwitch && !contentType) {
       setFormError('no_warning_type');
       return;
-    } else if (contentType === 'other' && !customType) {
+    }
+    if (contentType && !enableSwitch) {
+      setFormError('no_switch_enabled');
+      return;
+    }
+    if (contentType === 'other' && !customType) {
       setFormError('no_custom_type');
       return;
     }
@@ -193,7 +202,7 @@ const SensitiveContentMenu = ({
       onClose={onDismiss}
     >
       <Box p={2}>
-        <Box>
+        <Box color={!enableSwitch && (formError === 'no_switch_enabled') ? 'red' : null}>
           <Switch checked={enableSwitch} onChange={handleSwitch} />
           <FormattedMessage
             id="sensitiveContentMenuButton.enableSwitch"
@@ -218,7 +227,6 @@ const SensitiveContentMenu = ({
           onChange={e => handleSetContentType(e.target.value)}
         >
           <FormControlLabel
-            disabled={!enableSwitch}
             value="adult"
             control={<Radio />}
             label={<FormattedMessage
@@ -228,7 +236,6 @@ const SensitiveContentMenu = ({
             />}
           />
           <FormControlLabel
-            disabled={!enableSwitch}
             value="medical"
             control={<Radio />}
             label={<FormattedMessage
@@ -238,7 +245,6 @@ const SensitiveContentMenu = ({
             />}
           />
           <FormControlLabel
-            disabled={!enableSwitch}
             value="violence"
             control={<Radio />}
             label={<FormattedMessage
@@ -248,7 +254,6 @@ const SensitiveContentMenu = ({
             />}
           />
           <FormControlLabel
-            disabled={!enableSwitch}
             value="other"
             control={<Radio />}
             label={(
@@ -259,10 +264,9 @@ const SensitiveContentMenu = ({
               >
                 { label => (
                   <TextField
-                    disabled={!enableSwitch}
                     label={label}
                     error={(
-                      formError === 'no_custom_type' &&
+                      formError &&
                       contentType === 'other' &&
                       !customType
                     )}
