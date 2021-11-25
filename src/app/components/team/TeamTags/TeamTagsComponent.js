@@ -34,6 +34,9 @@ const useStyles = makeStyles(theme => ({
     background: 'white',
     margin: `0 ${theme.spacing(27)}px`,
   },
+  teamTagsNewTagButton: {
+    whiteSpace: 'nowrap',
+  },
 }));
 
 const TeamTagsComponent = ({
@@ -80,7 +83,7 @@ const TeamTagsComponent = ({
         helpUrl="https://help.checkmedia.org/en/articles/3648432-workflow-settings#default-tag-settings"
         actionButton={
           <Can permissions={permissions} permission="create TagText">
-            <Button variant="contained" color="primary" onClick={() => { setShowCreateTag(true); }} id="team-tags__create">
+            <Button variant="contained" color="primary" onClick={() => { setShowCreateTag(true); }} id="team-tags__create" className={classes.teamTagsNewTagButton}>
               <FormattedMessage
                 id="teamTagsComponent.newTag"
                 defaultMessage="New tag"

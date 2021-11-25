@@ -46,6 +46,7 @@ const ReportDesignerContainer = Relay.createContainer(ReportDesignerComponent, {
           data
           sent_count
         }
+        show_warning_cover
         team {
           name
           slug

@@ -62,7 +62,7 @@ const RuleField = (props) => {
               handleSelect(newValue.key);
             }
           }}
-          options={options.sort((a, b) => (a.value.localeCompare(b.value)))}
+          options={label === 'With a likelihood of at least' ? options : options.sort((a, b) => (a.value.localeCompare(b.value)))}
           getOptionLabel={option => option.value}
           renderInput={params => <TextField {...params} variant="outlined" label={label} fullWidth />}
           fullWidth
