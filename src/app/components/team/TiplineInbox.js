@@ -30,7 +30,7 @@ const TiplineInbox = ({ routeParams }) => (
         const savedQuery = team.get_tipline_inbox_filters || {};
         let query = {};
         if (typeof routeParams.query === 'undefined' && Object.keys(savedQuery).length > 0) {
-          query = savedQuery;
+          query = { ...savedQuery };
         } else {
           query = typeof routeParams.query === 'undefined' ?
             {
@@ -38,13 +38,12 @@ const TiplineInbox = ({ routeParams }) => (
               projects: ['-1'],
               verification_status: [defaultStatusId],
               ...safelyParseJSON(routeParams.query, {}),
-              channels: [CheckChannels.ANYTIPLINE],
             } :
             {
               ...safelyParseJSON(routeParams.query, {}),
-              channels: [CheckChannels.ANYTIPLINE],
             };
         }
+        query.channels = [CheckChannels.ANYTIPLINE];
         return (
           <Search
             searchUrlPrefix={`/${routeParams.team}/tipline-inbox`}

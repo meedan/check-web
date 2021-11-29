@@ -29,6 +29,7 @@ const useStyles = makeStyles({
   contentScreen: {
     minWidth: units(10),
     minHeight: units(10),
+    height: units(10),
     marginRight: units(1),
     backgroundColor: opaqueBlack87,
     display: 'flex',
@@ -143,7 +144,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
             <img className={classes.thumbnail} alt="" src={picture} onError={(e) => { e.target.onerror = null; e.target.src = '/images/image_placeholder.svg'; }} />
           </Box>
         ) : null}
-        { maskContent ? <div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div> : null }
+        { maskContent ? <Box display="flex" alignItems="center"><div className={classes.contentScreen}><VisibilityOffIcon className={classes.icon} /></div></Box> : null }
         <Box display="flex" alignItems="center">
           <TitleText
             classes={classes}
