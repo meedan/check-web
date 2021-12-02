@@ -133,11 +133,17 @@ function SearchResultsComponent({
   hideFields,
   savedSearch,
 }) {
+  const defaultViewMode = window.storage.getValue('viewMode') || 'shorter'; // or "longer"
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
   const [query, setQuery] = React.useState(defaultQuery);
   const [showSimilar] = React.useState('show_similar' in query ? query.show_similar : false);
-  const [viewMode, setViewMode] = React.useState('shorter'); // or "longer"
+  const [viewMode, setViewMode] = React.useState(defaultViewMode);
+
+  const handleChangeViewMode = (mode) => {
+    setViewMode(mode);
+    window.storage.set('viewMode', mode);
+  };
 
   React.useEffect(() => {
     const projectId = project ? project.dbid : 0;
@@ -457,7 +463,7 @@ function SearchResultsComponent({
           resultType={resultType}
           team={team}
           viewMode={viewMode}
-          onChangeViewMode={setViewMode}
+          onChangeViewMode={handleChangeViewMode}
           similarAction={
             <FormControlLabel
               classes={{ labelPlacementStart: classes.similarSwitch }}
