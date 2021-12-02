@@ -21,6 +21,7 @@ import ForwardIcon from '@material-ui/icons/Forward';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
+import NumberIcon from '../../icons/NumberIcon';
 
 const StyledButton = withStyles({
   root: {
@@ -157,6 +158,42 @@ const AddFilterMenu = ({
         id="addFilterMenu.channel"
         defaultMessage="Channel"
         description="Menu option to enable searching items by channel"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__similar-medias',
+    key: 'linked_items_count',
+    icon: <NumberIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.similarMedias"
+        defaultMessage="Number of similar medias"
+        description="Menu option to enable searching items by similar medias"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__suggested-medias',
+    key: 'suggestions_count',
+    icon: <NumberIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.suggestedMedias"
+        defaultMessage="Number of suggested medias"
+        description="Menu option to enable searching items by suggested medias"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__tipline-requests',
+    key: 'demand',
+    icon: <NumberIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.tiplineRequests"
+        defaultMessage="Number of tipline requests"
+        description="Menu option to enable searching items by tipline requests"
       />
     ),
   },

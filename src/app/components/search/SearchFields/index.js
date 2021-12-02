@@ -20,6 +20,7 @@ import MarkunreadIcon from '@material-ui/icons/Markunread';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
+import NumericRangeFilter from '../NumericRangeFilter';
 import MultiSelectFilter from '../MultiSelectFilter';
 import SaveList from '../SaveList';
 import { can } from '../../Can';
@@ -112,6 +113,12 @@ class SearchFields extends React.Component {
 
   handleDateChange = (value) => {
     const newQuery = { ...this.props.query, range: value };
+    this.props.setQuery(newQuery);
+  }
+
+  handleNumericRange = (filterKey, value) => {
+    const newQuery = { ...this.props.query };
+    newQuery[filterKey] = value;
     this.props.setQuery(newQuery);
   }
 
@@ -431,6 +438,36 @@ class SearchFields extends React.Component {
           onRemove={() => this.handleRemoveField('channels')}
           readOnly={isSpecialPage}
         />
+      ),
+      linked_items_count: (
+        <Box maxWidth="700px">
+          <NumericRangeFilter
+            filterKey="linked_items_count"
+            onChange={this.handleNumericRange}
+            value={this.props.query.linked_items_count}
+            onRemove={() => this.handleRemoveField('linked_items_count')}
+          />
+        </Box>
+      ),
+      suggestions_count: (
+        <Box maxWidth="700px">
+          <NumericRangeFilter
+            filterKey="suggestions_count"
+            onChange={this.handleNumericRange}
+            value={this.props.query.suggestions_count}
+            onRemove={() => this.handleRemoveField('suggestions_count')}
+          />
+        </Box>
+      ),
+      demand: (
+        <Box maxWidth="700px">
+          <NumericRangeFilter
+            filterKey="demand"
+            onChange={this.handleNumericRange}
+            value={this.props.query.demand}
+            onRemove={() => this.handleRemoveField('demand')}
+          />
+        </Box>
       ),
       report_status: (
         <FormattedMessage id="search.reportStatus" defaultMessage="Report status is" description="Prefix label for field to filter by report status">
