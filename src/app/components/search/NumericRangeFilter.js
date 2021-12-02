@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/NumberIcon';
 
@@ -31,7 +32,7 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(15),
   },
   inputMarginDense: {
-    padding: theme.spacing(1),
+    padding: '4px 8px',
   },
 }));
 
@@ -60,7 +61,6 @@ const NumericRangeFilter = ({
       setMaxNumber(keyValue);
       range.max = keyValue;
     }
-    console.log('range', range); // eslint-disable-line no-console
     if (range.max !== '' && range.min > range.max) {
       setShowErrorMsg(true);
     } else {
@@ -72,48 +72,61 @@ const NumericRangeFilter = ({
   return (
     <div>
       <RemoveableWrapper icon={<NumberIcon />} onRemove={onRemove} boxProps={{ px: 0.5 }}>
-        <Box >
-          <Typography component="span" onClick={onRemove}>
-            { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
-          </Typography>
-          <TextField
-            classes={{ root: classes.root }}
-            InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-            variant="outlined"
-            size="small"
-            label={<FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" />}
-            value={minNumber}
-            onChange={(e) => { handleFieldChange('min', e.target.value); }}
-            type="number"
-            error={showErrorMsg}
-          />
-          <Typography component="span">
-            <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" />
-          </Typography>
-          <TextField
-            classes={{ root: classes.root }}
-            InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-            variant="outlined"
-            size="small"
-            label={<FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number" />}
-            value={maxNumber}
-            onChange={(e) => { handleFieldChange('max', e.target.value); }}
-            type="number"
-            error={showErrorMsg}
-          />
-        </Box>
-        { showErrorMsg ?
-          <Box>
-            <Typography component="span">
-              <FormattedMessage
-                id="numericRangeFilter.errorMessage"
-                defaultMessage="First number should be less than second number"
-                description="Message when user set range number with min value greater than max value"
-              />
+        <Box display="flex" alignItems="center">
+          <Box pr={1}>
+            <Typography component="span" variant="body2">
+              { intl.formatMessage(messages[filterKeysMapping[filterKey]]) }
             </Typography>
-          </Box> : null
-        }
+          </Box>
+          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+            { placeholder => (
+              <TextField
+                classes={{ root: classes.root }}
+                InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
+                variant="outlined"
+                size="small"
+                placeholder={placeholder}
+                value={minNumber}
+                onChange={(e) => { handleFieldChange('min', e.target.value); }}
+                type="number"
+                error={showErrorMsg}
+              />
+            )}
+          </FormattedMessage>
+          <Box px={1}>
+            <Typography component="span" variant="body2">
+              <FormattedMessage id="numericRangeFilter.between" defaultMessage="and" />
+            </Typography>
+          </Box>
+          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+            { placeholder => (
+              <TextField
+                classes={{ root: classes.root }}
+                InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
+                variant="outlined"
+                size="small"
+                placeholder={placeholder}
+                value={maxNumber}
+                onChange={(e) => { handleFieldChange('max', e.target.value); }}
+                type="number"
+                error={showErrorMsg}
+              />
+            )}
+          </FormattedMessage>
+        </Box>
       </RemoveableWrapper>
+      { showErrorMsg ?
+        <Box alignItems="center" color="red" display="flex">
+          <Box pr={1}><ErrorOutlineIcon /></Box>
+          <Typography component="span" variant="body2">
+            <FormattedMessage
+              id="numericRangeFilter.errorMessage"
+              defaultMessage="First number should be less than second number"
+              description="Message when user set range number with min value greater than max value"
+            />
+          </Typography>
+        </Box> : null
+      }
     </div>
   );
 };
