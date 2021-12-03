@@ -572,6 +572,7 @@ class SearchFields extends React.Component {
             );
           })}
           <AddFilterMenu
+            team={team}
             hideOptions={this.props.hideFields}
             addedFields={fieldKeys}
             onSelect={this.handleAddField}
@@ -645,6 +646,12 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
+    smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+      id
+    }
+    alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+      id
+    }
     tag_texts(first: 10000) {
       edges {
         node {
