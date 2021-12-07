@@ -21,6 +21,7 @@ import ForwardIcon from '@material-ui/icons/Forward';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
+import NumberIcon from '../../icons/NumberIcon';
 
 const StyledButton = withStyles({
   root: {
@@ -29,6 +30,7 @@ const StyledButton = withStyles({
 })(Button);
 
 const AddFilterMenu = ({
+  team,
   addedFields,
   hideOptions,
   onSelect,
@@ -40,7 +42,7 @@ const AddFilterMenu = ({
     onSelect(field);
   };
 
-  const options = [{
+  let options = [{
     id: 'add-filter-menu__folder',
     key: 'projects',
     icon: <FolderIcon />,
@@ -161,66 +163,108 @@ const AddFilterMenu = ({
     ),
   },
   {
-    id: 'add-filter-menu__language',
-    key: 'dynamic',
-    icon: <LanguageIcon />,
+    id: 'add-filter-menu__similar-medias',
+    key: 'linked_items_count',
+    icon: <NumberIcon />,
     label: (
       <FormattedMessage
-        id="addFilterMenu.language"
-        defaultMessage="Language"
-        description="Menu option to enable searching items by language"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__time-assigned-to',
-    key: 'assigned_to',
-    icon: <PersonIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.assignedTo"
-        defaultMessage="Assignment"
-        description="Menu option to enable searching items by assigned users"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__time-source',
-    key: 'sources',
-    icon: <SettingsInputAntennaIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.source"
-        defaultMessage="Source"
-        description="Menu option to enable searching items by source"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__team-tasks',
-    key: 'team_tasks',
-    icon: <StarIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.annotation"
-        defaultMessage="Annotation"
-        description="Menu option to enable searching items by annotation fields"
-      />
-    ),
-  },
-  {
-    id: 'add-filter-menu__country',
-    key: 'country',
-    icon: <PublicIcon />,
-    label: (
-      <FormattedMessage
-        id="addFilterMenu.country"
-        defaultMessage="Country"
-        description="Menu option to enable searching items by country"
+        id="addFilterMenu.similarMedias"
+        defaultMessage="Number of similar medias"
+        description="Menu option to enable searching items by similar medias"
       />
     ),
   },
   ];
+  if (team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) {
+    options.push({
+      id: 'add-filter-menu__suggested-medias',
+      key: 'suggestions_count',
+      icon: <NumberIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.suggestedMedias"
+          defaultMessage="Number of suggested medias"
+          description="Menu option to enable searching items by suggested medias"
+        />
+      ),
+    });
+  }
+  if (team.smooch_bot) {
+    options.push({
+      id: 'add-filter-menu__tipline-requests',
+      key: 'demand',
+      icon: <NumberIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.tiplineRequests"
+          defaultMessage="Number of tipline requests"
+          description="Menu option to enable searching items by tipline requests"
+        />
+      ),
+    });
+  }
+  options = options.concat([
+    {
+      id: 'add-filter-menu__language',
+      key: 'dynamic',
+      icon: <LanguageIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.language"
+          defaultMessage="Language"
+          description="Menu option to enable searching items by language"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__time-assigned-to',
+      key: 'assigned_to',
+      icon: <PersonIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.assignedTo"
+          defaultMessage="Assignment"
+          description="Menu option to enable searching items by assigned users"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__time-source',
+      key: 'sources',
+      icon: <SettingsInputAntennaIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.source"
+          defaultMessage="Source"
+          description="Menu option to enable searching items by source"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__team-tasks',
+      key: 'team_tasks',
+      icon: <StarIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.annotation"
+          defaultMessage="Annotation"
+          description="Menu option to enable searching items by annotation fields"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__country',
+      key: 'country',
+      icon: <PublicIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.country"
+          defaultMessage="Country"
+          description="Menu option to enable searching items by country"
+        />
+      ),
+    },
+  ]);
 
   return (
     <React.Fragment>
