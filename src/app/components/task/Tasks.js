@@ -14,6 +14,7 @@ import ReorderTask from './ReorderTask';
 import BlankState from '../layout/BlankState';
 import { units } from '../../styles/js/shared';
 import { withSetFlashMessage } from '../FlashMessage';
+import { AnnotationDispatch } from '../media/MediaPageLayout';
 
 const StyledMetadataContainer = styled.div`
   .tasks__list > li {
@@ -51,14 +52,16 @@ const Tasks = ({
   media,
   about,
   setFlashMessage,
+  annotationState,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
 
   const isBrowserExtension = (window.parent !== window);
   const isMetadata = fieldset === 'metadata';
-  const [isEditing, setIsEditing] = React.useState(false);
+  const { isEditing } = annotationState;
   const [localResponses, setLocalResponses] = React.useState(tasks);
+  const dispatch = React.useContext(AnnotationDispatch);
 
   const confirmCloseBrowserWindow = (e) => {
     if (isEditing) {
@@ -202,7 +205,7 @@ const Tasks = ({
     document.querySelectorAll('.metadata-edit').forEach((editButton) => {
       editButton.click();
     });
-    setIsEditing(true);
+    dispatch({ type: 'editing' });
   }
 
   function handleSaveAnnotations() {
@@ -219,14 +222,14 @@ const Tasks = ({
     document.querySelectorAll('.metadata-save').forEach((saveButton) => {
       saveButton.click();
     });
-    setIsEditing(false);
+    dispatch({ type: 'not-editing' });
   }
 
   function handleCancelAnnotations() {
     document.querySelectorAll('.metadata-cancel').forEach((cancelButton) => {
       cancelButton.click();
     });
-    setIsEditing(false);
+    dispatch({ type: 'not-editing' });
   }
 
   // returns -1 when no annotations yet exist, null when in a loading state, and an object otherwise

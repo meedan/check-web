@@ -277,7 +277,7 @@ class MediaComponent extends Component {
       return null;
     }
 
-    const { media, view } = this.props;
+    const { media, view, annotationState } = this.props;
     media.url = media.media.url;
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
@@ -407,7 +407,7 @@ class MediaComponent extends Component {
                 { /* Set maxHeight to screen height - (media bar + tabs) */ }
                 <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
                   { this.state.showTab === 'requests' ? <MediaRequests media={media} all={!media.is_confirmed_similar_to_another_item} /> : null }
-                  { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
+                  { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" annotationState={annotationState} /> : null }
                   { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
                   { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
                   { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }

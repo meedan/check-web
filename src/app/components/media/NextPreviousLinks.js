@@ -37,20 +37,21 @@ const StyledPager = styled.div`
 `;
 
 function NextPreviousLinksComponent({
-  buildSiblingUrl, listQuery, listIndex, nTotal,
+  buildSiblingUrl, listQuery, listIndex, nTotal, annotationState,
 }) {
   return (
     <StyledPager>
       <NextOrPreviousButton
         className="media-search__previous-item"
         key={`${JSON.stringify(listQuery)}-${listIndex - 1}`}
-        disabled={listIndex < 1}
+        disabled={listIndex < 1 || annotationState.isEditing}
         tooltipTitle={
           <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" />
         }
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex - 1}
+        annotationState={annotationState}
       >
         <PrevIcon />
       </NextOrPreviousButton>
@@ -64,13 +65,14 @@ function NextPreviousLinksComponent({
       <NextOrPreviousButton
         className="media-search__next-item"
         key={`${JSON.stringify(listQuery)}-${listIndex + 1}`}
-        disabled={listIndex + 1 >= nTotal}
+        disabled={listIndex + 1 >= nTotal || annotationState.isEditing}
         tooltipTitle={
           <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" />
         }
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex + 1}
+        annotationState={annotationState}
       >
         <NextIcon />
       </NextOrPreviousButton>
@@ -84,7 +86,12 @@ NextPreviousLinksComponent.propTypes = {
   nTotal: PropTypes.number.isRequired,
 };
 
-export default function NextPreviousLinks({ buildSiblingUrl, listQuery, listIndex }) {
+export default function NextPreviousLinks({
+  buildSiblingUrl,
+  listQuery,
+  listIndex,
+  annotationState,
+}) {
   return (
     <QueryRenderer
       environment={Relay.Store}
@@ -110,6 +117,7 @@ export default function NextPreviousLinks({ buildSiblingUrl, listQuery, listInde
             buildSiblingUrl={buildSiblingUrl}
             listQuery={listQuery}
             listIndex={listIndex}
+            annotationState={annotationState}
             nTotal={props.search.number_of_results}
           />
         );
