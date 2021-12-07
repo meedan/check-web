@@ -145,7 +145,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
 
 const ProjectMedia = (props, context) => {
   let { projectId } = props;
-  const { projectMediaId, view, annotationState } = props;
+  const { projectMediaId, view } = props;
   const checkContext = new CheckContext({ props, context });
   checkContext.setContext();
   if (!projectId) {
@@ -162,7 +162,7 @@ const ProjectMedia = (props, context) => {
       Component={MediaContainer}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}
-      renderFetched={data => <MediaContainer {...data} view={view} annotationState={annotationState} />}
+      renderFetched={data => <MediaContainer {...data} view={view} />}
       forceFetch
     />
   );

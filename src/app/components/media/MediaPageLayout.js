@@ -20,13 +20,9 @@ const StyledTopBar = styled.div`
   justify-content: space-between;
 `;
 
-export const AnnotationDispatch = React.createContext(null);
-const reducer = (state, action) => action.type === 'editing' ? { isEditing: true } : { isEditing: false };
-
 export default function MediaPageLayout({
   listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view,
 }) {
-  const [annotationState, dispatch] = React.useReducer(reducer, { isEditing: false });
   return (
     <div>
       {buildSiblingUrl ? (
@@ -34,7 +30,6 @@ export default function MediaPageLayout({
           buildSiblingUrl={buildSiblingUrl}
           listQuery={listQuery}
           listIndex={listIndex}
-          annotationState={annotationState}
         />
       ) : null}
       <StyledTopBar className="media-search__actions-bar">
@@ -47,9 +42,7 @@ export default function MediaPageLayout({
           projectMediaId={projectMediaId}
         />
       </StyledTopBar>
-      <AnnotationDispatch.Provider value={dispatch}>
-        <Media projectId={projectId} projectMediaId={projectMediaId} view={view} annotationState={annotationState} />
-      </AnnotationDispatch.Provider>
+      <Media projectId={projectId} projectMediaId={projectMediaId} view={view} />
     </div>
   );
 }

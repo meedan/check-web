@@ -37,21 +37,20 @@ const StyledPager = styled.div`
 `;
 
 function NextPreviousLinksComponent({
-  buildSiblingUrl, listQuery, listIndex, nTotal, annotationState,
+  buildSiblingUrl, listQuery, listIndex, nTotal,
 }) {
   return (
     <StyledPager>
       <NextOrPreviousButton
         className="media-search__previous-item"
         key={`${JSON.stringify(listQuery)}-${listIndex - 1}`}
-        disabled={listIndex < 1 || annotationState.isEditing}
+        disabled={listIndex < 1}
         tooltipTitle={
           <FormattedMessage id="mediaSearch.previousItem" defaultMessage="Previous item" />
         }
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex - 1}
-        annotationState={annotationState}
       >
         <PrevIcon />
       </NextOrPreviousButton>
@@ -65,14 +64,13 @@ function NextPreviousLinksComponent({
       <NextOrPreviousButton
         className="media-search__next-item"
         key={`${JSON.stringify(listQuery)}-${listIndex + 1}`}
-        disabled={listIndex + 1 >= nTotal || annotationState.isEditing}
+        disabled={listIndex + 1 >= nTotal}
         tooltipTitle={
           <FormattedMessage id="mediaSearch.nextItem" defaultMessage="Next item" />
         }
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex + 1}
-        annotationState={annotationState}
       >
         <NextIcon />
       </NextOrPreviousButton>
