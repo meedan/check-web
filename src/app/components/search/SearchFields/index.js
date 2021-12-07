@@ -651,6 +651,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     }
     alegre_bot: team_bot_installation(bot_identifier: "alegre") {
       id
+      alegre_settings
     }
     tag_texts(first: 10000) {
       edges {
