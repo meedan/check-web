@@ -175,7 +175,7 @@ const AddFilterMenu = ({
     ),
   },
   ];
-  if (team.alegre_bot) {
+  if (team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled) {
     options.push({
       id: 'add-filter-menu__suggested-medias',
       key: 'suggestions_count',
