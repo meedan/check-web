@@ -84,7 +84,12 @@ NextPreviousLinksComponent.propTypes = {
   nTotal: PropTypes.number.isRequired,
 };
 
-export default function NextPreviousLinks({ buildSiblingUrl, listQuery, listIndex }) {
+export default function NextPreviousLinks({
+  buildSiblingUrl,
+  listQuery,
+  listIndex,
+  annotationState,
+}) {
   return (
     <QueryRenderer
       environment={Relay.Store}
@@ -110,6 +115,7 @@ export default function NextPreviousLinks({ buildSiblingUrl, listQuery, listInde
             buildSiblingUrl={buildSiblingUrl}
             listQuery={listQuery}
             listIndex={listIndex}
+            annotationState={annotationState}
             nTotal={props.search.number_of_results}
           />
         );

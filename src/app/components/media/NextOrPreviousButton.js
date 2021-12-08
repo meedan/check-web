@@ -15,7 +15,13 @@ export default function NextOrPreviousButton({
   children, className, disabled, tooltipTitle, buildSiblingUrl, listQuery, listIndex,
 }) {
   const [loading, setLoading] = React.useState(false);
-  const handleClick = React.useCallback(() => setLoading(true), [setLoading]);
+  const handleClick = React.useCallback(() => {
+    // Prevent the loading indicator from appearing if we are in the middle of editing metadata
+    const isUserEditing = document.querySelectorAll('.form-save').length;
+    if (isUserEditing === 0) {
+      setLoading(true);
+    }
+  }, [setLoading]);
 
   return (
     <Button disabled={disabled || loading} className={className} onClick={handleClick}>

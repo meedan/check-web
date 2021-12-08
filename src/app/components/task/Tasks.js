@@ -1,6 +1,6 @@
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { browserHistory, withRouter } from 'react-router';
 import {
   Box,
   Typography,
@@ -51,6 +51,8 @@ const Tasks = ({
   media,
   about,
   setFlashMessage,
+  router,
+  intl,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
@@ -73,8 +75,20 @@ const Tasks = ({
   React.useEffect(() => {
     if (isEditing) {
       window.addEventListener('beforeunload', confirmCloseBrowserWindow);
+      router.setRouteLeaveHook(
+        router.routes[1],
+        () => intl.formatMessage({
+          id: 'tasks.confirmLeave',
+          defaultMessage: 'You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved.',
+          description: 'This is a prompt that appears when a user tries to exit a page before saving their work. It appears in web browsers with a confirm/deny prompt that will be localized by the web browser.',
+        }),
+      );
     } else {
       window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
+      router.setRouteLeaveHook(
+        router.routes[1],
+        () => null,
+      );
     }
 
     return () => {
@@ -343,4 +357,4 @@ const Tasks = ({
   return output;
 };
 
-export default withSetFlashMessage(Tasks);
+export default withSetFlashMessage(withRouter(injectIntl(Tasks)));
