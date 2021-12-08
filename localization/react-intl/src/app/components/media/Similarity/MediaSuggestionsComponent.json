@@ -8,6 +8,10 @@
     "defaultMessage": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
   },
   {
+    "id": "mediaSuggestionsComponent.questionBlank",
+    "defaultMessage": "Is the suggested media similar to the imported report?"
+  },
+  {
     "id": "mediaSuggestionsComponent.question",
     "defaultMessage": "Is the suggested media similar to the main?"
   },
