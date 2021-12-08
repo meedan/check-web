@@ -230,9 +230,17 @@
 		"string": "Status laporan",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
+	"addFilterMenu.similarMedias": {
+		"string": "Number of similar medias",
+		"developer_comment": "Menu option to enable searching items by similar medias"
+	},
 	"addFilterMenu.source": {
 		"string": "Sumber",
 		"developer_comment": "Menu option to enable searching items by source"
+	},
+	"addFilterMenu.suggestedMedias": {
+		"string": "Number of suggested medias",
+		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
 		"string": "Label",
@@ -241,6 +249,10 @@
 	"addFilterMenu.timeRange": {
 		"string": "Rentang tanggal",
 		"developer_comment": "Menu option to enable searching items by date range"
+	},
+	"addFilterMenu.tiplineRequests": {
+		"string": "Number of tipline requests",
+		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Tambah bahasa"
@@ -672,7 +684,7 @@
 		"developer_comment": "Content warning type: Adult"
 	},
 	"contentScreen.hideContentButton": {
-		"string": "Hide content",
+		"string": "Sembunyikan konten",
 		"developer_comment": "Button to disable view of sensitive content"
 	},
 	"contentScreen.medical": {
@@ -680,7 +692,7 @@
 		"developer_comment": "Content warning type: Medical"
 	},
 	"contentScreen.viewContentButton": {
-		"string": "Temporarily view content",
+		"string": "Tampilkan konten sementara",
 		"developer_comment": "Button to enable view of sensitive content"
 	},
 	"contentScreen.violence": {
@@ -688,7 +700,7 @@
 		"developer_comment": "Content warning type: Violence"
 	},
 	"contentScreen.warning": {
-		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"string": "<strong>{user_name}</strong> telah mendeteksi konten ini sebagai <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
 	"createMedia.addItem": {
@@ -1321,7 +1333,7 @@
 		"string": "Menyalin..."
 	},
 	"mediaAnalysis.createdBy": {
-		"string": "Item created by {name}"
+		"string": "Perihal dibuat oleh {name}"
 	},
 	"mediaAnalysis.date": {
 		"string": "Tanggal artikel yang diterbitkan"
@@ -1330,7 +1342,7 @@
 		"string": "Tidak dapat menyimpan! Terakhir disimpan {ago}"
 	},
 	"mediaAnalysis.import": {
-		"string": "Import",
+		"string": "Impor",
 		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
@@ -1761,6 +1773,28 @@
 		"string": "Oh tidak! Halaman ini tidak ada atau Anda tidak memiliki akses yang sah.",
 		"developer_comment": "Not found page title"
 	},
+	"numericRangeFilter.between": {
+		"string": "dan"
+	},
+	"numericRangeFilter.enterNumber": {
+		"string": "enter number"
+	},
+	"numericRangeFilter.errorMessage": {
+		"string": "First number should be less than second number",
+		"developer_comment": "Message when user set range number with min value greater than max value"
+	},
+	"numericRangeFilter.linkedItems": {
+		"string": "Number of similar medias is between",
+		"developer_comment": "Filter option that refers to number of similar medias"
+	},
+	"numericRangeFilter.suggestedItems": {
+		"string": "Number of suggested medias is between",
+		"developer_comment": "Filter option that refers to number of suggested medias"
+	},
+	"numericRangeFilter.tiplineRequests": {
+		"string": "Number of tipline requests is between",
+		"developer_comment": "Filter option that refers to tipline requests"
+	},
 	"ocrButton.defaultErrorMessage": {
 		"string": "Tidak dapat mengambil teks dari gambar",
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
@@ -2150,7 +2184,7 @@
 		"string": "Konten (maksimal {max} karakter)"
 	},
 	"reportDesigner.contentScreenHeader": {
-		"string": "Content with warning cannot<br />be published as a visual card.",
+		"string": "Konten dengan peringatan tidak dapat<br />dipublikasikan sebagai kartu visual.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.copyButtonInactive": {
@@ -2184,14 +2218,14 @@
 		"string": "Pertama kali diterbitkan"
 	},
 	"reportDesigner.goBack": {
-		"string": "Go back to the annotation page and remove the content warning.",
+		"string": "Kembali ke halaman anotasi perihal dan hapus peringatan konten.",
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
 		"string": "Judul (maksimal {max} karakter)"
 	},
 	"reportDesigner.incorrectWarning": {
-		"string": "Was this content warning incorrectly applied?",
+		"string": "Apakah penerapan peringatan konten ini keliru?",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
@@ -2241,7 +2275,7 @@
 		"string": "Rancang laporan Anda"
 	},
 	"reportDesigner.uploadAlternative": {
-		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"string": "Unggah gambar alternatif atau<br />hapus centang pada opsi kartu visual.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
@@ -2257,7 +2291,7 @@
 		"string": "Peringatan — membagikan hal ini akan memaparkan informasi kepada orang-orang di luar ruang kerja privat Anda. Lanjutkan dengan hati-hati."
 	},
 	"reportDesignerToolbar.cantPublishContentFlag": {
-		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
+		"string": "Perihal Anda masih memiliki peringatan konten pada kartu visual. Unggah gambar alternatif atau hapus centang pada opsi kartu visual."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "Laporan untuk {language} tidak boleh kosong karena ini adalah bahasa bawaan. Anda harus memiliki konten dalam Teks Laporan atau Kartu Visual untuk {language}. Atau, Anda dapat mengeklik kanan pada tab untuk bahasa lain untuk menjadikannya bahasa bawaan."
@@ -2712,11 +2746,11 @@
 		"developer_comment": "Label for adult content type"
 	},
 	"sensitiveContentMenuButton.contentWarning": {
-		"string": "Content warning",
+		"string": "Peringatan konten",
 		"developer_comment": "Button that pops sensitive content screen settings"
 	},
 	"sensitiveContentMenuButton.enableSwitch": {
-		"string": "Enable content warning",
+		"string": "Aktifkan peringatan konten",
 		"developer_comment": "Switch to enable sensitive content screen"
 	},
 	"sensitiveContentMenuButton.medical": {
@@ -2724,11 +2758,11 @@
 		"developer_comment": "Label for medical content type"
 	},
 	"sensitiveContentMenuButton.selectCategory": {
-		"string": "Select a category",
+		"string": "Pilih kategori",
 		"developer_comment": "Header for sensitive content types"
 	},
 	"sensitiveContentMenuButton.typeOther": {
-		"string": "Type other",
+		"string": "Ketik kategori lainnya",
 		"developer_comment": "Label for other content type"
 	},
 	"sensitiveContentMenuButton.violence": {
@@ -4268,11 +4302,11 @@
 		"string": "Kotak masuk Tipline"
 	},
 	"toolbar.viewModeLonger": {
-		"string": "See longer titles",
+		"string": "Tampilkan judul lebih panjang",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"toolbar.viewModeShorter": {
-		"string": "See shorter titles",
+		"string": "Tampilkan judul lebih pendek",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"tos.title": {
@@ -4599,11 +4633,11 @@
 		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi"
 	},
 	"viewModeSwitcher.viewModeLonger": {
-		"string": "See longer titles",
+		"string": "Tampilkan judul lebih panjang",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"viewModeSwitcher.viewModeShorter": {
-		"string": "See shorter titles",
+		"string": "Tampilkan judul lebih pendek",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {

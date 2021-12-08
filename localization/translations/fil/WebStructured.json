@@ -230,9 +230,17 @@
 		"string": "Iulat ang status",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
+	"addFilterMenu.similarMedias": {
+		"string": "Number of similar medias",
+		"developer_comment": "Menu option to enable searching items by similar medias"
+	},
 	"addFilterMenu.source": {
 		"string": "Source",
 		"developer_comment": "Menu option to enable searching items by source"
+	},
+	"addFilterMenu.suggestedMedias": {
+		"string": "Number of suggested medias",
+		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
 		"string": "Tag",
@@ -241,6 +249,10 @@
 	"addFilterMenu.timeRange": {
 		"string": "Date range",
 		"developer_comment": "Menu option to enable searching items by date range"
+	},
+	"addFilterMenu.tiplineRequests": {
+		"string": "Number of tipline requests",
+		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Magdagdag ng wika"
@@ -1760,6 +1772,28 @@
 	"notFound.title": {
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
+	},
+	"numericRangeFilter.between": {
+		"string": "at"
+	},
+	"numericRangeFilter.enterNumber": {
+		"string": "enter number"
+	},
+	"numericRangeFilter.errorMessage": {
+		"string": "First number should be less than second number",
+		"developer_comment": "Message when user set range number with min value greater than max value"
+	},
+	"numericRangeFilter.linkedItems": {
+		"string": "Number of similar medias is between",
+		"developer_comment": "Filter option that refers to number of similar medias"
+	},
+	"numericRangeFilter.suggestedItems": {
+		"string": "Number of suggested medias is between",
+		"developer_comment": "Filter option that refers to number of suggested medias"
+	},
+	"numericRangeFilter.tiplineRequests": {
+		"string": "Number of tipline requests is between",
+		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
 		"string": "Could not extract text from image",
