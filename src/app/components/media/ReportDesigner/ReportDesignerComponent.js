@@ -99,8 +99,15 @@ const ReportDesignerComponent = (props) => {
     };
   }, []);
 
-  const handleChangeLanguage = (newValue) => {
-    setCurrentLanguage(newValue);
+  const handleChangeLanguage = (newLanguageCode) => {
+    const reportIndex = findReportIndex(data, newLanguageCode);
+    if (reportIndex === -1) {
+      const updatedData = cloneData(data);
+      const newReport = defaultOptions(media, newLanguageCode);
+      updatedData.options.push(newReport);
+      setData(updatedData);
+    }
+    setCurrentLanguage(newLanguageCode);
   };
 
   const handleSetDefaultLanguage = (newValue) => {
