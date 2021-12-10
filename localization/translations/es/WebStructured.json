@@ -230,9 +230,17 @@
 		"string": "Estado de informe",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
+	"addFilterMenu.similarMedias": {
+		"string": "Number of similar medias",
+		"developer_comment": "Menu option to enable searching items by similar medias"
+	},
 	"addFilterMenu.source": {
 		"string": "Fuente",
 		"developer_comment": "Menu option to enable searching items by source"
+	},
+	"addFilterMenu.suggestedMedias": {
+		"string": "Number of suggested medias",
+		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
 		"string": "Etiqueta",
@@ -241,6 +249,10 @@
 	"addFilterMenu.timeRange": {
 		"string": "Rango de Fecha",
 		"developer_comment": "Menu option to enable searching items by date range"
+	},
+	"addFilterMenu.tiplineRequests": {
+		"string": "Number of tipline requests",
+		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Añadir idioma"
@@ -672,7 +684,7 @@
 		"developer_comment": "Content warning type: Adult"
 	},
 	"contentScreen.hideContentButton": {
-		"string": "Hide content",
+		"string": "Ocultar contenido",
 		"developer_comment": "Button to disable view of sensitive content"
 	},
 	"contentScreen.medical": {
@@ -680,7 +692,7 @@
 		"developer_comment": "Content warning type: Medical"
 	},
 	"contentScreen.viewContentButton": {
-		"string": "Temporarily view content",
+		"string": "Ver contenido temporalmente",
 		"developer_comment": "Button to enable view of sensitive content"
 	},
 	"contentScreen.violence": {
@@ -688,7 +700,7 @@
 		"developer_comment": "Content warning type: Violence"
 	},
 	"contentScreen.warning": {
-		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"string": "<strong>{user_name}</strong> ha detectado este contenido como <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
 	"createMedia.addItem": {
@@ -1321,7 +1333,7 @@
 		"string": "Copiando..."
 	},
 	"mediaAnalysis.createdBy": {
-		"string": "Item created by {name}"
+		"string": "Ítem creado por {name}"
 	},
 	"mediaAnalysis.date": {
 		"string": "Fecha de publicación del artículo"
@@ -1330,7 +1342,7 @@
 		"string": "¡No se pudo guardar! Último guardado {ago}"
 	},
 	"mediaAnalysis.import": {
-		"string": "Import",
+		"string": "Importar",
 		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
@@ -1761,6 +1773,28 @@
 		"string": "¡Oh no! Esta página no existe o no tienes acceso autorizado.",
 		"developer_comment": "Not found page title"
 	},
+	"numericRangeFilter.between": {
+		"string": "y"
+	},
+	"numericRangeFilter.enterNumber": {
+		"string": "enter number"
+	},
+	"numericRangeFilter.errorMessage": {
+		"string": "First number should be less than second number",
+		"developer_comment": "Message when user set range number with min value greater than max value"
+	},
+	"numericRangeFilter.linkedItems": {
+		"string": "Number of similar medias is between",
+		"developer_comment": "Filter option that refers to number of similar medias"
+	},
+	"numericRangeFilter.suggestedItems": {
+		"string": "Number of suggested medias is between",
+		"developer_comment": "Filter option that refers to number of suggested medias"
+	},
+	"numericRangeFilter.tiplineRequests": {
+		"string": "Number of tipline requests is between",
+		"developer_comment": "Filter option that refers to tipline requests"
+	},
 	"ocrButton.defaultErrorMessage": {
 		"string": "No se pudo extraer texto de la imagen",
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
@@ -2150,7 +2184,7 @@
 		"string": "Contenido ({max} caracteres como máximo)"
 	},
 	"reportDesigner.contentScreenHeader": {
-		"string": "Content with warning cannot<br />be published as a visual card.",
+		"string": "Contenido con advertencia no puede<br />ser publicado como una tarjeta visual.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.copyButtonInactive": {
@@ -2184,14 +2218,14 @@
 		"string": "Publicado por primera vez"
 	},
 	"reportDesigner.goBack": {
-		"string": "Go back to the annotation page and remove the content warning.",
+		"string": "Vuelve a la página de anotaciones y elimina la advertencia de contenido.",
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
 		"string": "Título ({max} caracteres como máximo)"
 	},
 	"reportDesigner.incorrectWarning": {
-		"string": "Was this content warning incorrectly applied?",
+		"string": "¿Se aplicó incorrectamente esta advertencia de contenido?",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
@@ -2241,7 +2275,7 @@
 		"string": "Diseña tu informe"
 	},
 	"reportDesigner.uploadAlternative": {
-		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"string": "Sube una imagen alternativa o<br />desmarca la opción de tarjeta visual.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
@@ -2257,7 +2291,7 @@
 		"string": "Advertencia - Al compartir esto, estarás exponiendo información confidencial fuera de tu área de trabajo. Procede con precaución."
 	},
 	"reportDesignerToolbar.cantPublishContentFlag": {
-		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
+		"string": "Tu ítem todavía tiene una tarjeta visual con una advertencia de contenido. Sube una imagen alternativa o desmarca la opción de la tarjeta visual."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "El informe para {language} no puede quedar vacío porque es el idioma por defecto. Debes tener contenido en Texto del Informe o Tarjeta Visual para {language}. O, puedes hacer clic derecho en la pestaña de otro idioma para hacerlo el idioma por defecto."
@@ -2708,15 +2742,15 @@
 		"developer_comment": "Label for number of selected items"
 	},
 	"sensitiveContentMenuButton.adult": {
-		"string": "Adulta(o) (desnudos, pornografía)",
+		"string": "Adulto (desnudos, pornografía)",
 		"developer_comment": "Label for adult content type"
 	},
 	"sensitiveContentMenuButton.contentWarning": {
-		"string": "Content warning",
+		"string": "Advertencia de contenido",
 		"developer_comment": "Button that pops sensitive content screen settings"
 	},
 	"sensitiveContentMenuButton.enableSwitch": {
-		"string": "Enable content warning",
+		"string": "Activar la advertencia de contenido",
 		"developer_comment": "Switch to enable sensitive content screen"
 	},
 	"sensitiveContentMenuButton.medical": {
@@ -2724,11 +2758,11 @@
 		"developer_comment": "Label for medical content type"
 	},
 	"sensitiveContentMenuButton.selectCategory": {
-		"string": "Select a category",
+		"string": "Selecciona la categoría",
 		"developer_comment": "Header for sensitive content types"
 	},
 	"sensitiveContentMenuButton.typeOther": {
-		"string": "Type other",
+		"string": "Escribe otra",
 		"developer_comment": "Label for other content type"
 	},
 	"sensitiveContentMenuButton.violence": {
@@ -4268,11 +4302,11 @@
 		"string": "Bandeja de entrada de Tipline"
 	},
 	"toolbar.viewModeLonger": {
-		"string": "See longer titles",
+		"string": "Ver títulos más largos",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"toolbar.viewModeShorter": {
-		"string": "See shorter titles",
+		"string": "Ver títulos más cortos",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"tos.title": {
@@ -4599,11 +4633,11 @@
 		"string": "Debe aceptar los Términos del Servicio y la Política de Privacidad"
 	},
 	"viewModeSwitcher.viewModeLonger": {
-		"string": "See longer titles",
+		"string": "Ver títulos más largos",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"viewModeSwitcher.viewModeShorter": {
-		"string": "See shorter titles",
+		"string": "Ver títulos más cortos",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {

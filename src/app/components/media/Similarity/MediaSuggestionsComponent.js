@@ -86,6 +86,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MediaSuggestionsComponent = ({
+  mainItem,
   relationships,
   team,
   setFlashMessage,
@@ -126,6 +127,93 @@ const MediaSuggestionsComponent = ({
   const onFailure = (errors) => {
     const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
     setFlashMessage(errorMessage, 'error');
+  };
+
+  const handleReplace = () => {
+    const mutation = graphql`
+      mutation MediaSuggestionsComponentReplaceProjectMediaMutation($input: ReplaceProjectMediaInput!) {
+        replaceProjectMedia(input: $input) {
+          new_project_media {
+            dbid
+          }
+        }
+      }
+    `;
+
+    commitMutation(Store, {
+      mutation,
+      variables: {
+        input: {
+          project_media_to_be_replaced_id: mainItem.id,
+          new_project_media_id: relationship.target.id,
+        },
+      },
+      onCompleted: ({ error }) => {
+        if (error) {
+          onFailure(error);
+        } else {
+          const projectMediaDbid = relationship.target_id;
+          const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+          const newPath = `/${teamSlug}/media/${projectMediaDbid}`;
+          window.location.href = window.location.href.replace(window.location.pathname, newPath);
+        }
+      },
+      onError: onFailure,
+    });
+  };
+
+  const destroyMutation = graphql`
+    mutation MediaSuggestionsComponentDestroyRelationshipMutation($input: DestroyRelationshipInput!, $rejection: Boolean!) {
+      destroyRelationship(input: $input) {
+        deletedId
+        source_project_media @include(if: $rejection) {
+          hasMain: is_confirmed_similar_to_another_item
+          suggestionsCount: suggested_similar_items_count
+          confirmedSimilarCount: confirmed_similar_items_count
+          suggested_similar_relationships(first: 10000) {
+            edges {
+              node {
+                id
+                target_id
+              }
+            }
+          }
+        }
+        target_project_media @include(if: $rejection) {
+          hasMain: is_confirmed_similar_to_another_item
+          suggestionsCount: suggested_similar_items_count
+          confirmedSimilarCount: confirmed_similar_items_count
+          suggested_similar_relationships(first: 10000) {
+            edges {
+              node {
+                id
+                target_id
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const handleDestroyAndReplace = () => {
+    commitMutation(Store, {
+      mutation: destroyMutation,
+      variables: {
+        rejection: false,
+        input: {
+          id: relationship.id,
+        },
+      },
+      onCompleted: ({ error }) => {
+        if (error) {
+          onFailure(error);
+        } else {
+          handleReplace();
+        }
+      },
+      onError: onFailure,
+    });
   };
 
   const handleConfirm = () => {
@@ -215,42 +303,10 @@ const MediaSuggestionsComponent = ({
     setIsDialogOpen(false);
     handleNext();
 
-    const mutation = graphql`
-      mutation MediaSuggestionsComponentDestroyRelationshipMutation($input: DestroyRelationshipInput!) {
-        destroyRelationship(input: $input) {
-          source_project_media {
-            hasMain: is_confirmed_similar_to_another_item
-            suggestionsCount: suggested_similar_items_count
-            confirmedSimilarCount: confirmed_similar_items_count
-            suggested_similar_relationships(first: 10000) {
-              edges {
-                node {
-                  id
-                  target_id
-                }
-              }
-            }
-          }
-          target_project_media {
-            hasMain: is_confirmed_similar_to_another_item
-            suggestionsCount: suggested_similar_items_count
-            confirmedSimilarCount: confirmed_similar_items_count
-            suggested_similar_relationships(first: 10000) {
-              edges {
-                node {
-                  id
-                  target_id
-                }
-              }
-            }
-          }
-        }
-      }
-    `;
-
     commitMutation(Store, {
-      mutation,
+      mutation: destroyMutation,
       variables: {
+        rejection: true,
         input: {
           id: relationship.id,
           add_to_project_id: project.dbid,
@@ -294,10 +350,15 @@ const MediaSuggestionsComponent = ({
         <Box display="flex" width="1" justifyContent="space-between" alignItems="center">
           <Box display="flex" alignItems="center">
             <Typography variant="body2">
-              <FormattedMessage
-                id="mediaSuggestionsComponent.question"
-                defaultMessage="Is the suggested media similar to the main?"
-              />
+              { mainItem.report_type === 'blank' ?
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.questionBlank"
+                  defaultMessage="Is the suggested media similar to the imported report?"
+                /> :
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.question"
+                  defaultMessage="Is the suggested media similar to the main?"
+                /> }
             </Typography>
             <IconButton onClick={handleHelp}>
               <HelpIcon className={classes.helpIcon} />
@@ -309,7 +370,7 @@ const MediaSuggestionsComponent = ({
             </IconButton>
             {can(team.permissions, 'update Relationship') ?
               <IconButton
-                onClick={handleConfirm}
+                onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
                 style={{ color: completedGreen }}
                 disabled={total === 0}
                 className={total === 0 ? classes.disabled : ''}
@@ -440,6 +501,10 @@ const MediaSuggestionsComponent = ({
 };
 
 MediaSuggestionsComponent.propTypes = {
+  mainItem: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    report_type: PropTypes.string.isRequired,
+  }).isRequired,
   relationships: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     target_id: PropTypes.number.isRequired,
