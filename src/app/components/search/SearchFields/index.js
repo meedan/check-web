@@ -546,6 +546,7 @@ class SearchFields extends React.Component {
     if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
 
     fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && fieldComponents[k]));
+    const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
 
     return (
       <div>
@@ -574,7 +575,7 @@ class SearchFields extends React.Component {
           <AddFilterMenu
             team={team}
             hideOptions={this.props.hideFields}
-            addedFields={fieldKeys}
+            addedFields={addedFields}
             onSelect={this.handleAddField}
           />
           <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>
