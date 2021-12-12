@@ -32,7 +32,7 @@
     "defaultMessage": "Save changes to the list \"{listName}\""
   },
   {
-    "id": "saveList.updateTiplineInbox",
+    "id": "saveList.updateSpecialPage",
     "description": "'Save' here is an infinitive verb",
     "defaultMessage": "Save changes to the list"
   },

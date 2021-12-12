@@ -313,7 +313,7 @@ class SearchFields extends React.Component {
       selectedChannels = [CheckChannels.FETCH];
     }
 
-    const isSpecialPage = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname);
+    const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
     const fieldComponents = {
       projects: (
@@ -456,6 +456,7 @@ class SearchFields extends React.Component {
             onChange={this.handleNumericRange}
             value={this.props.query.suggestions_count}
             onRemove={() => this.handleRemoveField('suggestions_count')}
+            readOnly={isSpecialPage}
           />
         </Box>
       ),

@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 const NumericRangeFilter = ({
   onChange,
   onRemove,
+  readOnly,
   filterKey,
   value,
   intl,
@@ -71,7 +72,7 @@ const NumericRangeFilter = ({
 
   return (
     <div>
-      <RemoveableWrapper icon={<NumberIcon />} onRemove={onRemove} boxProps={{ px: 0.5 }}>
+      <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
         <Box display="flex" alignItems="center">
           <Box pr={1}>
             <Typography component="span" variant="body2">

@@ -24,6 +24,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import ForumIcon from '@material-ui/icons/Forum';
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
@@ -305,6 +306,20 @@ const ProjectsComponent = ({
             </ListItemIcon>
             <ListItemText>
               <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" />
+            </ListItemText>
+          </ListItem> : null }
+
+        { team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled ?
+          <ListItem
+            button
+            onClick={() => { handleSpecialLists('suggested-matches'); }}
+            className={activeItem.type === 'suggested-matches' ? ['projects-list__suggested-matches', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__suggested-matches'}
+          >
+            <ListItemIcon className={classes.listItemIconRoot}>
+              <NewReleasesIcon />
+            </ListItemIcon>
+            <ListItemText>
+              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested matches" />
             </ListItemText>
           </ListItem> : null }
 

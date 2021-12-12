@@ -51,11 +51,12 @@ const updateMutation = graphql`
   }
 `;
 
-const updateTiplineInboxMutation = graphql`
+const updateSpecialPageMutation = graphql`
   mutation SaveListUpdateTeamMutation($input: UpdateTeamInput!) {
     updateTeam(input: $input) {
       team {
         get_tipline_inbox_filters
+        get_suggested_matches_filters
       }
     }
   }
@@ -83,7 +84,7 @@ const SaveList = ({
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches)(\/([0-9]+))?/);
   const classes = useStyles();
 
   const [title, setTitle] = React.useState('');
@@ -99,7 +100,7 @@ const SaveList = ({
   const objectType = currentPath[1];
 
   // Just show the button on: "All Items", collection and folder (create a list) or list (create a new list or update list)
-  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox'].indexOf(objectType) === -1) {
+  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches'].indexOf(objectType) === -1) {
     return null;
   }
 
@@ -128,6 +129,20 @@ const SaveList = ({
     }
   }
 
+  // Don't show the button if it's a suggested matches page and nothing changed
+  if (objectType === 'suggested-matches') {
+    const defaultQuery = { suggestions_count: { min: 0 } };
+    // Don't show the button if it's a default list
+    if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
+      return null;
+    }
+    // Don't show the button if it's a saved search
+    const savedQuery = team.get_suggested_matches_filters;
+    if (savedQuery && JSON.stringify(query) === JSON.stringify(savedQuery)) {
+      return null;
+    }
+  }
+
   const handleClick = () => {
     // From the "All Items" page, collection page and a folder page, we can just create a new list
     if (objectType === 'all-items' || objectType === 'project' || objectType === 'collection') {
@@ -136,8 +151,8 @@ const SaveList = ({
     } else if (objectType === 'list') {
       setOperation('UPDATE');
       setShowExistingDialog(true);
-    } else if (objectType === 'tipline-inbox') {
-      setOperation('UPDATET_TIPLINE');
+    } else if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
+      setOperation('UPDATE_SPECIAL_PAGE');
       setShowExistingDialog(true);
     }
   };
@@ -186,13 +201,17 @@ const SaveList = ({
     if (projectGroup) {
       queryToBeSaved.project_group_id = [projectGroup.dbid];
     }
-    if (objectType === 'tipline-inbox' && operation !== 'UPDATET_TIPLINE') {
+    if (objectType === 'tipline-inbox' && operation !== 'UPDATE_SPECIAL_PAGE') {
       queryToBeSaved.channels = [CheckChannels.ANYTIPLINE];
     }
     queryToBeSaved = { ...queryToBeSaved, ...query };
 
-    if (operation === 'UPDATET_TIPLINE') {
-      input.tipline_inbox_filters = JSON.stringify(query);
+    if (operation === 'UPDATE_SPECIAL_PAGE') {
+      if (objectType === 'tipline-inbox') {
+        input.tipline_inbox_filters = JSON.stringify(query);
+      } else if (objectType === 'suggested-matches') {
+        input.suggested_matches_filters = JSON.stringify(query);
+      }
     } else {
       input.filters = JSON.stringify(queryToBeSaved);
     }
@@ -206,9 +225,9 @@ const SaveList = ({
     } else if (operation === 'UPDATE') {
       input.id = savedSearch.id;
       mutation = updateMutation;
-    } else if (operation === 'UPDATET_TIPLINE') {
+    } else if (operation === 'UPDATE_SPECIAL_PAGE') {
       input.id = team.id;
-      mutation = updateTiplineInboxMutation;
+      mutation = updateSpecialPageMutation;
     }
 
     commitMutation(Store, {
@@ -276,7 +295,7 @@ const SaveList = ({
       />
 
       {/* Create a new list or update an existing list */}
-      { savedSearch || objectType === 'tipline-inbox' ?
+      { savedSearch || ['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1 ?
         <ConfirmProceedDialog
           open={showExistingDialog}
           title={<FormattedMessage id="saveList.newList" defaultMessage="Save list" />}
@@ -290,9 +309,9 @@ const SaveList = ({
                     label={<FormattedMessage id="saveList.update" defaultMessage='Save changes to the list "{listName}"' values={{ listName: savedSearch.title }} description="'Save' here is an infinitive verb" />}
                   /> :
                   <FormControlLabel
-                    value="UPDATET_TIPLINE"
+                    value="UPDATE_SPECIAL_PAGE"
                     control={<Radio />}
-                    label={<FormattedMessage id="saveList.updateTiplineInbox" defaultMessage="Save changes to the list" description="'Save' here is an infinitive verb" />}
+                    label={<FormattedMessage id="saveList.updateSpecialPage" defaultMessage="Save changes to the list" description="'Save' here is an infinitive verb" />}
                   />
                 }
                 <FormControlLabel
