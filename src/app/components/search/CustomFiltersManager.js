@@ -3,9 +3,7 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
 import StarIcon from '@material-ui/icons/Star';
 import ShortTextIcon from '@material-ui/icons/ShortText';
 import LocationIcon from '@material-ui/icons/LocationOn';
@@ -14,6 +12,7 @@ import IconFileUpload from '@material-ui/icons/CloudUpload';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
+import AnnotationFilterNumber from './AnnotationFilterNumber';
 import MultiSelectFilter from './MultiSelectFilter';
 import NumberIcon from '../../icons/NumberIcon';
 
@@ -45,31 +44,16 @@ const messages = defineMessages({
   },
 });
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    width: theme.spacing(15),
-  },
-  inputMarginDense: {
-    padding: '4px 8px',
-  },
-}));
-
 const CustomFiltersManager = ({
   hide,
   intl,
   team,
+  operatorToggle,
   onFilterChange,
   query,
 }) => {
   if (hide) { return null; }
-  const classes = useStyles();
-
-  const defaultMinValue = '';
-  const defaultMaxValue = '';
-  const [showNumericRange, setShowNumericRange] = React.useState(false);
-  const [minNumber, setMinNumber] = React.useState(defaultMinValue);
-  const [maxNumber, setMaxNumber] = React.useState(defaultMaxValue);
-  const [showErrorMsg, setShowErrorMsg] = React.useState(false);
+  const [errorMessage, setErrorMessage] = React.useState('');
 
   const teamTasks = team.team_tasks.edges;
 
@@ -116,7 +100,7 @@ const CustomFiltersManager = ({
     { label: intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
   ];
 
-  return filters.map((filter, i) => {
+  const filterFields = filters.map((filter, i) => {
     if (filter.id) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
       const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === filter.id);
       let options = fixedOptions;
@@ -131,39 +115,31 @@ const CustomFiltersManager = ({
         options = options.concat(teamTask.node.options.filter(fo => !fo.other).map(tt => ({ label: tt.label, value: tt.label })));
       }
 
-      const handleChoiceTaskFilterChange = (val) => {
-        let range = {};
-        if (val.includes('NUMERIC_RANGE')) {
-          range = { min: minNumber, max: maxNumber };
-          setShowNumericRange(true);
-        } else {
-          setShowNumericRange(false);
-        }
+      // extraParams will be an object which contains type-specific keys. e.g.: extraParams = { range: { min: x, max: y }}
+      const handleChoiceTaskFilterChange = (val, extraParams) => {
         const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') || val.includes('NUMERIC_RANGE') ? val[0] : val;
-        handleTeamTaskFilterChange({ ...filter, response, range });
+        const obj = { ...filter, response, ...extraParams };
+        handleTeamTaskFilterChange(obj);
       };
 
-      const handleFieldChange = (key, keyValue) => {
-        const range = { min: minNumber, max: maxNumber };
-        if (key === 'min') {
-          setMinNumber(keyValue);
-          range.min = keyValue;
-        } else if (key === 'max') {
-          setMaxNumber(keyValue);
-          range.max = keyValue;
+      const getExtraInputs = () => {
+        if (filter.task_type === 'number' && filter.response === 'NUMERIC_RANGE') {
+          return (
+            <AnnotationFilterNumber
+              onChange={handleChoiceTaskFilterChange}
+              onError={message => setErrorMessage(message)}
+            />
+          );
         }
-        if (range.max !== '' && range.min > range.max) {
-          setShowErrorMsg(true);
-        } else {
-          setShowErrorMsg(false);
-          handleChoiceTaskFilterChange(['NUMERIC_RANGE']);
-        }
+
+        return null;
       };
 
       return (
         <Box>
           <Box display="flex" alignItems="center">
             <MultiSelectFilter
+              extraInputs={getExtraInputs()}
               label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
               icon={icons[teamTask.node.type]}
               selected={filter.response}
@@ -171,65 +147,19 @@ const CustomFiltersManager = ({
               onChange={handleChoiceTaskFilterChange}
               onRemove={() => handleRemoveFilter(i)}
             />
-            { showNumericRange ?
-              <Box display="flex" alignItems="center">
-                <Box px={1}>
-                  <Typography component="span" variant="body2">
-                    <FormattedMessage id="numericRangeFilter.between" defaultMessage="between" />
-                  </Typography>
-                </Box>
-                <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number">
-                  { placeholder => (
-                    <TextField
-                      classes={{ root: classes.root }}
-                      InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-                      variant="outlined"
-                      size="small"
-                      placeholder={placeholder}
-                      value={minNumber}
-                      onChange={(e) => { handleFieldChange('min', e.target.value); }}
-                      type="number"
-                      error={showErrorMsg}
-                    />
-                  )}
-                </FormattedMessage>
-                <Box px={1}>
-                  <Typography component="span" variant="body2">
-                    <FormattedMessage id="numericRangeFilter.and" defaultMessage="and" />
-                  </Typography>
-                </Box>
-                <FormattedMessage id="customFiltersManager.enterNumber" defaultMessage="enter number">
-                  { placeholder => (
-                    <TextField
-                      classes={{ root: classes.root }}
-                      InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-                      variant="outlined"
-                      size="small"
-                      placeholder={placeholder}
-                      value={maxNumber}
-                      onChange={(e) => { handleFieldChange('max', e.target.value); }}
-                      type="number"
-                      error={showErrorMsg}
-                    />
-                  )}
-                </FormattedMessage>
-              </Box> : null }
           </Box>
-          { showErrorMsg ?
+          { errorMessage ?
             <Box alignItems="center" color="red" display="flex">
               <Box pr={1}><ErrorOutlineIcon /></Box>
               <Typography component="span" variant="body2">
-                <FormattedMessage
-                  id="customFiltersManager.errorMessage"
-                  defaultMessage="First number should be less than second number"
-                  description="Message when user set range number with min value greater than max value"
-                />
+                { errorMessage }
               </Typography>
             </Box> : null }
         </Box>
       );
     }
 
+    // First step, show all annotation fields
     return (
       <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
         { label => (
@@ -250,6 +180,27 @@ const CustomFiltersManager = ({
       </FormattedMessage>
     );
   });
+
+  return (
+    <Box display="flex" alignItems="center" flexWrap="wrap">
+      { filterFields.map((key, index) => {
+        if (index > 0) {
+          return (
+            <React.Fragment key={key}>
+              { operatorToggle }
+              { key }
+            </React.Fragment>
+          );
+        }
+
+        return (
+          <span key={key}>
+            { key }
+          </span>
+        );
+      })}
+    </Box>
+  );
 };
 
 CustomFiltersManager.defaultProps = {

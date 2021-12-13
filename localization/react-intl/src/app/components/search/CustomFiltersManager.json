@@ -25,23 +25,6 @@
     "defaultMessage": "Number range"
   },
   {
-    "id": "numericRangeFilter.between",
-    "defaultMessage": "between"
-  },
-  {
-    "id": "customFiltersManager.enterNumber",
-    "defaultMessage": "enter number"
-  },
-  {
-    "id": "numericRangeFilter.and",
-    "defaultMessage": "and"
-  },
-  {
-    "id": "customFiltersManager.errorMessage",
-    "description": "Message when user set range number with min value greater than max value",
-    "defaultMessage": "First number should be less than second number"
-  },
-  {
     "id": "customFiltersManager.label",
     "description": "Placeholder label for metadata field when not fully configured",
     "defaultMessage": "Custom field is"
