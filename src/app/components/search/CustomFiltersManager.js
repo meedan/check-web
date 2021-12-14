@@ -13,6 +13,7 @@ import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import AnnotationFilterNumber from './AnnotationFilterNumber';
+import AnnotationFilterDate from './AnnotationFilterDate';
 import MultiSelectFilter from './MultiSelectFilter';
 import NumberIcon from '../../icons/NumberIcon';
 
@@ -117,7 +118,7 @@ const CustomFiltersManager = ({
 
       // extraParams will be an object which contains type-specific keys. e.g.: extraParams = { range: { min: x, max: y }}
       const handleChoiceTaskFilterChange = (val, extraParams) => {
-        const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') || val.includes('NUMERIC_RANGE') ? val[0] : val;
+        const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') || val.includes('NUMERIC_RANGE') || val.includes('DATE_RANGE') ? val[0] : val;
         const obj = { ...filter, response, ...extraParams };
         handleTeamTaskFilterChange(obj);
       };
@@ -126,6 +127,14 @@ const CustomFiltersManager = ({
         if (filter.task_type === 'number' && filter.response === 'NUMERIC_RANGE') {
           return (
             <AnnotationFilterNumber
+              onChange={handleChoiceTaskFilterChange}
+              onError={message => setErrorMessage(message)}
+            />
+          );
+        } else if (filter.task_type === 'datetime' && filter.response === 'DATE_RANGE') {
+          console.log('task_type', filter); // eslint-disable-line no-console
+          return (
+            <AnnotationFilterDate
               onChange={handleChoiceTaskFilterChange}
               onError={message => setErrorMessage(message)}
             />
