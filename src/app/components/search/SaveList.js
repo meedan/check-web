@@ -114,30 +114,20 @@ const SaveList = ({
     return null;
   }
 
-  // Don't show the button if it's a tipline inbox page and nothing changed
-  if (objectType === 'tipline-inbox') {
-    const defaultStatusId = team.verification_statuses.default;
-    const defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [defaultStatusId] };
+  // Don't show the button if it's a tipline inbox or suggested matches page and nothing changed
+  if (objectType === 'tipline-inbox' || objectType === 'suggested-matches') {
+    let defaultQuery = {};
+    if (objectType === 'tipline-inbox') {
+      defaultQuery = { read: ['0'], projects: ['-1'], verification_status: [team.verification_statuses.default] };
+    } else {
+      defaultQuery = { suggestions_count: { min: 1 } };
+    }
     // Don't show the button if it's a default list
     if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
       return null;
     }
     // Don't show the button if it's a saved search
-    const savedQuery = team.get_tipline_inbox_filters;
-    if (savedQuery && JSON.stringify(query) === JSON.stringify(savedQuery)) {
-      return null;
-    }
-  }
-
-  // Don't show the button if it's a suggested matches page and nothing changed
-  if (objectType === 'suggested-matches') {
-    const defaultQuery = { suggestions_count: { min: 0 } };
-    // Don't show the button if it's a default list
-    if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
-      return null;
-    }
-    // Don't show the button if it's a saved search
-    const savedQuery = team.get_suggested_matches_filters;
+    const savedQuery = objectType === 'tipline-inbox' ? team.get_tipline_inbox_filters : team.get_suggested_matches_filters;
     if (savedQuery && JSON.stringify(query) === JSON.stringify(savedQuery)) {
       return null;
     }
