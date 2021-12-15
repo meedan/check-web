@@ -1661,6 +1661,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Is the suggested media similar to the main?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Is the suggested media similar to the imported report?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Requests"
 	},
