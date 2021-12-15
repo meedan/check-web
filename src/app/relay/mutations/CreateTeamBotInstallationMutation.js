@@ -19,6 +19,7 @@ class CreateTeamBotInstallationMutation extends Relay.Mutation {
           id
           alegre_bot: team_bot_installation(bot_identifier: "alegre") { # needed to refresh 'team.alegre_bot' and auto-hide/show Similarity tab
             id
+            alegre_settings
           }
         }
         bot_user {
