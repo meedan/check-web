@@ -51,6 +51,11 @@
     "defaultMessage": "Change access"
   },
   {
+    "id": "projectActions.makeDefault",
+    "description": "Make the folder default",
+    "defaultMessage": "Make default"
+  },
+  {
     "id": "projectsComponent.renameType",
     "description": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list",
     "defaultMessage": "Rename {type}"
@@ -62,10 +67,6 @@
   {
     "id": "projectsComponent.description",
     "defaultMessage": "Description"
-  },
-  {
-    "id": "projectActions.cancel",
-    "defaultMessage": "Cancel"
   },
   {
     "id": "projectsComponent.deleteType",
@@ -92,5 +93,15 @@
   {
     "id": "projectsComponent.privacyDialogButton",
     "defaultMessage": "Update access"
+  },
+  {
+    "id": "projectsComponent.makeDefault",
+    "description": "Make the folder default",
+    "defaultMessage": "Make default"
+  },
+  {
+    "id": "projectsComponent.makeDefaultDescription",
+    "description": "Make the folder default description",
+    "defaultMessage": "Make default description"
   }
 ]

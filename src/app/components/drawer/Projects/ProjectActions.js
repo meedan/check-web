@@ -18,8 +18,10 @@ import ProjectMoveDialog from '../../project/ProjectMoveDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import SettingsHeader from '../../team/SettingsHeader';
 import { withSetFlashMessage } from '../../FlashMessage';
-import Can from '../../Can';
+import Can from '../../Can'; // eslint-disable-line import/no-duplicates
+import { can } from '../../Can'; // eslint-disable-line import/no-duplicates
 import { units } from '../../../styles/js/shared';
+import globalStrings from '../../../globalStrings';
 
 const ProjectActions = ({
   name,
@@ -41,7 +43,9 @@ const ProjectActions = ({
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
-  const { team } = object;
+  const [makeDefaultDialog, setMakeDefaultDialog] = React.useState(object.privacy);
+  const { team, permissions: projectPermissions } = object;
+  console.log('object', object); // eslint-disable-line no-console
 
   const privacyMessages = [
     <FormattedMessage id="projectActions.privacyMessageAll" defaultMessage="Anyone can see this folder, access its content and annotate it." />,
@@ -61,6 +65,7 @@ const ProjectActions = ({
     setShowDeleteDialog(false);
     setShowMoveDialog(false);
     setShowPrivacyDialog(false);
+    setMakeDefaultDialog(false);
   };
 
   const handleError = () => {
@@ -185,8 +190,17 @@ const ProjectActions = ({
           updateProject(input: $input) {
             project {
               id
+              is_default
+              permissions
               privacy
               project_group_id
+              team {
+                default_folder {
+                  id
+                  is_default
+                  permissions
+                }
+              }
             }
             project_group_was {
               id
@@ -226,6 +240,10 @@ const ProjectActions = ({
     handleUpdateProject({ privacy: privacyValue });
   };
 
+  const handleMakeDefault = () => {
+    handleUpdateProject({ is_default: true });
+  };
+
   return (
     <Can permissions={team.permissions} permission="create Project">
       <IconButton
@@ -253,7 +271,7 @@ const ProjectActions = ({
             }
           />
         </MenuItem>
-        <MenuItem className="project-actions__destroy" onClick={() => { setShowDeleteDialog(true); }}>
+        <MenuItem disabled={!can(projectPermissions, 'destroy Project')} className="project-actions__destroy" onClick={() => { setShowDeleteDialog(true); }}>
           <ListItemText
             primary={
               <FormattedMessage
@@ -288,23 +306,30 @@ const ProjectActions = ({
               }
             />
           </MenuItem> : null }
-        { hasPrivacySettings ?
-          <Can permissions={team.permissions} permission="set_privacy Project">
-            <React.Fragment>
-              <Divider />
-              <MenuItem className="project-actions__privacy" onClick={() => { setShowPrivacyDialog(true); }}>
-                <ListItemText
-                  primary={
-                    <FormattedMessage
-                      id="projectActions.privacy"
-                      defaultMessage="Change access"
-                      description="'Change' here is an infinitive verb"
-                    />
-                  }
+        <Divider />
+        { hasPrivacySettings && can(team.permissions, 'set_privacy Project') ?
+          <MenuItem className="project-actions__privacy" onClick={() => { setShowPrivacyDialog(true); }}>
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  id="projectActions.privacy"
+                  defaultMessage="Change access"
+                  description="'Change' here is an infinitive verb"
                 />
-              </MenuItem>
-            </React.Fragment>
-          </Can> : null }
+              }
+            />
+          </MenuItem> : null }
+        <MenuItem disabled={object.is_default} className="project-make_default" onClick={() => { setMakeDefaultDialog(true); }}>
+          <ListItemText
+            primary={
+              <FormattedMessage
+                id="projectActions.makeDefault"
+                defaultMessage="Make default"
+                description="Make the folder default"
+              />
+            }
+          />
+        </MenuItem>
       </Menu>
 
       {/* "Edit" dialog */}
@@ -364,7 +389,7 @@ const ProjectActions = ({
         }
         onProceed={handleUpdate}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         onCancel={handleClose}
       />
 
@@ -394,7 +419,7 @@ const ProjectActions = ({
         }
         onProceed={handleDelete}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         onCancel={handleClose}
       />
 
@@ -458,7 +483,39 @@ const ProjectActions = ({
         }
         onProceed={handleProceedPrivacy}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        onCancel={handleClose}
+      />
+
+      {/* "Make default" dialog */}
+      <ConfirmProceedDialog
+        open={makeDefaultDialog}
+        title={
+          <FormattedMessage
+            id="projectsComponent.makeDefault"
+            defaultMessage="Make default"
+            description="Make the folder default"
+          />
+        }
+        body={
+          <Typography variant="body1" component="p" paragraph>
+            <FormattedMessage
+              id="projectsComponent.makeDefaultDescription"
+              defaultMessage="Make default description"
+              description="Make the folder default description"
+            />
+          </Typography>
+        }
+        proceedLabel={
+          <FormattedMessage
+            id="projectsComponent.makeDefault"
+            defaultMessage="Make default"
+            description="Make the folder default"
+          />
+        }
+        onProceed={handleMakeDefault}
+        isSaving={saving}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         onCancel={handleClose}
       />
     </Can>
