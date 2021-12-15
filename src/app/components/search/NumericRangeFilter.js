@@ -62,7 +62,7 @@ const NumericRangeFilter = ({
       setMaxNumber(keyValue);
       range.max = keyValue;
     }
-    if (range.max !== '' && range.min > range.max) {
+    if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
       setShowErrorMsg(true);
     } else {
       setShowErrorMsg(false);
