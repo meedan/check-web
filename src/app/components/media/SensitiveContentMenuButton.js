@@ -37,7 +37,9 @@ const SensitiveContentMenu = ({
     if (dynamic_annotation_flag.data.custom) {
       sortable = sortable.concat([...Object.entries(dynamic_annotation_flag.data.custom)]);
     }
-    sortable = sortable.concat([...Object.entries(dynamic_annotation_flag.data.flags)]);
+    const filteredFlags = {};
+    ['adult', 'medical', 'violence'].forEach((key) => { filteredFlags[key] = dynamic_annotation_flag.data.flags[key]; });
+    sortable = sortable.concat([...Object.entries(filteredFlags)]);
     sortable.sort((a, b) => b[1] - a[1]);
     const type = sortable[0];
     [warningType] = type;
