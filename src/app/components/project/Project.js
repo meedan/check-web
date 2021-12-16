@@ -122,7 +122,11 @@ class ProjectComponent extends React.PureComponent {
                 deleteMessage={
                   <FormattedMessage
                     id="project.deleteMessage"
-                    defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
+                    defaultMessage="{mediasCount, plural, one {There is 1 item in the {folderTitle} folder. Please choose a destination folder: } other { There are # items in the {folderTitle} folder. Please choose a destination folder:}}"
+                    values={{
+                      mediasCount: project.medias_count,
+                      folderTitle: project.title,
+                    }}
                   />
                 }
                 deleteMutation={graphql`

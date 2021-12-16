@@ -69,9 +69,13 @@
     "defaultMessage": "Description"
   },
   {
-    "id": "projectsComponent.deleteType",
-    "description": "'Delete' here is an infinitive verb, and 'type' can be collection, folder or list",
-    "defaultMessage": "Delete {type}"
+    "id": "bulkActions.dialogMoveTitle",
+    "defaultMessage": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
+  },
+  {
+    "id": "projectActions.moveTitle",
+    "description": "Label for button to move items and delete folder",
+    "defaultMessage": "Move items and delete folder"
   },
   {
     "id": "projectsComponent.privacyDialogTitle",

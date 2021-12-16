@@ -20,6 +20,7 @@ import SettingsHeader from '../../team/SettingsHeader';
 import { withSetFlashMessage } from '../../FlashMessage';
 import Can from '../../Can'; // eslint-disable-line import/no-duplicates
 import { can } from '../../Can'; // eslint-disable-line import/no-duplicates
+import SelectProjectDialog from '../../media/SelectProjectDialog';
 import { units } from '../../../styles/js/shared';
 import globalStrings from '../../../globalStrings';
 
@@ -45,7 +46,6 @@ const ProjectActions = ({
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
   const [makeDefaultDialog, setMakeDefaultDialog] = React.useState(object.privacy);
   const { team, permissions: projectPermissions } = object;
-  console.log('object', object); // eslint-disable-line no-console
 
   const privacyMessages = [
     <FormattedMessage id="projectActions.privacyMessageAll" defaultMessage="Anyone can see this folder, access its content and annotate it." />,
@@ -125,7 +125,7 @@ const ProjectActions = ({
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = (dstProj) => {
     setSaving(true);
 
     commitMutation(Store, {
@@ -133,6 +133,7 @@ const ProjectActions = ({
       variables: {
         input: {
           id: object.id,
+          items_destination_project_id: dstProj.dbid,
         },
       },
       onCompleted: (response, error) => {
@@ -140,7 +141,7 @@ const ProjectActions = ({
           handleError();
         } else {
           handleSuccess(response);
-          browserHistory.push(`/${team.slug}/all-items`);
+          browserHistory.push(`/${team.slug}/project/${dstProj.dbid}`);
         }
       },
       onError: () => {
@@ -194,13 +195,6 @@ const ProjectActions = ({
               permissions
               privacy
               project_group_id
-              team {
-                default_folder {
-                  id
-                  is_default
-                  permissions
-                }
-              }
             }
             project_group_was {
               id
@@ -394,32 +388,29 @@ const ProjectActions = ({
       />
 
       {/* "Delete" dialog */}
-      <ConfirmProceedDialog
+      <SelectProjectDialog
         open={showDeleteDialog}
+        excludeProjectDbids={object ? [object.dbid] : []}
         title={
           <FormattedMessage
-            id="projectsComponent.deleteType"
-            defaultMessage="Delete {type}"
-            values={{ type: name }}
-            description="'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+            id="bulkActions.dialogMoveTitle"
+            defaultMessage="{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
+            values={{
+              mediasCount: object.medias_count,
+            }}
           />
         }
-        body={
-          <Typography variant="body1" component="p" paragraph>
-            {deleteMessage}
-          </Typography>
-        }
-        proceedLabel={
-          <FormattedMessage
-            id="projectsComponent.deleteType"
-            defaultMessage="Delete {type}"
-            values={{ type: name }}
-            description="'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
-          />
-        }
-        onProceed={handleDelete}
-        isSaving={saving}
+        extraContent={deleteMessage}
         cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        submitLabel={
+          <FormattedMessage
+            id="projectActions.moveTitle"
+            defaultMessage="Move items and delete folder"
+            description="Label for button to move items and delete folder"
+          />
+        }
+        submitButtonClassName="media-bulk-actions__move-button"
+        onSubmit={handleDelete}
         onCancel={handleClose}
       />
 

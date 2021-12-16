@@ -15,6 +15,7 @@ import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -37,6 +38,7 @@ function SelectProjectDialog({
   itemProjectDbid,
   showManualOrAutoOptions,
   title,
+  extraContent,
   cancelLabel,
   submitLabel,
   submitButtonClassName,
@@ -105,6 +107,12 @@ function SelectProjectDialog({
     <Dialog open={open} onClose={onCancel} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
+        { extraContent ?
+            <Box py={2}>
+              <Typography variant="body1" component="p" paragraph>
+                {extraContent}
+              </Typography>
+            </Box>: null }
         <Autocomplete
           options={filteredProjects}
           autoHighlight
