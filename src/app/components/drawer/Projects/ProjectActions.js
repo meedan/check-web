@@ -44,7 +44,7 @@ const ProjectActions = ({
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
-  const [makeDefaultDialog, setMakeDefaultDialog] = React.useState(object.privacy);
+  const [makeDefaultDialog, setMakeDefaultDialog] = React.useState(false);
   const { team, permissions: projectPermissions } = object;
 
   const privacyMessages = [
