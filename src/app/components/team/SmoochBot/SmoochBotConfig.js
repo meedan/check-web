@@ -277,6 +277,7 @@ const SmoochBotConfig = (props) => {
                   installationId={props.installationId}
                   newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
                   newsletterInformation={props.newsletterInformation[currentLanguage]}
+                  newsletterHeader={settings[`smooch_template_newsletter_header_${currentLanguage}`]}
                   onChange={handleChangeNewsletter}
                   teamName={props.teamName}
                 /> : null }
@@ -291,6 +292,7 @@ const SmoochBotConfig = (props) => {
           onChange={handleUpdateSetting}
           enabledIntegrations={props.enabledIntegrations}
           installationId={props.installationId}
+          languages={languages}
         /> : null }
     </React.Fragment>
   );
