@@ -97,11 +97,7 @@ shared_examples 'annotation' do
   end
 
   it 'should add, and answer a single choice annotation', bin5: true do
-    api_create_team_project_metadata_and_media({
-      url: @media_url,
-      type: 'single_choice',
-      options: '[{"label": "Foo"}, {"label": "Bar"}]',
-    })
+    api_create_team_project_metadata_and_media({ url: @media_url, type: 'single_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')
@@ -118,11 +114,7 @@ shared_examples 'annotation' do
   end
 
   it 'should add, and answer a multiple choice annotation', bin4: true do
-    api_create_team_project_metadata_and_media({
-      url: @media_url,
-      type: 'multiple_choice',
-      options: '[{"label": "Foo"}, {"label": "Bar"}]'
-    })
+    api_create_team_project_metadata_and_media({ url: @media_url, type: 'multiple_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')
