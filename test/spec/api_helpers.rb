@@ -55,7 +55,7 @@ module ApiHelpers
     quit = params[:quit] || false
     quote = params[:quote] || 'Claim'
     project_id = params[:project_id] || 0
-    data = api_create_team_and_project
+    data = api_create_team_and_project(params)
     project_id = data[:project].dbid if project_id.to_i.zero?
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
     claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{claim.id}" if project_id
@@ -66,7 +66,7 @@ module ApiHelpers
   def api_create_team_project_claims_sources_and_redirect_to_project_page(params = {})
     count = params[:count]
     project_id = params[:project_id] || 0
-    data = api_create_team_and_project
+    data = api_create_team_and_project(params)
     project_id_was = project_id
     project_id = data[:project].dbid if project_id.to_i.zero?
     count.times do |i|
@@ -84,8 +84,8 @@ module ApiHelpers
 
   def api_create_team_project_and_link(params = {})
     url = params[:url] || @media_url
-    project_id = params[:project_id] | 0
-    data = api_create_team_and_project
+    project_id = params[:project_id] || 0
+    data = api_create_team_and_project(params)
     project_id = data[:project].dbid if project_id.to_i.zero?
     link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
     link.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{link.id}" if project_id
@@ -140,7 +140,7 @@ module ApiHelpers
   def api_create_team_project_and_source(params = {})
     name = params[:name]
     url = params[:url]
-    data = api_create_team_and_project
+    data = api_create_team_and_project(params)
     request_api 'source', { url: url, name: name, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
 
@@ -168,7 +168,7 @@ module ApiHelpers
   end
 
   def api_create_media(params = {})
-    data = params[:data] || api_create_team_and_project
+    data = params[:data] || api_create_team_and_project(params)
     url = params[:url] || @media_url
     request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
@@ -185,14 +185,14 @@ module ApiHelpers
     url = params[:url] || nil
     type = params[:type] || 'free_text'
     options = params[:options] || '[]'
-    data = api_create_team_and_project
+    data = api_create_team_and_project(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
     request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
   end
 
   def api_create_claim(params = {})
-    data = params[:data] || api_create_team_and_project
+    data = params[:data] || api_create_team_and_project(params)
     quote = params[:quote] || 'Claim'
     request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
