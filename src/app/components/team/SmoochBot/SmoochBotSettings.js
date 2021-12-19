@@ -1,46 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import InputLabel from '@material-ui/core/InputLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import Chip from '@material-ui/core/Chip';
+import { FormattedMessage } from 'react-intl';
+import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
 import SmoochBotIntegrations from './SmoochBotIntegrations';
-
-const useStyles = makeStyles(theme => ({
-  field: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  chip: {
-    margin: `0 ${theme.spacing(1)}px 0 ${theme.spacing(1)}px`,
-  },
-}));
+import SmoochBotSetting from './SmoochBotSetting';
 
 const SmoochBotSettings = (props) => {
-  const classes = useStyles();
-
-  const handleChange = (key, value) => {
-    props.onChange(key, value);
-  };
-
-  // Some critical settings fields should be available only to admins
-  // Facebook and Twitter authorization URLs are rendered as buttons on the top, not form fields
-  const shouldHide = (field) => {
-    if (field === 'smooch_facebook_authorization_url' || field === 'smooch_twitter_authorization_url') {
-      return true;
-    }
-    const whitelist = ['smooch_disabled', 'smooch_project_id', 'smooch_urls_to_ignore'];
-    if (whitelist.indexOf(field) > -1 || props.currentUser.is_admin) {
-      return false;
-    }
-    return true;
-  };
+  // Besides the settings defined in the schema, we add one newsletter template header setting for each language.
+  // This is not defined in the schema on the backend side because it depends on the supported languages and also because it's used only on the UI.
+  const fields = props.schema;
+  props.languages.forEach((language) => {
+    fields[`smooch_template_newsletter_header_${language}`] = {
+      type: 'string',
+      title: `${language.toUpperCase()} newsletter header`,
+      description: '',
+      default: 'Hi! Here are your weekly facts. This newsletter is published on {channel} by {teamName}. Here are the most important facts for the week of {date}:',
+    };
+  });
 
   return (
     <React.Fragment>
@@ -51,113 +28,99 @@ const SmoochBotSettings = (props) => {
         installationId={props.installationId}
       />
 
-      {Object.keys(props.schema).map((field) => {
-        const value = props.settings[field];
-        const schema = props.schema[field];
+      {['smooch_urls_to_ignore', 'smooch_time_to_send_request', 'smooch_disabled'].map(field => (
+        <SmoochBotSetting
+          field={field}
+          value={props.settings[field]}
+          schema={fields[field]}
+          onChange={props.onChange}
+        />
+      ))}
 
-        if (shouldHide(field)) {
-          return null;
-        }
+      { props.currentUser.is_admin ?
+        <Box mt={2}>
+          <Typography variant="h6" component="div">
+            <FormattedMessage id="smoochBotSettings.internalSettings" defaultMessage="Internal settings" description="Title of Internal Settings section in the tipline settings page" />
+          </Typography>
 
-        if (schema.type === 'boolean') {
-          return (
-            <React.Fragment key={`${field}-${value}`}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    defaultChecked={value || schema.default}
-                    onChange={(event) => { handleChange(field, event.target.checked); }}
-                  />
-                }
-                label={schema.title}
+          <Typography variant="subtitle1" component="div">
+            <FormattedMessage id="smoochBotSettings.internalSettingsDescription" defaultMessage="Meedan employees see these settings, but users don't." description="Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated." />
+          </Typography>
+
+          <Box mt={1}>
+            <Typography variant="subtitle1" component="div">
+              <FormattedMessage id="smoochBotSettings.sunshineSettings" defaultMessage="Sunshine integration settings" description="Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated." />
+            </Typography>
+
+            {['smooch_app_id', 'smooch_secret_key_key_id', 'smooch_secret_key_secret', 'smooch_webhook_secret'].map(field => (
+              <SmoochBotSetting
+                field={field}
+                value={props.settings[field]}
+                schema={fields[field]}
+                onChange={props.onChange}
+                currentUser={props.currentUser}
               />
-              <FormHelperText>{schema.description}</FormHelperText>
-            </React.Fragment>
-          );
-        }
+            ))}
+          </Box>
 
-        if (schema.type === 'array') {
-          const options = schema.items.enum;
-          if (value) {
-            value.forEach((selectedValue) => {
-              if (options.indexOf(selectedValue) === -1) {
-                options.push(selectedValue);
-              }
-            });
-          }
-          return (
-            <FormControl key={`${field}-${value}`} variant="outlined" fullWidth>
-              <InputLabel>{schema.title}</InputLabel>
-              <Select
-                label={schema.title}
-                value={value || []}
-                onChange={(event) => { handleChange(field, event.target.value); }}
-                renderValue={selectedValues => (
-                  <div>
-                    { selectedValues.map(selectedValue => (
-                      <Chip key={selectedValue} label={selectedValue} className={classes.chip} />
-                    ))}
-                  </div>
-                )}
-                variant="outlined"
-                multiple
-                fullWidth
-              >
-                {options.map(option => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </Select>
-              <FormHelperText>{schema.description}</FormHelperText>
-            </FormControl>
-          );
-        }
+          <Box mt={1}>
+            <Typography variant="subtitle1" component="div">
+              <FormattedMessage id="smoochBotSettings.templatesSettings" defaultMessage="Templates settings" description="Title of templates settings section in the tipline settings page." />
+            </Typography>
 
-        const otherProps = {};
-        const inputProps = {};
+            {['smooch_template_namespace', 'smooch_template_locales'].map(field => (
+              <SmoochBotSetting
+                field={field}
+                value={props.settings[field]}
+                schema={fields[field]}
+                onChange={props.onChange}
+                currentUser={props.currentUser}
+              />
+            ))}
 
-        if (schema.type === 'readonly') {
-          otherProps.disabled = true;
-        }
+            {Object.keys(fields).filter(f => /^smooch_template_newsletter_header_/.test(f)).map(field => (
+              <SmoochBotSetting
+                field={field}
+                value={props.settings[field]}
+                schema={fields[field]}
+                onChange={props.onChange}
+                currentUser={props.currentUser}
+              />
+            ))}
 
-        if (schema.type === 'number') {
-          otherProps.type = 'number';
-          inputProps.step = 5;
-          inputProps.min = 10;
-        }
+            {Object.keys(fields).filter(f => /^smooch_template_name_for_/.test(f)).map(field => (
+              <SmoochBotSetting
+                field={field}
+                value={props.settings[field]}
+                schema={fields[field]}
+                onChange={props.onChange}
+                currentUser={props.currentUser}
+              />
+            ))}
+          </Box>
 
-        if (field === 'smooch_urls_to_ignore') {
-          Object.assign(otherProps, {
-            rows: 5,
-            rowsMax: Infinity,
-            multiline: true,
-          });
-        }
+          <Box mt={1}>
+            <Typography variant="subtitle1" component="div">
+              <FormattedMessage id="smoochBotSettings.bspSettings" defaultMessage="WhatsApp BSP settings" description="Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated." />
+            </Typography>
 
-        return (
-          <TextField
-            key={`${field}-${value}`}
-            label={schema.title}
-            defaultValue={value || schema.default}
-            className={classes.field}
-            onBlur={(event) => {
-              let newValue = event.target.value.trim();
-              if (schema.type === 'number') {
-                newValue = parseInt(newValue, 10);
-              }
-              handleChange(field, newValue);
-            }}
-            helperText={schema.description}
-            variant="outlined"
-            fullWidth
-            inputProps={inputProps}
-            {...otherProps}
-          />
-        );
-      })}
+            {Object.keys(fields).filter(f => /^turnio_/.test(f)).map(field => (
+              <SmoochBotSetting
+                field={field}
+                value={props.settings[field]}
+                schema={fields[field]}
+                onChange={props.onChange}
+                currentUser={props.currentUser}
+              />
+            ))}
+          </Box>
+        </Box> : null }
     </React.Fragment>
   );
+};
+
+SmoochBotSettings.defaultProps = {
+  languages: [],
 };
 
 SmoochBotSettings.propTypes = {
@@ -167,6 +130,7 @@ SmoochBotSettings.propTypes = {
   onChange: PropTypes.func.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   installationId: PropTypes.string.isRequired,
+  languages: PropTypes.array,
 };
 
 export default SmoochBotSettings;
