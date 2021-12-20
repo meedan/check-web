@@ -423,15 +423,7 @@ const SmoochBotNewsletterEditor = ({
               <Box mt={1} mb={1} className={classes.textField}>
                 <Box p={1}>
                   <Typography>
-                    <FormattedMessage
-                      id="smoochBotNewsletterEditor.templateHeaderRss"
-                      defaultMessage="Hi! Here are your weekly facts. This newsletter is published on <channel> by {teamName}. Here are the most important facts for the week of {date}:"
-                      description="In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-                      values={{
-                        teamName,
-                        date: new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }),
-                      }}
-                    />
+                    {newsletterHeader.replace('{teamName}', teamName).replace('{date}', new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }))}
                   </Typography>
                 </Box>
                 <Divider />
