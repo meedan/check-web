@@ -51,8 +51,11 @@ module ApiHelpers
     { project: project, user: user, team: team }
   end
 
-  def api_create_team_project_and_claim(quit = false, quote = 'Claim', project_id = 0)
-    data = api_create_team_and_project
+  def api_create_team_project_and_claim(params = {})
+    quit = params[:quit] || false
+    quote = params[:quote] || 'Claim'
+    project_id = params[:project_id] || 0
+    data = api_create_team_and_project(params)
     project_id = data[:project].dbid if project_id.to_i.zero?
     claim = request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
     claim.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{claim.id}" if project_id
@@ -60,8 +63,10 @@ module ApiHelpers
     claim
   end
 
-  def api_create_team_project_claims_sources_and_redirect_to_project_page(count, project_id = 0)
-    data = api_create_team_and_project
+  def api_create_team_project_claims_sources_and_redirect_to_project_page(params = {})
+    count = params[:count]
+    project_id = params[:project_id] || 0
+    data = api_create_team_and_project(params)
     project_id_was = project_id
     project_id = data[:project].dbid if project_id.to_i.zero?
     count.times do |i|
@@ -77,8 +82,10 @@ module ApiHelpers
     end
   end
 
-  def api_create_team_project_and_link(url = @media_url, project_id = 0)
-    data = api_create_team_and_project
+  def api_create_team_project_and_link(params = {})
+    url = params[:url] || @media_url
+    project_id = params[:project_id] || 0
+    data = api_create_team_and_project(params)
     project_id = data[:project].dbid if project_id.to_i.zero?
     link = request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: project_id }
     link.full_url = "#{@config['self_url']}/#{data[:team].slug}/project/#{project_id}/media/#{link.id}" if project_id
@@ -89,8 +96,10 @@ module ApiHelpers
   #
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
-  def api_create_team_project_and_link_and_redirect_to_media_page(url = @media_url, project_id = 0)
-    media = api_create_team_project_and_link url, project_id
+  def api_create_team_project_and_link_and_redirect_to_media_page(params = {})
+    url = params[:url] || @media_url
+    project_id = params[:project_id] || 0
+    media = api_create_team_project_and_link({ url: url, project_id: project_id })
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
   end
@@ -99,8 +108,10 @@ module ApiHelpers
   #
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
-  def api_create_team_project_and_claim_and_redirect_to_media_page(quote = 'Claim', project_id = 0)
-    media = api_create_team_project_and_claim false, quote, project_id
+  def api_create_team_project_and_claim_and_redirect_to_media_page(params = {})
+    quote = params[:quote] || 'Claim'
+    project_id = params[:project_id] || 0
+    media = api_create_team_project_and_claim({ quit: false, quote: quote, project_id: project_id })
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
   end
@@ -114,7 +125,7 @@ module ApiHelpers
   end
 
   def api_create_claim_and_go_to_search_page
-    media = api_create_team_project_and_claim(false, 'My search result')
+    media = api_create_team_project_and_claim({ quit: false, quote: 'My search result' })
     @driver.navigate.to media.full_url
 
     sleep 10 # wait for Sidekiq
@@ -126,13 +137,17 @@ module ApiHelpers
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  def api_create_team_project_and_source(name, url)
-    data = api_create_team_and_project
+  def api_create_team_project_and_source(params = {})
+    name = params[:name]
+    url = params[:url]
+    data = api_create_team_and_project(params)
     request_api 'source', { url: url, name: name, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
 
-  def api_create_team_project_and_source_and_redirect_to_source(name, url)
-    source = api_create_team_project_and_source(name, url)
+  def api_create_team_project_and_source_and_redirect_to_source(params = {})
+    name = params[:name]
+    url = params[:url]
+    source = api_create_team_project_and_source({ name: name, url: url })
     @driver.navigate.to source.full_url
     sleep 2
     source
@@ -153,7 +168,7 @@ module ApiHelpers
   end
 
   def api_create_media(params = {})
-    data = params[:data] || api_create_team_and_project
+    data = params[:data] || api_create_team_and_project(params)
     url = params[:url] || @media_url
     request_api 'link', { url: url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
@@ -166,15 +181,18 @@ module ApiHelpers
     request_api 'bot', {}
   end
 
-  def api_create_team_project_metadata_and_media(url = nil, type = 'free_text', options = '[]')
-    data = api_create_team_and_project
+  def api_create_team_project_metadata_and_media(params = {})
+    url = params[:url] || nil
+    type = params[:type] || 'free_text'
+    options = params[:options] || '[]'
+    data = api_create_team_and_project(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
     request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
   end
 
   def api_create_claim(params = {})
-    data = params[:data] || api_create_team_and_project
+    data = params[:data] || api_create_team_and_project(params)
     quote = params[:quote] || 'Claim'
     request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
   end
