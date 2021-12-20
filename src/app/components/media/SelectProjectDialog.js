@@ -79,10 +79,12 @@ function SelectProjectDialog({
   let itemFolder = null;
   if (showManualOrAutoOptions) {
     itemFolder = projects.filter(({ dbid }) => dbid === itemProjectDbid);
+  } else {
+    itemFolder = projects.filter(({ dbid }) => dbid === team.default_folder.dbid);
   }
   const [userInput, setUserInput] = React.useState('ITEM_FOLDER');
   const [disableSelection, setDisableSelection] = React.useState(showManualOrAutoOptions);
-  const [value, setValue] = React.useState(itemFolder);
+  const [value, setValue] = React.useState(itemFolder[0]);
   const handleSubmit = React.useCallback(() => {
     setValue(null);
     onSubmit(value);
@@ -204,6 +206,10 @@ const SelectProjectDialogRenderer = (parentProps) => {
             id
             dbid
             name
+            default_folder {
+              id
+              dbid
+            }
             projects(first: 10000) {
               edges {
                 node {

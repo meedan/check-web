@@ -27,6 +27,7 @@ import globalStrings from '../../../globalStrings';
 const ProjectActions = ({
   name,
   object,
+  objectType,
   updateMutation,
   deleteMutation,
   deleteMessage,
@@ -41,6 +42,7 @@ const ProjectActions = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showEditDialog, setShowEditDialog] = React.useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
+  const [showDeleteProjectDialog, setShowDeleteProjectDialog] = React.useState(false);
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
@@ -62,6 +64,7 @@ const ProjectActions = ({
     setAnchorEl(null);
     setShowEditDialog(false);
     setShowDeleteDialog(false);
+    setShowDeleteProjectDialog(false);
     setShowMoveDialog(false);
     setShowPrivacyDialog(false);
   };
@@ -138,7 +141,7 @@ const ProjectActions = ({
           handleError();
         } else {
           handleSuccess(response);
-          const retPath = dstProj ? `/${team.slug}/project/${dstProj.dbid}` : `/${team.slug}/all-items`;
+          const retPath = objectType === 'Project' && dstProj ? `/${team.slug}/project/${dstProj.dbid}` : `/${team.slug}/all-items`;
           browserHistory.push(retPath);
         }
       },
@@ -245,12 +248,19 @@ const ProjectActions = ({
   };
 
   const handleDeleteClick = () => {
-    if (object.medias_count === 0) {
-      handleDelete();
+    if (objectType === 'Project') {
+      if (object.medias_count === 0) {
+        handleDelete();
+      } else {
+        setShowDeleteProjectDialog(true);
+      }
     } else {
       setShowDeleteDialog(true);
     }
   };
+
+  // Should disable delete from objectType = 'Project' if user has no permissions to destroy
+  const disableDeleteProject = objectType === 'Project' && !can(projectPermissions, 'destroy Project');
 
   return (
     <Can permissions={team.permissions} permission="create Project">
@@ -279,7 +289,7 @@ const ProjectActions = ({
             }
           />
         </MenuItem>
-        <MenuItem disabled={!can(projectPermissions, 'destroy Project')} className="project-actions__destroy" onClick={handleDeleteClick}>
+        <MenuItem disabled={disableDeleteProject} className="project-actions__destroy" onClick={handleDeleteClick}>
           <ListItemText
             primary={
               <FormattedMessage
@@ -327,17 +337,18 @@ const ProjectActions = ({
               }
             />
           </MenuItem> : null }
-        <MenuItem disabled={object.is_default} className="project-make_default" onClick={handleMakeDefault}>
-          <ListItemText
-            primary={
-              <FormattedMessage
-                id="projectActions.makeDefault"
-                defaultMessage="Make default"
-                description="Make the folder default"
-              />
-            }
-          />
-        </MenuItem>
+        { objectType === 'Project' ?
+          <MenuItem disabled={object.is_default} className="project-make_default" onClick={handleMakeDefault}>
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  id="projectActions.makeDefault"
+                  defaultMessage="Make default"
+                  description="Make the folder default"
+                />
+              }
+            />
+          </MenuItem> : null }
       </Menu>
 
       {/* "Edit" dialog */}
@@ -402,8 +413,38 @@ const ProjectActions = ({
       />
 
       {/* "Delete" dialog */}
-      <SelectProjectDialog
+      <ConfirmProceedDialog
         open={showDeleteDialog}
+        title={
+          <FormattedMessage
+            id="projectsComponent.deleteType"
+            defaultMessage="Delete {type}"
+            values={{ type: name }}
+            description="'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+          />
+        }
+        body={
+          <Typography variant="body1" component="p" paragraph>
+            {deleteMessage}
+          </Typography>
+        }
+        proceedLabel={
+          <FormattedMessage
+            id="projectsComponent.deleteType"
+            defaultMessage="Delete {type}"
+            values={{ type: name }}
+            description="'Delete' here is an infinitive verb, and 'type' can be collection, folder or list"
+          />
+        }
+        onProceed={handleDelete}
+        isSaving={saving}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        onCancel={handleClose}
+      />
+
+      {/* "Delete" Project dialog */}
+      <SelectProjectDialog
+        open={showDeleteProjectDialog}
         excludeProjectDbids={object ? [object.dbid] : []}
         title={
           <FormattedMessage
@@ -516,6 +557,7 @@ ProjectActions.propTypes = {
       permissions: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  objectType: PropTypes.string.isRequired,
   updateMutation: PropTypes.object.isRequired,
   deleteMutation: PropTypes.object.isRequired,
   deleteMessage: PropTypes.object.isRequired,
