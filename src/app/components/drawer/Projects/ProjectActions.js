@@ -194,6 +194,11 @@ const ProjectActions = ({
               privacy
               project_group_id
             }
+            previous_default_project {
+              id
+              is_default
+              permissions
+            }
             project_group_was {
               id
               medias_count
@@ -233,7 +238,10 @@ const ProjectActions = ({
   };
 
   const handleMakeDefault = () => {
-    handleUpdateProject({ is_default: true });
+    handleUpdateProject({
+      is_default: true,
+      previous_default_project_id: team.default_folder.dbid,
+    });
   };
 
   const handleDeleteClick = () => {
