@@ -1,31 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import Box from '@material-ui/core/Box';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import FormControl from '@material-ui/core/FormControl';
-import IconButton from '@material-ui/core/IconButton';
-import InputLabel from '@material-ui/core/InputLabel';
-import TextField from '@material-ui/core/TextField';
-import ClearIcon from '@material-ui/icons/Clear';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import AddIcon from '@material-ui/icons/Add';
-import ShortTextIcon from '@material-ui/icons/ShortText';
-import LocationIcon from '@material-ui/icons/LocationOn';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import {
+  Box,
+  Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  IconButton,
+  InputLabel,
+  ListItemIcon,
+  MenuItem,
+  Select,
+  TextField,
+} from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import {
+  Add as AddIcon,
+  CheckBox as CheckBoxIcon,
+  CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
+  Clear as ClearIcon,
+  CloudUpload as CloudUploadIcon,
+  DateRange as DateRangeIcon,
+  LocationOn as LocationIcon,
+  RadioButtonChecked as RadioButtonCheckedIcon,
+  RadioButtonUnchecked as RadioButtonUncheckedIcon,
+  ShortText as ShortTextIcon,
+} from '@material-ui/icons';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
@@ -74,6 +81,9 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
   },
+  autocomplete: {
+    marginTop: units(2),
+  },
 };
 
 class EditTaskDialog extends React.Component {
@@ -93,6 +103,8 @@ class EditTaskDialog extends React.Component {
       editLabelOrDescription: false,
       hasOther: task ? task.options?.some(option => option.other) : false,
       preventChangeTaskType: task && task.tasks_with_answers_count > 0,
+      restrictTimezones: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.restrictTimezones,
+      alwaysShowTime: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.alwaysShowTime,
     };
   }
 
@@ -190,7 +202,13 @@ class EditTaskDialog extends React.Component {
     const { task } = this.props;
     let options = task ? task.options : [{ label: '' }, { label: '' }];
     if (taskType === 'datetime') {
-      options = [{ code: 'UTC', label: 'UTC (0 GMT)', offset: 0 }];
+      options = [{
+        code: 'UTC',
+        label: 'UTC (0 GMT)',
+        offset: 0,
+        restrictTimezones: false,
+        alwaysShowTime: false,
+      }];
     }
     this.setState(
       { taskType, options },
@@ -360,8 +378,8 @@ class EditTaskDialog extends React.Component {
         label: (
           <FormattedMessage
             id="tasks.dateTimeType"
-            defaultMessage="Date and time"
-            description="Label for datetime type field"
+            defaultMessage="Date"
+            description="Label for date type field"
           />
         ),
         value: 'datetime',
@@ -369,8 +387,8 @@ class EditTaskDialog extends React.Component {
         description: (
           <FormattedMessage
             id="tasks.datetimeDescription"
-            defaultMessage="Allows you to pick a date and time from the calendar"
-            description="Description for datetime type field"
+            defaultMessage="Allows you to pick a date from the calendar"
+            description="Description for date type field"
           />
         ),
       },
@@ -538,32 +556,90 @@ class EditTaskDialog extends React.Component {
           }
           { this.props.isTeamTask && this.state.taskType === 'datetime' ?
             <Box mt={2}>
-              <Box mb={4}>
-                <Divider />
-              </Box>
-              <Autocomplete
-                multiple
-                options={Object.values(timezones)}
-                getOptionLabel={option => option.label}
-                defaultValue={this.state.options}
-                filterSelectedOptions
-                onChange={(event, newValue) => {
-                  this.setState({ options: newValue });
-                  this.validateTask(this.state.label, newValue);
-                }}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    variant="outlined"
-                    label={
-                      <FormattedMessage
-                        id="tasks.timezones"
-                        defaultMessage="Timezones available to complete the task"
-                      />
-                    }
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    name="checkedB"
+                    color="primary"
+                    checked={this.state.alwaysShowTime}
+                    onChange={() => {
+                      const alwaysShowTime = !this.state.alwaysShowTime;
+                      const option = Object.assign({}, this.state.options[0]);
+                      option.alwaysShowTime = alwaysShowTime;
+                      const options = [...this.state.options];
+                      options[0] = option;
+                      this.setState({
+                        options,
+                        alwaysShowTime,
+                        restrictTimezones: this.state.restrictTimezones,
+                      });
+                    }}
                   />
-                )}
+                }
+                label={this.props.intl.formatMessage({
+                  id: 'tasks.alwaysShowTime',
+                  defaultMessage: 'Always show time field',
+                  description: 'A label next to a check box. If the box is checked, the form element being created will always show the time (in addition to the date).',
+                })}
               />
+              <br />
+              <FormControl>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      name="checkedB"
+                      color="primary"
+                      checked={this.state.restrictTimezones}
+                      onChange={() => {
+                        const restrictTimezones = !this.state.restrictTimezones;
+                        const option = Object.assign({}, this.state.options[0]);
+                        option.restrictTimezones = restrictTimezones;
+                        const options = [...this.state.options];
+                        options[0] = option;
+                        this.setState({
+                          restrictTimezones,
+                          options,
+                          alwaysShowTime: this.state.alwaysShowTime,
+                        });
+                      }}
+                    />
+                  }
+                  label={this.props.intl.formatMessage({
+                    id: 'tasks.restrictTimezones',
+                    defaultMessage: 'Restrict timezones',
+                    description: 'A label next to a check box. If the box is checked, the user will be only be allowed to use certain time zones when they fill out this form.',
+                  })}
+                />
+                <FormHelperText>Allow users to select from specific timezones.</FormHelperText>
+              </FormControl>
+              {
+                this.state.restrictTimezones ? (
+                  <Autocomplete
+                    classes={{ root: classes.autocomplete }}
+                    multiple
+                    options={Object.values(timezones)}
+                    getOptionLabel={option => option.label}
+                    defaultValue={this.state.options}
+                    filterSelectedOptions
+                    onChange={(event, newValue) => {
+                      this.setState({ options: newValue });
+                      this.validateTask(this.state.label, newValue);
+                    }}
+                    renderInput={params => (
+                      <TextField
+                        {...params}
+                        variant="outlined"
+                        label={
+                          <FormattedMessage
+                            id="tasks.timezones"
+                            defaultMessage="Timezones available to complete the task"
+                          />
+                        }
+                      />
+                    )}
+                  />
+                ) : null
+              }
             </Box>
             : null
           }
