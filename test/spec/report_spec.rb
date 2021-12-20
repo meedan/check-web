@@ -6,7 +6,7 @@ shared_examples 'report' do
     'Instagram' => 'https://www.instagram.com/p/BRYob0dA1SC/'
   }.each do |provider, url|
     it "should generate a report from #{provider} video", bin1: true do
-      api_create_team_project_and_link_and_redirect_to_media_page(url)
+      api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
       api_install_bot 'smooch'
       wait_for_selector('.media-detail')
       generate_a_report_and_copy_report_code
@@ -20,7 +20,7 @@ shared_examples 'report' do
   end
 
   it 'should generate a report from website link copy the code and insert in a blog', bin3: true do
-    api_create_team_project_and_link_and_redirect_to_media_page('https://meedan.com')
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://meedan.com' })
     api_install_bot 'smooch'
     wait_for_selector('.media-detail')
     generate_a_report_and_copy_report_code
@@ -56,7 +56,7 @@ shared_examples 'report' do
   end
 
   it 'should generate a report, copy the share url and open the report page in a incognito window', bin5: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page('Embed Test')
+    api_create_team_project_and_claim_and_redirect_to_media_page({ quote: 'Embed Test' })
     api_install_bot 'smooch'
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector('.report-designer__actions-copy')

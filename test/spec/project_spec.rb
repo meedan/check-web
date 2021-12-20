@@ -147,7 +147,7 @@ shared_examples 'project' do
   end
 
   it 'should paginate folder page', bin4: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page 51, 0
+    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 51 })
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading')
     wait_for_selector("//span[contains(text(), '1 - 50 / 51')]", :xpath)
@@ -160,7 +160,7 @@ shared_examples 'project' do
   end
 
   it 'should manage custom folder columns', bin4: true do
-    api_create_team_project_metadata_and_media('https://twitter.com/check/status/1255094026497413120')
+    api_create_team_project_metadata_and_media({ url: 'https://twitter.com/check/status/1255094026497413120' })
     wait_for_selector('#create-media__add-item')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(true)
