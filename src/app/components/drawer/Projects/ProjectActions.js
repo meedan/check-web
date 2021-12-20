@@ -44,7 +44,6 @@ const ProjectActions = ({
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
-  const [makeDefaultDialog, setMakeDefaultDialog] = React.useState(false);
   const { team, permissions: projectPermissions } = object;
 
   const privacyMessages = [
@@ -65,7 +64,6 @@ const ProjectActions = ({
     setShowDeleteDialog(false);
     setShowMoveDialog(false);
     setShowPrivacyDialog(false);
-    setMakeDefaultDialog(false);
   };
 
   const handleError = () => {
@@ -128,20 +126,20 @@ const ProjectActions = ({
   const handleDelete = (dstProj) => {
     setSaving(true);
 
+    const input = { id: object.id };
+    if (dstProj) {
+      input.items_destination_project_id = dstProj.dbid;
+    }
     commitMutation(Store, {
       mutation: deleteMutation,
-      variables: {
-        input: {
-          id: object.id,
-          items_destination_project_id: dstProj.dbid,
-        },
-      },
+      variables: { input },
       onCompleted: (response, error) => {
         if (error) {
           handleError();
         } else {
           handleSuccess(response);
-          browserHistory.push(`/${team.slug}/project/${dstProj.dbid}`);
+          const retPath = dstProj ? `/${team.slug}/project/${dstProj.dbid}` : `/${team.slug}/all-items`;
+          browserHistory.push(retPath);
         }
       },
       onError: () => {
@@ -238,6 +236,14 @@ const ProjectActions = ({
     handleUpdateProject({ is_default: true });
   };
 
+  const handleDeleteClick = () => {
+    if (object.medias_count === 0) {
+      handleDelete();
+    } else {
+      setShowDeleteDialog(true);
+    }
+  };
+
   return (
     <Can permissions={team.permissions} permission="create Project">
       <IconButton
@@ -265,7 +271,7 @@ const ProjectActions = ({
             }
           />
         </MenuItem>
-        <MenuItem disabled={!can(projectPermissions, 'destroy Project')} className="project-actions__destroy" onClick={() => { setShowDeleteDialog(true); }}>
+        <MenuItem disabled={!can(projectPermissions, 'destroy Project')} className="project-actions__destroy" onClick={handleDeleteClick}>
           <ListItemText
             primary={
               <FormattedMessage
@@ -313,7 +319,7 @@ const ProjectActions = ({
               }
             />
           </MenuItem> : null }
-        <MenuItem disabled={object.is_default} className="project-make_default" onClick={() => { setMakeDefaultDialog(true); }}>
+        <MenuItem disabled={object.is_default} className="project-make_default" onClick={handleMakeDefault}>
           <ListItemText
             primary={
               <FormattedMessage
@@ -473,38 +479,6 @@ const ProjectActions = ({
           />
         }
         onProceed={handleProceedPrivacy}
-        isSaving={saving}
-        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-        onCancel={handleClose}
-      />
-
-      {/* "Make default" dialog */}
-      <ConfirmProceedDialog
-        open={makeDefaultDialog}
-        title={
-          <FormattedMessage
-            id="projectsComponent.makeDefault"
-            defaultMessage="Make default"
-            description="Make the folder default"
-          />
-        }
-        body={
-          <Typography variant="body1" component="p" paragraph>
-            <FormattedMessage
-              id="projectsComponent.makeDefaultDescription"
-              defaultMessage="Make default description"
-              description="Make the folder default description"
-            />
-          </Typography>
-        }
-        proceedLabel={
-          <FormattedMessage
-            id="projectsComponent.makeDefault"
-            defaultMessage="Make default"
-            description="Make the folder default"
-          />
-        }
-        onProceed={handleMakeDefault}
         isSaving={saving}
         cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         onCancel={handleClose}

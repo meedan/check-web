@@ -47,7 +47,7 @@ module ApiHelpers
     user = params[:user] || api_register_and_login_with_email
     team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(1000).to_i}", email: user.email }
     team_id = team.dbid
-    project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id }
+    project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id, use_default_project: params[:use_default_project] }
     { project: project, user: user, team: team }
   end
 
@@ -109,9 +109,8 @@ module ApiHelpers
   # listIndex is always 0, so this only simulates user behavior when there are
   # no other media in this project.
   def api_create_team_project_and_claim_and_redirect_to_media_page(params = {})
-    quote = params[:quote] || 'Claim'
-    project_id = params[:project_id] || 0
-    media = api_create_team_project_and_claim({ quit: false, quote: quote, project_id: project_id })
+    params.merge!({ quit: false })
+    media = api_create_team_project_and_claim(params)
     @driver.navigate.to "#{media.full_url}?listIndex=0"
     sleep 2
   end

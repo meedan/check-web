@@ -97,15 +97,5 @@
   {
     "id": "projectsComponent.privacyDialogButton",
     "defaultMessage": "Update access"
-  },
-  {
-    "id": "projectsComponent.makeDefault",
-    "description": "Make the folder default",
-    "defaultMessage": "Make default"
-  },
-  {
-    "id": "projectsComponent.makeDefaultDescription",
-    "description": "Make the folder default description",
-    "defaultMessage": "Make default description"
   }
 ]

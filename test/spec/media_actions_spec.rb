@@ -142,7 +142,7 @@ shared_examples 'media actions' do
     claim = 'This is going to be moved'
 
     # Create a couple projects under the same team
-    p1 = api_create_team_and_project
+    p1 = api_create_team_and_project({ use_default_project: true })
     p1url = "#{@config['self_url']}/#{p1[:team].slug}/project/#{p1[:project].dbid}"
     p2 = api_create_project(p1[:team].dbid.to_s)
     p2url = "#{@config['self_url']}/#{p2.team['slug']}/project/#{p2.dbid}"
