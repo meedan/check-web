@@ -68,6 +68,11 @@ const StyledSearchResultsWrapper = styled.div`
         padding-left: 0;
       }
     }
+
+    .search__button-disabled {
+      color: ${black54};
+      cursor: default;
+    }
   }
 `;
 
@@ -509,7 +514,7 @@ function SearchResultsComponent({
                     <PrevIcon />
                   </Link>
                 ) : (
-                  <span className="search__previous-page search__nav">
+                  <span className="search__previous-page search__nav search__button-disabled">
                     <PrevIcon />
                   </span>
                 )}
@@ -546,7 +551,7 @@ function SearchResultsComponent({
                     <NextIcon />
                   </Link>
                 ) : (
-                  <span className="search__next-page search__nav">
+                  <span className="search__next-page search__nav search__button-disabled">
                     <NextIcon />
                   </span>
                 )}
