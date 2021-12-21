@@ -107,6 +107,7 @@ class ProjectComponent extends React.PureComponent {
                 isMoveable
                 hasPrivacySettings
                 object={project}
+                objectType="Project"
                 name={<FormattedMessage id="project.name" defaultMessage="folder" />}
                 updateMutation={graphql`
                   mutation ProjectUpdateProjectMutation($input: UpdateProjectInput!) {
@@ -122,7 +123,11 @@ class ProjectComponent extends React.PureComponent {
                 deleteMessage={
                   <FormattedMessage
                     id="project.deleteMessage"
-                    defaultMessage='The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the "All items" folder'
+                    defaultMessage="{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
+                    values={{
+                      mediasCount: project.medias_count,
+                      folderTitle: project.title,
+                    }}
                   />
                 }
                 deleteMutation={graphql`
@@ -169,6 +174,7 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
         medias_count,
         project_group_id,
         privacy,
+        is_default,
         team {
           id,
           dbid,
@@ -177,6 +183,10 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
           medias_count,
           permissions,
           verification_statuses,
+          default_folder {
+            id
+            dbid
+          }
           public_team {
             id,
             trash_count,

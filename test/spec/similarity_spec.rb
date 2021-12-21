@@ -50,6 +50,7 @@ shared_examples 'similarity' do
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
     wait_for_selector('.media-item__add-button')
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('list')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click
@@ -79,6 +80,7 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     wait_for_selector('.related-media-item__delete-relationship').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('list')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click

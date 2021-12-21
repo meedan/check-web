@@ -104,6 +104,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-status')
     wait_for_selector('#media-actions-bar__restore-confirm-to').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
@@ -126,6 +127,7 @@ shared_examples 'media' do |type|
     wait_for_selector("table input[type='checkbox']").click
     wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
     wait_for_selector('#media-bulk-actions__move-to').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('div[aria-expanded=false]')
