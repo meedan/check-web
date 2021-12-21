@@ -33,12 +33,12 @@ import {
   RadioButtonUnchecked as RadioButtonUncheckedIcon,
   ShortText as ShortTextIcon,
 } from '@material-ui/icons';
+import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
 import ProjectSelector from '../project/ProjectSelector';
 import NumberIcon from '../../icons/NumberIcon';
-import timezones from '../../timezones';
 import {
   units,
   caption,
@@ -46,6 +46,17 @@ import {
   Row,
   alertRed,
 } from '../../styles/js/shared';
+
+const timezones = getTimeZones({ includeUtc: true }).map((option) => {
+  const offset = option.currentTimeOffsetInMinutes / 60;
+  const sign = offset < 0 ? '' : '+';
+  const newOption = {
+    code: option.name,
+    label: `${option.name} (GMT${sign}${offset})`,
+    offset,
+  };
+  return newOption;
+});
 
 const StyledTaskAssignment = styled.div`
   margin-top ${units(2)};
@@ -83,6 +94,9 @@ const styles = {
   },
   autocomplete: {
     marginTop: units(2),
+  },
+  error: {
+    color: '#ff0000',
   },
 };
 
@@ -204,10 +218,8 @@ class EditTaskDialog extends React.Component {
     if (taskType === 'datetime') {
       options = [{
         code: 'UTC',
-        label: 'UTC (0 GMT)',
+        label: 'UTC (GMT +0)',
         offset: 0,
-        restrictTimezones: false,
-        alwaysShowTime: false,
       }];
     }
     this.setState(
@@ -617,7 +629,7 @@ class EditTaskDialog extends React.Component {
                   <Autocomplete
                     classes={{ root: classes.autocomplete }}
                     multiple
-                    options={Object.values(timezones)}
+                    options={timezones}
                     getOptionLabel={option => option.label}
                     defaultValue={this.state.options}
                     filterSelectedOptions
@@ -638,6 +650,11 @@ class EditTaskDialog extends React.Component {
                       />
                     )}
                   />
+                ) : null
+              }
+              {
+                this.state.restrictTimezones && this.state.options.length === 0 ? (
+                  <FormHelperText classes={{ root: classes.error }}>Please include at least one timezone.</FormHelperText>
                 ) : null
               }
             </Box>
