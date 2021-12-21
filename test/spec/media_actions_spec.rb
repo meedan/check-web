@@ -204,6 +204,7 @@ shared_examples 'media actions' do
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector('.media__heading').click
     wait_for_selector('#media-actions-bar__move-to').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click
