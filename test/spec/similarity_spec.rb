@@ -1,7 +1,7 @@
 shared_examples 'similarity' do
   it 'should import, export, list, pin and remove similarity items', bin5: true do
     sleep 5 # wait for the items to be indexed in the Elasticsearch
-    api_create_team_project_claims_sources_and_redirect_to_project_page 3, 0
+    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 3 })
     wait_for_selector('.search__results-heading')
     project_url = @driver.current_url.to_s
     create_folder_or_collection('list', '.projects-list__add-folder')
@@ -50,6 +50,7 @@ shared_examples 'similarity' do
     wait_for_selector('.similarity-media-item__pin-relationship')
     wait_for_selector('.similarity-media-item__delete-relationship').click
     wait_for_selector('.media-item__add-button')
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('list')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click
@@ -59,7 +60,7 @@ shared_examples 'similarity' do
   end
 
   it 'should add and remove related items', bin6: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page 2, 0
+    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
     sleep 5 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)
@@ -79,6 +80,7 @@ shared_examples 'similarity' do
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     wait_for_selector('.related-media-item__delete-relationship').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('list')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-item__add-button').click

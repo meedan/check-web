@@ -16,6 +16,10 @@
     "defaultMessage": "Imported reports"
   },
   {
+    "id": "projectHeader.suggestedMatches",
+    "defaultMessage": "Suggested matches"
+  },
+  {
     "id": "projectHeader.trends",
     "defaultMessage": "Trends"
   },

@@ -15,6 +15,7 @@ import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -37,6 +38,7 @@ function SelectProjectDialog({
   itemProjectDbid,
   showManualOrAutoOptions,
   title,
+  extraContent,
   cancelLabel,
   submitLabel,
   submitButtonClassName,
@@ -77,10 +79,12 @@ function SelectProjectDialog({
   let itemFolder = null;
   if (showManualOrAutoOptions) {
     itemFolder = projects.filter(({ dbid }) => dbid === itemProjectDbid);
+  } else {
+    itemFolder = projects.filter(({ dbid }) => dbid === team.default_folder.dbid);
   }
   const [userInput, setUserInput] = React.useState('ITEM_FOLDER');
   const [disableSelection, setDisableSelection] = React.useState(showManualOrAutoOptions);
-  const [value, setValue] = React.useState(itemFolder);
+  const [value, setValue] = React.useState(itemFolder[0]);
   const handleSubmit = React.useCallback(() => {
     setValue(null);
     onSubmit(value);
@@ -105,6 +109,12 @@ function SelectProjectDialog({
     <Dialog open={open} onClose={onCancel} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
+        { extraContent ?
+            <Box py={2}>
+              <Typography variant="body1" component="p" paragraph>
+                {extraContent}
+              </Typography>
+            </Box>: null }
         <Autocomplete
           options={filteredProjects}
           autoHighlight
@@ -196,6 +206,10 @@ const SelectProjectDialogRenderer = (parentProps) => {
             id
             dbid
             name
+            default_folder {
+              id
+              dbid
+            }
             projects(first: 10000) {
               edges {
                 node {

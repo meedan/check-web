@@ -100,6 +100,13 @@ const SimilarityComponent = ({
           team_bot_installation {
             id
             json_settings
+            team {
+              id
+              alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+                id
+                alegre_settings
+              }
+            }
           }
         }
       }

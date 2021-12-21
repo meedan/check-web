@@ -231,7 +231,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of similar medias",
+		"string": "Beberapa media serupa",
 		"developer_comment": "Menu option to enable searching items by similar medias"
 	},
 	"addFilterMenu.source": {
@@ -239,7 +239,7 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggested medias",
+		"string": "Beberapa media yang disarankan",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -251,7 +251,7 @@
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of tipline requests",
+		"string": "Beberapa permintaan tipline",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -1661,6 +1661,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Apakah media yang disarankan mirip dengan yang utama?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Is the suggested media similar to the imported report?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Permintaan"
 	},
@@ -1777,22 +1780,22 @@
 		"string": "dan"
 	},
 	"numericRangeFilter.enterNumber": {
-		"string": "enter number"
+		"string": "masukkan nomor"
 	},
 	"numericRangeFilter.errorMessage": {
-		"string": "First number should be less than second number",
+		"string": "Nomor pertama harus lebih kecil dari nomor kedua",
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of similar medias is between",
+		"string": "Beberapa media serupa di antara",
 		"developer_comment": "Filter option that refers to number of similar medias"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Number of suggested medias is between",
+		"string": "Beberapa media yang disarankan di antara",
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of tipline requests is between",
+		"string": "Beberapa permintaan tipline di antara",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -2835,7 +2838,7 @@
 		"string": "Durasi minimum dalam detik"
 	},
 	"similarityComponent.minimumRequests": {
-		"string": "Jumlah minimum permintaan`"
+		"string": "Jumlah minimum permintaan"
 	},
 	"similarityComponent.save": {
 		"string": "Simpan"

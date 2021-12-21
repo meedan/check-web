@@ -1661,6 +1661,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Magkatulad ba ang pangunahin at ang iminumungkahing media?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Is the suggested media similar to the imported report?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Mga kahilingan"
 	},

@@ -1661,6 +1661,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Sunt mediile sugerate similare cu cel principal?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Is the suggested media similar to the imported report?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Cereri"
 	},

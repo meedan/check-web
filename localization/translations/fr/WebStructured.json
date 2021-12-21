@@ -231,7 +231,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of similar medias",
+		"string": "Nombre de médias semblables",
 		"developer_comment": "Menu option to enable searching items by similar medias"
 	},
 	"addFilterMenu.source": {
@@ -239,7 +239,7 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggested medias",
+		"string": "Nombre de médias suggérés",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -251,7 +251,7 @@
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of tipline requests",
+		"string": "Nombre de demandes Tipline",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -1661,6 +1661,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Le média suggéré est-il semblable au principal ?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Is the suggested media similar to the imported report?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Demandes"
 	},
@@ -1777,22 +1780,22 @@
 		"string": "et"
 	},
 	"numericRangeFilter.enterNumber": {
-		"string": "enter number"
+		"string": "saisissez un nombre"
 	},
 	"numericRangeFilter.errorMessage": {
-		"string": "First number should be less than second number",
+		"string": "Le premier nombre devrait être inférieur au second",
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of similar medias is between",
+		"string": "Le nombre de médias semblables est entre",
 		"developer_comment": "Filter option that refers to number of similar medias"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Number of suggested medias is between",
+		"string": "Le nombre de médias suggérés est entre",
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of tipline requests is between",
+		"string": "Le nombre de demandes Tipline est entre",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {

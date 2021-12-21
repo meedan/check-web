@@ -1,9 +1,9 @@
 shared_examples 'project' do
   it 'should create, edit and remove a collection', bin2: true do
-    api_create_team_and_project
+    api_create_team_and_project({ use_default_project: true })
     @driver.navigate.to @config['self_url']
     wait_for_selector('#search-form')
-    expect(@driver.page_source.include?('Test Project')).to be(true)
+    expect(@driver.page_source.include?('Unnamed folder (default)')).to be(true)
     expect(@driver.page_source.include?('collection A')).to be(false)
     # create a collection
     create_folder_or_collection('collection A', '.projects-list__add-collection')
@@ -34,7 +34,7 @@ shared_examples 'project' do
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
     expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
     expect(@driver.page_source.include?('collection A')).to be(false)
-    expect(@driver.page_source.include?('Test Project')).to be(true)
+    expect(@driver.page_source.include?('Unnamed folder (default)')).to be(true)
   end
 
   it 'should edit collection', bin1: true do
@@ -55,7 +55,7 @@ shared_examples 'project' do
   end
 
   it 'should create and set filters to a filtered list', bin1: true do
-    api_create_team_project_and_claim_and_redirect_to_media_page
+    api_create_team_project_and_claim_and_redirect_to_media_page({ use_default_project: true })
     wait_for_selector('.media-detail')
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#projects-list__add-filtered-list').click
@@ -147,7 +147,7 @@ shared_examples 'project' do
   end
 
   it 'should paginate folder page', bin4: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page 51, 0
+    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 51 })
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading')
     wait_for_selector("//span[contains(text(), '1 - 50 / 51')]", :xpath)
@@ -160,7 +160,7 @@ shared_examples 'project' do
   end
 
   it 'should manage custom folder columns', bin4: true do
-    api_create_team_project_metadata_and_media('https://twitter.com/check/status/1255094026497413120')
+    api_create_team_project_metadata_and_media({ url: 'https://twitter.com/check/status/1255094026497413120' })
     wait_for_selector('#create-media__add-item')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(true)
