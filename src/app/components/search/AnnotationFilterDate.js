@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
@@ -24,9 +23,6 @@ const StyledInputBaseDate = withStyles(() => ({
 }))(StyledInputBase);
 
 const Styles = {
-  selectFormControl: {
-    flexShrink: 0,
-  },
   dateRangeFilterSelected: {
     backgroundColor: checkBlue,
     color: 'white',
@@ -44,6 +40,7 @@ function buildValue(startTimeOrNull, endTimeOrNull) {
   if (endTimeOrNull) {
     range.end_time = endTimeOrNull;
   }
+  return { range };
 }
 
 function parseStartDateAsISOString(moment) {
@@ -58,8 +55,11 @@ function parseEndDateAsISOString(moment) {
 
 class AnnotationFilterDate extends React.Component {
   getDateStringOrNull(field) {
-    const { value } = this.props;
-    return (value && value[field]) || null;
+    const { query, teamTask } = this.props;
+    const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
+    const { range } = teamTaskValue;
+    const value = range ? range[field] : null;
+    return value;
   }
 
   get startDateStringOrNull() {
@@ -71,7 +71,6 @@ class AnnotationFilterDate extends React.Component {
   }
 
   handleChangeStartDate = (moment) => {
-    console.log('moment', moment); // eslint-disable-line no-console
     this.props.onChange(['DATE_RANGE'], buildValue(
       parseStartDateAsISOString(moment),
       this.endDateStringOrNull,
@@ -86,7 +85,6 @@ class AnnotationFilterDate extends React.Component {
   }
 
   render() {
-    console.log('I am here ....', this.props); // eslint-disable-line no-console
     const { classes } = this.props;
 
     return (
@@ -149,22 +147,5 @@ class AnnotationFilterDate extends React.Component {
     );
   }
 }
-
-AnnotationFilterDate.defaultProps = {
-  value: null,
-  onError: null,
-};
-
-AnnotationFilterDate.propTypes = {
-  classes: PropTypes.object.isRequired,
-  value: PropTypes.oneOfType([
-    PropTypes.shape({
-      start_time: PropTypes.string,
-      end_time: PropTypes.string,
-    }),
-  ]),
-  onChange: PropTypes.func.isRequired,
-  onError: PropTypes.func,
-};
 
 export default withStyles(Styles)(AnnotationFilterDate);

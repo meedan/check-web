@@ -127,16 +127,18 @@ const CustomFiltersManager = ({
         if (filter.task_type === 'number' && filter.response === 'NUMERIC_RANGE') {
           return (
             <AnnotationFilterNumber
+              teamTask={teamTask}
+              query={query}
               onChange={handleChoiceTaskFilterChange}
               onError={message => setErrorMessage(message)}
             />
           );
         } else if (filter.task_type === 'datetime' && filter.response === 'DATE_RANGE') {
-          console.log('task_type', filter); // eslint-disable-line no-console
           return (
             <AnnotationFilterDate
+              teamTask={teamTask}
+              query={query}
               onChange={handleChoiceTaskFilterChange}
-              onError={message => setErrorMessage(message)}
             />
           );
         }
