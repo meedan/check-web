@@ -104,11 +104,10 @@ const CustomFiltersManager = ({
   const filterFields = filters.map((filter, i) => {
     if (filter.id) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
       const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === filter.id);
-      let options = fixedOptions;
+      let options = [...fixedOptions];
       if (filter.task_type === 'datetime') {
         options.push({ label: intl.formatMessage(messages.dateRange), value: 'DATE_RANGE', exclusive: true });
-      }
-      if (filter.task_type === 'number') {
+      } else if (filter.task_type === 'number') {
         options.push({ label: intl.formatMessage(messages.numericRange), value: 'NUMERIC_RANGE', exclusive: true });
       }
       if (teamTask.node.options) {
@@ -170,6 +169,7 @@ const CustomFiltersManager = ({
       );
     }
 
+    const existingFilters = query.team_tasks.map(tt => tt.id);
     // First step, show all annotation fields
     return (
       <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
@@ -177,7 +177,7 @@ const CustomFiltersManager = ({
           <MultiSelectFilter
             label={label}
             icon={<StarIcon />}
-            options={teamTasks.map(tt => ({
+            options={teamTasks.filter(tt => existingFilters.indexOf(tt.node.dbid.toString()) === -1).map(tt => ({
               label: tt.node.label,
               value: tt.node.dbid.toString(),
               icon: icons[tt.node.type],
