@@ -123,7 +123,7 @@ class ProjectComponent extends React.PureComponent {
                 deleteMessage={
                   <FormattedMessage
                     id="project.deleteMessage"
-                    defaultMessage="{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
+                    defaultMessage="{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder:} other {There are # items in {folderTitle}. Please choose a destination folder:}}"
                     values={{
                       mediasCount: project.medias_count,
                       folderTitle: project.title,

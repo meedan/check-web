@@ -1859,7 +1859,7 @@
 		"string": "Privacy Policy"
 	},
 	"project.deleteMessage": {
-		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
+		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder:} other {There are # items in {folderTitle}. Please choose a destination folder:}}"
 	},
 	"project.name": {
 		"string": "folder"
