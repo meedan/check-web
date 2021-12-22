@@ -3,10 +3,21 @@ import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
 import InputBase from '@material-ui/core/InputBase';
 import { withStyles } from '@material-ui/core/styles';
+import CloseIcon from '@material-ui/icons/Close';
 import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
-const StyledInputBase = withStyles(theme => ({
+const StyledCloseIcon = withStyles({
+  root: {
+    fontSize: '12px',
+    cursor: 'pointer',
+    padding: '4px',
+    width: '24px',
+    height: '24px',
+  },
+})(CloseIcon);
+
+const StyledInputBaseDate = withStyles(theme => ({
   root: {
     backgroundColor: opaqueBlack07,
     padding: `0 ${theme.spacing(0.5)}px`,
@@ -15,12 +26,6 @@ const StyledInputBase = withStyles(theme => ({
     width: 175,
   },
 }))(InputBase);
-
-const StyledInputBaseDate = withStyles(() => ({
-  root: {
-    width: 110,
-  },
-}))(StyledInputBase);
 
 const Styles = {
   dateRangeFilterSelected: {
@@ -84,6 +89,15 @@ class AnnotationFilterDate extends React.Component {
     ));
   }
 
+  handleClearDate = (event, field) => {
+    event.stopPropagation();
+    const { query, teamTask } = this.props;
+    const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
+    const { range } = teamTaskValue;
+    range[field] = null;
+    this.props.onChange(['DATE_RANGE'], { range });
+  }
+
   render() {
     const { classes } = this.props;
 
@@ -110,6 +124,7 @@ class AnnotationFilterDate extends React.Component {
                       onClick={onClick}
                       value={value}
                       onChange={onChange}
+                      endAdornment={value ? <StyledCloseIcon onClick={e => this.handleClearDate(e, 'start_time')} /> : null}
                     />
                   )}
                 </FormattedMessage>
@@ -136,6 +151,7 @@ class AnnotationFilterDate extends React.Component {
                       onClick={onClick}
                       value={value}
                       onChange={onChange}
+                      endAdornment={value ? <StyledCloseIcon onClick={e => this.handleClearDate(e, 'end_time')} /> : null}
                     />
                   )}
                 </FormattedMessage>

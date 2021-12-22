@@ -119,7 +119,7 @@ const CustomFiltersManager = ({
       const handleChoiceTaskFilterChange = (val, extraParams) => {
         const response = val.includes('ANY_VALUE') || val.includes('NO_VALUE') || val.includes('NUMERIC_RANGE') || val.includes('DATE_RANGE') ? val[0] : val;
         const obj = { ...filter, response, ...extraParams };
-        handleTeamTaskFilterChange(obj);
+        handleTeamTaskFilterChange(obj, i);
       };
 
       const getExtraInputs = () => {
