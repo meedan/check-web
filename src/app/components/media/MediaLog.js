@@ -81,24 +81,10 @@ const eventTypes = [
   'update_task', 'update_projectmediaproject',
 ];
 
-const fieldNames = [
-  'suggestion_free_text', 'suggestion_yes_no', 'suggestion_single_choice',
-  'suggestion_multiple_choice', 'suggestion_geolocation', 'suggestion_datetime',
-  'response_free_text', 'response_yes_no', 'response_single_choice', 'response_multiple_choice',
-  'response_geolocation', 'response_datetime', 'metadata_value', 'verification_status_status',
-  'team_bot_response_formatted_data', 'reverse_image_path', 'archive_is_response',
-  'archive_org_response', 'keep_backup_response', 'embed_code_copied',
-  'pender_archive_response', 'perma_cc_response', 'video_archiver_response',
-];
-
-const annotationTypes = ['verification_status', 'flag'];
-
 const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
   initialVariables: {
     pageSize,
     eventTypes,
-    fieldNames,
-    annotationTypes,
     teamSlug: null,
   },
   prepareVariables: vars => ({
@@ -111,7 +97,7 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
         id
         dbid
         pusher_channel
-        log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes) {
+        log(last: $pageSize, event_types: $eventTypes) {
           edges {
             node {
               id,
