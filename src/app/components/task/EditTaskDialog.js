@@ -576,14 +576,14 @@ class EditTaskDialog extends React.Component {
                     checked={this.state.alwaysShowTime}
                     onChange={() => {
                       const alwaysShowTime = !this.state.alwaysShowTime;
-                      const option = Object.assign({}, this.state.options[0]);
-                      option.alwaysShowTime = alwaysShowTime;
-                      const options = [...this.state.options];
-                      options[0] = option;
+                      const options = Array.from(this.state.options).map((option) => {
+                        const newOption = Object.assign({}, option);
+                        newOption.alwaysShowTime = alwaysShowTime;
+                        return newOption;
+                      });
                       this.setState({
                         options,
                         alwaysShowTime,
-                        restrictTimezones: this.state.restrictTimezones,
                       });
                     }}
                   />
@@ -604,14 +604,15 @@ class EditTaskDialog extends React.Component {
                       checked={this.state.restrictTimezones}
                       onChange={() => {
                         const restrictTimezones = !this.state.restrictTimezones;
-                        const option = Object.assign({}, this.state.options[0]);
-                        option.restrictTimezones = restrictTimezones;
-                        const options = [...this.state.options];
-                        options[0] = option;
+                        const options = Array.from(this.state.options).map((option) => {
+                          const newOption = Object.assign({}, option);
+                          newOption.restrictTimezones = restrictTimezones;
+                          newOption.alwaysShowTime = this.state.alwaysShowTime;
+                          return newOption;
+                        });
                         this.setState({
                           restrictTimezones,
                           options,
-                          alwaysShowTime: this.state.alwaysShowTime,
                         });
                       }}
                     />
@@ -634,7 +635,14 @@ class EditTaskDialog extends React.Component {
                     defaultValue={this.state.options}
                     filterSelectedOptions
                     onChange={(event, newValue) => {
-                      this.setState({ options: newValue });
+                      const { restrictTimezones } = this.state;
+                      const options = Array.from(newValue).map((option) => {
+                        const newOption = Object.assign({}, option);
+                        newOption.restrictTimezones = restrictTimezones;
+                        newOption.alwaysShowTime = this.state.alwaysShowTime;
+                        return newOption;
+                      });
+                      this.setState({ options });
                       this.validateTask(this.state.label, newValue);
                     }}
                     renderInput={params => (
