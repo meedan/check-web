@@ -47,13 +47,13 @@
   },
   {
     "id": "tasks.dateTimeType",
-    "description": "Label for datetime type field",
-    "defaultMessage": "Date and time"
+    "description": "Label for date type field",
+    "defaultMessage": "Date"
   },
   {
     "id": "tasks.datetimeDescription",
-    "description": "Description for datetime type field",
-    "defaultMessage": "Allows you to pick a date and time from the calendar"
+    "description": "Description for date type field",
+    "defaultMessage": "Allows you to pick a date from the calendar"
   },
   {
     "id": "tasks.singleChoiceType",
