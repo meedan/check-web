@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import StarIcon from '@material-ui/icons/Star';
+import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
 import ShortTextIcon from '@material-ui/icons/ShortText';
 import LocationIcon from '@material-ui/icons/LocationOn';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -177,7 +177,7 @@ const CustomFiltersManager = ({
         { label => (
           <MultiSelectFilter
             label={label}
-            icon={<StarIcon />}
+            icon={<NoteAltOutlinedIcon />}
             options={teamTasks.filter(tt => existingFilters.indexOf(tt.node.dbid.toString()) === -1).map(tt => ({
               label: tt.node.label,
               value: tt.node.dbid.toString(),
