@@ -144,27 +144,25 @@ class TeamBots extends Component {
                   <CardContent>
                     { bot.settings_as_json_schema ?
                       <React.Fragment>
-                        { bot.name !== 'Fetch' ?
-                          <Box display="flex" alignItems="center" justifyContent="space-between">
-                            <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
-                            <div>
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={this.handleSubmitSettings.bind(this, installation)}
-                              >
-                                <FormattedMessage
-                                  id="teamBots.save"
-                                  defaultMessage="Save"
-                                />
-                              </Button>
+                        <Box display="flex" alignItems="center" justifyContent="space-between">
+                          <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
+                          <div>
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={this.handleSubmitSettings.bind(this, installation)}
+                            >
+                              <FormattedMessage
+                                id="teamBots.save"
+                                defaultMessage="Save"
+                              />
+                            </Button>
+                            { this.state.message && this.state.messageBotId === bot.dbid ?
                               <Box component="small" my={0} mx={1}>
-                                { this.state.message && this.state.messageBotId === bot.dbid ?
-                                  this.state.message : null
-                                }
-                              </Box>
-                            </div>
-                          </Box> : null }
+                                {this.state.message}
+                              </Box> : null }
+                          </div>
+                        </Box>
                         { botExpanded ?
                           <TeamBot
                             bot={bot}
