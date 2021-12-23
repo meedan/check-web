@@ -315,6 +315,15 @@ class SearchFields extends React.Component {
 
     const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
+    const OperatorToggle = () => (
+      <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
+        { this.props.query.operator === 'OR' ?
+          <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+          <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+        }
+      </Button>
+    );
+
     const fieldComponents = {
       projects: (
         <FormattedMessage id="search.folderHeading" defaultMessage="Folder is" description="Prefix label for field to filter by folder to which items belong">
@@ -522,6 +531,7 @@ class SearchFields extends React.Component {
           onFilterChange={this.handleCustomFilterChange}
           team={team}
           query={this.props.query}
+          operatorToggle={<OperatorToggle />}
         />
       ),
       sources: (
@@ -547,6 +557,7 @@ class SearchFields extends React.Component {
     if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
 
     fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && fieldComponents[k]));
+    const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
 
     return (
       <div>
@@ -555,12 +566,7 @@ class SearchFields extends React.Component {
             if (index > 0) {
               return (
                 <React.Fragment key={key}>
-                  <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
-                    { this.props.query.operator === 'OR' ?
-                      <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-                      <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
-                    }
-                  </Button>
+                  <OperatorToggle />
                   { fieldComponents[key] }
                 </React.Fragment>
               );
@@ -575,7 +581,7 @@ class SearchFields extends React.Component {
           <AddFilterMenu
             team={team}
             hideOptions={this.props.hideFields}
-            addedFields={fieldKeys}
+            addedFields={addedFields}
             onSelect={this.handleAddField}
           />
           <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>

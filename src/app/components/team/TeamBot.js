@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Box from '@material-ui/core/Box';
 import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import styled from 'styled-components';
 import FetchBot from './FetchBot';
@@ -8,10 +9,11 @@ const StyledSchemaForm = styled.div`
   div {
     padding: 0 !important;
     box-shadow: none !important;
+    border: 0 !important;
   }
 
   fieldset {
-    border: 0;
+    border: 0 !important;
     padding: 0;
   }
 
@@ -36,6 +38,14 @@ const StyledSchemaForm = styled.div`
     border-radius: 5px !important;
     color: ${black32} !important;
   }
+  
+  #bot-fetch fieldset div {
+    display: none;
+  }
+
+  #bot-fetch fieldset div:last-child {
+    display: block;
+  }
 `;
 
 
@@ -46,13 +56,15 @@ class TeamBot extends Component {
   }
 
   render() {
-    if (this.props.bot.name === 'Fetch') {
-      return (<FetchBot />);
-    }
     return (
-      <StyledSchemaForm>
-        <Form {...this.props} />
-      </StyledSchemaForm>
+      <React.Fragment>
+        <StyledSchemaForm>
+          <Box id={`bot-${this.props.bot.identifier}`}>
+            <Form {...this.props} />
+          </Box>
+        </StyledSchemaForm>
+        { this.props.bot.name === 'Fetch' ? <FetchBot /> : null }
+      </React.Fragment>
     );
   }
 }

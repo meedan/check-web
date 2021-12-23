@@ -1,16 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { DatePicker } from '@material-ui/pickers';
-import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
-import FormLabel from '@material-ui/core/FormLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
-import DateRangeIcon from '@material-ui/icons/DateRange';
 import CloseIcon from '@material-ui/icons/Close';
-import RemoveableWrapper from './RemoveableWrapper';
 import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
@@ -35,9 +28,6 @@ const StyledInputBaseDate = withStyles(theme => ({
 }))(InputBase);
 
 const Styles = {
-  selectFormControl: {
-    flexShrink: 0,
-  },
   dateRangeFilterSelected: {
     backgroundColor: checkBlue,
     color: 'white',
@@ -47,7 +37,7 @@ const Styles = {
   },
 };
 
-function buildValue(valueType, startTimeOrNull, endTimeOrNull) {
+function buildValue(startTimeOrNull, endTimeOrNull) {
   const range = {};
   if (startTimeOrNull) {
     range.start_time = startTimeOrNull;
@@ -55,7 +45,7 @@ function buildValue(valueType, startTimeOrNull, endTimeOrNull) {
   if (endTimeOrNull) {
     range.end_time = endTimeOrNull;
   }
-  return { [valueType]: range };
+  return { range };
 }
 
 function parseStartDateAsISOString(moment) {
@@ -68,18 +58,13 @@ function parseEndDateAsISOString(moment) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
 }
 
-class DateRangeFilter extends React.Component {
-  get valueType() {
-    const { value } = this.props;
-    if (value && value.updated_at) return 'updated_at';
-    if (value && value.last_seen) return 'last_seen';
-    if (value && value.published_at) return 'published_at';
-    return 'created_at';
-  }
-
+class AnnotationFilterDate extends React.Component {
   getDateStringOrNull(field) {
-    const { value } = this.props;
-    return (value && value[this.valueType][field]) || null;
+    const { query, teamTask } = this.props;
+    const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
+    const { range } = teamTaskValue;
+    const value = range && range[field] !== undefined ? range[field] : null;
+    return value;
   }
 
   get startDateStringOrNull() {
@@ -91,83 +76,34 @@ class DateRangeFilter extends React.Component {
   }
 
   handleChangeStartDate = (moment) => {
-    this.props.onChange(buildValue(
-      this.valueType,
+    this.props.onChange(['DATE_RANGE'], buildValue(
       parseStartDateAsISOString(moment),
       this.endDateStringOrNull,
     ));
   }
 
   handleChangeEndDate = (moment) => {
-    this.props.onChange(buildValue(
-      this.valueType,
+    this.props.onChange(['DATE_RANGE'], buildValue(
       this.startDateStringOrNull,
       parseEndDateAsISOString(moment),
     ));
   }
 
-  handleChangeType = (e) => {
-    const valueType = e.target.value;
-    this.props.onChange(buildValue(
-      valueType,
-      this.startDateStringOrNull,
-      this.endDateStringOrNull,
-    ));
-  }
-
   handleClearDate = (event, field) => {
     event.stopPropagation();
-    if (field === 'start_time') {
-      this.props.onChange(buildValue(
-        this.valueType,
-        null,
-        this.endDateStringOrNull,
-      ));
-    } else {
-      this.props.onChange(buildValue(
-        this.valueType,
-        this.startDateStringOrNull,
-        null,
-      ));
-    }
+    const { query, teamTask } = this.props;
+    const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
+    const { range } = teamTaskValue;
+    range[field] = null;
+    this.props.onChange(['DATE_RANGE'], { range });
   }
 
   render() {
-    const { hide, classes, onRemove } = this.props;
-
-    if (hide) {
-      return null;
-    }
-
-    const label = {
-      created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
-      last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
-      updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
-      published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Published" />,
-    };
+    const { classes } = this.props;
 
     return (
       <div style={{ background: opaqueBlack07 }}>
         <FlexRow>
-          <FormControl variant="outlined" className={classes.selectFormControl}>
-            <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-            <Select
-              onChange={this.handleChangeType}
-              value={this.valueType}
-              input={
-                <StyledInputBaseDate
-                  startAdornment={
-                    <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
-                  }
-                />
-              }
-            >
-              <MenuItem value="created_at"> { label.created_at } </MenuItem>
-              <MenuItem value="last_seen"> { label.last_seen } </MenuItem>
-              <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
-              <MenuItem value="published_at"> { label.published_at } </MenuItem>
-            </Select>
-          </FormControl>
           <DatePicker
             onChange={this.handleChangeStartDate}
             maxDate={this.endDateStringOrNull || undefined}
@@ -228,42 +164,4 @@ class DateRangeFilter extends React.Component {
   }
 }
 
-DateRangeFilter.defaultProps = {
-  hide: false,
-  value: null,
-};
-
-DateRangeFilter.propTypes = {
-  classes: PropTypes.object.isRequired,
-  hide: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    PropTypes.shape({
-      created_at: PropTypes.shape({
-        start_time: PropTypes.string,
-        end_time: PropTypes.string,
-      }),
-    }),
-    PropTypes.shape({
-      last_seen: PropTypes.shape({
-        start_time: PropTypes.string,
-        end_time: PropTypes.string,
-      }),
-    }),
-    PropTypes.shape({
-      updated_at: PropTypes.shape({
-        start_time: PropTypes.string,
-        end_time: PropTypes.string,
-      }),
-    }),
-    PropTypes.shape({
-      published_at: PropTypes.shape({
-        start_time: PropTypes.string,
-        end_time: PropTypes.string,
-      }),
-    }),
-  ]),
-  onChange: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired,
-};
-
-export default withStyles(Styles)(DateRangeFilter);
+export default withStyles(Styles)(AnnotationFilterDate);

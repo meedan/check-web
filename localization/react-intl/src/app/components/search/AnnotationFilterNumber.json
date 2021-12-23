@@ -1,0 +1,19 @@
+[
+  {
+    "id": "customFiltersManager.errorMessage",
+    "description": "Message when user set range number with min value greater than max value",
+    "defaultMessage": "First number should be less than second number"
+  },
+  {
+    "id": "numericRangeFilter.between",
+    "defaultMessage": "between"
+  },
+  {
+    "id": "customFiltersManager.enterNumber",
+    "defaultMessage": "enter number"
+  },
+  {
+    "id": "numericRangeFilter.and",
+    "defaultMessage": "and"
+  }
+]

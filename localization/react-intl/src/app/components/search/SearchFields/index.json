@@ -45,6 +45,16 @@
     "defaultMessage": "Not in any collection"
   },
   {
+    "id": "search.fieldOr",
+    "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "search.fieldAnd",
+    "description": "Logical operator 'AND' to be applied when filtering by multiple fields",
+    "defaultMessage": "and"
+  },
+  {
     "id": "search.folderHeading",
     "description": "Prefix label for field to filter by folder to which items belong",
     "defaultMessage": "Folder is"
@@ -108,16 +118,6 @@
     "id": "search.assignedTo",
     "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
-  },
-  {
-    "id": "search.fieldOr",
-    "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
-    "defaultMessage": "or"
-  },
-  {
-    "id": "search.fieldAnd",
-    "description": "Logical operator 'AND' to be applied when filtering by multiple fields",
-    "defaultMessage": "and"
   },
   {
     "id": "search.applyFilters",

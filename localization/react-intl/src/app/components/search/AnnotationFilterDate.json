@@ -1,0 +1,17 @@
+[
+  {
+    "id": "search.afterDate",
+    "description": "String displayed before a date picker",
+    "defaultMessage": "after"
+  },
+  {
+    "id": "search.anyDate",
+    "description": "Date picker placeholder",
+    "defaultMessage": "any date"
+  },
+  {
+    "id": "search.beforeDate",
+    "description": "String displayed between after and before date pickers",
+    "defaultMessage": "and before"
+  }
+]

@@ -115,6 +115,7 @@ const PlusButton = ({ children }) => {
 
 const MultiSelectFilter = ({
   allowSearch,
+  extraInputs,
   selected,
   icon,
   label,
@@ -191,6 +192,7 @@ const MultiSelectFilter = ({
               inputPlaceholder={inputPlaceholder}
             />
           ) : null }
+          { extraInputs }
           { !readOnly && !single ? (
             <PlusButton>
               <AddIcon fontSize="small" onClick={() => setShowSelect(true)} />
@@ -255,6 +257,7 @@ const CustomSelectDropdown = ({
 
 MultiSelectFilter.defaultProps = {
   allowSearch: true,
+  extraInputs: null,
   icon: null,
   selected: [],
   onToggleOperator: null,
@@ -265,6 +268,7 @@ MultiSelectFilter.defaultProps = {
 
 MultiSelectFilter.propTypes = {
   allowSearch: PropTypes.bool,
+  extraInputs: PropTypes.node,
   options: PropTypes.arrayOf(PropTypes.oneOfType([
     PropTypes.object,
     PropTypes.string,

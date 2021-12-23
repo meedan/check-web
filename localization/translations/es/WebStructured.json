@@ -538,7 +538,7 @@
 		"string": "Mover de Sin Confirmar"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Mover 1 ítem a la carpeta...} other {Mover # ítems a la carpeta...}}"
+		"string": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "Mover a carpeta",
@@ -853,17 +853,11 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {Debes cambiar el estado de un ítem para poder eliminar este estado} other {Debes cambiar el estado de # ítems para eliminar este estado}}"
 	},
-	"destinationProjects.addManually": {
-		"string": "Contenido añadido manualmente"
-	},
 	"destinationProjects.choose": {
 		"string": "Elegir una carpeta"
 	},
 	"destinationProjects.empty": {
 		"string": "No hay carpetas en esta colección"
-	},
-	"destinationProjects.itemFolder": {
-		"string": "Contenido para informe"
 	},
 	"destinationProjects.none": {
 		"string": "No está en ninguna colección",
@@ -1662,7 +1656,7 @@
 		"string": "¿El medio sugerido es similar al principal?"
 	},
 	"mediaSuggestionsComponent.questionBlank": {
-		"string": "Is the suggested media similar to the imported report?"
+		"string": "¿Son los medios sugeridos similares al reporte importado?"
 	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Solicitudes"
@@ -1865,7 +1859,7 @@
 		"string": "Política Privacidad"
 	},
 	"project.deleteMessage": {
-		"string": "La carpeta se eliminará para todas(os) en esta área de trabajo. Todos los ítems en la carpeta seguirán estando accesibles en la carpeta \"Todos los ítems\"."
+		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
 	},
 	"project.name": {
 		"string": "carpeta"
@@ -1876,9 +1870,6 @@
 	"project.onlyAdminsAndEditors": {
 		"string": "Sólo Admins y Editora(e)s"
 	},
-	"projectActions.cancel": {
-		"string": "Cancelar"
-	},
 	"projectActions.defaultErrorMessage": {
 		"string": "Error, por favor intenta otra vez",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
@@ -1887,6 +1878,10 @@
 		"string": "Eliminar ",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
+	"projectActions.makeDefault": {
+		"string": "Hacer predeterminado",
+		"developer_comment": "Make the folder default"
+	},
 	"projectActions.move": {
 		"string": "Mover a...",
 		"developer_comment": "'Move' here is an infinitive verb"
@@ -1894,6 +1889,10 @@
 	"projectActions.moveOut": {
 		"string": "Sacar",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.moveTitle": {
+		"string": "Move items and delete folder",
+		"developer_comment": "Label for button to move items and delete folder"
 	},
 	"projectActions.privacy": {
 		"string": "Cambiar acceso",
@@ -1936,6 +1935,9 @@
 	},
 	"projectHeader.importedReports": {
 		"string": "Informes importados"
+	},
+	"projectHeader.suggestedMatches": {
+		"string": "Coincidencias sugeridas"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "Bandeja de entrada de Tipline"
@@ -2103,6 +2105,9 @@
 	"projectsComponent.renameType": {
 		"string": "Renombrar {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.suggestedMatches": {
+		"string": "Coincidencias sugeridas"
 	},
 	"projectsComponent.tiplineInbox": {
 		"string": "Bandeja de entrada de Tipline"
@@ -2447,7 +2452,7 @@
 		"string": "Guardar cambios a la lista \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
-	"saveList.updateTiplineInbox": {
+	"saveList.updateSpecialPage": {
 		"string": "Guardar cambios a la lista",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
@@ -3313,14 +3318,6 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Domingo"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "¡Hola! Aquí están tus hechos semanales. Este boletín fue publicado el <channel> por {teamName}. Aquí están los hechos más importantes de la semana de {date}:",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
-	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "¡Hola! Aquí están tus hechos semanales. Este boletín fue publicado el <channel> por {teamName}. Aquí están los hechos más importantes de la semana de {date}:",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Jueves"
 	},
@@ -3372,6 +3369,26 @@
 	},
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
+	},
+	"smoochBotSettings.bspSettings": {
+		"string": "WhatsApp BSP settings",
+		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
+	},
+	"smoochBotSettings.internalSettings": {
+		"string": "Internal settings",
+		"developer_comment": "Title of Internal Settings section in the tipline settings page"
+	},
+	"smoochBotSettings.internalSettingsDescription": {
+		"string": "Meedan employees see these settings, but users don't.",
+		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.sunshineSettings": {
+		"string": "Sunshine integration settings",
+		"developer_comment": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated."
+	},
+	"smoochBotSettings.templatesSettings": {
+		"string": "Templates settings",
+		"developer_comment": "Title of templates settings section in the tipline settings page."
 	},
 	"sortSelect.az": {
 		"string": "A a Z"
@@ -3520,6 +3537,9 @@
 	"statusesComponent.title": {
 		"string": "{languageName} Estados",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
+	},
+	"suggestedMatches.title": {
+		"string": "Coincidencias sugeridas"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Cancelar"

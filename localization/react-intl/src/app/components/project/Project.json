@@ -13,6 +13,6 @@
   },
   {
     "id": "project.deleteMessage",
-    "defaultMessage": "The folder will be deleted for everyone in this workspace. All items in the folder will still be accessible in the \"All items\" folder"
+    "defaultMessage": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder:} other {There are # items in {folderTitle}. Please choose a destination folder:}}"
   }
 ]

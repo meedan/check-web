@@ -15,6 +15,7 @@ import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Typography from '@material-ui/core/Typography';
 import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
@@ -34,9 +35,8 @@ function SelectProjectDialog({
   open,
   team,
   excludeProjectDbids,
-  itemProjectDbid,
-  showManualOrAutoOptions,
   title,
+  extraContent,
   cancelLabel,
   submitLabel,
   submitButtonClassName,
@@ -61,9 +61,12 @@ function SelectProjectDialog({
     }
   });
 
-  // Lastly, sort options by title and exclude some options
+  // Get a default folder
+  const defaultFolder = projects.filter(({ dbid }) => dbid === team.default_folder.dbid)[0];
+
+  // Lastly, sort options by title and exclude some options and defaultFolder to add it to the top of the list
   const filteredProjects = projects
-    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid))
+    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid) && dbid !== defaultFolder.dbid)
     .sort((a, b) => {
       // First sort by collection
       if (a.projectGroupTitle !== b.projectGroupTitle) {
@@ -73,14 +76,9 @@ function SelectProjectDialog({
       return a.title.localeCompare(b.title);
     });
 
-  // Get Item folder
-  let itemFolder = null;
-  if (showManualOrAutoOptions) {
-    itemFolder = projects.filter(({ dbid }) => dbid === itemProjectDbid);
-  }
-  const [userInput, setUserInput] = React.useState('ITEM_FOLDER');
-  const [disableSelection, setDisableSelection] = React.useState(showManualOrAutoOptions);
-  const [value, setValue] = React.useState(itemFolder);
+  const filteredProjectsOptions = [defaultFolder, ...filteredProjects];
+
+  const [value, setValue] = React.useState(defaultFolder);
   const handleSubmit = React.useCallback(() => {
     setValue(null);
     onSubmit(value);
@@ -94,23 +92,21 @@ function SelectProjectDialog({
     }
   }, [value]);
 
-  const handleSetFolderOptions = (optionValue) => {
-    setUserInput(optionValue);
-    const isDisabled = optionValue === 'ITEM_FOLDER'
-    isDisabled ? setValue(itemFolder) : setValue(null);
-    setDisableSelection(isDisabled);
-  };
-
   return (
     <Dialog open={open} onClose={onCancel} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
+        { extraContent ?
+            <Box py={2}>
+              <Typography variant="body1" component="p" paragraph>
+                {extraContent}
+              </Typography>
+            </Box>: null }
         <Autocomplete
-          options={filteredProjects}
+          options={filteredProjectsOptions}
           autoHighlight
           value={value}
           onChange={handleChange}
-          disabled={disableSelection}
           getOptionLabel={option => option.title}
           getOptionSelected={(option, val) => val !== null && option.id === val.id}
           getOptionDisabled={option => !option.dbid}
@@ -127,25 +123,6 @@ function SelectProjectDialog({
             />
           )}
         />
-        { showManualOrAutoOptions ?
-            <Box p={units(2)} >
-              <RadioGroup
-                name="selected-project-dialog-maunal-auto"
-                value={userInput}
-                onChange={(e) => { handleSetFolderOptions(e.target.value); }}
-              >
-                <FormControlLabel
-                  value="ITEM_FOLDER"
-                  control={<Radio />}
-                  label={<FormattedMessage id="destinationProjects.itemFolder" defaultMessage="Content for report" />}
-                />
-                <FormControlLabel
-                  value="MANUAL"
-                  control={<Radio />}
-                  label={<FormattedMessage id="destinationProjects.addManually" defaultMessage="Manually added content" />}
-                />
-              </RadioGroup>
-            </Box> : null }
       </DialogContent>
       <DialogActions>
         <Button color="primary" onClick={onCancel}>{cancelLabel}</Button>
@@ -196,6 +173,10 @@ const SelectProjectDialogRenderer = (parentProps) => {
             id
             dbid
             name
+            default_folder {
+              id
+              dbid
+            }
             projects(first: 10000) {
               edges {
                 node {
