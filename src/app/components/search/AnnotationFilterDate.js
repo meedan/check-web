@@ -63,7 +63,7 @@ class AnnotationFilterDate extends React.Component {
     const { query, teamTask } = this.props;
     const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
     const { range } = teamTaskValue;
-    const value = range ? range[field] : null;
+    const value = range && range[field] !== undefined ? range[field] : null;
     return value;
   }
 

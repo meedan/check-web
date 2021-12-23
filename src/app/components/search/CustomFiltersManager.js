@@ -149,6 +149,7 @@ const CustomFiltersManager = ({
         <Box>
           <Box display="flex" alignItems="center">
             <MultiSelectFilter
+              allowSearch={false}
               extraInputs={getExtraInputs()}
               label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
               icon={icons[teamTask.node.type]}
