@@ -1,0 +1,30 @@
+[
+  {
+    "id": "numericRangeFilter.linkedItems",
+    "description": "Filter option that refers to number of similar medias",
+    "defaultMessage": "Number of similar medias is between"
+  },
+  {
+    "id": "numericRangeFilter.suggestedItems",
+    "description": "Filter option that refers to number of suggested medias",
+    "defaultMessage": "Number of suggested medias is between"
+  },
+  {
+    "id": "numericRangeFilter.tiplineRequests",
+    "description": "Filter option that refers to tipline requests",
+    "defaultMessage": "Number of tipline requests is between"
+  },
+  {
+    "id": "numericRangeFilter.enterNumber",
+    "defaultMessage": "enter number"
+  },
+  {
+    "id": "numericRangeFilter.between",
+    "defaultMessage": "and"
+  },
+  {
+    "id": "numericRangeFilter.errorMessage",
+    "description": "Message when user set range number with min value greater than max value",
+    "defaultMessage": "First number should be less than second number"
+  }
+]

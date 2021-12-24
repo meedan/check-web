@@ -230,9 +230,17 @@
 		"string": "Status laporan",
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
+	"addFilterMenu.similarMedias": {
+		"string": "Beberapa media serupa",
+		"developer_comment": "Menu option to enable searching items by similar medias"
+	},
 	"addFilterMenu.source": {
 		"string": "Sumber",
 		"developer_comment": "Menu option to enable searching items by source"
+	},
+	"addFilterMenu.suggestedMedias": {
+		"string": "Beberapa media yang disarankan",
+		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
 		"string": "Label",
@@ -241,6 +249,10 @@
 	"addFilterMenu.timeRange": {
 		"string": "Rentang tanggal",
 		"developer_comment": "Menu option to enable searching items by date range"
+	},
+	"addFilterMenu.tiplineRequests": {
+		"string": "Beberapa permintaan tipline",
+		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
 		"string": "Tambah bahasa"
@@ -526,7 +538,7 @@
 		"string": "Pindahkan dari Belum Dikonfirmasi"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, other {Pindahkan # perihal ke folder...}}"
+		"string": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "Pindahkan ke folder",
@@ -672,7 +684,7 @@
 		"developer_comment": "Content warning type: Adult"
 	},
 	"contentScreen.hideContentButton": {
-		"string": "Hide content",
+		"string": "Sembunyikan konten",
 		"developer_comment": "Button to disable view of sensitive content"
 	},
 	"contentScreen.medical": {
@@ -680,7 +692,7 @@
 		"developer_comment": "Content warning type: Medical"
 	},
 	"contentScreen.viewContentButton": {
-		"string": "Temporarily view content",
+		"string": "Tampilkan konten sementara",
 		"developer_comment": "Button to enable view of sensitive content"
 	},
 	"contentScreen.violence": {
@@ -688,7 +700,7 @@
 		"developer_comment": "Content warning type: Violence"
 	},
 	"contentScreen.warning": {
-		"string": "<strong>{user_name}</strong> has detected this content as <strong>{warning_category}</strong>",
+		"string": "<strong>{user_name}</strong> telah mendeteksi konten ini sebagai <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
 	"createMedia.addItem": {
@@ -841,17 +853,11 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, other {Anda perlu mengubah status dari # perihal untuk menghapus status ini}}"
 	},
-	"destinationProjects.addManually": {
-		"string": "Konten yang ditambahkan secara manual"
-	},
 	"destinationProjects.choose": {
 		"string": "Pilih sebuah folder"
 	},
 	"destinationProjects.empty": {
 		"string": "Tidak ada folder dalam koleksi ini"
-	},
-	"destinationProjects.itemFolder": {
-		"string": "Konten untuk laporan"
 	},
 	"destinationProjects.none": {
 		"string": "Tidak ada di koleksi manapun",
@@ -1321,7 +1327,7 @@
 		"string": "Menyalin..."
 	},
 	"mediaAnalysis.createdBy": {
-		"string": "Item created by {name}"
+		"string": "Perihal dibuat oleh {name}"
 	},
 	"mediaAnalysis.date": {
 		"string": "Tanggal artikel yang diterbitkan"
@@ -1330,7 +1336,7 @@
 		"string": "Tidak dapat menyimpan! Terakhir disimpan {ago}"
 	},
 	"mediaAnalysis.import": {
-		"string": "Import",
+		"string": "Impor",
 		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
 	},
 	"mediaAnalysis.publishedArticle": {
@@ -1649,6 +1655,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Apakah media yang disarankan mirip dengan yang utama?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Apakah media yang disarankan mirip dengan laporan yang diimpor?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Permintaan"
 	},
@@ -1761,6 +1770,28 @@
 		"string": "Oh tidak! Halaman ini tidak ada atau Anda tidak memiliki akses yang sah.",
 		"developer_comment": "Not found page title"
 	},
+	"numericRangeFilter.between": {
+		"string": "dan"
+	},
+	"numericRangeFilter.enterNumber": {
+		"string": "masukkan nomor"
+	},
+	"numericRangeFilter.errorMessage": {
+		"string": "Nomor pertama harus lebih kecil dari nomor kedua",
+		"developer_comment": "Message when user set range number with min value greater than max value"
+	},
+	"numericRangeFilter.linkedItems": {
+		"string": "Beberapa media serupa di antara",
+		"developer_comment": "Filter option that refers to number of similar medias"
+	},
+	"numericRangeFilter.suggestedItems": {
+		"string": "Beberapa media yang disarankan di antara",
+		"developer_comment": "Filter option that refers to number of suggested medias"
+	},
+	"numericRangeFilter.tiplineRequests": {
+		"string": "Beberapa permintaan tipline di antara",
+		"developer_comment": "Filter option that refers to tipline requests"
+	},
 	"ocrButton.defaultErrorMessage": {
 		"string": "Tidak dapat mengambil teks dari gambar",
 		"developer_comment": "Warning displayed if an error occurred when extracting text from image"
@@ -1828,7 +1859,7 @@
 		"string": "Kebijakan Privasi"
 	},
 	"project.deleteMessage": {
-		"string": "Folder ini akan dihapus bagi semua orang di dalam ruang kerja ini. Semua perihal di dalam folder akan tetap dapat diakses di dalam folder \"Semua Perihal\""
+		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
 	},
 	"project.name": {
 		"string": "folder"
@@ -1839,9 +1870,6 @@
 	"project.onlyAdminsAndEditors": {
 		"string": "Hanya Administrator dan Editor"
 	},
-	"projectActions.cancel": {
-		"string": "Batalkan"
-	},
 	"projectActions.defaultErrorMessage": {
 		"string": "Terjadi kesalahan, silakan coba lagi",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
@@ -1850,6 +1878,10 @@
 		"string": "Hapus",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
+	"projectActions.makeDefault": {
+		"string": "Jadikan sebagai bawaan",
+		"developer_comment": "Make the folder default"
+	},
 	"projectActions.move": {
 		"string": "Pindahkan ke...",
 		"developer_comment": "'Move' here is an infinitive verb"
@@ -1857,6 +1889,10 @@
 	"projectActions.moveOut": {
 		"string": "Pindahkan ke luar",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.moveTitle": {
+		"string": "Move items and delete folder",
+		"developer_comment": "Label for button to move items and delete folder"
 	},
 	"projectActions.privacy": {
 		"string": "Ubah akses",
@@ -1899,6 +1935,9 @@
 	},
 	"projectHeader.importedReports": {
 		"string": "Laporan yang diimpor"
+	},
+	"projectHeader.suggestedMatches": {
+		"string": "Kecocokan yang disarankan"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "Kotak masuk Tipline"
@@ -2067,6 +2106,9 @@
 		"string": "Ganti nama {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
 	},
+	"projectsComponent.suggestedMatches": {
+		"string": "Kecocokan yang disarankan"
+	},
 	"projectsComponent.tiplineInbox": {
 		"string": "Kotak masuk Tipline"
 	},
@@ -2150,7 +2192,7 @@
 		"string": "Konten (maksimal {max} karakter)"
 	},
 	"reportDesigner.contentScreenHeader": {
-		"string": "Content with warning cannot<br />be published as a visual card.",
+		"string": "Konten dengan peringatan tidak dapat<br />dipublikasikan sebagai kartu visual.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.copyButtonInactive": {
@@ -2184,14 +2226,14 @@
 		"string": "Pertama kali diterbitkan"
 	},
 	"reportDesigner.goBack": {
-		"string": "Go back to the annotation page and remove the content warning.",
+		"string": "Kembali ke halaman anotasi perihal dan hapus peringatan konten.",
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
 		"string": "Judul (maksimal {max} karakter)"
 	},
 	"reportDesigner.incorrectWarning": {
-		"string": "Was this content warning incorrectly applied?",
+		"string": "Apakah penerapan peringatan konten ini keliru?",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.introduction": {
@@ -2241,7 +2283,7 @@
 		"string": "Rancang laporan Anda"
 	},
 	"reportDesigner.uploadAlternative": {
-		"string": "Upload an alternative image or<br />uncheck the visual card option.",
+		"string": "Unggah gambar alternatif atau<br />hapus centang pada opsi kartu visual.",
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
@@ -2257,7 +2299,7 @@
 		"string": "Peringatan — membagikan hal ini akan memaparkan informasi kepada orang-orang di luar ruang kerja privat Anda. Lanjutkan dengan hati-hati."
 	},
 	"reportDesignerToolbar.cantPublishContentFlag": {
-		"string": "Your item still has a visual card with a content warning. Upload an alternative image or uncheck the visual card option."
+		"string": "Perihal Anda masih memiliki peringatan konten pada kartu visual. Unggah gambar alternatif atau hapus centang pada opsi kartu visual."
 	},
 	"reportDesignerToolbar.cantPublishDefault": {
 		"string": "Laporan untuk {language} tidak boleh kosong karena ini adalah bahasa bawaan. Anda harus memiliki konten dalam Teks Laporan atau Kartu Visual untuk {language}. Atau, Anda dapat mengeklik kanan pada tab untuk bahasa lain untuk menjadikannya bahasa bawaan."
@@ -2410,7 +2452,7 @@
 		"string": "Simpan perubahan ke daftar \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
-	"saveList.updateTiplineInbox": {
+	"saveList.updateSpecialPage": {
 		"string": "Simpan perubahan ke daftar",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
@@ -2712,11 +2754,11 @@
 		"developer_comment": "Label for adult content type"
 	},
 	"sensitiveContentMenuButton.contentWarning": {
-		"string": "Content warning",
+		"string": "Peringatan konten",
 		"developer_comment": "Button that pops sensitive content screen settings"
 	},
 	"sensitiveContentMenuButton.enableSwitch": {
-		"string": "Enable content warning",
+		"string": "Aktifkan peringatan konten",
 		"developer_comment": "Switch to enable sensitive content screen"
 	},
 	"sensitiveContentMenuButton.medical": {
@@ -2724,11 +2766,11 @@
 		"developer_comment": "Label for medical content type"
 	},
 	"sensitiveContentMenuButton.selectCategory": {
-		"string": "Select a category",
+		"string": "Pilih kategori",
 		"developer_comment": "Header for sensitive content types"
 	},
 	"sensitiveContentMenuButton.typeOther": {
-		"string": "Type other",
+		"string": "Ketik kategori lainnya",
 		"developer_comment": "Label for other content type"
 	},
 	"sensitiveContentMenuButton.violence": {
@@ -2801,7 +2843,7 @@
 		"string": "Durasi minimum dalam detik"
 	},
 	"similarityComponent.minimumRequests": {
-		"string": "Jumlah minimum permintaan`"
+		"string": "Jumlah minimum permintaan"
 	},
 	"similarityComponent.save": {
 		"string": "Simpan"
@@ -3276,14 +3318,6 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Minggu"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Hai! Berikut fakta mingguan Anda. Buletin ini diterbitkan di <channel> oleh {teamName}. Berikut adalah fakta terpenting untuk minggu ini per {date}:",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
-	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Hai! Berikut fakta mingguan Anda. Buletin ini diterbitkan di <channel> oleh {teamName}. Berikut adalah fakta terpenting untuk minggu ini per {date}:",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Kamis"
 	},
@@ -3335,6 +3369,26 @@
 	},
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
+	},
+	"smoochBotSettings.bspSettings": {
+		"string": "WhatsApp BSP settings",
+		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
+	},
+	"smoochBotSettings.internalSettings": {
+		"string": "Internal settings",
+		"developer_comment": "Title of Internal Settings section in the tipline settings page"
+	},
+	"smoochBotSettings.internalSettingsDescription": {
+		"string": "Meedan employees see these settings, but users don't.",
+		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.sunshineSettings": {
+		"string": "Sunshine integration settings",
+		"developer_comment": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated."
+	},
+	"smoochBotSettings.templatesSettings": {
+		"string": "Templates settings",
+		"developer_comment": "Title of templates settings section in the tipline settings page."
 	},
 	"sortSelect.az": {
 		"string": "A sampai Z"
@@ -3483,6 +3537,9 @@
 	"statusesComponent.title": {
 		"string": "Status dalam bahasa {languageName}",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
+	},
+	"suggestedMatches.title": {
+		"string": "Kecocokan yang disarankan"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Batalkan"
@@ -4268,11 +4325,11 @@
 		"string": "Kotak masuk Tipline"
 	},
 	"toolbar.viewModeLonger": {
-		"string": "See longer titles",
+		"string": "Tampilkan judul lebih panjang",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"toolbar.viewModeShorter": {
-		"string": "See shorter titles",
+		"string": "Tampilkan judul lebih pendek",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"tos.title": {
@@ -4599,11 +4656,11 @@
 		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi"
 	},
 	"viewModeSwitcher.viewModeLonger": {
-		"string": "See longer titles",
+		"string": "Tampilkan judul lebih panjang",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"viewModeSwitcher.viewModeShorter": {
-		"string": "See shorter titles",
+		"string": "Tampilkan judul lebih pendek",
 		"developer_comment": "Tooltip for button that makes titles shorter"
 	},
 	"webPageMediaCard.Error": {

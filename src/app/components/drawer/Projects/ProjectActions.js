@@ -18,12 +18,16 @@ import ProjectMoveDialog from '../../project/ProjectMoveDialog';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import SettingsHeader from '../../team/SettingsHeader';
 import { withSetFlashMessage } from '../../FlashMessage';
-import Can from '../../Can';
+import Can from '../../Can'; // eslint-disable-line import/no-duplicates
+import { can } from '../../Can'; // eslint-disable-line import/no-duplicates
+import SelectProjectDialog from '../../media/SelectProjectDialog';
 import { units } from '../../../styles/js/shared';
+import globalStrings from '../../../globalStrings';
 
 const ProjectActions = ({
   name,
   object,
+  objectType,
   updateMutation,
   deleteMutation,
   deleteMessage,
@@ -38,10 +42,11 @@ const ProjectActions = ({
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [showEditDialog, setShowEditDialog] = React.useState(false);
   const [showDeleteDialog, setShowDeleteDialog] = React.useState(false);
+  const [showDeleteProjectDialog, setShowDeleteProjectDialog] = React.useState(false);
   const [showMoveDialog, setShowMoveDialog] = React.useState(false);
   const [showPrivacyDialog, setShowPrivacyDialog] = React.useState(false);
   const [privacyValue, setPrivacyValue] = React.useState(object.privacy);
-  const { team } = object;
+  const { team, permissions: projectPermissions } = object;
 
   const privacyMessages = [
     <FormattedMessage id="projectActions.privacyMessageAll" defaultMessage="Anyone can see this folder, access its content and annotate it." />,
@@ -59,6 +64,7 @@ const ProjectActions = ({
     setAnchorEl(null);
     setShowEditDialog(false);
     setShowDeleteDialog(false);
+    setShowDeleteProjectDialog(false);
     setShowMoveDialog(false);
     setShowPrivacyDialog(false);
   };
@@ -120,22 +126,23 @@ const ProjectActions = ({
     });
   };
 
-  const handleDelete = () => {
+  const handleDelete = (dstProj) => {
     setSaving(true);
 
+    const input = { id: object.id };
+    if (dstProj) {
+      input.items_destination_project_id = dstProj.dbid;
+    }
     commitMutation(Store, {
       mutation: deleteMutation,
-      variables: {
-        input: {
-          id: object.id,
-        },
-      },
+      variables: { input },
       onCompleted: (response, error) => {
         if (error) {
           handleError();
         } else {
           handleSuccess(response);
-          browserHistory.push(`/${team.slug}/all-items`);
+          const retPath = objectType === 'Project' && dstProj ? `/${team.slug}/project/${dstProj.dbid}` : `/${team.slug}/all-items`;
+          browserHistory.push(retPath);
         }
       },
       onError: () => {
@@ -185,8 +192,15 @@ const ProjectActions = ({
           updateProject(input: $input) {
             project {
               id
+              is_default
+              permissions
               privacy
               project_group_id
+            }
+            previous_default_project {
+              id
+              is_default
+              permissions
             }
             project_group_was {
               id
@@ -226,6 +240,28 @@ const ProjectActions = ({
     handleUpdateProject({ privacy: privacyValue });
   };
 
+  const handleMakeDefault = () => {
+    handleUpdateProject({
+      is_default: true,
+      previous_default_project_id: team.default_folder.dbid,
+    });
+  };
+
+  const handleDeleteClick = () => {
+    if (objectType === 'Project') {
+      if (object.medias_count === 0) {
+        handleDelete();
+      } else {
+        setShowDeleteProjectDialog(true);
+      }
+    } else {
+      setShowDeleteDialog(true);
+    }
+  };
+
+  // Should disable delete from objectType = 'Project' if user has no permissions to destroy
+  const disableDeleteProject = objectType === 'Project' && !can(projectPermissions, 'destroy Project');
+
   return (
     <Can permissions={team.permissions} permission="create Project">
       <IconButton
@@ -253,7 +289,7 @@ const ProjectActions = ({
             }
           />
         </MenuItem>
-        <MenuItem className="project-actions__destroy" onClick={() => { setShowDeleteDialog(true); }}>
+        <MenuItem disabled={disableDeleteProject} className="project-actions__destroy" onClick={handleDeleteClick}>
           <ListItemText
             primary={
               <FormattedMessage
@@ -288,23 +324,31 @@ const ProjectActions = ({
               }
             />
           </MenuItem> : null }
-        { hasPrivacySettings ?
-          <Can permissions={team.permissions} permission="set_privacy Project">
-            <React.Fragment>
-              <Divider />
-              <MenuItem className="project-actions__privacy" onClick={() => { setShowPrivacyDialog(true); }}>
-                <ListItemText
-                  primary={
-                    <FormattedMessage
-                      id="projectActions.privacy"
-                      defaultMessage="Change access"
-                      description="'Change' here is an infinitive verb"
-                    />
-                  }
+        <Divider />
+        { hasPrivacySettings && can(team.permissions, 'set_privacy Project') ?
+          <MenuItem className="project-actions__privacy" onClick={() => { setShowPrivacyDialog(true); }}>
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  id="projectActions.privacy"
+                  defaultMessage="Change access"
+                  description="'Change' here is an infinitive verb"
                 />
-              </MenuItem>
-            </React.Fragment>
-          </Can> : null }
+              }
+            />
+          </MenuItem> : null }
+        { objectType === 'Project' ?
+          <MenuItem disabled={object.is_default} className="project-make_default" onClick={handleMakeDefault}>
+            <ListItemText
+              primary={
+                <FormattedMessage
+                  id="projectActions.makeDefault"
+                  defaultMessage="Make default"
+                  description="Make the folder default"
+                />
+              }
+            />
+          </MenuItem> : null }
       </Menu>
 
       {/* "Edit" dialog */}
@@ -364,7 +408,7 @@ const ProjectActions = ({
         }
         onProceed={handleUpdate}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         onCancel={handleClose}
       />
 
@@ -394,7 +438,34 @@ const ProjectActions = ({
         }
         onProceed={handleDelete}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        onCancel={handleClose}
+      />
+
+      {/* "Delete" Project dialog */}
+      <SelectProjectDialog
+        open={showDeleteProjectDialog}
+        excludeProjectDbids={object ? [object.dbid] : []}
+        title={
+          <FormattedMessage
+            id="bulkActions.dialogMoveTitle"
+            defaultMessage="{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
+            values={{
+              mediasCount: object.medias_count,
+            }}
+          />
+        }
+        extraContent={deleteMessage}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        submitLabel={
+          <FormattedMessage
+            id="projectActions.moveTitle"
+            defaultMessage="Move items and delete folder"
+            description="Label for button to move items and delete folder"
+          />
+        }
+        submitButtonClassName="media-bulk-actions__move-button"
+        onSubmit={handleDelete}
         onCancel={handleClose}
       />
 
@@ -458,7 +529,7 @@ const ProjectActions = ({
         }
         onProceed={handleProceedPrivacy}
         isSaving={saving}
-        cancelLabel={<FormattedMessage id="projectActions.cancel" defaultMessage="Cancel" />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
         onCancel={handleClose}
       />
     </Can>
@@ -486,6 +557,7 @@ ProjectActions.propTypes = {
       permissions: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
+  objectType: PropTypes.string.isRequired,
   updateMutation: PropTypes.object.isRequired,
   deleteMutation: PropTypes.object.isRequired,
   deleteMessage: PropTypes.object.isRequired,

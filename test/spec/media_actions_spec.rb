@@ -1,7 +1,8 @@
 shared_examples 'media actions' do
   it 'should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok', bin2: true do
     # from facebook
-    api_create_team_project_and_link_and_redirect_to_media_page('https://www.facebook.com/FirstDraftNews/posts/1808121032783161?1')
+    params = { url: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?1' }
+    api_create_team_project_and_link_and_redirect_to_media_page(params)
     wait_for_selector('.more-less')
     expect(@driver.page_source.downcase.include?('facebook')).to be(true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
@@ -30,7 +31,7 @@ shared_examples 'media actions' do
   end
 
   it 'should refresh media', bin1: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'https://ca.ios.ba/files/meedan/random.php'
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://ca.ios.ba/files/meedan/random.php' })
     wait_for_selector('.media-detail')
     title1 = wait_for_selector('.media-expanded__title span').text
     expect((title1 =~ /Random/).nil?).to be(false)
@@ -62,7 +63,7 @@ shared_examples 'media actions' do
   end
 
   it 'should lock and unlock status', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'https://ca.ios.ba/files/meedan/random.php'
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://ca.ios.ba/files/meedan/random.php' })
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -121,7 +122,7 @@ shared_examples 'media actions' do
 
   it 'should not create duplicated media', bin1: true do
     url = 'https://twitter.com/meedan/status/1262644257996898305'
-    api_create_team_project_and_link_and_redirect_to_media_page url
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1.positive?).to be(true)
     wait_for_selector('.media-detail')
@@ -141,7 +142,7 @@ shared_examples 'media actions' do
     claim = 'This is going to be moved'
 
     # Create a couple projects under the same team
-    p1 = api_create_team_and_project
+    p1 = api_create_team_and_project({ use_default_project: true })
     p1url = "#{@config['self_url']}/#{p1[:team].slug}/project/#{p1[:project].dbid}"
     p2 = api_create_project(p1[:team].dbid.to_s)
     p2url = "#{@config['self_url']}/#{p2.team['slug']}/project/#{p2.dbid}"
@@ -203,6 +204,7 @@ shared_examples 'media actions' do
     wait_for_selector('.project-list__link', index: 1).click
     wait_for_selector('.media__heading').click
     wait_for_selector('#media-actions-bar__move-to').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__move-button').click

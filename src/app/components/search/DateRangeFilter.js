@@ -9,11 +9,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import CloseIcon from '@material-ui/icons/Close';
 import RemoveableWrapper from './RemoveableWrapper';
 import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
-const StyledInputBase = withStyles(theme => ({
+const StyledCloseIcon = withStyles({
+  root: {
+    fontSize: '12px',
+    cursor: 'pointer',
+    padding: '4px',
+    width: '24px',
+    height: '24px',
+  },
+})(CloseIcon);
+
+const StyledInputBaseDate = withStyles(theme => ({
   root: {
     backgroundColor: opaqueBlack07,
     padding: `0 ${theme.spacing(0.5)}px`,
@@ -22,12 +33,6 @@ const StyledInputBase = withStyles(theme => ({
     width: 175,
   },
 }))(InputBase);
-
-const StyledInputBaseDate = withStyles(() => ({
-  root: {
-    width: 110,
-  },
-}))(StyledInputBase);
 
 const Styles = {
   selectFormControl: {
@@ -110,6 +115,23 @@ class DateRangeFilter extends React.Component {
     ));
   }
 
+  handleClearDate = (event, field) => {
+    event.stopPropagation();
+    if (field === 'start_time') {
+      this.props.onChange(buildValue(
+        this.valueType,
+        null,
+        this.endDateStringOrNull,
+      ));
+    } else {
+      this.props.onChange(buildValue(
+        this.valueType,
+        this.startDateStringOrNull,
+        null,
+      ));
+    }
+  }
+
   render() {
     const { hide, classes, onRemove } = this.props;
 
@@ -133,7 +155,7 @@ class DateRangeFilter extends React.Component {
               onChange={this.handleChangeType}
               value={this.valueType}
               input={
-                <StyledInputBase
+                <StyledInputBaseDate
                   startAdornment={
                     <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
                   }
@@ -166,6 +188,7 @@ class DateRangeFilter extends React.Component {
                       onClick={onClick}
                       value={value}
                       onChange={onChange}
+                      endAdornment={value ? <StyledCloseIcon onClick={e => this.handleClearDate(e, 'start_time')} /> : null}
                     />
                   )}
                 </FormattedMessage>
@@ -192,6 +215,7 @@ class DateRangeFilter extends React.Component {
                       onClick={onClick}
                       value={value}
                       onChange={onChange}
+                      endAdornment={value ? <StyledCloseIcon onClick={e => this.handleClearDate(e, 'end_time')} /> : null}
                     />
                   )}
                 </FormattedMessage>

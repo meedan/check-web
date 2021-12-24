@@ -47,6 +47,7 @@ const ProjectGroup = ({ routeParams }) => (
               listActions={
                 <ProjectActions
                   object={props.project_group}
+                  objectType="ProjectGroup"
                   name={<FormattedMessage id="projectGroup.name" defaultMessage="collection" />}
                   updateMutation={graphql`
                     mutation ProjectGroupUpdateProjectGroupMutation($input: UpdateProjectGroupInput!) {

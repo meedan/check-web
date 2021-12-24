@@ -44,6 +44,10 @@ const Projects = () => {
             fetch_bot: team_bot_installation(bot_identifier: "fetch") {
               id
             }
+            alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+              id
+              alegre_settings
+            }
             projects(first: 10000) {
               edges {
                 node {

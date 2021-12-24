@@ -169,7 +169,7 @@ shared_examples 'search' do
   end
 
   it 'should search for reverse images', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page 'https://www.globo.com/'
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://www.globo.com/' })
     card = wait_for_selector_list('.media-detail').length
     expect(card == 1).to be(true)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
@@ -195,7 +195,7 @@ shared_examples 'search' do
   end
 
   it 'should sort by submission order', bin1: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page 2
+    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
     wait_for_selector_list('.medias__item')
     claim1 = wait_for_selector_list('h4')[0].text
     claim2 = wait_for_selector_list('h4')[1].text

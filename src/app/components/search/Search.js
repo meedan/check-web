@@ -50,6 +50,9 @@ function noFilters(query_, project, projectGroup) {
   if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) {
     delete query.channels;
   }
+  if (/\/(suggested-matches)+/.test(window.location.pathname)) {
+    delete query.suggestions_count;
+  }
   if (query.verification_status && query.verification_status.length === 0) {
     delete query.verification_status;
   }

@@ -929,7 +929,7 @@ class Task extends Component {
                 setMetadataValue={(textValue) => {
                   this.setState({ textValue });
                 }}
-                extensions={about.file_extensions}
+                extensions={about.file_extensions || []}
                 fileSizeMax={about.file_max_size_in_bytes}
                 messages={messages.MetadataFile}
               />
@@ -1179,7 +1179,7 @@ class Task extends Component {
               setMetadataValue={(textValue) => {
                 this.setState({ textValue });
               }}
-              extensions={about.file_extensions}
+              extensions={about.file_extensions || []}
               fileSizeMax={about.file_max_size_in_bytes}
               messages={messages.MetadataFile}
             />

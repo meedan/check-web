@@ -50,6 +50,21 @@
     "defaultMessage": "Channel"
   },
   {
+    "id": "addFilterMenu.similarMedias",
+    "description": "Menu option to enable searching items by similar medias",
+    "defaultMessage": "Number of similar medias"
+  },
+  {
+    "id": "addFilterMenu.suggestedMedias",
+    "description": "Menu option to enable searching items by suggested medias",
+    "defaultMessage": "Number of suggested medias"
+  },
+  {
+    "id": "addFilterMenu.tiplineRequests",
+    "description": "Menu option to enable searching items by tipline requests",
+    "defaultMessage": "Number of tipline requests"
+  },
+  {
     "id": "addFilterMenu.language",
     "description": "Menu option to enable searching items by language",
     "defaultMessage": "Language"
