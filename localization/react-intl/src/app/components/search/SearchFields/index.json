@@ -35,11 +35,6 @@
     "defaultMessage": "Unread"
   },
   {
-    "id": "search.noProject",
-    "description": "Label for none project to allow user filter items with no projects",
-    "defaultMessage": "None"
-  },
-  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
