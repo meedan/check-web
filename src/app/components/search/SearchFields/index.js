@@ -251,10 +251,7 @@ class SearchFields extends React.Component {
     // Folder options are grouped by collection
     // FIXME: Simplify the code below and improve its performance
     const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
-    let projectOptions = [{
-      label: <FormattedMessage id="search.noProject" defaultMessage="None" description="Label for none project to allow user filter items with no projects" />,
-      value: '-1',
-    }];
+    let projectOptions = [];
     const projectGroupOptions = [];
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
       const subProjects = [];
