@@ -26,6 +26,7 @@ import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
+import TeamNameCell from './TeamNameCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -146,10 +147,18 @@ const AllPossibleColumns = [
     align: 'center',
     sortKey: 'creator_name',
   },
+  {
+    field: 'team_name',
+    headerText: <FormattedMessage id="list.teamName" defaultMessage="Workspace" description="Table header for column that shows the workspace name" />,
+    cellComponent: TeamNameCell,
+    align: 'center',
+    sortKey: 'team_id',
+  },
 ];
 
 const showInTrends = [
   'item',
+  'team_name',
   'created_at_timestamp',
   'last_seen',
   'demand',
