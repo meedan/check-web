@@ -308,7 +308,8 @@ class Task extends Component {
     const { task } = this.props;
     this.setState({ textValue });
     const matchingTaskIndex = this.props.localResponses.findIndex(item => item.node.dbid === task.dbid);
-    const mutatedLocalResponses = this.props.localResponses;
+    // deep copy the local responses object
+    const mutatedLocalResponses = JSON.parse(JSON.stringify(this.props.localResponses));
     if (task.type === 'single_choice') {
       mutatedLocalResponses[matchingTaskIndex].node.first_response_value = textValue;
     } else {
@@ -631,7 +632,7 @@ class Task extends Component {
               // if there's a blank submission, and an existing submission exists, treat as a delete action
               if (!payload && !this.state.textValue && task.first_response_value) {
                 this.submitDeleteTaskResponse(task.first_response.id);
-              } else if (tempTextValue === task?.first_response_value) {
+              } else if (task?.first_response && tempTextValue === task?.first_response_value) {
                 // if the current submission hasn't changed at all, do nothing
 
               } else if (responseObj) {
