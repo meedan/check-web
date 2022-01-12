@@ -77,10 +77,10 @@ function SelectProjectDialog({
     });
 
   const filteredProjectsOptions = [defaultFolder, ...filteredProjects];
-
   const [value, setValue] = React.useState(defaultFolder);
+
   const handleSubmit = React.useCallback(() => {
-    setValue(null);
+    setValue(defaultFolder);
     onSubmit(value);
   }, [onSubmit, value]);
 
