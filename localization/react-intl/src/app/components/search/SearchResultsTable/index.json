@@ -72,10 +72,5 @@
     "id": "list.createdBy",
     "description": "Table header for column that shows the creator name",
     "defaultMessage": "Created by"
-  },
-  {
-    "id": "list.teamName",
-    "description": "Table header for column that shows the workspace name",
-    "defaultMessage": "Workspace"
   }
 ]
