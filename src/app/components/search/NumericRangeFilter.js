@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
 const NumericRangeFilter = ({
   onChange,
   onRemove,
+  readOnly,
   filterKey,
   value,
   intl,
@@ -61,7 +62,7 @@ const NumericRangeFilter = ({
       setMaxNumber(keyValue);
       range.max = keyValue;
     }
-    if (range.max !== '' && range.min > range.max) {
+    if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
       setShowErrorMsg(true);
     } else {
       setShowErrorMsg(false);
@@ -71,7 +72,7 @@ const NumericRangeFilter = ({
 
   return (
     <div>
-      <RemoveableWrapper icon={<NumberIcon />} onRemove={onRemove} boxProps={{ px: 0.5 }}>
+      <RemoveableWrapper icon={<NumberIcon />} readOnly={readOnly} onRemove={onRemove} boxProps={{ px: 0.5 }}>
         <Box display="flex" alignItems="center">
           <Box pr={1}>
             <Typography component="span" variant="body2">

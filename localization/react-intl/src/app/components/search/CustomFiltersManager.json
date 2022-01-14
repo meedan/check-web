@@ -1,18 +1,28 @@
 [
   {
-    "id": "CustomTeamTaskFilter.noValue",
+    "id": "CustomTeamTaskFilter.empty",
     "description": "Label for custom field configuration to allow filtering by task or metadata with no value set",
-    "defaultMessage": "No value is set"
+    "defaultMessage": "Empty"
   },
   {
-    "id": "CustomTeamTaskFilter.anyValue",
+    "id": "CustomTeamTaskFilter.notEmpty",
     "description": "Label for custom field configuration to allow filtering by task or metadata with any value set",
-    "defaultMessage": "Any value is set"
+    "defaultMessage": "Not empty"
   },
   {
     "id": "CustomTeamTaskFilter.labelIs",
     "description": "Label for custom filter field. The title is input by user and can be basically anything.",
     "defaultMessage": "{title} is"
+  },
+  {
+    "id": "CustomTeamTaskFilter.dateRange",
+    "description": "Label for custom field configuration to allow filtering datetime filed with date range option",
+    "defaultMessage": "Date range"
+  },
+  {
+    "id": "CustomTeamTaskFilter.numericRange",
+    "description": "Label for custom field configuration to allow filtering number filed with numeric range option",
+    "defaultMessage": "Number range"
   },
   {
     "id": "customFiltersManager.label",

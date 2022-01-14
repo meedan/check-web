@@ -251,10 +251,7 @@ class SearchFields extends React.Component {
     // Folder options are grouped by collection
     // FIXME: Simplify the code below and improve its performance
     const projects = team.projects.edges.slice().map(p => p.node).sort((a, b) => a.title.localeCompare(b.title));
-    let projectOptions = [{
-      label: <FormattedMessage id="search.noProject" defaultMessage="None" description="Label for none project to allow user filter items with no projects" />,
-      value: '-1',
-    }];
+    let projectOptions = [];
     const projectGroupOptions = [];
     team.project_groups.edges.slice().map(pg => pg.node).sort((a, b) => a.title.localeCompare(b.title)).forEach((pg) => {
       const subProjects = [];
@@ -313,7 +310,16 @@ class SearchFields extends React.Component {
       selectedChannels = [CheckChannels.FETCH];
     }
 
-    const isSpecialPage = /\/(tipline-inbox|imported-reports)+/.test(window.location.pathname);
+    const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
+
+    const OperatorToggle = () => (
+      <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
+        { this.props.query.operator === 'OR' ?
+          <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+          <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+        }
+      </Button>
+    );
 
     const fieldComponents = {
       projects: (
@@ -456,6 +462,7 @@ class SearchFields extends React.Component {
             onChange={this.handleNumericRange}
             value={this.props.query.suggestions_count}
             onRemove={() => this.handleRemoveField('suggestions_count')}
+            readOnly={isSpecialPage}
           />
         </Box>
       ),
@@ -521,6 +528,7 @@ class SearchFields extends React.Component {
           onFilterChange={this.handleCustomFilterChange}
           team={team}
           query={this.props.query}
+          operatorToggle={<OperatorToggle />}
         />
       ),
       sources: (
@@ -546,6 +554,7 @@ class SearchFields extends React.Component {
     if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
 
     fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && fieldComponents[k]));
+    const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
 
     return (
       <div>
@@ -554,12 +563,7 @@ class SearchFields extends React.Component {
             if (index > 0) {
               return (
                 <React.Fragment key={key}>
-                  <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
-                    { this.props.query.operator === 'OR' ?
-                      <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-                      <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
-                    }
-                  </Button>
+                  <OperatorToggle />
                   { fieldComponents[key] }
                 </React.Fragment>
               );
@@ -574,7 +578,7 @@ class SearchFields extends React.Component {
           <AddFilterMenu
             team={team}
             hideOptions={this.props.hideFields}
-            addedFields={fieldKeys}
+            addedFields={addedFields}
             onSelect={this.handleAddField}
           />
           <Tooltip title={<FormattedMessage id="search.applyFilters" defaultMessage="Apply filter" description="Button to perform query with specified filters" />}>

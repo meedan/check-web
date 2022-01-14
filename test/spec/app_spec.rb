@@ -197,7 +197,7 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should give 404 when trying to access a media that is not related to the project on the URL', bin1: true do
       t1 = api_create_team_and_project
-      data = api_create_team_project_and_link 'https://twitter.com/TheWho/status/890135323216367616'
+      data = api_create_team_project_and_link({ url: 'https://twitter.com/TheWho/status/890135323216367616' })
       url = data.full_url
       url = url[0..data.full_url.index('project') + 7] + t1[:project].dbid.to_s + url[url.index('/media')..url.length - 1]
       @driver.navigate.to url
@@ -254,7 +254,8 @@ shared_examples 'app' do |webdriver_url|
     end
 
     it 'should set metatags', bin5: true do
-      api_create_team_project_and_link_and_redirect_to_media_page 'https://twitter.com/marcouza/status/875424957613920256'
+      url = 'https://twitter.com/marcouza/status/875424957613920256'
+      api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
       request_api('make_team_public', { slug: get_team })
       wait_for_selector('.more-less')
       url = @driver.current_url.to_s

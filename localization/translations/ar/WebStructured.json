@@ -231,7 +231,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of similar medias",
+		"string": "عدد المواد الإعلامية المشابهة",
 		"developer_comment": "Menu option to enable searching items by similar medias"
 	},
 	"addFilterMenu.source": {
@@ -239,7 +239,7 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggested medias",
+		"string": "عدد المواد الإعلامية المقترحة",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -251,7 +251,7 @@
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of tipline requests",
+		"string": "عدد طلبات الخط الساخن",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -538,7 +538,7 @@
 		"string": "النقل من غير المؤكد"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, zero {لن يُنقَل أي عنصر} one {نقل عنصر واحد إلى مجلد…} two {نقل عنصرين إلى مجلد…} few {نقل # عناصر إلى مجلد…} many {نقل # عنصرا إلى مجلد…} other {نقل # عنصر إلى مجلد…}}"
+		"string": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "نقل إلى مجلد",
@@ -853,17 +853,11 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, zero {لست بحاجة إلى تغيير حالة أي عنصر لحذف هذه الحالة} one {أنت بحاجة إلى تغيير حالة عنصر واحد لحذف هذه الحالة} two {أنت بحاجة إلى تغيير حالة عنصرين لحذف هذه الحالة} few {أنت بحاجة إلى تغيير حالة # عناصر لحذف هذه الحالة} many {أنت بحاجة إلى تغيير حالة # عنصرا لحذف هذه الحالة} other {أنت بحاجة إلى تغيير حالة # عنصر لحذف هذه الحالة}}"
 	},
-	"destinationProjects.addManually": {
-		"string": "المحتويات التي تمت إضافتها يدويا"
-	},
 	"destinationProjects.choose": {
 		"string": "اختيار مجلد"
 	},
 	"destinationProjects.empty": {
 		"string": "لا توجد مجلدات في هذه المجموعة"
-	},
-	"destinationProjects.itemFolder": {
-		"string": "محتويات لأجل التقرير"
 	},
 	"destinationProjects.none": {
 		"string": "ليس في أي مجموعة",
@@ -1661,6 +1655,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "هل المواد الإعلامية المقترحة متشابهة مع الأساسية؟"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "هل المواد الإعلامية المقترحة مشابهة للتقرير الذي تم استيراده؟"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "الطلبات"
 	},
@@ -1777,22 +1774,22 @@
 		"string": "و"
 	},
 	"numericRangeFilter.enterNumber": {
-		"string": "enter number"
+		"string": "اكتب عددا"
 	},
 	"numericRangeFilter.errorMessage": {
-		"string": "First number should be less than second number",
+		"string": "يجب أن يكون العدد الأول أصغر من العدد الثاني",
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of similar medias is between",
+		"string": "عدد المواد الإعلامية المشابهة يتراوح بين",
 		"developer_comment": "Filter option that refers to number of similar medias"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Number of suggested medias is between",
+		"string": "عدد المواد الإعلامية المقترحة يتراوح بين",
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of tipline requests is between",
+		"string": "عدد طلبات الخط الساخن يتراوح بين",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -1862,7 +1859,7 @@
 		"string": "سياسة الخصوصية"
 	},
 	"project.deleteMessage": {
-		"string": "سوف يُحذَف المجلد لجميع من في مساحة العمل. ستبقى جميع العناصر في المجلد متاحة في مجلد \"كل العناصر\""
+		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
 	},
 	"project.name": {
 		"string": "المجلد"
@@ -1873,9 +1870,6 @@
 	"project.onlyAdminsAndEditors": {
 		"string": "المديرون والمحررون فقط"
 	},
-	"projectActions.cancel": {
-		"string": "إلغاء"
-	},
 	"projectActions.defaultErrorMessage": {
 		"string": "خطأ، يرجى إعادة المحاولة.",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
@@ -1884,6 +1878,10 @@
 		"string": "حذف",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
+	"projectActions.makeDefault": {
+		"string": "جعلها اﻹفتراضية",
+		"developer_comment": "Make the folder default"
+	},
 	"projectActions.move": {
 		"string": "نقل إلى...",
 		"developer_comment": "'Move' here is an infinitive verb"
@@ -1891,6 +1889,10 @@
 	"projectActions.moveOut": {
 		"string": "نقل إلى الخارج",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.moveTitle": {
+		"string": "Move items and delete folder",
+		"developer_comment": "Label for button to move items and delete folder"
 	},
 	"projectActions.privacy": {
 		"string": "تغيير التصاريح",
@@ -1933,6 +1935,9 @@
 	},
 	"projectHeader.importedReports": {
 		"string": "التقارير المستوردة"
+	},
+	"projectHeader.suggestedMatches": {
+		"string": "المتطابقات المقترحة"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "صندوق بريد الخط الساخن"
@@ -2100,6 +2105,9 @@
 	"projectsComponent.renameType": {
 		"string": "تغيير اسم {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.suggestedMatches": {
+		"string": "المتطابقات المقترحة"
 	},
 	"projectsComponent.tiplineInbox": {
 		"string": "صندوق بريد الخط الساخن"
@@ -2444,7 +2452,7 @@
 		"string": "حفظ التغييرات إلى القائمة \"{listName}\"",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
-	"saveList.updateTiplineInbox": {
+	"saveList.updateSpecialPage": {
 		"string": "حفظ التغييرات في القائمة",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
@@ -3310,14 +3318,6 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "الأحد"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "‫أهلا! إليك النشرة الجامعة الأسبوعية. هذه الرسالة الإخبارية قد تم نشرها في <channel> بواسطة {teamName}. إليك أهم الحقائق للأسبوع {date}:",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
-	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "‫أهلا! إليك النشرة الجامعة الأسبوعية. هذه الرسالة الإخبارية قد تم نشرها في <channel> بواسطة {teamName}. إليك أهم الحقائق للأسبوع {date}:",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "الخميس"
 	},
@@ -3369,6 +3369,26 @@
 	},
 	"smoochBotResourceEditor.url": {
 		"string": "الرّابط"
+	},
+	"smoochBotSettings.bspSettings": {
+		"string": "WhatsApp BSP settings",
+		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
+	},
+	"smoochBotSettings.internalSettings": {
+		"string": "Internal settings",
+		"developer_comment": "Title of Internal Settings section in the tipline settings page"
+	},
+	"smoochBotSettings.internalSettingsDescription": {
+		"string": "Meedan employees see these settings, but users don't.",
+		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.sunshineSettings": {
+		"string": "Sunshine integration settings",
+		"developer_comment": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated."
+	},
+	"smoochBotSettings.templatesSettings": {
+		"string": "Templates settings",
+		"developer_comment": "Title of templates settings section in the tipline settings page."
 	},
 	"sortSelect.az": {
 		"string": "أبجدياً"
@@ -3517,6 +3537,9 @@
 	"statusesComponent.title": {
 		"string": "حالات كُتبَت بـ « {languageName} »",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
+	},
+	"suggestedMatches.title": {
+		"string": "المتطابقات المقترحة"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "إلغاء"

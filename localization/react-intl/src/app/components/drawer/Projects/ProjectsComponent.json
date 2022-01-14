@@ -27,6 +27,10 @@
     "defaultMessage": "Imported reports"
   },
   {
+    "id": "projectsComponent.suggestedMatches",
+    "defaultMessage": "Suggested matches"
+  },
+  {
     "id": "projectsComponent.folders",
     "defaultMessage": "Folders"
   },

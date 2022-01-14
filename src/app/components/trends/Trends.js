@@ -12,7 +12,7 @@ export default function Trends({ routeParams }) {
       mediaUrlPrefix="media"
       title={<FormattedMessage id="trends.title" defaultMessage="Trends" />}
       icon={<TrendingUpIcon />}
-      query={safelyParseJSON(routeParams.query, {})}
+      query={Object.assign(safelyParseJSON(routeParams.query, {}), { trends: true, show_similar: true, sort: 'cluster_id' })}
       teamSlug={routeParams.team}
       showExpand
       resultType="trends"

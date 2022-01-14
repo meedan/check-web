@@ -35,14 +35,19 @@
     "defaultMessage": "Unread"
   },
   {
-    "id": "search.noProject",
-    "description": "Label for none project to allow user filter items with no projects",
-    "defaultMessage": "None"
-  },
-  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
+  },
+  {
+    "id": "search.fieldOr",
+    "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
+    "defaultMessage": "or"
+  },
+  {
+    "id": "search.fieldAnd",
+    "description": "Logical operator 'AND' to be applied when filtering by multiple fields",
+    "defaultMessage": "and"
   },
   {
     "id": "search.folderHeading",
@@ -108,16 +113,6 @@
     "id": "search.assignedTo",
     "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
-  },
-  {
-    "id": "search.fieldOr",
-    "description": "Logical operator 'OR' to be applied when filtering by multiple fields",
-    "defaultMessage": "or"
-  },
-  {
-    "id": "search.fieldAnd",
-    "description": "Logical operator 'AND' to be applied when filtering by multiple fields",
-    "defaultMessage": "and"
   },
   {
     "id": "search.applyFilters",

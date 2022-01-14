@@ -9,15 +9,15 @@ shared_examples 'media' do |type|
     case @type
     when 'BELONGS_TO_ONE_PROJECT'
       if media == 1
-        url.nil? ? api_create_team_project_and_claim_and_redirect_to_media_page : api_create_team_project_and_link_and_redirect_to_media_page(url)
+        url.nil? ? api_create_team_project_and_claim_and_redirect_to_media_page : api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
       else
-        api_create_team_project_claims_sources_and_redirect_to_project_page(media)
+        api_create_team_project_claims_sources_and_redirect_to_project_page({ count: media })
       end
     when 'DOES_NOT_BELONG_TO_ANY_PROJECT'
       if media == 1
-        url.nil? ? api_create_team_project_and_claim_and_redirect_to_media_page("Orphan #{Time.now.to_f}", nil) : api_create_team_project_and_link_and_redirect_to_media_page(url, nil)
+        url.nil? ? api_create_team_project_and_claim_and_redirect_to_media_page({ quote: "Orphan #{Time.now.to_f}", project_id: nil }) : api_create_team_project_and_link_and_redirect_to_media_page({ url: url, project_id: nil })
       else
-        api_create_team_project_claims_sources_and_redirect_to_project_page(media, nil)
+        api_create_team_project_claims_sources_and_redirect_to_project_page({ count: media, project_id: nil })
       end
     end
   end
@@ -104,6 +104,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-status')
     wait_for_selector('#media-actions-bar__restore-confirm-to').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media-actions-bar__add-button').click
@@ -126,6 +127,7 @@ shared_examples 'media' do |type|
     wait_for_selector("table input[type='checkbox']").click
     wait_for_selector("//span[contains(text(), '(1 selected)')]", :xpath)
     wait_for_selector('#media-bulk-actions__move-to').click
+    wait_for_selector('input[name=project-title]').click
     wait_for_selector('input[name=project-title]').send_keys('Project')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('div[aria-expanded=false]')

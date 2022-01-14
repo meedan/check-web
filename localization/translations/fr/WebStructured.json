@@ -231,7 +231,7 @@
 		"developer_comment": "Menu option to enable searching items by report status"
 	},
 	"addFilterMenu.similarMedias": {
-		"string": "Number of similar medias",
+		"string": "Nombre de médias semblables",
 		"developer_comment": "Menu option to enable searching items by similar medias"
 	},
 	"addFilterMenu.source": {
@@ -239,7 +239,7 @@
 		"developer_comment": "Menu option to enable searching items by source"
 	},
 	"addFilterMenu.suggestedMedias": {
-		"string": "Number of suggested medias",
+		"string": "Nombre de médias suggérés",
 		"developer_comment": "Menu option to enable searching items by suggested medias"
 	},
 	"addFilterMenu.tag": {
@@ -251,7 +251,7 @@
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequests": {
-		"string": "Number of tipline requests",
+		"string": "Nombre de demandes Tipline",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
 	},
 	"addLanguageAction.addLanguage": {
@@ -538,7 +538,7 @@
 		"string": "Déplacer de Non confirmés"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{selectedCount, plural, one {Déplacer un élément vers le dossier…} other {Déplacer # éléments vers le dossier…}}"
+		"string": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "Déplacer vers le dossier",
@@ -853,17 +853,11 @@
 	"deleteStatusDialog.statusInUseTitle": {
 		"string": "{itemsCount, plural, one {Vous devez changer l’état d’un élément pour supprimer cet état} other {Vous devez changer l’état de # éléments pour supprimer cet état}}"
 	},
-	"destinationProjects.addManually": {
-		"string": "Contenu ajouté manuellement"
-	},
 	"destinationProjects.choose": {
 		"string": "Choisissez un dossier"
 	},
 	"destinationProjects.empty": {
 		"string": "Il n’y a aucun dossier dans cette collection"
-	},
-	"destinationProjects.itemFolder": {
-		"string": "Contenu pour le rapport"
 	},
 	"destinationProjects.none": {
 		"string": "N’est dans aucune collection",
@@ -1661,6 +1655,9 @@
 	"mediaSuggestionsComponent.question": {
 		"string": "Le média suggéré est-il semblable au principal ?"
 	},
+	"mediaSuggestionsComponent.questionBlank": {
+		"string": "Le média suggéré est-il semblable au rapport importé ?"
+	},
 	"mediaSuggestionsComponent.requests": {
 		"string": "Demandes"
 	},
@@ -1777,22 +1774,22 @@
 		"string": "et"
 	},
 	"numericRangeFilter.enterNumber": {
-		"string": "enter number"
+		"string": "saisissez un nombre"
 	},
 	"numericRangeFilter.errorMessage": {
-		"string": "First number should be less than second number",
+		"string": "Le premier nombre devrait être inférieur au second",
 		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"numericRangeFilter.linkedItems": {
-		"string": "Number of similar medias is between",
+		"string": "Le nombre de médias semblables est entre",
 		"developer_comment": "Filter option that refers to number of similar medias"
 	},
 	"numericRangeFilter.suggestedItems": {
-		"string": "Number of suggested medias is between",
+		"string": "Le nombre de médias suggérés est entre",
 		"developer_comment": "Filter option that refers to number of suggested medias"
 	},
 	"numericRangeFilter.tiplineRequests": {
-		"string": "Number of tipline requests is between",
+		"string": "Le nombre de demandes Tipline est entre",
 		"developer_comment": "Filter option that refers to tipline requests"
 	},
 	"ocrButton.defaultErrorMessage": {
@@ -1862,7 +1859,7 @@
 		"string": "Politique de confidentialité"
 	},
 	"project.deleteMessage": {
-		"string": "Le dossier sera supprimé pour tous les membres de cet espace de travail. Tous les éléments du dossier seront accessibles dans le dossier « Tous les éléments »"
+		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
 	},
 	"project.name": {
 		"string": "dossier"
@@ -1873,9 +1870,6 @@
 	"project.onlyAdminsAndEditors": {
 		"string": "Seulement les administrateurs et les rédacteurs"
 	},
-	"projectActions.cancel": {
-		"string": "Annuler"
-	},
 	"projectActions.defaultErrorMessage": {
 		"string": "Une erreur s’est produite, veuillez réessayer.",
 		"developer_comment": "Generic error message displayed when it's not possible to update or delete a collection, folder or list"
@@ -1884,6 +1878,10 @@
 		"string": "Supprimer",
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
+	"projectActions.makeDefault": {
+		"string": "Utiliser par défaut",
+		"developer_comment": "Make the folder default"
+	},
 	"projectActions.move": {
 		"string": "Déplacer vers…",
 		"developer_comment": "'Move' here is an infinitive verb"
@@ -1891,6 +1889,10 @@
 	"projectActions.moveOut": {
 		"string": "Sortir de la collection",
 		"developer_comment": "Menu option to move a folder out of a collection"
+	},
+	"projectActions.moveTitle": {
+		"string": "Move items and delete folder",
+		"developer_comment": "Label for button to move items and delete folder"
 	},
 	"projectActions.privacy": {
 		"string": "Changer l’accès",
@@ -1933,6 +1935,9 @@
 	},
 	"projectHeader.importedReports": {
 		"string": "Rapports importés"
+	},
+	"projectHeader.suggestedMatches": {
+		"string": "Correspondances suggérées"
 	},
 	"projectHeader.tiplineInbox": {
 		"string": "Boîte de réception Tipline"
@@ -2100,6 +2105,9 @@
 	"projectsComponent.renameType": {
 		"string": "Renommer {type}",
 		"developer_comment": "'Rename' here is an infinitive verb, and 'type' can be collection, folder or list"
+	},
+	"projectsComponent.suggestedMatches": {
+		"string": "Correspondances suggérées"
 	},
 	"projectsComponent.tiplineInbox": {
 		"string": "Boîte de réception Tipline"
@@ -2444,7 +2452,7 @@
 		"string": "Enregistrer les changements dans la « {listName} » ?",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
-	"saveList.updateTiplineInbox": {
+	"saveList.updateSpecialPage": {
 		"string": "Enregistrer les changements dans la liste",
 		"developer_comment": "'Save' here is an infinitive verb"
 	},
@@ -3310,14 +3318,6 @@
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Dimanche"
 	},
-	"smoochBotNewsletterEditor.templateHeader": {
-		"string": "Bonjour. Voici vos faits hebdomadaires. Cette lettre d’information est publiée sur <channel> par {teamName}. Voici les faits les plus importants pour la semaine du {date} :",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
-	"smoochBotNewsletterEditor.templateHeaderRss": {
-		"string": "Bonjour. Voici vos faits hebdomadaires. Cette lettre d’information est publiée sur <channel> par {teamName}. Voici les faits les plus importants pour la semaine du {date} :",
-		"developer_comment": "In this string <channel> is not a variable and is meant to be translated as well. Channels might be WhatsApp, Viber, Telegram and so on"
-	},
 	"smoochBotNewsletterEditor.thursday": {
 		"string": "Jeudi"
 	},
@@ -3369,6 +3369,26 @@
 	},
 	"smoochBotResourceEditor.url": {
 		"string": "URL"
+	},
+	"smoochBotSettings.bspSettings": {
+		"string": "WhatsApp BSP settings",
+		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
+	},
+	"smoochBotSettings.internalSettings": {
+		"string": "Internal settings",
+		"developer_comment": "Title of Internal Settings section in the tipline settings page"
+	},
+	"smoochBotSettings.internalSettingsDescription": {
+		"string": "Meedan employees see these settings, but users don't.",
+		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.sunshineSettings": {
+		"string": "Sunshine integration settings",
+		"developer_comment": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated."
+	},
+	"smoochBotSettings.templatesSettings": {
+		"string": "Templates settings",
+		"developer_comment": "Title of templates settings section in the tipline settings page."
 	},
 	"sortSelect.az": {
 		"string": "A à Z"
@@ -3517,6 +3537,9 @@
 	"statusesComponent.title": {
 		"string": "États en {languageName}",
 		"developer_comment": "The idea of this sentence is 'statuses written in language <languageName>'"
+	},
+	"suggestedMatches.title": {
+		"string": "Correspondances suggérées"
 	},
 	"switchTeams.cancelJoinRequest": {
 		"string": "Annuler"

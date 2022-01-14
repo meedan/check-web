@@ -49,6 +49,7 @@ const SavedSearch = ({ routeParams }) => (
                 <ProjectActions
                   noDescription
                   object={props.saved_search}
+                  objectType="SavedSearch"
                   name={<FormattedMessage id="savedSearch.name" defaultMessage="list" />}
                   updateMutation={graphql`
                     mutation SavedSearchUpdateSavedSearchMutation($input: UpdateSavedSearchInput!) {

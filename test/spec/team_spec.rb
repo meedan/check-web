@@ -223,7 +223,7 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
     wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 2
     api_logout
 
     # log in as editor and be able to see the folder
@@ -231,7 +231,7 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
     wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 2
     api_logout
 
     # log in as admin and change folder acess to Only admins and Editors
@@ -248,7 +248,7 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
     wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 0
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
     api_logout
 
     # log in as admin and change folder acess to Only admins
@@ -265,7 +265,7 @@ shared_examples 'team' do
     @driver.navigate.to("#{@config['self_url']}/#{utp[:team]['slug']}")
     wait_for_selector('.component__settings-header')
     wait_for_selector('.project-list__header')
-    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 0
+    expect(@driver.find_elements(:css, '.project-list__link').length).to eq 1
     api_logout
   end
 end

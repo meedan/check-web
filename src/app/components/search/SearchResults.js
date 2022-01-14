@@ -68,6 +68,11 @@ const StyledSearchResultsWrapper = styled.div`
         padding-left: 0;
       }
     }
+
+    .search__button-disabled {
+      color: ${black54};
+      cursor: default;
+    }
   }
 `;
 
@@ -320,7 +325,7 @@ function SearchResultsComponent({
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/unconfirmed|/tipline-inbox|/imported-reports|/tipline-inbox)$')) {
+    if (searchUrlPrefix.match('(/trash|/unconfirmed|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches)$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -509,7 +514,7 @@ function SearchResultsComponent({
                     <PrevIcon />
                   </Link>
                 ) : (
-                  <span className="search__previous-page search__nav">
+                  <span className="search__previous-page search__nav search__button-disabled">
                     <PrevIcon />
                   </span>
                 )}
@@ -546,7 +551,7 @@ function SearchResultsComponent({
                     <NextIcon />
                   </Link>
                 ) : (
-                  <span className="search__next-page search__nav">
+                  <span className="search__next-page search__nav search__button-disabled">
                     <NextIcon />
                   </span>
                 )}
