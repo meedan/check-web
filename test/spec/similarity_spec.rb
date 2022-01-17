@@ -135,8 +135,9 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Text extracted from image')).to be(false)
     expect(@driver.page_source.include?('RAILS')).to be(false)
     wait_for_selector('#media-expanded-actions__menu').click
+    wait_for_selector('#media-expanded-actions__reverse-image-search')
     wait_for_selector('#ocr-button__extract-text').click
-    sleep 15 # wait for text extraction
+    sleep 30 # wait for the text extraction
     @driver.navigate.refresh
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
