@@ -657,6 +657,8 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               report_status # Needed by BulkActionsStatus
               requests_count
               list_columns_values
+              cluster_size
+              cluster_team_names
               project {
                 dbid
                 id

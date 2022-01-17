@@ -8,6 +8,8 @@ import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import { units, black87, checkBlue, opaqueBlack54, opaqueBlack87 } from '../../../styles/js/shared';
 
+const isTrendsPage = /\/trends$/.test(window.location.pathname);
+
 const useStyles = makeStyles({
   root: {
     // Use flexbox so thumbnail takes up very little space and then text takes
@@ -56,7 +58,7 @@ const useStyles = makeStyles({
   },
   title: ({ isRead }) => ({
     color: black87,
-    fontWeight: isRead ? 'normal' : 'bold',
+    fontWeight: isRead || isTrendsPage ? 'normal' : 'bold',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
@@ -115,6 +117,9 @@ const MaybeLink = ({ to, className, children }) => {
 };
 
 const IconOrNothing = ({ isMain, isSecondary, className }) => {
+  if (isTrendsPage) {
+    return null;
+  }
   if (isMain) {
     return <LayersIcon style={{ color: checkBlue }} className={className} />;
   }

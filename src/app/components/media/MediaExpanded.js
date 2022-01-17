@@ -399,7 +399,10 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 
 const MediaExpanded = (props) => {
   const projectId = props.media.project_id;
-  const ids = `${props.media.dbid},${projectId}`;
+  let ids = `${props.media.dbid},${projectId}`;
+  if (props.media.team && props.media.team.dbid) {
+    ids = `${props.media.dbid},${projectId},${props.media.team.dbid}`;
+  }
   const route = new MediaRoute({ ids });
 
   return (
