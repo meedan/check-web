@@ -7,6 +7,8 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import { opaqueBlack03 } from '../../../styles/js/shared';
 
+const isTrendsPage = /\/trends$/.test(window.location.pathname);
+
 const swallowClick = (ev) => {
   // prevent <TableRow onClick> from firing when we check the checkbox
   ev.stopPropagation();
@@ -15,13 +17,13 @@ const swallowClick = (ev) => {
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
     cursor: dbid ? 'pointer' : 'wait',
-    background: isRead ? opaqueBlack03 : 'transparent',
+    background: isRead || isTrendsPage ? opaqueBlack03 : 'transparent',
     textDecoration: 'none',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {
       boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: isRead ? opaqueBlack03 : 'transparent',
+      background: isRead || isTrendsPage ? opaqueBlack03 : 'transparent',
       transform: 'scale(1)',
     },
   }),

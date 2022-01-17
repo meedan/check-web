@@ -18,6 +18,7 @@ class ProjectHeaderComponent extends React.PureComponent {
       location,
     } = this.props;
     const { listUrl } = getListUrlQueryAndIndex(params, location.query, location.pathname);
+    const isTrendsPage = /\/trends(\/|$)/.test(listUrl);
 
     let pageTitle;
     if (/\/trash(\/|$)/.test(listUrl)) {
@@ -30,7 +31,7 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.importedReports" defaultMessage="Imported reports" />;
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested matches" />;
-    } else if (/\/trends(\/|$)/.test(listUrl)) {
+    } else if (isTrendsPage) {
       pageTitle = <FormattedMessage id="projectHeader.trends" defaultMessage="Trends" />;
     } else if (project) {
       pageTitle = project.title;
@@ -43,7 +44,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         <Row>
-          <IconButton onClick={() => browserHistory.push(listUrl)} className="project-header__back-button">
+          <IconButton onClick={() => isTrendsPage ? browserHistory.goBack() : browserHistory.push(listUrl)} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
           <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle}>
