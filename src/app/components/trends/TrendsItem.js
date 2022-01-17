@@ -58,7 +58,7 @@ const TrendsItem = props => (
             file_path
             thumbnail_path
           }
-          similar_items(first: 1000) {
+          cluster_items(first: 1000) {
             edges {
               node {
                 id
