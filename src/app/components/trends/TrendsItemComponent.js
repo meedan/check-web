@@ -116,7 +116,7 @@ const useStyles = makeStyles(theme => ({
 
 const TrendsItemComponent = ({ project_media }) => {
   const classes = useStyles();
-  const similarItems = project_media.similar_items?.edges.map(item => item.node);
+  const similarItems = project_media.cluster_items?.edges.map(item => item.node).filter(item => item.dbid !== project_media.dbid);
   const mainItem = project_media;
   // value of -1 means the main claim, 0+ are indexes to similar items
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(project_media.id);
