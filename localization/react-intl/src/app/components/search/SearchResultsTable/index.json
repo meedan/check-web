@@ -72,5 +72,15 @@
     "id": "list.createdBy",
     "description": "Table header for column that shows the creator name",
     "defaultMessage": "Created by"
+  },
+  {
+    "id": "list.clusterSize",
+    "description": "Table header for column that shows the number of similar items that belong to the same cluster",
+    "defaultMessage": "Cluster size"
+  },
+  {
+    "id": "list.clusterTeamNames",
+    "description": "Table header for column that shows from which workspaces the items in the same cluster belong to",
+    "defaultMessage": "Workspaces"
   }
 ]
