@@ -186,6 +186,7 @@ const MediaSimilarityBarAdd = ({
         endIcon={<ExpandMoreIcon />}
         disabled={!canBeAddedToSimilar && !similarCanBeAddedToIt}
         className={classes.button}
+        id="media-similarity__add-button"
       >
         <FormattedMessage
           id="mediaSimilarityBarAdd.addSimilar"
