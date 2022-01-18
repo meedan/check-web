@@ -137,7 +137,7 @@ shared_examples 'similarity' do
     wait_for_selector('#media-expanded-actions__menu').click
     wait_for_selector('#media-expanded-actions__reverse-image-search')
     wait_for_selector('#ocr-button__extract-text').click
-    sleep 30 # wait for the text extraction
+    sleep 60 # wait for the text extraction
     @driver.navigate.refresh
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
