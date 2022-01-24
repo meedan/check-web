@@ -82,5 +82,10 @@
     "id": "list.clusterTeamNames",
     "description": "Table header for column that shows from which workspaces the items in the same cluster belong to",
     "defaultMessage": "Workspaces"
+  },
+  {
+    "id": "list.sourceName",
+    "description": "Table header for column that shows item source",
+    "defaultMessage": "Source"
   }
 ]

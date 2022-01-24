@@ -28,6 +28,7 @@ import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
 import ClusterTeamsCell from './ClusterTeamsCell';
+import SourceCell from './SourceCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -158,6 +159,12 @@ const AllPossibleColumns = [
     field: 'cluster_team_names',
     headerText: <FormattedMessage id="list.clusterTeamNames" defaultMessage="Workspaces" description="Table header for column that shows from which workspaces the items in the same cluster belong to" />,
     cellComponent: ClusterTeamsCell,
+    align: 'center',
+  },
+  {
+    field: 'source',
+    headerText: <FormattedMessage id="list.sourceName" defaultMessage="Source" description="Table header for column that shows item source" />,
+    cellComponent: SourceCell,
     align: 'center',
   },
 ];
