@@ -51,6 +51,7 @@ shared_examples 'annotation' do
     wait_for_selector('.task__response-inputs')
     # answer the annotation
     wait_for_selector('.form-edit').click
+    wait_for_selector('.clear-button')
     wait_for_selector('#metadata-input').send_keys('answer')
     wait_for_selector('.form-save').click
     wait_for_selector('.form-edit')
@@ -61,6 +62,8 @@ shared_examples 'annotation' do
     wait_for_selector('#metadata-input').send_keys(' - edited')
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-save')
+    @driver.navigate.refresh
+    wait_for_selector('.form-edit')
     wait_for_selector("//span[contains(text(), 'answer - edited')]", :xpath)
     expect(@driver.page_source.include?('answer - edited')).to be(true)
     # delete response

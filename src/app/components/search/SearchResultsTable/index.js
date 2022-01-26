@@ -26,6 +26,8 @@ import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
+import ClusterSizeCell from './ClusterSizeCell';
+import ClusterTeamsCell from './ClusterTeamsCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -146,14 +148,25 @@ const AllPossibleColumns = [
     align: 'center',
     sortKey: 'creator_name',
   },
+  {
+    field: 'cluster_size',
+    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Cluster size" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
+    cellComponent: ClusterSizeCell,
+    align: 'center',
+  },
+  {
+    field: 'cluster_team_names',
+    headerText: <FormattedMessage id="list.clusterTeamNames" defaultMessage="Workspaces" description="Table header for column that shows from which workspaces the items in the same cluster belong to" />,
+    cellComponent: ClusterTeamsCell,
+    align: 'center',
+  },
 ];
 
 const showInTrends = [
   'item',
   'created_at_timestamp',
-  'last_seen',
-  'demand',
-  'linked_items_count',
+  'cluster_size',
+  'cluster_team_names',
 ];
 
 function buildColumnDefs(team, resultType) {

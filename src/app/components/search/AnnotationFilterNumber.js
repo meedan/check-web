@@ -21,7 +21,6 @@ const AnnotationFilterNumber = ({
   onError,
 }) => {
   const classes = useStyles();
-  const [showErrorMsg, setShowErrorMsg] = React.useState(false);
 
   const getFieldValue = (field) => {
     const teamTaskValue = query.team_tasks.find(tt => tt.id.toString() === teamTask.node.dbid.toString());
@@ -30,13 +29,17 @@ const AnnotationFilterNumber = ({
     return value;
   };
 
+  const [showErrorMsg, setShowErrorMsg] = React.useState(false);
+  const [minNumber, setMinNumber] = React.useState(getFieldValue('min'));
+  const [maxNumber, setMaxNumber] = React.useState(getFieldValue('max'));
+
   const handleFieldChange = (key, keyValue) => {
-    const minNumber = getFieldValue('min');
-    const maxNumber = getFieldValue('max');
     const range = { min: minNumber, max: maxNumber };
     if (key === 'min') {
+      setMinNumber(keyValue);
       range.min = keyValue;
     } else if (key === 'max') {
+      setMaxNumber(keyValue);
       range.max = keyValue;
     }
     if (range.max !== '' && parseInt(range.min, 10) > parseInt(range.max, 10)) {
@@ -70,7 +73,7 @@ const AnnotationFilterNumber = ({
             variant="outlined"
             size="small"
             placeholder={placeholder}
-            value={getFieldValue('min')}
+            value={minNumber}
             onChange={(e) => { handleFieldChange('min', e.target.value); }}
             type="number"
             error={showErrorMsg}
@@ -90,7 +93,7 @@ const AnnotationFilterNumber = ({
             variant="outlined"
             size="small"
             placeholder={placeholder}
-            value={getFieldValue('max')}
+            value={maxNumber}
             onChange={(e) => { handleFieldChange('max', e.target.value); }}
             type="number"
             error={showErrorMsg}

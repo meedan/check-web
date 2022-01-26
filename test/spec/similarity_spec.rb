@@ -25,6 +25,8 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Export all media to another item')]", :xpath).click
     add_related_item('Claim 2')
+    @driver.navigate.refresh
+    wait_for_selector('.media-similarity__menu-icon')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
     expect(@driver.page_source.include?('Similar')).to be(true)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
@@ -77,6 +79,9 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), '0 related items')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Add relation')]", :xpath).click
     add_related_item('Claim 0')
+    @driver.navigate.refresh
+    wait_for_selector('.media')
+    wait_for_selector('.media-tab__related').click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     wait_for_selector('.related-media-item__delete-relationship').click
@@ -95,9 +100,11 @@ shared_examples 'similarity' do
     pm3 = api_create_claim(data: data, quote: 'claim 3')
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm2.id)
     api_suggest_similarity_between_items(data[:team].dbid, pm1.id, pm3.id)
-    wait_for_selector('.search__results-heading')
+    wait_for_selector('#create-media__add-item')
+    wait_for_selector('.projects-list__all-items').click
+    wait_for_selector('.medias__item')
     wait_for_selector('.media__heading').click
-    wait_for_selector('.media-analysis__copy-to-report')
+    wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
     wait_for_selector("//span[contains(text(), '1 of 2 suggested media')]", :xpath)
@@ -107,7 +114,9 @@ shared_examples 'similarity' do
     wait_for_selector('#similarity-media-item__reject-relationship').click
     wait_for_selector('.media-actions-bar__add-button').click
     wait_for_selector('.media-page__back-button').click
+    wait_for_selector('#media-similarity__add-button')
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
+    wait_for_selector('#media-similarity__add-button')
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
@@ -126,8 +135,9 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Text extracted from image')).to be(false)
     expect(@driver.page_source.include?('RAILS')).to be(false)
     wait_for_selector('#media-expanded-actions__menu').click
+    wait_for_selector('#media-expanded-actions__reverse-image-search')
     wait_for_selector('#ocr-button__extract-text').click
-    sleep 15 # wait for text extraction
+    sleep 60 # wait for the text extraction
     @driver.navigate.refresh
     wait_for_selector('.image-media-card')
     wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)

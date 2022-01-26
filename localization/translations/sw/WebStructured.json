@@ -28,6 +28,14 @@
 		"string": "\"{field}\" has value {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
+	"CustomTeamTaskFilter.dateRange": {
+		"string": "Date range",
+		"developer_comment": "Label for custom field configuration to allow filtering datetime filed with date range option"
+	},
+	"CustomTeamTaskFilter.empty": {
+		"string": "Empty",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
+	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
 		"string": "Chagua metadata",
 		"developer_comment": "Label for input to select specific metadata to filter by"
@@ -51,6 +59,14 @@
 	"CustomTeamTaskFilter.noValue": {
 		"string": "Hakuna dhamana iliyowekwa",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
+	},
+	"CustomTeamTaskFilter.notEmpty": {
+		"string": "Not empty",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.numericRange": {
+		"string": "Number range",
+		"developer_comment": "Label for custom field configuration to allow filtering number filed with numeric range option"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
 		"string": "Kazi ina jibu maalum",
@@ -816,6 +832,13 @@
 		"string": "Select",
 		"developer_comment": "Verb. Label for generic dropdown component"
 	},
+	"customFiltersManager.enterNumber": {
+		"string": "enter number"
+	},
+	"customFiltersManager.errorMessage": {
+		"string": "First number should be less than second number",
+		"developer_comment": "Message when user set range number with min value greater than max value"
+	},
 	"customFiltersManager.label": {
 		"string": "Metadata is",
 		"developer_comment": "Placeholder label for metadata field when not fully configured"
@@ -1111,6 +1134,14 @@
 	},
 	"list.Type": {
 		"string": "Aina"
+	},
+	"list.clusterSize": {
+		"string": "Cluster size",
+		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
+	},
+	"list.clusterTeamNames": {
+		"string": "Maeneo ya kazi",
+		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster belong to"
 	},
 	"list.commentCount": {
 		"string": "Maoni ya FB"
@@ -1770,6 +1801,9 @@
 		"string": "Oh no! This page does not exist or you do not have authorized access.",
 		"developer_comment": "Not found page title"
 	},
+	"numericRangeFilter.and": {
+		"string": "na"
+	},
 	"numericRangeFilter.between": {
 		"string": "na"
 	},
@@ -1859,7 +1893,7 @@
 		"string": "Sera Faragha"
 	},
 	"project.deleteMessage": {
-		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
+		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder:} other {There are # items in {folderTitle}. Please choose a destination folder:}}"
 	},
 	"project.name": {
 		"string": "folder"
@@ -2578,10 +2612,6 @@
 	},
 	"search.nextPage": {
 		"string": "Ukurasa ufuatao"
-	},
-	"search.noProject": {
-		"string": "None",
-		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
 	"search.noResults": {
 		"string": "No results found.",
@@ -3687,15 +3717,15 @@
 		"developer_comment": "Label for field type selection box"
 	},
 	"tasks.dateTimeType": {
-		"string": "Tarehe na saa",
-		"developer_comment": "Label for datetime type field"
+		"string": "Tarehe",
+		"developer_comment": "Label for date type field"
 	},
 	"tasks.datetime": {
 		"string": "Tarehe na saa"
 	},
 	"tasks.datetimeDescription": {
-		"string": "Allows you to pick a date and time from the calendar",
-		"developer_comment": "Description for datetime type field"
+		"string": "Allows you to pick a date from the calendar",
+		"developer_comment": "Description for date type field"
 	},
 	"tasks.description": {
 		"string": "Maelezo (hiari)"

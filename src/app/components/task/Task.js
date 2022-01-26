@@ -323,7 +323,7 @@ class Task extends Component {
     this.props.setLocalResponses([...mutatedLocalResponses]);
   };
 
-  handleUpdateResponse = (edited_response, file) => {
+  handleUpdateResponse = (edited_response, file, responseObj) => {
     const { media, task } = this.props;
     this.setState({ isSaving: true });
 
@@ -349,7 +349,8 @@ class Task extends Component {
         parent_type: 'task',
         file,
         dynamic: {
-          id: this.state.editingResponse.id,
+          // in some legacy data cases we can lack an 'editingResponse' id, but in those cases there's always a responseObj id
+          id: this.state.editingResponse.id || responseObj.id,
           fields,
         },
       }),
@@ -629,16 +630,23 @@ class Task extends Component {
               } else {
                 tempTextValue = this.state.textValue;
               }
+              // in the case of multiple/single choice we need to set the textTempValue of an empty annotation to null rather than empty string, so it matches the state of first_response_value
+              if (task.type === 'multiple_choice' || task.type === 'single_choice') {
+                if (tempTextValue === '') {
+                  tempTextValue = null;
+                }
+              }
               // if there's a blank submission, and an existing submission exists, treat as a delete action
               if (!payload && !this.state.textValue && task.first_response_value) {
                 this.submitDeleteTaskResponse(task.first_response.id);
               } else if (task?.first_response && tempTextValue === task?.first_response_value) {
                 // if the current submission hasn't changed at all, do nothing
-
               } else if (responseObj) {
+                // if there is a pre-existing response, we must be updating a record
                 this.handleUpdateResponse(
                   payload || this.state.textValue,
                   uploadables ? uploadables['file[]'] : null,
+                  responseObj,
                 );
               } else {
                 this.handleSubmitResponse(
