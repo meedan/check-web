@@ -28,7 +28,7 @@ import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
 import ClusterTeamsCell from './ClusterTeamsCell';
-import SourceCell from './SourceCell';
+import SourcesCell from './SourcesCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -162,9 +162,9 @@ const AllPossibleColumns = [
     align: 'center',
   },
   {
-    field: 'source',
+    field: 'sources_as_sentence',
     headerText: <FormattedMessage id="list.sourceName" defaultMessage="Source" description="Table header for column that shows item source" />,
-    cellComponent: SourceCell,
+    cellComponent: SourcesCell,
     align: 'center',
   },
 ];

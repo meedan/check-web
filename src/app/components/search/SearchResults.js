@@ -659,9 +659,7 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               list_columns_values
               cluster_size
               cluster_team_names
-              source {
-                name
-              }
+              source_id
               project {
                 dbid
                 id
