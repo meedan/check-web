@@ -97,9 +97,14 @@ shared_examples 'source' do
     # edit annotation response
     expect(@driver.page_source.include?('annotation response- edited')).to be(false)
     wait_for_selector('.form-edit').click
+    wait_for_selector('.clear-button')
     wait_for_selector('#metadata-input').send_keys('- edited')
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-save')
+    @driver.navigate.refresh
+    wait_for_selector('.media__annotations-tabs')
+    wait_for_selector('.media-tab__source').click
+    wait_for_selector('.form-edit')
     expect(@driver.page_source.include?('annotation response- edited')).to be(true)
   end
 end

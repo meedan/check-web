@@ -28,6 +28,14 @@
 		"string": "“{field}” tiene valor {value}",
 		"developer_comment": "Label for custom field when metadata or task response contains specific value"
 	},
+	"CustomTeamTaskFilter.dateRange": {
+		"string": "Rango de Fecha",
+		"developer_comment": "Label for custom field configuration to allow filtering datetime filed with date range option"
+	},
+	"CustomTeamTaskFilter.empty": {
+		"string": "Empty",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
+	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
 		"string": "Seleccionar metadato(s)",
 		"developer_comment": "Label for input to select specific metadata to filter by"
@@ -51,6 +59,14 @@
 	"CustomTeamTaskFilter.noValue": {
 		"string": "No se establece ningún valor",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
+	},
+	"CustomTeamTaskFilter.notEmpty": {
+		"string": "Not empty",
+		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
+	},
+	"CustomTeamTaskFilter.numericRange": {
+		"string": "Number range",
+		"developer_comment": "Label for custom field configuration to allow filtering number filed with numeric range option"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
 		"string": "La tarea tiene una respuesta específica",
@@ -538,7 +554,7 @@
 		"string": "Mover de Sin Confirmar"
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
+		"string": "{mediasCount, plural, one {Necesitas mover 1 ítem a otra carpera} other {Necesitas mover # ítems a otra carpeta}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "Mover a carpeta",
@@ -815,6 +831,13 @@
 	"customAutocomplete.select": {
 		"string": "Seleccionar",
 		"developer_comment": "Verb. Label for generic dropdown component"
+	},
+	"customFiltersManager.enterNumber": {
+		"string": "ingresar número"
+	},
+	"customFiltersManager.errorMessage": {
+		"string": "El primer número debe ser menos que el segundo número",
+		"developer_comment": "Message when user set range number with min value greater than max value"
 	},
 	"customFiltersManager.label": {
 		"string": "Metadatos son",
@@ -1111,6 +1134,14 @@
 	},
 	"list.Type": {
 		"string": "Tipo"
+	},
+	"list.clusterSize": {
+		"string": "Cluster size",
+		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
+	},
+	"list.clusterTeamNames": {
+		"string": "Áreas de trabajo",
+		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster belong to"
 	},
 	"list.commentCount": {
 		"string": "Comentarios en FB"
@@ -1770,6 +1801,9 @@
 		"string": "¡Oh no! Esta página no existe o no tienes acceso autorizado.",
 		"developer_comment": "Not found page title"
 	},
+	"numericRangeFilter.and": {
+		"string": "y"
+	},
 	"numericRangeFilter.between": {
 		"string": "y"
 	},
@@ -1859,7 +1893,7 @@
 		"string": "Política Privacidad"
 	},
 	"project.deleteMessage": {
-		"string": "{mediasCount, plural, one {There is 1 item in {folderTitle}. Please choose a destination folder: } other { There are # items in {folderTitle}. Please choose a destination folder:}}"
+		"string": "{mediasCount, plural, one {Hay 1 ítem en {folderTitle}. Por favor elige una carpeta destino:} other {Hay # ítems en {folderTitle}. Por favor elige una carperta destino:}}"
 	},
 	"project.name": {
 		"string": "carpeta"
@@ -1879,7 +1913,7 @@
 		"developer_comment": "'Delete' here is an infinitive verb"
 	},
 	"projectActions.makeDefault": {
-		"string": "Hacer predeterminado",
+		"string": "Hacer predeterminada",
 		"developer_comment": "Make the folder default"
 	},
 	"projectActions.move": {
@@ -1891,7 +1925,7 @@
 		"developer_comment": "Menu option to move a folder out of a collection"
 	},
 	"projectActions.moveTitle": {
-		"string": "Move items and delete folder",
+		"string": "Mover ítems y eliminar carpeta",
 		"developer_comment": "Label for button to move items and delete folder"
 	},
 	"projectActions.privacy": {
@@ -2578,10 +2612,6 @@
 	},
 	"search.nextPage": {
 		"string": "Página siguiente"
-	},
-	"search.noProject": {
-		"string": "Ninguna",
-		"developer_comment": "Label for none project to allow user filter items with no projects"
 	},
 	"search.noResults": {
 		"string": "No se encontraron resultados",
@@ -3371,23 +3401,23 @@
 		"string": "URL"
 	},
 	"smoochBotSettings.bspSettings": {
-		"string": "WhatsApp BSP settings",
+		"string": "Configuración de WhatsApp BSP",
 		"developer_comment": "Title of 'WhatsApp BSP' settings section in the tipline settings page. The words WhatsApp BSP do not need to be translated."
 	},
 	"smoochBotSettings.internalSettings": {
-		"string": "Internal settings",
+		"string": "Configuración Interna",
 		"developer_comment": "Title of Internal Settings section in the tipline settings page"
 	},
 	"smoochBotSettings.internalSettingsDescription": {
-		"string": "Meedan employees see these settings, but users don't.",
+		"string": "Las(os) empleadas(os) de Meedan ven estas configuraciones, pero la(o)s usuaria(o)s no.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
 	},
 	"smoochBotSettings.sunshineSettings": {
-		"string": "Sunshine integration settings",
+		"string": "Configuración de integración con Sunshine",
 		"developer_comment": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated."
 	},
 	"smoochBotSettings.templatesSettings": {
-		"string": "Templates settings",
+		"string": "Configuración de Plantillas",
 		"developer_comment": "Title of templates settings section in the tipline settings page."
 	},
 	"sortSelect.az": {
@@ -3687,15 +3717,15 @@
 		"developer_comment": "Label for field type selection box"
 	},
 	"tasks.dateTimeType": {
-		"string": "Fecha y hora",
-		"developer_comment": "Label for datetime type field"
+		"string": "Fecha",
+		"developer_comment": "Label for date type field"
 	},
 	"tasks.datetime": {
 		"string": "Fecha y hora"
 	},
 	"tasks.datetimeDescription": {
-		"string": "Te permite elegir una fecha y hora del calendario",
-		"developer_comment": "Description for datetime type field"
+		"string": "Allows you to pick a date from the calendar",
+		"developer_comment": "Description for date type field"
 	},
 	"tasks.description": {
 		"string": "Descripción (opcional)"
