@@ -17,6 +17,11 @@
     "defaultMessage": "Could not save, missing required field"
   },
   {
+    "id": "metadata.couldNotSaveUrl",
+    "description": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved.",
+    "defaultMessage": "Could not save, at least one URL is invalid"
+  },
+  {
     "id": "metadata.form.save",
     "description": "This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form.",
     "defaultMessage": "Save"

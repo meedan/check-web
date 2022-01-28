@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
+import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 
-function truncate(str) {
-  const length = 32;
+function truncate(str, length) {
   const dots = str.length > length ? '...' : '';
   return `${str.substring(0, length)}${dots}`;
 }
@@ -27,16 +27,28 @@ const useStyles = makeStyles({
   number: {
     textAlign: 'right',
   },
+  urlChip: {
+    backgroundColor: '#979797',
+    color: 'white',
+    marginTop: '4px',
+  },
 });
 
 export default function MetadataCell({ projectMedia, field, type }) {
   const classes = useStyles();
   let value = projectMedia.list_columns_values[field];
+  let urls;
+  const [showMore, setShowMore] = React.useState(false);
+
+  function handleUrlChipClick(e) {
+    e.stopPropagation();
+    setShowMore(true);
+  }
 
   if (value) {
     switch (type) {
     case 'free_text':
-      value = typeof value === 'string' ? truncate(value) : value;
+      value = typeof value === 'string' ? truncate(value, 32) : value;
       break;
     case 'number':
       value = <span className={classes.number}>{value}</span>;
@@ -49,6 +61,57 @@ export default function MetadataCell({ projectMedia, field, type }) {
       break;
     case 'datetime':
       value = value.replace('at 00:00 notime', '').replace(/\(.*\)/, '');
+      break;
+    case 'url':
+      urls = JSON.parse(value);
+      if (urls.length < 4) {
+        value = (
+          <ul>
+            { urls.map(item => (
+              <li key={item.url}>
+                <a href={item.url} target="_blank" rel="noopener noreferrer">{truncate(item.title || item.url, 22)}</a>
+              </li>
+            ))}
+          </ul>
+        );
+      } else {
+        value = (
+          <ul>
+            { urls.slice(0, 2).map(item => (
+              <li key={item.url}>
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={e => e.stopPropagation()}
+                >
+                  {truncate(item.title || item.url, 25)}
+                </a>
+              </li>
+            ))}
+            {
+              showMore ? urls.slice(2).map(item => (
+                <li key={item.url}>
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={e => e.stopPropagation()}
+                  >
+                    {truncate(item.title || item.url, 25)}
+                  </a>
+                </li>
+              )) : (
+                <Chip
+                  className={classes.urlChip}
+                  label={`+${urls.length - 2} more`}
+                  size="small"
+                  onClick={handleUrlChipClick}
+                />
+              )}
+          </ul>
+        );
+      }
       break;
     default:
       break;
