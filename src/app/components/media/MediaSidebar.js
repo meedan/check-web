@@ -12,14 +12,17 @@ const MediaSidebar = ({ projectMedia, onTimelineCommentOpen }) => (
     <Box my={2}>
       <MediaCreatedBy projectMedia={projectMedia} />
     </Box>
-    <Box my={2}>
-      <MediaClaim projectMedia={projectMedia} />
-    </Box>
-    <MediaTags projectMedia={projectMedia} onTimelineCommentOpen={onTimelineCommentOpen} />
-    <Box my={2}>
-      <MediaFactCheck projectMedia={projectMedia} />
-    </Box>
-    <MediaAnalysis projectMedia={projectMedia} />
+    { !projectMedia.is_secondary ?
+      <Box>
+        <Box my={2}>
+          <MediaClaim projectMedia={projectMedia} />
+        </Box>
+        <MediaTags projectMedia={projectMedia} onTimelineCommentOpen={onTimelineCommentOpen} />
+        <Box my={2}>
+          <MediaFactCheck projectMedia={projectMedia} />
+        </Box>
+        <MediaAnalysis projectMedia={projectMedia} />
+      </Box> : null }
   </Box>
 );
 

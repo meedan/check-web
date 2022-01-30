@@ -8,8 +8,18 @@
     "defaultMessage": "Use {query_date} placeholder to display the date of the original query. Use {status} to communicate the status of the article."
   },
   {
-    "id": "reportDesigner.textMessage",
-    "defaultMessage": "Report text"
+    "id": "reportDesigner.report",
+    "defaultMessage": "Report"
+  },
+  {
+    "id": "reportDesigner.text",
+    "description": "Label used for radio button that toggles the report mode to text",
+    "defaultMessage": "Text"
+  },
+  {
+    "id": "reportDesigner.visual",
+    "description": "Label used for radio button that toggles the report mode to visual",
+    "defaultMessage": "Visual"
   },
   {
     "id": "reportDesigner.textTitle",
@@ -22,10 +32,6 @@
   {
     "id": "reportDesigner.textError",
     "defaultMessage": "You must either provide text for the report or uncheck the 'Report text' box"
-  },
-  {
-    "id": "reportDesigner.visualCard",
-    "defaultMessage": "Visual card"
   },
   {
     "id": "reportDesigner.headline",

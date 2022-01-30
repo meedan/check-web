@@ -20,9 +20,9 @@ const MediaClaim = ({ projectMedia }) => {
 
   const handleBlur = (newValue) => {
     setError(false);
-    if (newValue && hasPermission) {
-      setSaving(true);
+    if (hasPermission) {
       if (claimDescription) {
+        setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
             mutation MediaClaimUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
@@ -58,7 +58,8 @@ const MediaClaim = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else {
+      } else if (newValue) {
+        setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
             mutation MediaClaimCreateClaimDescriptionMutation($input: CreateClaimDescriptionInput!) {

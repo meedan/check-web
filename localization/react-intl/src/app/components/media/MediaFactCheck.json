@@ -35,8 +35,37 @@
     "defaultMessage": "Published article URL"
   },
   {
-    "id": "mediaFactCheck.copy",
+    "id": "mediaFactCheck.copying",
+    "description": "Caption displayed while fact-check data is being copied to a report.",
+    "defaultMessage": "Copying…"
+  },
+  {
+    "id": "mediaFactCheck.copyToReport",
     "description": "Button label to copy fact-check data into a report.",
     "defaultMessage": "Copy to tipline report"
+  },
+  {
+    "id": "mediaFactCheck.confirmTitle1",
+    "defaultMessage": "Current report is published"
+  },
+  {
+    "id": "mediaFactCheck.confirmTitle2",
+    "defaultMessage": "Overwrite existing report content?"
+  },
+  {
+    "id": "mediaFactCheck.confirmText1",
+    "defaultMessage": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+  },
+  {
+    "id": "mediaFactCheck.confirmText2",
+    "defaultMessage": "Do you want to update the report with this new content? All content currently in the report will be lost."
+  },
+  {
+    "id": "mediaFactCheck.confirmButtonLabel1",
+    "defaultMessage": "Pause report and update content"
+  },
+  {
+    "id": "mediaFactCheck.confirmButtonLabel2",
+    "defaultMessage": "Overwrite report content"
   }
 ]
