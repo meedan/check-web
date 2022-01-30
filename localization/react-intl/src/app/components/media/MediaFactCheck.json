@@ -1,0 +1,42 @@
+[
+  {
+    "id": "mediaFactCheck.factCheck",
+    "description": "Title of the media fact-check section.",
+    "defaultMessage": "Fact-check"
+  },
+  {
+    "id": "mediaFactCheck,error",
+    "description": "Caption that informs that a fact-check could not be saved",
+    "defaultMessage": "error"
+  },
+  {
+    "id": "mediaFactCheck,saving",
+    "description": "Caption that informs that a fact-check is being saved",
+    "defaultMessage": "saving..."
+  },
+  {
+    "id": "mediaFactCheck,saved",
+    "description": "Caption that informs who last saved this fact-check and when it happened.",
+    "defaultMessage": "saved by {userName} {timeAgo}"
+  },
+  {
+    "id": "mediaFactCheck.title",
+    "description": "Label for fact-check title field",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "mediaFactCheck.summary",
+    "description": "Label for fact-check summary field",
+    "defaultMessage": "Summary"
+  },
+  {
+    "id": "mediaFactCheck.url",
+    "description": "Label for fact-check URL field",
+    "defaultMessage": "Published article URL"
+  },
+  {
+    "id": "mediaFactCheck.copy",
+    "description": "Button label to copy fact-check data into a report.",
+    "defaultMessage": "Copy to tipline report"
+  }
+]

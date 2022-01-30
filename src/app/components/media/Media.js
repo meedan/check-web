@@ -31,6 +31,25 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         user_id
         channel
         is_confirmed_similar_to_another_item
+        claim_description {
+          id
+          dbid
+          description
+          updated_at
+          user {
+            name
+          }
+          fact_check {
+            id
+            title
+            summary
+            url
+            updated_at
+            user {
+              name
+            }
+          }
+        }
         media {
           url
           quote
