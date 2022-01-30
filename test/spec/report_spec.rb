@@ -61,7 +61,6 @@ shared_examples 'report' do
     wait_for_selector('#media-detail__report-designer').click
     wait_for_selector('.report-designer__actions-copy')
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath).click
-    wait_for_selector("//span[contains(text(), 'Visual card')]", :xpath).click
     wait_for_selector('#report-designer__text').send_keys('media text message')
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Edit')]", :xpath)
@@ -78,30 +77,36 @@ shared_examples 'report' do
     end
   end
 
-  it 'should set analysis information for an item, generate a report and copy to report', bin2: true do
+  it 'should set claim and fact check information for an item, generate a report and copy to report', bin2: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     api_install_bot 'smooch'
     wait_for_selector('.media-detail')
-    expect(@driver.page_source.include?('my content')).to be(false)
-    expect(@driver.page_source.include?('- my title')).to be(false)
-    wait_for_selector('.media-analysis__title > div > textarea').send_keys('- my title')
-    wait_for_selector('.media-analysis__content > div > textarea').send_keys('my content')
-    wait_for_text_change('my content', '.media-analysis__content > div > textarea')
-    wait_for_selector('.media-analysis__title').click
+
+    # Claim
+    expect(@driver.page_source.include?('My claim description')).to be(false)
+    wait_for_selector('#media-claim__description').send_keys('My claim description')
+    wait_for_selector('#media__fact-check').click
+
+    # Fact-check
+    expect(@driver.page_source.include?('My fact-check title')).to be(false)
+    expect(@driver.page_source.include?('My fact-check summary')).to be(false)
+    wait_for_selector('#media-fact-check__title').send_keys('My fact-check title')
+    wait_for_selector('#media-fact-check__summary').send_keys('My fact-check summary')
+    wait_for_selector('#media__claim').click
+    sleep 5
+
+    # Make sure claim and fact-check were saved
     @driver.navigate.refresh
-    wait_for_selector('.media-analysis__title')
-    expect(@driver.page_source.include?('- my title')).to be(true)
-    expect(@driver.page_source.include?('my content')).to be(true)
-    wait_for_selector('.media-analysis__copy-to-report').click
+    wait_for_selector('#media__fact-check')
+    expect(@driver.page_source.include?('My claim description')).to be(true)
+    expect(@driver.page_source.include?('My fact-check title')).to be(true)
+    expect(@driver.page_source.include?('My fact-check summary')).to be(true)
+
+    # Copy to report
+    wait_for_selector('.media-fact-check__copy-to-report').click
     wait_for_selector('.report-designer__copy-share-url')
     expect(@driver.page_source.include?('Design your report')).to be(true)
-    expect(@driver.page_source.include?('my content')).to be(true)
-    expect(@driver.page_source.include?('- my title')).to be(true)
-    wait_for_selector("//span[contains(text(), 'Back to annotation')]", :xpath).click
-    wait_for_selector('.media-detail')
-    @driver.navigate.refresh
-    wait_for_selector('.media-analysis__title')
-    expect(@driver.page_source.include?('my content')).to be(true)
-    expect(@driver.page_source.include?('- my title')).to be(true)
+    expect(@driver.page_source.include?('My fact-check title')).to be(true)
+    expect(@driver.page_source.include?('My fact-check summary')).to be(true)
   end
 end

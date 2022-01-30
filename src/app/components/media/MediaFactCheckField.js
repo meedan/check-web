@@ -39,6 +39,7 @@ const MediaFactCheckField = ({
   return (
     <Box my={2}>
       <TextField
+        id={`media-fact-check__${name}`}
         className={`media-fact-check__${name}`}
         label={label}
         onBlur={(e) => { onBlur(e.target.value); }}

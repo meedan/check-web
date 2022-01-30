@@ -140,6 +140,7 @@ const MediaClaim = ({ projectMedia }) => {
 
       <Box>
         <TextField
+          id="media-claim__description"
           className="media-claim__description"
           label={
             <FormattedMessage
