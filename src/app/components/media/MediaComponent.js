@@ -21,7 +21,7 @@ import MediaTasks from './MediaTasks';
 import MediaComments from './MediaComments';
 import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
-import MediaAnalysis from './MediaAnalysis';
+import MediaSidebar from './MediaSidebar';
 import MediaSource from './MediaSource';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
@@ -79,6 +79,8 @@ const AnalysisColumn = styled.div`
   flex-grow: 0;
   padding: ${units(2)};
   border-right: 2px solid ${brandSecondary};
+  max-height: calc(100vh - 64px);
+  overflow-y: auto;
 `;
 
 class MediaComponent extends Component {
@@ -306,7 +308,7 @@ class MediaComponent extends Component {
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
           <AnalysisColumn>
-            <MediaAnalysis projectMedia={media} onTimelineCommentOpen={this.onTimelineCommentOpen} />
+            <MediaSidebar projectMedia={media} onTimelineCommentOpen={this.onTimelineCommentOpen} />
           </AnalysisColumn>
           { view === 'default' ?
             <React.Fragment>
