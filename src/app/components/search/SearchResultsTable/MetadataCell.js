@@ -32,6 +32,10 @@ const useStyles = makeStyles({
     color: 'white',
     marginTop: '4px',
   },
+  link: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+  },
 });
 
 export default function MetadataCell({ projectMedia, field, type }) {
@@ -69,7 +73,15 @@ export default function MetadataCell({ projectMedia, field, type }) {
           <ul>
             { urls.map(item => (
               <li key={item.url}>
-                <a href={item.url} target="_blank" rel="noopener noreferrer">{truncate(item.title || item.url, 22)}</a>
+                <a
+                  className={classes.link}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={e => e.stopPropagation()}
+                >
+                  {truncate(item.title || item.url, 22)}
+                </a>
               </li>
             ))}
           </ul>
@@ -80,6 +92,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
             { urls.slice(0, 2).map(item => (
               <li key={item.url}>
                 <a
+                  className={classes.link}
                   href={item.url}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -93,6 +106,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
               showMore ? urls.slice(2).map(item => (
                 <li key={item.url}>
                   <a
+                    className={classes.link}
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
