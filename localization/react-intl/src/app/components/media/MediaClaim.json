@@ -1,0 +1,27 @@
+[
+  {
+    "id": "mediaClaim.claim",
+    "description": "Title of the media claim section.",
+    "defaultMessage": "Claim"
+  },
+  {
+    "id": "mediaClaim.error",
+    "description": "Caption that informs that a claim could not be saved",
+    "defaultMessage": "error"
+  },
+  {
+    "id": "mediaClaim.saving",
+    "description": "Caption that informs that a claim is being saved",
+    "defaultMessage": "saving..."
+  },
+  {
+    "id": "mediaClaim.saved",
+    "description": "Caption that informs who last saved this claim and when it happened.",
+    "defaultMessage": "saved by {userName} {timeAgo}"
+  },
+  {
+    "id": "mediaClaim.description",
+    "description": "Placeholder for claim description field.",
+    "defaultMessage": "Type something"
+  }
+]

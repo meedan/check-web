@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mediaFactCheckField.noClaimDescription",
+    "description": "Placeholder for fact-check field when there is no claim description filled.",
+    "defaultMessage": "Add a claim to access the fact-check"
+  }
+]
