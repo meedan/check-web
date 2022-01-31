@@ -31,6 +31,26 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         user_id
         channel
         is_confirmed_similar_to_another_item
+        is_secondary
+        claim_description {
+          id
+          dbid
+          description
+          updated_at
+          user {
+            name
+          }
+          fact_check {
+            id
+            title
+            summary
+            url
+            updated_at
+            user {
+              name
+            }
+          }
+        }
         media {
           url
           quote
@@ -136,6 +156,9 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
                 login
               }
             }
+          }
+          smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+            id
           }
         }
       }

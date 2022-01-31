@@ -1,0 +1,12 @@
+[
+  {
+    "id": "mediaAnalysisField.copied",
+    "description": "Confirmation label that is displayed once a Copy link is clicked.",
+    "defaultMessage": "Copied!"
+  },
+  {
+    "id": "mediaAnalysisField.copy",
+    "description": "Link text that once clicked copies text to clipboard.",
+    "defaultMessage": "Copy text"
+  }
+]
