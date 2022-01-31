@@ -14,7 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect } from '@meedan/check-ui';
+import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
 import styled from 'styled-components';
 import moment from 'moment';
 import EditTaskDialog from './EditTaskDialog';
@@ -564,6 +564,15 @@ class Task extends Component {
           />
         ),
       },
+      MetadataUrl: {
+        helperText: (
+          <FormattedMessage
+            id="metadata.url.helperText"
+            defaultMessage="Must be a valid URL"
+            description="A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
+          />
+        ),
+      },
     }
   );
 
@@ -608,6 +617,7 @@ class Task extends Component {
         mutationPayload,
         required,
         empty,
+        anyInvalidUrls,
       } = props;
       const payload =
         mutationPayload?.response_multiple_choice ||
@@ -619,8 +629,10 @@ class Task extends Component {
             className="metadata-save"
             data-required={required}
             data-empty={empty}
+            data-urlerror={anyInvalidUrls}
             onClick={() => {
               let tempTextValue;
+              const isEmptyUrlArray = () => task.type === 'url' && this.state.textValue.filter(item => item.url !== '' || item.title !== '').length === 0;
               // if multiple choice, textValue is an object, we transform it to a string separated by ', '
               if (task.type === 'multiple_choice') {
                 tempTextValue = this.state.textValue.selected.join(', ');
@@ -637,7 +649,7 @@ class Task extends Component {
                 }
               }
               // if there's a blank submission, and an existing submission exists, treat as a delete action
-              if (!payload && !this.state.textValue && task.first_response_value) {
+              if (!payload && (!this.state.textValue || isEmptyUrlArray()) && task.first_response_value) {
                 this.submitDeleteTaskResponse(task.first_response.id);
               } else if (tempTextValue === task?.first_response_value) {
                 // if the current submission hasn't changed at all, do nothing
@@ -952,6 +964,29 @@ class Task extends Component {
                 onDismiss={this.handleCancelEditResponse}
               />
             ) : null}
+            {task.type === 'url' && task.fieldset === 'metadata' ? (
+              <MetadataUrl
+                node={task}
+                classes={{}}
+                DeleteButton={DeleteButton}
+                CancelButton={CancelButton}
+                SaveButton={SaveButton}
+                EditButton={EditButton}
+                AnnotatorInformation={AnnotatorInformation}
+                FieldInformation={FieldInformation}
+                hasData={task.first_response_value}
+                isEditing={this.props.isEditing}
+                messages={messages.MetadataUrl}
+                disabled={!this.props.isEditing}
+                required={task.team_task.required}
+                metadataValue={
+                  this.state.textValue
+                }
+                setMetadataValue={(textValue) => {
+                  this.setState({ textValue });
+                }}
+              />
+            ) : null}
           </form>
         </div>
       );
@@ -1193,6 +1228,29 @@ class Task extends Component {
               messages={messages.MetadataFile}
             />
           </div>
+        ) : null}
+        {task.type === 'url' && task.fieldset === 'metadata' ? (
+          <MetadataUrl
+            node={task}
+            classes={{}}
+            DeleteButton={DeleteButton}
+            CancelButton={CancelButton}
+            SaveButton={SaveButton}
+            EditButton={EditButton}
+            AnnotatorInformation={AnnotatorInformation}
+            FieldInformation={FieldInformation}
+            hasData={task.first_response_value}
+            isEditing={this.props.isEditing}
+            messages={messages.MetadataUrl}
+            disabled={!this.props.isEditing}
+            required={task.team_task.required}
+            metadataValue={
+              this.state.textValue
+            }
+            setMetadataValue={(textValue) => {
+              this.setState({ textValue });
+            }}
+          />
         ) : null}
         {by && byPictures && task.fieldset !== 'metadata' ? (
           <Box

@@ -86,6 +86,16 @@
     "defaultMessage": "Allows you to upload a file"
   },
   {
+    "id": "tasks.UrlType",
+    "description": "Label for the URL type field",
+    "defaultMessage": "URL"
+  },
+  {
+    "id": "tasks.UrlDescription",
+    "description": "Hint text about what kind of text a user can put in the URL box",
+    "defaultMessage": "Must be a valid URL"
+  },
+  {
     "id": "tasks.chooseType",
     "description": "Label for field type selection box",
     "defaultMessage": "Choose a field type"

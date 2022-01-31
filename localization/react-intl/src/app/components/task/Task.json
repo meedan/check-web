@@ -45,6 +45,11 @@
     "defaultMessage": "This is not an accepted file type. Accepted file types include: {extensions}. Please try again with a different file."
   },
   {
+    "id": "metadata.url.helperText",
+    "description": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL.",
+    "defaultMessage": "Must be a valid URL"
+  },
+  {
     "id": "metadata.edit",
     "description": "This is a label that appears on a button next to an item that the user can edit. The label indicates that if the user presses this button, the item will become editable.",
     "defaultMessage": "Edit"
