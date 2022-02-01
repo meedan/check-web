@@ -73,6 +73,8 @@ const MediaSimilarityBarComponent = ({
 }) => {
   const classes = useStyles();
   const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
+  const params = new URLSearchParams(window.location.search);
+  const listIndex = params.get('listIndex');
 
   // This component should be used only on an item page
   if (!linkPrefix) {
@@ -87,7 +89,7 @@ const MediaSimilarityBarComponent = ({
   };
 
   const handleGoBack = () => {
-    const itemUrl = window.location.pathname.replace(/\/similar-media$/, '');
+    const itemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
     browserHistory.push(itemUrl);
   };
 
@@ -143,7 +145,7 @@ const MediaSimilarityBarComponent = ({
           </Box> : null }
         { !showBackButton ?
           <MaybeLink
-            to={confirmedSimilarCount > 0 ? `${linkPrefix[0]}/similar-media` : null}
+            to={confirmedSimilarCount > 0 ? `${linkPrefix[0]}/similar-media?listIndex=${listIndex}` : null}
             style={confirmedSimilarCount > 0 ? { color: checkBlue } : {}}
           >
             <FormattedMessage
@@ -156,7 +158,7 @@ const MediaSimilarityBarComponent = ({
           </MaybeLink> : null }
         { showSuggestionsCount ?
           <MaybeLink
-            to={suggestionsCount > 0 ? `${linkPrefix[0]}/suggested-matches` : null}
+            to={suggestionsCount > 0 ? `${linkPrefix[0]}/suggested-matches?listIndex=${listIndex}` : null}
             style={suggestionsCount > 0 ? { color: brandHighlight } : {}}
           >
             <FormattedMessage
