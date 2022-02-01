@@ -52,7 +52,7 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           share_count: 0,
           report_status: 'unpublished',
           tags_as_sentence: '',
-          sources_as_sentence: '',
+          sources_as_sentence: JSON.stringify({}),
           folder: '',
           media_published_at: 0,
           comment_count: 0,
