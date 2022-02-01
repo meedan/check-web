@@ -48,7 +48,7 @@ const MediaAnalysis = ({ projectMedia }) => {
             description="Caption that informs that the analysis feature is deprecated."
             values={{
               learnMoreLink: (
-                <a href="https://help.checkmedia.org/en/" target="_blank" rel="noopener noreferrer">
+                <a href="https://help.checkmedia.org/en/articles/4471254-analysis-panel" target="_blank" rel="noopener noreferrer">
                   <FormattedMessage id="mediaAnalysis.learnMore" defaultMessage="Learn more" description="Text that links to an external help article" />
                 </a>
               ),

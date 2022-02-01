@@ -29,6 +29,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const noReport = !projectMedia.report;
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
+  const readOnly = projectMedia.is_secondary;
 
   const handleCloseConfirmationDialog = () => {
     setShowConfirmationDialog(false);
@@ -254,6 +255,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
+        disabled={readOnly}
       />
 
       <MediaFactCheckField
@@ -266,6 +268,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
+        disabled={readOnly}
         multiline
       />
 
@@ -279,11 +282,12 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
+        disabled={readOnly}
       />
 
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>
-          <Button onClick={handleConfirmCopyToReport} className="media-fact-check__copy-to-report" variant="contained" color="primary" disabled={saving || copying || !canCopy || !factCheck}>
+          <Button onClick={handleConfirmCopyToReport} className="media-fact-check__copy-to-report" variant="contained" color="primary" disabled={saving || copying || !canCopy || !factCheck || readOnly}>
             { copying ?
               <FormattedMessage id="mediaFactCheck.copying" defaultMessage="Copying…" description="Caption displayed while fact-check data is being copied to a report." /> :
               <FormattedMessage id="mediaFactCheck.copyToReport" defaultMessage="Copy to tipline report" description="Button label to copy fact-check data into a report." /> }
@@ -347,6 +351,7 @@ MediaFactCheck.defaultProps = {
 MediaFactCheck.propTypes = {
   projectMedia: PropTypes.shape({
     permissions: PropTypes.string,
+    is_secondary: PropTypes.bool,
     team: PropTypes.shape({
       smooch_bot: PropTypes.object,
     }),
