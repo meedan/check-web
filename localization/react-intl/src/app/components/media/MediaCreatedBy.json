@@ -10,6 +10,11 @@
     "defaultMessage": "Tipline"
   },
   {
+    "id": "mediaAnalysis.webForm",
+    "description": "Creator that refers to items created via web forms.",
+    "defaultMessage": "Web Form"
+  },
+  {
     "id": "mediaCreatedBy.createdBy",
     "defaultMessage": "Item created by {name}"
   }

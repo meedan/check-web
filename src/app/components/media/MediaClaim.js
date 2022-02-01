@@ -17,6 +17,7 @@ const MediaClaim = ({ projectMedia }) => {
   const [error, setError] = React.useState(false);
 
   const hasPermission = can(projectMedia.permissions, 'create ClaimDescription');
+  const readOnly = projectMedia.is_secondary;
 
   const handleBlur = (newValue) => {
     setError(false);
@@ -154,7 +155,7 @@ const MediaClaim = ({ projectMedia }) => {
           variant="outlined"
           rows={3}
           rowsMax={Infinity}
-          disabled={!hasPermission}
+          disabled={!hasPermission || readOnly}
           multiline
           fullWidth
         />
@@ -173,6 +174,7 @@ MediaClaim.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number,
     permissions: PropTypes.string,
+    is_secondary: PropTypes.bool,
     claim_description: PropTypes.shape({
       id: PropTypes.string,
       description: PropTypes.string,
