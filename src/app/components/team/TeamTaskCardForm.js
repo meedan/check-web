@@ -9,6 +9,7 @@ import {
   MetadataNumber,
   MetadataText,
   MetadataLocation,
+  MetadataUrl,
 } from '@meedan/check-ui';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 
@@ -152,6 +153,31 @@ const TeamTaskCardForm = ({ task, about }) => (
                 fileSizeLabel: about ? about.file_max_size : '',
                 extensions: about ? about.file_extensions.join(', ') : '',
               }}
+            />
+          ),
+        }}
+      /> : null
+    }
+    { task.type === 'url' ?
+      <MetadataUrl
+        disabled
+        node={task}
+        classes={{}}
+        DeleteButton={() => null}
+        CancelButton={() => null}
+        SaveButton={() => null}
+        EditButton={() => null}
+        AnnotatorInformation={() => null}
+        FieldInformation={() => null}
+        hasData=""
+        metadataValue=""
+        setMetadataValue={() => null}
+        messages={{
+          helperText: (
+            <FormattedMessage
+              id="metadata.url.helperText"
+              defaultMessage="Must be a valid URL"
+              description="A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
             />
           ),
         }}
