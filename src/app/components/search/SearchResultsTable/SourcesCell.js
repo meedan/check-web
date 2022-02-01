@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import { urlFromSearchQuery } from '../../search/Search';
+import { safelyParseJSON } from '../../../helpers';
 
 const useStyles = makeStyles({
   source: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles({
 });
 
 function formatSources(value) {
-  const sources = value.split(', ');
+  const sources = Object.values(value);
   const newValue = sources.slice(0, 3);
   if (sources.length > 3) {
     newValue[2] = `${newValue[2]} + ${sources.length - 3}`;
@@ -35,10 +36,10 @@ export default function SourcesCell({ projectMedia }) {
     e.preventDefault();
   };
 
-  const sources = projectMedia.list_columns_values.sources_as_sentence;
+  const sources = safelyParseJSON(projectMedia.list_columns_values.sources_as_sentence) || {};
   console.log('sources', sources); // eslint-disable-line no-console
 
-  if (sources === '' || sources === null) {
+  if (Object.keys(sources).length === 0) {
     return <TableCell>-</TableCell>;
   }
 
