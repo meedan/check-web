@@ -197,6 +197,7 @@ function buildColumnDefs(team, resultType) {
           cellComponent: MetadataCell,
           sortKey: listColumn.key,
           type: listColumn.type,
+          align: listColumn.type === 'url' ? 'center' : 'inherit',
         };
       }
       if (column) {
