@@ -212,6 +212,13 @@ const Tasks = ({
       .some(saveButton => saveButton.dataset.empty === 'true' && saveButton.dataset.required === 'true');
   }
 
+  function isAnyUrlInvalid() {
+    // HTML data attributes cast booleans to strings, so we check for equality to
+    // the string "true" here
+    return Array.from(document.querySelectorAll('.metadata-save'))
+      .some(saveButton => saveButton.dataset.urlerror === 'true');
+  }
+
   function handleEditAnnotations() {
     document.querySelectorAll('.metadata-edit').forEach((editButton) => {
       editButton.click();
@@ -226,6 +233,16 @@ const Tasks = ({
           id="metadata.couldNotSave"
           defaultMessage="Could not save, missing required field"
           description="Error message displayed when it's not possible to save metadata due to a required field not being filled in."
+        />
+      ), 'error');
+      return;
+    }
+    if (isAnyUrlInvalid()) {
+      setFlashMessage((
+        <FormattedMessage
+          id="metadata.couldNotSaveUrl"
+          defaultMessage="Could not save, at least one URL is invalid"
+          description="Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved."
         />
       ), 'error');
       return;

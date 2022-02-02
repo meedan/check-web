@@ -1,80 +1,27 @@
 [
   {
-    "id": "mediaAnalysis.import",
-    "description": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER",
-    "defaultMessage": "Import"
-  },
-  {
-    "id": "mediaAnalysis.tipline",
-    "description": "Creator that refers to items created via tiplines",
-    "defaultMessage": "Tipline"
-  },
-  {
-    "id": "mediaAnalysis.createdBy",
-    "defaultMessage": "Item created by {name}"
-  },
-  {
     "id": "mediaAnalysis.analysis",
+    "description": "Title of the media analysis bar",
     "defaultMessage": "Analysis"
   },
   {
-    "id": "mediaAnalysis.saving",
-    "defaultMessage": "Saving…"
+    "id": "mediaAnalysis.discontinued",
+    "description": "Caption that informs that the analysis feature is deprecated.",
+    "defaultMessage": "(Discontinued - {learnMoreLink})"
   },
   {
-    "id": "mediaAnalysis.saved",
-    "defaultMessage": "Saved {ago}"
-  },
-  {
-    "id": "mediaAnalysis.error",
-    "defaultMessage": "Could not save! Last save {ago}"
-  },
-  {
-    "id": "mediaAnalysis.copying",
-    "defaultMessage": "Copying…"
-  },
-  {
-    "id": "mediaAnalysis.copyToReport",
-    "defaultMessage": "Copy to report"
+    "id": "mediaAnalysis.learnMore",
+    "description": "Text that links to an external help article",
+    "defaultMessage": "Learn more"
   },
   {
     "id": "mediaAnalysis.title",
+    "description": "Label for the analysis title field",
     "defaultMessage": "Title"
   },
   {
     "id": "mediaAnalysis.content",
+    "description": "Label for the analysis content field",
     "defaultMessage": "Content"
-  },
-  {
-    "id": "mediaAnalysis.publishedArticle",
-    "defaultMessage": "Published article URL"
-  },
-  {
-    "id": "mediaAnalysis.date",
-    "defaultMessage": "Published article date"
-  },
-  {
-    "id": "mediaAnalysis.confirmTitle1",
-    "defaultMessage": "Current report is published"
-  },
-  {
-    "id": "mediaAnalysis.confirmTitle2",
-    "defaultMessage": "Overwrite existing report content?"
-  },
-  {
-    "id": "mediaAnalysis.confirmText1",
-    "defaultMessage": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
-  },
-  {
-    "id": "mediaAnalysis.confirmText2",
-    "defaultMessage": "Do you want to update the report with this new content? All content currently in the report will be lost."
-  },
-  {
-    "id": "mediaAnalysis.confirmButtonLabel1",
-    "defaultMessage": "Pause report and update content"
-  },
-  {
-    "id": "mediaAnalysis.confirmButtonLabel2",
-    "defaultMessage": "Overwrite report content"
   }
 ]

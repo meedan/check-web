@@ -32,6 +32,7 @@ import {
   RadioButtonChecked as RadioButtonCheckedIcon,
   RadioButtonUnchecked as RadioButtonUncheckedIcon,
   ShortText as ShortTextIcon,
+  LinkOutlined as LinkOutlinedIcon,
 } from '@material-ui/icons';
 import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
@@ -455,6 +456,24 @@ class EditTaskDialog extends React.Component {
             id="tasks.fileUploadDescription"
             defaultMessage="Allows you to upload a file"
             description="Description for file upload type field"
+          />
+        ),
+      },
+      {
+        label: (
+          <FormattedMessage
+            id="tasks.UrlType"
+            defaultMessage="URL"
+            description="Label for the URL type field"
+          />
+        ),
+        value: 'url',
+        icon: <LinkOutlinedIcon />,
+        description: (
+          <FormattedMessage
+            id="tasks.UrlDescription"
+            defaultMessage="Must be a valid URL"
+            description="Hint text about what kind of text a user can put in the URL box"
           />
         ),
       },

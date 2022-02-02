@@ -20,6 +20,11 @@
     "defaultMessage": "Any tipline"
   },
   {
+    "id": "searchFieldChannel.webForm",
+    "description": "Filter option that refers to items created via a web form",
+    "defaultMessage": "Web Form"
+  },
+  {
     "id": "SearchFieldChannel.label",
     "description": "Prefix label for field to filter by item channel",
     "defaultMessage": "Channel is"

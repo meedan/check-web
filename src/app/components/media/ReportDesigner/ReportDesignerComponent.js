@@ -144,15 +144,25 @@ const ReportDesignerComponent = (props) => {
     setEditing(true);
   };
 
-  const handleUpdate = (field, value) => {
-    const updatedData = cloneData(data);
-    if (currentReportIndex > -1) {
-      updatedData.options[currentReportIndex][field] = value;
+  // We can pass a hash of "field => value" (in order to update multiple fields at once) or just a pair "field, value" (in order to update only one field)
+  const handleUpdate = (fieldOrObject, valueOrNothing) => {
+    let updates = {};
+    if (typeof fieldOrObject === 'object') {
+      updates = fieldOrObject;
     } else {
-      const newReport = defaultOptions(media, currentLanguage);
-      newReport[field] = value;
-      updatedData.options.push(newReport);
+      updates[fieldOrObject] = valueOrNothing;
     }
+    const updatedData = cloneData(data);
+    Object.keys(updates).forEach((field) => {
+      const value = updates[field];
+      if (currentReportIndex > -1) {
+        updatedData.options[currentReportIndex][field] = value;
+      } else {
+        const newReport = defaultOptions(media, currentLanguage);
+        newReport[field] = value;
+        updatedData.options.push(newReport);
+      }
+    });
     setData(updatedData);
   };
 

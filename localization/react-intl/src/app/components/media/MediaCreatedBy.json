@@ -1,0 +1,21 @@
+[
+  {
+    "id": "mediaAnalysis.import",
+    "description": "Creator that refers to items created via Fetch or Zapier.",
+    "defaultMessage": "Import"
+  },
+  {
+    "id": "mediaAnalysis.tipline",
+    "description": "Creator that refers to items created via tiplines.",
+    "defaultMessage": "Tipline"
+  },
+  {
+    "id": "mediaAnalysis.webForm",
+    "description": "Creator that refers to items created via web forms.",
+    "defaultMessage": "Web Form"
+  },
+  {
+    "id": "mediaCreatedBy.createdBy",
+    "defaultMessage": "Item created by {name}"
+  }
+]

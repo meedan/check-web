@@ -34,9 +34,9 @@ const useStyles = makeStyles(theme => ({
   link: {
     display: 'block',
     fontWeight: 'bold',
-    fontSize: 12,
-    textAlign: 'center',
+    fontSize: 14,
     color: black54,
+    textAlign: 'center',
     textDecoration: 'none',
     '&:hover': {
       textDecoration: 'none',
@@ -53,8 +53,8 @@ const useStyles = makeStyles(theme => ({
   },
   similarityMessage: {
     padding: theme.spacing(1),
-    marginTop: theme.spacing(0.5),
-    color: brandHighlight,
+    color: 'black',
+    textAlign: 'left',
   },
 }));
 
@@ -94,13 +94,18 @@ const MediaSimilarityBarComponent = ({
   if (hasMain) {
     const mainItemLink = `/${confirmedMainItem.team.slug}/media/${confirmedMainItem.dbid}/similar-media`;
     return (
-      <Box className={classes.root}>
-        <Link to={mainItemLink} className={[classes.link, classes.similarityMessage].join(' ')}>
+      <Box className={[classes.root, classes.link, classes.similarityMessage].join(' ')}>
+        <FormattedMessage
+          id="mediaSimilarityBarComponent.hasMain"
+          defaultMessage="This media has been associated with an existing claim."
+        />
+        {' '}
+        <Button onClick={() => browserHistory.push(mainItemLink)} variant="contained" color="primary" size="small">
           <FormattedMessage
-            id="mediaSimilarityBarComponent.hasMain"
-            defaultMessage="This media has been added as similar to another item"
+            id="mediaSimilarityBarComponent.openClaim"
+            defaultMessage="Open claim"
           />
-        </Link>
+        </Button>
       </Box>
     );
   }
@@ -108,13 +113,18 @@ const MediaSimilarityBarComponent = ({
   if (suggestedMainItem) {
     const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/suggested-matches`;
     return (
-      <Box className={classes.root}>
-        <Link to={mainItemLink} className={[classes.link, classes.similarityMessage].join(' ')}>
+      <Box className={[classes.root, classes.link, classes.similarityMessage].join(' ')}>
+        <FormattedMessage
+          id="mediaSimilarityBarComponent.hasSuggestedMain"
+          defaultMessage="This media has been suggested to be similar to an existing claim."
+        />
+        {' '}
+        <Button onClick={() => browserHistory.push(mainItemLink)} variant="contained" color="primary" size="small">
           <FormattedMessage
-            id="mediaSimilarityBarComponent.hasSuggestedMain"
-            defaultMessage="This media has been suggested to be similar to another item"
+            id="mediaSimilarityBarComponent.openClaim"
+            defaultMessage="Open claim"
           />
-        </Link>
+        </Button>
       </Box>
     );
   }

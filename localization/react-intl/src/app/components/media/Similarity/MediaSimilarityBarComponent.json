@@ -1,11 +1,15 @@
 [
   {
     "id": "mediaSimilarityBarComponent.hasMain",
-    "defaultMessage": "This media has been added as similar to another item"
+    "defaultMessage": "This media has been associated with an existing claim."
+  },
+  {
+    "id": "mediaSimilarityBarComponent.openClaim",
+    "defaultMessage": "Open claim"
   },
   {
     "id": "mediaSimilarityBarComponent.hasSuggestedMain",
-    "defaultMessage": "This media has been suggested to be similar to another item"
+    "defaultMessage": "This media has been suggested to be similar to an existing claim."
   },
   {
     "id": "mediaSimilarityBarComponent.back",

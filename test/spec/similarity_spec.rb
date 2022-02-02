@@ -9,7 +9,7 @@ shared_examples 'similarity' do
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
-    wait_for_selector('.media-analysis__copy-to-report')
+    wait_for_selector('#media__claim')
     wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
     # import similarity item
     wait_for_selector("//span[contains(text(), 'Import similar media into this item')]", :xpath).click
@@ -20,7 +20,7 @@ shared_examples 'similarity' do
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
-    wait_for_selector('.media-analysis__copy-to-report')
+    wait_for_selector('#media__claim')
     # export similarity item
     wait_for_selector("//span[contains(text(), 'Add similar')]", :xpath).click
     wait_for_selector("//span[contains(text(), 'Export all media to another item')]", :xpath).click
@@ -72,7 +72,7 @@ shared_examples 'similarity' do
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector('.media__heading').click
-    wait_for_selector('.media-analysis__copy-to-report')
+    wait_for_selector('#media__sidebar')
     expect(@driver.page_source.include?('Claim 0')).to be(false)
     @driver.execute_script('window.scrollTo(0, 50)')
     wait_for_selector('.media-tab__related').click
