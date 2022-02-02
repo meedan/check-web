@@ -28,6 +28,11 @@ const messages = defineMessages({
     defaultMessage: 'Any tipline',
     description: 'Filter option that refers to items created via a tipline',
   },
+  webForm: {
+    id: 'searchFieldChannel.webForm',
+    defaultMessage: 'Web Form',
+    description: 'Filter option that refers to items created via a web form',
+  },
 });
 
 const SearchFieldChannelComponent = ({
@@ -52,6 +57,7 @@ const SearchFieldChannelComponent = ({
     TELEGRAM: 'Telegram',
     VIBER: 'Viber',
     LINE: 'Line',
+    WEB_FORM: intl.formatMessage(messages.webForm),
   };
 
   let options = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));

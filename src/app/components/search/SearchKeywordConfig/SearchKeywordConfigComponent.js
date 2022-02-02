@@ -101,6 +101,33 @@ const SearchKeywordConfigComponent = ({
     ),
   },
   {
+    value: 'claim_description_content',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.claimDescription"
+        defaultMessage="Claim description"
+      />
+    ),
+  },
+  {
+    value: 'fact_check_title',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.factCheckTitle"
+        defaultMessage="Fact-check title"
+      />
+    ),
+  },
+  {
+    value: 'fact_check_summary',
+    label: (
+      <FormattedMessage
+        id="searchKeywordConfig.factCheckSummary"
+        defaultMessage="Fact-check summary"
+      />
+    ),
+  },
+  {
     value: '',
     label: '',
   },

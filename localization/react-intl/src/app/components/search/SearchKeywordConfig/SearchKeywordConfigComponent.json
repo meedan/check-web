@@ -36,6 +36,18 @@
     "defaultMessage": "Extracted text (OCR)"
   },
   {
+    "id": "searchKeywordConfig.claimDescription",
+    "defaultMessage": "Claim description"
+  },
+  {
+    "id": "searchKeywordConfig.factCheckTitle",
+    "defaultMessage": "Fact-check title"
+  },
+  {
+    "id": "searchKeywordConfig.factCheckSummary",
+    "defaultMessage": "Fact-check summary"
+  },
+  {
     "id": "searchKeywordConfig.allTaskAnswers",
     "description": "This options applies keyword search across all task answers",
     "defaultMessage": "All task answers"

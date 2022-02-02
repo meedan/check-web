@@ -119,7 +119,7 @@ class MediaTags extends React.Component {
       <StyledMediaTagsContainer className="media-tags__container">
         <div className="media-tags">
           <ul className="media-tags__list">
-            <li><TagMenu media={projectMedia} /></li>
+            <li>{ projectMedia.is_secondary ? null : <TagMenu media={projectMedia} /> }</li>
             {tags.map((tag) => {
               if (tag.node.tag_text) {
                 return (
@@ -171,6 +171,7 @@ export default createFragmentContainer(MediaTags, graphql`
     team {
       slug
     }
+    is_secondary
     tags(first: 10000) {
       edges {
         node {
