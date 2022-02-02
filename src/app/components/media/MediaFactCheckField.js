@@ -20,6 +20,7 @@ const MediaFactCheckField = ({
   name,
   value,
   disabled,
+  rows,
   onBlur,
   intl,
 }) => {
@@ -33,7 +34,7 @@ const MediaFactCheckField = ({
 
   if (multiline) {
     fieldProps.multiline = true;
-    fieldProps.rows = 3;
+    fieldProps.rows = rows;
     fieldProps.rowsMax = Infinity;
   }
 
@@ -57,6 +58,7 @@ const MediaFactCheckField = ({
 MediaFactCheckField.defaultProps = {
   multiline: false,
   disabled: false,
+  rows: 3,
 };
 
 MediaFactCheckField.propTypes = {
@@ -67,6 +69,7 @@ MediaFactCheckField.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  rows: PropTypes.number,
   onBlur: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };

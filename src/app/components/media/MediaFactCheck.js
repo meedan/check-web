@@ -256,6 +256,8 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
         disabled={readOnly}
+        rows={1}
+        multiline
       />
 
       <MediaFactCheckField
