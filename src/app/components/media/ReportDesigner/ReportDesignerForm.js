@@ -130,7 +130,7 @@ const ReportDesignerForm = (props) => {
             <Box>
               <FormControlLabel
                 control={<Radio />}
-                checked={Boolean(data.use_text_message)}
+                checked={Boolean(data.use_text_message) && !data.use_visual_card}
                 label={<FormattedMessage id="reportDesigner.text" defaultMessage="Text" description="Label used for radio button that toggles the report mode to text" />}
                 onChange={() => { props.onUpdate({ use_text_message: true, use_visual_card: false }); }}
               />
