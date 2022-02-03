@@ -184,6 +184,7 @@ shared_examples 'project' do
     wait_for_selector('.message')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
+    @driver.navigate.refresh
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(false)
     expect(@driver.page_source.include?('metadata')).to be(true)
