@@ -24,7 +24,7 @@ export default function TagsCell({ projectMedia }) {
   const classes = useStyles();
   const tags = projectMedia.list_columns_values.tags_as_sentence;
 
-  if (tags === '') {
+  if (tags === '' || tags === null) {
     return <TableCell>-</TableCell>;
   }
 
