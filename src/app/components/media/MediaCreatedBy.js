@@ -15,6 +15,11 @@ const messages = defineMessages({
     defaultMessage: 'Tipline',
     description: 'Creator that refers to items created via tiplines.',
   },
+  webform: {
+    id: 'mediaAnalysis.webForm',
+    defaultMessage: 'Web Form',
+    description: 'Creator that refers to items created via web forms.',
+  },
 });
 
 const MediaCreatedBy = ({ projectMedia, intl }) => {
@@ -32,7 +37,7 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
         id="mediaCreatedBy.createdBy"
         defaultMessage="Item created by {name}"
         values={{
-          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : intl.formatMessage(messages[creatorName.toLocaleLowerCase()]),
+          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : intl.formatMessage(messages[creatorName.replace(/[ _-]/g, '').toLocaleLowerCase()]),
         }}
       />
     </Typography>
