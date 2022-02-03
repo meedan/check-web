@@ -27,7 +27,7 @@ const MediaAnalysis = ({ projectMedia }) => {
   const title = getValue('title');
   const content = getValue('content');
 
-  if (!content) {
+  if (!title && !content) {
     return null;
   }
 
