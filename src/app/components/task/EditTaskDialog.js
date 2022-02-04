@@ -127,7 +127,7 @@ class EditTaskDialog extends React.Component {
   }
 
   handleAddValue() {
-    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
+    const options = Array.isArray(this.state.options) ? [...this.state.options] : [];
     if (this.state.hasOther) {
       options.splice(-1, 0, { label: '' });
     } else {
@@ -139,7 +139,7 @@ class EditTaskDialog extends React.Component {
   }
 
   handleAddOther() {
-    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
+    const options = Array.isArray(this.state.options) ? [...this.state.options] : [];
     const other = true;
     let label = '';
 
@@ -153,15 +153,15 @@ class EditTaskDialog extends React.Component {
   }
 
   handleEditOption(e) {
-    const options = this.state.options.slice(0);
-    options[parseInt(e.target.id, 10)].label = e.target.value;
+    const options = [...this.state.options];
+    options.splice(parseInt(e.target.id, 10), 1, { label: e.target.value });
     this.setState({ options });
 
     this.validateTask(this.state.label, options);
   }
 
   handleRemoveOption(index) {
-    const options = this.state.options.slice(0);
+    const options = [...this.state.options];
     let hasOther = null;
 
     if (this.state.hasOther) {
