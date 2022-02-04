@@ -42,7 +42,7 @@ class TeamTaskConfirmDialog extends React.Component {
     const { task } = this.props;
     let action = 'delete';
     if (this.props.action === 'edit') {
-      action = this.props.editLabelOrDescription ? 'editLabelOrDescription' : 'edit';
+      action = this.props.labelOrDescriptionChanged ? 'labelOrDescriptionChanged' : 'edit';
     }
     const deleteConfirmDialogTitle = this.props.fieldset === 'tasks' ?
       <FormattedMessage id="teamTasks.confirmDeleteTaskTitle" defaultMessage="Are you sure you want to delete this task?" /> :
@@ -90,7 +90,7 @@ class TeamTaskConfirmDialog extends React.Component {
           description="Warning about existing instances of a field before performing changes to it"
         />
       ),
-      editLabelOrDescription: confirmDialogBlurbEditOrDelete,
+      labelOrDescriptionChanged: confirmDialogBlurbEditOrDelete,
       delete: confirmDialogBlurbEditOrDelete,
     };
 

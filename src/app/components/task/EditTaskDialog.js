@@ -20,6 +20,8 @@ import {
   TextField,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
+import AlertTitle from '@material-ui/lab/AlertTitle';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
   Add as AddIcon,
@@ -111,16 +113,16 @@ class EditTaskDialog extends React.Component {
       project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
-      editLabelOrDescription: false,
+      labelOrDescriptionChanged: false,
       hasOther: task ? task.options?.some(option => option.other) : false,
-      preventChangeTaskType: task && task.tasks_with_answers_count > 0,
+      hasCollectedAnswers: task && task.tasks_with_answers_count > 0,
       restrictTimezones: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.restrictTimezones,
       alwaysShowTime: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.alwaysShowTime,
     };
   }
 
   handleDescriptionChange(e) {
-    this.setState({ description: e.target.value, editLabelOrDescription: true });
+    this.setState({ description: e.target.value, labelOrDescriptionChanged: true });
     this.validateTask(this.state.label, this.state.options);
   }
 
@@ -193,7 +195,7 @@ class EditTaskDialog extends React.Component {
   }
 
   handleLabelChange(e) {
-    this.setState({ label: e.target.value, editLabelOrDescription: true });
+    this.setState({ label: e.target.value, labelOrDescriptionChanged: true });
     this.validateTask(e.target.value, this.state.options);
   }
 
@@ -225,6 +227,15 @@ class EditTaskDialog extends React.Component {
     );
   };
 
+  handleSave = () => {
+    const { hasCollectedAnswers, showWarning } = this.state;
+    if (hasCollectedAnswers && !showWarning) {
+      this.setState({ showWarning: true });
+    } else {
+      this.handleSubmitTask();
+    }
+  };
+
   handleSubmitTask() {
     const jsonoptions = this.state.options
       ? JSON.stringify(this.state.options
@@ -239,7 +250,7 @@ class EditTaskDialog extends React.Component {
       show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
-      editLabelOrDescription: this.state.editLabelOrDescription,
+      labelOrDescriptionChanged: this.state.labelOrDescriptionChanged,
     };
 
     if (!this.state.submitDisabled) {
@@ -489,7 +500,7 @@ class EditTaskDialog extends React.Component {
             onChange={this.handleSelectType}
             labelId="edit-task-dialog__type-select-label"
             value={this.state.taskType}
-            disabled={this.state.preventChangeTaskType}
+            disabled={this.state.hasCollectedAnswers}
             label={
               <FormattedMessage
                 id="tasks.chooseType"
@@ -509,7 +520,7 @@ class EditTaskDialog extends React.Component {
         <Box mt={1} mb={1}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
-        { this.state.preventChangeTaskType ?
+        { this.state.hasCollectedAnswers ?
           <Box mb={2} display="flex" alignItems="center">
             <Box mr={1}><InfoIcon /></Box>
             <FormattedMessage
@@ -702,6 +713,28 @@ class EditTaskDialog extends React.Component {
               </button> : null
             }
           </StyledTaskAssignment>
+          { this.state.hasCollectedAnswers && this.state.showWarning ?
+            <Alert severity="warning">
+              <AlertTitle>
+                <FormattedMessage
+                  id="tasks.editFieldWithAnswersTitle"
+                  defaultMessage="Updating field with existing responses"
+                  description="Title of warning when user tries to edit an annotation field that already has colledted responses"
+                />
+              </AlertTitle>
+              <FormattedMessage
+                id="tasks.editFieldWithAnswersBody1"
+                defaultMessage="{number, plural, one {You are updating a field that has already collected # response.} other {You are updating a field that has already collected # responses.}}"
+                description="Body of warning when user tries to edit an annotation field that already has colledted responses"
+                values={{ number: this.props.task.tasks_with_answers_count }}
+              /> {' '}
+              <FormattedMessage
+                id="tasks.editFieldWithAnswersBody2"
+                defaultMessage="This change will show on these responses, and may not make sense with the updated field. Select \u0022Save\u0022 if you understand and want to continue."
+                description="Body of warning when user tries to edit an annotation field that already has colledted responses"
+              />
+            </Alert>
+            : null }
         </DialogContent>
         <DialogActions>
           <Button
@@ -712,7 +745,7 @@ class EditTaskDialog extends React.Component {
           </Button>
           <Button
             className="create-task__dialog-submit-button"
-            onClick={this.handleSubmitTask.bind(this)}
+            onClick={this.handleSave}
             variant="contained"
             color="primary"
             disabled={this.state.submitDisabled}
