@@ -92,7 +92,9 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const mainItemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
+  const params = new URLSearchParams(window.location.search);
+  const listIndex = params.get('listIndex');
+  const mainItemUrl = `${window.location.pathname.replace(/\/suggested-matches$/, '')}?listIndex=${listIndex}`;
   const [index, setIndex] = React.useState(0);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
