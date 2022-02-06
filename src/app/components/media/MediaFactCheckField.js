@@ -48,6 +48,7 @@ const MediaFactCheckField = ({
         variant="outlined"
         disabled={!hasPermission || disabled}
         key={`media-fact-check__${name}-${hasClaimDescription}`}
+        inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
         fullWidth
         {...fieldProps}
       />
