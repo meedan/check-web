@@ -40,100 +40,6 @@ class TeamTaskConfirmDialog extends React.Component {
 
   render() {
     const { task } = this.props;
-    let action = 'delete';
-    if (this.props.action === 'edit') {
-      action = this.props.labelOrDescriptionChanged ? 'labelOrDescriptionChanged' : 'edit';
-    }
-    const deleteConfirmDialogTitle = this.props.fieldset === 'tasks' ?
-      <FormattedMessage id="teamTasks.confirmDeleteTaskTitle" defaultMessage="Are you sure you want to delete this task?" /> :
-      <FormattedMessage id="teamTasks.confirmDeleteMetadataTitle" defaultMessage="Are you sure you want to delete this field?" />;
-    const editConfirmDialogTitle = this.props.fieldset === 'tasks' ?
-      <FormattedMessage id="teamTasks.confirmEditTaskTitle" defaultMessage="Are you sure you want to edit this task?" /> :
-      <FormattedMessage id="teamTasks.confirmEditMetadataTitle" defaultMessage="Are you sure you want to edit this field?" />;
-    const confirmDialogTitle = {
-      edit: editConfirmDialogTitle,
-      delete: deleteConfirmDialogTitle,
-    };
-
-    const confirmDialogBlurbEditOrDelete = this.props.fieldset === 'tasks' ? (
-      <FormattedMessage
-        id="teamTasks.confirmDeleteBlurb"
-        defaultMessage="{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}"
-        description="Warning about existing completed instances of a task before performing deletion of it"
-        values={{
-          itemsNumber: task.tasks_with_answers_count,
-          taskLabel: <strong>{this.props.task.label}</strong>,
-        }}
-      />
-    ) : (
-      <FormattedMessage
-        id="teamTasks.confirmDeleteBlurbMetadata"
-        defaultMessage="{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}"
-        description="Warning about existing completed instances of a field before performing deletion of it"
-        values={{
-          itemsNumber: task.tasks_with_answers_count,
-          fieldLabel: <strong>{this.props.task.label}</strong>,
-        }}
-      />
-    );
-    const confirmDialogBlurb = {
-      edit: this.props.fieldset === 'tasks' ? (
-        <FormattedMessage
-          id="teamTasks.confirmEditBlurb"
-          defaultMessage="Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed."
-          description="Warning about existing instances of a task before performing changes to it"
-        />
-      ) : (
-        <FormattedMessage
-          id="teamTasks.confirmEditBlurbMetadata"
-          defaultMessage="Related item fields will be modified as a consequence of applying this change, except for those that have already been completed."
-          description="Warning about existing instances of a field before performing changes to it"
-        />
-      ),
-      labelOrDescriptionChanged: confirmDialogBlurbEditOrDelete,
-      delete: confirmDialogBlurbEditOrDelete,
-    };
-
-    const confirmkeepCompleted = {
-      edit: this.props.fieldset === 'tasks' ? (
-        <FormattedMessage
-          id="teamTasks.confirmEditkeepCompleted"
-          defaultMessage="Do not alter tasks that have been completed, and keep their existing answers."
-          description="Label to checkbox for choosing whether completed tasks should be changed or not"
-        />
-      ) : (
-        <FormattedMessage
-          id="teamTasks.confirmEditkeepCompletedMetadata"
-          defaultMessage="Do not alter fields that have been completed, and keep their existing answers."
-          description="Label to checkbox for choosing whether completed fields should be changed or not"
-        />
-      ),
-      delete: this.props.fieldset === 'tasks' ? (
-        <FormattedMessage
-          id="teamTasks.confirmDeletekeepCompleted"
-          defaultMessage="Keep this task with answers in items where the task has been completed."
-          description="Label to checkbox for choosing whether completed tasks should be deleted or not"
-        />
-      ) : (
-        <FormattedMessage
-          id="teamTasks.confirmDeletekeepCompletedMetadata"
-          defaultMessage="Keep this field with answers in items where it has been completed."
-          description="Label to checkbox for choosing whether completed fields should be deleted or not"
-        />
-      ),
-    };
-
-    const deleteAction = this.props.fieldset === 'tasks' ? (
-      <FormattedMessage id="teamTasks.deleteTask" defaultMessage="Delete task" />
-    ) : (
-      <FormattedMessage id="teamTasks.deleteMetadata" defaultMessage="Delete field" />
-    );
-
-    const editAction = this.props.fieldset === 'tasks' ? (
-      <FormattedMessage id="teamTasks.continue" defaultMessage="Edit task" />
-    ) : (
-      <FormattedMessage id="teamTasks.continueMetadata" defaultMessage="Edit field" />
-    );
 
     return (
       <Dialog
@@ -141,7 +47,7 @@ class TeamTaskConfirmDialog extends React.Component {
         onClose={this.props.handleClose}
       >
         <DialogTitle>
-          {confirmDialogTitle[this.props.action]}
+          <FormattedMessage id="teamTasks.confirmDeleteMetadataTitle" defaultMessage="Are you sure you want to delete this field?" />
         </DialogTitle>
         <DialogContent>
           <Typography variant="body1" component="div" paragraph>
@@ -150,23 +56,34 @@ class TeamTaskConfirmDialog extends React.Component {
               { task.tasks_with_answers_count > 0 ?
                 <div>
                   <Box>
-                    {confirmDialogBlurb[action]}
+                    <FormattedMessage
+                      id="teamTasks.confirmDeleteBlurbMetadata"
+                      defaultMessage="{itemsNumber, plural, one {The field {fieldLabel} has been completed in # item.} other {The field {fieldLabel} has been completed in # items.}}"
+                      description="Warning about existing completed instances of a field before performing deletion of it"
+                      values={{
+                        itemsNumber: task.tasks_with_answers_count,
+                        fieldLabel: <strong>{this.props.task.label}</strong>,
+                      }}
+                    />
                   </Box>
-                  { action !== 'edit' ?
-                    <Box mt={2}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            id="keep-dialog__checkbox"
-                            onChange={this.handlekeepCompleted.bind(this)}
-                            checked={this.state.keepCompleted}
-                          />
-                        }
-                        label={confirmkeepCompleted[this.props.action]}
-                      />
-                    </Box>
-                    : null
-                  }
+                  <Box mt={2}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          id="keep-dialog__checkbox"
+                          onChange={this.handlekeepCompleted.bind(this)}
+                          checked={this.state.keepCompleted}
+                        />
+                      }
+                      label={
+                        <FormattedMessage
+                          id="teamTasks.confirmDeletekeepCompletedMetadata"
+                          defaultMessage="Keep this field with answers in items where it has been completed."
+                          description="Label to checkbox for choosing whether completed fields should be deleted or not"
+                        />
+                      }
+                    />
+                  </Box>
                 </div> : null
               }
             </Box>
@@ -186,7 +103,7 @@ class TeamTaskConfirmDialog extends React.Component {
             disabled={this.props.disabled}
             variant="contained"
           >
-            { action === 'delete' ? deleteAction : editAction }
+            <FormattedMessage id="teamTasks.deleteMetadata" defaultMessage="Delete field" />
           </Button>
         </DialogActions>
       </Dialog>

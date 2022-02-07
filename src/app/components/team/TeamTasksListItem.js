@@ -195,8 +195,8 @@ class TeamTasksListItem extends React.Component {
       isEditing: false,
       editedTask,
       labelOrDescriptionChanged: editedTask.labelOrDescriptionChanged,
-      dialogOpen: true,
-    });
+    },
+    () => this.handleConfirmDialog(false));
   };
 
   handleDestroy = (keepCompleted) => {
