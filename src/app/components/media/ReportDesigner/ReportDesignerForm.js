@@ -130,14 +130,14 @@ const ReportDesignerForm = (props) => {
             <Box>
               <FormControlLabel
                 control={<Radio />}
-                checked={Boolean(data.use_text_message) && !data.use_visual_card}
+                checked={Boolean(data.use_text_message)}
                 label={<FormattedMessage id="reportDesigner.text" defaultMessage="Text" description="Label used for radio button that toggles the report mode to text" />}
                 onChange={() => { props.onUpdate({ use_text_message: true, use_visual_card: false }); }}
               />
               {' '}
               <FormControlLabel
                 control={<Radio />}
-                checked={Boolean(data.use_visual_card)}
+                checked={Boolean(data.use_visual_card) && !data.use_text_message}
                 label={<FormattedMessage id="reportDesigner.visual" defaultMessage="Visual" description="Label used for radio button that toggles the report mode to visual" />}
                 onChange={() => { props.onUpdate({ use_text_message: false, use_visual_card: true }); }}
               />
