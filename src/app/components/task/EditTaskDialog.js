@@ -730,7 +730,7 @@ class EditTaskDialog extends React.Component {
               /> {' '}
               <FormattedMessage
                 id="tasks.editFieldWithAnswersBody2"
-                defaultMessage="This change will show on these responses, and may not make sense with the updated field. Select \u0022Save\u0022 if you understand and want to continue."
+                defaultMessage='This change will show on these responses, and may not make sense with the updated field. Select "Save" if you understand and want to continue.'
                 description="Body of warning when user tries to edit an annotation field that already has colledted responses"
               />
             </Alert>
