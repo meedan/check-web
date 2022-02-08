@@ -18,6 +18,13 @@ const labels = {
   smooch_message_smooch_bot_tos: <FormattedMessage id="smoochBot.labelPrivacyStatement" defaultMessage="Privacy Statement" />,
 };
 
+const labelsV2 = {
+  smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content and translation" description="Button label in tipline settings page" />,
+  smooch_state_main: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" />,
+  smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletterV2" defaultMessage="Newsletter content" />,
+  smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.labelNoAction" defaultMessage="No action from user" />,
+};
+
 const descriptions = {
   smooch_message_smooch_bot_greetings: <FormattedMessage id="smoochBot.descriptionGreeting" defaultMessage="The first message that is sent to the user. It introduces your organization and the service you provide through this bot." />,
   smooch_state_main: <FormattedMessage id="smoochBot.descriptionMainMenu" defaultMessage="A menu asking the user to choose between a set of options. This message automatically follows the Greeting message. 9 cannot be used as an option in the main menu." />,
@@ -148,4 +155,10 @@ Contact us at *[email or other contact]* for further inquiries.`,
   },
 });
 
-export { labels, descriptions, placeholders, footnotes };
+export {
+  labels,
+  labelsV2,
+  descriptions,
+  placeholders,
+  footnotes,
+};
