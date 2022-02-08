@@ -1,11 +1,11 @@
 [
   {
     "id": "mediaExpanded.firstSeen",
-    "defaultMessage": "First seen:"
+    "defaultMessage": "First submitted:"
   },
   {
     "id": "mediaExpanded.lastSeen",
-    "defaultMessage": "Last seen:"
+    "defaultMessage": "Last submitted:"
   },
   {
     "id": "mediaExpanded.requests",
