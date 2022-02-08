@@ -153,6 +153,7 @@ const MediaClaim = ({ projectMedia }) => {
           defaultValue={claimDescription ? claimDescription.description : ''}
           onBlur={(e) => { handleBlur(e.target.value); }}
           variant="outlined"
+          inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
           rows={3}
           rowsMax={Infinity}
           disabled={!hasPermission || readOnly}
