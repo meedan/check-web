@@ -1,10 +1,12 @@
 [
   {
     "id": "mediaExpanded.firstSeen",
+    "description": "Header for the date when the Check item (aka media) was first received (added to) by the workspace",
     "defaultMessage": "First submitted:"
   },
   {
     "id": "mediaExpanded.lastSeen",
+    "description": "Header for the date when the Check item (aka media) was last received by the the workspace",
     "defaultMessage": "Last submitted:"
   },
   {

@@ -25,14 +25,22 @@ const MediaExpandedSecondRow = ({ projectMedia }) => (
         <span><MediaTypeDisplayName mediaType={projectMedia.media.type} /></span>
         <span style={{ margin: `0 ${units(1)}` }}> - </span>
         <span>
-          <FormattedMessage id="mediaExpanded.firstSeen" defaultMessage="First submitted: " />
+          <FormattedMessage
+            id="mediaExpanded.firstSeen"
+            defaultMessage="First submitted: "
+            description="Header for the date when the Check item (aka media) was first received (added to) by the workspace"
+          />
           <TimeBefore date={parseStringUnixTimestamp(projectMedia.created_at)} />
         </span>
         { projectMedia.team.smooch_bot ?
           <span>
             <span style={{ margin: `0 ${units(1)}` }}> - </span>
             <span>
-              <FormattedMessage id="mediaExpanded.lastSeen" defaultMessage="Last submitted: " />
+              <FormattedMessage
+                id="mediaExpanded.lastSeen"
+                defaultMessage="Last submitted: "
+                description="Header for the date when the Check item (aka media) was last received by the the workspace"
+              />
               <TimeBefore date={parseStringUnixTimestamp(projectMedia.last_seen)} />
             </span>
             <span style={{ margin: `0 ${units(1)}` }}> - </span>
