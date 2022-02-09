@@ -177,6 +177,8 @@ shared_examples 'project' do
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
     wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[11].click
+    wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
+    wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
     wait_for_selector('#team-lists__item-4-status button').click
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector('#confirm-dialog__checkbox').click
