@@ -34,11 +34,15 @@ module AppSpecHelpers
       attempts += 1
       sleep 0.5
       begin
+        retries ||= 0
         wait.until { @driver.find_elements(type, selector).length.positive? }
         elements = @driver.find_elements(type, selector)
         elements.each do |e|
           raise 'Element is not being displayed' unless e.displayed?
         end
+      rescue Selenium::WebDriver::Error::StaleElementReferenceError
+        sleep 1
+        retry if (retries += 1) < 5
       rescue
         # rescue from 'Selenium::WebDriver::Error::TimeOutError:' to give more information about the failure
       end
