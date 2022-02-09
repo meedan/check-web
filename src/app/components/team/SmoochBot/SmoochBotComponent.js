@@ -36,9 +36,6 @@ const SmoochBotComponent = ({
 
   const userRole = UserUtil.myRole(currentUser, team.slug);
 
-  // eslint-disable-next-line no-console
-  console.log(settings);
-
   const handleOpenForm = () => {
     window.open('https://airtable.com/shr727e2MeBQnTGa1');
   };

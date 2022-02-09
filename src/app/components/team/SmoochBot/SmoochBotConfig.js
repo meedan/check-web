@@ -17,6 +17,7 @@ import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotNewsletterEditor from './SmoochBotNewsletterEditor';
 import SmoochBotSettings from './SmoochBotSettings';
 import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
+import SmoochBotMainMenu from './SmoochBotMainMenu';
 import { labels, descriptions, placeholders } from './localizables';
 
 const useStyles = makeStyles(theme => ({
@@ -139,26 +140,16 @@ const SmoochBotConfig = (props) => {
     setValue(updatedValue);
   };
 
-  const handleChangeMenu = (newValue) => {
-    let updatedValue = JSON.parse(JSON.stringify(value));
-    if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
-      updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
+  const handleChangeMenu = (newValue, menuOption) => {
+    let menu = menuOption;
+    if (!menuOption) {
+      menu = currentOption;
     }
-    Object.assign(updatedValue.smooch_workflows[currentWorkflowIndex][currentOption], newValue);
-    // Create new resource if needed
-    if (newValue && newValue.smooch_menu_options) {
-      newValue.smooch_menu_options.forEach((option, i) => {
-        if (option.smooch_menu_custom_resource_title) {
-          updatedValue = handleAddResource(
-            updatedValue,
-            option.smooch_menu_custom_resource_title,
-            option.smooch_menu_custom_resource_id,
-          );
-          delete updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]
-            .smooch_menu_options[i].smooch_menu_custom_resource_title;
-        }
-      });
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    if (!updatedValue.smooch_workflows[currentWorkflowIndex][menu]) {
+      updatedValue.smooch_workflows[currentWorkflowIndex][menu] = {};
     }
+    Object.assign(updatedValue.smooch_workflows[currentWorkflowIndex][menu], newValue);
     setValue(updatedValue);
   };
 
@@ -299,9 +290,17 @@ const SmoochBotConfig = (props) => {
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
+                  key={currentLanguage}
                   value={value.smooch_workflows[currentWorkflowIndex]}
                   onChangeMessage={handleChangeMessage}
                   onChangeStateMessage={handleChangeStateMessage}
+                /> : null }
+              { currentOption === 'smooch_main_menu' ?
+                <SmoochBotMainMenu
+                  key={currentLanguage}
+                  languages={languages}
+                  value={value.smooch_workflows[currentWorkflowIndex]}
+                  onChange={handleChangeMenu}
                 /> : null }
             </Box>
           </Box>

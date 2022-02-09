@@ -1,0 +1,22 @@
+[
+  {
+    "id": "smoochBotMainMenu.privacyStatement",
+    "description": "Menu label used in the tipline bot",
+    "defaultMessage": "Privacy statement"
+  },
+  {
+    "id": "smoochBotMainMenu.mainMenu",
+    "description": "Title of the tipline bot main menu settings page.",
+    "defaultMessage": "Main menu"
+  },
+  {
+    "id": "smoochBotMainMenu.subtitle",
+    "description": "Subtitle displayed in tipline settings page for the main menu.",
+    "defaultMessage": "The menu of your bot, asking the user to choose between a set of options. The second section is optional. Please note that on WhatsApp you can have at maximum 10 menu options across all sections."
+  },
+  {
+    "id": "smoochBotMainMenu.languagesAndPrivacy",
+    "description": "Title of the main menu third section of the tipline",
+    "defaultMessage": "Languages and Privacy"
+  }
+]

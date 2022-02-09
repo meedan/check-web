@@ -20,7 +20,7 @@ const labels = {
 
 const labelsV2 = {
   smooch_content: <FormattedMessage id="smoochBot.labelContent" defaultMessage="Content and translation" description="Button label in tipline settings page" />,
-  smooch_state_main: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" />,
+  smooch_main_menu: <FormattedMessage id="smoochBot.labelMainMenu" defaultMessage="Main menu" />,
   smooch_newsletter: <FormattedMessage id="smoochBot.labelNewsletterV2" defaultMessage="Newsletter content" />,
   smooch_message_smooch_bot_no_action: <FormattedMessage id="smoochBot.labelNoAction" defaultMessage="No action from user" />,
 };
