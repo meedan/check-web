@@ -213,7 +213,7 @@ const TableContainerWithScrollbars = withStyles({
     overflow: 'auto',
     display: 'block',
     maxWidth: 'calc(100vw - 256px)',
-    maxHeight: 'calc(100vh - 152px)',
+    maxHeight: 'calc(100vh - 232px)',
   },
 })(TableContainer);
 

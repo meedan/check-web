@@ -152,7 +152,7 @@ class TeamTasksListItem extends React.Component {
       action: null,
       message: null,
       dialogOpen: false,
-      editLabelOrDescription: false,
+      labelOrDescriptionChanged: false,
       showInBrowserExtension: this.props.task?.show_in_browser_extension,
       required: this.props.task?.required,
     };
@@ -194,9 +194,9 @@ class TeamTasksListItem extends React.Component {
     this.setState({
       isEditing: false,
       editedTask,
-      editLabelOrDescription: editedTask.editLabelOrDescription,
-      dialogOpen: true,
-    });
+      labelOrDescriptionChanged: editedTask.labelOrDescriptionChanged,
+    },
+    () => this.handleConfirmDialog(false));
   };
 
   handleDestroy = (keepCompleted) => {
@@ -306,7 +306,6 @@ class TeamTasksListItem extends React.Component {
   render() {
     const { task, team } = this.props;
     const projects = team.projects ? team.projects.edges : null;
-    const selectedProjects = task ? task.project_ids : [];
 
     const icon = {
       free_text: <ShortTextIcon />,
@@ -343,10 +342,7 @@ class TeamTasksListItem extends React.Component {
           </TeamTaskCard>
           <TeamTaskConfirmDialog
             fieldset={this.props.fieldset}
-            projects={projects}
-            selectedProjects={selectedProjects}
-            editedTask={this.state.editedTask}
-            editLabelOrDescription={this.state.editLabelOrDescription}
+            labelOrDescriptionChanged={this.state.labelOrDescriptionChanged}
             open={this.state.dialogOpen}
             task={task}
             action={this.state.action}
