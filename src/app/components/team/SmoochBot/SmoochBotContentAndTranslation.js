@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { labelsV2 } from './localizables';
 import { opaqueBlack23 } from '../../../styles/js/shared';
 
@@ -22,6 +23,12 @@ const useStyles = makeStyles(theme => ({
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
     fontSize: '0.875rem',
+  },
+  error: {
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
   },
 }));
 
@@ -135,6 +142,12 @@ const SmoochBotContentAndTranslation = ({
             <strong>{i + 1}. {string.title}</strong><br />
             {string.description}
           </Typography>
+          { string.key === 'newsletter_optin_optout' && !/{subscription_status}/.test(value[string.key]) ?
+            <Typography variant="body2" component="div" color="error" className={classes.error}>
+              <InfoOutlinedIcon />
+              {' '}
+              <FormattedMessage id="smoochBotContentAndTranslation.error" defaultMessage="The placeholder \{subscription_status\} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" />
+            </Typography> : null }
           <Box mt={1}>
             <Box p={1} className={classes.defaultString}>
               <Typography component="div" variant="body2">
@@ -157,6 +170,7 @@ const SmoochBotContentAndTranslation = ({
                   onChangeMessage(string.key, newValue);
                 }
               }}
+              error={string.key === 'newsletter_optin_optout' && !/{subscription_status}/.test(value[string.key])}
               multiline
               fullWidth
             />

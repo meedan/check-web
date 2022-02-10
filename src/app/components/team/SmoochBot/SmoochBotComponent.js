@@ -16,6 +16,7 @@ import Can from '../../Can';
 import { ContentColumn } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
+import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const SmoochBotComponent = ({
   team,
@@ -28,6 +29,7 @@ const SmoochBotComponent = ({
   const defaultLanguage = team.get_language || 'en';
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
+  const [showContentError, setShowContentError] = React.useState(false);
 
   const installation = team.smooch_bot;
   const bot = installation ? installation.team_bot : null;
@@ -57,39 +59,43 @@ const SmoochBotComponent = ({
   };
 
   const handleSave = () => {
-    setSaving(true);
+    if (settings.smooch_version === 'v2' && settings.smooch_workflows.find(w => !/{subscription_status}/.test(w.newsletter_optin_optout))) {
+      setShowContentError(true);
+    } else {
+      setSaving(true);
 
-    const mutation = graphql`
-      mutation SmoochBotComponentUpdateTeamBotInstallationMutation($input: UpdateTeamBotInstallationInput!) {
-        updateTeamBotInstallation(input: $input) {
-          team_bot_installation {
-            id
-            json_settings
-            smooch_newsletter_information
+      const mutation = graphql`
+        mutation SmoochBotComponentUpdateTeamBotInstallationMutation($input: UpdateTeamBotInstallationInput!) {
+          updateTeamBotInstallation(input: $input) {
+            team_bot_installation {
+              id
+              json_settings
+              smooch_newsletter_information
+            }
           }
         }
-      }
-    `;
+      `;
 
-    commitMutation(Store, {
-      mutation,
-      variables: {
-        input: {
-          id: installation.id,
-          json_settings: JSON.stringify(settings),
+      commitMutation(Store, {
+        mutation,
+        variables: {
+          input: {
+            id: installation.id,
+            json_settings: JSON.stringify(settings),
+          },
         },
-      },
-      onCompleted: (response, error) => {
-        if (error) {
+        onCompleted: (response, error) => {
+          if (error) {
+            handleError();
+          } else {
+            handleSuccess();
+          }
+        },
+        onError: () => {
           handleError();
-        } else {
-          handleSuccess();
-        }
-      },
-      onError: () => {
-        handleError();
-      },
-    });
+        },
+      });
+    }
   };
 
   const handleInstall = () => {
@@ -243,6 +249,26 @@ const SmoochBotComponent = ({
           </CardContent>
         </Card>
       </ContentColumn>
+      <ConfirmProceedDialog
+        open={showContentError}
+        title={
+          <FormattedMessage
+            id="smoochBotComponent.missingInformationTitle"
+            defaultMessage="Missing information"
+            description="Title of dialog that opens when there is a validation error on tipline settings"
+          />
+        }
+        body={(
+          <FormattedMessage
+            id="smoochBotComponent.missingInformationBody"
+            defaultMessage="The step '11. Newsletter opt-in and opt-out' is missing a placeholder."
+            description="Content of dialog that opens when there is a validation error on tipline settings"
+          />
+        )}
+        proceedLabel={<FormattedMessage id="smoochBotComponent.back" defaultMessage="Go back to editing" description="Button label to close error dialog on tipline settings page" />}
+        onProceed={() => { setShowContentError(false); }}
+        onCancel={null}
+      />
     </Box>
   );
 };

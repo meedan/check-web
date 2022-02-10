@@ -188,5 +188,10 @@
     "id": "smoochBotContentAndTranslation.subtitle",
     "description": "Subtitle displayed in tipline settings page for content and translation.",
     "defaultMessage": "Replace or translate the default content for each standard bot message."
+  },
+  {
+    "id": "smoochBotContentAndTranslation.error",
+    "description": "Error message displayed on the tipline settings page when the placeholder is not present",
+    "defaultMessage": "The placeholder \\{subscription_status\\} is missing from your custom content or translation"
   }
 ]
