@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import Divider from '@material-ui/core/Divider';
-import { labels } from './localizables';
+import { labels, labelsV2 } from './localizables';
 import { checkBlue, opaqueBlack54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
   },
   label: {
-    width: 165,
+    width: 170,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -38,8 +38,15 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SmoochBotSidebar = ({ currentOption, resources, onClick }) => {
+const SmoochBotSidebar = ({
+  currentOption,
+  resources,
+  version,
+  onClick,
+}) => {
   const classes = useStyles();
+
+  const menuOptions = version === 'v2' ? labelsV2 : labels;
 
   const handleClick = (option) => {
     onClick(option);
@@ -60,10 +67,14 @@ const SmoochBotSidebar = ({ currentOption, resources, onClick }) => {
 
   return (
     <MenuList className={classes.menu}>
-      { Object.keys(labels).map((key) => {
-        const label = labels[key];
+
+      {/* Menu options */}
+      { Object.keys(menuOptions).map((key) => {
+        const label = menuOptions[key];
         return <Option key={key} id={key} label={label} />;
       })}
+
+      {/* Resources */}
       <Divider className={classes.divider} />
       { resources.map((resource, index) => {
         const label = resource.smooch_custom_resource_title;
@@ -81,11 +92,13 @@ const SmoochBotSidebar = ({ currentOption, resources, onClick }) => {
 
 SmoochBotSidebar.defaultProps = {
   resources: [],
+  version: 'v2',
 };
 
 SmoochBotSidebar.propTypes = {
   currentOption: PropTypes.string.isRequired,
   resources: PropTypes.arrayOf(PropTypes.object),
+  version: PropTypes.oneOf(['v1', 'v2']),
   onClick: PropTypes.func.isRequired,
 };
 
