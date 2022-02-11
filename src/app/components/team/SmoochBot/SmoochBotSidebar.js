@@ -33,8 +33,9 @@ const useStyles = makeStyles(theme => ({
     outline: 0,
   },
   divider: {
-    marginBottom: theme.spacing(1),
-    backgroundColor: opaqueBlack54,
+    marginBottom: theme.spacing(2),
+    marginTop: theme.spacing(2),
+    backgroundColor: checkBlue,
   },
 }));
 
