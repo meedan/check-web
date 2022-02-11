@@ -10,9 +10,9 @@
     "defaultMessage": "error"
   },
   {
-    "id": "mediaFactCheck,saving",
+    "id": "mediaFactCheck.saving",
     "description": "Caption that informs that a fact-check is being saved",
-    "defaultMessage": "saving..."
+    "defaultMessage": "saving…"
   },
   {
     "id": "mediaFactCheck,saved",

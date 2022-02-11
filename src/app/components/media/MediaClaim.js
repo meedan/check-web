@@ -122,7 +122,7 @@ const MediaClaim = ({ projectMedia }) => {
           { saving && !error ?
             <FormattedMessage
               id="mediaClaim.saving"
-              defaultMessage="saving..."
+              defaultMessage="saving…"
               description="Caption that informs that a claim is being saved"
             /> : null }
           { !saving && !error && claimDescription ?

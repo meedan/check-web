@@ -1432,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First submitted:"
+		"string": "First submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last submitted:"
+		"string": "Last submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "No text extracted from this image",
@@ -1484,19 +1486,19 @@
 		"developer_comment": "Caption that informs that a fact-check is being saved"
 	},
 	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Pause report and update content"
+		"string": "Pahintuin ang ulat at i-update ang nilalaman"
 	},
 	"mediaFactCheck.confirmButtonLabel2": {
 		"string": "Overwrite report content"
 	},
 	"mediaFactCheck.confirmText1": {
-		"string": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+		"string": "Kailangan mo munang pahintuin ang iyong ulat para ma-edit ito. Nais mo bang pahintuin ang ulat at i-update ito ng bagong nilalaman?"
 	},
 	"mediaFactCheck.confirmText2": {
 		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
 	},
 	"mediaFactCheck.confirmTitle1": {
-		"string": "Current report is published"
+		"string": "Nakalathala ang kasalukuyang ulat"
 	},
 	"mediaFactCheck.confirmTitle2": {
 		"string": "Overwrite existing report content?"
@@ -1506,7 +1508,7 @@
 		"developer_comment": "Button label to copy fact-check data into a report."
 	},
 	"mediaFactCheck.copying": {
-		"string": "Copying…",
+		"string": "Kinokopya...",
 		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
 	},
 	"mediaFactCheck.factCheck": {
@@ -1518,11 +1520,11 @@
 		"developer_comment": "Label for fact-check summary field"
 	},
 	"mediaFactCheck.title": {
-		"string": "Title",
+		"string": "Pamagat",
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Published article URL",
+		"string": "URL ng nakalathalang artikulo",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -2366,7 +2368,7 @@
 		"string": "Tanggalin ang larawan"
 	},
 	"reportDesigner.report": {
-		"string": "Report"
+		"string": "Ulat"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Preview ng report",
@@ -2385,7 +2387,7 @@
 		"string": "Label ng status (hindi hihigit sa {max} karakter)"
 	},
 	"reportDesigner.text": {
-		"string": "Text",
+		"string": "Tektso",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textError": {
@@ -4373,7 +4375,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.continue": {
-		"string": "Continue"
+		"string": "Ipagpatuloy"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Delete field"

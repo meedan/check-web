@@ -1,0 +1,57 @@
+[
+  {
+    "id": "smoochBotMainMenuNewOption.scenario",
+    "description": "Title of dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Scenario"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.label",
+    "description": "Text field label on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Button text - 24 characters limit"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.send",
+    "description": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "If the button is clicked, then send:"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.response",
+    "description": "Input label displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Response"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.selectAction",
+    "description": "Input label displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Select action"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.main",
+    "description": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Main"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.queryState",
+    "description": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Query prompt"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.subscriptionState",
+    "description": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Subscription opt-in"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.resources",
+    "description": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Resources"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.save",
+    "description": "Button label to save new tipline menu option",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "smoochBotMainMenuNewOption.cancel",
+    "description": "Button label to cancel adding a new tipline menu option",
+    "defaultMessage": "Cancel"
+  }
+]

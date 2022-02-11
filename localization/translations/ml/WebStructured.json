@@ -1167,7 +1167,7 @@
 		"string": "Report status"
 	},
 	"list.sourceName": {
-		"string": "Source",
+		"string": "ഉറവിടം",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
@@ -1372,7 +1372,7 @@
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
 	"mediaClaim.claim": {
-		"string": "Claim",
+		"string": "അവകാശവാദം",
 		"developer_comment": "Title of the media claim section."
 	},
 	"mediaClaim.description": {
@@ -1432,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First submitted:"
+		"string": "First submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last submitted:"
+		"string": "Last submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "No text extracted from this image",
