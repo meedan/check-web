@@ -2,6 +2,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import {
+  Box,
   Card,
   Grid,
   MenuItem,
@@ -16,6 +17,7 @@ import TimeBefore from '../TimeBefore';
 import {
   backgroundMain,
   brandSecondary,
+  checkBlue,
   opaqueBlack54,
   Column,
 } from '../../styles/js/shared';
@@ -112,14 +114,28 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
+  teamName: {
+    color: checkBlue,
+  },
+  boxes: {
+    gap: `${theme.spacing(1)}px`,
+    marginBottom: theme.spacing(2),
+  },
+  box: {
+    textAlign: 'center',
+    backgroundColor: 'white',
+    padding: theme.spacing(2),
+    border: '1px solid #ced3e2',
+    borderRadius: theme.spacing(1),
+    whiteSpace: 'nowrap',
+  },
 }));
 
 const TrendsItemComponent = ({ project_media }) => {
   const classes = useStyles();
-  const similarItems = project_media.cluster_items?.edges.map(item => item.node).filter(item => item.dbid !== project_media.dbid);
-  const mainItem = project_media;
-  // value of -1 means the main claim, 0+ are indexes to similar items
-  const [selectedItemIndex, setSelectedItemIndex] = React.useState(project_media.id);
+  const { cluster } = project_media;
+  const medias = cluster?.items?.edges.map(item => item.node);
+  const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
   const [sortBy, setSortBy] = React.useState('mostRequests');
 
   const sortOptions = {
@@ -129,23 +145,22 @@ const TrendsItemComponent = ({ project_media }) => {
     newest: (a, b) => (a.last_seen - b.last_seen),
   };
 
-  const handleClick = (e) => {
-    setSelectedItemIndex(e.currentTarget.dataset.id);
+  const handleClick = (index) => {
+    setSelectedItemIndex(index);
   };
 
   const handleChange = (e) => {
     setSortBy(e.target.value);
   };
 
-  const selectedItem = selectedItemIndex === project_media.id ? project_media : similarItems.find(item => item.id === selectedItemIndex);
+  const selectedItem = medias[selectedItemIndex];
 
   const ItemCard = ({ item, index }) => {
     const selectedItemClass = selectedItemIndex === index ? classes.selected : '';
     return (
       <Card
         className={`${classes.cardMain} ${selectedItemClass}`}
-        data-id={index}
-        onClick={handleClick}
+        onClick={() => { handleClick(index); }}
       >
         {
           item.picture ?
@@ -160,7 +175,7 @@ const TrendsItemComponent = ({ project_media }) => {
           {item.title}
         </Typography>
         <Typography className={classes.cardSubhead}>
-          <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="trendItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.requests_count} {item.requests_count === 1 ? <FormattedMessage id="trendItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="trendItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />} - {item.team.name}
+          <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="trendItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.requests_count} {item.requests_count === 1 ? <FormattedMessage id="trendItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="trendItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />} - <span className={classes.teamName}>{item.team.name}</span>
         </Typography>
         <Typography className={classes.cardDescription} variant="body1">
           {item.description}
@@ -174,14 +189,27 @@ const TrendsItemComponent = ({ project_media }) => {
       <StyledBigColumn className="media__column">
         <Column>
           <Typography className={classes.columnTitle}>
-            <FormattedMessage id="trendItem.main" defaultMessage="Media" />
+            <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: cluster.size }} />
           </Typography>
-          <ItemCard item={mainItem} index={mainItem.id} />
           <Grid container alignItems="center">
             <Grid item xs={6}>
-              <Typography className={classes.columnTitle}>
-                <FormattedMessage id="trendItem.media" defaultMessage="Similar media" />
-              </Typography>
+              <Box display="flex" alignItems="center" className={classes.boxes}>
+                <Box className={classes.box}>
+                  <Typography variant="caption"><FormattedMessage id="trendItem.requestsCount" defaultMessage="Requests" description="Label displayed on cluster item page" /></Typography>
+                  <br />
+                  <strong>{cluster.requests_count}</strong>
+                </Box>
+                <Box className={classes.box}>
+                  <Typography variant="caption"><FormattedMessage id="trendItem.submitted" defaultMessage="Submitted" description="Label displayed on cluster item page" /></Typography>
+                  <br />
+                  <strong><TimeBefore date={parseStringUnixTimestamp(cluster.first_item_at)} /></strong>
+                </Box>
+                <Box className={classes.box}>
+                  <Typography variant="caption"><FormattedMessage id="trendItem.lastSubmittedAt" defaultMessage="Last submitted" description="Label displayed on cluster item page" /></Typography>
+                  <br />
+                  <strong><TimeBefore date={parseStringUnixTimestamp(cluster.last_item_at)} /></strong>
+                </Box>
+              </Box>
             </Grid>
             <Grid item xs={6}>
               <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
@@ -201,9 +229,9 @@ const TrendsItemComponent = ({ project_media }) => {
             </Grid>
           </Grid>
           {
-            similarItems
+            medias
               .sort(sortOptions[sortBy])
-              .map(item => <ItemCard item={item} index={item.id} />)
+              .map((item, index) => <ItemCard item={item} index={index} />)
           }
         </Column>
       </StyledBigColumn>

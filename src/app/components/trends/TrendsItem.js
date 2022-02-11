@@ -58,49 +58,55 @@ const TrendsItem = props => (
             file_path
             thumbnail_path
           }
-          cluster_items(first: 1000) {
-            edges {
-              node {
-                id
-                title
-                type
-                description
-                requests_count
-                updated_at
-                last_seen
-                created_at
-                picture
-                language_code
-                pusher_channel
-                dbid
-                project_id
-                full_url
-                domain
-                team {
+          cluster {
+            size
+            first_item_at
+            last_item_at
+            requests_count
+            items(first: 1000) {
+              edges {
+                node {
                   id
+                  title
+                  type
+                  description
+                  requests_count
+                  updated_at
+                  last_seen
+                  created_at
+                  picture
+                  language_code
+                  pusher_channel
                   dbid
-                  slug
-                  name
-                  get_language
-                  get_report
-                  get_tasks_enabled
-                  team_bots(first: 10000) {
-                    edges {
-                      node {
-                        login
+                  project_id
+                  full_url
+                  domain
+                  team {
+                    id
+                    dbid
+                    slug
+                    name
+                    get_language
+                    get_report
+                    get_tasks_enabled
+                    team_bots(first: 10000) {
+                      edges {
+                        node {
+                          login
+                        }
                       }
                     }
                   }
-                }
-                media {
-                  url
-                  quote
-                  embed_path
-                  metadata
-                  type
-                  picture
-                  file_path
-                  thumbnail_path
+                  media {
+                    url
+                    quote
+                    embed_path
+                    metadata
+                    type
+                    picture
+                    file_path
+                    thumbnail_path
+                  }
                 }
               }
             }

@@ -16,11 +16,22 @@
   },
   {
     "id": "trendItem.main",
-    "defaultMessage": "Media"
+    "defaultMessage": "{number} Medias"
   },
   {
-    "id": "trendItem.media",
-    "defaultMessage": "Similar media"
+    "id": "trendItem.requestsCount",
+    "description": "Label displayed on cluster item page",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "trendItem.submitted",
+    "description": "Label displayed on cluster item page",
+    "defaultMessage": "Submitted"
+  },
+  {
+    "id": "trendItem.lastSubmittedAt",
+    "description": "Label displayed on cluster item page",
+    "defaultMessage": "Last submitted"
   },
   {
     "id": "trendItem.sortBy",
