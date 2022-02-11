@@ -68,165 +68,157 @@ function parseEndDateAsISOString(moment) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
 }
 
-class DateRangeFilter extends React.Component {
-  get valueType() {
-    const { value } = this.props;
+const DateRangeFilter = ({
+  classes,
+  hide,
+  value,
+  onChange,
+  onRemove,
+}) => {
+  const getValueType = () => {
     if (value && value.updated_at) return 'updated_at';
     if (value && value.last_seen) return 'last_seen';
     if (value && value.published_at) return 'published_at';
     return 'created_at';
-  }
+  };
 
-  getDateStringOrNull(field) {
-    const { value } = this.props;
-    return (value && value[this.valueType][field]) || null;
-  }
+  const getDateStringOrNull = field => (value && value[getValueType()][field]) || null;
 
-  get startDateStringOrNull() {
-    return this.getDateStringOrNull('start_time');
-  }
+  const getStartDateStringOrNull = () => getDateStringOrNull('start_time');
 
-  get endDateStringOrNull() {
-    return this.getDateStringOrNull('end_time');
-  }
+  const getEndDateStringOrNull = () => getDateStringOrNull('end_time');
 
-  handleChangeStartDate = (moment) => {
-    this.props.onChange(buildValue(
-      this.valueType,
+  const handleChangeStartDate = (moment) => {
+    onChange(buildValue(
+      getValueType(),
       parseStartDateAsISOString(moment),
-      this.endDateStringOrNull,
+      getEndDateStringOrNull(),
     ));
-  }
+  };
 
-  handleChangeEndDate = (moment) => {
-    this.props.onChange(buildValue(
-      this.valueType,
-      this.startDateStringOrNull,
+  const handleChangeEndDate = (moment) => {
+    onChange(buildValue(
+      getValueType(),
+      getStartDateStringOrNull(),
       parseEndDateAsISOString(moment),
     ));
-  }
+  };
 
-  handleChangeType = (e) => {
+  const handleChangeType = (e) => {
     const valueType = e.target.value;
-    this.props.onChange(buildValue(
+    onChange(buildValue(
       valueType,
-      this.startDateStringOrNull,
-      this.endDateStringOrNull,
+      getStartDateStringOrNull(),
+      getEndDateStringOrNull(),
     ));
-  }
+  };
 
-  handleClearDate = (event, field) => {
+  const handleClearDate = (event, field) => {
     event.stopPropagation();
     if (field === 'start_time') {
-      this.props.onChange(buildValue(
-        this.valueType,
+      onChange(buildValue(
+        getValueType(),
         null,
-        this.endDateStringOrNull,
+        getEndDateStringOrNull(),
       ));
     } else {
-      this.props.onChange(buildValue(
-        this.valueType,
-        this.startDateStringOrNull,
+      onChange(buildValue(
+        getValueType(),
+        getStartDateStringOrNull(),
         null,
       ));
     }
+  };
+
+  if (hide) {
+    return null;
   }
 
-  render() {
-    const { hide, classes, onRemove } = this.props;
+  const label = {
+    created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
+    last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
+    updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
+    published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Published" />,
+  };
 
-    if (hide) {
-      return null;
-    }
-
-    const label = {
-      created_at: <FormattedMessage id="search.dateSubmittedHeading" defaultMessage="Submitted" />,
-      last_seen: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Last submitted" />,
-      updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Updated" />,
-      published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Published" />,
-    };
-
-    return (
-      <div style={{ background: opaqueBlack07 }}>
-        <FlexRow>
-          <FormControl variant="outlined" className={classes.selectFormControl}>
-            <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-            <Select
-              onChange={this.handleChangeType}
-              value={this.valueType}
-              input={
-                <StyledInputBaseDate
-                  startAdornment={
-                    <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
-                  }
-                />
-              }
-            >
-              <MenuItem value="created_at"> { label.created_at } </MenuItem>
-              <MenuItem value="last_seen"> { label.last_seen } </MenuItem>
-              <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
-              <MenuItem value="published_at"> { label.published_at } </MenuItem>
-            </Select>
-          </FormControl>
-          <DatePicker
-            onChange={this.handleChangeStartDate}
-            maxDate={this.endDateStringOrNull || undefined}
-            okLabel={<FormattedMessage {...globalStrings.ok} />}
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-            value={this.startDateStringOrNull}
-            style={{ margin: `0 ${units(2)}` }}
-            TextFieldComponent={({ onClick, value, onChange }) => (
-              <div>
-                <FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />
-                {' '}
-                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-                  { text => (
-                    <StyledInputBaseDate
-                      className={value ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
-                      type="text"
-                      placeholder={text}
-                      onClick={onClick}
-                      value={value}
-                      onChange={onChange}
-                      endAdornment={value ? <StyledCloseIcon onClick={e => this.handleClearDate(e, 'start_time')} /> : null}
-                    />
-                  )}
-                </FormattedMessage>
-              </div>
-            )}
-          />
-          <DatePicker
-            inputVariant="outlined"
-            onChange={this.handleChangeEndDate}
-            minDate={this.startDateStringOrNull || undefined}
-            okLabel={<FormattedMessage {...globalStrings.ok} />}
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-            value={this.endDateStringOrNull}
-            TextFieldComponent={({ onClick, value, onChange }) => (
-              <div>
-                <FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />
-                {' '}
-                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-                  { text => (
-                    <StyledInputBaseDate
-                      className={value ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
-                      type="text"
-                      placeholder={text}
-                      onClick={onClick}
-                      value={value}
-                      onChange={onChange}
-                      endAdornment={value ? <StyledCloseIcon onClick={e => this.handleClearDate(e, 'end_time')} /> : null}
-                    />
-                  )}
-                </FormattedMessage>
-              </div>
-            )}
-          />
-        </FlexRow>
-      </div>
-    );
-  }
-}
+  return (
+    <div style={{ background: opaqueBlack07 }}>
+      <FlexRow>
+        <FormControl variant="outlined" className={classes.selectFormControl}>
+          <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
+          <Select
+            onChange={handleChangeType}
+            value={getValueType()}
+            input={
+              <StyledInputBaseDate
+                startAdornment={
+                  <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                }
+              />
+            }
+          >
+            <MenuItem value="created_at"> { label.created_at } </MenuItem>
+            <MenuItem value="last_seen"> { label.last_seen } </MenuItem>
+            <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
+            <MenuItem value="published_at"> { label.published_at } </MenuItem>
+          </Select>
+        </FormControl>
+        <DatePicker
+          onChange={handleChangeStartDate}
+          maxDate={getEndDateStringOrNull() || undefined}
+          okLabel={<FormattedMessage {...globalStrings.ok} />}
+          cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+          value={getStartDateStringOrNull()}
+          style={{ margin: `0 ${units(2)}` }}
+          TextFieldComponent={({ onClick, value: valueText }) => (
+            <div>
+              <FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />
+              {' '}
+              <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+                { text => (
+                  <StyledInputBaseDate
+                    className={valueText ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
+                    type="text"
+                    placeholder={text}
+                    onClick={onClick}
+                    value={valueText}
+                    endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'start_time')} /> : null}
+                  />
+                )}
+              </FormattedMessage>
+            </div>
+          )}
+        />
+        <DatePicker
+          inputVariant="outlined"
+          onChange={handleChangeEndDate}
+          minDate={getStartDateStringOrNull() || undefined}
+          okLabel={<FormattedMessage {...globalStrings.ok} />}
+          cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+          value={getEndDateStringOrNull()}
+          TextFieldComponent={({ onClick, value: valueText }) => (
+            <div>
+              <FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />
+              {' '}
+              <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+                { text => (
+                  <StyledInputBaseDate
+                    className={valueText ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
+                    type="text"
+                    placeholder={text}
+                    onClick={onClick}
+                    value={valueText}
+                    endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'end_time')} /> : null}
+                  />
+                )}
+              </FormattedMessage>
+            </div>
+          )}
+        />
+      </FlexRow>
+    </div>
+  );
+};
 
 DateRangeFilter.defaultProps = {
   hide: false,
