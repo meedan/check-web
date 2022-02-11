@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';

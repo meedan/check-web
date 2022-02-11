@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';

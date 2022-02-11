@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
 import Radio from '@material-ui/core/Radio';

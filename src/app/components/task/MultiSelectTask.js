@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import FormGroup from '@material-ui/core/FormGroup';
 import Box from '@material-ui/core/Box';

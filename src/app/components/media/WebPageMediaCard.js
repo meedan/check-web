@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';

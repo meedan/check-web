@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import ParsedText from '../ParsedText';

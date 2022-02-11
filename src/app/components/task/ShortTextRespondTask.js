@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import TextField from '@material-ui/core/TextField';

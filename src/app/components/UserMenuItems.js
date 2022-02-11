@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { Link } from 'react-router';
 import MenuItem from '@material-ui/core/MenuItem';

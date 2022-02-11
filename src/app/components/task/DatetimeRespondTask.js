@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';

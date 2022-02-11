@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import Button from '@material-ui/core/Button';
