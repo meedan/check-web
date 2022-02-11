@@ -1,5 +1,13 @@
 [
   {
+    "id": "trendsItem.couldNotImport",
+    "defaultMessage": "Could not import claim"
+  },
+  {
+    "id": "trendsItem.importedSuccessfully",
+    "defaultMessage": "Claim successfully imported to {workspaceName} workspace"
+  },
+  {
     "id": "trendItem.lastSubmitted",
     "description": "A label indicating that the following date is when an item was last submitted to the tip line",
     "defaultMessage": "Last submitted"
@@ -13,6 +21,30 @@
     "id": "trendItem.requests",
     "description": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'.",
     "defaultMessage": "Requests"
+  },
+  {
+    "id": "trendItem.claimDescription",
+    "defaultMessage": "Claim descriptions and ratings"
+  },
+  {
+    "id": "trendItem.claimDescriptionSubtitle",
+    "defaultMessage": "{number} organizations added a claim description."
+  },
+  {
+    "id": "trendItem.noClaims",
+    "defaultMessage": "Import this group of media to be the first to add a claim description and publish a report."
+  },
+  {
+    "id": "trendItem.rating",
+    "defaultMessage": "Rating: {rating}"
+  },
+  {
+    "id": "trendItem.publishedAt",
+    "defaultMessage": "Report published: {date}"
+  },
+  {
+    "id": "trendItem.notPublished",
+    "defaultMessage": "Not published yet"
   },
   {
     "id": "trendItem.main",
@@ -36,5 +68,30 @@
   {
     "id": "trendItem.sortBy",
     "defaultMessage": "Sort by"
+  },
+  {
+    "id": "trendsItem.importTitle",
+    "description": "Dialog title when importing a claim from trends page.",
+    "defaultMessage": "Import claims and medias to workspace"
+  },
+  {
+    "id": "trendsItem.importDescription",
+    "description": "Dialog description when importing a claim from trends page.",
+    "defaultMessage": "A new claim will be created in your workspace with media."
+  },
+  {
+    "id": "trendsItem.importSelectLabel",
+    "description": "Select field label used in import claim dialog from trends page.",
+    "defaultMessage": "Import to workspace"
+  },
+  {
+    "id": "trendsItem.importTextLabel",
+    "description": "Text field label used in import claim dialog from trends page.",
+    "defaultMessage": "Claim description"
+  },
+  {
+    "id": "trendsItem.proceedImport",
+    "description": "Button label to confirm importing claim from trends page",
+    "defaultMessage": "Import"
   }
 ]

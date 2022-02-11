@@ -6,7 +6,7 @@ import TrendsItemComponent from './TrendsItemComponent';
 
 const renderQuery = ({ error, props }) => {
   if (!error && props) {
-    return <TrendsItemComponent {...props} />;
+    return <TrendsItemComponent projectMedia={props.project_media} teams={props.root.current_user.team_users.edges.map(e => e.node.team)} />;
   }
   return null;
 };
@@ -16,6 +16,20 @@ const TrendsItem = props => (
     environment={Relay.Store}
     query={graphql`
       query TrendsItemQuery($ids_0: String!) {
+        root {
+          current_user {
+            team_users(status: "member", first: 10000) {
+              edges {
+                node {
+                  team {
+                    name
+                    dbid
+                  }
+                }
+              }
+            }
+          }
+        }
         project_media(ids: $ids_0) {
           id
           title
@@ -32,6 +46,7 @@ const TrendsItem = props => (
           project_id
           full_url
           domain
+          media_id
           team {
             id
             dbid
@@ -63,6 +78,28 @@ const TrendsItem = props => (
             first_item_at
             last_item_at
             requests_count
+            claim_descriptions(first: 1000) {
+              edges {
+                node {
+                  id
+                  description
+                  project_media {
+                    id
+                    dbid
+                    last_status
+                    report_status
+                    report: dynamic_annotation_report_design {
+                      data
+                    }
+                    team {
+                      name
+                      avatar
+                      verification_statuses
+                    }
+                  }
+                }
+              }
+            }
             items(first: 1000) {
               edges {
                 node {
