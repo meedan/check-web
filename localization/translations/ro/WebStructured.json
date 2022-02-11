@@ -1167,7 +1167,7 @@
 		"string": "Starea raportului"
 	},
 	"list.sourceName": {
-		"string": "Source",
+		"string": "Sursă",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
@@ -1372,7 +1372,7 @@
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
 	"mediaClaim.claim": {
-		"string": "Claim",
+		"string": "Declarația",
 		"developer_comment": "Title of the media claim section."
 	},
 	"mediaClaim.description": {
@@ -1432,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First submitted:"
+		"string": "First submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last submitted:"
+		"string": "Last submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "No text extracted from this image",
@@ -1484,29 +1486,29 @@
 		"developer_comment": "Caption that informs that a fact-check is being saved"
 	},
 	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Pause report and update content"
+		"string": "Trece raportul în pauză și actualizează conținutul"
 	},
 	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "Overwrite report content"
+		"string": "Suprascrie conținutul raportului"
 	},
 	"mediaFactCheck.confirmText1": {
-		"string": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+		"string": "Raportul trebuie mai întâi trecut în pauză ca să îl puteți edita. Vreți să treceți raportul în pauză și să-l actualizați cu noul conținut?"
 	},
 	"mediaFactCheck.confirmText2": {
-		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
+		"string": "Vreți să actualizați raportul cu noul conținut? Veți pierde tot conținutul prezent al raportului."
 	},
 	"mediaFactCheck.confirmTitle1": {
-		"string": "Current report is published"
+		"string": "Raportul curent este publicat"
 	},
 	"mediaFactCheck.confirmTitle2": {
-		"string": "Overwrite existing report content?"
+		"string": "Suprascrieți conținutul existent din raport?"
 	},
 	"mediaFactCheck.copyToReport": {
 		"string": "Copy to tipline report",
 		"developer_comment": "Button label to copy fact-check data into a report."
 	},
 	"mediaFactCheck.copying": {
-		"string": "Copying…",
+		"string": "Se copiază...",
 		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
 	},
 	"mediaFactCheck.factCheck": {
@@ -1518,11 +1520,11 @@
 		"developer_comment": "Label for fact-check summary field"
 	},
 	"mediaFactCheck.title": {
-		"string": "Title",
+		"string": "Titlu",
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Published article URL",
+		"string": "URL articol publicat",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -2366,7 +2368,7 @@
 		"string": "Elimină imaginea"
 	},
 	"reportDesigner.report": {
-		"string": "Report"
+		"string": "Raport"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Previzualizare raport",
@@ -4373,7 +4375,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.continue": {
-		"string": "Continue"
+		"string": "Continuă"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Delete field"
