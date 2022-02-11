@@ -27,14 +27,18 @@ import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
-import ClusterTeamsCell from './ClusterTeamsCell';
+import ClusterReceivedByTeamsCell from './ClusterReceivedByTeamsCell';
+import ClusterRequestsCell from './ClusterRequestsCell';
+import ClusterFirstItemAtCell from './ClusterFirstItemAtCell';
+import ClusterLastItemAtCell from './ClusterLastItemAtCell';
+import ClusterFactCheckedByTeamsCell from './ClusterFactCheckedByTeamsCell';
 import SourcesCell from './SourcesCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
     field: 'item',
-    headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
+    headerText: <FormattedMessage id="list.Item" defaultMessage="Claim" />,
     cellComponent: TitleCell,
     sortKey: 'title',
   },
@@ -150,30 +154,55 @@ const AllPossibleColumns = [
     sortKey: 'creator_name',
   },
   {
+    field: 'sources_as_sentence',
+    headerText: <FormattedMessage id="list.sourceName" defaultMessage="Source" description="Table header for column that shows item source" />,
+    cellComponent: SourcesCell,
+    align: 'center',
+  },
+  {
+    field: 'cluster_fact_checked_by_team_names',
+    headerText: <FormattedMessage id="list.clusterFactCheckedByTeamNames" defaultMessage="Report published" description="Table header for column that shows from which workspaces the items in the same cluster have a published report" />,
+    cellComponent: ClusterFactCheckedByTeamsCell,
+    align: 'center',
+  },
+  {
+    field: 'cluster_requests',
+    headerText: <FormattedMessage id="list.clusterRequests" defaultMessage="Requests" description="Table header for column that shows number of requests in a cluster" />,
+    cellComponent: ClusterRequestsCell,
+    align: 'center',
+  },
+  {
     field: 'cluster_size',
-    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Cluster size" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
+    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Similar media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
     cellComponent: ClusterSizeCell,
     align: 'center',
   },
   {
-    field: 'cluster_team_names',
-    headerText: <FormattedMessage id="list.clusterTeamNames" defaultMessage="Workspaces" description="Table header for column that shows from which workspaces the items in the same cluster belong to" />,
-    cellComponent: ClusterTeamsCell,
-    align: 'center',
+    field: 'cluster_first_item_at',
+    headerText: <FormattedMessage id="list.clusterFirstItemAt" defaultMessage="Submitted" description="Table header for column that shows when the last item of the cluster was created" />,
+    cellComponent: ClusterFirstItemAtCell,
   },
   {
-    field: 'sources_as_sentence',
-    headerText: <FormattedMessage id="list.sourceName" defaultMessage="Source" description="Table header for column that shows item source" />,
-    cellComponent: SourcesCell,
+    field: 'cluster_last_item_at',
+    headerText: <FormattedMessage id="list.clusterLastItemAt" defaultMessage="Last submitted" description="Table header for column that shows when the last item of the cluster was created" />,
+    cellComponent: ClusterLastItemAtCell,
+  },
+  {
+    field: 'cluster_team_names',
+    headerText: <FormattedMessage id="list.clusterTeamNames" defaultMessage="Received" description="Table header for column that shows from which workspaces the items in the same cluster belong to" />,
+    cellComponent: ClusterReceivedByTeamsCell,
     align: 'center',
   },
 ];
 
 const showInTrends = [
   'item',
-  'created_at_timestamp',
-  'cluster_size',
   'cluster_team_names',
+  'cluster_fact_checked_by_team_names',
+  'cluster_requests',
+  'cluster_size',
+  'cluster_first_item_at',
+  'cluster_last_item_at',
 ];
 
 function buildColumnDefs(team, resultType) {

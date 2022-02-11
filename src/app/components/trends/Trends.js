@@ -10,7 +10,7 @@ export default function Trends({ routeParams }) {
     <Search
       searchUrlPrefix={`/${routeParams.team}/trends`}
       mediaUrlPrefix="media"
-      title={<FormattedMessage id="trends.title" defaultMessage="Trends" />}
+      title={<FormattedMessage id="trends.title" defaultMessage="Shared database" />}
       icon={<TrendingUpIcon />}
       query={Object.assign(safelyParseJSON(routeParams.query, {}), { trends: true, show_similar: true, sort: 'cluster_size' })}
       teamSlug={routeParams.team}
@@ -23,7 +23,6 @@ export default function Trends({ routeParams }) {
         'tags',
         'read',
         'verification_status',
-        'report_status',
         'users',
         'assigned_to',
         'team_tasks',

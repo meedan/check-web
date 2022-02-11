@@ -494,7 +494,7 @@ const ProjectsComponent = ({
               <TrendingUpIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.trends" defaultMessage="Trends (Beta)" description="This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction." />
+              <FormattedMessage id="projectsComponent.trends" defaultMessage="Shared database (beta)" description="This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction." />
             </ListItemText>
           </ListItem>
         </List>
