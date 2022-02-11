@@ -358,7 +358,7 @@ const MediaSuggestionsComponent = ({
                 /> :
                 <FormattedMessage
                   id="mediaSuggestionsComponent.question"
-                  defaultMessage="Is the suggested media similar to the main?"
+                  defaultMessage="Is this media a good match for this claim?"
                 /> }
             </Typography>
             <IconButton onClick={handleHelp}>
