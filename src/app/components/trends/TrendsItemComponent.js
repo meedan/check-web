@@ -49,6 +49,7 @@ const useStyles = makeStyles(theme => ({
   mediasColumn: {
   },
   mediaColumn: {
+    width: '100%',
   },
   image: {
     height: 80,
