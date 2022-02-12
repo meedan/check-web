@@ -44,6 +44,11 @@ const useStyles = makeStyles(theme => ({
   claimsColumn: {
     backgroundColor: 'white',
     borderRight: `1px solid ${brandSecondary}`,
+    width: 400,
+  },
+  mediasColumn: {
+  },
+  mediaColumn: {
   },
   image: {
     height: 80,
@@ -144,6 +149,9 @@ const useStyles = makeStyles(theme => ({
   },
   claimCardFooter: {
     justifyContent: 'flex-end',
+  },
+  claim: {
+    lineHeight: '1.5em',
   },
 }));
 
@@ -303,7 +311,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
                       title={claim.project_media.team.name}
                     />
                     <CardContent>
-                      <strong>{claim.description}</strong>
+                      <strong className={classes.claim}>{claim.description}</strong>
                       <Box mt={2}>
                         <FormattedMessage
                           id="trendItem.rating"
@@ -311,7 +319,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
                           values={{ rating: getStatus(claim.project_media.team.verification_statuses, claim.project_media.last_status).label }}
                         />
                       </Box>
-                      <Box>
+                      <Box mt={1}>
                         <FormattedMessage
                           id="trendItem.publishedAt"
                           defaultMessage="Report published: {date}"
@@ -334,7 +342,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
           </Box>
         </Column>
       </Box>
-      <Box className="media__column">
+      <Box className={['media__column', classes.mediasColumn].join(' ')}>
         <Column>
           <Typography className={classes.columnTitle}>
             <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: cluster.size }} />
@@ -383,7 +391,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
           }
         </Column>
       </Box>
-      <Box className="media__column" mt={2} mr={2}>
+      <Box className={['media__column', classes.mediaColumn].join(' ')} mt={2} mr={2}>
         <Card className={classes.cardDetail}>
           <MediaExpanded
             media={selectedItem}
