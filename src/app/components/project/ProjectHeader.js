@@ -32,7 +32,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested matches" />;
     } else if (isTrendsPage) {
-      pageTitle = <FormattedMessage id="projectHeader.trends" defaultMessage="Trends" />;
+      pageTitle = <FormattedMessage id="projectHeader.trends" defaultMessage="Shared database" />;
     } else if (project) {
       pageTitle = project.title;
     } else if (saved_search) {

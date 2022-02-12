@@ -33,7 +33,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering datetime filed with date range option"
 	},
 	"CustomTeamTaskFilter.empty": {
-		"string": "Empty",
+		"string": "Vazio",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
@@ -61,11 +61,11 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.notEmpty": {
-		"string": "Not empty",
+		"string": "Qualquer",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
 	},
 	"CustomTeamTaskFilter.numericRange": {
-		"string": "Number range",
+		"string": "Intervalo de números",
 		"developer_comment": "Label for custom field configuration to allow filtering number filed with numeric range option"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
@@ -1136,7 +1136,7 @@
 		"string": "Tipo"
 	},
 	"list.clusterSize": {
-		"string": "Cluster size",
+		"string": "Tamanho do conjunto",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.clusterTeamNames": {
@@ -1165,6 +1165,10 @@
 	},
 	"list.reportStatus": {
 		"string": "Status do relatório"
+	},
+	"list.sourceName": {
+		"string": "Fonte",
+		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
 		"string": "Correspondências sugeridas"
@@ -1328,63 +1332,64 @@
 		"string": "Relatório não publicado"
 	},
 	"mediaAnalysis.analysis": {
-		"string": "Análise"
-	},
-	"mediaAnalysis.confirmButtonLabel1": {
-		"string": "Suspender o relatório e atualizar o conteúdo"
-	},
-	"mediaAnalysis.confirmButtonLabel2": {
-		"string": "Substituir o conteúdo do relatório"
-	},
-	"mediaAnalysis.confirmText1": {
-		"string": "Primeiro, você precisa suspender seu relatório para poder editá-lo. Você deseja suspender o relatório e atualizá-lo com o novo conteúdo?"
-	},
-	"mediaAnalysis.confirmText2": {
-		"string": "Você deseja atualizar o relatório com este novo conteúdo? Todo o conteúdo atual do relatório será perdido."
-	},
-	"mediaAnalysis.confirmTitle1": {
-		"string": "O relatório atual foi publicado"
-	},
-	"mediaAnalysis.confirmTitle2": {
-		"string": "Substituir o conteúdo do relatório existente?"
+		"string": "Análise",
+		"developer_comment": "Title of the media analysis bar"
 	},
 	"mediaAnalysis.content": {
-		"string": "Conteúdo"
+		"string": "Conteúdo",
+		"developer_comment": "Label for the analysis content field"
 	},
-	"mediaAnalysis.copyToReport": {
-		"string": "Copiar no relatório"
-	},
-	"mediaAnalysis.copying": {
-		"string": "Copiando..."
-	},
-	"mediaAnalysis.createdBy": {
-		"string": "Item criado por {name}"
-	},
-	"mediaAnalysis.date": {
-		"string": "Data do artigo publicado"
-	},
-	"mediaAnalysis.error": {
-		"string": "Não foi possível salvar! Salvo em {ago}"
+	"mediaAnalysis.discontinued": {
+		"string": "(Descontinuado - {learnMoreLink})",
+		"developer_comment": "Caption that informs that the analysis feature is deprecated."
 	},
 	"mediaAnalysis.import": {
 		"string": "Importar",
-		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
+		"developer_comment": "Creator that refers to items created via Fetch or Zapier."
 	},
-	"mediaAnalysis.publishedArticle": {
-		"string": "URL do artigo publicado"
-	},
-	"mediaAnalysis.saved": {
-		"string": "Salvo {ago}"
-	},
-	"mediaAnalysis.saving": {
-		"string": "Salvando..."
+	"mediaAnalysis.learnMore": {
+		"string": "Saiba mais",
+		"developer_comment": "Text that links to an external help article"
 	},
 	"mediaAnalysis.tipline": {
 		"string": "Tipline",
-		"developer_comment": "Creator that refers to items created via tiplines"
+		"developer_comment": "Creator that refers to items created via tiplines."
 	},
 	"mediaAnalysis.title": {
-		"string": "Título"
+		"string": "Título",
+		"developer_comment": "Label for the analysis title field"
+	},
+	"mediaAnalysis.webForm": {
+		"string": "Formulário Web",
+		"developer_comment": "Creator that refers to items created via web forms."
+	},
+	"mediaAnalysisField.copied": {
+		"string": "Copiado!",
+		"developer_comment": "Confirmation label that is displayed once a Copy link is clicked."
+	},
+	"mediaAnalysisField.copy": {
+		"string": "Copiar texto",
+		"developer_comment": "Link text that once clicked copies text to clipboard."
+	},
+	"mediaClaim.claim": {
+		"string": "Afirmação",
+		"developer_comment": "Title of the media claim section."
+	},
+	"mediaClaim.description": {
+		"string": "Digite algo",
+		"developer_comment": "Placeholder for claim description field."
+	},
+	"mediaClaim.error": {
+		"string": "erro",
+		"developer_comment": "Caption that informs that a claim could not be saved"
+	},
+	"mediaClaim.saved": {
+		"string": "salva por {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this claim and when it happened."
+	},
+	"mediaClaim.saving": {
+		"string": "salvando...",
+		"developer_comment": "Caption that informs that a claim is being saved"
 	},
 	"mediaComments.noNote": {
 		"string": "Nenhuma nota"
@@ -1416,6 +1421,9 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Tarefas do item"
 	},
+	"mediaCreatedBy.createdBy": {
+		"string": "Item criado por {name}"
+	},
 	"mediaDetail.trash": {
 		"string": "Lixeira"
 	},
@@ -1424,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "Visto pela primeira vez:"
+		"string": "Primeiro envio:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Visto(a) pela última vez:"
+		"string": "Último envio:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "Nenhum texto extraído desta imagem",
@@ -1462,6 +1472,64 @@
 	},
 	"mediaExpandedMetadata.shares": {
 		"string": "Compartilhamentos do Facebook"
+	},
+	"mediaFactCheck,error": {
+		"string": "erro",
+		"developer_comment": "Caption that informs that a fact-check could not be saved"
+	},
+	"mediaFactCheck,saved": {
+		"string": "salva por {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
+	},
+	"mediaFactCheck,saving": {
+		"string": "salvando...",
+		"developer_comment": "Caption that informs that a fact-check is being saved"
+	},
+	"mediaFactCheck.confirmButtonLabel1": {
+		"string": "Suspender o relatório e atualizar o conteúdo"
+	},
+	"mediaFactCheck.confirmButtonLabel2": {
+		"string": "Substituir o conteúdo do relatório"
+	},
+	"mediaFactCheck.confirmText1": {
+		"string": "Primeiro, você precisa suspender seu relatório para poder editá-lo. Você deseja suspender o relatório e atualizá-lo com o novo conteúdo?"
+	},
+	"mediaFactCheck.confirmText2": {
+		"string": "Você deseja atualizar o relatório com este novo conteúdo? Todo o conteúdo atual do relatório será perdido."
+	},
+	"mediaFactCheck.confirmTitle1": {
+		"string": "O relatório atual foi publicado"
+	},
+	"mediaFactCheck.confirmTitle2": {
+		"string": "Substituir o conteúdo do relatório existente?"
+	},
+	"mediaFactCheck.copyToReport": {
+		"string": "Copiar para o relatório Tipline",
+		"developer_comment": "Button label to copy fact-check data into a report."
+	},
+	"mediaFactCheck.copying": {
+		"string": "Copiando...",
+		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
+	},
+	"mediaFactCheck.factCheck": {
+		"string": "Verificação de fatos",
+		"developer_comment": "Title of the media fact-check section."
+	},
+	"mediaFactCheck.summary": {
+		"string": "Resumo",
+		"developer_comment": "Label for fact-check summary field"
+	},
+	"mediaFactCheck.title": {
+		"string": "Título",
+		"developer_comment": "Label for fact-check title field"
+	},
+	"mediaFactCheck.url": {
+		"string": "URL do artigo publicado",
+		"developer_comment": "Label for fact-check URL field"
+	},
+	"mediaFactCheckField.noClaimDescription": {
+		"string": "Adicione uma afirmação para acessar a verificação de fatos",
+		"developer_comment": "Placeholder for fact-check field when there is no claim description filled."
 	},
 	"mediaItem.addedBy": {
 		"string": "Adicionado por {name}"
@@ -1636,10 +1704,13 @@
 		"string": "Voltar"
 	},
 	"mediaSimilarityBarComponent.hasMain": {
-		"string": "Esta mídia foi adicionada como semelhante a outro item"
+		"string": "Esta mídia foi associada a uma afirmação existente."
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "Esta mídia foi sugerida como semelhante a outro item"
+		"string": "Esta mídia foi sugerida como semelhante a uma afirmação existente."
+	},
+	"mediaSimilarityBarComponent.openClaim": {
+		"string": "Afirmação aberta"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Mídia semelhante",
@@ -1703,6 +1774,10 @@
 		"string": "Não foi possível salvar. Por favor, preencha todos os campos obrigatórios",
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
 	},
+	"metadata.couldNotSaveUrl": {
+		"string": "Não foi possível salvar, pelo menos uma URL é inválida",
+		"developer_comment": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved."
+	},
 	"metadata.delete": {
 		"string": "Excluir",
 		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
@@ -1762,6 +1837,10 @@
 	"metadata.save": {
 		"string": "Salvar",
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+	},
+	"metadata.url.helperText": {
+		"string": "A URL deve possuir um formato válido",
+		"developer_comment": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
 	},
 	"moreLess.less": {
 		"string": "Menos"
@@ -2288,6 +2367,9 @@
 	"reportDesigner.removeImage": {
 		"string": "Remover imagem"
 	},
+	"reportDesigner.report": {
+		"string": "Relatório"
+	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Pré-visualização do relatório",
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
@@ -2304,11 +2386,12 @@
 	"reportDesigner.statusLabel": {
 		"string": "Título do status ({max} caracteres no máximo)"
 	},
+	"reportDesigner.text": {
+		"string": "Texto",
+		"developer_comment": "Label used for radio button that toggles the report mode to text"
+	},
 	"reportDesigner.textError": {
 		"string": "Você deve inserir texto no relatório ou desmarcar a caixa 'Texto do relatório'"
-	},
-	"reportDesigner.textMessage": {
-		"string": "Texto do relatório"
 	},
 	"reportDesigner.textTitle": {
 		"string": "Título ({max} caracteres no máximo)"
@@ -2326,8 +2409,9 @@
 	"reportDesigner.useDefaultImage": {
 		"string": "Usar imagem padrão"
 	},
-	"reportDesigner.visualCard": {
-		"string": "Cartão visual"
+	"reportDesigner.visual": {
+		"string": "Visual",
+		"developer_comment": "Label used for radio button that toggles the report mode to visual"
 	},
 	"reportDesigner.warning": {
 		"string": "Aviso — compartilhar isso expõe informações a pessoas fora do seu espaço de trabalho privado. Prossiga com cuidado."
@@ -2708,6 +2792,10 @@
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
+	"searchFieldChannel.webForm": {
+		"string": "Formulário Web",
+		"developer_comment": "Filter option that refers to items created via a web form"
+	},
 	"searchFieldCountry.label": {
 		"string": "O país é",
 		"developer_comment": "Prefix label for field to filter by country"
@@ -2749,6 +2837,15 @@
 	"searchKeywordConfig.annotation": {
 		"string": "Anotação",
 		"developer_comment": "Header before a listing of annotation options"
+	},
+	"searchKeywordConfig.claimDescription": {
+		"string": "Descrição da afirmação"
+	},
+	"searchKeywordConfig.factCheckSummary": {
+		"string": "Resumo da verificação de fatos"
+	},
+	"searchKeywordConfig.factCheckTitle": {
+		"string": "Título da verificação de fatos"
 	},
 	"searchKeywordConfig.item": {
 		"string": "Item"
@@ -3672,6 +3769,14 @@
 		"string": "{length, plural, one {# selecionada} other {# selecionadas}}",
 		"developer_comment": "Label for number of selected tasks"
 	},
+	"tasks.UrlDescription": {
+		"string": "A URL deve possuir um formato válido",
+		"developer_comment": "Hint text about what kind of text a user can put in the URL box"
+	},
+	"tasks.UrlType": {
+		"string": "URL",
+		"developer_comment": "Label for the URL type field"
+	},
 	"tasks.add": {
 		"string": "Salvar"
 	},
@@ -3724,7 +3829,7 @@
 		"string": "Data e hora"
 	},
 	"tasks.datetimeDescription": {
-		"string": "Allows you to pick a date from the calendar",
+		"string": "Permite a você escolher uma data a partir do calendário",
 		"developer_comment": "Description for date type field"
 	},
 	"tasks.description": {
@@ -3735,6 +3840,18 @@
 	},
 	"tasks.editAttribution": {
 		"string": "Editar atribuição"
+	},
+	"tasks.editFieldWithAnswersBody1": {
+		"string": "{number, plural, one {Você está atualizando um campo que já reuniu # resposta.} other {Você está atualizando um campo que já reuniu # respostas.}}",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has colledted responses"
+	},
+	"tasks.editFieldWithAnswersBody2": {
+		"string": "Esta mudança aparecerá nestas respostas, as quais poderão perder o sentido com o campo atualizado. Selecione \"Salvar\" se você compreende e deseja continuar.",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has colledted responses"
+	},
+	"tasks.editFieldWithAnswersTitle": {
+		"string": "Atualização do campo com respostas existentes",
+		"developer_comment": "Title of warning when user tries to edit an annotation field that already has colledted responses"
 	},
 	"tasks.fileUpload": {
 		"string": "Carregamento de arquivo"
@@ -4246,10 +4363,6 @@
 	"teamTasks.confirmAction": {
 		"string": "Sim"
 	},
-	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {A tarefa {taskLabel} foi completada em # item.} other {A tarefa {taskLabel} foi completada em # itens.}}",
-		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
-	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
 		"string": "{itemsNumber, plural, one {O campo{fieldLabel} foi preenchido em # item.} other {O campo{fieldLabel} foi preenchido em # itens.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
@@ -4257,50 +4370,15 @@
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Você tem certeza que deseja excluir este campo?"
 	},
-	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "Tem certeza que deseja excluir esta tarefa?"
-	},
-	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Mantenha esta tarefa com respostas nos itens em que ela tiver sido completada.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
-	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
 		"string": "Mantenha este campo com respostas nos itens nos quais ele foi preenchido.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
-	"teamTasks.confirmEditBlurb": {
-		"string": "As tarefas de itens relacionados serão modificadas como consequência da aplicação dessa modificação, exceto aquelas que já tiverem sido completadas.",
-		"developer_comment": "Warning about existing instances of a task before performing changes to it"
-	},
-	"teamTasks.confirmEditBlurbMetadata": {
-		"string": "Os campos de itens relacionados serão modificados como consequência da aplicação dessa alteração, com exceção daqueles que já foram preenchidos.",
-		"developer_comment": "Warning about existing instances of a field before performing changes to it"
-	},
-	"teamTasks.confirmEditMetadataTitle": {
-		"string": "Você tem certeza que deseja editar este campo?"
-	},
-	"teamTasks.confirmEditTaskTitle": {
-		"string": "Tem certeza que deseja editar esta tarefa?"
-	},
-	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Não altere as tarefas que tiverem sido completadas e mantenha suas respostas já existentes.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
-	},
-	"teamTasks.confirmEditkeepCompletedMetadata": {
-		"string": "Não alterar os campos que foram preenchidos e manter suas respostas existentes.",
-		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
-	},
 	"teamTasks.continue": {
-		"string": "Editar tarefa"
-	},
-	"teamTasks.continueMetadata": {
-		"string": "Editar campo"
+		"string": "Continuar"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Excluir campo"
-	},
-	"teamTasks.deleteTask": {
-		"string": "Excluir tarefa"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Nenhuma tarefa} one {1 tarefa} other {# tarefas}}"

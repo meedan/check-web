@@ -16,6 +16,8 @@ import SmoochBotMenuEditor from './SmoochBotMenuEditor';
 import SmoochBotResourceEditor from './SmoochBotResourceEditor';
 import SmoochBotNewsletterEditor from './SmoochBotNewsletterEditor';
 import SmoochBotSettings from './SmoochBotSettings';
+import SmoochBotContentAndTranslation from './SmoochBotContentAndTranslation';
+import SmoochBotMainMenu from './SmoochBotMainMenu';
 import { labels, descriptions, placeholders } from './localizables';
 
 const useStyles = makeStyles(theme => ({
@@ -29,6 +31,7 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     padding: theme.spacing(2),
+    paddingTop: theme.spacing(1),
   },
   resource: {
     color: brandHighlight,
@@ -38,11 +41,14 @@ const useStyles = makeStyles(theme => ({
 const SmoochBotConfig = (props) => {
   const classes = useStyles();
 
-  const { currentLanguage, languages, userRole } = props;
+  const {
+    currentLanguage,
+    languages,
+    userRole,
+    value,
+  } = props;
   const [currentTab, setCurrentTab] = React.useState(0);
-  const [currentOption, setCurrentOption] = React.useState('smooch_message_smooch_bot_greetings');
-
-  const { value } = props;
+  const [currentOption, setCurrentOption] = React.useState(value.smooch_version === 'v2' ? 'smooch_content' : 'smooch_message_smooch_bot_greetings');
 
   // Look for the workflow in the current selected language
   let currentWorkflowIndex = 0;
@@ -109,6 +115,22 @@ const SmoochBotConfig = (props) => {
     setValue(updatedValue);
   };
 
+  const handleChangeMessage = (stringId, newValue) => {
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    updatedValue.smooch_workflows[currentWorkflowIndex][stringId] = newValue;
+    setValue(updatedValue);
+  };
+
+  const handleChangeStateMessage = (state, newValue) => {
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    const option = `smooch_state_${state}`;
+    if (!updatedValue.smooch_workflows[currentWorkflowIndex][option]) {
+      updatedValue.smooch_workflows[currentWorkflowIndex][option] = {};
+    }
+    updatedValue.smooch_workflows[currentWorkflowIndex][option].smooch_menu_message = newValue;
+    setValue(updatedValue);
+  };
+
   const handleChangeMultiTextField = (subKey, newValue) => {
     const updatedValue = JSON.parse(JSON.stringify(value));
     if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
@@ -118,26 +140,16 @@ const SmoochBotConfig = (props) => {
     setValue(updatedValue);
   };
 
-  const handleChangeMenu = (newValue) => {
-    let updatedValue = JSON.parse(JSON.stringify(value));
-    if (!updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]) {
-      updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = {};
+  const handleChangeMenu = (newValue, menuOption) => {
+    let menu = menuOption;
+    if (!menuOption) {
+      menu = currentOption;
     }
-    Object.assign(updatedValue.smooch_workflows[currentWorkflowIndex][currentOption], newValue);
-    // Create new resource if needed
-    if (newValue && newValue.smooch_menu_options) {
-      newValue.smooch_menu_options.forEach((option, i) => {
-        if (option.smooch_menu_custom_resource_title) {
-          updatedValue = handleAddResource(
-            updatedValue,
-            option.smooch_menu_custom_resource_title,
-            option.smooch_menu_custom_resource_id,
-          );
-          delete updatedValue.smooch_workflows[currentWorkflowIndex][currentOption]
-            .smooch_menu_options[i].smooch_menu_custom_resource_title;
-        }
-      });
+    const updatedValue = JSON.parse(JSON.stringify(value));
+    if (!updatedValue.smooch_workflows[currentWorkflowIndex][menu]) {
+      updatedValue.smooch_workflows[currentWorkflowIndex][menu] = {};
     }
+    Object.assign(updatedValue.smooch_workflows[currentWorkflowIndex][menu], newValue);
     setValue(updatedValue);
   };
 
@@ -180,7 +192,7 @@ const SmoochBotConfig = (props) => {
   return (
     <React.Fragment>
       <Tabs value={currentTab} onChange={handleChangeTab} variant="fullWidth">
-        <Tab label={<FormattedMessage id="smoochBot.scenarios" defaultMessage="Scenarios" />} />
+        <Tab label={<FormattedMessage id="smoochBot.designYourBot" defaultMessage="Design your bot" description="Title of tipline settings page" />} />
         { userRole === 'admin' ?
           <Tab label={<FormattedMessage id="smoochBot.settings" defaultMessage="Settings" />} />
           : null
@@ -188,17 +200,12 @@ const SmoochBotConfig = (props) => {
       </Tabs>
       { currentTab === 0 ?
         <React.Fragment>
-          <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-            <FormattedMessage
-              id="smoochBot.title"
-              defaultMessage="Design your bot"
-            />
-          </Typography>
           <Box display="flex">
             <Box>
               <SmoochBotSidebar
                 currentOption={currentOption}
                 resources={value.smooch_workflows[currentWorkflowIndex].smooch_custom_resources}
+                version={value.smooch_version || 'v1'}
                 onClick={handleSelectOption}
               />
               <Button
@@ -280,6 +287,20 @@ const SmoochBotConfig = (props) => {
                   newsletterHeader={settings[`smooch_template_newsletter_header_${currentLanguage}`]}
                   onChange={handleChangeNewsletter}
                   teamName={props.teamName}
+                /> : null }
+              { currentOption === 'smooch_content' ?
+                <SmoochBotContentAndTranslation
+                  key={currentLanguage}
+                  value={value.smooch_workflows[currentWorkflowIndex]}
+                  onChangeMessage={handleChangeMessage}
+                  onChangeStateMessage={handleChangeStateMessage}
+                /> : null }
+              { currentOption === 'smooch_main_menu' ?
+                <SmoochBotMainMenu
+                  key={currentLanguage}
+                  languages={languages}
+                  value={value.smooch_workflows[currentWorkflowIndex]}
+                  onChange={handleChangeMenu}
                 /> : null }
             </Box>
           </Box>

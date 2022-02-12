@@ -63,7 +63,7 @@ shared_examples 'similarity' do
 
   it 'should add and remove related items', bin6: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
-    sleep 5 # wait for the items to be indexed in the Elasticsearch
+    sleep 10 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
     wait_for_selector_list_size('.media__heading', 2)
     project_url = @driver.current_url.to_s
@@ -78,6 +78,7 @@ shared_examples 'similarity' do
     wait_for_selector('.media-tab__related').click
     wait_for_selector("//span[contains(text(), '0 related items')]", :xpath)
     wait_for_selector("//span[contains(text(), 'Add relation')]", :xpath).click
+    # add related item
     add_related_item('Claim 0')
     @driver.navigate.refresh
     wait_for_selector('.media')
@@ -108,7 +109,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
     wait_for_selector("//span[contains(text(), '1 of 2 suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Is the suggested media similar to the main?')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Is this media a good match for this claim?')]", :xpath)
     wait_for_selector('#similarity-media-item__accept-relationship').click
     wait_for_selector("//span[contains(text(), '1 of 1 suggested media')]", :xpath)
     wait_for_selector('#similarity-media-item__reject-relationship').click

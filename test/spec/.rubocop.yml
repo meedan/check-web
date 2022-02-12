@@ -31,6 +31,6 @@ Style/ZeroLengthPredicate:
 Metrics/ParameterLists: 
   Enabled: false
 Metrics/PerceivedComplexity:
-  Max: 10
+  Max: 12
 Metrics/CyclomaticComplexity:
-  Max: 10
+  Max: 12

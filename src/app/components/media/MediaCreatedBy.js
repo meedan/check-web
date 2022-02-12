@@ -20,6 +20,11 @@ const messages = defineMessages({
     defaultMessage: 'Web Form',
     description: 'Creator that refers to items created via web forms.',
   },
+  shareddatabase: {
+    id: 'mediaAnalysis.sharedDatabase',
+    defaultMessage: 'Shared Database',
+    description: 'Creator that refers to items created from the shared database.',
+  },
 });
 
 const MediaCreatedBy = ({ projectMedia, intl }) => {
@@ -37,7 +42,7 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
         id="mediaCreatedBy.createdBy"
         defaultMessage="Item created by {name}"
         values={{
-          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : intl.formatMessage(messages[creatorName.replace(/[ _-]/g, '').toLocaleLowerCase()]),
+          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : intl.formatMessage(messages[creatorName.replace(/[ _-]+/g, '').toLocaleLowerCase()]),
         }}
       />
     </Typography>

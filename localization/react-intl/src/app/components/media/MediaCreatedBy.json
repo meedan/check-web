@@ -15,6 +15,11 @@
     "defaultMessage": "Web Form"
   },
   {
+    "id": "mediaAnalysis.sharedDatabase",
+    "description": "Creator that refers to items created from the shared database.",
+    "defaultMessage": "Shared Database"
+  },
+  {
     "id": "mediaCreatedBy.createdBy",
     "defaultMessage": "Item created by {name}"
   }

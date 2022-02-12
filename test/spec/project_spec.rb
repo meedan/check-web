@@ -176,7 +176,9 @@ shared_examples 'project' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
-    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[10].click
+    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[11].click
+    wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
+    wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
     wait_for_selector('#team-lists__item-4-status button').click
     wait_for_selector("//span[contains(text(), 'Save')]", :xpath).click
     wait_for_selector('#confirm-dialog__checkbox').click
@@ -184,6 +186,7 @@ shared_examples 'project' do
     wait_for_selector('.message')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('#create-media__add-item')
+    @driver.navigate.refresh
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(false)
     expect(@driver.page_source.include?('metadata')).to be(true)

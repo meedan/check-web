@@ -33,6 +33,11 @@ const messages = defineMessages({
     defaultMessage: 'Web Form',
     description: 'Filter option that refers to items created via a web form',
   },
+  sharedDatabase: {
+    id: 'searchFieldChannel.sharedDatabase',
+    defaultMessage: 'Shared Database',
+    description: 'Filter option that refers to items created from the shared database.',
+  },
 });
 
 const SearchFieldChannelComponent = ({
@@ -58,6 +63,7 @@ const SearchFieldChannelComponent = ({
     VIBER: 'Viber',
     LINE: 'Line',
     WEB_FORM: intl.formatMessage(messages.webForm),
+    SHARED_DATABASE: intl.formatMessage(messages.sharedDatabase),
   };
 
   let options = Object.keys(channels).filter(key => key !== 'TIPLINE').map(key => ({ label: optionLabels[key], value: `${channels[key]}` }));

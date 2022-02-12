@@ -8,12 +8,12 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
 function shouldDisplayMetrics(metrics) {
-  return metrics &&
-    (metrics.share_count !== 0 ||
-     metrics.reaction_count !== 0 ||
-     metrics.comment_count !== 0 ||
-     metrics.comment_plugin_count !== 0
-    );
+  return metrics && (
+    metrics.share_count > 0 ||
+    metrics.reaction_count > 0 ||
+    metrics.comment_count > 0 ||
+    metrics.comment_plugin_count > 0
+  );
 }
 
 const useStyles = makeStyles(theme => ({
@@ -53,20 +53,20 @@ const MediaExpandedMetadata = ({ projectMedia }) => {
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.shares" defaultMessage="FB Shares" />
               </Typography>
-              <div><FormattedNumber value={metrics.share_count} /></div>
+              <div><FormattedNumber value={metrics.share_count || 0} /></div>
             </div>
             <div className={classes.metric}>
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.reactions" defaultMessage="FB Reactions" />
               </Typography>
-              <div><FormattedNumber value={metrics.reaction_count} /></div>
+              <div><FormattedNumber value={metrics.reaction_count || 0} /></div>
             </div>
             <div className={classes.metric}>
               <Typography variant="button" component="div">
                 <FormattedMessage id="mediaExpandedMetadata.comments" defaultMessage="FB Comments" />
               </Typography>
               <div>
-                <FormattedNumber value={metrics.comment_count + metrics.comment_plugin_count} />
+                <FormattedNumber value={metrics.comment_count + metrics.comment_plugin_count || 0} />
               </div>
             </div>
           </Box>

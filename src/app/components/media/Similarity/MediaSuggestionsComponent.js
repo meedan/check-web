@@ -92,7 +92,9 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const mainItemUrl = window.location.pathname.replace(/\/suggested-matches$/, '');
+  const params = new URLSearchParams(window.location.search);
+  const listIndex = params.get('listIndex');
+  const mainItemUrl = `${window.location.pathname.replace(/\/suggested-matches$/, '')}?listIndex=${listIndex}`;
   const [index, setIndex] = React.useState(0);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
@@ -356,7 +358,7 @@ const MediaSuggestionsComponent = ({
                 /> :
                 <FormattedMessage
                   id="mediaSuggestionsComponent.question"
-                  defaultMessage="Is the suggested media similar to the main?"
+                  defaultMessage="Is this media a good match for this claim?"
                 /> }
             </Typography>
             <IconButton onClick={handleHelp}>

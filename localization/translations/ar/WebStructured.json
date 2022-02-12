@@ -33,7 +33,7 @@
 		"developer_comment": "Label for custom field configuration to allow filtering datetime filed with date range option"
 	},
 	"CustomTeamTaskFilter.empty": {
-		"string": "Empty",
+		"string": "فارغ",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.entityMetadataLabel": {
@@ -61,11 +61,11 @@
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with no value set"
 	},
 	"CustomTeamTaskFilter.notEmpty": {
-		"string": "Not empty",
+		"string": "غير فارغ",
 		"developer_comment": "Label for custom field configuration to allow filtering by task or metadata with any value set"
 	},
 	"CustomTeamTaskFilter.numericRange": {
-		"string": "Number range",
+		"string": "نطاق الأعداد",
 		"developer_comment": "Label for custom field configuration to allow filtering number filed with numeric range option"
 	},
 	"CustomTeamTaskFilter.taskChoiceLabel": {
@@ -1136,7 +1136,7 @@
 		"string": "النوع"
 	},
 	"list.clusterSize": {
-		"string": "Cluster size",
+		"string": "حجم التجمع",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.clusterTeamNames": {
@@ -1165,6 +1165,10 @@
 	},
 	"list.reportStatus": {
 		"string": "حالة التقرير"
+	},
+	"list.sourceName": {
+		"string": "المصدر",
+		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
 		"string": "المتطابقات المقترحة"
@@ -1328,63 +1332,64 @@
 		"string": "تقرير غير منشور"
 	},
 	"mediaAnalysis.analysis": {
-		"string": "التحليل"
-	},
-	"mediaAnalysis.confirmButtonLabel1": {
-		"string": "إيقاف التقرير وتحديث المحتوى"
-	},
-	"mediaAnalysis.confirmButtonLabel2": {
-		"string": "الكتابة فوق محتوى التقرير"
-	},
-	"mediaAnalysis.confirmText1": {
-		"string": "لا بد من إيقاف التقرير للتمكُّن من تحريره. هل تريدين إيقاف التقرير وتحديثه بالمحتوى الجديد؟"
-	},
-	"mediaAnalysis.confirmText2": {
-		"string": "تحديث التقرير بهذا المحتوى الجديد؟ سيتم فُقدان كل محتوى التقرير الحالي."
-	},
-	"mediaAnalysis.confirmTitle1": {
-		"string": "التقرير الحالي منشور"
-	},
-	"mediaAnalysis.confirmTitle2": {
-		"string": "الكتابة فوق محتوى التقرير الموجود؟"
+		"string": "التحليل",
+		"developer_comment": "Title of the media analysis bar"
 	},
 	"mediaAnalysis.content": {
-		"string": "المحتوى"
+		"string": "المحتوى",
+		"developer_comment": "Label for the analysis content field"
 	},
-	"mediaAnalysis.copyToReport": {
-		"string": "نسخ إلى التقرير"
-	},
-	"mediaAnalysis.copying": {
-		"string": "النسخ جارٍ…"
-	},
-	"mediaAnalysis.createdBy": {
-		"string": "تم إنشاء هذا العنصر بواسطة {name}"
-	},
-	"mediaAnalysis.date": {
-		"string": "تاريخ نشر المقال"
-	},
-	"mediaAnalysis.error": {
-		"string": "لم تنجح عملية الحفظ! آخر حفظ قبل {ago}"
+	"mediaAnalysis.discontinued": {
+		"string": "(موقوفة - {learnMoreLink})",
+		"developer_comment": "Caption that informs that the analysis feature is deprecated."
 	},
 	"mediaAnalysis.import": {
 		"string": "استيراد",
-		"developer_comment": "Creator that refers to items created via Fetch, ZAPIER or ZAPIER"
+		"developer_comment": "Creator that refers to items created via Fetch or Zapier."
 	},
-	"mediaAnalysis.publishedArticle": {
-		"string": "رابط المقال المنشور"
-	},
-	"mediaAnalysis.saved": {
-		"string": "تم الحفظ {ago}"
-	},
-	"mediaAnalysis.saving": {
-		"string": "الحفظ جارٍ…"
+	"mediaAnalysis.learnMore": {
+		"string": "تعلم المزيد",
+		"developer_comment": "Text that links to an external help article"
 	},
 	"mediaAnalysis.tipline": {
 		"string": "الخط الساخن",
-		"developer_comment": "Creator that refers to items created via tiplines"
+		"developer_comment": "Creator that refers to items created via tiplines."
 	},
 	"mediaAnalysis.title": {
-		"string": "العنوان"
+		"string": "العنوان",
+		"developer_comment": "Label for the analysis title field"
+	},
+	"mediaAnalysis.webForm": {
+		"string": "استمارة على الإنترنت",
+		"developer_comment": "Creator that refers to items created via web forms."
+	},
+	"mediaAnalysisField.copied": {
+		"string": "تم النسخ!",
+		"developer_comment": "Confirmation label that is displayed once a Copy link is clicked."
+	},
+	"mediaAnalysisField.copy": {
+		"string": "نسخ النص",
+		"developer_comment": "Link text that once clicked copies text to clipboard."
+	},
+	"mediaClaim.claim": {
+		"string": "ادعاء",
+		"developer_comment": "Title of the media claim section."
+	},
+	"mediaClaim.description": {
+		"string": "اكتب شيئا هنا",
+		"developer_comment": "Placeholder for claim description field."
+	},
+	"mediaClaim.error": {
+		"string": "حدث خطأ",
+		"developer_comment": "Caption that informs that a claim could not be saved"
+	},
+	"mediaClaim.saved": {
+		"string": "تم الحفظ بواسطة {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this claim and when it happened."
+	},
+	"mediaClaim.saving": {
+		"string": "جار الحفظ...",
+		"developer_comment": "Caption that informs that a claim is being saved"
 	},
 	"mediaComments.noNote": {
 		"string": "لا توجد ملحوظة"
@@ -1416,6 +1421,9 @@
 	"mediaComponent.verificationTasks": {
 		"string": "مهام العنصر"
 	},
+	"mediaCreatedBy.createdBy": {
+		"string": "تم إنشاء هذا العنصر بواسطة {name}"
+	},
 	"mediaDetail.trash": {
 		"string": "سلة المهملات"
 	},
@@ -1424,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "أوّل مطالعة: "
+		"string": "أول إضافة:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "آخر مطالعة:"
+		"string": "آخر إضافة:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "لا يوجد نص مستخلص من هذه الصورة",
@@ -1462,6 +1472,64 @@
 	},
 	"mediaExpandedMetadata.shares": {
 		"string": "مشاركات فيسبوك"
+	},
+	"mediaFactCheck,error": {
+		"string": "حدث خطأ",
+		"developer_comment": "Caption that informs that a fact-check could not be saved"
+	},
+	"mediaFactCheck,saved": {
+		"string": "تم الحفظ بواسطة {userName} {timeAgo}",
+		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
+	},
+	"mediaFactCheck,saving": {
+		"string": "جار الحفظ...",
+		"developer_comment": "Caption that informs that a fact-check is being saved"
+	},
+	"mediaFactCheck.confirmButtonLabel1": {
+		"string": "إيقاف التقرير وتحديث المحتوى"
+	},
+	"mediaFactCheck.confirmButtonLabel2": {
+		"string": "الكتابة فوق محتوى التقرير"
+	},
+	"mediaFactCheck.confirmText1": {
+		"string": "لا بد من إيقاف التقرير للتمكُّن من تحريره. هل تريدين إيقاف التقرير وتحديثه بالمحتوى الجديد؟"
+	},
+	"mediaFactCheck.confirmText2": {
+		"string": "تحديث التقرير بهذا المحتوى الجديد؟ سيتم فُقدان كل محتوى التقرير الحالي."
+	},
+	"mediaFactCheck.confirmTitle1": {
+		"string": "التقرير الحالي منشور"
+	},
+	"mediaFactCheck.confirmTitle2": {
+		"string": "الكتابة فوق محتوى التقرير الموجود؟"
+	},
+	"mediaFactCheck.copyToReport": {
+		"string": "نسخ إلى تقرير الخط ساخن",
+		"developer_comment": "Button label to copy fact-check data into a report."
+	},
+	"mediaFactCheck.copying": {
+		"string": "النسخ جارٍ…",
+		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
+	},
+	"mediaFactCheck.factCheck": {
+		"string": "تقصي الحقائق",
+		"developer_comment": "Title of the media fact-check section."
+	},
+	"mediaFactCheck.summary": {
+		"string": "الخلاصة",
+		"developer_comment": "Label for fact-check summary field"
+	},
+	"mediaFactCheck.title": {
+		"string": "العنوان",
+		"developer_comment": "Label for fact-check title field"
+	},
+	"mediaFactCheck.url": {
+		"string": "رابط المقال المنشور",
+		"developer_comment": "Label for fact-check URL field"
+	},
+	"mediaFactCheckField.noClaimDescription": {
+		"string": "إضافة إدعاء للدخول إلى تقصي الحقائق",
+		"developer_comment": "Placeholder for fact-check field when there is no claim description filled."
 	},
 	"mediaItem.addedBy": {
 		"string": "تم إضافته بواسطة {name}"
@@ -1636,10 +1704,13 @@
 		"string": "الرجوع"
 	},
 	"mediaSimilarityBarComponent.hasMain": {
-		"string": "تم إضافة هذه المواد الإعلامية كمشابهة لعنصر آخر"
+		"string": "تم ربط هذه المواد الإعلامية بإدعاء موجود"
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "تم اقتراح هذه المواد الإعلامية كمشابهة لعنصر آخر"
+		"string": "تم اقتراح هذه المواد الإعلامية كمشابهة لإدعاء موجود."
+	},
+	"mediaSimilarityBarComponent.openClaim": {
+		"string": "فتح الإدعاء"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "المواد الإعلامية المتشابهة",
@@ -1703,6 +1774,10 @@
 		"string": "يتعذر الحفظ، وذلك لغياب حقل إجباري",
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
 	},
+	"metadata.couldNotSaveUrl": {
+		"string": "تغذر الحفظ بسبب وجود رابط واحد على الأقل غير صالح",
+		"developer_comment": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved."
+	},
 	"metadata.delete": {
 		"string": "حذف",
 		"developer_comment": "This is a label that appears on a button next to an item that the user can delete. The label indicates that if the user presses this button, the item will be deleted."
@@ -1762,6 +1837,10 @@
 	"metadata.save": {
 		"string": "حفظ",
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
+	},
+	"metadata.url.helperText": {
+		"string": "لا بد أن يكون رابطا صالحا",
+		"developer_comment": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
 	},
 	"moreLess.less": {
 		"string": "الأقل"
@@ -2288,6 +2367,9 @@
 	"reportDesigner.removeImage": {
 		"string": "إزالة الصورة"
 	},
+	"reportDesigner.report": {
+		"string": "التقرير"
+	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "لمحة عن التقرير ",
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
@@ -2304,11 +2386,12 @@
 	"reportDesigner.statusLabel": {
 		"string": "عنوان الحالة (بحد أقصى {max} حرف)"
 	},
+	"reportDesigner.text": {
+		"string": "نص",
+		"developer_comment": "Label used for radio button that toggles the report mode to text"
+	},
 	"reportDesigner.textError": {
 		"string": "يرجى توفير نص للتقرير أو إلغاء خيار 'Report text'"
-	},
-	"reportDesigner.textMessage": {
-		"string": "نص التقرير"
 	},
 	"reportDesigner.textTitle": {
 		"string": "العنوان (بحد أقصى {max} حرف)"
@@ -2326,8 +2409,9 @@
 	"reportDesigner.useDefaultImage": {
 		"string": "استخدام الصورة الافتراضية"
 	},
-	"reportDesigner.visualCard": {
-		"string": "البطاقة المرئية"
+	"reportDesigner.visual": {
+		"string": "مرئي",
+		"developer_comment": "Label used for radio button that toggles the report mode to visual"
 	},
 	"reportDesigner.warning": {
 		"string": "تحذير — هذه المشاركة ستكشف معلومات إلى أشخاص خارج مساحة عمل خاصّة. الرجاء توخ الحذر عند المتابعة."
@@ -2708,6 +2792,10 @@
 		"string": "يدوي",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
+	"searchFieldChannel.webForm": {
+		"string": "استمارة على الإنترنت",
+		"developer_comment": "Filter option that refers to items created via a web form"
+	},
 	"searchFieldCountry.label": {
 		"string": "البلد هو",
 		"developer_comment": "Prefix label for field to filter by country"
@@ -2749,6 +2837,15 @@
 	"searchKeywordConfig.annotation": {
 		"string": "التفسيرات",
 		"developer_comment": "Header before a listing of annotation options"
+	},
+	"searchKeywordConfig.claimDescription": {
+		"string": "وصف الإدعاء"
+	},
+	"searchKeywordConfig.factCheckSummary": {
+		"string": "خلاصة تقصي الحقائق"
+	},
+	"searchKeywordConfig.factCheckTitle": {
+		"string": "عنوان تقصي الحقائق"
 	},
 	"searchKeywordConfig.item": {
 		"string": "العنصر"
@@ -3672,6 +3769,14 @@
 		"string": "{length, plural, zero {لا شيء محدد} one {واحدة محددة} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
 		"developer_comment": "Label for number of selected tasks"
 	},
+	"tasks.UrlDescription": {
+		"string": "لا بد أن يكون رابطا صالحا",
+		"developer_comment": "Hint text about what kind of text a user can put in the URL box"
+	},
+	"tasks.UrlType": {
+		"string": "الرابط",
+		"developer_comment": "Label for the URL type field"
+	},
 	"tasks.add": {
 		"string": "حفظ"
 	},
@@ -3724,7 +3829,7 @@
 		"string": "التاريخ والزمن"
 	},
 	"tasks.datetimeDescription": {
-		"string": "Allows you to pick a date from the calendar",
+		"string": "يتيح لك اختيار تاريخ من التقويم",
 		"developer_comment": "Description for date type field"
 	},
 	"tasks.description": {
@@ -3735,6 +3840,18 @@
 	},
 	"tasks.editAttribution": {
 		"string": "تحرير اﻹسناد"
+	},
+	"tasks.editFieldWithAnswersBody1": {
+		"string": "{number, plural, zero {الحقل الذى تقوم بتحديثه لا يحتوي على أي إجابة.} one {الحقل الذى تقوم بتحديثه يحتوي على إجابة واحدة بالفعل.} two {الحقل الذى تقوم بتحديثه يحتوي على إجابتين بالفعل.} few {الحقل الذى تقوم بتحديثه يحتوي على # إجابات بالفعل.} many {الحقل الذى تقوم بتحديثه يحتوي على # إجابة بالفعل.} other {الحقل الذى تقوم بتحديثه يحتوي على # إجابة بالفعل.}}",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has colledted responses"
+	},
+	"tasks.editFieldWithAnswersBody2": {
+		"string": "ستظهر هذه الإجابات لهذا التغيير،  و ربما تصبح هذه الإجابات غير ذات معني بعد تحديث الحقل. إذا فهمت وتريد الإستمرار فاختر \"حفظ\".",
+		"developer_comment": "Body of warning when user tries to edit an annotation field that already has colledted responses"
+	},
+	"tasks.editFieldWithAnswersTitle": {
+		"string": "تحديث الحقل رغم وجود إجابات له",
+		"developer_comment": "Title of warning when user tries to edit an annotation field that already has colledted responses"
 	},
 	"tasks.fileUpload": {
 		"string": "رفع الملف"
@@ -4246,10 +4363,6 @@
 	"teamTasks.confirmAction": {
 		"string": "نعم"
 	},
-	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, zero {لقد تمت المهمة {taskLabel} بدون تغيير في أي عنصر. } one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصرا.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}",
-		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
-	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
 		"string": "{itemsNumber, plural, zero {‫لا توجد عناصر فيها الحقل {fieldLabel}.} one {‫تم الانتهاء من الحقل {fieldLabel} في عنصر واحد.} two {‫تم الانتهاء من الحقل {fieldLabel} في عنصرين.} few {‫تم الانتهاء من الحقل {fieldLabel} في # عناصر.} many {‫تم الانتهاء من الحقل {fieldLabel} في # عنصرا.} other {‫تم الانتهاء من الحقل {fieldLabel} في # عنصر.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
@@ -4257,50 +4370,15 @@
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت على يقين من حذف هذا الحقل؟"
 	},
-	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "هل أنت متأكد(ة) من حذف هذه المهمة؟"
-	},
-	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "الإبقاء على هذه المهمة بإجاباتها في عناصر عند اكتمالها.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
-	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
 		"string": "الإبقاء على هذا الحقل بإجاباته في العناصر التي تم الانتهاء منها.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
-	"teamTasks.confirmEditBlurb": {
-		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل.",
-		"developer_comment": "Warning about existing instances of a task before performing changes to it"
-	},
-	"teamTasks.confirmEditBlurbMetadata": {
-		"string": "سيتم تعديل حقول العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم انتهاء منها بالفعل.",
-		"developer_comment": "Warning about existing instances of a field before performing changes to it"
-	},
-	"teamTasks.confirmEditMetadataTitle": {
-		"string": "هل أنت على يقين من تحرير هذا الحقل؟"
-	},
-	"teamTasks.confirmEditTaskTitle": {
-		"string": "هل أنت متأكد(ة) من تحرير هذه المهمة؟"
-	},
-	"teamTasks.confirmEditkeepCompleted": {
-		"string": "لا تقم بتغيير المهام المكتملة واحتفظ بإجاباتها الحالية.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
-	},
-	"teamTasks.confirmEditkeepCompletedMetadata": {
-		"string": "يُرجى عدم إلحاق أي تغيير على الحقول المكتملة، كما يجب الاحتفاظ بإجاباتها الحالية.",
-		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
-	},
 	"teamTasks.continue": {
-		"string": "تحرير المهمة"
-	},
-	"teamTasks.continueMetadata": {
-		"string": "تحرير الحقل"
+		"string": "متابعة"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "حذف الحقل"
-	},
-	"teamTasks.deleteTask": {
-		"string": "حذف المهمة"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}"
