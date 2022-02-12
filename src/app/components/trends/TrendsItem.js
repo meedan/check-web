@@ -41,7 +41,6 @@ const TrendsItem = props => (
           created_at
           picture
           language_code
-          pusher_channel
           dbid
           project_id
           full_url
@@ -104,6 +103,7 @@ const TrendsItem = props => (
               edges {
                 node {
                   id
+                  dbid
                   title
                   type
                   description

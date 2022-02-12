@@ -44,11 +44,14 @@ const useStyles = makeStyles(theme => ({
   claimsColumn: {
     backgroundColor: 'white',
     borderRight: `1px solid ${brandSecondary}`,
-    width: 400,
-    minWidth: 400,
-    maxWidth: 400,
+    width: 360,
+    minWidth: 360,
+    maxWidth: 360,
   },
   mediasColumn: {
+    width: 590,
+    minWidth: 590,
+    maxWidth: 590,
   },
   mediaColumn: {
     width: '100%',
@@ -94,6 +97,7 @@ const useStyles = makeStyles(theme => ({
     height: '50px',
     display: 'flex',
     alignItems: 'center',
+    padding: 0,
   },
   selectSort: {
     marginLeft: theme.spacing(1),
@@ -164,7 +168,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
   const classes = useStyles();
   const { cluster } = projectMedia;
   const medias = cluster?.items?.edges.map(item => item.node);
-  const [selectedItemIndex, setSelectedItemIndex] = React.useState(0);
+  const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias[0].dbid);
   const [sortBy, setSortBy] = React.useState('mostRequests');
   const [importingClaim, setImportingClaim] = React.useState(null);
   const [selectedTeam, setSelectedTeam] = React.useState(teams[0].dbid);
@@ -177,8 +181,8 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
     newest: (a, b) => (a.last_seen - b.last_seen),
   };
 
-  const handleClick = (index) => {
-    setSelectedItemIndex(index);
+  const handleClick = (dbid) => {
+    setSelectedItemDbid(dbid);
   };
 
   const handleChange = (e) => {
@@ -238,14 +242,17 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
     });
   };
 
-  const selectedItem = medias[selectedItemIndex];
+  const selectedItem = medias.find(m => m.dbid === selectedItemDbid);
 
-  const ItemCard = ({ item, index }) => {
-    const selectedItemClass = selectedItemIndex === index ? classes.selected : '';
+  const ItemCard = ({ item }) => {
+    const selectedItemClass = selectedItemDbid === item.dbid ? classes.selected : '';
+    const fileTitle = item.media.file_path ? item.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
+    const title = item?.media?.metadata?.title || item?.media?.quote || fileTitle || item?.media?.title || item.title;
+    const description = item?.media?.metadata?.description || item.description;
     return (
       <Card
         className={`${classes.cardMain} ${selectedItemClass}`}
-        onClick={() => { handleClick(index); }}
+        onClick={() => { handleClick(item.dbid); }}
       >
         {
           item.picture ?
@@ -257,13 +264,13 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
             /> : null
         }
         <Typography className={classes.cardTitle}>
-          {item.title}
+          {title}
         </Typography>
         <Typography className={classes.cardSubhead}>
           <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="trendItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.requests_count} {item.requests_count === 1 ? <FormattedMessage id="trendItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="trendItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />} - <span className={classes.teamName}>{item.team.name}</span>
         </Typography>
         <Typography className={classes.cardDescription} variant="body1">
-          {item.description}
+          {description}
         </Typography>
       </Card>
     );
@@ -372,7 +379,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
             </Grid>
             <Grid item xs={6}>
               <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
-                <FormattedMessage id="trendItem.sortBy" defaultMessage="Sort by" />
+                <FormattedMessage id="trendItem.sortBy" defaultMessage="Sort by" /><br />
                 <Select
                   value={sortBy}
                   onChange={handleChange}
@@ -390,7 +397,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
           {
             medias
               .sort(sortOptions[sortBy])
-              .map((item, index) => <ItemCard item={item} index={index} />)
+              .map(item => <ItemCard item={item} />)
           }
         </Column>
       </Box>
