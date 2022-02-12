@@ -45,6 +45,8 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     borderRight: `1px solid ${brandSecondary}`,
     width: 400,
+    minWidth: 400,
+    maxWidth: 400,
   },
   mediasColumn: {
   },
