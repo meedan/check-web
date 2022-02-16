@@ -30,7 +30,8 @@ module AnnotationSpecHelpers
       update_field('#task-label-input', new_annotation)
     end
     wait_for_selector('.create-task__dialog-submit-button').click
-    wait_for_selector_none('.create-task__dialog-submit-button')
+    wait_for_selector('#confirm-dialog__confirm-action-button').click
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
   end
 
   def delete_annotation

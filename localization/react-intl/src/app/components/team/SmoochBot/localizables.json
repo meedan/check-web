@@ -52,6 +52,15 @@
     "defaultMessage": "Privacy Statement"
   },
   {
+    "id": "smoochBot.labelContent",
+    "description": "Button label in tipline settings page",
+    "defaultMessage": "Content and translation"
+  },
+  {
+    "id": "smoochBot.labelNewsletterV2",
+    "defaultMessage": "Newsletter content"
+  },
+  {
     "id": "smoochBot.descriptionGreeting",
     "defaultMessage": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot."
   },

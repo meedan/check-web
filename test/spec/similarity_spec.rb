@@ -109,7 +109,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
     wait_for_selector("//span[contains(text(), '1 of 2 suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Is the suggested media similar to the main?')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Is this media a good match for this claim?')]", :xpath)
     wait_for_selector('#similarity-media-item__accept-relationship').click
     wait_for_selector("//span[contains(text(), '1 of 1 suggested media')]", :xpath)
     wait_for_selector('#similarity-media-item__reject-relationship').click

@@ -127,21 +127,6 @@
     "defaultMessage": "Assign"
   },
   {
-    "id": "tasks.editFieldWithAnswersTitle",
-    "description": "Title of warning when user tries to edit an annotation field that already has colledted responses",
-    "defaultMessage": "Updating field with existing responses"
-  },
-  {
-    "id": "tasks.editFieldWithAnswersBody1",
-    "description": "Body of warning when user tries to edit an annotation field that already has colledted responses",
-    "defaultMessage": "{number, plural, one {You are updating a field that has already collected # response.} other {You are updating a field that has already collected # responses.}}"
-  },
-  {
-    "id": "tasks.editFieldWithAnswersBody2",
-    "description": "Body of warning when user tries to edit an annotation field that already has colledted responses",
-    "defaultMessage": "This change will show on these responses, and may not make sense with the updated field. Select \"Save\" if you understand and want to continue."
-  },
-  {
     "id": "tasks.cancelAdd",
     "defaultMessage": "Cancel"
   },

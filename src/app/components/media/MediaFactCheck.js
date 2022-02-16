@@ -227,8 +227,8 @@ const MediaFactCheck = ({ projectMedia }) => {
             /> : null }
           { saving && !error ?
             <FormattedMessage
-              id="mediaFactCheck,saving"
-              defaultMessage="saving..."
+              id="mediaFactCheck.saving"
+              defaultMessage="saving…"
               description="Caption that informs that a fact-check is being saved"
             /> : null }
           { !saving && !error && factCheck ?

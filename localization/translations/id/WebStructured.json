@@ -1167,7 +1167,7 @@
 		"string": "Status laporan"
 	},
 	"list.sourceName": {
-		"string": "Source",
+		"string": "Sumber",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
@@ -1372,7 +1372,7 @@
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
 	"mediaClaim.claim": {
-		"string": "Claim",
+		"string": "Klaim",
 		"developer_comment": "Title of the media claim section."
 	},
 	"mediaClaim.description": {
@@ -1422,7 +1422,7 @@
 		"string": "Tugas perihal"
 	},
 	"mediaCreatedBy.createdBy": {
-		"string": "Item created by {name}"
+		"string": "Perihal dibuat oleh {name}"
 	},
 	"mediaDetail.trash": {
 		"string": "Tong Sampah"
@@ -1432,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First submitted:"
+		"string": "First submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last submitted:"
+		"string": "Last submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "Tidak ada teks yang diambil dari gambar ini",
@@ -1484,29 +1486,29 @@
 		"developer_comment": "Caption that informs that a fact-check is being saved"
 	},
 	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Pause report and update content"
+		"string": "Tunda laporan dan perbarui kontennya"
 	},
 	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "Overwrite report content"
+		"string": "Ganti konten laporan"
 	},
 	"mediaFactCheck.confirmText1": {
-		"string": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+		"string": "Anda perlu menunda laporan Anda untuk menyuntingnya. Apakah Anda ingin menunda laporan dan memperbaruinya dengan konten baru?"
 	},
 	"mediaFactCheck.confirmText2": {
-		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
+		"string": "Apakah Anda ingin memperbarui laporan dengan konten baru ini? Semua konten yang sekarang berada di dalam laporan akan hilang."
 	},
 	"mediaFactCheck.confirmTitle1": {
-		"string": "Current report is published"
+		"string": "Laporan terkini telah diterbitkan"
 	},
 	"mediaFactCheck.confirmTitle2": {
-		"string": "Overwrite existing report content?"
+		"string": "Ganti konten laporan yang sudah ada?"
 	},
 	"mediaFactCheck.copyToReport": {
 		"string": "Copy to tipline report",
 		"developer_comment": "Button label to copy fact-check data into a report."
 	},
 	"mediaFactCheck.copying": {
-		"string": "Copying…",
+		"string": "Menyalin...",
 		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
 	},
 	"mediaFactCheck.factCheck": {
@@ -1518,11 +1520,11 @@
 		"developer_comment": "Label for fact-check summary field"
 	},
 	"mediaFactCheck.title": {
-		"string": "Title",
+		"string": "Judul",
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Published article URL",
+		"string": "URL artikel yang diterbitkan",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -2366,7 +2368,7 @@
 		"string": "Hapus gambar"
 	},
 	"reportDesigner.report": {
-		"string": "Report"
+		"string": "Laporan"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Pratinjau laporan",
@@ -2385,7 +2387,7 @@
 		"string": "Label status (maksimal {max} karakter)"
 	},
 	"reportDesigner.text": {
-		"string": "Text",
+		"string": "Teks",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textError": {
@@ -4373,7 +4375,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.continue": {
-		"string": "Continue"
+		"string": "Lanjutkan"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Hapus bidang"

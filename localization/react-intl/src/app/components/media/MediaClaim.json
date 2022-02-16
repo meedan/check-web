@@ -12,7 +12,7 @@
   {
     "id": "mediaClaim.saving",
     "description": "Caption that informs that a claim is being saved",
-    "defaultMessage": "saving..."
+    "defaultMessage": "saving…"
   },
   {
     "id": "mediaClaim.saved",

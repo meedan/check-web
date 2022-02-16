@@ -1,0 +1,7 @@
+[
+  {
+    "id": "checkedByTeamsCell.noFactCheck",
+    "description": "Table cell displayed on Trends page when claim is not fact-checked yet",
+    "defaultMessage": "No fact-check"
+  }
+]

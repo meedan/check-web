@@ -1167,7 +1167,7 @@
 		"string": "Estado de Informe"
 	},
 	"list.sourceName": {
-		"string": "Source",
+		"string": "Fuente",
 		"developer_comment": "Table header for column that shows item source"
 	},
 	"list.suggestionsCount": {
@@ -1372,7 +1372,7 @@
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
 	"mediaClaim.claim": {
-		"string": "Claim",
+		"string": "Afirmación",
 		"developer_comment": "Title of the media claim section."
 	},
 	"mediaClaim.description": {
@@ -1422,7 +1422,7 @@
 		"string": "Ítems de las tareas "
 	},
 	"mediaCreatedBy.createdBy": {
-		"string": "Item created by {name}"
+		"string": "Ítem creado por {name}"
 	},
 	"mediaDetail.trash": {
 		"string": "Papelera"
@@ -1432,10 +1432,12 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First submitted:"
+		"string": "First submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last submitted:"
+		"string": "Last submitted:",
+		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
 		"string": "No se extrajo texto de esta imagen",
@@ -1484,29 +1486,29 @@
 		"developer_comment": "Caption that informs that a fact-check is being saved"
 	},
 	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Pause report and update content"
+		"string": "Pausar informe y actualizar contenido"
 	},
 	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "Overwrite report content"
+		"string": "Sobrescribir contenido del informe"
 	},
 	"mediaFactCheck.confirmText1": {
-		"string": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
+		"string": "Primero debes pausar tu informe para poder editarlo ¿Quieres pausar el informe y actualizarlo con el nuevo contenido?"
 	},
 	"mediaFactCheck.confirmText2": {
-		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
+		"string": "¿Quieres actualizar el informe con este nuevo contenido? Todo el contenido actual en el informe se perderá. "
 	},
 	"mediaFactCheck.confirmTitle1": {
-		"string": "Current report is published"
+		"string": "El informe actual está publicado"
 	},
 	"mediaFactCheck.confirmTitle2": {
-		"string": "Overwrite existing report content?"
+		"string": "¿Sobrescribir contenido existente del reporte?"
 	},
 	"mediaFactCheck.copyToReport": {
 		"string": "Copy to tipline report",
 		"developer_comment": "Button label to copy fact-check data into a report."
 	},
 	"mediaFactCheck.copying": {
-		"string": "Copying…",
+		"string": "Copiando...",
 		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
 	},
 	"mediaFactCheck.factCheck": {
@@ -1518,11 +1520,11 @@
 		"developer_comment": "Label for fact-check summary field"
 	},
 	"mediaFactCheck.title": {
-		"string": "Title",
+		"string": "Título",
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Published article URL",
+		"string": "URL del artículo publicado",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -2366,7 +2368,7 @@
 		"string": "Eliminar imagen"
 	},
 	"reportDesigner.report": {
-		"string": "Report"
+		"string": "Informe"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Vista previa del informe",
@@ -2385,7 +2387,7 @@
 		"string": "Etiqueta de estado ({max} caracteres como máximo)"
 	},
 	"reportDesigner.text": {
-		"string": "Text",
+		"string": "Texto",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textError": {
@@ -4373,7 +4375,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.continue": {
-		"string": "Continue"
+		"string": "Continuar"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Eliminar campo"
