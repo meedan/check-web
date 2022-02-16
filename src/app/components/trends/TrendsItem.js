@@ -63,6 +63,7 @@ const TrendsItem = props => (
             }
           }
           media {
+            dbid
             url
             quote
             embed_path
@@ -135,6 +136,7 @@ const TrendsItem = props => (
                     }
                   }
                   media {
+                    dbid
                     url
                     quote
                     embed_path
