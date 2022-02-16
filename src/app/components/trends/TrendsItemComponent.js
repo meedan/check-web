@@ -166,8 +166,20 @@ const useStyles = makeStyles(theme => ({
 
 const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
   const classes = useStyles();
+
   const { cluster } = projectMedia;
-  const medias = cluster?.items?.edges.map(item => item.node);
+  const allMedias = cluster?.items?.edges.map(item => JSON.parse(JSON.stringify(item.node)));
+  const medias = [];
+  allMedias.forEach((media, i) => {
+    allMedias[i].demand = media.requests_count;
+    const existingMedia = medias.find(m => m.media.dbid === media.media.dbid);
+    if (existingMedia) {
+      existingMedia.demand += media.requests_count;
+    } else {
+      medias.push(media);
+    }
+  });
+
   const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias[0].dbid);
   const [sortBy, setSortBy] = React.useState('mostRequests');
   const [importingClaim, setImportingClaim] = React.useState(null);
@@ -175,8 +187,8 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
   const [isImporting, setIsImporting] = React.useState(false);
 
   const sortOptions = {
-    mostRequests: (a, b) => (b.requests_count - a.requests_count),
-    leastRequests: (a, b) => (a.requests_count - b.requests_count),
+    mostRequests: (a, b) => (b.demand - a.demand),
+    leastRequests: (a, b) => (a.demand - b.demand),
     oldest: (a, b) => (b.last_seen - a.last_seen),
     newest: (a, b) => (a.last_seen - b.last_seen),
   };
@@ -267,7 +279,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
           {title}
         </Typography>
         <Typography className={classes.cardSubhead}>
-          <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="trendItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.requests_count} {item.requests_count === 1 ? <FormattedMessage id="trendItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="trendItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />} - <span className={classes.teamName}>{item.team.name}</span>
+          <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="trendItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.demand} {item.demand === 1 ? <FormattedMessage id="trendItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="trendItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />}
         </Typography>
         <Typography className={classes.cardDescription} variant="body1">
           {description}
@@ -335,7 +347,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
                           defaultMessage="Report published: {date}"
                           values={{
                             date: (
-                              claim.project_media.report_status === 'published' ?
+                              claim?.project_media?.report_status === 'published' ?
                                 <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
                                 <span style={{ color: opaqueBlack38 }}>
                                   <FormattedMessage id="trendItem.notPublished" defaultMessage="Not published yet" />
@@ -355,7 +367,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
       <Box className={['media__column', classes.mediasColumn].join(' ')}>
         <Column>
           <Typography className={classes.columnTitle}>
-            <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: cluster.size }} />
+            <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: medias.length }} />
           </Typography>
           <Grid container alignItems="center">
             <Grid item xs={6}>
