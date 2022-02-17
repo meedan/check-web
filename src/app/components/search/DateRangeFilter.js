@@ -104,12 +104,11 @@ const DateRangeFilter = ({
   const rangeTypes = {
     startEnd: 'startEnd',
     relative: 'relative',
-    none: '',
   };
   const getInitialRangeType = () => {
     if (value && value[getValueType()]?.condition) return rangeTypes.relative;
     if (value && value[getValueType()]?.start_time) return rangeTypes.startEnd;
-    return rangeTypes.none;
+    return rangeTypes.startEnd;
   };
   const [rangeType, setRangeType] = React.useState(getInitialRangeType());
   const relativeRanges = {
