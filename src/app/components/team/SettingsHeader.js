@@ -46,7 +46,7 @@ const SettingsHeader = ({
     <Box className={['component__settings-header', classes.settingsHeaderRoot, className].join(' ')} style={style}>
       <Toolbar className={classes.settingsHeaderToolbar}>
         <Box display="flex" justifyContent="center" className={classes.settingsHeaderTitle}>
-          <Typography variant="h6" component="div">
+          <Typography variant="h6" component="div" className="settings-header__title">
             {title}
           </Typography>
           { helpUrl ?

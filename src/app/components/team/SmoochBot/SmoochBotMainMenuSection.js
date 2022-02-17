@@ -13,7 +13,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
-import { opaqueBlack23 } from '../../../styles/js/shared';
+import { opaqueBlack23, opaqueBlack54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -37,6 +37,9 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     padding: theme.spacing(0.25),
   },
+  lock: {
+    color: opaqueBlack54,
+  },
 }));
 
 const SmoochBotMainMenuSection = ({
@@ -44,7 +47,6 @@ const SmoochBotMainMenuSection = ({
   value,
   resources,
   readOnly,
-  optional,
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
@@ -144,30 +146,19 @@ const SmoochBotMainMenuSection = ({
   };
 
   return (
-    <Box className={classes.box} my={1}>
+    <Box className={classes.box} my={2}>
       <Box display="flex" alignItems="center" justifyContent="space-between" p={1}>
-        <Box display="flex" alignItems="center">
-
-          {/* Section header */}
-          <Typography variant="body2" component="div" align="center">
-            <strong>
-              <FormattedMessage id="smoochBotMainMenuSection.section" defaultMessage="Section {number}" description="Label for each menu section on tipline bot settings." values={{ number }} />
-            </strong>
-            { optional ?
-              <small>
-                <br />
-                <FormattedMessage id="smoochBotMainMenuSection.optional" defaultMessage="(optional)" description="Flags an optional menu section on tipline bot settings." />
-              </small> : null }
-          </Typography>
-          {' '}
+        <Box display="flex" alignItems="center" pt={1} pb={1}>
 
           {/* Title */}
           { readOnly ?
-            <Typography variant="body2" component="div" className={classes.title}>
-              <strong>
-                {value.smooch_menu_title}
-              </strong>
-            </Typography> :
+            <Box p={1}>
+              <Typography variant="body2" component="div" className={classes.title}>
+                <strong>
+                  {value.smooch_menu_title}
+                </strong>
+              </Typography>
+            </Box> :
             <TextField
               key={`title-${number}`}
               className={classes.textField}
@@ -179,23 +170,31 @@ const SmoochBotMainMenuSection = ({
                 />
               }
               variant="outlined"
-              inputProps={{ maxLength: 24 }}
+              inputProps={{
+                size: 24,
+                minLength: 1,
+                maxLength: 24,
+                required: true,
+              }}
               size="small"
               disabled={readOnly}
               onBlur={(e) => { onChangeTitle(e.target.value); }}
               defaultValue={value.smooch_menu_title}
+              error={!value.smooch_menu_title}
             />
           }
         </Box>
 
         {/* Add a new menu option */}
-        <Button color="primary" variant="contained" disabled={readOnly} onClick={handleAddNewOption}>
-          <FormattedMessage
-            id="smoochBotMainMenuSection.newOption"
-            defaultMessage="New option"
-            description="Button label to create a new main menu option on tipline bot settings."
-          />
-        </Button>
+        <Box pr={1}>
+          <Button color="primary" variant="contained" disabled={readOnly} onClick={handleAddNewOption}>
+            <FormattedMessage
+              id="smoochBotMainMenuSection.newOption"
+              defaultMessage="New option"
+              description="Button label to create a new main menu option on tipline bot settings."
+            />
+          </Button>
+        </Box>
       </Box>
 
       <Divider />
@@ -250,7 +249,7 @@ const SmoochBotMainMenuSection = ({
                 </IconButton> }
 
               {/* Locked */}
-              { readOnly ? <LockOutlinedIcon /> : null }
+              { readOnly ? <LockOutlinedIcon className={classes.lock} /> : null }
             </Box>
           </Box>
         ))}
@@ -277,7 +276,6 @@ SmoochBotMainMenuSection.defaultProps = {
   value: {},
   resources: [],
   readOnly: false,
-  optional: false,
 };
 
 SmoochBotMainMenuSection.propTypes = {
@@ -285,7 +283,6 @@ SmoochBotMainMenuSection.propTypes = {
   value: PropTypes.object,
   resources: PropTypes.arrayOf(PropTypes.object),
   readOnly: PropTypes.bool,
-  optional: PropTypes.bool,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };

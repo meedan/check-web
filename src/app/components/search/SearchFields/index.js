@@ -541,9 +541,10 @@ class SearchFields extends React.Component {
       ),
       country: (
         <SearchFieldCountry
-          selected={this.props.query.country}
+          selected={team?.country || this.props.query.country}
           onChange={(newValue) => { this.handleCountryClick(newValue); }}
           onRemove={() => this.handleRemoveField('country')}
+          readOnly
         />
       ),
     };
@@ -650,6 +651,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
+    country
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
     }
