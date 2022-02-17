@@ -369,7 +369,7 @@ function SearchResultsComponent({
     key: query.sort,
     ascending: query.sort_type !== 'DESC',
   } : {
-    key: team.smooch_bot ? 'last_seen' : 'recent_added',
+    key: 'recent_added',
     ascending: false,
   };
 
