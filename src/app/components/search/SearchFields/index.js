@@ -353,7 +353,7 @@ class SearchFields extends React.Component {
         </FormattedMessage>
       ),
       range: (
-        <Box maxWidth="700px">
+        <Box maxWidth="900px">
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.props.query.range}
