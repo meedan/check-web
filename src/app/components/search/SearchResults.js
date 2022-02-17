@@ -288,9 +288,12 @@ function SearchResultsComponent({
       const datesObj =
         oldQuery.range.created_at ||
         oldQuery.range.updated_at ||
-        oldQuery.range.published_at ||
-        oldQuery.range.last_seen || {};
-      if (!datesObj.start_time && !datesObj.end_time) {
+        oldQuery.range.media_published_at ||
+        oldQuery.range.report_published_at || {};
+      if ((!datesObj.start_time && !datesObj.end_time) && (datesObj.condition !== 'less_than')) {
+        delete cleanQuery.range;
+      }
+      if (datesObj.condition === 'less_than' && datesObj.period === 0) {
         delete cleanQuery.range;
       }
     }
