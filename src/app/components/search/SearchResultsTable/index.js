@@ -27,7 +27,6 @@ import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
-import ClusterReceivedByTeamsCell from './ClusterReceivedByTeamsCell';
 import ClusterRequestsCell from './ClusterRequestsCell';
 import ClusterFirstItemAtCell from './ClusterFirstItemAtCell';
 import ClusterLastItemAtCell from './ClusterLastItemAtCell';
@@ -187,17 +186,10 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.clusterLastItemAt" defaultMessage="Last submitted" description="Table header for column that shows when the last item of the cluster was created" />,
     cellComponent: ClusterLastItemAtCell,
   },
-  {
-    field: 'cluster_team_names',
-    headerText: <FormattedMessage id="list.clusterTeamNames" defaultMessage="Received" description="Table header for column that shows from which workspaces the items in the same cluster belong to" />,
-    cellComponent: ClusterReceivedByTeamsCell,
-    align: 'center',
-  },
 ];
 
 const showInTrends = [
   'item',
-  'cluster_team_names',
   'cluster_fact_checked_by_team_names',
   'cluster_requests',
   'cluster_size',
