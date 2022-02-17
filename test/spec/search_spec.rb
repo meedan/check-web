@@ -160,19 +160,12 @@ shared_examples 'search' do
 
     # Pre-populate dates to force the date picker to open at certain calendar months.
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22condition%22%3A%22less_than%22%2C%22period%22%3A3%2C%22period_type%22%3A%22d%22%7D%7D%7D"
-    puts 'start'
     wait_for_selector('.medias__item', :css, 10)
-    puts 0
     expect(@driver.page_source.include?('My search result')).to be(true)
-    puts 1
     wait_for_selector('input[value="3"]').click
-    puts 2
     wait_for_selector('input[value="3"]').send_keys(:control, 'a', :delete, '6')
-    puts 7
     wait_for_selector('#search-fields__submit-button').click
-    puts 8
     wait_for_selector('.medias__item', :css, 10)
-    puts 9
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
   it 'should change search sort and search criteria through URL', bin3: true do
