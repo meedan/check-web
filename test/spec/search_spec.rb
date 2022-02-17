@@ -158,11 +158,12 @@ shared_examples 'search' do
     wait_for_selector('.medias__item')
     expect(@driver.page_source.include?('My search result')).to be(true)
 
-    # Pre-populate dates to force the date picker to open at certain calendar months.
+    # Pre-populate with items created in the last 3 days, so will show our just-made item
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B%20%22range%22%3A%20%7B%22created_at%22%3A%7B%22condition%22%3A%22less_than%22%2C%22period%22%3A3%2C%22period_type%22%3A%22d%22%7D%7D%7D"
     wait_for_selector('.medias__item', :css, 10)
     expect(@driver.page_source.include?('My search result')).to be(true)
     wait_for_selector('input[value="3"]').click
+    # Switch to six days, hit submit button, make sure that works too
     wait_for_selector('input[value="3"]').send_keys(:control, 'a', :delete, '6')
     wait_for_selector('#search-fields__submit-button').click
     wait_for_selector('.medias__item', :css, 10)
