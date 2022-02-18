@@ -323,8 +323,6 @@ const DateRangeFilter = ({
 
   const handleChangeRelativeQuantity = (e) => {
     const valueRelativeQuantity = e.target.value;
-    // eslint-disable-next-line
-    console.log('~~~~cha',valueRelativeQuantity, typeof valueRelativeQuantity);
     setRelativeQuantity(valueRelativeQuantity);
     onChange(buildValueRelative(
       getValueType(),
@@ -367,8 +365,6 @@ const DateRangeFilter = ({
     relativeYears: <FormattedMessage id="search.relativeYears" defaultMessage="years ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'." />,
   };
 
-  // eslint-disable-next-line
-  console.log('~~~ren',relativeQuantity);
   return (
     <div style={{ background: opaqueBlack07 }}>
       <FlexRow>
