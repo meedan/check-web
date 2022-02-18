@@ -1,19 +1,49 @@
 [
   {
     "id": "search.dateSubmittedHeading",
-    "defaultMessage": "Submitted"
+    "defaultMessage": "Media submitted"
   },
   {
     "id": "search.dateLastSubmittedHeading",
-    "defaultMessage": "Last submitted"
+    "defaultMessage": "Media published"
   },
   {
     "id": "search.dateUpdatedHeading",
-    "defaultMessage": "Updated"
+    "defaultMessage": "Item updated"
   },
   {
     "id": "search.datePublishedHeading",
-    "defaultMessage": "Published"
+    "defaultMessage": "Report published"
+  },
+  {
+    "id": "search.dateStartEnd",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Is between... February 3, 2022 and February 9, 2022'.",
+    "defaultMessage": "Is between..."
+  },
+  {
+    "id": "search.dateRelative",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Is less than... 3 days'.",
+    "defaultMessage": "Is less than..."
+  },
+  {
+    "id": "search.relativeDays",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 days'.",
+    "defaultMessage": "days"
+  },
+  {
+    "id": "search.relativeWeeks",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 weeks'.",
+    "defaultMessage": "weeks"
+  },
+  {
+    "id": "search.relativeMonths",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 months'.",
+    "defaultMessage": "months"
+  },
+  {
+    "id": "search.relativeYears",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 years'.",
+    "defaultMessage": "years"
   },
   {
     "id": "search.afterDate",
@@ -29,5 +59,9 @@
     "id": "search.beforeDate",
     "description": "String displayed between after and before date pickers",
     "defaultMessage": "and before"
+  },
+  {
+    "id": "numericRangeFilter.enterNumber",
+    "defaultMessage": "enter number"
   }
 ]
