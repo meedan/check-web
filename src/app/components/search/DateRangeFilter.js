@@ -88,6 +88,120 @@ function parseEndDateAsISOString(moment) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
 }
 
+function DateRangeSelectorStartEnd(props) {
+  const {
+    classes,
+    getEndDateStringOrNull,
+    getStartDateStringOrNull,
+    handleChangeEndDate,
+    handleChangeStartDate,
+    handleClearDate,
+  } = props;
+
+  return (
+    <>
+      <DatePicker
+        onChange={handleChangeStartDate}
+        maxDate={getEndDateStringOrNull() || undefined}
+        okLabel={<FormattedMessage {...globalStrings.ok} />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        value={getStartDateStringOrNull()}
+        style={{ margin: `0 ${units(2)}` }}
+        TextFieldComponent={({ onClick, value: valueText }) => (
+          <div>
+            <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+              { text => (
+                <StyledInputBaseDate
+                  className={valueText ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
+                  type="text"
+                  placeholder={text}
+                  onClick={onClick}
+                  value={valueText}
+                  endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'start_time')} /> : null}
+                />
+              )}
+            </FormattedMessage>
+          </div>
+        )}
+      />
+      <DatePicker
+        inputVariant="outlined"
+        onChange={handleChangeEndDate}
+        minDate={getStartDateStringOrNull() || undefined}
+        okLabel={<FormattedMessage {...globalStrings.ok} />}
+        cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+        value={getEndDateStringOrNull()}
+        TextFieldComponent={({ onClick, value: valueText }) => (
+          <div>
+            <FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />
+            {' '}
+            <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
+              { text => (
+                <StyledInputBaseDate
+                  className={valueText ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
+                  type="text"
+                  placeholder={text}
+                  onClick={onClick}
+                  value={valueText}
+                  endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'end_time')} /> : null}
+                />
+              )}
+            </FormattedMessage>
+          </div>
+        )}
+      />
+    </>
+  );
+}
+
+function DateRangeSelectorRelative(props) {
+  const {
+    classes,
+    handleChangeRelativeQuantity,
+    handleChangeRelativeRange,
+    label,
+    onRemove,
+    relativeQuantity,
+    relativeRange,
+  } = props;
+
+  return (
+    <>
+      <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
+        { placeholder => (
+          <TextField
+            classes={{ root: classes.numericSelector }}
+            InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
+            variant="outlined"
+            size="small"
+            placeholder={placeholder}
+            onChange={handleChangeRelativeQuantity}
+            value={relativeQuantity}
+            type="number"
+          />
+        )}
+      </FormattedMessage>
+      <Select
+        onChange={handleChangeRelativeRange}
+        value={relativeRange}
+        input={
+          <StyledInputBaseDropdown
+            startAdornment={
+              <RemoveableWrapper onRemove={onRemove} boxProps={{ pr: 1 }} />
+            }
+          />
+        }
+      >
+        <MenuItem value="d"> { label.relativeDays } </MenuItem>
+        <MenuItem value="w"> { label.relativeWeeks } </MenuItem>
+        <MenuItem value="m"> { label.relativeMonths } </MenuItem>
+        <MenuItem value="y"> { label.relativeYears } </MenuItem>
+      </Select>
+    </>
+  );
+}
+
+
 const DateRangeFilter = ({
   classes,
   hide,
@@ -118,7 +232,7 @@ const DateRangeFilter = ({
     years: 'y',
   };
   const [relativeRange, setRelativeRange] = React.useState((value && value[getValueType()]?.period_type) || relativeRanges.days);
-  const [relativeQuantity, setRelativeQuantity] = React.useState((value && value[getValueType()]?.period) || 0);
+  const [relativeQuantity, setRelativeQuantity] = React.useState((value && value[getValueType()]?.period) || '0');
 
   const getDateStringOrNull = field => (value && value[getValueType()][field]) || null;
 
@@ -140,7 +254,7 @@ const DateRangeFilter = ({
   const buildValueRelative = (valueType, relativeQuantityValue, relativeRangeValue) => ({
     [valueType]: {
       condition: 'less_than',
-      period: relativeQuantityValue,
+      period: +relativeQuantityValue,
       period_type: relativeRangeValue,
     },
   });
@@ -208,7 +322,9 @@ const DateRangeFilter = ({
   };
 
   const handleChangeRelativeQuantity = (e) => {
-    const valueRelativeQuantity = +e.target.value;
+    const valueRelativeQuantity = e.target.value;
+    // eslint-disable-next-line
+    console.log('~~~~cha',valueRelativeQuantity, typeof valueRelativeQuantity);
     setRelativeQuantity(valueRelativeQuantity);
     onChange(buildValueRelative(
       getValueType(),
@@ -243,111 +359,16 @@ const DateRangeFilter = ({
     media_published_at: <FormattedMessage id="search.dateLastSubmittedHeading" defaultMessage="Media published" />,
     updated_at: <FormattedMessage id="search.dateUpdatedHeading" defaultMessage="Item updated" />,
     report_published_at: <FormattedMessage id="search.datePublishedHeading" defaultMessage="Report published" />,
-    startEnd: <FormattedMessage id="search.dateStartEnd" defaultMessage="Is between..." description="This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Is between... February 3, 2022 and February 9, 2022'." />,
-    relative: <FormattedMessage id="search.dateRelative" defaultMessage="Is less than..." description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Is less than... 3 days'." />,
-    relativeDays: <FormattedMessage id="search.relativeDays" defaultMessage="days" description="This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 days'." />,
-    relativeWeeks: <FormattedMessage id="search.relativeWeeks" defaultMessage="weeks" description="This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 weeks'." />,
-    relativeMonths: <FormattedMessage id="search.relativeMonths" defaultMessage="months" description="This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 months'." />,
-    relativeYears: <FormattedMessage id="search.relativeYears" defaultMessage="years" description="This is a label in a drop down selector, and will appear a sentence format like 'Is less than... 3 years'." />,
+    startEnd: <FormattedMessage id="search.dateStartEnd" defaultMessage="between" description="This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'." />,
+    relative: <FormattedMessage id="search.dateRelative" defaultMessage="less than" description="This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'." />,
+    relativeDays: <FormattedMessage id="search.relativeDays" defaultMessage="days ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'." />,
+    relativeWeeks: <FormattedMessage id="search.relativeWeeks" defaultMessage="weeks ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'." />,
+    relativeMonths: <FormattedMessage id="search.relativeMonths" defaultMessage="months ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'." />,
+    relativeYears: <FormattedMessage id="search.relativeYears" defaultMessage="years ago" description="This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'." />,
   };
 
-  const DateRangeSelector = () => {
-    if (rangeType === rangeTypes.startEnd) {
-      return (
-        <>
-          <DatePicker
-            onChange={handleChangeStartDate}
-            maxDate={getEndDateStringOrNull() || undefined}
-            okLabel={<FormattedMessage {...globalStrings.ok} />}
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-            value={getStartDateStringOrNull()}
-            style={{ margin: `0 ${units(2)}` }}
-            TextFieldComponent={({ onClick, value: valueText }) => (
-              <div>
-                <FormattedMessage id="search.afterDate" defaultMessage="after" description="String displayed before a date picker" />
-                {' '}
-                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-                  { text => (
-                    <StyledInputBaseDate
-                      className={valueText ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
-                      type="text"
-                      placeholder={text}
-                      onClick={onClick}
-                      value={valueText}
-                      endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'start_time')} /> : null}
-                    />
-                  )}
-                </FormattedMessage>
-              </div>
-            )}
-          />
-          <DatePicker
-            inputVariant="outlined"
-            onChange={handleChangeEndDate}
-            minDate={getStartDateStringOrNull() || undefined}
-            okLabel={<FormattedMessage {...globalStrings.ok} />}
-            cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-            value={getEndDateStringOrNull()}
-            TextFieldComponent={({ onClick, value: valueText }) => (
-              <div>
-                <FormattedMessage id="search.beforeDate" defaultMessage="and before" description="String displayed between after and before date pickers" />
-                {' '}
-                <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
-                  { text => (
-                    <StyledInputBaseDate
-                      className={valueText ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
-                      type="text"
-                      placeholder={text}
-                      onClick={onClick}
-                      value={valueText}
-                      endAdornment={valueText ? <StyledCloseIcon onClick={e => handleClearDate(e, 'end_time')} /> : null}
-                    />
-                  )}
-                </FormattedMessage>
-              </div>
-            )}
-          />
-        </>
-      );
-    } else if (rangeType === 'relative') {
-      return (
-        <>
-          <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
-            { placeholder => (
-              <TextField
-                classes={{ root: classes.numericSelector }}
-                InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
-                variant="outlined"
-                size="small"
-                placeholder={placeholder}
-                onChange={handleChangeRelativeQuantity}
-                value={relativeQuantity}
-                type="number"
-              />
-            )}
-          </FormattedMessage>
-          <Select
-            onChange={handleChangeRelativeRange}
-            value={relativeRange}
-            input={
-              <StyledInputBaseDropdown
-                startAdornment={
-                  <RemoveableWrapper onRemove={onRemove} boxProps={{ pr: 1 }} />
-                }
-              />
-            }
-          >
-            <MenuItem value="d"> { label.relativeDays } </MenuItem>
-            <MenuItem value="w"> { label.relativeWeeks } </MenuItem>
-            <MenuItem value="m"> { label.relativeMonths } </MenuItem>
-            <MenuItem value="y"> { label.relativeYears } </MenuItem>
-          </Select>
-        </>
-      );
-    }
-    return null;
-  };
-
+  // eslint-disable-next-line
+  console.log('~~~ren',relativeQuantity);
   return (
     <div style={{ background: opaqueBlack07 }}>
       <FlexRow>
@@ -383,7 +404,28 @@ const DateRangeFilter = ({
             <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
             <MenuItem value="relative"> { label.relative } </MenuItem>
           </Select>
-          <DateRangeSelector />
+          { rangeType === rangeTypes.startEnd ? (
+            <DateRangeSelectorStartEnd {...{
+              classes,
+              getEndDateStringOrNull,
+              getStartDateStringOrNull,
+              handleChangeEndDate,
+              handleChangeStartDate,
+              handleClearDate,
+            }}
+            />
+          ) : (
+            <DateRangeSelectorRelative {...{
+              classes,
+              handleChangeRelativeQuantity,
+              handleChangeRelativeRange,
+              label,
+              onRemove,
+              relativeQuantity,
+              relativeRange,
+            }}
+            />
+          )}
         </FormControl>
       </FlexRow>
     </div>
