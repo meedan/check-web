@@ -11,6 +11,7 @@ import Select from '@material-ui/core/Select';
 import { withStyles } from '@material-ui/core/styles';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import CloseIcon from '@material-ui/icons/Close';
+import RemoveableWrapper from './RemoveableWrapper';
 import { FlexRow, units, opaqueBlack07, checkBlue } from '../../styles/js/shared';
 import globalStrings from '../../globalStrings';
 
@@ -201,6 +202,7 @@ const DateRangeFilter = ({
   hide,
   value,
   onChange,
+  onRemove,
 }) => {
   const getValueType = () => {
     if (value && value.updated_at) return 'updated_at';
@@ -367,11 +369,7 @@ const DateRangeFilter = ({
             onChange={handleChangeType}
             value={getValueType()}
             input={
-              <StyledInputBaseDropdown
-                startAdornment={
-                  <DateRangeIcon />
-                }
-              />
+              <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
             }
           >
             <MenuItem value="created_at"> { label.created_at } </MenuItem>
@@ -405,6 +403,7 @@ const DateRangeFilter = ({
               handleChangeRelativeQuantity,
               handleChangeRelativeRange,
               label,
+              onRemove,
               relativeQuantity,
               relativeRange,
             }}
@@ -479,6 +478,7 @@ DateRangeFilter.propTypes = {
     }),
   ]),
   onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default withStyles(Styles)(DateRangeFilter);
