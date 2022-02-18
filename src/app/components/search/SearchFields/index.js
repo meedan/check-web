@@ -357,7 +357,6 @@ class SearchFields extends React.Component {
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.props.query.range}
-            onRemove={() => this.handleRemoveField('range')}
           />
         </Box>
       ),
