@@ -164,6 +164,7 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.clusterFactCheckedByTeamNames" defaultMessage="Report published" description="Table header for column that shows from which workspaces the items in the same cluster have a published report" />,
     cellComponent: ClusterFactCheckedByTeamsCell,
     align: 'center',
+    sortKey: 'cluster_published_reports_count',
   },
   {
     field: 'cluster_requests',
@@ -181,11 +182,13 @@ const AllPossibleColumns = [
     field: 'cluster_first_item_at',
     headerText: <FormattedMessage id="list.clusterFirstItemAt" defaultMessage="Submitted" description="Table header for column that shows when the last item of the cluster was created" />,
     cellComponent: ClusterFirstItemAtCell,
+    sortKey: 'cluster_first_item_at',
   },
   {
     field: 'cluster_last_item_at',
     headerText: <FormattedMessage id="list.clusterLastItemAt" defaultMessage="Last submitted" description="Table header for column that shows when the last item of the cluster was created" />,
     cellComponent: ClusterLastItemAtCell,
+    sortKey: 'cluster_last_item_at',
   },
   {
     field: 'cluster_team_names',

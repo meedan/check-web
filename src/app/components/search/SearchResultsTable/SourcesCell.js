@@ -37,7 +37,6 @@ export default function SourcesCell({ projectMedia }) {
   };
 
   const sources = safelyParseJSON(projectMedia.list_columns_values.sources_as_sentence) || {};
-  console.log('sources', sources); // eslint-disable-line no-console
 
   if (Object.keys(sources).length === 0) {
     return <TableCell>-</TableCell>;
