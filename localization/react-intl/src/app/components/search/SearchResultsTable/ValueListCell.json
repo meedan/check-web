@@ -1,0 +1,7 @@
+[
+  {
+    "id": "valueListCell.more",
+    "description": "Button to maximize list display (tags, urls, checked options) with all values within a table cell",
+    "defaultMessage": "+{number} more"
+  }
+]
