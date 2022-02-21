@@ -6,10 +6,11 @@ import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
 export default function Trends({ routeParams }) {
-  const filters = {
+  const query = {
+    sort: 'cluster_last_item_at',
+    ...safelyParseJSON(routeParams.query, {}),
     trends: true,
     show_similar: true,
-    sort: 'cluster_size',
     country: true,
   };
   return (
@@ -18,7 +19,7 @@ export default function Trends({ routeParams }) {
       mediaUrlPrefix="media"
       title={<FormattedMessage id="trends.title" defaultMessage="Shared database" />}
       icon={<TrendingUpIcon />}
-      query={Object.assign(safelyParseJSON(routeParams.query, {}), filters)}
+      query={query}
       teamSlug={routeParams.team}
       showExpand
       resultType="trends"
