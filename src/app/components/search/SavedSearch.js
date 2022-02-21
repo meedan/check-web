@@ -84,6 +84,7 @@ const SavedSearch = ({ routeParams }) => (
               teamSlug={routeParams.team}
               query={query}
               savedSearch={props.saved_search}
+              hideFields={['country']}
               page="list"
             />
           </div>
