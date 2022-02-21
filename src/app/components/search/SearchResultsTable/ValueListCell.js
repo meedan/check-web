@@ -34,7 +34,7 @@ export default function ValueListCell({
   const classes = useStyles();
   const [showMore, setShowMore] = React.useState(false);
 
-  function handleUrlChipClick(e) {
+  function handleMoreChipClick(e) {
     e.stopPropagation();
     setShowMore(true);
   }
@@ -44,13 +44,16 @@ export default function ValueListCell({
     if (onClick) onClick();
   };
 
-  if (!values) return (<TableCell align="left"> {noValueLabel || '-'}</TableCell>);
-  if (values.length === 0) {
-    return (
-      <TableCell onClick={handleClick} className={classes.names}>
-        <div className={renderNoValueAsChip ? [classes.chip, classes.noFactCheck].join(' ') : null}>
-          {noValueLabel}
-        </div>
+  if (!values || values.length === 0) {
+    return renderNoValueAsChip ? (
+      <Chip
+        size="small"
+        className={[classes.chip, classes.noFactCheck].join(' ')}
+        label={noValueLabel}
+      />
+    ) : (
+      <TableCell align="left" onClick={handleClick} className={classes.names}>
+        {noValueLabel}
       </TableCell>
     );
   }
@@ -71,7 +74,7 @@ export default function ValueListCell({
       <Chip
         size="small"
         className={[classes.chip, classes.more].join(' ')}
-        onClick={handleUrlChipClick}
+        onClick={handleMoreChipClick}
         label={
           <FormattedMessage
             id="valueListCell.more"
@@ -88,9 +91,10 @@ export default function ValueListCell({
 
 ValueListCell.defaultProps = {
   renderNoValueAsChip: false,
+  noValueLabel: '-',
 };
 ValueListCell.propTypes = {
   values: PropTypes.arrayOf(PropTypes.node.isRequired).isRequired,
-  noValueLabel: PropTypes.object.isRequired,
+  noValueLabel: PropTypes.node,
   renderNoValueAsChip: PropTypes.bool,
 };
