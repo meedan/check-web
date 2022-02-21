@@ -35,7 +35,7 @@ export default function SearchResultsTableRow({
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
 
-  const projectMediaOrTrendsUrl = resultType === 'trends' ? `/${projectMedia.team?.slug}/trends/media/${projectMedia.dbid}` : projectMediaUrl;
+  const projectMediaOrTrendsUrl = resultType === 'trends' ? `/check/trends/cluster/${projectMedia.cluster?.dbid}` : projectMediaUrl;
 
   const handleClick = React.useCallback(() => {
     if (!projectMediaOrTrendsUrl) {
