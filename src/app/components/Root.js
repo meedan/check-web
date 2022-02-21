@@ -71,6 +71,7 @@ class Root extends Component {
                 <Route path="check/me/edit" isEditing component={Me} />
                 <Route path="check/me(/:tab)" component={Me} />
                 <Route path="check/teams" component={Teams} />
+                <Route path="check/trends/cluster/:clusterId" component={TrendsItem} />
                 <Route path=":team/media/:mediaId" component={MediaPage} />
                 <Route path=":team/project/:projectId/media/:mediaId" component={MediaPage} />
                 <Route path=":team/list/:listId/media/:mediaId" component={MediaPage} />
@@ -100,7 +101,6 @@ class Root extends Component {
                 <Route path=":team/imported-reports(/:query)" component={ImportedReports} />
                 <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                 <Route path=":team/trends(/:query)" component={Trends} />
-                <Route path=":team/trends/media/:mediaId" component={TrendsItem} />
                 <Route path=":team/trash(/:query)" component={Trash} />
                 <Route path=":team/unconfirmed(/:query)" component={Unconfirmed} />
                 <Route path=":team/settings(/:tab)" action="settings" component={Team} />
