@@ -24,7 +24,7 @@ export default function Trash({ routeParams }) {
       icon={<DeleteIcon />}
       teamSlug={routeParams.team}
       query={query}
-      hideFields={['user']}
+      hideFields={['user', 'country']}
       page="trash"
     />
   );
