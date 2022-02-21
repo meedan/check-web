@@ -36,7 +36,7 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
     } else if (routeParams.listId) {
       listPath = `/${routeParams.team}/list/${routeParams.listId}`;
-    } else if (/\/trends\/media\/[0-9]+/.test(locationPathname)) {
+    } else if (/\/trends\/cluster\/[0-9]+/.test(locationPathname)) {
       listPath = `/${routeParams.team}/trends`;
     } else {
       listPath = `/${routeParams.team}/all-items`;

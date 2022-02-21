@@ -87,25 +87,29 @@ class MediaExpandedComponent extends Component {
 
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
-    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
-      const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
+    if (pusher) {
+      pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
+        const annotation = JSON.parse(data.message);
+        if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `media-${media.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
-        return {
-          id: `media-${media.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
+        return false;
+      });
+    }
   }
 
   unsubscribe() {
     const { pusher, media } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
+    if (pusher) {
+      pusher.unsubscribe(media.pusher_channel);
+    }
   }
 
   render() {
@@ -398,6 +402,10 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 });
 
 const MediaExpanded = (props) => {
+  if (props.isTrends) {
+    return <MediaExpandedComponent {...props} />;
+  }
+
   const projectId = props.media.project_id;
   let ids = `${props.media.dbid},${projectId}`;
   if (props.media.team && props.media.team.dbid) {
