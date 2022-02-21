@@ -70,7 +70,7 @@ script:
   -e AWS_REGION=$AWS_REGION
   web npm run tests
 # Change config file of check api for use Ngrok exposed port and run OCR test
-# - IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID ./test/ngrok.sh
+- IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID ./test/ngrok.sh
 after_script:
 - docker-compose exec web bash -c "python -m json.tool test/file.json"
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
