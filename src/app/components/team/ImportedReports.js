@@ -20,7 +20,7 @@ export default function ImportedReports({ routeParams }) {
       icon={<GetAppIcon />}
       teamSlug={routeParams.team}
       query={query}
-      hideFields={['channels']}
+      hideFields={['channels', 'country']}
       page="imported-reports"
     />
   );

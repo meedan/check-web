@@ -92,7 +92,7 @@ const ProjectGroup = ({ routeParams }) => (
               teamSlug={routeParams.team}
               projectGroup={props.project_group}
               query={query}
-              hideFields={['project_group_id']}
+              hideFields={['project_group_id', 'country']}
               page="collection"
             />
           </div>
