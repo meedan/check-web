@@ -93,6 +93,7 @@ class CreateProjectMedia extends React.Component {
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}
+          team={this.props.team}
         />
       </React.Fragment>
     );

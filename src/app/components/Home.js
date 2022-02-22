@@ -350,6 +350,7 @@ const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
           name
           slug
           get_data_report_url
+          verification_statuses
           team_bot_installation(bot_identifier: "smooch") {
             smooch_enabled_integrations
           }

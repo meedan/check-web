@@ -9,6 +9,7 @@ import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
 import LinkIcon from '@material-ui/icons/Link';
 import styled from 'styled-components';
 import urlRegex from 'url-regex';
+import MediaStatusCommon from './MediaStatusCommon';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
 import {
@@ -44,6 +45,8 @@ class CreateMediaInput extends React.Component {
     textValue: '',
     mediaFile: null,
     mediaMessage: null,
+    status: 'undetermined',
+    // claimText: '',
   };
 
   getMediaInputValue = () => {
@@ -120,6 +123,10 @@ class CreateMediaInput extends React.Component {
     }
     return this.props.message; // hopefully null
   }
+
+  setStatus = (context, store, media, newStatus) => {
+    this.setState({ status: newStatus });
+  };
 
   handleKeyPress = (ev) => {
     if (ev.key === 'Enter' && !ev.shiftKey) {
@@ -322,6 +329,16 @@ class CreateMediaInput extends React.Component {
                   </StyledTabLabelText>
                 </StyledTabLabel>
               </Button>
+            </Row>
+            <Row>
+              <MediaStatusCommon
+                media={{
+                  team: this.props.team,
+                }}
+                setStatus={this.setStatus}
+                quickAdd
+                currentStatus={this.state.status}
+              />
             </Row>
           </div>
         </form>

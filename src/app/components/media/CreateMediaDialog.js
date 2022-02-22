@@ -10,7 +10,7 @@ import CreateMediaInput from './CreateMediaInput';
 import globalStrings from '../../globalStrings';
 
 export default function CreateMediaDialog({
-  open, title, onSubmit, onDismiss,
+  open, title, onSubmit, onDismiss, team,
 }) {
   const formId = 'create-media-dialog-form';
 
@@ -18,7 +18,7 @@ export default function CreateMediaDialog({
     <Dialog open={open} fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <CreateMediaInput formId={formId} onSubmit={onSubmit} />
+        <CreateMediaInput formId={formId} onSubmit={onSubmit} team={team} />
       </DialogContent>
       <DialogActions>
         <Button id="create-media-dialog__dismiss-button" onClick={onDismiss}>
