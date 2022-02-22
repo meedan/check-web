@@ -125,9 +125,11 @@ class MediaExpandedComponent extends Component {
       showVideoAnnotation,
     } = this.props;
 
+    const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
+
     const currentUserRole = UserUtil.myRole(
       this.getContext().currentUser,
-      this.getContext().team.slug,
+      currentTeam.slug,
     );
 
     const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
