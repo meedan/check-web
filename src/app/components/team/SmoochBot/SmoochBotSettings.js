@@ -47,6 +47,23 @@ const SmoochBotSettings = (props) => {
             <FormattedMessage id="smoochBotSettings.internalSettingsDescription" defaultMessage="Meedan employees see these settings, but users don't." description="Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated." />
           </Typography>
 
+          { props.settings.smooch_version === 'v2' ?
+            <Box mt={1}>
+              <Typography variant="subtitle1" component="div">
+                <FormattedMessage id="smoochBotSettings.searchSettings" defaultMessage="Search settings" description="Title of Search settings section in the tipline settings page." />
+              </Typography>
+
+              {['smooch_search_text_similarity_threshold', 'smooch_search_max_keyword'].map(field => (
+                <SmoochBotSetting
+                  field={field}
+                  value={props.settings[field]}
+                  schema={fields[field]}
+                  onChange={props.onChange}
+                  currentUser={props.currentUser}
+                />
+              ))}
+            </Box> : null }
+
           <Box mt={1}>
             <Typography variant="subtitle1" component="div">
               <FormattedMessage id="smoochBotSettings.sunshineSettings" defaultMessage="Sunshine integration settings" description="Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated." />

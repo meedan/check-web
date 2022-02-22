@@ -32,7 +32,7 @@
   {
     "id": "smoochBotContentAndTranslation.submissionPromptDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Please enter the question, link, picture or video that you want fact-checked, followed by any context or additional questions related to that item. You must submit one claim or item to be fact-checked per request."
+    "defaultMessage": "Please enter the question, link, picture, or video that you want to be fact-checked."
   },
   {
     "id": "smoochBotContentAndTranslation.submissionCanceledTitle",
@@ -52,7 +52,7 @@
   {
     "id": "smoochBotContentAndTranslation.addMoreInformationTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Add more information"
+    "defaultMessage": "Submit content"
   },
   {
     "id": "smoochBotContentAndTranslation.addMoreInformationDescription",
@@ -67,7 +67,7 @@
   {
     "id": "smoochBotContentAndTranslation.moreContentPromptTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "More content prompt"
+    "defaultMessage": "Add more content"
   },
   {
     "id": "smoochBotContentAndTranslation.moreContentPromptDescription",
@@ -77,7 +77,7 @@
   {
     "id": "smoochBotContentAndTranslation.moreContentPromptDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "OK! Please add more content."
+    "defaultMessage": "Please add more content."
   },
   {
     "id": "smoochBotContentAndTranslation.submissionReceivedTitle",
@@ -92,7 +92,7 @@
   {
     "id": "smoochBotContentAndTranslation.submissionReceivedDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Thank you! Looking for fact-checks."
+    "defaultMessage": "Thank you! Looking for fact-checks, it may take a minute."
   },
   {
     "id": "smoochBotContentAndTranslation.noSearchResultTitle",
@@ -107,7 +107,7 @@
   {
     "id": "smoochBotContentAndTranslation.noSearchResultDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "No result has been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked."
+    "defaultMessage": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked."
   },
   {
     "id": "smoochBotContentAndTranslation.feedbackTitle",
@@ -137,7 +137,7 @@
   {
     "id": "smoochBotContentAndTranslation.negativeFeedbackDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked."
+    "defaultMessage": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published."
   },
   {
     "id": "smoochBotContentAndTranslation.positiveFeedbackTitle",
@@ -152,7 +152,7 @@
   {
     "id": "smoochBotContentAndTranslation.positiveFeedbackDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Thank you! Spread the word about this tipline to help us fight misinformation!"
+    "defaultMessage": "Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*"
   },
   {
     "id": "smoochBotContentAndTranslation.newsletterTitle",
@@ -167,7 +167,7 @@
   {
     "id": "smoochBotContentAndTranslation.newsletterDefault",
     "description": "Default value for a customizable string of the tipline bot.",
-    "defaultMessage": "Our newsletter is the best fact-checking resource to stay informed. {subscription_status}."
+    "defaultMessage": "Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}."
   },
   {
     "id": "smoochBotContentAndTranslation.noticeOfInactivityTitle",
