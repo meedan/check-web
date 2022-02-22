@@ -52,7 +52,7 @@
   {
     "id": "smoochBotContentAndTranslation.addMoreInformationTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "Add more information"
+    "defaultMessage": "Submit content"
   },
   {
     "id": "smoochBotContentAndTranslation.addMoreInformationDescription",
@@ -67,7 +67,7 @@
   {
     "id": "smoochBotContentAndTranslation.moreContentPromptTitle",
     "description": "Title of a customizable string of the tipline bot.",
-    "defaultMessage": "More content prompt"
+    "defaultMessage": "Add more content"
   },
   {
     "id": "smoochBotContentAndTranslation.moreContentPromptDescription",

@@ -70,13 +70,13 @@ const SmoochBotContentAndTranslation = ({
     },
     {
       key: 'ask_if_ready_state',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationTitle" defaultMessage="Add more information" description="Title of a customizable string of the tipline bot." />,
+      title: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationTitle" defaultMessage="Submit content" description="Title of a customizable string of the tipline bot." />,
       description: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationDescription" defaultMessage="This message is sent to user after they send content, to make sure all the information they want to submit has been provided." description="Description of a customizable string of the tipline bot." />,
       default: <FormattedMessage id="smoochBotContentAndTranslation.addMoreInformationDefault" defaultMessage="Are you ready to submit?" description="Default value for a customizable string of the tipline bot." />,
     },
     {
       key: 'add_more_details_state',
-      title: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptTitle" defaultMessage="More content prompt" description="Title of a customizable string of the tipline bot." />,
+      title: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptTitle" defaultMessage="Add more content" description="Title of a customizable string of the tipline bot." />,
       description: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptDescription" defaultMessage="This message is sent when user selects the option to add more content." description="Description of a customizable string of the tipline bot." />,
       default: <FormattedMessage id="smoochBotContentAndTranslation.moreContentPromptDefault" defaultMessage="Please add more content." description="Default value for a customizable string of the tipline bot." />,
     },
