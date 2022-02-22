@@ -170,12 +170,14 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.clusterRequests" defaultMessage="Requests" description="Table header for column that shows number of requests in a cluster" />,
     cellComponent: ClusterRequestsCell,
     align: 'center',
+    sortKey: 'cluster_requests_count',
   },
   {
     field: 'cluster_size',
     headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Similar media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
     cellComponent: ClusterSizeCell,
     align: 'center',
+    sortKey: 'cluster_size',
   },
   {
     field: 'cluster_first_item_at',

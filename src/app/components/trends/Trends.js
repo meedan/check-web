@@ -8,9 +8,9 @@ import { safelyParseJSON } from '../../helpers';
 export default function Trends({ routeParams }) {
   const query = {
     sort: 'cluster_last_item_at',
+    show_similar: true,
     ...safelyParseJSON(routeParams.query, {}),
     trends: true,
-    show_similar: true,
     country: true,
   };
   return (
