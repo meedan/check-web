@@ -7,7 +7,7 @@ import Chip from '@material-ui/core/Chip';
 import { checkBlue, inProgressYellow } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
-  names: {
+  tableCell: {
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -34,7 +34,7 @@ export default function ValueListCell({
   const classes = useStyles();
   const [showMore, setShowMore] = React.useState(false);
 
-  function handleUrlChipClick(e) {
+  function handleMoreChipClick(e) {
     e.stopPropagation();
     setShowMore(true);
   }
@@ -44,53 +44,55 @@ export default function ValueListCell({
     if (onClick) onClick();
   };
 
-  if (!values) return (<TableCell align="left"> {noValueLabel || '-'}</TableCell>);
-  if (values.length === 0) {
-    return (
-      <TableCell onClick={handleClick} className={classes.names}>
-        <div className={renderNoValueAsChip ? [classes.chip, classes.noFactCheck].join(' ') : null}>
-          {noValueLabel}
-        </div>
-      </TableCell>
-    );
-  }
-  const labels = [];
-  let more = 0;
-  if (randomizeOrder) {
-    values.sort(() => Math.random() - 0.5);
-  }
-  values.forEach((name, i) => {
-    if (showMore || i < 2) {
-      labels.push(<div key={name}>{name}</div>);
-    } else {
-      more += 1;
+  let content = renderNoValueAsChip ? (
+    <Chip
+      size="small"
+      className={[classes.chip, classes.noFactCheck].join(' ')}
+      label={noValueLabel}
+    />
+  ) : noValueLabel;
+  if (values && values.length > 0) {
+    const labels = [];
+    let more = 0;
+    if (randomizeOrder) {
+      values.sort(() => Math.random() - 0.5);
     }
-  });
-  if (!showMore && more > 0) {
-    labels.push(
-      <Chip
-        size="small"
-        className={[classes.chip, classes.more].join(' ')}
-        onClick={handleUrlChipClick}
-        label={
-          <FormattedMessage
-            id="valueListCell.more"
-            defaultMessage="+{number} more"
-            values={{ number: more }}
-            description="Button to maximize list display (tags, urls, checked options) with all values within a table cell"
-          />
-        }
-      />,
-    );
+    values.forEach((name, i) => {
+      if (showMore || i < 2) {
+        labels.push(<div key={name}>{name}</div>);
+      } else {
+        more += 1;
+      }
+    });
+    if (!showMore && more > 0) {
+      labels.push(
+        <Chip
+          size="small"
+          className={[classes.chip, classes.more].join(' ')}
+          onClick={handleMoreChipClick}
+          label={
+            <FormattedMessage
+              id="valueListCell.more"
+              defaultMessage="+{number} more"
+              values={{ number: more }}
+              description="Button to maximize list display (tags, urls, checked options) with all values within a table cell"
+            />
+          }
+        />,
+      );
+    }
+    content = labels;
   }
-  return <TableCell onClick={handleClick} className={classes.names}>{labels}</TableCell>;
+
+  return <TableCell onClick={handleClick} className={classes.tableCell}>{content}</TableCell>;
 }
 
 ValueListCell.defaultProps = {
   renderNoValueAsChip: false,
+  noValueLabel: '-',
 };
 ValueListCell.propTypes = {
   values: PropTypes.arrayOf(PropTypes.node.isRequired).isRequired,
-  noValueLabel: PropTypes.object.isRequired,
+  noValueLabel: PropTypes.node,
   renderNoValueAsChip: PropTypes.bool,
 };

@@ -114,7 +114,7 @@ class HomeComponent extends Component {
     if (!(children && children.props.route)) {
       return null;
     }
-    if (/\/trends\/media\/:mediaId/.test(children.props.route.path)) {
+    if (/\/trends\/cluster\/:clusterId/.test(children.props.route.path)) {
       return 'trend-item';
     }
     if (/\/media\/:mediaId/.test(children.props.route.path)) {
@@ -243,6 +243,7 @@ class HomeComponent extends Component {
     }
 
     const isMediaPage = /\/media\/[0-9]+/.test(window.location.pathname);
+    const isTrendsPage = /\/trends\//.test(window.location.pathname);
 
     let userTiplines = '';
     if (user && user.current_team && user.current_team.team_bot_installation && user.current_team.team_bot_installation.smooch_enabled_integrations) {
@@ -267,7 +268,7 @@ class HomeComponent extends Component {
           <BrowserSupport />
           <UserTos user={user} />
           <Wrapper className={bemClass('home', routeSlug, `--${routeSlug}`)}>
-            {!isMediaPage && loggedIn ? (
+            {!isMediaPage && !isTrendsPage && loggedIn ? (
               <DrawerNavigation
                 loggedIn={loggedIn}
                 teamSlug={teamSlug}
