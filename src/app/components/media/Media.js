@@ -6,6 +6,7 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
+import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
@@ -18,6 +19,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         id
         dbid
         title
+        ${MediaAnalysis.getFragment('projectMedia')}
         ${MediaTags.getFragment('projectMedia')}
         read_by_someone: is_read
         read_by_me: is_read(by_me: true)

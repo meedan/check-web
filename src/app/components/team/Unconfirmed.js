@@ -24,7 +24,7 @@ export default function Unconfirmed({ routeParams }) {
       icon={<ErrorIcon />}
       teamSlug={routeParams.team}
       query={query}
-      hideFields={['user']}
+      hideFields={['user', 'country']}
       page="unconfirmed"
     />
   );

@@ -102,10 +102,5 @@
     "id": "list.clusterLastItemAt",
     "description": "Table header for column that shows when the last item of the cluster was created",
     "defaultMessage": "Last submitted"
-  },
-  {
-    "id": "list.sourceName",
-    "description": "Table header for column that shows item source",
-    "defaultMessage": "Source"
   }
 ]

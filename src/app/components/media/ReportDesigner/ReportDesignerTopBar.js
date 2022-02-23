@@ -115,7 +115,7 @@ const ReportDesignerTopBar = (props) => {
     );
   }
   // We Can't publish if using a visual card and there's a content warning and no alternative image is set
-  if (media.show_warning_cover && media.media.picture === data.options[0].image) {
+  if (media.show_warning_cover && data.options.some(r => (media.media.picture === r.image) && r.use_visual_card)) {
     cantPublishReason = (
       <FormattedMessage
         id="reportDesignerToolbar.cantPublishContentFlag"

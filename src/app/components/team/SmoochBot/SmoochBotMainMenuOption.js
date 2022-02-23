@@ -102,7 +102,7 @@ const SmoochBotMainMenuOption = ({
               <MenuItem value="query_state">
                 <FormattedMessage
                   id="smoochBotMainMenuOption.queryState"
-                  defaultMessage="Query prompt"
+                  defaultMessage="Submission prompt"
                   description="Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
                 />
               </MenuItem>

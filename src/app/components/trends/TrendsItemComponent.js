@@ -164,10 +164,9 @@ const useStyles = makeStyles(theme => ({
 
 // FIXME: Break into smaller components
 
-const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
+const TrendsItemComponent = ({ cluster, teams, setFlashMessage }) => {
   const classes = useStyles();
 
-  const { cluster } = projectMedia;
   const allMedias = cluster?.items?.edges.map(item => JSON.parse(JSON.stringify(item.node)));
   const medias = [];
   allMedias.forEach((media, i) => {
@@ -180,11 +179,13 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
     }
   });
 
-  const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias[0].dbid);
+  const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias.length > 0 ? medias[0].dbid : null);
   const [sortBy, setSortBy] = React.useState('mostRequests');
   const [importingClaim, setImportingClaim] = React.useState(null);
   const [selectedTeam, setSelectedTeam] = React.useState(teams[0].dbid);
   const [isImporting, setIsImporting] = React.useState(false);
+
+  const selectedItem = medias.find(m => m.dbid === selectedItemDbid);
 
   const sortOptions = {
     mostRequests: (a, b) => (b.demand - a.demand),
@@ -226,7 +227,7 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
       variables: {
         input: {
           channel: 12, // Shared Database
-          media_id: projectMedia.media_id,
+          media_id: selectedItem.media_id,
           team_id: selectedTeam,
           set_claim_description: importingClaim,
         },
@@ -253,8 +254,6 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
       },
     });
   };
-
-  const selectedItem = medias.find(m => m.dbid === selectedItemDbid);
 
   const ItemCard = ({ item }) => {
     const selectedItemClass = selectedItemDbid === item.dbid ? classes.selected : '';
@@ -415,12 +414,13 @@ const TrendsItemComponent = ({ projectMedia, teams, setFlashMessage }) => {
       </Box>
       <Box className={['media__column', classes.mediaColumn].join(' ')} mt={2} mr={2}>
         <Card className={classes.cardDetail}>
-          <MediaExpanded
-            media={selectedItem}
-            linkTitle={selectedItem.title}
-            mediaUrl={selectedItem.full_url}
-            isTrends
-          />
+          { selectedItem ?
+            <MediaExpanded
+              media={selectedItem}
+              linkTitle={selectedItem?.title}
+              mediaUrl={selectedItem?.full_url}
+              isTrends
+            /> : null }
         </Card>
       </Box>
 
