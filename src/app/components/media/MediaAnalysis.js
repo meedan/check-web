@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -27,7 +28,7 @@ const MediaAnalysis = ({ projectMedia }) => {
   const title = getValue('title');
   const content = getValue('content');
 
-  if ((!title && !content) || title === projectMedia.title) {
+  if ((!title && !content) || title === projectMedia.media.quote) {
     return null;
   }
 
@@ -83,7 +84,19 @@ MediaAnalysis.defaultProps = {
 MediaAnalysis.propTypes = {
   projectMedia: PropTypes.shape({
     last_status_obj: PropTypes.object,
+    media: PropTypes.shape({
+      quote: PropTypes.string,
+    }).isRequired,
   }),
 };
 
-export default MediaAnalysis;
+export default createFragmentContainer(MediaAnalysis, graphql`
+  fragment MediaAnalysis_projectMedia on ProjectMedia {
+    last_status_obj {
+      data
+    }
+    media {
+      quote
+    }
+  }
+`);
