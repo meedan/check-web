@@ -369,7 +369,11 @@ const DateRangeFilter = ({
             onChange={handleChangeType}
             value={getValueType()}
             input={
-              <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+              <StyledInputBaseDropdown
+                startAdornment={
+                  <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                }
+              />
             }
           >
             <MenuItem value="created_at"> { label.created_at } </MenuItem>
