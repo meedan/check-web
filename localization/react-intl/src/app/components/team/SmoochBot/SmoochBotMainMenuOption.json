@@ -32,7 +32,7 @@
   {
     "id": "smoochBotMainMenuOption.queryState",
     "description": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu",
-    "defaultMessage": "Query prompt"
+    "defaultMessage": "Submission prompt"
   },
   {
     "id": "smoochBotMainMenuOption.subscriptionState",
