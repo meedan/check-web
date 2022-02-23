@@ -163,28 +163,33 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.clusterFactCheckedByTeamNames" defaultMessage="Report published" description="Table header for column that shows from which workspaces the items in the same cluster have a published report" />,
     cellComponent: ClusterFactCheckedByTeamsCell,
     align: 'center',
+    sortKey: 'cluster_published_reports_count',
   },
   {
     field: 'cluster_requests',
     headerText: <FormattedMessage id="list.clusterRequests" defaultMessage="Requests" description="Table header for column that shows number of requests in a cluster" />,
     cellComponent: ClusterRequestsCell,
     align: 'center',
+    sortKey: 'cluster_requests_count',
   },
   {
     field: 'cluster_size',
     headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Similar media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
     cellComponent: ClusterSizeCell,
     align: 'center',
+    sortKey: 'cluster_size',
   },
   {
     field: 'cluster_first_item_at',
     headerText: <FormattedMessage id="list.clusterFirstItemAt" defaultMessage="Submitted" description="Table header for column that shows when the last item of the cluster was created" />,
     cellComponent: ClusterFirstItemAtCell,
+    sortKey: 'cluster_first_item_at',
   },
   {
     field: 'cluster_last_item_at',
     headerText: <FormattedMessage id="list.clusterLastItemAt" defaultMessage="Last submitted" description="Table header for column that shows when the last item of the cluster was created" />,
     cellComponent: ClusterLastItemAtCell,
+    sortKey: 'cluster_last_item_at',
   },
 ];
 
