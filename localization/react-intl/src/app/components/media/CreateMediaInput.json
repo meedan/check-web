@@ -1,30 +1,36 @@
 [
   {
-    "id": "createMedia.quoteInput",
-    "defaultMessage": "Paste or type a text"
+    "id": "createMedia.mediaClaimDescription",
+    "defaultMessage": "Claim description"
+  },
+  {
+    "id": "createMedia.mediaClaimDescriptionSubtitle",
+    "defaultMessage": "A description of the claim that needs to be reviewed."
+  },
+  {
+    "id": "createMedia.mediaClaim",
+    "defaultMessage": "Type something"
+  },
+  {
+    "id": "createMedia.media.media",
+    "defaultMessage": "Media"
+  },
+  {
+    "id": "createMedia.mediaMediaSubtitle",
+    "defaultMessage": "The media that contains the claim."
   },
   {
     "id": "createMedia.mediaInput",
-    "defaultMessage": "Paste or type"
+    "defaultMessage": "Add a URL to a social media post or webpage, or a block of text."
   },
   {
-    "id": "createMedia.link",
-    "defaultMessage": "Link"
+    "id": "createMedia.or",
+    "description": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled.",
+    "defaultMessage": "or"
   },
   {
-    "id": "createMedia.quote",
-    "defaultMessage": "Text"
-  },
-  {
-    "id": "createMedia.image",
-    "defaultMessage": "Photo"
-  },
-  {
-    "id": "createMedia.video",
-    "defaultMessage": "Video"
-  },
-  {
-    "id": "createMedia.audio",
-    "defaultMessage": "Audio"
+    "id": "createMedia.mediaRemoveFile",
+    "description": "Label on a button that the user clicks in order to return a file upload box back to its 'empty' state.",
+    "defaultMessage": "Remove file"
   }
 ]

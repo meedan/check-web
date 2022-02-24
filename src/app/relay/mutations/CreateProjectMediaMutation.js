@@ -47,6 +47,7 @@ class CreateProjectMediaMutation extends Relay.Mutation {
   getVariables() {
     const vars = {
       media_type: this.props.mediaType,
+      set_claim_description: this.props.claimDescription,
       url: this.props.url,
       quote: this.props.quote,
       quote_attributions: this.props.quoteAttributions,
@@ -105,6 +106,11 @@ class CreateProjectMediaMutation extends Relay.Mutation {
           project_media {
             dbid
             title
+            claim_description
+            last_status_obj {
+              id
+            }
+            last_status
           },
           project {
             id

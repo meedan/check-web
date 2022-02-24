@@ -153,7 +153,7 @@
     "react-copy-to-clipboard": "^5.0.0",
     "react-document-title": "^2.0.2",
     "react-dom": "^17.0.2",
-    "react-dropzone": "^3.5.3",
+    "react-dropzone": "^4.3.0",
     "react-emoji-render": "^0.4.5",
     "react-favicon": "0.0.8",
     "react-ga": "^2.1.2",

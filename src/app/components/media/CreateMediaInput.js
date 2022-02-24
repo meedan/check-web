@@ -1,53 +1,72 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import MovieIcon from '@material-ui/icons/Movie';
-import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import FormatQuoteIcon from '@material-ui/icons/FormatQuote';
-import LinkIcon from '@material-ui/icons/Link';
-import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ClearIcon from '@material-ui/icons/Clear';
 import urlRegex from 'url-regex';
+import styled from 'styled-components';
+import MediaStatusCommon from './MediaStatusCommon';
 import Message from '../Message';
 import UploadFile from '../UploadFile';
 import {
   Row,
   units,
-  caption,
-  black38,
-  black54,
-  black87,
-  mediaQuery,
 } from '../../styles/js/shared';
 
-const StyledTabLabelText = styled.span`
-  ${mediaQuery.handheld`
-    display: none;
-  `}
+const StyledHeader = styled.span`
+  & > h6 {
+    font-size: 15px;
+    margin-top: ${units(1)};
+  }
 `;
 
-const StyledTabLabel = styled.span`
-  display: flex;
-  align-items: center;
-  color: ${props => props.active ? black87 : black54} !important;
-  font: ${caption};
-  svg {
-    padding: 0 ${units(0.5)};
-    color: ${props => props.active ? black87 : black38} !important;
+const StyledSubtitle = styled.span`
+  & > h6 {
+    font-size: 11px;
+  }
+`;
+
+const StyledTextField = styled.span`
+  & > div > div {
+    font-size: 13px;
+    padding: ${units(1)};
+  }
+`;
+
+const StyledButton = styled.span`
+  & > .MuiButtonBase-root {
+    color: black;
+    margin-top: ${units(-2)};
+  }
+  & > .MuiButtonBase-root > span > span {
+    margin-top: -1px;
+    margin-right: 3px;
   }
 `;
 
 class CreateMediaInput extends React.Component {
   state = {
-    mode: 'link',
     textValue: '',
     mediaFile: null,
     mediaMessage: null,
+    status: this.props.team?.verification_statuses?.default,
+    claimText: '',
   };
 
   getMediaInputValue = () => {
-    const { mode, mediaFile, textValue } = this.state;
+    const { mediaFile, textValue, claimText } = this.state;
+    const inferMediaTypeFromMimeType = (mimeType) => {
+      if (mimeType.match(/^audio/)) {
+        return 'UploadedAudio';
+      } else if (mimeType.match(/^image/)) {
+        return 'UploadedImage';
+      } else if (mimeType.match(/^video/)) {
+        return 'UploadedVideo';
+      }
+      return null;
+    };
+
     let mediaType = '';
     let file = '';
     let inputValue = '';
@@ -55,24 +74,12 @@ class CreateMediaInput extends React.Component {
     let url = '';
     let quote = '';
 
-    if (['image', 'video', 'audio'].indexOf(mode) > -1) {
+    if (mediaFile) {
       file = mediaFile;
-      if (mode === 'image') {
-        mediaType = 'UploadedImage';
-      } else if (mode === 'video') {
-        mediaType = 'UploadedVideo';
-      } else if (mode === 'audio') {
-        mediaType = 'UploadedAudio';
-      }
       if (!file) {
         return null;
       }
-    } else if (mode === 'quote') {
-      quote = textValue.trim();
-      if (!quote) {
-        return null;
-      }
-      mediaType = 'Claim';
+      mediaType = inferMediaTypeFromMimeType(file.type);
     } else {
       inputValue = textValue.trim();
       urls = inputValue.match(urlRegex());
@@ -105,8 +112,8 @@ class CreateMediaInput extends React.Component {
         quote,
         file,
         title,
-        mode: this.state.mode,
         mediaType,
+        claimDescription: claimText,
       });
     }
 
@@ -114,15 +121,15 @@ class CreateMediaInput extends React.Component {
   };
 
   get currentErrorMessageOrNull() {
-    const { mode, mediaMessage } = this.state;
-    if (['video', 'audio', 'image'].indexOf(mode) > -1) {
-      return mediaMessage;
-    }
-    return this.props.message; // hopefully null
+    return this.state.mediaMessage || null;
   }
 
+  setStatus = (context, store, media, newStatus) => {
+    this.setState({ status: newStatus });
+  };
+
   handleKeyPress = (ev) => {
-    if (ev.key === 'Enter' && !ev.shiftKey) {
+    if (ev.key === 'Enter' && ev.shiftKey) {
       ev.preventDefault();
       this.callOnSubmit();
     }
@@ -143,16 +150,15 @@ class CreateMediaInput extends React.Component {
     this.resetForm();
 
     if (this.props.onSubmit) {
-      this.props.onSubmit(value);
+      this.props.onSubmit(value, this.state.status);
     }
   }
 
-  handleTabChange = (e, mode) => {
-    this.setState({ mode });
-    if (this.props.onTabChange) {
-      this.props.onTabChange(mode);
-    }
-    this.resetForm();
+  clearFile = () => {
+    this.setState({
+      mediaFile: null,
+      mediaMessage: null,
+    });
   }
 
   handleFileChange = (file) => {
@@ -168,6 +174,11 @@ class CreateMediaInput extends React.Component {
     this.setState({ textValue });
   };
 
+  handleClaimChange = (ev) => {
+    const claimText = ev.target.value;
+    this.setState({ claimText });
+  };
+
   resetForm() {
     this.setState({
       textValue: '',
@@ -180,73 +191,109 @@ class CreateMediaInput extends React.Component {
     const defaultInputProps = {
       fullWidth: true,
       multiline: true,
-      onKeyPress: this.handleKeyPress,
-      onChange: this.handleChange,
       margin: 'normal',
+      variant: 'outlined',
+      rowsMax: 5,
     };
 
-    switch (this.state.mode) {
-    case 'image': return (
-      <UploadFile
-        key="createMedia.image.upload"
-        type="image"
-        onChange={this.handleFileChange}
-        onError={this.handleFileError}
-        value={this.state.mediaFile}
-      />
+    return (
+      <>
+        <StyledHeader>
+          <Typography variant="h6">
+            <FormattedMessage id="createMedia.mediaClaimDescription" defaultMessage="Claim description" />
+          </Typography>
+        </StyledHeader>
+        <StyledSubtitle>
+          <Typography variant="subtitle1">
+            <FormattedMessage id="createMedia.mediaClaimDescriptionSubtitle" defaultMessage="A description of the claim that needs to be reviewed." />
+          </Typography>
+        </StyledSubtitle>
+        <FormattedMessage id="createMedia.mediaClaim" defaultMessage="Type something">
+          {placeholder => (
+            <StyledTextField>
+              <TextField
+                key="createMedia.media.claim"
+                rows={3}
+                placeholder={placeholder}
+                name="claim"
+                id="create-media-claim"
+                value={this.state.claimText}
+                onChange={this.handleClaimChange}
+                autoFocus
+                {...defaultInputProps}
+              />
+            </StyledTextField>
+          )}
+        </FormattedMessage>
+        <StyledHeader>
+          <Typography variant="h6">
+            <FormattedMessage id="createMedia.media.media" defaultMessage="Media" />
+          </Typography>
+        </StyledHeader>
+        <StyledSubtitle>
+          <Typography variant="subtitle1">
+            <FormattedMessage id="createMedia.mediaMediaSubtitle" defaultMessage="The media that contains the claim." />
+          </Typography>
+        </StyledSubtitle>
+        {
+          this.state.mediaFile === null ? (
+            <FormattedMessage id="createMedia.mediaInput" defaultMessage="Add a URL to a social media post or webpage, or a block of text.">
+              {placeholder => (
+                <StyledTextField>
+                  <TextField
+                    key="createMedia.media.input"
+                    placeholder={placeholder}
+                    name="text"
+                    id="create-media-input"
+                    value={this.state.textValue}
+                    onChange={this.handleChange}
+                    onKeyPress={this.handleKeyPress}
+                    disabled={this.state.mediaFile}
+                    {...defaultInputProps}
+                  />
+                </StyledTextField>
+              )}
+            </FormattedMessage>
+          ) : null
+        }
+        {
+          (this.state.mediaFile === null && this.state.textValue.length === 0) ? (
+            <FormattedMessage id="createMedia.or" defaultMessage="or" description="This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled." />
+          ) : null
+        }
+        {
+          this.state.textValue.length === 0 ? (
+            <div>
+              <UploadFile
+                key="createMedia.image.upload"
+                type="image+video+audio"
+                onChange={this.handleFileChange}
+                onError={this.handleFileError}
+                value={this.state.mediaFile}
+                disabled={this.state.textValue.length > 0}
+                hidden={this.state.textValue.length > 0}
+              />
+              {
+                this.state.mediaFile ? (
+                  <StyledButton>
+                    <Button
+                      className="clear-button"
+                      size="small"
+                      color="secondary"
+                      variant="text"
+                      startIcon={<ClearIcon />}
+                      onClick={this.clearFile}
+                    >
+                      <FormattedMessage id="createMedia.mediaRemoveFile" defaultMessage="Remove file" description="Label on a button that the user clicks in order to return a file upload box back to its 'empty' state." />
+                    </Button>
+                  </StyledButton>
+                ) : null
+              }
+            </div>
+          ) : null
+        }
+      </>
     );
-    case 'video': return (
-      <UploadFile
-        key="createMedia.video.upload"
-        type="video"
-        onChange={this.handleFileChange}
-        onError={this.handleFileError}
-        value={this.state.mediaFile}
-        noPreview
-      />
-    );
-    case 'audio': return (
-      <UploadFile
-        key="createMedia.audio.upload"
-        type="audio"
-        onChange={this.handleFileChange}
-        onError={this.handleFileError}
-        value={this.state.mediaFile}
-        noPreview
-      />
-    );
-    case 'quote': return (
-      <FormattedMessage id="createMedia.quoteInput" defaultMessage="Paste or type a text">
-        {placeholder => (
-          <TextField
-            key="createMedia.quote.input"
-            placeholder={placeholder}
-            name="quote"
-            id="create-media-quote-input"
-            value={this.state.textValue}
-            autoFocus
-            {...defaultInputProps}
-          />
-        )}
-      </FormattedMessage>
-    );
-    case 'link':
-    default: return (
-      <FormattedMessage id="createMedia.mediaInput" defaultMessage="Paste or type">
-        {placeholder => (
-          <TextField
-            key="createMedia.media.input"
-            placeholder={placeholder}
-            name="url"
-            id="create-media-input"
-            value={this.state.textValue}
-            autoFocus
-            {...defaultInputProps}
-          />
-        )}
-      </FormattedMessage>
-    );
-    }
   }
 
   render() {
@@ -267,61 +314,14 @@ class CreateMediaInput extends React.Component {
 
           <div style={{ marginTop: units(2) }}>
             <Row>
-              <Button
-                id="create-media__link"
-                onClick={e => this.handleTabChange(e, 'link')}
-              >
-                <StyledTabLabel active={this.state.mode === 'link'}>
-                  <LinkIcon />
-                  <StyledTabLabelText>
-                    <FormattedMessage id="createMedia.link" defaultMessage="Link" />
-                  </StyledTabLabelText>
-                </StyledTabLabel>
-              </Button>
-              <Button
-                id="create-media__quote"
-                onClick={e => this.handleTabChange(e, 'quote')}
-              >
-                <StyledTabLabel active={this.state.mode === 'quote'}>
-                  <FormatQuoteIcon />
-                  <StyledTabLabelText>
-                    <FormattedMessage id="createMedia.quote" defaultMessage="Text" />
-                  </StyledTabLabelText>
-                </StyledTabLabel>
-              </Button>
-              <Button
-                id="create-media__image"
-                onClick={e => this.handleTabChange(e, 'image')}
-              >
-                <StyledTabLabel active={this.state.mode === 'image'}>
-                  <InsertPhotoIcon />
-                  <StyledTabLabelText>
-                    <FormattedMessage id="createMedia.image" defaultMessage="Photo" />
-                  </StyledTabLabelText>
-                </StyledTabLabel>
-              </Button>
-              <Button
-                id="create-media__video"
-                onClick={e => this.handleTabChange(e, 'video')}
-              >
-                <StyledTabLabel active={this.state.mode === 'video'}>
-                  <MovieIcon />
-                  <StyledTabLabelText>
-                    <FormattedMessage id="createMedia.video" defaultMessage="Video" />
-                  </StyledTabLabelText>
-                </StyledTabLabel>
-              </Button>
-              <Button
-                id="create-media__audio"
-                onClick={e => this.handleTabChange(e, 'audio')}
-              >
-                <StyledTabLabel active={this.state.mode === 'audio'}>
-                  <VolumeUpIcon />
-                  <StyledTabLabelText>
-                    <FormattedMessage id="createMedia.audio" defaultMessage="Audio" />
-                  </StyledTabLabelText>
-                </StyledTabLabel>
-              </Button>
+              <MediaStatusCommon
+                media={{
+                  team: this.props.team,
+                }}
+                setStatus={this.setStatus}
+                quickAdd
+                currentStatus={this.state.status}
+              />
             </Row>
           </div>
         </form>

@@ -143,7 +143,6 @@ module AppSpecHelpers
 
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media__image').click
     wait_for_selector('.without-file')
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
     wait_for_selector('.with-file')
