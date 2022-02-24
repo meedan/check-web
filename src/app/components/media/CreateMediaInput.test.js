@@ -20,8 +20,8 @@ describe('<CreateMediaInput />', () => {
             color: '#518FFF',
           },
         },
-      ]
-    }
+      ],
+    },
   };
 
   it('should render input fields', () => {
