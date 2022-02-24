@@ -130,7 +130,6 @@ shared_examples 'media actions' do
     wait_for_selector('.search__results')
     wait_for_selector('.medias__item')
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media__link')
     fill_field('#create-media-input', url)
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.media-detail')
