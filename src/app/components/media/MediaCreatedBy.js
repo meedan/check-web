@@ -35,6 +35,8 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
   } = projectMedia;
 
   const showUserName = [CheckChannels.MANUAL, CheckChannels.BROWSER_EXTENSION].indexOf(channel.toString()) !== -1;
+  const channelNameKey = creatorName.replace(/[ _-]+/g, '').toLocaleLowerCase();
+  const formattedChannelName = Object.keys(messages).includes(channelNameKey) ? intl.formatMessage(messages[channelNameKey]) : creatorName;
 
   return (
     <Typography variant="body" component="div">
@@ -42,7 +44,7 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
         id="mediaCreatedBy.createdBy"
         defaultMessage="Item created by {name}"
         values={{
-          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : intl.formatMessage(messages[creatorName.replace(/[ _-]+/g, '').toLocaleLowerCase()]),
+          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : formattedChannelName,
         }}
       />
     </Typography>
