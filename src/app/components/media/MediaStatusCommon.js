@@ -47,7 +47,7 @@ class MediaStatusCommon extends Component {
   state = {};
 
   canUpdate() {
-    return (!this.props.readonly && can(this.props.media.permissions, 'update Status'))
+    return (!this.props.readonly && can(this.props.media.permissions || '{}', 'update Status'))
       || this.props.quickAdd;
   }
 
