@@ -86,6 +86,7 @@ shared_examples 'search' do
     expect(@driver.current_url.to_s.match(/recent_added/).nil?).to be(true)
     expect(@driver.current_url.to_s.match(/last_seen/).nil?).to be(true)
 
+    wait_for_selector('#search-input')
     wait_for_selector('th[data-field=linked_items_count] span').click
     wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/requests/).nil?).to be(true)
@@ -107,6 +108,7 @@ shared_examples 'search' do
     api_create_claim_and_go_to_search_page
     expect(@driver.current_url.to_s.match(/ASC|DESC/).nil?).to be(true)
 
+    wait_for_selector('#search-input')
     wait_for_selector('th[data-field=linked_items_count]').click
     wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.current_url.to_s.match(/DESC/).nil?).to be(false)
