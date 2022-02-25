@@ -443,6 +443,7 @@ const SmoochBotNewsletterEditor = ({
               </Box> : null }
             { url && count && !error ?
               <SmoochBotPreviewFeed
+                key={url}
                 installationId={installationId}
                 feedUrl={url}
                 count={count}

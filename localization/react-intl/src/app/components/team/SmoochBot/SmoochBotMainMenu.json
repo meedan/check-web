@@ -16,7 +16,12 @@
   },
   {
     "id": "smoochBotMainMenu.languagesAndPrivacy",
-    "description": "Title of the main menu third section of the tipline",
+    "description": "Title of the main menu third section of the tipline where there is more than one supported language",
     "defaultMessage": "Languages and Privacy"
+  },
+  {
+    "id": "smoochBotMainMenu.privacy",
+    "description": "Title of the main menu third section of the tipline when there is only one supported language",
+    "defaultMessage": "Privacy"
   }
 ]

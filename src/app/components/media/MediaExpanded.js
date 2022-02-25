@@ -243,8 +243,10 @@ class MediaExpandedComponent extends Component {
       );
     }
 
+    const analysis = media.last_status_obj?.data?.fields || [];
+    const mediaTitle = analysis.find(f => f.field_name === 'file_title')?.value;
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
-    const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
+    const title = mediaTitle || media.media.metadata.title || media.media.quote || fileTitle || media.title;
     let description = media.extracted_text ? media.extracted_text.data.text : media.media.metadata.description;
     description = media.transcription && media.transcription.data.text ? media.transcription.data.text : description;
 
@@ -363,6 +365,9 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         full_url
         dynamic_annotation_language {
           id
+        }
+        last_status_obj {
+          data
         }
         show_warning_cover
         dynamic_annotation_flag {
