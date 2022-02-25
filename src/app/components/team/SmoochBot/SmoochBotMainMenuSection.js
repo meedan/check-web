@@ -47,6 +47,7 @@ const SmoochBotMainMenuSection = ({
   value,
   resources,
   readOnly,
+  optional,
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
@@ -180,7 +181,7 @@ const SmoochBotMainMenuSection = ({
               disabled={readOnly}
               onBlur={(e) => { onChangeTitle(e.target.value); }}
               defaultValue={value.smooch_menu_title}
-              error={!value.smooch_menu_title}
+              error={options.length > 0 && !value.smooch_menu_title}
             />
           }
         </Box>
@@ -198,6 +199,16 @@ const SmoochBotMainMenuSection = ({
       </Box>
 
       <Divider />
+
+      {/* No options */}
+      { options.length === 0 ?
+        <Box pl={2} pt={2}>
+          <FormattedMessage
+            id="smoochBotMainMenuSection.noOptions"
+            defaultMessage="There is currently no option in this section."
+            description="Message displayed when there is no menu option on tipline bot settings."
+          />
+        </Box> : null }
 
       {/* Each menu option */}
       <Box p={1}>
@@ -242,14 +253,14 @@ const SmoochBotMainMenuSection = ({
               {' '}
 
               {/* Delete */}
-              { readOnly ?
+              { readOnly || (!optional && options.length === 1) ?
                 null :
                 <IconButton onClick={() => { handleDeleteOption(i); }}>
                   <DeleteIcon />
                 </IconButton> }
 
               {/* Locked */}
-              { readOnly ? <LockOutlinedIcon className={classes.lock} /> : null }
+              { readOnly || (!optional && options.length === 1) ? <LockOutlinedIcon className={classes.lock} /> : null }
             </Box>
           </Box>
         ))}
@@ -276,6 +287,7 @@ SmoochBotMainMenuSection.defaultProps = {
   value: {},
   resources: [],
   readOnly: false,
+  optional: false,
 };
 
 SmoochBotMainMenuSection.propTypes = {
@@ -283,6 +295,7 @@ SmoochBotMainMenuSection.propTypes = {
   value: PropTypes.object,
   resources: PropTypes.arrayOf(PropTypes.object),
   readOnly: PropTypes.bool,
+  optional: PropTypes.bool,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };
