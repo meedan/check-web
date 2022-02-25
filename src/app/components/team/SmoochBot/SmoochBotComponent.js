@@ -59,7 +59,7 @@ const SmoochBotComponent = ({
   };
 
   const handleSave = () => {
-    if (settings.smooch_version === 'v2' && settings.smooch_workflows.find(w => !/{subscription_status}/.test(w.newsletter_optin_optout))) {
+    if (settings.smooch_version === 'v2' && settings.smooch_workflows.find(w => w.newsletter_optin_optout && !/{subscription_status}/.test(w.newsletter_optin_optout))) {
       setShowContentError(true);
     } else {
       setSaving(true);
