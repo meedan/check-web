@@ -62,10 +62,17 @@ const SmoochBotMainMenu = ({
 
       <SmoochBotMainMenuSection
         number={3}
-        value={{
-          smooch_menu_title: <FormattedMessage id="smoochBotMainMenu.languagesAndPrivacy" defaultMessage="Languages and Privacy" description="Title of the main menu third section of the tipline" />,
-          smooch_menu_options: languages.map(l => ({ smooch_menu_option_label: languageLabel(l) })).concat({ smooch_menu_option_label: intl.formatMessage(messages.privacyStatement) }),
-        }}
+        value={
+          languages.length > 1 ?
+            {
+              smooch_menu_title: <FormattedMessage id="smoochBotMainMenu.languagesAndPrivacy" defaultMessage="Languages and Privacy" description="Title of the main menu third section of the tipline where there is more than one supported language" />,
+              smooch_menu_options: languages.map(l => ({ smooch_menu_option_label: languageLabel(l) })).concat({ smooch_menu_option_label: intl.formatMessage(messages.privacyStatement) }),
+            } :
+            {
+              smooch_menu_title: <FormattedMessage id="smoochBotMainMenu.privacy" defaultMessage="Privacy" description="Title of the main menu third section of the tipline when there is only one supported language" />,
+              smooch_menu_options: [{ smooch_menu_option_label: intl.formatMessage(messages.privacyStatement) }],
+            }
+        }
         onChangeTitle={() => {}}
         onChangeMenuOptions={() => {}}
         readOnly
