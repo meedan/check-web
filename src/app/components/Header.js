@@ -46,7 +46,7 @@ function HeaderComponent(props) {
     return null;
   }
 
-  const reallyInTeamContext = team ? inTeamContext : false;
+  const reallyInTeamContext = team || trendsPage ? inTeamContext : false;
 
   const teamPrivateContentShouldShow =
     (reallyInTeamContext && currentUserIsMember) || (reallyInTeamContext && !team.private);
