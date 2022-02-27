@@ -142,11 +142,11 @@ const SmoochBotContentAndTranslation = ({
             <strong>{i + 1}. {string.title}</strong><br />
             {string.description}
           </Typography>
-          { string.key === 'newsletter_optin_optout' && !/{subscription_status}/.test(value[string.key]) ?
+          { string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key]) ?
             <Typography variant="body2" component="div" color="error" className={classes.error}>
               <InfoOutlinedIcon />
               {' '}
-              <FormattedMessage id="smoochBotContentAndTranslation.error" defaultMessage="The placeholder \{subscription_status\} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" />
+              <FormattedMessage id="smoochBotContentAndTranslation.error" defaultMessage="The placeholder {subscription_status} is missing from your custom content or translation" description="Error message displayed on the tipline settings page when the placeholder is not present" />
             </Typography> : null }
           <Box mt={1}>
             <Box p={1} className={classes.defaultString}>
@@ -170,7 +170,7 @@ const SmoochBotContentAndTranslation = ({
                   onChangeMessage(string.key, newValue);
                 }
               }}
-              error={string.key === 'newsletter_optin_optout' && !/{subscription_status}/.test(value[string.key])}
+              error={string.key === 'newsletter_optin_optout' && value[string.key] && !/{subscription_status}/.test(value[string.key])}
               multiline
               fullWidth
             />

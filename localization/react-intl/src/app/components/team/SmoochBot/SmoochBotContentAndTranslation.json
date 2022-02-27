@@ -192,6 +192,6 @@
   {
     "id": "smoochBotContentAndTranslation.error",
     "description": "Error message displayed on the tipline settings page when the placeholder is not present",
-    "defaultMessage": "The placeholder \\{subscription_status\\} is missing from your custom content or translation"
+    "defaultMessage": "The placeholder {subscription_status} is missing from your custom content or translation"
   }
 ]
