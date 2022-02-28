@@ -45,6 +45,16 @@
     "defaultMessage": "Not empty"
   },
   {
+    "id": "search.emptyAssign",
+    "description": "Allow filtering by assigned_to with no value set",
+    "defaultMessage": "Not assigned"
+  },
+  {
+    "id": "search.notEmptyAssign",
+    "description": "Allow filtering by assigned_to with any value set",
+    "defaultMessage": "Assigned"
+  },
+  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
