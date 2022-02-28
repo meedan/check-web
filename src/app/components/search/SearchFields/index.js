@@ -47,7 +47,7 @@ function updateStateQueryArrayValue(query, key, newArray) {
   return { ...query, [key]: newArray };
 }
 
-const typeLabels = defineMessages({
+const messages = defineMessages({
   claim: {
     id: 'search.showClaims',
     defaultMessage: 'Text',
@@ -73,9 +73,6 @@ const typeLabels = defineMessages({
     defaultMessage: 'Audio',
     description: 'Describes media type Audio',
   },
-});
-
-const readLabels = defineMessages({
   read: {
     id: 'search.itemRead',
     defaultMessage: 'Read',
@@ -86,9 +83,6 @@ const readLabels = defineMessages({
     defaultMessage: 'Unread',
     description: 'Describes media unread',
   },
-});
-
-const hasClaimLabels = defineMessages({
   empty: {
     id: 'search.empty',
     defaultMessage: 'Empty',
@@ -98,6 +92,16 @@ const hasClaimLabels = defineMessages({
     id: 'search.notEmpty',
     defaultMessage: 'Not empty',
     description: 'Allow filtering by claim with any value set',
+  },
+  emptyAssign: {
+    id: 'search.emptyAssign',
+    defaultMessage: 'Not assigned',
+    description: 'Allow filtering by assigned_to with no value set',
+  },
+  notEmptyAssign: {
+    id: 'search.notEmptyAssign',
+    defaultMessage: 'Assigned',
+    description: 'Allow filtering by assigned_to with any value set',
   },
 });
 
@@ -306,21 +310,27 @@ class SearchFields extends React.Component {
       team.tag_texts.edges.map(t => t.node.text) : [];
 
     const types = [
-      { value: 'claims', label: this.props.intl.formatMessage(typeLabels.claim) },
-      { value: 'links', label: this.props.intl.formatMessage(typeLabels.link) },
-      { value: 'images', label: this.props.intl.formatMessage(typeLabels.image) },
-      { value: 'videos', label: this.props.intl.formatMessage(typeLabels.video) },
-      { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audio) },
+      { value: 'claims', label: this.props.intl.formatMessage(messages.claim) },
+      { value: 'links', label: this.props.intl.formatMessage(messages.link) },
+      { value: 'images', label: this.props.intl.formatMessage(messages.image) },
+      { value: 'videos', label: this.props.intl.formatMessage(messages.video) },
+      { value: 'audios', label: this.props.intl.formatMessage(messages.audio) },
     ];
 
     const readValues = [
-      { value: '0', label: this.props.intl.formatMessage(readLabels.unread) },
-      { value: '1', label: this.props.intl.formatMessage(readLabels.read) },
+      { value: '0', label: this.props.intl.formatMessage(messages.unread) },
+      { value: '1', label: this.props.intl.formatMessage(messages.read) },
     ];
 
     const hasClaimOptions = [
-      { label: this.props.intl.formatMessage(hasClaimLabels.notEmpty), value: 'ANY_VALUE', exclusive: true },
-      { label: this.props.intl.formatMessage(hasClaimLabels.empty), value: 'NO_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
+    ];
+
+    const assignedToOptions = [
+      { label: this.props.intl.formatMessage(messages.notEmptyAssign), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.emptyAssign), value: 'NO_VALUE', exclusive: true },
+      { label: '', value: '' },
     ];
 
     const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
@@ -556,7 +566,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.assigned_to}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              options={assignedToOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
               onChange={this.handleAssignedUserClick}
               onRemove={() => this.handleRemoveField('assigned_to')}
             />
