@@ -15,6 +15,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import RuleIcon from '@material-ui/icons//Rule';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import CustomFiltersManager from '../CustomFiltersManager';
@@ -87,6 +88,19 @@ const readLabels = defineMessages({
   },
 });
 
+const hasClaimLabels = defineMessages({
+  empty: {
+    id: 'search.empty',
+    defaultMessage: 'Empty',
+    description: 'Allow filtering by claim with no value set',
+  },
+  notEmpty: {
+    id: 'search.notEmpty',
+    defaultMessage: 'Not empty',
+    description: 'Allow filtering by claim with any value set',
+  },
+});
+
 class SearchFields extends React.Component {
   handleAddField = (field) => {
     const newQuery = { ...this.props.query };
@@ -145,6 +159,12 @@ class SearchFields extends React.Component {
   handleProjectClick = (projectIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'projects', projectIds),
+    );
+  }
+
+  handleHasClaimClick = (claimValue) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'has_claim', claimValue),
     );
   }
 
@@ -298,6 +318,11 @@ class SearchFields extends React.Component {
       { value: '1', label: this.props.intl.formatMessage(readLabels.read) },
     ];
 
+    const hasClaimOptions = [
+      { label: this.props.intl.formatMessage(hasClaimLabels.notEmpty), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(hasClaimLabels.empty), value: 'NO_VALUE', exclusive: true },
+    ];
+
     const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
 
     const selectedProjects = this.props.query.projects ? this.props.query.projects.map(p => `${p}`) : [];
@@ -333,6 +358,21 @@ class SearchFields extends React.Component {
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
               onRemove={() => this.handleRemoveField('projects')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      has_claim: (
+        <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<RuleIcon />}
+              allowSearch={false}
+              selected={this.props.query.has_claim}
+              options={hasClaimOptions}
+              onChange={this.handleHasClaimClick}
+              onRemove={() => this.handleRemoveField('has_claim')}
             />
           )}
         </FormattedMessage>
