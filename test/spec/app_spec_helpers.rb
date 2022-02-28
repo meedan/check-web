@@ -21,6 +21,11 @@ module AppSpecHelpers
     false
   end
 
+  def click(selector)
+    element = wait_for_selector(selector)
+    element.click
+  end
+
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
