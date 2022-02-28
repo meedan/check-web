@@ -104,7 +104,8 @@ shared_examples 'similarity' do
     wait_for_selector('#create-media__add-item')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.medias__item')
-    wait_for_selector('.media__heading').click
+    wait_for_selector_list_size('.media__heading', 3)
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}/media/#{pm1.id}"
     wait_for_selector('#media-similarity__add-button')
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
