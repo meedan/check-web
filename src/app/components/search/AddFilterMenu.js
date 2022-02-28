@@ -10,6 +10,7 @@ import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
+import RuleIcon from '@material-ui/icons//Rule';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
@@ -51,6 +52,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.folder"
         defaultMessage="Folder"
         description="Menu option to enable searching items by folder"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__claim',
+    key: 'has_claim',
+    icon: <RuleIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.claim"
+        defaultMessage="Claim"
+        description="Menu option to enable searching items by claim"
       />
     ),
   },

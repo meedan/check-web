@@ -5,6 +5,11 @@
     "defaultMessage": "Folder"
   },
   {
+    "id": "addFilterMenu.claim",
+    "description": "Menu option to enable searching items by claim",
+    "defaultMessage": "Claim"
+  },
+  {
     "id": "addFilterMenu.collection",
     "description": "Menu option to enable searching items by collection",
     "defaultMessage": "Collection"
