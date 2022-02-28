@@ -164,7 +164,7 @@ class SearchFields extends React.Component {
 
   handleHasClaimClick = (claimValue) => {
     this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'has_claim', claimValue[0]),
+      updateStateQueryArrayValue(this.props.query, 'has_claim', claimValue),
     );
   }
 
