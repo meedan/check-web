@@ -432,7 +432,7 @@ const TrendsItemComponent = ({
               <MediaExpanded
                 media={selectedItem}
                 linkTitle={selectedItem?.title}
-                mediaUrl={selectedItem?.full_url}
+                mediaUrl={null}
                 isTrends
               /> : null }
           </Card>
