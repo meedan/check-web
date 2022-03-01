@@ -83,11 +83,7 @@ shared_examples 'annotation' do
     wait_for_selector('.task__response-inputs')
     # answer the annotation
     wait_for_selector('.form-edit').click
-    # clear the annotation
-    wait_for_selector('.MuiOutlinedInput-input').click
-    wait_for_selector("//span[contains(text(), 'Clear')]", :xpath).click
-    wait_for_selector_none('.MuiPickersCalendarHeader-iconButton')
-    # answer the annotation
+    wait_for_selector('.form-cancel')
     wait_for_selector('.task__response input').send_keys('2021/12/12')
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-save')
