@@ -100,13 +100,16 @@ const UploadMessage = ({ type, about }) => {
       }}
     />
   );
-  case 'file': return (
+  case 'image+video+audio': return (
     <FormattedMessage
-      id="uploadFile.fileMessage"
+      id="uploadFile.imageVideoAudioMessage"
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
       values={{
         file_max_size: about.file_max_size,
-        file_extensions: about.file_extensions.join(', '),
+        file_extensions: about.upload_extensions
+          .concat(about.video_extensions)
+          .concat(about.audio_extensions)
+          .join(', '),
       }}
     />
   );
@@ -153,6 +156,11 @@ class UploadFileComponent extends React.PureComponent {
     } else if (type === 'file') {
       extensions = about.file_extensions;
       maxSize = about.file_max_size;
+    } else if (type === 'image+video+audio') {
+      extensions = about.upload_extensions
+        .concat(about.video_extensions)
+        .concat(about.audio_extensions);
+      maxSize = about.upload_max_size;
     }
     const valid_extensions = extensions.map(ext => ext.toLowerCase());
     const extension = file.name.substr(file.name.lastIndexOf('.') + 1).toLowerCase();
@@ -202,7 +210,12 @@ class UploadFileComponent extends React.PureComponent {
   }
 
   render() {
-    const { about, value, type } = this.props;
+    const {
+      about,
+      value,
+      type,
+      disabled,
+    } = this.props;
     return (
       <StyledUploader>
         {this.maybePreview()}
@@ -210,6 +223,7 @@ class UploadFileComponent extends React.PureComponent {
           onDrop={this.onDrop}
           multiple={false}
           className={value ? 'with-file' : 'without-file'}
+          disabled={disabled}
         >
           <div>
             {value ? (
@@ -261,13 +275,15 @@ const UploadFile = childProps => (
 UploadFile.defaultProps = {
   value: null,
   noPreview: false,
+  disabled: false,
 };
 UploadFile.propTypes = {
   value: PropTypes.object, // or null
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'file']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'image+video+audio']).isRequired,
   noPreview: PropTypes.bool,
   onChange: PropTypes.func.isRequired, // func(Image) => undefined
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
+  disabled: PropTypes.bool,
 };
 
 export default UploadFile;

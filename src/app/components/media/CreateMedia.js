@@ -6,6 +6,8 @@ import Relay from 'react-relay/classic';
 import Button from '@material-ui/core/Button';
 import CreateMediaDialog from './CreateMediaDialog';
 import CreateProjectMediaMutation from '../../relay/mutations/CreateProjectMediaMutation';
+import CreateStatusMutation from '../../relay/mutations/CreateStatusMutation';
+import UpdateStatusMutation from '../../relay/mutations/UpdateStatusMutation';
 import { stringHelper } from '../../customHelpers';
 import { getErrorObjects, getFilters } from '../../helpers';
 import CheckError from '../../CheckError';
@@ -38,7 +40,7 @@ class CreateProjectMedia extends React.Component {
     this.props.setFlashMessage(message, 'error');
   };
 
-  submitMedia(value) {
+  submitMedia(value, status) {
     let prefix = null;
     if (this.props.project) {
       prefix = `/${this.props.team.slug}/project/${this.props.project.dbid}/media/`;
@@ -51,9 +53,30 @@ class CreateProjectMedia extends React.Component {
     }
 
     const onSuccess = (response) => {
-      if (getFilters() !== '{}') {
-        const rid = response.createProjectMedia.project_media.dbid;
-        browserHistory.push(prefix + rid);
+      const media = response.createProjectMedia.project_media;
+      const status_id = media.last_status_obj ? media.last_status_obj.id : '';
+      const status_attr = {
+        parent_type: 'project_media',
+        annotated: media,
+        annotation: {
+          status,
+          annotated_type: 'ProjectMedia',
+          annotated_id: media.dbid,
+          status_id,
+        },
+      };
+      const statusSuccess = () => {
+        if (getFilters() !== '{}') {
+          const rid = response.createProjectMedia.project_media.dbid;
+          browserHistory.push(prefix + rid);
+        }
+      };
+
+      // Add or update status
+      if (status_id && status_id.length) {
+        Relay.Store.commitUpdate(new UpdateStatusMutation(status_attr), { onSuccess: statusSuccess, onFailure: this.fail });
+      } else {
+        Relay.Store.commitUpdate(new CreateStatusMutation(status_attr), { onSuccess: statusSuccess, onFailure: this.fail });
       }
     };
 
@@ -78,8 +101,8 @@ class CreateProjectMedia extends React.Component {
     this.setState({ dialogOpen: false });
   };
 
-  handleSubmit = (value) => {
-    this.submitMedia(value);
+  handleSubmit = (value, status) => {
+    this.submitMedia(value, status);
   };
 
   render() {
@@ -89,10 +112,11 @@ class CreateProjectMedia extends React.Component {
           <FormattedMessage id="createMedia.addItem" defaultMessage="Add Item" />
         </Button>
         <CreateMediaDialog
-          title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add new item" />}
+          title={<FormattedMessage id="createMedia.addNewItem" defaultMessage="Add item" />}
           open={this.state.dialogOpen}
           onDismiss={this.handleCloseDialog}
           onSubmit={this.handleSubmit}
+          team={this.props.team}
         />
       </React.Fragment>
     );

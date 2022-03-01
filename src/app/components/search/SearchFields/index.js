@@ -15,6 +15,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import RuleIcon from '@material-ui/icons//Rule';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import CustomFiltersManager from '../CustomFiltersManager';
@@ -46,7 +47,7 @@ function updateStateQueryArrayValue(query, key, newArray) {
   return { ...query, [key]: newArray };
 }
 
-const typeLabels = defineMessages({
+const messages = defineMessages({
   claim: {
     id: 'search.showClaims',
     defaultMessage: 'Text',
@@ -72,9 +73,6 @@ const typeLabels = defineMessages({
     defaultMessage: 'Audio',
     description: 'Describes media type Audio',
   },
-});
-
-const readLabels = defineMessages({
   read: {
     id: 'search.itemRead',
     defaultMessage: 'Read',
@@ -84,6 +82,26 @@ const readLabels = defineMessages({
     id: 'search.itemUnread',
     defaultMessage: 'Unread',
     description: 'Describes media unread',
+  },
+  empty: {
+    id: 'search.empty',
+    defaultMessage: 'Empty',
+    description: 'Allow filtering by claim with no value set',
+  },
+  notEmpty: {
+    id: 'search.notEmpty',
+    defaultMessage: 'Not empty',
+    description: 'Allow filtering by claim with any value set',
+  },
+  emptyAssign: {
+    id: 'search.emptyAssign',
+    defaultMessage: 'Not assigned',
+    description: 'Allow filtering by assigned_to with no value set',
+  },
+  notEmptyAssign: {
+    id: 'search.notEmptyAssign',
+    defaultMessage: 'Assigned',
+    description: 'Allow filtering by assigned_to with any value set',
   },
 });
 
@@ -145,6 +163,12 @@ class SearchFields extends React.Component {
   handleProjectClick = (projectIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'projects', projectIds),
+    );
+  }
+
+  handleHasClaimClick = (claimValue) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'has_claim', claimValue),
     );
   }
 
@@ -286,16 +310,27 @@ class SearchFields extends React.Component {
       team.tag_texts.edges.map(t => t.node.text) : [];
 
     const types = [
-      { value: 'claims', label: this.props.intl.formatMessage(typeLabels.claim) },
-      { value: 'links', label: this.props.intl.formatMessage(typeLabels.link) },
-      { value: 'images', label: this.props.intl.formatMessage(typeLabels.image) },
-      { value: 'videos', label: this.props.intl.formatMessage(typeLabels.video) },
-      { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audio) },
+      { value: 'claims', label: this.props.intl.formatMessage(messages.claim) },
+      { value: 'links', label: this.props.intl.formatMessage(messages.link) },
+      { value: 'images', label: this.props.intl.formatMessage(messages.image) },
+      { value: 'videos', label: this.props.intl.formatMessage(messages.video) },
+      { value: 'audios', label: this.props.intl.formatMessage(messages.audio) },
     ];
 
     const readValues = [
-      { value: '0', label: this.props.intl.formatMessage(readLabels.unread) },
-      { value: '1', label: this.props.intl.formatMessage(readLabels.read) },
+      { value: '0', label: this.props.intl.formatMessage(messages.unread) },
+      { value: '1', label: this.props.intl.formatMessage(messages.read) },
+    ];
+
+    const hasClaimOptions = [
+      { label: this.props.intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
+    ];
+
+    const assignedToOptions = [
+      { label: this.props.intl.formatMessage(messages.notEmptyAssign), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.emptyAssign), value: 'NO_VALUE', exclusive: true },
+      { label: '', value: '' },
     ];
 
     const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
@@ -333,6 +368,21 @@ class SearchFields extends React.Component {
               onChange={this.handleProjectClick}
               readOnly={Boolean(project)}
               onRemove={() => this.handleRemoveField('projects')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      has_claim: (
+        <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<RuleIcon />}
+              allowSearch={false}
+              selected={this.props.query.has_claim}
+              options={hasClaimOptions}
+              onChange={this.handleHasClaimClick}
+              onRemove={() => this.handleRemoveField('has_claim')}
             />
           )}
         </FormattedMessage>
@@ -516,7 +566,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.assigned_to}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              options={assignedToOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
               onChange={this.handleAssignedUserClick}
               onRemove={() => this.handleRemoveField('assigned_to')}
             />

@@ -21,6 +21,11 @@ module AppSpecHelpers
     false
   end
 
+  def click(selector)
+    element = wait_for_selector(selector)
+    element.click
+  end
+
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
@@ -143,7 +148,6 @@ module AppSpecHelpers
 
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media__image').click
     wait_for_selector('.without-file')
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
     wait_for_selector('.with-file')

@@ -47,7 +47,8 @@ class MediaStatusCommon extends Component {
   state = {};
 
   canUpdate() {
-    return !this.props.readonly && can(this.props.media.permissions, 'update Status');
+    return (!this.props.readonly && can(this.props.media.permissions || '{}', 'update Status'))
+      || this.props.quickAdd;
   }
 
   handleCloseMenu = () => {
@@ -92,12 +93,12 @@ class MediaStatusCommon extends Component {
   render() {
     const { media } = this.props;
     const { statuses } = media.team.verification_statuses;
-    const currentStatus = getStatus(media.team.verification_statuses, media.last_status);
+    const currentStatus = getStatus(media.team.verification_statuses, media.last_status || this.props.currentStatus);
 
     return (
       <StyledMediaStatus className="media-status">
         <Button
-          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status)}`}
+          className={`media-status__label media-status__current ${MediaStatusCommon.currentStatusToClass(media.last_status || this.props.currentStatus)}`}
           style={{ backgroundColor: currentStatus.style.color, color: 'white', minHeight: 41 }}
           variant="contained"
           disableElevation
@@ -119,7 +120,7 @@ class MediaStatusCommon extends Component {
               key={status.id}
               className={`${bemClass(
                 'media-status__menu-item',
-                media.last_status === status.id,
+                media.last_status === status.id || this.props.currentStatus === status.id,
                 '--current',
               )} media-status__menu-item--${status.id.replace('_', '-')}`}
               onClick={() => this.handleStatusClick(status.id)}
@@ -140,6 +141,13 @@ class MediaStatusCommon extends Component {
 
 MediaStatusCommon.propTypes = {
   setFlashMessage: PropTypes.func.isRequired,
+  quickAdd: PropTypes.bool,
+  currentStatus: PropTypes.string,
+};
+
+MediaStatusCommon.defaultProps = {
+  quickAdd: false,
+  currentStatus: 'undetermined',
 };
 
 MediaStatusCommon.contextTypes = {

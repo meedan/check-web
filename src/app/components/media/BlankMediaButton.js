@@ -103,6 +103,7 @@ const BlankMediaButton = ({
               defaultMessage="Add to imported report"
             /> : null
         }
+        team={team}
         open={showItemDialog}
         onDismiss={handleCloseItemDialog}
         onSubmit={handleSubmitNew}

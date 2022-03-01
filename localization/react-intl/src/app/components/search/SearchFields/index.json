@@ -35,6 +35,26 @@
     "defaultMessage": "Unread"
   },
   {
+    "id": "search.empty",
+    "description": "Allow filtering by claim with no value set",
+    "defaultMessage": "Empty"
+  },
+  {
+    "id": "search.notEmpty",
+    "description": "Allow filtering by claim with any value set",
+    "defaultMessage": "Not empty"
+  },
+  {
+    "id": "search.emptyAssign",
+    "description": "Allow filtering by assigned_to with no value set",
+    "defaultMessage": "Not assigned"
+  },
+  {
+    "id": "search.notEmptyAssign",
+    "description": "Allow filtering by assigned_to with any value set",
+    "defaultMessage": "Assigned"
+  },
+  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
@@ -53,6 +73,11 @@
     "id": "search.folderHeading",
     "description": "Prefix label for field to filter by folder to which items belong",
     "defaultMessage": "Folder is"
+  },
+  {
+    "id": "search.claim",
+    "description": "Prefix label for field to filter by claim",
+    "defaultMessage": "Claim field is"
   },
   {
     "id": "search.collection",
