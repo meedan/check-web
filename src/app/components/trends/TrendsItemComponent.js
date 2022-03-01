@@ -23,6 +23,7 @@ import {
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 import MediaExpanded from '../media/MediaExpanded';
+import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
@@ -164,7 +165,13 @@ const useStyles = makeStyles(theme => ({
 
 // FIXME: Break into smaller components
 
-const TrendsItemComponent = ({ cluster, teams, setFlashMessage }) => {
+const TrendsItemComponent = ({
+  cluster,
+  teams,
+  setFlashMessage,
+  listIndex,
+  buildSiblingUrl,
+}) => {
   const classes = useStyles();
 
   const allMedias = cluster?.items?.edges.map(item => JSON.parse(JSON.stringify(item.node)));
@@ -301,199 +308,206 @@ const TrendsItemComponent = ({ cluster, teams, setFlashMessage }) => {
   );
 
   return (
-    <Box className={classes.main} display="flex" justifyContent="space-between">
-      <Box className={['media__column', classes.claimsColumn].join(' ')}>
-        <Column>
-          <Typography className={classes.columnTitle}>
-            <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claim descriptions and ratings" />
-          </Typography>
-          <Box pl={1} mb={2}>
-            <Typography variant="body2" component="div">
-              <FormattedMessage id="trendItem.claimDescriptionSubtitle" defaultMessage="{number} organizations added a claim description." values={{ number: cluster.claim_descriptions.edges.length }} />
+    <>
+      <NextPreviousLinks
+        buildSiblingUrl={buildSiblingUrl}
+        listQuery={{ trends: true }}
+        listIndex={listIndex}
+      />
+      <Box className={classes.main} display="flex" justifyContent="space-between">
+        <Box className={['media__column', classes.claimsColumn].join(' ')}>
+          <Column>
+            <Typography className={classes.columnTitle}>
+              <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claim descriptions and ratings" />
             </Typography>
-          </Box>
-          <Box mt={2}>
-            { cluster.claim_descriptions.edges.length === 0 ?
-              <ClaimCard
-                claimDescription=""
-                content={
-                  <CardContent>
-                    <FormattedMessage id="trendItem.noClaims" defaultMessage="Import this group of media to be the first to add a claim description and publish a report." />
-                  </CardContent>
-                }
-              /> : null }
-            { cluster.claim_descriptions.edges.map(e => e.node).map(claim => (
-              <ClaimCard
-                claimDescription={claim.description}
-                content={
-                  <React.Fragment>
-                    <CardHeader
-                      avatar={<Avatar src={claim.project_media.team.avatar} />}
-                      title={claim.project_media.team.name}
-                    />
-                    <CardContent>
-                      <strong className={classes.claim}>{claim.description}</strong>
-                      <Box mt={2}>
-                        <FormattedMessage
-                          id="trendItem.rating"
-                          defaultMessage="Rating: {rating}"
-                          values={{ rating: getStatus(claim.project_media.team.verification_statuses, claim.project_media.last_status).label }}
-                        />
-                      </Box>
-                      <Box mt={1}>
-                        <FormattedMessage
-                          id="trendItem.publishedAt"
-                          defaultMessage="Report published: {date}"
-                          values={{
-                            date: (
-                              claim?.project_media?.report_status === 'published' ?
-                                <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
-                                <span style={{ color: opaqueBlack38 }}>
-                                  <FormattedMessage id="trendItem.notPublished" defaultMessage="Not published yet" />
-                                </span>
-                            ),
-                          }}
-                        />
-                      </Box>
-                    </CardContent>
-                  </React.Fragment>
-                }
-              />
-            ))}
-          </Box>
-        </Column>
-      </Box>
-      <Box className={['media__column', classes.mediasColumn].join(' ')}>
-        <Column>
-          <Typography className={classes.columnTitle}>
-            <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: medias.length }} />
-          </Typography>
-          <Grid container alignItems="center">
-            <Grid item xs={6}>
-              <Box display="flex" alignItems="center" className={classes.boxes}>
-                <Box className={classes.box}>
-                  <Typography variant="caption"><FormattedMessage id="trendItem.requestsCount" defaultMessage="Requests" description="Label displayed on cluster item page" /></Typography>
-                  <br />
-                  <strong>{cluster.requests_count}</strong>
-                </Box>
-                <Box className={classes.box}>
-                  <Typography variant="caption"><FormattedMessage id="trendItem.submitted" defaultMessage="Submitted" description="Label displayed on cluster item page" /></Typography>
-                  <br />
-                  <strong><TimeBefore date={parseStringUnixTimestamp(cluster.first_item_at)} /></strong>
-                </Box>
-                <Box className={classes.box}>
-                  <Typography variant="caption"><FormattedMessage id="trendItem.lastSubmittedAt" defaultMessage="Last submitted" description="Label displayed on cluster item page" /></Typography>
-                  <br />
-                  <strong><TimeBefore date={parseStringUnixTimestamp(cluster.last_item_at)} /></strong>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
-                <FormattedMessage id="trendItem.sortBy" defaultMessage="Sort by" /><br />
-                <Select
-                  value={sortBy}
-                  onChange={handleChange}
-                  input={<OutlinedInput name="sort-select" margin="dense" />}
-                  className={classes.selectSort}
-                >
-                  <MenuItem value="mostRequests">Most requests</MenuItem>
-                  <MenuItem value="leastRequests">Least requests</MenuItem>
-                  <MenuItem value="oldest">Newest</MenuItem>
-                  <MenuItem value="newest">Oldest</MenuItem>
-                </Select>
+            <Box pl={1} mb={2}>
+              <Typography variant="body2" component="div">
+                <FormattedMessage id="trendItem.claimDescriptionSubtitle" defaultMessage="{number} organizations added a claim description." values={{ number: cluster.claim_descriptions.edges.length }} />
               </Typography>
-            </Grid>
-          </Grid>
-          {
-            medias
-              .sort(sortOptions[sortBy])
-              .map(item => <ItemCard item={item} />)
-          }
-        </Column>
-      </Box>
-      <Box className={['media__column', classes.mediaColumn].join(' ')} mt={2} mr={2}>
-        <Card className={classes.cardDetail}>
-          { selectedItem ?
-            <MediaExpanded
-              media={selectedItem}
-              linkTitle={selectedItem?.title}
-              mediaUrl={selectedItem?.full_url}
-              isTrends
-            /> : null }
-        </Card>
-      </Box>
-
-      <ConfirmProceedDialog
-        open={importingClaim !== null}
-        title={
-          <FormattedMessage
-            id="trendsItem.importTitle"
-            defaultMessage="Import claims and medias to workspace"
-            description="Dialog title when importing a claim from trends page."
-          />
-        }
-        body={(
-          <React.Fragment>
-            <Typography paragraph>
-              <FormattedMessage
-                id="trendsItem.importDescription"
-                defaultMessage="A new claim will be created in your workspace with media."
-                description="Dialog description when importing a claim from trends page."
-              />
+            </Box>
+            <Box mt={2}>
+              { cluster.claim_descriptions.edges.length === 0 ?
+                <ClaimCard
+                  claimDescription=""
+                  content={
+                    <CardContent>
+                      <FormattedMessage id="trendItem.noClaims" defaultMessage="Import this group of media to be the first to add a claim description and publish a report." />
+                    </CardContent>
+                  }
+                /> : null }
+              { cluster.claim_descriptions.edges.map(e => e.node).map(claim => (
+                <ClaimCard
+                  claimDescription={claim.description}
+                  content={
+                    <React.Fragment>
+                      <CardHeader
+                        avatar={<Avatar src={claim.project_media.team.avatar} />}
+                        title={claim.project_media.team.name}
+                      />
+                      <CardContent>
+                        <strong className={classes.claim}>{claim.description}</strong>
+                        <Box mt={2}>
+                          <FormattedMessage
+                            id="trendItem.rating"
+                            defaultMessage="Rating: {rating}"
+                            values={{ rating: getStatus(claim.project_media.team.verification_statuses, claim.project_media.last_status).label }}
+                          />
+                        </Box>
+                        <Box mt={1}>
+                          <FormattedMessage
+                            id="trendItem.publishedAt"
+                            defaultMessage="Report published: {date}"
+                            values={{
+                              date: (
+                                claim?.project_media?.report_status === 'published' ?
+                                  <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
+                                  <span style={{ color: opaqueBlack38 }}>
+                                    <FormattedMessage id="trendItem.notPublished" defaultMessage="Not published yet" />
+                                  </span>
+                              ),
+                            }}
+                          />
+                        </Box>
+                      </CardContent>
+                    </React.Fragment>
+                  }
+                />
+              ))}
+            </Box>
+          </Column>
+        </Box>
+        <Box className={['media__column', classes.mediasColumn].join(' ')}>
+          <Column>
+            <Typography className={classes.columnTitle}>
+              <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: medias.length }} />
             </Typography>
-            <Box my={3}>
-              <FormControl variant="outlined" fullWidth>
-                <InputLabel labelId="import-to-workspace-label">
-                  <FormattedMessage
-                    id="trendsItem.importSelectLabel"
-                    defaultMessage="Import to workspace"
-                    description="Select field label used in import claim dialog from trends page."
-                  />
-                </InputLabel>
-                <Select
-                  labelId="import-to-workspace-label"
-                  value={selectedTeam}
-                  onChange={(e) => { setSelectedTeam(e.target.value); }}
-                  label={
+            <Grid container alignItems="center">
+              <Grid item xs={6}>
+                <Box display="flex" alignItems="center" className={classes.boxes}>
+                  <Box className={classes.box}>
+                    <Typography variant="caption"><FormattedMessage id="trendItem.requestsCount" defaultMessage="Requests" description="Label displayed on cluster item page" /></Typography>
+                    <br />
+                    <strong>{cluster.requests_count}</strong>
+                  </Box>
+                  <Box className={classes.box}>
+                    <Typography variant="caption"><FormattedMessage id="trendItem.submitted" defaultMessage="Submitted" description="Label displayed on cluster item page" /></Typography>
+                    <br />
+                    <strong><TimeBefore date={parseStringUnixTimestamp(cluster.first_item_at)} /></strong>
+                  </Box>
+                  <Box className={classes.box}>
+                    <Typography variant="caption"><FormattedMessage id="trendItem.lastSubmittedAt" defaultMessage="Last submitted" description="Label displayed on cluster item page" /></Typography>
+                    <br />
+                    <strong><TimeBefore date={parseStringUnixTimestamp(cluster.last_item_at)} /></strong>
+                  </Box>
+                </Box>
+              </Grid>
+              <Grid item xs={6}>
+                <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
+                  <FormattedMessage id="trendItem.sortBy" defaultMessage="Sort by" /><br />
+                  <Select
+                    value={sortBy}
+                    onChange={handleChange}
+                    input={<OutlinedInput name="sort-select" margin="dense" />}
+                    className={classes.selectSort}
+                  >
+                    <MenuItem value="mostRequests">Most requests</MenuItem>
+                    <MenuItem value="leastRequests">Least requests</MenuItem>
+                    <MenuItem value="oldest">Newest</MenuItem>
+                    <MenuItem value="newest">Oldest</MenuItem>
+                  </Select>
+                </Typography>
+              </Grid>
+            </Grid>
+            {
+              medias
+                .sort(sortOptions[sortBy])
+                .map(item => <ItemCard item={item} />)
+            }
+          </Column>
+        </Box>
+        <Box className={['media__column', classes.mediaColumn].join(' ')} mt={2} mr={2}>
+          <Card className={classes.cardDetail}>
+            { selectedItem ?
+              <MediaExpanded
+                media={selectedItem}
+                linkTitle={selectedItem?.title}
+                mediaUrl={selectedItem?.full_url}
+                isTrends
+              /> : null }
+          </Card>
+        </Box>
+
+        <ConfirmProceedDialog
+          open={importingClaim !== null}
+          title={
+            <FormattedMessage
+              id="trendsItem.importTitle"
+              defaultMessage="Import claims and medias to workspace"
+              description="Dialog title when importing a claim from trends page."
+            />
+          }
+          body={(
+            <React.Fragment>
+              <Typography paragraph>
+                <FormattedMessage
+                  id="trendsItem.importDescription"
+                  defaultMessage="A new claim will be created in your workspace with media."
+                  description="Dialog description when importing a claim from trends page."
+                />
+              </Typography>
+              <Box my={3}>
+                <FormControl variant="outlined" fullWidth>
+                  <InputLabel labelId="import-to-workspace-label">
                     <FormattedMessage
                       id="trendsItem.importSelectLabel"
                       defaultMessage="Import to workspace"
                       description="Select field label used in import claim dialog from trends page."
                     />
-                  }
-                >
-                  { teams.sort((a, b) => (a.name > b.name) ? 1 : -1).map(team => (
-                    <MenuItem value={team.dbid}>{team.name}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </Box>
-            <TextField
-              label={
-                <FormattedMessage
-                  id="trendsItem.importTextLabel"
-                  defaultMessage="Claim description"
-                  description="Text field label used in import claim dialog from trends page."
-                />
-              }
-              variant="outlined"
-              onBlur={(e) => { setImportingClaim(e.target.value); }}
-              defaultValue={importingClaim}
-              multiline
-              rows={3}
-              rowsMax={Infinity}
-              fullWidth
-            />
-          </React.Fragment>
-        )}
-        proceedDisabled={!selectedTeam || !importingClaim}
-        proceedLabel={<FormattedMessage id="trendsItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from trends page" />}
-        onProceed={handleImport}
-        onCancel={() => { setImportingClaim(null); }}
-        isSaving={isImporting}
-      />
-    </Box>
+                  </InputLabel>
+                  <Select
+                    labelId="import-to-workspace-label"
+                    value={selectedTeam}
+                    onChange={(e) => { setSelectedTeam(e.target.value); }}
+                    label={
+                      <FormattedMessage
+                        id="trendsItem.importSelectLabel"
+                        defaultMessage="Import to workspace"
+                        description="Select field label used in import claim dialog from trends page."
+                      />
+                    }
+                  >
+                    { teams.sort((a, b) => (a.name > b.name) ? 1 : -1).map(team => (
+                      <MenuItem value={team.dbid}>{team.name}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </Box>
+              <TextField
+                label={
+                  <FormattedMessage
+                    id="trendsItem.importTextLabel"
+                    defaultMessage="Claim description"
+                    description="Text field label used in import claim dialog from trends page."
+                  />
+                }
+                variant="outlined"
+                onBlur={(e) => { setImportingClaim(e.target.value); }}
+                defaultValue={importingClaim}
+                multiline
+                rows={3}
+                rowsMax={Infinity}
+                fullWidth
+              />
+            </React.Fragment>
+          )}
+          proceedDisabled={!selectedTeam || !importingClaim}
+          proceedLabel={<FormattedMessage id="trendsItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from trends page" />}
+          onProceed={handleImport}
+          onCancel={() => { setImportingClaim(null); }}
+          isSaving={isImporting}
+        />
+      </Box>
+    </>
   );
 };
 

@@ -12,6 +12,11 @@ export default function MediaPage({ route, routeParams, location }) {
     buildSiblingUrl,
   } = getListUrlQueryAndIndex(routeParams, location.query);
 
+  console.log('listUrl', listUrl);
+  console.log('listQuery', listQuery);
+  console.log('listIndex', listIndex);
+  console.log('buildSiblingUrl', buildSiblingUrl);
+
   const teamSlug = routeParams.team;
   const projectId = parseInt(routeParams.projectId, 10) || null;
   const listId = parseInt(routeParams.listId, 10) || null;

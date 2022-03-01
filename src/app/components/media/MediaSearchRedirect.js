@@ -75,6 +75,9 @@ export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIn
                 node {
                   id
                   dbid
+                  cluster {
+                    dbid
+                  }
                 }
               }
             }
@@ -93,7 +96,7 @@ export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIn
           }
           const edge = props.search.medias.edges[0];
           if (edge) {
-            browserHistory.push(buildSiblingUrl(edge.node.dbid, listIndex));
+            browserHistory.push(buildSiblingUrl(edge.node.cluster.dbid, listIndex));
             return <CircularProgress />; // while the page loads
           }
           return <BrokenLink />;

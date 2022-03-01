@@ -345,7 +345,12 @@ function SearchResultsComponent({
       urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
     }
 
-    return `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
+    let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
+    if (resultType === 'trends') {
+      result = `/check/trends/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
+    }
+
+    return result;
   };
 
   React.useEffect(() => {

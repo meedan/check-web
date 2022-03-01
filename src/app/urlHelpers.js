@@ -30,6 +30,10 @@ const pageSize = 20;
  * from the `routeParams`.)
  */
 function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
+  console.log('routeParams', routeParams);
+  console.log('locationQuery', locationQuery);
+  console.log('locationPathname', locationPathname);
+
   let { listPath } = locationQuery;
   if (!listPath) {
     if (routeParams.projectId) {
@@ -105,4 +109,73 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   };
 }
 
-export { getListUrlQueryAndIndex }; // eslint-disable-line import/prefer-default-export
+// We're writing our own simplified function because we don't have a `team` and neither a `projectId`
+function getListUrlQueryAndIndexForTrends(routeParams, locationQuery, locationPathname) {
+  // What do we have then?
+  // check/trends/cluster/<clustedId>
+
+  // These are undefined so far
+  console.log('routeParams', routeParams);
+  console.log('locationQuery', locationQuery);
+  console.log('locationPathname', locationPathname);
+
+  // const listPath = `/${routeParams.team}/trends`;
+  const listPath = '/hello-2022/trends';
+
+  // build `listQuery` from routeParams and ?listQuery=...
+  const listQueryFromUrl = safelyParseJSON(locationQuery.listQuery, {});
+  const listQuery = { ...listQueryFromUrl };
+
+  const listIndex = parseInt(locationQuery.listIndex, 10);
+  if (Number.isNaN(listIndex) || listIndex < 0) {
+    return {
+      listUrl: locationQuery.listQuery
+        ? `${listPath}/${encodeURIComponent(locationQuery.listQuery)}`
+        : listPath,
+      listQuery,
+      listIndex: null,
+      buildSiblingUrl: null,
+    };
+  }
+
+  // Now `listIndex` is an integer pointing into `listQuery` ... that is,
+  // if `listQuery` did _not_ includes `esoffset`.
+
+  // listUrl: the "back-button URL"
+  let listUrl;
+  if (Object.keys(listQueryFromUrl).length === 0 && listIndex < pageSize) {
+    listUrl = listPath;
+  } else {
+    const listUrlQuery = { ...listQueryFromUrl };
+    if (listIndex >= pageSize) {
+      listUrlQuery.esoffset = listIndex - (listIndex % pageSize);
+    }
+    listUrl = `${listPath}/${encodeURIComponent(JSON.stringify(listUrlQuery))}`;
+  }
+
+  // siblingUrlPrefix: for generating URLs like
+  //
+  // * /my-team/media/${projectMediaId} (for all-items or trash)
+  // * /my-team/project/3/media/${projectMediaId} (for project)
+  const siblingUrlPrefix = '/check/trends/cluster';
+
+  return {
+    listUrl,
+    buildSiblingUrl: (projectMediaIdOrClusterId, siblingListIndex) => {
+      const params = new URLSearchParams();
+      if (locationQuery.listPath) {
+        params.set('listPath', locationQuery.listPath);
+      }
+      if (locationQuery.listQuery) {
+        params.set('listQuery', locationQuery.listQuery);
+      }
+      params.set('listIndex', String(siblingListIndex));
+
+      return `${siblingUrlPrefix}/${projectMediaIdOrClusterId}?${params.toString()}`;
+    },
+    listQuery,
+    listIndex,
+  };
+}
+
+export { getListUrlQueryAndIndex, getListUrlQueryAndIndexForTrends }; // eslint-disable-line import/prefer-default-export

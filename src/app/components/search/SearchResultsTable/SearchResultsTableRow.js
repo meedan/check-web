@@ -35,7 +35,9 @@ export default function SearchResultsTableRow({
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
 
-  const projectMediaOrTrendsUrl = resultType === 'trends' ? `/check/trends/cluster/${projectMedia.cluster?.dbid}` : projectMediaUrl;
+  // This is why we don't get a listIndex in our trends item url
+  // We are forcing the url instead of getting it from `projectMediaUrl` which is built from `buildProjectMediaUrl`
+  const projectMediaOrTrendsUrl = projectMediaUrl;
 
   const handleClick = React.useCallback(() => {
     if (!projectMediaOrTrendsUrl) {
