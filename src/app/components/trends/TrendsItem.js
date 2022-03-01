@@ -6,20 +6,10 @@ import TrendsItemComponent from './TrendsItemComponent';
 import { getListUrlQueryAndIndexForTrends } from '../../urlHelpers';
 
 const TrendsItem = ({ routeParams, location }) => {
-  const {
-    listUrl,
-    listQuery,
-    listIndex,
-    buildSiblingUrl,
-  } = getListUrlQueryAndIndexForTrends(routeParams, location.query);
-
-  console.log('listUrl', listUrl);
-  console.log('listQuery', listQuery);
-  console.log('listIndex', listIndex);
-  console.log('buildSiblingUrl', buildSiblingUrl);
-
   const renderQuery = ({ error, props }) => {
     if (!error && props) {
+      const newRouteParams = Object.assign({ team: props.root.current_team.slug }, routeParams);
+      const { listIndex, buildSiblingUrl } = getListUrlQueryAndIndexForTrends(newRouteParams, location.query);
       return (
         <TrendsItemComponent
           cluster={props.cluster}
@@ -38,6 +28,9 @@ const TrendsItem = ({ routeParams, location }) => {
       query={graphql`
         query TrendsItemQuery($clusterId: ID!) {
           root {
+            current_team {
+              slug
+            }
             current_user {
               team_users(status: "member", first: 10000) {
                 edges {

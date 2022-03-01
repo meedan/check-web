@@ -30,10 +30,6 @@ const pageSize = 20;
  * from the `routeParams`.)
  */
 function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
-  console.log('routeParams', routeParams);
-  console.log('locationQuery', locationQuery);
-  console.log('locationPathname', locationPathname);
-
   let { listPath } = locationQuery;
   if (!listPath) {
     if (routeParams.projectId) {
@@ -110,17 +106,8 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
 }
 
 // We're writing our own simplified function because we don't have a `team` and neither a `projectId`
-function getListUrlQueryAndIndexForTrends(routeParams, locationQuery, locationPathname) {
-  // What do we have then?
-  // check/trends/cluster/<clustedId>
-
-  // These are undefined so far
-  console.log('routeParams', routeParams);
-  console.log('locationQuery', locationQuery);
-  console.log('locationPathname', locationPathname);
-
-  // const listPath = `/${routeParams.team}/trends`;
-  const listPath = '/hello-2022/trends';
+function getListUrlQueryAndIndexForTrends(routeParams, locationQuery) {
+  const listPath = `/${routeParams.team}/trends`;
 
   // build `listQuery` from routeParams and ?listQuery=...
   const listQueryFromUrl = safelyParseJSON(locationQuery.listQuery, {});

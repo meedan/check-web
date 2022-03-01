@@ -313,6 +313,7 @@ const TrendsItemComponent = ({
         buildSiblingUrl={buildSiblingUrl}
         listQuery={{ trends: true }}
         listIndex={listIndex}
+        objectType="cluster"
       />
       <Box className={classes.main} display="flex" justifyContent="space-between">
         <Box className={['media__column', classes.claimsColumn].join(' ')}>
