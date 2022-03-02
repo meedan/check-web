@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import ValueListCell from './ValueListCell';
 import { urlFromSearchQuery } from '../../search/Search';
-import { safelyParseJSON } from '../../../helpers';
+import { safelyParseJSON, truncateLength } from '../../../helpers';
 import { checkBlue } from '../../../styles/js/shared';
 
 const useStyles = makeStyles({
@@ -34,7 +34,7 @@ export default function SourcesCell({ projectMedia }) {
     <ValueListCell
       onClick={searchBySource}
       values={Object.values(sources).map(source => (
-        <div className={classes.source}>{source}</div>
+        <div className={classes.source}>{truncateLength(source, 25)}</div>
       ))}
       noValueLabel="-"
     />
