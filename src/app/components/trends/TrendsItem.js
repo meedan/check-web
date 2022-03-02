@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import TrendsItemComponent from './TrendsItemComponent';
-import { getListUrlQueryAndIndexForTrends } from '../../urlHelpers';
+import { getListUrlQueryAndIndex } from '../../urlHelpers';
 
 const TrendsItem = ({ routeParams, location }) => {
   const renderQuery = ({ error, props }) => {
     if (!error && props) {
-      const newRouteParams = Object.assign({ team: props.root.current_team.slug }, routeParams);
-      const { listIndex, buildSiblingUrl } = getListUrlQueryAndIndexForTrends(newRouteParams, location.query);
+      const newRouteParams = Object.assign({ team: props.root.current_team.slug, objectType: 'trends' }, routeParams);
+      const { listIndex, buildSiblingUrl } = getListUrlQueryAndIndex(newRouteParams, location.query);
       return (
         <TrendsItemComponent
           cluster={props.cluster}

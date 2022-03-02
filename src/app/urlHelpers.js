@@ -30,7 +30,11 @@ const pageSize = 20;
  * from the `routeParams`.)
  */
 function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
+  const objectType = routeParams.objectType || 'media';
   let { listPath } = locationQuery;
+  if (objectType === 'trends') {
+    listPath = `/${routeParams.team}/trends`;
+  }
   if (!listPath) {
     if (routeParams.projectId) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
@@ -82,69 +86,13 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   //
   // * /my-team/media/${projectMediaId} (for all-items or trash)
   // * /my-team/project/3/media/${projectMediaId} (for project)
-  const siblingUrlPrefix = routeParams.projectId
-    ? `${listPath}/media`
-    : `/${routeParams.team}/media`;
-
-  return {
-    listUrl,
-    buildSiblingUrl: (projectMediaId, siblingListIndex) => {
-      const params = new URLSearchParams();
-      if (locationQuery.listPath) {
-        params.set('listPath', locationQuery.listPath);
-      }
-      if (locationQuery.listQuery) {
-        params.set('listQuery', locationQuery.listQuery);
-      }
-      params.set('listIndex', String(siblingListIndex));
-
-      return `${siblingUrlPrefix}/${projectMediaId}?${params.toString()}`;
-    },
-    listQuery,
-    listIndex,
-  };
-}
-
-// We're writing our own simplified function because we don't have a `team` and neither a `projectId`
-function getListUrlQueryAndIndexForTrends(routeParams, locationQuery) {
-  const listPath = `/${routeParams.team}/trends`;
-
-  // build `listQuery` from routeParams and ?listQuery=...
-  const listQueryFromUrl = safelyParseJSON(locationQuery.listQuery, {});
-  const listQuery = { ...listQueryFromUrl };
-
-  const listIndex = parseInt(locationQuery.listIndex, 10);
-  if (Number.isNaN(listIndex) || listIndex < 0) {
-    return {
-      listUrl: locationQuery.listQuery
-        ? `${listPath}/${encodeURIComponent(locationQuery.listQuery)}`
-        : listPath,
-      listQuery,
-      listIndex: null,
-      buildSiblingUrl: null,
-    };
-  }
-
-  // Now `listIndex` is an integer pointing into `listQuery` ... that is,
-  // if `listQuery` did _not_ includes `esoffset`.
-
-  // listUrl: the "back-button URL"
-  let listUrl;
-  if (Object.keys(listQueryFromUrl).length === 0 && listIndex < pageSize) {
-    listUrl = listPath;
+  // * /check/trends/cluster/${clusterId} (for trends)
+  let siblingUrlPrefix = '';
+  if (objectType === 'trends') {
+    siblingUrlPrefix = '/check/trends/cluster';
   } else {
-    const listUrlQuery = { ...listQueryFromUrl };
-    if (listIndex >= pageSize) {
-      listUrlQuery.esoffset = listIndex - (listIndex % pageSize);
-    }
-    listUrl = `${listPath}/${encodeURIComponent(JSON.stringify(listUrlQuery))}`;
+    siblingUrlPrefix = routeParams.projectId ? `${listPath}/media` : `/${routeParams.team}/media`;
   }
-
-  // siblingUrlPrefix: for generating URLs like
-  //
-  // * /my-team/media/${projectMediaId} (for all-items or trash)
-  // * /my-team/project/3/media/${projectMediaId} (for project)
-  const siblingUrlPrefix = '/check/trends/cluster';
 
   return {
     listUrl,
@@ -165,4 +113,4 @@ function getListUrlQueryAndIndexForTrends(routeParams, locationQuery) {
   };
 }
 
-export { getListUrlQueryAndIndex, getListUrlQueryAndIndexForTrends }; // eslint-disable-line import/prefer-default-export
+export { getListUrlQueryAndIndex }; // eslint-disable-line import/prefer-default-export
