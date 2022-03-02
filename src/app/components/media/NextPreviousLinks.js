@@ -72,6 +72,7 @@ function NextPreviousLinksComponent({
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex + 1}
+        objectType={objectType}
       >
         <NextIcon />
       </NextOrPreviousButton>
