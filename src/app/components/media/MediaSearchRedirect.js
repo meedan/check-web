@@ -62,7 +62,12 @@ Error.propTypes = {
  * Check your logic higher up in the component tree: this element should be
  * unmounted if its props are about to change.
  */
-export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIndex }) {
+export default function MediaSearchRedirect({
+  buildSiblingUrl,
+  listQuery,
+  listIndex,
+  objectType,
+}) {
   return (
     <QueryRenderer
       environment={Relay.Store}
@@ -75,6 +80,7 @@ export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIn
                 node {
                   id
                   dbid
+                  cluster_id
                 }
               }
             }
@@ -93,7 +99,8 @@ export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIn
           }
           const edge = props.search.medias.edges[0];
           if (edge) {
-            browserHistory.push(buildSiblingUrl(edge.node.dbid, listIndex));
+            const targetId = objectType === 'media' ? edge.node.dbid : edge.node.cluster_id;
+            browserHistory.push(buildSiblingUrl(targetId, listIndex));
             return <CircularProgress />; // while the page loads
           }
           return <BrokenLink />;

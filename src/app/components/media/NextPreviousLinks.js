@@ -37,7 +37,7 @@ const StyledPager = styled.div`
 `;
 
 function NextPreviousLinksComponent({
-  buildSiblingUrl, listQuery, listIndex, nTotal,
+  buildSiblingUrl, listQuery, listIndex, nTotal, objectType,
 }) {
   return (
     <StyledPager>
@@ -51,6 +51,7 @@ function NextPreviousLinksComponent({
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex - 1}
+        objectType={objectType}
       >
         <PrevIcon />
       </NextOrPreviousButton>
@@ -71,6 +72,7 @@ function NextPreviousLinksComponent({
         buildSiblingUrl={buildSiblingUrl}
         listQuery={listQuery}
         listIndex={listIndex + 1}
+        objectType={objectType}
       >
         <NextIcon />
       </NextOrPreviousButton>
@@ -89,6 +91,7 @@ export default function NextPreviousLinks({
   listQuery,
   listIndex,
   annotationState,
+  objectType,
 }) {
   return (
     <QueryRenderer
@@ -116,6 +119,7 @@ export default function NextPreviousLinks({
             listQuery={listQuery}
             listIndex={listIndex}
             annotationState={annotationState}
+            objectType={objectType}
             nTotal={props.search.number_of_results}
           />
         );
