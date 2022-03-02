@@ -62,6 +62,19 @@ function truncateLength(str, length = 70) {
   return `${str.substring(0, length)}${dots}`;
 }
 
+/**
+ * Uppercase the first character of a string, lowercase the remaining
+ */
+function capitalize(str) {
+  return `${str.substring(0, 1).toUpperCase()}${str.substr(1).toLowerCase()}`;
+}
+
+/**
+ * Return an array of unique values that are in all arrays passed as arguments
+ */
+function intersection(array, ...args) {
+  return array.filter(item => args.every(arr => arr.includes(item)));
+}
 
 /**
  * Convert human-readable file size to bytes
@@ -253,6 +266,8 @@ export { // eslint-disable-line import/no-unused-modules
   getStatus,
   getStatusStyle,
   truncateLength,
+  capitalize,
+  intersection,
   unhumanizeSize,
   convertNumbers2English,
   encodeSvgDataUri,
