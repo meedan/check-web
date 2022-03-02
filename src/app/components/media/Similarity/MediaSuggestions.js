@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSuggestionsComponent from './MediaSuggestionsComponent';
+import MediaSimilaritiesComponent from './MediaSimilaritiesComponent'; // eslint-disable-line no-unused-vars
 import MediasLoading from '../MediasLoading';
 
 const MediaSuggestions = ({ projectMedia }) => {
@@ -14,6 +15,7 @@ const MediaSuggestions = ({ projectMedia }) => {
       query={graphql`
         query MediaSuggestionsQuery($ids: String!) {
           project_media(ids: $ids) {
+            ...MediaSimilaritiesComponent_projectMedia
             id
             dbid
             report_type

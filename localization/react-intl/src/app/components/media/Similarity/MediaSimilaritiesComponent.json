@@ -1,24 +1,7 @@
 [
   {
-    "id": "mediaSimilarities.mainItem",
-    "description": "Adjective, singular. Refers to the main item, as opposed to other similar items",
-    "defaultMessage": "Main"
-  },
-  {
-    "id": "mediaSimilarities.allSimilarMedia",
-    "description": "Adjective, plural. Heading for a list of similar items",
-    "defaultMessage": "Similar"
-  },
-  {
-    "id": "mediaSimilarities.requests",
-    "defaultMessage": "Requests"
-  },
-  {
-    "id": "mediaSimilarities.notes",
-    "defaultMessage": "Notes"
-  },
-  {
-    "id": "mediaSimilarities.clickOnItem",
-    "defaultMessage": "Click on an item"
+    "id": "mediaSimilarities.moreMedias",
+    "description": "Heading for a list of similar medias",
+    "defaultMessage": "More medias"
   }
 ]

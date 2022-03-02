@@ -8,12 +8,9 @@
     "defaultMessage": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
   },
   {
-    "id": "mediaSuggestionsComponent.questionBlank",
-    "defaultMessage": "Is the suggested media similar to the imported report?"
-  },
-  {
     "id": "mediaSuggestionsComponent.question",
-    "defaultMessage": "Is this media a good match for this claim?"
+    "description": "Subtitle for similarity matching widget",
+    "defaultMessage": "Is this media a good match for the claim and medias on the left?"
   },
   {
     "id": "mediaSuggestionsComponent.dialogRejectTitle",
@@ -30,21 +27,5 @@
   {
     "id": "mediaSuggestionsComponent.goBack",
     "defaultMessage": "Back to main view"
-  },
-  {
-    "id": "mediaSuggestionsComponent.requests",
-    "defaultMessage": "Requests"
-  },
-  {
-    "id": "mediaSuggestionsComponent.noRequests",
-    "defaultMessage": "No requests"
-  },
-  {
-    "id": "mediaSuggestionsComponent.notes",
-    "defaultMessage": "Notes"
-  },
-  {
-    "id": "mediaSuggestionsComponent.noNotes",
-    "defaultMessage": "No notes"
   }
 ]

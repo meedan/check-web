@@ -25,7 +25,6 @@ import MediaSidebar from './MediaSidebar';
 import MediaSource from './MediaSource';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
-import MediaSimilarities from './Similarity/MediaSimilarities';
 import MediaRelated from './Similarity/MediaRelated';
 import CheckContext from '../../CheckContext';
 
@@ -417,8 +416,7 @@ class MediaComponent extends Component {
                 </Box>
               </Column>
             </React.Fragment> : null }
-          { view === 'suggestedMatches' ? <MediaSuggestions projectMedia={media} /> : null }
-          { view === 'similarMedia' ? <MediaSimilarities projectMedia={media} /> : null }
+          { view === 'suggestedMatches' || view === 'similarMedia' ? <MediaSuggestions projectMedia={media} /> : null }
         </StyledThreeColumnLayout>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:

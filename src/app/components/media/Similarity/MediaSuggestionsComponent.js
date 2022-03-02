@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Box from '@material-ui/core/Box';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
@@ -17,29 +15,27 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import MediaSimilaritiesComponent from './MediaSimilaritiesComponent';
+import MediaDetail from '../MediaDetail';
+import MediaExpanded from '../MediaExpanded';
+import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
-import MediaExpanded from '../MediaExpanded';
-import MediaRequests from '../MediaRequests';
-import MediaComments from '../MediaComments';
-import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
   Column,
-  brandHighlight,
   checkBlue,
   completedGreen,
   alertRed,
   brandSecondary,
-  backgroundMain,
+  black54,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   title: {
-    color: brandHighlight,
-    fontSize: 12,
+    fontWeight: 'bold',
     lineHeight: 'normal',
     letterSpacing: 'normal',
   },
@@ -50,7 +46,6 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.5,
   },
   media: {
-    background: 'white',
     border: `1px solid ${brandSecondary}`,
     borderRadius: 8,
     color: 'black',
@@ -68,14 +63,13 @@ const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     margin: theme.spacing(-2),
     marginBottom: 0,
-    borderBottom: `1px solid ${brandSecondary}`,
     position: 'sticky',
     top: theme.spacing(-2),
-    background: backgroundMain,
     zIndex: 2,
   },
   suggestionsBackButton: {
     padding: 0,
+    color: black54,
   },
   suggestionsNoMediaBox: {
     border: `1px solid ${brandSecondary}`,
@@ -329,97 +323,95 @@ const MediaSuggestionsComponent = ({
 
   return (
     <React.Fragment>
-      <Column className="media__column">
-        <Box className={classes.suggestionsTopBar}>
-          <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
-            <FormattedMessage
-              id="mediaSuggestionsComponent.back"
-              defaultMessage="Back"
-            />
-          </Button>
-          <Typography variant="button" display="block" className={classes.title}>
-            <FormattedMessage
-              id="mediaSuggestionsComponent.title"
-              defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
-              values={{
-                current: total === 0 ? 0 : index + 1,
-                total,
-              }}
-            />
-          </Typography>
-        </Box>
-        <Box display="flex" width="1" justifyContent="space-between" alignItems="center">
-          <Box display="flex" alignItems="center">
-            <Typography variant="body2">
-              { mainItem.report_type === 'blank' ?
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.questionBlank"
-                  defaultMessage="Is the suggested media similar to the imported report?"
-                /> :
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.question"
-                  defaultMessage="Is this media a good match for this claim?"
-                /> }
-            </Typography>
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.helpIcon} />
-            </IconButton>
-          </Box>
-          <Box display="flex" alignItems="center">
-            <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
-              <KeyboardArrowLeftIcon fontSize="large" />
-            </IconButton>
-            {can(team.permissions, 'update Relationship') ?
-              <IconButton
-                onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
-                style={{ color: completedGreen }}
-                disabled={total === 0}
-                className={total === 0 ? classes.disabled : ''}
-                id="similarity-media-item__accept-relationship"
-              >
-                <CheckCircleOutlineIcon fontSize="large" />
-              </IconButton> : null
-            }
-            {can(team.permissions, 'destroy Relationship') ?
-              <React.Fragment>
-                <IconButton
-                  onClick={openDialog}
-                  style={{ color: alertRed }}
-                  disabled={total === 0}
-                  className={total === 0 ? classes.disabled : ''}
-                  id="similarity-media-item__reject-relationship"
-                >
-                  <HighlightOffIcon fontSize="large" />
-                </IconButton>
-                <SelectProjectDialog
-                  open={isDialogOpen}
-                  excludeProjectDbids={[]}
-                  title={
-                    <FormattedMessage
-                      id="mediaSuggestionsComponent.dialogRejectTitle"
-                      defaultMessage="Choose a destination folder for this item"
-                    />
-                  }
-                  cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
-                  submitButtonClassName="media-actions-bar__add-button"
-                  onCancel={closeDialog}
-                  onSubmit={handleReject}
-                />
-              </React.Fragment> : null
-            }
-            <IconButton onClick={handleNext} disabled={!hasNext}>
-              <KeyboardArrowRightIcon fontSize="large" />
-            </IconButton>
-          </Box>
-        </Box>
+      <Column className="media__column" overflow="hidden">
+        <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
+          <FormattedMessage
+            id="mediaSuggestionsComponent.back"
+            defaultMessage="Back"
+          />
+        </Button>
+        <MediaDetail media={mainItem} />
+        <MediaSimilaritiesComponent projectMedia={mainItem} />
+      </Column>
+      <Column className="media__suggestions-column">
         <Box className={projectMedia ? classes.media : classes.noMedia}>
           { projectMedia ?
-            <MediaExpanded
-              media={projectMedia}
-              mediaUrl={itemUrl}
-              linkTitle
-            /> :
+            <div>
+              <Box display="flex" alignItems="center" className={classes.suggestionsTopBar}>
+                <Typography variant="body" className={classes.title}>
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.title"
+                    defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+                    values={{
+                      current: total === 0 ? 0 : index + 1,
+                      total,
+                    }}
+                  />
+                </Typography>
+                <IconButton onClick={handleHelp}>
+                  <HelpIcon className={classes.helpIcon} />
+                </IconButton>
+              </Box>
+              <Typography variant="body2">
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.question"
+                  defaultMessage="Is this media a good match for the claim and medias on the left?"
+                  description="Subtitle for similarity matching widget"
+                />
+              </Typography>
+              <Box display="flex" alignItems="center">
+                <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
+                  <KeyboardArrowLeftIcon fontSize="large" />
+                </IconButton>
+                {can(team.permissions, 'update Relationship') ?
+                  <IconButton
+                    onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
+                    style={{ color: completedGreen }}
+                    disabled={total === 0}
+                    className={total === 0 ? classes.disabled : ''}
+                    id="similarity-media-item__accept-relationship"
+                  >
+                    <CheckCircleOutlineIcon fontSize="large" />
+                  </IconButton> : null
+                }
+                {can(team.permissions, 'destroy Relationship') ?
+                  <React.Fragment>
+                    <IconButton
+                      onClick={openDialog}
+                      style={{ color: alertRed }}
+                      disabled={total === 0}
+                      className={total === 0 ? classes.disabled : ''}
+                      id="similarity-media-item__reject-relationship"
+                    >
+                      <HighlightOffIcon fontSize="large" />
+                    </IconButton>
+                    <SelectProjectDialog
+                      open={isDialogOpen}
+                      excludeProjectDbids={[]}
+                      title={
+                        <FormattedMessage
+                          id="mediaSuggestionsComponent.dialogRejectTitle"
+                          defaultMessage="Choose a destination folder for this item"
+                        />
+                      }
+                      cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                      submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
+                      submitButtonClassName="media-actions-bar__add-button"
+                      onCancel={closeDialog}
+                      onSubmit={handleReject}
+                    />
+                  </React.Fragment> : null
+                }
+                <IconButton onClick={handleNext} disabled={!hasNext}>
+                  <KeyboardArrowRightIcon fontSize="large" />
+                </IconButton>
+              </Box>
+              <MediaExpanded
+                media={projectMedia}
+                mediaUrl={itemUrl}
+                linkTitle
+              />
+            </div> :
             <Box justifyContent="center" className={classes.suggestionsNoMediaBox}>
               <Box mb={2}>
                 <Typography>
@@ -438,62 +430,6 @@ const MediaSuggestionsComponent = ({
             </Box>
           }
         </Box>
-      </Column>
-      <Column className="media__annotations-column" overflow="hidden">
-        { team.smooch_bot ?
-          <React.Fragment>
-            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.requests"
-                    defaultMessage="Requests"
-                  />
-                }
-                value="requests"
-                className="media-tab__requests"
-              />
-            </Tabs>
-            { /* Set maxHeight to screen height - (media bar + tabs) */ }
-            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-              { projectMedia ?
-                <MediaRequests media={{ dbid: projectMedia.dbid }} all={false} /> :
-                <Typography variant="subtitle2" className={classes.spaced}>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.noRequests"
-                    defaultMessage="No requests"
-                  />
-                </Typography>
-              }
-            </Box>
-          </React.Fragment> :
-          <React.Fragment>
-            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.notes"
-                    defaultMessage="Notes"
-                  />
-                }
-                value="notes"
-                className="media-tab__notes"
-              />
-            </Tabs>
-            { /* Set maxHeight to screen height - (media bar + tabs) */ }
-            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-              { projectMedia ?
-                <MediaComments media={{ dbid: projectMedia.dbid }} /> :
-                <Typography variant="subtitle2" className={classes.spaced}>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.noNotes"
-                    defaultMessage="No notes"
-                  />
-                </Typography>
-              }
-            </Box>
-          </React.Fragment>
-        }
       </Column>
     </React.Fragment>
   );
