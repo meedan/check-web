@@ -84,7 +84,9 @@ shared_examples 'report' do
 
     # Claim
     expect(@driver.page_source.include?('My claim description')).to be(false)
+    wait_for_selector('#media-fact-check__title')
     wait_for_selector('#media-claim__description').send_keys('My claim description')
+    wait_for_text_change(' ', '#media-claim__description', :css)
     wait_for_selector('#media__fact-check').click
 
     # Fact-check
@@ -92,6 +94,7 @@ shared_examples 'report' do
     expect(@driver.page_source.include?('My fact-check summary')).to be(false)
     wait_for_selector('#media-fact-check__title').send_keys('My fact-check title')
     wait_for_selector('#media-fact-check__summary').send_keys('My fact-check summary')
+    wait_for_text_change(' ', '#media-fact-check__summary', :css)
     wait_for_selector('#media__claim').click
     sleep 5
 

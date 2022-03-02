@@ -21,11 +21,6 @@ module AppSpecHelpers
     false
   end
 
-  def click(selector)
-    element = wait_for_selector(selector)
-    element.click
-  end
-
   def wait_for_selector(selector, type = :css, timeout = 20, reload = false, index: 0)
     wait_for_selector_list_size(selector, index + 1, type, timeout, 10, 'unknown', reload)[index]
   end
@@ -266,11 +261,13 @@ module AppSpecHelpers
 
   def create_folder_or_collection(project_name, project_type_selector)
     name = project_name || "Project #{Time.now.to_i}"
+    wait_for_selector('.project-list__link-trash')
     wait_for_selector('.projects-list__add-folder-or-collection').click
     wait_for_selector(project_type_selector).click
     wait_for_selector('.new-project__title input').send_keys(name)
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.message')
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
     # I'm getting "stale element reference" here:
     # wait_for_selector_list('.project-list__link').last.click
     @driver.execute_script("var items = document.querySelectorAll('.project-list__link') ; items[items.length - 1].click()")
