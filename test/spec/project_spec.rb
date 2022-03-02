@@ -58,6 +58,7 @@ shared_examples 'project' do
     api_create_team_project_and_claim_and_redirect_to_media_page({ use_default_project: true })
     wait_for_selector('.media-detail')
     wait_for_selector('.project-header__back-button').click
+    wait_for_selector('#search-input')
     wait_for_selector('#projects-list__add-filtered-list').click
     wait_for_selector('#new-project__title').send_keys('Filtered list')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
@@ -176,6 +177,7 @@ shared_examples 'project' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
+    wait_for_selector("//span[contains(text(), 'Displayed columns')]", :xpath)
     wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[11].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click

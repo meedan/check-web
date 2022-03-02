@@ -39,7 +39,7 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Second item
-    click('.media-search__next-item')
+    press_button('.media-search__next-item')
     wait_for_selector_none("//span[contains(text(), '1 of 3')]", :xpath)
     @driver.navigate.refresh
     wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
@@ -56,7 +56,7 @@ shared_examples 'media' do |type|
 
     # Third item
     wait_for_selector('#media-search__current-item')
-    click('.media-search__next-item')
+    press_button('.media-search__next-item')
     wait_for_selector_none("//span[contains(text(), '2 of 3')]", :xpath)
     wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
 
