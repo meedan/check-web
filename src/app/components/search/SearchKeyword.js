@@ -33,7 +33,7 @@ import {
   units,
   caption,
   black16,
-  brandHighlight,
+  checkBlue,
 } from '../../styles/js/shared';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
 
@@ -75,7 +75,7 @@ const styles = theme => ({
   },
   endAdornmentActive: {
     color: 'white',
-    backgroundColor: brandHighlight,
+    backgroundColor: checkBlue,
   },
   searchButton: {
     marginLeft: theme.spacing(1),

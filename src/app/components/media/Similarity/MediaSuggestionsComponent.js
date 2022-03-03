@@ -49,12 +49,14 @@ const useStyles = makeStyles(theme => ({
     border: `1px solid ${brandSecondary}`,
     borderRadius: 8,
     color: 'black',
+    backgroundColor: 'white',
   },
   noMedia: {
     color: 'black',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 14,
+    backgroundColor: 'white',
   },
   spaced: {
     padding: theme.spacing(1),
@@ -88,7 +90,7 @@ const MediaSuggestionsComponent = ({
   const classes = useStyles();
   const params = new URLSearchParams(window.location.search);
   const listIndex = params.get('listIndex');
-  const mainItemUrl = `${window.location.pathname.replace(/\/suggested-matches$/, '')}?listIndex=${listIndex}`;
+  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
   const [index, setIndex] = React.useState(0);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
@@ -96,7 +98,7 @@ const MediaSuggestionsComponent = ({
 
   const relationship = relationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
-  const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/suggested-matches$/, projectMedia.dbid) : '';
+  const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/similar-media$/, projectMedia.dbid) : '';
   const total = relationships.length;
   const hasNext = (index + 1 < total);
   const hasPrevious = (index > 0);
@@ -323,7 +325,7 @@ const MediaSuggestionsComponent = ({
 
   return (
     <React.Fragment>
-      <Column className="media__column" overflow="hidden">
+      <Column className="media-suggestions__center-column" overflow="hidden">
         <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
           <FormattedMessage
             id="mediaSuggestionsComponent.back"

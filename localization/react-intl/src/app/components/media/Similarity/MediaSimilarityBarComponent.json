@@ -12,14 +12,6 @@
     "defaultMessage": "This media has been suggested to be similar to an existing claim."
   },
   {
-    "id": "mediaSimilarityBarComponent.back",
-    "defaultMessage": "Back"
-  },
-  {
-    "id": "mediaSimilarityBarComponent.similarMediaWithValue",
-    "defaultMessage": "{count, plural, one {# similar media} other {# similar media}}"
-  },
-  {
     "id": "mediaSimilarityBarComponent.similarMedia",
     "description": "Plural. Heading for the number of similar media",
     "defaultMessage": "Similar media"

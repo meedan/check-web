@@ -4,12 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import IconArrowBack from '@material-ui/icons/ArrowBack';
 import { Link, browserHistory } from 'react-router';
 import {
-  black54,
+  opaqueBlack54,
   checkBlue,
-  brandHighlight,
   brandSecondary,
   backgroundMain,
 } from '../../../styles/js/shared';
@@ -26,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     background: backgroundMain,
     zIndex: 2,
   },
-  links: {
+  spacing: {
     display: 'flex',
     gap: `${theme.spacing(3)}px`,
     alignItems: 'center',
@@ -35,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     fontWeight: 'bold',
     fontSize: 14,
-    color: black54,
+    color: opaqueBlack54,
     textAlign: 'center',
     textDecoration: 'none',
     '&:hover': {
@@ -53,6 +51,9 @@ const useStyles = makeStyles(theme => ({
   },
   similarityMessage: {
     padding: theme.spacing(1),
+    paddingLeft: theme.spacing(2),
+    fontWeight: 'bold',
+    fontSize: 14,
     color: 'black',
     textAlign: 'left',
   },
@@ -68,8 +69,6 @@ const MediaSimilarityBarComponent = ({
   canAdd,
   isBlank,
   isPublished,
-  showSuggestionsCount,
-  showBackButton,
 }) => {
   const classes = useStyles();
   const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
@@ -81,22 +80,10 @@ const MediaSimilarityBarComponent = ({
     return null;
   }
 
-  const MaybeLink = ({ to, style, children }) => {
-    if (to) {
-      return <Link to={to} className={classes.link} style={style}>{children}</Link>;
-    }
-    return <span className={classes.link} style={style}>{children}</span>;
-  };
-
-  const handleGoBack = () => {
-    const itemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
-    browserHistory.push(itemUrl);
-  };
-
   if (hasMain) {
     const mainItemLink = `/${confirmedMainItem.team.slug}/media/${confirmedMainItem.dbid}/similar-media`;
     return (
-      <Box className={[classes.root, classes.link, classes.similarityMessage].join(' ')}>
+      <Box className={[classes.root, classes.spacing, classes.similarityMessage].join(' ')}>
         <FormattedMessage
           id="mediaSimilarityBarComponent.hasMain"
           defaultMessage="This media has been associated with an existing claim."
@@ -113,9 +100,9 @@ const MediaSimilarityBarComponent = ({
   }
 
   if (suggestedMainItem) {
-    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/suggested-matches`;
+    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/similar-media`;
     return (
-      <Box className={[classes.root, classes.link, classes.similarityMessage].join(' ')}>
+      <Box className={[classes.root, classes.spacing, classes.similarityMessage].join(' ')}>
         <FormattedMessage
           id="mediaSimilarityBarComponent.hasSuggestedMain"
           defaultMessage="This media has been suggested to be similar to an existing claim."
@@ -133,52 +120,33 @@ const MediaSimilarityBarComponent = ({
 
   return (
     <Box className={classes.root} display="flex" justifyContent="space-between" alignItems="center">
-      <Box className={classes.links}>
-        { showBackButton ?
-          <Box>
-            <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.similarityBackButton}>
-              <FormattedMessage
-                id="mediaSimilarityBarComponent.back"
-                defaultMessage="Back"
-              />
-            </Button>
-            <br />
-            <span style={{ color: checkBlue }} className={classes.link}>
-              <FormattedMessage
-                id="mediaSimilarityBarComponent.similarMediaWithValue"
-                defaultMessage="{count, plural, one {# similar media} other {# similar media}}"
-                values={{
-                  count: confirmedSimilarCount,
-                }}
-              />
-            </span>
-          </Box> : null }
-        { !showBackButton ?
-          <MaybeLink
-            to={confirmedSimilarCount > 0 ? `${linkPrefix[0]}/similar-media?listIndex=${listIndex}` : null}
-            style={confirmedSimilarCount > 0 ? { color: checkBlue } : {}}
-          >
-            <FormattedMessage
-              id="mediaSimilarityBarComponent.similarMedia"
-              defaultMessage="Similar media"
-              description="Plural. Heading for the number of similar media"
-            />
-            <br />
-            <span className={classes.similarMediaCount}>{confirmedSimilarCount}</span>
-          </MaybeLink> : null }
-        { showSuggestionsCount ?
-          <MaybeLink
-            to={suggestionsCount > 0 ? `${linkPrefix[0]}/suggested-matches?listIndex=${listIndex}` : null}
-            style={suggestionsCount > 0 ? { color: brandHighlight } : {}}
-          >
-            <FormattedMessage
-              id="mediaSimilarityBarComponent.suggestedMatches"
-              defaultMessage="Suggested media"
-              description="Plural. Heading for the number of suggested media"
-            />
-            <br />
-            <span className={classes.suggestionsCount}>{suggestionsCount}</span>
-          </MaybeLink> : null }
+      <Box className={classes.spacing}>
+        <Link
+          className={classes.link}
+          to={`${linkPrefix[0]}/similar-media?listIndex=${listIndex}`}
+          style={confirmedSimilarCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
+        >
+          <FormattedMessage
+            id="mediaSimilarityBarComponent.similarMedia"
+            defaultMessage="Similar media"
+            description="Plural. Heading for the number of similar media"
+          />
+          <br />
+          <span className={classes.similarMediaCount}>{confirmedSimilarCount}</span>
+        </Link>
+        <Link
+          className={classes.link}
+          to={`${linkPrefix[0]}/similar-media?listIndex=${listIndex}`}
+          style={suggestionsCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
+        >
+          <FormattedMessage
+            id="mediaSimilarityBarComponent.suggestedMatches"
+            defaultMessage="Suggested media"
+            description="Plural. Heading for the number of suggested media"
+          />
+          <br />
+          <span className={classes.suggestionsCount}>{suggestionsCount}</span>
+        </Link>
       </Box>
       <Box>
         { canAdd ?
@@ -192,11 +160,6 @@ const MediaSimilarityBarComponent = ({
       </Box>
     </Box>
   );
-};
-
-MediaSimilarityBarComponent.defaultProps = {
-  showSuggestionsCount: true,
-  showBackButton: false,
 };
 
 MediaSimilarityBarComponent.propTypes = {
@@ -221,8 +184,6 @@ MediaSimilarityBarComponent.propTypes = {
   canAdd: PropTypes.bool.isRequired,
   isBlank: PropTypes.bool.isRequired,
   isPublished: PropTypes.bool.isRequired,
-  showSuggestionsCount: PropTypes.bool,
-  showBackButton: PropTypes.bool,
 };
 
 export default MediaSimilarityBarComponent;

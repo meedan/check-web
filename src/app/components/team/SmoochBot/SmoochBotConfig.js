@@ -8,7 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { checkBlue, brandHighlight } from '../../../styles/js/shared';
+import { checkBlue } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
   },
   resource: {
-    color: brandHighlight,
+    color: checkBlue,
   },
 }));
 
