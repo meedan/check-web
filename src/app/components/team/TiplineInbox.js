@@ -52,7 +52,7 @@ const TiplineInbox = ({ routeParams }) => (
             icon={<ForumIcon />}
             teamSlug={routeParams.team}
             query={query}
-            hideFields={['channels', 'country']}
+            hideFields={['channels', 'country', 'teams']}
             page="tipline-inbox"
           />
         );

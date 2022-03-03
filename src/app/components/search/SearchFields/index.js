@@ -30,6 +30,7 @@ import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
+import SearchFieldTeams from './SearchFieldTeams';
 import SearchFieldCountry from './SearchFieldCountry';
 
 /**
@@ -211,6 +212,12 @@ class SearchFields extends React.Component {
   handleSourceClick = (sources) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'sources', sources),
+    );
+  }
+
+  handleTeamsClick = (teamIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'teams', teamIds),
     );
   }
 
@@ -587,6 +594,13 @@ class SearchFields extends React.Component {
           selected={this.props.query.sources}
           onChange={(newValue) => { this.handleSourceClick(newValue); }}
           onRemove={() => this.handleRemoveField('sources')}
+        />
+      ),
+      teams: (
+        <SearchFieldTeams
+          selected={this.props.query.teams}
+          onChange={(newValue) => { this.handleTeamsClick(newValue); }}
+          onRemove={() => this.handleRemoveField('teams')}
         />
       ),
       country: (

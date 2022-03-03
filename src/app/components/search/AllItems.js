@@ -13,7 +13,7 @@ export default function AllItems({ routeParams }) {
       query={safelyParseJSON(routeParams.query, {})}
       teamSlug={routeParams.team}
       hideFields={[
-        'country',
+        'country', 'teams',
       ]}
     />
   );
