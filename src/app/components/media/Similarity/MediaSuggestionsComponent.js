@@ -330,88 +330,97 @@ const MediaSuggestionsComponent = ({
             defaultMessage="Back"
           />
         </Button>
+        <Typography variant="body1" gutterBottom>
+          <strong>
+            <FormattedMessage id="mediaSuggestionsComponent.mediasCount" defaultMessage="{number} Medias" values={{ number: mainItem.confirmedSimilarCount }} />
+          </strong>
+        </Typography>
+        <Typography variant="caption" paragraph>
+          <FormattedMessage id="mediaSuggestionsComponent.requestsCount" defaultMessage="{number} tipline requests across all medias" values={{ number: mainItem.demand }} />
+        </Typography>
         <MediaDetail media={mainItem} />
         <MediaSimilaritiesComponent projectMedia={mainItem} />
       </Column>
       <Column className="media__suggestions-column">
-        <Box className={projectMedia ? classes.media : classes.noMedia}>
-          { projectMedia ?
-            <div>
-              <Box display="flex" alignItems="center" className={classes.suggestionsTopBar}>
-                <Typography variant="body" className={classes.title}>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.title"
-                    defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
-                    values={{
-                      current: total === 0 ? 0 : index + 1,
-                      total,
-                    }}
-                  />
-                </Typography>
-                <IconButton onClick={handleHelp}>
-                  <HelpIcon className={classes.helpIcon} />
-                </IconButton>
-              </Box>
-              <Typography variant="body2">
+        { projectMedia ?
+          <div>
+            <Box display="flex" alignItems="center" className={classes.suggestionsTopBar}>
+              <Typography variant="body" className={classes.title}>
                 <FormattedMessage
-                  id="mediaSuggestionsComponent.question"
-                  defaultMessage="Is this media a good match for the claim and medias on the left?"
-                  description="Subtitle for similarity matching widget"
+                  id="mediaSuggestionsComponent.title"
+                  defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+                  values={{
+                    current: total === 0 ? 0 : index + 1,
+                    total,
+                  }}
                 />
               </Typography>
-              <Box display="flex" alignItems="center">
-                <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
-                  <KeyboardArrowLeftIcon fontSize="large" />
-                </IconButton>
-                {can(team.permissions, 'update Relationship') ?
+              <IconButton onClick={handleHelp}>
+                <HelpIcon className={classes.helpIcon} />
+              </IconButton>
+            </Box>
+            <Typography variant="body2">
+              <FormattedMessage
+                id="mediaSuggestionsComponent.question"
+                defaultMessage="Is this media a good match for the claim and medias on the left?"
+                description="Subtitle for similarity matching widget"
+              />
+            </Typography>
+            <Box display="flex" alignItems="center">
+              <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
+                <KeyboardArrowLeftIcon fontSize="large" />
+              </IconButton>
+              {can(team.permissions, 'update Relationship') ?
+                <IconButton
+                  onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
+                  style={{ color: completedGreen }}
+                  disabled={total === 0}
+                  className={total === 0 ? classes.disabled : ''}
+                  id="similarity-media-item__accept-relationship"
+                >
+                  <CheckCircleOutlineIcon fontSize="large" />
+                </IconButton> : null
+              }
+              {can(team.permissions, 'destroy Relationship') ?
+                <React.Fragment>
                   <IconButton
-                    onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
-                    style={{ color: completedGreen }}
+                    onClick={openDialog}
+                    style={{ color: alertRed }}
                     disabled={total === 0}
                     className={total === 0 ? classes.disabled : ''}
-                    id="similarity-media-item__accept-relationship"
+                    id="similarity-media-item__reject-relationship"
                   >
-                    <CheckCircleOutlineIcon fontSize="large" />
-                  </IconButton> : null
-                }
-                {can(team.permissions, 'destroy Relationship') ?
-                  <React.Fragment>
-                    <IconButton
-                      onClick={openDialog}
-                      style={{ color: alertRed }}
-                      disabled={total === 0}
-                      className={total === 0 ? classes.disabled : ''}
-                      id="similarity-media-item__reject-relationship"
-                    >
-                      <HighlightOffIcon fontSize="large" />
-                    </IconButton>
-                    <SelectProjectDialog
-                      open={isDialogOpen}
-                      excludeProjectDbids={[]}
-                      title={
-                        <FormattedMessage
-                          id="mediaSuggestionsComponent.dialogRejectTitle"
-                          defaultMessage="Choose a destination folder for this item"
-                        />
-                      }
-                      cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                      submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
-                      submitButtonClassName="media-actions-bar__add-button"
-                      onCancel={closeDialog}
-                      onSubmit={handleReject}
-                    />
-                  </React.Fragment> : null
-                }
-                <IconButton onClick={handleNext} disabled={!hasNext}>
-                  <KeyboardArrowRightIcon fontSize="large" />
-                </IconButton>
-              </Box>
-              <MediaExpanded
-                media={projectMedia}
-                mediaUrl={itemUrl}
-                linkTitle
-              />
-            </div> :
+                    <HighlightOffIcon fontSize="large" />
+                  </IconButton>
+                  <SelectProjectDialog
+                    open={isDialogOpen}
+                    excludeProjectDbids={[]}
+                    title={
+                      <FormattedMessage
+                        id="mediaSuggestionsComponent.dialogRejectTitle"
+                        defaultMessage="Choose a destination folder for this item"
+                      />
+                    }
+                    cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                    submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
+                    submitButtonClassName="media-actions-bar__add-button"
+                    onCancel={closeDialog}
+                    onSubmit={handleReject}
+                  />
+                </React.Fragment> : null
+              }
+              <IconButton onClick={handleNext} disabled={!hasNext}>
+                <KeyboardArrowRightIcon fontSize="large" />
+              </IconButton>
+            </Box>
+          </div> : null }
+        <Box className={projectMedia ? classes.media : classes.noMedia}>
+          { projectMedia ?
+            <MediaExpanded
+              media={projectMedia}
+              mediaUrl={itemUrl}
+              linkTitle
+            /> :
             <Box justifyContent="center" className={classes.suggestionsNoMediaBox}>
               <Box mb={2}>
                 <Typography>

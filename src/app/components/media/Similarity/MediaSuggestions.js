@@ -20,6 +20,7 @@ const MediaSuggestions = ({ projectMedia }) => {
             dbid
             report_type
             confirmedSimilarCount: confirmed_similar_items_count
+            demand
             suggested_similar_relationships(first: 10000) {
               edges {
                 node {

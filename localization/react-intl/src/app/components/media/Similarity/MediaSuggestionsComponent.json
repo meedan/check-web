@@ -4,6 +4,14 @@
     "defaultMessage": "Back"
   },
   {
+    "id": "mediaSuggestionsComponent.mediasCount",
+    "defaultMessage": "{number} Medias"
+  },
+  {
+    "id": "mediaSuggestionsComponent.requestsCount",
+    "defaultMessage": "{number} tipline requests across all medias"
+  },
+  {
     "id": "mediaSuggestionsComponent.title",
     "defaultMessage": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
   },
