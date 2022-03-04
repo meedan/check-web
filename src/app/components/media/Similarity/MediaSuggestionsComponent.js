@@ -325,7 +325,7 @@ const MediaSuggestionsComponent = ({
 
   return (
     <React.Fragment>
-      <Column className="media-suggestions__center-column" overflow="hidden">
+      <Column className="media-suggestions__center-column">
         <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
           <FormattedMessage
             id="mediaSuggestionsComponent.back"

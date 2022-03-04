@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import MediaRoute from '../../relay/MediaRoute';
+import MediasLoading from './MediasLoading';
 import MediaExpandedActions from './MediaExpandedActions';
 import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
@@ -115,7 +116,7 @@ class MediaExpandedComponent extends Component {
   render() {
     const { classes } = this.props;
     const {
-      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, isTrends,
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, hideActions,
     } = this.props;
     const { playbackRate } = this.state;
 
@@ -262,7 +263,7 @@ class MediaExpandedComponent extends Component {
           }
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
-          <MediaExpandedSecondRow projectMedia={media} isTrends={isTrends} />
+          <MediaExpandedSecondRow projectMedia={media} />
           { isImage ?
             <Box mb={2}>
               <TypographyBlack54 variant="body2" color={black54}>
@@ -299,7 +300,7 @@ class MediaExpandedComponent extends Component {
           {embedCard}
         </CardContent>
         {
-          isTrends ? null : (
+          hideActions ? null : (
             <CardActions>
               <MediaExpandedActions
                 currentUserRole={currentUserRole}
@@ -409,10 +410,6 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
 });
 
 const MediaExpanded = (props) => {
-  if (props.isTrends) {
-    return <MediaExpandedComponent {...props} />;
-  }
-
   const projectId = props.media.project_id;
   let ids = `${props.media.dbid},${projectId}`;
   if (props.media.team && props.media.team.dbid) {
@@ -423,6 +420,7 @@ const MediaExpanded = (props) => {
   return (
     <Relay.RootContainer
       Component={MediaExpandedContainer}
+      renderLoading={() => <MediasLoading count={1} />}
       renderFetched={data => <MediaExpandedContainer {...props} {...data} />}
       route={route}
     />
@@ -430,3 +428,4 @@ const MediaExpanded = (props) => {
 };
 
 export default withStyles(useStyles)(MediaExpanded);
+export { MediaExpandedComponent };

@@ -2,10 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
 import MediaItem from './MediaItem';
+import MediaExpanded from '../MediaExpanded';
 import { can } from '../../Can';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}));
 
 function sort(items) {
   if (!items) {
@@ -17,6 +27,7 @@ function sort(items) {
 let listener = null;
 
 const MediaSimilaritiesComponent = ({ projectMedia }) => {
+  const classes = useStyles();
   const [selectedProjectMediaDbid, setSelectedProjectMediaDbid] = React.useState(null);
 
   listener = () => {
@@ -36,6 +47,13 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
 
   return (
     <div className="media__more-medias">
+      { selectedProjectMediaDbid ?
+        <Dialog open maxWidth="sm" fullWidth>
+          <DialogContent classes={classes}>
+            <MediaExpanded media={{ dbid: selectedProjectMediaDbid }} hideActions />
+          </DialogContent>
+        </Dialog>
+        : null }
       <Box my={2}>
         <Typography variant="body">
           <strong>

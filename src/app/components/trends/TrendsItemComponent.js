@@ -22,7 +22,7 @@ import {
 } from '@material-ui/core';
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
-import MediaExpanded from '../media/MediaExpanded';
+import { MediaExpandedComponent } from '../media/MediaExpanded';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
 import {
@@ -415,11 +415,11 @@ const TrendsItemComponent = ({ cluster, teams, setFlashMessage }) => {
       <Box className={['media__column', classes.mediaColumn].join(' ')} mt={2} mr={2}>
         <Card className={classes.cardDetail}>
           { selectedItem ?
-            <MediaExpanded
+            <MediaExpandedComponent
               media={selectedItem}
               linkTitle={selectedItem?.title}
               mediaUrl={null}
-              isTrends
+              hideActions
             /> : null }
         </Card>
       </Box>
