@@ -416,7 +416,7 @@ const MediaItem = ({
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={(event) => swallowClick(event, handleSwitch)}>
+            <MenuItem onClick={event => swallowClick(event, handleSwitch)}>
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
@@ -424,7 +424,7 @@ const MediaItem = ({
                 }
               />
             </MenuItem>
-            <MenuItem onClick={(event) => swallowClick(event, openDialog)}>
+            <MenuItem onClick={event => swallowClick(event, openDialog)}>
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
@@ -436,7 +436,7 @@ const MediaItem = ({
         </Box> : null }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={(event) => swallowClick(event, openDialog)}>
+          <IconButton onClick={event => swallowClick(event, openDialog)}>
             <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }
