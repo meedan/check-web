@@ -127,8 +127,14 @@ const MediaItem = ({
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
+  const swallowClick = (event, callback) => {
+    event.stopPropagation();
+    callback();
+  };
+
   const handleOpenMenu = (event) => {
     setAnchorEl(event.currentTarget);
+    event.stopPropagation();
   };
 
   const handleCloseMenu = () => {
@@ -410,7 +416,7 @@ const MediaItem = ({
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={handleSwitch}>
+            <MenuItem onClick={(event) => swallowClick(event, handleSwitch)}>
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
@@ -418,7 +424,7 @@ const MediaItem = ({
                 }
               />
             </MenuItem>
-            <MenuItem onClick={openDialog}>
+            <MenuItem onClick={(event) => swallowClick(event, openDialog)}>
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
@@ -430,7 +436,7 @@ const MediaItem = ({
         </Box> : null }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={openDialog}>
+          <IconButton onClick={(event) => swallowClick(event, openDialog)}>
             <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }

@@ -15,7 +15,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Import similar media into this item')]", :xpath).click
     add_related_item('Claim 0')
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
-    expect(@driver.page_source.include?('Similar')).to be(true)
+    expect(@driver.page_source.include?('More media')).to be(true)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
@@ -28,14 +28,14 @@ shared_examples 'similarity' do
     @driver.navigate.refresh
     wait_for_selector('.media-similarity__menu-icon')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
-    expect(@driver.page_source.include?('Similar')).to be(true)
+    expect(@driver.page_source.include?('More media')).to be(true)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     expect(@driver.page_source.include?('Claim 1')).to be(true)
     # list similar items
-    wait_for_selector("//span[contains(text(), '2 similar media')]", :xpath).click
+    wait_for_selector("//span[contains(text(), '2 Medias')]", :xpath).click
     wait_for_selector_none('.media-tab__metadata"')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
-    expect(@driver.page_source.include?('Similar')).to be(true)
+    expect(@driver.page_source.include?('More media')).to be(true)
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     expect(@driver.page_source.include?('Claim 1')).to be(true)
     # pin similar item
@@ -44,7 +44,7 @@ shared_examples 'similarity' do
     wait_for_selector('.similarity-media-item__delete-relationship')
     wait_for_selector('.similarity-media-item__pin-relationship').click
     wait_for_selector('.message')
-    wait_for_selector("//span[contains(text(), 'Click on an item')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Done, redirecting to new main item…')]", :xpath)
     expect(wait_for_selector('.MuiCardHeader-title').text == 'Claim 0').to be(true)
     # remove similar item
     expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 3
@@ -110,7 +110,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('claim 2')).to be(false)
     wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
     wait_for_selector("//span[contains(text(), '1 of 2 suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Is this media a good match for this claim?')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Is this media a good match for')]", :xpath)
     wait_for_selector('#similarity-media-item__accept-relationship').click
     wait_for_selector("//span[contains(text(), '1 of 1 suggested media')]", :xpath)
     wait_for_selector('#similarity-media-item__reject-relationship').click
@@ -118,7 +118,6 @@ shared_examples 'similarity' do
     wait_for_selector('.media-page__back-button').click
     wait_for_selector('#media-similarity__add-button')
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
-    wait_for_selector('#media-similarity__add-button')
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
     expect(@driver.page_source.include?('claim 2')).to be(true)
