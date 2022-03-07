@@ -76,6 +76,7 @@ function intersection(array, ...args) {
   return array.filter(item => args.every(arr => arr.includes(item)));
 }
 
+
 /**
  * Convert human-readable file size to bytes
  * https://stackoverflow.com/a/6974728/209184

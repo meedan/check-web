@@ -1,0 +1,7 @@
+[
+  {
+    "id": "SearchFieldClusterTeams.label",
+    "description": "Prefix label for field to filter by workspace",
+    "defaultMessage": "Organization is"
+  }
+]
