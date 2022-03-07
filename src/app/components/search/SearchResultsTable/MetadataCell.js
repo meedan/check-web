@@ -3,11 +3,7 @@ import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
 import ValueListCell from './ValueListCell';
-
-function truncate(str, length) {
-  const dots = str.length > length ? '...' : '';
-  return `${str.substring(0, length)}${dots}`;
-}
+import { truncateLength } from '../../../helpers';
 
 const useStyles = makeStyles({
   number: {
@@ -32,7 +28,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
   if (value) {
     switch (type) {
     case 'free_text':
-      value = typeof value === 'string' ? truncate(value, 32) : value;
+      value = typeof value === 'string' ? truncateLength(value, 32) : value;
       break;
     case 'number':
       value = <span className={classes.number}>{value}</span>;
@@ -55,7 +51,7 @@ export default function MetadataCell({ projectMedia, field, type }) {
           rel="noopener noreferrer"
           onClick={e => e.stopPropagation()}
         >
-          {truncate(item.title || item.url, 22)}
+          {truncateLength(item.title || item.url, 22)}
         </a>
       ));
       break;

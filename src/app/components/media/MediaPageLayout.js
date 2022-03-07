@@ -30,6 +30,7 @@ export default function MediaPageLayout({
           buildSiblingUrl={buildSiblingUrl}
           listQuery={listQuery}
           listIndex={listIndex}
+          objectType="media"
         />
       ) : null}
       <StyledTopBar className="media-search__actions-bar">

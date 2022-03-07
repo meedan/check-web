@@ -30,7 +30,11 @@ const pageSize = 20;
  * from the `routeParams`.)
  */
 function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
+  const objectType = routeParams.objectType || 'media';
   let { listPath } = locationQuery;
+  if (objectType === 'trends') {
+    listPath = `/${routeParams.team}/trends`;
+  }
   if (!listPath) {
     if (routeParams.projectId) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
@@ -82,13 +86,17 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   //
   // * /my-team/media/${projectMediaId} (for all-items or trash)
   // * /my-team/project/3/media/${projectMediaId} (for project)
-  const siblingUrlPrefix = routeParams.projectId
-    ? `${listPath}/media`
-    : `/${routeParams.team}/media`;
+  // * /check/trends/cluster/${clusterId} (for trends)
+  let siblingUrlPrefix = '';
+  if (objectType === 'trends') {
+    siblingUrlPrefix = '/check/trends/cluster';
+  } else {
+    siblingUrlPrefix = routeParams.projectId ? `${listPath}/media` : `/${routeParams.team}/media`;
+  }
 
   return {
     listUrl,
-    buildSiblingUrl: (projectMediaId, siblingListIndex) => {
+    buildSiblingUrl: (projectMediaIdOrClusterId, siblingListIndex) => {
       const params = new URLSearchParams();
       if (locationQuery.listPath) {
         params.set('listPath', locationQuery.listPath);
@@ -98,7 +106,7 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
       }
       params.set('listIndex', String(siblingListIndex));
 
-      return `${siblingUrlPrefix}/${projectMediaId}?${params.toString()}`;
+      return `${siblingUrlPrefix}/${projectMediaIdOrClusterId}?${params.toString()}`;
     },
     listQuery,
     listIndex,

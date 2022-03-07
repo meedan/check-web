@@ -136,7 +136,6 @@
     "lodash.merge": "^4.6.0",
     "lodash.mergewith": "^4.6.0",
     "lodash.sortby": "^4.7.0",
-    "lodash.truncate": "^4.4.2",
     "lodash.xor": "^4.5.0",
     "material-ui-popup-state": "1.5.4",
     "memoize-one": "^5.1.1",
