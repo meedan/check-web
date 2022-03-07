@@ -1,4 +1,3 @@
-import truncate from 'lodash.truncate';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
 
@@ -58,9 +57,11 @@ function getStatusStyle(status, property) {
 /**
  * Truncate a string and append ellipsis.
  */
-function truncateLength(text, length = 70) {
-  return truncate(text, { length, separator: /,? +/, ellipsis: '…' });
+function truncateLength(str, length = 70) {
+  const dots = str.length > length ? '...' : '';
+  return `${str.substring(0, length)}${dots}`;
 }
+
 
 /**
  * Convert human-readable file size to bytes

@@ -162,7 +162,6 @@ const AllPossibleColumns = [
     field: 'cluster_fact_checked_by_team_names',
     headerText: <FormattedMessage id="list.clusterFactCheckedByTeamNames" defaultMessage="Report published" description="Table header for column that shows from which workspaces the items in the same cluster have a published report" />,
     cellComponent: ClusterFactCheckedByTeamsCell,
-    align: 'center',
     sortKey: 'cluster_published_reports_count',
   },
   {
