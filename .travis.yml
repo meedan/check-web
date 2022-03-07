@@ -51,11 +51,15 @@ before_install:
 - cp test/config.yml.example test/config.yml
 before_script:
 # run unit and integration tests without up Alegre container
-- if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then docker-compose build web api api-background pender pender-background; fi
-- if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver; fi
+# - if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then docker-compose build web api api-background pender pender-background; fi
+# - if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver; fi
+- if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then echo $TRAVIS_JOB_NAME ; fi
+- if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then echo $TRAVIS_JOB_NAME ; fi
+- docker-compose build 
+- then docker-compose -f docker-compose.yml -f docker-test.yml up -d
 # machine learning tests
-- if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then docker-compose build ; fi
-- if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then docker-compose -f docker-compose.yml -f docker-test.yml up -d ; fi
+# - if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then docker-compose build ; fi
+# - if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then docker-compose -f docker-compose.yml -f docker-test.yml up -d ; fi
 - ./ngrok http 9000 >/dev/null &
 - MAX_WEB_CURL=30;
 - until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
