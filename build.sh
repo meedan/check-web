@@ -1,11 +1,11 @@
 #!/bin/bash
 if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
 then
-docker-compose build web api api-background pender pender-background 
-docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
+  docker-compose build web api api-background pender pender-background 
+  docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
 else
-docker-compose build
-docker-compose -f docker-compose.yml -f docker-test.yml up -d
+  docker-compose build
+  docker-compose -f docker-compose.yml -f docker-test.yml up -d
 until curl --silent -I -f --fail http://localhost:5000; do printf .; sleep 1; done
 fi
 
