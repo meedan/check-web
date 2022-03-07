@@ -53,10 +53,11 @@ before_script:
 # run unit and integration tests without up Alegre container
 # - if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then docker-compose build web api api-background pender pender-background; fi
 # - if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver; fi
-- if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then echo $TRAVIS_JOB_NAME ; fi
-- if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then echo $TRAVIS_JOB_NAME ; fi
+# - if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]; then echo $TRAVIS_JOB_NAME ; fi
+# - if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then echo $TRAVIS_JOB_NAME ; fi
 - docker-compose build 
-- then docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- docker-compose -f docker-compose.yml -f docker-test.yml up -d
+- echo $TRAVIS_JOB_NAME
 # machine learning tests
 # - if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then docker-compose build ; fi
 # - if [[ $TRAVIS_JOB_NAME == 'alegre-bot-tests' ]]; then docker-compose -f docker-compose.yml -f docker-test.yml up -d ; fi
