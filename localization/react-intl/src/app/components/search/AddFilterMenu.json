@@ -90,6 +90,11 @@
     "defaultMessage": "Annotation"
   },
   {
+    "id": "addFilterMenu.Workspace",
+    "description": "Menu option to enable searching items by workspace",
+    "defaultMessage": "Organization"
+  },
+  {
     "id": "addFilterMenu.country",
     "description": "Menu option to enable searching items by country",
     "defaultMessage": "Country"

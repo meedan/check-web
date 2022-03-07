@@ -22,6 +22,7 @@ import ForwardIcon from '@material-ui/icons/Forward';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
+import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import NumberIcon from '../../icons/NumberIcon';
 
 const StyledButton = withStyles({
@@ -262,6 +263,18 @@ const AddFilterMenu = ({
           id="addFilterMenu.annotation"
           defaultMessage="Annotation"
           description="Menu option to enable searching items by annotation fields"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__workspace',
+      key: 'cluster_teams',
+      icon: <CorporateFareIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.Workspace"
+          defaultMessage="Organization"
+          description="Menu option to enable searching items by workspace"
         />
       ),
     },
