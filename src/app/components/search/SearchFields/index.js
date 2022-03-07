@@ -598,6 +598,7 @@ class SearchFields extends React.Component {
       ),
       cluster_teams: (
         <SearchFieldClusterTeams
+          teamSlug={team.slug}
           selected={this.props.query.cluster_teams}
           onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
           onRemove={() => this.handleRemoveField('cluster_teams')}

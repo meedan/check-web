@@ -8,6 +8,7 @@ import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldClusterTeams = ({
+  teamSlug,
   selected,
   onChange,
   onRemove,
@@ -15,21 +16,18 @@ const SearchFieldClusterTeams = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldClusterTeamsQuery {
-        root {
-          current_team {
-            country_teams
-          }
+      query SearchFieldClusterTeamsQuery($teamSlug: String!) {
+        team(slug: $teamSlug) {
+          country_teams
         }
       }
     `}
+    variables={{ teamSlug }}
     render={({ error, props }) => {
       if (!error && props) {
-        let options = [];
-        if (props.root) {
-          const { country_teams: countryTeams } = props.root ? props.root.current_team : {};
-          options = Object.keys(countryTeams).map(t => ({ label: countryTeams[t], value: t }));
-        }
+        const { country_teams: countryTeams } = props.team;
+        const options = Object.keys(countryTeams).map(t => ({ label: countryTeams[t], value: t }));
+
         return (
           <FormattedMessage id="SearchFieldClusterTeams.label" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
             { label => (
