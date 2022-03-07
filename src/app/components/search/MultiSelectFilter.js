@@ -52,7 +52,7 @@ const useTagStyles = makeStyles({
     lineHeight: '22px',
     color: 'white',
     backgroundColor: checkBlue,
-    borderRadius: '2px',
+    borderRadius: '4px',
     boxSizing: 'content-box',
     padding: '0 8px 0 8px',
     outline: 0,
