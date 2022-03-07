@@ -8,6 +8,7 @@ before_install:
 - export LC_ALL=C.UTF-8
 - export LANG=C.UTF-8
 - export LANGUAGE=C.UTF-8
+- echo $TRAVIS_JOB_NAME
 # Needed to fix error when installing Pender gems
 # Error: `There was an error while loading `rswag.gemspec`: Illformed requirement`
 # https://github.com/jetpackworkflow/rswag/blob/master/rswag/rswag.gemspec#L18
