@@ -51,10 +51,11 @@ before_install:
 - cp config-server.js.example config-server.js
 - cp test/config.yml.example test/config.yml
 before_script:
-if: $TRAVIS_JOB_NAME = "integration-and-unit-tests"
+- echo $TRAVIS_JOB_NAME
+- if: $TRAVIS_JOB_NAME = "integration-and-unit-tests"
   - docker-compose build web api api-background pender pender-background
   - docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
-if: $TRAVIS_JOB_NAME = "alegre-bot-tests"
+- if: $TRAVIS_JOB_NAME = "alegre-bot-tests"
   - docker-compose build
   - docker-compose -f docker-compose.yml -f docker-test.yml up
 # run unit and integration tests without up Alegre container
