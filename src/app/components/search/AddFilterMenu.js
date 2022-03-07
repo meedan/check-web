@@ -268,7 +268,7 @@ const AddFilterMenu = ({
     },
     {
       id: 'add-filter-menu__workspace',
-      key: 'teams',
+      key: 'cluster_teams',
       icon: <CorporateFareIcon />,
       label: (
         <FormattedMessage

@@ -7,7 +7,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import MultiSelectFilter from '../MultiSelectFilter';
 
-const SearchFieldTeams = ({
+const SearchFieldClusterTeams = ({
   selected,
   onChange,
   onRemove,
@@ -15,18 +15,23 @@ const SearchFieldTeams = ({
   <QueryRenderer
     environment={Relay.Store}
     query={graphql`
-      query SearchFieldTeamsQuery {
-        about {
-          teams
+      query SearchFieldClusterTeamsQuery {
+        root {
+          current_team {
+            country_teams
+          }
         }
       }
     `}
     render={({ error, props }) => {
       if (!error && props) {
-        const { teams } = props.about;
-        const options = Object.keys(teams).map(t => ({ label: teams[t], value: t }));
+        let options = [];
+        if (props.root) {
+          const { country_teams: countryTeams } = props.root ? props.root.current_team : {};
+          options = Object.keys(countryTeams).map(t => ({ label: countryTeams[t], value: t }));
+        }
         return (
-          <FormattedMessage id="SearchFieldTeams.label" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
+          <FormattedMessage id="SearchFieldClusterTeams.label" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
             { label => (
               <MultiSelectFilter
                 label={label}
@@ -47,14 +52,14 @@ const SearchFieldTeams = ({
   />
 );
 
-SearchFieldTeams.defaultProps = {
+SearchFieldClusterTeams.defaultProps = {
   selected: [],
 };
 
-SearchFieldTeams.propTypes = {
+SearchFieldClusterTeams.propTypes = {
   selected: PropTypes.array,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };
 
-export default SearchFieldTeams;
+export default SearchFieldClusterTeams;

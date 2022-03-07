@@ -20,6 +20,11 @@ const SearchFieldCountry = ({
         about {
           countries
         }
+        root {
+          current_team {
+            country_teams
+          }
+        }
       }
     `}
     render={({ error, props }) => {
