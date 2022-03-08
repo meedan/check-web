@@ -1,6 +1,13 @@
 import { safelyParseJSON } from './helpers';
 
-const pageSize = 20;
+const pageSize = 50;
+
+function getPathnameAndSearch(url) {
+  const pathnameMatch = url.match(/(.*)\?/);
+  const pathname = pathnameMatch ? pathnameMatch[1] : null;
+  const search = url.match(/\?.*/)[0];
+  return { pathname, search };
+}
 
 /**
  * Return { listUrl, listQuery, listIndex, buildSiblingUrl } that are valid.
@@ -113,4 +120,4 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   };
 }
 
-export { getListUrlQueryAndIndex }; // eslint-disable-line import/prefer-default-export
+export { getListUrlQueryAndIndex, getPathnameAndSearch, pageSize }; // eslint-disable-line import/prefer-default-export

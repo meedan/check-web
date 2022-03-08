@@ -36,6 +36,8 @@ export default function MediaPage({ route, routeParams, location }) {
       listId={listId}
       projectMediaId={projectMediaId}
       view={currentView}
+      mediaNavList={location?.state?.mediaNavList}
+      count={location?.state?.count}
     />
   );
 }

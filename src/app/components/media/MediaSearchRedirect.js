@@ -8,6 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Tooltip from '@material-ui/core/Tooltip';
 import WarningIcon from '@material-ui/icons/Warning';
 import { stringHelper } from '../../customHelpers';
+import { getPathnameAndSearch } from '../../urlHelpers';
 
 function BrokenLink() {
   return (
@@ -66,7 +67,9 @@ export default function MediaSearchRedirect({
   buildSiblingUrl,
   listQuery,
   listIndex,
+  searchIndex,
   objectType,
+  type,
 }) {
   return (
     <QueryRenderer
@@ -75,7 +78,8 @@ export default function MediaSearchRedirect({
         query MediaSearchRedirectQuery($queryJson: String!) {
           search(query: $queryJson) {
             id
-            medias(first: 1) {
+            number_of_results
+            medias(first: 50) {
               edges {
                 node {
                   id
@@ -88,7 +92,7 @@ export default function MediaSearchRedirect({
         }
       `}
       variables={{
-        queryJson: JSON.stringify({ ...listQuery, esoffset: listIndex }),
+        queryJson: JSON.stringify({ ...listQuery, esoffset: searchIndex }),
       }}
       render={({ error, props }) => {
         if (error) {
@@ -97,10 +101,18 @@ export default function MediaSearchRedirect({
           if (!props.search) {
             return <BrokenLink />;
           }
-          const edge = props.search.medias.edges[0];
+          let edge;
+          if (type === 'next') {
+            [edge] = props.search.medias.edges;
+          } else if (type === 'prev') {
+            edge = props.search.medias.edges[props.search.medias.edges.length - 1];
+          }
           if (edge) {
             const targetId = objectType === 'media' ? edge.node.dbid : edge.node.cluster_id;
-            browserHistory.push(buildSiblingUrl(targetId, listIndex));
+            const mediaNavList = props.search.medias.edges.map(media => media.node.dbid);
+            const url = buildSiblingUrl(targetId, listIndex);
+            const { pathname, search } = getPathnameAndSearch(url);
+            browserHistory.push({ pathname, search, state: { mediaNavList, count: props.search.number_of_results } });
             return <CircularProgress />; // while the page loads
           }
           return <BrokenLink />;

@@ -12,7 +12,7 @@ import MediaSearchRedirect from './MediaSearchRedirect';
  * to unmount the component if any of its props are going to change.
  */
 export default function NextOrPreviousButton({
-  children, className, disabled, tooltipTitle, buildSiblingUrl, listQuery, listIndex, objectType,
+  children, className, disabled, tooltipTitle, buildSiblingUrl, listQuery, listIndex, objectType, type, searchIndex,
 }) {
   const [loading, setLoading] = React.useState(false);
   const handleClick = React.useCallback(() => {
@@ -30,7 +30,9 @@ export default function NextOrPreviousButton({
           buildSiblingUrl={buildSiblingUrl}
           listQuery={listQuery}
           listIndex={listIndex}
+          searchIndex={searchIndex}
           objectType={objectType}
+          type={type}
         />
       ) : (
         <Tooltip title={tooltipTitle}>
@@ -52,4 +54,6 @@ NextOrPreviousButton.propTypes = {
   tooltipTitle: PropTypes.node.isRequired, // <FormattedMessage>
   listQuery: PropTypes.object.isRequired,
   listIndex: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
+  searchIndex: PropTypes.number.isRequired,
 };
