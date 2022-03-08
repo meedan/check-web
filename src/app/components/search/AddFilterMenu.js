@@ -15,7 +15,7 @@ import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
-import StarIcon from '@material-ui/icons/Star';
+import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
@@ -257,7 +257,7 @@ const AddFilterMenu = ({
     {
       id: 'add-filter-menu__team-tasks',
       key: 'team_tasks',
-      icon: <StarIcon />,
+      icon: <NoteAltOutlinedIcon />,
       label: (
         <FormattedMessage
           id="addFilterMenu.annotation"

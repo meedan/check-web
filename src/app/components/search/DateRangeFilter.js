@@ -31,7 +31,13 @@ const StyledInputBaseDate = withStyles(theme => ({
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
     fontSize: 14,
-    width: 175,
+    width: 150,
+  },
+  input: {
+    padding: '4px 0 4px',
+    textOverflow: 'ellipsis',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
   },
 }))(InputBase);
 
@@ -53,6 +59,7 @@ const StyledInputBaseDropdown = withStyles(theme => ({
       backgroundColor: checkBlue,
       borderRadius: 4,
     },
+    padding: '4px 0 4px',
   },
 }))(InputBase);
 
@@ -61,20 +68,25 @@ const Styles = {
     flexDirection: 'row',
     flexShrink: 0,
     alignItems: 'center',
-    paddingRight: '4px',
+    padding: '0 4px 0 0',
   },
   dateRangeFilterSelected: {
     backgroundColor: checkBlue,
     color: 'white',
-    height: 24,
-    margin: '6px 3px',
-    borderRadius: 2,
+    height: 'auto',
+    borderRadius: 4,
+    paddingLeft: '8px',
+    lineHeight: '10px',
   },
   inputMarginDense: {
     padding: '4px 8px',
   },
   numericSelector: {
     maxWidth: '100px',
+  },
+  andText: {
+    marginLeft: '4px',
+    marginRight: '4px',
   },
 };
 
@@ -133,8 +145,9 @@ function DateRangeSelectorStartEnd(props) {
         value={getEndDateStringOrNull()}
         TextFieldComponent={({ onClick, value: valueText }) => (
           <div>
-            <FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />
-            {' '}
+            <span className={classes.andText}>
+              <FormattedMessage id="search.beforeDate" defaultMessage="and" description="String displayed between after and before date pickers" />
+            </span>
             <FormattedMessage id="search.anyDate" defaultMessage="any date" description="Date picker placeholder">
               { text => (
                 <StyledInputBaseDate
