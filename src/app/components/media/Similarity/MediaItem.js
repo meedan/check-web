@@ -133,11 +133,12 @@ const MediaItem = ({
   };
 
   const handleOpenMenu = (event) => {
-    setAnchorEl(event.currentTarget);
     event.stopPropagation();
+    setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = (event) => {
+    event.stopPropagation();
     setAnchorEl(null);
   };
 

@@ -1,7 +1,7 @@
 shared_examples 'similarity' do
   it 'should import, export, list, pin and remove similarity items', bin5: true do
-    sleep 30 # wait for the items to be indexed in the Elasticsearch
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 3 })
+    sleep 15 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.search__results-heading')
     project_url = @driver.current_url.to_s
     create_folder_or_collection('list', '.projects-list__add-folder')
@@ -44,7 +44,8 @@ shared_examples 'similarity' do
     wait_for_selector('.similarity-media-item__delete-relationship')
     wait_for_selector('.similarity-media-item__pin-relationship').click
     wait_for_selector('.message')
-    wait_for_selector("//span[contains(text(), 'Done, redirecting to new main item…')]", :xpath)
+    wait_for_url_change(@driver.current_url.to_s)
+    wait_for_selector_list_size('.MuiCardHeader-title', 3)
     expect(wait_for_selector('.MuiCardHeader-title').text == 'Claim 0').to be(true)
     # remove similar item
     expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 3
