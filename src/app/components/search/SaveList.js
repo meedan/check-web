@@ -86,19 +86,20 @@ const SaveList = ({
   setFlashMessage,
 }) => {
   const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|trends)(\/([0-9]+))?/);
-  const classes = useStyles();
-
-  const [title, setTitle] = React.useState('');
-  const [saving, setSaving] = React.useState(false);
-  const [operation, setOperation] = React.useState('CREATE'); // or 'UPDATE'
-  const [showNewDialog, setShowNewDialog] = React.useState(false);
-  const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
   if (!currentPath) {
     return null;
   }
 
+  const classes = useStyles();
+
   const objectType = currentPath[1];
+
+  const [title, setTitle] = React.useState('');
+  const [saving, setSaving] = React.useState(false);
+  const [operation, setOperation] = React.useState(objectType === 'trends' ? 'UPDATE_SPECIAL_PAGE' : 'CREATE'); // or 'UPDATE'
+  const [showNewDialog, setShowNewDialog] = React.useState(false);
+  const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
   // Just show the button on: "All Items", collection and folder (create a list) or list (create a new list or update list)
   if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'trends'].indexOf(objectType) === -1) {
@@ -244,7 +245,6 @@ const SaveList = ({
       setOperation('UPDATE_SPECIAL_PAGE');
       setShowExistingDialog(true);
     } else if (objectType === 'trends') {
-      setOperation('UPDATE_SPECIAL_PAGE');
       handleSave();
     }
   };
