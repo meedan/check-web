@@ -24,11 +24,7 @@
   },
   {
     "id": "trendItem.claimDescription",
-    "defaultMessage": "Claim descriptions and ratings"
-  },
-  {
-    "id": "trendItem.claimDescriptionSubtitle",
-    "defaultMessage": "{number} organizations added a claim description."
+    "defaultMessage": "Claims"
   },
   {
     "id": "trendItem.noClaims",
@@ -47,23 +43,59 @@
     "defaultMessage": "Not published yet"
   },
   {
-    "id": "trendItem.main",
-    "defaultMessage": "{number} Medias"
+    "id": "trendItem.factCheck",
+    "description": "Middle column title on trends item page",
+    "defaultMessage": "Fact-check"
   },
   {
-    "id": "trendItem.requestsCount",
-    "description": "Label displayed on cluster item page",
-    "defaultMessage": "Requests"
+    "id": "trendItem.noImportingClaim",
+    "description": "Message displayed on trends item page when no claim was selected.",
+    "defaultMessage": "Select an organization to display available fact-check and annotations."
   },
   {
-    "id": "trendItem.submitted",
-    "description": "Label displayed on cluster item page",
-    "defaultMessage": "Submitted"
+    "id": "trendItem.factCheckTitle",
+    "description": "Fact-check title",
+    "defaultMessage": "Title"
   },
   {
-    "id": "trendItem.lastSubmittedAt",
-    "description": "Label displayed on cluster item page",
-    "defaultMessage": "Last submitted"
+    "id": "trendItem.factCheckSummary",
+    "description": "Fact-check summary",
+    "defaultMessage": "Summary"
+  },
+  {
+    "id": "trendItem.factCheckUrl",
+    "description": "Fact-check article URL",
+    "defaultMessage": "Published article URL"
+  },
+  {
+    "id": "trendItem.aboutThisClaim",
+    "defaultMessage": "About this claim"
+  },
+  {
+    "id": "trendItem.noTags",
+    "description": "Displayed on trends item page when item has no tags.",
+    "defaultMessage": "No tags."
+  },
+  {
+    "id": "trendItem.noTasks",
+    "description": "Displayed on trends item page when item has no completed annotations.",
+    "defaultMessage": "No completed annotations."
+  },
+  {
+    "id": "trendItem.import",
+    "defaultMessage": "Import"
+  },
+  {
+    "id": "trendItem.mediasColumnTitleAll",
+    "defaultMessage": "{number} Medias across all organizations"
+  },
+  {
+    "id": "trendItem.mediasColumnTitleSingle",
+    "defaultMessage": "{number} Medias from {organizationName}"
+  },
+  {
+    "id": "trendItem.mediaRequests",
+    "defaultMessage": "{number} tipline requests across all medias"
   },
   {
     "id": "trendItem.sortBy",
@@ -72,7 +104,7 @@
   {
     "id": "trendsItem.importTitle",
     "description": "Dialog title when importing a claim from trends page.",
-    "defaultMessage": "Import claims and medias to workspace"
+    "defaultMessage": "Import data to workspace"
   },
   {
     "id": "trendsItem.importDescription",
@@ -88,6 +120,23 @@
     "id": "trendsItem.importTextLabel",
     "description": "Text field label used in import claim dialog from trends page.",
     "defaultMessage": "Claim description"
+  },
+  {
+    "id": "trendsItem.importingQuestion",
+    "description": "Question in trends page importing modal",
+    "defaultMessage": "What content do you want to import?"
+  },
+  {
+    "id": "trendsItem.factCheck",
+    "defaultMessage": "Fact-check"
+  },
+  {
+    "id": "trendsItem.completedAnnotations",
+    "defaultMessage": "Completed annotations"
+  },
+  {
+    "id": "trendsItem.tags",
+    "defaultMessage": "Tags"
   },
   {
     "id": "trendsItem.proceedImport",

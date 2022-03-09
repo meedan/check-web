@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import ErrorOutlineIcon from '@material-ui/icons/ErrorOutline';
 import RemoveableWrapper from './RemoveableWrapper';
 import NumberIcon from '../../icons/NumberIcon';
+import { checkBlue } from '../../styles/js/shared';
 
 const messages = defineMessages({
   linkedItems: {
@@ -30,9 +31,17 @@ const messages = defineMessages({
 const useStyles = makeStyles(theme => ({
   root: {
     width: theme.spacing(15),
+    '& fieldset': {
+      fontSize: '14px',
+    },
   },
   inputMarginDense: {
     padding: '4px 8px',
+  },
+  inputNotEmpty: {
+    '& fieldset': {
+      border: `2px solid ${checkBlue}`,
+    },
   },
 }));
 
@@ -82,7 +91,7 @@ const NumericRangeFilter = ({
           <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
             { placeholder => (
               <TextField
-                classes={{ root: classes.root }}
+                className={`${classes.root} ${minNumber === '' ? '' : classes.inputNotEmpty}`}
                 InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
                 variant="outlined"
                 size="small"
@@ -102,7 +111,7 @@ const NumericRangeFilter = ({
           <FormattedMessage id="numericRangeFilter.enterNumber" defaultMessage="enter number">
             { placeholder => (
               <TextField
-                classes={{ root: classes.root }}
+                className={`${classes.root} ${maxNumber === '' ? '' : classes.inputNotEmpty}`}
                 InputProps={{ classes: { inputMarginDense: classes.inputMarginDense } }}
                 variant="outlined"
                 size="small"

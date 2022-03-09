@@ -38,6 +38,7 @@ const TrendsItem = ({ routeParams, location }) => {
                     team {
                       name
                       dbid
+                      country
                     }
                   }
                 }
@@ -54,15 +55,42 @@ const TrendsItem = ({ routeParams, location }) => {
                 node {
                   id
                   description
+                  fact_check {
+                    title
+                    summary
+                    url
+                  }
                   project_media {
                     id
                     dbid
-                    last_status
                     report_status
                     report: dynamic_annotation_report_design {
                       data
                     }
+                    last_status
+                    last_status_obj {
+                      data
+                    }
+                    tags(first: 10000) {
+                      edges {
+                        node {
+                          id
+                          tag_text
+                        }
+                      }
+                    }
+                    tasks(first: 10000) {
+                      edges {
+                        node {
+                          slug
+                          label
+                          options
+                          first_response_value
+                        }
+                      }
+                    }
                     team {
+                      dbid
                       name
                       avatar
                       verification_statuses
@@ -99,6 +127,7 @@ const TrendsItem = ({ routeParams, location }) => {
                     get_language
                     get_report
                     get_tasks_enabled
+                    verification_statuses
                     team_bots(first: 10000) {
                       edges {
                         node {
@@ -134,8 +163,7 @@ const TrendsItem = ({ routeParams, location }) => {
 
 TrendsItem.propTypes = {
   routeParams: PropTypes.shape({
-    team: PropTypes.string.isRequired,
-    clusterId: PropTypes.number.isRequired,
+    clusterId: PropTypes.string.isRequired,
   }).isRequired,
 };
 

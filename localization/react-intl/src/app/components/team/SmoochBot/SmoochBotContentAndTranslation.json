@@ -170,6 +170,21 @@
     "defaultMessage": "Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}."
   },
   {
+    "id": "smoochBotContentAndTranslation.optionNotAvailableTitle",
+    "description": "Title of a customizable string of the tipline bot.",
+    "defaultMessage": "Option not available"
+  },
+  {
+    "id": "smoochBotContentAndTranslation.optionNotAvailableDescription",
+    "description": "Description of a customizable string of the tipline bot.",
+    "defaultMessage": "The message sent if the user response to a menu is not a valid menu scenario."
+  },
+  {
+    "id": "smoochBotContentAndTranslation.optionNotAvailableDefault",
+    "description": "Default value for a customizable string of the tipline bot.",
+    "defaultMessage": "I'm sorry, I didn't understand your message."
+  },
+  {
     "id": "smoochBotContentAndTranslation.noticeOfInactivityTitle",
     "description": "Title of a customizable string of the tipline bot.",
     "defaultMessage": "Notice of inactivity"

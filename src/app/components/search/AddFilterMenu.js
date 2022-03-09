@@ -15,13 +15,14 @@ import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
-import StarIcon from '@material-ui/icons/Star';
+import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
+import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import NumberIcon from '../../icons/NumberIcon';
 
 const StyledButton = withStyles({
@@ -256,12 +257,24 @@ const AddFilterMenu = ({
     {
       id: 'add-filter-menu__team-tasks',
       key: 'team_tasks',
-      icon: <StarIcon />,
+      icon: <NoteAltOutlinedIcon />,
       label: (
         <FormattedMessage
           id="addFilterMenu.annotation"
           defaultMessage="Annotation"
           description="Menu option to enable searching items by annotation fields"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__workspace',
+      key: 'cluster_teams',
+      icon: <CorporateFareIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.Workspace"
+          defaultMessage="Organization"
+          description="Menu option to enable searching items by workspace"
         />
       ),
     },

@@ -9,9 +9,12 @@ import {
   Card,
   CardHeader,
   CardContent,
-  CardActions,
+  Chip,
+  Dialog,
+  Divider,
   FormControl,
   Grid,
+  Button,
   IconButton,
   InputLabel,
   MenuItem,
@@ -19,8 +22,12 @@ import {
   Select,
   TextField,
   Typography,
+  FormControlLabel,
+  Checkbox,
 } from '@material-ui/core';
 import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutlined';
+import CloseIcon from '@material-ui/icons/Close';
+import MediaStatus from '../media/MediaStatus';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
 import { MediaExpandedComponent } from '../media/MediaExpanded';
 import NextPreviousLinks from '../media/NextPreviousLinks';
@@ -48,6 +55,10 @@ const useStyles = makeStyles(theme => ({
     width: 360,
     minWidth: 360,
     maxWidth: 360,
+  },
+  middleColumn: {
+    backgroundColor: 'white',
+    borderRight: `1px solid ${brandSecondary}`,
   },
   mediasColumn: {
     width: 590,
@@ -91,7 +102,9 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.0em',
     fontWeight: 900,
     marginBottom: theme.spacing(1),
-    padding: theme.spacing(1),
+    padding: 0,
+    paddingTop: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
   },
   sortBy: {
     float: 'right',
@@ -155,11 +168,17 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.spacing(1),
     whiteSpace: 'nowrap',
   },
+  claimCardBox: {
+    cursor: 'pointer',
+  },
   claimCardFooter: {
     justifyContent: 'flex-end',
   },
   claim: {
     lineHeight: '1.5em',
+  },
+  chip: {
+    marginRight: theme.spacing(1),
   },
 }));
 
@@ -173,36 +192,44 @@ const TrendsItemComponent = ({
   buildSiblingUrl,
 }) => {
   const classes = useStyles();
+  const [importingClaim, setImportingClaim] = React.useState(null);
 
   const allMedias = cluster?.items?.edges.map(item => JSON.parse(JSON.stringify(item.node)));
+  let totalDemand = 0;
   const medias = [];
   allMedias.forEach((media, i) => {
     allMedias[i].demand = media.requests_count;
     const existingMedia = medias.find(m => m.media.dbid === media.media.dbid);
     if (existingMedia) {
       existingMedia.demand += media.requests_count;
-    } else {
+      totalDemand += media.requests_count;
+    } else if (!importingClaim || importingClaim.project_media.team.dbid === media.team.dbid) {
+      totalDemand += media.requests_count;
       medias.push(media);
     }
   });
 
   const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias.length > 0 ? medias[0].dbid : null);
+  const [expandedMedia, setExpandedMedia] = React.useState(null);
   const [sortBy, setSortBy] = React.useState('mostRequests');
-  const [importingClaim, setImportingClaim] = React.useState(null);
+  const [importingClaimDescription, setImportingClaimDescription] = React.useState('');
+  const [showImportClaimDialog, setShowImportClaimDialog] = React.useState(false);
   const [selectedTeam, setSelectedTeam] = React.useState(teams[0].dbid);
   const [isImporting, setIsImporting] = React.useState(false);
+  const [importingOptions, setImportingOptions] = React.useState({ factCheck: true, annotations: true, tags: true });
 
-  const selectedItem = medias.find(m => m.dbid === selectedItemDbid);
+  const selectedItem = medias.find(m => m.dbid === selectedItemDbid) || medias[0];
 
   const sortOptions = {
     mostRequests: (a, b) => (b.demand - a.demand),
     leastRequests: (a, b) => (a.demand - b.demand),
-    oldest: (a, b) => (b.last_seen - a.last_seen),
-    newest: (a, b) => (a.last_seen - b.last_seen),
+    oldest: (a, b) => (b.updated_at - a.updated_at),
+    newest: (a, b) => (a.updated_at - b.updated_at),
   };
 
-  const handleClick = (dbid) => {
-    setSelectedItemDbid(dbid);
+  const handleClick = (media) => {
+    setSelectedItemDbid(media.dbid);
+    setExpandedMedia(media);
   };
 
   const handleChange = (e) => {
@@ -221,6 +248,27 @@ const TrendsItemComponent = ({
 
   const handleImport = () => {
     setIsImporting(true);
+
+    const input = {
+      channel: 12, // Shared Database
+      media_id: selectedItem.media_id,
+      team_id: selectedTeam,
+      set_claim_description: importingClaimDescription || importingClaim?.description,
+    };
+    if (importingOptions.factCheck && importingClaim.fact_check) {
+      input.set_fact_check = JSON.stringify({ title: importingClaim.fact_check.title, summary: importingClaim.fact_check.summary });
+    }
+    if (importingOptions.annotations) {
+      const tasks = {};
+      importingClaim.project_media.tasks.edges.forEach((task) => {
+        tasks[task.node.slug] = task.node.first_response_value;
+      });
+      input.set_tasks_responses = JSON.stringify(tasks);
+    }
+    if (importingOptions.tags) {
+      input.set_tags = JSON.stringify(importingClaim.project_media.tags.edges.map(t => t.node.tag_text));
+    }
+
     commitMutation(Relay.Store, {
       mutation: graphql`
         mutation TrendsItemComponentCreateProjectMediaMutation($input: CreateProjectMediaInput!) {
@@ -232,19 +280,13 @@ const TrendsItemComponent = ({
         }
       `,
       variables: {
-        input: {
-          channel: 12, // Shared Database
-          media_id: selectedItem.media_id,
-          team_id: selectedTeam,
-          set_claim_description: importingClaim,
-        },
+        input,
       },
       onCompleted: (response, err) => {
         if (err) {
           handleError();
         } else {
           setIsImporting(false);
-          setImportingClaim(null);
           setFlashMessage((
             <FormattedMessage
               id="trendsItem.importedSuccessfully"
@@ -263,14 +305,14 @@ const TrendsItemComponent = ({
   };
 
   const ItemCard = ({ item }) => {
-    const selectedItemClass = selectedItemDbid === item.dbid ? classes.selected : '';
+    const selectedItemClass = selectedItem.dbid === item.dbid ? classes.selected : '';
     const fileTitle = item.media.file_path ? item.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = item?.media?.metadata?.title || item?.media?.quote || fileTitle || item?.media?.title || item.title;
     const description = item?.media?.metadata?.description || item.description;
     return (
       <Card
         className={`${classes.cardMain} ${selectedItemClass}`}
-        onClick={() => { handleClick(item.dbid); }}
+        onClick={() => { handleClick(item); }}
       >
         {
           item.picture ?
@@ -295,14 +337,13 @@ const TrendsItemComponent = ({
   };
 
   const ClaimCard = ({ content, claimDescription }) => (
-    <Box mt={1}>
-      <Card variant="outlined">
+    <Box mt={1} className={classes.claimCardBox}>
+      <Card
+        variant="outlined"
+        className={importingClaim && claimDescription.id === importingClaim.id ? classes.selected : null}
+        onClick={() => { setImportingClaim(claimDescription); }}
+      >
         {content}
-        <CardActions disableSpacing className={classes.claimCardFooter}>
-          <IconButton color="primary" onClick={() => { setImportingClaim(claimDescription); }}>
-            <SystemUpdateAltOutlinedIcon />
-          </IconButton>
-        </CardActions>
       </Card>
     </Box>
   );
@@ -318,27 +359,22 @@ const TrendsItemComponent = ({
       <Box className={classes.main} display="flex" justifyContent="space-between">
         <Box className={['media__column', classes.claimsColumn].join(' ')}>
           <Column>
-            <Typography className={classes.columnTitle}>
-              <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claim descriptions and ratings" />
-            </Typography>
-            <Box pl={1} mb={2}>
-              <Typography variant="body2" component="div">
-                <FormattedMessage id="trendItem.claimDescriptionSubtitle" defaultMessage="{number} organizations added a claim description." values={{ number: cluster.claim_descriptions.edges.length }} />
+            <Box display="flex" alignItems="center" justifyContent="space-between">
+              <Typography className={classes.columnTitle}>
+                <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claims" />
               </Typography>
+              <IconButton onClick={() => { setImportingClaim(null); setImportingClaimDescription(null); }} disabled={!importingClaim}>
+                <CloseIcon />
+              </IconButton>
             </Box>
-            <Box mt={2}>
+            <Box mt={1}>
               { cluster.claim_descriptions.edges.length === 0 ?
-                <ClaimCard
-                  claimDescription=""
-                  content={
-                    <CardContent>
-                      <FormattedMessage id="trendItem.noClaims" defaultMessage="Import this group of media to be the first to add a claim description and publish a report." />
-                    </CardContent>
-                  }
-                /> : null }
+                <FormattedMessage id="trendItem.noClaims" defaultMessage="Import this group of media to be the first to add a claim description and publish a report." />
+                : null }
               { cluster.claim_descriptions.edges.map(e => e.node).map(claim => (
                 <ClaimCard
-                  claimDescription={claim.description}
+                  key={claim.id}
+                  claimDescription={claim}
                   content={
                     <React.Fragment>
                       <CardHeader
@@ -377,30 +413,96 @@ const TrendsItemComponent = ({
             </Box>
           </Column>
         </Box>
-        <Box className={['media__column', classes.mediasColumn].join(' ')}>
+
+        <Box className={['media__column', classes.mediaColumn, classes.middleColumn].join(' ')}>
           <Column>
             <Typography className={classes.columnTitle}>
-              <FormattedMessage id="trendItem.main" defaultMessage="{number} Medias" values={{ number: medias.length }} />
+              <FormattedMessage id="trendItem.factCheck" defaultMessage="Fact-check" description="Middle column title on trends item page" />
             </Typography>
+            { !importingClaim ?
+              <Box className={classes.box}>
+                <FormattedMessage
+                  id="trendItem.noImportingClaim"
+                  defaultMessage="Select an organization to display available fact-check and annotations."
+                  description="Message displayed on trends item page when no claim was selected."
+                />
+              </Box> : null }
+            { importingClaim ?
+              <Box>
+                <Box mb={2} mt={2}>
+                  <MediaStatus media={importingClaim.project_media} readonly />
+                </Box>
+                <Box mb={2}>
+                  <TextField
+                    key={`fact-check-title-${importingClaim.id}`}
+                    label={<FormattedMessage id="trendItem.factCheckTitle" defaultMessage="Title" description="Fact-check title" />}
+                    defaultValue={importingClaim?.fact_check?.title}
+                    variant="outlined"
+                    fullWidth
+                    disabled
+                  />
+                </Box>
+                <Box mb={2}>
+                  <TextField
+                    key={`fact-check-summary-${importingClaim.id}`}
+                    label={<FormattedMessage id="trendItem.factCheckSummary" defaultMessage="Summary" description="Fact-check summary" />}
+                    defaultValue={importingClaim?.fact_check?.summary}
+                    variant="outlined"
+                    rows={3}
+                    multiline
+                    fullWidth
+                    disabled
+                  />
+                </Box>
+                <Box mb={3}>
+                  <TextField
+                    key={`fact-check-url-${importingClaim.id}`}
+                    label={<FormattedMessage id="trendItem.factCheckUrl" defaultMessage="Published article URL" description="Fact-check article URL" />}
+                    defaultValue={importingClaim?.fact_check?.url}
+                    variant="outlined"
+                    fullWidth
+                    disabled
+                  />
+                </Box>
+                <Divider />
+                <Box mb={2} mt={2}>
+                  <strong><FormattedMessage id="trendItem.aboutThisClaim" defaultMessage="About this claim" /></strong>
+                </Box>
+                <Box key={`tags-${importingClaim.project_media.id}`}>
+                  { importingClaim.project_media.tags.edges.length === 0 ?
+                    <FormattedMessage id="trendItem.noTags" defaultMessage="No tags." description="Displayed on trends item page when item has no tags." /> : null }
+                  {importingClaim.project_media.tags.edges.map(tag => <Chip label={tag.node.tag_text} key={tag.node.id} color="primary" className={classes.chip} />)}
+                </Box>
+                <Box mt={2}>
+                  { importingClaim.project_media.tasks.edges.map(task => task.node).filter(task => task.first_response_value).length === 0 ?
+                    <FormattedMessage id="trendItem.noTasks" defaultMessage="No completed annotations." description="Displayed on trends item page when item has no completed annotations." /> : null }
+                  {importingClaim.project_media.tasks.edges.map(task => task.node).filter(task => task.first_response_value).map(task => (
+                    <Box mt={2}>
+                      <p><strong>{task.label}</strong></p>
+                      <p>{task.first_response_value}</p>
+                    </Box>
+                  ))}
+                </Box>
+              </Box> : null }
+          </Column>
+        </Box>
+
+        <Box className={['media__column', classes.mediaColumn].join(' ')}>
+          <Column>
+            <Box display="flex" justifyContent="flex-end">
+              <Button color="primary" variant="contained" startIcon={<SystemUpdateAltOutlinedIcon />} onClick={() => { setShowImportClaimDialog(true); }} disabled={!importingClaim || !selectedItem}>
+                <FormattedMessage id="trendItem.import" defaultMessage="Import" />
+              </Button>
+            </Box>
             <Grid container alignItems="center">
               <Grid item xs={6}>
-                <Box display="flex" alignItems="center" className={classes.boxes}>
-                  <Box className={classes.box}>
-                    <Typography variant="caption"><FormattedMessage id="trendItem.requestsCount" defaultMessage="Requests" description="Label displayed on cluster item page" /></Typography>
-                    <br />
-                    <strong>{cluster.requests_count}</strong>
-                  </Box>
-                  <Box className={classes.box}>
-                    <Typography variant="caption"><FormattedMessage id="trendItem.submitted" defaultMessage="Submitted" description="Label displayed on cluster item page" /></Typography>
-                    <br />
-                    <strong><TimeBefore date={parseStringUnixTimestamp(cluster.first_item_at)} /></strong>
-                  </Box>
-                  <Box className={classes.box}>
-                    <Typography variant="caption"><FormattedMessage id="trendItem.lastSubmittedAt" defaultMessage="Last submitted" description="Label displayed on cluster item page" /></Typography>
-                    <br />
-                    <strong><TimeBefore date={parseStringUnixTimestamp(cluster.last_item_at)} /></strong>
-                  </Box>
-                </Box>
+                <Typography className={classes.columnTitle}>
+                  { !importingClaim ?
+                    <FormattedMessage id="trendItem.mediasColumnTitleAll" defaultMessage="{number} Medias across all organizations" values={{ number: medias.length }} /> : null }
+                  { importingClaim ?
+                    <FormattedMessage id="trendItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: importingClaim.project_media.team.name }} /> : null }
+                </Typography>
+                <p><small><FormattedMessage id="trendItem.mediaRequests" defaultMessage="{number} tipline requests across all medias" values={{ number: totalDemand }} /></small></p>
               </Grid>
               <Grid item xs={6}>
                 <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
@@ -423,28 +525,34 @@ const TrendsItemComponent = ({
             {
               medias
                 .sort(sortOptions[sortBy])
-                .map(item => <ItemCard item={item} />)
+                .map(item => <ItemCard item={item} key={item.id} />)
             }
           </Column>
         </Box>
-        <Box className={['media__column', classes.mediaColumn].join(' ')} mt={2} mr={2}>
-          <Card className={classes.cardDetail}>
-            { selectedItem ?
+
+        { expandedMedia ?
+          <Dialog open onClose={() => { setExpandedMedia(null); }}>
+            <Card className={classes.cardDetail}>
+              <Box display="flex" justifyContent="flex-end">
+                <IconButton onClick={() => { setExpandedMedia(null); }}>
+                  <CloseIcon />
+                </IconButton>
+              </Box>
               <MediaExpandedComponent
-                media={selectedItem}
-                linkTitle={selectedItem?.title}
+                media={expandedMedia}
+                linkTitle={expandedMedia?.title}
                 mediaUrl={null}
                 hideActions
-              /> : null }
-          </Card>
-        </Box>
+              />
+            </Card>
+          </Dialog> : null }
 
         <ConfirmProceedDialog
-          open={importingClaim !== null}
+          open={showImportClaimDialog}
           title={
             <FormattedMessage
               id="trendsItem.importTitle"
-              defaultMessage="Import claims and medias to workspace"
+              defaultMessage="Import data to workspace"
               description="Dialog title when importing a claim from trends page."
             />
           }
@@ -479,33 +587,71 @@ const TrendsItemComponent = ({
                     }
                   >
                     { teams.sort((a, b) => (a.name > b.name) ? 1 : -1).map(team => (
-                      <MenuItem value={team.dbid}>{team.name}</MenuItem>
+                      <MenuItem value={team.dbid} key={team.dbid}>{team.name}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
               </Box>
-              <TextField
-                label={
-                  <FormattedMessage
-                    id="trendsItem.importTextLabel"
-                    defaultMessage="Claim description"
-                    description="Text field label used in import claim dialog from trends page."
+              <Box>
+                <TextField
+                  label={
+                    <FormattedMessage
+                      id="trendsItem.importTextLabel"
+                      defaultMessage="Claim description"
+                      description="Text field label used in import claim dialog from trends page."
+                    />
+                  }
+                  variant="outlined"
+                  onBlur={(e) => { setImportingClaimDescription(e.target.value); }}
+                  defaultValue={importingClaimDescription || importingClaim?.description}
+                  multiline
+                  rows={3}
+                  rowsMax={Infinity}
+                  fullWidth
+                />
+              </Box>
+              <Box mt={3}>
+                <FormattedMessage id="trendsItem.importingQuestion" defaultMessage="What content do you want to import?" description="Question in trends page importing modal" paragraph />
+                <Box>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={importingOptions.factCheck}
+                        onChange={(e) => { setImportingOptions({ ...importingOptions, factCheck: e.target.checked }); }}
+                      />
+                    }
+                    label={<FormattedMessage id="trendsItem.factCheck" defaultMessage="Fact-check" />}
                   />
-                }
-                variant="outlined"
-                onBlur={(e) => { setImportingClaim(e.target.value); }}
-                defaultValue={importingClaim}
-                multiline
-                rows={3}
-                rowsMax={Infinity}
-                fullWidth
-              />
+                </Box>
+                <Box>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={importingOptions.annotations}
+                        onChange={(e) => { setImportingOptions({ ...importingOptions, annotations: e.target.checked }); }}
+                      />
+                    }
+                    label={<FormattedMessage id="trendsItem.completedAnnotations" defaultMessage="Completed annotations" />}
+                  />
+                </Box>
+                <Box>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={importingOptions.tags}
+                        onChange={(e) => { setImportingOptions({ ...importingOptions, tags: e.target.checked }); }}
+                      />
+                    }
+                    label={<FormattedMessage id="trendsItem.tags" defaultMessage="Tags" />}
+                  />
+                </Box>
+              </Box>
             </React.Fragment>
           )}
-          proceedDisabled={!selectedTeam || !importingClaim}
+          proceedDisabled={!selectedTeam || (!importingClaimDescription && !importingClaim?.description)}
           proceedLabel={<FormattedMessage id="trendsItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from trends page" />}
           onProceed={handleImport}
-          onCancel={() => { setImportingClaim(null); }}
+          onCancel={() => { setShowImportClaimDialog(false); }}
           isSaving={isImporting}
         />
       </Box>
