@@ -25,7 +25,6 @@ import MediaSidebar from './MediaSidebar';
 import MediaSource from './MediaSource';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
-import MediaSimilarities from './Similarity/MediaSimilarities';
 import MediaRelated from './Similarity/MediaRelated';
 import CheckContext from '../../CheckContext';
 
@@ -57,6 +56,18 @@ const StyledThreeColumnLayout = styled.div`
     background-color: ${backgroundMain};
   }
 
+  /* Middle column */
+  .media-suggestions__center-column {
+    background-color: white;
+  }
+
+  /* Right Column */
+  .media__suggestions-column {
+    border-left: 2px solid ${brandSecondary};
+    max-width: none;
+    background-color: ${backgroundMain};
+  }
+
   /* Right Column */
   .media__annotations-column {
     border-left: 2px solid ${brandSecondary};
@@ -78,7 +89,7 @@ const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
   padding: ${units(2)};
-  border-right: 2px solid ${brandSecondary};
+  border-right: 1px solid ${brandSecondary};
   max-height: calc(100vh - 64px);
   overflow-y: auto;
 `;
@@ -313,9 +324,7 @@ class MediaComponent extends Component {
           { view === 'default' ?
             <React.Fragment>
               <Column className="media__column">
-                <MediaSimilarityBar
-                  projectMedia={media}
-                />
+                <MediaSimilarityBar projectMedia={media} />
                 <MediaDetail
                   hideBorder
                   hideRelated
@@ -417,8 +426,7 @@ class MediaComponent extends Component {
                 </Box>
               </Column>
             </React.Fragment> : null }
-          { view === 'suggestedMatches' ? <MediaSuggestions projectMedia={media} /> : null }
-          { view === 'similarMedia' ? <MediaSimilarities projectMedia={media} /> : null }
+          { view === 'suggestedMatches' || view === 'similarMedia' ? <MediaSuggestions projectMedia={media} /> : null }
         </StyledThreeColumnLayout>
 
         {// render video annotation drawer only if we can anchor it to the bottom of the player:

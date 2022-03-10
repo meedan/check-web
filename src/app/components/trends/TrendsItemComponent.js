@@ -29,7 +29,7 @@ import SystemUpdateAltOutlinedIcon from '@material-ui/icons/SystemUpdateAltOutli
 import CloseIcon from '@material-ui/icons/Close';
 import MediaStatus from '../media/MediaStatus';
 import MediaTypeDisplayName from '../media/MediaTypeDisplayName';
-import MediaExpanded from '../media/MediaExpanded';
+import { MediaExpandedComponent } from '../media/MediaExpanded';
 import NextPreviousLinks from '../media/NextPreviousLinks';
 import { parseStringUnixTimestamp, getStatus } from '../../helpers';
 import TimeBefore from '../TimeBefore';
@@ -544,6 +544,7 @@ const TrendsItemComponent = ({
                 </Typography>
               </Grid>
             </Grid>
+
             {
               medias
                 .sort(sortOptions[sortBy])
@@ -560,11 +561,11 @@ const TrendsItemComponent = ({
                   <CloseIcon />
                 </IconButton>
               </Box>
-              <MediaExpanded
+              <MediaExpandedComponent
                 media={expandedMedia}
                 linkTitle={expandedMedia?.title}
                 mediaUrl={null}
-                isTrends
+                hideActions
               />
             </Card>
           </Dialog> : null }

@@ -93,7 +93,12 @@ function SelectProjectDialog({
   }, [value]);
 
   return (
-    <Dialog open={open} onClose={onCancel} maxWidth="sm" fullWidth>
+    <Dialog
+      onClick={event => event.stopPropagation()}
+      open={open}
+      onClose={onCancel}
+      maxWidth="sm" fullWidth
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         { extraContent ?

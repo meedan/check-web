@@ -6,7 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { checkBlue, brandHighlight, opaqueBlack23 } from '../../../styles/js/shared';
+import { checkBlue, opaqueBlack23 } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -18,13 +18,13 @@ const useStyles = makeStyles(theme => ({
     border: 0,
   },
   ifGroup: {
-    border: `2px solid ${brandHighlight}`,
+    border: `2px solid ${checkBlue}`,
   },
   thenGroup: {
     border: `2px solid ${checkBlue}`,
   },
   ifTitle: {
-    color: brandHighlight,
+    color: checkBlue,
   },
   thenTitle: {
     color: checkBlue,
@@ -87,8 +87,8 @@ const RuleBody = (props) => {
         /> : null }
       <RuleOperatorWrapper
         center
-        color={brandHighlight}
-        deleteIconColor={brandHighlight}
+        color={checkBlue}
+        deleteIconColor={checkBlue}
         operator={rule.rules.operator}
         onSetOperator={(value) => {
           rule.rules.operator = value;
@@ -116,7 +116,7 @@ const RuleBody = (props) => {
               </Typography>
               <RuleOperatorWrapper
                 center={false}
-                color={brandHighlight}
+                color={checkBlue}
                 operator={group.operator}
                 onSetOperator={(value) => {
                   rule.rules.groups[i].operator = value;
