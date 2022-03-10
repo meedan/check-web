@@ -310,13 +310,12 @@ const TrendsItemComponent = ({
   };
 
   const ItemCard = ({ item }) => {
-    const selectedItemClass = selectedItem.dbid === item.dbid ? classes.selected : '';
     const fileTitle = item.media.file_path ? item.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
     const title = item?.media?.metadata?.title || item?.media?.quote || fileTitle || item?.media?.title || item.title;
     const description = item?.media?.metadata?.description || item.description;
     return (
       <Card
-        className={`${classes.cardMain} ${selectedItemClass}`}
+        className={classes.cardMain}
         onClick={() => { handleClick(item); }}
       >
         {
