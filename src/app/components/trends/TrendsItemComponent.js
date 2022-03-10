@@ -197,9 +197,13 @@ const TrendsItemComponent = ({
   const allMedias = cluster?.items?.edges.map(item => JSON.parse(JSON.stringify(item.node)));
   let totalDemand = 0;
   const medias = [];
+  const allTeams = [];
   allMedias.forEach((media, i) => {
     allMedias[i].demand = media.requests_count;
     const existingMedia = medias.find(m => m.media.dbid === media.media.dbid);
+    if (!allTeams.find(t => t.dbid === media.team.dbid)) {
+      allTeams.push({ ...media.team });
+    }
     if (existingMedia) {
       existingMedia.demand += media.requests_count;
       totalDemand += media.requests_count;
@@ -208,6 +212,7 @@ const TrendsItemComponent = ({
       medias.push(media);
     }
   });
+  const teamsWithoutClaims = allTeams.filter(t => !cluster.claim_descriptions.edges.find(cd => cd.node.project_media.team.dbid === t.dbid));
 
   const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias.length > 0 ? medias[0].dbid : null);
   const [expandedMedia, setExpandedMedia] = React.useState(null);
@@ -368,9 +373,7 @@ const TrendsItemComponent = ({
               </IconButton>
             </Box>
             <Box mt={1}>
-              { cluster.claim_descriptions.edges.length === 0 ?
-                <FormattedMessage id="trendItem.noClaims" defaultMessage="Import this group of media to be the first to add a claim description and publish a report." />
-                : null }
+              {/* Claims */}
               { cluster.claim_descriptions.edges.map(e => e.node).map(claim => (
                 <ClaimCard
                   key={claim.id}
@@ -410,6 +413,27 @@ const TrendsItemComponent = ({
                   }
                 />
               ))}
+              {/* Medias without claims */}
+              { teamsWithoutClaims.map(team => (
+                <Box mt={1} className={classes.claimCardBox}>
+                  <Card variant="outlined">
+                    <CardHeader
+                      avatar={<Avatar src={team.avatar} />}
+                      title={team.name}
+                    />
+                    <CardContent>
+                      <Box mt={2}>
+                        <span style={{ color: opaqueBlack38 }}>
+                          <FormattedMessage
+                            id="trendItem.noClaim"
+                            defaultMessage="No claim added yet"
+                          />
+                        </span>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Box>
+              ))}
             </Box>
           </Column>
         </Box>
@@ -438,8 +462,8 @@ const TrendsItemComponent = ({
                     label={<FormattedMessage id="trendItem.factCheckTitle" defaultMessage="Title" description="Fact-check title" />}
                     defaultValue={importingClaim?.fact_check?.title}
                     variant="outlined"
+                    InputProps={{ readOnly: true }}
                     fullWidth
-                    disabled
                   />
                 </Box>
                 <Box mb={2}>
@@ -449,9 +473,9 @@ const TrendsItemComponent = ({
                     defaultValue={importingClaim?.fact_check?.summary}
                     variant="outlined"
                     rows={3}
+                    InputProps={{ readOnly: true }}
                     multiline
                     fullWidth
-                    disabled
                   />
                 </Box>
                 <Box mb={3}>
@@ -460,8 +484,8 @@ const TrendsItemComponent = ({
                     label={<FormattedMessage id="trendItem.factCheckUrl" defaultMessage="Published article URL" description="Fact-check article URL" />}
                     defaultValue={importingClaim?.fact_check?.url}
                     variant="outlined"
+                    InputProps={{ readOnly: true }}
                     fullWidth
-                    disabled
                   />
                 </Box>
                 <Divider />
@@ -530,7 +554,7 @@ const TrendsItemComponent = ({
         </Box>
 
         { expandedMedia ?
-          <Dialog open onClose={() => { setExpandedMedia(null); }}>
+          <Dialog onClose={() => { setExpandedMedia(null); }} maxWidth="md" fullWidth open>
             <Card className={classes.cardDetail}>
               <Box display="flex" justifyContent="flex-end">
                 <IconButton onClick={() => { setExpandedMedia(null); }}>

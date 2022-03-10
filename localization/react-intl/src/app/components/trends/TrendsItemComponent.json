@@ -27,10 +27,6 @@
     "defaultMessage": "Claims"
   },
   {
-    "id": "trendItem.noClaims",
-    "defaultMessage": "Import this group of media to be the first to add a claim description and publish a report."
-  },
-  {
     "id": "trendItem.rating",
     "defaultMessage": "Rating: {rating}"
   },
@@ -41,6 +37,10 @@
   {
     "id": "trendItem.notPublished",
     "defaultMessage": "Not published yet"
+  },
+  {
+    "id": "trendItem.noClaim",
+    "defaultMessage": "No claim added yet"
   },
   {
     "id": "trendItem.factCheck",

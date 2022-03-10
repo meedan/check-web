@@ -124,6 +124,7 @@ const TrendsItem = ({ routeParams, location }) => {
                     dbid
                     slug
                     name
+                    avatar
                     get_language
                     get_report
                     get_tasks_enabled
