@@ -48,6 +48,10 @@
     "defaultMessage": "Media published"
   },
   {
+    "id": "list.reportPublishedBy",
+    "defaultMessage": "Report published by"
+  },
+  {
     "id": "list.reactCount",
     "defaultMessage": "FB Reactions"
   },

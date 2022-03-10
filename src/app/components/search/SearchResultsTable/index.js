@@ -20,6 +20,7 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
+import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
 import RelatedCountCell from './RelatedCountCell';
@@ -111,6 +112,11 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.mediaPublishedAt" defaultMessage="Media published" />,
     sortKey: 'media_published_at',
     cellComponent: MediaPublishedCell,
+  },
+  {
+    field: 'published_by',
+    headerText: <FormattedMessage id="list.reportPublishedBy" defaultMessage="Report published by" />,
+    cellComponent: ReportPublishedByCell,
   },
   {
     field: 'reaction_count',
