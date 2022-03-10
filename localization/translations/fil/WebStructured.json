@@ -107,6 +107,10 @@
 		"string": "Channel is",
 		"developer_comment": "Prefix label for field to filter by item channel"
 	},
+	"SearchFieldClusterTeams.label": {
+		"string": "Organization is",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Kumpirmado na ang Account",
 		"developer_comment": "Message for accounts already confirmed"
@@ -190,6 +194,10 @@
 	"addAnnotation.submitButton": {
 		"string": "Isumite"
 	},
+	"addFilterMenu.Workspace": {
+		"string": "Organization",
+		"developer_comment": "Menu option to enable searching items by workspace"
+	},
 	"addFilterMenu.addFilter": {
 		"string": "Add filter",
 		"developer_comment": "Button that opens menu with filter field options"
@@ -205,6 +213,10 @@
 	"addFilterMenu.channel": {
 		"string": "Channel",
 		"developer_comment": "Menu option to enable searching items by channel"
+	},
+	"addFilterMenu.claim": {
+		"string": "Claim",
+		"developer_comment": "Menu option to enable searching items by claim"
 	},
 	"addFilterMenu.collection": {
 		"string": "Collection",
@@ -734,10 +746,7 @@
 		"string": "Magdagdag ng bagong item"
 	},
 	"createMedia.addNewItem": {
-		"string": "Magdagdag ng bagong item"
-	},
-	"createMedia.audio": {
-		"string": "Audio"
+		"string": "Magdagdag ng item"
 	},
 	"createMedia.error": {
 		"string": "Paumanhin, may naganap na error habang isinusumite ang item. Mangyaring sumubok muli at makipag-ugnay sa {supportEmail} kung sakaling magpatuloy ang kundisyon."
@@ -745,23 +754,31 @@
 	"createMedia.existing": {
 		"string": "Magdagdag ng dati nang item"
 	},
-	"createMedia.image": {
-		"string": "Larawan"
+	"createMedia.media.media": {
+		"string": "Media"
 	},
-	"createMedia.link": {
-		"string": "Link"
+	"createMedia.mediaClaim": {
+		"string": "Type something"
+	},
+	"createMedia.mediaClaimDescription": {
+		"string": "Claim description"
+	},
+	"createMedia.mediaClaimDescriptionSubtitle": {
+		"string": "A description of the claim that needs to be reviewed."
 	},
 	"createMedia.mediaInput": {
-		"string": "Magdikit o mag-type"
+		"string": "Add a URL to a social media post or webpage, or a block of text."
 	},
-	"createMedia.quote": {
-		"string": "Tektso"
+	"createMedia.mediaMediaSubtitle": {
+		"string": "The media that contains the claim."
 	},
-	"createMedia.quoteInput": {
-		"string": "Magdikit o mag-type ng teksto"
+	"createMedia.mediaRemoveFile": {
+		"string": "Remove file",
+		"developer_comment": "Label on a button that the user clicks in order to return a file upload box back to its 'empty' state."
 	},
-	"createMedia.video": {
-		"string": "Video"
+	"createMedia.or": {
+		"string": "or",
+		"developer_comment": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled."
 	},
 	"createMediaSource.createSource": {
 		"string": "Create source",
@@ -1148,19 +1165,19 @@
 		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster have a published report"
 	},
 	"list.clusterFirstItemAt": {
-		"string": "Submitted",
+		"string": "Isinumite",
 		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
 	},
 	"list.clusterLastItemAt": {
-		"string": "Last submitted",
+		"string": "Huling isinumite",
 		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
 	},
 	"list.clusterRequests": {
-		"string": "Requests",
+		"string": "Mga kahilingan",
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Similar media",
+		"string": "Katulad na media",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
@@ -1672,22 +1689,9 @@
 	"mediaSearch.xOfY": {
 		"string": "{current} ng {total}"
 	},
-	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar",
-		"developer_comment": "Adjective, plural. Heading for a list of similar items"
-	},
-	"mediaSimilarities.clickOnItem": {
-		"string": "Mag-click sa isang item"
-	},
-	"mediaSimilarities.mainItem": {
-		"string": "Main",
-		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
-	},
-	"mediaSimilarities.notes": {
-		"string": "Mga note"
-	},
-	"mediaSimilarities.requests": {
-		"string": "Mga kahilingan"
+	"mediaSimilarities.moreMedias": {
+		"string": "More medias",
+		"developer_comment": "Heading for a list of similar medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1724,9 +1728,6 @@
 		"string": "Matagumpay na naidagdag ang katulad na item",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.back": {
-		"string": "Bumalik"
-	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "This media has been associated with an existing claim."
 	},
@@ -1739,9 +1740,6 @@
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Katulad na media",
 		"developer_comment": "Plural. Heading for the number of similar media"
-	},
-	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Suggested media",
@@ -1763,29 +1761,21 @@
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Bumalik sa pangunahing pananaw"
 	},
+	"mediaSuggestionsComponent.mediasCount": {
+		"string": "{number, plural, one {# media} other {# medias}}"
+	},
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Ilipat ang item"
-	},
-	"mediaSuggestionsComponent.noNotes": {
-		"string": "Walang note"
-	},
-	"mediaSuggestionsComponent.noRequests": {
-		"string": "Walang kahilingan"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "There is no suggested media."
 	},
-	"mediaSuggestionsComponent.notes": {
-		"string": "Mga note"
-	},
 	"mediaSuggestionsComponent.question": {
-		"string": "Is this media a good match for this claim?"
+		"string": "Is this media a good match for the claim and medias on the left?",
+		"developer_comment": "Subtitle for similarity matching widget"
 	},
-	"mediaSuggestionsComponent.questionBlank": {
-		"string": "Is the suggested media similar to the imported report?"
-	},
-	"mediaSuggestionsComponent.requests": {
-		"string": "Mga kahilingan"
+	"mediaSuggestionsComponent.requestsCount": {
+		"string": "{number} tipline requests across all medias"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
@@ -2655,7 +2645,7 @@
 		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
 	"search.beforeDate": {
-		"string": "and",
+		"string": "at",
 		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.cancel": {
@@ -2666,12 +2656,16 @@
 		"string": "Tag is",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
+	"search.claim": {
+		"string": "Claim field is",
+		"developer_comment": "Prefix label for field to filter by claim"
+	},
 	"search.collection": {
 		"string": "Collection is",
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
-		"string": "Media published"
+		"string": "Nailathala ang media"
 	},
 	"search.datePublishedHeading": {
 		"string": "Report published"
@@ -2689,6 +2683,14 @@
 	},
 	"search.dateUpdatedHeading": {
 		"string": "Item updated"
+	},
+	"search.empty": {
+		"string": "Empty",
+		"developer_comment": "Allow filtering by claim with no value set"
+	},
+	"search.emptyAssign": {
+		"string": "Hindi nakatalaga",
+		"developer_comment": "Allow filtering by assigned_to with no value set"
 	},
 	"search.fieldAnd": {
 		"string": "at",
@@ -2732,6 +2734,14 @@
 	"search.noResults": {
 		"string": "No results found.",
 		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
+	},
+	"search.notEmpty": {
+		"string": "Not empty",
+		"developer_comment": "Allow filtering by claim with any value set"
+	},
+	"search.notEmptyAssign": {
+		"string": "Assigned",
+		"developer_comment": "Allow filtering by assigned_to with any value set"
 	},
 	"search.notInAny": {
 		"string": "Not in any collection",
@@ -3177,7 +3187,7 @@
 		"string": "Present the value of your newsletter to users. All users who opt-in will receive any future newsletter."
 	},
 	"smoochBot.designYourBot": {
-		"string": "Design your bot",
+		"string": "Disenyuhan ang iyong bot",
 		"developer_comment": "Title of tipline settings page"
 	},
 	"smoochBot.footnoteGreeting": {
@@ -3323,11 +3333,11 @@
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.addMoreInformationTitle": {
-		"string": "Add more information",
+		"string": "Submit content",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.error": {
-		"string": "The placeholder \\{subscription_status\\} is missing from your custom content or translation",
+		"string": "The placeholder {subscription_status} is missing from your custom content or translation",
 		"developer_comment": "Error message displayed on the tipline settings page when the placeholder is not present"
 	},
 	"smoochBotContentAndTranslation.feedbackDefault": {
@@ -3347,7 +3357,7 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsDescription": {
-		"string": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot.",
+		"string": "Ang unang mensaheng ipinadadala sa user. Ipinakikilala nito ang iyong organisasyon at ang inyong serbisyong ipinagkakaloob sa pamamagitan ng bot na ito.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsTitle": {
@@ -3355,7 +3365,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptDefault": {
-		"string": "OK! Please add more content.",
+		"string": "Please add more content.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptDescription": {
@@ -3363,11 +3373,11 @@
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptTitle": {
-		"string": "More content prompt",
+		"string": "Add more content",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDefault": {
-		"string": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDescription": {
@@ -3379,7 +3389,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterDefault": {
-		"string": "Our newsletter is the best fact-checking resource to stay informed. {subscription_status}.",
+		"string": "Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterDescription": {
@@ -3391,7 +3401,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDefault": {
-		"string": "No result has been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDescription": {
@@ -3407,11 +3417,23 @@
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
-		"string": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive.",
+		"string": "Ang mensaheng ipinadadala sa sinumang user na nakapagpadala ng mensahe sa tipline habang nakatakda bilang inactive ang bot ng Check Message.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityTitle": {
-		"string": "Notice of inactivity",
+		"string": "Abiso sa kawalan ng aktibidad",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
+		"string": "I'm sorry, I didn't understand your message.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
+		"string": "Ang mensaheng pinadadala kapag ang tugon ng user sa menu ay hindi wastong senaryong pantalaan.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableTitle": {
+		"string": "Hindi available ang pagpipilian",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.placeholder": {
@@ -3419,7 +3441,7 @@
 		"developer_comment": "Placeholder used in all fields under tipline content and translation settings."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackDefault": {
-		"string": "Thank you! Spread the word about this tipline to help us fight misinformation!",
+		"string": "Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackDescription": {
@@ -3443,11 +3465,11 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDefault": {
-		"string": "Please enter the question, link, picture or video that you want fact-checked, followed by any context or additional questions related to that item. You must submit one claim or item to be fact-checked per request.",
+		"string": "Please enter the question, link, picture, or video that you want to be fact-checked.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDescription": {
-		"string": "The message asking the user to submit content for a fact-check.",
+		"string": "Ang mensaheng nagsasabi sa user na magsumite ng kontent para sa pag-fact check.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptTitle": {
@@ -3455,7 +3477,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "Thank you! Looking for fact-checks.",
+		"string": "Thank you! Looking for fact-checks, it may take a minute.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
@@ -3566,14 +3588,18 @@
 	},
 	"smoochBotMainMenu.languagesAndPrivacy": {
 		"string": "Languages and Privacy",
-		"developer_comment": "Title of the main menu third section of the tipline"
+		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
 	"smoochBotMainMenu.mainMenu": {
-		"string": "Main menu",
+		"string": "Pangunahing talaan",
 		"developer_comment": "Title of the tipline bot main menu settings page."
 	},
+	"smoochBotMainMenu.privacy": {
+		"string": "Pagkapribado",
+		"developer_comment": "Title of the main menu third section of the tipline when there is only one supported language"
+	},
 	"smoochBotMainMenu.privacyStatement": {
-		"string": "Privacy statement",
+		"string": "Pahayag sa pagkapribado",
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
@@ -3581,7 +3607,7 @@
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
-		"string": "Cancel",
+		"string": "Kanselahin",
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuNewOption.label": {
@@ -3605,15 +3631,15 @@
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.save": {
-		"string": "Save",
+		"string": "I-save",
 		"developer_comment": "Button label to save new tipline menu option"
 	},
 	"smoochBotMainMenuNewOption.scenario": {
-		"string": "Scenario",
+		"string": "Senaryo",
 		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.selectAction": {
-		"string": "Select action",
+		"string": "Mamili ng gagawin",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.send": {
@@ -3625,7 +3651,7 @@
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.cancel": {
-		"string": "Cancel",
+		"string": "Kanselahin",
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuOption.label": {
@@ -3637,7 +3663,7 @@
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.queryState": {
-		"string": "Query prompt",
+		"string": "Submission prompt",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.resources": {
@@ -3649,15 +3675,15 @@
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.save": {
-		"string": "Save",
+		"string": "I-save",
 		"developer_comment": "Button label to save new tipline menu option"
 	},
 	"smoochBotMainMenuOption.scenario": {
-		"string": "Scenario",
+		"string": "Senaryo",
 		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.selectAction": {
-		"string": "Select action",
+		"string": "Mamili ng gagawin",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.send": {
@@ -3669,12 +3695,16 @@
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuSection.editOption": {
-		"string": "Edit",
+		"string": "I-edit",
 		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.newOption": {
 		"string": "New option",
 		"developer_comment": "Button label to create a new main menu option on tipline bot settings."
+	},
+	"smoochBotMainMenuSection.noOptions": {
+		"string": "There is currently no option in this section.",
+		"developer_comment": "Message displayed when there is no menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.sectionTitle": {
 		"string": "Title - 24 characters limit",
@@ -3849,6 +3879,10 @@
 	"smoochBotSettings.internalSettingsDescription": {
 		"string": "Meedan employees see these settings, but users don't.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.searchSettings": {
+		"string": "Search settings",
+		"developer_comment": "Title of Search settings section in the tipline settings page."
 	},
 	"smoochBotSettings.sunshineSettings": {
 		"string": "Sunshine integration settings",
@@ -4704,7 +4738,7 @@
 		"string": "Are you sure you want to delete this field?"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "Are you sure you want to delete this task?"
+		"string": "Sigurado ka bang nais mong burahin ang gawaing ito?"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
 		"string": "Keep this task with answers in items where the task has been completed.",
@@ -4715,7 +4749,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
-		"string": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"string": "Kasunod ng pag-apply ng pagbabagong ito, mababago rin ang mga kaugnay na gawaing pang-item, maliban sa mga nakumpleto na.",
 		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
@@ -4726,7 +4760,7 @@
 		"string": "Are you sure you want to edit this field?"
 	},
 	"teamTasks.confirmEditTaskTitle": {
-		"string": "Are you sure you want to edit this task?"
+		"string": "Sigurado ka bang nais mong i-edit ang gawaing ito?"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
 		"string": "Do not alter tasks that have been completed, and keep their existing answers.",
@@ -4737,7 +4771,7 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
-		"string": "Edit task"
+		"string": "I-edit ang gawain"
 	},
 	"teamTasks.continueMetadata": {
 		"string": "Edit field"
@@ -4746,7 +4780,7 @@
 		"string": "Delete field"
 	},
 	"teamTasks.deleteTask": {
-		"string": "Delete task"
+		"string": "Burahin ang gawain"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {No tasks} one {1 task} other {# tasks}}"
@@ -4848,28 +4882,64 @@
 	"trash.title": {
 		"string": "Basurahan"
 	},
-	"trendItem.claimDescription": {
-		"string": "Claim descriptions and ratings"
+	"trendItem.aboutThisClaim": {
+		"string": "About this claim"
 	},
-	"trendItem.claimDescriptionSubtitle": {
-		"string": "{number} organizations added a claim description."
+	"trendItem.claimDescription": {
+		"string": "Claims"
+	},
+	"trendItem.factCheck": {
+		"string": "Fact-check",
+		"developer_comment": "Middle column title on trends item page"
+	},
+	"trendItem.factCheckSummary": {
+		"string": "Summary",
+		"developer_comment": "Fact-check summary"
+	},
+	"trendItem.factCheckTitle": {
+		"string": "Pamagat",
+		"developer_comment": "Fact-check title"
+	},
+	"trendItem.factCheckUrl": {
+		"string": "URL ng nakalathalang artikulo",
+		"developer_comment": "Fact-check article URL"
+	},
+	"trendItem.import": {
+		"string": "Import"
 	},
 	"trendItem.lastSubmitted": {
 		"string": "Huling isinumite",
 		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
 	},
-	"trendItem.lastSubmittedAt": {
-		"string": "Last submitted",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trendItem.main": {
-		"string": "{number} Medias"
+		"string": "Media"
 	},
 	"trendItem.media": {
 		"string": "Katulad na media"
 	},
-	"trendItem.noClaims": {
-		"string": "Import this group of media to be the first to add a claim description and publish a report."
+	"trendItem.mediaRequests": {
+		"string": "{number} tipline requests across all medias"
+	},
+	"trendItem.mediasColumnTitleAll": {
+		"string": "{number} Medias across all organizations"
+	},
+	"trendItem.mediasColumnTitleSingle": {
+		"string": "{number} Medias from {organizationName}"
+	},
+	"trendItem.noClaim": {
+		"string": "No claim added yet"
+	},
+	"trendItem.noImportingClaim": {
+		"string": "Select an organization to display available fact-check and annotations.",
+		"developer_comment": "Message displayed on trends item page when no claim was selected."
+	},
+	"trendItem.noTags": {
+		"string": "No tags.",
+		"developer_comment": "Displayed on trends item page when item has no tags."
+	},
+	"trendItem.noTasks": {
+		"string": "No completed annotations.",
+		"developer_comment": "Displayed on trends item page when item has no completed annotations."
 	},
 	"trendItem.notPublished": {
 		"string": "Not published yet"
@@ -4888,22 +4958,20 @@
 		"string": "Mga kahilingan",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
-	"trendItem.requestsCount": {
-		"string": "Requests",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trendItem.sortBy": {
 		"string": "Sort by"
-	},
-	"trendItem.submitted": {
-		"string": "Submitted",
-		"developer_comment": "Label displayed on cluster item page"
 	},
 	"trends.title": {
 		"string": "Shared database"
 	},
+	"trendsItem.completedAnnotations": {
+		"string": "Completed annotations"
+	},
 	"trendsItem.couldNotImport": {
 		"string": "Could not import claim"
+	},
+	"trendsItem.factCheck": {
+		"string": "Fact-check"
 	},
 	"trendsItem.importDescription": {
 		"string": "A new claim will be created in your workspace with media.",
@@ -4918,15 +4986,22 @@
 		"developer_comment": "Text field label used in import claim dialog from trends page."
 	},
 	"trendsItem.importTitle": {
-		"string": "Import claims and medias to workspace",
+		"string": "Import data to workspace",
 		"developer_comment": "Dialog title when importing a claim from trends page."
 	},
 	"trendsItem.importedSuccessfully": {
 		"string": "Claim successfully imported to {workspaceName} workspace"
 	},
+	"trendsItem.importingQuestion": {
+		"string": "What content do you want to import?",
+		"developer_comment": "Question in trends page importing modal"
+	},
 	"trendsItem.proceedImport": {
 		"string": "Import",
 		"developer_comment": "Button label to confirm importing claim from trends page"
+	},
+	"trendsItem.tags": {
+		"string": "Mga tag"
 	},
 	"unconfirmed.title": {
 		"string": "Hindi kumpirmado"
@@ -4937,11 +5012,11 @@
 	"uploadFile.changeFile": {
 		"string": "{filename} (mag-click o maglagay rito para palitan)"
 	},
-	"uploadFile.fileMessage": {
-		"string": "Maglagay ng file dito, o mag-click para makapag-upload ng file (maximum na laki: {file_max_size}, mga pinahihintulutang extension: {file_extensions})"
-	},
 	"uploadFile.fileTooLarge": {
 		"string": "Hindi dapat hihigit sa {size} ang laki ng file. Mangyaring sumubok ng mas maliit na file."
+	},
+	"uploadFile.imageVideoAudioMessage": {
+		"string": "Maglagay ng file dito, o mag-click para makapag-upload ng file (maximum na laki: {file_max_size}, mga pinahihintulutang extension: {file_extensions})"
 	},
 	"uploadFile.invalidExtension": {
 		"string": "Ang file na ito ay hindi maaaring magkaroon ng uring \"{extension}\". Mangyaring sumubok muli gamit ang mga sumusunod na uri ng file: {allowed_types}."

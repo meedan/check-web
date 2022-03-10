@@ -162,7 +162,6 @@ const AllPossibleColumns = [
     field: 'cluster_fact_checked_by_team_names',
     headerText: <FormattedMessage id="list.clusterFactCheckedByTeamNames" defaultMessage="Report published" description="Table header for column that shows from which workspaces the items in the same cluster have a published report" />,
     cellComponent: ClusterFactCheckedByTeamsCell,
-    align: 'center',
     sortKey: 'cluster_published_reports_count',
   },
   {
@@ -253,8 +252,10 @@ export default function SearchResultsTable({
   onChangeSortParams,
   resultType,
   viewMode,
+  count,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team, resultType), [team]);
+  const mediaNavList = projectMedias.map(media => media.dbid);
 
   const handleChangeProjectMediaChecked = React.useCallback((ev, projectMedia) => {
     const { id } = projectMedia;
@@ -302,6 +303,8 @@ export default function SearchResultsTable({
               onChangeChecked={handleChangeProjectMediaChecked}
               resultType={resultType}
               viewMode={viewMode}
+              mediaNavList={mediaNavList}
+              count={count}
             />
           ))}
         </TableBody>

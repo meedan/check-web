@@ -97,6 +97,15 @@ module AppSpecHelpers
     el.text
   end
 
+  def wait_for_url_change(old_url, count = 10)
+    c = 0
+    begin
+      c += 1
+      current_url = @driver.current_url.to_s
+      sleep 1
+    end while (old_url == current_url && c < count)
+  end
+
   def wait_for_size_change(size, selector, type = :css, count = 30, test = 'unknown')
     c = 0
     begin
