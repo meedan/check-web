@@ -334,7 +334,11 @@ const MediaSuggestionsComponent = ({
         </Button>
         <Typography variant="body1" gutterBottom>
           <strong>
-            <FormattedMessage id="mediaSuggestionsComponent.mediasCount" defaultMessage="{number} Medias" values={{ number: mainItem.confirmedSimilarCount }} />
+            <FormattedMessage
+              id="mediaSuggestionsComponent.mediasCount"
+              defaultMessage="{number, plural, one {# media} other {# medias}}"
+              values={{ number: mainItem.confirmedSimilarCount + 1 }}
+            />
           </strong>
         </Typography>
         <Typography variant="caption" paragraph>

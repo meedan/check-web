@@ -107,6 +107,10 @@
 		"string": "Channel is",
 		"developer_comment": "Prefix label for field to filter by item channel"
 	},
+	"SearchFieldClusterTeams.label": {
+		"string": "Organization is",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Account Already Confirmed",
 		"developer_comment": "Message for accounts already confirmed"
@@ -190,6 +194,10 @@
 	"addAnnotation.submitButton": {
 		"string": "Submit"
 	},
+	"addFilterMenu.Workspace": {
+		"string": "Organization",
+		"developer_comment": "Menu option to enable searching items by workspace"
+	},
 	"addFilterMenu.addFilter": {
 		"string": "Add filter",
 		"developer_comment": "Button that opens menu with filter field options"
@@ -205,6 +213,10 @@
 	"addFilterMenu.channel": {
 		"string": "Channel",
 		"developer_comment": "Menu option to enable searching items by channel"
+	},
+	"addFilterMenu.claim": {
+		"string": "Claim",
+		"developer_comment": "Menu option to enable searching items by claim"
 	},
 	"addFilterMenu.collection": {
 		"string": "Collection",
@@ -734,10 +746,7 @@
 		"string": "Add new item"
 	},
 	"createMedia.addNewItem": {
-		"string": "Add new item"
-	},
-	"createMedia.audio": {
-		"string": "Audio"
+		"string": "Add item"
 	},
 	"createMedia.error": {
 		"string": "Sorry, an error occurred while submitting the item. Please try again and contact {supportEmail} if the condition persists."
@@ -745,23 +754,31 @@
 	"createMedia.existing": {
 		"string": "Add existing item"
 	},
-	"createMedia.image": {
-		"string": "Photo"
+	"createMedia.media.media": {
+		"string": "Media"
 	},
-	"createMedia.link": {
-		"string": "Link"
+	"createMedia.mediaClaim": {
+		"string": "Type something"
+	},
+	"createMedia.mediaClaimDescription": {
+		"string": "Claim description"
+	},
+	"createMedia.mediaClaimDescriptionSubtitle": {
+		"string": "A description of the claim that needs to be reviewed."
 	},
 	"createMedia.mediaInput": {
-		"string": "Paste or type"
+		"string": "Add a URL to a social media post or webpage, or a block of text."
 	},
-	"createMedia.quote": {
-		"string": "Text"
+	"createMedia.mediaMediaSubtitle": {
+		"string": "The media that contains the claim."
 	},
-	"createMedia.quoteInput": {
-		"string": "Paste or type a text"
+	"createMedia.mediaRemoveFile": {
+		"string": "Remove file",
+		"developer_comment": "Label on a button that the user clicks in order to return a file upload box back to its 'empty' state."
 	},
-	"createMedia.video": {
-		"string": "Video"
+	"createMedia.or": {
+		"string": "or",
+		"developer_comment": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled."
 	},
 	"createMediaSource.createSource": {
 		"string": "Create source",
@@ -1672,22 +1689,9 @@
 	"mediaSearch.xOfY": {
 		"string": "{current} of {total}"
 	},
-	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similar",
-		"developer_comment": "Adjective, plural. Heading for a list of similar items"
-	},
-	"mediaSimilarities.clickOnItem": {
-		"string": "Click on an item"
-	},
-	"mediaSimilarities.mainItem": {
-		"string": "Main",
-		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
-	},
-	"mediaSimilarities.notes": {
-		"string": "Notes"
-	},
-	"mediaSimilarities.requests": {
-		"string": "Requests"
+	"mediaSimilarities.moreMedias": {
+		"string": "More medias",
+		"developer_comment": "Heading for a list of similar medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Export all media"
@@ -1724,9 +1728,6 @@
 		"string": "Similar item added successfully",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.back": {
-		"string": "Back"
-	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "This media has been associated with an existing claim."
 	},
@@ -1739,9 +1740,6 @@
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Similar media",
 		"developer_comment": "Plural. Heading for the number of similar media"
-	},
-	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Suggested media",
@@ -1763,29 +1761,21 @@
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Back to main view"
 	},
+	"mediaSuggestionsComponent.mediasCount": {
+		"string": "{number, plural, one {# media} other {# medias}}"
+	},
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Move item"
-	},
-	"mediaSuggestionsComponent.noNotes": {
-		"string": "No notes"
-	},
-	"mediaSuggestionsComponent.noRequests": {
-		"string": "No requests"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "There is no suggested media."
 	},
-	"mediaSuggestionsComponent.notes": {
-		"string": "Notes"
-	},
 	"mediaSuggestionsComponent.question": {
-		"string": "Is this media a good match for this claim?"
+		"string": "Is this media a good match for the claim and medias on the left?",
+		"developer_comment": "Subtitle for similarity matching widget"
 	},
-	"mediaSuggestionsComponent.questionBlank": {
-		"string": "Is the suggested media similar to the imported report?"
-	},
-	"mediaSuggestionsComponent.requests": {
-		"string": "Requests"
+	"mediaSuggestionsComponent.requestsCount": {
+		"string": "{number} tipline requests across all medias"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
@@ -2666,6 +2656,10 @@
 		"string": "Tag is",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
+	"search.claim": {
+		"string": "Claim field is",
+		"developer_comment": "Prefix label for field to filter by claim"
+	},
 	"search.collection": {
 		"string": "Collection is",
 		"developer_comment": "Prefix label for field to filter by collection"
@@ -2689,6 +2683,14 @@
 	},
 	"search.dateUpdatedHeading": {
 		"string": "Item updated"
+	},
+	"search.empty": {
+		"string": "Empty",
+		"developer_comment": "Allow filtering by claim with no value set"
+	},
+	"search.emptyAssign": {
+		"string": "Not assigned",
+		"developer_comment": "Allow filtering by assigned_to with no value set"
 	},
 	"search.fieldAnd": {
 		"string": "and",
@@ -2732,6 +2734,14 @@
 	"search.noResults": {
 		"string": "No results found.",
 		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
+	},
+	"search.notEmpty": {
+		"string": "Not empty",
+		"developer_comment": "Allow filtering by claim with any value set"
+	},
+	"search.notEmptyAssign": {
+		"string": "Assigned",
+		"developer_comment": "Allow filtering by assigned_to with any value set"
 	},
 	"search.notInAny": {
 		"string": "Not in any collection",
@@ -3323,11 +3333,11 @@
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.addMoreInformationTitle": {
-		"string": "Add more information",
+		"string": "Submit content",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.error": {
-		"string": "The placeholder \\{subscription_status\\} is missing from your custom content or translation",
+		"string": "The placeholder {subscription_status} is missing from your custom content or translation",
 		"developer_comment": "Error message displayed on the tipline settings page when the placeholder is not present"
 	},
 	"smoochBotContentAndTranslation.feedbackDefault": {
@@ -3355,7 +3365,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptDefault": {
-		"string": "OK! Please add more content.",
+		"string": "Please add more content.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptDescription": {
@@ -3363,11 +3373,11 @@
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptTitle": {
-		"string": "More content prompt",
+		"string": "Add more content",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDefault": {
-		"string": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDescription": {
@@ -3379,7 +3389,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterDefault": {
-		"string": "Our newsletter is the best fact-checking resource to stay informed. {subscription_status}.",
+		"string": "Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterDescription": {
@@ -3391,7 +3401,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDefault": {
-		"string": "No result has been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDescription": {
@@ -3414,12 +3424,24 @@
 		"string": "Notice of inactivity",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
+	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
+		"string": "I'm sorry, I didn't understand your message.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
+		"string": "The message sent if the user response to a menu is not a valid menu scenario.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableTitle": {
+		"string": "Option not available",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
 	"smoochBotContentAndTranslation.placeholder": {
 		"string": "Type custom content or translation here.",
 		"developer_comment": "Placeholder used in all fields under tipline content and translation settings."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackDefault": {
-		"string": "Thank you! Spread the word about this tipline to help us fight misinformation!",
+		"string": "Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackDescription": {
@@ -3443,7 +3465,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDefault": {
-		"string": "Please enter the question, link, picture or video that you want fact-checked, followed by any context or additional questions related to that item. You must submit one claim or item to be fact-checked per request.",
+		"string": "Please enter the question, link, picture, or video that you want to be fact-checked.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDescription": {
@@ -3455,7 +3477,7 @@
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "Thank you! Looking for fact-checks.",
+		"string": "Thank you! Looking for fact-checks, it may take a minute.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
@@ -3566,11 +3588,15 @@
 	},
 	"smoochBotMainMenu.languagesAndPrivacy": {
 		"string": "Languages and Privacy",
-		"developer_comment": "Title of the main menu third section of the tipline"
+		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
 	"smoochBotMainMenu.mainMenu": {
 		"string": "Main menu",
 		"developer_comment": "Title of the tipline bot main menu settings page."
+	},
+	"smoochBotMainMenu.privacy": {
+		"string": "Privacy",
+		"developer_comment": "Title of the main menu third section of the tipline when there is only one supported language"
 	},
 	"smoochBotMainMenu.privacyStatement": {
 		"string": "Privacy statement",
@@ -3637,7 +3663,7 @@
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.queryState": {
-		"string": "Query prompt",
+		"string": "Submission prompt",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.resources": {
@@ -3675,6 +3701,10 @@
 	"smoochBotMainMenuSection.newOption": {
 		"string": "New option",
 		"developer_comment": "Button label to create a new main menu option on tipline bot settings."
+	},
+	"smoochBotMainMenuSection.noOptions": {
+		"string": "There is currently no option in this section.",
+		"developer_comment": "Message displayed when there is no menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.sectionTitle": {
 		"string": "Title - 24 characters limit",
@@ -3849,6 +3879,10 @@
 	"smoochBotSettings.internalSettingsDescription": {
 		"string": "Meedan employees see these settings, but users don't.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.searchSettings": {
+		"string": "Search settings",
+		"developer_comment": "Title of Search settings section in the tipline settings page."
 	},
 	"smoochBotSettings.sunshineSettings": {
 		"string": "Sunshine integration settings",
@@ -4848,28 +4882,64 @@
 	"trash.title": {
 		"string": "Trash"
 	},
-	"trendItem.claimDescription": {
-		"string": "Claim descriptions and ratings"
+	"trendItem.aboutThisClaim": {
+		"string": "About this claim"
 	},
-	"trendItem.claimDescriptionSubtitle": {
-		"string": "{number} organizations added a claim description."
+	"trendItem.claimDescription": {
+		"string": "Claims"
+	},
+	"trendItem.factCheck": {
+		"string": "Fact-check",
+		"developer_comment": "Middle column title on trends item page"
+	},
+	"trendItem.factCheckSummary": {
+		"string": "Summary",
+		"developer_comment": "Fact-check summary"
+	},
+	"trendItem.factCheckTitle": {
+		"string": "Title",
+		"developer_comment": "Fact-check title"
+	},
+	"trendItem.factCheckUrl": {
+		"string": "Published article URL",
+		"developer_comment": "Fact-check article URL"
+	},
+	"trendItem.import": {
+		"string": "Import"
 	},
 	"trendItem.lastSubmitted": {
 		"string": "Last submitted",
 		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
 	},
-	"trendItem.lastSubmittedAt": {
-		"string": "Last submitted",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trendItem.main": {
-		"string": "{number} Medias"
+		"string": "Media"
 	},
 	"trendItem.media": {
 		"string": "Similar media"
 	},
-	"trendItem.noClaims": {
-		"string": "Import this group of media to be the first to add a claim description and publish a report."
+	"trendItem.mediaRequests": {
+		"string": "{number} tipline requests across all medias"
+	},
+	"trendItem.mediasColumnTitleAll": {
+		"string": "{number} Medias across all organizations"
+	},
+	"trendItem.mediasColumnTitleSingle": {
+		"string": "{number} Medias from {organizationName}"
+	},
+	"trendItem.noClaim": {
+		"string": "No claim added yet"
+	},
+	"trendItem.noImportingClaim": {
+		"string": "Select an organization to display available fact-check and annotations.",
+		"developer_comment": "Message displayed on trends item page when no claim was selected."
+	},
+	"trendItem.noTags": {
+		"string": "No tags.",
+		"developer_comment": "Displayed on trends item page when item has no tags."
+	},
+	"trendItem.noTasks": {
+		"string": "No completed annotations.",
+		"developer_comment": "Displayed on trends item page when item has no completed annotations."
 	},
 	"trendItem.notPublished": {
 		"string": "Not published yet"
@@ -4888,22 +4958,20 @@
 		"string": "Requests",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
-	"trendItem.requestsCount": {
-		"string": "Requests",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trendItem.sortBy": {
 		"string": "Sort by"
-	},
-	"trendItem.submitted": {
-		"string": "Submitted",
-		"developer_comment": "Label displayed on cluster item page"
 	},
 	"trends.title": {
 		"string": "Shared database"
 	},
+	"trendsItem.completedAnnotations": {
+		"string": "Completed annotations"
+	},
 	"trendsItem.couldNotImport": {
 		"string": "Could not import claim"
+	},
+	"trendsItem.factCheck": {
+		"string": "Fact-check"
 	},
 	"trendsItem.importDescription": {
 		"string": "A new claim will be created in your workspace with media.",
@@ -4918,15 +4986,22 @@
 		"developer_comment": "Text field label used in import claim dialog from trends page."
 	},
 	"trendsItem.importTitle": {
-		"string": "Import claims and medias to workspace",
+		"string": "Import data to workspace",
 		"developer_comment": "Dialog title when importing a claim from trends page."
 	},
 	"trendsItem.importedSuccessfully": {
 		"string": "Claim successfully imported to {workspaceName} workspace"
 	},
+	"trendsItem.importingQuestion": {
+		"string": "What content do you want to import?",
+		"developer_comment": "Question in trends page importing modal"
+	},
 	"trendsItem.proceedImport": {
 		"string": "Import",
 		"developer_comment": "Button label to confirm importing claim from trends page"
+	},
+	"trendsItem.tags": {
+		"string": "Tags"
 	},
 	"unconfirmed.title": {
 		"string": "Unconfirmed"
@@ -4937,11 +5012,11 @@
 	"uploadFile.changeFile": {
 		"string": "{filename} (click or drop to change)"
 	},
-	"uploadFile.fileMessage": {
-		"string": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
-	},
 	"uploadFile.fileTooLarge": {
 		"string": "The file size should be less than {size}. Please try with a smaller file."
+	},
+	"uploadFile.imageVideoAudioMessage": {
+		"string": "Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
 	},
 	"uploadFile.invalidExtension": {
 		"string": "The file cannot have type \"{extension}\". Please try with the following file types: {allowed_types}."
