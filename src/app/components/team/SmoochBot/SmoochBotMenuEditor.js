@@ -13,14 +13,14 @@ import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMenuOption from './SmoochBotMenuOption';
-import { brandHighlight } from '../../../styles/js/shared';
+import { checkBlue } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   button: {
-    color: brandHighlight,
+    color: checkBlue,
   },
   iconButton: {
-    color: brandHighlight,
+    color: checkBlue,
     display: 'block',
   },
   content: {

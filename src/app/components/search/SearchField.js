@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import {
   black16,
   borderWidthLarge,
-  brandHighlight,
+  checkBlue,
 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputActive: {
     borderRadius: theme.spacing(0.5),
-    border: `${borderWidthLarge} solid ${brandHighlight}`,
+    border: `${borderWidthLarge} solid ${checkBlue}`,
   },
   startAdornmentRoot: {
     display: 'flex',
