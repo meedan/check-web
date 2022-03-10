@@ -4,7 +4,7 @@ import NumberCell from './NumberCell';
 
 export default function SuggestionsCountCell({ projectMedia }) {
   const suggestionsCount = projectMedia.list_columns_values.suggestions_count;
-  const suggestionsUrl = `/${projectMedia.team.slug}/media/${projectMedia.dbid}/suggested-matches`;
+  const suggestionsUrl = `/${projectMedia.team.slug}/media/${projectMedia.dbid}/similar-media`;
   return <NumberCell value={suggestionsCount} linkTo={suggestionsCount ? suggestionsUrl : null} />;
 }
 

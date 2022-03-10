@@ -4,15 +4,18 @@ import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
+import Dialog from '@material-ui/core/Dialog';
+import DialogContent from '@material-ui/core/DialogContent';
 import Typography from '@material-ui/core/Typography';
-import MediaSimilarityBar from './MediaSimilarityBar';
 import MediaItem from './MediaItem';
-import MediaRequests from '../MediaRequests';
-import MediaComments from '../MediaComments';
-import { Column, black54 } from '../../../styles/js/shared';
+import MediaExpanded from '../MediaExpanded';
 import { can } from '../../Can';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}));
 
 function sort(items) {
   if (!items) {
@@ -20,14 +23,6 @@ function sort(items) {
   }
   return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
 }
-
-const useStyles = makeStyles(() => ({
-  similarityTitle: {
-    fontWeight: 'bold',
-    fontSize: 12,
-    color: black54,
-  },
-}));
 
 let listener = null;
 
@@ -51,105 +46,40 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
   };
 
   return (
-    <React.Fragment>
-      <Column className="media__column">
-        <MediaSimilarityBar projectMedia={projectMedia} showSuggestionsCount={false} showBackButton />
-        { projectMedia.confirmed_main_item ?
-          <React.Fragment>
-            <Box mt={2}>
-              <Typography variant="subtitle2" className={classes.similarityTitle}>
-                <FormattedMessage
-                  id="mediaSimilarities.mainItem"
-                  defaultMessage="Main"
-                  description="Adjective, singular. Refers to the main item, as opposed to other similar items"
-                />
-              </Typography>
-            </Box>
-            <MediaItem
-              projectMedia={projectMedia.confirmed_main_item}
-              mainProjectMedia={projectMedia.confirmed_main_item}
-              isSelected={projectMedia.confirmed_main_item.dbid === selectedProjectMediaDbid}
-              onSelect={handleSelectItem}
-            />
-          </React.Fragment> : null }
-        <Box mt={4}>
-          <Typography variant="subtitle2" className={classes.similarityTitle}>
+    <div className="media__more-medias">
+      { selectedProjectMediaDbid ?
+        <Dialog open maxWidth="sm" fullWidth>
+          <DialogContent classes={classes}>
+            <MediaExpanded media={{ dbid: selectedProjectMediaDbid }} hideActions />
+          </DialogContent>
+        </Dialog>
+        : null }
+      <Box my={2}>
+        <Typography variant="body">
+          <strong>
             <FormattedMessage
-              id="mediaSimilarities.allSimilarMedia"
-              defaultMessage="Similar"
-              description="Adjective, plural. Heading for a list of similar items"
+              id="mediaSimilarities.moreMedias"
+              defaultMessage="More medias"
+              description="Heading for a list of similar medias"
             />
-          </Typography>
-        </Box>
-        { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
-          <MediaItem
-            key={relationship.node.id}
-            mainProjectMedia={projectMedia}
-            team={projectMedia.team}
-            projectMedia={relationship.node.target}
-            relationship={relationship.node}
-            canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
-            canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
-            isSelected={relationship.node.target_id === selectedProjectMediaDbid}
-            showReportStatus={false}
-            onSelect={handleSelectItem}
-          />
-        ))}
-      </Column>
-      <Column className="media__annotations-column" overflow="hidden">
-        { projectMedia.team.smooch_bot ?
-          <React.Fragment>
-            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaSimilarities.requests"
-                    defaultMessage="Requests"
-                  />
-                }
-                value="requests"
-                className="media-tab__requests"
-              />
-            </Tabs>
-            { /* Set maxHeight to screen height - (media bar + tabs) */ }
-            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-              { selectedProjectMediaDbid ?
-                <MediaRequests media={{ dbid: selectedProjectMediaDbid }} all={false} /> :
-                <MediaRequests media={{ dbid: projectMedia.dbid }} all />
-              }
-            </Box>
-          </React.Fragment> :
-          <React.Fragment>
-            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaSimilarities.notes"
-                    defaultMessage="Notes"
-                  />
-                }
-                value="notes"
-                className="media-tab__notes"
-              />
-            </Tabs>
-            { /* Set maxHeight to screen height - (media bar + tabs) */ }
-            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-              { selectedProjectMediaDbid ?
-                <MediaComments media={{ dbid: selectedProjectMediaDbid }} /> :
-                <Box m={1}>
-                  <Typography variant="subtitle2">
-                    <FormattedMessage
-                      id="mediaSimilarities.clickOnItem"
-                      defaultMessage="Click on an item"
-                    />
-                  </Typography>
-                </Box>
-              }
-            </Box>
-          </React.Fragment>
-        }
-      </Column>
-    </React.Fragment>
+          </strong>
+        </Typography>
+      </Box>
+      { sort(projectMedia.confirmed_similar_relationships.edges).map(relationship => (
+        <MediaItem
+          key={relationship.node.id}
+          mainProjectMedia={projectMedia}
+          team={projectMedia.team}
+          projectMedia={relationship.node.target}
+          relationship={relationship.node}
+          canSwitch={can(projectMedia.permissions, 'update ProjectMedia')}
+          canDelete={can(projectMedia.permissions, 'destroy ProjectMedia')}
+          isSelected={relationship.node.target_id === selectedProjectMediaDbid}
+          showReportStatus={false}
+          onSelect={handleSelectItem}
+        />
+      ))}
+    </div>
   );
 };
 
