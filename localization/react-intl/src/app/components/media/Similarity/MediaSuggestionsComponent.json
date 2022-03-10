@@ -5,7 +5,7 @@
   },
   {
     "id": "mediaSuggestionsComponent.mediasCount",
-    "defaultMessage": "{number} Medias"
+    "defaultMessage": "{number, plural, one {# media} other {# medias}}"
   },
   {
     "id": "mediaSuggestionsComponent.requestsCount",
