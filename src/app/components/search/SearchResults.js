@@ -22,8 +22,7 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import { black87, black54, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
-
-const pageSize = 50;
+import { pageSize } from '../../urlHelpers';
 
 const StyledListHeader = styled.div`
   margin: ${units(2)};
@@ -411,6 +410,7 @@ function SearchResultsComponent({
         buildProjectMediaUrl={buildProjectMediaUrl}
         resultType={resultType}
         viewMode={viewMode}
+        count={count}
       />
     );
   }

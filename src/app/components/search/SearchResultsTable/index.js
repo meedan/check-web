@@ -252,8 +252,10 @@ export default function SearchResultsTable({
   onChangeSortParams,
   resultType,
   viewMode,
+  count,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team, resultType), [team]);
+  const mediaNavList = projectMedias.map(media => media.dbid);
 
   const handleChangeProjectMediaChecked = React.useCallback((ev, projectMedia) => {
     const { id } = projectMedia;
@@ -301,6 +303,8 @@ export default function SearchResultsTable({
               onChangeChecked={handleChangeProjectMediaChecked}
               resultType={resultType}
               viewMode={viewMode}
+              mediaNavList={mediaNavList}
+              count={count}
             />
           ))}
         </TableBody>
