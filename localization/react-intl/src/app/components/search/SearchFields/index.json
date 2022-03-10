@@ -130,6 +130,11 @@
     "defaultMessage": "Published"
   },
   {
+    "id": "search.publishedBy",
+    "description": "Prefix label for field to filter by published by",
+    "defaultMessage": "Report published by"
+  },
+  {
     "id": "search.language",
     "description": "Prefix label for field to filter by language",
     "defaultMessage": "Language is"
