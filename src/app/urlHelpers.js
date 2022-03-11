@@ -3,9 +3,9 @@ import { safelyParseJSON } from './helpers';
 const pageSize = 50;
 
 function getPathnameAndSearch(url) {
-  const pathnameMatch = url.match(/(.*)\?/);
+  const pathnameMatch = url ? url.match(/(.*)\?/) : null;
   const pathname = pathnameMatch ? pathnameMatch[1] : null;
-  const search = url.match(/\?.*/)[0];
+  const search = url ? url.match(/\?.*/)[0] : null;
   return { pathname, search };
 }
 
