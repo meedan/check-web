@@ -32,7 +32,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('Claim 0')).to be(true)
     expect(@driver.page_source.include?('Claim 1')).to be(true)
     # list similar items
-    wait_for_selector("//span[contains(text(), '2 Medias')]", :xpath).click
+    wait_for_selector("//span[contains(text(), '3 medias')]", :xpath).click
     wait_for_selector_none('.media-tab__metadata"')
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
     expect(@driver.page_source.include?('More media')).to be(true)
