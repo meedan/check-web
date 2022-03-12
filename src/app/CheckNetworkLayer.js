@@ -19,10 +19,6 @@ function createRequestError(request, responseStatus, payload) {
   return error;
 }
 
-function generateRandomQueryId() {
-  return `q${parseInt(Math.random() * 1000000, 10)}`;
-}
-
 function parseQueryPayload(request, payload) {
   if (Object.prototype.hasOwnProperty.call(payload, 'errors')) {
     if (payload.errors.filter(error => error.code === 3).length
