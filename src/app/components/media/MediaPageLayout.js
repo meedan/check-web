@@ -21,7 +21,7 @@ const StyledTopBar = styled.div`
 `;
 
 export default function MediaPageLayout({
-  listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view,
+  listUrl, buildSiblingUrl, listQuery, listIndex, projectId, projectMediaId, view, mediaNavList, count,
 }) {
   return (
     <div>
@@ -31,6 +31,8 @@ export default function MediaPageLayout({
           listQuery={listQuery}
           listIndex={listIndex}
           objectType="media"
+          mediaNavList={mediaNavList}
+          count={count}
         />
       ) : null}
       <StyledTopBar className="media-search__actions-bar">

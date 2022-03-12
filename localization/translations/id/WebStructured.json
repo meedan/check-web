@@ -107,6 +107,10 @@
 		"string": "Saluran adalah",
 		"developer_comment": "Prefix label for field to filter by item channel"
 	},
+	"SearchFieldClusterTeams.label": {
+		"string": "Organization is",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Akun Sudah Terkonfirmasi",
 		"developer_comment": "Message for accounts already confirmed"
@@ -190,6 +194,10 @@
 	"addAnnotation.submitButton": {
 		"string": "Serahkan"
 	},
+	"addFilterMenu.Workspace": {
+		"string": "Organization",
+		"developer_comment": "Menu option to enable searching items by workspace"
+	},
 	"addFilterMenu.addFilter": {
 		"string": "Tambah saringan",
 		"developer_comment": "Button that opens menu with filter field options"
@@ -205,6 +213,10 @@
 	"addFilterMenu.channel": {
 		"string": "Saluran",
 		"developer_comment": "Menu option to enable searching items by channel"
+	},
+	"addFilterMenu.claim": {
+		"string": "Klaim",
+		"developer_comment": "Menu option to enable searching items by claim"
 	},
 	"addFilterMenu.collection": {
 		"string": "Koleksi",
@@ -687,11 +699,11 @@
 		"string": "Ubah peran ke {newRole}"
 	},
 	"checkedByTeamsCell.more": {
-		"string": "+{number} more",
+		"string": "+{number} lebih banyak",
 		"developer_comment": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display"
 	},
 	"checkedByTeamsCell.noFactCheck": {
-		"string": "No fact-check",
+		"string": "Belum ada pengecekan fakta",
 		"developer_comment": "Table cell displayed on Trends page when claim is not fact-checked yet"
 	},
 	"confirmProceedDialog.confirmationText": {
@@ -734,10 +746,7 @@
 		"string": "Tambah perihal baru"
 	},
 	"createMedia.addNewItem": {
-		"string": "Tambah perihal baru"
-	},
-	"createMedia.audio": {
-		"string": "Audio"
+		"string": "Tambah perihal"
 	},
 	"createMedia.error": {
 		"string": "Maaf, terjadi kesalahan saat menyerahkan perihal ini. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya berlanjut."
@@ -745,23 +754,31 @@
 	"createMedia.existing": {
 		"string": "Tambah perihal yang sudah ada"
 	},
-	"createMedia.image": {
-		"string": "Foto"
+	"createMedia.media.media": {
+		"string": "Media"
 	},
-	"createMedia.link": {
-		"string": "Tautan"
+	"createMedia.mediaClaim": {
+		"string": "Ketik sesuatu"
+	},
+	"createMedia.mediaClaimDescription": {
+		"string": "Deskripsi klaim"
+	},
+	"createMedia.mediaClaimDescriptionSubtitle": {
+		"string": "A description of the claim that needs to be reviewed."
 	},
 	"createMedia.mediaInput": {
-		"string": "Tempel atau ketik"
+		"string": "Add a URL to a social media post or webpage, or a block of text."
 	},
-	"createMedia.quote": {
-		"string": "Teks"
+	"createMedia.mediaMediaSubtitle": {
+		"string": "The media that contains the claim."
 	},
-	"createMedia.quoteInput": {
-		"string": "Tempel atau ketik sebuah teks"
+	"createMedia.mediaRemoveFile": {
+		"string": "Remove file",
+		"developer_comment": "Label on a button that the user clicks in order to return a file upload box back to its 'empty' state."
 	},
-	"createMedia.video": {
-		"string": "Video"
+	"createMedia.or": {
+		"string": "atau",
+		"developer_comment": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled."
 	},
 	"createMediaSource.createSource": {
 		"string": "Buat sumber",
@@ -1126,7 +1143,7 @@
 		"string": "Diserahkan"
 	},
 	"list.Item": {
-		"string": "Claim"
+		"string": "Klaim"
 	},
 	"list.LastSeen": {
 		"string": "Terakhir Diserahkan"
@@ -1144,23 +1161,23 @@
 		"string": "Tipe"
 	},
 	"list.clusterFactCheckedByTeamNames": {
-		"string": "Report published",
+		"string": "Laporan yang diterbitkan",
 		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster have a published report"
 	},
 	"list.clusterFirstItemAt": {
-		"string": "Submitted",
+		"string": "Diserahkan",
 		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
 	},
 	"list.clusterLastItemAt": {
-		"string": "Last submitted",
+		"string": "Terakhir diserahkan",
 		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
 	},
 	"list.clusterRequests": {
-		"string": "Requests",
+		"string": "Permintaan",
 		"developer_comment": "Table header for column that shows number of requests in a cluster"
 	},
 	"list.clusterSize": {
-		"string": "Similar media",
+		"string": "Media yang mirip",
 		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
@@ -1372,7 +1389,7 @@
 		"developer_comment": "Text that links to an external help article"
 	},
 	"mediaAnalysis.sharedDatabase": {
-		"string": "Shared Database",
+		"string": "Basis data Bersama",
 		"developer_comment": "Creator that refers to items created from the shared database."
 	},
 	"mediaAnalysis.tipline": {
@@ -1412,7 +1429,7 @@
 		"developer_comment": "Caption that informs who last saved this claim and when it happened."
 	},
 	"mediaClaim.saving": {
-		"string": "saving…",
+		"string": "menyimpan…",
 		"developer_comment": "Caption that informs that a claim is being saved"
 	},
 	"mediaComments.noNote": {
@@ -1536,7 +1553,7 @@
 		"developer_comment": "Title of the media fact-check section."
 	},
 	"mediaFactCheck.saving": {
-		"string": "saving…",
+		"string": "menyimpan…",
 		"developer_comment": "Caption that informs that a fact-check is being saved"
 	},
 	"mediaFactCheck.summary": {
@@ -1672,22 +1689,9 @@
 	"mediaSearch.xOfY": {
 		"string": "{current} dari {total}"
 	},
-	"mediaSimilarities.allSimilarMedia": {
-		"string": "Mirip",
-		"developer_comment": "Adjective, plural. Heading for a list of similar items"
-	},
-	"mediaSimilarities.clickOnItem": {
-		"string": "Klik pada sebuah perihal"
-	},
-	"mediaSimilarities.mainItem": {
-		"string": "Utama",
-		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
-	},
-	"mediaSimilarities.notes": {
-		"string": "Catatan"
-	},
-	"mediaSimilarities.requests": {
-		"string": "Permintaan"
+	"mediaSimilarities.moreMedias": {
+		"string": "More medias",
+		"developer_comment": "Heading for a list of similar medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Ekspor semua media"
@@ -1724,9 +1728,6 @@
 		"string": "Perihal yang mirip berhasil ditambahkan",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.back": {
-		"string": "Kembali"
-	},
 	"mediaSimilarityBarComponent.hasMain": {
 		"string": "Media ini telah diasosiasikan dengan klaim yang sudah ada"
 	},
@@ -1739,9 +1740,6 @@
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Media yang mirip",
 		"developer_comment": "Plural. Heading for the number of similar media"
-	},
-	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, other {# media yang mirip}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Media yang disarankan",
@@ -1763,29 +1761,21 @@
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Kembali ke tampilan utama"
 	},
+	"mediaSuggestionsComponent.mediasCount": {
+		"string": "{number, plural, one {# media} other {# medias}}"
+	},
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Pindahkan perihal"
-	},
-	"mediaSuggestionsComponent.noNotes": {
-		"string": "Tidak ada catatan"
-	},
-	"mediaSuggestionsComponent.noRequests": {
-		"string": "Tidak ada permintaan"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "Tidak ada media yang disarankan."
 	},
-	"mediaSuggestionsComponent.notes": {
-		"string": "Catatan"
-	},
 	"mediaSuggestionsComponent.question": {
-		"string": "Is this media a good match for this claim?"
+		"string": "Is this media a good match for the claim and medias on the left?",
+		"developer_comment": "Subtitle for similarity matching widget"
 	},
-	"mediaSuggestionsComponent.questionBlank": {
-		"string": "Apakah media yang disarankan mirip dengan laporan yang diimpor?"
-	},
-	"mediaSuggestionsComponent.requests": {
-		"string": "Permintaan"
+	"mediaSuggestionsComponent.requestsCount": {
+		"string": "{number} tipline requests across all medias"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, other {{current} dari # media yang disarankan}}"
@@ -2083,7 +2073,7 @@
 		"string": "Tong Sampah"
 	},
 	"projectHeader.trends": {
-		"string": "Shared database"
+		"string": "Basis data bersama"
 	},
 	"projectHeader.unconfirmed": {
 		"string": "Belum Terkonfirmasi"
@@ -2253,7 +2243,7 @@
 		"string": "Judul"
 	},
 	"projectsComponent.trends": {
-		"string": "Shared database (beta)",
+		"string": "Basis data bersama (beta)",
 		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
 	},
 	"reportDesigner.addIntro": {
@@ -2655,7 +2645,7 @@
 		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
 	"search.beforeDate": {
-		"string": "and",
+		"string": "dan",
 		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.cancel": {
@@ -2666,29 +2656,41 @@
 		"string": "Label adalah",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
+	"search.claim": {
+		"string": "Claim field is",
+		"developer_comment": "Prefix label for field to filter by claim"
+	},
 	"search.collection": {
 		"string": "Koleksi adalah",
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.dateLastSubmittedHeading": {
-		"string": "Media published"
+		"string": "Media yang diterbitkan"
 	},
 	"search.datePublishedHeading": {
-		"string": "Report published"
+		"string": "Laporan yang diterbitkan"
 	},
 	"search.dateRelative": {
-		"string": "less than",
+		"string": "kurang dari",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
 	},
 	"search.dateStartEnd": {
-		"string": "between",
+		"string": "antara",
 		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'."
 	},
 	"search.dateSubmittedHeading": {
-		"string": "Media submitted"
+		"string": "Media yang diserahkan"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "Item updated"
+		"string": "Perihal yang diperbarui"
+	},
+	"search.empty": {
+		"string": "Kosong",
+		"developer_comment": "Allow filtering by claim with no value set"
+	},
+	"search.emptyAssign": {
+		"string": "Not assigned",
+		"developer_comment": "Allow filtering by assigned_to with no value set"
 	},
 	"search.fieldAnd": {
 		"string": "dan",
@@ -2733,6 +2735,14 @@
 		"string": "Tidak ada hasil yang ditemukan.",
 		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
 	},
+	"search.notEmpty": {
+		"string": "Tidak kosong",
+		"developer_comment": "Allow filtering by claim with any value set"
+	},
+	"search.notEmptyAssign": {
+		"string": "Assigned",
+		"developer_comment": "Allow filtering by assigned_to with any value set"
+	},
 	"search.notInAny": {
 		"string": "Tidak ada di koleksi manapun",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
@@ -2749,19 +2759,19 @@
 		"developer_comment": "Prefix label for field to filter by media read"
 	},
 	"search.relativeDays": {
-		"string": "days ago",
+		"string": "hari yang lalu",
 		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'."
 	},
 	"search.relativeMonths": {
-		"string": "months ago",
+		"string": "bulan yang lalu",
 		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'."
 	},
 	"search.relativeWeeks": {
-		"string": "weeks ago",
+		"string": "minggu yang lalu",
 		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'."
 	},
 	"search.relativeYears": {
-		"string": "years ago",
+		"string": "tahun yang lalu",
 		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'."
 	},
 	"search.reportStatus": {
@@ -2841,7 +2851,7 @@
 		"developer_comment": "Filter option that refers to items created manually"
 	},
 	"searchFieldChannel.sharedDatabase": {
-		"string": "Shared Database",
+		"string": "Basis data bersama",
 		"developer_comment": "Filter option that refers to items created from the shared database."
 	},
 	"searchFieldChannel.webForm": {
@@ -3177,7 +3187,7 @@
 		"string": "Sampaikan nilai buletin Anda kepada pengguna. Semua pengguna yang ikut serta akan menerima setiap buletin di masa mendatang."
 	},
 	"smoochBot.designYourBot": {
-		"string": "Design your bot",
+		"string": "Rancang bot Anda",
 		"developer_comment": "Title of tipline settings page"
 	},
 	"smoochBot.footnoteGreeting": {
@@ -3187,7 +3197,7 @@
 		"string": "Pernyataan Privasi bawaan dapat diganti dengan yang kustom di bawah opsi 'Pernyataan Privasi' di halaman ini."
 	},
 	"smoochBot.labelContent": {
-		"string": "Content and translation",
+		"string": "Konten dan terjemahan",
 		"developer_comment": "Button label in tipline settings page"
 	},
 	"smoochBot.labelGreeting": {
@@ -3206,7 +3216,7 @@
 		"string": "Buletin"
 	},
 	"smoochBot.labelNewsletterV2": {
-		"string": "Newsletter content"
+		"string": "Konten buletin"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "Tidak ada tindakan dari pengguna"
@@ -3281,7 +3291,7 @@
 		"string": "Persyaratan Layanan ({language})"
 	},
 	"smoochBotComponent.back": {
-		"string": "Go back to editing",
+		"string": "Kembali menyunting",
 		"developer_comment": "Button label to close error dialog on tipline settings page"
 	},
 	"smoochBotComponent.contactUs": {
@@ -3291,11 +3301,11 @@
 		"string": "Pasang"
 	},
 	"smoochBotComponent.missingInformationBody": {
-		"string": "The step '11. Newsletter opt-in and opt-out' is missing a placeholder.",
+		"string": "Tidak ada placeholder pada langkah '11. Keikutsertaan buletin'.",
 		"developer_comment": "Content of dialog that opens when there is a validation error on tipline settings"
 	},
 	"smoochBotComponent.missingInformationTitle": {
-		"string": "Missing information",
+		"string": "Tidak ada informasi",
 		"developer_comment": "Title of dialog that opens when there is a validation error on tipline settings"
 	},
 	"smoochBotComponent.save": {
@@ -3315,159 +3325,171 @@
 		"string": "Anda saat ini sedang {subscription_status} ke buletin kami."
 	},
 	"smoochBotContentAndTranslation.addMoreInformationDefault": {
-		"string": "Are you ready to submit?",
+		"string": "Anda siap untuk menyerahkan?",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.addMoreInformationDescription": {
-		"string": "This message is sent to user after they send content, to make sure all the information they want to submit has been provided.",
+		"string": "Pesan ini dikirim ke pengguna setelah mereka mengirim konten, untuk memastikan semua informasi yang ingin mereka serahkan telah disediakan.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.addMoreInformationTitle": {
-		"string": "Add more information",
+		"string": "Submit content",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.error": {
-		"string": "The placeholder \\{subscription_status\\} is missing from your custom content or translation",
+		"string": "The placeholder {subscription_status} is missing from your custom content or translation",
 		"developer_comment": "Error message displayed on the tipline settings page when the placeholder is not present"
 	},
 	"smoochBotContentAndTranslation.feedbackDefault": {
-		"string": "Are these fact-checks answering your question?",
+		"string": "Apakah pengecekan fakta berikut menjawab pertanyaan Anda?",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.feedbackDescription": {
-		"string": "When fact-checks are returned to the user, the bot automatically follows up to ask if the results are satisfactory.",
+		"string": "Ketika pengecekan fakta dikembalikan ke pengguna, bot secara otomatis menindaklanjuti untuk menanyakan apakah hasilnya memuaskan.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.feedbackTitle": {
-		"string": "Feedback",
+		"string": "Masukan",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsDefault": {
-		"string": "Welcome to our fact-checking bot. Use the main menu to navigate.",
+		"string": "Selamat datang di bot pengecek fakta kami. Gunakan menu utama untuk mendapatkan navigasi.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsDescription": {
-		"string": "The first message that is sent to the user. It introduces your organization and the service you provide through this bot.",
+		"string": "Pesan pertama yang dikirim ke pengguna. Pesan ini memperkenalkan organisasi Anda dan layanan yang Anda berikan melalui bot ini.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.greetingsTitle": {
-		"string": "Greetings",
+		"string": "Salam",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptDefault": {
-		"string": "OK! Please add more content.",
+		"string": "Please add more content.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptDescription": {
-		"string": "This message is sent when user selects the option to add more content.",
+		"string": "Pesan ini dikirim ketika pengguna memilih opsi untuk menambahkan lebih banyak konten.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.moreContentPromptTitle": {
-		"string": "More content prompt",
+		"string": "Add more content",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDefault": {
-		"string": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "Thank you for your feedback. Journalists on our team have been notified and you will receive an update in this thread if a new fact-check is published.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackDescription": {
-		"string": "If the user is not satisfied, this message informs the user that the content has been sent to journalists.",
+		"string": "Jika pengguna tidak puas, pesan ini memberi tahu pengguna bahwa konten tersebut telah dikirim ke jurnalis.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.negativeFeedbackTitle": {
-		"string": "Negative feedback",
+		"string": "Masukan negatif",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterDefault": {
-		"string": "Our newsletter is the best fact-checking resource to stay informed. {subscription_status}.",
+		"string": "Subscribe now to get the most important facts delivered directly on WhatsApp, every week. {subscription_status}.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterDescription": {
-		"string": "This message informs user about their subscription status. You must keep the placeholders as is (do not translate content within brackets).",
+		"string": "Pesan ini menginformasikan pengguna mengenai status langganan mereka. Anda harus membiarkan placeholder apa adanya (jangan menerjemahkan konten dalam tanda kurung).",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.newsletterTitle": {
-		"string": "Newsletter opt-in and opt-out",
+		"string": "Keikutsertaan buletin",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDefault": {
-		"string": "No result has been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
+		"string": "No fact-checks have been found. Journalists on our team have been notified and you will receive an update in this thread if the information is fact-checked.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultDescription": {
-		"string": "If the bot doesn't find any relevant fact-checks in your database, it informs users that the content has been sent to journalists.",
+		"string": "Jika bot tidak menemukan pengecekan fakta yang relevan di basis data Anda, bot akan memberi tahu pengguna bahwa konten telah dikirim ke jurnalis.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noSearchResultTitle": {
-		"string": "No search result",
+		"string": "Tidak ada hasil pencarian",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDefault": {
-		"string": "Our bot is currently inactive. Please visit *insert URL* to read the latest fact-checks.",
+		"string": "Bot kami saat ini sedang tidak aktif. Silakan kunjungi *masukkan URL* untuk membaca pengecekan fakta terbaru.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
-		"string": "This message is sent to any user that has sent a message to the tipline when the Check Message bot is set to inactive.",
+		"string": "Pesan ini dikirim ke setiap pengguna yang telah mengirim pesan ke Tipline saat bot Check Message diatur ke tidak aktif.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.noticeOfInactivityTitle": {
-		"string": "Notice of inactivity",
+		"string": "Pemberitahuan ketidakaktifan",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
+		"string": "I'm sorry, I didn't understand your message.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
+		"string": "Pesan yang dikirim jika respons pengguna terhadap sebuah menu bukan skenario menu yang valid.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableTitle": {
+		"string": "Opsi tidak tersedia",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.placeholder": {
-		"string": "Type custom content or translation here.",
+		"string": "Ketik konten atau terjemahan khusus di sini.",
 		"developer_comment": "Placeholder used in all fields under tipline content and translation settings."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackDefault": {
-		"string": "Thank you! Spread the word about this tipline to help us fight misinformation!",
+		"string": "Thank you! Spread the word about this tipline to help us fight misinformation! *insert_entry_point_link*",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackDescription": {
-		"string": "If the user is satisfied, this message's purpose is to thank them for their feedback.",
+		"string": "Jika pengguna puas, tujuan pesan ini adalah untuk berterima kasih atas masukan mereka.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.positiveFeedbackTitle": {
-		"string": "Positive feedback",
+		"string": "Masukan positif",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionCanceledDefault": {
-		"string": "OK! Your submission is canceled.",
+		"string": "Oke! Penyerahan Anda dibatalkan.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionCanceledDescription": {
-		"string": "This message is sent when user cancels the submission of content.",
+		"string": "Pesan ini dikirim ketika pengguna membatalkan penyerahan konten.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionCanceledTitle": {
-		"string": "Submission canceled",
+		"string": "Penyerahan yang dibatalkan",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDefault": {
-		"string": "Please enter the question, link, picture or video that you want fact-checked, followed by any context or additional questions related to that item. You must submit one claim or item to be fact-checked per request.",
+		"string": "Please enter the question, link, picture, or video that you want to be fact-checked.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptDescription": {
-		"string": "The message asking the user to submit content for a fact-check.",
+		"string": "Pesan yang meminta pengguna untuk menyerahkan konten untuk pengecekan fakta.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionPromptTitle": {
-		"string": "Submission prompt",
+		"string": "Permintaan penyerahan",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDefault": {
-		"string": "Thank you! Looking for fact-checks.",
+		"string": "Thank you! Looking for fact-checks, it may take a minute.",
 		"developer_comment": "Default value for a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedDescription": {
-		"string": "The confirmation sent to the user after a valid query from the user has been received, while the bot is retrieving content.",
+		"string": "Konfirmasi dikirim ke pengguna setelah pertanyaan yang valid dari pengguna diterima, di saat bot mengambil konten.",
 		"developer_comment": "Description of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.submissionReceivedTitle": {
-		"string": "Submission received",
+		"string": "Penyerahan yang diterima",
 		"developer_comment": "Title of a customizable string of the tipline bot."
 	},
 	"smoochBotContentAndTranslation.subtitle": {
-		"string": "Replace or translate the default content for each standard bot message.",
+		"string": "Ganti atau terjemahkan konten bawaan untuk setiap pesan bot standar.",
 		"developer_comment": "Subtitle displayed in tipline settings page for content and translation."
 	},
 	"smoochBotIntegrationButton.cancel": {
@@ -3565,119 +3587,127 @@
 		"string": "Token akun publik Viber"
 	},
 	"smoochBotMainMenu.languagesAndPrivacy": {
-		"string": "Languages and Privacy",
-		"developer_comment": "Title of the main menu third section of the tipline"
+		"string": "Bahasa dan Privasi",
+		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
 	"smoochBotMainMenu.mainMenu": {
-		"string": "Main menu",
+		"string": "Menu utama",
 		"developer_comment": "Title of the tipline bot main menu settings page."
 	},
+	"smoochBotMainMenu.privacy": {
+		"string": "Privasi",
+		"developer_comment": "Title of the main menu third section of the tipline when there is only one supported language"
+	},
 	"smoochBotMainMenu.privacyStatement": {
-		"string": "Privacy statement",
+		"string": "Pernyataan privasi",
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "The menu of your bot, asking the user to choose between a set of options. The second section is optional. Please note that on WhatsApp you can have at maximum 10 menu options across all sections.",
+		"string": "Menu bot Anda, meminta pengguna untuk memilih di antara serangkaian opsi. Bagian kedua adalah opsional. Harap dicatat bahwa di WhatsApp Anda dapat memiliki maksimal 10 opsi menu di semua bagian.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
-		"string": "Cancel",
+		"string": "Batalkan",
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuNewOption.label": {
-		"string": "Button text - 24 characters limit",
+		"string": "Teks tombol - batas 24 karakter",
 		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.main": {
-		"string": "Main",
+		"string": "Utama",
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.queryState": {
-		"string": "Query prompt",
+		"string": "Pertanyaan pemicu",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.resources": {
-		"string": "Resources",
+		"string": "Materi",
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.response": {
-		"string": "Response",
+		"string": "Tanggapan",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.save": {
-		"string": "Save",
+		"string": "Simpan",
 		"developer_comment": "Button label to save new tipline menu option"
 	},
 	"smoochBotMainMenuNewOption.scenario": {
-		"string": "Scenario",
+		"string": "Skenario",
 		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.selectAction": {
-		"string": "Select action",
+		"string": "Pilih tindakan",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.send": {
-		"string": "If the button is clicked, then send:",
+		"string": "Jika tombol diklik, maka kirim:",
 		"developer_comment": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuNewOption.subscriptionState": {
-		"string": "Subscription opt-in",
+		"string": "Keikutsertaan berlangganan",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.cancel": {
-		"string": "Cancel",
+		"string": "Batalkan",
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuOption.label": {
-		"string": "Button text - 24 characters limit",
+		"string": "Teks tombol - batas 24 karakter",
 		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.main": {
-		"string": "Main",
+		"string": "Utama",
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.queryState": {
-		"string": "Query prompt",
+		"string": "Permintaan penyerahan",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.resources": {
-		"string": "Resources",
+		"string": "Materi",
 		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.response": {
-		"string": "Response",
+		"string": "Tanggapan",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.save": {
-		"string": "Save",
+		"string": "Simpan",
 		"developer_comment": "Button label to save new tipline menu option"
 	},
 	"smoochBotMainMenuOption.scenario": {
-		"string": "Scenario",
+		"string": "Skenario",
 		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.selectAction": {
-		"string": "Select action",
+		"string": "Pilih tindakan",
 		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.send": {
-		"string": "If the button is clicked, then send:",
+		"string": "Jika tombol diklik, maka kirim:",
 		"developer_comment": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.subscriptionState": {
-		"string": "Subscription opt-in",
+		"string": "Keikutsertaan berlangganan",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuSection.editOption": {
-		"string": "Edit",
+		"string": "Sunting",
 		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.newOption": {
-		"string": "New option",
+		"string": "Opsi baru",
 		"developer_comment": "Button label to create a new main menu option on tipline bot settings."
 	},
+	"smoochBotMainMenuSection.noOptions": {
+		"string": "There is currently no option in this section.",
+		"developer_comment": "Message displayed when there is no menu option on tipline bot settings."
+	},
 	"smoochBotMainMenuSection.sectionTitle": {
-		"string": "Title - 24 characters limit",
+		"string": "Judul - batas 24 karakter",
 		"developer_comment": "Label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMenuEditor.scenario": {
@@ -3849,6 +3879,10 @@
 	"smoochBotSettings.internalSettingsDescription": {
 		"string": "Karyawan Meedan melihat pengaturan ini, tetapi para pengguna tidak.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.searchSettings": {
+		"string": "Pengaturan pencarian",
+		"developer_comment": "Title of Search settings section in the tipline settings page."
 	},
 	"smoochBotSettings.sunshineSettings": {
 		"string": "Pengaturan integrasi Sunshine",
@@ -4693,7 +4727,7 @@
 		"string": "Ya"
 	},
 	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {The task {taskLabel} has been completed in # item.} other {The task {taskLabel} has been completed in # items.}}",
+		"string": "{itemsNumber, plural, other {Tugas {taskLabel} telah diselesaikan di # perihal.}}",
 		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
@@ -4704,10 +4738,10 @@
 		"string": "Anda yakin ingin menghapus bidang ini?"
 	},
 	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "Are you sure you want to delete this task?"
+		"string": "Anda yakin ingin menghapus tugas ini?"
 	},
 	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Keep this task with answers in items where the task has been completed.",
+		"string": "Simpan tugas ini dengan jawaban dalam perihal di mana tugas tersebut telah diselesaikan.",
 		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
 	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
@@ -4715,38 +4749,38 @@
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
 	"teamTasks.confirmEditBlurb": {
-		"string": "Related item tasks will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"string": "Tugas perihal terkait akan dimodifikasi sebagai konsekuensi dari penerapan pengubahan ini, kecuali tugas yang telah diselesaikan.",
 		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
-		"string": "Related item fields will be modified as a consequence of applying this change, except for those that have already been completed.",
+		"string": "Bidang perihal terkait akan dimodifikasi sebagai konsekuensi dari penerapan pengubahan ini, kecuali tugas yang telah diselesaikan.",
 		"developer_comment": "Warning about existing instances of a field before performing changes to it"
 	},
 	"teamTasks.confirmEditMetadataTitle": {
-		"string": "Are you sure you want to edit this field?"
+		"string": "Anda yakin ingin menyunting bidang ini?"
 	},
 	"teamTasks.confirmEditTaskTitle": {
-		"string": "Are you sure you want to edit this task?"
+		"string": "Anda yakin ingin menyunting tugas ini?"
 	},
 	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Do not alter tasks that have been completed, and keep their existing answers.",
+		"string": "Jangan mengubah tugas yang telah diselesaikan, dan simpan jawaban yang sudah ada.",
 		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
 	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
-		"string": "Do not alter fields that have been completed, and keep their existing answers.",
+		"string": "Jangan mengubah bidang yang telah diselesaikan, dan simpan jawaban yang sudah ada.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
-		"string": "Edit task"
+		"string": "Sunting tugas"
 	},
 	"teamTasks.continueMetadata": {
-		"string": "Edit field"
+		"string": "Sunting bidang"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Hapus bidang"
 	},
 	"teamTasks.deleteTask": {
-		"string": "Delete task"
+		"string": "Hapus tugas"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Tidak ada tugas} one {1 tugas} other {# tugas}}"
@@ -4848,37 +4882,73 @@
 	"trash.title": {
 		"string": "Tong Sampah"
 	},
-	"trendItem.claimDescription": {
-		"string": "Claim descriptions and ratings"
+	"trendItem.aboutThisClaim": {
+		"string": "About this claim"
 	},
-	"trendItem.claimDescriptionSubtitle": {
-		"string": "{number} organizations added a claim description."
+	"trendItem.claimDescription": {
+		"string": "Claims"
+	},
+	"trendItem.factCheck": {
+		"string": "Pengecekan fakta",
+		"developer_comment": "Middle column title on trends item page"
+	},
+	"trendItem.factCheckSummary": {
+		"string": "Ringkasan",
+		"developer_comment": "Fact-check summary"
+	},
+	"trendItem.factCheckTitle": {
+		"string": "Judul",
+		"developer_comment": "Fact-check title"
+	},
+	"trendItem.factCheckUrl": {
+		"string": "URL artikel yang diterbitkan",
+		"developer_comment": "Fact-check article URL"
+	},
+	"trendItem.import": {
+		"string": "Impor"
 	},
 	"trendItem.lastSubmitted": {
 		"string": "Terakhir diserahkan",
 		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
 	},
-	"trendItem.lastSubmittedAt": {
-		"string": "Last submitted",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trendItem.main": {
-		"string": "{number} Medias"
+		"string": "Media"
 	},
 	"trendItem.media": {
 		"string": "Media yang mirip"
 	},
-	"trendItem.noClaims": {
-		"string": "Import this group of media to be the first to add a claim description and publish a report."
+	"trendItem.mediaRequests": {
+		"string": "{number} tipline requests across all medias"
+	},
+	"trendItem.mediasColumnTitleAll": {
+		"string": "{number} Medias across all organizations"
+	},
+	"trendItem.mediasColumnTitleSingle": {
+		"string": "{number} Medias from {organizationName}"
+	},
+	"trendItem.noClaim": {
+		"string": "No claim added yet"
+	},
+	"trendItem.noImportingClaim": {
+		"string": "Select an organization to display available fact-check and annotations.",
+		"developer_comment": "Message displayed on trends item page when no claim was selected."
+	},
+	"trendItem.noTags": {
+		"string": "No tags.",
+		"developer_comment": "Displayed on trends item page when item has no tags."
+	},
+	"trendItem.noTasks": {
+		"string": "No completed annotations.",
+		"developer_comment": "Displayed on trends item page when item has no completed annotations."
 	},
 	"trendItem.notPublished": {
-		"string": "Not published yet"
+		"string": "Belum diterbitkan"
 	},
 	"trendItem.publishedAt": {
-		"string": "Report published: {date}"
+		"string": "Laporan diterbitkan: {date}"
 	},
 	"trendItem.rating": {
-		"string": "Rating: {rating}"
+		"string": "Penilaian: {rating}"
 	},
 	"trendItem.request": {
 		"string": "Permintaan",
@@ -4888,45 +4958,50 @@
 		"string": "Permintaan",
 		"developer_comment": "A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'."
 	},
-	"trendItem.requestsCount": {
-		"string": "Requests",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trendItem.sortBy": {
 		"string": "Urutkan berdasarkan"
 	},
-	"trendItem.submitted": {
-		"string": "Submitted",
-		"developer_comment": "Label displayed on cluster item page"
-	},
 	"trends.title": {
-		"string": "Shared database"
+		"string": "Basis data bersama"
+	},
+	"trendsItem.completedAnnotations": {
+		"string": "Completed annotations"
 	},
 	"trendsItem.couldNotImport": {
-		"string": "Could not import claim"
+		"string": "Tidak dapat mengimpor klaim"
+	},
+	"trendsItem.factCheck": {
+		"string": "Pengecekan fakta"
 	},
 	"trendsItem.importDescription": {
-		"string": "A new claim will be created in your workspace with media.",
+		"string": "Klaim baru akan dibuat di ruang kerja Anda dengan media.",
 		"developer_comment": "Dialog description when importing a claim from trends page."
 	},
 	"trendsItem.importSelectLabel": {
-		"string": "Import to workspace",
+		"string": "Impor ke ruang kerja",
 		"developer_comment": "Select field label used in import claim dialog from trends page."
 	},
 	"trendsItem.importTextLabel": {
-		"string": "Claim description",
+		"string": "Deskripsi klaim",
 		"developer_comment": "Text field label used in import claim dialog from trends page."
 	},
 	"trendsItem.importTitle": {
-		"string": "Import claims and medias to workspace",
+		"string": "Import data to workspace",
 		"developer_comment": "Dialog title when importing a claim from trends page."
 	},
 	"trendsItem.importedSuccessfully": {
-		"string": "Claim successfully imported to {workspaceName} workspace"
+		"string": "Klaim berhasil diimpor ke ruang kerja{workspaceName}"
+	},
+	"trendsItem.importingQuestion": {
+		"string": "What content do you want to import?",
+		"developer_comment": "Question in trends page importing modal"
 	},
 	"trendsItem.proceedImport": {
-		"string": "Import",
+		"string": "Impor",
 		"developer_comment": "Button label to confirm importing claim from trends page"
+	},
+	"trendsItem.tags": {
+		"string": "Label"
 	},
 	"unconfirmed.title": {
 		"string": "Belum Dikonfirmasi"
@@ -4937,11 +5012,11 @@
 	"uploadFile.changeFile": {
 		"string": "{filename} (klik atau letakkan untuk mengubah)"
 	},
-	"uploadFile.fileMessage": {
-		"string": "Letakkan sebuah berkas di sini, atau klik untuk mengunggah berkas (ukuran maksimal: {file_max_size}, format yang diperbolehkan: {file_extensions})"
-	},
 	"uploadFile.fileTooLarge": {
 		"string": "Ukuran berkas harus kurang dari {size}. Silakan coba dengan berkas yang lebih kecil."
+	},
+	"uploadFile.imageVideoAudioMessage": {
+		"string": "Letakkan sebuah berkas di sini, atau klik untuk mengunggah berkas (ukuran maksimal: {file_max_size}, format yang diperbolehkan: {file_extensions})"
 	},
 	"uploadFile.invalidExtension": {
 		"string": "Berkas tidak dapat memiliki tipe format \"{extension}\". Silakan coba dengan tipe berkas berikut: {allowed_types}."
@@ -5188,7 +5263,7 @@
 		"string": "Anda harus setuju dengan Persyaratan Layanan dan Kebijakan Privasi"
 	},
 	"valueListCell.more": {
-		"string": "+{number} more",
+		"string": "+{number} lebih banyak",
 		"developer_comment": "Button to maximize list display (tags, urls, checked options) with all values within a table cell"
 	},
 	"viewModeSwitcher.viewModeLonger": {
