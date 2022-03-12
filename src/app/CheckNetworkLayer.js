@@ -71,6 +71,10 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
 
   sendQueries(requests) {
     if (requests.length > 1) {
+      requests.map((request) => {
+        request.randomId = generateRandomQueryId();
+        return request;
+      });
       return this._sendBatchQuery(requests).then((result) => {
         this._parseQueryResult(result);
         return result.json();
