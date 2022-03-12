@@ -53,6 +53,7 @@ const optimisticProjectMedia = (media, proj, context, customTeam) => {
           report_status: 'unpublished',
           tags_as_sentence: '',
           sources_as_sentence: JSON.stringify({}),
+          published_by: {},
           folder: '',
           media_published_at: 0,
           comment_count: 0,

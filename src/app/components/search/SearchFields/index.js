@@ -18,6 +18,7 @@ import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import RuleIcon from '@material-ui/icons//Rule';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -194,6 +195,12 @@ class SearchFields extends React.Component {
   handleReportStatusClick = (statuses) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'report_status', statuses),
+    );
+  }
+
+  handlePublishedByClick = (userIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'published_by', userIds),
     );
   }
 
@@ -548,6 +555,20 @@ class SearchFields extends React.Component {
               ]}
               onChange={this.handleReportStatusClick}
               onRemove={() => this.handleRemoveField('report_status')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      published_by: (
+        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<HowToRegIcon />}
+              selected={this.props.query.published_by}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handlePublishedByClick}
+              onRemove={() => this.handleRemoveField('published_by')}
             />
           )}
         </FormattedMessage>
