@@ -716,6 +716,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
+    get_trends_filters
     country
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
