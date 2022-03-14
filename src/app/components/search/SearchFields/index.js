@@ -359,6 +359,14 @@ class SearchFields extends React.Component {
       selectedChannels = [CheckChannels.FETCH];
     }
 
+    const reportStatusOptions = [
+      { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
+      { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+    ];
+    if (!/trends/.test(window.location.pathname)) {
+      reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
+    }
+
     const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
     const OperatorToggle = () => (
@@ -548,11 +556,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<ReportIcon />}
               selected={this.props.query.report_status}
-              options={[
-                { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
-                { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
-                { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
-              ]}
+              options={reportStatusOptions}
               onChange={this.handleReportStatusClick}
               onRemove={() => this.handleRemoveField('report_status')}
             />
