@@ -36,7 +36,7 @@ shared_examples 'report' do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
-    create_image('test.png')
+    create_image('files/test.png')
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading img')
     wait_for_selector('.media__heading a').click

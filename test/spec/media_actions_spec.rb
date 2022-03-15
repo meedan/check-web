@@ -91,7 +91,7 @@ shared_examples 'media actions' do
     # Add a comment as a command
     fill_field('#cmd-input', 'This is my comment with image')
     wait_for_selector('.add-annotation__insert-photo').click
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'files/test.png'))
     wait_for_selector('#add-annotation_submit').click
     wait_for_selector_none('.with-file')
     wait_for_selector('.media-actions__icon').click

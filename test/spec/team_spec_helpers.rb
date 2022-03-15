@@ -29,7 +29,7 @@ module TeamSpecHelpers
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media__image').click
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'files/test.png'))
     wait_for_selector_none('.without-file')
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.medias__item')

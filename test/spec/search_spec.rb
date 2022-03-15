@@ -203,7 +203,7 @@ shared_examples 'search' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
     wait_for_selector('.project-header__back-button').click
-    create_image('test.png')
+    create_image('files/test.png')
     old = wait_for_selector_list('.medias__item').length
     wait_for_selector('#search-input').click
     @driver.action.send_keys(:enter).perform
