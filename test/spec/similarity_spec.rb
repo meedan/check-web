@@ -158,8 +158,8 @@ shared_examples 'similarity' do
     wait_for_selector('.team-settings__similarity-tab')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.project__description')
-    create_image('files/test_similarity.jpg')
-    create_image('files/test_similarity2.jpg')
+    create_image('files/similarity.jpg')
+    create_image('files/similarity2.jpg')
     wait_for_selector('.medias__item')
     sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector('#create-media__add-item')
