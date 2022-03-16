@@ -1,5 +1,4 @@
 shared_examples 'similarity' do
-
   it 'should add and remove related items', bin6: true do
     api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
     sleep 30 # wait for the items to be indexed in the Elasticsearch
@@ -125,7 +124,7 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('claim 2')).to be(true)
     expect(@driver.page_source.include?('claim 3')).to be(false)
   end
-  
+
   it 'should identify texts as similar', bin7: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
