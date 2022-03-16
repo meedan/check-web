@@ -169,11 +169,11 @@ shared_examples 'similarity' do
     wait_for_selector('.media__heading svg')
     wait_for_selector('.media__heading', index: 1).click
     wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath).click
-    wait_for_selector('#similarity-media-item__accept-relationship')
-    expect(@driver.page_source.include?('Is this media a good match for the claim')).to be(true)
-    expect(@driver.page_source.include?('1 of 1 suggested media')).to be(true)
+    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
+    wait_for_selector('.media__more-medias')
+    expect(@driver.page_source.include?('More medias')).to be(true)
+    expect(@driver.page_source.include?('2 medias')).to be(true)
   end
 
   it 'should extract text from a image', bin7: true do
