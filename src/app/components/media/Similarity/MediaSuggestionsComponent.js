@@ -91,7 +91,9 @@ const MediaSuggestionsComponent = ({
   const params = new URLSearchParams(window.location.search);
   const listIndex = params.get('listIndex');
   const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
-  const [index, setIndex] = React.useState(0);
+  const reviewId = params.get('reviewId');
+  const reviewIndex = relationships.findIndex(r => r.target_id === parseInt(reviewId, 10));
+  const [index, setIndex] = React.useState(reviewIndex || 0);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
