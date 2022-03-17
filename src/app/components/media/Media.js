@@ -32,6 +32,8 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         creator_name
         user_id
         channel
+        suggested_main_item # used by MediaClaim, MediaFactCheck
+        confirmed_main_item # used by MediaClaim, MediaFactCheck
         is_confirmed_similar_to_another_item
         is_secondary
         claim_description {
