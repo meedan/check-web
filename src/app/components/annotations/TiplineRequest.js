@@ -126,6 +126,9 @@ const TiplineRequest = ({
   annotated: projectMedia,
   intl,
 }) => {
+  if (!activity) {
+    return null;
+  }
   const object = JSON.parse(activity.object_after);
   const objectValue = JSON.parse(object.value);
   const messageType = objectValue.source.type;
