@@ -17,7 +17,7 @@ const MediaClaim = ({ projectMedia }) => {
   const [error, setError] = React.useState(false);
 
   const hasPermission = can(projectMedia.permissions, 'create ClaimDescription');
-  const readOnly = projectMedia.suggested_main_item || projectMedia.confirmed_main_item;
+  const readOnly = projectMedia.is_secondary;
 
   const handleBlur = (newValue) => {
     setError(false);
