@@ -29,7 +29,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const noReport = !projectMedia.report;
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
-  const readOnly = projectMedia.is_secondary;
+  const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
   const handleCloseConfirmationDialog = () => {
     setShowConfirmationDialog(false);
