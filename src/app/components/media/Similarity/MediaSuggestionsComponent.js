@@ -92,11 +92,16 @@ const MediaSuggestionsComponent = ({
   const listIndex = params.get('listIndex');
   const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
   // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
-  const reviewId = params.get('reviewId');
-  let reviewIndex = reviewId ?
-    relationships.findIndex(r => r.target_id === parseInt(reviewId, 10)) : 0;
-  reviewIndex = (reviewIndex > -1) ? reviewIndex : 0;
-  const [index, setIndex] = React.useState(reviewIndex);
+  const getReviewId = () => {
+    const reviewId = params.get('reviewId');
+    const firstSuggestionId = relationships[0] ? relationships[0].target_id : null;
+    return reviewId ? parseInt(reviewId, 10) : firstSuggestionId;
+  };
+
+  const [reviewId, setReviewId] = React.useState(getReviewId());
+  let index = relationships.findIndex(r => r.target_id === reviewId);
+  index = (index > -1) ? index : 0;
+
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
@@ -113,14 +118,20 @@ const MediaSuggestionsComponent = ({
   };
 
   const handleNext = () => {
-    if (hasNext) {
-      setIndex(index + 1);
+    if (!hasNext) return;
+
+    const nextRelationship = relationships[index + 1] || relationships[0];
+    if (nextRelationship) {
+      setReviewId(nextRelationship.target_id);
     }
   };
 
   const handlePrevious = () => {
-    if (hasPrevious) {
-      setIndex(index - 1);
+    if (!hasPrevious) return;
+
+    const prevRelationship = relationships[index - 1];
+    if (prevRelationship) {
+      setReviewId(prevRelationship.target_id);
     }
   };
 
