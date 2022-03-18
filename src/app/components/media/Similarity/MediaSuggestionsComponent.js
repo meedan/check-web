@@ -93,8 +93,9 @@ const MediaSuggestionsComponent = ({
   const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
   // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
   const reviewId = params.get('reviewId');
-  const reviewIndex = reviewId ?
+  let reviewIndex = reviewId ?
     relationships.findIndex(r => r.target_id === parseInt(reviewId, 10)) : 0;
+  reviewIndex = (reviewIndex > -1) ? reviewIndex : 0;
   const [index, setIndex] = React.useState(reviewIndex);
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
