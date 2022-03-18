@@ -100,18 +100,20 @@ const MediaSimilarityBarComponent = ({
   }
 
   if (suggestedMainItem) {
-    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/similar-media`;
+    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/similar-media?reviewId=${projectMediaDbid}`;
     return (
       <Box className={[classes.root, classes.spacing, classes.similarityMessage].join(' ')}>
         <FormattedMessage
           id="mediaSimilarityBarComponent.hasSuggestedMain"
-          defaultMessage="This media has been suggested to be similar to an existing claim."
+          defaultMessage="This media has been suggested as similar to an existing claim."
+          description="Caption to inform user that there is a suggested similarity"
         />
         {' '}
         <Button onClick={() => browserHistory.push(mainItemLink)} variant="contained" color="primary" size="small">
           <FormattedMessage
-            id="mediaSimilarityBarComponent.openClaim"
-            defaultMessage="Open claim"
+            id="mediaSimilarityBarComponent.reviewSuggestion"
+            defaultMessage="Review suggestion"
+            description="Button label for reviewing similarity suggestions"
           />
         </Button>
       </Box>

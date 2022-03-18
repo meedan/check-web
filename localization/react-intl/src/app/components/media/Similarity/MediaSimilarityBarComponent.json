@@ -9,7 +9,13 @@
   },
   {
     "id": "mediaSimilarityBarComponent.hasSuggestedMain",
-    "defaultMessage": "This media has been suggested to be similar to an existing claim."
+    "description": "Caption to inform user that there is a suggested similarity",
+    "defaultMessage": "This media has been suggested as similar to an existing claim."
+  },
+  {
+    "id": "mediaSimilarityBarComponent.reviewSuggestion",
+    "description": "Button label for reviewing similarity suggestions",
+    "defaultMessage": "Review suggestion"
   },
   {
     "id": "mediaSimilarityBarComponent.similarMedia",
