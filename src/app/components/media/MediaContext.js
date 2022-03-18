@@ -4,30 +4,19 @@ import Relay from 'react-relay/classic';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import TimeBefore from '../TimeBefore';
-import MediaContext from './MediaContext';
-import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
 
-const useStyles = makeStyles(() => ({
-  savedBy: {
-    fontSize: '9px',
-    letterSpacing: 0,
-  },
-  title: {
-    fontSize: '16px',
+const useStyles = makeStyles(theme => ({
+  context: {
+    marginTop: theme.spacing(2),
   },
 }));
 
-const MediaClaim = ({ projectMedia }) => {
+const MediaContext = ({ projectMedia, setError, setSaving }) => {
   const classes = useStyles();
   const claimDescription = projectMedia.claim_description;
-
-  const [saving, setSaving] = React.useState(false);
-  const [error, setError] = React.useState(false);
 
   const hasPermission = can(projectMedia.permissions, 'create ClaimDescription');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
@@ -39,13 +28,13 @@ const MediaClaim = ({ projectMedia }) => {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
-            mutation MediaClaimUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
+            mutation MediaContextUpdateClaimDescriptionMutation($input: UpdateClaimDescriptionInput!) {
               updateClaimDescription(input: $input) {
                 claim_description {
                   id
                   dbid
                   updated_at
-                  description
+                  context
                   user {
                     name
                   }
@@ -56,8 +45,8 @@ const MediaClaim = ({ projectMedia }) => {
           variables: {
             input: {
               id: claimDescription.id,
-              description: newValue,
-              context: claimDescription.context,
+              context: newValue,
+              description: claimDescription.description,
             },
           },
           onCompleted: (response, err) => {
@@ -77,7 +66,7 @@ const MediaClaim = ({ projectMedia }) => {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
-            mutation MediaClaimCreateClaimDescriptionMutation($input: CreateClaimDescriptionInput!) {
+            mutation MediaContextCreateClaimDescriptionMutation($input: CreateClaimDescriptionInput!) {
               createClaimDescription(input: $input) {
                 project_media {
                   permissions
@@ -85,7 +74,7 @@ const MediaClaim = ({ projectMedia }) => {
                     id
                     dbid
                     updated_at
-                    description
+                    context
                     user {
                       name
                     }
@@ -96,7 +85,7 @@ const MediaClaim = ({ projectMedia }) => {
           `,
           variables: {
             input: {
-              description: newValue,
+              context: newValue,
               project_media_id: projectMedia.dbid,
             },
           },
@@ -118,53 +107,26 @@ const MediaClaim = ({ projectMedia }) => {
   };
 
   return (
-    <Box id="media__claim">
-      <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography className={classes.title} variant="body" component="div">
-          <strong>
-            <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
-          </strong>
-        </Typography>
-        {' '}
-        <Typography className={classes.savedBy} variant="caption" component="div">
-          { error ?
-            <FormattedMessage
-              id="mediaClaim.error"
-              defaultMessage="error"
-              description="Caption that informs that a claim could not be saved"
-            /> : null }
-          { saving && !error ?
-            <FormattedMessage
-              id="mediaClaim.saving"
-              defaultMessage="saving…"
-              description="Caption that informs that a claim is being saved"
-            /> : null }
-          { !saving && !error && claimDescription ?
-            <FormattedMessage
-              id="mediaClaim.saved"
-              defaultMessage="saved by {userName} {timeAgo}"
-              values={{
-                userName: claimDescription.user.name,
-                timeAgo: <TimeBefore date={parseStringUnixTimestamp(claimDescription.updated_at)} />,
-              }}
-              description="Caption that informs who last saved this claim and when it happened."
-            /> : null }
-          { !saving && !claimDescription && !error ? <span>&nbsp;</span> : null }
-        </Typography>
-      </Box>
-
+    <Box id="media__context" className={classes.context}>
       <Box>
         <FormattedMessage
-          id="mediaClaim.placeholder"
-          defaultMessage="For example: The earth is flat"
-          description="Placeholder for claim description field."
+          id="mediaContext.placeholder"
+          defaultMessage="Type something"
+          description="Placeholder for claim context field."
         >
           { placeholder => (
             <TextField
-              id="media-claim__description"
-              className="media-claim__description"
+              id="media-claim__context"
+              className="media-claim__context"
+              label={
+                <FormattedMessage
+                  id="mediaContext.title"
+                  defaultMessage="Additional context"
+                  description="Title of claim context field."
+                />
+              }
               placeholder={placeholder}
-              defaultValue={claimDescription ? claimDescription.description : ''}
+              defaultValue={claimDescription ? claimDescription.context : ''}
               onBlur={(e) => { handleBlur(e.target.value); }}
               variant="outlined"
               inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
@@ -177,24 +139,17 @@ const MediaClaim = ({ projectMedia }) => {
           )}
         </FormattedMessage>
       </Box>
-      <Box id="hello">
-        <MediaContext
-          projectMedia={projectMedia}
-          setSaving={setSaving}
-          setError={setError}
-        />
-      </Box>
     </Box>
   );
 };
 
-MediaClaim.defaultProps = {
+MediaContext.defaultProps = {
   projectMedia: {
     claim_description: null,
   },
 };
 
-MediaClaim.propTypes = {
+MediaContext.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number,
     permissions: PropTypes.string,
@@ -210,4 +165,4 @@ MediaClaim.propTypes = {
   }),
 };
 
-export default MediaClaim;
+export default MediaContext;

@@ -88,7 +88,7 @@ const StyledThreeColumnLayout = styled.div`
 const AnalysisColumn = styled.div`
   width: 420px;
   flex-grow: 0;
-  padding: ${units(2)};
+  padding: 0 ${units(2)} ${units(2)} ${units(2)};
   border-right: 1px solid ${brandSecondary};
   max-height: calc(100vh - 64px);
   overflow-y: auto;
