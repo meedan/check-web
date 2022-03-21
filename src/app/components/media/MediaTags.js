@@ -25,11 +25,11 @@ const StyledMediaTagsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    padding: ${units(0.5)};
-    margin: 0;
+    padding: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
+    margin: 0 0 0 ${units(-0.5)};
 
     li {
-      margin: ${units(0.5)};
+      margin: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
     }
   }
 `;
