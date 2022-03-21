@@ -33,7 +33,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [copying, setCopying] = React.useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
-  const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription;
+  const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description;
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const noReport = !projectMedia.report;
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
@@ -261,7 +261,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           setTitle(newValue);
           handleBlur('title', newValue);
         }}
-        hasClaimDescription={Boolean(claimDescription)}
+        hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly}
         rows={1}
