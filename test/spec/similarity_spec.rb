@@ -161,7 +161,7 @@ shared_examples 'similarity' do
     create_image('files/similarity.jpg')
     create_image('files/similarity2.jpg')
     wait_for_selector('.medias__item')
-    sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
     wait_for_selector('#create-media__add-item')
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.search-show-similar__switch').click
