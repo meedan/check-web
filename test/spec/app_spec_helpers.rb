@@ -30,7 +30,7 @@ module AppSpecHelpers
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
     start = Time.now.to_i
-    while elements.empty? && attempts < 2
+    while elements.empty? && attempts < 3
       attempts += 1
       sleep 0.5
       begin
