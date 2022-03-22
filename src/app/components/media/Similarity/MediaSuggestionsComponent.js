@@ -103,6 +103,7 @@ const MediaSuggestionsComponent = ({
   index = (index > -1) ? index : 0;
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isMutationPending, setIsMutationPending] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
@@ -135,10 +136,13 @@ const MediaSuggestionsComponent = ({
     }
   };
 
-  const handleCompleted = () => {};
+  const handleCompleted = () => {
+    setIsMutationPending(false);
+  };
 
   const onFailure = (errors) => {
     const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
+    setIsMutationPending(false);
     setFlashMessage(errorMessage, 'error');
   };
 
@@ -293,6 +297,7 @@ const MediaSuggestionsComponent = ({
       }
     `;
 
+    setIsMutationPending(true);
     commitMutation(Store, {
       mutation,
       variables: {
@@ -338,6 +343,8 @@ const MediaSuggestionsComponent = ({
   const handleHelp = () => {
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
+
+  const disableAcceptRejectButtons = total === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
 
   return (
     <React.Fragment>
@@ -392,45 +399,41 @@ const MediaSuggestionsComponent = ({
               <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
                 <KeyboardArrowLeftIcon fontSize="large" />
               </IconButton>
-              {can(team.permissions, 'update Relationship') ?
+              <IconButton
+                onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
+                style={{ color: completedGreen }}
+                disabled={disableAcceptRejectButtons}
+                className={disableAcceptRejectButtons ? classes.disabled : ''}
+                id="similarity-media-item__accept-relationship"
+              >
+                <CheckCircleOutlineIcon fontSize="large" />
+              </IconButton>
+              <>
                 <IconButton
-                  onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
-                  style={{ color: completedGreen }}
-                  disabled={total === 0}
-                  className={total === 0 ? classes.disabled : ''}
-                  id="similarity-media-item__accept-relationship"
+                  onClick={openDialog}
+                  style={{ color: alertRed }}
+                  disabled={disableAcceptRejectButtons}
+                  className={disableAcceptRejectButtons ? classes.disabled : ''}
+                  id="similarity-media-item__reject-relationship"
                 >
-                  <CheckCircleOutlineIcon fontSize="large" />
-                </IconButton> : null
-              }
-              {can(team.permissions, 'destroy Relationship') ?
-                <React.Fragment>
-                  <IconButton
-                    onClick={openDialog}
-                    style={{ color: alertRed }}
-                    disabled={total === 0}
-                    className={total === 0 ? classes.disabled : ''}
-                    id="similarity-media-item__reject-relationship"
-                  >
-                    <HighlightOffIcon fontSize="large" />
-                  </IconButton>
-                  <SelectProjectDialog
-                    open={isDialogOpen}
-                    excludeProjectDbids={[]}
-                    title={
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogRejectTitle"
-                        defaultMessage="Choose a destination folder for this item"
-                      />
-                    }
-                    cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                    submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
-                    submitButtonClassName="media-actions-bar__add-button"
-                    onCancel={closeDialog}
-                    onSubmit={handleReject}
-                  />
-                </React.Fragment> : null
-              }
+                  <HighlightOffIcon fontSize="large" />
+                </IconButton>
+                <SelectProjectDialog
+                  open={isDialogOpen}
+                  excludeProjectDbids={[]}
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.dialogRejectTitle"
+                      defaultMessage="Choose a destination folder for this item"
+                    />
+                  }
+                  cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
+                  submitButtonClassName="media-actions-bar__add-button"
+                  onCancel={closeDialog}
+                  onSubmit={handleReject}
+                />
+              </>
               <IconButton onClick={handleNext} disabled={!hasNext}>
                 <KeyboardArrowRightIcon fontSize="large" />
               </IconButton>
