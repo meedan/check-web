@@ -243,13 +243,15 @@ const SmoochBotMainMenuSection = ({
                 </Typography>
 
                 {/* Menu option description */}
-                <Typography variant="caption" component="div" className={classes.noDescription}>
+                <Typography variant="caption" component="div">
                   { !readOnly && !option.smooch_menu_option_description ?
-                    <FormattedMessage
-                      id="smoochBotMainMenuSection.optionNoDescription"
-                      defaultMessage="no description"
-                      description="Displayed when a tipline bot menu option doesn't have a description."
-                    /> : option.smooch_menu_option_description }
+                    <span className={classes.noDescription}>
+                      <FormattedMessage
+                        id="smoochBotMainMenuSection.optionNoDescription"
+                        defaultMessage="no description"
+                        description="Displayed when a tipline bot menu option doesn't have a description."
+                      />
+                    </span> : option.smooch_menu_option_description }
                 </Typography>
               </Box>
             </Box>
