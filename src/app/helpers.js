@@ -1,5 +1,8 @@
+import React from 'react';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
+import CheckError from './CheckError';
+import { stringHelper } from './customHelpers';
 
 /**
  * TODO
@@ -140,6 +143,38 @@ function getErrorMessage(transactionOrError, fallbackMessage) {
   return message;
 }
 
+function getErrorObjectsForRelayModernProblem(errorOrErrors) {
+  if (errorOrErrors.source) {
+    const json = safelyParseJSON(errorOrErrors.source);
+    return json && json.errors && json.errors.length > 0 ? json.errors : null;
+  }
+  return null;
+}
+
+// Requires an CheckNetworkLayer c. 2019 object with the `code` and `message` properties
+function createFriendlyErrorMessage(error) {
+  return (
+    <div id="snack-flex" style={{ maxWidth: '500px', margin: '0 0 0 16px' }}>
+      <p>
+        <strong>
+          {CheckError.getMessageFromCode(error.code)}
+        </strong>
+        {' '}Please contact <a href={`mailto:${stringHelper('SUPPORT_EMAIL')}`}>{stringHelper('SUPPORT_EMAIL')}</a> if this condition persists.
+      </p>
+      <p>
+        <details>
+          <summary style={{ cursor: 'pointer', marginBottom: '8px', userSelect: 'none' }}>
+            More info...
+          </summary>
+          <textarea id="error-message" name="error-message" rows="5" style={{ width: '100%' }}>
+            {error.message}
+          </textarea>
+        </details>
+      </p>
+    </div>
+  );
+}
+
 /**
  * Extract an error message from a Relay Modern error(s) or return `null` if
  * not possible.
@@ -184,8 +219,11 @@ function getErrorMessage(transactionOrError, fallbackMessage) {
  * ```
  */
 function getErrorMessageForRelayModernProblem(errorOrErrors) {
+  // TODO: make this grab the code in addition to the message. Map the code to a localized string. return an object from this function, not just a string, and the object is ultimately passed to FlashMessage.js. Then that parses out message plus the mapped friendly message, hides message behind a `<details>`.
+  // TODO: make sure every single place that calls getErrorMessageForRelayModernProblem is simply passing things along to FlashMessage. SourceInfo is one such place
   if (errorOrErrors.source) { // Error was thrown from CheckNetworkLayer, c. 2019
-    return getErrorMessage(errorOrErrors, null);
+    // return getErrorMessage(errorOrErrors, null);
+    return getErrorObjectsForRelayModernProblem(errorOrErrors);
   }
   if (errorOrErrors.length) { // Error is an Array the API returned, alongside null data
     return errorOrErrors.map(({ message }) => message).filter(m => Boolean(m))[0] || null;
@@ -199,15 +237,6 @@ function getErrorMessageForRelayModernProblem(errorOrErrors) {
   console.warn('Unhandled error from Relay Modern', errorOrErrors);
   return null;
 }
-
-function getErrorObjectsForRelayModernProblem(errorOrErrors) {
-  if (errorOrErrors.source) {
-    const json = safelyParseJSON(errorOrErrors.source);
-    return json && json.errors && json.errors.length > 0 ? json.errors : null;
-  }
-  return null;
-}
-
 
 /**
  * Safely extract an error object from a transaction
@@ -262,6 +291,7 @@ export { // eslint-disable-line import/no-unused-modules
   getErrorMessageForRelayModernProblem,
   getErrorObjectsForRelayModernProblem,
   getErrorObjects,
+  createFriendlyErrorMessage,
   emojify,
   parseStringUnixTimestamp,
   botName,
