@@ -49,8 +49,6 @@ const SmoochBotContentAndTranslation = ({
   intl,
 }) => {
   const classes = useStyles();
-  // eslint-disable-next-line no-console
-  console.log(value);
 
   let greetingImage = value.smooch_greeting_image;
   if (typeof greetingImage === 'string') {
