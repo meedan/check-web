@@ -126,11 +126,11 @@ shared_examples 'similarity' do
   end
 
   {
-    'english' => ['This is a text test similarity','This another text test similarity example'],
-    'portuguese' => ['este é um teste de similaridade','este é um outro teste sobre similaridade de textos'],
-    'espanish' => ['esta es una prueba de similitud de texto','este es otro ejemplo de prueba de similitud de texto'],
+    'english' => ['This is a text test similarity', 'This another text test similarity example'],
+    'portuguese' => ['este é um teste de similaridade', 'este é um outro teste sobre similaridade de textos'],
+    'espanish' => ['esta es una prueba de similitud de texto', 'este es otro ejemplo de prueba de similitud de texto'],
     'hindi' => ['यह एक पाठ समानता परीक्षण है', 'यह एक और पाठ समानता परीक्षण उदाहरण है'],
-    'arabic' => ['هذا مثال آخر لاختبار نص التشابه' ,'هذا مثال آخر لاختبار نص التشاب']
+    'arabic' => ['هذا مثال آخر لاختبار نص التشابه', 'هذا مثال آخر لاختبار نص التشاب']
   }.each do |language, claim|
     it "should identify texts in #{language} as similar", bin7: true do
       team = "team#{Time.now.to_i}"
