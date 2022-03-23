@@ -72,8 +72,7 @@
     "@calm/eslint-plugin-react-intl": "^1.4.1",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
-    "jest": "^25.4.0",
-    "lodash.isempty": "^4.4.0"
+    "jest": "^25.4.0"
   },
   "dependencies": {
     "@babel/core": "^7.9.0",
@@ -128,6 +127,7 @@
     "jss": "^10.2.0",
     "jss-rtl": "^0.3.0",
     "leaflet": "^1.6.0",
+    "lodash.isempty": "^4.4.0",
     "lodash.isequal": "^4.5.0",
     "lodash.merge": "^4.6.0",
     "lodash.mergewith": "^4.6.0",
