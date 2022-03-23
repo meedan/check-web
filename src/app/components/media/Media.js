@@ -39,6 +39,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           id
           dbid
           description
+          context
           updated_at
           user {
             name
