@@ -40,6 +40,9 @@ const useStyles = makeStyles(theme => ({
   lock: {
     color: opaqueBlack54,
   },
+  noDescription: {
+    fontStyle: 'italic',
+  },
 }));
 
 const SmoochBotMainMenuSection = ({
@@ -76,7 +79,7 @@ const SmoochBotMainMenuSection = ({
     setEditingOptionIndex(-1);
   };
 
-  const buildOption = (label, action) => {
+  const buildOption = (label, description, action) => {
     // If it's a sequence of digits, then it represents a resource
     if (/^[0-9]+$/.test(action)) {
       return {
@@ -84,6 +87,7 @@ const SmoochBotMainMenuSection = ({
         smooch_menu_option_value: 'custom_resource',
         smooch_menu_custom_resource_id: action,
         smooch_menu_option_label: label,
+        smooch_menu_option_description: description,
         smooch_menu_project_media_title: '',
         smooch_menu_project_media_id: '',
       };
@@ -92,21 +96,22 @@ const SmoochBotMainMenuSection = ({
       smooch_menu_option_keyword: action,
       smooch_menu_option_value: action,
       smooch_menu_option_label: label,
+      smooch_menu_option_description: description,
       smooch_menu_project_media_title: '',
       smooch_menu_project_media_id: '',
     };
   };
 
-  const handleSaveNewOption = (label, action) => {
-    const newOption = buildOption(label, action);
+  const handleSaveNewOption = (label, description, action) => {
+    const newOption = buildOption(label, description, action);
     const newOptions = options.slice();
     newOptions.push(newOption);
     onChangeMenuOptions(newOptions);
     setShowNewOptionDialog(false);
   };
 
-  const handleSaveOption = (label, action) => {
-    const newOption = buildOption(label, action);
+  const handleSaveOption = (label, description, action) => {
+    const newOption = buildOption(label, description, action);
     const newOptions = options.slice();
     newOptions[editingOptionIndex] = newOption;
     onChangeMenuOptions(newOptions);
@@ -231,10 +236,24 @@ const SmoochBotMainMenuSection = ({
                 </Box> }
               {' '}
 
-              {/* Menu option label */}
-              <Typography variant="body2" component="div">
-                {formatOptionLabel(option)}
-              </Typography>
+              <Box>
+                {/* Menu option label */}
+                <Typography variant="body2" component="div">
+                  {formatOptionLabel(option)}
+                </Typography>
+
+                {/* Menu option description */}
+                <Typography variant="caption" component="div">
+                  { !readOnly && !option.smooch_menu_option_description ?
+                    <span className={classes.noDescription}>
+                      <FormattedMessage
+                        id="smoochBotMainMenuSection.optionNoDescription"
+                        defaultMessage="no description"
+                        description="Displayed when a tipline bot menu option doesn't have a description."
+                      />
+                    </span> : option.smooch_menu_option_description }
+                </Typography>
+              </Box>
             </Box>
 
             {/* Menu option buttons: edit and delete */}
@@ -275,6 +294,7 @@ const SmoochBotMainMenuSection = ({
         <SmoochBotMainMenuOption
           resources={resources}
           currentTitle={options[editingOptionIndex].smooch_menu_option_label}
+          currentDescription={options[editingOptionIndex].smooch_menu_option_description}
           currentValue={options[editingOptionIndex].smooch_menu_option_value === 'custom_resource' ? options[editingOptionIndex].smooch_menu_custom_resource_id : options[editingOptionIndex].smooch_menu_option_value}
           onSave={handleSaveOption}
           onCancel={handleCancel}

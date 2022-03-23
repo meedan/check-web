@@ -190,6 +190,7 @@ const RuleBody = (props) => {
             {rule.actions.map((action, i) => {
               const actions = props.schema.properties.rules.items.properties.actions.items;
               const actionsDefinition = actions.properties.action_definition;
+              actionsDefinition.enum = actionsDefinition.enum.filter(a => a.key !== 'add_tag');
               const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
               return (
                 <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>

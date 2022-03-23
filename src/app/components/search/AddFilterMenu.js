@@ -17,6 +17,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
@@ -149,6 +150,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.reportStatus"
         defaultMessage="Report status"
         description="Menu option to enable searching items by report status"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__published-by',
+    key: 'published_by',
+    icon: <HowToRegIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.publishedBy"
+        defaultMessage="Published by"
+        description="Menu option to enable searching items by report published by"
       />
     ),
   },

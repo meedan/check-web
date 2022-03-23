@@ -45,6 +45,11 @@
     "defaultMessage": "Report status"
   },
   {
+    "id": "addFilterMenu.publishedBy",
+    "description": "Menu option to enable searching items by report published by",
+    "defaultMessage": "Published by"
+  },
+  {
     "id": "addFilterMenu.createdBy",
     "description": "Menu option to enable searching items by author",
     "defaultMessage": "Created by"

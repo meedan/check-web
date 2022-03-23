@@ -13,7 +13,7 @@ const MediaSidebar = ({ projectMedia, onTimelineCommentOpen }) => (
       <MediaCreatedBy projectMedia={projectMedia} />
     </Box>
     <Box>
-      <Box my={2}>
+      <Box mt={2}>
         <MediaClaim projectMedia={projectMedia} />
       </Box>
       <MediaTags projectMedia={projectMedia} onTimelineCommentOpen={onTimelineCommentOpen} />

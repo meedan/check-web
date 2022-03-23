@@ -18,6 +18,7 @@ import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import RuleIcon from '@material-ui/icons//Rule';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -197,6 +198,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handlePublishedByClick = (userIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'published_by', userIds),
+    );
+  }
+
   handleProjectGroupClick = (projectGroupDbids) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'project_group_id', projectGroupDbids),
@@ -350,6 +357,14 @@ class SearchFields extends React.Component {
     }
     if (/imported-reports/.test(window.location.pathname)) {
       selectedChannels = [CheckChannels.FETCH];
+    }
+
+    const reportStatusOptions = [
+      { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
+      { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+    ];
+    if (!/trends/.test(window.location.pathname)) {
+      reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
     }
 
     const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
@@ -541,13 +556,23 @@ class SearchFields extends React.Component {
               label={label}
               icon={<ReportIcon />}
               selected={this.props.query.report_status}
-              options={[
-                { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
-                { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
-                { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
-              ]}
+              options={reportStatusOptions}
               onChange={this.handleReportStatusClick}
               onRemove={() => this.handleRemoveField('report_status')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      published_by: (
+        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<HowToRegIcon />}
+              selected={this.props.query.published_by}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handlePublishedByClick}
+              onRemove={() => this.handleRemoveField('published_by')}
             />
           )}
         </FormattedMessage>
@@ -716,6 +741,7 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
+    get_trends_filters
     country
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id

@@ -178,7 +178,7 @@ shared_examples 'project' do
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
     wait_for_selector("//span[contains(text(), 'Displayed columns')]", :xpath)
-    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[11].click
+    wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[12].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
     wait_for_selector('#team-lists__item-4-status button').click
