@@ -22,6 +22,16 @@
     "defaultMessage": "Could not save, at least one URL is invalid"
   },
   {
+    "id": "tasks.confirmLeaveTitle",
+    "description": "This is a prompt that appears when a user tries to exit a page before saving their work.",
+    "defaultMessage": "Do you want to leave without saving?"
+  },
+  {
+    "id": "tasks.confirmLeave",
+    "description": "This is a prompt that appears when a user tries to exit a page before saving their work.",
+    "defaultMessage": "You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
+  },
+  {
     "id": "metadata.form.save",
     "description": "This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form.",
     "defaultMessage": "Save"

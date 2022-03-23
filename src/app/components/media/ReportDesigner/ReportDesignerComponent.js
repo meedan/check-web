@@ -1,7 +1,6 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
 import deepEqual from 'deep-equal';
 import IconButton from '@material-ui/core/IconButton';
@@ -13,7 +12,7 @@ import LanguageSwitcher from '../../LanguageSwitcher';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
-import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import NavigateAwayDialog from '../../NavigateAwayDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
 import {
@@ -62,7 +61,6 @@ const ReportDesignerComponent = (props) => {
   const initialLanguage = savedReportData.data.default_language || team.get_language || 'en';
   const [currentLanguage, setCurrentLanguage] = React.useState(initialLanguage);
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
-  const [leaveLocation, setLeaveLocation] = React.useState(null);
   const [editing, setEditing] = React.useState(false);
   const [pending, setPending] = React.useState(false);
 
@@ -70,34 +68,6 @@ const ReportDesignerComponent = (props) => {
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const currentReportIndex = findReportIndex(data, currentLanguage);
   hasUnsavedChanges = !deepEqual(data, propsToData(props, defaultLanguage));
-
-  const confirmCloseBrowserWindow = (e) => {
-    if (hasUnsavedChanges) {
-      const message = 'Are you sure?'; // It's not displayed
-      e.returnValue = message;
-      return message;
-    }
-    e.preventDefault();
-    return '';
-  };
-
-  React.useEffect(() => {
-    props.router.setRouteLeaveHook(
-      props.route,
-      (nextLocation) => {
-        if (!hasUnsavedChanges || (nextLocation.state && nextLocation.state.confirmed)) {
-          return true;
-        }
-        setLeaveLocation(nextLocation);
-        return false;
-      },
-    );
-    window.addEventListener('beforeunload', confirmCloseBrowserWindow);
-
-    return () => {
-      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
-    };
-  }, []);
 
   const handleChangeLanguage = (newLanguageCode) => {
     const reportIndex = findReportIndex(data, newLanguageCode);
@@ -114,15 +84,6 @@ const ReportDesignerComponent = (props) => {
     const updatedData = cloneData(data);
     updatedData.default_language = newValue;
     setData(updatedData);
-  };
-
-  const handleConfirmLeave = () => {
-    const finalLocation = Object.assign(leaveLocation, { state: { confirmed: true } });
-    browserHistory.push(finalLocation);
-  };
-
-  const handleCancelLeave = () => {
-    setLeaveLocation(null);
   };
 
   const handleStatusChange = () => {
@@ -281,6 +242,35 @@ const ReportDesignerComponent = (props) => {
 
   return (
     <React.Fragment>
+      { hasUnsavedChanges ?
+        <NavigateAwayDialog
+          hasUnsavedChanges={hasUnsavedChanges}
+          title={
+            <FormattedMessage
+              id="reportDesigner.confirmLeaveTitle"
+              defaultMessage="Do you want to leave without saving?"
+            />
+          }
+          body={
+            <FormattedMessage
+              id="reportDesigner.confirmLeaveText"
+              defaultMessage="You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
+            />
+          }
+          cancelLabel={
+            <FormattedMessage
+              id="reportDesigner.cancelLeaveButtonLabel"
+              defaultMessage="Go back"
+            />
+          }
+          proceedLabel={
+            <FormattedMessage
+              id="reportDesigner.confirmLeaveButtonLabel"
+              defaultMessage="Leave without saving"
+            />
+          }
+        /> : null
+      }
       <ReportDesignerTopBar
         media={media}
         defaultLanguage={defaultLanguage}
@@ -329,47 +319,12 @@ const ReportDesignerComponent = (props) => {
           />
         </Box>
       </Box>
-      <ConfirmProceedDialog
-        open={leaveLocation}
-        title={
-          <FormattedMessage
-            id="reportDesigner.confirmLeaveTitle"
-            defaultMessage="Do you want to leave without saving?"
-          />
-        }
-        body={
-          <div>
-            <Typography variant="body1" component="p" paragraph>
-              <FormattedMessage
-                id="reportDesigner.confirmLeaveText"
-                defaultMessage="You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
-              />
-            </Typography>
-          </div>
-        }
-        proceedLabel={
-          <FormattedMessage
-            id="reportDesigner.confirmLeaveButtonLabel"
-            defaultMessage="Leave without saving"
-          />
-        }
-        onProceed={handleConfirmLeave}
-        cancelLabel={
-          <FormattedMessage
-            id="reportDesigner.cancelLeaveButtonLabel"
-            defaultMessage="Go back"
-          />
-        }
-        onCancel={handleCancelLeave}
-      />
     </React.Fragment>
   );
 };
 
 ReportDesignerComponent.propTypes = {
   media: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 
