@@ -115,6 +115,16 @@ const SmoochBotConfig = (props) => {
     setValue(updatedValue);
   };
 
+  const handleChangeImage = (file) => {
+    const updatedValue = Object.assign({}, value);
+    if (file) {
+      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_greeting_image = file;
+    } else {
+      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_greeting_image = 'none';
+    }
+    setValue(updatedValue);
+  };
+
   const handleChangeMessage = (stringId, newValue) => {
     const updatedValue = JSON.parse(JSON.stringify(value));
     updatedValue.smooch_workflows[currentWorkflowIndex][stringId] = newValue;
@@ -293,6 +303,7 @@ const SmoochBotConfig = (props) => {
                 <SmoochBotContentAndTranslation
                   key={currentLanguage}
                   value={value.smooch_workflows[currentWorkflowIndex]}
+                  onChangeImage={handleChangeImage}
                   onChangeMessage={handleChangeMessage}
                   onChangeStateMessage={handleChangeStateMessage}
                 /> : null }
