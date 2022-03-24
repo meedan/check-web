@@ -53,5 +53,10 @@
     "id": "check.error.conflict",
     "description": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data.",
     "defaultMessage": "There was a database conflict."
+  },
+  {
+    "id": "check.error.published",
+    "description": "This is a message that displays in an error popup if the user manages to ask the server to change the status on an item that has already been published.",
+    "defaultMessage": "You can't change the status of a published item."
   }
 ]
