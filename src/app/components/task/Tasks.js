@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import moment from 'moment';
 import Task from './Task';
 import ReorderTask from './ReorderTask';
+import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
 import { units } from '../../styles/js/shared';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -51,8 +52,6 @@ const Tasks = ({
   media,
   about,
   setFlashMessage,
-  router,
-  intl,
 }) => {
   const teamSlug = /^\/([^/]+)/.test(window.location.pathname) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
@@ -61,40 +60,6 @@ const Tasks = ({
   const isMetadata = fieldset === 'metadata';
   const [isEditing, setIsEditing] = React.useState(false);
   const [localResponses, setLocalResponses] = React.useState(tasks);
-
-  const confirmCloseBrowserWindow = (e) => {
-    if (isEditing) {
-      const message = 'Are you sure?'; // It's not displayed
-      e.returnValue = message;
-      return message;
-    }
-    e.preventDefault();
-    return '';
-  };
-
-  React.useEffect(() => {
-    if (isEditing) {
-      window.addEventListener('beforeunload', confirmCloseBrowserWindow);
-      router.setRouteLeaveHook(
-        router.routes[1],
-        () => intl.formatMessage({
-          id: 'tasks.confirmLeave',
-          defaultMessage: 'You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved.',
-          description: 'This is a prompt that appears when a user tries to exit a page before saving their work. It appears in web browsers with a confirm/deny prompt that will be localized by the web browser.',
-        }),
-      );
-    } else {
-      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
-      router.setRouteLeaveHook(
-        router.routes[1],
-        () => null,
-      );
-    }
-
-    return () => {
-      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
-    };
-  }, [isEditing]);
 
   if (tasks.length === 0) {
     return (
@@ -332,6 +297,23 @@ const Tasks = ({
           {
             isEditing ? (
               <div>
+                <NavigateAwayDialog
+                  hasUnsavedChanges
+                  title={
+                    <FormattedMessage
+                      id="tasks.confirmLeaveTitle"
+                      defaultMessage="Do you want to leave without saving?"
+                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                    />
+                  }
+                  body={
+                    <FormattedMessage
+                      id="tasks.confirmLeave"
+                      defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
+                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                    />
+                  }
+                />
                 <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
                   <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
                 </Button>
