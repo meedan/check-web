@@ -88,9 +88,8 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const params = new URLSearchParams(window.location.search);
-  const listIndex = params.get('listIndex');
-  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
+  const params = new URLSearchParams();
+  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}${window.location.search}`;
   // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
   const getReviewId = () => {
     const reviewId = params.get('reviewId');
