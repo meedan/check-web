@@ -14,6 +14,7 @@ const CheckError = {
     DUPLICATED: 9,
     LOGIN_2FA_REQUIRED: 10,
     CONFLICT: 11,
+    PUBLISHED_REPORT: 12,
   },
   messages: {
     UNAUTHORIZED: (<FormattedMessage
@@ -70,6 +71,11 @@ const CheckError = {
       id="check.error.conflict"
       defaultMessage="There was a database conflict."
       description="This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
+    />),
+    PUBLISHED_REPORT: (<FormattedMessage
+      id="check.error.published"
+      defaultMessage="You can't change the status of a published item."
+      description="This is a message that displays in an error popup if the user manages to ask the server to change the status on an item that has already been published."
     />),
   },
   getMessageFromCode(code) {

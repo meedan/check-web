@@ -1,8 +1,11 @@
 import React from 'react';
+import Button from '@material-ui/core/Button';
+import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
+import styled from 'styled-components';
 import CheckError from './CheckError';
-import { stringHelper } from './customHelpers';
+import { units } from './styles/js/shared';
 
 /**
  * TODO
@@ -153,25 +156,71 @@ function getErrorObjectsForRelayModernProblem(errorOrErrors) {
 
 // Requires an CheckNetworkLayer c. 2019 object with the `code` and `message` properties
 function createFriendlyErrorMessage(error) {
+  const StyledContainer = styled.div`
+    margin: 0 0 0 ${units(2)};
+    max-width: 500px;
+  `;
+  const StyledSummary = styled.summary`
+    cursor: pointer;
+    margin-bottom: 8px;
+    user-select: none;
+  `;
+  const StyledTextarea = styled.textarea`
+    width: 100%;
+  `;
+  const StyledButton = styled.span`
+    & > .MuiButtonBase-root {
+      text-transform: uppercase;
+      color: #d32f2f;
+      background-color: white;
+    }
+  `;
+  const friendlyMessage = CheckError.getMessageFromCode(error.code);
   return (
-    <div id="snack-flex" style={{ maxWidth: '500px', margin: '0 0 0 16px' }}>
+    <StyledContainer id="snack-flex">
       <p>
         <strong>
-          {CheckError.getMessageFromCode(error.code)}
+          {friendlyMessage}
         </strong>
-        {' '}Please contact <a href={`mailto:${stringHelper('SUPPORT_EMAIL')}`}>{stringHelper('SUPPORT_EMAIL')}</a> if this condition persists.
+        {' '}Please report this issue to Meedan to help us fix it.
+      </p>
+      <p>
+        <StyledButton>
+          <FormattedMessage
+            id="check.helpers.intercom_help"
+            defaultMessage="Press the 'send' arrow to the right to send the report."
+            description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
+          >
+            {help_text => (
+              <Button
+                variant="contained"
+                onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
+              >
+                <FormattedMessage
+                  id="check.helpers.report_issue"
+                  defaultMessage="Report issue"
+                  description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+                />
+              </Button>
+            )}
+          </FormattedMessage>
+        </StyledButton>
       </p>
       <p>
         <details>
-          <summary style={{ cursor: 'pointer', marginBottom: '8px', userSelect: 'none' }}>
-            More info...
-          </summary>
-          <textarea id="error-message" name="error-message" rows="5" style={{ width: '100%' }}>
+          <StyledSummary>
+            <FormattedMessage
+              id="check.helpers.more_info"
+              defaultMessage="More info..."
+              description="This is a label on a button that users press in order to get more info related to an error message."
+            />
+          </StyledSummary>
+          <StyledTextarea id="error-message" name="error-message" rows="5">
             {error.message}
-          </textarea>
+          </StyledTextarea>
         </details>
       </p>
-    </div>
+    </StyledContainer>
   );
 }
 
