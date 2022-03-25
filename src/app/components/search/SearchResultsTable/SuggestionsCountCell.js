@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import NumberCell from './NumberCell';
+import { getPathnameAndSearch } from '../../../urlHelpers';
 
-export default function SuggestionsCountCell({ projectMedia }) {
+export default function SuggestionsCountCell({ projectMedia, projectMediaUrl }) {
+  const { pathname, search } = getPathnameAndSearch(projectMediaUrl);
   const suggestionsCount = projectMedia.list_columns_values.suggestions_count;
-  const suggestionsUrl = `/${projectMedia.team.slug}/media/${projectMedia.dbid}/similar-media`;
+  const suggestionsUrl = `${pathname}/similar-media${search}`;
   return <NumberCell value={suggestionsCount} linkTo={suggestionsCount ? suggestionsUrl : null} />;
 }
 
