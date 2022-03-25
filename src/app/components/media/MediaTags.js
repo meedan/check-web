@@ -173,7 +173,9 @@ export default createFragmentContainer(MediaTags, graphql`
       slug
     }
     is_secondary
-    suggested_main_item
+    suggested_main_item {
+      dbid
+    }
     tags(first: 10000) {
       edges {
         node {
