@@ -180,7 +180,7 @@ shared_examples 'similarity' do
     end
   end
 
-  it "should suggest different sized texts as similar", bin7: true do
+  it 'should suggest different sized texts as similar', bin7: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.projects-list__all-items').click
