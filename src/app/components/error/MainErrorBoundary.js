@@ -1,5 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { Notifier } from '@airbrake/browser';
+import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 
@@ -7,17 +9,26 @@ class MainErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
+    if (config.errbitApiKey && config.errbitHost) {
+      this.airbrake = new Notifier({
+        host: config.errbitHost,
+        projectId: 1,
+        projectKey: config.errbitApiKey,
+      });
+    }
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) { // eslint-disable-line class-methods-use-this
-    console.log('error', error); // eslint-disable-line no-console
-    console.log('errorInfo', errorInfo); // eslint-disable-line no-console
-    // TODO: Log error to Errbit
-    // logErrorToMyService(error, errorInfo);
+  componentDidCatch(error, errorInfo) {
+    if (this.airbrake) {
+      this.airbrake.notify({
+        error,
+        params: { info: errorInfo },
+      });
+    }
   }
 
   render() {
