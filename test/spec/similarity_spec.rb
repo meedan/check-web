@@ -132,18 +132,13 @@ shared_examples 'similarity' do
     'hindi' => ['यह एक पाठ समानता परीक्षण है', 'यह एक और पाठ समानता परीक्षण उदाहरण है'],
     'arabic' => ['هذا مثال آخر لاختبار نص التشابه', 'هذا مثال آخر لاختبار نص التشاب']
   }.each do |language, claim|
-    it "should identify texts in #{language} as similar", bin7: true do
-      team = "team#{Time.now.to_i}"
-      create_team_and_go_to_settings_page(team)
-      wait_for_selector('.team-settings__integrations-tab').click
-      wait_for_selector('.team-bots__alegre-uninstalled').click
-      wait_for_selector('.team-settings__similarity-tab')
+    it "should suggest texts in #{language} as similar", bin7: true do
+      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
       wait_for_selector('.projects-list__all-items').click
       wait_for_selector('.project__description')
       create_media(claim[0])
       create_media(claim[1])
       sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-      wait_for_selector('#create-media__add-item')
       wait_for_selector_list_size('.media__heading', 2)
       wait_for_selector('.search-show-similar__switch').click
       wait_for_selector_list_size('.media__heading', 2)
@@ -158,45 +153,42 @@ shared_examples 'similarity' do
     end
   end
 
-  it 'should identify big texts as similar', bin7: true do
-    team = "team#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector('.team-bots__alegre-uninstalled').click
-    wait_for_selector('.team-settings__similarity-tab')
-    wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('.project__description')
-    create_media('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.')
-    create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining almost unchanged. It was popularised in the 1960s with the new release of Letraset sheets containing Lorem Ipsum passages, and most recently with desktop publishing software like Aldus PageMaker including many versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is more than a simply random text. It has strong roots in a piece of classical literature from 45 BC, making it over 3000 years old.')
-    wait_for_selector('.medias__item')
-    sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector('#create-media__add-item')
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.search-show-similar__switch').click
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
-    wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
-    wait_for_selector('.media__more-medias')
-    expect(@driver.page_source.include?('More medias')).to be(true)
-    expect(@driver.page_source.include?('2 medias')).to be(true)
+  {
+    'simple' => ['este é um teste de similaridade de texto', 'este é um outro teste de similaridade texto'],
+    'big' => ['Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.', 'Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining almost unchanged. It was popularised in the 1960s with the new release of Letraset sheets containing Lorem Ipsum passages, and most recently with desktop publishing software like Aldus PageMaker including many versions of Lorem Ipsum. Contrary to popular belief, Lorem Ipsum is more than a simply random text. It has strong roots in a piece of classical literature from 45 BC, making it over 3000 years old.']
+  }.each do |param, claim|
+    it "should identify #{param} texts as similar", bin7: true do
+      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
+      wait_for_selector('.team-settings__integrations-tab').click
+      wait_for_selector('.projects-list__all-items').click
+      wait_for_selector('.project__description')
+      create_media(claim[0])
+      create_media(claim[1])
+      wait_for_selector('.medias__item')
+      sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+      wait_for_selector_list_size('.media__heading', 2)
+      wait_for_selector('.search-show-similar__switch').click
+      wait_for_selector_list_size('.media__heading', 2)
+      wait_for_selector('.media__heading svg')
+      wait_for_selector('.media__heading', index: 1).click
+      wait_for_selector('#media__claim')
+      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
+      wait_for_selector('.media__more-medias')
+      expect(@driver.page_source.include?('More medias')).to be(true)
+      expect(@driver.page_source.include?('2 medias')).to be(true)
+    end
   end
 
-  it 'should identify different sized texts as similar', bin7: true do
-    team = "team#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
+  it "should suggest different sized texts as similar", bin7: true do
+    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector('.team-bots__alegre-uninstalled').click
-    wait_for_selector('.team-settings__similarity-tab')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.project__description')
     create_media('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.')
     create_media('Lorem Ipsum is used to generate dummy texts of the printing and TI industry. Lorem Ipsum has been used by the industry for text generation ever since the 1500s.')
     wait_for_selector('.medias__item')
     sleep 30 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector('#create-media__add-item')
     wait_for_selector_list_size('.media__heading', 2)
     wait_for_selector('.search-show-similar__switch').click
     wait_for_selector_list_size('.media__heading', 2)
@@ -210,30 +202,36 @@ shared_examples 'similarity' do
     expect(@driver.page_source.include?('1 of 1 suggested media')).to be(true)
   end
 
-  it 'should identify image as similar', bin7: true do
-    team = "team#{Time.now.to_i}"
-    create_team_and_go_to_settings_page(team)
-    wait_for_selector('.team-settings__integrations-tab').click
-    wait_for_selector('.team-bots__alegre-uninstalled').click
-    wait_for_selector('.team-settings__similarity-tab')
-    wait_for_selector('.projects-list__all-items').click
-    wait_for_selector('.project__description')
-    create_image('files/similarity.jpg')
-    create_image('files/similarity2.jpg')
-    wait_for_selector('.medias__item')
-    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
-    wait_for_selector('#create-media__add-item')
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.search-show-similar__switch').click
-    wait_for_selector_list_size('.media__heading', 2)
-    wait_for_selector('.media__heading svg')
-    wait_for_selector('.media__heading', index: 1).click
-    wait_for_selector('#media__claim')
-    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
-    wait_for_selector('.media__more-medias')
-    expect(@driver.page_source.include?('More medias')).to be(true)
-    expect(@driver.page_source.include?('2 medias')).to be(true)
+  {
+    'saturation' => ['files/similarity.jpg', 'files/similarity2.jpg'],
+    'formats' => ['files/similarity3.jpg', 'files/similarity3.jpeg'],
+    'size' => ['files/test.png', 'files/test2.png']
+  }.each do |param, file|
+    it "should identify image in differents #{param} as similar", bin7: true do
+      team = "team#{Time.now.to_i}"
+      create_team_and_go_to_settings_page(team)
+      wait_for_selector('.team-settings__integrations-tab').click
+      wait_for_selector('.team-bots__alegre-uninstalled').click
+      wait_for_selector('.team-settings__similarity-tab')
+      wait_for_selector('.projects-list__all-items').click
+      wait_for_selector('.project__description')
+      create_image(file[0])
+      create_image(file[1])
+      wait_for_selector('.medias__item')
+      sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+      wait_for_selector('#create-media__add-item')
+      wait_for_selector_list_size('.media__heading', 2)
+      wait_for_selector('.search-show-similar__switch').click
+      wait_for_selector_list_size('.media__heading', 2)
+      wait_for_selector('.media__heading svg')
+      wait_for_selector('.media__heading', index: 1).click
+      wait_for_selector('#media__claim')
+      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
+      wait_for_selector('.media__more-medias')
+      expect(@driver.page_source.include?('More medias')).to be(true)
+      expect(@driver.page_source.include?('2 medias')).to be(true)
+    end
   end
 
   it 'should extract text from a image', bin7: true do

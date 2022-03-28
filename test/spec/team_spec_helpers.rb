@@ -24,6 +24,14 @@ module TeamSpecHelpers
     wait_for_selector('.team-settings__tags-tab')
   end
 
+  def create_team_and_install_bot(params = {})
+    team = params[:team] || "team#{Time.now.to_i}"
+    create_team_and_go_to_settings_page(team)
+    wait_for_selector('.team-settings__integrations-tab').click
+    wait_for_selector(params[:bot]).click
+    wait_for_selector('.team-settings__similarity-tab')
+  end
+
   def create_team_project_and_image_and_redirect_to_media_page
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
