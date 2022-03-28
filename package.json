@@ -135,7 +135,7 @@
     "material-ui-popup-state": "1.5.4",
     "memoize-one": "^5.1.1",
     "moment": "^2.24.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "notistack": "^1.0.3",
     "polished": "^1.2.1",
     "prop-types": "^15.6.2",
