@@ -28,15 +28,9 @@ else
   echo $NGROK_URL
   docker-compose build
   docker-compose -f docker-compose.yml -f docker-test.yml up -d
-  docker-compose logs -t -f &
-  echo "Alegre"
+  # docker-compose logs -t -f &
   until curl --silent -I -f --fail http://localhost:5000; do printf .; sleep 1; done
-  echo "Alegre up"
 fi
 
-echo "Pender"
 until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
-echo "Pender up"
-echo "Api"
 until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
-echo "API up"
