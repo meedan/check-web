@@ -173,6 +173,7 @@ shared_examples 'search' do
   end
   it 'should change search sort and search criteria through URL', bin3: true do
     api_create_claim_and_go_to_search_page
+    wait_for_selector('.media__heading', :css, 20, true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
     wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
@@ -203,7 +204,7 @@ shared_examples 'search' do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media-detail')
     wait_for_selector('.project-header__back-button').click
-    create_image('test.png')
+    create_image('files/test.png')
     old = wait_for_selector_list('.medias__item').length
     wait_for_selector('#search-input').click
     @driver.action.send_keys(:enter).perform

@@ -24,12 +24,20 @@ module TeamSpecHelpers
     wait_for_selector('.team-settings__tags-tab')
   end
 
+  def create_team_and_install_bot(params = {})
+    team = params[:team] || "team#{Time.now.to_i}"
+    create_team_and_go_to_settings_page(team)
+    wait_for_selector('.team-settings__integrations-tab').click
+    wait_for_selector(params[:bot]).click
+    wait_for_selector('.team-settings__similarity-tab')
+  end
+
   def create_team_project_and_image_and_redirect_to_media_page
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('#create-media__add-item').click
     wait_for_selector('#create-media__image').click
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'files/test.png'))
     wait_for_selector_none('.without-file')
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.medias__item')

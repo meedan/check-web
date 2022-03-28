@@ -45,7 +45,7 @@ module ApiHelpers
 
   def api_create_team_and_project(params = {})
     user = params[:user] || api_register_and_login_with_email
-    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(1000).to_i}", email: user.email }
+    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}", email: user.email }
     team_id = team.dbid
     project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id, use_default_project: params[:use_default_project] }
     { project: project, user: user, team: team }

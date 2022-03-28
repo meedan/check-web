@@ -9,7 +9,7 @@ services:
       - 5900:5900
       - 4444:4444
     volumes:
-      - "./test/spec/test.png:/app/test/spec/test.png"
+      - "./test/spec/files:/app/test/spec/files"
       - "./check-ui/.yalc:/root/.yalc"
     networks:
       - dev
