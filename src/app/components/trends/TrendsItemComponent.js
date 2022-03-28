@@ -563,7 +563,6 @@ const TrendsItemComponent = ({
               </Box>
               <MediaExpandedComponent
                 media={expandedMedia}
-                linkTitle={expandedMedia?.title}
                 mediaUrl={null}
                 hideActions
               />

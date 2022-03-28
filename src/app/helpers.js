@@ -1,5 +1,11 @@
+import React from 'react';
+import Button from '@material-ui/core/Button';
+import { FormattedMessage } from 'react-intl';
 import LinkifyIt from 'linkify-it';
 import { toArray } from 'react-emoji-render';
+import styled from 'styled-components';
+import CheckError from './CheckError';
+import { units } from './styles/js/shared';
 
 /**
  * TODO
@@ -60,6 +66,20 @@ function getStatusStyle(status, property) {
 function truncateLength(str, length = 70) {
   const dots = str.length > length ? '...' : '';
   return `${str.substring(0, length)}${dots}`;
+}
+
+/**
+ * Uppercase the first character of a string, lowercase the remaining
+ */
+function capitalize(str) {
+  return `${str.substring(0, 1).toUpperCase()}${str.substr(1).toLowerCase()}`;
+}
+
+/**
+ * Return an array of unique values that are in all arrays passed as arguments
+ */
+function intersection(array, ...args) {
+  return array.filter(item => args.every(arr => arr.includes(item)));
 }
 
 
@@ -140,6 +160,84 @@ function getErrorMessage(transactionOrError, fallbackMessage) {
   return message;
 }
 
+function getErrorObjectsForRelayModernProblem(errorOrErrors) {
+  if (errorOrErrors.source) {
+    const json = safelyParseJSON(errorOrErrors.source);
+    return json && json.errors && json.errors.length > 0 ? json.errors : null;
+  }
+  return null;
+}
+
+// Requires an CheckNetworkLayer c. 2019 object with the `code` and `message` properties
+function createFriendlyErrorMessage(error) {
+  const StyledContainer = styled.div`
+    margin: 0 0 0 ${units(2)};
+    max-width: 500px;
+  `;
+  const StyledSummary = styled.summary`
+    cursor: pointer;
+    margin-bottom: 8px;
+    user-select: none;
+  `;
+  const StyledTextarea = styled.textarea`
+    width: 100%;
+  `;
+  const StyledButton = styled.span`
+    & > .MuiButtonBase-root {
+      text-transform: uppercase;
+      color: #d32f2f;
+      background-color: white;
+    }
+  `;
+  const friendlyMessage = CheckError.getMessageFromCode(error.code);
+  return (
+    <StyledContainer id="snack-flex">
+      <p>
+        <strong>
+          {friendlyMessage}
+        </strong>
+        {' '}Please report this issue to Meedan to help us fix it.
+      </p>
+      <p>
+        <StyledButton>
+          <FormattedMessage
+            id="check.helpers.intercom_help"
+            defaultMessage="Press the 'send' arrow to the right to send the report."
+            description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
+          >
+            {help_text => (
+              <Button
+                variant="contained"
+                onClick={() => Intercom('showNewMessage', `(${help_text})\nReport: ${friendlyMessage.props.defaultMessage}\nCode: ${error.code}\nURL: ${window.location}\nDetails: ${error.message}`)}
+              >
+                <FormattedMessage
+                  id="check.helpers.report_issue"
+                  defaultMessage="Report issue"
+                  description="This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+                />
+              </Button>
+            )}
+          </FormattedMessage>
+        </StyledButton>
+      </p>
+      <p>
+        <details>
+          <StyledSummary>
+            <FormattedMessage
+              id="check.helpers.more_info"
+              defaultMessage="More info..."
+              description="This is a label on a button that users press in order to get more info related to an error message."
+            />
+          </StyledSummary>
+          <StyledTextarea id="error-message" name="error-message" rows="5">
+            {error.message}
+          </StyledTextarea>
+        </details>
+      </p>
+    </StyledContainer>
+  );
+}
+
 /**
  * Extract an error message from a Relay Modern error(s) or return `null` if
  * not possible.
@@ -184,8 +282,11 @@ function getErrorMessage(transactionOrError, fallbackMessage) {
  * ```
  */
 function getErrorMessageForRelayModernProblem(errorOrErrors) {
+  // TODO: make this grab the code in addition to the message. Map the code to a localized string. return an object from this function, not just a string, and the object is ultimately passed to FlashMessage.js. Then that parses out message plus the mapped friendly message, hides message behind a `<details>`.
+  // TODO: make sure every single place that calls getErrorMessageForRelayModernProblem is simply passing things along to FlashMessage. SourceInfo is one such place
   if (errorOrErrors.source) { // Error was thrown from CheckNetworkLayer, c. 2019
-    return getErrorMessage(errorOrErrors, null);
+    // return getErrorMessage(errorOrErrors, null);
+    return getErrorObjectsForRelayModernProblem(errorOrErrors);
   }
   if (errorOrErrors.length) { // Error is an Array the API returned, alongside null data
     return errorOrErrors.map(({ message }) => message).filter(m => Boolean(m))[0] || null;
@@ -199,15 +300,6 @@ function getErrorMessageForRelayModernProblem(errorOrErrors) {
   console.warn('Unhandled error from Relay Modern', errorOrErrors);
   return null;
 }
-
-function getErrorObjectsForRelayModernProblem(errorOrErrors) {
-  if (errorOrErrors.source) {
-    const json = safelyParseJSON(errorOrErrors.source);
-    return json && json.errors && json.errors.length > 0 ? json.errors : null;
-  }
-  return null;
-}
-
 
 /**
  * Safely extract an error object from a transaction
@@ -253,6 +345,8 @@ export { // eslint-disable-line import/no-unused-modules
   getStatus,
   getStatusStyle,
   truncateLength,
+  capitalize,
+  intersection,
   unhumanizeSize,
   convertNumbers2English,
   encodeSvgDataUri,
@@ -262,6 +356,7 @@ export { // eslint-disable-line import/no-unused-modules
   getErrorMessageForRelayModernProblem,
   getErrorObjectsForRelayModernProblem,
   getErrorObjects,
+  createFriendlyErrorMessage,
   emojify,
   parseStringUnixTimestamp,
   botName,

@@ -88,11 +88,21 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const params = new URLSearchParams(window.location.search);
-  const listIndex = params.get('listIndex');
-  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
-  const [index, setIndex] = React.useState(0);
+  const params = new URLSearchParams();
+  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}${window.location.search}`;
+  // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
+  const getReviewId = () => {
+    const reviewId = params.get('reviewId');
+    const firstSuggestionId = relationships[0] ? relationships[0].target_id : null;
+    return reviewId ? parseInt(reviewId, 10) : firstSuggestionId;
+  };
+
+  const [reviewId, setReviewId] = React.useState(getReviewId());
+  let index = relationships.findIndex(r => r.target_id === reviewId);
+  index = (index > -1) ? index : 0;
+
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isMutationPending, setIsMutationPending] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
@@ -108,21 +118,30 @@ const MediaSuggestionsComponent = ({
   };
 
   const handleNext = () => {
-    if (hasNext) {
-      setIndex(index + 1);
+    if (!hasNext) return;
+
+    const nextRelationship = relationships[index + 1] || relationships[0];
+    if (nextRelationship) {
+      setReviewId(nextRelationship.target_id);
     }
   };
 
   const handlePrevious = () => {
-    if (hasPrevious) {
-      setIndex(index - 1);
+    if (!hasPrevious) return;
+
+    const prevRelationship = relationships[index - 1];
+    if (prevRelationship) {
+      setReviewId(prevRelationship.target_id);
     }
   };
 
-  const handleCompleted = () => {};
+  const handleCompleted = () => {
+    setIsMutationPending(false);
+  };
 
   const onFailure = (errors) => {
     const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
+    setIsMutationPending(false);
     setFlashMessage(errorMessage, 'error');
   };
 
@@ -277,6 +296,7 @@ const MediaSuggestionsComponent = ({
       }
     `;
 
+    setIsMutationPending(true);
     commitMutation(Store, {
       mutation,
       variables: {
@@ -322,6 +342,8 @@ const MediaSuggestionsComponent = ({
   const handleHelp = () => {
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
+
+  const disableAcceptRejectButtons = total === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
 
   return (
     <React.Fragment>
@@ -376,45 +398,41 @@ const MediaSuggestionsComponent = ({
               <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
                 <KeyboardArrowLeftIcon fontSize="large" />
               </IconButton>
-              {can(team.permissions, 'update Relationship') ?
+              <IconButton
+                onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
+                style={{ color: completedGreen }}
+                disabled={disableAcceptRejectButtons}
+                className={disableAcceptRejectButtons ? classes.disabled : ''}
+                id="similarity-media-item__accept-relationship"
+              >
+                <CheckCircleOutlineIcon fontSize="large" />
+              </IconButton>
+              <>
                 <IconButton
-                  onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
-                  style={{ color: completedGreen }}
-                  disabled={total === 0}
-                  className={total === 0 ? classes.disabled : ''}
-                  id="similarity-media-item__accept-relationship"
+                  onClick={openDialog}
+                  style={{ color: alertRed }}
+                  disabled={disableAcceptRejectButtons}
+                  className={disableAcceptRejectButtons ? classes.disabled : ''}
+                  id="similarity-media-item__reject-relationship"
                 >
-                  <CheckCircleOutlineIcon fontSize="large" />
-                </IconButton> : null
-              }
-              {can(team.permissions, 'destroy Relationship') ?
-                <React.Fragment>
-                  <IconButton
-                    onClick={openDialog}
-                    style={{ color: alertRed }}
-                    disabled={total === 0}
-                    className={total === 0 ? classes.disabled : ''}
-                    id="similarity-media-item__reject-relationship"
-                  >
-                    <HighlightOffIcon fontSize="large" />
-                  </IconButton>
-                  <SelectProjectDialog
-                    open={isDialogOpen}
-                    excludeProjectDbids={[]}
-                    title={
-                      <FormattedMessage
-                        id="mediaSuggestionsComponent.dialogRejectTitle"
-                        defaultMessage="Choose a destination folder for this item"
-                      />
-                    }
-                    cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
-                    submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
-                    submitButtonClassName="media-actions-bar__add-button"
-                    onCancel={closeDialog}
-                    onSubmit={handleReject}
-                  />
-                </React.Fragment> : null
-              }
+                  <HighlightOffIcon fontSize="large" />
+                </IconButton>
+                <SelectProjectDialog
+                  open={isDialogOpen}
+                  excludeProjectDbids={[]}
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.dialogRejectTitle"
+                      defaultMessage="Choose a destination folder for this item"
+                    />
+                  }
+                  cancelLabel={<FormattedMessage {...globalStrings.cancel} />}
+                  submitLabel={<FormattedMessage id="mediaSuggestionsComponent.moveItem" defaultMessage="Move item" />}
+                  submitButtonClassName="media-actions-bar__add-button"
+                  onCancel={closeDialog}
+                  onSubmit={handleReject}
+                />
+              </>
               <IconButton onClick={handleNext} disabled={!hasNext}>
                 <KeyboardArrowRightIcon fontSize="large" />
               </IconButton>

@@ -25,11 +25,11 @@ const StyledMediaTagsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    padding: ${units(0.5)};
-    margin: 0;
+    padding: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
+    margin: 0 0 0 ${units(-0.5)};
 
     li {
-      margin: ${units(0.5)};
+      margin: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
     }
   }
 `;
@@ -112,6 +112,7 @@ class MediaTags extends React.Component {
 
   render() {
     const { projectMedia } = this.props;
+    const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
     const { regularTags, videoTags } = this.filterTags(projectMedia.tags.edges);
     const tags = regularTags.concat(videoTags);
 
@@ -119,7 +120,7 @@ class MediaTags extends React.Component {
       <StyledMediaTagsContainer className="media-tags__container">
         <div className="media-tags">
           <ul className="media-tags__list">
-            <li>{ projectMedia.is_secondary ? null : <TagMenu media={projectMedia} /> }</li>
+            <li>{ readOnly ? null : <TagMenu media={projectMedia} /> }</li>
             {tags.map((tag) => {
               if (tag.node.tag_text) {
                 return (
@@ -172,6 +173,9 @@ export default createFragmentContainer(MediaTags, graphql`
       slug
     }
     is_secondary
+    suggested_main_item {
+      dbid
+    }
     tags(first: 10000) {
       edges {
         node {

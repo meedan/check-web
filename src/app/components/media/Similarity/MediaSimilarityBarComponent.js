@@ -72,8 +72,6 @@ const MediaSimilarityBarComponent = ({
 }) => {
   const classes = useStyles();
   const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
-  const params = new URLSearchParams(window.location.search);
-  const listIndex = params.get('listIndex');
 
   // This component should be used only on an item page
   if (!linkPrefix) {
@@ -100,18 +98,20 @@ const MediaSimilarityBarComponent = ({
   }
 
   if (suggestedMainItem) {
-    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/similar-media`;
+    const mainItemLink = `/${suggestedMainItem.team.slug}/media/${suggestedMainItem.dbid}/similar-media?reviewId=${projectMediaDbid}`;
     return (
       <Box className={[classes.root, classes.spacing, classes.similarityMessage].join(' ')}>
         <FormattedMessage
           id="mediaSimilarityBarComponent.hasSuggestedMain"
-          defaultMessage="This media has been suggested to be similar to an existing claim."
+          defaultMessage="This media has been suggested as similar to an existing claim."
+          description="Caption to inform user that there is a suggested similarity"
         />
         {' '}
         <Button onClick={() => browserHistory.push(mainItemLink)} variant="contained" color="primary" size="small">
           <FormattedMessage
-            id="mediaSimilarityBarComponent.openClaim"
-            defaultMessage="Open claim"
+            id="mediaSimilarityBarComponent.reviewSuggestion"
+            defaultMessage="Review suggestion"
+            description="Button label for reviewing similarity suggestions"
           />
         </Button>
       </Box>
@@ -123,7 +123,7 @@ const MediaSimilarityBarComponent = ({
       <Box className={classes.spacing}>
         <Link
           className={classes.link}
-          to={`${linkPrefix[0]}/similar-media?listIndex=${listIndex}`}
+          to={`${linkPrefix[0]}/similar-media${window.location.search}`}
           style={confirmedSimilarCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
         >
           <FormattedMessage
@@ -136,7 +136,7 @@ const MediaSimilarityBarComponent = ({
         </Link>
         <Link
           className={classes.link}
-          to={`${linkPrefix[0]}/similar-media?listIndex=${listIndex}`}
+          to={`${linkPrefix[0]}/similar-media${window.location.search}`}
           style={suggestionsCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
         >
           <FormattedMessage

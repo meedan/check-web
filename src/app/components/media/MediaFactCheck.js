@@ -6,6 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
@@ -13,7 +14,14 @@ import { propsToData } from './ReportDesigner/reportDesignerHelpers';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
+const useStyles = makeStyles(() => ({
+  title: {
+    fontSize: '16px',
+  },
+}));
+
 const MediaFactCheck = ({ projectMedia }) => {
+  const classes = useStyles();
   const claimDescription = projectMedia.claim_description;
   const factCheck = claimDescription ? claimDescription.fact_check : null;
 
@@ -25,11 +33,11 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [copying, setCopying] = React.useState(false);
   const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
-  const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription;
+  const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description;
   const canCopy = can(projectMedia.permissions, 'create Dynamic');
   const noReport = !projectMedia.report;
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
-  const readOnly = projectMedia.is_secondary;
+  const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
   const handleCloseConfirmationDialog = () => {
     setShowConfirmationDialog(false);
@@ -212,7 +220,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   return (
     <Box id="media__fact-check">
       <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography variant="body" component="div">
+        <Typography className={classes.title} variant="body" component="div">
           <strong>
             <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
           </strong>
@@ -253,7 +261,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           setTitle(newValue);
           handleBlur('title', newValue);
         }}
-        hasClaimDescription={Boolean(claimDescription)}
+        hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
         disabled={readOnly}
         rows={1}

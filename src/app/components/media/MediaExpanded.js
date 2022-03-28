@@ -257,7 +257,7 @@ class MediaExpandedComponent extends Component {
           className="media-expanded__title"
           title={
             linkTitle ?
-              <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
+              <a href={mediaUrl} className={classes ? classes.title : null} target="_blank" rel="noopener noreferrer">
                 <strong>{truncateLength(title, 110)}</strong>
               </a> : truncateLength(title, 110)
           }

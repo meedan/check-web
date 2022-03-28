@@ -20,6 +20,7 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
+import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
 import RelatedCountCell from './RelatedCountCell';
@@ -111,6 +112,11 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.mediaPublishedAt" defaultMessage="Media published" />,
     sortKey: 'media_published_at',
     cellComponent: MediaPublishedCell,
+  },
+  {
+    field: 'published_by',
+    headerText: <FormattedMessage id="list.reportPublishedBy" defaultMessage="Report published by" />,
+    cellComponent: ReportPublishedByCell,
   },
   {
     field: 'reaction_count',
@@ -252,8 +258,10 @@ export default function SearchResultsTable({
   onChangeSortParams,
   resultType,
   viewMode,
+  count,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team, resultType), [team]);
+  const mediaNavList = projectMedias.map(media => media.dbid);
 
   const handleChangeProjectMediaChecked = React.useCallback((ev, projectMedia) => {
     const { id } = projectMedia;
@@ -301,6 +309,8 @@ export default function SearchResultsTable({
               onChangeChecked={handleChangeProjectMediaChecked}
               resultType={resultType}
               viewMode={viewMode}
+              mediaNavList={mediaNavList}
+              count={count}
             />
           ))}
         </TableBody>
