@@ -39,6 +39,7 @@ const TeamListsItem = ({
   onToggle,
   onMoveUp,
   onMoveDown,
+  isRequired,
 }) => {
   const {
     index,
@@ -93,17 +94,21 @@ const TeamListsItem = ({
               /> }
           </Typography>
         </Box>
-        <Button color="primary" size="small" onClick={handleToggle} className={classes.button}>
-          { show ?
-            <FormattedMessage
-              id="teamListsItem.hide"
-              defaultMessage="Hide"
-            /> :
-            <FormattedMessage
-              id="teamListsItem.show"
-              defaultMessage="Show"
-            /> }
-        </Button>
+        {
+          isRequired ?
+            null :
+            <Button color="primary" size="small" onClick={handleToggle} className={classes.button}>
+              { show ?
+                <FormattedMessage
+                  id="teamListsItem.hide"
+                  defaultMessage="Hide"
+                /> :
+                <FormattedMessage
+                  id="teamListsItem.show"
+                  defaultMessage="Show"
+                /> }
+            </Button>
+        }
       </Box>
     </Box>
   );
@@ -114,6 +119,7 @@ TeamListsItem.defaultProps = {
   isLast: false,
   onMoveUp: null,
   onMoveDown: null,
+  isRequired: false,
 };
 
 TeamListsItem.propTypes = {
@@ -128,6 +134,7 @@ TeamListsItem.propTypes = {
   onToggle: PropTypes.func.isRequired,
   onMoveUp: PropTypes.func,
   onMoveDown: PropTypes.func,
+  isRequired: PropTypes.bool,
 };
 
 export default TeamListsItem;

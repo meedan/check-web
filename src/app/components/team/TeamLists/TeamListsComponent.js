@@ -45,18 +45,21 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
   const columnsToShow = [];
   const selectedColumns = [];
   const availableColumns = [];
-  // We must keep the original index
-  columns.forEach((column, index) => {
-    if (team.smooch_bot ||
-        (column.key !== 'last_seen' && column.key !== 'demand')) {
-      if (column.show) {
-        columnsToShow.push(column.key);
-        selectedColumns.push({ ...column, index });
-      } else {
-        availableColumns.push({ ...column, index });
+  columns
+    // Filter out last_seen per CHECK-1565
+    .filter(column => column.key !== 'last_seen')
+    // We must keep the original index
+    .forEach((column, index) => {
+      if (team.smooch_bot ||
+          (column.key !== 'demand')) {
+        if (column.show || column.key === 'created_at_timestamp') {
+          columnsToShow.push(column.key);
+          selectedColumns.push({ ...column, index });
+        } else {
+          availableColumns.push({ ...column, index });
+        }
       }
-    }
-  });
+    });
 
   const handleError = () => {
     setSaving(false);

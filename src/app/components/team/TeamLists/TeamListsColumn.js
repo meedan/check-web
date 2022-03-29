@@ -51,6 +51,7 @@ const TeamListsColumn = ({
             onMoveDown={onMoveDown}
             isFirst={i === 0}
             isLast={i === columns.length - 1}
+            isRequired={column.key === 'created_at_timestamp'}
           />
         ))}
         { columns.length === 0 ?
