@@ -62,39 +62,6 @@ shared_examples 'similarity' do
     expect(@driver.find_elements(:css, '.MuiCardHeader-title').size).to eq 2
   end
 
-  it 'should add and remove related items', bin6: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
-    sleep 30 # wait for the items to be indexed in the Elasticsearch
-    wait_for_selector('.search__results-heading')
-    wait_for_selector_list_size('.media__heading', 2)
-    project_url = @driver.current_url.to_s
-    create_folder_or_collection('list', '.projects-list__add-folder')
-    wait_for_selector('.project-list__header')
-    @driver.navigate.to project_url
-    wait_for_selector('.search__results-heading')
-    wait_for_selector('.media__heading').click
-    wait_for_selector('#media__sidebar')
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
-    @driver.execute_script('window.scrollTo(0, 50)')
-    wait_for_selector('.media-tab__related').click
-    wait_for_selector("//span[contains(text(), '0 related items')]", :xpath)
-    wait_for_selector("//span[contains(text(), 'Add relation')]", :xpath).click
-    # add related item
-    add_related_item('Claim 0')
-    @driver.navigate.refresh
-    wait_for_selector('.media')
-    wait_for_selector('.media-tab__related').click
-    wait_for_selector_list_size('.MuiCardHeader-title', 2)
-    expect(@driver.page_source.include?('Claim 0')).to be(true)
-    wait_for_selector('.related-media-item__delete-relationship').click
-    wait_for_selector('input[name=project-title]').click
-    wait_for_selector('input[name=project-title]').send_keys('list')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.media-item__add-button').click
-    wait_for_selector_list_size('.MuiCardHeader-title', 1)
-    expect(@driver.page_source.include?('Claim 0')).to be(false)
-  end
-
   it 'should accept and reject suggested similarity', bin5: true do
     data = api_create_team_and_project
     pm1 = api_create_claim(data: data, quote: 'claim 1')
