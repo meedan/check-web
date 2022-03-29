@@ -9,6 +9,7 @@ import WhatsAppIcon from '@material-ui/icons/WhatsApp';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import TelegramIcon from '@material-ui/icons/Telegram';
+import QRCode from 'qrcode.react';
 import ViberIcon from '../../../icons/ViberIcon';
 import LineIcon from '../../../icons/LineIcon';
 import SettingsHeader from '../SettingsHeader';
@@ -55,17 +56,38 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           online={isOnline('whatsapp')}
           info={
             isOnline('whatsapp') ?
-              <FormattedMessage
-                id="smoochBotIntegrations.phoneNumber"
-                defaultMessage="Connected phone number: {link}"
-                values={{
-                  link: (
-                    <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} target="_blank" rel="noopener noreferrer">
-                      {enabledIntegrations.whatsapp.phoneNumber}
-                    </a>
-                  ),
-                }}
-              /> : null
+              <Box>
+                <FormattedMessage
+                  id="smoochBotIntegrations.phoneNumber"
+                  defaultMessage="Connected phone number: {link}"
+                  values={{
+                    link: (
+                      <a href={`https://web.whatsapp.com/send?phone=${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9+]/g, '')}`} target="_blank" rel="noopener noreferrer">
+                        {enabledIntegrations.whatsapp.phoneNumber}
+                      </a>
+                    ),
+                  }}
+                />
+                <Box mt={2} mb={1}>
+                  <strong>
+                    <FormattedMessage
+                      id="smoochBotIntegrations.qrCodeTitle"
+                      defaultMessage="Quickstart QR code"
+                      description="Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+                    />
+                  </strong>
+                </Box>
+                <Box display="flex" justifyContent="space-between">
+                  <Box flex="1">
+                    <FormattedMessage
+                      id="smoochBotIntegrations.qrCodeDescription"
+                      defaultMessage="Scan this QR code to quickly try out your WhatsApp integration and to share and promote it."
+                      description="Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+                    />
+                  </Box>
+                  <QRCode value={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`} renderAs="canvas" />
+                </Box>
+              </Box> : null
           }
           permanentDisconnection
           skipUrlConfirmation
