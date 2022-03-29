@@ -9,6 +9,16 @@
     "defaultMessage": "Connected phone number: {link}"
   },
   {
+    "id": "smoochBotIntegrations.qrCodeTitle",
+    "description": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp",
+    "defaultMessage": "Quickstart QR code"
+  },
+  {
+    "id": "smoochBotIntegrations.qrCodeDescription",
+    "description": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp",
+    "defaultMessage": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it."
+  },
+  {
     "id": "smoochBotIntegrations.account",
     "defaultMessage": "Connected account: {link}"
   },
