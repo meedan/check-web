@@ -81,6 +81,7 @@ shared_examples 'tag' do
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
     # click on the tag and go to search page with the tag filter and see the item
     wait_for_selector('.media-tags__tag').click
+    wait_for_selector('.media__heading', :css, 20, true)
     wait_for_selector('#search-input')
     wait_for_selector('.multi-select-filter__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)

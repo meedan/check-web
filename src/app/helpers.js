@@ -282,8 +282,6 @@ function createFriendlyErrorMessage(error) {
  * ```
  */
 function getErrorMessageForRelayModernProblem(errorOrErrors) {
-  // TODO: make this grab the code in addition to the message. Map the code to a localized string. return an object from this function, not just a string, and the object is ultimately passed to FlashMessage.js. Then that parses out message plus the mapped friendly message, hides message behind a `<details>`.
-  // TODO: make sure every single place that calls getErrorMessageForRelayModernProblem is simply passing things along to FlashMessage. SourceInfo is one such place
   if (errorOrErrors.source) { // Error was thrown from CheckNetworkLayer, c. 2019
     // return getErrorMessage(errorOrErrors, null);
     return getErrorObjectsForRelayModernProblem(errorOrErrors);

@@ -75,6 +75,7 @@
     "jest": "^25.4.0"
   },
   "dependencies": {
+    "@airbrake/browser": "^2.1.7",
     "@babel/core": "^7.9.0",
     "@babel/eslint-parser": "^7.14.5",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -135,7 +136,7 @@
     "material-ui-popup-state": "1.5.4",
     "memoize-one": "^5.1.1",
     "moment": "^2.24.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "notistack": "^1.0.3",
     "polished": "^1.2.1",
     "prop-types": "^15.6.2",
