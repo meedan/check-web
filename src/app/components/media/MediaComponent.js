@@ -25,7 +25,6 @@ import MediaSidebar from './MediaSidebar';
 import MediaSource from './MediaSource';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
-import MediaRelated from './Similarity/MediaRelated';
 import CheckContext from '../../CheckContext';
 
 import {
@@ -404,16 +403,6 @@ class MediaComponent extends Component {
                     value="notes"
                     className="media-tab__comments"
                   />
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.related"
-                        defaultMessage="Related"
-                      />
-                    }
-                    value="related"
-                    className="media-tab__related"
-                  />
                 </Tabs>
                 { /* Set maxHeight to screen height - (media bar + tabs) */ }
                 <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
@@ -422,7 +411,6 @@ class MediaComponent extends Component {
                   { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
                   { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
                   { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-                  { this.state.showTab === 'related' ? <MediaRelated projectMedia={media} /> : null }
                 </Box>
               </Column>
             </React.Fragment> : null }
