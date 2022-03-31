@@ -30,6 +30,8 @@ const MediaSuggestions = ({ projectMedia }) => {
                     id
                     dbid
                     project_id
+                    created_at
+                    last_seen
                   }
                 }
               }
