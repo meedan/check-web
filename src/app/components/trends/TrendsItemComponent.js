@@ -193,6 +193,7 @@ const TrendsItemComponent = ({
 }) => {
   const classes = useStyles();
   const [importingClaim, setImportingClaim] = React.useState(null);
+  const [selectedTeam, setSelectedTeam] = React.useState(null);
 
   const allMedias = cluster?.items?.edges.map(item => JSON.parse(JSON.stringify(item.node)));
   let totalDemand = 0;
@@ -207,7 +208,7 @@ const TrendsItemComponent = ({
     if (existingMedia) {
       existingMedia.demand += media.requests_count;
       totalDemand += media.requests_count;
-    } else if (!importingClaim || importingClaim.project_media.team.dbid === media.team.dbid) {
+    } else if (!selectedTeam || selectedTeam.dbid === media.team.dbid) {
       totalDemand += media.requests_count;
       medias.push(media);
     }
@@ -219,7 +220,7 @@ const TrendsItemComponent = ({
   const [sortBy, setSortBy] = React.useState('mostRequests');
   const [importingClaimDescription, setImportingClaimDescription] = React.useState('');
   const [showImportClaimDialog, setShowImportClaimDialog] = React.useState(false);
-  const [selectedTeam, setSelectedTeam] = React.useState(teams[0].dbid);
+  const [selectedImportingTeam, setSelectedImportingTeam] = React.useState(teams[0].dbid);
   const [isImporting, setIsImporting] = React.useState(false);
   const [importingOptions, setImportingOptions] = React.useState({ factCheck: true, annotations: true, tags: true });
 
@@ -257,7 +258,7 @@ const TrendsItemComponent = ({
     const input = {
       channel: 12, // Shared Database
       media_id: selectedItem.media_id,
-      team_id: selectedTeam,
+      team_id: selectedImportingTeam,
       set_claim_description: importingClaimDescription || importingClaim?.description,
     };
     if (importingOptions.factCheck && importingClaim.fact_check) {
@@ -297,7 +298,7 @@ const TrendsItemComponent = ({
               id="trendsItem.importedSuccessfully"
               defaultMessage="Claim successfully imported to {workspaceName} workspace"
               values={{
-                workspaceName: teams.find(t => t.dbid === parseInt(selectedTeam, 10)).name,
+                workspaceName: teams.find(t => t.dbid === parseInt(selectedImportingTeam, 10)).name,
               }}
             />
           ), 'success');
@@ -345,7 +346,7 @@ const TrendsItemComponent = ({
       <Card
         variant="outlined"
         className={importingClaim && claimDescription.id === importingClaim.id ? classes.selected : null}
-        onClick={() => { setImportingClaim(claimDescription); }}
+        onClick={() => { setImportingClaim(claimDescription); setSelectedTeam(claimDescription?.project_media?.team); }}
       >
         {content}
       </Card>
@@ -367,7 +368,7 @@ const TrendsItemComponent = ({
               <Typography className={classes.columnTitle}>
                 <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claims" />
               </Typography>
-              <IconButton onClick={() => { setImportingClaim(null); setImportingClaimDescription(null); }} disabled={!importingClaim}>
+              <IconButton onClick={() => { setImportingClaim(null); setImportingClaimDescription(null); setSelectedTeam(null); }} disabled={!importingClaim && !selectedTeam}>
                 <CloseIcon />
               </IconButton>
             </Box>
@@ -415,7 +416,11 @@ const TrendsItemComponent = ({
               {/* Medias without claims */}
               { teamsWithoutClaims.map(team => (
                 <Box mt={1} className={classes.claimCardBox}>
-                  <Card variant="outlined">
+                  <Card
+                    variant="outlined"
+                    className={selectedTeam && selectedTeam.dbid === team.dbid ? classes.selected : null}
+                    onClick={() => { setSelectedTeam(team); }}
+                  >
                     <CardHeader
                       avatar={<Avatar src={team.avatar} />}
                       title={team.name}
@@ -520,10 +525,10 @@ const TrendsItemComponent = ({
             <Grid container alignItems="center">
               <Grid item xs={6}>
                 <Typography className={classes.columnTitle}>
-                  { !importingClaim ?
+                  { !selectedTeam ?
                     <FormattedMessage id="trendItem.mediasColumnTitleAll" defaultMessage="{number} Medias across all organizations" values={{ number: medias.length }} /> : null }
-                  { importingClaim ?
-                    <FormattedMessage id="trendItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: importingClaim.project_media.team.name }} /> : null }
+                  { selectedTeam ?
+                    <FormattedMessage id="trendItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: selectedTeam.name }} /> : null }
                 </Typography>
                 <p><small><FormattedMessage id="trendItem.mediaRequests" defaultMessage="{number} tipline requests across all medias" values={{ number: totalDemand }} /></small></p>
               </Grid>
@@ -598,8 +603,8 @@ const TrendsItemComponent = ({
                   </InputLabel>
                   <Select
                     labelId="import-to-workspace-label"
-                    value={selectedTeam}
-                    onChange={(e) => { setSelectedTeam(e.target.value); }}
+                    value={selectedImportingTeam}
+                    onChange={(e) => { setSelectedImportingTeam(e.target.value); }}
                     label={
                       <FormattedMessage
                         id="trendsItem.importSelectLabel"
@@ -670,7 +675,7 @@ const TrendsItemComponent = ({
               </Box>
             </React.Fragment>
           )}
-          proceedDisabled={!selectedTeam || (!importingClaimDescription && !importingClaim?.description)}
+          proceedDisabled={!selectedImportingTeam || (!importingClaimDescription && !importingClaim?.description)}
           proceedLabel={<FormattedMessage id="trendsItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from trends page" />}
           onProceed={handleImport}
           onCancel={() => { setShowImportClaimDialog(false); }}

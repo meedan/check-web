@@ -1,0 +1,7 @@
+[
+  {
+    "id": "mainErrorBoundary.cardTitle",
+    "description": "Title for error state card displayed in error page",
+    "defaultMessage": "An unexpected error happened"
+  }
+]

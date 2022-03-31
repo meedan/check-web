@@ -64,6 +64,7 @@ shared_examples 'tag' do
     wait_for_selector('.MuiAutocomplete-inputFocused').click
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector('textarea').send_keys('new media')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
