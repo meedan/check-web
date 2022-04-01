@@ -86,7 +86,7 @@ const RuleBody = (props) => {
           fullWidth
         /> : null }
       <RuleOperatorWrapper
-        allowRemove
+        allowRemove={Boolean(props.onResetRule)}
         center
         color={checkBlue}
         deleteIconColor={checkBlue}
