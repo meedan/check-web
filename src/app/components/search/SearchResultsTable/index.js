@@ -11,7 +11,6 @@ import TitleCell from './TitleCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
 import SubmittedCell from './SubmittedCell';
-import LastSubmittedCell from './LastSubmittedCell';
 import UpdatedCell from './UpdatedCell';
 import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
@@ -81,13 +80,6 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.FirstSeen" defaultMessage="Submitted" />,
     cellComponent: SubmittedCell,
     sortKey: 'recent_added',
-  },
-  {
-    field: 'last_seen',
-    headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last submitted" />,
-    onlyIfSmoochBotEnabled: true,
-    sortKey: 'last_seen',
-    cellComponent: LastSubmittedCell,
   },
   {
     field: 'updated_at_timestamp',
@@ -215,7 +207,7 @@ function buildColumnDefs(team, resultType) {
   }
 
   const possibleColumns = AllPossibleColumns
-    // "demand" and "last_seen" only appear if smooch bot is installed
+    // "demand" only appears if smooch bot is installed
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
   const columns = [possibleColumns[0]];
   team.list_columns.forEach((listColumn) => {
