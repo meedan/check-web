@@ -86,6 +86,7 @@ const RuleBody = (props) => {
           fullWidth
         /> : null }
       <RuleOperatorWrapper
+        allowRemove
         center
         color={checkBlue}
         deleteIconColor={checkBlue}
@@ -99,8 +100,12 @@ const RuleBody = (props) => {
           props.onChangeRule(rule);
         }}
         onRemove={(i) => {
-          rule.rules.groups.splice(i, 1);
-          props.onChangeRule(rule);
+          if (rule.rules.groups.length === 1 && props.onResetRule) {
+            props.onResetRule();
+          } else {
+            rule.rules.groups.splice(i, 1);
+            props.onChangeRule(rule);
+          }
         }}
       >
         {rule.rules.groups.map((group, i) => {
