@@ -72,15 +72,17 @@ const RuleOperatorWrapper = (props) => {
                 ))}
               </Box>
             }
-            <Tooltip
-              title={
-                <FormattedMessage id="ruleOperatorWrapper.removeTheAbove" defaultMessage="Remove item above" />
-              }
-            >
-              <IconButton onClick={() => { handleRemove(index); }} className={classes.button}>
-                <ClearIcon style={{ color: props.deleteIconColor }} />
-              </IconButton>
-            </Tooltip>
+            { props.children.length > 1 || props.allowRemove ? (
+              <Tooltip
+                title={
+                  <FormattedMessage id="ruleOperatorWrapper.removeTheAbove" defaultMessage="Remove item above" />
+                }
+              >
+                <IconButton onClick={() => { handleRemove(index); }} className={classes.button}>
+                  <ClearIcon style={{ color: props.deleteIconColor }} />
+                </IconButton>
+              </Tooltip>
+            ) : null }
           </Box>
         </React.Fragment>))}
     </React.Fragment>
