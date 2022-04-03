@@ -256,7 +256,7 @@ const TrendsItemComponent = ({
     setIsImporting(true);
 
     const input = {
-      channel: 12, // Shared Database
+      channel: JSON.stringify({ main: 12 }), // Shared Database
       media_id: selectedItem.media_id,
       team_id: selectedImportingTeam,
       set_claim_description: importingClaimDescription || importingClaim?.description,
