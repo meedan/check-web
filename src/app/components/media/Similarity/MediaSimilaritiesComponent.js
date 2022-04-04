@@ -24,6 +24,11 @@ function sort(items) {
   return items.slice().sort((a, b) => b.node.target.requests_count - a.node.target.requests_count);
 }
 
+const swallowClick = (ev) => {
+  // Don't close Dialog when clicking on it
+  ev.stopPropagation();
+};
+
 let listener = null;
 
 const MediaSimilaritiesComponent = ({ projectMedia }) => {
@@ -48,7 +53,13 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
   return (
     <div className="media__more-medias">
       { selectedProjectMediaDbid ?
-        <Dialog open maxWidth="sm" fullWidth>
+        <Dialog
+          open={selectedProjectMediaDbid}
+          onClick={swallowClick}
+          onClose={() => setSelectedProjectMediaDbid(null)}
+          maxWidth="sm"
+          fullWidth
+        >
           <DialogContent classes={classes}>
             <MediaExpanded media={{ dbid: selectedProjectMediaDbid }} hideActions />
           </DialogContent>
