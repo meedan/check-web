@@ -25,7 +25,7 @@ module TeamSpecHelpers
   end
 
   def create_team_and_install_bot(params = {})
-    team = params[:team] || "team#{Time.now.to_i}"
+    team = params[:team] || "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector(params[:bot]).click

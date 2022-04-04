@@ -121,8 +121,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
-    expect(@driver.page_source.include?('claim 2')).to be(true)
-    expect(@driver.page_source.include?('claim 3')).to be(false)
+    expect(@driver.find_elements(:css, '.MuiCardHeader-title').length).to eq 2
   end
 
   {
@@ -180,7 +179,7 @@ shared_examples 'similarity' do
     end
   end
 
-  it 'should suggest different sized texts as similar', bin7: true do
+  it 'should suggest different sized texts as similar', bin9: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.projects-list__all-items').click
@@ -207,12 +206,8 @@ shared_examples 'similarity' do
     'formats' => ['files/similarity3.jpg', 'files/similarity3.jpeg'],
     'size' => ['files/test.png', 'files/test2.png']
   }.each do |param, file|
-    it "should identify image in differents #{param} as similar", bin7: true do
-      team = "team#{Time.now.to_i}"
-      create_team_and_go_to_settings_page(team)
-      wait_for_selector('.team-settings__integrations-tab').click
-      wait_for_selector('.team-bots__alegre-uninstalled').click
-      wait_for_selector('.team-settings__similarity-tab')
+    it "should identify image in differents #{param} as similar", bin9: true do
+      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
       wait_for_selector('.projects-list__all-items').click
       wait_for_selector('.project__description')
       create_image(file[0])
@@ -234,7 +229,57 @@ shared_examples 'similarity' do
     end
   end
 
-  it 'should extract text from a image', bin7: true do
+  {
+    'simple' => ['files/video.mp4', 'files/video2.mp4'],
+    'different saturation' => ['files/video.mp4', 'files/video3.mp4'],
+  }.each do |param, file|
+    it "should identify #{param} videos as similar", bin8: true do
+      create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
+      wait_for_selector('.projects-list__all-items').click
+      wait_for_selector('.project__description')
+      create_image(file[0])
+      create_image(file[1])
+      wait_for_selector('.medias__item')
+      sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+      wait_for_selector('#create-media__add-item')
+      wait_for_selector_list_size('.media__heading', 2)
+      wait_for_selector('.search-show-similar__switch').click
+      wait_for_selector_list_size('.media__heading', 2)
+      wait_for_selector('.media__heading svg')
+      wait_for_selector('.media__heading', index: 1).click
+      wait_for_selector('#media__claim')
+      wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
+      wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
+      wait_for_selector('.media__more-medias')
+      expect(@driver.page_source.include?('More medias')).to be(true)
+      expect(@driver.page_source.include?('2 medias')).to be(true)
+    end
+  end
+
+  it "should identify audios in different formats as similar", bin9: true do
+    create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
+    wait_for_selector('.projects-list__all-items').click
+    wait_for_selector('.project__description')
+    create_image('files/audio.mp3')
+    wait_for_selector('.medias__item', :css, 20, true)
+    create_image('files/audio.ogg')
+    wait_for_selector('.medias__item')
+    sleep 60 # wait for the items to be indexed in the Elasticsearch and to be identified as similar
+    wait_for_selector('#create-media__add-item')
+    wait_for_selector_list_size('.media__heading', 2)
+    wait_for_selector('.search-show-similar__switch').click
+    wait_for_selector_list_size('.media__heading', 2)
+    wait_for_selector('.media__heading svg')
+    wait_for_selector('.media__heading', index: 1).click
+    wait_for_selector('#media__claim')
+    wait_for_selector("//span[contains(text(), 'Suggested media')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
+    wait_for_selector('.media__more-medias')
+    expect(@driver.page_source.include?('More medias')).to be(true)
+    expect(@driver.page_source.include?('2 medias')).to be(true)
+  end
+
+  it 'should extract text from a image', bin9: true do
     api_create_team_and_project
     @driver.navigate.to @config['self_url']
     wait_for_selector('.project__description')
