@@ -15,6 +15,11 @@
     "defaultMessage": "There is currently no option in this section."
   },
   {
+    "id": "smoochBotMainMenuSection.optionNoDescription",
+    "description": "Displayed when a tipline bot menu option doesn't have a description.",
+    "defaultMessage": "no description"
+  },
+  {
     "id": "smoochBotMainMenuSection.editOption",
     "description": "Button label to edit a main menu option on tipline bot settings.",
     "defaultMessage": "Edit"

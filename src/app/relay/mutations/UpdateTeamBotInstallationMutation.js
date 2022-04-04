@@ -20,6 +20,20 @@ class UpdateTeamBotInstallationMutation extends Relay.Mutation {
     }`;
   }
 
+  getFiles() {
+    if (this.props.file) {
+      return { 'file[]': this.props.file };
+    }
+    if (this.props.files) {
+      const files = {};
+      Object.keys(this.props.files).forEach((key) => {
+        files[`file[${key}]`] = this.props.files[key];
+      });
+      return files;
+    }
+    return {};
+  }
+
   getConfigs() {
     return [
       {

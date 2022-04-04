@@ -32,6 +32,7 @@ import FileUploadRespondTask from './FileUploadRespondTask';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
 import { FormattedGlobalMessage } from '../MappedMessage';
 import Message from '../Message';
+import NavigateAwayDialog from '../NavigateAwayDialog';
 import Can, { can } from '../Can';
 import ParsedText from '../ParsedText';
 import UserAvatars from '../UserAvatars';
@@ -711,6 +712,17 @@ class Task extends Component {
       </StyledFieldInformation>
     );
 
+    const ProgressLabel = ({ fileName }) => (
+      <Typography variant="body1" gutterBottom>
+        <FormattedMessage
+          id="metadata.uploadProgressLabel"
+          defaultMessage="Saving {file}…"
+          description="This is a label that appears while a file upload is ongoing."
+          values={{ file: fileName }}
+        />
+      </Typography>
+    );
+
     const AnnotatorInformation = () => {
       let updated_at;
       try {
@@ -1205,6 +1217,25 @@ class Task extends Component {
         ) : null}
         {task.type === 'file_upload' && task.fieldset === 'metadata' ? (
           <div className="task__response">
+            { this.state.isSaving ?
+              <NavigateAwayDialog
+                hasUnsavedChanges={this.state.isSaving}
+                title={
+                  <FormattedMessage
+                    id="task.uploadWarningTitle"
+                    defaultMessage="There is an ongoing file upload"
+                    description="Warning to prevent user from navigating away while upload is running"
+                  />
+                }
+                body={
+                  <FormattedMessage
+                    id="task.uploadWarningBody"
+                    defaultMessage="Navigating away from this page may cause the interruption of the file upload"
+                    description="Warning to prevent user from navigating away while upload is running"
+                  />
+                }
+              /> : null
+            }
             <MetadataFile
               node={task}
               DeleteButton={DeleteButton}
@@ -1213,8 +1244,10 @@ class Task extends Component {
               EditButton={EditButton}
               AnnotatorInformation={AnnotatorInformation}
               FieldInformation={FieldInformation}
+              ProgressLabel={ProgressLabel}
               hasData={task.first_response_value}
               isEditing={this.props.isEditing}
+              isSaving={this.state.isSaving}
               disabled={!this.props.isEditing}
               required={task.team_task.required}
               metadataValue={

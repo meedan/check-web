@@ -6,6 +6,7 @@ import Box from '@material-ui/core/Box';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
 import TextField from '@material-ui/core/TextField';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import UploadFile from '../../UploadFile';
 import { labelsV2 } from './localizables';
 import { opaqueBlack23 } from '../../../styles/js/shared';
 
@@ -44,9 +45,19 @@ const SmoochBotContentAndTranslation = ({
   value,
   onChangeMessage,
   onChangeStateMessage,
+  onChangeImage,
   intl,
 }) => {
   const classes = useStyles();
+
+  let greetingImage = value.smooch_greeting_image;
+  if (typeof greetingImage === 'string') {
+    if (greetingImage === '' || greetingImage === 'none') {
+      greetingImage = null;
+    } else {
+      greetingImage = { preview: greetingImage, name: greetingImage.split('/').pop() };
+    }
+  }
 
   const strings = [
     {
@@ -180,6 +191,15 @@ const SmoochBotContentAndTranslation = ({
               multiline
               fullWidth
             />
+            { string.key === 'smooch_message_smooch_bot_greetings' ?
+              <Box>
+                <UploadFile
+                  type="image"
+                  value={greetingImage}
+                  onChange={onChangeImage}
+                  onError={() => {}}
+                />
+              </Box> : null }
           </Box>
         </Box>
       ))}
@@ -195,6 +215,7 @@ SmoochBotContentAndTranslation.propTypes = {
   value: PropTypes.object,
   onChangeMessage: PropTypes.func.isRequired,
   onChangeStateMessage: PropTypes.func.isRequired,
+  onChangeImage: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
 };
 

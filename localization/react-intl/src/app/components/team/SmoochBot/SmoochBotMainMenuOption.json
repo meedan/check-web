@@ -10,6 +10,11 @@
     "defaultMessage": "Button text - 24 characters limit"
   },
   {
+    "id": "smoochBotMainMenuOption.description",
+    "description": "Description field label on dialog that opens to add a new option to tipline bot main menu",
+    "defaultMessage": "Description - 72 characters limit"
+  },
+  {
     "id": "smoochBotMainMenuOption.send",
     "description": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu",
     "defaultMessage": "If the button is clicked, then send:"

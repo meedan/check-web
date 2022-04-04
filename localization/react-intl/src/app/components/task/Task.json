@@ -70,6 +70,21 @@
     "defaultMessage": "Delete"
   },
   {
+    "id": "metadata.uploadProgressLabel",
+    "description": "This is a label that appears while a file upload is ongoing.",
+    "defaultMessage": "Saving {file}…"
+  },
+  {
+    "id": "task.uploadWarningTitle",
+    "description": "Warning to prevent user from navigating away while upload is running",
+    "defaultMessage": "There is an ongoing file upload"
+  },
+  {
+    "id": "task.uploadWarningBody",
+    "description": "Warning to prevent user from navigating away while upload is running",
+    "defaultMessage": "Navigating away from this page may cause the interruption of the file upload"
+  },
+  {
     "id": "task.answeredBy",
     "defaultMessage": "Completed by {byName}"
   },

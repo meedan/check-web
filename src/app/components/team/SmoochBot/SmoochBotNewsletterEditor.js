@@ -244,6 +244,7 @@ const SmoochBotNewsletterEditor = ({
           }
         >
           <MenuItem value="none" disabled><FormattedMessage id="smoochBotNewsletterEditor.day" defaultMessage="Day of week" /></MenuItem>
+          <MenuItem value="everyday"><FormattedMessage id="smoochBotNewsletterEditor.everyday" defaultMessage="Day" /></MenuItem>
           <MenuItem value="monday"><FormattedMessage id="smoochBotNewsletterEditor.monday" defaultMessage="Monday" /></MenuItem>
           <MenuItem value="tuesday"><FormattedMessage id="smoochBotNewsletterEditor.tuesday" defaultMessage="Tuesday" /></MenuItem>
           <MenuItem value="wednesday"><FormattedMessage id="smoochBotNewsletterEditor.wednesday" defaultMessage="Wednesday" /></MenuItem>

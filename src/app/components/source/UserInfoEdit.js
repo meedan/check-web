@@ -7,7 +7,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 import CancelIcon from '@material-ui/icons/Cancel';
-import capitalize from 'lodash.capitalize';
 import LinkifyIt from 'linkify-it';
 import SourcePicture from './SourcePicture';
 import Message from '../Message';
@@ -17,7 +16,7 @@ import UpdateSourceMutation from '../../relay/mutations/UpdateSourceMutation';
 import { updateUserNameEmail } from '../../relay/mutations/UpdateUserNameEmailMutation';
 import CreateAccountSourceMutation from '../../relay/mutations/CreateAccountSourceMutation';
 import DeleteAccountSourceMutation from '../../relay/mutations/DeleteAccountSourceMutation';
-import { getErrorMessage } from '../../helpers';
+import { getErrorMessage, capitalize } from '../../helpers';
 import {
   StyledIconButton,
   Row,

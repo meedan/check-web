@@ -45,7 +45,7 @@ shared_examples 'team' do
     # Logo
     wait_for_selector('#team-details__edit-avatar-button').click
 
-    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'test.png'))
+    wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), 'files/test.png'))
 
     wait_for_selector('#team-details__update-button').click
 

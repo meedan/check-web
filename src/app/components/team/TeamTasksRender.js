@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import intersection from 'lodash.intersection';
 import Box from '@material-ui/core/Box';
 import TeamTasksProject from './TeamTasksProject';
 import SettingsHeader from './SettingsHeader';
@@ -10,6 +9,7 @@ import ProjectSelector from '../project/ProjectSelector';
 import TaskTypeSelector from '../task/TaskTypeSelector';
 import BlankState from '../layout/BlankState';
 import FilterPopup from '../layout/FilterPopup';
+import { intersection } from '../../helpers';
 
 function TeamTasksRender({ team, about }) {
   const [projFilter, setProjFilter] = React.useState([]);

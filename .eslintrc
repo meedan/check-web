@@ -16,6 +16,7 @@
     "globals": {
         "describe": true,
         "it": true,
+        "Intercom": "readonly",
     },
     "plugins": [
         "require-path-exists",

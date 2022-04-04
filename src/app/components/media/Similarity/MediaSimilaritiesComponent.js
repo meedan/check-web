@@ -77,6 +77,7 @@ const MediaSimilaritiesComponent = ({ projectMedia }) => {
           isSelected={relationship.node.target_id === selectedProjectMediaDbid}
           showReportStatus={false}
           onSelect={handleSelectItem}
+          modalOnly
         />
       ))}
     </div>

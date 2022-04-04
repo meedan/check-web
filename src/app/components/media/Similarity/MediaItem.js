@@ -112,6 +112,7 @@ const MediaItem = ({
   isSelected,
   showReportStatus,
   onSelect,
+  modalOnly,
 }) => {
   if (!projectMedia || !projectMedia.dbid) {
     return null;
@@ -307,9 +308,13 @@ const MediaItem = ({
         title={
           <Box display="flex" alignItems="center">
             { projectMedia.linked_items_count > 0 && !mainProjectMedia.id ? <LayersIcon /> : null }
-            <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
-              <strong>{truncateLength(projectMedia.title, 140)}</strong>
-            </a>
+            { modalOnly ? <strong>{truncateLength(projectMedia.title, 140)}</strong>
+              : (
+                <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
+                  <strong>{truncateLength(projectMedia.title, 140)}</strong>
+                </a>
+              )
+            }
           </Box>
         }
         subheader={
@@ -475,6 +480,7 @@ MediaItem.defaultProps = {
   isSelected: false,
   showReportStatus: true,
   onSelect: () => {},
+  modalOnly: false,
 };
 
 MediaItem.propTypes = {
@@ -507,6 +513,7 @@ MediaItem.propTypes = {
   isSelected: PropTypes.bool,
   showReportStatus: PropTypes.bool,
   onSelect: PropTypes.func,
+  modalOnly: PropTypes.bool,
 };
 
 export default createFragmentContainer(withSetFlashMessage(MediaItem), {

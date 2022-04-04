@@ -2,12 +2,13 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import IconClose from '@material-ui/icons/Close';
+import ErrorIcon from '@material-ui/icons/Error';
 import IconButton from '@material-ui/core/IconButton';
 import { SnackbarProvider, withSnackbar } from 'notistack';
 import reactStringReplace from 'react-string-replace';
 import Message from './Message';
 import { withClientSessionId } from '../ClientSessionId';
-import { safelyParseJSON } from '../helpers';
+import { safelyParseJSON, createFriendlyErrorMessage } from '../helpers';
 import { checkBlue, white, black54 } from '../styles/js/shared';
 
 /**
@@ -49,6 +50,8 @@ const FlashMessageProviderWithSnackBar = withSnackbar(({ children, enqueueSnackb
     if (variant === 'error' && typeof message === 'string') {
       // Split into multiple message in case we have a multiple validation errors
       message.split('<br />').forEach(msg => enqueueSnackbar(msg, { variant, persist, anchorOrigin }));
+    } else if (variant === 'error' && typeof message === 'object' && message.length) {
+      message.forEach(msg => enqueueSnackbar(createFriendlyErrorMessage(msg), { variant, persist, anchorOrigin }));
     } else {
       enqueueSnackbar(message, { variant, persist, anchorOrigin });
     }
@@ -68,12 +71,17 @@ const useSnackBarStyles = makeStyles({
     backgroundColor: `${checkBlue} !important`,
   },
   icon: {
-    color: white,
+    color: 'white !important',
+    marginTop: '8px !important',
+    paddingTop: '0px !important',
     '&:hover': {
-      color: white,
+      color: 'white !important',
     },
   },
   root: {
+    '& div': {
+      alignItems: 'flex-start',
+    },
     '& a': {
       color: white,
       textDecoration: 'underline',
@@ -108,6 +116,9 @@ const FlashMessageProvider = ({ children }) => {
     <SnackbarProvider
       maxSnack={10}
       ref={notistackRef}
+      iconVariant={{
+        error: <ErrorIcon />,
+      }}
       action={key => (
         <IconButton
           className={`message message__dismiss-button ${classes.icon}`}

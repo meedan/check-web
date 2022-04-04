@@ -38,6 +38,10 @@
     "defaultMessage": "Day of week"
   },
   {
+    "id": "smoochBotNewsletterEditor.everyday",
+    "defaultMessage": "Day"
+  },
+  {
     "id": "smoochBotNewsletterEditor.monday",
     "defaultMessage": "Monday"
   },

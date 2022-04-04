@@ -1,8 +1,7 @@
 import React from 'react';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, FormattedMessage } from 'react-intl';
-import { graphql, commitMutation } from 'react-relay/compat';
-import { Store } from 'react-relay/classic';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -17,6 +16,8 @@ import { ContentColumn } from '../../../styles/js/shared';
 import { withSetFlashMessage } from '../../FlashMessage';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
+import CreateTeamBotInstallationMutation from '../../../relay/mutations/CreateTeamBotInstallationMutation';
+import UpdateTeamBotInstallationMutation from '../../../relay/mutations/UpdateTeamBotInstallationMutation';
 
 const SmoochBotComponent = ({
   team,
@@ -64,73 +65,33 @@ const SmoochBotComponent = ({
     } else {
       setSaving(true);
 
-      const mutation = graphql`
-        mutation SmoochBotComponentUpdateTeamBotInstallationMutation($input: UpdateTeamBotInstallationInput!) {
-          updateTeamBotInstallation(input: $input) {
-            team_bot_installation {
-              id
-              json_settings
-              smooch_newsletter_information
-            }
-          }
-        }
-      `;
-
-      commitMutation(Store, {
-        mutation,
-        variables: {
-          input: {
-            id: installation.id,
-            json_settings: JSON.stringify(settings),
-          },
-        },
-        onCompleted: (response, error) => {
-          if (error) {
-            handleError();
-          } else {
-            handleSuccess();
-          }
-        },
-        onError: () => {
-          handleError();
-        },
+      const files = [];
+      settings.smooch_workflows.forEach((workflow) => {
+        files.push(workflow.smooch_greeting_image);
       });
+
+      Relay.Store.commitUpdate(
+        new UpdateTeamBotInstallationMutation({
+          id: installation.id,
+          json_settings: JSON.stringify(settings),
+          files,
+        }),
+        { onSuccess: handleSuccess, onFailure: handleError },
+      );
     }
   };
 
   const handleInstall = () => {
     setSaving(true);
 
-    const mutation = graphql`
-      mutation SmoochBotComponentCreateTeamBotInstallationMutation($input: CreateTeamBotInstallationInput!) {
-        createTeamBotInstallation(input: $input) {
-          team {
-            slug
-          }
-        }
-      }
-    `;
-
-    commitMutation(Store, {
-      mutation,
-      variables: {
-        input: {
-          user_id: smoochBotDbid,
-          team_id: team.dbid,
-        },
+    const callbacks = {
+      onSuccess: () => {
+        handleSuccess();
+        window.location.assign(`/${team.slug}/settings/tipline`);
       },
-      onCompleted: (response, error) => {
-        if (error) {
-          handleError();
-        } else {
-          handleSuccess();
-          window.location.assign(`/${response.createTeamBotInstallation.team.slug}/settings/tipline`);
-        }
-      },
-      onError: () => {
-        handleError();
-      },
-    });
+      onFailure: handleError,
+    };
+    Relay.Store.commitUpdate(new CreateTeamBotInstallationMutation({ bot: { dbid: smoochBotDbid }, team }), callbacks);
   };
 
   const handleChangeLanguage = (newValue) => {

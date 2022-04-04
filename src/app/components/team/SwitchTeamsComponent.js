@@ -137,7 +137,7 @@ class SwitchTeamsComponent extends Component {
         />
         { (joinedTeams.length + pendingTeams.length) ?
           <List className="teams">
-            {joinedTeams.map(team => (
+            {joinedTeams.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' })).map(team => (
               <ListItem
                 key={team.slug}
                 className="switch-teams__joined-team"

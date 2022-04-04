@@ -86,6 +86,7 @@ const RuleBody = (props) => {
           fullWidth
         /> : null }
       <RuleOperatorWrapper
+        allowRemove={Boolean(props.onResetRule)}
         center
         color={checkBlue}
         deleteIconColor={checkBlue}
@@ -99,8 +100,12 @@ const RuleBody = (props) => {
           props.onChangeRule(rule);
         }}
         onRemove={(i) => {
-          rule.rules.groups.splice(i, 1);
-          props.onChangeRule(rule);
+          if (rule.rules.groups.length === 1 && props.onResetRule) {
+            props.onResetRule();
+          } else {
+            rule.rules.groups.splice(i, 1);
+            props.onChangeRule(rule);
+          }
         }}
       >
         {rule.rules.groups.map((group, i) => {
@@ -190,6 +195,7 @@ const RuleBody = (props) => {
             {rule.actions.map((action, i) => {
               const actions = props.schema.properties.rules.items.properties.actions.items;
               const actionsDefinition = actions.properties.action_definition;
+              actionsDefinition.enum = actionsDefinition.enum.filter(a => a.key !== 'add_tag');
               const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
               return (
                 <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>

@@ -60,7 +60,6 @@ const Preview = styled.span`
   background-repeat: no-repeat;
   background-size: contain;
   display: block;
-  margin: ${units(2)} 0 0;
   position: relative;
   height: ${previewSize};
   width: ${previewSize};

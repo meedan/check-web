@@ -13,16 +13,18 @@ import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const SmoochBotMainMenuOption = ({
   currentTitle,
+  currentDescription,
   currentValue,
   resources,
   onSave,
   onCancel,
 }) => {
   const [text, setText] = React.useState(currentTitle);
+  const [description, setDescription] = React.useState(currentDescription);
   const [value, setValue] = React.useState(currentValue);
 
   const handleSave = () => {
-    onSave(text, value);
+    onSave(text, description, value);
   };
 
   const handleCancel = () => {
@@ -55,6 +57,23 @@ const SmoochBotMainMenuOption = ({
             variant="outlined"
             fullWidth
           />
+
+          <Box my={2}>
+            <TextField
+              label={
+                <FormattedMessage
+                  id="smoochBotMainMenuOption.description"
+                  defaultMessage="Description - 72 characters limit"
+                  description="Description field label on dialog that opens to add a new option to tipline bot main menu"
+                />
+              }
+              defaultValue={description}
+              onBlur={(e) => { setDescription(e.target.value); }}
+              inputProps={{ maxLength: 72 }}
+              variant="outlined"
+              fullWidth
+            />
+          </Box>
 
           <Box my={2}>
             <Typography variant="body2" component="div">
@@ -139,12 +158,14 @@ const SmoochBotMainMenuOption = ({
 
 SmoochBotMainMenuOption.defaultProps = {
   currentTitle: '',
+  currentDescription: '',
   currentValue: null,
   resources: [],
 };
 
 SmoochBotMainMenuOption.propTypes = {
   currentTitle: PropTypes.string,
+  currentDescription: PropTypes.string,
   currentValue: PropTypes.string,
   resources: PropTypes.arrayOf(PropTypes.object),
   onSave: PropTypes.func.isRequired,

@@ -64,6 +64,7 @@ shared_examples 'tag' do
     wait_for_selector('.MuiAutocomplete-inputFocused').click
     @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:arrow_down).perform
+    @driver.action.send_keys(:arrow_down).perform
     @driver.action.send_keys(:enter).perform
     wait_for_selector('textarea').send_keys('new media')
     wait_for_selector('#confirm-dialog__confirm-action-button').click
@@ -81,6 +82,7 @@ shared_examples 'tag' do
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
     # click on the tag and go to search page with the tag filter and see the item
     wait_for_selector('.media-tags__tag').click
+    wait_for_selector('.media__heading', :css, 20, true)
     wait_for_selector('#search-input')
     wait_for_selector('.multi-select-filter__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
