@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import { opaqueBlack03 } from '../../../styles/js/shared';
-import { getPathnameAndSearch } from '../../../urlHelpers';
 
 const isTrendsPage = /\/trends$/.test(window.location.pathname);
 
@@ -31,7 +29,7 @@ const useStyles = makeStyles({
 });
 
 export default function SearchResultsTableRow({
-  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType, viewMode, mediaNavList, count,
+  projectMedia, projectMediaUrl, checked, columnDefs, onChangeChecked, resultType, viewMode,
 }) {
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
@@ -39,14 +37,6 @@ export default function SearchResultsTableRow({
   // This is why we don't get a listIndex in our trends item url
   // We are forcing the url instead of getting it from `projectMediaUrl` which is built from `buildProjectMediaUrl`
   const projectMediaOrTrendsUrl = projectMediaUrl;
-  const { pathname, search } = getPathnameAndSearch(projectMediaOrTrendsUrl);
-
-  const handleClick = React.useCallback(() => {
-    if (!projectMediaOrTrendsUrl) {
-      return;
-    }
-    browserHistory.push({ pathname, search, state: { mediaNavList, count } });
-  }, [projectMediaUrl]);
 
   const handleChangeChecked = React.useCallback((ev) => {
     if (!dbid) {
@@ -63,7 +53,6 @@ export default function SearchResultsTableRow({
 
   return (
     <TableRow
-      onClick={handleClick}
       aria-checked={checked}
       selected={checked}
       classes={classes}
