@@ -247,7 +247,7 @@ const TrendsItemComponent = ({
     setFlashMessage((
       <FormattedMessage
         id="trendsItem.couldNotImport"
-        defaultMessage="Could not import claim"
+        defaultMessage="We could not import the claim because the media associated with this claim already exist in this workspace"
       />
     ), 'error');
   };
