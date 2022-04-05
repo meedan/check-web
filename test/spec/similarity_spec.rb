@@ -198,7 +198,7 @@ shared_examples 'similarity' do
 
   {
     'simple' => ['files/video.mp4', 'files/video2.mp4'],
-    'different saturation' => ['files/video.mp4', 'files/video3.mp4'],
+    'different saturation' => ['files/video.mp4', 'files/video3.mp4']
   }.each do |param, file|
     it "should identify #{param} videos as similar", bin8: true do
       create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
@@ -223,7 +223,7 @@ shared_examples 'similarity' do
     end
   end
 
-  it "should identify audios in different formats as similar", bin9: true do
+  it 'should identify audios in different formats as similar', bin9: true do
     create_team_and_install_bot(bot: '.team-bots__alegre-uninstalled')
     wait_for_selector('.projects-list__all-items').click
     wait_for_selector('.project__description')
