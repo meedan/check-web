@@ -16,6 +16,7 @@ class UpdateTeamBotInstallationMutation extends Relay.Mutation {
       team_bot_installation {
         id
         json_settings
+        smooch_newsletter_information
       }
     }`;
   }
