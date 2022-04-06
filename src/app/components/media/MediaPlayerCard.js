@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Player } from '@meedan/check-ui';
 import AspectRatio from '../layout/AspectRatio';
 
@@ -38,5 +39,34 @@ const MediaPlayerCard = props => (
     </AspectRatio>
   </article>
 );
+
+MediaPlayerCard.propTypes = {
+  contentWarning: PropTypes.bool.isRequired,
+  warningCreator: PropTypes.string.isRequired,
+  warningCategory: PropTypes.string.isRequired,
+  coverImage: PropTypes.string.isRequired,
+  filePath: PropTypes.string.isRequired,
+  playbackRate: PropTypes.number,
+  setPlayerState: PropTypes.func,
+  onPlayerReady: PropTypes.func,
+  playing: PropTypes.bool,
+  start: PropTypes.number,
+  end: PropTypes.number,
+  gaps: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+  scrubTo: PropTypes.number,
+  seekTo: PropTypes.number,
+};
+
+MediaPlayerCard.defaultProps = {
+  playbackRate: 1,
+  setPlayerState: () => {},
+  onPlayerReady: () => {},
+  playing: false,
+  start: null,
+  end: null,
+  gaps: [],
+  scrubTo: null,
+  seekTo: null,
+};
 
 export default MediaPlayerCard;
