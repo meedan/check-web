@@ -22,7 +22,6 @@ import SuggestedMatches from './team/SuggestedMatches';
 import Trash from './team/Trash';
 import Trends from './trends/Trends';
 import TrendsItem from './trends/TrendsItem';
-import Unconfirmed from './team/Unconfirmed';
 import MediaPage from './media/MediaPage';
 import ReportDesigner from './media/ReportDesigner';
 import MediaTasks from './media/MediaTasks';
@@ -101,7 +100,6 @@ class Root extends Component {
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/trends(/:query)" component={Trends} />
                   <Route path=":team/trash(/:query)" component={Trash} />
-                  <Route path=":team/unconfirmed(/:query)" component={Unconfirmed} />
                   <Route path=":team/settings(/:tab)" action="settings" component={Team} />
                   <Route path=":team(/:tab)" action="main" component={Team} />
                   <Route path="*" component={NotFound} public />

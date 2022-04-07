@@ -327,7 +327,7 @@ function SearchResultsComponent({
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/unconfirmed|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches)$')) {
+    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches)$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -617,7 +617,7 @@ SearchResultsComponent.propTypes = {
   listActions: PropTypes.node, // or undefined
   listDescription: PropTypes.string, // or undefined
   classes: PropTypes.object,
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'trends', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   savedSearch: PropTypes.object, // or null
