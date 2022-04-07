@@ -131,37 +131,21 @@ class BulkActions extends React.Component {
         title: projectTitle,
         dbid: projectId,
       } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
-      const message = params.archived_was === CheckArchivedFlags.TRASHED ?
-        (
-          <FormattedMessage
-            id="bulkActions.movedRestoreSuccessfully"
-            defaultMessage="Items moved from Trash to '{toProject}'"
-            description="Banner displayed after items are moved successfully"
-            values={{
-              toProject: (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-                  {projectTitle}
-                </a>
-              ),
-            }}
-          />
-        ) :
-        (
-          <FormattedMessage
-            id="bulkActions.movedConfirmSuccessfully"
-            defaultMessage="Items moved from Unconfirmed to '{toProject}'"
-            description="Banner displayed after items are moved successfully"
-            values={{
-              toProject: (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-                  {projectTitle}
-                </a>
-              ),
-            }}
-          />
-        );
+      const message = (
+        <FormattedMessage
+          id="bulkActions.movedRestoreSuccessfully"
+          defaultMessage="Items moved from Trash to '{toProject}'"
+          description="Banner displayed after items are moved successfully"
+          values={{
+            toProject: (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
+                {projectTitle}
+              </a>
+            ),
+          }}
+        />
+      );
       this.props.setFlashMessage(message, 'success');
       this.setState({ dstProj: null });
       this.props.onUnselectAll();
@@ -210,7 +194,7 @@ class BulkActions extends React.Component {
     const disabled = selectedMedia.length === 0;
     let modalToMove = null;
     let permissionKey = 'bulk_update ProjectMedia';
-    if (page === 'trash' || page === 'unconfirmed') {
+    if (page === 'trash') {
       let archivedWas = null;
       let moveTooltipMessage = null;
       let moveButtonMessage = null;
@@ -226,19 +210,8 @@ class BulkActions extends React.Component {
         moveButtonMessage = (
           <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
         );
-      } else {
-        permissionKey = 'confirm ProjectMedia';
-        archivedWas = CheckArchivedFlags.UNCONFIRMED;
-        moveTooltipMessage = (
-          <FormattedMessage
-            id="bulkActions.unconfirmed"
-            defaultMessage="Confirm selected items and move items to another folder"
-          />
-        );
-        moveButtonMessage = (
-          <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
-        );
       }
+
       modalToMove = (
         <React.Fragment>
           <ButtonWithTooltip
@@ -358,14 +331,9 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
       id
       number_of_results
     }
-    check_search_unconfirmed {
-      id
-      number_of_results
-    }
     public_team {
       id
       trash_count
-      unconfirmed_count
     }
   }
 `);

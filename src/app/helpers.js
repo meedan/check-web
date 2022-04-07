@@ -202,7 +202,7 @@ function createFriendlyErrorMessage(error) {
         <StyledButton>
           <FormattedMessage
             id="check.helpers.intercom_help"
-            defaultMessage="Press the 'send' arrow to the right to send the report."
+            defaultMessage="Click the 'send' arrow to the right to send the report."
             description="This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
           >
             {help_text => (
@@ -225,7 +225,7 @@ function createFriendlyErrorMessage(error) {
           <StyledSummary>
             <FormattedMessage
               id="check.helpers.more_info"
-              defaultMessage="More info..."
+              defaultMessage="More info…"
               description="This is a label on a button that users press in order to get more info related to an error message."
             />
           </StyledSummary>

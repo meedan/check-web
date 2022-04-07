@@ -255,7 +255,7 @@
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
 	"addFilterMenu.publishedBy": {
-		"string": "Published by",
+		"string": "Publicado por",
 		"developer_comment": "Menu option to enable searching items by report published by"
 	},
 	"addFilterMenu.reportStatus": {
@@ -703,63 +703,63 @@
 		"string": "Cambiar rol a {newRole}"
 	},
 	"check.error.auth": {
-		"string": "An authentication error occurred.",
+		"string": "Ocurrió un error de autenticación.",
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "There was a database conflict.",
+		"string": "Hubo un conflicto de base de datos.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
-		"string": "You're trying to create a record that already exists.",
+		"string": "Estás intentando crear un registro que ya existe.",
 		"developer_comment": "This is a message that displays in an error popup if the client tries to create an item but the database already has a record of it."
 	},
 	"check.error.id_not_found": {
-		"string": "A requested ID was not found.",
+		"string": "Un ID solicitado no ha sido encontrado.",
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an identifying number that was not found in the database."
 	},
 	"check.error.invalid_value": {
-		"string": "An invalid value was sent to the server.",
+		"string": "Un valor inválido fue enviado al servidor.",
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an invalid value of some kind, such as a malformed email address."
 	},
 	"check.error.missing_object": {
-		"string": "There is an object missing in the database.",
+		"string": "An object is missing in the database.",
 		"developer_comment": "This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
 	},
 	"check.error.missing_parameters": {
-		"string": "The API call was missing parameters.",
+		"string": "A la llamada API le faltaban parámetros.",
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server that was missing URL parameters."
 	},
 	"check.error.published": {
-		"string": "You can't change the status of a published item.",
+		"string": "No puedes cambiar el estado de un ítem publicado.",
 		"developer_comment": "This is a message that displays in an error popup if the user manages to ask the server to change the status on an item that has already been published."
 	},
 	"check.error.two_factor_auth": {
-		"string": "You need to log in using two factor authentication.",
+		"string": "Debes iniciar sesión utilizando la autenticación de dos factores.",
 		"developer_comment": "This is a message that displays in an error popup if the client tries to access the application, but they are not yet authenticated by two factor authentication."
 	},
 	"check.error.unauthorized": {
-		"string": "You are not authorized to see this content. Please contact your workspace administrator if you need permission.",
+		"string": "No tienes autorización para ver este contenido. Por favor contactate con tu administrador(a) del área de trabajo si necesitas permiso.",
 		"developer_comment": "This is a message that displays in an error popup if the user tries to access data that they do not have permission to access."
 	},
 	"check.error.unknown": {
-		"string": "There was an error we can't identify.",
+		"string": "Hubo un error que no podemos identificar.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error that we haven't previously classified. This is the default error shown if we can't figure out what sort of error to show the user."
 	},
 	"check.error.warning": {
-		"string": "The server returned a warning.",
+		"string": "El servidor devolvió una advertencia.",
 		"developer_comment": "This is a message that displays in an error popup if the server sends it some kind of non-critical warning message (user is approaching their API call limit, for example)."
 	},
 	"check.helpers.intercom_help": {
-		"string": "Press the 'send' arrow to the right to send the report.",
+		"string": "Click the 'send' arrow to the right to send the report.",
 		"developer_comment": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
 	},
 	"check.helpers.more_info": {
-		"string": "More info...",
+		"string": "More info…",
 		"developer_comment": "This is a label on a button that users press in order to get more info related to an error message."
 	},
 	"check.helpers.report_issue": {
-		"string": "Report issue",
+		"string": "Reportar problema",
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
 	},
 	"checkedByTeamsCell.more": {
@@ -1209,9 +1209,6 @@
 	"list.Item": {
 		"string": "Afirmación"
 	},
-	"list.LastSeen": {
-		"string": "Enviado por última vez"
-	},
 	"list.LinkedItems": {
 		"string": "Medios similares"
 	},
@@ -1265,7 +1262,7 @@
 		"string": "Relacionado"
 	},
 	"list.reportPublishedBy": {
-		"string": "Report published by"
+		"string": "Informe publicado por"
 	},
 	"list.reportStatus": {
 		"string": "Estado de Informe"
@@ -1345,7 +1342,7 @@
 		"string": "¿Olvidaste tu clave?"
 	},
 	"mainErrorBoundary.cardTitle": {
-		"string": "An unexpected error happened",
+		"string": "Ha ocurrido un error inesperado",
 		"developer_comment": "Title for error state card displayed in error page"
 	},
 	"media.normalSpeed": {
@@ -1492,7 +1489,7 @@
 		"developer_comment": "Caption that informs that a claim could not be saved"
 	},
 	"mediaClaim.placeholder": {
-		"string": "For example: The earth is flat",
+		"string": "Por ejemplo: La tierra es plana",
 		"developer_comment": "Placeholder for claim description field."
 	},
 	"mediaClaim.saved": {
@@ -1515,9 +1512,6 @@
 	"mediaComponent.notes": {
 		"string": "Notas"
 	},
-	"mediaComponent.related": {
-		"string": "Relacionado"
-	},
 	"mediaComponent.requests": {
 		"string": "Solicitudes"
 	},
@@ -1538,7 +1532,7 @@
 		"developer_comment": "Placeholder for claim context field."
 	},
 	"mediaContext.title": {
-		"string": "Additional context",
+		"string": "Contexto adicional",
 		"developer_comment": "Title of claim context field."
 	},
 	"mediaCreatedBy.createdBy": {
@@ -1811,14 +1805,14 @@
 		"string": "Este medio ha sido asociado a una afirmación existente."
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "This media has been suggested as similar to an existing claim.",
+		"string": "Este medio ha sido sugerido como similar a una afirmación existente.",
 		"developer_comment": "Caption to inform user that there is a suggested similarity"
 	},
 	"mediaSimilarityBarComponent.openClaim": {
 		"string": "Abrir afirmación"
 	},
 	"mediaSimilarityBarComponent.reviewSuggestion": {
-		"string": "Review suggestion",
+		"string": "Revisar sugerencia",
 		"developer_comment": "Button label for reviewing similarity suggestions"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
@@ -1937,7 +1931,7 @@
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
 	},
 	"metadata.uploadProgressLabel": {
-		"string": "Saving {file}…",
+		"string": "Guardando {file}...",
 		"developer_comment": "This is a label that appears while a file upload is ongoing."
 	},
 	"metadata.url.helperText": {
@@ -2843,7 +2837,7 @@
 		"string": "Página anterior"
 	},
 	"search.publishedBy": {
-		"string": "Report published by",
+		"string": "Informe publicado por",
 		"developer_comment": "Prefix label for field to filter by published by"
 	},
 	"search.read": {
@@ -3662,6 +3656,14 @@
 	"smoochBotIntegrations.phoneNumber": {
 		"string": "Número de teléfono conectado: {link}"
 	},
+	"smoochBotIntegrations.qrCodeDescription": {
+		"string": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it.",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+	},
+	"smoochBotIntegrations.qrCodeTitle": {
+		"string": "Quickstart QR code",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Bot de Telegram conectado: {link}"
 	},
@@ -3747,7 +3749,7 @@
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuOption.description": {
-		"string": "Description - 72 characters limit",
+		"string": "Descripción - límite de 72 caracteres",
 		"developer_comment": "Description field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.label": {
@@ -3803,7 +3805,7 @@
 		"developer_comment": "Message displayed when there is no menu option on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.optionNoDescription": {
-		"string": "no description",
+		"string": "sin descripción",
 		"developer_comment": "Displayed when a tipline bot menu option doesn't have a description."
 	},
 	"smoochBotMainMenuSection.sectionTitle": {
@@ -3872,7 +3874,7 @@
 		"string": "Esta URL no parece ser una fuente RSS válida"
 	},
 	"smoochBotNewsletterEditor.everyday": {
-		"string": "Day"
+		"string": "Día"
 	},
 	"smoochBotNewsletterEditor.firstStep": {
 		"string": "1. Selecciona un día y hora de la semana",
@@ -4232,11 +4234,11 @@
 		"string": "Editar respuesta"
 	},
 	"task.uploadWarningBody": {
-		"string": "Navigating away from this page may cause the interruption of the file upload",
+		"string": "Navigating away from this page may cause the interruption of the file upload.",
 		"developer_comment": "Warning to prevent user from navigating away while upload is running"
 	},
 	"task.uploadWarningTitle": {
-		"string": "There is an ongoing file upload",
+		"string": "Hay una subida de archivo en curso",
 		"developer_comment": "Warning to prevent user from navigating away while upload is running"
 	},
 	"taskActions.tooltipMetadata": {
@@ -4308,7 +4310,7 @@
 		"developer_comment": "Label for field type selection box"
 	},
 	"tasks.confirmLeave": {
-		"string": "You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved.",
+		"string": "Actualmente estás editando anotaciones. ¿Deseas continuar hacia una nueva página? Tu trabajo no se guardará.",
 		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
 	},
 	"tasks.confirmLeaveTitle": {
@@ -5087,7 +5089,7 @@
 		"string": "Anotaciones completas"
 	},
 	"trendsItem.couldNotImport": {
-		"string": "No se pudo importar la afirmación"
+		"string": "We could not import the claim because the media associated with this claim already exist in this workspace"
 	},
 	"trendsItem.factCheck": {
 		"string": "Verificación de hechos"

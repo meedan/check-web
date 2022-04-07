@@ -82,7 +82,7 @@
   {
     "id": "task.uploadWarningBody",
     "description": "Warning to prevent user from navigating away while upload is running",
-    "defaultMessage": "Navigating away from this page may cause the interruption of the file upload"
+    "defaultMessage": "Navigating away from this page may cause the interruption of the file upload."
   },
   {
     "id": "task.answeredBy",
