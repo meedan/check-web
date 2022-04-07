@@ -157,13 +157,13 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                     <Box display="flex" alignItems="flex-start">
                       <TextField
                         variant="outlined"
-                        margin="normal"
+                        margin="none"
                         defaultValue={`<img src="https://chart.googleapis.com/chart?chs=150x150&amp;cht=qr&amp;chl=https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}" />`}
                         InputProps={{
                           readOnly: true,
                         }}
                         multiline
-                        rows={4}
+                        rows={8}
                       />
                       <Tooltip
                         PopperProps={{
@@ -195,7 +195,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
                       </Tooltip>
                     </Box>
                     <Box ml={4} display="flex" alignItems="flex-start">
-                      <QRCodeCanvas value={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
+                      <QRCodeCanvas size={192} value={`https://wa.me/${enabledIntegrations.whatsapp.phoneNumber.replace(/[^0-9]/g, '')}`} id="whatsapp-qr-code-canvas" />
                       <IconButton onClick={handleDownloadWhatsAppQrCode}>
                         <GetAppIcon />
                       </IconButton>
