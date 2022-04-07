@@ -723,7 +723,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an invalid value of some kind, such as a malformed email address."
 	},
 	"check.error.missing_object": {
-		"string": "There is an object missing in the database.",
+		"string": "An object is missing in the database.",
 		"developer_comment": "This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
 	},
 	"check.error.missing_parameters": {
@@ -751,11 +751,11 @@
 		"developer_comment": "This is a message that displays in an error popup if the server sends it some kind of non-critical warning message (user is approaching their API call limit, for example)."
 	},
 	"check.helpers.intercom_help": {
-		"string": "Press the 'send' arrow to the right to send the report.",
+		"string": "Click the 'send' arrow to the right to send the report.",
 		"developer_comment": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
 	},
 	"check.helpers.more_info": {
-		"string": "More info...",
+		"string": "More info…",
 		"developer_comment": "This is a label on a button that users press in order to get more info related to an error message."
 	},
 	"check.helpers.report_issue": {
@@ -1209,9 +1209,6 @@
 	"list.Item": {
 		"string": "Высказывание"
 	},
-	"list.LastSeen": {
-		"string": "Отредактировано"
-	},
 	"list.LinkedItems": {
 		"string": "Похожие медиа-файлы"
 	},
@@ -1514,9 +1511,6 @@
 	},
 	"mediaComponent.notes": {
 		"string": "Заметки"
-	},
-	"mediaComponent.related": {
-		"string": "Связанные"
 	},
 	"mediaComponent.requests": {
 		"string": "Запросы"
@@ -3662,6 +3656,14 @@
 	"smoochBotIntegrations.phoneNumber": {
 		"string": "Connected phone number: {link}"
 	},
+	"smoochBotIntegrations.qrCodeDescription": {
+		"string": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it.",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+	},
+	"smoochBotIntegrations.qrCodeTitle": {
+		"string": "Quickstart QR code",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Connected Telegram bot: {link}"
 	},
@@ -4232,7 +4234,7 @@
 		"string": "Редактировать ответ"
 	},
 	"task.uploadWarningBody": {
-		"string": "Navigating away from this page may cause the interruption of the file upload",
+		"string": "Navigating away from this page may cause the interruption of the file upload.",
 		"developer_comment": "Warning to prevent user from navigating away while upload is running"
 	},
 	"task.uploadWarningTitle": {
@@ -5087,7 +5089,7 @@
 		"string": "Completed annotations"
 	},
 	"trendsItem.couldNotImport": {
-		"string": "Could not import claim"
+		"string": "We could not import the claim because the media associated with this claim already exist in this workspace"
 	},
 	"trendsItem.factCheck": {
 		"string": "Fact-check"

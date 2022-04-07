@@ -10,7 +10,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ErrorIcon from '@material-ui/icons/Error';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import DrawerHeader from './drawer/DrawerHeader';
@@ -129,23 +128,6 @@ class DrawerNavigationComponent extends Component {
             {currentUserIsMember ? (
               <div>
                 <Divider />
-                <Link to={`/${team.slug}/unconfirmed`} className="link__internal project-list__link-unconfirmed">
-                  <MenuItem className="project-list__item-unconfirmed">
-                    <ListItemIcon className={classes.listItemIconRoot}>
-                      <ErrorIcon />
-                    </ListItemIcon>
-                    <ListItemText
-                      primary={
-                        <Row style={{ font: body1 }}>
-                          <FormattedMessage id="projects.unconfirmed" defaultMessage="Unconfirmed" />
-                          <AlignOpposite>
-                            {String(team.unconfirmed_count)}
-                          </AlignOpposite>
-                        </Row>
-                      }
-                    />
-                  </MenuItem>
-                </Link>
                 <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
                     <ListItemIcon className={classes.listItemIconRoot}>

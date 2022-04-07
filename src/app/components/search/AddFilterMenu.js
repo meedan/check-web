@@ -20,6 +20,7 @@ import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
+import ErrorIcon from '@material-ui/icons/Error';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
@@ -186,6 +187,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.channel"
         defaultMessage="Channel"
         description="Menu option to enable searching items by channel"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__tipline-request',
+    key: 'archived',
+    icon: <ErrorIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.tiplineRequest"
+        defaultMessage="Tipline request"
+        description="Menu option to enable searching items by confirmed/unconfirmed items"
       />
     ),
   },

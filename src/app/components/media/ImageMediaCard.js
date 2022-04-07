@@ -37,6 +37,7 @@ class ImageMediaCard extends React.Component {
           <Lightbox
             onCloseRequest={this.handleCloseLightbox}
             mainSrc={this.state.image}
+            reactModalStyle={{ overlay: { zIndex: 2000 } }}
           />
           : null }
       </article>

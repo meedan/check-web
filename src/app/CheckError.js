@@ -54,7 +54,7 @@ const CheckError = {
     />),
     MISSING_OBJECT: (<FormattedMessage
       id="check.error.missing_object"
-      defaultMessage="There is an object missing in the database."
+      defaultMessage="An object is missing in the database."
       description="This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
     />),
     DUPLICATED: (<FormattedMessage
