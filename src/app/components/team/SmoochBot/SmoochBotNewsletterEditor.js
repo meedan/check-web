@@ -123,6 +123,7 @@ const SmoochBotNewsletterEditor = ({
   const body = newsletter.smooch_newsletter_body || '';
   const bulletPoints = body.split(/\n+/);
   const [numberOfBulletPoints, setNumberOfBulletPoints] = React.useState(bulletPoints.length || 1);
+  const [introduction, setIntroduction] = React.useState(newsletter.smooch_newsletter_introduction);
 
   const handleError = () => {
     setLoading(false);
@@ -186,14 +187,8 @@ const SmoochBotNewsletterEditor = ({
   return (
     <React.Fragment>
       <Box>
-        <Typography variant="subtitle2" component="div">
-          <FormattedMessage
-            id="smoochBotNewsletterEditor.title"
-            defaultMessage="Compose your newsletter"
-          />
-        </Typography>
         { newsletterInformation ?
-          <Box p={1} mt={1} mb={1} className={newsletterInformation.paused ? classes.paused : classes.active}>
+          <Box p={1} mt={1} mb={2} className={newsletterInformation.paused ? classes.paused : classes.active}>
             <Typography component="div" variant="body2">
               { newsletterInformation.paused ?
                 <FormattedMessage
@@ -211,7 +206,7 @@ const SmoochBotNewsletterEditor = ({
                 /> }
             </Typography>
           </Box> :
-          <Box p={1} mt={1} mb={1} className={classes.none}>
+          <Box p={1} mt={1} mb={2} className={classes.none}>
             <Typography component="div" variant="body2">
               <FormattedMessage
                 id="smoochBotNewsletterEditor.none"
@@ -219,20 +214,16 @@ const SmoochBotNewsletterEditor = ({
               />
             </Typography>
           </Box> }
-        <Typography component="div" paragraph>
+        <Typography>
           <strong>
-            <FormattedMessage id="smoochBotNewsletterEditor.firstStep" defaultMessage="1. Select a day and time of the week" description="This is an item in a bullet list of steps, this is the first step" />
+            <FormattedMessage id="smoochBotNewsletterEditor.firstStepTitle" defaultMessage="Schedule" description="Tipline newsletter schedule (how often it should be sent)" />
           </strong>
+        </Typography>
+        <Typography>
+          <FormattedMessage id="smoochBotNewsletterEditor.firstStepDescription" defaultMessage="Send the newsletter to all subscribed user every:" description="Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time" />
         </Typography>
       </Box>
       <Box display="flex" justifyContent="flex-start" alignItems="center" mt={1} mb={1} className={classes.schedule}>
-        <Typography>
-          <FormattedMessage
-            id="smoochBotNewsletterEditor.sendEvery"
-            defaultMessage="Send every"
-            description="After this string, there is a drop-down where the user can choose a day of the week"
-          />
-        </Typography>
         <Select
           value={newsletter.smooch_newsletter_day || 'none'}
           variant="outlined"
@@ -288,14 +279,42 @@ const SmoochBotNewsletterEditor = ({
           { Object.keys(timezones).sort().map(timezone => <MenuItem key={timezone} value={timezone}>{timezone}</MenuItem>) }
         </Select>
       </Box>
-      <Box>
-        <Typography component="div" paragraph>
+      <Box mt={2}>
+        <Typography>
           <strong>
-            <FormattedMessage id="smoochBotNewsletterEditor.secondStep" defaultMessage="2. Add content manually, or via RSS Feed." description="This is an item in a bullet list of steps, this is the second step" />
+            <FormattedMessage id="smoochBotNewsletterEditor.secondStep" defaultMessage="Content" description="Refers to tipline newsletter content" />
           </strong>
-          {' '}
-          <FormattedMessage id="smoochBotNewsletterEditor.secondStep2" defaultMessage="If the content is not changed between two scheduled sendouts, it will not be sent." />
         </Typography>
+        <Typography paragraph>
+          <FormattedMessage id="smoochBotNewsletterEditor.secondStep2" defaultMessage="If the content is not changed between two scheduled sendouts, the newsletter will not be sent." description="Explanation about tipline newsletter delivery, in tipline newsletter settings page" />
+        </Typography>
+        <Typography variant="caption" paragraph>
+          <FormattedMessage
+            id="smoochBotNewsletterEditor.charsCounter"
+            defaultMessage="{count}/{max} characters available"
+            description="Counter that shows how many characters can still be input for the tipline content"
+            values={{
+              count: 0,
+              max: 1024,
+            }}
+          />
+        </Typography>
+      </Box>
+      <Box>
+        <TextField
+          key={Math.random().toString().substring(2, 10)}
+          label={
+            <FormattedMessage
+              id="smoochBotNewsletterEditor.introduction"
+              defaultMessage="Introduction"
+              description="Tipline newsletter introduction field label"
+            />
+          }
+          defaultValue={introduction}
+          onChange={(e) => { setIntroduction(e.target.value); }}
+          variant="outlined"
+          fullWidth
+        />
       </Box>
       <Box mb={3}>
         <FormControlLabel
