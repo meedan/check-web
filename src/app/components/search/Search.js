@@ -134,7 +134,7 @@ Search.propTypes = {
   title: PropTypes.node.isRequired,
   icon: PropTypes.node,
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
   resultType: PropTypes.string, // 'default' or 'trends', for now
