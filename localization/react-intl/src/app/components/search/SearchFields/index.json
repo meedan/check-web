@@ -55,6 +55,16 @@
     "defaultMessage": "Assigned"
   },
   {
+    "id": "search.confirmed",
+    "description": "Allow filtering by confirmed items",
+    "defaultMessage": "Confirmed"
+  },
+  {
+    "id": "search.unconfirmed",
+    "description": "Allow filtering by unconfirmed items",
+    "defaultMessage": "Unconfirmed"
+  },
+  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
@@ -123,6 +133,11 @@
     "id": "search.userHeading",
     "description": "Prefix label for field to filter by item creator",
     "defaultMessage": "Created by"
+  },
+  {
+    "id": "search.archived",
+    "description": "Prefix label for field to filter by Tipline request",
+    "defaultMessage": "Tipline request is"
   },
   {
     "id": "search.reportStatus",

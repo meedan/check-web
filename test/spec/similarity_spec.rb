@@ -88,8 +88,7 @@ shared_examples 'similarity' do
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath).click
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('claim 1')).to be(true)
-    expect(@driver.page_source.include?('claim 2')).to be(true)
-    expect(@driver.page_source.include?('claim 3')).to be(false)
+    expect(@driver.find_elements(:css, '.MuiCardHeader-title').length).to eq 2
   end
 
   {

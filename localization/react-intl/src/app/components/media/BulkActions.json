@@ -5,11 +5,6 @@
     "defaultMessage": "Items moved from Trash to '{toProject}'"
   },
   {
-    "id": "bulkActions.movedConfirmSuccessfully",
-    "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from Unconfirmed to '{toProject}'"
-  },
-  {
     "id": "bulkActions.movedSuccessfully",
     "description": "Banner displayed after items are moved successfully",
     "defaultMessage": "Items moved to '{toProject}'"
@@ -25,14 +20,6 @@
   {
     "id": "bulkActions.restore",
     "defaultMessage": "Restore from Trash"
-  },
-  {
-    "id": "bulkActions.unconfirmed",
-    "defaultMessage": "Confirm selected items and move items to another folder"
-  },
-  {
-    "id": "bulkActions.confirm",
-    "defaultMessage": "Move from Unconfirmed"
   },
   {
     "id": "bulkActions.dialogMoveTitle",
