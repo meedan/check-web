@@ -5,13 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Typography from '@material-ui/core/Typography';
 import CancelOutlinedIcon from '@material-ui/icons/CancelOutlined';
 import EventIcon from '@material-ui/icons/Event';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
@@ -23,12 +23,11 @@ import ParsedText from '../../ParsedText';
 import timezones from '../../../timezones';
 
 const useStyles = makeStyles(theme => ({
-  spaced: {
-    margin: theme.spacing(1),
-    minWidth: 100,
-  },
   title: {
     margin: theme.spacing(1.25),
+  },
+  rssSettings: {
+    gap: `${theme.spacing(1)}px`,
   },
   rssPreview: {
     height: 'initial',
@@ -108,8 +107,6 @@ const SmoochBotNewsletterEditor = ({
   installationId,
   newsletter,
   newsletterInformation,
-  newsletterHeader,
-  teamName,
   onChange,
 }) => {
   const classes = useStyles();
@@ -124,6 +121,17 @@ const SmoochBotNewsletterEditor = ({
   const bulletPoints = body.split(/\n+/);
   const [numberOfBulletPoints, setNumberOfBulletPoints] = React.useState(bulletPoints.length || 1);
   const [introduction, setIntroduction] = React.useState(newsletter.smooch_newsletter_introduction);
+
+  const maxCharacters = 1024;
+  let charactersCount = 0;
+  if (introduction) {
+    charactersCount += introduction.length;
+  }
+  if (rssPreview) {
+    charactersCount += rssPreview.length;
+  } else {
+    charactersCount += body.length;
+  }
 
   const handleError = () => {
     setLoading(false);
@@ -162,8 +170,7 @@ const SmoochBotNewsletterEditor = ({
     }
   };
 
-  const handleChangeNumberOfBulletPoints = (event) => {
-    const value = parseInt(event.target.value, 10);
+  const handleChangeNumberOfBulletPoints = (value) => {
     const newBody = [];
     [...Array(3).keys()].forEach((i) => {
       if (i < value) {
@@ -182,6 +189,10 @@ const SmoochBotNewsletterEditor = ({
     } else {
       handleReset();
     }
+  };
+
+  const handleAddArticle = () => {
+    handleChangeNumberOfBulletPoints(numberOfBulletPoints + 1);
   };
 
   return (
@@ -288,14 +299,14 @@ const SmoochBotNewsletterEditor = ({
         <Typography paragraph>
           <FormattedMessage id="smoochBotNewsletterEditor.secondStep2" defaultMessage="If the content is not changed between two scheduled sendouts, the newsletter will not be sent." description="Explanation about tipline newsletter delivery, in tipline newsletter settings page" />
         </Typography>
-        <Typography variant="caption" paragraph>
+        <Typography variant="caption" paragraph style={charactersCount > maxCharacters ? { color: 'red' } : {}}>
           <FormattedMessage
             id="smoochBotNewsletterEditor.charsCounter"
             defaultMessage="{count}/{max} characters available"
             description="Counter that shows how many characters can still be input for the tipline content"
             values={{
-              count: 0,
-              max: 1024,
+              count: maxCharacters - charactersCount,
+              max: maxCharacters,
             }}
           />
         </Typography>
@@ -311,12 +322,24 @@ const SmoochBotNewsletterEditor = ({
             />
           }
           defaultValue={introduction}
-          onChange={(e) => { setIntroduction(e.target.value); }}
+          placeholder={intl.formatMessage(placeholders.smooch_newsletter_introduction)}
+          onBlur={(e) => {
+            setIntroduction(e.target.value);
+            onChange('smooch_newsletter_introduction', e.target.value);
+          }}
           variant="outlined"
+          rows={3}
+          rowsMax={Infinity}
+          multiline
           fullWidth
         />
+        <Typography variant="caption">
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder {channel} to insert the name of the messaging service automatically." />
+          <br />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder {date} to insert the date the newsletter is sent automatically." />
+        </Typography>
       </Box>
-      <Box mb={3}>
+      <Box mb={3} mt={2}>
         <FormControlLabel
           control={
             <Switch
@@ -327,7 +350,7 @@ const SmoochBotNewsletterEditor = ({
           label={
             <FormattedMessage
               id="smoochBotNewsletterEditor.toggleRss"
-              defaultMessage="Automatically update content using an RSS feed"
+              defaultMessage="Load content from RSS feed"
             />
           }
         />
@@ -335,55 +358,33 @@ const SmoochBotNewsletterEditor = ({
 
       { !rssEnabled ?
         <Box>
-          <TextField
-            key={Math.random().toString().substring(2, 10)}
-            type="number"
-            label={
-              <FormattedMessage
-                id="smoochBotNewsletterEditor.numberOfBulletPoints"
-                defaultMessage="Number of bullet points"
+          { [...Array(numberOfBulletPoints).keys()].map((value, i) => (
+            <Box mb={1}>
+              <TextField
+                key={Math.random().toString().substring(2, 10)}
+                placeholder={intl.formatMessage(placeholders.smooch_newsletter_bullet_point)}
+                variant="outlined"
+                defaultValue={bulletPoints[i]}
+                onBlur={(event) => { handleChangeBulletPoint(i, event.target.value); }}
+                rows="1"
+                rowsMax={Infinity}
+                multiline
+                fullWidth
               />
-            }
-            defaultValue={numberOfBulletPoints}
-            onChange={handleChangeNumberOfBulletPoints}
-            inputProps={{ step: 1, min: 1, max: 3 }}
-            variant="outlined"
-            fullWidth
-          />
-          <Box mt={1} mb={1} className={classes.textField}>
-            <Box p={1}>
-              <Typography>
-                {newsletterHeader.replace('{teamName}', teamName).replace('{date}', new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }))}
-              </Typography>
             </Box>
-            <Divider />
-            <Box display="flex" className={classes.bulletPoints} width={1}>
-              { [...Array(numberOfBulletPoints).keys()].map((value, i) => (
-                <Box display="flex" alignItems="start" width={1} key={value}>
-                  { numberOfBulletPoints > 1 ?
-                    <Box className={classes.bullet}>
-                      <span>●</span>
-                    </Box> : null }
-                  <TextField
-                    key={Math.random().toString().substring(2, 10)}
-                    placeholder={intl.formatMessage(placeholders.smooch_newsletter_bullet_point)}
-                    variant="outlined"
-                    defaultValue={bulletPoints[i]}
-                    onBlur={(event) => { handleChangeBulletPoint(i, event.target.value); }}
-                    rows="1"
-                    rowsMax={Infinity}
-                    multiline
-                    fullWidth
-                  />
-                </Box>
-              ))}
-            </Box>
-          </Box>
+          ))}
+          <Button startIcon={<AddCircleOutlineIcon />} onClick={handleAddArticle} color="primary">
+            <FormattedMessage
+              id="smoochBotNewsletterEditor.addArticle"
+              defaultMessage="Add article"
+              description="Button label to add a new article URL to the tipline newsletter content"
+            />
+          </Button>
         </Box> : null }
 
       { rssEnabled ?
         <Box>
-          <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'}>
+          <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'} className={classes.rssSettings}>
             <TextField
               key={Math.random().toString().substring(2, 10)}
               label={
@@ -393,7 +394,6 @@ const SmoochBotNewsletterEditor = ({
                 />
               }
               placeholder={intl.formatMessage(messages.rssPlaceholder)}
-              className={classes.spaced}
               defaultValue={newsletter.smooch_newsletter_feed_url}
               onBlur={(event) => {
                 let feedUrl = event.target.value.trim();
@@ -417,17 +417,16 @@ const SmoochBotNewsletterEditor = ({
                   defaultMessage="Number of articles to return"
                 />
               }
-              className={classes.spaced}
               defaultValue={newsletter.smooch_newsletter_number_of_articles || 0}
               onBlur={(event) => {
                 onChange('smooch_newsletter_number_of_articles', parseInt(event.target.value, 10));
               }}
-              inputProps={{ step: 1, min: 1, max: 3 }}
+              inputProps={{ step: 1, min: 1, max: 50 }}
               variant="outlined"
               fullWidth
             />
 
-            <Button variant="contained" color="primary" className={classes.spaced} onClick={handleLoad} disabled={loading || !newsletter.smooch_newsletter_feed_url}>
+            <Button variant="contained" color="primary" onClick={handleLoad} disabled={loading || !newsletter.smooch_newsletter_feed_url}>
               <FormattedMessage
                 id="smoochBotNewsletterEditor.load"
                 defaultMessage="Load"
@@ -441,19 +440,9 @@ const SmoochBotNewsletterEditor = ({
           <Box display="flex" flexWrap="wrap">
             { rssPreview ?
               <Box mt={1} mb={1} className={classes.textField}>
-                <Box p={1}>
-                  <Typography>
-                    {newsletterHeader.replace('{teamName}', teamName).replace('{date}', new Date().toLocaleString(intl.locale, { month: 'short', day: '2-digit' }))}
-                  </Typography>
-                </Box>
-                <Divider />
                 <Box display="flex" className={classes.bulletPoints} width={1}>
                   { rssPreview.split('\n\n').map(entry => (
                     <Box display="flex" alignItems="start" width={1} key={entry}>
-                      { rssPreview.split('\n\n').length > 1 ?
-                        <Box className={classes.bulletRss}>
-                          <span>●</span>
-                        </Box> : null }
                       <Typography className={classes.rssEntry}>
                         <ParsedText text={entry} />
                       </Typography>
@@ -479,7 +468,6 @@ const SmoochBotNewsletterEditor = ({
 
 SmoochBotNewsletterEditor.defaultProps = {
   newsletterInformation: null,
-  newsletterHeader: 'Hi! Here are your weekly facts. This newsletter is published on {channel} by {teamName}. Here are the most important facts for the week of {date}:',
 };
 
 SmoochBotNewsletterEditor.propTypes = {
@@ -488,8 +476,6 @@ SmoochBotNewsletterEditor.propTypes = {
   onChange: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   newsletterInformation: PropTypes.object,
-  teamName: PropTypes.string.isRequired,
-  newsletterHeader: PropTypes.string,
 };
 
 export default injectIntl(SmoochBotNewsletterEditor);

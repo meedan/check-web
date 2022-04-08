@@ -100,12 +100,23 @@
     "defaultMessage": "Introduction"
   },
   {
-    "id": "smoochBotNewsletterEditor.toggleRss",
-    "defaultMessage": "Automatically update content using an RSS feed"
+    "id": "smoochBotNewsletterEditor.introPlaceholder1",
+    "description": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated.",
+    "defaultMessage": "Use the placeholder {channel} to insert the name of the messaging service automatically."
   },
   {
-    "id": "smoochBotNewsletterEditor.numberOfBulletPoints",
-    "defaultMessage": "Number of bullet points"
+    "id": "smoochBotNewsletterEditor.introPlaceholder2",
+    "description": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated.",
+    "defaultMessage": "Use the placeholder {date} to insert the date the newsletter is sent automatically."
+  },
+  {
+    "id": "smoochBotNewsletterEditor.toggleRss",
+    "defaultMessage": "Load content from RSS feed"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.addArticle",
+    "description": "Button label to add a new article URL to the tipline newsletter content",
+    "defaultMessage": "Add article"
   },
   {
     "id": "smoochBotNewsletterEditor.url",
