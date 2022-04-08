@@ -40,8 +40,10 @@ shared_examples 'app' do |webdriver_url|
     @config = CONFIG
     @webdriver_url = webdriver_url
     @failing_tests = {}
-    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
-    FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    if File.directory?('../build/web/js/config.js')
+      FileUtils.rm('../build/web/js/config.js')
+      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    end
   end
 
   before :each do |example|
@@ -87,8 +89,10 @@ shared_examples 'app' do |webdriver_url|
   end
 
   after :all do
-    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
-    FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
+    if File.directory?('../build/web/js/config.js')
+      FileUtils.rm('../build/web/js/config.js')
+      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    end
     update_flaky_tests_file(@failing_tests)
   end
 
