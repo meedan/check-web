@@ -295,9 +295,7 @@ const SmoochBotConfig = (props) => {
                   installationId={props.installationId}
                   newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
                   newsletterInformation={props.newsletterInformation[currentLanguage]}
-                  newsletterHeader={settings[`smooch_template_newsletter_header_${currentLanguage}`]}
                   onChange={handleChangeNewsletter}
-                  teamName={props.teamName}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
@@ -312,6 +310,7 @@ const SmoochBotConfig = (props) => {
                   key={currentLanguage}
                   languages={languages}
                   value={value.smooch_workflows[currentWorkflowIndex]}
+                  enabledIntegrations={props.enabledIntegrations}
                   onChange={handleChangeMenu}
                 /> : null }
             </Box>
@@ -325,7 +324,6 @@ const SmoochBotConfig = (props) => {
           onChange={handleUpdateSetting}
           enabledIntegrations={props.enabledIntegrations}
           installationId={props.installationId}
-          languages={languages}
         /> : null }
     </React.Fragment>
   );
@@ -340,7 +338,6 @@ SmoochBotConfig.propTypes = {
   userRole: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   newsletterInformation: PropTypes.object.isRequired,
-  teamName: PropTypes.string.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,
