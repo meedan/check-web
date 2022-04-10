@@ -1230,7 +1230,7 @@ class Task extends Component {
                 body={
                   <FormattedMessage
                     id="task.uploadWarningBody"
-                    defaultMessage="Navigating away from this page may cause the interruption of the file upload"
+                    defaultMessage="Navigating away from this page may cause the interruption of the file upload."
                     description="Warning to prevent user from navigating away while upload is running"
                   />
                 }

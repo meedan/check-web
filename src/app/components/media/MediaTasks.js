@@ -2,6 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import {
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+} from '@material-ui/core';
 import styled from 'styled-components';
 import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
@@ -159,27 +166,54 @@ class MediaTasksComponent extends Component {
     return (
       <StyledAnnotationRow>
         { fieldset === 'tasks' && !isBrowserExtension ?
-          <div className="annotation-header-row task-row">
-            { itemTasks.edges.length ?
-              <FlexRow>
-                <h2>
-                  <FormattedMessage
-                    id="mediaComponent.verificationTasks"
-                    defaultMessage="Item tasks"
-                  />
-                </h2>
-                &nbsp;
-                { currentUserRole !== 'annotator' ?
-                  <FlexRow>
-                    {itemTasks.edges.filter(t =>
-                      t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
-                    }
-                    &nbsp;
-                    <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
-                  </FlexRow> : null }
-              </FlexRow> : null }
-            <CreateTask style={{ marginLeft: 'auto' }} media={media} />
-          </div> : null }
+          <>
+            <div className="annotation-header-row task-row">
+              <Card variant="outlined">
+                <CardContent>
+                  <Typography color="textSecondary" gutterBottom>
+                    <FormattedMessage
+                      id="check.tasks.discontinued_tasks_warning"
+                      defaultMessage="Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations."
+                      description="This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
+                    />
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button
+                    color="primary"
+                    onClick={() => Intercom('showNewMessage')}
+                  >
+                    <FormattedMessage
+                      id="check.tasks.contact_support"
+                      defaultMessage="Contact support"
+                      description="This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
+                    />
+                  </Button>
+                </CardActions>
+              </Card>
+            </div>
+            <div className="annotation-header-row task-row">
+              { itemTasks.edges.length ?
+                <FlexRow>
+                  <h2>
+                    <FormattedMessage
+                      id="mediaComponent.verificationTasks"
+                      defaultMessage="Item tasks"
+                    />
+                  </h2>
+                  &nbsp;
+                  { currentUserRole !== 'annotator' ?
+                    <FlexRow>
+                      {itemTasks.edges.filter(t =>
+                        t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
+                      }
+                      &nbsp;
+                      <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
+                    </FlexRow> : null }
+                </FlexRow> : null }
+              <CreateTask style={{ marginLeft: 'auto' }} media={media} />
+            </div>
+          </> : null }
         <Tasks tasks={itemTasks.edges} media={media} about={about} fieldset={fieldset} />
       </StyledAnnotationRow>
     );

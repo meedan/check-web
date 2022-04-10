@@ -1,9 +1,5 @@
 [
   {
-    "id": "projects.unconfirmed",
-    "defaultMessage": "Unconfirmed"
-  },
-  {
     "id": "projects.trash",
     "defaultMessage": "Trash"
   },

@@ -78,7 +78,7 @@ shared_examples 'tag' do
     create_media('new media')
     sleep 30 # wait for the items to be indexed in the Elasticsearch
     wait_for_selector('.media__heading').click
-    wait_for_selector('.media-tab__comments')
+    wait_for_selector('.media-tags__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
     # click on the tag and go to search page with the tag filter and see the item
     wait_for_selector('.media-tags__tag').click

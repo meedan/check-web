@@ -166,7 +166,7 @@
   },
   {
     "id": "smoochBot.placeholderNewsletterBulletPoint",
-    "defaultMessage": "Type in to add content"
+    "defaultMessage": "Add an article"
   },
   {
     "id": "smoochBot.placeholderOptionNotAvailable",
@@ -195,5 +195,9 @@
   {
     "id": "smoochBot.tos",
     "defaultMessage": "Terms of Service ({language})"
+  },
+  {
+    "id": "smoochBot.placeholderNewsletterIntroduction",
+    "defaultMessage": "Type something"
   }
 ]
