@@ -44,7 +44,7 @@ const SuggestedMatches = ({ routeParams }) => (
             icon={<NewReleasesIcon />}
             teamSlug={routeParams.team}
             query={query}
-            hideFields={['suggestions_count', 'country', 'cluster_teams']}
+            hideFields={['suggestions_count', 'country', 'cluster_teams', 'cluster_published_reports']}
             page="suggested-matches"
           />
         );
