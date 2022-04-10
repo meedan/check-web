@@ -188,7 +188,7 @@ shared_examples 'search' do
   end
 
   it 'should search for reverse images', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://digital-health-lab.org/' })
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://twitter.com/ektanewsco/status/1503983014790893570' })
     card = wait_for_selector_list('.media-detail').length
     expect(card == 1).to be(true)
     expect((@driver.current_url.to_s =~ /google/).nil?).to be(true)
