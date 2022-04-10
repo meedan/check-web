@@ -69,7 +69,6 @@ export default function MediaSearchRedirect({
   listIndex,
   searchIndex,
   objectType,
-  type,
 }) {
   return (
     <QueryRenderer
@@ -102,8 +101,7 @@ export default function MediaSearchRedirect({
           if (!props.search) {
             return <BrokenLink />;
           }
-          let edge;
-          edge = props.search.medias.edges[listIndex % pageSize];
+          const edge = props.search.medias.edges[listIndex % pageSize];
           if (edge) {
             const targetId = objectType === 'media' ? edge.node.dbid : edge.node.cluster_id;
             const mediaNavList = props.search.medias.edges.map(media => media.node.dbid);
