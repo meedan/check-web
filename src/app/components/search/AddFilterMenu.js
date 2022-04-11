@@ -20,6 +20,7 @@ import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
+import ErrorIcon from '@material-ui/icons/Error';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
@@ -190,6 +191,18 @@ const AddFilterMenu = ({
     ),
   },
   {
+    id: 'add-filter-menu__tipline-request',
+    key: 'archived',
+    icon: <ErrorIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.tiplineRequest"
+        defaultMessage="Tipline request"
+        description="Menu option to enable searching items by confirmed/unconfirmed items"
+      />
+    ),
+  },
+  {
     id: 'add-filter-menu__similar-medias',
     key: 'linked_items_count',
     icon: <NumberIcon />,
@@ -288,6 +301,18 @@ const AddFilterMenu = ({
           id="addFilterMenu.Workspace"
           defaultMessage="Organization"
           description="Menu option to enable searching items by workspace"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__cluster-published-reports',
+      key: 'cluster_published_reports',
+      icon: <HowToRegIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.publishedBy"
+          defaultMessage="Published by"
+          description="Menu option to enable searching items by report published by"
         />
       ),
     },

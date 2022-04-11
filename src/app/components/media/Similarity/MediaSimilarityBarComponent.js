@@ -72,8 +72,6 @@ const MediaSimilarityBarComponent = ({
 }) => {
   const classes = useStyles();
   const linkPrefix = window.location.pathname.match(/^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+/);
-  const params = new URLSearchParams(window.location.search);
-  const listIndex = params.get('listIndex');
 
   // This component should be used only on an item page
   if (!linkPrefix) {
@@ -125,7 +123,7 @@ const MediaSimilarityBarComponent = ({
       <Box className={classes.spacing}>
         <Link
           className={classes.link}
-          to={`${linkPrefix[0]}/similar-media?listIndex=${listIndex}`}
+          to={`${linkPrefix[0]}/similar-media${window.location.search}`}
           style={confirmedSimilarCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
         >
           <FormattedMessage
@@ -138,7 +136,7 @@ const MediaSimilarityBarComponent = ({
         </Link>
         <Link
           className={classes.link}
-          to={`${linkPrefix[0]}/similar-media?listIndex=${listIndex}`}
+          to={`${linkPrefix[0]}/similar-media${window.location.search}`}
           style={suggestionsCount > 0 ? { color: checkBlue } : { color: opaqueBlack54 }}
         >
           <FormattedMessage

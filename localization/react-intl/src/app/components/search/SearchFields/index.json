@@ -55,6 +55,16 @@
     "defaultMessage": "Assigned"
   },
   {
+    "id": "search.confirmed",
+    "description": "Allow filtering by confirmed items",
+    "defaultMessage": "Confirmed"
+  },
+  {
+    "id": "search.unconfirmed",
+    "description": "Allow filtering by unconfirmed items",
+    "defaultMessage": "Unconfirmed"
+  },
+  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
@@ -125,6 +135,11 @@
     "defaultMessage": "Created by"
   },
   {
+    "id": "search.archived",
+    "description": "Prefix label for field to filter by Tipline request",
+    "defaultMessage": "Tipline request is"
+  },
+  {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
     "defaultMessage": "Report status is"
@@ -143,6 +158,11 @@
     "id": "search.assignedTo",
     "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
+  },
+  {
+    "id": "search.clusterTeams",
+    "description": "Prefix label for field to filter by workspace",
+    "defaultMessage": "Organization is"
   },
   {
     "id": "search.applyFilters",

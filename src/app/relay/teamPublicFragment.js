@@ -10,7 +10,6 @@ const teamPublicFragment = Relay.QL`
       slug,
       team_graphql_id,
       trash_count,
-      unconfirmed_count,
       pusher_channel,
     }
 `;

@@ -2,7 +2,7 @@
   {
     "id": "check.helpers.intercom_help",
     "description": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language.",
-    "defaultMessage": "Press the 'send' arrow to the right to send the report."
+    "defaultMessage": "Click the 'send' arrow to the right to send the report."
   },
   {
     "id": "check.helpers.report_issue",
@@ -12,6 +12,6 @@
   {
     "id": "check.helpers.more_info",
     "description": "This is a label on a button that users press in order to get more info related to an error message.",
-    "defaultMessage": "More info..."
+    "defaultMessage": "More info…"
   }
 ]

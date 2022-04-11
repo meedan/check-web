@@ -28,10 +28,6 @@
     "defaultMessage": "Submitted"
   },
   {
-    "id": "list.LastSeen",
-    "defaultMessage": "Last submitted"
-  },
-  {
     "id": "list.updated",
     "defaultMessage": "Updated"
   },

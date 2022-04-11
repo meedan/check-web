@@ -88,9 +88,10 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const params = new URLSearchParams(window.location.search);
-  const listIndex = params.get('listIndex');
-  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}?listIndex=${listIndex}`;
+  const params = new URLSearchParams();
+  // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
+  const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target.created_at, +b.target.last_seen) - Math.max(+a.target.created_at, +a.target.last_seen));
+  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}${window.location.search}`;
   // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
   const getReviewId = () => {
     const reviewId = params.get('reviewId');
@@ -99,7 +100,7 @@ const MediaSuggestionsComponent = ({
   };
 
   const [reviewId, setReviewId] = React.useState(getReviewId());
-  let index = relationships.findIndex(r => r.target_id === reviewId);
+  let index = sortedRelationships.findIndex(r => r.target_id === reviewId);
   index = (index > -1) ? index : 0;
 
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
@@ -107,10 +108,10 @@ const MediaSuggestionsComponent = ({
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
-  const relationship = relationships[index];
+  const relationship = sortedRelationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id } : null;
   const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/similar-media$/, projectMedia.dbid) : '';
-  const total = relationships.length;
+  const total = sortedRelationships.length;
   const hasNext = (index + 1 < total);
   const hasPrevious = (index > 0);
 
@@ -121,7 +122,7 @@ const MediaSuggestionsComponent = ({
   const handleNext = () => {
     if (!hasNext) return;
 
-    const nextRelationship = relationships[index + 1] || relationships[0];
+    const nextRelationship = sortedRelationships[index + 1] || sortedRelationships[0];
     if (nextRelationship) {
       setReviewId(nextRelationship.target_id);
     }
@@ -130,7 +131,7 @@ const MediaSuggestionsComponent = ({
   const handlePrevious = () => {
     if (!hasPrevious) return;
 
-    const prevRelationship = relationships[index - 1];
+    const prevRelationship = sortedRelationships[index - 1];
     if (prevRelationship) {
       setReviewId(prevRelationship.target_id);
     }

@@ -19,6 +19,8 @@ import RuleIcon from '@material-ui/icons//Rule';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
+import ErrorIcon from '@material-ui/icons/Error';
+import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -33,6 +35,7 @@ import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import SearchFieldCountry from './SearchFieldCountry';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -104,6 +107,16 @@ const messages = defineMessages({
     id: 'search.notEmptyAssign',
     defaultMessage: 'Assigned',
     description: 'Allow filtering by assigned_to with any value set',
+  },
+  confirmed: {
+    id: 'search.confirmed',
+    defaultMessage: 'Confirmed',
+    description: 'Allow filtering by confirmed items',
+  },
+  unconfirmed: {
+    id: 'search.unconfirmed',
+    defaultMessage: 'Unconfirmed',
+    description: 'Allow filtering by unconfirmed items',
   },
 });
 
@@ -186,6 +199,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handleTiplineRequestClick = (confirmedValue) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'archived', confirmedValue),
+    );
+  }
+
   handleAssignedUserClick = (userIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'assigned_to', userIds),
@@ -225,6 +244,12 @@ class SearchFields extends React.Component {
   handleClusterTeamsClick = (teamIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'cluster_teams', teamIds),
+    );
+  }
+
+  handleClusterPublishedReportsClick = (teamIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'cluster_published_reports', teamIds),
     );
   }
 
@@ -334,6 +359,11 @@ class SearchFields extends React.Component {
     const readValues = [
       { value: '0', label: this.props.intl.formatMessage(messages.unread) },
       { value: '1', label: this.props.intl.formatMessage(messages.read) },
+    ];
+
+    const confirmedValues = [
+      { value: CheckArchivedFlags.NONE.toString(), label: this.props.intl.formatMessage(messages.confirmed) },
+      { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: this.props.intl.formatMessage(messages.unconfirmed) },
     ];
 
     const hasClaimOptions = [
@@ -517,6 +547,22 @@ class SearchFields extends React.Component {
           readOnly={isSpecialPage}
         />
       ),
+      archived: (
+        <FormattedMessage id="search.archived" defaultMessage="Tipline request is" description="Prefix label for field to filter by Tipline request">
+          { label => (
+            <MultiSelectFilter
+              allowSearch={false}
+              label={label}
+              icon={<ErrorIcon />}
+              selected={this.props.query.archived}
+              options={confirmedValues}
+              onChange={this.handleTiplineRequestClick}
+              onRemove={() => this.handleRemoveField('archived')}
+              single
+            />
+          )}
+        </FormattedMessage>
+      ),
       linked_items_count: (
         <Box maxWidth="700px">
           <NumericRangeFilter
@@ -622,12 +668,32 @@ class SearchFields extends React.Component {
         />
       ),
       cluster_teams: (
-        <SearchFieldClusterTeams
-          teamSlug={team.slug}
-          selected={this.props.query.cluster_teams}
-          onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
-          onRemove={() => this.handleRemoveField('cluster_teams')}
-        />
+        <FormattedMessage id="search.clusterTeams" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
+          { label => (
+            <SearchFieldClusterTeams
+              label={label}
+              icon={<CorporateFareIcon />}
+              teamSlug={team.slug}
+              selected={this.props.query.cluster_teams}
+              onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
+              onRemove={() => this.handleRemoveField('cluster_teams')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      cluster_published_reports: (
+        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+          { label => (
+            <SearchFieldClusterTeams
+              label={label}
+              icon={<HowToRegIcon />}
+              teamSlug={team.slug}
+              selected={this.props.query.cluster_published_reports}
+              onChange={(newValue) => { this.handleClusterPublishedReportsClick(newValue); }}
+              onRemove={() => this.handleRemoveField('cluster_published_reports')}
+            />
+          )}
+        </FormattedMessage>
       ),
       country: (
         <SearchFieldCountry
@@ -644,7 +710,9 @@ class SearchFields extends React.Component {
     if (this.props.projectGroup) fieldKeys.push('project_group_id');
     if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
 
-    fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && fieldComponents[k]));
+    const { hideFields } = this.props;
+
+    fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && hideFields.indexOf(k) === -1 && fieldComponents[k]));
     const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
 
     return (
@@ -668,7 +736,7 @@ class SearchFields extends React.Component {
           })}
           <AddFilterMenu
             team={team}
-            hideOptions={this.props.hideFields}
+            hideOptions={hideFields}
             addedFields={addedFields}
             onSelect={this.handleAddField}
           />

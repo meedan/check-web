@@ -9,7 +9,7 @@ services:
       - 5900:5900
       - 4444:4444
     volumes:
-      - "./test/spec/test.png:/app/test/spec/test.png"
+      - "./test/spec/files:/app/test/spec/files"
       - "./check-ui/.yalc:/root/.yalc"
     networks:
       - dev
@@ -33,7 +33,6 @@ services:
     environment:
       BOILERPLATE_ENV: test
       ALEGRE_PORT: 5000
-      REDIS_DATABASE: 3
   web:
     depends_on:
       - api
