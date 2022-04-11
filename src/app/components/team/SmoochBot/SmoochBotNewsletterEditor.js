@@ -330,6 +330,7 @@ const SmoochBotNewsletterEditor = ({
           variant="outlined"
           rows={3}
           rowsMax={Infinity}
+          error={!introduction}
           multiline
           fullWidth
         />

@@ -1,5 +1,10 @@
 [
   {
+    "id": "smoochBotMainMenuSection.defaultSectionTitle",
+    "description": "Default label for a main menu section title field on tipline bot settings.",
+    "defaultMessage": "Menu options"
+  },
+  {
     "id": "smoochBotMainMenuSection.sectionTitle",
     "description": "Label for a main menu section title field on tipline bot settings.",
     "defaultMessage": "Title - 24 characters limit"

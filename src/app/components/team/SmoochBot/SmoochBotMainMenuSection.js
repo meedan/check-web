@@ -51,6 +51,7 @@ const SmoochBotMainMenuSection = ({
   resources,
   readOnly,
   optional,
+  noTitleNoDescription,
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
@@ -164,7 +165,20 @@ const SmoochBotMainMenuSection = ({
                   {value.smooch_menu_title}
                 </strong>
               </Typography>
-            </Box> :
+            </Box> : null }
+          { noTitleNoDescription ?
+            <Box p={1}>
+              <Typography variant="body2" component="div" className={classes.title}>
+                <strong>
+                  <FormattedMessage
+                    id="smoochBotMainMenuSection.defaultSectionTitle"
+                    defaultMessage="Menu options"
+                    description="Default label for a main menu section title field on tipline bot settings."
+                  />
+                </strong>
+              </Typography>
+            </Box> : null }
+          { !readOnly && !noTitleNoDescription ?
             <TextField
               key={`title-${number}`}
               className={classes.textField}
@@ -187,8 +201,7 @@ const SmoochBotMainMenuSection = ({
               onBlur={(e) => { onChangeTitle(e.target.value); }}
               defaultValue={value.smooch_menu_title}
               error={options.length > 0 && !value.smooch_menu_title}
-            />
-          }
+            /> : null }
         </Box>
 
         {/* Add a new menu option */}
@@ -243,16 +256,18 @@ const SmoochBotMainMenuSection = ({
                 </Typography>
 
                 {/* Menu option description */}
-                <Typography variant="caption" component="div">
-                  { !readOnly && !option.smooch_menu_option_description ?
-                    <span className={classes.noDescription}>
-                      <FormattedMessage
-                        id="smoochBotMainMenuSection.optionNoDescription"
-                        defaultMessage="no description"
-                        description="Displayed when a tipline bot menu option doesn't have a description."
-                      />
-                    </span> : option.smooch_menu_option_description }
-                </Typography>
+                { noTitleNoDescription ?
+                  null :
+                  <Typography variant="caption" component="div">
+                    { !readOnly && !option.smooch_menu_option_description ?
+                      <span className={classes.noDescription}>
+                        <FormattedMessage
+                          id="smoochBotMainMenuSection.optionNoDescription"
+                          defaultMessage="no description"
+                          description="Displayed when a tipline bot menu option doesn't have a description."
+                        />
+                      </span> : option.smooch_menu_option_description }
+                  </Typography> }
               </Box>
             </Box>
 
@@ -296,6 +311,7 @@ const SmoochBotMainMenuSection = ({
           currentTitle={options[editingOptionIndex].smooch_menu_option_label}
           currentDescription={options[editingOptionIndex].smooch_menu_option_description}
           currentValue={options[editingOptionIndex].smooch_menu_option_value === 'custom_resource' ? options[editingOptionIndex].smooch_menu_custom_resource_id : options[editingOptionIndex].smooch_menu_option_value}
+          noDescription={noTitleNoDescription}
           onSave={handleSaveOption}
           onCancel={handleCancel}
         /> : null }
@@ -308,6 +324,7 @@ SmoochBotMainMenuSection.defaultProps = {
   resources: [],
   readOnly: false,
   optional: false,
+  noTitleNoDescription: false,
 };
 
 SmoochBotMainMenuSection.propTypes = {
@@ -316,6 +333,7 @@ SmoochBotMainMenuSection.propTypes = {
   resources: PropTypes.arrayOf(PropTypes.object),
   readOnly: PropTypes.bool,
   optional: PropTypes.bool,
+  noTitleNoDescription: PropTypes.bool,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };
