@@ -292,6 +292,7 @@ const SmoochBotConfig = (props) => {
               { currentOption === 'smooch_newsletter' ?
                 <SmoochBotNewsletterEditor
                   key={currentLanguage}
+                  language={currentLanguage}
                   installationId={props.installationId}
                   newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
                   newsletterInformation={props.newsletterInformation[currentLanguage]}
