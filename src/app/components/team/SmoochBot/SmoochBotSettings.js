@@ -7,17 +7,7 @@ import SmoochBotIntegrations from './SmoochBotIntegrations';
 import SmoochBotSetting from './SmoochBotSetting';
 
 const SmoochBotSettings = (props) => {
-  // Besides the settings defined in the schema, we add one newsletter template header setting for each language.
-  // This is not defined in the schema on the backend side because it depends on the supported languages and also because it's used only on the UI.
   const fields = props.schema;
-  props.languages.forEach((language) => {
-    fields[`smooch_template_newsletter_header_${language}`] = {
-      type: 'string',
-      title: `${language.toUpperCase()} newsletter header`,
-      description: '',
-      default: 'Hi! Here are your weekly facts. This newsletter is published on {channel} by {teamName}. Here are the most important facts for the week of {date}:',
-    };
-  });
 
   return (
     <React.Fragment>
@@ -95,16 +85,6 @@ const SmoochBotSettings = (props) => {
               />
             ))}
 
-            {Object.keys(fields).filter(f => /^smooch_template_newsletter_header_/.test(f)).map(field => (
-              <SmoochBotSetting
-                field={field}
-                value={props.settings[field]}
-                schema={fields[field]}
-                onChange={props.onChange}
-                currentUser={props.currentUser}
-              />
-            ))}
-
             {Object.keys(fields).filter(f => /^smooch_template_name_for_/.test(f)).map(field => (
               <SmoochBotSetting
                 field={field}
@@ -136,10 +116,6 @@ const SmoochBotSettings = (props) => {
   );
 };
 
-SmoochBotSettings.defaultProps = {
-  languages: [],
-};
-
 SmoochBotSettings.propTypes = {
   settings: PropTypes.object.isRequired,
   schema: PropTypes.object.isRequired,
@@ -147,7 +123,6 @@ SmoochBotSettings.propTypes = {
   onChange: PropTypes.func.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   installationId: PropTypes.string.isRequired,
-  languages: PropTypes.array,
 };
 
 export default SmoochBotSettings;

@@ -305,6 +305,18 @@ const AddFilterMenu = ({
       ),
     },
     {
+      id: 'add-filter-menu__cluster-published-reports',
+      key: 'cluster_published_reports',
+      icon: <HowToRegIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.publishedBy"
+          defaultMessage="Published by"
+          description="Menu option to enable searching items by report published by"
+        />
+      ),
+    },
+    {
       id: 'add-filter-menu__country',
       key: 'country',
       icon: <PublicIcon />,

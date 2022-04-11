@@ -107,6 +107,7 @@ const SmoochBotNewsletterEditor = ({
   installationId,
   newsletter,
   newsletterInformation,
+  language,
   onChange,
 }) => {
   const classes = useStyles();
@@ -313,7 +314,7 @@ const SmoochBotNewsletterEditor = ({
       </Box>
       <Box>
         <TextField
-          key={Math.random().toString().substring(2, 10)}
+          key={`newsletter-introduction-${installationId}-${language}`}
           label={
             <FormattedMessage
               id="smoochBotNewsletterEditor.introduction"
@@ -323,13 +324,12 @@ const SmoochBotNewsletterEditor = ({
           }
           defaultValue={introduction}
           placeholder={intl.formatMessage(placeholders.smooch_newsletter_introduction)}
-          onBlur={(e) => {
-            setIntroduction(e.target.value);
-            onChange('smooch_newsletter_introduction', e.target.value);
-          }}
+          onBlur={(e) => { onChange('smooch_newsletter_introduction', e.target.value); }}
+          onChange={(e) => { setIntroduction(e.target.value); }}
           variant="outlined"
           rows={3}
           rowsMax={Infinity}
+          error={!introduction}
           multiline
           fullWidth
         />
@@ -473,6 +473,7 @@ SmoochBotNewsletterEditor.defaultProps = {
 SmoochBotNewsletterEditor.propTypes = {
   installationId: PropTypes.string.isRequired,
   newsletter: PropTypes.object.isRequired,
+  language: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   intl: intlShape.isRequired,
   newsletterInformation: PropTypes.object,
