@@ -20,6 +20,7 @@ import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import HowToRegIcon from '@material-ui/icons/HowToReg';
 import ErrorIcon from '@material-ui/icons/Error';
+import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -243,6 +244,12 @@ class SearchFields extends React.Component {
   handleClusterTeamsClick = (teamIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'cluster_teams', teamIds),
+    );
+  }
+
+  handleClusterPublishedReportsClick = (teamIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'cluster_published_reports', teamIds),
     );
   }
 
@@ -661,12 +668,32 @@ class SearchFields extends React.Component {
         />
       ),
       cluster_teams: (
-        <SearchFieldClusterTeams
-          teamSlug={team.slug}
-          selected={this.props.query.cluster_teams}
-          onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
-          onRemove={() => this.handleRemoveField('cluster_teams')}
-        />
+        <FormattedMessage id="search.clusterTeams" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
+          { label => (
+            <SearchFieldClusterTeams
+              label={label}
+              icon={<CorporateFareIcon />}
+              teamSlug={team.slug}
+              selected={this.props.query.cluster_teams}
+              onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
+              onRemove={() => this.handleRemoveField('cluster_teams')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      cluster_published_reports: (
+        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+          { label => (
+            <SearchFieldClusterTeams
+              label={label}
+              icon={<HowToRegIcon />}
+              teamSlug={team.slug}
+              selected={this.props.query.cluster_published_reports}
+              onChange={(newValue) => { this.handleClusterPublishedReportsClick(newValue); }}
+              onRemove={() => this.handleRemoveField('cluster_published_reports')}
+            />
+          )}
+        </FormattedMessage>
       ),
       country: (
         <SearchFieldCountry

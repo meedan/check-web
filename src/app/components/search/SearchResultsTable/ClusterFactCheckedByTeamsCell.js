@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import ValueListCell from './ValueListCell';
 
 export default function ClusterFactCheckedByTeamsCell({ projectMedia }) {
-  const values = projectMedia.cluster.fact_checked_by_team_names;
+  const values = Object.values(projectMedia.cluster.fact_checked_by_team_names);
   return (
     <ValueListCell
       values={values}

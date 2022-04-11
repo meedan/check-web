@@ -57,7 +57,6 @@ const Trends = ({ routeParams }) => (
               'assigned_to',
               'published_by',
               'team_tasks',
-              'range',
               'channels',
               'linked_items_count',
               'suggestions_count',
