@@ -419,7 +419,7 @@ const TrendsItemComponent = ({
                   <Card
                     variant="outlined"
                     className={selectedTeam && selectedTeam.dbid === team.dbid ? classes.selected : null}
-                    onClick={() => { setSelectedTeam(team); }}
+                    onClick={() => { setImportingClaim(null); setSelectedTeam(team); }}
                   >
                     <CardHeader
                       avatar={<Avatar src={team.avatar} />}
