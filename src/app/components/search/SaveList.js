@@ -130,12 +130,12 @@ const SaveList = ({
       defaultQuery = { trends: true, country: true };
       savedQuery = team.get_trends_filters;
     }
-    // Don't show the button if it's a default list
-    if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
-      return null;
-    }
-    // Don't show the button if it's a saved search
-    if (savedQuery && JSON.stringify(query) === JSON.stringify(savedQuery)) {
+    // Don't show the button if it's a saved search or a default list
+    if (savedQuery) {
+      if (JSON.stringify(query) === JSON.stringify(savedQuery)) {
+        return null;
+      }
+    } else if (JSON.stringify(query) === JSON.stringify(defaultQuery)) {
       return null;
     }
   }
