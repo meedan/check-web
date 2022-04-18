@@ -25,7 +25,7 @@ import { ContentColumn } from '../../../styles/js/shared';
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
-const FILIPINO_MODEL = 'mdeberta-v3-filipino';
+const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -283,7 +283,7 @@ const SimilarityComponent = ({
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                           value={FILIPINO_MODEL}
                           control={<Radio />}
-                          label="Filipino mDeBERTa - Specialized in Filipino"
+                          label="Filipino Paraphrase - Specialized in Filipino"
                         />
                       </RadioGroup>
                     </Box>
@@ -310,7 +310,7 @@ const SimilarityComponent = ({
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                           value={FILIPINO_MODEL}
                           control={<Radio />}
-                          label="Filipino mDeBERTa - Specialized in Filipino"
+                          label="Filipino Paraphrase - Specialized in Filipino"
                         />
                       </RadioGroup>
                     </Box>
