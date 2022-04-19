@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
+import { withRouter } from 'react-router';
 import Favicon from 'react-favicon';
 import isEqual from 'lodash.isequal';
 import styled from 'styled-components';
@@ -148,6 +149,23 @@ class HomeComponent extends Component {
 
   componentWillMount() {
     this.setContext();
+  }
+
+  componentDidMount() {
+    const currentRoute = this.props.router.routes[this.props.router.routes.length - 1];
+    this.props.router.setRouteLeaveHook(
+      currentRoute,
+      () => {
+        if (window.inFlightMutationRequests > 0) {
+          return this.props.intl.formatMessage({
+            id: 'home.navAwayDuringRequest',
+            defaultMessage: 'You have pending requests to the server. Do you wish to continue to a new page? Your work will not be saved.',
+            description: 'This is a prompt that appears when a user tries to exit a page before saving their work.',
+          });
+        }
+        return true;
+      },
+    );
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -308,7 +326,7 @@ HomeComponent.contextTypes = {
   store: PropTypes.object,
 };
 
-const ConnectedHomeComponent = withSetFlashMessage(withClientSessionId(HomeComponent));
+const ConnectedHomeComponent = withSetFlashMessage(withClientSessionId(withRouter(injectIntl(HomeComponent))));
 
 const HomeContainer = Relay.createContainer(ConnectedHomeComponent, {
   fragments: {
