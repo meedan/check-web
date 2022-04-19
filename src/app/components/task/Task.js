@@ -1008,9 +1008,9 @@ class Task extends Component {
       task.type === 'file_upload' &&
       responseObj &&
       responseObj.file_data &&
-      responseObj.file_data.length
+      responseObj.file_data.file_urls.length
     ) {
-      [fileUploadPath] = responseObj.file_data;
+      [fileUploadPath] = responseObj.file_data.file_urls;
     }
     return (
       <StyledWordBreakDiv className="task__resolved">
