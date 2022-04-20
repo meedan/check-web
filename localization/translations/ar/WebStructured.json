@@ -282,6 +282,10 @@
 		"string": "نطاق التاريخ",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
+	"addFilterMenu.tiplineRequest": {
+		"string": "Tipline request",
+		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
+	},
 	"addFilterMenu.tiplineRequests": {
 		"string": "عدد طلبات الخط الساخن",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
@@ -566,9 +570,6 @@
 	"browserSupport.message": {
 		"string": "يعمل {appName} بأفضل صورة على متصفح كروم نسخة سطح المكتب.  "
 	},
-	"bulkActions.confirm": {
-		"string": "النقل من غير المؤكد"
-	},
 	"bulkActions.dialogMoveTitle": {
 		"string": "{mediasCount, plural, zero {لا حاجة إلى نقل أي عنصر} one {يلزمك نقل عنصر واحد إلى مجلد آخر} two {يلزمك نقل عنصرين إلى مجلد آخر} few {يلزمك نقل # عناصر إلى مجلد آخر} many {يلزمك نقل # عنصرا إلى مجلد آخر} other {يلزمك نقل # عنصر إلى مجلد آخر}}"
 	},
@@ -578,10 +579,6 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "تم إرسال العناصر إلى سلة المهملات."
-	},
-	"bulkActions.movedConfirmSuccessfully": {
-		"string": "تم نقل العناصر من غير المؤكد إلى '{toProject}'",
-		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "تم نقل العناصر من سلة المهملات إلى '{toProject}'",
@@ -599,9 +596,6 @@
 	},
 	"bulkActions.trash": {
 		"string": "استعادة العناصر المحددة ونقلها إلى مجلد آخر"
-	},
-	"bulkActions.unconfirmed": {
-		"string": "يرجى تأكيد تحديد العناصر ونقلها إلى مجلد آخر"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "إضافة ملاحظة لتنبيه البريد الإلكتروني",
@@ -711,7 +705,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
-		"string": "أنت تحاول إدخال بيانات موجودة من قبل.",
+		"string": "إنك بصدد محاولة إدخال بيانات موجودة من قبل.",
 		"developer_comment": "This is a message that displays in an error popup if the client tries to create an item but the database already has a record of it."
 	},
 	"check.error.id_not_found": {
@@ -719,15 +713,15 @@
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an identifying number that was not found in the database."
 	},
 	"check.error.invalid_value": {
-		"string": "تم ارسال قيمة غير صالحة إلى الموقع.",
+		"string": "لقد تم إرسال قيمة غير صالحة إلى الموقع.",
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an invalid value of some kind, such as a malformed email address."
 	},
 	"check.error.missing_object": {
-		"string": "An object is missing in the database.",
+		"string": "إن مادة مطلوبة غير موجودة في قاعدة البيانات.",
 		"developer_comment": "This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
 	},
 	"check.error.missing_parameters": {
-		"string": "هناك أجزاء مفقودة في الطلب الذى تم ارساله.",
+		"string": "هناك أجزاء مفقودة في الطلب الذى تم إرساله.",
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server that was missing URL parameters."
 	},
 	"check.error.published": {
@@ -735,11 +729,11 @@
 		"developer_comment": "This is a message that displays in an error popup if the user manages to ask the server to change the status on an item that has already been published."
 	},
 	"check.error.two_factor_auth": {
-		"string": "أنت بحاجة إلى تسجيل الدخول باستخدام المصادقة الثنائية.",
+		"string": "إنك بحاجة إلى تسجيل الدخول باستخدام المصادقة الثنائية.",
 		"developer_comment": "This is a message that displays in an error popup if the client tries to access the application, but they are not yet authenticated by two factor authentication."
 	},
 	"check.error.unauthorized": {
-		"string": "غير مسموح لك بمشاهدة هذا المحتوى. إذا كنت تريد الحصول على تصريح فيرجى التواصل مع مدير مساحة العمل.",
+		"string": "إنه غير مسموح لك بمشاهدة هذا المحتوى. إذا رغبت بالحصول على تصريح، فيرجى التواصل مع المسؤول عن مساحة العمل.",
 		"developer_comment": "This is a message that displays in an error popup if the user tries to access data that they do not have permission to access."
 	},
 	"check.error.unknown": {
@@ -751,16 +745,24 @@
 		"developer_comment": "This is a message that displays in an error popup if the server sends it some kind of non-critical warning message (user is approaching their API call limit, for example)."
 	},
 	"check.helpers.intercom_help": {
-		"string": "Click the 'send' arrow to the right to send the report.",
+		"string": "‫يُرجى الضغط على السهم « إرسال » على اليمين لإرسال التقرير.",
 		"developer_comment": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
 	},
 	"check.helpers.more_info": {
-		"string": "More info…",
+		"string": "المزيد من المعلومات...‏",
 		"developer_comment": "This is a label on a button that users press in order to get more info related to an error message."
 	},
 	"check.helpers.report_issue": {
 		"string": "الإبلاغ عن مشكلة",
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+	},
+	"check.tasks.contact_support": {
+		"string": "Contact support",
+		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
+	},
+	"check.tasks.discontinued_tasks_warning": {
+		"string": "Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "‫+{number} أيضا",
@@ -1931,7 +1933,7 @@
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
 	},
 	"metadata.uploadProgressLabel": {
-		"string": "جار حفظ {file}...",
+		"string": "يجري حفظ {file}...‏",
 		"developer_comment": "This is a label that appears while a file upload is ongoing."
 	},
 	"metadata.url.helperText": {
@@ -2157,9 +2159,6 @@
 	"projectHeader.trends": {
 		"string": "قاعدة البيانات المشتركة"
 	},
-	"projectHeader.unconfirmed": {
-		"string": "غير مؤكد"
-	},
 	"projectMoveDialogComponent.choose": {
 		"string": "اختيار مجموعة"
 	},
@@ -2201,9 +2200,6 @@
 	},
 	"projects.trash": {
 		"string": "سلة المهملات"
-	},
-	"projects.unconfirmed": {
-		"string": "غير مؤكد"
 	},
 	"projectsComponent.allItems": {
 		"string": "كل العناصر"
@@ -2722,6 +2718,10 @@
 		"string": "تفعيل التصفية",
 		"developer_comment": "Button to perform query with specified filters"
 	},
+	"search.archived": {
+		"string": "Tipline request is",
+		"developer_comment": "Prefix label for field to filter by Tipline request"
+	},
 	"search.assignedTo": {
 		"string": "مُخصَّص لـ",
 		"developer_comment": "Prefix label for field to filter by assigned users"
@@ -2742,9 +2742,17 @@
 		"string": "حقل الادعاء هو",
 		"developer_comment": "Prefix label for field to filter by claim"
 	},
+	"search.clusterTeams": {
+		"string": "المنظمة هي",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"search.collection": {
 		"string": "المجموعة هي",
 		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"search.confirmed": {
+		"string": "Confirmed",
+		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "تاريخ نشر المادة الإعلامية"
@@ -2837,7 +2845,7 @@
 		"string": "الصفحة السابقة"
 	},
 	"search.publishedBy": {
-		"string": "تم نشر التقرير بواسطة",
+		"string": "لقد تم نشر التقرير بواسطة",
 		"developer_comment": "Prefix label for field to filter by published by"
 	},
 	"search.read": {
@@ -2915,6 +2923,10 @@
 	"search.statusHeading": {
 		"string": "حالة العنصر هي",
 		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.unconfirmed": {
+		"string": "غير مؤكد",
+		"developer_comment": "Allow filtering by unconfirmed items"
 	},
 	"search.userHeading": {
 		"string": "تم الإنشاء بواسطة",
@@ -3350,7 +3362,10 @@
 		"string": "يُرجى كتابة رسالتك الإخبارية. يمكنك إضافة محتوى من موجز RSS بالأسفل."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "يٌرجى الكتابة هنا لإضافة محتوى ما"
+		"string": "Add an article"
+	},
+	"smoochBot.placeholderNewsletterIntroduction": {
+		"string": "يُرجى كتابة شيء هنا"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖أنا آسف، لم أفهم رسالتك. يرجى المحاولة ثانية!"
@@ -3641,6 +3656,18 @@
 	"smoochBotIntegrations.account": {
 		"string": "الحساب المتصل : {link}"
 	},
+	"smoochBotIntegrations.copied": {
+		"string": "‏‏تم النسخ",
+		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
+	},
+	"smoochBotIntegrations.entryPointDescription": {
+		"string": "Use this address anywhere online to open WhatsApp and start a tipline conversation:",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
+	"smoochBotIntegrations.entryPointTitle": {
+		"string": "Entry point",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "شارة الوصول لقناة LINE"
 	},
@@ -3657,11 +3684,11 @@
 		"string": "رقم الهاتف المتصل: {link}"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
-		"string": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it.",
+		"string": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation.",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.qrCodeTitle": {
-		"string": "Quickstart QR code",
+		"string": "QR code",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
@@ -3684,6 +3711,10 @@
 		"string": "اللغات والخصوصية",
 		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
+	"smoochBotMainMenu.learnMore": {
+		"string": "التعرف على المزيد",
+		"developer_comment": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
+	},
 	"smoochBotMainMenu.mainMenu": {
 		"string": "القائمة الرئيسة",
 		"developer_comment": "Title of the tipline bot main menu settings page."
@@ -3697,8 +3728,12 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "القائمة الخاصة بالبوت التي تطلب من المستخدم تحديد اختياره من بين مجموعة من الخيارات. القسم الثاني اختياري. يُرجى الانتباه إلى أن الحد الأقصى لخيارات القائمة على تطبيق واتساب هو 10 خيارات في كل الأقسام.",
+		"string": "The menu of your bot, asking the user to choose between a set of options.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
+	},
+	"smoochBotMainMenu.subtitle2": {
+		"string": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}.",
+		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
 		"string": "إلغاء",
@@ -3749,7 +3784,7 @@
 		"developer_comment": "Button label to cancel adding a new tipline menu option"
 	},
 	"smoochBotMainMenuOption.description": {
-		"string": "الوصف - بحد أقصى 72 حرفا",
+		"string": "الوصف - أقصى حد هو  72 حرفا",
 		"developer_comment": "Description field label on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuOption.label": {
@@ -3791,6 +3826,10 @@
 	"smoochBotMainMenuOption.subscriptionState": {
 		"string": "تسجيل الاشتراك",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuSection.defaultSectionTitle": {
+		"string": "Menu options",
+		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.editOption": {
 		"string": "تحرير",
@@ -3867,6 +3906,14 @@
 	"smoochBotNewsletterEditor.active": {
 		"string": "سيتم إرسال الرسالة الإخبارية إلى {count} مستخدم في {date}، {time}"
 	},
+	"smoochBotNewsletterEditor.addArticle": {
+		"string": "Add article",
+		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
+	},
+	"smoochBotNewsletterEditor.charsCounter": {
+		"string": "{count}/{max} characters available",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
 	"smoochBotNewsletterEditor.day": {
 		"string": "اليوم الأسبوعي"
 	},
@@ -3876,12 +3923,28 @@
 	"smoochBotNewsletterEditor.everyday": {
 		"string": "في يوم"
 	},
-	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. تحديد يوم وساعة معينة في الأسبوع",
-		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	"smoochBotNewsletterEditor.firstStepDescription": {
+		"string": "Send the newsletter to all subscribed user every:",
+		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
+	},
+	"smoochBotNewsletterEditor.firstStepTitle": {
+		"string": "Schedule",
+		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "الجمعة"
+	},
+	"smoochBotNewsletterEditor.introPlaceholder1": {
+		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introPlaceholder2": {
+		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introduction": {
+		"string": "المقدمة",
+		"developer_comment": "Tipline newsletter introduction field label"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "تحميل"
@@ -3895,9 +3958,6 @@
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "عدد المقالات المطلوبة"
 	},
-	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "عدد العناوين الإخبارية"
-	},
 	"smoochBotNewsletterEditor.paused": {
 		"string": "يُرجى إضافة محتوى جديد، لكي يتم إرسال رسالتك الإخبارية اللاحقة"
 	},
@@ -3908,15 +3968,12 @@
 		"string": "السبت"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. إضافة المحتوى يدويا أو من خلال موجز RSS.",
-		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+		"string": "المحتوى",
+		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "إذا جاء وقت إرسال الرسالة، ولم يتم تغيير المحتوى المُرسَل في الرسالة السابقة، فلن يتم إرسالها."
-	},
-	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "إرسال في يوم",
-		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+		"string": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent.",
+		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "الأحد"
@@ -3931,11 +3988,8 @@
 		"string": "المنطقة الزمنية",
 		"developer_comment": "Label for time zone selection"
 	},
-	"smoochBotNewsletterEditor.title": {
-		"string": "كتابة الرسالة الإخبارية"
-	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "تحديث المحتوى تلقائيا باستخدام موجز RSS"
+		"string": "Load content from RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "الثلاثاء"
@@ -4234,7 +4288,7 @@
 		"string": "تحرير اﻹجابة"
 	},
 	"task.uploadWarningBody": {
-		"string": "Navigating away from this page may cause the interruption of the file upload.",
+		"string": "إن التوجه إلى صفحة أخرى غير هذه الصفحة قد يؤدي إلى إيقاف رفع الملف.",
 		"developer_comment": "Warning to prevent user from navigating away while upload is running"
 	},
 	"task.uploadWarningTitle": {
@@ -4310,7 +4364,7 @@
 		"developer_comment": "Label for field type selection box"
 	},
 	"tasks.confirmLeave": {
-		"string": "أنت تقوم حاليا بتحرير تعليقات. هل تود التوجه إلى صفحة جديدة؟ لن يتم حفظ عملك.",
+		"string": "إنك حاليا بصدد تحرير التعليقات. هل لديك الرغبة بالتوجه إلى صفحة جديدة؟ لن يتم حفظ عملك.",
 		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
 	},
 	"tasks.confirmLeaveTitle": {
@@ -5089,7 +5143,7 @@
 		"string": "تعليقات تمت بالفعل"
 	},
 	"trendsItem.couldNotImport": {
-		"string": "We could not import the claim because the media associated with this claim already exist in this workspace"
+		"string": "لا يمكن استيراد الادعاء لأن المواد الإعلامية المرتبطة بهذا الادعاء موجودة بالفعل في مساحة العمل هذه."
 	},
 	"trendsItem.factCheck": {
 		"string": "تقصي الحقائق"

@@ -215,7 +215,7 @@ const TrendsItemComponent = ({
   });
   const teamsWithoutClaims = allTeams.filter(t => !cluster.claim_descriptions.edges.find(cd => cd.node.project_media.team.dbid === t.dbid));
 
-  const [selectedItemDbid, setSelectedItemDbid] = React.useState(medias.length > 0 ? medias[0].dbid : null);
+  const [selectedItemDbid, setSelectedItemDbid] = React.useState(null);
   const [expandedMedia, setExpandedMedia] = React.useState(null);
   const [sortBy, setSortBy] = React.useState('mostRequests');
   const [importingClaimDescription, setImportingClaimDescription] = React.useState('');
@@ -224,7 +224,10 @@ const TrendsItemComponent = ({
   const [isImporting, setIsImporting] = React.useState(false);
   const [importingOptions, setImportingOptions] = React.useState({ factCheck: true, annotations: true, tags: true });
 
-  const selectedItem = medias.find(m => m.dbid === selectedItemDbid) || medias[0];
+  let selectedItem = medias.find(m => m.dbid === selectedItemDbid);
+  if (!selectedItem) {
+    selectedItem = medias.find(m => m.team.dbid === selectedTeam?.dbid);
+  }
 
   const sortOptions = {
     mostRequests: (a, b) => (b.demand - a.demand),
@@ -240,6 +243,13 @@ const TrendsItemComponent = ({
 
   const handleChange = (e) => {
     setSortBy(e.target.value);
+  };
+
+  const handleClose = () => {
+    setImportingClaim(null);
+    setImportingClaimDescription(null);
+    setSelectedTeam(null);
+    setSelectedItemDbid(null);
   };
 
   const handleError = () => {
@@ -261,17 +271,17 @@ const TrendsItemComponent = ({
       team_id: selectedImportingTeam,
       set_claim_description: importingClaimDescription || importingClaim?.description,
     };
-    if (importingOptions.factCheck && importingClaim.fact_check) {
+    if (importingOptions.factCheck && importingClaim?.fact_check) {
       input.set_fact_check = JSON.stringify({ title: importingClaim.fact_check.title, summary: importingClaim.fact_check.summary });
     }
-    if (importingOptions.annotations) {
+    if (importingOptions.annotations && importingClaim) {
       const tasks = {};
       importingClaim.project_media.tasks.edges.forEach((task) => {
         tasks[task.node.slug] = task.node.first_response_value;
       });
       input.set_tasks_responses = JSON.stringify(tasks);
     }
-    if (importingOptions.tags) {
+    if (importingOptions.tags && importingClaim) {
       input.set_tags = JSON.stringify(importingClaim.project_media.tags.edges.map(t => t.node.tag_text));
     }
 
@@ -316,7 +326,7 @@ const TrendsItemComponent = ({
     const description = item?.media?.metadata?.description || item.description;
     return (
       <Card
-        className={classes.cardMain}
+        className={selectedItem && selectedItem.id === item.id ? [classes.cardMain, classes.selected].join(' ') : classes.cardMain}
         onClick={() => { handleClick(item); }}
       >
         {
@@ -346,7 +356,7 @@ const TrendsItemComponent = ({
       <Card
         variant="outlined"
         className={importingClaim && claimDescription.id === importingClaim.id ? classes.selected : null}
-        onClick={() => { setImportingClaim(claimDescription); setSelectedTeam(claimDescription?.project_media?.team); }}
+        onClick={() => { setImportingClaim(claimDescription); setSelectedTeam(claimDescription?.project_media?.team); setSelectedItemDbid(null); }}
       >
         {content}
       </Card>
@@ -368,7 +378,7 @@ const TrendsItemComponent = ({
               <Typography className={classes.columnTitle}>
                 <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claims" />
               </Typography>
-              <IconButton onClick={() => { setImportingClaim(null); setImportingClaimDescription(null); setSelectedTeam(null); }} disabled={!importingClaim && !selectedTeam}>
+              <IconButton onClick={handleClose}>
                 <CloseIcon />
               </IconButton>
             </Box>
@@ -419,7 +429,7 @@ const TrendsItemComponent = ({
                   <Card
                     variant="outlined"
                     className={selectedTeam && selectedTeam.dbid === team.dbid ? classes.selected : null}
-                    onClick={() => { setSelectedTeam(team); }}
+                    onClick={() => { setImportingClaim(null); setSelectedTeam(team); setSelectedItemDbid(null); }}
                   >
                     <CardHeader
                       avatar={<Avatar src={team.avatar} />}
@@ -518,7 +528,7 @@ const TrendsItemComponent = ({
         <Box className={['media__column', classes.mediaColumn].join(' ')}>
           <Column>
             <Box display="flex" justifyContent="flex-end">
-              <Button color="primary" variant="contained" startIcon={<SystemUpdateAltOutlinedIcon />} onClick={() => { setShowImportClaimDialog(true); }} disabled={!importingClaim || !selectedItem}>
+              <Button color="primary" variant="contained" startIcon={<SystemUpdateAltOutlinedIcon />} onClick={() => { setShowImportClaimDialog(true); }} disabled={!selectedItem}>
                 <FormattedMessage id="trendItem.import" defaultMessage="Import" />
               </Button>
             </Box>

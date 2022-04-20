@@ -25,6 +25,7 @@ import { ContentColumn } from '../../../styles/js/shared';
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
+const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -51,7 +52,8 @@ const SimilarityComponent = ({
   const [settings, setSettings] = React.useState(alegre_settings);
   const [vectorModelToggle, setVectorModelToggle] = React.useState((
     alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
-    alegre_settings.text_similarity_model === INDIAN_MODEL
+    alegre_settings.text_similarity_model === INDIAN_MODEL ||
+    alegre_settings.text_similarity_model === FILIPINO_MODEL
   ));
 
   const handleSettingsChange = (key, value) => {
@@ -259,6 +261,34 @@ const SimilarityComponent = ({
                       explainer="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
                     />
                     <Box ml={7} mb={2}>
+                      <p><strong>Indexing model to use</strong></p>
+                      <RadioGroup
+                        name="indexing-vector-model"
+                        value={settings.alegre_model_in_use}
+                        onChange={e => handleSettingsChange('alegre_model_in_use', e.target.value)}
+                      >
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={MEAN_TOKENS_MODEL}
+                          control={<Radio />}
+                          label="Means tokens - Covers all languages"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={INDIAN_MODEL}
+                          control={<Radio />}
+                          label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={FILIPINO_MODEL}
+                          control={<Radio />}
+                          label="Filipino Paraphrase - Specialized in Filipino"
+                        />
+                      </RadioGroup>
+                    </Box>
+                    <Box ml={7} mb={2}>
+                      <p><strong>Matching model to use</strong></p>
                       <RadioGroup
                         name="vector-model"
                         value={settings.text_similarity_model}
@@ -266,15 +296,21 @@ const SimilarityComponent = ({
                       >
                         <FormControlLabel
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value="xlm-r-bert-base-nli-stsb-mean-tokens"
+                          value={MEAN_TOKENS_MODEL}
                           control={<Radio />}
                           label="Means tokens - Covers all languages"
                         />
                         <FormControlLabel
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value="indian-sbert"
+                          value={INDIAN_MODEL}
                           control={<Radio />}
                           label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={FILIPINO_MODEL}
+                          control={<Radio />}
+                          label="Filipino Paraphrase - Specialized in Filipino"
                         />
                       </RadioGroup>
                     </Box>

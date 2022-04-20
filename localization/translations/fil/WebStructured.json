@@ -282,6 +282,10 @@
 		"string": "Date range",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
+	"addFilterMenu.tiplineRequest": {
+		"string": "Tipline request",
+		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
+	},
 	"addFilterMenu.tiplineRequests": {
 		"string": "Number of tipline requests",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
@@ -566,9 +570,6 @@
 	"browserSupport.message": {
 		"string": "Naka-optimize ang {appName} para sa Google Chrome sa desktop."
 	},
-	"bulkActions.confirm": {
-		"string": "Move from Unconfirmed"
-	},
 	"bulkActions.dialogMoveTitle": {
 		"string": "{mediasCount, plural, one {You need to move 1 item to another folder} other {You need to move # items to another folder}}"
 	},
@@ -578,10 +579,6 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Items moved to the Trash."
-	},
-	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Items moved from Unconfirmed to '{toProject}'",
-		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Items moved from Trash to '{toProject}'",
@@ -599,9 +596,6 @@
 	},
 	"bulkActions.trash": {
 		"string": "Restore selected items and move items to another folder"
-	},
-	"bulkActions.unconfirmed": {
-		"string": "Confirm selected items and move items to another folder"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Add a note to email notification",
@@ -761,6 +755,14 @@
 	"check.helpers.report_issue": {
 		"string": "Report issue",
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+	},
+	"check.tasks.contact_support": {
+		"string": "Contact support",
+		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
+	},
+	"check.tasks.discontinued_tasks_warning": {
+		"string": "Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number} more",
@@ -2157,9 +2159,6 @@
 	"projectHeader.trends": {
 		"string": "Shared database"
 	},
-	"projectHeader.unconfirmed": {
-		"string": "Hindi kumpirmado"
-	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Choose a collection"
 	},
@@ -2201,9 +2200,6 @@
 	},
 	"projects.trash": {
 		"string": "Basurahan"
-	},
-	"projects.unconfirmed": {
-		"string": "Hindi kumpirmado"
 	},
 	"projectsComponent.allItems": {
 		"string": "Lahat ng mga item"
@@ -2722,6 +2718,10 @@
 		"string": "Apply filter",
 		"developer_comment": "Button to perform query with specified filters"
 	},
+	"search.archived": {
+		"string": "Tipline request is",
+		"developer_comment": "Prefix label for field to filter by Tipline request"
+	},
 	"search.assignedTo": {
 		"string": "Itinalaga kay",
 		"developer_comment": "Prefix label for field to filter by assigned users"
@@ -2742,9 +2742,17 @@
 		"string": "Claim field is",
 		"developer_comment": "Prefix label for field to filter by claim"
 	},
+	"search.clusterTeams": {
+		"string": "Organization is",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"search.collection": {
 		"string": "Collection is",
 		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"search.confirmed": {
+		"string": "Confirmed",
+		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Nailathala ang media"
@@ -2915,6 +2923,10 @@
 	"search.statusHeading": {
 		"string": "Ang status ng item ay",
 		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.unconfirmed": {
+		"string": "Hindi kumpirmado",
+		"developer_comment": "Allow filtering by unconfirmed items"
 	},
 	"search.userHeading": {
 		"string": "Ginawa ni",
@@ -3350,7 +3362,10 @@
 		"string": "Type to compose your newsletter. You can add content from the RSS below."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Type in to add content"
+		"string": "Add an article"
+	},
+	"smoochBot.placeholderNewsletterIntroduction": {
+		"string": "Type something"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Paumanhin, hindi ko naintindihan ang iyong mensahe. Mangyaring sumubok muli!"
@@ -3641,6 +3656,18 @@
 	"smoochBotIntegrations.account": {
 		"string": "Connected account: {link}"
 	},
+	"smoochBotIntegrations.copied": {
+		"string": "Kinopya",
+		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
+	},
+	"smoochBotIntegrations.entryPointDescription": {
+		"string": "Use this address anywhere online to open WhatsApp and start a tipline conversation:",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
+	"smoochBotIntegrations.entryPointTitle": {
+		"string": "Entry point",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "LINE channel access token"
 	},
@@ -3657,11 +3684,11 @@
 		"string": "Connected phone number: {link}"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
-		"string": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it.",
+		"string": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation.",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.qrCodeTitle": {
-		"string": "Quickstart QR code",
+		"string": "QR code",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
@@ -3684,6 +3711,10 @@
 		"string": "Languages and Privacy",
 		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
+	"smoochBotMainMenu.learnMore": {
+		"string": "Learn more",
+		"developer_comment": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
+	},
 	"smoochBotMainMenu.mainMenu": {
 		"string": "Pangunahing talaan",
 		"developer_comment": "Title of the tipline bot main menu settings page."
@@ -3697,8 +3728,12 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "The menu of your bot, asking the user to choose between a set of options. The second section is optional. Please note that on WhatsApp you can have at maximum 10 menu options across all sections.",
+		"string": "The menu of your bot, asking the user to choose between a set of options.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
+	},
+	"smoochBotMainMenu.subtitle2": {
+		"string": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}.",
+		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
 		"string": "Kanselahin",
@@ -3792,6 +3827,10 @@
 		"string": "Subscription opt-in",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
+	"smoochBotMainMenuSection.defaultSectionTitle": {
+		"string": "Menu options",
+		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
+	},
 	"smoochBotMainMenuSection.editOption": {
 		"string": "I-edit",
 		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
@@ -3867,6 +3906,14 @@
 	"smoochBotNewsletterEditor.active": {
 		"string": "The newsletter will be sent to {count} users on {date}, {time}"
 	},
+	"smoochBotNewsletterEditor.addArticle": {
+		"string": "Add article",
+		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
+	},
+	"smoochBotNewsletterEditor.charsCounter": {
+		"string": "{count}/{max} characters available",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
 	"smoochBotNewsletterEditor.day": {
 		"string": "Day of week"
 	},
@@ -3876,12 +3923,28 @@
 	"smoochBotNewsletterEditor.everyday": {
 		"string": "Day"
 	},
-	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. Select a day and time of the week",
-		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	"smoochBotNewsletterEditor.firstStepDescription": {
+		"string": "Send the newsletter to all subscribed user every:",
+		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
+	},
+	"smoochBotNewsletterEditor.firstStepTitle": {
+		"string": "Schedule",
+		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "Friday"
+	},
+	"smoochBotNewsletterEditor.introPlaceholder1": {
+		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introPlaceholder2": {
+		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introduction": {
+		"string": "Panimula",
+		"developer_comment": "Tipline newsletter introduction field label"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "I-load"
@@ -3895,9 +3958,6 @@
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Bilang ng mga artikulong ibabalik"
 	},
-	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "Number of bullet points"
-	},
 	"smoochBotNewsletterEditor.paused": {
 		"string": "To send your next newsletter, please add new content"
 	},
@@ -3908,15 +3968,12 @@
 		"string": "Saturday"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. Add content manually, or via RSS Feed.",
-		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+		"string": "Nilalaman",
+		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "If the content is not changed between two scheduled sendouts, it will not be sent."
-	},
-	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Send every",
-		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+		"string": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent.",
+		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Sunday"
@@ -3931,11 +3988,8 @@
 		"string": "Time zone",
 		"developer_comment": "Label for time zone selection"
 	},
-	"smoochBotNewsletterEditor.title": {
-		"string": "Compose your newsletter"
-	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Automatically update content using an RSS feed"
+		"string": "Load content from RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "Tuesday"

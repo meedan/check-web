@@ -1,6 +1,6 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import { browserHistory, withRouter } from 'react-router';
+import { browserHistory } from 'react-router';
 import {
   Box,
   Typography,
@@ -356,4 +356,4 @@ const Tasks = ({
   return output;
 };
 
-export default withSetFlashMessage(withRouter(injectIntl(Tasks)));
+export default withSetFlashMessage(injectIntl(Tasks));

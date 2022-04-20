@@ -282,6 +282,10 @@
 		"string": "Plage de dates",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
+	"addFilterMenu.tiplineRequest": {
+		"string": "Tipline request",
+		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
+	},
 	"addFilterMenu.tiplineRequests": {
 		"string": "Nombre de demandes Tipline",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
@@ -566,9 +570,6 @@
 	"browserSupport.message": {
 		"string": "{appName} est optimisée pour Chrome pour ordinateur de Google."
 	},
-	"bulkActions.confirm": {
-		"string": "Déplacer de Non confirmés"
-	},
 	"bulkActions.dialogMoveTitle": {
 		"string": "{mediasCount, plural, one {Vous devez déplacer un élément vers un autre dossier} other {Vous devez déplacer # éléments vers un autre dossier}}"
 	},
@@ -578,10 +579,6 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Les éléments ont été déplacés vers la corbeille."
-	},
-	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Les éléments ont été déplacés de Non confirmés vers « {toProject} »",
-		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Les éléments ont été déplacés de la corbeille vers « {toProject} »",
@@ -599,9 +596,6 @@
 	},
 	"bulkActions.trash": {
 		"string": "Restaurer les éléments sélectionnés et déplacer les éléments vers un autre dossier"
-	},
-	"bulkActions.unconfirmed": {
-		"string": "Confirmer les éléments sélectionnés et déplacer les éléments vers un autre dossier"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Ajouter une note à la notification par courriel",
@@ -723,7 +717,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an invalid value of some kind, such as a malformed email address."
 	},
 	"check.error.missing_object": {
-		"string": "An object is missing in the database.",
+		"string": "Il manque un objet dans la base de données.",
 		"developer_comment": "This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
 	},
 	"check.error.missing_parameters": {
@@ -751,16 +745,24 @@
 		"developer_comment": "This is a message that displays in an error popup if the server sends it some kind of non-critical warning message (user is approaching their API call limit, for example)."
 	},
 	"check.helpers.intercom_help": {
-		"string": "Click the 'send' arrow to the right to send the report.",
+		"string": "Pour envoyer le rapport, cliquer sur la flèche d’envoi située à droite.",
 		"developer_comment": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
 	},
 	"check.helpers.more_info": {
-		"string": "More info…",
+		"string": "Plus de précisions…",
 		"developer_comment": "This is a label on a button that users press in order to get more info related to an error message."
 	},
 	"check.helpers.report_issue": {
 		"string": "Signaler le problème",
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+	},
+	"check.tasks.contact_support": {
+		"string": "Contact support",
+		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
+	},
+	"check.tasks.discontinued_tasks_warning": {
+		"string": "Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number} de plus",
@@ -2157,9 +2159,6 @@
 	"projectHeader.trends": {
 		"string": "Base de données partagée"
 	},
-	"projectHeader.unconfirmed": {
-		"string": "Non confirmés"
-	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Choisissez une collection"
 	},
@@ -2201,9 +2200,6 @@
 	},
 	"projects.trash": {
 		"string": "Corbeille"
-	},
-	"projects.unconfirmed": {
-		"string": "Non confirmés"
 	},
 	"projectsComponent.allItems": {
 		"string": "Tous les éléments"
@@ -2722,6 +2718,10 @@
 		"string": "Appliquer le filtre",
 		"developer_comment": "Button to perform query with specified filters"
 	},
+	"search.archived": {
+		"string": "Tipline request is",
+		"developer_comment": "Prefix label for field to filter by Tipline request"
+	},
 	"search.assignedTo": {
 		"string": "Attribué à",
 		"developer_comment": "Prefix label for field to filter by assigned users"
@@ -2742,9 +2742,17 @@
 		"string": "Le champ d’affirmation est",
 		"developer_comment": "Prefix label for field to filter by claim"
 	},
+	"search.clusterTeams": {
+		"string": "L’organisme est",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"search.collection": {
 		"string": "La collection est",
 		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"search.confirmed": {
+		"string": "Confirmed",
+		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Médias publiés"
@@ -2915,6 +2923,10 @@
 	"search.statusHeading": {
 		"string": "Le état de l’élément est",
 		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.unconfirmed": {
+		"string": "Non confirmés",
+		"developer_comment": "Allow filtering by unconfirmed items"
 	},
 	"search.userHeading": {
 		"string": "Créé par",
@@ -3350,7 +3362,10 @@
 		"string": "Tapez pour rédiger votre lettre d’information. Vous pouvez ajouter du contenu du RSS ci-dessous."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Tapez pour ajouter du contenu"
+		"string": "Add an article"
+	},
+	"smoochBot.placeholderNewsletterIntroduction": {
+		"string": "Tapez quelque chose"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Je suis désolé, je n’ai pas compris votre message. Veuillez réessayer."
@@ -3641,6 +3656,18 @@
 	"smoochBotIntegrations.account": {
 		"string": "Compte connecté : {link}"
 	},
+	"smoochBotIntegrations.copied": {
+		"string": "Copié",
+		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
+	},
+	"smoochBotIntegrations.entryPointDescription": {
+		"string": "Use this address anywhere online to open WhatsApp and start a tipline conversation:",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
+	"smoochBotIntegrations.entryPointTitle": {
+		"string": "Entry point",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "Jeton d’accès du canal LINE"
 	},
@@ -3657,11 +3684,11 @@
 		"string": "Numéro de téléphone connecté : {link}"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
-		"string": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it.",
+		"string": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation.",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.qrCodeTitle": {
-		"string": "Quickstart QR code",
+		"string": "QR code",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
@@ -3684,6 +3711,10 @@
 		"string": "Langues et confidentialité",
 		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
+	"smoochBotMainMenu.learnMore": {
+		"string": "En apprendre davantage",
+		"developer_comment": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
+	},
 	"smoochBotMainMenu.mainMenu": {
 		"string": "Menu principal",
 		"developer_comment": "Title of the tipline bot main menu settings page."
@@ -3697,8 +3728,12 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "Le menu de votre robot, pour demander à l’utilisateur de choisir parmi un ensemble d’options. La seconde section est facultative. Veuillez noter que sur WhatsApp, vous ne pouvez avoir plus de dix options de menu, toutes sections confondues.",
+		"string": "The menu of your bot, asking the user to choose between a set of options.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
+	},
+	"smoochBotMainMenu.subtitle2": {
+		"string": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}.",
+		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
 		"string": "Annuler",
@@ -3792,6 +3827,10 @@
 		"string": "Adhésion",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
+	"smoochBotMainMenuSection.defaultSectionTitle": {
+		"string": "Menu options",
+		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
+	},
 	"smoochBotMainMenuSection.editOption": {
 		"string": "Modifier",
 		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
@@ -3867,6 +3906,14 @@
 	"smoochBotNewsletterEditor.active": {
 		"string": "La lettre d’information sera envoyée à {count} utilisateurs le {date} à {time}"
 	},
+	"smoochBotNewsletterEditor.addArticle": {
+		"string": "Add article",
+		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
+	},
+	"smoochBotNewsletterEditor.charsCounter": {
+		"string": "{count}/{max} characters available",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
 	"smoochBotNewsletterEditor.day": {
 		"string": "Jour de la semaine"
 	},
@@ -3876,12 +3923,28 @@
 	"smoochBotNewsletterEditor.everyday": {
 		"string": "Jour"
 	},
-	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. Sélectionnez un jour et une heure de la semaine",
-		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	"smoochBotNewsletterEditor.firstStepDescription": {
+		"string": "Send the newsletter to all subscribed user every:",
+		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
+	},
+	"smoochBotNewsletterEditor.firstStepTitle": {
+		"string": "Schedule",
+		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "Vendredi"
+	},
+	"smoochBotNewsletterEditor.introPlaceholder1": {
+		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introPlaceholder2": {
+		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introduction": {
+		"string": "Introduction",
+		"developer_comment": "Tipline newsletter introduction field label"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "Charger"
@@ -3895,9 +3958,6 @@
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Nombre d’articles à retourner"
 	},
-	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "Nombre de points"
-	},
 	"smoochBotNewsletterEditor.paused": {
 		"string": "Pour envoyer votre prochaine lettre d’information, veuillez ajouter du nouveau contenu"
 	},
@@ -3908,15 +3968,12 @@
 		"string": "Samedi"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. Ajoutez du contenu manuellement ou d’un fil RSS.",
-		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+		"string": "Contenu",
+		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "Si le contenu ne change pas entre deux envois planifiés, il n’y aura pas d’envoi."
-	},
-	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Envoyer le",
-		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+		"string": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent.",
+		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Dimanche"
@@ -3931,11 +3988,8 @@
 		"string": "Fuseau horaire",
 		"developer_comment": "Label for time zone selection"
 	},
-	"smoochBotNewsletterEditor.title": {
-		"string": "Rédiger votre lettre d’information"
-	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Mettre le contenu à jour automatiquement à partir d’un fil RSS"
+		"string": "Load content from RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "Mardi"
@@ -4234,7 +4288,7 @@
 		"string": "Modifier la réponse"
 	},
 	"task.uploadWarningBody": {
-		"string": "Navigating away from this page may cause the interruption of the file upload.",
+		"string": "Quitter cette page pourrait entraîner l’interruption du téléversement du fichier.",
 		"developer_comment": "Warning to prevent user from navigating away while upload is running"
 	},
 	"task.uploadWarningTitle": {
@@ -5089,7 +5143,7 @@
 		"string": "Annotations remplies"
 	},
 	"trendsItem.couldNotImport": {
-		"string": "We could not import the claim because the media associated with this claim already exist in this workspace"
+		"string": "Nous n’avons pas pu importer cette affirmation, car les médias qui y sont associés existent déjà dans cet espace de travail."
 	},
 	"trendsItem.factCheck": {
 		"string": "Vérification des faits"

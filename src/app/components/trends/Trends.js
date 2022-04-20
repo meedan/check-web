@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
+import { browserHistory } from 'react-router';
 import { TrendingUp as TrendingUpIcon } from '@material-ui/icons';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
@@ -15,6 +16,7 @@ const Trends = ({ routeParams }) => (
         team(slug: $slug) {
           id
           get_trends_filters
+          get_trends_enabled
         }
       }
     `}
@@ -24,6 +26,9 @@ const Trends = ({ routeParams }) => (
     render={({ error, props }) => {
       if (!error && props) {
         const { team } = props;
+        if (!team.get_trends_enabled) {
+          browserHistory.push('/check/not-found');
+        }
         const savedQuery = team.get_trends_filters || {};
         let query = {};
         if (typeof routeParams.query === 'undefined' && Object.keys(savedQuery).length > 0) {

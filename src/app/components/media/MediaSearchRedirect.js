@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Tooltip from '@material-ui/core/Tooltip';
 import WarningIcon from '@material-ui/icons/Warning';
 import { stringHelper } from '../../customHelpers';
-import { getPathnameAndSearch } from '../../urlHelpers';
+import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
 
 function BrokenLink() {
   return (
@@ -69,17 +69,16 @@ export default function MediaSearchRedirect({
   listIndex,
   searchIndex,
   objectType,
-  type,
 }) {
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query MediaSearchRedirectQuery($queryJson: String!) {
+        query MediaSearchRedirectQuery($queryJson: String!, $pageSize: Int!) {
           search(query: $queryJson) {
             id
             number_of_results
-            medias(first: 50) {
+            medias(first: $pageSize) {
               edges {
                 node {
                   id
@@ -93,6 +92,7 @@ export default function MediaSearchRedirect({
       `}
       variables={{
         queryJson: JSON.stringify({ ...listQuery, esoffset: searchIndex }),
+        pageSize,
       }}
       render={({ error, props }) => {
         if (error) {
@@ -101,12 +101,7 @@ export default function MediaSearchRedirect({
           if (!props.search) {
             return <BrokenLink />;
           }
-          let edge;
-          if (type === 'next') {
-            [edge] = props.search.medias.edges;
-          } else if (type === 'prev') {
-            edge = props.search.medias.edges[props.search.medias.edges.length - 1];
-          }
+          const edge = props.search.medias.edges[listIndex % pageSize];
           if (edge) {
             const targetId = objectType === 'media' ? edge.node.dbid : edge.node.cluster_id;
             const mediaNavList = props.search.medias.edges.map(media => media.node.dbid);

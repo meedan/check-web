@@ -282,6 +282,10 @@
 		"string": "Rentang tanggal",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
+	"addFilterMenu.tiplineRequest": {
+		"string": "Tipline request",
+		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
+	},
 	"addFilterMenu.tiplineRequests": {
 		"string": "Beberapa permintaan tipline",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
@@ -566,9 +570,6 @@
 	"browserSupport.message": {
 		"string": "{appName} dioptimisasi untuk Google Chrome pada desktop."
 	},
-	"bulkActions.confirm": {
-		"string": "Pindahkan dari Belum Terkonfirmasi"
-	},
 	"bulkActions.dialogMoveTitle": {
 		"string": "{mediasCount, plural, other {Anda perlu memindahkan # perihal ke folder lain}}"
 	},
@@ -578,10 +579,6 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Perihal dibuang ke Tong Sampah."
-	},
-	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Perihal dipindahkan dari Belum Terkonfirmasi ke '{toProject}'",
-		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Perihal dipindahkan dari Tong Sampah ke '{toProject}'",
@@ -599,9 +596,6 @@
 	},
 	"bulkActions.trash": {
 		"string": "Kembalikan perihal yang dipilih dan pindahkan ke folder lain"
-	},
-	"bulkActions.unconfirmed": {
-		"string": "Konfirmasi perihal yang dipilih dan pindahkan ke folder lain"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Tambah catatan ke pemberitahuan surel",
@@ -723,7 +717,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an invalid value of some kind, such as a malformed email address."
 	},
 	"check.error.missing_object": {
-		"string": "An object is missing in the database.",
+		"string": "Ada objek yang hilang dalam basis data.",
 		"developer_comment": "This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
 	},
 	"check.error.missing_parameters": {
@@ -751,16 +745,24 @@
 		"developer_comment": "This is a message that displays in an error popup if the server sends it some kind of non-critical warning message (user is approaching their API call limit, for example)."
 	},
 	"check.helpers.intercom_help": {
-		"string": "Click the 'send' arrow to the right to send the report.",
+		"string": "Klik panah 'kirim' di sebelah kanan untuk mengirim laporan.",
 		"developer_comment": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
 	},
 	"check.helpers.more_info": {
-		"string": "More info…",
+		"string": "Info lebih lanjut…",
 		"developer_comment": "This is a label on a button that users press in order to get more info related to an error message."
 	},
 	"check.helpers.report_issue": {
 		"string": "Laporkan masalah",
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+	},
+	"check.tasks.contact_support": {
+		"string": "Contact support",
+		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
+	},
+	"check.tasks.discontinued_tasks_warning": {
+		"string": "Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number} lebih banyak",
@@ -2157,9 +2159,6 @@
 	"projectHeader.trends": {
 		"string": "Basis data bersama"
 	},
-	"projectHeader.unconfirmed": {
-		"string": "Belum Terkonfirmasi"
-	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Pilih sebuah koleksi"
 	},
@@ -2201,9 +2200,6 @@
 	},
 	"projects.trash": {
 		"string": "Tong Sampah"
-	},
-	"projects.unconfirmed": {
-		"string": "Belum Terkonfirmasi"
 	},
 	"projectsComponent.allItems": {
 		"string": "Semua perihal"
@@ -2722,6 +2718,10 @@
 		"string": "Terapkan saringan",
 		"developer_comment": "Button to perform query with specified filters"
 	},
+	"search.archived": {
+		"string": "Tipline request is",
+		"developer_comment": "Prefix label for field to filter by Tipline request"
+	},
 	"search.assignedTo": {
 		"string": "Ditugaskan ke",
 		"developer_comment": "Prefix label for field to filter by assigned users"
@@ -2742,9 +2742,17 @@
 		"string": "Bidang klaim adalah",
 		"developer_comment": "Prefix label for field to filter by claim"
 	},
+	"search.clusterTeams": {
+		"string": "Organisasi adalah",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"search.collection": {
 		"string": "Koleksi adalah",
 		"developer_comment": "Prefix label for field to filter by collection"
+	},
+	"search.confirmed": {
+		"string": "Confirmed",
+		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
 		"string": "Media yang diterbitkan"
@@ -2915,6 +2923,10 @@
 	"search.statusHeading": {
 		"string": "Status perihal adalah",
 		"developer_comment": "Prefix label for field to filter by status"
+	},
+	"search.unconfirmed": {
+		"string": "Belum Terkonfirmasi",
+		"developer_comment": "Allow filtering by unconfirmed items"
 	},
 	"search.userHeading": {
 		"string": "Dibuat oleh",
@@ -3350,7 +3362,10 @@
 		"string": "Ketik untuk menulis buletin Anda. Anda dapat menambahkan konten dari RSS di bawah ini."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Ketik untuk menambahkan konten"
+		"string": "Add an article"
+	},
+	"smoochBot.placeholderNewsletterIntroduction": {
+		"string": "Ketik sesuatu"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Maaf, saya tidak mengerti pesan Anda. Silakan coba lagi!"
@@ -3641,6 +3656,18 @@
 	"smoochBotIntegrations.account": {
 		"string": "Akun tersambung: {link}"
 	},
+	"smoochBotIntegrations.copied": {
+		"string": "Disalin",
+		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
+	},
+	"smoochBotIntegrations.entryPointDescription": {
+		"string": "Use this address anywhere online to open WhatsApp and start a tipline conversation:",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
+	"smoochBotIntegrations.entryPointTitle": {
+		"string": "Entry point",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "Token akses saluran LINE"
 	},
@@ -3657,11 +3684,11 @@
 		"string": "Nomor telepon yang tersambung: {link}"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
-		"string": "Scan this QR code to quickly try out your WhatsApp integration and to share and promote it.",
+		"string": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation.",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.qrCodeTitle": {
-		"string": "Quickstart QR code",
+		"string": "QR code",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
@@ -3684,6 +3711,10 @@
 		"string": "Bahasa dan Privasi",
 		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
 	},
+	"smoochBotMainMenu.learnMore": {
+		"string": "Pelajari lebih lanjut",
+		"developer_comment": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
+	},
 	"smoochBotMainMenu.mainMenu": {
 		"string": "Menu utama",
 		"developer_comment": "Title of the tipline bot main menu settings page."
@@ -3697,8 +3728,12 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "Menu bot Anda, meminta pengguna untuk memilih di antara serangkaian opsi. Bagian kedua adalah opsional. Harap dicatat bahwa di WhatsApp Anda dapat memiliki maksimal 10 opsi menu di semua bagian.",
+		"string": "The menu of your bot, asking the user to choose between a set of options.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
+	},
+	"smoochBotMainMenu.subtitle2": {
+		"string": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}.",
+		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
 		"string": "Batalkan",
@@ -3792,6 +3827,10 @@
 		"string": "Keikutsertaan berlangganan",
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
+	"smoochBotMainMenuSection.defaultSectionTitle": {
+		"string": "Menu options",
+		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
+	},
 	"smoochBotMainMenuSection.editOption": {
 		"string": "Sunting",
 		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
@@ -3867,6 +3906,14 @@
 	"smoochBotNewsletterEditor.active": {
 		"string": "Buletin akan dikirim ke {count} pengguna pada {date}, {time}"
 	},
+	"smoochBotNewsletterEditor.addArticle": {
+		"string": "Add article",
+		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
+	},
+	"smoochBotNewsletterEditor.charsCounter": {
+		"string": "{count}/{max} characters available",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
 	"smoochBotNewsletterEditor.day": {
 		"string": "Hari dalam minggu"
 	},
@@ -3876,12 +3923,28 @@
 	"smoochBotNewsletterEditor.everyday": {
 		"string": "Hari"
 	},
-	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. Pilih hari dan waktu dalam seminggu",
-		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	"smoochBotNewsletterEditor.firstStepDescription": {
+		"string": "Send the newsletter to all subscribed user every:",
+		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
+	},
+	"smoochBotNewsletterEditor.firstStepTitle": {
+		"string": "Schedule",
+		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "Jumat"
+	},
+	"smoochBotNewsletterEditor.introPlaceholder1": {
+		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introPlaceholder2": {
+		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introduction": {
+		"string": "Pengantar",
+		"developer_comment": "Tipline newsletter introduction field label"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "Muat"
@@ -3895,9 +3958,6 @@
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Jumlah artikel yang dikembalikan"
 	},
-	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "Jumlah poin-poin"
-	},
 	"smoochBotNewsletterEditor.paused": {
 		"string": "Untuk mengirim buletin Anda berikutnya, harap tambahkan konten baru"
 	},
@@ -3908,15 +3968,12 @@
 		"string": "Sabtu"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. Tambahkan konten secara manual, atau melalui Umpan RSS.",
-		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+		"string": "Konten",
+		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "Jika konten tidak diubah di antara dua pengiriman terjadwal, hal tersebut tidak akan dikirim."
-	},
-	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Kirim setiap",
-		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+		"string": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent.",
+		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Minggu"
@@ -3931,11 +3988,8 @@
 		"string": "Zona waktu",
 		"developer_comment": "Label for time zone selection"
 	},
-	"smoochBotNewsletterEditor.title": {
-		"string": "Tulis buletin Anda"
-	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Perbarui konten secara otomatis menggunakan umpan RSS"
+		"string": "Load content from RSS feed"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "Selasa"
@@ -4234,7 +4288,7 @@
 		"string": "Sunting jawaban"
 	},
 	"task.uploadWarningBody": {
-		"string": "Navigating away from this page may cause the interruption of the file upload.",
+		"string": "Keluar dari halaman ini dapat menyebabkan gangguan pengunggahan berkas.",
 		"developer_comment": "Warning to prevent user from navigating away while upload is running"
 	},
 	"task.uploadWarningTitle": {
@@ -5089,7 +5143,7 @@
 		"string": "Anotasi selesai"
 	},
 	"trendsItem.couldNotImport": {
-		"string": "We could not import the claim because the media associated with this claim already exist in this workspace"
+		"string": "Kami tidak dapat mengimpor klaim karena media yang terkait dengan klaim tersebut sudah ada di ruang kerja ini"
 	},
 	"trendsItem.factCheck": {
 		"string": "Pengecekan fakta"
