@@ -17,3 +17,5 @@ elif [[ "$1" == "live" ]]; then
 else
     echo "Invalid environment given. Must be qa or live."
 fi
+
+exit 0
