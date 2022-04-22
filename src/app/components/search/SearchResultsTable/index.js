@@ -22,7 +22,6 @@ import MediaPublishedCell from './MediaPublishedCell';
 import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
-import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
@@ -123,13 +122,6 @@ const AllPossibleColumns = [
     cellComponent: CommentCountCell,
     align: 'center',
     sortKey: 'comment_count',
-  },
-  {
-    field: 'related_count',
-    headerText: <FormattedMessage id="list.relatedCount" defaultMessage="Related" />,
-    cellComponent: RelatedCountCell,
-    align: 'center',
-    sortKey: 'related_count',
   },
   {
     field: 'suggestions_count',
