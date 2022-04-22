@@ -294,6 +294,9 @@ class MediaComponent extends Component {
     media.quote = media.media.quote;
     media.embed_path = media.media.embed_path;
 
+    // console.log(this.props.trololo.meajude.xocxoc); // eslint-disable-line no-console
+    console.log(JSON.parse('bli')); // eslint-disable-line no-console
+
     const {
       playerState: {
         start,
