@@ -6,6 +6,7 @@ import { graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import VisibilityIcon from '@material-ui/icons/Visibility';
+import ErrorBoundary from '../error/ErrorBoundary';
 import ProjectRoute from '../../relay/ProjectRoute';
 import CheckContext from '../../CheckContext';
 import MediasLoading from '../media/MediasLoading';
@@ -200,21 +201,23 @@ const ProjectContainer = Relay.createContainer(ProjectComponent, {
 const Project = ({ routeParams, ...props }) => {
   const route = new ProjectRoute({ projectId: routeParams.projectId });
   return (
-    <Relay.RootContainer
-      Component={ProjectContainer}
-      route={route}
-      renderFetched={data => (
-        /* TODO make GraphQL Projects query filter by Team
-         * ... in the meantime, we can fake an error by showing "Not Found" when the
-         * Project exists but is in a different Team than the one the user asked for
-         * in the URL.
-         */
-        (data.project && data.project.team && data.project.team.slug !== routeParams.team)
-          ? <NotFound />
-          : <ProjectContainer routeParams={routeParams} {...props} {...data} />
-      )}
-      renderLoading={() => <MediasLoading />}
-    />
+    <ErrorBoundary component="Project">
+      <Relay.RootContainer
+        Component={ProjectContainer}
+        route={route}
+        renderFetched={data => (
+          /* TODO make GraphQL Projects query filter by Team
+           * ... in the meantime, we can fake an error by showing "Not Found" when the
+           * Project exists but is in a different Team than the one the user asked for
+           * in the URL.
+           */
+          (data.project && data.project.team && data.project.team.slug !== routeParams.team)
+            ? <NotFound />
+            : <ProjectContainer routeParams={routeParams} {...props} {...data} />
+        )}
+        renderLoading={() => <MediasLoading />}
+      />
+    </ErrorBoundary>
   );
 };
 

@@ -10,6 +10,7 @@ import Box from '@material-ui/core/Box';
 import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
+import ErrorBoundary from './error/ErrorBoundary';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
@@ -46,83 +47,85 @@ function UserConfirmPage({ params }) {
   const classes = useStyles();
 
   return (
-    <Typography component="div" variant="body2" gutterBottom>
-      <PageTitle>
-        <Box m={2} align="center">
-          <FormattedHTMLMessage {...globalStrings.bestViewed} />
-        </Box>
-        <ContentColumn center className="user-confirm-page__component">
-          <StyledCard>
-            <FormattedGlobalMessage messageKey="appNameHuman">
-              {appNameHuman => (
-                <img
-                  className={classes.logo}
-                  alt={appNameHuman}
-                  width="120"
-                  src={stringHelper('LOGO_URL')}
-                />
-              )}
-            </FormattedGlobalMessage>
-            <StyledSubHeader className="confirm__heading">
-              { params.confirmType === 'confirmed' ?
-                (<FormattedMessage
-                  id="UserConfirmPage.confirmed"
-                  defaultMessage="Account Confirmed"
-                  description="Message for confirmed accounts"
-                />) : null
-              }
-              { params.confirmType === 'already-confirmed' ?
-                (<FormattedMessage
-                  id="UserConfirmPage.alreadyConfirmed"
-                  defaultMessage="Account Already Confirmed"
-                  description="Message for accounts already confirmed"
-                />) : null
-              }
-            </StyledSubHeader>
-            <Typography component="div" align="center" paragraph className="confirm_content">
-              { params.confirmType === 'confirmed' ?
-                (<FormattedMessage
-                  id="userConfirmed.confrimMessage"
-                  defaultMessage="Thanks for confirming your email address! Now you can sign in."
-                  description="Message for confirmed user"
-                />) : null
-              }
-              { params.confirmType === 'already-confirmed' ?
-                (<FormattedMessage
-                  id="userConfirmed.alreadyConfrimMessage"
-                  defaultMessage="Oops! Your account is already confirmed. Please sign in to get started."
-                  description="Message for user who already confirmed before"
-                />) : null
-              }
-              { params.confirmType === 'unconfirmed' ?
-                (<FormattedMessage
-                  id="userConfirmed.unConfrimMessage"
-                  defaultMessage="Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
-                  values={{
-                    supportEmail: stringHelper('SUPPORT_EMAIL'),
-                  }}
-                  description="Message for unconfirmed users"
-                />) : null
-              }
-            </Typography>
-            <Typography component="div" align="center">
-              <Link to="/">
-                <Button variant="contained" color="primary">
-                  <FormattedMessage
-                    id="userConfirmPage.signIn"
-                    defaultMessage="Sign In"
-                    description="Sign in button"
-                  />
-                </Button>
-              </Link>
-            </Typography>
-          </StyledCard>
-          <Box my={4}>
-            <CheckAgreeTerms />
+    <ErrorBoundary component="UserConfirmPage">
+      <Typography component="div" variant="body2" gutterBottom>
+        <PageTitle>
+          <Box m={2} align="center">
+            <FormattedHTMLMessage {...globalStrings.bestViewed} />
           </Box>
-        </ContentColumn>
-      </PageTitle>
-    </Typography>
+          <ContentColumn center className="user-confirm-page__component">
+            <StyledCard>
+              <FormattedGlobalMessage messageKey="appNameHuman">
+                {appNameHuman => (
+                  <img
+                    className={classes.logo}
+                    alt={appNameHuman}
+                    width="120"
+                    src={stringHelper('LOGO_URL')}
+                  />
+                )}
+              </FormattedGlobalMessage>
+              <StyledSubHeader className="confirm__heading">
+                { params.confirmType === 'confirmed' ?
+                  (<FormattedMessage
+                    id="UserConfirmPage.confirmed"
+                    defaultMessage="Account Confirmed"
+                    description="Message for confirmed accounts"
+                  />) : null
+                }
+                { params.confirmType === 'already-confirmed' ?
+                  (<FormattedMessage
+                    id="UserConfirmPage.alreadyConfirmed"
+                    defaultMessage="Account Already Confirmed"
+                    description="Message for accounts already confirmed"
+                  />) : null
+                }
+              </StyledSubHeader>
+              <Typography component="div" align="center" paragraph className="confirm_content">
+                { params.confirmType === 'confirmed' ?
+                  (<FormattedMessage
+                    id="userConfirmed.confrimMessage"
+                    defaultMessage="Thanks for confirming your email address! Now you can sign in."
+                    description="Message for confirmed user"
+                  />) : null
+                }
+                { params.confirmType === 'already-confirmed' ?
+                  (<FormattedMessage
+                    id="userConfirmed.alreadyConfrimMessage"
+                    defaultMessage="Oops! Your account is already confirmed. Please sign in to get started."
+                    description="Message for user who already confirmed before"
+                  />) : null
+                }
+                { params.confirmType === 'unconfirmed' ?
+                  (<FormattedMessage
+                    id="userConfirmed.unConfrimMessage"
+                    defaultMessage="Sorry, an error occurred while confirming your account. Please try again and contact {supportEmail} if the condition persists."
+                    values={{
+                      supportEmail: stringHelper('SUPPORT_EMAIL'),
+                    }}
+                    description="Message for unconfirmed users"
+                  />) : null
+                }
+              </Typography>
+              <Typography component="div" align="center">
+                <Link to="/">
+                  <Button variant="contained" color="primary">
+                    <FormattedMessage
+                      id="userConfirmPage.signIn"
+                      defaultMessage="Sign In"
+                      description="Sign in button"
+                    />
+                  </Button>
+                </Link>
+              </Typography>
+            </StyledCard>
+            <Box my={4}>
+              <CheckAgreeTerms />
+            </Box>
+          </ContentColumn>
+        </PageTitle>
+      </Typography>
+    </ErrorBoundary>
   );
 }
 
