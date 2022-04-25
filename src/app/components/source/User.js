@@ -1,9 +1,10 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
-import UserRoute from '../../relay/UserRoute';
 import UserComponent from './UserComponent';
-import userFragment from '../../relay/userFragment';
+import ErrorBoundary from '../error/ErrorBoundary';
 import MediasLoading from '../media/MediasLoading';
+import UserRoute from '../../relay/UserRoute';
+import userFragment from '../../relay/userFragment';
 
 const UserContainer = Relay.createContainer(UserComponent, {
   fragments: {
@@ -14,12 +15,14 @@ const UserContainer = Relay.createContainer(UserComponent, {
 const User = (props) => {
   const route = new UserRoute({ userId: props.params.userId });
   return (
-    <Relay.RootContainer
-      Component={UserContainer}
-      route={route}
-      renderLoading={() => <MediasLoading />}
-      renderFetched={data => <UserContainer {...props} {...data} />}
-    />
+    <ErrorBoundary component="User">
+      <Relay.RootContainer
+        Component={UserContainer}
+        route={route}
+        renderLoading={() => <MediasLoading />}
+        renderFetched={data => <UserContainer {...props} {...data} />}
+      />
+    </ErrorBoundary>
   );
 };
 
