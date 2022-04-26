@@ -56,7 +56,6 @@ shared_examples 'tag' do
     wait_for_selector('.team-settings__tags-tab').click
     wait_for_selector('#search-input')
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
-    expect(@driver.page_source.include?('newtag')).to be(false)
     wait_for_selector('#team-tags__create').click
     wait_for_selector('#confirm-dialog__confirm-action-button')
     fill_field('#team-tags__name-input', 'tag added automatically')
@@ -80,6 +79,7 @@ shared_examples 'tag' do
     wait_for_selector('.media__heading').click
     wait_for_selector('.media-tags__tag')
     expect(@driver.page_source.include?('tag added automatically')).to be(true)
+    wait_for_selector('.tag-menu__icon')
     # click on the tag and go to search page with the tag filter and see the item
     wait_for_selector('.media-tags__tag').click
     wait_for_selector('.media__heading', :css, 20, true)
