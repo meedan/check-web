@@ -33,7 +33,7 @@ const SuggestedMatches = ({ routeParams }) => (
           } else {
             query = {
               suggestions_count: { min: 1 },
-              sort: 'suggestions_count',
+              sort: 'recent_added',
               sort_type: 'DESC',
               ...safelyParseJSON(routeParams.query, {}),
             };
