@@ -137,7 +137,7 @@ function SearchResultsComponent({
   hideFields,
   savedSearch,
 }) {
-  const defaultViewMode = window.storage.getValue('viewMode') || 'shorter'; // or "longer"
+  const defaultViewMode = window.storage?.getValue('viewMode') || 'shorter'; // or "longer"
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
   const [query, setQuery] = React.useState(defaultQuery);

@@ -1,6 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
+import ErrorBoundary from '../../error/ErrorBoundary';
 import RelayContainer from '../../../relay/RelayContainer';
 import MediaRoute from '../../../relay/MediaRoute';
 import ReportDesignerComponent from './ReportDesignerComponent';
@@ -67,12 +68,14 @@ const ReportDesigner = (props) => {
   const route = new MediaRoute({ ids });
 
   return (
-    <RelayContainer
-      Component={ReportDesignerContainer}
-      route={route}
-      renderFetched={data => <ReportDesignerContainer {...props} {...data} />}
-      forceFetch
-    />
+    <ErrorBoundary component="ReportDesigner">
+      <RelayContainer
+        Component={ReportDesignerContainer}
+        route={route}
+        renderFetched={data => <ReportDesignerContainer {...props} {...data} />}
+        forceFetch
+      />
+    </ErrorBoundary>
   );
 };
 

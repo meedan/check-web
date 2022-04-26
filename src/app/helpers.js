@@ -64,8 +64,12 @@ function getStatusStyle(status, property) {
  * Truncate a string and append ellipsis.
  */
 function truncateLength(str, length = 70) {
-  const dots = str.length > length ? '...' : '';
-  return `${str.substring(0, length)}${dots}`;
+  if (typeof str === 'string') {
+    const dots = str.length > length ? '...' : '';
+    return `${str.substring(0, length)}${dots}`;
+  }
+
+  return str;
 }
 
 /**
