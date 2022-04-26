@@ -4,7 +4,7 @@ if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' ]]
 then
   docker-compose build web
   docker-compose -f docker-compose.yml -f docker-test.yml up -d web
-  until curl --silent -I -f --fail http://localhost:3333
+  until curl --silent -I -f --fail http://localhost:3333; do printf .; sleep 1; done
 else
   if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
   then
