@@ -58,7 +58,7 @@ before_script:
 jobs:
   include:
     - stage: tests
-      if: branch != master
+      if: branch = develop OR branch = master
       name: integration-and-unit-tests
       script:
       - docker-compose exec
@@ -85,7 +85,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: unit-tests
-      if: branch = test/1765-run-integration-tests-only-on-specifc-branches
+      if: branch != develop OR branch != master
       script:
       - docker-compose exec -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME web npm run tests
 after_script:
