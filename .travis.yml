@@ -55,12 +55,10 @@ before_script:
 - WEB_CURL_COUNT=0; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; travis_terminate 1; fi
 - docker-compose exec web npm run linter || travis_terminate 1;
 - docker-compose exec web npm run test:integration:lint || travis_terminate 1;
-- docker-compose exec web npm run test:unit || travis_terminate 1
-- docker-compose exec web bash -c  "cd test && ./../scripts/uncovered-files"
 jobs:
   include:
     - stage: tests
-      if: branch = master
+      if: branch != master
       name: integration-and-unit-tests
       script:
       - docker-compose exec
@@ -74,7 +72,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: similarity-tests
-      if: branch = develop OR branch = test/1765-run-integration-tests-only-on-specifc-branches
+      if: branch = develop OR branch = master
       script:
       - docker-compose exec
         -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
@@ -86,18 +84,10 @@ jobs:
         -e AWS_REGION=$AWS_REGION
         web npm run tests
     - stage: tests
-      name: similarity-tests-2
+      name: unit-tests
       if: branch = test/1765-run-integration-tests-only-on-specifc-branches
       script:
-      - docker-compose exec
-        -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
-        -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME
-        -e TRAVIS_BRANCH=$TRAVIS_BRANCH
-        -e AWS_ENDPOINT=$AWS_ENDPOINT
-        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-        -e AWS_REGION=$AWS_REGION
-        web npm run tests
+      - docker-compose exec web npm run tests
 after_script:
 - docker-compose exec web bash -c "python -m json.tool test/file.json"
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"
