@@ -85,7 +85,7 @@ jobs:
         web npm run tests
     - stage: tests
       name: unit-tests
-      if: branch != develop OR branch != master
+      if: branch != develop AND branch != master
       script:
       - docker-compose exec -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME web npm run tests
 after_script:
