@@ -34,8 +34,6 @@ services:
       BOILERPLATE_ENV: test
       ALEGRE_PORT: 5000
   web:
-    depends_on:
-      - chromedriver
     environment:
       PLATFORM: web
       NODE_ENV: development
