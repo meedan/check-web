@@ -234,5 +234,9 @@
   {
     "id": "annotation.createClaimContext",
     "defaultMessage": "Additional content added by {author}: {value}"
+  },
+  {
+    "id": "annotation.createFactCheck",
+    "defaultMessage": "Fact-check title added by {author}: {value}"
   }
 ]

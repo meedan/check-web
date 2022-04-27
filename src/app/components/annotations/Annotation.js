@@ -551,7 +551,6 @@ class Annotation extends Component {
       }
       break;
     case 'create_relationship': {
-      console.log('activity', activity); // eslint-disable-line no-console
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
@@ -1197,6 +1196,20 @@ class Annotation extends Component {
       }
       break;
     }
+    case 'create_factcheck':
+      contentTemplate = (
+        <span className="annotation__claim-factcheck">
+          <FormattedMessage
+            id="annotation.createFactCheck"
+            defaultMessage="Fact-check title added by {author}: {value}"
+            values={{
+              author: authorName,
+              value: object.title,
+            }}
+          />
+        </span>
+      );
+      break;
     case 'update_task':
       contentTemplate = <TaskUpdate activity={activity} authorName={authorName} />;
       break;
