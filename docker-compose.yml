@@ -172,8 +172,6 @@ services:
     build: .
     ports:
       - "3333:3333"
-    depends_on:
-      - api
     volumes:
       - ".:/app"
       - "./check-api:/api"
