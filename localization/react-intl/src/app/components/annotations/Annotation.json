@@ -181,7 +181,7 @@
   },
   {
     "id": "annotation.metadataResponse",
-    "defaultMessage": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
+    "defaultMessage": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
   },
   {
     "id": "annotation.archiverSuccess",
@@ -218,5 +218,21 @@
   {
     "id": "annotation.addSource",
     "defaultMessage": "Source {name} added by {author}"
+  },
+  {
+    "id": "annotation.updateClaimDescription",
+    "defaultMessage": "Claim edited by {author}: {value}"
+  },
+  {
+    "id": "annotation.createClaimDescription",
+    "defaultMessage": "Claim added by {author}: {value}"
+  },
+  {
+    "id": "annotation.updateClaimContext",
+    "defaultMessage": "Additional content edited by {author}: {value}"
+  },
+  {
+    "id": "annotation.createClaimContext",
+    "defaultMessage": "Additional content added by {author}: {value}"
   }
 ]

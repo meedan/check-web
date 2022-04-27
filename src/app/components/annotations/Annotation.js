@@ -959,7 +959,7 @@ class Annotation extends Component {
             <span className="annotation__metadata-filled">
               <FormattedMessage
                 id="annotation.metadataResponse"
-                defaultMessage='Annotation field "{fieldLabel}" filled by {author}: {response}'
+                defaultMessage='Annotation "{fieldLabel}" edited by {author}: {response}'
                 values={{
                   fieldLabel: activity.task.label,
                   author: authorName,
@@ -1121,9 +1121,6 @@ class Annotation extends Component {
       );
       break;
     case 'update_projectmedia': {
-      console.log('update_projectmedia', activity); // eslint-disable-line no-console
-      const sourceChange = safelyParseJSON(activity.object_changes_json);
-      console.log('sourceChange', sourceChange); // eslint-disable-line no-console
       contentTemplate = (
         <span>
           <FormattedMessage
@@ -1136,6 +1133,68 @@ class Annotation extends Component {
           />
         </span>
       );
+      break;
+    }
+    case 'create_claimdescription':
+    case 'update_claimdescription': {
+      const claimDescriptionChanges = safelyParseJSON(activity.object_changes_json);
+      if (claimDescriptionChanges.description) {
+        if (claimDescriptionChanges.description[0]) {
+          contentTemplate = (
+            <span className="annotation__claim-description">
+              <FormattedMessage
+                id="annotation.updateClaimDescription"
+                defaultMessage="Claim edited by {author}: {value}"
+                values={{
+                  author: authorName,
+                  value: object.description,
+                }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__claim-description">
+              <FormattedMessage
+                id="annotation.createClaimDescription"
+                defaultMessage="Claim added by {author}: {value}"
+                values={{
+                  author: authorName,
+                  value: object.description,
+                }}
+              />
+            </span>
+          );
+        }
+      } else if (claimDescriptionChanges.context) {
+        if (claimDescriptionChanges.context[0]) {
+          contentTemplate = (
+            <span className="annotation__claim-context">
+              <FormattedMessage
+                id="annotation.updateClaimContext"
+                defaultMessage="Additional content edited by {author}: {value}"
+                values={{
+                  author: authorName,
+                  value: object.context,
+                }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span className="annotation__claim-context">
+              <FormattedMessage
+                id="annotation.createClaimContext"
+                defaultMessage="Additional content added by {author}: {value}"
+                values={{
+                  author: authorName,
+                  value: object.context,
+                }}
+              />
+            </span>
+          );
+        }
+      }
       break;
     }
     case 'update_task':
