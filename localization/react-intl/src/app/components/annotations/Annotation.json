@@ -1,5 +1,20 @@
 [
   {
+    "id": "annotation.editedBy",
+    "description": "Fact-check in edited state",
+    "defaultMessage": "edited by"
+  },
+  {
+    "id": "annotation.pausedBy",
+    "description": "Fact-check in paused state",
+    "defaultMessage": "paused by"
+  },
+  {
+    "id": "annotation.publishedBy",
+    "description": "Fact-check in published state",
+    "defaultMessage": "published by"
+  },
+  {
     "id": "annotation.flagAdult",
     "defaultMessage": "Adult"
   },
@@ -57,7 +72,7 @@
   },
   {
     "id": "annotation.taggedHeader",
-    "defaultMessage": "Tagged #{tag} by {author}"
+    "defaultMessage": "Tag #{tag} added by {author}"
   },
   {
     "id": "annotation.deletedComment",
@@ -133,8 +148,12 @@
     "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
+    "id": "annotation.reportDesignState",
+    "defaultMessage": "Fact-check report {state} {author}"
+  },
+  {
     "id": "annotation.statusSetHeader",
-    "defaultMessage": "Status set to {status} by {author}"
+    "defaultMessage": "Status changed to {status} by {author}"
   },
   {
     "id": "annotation.seeHowThisBotWorks",
@@ -193,19 +212,11 @@
     "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
   },
   {
-    "id": "annotation.projectMoved",
-    "defaultMessage": "Moved from folder {previousProject} to {currentProject} by {author}"
+    "id": "annotation.createProjectMedia",
+    "defaultMessage": "Item created by {author}"
   },
   {
-    "id": "annotation.movedToTrash",
-    "defaultMessage": "Moved to Trash by {author}"
-  },
-  {
-    "id": "annotation.movedFromTrash",
-    "defaultMessage": "Moved out of Trash by {author}"
-  },
-  {
-    "id": "annotation.teamCopied",
-    "defaultMessage": "Copied from workspace {previousTeam} by {author}"
+    "id": "annotation.addSource",
+    "defaultMessage": "Source {name} added by {author}"
   }
 ]

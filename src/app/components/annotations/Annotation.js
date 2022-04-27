@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
+import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
 import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
@@ -214,6 +214,24 @@ const StyledAnnotationMetadata = styled(Row)`
 const StyledAnnotationActionsWrapper = styled.div`
   margin-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: auto;
 `;
+
+const messages = defineMessages({
+  editedBy: {
+    id: 'annotation.editedBy',
+    defaultMessage: 'edited by',
+    description: 'Fact-check in edited state',
+  },
+  pausedBy: {
+    id: 'annotation.pausedBy',
+    defaultMessage: 'paused by',
+    description: 'Fact-check in paused state',
+  },
+  publishedBy: {
+    id: 'annotation.publishedBy',
+    defaultMessage: 'published by',
+    description: 'Fact-check in published state',
+  },
+});
 
 const FlagName = ({ flag }) => {
   switch (flag) {
@@ -471,7 +489,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.taggedHeader"
-              defaultMessage="Tagged #{tag} by {author}"
+              defaultMessage="Tag #{tag} added by {author}"
               values={{
                 tag: activity.tag.tag_text.replace(/^#/, ''),
                 author: authorName,
@@ -533,6 +551,7 @@ class Annotation extends Component {
       }
       break;
     case 'create_relationship': {
+      console.log('activity', activity); // eslint-disable-line no-console
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
@@ -751,6 +770,29 @@ class Annotation extends Component {
             );
           }
         }
+      } else if (object.annotation_type === 'report_design') {
+        const reportDesignChange = safelyParseJSON(activity.object_changes_json).data;
+        let reportState = this.props.intl.formatMessage(messages.editedBy);
+        if (reportDesignChange[0]) {
+          reportState = reportDesignChange[1].state;
+          if (reportDesignChange[0].state === reportDesignChange[1].state) {
+            reportState = this.props.intl.formatMessage(messages.editedBy);
+          } else if (reportDesignChange[1].state === 'published') {
+            reportState = this.props.intl.formatMessage(messages.publishedBy);
+          } else {
+            reportState = this.props.intl.formatMessage(messages.pausedBy);
+          }
+        }
+        contentTemplate = (
+          <FormattedMessage
+            id="annotation.reportDesignState"
+            defaultMessage="Fact-check report {state} {author}"
+            values={{
+              state: reportState,
+              author: authorName,
+            }}
+          />
+        );
       }
       break;
     case 'create_dynamicannotationfield':
@@ -772,7 +814,7 @@ class Annotation extends Component {
           <span>
             <FormattedMessage
               id="annotation.statusSetHeader"
-              defaultMessage="Status set to {status} by {author}"
+              defaultMessage="Status changed to {status} by {author}"
               values={{
                 status: (
                   <span
@@ -1065,80 +1107,37 @@ class Annotation extends Component {
           authorName={authorName}
         />);
       break;
-    case 'update_projectmediaproject':
-      if (activity.projects.edges.length > 0 && activity.user) {
-        const previousProject = activity.projects.edges[0].node;
-        const currentProject = activity.projects.edges[1].node;
-        const urlPrefix = `/${this.props.team.slug}/project/`;
-        contentTemplate = (
-          <span>
-            <FormattedMessage
-              id="annotation.projectMoved"
-              defaultMessage="Moved from folder {previousProject} to {currentProject} by {author}"
-              values={{
-                previousProject: (
-                  <Link to={urlPrefix + previousProject.dbid}>
-                    {previousProject.title}
-                  </Link>
-                ),
-                currentProject: (
-                  <Link to={urlPrefix + currentProject.dbid}>
-                    {currentProject.title}
-                  </Link>
-                ),
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      } else if (activity.object_changes_json === '{"archived":[0,1]}') {
-        contentTemplate = (
-          <span>
-            <FormattedMessage
-              id="annotation.movedToTrash"
-              defaultMessage="Moved to Trash by {author}"
-              values={{
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      } else if (activity.object_changes_json === '{"archived":[1,0]}') {
-        contentTemplate = (
-          <span>
-            <FormattedMessage
-              id="annotation.movedFromTrash"
-              defaultMessage="Moved out of Trash by {author}"
-              values={{
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      }
+    case 'create_projectmedia':
+      contentTemplate = (
+        <span>
+          <FormattedMessage
+            id="annotation.createProjectMedia"
+            defaultMessage="Item created by {author}"
+            values={{
+              author: authorName,
+            }}
+          />
+        </span>
+      );
       break;
-    case 'copy_projectmedia':
-      if (activity.teams.edges.length > 0 && activity.user) {
-        const previousTeam = activity.teams.edges[0].node;
-        const previousTeamUrl = `/${previousTeam.slug}/`;
-        contentTemplate = (
-          <span>
-            <FormattedMessage
-              id="annotation.teamCopied"
-              defaultMessage="Copied from workspace {previousTeam} by {author}"
-              values={{
-                previousTeam: (
-                  <Link to={previousTeamUrl}>
-                    {previousTeam.name}
-                  </Link>
-                ),
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      }
+    case 'update_projectmedia': {
+      console.log('update_projectmedia', activity); // eslint-disable-line no-console
+      const sourceChange = safelyParseJSON(activity.object_changes_json);
+      console.log('sourceChange', sourceChange); // eslint-disable-line no-console
+      contentTemplate = (
+        <span>
+          <FormattedMessage
+            id="annotation.addSource"
+            defaultMessage="Source {name} added by {author}"
+            values={{
+              name: 'source name',
+              author: authorName,
+            }}
+          />
+        </span>
+      );
       break;
+    }
     case 'update_task':
       contentTemplate = <TaskUpdate activity={activity} authorName={authorName} />;
       break;

@@ -74,12 +74,17 @@ class MediaLogComponent extends Component {
 const pageSize = 30;
 
 const eventTypes = [
-  'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
-  'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
-  'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
-  'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',
-  'update_task', 'update_projectmediaproject',
+  'create_projectmedia', 'update_projectmedia', 'create_relationship', 'destroy_relationship', 'update_dynamicannotationfield',
+  'create_tag', 'create_dynamic', 'update_dynamic',
 ];
+
+// const eventTypes = [
+//   'create_tag', 'destroy_comment', 'create_task', 'create_relationship',
+//   'destroy_relationship', 'create_assignment', 'destroy_assignment', 'create_dynamic',
+//   'update_dynamic', 'create_dynamicannotationfield', 'update_dynamicannotationfield',
+//   'create_flag', 'update_embed', 'create_embed', 'update_projectmedia', 'copy_projectmedia',
+//   'update_task', 'update_projectmediaproject',
+// ];
 
 const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
   initialVariables: {
