@@ -19,8 +19,6 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import EmbedUpdate from './EmbedUpdate';
-import EmbedCreate from './EmbedCreate';
 import TaskUpdate from './TaskUpdate';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -233,37 +231,6 @@ const messages = defineMessages({
   },
 });
 
-const FlagName = ({ flag }) => {
-  switch (flag) {
-  case 'adult': return <FormattedMessage id="annotation.flagAdult" defaultMessage="Adult" />;
-  case 'medical': return <FormattedMessage id="annotation.flagMedical" defaultMessage="Medical" />;
-  case 'violence': return <FormattedMessage id="annotation.flagViolence" defaultMessage="Violence" />;
-  case 'racy': return <FormattedMessage id="annotation.flagRacy" defaultMessage="Racy" />;
-  case 'spam': return <FormattedMessage id="annotation.flagSpam" defaultMessage="Spam" />;
-  default: return null;
-  }
-};
-
-FlagName.propTypes = {
-  flag: PropTypes.oneOf(['adult', 'medical', 'violence', 'racy', 'spam']).isRequired,
-};
-
-const FlagLikelihood = ({ likelihood }) => {
-  switch (likelihood) {
-  case 0: return <FormattedMessage id="annotation.flagLikelihood0" defaultMessage="Unknown" />;
-  case 1: return <FormattedMessage id="annotation.flagLikelihood1" defaultMessage="Very unlikely" />;
-  case 2: return <FormattedMessage id="annotation.flagLikelihood2" defaultMessage="Unlikely" />;
-  case 3: return <FormattedMessage id="annotation.flagLikelihood3" defaultMessage="Possible" />;
-  case 4: return <FormattedMessage id="annotation.flagLikelihood4" defaultMessage="Likely" />;
-  case 5: return <FormattedMessage id="annotation.flagLikelihood5" defaultMessage="Very likely" />;
-  default: return null;
-  }
-};
-
-FlagLikelihood.propTypes = {
-  likelihood: PropTypes.oneOf([0, 1, 2, 3, 4, 5]).isRequired,
-};
-
 // TODO Fix a11y issues
 /* eslint jsx-a11y/click-events-have-key-events: 0 */
 class Annotation extends Component {
@@ -442,14 +409,13 @@ class Annotation extends Component {
     const timestamp = updatedAt
       ? <span className="annotation__timestamp"><TimeBefore date={updatedAt} /></span>
       : null;
-    let authorName = activity.user
+    const authorName = activity.user
       ? <ProfileLink className="annotation__author-name" teamUser={activity.user.team_user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
     const isVideoAnno = object.fragment !== undefined;
     let activityType = activity.event_type;
     let contentTemplate = null;
-    let showCard = false;
 
     switch (activityType) {
     case 'create_comment': {
@@ -699,31 +665,7 @@ class Annotation extends Component {
     }
     case 'create_dynamic':
     case 'update_dynamic':
-      if (object.annotation_type === 'flag') {
-        showCard = true;
-        const { flags } = object.data;
-        // #8220 remove "spam" until we get real values for it.
-        const flagsContent = (
-          <ul>
-            { Object.keys(flags).filter(flag => flag !== 'spam').map(flag => (
-              <li style={{ margin: units(1), listStyle: 'disc' }}>
-                <FlagName flag={flag} />
-                {': '}
-                <FlagLikelihood likelihood={flags[flag]} />
-              </li>
-            ))}
-          </ul>
-        );
-        contentTemplate = (
-          <div>
-            <FormattedMessage
-              id="annotation.flag"
-              defaultMessage="Classification result:"
-            />
-            {flagsContent}
-          </div>
-        );
-      } else if (object.annotation_type === 'verification_status') {
+      if (object.annotation_type === 'verification_status') {
         const statusChanges = JSON.parse(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
@@ -797,14 +739,6 @@ class Annotation extends Component {
     case 'create_dynamicannotationfield':
     case 'update_dynamicannotationfield':
     {
-      if (object.field_name === 'metadata_value' && activityType === 'update_dynamicannotationfield') {
-        contentTemplate = (
-          <EmbedUpdate
-            activity={activity}
-            authorName={authorName}
-          />);
-      }
-
       if (object.field_name === 'verification_status_status' && config.appName === 'check' && activityType === 'update_dynamicannotationfield') {
         const statusValue = object.value;
         const statusCode = statusValue.toLowerCase().replace(/[ _]/g, '-');
@@ -1017,95 +951,8 @@ class Annotation extends Component {
           );
         }
       }
-
-      if (object.field_name === 'embed_code_copied') {
-        contentTemplate = (
-          <span className="annotation__embed-code-copied">
-            <FormattedMessage
-              id="annotation.embedCodeCopied"
-              defaultMessage="An embed code of the item has been generated and copied. The item may now be publicly viewable."
-            />
-          </span>
-        );
-      }
-
-      if (object.field_name === 'pender_archive_response' && activityType === 'create_dynamicannotationfield') {
-        const penderResponse = JSON.parse(JSON.parse(annotation.content)[0].value);
-        contentTemplate = null;
-        if (penderResponse.error) {
-          contentTemplate = (
-            <span className="annotation__pender-archive">
-              <FormattedHTMLMessage
-                id="annotation.penderArchiveResponseError"
-                defaultMessage="Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists."
-                values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-              />
-            </span>
-          );
-        } else if (penderResponse.screenshot_taken) {
-          activityType = 'screenshot_taken';
-          authorName = null;
-          contentTemplate = (
-            <div>
-              <div className="annotation__card-content annotation__pender-archive">
-                <FormattedHTMLMessage
-                  id="annotation.penderArchiveResponse"
-                  defaultMessage="Keep has taken a screenshot of this URL."
-                />
-                <div>
-                  <div
-                    style={{
-                      background: `transparent url('${penderResponse.screenshot_url}') top left no-repeat`,
-                      backgroundSize: 'cover',
-                      border: '1px solid #ccc',
-                      width: 80,
-                      height: 80,
-                      cursor: 'pointer',
-                      display: 'inline-block',
-                    }}
-                    className="annotation__card-thumbnail annotation__pender-archive-thumbnail"
-                    onClick={this.handleOpenCommentImage.bind(this, penderResponse.screenshot_url)}
-                  />
-                </div>
-              </div>
-
-              {/* lightbox */}
-              {penderResponse.screenshot_url && !!this.state.zoomedCommentImage ?
-                <Lightbox
-                  onCloseRequest={this.handleCloseCommentImage.bind(this)}
-                  mainSrc={this.state.zoomedCommentImage}
-                /> : null}
-            </div>
-          );
-        } else {
-          contentTemplate = (
-            <span className="annotation__pender-archive">
-              <FormattedHTMLMessage
-                id="annotation.penderArchiveWait"
-                defaultMessage="The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
-              />
-            </span>
-          );
-        }
-        contentTemplate = null;
-      }
       break;
     }
-    case 'update_embed':
-      contentTemplate = (
-        <EmbedUpdate
-          activity={activity}
-          authorName={authorName}
-        />);
-      break;
-    case 'create_embed':
-      contentTemplate = (
-        <EmbedCreate
-          annotated={annotated}
-          content={content}
-          authorName={authorName}
-        />);
-      break;
     case 'create_projectmedia':
       contentTemplate = (
         <span>
@@ -1120,18 +967,21 @@ class Annotation extends Component {
       );
       break;
     case 'update_projectmedia': {
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.addSource"
-            defaultMessage="Source {name} added by {author}"
-            values={{
-              name: 'source name',
-              author: authorName,
-            }}
-          />
-        </span>
-      );
+      const meta = JSON.parse(activity.meta);
+      if (meta) {
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.addSource"
+              defaultMessage="Source {name} updated by {author}"
+              values={{
+                name: meta.source_name,
+                author: authorName,
+              }}
+            />
+          </span>
+        );
+      }
       break;
     }
     case 'create_claimdescription':
@@ -1223,7 +1073,7 @@ class Annotation extends Component {
     }
 
     const cardActivities = ['create_comment', 'screenshot_taken', 'bot_response', 'task_answer_suggestion'];
-    const useCardTemplate = (cardActivities.indexOf(activityType) > -1 || showCard);
+    const useCardTemplate = (cardActivities.indexOf(activityType) > -1);
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
 
