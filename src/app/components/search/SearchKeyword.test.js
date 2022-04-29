@@ -25,10 +25,10 @@ describe('<SearchKeyword />', () => {
       classes={{}}
       team={team}
       pusher={{
-        subscribe: () => { return () => { return null;} },
+        subscribe: () => () => null,
         unsubscribe: () => {},
       }}
-      project={{project}}
+      project={project}
       query={{
         keyword: 'search keyword',
       }}
@@ -46,7 +46,7 @@ describe('<SearchKeyword />', () => {
       classes={{}}
       team={team}
       pusher={{
-        subscribe: () => { return () => { return null;} },
+        subscribe: () => () => null,
         unsubscribe: () => {},
       }}
       project={project}
