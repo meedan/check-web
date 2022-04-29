@@ -221,7 +221,7 @@ class SearchKeyword extends React.Component {
                 return status ? status.label : '';
               })
               : [],
-            query.keyword,
+            this.initialQuery?.keyword,
             query.tags,
           // Remove empty entries
           // http://stackoverflow.com/a/19888749/209184
@@ -323,7 +323,6 @@ class SearchKeyword extends React.Component {
       projects = team.projects.edges.slice().sort((a, b) =>
         a.node.title.localeCompare(b.node.title));
     }
-
     const title = (this.filterIsActive() || this.keywordIsActive())
       ? this.title(statuses, projects)
       : (this.props.title || (this.props.project ? this.props.project.title : null));
@@ -391,8 +390,7 @@ class SearchKeyword extends React.Component {
                     setParentSearchText={this.setSearchText}
                     searchText={this.props.query.keyword || ''}
                     inputBaseProps={{
-                      defaultValue: this.props.query.keyword || '',
-                      onChange: this.handleInputChange,
+                      onBlur: this.handleInputChange,
                       ref: this.searchInput,
                       disabled: this.state.imgData.data.length > 0,
                     }}
@@ -560,6 +558,10 @@ SearchKeyword.propTypes = {
   cleanupQuery: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
 };
+
+
+// eslint-disable-next-line import/no-unused-modules
+export { SearchKeyword as SearchKeywordTest };
 
 export default createFragmentContainer(withStyles(styles)(withPusher(SearchKeyword)), graphql`
   fragment SearchKeyword_team on Team {
