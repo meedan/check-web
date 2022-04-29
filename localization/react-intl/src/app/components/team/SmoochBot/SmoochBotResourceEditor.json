@@ -4,6 +4,11 @@
     "defaultMessage": "Public URL that returns N articles in RSS format"
   },
   {
+    "id": "smoochBotResourceEditor.addContent",
+    "description": "Placeholder for manual content entry",
+    "defaultMessage": "Type something"
+  },
+  {
     "id": "smoochBotResourceEditor.error",
     "defaultMessage": "This URL does not seem to be a valid RSS feed"
   },
@@ -12,12 +17,19 @@
     "defaultMessage": "Bot resource title"
   },
   {
-    "id": "smoochBotResourceEditor.addContent",
-    "defaultMessage": "Add content manually"
+    "id": "smoochBotResourceEditor.content",
+    "description": "Header for the bot resource's content textfield",
+    "defaultMessage": "Content"
+  },
+  {
+    "id": "smoochBotResourceEditor.charsCounter",
+    "description": "Counter that shows how many characters can still be input for the tipline content",
+    "defaultMessage": "{count}/{max} characters available"
   },
   {
     "id": "smoochBotResourceEditor.rss",
-    "defaultMessage": "Add content from RSS feed"
+    "description": "Label of switch that toggles loading of content from a RSS feed",
+    "defaultMessage": "Load content from RSS feed"
   },
   {
     "id": "smoochBotResourceEditor.url",
@@ -33,6 +45,6 @@
   },
   {
     "id": "smoochBotResourceEditor.delete",
-    "defaultMessage": "Delete"
+    "defaultMessage": "Delete resource"
   }
 ]
