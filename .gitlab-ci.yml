@@ -21,6 +21,7 @@ build_qa:
     - docker push "$ECR_API_BASE_URL/qa/check/web:$CI_COMMIT_SHA"
   only:
     - develop
+    - fix-cf-clear
 
 deploy_qa:
   image: python:3-alpine
@@ -42,6 +43,7 @@ deploy_qa:
     - sh scripts/clear-cf-cache.sh qa
   only:
     - develop
+    - fix-cf-clear
 
 build_live:
   image: docker:latest
