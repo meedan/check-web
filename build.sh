@@ -3,7 +3,7 @@
 echo "Starting build preparations..."
 
 # Try setting a region here, just in case?
-if [[ "$AWS_REGION" == "" ]; then
+if [[ "$AWS_REGION" == "" ]]; then
   export AWS_REGION=eu-west-1
 fi
 echo "Using AWS_REGION=$AWS_REGION"
