@@ -1,5 +1,13 @@
 #!/bin/bash
 
+echo "Starting build preparations..."
+
+# Try setting a region here, just in case?
+if [[ "$AWS_REGION" == "" ]; then
+  export AWS_REGION=eu-west-1
+fi
+echo "Using AWS_REGION=$AWS_REGION"
+
 #if [[ $TRAVIS_BRANCH != 'develop' && $TRAVIS_BRANCH != 'master' ]]
 #then
 #  docker-compose build web
@@ -8,6 +16,7 @@
 #else
   if [[ $TRAVIS_JOB_NAME == 'integration-and-unit-tests' ]]
   then
+    echo "Starting integration and unit test dependent services..."
     docker-compose build web api api-background pender pender-background
     docker-compose -f docker-compose.yml -f docker-test.yml up -d web api api-background pender pender-background chromedriver
   else
