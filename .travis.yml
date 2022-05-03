@@ -27,7 +27,7 @@ before_install:
 - cp config/sidekiq.yml.example config/sidekiq.yml
 - cd -
 # check api
-- export CHECK_API_BRANCH=$((git ls-remote --exit-code --heads https://github.com/meedan/check-api.git $TRAVIS_BRANCH >/dev/null && echo $TRAVIS_BRANCH) || echo 'develop')
+- export CHECK_API_BRANCH=batch-entrypoint
 - echo "Using branch $CHECK_API_BRANCH for Check API"
 - git clone --branch=$CHECK_API_BRANCH https://github.com/meedan/check-api.git
 - cd check-api
