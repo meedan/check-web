@@ -16,7 +16,6 @@ import HelpIcon from '@material-ui/icons/HelpOutline';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ReportDesignerCopyToClipboard from './ReportDesignerCopyToClipboard';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
-import ReportDesignerEditButton from './ReportDesignerEditButton';
 import MediaStatus from '../MediaStatus';
 import { completedGreen, inProgressYellow, brandSecondary, checkBlue } from '../../../styles/js/shared';
 import { getStatus } from '../../../helpers';
@@ -60,7 +59,6 @@ const ReportDesignerTopBar = (props) => {
   const {
     media,
     state,
-    editing,
     data,
     defaultLanguage,
     intl,
@@ -211,28 +209,7 @@ const ReportDesignerTopBar = (props) => {
             </Box>
           </Box>
           <Box display="flex">
-            { editing ?
-              <ReportDesignerEditButton
-                disabled={readOnly}
-                onClick={props.onSave}
-                label={
-                  <FormattedMessage
-                    id="reportDesigner.save"
-                    defaultMessage="Save"
-                  />
-                }
-              /> :
-              <ReportDesignerEditButton
-                disabled={readOnly || state === 'published'}
-                onClick={props.onEdit}
-                label={
-                  <FormattedMessage
-                    id="reportDesigner.edit"
-                    defaultMessage="Edit"
-                  />
-                }
-              /> }
-            { !editing && state === 'paused' ?
+            { state === 'paused' ?
               <ReportDesignerConfirmableButton
                 className={classes.publish}
                 disabled={readOnly}
@@ -391,7 +368,7 @@ const ReportDesignerTopBar = (props) => {
                   </React.Fragment>
                 }
                 noCancel={Boolean(cantPublishReason)}
-                onClose={cantPublishReason ? props.onEdit : null}
+                onClose={null}
                 onConfirm={
                   cantPublishReason ?
                     null :
@@ -408,7 +385,7 @@ const ReportDesignerTopBar = (props) => {
                     }
                 }
               /> : null }
-            { !editing && state === 'published' ?
+            { state === 'published' ?
               <ReportDesignerConfirmableButton
                 className={classes.pause}
                 disabled={readOnly}
@@ -468,14 +445,11 @@ ReportDesignerTopBar.defaultProps = {
 
 ReportDesignerTopBar.propTypes = {
   state: PropTypes.oneOf(['paused', 'published']).isRequired,
-  editing: PropTypes.bool.isRequired,
   media: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   defaultLanguage: PropTypes.string.isRequired,
   onStatusChange: PropTypes.func.isRequired,
   onStateChange: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   intl: intlShape.isRequired,
   prefixUrl: PropTypes.string.isRequired,

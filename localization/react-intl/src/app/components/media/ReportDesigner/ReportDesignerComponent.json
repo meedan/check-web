@@ -4,22 +4,6 @@
     "defaultMessage": "Sorry, an error occurred while updating the report settings. Please try again and contact {supportEmail} if the condition persists."
   },
   {
-    "id": "reportDesigner.confirmLeaveTitle",
-    "defaultMessage": "Do you want to leave without saving?"
-  },
-  {
-    "id": "reportDesigner.confirmLeaveText",
-    "defaultMessage": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
-  },
-  {
-    "id": "reportDesigner.cancelLeaveButtonLabel",
-    "defaultMessage": "Go back"
-  },
-  {
-    "id": "reportDesigner.confirmLeaveButtonLabel",
-    "defaultMessage": "Leave without saving"
-  },
-  {
     "id": "reportDesigner.title",
     "defaultMessage": "Design your report"
   }
