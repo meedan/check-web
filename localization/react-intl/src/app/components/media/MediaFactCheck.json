@@ -35,37 +35,25 @@
     "defaultMessage": "Published article URL"
   },
   {
-    "id": "mediaFactCheck.copying",
-    "description": "Caption displayed while fact-check data is being copied to a report.",
-    "defaultMessage": "Copying…"
+    "id": "mediaActionsBar.publishedReport",
+    "defaultMessage": "Published report"
   },
   {
-    "id": "mediaFactCheck.copyToReport",
-    "description": "Button label to copy fact-check data into a report.",
-    "defaultMessage": "Copy to tipline report"
+    "id": "mediaActionsBar.unpublishedReport",
+    "defaultMessage": "Unpublished report"
   },
   {
-    "id": "mediaFactCheck.confirmTitle1",
-    "defaultMessage": "Current report is published"
+    "id": "mediaFactCheck.claimMissingTitle",
+    "description": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet",
+    "defaultMessage": "Claim missing"
   },
   {
-    "id": "mediaFactCheck.confirmTitle2",
-    "defaultMessage": "Overwrite existing report content?"
+    "id": "mediaFactCheck.claimMissingDesc",
+    "description": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet",
+    "defaultMessage": "You must add a claim to access the fact-check report."
   },
   {
-    "id": "mediaFactCheck.confirmText1",
-    "defaultMessage": "You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
-  },
-  {
-    "id": "mediaFactCheck.confirmText2",
-    "defaultMessage": "Do you want to update the report with this new content? All content currently in the report will be lost."
-  },
-  {
-    "id": "mediaFactCheck.confirmButtonLabel1",
-    "defaultMessage": "Pause report and update content"
-  },
-  {
-    "id": "mediaFactCheck.confirmButtonLabel2",
-    "defaultMessage": "Overwrite report content"
+    "id": "mediaFactCheck.confirmButtonLabel",
+    "defaultMessage": "Go back to editing"
   }
 ]
