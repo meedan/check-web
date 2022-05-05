@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -11,7 +10,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import { MultiSelector } from '@meedan/check-ui';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
@@ -255,24 +253,6 @@ class MediaActionsBarComponent extends Component {
               projectMedia={this.props.media}
               className={classes.spacedButton}
             />
-            { media.team && media.team.smooch_bot ?
-              <Button
-                onClick={MediaActionsBarComponent.handleReportDesigner}
-                id="media-detail__report-designer"
-                variant="outlined"
-                className={classes.spacedButton}
-                startIcon={<IconReport />}
-              >
-                { published ?
-                  <FormattedMessage
-                    id="mediaActionsBar.publishedReport"
-                    defaultMessage="Published report"
-                  /> :
-                  <FormattedMessage
-                    id="mediaActionsBar.unpublishedReport"
-                    defaultMessage="Unpublished report"
-                  /> }
-              </Button> : null }
           </div> :
           <div>
             <RestoreConfirmProjectMediaToProjectAction

@@ -27,11 +27,12 @@
   },
   {
     "id": "reportDesigner.content",
-    "defaultMessage": "Content ({max} characters max)"
+    "defaultMessage": "Summary ({max} characters max)"
   },
   {
-    "id": "reportDesigner.textError",
-    "defaultMessage": "You must either provide text for the report or uncheck the 'Report text' box"
+    "id": "reportDesigner.textUrl",
+    "description": "Text report field",
+    "defaultMessage": "Published article URL ({max} characters max)"
   },
   {
     "id": "reportDesigner.headline",
@@ -39,7 +40,7 @@
   },
   {
     "id": "reportDesigner.description",
-    "defaultMessage": "Content ({max} characters max)"
+    "defaultMessage": "Summary ({max} characters max)"
   },
   {
     "id": "reportDesigner.darkOverlay",
