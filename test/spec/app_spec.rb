@@ -245,13 +245,13 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should linkify URLs on comments', bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('meedan.com')).to be(false)
+      expect(@driver.page_source.include?('meedan')).to be(false)
       wait_for_selector('.media-tab__comments').click
       fill_field('#cmd-input', 'https://meedan.com/en/')
       @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation__avatar-col')
       wait_for_size_change(0, 'annotation__card-content', :class, 25)
-      expect(@driver.page_source.include?('meedan.com')).to be(true)
+      expect(@driver.page_source.include?('meedan')).to be(true)
       expect(wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath).length == 1).to be(true)
     end
 
