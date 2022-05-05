@@ -108,8 +108,8 @@ const ReportDesignerForm = (props) => {
                 defaultMessage="Introduction"
               />
             }
-            value={data.introduction}
-            onChange={(e) => { props.onUpdate('introduction', e.target.value); }}
+            defaultValue={data.introduction}
+            onBlur={(e) => { props.onUpdate('introduction', e.target.value); }}
             rows={4}
             multiline
             {...textFieldProps}
@@ -148,7 +148,7 @@ const ReportDesignerForm = (props) => {
             <Box>
               <TextField
                 key={`text-title-${data.language}`}
-                value={data.title}
+                defaultValue={data.title}
                 inputProps={{ maxLength: 140, className: classes.headlineField }}
                 label={
                   <FormattedMessage
@@ -157,32 +157,39 @@ const ReportDesignerForm = (props) => {
                     values={{ max: 140 }}
                   />
                 }
-                onChange={(e) => { props.onUpdate('title', e.target.value); }}
                 onBlur={(e) => { props.onUpdate('title', e.target.value.trim()); }}
                 {...textFieldProps}
               />
               <TextField
                 id="report-designer__text" // For integration test
                 key={`text-${data.language}`}
-                value={data.text}
-                inputProps={{ maxLength: 760 }}
+                defaultValue={data.text}
+                inputProps={{ maxLength: 620 }}
                 label={
                   <FormattedMessage
                     id="reportDesigner.content"
-                    defaultMessage="Content ({max} characters max)"
-                    values={{ max: 760 }}
+                    defaultMessage="Summary ({max} characters max)"
+                    values={{ max: 620 }}
                   />
                 }
-                onChange={(e) => { props.onUpdate('text', e.target.value); }}
+                onBlur={(e) => { props.onUpdate('text', e.target.value.trim()); }}
                 rows={10}
                 multiline
-                helperText={
-                  data.use_text_message && data.text.length === 0 ?
-                    <FormattedMessage
-                      id="reportDesigner.textError"
-                      defaultMessage="You must either provide text for the report or uncheck the 'Report text' box"
-                    /> : null
+                {...textFieldProps}
+              />
+              <TextField
+                key={`text-url-${data.language}`}
+                defaultValue={data.published_article_url}
+                inputProps={{ maxLength: 140, className: classes.headlineField }}
+                label={
+                  <FormattedMessage
+                    id="reportDesigner.textUrl"
+                    defaultMessage="Published article URL ({max} characters max)"
+                    description="Text report field"
+                    values={{ max: 140 }}
+                  />
                 }
+                onBlur={(e) => { props.onUpdate('published_article_url', e.target.value.trim()); }}
                 {...textFieldProps}
               />
             </Box> : null }
@@ -191,8 +198,8 @@ const ReportDesignerForm = (props) => {
             <Box>
               <TextField
                 key={`headline-${data.language}`}
-                value={data.headline}
-                onChange={(e) => { props.onUpdate('headline', e.target.value); }}
+                defaultValue={data.headline}
+                onBlur={(e) => { props.onUpdate('headline', e.target.value); }}
                 inputProps={{ maxLength: 85, className: classes.headlineField }}
                 label={
                   <FormattedMessage
@@ -205,13 +212,13 @@ const ReportDesignerForm = (props) => {
               />
               <TextField
                 key={`description-${data.language}`}
-                value={data.description}
-                onChange={(e) => { props.onUpdate('description', e.target.value); }}
+                defaultValue={data.description}
+                onBlur={(e) => { props.onUpdate('description', e.target.value); }}
                 inputProps={{ maxLength: 240 }}
                 label={
                   <FormattedMessage
                     id="reportDesigner.description"
-                    defaultMessage="Content ({max} characters max)"
+                    defaultMessage="Summary ({max} characters max)"
                     values={{ max: 240 }}
                   />
                 }
@@ -262,8 +269,8 @@ const ReportDesignerForm = (props) => {
                   <Box display="flex" width="100%">
                     <TextField
                       key={`status-${data.language}`}
-                      value={data.status_label}
-                      onChange={(e) => { props.onUpdate('status_label', e.target.value); }}
+                      defaultValue={data.status_label}
+                      onBlur={(e) => { props.onUpdate('status_label', e.target.value); }}
                       inputProps={{ maxLength: 25 }}
                       fullWidth
                       label={
@@ -278,8 +285,8 @@ const ReportDesignerForm = (props) => {
                     <div className={classes.spacer} />
                     <TextField
                       key={`date-${data.language}`}
-                      value={data.date || formatDate(new Date(), data.language)}
-                      onChange={(e) => { props.onUpdate('date', e.target.value); }}
+                      defaultValue={data.date || formatDate(new Date(), data.language)}
+                      onBlur={(e) => { props.onUpdate('date', e.target.value); }}
                       inputProps={{ maxLength: 100 }}
                       fullWidth
                       label={
@@ -293,8 +300,8 @@ const ReportDesignerForm = (props) => {
                   </Box>
                   <TextField
                     key={`url-${data.language}`}
-                    value={data.url}
-                    onChange={(e) => { props.onUpdate('url', e.target.value); }}
+                    defaultValue={data.url}
+                    onBlur={(e) => { props.onUpdate('url', e.target.value); }}
                     inputProps={{ maxLength: 40 }}
                     fullWidth
                     label={

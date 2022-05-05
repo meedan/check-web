@@ -40,14 +40,6 @@
     "defaultMessage": "Reports sent"
   },
   {
-    "id": "reportDesigner.save",
-    "defaultMessage": "Save"
-  },
-  {
-    "id": "reportDesigner.edit",
-    "defaultMessage": "Edit"
-  },
-  {
     "id": "reportDesigner.publish",
     "defaultMessage": "Publish"
   },
