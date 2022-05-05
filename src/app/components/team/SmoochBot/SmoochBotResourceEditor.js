@@ -143,7 +143,7 @@ const SmoochBotResourceEditor = ({
             variant="outlined"
             fullWidth
           /> : null }
-        <Box ml={1}>
+        <Box ml={1} mt={2}>
           <Typography>
             <strong>
               <FormattedMessage
