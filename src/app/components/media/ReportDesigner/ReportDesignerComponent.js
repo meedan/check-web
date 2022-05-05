@@ -216,7 +216,10 @@ const ReportDesignerComponent = (props) => {
       }
     });
     setData(updatedData);
-    handleSave('save', null, updatedData);
+    // It doesn't work to upload the image right away
+    if (fieldOrObject !== 'image') {
+      handleSave('save', null, updatedData);
+    }
   };
 
   const handleHelp = () => {
