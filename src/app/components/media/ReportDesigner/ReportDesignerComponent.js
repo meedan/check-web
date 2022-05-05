@@ -275,6 +275,7 @@ const ReportDesignerComponent = (props) => {
           <ReportDesignerForm
             data={data.options[currentReportIndex]}
             disabled={data.state === 'published'}
+            pending={pending}
             media={media}
             onUpdate={handleUpdate}
           />

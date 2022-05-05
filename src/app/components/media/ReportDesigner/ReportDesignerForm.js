@@ -74,6 +74,7 @@ const ReportDesignerForm = (props) => {
     className: classes.textField,
     variant: 'outlined',
     fullWidth: true,
+    disabled: props.pending,
   };
 
   return (
@@ -324,6 +325,7 @@ const ReportDesignerForm = (props) => {
 
 ReportDesignerForm.defaultProps = {
   disabled: false,
+  pending: false,
 };
 
 ReportDesignerForm.propTypes = {
@@ -331,6 +333,7 @@ ReportDesignerForm.propTypes = {
   media: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  pending: PropTypes.bool,
 };
 
 export default ReportDesignerForm;
