@@ -86,15 +86,6 @@ const SmoochBotResourceEditor = ({
     charactersCount += rssPreview.length;
   }
 
-  // Clear state when coming from another resource
-  React.useEffect(() => {
-    setError(null);
-    setRssPreview(null);
-    setLoading(false);
-    setUrl(resource.smooch_custom_resource_feed_url);
-    setCount(resource.smooch_custom_resource_number_of_articles);
-  }, [resource.smooch_custom_resource_id]);
-
   const handleError = () => {
     setLoading(false);
     setError(<FormattedMessage id="smoochBotResourceEditor.error" defaultMessage="This URL does not seem to be a valid RSS feed" />);
@@ -138,7 +129,6 @@ const SmoochBotResourceEditor = ({
       <Box display="flex" flexWrap="wrap">
         { hasTitle ?
           <TextField
-            key={Math.random().toString().substring(2, 10)}
             label={
               <FormattedMessage
                 id="smoochBotResourceEditor.title"
@@ -176,7 +166,6 @@ const SmoochBotResourceEditor = ({
           </Typography>
         </Box>
         <TextField
-          key={Math.random().toString().substring(2, 10)}
           placeholder={intl.formatMessage(messages.typeHere)}
           className={classes.spaced}
           defaultValue={resource.smooch_custom_resource_body}
@@ -232,7 +221,6 @@ const SmoochBotResourceEditor = ({
       { rssEnabled ?
         <Box display="flex" justifyContent="space-between" alignItems={error ? 'baseline' : 'center'}>
           <TextField
-            key={Math.random().toString().substring(2, 10)}
             label={
               <FormattedMessage
                 id="smoochBotResourceEditor.url"
@@ -256,7 +244,6 @@ const SmoochBotResourceEditor = ({
           />
 
           <TextField
-            key={Math.random().toString().substring(2, 10)}
             type="number"
             label={
               <FormattedMessage
