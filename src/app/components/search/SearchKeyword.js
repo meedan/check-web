@@ -1,15 +1,13 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
-import { FormattedMessage, FormattedHTMLMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Popper from '@material-ui/core/Popper';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -22,45 +20,16 @@ import {
   Movie as MovieIcon,
   Image as ImageIcon,
 } from '@material-ui/icons';
-import styled from 'styled-components';
 import SearchKeywordMenu from './SearchKeywordConfig/SearchKeywordMenu';
 import SearchField from './SearchField';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import {
-  black54,
   Row,
-  units,
-  caption,
   black16,
   checkBlue,
 } from '../../styles/js/shared';
 import UploadFileMutation from '../../relay/mutations/UploadFileMutation';
-
-const StyledPopper = styled(Popper)`
-  width: 80%;
-  padding: 0 ${units(1)};
-  z-index: 10000;
-
-  table {
-    width: 100%;
-    display: block;
-  }
-
-  td {
-    padding: ${units(1)};
-  }
-
-  a {
-    font: ${caption};
-    padding-${props => (props.theme.dir === 'rtl' ? 'right' : 'left')}: ${units(1)};
-  }
-
-  button {
-    color: ${black54};
-    float: ${props => (props.theme.dir === 'rtl' ? 'left' : 'right')};
-  }
-`;
 
 const styles = theme => ({
   endAdornmentRoot: {
@@ -119,7 +88,6 @@ class SearchKeyword extends React.Component {
 
     this.state = {
       isSaving: false,
-      isPopperClosed: false, // user sets this once per page load
       imgData: {
         data: '',
         name: '',
@@ -239,11 +207,6 @@ class SearchKeyword extends React.Component {
       newQuery.keyword = newKeyword;
     }
     this.props.setQuery(newQuery);
-  }
-
-  handlePopperClick = (ev) => {
-    ev.preventDefault();
-    this.setState({ isPopperClosed: true });
   }
 
   handleClickClear = () => {
@@ -416,42 +379,6 @@ class SearchKeyword extends React.Component {
                     }
                   />
                 </Box>
-                <StyledPopper
-                  id="search-help"
-                  open={
-                    // Open the search help when
-                    // - user has typed something
-                    // - user has not explicitly closed the help
-                    // - search does not have modal expansion widget
-                    this.props.query.keyword !== this.initialQuery.keyword &&
-                    !this.state.isPopperClosed &&
-                    !this.props.showExpand
-                  }
-                  anchorEl={() => this.searchInput.current}
-                >
-                  <Paper>
-                    <IconButton onClick={this.handlePopperClick}>
-                      <ClearIcon />
-                    </IconButton>
-                    <FormattedHTMLMessage
-                      id="search.help"
-                      defaultMessage='
-                        <table>
-                          <tbody>
-                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>
-                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>
-                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>
-                          </tbody>
-                        </table>
-                        <div>
-                          <a href="https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1" target="_blank" >
-                            Learn more about search techniques
-                          </a>
-                        </div>'
-                      description="Instructions for usage of logical operators on search input"
-                    />
-                  </Paper>
-                </StyledPopper>
               </Grid>
               { this.props.showExpand ? (
                 <Grid item>
