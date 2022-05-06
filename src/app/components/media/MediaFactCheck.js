@@ -87,7 +87,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else if (values.title && values.summary) {
+      } else if (values.title || values.summary || values.url) {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -202,9 +202,14 @@ const MediaFactCheck = ({ projectMedia }) => {
         label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Published article URL" description="Label for fact-check URL field" />}
         name="url"
         value={url}
+        key={url}
         onBlur={(newValue) => {
-          setUrl(newValue);
-          handleBlur('url', newValue);
+          let newUrl = newValue;
+          if (!/^https?:\/\//.test(newValue)) {
+            newUrl = `https://${newValue}`;
+          }
+          setUrl(newUrl);
+          handleBlur('url', newUrl);
         }}
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}

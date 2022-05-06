@@ -123,7 +123,7 @@ const ReportDesignerForm = (props) => {
               <strong>
                 <FormattedMessage
                   id="reportDesigner.report"
-                  defaultMessage="Report"
+                  defaultMessage="Fact-check"
                 />
               </strong>
             </Typography>
@@ -179,7 +179,7 @@ const ReportDesignerForm = (props) => {
                 {...textFieldProps}
               />
               <TextField
-                key={`text-url-${data.language}`}
+                key={`text-url-${data.language}-${data.published_article_url}`}
                 defaultValue={data.published_article_url}
                 inputProps={{ maxLength: 140, className: classes.headlineField }}
                 label={
@@ -190,7 +190,13 @@ const ReportDesignerForm = (props) => {
                     values={{ max: 140 }}
                   />
                 }
-                onBlur={(e) => { props.onUpdate('published_article_url', e.target.value.trim()); }}
+                onBlur={(e) => {
+                  let newUrl = e.target.value.trim();
+                  if (!/^https?:\/\//.test(newUrl)) {
+                    newUrl = `https://${newUrl}`;
+                  }
+                  props.onUpdate('published_article_url', newUrl);
+                }}
                 {...textFieldProps}
               />
             </Box> : null }
