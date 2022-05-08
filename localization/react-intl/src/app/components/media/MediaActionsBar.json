@@ -12,14 +12,6 @@
     "defaultMessage": "Assignments updated successfully"
   },
   {
-    "id": "mediaActionsBar.publishedReport",
-    "defaultMessage": "Published report"
-  },
-  {
-    "id": "mediaActionsBar.unpublishedReport",
-    "defaultMessage": "Unpublished report"
-  },
-  {
     "id": "mediaActionsBar.assignmentTitle",
     "defaultMessage": "Assign item to collaborators"
   },

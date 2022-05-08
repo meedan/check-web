@@ -21,6 +21,10 @@ services:
     environment:
       RAILS_ENV: test
       SERVER_PORT: 3000
+      AWS_REGION: eu-west-1
+      AWS_SECRET_ACCESS_KEY: bogus
+      AWS_ACCESS_KEY_ID: bogus
+      SECRET_KEY_BASE: bogus
   pender:
     environment:
       RAILS_ENV: test
@@ -34,9 +38,6 @@ services:
       BOILERPLATE_ENV: test
       ALEGRE_PORT: 5000
   web:
-    depends_on:
-      - api
-      - chromedriver
     environment:
       PLATFORM: web
       NODE_ENV: development

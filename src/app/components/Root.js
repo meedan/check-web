@@ -11,7 +11,7 @@ import NotFound from './NotFound';
 import UserConfirmPage from './UserConfirmPage';
 import UserPasswordChange from './UserPasswordChange';
 import UserPasswordReset from './UserPasswordReset';
-import MainErrorBoundary from './error/MainErrorBoundary';
+import ErrorBoundary from './error/ErrorBoundary';
 import User from './source/User';
 import Me from './source/Me';
 import Team from './team/Team';
@@ -55,10 +55,10 @@ class Root extends Component {
     window.Check = { store };
 
     return (
-      <MainErrorBoundary>
-        <React.Fragment>
-          <RootLocale locale={locale} />
-          <IntlProvider locale={locale} messages={translations}>
+      <React.Fragment>
+        <RootLocale locale={locale} />
+        <IntlProvider locale={locale} messages={translations}>
+          <ErrorBoundary component="Root">
             <Provider store={store}>
               <Router history={browserHistory} onUpdate={Root.logPageView}>
                 <Route path="/" component={Home}>
@@ -106,9 +106,9 @@ class Root extends Component {
                 </Route>
               </Router>
             </Provider>
-          </IntlProvider>
-        </React.Fragment>
-      </MainErrorBoundary>
+          </ErrorBoundary>
+        </IntlProvider>
+      </React.Fragment>
     );
   }
 }

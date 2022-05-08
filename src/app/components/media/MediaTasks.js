@@ -13,6 +13,7 @@ import styled from 'styled-components';
 import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
+import ErrorBoundary from '../error/ErrorBoundary';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
 import CreateTask from '../task/CreateTask';
@@ -375,22 +376,26 @@ const MediaTasks = (props) => {
 
   if (fieldset === 'metadata') {
     return (
-      <Relay.RootContainer
-        Component={MediaMetadataContainer}
-        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} onTimelineCommentOpen={props.onTimelineCommentOpen} fieldset="metadata" />}
-        route={route}
-        renderLoading={() => <MediasLoading count={1} />}
-      />
+      <ErrorBoundary component="MediaTasks">
+        <Relay.RootContainer
+          Component={MediaMetadataContainer}
+          renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} onTimelineCommentOpen={props.onTimelineCommentOpen} fieldset="metadata" />}
+          route={route}
+          renderLoading={() => <MediasLoading count={1} />}
+        />
+      </ErrorBoundary>
     );
   }
 
   return (
-    <Relay.RootContainer
-      Component={MediaTasksContainer}
-      renderFetched={data => <MediaTasksContainer cachedMedia={media} {...data} fieldset="tasks" />}
-      route={route}
-      renderLoading={() => <MediasLoading count={1} />}
-    />
+    <ErrorBoundary component="MediaTasks">
+      <Relay.RootContainer
+        Component={MediaTasksContainer}
+        renderFetched={data => <MediaTasksContainer cachedMedia={media} {...data} fieldset="tasks" />}
+        route={route}
+        renderLoading={() => <MediasLoading count={1} />}
+      />
+    </ErrorBoundary>
   );
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
 import TeamComponent from './TeamComponent';
+import ErrorBoundary from '../error/ErrorBoundary';
 
 const renderQuery = ({ error, props }, { route, params }) => {
   if (!error && props) {
@@ -20,20 +21,22 @@ const Team = (props) => {
   }
 
   return (
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query TeamQuery($teamSlug: String!) {
-          team(slug: $teamSlug) {
-            ...TeamComponent_team
+    <ErrorBoundary component="Team">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+          query TeamQuery($teamSlug: String!) {
+            team(slug: $teamSlug) {
+              ...TeamComponent_team
+            }
           }
-        }
-      `}
-      variables={{
-        teamSlug,
-      }}
-      render={data => renderQuery(data, props)}
-    />
+        `}
+        variables={{
+          teamSlug,
+        }}
+        render={data => renderQuery(data, props)}
+      />
+    </ErrorBoundary>
   );
 };
 

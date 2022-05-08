@@ -203,7 +203,8 @@ function buildColumnDefs(team, resultType) {
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
   const columns = [possibleColumns[0]];
   team.list_columns.forEach((listColumn) => {
-    if (listColumn.show) {
+    // Force legacy data to show "Submitted" field
+    if (listColumn.show || listColumn.key === 'created_at_timestamp') {
       let column = possibleColumns.find(c => c.field === listColumn.key);
       if (!column && /^task_value_/.test(listColumn.key)) {
         column = {
