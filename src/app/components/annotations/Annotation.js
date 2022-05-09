@@ -520,38 +520,40 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { target } = meta;
-        const type = object.relationship_type;
-        contentTemplate = (
-          <span>
-            { /parent/.test(type) ?
-              <FormattedMessage
-                id="annotation.relationshipCreated"
-                defaultMessage="Related item added by {author}: {title}"
-                values={{
-                  title: emojify(target.title),
-                  author: authorName,
-                }}
-              /> : null }
-            { /confirmed_sibling/.test(type) ?
-              <FormattedMessage
-                id="annotation.similarCreated"
-                defaultMessage="Confirmed similar by {author}: {title}"
-                values={{
-                  title: emojify(target.title),
-                  author: authorName,
-                }}
-              /> : null }
-            { /suggested/.test(type) ?
-              <FormattedMessage
-                id="annotation.suggestionCreated"
-                defaultMessage="Suggested match by {author}: {title}"
-                values={{
-                  title: emojify(target.title),
-                  author: authorName,
-                }}
-              /> : null }
-          </span>
-        );
+        if (target.id === annotated.dbid) {
+          const type = object.relationship_type;
+          contentTemplate = (
+            <span>
+              { /parent/.test(type) ?
+                <FormattedMessage
+                  id="annotation.relationshipCreated"
+                  defaultMessage="Related item added by {author}: {title}"
+                  values={{
+                    title: emojify(target.title),
+                    author: authorName,
+                  }}
+                /> : null }
+              { /confirmed_sibling/.test(type) ?
+                <FormattedMessage
+                  id="annotation.similarCreated"
+                  defaultMessage="Confirmed similar by {author}: {title}"
+                  values={{
+                    title: emojify(target.title),
+                    author: authorName,
+                  }}
+                /> : null }
+              { /suggested/.test(type) ?
+                <FormattedMessage
+                  id="annotation.suggestionCreated"
+                  defaultMessage="Suggested match by {author}: {title}"
+                  values={{
+                    title: emojify(target.title),
+                    author: authorName,
+                  }}
+                /> : null }
+            </span>
+          );
+        }
       }
       break;
     }
