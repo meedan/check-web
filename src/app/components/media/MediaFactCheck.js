@@ -5,12 +5,12 @@ import { graphql, commitMutation } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
+import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
-import { propsToData } from './ReportDesigner/reportDesignerHelpers';
 import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
 
@@ -29,102 +29,18 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [summary, setSummary] = React.useState(factCheck ? factCheck.summary : '');
   const [url, setUrl] = React.useState(factCheck ? factCheck.url : '');
   const [saving, setSaving] = React.useState(false);
+  const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
-  const [copying, setCopying] = React.useState(false);
-  const [showConfirmationDialog, setShowConfirmationDialog] = React.useState(false);
 
   const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description;
-  const canCopy = can(projectMedia.permissions, 'create Dynamic');
-  const noReport = !projectMedia.report;
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
-  const handleCloseConfirmationDialog = () => {
-    setShowConfirmationDialog(false);
-  };
-
-  const handleCopyToReport = () => {
-    setShowConfirmationDialog(false);
-    setCopying(true);
-
-    const language = projectMedia.team.get_language || 'en';
-    const props = {
-      media: {
-        ...projectMedia,
-        dynamic_annotation_report_design: projectMedia.report,
-      },
-    };
-    const headline = title || '';
-    let description = summary || '';
-    description = description.substring(0, 760);
-    const fields = propsToData(props, language);
-    fields.state = 'paused';
-    fields.options.forEach((option, i) => {
-      if (fields.options[i].language === language) {
-        fields.options[i].use_text_message = true;
-        fields.options[i].use_visual_card = false;
-        fields.options[i].headline = headline.substring(0, 85);
-        fields.options[i].description = description.substring(0, 240);
-        fields.options[i].title = headline;
-        fields.options[i].text = `${description}\n\n${url || ''}`;
-        fields.options[i].image = (projectMedia.media && projectMedia.media.picture) ? projectMedia.media.picture : '';
-      }
-    });
-
-    const input = {
-      annotated_type: 'ProjectMedia',
-      annotated_id: `${projectMedia.dbid}`,
-      annotation_type: 'report_design',
-      set_fields: JSON.stringify(fields),
-    };
-    if (projectMedia.report) {
-      input.id = projectMedia.report.id;
-    }
-
-    const mutation = projectMedia.report ?
-      graphql`
-        mutation MediaFactCheckUpdateDynamicMutation($input: UpdateDynamicInput!) {
-          updateDynamic(input: $input) {
-            project_media {
-              id
-              dynamic_annotation_report_design {
-                id
-                data
-              }
-            }
-          }
-        }
-      ` :
-      graphql`
-        mutation MediaFactCheckCreateDynamicMutation($input: CreateDynamicInput!) {
-          createDynamic(input: $input) {
-            dynamic {
-              id
-            }
-          }
-        }
-      `;
-
-    commitMutation(Relay.Store, {
-      mutation,
-      variables: { input },
-      onCompleted: (response, err) => {
-        setCopying(false);
-        if (!err) {
-          window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
-        }
-      },
-      onError: () => {
-        setCopying(false);
-      },
-    });
-  };
-
-  const handleConfirmCopyToReport = () => {
-    if (noReport) {
-      handleCopyToReport();
+  const handleGoToReport = () => {
+    if (!claimDescription) {
+      setShowDialog(true);
     } else {
-      setShowConfirmationDialog(true);
+      window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
     }
   };
 
@@ -171,7 +87,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             setError(true);
           },
         });
-      } else if (values.title && values.summary) {
+      } else if (values.title || values.summary || values.url) {
         setSaving(true);
         commitMutation(Relay.Store, {
           mutation: graphql`
@@ -263,7 +179,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription?.description)}
         hasPermission={hasPermission}
-        disabled={readOnly}
+        disabled={readOnly || published}
         rows={1}
         multiline
       />
@@ -278,7 +194,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         }}
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
-        disabled={readOnly}
+        disabled={readOnly || published}
         multiline
       />
 
@@ -286,66 +202,70 @@ const MediaFactCheck = ({ projectMedia }) => {
         label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Published article URL" description="Label for fact-check URL field" />}
         name="url"
         value={url}
+        key={url}
         onBlur={(newValue) => {
-          setUrl(newValue);
-          handleBlur('url', newValue);
+          let newUrl = newValue;
+          if (!/^https?:\/\//.test(newValue)) {
+            newUrl = `https://${newValue}`;
+          }
+          setUrl(newUrl);
+          handleBlur('url', newUrl);
         }}
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
-        disabled={readOnly}
+        disabled={readOnly || published}
       />
 
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>
-          <Button onClick={handleConfirmCopyToReport} className="media-fact-check__copy-to-report" variant="contained" color="primary" disabled={saving || copying || !canCopy || !factCheck || readOnly}>
-            { copying ?
-              <FormattedMessage id="mediaFactCheck.copying" defaultMessage="Copying…" description="Caption displayed while fact-check data is being copied to a report." /> :
-              <FormattedMessage id="mediaFactCheck.copyToReport" defaultMessage="Copy to tipline report" description="Button label to copy fact-check data into a report." /> }
+          <Button
+            onClick={handleGoToReport}
+            className="media-fact-check__report-designer"
+            variant="contained"
+            color="primary"
+            startIcon={<IconReport />}
+            disabled={saving || readOnly}
+          >
+            { published ?
+              <FormattedMessage
+                id="mediaActionsBar.publishedReport"
+                defaultMessage="Published report"
+              /> :
+              <FormattedMessage
+                id="mediaActionsBar.unpublishedReport"
+                defaultMessage="Unpublished report"
+              /> }
           </Button>
         </Box> : null }
 
       <ConfirmProceedDialog
-        open={showConfirmationDialog}
+        open={showDialog}
         title={
-          published ?
-            <FormattedMessage
-              id="mediaFactCheck.confirmTitle1"
-              defaultMessage="Current report is published"
-            /> :
-            <FormattedMessage
-              id="mediaFactCheck.confirmTitle2"
-              defaultMessage="Overwrite existing report content?"
-            />
+          <FormattedMessage
+            id="mediaFactCheck.claimMissingTitle"
+            defaultMessage="Claim missing"
+            description="Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
+          />
         }
         body={
           <div>
             <Typography variant="body1" component="p" paragraph>
-              { published ?
-                <FormattedMessage
-                  id="mediaFactCheck.confirmText1"
-                  defaultMessage="You need to first pause your report in order to edit it. Do you want to pause the report and update it with the new content?"
-                /> :
-                <FormattedMessage
-                  id="mediaFactCheck.confirmText2"
-                  defaultMessage="Do you want to update the report with this new content? All content currently in the report will be lost."
-                />
-              }
+              <FormattedMessage
+                id="mediaFactCheck.claimMissingDesc"
+                defaultMessage="You must add a claim to access the fact-check report."
+                description="Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
+              />
             </Typography>
           </div>
         }
         proceedLabel={
-          published ?
-            <FormattedMessage
-              id="mediaFactCheck.confirmButtonLabel1"
-              defaultMessage="Pause report and update content"
-            /> :
-            <FormattedMessage
-              id="mediaFactCheck.confirmButtonLabel2"
-              defaultMessage="Overwrite report content"
-            />
+          <FormattedMessage
+            id="mediaFactCheck.confirmButtonLabel"
+            defaultMessage="Go back to editing"
+          />
         }
-        onProceed={handleCopyToReport}
-        onCancel={handleCloseConfirmationDialog}
+        onProceed={() => { setShowDialog(false); }}
+        onCancel={() => { setShowDialog(false); }}
       />
     </Box>
   );

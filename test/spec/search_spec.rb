@@ -104,24 +104,6 @@ shared_examples 'search' do
     expect(@driver.page_source.include?('My search result')).to be(true)
   end
 
-  it 'should search and change sort order', bin2: true do
-    api_create_claim_and_go_to_search_page
-    expect(@driver.current_url.to_s.match(/ASC|DESC/).nil?).to be(true)
-
-    wait_for_selector('#search-input')
-    wait_for_selector('th[data-field=linked_items_count]').click
-    wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/DESC/).nil?).to be(false)
-    expect(@driver.current_url.to_s.match(/ASC/).nil?).to be(true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-
-    wait_for_selector('th[data-field=linked_items_count]').click
-    wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.current_url.to_s.match(/DESC/).nil?).to be(true)
-    expect(@driver.current_url.to_s.match(/ASC/).nil?).to be(false)
-    expect(@driver.page_source.include?('My search result')).to be(true)
-  end
-
   it 'should search by status through URL', bin1: true do
     api_create_claim_and_go_to_search_page
     expect((@driver.title =~ /False/).nil?).to be(true)
@@ -175,12 +157,14 @@ shared_examples 'search' do
     api_create_claim_and_go_to_search_page
     wait_for_selector('.media__heading', :css, 20, true)
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022related\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
+    wait_for_selector('#search-input')
     wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, 'th[data-field=linked_items_count]> span > svg').length).to eq 1
     expect(@driver.find_elements(:css, 'th[data-field=created_at_timestamp]> span > svg').empty?).to be(true)
 
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items/%7B\u0022sort\u0022%3A\u0022recent_added\u0022%2C\u0022sort_type\u0022%3A\u0022DESC\u0022%7D"
+    wait_for_selector('#search-input')
     wait_for_selector('.media__heading', :css, 20, true)
     expect(@driver.page_source.include?('My search result')).to be(true)
     expect(@driver.find_elements(:css, 'th[data-field=linked_items_count]> span > svg').empty?).to be(true)
@@ -212,21 +196,6 @@ shared_examples 'search' do
     current = wait_for_selector_list('.medias__item').length
     expect(old == current).to be(true)
     expect(current.positive?).to be(true)
-  end
-
-  it 'should sort by submission order', bin1: true do
-    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
-    wait_for_selector_list('.medias__item')
-    claim1 = wait_for_selector_list('h4')[0].text
-    claim2 = wait_for_selector_list('h4')[1].text
-    expect(claim1 == 'Claim 1').to be(true)
-    expect(claim2 == 'Claim 0').to be(true)
-    wait_for_selector("//span[contains(text(), 'Submitted')]", :xpath).click
-    wait_for_text_change('Claim 1', 'h4')
-    claim1 = wait_for_selector_list('h4')[0].text
-    claim2 = wait_for_selector_list('h4')[1].text
-    expect(claim1 == 'Claim 0').to be(true)
-    expect(claim2 == 'Claim 1').to be(true)
   end
 
   # commented until #CHECK-852 be fixed

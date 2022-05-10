@@ -20,8 +20,8 @@ export function defaultOptions(media, language) {
     use_text_message: isDefaultLanguage,
     title: '',
     text: '',
-    headline: media.title ? media.title.substring(0, 85) : '',
-    description: media.description ? media.description.substring(0, 240) : '',
+    headline: '',
+    description: '',
     status_label: status.label.substring(0, 16),
     theme_color: getStatusStyle(status, 'color'),
   };

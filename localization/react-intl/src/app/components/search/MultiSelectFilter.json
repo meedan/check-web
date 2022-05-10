@@ -10,6 +10,11 @@
     "defaultMessage": "or"
   },
   {
+    "id": "filter.tag.deleted",
+    "description": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted",
+    "defaultMessage": "Property deleted"
+  },
+  {
     "id": "multiSelector.search",
     "defaultMessage": "Search…"
   },

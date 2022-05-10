@@ -56,10 +56,6 @@
     "defaultMessage": "FB Comments"
   },
   {
-    "id": "list.relatedCount",
-    "defaultMessage": "Related"
-  },
-  {
     "id": "list.suggestionsCount",
     "defaultMessage": "Suggested matches"
   },

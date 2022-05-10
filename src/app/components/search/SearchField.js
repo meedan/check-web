@@ -62,6 +62,7 @@ const SearchField = ({
   const [expand, setExpand] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [expandedText, setExpandedText] = React.useState(searchText);
+  const [localSearchText, setLocalSearchText] = React.useState(searchText);
 
   function handleExpand(event) {
     setExpand(true);
@@ -88,11 +89,22 @@ const SearchField = ({
             name="search-input"
             id="search-input"
             {...inputBaseProps}
-            onChange={(e) => {
+            onBlur={(e) => {
               setParentSearchText(e.target.value);
               inputBaseProps.onChange(e);
             }}
-            value={searchText}
+            onChange={(e) => {
+              setLocalSearchText(e.target.value);
+              inputBaseProps.onChange(e);
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                setParentSearchText(e.target.value);
+                setLocalSearchText(e.target.value);
+                inputBaseProps.onChange(e);
+              }
+            }}
+            value={localSearchText}
             InputProps={{
               disableUnderline: true,
               startAdornment: (

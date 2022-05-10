@@ -22,7 +22,6 @@ import MediaPublishedCell from './MediaPublishedCell';
 import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
-import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
@@ -125,13 +124,6 @@ const AllPossibleColumns = [
     sortKey: 'comment_count',
   },
   {
-    field: 'related_count',
-    headerText: <FormattedMessage id="list.relatedCount" defaultMessage="Related" />,
-    cellComponent: RelatedCountCell,
-    align: 'center',
-    sortKey: 'related_count',
-  },
-  {
     field: 'suggestions_count',
     headerText: <FormattedMessage id="list.suggestionsCount" defaultMessage="Suggested matches" />,
     cellComponent: SuggestionsCountCell,
@@ -211,7 +203,8 @@ function buildColumnDefs(team, resultType) {
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
   const columns = [possibleColumns[0]];
   team.list_columns.forEach((listColumn) => {
-    if (listColumn.show) {
+    // Force legacy data to show "Submitted" field
+    if (listColumn.show || listColumn.key === 'created_at_timestamp') {
       let column = possibleColumns.find(c => c.field === listColumn.key);
       if (!column && /^task_value_/.test(listColumn.key)) {
         column = {

@@ -26,3 +26,4 @@ dist
 basic-auth.sh
 .yalc/
 yalc.lock
+.eslintcache

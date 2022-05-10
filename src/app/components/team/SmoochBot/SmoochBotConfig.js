@@ -284,6 +284,7 @@ const SmoochBotConfig = (props) => {
                 /> : null }
               { currentResource ?
                 <SmoochBotResourceEditor
+                  key={currentResource.smooch_custom_resource_id}
                   installationId={props.installationId}
                   resource={currentResource}
                   onChange={handleChangeResource}

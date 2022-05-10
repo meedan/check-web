@@ -50,7 +50,9 @@ const TeamListsComponent = ({ team, setFlashMessage }) => {
     .forEach((column, index) => {
       if ((team.smooch_bot || column.key !== 'demand')
           // Filter out last_seen per CHECK-1565
-          && column.key !== 'last_seen') {
+          && column.key !== 'last_seen'
+          // ...and related_count per CHECK-1745
+          && column.key !== 'related_count') {
         if (column.show || column.key === 'created_at_timestamp') {
           columnsToShow.push(column.key);
           selectedColumns.push({ ...column, index });

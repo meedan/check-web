@@ -137,6 +137,9 @@ const ReportDesignerPreview = (props) => {
   if (data.text) {
     text.push(data.text);
   }
+  if (data.published_article_url) {
+    text.push(data.published_article_url);
+  }
   text.push(previewFooter(defaultReport));
 
   const introduction = previewIntroduction(data, media);
