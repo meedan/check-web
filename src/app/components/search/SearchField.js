@@ -91,10 +91,15 @@ const SearchField = ({
             {...inputBaseProps}
             onBlur={(e) => {
               setParentSearchText(e.target.value);
-              inputBaseProps.onBlur(e);
+              if (inputBaseProps.onBlur) {
+                inputBaseProps.onBlur(e);
+              }
             }}
             onChange={(e) => {
               setLocalSearchText(e.target.value);
+              if (inputBaseProps.onChange) {
+                inputBaseProps.onChange(e);
+              }
             }}
             onKeyPress={(e) => {
               if (e.key === 'Enter') {
