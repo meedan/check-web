@@ -16,11 +16,23 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { getTimeZones } from '@vvo/tzdb';
 import SmoochBotPreviewFeed from './SmoochBotPreviewFeed';
 import { placeholders } from './localizables';
 import { inProgressYellow, completedGreen, opaqueBlack38, opaqueBlack23 } from '../../../styles/js/shared';
 import ParsedText from '../../ParsedText';
-import timezones from '../../../timezones';
+
+const timezones = getTimeZones({ includeUtc: true }).map((option) => {
+  const offset = option.currentTimeOffsetInMinutes / 60;
+  const fullOffset = option.currentTimeFormat.split(' ')[0];
+  const sign = offset < 0 ? '' : '+';
+  const newOption = {
+    code: option.name,
+    label: `${option.name} (GMT${sign}${offset})`,
+    value: `${option.name} (GMT${fullOffset})`,
+  };
+  return newOption;
+});
 
 const useStyles = makeStyles(theme => ({
   title: {
@@ -237,6 +249,7 @@ const SmoochBotNewsletterEditor = ({
       </Box>
       <Box display="flex" justifyContent="flex-start" alignItems="center" mt={1} mb={1} className={classes.schedule}>
         <Select
+          id="day-select"
           value={newsletter.smooch_newsletter_day || 'none'}
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_day', event.target.value); }}
@@ -264,6 +277,7 @@ const SmoochBotNewsletterEditor = ({
           />
         </Typography>
         <Select
+          id="time-select"
           value={newsletter.smooch_newsletter_time || 'none'}
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_time', event.target.value); }}
@@ -277,6 +291,7 @@ const SmoochBotNewsletterEditor = ({
           { [...Array(24).keys()].map(hour => <MenuItem key={hour} value={`${hour}`}>{`${hour}:00`}</MenuItem>) }
         </Select>
         <Select
+          id="timezone-select"
           value={newsletter.smooch_newsletter_timezone || 'none'}
           variant="outlined"
           onChange={(event) => { onChange('smooch_newsletter_timezone', event.target.value); }}
@@ -288,7 +303,7 @@ const SmoochBotNewsletterEditor = ({
               description="Label for time zone selection"
             />
           </MenuItem>
-          { Object.keys(timezones).sort().map(timezone => <MenuItem key={timezone} value={timezone}>{timezone}</MenuItem>) }
+          { timezones.map(timezone => <MenuItem key={timezone.code} value={timezone.value}>{timezone.label}</MenuItem>) }
         </Select>
       </Box>
       <Box mt={2}>
@@ -334,9 +349,9 @@ const SmoochBotNewsletterEditor = ({
           fullWidth
         />
         <Typography variant="caption">
-          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder {channel} to insert the name of the messaging service automatically." />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder \u007Bchannel\u007D to insert the name of the messaging service automatically." />
           <br />
-          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder {date} to insert the date the newsletter is sent automatically." />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder \u007Bdate\u007D to insert the date the newsletter is sent automatically." />
         </Typography>
       </Box>
       <Box mb={3} mt={2}>
