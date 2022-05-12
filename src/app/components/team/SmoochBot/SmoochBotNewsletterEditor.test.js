@@ -8,10 +8,10 @@ describe('<SmoochBotNewsletterEditor />', () => {
       installationId="foo"
       newsletter={{
         smooch_newsletter_feed_url: 'http://example.com',
-        smooch_newsletter_day: "thursday",
-        smooch_newsletter_introduction: "Hello",
-        smooch_newsletter_time: "8",
-        smooch_newsletter_timezone: "America/Tijuana (GMT-07:00)",
+        smooch_newsletter_day: 'thursday',
+        smooch_newsletter_introduction: 'Hello',
+        smooch_newsletter_time: '8',
+        smooch_newsletter_timezone: 'America/Tijuana (GMT-07:00)',
       }}
       language="en"
       onChange={() => {}}
@@ -22,5 +22,4 @@ describe('<SmoochBotNewsletterEditor />', () => {
     expect(wrapper.find('div#time-select').text()).toMatch(/8:00/);
     expect(wrapper.find('div#timezone-select').text()).toMatch(/America\/Tijuana \(GMT-7\)/);
   });
-
 });
