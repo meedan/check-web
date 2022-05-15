@@ -12,7 +12,6 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles } from '@material-ui/core/styles';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -31,7 +30,6 @@ import UserTooltip from '../user/UserTooltip';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
-import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import {
   getErrorMessage,
   getStatus,
@@ -349,9 +347,7 @@ class Annotation extends Component {
   }
 
   render() {
-    const {
-      annotation: activity, annotated, annotation: { annotation }, classes,
-    } = this.props;
+    const { annotation: activity, annotated, annotation: { annotation } } = this.props;
 
     let annotationActions = null;
     if (annotation && annotation.annotation_type) {
@@ -413,42 +409,10 @@ class Annotation extends Component {
       ? <ProfileLink className="annotation__author-name" teamUser={activity.user.team_user} /> : null;
     const object = JSON.parse(activity.object_after);
     const content = object.data;
-    const isVideoAnno = object.fragment !== undefined;
     let activityType = activity.event_type;
     let contentTemplate = null;
 
     switch (activityType) {
-    case 'create_comment': {
-      const commentText = content.text;
-      const commentContent = JSON.parse(annotation.content);
-      contentTemplate = (
-        <div>
-          <div className="annotation__card-content">
-            <div className={isVideoAnno ? classes.videoAnnoText : ''} onClick={isVideoAnno ? () => this.props.onTimelineCommentOpen(object.fragment) : null}>
-              {isVideoAnno ? <VideoAnnotationIcon fontSize="small" className={classes.VideoAnnotationIcon} /> : null} <ParsedText text={commentText} />
-            </div>
-            {/* thumbnail */}
-            {commentContent.original ?
-              <div onClick={this.handleOpenCommentImage.bind(this, commentContent.original)}>
-                <img
-                  src={commentContent.thumbnail}
-                  className="annotation__card-thumbnail"
-                  alt=""
-                />
-              </div> : null}
-          </div>
-
-          {/* lightbox */}
-          {commentContent.original && !!this.state.zoomedCommentImage
-            ? <Lightbox
-              onCloseRequest={this.handleCloseCommentImage.bind(this)}
-              mainSrc={this.state.zoomedCommentImage}
-            />
-            : null}
-        </div>
-      );
-      break;
-    }
     case 'create_tag':
       if (activity.tag && activity.tag.tag_text) {
         contentTemplate = (
@@ -465,42 +429,7 @@ class Annotation extends Component {
         );
       }
       break;
-    case 'destroy_comment': {
-      let commentRemoved = null;
-      if (content === null) {
-        const changes = safelyParseJSON(activity.object_changes_json);
-        commentRemoved = changes.data[0].text;
-      } else {
-        commentRemoved = content.text;
-      }
-      contentTemplate = (
-        <em className="annotation__deleted">
-          <FormattedMessage
-            id="annotation.deletedComment"
-            defaultMessage="Comment deleted by {author}: {comment}"
-            values={{
-              author: authorName,
-              comment: <ParsedText text={commentRemoved} block />,
-            }}
-          />
-        </em>);
-      break;
-    }
     case 'create_task':
-      if (content.fieldset === 'tasks') {
-        contentTemplate = (
-          <span className="annotation__task-created">
-            <FormattedMessage
-              id="annotation.taskCreated"
-              defaultMessage="Task created by {author}: {task}"
-              values={{
-                task: content.label,
-                author: authorName,
-              }}
-            />
-          </span>
-        );
-      }
       if (content.fieldset === 'metadata') {
         contentTemplate = (
           <span className="annotation__metadata-created">
@@ -1147,15 +1076,4 @@ Annotation.propTypes = {
   intl: intlShape.isRequired,
 };
 
-const annotationStyles = theme => ({
-  VideoAnnotationIcon: {
-    marginRight: theme.spacing(1),
-    position: 'relative',
-    top: theme.spacing(0.5),
-  },
-  videoAnnoText: {
-    cursor: 'pointer',
-  },
-});
-
-export default withStyles(annotationStyles)(withSetFlashMessage(injectIntl(Annotation)));
+export default withSetFlashMessage(injectIntl(Annotation));
