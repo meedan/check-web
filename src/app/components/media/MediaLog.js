@@ -123,13 +123,6 @@ const MediaLogContainer = Relay.createContainer(withPusher(MediaLogComponent), {
                   image,
                 }
               }
-              task {
-                id,
-                dbid,
-                label,
-                type,
-                fieldset,
-              }
               tag {
                 id
                 dbid
