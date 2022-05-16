@@ -668,9 +668,6 @@ export default createFragmentContainer(SourceInfo, {
             jsonoptions
             json_schema
             options
-            pending_suggestions_count
-            suggestions_count
-            log_count
             team_task {
               conditional_info
             }
