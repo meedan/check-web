@@ -1,47 +1,18 @@
 [
   {
-    "id": "annotation.flagAdult",
-    "defaultMessage": "Adult"
+    "id": "annotation.editedBy",
+    "description": "Fact-check in edited state",
+    "defaultMessage": "edited by"
   },
   {
-    "id": "annotation.flagMedical",
-    "defaultMessage": "Medical"
+    "id": "annotation.pausedBy",
+    "description": "Fact-check in paused state",
+    "defaultMessage": "paused by"
   },
   {
-    "id": "annotation.flagViolence",
-    "defaultMessage": "Violence"
-  },
-  {
-    "id": "annotation.flagRacy",
-    "defaultMessage": "Racy"
-  },
-  {
-    "id": "annotation.flagSpam",
-    "defaultMessage": "Spam"
-  },
-  {
-    "id": "annotation.flagLikelihood0",
-    "defaultMessage": "Unknown"
-  },
-  {
-    "id": "annotation.flagLikelihood1",
-    "defaultMessage": "Very unlikely"
-  },
-  {
-    "id": "annotation.flagLikelihood2",
-    "defaultMessage": "Unlikely"
-  },
-  {
-    "id": "annotation.flagLikelihood3",
-    "defaultMessage": "Possible"
-  },
-  {
-    "id": "annotation.flagLikelihood4",
-    "defaultMessage": "Likely"
-  },
-  {
-    "id": "annotation.flagLikelihood5",
-    "defaultMessage": "Very likely"
+    "id": "annotation.publishedBy",
+    "description": "Fact-check in published state",
+    "defaultMessage": "published by"
   },
   {
     "id": "annotation.menuTooltip",
@@ -57,15 +28,7 @@
   },
   {
     "id": "annotation.taggedHeader",
-    "defaultMessage": "Tagged #{tag} by {author}"
-  },
-  {
-    "id": "annotation.deletedComment",
-    "defaultMessage": "Comment deleted by {author}: {comment}"
-  },
-  {
-    "id": "annotation.taskCreated",
-    "defaultMessage": "Task created by {author}: {task}"
+    "defaultMessage": "Tag #{tag} added by {author}"
   },
   {
     "id": "annotation.metadataCreated",
@@ -113,10 +76,6 @@
     "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
-    "id": "annotation.flag",
-    "defaultMessage": "Classification result:"
-  },
-  {
     "id": "annotation.statusLocked",
     "defaultMessage": "Item status locked by {author}"
   },
@@ -133,8 +92,12 @@
     "defaultMessage": "Item unassigned from {name} by {author}"
   },
   {
+    "id": "annotation.reportDesignState",
+    "defaultMessage": "Fact-check report {state} {author}"
+  },
+  {
     "id": "annotation.statusSetHeader",
-    "defaultMessage": "Status set to {status} by {author}"
+    "defaultMessage": "Status changed to {status} by {author}"
   },
   {
     "id": "annotation.seeHowThisBotWorks",
@@ -162,7 +125,7 @@
   },
   {
     "id": "annotation.metadataResponse",
-    "defaultMessage": "Annotation field \"{fieldLabel}\" filled by {author}: {response}"
+    "defaultMessage": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
   },
   {
     "id": "annotation.archiverSuccess",
@@ -177,35 +140,31 @@
     "defaultMessage": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
   },
   {
-    "id": "annotation.embedCodeCopied",
-    "defaultMessage": "An embed code of the item has been generated and copied. The item may now be publicly viewable."
+    "id": "annotation.createProjectMedia",
+    "defaultMessage": "Item created by {author}"
   },
   {
-    "id": "annotation.penderArchiveResponseError",
-    "defaultMessage": "Sorry, an error occurred while taking a screenshot of the item. Please refresh the item to try again and contact {supportEmail} if the condition persists."
+    "id": "annotation.addSource",
+    "defaultMessage": "Source {name} updated by {author}"
   },
   {
-    "id": "annotation.penderArchiveResponse",
-    "defaultMessage": "Keep has taken a screenshot of this URL."
+    "id": "annotation.updateClaimDescription",
+    "defaultMessage": "Claim edited by {author}: {value}"
   },
   {
-    "id": "annotation.penderArchiveWait",
-    "defaultMessage": "The screenshot of this item is being taken by Keep. Come back in a few minutes to see it."
+    "id": "annotation.createClaimDescription",
+    "defaultMessage": "Claim added by {author}: {value}"
   },
   {
-    "id": "annotation.projectMoved",
-    "defaultMessage": "Moved from folder {previousProject} to {currentProject} by {author}"
+    "id": "annotation.updateClaimContext",
+    "defaultMessage": "Additional content edited by {author}: {value}"
   },
   {
-    "id": "annotation.movedToTrash",
-    "defaultMessage": "Moved to Trash by {author}"
+    "id": "annotation.createClaimContext",
+    "defaultMessage": "Additional content added by {author}: {value}"
   },
   {
-    "id": "annotation.movedFromTrash",
-    "defaultMessage": "Moved out of Trash by {author}"
-  },
-  {
-    "id": "annotation.teamCopied",
-    "defaultMessage": "Copied from workspace {previousTeam} by {author}"
+    "id": "annotation.createFactCheck",
+    "defaultMessage": "Fact-check title added by {author}: {value}"
   }
 ]

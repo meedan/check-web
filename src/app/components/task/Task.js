@@ -19,7 +19,6 @@ import styled from 'styled-components';
 import moment from 'moment';
 import EditTaskDialog from './EditTaskDialog';
 import TaskActions from './TaskActions';
-import TaskLog from './TaskLog';
 import SingleChoiceTask from './SingleChoiceTask';
 import MultiSelectTask from './MultiSelectTask';
 import ShortTextRespondTask from './ShortTextRespondTask';
@@ -1319,7 +1318,6 @@ class Task extends Component {
   render() {
     const { task: teamTask, media } = this.props;
     const task = { ...teamTask };
-    const isTask = task.fieldset === 'tasks';
     const data = getResponseData(task.first_response);
     const { response, by, byPictures } = data;
     const currentUser = this.getCurrentUser();
@@ -1585,7 +1583,6 @@ class Task extends Component {
                 <Box marginBottom={2}>{taskBody}</Box>
               </CardContent>
               {taskActions}
-              {isTask ? <TaskLog task={task} response={response} /> : null}
             </Collapse>
           </Card>
         </Box>
@@ -1723,9 +1720,6 @@ export default Relay.createContainer(Task, {
         jsonoptions,
         json_schema,
         options,
-        pending_suggestions_count,
-        suggestions_count,
-        log_count,
         team_task_id,
         team_task {
           required,
