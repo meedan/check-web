@@ -283,7 +283,7 @@
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequest": {
-		"string": "Tipline request",
+		"string": "Permintaan tipline",
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
@@ -757,11 +757,11 @@
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
 	},
 	"check.tasks.contact_support": {
-		"string": "Contact support",
+		"string": "Hubungi dukungan",
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"string": "Fitur Tugas akan dihentikan pada 30 April. Hubungi dukungan jika Anda memiliki pertanyaan tentang cara menggantinya dengan Anotasi.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
 	},
 	"checkedByTeamsCell.more": {
@@ -1019,6 +1019,10 @@
 		"string": "Kirim pesan ke pemohon",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
+	"errorBoundary.message": {
+		"string": "Hello, I'm having trouble with Check. The web interface has just crashed and is blocking me from doing work!",
+		"developer_comment": "Prefilled support request message when Check UI crashes"
+	},
 	"fetchBot.contactUs": {
 		"string": "Hubungi kami untuk pengaturan"
 	},
@@ -1027,6 +1031,10 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Batalkan"
+	},
+	"filter.tag.deleted": {
+		"string": "Property deleted",
+		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
 		"string": "Check: Verifikasi berita terkini daring, Dibuat dengan ✨oleh {meedan}"
@@ -1259,9 +1267,6 @@
 	},
 	"list.reactCount": {
 		"string": "Reaksi di FB"
-	},
-	"list.relatedCount": {
-		"string": "Terkait"
 	},
 	"list.reportPublishedBy": {
 		"string": "Laporan diterbitkan oleh"
@@ -1597,31 +1602,16 @@
 		"string": "disimpan oleh {userName} {timeAgo}",
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
-	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Tunda laporan dan perbarui kontennya"
+	"mediaFactCheck.claimMissingDesc": {
+		"string": "You must add a claim to access the fact-check report.",
+		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "Ganti konten laporan"
+	"mediaFactCheck.claimMissingTitle": {
+		"string": "Claim missing",
+		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmText1": {
-		"string": "Anda perlu menunda laporan Anda untuk menyuntingnya. Apakah Anda ingin menunda laporan dan memperbaruinya dengan konten baru?"
-	},
-	"mediaFactCheck.confirmText2": {
-		"string": "Apakah Anda ingin memperbarui laporan dengan konten baru ini? Semua konten yang sekarang berada di dalam laporan akan hilang."
-	},
-	"mediaFactCheck.confirmTitle1": {
-		"string": "Laporan terkini telah diterbitkan"
-	},
-	"mediaFactCheck.confirmTitle2": {
-		"string": "Ganti konten laporan yang sudah ada?"
-	},
-	"mediaFactCheck.copyToReport": {
-		"string": "Salin ke laporan tipline",
-		"developer_comment": "Button label to copy fact-check data into a report."
-	},
-	"mediaFactCheck.copying": {
-		"string": "Menyalin...",
-		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
+	"mediaFactCheck.confirmButtonLabel": {
+		"string": "Kembali menyunting"
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "Pengecekan fakta",
@@ -2333,9 +2323,6 @@
 	"reportDesigner.back": {
 		"string": "Kembali ke anotasi"
 	},
-	"reportDesigner.cancelLeaveButtonLabel": {
-		"string": "Kembali"
-	},
 	"reportDesigner.cancelPause": {
 		"string": "Kembali"
 	},
@@ -2347,15 +2334,6 @@
 	},
 	"reportDesigner.cantPublishTitle": {
 		"string": "Laporan Anda belum siap untuk diterbitkan"
-	},
-	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Tinggalkan tanpa menyimpan"
-	},
-	"reportDesigner.confirmLeaveText": {
-		"string": "Anda saat ini memiliki perubahan yang belum disimpan. Jika Anda tinggalkan sekarang, Anda akan kehilangan semua perubahan yang belum disimpan!"
-	},
-	"reportDesigner.confirmLeaveTitle": {
-		"string": "Apakah Anda ingin meninggalkan tanpa menyimpan?"
 	},
 	"reportDesigner.confirmPause": {
 		"string": "Tunda laporan"
@@ -2394,7 +2372,7 @@
 		"string": "Siap untuk menerbitkan perubahan Anda?"
 	},
 	"reportDesigner.content": {
-		"string": "Konten (maksimal {max} karakter)"
+		"string": "Summary ({max} characters max)"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "Konten dengan peringatan tidak dapat<br />dipublikasikan sebagai kartu visual.",
@@ -2419,10 +2397,7 @@
 		"string": "Tanggal diterbitkan"
 	},
 	"reportDesigner.description": {
-		"string": "Konten (maksimal {max} karakter)"
-	},
-	"reportDesigner.edit": {
-		"string": "Sunting"
+		"string": "Summary ({max} characters max)"
 	},
 	"reportDesigner.error": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui pengaturan laporan. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
@@ -2460,7 +2435,7 @@
 		"string": "Hapus gambar"
 	},
 	"reportDesigner.report": {
-		"string": "Laporan"
+		"string": "Pengecekan fakta"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Pratinjau laporan",
@@ -2468,9 +2443,6 @@
 	},
 	"reportDesigner.republishAndResend": {
 		"string": "{demand, plural, other {Kirim juga laporan yang diperbarui ini sebagai {correctionLink} ke # pengguna yang telah menerima versi sebelumnya dari laporan ini.}}"
-	},
-	"reportDesigner.save": {
-		"string": "Simpan"
 	},
 	"reportDesigner.sentCount": {
 		"string": "Laporan terkirim"
@@ -2482,11 +2454,12 @@
 		"string": "Teks",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
-	"reportDesigner.textError": {
-		"string": "Anda harus memberikan teks untuk laporan atau menghapus centang pada kotak 'Teks laporan'"
-	},
 	"reportDesigner.textTitle": {
 		"string": "Judul (maksimal {max} karakter)"
+	},
+	"reportDesigner.textUrl": {
+		"string": "Published article URL ({max} characters max)",
+		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
 		"string": "Rancang laporan Anda"
@@ -2521,7 +2494,7 @@
 		"string": "Perihal Anda memiliki status bawaan {status} dan harus diubah ke status yang berbeda sebelum dapat diterbitkan."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "Anda harus memberikan teks dalam konten atau judul Teks Laporan, atau batalkan pilihan tersebut dan pilih Kartu Visual untuk menerbitkan perihal."
+		"string": "You must add a title and a summary to the fact-check in order to publish the report."
 	},
 	"reportStatusCell.paused": {
 		"string": "Ditunda"
@@ -2719,7 +2692,7 @@
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.archived": {
-		"string": "Tipline request is",
+		"string": "Permintaan tipline adalah",
 		"developer_comment": "Prefix label for field to filter by Tipline request"
 	},
 	"search.assignedTo": {
@@ -2751,7 +2724,7 @@
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.confirmed": {
-		"string": "Confirmed",
+		"string": "Terkonfirmasi",
 		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
@@ -2797,10 +2770,6 @@
 	"search.folderHeading": {
 		"string": "Folder adalah",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
-	},
-	"search.help": {
-		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Pohon + Daun</td><td>Perihal dengan Pohon DAN Daun</td></tr>\n                            <tr><td>|</td><td>Pohon | Daun</td><td>Perihal dengan Pohon ATAU Daun</td></tr>\n                            <tr><td>()</td><td>Pohon + (Daun | Dahan)</td><td>Perihal dengan Pohon DAN Daun ATAU perihal dengan Pohon DAN Dahan</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Pelajari lebih lanjut tentang teknik pencarian\n                          </a>\n                        </div>",
-		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
 		"string": "Cari",
@@ -3362,7 +3331,7 @@
 		"string": "Ketik untuk menulis buletin Anda. Anda dapat menambahkan konten dari RSS di bawah ini."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Add an article"
+		"string": "Tambah sebuah artikel"
 	},
 	"smoochBot.placeholderNewsletterIntroduction": {
 		"string": "Ketik sesuatu"
@@ -3661,11 +3630,11 @@
 		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
 	},
 	"smoochBotIntegrations.entryPointDescription": {
-		"string": "Use this address anywhere online to open WhatsApp and start a tipline conversation:",
+		"string": "Gunakan alamat ini di mana saja secara daring untuk membuka WhatsApp dan memulai percakapan tipline:",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
 	"smoochBotIntegrations.entryPointTitle": {
-		"string": "Entry point",
+		"string": "Titik masuk",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
@@ -3684,11 +3653,11 @@
 		"string": "Nomor telepon yang tersambung: {link}"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
-		"string": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation.",
+		"string": "Gunakan kode ini atau unduh gambar untuk menampilkan kode QR pada promosi daring atau luring. Memindai kode QR membuka WhatsApp dan memulai percakapan tipline.",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.qrCodeTitle": {
-		"string": "QR code",
+		"string": "Kode QR",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
@@ -3728,11 +3697,11 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "The menu of your bot, asking the user to choose between a set of options.",
+		"string": "Menu bot Anda, meminta pengguna untuk memilih di antara serangkaian opsi.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
 	},
 	"smoochBotMainMenu.subtitle2": {
-		"string": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}.",
+		"string": "Harap dicatat bahwa beberapa layanan olah pesan mungkin memiliki opsi tampilan menu yang berbeda dari yang lain. {linkToLearnMore}.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
@@ -3828,7 +3797,7 @@
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuSection.defaultSectionTitle": {
-		"string": "Menu options",
+		"string": "Opsi menu",
 		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.editOption": {
@@ -3907,11 +3876,11 @@
 		"string": "Buletin akan dikirim ke {count} pengguna pada {date}, {time}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
-		"string": "Add article",
+		"string": "Tambah artikel",
 		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.charsCounter": {
-		"string": "{count}/{max} characters available",
+		"string": "{count}/{max} karakter tersedia",
 		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
 	},
 	"smoochBotNewsletterEditor.day": {
@@ -3924,22 +3893,22 @@
 		"string": "Hari"
 	},
 	"smoochBotNewsletterEditor.firstStepDescription": {
-		"string": "Send the newsletter to all subscribed user every:",
+		"string": "Kirim buletin ke semua pengguna yang berlangganan setiap:",
 		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
 	},
 	"smoochBotNewsletterEditor.firstStepTitle": {
-		"string": "Schedule",
+		"string": "Jadwal",
 		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "Jumat"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -3972,7 +3941,7 @@
 		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent.",
+		"string": "Jika konten tidak diubah di antara dua pengiriman terjadwal, buletin tersebut tidak akan dikirim.",
 		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
@@ -3989,7 +3958,7 @@
 		"developer_comment": "Label for time zone selection"
 	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Load content from RSS feed"
+		"string": "Muat konten dari umpan RSS"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "Selasa"
@@ -4001,10 +3970,19 @@
 		"string": "Rabu"
 	},
 	"smoochBotResourceEditor.addContent": {
-		"string": "Tambah konten secara manual"
+		"string": "Ketik sesuatu",
+		"developer_comment": "Placeholder for manual content entry"
+	},
+	"smoochBotResourceEditor.charsCounter": {
+		"string": "{count}/{max} karakter tersedia",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
+	"smoochBotResourceEditor.content": {
+		"string": "Konten",
+		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Hapus"
+		"string": "Delete resource"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": "URL ini tampaknya bukan umpan RSS yang valid"
@@ -4016,7 +3994,8 @@
 		"string": "Jumlah artikel yang dikembalikan"
 	},
 	"smoochBotResourceEditor.rss": {
-		"string": "Tambah konten dari umpan RSS"
+		"string": "Muat konten dari umpan RSS",
+		"developer_comment": "Label of switch that toggles loading of content from a RSS feed"
 	},
 	"smoochBotResourceEditor.rssPlaceholder": {
 		"string": "URL publik yang mengembalikan N artikel dalam format RSS"

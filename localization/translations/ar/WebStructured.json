@@ -283,7 +283,7 @@
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
 	"addFilterMenu.tiplineRequest": {
-		"string": "Tipline request",
+		"string": "طلب من الخط الساخن",
 		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
 	},
 	"addFilterMenu.tiplineRequests": {
@@ -757,11 +757,11 @@
 		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
 	},
 	"check.tasks.contact_support": {
-		"string": "Contact support",
+		"string": "تواصل مع فريق الدعم",
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"string": "ستتوقف خاصية المهام في 30 أبريل (نيسان). يُرجى التواصل مع فريق الدعم إذا كانت لديك أسئلة عن كيفية إحلالها بخاصية التعليقات.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
 	},
 	"checkedByTeamsCell.more": {
@@ -1019,6 +1019,10 @@
 		"string": "إرسال رسالة إلى الطالب",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
+	"errorBoundary.message": {
+		"string": "Hello, I'm having trouble with Check. The web interface has just crashed and is blocking me from doing work!",
+		"developer_comment": "Prefilled support request message when Check UI crashes"
+	},
 	"fetchBot.contactUs": {
 		"string": "تواصل معنا للتثبيت"
 	},
@@ -1027,6 +1031,10 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "إلغاء"
+	},
+	"filter.tag.deleted": {
+		"string": "Property deleted",
+		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
 		"string": "Check: للتحقق من الأخبار العاجلة على الإنترنت. مطوّر بِ ✨ من {meedan}"
@@ -1259,9 +1267,6 @@
 	},
 	"list.reactCount": {
 		"string": "تفاعلات فيسبوك"
-	},
-	"list.relatedCount": {
-		"string": "ذات صلة"
 	},
 	"list.reportPublishedBy": {
 		"string": "تم نشر التقرير بواسطة"
@@ -1597,31 +1602,16 @@
 		"string": "تم الحفظ بواسطة {userName} {timeAgo}",
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
-	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "إيقاف التقرير مؤقتا وتحديث المحتوى"
+	"mediaFactCheck.claimMissingDesc": {
+		"string": "You must add a claim to access the fact-check report.",
+		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "الكتابة فوق محتوى التقرير"
+	"mediaFactCheck.claimMissingTitle": {
+		"string": "Claim missing",
+		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmText1": {
-		"string": "لا بد من إيقاف التقرير مؤقتا للتمكُّن من تحريره. هل لديك الرغبة في إيقاف التقرير مؤقتا واستبداله بالمحتوى الجديد؟"
-	},
-	"mediaFactCheck.confirmText2": {
-		"string": "هل لديك الرغبة في استبدال التقرير بهذا المحتوى الجديد؟ ستضيع جميع محتويات التقرير الحالي."
-	},
-	"mediaFactCheck.confirmTitle1": {
-		"string": "إن التقرير الحالي منشور"
-	},
-	"mediaFactCheck.confirmTitle2": {
-		"string": "الكتابة فوق محتوى التقرير الموجود؟"
-	},
-	"mediaFactCheck.copyToReport": {
-		"string": "نسخ إلى تقرير الخط ساخن",
-		"developer_comment": "Button label to copy fact-check data into a report."
-	},
-	"mediaFactCheck.copying": {
-		"string": "يجري النسخ…",
-		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
+	"mediaFactCheck.confirmButtonLabel": {
+		"string": "العودة إلى التحرير"
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "تقصي الحقائق",
@@ -2333,9 +2323,6 @@
 	"reportDesigner.back": {
 		"string": "العودة إلى التعقيبات"
 	},
-	"reportDesigner.cancelLeaveButtonLabel": {
-		"string": "العودة"
-	},
 	"reportDesigner.cancelPause": {
 		"string": "العودة"
 	},
@@ -2347,15 +2334,6 @@
 	},
 	"reportDesigner.cantPublishTitle": {
 		"string": "تقريرك ليس جاهزا للنشر"
-	},
-	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "مغادرة دون حفظ"
-	},
-	"reportDesigner.confirmLeaveText": {
-		"string": "هناك تعديلات غير محفوظة. إذا غادرت الآن، ستضيع جميع تعديلاتك غير المحفوظة !"
-	},
-	"reportDesigner.confirmLeaveTitle": {
-		"string": "هل تريد المغادرة دون حفظ؟"
 	},
 	"reportDesigner.confirmPause": {
 		"string": "إيقاف التقرير مؤقتا"
@@ -2394,7 +2372,7 @@
 		"string": "هل هذه التغييرات جاهزة للنّشر؟ "
 	},
 	"reportDesigner.content": {
-		"string": "المحتوى (بحد أقصى {max} حرف)"
+		"string": "Summary ({max} characters max)"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "لا يمكن نشر المحتوى الذي يحوي تحذيرا <br /> على هيئة بطاقة مرئية.",
@@ -2419,10 +2397,7 @@
 		"string": "تاريخ النشر"
 	},
 	"reportDesigner.description": {
-		"string": "المحتوى (بحد أقصى {max} حرف)"
-	},
-	"reportDesigner.edit": {
-		"string": "تحرير"
+		"string": "Summary ({max} characters max)"
 	},
 	"reportDesigner.error": {
 		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -2460,7 +2435,7 @@
 		"string": "إزالة الصورة"
 	},
 	"reportDesigner.report": {
-		"string": "التقرير"
+		"string": "تقصي الحقائق"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "لمحة عن التقرير ",
@@ -2468,9 +2443,6 @@
 	},
 	"reportDesigner.republishAndResend": {
 		"string": "{demand, plural, zero {لن يتم إرسال التصحيحات على هيئة {correctionLink} إلى أي مستخدم.} one {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى مستخدم واحد استلم الإصدار السابق من هذا التقرير.} two {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى مستخدمَيْن اثنين استلما الإصدار السابق من هذا التقرير.} few {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدمين استلموا الإصدار السابق من هذا التقرير.} many {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدما استلموا الإصدار السابق من هذا التقرير.} other {إرسال التصحيحات كذلك على هيئة {correctionLink} إلى # مستخدم استلموا الإصدار السابق من هذا التقرير.}}"
-	},
-	"reportDesigner.save": {
-		"string": "حفظ"
 	},
 	"reportDesigner.sentCount": {
 		"string": "التقارير المرسلة"
@@ -2482,11 +2454,12 @@
 		"string": "نص",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
-	"reportDesigner.textError": {
-		"string": "يرجى توفير نص للتقرير أو إلغاء خيار 'Report text'"
-	},
 	"reportDesigner.textTitle": {
 		"string": "العنوان (بحد أقصى {max} حرف)"
+	},
+	"reportDesigner.textUrl": {
+		"string": "Published article URL ({max} characters max)",
+		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
 		"string": "تصميم تقريرك"
@@ -2521,7 +2494,7 @@
 		"string": "العنصر الخاص بك ما زال في الحالة الإفتراضية {status} ولا بد من تغييره لحالة أخرى قبل أن تتمكن من نشره."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "يجب عليك إضافة نص في محتوى أو عنوان التقرير النصي. كبديل عن ذلك، يمكنك إلغاء هذا التحديد ثم اختيار البطاقة المرئية لكي يصبح بإمكانك نشر العنصر."
+		"string": "You must add a title and a summary to the fact-check in order to publish the report."
 	},
 	"reportStatusCell.paused": {
 		"string": "موقوف"
@@ -2719,7 +2692,7 @@
 		"developer_comment": "Button to perform query with specified filters"
 	},
 	"search.archived": {
-		"string": "Tipline request is",
+		"string": "طلب الخط الساخن هو",
 		"developer_comment": "Prefix label for field to filter by Tipline request"
 	},
 	"search.assignedTo": {
@@ -2751,7 +2724,7 @@
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
 	"search.confirmed": {
-		"string": "Confirmed",
+		"string": "مؤكد",
 		"developer_comment": "Allow filtering by confirmed items"
 	},
 	"search.dateLastSubmittedHeading": {
@@ -2797,10 +2770,6 @@
 	"search.folderHeading": {
 		"string": "المجلد هو",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
-	},
-	"search.help": {
-		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>شجرة + ورقة</td><td>العناصر التي تحتوي على كل من الشجرة والورقة</td></tr>\n                            <tr><td>|</td><td>شجرة | ورقة</td><td>العناصر التي تحتوي على أي من الشجرة أو الورقة</td></tr>\n                            <tr><td>()</td><td>شجرة + (ورقة | غصن)</td><td>العناصر التي تحتوي على شجرة وورقة أو العناصر التي تحتوي على شجرة وغصن</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            تعلم المزيد من تقنيات البحث\n                          </a>\n                        </div>",
-		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
 		"string": "بحث",
@@ -3362,7 +3331,7 @@
 		"string": "يُرجى كتابة رسالتك الإخبارية. يمكنك إضافة محتوى من موجز RSS بالأسفل."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Add an article"
+		"string": "إضافة مقال"
 	},
 	"smoochBot.placeholderNewsletterIntroduction": {
 		"string": "يُرجى كتابة شيء هنا"
@@ -3661,11 +3630,11 @@
 		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
 	},
 	"smoochBotIntegrations.entryPointDescription": {
-		"string": "Use this address anywhere online to open WhatsApp and start a tipline conversation:",
+		"string": "يُرجى استخدام هذا الرابط في أي مكان متصل بالانترنت لفتح واتساب، ثم بدء محادثة مع الخط الساخن:",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
 	"smoochBotIntegrations.entryPointTitle": {
-		"string": "Entry point",
+		"string": "نقطة الدخول",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
 	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
@@ -3684,11 +3653,11 @@
 		"string": "رقم الهاتف المتصل: {link}"
 	},
 	"smoochBotIntegrations.qrCodeDescription": {
-		"string": "Use this code or download the image to display the QR code on online or offline promotion. Scanning the QR code opens WhatsApp and starts a tipline conversation.",
+		"string": "يُرجى استخدام هذا الرمز أو تنزيل الصورة لعرض الرمز المربع على إعلان الاتصال بالانترنت أو عدم الاتصال بها. إن المسح الضوئي للرمز المربع يقوم بفتح واتساب، ثم يبدأ محادثة مع الخط الساخن.",
 		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.qrCodeTitle": {
-		"string": "QR code",
+		"string": "الرمز المربع",
 		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
@@ -3728,11 +3697,11 @@
 		"developer_comment": "Menu label used in the tipline bot"
 	},
 	"smoochBotMainMenu.subtitle": {
-		"string": "The menu of your bot, asking the user to choose between a set of options.",
+		"string": "قائمة البوت الخاص بك التي يُطلَب فيها من المستخدم ما يريد من بين مجموعة من الخيارات.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
 	},
 	"smoochBotMainMenu.subtitle2": {
-		"string": "Please note that some messaging services may have different menu display options than others. {linkToLearnMore}.",
+		"string": "تجدر الإشارة إلى أن طريقة عرض خيارات القائمة قد تختلف حسب كل مزود لخدمات التواصل النصي. {linkToLearnMore}.",
 		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
 	},
 	"smoochBotMainMenuNewOption.cancel": {
@@ -3828,7 +3797,7 @@
 		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
 	},
 	"smoochBotMainMenuSection.defaultSectionTitle": {
-		"string": "Menu options",
+		"string": "خيارات القائمة",
 		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMainMenuSection.editOption": {
@@ -3907,11 +3876,11 @@
 		"string": "سيتم إرسال الرسالة الإخبارية إلى {count} مستخدم في {date}، {time}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
-		"string": "Add article",
+		"string": "إضافة مقال",
 		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.charsCounter": {
-		"string": "{count}/{max} characters available",
+		"string": "‫{count}/{max} حرف متاح",
 		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
 	},
 	"smoochBotNewsletterEditor.day": {
@@ -3924,22 +3893,22 @@
 		"string": "في يوم"
 	},
 	"smoochBotNewsletterEditor.firstStepDescription": {
-		"string": "Send the newsletter to all subscribed user every:",
+		"string": "إرسال الرسالة الإخبارية إلى كل المستخدمين المشتركين، كل :",
 		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
 	},
 	"smoochBotNewsletterEditor.firstStepTitle": {
-		"string": "Schedule",
+		"string": "المعدل",
 		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "الجمعة"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -3972,7 +3941,7 @@
 		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent.",
+		"string": "إذا جاء وقت إرسال الرسالة، ولم يتم تغيير المحتوى المُرسَل في الرسالة السابقة، فلن يتم إرسال الرسالة الإخبارية.",
 		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
@@ -3989,7 +3958,7 @@
 		"developer_comment": "Label for time zone selection"
 	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Load content from RSS feed"
+		"string": "‫تحميل المحتوى من موجز RSS"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "الثلاثاء"
@@ -4001,10 +3970,19 @@
 		"string": "الأربعاء"
 	},
 	"smoochBotResourceEditor.addContent": {
-		"string": "إضافة محتوى يدويا"
+		"string": "يُرجى كتابة شيء هنا",
+		"developer_comment": "Placeholder for manual content entry"
+	},
+	"smoochBotResourceEditor.charsCounter": {
+		"string": "‫{count}/{max} حرف متاح",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
+	"smoochBotResourceEditor.content": {
+		"string": "المحتوى",
+		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "حذف"
+		"string": "Delete resource"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": " لا يبدو هذا الرابط صالحًا لموجز RSS"
@@ -4016,7 +3994,8 @@
 		"string": "عدد المقالات المرتجعة"
 	},
 	"smoochBotResourceEditor.rss": {
-		"string": "إضافة محتوى من موجز RSS"
+		"string": "‫تحميل المحتوى من موجز RSS",
+		"developer_comment": "Label of switch that toggles loading of content from a RSS feed"
 	},
 	"smoochBotResourceEditor.rssPlaceholder": {
 		"string": "الرابط العام الذى يرجع عدد من المقالات بصيغة RSS"
