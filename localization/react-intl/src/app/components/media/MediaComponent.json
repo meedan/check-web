@@ -12,10 +12,6 @@
     "defaultMessage": "Source"
   },
   {
-    "id": "mediaComponent.tasks",
-    "defaultMessage": "Tasks"
-  },
-  {
     "id": "mediaComponent.notes",
     "defaultMessage": "Notes"
   },
