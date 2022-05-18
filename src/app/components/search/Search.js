@@ -86,10 +86,6 @@ export default function Search({
   resultType,
 }) {
   let timestampedQuery = query;
-  if (query.sort === undefined) {
-    timestampedQuery.sort = 'recent_added';
-    timestampedQuery.sort_type = 'DESC';
-  }
   if (!noFilters(query, project, projectGroup)) {
     timestampedQuery = { ...query, timestamp: new Date().getTime() };
   }
