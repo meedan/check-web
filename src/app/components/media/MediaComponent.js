@@ -382,17 +382,6 @@ class MediaComponent extends Component {
                     value="source"
                     className="media-tab__source"
                   />
-                  { media.team.get_tasks_enabled ?
-                    <Tab
-                      label={
-                        <FormattedMessage
-                          id="mediaComponent.tasks"
-                          defaultMessage="Tasks"
-                        />
-                      }
-                      value="tasks"
-                      className="media-tab__tasks"
-                    /> : null }
                   <Tab
                     label={
                       <FormattedMessage
@@ -409,7 +398,6 @@ class MediaComponent extends Component {
                   { this.state.showTab === 'requests' ? <MediaRequests media={media} all={!media.is_confirmed_similar_to_another_item} /> : null }
                   { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
                   { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
-                  { this.state.showTab === 'tasks' ? <MediaTasks media={media} fieldset="tasks" /> : null }
                   { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
                 </Box>
               </Column>
