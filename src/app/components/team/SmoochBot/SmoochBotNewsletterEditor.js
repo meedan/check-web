@@ -221,11 +221,10 @@ const SmoochBotNewsletterEditor = ({
                 /> :
                 <FormattedMessage
                   id="smoochBotNewsletterEditor.active"
-                  defaultMessage="The newsletter will be sent to {count} users on {date}, {time}"
+                  defaultMessage="The newsletter will be sent to {count} users on {dateTime}"
                   values={{
                     count: newsletterInformation.subscribers_count,
-                    date: newsletterInformation.next_date,
-                    time: newsletterInformation.next_time,
+                    dateTime: newsletterInformation.next_date_and_time,
                   }}
                 /> }
             </Typography>
