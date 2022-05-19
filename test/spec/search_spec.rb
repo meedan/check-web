@@ -17,10 +17,9 @@ shared_examples 'search' do
   end
 
   it 'should filter by status and search by keywords', bin2: true, quick: true do
-    api_create_claim_and_go_to_search_page
-    expect(@driver.page_source.include?('My search result')).to be(true)
-    create_media('media 2')
-    wait_for_selector_list('.medias__item')[0].click
+    api_create_team_project_claims_sources_and_redirect_to_project_page({ count: 2 })
+    wait_for_selector('#search-input')
+    wait_for_selector('.media__heading').click
     change_the_status_to('.media-status__menu-item--false', false)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
@@ -31,22 +30,22 @@ shared_examples 'search' do
     wait_for_selector('input#false').click
     wait_for_selector('.multi__selector-save').click
     wait_for_selector('#search-fields__submit-button').click
-    expect(page_source_body.include?('My search result')).to be(false)
+    expect(page_source_body.include?('Claim 0')).to be(false)
     wait_for_selector('.multi-select-filter')
-    expect(@driver.page_source.include?('media 2')).to be(true)
-    expect(@driver.page_source.include?('My search result')).to be(false)
-    selected = @driver.find_elements(:css, '.multi-select-filter__tag')
+    expect(@driver.page_source.include?('Claim 1')).to be(true)
+    expect(@driver.page_source.include?('Claim 0')).to be(false)
+    selected = @driver.find_elements(:css, '.multi-select-filter__tag-remove')
     expect(selected.size == 2).to be(true)
     # reset filter
     wait_for_selector('#search-fields__clear-button').click
     wait_for_selector_list_size('.media__heading', 2)
-    expect(@driver.page_source.include?('My search result')).to be(true)
+    expect(@driver.page_source.include?('Claim 0')).to be(true)
     # search by keyword
     wait_for_selector('#search-input').send_keys(:control, 'a', :delete)
-    wait_for_selector('#search-input').send_keys('search')
+    wait_for_selector('#search-input').send_keys('Claim 0')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('.media__heading', :css, 20, true)
-    expect(@driver.page_source.include?('My search result')).to be(true)
+    expect(@driver.page_source.include?('Claim 0')).to be(true)
   end
 
   it 'should filter item by status on trash page', bin5: true do
