@@ -66,8 +66,7 @@ shared_examples 'app' do |webdriver_url|
     test_hash = [example.metadata[:description_args], Process.pid].hash.to_s
     @email = "sysops+#{test_hash}@meedan.com"
     @source_name = 'Iron Maiden'
-    @source_url = "https://twitter.com/ironmaiden?_test_hash=#{test_hash}"
-    @media_url = "https://twitter.com/meedan/status/773947372527288320/?_test_hash=#{test_hash}"
+    @media_url = 'http://localhost:3000/index.html'
     @team1_slug = "team1_#{test_hash}"
     @user_mail = "sysops_#{test_hash}@meedan.com"
   end
@@ -201,7 +200,7 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should give 404 when trying to access a media that is not related to the project on the URL', bin1: true do
       t1 = api_create_team_and_project
-      data = api_create_team_project_and_link({ url: 'https://twitter.com/TheWho/status/890135323216367616' })
+      data = api_create_team_project_and_link({ url: @media_url })
       url = data.full_url
       url = url[0..data.full_url.index('project') + 7] + t1[:project].dbid.to_s + url[url.index('/media')..url.length - 1]
       @driver.navigate.to url
@@ -253,18 +252,6 @@ shared_examples 'app' do |webdriver_url|
       wait_for_size_change(0, 'annotation__card-content', :class, 25)
       expect(@driver.page_source.include?('meedan')).to be(true)
       expect(wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath).length == 1).to be(true)
-    end
-
-    it 'should set metatags', bin5: true do
-      url = 'https://twitter.com/marcouza/status/875424957613920256'
-      api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
-      request_api('make_team_public', { slug: get_team })
-      wait_for_selector('.more-less')
-      url = @driver.current_url.to_s
-      @driver.navigate.to url
-      wait_for_selector('.more-less')
-      site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
-      expect(site == 'check').to be(true)
     end
 
     it 'should show current team content on sidebar when viewing profile', bin3: true do
