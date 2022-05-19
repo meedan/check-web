@@ -81,6 +81,32 @@ shared_examples 'media actions' do
     expect(@driver.page_source.include?('Item status unlocked by')).to be(true)
   end
 
+  it 'should add and delete note', bin3: true do
+    api_create_team_project_and_claim_and_redirect_to_media_page
+    wait_for_selector('.media-detail')
+    wait_for_selector('.media-tab__comments').click
+    wait_for_selector('.annotations__list')
+    fill_field('#cmd-input', 'A comment')
+    @driver.action.send_keys(:enter).perform
+    wait_for_selector('.annotation--comment')
+    expect(@driver.page_source.include?('A comment')).to be(true)
+    @driver.navigate.refresh
+    wait_for_selector('.media-detail')
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    wait_for_selector('.media-tab__comments').click
+    wait_for_selector('.annotation--comment')
+    expect(@driver.page_source.include?('A comment')).to be(true)
+    wait_for_selector('.annotation .menu-button').click
+    wait_for_selector('.annotation__delete').click
+    wait_for_selector_none('.annotation__avatar-col')
+    expect(@driver.page_source.include?('A comment')).to be(false)
+    @driver.navigate.refresh
+    wait_for_selector('.media-detail')
+    wait_for_selector("//span[contains(text(), 'Go to settings')]", :xpath)
+    wait_for_selector('.media-tab__comments').click
+    expect(@driver.page_source.include?('A comment')).to be(false)
+  end
+
   it 'should add image to media comment', bin3: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     # First, verify that there isn't any comment with image
