@@ -36,6 +36,10 @@
     "defaultMessage": "First published"
   },
   {
+    "id": "reportDesigner.lastPublished",
+    "defaultMessage": "Last published"
+  },
+  {
     "id": "reportDesigner.sentCount",
     "defaultMessage": "Reports sent"
   },
