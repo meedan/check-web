@@ -1,19 +1,4 @@
 shared_examples 'media actions' do
-  it 'should create new medias using links from Facebook, Twitter, Youtube, Instagram and Tiktok', bin2: true do
-    # from facebook
-    params = { url: 'https://www.facebook.com/FirstDraftNews/posts/1808121032783161?1' }
-    api_create_team_project_and_link_and_redirect_to_media_page(params)
-    wait_for_selector('.more-less')
-    expect(@driver.page_source.downcase.include?('facebook')).to be(true)
-    @driver.navigate.to "#{@config['self_url']}/#{get_team}/all-items"
-    wait_for_selector('#search-form')
-    expect(wait_for_selector_list('.media__heading').length == 1).to be(true)
-    ['https://twitter.com/TheWho/status/890135323216367616', 'https://www.youtube.com/watch?v=ykLgjhBnik0', 'https://www.instagram.com/p/BRYob0dA1SC/', 'https://www.tiktok.com/@scout2015/video/6771039287917038854'].each do |url|
-      create_media url
-    end
-    expect(wait_for_selector_list('.media__heading').length == 5).to be(true)
-  end
-
   it 'should create an item and assign it', bin4: true do
     api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media')
@@ -63,7 +48,7 @@ shared_examples 'media actions' do
   end
 
   it 'should lock and unlock status', bin2: true do
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: 'https://ca.ios.ba/files/meedan/random.php' })
+    api_create_team_project_and_claim_and_redirect_to_media_page
     wait_for_selector('.media')
     wait_for_selector('.media-actions__icon').click
     wait_for_selector('.media-actions__lock-status').click
@@ -147,8 +132,7 @@ shared_examples 'media actions' do
   end
 
   it 'should not create duplicated media', bin1: true do
-    url = 'https://twitter.com/meedan/status/1262644257996898305'
-    api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
+    api_create_team_project_and_link_and_redirect_to_media_page({ url: @media_url })
     id1 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
     expect(id1.positive?).to be(true)
     wait_for_selector('.media-detail')
@@ -156,7 +140,7 @@ shared_examples 'media actions' do
     wait_for_selector('.search__results')
     wait_for_selector('.medias__item')
     wait_for_selector('#create-media__add-item').click
-    fill_field('#create-media-input', url)
+    fill_field('#create-media-input', @media_url)
     wait_for_selector('#create-media-dialog__submit-button').click
     wait_for_selector('.media-detail')
     id2 = @driver.current_url.to_s.gsub(%r{^.*/media/}, '').to_i
