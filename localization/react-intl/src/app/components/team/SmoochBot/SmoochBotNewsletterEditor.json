@@ -13,7 +13,7 @@
   },
   {
     "id": "smoochBotNewsletterEditor.active",
-    "defaultMessage": "The newsletter will be sent to {count} users on {date}, {time}"
+    "defaultMessage": "The newsletter will be sent to {count} users on {dateTime}"
   },
   {
     "id": "smoochBotNewsletterEditor.none",
