@@ -1,21 +1,5 @@
 [
   {
-    "id": "mediaComponent.requests",
-    "defaultMessage": "Requests"
-  },
-  {
-    "id": "mediaComponent.annotation",
-    "defaultMessage": "Annotation"
-  },
-  {
-    "id": "mediaComponent.source",
-    "defaultMessage": "Source"
-  },
-  {
-    "id": "mediaComponent.notes",
-    "defaultMessage": "Notes"
-  },
-  {
     "id": "mediaComponent.timelineTab",
     "defaultMessage": "Timeline"
   }
