@@ -68,29 +68,6 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(true)
   end
 
-  it 'should update notes count after delete annotation', bin3: true do
-    create_media_depending_on_type
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotations__list')
-    fill_field('#cmd-input', 'Comment')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.annotation__avatar-col')
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    expect(@driver.find_elements(:class, 'annotation__timestamp').length == 1).to be(true)
-    expect(@driver.page_source.include?('Comment deleted')).to be(false)
-    wait_for_selector('#item-history__close-button').click
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotation .menu-button').click
-    wait_for_selector('.annotation__delete').click
-    wait_for_selector_none('.annotation__avatar-col')
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    notes_count = wait_for_selector_list('.annotation__timestamp').length
-    expect(notes_count.positive?).to be(true)
-    expect(@driver.page_source.include?('Comment deleted')).to be(true)
-  end
-
   it 'should restore item from trash from item page', bin6: true do
     create_media_depending_on_type
     wait_for_selector('.media')

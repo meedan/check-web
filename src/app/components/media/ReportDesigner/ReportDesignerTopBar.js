@@ -131,7 +131,11 @@ const ReportDesignerTopBar = (props) => {
     firstSent = data.last_published;
   }
   if (firstSent) {
-    firstSent = new Date(parseInt(firstSent, 10) * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
+    firstSent = new Date(parseInt(firstSent, 10) * 1000).toLocaleString(intl.locale);
+  }
+  let lastSent = null;
+  if (data.last_published) {
+    lastSent = new Date(parseInt(data.last_published, 10) * 1000).toLocaleString(intl.locale);
   }
 
   const handleGoBack = () => {
@@ -189,6 +193,17 @@ const ReportDesignerTopBar = (props) => {
               </Typography>
               <Typography variant="body2">
                 {firstSent || '-'}
+              </Typography>
+            </Box>
+            <Box className={classes.cell}>
+              <Typography variant="subtitle2">
+                <FormattedMessage
+                  id="reportDesigner.lastPublished"
+                  defaultMessage="Last published"
+                />
+              </Typography>
+              <Typography variant="body2">
+                {lastSent || firstSent || '-'}
               </Typography>
             </Box>
             <Box className={classes.cell}>

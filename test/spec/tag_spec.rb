@@ -1,7 +1,7 @@
 shared_examples 'tag' do
   it 'should manage and search team tags', bin6: true do
     # Create team and go to team page that should not contain any tag
-    team = "team#{Time.now.to_i}"
+    team = "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__tags-tab').click
     wait_for_selector('#search-input')
@@ -50,7 +50,7 @@ shared_examples 'tag' do
   end
 
   it 'should add a tag rule and use tag filter', bin3: true, quick: true do
-    team = "team#{Time.now.to_i}"
+    team = "team#{Time.now.to_i}-#{rand(99_999)}"
     create_team_and_go_to_settings_page(team)
     # create a tag
     wait_for_selector('.team-settings__tags-tab').click
