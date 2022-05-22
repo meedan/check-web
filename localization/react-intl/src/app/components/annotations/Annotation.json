@@ -35,29 +35,21 @@
     "defaultMessage": "Annotation field created by {author}: {fieldLabel}"
   },
   {
-    "id": "annotation.relationshipCreated",
-    "defaultMessage": "Related item added by {author}: {title}"
-  },
-  {
     "id": "annotation.similarCreated",
-    "defaultMessage": "Confirmed similar by {author}: {title}"
+    "defaultMessage": "Match confirmed by {author}: {title}"
   },
   {
     "id": "annotation.suggestionCreated",
-    "defaultMessage": "Suggested match by {author}: {title}"
-  },
-  {
-    "id": "annotation.relationshipDestroyed",
-    "defaultMessage": "Related item removed by {author}: {title}"
+    "defaultMessage": "Match suggested by {author}: {title}"
   },
   {
     "id": "annotation.similarDestroyed",
     "description": "Tells that one item previously confirmed as similar has been detached from current item.",
-    "defaultMessage": "Confirmed similar detached by {author}: {title}"
+    "defaultMessage": "Match deleted by {author}: {title}"
   },
   {
     "id": "annotation.suggestionDestroyed",
-    "defaultMessage": "Suggested match rejected by {author}: {title}"
+    "defaultMessage": "Match rejected by {author}: {title}"
   },
   {
     "id": "annotation.taskAssignmentCreated",

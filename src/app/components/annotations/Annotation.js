@@ -448,77 +448,59 @@ class Annotation extends Component {
     case 'create_relationship': {
       const meta = JSON.parse(activity.meta);
       if (meta) {
-        const { target } = meta;
-        if (target.id === annotated.dbid) {
-          const type = object.relationship_type;
-          contentTemplate = (
-            <span>
-              { /parent/.test(type) ?
-                <FormattedMessage
-                  id="annotation.relationshipCreated"
-                  defaultMessage="Related item added by {author}: {title}"
-                  values={{
-                    title: emojify(target.title),
-                    author: authorName,
-                  }}
-                /> : null }
-              { /confirmed_sibling/.test(type) ?
-                <FormattedMessage
-                  id="annotation.similarCreated"
-                  defaultMessage="Confirmed similar by {author}: {title}"
-                  values={{
-                    title: emojify(target.title),
-                    author: authorName,
-                  }}
-                /> : null }
-              { /suggested/.test(type) ?
-                <FormattedMessage
-                  id="annotation.suggestionCreated"
-                  defaultMessage="Suggested match by {author}: {title}"
-                  values={{
-                    title: emojify(target.title),
-                    author: authorName,
-                  }}
-                /> : null }
-            </span>
-          );
-        }
+        const { source } = meta;
+        const relationshipAuthor = source.by_check ? authorName : (<FormattedMessage {...globalStrings.appNameHuman} />);
+        const type = object.relationship_type;
+        contentTemplate = (
+          <span>
+            { /confirmed_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.similarCreated"
+                defaultMessage="Match confirmed by {author}: {title}"
+                values={{
+                  title: emojify(source.title),
+                  author: relationshipAuthor,
+                }}
+              /> : null }
+            { /suggested/.test(type) ?
+              <FormattedMessage
+                id="annotation.suggestionCreated"
+                defaultMessage="Match suggested by {author}: {title}"
+                values={{
+                  title: emojify(source.title),
+                  author: relationshipAuthor,
+                }}
+              /> : null }
+          </span>
+        );
       }
       break;
     }
     case 'destroy_relationship': {
       const meta = JSON.parse(activity.meta);
       if (meta) {
-        const { target } = meta;
+        const { source } = meta;
+        const relationshipAuthor = source.by_check ? authorName : (<FormattedMessage {...globalStrings.appNameHuman} />);
         const type = object.relationship_type;
         contentTemplate = (
           <span>
-            { /parent/.test(type) ?
-              <FormattedMessage
-                id="annotation.relationshipDestroyed"
-                defaultMessage="Related item removed by {author}: {title}"
-                values={{
-                  title: emojify(target.title),
-                  author: authorName,
-                }}
-              /> : null }
             { /confirmed_sibling/.test(type) ?
               <FormattedMessage
                 id="annotation.similarDestroyed"
-                defaultMessage="Confirmed similar detached by {author}: {title}"
+                defaultMessage="Match deleted by {author}: {title}"
                 description="Tells that one item previously confirmed as similar has been detached from current item."
                 values={{
-                  title: emojify(target.title),
-                  author: authorName,
+                  title: emojify(source.title),
+                  author: relationshipAuthor,
                 }}
               /> : null }
             { /suggested_sibling/.test(type) ?
               <FormattedMessage
                 id="annotation.suggestionDestroyed"
-                defaultMessage="Suggested match rejected by {author}: {title}"
+                defaultMessage="Match rejected by {author}: {title}"
                 values={{
-                  title: emojify(target.title),
-                  author: authorName,
+                  title: emojify(source.title),
+                  author: relationshipAuthor,
                 }}
               /> : null }
           </span>
