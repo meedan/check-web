@@ -161,7 +161,7 @@ shared_examples 'project' do
   end
 
   it 'should manage custom folder columns', bin4: true do
-    api_create_team_project_metadata_and_media({ url: 'https://twitter.com/check/status/1255094026497413120' })
+    api_create_team_project_metadata_and_claim({ quote: 'item item' })
     wait_for_selector('#create-media__add-item')
     wait_for_selector('.media__heading')
     expect(@driver.page_source.include?('Status')).to be(true)
@@ -177,7 +177,8 @@ shared_examples 'project' do
     @driver.navigate.to "#{@config['self_url']}/#{get_team}/settings"
     wait_for_selector('.team')
     wait_for_selector('.team-settings__lists-tab').click
-    wait_for_selector("//span[contains(text(), 'Displayed columns')]", :xpath)
+    wait_for_selector('.reorder__button-down')
+    wait_for_selector('p[title="Report status"]')
     wait_for_selector_list("//span[contains(text(), 'Show')]", :xpath)[11].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[0].click
     wait_for_selector_list("//span[contains(text(), 'Hide')]", :xpath)[1].click
