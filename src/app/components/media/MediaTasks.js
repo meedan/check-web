@@ -10,7 +10,6 @@ import {
   Typography,
 } from '@material-ui/core';
 import styled from 'styled-components';
-import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -290,7 +289,6 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
         archived
         permissions
         pusher_channel
-        ${MediaLanguageChip.getFragment('projectMedia')}
         item_metadata: tasks(fieldset: "metadata", first: 10000) {
           edges {
             node {

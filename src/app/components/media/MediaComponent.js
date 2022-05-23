@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import qs from 'qs';
-import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Drawer from '@material-ui/core/Drawer';
 import IconButton from '@material-ui/core/IconButton';
@@ -17,12 +16,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
-import MediaTasks from './MediaTasks';
-import MediaComments from './MediaComments';
-import MediaRequests from './MediaRequests';
 import MediaTimeline from './MediaTimeline';
 import MediaSidebar from './MediaSidebar';
-import MediaSource from './MediaSource';
+import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
 import MediaSuggestions from './Similarity/MediaSuggestions';
 import CheckContext from '../../CheckContext';
@@ -107,11 +103,6 @@ class MediaComponent extends Component {
   constructor(props) {
     super(props);
 
-    const { team_bots: teamBots } = props.media.team;
-    const enabledBots = teamBots.edges.map(b => b.node.login);
-    const showRequests = (enabledBots.indexOf('smooch') > -1 || props.media.requests_count > 0);
-    const showTab = showRequests ? 'requests' : 'metadata';
-
     // https://www.w3.org/TR/media-frags/
     const { t: temporalInterval = '', id: instanceId } = qs.parse(document.location.hash.substring(1));
     const [start, end] = temporalInterval.split(',').map(s => parseFloat(s));
@@ -130,8 +121,6 @@ class MediaComponent extends Component {
         playing: false,
         progress: 0,
       },
-      showRequests,
-      showTab,
       showVideoAnnotation: Boolean(temporalInterval && instanceId),
       fragment: { t: temporalInterval, id: instanceId },
       playerRect: null,
@@ -282,8 +271,6 @@ class MediaComponent extends Component {
     pusher.unsubscribe(media.pusher_channel);
   }
 
-  handleTabChange = (e, value) => this.setState({ showTab: value });
-
   render() {
     if (this.props.relay.variables.contextId === null && /\/project\//.test(window.location.pathname)) {
       return null;
@@ -341,65 +328,10 @@ class MediaComponent extends Component {
                 {this.props.extras}
               </Column>
               <Column className="media__annotations-column" overflow="hidden">
-                <Tabs
-                  indicatorColor="primary"
-                  onChange={this.handleTabChange}
-                  scrollButtons="auto"
-                  textColor="primary"
-                  variant="scrollable"
-                  value={this.state.showTab}
-                  className="media__annotations-tabs"
-                >
-                  { this.state.showRequests ?
-                    <Tab
-                      label={
-                        <FormattedMessage
-                          id="mediaComponent.requests"
-                          defaultMessage="Requests"
-                        />
-                      }
-                      value="requests"
-                      className="media-tab__requests"
-                    />
-                    : null }
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.annotation"
-                        defaultMessage="Annotation"
-                      />
-                    }
-                    value="metadata"
-                    className="media-tab__metadata"
-                  />
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.source"
-                        defaultMessage="Source"
-                      />
-                    }
-                    value="source"
-                    className="media-tab__source"
-                  />
-                  <Tab
-                    label={
-                      <FormattedMessage
-                        id="mediaComponent.notes"
-                        defaultMessage="Notes"
-                      />
-                    }
-                    value="notes"
-                    className="media-tab__comments"
-                  />
-                </Tabs>
-                { /* Set maxHeight to screen height - (media bar + tabs) */ }
-                <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-                  { this.state.showTab === 'requests' ? <MediaRequests media={media} all={!media.is_confirmed_similar_to_another_item} /> : null }
-                  { this.state.showTab === 'metadata' ? <MediaTasks media={media} fieldset="metadata" /> : null }
-                  { this.state.showTab === 'source' ? <MediaSource projectMedia={media} /> : null }
-                  { this.state.showTab === 'notes' ? <MediaComments media={media} onTimelineCommentOpen={this.onTimelineCommentOpen} /> : null }
-                </Box>
+                <MediaComponentRightPanel
+                  projectMedia={media}
+                  onTimelineCommentOpen={this.onTimelineCommentOpen}
+                />
               </Column>
             </React.Fragment> : null }
           { view === 'suggestedMatches' || view === 'similarMedia' ? <MediaSuggestions projectMedia={media} /> : null }
