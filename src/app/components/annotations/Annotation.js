@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Card from '@material-ui/core/Card';
@@ -13,7 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
@@ -716,92 +714,23 @@ class Annotation extends Component {
         );
       }
 
-      if (/^suggestion_/.test(object.field_name)) {
-        activityType = 'task_answer_suggestion';
-        const suggestion = JSON.parse(object.value);
-        const review = activity.meta ? JSON.parse(activity.meta) : null;
+      if (object.field_name === 'language') {
+        const languageValue = object.value;
         contentTemplate = (
-          <div>
-            <div className="annotation__card-content annotation__task-answer-suggestion">
-              <ParsedText text={suggestion.comment} />
-            </div>
-            <br />
-            <p>
-              <small>
-                <Link to={`/check/bot/${activity.user.bot.dbid}`}>
-                  <FormattedMessage
-                    id="annotation.seeHowThisBotWorks"
-                    defaultMessage="See how this bot works"
-                  />
-                </Link>
-              </small>
-            </p>
-            { review ?
-              <div style={{ fontStyle: 'italic' }}>
-                <small>
-                  { review.accepted ?
-                    <FormattedMessage
-                      id="annotation.suggestionAccepted"
-                      defaultMessage="Accepted by {user}"
-                      values={{
-                        user: <ProfileLink teamUser={review.user.team_user} />,
-                      }}
-                    /> :
-                    <FormattedMessage
-                      id="annotation.suggestionRejected"
-                      defaultMessage="Rejected by {user}"
-                      values={{
-                        user: <ProfileLink teamUser={review.user.team_user} />,
-                      }}
-                    />
-                  }
-                </small>
-              </div> :
-              <div>
-                <Button
-                  onClick={this.handleSuggestion.bind(this, activity.dbid, true)}
-                  style={{ border: `1px solid ${black38}` }}
-                  color="primary"
-                >
-                  <FormattedMessage
-                    id="annotation.acceptSuggestion"
-                    defaultMessage="Accept"
-                  />
-                </Button>
-                &nbsp;
-                <Button
-                  onClick={this.handleSuggestion.bind(this, activity.dbid, false)}
-                  style={{ border: `1px solid ${black38}` }}
-                  color="primary"
-                >
-                  <FormattedMessage
-                    id="annotation.rejectSuggestion"
-                    defaultMessage="Reject"
-                  />
-                </Button>
-              </div>
-            }
-          </div>
+          <span>
+            <FormattedMessage
+              id="annotation.addLanguage"
+              defaultMessage="Language {value} added by {author}"
+              values={{
+                value: languageValue,
+                author: authorName,
+              }}
+            />
+          </span>
         );
       }
 
       if (/^response_/.test(object.field_name) && activity.task) {
-        if (activity.task.fieldset === 'tasks') {
-          contentTemplate = (
-            <span className="annotation__task-resolved">
-              <FormattedMessage
-                id="annotation.taskResolve"
-                defaultMessage="Task completed by {author}: {task}{response}"
-                values={{
-                  task: activity.task.label,
-                  author: authorName,
-                  response: Annotation.renderTaskResponse(activity.task.type, object),
-                }}
-              />
-            </span>
-          );
-        }
-
         if (activity.task.fieldset === 'metadata') {
           contentTemplate = (
             <span className="annotation__metadata-filled">
@@ -834,27 +763,7 @@ class Annotation extends Component {
         const archiveStatus = parseInt(archiveResponse.status, 10);
         const archiveName = archivers[object.field_name];
         contentTemplate = null;
-        if (archiveLink) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverSuccess"
-                defaultMessage='In case this item goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup at {name}</a>.'
-                values={{ link: archiveLink, name: archiveName }}
-              />
-            </span>
-          );
-        } else if (archiveResponse.error || archiveStatus >= 400) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverError"
-                defaultMessage='Sorry, the following error occurred while archiving the item to {name}: "{message}". Please refresh the item to try again and contact {supportEmail} if the condition persists.'
-                values={{ name: archiveName, message: archiveResponse.error.message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
-              />
-            </span>
-          );
-        } else {
+        if (!(archiveLink || archiveResponse.error || archiveStatus >= 400)) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
@@ -883,7 +792,7 @@ class Annotation extends Component {
       break;
     case 'update_projectmedia': {
       const meta = JSON.parse(activity.meta);
-      if (meta) {
+      if (meta && meta.source_name) {
         contentTemplate = (
           <span>
             <FormattedMessage
