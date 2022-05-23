@@ -29,6 +29,7 @@ import {
   FlexRow,
   units,
   brandSecondary,
+  alertRed,
 } from '../../styles/js/shared';
 
 const StyledAnnotationRow = styled.div`
@@ -171,11 +172,11 @@ class MediaTasksComponent extends Component {
             <div className="annotation-header-row task-row">
               <Card variant="outlined">
                 <CardContent>
-                  <Typography color="textSecondary" gutterBottom>
+                  <Typography style={{ color: alertRed }} gutterBottom>
                     <FormattedMessage
                       id="check.tasks.discontinued_tasks_warning"
-                      defaultMessage="Tasks will be discontinued on April 30. Please reach out to support if you have any questions on how to replace them with Annotations."
-                      description="This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
+                      defaultMessage="Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations."
+                      description="This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
                     />
                   </Typography>
                 </CardContent>
