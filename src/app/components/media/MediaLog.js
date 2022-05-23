@@ -74,7 +74,7 @@ class MediaLogComponent extends Component {
 const pageSize = 30;
 
 const eventTypes = [
-  'create_projectmedia', 'update_projectmedia', 'create_relationship', 'destroy_relationship', 'create_dynamicannotationfield',
+  'create_projectmedia', 'update_projectmedia', 'create_relationship', 'update_relationship', 'destroy_relationship', 'create_dynamicannotationfield',
   'update_dynamicannotationfield', 'create_tag', 'create_dynamic', 'update_dynamic', 'create_claimdescription',
   'update_claimdescription', 'create_factcheck', 'create_assignment', 'destroy_assignment',
 ];

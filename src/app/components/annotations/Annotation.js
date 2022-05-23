@@ -445,11 +445,12 @@ class Annotation extends Component {
         );
       }
       break;
-    case 'create_relationship': {
+    case 'create_relationship':
+    case 'update_relationship': {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { source } = meta;
-        const relationshipAuthor = source.by_check ? authorName : (<FormattedMessage {...globalStrings.appNameHuman} />);
+        const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
         const type = object.relationship_type;
         contentTemplate = (
           <span>
@@ -480,8 +481,9 @@ class Annotation extends Component {
       const meta = JSON.parse(activity.meta);
       if (meta) {
         const { source } = meta;
-        const relationshipAuthor = source.by_check ? authorName : (<FormattedMessage {...globalStrings.appNameHuman} />);
-        const type = object.relationship_type;
+        const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
+        const relationshipChanges = JSON.parse(activity.object_changes_json);
+        const type = relationshipChanges.relationship_type[0];
         contentTemplate = (
           <span>
             { /confirmed_sibling/.test(type) ?
