@@ -16,6 +16,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
+import { Link } from 'react-router';
 import TaskUpdate from './TaskUpdate';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
@@ -457,7 +458,7 @@ class Annotation extends Component {
                 id="annotation.similarCreated"
                 defaultMessage="Match confirmed by {author}: {title}"
                 values={{
-                  title: emojify(source.title),
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
@@ -466,7 +467,7 @@ class Annotation extends Component {
                 id="annotation.suggestionCreated"
                 defaultMessage="Match suggested by {author}: {title}"
                 values={{
-                  title: emojify(source.title),
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
@@ -490,7 +491,7 @@ class Annotation extends Component {
                 defaultMessage="Match deleted by {author}: {title}"
                 description="Tells that one item previously confirmed as similar has been detached from current item."
                 values={{
-                  title: emojify(source.title),
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
@@ -499,7 +500,7 @@ class Annotation extends Component {
                 id="annotation.suggestionDestroyed"
                 defaultMessage="Match rejected by {author}: {title}"
                 values={{
-                  title: emojify(source.title),
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
                 }}
               /> : null }
@@ -722,7 +723,7 @@ class Annotation extends Component {
               defaultMessage="Language {value} added by {author}"
               values={{
                 value: object.value,
-                author: authorName,
+                author: (<FormattedMessage {...globalStrings.appNameHuman} />),
               }}
             />
           </span>
