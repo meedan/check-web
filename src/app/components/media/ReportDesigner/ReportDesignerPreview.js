@@ -172,7 +172,7 @@ const ReportDesignerPreview = (props) => {
             />
           )}
         </Box> : null }
-      { data.use_visual_card ?
+      { data.use_visual_card && !data.use_text_message ?
         <Box className={classes.visualCardPreview}>
           <ReportDesignerImagePreview
             style={{
