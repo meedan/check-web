@@ -104,11 +104,15 @@
     "defaultMessage": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
   },
   {
+    "id": "annotation.addSource",
+    "defaultMessage": "Source {name} add by {author}"
+  },
+  {
     "id": "annotation.createProjectMedia",
     "defaultMessage": "Item created by {author}"
   },
   {
-    "id": "annotation.addSource",
+    "id": "annotation.updateSource",
     "defaultMessage": "Source {name} updated by {author}"
   },
   {

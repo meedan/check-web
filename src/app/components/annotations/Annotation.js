@@ -714,15 +714,14 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'language') {
-        const languageValue = object.value;
+      if (object.field_name === 'language' && activityType === 'create_dynamicannotationfield') {
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.addLanguage"
               defaultMessage="Language {value} added by {author}"
               values={{
-                value: languageValue,
+                value: object.value,
                 author: authorName,
               }}
             />
@@ -777,34 +776,67 @@ class Annotation extends Component {
       }
       break;
     }
-    case 'create_projectmedia':
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.createProjectMedia"
-            defaultMessage="Item created by {author}"
-            values={{
-              author: authorName,
-            }}
-          />
-        </span>
-      );
-      break;
-    case 'update_projectmedia': {
+    case 'create_projectmedia': {
       const meta = JSON.parse(activity.meta);
-      if (meta && meta.source_name) {
+      if (meta && meta.add_source) {
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.addSource"
-              defaultMessage="Source {name} updated by {author}"
+              defaultMessage="Source {name} add by {author}"
               values={{
                 name: meta.source_name,
+                author: (<FormattedMessage {...globalStrings.appNameHuman} />),
+              }}
+            />
+          </span>
+        );
+      } else {
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.createProjectMedia"
+              defaultMessage="Item created by {author}"
+              values={{
                 author: authorName,
               }}
             />
           </span>
         );
+      }
+      break;
+    }
+    case 'update_projectmedia': {
+      const meta = JSON.parse(activity.meta);
+      if (meta && meta.source_name) {
+        const sourceChanges = safelyParseJSON(activity.object_changes_json);
+        if (sourceChanges.source_id[0] === null) {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.addSource"
+                defaultMessage="Source {name} add by {author}"
+                values={{
+                  name: meta.source_name,
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.updateSource"
+                defaultMessage="Source {name} updated by {author}"
+                values={{
+                  name: meta.source_name,
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        }
       }
       break;
     }
