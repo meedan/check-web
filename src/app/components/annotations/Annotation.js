@@ -17,7 +17,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
-import TaskUpdate from './TaskUpdate';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import ParsedText from '../ParsedText';
@@ -917,9 +916,6 @@ class Annotation extends Component {
         </span>
       );
       break;
-    case 'update_task':
-      contentTemplate = <TaskUpdate activity={activity} authorName={authorName} />;
-      break;
     default:
       contentTemplate = null;
       break;
@@ -929,7 +925,7 @@ class Annotation extends Component {
       return null;
     }
 
-    const cardActivities = ['create_comment', 'screenshot_taken', 'bot_response', 'task_answer_suggestion'];
+    const cardActivities = ['bot_response'];
     const useCardTemplate = (cardActivities.indexOf(activityType) > -1);
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
