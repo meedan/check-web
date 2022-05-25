@@ -446,8 +446,8 @@ class Annotation extends Component {
       break;
     case 'create_relationship':
     case 'update_relationship': {
-      const meta = JSON.parse(activity.meta);
-      if (meta) {
+      const meta = safelyParseJSON(activity.meta);
+      if (meta && meta.source) {
         const { source } = meta;
         const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
         const type = object.relationship_type;
@@ -477,11 +477,11 @@ class Annotation extends Component {
       break;
     }
     case 'destroy_relationship': {
-      const meta = JSON.parse(activity.meta);
-      if (meta) {
+      const meta = safelyParseJSON(activity.meta);
+      if (meta && meta.source) {
         const { source } = meta;
         const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
-        const relationshipChanges = JSON.parse(activity.object_changes_json);
+        const relationshipChanges = safelyParseJSON(activity.object_changes_json);
         const type = relationshipChanges.relationship_type[0];
         contentTemplate = (
           <span>
@@ -510,7 +510,7 @@ class Annotation extends Component {
       break;
     }
     case 'create_assignment': {
-      const meta = JSON.parse(activity.meta);
+      const meta = safelyParseJSON(activity.meta);
       if (meta) {
         const { type, title, user_name } = meta;
         const values = {
@@ -544,7 +544,7 @@ class Annotation extends Component {
       break;
     }
     case 'destroy_assignment': {
-      const meta = JSON.parse(activity.meta);
+      const meta = safelyParseJSON(activity.meta);
       if (meta) {
         const { type, title, user_name } = meta;
         const values = {
@@ -580,7 +580,7 @@ class Annotation extends Component {
     case 'create_dynamic':
     case 'update_dynamic':
       if (object.annotation_type === 'verification_status') {
-        const statusChanges = JSON.parse(activity.object_changes_json);
+        const statusChanges = safelyParseJSON(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
             contentTemplate = (
@@ -600,7 +600,7 @@ class Annotation extends Component {
             );
           }
         } else if (statusChanges.assigned_to_id) {
-          const assignment = JSON.parse(activity.meta);
+          const assignment = safelyParseJSON(activity.meta);
           if (assignment.assigned_to_name) {
             contentTemplate = (
               <FormattedMessage
@@ -778,7 +778,7 @@ class Annotation extends Component {
       break;
     }
     case 'create_projectmedia': {
-      const meta = JSON.parse(activity.meta);
+      const meta = safelyParseJSON(activity.meta);
       if (meta && meta.add_source) {
         contentTemplate = (
           <span>
@@ -808,7 +808,7 @@ class Annotation extends Component {
       break;
     }
     case 'update_projectmedia': {
-      const meta = JSON.parse(activity.meta);
+      const meta = safelyParseJSON(activity.meta);
       if (meta && meta.source_name) {
         const sourceChanges = safelyParseJSON(activity.object_changes_json);
         if (sourceChanges.source_id[0] === null) {
