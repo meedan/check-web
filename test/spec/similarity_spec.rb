@@ -14,9 +14,9 @@ shared_examples 'similarity' do
     # import similarity item
     wait_for_selector("//span[contains(text(), 'Import similar media into this item')]", :xpath).click
     add_related_item('Claim 0')
+    wait_for_selector("//span[contains(text(), '2 medias')]", :xpath)
     wait_for_selector_list_size('.MuiCardHeader-title', 2)
     expect(@driver.page_source.include?('More media')).to be(true)
-    expect(@driver.page_source.include?('Claim 0')).to be(true)
     @driver.navigate.to project_url
     wait_for_selector('.search__results-heading')
     wait_for_selector_list('.media__heading').last.click
