@@ -65,10 +65,7 @@ const Tasks = ({
     return (
       <React.Fragment>
         <BlankState>
-          { isMetadata ?
-            <FormattedMessage id="tasks.blankMetadata" defaultMessage="No metadata fields" /> :
-            <FormattedMessage id="tasks.blankTasks" defaultMessage="No tasks" />
-          }
+          <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No annotation fields" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
         </BlankState>
         { !isBrowserExtension && isMetadata ?
           <Box display="flex" justifyContent="center" m={2}>
