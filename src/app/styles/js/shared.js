@@ -11,6 +11,7 @@ export const white = '#ffffff';
 export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
+export const checkOrange = '#f2994a';
 export const checkError = '#fa555f';
 export const inProgressYellow = '#efac51';
 export const completedGreen = '#5cae73';
