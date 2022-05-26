@@ -120,10 +120,6 @@
     "defaultMessage": "Reject"
   },
   {
-    "id": "annotation.taskResolve",
-    "defaultMessage": "Task completed by {author}: {task}{response}"
-  },
-  {
     "id": "annotation.metadataResponse",
     "defaultMessage": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
   },

@@ -11,10 +11,14 @@ const team = {
   },
 };
 
+const about = {
+  file_max_size: '1000',
+  file_extensions: ['png'],
+};
+
 describe('<TeamTasksComponent />', () => {
   it('should render filter and create task button', () => {
-    const wrapper = mountWithIntl(<TeamTasksComponent team={team} fieldset="tasks" />);
-    expect(wrapper.find('.filter-popup').hostNodes()).toHaveLength(1);
+    const wrapper = mountWithIntl(<TeamTasksComponent team={team} about={about} fieldset="metadata" />);
     expect(wrapper.find('.create-task__add-button').hostNodes()).toHaveLength(1);
   });
 });

@@ -599,199 +599,9 @@ class Task extends Component {
       );
     };
 
-    if (
-      this.state.editingResponse && responseObj &&
-      this.state.editingResponse.id === responseObj.id
-    ) {
-      return (
-        <div className="task__editing">
-          <form name={`edit-response-${this.state.editingResponse.id}`}>
-            {task.type === 'free_text' ? (
-              <MetadataText
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
-              />
-            ) : null}
-            {task.type === 'number' && task.fieldset === 'metadata' ? (
-              <MetadataNumber
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
-              />
-            ) : null}
-            {task.type === 'geolocation' && task.fieldset === 'metadata' ? (
-              <StyledMapEditor>
-                <MetadataLocation
-                  node={task}
-                  DeleteButton={DeleteButton}
-                  CancelButton={CancelButton}
-                  SaveButton={SaveButton}
-                  EditButton={EditButton}
-                  AnnotatorInformation={AnnotatorInformation}
-                  FieldInformation={FieldInformation}
-                  hasData={task.first_response_value}
-                  isEditing={this.props.isEditing}
-                  disabled={!this.props.isEditing}
-                  required={task.team_task.required}
-                  metadataValue={
-                    this.state.textValue
-                  }
-                  setMetadataValue={(textValue) => {
-                    this.setState({ textValue });
-                  }}
-                  mapboxApiKey={config.mapboxApiKey}
-                  messages={messages.MetadataLocation}
-                />
-              </StyledMapEditor>
-            ) : null}
-            {task.type === 'datetime' && task.fieldset === 'metadata' ? (
-              <MetadataDate
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
-              />
-            ) : null}
-            {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
-              <MetadataMultiselect
-                isSingle
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={this.handleUpdateMultiselectMetadata}
-              />
-            ) : null}
-            {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
-              <MetadataMultiselect
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={this.handleUpdateMultiselectMetadata}
-              />
-            ) : null}
-            {task.type === 'file_upload' && task.fieldset === 'metadata' ? (
-              <MetadataFile
-                node={task}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
-                extensions={about.file_extensions || []}
-                fileSizeMax={about.file_max_size_in_bytes}
-                messages={messages.MetadataFile}
-              />
-            ) : null}
-            {task.type === 'url' && task.fieldset === 'metadata' ? (
-              <MetadataUrl
-                node={task}
-                classes={{}}
-                DeleteButton={DeleteButton}
-                CancelButton={CancelButton}
-                SaveButton={SaveButton}
-                EditButton={EditButton}
-                AnnotatorInformation={AnnotatorInformation}
-                FieldInformation={FieldInformation}
-                hasData={task.first_response_value}
-                isEditing={this.props.isEditing}
-                messages={messages.MetadataUrl}
-                disabled={!this.props.isEditing}
-                required={task.team_task.required}
-                metadataValue={
-                  this.state.textValue
-                }
-                setMetadataValue={(textValue) => {
-                  this.setState({ textValue });
-                }}
-              />
-            ) : null}
-          </form>
-        </div>
-      );
-    }
     return (
       <StyledWordBreakDiv className="task__resolved">
-        {task.type === 'free_text' && task.fieldset === 'metadata' ? (
+        {task.type === 'free_text' ? (
           <div className="task__response">
             <MetadataText
               node={task}
@@ -815,7 +625,7 @@ class Task extends Component {
             />
           </div>
         ) : null}
-        {task.type === 'number' && task.fieldset === 'metadata' ? (
+        {task.type === 'number' ? (
           <div className="task__response">
             <MetadataNumber
               node={task}
@@ -839,7 +649,7 @@ class Task extends Component {
             />
           </div>
         ) : null}
-        {task.type === 'geolocation' && task.fieldset === 'metadata' ? (
+        {task.type === 'geolocation' ? (
           <StyledMapEditor>
             <div className="task__response">
               <MetadataLocation
@@ -866,7 +676,7 @@ class Task extends Component {
             </div>
           </StyledMapEditor>
         ) : null}
-        {task.type === 'datetime' && task.fieldset === 'metadata' ? (
+        {task.type === 'datetime' ? (
           <div className="task__response">
             <MetadataDate
               node={task}
@@ -890,7 +700,7 @@ class Task extends Component {
             />
           </div>
         ) : null}
-        {task.type === 'single_choice' && task.fieldset === 'metadata' ? (
+        {task.type === 'single_choice' ? (
           <div className="task__response">
             <StyledMultiselect>
               <MetadataMultiselect
@@ -915,7 +725,7 @@ class Task extends Component {
             </StyledMultiselect>
           </div>
         ) : null}
-        {task.type === 'multiple_choice' && task.fieldset === 'metadata' ? (
+        {task.type === 'multiple_choice' ? (
           <div className="task__response">
             <StyledMultiselect>
               <MetadataMultiselect
@@ -939,7 +749,7 @@ class Task extends Component {
             </StyledMultiselect>
           </div>
         ) : null}
-        {task.type === 'file_upload' && task.fieldset === 'metadata' ? (
+        {task.type === 'file_upload' ? (
           <div className="task__response">
             { this.state.isSaving ?
               <NavigateAwayDialog
@@ -986,7 +796,7 @@ class Task extends Component {
             />
           </div>
         ) : null}
-        {task.type === 'url' && task.fieldset === 'metadata' ? (
+        {task.type === 'url' ? (
           <MetadataUrl
             node={task}
             classes={{}}
@@ -1051,7 +861,7 @@ class Task extends Component {
               {task.responses.edges.map(singleResponse => this.renderTaskResponse(singleResponse.node))}
             </StyledTaskResponses>
 
-            {zeroAnswer && task.fieldset === 'metadata' ? (
+            {zeroAnswer ? (
               <Can permissions={media.permissions} permission="create Dynamic">
                 <div>
                   <form name={`task-response-${task.id}`}>

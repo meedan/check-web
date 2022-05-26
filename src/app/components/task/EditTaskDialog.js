@@ -38,7 +38,6 @@ import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
 import Attribution from './Attribution';
 import Message from '../Message';
-import ProjectSelector from '../project/ProjectSelector';
 import NumberIcon from '../../icons/NumberIcon';
 import {
   units,
@@ -329,7 +328,6 @@ class EditTaskDialog extends React.Component {
   }
 
   render() {
-    const isTask = this.props.fieldset === 'tasks';
     const { classes } = this.props;
 
     const types = [
@@ -571,20 +569,6 @@ class EditTaskDialog extends React.Component {
             fullWidth
           />
           <FieldTypeSelect />
-          { this.props.projects && isTask ?
-            <React.Fragment>
-              <Divider />
-              <Box my={2}>
-                <FormattedMessage id="tasks.showInProj" defaultMessage="Show tasks in" />
-                <ProjectSelector
-                  projects={this.props.projects}
-                  selected={this.state.project_ids.map(id => `${id}`)}
-                  onSelect={this.handleSelectProjects}
-                />
-              </Box>
-            </React.Fragment>
-            : null
-          }
           { this.props.isTeamTask && this.state.taskType === 'datetime' ?
             <Box mt={2}>
               <FormControlLabel
@@ -733,7 +717,6 @@ class EditTaskDialog extends React.Component {
 
 EditTaskDialog.propTypes = {
   allowAssignment: PropTypes.bool,
-  fieldset: PropTypes.string.isRequired,
   isTeamTask: PropTypes.bool,
   message: PropTypes.node,
   noOptions: PropTypes.bool,

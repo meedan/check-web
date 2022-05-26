@@ -802,22 +802,6 @@ class Annotation extends Component {
       }
 
       if (/^response_/.test(object.field_name) && activity.task) {
-        if (activity.task.fieldset === 'tasks') {
-          contentTemplate = (
-            <span className="annotation__task-resolved">
-              <FormattedMessage
-                id="annotation.taskResolve"
-                defaultMessage="Task completed by {author}: {task}{response}"
-                values={{
-                  task: activity.task.label,
-                  author: authorName,
-                  response: Annotation.renderTaskResponse(activity.task.type, object),
-                }}
-              />
-            </span>
-          );
-        }
-
         if (activity.task.fieldset === 'metadata') {
           contentTemplate = (
             <span className="annotation__metadata-filled">

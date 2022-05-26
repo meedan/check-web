@@ -12,14 +12,19 @@ const team = {
   id: '1',
 };
 
+const about = {
+  file_max_size: '1000',
+  file_extensions: ['png'],
+};
+
 describe('<TeamTasksListItem />', () => {
   it('should render component', () => {
     const wrapper = mountWithIntl(<TeamTasksListItem
       index={0}
-      fieldset=""
       task={task}
       tasks={[]}
       team={team}
+      about={about}
     />);
     expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(1);
   });

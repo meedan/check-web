@@ -10,7 +10,6 @@ import {
 import styled from 'styled-components';
 import moment from 'moment';
 import Task from './Task';
-import ReorderTask from './ReorderTask';
 import NavigateAwayDialog from '../NavigateAwayDialog';
 import BlankState from '../layout/BlankState';
 import { units } from '../../styles/js/shared';
@@ -47,7 +46,6 @@ const StyledAnnotatorInformation = styled.span`
 `;
 
 const Tasks = ({
-  fieldset,
   tasks,
   media,
   about,
@@ -57,7 +55,6 @@ const Tasks = ({
   const goToSettings = () => browserHistory.push(`/${teamSlug}/settings/metadata`);
 
   const isBrowserExtension = (window.parent !== window);
-  const isMetadata = fieldset === 'metadata';
   const [isEditing, setIsEditing] = React.useState(false);
   const [localResponses, setLocalResponses] = React.useState(tasks);
 
@@ -67,7 +64,7 @@ const Tasks = ({
         <BlankState>
           <FormattedMessage id="tasks.blankAnnotation" defaultMessage="No annotation fields" description="A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings." />
         </BlankState>
-        { !isBrowserExtension && isMetadata ?
+        { !isBrowserExtension ?
           <Box display="flex" justifyContent="center" m={2}>
             <Button variant="contained" color="primary" onClick={goToSettings}>
               <FormattedMessage id="tasks.goToSettings" defaultMessage="Go to settings" />
@@ -80,29 +77,6 @@ const Tasks = ({
   }
 
   let output = null;
-
-  if (!isMetadata) {
-    output = (
-      <div>
-        <ul className="tasks__list">
-          {tasks
-            .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
-            .map(task => (
-              <li key={task.node.dbid}>
-                { (isMetadata || isBrowserExtension) ? (
-                  <Task task={task.node} media={media} about={about} />
-                ) : (
-                  <ReorderTask fieldset={fieldset} task={task.node}>
-                    <Task task={task.node} media={media} />
-                  </ReorderTask>
-                )}
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    );
-  }
 
   // Intersection of sets function
   // https://stackoverflow.com/a/37041756/4869657
@@ -287,68 +261,60 @@ const Tasks = ({
     );
   };
 
-  if (isMetadata) {
-    output = (
-      <StyledMetadataContainer>
-        <StyledFormControls>
-          {
-            isEditing ? (
-              <div>
-                <NavigateAwayDialog
-                  hasUnsavedChanges
-                  title={
-                    <FormattedMessage
-                      id="tasks.confirmLeaveTitle"
-                      defaultMessage="Do you want to leave without saving?"
-                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
-                    />
-                  }
-                  body={
-                    <FormattedMessage
-                      id="tasks.confirmLeave"
-                      defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
-                      description="This is a prompt that appears when a user tries to exit a page before saving their work."
-                    />
-                  }
-                />
-                <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
-                  <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
-                </Button>
-                <Button className="form-cancel" onClick={handleCancelAnnotations}>
-                  <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel changes" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
-                </Button>
-              </div>
-            ) :
-              <Button className="form-edit" variant="contained" onClick={handleEditAnnotations} color="primary">
-                <FormattedMessage id="metadata.form.edit" defaultMessage="Edit" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
+  output = (
+    <StyledMetadataContainer>
+      <StyledFormControls>
+        {
+          isEditing ? (
+            <div>
+              <NavigateAwayDialog
+                hasUnsavedChanges
+                title={
+                  <FormattedMessage
+                    id="tasks.confirmLeaveTitle"
+                    defaultMessage="Do you want to leave without saving?"
+                    description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                  />
+                }
+                body={
+                  <FormattedMessage
+                    id="tasks.confirmLeave"
+                    defaultMessage="You are currently editing annotations. Do you wish to continue to a new page? Your work will not be saved."
+                    description="This is a prompt that appears when a user tries to exit a page before saving their work."
+                  />
+                }
+              />
+              <Button className="form-save" variant="contained" onClick={handleSaveAnnotations} style={{ backgroundColor: '#1BB157', color: 'white' }}>
+                <FormattedMessage id="metadata.form.save" defaultMessage="Save" description="This is a label on a button at the top of a form. The label indicates that if the user presses this button, the user will save the changes they have been making in the form." />
               </Button>
-          }
-          <LastEditedBy />
-        </StyledFormControls>
-        <Divider />
-        <ul className="tasks__list">
-          {tasks
-            .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
-            .filter(showMetadataItem)
-            .map(task => (
-              <>
-                <li key={task.node.dbid}>
-                  { (isMetadata || isBrowserExtension) ? (
-                    <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
-                  ) : (
-                    <ReorderTask fieldset={fieldset} task={task.node}>
-                      <Task task={task.node} media={media} />
-                    </ReorderTask>
-                  )}
-                </li>
-                <Divider />
-              </>
-            ))
-          }
-        </ul>
-      </StyledMetadataContainer>
-    );
-  }
+              <Button className="form-cancel" onClick={handleCancelAnnotations}>
+                <FormattedMessage id="metadata.form.cancel" defaultMessage="Cancel changes" description="This is a label on a button that the user presses in order to revert/cancel any changes made to an unsaved form." />
+              </Button>
+            </div>
+          ) :
+            <Button className="form-edit" variant="contained" onClick={handleEditAnnotations} color="primary">
+              <FormattedMessage id="metadata.form.edit" defaultMessage="Edit" description="This is a label on a button that the user presses in order to edit the items in the attached form." />
+            </Button>
+        }
+        <LastEditedBy />
+      </StyledFormControls>
+      <Divider />
+      <ul className="tasks__list">
+        {tasks
+          .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
+          .filter(showMetadataItem)
+          .map(task => (
+            <>
+              <li key={task.node.dbid}>
+                <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
+              </li>
+              <Divider />
+            </>
+          ))
+        }
+      </ul>
+    </StyledMetadataContainer>
+  );
 
   return output;
 };

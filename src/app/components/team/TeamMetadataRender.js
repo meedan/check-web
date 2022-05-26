@@ -97,7 +97,7 @@ function TeamMetadataRender({ team, about }) {
               'https://help.checkmedia.org/en/articles/4837896-sources#h_bb2bd143fd'
           }
           actionButton={
-            <CreateTeamTask fieldset="metadata" associatedType={associatedType} team={team} />
+            <CreateTeamTask associatedType={associatedType} team={team} />
           }
         />
         <div className={classes.root}>

@@ -31,17 +31,6 @@ const SearchKeywordContainer = ({
               }
             }
           }
-          tasks: team_tasks(first: 10000, fieldset: "tasks") {
-            edges {
-              node {
-                id,
-                dbid,
-                associated_type,
-                label,
-                type,
-              }
-            }
-          }
         }
       }
     `}

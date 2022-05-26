@@ -22,16 +22,15 @@ import { getErrorMessage } from '../../helpers';
 import NumberIcon from '../../icons/NumberIcon';
 
 function submitMoveTeamTaskUp({
-  fieldset,
   task,
   onFailure,
 }) {
   commitMutation(Relay.Store, {
     mutation: graphql`
-      mutation TeamTasksListItemMoveTaskUpMutation($input: MoveTeamTaskUpInput!, $fieldset: String!) {
+      mutation TeamTasksListItemMoveTaskUpMutation($input: MoveTeamTaskUpInput!) {
         moveTeamTaskUp(input: $input) {
           team {
-            team_tasks(fieldset: $fieldset, first: 10000) {
+            team_tasks(fieldset: "metadata", first: 10000) {
               edges {
                 node {
                   id
@@ -50,7 +49,6 @@ function submitMoveTeamTaskUp({
       input: {
         id: task.id,
       },
-      fieldset,
     },
     onError: onFailure,
     onCompleted: ({ errors }) => {
@@ -63,16 +61,15 @@ function submitMoveTeamTaskUp({
 }
 
 function submitMoveTeamTaskDown({
-  fieldset,
   task,
   onFailure,
 }) {
   commitMutation(Relay.Store, {
     mutation: graphql`
-      mutation TeamTasksListItemMoveTaskDownMutation($input: MoveTeamTaskDownInput!, $fieldset: String!) {
+      mutation TeamTasksListItemMoveTaskDownMutation($input: MoveTeamTaskDownInput!) {
         moveTeamTaskDown(input: $input) {
           team {
-            team_tasks(fieldset: $fieldset, first: 10000) {
+            team_tasks(fieldset: "metadata", first: 10000) {
               edges {
                 node {
                   id
@@ -91,7 +88,6 @@ function submitMoveTeamTaskDown({
       input: {
         id: task.id,
       },
-      fieldset,
     },
     onError: onFailure,
     onCompleted: ({ errors }) => {
@@ -105,15 +101,14 @@ function submitMoveTeamTaskDown({
 
 function submitTask({
   task,
-  fieldset,
   onFailure,
 }) {
   commitMutation(Relay.Store, {
     mutation: graphql`
-      mutation TeamTasksListItemUpdateTeamTaskMutation($input: UpdateTeamTaskInput!, $fieldset: String!) {
+      mutation TeamTasksListItemUpdateTeamTaskMutation($input: UpdateTeamTaskInput!) {
         updateTeamTask(input: $input) {
           team {
-            team_tasks(fieldset: $fieldset, first: 10000) {
+            team_tasks(fieldset: "metadata", first: 10000) {
               edges {
                 node {
                   id
@@ -132,7 +127,6 @@ function submitTask({
       input: {
         ...task,
       },
-      fieldset,
     },
     onError: onFailure,
     onCompleted: ({ errors }) => {
@@ -153,8 +147,8 @@ class TeamTasksListItem extends React.Component {
       message: null,
       dialogOpen: false,
       editLabelOrDescription: false,
-      showInBrowserExtension: this.props.task?.show_in_browser_extension,
-      required: this.props.task?.required,
+      showInBrowserExtension: !!this.props.task?.show_in_browser_extension,
+      required: !!this.props.task?.required,
     };
   }
 
@@ -274,30 +268,25 @@ class TeamTasksListItem extends React.Component {
   };
 
   handleMoveTaskUp = () => {
-    const { task, fieldset } = this.props;
+    const { task } = this.props;
 
     submitMoveTeamTaskUp({
-      fieldset,
       task,
       onFailure: this.fail,
     });
   }
 
   handleMoveTaskDown = () => {
-    const { task, fieldset } = this.props;
+    const { task } = this.props;
 
     submitMoveTeamTaskDown({
-      fieldset,
       task,
       onFailure: this.fail,
     });
   };
 
   handleConditionChange = (value) => {
-    const { fieldset } = this.props;
-
     submitTask({
-      fieldset,
       task: value,
       onFailure: this.fail,
     });
@@ -342,7 +331,6 @@ class TeamTasksListItem extends React.Component {
             />
           </TeamTaskCard>
           <TeamTaskConfirmDialog
-            fieldset={this.props.fieldset}
             projects={projects}
             selectedProjects={selectedProjects}
             editedTask={this.state.editedTask}
@@ -356,7 +344,6 @@ class TeamTasksListItem extends React.Component {
           />
           { this.state.isEditing ?
             <EditTaskDialog
-              fieldset={this.props.fieldset}
               task={task}
               message={this.state.message}
               taskType={task.type}
@@ -402,7 +389,6 @@ TeamTasksListItem.propTypes = {
       )),
     }),
   }).isRequired,
-  fieldset: PropTypes.string.isRequired,
   about: PropTypes.object.isRequired,
 };
 
