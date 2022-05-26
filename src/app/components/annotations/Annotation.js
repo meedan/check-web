@@ -5,7 +5,6 @@ import Relay from 'react-relay/classic';
 import RCTooltip from 'rc-tooltip';
 import styled from 'styled-components';
 import { stripUnit } from 'polished';
-import { Link } from 'react-router';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 import Card from '@material-ui/core/Card';
@@ -13,12 +12,11 @@ import CardContent from '@material-ui/core/CardContent';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import MoreHoriz from '@material-ui/icons/MoreHoriz';
-import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Typography from '@material-ui/core/Typography';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
-import TaskUpdate from './TaskUpdate';
+import { Link } from 'react-router';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
 import ParsedText from '../ParsedText';
@@ -445,80 +443,64 @@ class Annotation extends Component {
         );
       }
       break;
-    case 'create_relationship': {
-      const meta = JSON.parse(activity.meta);
-      if (meta) {
-        const { target } = meta;
-        if (target.id === annotated.dbid) {
-          const type = object.relationship_type;
-          contentTemplate = (
-            <span>
-              { /parent/.test(type) ?
-                <FormattedMessage
-                  id="annotation.relationshipCreated"
-                  defaultMessage="Related item added by {author}: {title}"
-                  values={{
-                    title: emojify(target.title),
-                    author: authorName,
-                  }}
-                /> : null }
-              { /confirmed_sibling/.test(type) ?
-                <FormattedMessage
-                  id="annotation.similarCreated"
-                  defaultMessage="Confirmed similar by {author}: {title}"
-                  values={{
-                    title: emojify(target.title),
-                    author: authorName,
-                  }}
-                /> : null }
-              { /suggested/.test(type) ?
-                <FormattedMessage
-                  id="annotation.suggestionCreated"
-                  defaultMessage="Suggested match by {author}: {title}"
-                  values={{
-                    title: emojify(target.title),
-                    author: authorName,
-                  }}
-                /> : null }
-            </span>
-          );
-        }
+    case 'create_relationship':
+    case 'update_relationship': {
+      const meta = safelyParseJSON(activity.meta);
+      if (meta && meta.source) {
+        const { source } = meta;
+        const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
+        const type = object.relationship_type;
+        contentTemplate = (
+          <span>
+            { /confirmed_sibling/.test(type) ?
+              <FormattedMessage
+                id="annotation.similarCreated"
+                defaultMessage="Match confirmed by {author}: {title}"
+                values={{
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  author: relationshipAuthor,
+                }}
+              /> : null }
+            { /suggested/.test(type) ?
+              <FormattedMessage
+                id="annotation.suggestionCreated"
+                defaultMessage="Match suggested by {author}: {title}"
+                values={{
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  author: relationshipAuthor,
+                }}
+              /> : null }
+          </span>
+        );
       }
       break;
     }
     case 'destroy_relationship': {
-      const meta = JSON.parse(activity.meta);
-      if (meta) {
-        const { target } = meta;
-        const type = object.relationship_type;
+      const meta = safelyParseJSON(activity.meta);
+      if (meta && meta.source) {
+        const { source } = meta;
+        const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
+        const relationshipChanges = safelyParseJSON(activity.object_changes_json);
+        const type = relationshipChanges.relationship_type[0];
         contentTemplate = (
           <span>
-            { /parent/.test(type) ?
-              <FormattedMessage
-                id="annotation.relationshipDestroyed"
-                defaultMessage="Related item removed by {author}: {title}"
-                values={{
-                  title: emojify(target.title),
-                  author: authorName,
-                }}
-              /> : null }
             { /confirmed_sibling/.test(type) ?
               <FormattedMessage
                 id="annotation.similarDestroyed"
-                defaultMessage="Confirmed similar detached by {author}: {title}"
+                defaultMessage="Match deleted by {author}: {title}"
                 description="Tells that one item previously confirmed as similar has been detached from current item."
                 values={{
-                  title: emojify(target.title),
-                  author: authorName,
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  author: relationshipAuthor,
                 }}
               /> : null }
             { /suggested_sibling/.test(type) ?
               <FormattedMessage
                 id="annotation.suggestionDestroyed"
-                defaultMessage="Suggested match rejected by {author}: {title}"
+                defaultMessage="Match rejected by {author}: {title}"
                 values={{
-                  title: emojify(target.title),
-                  author: authorName,
+                  title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
+                  author: relationshipAuthor,
                 }}
               /> : null }
           </span>
@@ -527,7 +509,7 @@ class Annotation extends Component {
       break;
     }
     case 'create_assignment': {
-      const meta = JSON.parse(activity.meta);
+      const meta = safelyParseJSON(activity.meta);
       if (meta) {
         const { type, title, user_name } = meta;
         const values = {
@@ -561,7 +543,7 @@ class Annotation extends Component {
       break;
     }
     case 'destroy_assignment': {
-      const meta = JSON.parse(activity.meta);
+      const meta = safelyParseJSON(activity.meta);
       if (meta) {
         const { type, title, user_name } = meta;
         const values = {
@@ -597,7 +579,7 @@ class Annotation extends Component {
     case 'create_dynamic':
     case 'update_dynamic':
       if (object.annotation_type === 'verification_status') {
-        const statusChanges = JSON.parse(activity.object_changes_json);
+        const statusChanges = safelyParseJSON(activity.object_changes_json);
         if (statusChanges.locked) {
           if (statusChanges.locked[1]) {
             contentTemplate = (
@@ -617,7 +599,7 @@ class Annotation extends Component {
             );
           }
         } else if (statusChanges.assigned_to_id) {
-          const assignment = JSON.parse(activity.meta);
+          const assignment = safelyParseJSON(activity.meta);
           if (assignment.assigned_to_name) {
             contentTemplate = (
               <FormattedMessage
@@ -732,92 +714,22 @@ class Annotation extends Component {
         );
       }
 
-      if (/^suggestion_/.test(object.field_name)) {
-        activityType = 'task_answer_suggestion';
-        const suggestion = JSON.parse(object.value);
-        const review = activity.meta ? JSON.parse(activity.meta) : null;
+      if (object.field_name === 'language' && activityType === 'create_dynamicannotationfield') {
         contentTemplate = (
-          <div>
-            <div className="annotation__card-content annotation__task-answer-suggestion">
-              <ParsedText text={suggestion.comment} />
-            </div>
-            <br />
-            <p>
-              <small>
-                <Link to={`/check/bot/${activity.user.bot.dbid}`}>
-                  <FormattedMessage
-                    id="annotation.seeHowThisBotWorks"
-                    defaultMessage="See how this bot works"
-                  />
-                </Link>
-              </small>
-            </p>
-            { review ?
-              <div style={{ fontStyle: 'italic' }}>
-                <small>
-                  { review.accepted ?
-                    <FormattedMessage
-                      id="annotation.suggestionAccepted"
-                      defaultMessage="Accepted by {user}"
-                      values={{
-                        user: <ProfileLink teamUser={review.user.team_user} />,
-                      }}
-                    /> :
-                    <FormattedMessage
-                      id="annotation.suggestionRejected"
-                      defaultMessage="Rejected by {user}"
-                      values={{
-                        user: <ProfileLink teamUser={review.user.team_user} />,
-                      }}
-                    />
-                  }
-                </small>
-              </div> :
-              <div>
-                <Button
-                  onClick={this.handleSuggestion.bind(this, activity.dbid, true)}
-                  style={{ border: `1px solid ${black38}` }}
-                  color="primary"
-                >
-                  <FormattedMessage
-                    id="annotation.acceptSuggestion"
-                    defaultMessage="Accept"
-                  />
-                </Button>
-                &nbsp;
-                <Button
-                  onClick={this.handleSuggestion.bind(this, activity.dbid, false)}
-                  style={{ border: `1px solid ${black38}` }}
-                  color="primary"
-                >
-                  <FormattedMessage
-                    id="annotation.rejectSuggestion"
-                    defaultMessage="Reject"
-                  />
-                </Button>
-              </div>
-            }
-          </div>
+          <span>
+            <FormattedMessage
+              id="annotation.addLanguage"
+              defaultMessage="Language {value} added by {author}"
+              values={{
+                value: object.value,
+                author: (<FormattedMessage {...globalStrings.appNameHuman} />),
+              }}
+            />
+          </span>
         );
       }
 
       if (/^response_/.test(object.field_name) && activity.task) {
-        if (activity.task.fieldset === 'tasks') {
-          contentTemplate = (
-            <span className="annotation__task-resolved">
-              <FormattedMessage
-                id="annotation.taskResolve"
-                defaultMessage="Task completed by {author}: {task}{response}"
-                values={{
-                  task: activity.task.label,
-                  author: authorName,
-                  response: Annotation.renderTaskResponse(activity.task.type, object),
-                }}
-              />
-            </span>
-          );
-        }
-
         if (activity.task.fieldset === 'metadata') {
           contentTemplate = (
             <span className="annotation__metadata-filled">
@@ -850,27 +762,7 @@ class Annotation extends Component {
         const archiveStatus = parseInt(archiveResponse.status, 10);
         const archiveName = archivers[object.field_name];
         contentTemplate = null;
-        if (archiveLink) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverSuccess"
-                defaultMessage='In case this item goes offline, you can <a href="{link}" target="_blank" rel="noopener noreferrer">access a backup at {name}</a>.'
-                values={{ link: archiveLink, name: archiveName }}
-              />
-            </span>
-          );
-        } else if (archiveResponse.error || archiveStatus >= 400) {
-          contentTemplate = (
-            <span className="annotation__keep">
-              <FormattedHTMLMessage
-                id="annotation.archiverError"
-                defaultMessage='Sorry, the following error occurred while archiving the item to {name}: "{message}". Please refresh the item to try again and contact {supportEmail} if the condition persists.'
-                values={{ name: archiveName, message: archiveResponse.error.message, supportEmail: stringHelper('SUPPORT_EMAIL') }}
-              />
-            </span>
-          );
-        } else {
+        if (!(archiveLink || archiveResponse.error || archiveStatus >= 400)) {
           contentTemplate = (
             <span className="annotation__keep">
               <FormattedHTMLMessage
@@ -884,34 +776,67 @@ class Annotation extends Component {
       }
       break;
     }
-    case 'create_projectmedia':
-      contentTemplate = (
-        <span>
-          <FormattedMessage
-            id="annotation.createProjectMedia"
-            defaultMessage="Item created by {author}"
-            values={{
-              author: authorName,
-            }}
-          />
-        </span>
-      );
-      break;
-    case 'update_projectmedia': {
-      const meta = JSON.parse(activity.meta);
-      if (meta) {
+    case 'create_projectmedia': {
+      const meta = safelyParseJSON(activity.meta);
+      if (meta && meta.add_source) {
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.addSource"
-              defaultMessage="Source {name} updated by {author}"
+              defaultMessage="Source {name} add by {author}"
               values={{
                 name: meta.source_name,
+                author: (<FormattedMessage {...globalStrings.appNameHuman} />),
+              }}
+            />
+          </span>
+        );
+      } else {
+        contentTemplate = (
+          <span>
+            <FormattedMessage
+              id="annotation.createProjectMedia"
+              defaultMessage="Item created by {author}"
+              values={{
                 author: authorName,
               }}
             />
           </span>
         );
+      }
+      break;
+    }
+    case 'update_projectmedia': {
+      const meta = safelyParseJSON(activity.meta);
+      if (meta && meta.source_name) {
+        const sourceChanges = safelyParseJSON(activity.object_changes_json);
+        if (sourceChanges.source_id[0] === null) {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.addSource"
+                defaultMessage="Source {name} add by {author}"
+                values={{
+                  name: meta.source_name,
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        } else {
+          contentTemplate = (
+            <span>
+              <FormattedMessage
+                id="annotation.updateSource"
+                defaultMessage="Source {name} updated by {author}"
+                values={{
+                  name: meta.source_name,
+                  author: authorName,
+                }}
+              />
+            </span>
+          );
+        }
       }
       break;
     }
@@ -991,9 +916,6 @@ class Annotation extends Component {
         </span>
       );
       break;
-    case 'update_task':
-      contentTemplate = <TaskUpdate activity={activity} authorName={authorName} />;
-      break;
     default:
       contentTemplate = null;
       break;
@@ -1003,7 +925,7 @@ class Annotation extends Component {
       return null;
     }
 
-    const cardActivities = ['create_comment', 'screenshot_taken', 'bot_response', 'task_answer_suggestion'];
+    const cardActivities = ['bot_response'];
     const useCardTemplate = (cardActivities.indexOf(activityType) > -1);
     const templateClass = `annotation--${useCardTemplate ? 'card' : 'default'}`;
     const typeClass = annotation ? `annotation--${annotation.annotation_type}` : '';
