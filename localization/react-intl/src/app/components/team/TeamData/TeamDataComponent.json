@@ -6,19 +6,7 @@
   },
   {
     "id": "teamDataComponent.subtitle",
-    "defaultMessage": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
-  },
-  {
-    "id": "teamDataComponent.notSet1",
-    "defaultMessage": "Click the button below to open your data report in a new window."
-  },
-  {
-    "id": "teamDataComponent.viewDataReport",
-    "defaultMessage": "View data report"
-  },
-  {
-    "id": "teamDataComponent.notSet2",
-    "defaultMessage": "To request any customization of your data report, please reach out to support."
+    "defaultMessage": "Get insight and analysis about workspace and tipline usage."
   },
   {
     "id": "teamDataComponent.set1",
