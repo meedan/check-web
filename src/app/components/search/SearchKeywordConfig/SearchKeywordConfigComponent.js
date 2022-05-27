@@ -184,21 +184,13 @@ const SearchKeywordConfigComponent = ({
   const teamMetadata = team.metadata.edges
     .filter(wantedTeamTaskAssociatedTypes).filter(wantedTeamTaskTypes)
     .map(formatOption);
-  const teamTasks = team.tasks.edges
-    .filter(wantedTeamTaskAssociatedTypes).filter(wantedTeamTaskTypes)
-    .map(formatOption);
 
-  if (teamMetadata.length || teamTasks.length) {
+  if (teamMetadata.length) {
     options = options.concat([{ value: '', label: '' }]);
     if (teamMetadata.length) {
       const label = <FormattedMessage id="searchKeywordConfig.annotation" defaultMessage="Annotation" description="Header before a listing of annotation options" />;
       options = options.concat([{ value: '', label }]);
       options = options.concat(teamMetadata);
-    }
-    if (teamTasks.length) {
-      const label = <FormattedMessage id="searchKeywordConfig.tasks" defaultMessage="Tasks" description="Header before a listing of task options" />;
-      options = options.concat([{ value: '', label }]);
-      options = options.concat(teamTasks);
     }
   }
 

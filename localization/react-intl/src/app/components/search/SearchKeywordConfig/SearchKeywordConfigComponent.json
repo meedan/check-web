@@ -70,11 +70,6 @@
     "defaultMessage": "Annotation"
   },
   {
-    "id": "searchKeywordConfig.tasks",
-    "description": "Header before a listing of task options",
-    "defaultMessage": "Tasks"
-  },
-  {
     "id": "MultiSelector.all",
     "defaultMessage": "Search All"
   }
