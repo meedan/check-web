@@ -3,25 +3,50 @@ import { shallow } from 'enzyme';
 import MediaFactCheck from './MediaFactCheck';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 
+const permissions = JSON.stringify({ 'create Media': true, 'create ClaimDescription': true });
+
 const projectMedia = {
   team: { smooch_bot: { bla: 1 } },
-  permissions: '{"create Media":true, "create ClaimDescription": true}',
+  permissions,
   claim_description: {
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
+    description: 'description',
+    fact_check: {
+      title: 'title',
+      url: 'url',
+      summary: 'summary',
+      user: { name: 'Loren User test' },
+      updated_at: '1653586249',
+    },
   },
   report: { data: { state: 'published' } },
 };
 
 const projectMedia2 = {
-  permissions: '{"create Media":true, "create ClaimDescription": true}',
+  permissions,
   team: {},
-  claim_description: { description: 'description' },
+  claim_description: {
+    description: 'description',
+    fact_check: {
+      title: 'title',
+      url: 'url',
+      summary: 'summary',
+      user: { name: 'Loren User test' },
+    },
+  },
 };
 
 const projectMedia3 = {
   team: { smooch_bot: { bla: 1 } },
-  permissions: '{"create Media":true, "create ClaimDescription": true}',
-  claim_description: { description: 'description' },
+  permissions,
+  claim_description: {
+    description: 'description',
+    fact_check: {
+      title: 'title',
+      url: 'url',
+      summary: 'summary',
+      user: { name: 'Loren User test' },
+    },
+  },
   report: { data: { state: 'unpublished' } },
 };
 
@@ -53,5 +78,11 @@ describe('<MediaFactCheck>', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia3} />);
     expect(wrapper.find('.media-fact-check__report-designer').find('.MuiButton-label').find('span').first()
       .text()).toEqual('Unpublished report');
+  });
+
+  it('should render who last saved the fact-check and when it happened', () => {
+    const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia} />);
+    expect(wrapper.find('.media-fact-check__saved-by').find('span').first().text()).toContain('saved by Loren User test');
+    expect(wrapper.find('time').text()).toContain('May 26, 2022');
   });
 });

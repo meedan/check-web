@@ -20,9 +20,10 @@ describe('<MediaClaim>', () => {
     expect(wrapper.find('#media-claim__description').hostNodes()).toHaveLength(1);
   });
 
-  it('should render the user name who updated Claim and when it was updated', () => {
+  it('should render who last saved the claim and when it happened', () => {
     const wrapper = mountWithIntl(<MediaClaim projectMedia={projectMedia} />);
-    const time = wrapper.find('time').find('span').first().text();
-    expect(wrapper.find('.media-claim__saved-by').find('span').first().text()).toContain(`saved by Loren User test ${time}`);
+    // console.log(wrapper.debug());
+    expect(wrapper.find('.media-claim__saved-by').find('span').first().text()).toContain('saved by Loren User test');
+    expect(wrapper.find('time').text()).toContain('May 26, 2022');
   });
 });

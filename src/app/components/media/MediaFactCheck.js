@@ -32,7 +32,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description;
+  const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
@@ -157,6 +157,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             /> : null }
           { !saving && !error && factCheck ?
             <FormattedMessage
+              className="media-fact-check__saved-by"
               id="mediaFactCheck,saved"
               defaultMessage="saved by {userName} {timeAgo}"
               values={{
