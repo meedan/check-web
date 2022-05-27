@@ -48,21 +48,12 @@
     "defaultMessage": "Fact-check summary"
   },
   {
-    "id": "searchKeywordConfig.allTaskAnswers",
-    "description": "This options applies keyword search across all task answers",
-    "defaultMessage": "All task answers"
-  },
-  {
     "id": "searchKeywordConfig.allMetadataAnswers",
     "defaultMessage": "All metadata answers"
   },
   {
     "id": "searchKeywordConfig.allNotes",
     "defaultMessage": "All notes"
-  },
-  {
-    "id": "searchKeywordConfig.allTaskComments",
-    "defaultMessage": "All task comments"
   },
   {
     "id": "searchKeywordConfig.annotation",

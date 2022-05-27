@@ -132,16 +132,6 @@ const SearchKeywordConfigComponent = ({
     label: '',
   },
   {
-    value: 'task_answers',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.allTaskAnswers"
-        defaultMessage="All task answers"
-        description="This options applies keyword search across all task answers"
-      />
-    ),
-  },
-  {
     value: 'metadata_answers',
     label: (
       <FormattedMessage
@@ -156,15 +146,6 @@ const SearchKeywordConfigComponent = ({
       <FormattedMessage
         id="searchKeywordConfig.allNotes"
         defaultMessage="All notes"
-      />
-    ),
-  },
-  {
-    value: 'task_comments',
-    label: (
-      <FormattedMessage
-        id="searchKeywordConfig.allTaskComments"
-        defaultMessage="All task comments"
       />
     ),
   }];
