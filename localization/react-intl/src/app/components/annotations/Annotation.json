@@ -35,29 +35,21 @@
     "defaultMessage": "Annotation field created by {author}: {fieldLabel}"
   },
   {
-    "id": "annotation.relationshipCreated",
-    "defaultMessage": "Related item added by {author}: {title}"
-  },
-  {
     "id": "annotation.similarCreated",
-    "defaultMessage": "Confirmed similar by {author}: {title}"
+    "defaultMessage": "Match confirmed by {author}: {title}"
   },
   {
     "id": "annotation.suggestionCreated",
-    "defaultMessage": "Suggested match by {author}: {title}"
-  },
-  {
-    "id": "annotation.relationshipDestroyed",
-    "defaultMessage": "Related item removed by {author}: {title}"
+    "defaultMessage": "Match suggested by {author}: {title}"
   },
   {
     "id": "annotation.similarDestroyed",
     "description": "Tells that one item previously confirmed as similar has been detached from current item.",
-    "defaultMessage": "Confirmed similar detached by {author}: {title}"
+    "defaultMessage": "Match deleted by {author}: {title}"
   },
   {
     "id": "annotation.suggestionDestroyed",
-    "defaultMessage": "Suggested match rejected by {author}: {title}"
+    "defaultMessage": "Match rejected by {author}: {title}"
   },
   {
     "id": "annotation.taskAssignmentCreated",
@@ -100,47 +92,27 @@
     "defaultMessage": "Status changed to {status} by {author}"
   },
   {
-    "id": "annotation.seeHowThisBotWorks",
-    "defaultMessage": "See how this bot works"
-  },
-  {
-    "id": "annotation.suggestionAccepted",
-    "defaultMessage": "Accepted by {user}"
-  },
-  {
-    "id": "annotation.suggestionRejected",
-    "defaultMessage": "Rejected by {user}"
-  },
-  {
-    "id": "annotation.acceptSuggestion",
-    "defaultMessage": "Accept"
-  },
-  {
-    "id": "annotation.rejectSuggestion",
-    "defaultMessage": "Reject"
+    "id": "annotation.addLanguage",
+    "defaultMessage": "Language {value} added by {author}"
   },
   {
     "id": "annotation.metadataResponse",
     "defaultMessage": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
   },
   {
-    "id": "annotation.archiverSuccess",
-    "defaultMessage": "In case this item goes offline, you can <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">access a backup at {name}</a>."
-  },
-  {
-    "id": "annotation.archiverError",
-    "defaultMessage": "Sorry, the following error occurred while archiving the item to {name}: \"{message}\". Please refresh the item to try again and contact {supportEmail} if the condition persists."
-  },
-  {
     "id": "annotation.archiverWait",
     "defaultMessage": "This item is being archived at {name}. The archive link will be displayed here when it's ready."
+  },
+  {
+    "id": "annotation.addSource",
+    "defaultMessage": "Source {name} add by {author}"
   },
   {
     "id": "annotation.createProjectMedia",
     "defaultMessage": "Item created by {author}"
   },
   {
-    "id": "annotation.addSource",
+    "id": "annotation.updateSource",
     "defaultMessage": "Source {name} updated by {author}"
   },
   {
