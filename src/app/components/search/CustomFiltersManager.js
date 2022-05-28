@@ -77,11 +77,12 @@ const CustomFiltersManager = ({
 
   const handleSelectMetadataField = (val, index) => {
     const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === val);
-
-    handleTeamTaskFilterChange({
-      id: val,
-      task_type: teamTask.node.type,
-    }, index);
+    if (teamTask) {
+      handleTeamTaskFilterChange({
+        id: val,
+        task_type: teamTask.node.type,
+      }, index);
+    }
   };
 
   const filters = query.team_tasks && query.team_tasks.length > 0 ? query.team_tasks : [{}];
@@ -197,19 +198,20 @@ const CustomFiltersManager = ({
 
   return (
     <Box display="flex" alignItems="center" flexWrap="wrap">
-      { filterFields.map((key, index) => {
+      { filterFields.map((component, index) => {
+        const key = filters[index]?.id || 'new-filter';
         if (index > 0) {
           return (
             <React.Fragment key={key}>
               { operatorToggle }
-              { key }
+              { component }
             </React.Fragment>
           );
         }
 
         return (
           <span key={key}>
-            { key }
+            { component }
           </span>
         );
       })}
@@ -228,7 +230,10 @@ CustomFiltersManager.propTypes = {
   query: PropTypes.shape({
     team_tasks: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
-      response: PropTypes.string,
+      response: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+      ]),
       task_type: PropTypes.string,
     })),
   }).isRequired,
