@@ -104,6 +104,8 @@ const CustomFiltersManager = ({
   const filterFields = filters.map((filter, i) => {
     if (filter.id) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
       const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === filter.id);
+      if (!teamTask) return null;
+
       let options = [...fixedOptions];
       if (filter.task_type === 'datetime') {
         options.push({ label: intl.formatMessage(messages.dateRange), value: 'DATE_RANGE', exclusive: true });
@@ -231,6 +233,9 @@ CustomFiltersManager.propTypes = {
     })),
   }).isRequired,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { CustomFiltersManager as CustomFiltersManagerTest };
 
 export default createFragmentContainer(injectIntl(CustomFiltersManager), graphql`
   fragment CustomFiltersManager_team on Team {
