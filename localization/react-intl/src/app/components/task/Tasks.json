@@ -1,11 +1,8 @@
 [
   {
-    "id": "tasks.blankMetadata",
-    "defaultMessage": "No metadata fields"
-  },
-  {
-    "id": "tasks.blankTasks",
-    "defaultMessage": "No tasks"
+    "id": "tasks.blankAnnotation",
+    "description": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings.",
+    "defaultMessage": "No annotation fields"
   },
   {
     "id": "tasks.goToSettings",

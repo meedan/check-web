@@ -114,7 +114,7 @@ const TeamTaskCard = ({
         <IconButton onClick={() => setExpanded(!expanded)}>
           <ExpandMoreIcon />
         </IconButton>
-        <Typography variant="body1">
+        <Typography variant="body1" component="div">
           <Box my={2} className="team-tasks__task-label">
             <Box fontWeight="500">
               {task.label}
