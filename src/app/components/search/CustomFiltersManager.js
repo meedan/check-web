@@ -199,7 +199,7 @@ const CustomFiltersManager = ({
 
   return (
     <Box display="flex" alignItems="center" flexWrap="wrap">
-      { filterFields.map((component, index) => {
+      { filterFields.filter(ff => ff !== null).map((component, index) => {
         const key = filters[index]?.id || 'new-filter';
         if (index > 0) {
           return (
