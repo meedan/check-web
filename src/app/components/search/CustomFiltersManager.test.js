@@ -1,7 +1,6 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { CustomFiltersManagerTest } from './CustomFiltersManager';
-import MultiSelectFilter from './MultiSelectFilter';
 
 describe('<CustomFiltersManager />', () => {
   const team = {
