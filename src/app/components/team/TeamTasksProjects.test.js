@@ -21,6 +21,11 @@ const projectWithTasks = {
   ],
 };
 
+const about = {
+  file_max_size: '1000',
+  file_extensions: ['png'],
+};
+
 const team = { id: '1' };
 
 describe('<TeamTasksProject />', () => {
@@ -28,7 +33,7 @@ describe('<TeamTasksProject />', () => {
     const wrapper = mountWithIntl(<TeamTasksProject
       project={project}
       team={team}
-      fieldset=""
+      about={about}
     />);
     expect(wrapper.html()).toEqual(null);
   });
@@ -37,7 +42,7 @@ describe('<TeamTasksProject />', () => {
     const wrapper = mountWithIntl(<TeamTasksProject
       project={projectWithTasks}
       team={team}
-      fieldset=""
+      about={about}
     />);
     expect(wrapper.find('.team-tasks__list-item').hostNodes()).toHaveLength(2);
   });

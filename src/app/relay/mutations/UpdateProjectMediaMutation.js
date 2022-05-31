@@ -33,7 +33,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             embed_path,
             thumbnail_path
           },
-          tasks(fieldset: "tasks", first: 10000) {
+          tasks(fieldset: "metadata", first: 10000) {
             edges {
               node {
                 permissions
