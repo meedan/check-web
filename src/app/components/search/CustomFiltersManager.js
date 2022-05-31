@@ -152,6 +152,7 @@ const CustomFiltersManager = ({
         <Box>
           <Box display="flex" alignItems="center">
             <MultiSelectFilter
+              id={`${filter.task_type}-${filter.id}`}
               allowSearch={false}
               extraInputs={getExtraInputs()}
               label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
@@ -174,7 +175,7 @@ const CustomFiltersManager = ({
     }
 
     const existingFilters = query.team_tasks.map(tt => tt.id);
-    // First step, show all annotation fields
+
     return (
       <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
         { label => (
