@@ -221,9 +221,7 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
 
-    if (media.suggested_main_item || media.is_confirmed_similar_to_another_item) {
-      return null;
-    }
+    const isParent = !(media.suggested_main_item || media.is_confirmed_similar_to_another_item);
 
     const { project } = media;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
@@ -243,36 +241,44 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
+    let moveOrRestor = '';
+    if (isParent) {
+      if (media.archived === CheckArchivedFlags.NONE) {
+        moveOrRestor = (
+          <MoveProjectMediaAction
+            team={this.props.media.team}
+            project={project}
+            projectMedia={this.props.media}
+            className={classes.spacedButton}
+          />
+        );
+      } else {
+        moveOrRestor = (
+          <RestoreConfirmProjectMediaToProjectAction
+            team={this.props.media.team}
+            projectMedia={this.props.media}
+            context={context}
+            className={classes.spacedButton}
+          />
+        );
+      }
+    }
+
     return (
       <div className={classes.root}>
-        { media.archived === CheckArchivedFlags.NONE ?
-          <div>
-            <MoveProjectMediaAction
-              team={this.props.media.team}
-              project={project}
-              projectMedia={this.props.media}
-              className={classes.spacedButton}
-            />
-          </div> :
-          <div>
-            <RestoreConfirmProjectMediaToProjectAction
-              team={this.props.media.team}
-              projectMedia={this.props.media}
-              context={context}
-              className={classes.spacedButton}
-            />
-          </div>
-        }
-
+        <div> { moveOrRestor } </div>
         <Box display="flex">
-          <MediaStatus
-            media={media}
-            readonly={media.archived > CheckArchivedFlags.NONE
-              || media.last_status_obj.locked || published}
-          />
+          {isParent ?
+            <MediaStatus
+              media={media}
+              readonly={media.archived > CheckArchivedFlags.NONE
+                || media.last_status_obj.locked || published}
+            /> : null
+          }
           <MediaActionsMenuButton
             key={media.id /* close menu if we navigate to a different projectMedia */}
             projectMedia={media}
+            isParent={isParent}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
             handleAssign={this.handleAssign.bind(this)}

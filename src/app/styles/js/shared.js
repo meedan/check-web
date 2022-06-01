@@ -1,7 +1,5 @@
 import styled, { css, keyframes } from 'styled-components';
-import TextField from '@material-ui/core/TextField';
 import IconButton from '@material-ui/core/IconButton';
-import Checkbox from '@material-ui/core/Checkbox';
 import Card from '@material-ui/core/Card';
 
 // Styles for overriding material UI
@@ -11,6 +9,7 @@ export const white = '#ffffff';
 export const black = '#000000';
 export const alertRed = '#d0021b';
 export const checkBlue = '#2e77fc';
+export const checkOrange = '#f2994a';
 export const checkError = '#fa555f';
 export const inProgressYellow = '#efac51';
 export const completedGreen = '#5cae73';
@@ -27,7 +26,6 @@ export const black54 = 'rgba(0, 0, 0, .54)';
 export const black38 = 'rgba(0, 0, 0, .38)';
 export const black32 = 'rgba(0, 0, 0, .32)';
 export const black16 = 'rgba(0, 0, 0, .16)';
-export const black10 = 'rgba(0, 0, 0, .1)';
 export const black05 = 'rgba(0, 0, 0, .05)';
 export const black02 = 'rgba(0, 0, 0, .02)'; // eslint-disable-line import/no-unused-modules
 
@@ -387,28 +385,5 @@ export const StyledIconButton = styled(IconButton)`
   svg {
     color: ${black38} !important;
     margin: 0!important;
-  }
-`;
-
-// A smaller TextField
-// that better aligns with multiple choice options
-export const StyledSmallTextField = styled(TextField)`
-  height: ${units(3)}!important;
-  font: ${body2} !important;
-  * {
-    bottom: 0!important;
-  }
-  div {
-    font-size: inherit!important;
-  }
-  textarea {
-    margin: 0!important;
-  }
-`;
-
-// This makes Checkbox icon render correctly on RTL layout
-export const StyledCheckbox = styled(Checkbox)`
-  svg {
-    transform: scale(1,1) !important;
   }
 `;

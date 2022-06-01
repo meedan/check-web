@@ -287,10 +287,10 @@ MultiSelectFilter.propTypes = {
   icon: PropTypes.element.isRequired,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
-  selected: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.object,
+  selected: PropTypes.oneOfType([
+    PropTypes.array,
     PropTypes.string,
-  ])),
+  ]),
   onToggleOperator: PropTypes.func,
   readOnly: PropTypes.bool,
   onType: PropTypes.func,

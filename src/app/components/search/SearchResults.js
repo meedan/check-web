@@ -662,6 +662,8 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               is_read
               is_main
               is_secondary
+              is_suggested
+              is_confirmed
               report_status # Needed by BulkActionsStatus
               requests_count
               list_columns_values

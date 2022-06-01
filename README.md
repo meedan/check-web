@@ -80,6 +80,15 @@ Then publish it to npm. Name the module `@meedan/name-of-my-module` (in its
 * Copy `test/config.js.example` to `test/config.js` and set the configurations
 * Run `docker-compose exec web npm test:integration`
 
+By default, only unit tests will run for branches on Travis other than develop or master. For run all the tests in any branch is just necessary comment the lines below in travis.yml:
+
+* https://github.com/meedan/check-web/blob/develop/.travis.yml#L61
+* https://github.com/meedan/check-web/blob/develop/.travis.yml#L75
+
+and comment this verification in the build script to build and up all necessary containers:
+* https://github.com/meedan/check-web/blob/develop/build.sh#L3-L8
+* https://github.com/meedan/check-web/blob/develop/build.sh#L38
+
 *Writing*
 
 * Use API calls (instead of using Selenium) to create all test data you need _before_ the real thing that the test is testing

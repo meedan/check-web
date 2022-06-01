@@ -129,7 +129,6 @@ const TrendsItem = ({ routeParams, location }) => {
                       avatar
                       get_language
                       get_report
-                      get_tasks_enabled
                       verification_statuses
                       team_bots(first: 10000) {
                         edges {

@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Typography,
-} from '@material-ui/core';
 import styled from 'styled-components';
-import MediaLanguageChip from './MediaLanguageChip';
 import MediasLoading from './MediasLoading';
 import MediaTags from './MediaTags';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Task from '../task/Task';
 import Tasks from '../task/Tasks';
-import CreateTask from '../task/CreateTask';
-import UserUtil from '../user/UserUtil';
 import { withPusher, pusherShape } from '../../pusher';
 import MediaRoute from '../../relay/MediaRoute';
 import CheckContext from '../../CheckContext';
@@ -26,7 +15,6 @@ import {
   body1,
   black87,
   black54,
-  FlexRow,
   units,
   brandSecondary,
   alertRed,
@@ -155,68 +143,14 @@ class MediaTasksComponent extends Component {
   }
 
   render() {
-    const { fieldset, about } = this.props;
+    const { about } = this.props;
     const media = Object.assign(this.props.cachedMedia, this.props.media);
-    const currentUserRole = UserUtil.myRole(
-      this.getContext().currentUser,
-      this.getContext().team.slug,
-    );
 
-    const itemTasks = fieldset === 'tasks' ? media.item_tasks : media.item_metadata;
-    const isBrowserExtension = (window.parent !== window);
+    const itemTasks = media.item_metadata;
 
     return (
       <StyledAnnotationRow>
-        { fieldset === 'tasks' && !isBrowserExtension ?
-          <>
-            <div className="annotation-header-row task-row">
-              <Card variant="outlined">
-                <CardContent>
-                  <Typography style={{ color: alertRed }} gutterBottom>
-                    <FormattedMessage
-                      id="check.tasks.discontinued_tasks_warning"
-                      defaultMessage="Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations."
-                      description="This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
-                    />
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  <Button
-                    color="primary"
-                    onClick={() => Intercom('showNewMessage')}
-                  >
-                    <FormattedMessage
-                      id="check.tasks.contact_support"
-                      defaultMessage="Contact support"
-                      description="This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
-                    />
-                  </Button>
-                </CardActions>
-              </Card>
-            </div>
-            <div className="annotation-header-row task-row">
-              { itemTasks.edges.length ?
-                <FlexRow>
-                  <h2>
-                    <FormattedMessage
-                      id="mediaComponent.verificationTasks"
-                      defaultMessage="Item tasks"
-                    />
-                  </h2>
-                  &nbsp;
-                  { currentUserRole !== 'annotator' ?
-                    <FlexRow>
-                      {itemTasks.edges.filter(t =>
-                        t.node.responses.edges.length > 0).length}/{itemTasks.edges.length
-                      }
-                      &nbsp;
-                      <FormattedMessage id="mediaComponent.answered" defaultMessage="completed" />
-                    </FlexRow> : null }
-                </FlexRow> : null }
-              <CreateTask style={{ marginLeft: 'auto' }} media={media} />
-            </div>
-          </> : null }
-        <Tasks tasks={itemTasks.edges} media={media} about={about} fieldset={fieldset} />
+        <Tasks tasks={itemTasks.edges} media={media} about={about} />
       </StyledAnnotationRow>
     );
   }
@@ -230,42 +164,6 @@ MediaTasksComponent.propTypes = {
   pusher: pusherShape.isRequired,
   clientSessionId: PropTypes.string.isRequired,
 };
-
-const MediaTasksContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
-  fragments: {
-    media: () => Relay.QL`
-      fragment on ProjectMedia {
-        id
-        dbid
-        archived
-        permissions
-        pusher_channel
-        item_tasks: tasks(fieldset: "tasks", first: 10000) {
-          edges {
-            node {
-              id
-              dbid
-              show_in_browser_extension
-              team_task_id
-              team_task {
-                conditional_info
-              },
-              responses(first: 10000) {
-                edges {
-                  node {
-                    id,
-                    dbid,
-                  }
-                }
-              }
-              ${Task.getFragment('task')},
-            }
-          }
-        }
-      }
-    `,
-  },
-});
 
 const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksComponent), {
   fragments: {
@@ -291,7 +189,6 @@ const MediaMetadataContainer = Relay.createContainer(withPusher(MediaTasksCompon
         archived
         permissions
         pusher_channel
-        ${MediaLanguageChip.getFragment('projectMedia')}
         item_metadata: tasks(fieldset: "metadata", first: 10000) {
           edges {
             node {
@@ -360,39 +257,15 @@ const MediaTasks = (props) => {
     }
   }
 
-  let { fieldset } = props;
-
-  // Accessing through /.../tasks or /.../metadata
-  if (props.route && props.route.path) {
-    const path = props.route.path.split('/');
-    const lastPathPart = path[path.length - 1];
-    if (['tasks', 'metadata'].indexOf(lastPathPart) > -1) {
-      fieldset = lastPathPart;
-    }
-  }
-
   const projectId = media.project_id;
   const ids = `${media.dbid},${projectId}`;
   const route = new MediaRoute({ ids });
 
-  if (fieldset === 'metadata') {
-    return (
-      <ErrorBoundary component="MediaTasks">
-        <Relay.RootContainer
-          Component={MediaMetadataContainer}
-          renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} onTimelineCommentOpen={props.onTimelineCommentOpen} fieldset="metadata" />}
-          route={route}
-          renderLoading={() => <MediasLoading count={1} />}
-        />
-      </ErrorBoundary>
-    );
-  }
-
   return (
     <ErrorBoundary component="MediaTasks">
       <Relay.RootContainer
-        Component={MediaTasksContainer}
-        renderFetched={data => <MediaTasksContainer cachedMedia={media} {...data} fieldset="tasks" />}
+        Component={MediaMetadataContainer}
+        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} onTimelineCommentOpen={props.onTimelineCommentOpen} fieldset="metadata" />}
         route={route}
         renderLoading={() => <MediasLoading count={1} />}
       />

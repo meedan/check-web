@@ -77,11 +77,12 @@ const CustomFiltersManager = ({
 
   const handleSelectMetadataField = (val, index) => {
     const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === val);
-
-    handleTeamTaskFilterChange({
-      id: val,
-      task_type: teamTask.node.type,
-    }, index);
+    if (teamTask) {
+      handleTeamTaskFilterChange({
+        id: val,
+        task_type: teamTask.node.type,
+      }, index);
+    }
   };
 
   const filters = query.team_tasks && query.team_tasks.length > 0 ? query.team_tasks : [{}];
@@ -104,6 +105,8 @@ const CustomFiltersManager = ({
   const filterFields = filters.map((filter, i) => {
     if (filter.id) { // TODO: Have each metadata/task type return its appropriate widget (e.g.: choice/date/location/number)
       const teamTask = teamTasks.find(tt => tt.node.dbid.toString() === filter.id);
+      if (!teamTask) return null;
+
       let options = [...fixedOptions];
       if (filter.task_type === 'datetime') {
         options.push({ label: intl.formatMessage(messages.dateRange), value: 'DATE_RANGE', exclusive: true });
@@ -149,6 +152,7 @@ const CustomFiltersManager = ({
         <Box>
           <Box display="flex" alignItems="center">
             <MultiSelectFilter
+              id={`${filter.task_type}-${filter.id}`}
               allowSearch={false}
               extraInputs={getExtraInputs()}
               label={intl.formatMessage(messages.labelIs, { title: teamTask.node.label })}
@@ -171,7 +175,7 @@ const CustomFiltersManager = ({
     }
 
     const existingFilters = query.team_tasks.map(tt => tt.id);
-    // First step, show all annotation fields
+
     return (
       <FormattedMessage id="customFiltersManager.label" defaultMessage="Custom field is" description="Placeholder label for metadata field when not fully configured">
         { label => (
@@ -195,19 +199,20 @@ const CustomFiltersManager = ({
 
   return (
     <Box display="flex" alignItems="center" flexWrap="wrap">
-      { filterFields.map((key, index) => {
+      { filterFields.filter(ff => ff !== null).map((component, index) => {
+        const key = filters[index]?.id || 'new-filter';
         if (index > 0) {
           return (
             <React.Fragment key={key}>
               { operatorToggle }
-              { key }
+              { component }
             </React.Fragment>
           );
         }
 
         return (
           <span key={key}>
-            { key }
+            { component }
           </span>
         );
       })}
@@ -226,11 +231,17 @@ CustomFiltersManager.propTypes = {
   query: PropTypes.shape({
     team_tasks: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string,
-      response: PropTypes.string,
+      response: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.array,
+      ]),
       task_type: PropTypes.string,
     })),
   }).isRequired,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { CustomFiltersManager as CustomFiltersManagerTest };
 
 export default createFragmentContainer(injectIntl(CustomFiltersManager), graphql`
   fragment CustomFiltersManager_team on Team {

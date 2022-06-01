@@ -380,6 +380,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
             name
           }
         }
+        ${MediaLanguageChip.getFragment('projectMedia')}
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}

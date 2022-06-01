@@ -1019,6 +1019,10 @@
 		"string": "Send message to requester",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
+	"errorBoundary.message": {
+		"string": "Hello, I'm having trouble with Check. The web interface has just crashed and is blocking me from doing work!",
+		"developer_comment": "Prefilled support request message when Check UI crashes"
+	},
 	"fetchBot.contactUs": {
 		"string": "Свяжитесь с нами для настройки"
 	},
@@ -1027,6 +1031,10 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Отменить"
+	},
+	"filter.tag.deleted": {
+		"string": "Property deleted",
+		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
 		"string": "Check: проверка горячих новостей онлайн. Сделано с ✨ в {meedan}"
@@ -1259,9 +1267,6 @@
 	},
 	"list.reactCount": {
 		"string": "Реакции FB"
-	},
-	"list.relatedCount": {
-		"string": "Связанные"
 	},
 	"list.reportPublishedBy": {
 		"string": "Report published by"
@@ -1597,31 +1602,16 @@
 		"string": "saved by {userName} {timeAgo}",
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
-	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Снять с публикации и обновить содержимое"
+	"mediaFactCheck.claimMissingDesc": {
+		"string": "You must add a claim to access the fact-check report.",
+		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "Overwrite report content"
+	"mediaFactCheck.claimMissingTitle": {
+		"string": "Claim missing",
+		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmText1": {
-		"string": "Чтобы отредактировать отчёт, его необходимо снять с публикации. Вы хотите снять отчёт с публикации и обновить его содержимое?"
-	},
-	"mediaFactCheck.confirmText2": {
-		"string": "Do you want to update the report with this new content? All content currently in the report will be lost."
-	},
-	"mediaFactCheck.confirmTitle1": {
-		"string": "Отчёт уже опубликован"
-	},
-	"mediaFactCheck.confirmTitle2": {
-		"string": "Overwrite existing report content?"
-	},
-	"mediaFactCheck.copyToReport": {
-		"string": "Copy to tipline report",
-		"developer_comment": "Button label to copy fact-check data into a report."
-	},
-	"mediaFactCheck.copying": {
-		"string": "Копируем...",
-		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
+	"mediaFactCheck.confirmButtonLabel": {
+		"string": "Go back to editing"
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "Fact-check",
@@ -2333,9 +2323,6 @@
 	"reportDesigner.back": {
 		"string": "Назад к аннотации"
 	},
-	"reportDesigner.cancelLeaveButtonLabel": {
-		"string": "Go back"
-	},
 	"reportDesigner.cancelPause": {
 		"string": "Go back"
 	},
@@ -2347,15 +2334,6 @@
 	},
 	"reportDesigner.cantPublishTitle": {
 		"string": "Your report is not ready to be published"
-	},
-	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Leave without saving"
-	},
-	"reportDesigner.confirmLeaveText": {
-		"string": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
-	},
-	"reportDesigner.confirmLeaveTitle": {
-		"string": "Do you want to leave without saving?"
 	},
 	"reportDesigner.confirmPause": {
 		"string": "Приостановить отчёт"
@@ -2394,7 +2372,7 @@
 		"string": "Вы готовы опубликовать изменения?"
 	},
 	"reportDesigner.content": {
-		"string": "Контент (до {max} символов)"
+		"string": "Summary ({max} characters max)"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "Content with warning cannot<br />be published as a visual card.",
@@ -2419,10 +2397,7 @@
 		"string": "Дата публикации"
 	},
 	"reportDesigner.description": {
-		"string": "Контент (до {max} символов)"
-	},
-	"reportDesigner.edit": {
-		"string": "Редактировать"
+		"string": "Summary ({max} characters max)"
 	},
 	"reportDesigner.error": {
 		"string": "В процессе изменения настроек отчёта произошла ошибка. Пожалуйста, попробуйте ещё раз. Если проблема повторяется, свяжитесь с нами: {supportEmail}."
@@ -2460,7 +2435,7 @@
 		"string": "Удалить изображение"
 	},
 	"reportDesigner.report": {
-		"string": "Отчёт"
+		"string": "Fact-check"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Превью отчёта",
@@ -2468,9 +2443,6 @@
 	},
 	"reportDesigner.republishAndResend": {
 		"string": "{demand, plural, one {Also send this updated report as a {correctionLink} to the user who has received the previous version of this report.} other {Also send this updated report as a {correctionLink} to the # users who have received the previous version of this report.}}"
-	},
-	"reportDesigner.save": {
-		"string": "Сохранить"
 	},
 	"reportDesigner.sentCount": {
 		"string": "Reports sent"
@@ -2482,11 +2454,12 @@
 		"string": "Текст",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
-	"reportDesigner.textError": {
-		"string": "Необходимо либо добавить текст для отчёта, либо снять галку «Текст отчёта»"
-	},
 	"reportDesigner.textTitle": {
 		"string": "Заголовок (до {max} символов)"
+	},
+	"reportDesigner.textUrl": {
+		"string": "Published article URL ({max} characters max)",
+		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
 		"string": "Создайте свой отчёт"
@@ -2521,7 +2494,7 @@
 		"string": "Your item still has the default status {status} and must be changed to a different status before it can be published."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+		"string": "You must add a title and a summary to the fact-check in order to publish the report."
 	},
 	"reportStatusCell.paused": {
 		"string": "Приостановлен"
@@ -2797,10 +2770,6 @@
 	"search.folderHeading": {
 		"string": "Folder is",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
-	},
-	"search.help": {
-		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Tree + Leaf</td><td>Items with both Tree AND Leaf</td></tr>\n                            <tr><td>|</td><td>Tree | Leaf</td><td>Items with either Tree OR Leaf</td></tr>\n                            <tr><td>()</td><td>Tree + (Leaf | Branch)</td><td>Items with Tree AND Leaf OR items with Tree AND Branch</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Learn more about search techniques\n                          </a>\n                        </div>",
-		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
 		"string": "Искать",
@@ -3935,11 +3904,11 @@
 		"string": "Friday"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
+		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
+		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -4001,10 +3970,19 @@
 		"string": "Wednesday"
 	},
 	"smoochBotResourceEditor.addContent": {
-		"string": "Добавить контент вручную"
+		"string": "Type something",
+		"developer_comment": "Placeholder for manual content entry"
+	},
+	"smoochBotResourceEditor.charsCounter": {
+		"string": "{count}/{max} characters available",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
+	"smoochBotResourceEditor.content": {
+		"string": "Контент",
+		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Удалить"
+		"string": "Delete resource"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": "Этот URL, кажется, не является RSS-лентой"
@@ -4016,7 +3994,8 @@
 		"string": "Количество статей"
 	},
 	"smoochBotResourceEditor.rss": {
-		"string": "Добавить контент из RSS-ленты"
+		"string": "Load content from RSS feed",
+		"developer_comment": "Label of switch that toggles loading of content from a RSS feed"
 	},
 	"smoochBotResourceEditor.rssPlaceholder": {
 		"string": "Публичный URL, который возвращает N статей в формате RSS"
