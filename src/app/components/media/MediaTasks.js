@@ -17,7 +17,6 @@ import {
   black54,
   units,
   brandSecondary,
-  alertRed,
 } from '../../styles/js/shared';
 
 const StyledAnnotationRow = styled.div`
