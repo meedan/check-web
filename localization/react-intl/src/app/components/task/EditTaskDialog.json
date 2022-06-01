@@ -115,10 +115,6 @@
     "defaultMessage": "Description (optional)"
   },
   {
-    "id": "tasks.showInProj",
-    "defaultMessage": "Show tasks in"
-  },
-  {
     "id": "tasks.timezones",
     "defaultMessage": "Timezones available to complete the task"
   },

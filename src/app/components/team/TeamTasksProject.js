@@ -21,7 +21,6 @@ const TeamTasksProject = props => props.project.teamTasks.length ? (
               key={`${task.label}-${task.type}`}
               task={task}
               tasks={props.project.teamTasks}
-              fieldset={props.fieldset}
               team={props.team}
               about={props.about}
             />))}
@@ -36,7 +35,6 @@ TeamTasksProject.propTypes = {
     teamTasks: PropTypes.array,
     title: PropTypes.string,
   }).isRequired,
-  fieldset: PropTypes.string.isRequired,
   team: PropTypes.object.isRequired,
   about: PropTypes.object.isRequired,
 };
