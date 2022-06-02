@@ -22,8 +22,7 @@ describe('<MediaClaim>', () => {
 
   it('should render who last saved the claim and when it happened', () => {
     const wrapper = mountWithIntl(<MediaClaim projectMedia={projectMedia} />);
-    // console.log(wrapper.debug());
-    expect(wrapper.find('.media-claim__saved-by').find('span').first().text()).toContain('saved by Loren User test');
+    expect(wrapper.html()).toMatch('saved by Loren User test');
     expect(wrapper.find('time').text()).toContain('May 26, 2022');
   });
 });

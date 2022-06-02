@@ -229,10 +229,12 @@ const MediaFactCheck = ({ projectMedia }) => {
           >
             { published ?
               <FormattedMessage
+                className="media-fact-check__published-report"
                 id="mediaActionsBar.publishedReport"
                 defaultMessage="Published report"
               /> :
               <FormattedMessage
+                className="media-fact-check__unpublished-report"
                 id="mediaActionsBar.unpublishedReport"
                 defaultMessage="Unpublished report"
               /> }

@@ -70,19 +70,18 @@ describe('<MediaFactCheck>', () => {
 
   it('should render published text button when report is published', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia} />);
-    expect(wrapper.find('.media-fact-check__report-designer').find('.MuiButton-label').find('span').first()
-      .text()).toEqual('Published report');
+    expect(wrapper.find('.media-fact-check__published-report').text()).toEqual('Published report');
   });
 
   it('should render unpublished text button when report is not published', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia3} />);
-    expect(wrapper.find('.media-fact-check__report-designer').find('.MuiButton-label').find('span').first()
-      .text()).toEqual('Unpublished report');
+    expect(wrapper.find('.media-fact-check__unpublished-report').text()).toEqual('Unpublished report');
   });
 
   it('should render who last saved the fact-check and when it happened', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia} />);
     expect(wrapper.find('.media-fact-check__saved-by').find('span').first().text()).toContain('saved by Loren User test');
+    expect(wrapper.html()).toMatch('saved by Loren User test');
     expect(wrapper.find('time').text()).toContain('May 26, 2022');
   });
 });
