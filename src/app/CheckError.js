@@ -69,7 +69,7 @@ const CheckError = {
     />),
     CONFLICT: (<FormattedMessage
       id="check.error.conflict"
-      defaultMessage="There was a database conflict."
+      defaultMessage="There was a database conflict. Maybe some other user already performed this action. Please reload the page."
       description="This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
     />),
     PUBLISHED_REPORT: (<FormattedMessage
