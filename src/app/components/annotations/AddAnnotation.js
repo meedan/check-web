@@ -382,7 +382,7 @@ class AddAnnotation extends Component {
             id="cmd-input"
             multiline
             fullWidth
-            onKeyPress={this.blo.handleKeyPress.bind(this)}
+            onKeyPress={this.handleKeyPress.bind(this)}
             onKeyUp={this.handleKeyUp.bind(this)}
             value={this.state.cmd}
             onChange={this.handleChange.bind(this)}
