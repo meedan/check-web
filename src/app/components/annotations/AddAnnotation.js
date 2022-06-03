@@ -8,8 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import Tooltip from '@material-ui/core/Tooltip';
 import styled from 'styled-components';
-import StackTraceGPS from 'stacktrace-gps';
-import StackTrace from 'stacktrace-js';
 import CreateCommentMutation from '../../relay/mutations/CreateCommentMutation';
 import UpdateCommentMutation from '../../relay/mutations/UpdateCommentMutation';
 import CreateTagMutation from '../../relay/mutations/CreateTagMutation';
@@ -24,8 +22,6 @@ import { getErrorMessage } from '../../helpers';
 import { stringHelper } from '../../customHelpers';
 import globalStrings from '../../globalStrings';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-
-const gps = new StackTraceGPS();
 
 class AddAnnotation extends Component {
   static parseCommand(input) {
@@ -334,15 +330,6 @@ class AddAnnotation extends Component {
   }
 
   render() {
-    try {
-      console.log(this.bla.ble.bli); // eslint-disable-line no-console
-    } catch (e) {
-      StackTrace.fromError(e).then((err) => {
-        console.log('err[0]', err[0]); // eslint-disable-line no-console
-        console.log('gps.pinpoint(err[0])', gps.pinpoint(err[0])); // eslint-disable-line no-console
-      });
-    }
-
     const AddAnnotationButtonGroup = styled(Row)`
       align-items: center;
       display: flex;
