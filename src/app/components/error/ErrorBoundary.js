@@ -1,6 +1,7 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import { Notifier } from '@airbrake/browser';
+import StackTrace from 'stacktrace-js';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -33,24 +34,28 @@ class ErrorBoundary extends React.Component {
   componentDidCatch(error, errorInfo) {
     const { component, intl } = this.props;
 
-    if (this.airbrake) {
-      const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
-      this.airbrake.notify({
-        // For some reason we need to reinstantiate the error or pass the error as string.
-        // Not doing this causes the additional info (contex, params, session) to be empty
-        error: new Error(error),
-        context: { component },
-        params: { info: errorInfo },
-        session: { name, dbid, email },
-      }).then((response) => {
-        if (Intercom) {
-          Intercom(
-            'showNewMessage',
-            `${intl.formatMessage(messages.askSupport)}\n\n${response.url}`,
-          );
-        }
-      });
-    }
+    StackTrace.fromError(error).then((stackFrameArray) => {
+      console.log('stackFrameArray[0]', stackFrameArray[0]); // eslint-disable-line no-console
+
+      if (this.airbrake) {
+        const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
+        this.airbrake.notify({
+          // For some reason we need to reinstantiate the error or pass the error as string.
+          // Not doing this causes the additional info (contex, params, session) to be empty
+          error: new Error(error),
+          context: { component },
+          params: { info: errorInfo, 'stacktrace-js': stackFrameArray[0] },
+          session: { name, dbid, email },
+        }).then((response) => {
+          if (Intercom) {
+            Intercom(
+              'showNewMessage',
+              `${intl.formatMessage(messages.askSupport)}\n\n${response.url}`,
+            );
+          }
+        });
+      }
+    });
   }
 
   render() {
