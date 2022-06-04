@@ -171,6 +171,7 @@ const MediaFactCheck = ({ projectMedia }) => {
       </Box>
 
       <MediaFactCheckField
+        limit={140}
         label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
         name="title"
         value={title}
@@ -182,10 +183,10 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasPermission={hasPermission}
         disabled={readOnly || published}
         rows={1}
-        multiline
       />
 
       <MediaFactCheckField
+        limit={620}
         label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
         name="summary"
         value={summary}
@@ -196,11 +197,11 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
-        multiline
       />
 
       <MediaFactCheckField
-        label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Published article URL" description="Label for fact-check URL field" />}
+        limit={140}
+        label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
         name="url"
         value={url}
         key={url}
@@ -215,6 +216,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
+        rows={1}
       />
 
       { projectMedia.team.smooch_bot ?

@@ -23,24 +23,24 @@
   },
   {
     "id": "reportDesigner.textTitle",
-    "defaultMessage": "Title ({max} characters max)"
+    "defaultMessage": "Title"
   },
   {
     "id": "reportDesigner.content",
-    "defaultMessage": "Summary ({max} characters max)"
+    "defaultMessage": "Summary"
   },
   {
     "id": "reportDesigner.textUrl",
     "description": "Text report field",
-    "defaultMessage": "Published article URL ({max} characters max)"
+    "defaultMessage": "Article URL"
   },
   {
     "id": "reportDesigner.headline",
-    "defaultMessage": "Title ({max} characters max)"
+    "defaultMessage": "Title"
   },
   {
     "id": "reportDesigner.description",
-    "defaultMessage": "Summary ({max} characters max)"
+    "defaultMessage": "Summary"
   },
   {
     "id": "reportDesigner.darkOverlay",
@@ -56,7 +56,7 @@
   },
   {
     "id": "reportDesigner.statusLabel",
-    "defaultMessage": "Status label ({max} characters max)"
+    "defaultMessage": "Status label"
   },
   {
     "id": "reportDesigner.datePublished",
@@ -64,6 +64,6 @@
   },
   {
     "id": "reportDesigner.url",
-    "defaultMessage": "Website URL ({max} characters max)"
+    "defaultMessage": "Website URL"
   }
 ]
