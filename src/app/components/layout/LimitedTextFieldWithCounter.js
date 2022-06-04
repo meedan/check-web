@@ -44,14 +44,15 @@ LimitedTextFieldWithCounter.defaultProps = {
   rows: 1,
   value: '',
   textFieldProps: {},
+  label: null,
 };
 
 LimitedTextFieldWithCounter.propTypes = {
   limit: PropTypes.number.isRequired,
-  label: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
-  rows: PropTypes.number,
   value: PropTypes.string,
+  label: PropTypes.object,
+  rows: PropTypes.number,
   textFieldProps: PropTypes.object,
 };
 
