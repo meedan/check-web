@@ -92,6 +92,11 @@
     "defaultMessage": "Status changed to {status} by {author}"
   },
   {
+    "id": "annotation.unknownLanguage",
+    "description": "Show label for undefined language",
+    "defaultMessage": "Unknown language"
+  },
+  {
     "id": "annotation.addLanguage",
     "defaultMessage": "Language {value} added by {author}"
   },
