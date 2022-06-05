@@ -183,6 +183,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasPermission={hasPermission}
         disabled={readOnly || published}
         rows={1}
+        key={`title-${claimDescription}`}
       />
 
       <MediaFactCheckField
@@ -197,6 +198,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
+        key={`summary-${claimDescription}`}
       />
 
       <MediaFactCheckField
@@ -204,7 +206,6 @@ const MediaFactCheck = ({ projectMedia }) => {
         label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
         name="url"
         value={url}
-        key={url}
         onBlur={(newValue) => {
           let newUrl = newValue;
           if (!/^https?:\/\//.test(newValue)) {
@@ -217,6 +218,7 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasPermission={hasPermission}
         disabled={readOnly || published}
         rows={1}
+        key={`url-${claimDescription}`}
       />
 
       { projectMedia.team.smooch_bot ?

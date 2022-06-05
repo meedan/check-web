@@ -42,7 +42,7 @@ const MediaFactCheckField = ({
           id: `media-fact-check__${name}`,
           className: `media-fact-check__${name}`,
           disabled: (!hasPermission || disabled),
-          key: `media-fact-check__${name}-${hasClaimDescription}`,
+          key: `media-fact-check__${name}-${hasClaimDescription ? '-with-claim' : '-no-claim'}`,
         }}
       />
     </Box>
