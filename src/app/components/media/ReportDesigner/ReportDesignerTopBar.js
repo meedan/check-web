@@ -86,8 +86,8 @@ const ReportDesignerTopBar = (props) => {
     );
   }
   // We can publish if there is a default report with either visual card or text report
-  const hasValidTextReport = defaultReport && defaultReport.use_text_message && defaultReport.text.length > 0 && defaultReport.title.length > 0;
-  const hasValidVisualCard = defaultReport && defaultReport.use_visual_card && defaultReport.headline.length > 0 && defaultReport.description.length > 0;
+  const hasValidTextReport = defaultReport && defaultReport.use_text_message && defaultReport.text?.length > 0 && defaultReport.title?.length > 0;
+  const hasValidVisualCard = defaultReport && defaultReport.use_visual_card && defaultReport.headline?.length > 0 && defaultReport.description?.length > 0;
   if (hasValidTextReport || hasValidVisualCard) {
     cantPublishReason = null;
   } else {
