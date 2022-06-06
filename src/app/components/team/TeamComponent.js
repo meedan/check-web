@@ -93,7 +93,7 @@ class TeamComponent extends Component {
     let { tab } = this.props.params;
 
     if (!tab) {
-      tab = 'lists';
+      tab = 'columns';
 
       if (action === 'main') {
         tab = 'members';
@@ -120,7 +120,7 @@ class TeamComponent extends Component {
                     defaultMessage="Columns"
                   />
                 }
-                value="lists"
+                value="columns"
               /> : null
             }
             { can(team.permissions, 'mange TeamTask') ?
@@ -133,7 +133,7 @@ class TeamComponent extends Component {
                     description="Label for annotation settings tab"
                   />
                 }
-                value="metadata"
+                value="annotation"
               /> : null
             }
             {isAdminOrEditor ?
@@ -288,11 +288,11 @@ class TeamComponent extends Component {
           { tab === 'edit'
             ? <TeamDetails team={team} />
             : null }
-          { isSettings && tab === 'lists'
+          { isSettings && tab === 'columns'
             ? <TeamLists key={tab} />
             : null }
-          { isSettings && tab === 'metadata'
-            ? <TeamTasks key={tab} team={team} fieldset="metadata" />
+          { isSettings && tab === 'annotation'
+            ? <TeamTasks key={tab} team={team} fieldset="annotation" />
             : null }
           { isSettings && tab === 'tipline'
             ? <SmoochBot currentUser={this.getCurrentUser()} />
