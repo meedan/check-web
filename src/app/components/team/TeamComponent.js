@@ -219,7 +219,7 @@ class TeamComponent extends Component {
                 value="statuses"
               />
               : null }
-            {isAdminOrEditor ?
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__report-tab"
                 label={
@@ -338,6 +338,9 @@ TeamComponent.propTypes = {
   // TODO: Specify prop shapes
   params: PropTypes.object.isRequired,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { TeamComponent as TeamComponentTest };
 
 TeamComponent.contextTypes = {
   store: PropTypes.object,
