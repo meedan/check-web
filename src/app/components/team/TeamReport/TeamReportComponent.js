@@ -108,7 +108,7 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
   if (!team.smooch_bot) {
     const path = `/${team.slug}/settings`;
     browserHistory.push(path);
-    return null
+    return null;
   }
   return (
     <Box display="flex" justifyContent="left" className="team-report-component">
