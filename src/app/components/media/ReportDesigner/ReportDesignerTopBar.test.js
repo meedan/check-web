@@ -1,5 +1,4 @@
 import React from 'react';
-import { intlShape } from 'react-intl';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 
@@ -54,8 +53,8 @@ describe('<ReportDesignerTopBar />', () => {
         options: [],
       }}
       defaultLanguage="en"
-      onStatusChange={()=>{}}
-      onStateChange={()=>{}}
+      onStatusChange={() => {}}
+      onStateChange={() => {}}
       readOnly
       prefixUrl="prefix"
     />);
@@ -71,8 +70,8 @@ describe('<ReportDesignerTopBar />', () => {
         options: [],
       }}
       defaultLanguage="en"
-      onStatusChange={()=>{}}
-      onStateChange={()=>{}}
+      onStatusChange={() => {}}
+      onStateChange={() => {}}
       prefixUrl="prefix"
     />);
     expect(wrapper.find('ReportDesignerConfirmableButton').text()).toBe('Publish');
