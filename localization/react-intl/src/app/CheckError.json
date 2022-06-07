@@ -52,7 +52,7 @@
   {
     "id": "check.error.conflict",
     "description": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data.",
-    "defaultMessage": "There was a database conflict."
+    "defaultMessage": "There was a database conflict. Maybe some other user already performed this action. Please reload the page."
   },
   {
     "id": "check.error.published",

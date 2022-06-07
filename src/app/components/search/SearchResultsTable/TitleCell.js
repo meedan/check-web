@@ -2,11 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import TableCell from '@material-ui/core/TableCell';
-import LayersIcon from '@material-ui/icons/Layers';
+import ContentCopyIcon from '@material-ui/icons/ContentCopy';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 import { Link } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
-import { units, black87, checkBlue, opaqueBlack54, opaqueBlack87 } from '../../../styles/js/shared';
+import {
+  units,
+  black87,
+  checkBlue,
+  checkOrange,
+  opaqueBlack54,
+  opaqueBlack87,
+} from '../../../styles/js/shared';
 
 const isTrendsPage = () => (/\/trends/.test(window.location.pathname));
 
@@ -116,15 +123,23 @@ const MaybeLink = ({ to, className, children }) => {
   return <span className={className}>{children}</span>;
 };
 
-const IconOrNothing = ({ isMain, isSecondary, className }) => {
+const IconOrNothing = ({
+  isMain,
+  isConfirmed,
+  isSuggested,
+  className,
+}) => {
   if (isTrendsPage()) {
     return null;
   }
   if (isMain) {
-    return <LayersIcon style={{ color: checkBlue }} className={className} />;
+    return <ContentCopyIcon style={{ color: checkBlue }} className={`${className} similarity-is-main`} />;
   }
-  if (isSecondary) {
-    return <LayersIcon style={{ transform: 'rotate(180deg)' }} className={className} />;
+  if (isConfirmed) {
+    return <ContentCopyIcon style={{ transform: 'rotate(180deg)' }} className={`${className} similarity-is-confirmed`} />;
+  }
+  if (isSuggested) {
+    return <ContentCopyIcon style={{ color: checkOrange }} className={`${className} similarity-is-suggested`} />;
   }
   return null;
 };
@@ -137,7 +152,8 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
     show_warning_cover: maskContent,
     is_read: isRead,
     is_main: isMain,
-    is_secondary: isSecondary,
+    is_suggested: isSuggested,
+    is_confirmed: isConfirmed,
   } = projectMedia;
   const classes = useStyles({ isRead });
 
@@ -155,7 +171,7 @@ const TitleCell = ({ projectMedia, projectMediaUrl, viewMode }) => {
             classes={classes}
             title={
               <React.Fragment>
-                <IconOrNothing isMain={isMain} isSecondary={isSecondary} className={classes.similarityIcon} />
+                <IconOrNothing isMain={isMain} isConfirmed={isConfirmed} isSuggested={isSuggested} className={classes.similarityIcon} />
                 {title}
               </React.Fragment>
             }
@@ -178,7 +194,8 @@ TitleCell.propTypes = {
     picture: PropTypes.string, // thumbnail URL or null
     is_read: PropTypes.bool, // or null
     is_main: PropTypes.bool, // or null
-    is_secondary: PropTypes.bool, // or null
+    is_confirmed: PropTypes.bool, // or null
+    is_suggested: PropTypes.bool, // or null
   }).isRequired,
   projectMediaUrl: PropTypes.string, // or null
   viewMode: PropTypes.oneOf(['shorter', 'longer']),

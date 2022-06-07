@@ -599,7 +599,7 @@ function SourceInfo({
           </Collapse>
         </Card>
       </Box>
-      <Tasks tasks={sourceMetadata} media={source} about={about} fieldset="metadata" />
+      <Tasks tasks={sourceMetadata} media={source} about={about} />
     </div>
   );
 }

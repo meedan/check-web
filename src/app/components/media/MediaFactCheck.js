@@ -32,7 +32,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
 
-  const hasPermission = can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description;
+  const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
@@ -157,6 +157,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             /> : null }
           { !saving && !error && factCheck ?
             <FormattedMessage
+              className="media-fact-check__saved-by"
               id="mediaFactCheck,saved"
               defaultMessage="saved by {userName} {timeAgo}"
               values={{
@@ -170,6 +171,7 @@ const MediaFactCheck = ({ projectMedia }) => {
       </Box>
 
       <MediaFactCheckField
+        limit={140}
         label={<FormattedMessage id="mediaFactCheck.title" defaultMessage="Title" description="Label for fact-check title field" />}
         name="title"
         value={title}
@@ -181,10 +183,11 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasPermission={hasPermission}
         disabled={readOnly || published}
         rows={1}
-        multiline
+        key={`title-${claimDescription}`}
       />
 
       <MediaFactCheckField
+        limit={620}
         label={<FormattedMessage id="mediaFactCheck.summary" defaultMessage="Summary" description="Label for fact-check summary field" />}
         name="summary"
         value={summary}
@@ -195,14 +198,14 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
-        multiline
+        key={`summary-${claimDescription}`}
       />
 
       <MediaFactCheckField
-        label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Published article URL" description="Label for fact-check URL field" />}
+        limit={140}
+        label={<FormattedMessage id="mediaFactCheck.url" defaultMessage="Article URL" description="Label for fact-check URL field" />}
         name="url"
         value={url}
-        key={url}
         onBlur={(newValue) => {
           let newUrl = newValue;
           if (!/^https?:\/\//.test(newValue)) {
@@ -214,6 +217,8 @@ const MediaFactCheck = ({ projectMedia }) => {
         hasClaimDescription={Boolean(claimDescription)}
         hasPermission={hasPermission}
         disabled={readOnly || published}
+        rows={1}
+        key={`url-${claimDescription}`}
       />
 
       { projectMedia.team.smooch_bot ?
@@ -228,10 +233,12 @@ const MediaFactCheck = ({ projectMedia }) => {
           >
             { published ?
               <FormattedMessage
+                className="media-fact-check__published-report"
                 id="mediaActionsBar.publishedReport"
                 defaultMessage="Published report"
               /> :
               <FormattedMessage
+                className="media-fact-check__unpublished-report"
                 id="mediaActionsBar.unpublishedReport"
                 defaultMessage="Unpublished report"
               /> }

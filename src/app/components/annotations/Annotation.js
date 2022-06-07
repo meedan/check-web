@@ -25,6 +25,7 @@ import SourcePicture from '../source/SourcePicture';
 import ProfileLink from '../layout/ProfileLink';
 import DatetimeTaskResponse from '../task/DatetimeTaskResponse';
 import UserTooltip from '../user/UserTooltip';
+import { languageLabel } from '../../LanguageRegistry';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
 import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
@@ -715,13 +716,20 @@ class Annotation extends Component {
       }
 
       if (object.field_name === 'language' && activityType === 'create_dynamicannotationfield') {
+        const languageName = object.value !== 'und' ? languageLabel(object.value) : (
+          <FormattedMessage
+            id="annotation.unknownLanguage"
+            defaultMessage="Unknown language"
+            description="Show label for undefined language"
+          />
+        );
         contentTemplate = (
           <span>
             <FormattedMessage
               id="annotation.addLanguage"
               defaultMessage="Language {value} added by {author}"
               values={{
-                value: object.value,
+                value: languageName,
                 author: (<FormattedMessage {...globalStrings.appNameHuman} />),
               }}
             />
