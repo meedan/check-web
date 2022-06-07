@@ -1,0 +1,6 @@
+[
+  {
+    "id": "limitedTextFieldWithCounter.counter",
+    "defaultMessage": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
+  }
+]
