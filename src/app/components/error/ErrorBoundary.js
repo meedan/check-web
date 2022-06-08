@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import StackTrace from 'stacktrace-js';
-import StackTraceGPS from 'stacktrace-gps';
+import { Notifier } from '@airbrake/browser';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -14,54 +13,17 @@ const messages = defineMessages({
   },
 });
 
-const errbitNotifier = ({
-  error,
-  errorInfo,
-  stackFrameArray,
-  session,
-  component,
-  callIntercom,
-}) => {
-  fetch(`${config.errbitHost}/api/v3/projects/1/notices?key=${config.errbitApiKey}`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'User-Agent': window.navigator.userAgent,
-    },
-    body: JSON.stringify({
-      errors: [{
-        type: error.name,
-        message: error.message,
-        backtrace: stackFrameArray[0].toString(),
-      }],
-      environment: {},
-      params: { errorInfo, stackFrameArray },
-      session,
-      context: {
-        component,
-        severity: 'error',
-        language: 'JavaScript',
-        url: window.location.href,
-        notifier: {
-          name: 'Check ErrorBoundary',
-          version: '0.150.0',
-          url: 'https://github.com/meedan/check-web',
-        },
-      },
-    }),
-  }).then((response) => {
-    if (response.ok) {
-      response.json().then(data => callIntercom(data));
-    }
-  }).catch(err => console.error('Failed to notify Errbit:', err)); // eslint-disable-line no-console
-};
-
-const gps = new StackTraceGPS();
-
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
+    if (config.errbitApiKey && config.errbitHost) {
+      this.airbrake = new Notifier({
+        host: config.errbitHost,
+        projectId: 1,
+        projectKey: config.errbitApiKey,
+      });
+    }
   }
 
   static getDerivedStateFromError() {
@@ -69,34 +31,25 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    if (config.errbitApiKey && config.errbitHost) {
-      const { component, intl } = this.props;
-      const errBack = err => console.error('stacktrace-js error:', err); // eslint-disable-line no-console
+    const { component, intl } = this.props;
 
-      StackTrace.fromError(error).then((stackFrameArray) => {
-        gps.pinpoint(stackFrameArray[0]).then((foundFunctionName) => {
-          console.log('foundFunctionName', foundFunctionName); // eslint-disable-line no-console
-        }, errBack);
-
-        const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
-        const callIntercom = (data) => {
-          if (Intercom) {
-            Intercom(
-              'showNewMessage',
-              `${intl.formatMessage(messages.askSupport)}\n\n${data.url}`,
-            );
-          }
-        };
-
-        errbitNotifier({
-          error,
-          errorInfo,
-          stackFrameArray,
-          session: { name, dbid, email },
-          component,
-          callIntercom,
-        });
-      }, errBack);
+    if (this.airbrake) {
+      const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
+      this.airbrake.notify({
+        // For some reason we need to reinstantiate the error or pass the error as string.
+        // Not doing this causes the additional info (contex, params, session) to be empty
+        error: new Error(error),
+        context: { component },
+        params: { info: errorInfo },
+        session: { name, dbid, email },
+      }).then((response) => {
+        if (Intercom) {
+          Intercom(
+            'showNewMessage',
+            `${intl.formatMessage(messages.askSupport)}\n\n${response.url}`,
+          );
+        }
+      });
     }
   }
 
