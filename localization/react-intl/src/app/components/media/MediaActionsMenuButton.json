@@ -20,6 +20,10 @@
     "defaultMessage": "Move to Trash"
   },
   {
+    "id": "mediaActions.sendToSpam",
+    "defaultMessage": "Move to Spam"
+  },
+  {
     "id": "mediaActions.history",
     "defaultMessage": "Item history"
   },
