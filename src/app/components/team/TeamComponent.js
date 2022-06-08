@@ -292,7 +292,7 @@ class TeamComponent extends Component {
             ? <TeamLists key={tab} />
             : null }
           { isSettings && tab === 'annotation'
-            ? <TeamTasks key={tab} team={team} fieldset="annotation" />
+            ? <TeamTasks key={tab} team={team} fieldset="metadata" />
             : null }
           { isSettings && tab === 'tipline'
             ? <SmoochBot currentUser={this.getCurrentUser()} />
