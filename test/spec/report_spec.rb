@@ -29,6 +29,7 @@ shared_examples 'report' do
 
     # Go to report
     wait_for_selector('.media-fact-check__report-designer').click
+    wait_for_selector('.report-designer__title')
     expect(@driver.page_source.include?('Design your report')).to be(true)
     expect(@driver.page_source.include?('My fact-check title')).to be(true)
     expect(@driver.page_source.include?('My fact-check summary')).to be(true)
