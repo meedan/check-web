@@ -5,7 +5,6 @@ import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
 import FormLabel from '@material-ui/core/FormLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -391,34 +390,32 @@ const DateRangeFilter = ({
       <FlexRow>
         <FormControl variant="outlined" className={classes.selectFormControl}>
           <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-          <FormGroup>
-            <Select
-              onChange={handleChangeType}
-              value={getValueType()}
-              input={
-                <StyledInputBaseDropdown
-                  startAdornment={
-                    <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
-                  }
-                />
-              }
-            >
-              <MenuItem value="created_at"> { label.created_at } </MenuItem>
-              <MenuItem value="media_published_at"> { label.media_published_at } </MenuItem>
-              <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
-              <MenuItem value="report_published_at"> { label.report_published_at } </MenuItem>
-            </Select>
-            <Select
-              onChange={handleChangeRangeType}
-              value={rangeType}
-              input={
-                <StyledInputBaseDropdown />
-              }
-            >
-              <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
-              <MenuItem value="relative"> { label.relative } </MenuItem>
-            </Select>
-          </FormGroup>
+          <Select
+            onChange={handleChangeType}
+            value={getValueType()}
+            input={
+              <StyledInputBaseDropdown
+                startAdornment={
+                  <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                }
+              />
+            }
+          >
+            <MenuItem value="created_at"> { label.created_at } </MenuItem>
+            <MenuItem value="media_published_at"> { label.media_published_at } </MenuItem>
+            <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
+            <MenuItem value="report_published_at"> { label.report_published_at } </MenuItem>
+          </Select>
+          <Select
+            onChange={handleChangeRangeType}
+            value={rangeType}
+            input={
+              <StyledInputBaseDropdown />
+            }
+          >
+            <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
+            <MenuItem value="relative"> { label.relative } </MenuItem>
+          </Select>
           { rangeType === rangeTypes.startEnd ? (
             <DateRangeSelectorStartEnd {...{
               classes,
