@@ -13,8 +13,6 @@ import IconArrowBack from '@material-ui/icons/ArrowBack';
 import IconPlay from '@material-ui/icons/PlayArrow';
 import IconPause from '@material-ui/icons/Pause';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
-import ReportDesignerCopyToClipboard from './ReportDesignerCopyToClipboard';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
 import MediaStatus from '../MediaStatus';
 import { completedGreen, inProgressYellow, brandSecondary, checkBlue } from '../../../styles/js/shared';
@@ -86,8 +84,8 @@ const ReportDesignerTopBar = (props) => {
     );
   }
   // We can publish if there is a default report with either visual card or text report
-  const hasValidTextReport = defaultReport && defaultReport.use_text_message && defaultReport.text.length > 0 && defaultReport.title.length > 0;
-  const hasValidVisualCard = defaultReport && defaultReport.use_visual_card && defaultReport.headline.length > 0 && defaultReport.description.length > 0;
+  const hasValidTextReport = defaultReport && defaultReport.use_text_message && defaultReport.text?.length > 0 && defaultReport.title?.length > 0;
+  const hasValidVisualCard = defaultReport && defaultReport.use_visual_card && defaultReport.headline?.length > 0 && defaultReport.description?.length > 0;
   if (hasValidTextReport || hasValidVisualCard) {
     cantPublishReason = null;
   } else {
@@ -119,10 +117,6 @@ const ReportDesignerTopBar = (props) => {
   }
 
   const readOnly = props.readOnly || statusChanging;
-  const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
-  const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
-  const metadata = JSON.parse(media.oembed_metadata);
-  const shareUrl = metadata.embed_url;
   const statusChanged = !!(data.last_published && data.options && data.options.length &&
     data.options[0].previous_published_status_label &&
     data.options[0].status_label !== data.options[0].previous_published_status_label);
@@ -161,26 +155,6 @@ const ReportDesignerTopBar = (props) => {
               defaultMessage="Back to annotation"
             />
           </Button>
-          <ReportDesignerCopyToClipboard
-            className="report-designer__copy-embed-code"
-            value={embedTag}
-            label={
-              <FormattedMessage
-                id="reportDesigner.copyEmbedCode"
-                defaultMessage="Copy embed code"
-              />
-            }
-          />
-          <ReportDesignerCopyToClipboard
-            className="report-designer__copy-share-url"
-            value={shareUrl}
-            label={
-              <FormattedMessage
-                id="reportDesigner.copyShareUrl"
-                defaultMessage="Copy share URL"
-              />
-            }
-          />
         </Box>
         <Box display="flex" justifyContent="space-between" width="0.5">
           <Box display="flex">
