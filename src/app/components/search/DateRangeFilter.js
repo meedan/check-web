@@ -5,6 +5,7 @@ import { DatePicker } from '@material-ui/pickers';
 import FormControl from '@material-ui/core/FormControl';
 import InputBase from '@material-ui/core/InputBase';
 import FormLabel from '@material-ui/core/FormLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
@@ -47,6 +48,7 @@ const StyledInputBaseDropdown = withStyles(theme => ({
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
     fontSize: 14,
+    borderRadius: '4px',
     '& .MuiSelect-icon': {
       color: 'white',
     },
@@ -88,6 +90,10 @@ const Styles = {
     marginLeft: '4px',
     marginRight: '4px',
   },
+  wrapper: {
+    backgroundColor: opaqueBlack07,
+    borderRadius: '4px',
+  },
 };
 
 function parseStartDateAsISOString(moment) {
@@ -98,6 +104,11 @@ function parseStartDateAsISOString(moment) {
 function parseEndDateAsISOString(moment) {
   const date = moment.toDate();
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
+}
+
+// linear equation that gives us a good width relative to the text length with fairly stable right-padding
+function setInputWidth(textLength) {
+  return ((textLength || 7) * 12.5) - ((5 * Math.max(7, textLength)) - 35);
 }
 
 function DateRangeSelectorStartEnd(props) {
@@ -126,6 +137,7 @@ function DateRangeSelectorStartEnd(props) {
                 <StyledInputBaseDate
                   className={valueText ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
                   type="text"
+                  style={{ width: `${setInputWidth(valueText.length)}px` }}
                   placeholder={text}
                   onClick={onClick}
                   value={valueText}
@@ -153,6 +165,7 @@ function DateRangeSelectorStartEnd(props) {
                 <StyledInputBaseDate
                   className={valueText ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
                   type="text"
+                  style={{ width: `${setInputWidth(valueText.length)}px` }}
                   placeholder={text}
                   onClick={onClick}
                   value={valueText}
@@ -374,36 +387,38 @@ const DateRangeFilter = ({
   };
 
   return (
-    <div style={{ background: opaqueBlack07 }}>
+    <div className={classes.wrapper}>
       <FlexRow>
         <FormControl variant="outlined" className={classes.selectFormControl}>
           <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>
-          <Select
-            onChange={handleChangeType}
-            value={getValueType()}
-            input={
-              <StyledInputBaseDropdown
-                startAdornment={
-                  <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
-                }
-              />
-            }
-          >
-            <MenuItem value="created_at"> { label.created_at } </MenuItem>
-            <MenuItem value="media_published_at"> { label.media_published_at } </MenuItem>
-            <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
-            <MenuItem value="report_published_at"> { label.report_published_at } </MenuItem>
-          </Select>
-          <Select
-            onChange={handleChangeRangeType}
-            value={rangeType}
-            input={
-              <StyledInputBaseDropdown />
-            }
-          >
-            <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
-            <MenuItem value="relative"> { label.relative } </MenuItem>
-          </Select>
+          <FormGroup>
+            <Select
+              onChange={handleChangeType}
+              value={getValueType()}
+              input={
+                <StyledInputBaseDropdown
+                  startAdornment={
+                    <RemoveableWrapper icon={<DateRangeIcon />} onRemove={onRemove} boxProps={{ pr: 1 }} />
+                  }
+                />
+              }
+            >
+              <MenuItem value="created_at"> { label.created_at } </MenuItem>
+              <MenuItem value="media_published_at"> { label.media_published_at } </MenuItem>
+              <MenuItem value="updated_at"> { label.updated_at } </MenuItem>
+              <MenuItem value="report_published_at"> { label.report_published_at } </MenuItem>
+            </Select>
+            <Select
+              onChange={handleChangeRangeType}
+              value={rangeType}
+              input={
+                <StyledInputBaseDropdown />
+              }
+            >
+              <MenuItem value="startEnd"> { label.startEnd } </MenuItem>
+              <MenuItem value="relative"> { label.relative } </MenuItem>
+            </Select>
+          </FormGroup>
           { rangeType === rangeTypes.startEnd ? (
             <DateRangeSelectorStartEnd {...{
               classes,
