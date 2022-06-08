@@ -17,6 +17,9 @@ const TeamReport = () => {
             get_report
             get_language
             get_languages
+            smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+              id
+            }
           }
         }
       `}

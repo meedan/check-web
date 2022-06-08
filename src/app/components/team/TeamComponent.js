@@ -358,6 +358,9 @@ export default createFragmentContainer(TeamComponent, {
       alegre_bot: team_bot_installation(bot_identifier: "alegre") {
         id
       }
+      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
+        id
+      }
     }
   `,
 });
