@@ -316,7 +316,7 @@ class BulkActions extends React.Component {
             title={
               <FormattedMessage
                 id="bulkActions.sendItemsToTrash"
-                defaultMessage="Mark as trash"
+                defaultMessage="Send to trash"
               />
             }
             disabled={disabled}
