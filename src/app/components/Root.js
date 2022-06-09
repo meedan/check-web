@@ -19,6 +19,7 @@ import Teams from './team/Teams';
 import TiplineInbox from './team/TiplineInbox';
 import ImportedReports from './team/ImportedReports';
 import SuggestedMatches from './team/SuggestedMatches';
+import Spam from './team/Spam';
 import Trash from './team/Trash';
 import Trends from './trends/Trends';
 import TrendsItem from './trends/TrendsItem';
@@ -99,6 +100,7 @@ class Root extends Component {
                   <Route path=":team/imported-reports(/:query)" component={ImportedReports} />
                   <Route path=":team/suggested-matches(/:query)" component={SuggestedMatches} />
                   <Route path=":team/trends(/:query)" component={Trends} />
+                  <Route path=":team/spam(/:query)" component={Spam} />
                   <Route path=":team/trash(/:query)" component={Trash} />
                   <Route path=":team/settings(/:tab)" action="settings" component={Team} />
                   <Route path=":team(/:tab)" action="main" component={Team} />

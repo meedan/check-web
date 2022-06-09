@@ -643,6 +643,7 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
           permissions,
           search { id, number_of_results },
           check_search_trash { id, number_of_results },
+          check_search_spam { id, number_of_results },
           verification_statuses,
           list_columns,
           medias_count,

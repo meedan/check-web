@@ -14,6 +14,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       fragment on UpdateProjectMediaPayload {
         project_mediaEdge,
         check_search_team { id, number_of_results },
+        check_search_spam { id, number_of_results },
         check_search_trash { id, number_of_results },
         check_search_project { id, number_of_results },
         project_media {
@@ -50,6 +51,7 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
             public_team {
               id
               trash_count
+              spam_count
             }
           }
         }
@@ -65,61 +67,39 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
         this.props.context,
       );
     }
-    if (this.props.archived === CheckArchivedFlags.NONE && this.props.check_search_trash) {
+
+    if ([CheckArchivedFlags.NONE, CheckArchivedFlags.TRASHED, CheckArchivedFlags.SPAM].indexOf(this.props.archived) !== -1) {
       const response = optimisticProjectMedia(
         this.props.media,
         this.props.context.project,
         this.props.context,
       );
-
-      response.check_search_trash = {
-        id: this.props.check_search_trash.id,
-        number_of_results: this.props.check_search_trash.number_of_results - 1,
-      };
-
       response.check_search_team = {
         id: this.props.check_search_team.id,
         number_of_results: this.props.check_search_team.number_of_results + 1,
       };
-
+      if (this.props.check_search_spam) {
+        response.check_search_spam = {
+          id: this.props.check_search_spam.id,
+          number_of_results: this.props.check_search_spam.number_of_results - 1,
+        };
+      }
+      if (this.props.check_search_trash) {
+        response.check_search_trash = {
+          id: this.props.check_search_trash.id,
+          number_of_results: this.props.check_search_trash.number_of_results - 1,
+        };
+      }
       if (this.props.check_search_project) {
         response.check_search_project = {
           id: this.props.check_search_project.id,
           number_of_results: this.props.check_search_project.number_of_results + 1,
         };
       }
-
-      response.affectedId = this.props.id;
-
-      return response;
-    }
-    if (this.props.archived === CheckArchivedFlags.TRASHED && this.props.check_search_trash) {
-      const response = optimisticProjectMedia(
-        this.props.media,
-        this.props.context.project,
-        this.props.context,
-      );
-
-      response.check_search_trash = {
-        id: this.props.check_search_trash.id,
-        number_of_results: this.props.check_search_trash.number_of_results + 1,
-      };
-
-      response.check_search_team = {
-        id: this.props.check_search_team.id,
-        number_of_results: this.props.check_search_team.number_of_results - 1,
-      };
-
-      if (this.props.check_search_project) {
-        response.check_search_project = {
-          id: this.props.check_search_project.id,
-          number_of_results: this.props.check_search_project.number_of_results - 1,
-        };
-      }
-
       response.affectedId = this.props.id;
       return response;
     }
+
     return {};
   }
 
@@ -216,6 +196,37 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
       ids.check_search_project = this.props.dstProj.search_id;
     }
 
+    if (this.props.archived === CheckArchivedFlags.SPAM) {
+      configs.push({
+        type: 'RANGE_DELETE',
+        parentName: 'check_search_team',
+        parentID: this.props.check_search_team.id,
+        connectionName: 'medias',
+        pathToConnection: ['check_search_team', 'medias'],
+        deletedIDFieldName: 'affectedId',
+      });
+      if (this.props.check_search_project) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_project',
+          parentID: this.props.check_search_project.id,
+          connectionName: 'medias',
+          pathToConnection: ['check_search_project', 'medias'],
+          deletedIDFieldName: 'affectedId',
+        });
+      }
+      if (this.props.check_search_spam) {
+        configs.push({
+          type: 'RANGE_ADD',
+          parentName: 'check_search_spam',
+          parentID: this.props.check_search_spam.id,
+          connectionName: 'medias',
+          edgeName: 'project_mediaEdge',
+          rangeBehaviors: () => ('prepend'),
+        });
+      }
+    }
+
     if (this.props.archived === CheckArchivedFlags.TRASHED) {
       configs.push({
         type: 'RANGE_DELETE',
@@ -274,6 +285,16 @@ class UpdateProjectMediaMutation extends Relay.Mutation {
           connectionName: 'medias',
           deletedIDFieldName: 'affectedId',
           pathToConnection: ['check_search_trash', 'medias'],
+        });
+      }
+      if (this.props.check_search_spam) {
+        configs.push({
+          type: 'RANGE_DELETE',
+          parentName: 'check_search_spam',
+          parentID: this.props.check_search_spam.id,
+          connectionName: 'medias',
+          deletedIDFieldName: 'affectedId',
+          pathToConnection: ['check_search_spam', 'medias'],
         });
       }
     }
