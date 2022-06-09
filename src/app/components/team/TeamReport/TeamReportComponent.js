@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -104,6 +105,11 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     });
   };
 
+  if (!team.smooch_bot) {
+    const path = `/${team.slug}/settings`;
+    browserHistory.push(path);
+    return null;
+  }
   return (
     <Box display="flex" justifyContent="left" className="team-report-component">
       <LanguageSwitcher

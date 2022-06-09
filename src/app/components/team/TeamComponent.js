@@ -219,7 +219,7 @@ class TeamComponent extends Component {
                 value="statuses"
               />
               : null }
-            {isAdminOrEditor ?
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__report-tab"
                 label={
@@ -339,6 +339,9 @@ TeamComponent.propTypes = {
   params: PropTypes.object.isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { TeamComponent as TeamComponentTest };
+
 TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
@@ -353,6 +356,9 @@ export default createFragmentContainer(TeamComponent, {
       permissions
       ...TeamDetails_team
       alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+        id
+      }
+      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
         id
       }
     }
