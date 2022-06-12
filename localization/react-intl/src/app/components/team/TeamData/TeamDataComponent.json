@@ -2,11 +2,7 @@
   {
     "id": "teamDataComponent.title",
     "description": "Header for the stored data page of the current team",
-    "defaultMessage": "Workspace data"
-  },
-  {
-    "id": "teamDataComponent.subtitle",
-    "defaultMessage": "Get insight and analysis about workspace and tipline usage."
+    "defaultMessage": "Tipline engagement data"
   },
   {
     "id": "teamDataComponent.set1",
