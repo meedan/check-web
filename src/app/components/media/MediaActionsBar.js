@@ -93,9 +93,17 @@ class MediaActionsBarComponent extends Component {
   };
 
   handleSendToTrash() {
+    this.handleArchiveItem(CheckArchivedFlags.TRASHED);
+  }
+
+  handleSendToSpam() {
+    this.handleArchiveItem(CheckArchivedFlags.SPAM);
+  }
+
+  handleArchiveItem(archived) {
     const onSuccess = (response) => {
       const pm = response.updateProjectMedia.project_media;
-      const message = (
+      const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
           id="mediaActionsBar.movedToTrash"
           defaultMessage="The item was moved to {trash}"
@@ -104,6 +112,19 @@ class MediaActionsBarComponent extends Component {
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
                 <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
+              </a>
+            ),
+          }}
+        />
+      ) : (
+        <FormattedMessage
+          id="mediaActionsBar.movedToSpam"
+          defaultMessage="The item was moved to {spam}"
+          values={{
+            spam: (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${pm.team.slug}/spam`)}>
+                <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" />
               </a>
             ),
           }}
@@ -119,10 +140,11 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        archived: CheckArchivedFlags.TRASHED,
+        archived,
         check_search_team: this.props.media.team.search,
         check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
+        check_search_spam: this.props.media.team.check_search_spam,
         media: this.props.media,
         context,
         id: this.props.media.id,
@@ -281,6 +303,7 @@ class MediaActionsBarComponent extends Component {
             isParent={isParent}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
+            handleSendToSpam={this.handleSendToSpam.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
             handleItemHistory={this.handleItemHistory}
@@ -441,6 +464,10 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
             number_of_results
           }
           check_search_trash {
+            id
+            number_of_results
+          }
+          check_search_spam {
             id
             number_of_results
           }

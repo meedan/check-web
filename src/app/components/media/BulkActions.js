@@ -8,6 +8,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import BulkActionsMenu from './BulkActionsMenu';
@@ -165,12 +166,17 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleDelete() {
+  handleArchive(archived) {
     const onSuccess = () => {
-      const message = (
+      const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="Items moved to the Trash."
+        />
+      ) : (
+        <FormattedMessage
+          id="bulkActions.moveToSpamSuccessfully"
+          defaultMessage="Items moved to the Spam."
         />
       );
       this.props.setFlashMessage(message, 'success');
@@ -182,6 +188,7 @@ class BulkActions extends React.Component {
         ids: this.props.selectedMedia,
         project: this.props.project,
         team: this.props.team,
+        archived,
       });
       Relay.Store.commitUpdate(mutation, { onSuccess });
     }
@@ -194,7 +201,7 @@ class BulkActions extends React.Component {
     const disabled = selectedMedia.length === 0;
     let modalToMove = null;
     let permissionKey = 'bulk_update ProjectMedia';
-    if (page === 'trash') {
+    if (page === 'trash' || page === 'spam') {
       let archivedWas = null;
       let moveTooltipMessage = null;
       let moveButtonMessage = null;
@@ -209,6 +216,18 @@ class BulkActions extends React.Component {
         );
         moveButtonMessage = (
           <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
+        );
+      } else if (page === 'spam') {
+        permissionKey = 'not_spam ProjectMedia';
+        archivedWas = CheckArchivedFlags.SPAM;
+        moveTooltipMessage = (
+          <FormattedMessage
+            id="bulkActions.spam"
+            defaultMessage="Not spam selected items and move items to another folder"
+          />
+        );
+        moveButtonMessage = (
+          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not Spam" />
         );
       }
 
@@ -277,23 +296,37 @@ class BulkActions extends React.Component {
       );
     }
 
-    const deleteButton = page === 'trash' ? null :
+    const archiveButton = page === 'trash' || page === 'spam' ? null :
       (
-        <IconButtonWithTooltip
-          title={
-            <FormattedMessage
-              id="bulkActions.sendItemsToTrash"
-              defaultMessage="Send selected items to Trash"
-            />
-          }
-          disabled={disabled}
-          className="media-bulk-actions__delete-icon"
-          onClick={this.handleDelete.bind(this)}
-        >
-          <DeleteIcon />
-        </IconButtonWithTooltip>
+        <span>
+          <IconButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.sendItemsToSpam"
+                defaultMessage="Mark as spam"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__spam-icon"
+            onClick={this.handleArchive.bind(this, CheckArchivedFlags.SPAM)}
+          >
+            <ReportGmailerrorredIcon />
+          </IconButtonWithTooltip>
+          <IconButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.sendItemsToTrash"
+                defaultMessage="Send to trash"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__delete-icon"
+            onClick={this.handleArchive.bind(this, CheckArchivedFlags.TRASHED)}
+          >
+            <DeleteIcon />
+          </IconButtonWithTooltip>
+        </span>
       );
-
 
     return (
       <span id="media-bulk-actions">
@@ -302,7 +335,7 @@ class BulkActions extends React.Component {
             <Can permission={permissionKey} permissions={team.permissions}>
               {modalToMove}
             </Can>
-            {deleteButton}
+            {archiveButton}
           </React.Fragment>
         </Box>
       </span>
@@ -331,9 +364,14 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
       id
       number_of_results
     }
+    check_search_spam {
+      id
+      number_of_results
+    }
     public_team {
       id
       trash_count
+      spam_count
     }
   }
 `);

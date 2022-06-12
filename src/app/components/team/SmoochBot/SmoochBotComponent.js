@@ -190,6 +190,7 @@ const SmoochBotComponent = ({
                     disable={saving}
                   >
                     <FormattedMessage
+                      data-testid="install-smooch__button"
                       id="smoochBotComponent.install"
                       defaultMessage="Install"
                     />

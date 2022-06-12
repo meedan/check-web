@@ -93,7 +93,7 @@ class TeamComponent extends Component {
     let { tab } = this.props.params;
 
     if (!tab) {
-      tab = 'lists';
+      tab = 'columns';
 
       if (action === 'main') {
         tab = 'members';
@@ -120,7 +120,7 @@ class TeamComponent extends Component {
                     defaultMessage="Columns"
                   />
                 }
-                value="lists"
+                value="columns"
               /> : null
             }
             { can(team.permissions, 'mange TeamTask') ?
@@ -133,7 +133,7 @@ class TeamComponent extends Component {
                     description="Label for annotation settings tab"
                   />
                 }
-                value="metadata"
+                value="annotation"
               /> : null
             }
             {isAdminOrEditor ?
@@ -219,7 +219,7 @@ class TeamComponent extends Component {
                 value="statuses"
               />
               : null }
-            {isAdminOrEditor ?
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__report-tab"
                 label={
@@ -288,10 +288,10 @@ class TeamComponent extends Component {
           { tab === 'edit'
             ? <TeamDetails team={team} />
             : null }
-          { isSettings && tab === 'lists'
+          { isSettings && tab === 'columns'
             ? <TeamLists key={tab} />
             : null }
-          { isSettings && tab === 'metadata'
+          { isSettings && tab === 'annotation'
             ? <TeamTasks key={tab} team={team} fieldset="metadata" />
             : null }
           { isSettings && tab === 'tipline'
@@ -339,6 +339,9 @@ TeamComponent.propTypes = {
   params: PropTypes.object.isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { TeamComponent as TeamComponentTest };
+
 TeamComponent.contextTypes = {
   store: PropTypes.object,
 };
@@ -353,6 +356,9 @@ export default createFragmentContainer(TeamComponent, {
       permissions
       ...TeamDetails_team
       alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+        id
+      }
+      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
         id
       }
     }

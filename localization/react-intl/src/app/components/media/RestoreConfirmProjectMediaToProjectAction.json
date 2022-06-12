@@ -16,6 +16,10 @@
     "defaultMessage": "Confirm"
   },
   {
+    "id": "mediaActionsBar.notSpamTo",
+    "defaultMessage": "Not spam"
+  },
+  {
     "id": "mediaActionsBar.dialogRestoreOrConfirmToListTitle",
     "defaultMessage": "Move item to folder…"
   },
