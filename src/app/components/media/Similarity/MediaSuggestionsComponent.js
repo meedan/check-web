@@ -15,6 +15,9 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
+import Tooltip from '@material-ui/core/Tooltip';
 import MediaSimilaritiesComponent from './MediaSimilaritiesComponent';
 import MediaDetail from '../MediaDetail';
 import MediaExpanded from '../MediaExpanded';
@@ -22,6 +25,7 @@ import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
 import { withSetFlashMessage } from '../../FlashMessage';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
@@ -81,6 +85,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+function IconButtonWithTooltip({ title, ...buttonProps }) {
+  const classes = useStyles();
+
+  return (
+    <Tooltip title={title}>
+      <span className={classes.buttonSpan}>
+        <IconButton {...buttonProps} />
+      </span>
+    </Tooltip>
+  );
+}
+IconButtonWithTooltip.propTypes = {
+  title: PropTypes.element.isRequired, // <FormattedMessage>
+  // every other prop is passed to <IconButton>
+};
+
 const MediaSuggestionsComponent = ({
   mainItem,
   relationships,
@@ -109,7 +129,8 @@ const MediaSuggestionsComponent = ({
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
   const relationship = sortedRelationships[index];
-  const projectMedia = relationship ? { dbid: relationship.target_id } : null;
+  const projectMedia = relationship ? { dbid: relationship.target_id, id: relationship.target.id } : null;
+  console.log('projectMedia', projectMedia); // eslint-disable-line no-console
   const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/similar-media$/, projectMedia.dbid) : '';
   const total = sortedRelationships.length;
   const hasNext = (index + 1 < total);
@@ -341,6 +362,56 @@ const MediaSuggestionsComponent = ({
     });
   };
 
+  const handleArchiveTarget = (archived) => {
+    handleNext();
+
+    commitMutation(Store, {
+      mutation: destroyMutation,
+      variables: {
+        rejection: true,
+        input: {
+          id: relationship.id,
+          archive_target: archived,
+        },
+      },
+      onCompleted: ({ error }) => {
+        if (error) {
+          onFailure(error);
+        } else {
+          const message = archived === CheckArchivedFlags.TRASHED ? (
+            <FormattedMessage
+              id="mediaActionsBar.movedToTrash"
+              defaultMessage="The item was moved to {trash}"
+              values={{
+                trash: (
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                  <a onClick={() => browserHistory.push(`/${team.slug}/trash`)}>
+                    <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
+                  </a>
+                ),
+              }}
+            />
+          ) : (
+            <FormattedMessage
+              id="mediaActionsBar.movedToSpam"
+              defaultMessage="The item was moved to {spam}"
+              values={{
+                spam: (
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                  <a onClick={() => browserHistory.push(`/${team.slug}/spam`)}>
+                    <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" />
+                  </a>
+                ),
+              }}
+            />
+          );
+          setFlashMessage(message, 'success');
+        }
+      },
+      onError: onFailure,
+    });
+  };
+
   const handleHelp = () => {
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
@@ -438,6 +509,32 @@ const MediaSuggestionsComponent = ({
               <IconButton onClick={handleNext} disabled={!hasNext}>
                 <KeyboardArrowRightIcon fontSize="large" />
               </IconButton>
+
+              <IconButtonWithTooltip
+                title={
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.sendItemsToSpam"
+                    defaultMessage="Mark as spam"
+                  />
+                }
+                className="media-suggestions__spam-icon"
+                onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM)}
+              >
+                <ReportGmailerrorredIcon />
+              </IconButtonWithTooltip>
+              <IconButtonWithTooltip
+                title={
+                  <FormattedMessage
+                    id="mediaSuggestionsComponent.sendItemsToTrash"
+                    defaultMessage="Send to trash"
+                  />
+                }
+                className="media-suggestions__delete-icon"
+                onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED)}
+              >
+                <DeleteIcon />
+              </IconButtonWithTooltip>
+
             </Box>
           </div> : null }
         <Box className={projectMedia ? classes.media : classes.noMedia}>
@@ -480,6 +577,7 @@ MediaSuggestionsComponent.propTypes = {
     target_id: PropTypes.number.isRequired,
   })).isRequired,
   team: PropTypes.shape({
+    slug: PropTypes.string,
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
     }),

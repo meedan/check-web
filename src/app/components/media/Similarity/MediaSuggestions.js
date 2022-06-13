@@ -37,6 +37,7 @@ const MediaSuggestions = ({ projectMedia }) => {
               }
             }
             team {
+              slug
               smooch_bot: team_bot_installation(bot_identifier: "smooch") {
                 id
               }
