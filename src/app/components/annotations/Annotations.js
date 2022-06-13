@@ -95,14 +95,12 @@ class Annotations extends React.Component {
                     annotated={props.annotated}
                     annotatedType={props.annotatedType}
                     annotation={annotation.node}
-                    onTimelineCommentOpen={props.onTimelineCommentOpen}
                     team={props.team}
                   /> :
                   <Annotation
                     annotated={props.annotated}
                     annotatedType={props.annotatedType}
                     annotation={annotation.node}
-                    onTimelineCommentOpen={props.onTimelineCommentOpen}
                     team={props.team}
                   />
                 }

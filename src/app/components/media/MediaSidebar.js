@@ -7,7 +7,7 @@ import MediaTags from './MediaTags';
 import MediaFactCheck from './MediaFactCheck';
 import MediaAnalysis from './MediaAnalysis';
 
-const MediaSidebar = ({ projectMedia, onTimelineCommentOpen }) => (
+const MediaSidebar = ({ projectMedia }) => (
   <Box id="media__sidebar">
     <Box my={2}>
       <MediaCreatedBy projectMedia={projectMedia} />
@@ -16,7 +16,7 @@ const MediaSidebar = ({ projectMedia, onTimelineCommentOpen }) => (
       <Box mt={2}>
         <MediaClaim projectMedia={projectMedia} />
       </Box>
-      <MediaTags projectMedia={projectMedia} onTimelineCommentOpen={onTimelineCommentOpen} />
+      <MediaTags projectMedia={projectMedia} />
       <Box my={2}>
         <MediaFactCheck projectMedia={projectMedia} />
       </Box>
@@ -27,7 +27,6 @@ const MediaSidebar = ({ projectMedia, onTimelineCommentOpen }) => (
 
 MediaSidebar.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
-  onTimelineCommentOpen: PropTypes.func.isRequired,
 };
 
 export default MediaSidebar;

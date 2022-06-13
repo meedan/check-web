@@ -2,21 +2,11 @@ import React, { Component } from 'react';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
 import styled from 'styled-components';
 import qs from 'qs';
-import Grid from '@material-ui/core/Grid';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import { withStyles } from '@material-ui/core/styles';
-import CloseIcon from '@material-ui/icons/Close';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
-import Toolbar from '@material-ui/core/Toolbar';
 import { withPusher, pusherShape } from '../../pusher';
 import PageTitle from '../PageTitle';
 import MediaDetail from './MediaDetail';
-import MediaTimeline from './MediaTimeline';
 import MediaSidebar from './MediaSidebar';
 import MediaComponentRightPanel from './MediaComponentRightPanel';
 import MediaSimilarityBar from './Similarity/MediaSimilarityBar';
@@ -29,17 +19,6 @@ import {
   backgroundMain,
   Column,
 } from '../../styles/js/shared';
-
-const styles = theme => ({
-  root: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    minHeight: 'auto',
-    paddingLeft: theme.spacing(1),
-    paddingRight: theme.spacing(1),
-  },
-});
-
-const StyledDrawerToolbar = withStyles(styles)(Toolbar);
 
 const StyledThreeColumnLayout = styled.div`
   display: flex;
@@ -104,7 +83,7 @@ class MediaComponent extends Component {
     super(props);
 
     // https://www.w3.org/TR/media-frags/
-    const { t: temporalInterval = '', id: instanceId } = qs.parse(document.location.hash.substring(1));
+    const { t: temporalInterval = '' } = qs.parse(document.location.hash.substring(1));
     const [start, end] = temporalInterval.split(',').map(s => parseFloat(s));
 
     const gaps = [];
@@ -116,15 +95,8 @@ class MediaComponent extends Component {
         start,
         end,
         gaps,
-        time: 0,
-        duration: 0,
         playing: false,
-        progress: 0,
       },
-      showVideoAnnotation: Boolean(temporalInterval && instanceId),
-      fragment: { t: temporalInterval, id: instanceId },
-      playerRect: null,
-      videoAnnotationTab: 'timeline',
     };
 
     this.playerRef = React.createRef();
@@ -192,15 +164,6 @@ class MediaComponent extends Component {
     window.removeEventListener('scroll', this.updatePlayerRect);
     this.unsubscribe();
   }
-
-  onTimelineCommentOpen = (fragment) => {
-    // this call will come from Annotation.js
-    // or from MediaTags.js
-    if (!fragment) return;
-    const parsedFragment = parseInt(fragment.substring(2), 10);
-    this.setState({ showVideoAnnotation: true, videoAnnotationTab: 'timeline' });
-    this.setPlayerState({ seekTo: parsedFragment });
-  };
 
   setCurrentContext() {
     if (/^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+/.test(window.location.pathname)) {
@@ -286,26 +249,18 @@ class MediaComponent extends Component {
         start,
         end,
         gaps,
-        time,
-        duration,
         playing,
-        progress,
         scrubTo,
         seekTo,
       },
-      fragment,
-      playerRect,
-      showVideoAnnotation,
     } = this.state;
-
-    const { currentUser } = this.getContext();
 
     return (
       <div>
         <PageTitle prefix={media.title} team={media.team} />
         <StyledThreeColumnLayout className="media">
           <AnalysisColumn>
-            <MediaSidebar projectMedia={media} onTimelineCommentOpen={this.onTimelineCommentOpen} />
+            <MediaSidebar projectMedia={media} />
           </AnalysisColumn>
           { view === 'default' ?
             <React.Fragment>
@@ -317,12 +272,10 @@ class MediaComponent extends Component {
                   media={media}
                   onPlayerReady={this.setPlayerRect}
                   onReady={this.handleMediaDetailReady}
-                  onTimelineCommentOpen={this.onTimelineCommentOpen}
-                  onVideoAnnoToggle={() => this.setState({ showVideoAnnotation: true })}
                   playerRef={this.playerRef}
                   setPlayerState={this.setPlayerState}
                   {...{
-                    playing, start, end, gaps, seekTo, scrubTo, showVideoAnnotation,
+                    playing, start, end, gaps, seekTo, scrubTo,
                   }}
                 />
                 {this.props.extras}
@@ -330,63 +283,11 @@ class MediaComponent extends Component {
               <Column className="media__annotations-column" overflow="hidden">
                 <MediaComponentRightPanel
                   projectMedia={media}
-                  onTimelineCommentOpen={this.onTimelineCommentOpen}
                 />
               </Column>
             </React.Fragment> : null }
           { view === 'suggestedMatches' || view === 'similarMedia' ? <MediaSuggestions projectMedia={media} /> : null }
         </StyledThreeColumnLayout>
-
-        {// render video annotation drawer only if we can anchor it to the bottom of the player:
-          playerRect && view === 'default' ?
-            <Drawer
-              PaperProps={{ style: { top: (playerRect.bottom + 10) || 'auto' } }}
-              anchor="bottom"
-              elevation={3}
-              open={showVideoAnnotation}
-              variant="persistent"
-            >
-              <StyledDrawerToolbar>
-                <Grid alignItems="center" container justify="space-between">
-                  <Grid item>
-                    <Tabs value={this.state.videoAnnotationTab}>
-                      <Tab
-                        disabled
-                        id="TimelineTab"
-                        label={
-                          <FormattedMessage
-                            id="mediaComponent.timelineTab"
-                            defaultMessage="Timeline"
-                          />
-                        }
-                        value="timeline"
-                      />
-                    </Tabs>
-                  </Grid>
-                  <Grid item>
-                    <IconButton onClick={() => this.setState({ showVideoAnnotation: false })} size="small"><CloseIcon /></IconButton>
-                  </Grid>
-                </Grid>
-              </StyledDrawerToolbar>
-              <div aria-labelledby="TimelineTab" role="tabpanel" hidden={this.state.videoAnnotationTab !== 'timeline'}>
-                <MediaTimeline
-                  setPlayerState={this.setPlayerState}
-                  {...{
-                    media,
-                    fragment,
-                    playing,
-                    duration,
-                    time,
-                    progress,
-                    seekTo,
-                    scrubTo,
-                    currentUser,
-                  }}
-                />
-              </div>
-            </Drawer> :
-            null
-        }
       </div>
     );
   }
