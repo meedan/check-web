@@ -42,7 +42,7 @@ shared_examples 'source' do
     wait_for_selector('.media')
     wait_for_selector('.media-tab__source').click
     wait_for_selector('.source__name')
-    expect(wait_for_selector('.source__name').text == 'CNN Brasil').to be(true)
+    expect(@driver.page_source.include?('Brasil')).to be(true)
     wait_for_selector('.project-header__back-button').click
     wait_for_selector('#search-input')
     wait_for_selector_list_size('.medias__item', 1)
@@ -55,7 +55,8 @@ shared_examples 'source' do
     wait_for_selector('input[name=source-name]').send_keys('CNN')
     @driver.action.send_keys(:enter).perform
     wait_for_selector('#main_source__link')
-    expect(wait_for_selector('.source__name').text == 'CNN Brasil').to be(true)
+    wait_for_selector('.source__name')
+    expect(@driver.page_source.include?('Brasil')).to be(true)
   end
 
   it 'should add a new source for a media, answer and edit the source annotation', bin6: true do
