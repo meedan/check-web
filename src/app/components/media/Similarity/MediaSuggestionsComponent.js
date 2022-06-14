@@ -83,23 +83,11 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
   },
+  spamTrashBox: {
+    width: '100%',
+    textAlign: 'right',
+  },
 }));
-
-function IconButtonWithTooltip({ title, ...buttonProps }) {
-  const classes = useStyles();
-
-  return (
-    <Tooltip title={title}>
-      <span className={classes.buttonSpan}>
-        <IconButton {...buttonProps} />
-      </span>
-    </Tooltip>
-  );
-}
-IconButtonWithTooltip.propTypes = {
-  title: PropTypes.element.isRequired, // <FormattedMessage>
-  // every other prop is passed to <IconButton>
-};
 
 const MediaSuggestionsComponent = ({
   mainItem,
@@ -509,32 +497,38 @@ const MediaSuggestionsComponent = ({
               <IconButton onClick={handleNext} disabled={!hasNext}>
                 <KeyboardArrowRightIcon fontSize="large" />
               </IconButton>
-
-              <IconButtonWithTooltip
-                title={
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.sendItemsToSpam"
-                    defaultMessage="Mark as spam"
-                  />
-                }
-                className="media-suggestions__spam-icon"
-                onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM)}
-              >
-                <ReportGmailerrorredIcon />
-              </IconButtonWithTooltip>
-              <IconButtonWithTooltip
-                title={
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.sendItemsToTrash"
-                    defaultMessage="Send to trash"
-                  />
-                }
-                className="media-suggestions__delete-icon"
-                onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED)}
-              >
-                <DeleteIcon />
-              </IconButtonWithTooltip>
-
+              <box className={classes.spamTrashBox}>
+                <Tooltip
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.sendItemsToSpam"
+                      defaultMessage="Mark as spam"
+                    />
+                  }
+                >
+                  <IconButton
+                    className="media-suggestions__spam-icon"
+                    onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM)}
+                  >
+                    <ReportGmailerrorredIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.sendItemsToTrash"
+                      defaultMessage="Send to trash"
+                    />
+                  }
+                >
+                  <IconButton
+                    className="media-suggestions__delete-icon"
+                    onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </box>
             </Box>
           </div> : null }
         <Box className={projectMedia ? classes.media : classes.noMedia}>
