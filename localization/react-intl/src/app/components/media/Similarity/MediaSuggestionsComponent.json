@@ -1,5 +1,21 @@
 [
   {
+    "id": "mediaSuggestionsComponent.movedToTrash",
+    "defaultMessage": "The item was moved to {trash}"
+  },
+  {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.movedToSpam",
+    "defaultMessage": "The item was moved to {spam}"
+  },
+  {
+    "id": "mediaDetail.spam",
+    "defaultMessage": "Spam"
+  },
+  {
     "id": "mediaSuggestionsComponent.back",
     "defaultMessage": "Back"
   },
@@ -27,6 +43,14 @@
   {
     "id": "mediaSuggestionsComponent.moveItem",
     "defaultMessage": "Move item"
+  },
+  {
+    "id": "mediaSuggestionsComponent.sendItemsToSpam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.sendItemsToTrash",
+    "defaultMessage": "Send to trash"
   },
   {
     "id": "mediaSuggestionsComponent.noSuggestions",

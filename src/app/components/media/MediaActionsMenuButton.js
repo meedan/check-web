@@ -119,7 +119,7 @@ class MediaActionsMenuButton extends React.PureComponent {
             onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
           >
             <ListItemText
-              primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Move to Trash" />}
+              primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to Trash" />}
             />
           </MenuItem>));
         menuItems.push((
@@ -129,7 +129,7 @@ class MediaActionsMenuButton extends React.PureComponent {
             onClick={e => this.handleActionAndClose(e, handleSendToSpam)}
           >
             <ListItemText
-              primary={<FormattedMessage id="mediaActions.sendToSpam" defaultMessage="Move to Spam" />}
+              primary={<FormattedMessage id="mediaActions.sendToSpam" defaultMessage="Mark as Spam" />}
             />
           </MenuItem>));
       }
