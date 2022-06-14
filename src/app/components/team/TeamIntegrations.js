@@ -52,8 +52,6 @@ const TeamIntegrations = () => {
                   name
                   default
                   identifier
-                  settings_as_json_schema(team_slug: $teamSlug)
-                  settings_ui_schema
                   description: get_description
                   team_author {
                     name
