@@ -477,7 +477,7 @@ function SearchResultsComponent({
           team={team}
           viewMode={viewMode}
           onChangeViewMode={handleChangeViewMode}
-          similarAction={
+          similarAction={team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled ?
             <FormControlLabel
               classes={{ labelPlacementStart: classes.similarSwitch }}
               control={
@@ -498,7 +498,7 @@ function SearchResultsComponent({
               }
               labelPlacement="end"
             />
-          }
+            : null}
           actions={projectMedias.length && selectedProjectMedia.length ?
             <BulkActions
               team={team}
@@ -649,6 +649,10 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
           medias_count,
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
+          },
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            id
+            alegre_settings
           }
         }
         medias(first: $pageSize) {

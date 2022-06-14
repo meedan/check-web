@@ -264,7 +264,7 @@ const MediaTasks = (props) => {
     <ErrorBoundary component="MediaTasks">
       <Relay.RootContainer
         Component={MediaMetadataContainer}
-        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} onTimelineCommentOpen={props.onTimelineCommentOpen} fieldset="metadata" />}
+        renderFetched={data => <MediaMetadataContainer cachedMedia={media} {...data} fieldset="metadata" />}
         route={route}
         renderLoading={() => <MediasLoading count={1} />}
       />

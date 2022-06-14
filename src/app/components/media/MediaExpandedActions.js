@@ -10,7 +10,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ArrowRightIcon from '@material-ui/icons/ArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
-import Timeline from '@material-ui/icons/Timeline';
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
 import ImageSearch from '@material-ui/icons/ImageSearch';
 import DownloadIcon from '@material-ui/icons/MoveToInbox';
@@ -21,8 +20,6 @@ import ExternalLink from '../ExternalLink';
 
 const ExtraMediaActions = ({
   projectMedia,
-  showVideoAnnotation,
-  onVideoAnnoToggle,
   reverseImageSearchGoogle,
   onPlaybackRateChange,
 }) => {
@@ -30,8 +27,8 @@ const ExtraMediaActions = ({
   const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
   const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
   const isPicture = !!projectMedia.picture;
-  const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
-  const allowsReverseSearch = isPicture || allowsVideoAnnotation;
+  const isVideo = isYoutubeVideo || isUploadedVideo;
+  const allowsReverseSearch = isPicture || isVideo;
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorElPlaybackSpeed, setAnchorElPlaybackSpeed] = React.useState(null);
 
@@ -71,7 +68,7 @@ const ExtraMediaActions = ({
   };
   let menuLabel = null;
   if (isPicture) menuLabel = labelObj.image;
-  if (allowsVideoAnnotation) menuLabel = labelObj.video;
+  if (isVideo) menuLabel = labelObj.video;
   if (isUploadedAudio) menuLabel = labelObj.audio;
   if (!menuLabel) return null;
 
@@ -126,7 +123,7 @@ const ExtraMediaActions = ({
               description="Menu option for performing reverse image searches on google or other engines"
             />
           </MenuItem> : null }
-        { allowsVideoAnnotation || isUploadedAudio ?
+        { isVideo || isUploadedAudio ?
           <MenuItem onClick={e => setAnchorElPlaybackSpeed(e.currentTarget)}>
             <ListItemIcon>
               <SlowMotionVideoIcon />
@@ -139,21 +136,6 @@ const ExtraMediaActions = ({
               />
             </ListItemText>
             <ArrowRightIcon />
-          </MenuItem> : null }
-        { allowsVideoAnnotation ?
-          <MenuItem
-            id="media-expanded-actions__timeline"
-            disabled={showVideoAnnotation}
-            onClick={() => handleMenuAndClose(onVideoAnnoToggle)}
-          >
-            <ListItemIcon>
-              <Timeline />
-            </ListItemIcon>
-            <FormattedMessage
-              id="mediaMetadata.Timeline"
-              defaultMessage="Timeline"
-              description="Menu options for displaying the video timeline tray"
-            />
           </MenuItem> : null }
         <OcrButton
           projectMediaId={projectMedia.id}
@@ -196,8 +178,6 @@ class MediaExpandedActions extends React.Component {
     const {
       currentUserRole,
       projectMedia,
-      onVideoAnnoToggle,
-      showVideoAnnotation,
       onPlaybackRateChange,
     } = this.props;
 
@@ -205,9 +185,9 @@ class MediaExpandedActions extends React.Component {
     const isYoutubeVideo = projectMedia.media.type === 'Link' && projectMedia.media.metadata.provider === 'youtube';
     const isUploadedVideo = projectMedia.media.type === 'UploadedVideo';
     const isPicture = !!projectMedia.picture;
-    const allowsVideoAnnotation = isYoutubeVideo || isUploadedVideo;
+    const isVideo = isYoutubeVideo || isUploadedVideo;
 
-    if (!isPicture && !allowsVideoAnnotation && !isUploadedAudio) return null;
+    if (!isPicture && !isVideo && !isUploadedAudio) return null;
 
     return (
       <Box mt={1} mx={1} width="100%" className="media-detail__check-metadata">
@@ -221,8 +201,6 @@ class MediaExpandedActions extends React.Component {
             <ExtraMediaActions
               projectMedia={projectMedia}
               onPlaybackRateChange={onPlaybackRateChange}
-              onVideoAnnoToggle={onVideoAnnoToggle}
-              showVideoAnnotation={showVideoAnnotation}
               reverseImageSearchGoogle={this.reverseImageSearchGoogle.bind(this)}
             />
           </Box> : null }
@@ -242,7 +220,6 @@ MediaExpandedActions.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
-  onVideoAnnoToggle: PropTypes.func.isRequired,
 };
 
 export default createFragmentContainer(MediaExpandedActions, graphql`
