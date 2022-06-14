@@ -118,7 +118,6 @@ const MediaSuggestionsComponent = ({
 
   const relationship = sortedRelationships[index];
   const projectMedia = relationship ? { dbid: relationship.target_id, id: relationship.target.id } : null;
-  console.log('projectMedia', projectMedia); // eslint-disable-line no-console
   const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/similar-media$/, projectMedia.dbid) : '';
   const total = sortedRelationships.length;
   const hasNext = (index + 1 < total);
@@ -368,7 +367,7 @@ const MediaSuggestionsComponent = ({
         } else {
           const message = archived === CheckArchivedFlags.TRASHED ? (
             <FormattedMessage
-              id="mediaActionsBar.movedToTrash"
+              id="mediaSuggestionsComponent.movedToTrash"
               defaultMessage="The item was moved to {trash}"
               values={{
                 trash: (
@@ -381,7 +380,7 @@ const MediaSuggestionsComponent = ({
             />
           ) : (
             <FormattedMessage
-              id="mediaActionsBar.movedToSpam"
+              id="mediaSuggestionsComponent.movedToSpam"
               defaultMessage="The item was moved to {spam}"
               values={{
                 spam: (

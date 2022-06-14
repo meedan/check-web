@@ -1,6 +1,6 @@
 [
   {
-    "id": "mediaActionsBar.movedToTrash",
+    "id": "mediaSuggestionsComponent.movedToTrash",
     "defaultMessage": "The item was moved to {trash}"
   },
   {
@@ -8,7 +8,7 @@
     "defaultMessage": "Trash"
   },
   {
-    "id": "mediaActionsBar.movedToSpam",
+    "id": "mediaSuggestionsComponent.movedToSpam",
     "defaultMessage": "The item was moved to {spam}"
   },
   {
