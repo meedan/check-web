@@ -56,7 +56,7 @@ const LanguageSwitcher = (props) => {
   if (props.component === 'dropdown') {
     return (
       <FormControl variant="outlined">
-        <Select value={currentLanguage} onChange={(e) => { handleChange(e, e.target.value); }} margin="dense">
+        <Select value={currentLanguage} onChange={(e) => { handleChange(e, e.target.value); }} margin="dense" className="language-switcher">
           {languages.map(languageCode => (
             <MenuItem value={languageCode} key={languageCode}>{languageLabel(languageCode)}</MenuItem>
           ))}
@@ -122,6 +122,7 @@ const LanguageSwitcher = (props) => {
 };
 
 LanguageSwitcher.defaultProps = {
+  primaryLanguage: null,
   onSetDefault: null,
   orientation: 'horizontal',
   component: 'tabs',
@@ -129,7 +130,7 @@ LanguageSwitcher.defaultProps = {
 
 LanguageSwitcher.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
-  primaryLanguage: PropTypes.string.isRequired,
+  primaryLanguage: PropTypes.string,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   onSetDefault: PropTypes.func,
