@@ -254,7 +254,7 @@ const ReportDesignerComponent = (props) => {
           <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
         </Box>
         <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
-          <Box display="flex">
+          <Box display="flex" className="report-designer__title">
             <Typography className={classes.title} color="inherit" variant="h6" component="div">
               <FormattedMessage
                 id="reportDesigner.title"

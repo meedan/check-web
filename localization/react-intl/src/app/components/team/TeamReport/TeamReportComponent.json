@@ -14,10 +14,6 @@
     "defaultMessage": "Default report settings"
   },
   {
-    "id": "teamReportComponent.subtitle",
-    "defaultMessage": "The content you set here can be edited in each individual report."
-  },
-  {
     "id": "teamReportComponent.save",
     "defaultMessage": "Save"
   },

@@ -47,6 +47,7 @@ const StyledInputBaseDropdown = withStyles(theme => ({
     padding: `0 ${theme.spacing(0.5)}px`,
     height: theme.spacing(4.5),
     fontSize: 14,
+    borderRadius: '4px',
     '& .MuiSelect-icon': {
       color: 'white',
     },
@@ -85,8 +86,12 @@ const Styles = {
     maxWidth: '100px',
   },
   andText: {
-    marginLeft: '4px',
-    marginRight: '4px',
+    paddingLeft: '8px',
+    paddingRight: '8px',
+  },
+  wrapper: {
+    backgroundColor: opaqueBlack07,
+    borderRadius: '4px',
   },
 };
 
@@ -98,6 +103,11 @@ function parseStartDateAsISOString(moment) {
 function parseEndDateAsISOString(moment) {
   const date = moment.toDate();
   return new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59).toISOString();
+}
+
+// linear equation that gives us a good width relative to the text length with fairly stable right-padding
+function setInputWidth(textLength) {
+  return ((textLength || 7) * 12.5) - ((5 * Math.max(7, textLength)) - 35);
 }
 
 function DateRangeSelectorStartEnd(props) {
@@ -126,6 +136,7 @@ function DateRangeSelectorStartEnd(props) {
                 <StyledInputBaseDate
                   className={valueText ? ['date-range__start-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__start-date'}
                   type="text"
+                  style={{ width: `${setInputWidth(valueText.length)}px` }}
                   placeholder={text}
                   onClick={onClick}
                   value={valueText}
@@ -153,6 +164,7 @@ function DateRangeSelectorStartEnd(props) {
                 <StyledInputBaseDate
                   className={valueText ? ['date-range__end-date', classes.dateRangeFilterSelected].join(' ') : 'date-range__end-date'}
                   type="text"
+                  style={{ width: `${setInputWidth(valueText.length)}px` }}
                   placeholder={text}
                   onClick={onClick}
                   value={valueText}
@@ -374,7 +386,7 @@ const DateRangeFilter = ({
   };
 
   return (
-    <div style={{ background: opaqueBlack07 }}>
+    <div className={classes.wrapper}>
       <FlexRow>
         <FormControl variant="outlined" className={classes.selectFormControl}>
           <FormLabel>{/* styling -- the <label> tag changes the height */}</FormLabel>

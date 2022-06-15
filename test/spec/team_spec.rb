@@ -69,10 +69,10 @@ shared_examples 'team' do
   it 'should add introduction to team report settings', bin4: true do
     team = "team#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
+    api_install_bot 'smooch'
     wait_for_selector('.team-settings__report-tab').click
     wait_for_selector('#use_introduction').click
     expect(@driver.page_source.include?('Report settings saved successfully')).to be(false)
-    expect(@driver.page_source.include?('The content you set here can be edited in each individual report')).to be(true)
     wait_for_selector('#introduction').send_keys('introduction text')
     wait_for_selector('#team-report__save').click
     wait_for_selector('.message')
@@ -155,7 +155,7 @@ shared_examples 'team' do
     wait_for_selector('.team-settings__integrations-tab').click
     wait_for_selector('.team-bots__alegre-uninstalled').click
     wait_for_selector('.team-settings__similarity-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 11
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to eq 9
     api_logout
 
     # log in as editor
@@ -173,7 +173,7 @@ shared_examples 'team' do
     # do not be able to see language and integration config tabs
     wait_for_selector('.team-menu__team-settings-button').click
     wait_for_selector('.team-settings__rules-tab')
-    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to be == 8
+    expect(@driver.find_elements(css: 'div[role=tablist] > button').size).to be == 6
     expect(@driver.find_elements(:css, '.team-settings__languages-tab').empty?).to be(true)
     expect(@driver.find_elements(:css, '.team-settings__integrations-tab').empty?).to be(true)
     # be able to see folder actions icon

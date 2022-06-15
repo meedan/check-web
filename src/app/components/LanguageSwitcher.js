@@ -9,6 +9,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { compareLanguages, languageLabel } from '../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
@@ -50,6 +52,18 @@ const LanguageSwitcher = (props) => {
     props.onSetDefault(currentLanguage);
     setAnchorEl(null);
   };
+
+  if (props.component === 'dropdown') {
+    return (
+      <FormControl variant="outlined">
+        <Select value={currentLanguage} onChange={(e) => { handleChange(e, e.target.value); }} margin="dense" className="language-switcher">
+          {languages.map(languageCode => (
+            <MenuItem value={languageCode} key={languageCode}>{languageLabel(languageCode)}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  }
 
   return (
     <Tabs
@@ -108,17 +122,20 @@ const LanguageSwitcher = (props) => {
 };
 
 LanguageSwitcher.defaultProps = {
+  primaryLanguage: null,
   onSetDefault: null,
   orientation: 'horizontal',
+  component: 'tabs',
 };
 
 LanguageSwitcher.propTypes = {
   currentLanguage: PropTypes.string.isRequired,
-  primaryLanguage: PropTypes.string.isRequired,
+  primaryLanguage: PropTypes.string,
   languages: PropTypes.arrayOf(PropTypes.string).isRequired,
   onChange: PropTypes.func.isRequired,
   onSetDefault: PropTypes.func,
   orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  component: PropTypes.oneOf(['tabs', 'dropdown']),
 };
 
 export default LanguageSwitcher;

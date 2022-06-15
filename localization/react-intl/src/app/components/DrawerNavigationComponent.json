@@ -1,5 +1,9 @@
 [
   {
+    "id": "projects.spam",
+    "defaultMessage": "Spam"
+  },
+  {
     "id": "projects.trash",
     "defaultMessage": "Trash"
   },

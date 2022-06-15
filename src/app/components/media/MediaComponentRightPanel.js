@@ -10,7 +10,7 @@ import MediaRequests from './MediaRequests';
 import MediaSource from './MediaSource';
 import ErrorBoundary from '../error/ErrorBoundary';
 
-const MediaComponentRightPanel = ({ projectMedia, onTimelineCommentOpen }) => {
+const MediaComponentRightPanel = ({ projectMedia }) => {
   const { team_bots: teamBots } = projectMedia.team;
   const enabledBots = teamBots.edges.map(b => b.node.login);
   const showRequests = (enabledBots.indexOf('smooch') > -1 || projectMedia.requests_count > 0);
@@ -76,7 +76,7 @@ const MediaComponentRightPanel = ({ projectMedia, onTimelineCommentOpen }) => {
         { showTab === 'requests' ? <MediaRequests media={projectMedia} all={!projectMedia.is_confirmed_similar_to_another_item} /> : null }
         { showTab === 'metadata' ? <MediaTasks media={projectMedia} fieldset="metadata" /> : null }
         { showTab === 'source' ? <MediaSource projectMedia={projectMedia} /> : null }
-        { showTab === 'notes' ? <MediaComments media={projectMedia} onTimelineCommentOpen={onTimelineCommentOpen} /> : null }
+        { showTab === 'notes' ? <MediaComments media={projectMedia} /> : null }
       </Box>
     </ErrorBoundary>
   );
@@ -84,7 +84,6 @@ const MediaComponentRightPanel = ({ projectMedia, onTimelineCommentOpen }) => {
 
 MediaComponentRightPanel.propTypes = {
   projectMedia: PropTypes.object.isRequired, // FIXME: Detail which fields are expected
-  onTimelineCommentOpen: PropTypes.func.isRequired,
 };
 
 export default MediaComponentRightPanel;
