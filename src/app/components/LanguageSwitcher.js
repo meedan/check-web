@@ -9,6 +9,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Box from '@material-ui/core/Box';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import { compareLanguages, languageLabel } from '../LanguageRegistry';
 
 const useStyles = makeStyles(theme => ({
@@ -50,6 +52,18 @@ const LanguageSwitcher = (props) => {
     props.onSetDefault(currentLanguage);
     setAnchorEl(null);
   };
+
+  if (props.component === 'dropdown') {
+    return (
+      <FormControl variant="outlined">
+        <Select value={currentLanguage} onChange={(e) => { handleChange(e, e.target.value); }} margin="dense">
+          {languages.map(languageCode => (
+            <MenuItem value={languageCode} key={languageCode}>{languageLabel(languageCode)}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    );
+  }
 
   return (
     <Tabs
@@ -110,6 +124,7 @@ const LanguageSwitcher = (props) => {
 LanguageSwitcher.defaultProps = {
   onSetDefault: null,
   orientation: 'horizontal',
+  component: 'tabs',
 };
 
 LanguageSwitcher.propTypes = {
@@ -119,6 +134,7 @@ LanguageSwitcher.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSetDefault: PropTypes.func,
   orientation: PropTypes.oneOf(['horizontal', 'vertical']),
+  component: PropTypes.oneOf(['tabs', 'dropdown']),
 };
 
 export default LanguageSwitcher;
