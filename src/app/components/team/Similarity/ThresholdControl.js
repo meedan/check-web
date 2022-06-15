@@ -58,7 +58,7 @@ const ThresholdControl = ({
         variant="outlined"
         size="small"
         type="number"
-        onChange={(e) => onChange(e.target.value)}
+        onChange={e => onChange(e.target.value)}
       />
       <Slider
         disabled={disabled}
