@@ -211,7 +211,8 @@ class BulkActions extends React.Component {
         moveTooltipMessage = (
           <FormattedMessage
             id="bulkActions.trash"
-            defaultMessage="Restore selected items and move items to another folder"
+            defaultMessage="Restore selected items and move them to another folder"
+            description="Tooltip message for button that restores items from Trash"
           />
         );
         moveButtonMessage = (
@@ -223,7 +224,8 @@ class BulkActions extends React.Component {
         moveTooltipMessage = (
           <FormattedMessage
             id="bulkActions.spam"
-            defaultMessage="Not spam selected items and move items to another folder"
+            defaultMessage="Mark selected items as not spam and move them to another folder"
+            description="Tooltip message for button that mark items as not spam"
           />
         );
         moveButtonMessage = (
