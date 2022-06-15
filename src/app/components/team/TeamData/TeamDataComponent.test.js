@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl, getStore } from '../../../../../test/unit/helpers/intl-test';
+import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
 import TeamDataComponent from './TeamDataComponent';
 
 describe('<TeamDataComponent />', () => {
@@ -15,7 +15,7 @@ describe('<TeamDataComponent />', () => {
 
   it('Should render table if there is data', () => {
     const wrapper = mountWithIntl(<TeamDataComponent
-      data={[{ 'Month': 'January 2022', 'Conversations': 123 }]}
+      data={[{ Month: 'January 2022', Conversations: 123 }]}
       params={{}}
       route={{ action: 'settings' }}
     />);
