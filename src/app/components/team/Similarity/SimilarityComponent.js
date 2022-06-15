@@ -237,16 +237,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.text_elasticsearch_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('text_elasticsearch_matching_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
                     disabled={!settings.text_similarity_enabled}
                     type="matching"
                     label="Elasticsearch matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.text_elasticsearch_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('text_elasticsearch_suggestion_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
                     disabled={!settings.text_similarity_enabled}
                     type="suggestion"
                     label="Elasticsearch suggestion threshold"
@@ -318,16 +316,14 @@ const SimilarityComponent = ({
                     </Box>
                     <ThresholdControl
                       value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
-                      onChange={(e, newValue) => handleThresholdChange('text_vector_matching_threshold', newValue)}
-                      handleInputChange={(e) => { handleThresholdChange('text_vector_matching_threshold', e.target.value); }}
+                      onChange={newValue => handleThresholdChange('text_vector_matching_threshold', newValue)}
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       type="matching"
                       label="Vector model matching threshold"
                     />
                     <ThresholdControl
                       value={Number(settings.text_vector_suggestion_threshold * 100).toFixed()}
-                      onChange={(e, newValue) => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
-                      handleInputChange={(e) => { handleThresholdChange('text_vector_suggestion_threshold', e.target.value); }}
+                      onChange={newValue => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       type="suggestion"
                       label="Vector model suggestion threshold"
@@ -343,16 +339,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.image_hash_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('image_hash_matching_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('image_hash_matching_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('image_hash_matching_threshold', newValue)}
                     disabled={!settings.image_similarity_enabled}
                     type="matching"
                     label="Image matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.image_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('image_hash_suggestion_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
                     disabled={!settings.image_similarity_enabled}
                     type="suggestion"
                     label="Image suggestion threshold"
@@ -367,16 +361,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.video_hash_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('video_hash_matching_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('video_hash_matching_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('video_hash_matching_threshold', newValue)}
                     disabled={!settings.video_similarity_enabled}
                     type="matching"
                     label="Video matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.video_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('video_hash_suggestion_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
                     disabled={!settings.video_similarity_enabled}
                     type="suggestion"
                     label="Video suggestion threshold"
@@ -391,16 +383,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('audio_hash_matching_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('audio_hash_matching_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('audio_hash_matching_threshold', newValue)}
                     disabled={!settings.audio_similarity_enabled}
                     type="matching"
                     label="Audio matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.audio_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
-                    handleInputChange={(e) => { handleThresholdChange('audio_hash_suggestion_threshold', e.target.value); }}
+                    onChange={newValue => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
                     disabled={!settings.audio_similarity_enabled}
                     type="suggestion"
                     label="Audio suggestion threshold"

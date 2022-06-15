@@ -23,7 +23,6 @@ const styles = theme => ({
 const ThresholdControl = ({
   classes,
   onChange,
-  handleInputChange,
   type,
   value,
   disabled,
@@ -59,13 +58,13 @@ const ThresholdControl = ({
         variant="outlined"
         size="small"
         type="number"
-        onChange={handleInputChange}
+        onChange={(e) => onChange(e.target.value)}
       />
       <Slider
         disabled={disabled}
         classes={{ root: classes.sliderRoot }}
         value={value}
-        onChange={onChange}
+        onChange={(e, newValue) => onChange(newValue)}
       />
     </Box>
     <Box color={alertRed} my={1}>
@@ -89,7 +88,7 @@ ThresholdControl.defaultProps = {
 ThresholdControl.propTypes = {
   classes: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
-  handleInputChange: PropTypes.func.isRequired,
+  // handleInputChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   disabled: PropTypes.bool,
