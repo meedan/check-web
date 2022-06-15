@@ -48,9 +48,7 @@ describe('<StatusesComponent/>', () => {
     />);
     expect(wrapper.find('.status-actions__menu').hostNodes()).toHaveLength(3);
     // languages
-    expect(wrapper.text()).toMatch('English(default)');
-    expect(wrapper.html()).toMatch('Português');
-    expect(wrapper.html()).toMatch('Español');
+    expect(wrapper.find('.language-switcher').hostNodes()).toHaveLength(1);
     // statuses
     expect(wrapper.html()).toMatch('English statuses');
     expect(wrapper.html()).toMatch('Undetermined');

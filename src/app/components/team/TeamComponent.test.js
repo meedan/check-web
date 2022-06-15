@@ -28,7 +28,7 @@ describe('<TeamComponent />', () => {
     },
   };
 
-  it('Should not render report tab when smooch is not installed on the team', () => {
+  it('Should not render report tab or data tab when smooch is not installed on the team', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
@@ -43,9 +43,10 @@ describe('<TeamComponent />', () => {
       route={{ action: 'settings' }}
     />);
     expect(wrapper.find('.team-settings__report-tab').hostNodes()).toHaveLength(0);
+    expect(wrapper.find('.team-settings__data-tab').hostNodes()).toHaveLength(0);
   });
 
-  it('Should render report tab when smooch is installed on the team', () => {
+  it('Should render report tab and data tab when smooch is installed on the team', () => {
     global.window = Object.create(window);
     Object.defineProperty(window, 'location', {
       value: {
@@ -60,5 +61,6 @@ describe('<TeamComponent />', () => {
       route={{ action: 'settings' }}
     />);
     expect(wrapper.find('.team-settings__report-tab').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.team-settings__data-tab').hostNodes()).toHaveLength(1);
   });
 });

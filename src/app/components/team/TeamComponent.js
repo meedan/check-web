@@ -148,7 +148,7 @@ class TeamComponent extends Component {
                 value="tipline"
               />
               : null }
-            {isAdminOrEditor ?
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__data-tab"
                 label={
