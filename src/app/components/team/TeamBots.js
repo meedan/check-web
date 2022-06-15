@@ -142,7 +142,7 @@ class TeamBots extends Component {
                 </CardContent>
                 <Collapse in={botExpanded} timeout="auto">
                   <CardContent>
-                    { bot.settings_as_json_schema ?
+                    { bot.installation?.json_settings ?
                       <React.Fragment>
                         <Box display="flex" alignItems="center" justifyContent="space-between">
                           <h3><FormattedMessage id="teamBots.settings" defaultMessage="Settings" /></h3>
@@ -166,8 +166,6 @@ class TeamBots extends Component {
                         { botExpanded ?
                           <TeamBot
                             bot={bot}
-                            schema={JSON.parse(bot.settings_as_json_schema)}
-                            uiSchema={JSON.parse(bot.settings_ui_schema)}
                             value={this.state.settings[installation.id] || JSON.parse(installation.json_settings || '{}')}
                             onChange={this.handleSettingsUpdated.bind(this, installation)}
                           /> : null
