@@ -112,25 +112,12 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
   }
   return (
     <Box display="flex" justifyContent="left" className="team-report-component">
-      <LanguageSwitcher
-        orientation="vertical"
-        primaryLanguage={defaultLanguage}
-        currentLanguage={currentLanguage}
-        languages={languages}
-        onChange={setCurrentLanguage}
-      />
       <ContentColumn large>
         <SettingsHeader
           title={
             <FormattedMessage
               id="teamReportComponent.title"
               defaultMessage="Default report settings"
-            />
-          }
-          subtitle={
-            <FormattedMessage
-              id="teamReportComponent.subtitle"
-              defaultMessage="The content you set here can be edited in each individual report."
             />
           }
           helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
@@ -140,6 +127,14 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 <FormattedMessage id="teamReportComponent.save" defaultMessage="Save" />
               </Button>
             </Can>
+          }
+          extra={
+            <LanguageSwitcher
+              component="dropdown"
+              currentLanguage={currentLanguage}
+              languages={languages}
+              onChange={setCurrentLanguage}
+            />
           }
         />
         <Card>

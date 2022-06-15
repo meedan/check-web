@@ -9,10 +9,6 @@
     "defaultMessage": "Tipline"
   },
   {
-    "id": "smoochBotComponent.subtitle",
-    "defaultMessage": "Create automated conversational bots to receive content from your audience."
-  },
-  {
     "id": "smoochBotComponent.save",
     "defaultMessage": "Publish"
   },

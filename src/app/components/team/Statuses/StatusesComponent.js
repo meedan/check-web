@@ -222,13 +222,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 
   return (
     <Box display="flex" className="status-settings">
-      <LanguageSwitcher
-        orientation="vertical"
-        primaryLanguage={defaultLanguage}
-        currentLanguage={currentLanguage}
-        languages={languages}
-        onChange={handleChangeLanguage}
-      />
       <ContentColumn large>
         <SettingsHeader
           title={
@@ -241,12 +234,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
               description="The idea of this sentence is 'statuses written in language <languageName>'"
             />
           }
-          subtitle={
-            <FormattedMessage
-              id="statusesComponent.subtitle"
-              defaultMessage="The status title is visible when reports are sent to users."
-            />
-          }
           helpUrl="https://help.checkmedia.org/en/articles/4838891-status-settings"
           actionButton={
             <Button className={[classes.button, 'team-statuses__add-button'].join(' ')} color="primary" variant="contained" onClick={() => setAddingNewStatus(true)}>
@@ -255,6 +242,14 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                 defaultMessage="New status"
               />
             </Button>
+          }
+          extra={
+            <LanguageSwitcher
+              component="dropdown"
+              currentLanguage={currentLanguage}
+              languages={languages}
+              onChange={handleChangeLanguage}
+            />
           }
         />
         <Card>
