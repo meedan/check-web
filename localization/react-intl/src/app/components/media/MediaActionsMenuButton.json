@@ -17,11 +17,11 @@
   },
   {
     "id": "mediaActions.sendToTrash",
-    "defaultMessage": "Move to Trash"
+    "defaultMessage": "Send to Trash"
   },
   {
     "id": "mediaActions.sendToSpam",
-    "defaultMessage": "Move to Spam"
+    "defaultMessage": "Mark as Spam"
   },
   {
     "id": "mediaActions.history",

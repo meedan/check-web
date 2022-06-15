@@ -86,8 +86,8 @@ const Styles = {
     maxWidth: '100px',
   },
   andText: {
-    marginLeft: '4px',
-    marginRight: '4px',
+    paddingLeft: '8px',
+    paddingRight: '8px',
   },
   wrapper: {
     backgroundColor: opaqueBlack07,

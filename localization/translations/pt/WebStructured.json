@@ -305,17 +305,14 @@
 	"addLanguageAction.title": {
 		"string": "Escolha um novo idioma"
 	},
-	"annotation.acceptSuggestion": {
-		"string": "Aceitar"
+	"annotation.addLanguage": {
+		"string": "Language {value} added by {author}"
+	},
+	"annotation.addSource": {
+		"string": "Source {name} add by {author}"
 	},
 	"annotation.addedComment": {
 		"string": "Nota da tarefa inserida por {author}: {title}{note}"
-	},
-	"annotation.archiverError": {
-		"string": "Desculpe, ocorreu este erro ao arquivar o item em {name}: \"{message}\". Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"annotation.archiverSuccess": {
-		"string": "Caso este link fique indisponível, você pode <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acessar um backup em {name}</a>."
 	},
 	"annotation.archiverWait": {
 		"string": "Esse item está sendo arquivado em {name}. O link do arquivo será exibido aqui quando estiver pronto."
@@ -329,17 +326,27 @@
 	"annotation.changedJsonSchema": {
 		"string": "O JSON Schema da tarefa {title} foi modificado por {author}"
 	},
+	"annotation.createClaimContext": {
+		"string": "Additional content added by {author}: {value}"
+	},
+	"annotation.createClaimDescription": {
+		"string": "Claim added by {author}: {value}"
+	},
+	"annotation.createFactCheck": {
+		"string": "Fact-check title added by {author}: {value}"
+	},
+	"annotation.createProjectMedia": {
+		"string": "Item created by {author}"
+	},
 	"annotation.deleteButton": {
 		"string": "Excluir"
-	},
-	"annotation.deletedComment": {
-		"string": "Comentário excluído por {author}: {comment}"
 	},
 	"annotation.editButton": {
 		"string": "Editar"
 	},
-	"annotation.embedCodeCopied": {
-		"string": "Um código de integração deste item foi gerado e copiado. Agora o item vai poder ficar visível publicamente."
+	"annotation.editedBy": {
+		"string": "edited by",
+		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
 		"string": "O título do item foi removido por {author}: {title}"
@@ -355,42 +362,6 @@
 	},
 	"annotation.embedNoteUpdated": {
 		"string": "Descrição do item editada por {author}: {description}"
-	},
-	"annotation.flag": {
-		"string": "Resultado da classificação"
-	},
-	"annotation.flagAdult": {
-		"string": "Adulto"
-	},
-	"annotation.flagLikelihood0": {
-		"string": "Desconhecido"
-	},
-	"annotation.flagLikelihood1": {
-		"string": "Muito improvável"
-	},
-	"annotation.flagLikelihood2": {
-		"string": "Improvável"
-	},
-	"annotation.flagLikelihood3": {
-		"string": "Possível"
-	},
-	"annotation.flagLikelihood4": {
-		"string": "Provável"
-	},
-	"annotation.flagLikelihood5": {
-		"string": "Muito provável"
-	},
-	"annotation.flagMedical": {
-		"string": "Médico"
-	},
-	"annotation.flagRacy": {
-		"string": "Sugestivo"
-	},
-	"annotation.flagSpam": {
-		"string": "Spam"
-	},
-	"annotation.flagViolence": {
-		"string": "Violência"
 	},
 	"annotation.mediaAssigned": {
 		"string": "Item atribuído a {name} por {author}"
@@ -411,13 +382,7 @@
 		"string": "Campo de anotação criado por {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Campo de anotação \"{fieldLabel}\" preenchido por {author}: {response}"
-	},
-	"annotation.movedFromTrash": {
-		"string": "Retirado da Lixeira por {author}"
-	},
-	"annotation.movedToTrash": {
-		"string": "Movido para a Lixeira por {author}"
+		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
 	},
 	"annotation.newReport": {
 		"string": "Item inserido por {author}"
@@ -428,32 +393,22 @@
 	"annotation.openInSlack": {
 		"string": "Abrir no Slack"
 	},
-	"annotation.penderArchiveResponse": {
-		"string": "Keep fez uma captura de tela deste item."
-	},
-	"annotation.penderArchiveResponseError": {
-		"string": "Desculpe, ocorreu um erro durante a captura de tela deste item. Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"annotation.penderArchiveWait": {
-		"string": "A captura de tela esta sendo feita por Keep. Volte em alguns minutos para vê-la."
+	"annotation.pausedBy": {
+		"string": "paused by",
+		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "Permalink"
 	},
-	"annotation.projectMoved": {
-		"string": "Movido da pasta {previousProject} para {currentProject} por {author}"
-	},
-	"annotation.rejectSuggestion": {
-		"string": "Recusar"
-	},
-	"annotation.relationshipCreated": {
-		"string": "Item relacionado adicionado por {author}: {title}"
-	},
-	"annotation.relationshipDestroyed": {
-		"string": "O item relacionado foi removido por {author}: {title}"
+	"annotation.publishedBy": {
+		"string": "published by",
+		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "Nota da tarefa excluída por {author}: {title}{note}"
+	},
+	"annotation.reportDesignState": {
+		"string": "Fact-check report {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "Relatório enviado em {date}"
@@ -461,14 +416,11 @@
 	"annotation.reportUpdateReceived": {
 		"string": "Atualização de relatório enviado em {date}"
 	},
-	"annotation.seeHowThisBotWorks": {
-		"string": "Ver como este bot funciona"
-	},
 	"annotation.similarCreated": {
-		"string": "Confirmado como semelhante por {author}: {title}"
+		"string": "Match confirmed by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "O item confirmado como semelhante foi desprendido por {author}: {title}",
+		"string": "Match deleted by {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -478,34 +430,25 @@
 		"string": "Status do item bloqueado por {author}"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status modificado para {status} por {author}"
+		"string": "Status changed to {status} by {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "Status do item desbloqueado por {author}"
 	},
-	"annotation.suggestionAccepted": {
-		"string": "Aceita por {user}"
-	},
 	"annotation.suggestionCreated": {
-		"string": "Correspondência sugerida por {author}: {title}"
+		"string": "Match suggested by {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "A correspondência sugerida foi rejeitada por {author}: {title}"
-	},
-	"annotation.suggestionRejected": {
-		"string": "Recusada por {user}"
+		"string": "Match rejected by {author}: {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Marcado #{tag} por {author}"
+		"string": "Tag #{tag} added by {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "Tarefa atribuída a {name} por {author}: {title}"
 	},
 	"annotation.taskAssignmentDeleted": {
 		"string": "Atribuição da tarefa removida de {name} por {author}: {title}"
-	},
-	"annotation.taskCreated": {
-		"string": "Tarefa criada por {author}: {task}"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "Tarefa editada por {author}: {title}"
@@ -516,14 +459,21 @@
 	"annotation.taskNoteUpdated": {
 		"string": "Nota da tarefa editada por {author}: {title}{note}"
 	},
-	"annotation.taskResolve": {
-		"string": "Tarefa completada por {author}: {task}{response}"
-	},
-	"annotation.teamCopied": {
-		"string": "Copiado do espaço {previousTeam} por {author}"
-	},
 	"annotation.titleChanged": {
 		"string": "Título do item editado por {author}: {title}"
+	},
+	"annotation.unknownLanguage": {
+		"string": "Idioma desconhecido",
+		"developer_comment": "Show label for undefined language"
+	},
+	"annotation.updateClaimContext": {
+		"string": "Additional content edited by {author}: {value}"
+	},
+	"annotation.updateClaimDescription": {
+		"string": "Claim edited by {author}: {value}"
+	},
+	"annotation.updateSource": {
+		"string": "Source {name} updated by {author}"
 	},
 	"annotations.loadMore": {
 		"string": "Carregar mais"
@@ -544,7 +494,7 @@
 		"string": "Nenhuma correspondência encontrada"
 	},
 	"autoCompleteMediaItem.results": {
-		"string": "{count, plural, one {# resultado} other {# resultados}}"
+		"string": "{count, plural, one {# resultado} many {# resultados} other {# resultados}}"
 	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Buscar"
@@ -571,11 +521,14 @@
 		"string": "{appName} é otimizado para Chrome para desktop da Google."
 	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{mediasCount, plural, one {Você precisa mover 1 item para outra pasta} other {Você precisa mover # itens para outra pasta}}"
+		"string": "{mediasCount, plural, one {Você precisa mover 1 item para outra pasta} many {Você precisa mover # itens para outra pasta} other {Você precisa mover # itens para outra pasta}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "Mover para a pasta",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
+	},
+	"bulkActions.moveToSpamSuccessfully": {
+		"string": "Items moved to the Spam."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Itens movidos para a Lixeira."
@@ -588,11 +541,20 @@
 		"string": "Itens movidos para '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
+	"bulkActions.notSpam": {
+		"string": "Not Spam"
+	},
 	"bulkActions.restore": {
 		"string": "Restaurar da Lixeira"
 	},
+	"bulkActions.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Mover itens selecionados para a Lixeira"
+		"string": "Enviar para a lixeira"
+	},
+	"bulkActions.spam": {
+		"string": "Not spam selected items and move items to another folder"
 	},
 	"bulkActions.trash": {
 		"string": "Restaurar itens selecionados e movê-los para outra pasta"
@@ -606,7 +568,7 @@
 		"developer_comment": "Displayed when no member names match search input"
 	},
 	"bulkActionsAssign.submitLabel": {
-		"string": "{numItems, plural, one {Atribuir 1 item} other {Atribuir # itens}}",
+		"string": "{numItems, plural, one {Atribuir 1 item} many {Atribuir # itens} other {Atribuir # itens}}",
 		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
 	},
 	"bulkActionsAssign.success": {
@@ -638,11 +600,11 @@
 		"developer_comment": "Displayed when no folder names match search input"
 	},
 	"bulkActionsMove.submitLabel": {
-		"string": "{numItems, plural, one {Mover 1 item} other {Mover # itens}}",
+		"string": "{numItems, plural, one {Mover 1 item} many {Mover # itens} other {Mover # itens}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
 	},
 	"bulkActionsStatus.dialogBody": {
-		"string": "{publishedCount, plural, one {O status de 1 item não pôde ser alterado porque seu relatório está atualmente publicado. Por favor, edite-o individualmente.} other {O status de # itens não pôde ser alterado porque seus relatórios estão atualmente publicados. Por favor, edite-os individualmente.}}",
+		"string": "{publishedCount, plural, one {O status de 1 item não pôde ser alterado porque seu relatório está atualmente publicado. Por favor, edite-o individualmente.} many {O status de # itens não pôde ser alterado porque seus relatórios estão atualmente publicados. Por favor, edite-os individualmente.} other {O status de # itens não pôde ser alterado porque seus relatórios estão atualmente publicados. Por favor, edite-os individualmente.}}",
 		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
 	},
 	"bulkActionsStatus.dialogTitle": {
@@ -650,7 +612,7 @@
 		"developer_comment": "Title of dialog warning after bulk updating item statuses"
 	},
 	"bulkActionsStatus.submitLabel": {
-		"string": "{numItems, plural, one {Definir status de 1 item} other {Definir status de # itens}}",
+		"string": "{numItems, plural, one {Definir status de 1 item} many {Definir status de # itens} other {Definir status de # itens}}",
 		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
 	},
 	"bulkActionsStatus.success": {
@@ -658,7 +620,7 @@
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Atribuir tag a 1 item} other {Atribuir tag a # itens}}",
+		"string": "{numItems, plural, one {Atribuir tag a 1 item} many {Atribuir tag a # itens} other {Atribuir tag a # itens}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
@@ -701,7 +663,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "Houve um conflito no banco de dados.",
+		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
@@ -761,8 +723,8 @@
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "As tarefas serão descontinuadas em 30 de abril. Por favor, entre em contato conosco se você tiver alguma dúvida sobre como substituí-las por anotações.",
-		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
+		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "+ mais {number}",
@@ -905,15 +867,8 @@
 		"string": "Novo campo de anotação",
 		"developer_comment": "Button that triggers creation of a new field"
 	},
-	"createTeamTask.addTask": {
-		"string": "Nova tarefa",
-		"developer_comment": "Button that triggers creation of a new task"
-	},
 	"createTeamTask.errorMetadata": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o campo de metadados. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
-	},
-	"createTeamTask.errorTask": {
-		"string": "Desculpe, ocorreu um erro ao criar a tarefa. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
 	},
 	"customAutocomplete.done": {
 		"string": "Terminado",
@@ -956,16 +911,16 @@
 		"string": "Ver este fuso horário em time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Há um item atualmente publicado com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} other {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.}}"
+		"string": "{publishedCount, plural, one {Há um item atualmente publicado com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} many {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} other {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Mover itens para"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {Há um item com o status {statusLabel} que deve ser modificado para um outro para que você possa excluir este status.} other {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.}}"
+		"string": "{itemsCount, plural, one {Há um item com o status {statusLabel} que deve ser modificado para um outro para que você possa excluir este status.} many {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.} other {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {Você deve modificar o status de um item para excluir este status.} other {Você deve modificar o status de # itens para excluir este status.}}"
+		"string": "{itemsCount, plural, one {Você deve modificar o status de um item para excluir este status.} many {Você deve modificar o status de # itens para excluir este status.} other {Você deve modificar o status de # itens para excluir este status.}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Escolha uma pasta"
@@ -1020,7 +975,7 @@
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"errorBoundary.message": {
-		"string": "Hello, I'm having trouble with Check. The web interface has just crashed and is blocking me from doing work!",
+		"string": "Olá, estou tendo problemas com o Check. A interface web acaba de falhar e está me impedindo de trabalhar!",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
@@ -1033,7 +988,7 @@
 		"string": "Cancelar"
 	},
 	"filter.tag.deleted": {
-		"string": "Property deleted",
+		"string": "Propriedade excluída",
 		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
@@ -1209,6 +1164,9 @@
 	},
 	"languagesComponent.title": {
 		"string": "Idiomas"
+	},
+	"limitedTextFieldWithCounter.counter": {
+		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
 	},
 	"list.Demand": {
 		"string": "Solicitações"
@@ -1386,8 +1344,11 @@
 	"mediaActions.refresh": {
 		"string": "Recarregar"
 	},
+	"mediaActions.sendToSpam": {
+		"string": "Mark as Spam"
+	},
 	"mediaActions.sendToTrash": {
-		"string": "Mover para a Lixeira"
+		"string": "Send to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Ações dos items"
@@ -1428,8 +1389,14 @@
 	"mediaActionsBar.movedRestoreBack": {
 		"string": "Restaurado da Lixeira, redirecionando..."
 	},
+	"mediaActionsBar.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "O item foi movido para a {trash}"
+	},
+	"mediaActionsBar.notSpamTo": {
+		"string": "Not spam"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Relatório publicado"
@@ -1525,9 +1492,6 @@
 	"mediaComponent.source": {
 		"string": "Fonte"
 	},
-	"mediaComponent.tasks": {
-		"string": "Tarefas"
-	},
 	"mediaComponent.timelineTab": {
 		"string": "Cronologia"
 	},
@@ -1544,6 +1508,9 @@
 	},
 	"mediaCreatedBy.createdBy": {
 		"string": "Item criado por {name}"
+	},
+	"mediaDetail.spam": {
+		"string": "Spam"
 	},
 	"mediaDetail.trash": {
 		"string": "Lixeira"
@@ -1569,7 +1536,7 @@
 		"developer_comment": "Label when transcription is not (yet) available"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count, plural, one {# solicitação} other {# solicitações}}"
+		"string": "{count, plural, one {# solicitação} many {# solicitações} other {# solicitações}}"
 	},
 	"mediaExpanded.transcriptionCompleted": {
 		"string": "Áudio transcrito da mídia:",
@@ -1603,11 +1570,11 @@
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
 	"mediaFactCheck.claimMissingDesc": {
-		"string": "You must add a claim to access the fact-check report.",
+		"string": "Você precisa adicionar uma afirmação para acessar o relatório de verificação de fatos.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.claimMissingTitle": {
-		"string": "Claim missing",
+		"string": "Afirmação em falta",
 		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.confirmButtonLabel": {
@@ -1630,7 +1597,7 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "URL do artigo publicado",
+		"string": "Article URL",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -1676,10 +1643,10 @@
 		"string": "Não publicado"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {# solicitação} other {# solicitações}}"
+		"string": "{count, plural, one {# solicitação} many {# solicitações} other {# solicitações}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# mídia semelhante} other {# mídias semelhantes}}"
+		"string": "{count, plural, one {# mídia semelhante} many {# mídias semelhantes} other {# mídias semelhantes}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -1687,10 +1654,6 @@
 	"mediaMetadata.ImageSearch": {
 		"string": "Busca reversa de imagem",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
-	},
-	"mediaMetadata.Timeline": {
-		"string": "Cronologia",
-		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
 		"string": "Ações para áudio",
@@ -1716,7 +1679,7 @@
 		"string": "Adicionar relação"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {# item relacionado} other {# itens relacionados}}"
+		"string": "{count, plural, one {# item relacionado} many {# itens relacionados} other {# itens relacionados}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "Não foi possível adicionar item relacionado"
@@ -1728,16 +1691,16 @@
 		"string": "Item relacionado adicionado com sucesso"
 	},
 	"mediaRelatedComponent.submitButton": {
-		"string": "{count, plural, one {Adicionar relação para um item} other {Adicionar relação para # itens}}"
+		"string": "{count, plural, one {Adicionar relação para um item} many {Adicionar relação para # itens} other {Adicionar relação para # itens}}"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {# solicitação em todas as mídias} other {# solicitações em todas as mídias}}"
+		"string": "{count, plural, one {# solicitação em todas as mídias} many {# solicitações em todas as mídias} other {# solicitações em todas as mídias}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Nenhuma solicitação"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {# solicitação} other {# solicitações}}"
+		"string": "{count, plural, one {# solicitação} many {# solicitações} other {# solicitações}}"
 	},
 	"mediaSearch.error": {
 		"string": "Desculpe, ocorreu o seguinte erro: {message}. Por favor, atualize o item para tentar novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -1765,7 +1728,7 @@
 		"string": "Adicionar semelhante"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Importar todas as mídias de um item} other {Importar todas as mídias de # itens}}"
+		"string": "{count, plural, one {Importar todas as mídias de um item} many {Importar todas as mídias de # itens} other {Importar todas as mídias de # itens}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Importar mídia semelhante para este item"
@@ -1832,10 +1795,16 @@
 		"string": "Voltar à visualização principal"
 	},
 	"mediaSuggestionsComponent.mediasCount": {
-		"string": "{number, plural, one {# mídia} other {# mídias}}"
+		"string": "{number, plural, one {# mídia} many {# mídias} other {# mídias}}"
 	},
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Mover item"
+	},
+	"mediaSuggestionsComponent.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
+	"mediaSuggestionsComponent.movedToTrash": {
+		"string": "O item foi movido para a {trash}"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "Não há sugestões de mídia."
@@ -1847,8 +1816,14 @@
 	"mediaSuggestionsComponent.requestsCount": {
 		"string": "{number} solicitações da Tipline em todas as mídias"
 	},
+	"mediaSuggestionsComponent.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
+	"mediaSuggestionsComponent.sendItemsToTrash": {
+		"string": "Enviar para a lixeira"
+	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current} de # mídia sugerida} other {{current} de # mídias sugeridas}}"
+		"string": "{total, plural, one {{current} de # mídia sugerida} many {{current} de # mídias sugeridas} other {{current} de # mídias sugeridas}}"
 	},
 	"metadata.cancel": {
 		"string": "Cancelar",
@@ -2060,7 +2035,7 @@
 		"string": "Política de Privacidade"
 	},
 	"project.deleteMessage": {
-		"string": "{mediasCount, plural, one {Há 1 item em {folderTitle}. Por favor, escolha uma pasta de destino:} other {Há # itens em {folderTitle}. Por favor, escolha uma pasta de destino:}}"
+		"string": "{mediasCount, plural, one {Há 1 item em {folderTitle}. Por favor, escolha uma pasta de destino:} many {Há # itens em {folderTitle}. Por favor, escolha uma pasta de destino:} other {Há # itens em {folderTitle}. Por favor, escolha uma pasta de destino:}}"
 	},
 	"project.name": {
 		"string": "pasta"
@@ -2185,8 +2160,11 @@
 		"string": "Todas as pastas"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, plural, one {# selecionada} other {# selecionadas}}",
+		"string": "{length, plural, one {# selecionada} many {# selecionadas} other {# selecionadas}}",
 		"developer_comment": "Label for number of selected folders"
+	},
+	"projects.spam": {
+		"string": "Spam"
 	},
 	"projects.trash": {
 		"string": "Lixeira"
@@ -2354,7 +2332,7 @@
 		"string": "Publicar modificações e enviar correção"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {Você está prestes a enviar este relatório ao(à) usuário(a) que solicitou este item.} other {Você está prestes a enviar este relatório aos(às) # usuários(as) que solicitaram este item.}}"
+		"string": "{demand, plural, one {Você está prestes a enviar este relatório ao(à) usuário(a) que solicitou este item.} many {Você está prestes a enviar este relatório aos(às) # usuários(as) que solicitaram este item.} other {Você está prestes a enviar este relatório aos(às) # usuários(as) que solicitaram este item.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "Todos(as) os(as) usuários(as) futuros(as) que solicitarem este item receberão esta versão do relatório enquanto ele permanecer publicado."
@@ -2363,7 +2341,7 @@
 		"string": "Pronto para publicar o seu relatório?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Como houve modificação de status, o relatório atualizado será enviado como um {correctionLink} para o(a) usuário(a) que já recebeu a versão anterior deste relatório.} other {Como houve modificação de status, o relatório atualizado será enviado como um {correctionLink} para os(as) # usuários(as) que já receberam a versão anterior deste relatório.}}"
+		"string": "{demand, plural, one {Como houve modificação de status, o relatório atualizado será enviado como um {correctionLink} para o(a) usuário(a) que já recebeu a versão anterior deste relatório.} many {Como houve modificação de status, o relatório atualizado será enviado como um {correctionLink} para os(as) # usuários(as) que já receberam a versão anterior deste relatório.} other {Como houve modificação de status, o relatório atualizado será enviado como um {correctionLink} para os(as) # usuários(as) que já receberam a versão anterior deste relatório.}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "Pronto(a) para publicar suas modificações?"
@@ -2372,7 +2350,7 @@
 		"string": "Pronto(a) para publicar suas modificações?"
 	},
 	"reportDesigner.content": {
-		"string": "Summary ({max} characters max)"
+		"string": "Resumo"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "Um conteúdo com aviso não pode <br /> ser publicado como um cartão visual.",
@@ -2380,12 +2358,6 @@
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Copiado"
-	},
-	"reportDesigner.copyEmbedCode": {
-		"string": "Copiar código de integração"
-	},
-	"reportDesigner.copyShareUrl": {
-		"string": "Copiar URL de compartilhamento"
 	},
 	"reportDesigner.correction": {
 		"string": "correção"
@@ -2397,7 +2369,7 @@
 		"string": "Data de publicação"
 	},
 	"reportDesigner.description": {
-		"string": "Summary ({max} characters max)"
+		"string": "Resumo"
 	},
 	"reportDesigner.error": {
 		"string": "Desculpe, ocorreu um erro ao atualizar as configurações do relatório. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
@@ -2410,7 +2382,7 @@
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
-		"string": "Título ({max} caracteres no máximo)"
+		"string": "Título"
 	},
 	"reportDesigner.incorrectWarning": {
 		"string": "Este aviso de conteúdo foi aplicado incorretamente?",
@@ -2421,6 +2393,9 @@
 	},
 	"reportDesigner.introductionSub": {
 		"string": "Use o indicador {query_date} para exibir a data da consulta original. Use {status} para comunicar o status do artigo."
+	},
+	"reportDesigner.lastPublished": {
+		"string": "Last published"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Comece a criar seu relatório para poder pré-visualizar o que os(as) usuários(as) verão quando o receberem."
@@ -2442,23 +2417,23 @@
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Envie também este relatório atualizado como um {correctionLink} ao(à) usuário(a) que já recebeu a versão anterior deste relatório.} other {Envie também este relatório atualizado como um {correctionLink} aos(às) # usuários(as) que já receberam a versão anterior deste relatório.}}"
+		"string": "{demand, plural, one {Envie também este relatório atualizado como um {correctionLink} ao(à) usuário(a) que já recebeu a versão anterior deste relatório.} many {Envie também este relatório atualizado como um {correctionLink} aos(às) # usuários(as) que já receberam a versão anterior deste relatório.} other {Envie também este relatório atualizado como um {correctionLink} aos(às) # usuários(as) que já receberam a versão anterior deste relatório.}}"
 	},
 	"reportDesigner.sentCount": {
 		"string": "Relatórios enviados"
 	},
 	"reportDesigner.statusLabel": {
-		"string": "Título do status ({max} caracteres no máximo)"
+		"string": "Título do status"
 	},
 	"reportDesigner.text": {
 		"string": "Texto",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textTitle": {
-		"string": "Título ({max} caracteres no máximo)"
+		"string": "Título"
 	},
 	"reportDesigner.textUrl": {
-		"string": "Published article URL ({max} characters max)",
+		"string": "Article URL",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
@@ -2469,7 +2444,7 @@
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
-		"string": "URL do site ({max} caracteres no máximo)"
+		"string": "URL do website"
 	},
 	"reportDesigner.useDefaultImage": {
 		"string": "Usar imagem padrão"
@@ -2494,7 +2469,7 @@
 		"string": "Seu item ainda tem o status padrão {status} e deve ser modificado para um status diferente para que possa ser publicado."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "You must add a title and a summary to the fact-check in order to publish the report."
+		"string": "Para publicar o relatório, você deve adicionar um título e um resumo à verificação de fatos."
 	},
 	"reportStatusCell.paused": {
 		"string": "Suspenso"
@@ -2586,10 +2561,10 @@
 		"string": "Excluir"
 	},
 	"rulesTableToolbar.deleteConfirmationLabel": {
-		"string": "{numSelected, plural, one {Excluir # regra} other {Excluir # regras}}"
+		"string": "{numSelected, plural, one {Excluir # regra} many {Excluir # regras} other {Excluir # regras}}"
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "{numSelected, plural, one {Você selecionou # regra para exclusão. Você deseja excluí-la? Você não pode desfazer esta ação.} other {Você selecionou # regras para exclusão. Você deseja excluir todas elas? Você não pode desfazer esta ação.}}"
+		"string": "{numSelected, plural, one {Você selecionou # regra para exclusão. Você deseja excluí-la? Você não pode desfazer esta ação.} many {Você selecionou # regras para exclusão. Você deseja excluir todas elas? Você não pode desfazer esta ação.} other {Você selecionou # regras para exclusão. Você deseja excluir todas elas? Você não pode desfazer esta ação.}}"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
 		"string": "Você deseja excluir as regras selecionadas?"
@@ -2598,7 +2573,7 @@
 		"string": "Salvar"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {# selecionada} other {# selecionadas}}"
+		"string": "{numSelected, plural, one {# selecionada} many {# selecionadas} other {# selecionadas}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Crie automatizações para organizar pastas e personalizar seu fluxo de trabalho."
@@ -2950,13 +2925,6 @@
 	"searchKeywordConfig.allNotes": {
 		"string": "Todas as notas"
 	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Todas as respostas da tarefa",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Comentários de todas as tarefas"
-	},
 	"searchKeywordConfig.analysisContent": {
 		"string": "Conteúdo da análise"
 	},
@@ -2994,15 +2962,11 @@
 	"searchKeywordConfig.tags": {
 		"string": "Tags"
 	},
-	"searchKeywordConfig.tasks": {
-		"string": "Tarefas",
-		"developer_comment": "Header before a listing of task options"
-	},
 	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+		"string": "{count, plural, one {1 / 1} many {{from} - {to} / #} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# selecionado)} other {(# selecionados)}}",
+		"string": "{selectedCount, plural, one {(# selecionado)} many {(# selecionados)} other {(# selecionados)}}",
 		"developer_comment": "Label for number of selected items"
 	},
 	"sensitiveContentMenuButton.adult": {
@@ -3873,7 +3837,7 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "O boletim informativo será enviado para {count} usuários(as) em {date} às {time}"
+		"string": "The newsletter will be sent to {count} users on {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
 		"string": "Adicionar artigo",
@@ -3904,11 +3868,11 @@
 		"string": "Sexta-feira"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
+		"string": "Use o indicador \\{channel\\} para inserir automaticamente o nome do serviço de mensagens.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
+		"string": "Use o indicador \\{date\\} para inserir automaticamente a data em que o boletim informativo é enviado.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -3982,7 +3946,7 @@
 		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Delete resource"
+		"string": "Excluir recurso"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": "Esta URL não parece ser um feed RSS válido"
@@ -4073,7 +4037,7 @@
 		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
-		"string": "{mediasCount, plural, one {1 item} other {# itens}}",
+		"string": "{mediasCount, plural, one {1 item} many {# itens} other {# itens}}",
 		"developer_comment": "show source media counts"
 	},
 	"sourceInfo.primaryLink": {
@@ -4093,6 +4057,9 @@
 	"sourceInfo.sourceName": {
 		"string": "Adicionar nome",
 		"developer_comment": "label for create source name"
+	},
+	"spam.title": {
+		"string": "Spam"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "Isto modificará o idioma padrão de {currentDefaultLanguage} para {newDefaultLanguage}."
@@ -4191,7 +4158,7 @@
 		"string": "Você enviou uma solicitação para  participar"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, one {# membro} other {# membros}}"
+		"string": "{membersCount, plural, one {# membro} many {# membros} other {# membros}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "Criar"
@@ -4230,26 +4197,8 @@
 	"tagPicker.tagNotFound": {
 		"string": "Tag #{tag} não encontrada."
 	},
-	"task.answeredBy": {
-		"string": "Completada por {byName}"
-	},
 	"task.assignOrUnassign": {
 		"string": "Atribuir/Remover atribuição"
-	},
-	"task.assignedTo": {
-		"string": "Atribuída a {name}"
-	},
-	"task.confirmDelete": {
-		"string": "Tem certeza que deseja excluir esta tarefa?"
-	},
-	"task.confirmDeleteResponse": {
-		"string": "Tem certeza de que deseja excluir esta resposta?"
-	},
-	"task.confirmDeleteResponseTitle": {
-		"string": "Excluir resposta?"
-	},
-	"task.confirmDeleteTitle": {
-		"string": "Excluir tarefa?"
 	},
 	"task.delete": {
 		"string": "Excluir tarefa"
@@ -4287,7 +4236,7 @@
 		"string": "Todas as tarefas"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "{length, plural, one {# selecionada} other {# selecionadas}}",
+		"string": "{length, plural, one {# selecionada} many {# selecionadas} other {# selecionadas}}",
 		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.UrlDescription": {
@@ -4313,14 +4262,9 @@
 	"tasks.assign": {
 		"string": "Atribuir"
 	},
-	"tasks.attributionSlogan": {
-		"string": "Para a tarefa \"{label}\""
-	},
-	"tasks.blankMetadata": {
-		"string": "Sem campos de metadados"
-	},
-	"tasks.blankTasks": {
-		"string": "Não há tarefas"
+	"tasks.blankAnnotation": {
+		"string": "No annotation fields",
+		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
 		"string": "Cancelar"
@@ -4363,12 +4307,6 @@
 	},
 	"tasks.description": {
 		"string": "Descrição (opcional)"
-	},
-	"tasks.editAssignment": {
-		"string": "Editar atribuição"
-	},
-	"tasks.editAttribution": {
-		"string": "Editar atribuição"
 	},
 	"tasks.fileUpload": {
 		"string": "Carregamento de arquivo"
@@ -4425,9 +4363,6 @@
 	"tasks.showIfCondition": {
 		"string": "Mostrar campo quando a condição é atendida",
 		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-	},
-	"tasks.showInProj": {
-		"string": "Mostrar tarefas em"
 	},
 	"tasks.singleChoiceDescription": {
 		"string": "Permite a você selecionar uma única opção a partir de opções predefinidas em uma lista",
@@ -4751,9 +4686,6 @@
 	"teamSettings.statuses": {
 		"string": "Status"
 	},
-	"teamSettings.tasks": {
-		"string": "Tarefas"
-	},
 	"teamSettings.tipline": {
 		"string": "Tipline"
 	},
@@ -4761,7 +4693,7 @@
 		"string": "Adicionar tag"
 	},
 	"teamTags.confirmDeleteBody": {
-		"string": "{numTags, plural, one {A tag \"{tag}\" será removida de um item.} other {A tag \"{tag}\" será removida de # itens.}}"
+		"string": "{numTags, plural, one {A tag \"{tag}\" será removida de um item.} many {A tag \"{tag}\" será removida de # itens.} other {A tag \"{tag}\" será removida de # itens.}}"
 	},
 	"teamTags.confirmDeleteLabel": {
 		"string": "Excluir tag"
@@ -4880,31 +4812,16 @@
 	"teamTasks.confirmAction": {
 		"string": "Sim"
 	},
-	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, one {A tarefa {taskLabel} foi completada em # item.} other {A tarefa {taskLabel} foi completada em # itens.}}",
-		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
-	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
-		"string": "{itemsNumber, plural, one {O campo{fieldLabel} foi preenchido em # item.} other {O campo{fieldLabel} foi preenchido em # itens.}}",
+		"string": "{itemsNumber, plural, one {O campo{fieldLabel} foi preenchido em # item.} many {O campo{fieldLabel} foi preenchido em # itens.} other {O campo{fieldLabel} foi preenchido em # itens.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Você tem certeza que deseja excluir este campo?"
 	},
-	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "Tem certeza que deseja excluir esta tarefa?"
-	},
-	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Mantenha esta tarefa com respostas nos itens em que ela tiver sido completada.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
-	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
 		"string": "Mantenha este campo com respostas nos itens nos quais ele foi preenchido.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
-	},
-	"teamTasks.confirmEditBlurb": {
-		"string": "As tarefas de itens relacionados serão modificadas como consequência da aplicação dessa modificação, exceto aquelas que já tiverem sido completadas.",
-		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
 		"string": "Os campos de itens relacionados serão modificados como consequência da aplicação dessa alteração, com exceção daqueles que já foram preenchidos.",
@@ -4913,28 +4830,18 @@
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Você tem certeza que deseja editar este campo?"
 	},
-	"teamTasks.confirmEditTaskTitle": {
-		"string": "Tem certeza que deseja editar esta tarefa?"
-	},
-	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Não altere as tarefas que foram completadas e mantenha as respostas já existentes para elas.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
-	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
 		"string": "Não altere os campos que foram preenchidos e mantenha as respostas já existentes para eles.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
-		"string": "Editar tarefa"
+		"string": "Continuar"
 	},
 	"teamTasks.continueMetadata": {
 		"string": "Editar campo"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Excluir campo"
-	},
-	"teamTasks.deleteTask": {
-		"string": "Excluir tarefa"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Nenhuma tarefa} one {1 tarefa} other {# tarefas}}"
@@ -5237,7 +5144,7 @@
 		"string": "Começou a participar em {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {# espaço de trabalho} other {# espaços de trabalho}}"
+		"string": "{teamsCount, plural, one {# espaço de trabalho} many {# espaços de trabalho} other {# espaços de trabalho}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Adicionar Link"

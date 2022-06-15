@@ -305,17 +305,14 @@
 	"addLanguageAction.title": {
 		"string": "Pilih bahasa baru"
 	},
-	"annotation.acceptSuggestion": {
-		"string": "Terima"
+	"annotation.addLanguage": {
+		"string": "Language {value} added by {author}"
+	},
+	"annotation.addSource": {
+		"string": "Source {name} add by {author}"
 	},
 	"annotation.addedComment": {
 		"string": "Catatan tugas ditambahkan oleh {author}: {title}{note}"
-	},
-	"annotation.archiverError": {
-		"string": "Maaf, terjadi kesalahan berikut saat mengarsipkan perihal ke {name}: \"{message}.\" Silakan segarkan perihal untuk mencoba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
-	},
-	"annotation.archiverSuccess": {
-		"string": "Jika perihal berada di luar jaringan, Anda dapat <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">mengakses cadangan di {name}</a>."
 	},
 	"annotation.archiverWait": {
 		"string": "Perihal ini diarsipkan di {name}. Tautan arsip akan ditampilkan di sini saat siap."
@@ -329,17 +326,27 @@
 	"annotation.changedJsonSchema": {
 		"string": "Skema JSON dari tugas {title} diubah oleh {author}"
 	},
+	"annotation.createClaimContext": {
+		"string": "Additional content added by {author}: {value}"
+	},
+	"annotation.createClaimDescription": {
+		"string": "Claim added by {author}: {value}"
+	},
+	"annotation.createFactCheck": {
+		"string": "Fact-check title added by {author}: {value}"
+	},
+	"annotation.createProjectMedia": {
+		"string": "Item created by {author}"
+	},
 	"annotation.deleteButton": {
 		"string": "Hapus"
-	},
-	"annotation.deletedComment": {
-		"string": "Komentar dihapus oleh {author}: {comment}"
 	},
 	"annotation.editButton": {
 		"string": "Sunting"
 	},
-	"annotation.embedCodeCopied": {
-		"string": "Kode penanaman dari perihal ini telah dibuat dan disalin. Perihal ini sekarang akan dapat dilihat secara publik."
+	"annotation.editedBy": {
+		"string": "edited by",
+		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
 		"string": "Judul perihal dihapus oleh {author}: {title}"
@@ -355,42 +362,6 @@
 	},
 	"annotation.embedNoteUpdated": {
 		"string": "Deskripsi perihal disunting oleh {author}: {description}"
-	},
-	"annotation.flag": {
-		"string": "Hasil klasifikasi:"
-	},
-	"annotation.flagAdult": {
-		"string": "Dewasa"
-	},
-	"annotation.flagLikelihood0": {
-		"string": "Tidak diketahui"
-	},
-	"annotation.flagLikelihood1": {
-		"string": "Sangat tidak mungkin"
-	},
-	"annotation.flagLikelihood2": {
-		"string": "Tidak mungkin"
-	},
-	"annotation.flagLikelihood3": {
-		"string": "Bisa jadi"
-	},
-	"annotation.flagLikelihood4": {
-		"string": "Mungkin"
-	},
-	"annotation.flagLikelihood5": {
-		"string": "Sangat mungkin"
-	},
-	"annotation.flagMedical": {
-		"string": "Medis"
-	},
-	"annotation.flagRacy": {
-		"string": "Cabul"
-	},
-	"annotation.flagSpam": {
-		"string": "Spam"
-	},
-	"annotation.flagViolence": {
-		"string": "Kekerasan"
 	},
 	"annotation.mediaAssigned": {
 		"string": "Perihal ditugaskan ke {name} oleh {author}"
@@ -411,13 +382,7 @@
 		"string": "Bidang anotasi dibuat oleh {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Bidang anotasi \"{fieldLabel}\" diisi oleh {author}: {response}"
-	},
-	"annotation.movedFromTrash": {
-		"string": "Dikeluarkan dari Tong Sampah oleh {author}"
-	},
-	"annotation.movedToTrash": {
-		"string": "Dibuang ke Tong Sampah oleh {author}"
+		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
 	},
 	"annotation.newReport": {
 		"string": "Perihal ditambahkan oleh {author}"
@@ -428,32 +393,22 @@
 	"annotation.openInSlack": {
 		"string": "Buka di Slack"
 	},
-	"annotation.penderArchiveResponse": {
-		"string": "Keep telah mengambil tangkapan layar dari URL ini."
-	},
-	"annotation.penderArchiveResponseError": {
-		"string": "Maaf, terjadi kesalahan saat mengambil tangkapan layar dari perihal ini. Silakan segarkan perihal untuk mencoba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
-	},
-	"annotation.penderArchiveWait": {
-		"string": "Tangkapan layar dari perihal ini diambil oleh Keep. Kembali dalam beberapa menit untuk melihatnya."
+	"annotation.pausedBy": {
+		"string": "paused by",
+		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "Permalink"
 	},
-	"annotation.projectMoved": {
-		"string": "Dipindahkan dari folder {previousProject} ke {currentProject} oleh {author}"
-	},
-	"annotation.rejectSuggestion": {
-		"string": "Tolak"
-	},
-	"annotation.relationshipCreated": {
-		"string": "Perihal terkait ditambahkan oleh {author}: {title}"
-	},
-	"annotation.relationshipDestroyed": {
-		"string": "Perihal terkait dihapus oleh {author}: {title}"
+	"annotation.publishedBy": {
+		"string": "published by",
+		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "Catatan tugas dihapus oleh {author}: {title}{note} "
+	},
+	"annotation.reportDesignState": {
+		"string": "Fact-check report {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "Laporan dikirimkan pada {date}"
@@ -461,14 +416,11 @@
 	"annotation.reportUpdateReceived": {
 		"string": "Pembaruan laporan dikirimkan pada {date}"
 	},
-	"annotation.seeHowThisBotWorks": {
-		"string": "Lihat bagaimana bot ini bekerja"
-	},
 	"annotation.similarCreated": {
-		"string": "Dikonfirmasi mirip oleh {author}: {title}"
+		"string": "Match confirmed by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Yang dikonfirmasi mirip telah dipisahkan oleh {author}: {title}",
+		"string": "Match deleted by {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -478,34 +430,25 @@
 		"string": "Status perihal dikunci oleh {author}"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status ditetapkan ke {status} oleh {author}"
+		"string": "Status changed to {status} by {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "Status perihal dibuka kuncinya oleh {author}"
 	},
-	"annotation.suggestionAccepted": {
-		"string": "Diterima oleh {user}"
-	},
 	"annotation.suggestionCreated": {
-		"string": "Disarankan cocok oleh {author}: {title}"
+		"string": "Match suggested by {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Disarankan tidak cocok oleh {author}: {title}"
-	},
-	"annotation.suggestionRejected": {
-		"string": "Ditolak oleh {user}"
+		"string": "Match rejected by {author}: {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Ditandai #{tag} oleh {author}"
+		"string": "Tag #{tag} added by {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "Tugas diberikan ke {name} oleh{author}: {title}  "
 	},
 	"annotation.taskAssignmentDeleted": {
 		"string": "Tugas dibatalkan dari {name} oleh {author}: {title}"
-	},
-	"annotation.taskCreated": {
-		"string": "Tugas dibuat oleh {author}: {task}"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "Tugas disunting oleh {author}: {title}"
@@ -516,14 +459,21 @@
 	"annotation.taskNoteUpdated": {
 		"string": "Catatan tugas disunting oleh {author}: {title}{note}"
 	},
-	"annotation.taskResolve": {
-		"string": "Tugas diselesaikan oleh {author}: {task} {response}"
-	},
-	"annotation.teamCopied": {
-		"string": "Disalin dari ruang kerja {previousTeam} oleh {author}"
-	},
 	"annotation.titleChanged": {
 		"string": "Judul perihal disunting oleh {author}: {title}"
+	},
+	"annotation.unknownLanguage": {
+		"string": "Bahasa tidak diketahui",
+		"developer_comment": "Show label for undefined language"
+	},
+	"annotation.updateClaimContext": {
+		"string": "Additional content edited by {author}: {value}"
+	},
+	"annotation.updateClaimDescription": {
+		"string": "Claim edited by {author}: {value}"
+	},
+	"annotation.updateSource": {
+		"string": "Source {name} updated by {author}"
 	},
 	"annotations.loadMore": {
 		"string": "Muat lebih"
@@ -577,6 +527,9 @@
 		"string": "Pindahkan ke folder",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
+	"bulkActions.moveToSpamSuccessfully": {
+		"string": "Items moved to the Spam."
+	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Perihal dibuang ke Tong Sampah."
 	},
@@ -588,11 +541,20 @@
 		"string": "Perihal dipindahkan ke '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
+	"bulkActions.notSpam": {
+		"string": "Not Spam"
+	},
 	"bulkActions.restore": {
 		"string": "Kembalikan dari Tong Sampah"
 	},
+	"bulkActions.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Buang perihal yang dipilih ke Tong Sampah"
+		"string": "Send to trash"
+	},
+	"bulkActions.spam": {
+		"string": "Not spam selected items and move items to another folder"
 	},
 	"bulkActions.trash": {
 		"string": "Kembalikan perihal yang dipilih dan pindahkan ke folder lain"
@@ -701,7 +663,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "Terjadi konflik basis data.",
+		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
@@ -761,8 +723,8 @@
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "Fitur Tugas akan dihentikan pada 30 April. Hubungi dukungan jika Anda memiliki pertanyaan tentang cara menggantinya dengan Anotasi.",
-		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
+		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "+{number} lebih banyak",
@@ -905,15 +867,8 @@
 		"string": "Bidang anotasi baru",
 		"developer_comment": "Button that triggers creation of a new field"
 	},
-	"createTeamTask.addTask": {
-		"string": "Tugas baru",
-		"developer_comment": "Button that triggers creation of a new task"
-	},
 	"createTeamTask.errorMetadata": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui bidang metadata. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya berlanjut."
-	},
-	"createTeamTask.errorTask": {
-		"string": "Maaf, terjadi kesalahan saat membuat tugas. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya berlanjut. "
 	},
 	"customAutocomplete.done": {
 		"string": "Selesai",
@@ -1020,7 +975,7 @@
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"errorBoundary.message": {
-		"string": "Hello, I'm having trouble with Check. The web interface has just crashed and is blocking me from doing work!",
+		"string": "Halo, saya mengalami masalah dengan Check. Antarmuka web baru saja macet dan menghalangi saya melakukan pekerjaan!",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
@@ -1033,7 +988,7 @@
 		"string": "Batalkan"
 	},
 	"filter.tag.deleted": {
-		"string": "Property deleted",
+		"string": "Keterangan telah dihapus",
 		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
@@ -1209,6 +1164,9 @@
 	},
 	"languagesComponent.title": {
 		"string": "Bahasa"
+	},
+	"limitedTextFieldWithCounter.counter": {
+		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
 	},
 	"list.Demand": {
 		"string": "Permintaan"
@@ -1386,8 +1344,11 @@
 	"mediaActions.refresh": {
 		"string": "Segarkan"
 	},
+	"mediaActions.sendToSpam": {
+		"string": "Mark as Spam"
+	},
 	"mediaActions.sendToTrash": {
-		"string": "Pindahkan ke Tong Sampah"
+		"string": "Send to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Tindakan perihal"
@@ -1428,8 +1389,14 @@
 	"mediaActionsBar.movedRestoreBack": {
 		"string": "Dikembalikan dari Tong Sampah, mengalihkan..."
 	},
+	"mediaActionsBar.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "Perihal telah dipindahkan ke {trash}"
+	},
+	"mediaActionsBar.notSpamTo": {
+		"string": "Not spam"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Laporan yang sudah diterbitkan"
@@ -1525,9 +1492,6 @@
 	"mediaComponent.source": {
 		"string": "Sumber"
 	},
-	"mediaComponent.tasks": {
-		"string": "Tugas"
-	},
 	"mediaComponent.timelineTab": {
 		"string": "Lini masa"
 	},
@@ -1544,6 +1508,9 @@
 	},
 	"mediaCreatedBy.createdBy": {
 		"string": "Perihal dibuat oleh {name}"
+	},
+	"mediaDetail.spam": {
+		"string": "Spam"
 	},
 	"mediaDetail.trash": {
 		"string": "Tong Sampah"
@@ -1603,11 +1570,11 @@
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
 	"mediaFactCheck.claimMissingDesc": {
-		"string": "You must add a claim to access the fact-check report.",
+		"string": "Anda harus menambahkan klaim untuk mengakses laporan pengecekan fakta.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.claimMissingTitle": {
-		"string": "Claim missing",
+		"string": "Klaim tidak ada",
 		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.confirmButtonLabel": {
@@ -1630,7 +1597,7 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "URL artikel yang diterbitkan",
+		"string": "Article URL",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -1687,10 +1654,6 @@
 	"mediaMetadata.ImageSearch": {
 		"string": "Pencarian balik gambar",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
-	},
-	"mediaMetadata.Timeline": {
-		"string": "Lini masa",
-		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
 		"string": "Tindakan audio",
@@ -1837,6 +1800,12 @@
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Pindahkan perihal"
 	},
+	"mediaSuggestionsComponent.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
+	"mediaSuggestionsComponent.movedToTrash": {
+		"string": "Perihal telah dipindahkan ke {trash}"
+	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "Tidak ada media yang disarankan."
 	},
@@ -1846,6 +1815,12 @@
 	},
 	"mediaSuggestionsComponent.requestsCount": {
 		"string": "{number} permintaan tipline di semua media"
+	},
+	"mediaSuggestionsComponent.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
+	"mediaSuggestionsComponent.sendItemsToTrash": {
+		"string": "Send to trash"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, other {{current} dari # media yang disarankan}}"
@@ -2188,6 +2163,9 @@
 		"string": "{length, plural, other {# dipilih}}",
 		"developer_comment": "Label for number of selected folders"
 	},
+	"projects.spam": {
+		"string": "Spam"
+	},
 	"projects.trash": {
 		"string": "Tong Sampah"
 	},
@@ -2372,7 +2350,7 @@
 		"string": "Siap untuk menerbitkan perubahan Anda?"
 	},
 	"reportDesigner.content": {
-		"string": "Summary ({max} characters max)"
+		"string": "Ringkasan"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "Konten dengan peringatan tidak dapat<br />dipublikasikan sebagai kartu visual.",
@@ -2380,12 +2358,6 @@
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Disalin"
-	},
-	"reportDesigner.copyEmbedCode": {
-		"string": "Salin kode penanaman"
-	},
-	"reportDesigner.copyShareUrl": {
-		"string": "Salin URL yang dibagikan"
 	},
 	"reportDesigner.correction": {
 		"string": "koreksi"
@@ -2397,7 +2369,7 @@
 		"string": "Tanggal diterbitkan"
 	},
 	"reportDesigner.description": {
-		"string": "Summary ({max} characters max)"
+		"string": "Ringkasan"
 	},
 	"reportDesigner.error": {
 		"string": "Maaf, terjadi kesalahan saat memperbarui pengaturan laporan. Silakan coba lagi dan hubungi {supportEmail} jika keadaannya terus berlanjut."
@@ -2410,7 +2382,7 @@
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
-		"string": "Judul (maksimal {max} karakter)"
+		"string": "Judul"
 	},
 	"reportDesigner.incorrectWarning": {
 		"string": "Apakah penerapan peringatan konten ini keliru?",
@@ -2421,6 +2393,9 @@
 	},
 	"reportDesigner.introductionSub": {
 		"string": "Gunakan placeholder {query_date} untuk menampilkan tanggal pertanyaan asli. Gunakan {status} untuk mengomunikasikan status artikel."
+	},
+	"reportDesigner.lastPublished": {
+		"string": "Last published"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Mulai buat laporan Anda untuk meninjau terlebih dahulu apa yang akan dilihat pengguna saat mereka menerimanya."
@@ -2448,17 +2423,17 @@
 		"string": "Laporan terkirim"
 	},
 	"reportDesigner.statusLabel": {
-		"string": "Label status (maksimal {max} karakter)"
+		"string": "Status label"
 	},
 	"reportDesigner.text": {
 		"string": "Teks",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textTitle": {
-		"string": "Judul (maksimal {max} karakter)"
+		"string": "Judul"
 	},
 	"reportDesigner.textUrl": {
-		"string": "Published article URL ({max} characters max)",
+		"string": "Article URL",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
@@ -2469,7 +2444,7 @@
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
-		"string": "URL situs web (maksimal {max} karakter)"
+		"string": "URL situs web"
 	},
 	"reportDesigner.useDefaultImage": {
 		"string": "Gunakan gambar bawaan"
@@ -2494,7 +2469,7 @@
 		"string": "Perihal Anda memiliki status bawaan {status} dan harus diubah ke status yang berbeda sebelum dapat diterbitkan."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "You must add a title and a summary to the fact-check in order to publish the report."
+		"string": "Anda harus menambahkan judul dan ringkasan ke pengecekan fakta untuk menerbitkan laporan"
 	},
 	"reportStatusCell.paused": {
 		"string": "Ditunda"
@@ -2950,13 +2925,6 @@
 	"searchKeywordConfig.allNotes": {
 		"string": "Semua catatan"
 	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Semua jawaban dari tugas",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Semua komentar dari tugas"
-	},
 	"searchKeywordConfig.analysisContent": {
 		"string": "Analisis konten"
 	},
@@ -2993,10 +2961,6 @@
 	},
 	"searchKeywordConfig.tags": {
 		"string": "Label"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "Tugas",
-		"developer_comment": "Header before a listing of task options"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, other {{from} - {to} / #}}"
@@ -3873,7 +3837,7 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "Buletin akan dikirim ke {count} pengguna pada {date}, {time}"
+		"string": "The newsletter will be sent to {count} users on {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
 		"string": "Tambah artikel",
@@ -3904,11 +3868,11 @@
 		"string": "Jumat"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
+		"string": "Gunakan placeholder \\{channel\\} untuk memasukkan nama layanan olah pesan secara otomatis.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
+		"string": "Gunakan placeholder \\{date\\} untuk memasukkan tanggal buletin dikirim secara otomatis.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -3982,7 +3946,7 @@
 		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Delete resource"
+		"string": "Hapus materi"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": "URL ini tampaknya bukan umpan RSS yang valid"
@@ -4093,6 +4057,9 @@
 	"sourceInfo.sourceName": {
 		"string": "Tambah nama",
 		"developer_comment": "label for create source name"
+	},
+	"spam.title": {
+		"string": "Spam"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "Ini akan mengubah bahasa bawaan dari {currentDefaultLanguage} ke {newDefaultLanguage}."
@@ -4230,26 +4197,8 @@
 	"tagPicker.tagNotFound": {
 		"string": "Label #{tag} tidak ditemukan."
 	},
-	"task.answeredBy": {
-		"string": "Diselesaikan oleh {byName}"
-	},
 	"task.assignOrUnassign": {
 		"string": "Tugaskan/Batalkan tugas"
-	},
-	"task.assignedTo": {
-		"string": "Ditugaskan ke {name}"
-	},
-	"task.confirmDelete": {
-		"string": "Anda yakin ingin menghapus tugas ini?"
-	},
-	"task.confirmDeleteResponse": {
-		"string": "Anda yakin ingin menghapus jawaban ini?"
-	},
-	"task.confirmDeleteResponseTitle": {
-		"string": "Hapus jawaban?"
-	},
-	"task.confirmDeleteTitle": {
-		"string": "Hapus tugas?"
 	},
 	"task.delete": {
 		"string": "Hapus tugas"
@@ -4313,14 +4262,9 @@
 	"tasks.assign": {
 		"string": "Tugaskan"
 	},
-	"tasks.attributionSlogan": {
-		"string": "Untuk tugas, \"{label}\""
-	},
-	"tasks.blankMetadata": {
-		"string": "Tidak ada bidang metadata"
-	},
-	"tasks.blankTasks": {
-		"string": "Tidak ada tugas"
+	"tasks.blankAnnotation": {
+		"string": "No annotation fields",
+		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
 		"string": "Batalkan"
@@ -4363,12 +4307,6 @@
 	},
 	"tasks.description": {
 		"string": "Deskripsi (opsional)"
-	},
-	"tasks.editAssignment": {
-		"string": "Sunting penugasan"
-	},
-	"tasks.editAttribution": {
-		"string": "Sunting atribusi"
 	},
 	"tasks.fileUpload": {
 		"string": "Unggahan berkas"
@@ -4425,9 +4363,6 @@
 	"tasks.showIfCondition": {
 		"string": "Tampilkan bidang saat kondisi terpenuhi",
 		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-	},
-	"tasks.showInProj": {
-		"string": "Tampilkan tugas di"
 	},
 	"tasks.singleChoiceDescription": {
 		"string": "Memungkinkan Anda untuk memilih satu opsi dari opsi yang telah ditentukan sebelumnya dalam daftar",
@@ -4751,9 +4686,6 @@
 	"teamSettings.statuses": {
 		"string": "Status"
 	},
-	"teamSettings.tasks": {
-		"string": "Tugas"
-	},
 	"teamSettings.tipline": {
 		"string": "Tipline"
 	},
@@ -4880,10 +4812,6 @@
 	"teamTasks.confirmAction": {
 		"string": "Ya"
 	},
-	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, other {Tugas {taskLabel} telah diselesaikan di # perihal.}}",
-		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
-	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
 		"string": "{itemsNumber, plural, other {Bidang {fieldLabel} telah diselesaikan di # perihal.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
@@ -4891,20 +4819,9 @@
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "Anda yakin ingin menghapus bidang ini?"
 	},
-	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "Anda yakin ingin menghapus tugas ini?"
-	},
-	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "Simpan tugas ini dengan jawaban dalam perihal di mana tugas tersebut telah diselesaikan.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
-	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
 		"string": "Simpan bidang ini dengan jawaban dalam perihal di mana hal tersebut telah diselesaikan.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
-	},
-	"teamTasks.confirmEditBlurb": {
-		"string": "Tugas perihal terkait akan dimodifikasi sebagai konsekuensi dari penerapan pengubahan ini, kecuali tugas yang telah diselesaikan.",
-		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
 		"string": "Bidang perihal terkait akan dimodifikasi sebagai konsekuensi dari penerapan pengubahan ini, kecuali tugas yang telah diselesaikan.",
@@ -4913,28 +4830,18 @@
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "Anda yakin ingin menyunting bidang ini?"
 	},
-	"teamTasks.confirmEditTaskTitle": {
-		"string": "Anda yakin ingin menyunting tugas ini?"
-	},
-	"teamTasks.confirmEditkeepCompleted": {
-		"string": "Jangan mengubah tugas yang telah diselesaikan, dan simpan jawaban yang sudah ada.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
-	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
 		"string": "Jangan mengubah bidang yang telah diselesaikan, dan simpan jawaban yang sudah ada.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
-		"string": "Sunting tugas"
+		"string": "Lanjutkan"
 	},
 	"teamTasks.continueMetadata": {
 		"string": "Sunting bidang"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Hapus bidang"
-	},
-	"teamTasks.deleteTask": {
-		"string": "Hapus tugas"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {Tidak ada tugas} one {1 tugas} other {# tugas}}"

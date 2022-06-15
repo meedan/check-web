@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
 import TagMenu from '../tag/TagMenu';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
-import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import { units } from '../../styles/js/shared';
 
 const StyledMediaTagsContainer = styled.div`
@@ -103,13 +102,6 @@ class MediaTags extends React.Component {
     }
   }
 
-  handleVideoAnnotationIconClick = (e, fragment) => {
-    e.stopPropagation();
-    if (this.props.onTimelineCommentOpen) {
-      this.props.onTimelineCommentOpen(fragment);
-    }
-  };
-
   render() {
     const { projectMedia } = this.props;
     const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
@@ -126,14 +118,6 @@ class MediaTags extends React.Component {
                 return (
                   <li key={tag.node.id}>
                     <Chip
-                      icon={
-                        tag.node.fragment ?
-                          <VideoAnnotationIcon
-                            onClick={e =>
-                              this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
-                          />
-                          : null
-                      }
                       className="media-tags__tag"
                       onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
                       label={tag.node.tag_text.replace(/^#/, '')}

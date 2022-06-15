@@ -305,17 +305,14 @@
 	"addLanguageAction.title": {
 		"string": "اختيار لغة جديدة"
 	},
-	"annotation.acceptSuggestion": {
-		"string": "قبول"
+	"annotation.addLanguage": {
+		"string": "Language {value} added by {author}"
+	},
+	"annotation.addSource": {
+		"string": "Source {name} add by {author}"
 	},
 	"annotation.addedComment": {
 		"string": "قام(ت) {author} بإضافة تعليق على مهمة : {title}{note}"
-	},
-	"annotation.archiverError": {
-		"string": "عذراً، لقد واجهنا الخطأ التالي أثناء أرشفة العنصر إلى {name}: \"{message}\". يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"annotation.archiverSuccess": {
-		"string": "في حالة اختفاء هذا الرابط يمكنك <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">الحصول على نسخة احتياطية في {name}</a>."
 	},
 	"annotation.archiverWait": {
 		"string": "لقد تم إرسال هذا الرابط للحفاظ في {name} وسوف يظهر رابط النسخة اﻹحتياطية هنا عندما يصبح متاحاً."
@@ -329,17 +326,27 @@
 	"annotation.changedJsonSchema": {
 		"string": "قام(ت) {author} بتعديل مخطط JSON الخاص بمهمة {title}"
 	},
+	"annotation.createClaimContext": {
+		"string": "Additional content added by {author}: {value}"
+	},
+	"annotation.createClaimDescription": {
+		"string": "Claim added by {author}: {value}"
+	},
+	"annotation.createFactCheck": {
+		"string": "Fact-check title added by {author}: {value}"
+	},
+	"annotation.createProjectMedia": {
+		"string": "Item created by {author}"
+	},
 	"annotation.deleteButton": {
 		"string": "حذف"
-	},
-	"annotation.deletedComment": {
-		"string": "قام(ت) {author} بحذف التعليق: {comment}"
 	},
 	"annotation.editButton": {
 		"string": "تحرير"
 	},
-	"annotation.embedCodeCopied": {
-		"string": "لقد تم إنشاء ونسخ تعليمات تضمين العنصر وهو اﻵن قابل للعرض العام."
+	"annotation.editedBy": {
+		"string": "edited by",
+		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
 		"string": "قام(ت) {author} بحذف عنوان العنصر : {title}"
@@ -355,42 +362,6 @@
 	},
 	"annotation.embedNoteUpdated": {
 		"string": "قام(ت) {author} بتعديل وصف العنصر: {description}"
-	},
-	"annotation.flag": {
-		"string": "نتيجة التصنيف:"
-	},
-	"annotation.flagAdult": {
-		"string": "للبالغين"
-	},
-	"annotation.flagLikelihood0": {
-		"string": "غير معروف"
-	},
-	"annotation.flagLikelihood1": {
-		"string": "مُستبعدة جدا"
-	},
-	"annotation.flagLikelihood2": {
-		"string": "مُستبعدة"
-	},
-	"annotation.flagLikelihood3": {
-		"string": "ممكنة"
-	},
-	"annotation.flagLikelihood4": {
-		"string": "محتملة"
-	},
-	"annotation.flagLikelihood5": {
-		"string": "محتملة جدا"
-	},
-	"annotation.flagMedical": {
-		"string": "طبية"
-	},
-	"annotation.flagRacy": {
-		"string": "جنسي"
-	},
-	"annotation.flagSpam": {
-		"string": "إعلانية مزعجة"
-	},
-	"annotation.flagViolence": {
-		"string": "عنف"
 	},
 	"annotation.mediaAssigned": {
 		"string": "قام المؤلف {author} بتخصيص العنصر لـ {name}"
@@ -411,13 +382,7 @@
 		"string": "‫لقد تم إنشاء حقل التعقيب من طرف {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "‫لقد تم ملء حقل التعقيب « {fieldLabel} » من طرف{author}: {response}"
-	},
-	"annotation.movedFromTrash": {
-		"string": "نُقل خارج سلة المهملات من طرف {author}"
-	},
-	"annotation.movedToTrash": {
-		"string": "نُقل إلى سلة المهملات من طرف {author}"
+		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
 	},
 	"annotation.newReport": {
 		"string": "قام(ت) {author} بإضافة العنصر"
@@ -428,32 +393,22 @@
 	"annotation.openInSlack": {
 		"string": "فتح في Slack"
 	},
-	"annotation.penderArchiveResponse": {
-		"string": "أتخذ Keep  لقطة شاشة للرّابط."
-	},
-	"annotation.penderArchiveResponseError": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء التقاط شاشة العنصر. يرجى إعادة المحاولة بتحديث العنصر والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"annotation.penderArchiveWait": {
-		"string": "Keep يقوم بالتقاط لقطة لشاشة هذا العنصر، يرجى العودة هنا بعد دقائق لرؤيتها."
+	"annotation.pausedBy": {
+		"string": "paused by",
+		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "الرابط الثابت"
 	},
-	"annotation.projectMoved": {
-		"string": "نُقل من المجلد {previousProject} إلى {currentProject} من طرف {author}"
-	},
-	"annotation.rejectSuggestion": {
-		"string": "رفض"
-	},
-	"annotation.relationshipCreated": {
-		"string": "قام(ت) {author} بإضافة عنصر مرتبط : {title}"
-	},
-	"annotation.relationshipDestroyed": {
-		"string": "قام(ت) {author} بحذف عنصر مرتبط : {title}"
+	"annotation.publishedBy": {
+		"string": "published by",
+		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "قام(ت) {author} بحذف تعليق على مهمة : {title}{note}"
+	},
+	"annotation.reportDesignState": {
+		"string": "Fact-check report {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "أُرسِل التقرير في {date}"
@@ -461,14 +416,11 @@
 	"annotation.reportUpdateReceived": {
 		"string": "أُرسِل تحديث للتقرير في {date}"
 	},
-	"annotation.seeHowThisBotWorks": {
-		"string": "فحص كيفية عمل هذا البوت"
-	},
 	"annotation.similarCreated": {
-		"string": "قام {author} بالتأكد من تشابُهه : {title}"
+		"string": "Match confirmed by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "قام(ت) {author} بإلغاء تأكيد تشابه: {title}",
+		"string": "Match deleted by {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -478,34 +430,25 @@
 		"string": "قام(ت) {author} بإقفال حالة العنصر"
 	},
 	"annotation.statusSetHeader": {
-		"string": "قام(ت) {author} بتغيير الحالة إلى {status}"
+		"string": "Status changed to {status} by {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "قام(ت) {author} بإلغاء إقفال حالة العنصر"
 	},
-	"annotation.suggestionAccepted": {
-		"string": "تم القبول من {user}"
-	},
 	"annotation.suggestionCreated": {
-		"string": "قام {author} باقتراح توافق : {title}"
+		"string": "Match suggested by {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "رفض {author} اقتراح التوافق المُقترَح : {title}"
-	},
-	"annotation.suggestionRejected": {
-		"string": "تم الرّفض من {user}"
+		"string": "Match rejected by {author}: {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "قام(ت) {author} بإضافة الوسم ‎#{tag}"
+		"string": "Tag #{tag} added by {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "قام المؤلف {author} بتعيين مهمة لـ {name} : {title}"
 	},
 	"annotation.taskAssignmentDeleted": {
 		"string": "قام المؤلف {author} بإزالة مهمة عن {name} : {title}"
-	},
-	"annotation.taskCreated": {
-		"string": "قام(ت) {author} بإضافة مهمة : {task}"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "قام(ت) {author} بتعديل مهمة : {title}"
@@ -516,14 +459,21 @@
 	"annotation.taskNoteUpdated": {
 		"string": "قام(ت) {author} بتعديل تعليق على مهمة : {title}{note}"
 	},
-	"annotation.taskResolve": {
-		"string": "قام(ت) {author} بإنجاز المهمة: {task}{response}"
-	},
-	"annotation.teamCopied": {
-		"string": "قام(ت) {author} بنسخه من مساحة العمل {previousTeam}"
-	},
 	"annotation.titleChanged": {
 		"string": "قام(ت) {author} بتعديل عنوان العنصر : {title}"
+	},
+	"annotation.unknownLanguage": {
+		"string": "Unknown language",
+		"developer_comment": "Show label for undefined language"
+	},
+	"annotation.updateClaimContext": {
+		"string": "Additional content edited by {author}: {value}"
+	},
+	"annotation.updateClaimDescription": {
+		"string": "Claim edited by {author}: {value}"
+	},
+	"annotation.updateSource": {
+		"string": "Source {name} updated by {author}"
 	},
 	"annotations.loadMore": {
 		"string": "تحميل المزيد"
@@ -577,6 +527,9 @@
 		"string": "نقل إلى مجلد",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
+	"bulkActions.moveToSpamSuccessfully": {
+		"string": "Items moved to the Spam."
+	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "تم إرسال العناصر إلى سلة المهملات."
 	},
@@ -588,11 +541,20 @@
 		"string": "تم إرسال العناصر إلى {toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
+	"bulkActions.notSpam": {
+		"string": "Not Spam"
+	},
 	"bulkActions.restore": {
 		"string": "الاستعادة من سلة المهملات"
 	},
+	"bulkActions.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "إرسال العناصر المحددة إلى سلة المهملات"
+		"string": "ارسال إلى سلة المهملات"
+	},
+	"bulkActions.spam": {
+		"string": "Not spam selected items and move items to another folder"
 	},
 	"bulkActions.trash": {
 		"string": "استعادة العناصر المحددة ونقلها إلى مجلد آخر"
@@ -701,7 +663,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "هناك تعارض في قاعدة البيانات.",
+		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
@@ -761,8 +723,8 @@
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "ستتوقف خاصية المهام في 30 أبريل (نيسان). يُرجى التواصل مع فريق الدعم إذا كانت لديك أسئلة عن كيفية إحلالها بخاصية التعليقات.",
-		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on April 30, 2022."
+		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
 	"checkedByTeamsCell.more": {
 		"string": "‫+{number} أيضا",
@@ -905,15 +867,8 @@
 		"string": "إضافة حقل تفسير جديد",
 		"developer_comment": "Button that triggers creation of a new field"
 	},
-	"createTeamTask.addTask": {
-		"string": "مهمة جديدة",
-		"developer_comment": "Button that triggers creation of a new task"
-	},
 	"createTeamTask.errorMetadata": {
 		"string": "عذراً ، لقد واجهنا خطأ ما اثناء تحديث حقل بيانات التعريف. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
-	},
-	"createTeamTask.errorTask": {
-		"string": "عذراً ، لقد واجهنا خطأ ما اثناء إنشاء المهمة. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
 	},
 	"customAutocomplete.done": {
 		"string": "تمَّ",
@@ -1020,7 +975,7 @@
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
 	"errorBoundary.message": {
-		"string": "Hello, I'm having trouble with Check. The web interface has just crashed and is blocking me from doing work!",
+		"string": "‫مرحباً، عندي مشكلة في استخدام Check. لقد وقع عطب في واجهة الويب، وذلك يمنعني من مزاولة عملي !",
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
@@ -1033,7 +988,7 @@
 		"string": "إلغاء"
 	},
 	"filter.tag.deleted": {
-		"string": "Property deleted",
+		"string": "تم حذف هذه الخاصية",
 		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
@@ -1209,6 +1164,9 @@
 	},
 	"languagesComponent.title": {
 		"string": "اللغات"
+	},
+	"limitedTextFieldWithCounter.counter": {
+		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
 	},
 	"list.Demand": {
 		"string": "الطلبات"
@@ -1386,8 +1344,11 @@
 	"mediaActions.refresh": {
 		"string": "تحديث"
 	},
+	"mediaActions.sendToSpam": {
+		"string": "Mark as Spam"
+	},
 	"mediaActions.sendToTrash": {
-		"string": "نقل إلى سلة المهملات"
+		"string": "Send to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "إجراءات العنصر"
@@ -1428,8 +1389,14 @@
 	"mediaActionsBar.movedRestoreBack": {
 		"string": "تمت الاستعادة من سلة المهملات، تجري الآن إعادة التوجيه…"
 	},
+	"mediaActionsBar.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "نُقل العنصر إلى {trash}"
+	},
+	"mediaActionsBar.notSpamTo": {
+		"string": "Not spam"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "تقرير منشور"
@@ -1525,9 +1492,6 @@
 	"mediaComponent.source": {
 		"string": "المصدر"
 	},
-	"mediaComponent.tasks": {
-		"string": "المهام"
-	},
 	"mediaComponent.timelineTab": {
 		"string": "الجدول الزمني"
 	},
@@ -1544,6 +1508,9 @@
 	},
 	"mediaCreatedBy.createdBy": {
 		"string": "تم إنشاء هذا العنصر بواسطة {name}"
+	},
+	"mediaDetail.spam": {
+		"string": "إعلانية مزعجة"
 	},
 	"mediaDetail.trash": {
 		"string": "سلة المهملات"
@@ -1603,11 +1570,11 @@
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
 	"mediaFactCheck.claimMissingDesc": {
-		"string": "You must add a claim to access the fact-check report.",
+		"string": "لا بد من إضافة ادعاء قبل التوجه إلى تقرير تقصي الحقائق.",
 		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.claimMissingTitle": {
-		"string": "Claim missing",
+		"string": "غياب الادعاء",
 		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.confirmButtonLabel": {
@@ -1630,7 +1597,7 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "رابط المقال المنشور",
+		"string": "Article URL",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -1687,10 +1654,6 @@
 	"mediaMetadata.ImageSearch": {
 		"string": "بحث عن طريق الصورة",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
-	},
-	"mediaMetadata.Timeline": {
-		"string": "الجدول الزمني",
-		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
 		"string": "إجراءات عناصر الصوت",
@@ -1837,6 +1800,12 @@
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "نقل العنصر"
 	},
+	"mediaSuggestionsComponent.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
+	"mediaSuggestionsComponent.movedToTrash": {
+		"string": "نُقل العنصر إلى {trash}"
+	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "لا توجد مواد إعلامية مقترحة."
 	},
@@ -1846,6 +1815,12 @@
 	},
 	"mediaSuggestionsComponent.requestsCount": {
 		"string": "{number} طلب للخط الساخن عبر كل المواد الإعلامية"
+	},
+	"mediaSuggestionsComponent.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
+	"mediaSuggestionsComponent.sendItemsToTrash": {
+		"string": "ارسال إلى سلة المهملات"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, zero {لا شيء (« {current} ») من مجموع # مادة إعلامية المقترحة} one {{current} من مادة إعلامية واحدة مقترحة} two {{current} من مجموع مادتين إعلاميتين مقترحتين} few {{current} من مجموع # مواد إعلامية مقترحة} many {{current} من مجموع # مادة إعلامية مقترحة} other {{current} من مجموع # مادة إعلامية مقترحة}}"
@@ -2188,6 +2163,9 @@
 		"string": "{length, plural, zero {لا قوائم محددة} one {واحدة محدد} two {# محددتان} few {# محددة} many {# محددة} other {# محددة}}",
 		"developer_comment": "Label for number of selected folders"
 	},
+	"projects.spam": {
+		"string": "إعلانية مزعجة"
+	},
 	"projects.trash": {
 		"string": "سلة المهملات"
 	},
@@ -2372,7 +2350,7 @@
 		"string": "هل هذه التغييرات جاهزة للنّشر؟ "
 	},
 	"reportDesigner.content": {
-		"string": "Summary ({max} characters max)"
+		"string": "الخلاصة"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "لا يمكن نشر المحتوى الذي يحوي تحذيرا <br /> على هيئة بطاقة مرئية.",
@@ -2380,12 +2358,6 @@
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "‏‏تم النسخ"
-	},
-	"reportDesigner.copyEmbedCode": {
-		"string": "نسخ كود التضمين"
-	},
-	"reportDesigner.copyShareUrl": {
-		"string": "نسخ رابط المشاركة"
 	},
 	"reportDesigner.correction": {
 		"string": "تصحيح"
@@ -2397,7 +2369,7 @@
 		"string": "تاريخ النشر"
 	},
 	"reportDesigner.description": {
-		"string": "Summary ({max} characters max)"
+		"string": "الخلاصة"
 	},
 	"reportDesigner.error": {
 		"string": "عذراً، لقد واجهنا خطأ ما أثناء تحديث إعدادات التقرير. يرجى إعادة المحاولة والتواصل مع {supportEmail} إن استمرت المشكلة."
@@ -2410,7 +2382,7 @@
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
-		"string": "العنوان (بحد أقصى {max} حرف)"
+		"string": "العنوان"
 	},
 	"reportDesigner.incorrectWarning": {
 		"string": "هل تم تفعيل تحذير المحتوى عن طريق الخطأ؟",
@@ -2421,6 +2393,9 @@
 	},
 	"reportDesigner.introductionSub": {
 		"string": "عليك باستخدام النص النائب {query_date} مبدئيا لعرض تاريخ البحث الأصلي. كما يمكنك استخدام {status} للإخبار عن حالة التقرير."
+	},
+	"reportDesigner.lastPublished": {
+		"string": "Last published"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "يرجى البدء بإنشاء التقرير لمعاينة ما سيراه المستخدمون عند استلام التقرير."
@@ -2448,17 +2423,17 @@
 		"string": "التقارير المرسلة"
 	},
 	"reportDesigner.statusLabel": {
-		"string": "عنوان الحالة (بحد أقصى {max} حرف)"
+		"string": "تسمية الحالة"
 	},
 	"reportDesigner.text": {
 		"string": "نص",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
 	"reportDesigner.textTitle": {
-		"string": "العنوان (بحد أقصى {max} حرف)"
+		"string": "العنوان"
 	},
 	"reportDesigner.textUrl": {
-		"string": "Published article URL ({max} characters max)",
+		"string": "Article URL",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
@@ -2469,7 +2444,7 @@
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
-		"string": "عنوان الموقع (بحد أقصى {max} حرف)"
+		"string": "رابط الموقع الإلكتروني"
 	},
 	"reportDesigner.useDefaultImage": {
 		"string": "استخدام الصورة الافتراضية"
@@ -2494,7 +2469,7 @@
 		"string": "العنصر الخاص بك ما زال في الحالة الإفتراضية {status} ولا بد من تغييره لحالة أخرى قبل أن تتمكن من نشره."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "You must add a title and a summary to the fact-check in order to publish the report."
+		"string": "يجب عليك إضافة عنوان وخلاصة لتقصي الحقائق لأجل نشر التقرير."
 	},
 	"reportStatusCell.paused": {
 		"string": "موقوف"
@@ -2950,13 +2925,6 @@
 	"searchKeywordConfig.allNotes": {
 		"string": "جميع الملاحظات"
 	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "جميع إجابات المهمة",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "جميع تعليقات المهمة"
-	},
 	"searchKeywordConfig.analysisContent": {
 		"string": "محتوى التحليل"
 	},
@@ -2993,10 +2961,6 @@
 	},
 	"searchKeywordConfig.tags": {
 		"string": "الوسوم"
-	},
-	"searchKeywordConfig.tasks": {
-		"string": "المهام",
-		"developer_comment": "Header before a listing of task options"
 	},
 	"searchResults.itemsCount": {
 		"string": "{count, plural, zero {{from} - {to} / #} one {1 / 1} two {{from} - {to} / #} few {{from} - {to} / #} many {{from} - {to} / #} other {{from} - {to} / #}}"
@@ -3873,7 +3837,7 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "سيتم إرسال الرسالة الإخبارية إلى {count} مستخدم في {date}، {time}"
+		"string": "The newsletter will be sent to {count} users on {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
 		"string": "إضافة مقال",
@@ -3904,11 +3868,11 @@
 		"string": "الجمعة"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
+		"string": "يُرجى استخدام النص النائب \\{channel\\} لإدخال اسم خدمة التواصل النصي تلقائيا.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
+		"string": "يُرجى استخدام النص النائب \\{date\\} لإدخال تاريخ إرسال الرسالة الإخبارية تلقائيا.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -3982,7 +3946,7 @@
 		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Delete resource"
+		"string": "حذف مورد"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": " لا يبدو هذا الرابط صالحًا لموجز RSS"
@@ -4093,6 +4057,9 @@
 	"sourceInfo.sourceName": {
 		"string": "إضافة اسم",
 		"developer_comment": "label for create source name"
+	},
+	"spam.title": {
+		"string": "إعلانية مزعجة"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "هذا سيغير اللغة الإفتراضية من {currentDefaultLanguage} إلى {newDefaultLanguage}."
@@ -4230,26 +4197,8 @@
 	"tagPicker.tagNotFound": {
 		"string": "إن الوسم {tag}# غير موجود."
 	},
-	"task.answeredBy": {
-		"string": "تم الاستكمال بواسطة {byName}"
-	},
 	"task.assignOrUnassign": {
 		"string": "التخصيص أو إلغاؤه"
-	},
-	"task.assignedTo": {
-		"string": "مُخصَّص لـ {name}"
-	},
-	"task.confirmDelete": {
-		"string": "أأنت على يقين من رغبتك في حذف هذه المهمة ؟"
-	},
-	"task.confirmDeleteResponse": {
-		"string": "متأكدة من رغبتك في حذف هذه اﻹجابة؟"
-	},
-	"task.confirmDeleteResponseTitle": {
-		"string": "حذف اﻹجابة؟"
-	},
-	"task.confirmDeleteTitle": {
-		"string": "حذف المهمة؟"
 	},
 	"task.delete": {
 		"string": "حذف المهمة"
@@ -4313,14 +4262,9 @@
 	"tasks.assign": {
 		"string": "تخصيص"
 	},
-	"tasks.attributionSlogan": {
-		"string": "للمهمة \"{label}\""
-	},
-	"tasks.blankMetadata": {
-		"string": "لا توجد حقول للبيانات الوصفيّة"
-	},
-	"tasks.blankTasks": {
-		"string": "لا وجود لأي مهمة"
+	"tasks.blankAnnotation": {
+		"string": "No annotation fields",
+		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
 		"string": "إلغاء"
@@ -4363,12 +4307,6 @@
 	},
 	"tasks.description": {
 		"string": "الوصف (اختياري)"
-	},
-	"tasks.editAssignment": {
-		"string": "تحرير التخصيص"
-	},
-	"tasks.editAttribution": {
-		"string": "تحرير اﻹسناد"
 	},
 	"tasks.fileUpload": {
 		"string": "رفع الملف"
@@ -4425,9 +4363,6 @@
 	"tasks.showIfCondition": {
 		"string": "إظهار الحقل عند تحقق الشرط",
 		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-	},
-	"tasks.showInProj": {
-		"string": "عرض المهام في"
 	},
 	"tasks.singleChoiceDescription": {
 		"string": "يتيح لك تحديد اختيار أو أكثر انطلاقا من الخيارات المُعرَّفة مسبقا في قائمة",
@@ -4751,9 +4686,6 @@
 	"teamSettings.statuses": {
 		"string": "الحالات"
 	},
-	"teamSettings.tasks": {
-		"string": "المهام"
-	},
 	"teamSettings.tipline": {
 		"string": "الخط الساخن"
 	},
@@ -4880,10 +4812,6 @@
 	"teamTasks.confirmAction": {
 		"string": "نعم"
 	},
-	"teamTasks.confirmDeleteBlurb": {
-		"string": "{itemsNumber, plural, zero {لم تتم المهمة {taskLabel}} one {لقد تمت المهمة {taskLabel} في عنصر واحد.} two {لقد تمت المهمة {taskLabel} في عنصرين.} few {لقد تمت المهمة {taskLabel} في # عناصر.} many {لقد تمت المهمة {taskLabel} في # عنصر.} other {لقد تمت المهمة {taskLabel} في # عنصر.}}",
-		"developer_comment": "Warning about existing completed instances of a task before performing deletion of it"
-	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
 		"string": "{itemsNumber, plural, zero {‫لا توجد عناصر فيها الحقل {fieldLabel}.} one {‫تم الانتهاء من الحقل {fieldLabel} في عنصر واحد.} two {‫تم الانتهاء من الحقل {fieldLabel} في عنصرين.} few {‫تم الانتهاء من الحقل {fieldLabel} في # عناصر.} many {‫تم الانتهاء من الحقل {fieldLabel} في # عنصرا.} other {‫تم الانتهاء من الحقل {fieldLabel} في # عنصر.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
@@ -4891,20 +4819,9 @@
 	"teamTasks.confirmDeleteMetadataTitle": {
 		"string": "هل أنت على يقين من حذف هذا الحقل؟"
 	},
-	"teamTasks.confirmDeleteTaskTitle": {
-		"string": "أأنت على يقين من رغبتك في حذف هذه المهمة ؟"
-	},
-	"teamTasks.confirmDeletekeepCompleted": {
-		"string": "الإبقاء على هذه المهمة بإجاباتها في عناصر عند اكتمالها.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be deleted or not"
-	},
 	"teamTasks.confirmDeletekeepCompletedMetadata": {
 		"string": "الإبقاء على هذا الحقل بإجاباته في العناصر التي تم الانتهاء منها.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
-	},
-	"teamTasks.confirmEditBlurb": {
-		"string": "سيتم تعديل مهام العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم إكمالها بالفعل.",
-		"developer_comment": "Warning about existing instances of a task before performing changes to it"
 	},
 	"teamTasks.confirmEditBlurbMetadata": {
 		"string": "سيتم تعديل حقول العناصر المرتبطة كنتيجة لهذا التغيير، باستثناء اللاتي تم انتهاء منها بالفعل.",
@@ -4913,28 +4830,18 @@
 	"teamTasks.confirmEditMetadataTitle": {
 		"string": "هل أنت على يقين من تحرير هذا الحقل؟"
 	},
-	"teamTasks.confirmEditTaskTitle": {
-		"string": "هل تيقنت حقا من رغبتك تحرير هذه المهمة؟"
-	},
-	"teamTasks.confirmEditkeepCompleted": {
-		"string": "يُرجى تغيير المهام المكتملة والاحتفاظ بالإجابات الحالية.",
-		"developer_comment": "Label to checkbox for choosing whether completed tasks should be changed or not"
-	},
 	"teamTasks.confirmEditkeepCompletedMetadata": {
 		"string": "يُرجى عدم إلحاق أي تغيير على الحقول المكتملة، كما يجب الاحتفاظ بإجاباتها الحالية.",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
 	},
 	"teamTasks.continue": {
-		"string": "تحرير المهمة"
+		"string": "Continue"
 	},
 	"teamTasks.continueMetadata": {
 		"string": "تحرير الحقل"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "حذف الحقل"
-	},
-	"teamTasks.deleteTask": {
-		"string": "حذف المهمة"
 	},
 	"teamTasks.filterLabel": {
 		"string": "{total, plural, =0 {لا توجد مهام} one {مهمة واحدة} other {# مهام}}"
