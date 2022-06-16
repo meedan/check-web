@@ -163,6 +163,7 @@ function formatValue(header, value) {
 
 const TeamDataComponent = ({
   intl,
+  slug,
   data,
   defaultLanguage,
   languages,
@@ -236,7 +237,7 @@ const TeamDataComponent = ({
     // Create a link to download it
     const pom = document.createElement('a');
     pom.href = url;
-    pom.setAttribute('download', 'data-report.csv');
+    pom.setAttribute('download', `data-report-${slug}-${currentPlatform.toLowerCase()}-${currentLanguage}-${new Date().toISOString().split('T')[0]}.csv`);
     pom.click();
   };
 
@@ -351,6 +352,7 @@ TeamDataComponent.defaultProps = {
 };
 
 TeamDataComponent.propTypes = {
+  slug: PropTypes.string.isRequired,
   data: PropTypes.arrayOf(PropTypes.object), // or null
   defaultLanguage: PropTypes.string, // or null
   languages: PropTypes.string, // JSON-encoded array of languages, or null
