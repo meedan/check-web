@@ -40,13 +40,13 @@ function HeaderComponent(props) {
   const tasksPage = /^\/[^/]+\/project\/[0-9]+\/media\/[0-9]+\/tasks$/.test(path);
   const mediaPage = /^\/[^/]+\/((project|list)\/[0-9]+\/)?media\/[0-9]+(\/suggested-matches|\/similar-media)?$/.test(path);
   const sourcePage = /^\/[^/]+\/project\/[0-9]+\/source\/[0-9]+$/.test(path);
-  const trendsPage = /\/trends\/media\/[0-9]+/.test(path);
+  const trendsPage = /\/trends\/cluster\/[0-9]+/.test(path);
 
   if (tasksPage || (!mediaPage && !sourcePage && !trendsPage)) {
     return null;
   }
 
-  const reallyInTeamContext = team ? inTeamContext : false;
+  const reallyInTeamContext = team || trendsPage ? inTeamContext : false;
 
   const teamPrivateContentShouldShow =
     (reallyInTeamContext && currentUserIsMember) || (reallyInTeamContext && !team.private);

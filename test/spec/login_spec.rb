@@ -18,7 +18,7 @@ shared_examples 'login' do
   end
 
   it 'should invite a user by e-mail to join team', bin6: true do
-    team = "team#{Time.now.to_i}"
+    team = "team#{Time.now.to_i}-#{rand(99_999)}"
     api_create_team(team: team)
     @driver.navigate.to "#{@config['self_url']}/#{team}"
     wait_for_selector('#team-members__invite-button').click

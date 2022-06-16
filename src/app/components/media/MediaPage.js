@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MediaPageLayout from './MediaPageLayout';
+import ErrorBoundary from '../error/ErrorBoundary';
 import { getListUrlQueryAndIndex } from '../../urlHelpers';
 import NotFound from '../NotFound';
 
@@ -26,17 +27,21 @@ export default function MediaPage({ route, routeParams, location }) {
   }
 
   return (
-    <MediaPageLayout
-      listUrl={listUrl}
-      listQuery={listQuery}
-      listIndex={listIndex}
-      buildSiblingUrl={buildSiblingUrl}
-      teamSlug={teamSlug}
-      projectId={projectId}
-      listId={listId}
-      projectMediaId={projectMediaId}
-      view={currentView}
-    />
+    <ErrorBoundary component="MediaPage">
+      <MediaPageLayout
+        listUrl={listUrl}
+        listQuery={listQuery}
+        listIndex={listIndex}
+        buildSiblingUrl={buildSiblingUrl}
+        teamSlug={teamSlug}
+        projectId={projectId}
+        listId={listId}
+        projectMediaId={projectMediaId}
+        view={currentView}
+        mediaNavList={location?.state?.mediaNavList}
+        count={location?.state?.count}
+      />
+    </ErrorBoundary>
   );
 }
 

@@ -13,7 +13,7 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import SmoochBotMainMenuOption from './SmoochBotMainMenuOption';
-import { opaqueBlack23 } from '../../../styles/js/shared';
+import { opaqueBlack23, opaqueBlack54 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   box: {
@@ -37,6 +37,12 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     padding: theme.spacing(0.25),
   },
+  lock: {
+    color: opaqueBlack54,
+  },
+  noDescription: {
+    fontStyle: 'italic',
+  },
 }));
 
 const SmoochBotMainMenuSection = ({
@@ -45,6 +51,7 @@ const SmoochBotMainMenuSection = ({
   resources,
   readOnly,
   optional,
+  noTitleNoDescription,
   onChangeTitle,
   onChangeMenuOptions,
 }) => {
@@ -73,7 +80,7 @@ const SmoochBotMainMenuSection = ({
     setEditingOptionIndex(-1);
   };
 
-  const buildOption = (label, action) => {
+  const buildOption = (label, description, action) => {
     // If it's a sequence of digits, then it represents a resource
     if (/^[0-9]+$/.test(action)) {
       return {
@@ -81,6 +88,7 @@ const SmoochBotMainMenuSection = ({
         smooch_menu_option_value: 'custom_resource',
         smooch_menu_custom_resource_id: action,
         smooch_menu_option_label: label,
+        smooch_menu_option_description: description,
         smooch_menu_project_media_title: '',
         smooch_menu_project_media_id: '',
       };
@@ -89,21 +97,22 @@ const SmoochBotMainMenuSection = ({
       smooch_menu_option_keyword: action,
       smooch_menu_option_value: action,
       smooch_menu_option_label: label,
+      smooch_menu_option_description: description,
       smooch_menu_project_media_title: '',
       smooch_menu_project_media_id: '',
     };
   };
 
-  const handleSaveNewOption = (label, action) => {
-    const newOption = buildOption(label, action);
+  const handleSaveNewOption = (label, description, action) => {
+    const newOption = buildOption(label, description, action);
     const newOptions = options.slice();
     newOptions.push(newOption);
     onChangeMenuOptions(newOptions);
     setShowNewOptionDialog(false);
   };
 
-  const handleSaveOption = (label, action) => {
-    const newOption = buildOption(label, action);
+  const handleSaveOption = (label, description, action) => {
+    const newOption = buildOption(label, description, action);
     const newOptions = options.slice();
     newOptions[editingOptionIndex] = newOption;
     onChangeMenuOptions(newOptions);
@@ -144,30 +153,32 @@ const SmoochBotMainMenuSection = ({
   };
 
   return (
-    <Box className={classes.box} my={1}>
+    <Box className={classes.box} my={2}>
       <Box display="flex" alignItems="center" justifyContent="space-between" p={1}>
-        <Box display="flex" alignItems="center">
-
-          {/* Section header */}
-          <Typography variant="body2" component="div" align="center">
-            <strong>
-              <FormattedMessage id="smoochBotMainMenuSection.section" defaultMessage="Section {number}" description="Label for each menu section on tipline bot settings." values={{ number }} />
-            </strong>
-            { optional ?
-              <small>
-                <br />
-                <FormattedMessage id="smoochBotMainMenuSection.optional" defaultMessage="(optional)" description="Flags an optional menu section on tipline bot settings." />
-              </small> : null }
-          </Typography>
-          {' '}
+        <Box display="flex" alignItems="center" pt={1} pb={1}>
 
           {/* Title */}
           { readOnly ?
-            <Typography variant="body2" component="div" className={classes.title}>
-              <strong>
-                {value.smooch_menu_title}
-              </strong>
-            </Typography> :
+            <Box p={1}>
+              <Typography variant="body2" component="div" className={classes.title}>
+                <strong>
+                  {value.smooch_menu_title}
+                </strong>
+              </Typography>
+            </Box> : null }
+          { noTitleNoDescription ?
+            <Box p={1}>
+              <Typography variant="body2" component="div" className={classes.title}>
+                <strong>
+                  <FormattedMessage
+                    id="smoochBotMainMenuSection.defaultSectionTitle"
+                    defaultMessage="Menu options"
+                    description="Default label for a main menu section title field on tipline bot settings."
+                  />
+                </strong>
+              </Typography>
+            </Box> : null }
+          { !readOnly && !noTitleNoDescription ?
             <TextField
               key={`title-${number}`}
               className={classes.textField}
@@ -179,26 +190,43 @@ const SmoochBotMainMenuSection = ({
                 />
               }
               variant="outlined"
-              inputProps={{ maxLength: 24 }}
+              inputProps={{
+                size: 24,
+                minLength: 1,
+                maxLength: 24,
+                required: true,
+              }}
               size="small"
               disabled={readOnly}
               onBlur={(e) => { onChangeTitle(e.target.value); }}
               defaultValue={value.smooch_menu_title}
-            />
-          }
+              error={options.length > 0 && !value.smooch_menu_title}
+            /> : null }
         </Box>
 
         {/* Add a new menu option */}
-        <Button color="primary" variant="contained" disabled={readOnly} onClick={handleAddNewOption}>
-          <FormattedMessage
-            id="smoochBotMainMenuSection.newOption"
-            defaultMessage="New option"
-            description="Button label to create a new main menu option on tipline bot settings."
-          />
-        </Button>
+        <Box pr={1}>
+          <Button color="primary" variant="contained" disabled={readOnly} onClick={handleAddNewOption}>
+            <FormattedMessage
+              id="smoochBotMainMenuSection.newOption"
+              defaultMessage="New option"
+              description="Button label to create a new main menu option on tipline bot settings."
+            />
+          </Button>
+        </Box>
       </Box>
 
       <Divider />
+
+      {/* No options */}
+      { options.length === 0 ?
+        <Box pl={2} pt={2}>
+          <FormattedMessage
+            id="smoochBotMainMenuSection.noOptions"
+            defaultMessage="There is currently no option in this section."
+            description="Message displayed when there is no menu option on tipline bot settings."
+          />
+        </Box> : null }
 
       {/* Each menu option */}
       <Box p={1}>
@@ -221,10 +249,26 @@ const SmoochBotMainMenuSection = ({
                 </Box> }
               {' '}
 
-              {/* Menu option label */}
-              <Typography variant="body2" component="div">
-                {formatOptionLabel(option)}
-              </Typography>
+              <Box>
+                {/* Menu option label */}
+                <Typography variant="body2" component="div">
+                  {formatOptionLabel(option)}
+                </Typography>
+
+                {/* Menu option description */}
+                { noTitleNoDescription ?
+                  null :
+                  <Typography variant="caption" component="div">
+                    { !readOnly && !option.smooch_menu_option_description ?
+                      <span className={classes.noDescription}>
+                        <FormattedMessage
+                          id="smoochBotMainMenuSection.optionNoDescription"
+                          defaultMessage="no description"
+                          description="Displayed when a tipline bot menu option doesn't have a description."
+                        />
+                      </span> : option.smooch_menu_option_description }
+                  </Typography> }
+              </Box>
             </Box>
 
             {/* Menu option buttons: edit and delete */}
@@ -243,14 +287,14 @@ const SmoochBotMainMenuSection = ({
               {' '}
 
               {/* Delete */}
-              { readOnly ?
+              { readOnly || (!optional && options.length === 1) ?
                 null :
                 <IconButton onClick={() => { handleDeleteOption(i); }}>
                   <DeleteIcon />
                 </IconButton> }
 
               {/* Locked */}
-              { readOnly ? <LockOutlinedIcon /> : null }
+              { readOnly || (!optional && options.length === 1) ? <LockOutlinedIcon className={classes.lock} /> : null }
             </Box>
           </Box>
         ))}
@@ -265,7 +309,9 @@ const SmoochBotMainMenuSection = ({
         <SmoochBotMainMenuOption
           resources={resources}
           currentTitle={options[editingOptionIndex].smooch_menu_option_label}
+          currentDescription={options[editingOptionIndex].smooch_menu_option_description}
           currentValue={options[editingOptionIndex].smooch_menu_option_value === 'custom_resource' ? options[editingOptionIndex].smooch_menu_custom_resource_id : options[editingOptionIndex].smooch_menu_option_value}
+          noDescription={noTitleNoDescription}
           onSave={handleSaveOption}
           onCancel={handleCancel}
         /> : null }
@@ -278,6 +324,7 @@ SmoochBotMainMenuSection.defaultProps = {
   resources: [],
   readOnly: false,
   optional: false,
+  noTitleNoDescription: false,
 };
 
 SmoochBotMainMenuSection.propTypes = {
@@ -286,6 +333,7 @@ SmoochBotMainMenuSection.propTypes = {
   resources: PropTypes.arrayOf(PropTypes.object),
   readOnly: PropTypes.bool,
   optional: PropTypes.bool,
+  noTitleNoDescription: PropTypes.bool,
   onChangeTitle: PropTypes.func.isRequired,
   onChangeMenuOptions: PropTypes.func.isRequired,
 };

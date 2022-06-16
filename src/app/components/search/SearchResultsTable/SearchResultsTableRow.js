@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import Checkbox from '@material-ui/core/Checkbox';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
@@ -35,14 +34,9 @@ export default function SearchResultsTableRow({
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
 
-  const projectMediaOrTrendsUrl = resultType === 'trends' ? `/${projectMedia.team?.slug}/trends/media/${projectMedia.dbid}` : projectMediaUrl;
-
-  const handleClick = React.useCallback(() => {
-    if (!projectMediaOrTrendsUrl) {
-      return;
-    }
-    browserHistory.push(projectMediaOrTrendsUrl);
-  }, [projectMediaUrl]);
+  // This is why we don't get a listIndex in our trends item url
+  // We are forcing the url instead of getting it from `projectMediaUrl` which is built from `buildProjectMediaUrl`
+  const projectMediaOrTrendsUrl = projectMediaUrl;
 
   const handleChangeChecked = React.useCallback((ev) => {
     if (!dbid) {
@@ -59,7 +53,6 @@ export default function SearchResultsTableRow({
 
   return (
     <TableRow
-      onClick={handleClick}
       aria-checked={checked}
       selected={checked}
       classes={classes}

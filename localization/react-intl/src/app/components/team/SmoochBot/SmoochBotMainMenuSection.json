@@ -1,13 +1,8 @@
 [
   {
-    "id": "smoochBotMainMenuSection.section",
-    "description": "Label for each menu section on tipline bot settings.",
-    "defaultMessage": "Section {number}"
-  },
-  {
-    "id": "smoochBotMainMenuSection.optional",
-    "description": "Flags an optional menu section on tipline bot settings.",
-    "defaultMessage": "(optional)"
+    "id": "smoochBotMainMenuSection.defaultSectionTitle",
+    "description": "Default label for a main menu section title field on tipline bot settings.",
+    "defaultMessage": "Menu options"
   },
   {
     "id": "smoochBotMainMenuSection.sectionTitle",
@@ -18,6 +13,16 @@
     "id": "smoochBotMainMenuSection.newOption",
     "description": "Button label to create a new main menu option on tipline bot settings.",
     "defaultMessage": "New option"
+  },
+  {
+    "id": "smoochBotMainMenuSection.noOptions",
+    "description": "Message displayed when there is no menu option on tipline bot settings.",
+    "defaultMessage": "There is currently no option in this section."
+  },
+  {
+    "id": "smoochBotMainMenuSection.optionNoDescription",
+    "description": "Displayed when a tipline bot menu option doesn't have a description.",
+    "defaultMessage": "no description"
   },
   {
     "id": "smoochBotMainMenuSection.editOption",

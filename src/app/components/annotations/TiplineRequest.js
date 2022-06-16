@@ -127,8 +127,10 @@ const TiplineRequest = ({
   annotated: projectMedia,
   intl,
 }) => {
-  const object = JSON.parse(activity.object_after);
-  const objectValue = JSON.parse(object.value);
+  if (!activity) {
+    return null;
+  }
+  const objectValue = activity.value_json;
   const messageType = objectValue.source.type;
   const messageText = objectValue.text ?
     objectValue.text.trim()
@@ -228,7 +230,7 @@ const TiplineRequest = ({
 
 TiplineRequest.propTypes = {
   annotation: PropTypes.shape({
-    object_after: PropTypes.string.isRequired,
+    value_json: PropTypes.string.isRequired,
     created_at: PropTypes.string.isRequired,
     smooch_user_slack_channel_url: PropTypes.string.isRequired,
     smooch_user_external_identifier: PropTypes.string.isRequired,

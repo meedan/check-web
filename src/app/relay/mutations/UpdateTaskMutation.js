@@ -98,11 +98,7 @@ class UpdateTaskMutation extends Relay.Mutation {
   getVariables() {
     const { task } = this.props;
     const params = { id: task.id };
-    if (task.accept_suggestion) {
-      params.accept_suggestion = task.accept_suggestion;
-    } else if (task.reject_suggestion) {
-      params.reject_suggestion = task.reject_suggestion;
-    } else if (task.annotation_type && task.fields) {
+    if (task.annotation_type && task.fields) {
       params.response = JSON.stringify({
         annotation_type: task.annotation_type,
         set_fields: JSON.stringify(task.fields),

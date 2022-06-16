@@ -93,8 +93,8 @@ const SmoochBotSetting = (props) => {
 
   if (schema.type === 'number') {
     otherProps.type = 'number';
-    inputProps.step = 5;
-    inputProps.min = 10;
+    inputProps.step = 1;
+    inputProps.min = 1;
   }
 
   if (field === 'smooch_urls_to_ignore' || /^smooch_template_newsletter_header_/.test(field)) {

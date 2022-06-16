@@ -5,6 +5,11 @@
     "defaultMessage": "Folder"
   },
   {
+    "id": "addFilterMenu.claim",
+    "description": "Menu option to enable searching items by claim",
+    "defaultMessage": "Claim"
+  },
+  {
     "id": "addFilterMenu.collection",
     "description": "Menu option to enable searching items by collection",
     "defaultMessage": "Collection"
@@ -40,6 +45,11 @@
     "defaultMessage": "Report status"
   },
   {
+    "id": "addFilterMenu.publishedBy",
+    "description": "Menu option to enable searching items by report published by",
+    "defaultMessage": "Published by"
+  },
+  {
     "id": "addFilterMenu.createdBy",
     "description": "Menu option to enable searching items by author",
     "defaultMessage": "Created by"
@@ -48,6 +58,11 @@
     "id": "addFilterMenu.channel",
     "description": "Menu option to enable searching items by channel",
     "defaultMessage": "Channel"
+  },
+  {
+    "id": "addFilterMenu.tiplineRequest",
+    "description": "Menu option to enable searching items by confirmed/unconfirmed items",
+    "defaultMessage": "Tipline request"
   },
   {
     "id": "addFilterMenu.similarMedias",
@@ -83,6 +98,11 @@
     "id": "addFilterMenu.annotation",
     "description": "Menu option to enable searching items by annotation fields",
     "defaultMessage": "Annotation"
+  },
+  {
+    "id": "addFilterMenu.Workspace",
+    "description": "Menu option to enable searching items by workspace",
+    "defaultMessage": "Organization"
   },
   {
     "id": "addFilterMenu.country",

@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import MediaRoute from '../../relay/MediaRoute';
+import MediasLoading from './MediasLoading';
 import MediaExpandedActions from './MediaExpandedActions';
 import MediaExpandedArchives from './MediaExpandedArchives';
 import MediaExpandedMetadata from './MediaExpandedMetadata';
@@ -87,43 +88,43 @@ class MediaExpandedComponent extends Component {
 
   subscribe() {
     const { pusher, clientSessionId, media } = this.props;
-    pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
-      const annotation = JSON.parse(data.message);
-      if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
-        if (run) {
-          this.props.relay.forceFetch();
-          return true;
+    if (pusher) {
+      pusher.subscribe(media.pusher_channel).bind('media_updated', 'MediaComponent', (data, run) => {
+        const annotation = JSON.parse(data.message);
+        if (annotation.annotated_id === media.dbid && clientSessionId !== data.actor_session_id) {
+          if (run) {
+            this.props.relay.forceFetch();
+            return true;
+          }
+          return {
+            id: `media-${media.dbid}`,
+            callback: this.props.relay.forceFetch,
+          };
         }
-        return {
-          id: `media-${media.dbid}`,
-          callback: this.props.relay.forceFetch,
-        };
-      }
-      return false;
-    });
+        return false;
+      });
+    }
   }
 
   unsubscribe() {
     const { pusher, media } = this.props;
-    pusher.unsubscribe(media.pusher_channel);
+    if (pusher) {
+      pusher.unsubscribe(media.pusher_channel);
+    }
   }
 
   render() {
     const { classes } = this.props;
     const {
-      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, isTrends,
+      media, playing, start, end, gaps, seekTo, scrubTo, setPlayerState, onPlayerReady, hideActions,
     } = this.props;
     const { playbackRate } = this.state;
 
-    const {
-      onTimelineCommentOpen,
-      onVideoAnnoToggle,
-      showVideoAnnotation,
-    } = this.props;
+    const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
 
     const currentUserRole = UserUtil.myRole(
       this.getContext().currentUser,
-      this.getContext().team.slug,
+      currentTeam.slug,
     );
 
     const data = typeof media.media.metadata === 'string' ? JSON.parse(media.media.metadata) : media.media.metadata;
@@ -237,8 +238,10 @@ class MediaExpandedComponent extends Component {
       );
     }
 
+    const analysis = media.last_status_obj?.data?.fields || [];
+    const mediaTitle = analysis.find(f => f.field_name === 'file_title')?.value;
     const fileTitle = media.media.file_path ? media.media.file_path.split('/').pop().replace(/\..*$/, '') : null;
-    const title = media.media.metadata.title || media.media.quote || fileTitle || media.title;
+    const title = mediaTitle || media.media.metadata.title || media.media.quote || fileTitle || media.title;
     let description = media.extracted_text ? media.extracted_text.data.text : media.media.metadata.description;
     description = media.transcription && media.transcription.data.text ? media.transcription.data.text : description;
 
@@ -248,13 +251,13 @@ class MediaExpandedComponent extends Component {
           className="media-expanded__title"
           title={
             linkTitle ?
-              <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
+              <a href={mediaUrl} className={classes ? classes.title : null} target="_blank" rel="noopener noreferrer">
                 <strong>{truncateLength(title, 110)}</strong>
               </a> : truncateLength(title, 110)
           }
         />
         <CardContent style={{ padding: `0 ${units(2)}` }}>
-          <MediaExpandedSecondRow projectMedia={media} isTrends={isTrends} />
+          <MediaExpandedSecondRow projectMedia={media} />
           { isImage ?
             <Box mb={2}>
               <TypographyBlack54 variant="body2" color={black54}>
@@ -291,13 +294,10 @@ class MediaExpandedComponent extends Component {
           {embedCard}
         </CardContent>
         {
-          isTrends ? null : (
+          hideActions ? null : (
             <CardActions>
               <MediaExpandedActions
                 currentUserRole={currentUserRole}
-                onTimelineCommentOpen={onTimelineCommentOpen}
-                onVideoAnnoToggle={onVideoAnnoToggle}
-                showVideoAnnotation={showVideoAnnotation}
                 projectMedia={media}
                 playbackRate={playbackRate}
                 onPlaybackRateChange={r => this.setState({ playbackRate: r })}
@@ -358,6 +358,9 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
         dynamic_annotation_language {
           id
         }
+        last_status_obj {
+          data
+        }
         show_warning_cover
         dynamic_annotation_flag {
           id
@@ -368,6 +371,7 @@ const MediaExpandedContainer = Relay.createContainer(withPusher(MediaExpandedCom
             name
           }
         }
+        ${MediaLanguageChip.getFragment('projectMedia')}
         ${MediaExpandedActions.getFragment('projectMedia')}
         ${MediaExpandedArchives.getFragment('projectMedia')}
         ${MediaExpandedMetadata.getFragment('projectMedia')}
@@ -408,6 +412,7 @@ const MediaExpanded = (props) => {
   return (
     <Relay.RootContainer
       Component={MediaExpandedContainer}
+      renderLoading={() => <MediasLoading count={1} />}
       renderFetched={data => <MediaExpandedContainer {...props} {...data} />}
       route={route}
     />
@@ -415,3 +420,4 @@ const MediaExpanded = (props) => {
 };
 
 export default withStyles(useStyles)(MediaExpanded);
+export { MediaExpandedComponent };

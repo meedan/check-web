@@ -10,17 +10,21 @@ import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import DescriptionIcon from '@material-ui/icons/Description';
 import FolderIcon from '@material-ui/icons/Folder';
+import RuleIcon from '@material-ui/icons//Rule';
 import LabelIcon from '@material-ui/icons/Label';
 import LanguageIcon from '@material-ui/icons/Language';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
-import StarIcon from '@material-ui/icons/Star';
+import NoteAltOutlinedIcon from '@material-ui/icons/NoteAltOutlined';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ForwardIcon from '@material-ui/icons/Forward';
+import ErrorIcon from '@material-ui/icons/Error';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
 import PublicIcon from '@material-ui/icons/Public';
+import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import NumberIcon from '../../icons/NumberIcon';
 
 const StyledButton = withStyles({
@@ -51,6 +55,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.folder"
         defaultMessage="Folder"
         description="Menu option to enable searching items by folder"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__claim',
+    key: 'has_claim',
+    icon: <RuleIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.claim"
+        defaultMessage="Claim"
+        description="Menu option to enable searching items by claim"
       />
     ),
   },
@@ -139,6 +155,18 @@ const AddFilterMenu = ({
     ),
   },
   {
+    id: 'add-filter-menu__published-by',
+    key: 'published_by',
+    icon: <HowToRegIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.publishedBy"
+        defaultMessage="Published by"
+        description="Menu option to enable searching items by report published by"
+      />
+    ),
+  },
+  {
     id: 'add-filter-menu__created-by',
     key: 'users',
     icon: <PersonIcon />,
@@ -159,6 +187,18 @@ const AddFilterMenu = ({
         id="addFilterMenu.channel"
         defaultMessage="Channel"
         description="Menu option to enable searching items by channel"
+      />
+    ),
+  },
+  {
+    id: 'add-filter-menu__tipline-request',
+    key: 'archived',
+    icon: <ErrorIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.tiplineRequest"
+        defaultMessage="Tipline request"
+        description="Menu option to enable searching items by confirmed/unconfirmed items"
       />
     ),
   },
@@ -243,12 +283,36 @@ const AddFilterMenu = ({
     {
       id: 'add-filter-menu__team-tasks',
       key: 'team_tasks',
-      icon: <StarIcon />,
+      icon: <NoteAltOutlinedIcon />,
       label: (
         <FormattedMessage
           id="addFilterMenu.annotation"
           defaultMessage="Annotation"
           description="Menu option to enable searching items by annotation fields"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__workspace',
+      key: 'cluster_teams',
+      icon: <CorporateFareIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.Workspace"
+          defaultMessage="Organization"
+          description="Menu option to enable searching items by workspace"
+        />
+      ),
+    },
+    {
+      id: 'add-filter-menu__cluster-published-reports',
+      key: 'cluster_published_reports',
+      icon: <HowToRegIcon />,
+      label: (
+        <FormattedMessage
+          id="addFilterMenu.publishedBy"
+          defaultMessage="Published by"
+          description="Menu option to enable searching items by report published by"
         />
       ),
     },

@@ -1,6 +1,13 @@
 import { safelyParseJSON } from './helpers';
 
-const pageSize = 20;
+const pageSize = 50;
+
+function getPathnameAndSearch(url) {
+  const pathnameMatch = url ? url.match(/(.*)\?/) : null;
+  const pathname = pathnameMatch ? pathnameMatch[1] : null;
+  const search = url ? url.match(/\?.*/)[0] : null;
+  return { pathname, search };
+}
 
 /**
  * Return { listUrl, listQuery, listIndex, buildSiblingUrl } that are valid.
@@ -30,13 +37,17 @@ const pageSize = 20;
  * from the `routeParams`.)
  */
 function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
+  const objectType = routeParams.objectType || 'media';
   let { listPath } = locationQuery;
+  if (objectType === 'trends') {
+    listPath = `/${routeParams.team}/trends`;
+  }
   if (!listPath) {
     if (routeParams.projectId) {
       listPath = `/${routeParams.team}/project/${routeParams.projectId}`;
     } else if (routeParams.listId) {
       listPath = `/${routeParams.team}/list/${routeParams.listId}`;
-    } else if (/\/trends\/media\/[0-9]+/.test(locationPathname)) {
+    } else if (/\/trends\/cluster\/[0-9]+/.test(locationPathname)) {
       listPath = `/${routeParams.team}/trends`;
     } else {
       listPath = `/${routeParams.team}/all-items`;
@@ -82,13 +93,17 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
   //
   // * /my-team/media/${projectMediaId} (for all-items or trash)
   // * /my-team/project/3/media/${projectMediaId} (for project)
-  const siblingUrlPrefix = routeParams.projectId
-    ? `${listPath}/media`
-    : `/${routeParams.team}/media`;
+  // * /check/trends/cluster/${clusterId} (for trends)
+  let siblingUrlPrefix = '';
+  if (objectType === 'trends') {
+    siblingUrlPrefix = '/check/trends/cluster';
+  } else {
+    siblingUrlPrefix = routeParams.projectId ? `${listPath}/media` : `/${routeParams.team}/media`;
+  }
 
   return {
     listUrl,
-    buildSiblingUrl: (projectMediaId, siblingListIndex) => {
+    buildSiblingUrl: (projectMediaIdOrClusterId, siblingListIndex) => {
       const params = new URLSearchParams();
       if (locationQuery.listPath) {
         params.set('listPath', locationQuery.listPath);
@@ -98,11 +113,11 @@ function getListUrlQueryAndIndex(routeParams, locationQuery, locationPathname) {
       }
       params.set('listIndex', String(siblingListIndex));
 
-      return `${siblingUrlPrefix}/${projectMediaId}?${params.toString()}`;
+      return `${siblingUrlPrefix}/${projectMediaIdOrClusterId}?${params.toString()}`;
     },
     listQuery,
     listIndex,
   };
 }
 
-export { getListUrlQueryAndIndex }; // eslint-disable-line import/prefer-default-export
+export { getListUrlQueryAndIndex, getPathnameAndSearch, pageSize }; // eslint-disable-line import/prefer-default-export

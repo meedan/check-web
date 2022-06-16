@@ -3,7 +3,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage, intlShape } from 'react-intl';
 import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import CheckChannels from '../../CheckChannels';
+
+const useStyles = makeStyles(() => ({
+  createdBy: {
+    fontSize: '9px',
+  },
+}));
 
 const messages = defineMessages({
   import: {
@@ -21,6 +28,11 @@ const messages = defineMessages({
     defaultMessage: 'Web Form',
     description: 'Creator that refers to items created via web forms.',
   },
+  shareddatabase: {
+    id: 'mediaAnalysis.sharedDatabase',
+    defaultMessage: 'Shared Database',
+    description: 'Creator that refers to items created from the shared database.',
+  },
 });
 
 const MediaCreatedBy = ({ projectMedia, intl }) => {
@@ -29,16 +41,19 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
     user_id: userId,
     channel,
   } = projectMedia;
+  const classes = useStyles();
 
   const showUserName = [CheckChannels.MANUAL, CheckChannels.BROWSER_EXTENSION].indexOf(channel.toString()) !== -1;
+  const channelNameKey = creatorName.replace(/[ _-]+/g, '').toLocaleLowerCase();
+  const formattedChannelName = Object.keys(messages).includes(channelNameKey) ? intl.formatMessage(messages[channelNameKey]) : creatorName;
 
   return (
-    <Typography variant="body" component="div">
+    <Typography className={classes.createdBy} variant="body" component="div">
       <FormattedMessage
         id="mediaCreatedBy.createdBy"
         defaultMessage="Item created by {name}"
         values={{
-          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : intl.formatMessage(messages[creatorName.replace(/[ _-]/g, '').toLocaleLowerCase()]),
+          name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : formattedChannelName,
         }}
       />
     </Typography>

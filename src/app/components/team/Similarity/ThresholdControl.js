@@ -39,11 +39,13 @@ const ThresholdControl = ({
     <div>
       { type === 'matching' ? (
         <FormattedMessage
+          data-testid="threshold-control__matching-explainer-message"
           id="thresholdControl.matchingExplainer"
           defaultMessage="If the confidence score is above this ratio, items will be matched and reports automatically sent to users."
         />
       ) : (
         <FormattedMessage
+          data-testid="threshold-control__suggestion-explainer-message"
           id="thresholdControl.suggestionExplainer"
           defaultMessage="If the confidence score is above this ratio, items will be suggested as similar."
         />
@@ -56,17 +58,20 @@ const ThresholdControl = ({
         classes={{ root: classes.textFieldRoot }}
         variant="outlined"
         size="small"
+        type="number"
+        onChange={e => onChange(e.target.value)}
       />
       <Slider
         disabled={disabled}
         classes={{ root: classes.sliderRoot }}
         value={value}
-        onChange={onChange}
+        onChange={(e, newValue) => onChange(newValue)}
       />
     </Box>
     <Box color={alertRed} my={1}>
       { error ?
         <FormattedMessage
+          data-testid="threshold-control__error-message"
           id="thresholdControl.suggestionGreaterThanMatchingError"
           defaultMessage="The suggestion threshold cannot be higher than the matching one."
           description="Error message displayed when suggestion threshold is set higher than value of matching threshold"
@@ -84,6 +89,7 @@ ThresholdControl.defaultProps = {
 ThresholdControl.propTypes = {
   classes: PropTypes.object.isRequired,
   onChange: PropTypes.func.isRequired,
+  // handleInputChange: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
   value: PropTypes.number.isRequired,
   disabled: PropTypes.bool,

@@ -28,8 +28,7 @@ shared_examples 'media' do |type|
     wait_for_selector('.medias__item')
     wait_for_selector('.media__heading a').click
     wait_for_selector('.media-search__actions-bar')
-    wait_for_selector('.media-detail')
-    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
 
     # First item
     expect(page_source_body.include?('1 of 3')).to be(true)
@@ -40,11 +39,14 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Second item
-    wait_for_selector('.media-search__next-item').click
-    wait_for_selector('.media-search__next-item')
+    press_button('.media-search__next-item')
+    wait_for_selector_none("//span[contains(text(), '1 of 3')]", :xpath)
+    @driver.navigate.refresh
+    wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
+    wait_for_selector('#media-search__current-item')
+    wait_for_selector('#media-fact-check__title')
     wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
 
-    wait_for_selector('.media-detail')
     expect(page_source_body.include?('1 of 3')).to be(false)
     expect(page_source_body.include?('2 of 3')).to be(true)
     expect(page_source_body.include?('3 of 3')).to be(false)
@@ -53,10 +55,10 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 0')).to be(false)
 
     # Third item
-    wait_for_selector('.media-search__next-item').click
-    wait_for_selector('.media-search__next-item')
-    wait_for_selector("//span[contains(text(), 'Similar media')]", :xpath)
-    wait_for_selector('.media-detail')
+    wait_for_selector('#media-search__current-item')
+    press_button('.media-search__next-item')
+    wait_for_selector_none("//span[contains(text(), '2 of 3')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'First submitted')]", :xpath)
 
     expect(page_source_body.include?('1 of 3')).to be(false)
     expect(page_source_body.include?('2 of 3')).to be(false)
@@ -64,29 +66,6 @@ shared_examples 'media' do |type|
     expect(page_source_body.include?('Claim 2')).to be(false)
     expect(page_source_body.include?('Claim 1')).to be(false)
     expect(page_source_body.include?('Claim 0')).to be(true)
-  end
-
-  it 'should update notes count after delete annotation', bin3: true do
-    create_media_depending_on_type
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotations__list')
-    fill_field('#cmd-input', 'Comment')
-    @driver.action.send_keys(:enter).perform
-    wait_for_selector('.annotation__avatar-col')
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    expect(@driver.find_elements(:class, 'annotation__timestamp').length == 1).to be(true)
-    expect(@driver.page_source.include?('Comment deleted')).to be(false)
-    wait_for_selector('#item-history__close-button').click
-    wait_for_selector('.media-tab__comments').click
-    wait_for_selector('.annotation .menu-button').click
-    wait_for_selector('.annotation__delete').click
-    wait_for_selector_none('.annotation__avatar-col')
-    wait_for_selector('.media-actions__icon').click
-    wait_for_selector('.media-actions__history').click
-    notes_count = wait_for_selector_list('.annotation__timestamp').length
-    expect(notes_count.positive?).to be(true)
-    expect(@driver.page_source.include?('Comment deleted')).to be(true)
   end
 
   it 'should restore item from trash from item page', bin6: true do

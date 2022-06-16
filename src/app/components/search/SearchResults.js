@@ -23,8 +23,7 @@ import ProjectBlankState from '../project/ProjectBlankState';
 import { black87, black54, headline, units, Row } from '../../styles/js/shared';
 import SearchResultsTable from './SearchResultsTable';
 import SearchRoute from '../../relay/SearchRoute';
-
-const pageSize = 50;
+import { pageSize } from '../../urlHelpers';
 
 const StyledListHeader = styled.div`
   margin: ${units(2)};
@@ -139,7 +138,7 @@ function SearchResultsComponent({
   hideFields,
   savedSearch,
 }) {
-  const defaultViewMode = window.storage.getValue('viewMode') || 'shorter'; // or "longer"
+  const defaultViewMode = window.storage?.getValue('viewMode') || 'shorter'; // or "longer"
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
   const [query, setQuery] = React.useState(defaultQuery);
@@ -289,9 +288,12 @@ function SearchResultsComponent({
       const datesObj =
         oldQuery.range.created_at ||
         oldQuery.range.updated_at ||
-        oldQuery.range.published_at ||
-        oldQuery.range.last_seen || {};
-      if (!datesObj.start_time && !datesObj.end_time) {
+        oldQuery.range.media_published_at ||
+        oldQuery.range.report_published_at || {};
+      if ((!datesObj.start_time && !datesObj.end_time) && (datesObj.condition !== 'less_than')) {
+        delete cleanQuery.range;
+      }
+      if (datesObj.condition === 'less_than' && datesObj.period === 0) {
         delete cleanQuery.range;
       }
     }
@@ -326,7 +328,7 @@ function SearchResultsComponent({
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/unconfirmed|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches)$')) {
+    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches)$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -343,7 +345,12 @@ function SearchResultsComponent({
       urlPrefix = `/${projectMedia.team.slug}/${urlPrefix}`;
     }
 
-    return `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
+    let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
+    if (resultType === 'trends') {
+      result = `/check/trends/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
+    }
+
+    return result;
   };
 
   React.useEffect(() => {
@@ -367,7 +374,7 @@ function SearchResultsComponent({
     key: query.sort,
     ascending: query.sort_type !== 'DESC',
   } : {
-    key: team.smooch_bot ? 'last_seen' : 'recent_added',
+    key: 'recent_added',
     ascending: false,
   };
 
@@ -404,6 +411,7 @@ function SearchResultsComponent({
         buildProjectMediaUrl={buildProjectMediaUrl}
         resultType={resultType}
         viewMode={viewMode}
+        count={count}
       />
     );
   }
@@ -470,7 +478,7 @@ function SearchResultsComponent({
           team={team}
           viewMode={viewMode}
           onChangeViewMode={handleChangeViewMode}
-          similarAction={
+          similarAction={team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled ?
             <FormControlLabel
               classes={{ labelPlacementStart: classes.similarSwitch }}
               control={
@@ -491,7 +499,7 @@ function SearchResultsComponent({
               }
               labelPlacement="end"
             />
-          }
+            : null}
           actions={projectMedias.length && selectedProjectMedia.length ?
             <BulkActions
               team={team}
@@ -610,7 +618,7 @@ SearchResultsComponent.propTypes = {
   listActions: PropTypes.node, // or undefined
   listDescription: PropTypes.string, // or undefined
   classes: PropTypes.object,
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'unconfirmed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'trends', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   savedSearch: PropTypes.object, // or null
@@ -636,11 +644,16 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
           permissions,
           search { id, number_of_results },
           check_search_trash { id, number_of_results },
+          check_search_spam { id, number_of_results },
           verification_statuses,
           list_columns,
           medias_count,
           smooch_bot: team_bot_installation(bot_identifier: "smooch") {
             id
+          },
+          alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+            id
+            alegre_settings
           }
         }
         medias(first: $pageSize) {
@@ -655,12 +668,22 @@ const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPush
               is_read
               is_main
               is_secondary
+              is_suggested
+              is_confirmed
               report_status # Needed by BulkActionsStatus
               requests_count
               list_columns_values
-              cluster_size
-              cluster_team_names
+              last_seen
               source_id
+              cluster {
+                dbid
+                size
+                team_names
+                fact_checked_by_team_names
+                requests_count
+                first_item_at
+                last_item_at
+              }
               project {
                 dbid
                 id

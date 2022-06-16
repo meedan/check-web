@@ -30,7 +30,7 @@ module AppSpecHelpers
     attempts = 0
     wait = Selenium::WebDriver::Wait.new(timeout: timeout)
     start = Time.now.to_i
-    while elements.empty? && attempts < 2
+    while elements.empty? && attempts < 3
       attempts += 1
       sleep 0.5
       begin
@@ -97,6 +97,15 @@ module AppSpecHelpers
     el.text
   end
 
+  def wait_for_url_change(old_url, count = 10)
+    c = 0
+    begin
+      c += 1
+      current_url = @driver.current_url.to_s
+      sleep 1
+    end while (old_url == current_url && c < count)
+  end
+
   def wait_for_size_change(size, selector, type = :css, count = 30, test = 'unknown')
     c = 0
     begin
@@ -143,7 +152,6 @@ module AppSpecHelpers
 
   def create_image(file)
     wait_for_selector('#create-media__add-item').click
-    wait_for_selector('#create-media__image').click
     wait_for_selector('.without-file')
     wait_for_selector('input[type=file]').send_keys(File.join(File.dirname(__FILE__), file.to_s))
     wait_for_selector('.with-file')
@@ -262,11 +270,13 @@ module AppSpecHelpers
 
   def create_folder_or_collection(project_name, project_type_selector)
     name = project_name || "Project #{Time.now.to_i}"
+    wait_for_selector('.project-list__link-trash')
     wait_for_selector('.projects-list__add-folder-or-collection').click
     wait_for_selector(project_type_selector).click
     wait_for_selector('.new-project__title input').send_keys(name)
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector('.message')
+    wait_for_selector_none('#confirm-dialog__confirm-action-button')
     # I'm getting "stale element reference" here:
     # wait_for_selector_list('.project-list__link').last.click
     @driver.execute_script("var items = document.querySelectorAll('.project-list__link') ; items[items.length - 1].click()")

@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { FormattedMessage } from 'react-intl';
 import DeleteIcon from '@material-ui/icons/Delete';
-import ErrorIcon from '@material-ui/icons/Error';
+import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import { withPusher, pusherShape } from '../pusher';
 import DrawerProjects from './drawer/Projects';
 import DrawerHeader from './drawer/DrawerHeader';
@@ -130,23 +130,24 @@ class DrawerNavigationComponent extends Component {
             {currentUserIsMember ? (
               <div>
                 <Divider />
-                <Link to={`/${team.slug}/unconfirmed`} className="link__internal project-list__link-unconfirmed">
-                  <MenuItem className="project-list__item-unconfirmed">
+                <Link to={`/${team.slug}/spam`} className="link__internal project-list__link-spam">
+                  <MenuItem className="project-list__item-spam">
                     <ListItemIcon className={classes.listItemIconRoot}>
-                      <ErrorIcon />
+                      <ReportGmailerrorredIcon />
                     </ListItemIcon>
                     <ListItemText
                       primary={
                         <Row style={{ font: body1 }}>
-                          <FormattedMessage id="projects.unconfirmed" defaultMessage="Unconfirmed" />
+                          <FormattedMessage id="projects.spam" defaultMessage="Spam" />
                           <AlignOpposite>
-                            {String(team.unconfirmed_count)}
+                            {String(team.spam_count)}
                           </AlignOpposite>
                         </Row>
                       }
                     />
                   </MenuItem>
                 </Link>
+                <Divider />
                 <Link to={`/${team.slug}/trash`} className="link__internal project-list__link-trash">
                   <MenuItem className="project-list__item-trash">
                     <ListItemIcon className={classes.listItemIconRoot}>

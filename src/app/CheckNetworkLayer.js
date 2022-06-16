@@ -57,6 +57,8 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     const { setFlashMessage, ...otherOptions } = options;
     super(path, otherOptions);
     this.setFlashMessage = setFlashMessage || (() => null);
+    this.inFlightMutationRequests = 0;
+    window.inFlightMutationRequests = this.inFlightMutationRequests;
   }
 
   _parseQueryResult(result) {
@@ -153,6 +155,8 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
   }
 
   _sendMutation(request) {
+    this.inFlightMutationRequests += 1;
+    window.inFlightMutationRequests = this.inFlightMutationRequests;
     const _interopRequireDefault = obj => obj && obj.__esModule ? obj : { default: obj };
 
     let init;
@@ -201,6 +205,8 @@ class CheckNetworkLayer extends Relay.DefaultNetworkLayer {
     }, fetchTimeout);
 
     return fetch(this._uri, init).then((response) => {
+      this.inFlightMutationRequests -= 1;
+      window.inFlightMutationRequests = this.inFlightMutationRequests;
       clearTimeout(timeout);
       return throwOnServerError(request, response);
     }).catch((error) => {

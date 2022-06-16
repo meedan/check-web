@@ -20,8 +20,8 @@
     "defaultMessage": "saved by {userName} {timeAgo}"
   },
   {
-    "id": "mediaClaim.description",
+    "id": "mediaClaim.placeholder",
     "description": "Placeholder for claim description field.",
-    "defaultMessage": "Type something"
+    "defaultMessage": "For example: The earth is flat"
   }
 ]

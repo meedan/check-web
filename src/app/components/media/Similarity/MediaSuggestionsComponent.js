@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
-import Tab from '@material-ui/core/Tab';
-import Tabs from '@material-ui/core/Tabs';
 import Box from '@material-ui/core/Box';
 import { browserHistory } from 'react-router';
 import Button from '@material-ui/core/Button';
@@ -18,29 +16,31 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Typography from '@material-ui/core/Typography';
 import IconArrowBack from '@material-ui/icons/ArrowBack';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete';
+import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
+import Tooltip from '@material-ui/core/Tooltip';
+import MediaSimilaritiesComponent from './MediaSimilaritiesComponent';
+import MediaDetail from '../MediaDetail';
+import MediaExpanded from '../MediaExpanded';
+import SelectProjectDialog from '../SelectProjectDialog';
 import { can } from '../../Can';
 import GenericUnknownErrorMessage from '../../GenericUnknownErrorMessage';
-import MediaExpanded from '../MediaExpanded';
-import MediaRequests from '../MediaRequests';
-import MediaComments from '../MediaComments';
-import SelectProjectDialog from '../SelectProjectDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import globalStrings from '../../../globalStrings';
 import { getErrorMessageForRelayModernProblem } from '../../../helpers';
 import {
   Column,
-  brandHighlight,
   checkBlue,
   completedGreen,
   alertRed,
   brandSecondary,
-  backgroundMain,
+  black54,
 } from '../../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
   title: {
-    color: brandHighlight,
-    fontSize: 12,
+    fontWeight: 'bold',
     lineHeight: 'normal',
     letterSpacing: 'normal',
   },
@@ -51,16 +51,17 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.5,
   },
   media: {
-    background: 'white',
     border: `1px solid ${brandSecondary}`,
     borderRadius: 8,
     color: 'black',
+    backgroundColor: 'white',
   },
   noMedia: {
     color: 'black',
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: 14,
+    backgroundColor: 'white',
   },
   spaced: {
     padding: theme.spacing(1),
@@ -69,20 +70,23 @@ const useStyles = makeStyles(theme => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     margin: theme.spacing(-2),
     marginBottom: 0,
-    borderBottom: `1px solid ${brandSecondary}`,
     position: 'sticky',
     top: theme.spacing(-2),
-    background: backgroundMain,
     zIndex: 2,
   },
   suggestionsBackButton: {
     padding: 0,
+    color: black54,
   },
   suggestionsNoMediaBox: {
     border: `1px solid ${brandSecondary}`,
     borderRadius: theme.spacing(1),
     paddingTop: theme.spacing(5),
     paddingBottom: theme.spacing(5),
+  },
+  spamTrashBox: {
+    width: '100%',
+    textAlign: 'right',
   },
 }));
 
@@ -93,18 +97,30 @@ const MediaSuggestionsComponent = ({
   setFlashMessage,
 }) => {
   const classes = useStyles();
-  const params = new URLSearchParams(window.location.search);
-  const listIndex = params.get('listIndex');
-  const mainItemUrl = `${window.location.pathname.replace(/\/suggested-matches$/, '')}?listIndex=${listIndex}`;
-  const [index, setIndex] = React.useState(0);
+  const params = new URLSearchParams();
+  // sort suggestions by the larger (more recent) of `last_seen` vs `created_at`, descending
+  const sortedRelationships = relationships.sort((a, b) => Math.max(+b.target.created_at, +b.target.last_seen) - Math.max(+a.target.created_at, +a.target.last_seen));
+  const mainItemUrl = `${window.location.pathname.replace(/\/similar-media$/, '')}${window.location.search}`;
+  // reviewId is set when navigating from a suggested media so we find the index to display the right suggestion
+  const getReviewId = () => {
+    const reviewId = params.get('reviewId');
+    const firstSuggestionId = relationships[0] ? relationships[0].target_id : null;
+    return reviewId ? parseInt(reviewId, 10) : firstSuggestionId;
+  };
+
+  const [reviewId, setReviewId] = React.useState(getReviewId());
+  let index = sortedRelationships.findIndex(r => r.target_id === reviewId);
+  index = (index > -1) ? index : 0;
+
   const [isDialogOpen, setIsDialogOpen] = React.useState(false);
+  const [isMutationPending, setIsMutationPending] = React.useState(false);
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
-  const relationship = relationships[index];
-  const projectMedia = relationship ? { dbid: relationship.target_id } : null;
-  const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/suggested-matches$/, projectMedia.dbid) : '';
-  const total = relationships.length;
+  const relationship = sortedRelationships[index];
+  const projectMedia = relationship ? { dbid: relationship.target_id, id: relationship.target.id } : null;
+  const itemUrl = projectMedia ? window.location.pathname.replace(/[0-9]+\/similar-media$/, projectMedia.dbid) : '';
+  const total = sortedRelationships.length;
   const hasNext = (index + 1 < total);
   const hasPrevious = (index > 0);
 
@@ -113,21 +129,30 @@ const MediaSuggestionsComponent = ({
   };
 
   const handleNext = () => {
-    if (hasNext) {
-      setIndex(index + 1);
+    if (!hasNext) return;
+
+    const nextRelationship = sortedRelationships[index + 1] || sortedRelationships[0];
+    if (nextRelationship) {
+      setReviewId(nextRelationship.target_id);
     }
   };
 
   const handlePrevious = () => {
-    if (hasPrevious) {
-      setIndex(index - 1);
+    if (!hasPrevious) return;
+
+    const prevRelationship = sortedRelationships[index - 1];
+    if (prevRelationship) {
+      setReviewId(prevRelationship.target_id);
     }
   };
 
-  const handleCompleted = () => {};
+  const handleCompleted = () => {
+    setIsMutationPending(false);
+  };
 
   const onFailure = (errors) => {
     const errorMessage = getErrorMessageForRelayModernProblem(errors) || <GenericUnknownErrorMessage />;
+    setIsMutationPending(false);
     setFlashMessage(errorMessage, 'error');
   };
 
@@ -282,6 +307,7 @@ const MediaSuggestionsComponent = ({
       }
     `;
 
+    setIsMutationPending(true);
     commitMutation(Store, {
       mutation,
       variables: {
@@ -324,70 +350,130 @@ const MediaSuggestionsComponent = ({
     });
   };
 
+  const handleArchiveTarget = (archived) => {
+    handleNext();
+
+    commitMutation(Store, {
+      mutation: destroyMutation,
+      variables: {
+        rejection: true,
+        input: {
+          id: relationship.id,
+          archive_target: archived,
+        },
+      },
+      onCompleted: ({ error }) => {
+        if (error) {
+          onFailure(error);
+        } else {
+          const message = archived === CheckArchivedFlags.TRASHED ? (
+            <FormattedMessage
+              id="mediaSuggestionsComponent.movedToTrash"
+              defaultMessage="The item was moved to {trash}"
+              values={{
+                trash: (
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                  <a onClick={() => browserHistory.push(`/${team.slug}/trash`)}>
+                    <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
+                  </a>
+                ),
+              }}
+            />
+          ) : (
+            <FormattedMessage
+              id="mediaSuggestionsComponent.movedToSpam"
+              defaultMessage="The item was moved to {spam}"
+              values={{
+                spam: (
+                  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+                  <a onClick={() => browserHistory.push(`/${team.slug}/spam`)}>
+                    <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" />
+                  </a>
+                ),
+              }}
+            />
+          );
+          setFlashMessage(message, 'success');
+        }
+      },
+      onError: onFailure,
+    });
+  };
+
   const handleHelp = () => {
     window.open('http://help.checkmedia.org/en/articles/4705965-similarity-matching-and-suggestions');
   };
 
+  const disableAcceptRejectButtons = total === 0 || !can(team.permissions, 'update Relationship') || isMutationPending;
+
   return (
     <React.Fragment>
-      <Column className="media__column">
-        <Box className={classes.suggestionsTopBar}>
-          <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
+      <Column className="media-suggestions__center-column">
+        <Button startIcon={<IconArrowBack />} onClick={handleGoBack} size="small" className={classes.suggestionsBackButton}>
+          <FormattedMessage
+            id="mediaSuggestionsComponent.back"
+            defaultMessage="Back"
+          />
+        </Button>
+        <Typography variant="body1" gutterBottom>
+          <strong>
             <FormattedMessage
-              id="mediaSuggestionsComponent.back"
-              defaultMessage="Back"
+              id="mediaSuggestionsComponent.mediasCount"
+              defaultMessage="{number, plural, one {# media} other {# medias}}"
+              values={{ number: mainItem.confirmedSimilarCount + 1 }}
             />
-          </Button>
-          <Typography variant="button" display="block" className={classes.title}>
-            <FormattedMessage
-              id="mediaSuggestionsComponent.title"
-              defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
-              values={{
-                current: total === 0 ? 0 : index + 1,
-                total,
-              }}
-            />
-          </Typography>
-        </Box>
-        <Box display="flex" width="1" justifyContent="space-between" alignItems="center">
-          <Box display="flex" alignItems="center">
+          </strong>
+        </Typography>
+        <Typography variant="caption" paragraph>
+          <FormattedMessage id="mediaSuggestionsComponent.requestsCount" defaultMessage="{number} tipline requests across all medias" values={{ number: mainItem.demand }} />
+        </Typography>
+        <MediaDetail media={mainItem} />
+        <MediaSimilaritiesComponent projectMedia={mainItem} />
+      </Column>
+      <Column className="media__suggestions-column">
+        { projectMedia ?
+          <div>
+            <Box display="flex" alignItems="center" className={classes.suggestionsTopBar}>
+              <Typography variant="body" className={classes.title}>
+                <FormattedMessage
+                  id="mediaSuggestionsComponent.title"
+                  defaultMessage="{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
+                  values={{
+                    current: total === 0 ? 0 : index + 1,
+                    total,
+                  }}
+                />
+              </Typography>
+              <IconButton onClick={handleHelp}>
+                <HelpIcon className={classes.helpIcon} />
+              </IconButton>
+            </Box>
             <Typography variant="body2">
-              { mainItem.report_type === 'blank' ?
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.questionBlank"
-                  defaultMessage="Is the suggested media similar to the imported report?"
-                /> :
-                <FormattedMessage
-                  id="mediaSuggestionsComponent.question"
-                  defaultMessage="Is the suggested media similar to the main?"
-                /> }
+              <FormattedMessage
+                id="mediaSuggestionsComponent.question"
+                defaultMessage="Is this media a good match for the claim and medias on the left?"
+                description="Subtitle for similarity matching widget"
+              />
             </Typography>
-            <IconButton onClick={handleHelp}>
-              <HelpIcon className={classes.helpIcon} />
-            </IconButton>
-          </Box>
-          <Box display="flex" alignItems="center">
-            <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
-              <KeyboardArrowLeftIcon fontSize="large" />
-            </IconButton>
-            {can(team.permissions, 'update Relationship') ?
+            <Box display="flex" alignItems="center">
+              <IconButton onClick={handlePrevious} disabled={!hasPrevious}>
+                <KeyboardArrowLeftIcon fontSize="large" />
+              </IconButton>
               <IconButton
                 onClick={mainItem.report_type === 'blank' ? handleDestroyAndReplace : handleConfirm}
                 style={{ color: completedGreen }}
-                disabled={total === 0}
-                className={total === 0 ? classes.disabled : ''}
+                disabled={disableAcceptRejectButtons}
+                className={disableAcceptRejectButtons ? classes.disabled : ''}
                 id="similarity-media-item__accept-relationship"
               >
                 <CheckCircleOutlineIcon fontSize="large" />
-              </IconButton> : null
-            }
-            {can(team.permissions, 'destroy Relationship') ?
-              <React.Fragment>
+              </IconButton>
+              <>
                 <IconButton
                   onClick={openDialog}
                   style={{ color: alertRed }}
-                  disabled={total === 0}
-                  className={total === 0 ? classes.disabled : ''}
+                  disabled={disableAcceptRejectButtons}
+                  className={disableAcceptRejectButtons ? classes.disabled : ''}
                   id="similarity-media-item__reject-relationship"
                 >
                   <HighlightOffIcon fontSize="large" />
@@ -407,13 +493,44 @@ const MediaSuggestionsComponent = ({
                   onCancel={closeDialog}
                   onSubmit={handleReject}
                 />
-              </React.Fragment> : null
-            }
-            <IconButton onClick={handleNext} disabled={!hasNext}>
-              <KeyboardArrowRightIcon fontSize="large" />
-            </IconButton>
-          </Box>
-        </Box>
+              </>
+              <IconButton onClick={handleNext} disabled={!hasNext}>
+                <KeyboardArrowRightIcon fontSize="large" />
+              </IconButton>
+              <box className={classes.spamTrashBox}>
+                <Tooltip
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.sendItemsToSpam"
+                      defaultMessage="Mark as spam"
+                    />
+                  }
+                >
+                  <IconButton
+                    className="media-suggestions__spam-icon"
+                    onClick={() => handleArchiveTarget(CheckArchivedFlags.SPAM)}
+                  >
+                    <ReportGmailerrorredIcon />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip
+                  title={
+                    <FormattedMessage
+                      id="mediaSuggestionsComponent.sendItemsToTrash"
+                      defaultMessage="Send to trash"
+                    />
+                  }
+                >
+                  <IconButton
+                    className="media-suggestions__delete-icon"
+                    onClick={() => handleArchiveTarget(CheckArchivedFlags.TRASHED)}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              </box>
+            </Box>
+          </div> : null }
         <Box className={projectMedia ? classes.media : classes.noMedia}>
           { projectMedia ?
             <MediaExpanded
@@ -440,62 +557,6 @@ const MediaSuggestionsComponent = ({
           }
         </Box>
       </Column>
-      <Column className="media__annotations-column" overflow="hidden">
-        { team.smooch_bot ?
-          <React.Fragment>
-            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="requests">
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.requests"
-                    defaultMessage="Requests"
-                  />
-                }
-                value="requests"
-                className="media-tab__requests"
-              />
-            </Tabs>
-            { /* Set maxHeight to screen height - (media bar + tabs) */ }
-            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-              { projectMedia ?
-                <MediaRequests media={{ dbid: projectMedia.dbid }} all={false} /> :
-                <Typography variant="subtitle2" className={classes.spaced}>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.noRequests"
-                    defaultMessage="No requests"
-                  />
-                </Typography>
-              }
-            </Box>
-          </React.Fragment> :
-          <React.Fragment>
-            <Tabs indicatorColor="primary" textColor="primary" className="media__annotations-tabs" value="notes">
-              <Tab
-                label={
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.notes"
-                    defaultMessage="Notes"
-                  />
-                }
-                value="notes"
-                className="media-tab__notes"
-              />
-            </Tabs>
-            { /* Set maxHeight to screen height - (media bar + tabs) */ }
-            <Box maxHeight="calc(100vh - 112px)" style={{ overflowY: 'auto' }}>
-              { projectMedia ?
-                <MediaComments media={{ dbid: projectMedia.dbid }} /> :
-                <Typography variant="subtitle2" className={classes.spaced}>
-                  <FormattedMessage
-                    id="mediaSuggestionsComponent.noNotes"
-                    defaultMessage="No notes"
-                  />
-                </Typography>
-              }
-            </Box>
-          </React.Fragment>
-        }
-      </Column>
     </React.Fragment>
   );
 };
@@ -510,6 +571,7 @@ MediaSuggestionsComponent.propTypes = {
     target_id: PropTypes.number.isRequired,
   })).isRequired,
   team: PropTypes.shape({
+    slug: PropTypes.string,
     smooch_bot: PropTypes.shape({
       id: PropTypes.string,
     }),

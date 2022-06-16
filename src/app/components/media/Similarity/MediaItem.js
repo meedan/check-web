@@ -113,6 +113,7 @@ const MediaItem = ({
   isSelected,
   showReportStatus,
   onSelect,
+  modalOnly,
 }) => {
   if (!projectMedia || !projectMedia.dbid) {
     return null;
@@ -128,11 +129,18 @@ const MediaItem = ({
   const openDialog = React.useCallback(() => setIsDialogOpen(true), [setIsDialogOpen]);
   const closeDialog = React.useCallback(() => setIsDialogOpen(false), [setIsDialogOpen]);
 
+  const swallowClick = (event, callback) => {
+    event.stopPropagation();
+    callback();
+  };
+
   const handleOpenMenu = (event) => {
+    event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
 
-  const handleCloseMenu = () => {
+  const handleCloseMenu = (event) => {
+    event.stopPropagation();
     setAnchorEl(null);
   };
 
@@ -301,9 +309,13 @@ const MediaItem = ({
         title={
           <Box display="flex" alignItems="center">
             { projectMedia.linked_items_count > 0 && !mainProjectMedia.id ? <LayersIcon /> : null }
-            <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
-              <strong>{truncateLength(projectMedia.title, 140)}</strong>
-            </a>
+            { modalOnly ? <strong>{truncateLength(projectMedia.title, 140)}</strong>
+              : (
+                <a href={mediaUrl} className={classes.title} target="_blank" rel="noopener noreferrer">
+                  <strong>{truncateLength(projectMedia.title, 140)}</strong>
+                </a>
+              )
+            }
           </Box>
         }
         subheader={
@@ -411,7 +423,7 @@ const MediaItem = ({
             open={Boolean(anchorEl)}
             onClose={handleCloseMenu}
           >
-            <MenuItem onClick={handleSwitch}>
+            <MenuItem onClick={event => swallowClick(event, handleSwitch)}>
               <ListItemText
                 className="similarity-media-item__pin-relationship"
                 primary={
@@ -419,7 +431,7 @@ const MediaItem = ({
                 }
               />
             </MenuItem>
-            <MenuItem onClick={openDialog}>
+            <MenuItem onClick={event => swallowClick(event, openDialog)}>
               <ListItemText
                 className="similarity-media-item__delete-relationship"
                 primary={
@@ -431,7 +443,7 @@ const MediaItem = ({
         </Box> : null }
       { canDelete && !canSwitch ?
         <Box>
-          <IconButton onClick={openDialog}>
+          <IconButton onClick={event => swallowClick(event, openDialog)}>
             <RemoveCircleOutlineIcon className="related-media-item__delete-relationship" />
           </IconButton>
         </Box> : null }
@@ -469,6 +481,7 @@ MediaItem.defaultProps = {
   isSelected: false,
   showReportStatus: true,
   onSelect: () => {},
+  modalOnly: false,
 };
 
 MediaItem.propTypes = {
@@ -501,6 +514,7 @@ MediaItem.propTypes = {
   isSelected: PropTypes.bool,
   showReportStatus: PropTypes.bool,
   onSelect: PropTypes.func,
+  modalOnly: PropTypes.bool,
 };
 
 export default createFragmentContainer(withSetFlashMessage(MediaItem), {

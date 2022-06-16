@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
-import { checkBlue, brandHighlight } from '../../../styles/js/shared';
+import { checkBlue } from '../../../styles/js/shared';
 import SmoochBotSidebar from './SmoochBotSidebar';
 import SmoochBotTextEditor from './SmoochBotTextEditor';
 import SmoochBotMultiTextEditor from './SmoochBotMultiTextEditor';
@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: theme.spacing(1),
   },
   resource: {
-    color: brandHighlight,
+    color: checkBlue,
   },
 }));
 
@@ -113,6 +113,16 @@ const SmoochBotConfig = (props) => {
   const handleChangeTextField = (newValue) => {
     const updatedValue = JSON.parse(JSON.stringify(value));
     updatedValue.smooch_workflows[currentWorkflowIndex][currentOption] = newValue;
+    setValue(updatedValue);
+  };
+
+  const handleChangeImage = (file) => {
+    const updatedValue = Object.assign({}, value);
+    if (file) {
+      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_greeting_image = file;
+    } else {
+      updatedValue.smooch_workflows[currentWorkflowIndex].smooch_greeting_image = 'none';
+    }
     setValue(updatedValue);
   };
 
@@ -275,6 +285,7 @@ const SmoochBotConfig = (props) => {
                 /> : null }
               { currentResource ?
                 <SmoochBotResourceEditor
+                  key={currentResource.smooch_custom_resource_id}
                   installationId={props.installationId}
                   resource={currentResource}
                   onChange={handleChangeResource}
@@ -282,17 +293,18 @@ const SmoochBotConfig = (props) => {
                 /> : null }
               { currentOption === 'smooch_newsletter' ?
                 <SmoochBotNewsletterEditor
+                  key={currentLanguage}
+                  language={currentLanguage}
                   installationId={props.installationId}
                   newsletter={value.smooch_workflows[currentWorkflowIndex].smooch_newsletter || {}}
                   newsletterInformation={props.newsletterInformation[currentLanguage]}
-                  newsletterHeader={settings[`smooch_template_newsletter_header_${currentLanguage}`]}
                   onChange={handleChangeNewsletter}
-                  teamName={props.teamName}
                 /> : null }
               { currentOption === 'smooch_content' ?
                 <SmoochBotContentAndTranslation
                   key={currentLanguage}
                   value={value.smooch_workflows[currentWorkflowIndex]}
+                  onChangeImage={handleChangeImage}
                   onChangeMessage={handleChangeMessage}
                   onChangeStateMessage={handleChangeStateMessage}
                 /> : null }
@@ -301,6 +313,7 @@ const SmoochBotConfig = (props) => {
                   key={currentLanguage}
                   languages={languages}
                   value={value.smooch_workflows[currentWorkflowIndex]}
+                  enabledIntegrations={props.enabledIntegrations}
                   onChange={handleChangeMenu}
                 /> : null }
             </Box>
@@ -314,7 +327,6 @@ const SmoochBotConfig = (props) => {
           onChange={handleUpdateSetting}
           enabledIntegrations={props.enabledIntegrations}
           installationId={props.installationId}
-          languages={languages}
         /> : null }
     </React.Fragment>
   );
@@ -329,7 +341,6 @@ SmoochBotConfig.propTypes = {
   userRole: PropTypes.string.isRequired,
   enabledIntegrations: PropTypes.object.isRequired,
   newsletterInformation: PropTypes.object.isRequired,
-  teamName: PropTypes.string.isRequired,
   // https://github.com/yannickcr/eslint-plugin-react/issues/1389
   // eslint-disable-next-line react/no-typos
   intl: intlShape.isRequired,

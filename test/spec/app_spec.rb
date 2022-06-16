@@ -20,7 +20,6 @@ require_relative './tag_spec'
 require_relative './tag_spec_helpers'
 require_relative './team_spec'
 require_relative './team_spec_helpers'
-require_relative './video_timeline_spec'
 require_relative './similarity_spec'
 require_relative './source_spec'
 
@@ -40,8 +39,10 @@ shared_examples 'app' do |webdriver_url|
     @config = CONFIG
     @webdriver_url = webdriver_url
     @failing_tests = {}
-    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
-    FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    if File.directory?('../build/web/js/config.js')
+      FileUtils.rm('../build/web/js/config.js')
+      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    end
   end
 
   before :each do |example|
@@ -64,8 +65,7 @@ shared_examples 'app' do |webdriver_url|
     test_hash = [example.metadata[:description_args], Process.pid].hash.to_s
     @email = "sysops+#{test_hash}@meedan.com"
     @source_name = 'Iron Maiden'
-    @source_url = "https://twitter.com/ironmaiden?_test_hash=#{test_hash}"
-    @media_url = "https://twitter.com/meedan/status/773947372527288320/?_test_hash=#{test_hash}"
+    @media_url = 'http://localhost:3000/index.html'
     @team1_slug = "team1_#{test_hash}"
     @user_mail = "sysops_#{test_hash}@meedan.com"
   end
@@ -87,8 +87,10 @@ shared_examples 'app' do |webdriver_url|
   end
 
   after :all do
-    FileUtils.rm('../build/web/js/config.js') if File.exist?('../build/web/js/config.js')
-    FileUtils.ln_sf(File.realpath('../config.js'), '../build/web/js/config.js')
+    if File.directory?('../build/web/js/config.js')
+      FileUtils.rm('../build/web/js/config.js')
+      FileUtils.ln_sf(File.realpath('./config.js'), '../build/web/js/config.js')
+    end
     update_flaky_tests_file(@failing_tests)
   end
 
@@ -106,7 +108,6 @@ shared_examples 'app' do |webdriver_url|
     include_examples 'status'
     include_examples 'tag'
     include_examples 'team'
-    include_examples 'videotimeline'
     include_examples 'similarity'
     it_behaves_like 'media', 'BELONGS_TO_ONE_PROJECT'
     it_behaves_like 'media', 'DOES_NOT_BELONG_TO_ANY_PROJECT'
@@ -197,7 +198,7 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should give 404 when trying to access a media that is not related to the project on the URL', bin1: true do
       t1 = api_create_team_and_project
-      data = api_create_team_project_and_link({ url: 'https://twitter.com/TheWho/status/890135323216367616' })
+      data = api_create_team_project_and_link({ url: @media_url })
       url = data.full_url
       url = url[0..data.full_url.index('project') + 7] + t1[:project].dbid.to_s + url[url.index('/media')..url.length - 1]
       @driver.navigate.to url
@@ -232,6 +233,7 @@ shared_examples 'app' do |webdriver_url|
       all.click
       create_media('claim 2', false)
       wait_for_selector('.media__heading', :css, 20, true).click
+      wait_for_selector('.media__annotations-tabs')
       wait_for_selector('.project-header__back-button').click
       wait_for_selector_list_size('.medias__item', 1, :css, 30)
       wait_for_selector('#create-media__add-item')
@@ -240,26 +242,14 @@ shared_examples 'app' do |webdriver_url|
 
     it 'should linkify URLs on comments', bin1: true do
       api_create_team_project_and_claim_and_redirect_to_media_page
-      expect(@driver.page_source.include?('https://meedan.com/en/')).to be(false)
+      expect(@driver.page_source.include?('index.html')).to be(false)
       wait_for_selector('.media-tab__comments').click
-      fill_field('#cmd-input', 'https://meedan.com/en/')
+      fill_field('#cmd-input', @media_url)
       @driver.action.send_keys(:enter).perform
       wait_for_selector('.annotation__avatar-col')
       wait_for_size_change(0, 'annotation__card-content', :class, 25)
-      expect(@driver.page_source.include?('https://meedan.com/en/')).to be(true)
-      expect(wait_for_selector_list("//a[contains(text(), 'https://meedan.com/en/')]", :xpath).length == 1).to be(true)
-    end
-
-    it 'should set metatags', bin5: true do
-      url = 'https://twitter.com/marcouza/status/875424957613920256'
-      api_create_team_project_and_link_and_redirect_to_media_page({ url: url })
-      request_api('make_team_public', { slug: get_team })
-      wait_for_selector('.more-less')
-      url = @driver.current_url.to_s
-      @driver.navigate.to url
-      wait_for_selector('.more-less')
-      site = @driver.find_element(:css, 'meta[name="twitter\\:site"]').attribute('content')
-      expect(site == 'check').to be(true)
+      expect(wait_for_selector_list("//a[contains(text(), 'index.html')]", :xpath).length == 1).to be(true)
+      expect(@driver.page_source.include?('index.html')).to be(true)
     end
 
     it 'should show current team content on sidebar when viewing profile', bin3: true do

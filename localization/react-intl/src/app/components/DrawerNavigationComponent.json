@@ -1,7 +1,7 @@
 [
   {
-    "id": "projects.unconfirmed",
-    "defaultMessage": "Unconfirmed"
+    "id": "projects.spam",
+    "defaultMessage": "Spam"
   },
   {
     "id": "projects.trash",

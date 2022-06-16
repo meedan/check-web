@@ -120,7 +120,7 @@ const placeholders = defineMessages({
   },
   smooch_newsletter_bullet_point: {
     id: 'smoochBot.placeholderNewsletterBulletPoint',
-    defaultMessage: 'Type in to add content',
+    defaultMessage: 'Add an article',
   },
   smooch_message_smooch_bot_option_not_available: {
     id: 'smoochBot.placeholderOptionNotAvailable',
@@ -153,6 +153,10 @@ Contact us at *[email or other contact]* for further inquiries.`,
   tos: {
     id: 'smoochBot.tos',
     defaultMessage: 'Terms of Service ({language})',
+  },
+  smooch_newsletter_introduction: {
+    id: 'smoochBot.placeholderNewsletterIntroduction',
+    defaultMessage: 'Type something',
   },
 });
 

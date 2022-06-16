@@ -1,7 +1,7 @@
 [
   {
     "id": "list.Item",
-    "defaultMessage": "Item"
+    "defaultMessage": "Claim"
   },
   {
     "id": "list.Demand",
@@ -28,10 +28,6 @@
     "defaultMessage": "Submitted"
   },
   {
-    "id": "list.LastSeen",
-    "defaultMessage": "Last submitted"
-  },
-  {
     "id": "list.updated",
     "defaultMessage": "Updated"
   },
@@ -48,16 +44,16 @@
     "defaultMessage": "Media published"
   },
   {
+    "id": "list.reportPublishedBy",
+    "defaultMessage": "Report published by"
+  },
+  {
     "id": "list.reactCount",
     "defaultMessage": "FB Reactions"
   },
   {
     "id": "list.commentCount",
     "defaultMessage": "FB Comments"
-  },
-  {
-    "id": "list.relatedCount",
-    "defaultMessage": "Related"
   },
   {
     "id": "list.suggestionsCount",
@@ -74,18 +70,33 @@
     "defaultMessage": "Created by"
   },
   {
-    "id": "list.clusterSize",
-    "description": "Table header for column that shows the number of similar items that belong to the same cluster",
-    "defaultMessage": "Cluster size"
-  },
-  {
-    "id": "list.clusterTeamNames",
-    "description": "Table header for column that shows from which workspaces the items in the same cluster belong to",
-    "defaultMessage": "Workspaces"
-  },
-  {
     "id": "list.sourceName",
     "description": "Table header for column that shows item source",
     "defaultMessage": "Source"
+  },
+  {
+    "id": "list.clusterFactCheckedByTeamNames",
+    "description": "Table header for column that shows from which workspaces the items in the same cluster have a published report",
+    "defaultMessage": "Report published"
+  },
+  {
+    "id": "list.clusterRequests",
+    "description": "Table header for column that shows number of requests in a cluster",
+    "defaultMessage": "Requests"
+  },
+  {
+    "id": "list.clusterSize",
+    "description": "Table header for column that shows the number of similar items that belong to the same cluster",
+    "defaultMessage": "Similar media"
+  },
+  {
+    "id": "list.clusterFirstItemAt",
+    "description": "Table header for column that shows when the last item of the cluster was created",
+    "defaultMessage": "Submitted"
+  },
+  {
+    "id": "list.clusterLastItemAt",
+    "description": "Table header for column that shows when the last item of the cluster was created",
+    "defaultMessage": "Last submitted"
   }
 ]

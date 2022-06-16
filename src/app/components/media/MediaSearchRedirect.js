@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import Tooltip from '@material-ui/core/Tooltip';
 import WarningIcon from '@material-ui/icons/Warning';
 import { stringHelper } from '../../customHelpers';
+import { getPathnameAndSearch, pageSize } from '../../urlHelpers';
 
 function BrokenLink() {
   return (
@@ -63,19 +64,27 @@ Error.propTypes = {
  * Check your logic higher up in the component tree: this element should be
  * unmounted if its props are about to change.
  */
-export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIndex }) {
+export default function MediaSearchRedirect({
+  buildSiblingUrl,
+  listQuery,
+  listIndex,
+  searchIndex,
+  objectType,
+}) {
   return (
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query MediaSearchRedirectQuery($queryJson: String!) {
+        query MediaSearchRedirectQuery($queryJson: String!, $pageSize: Int!) {
           search(query: $queryJson) {
             id
-            medias(first: 1) {
+            number_of_results
+            medias(first: $pageSize) {
               edges {
                 node {
                   id
                   dbid
+                  cluster_id
                 }
               }
             }
@@ -83,7 +92,8 @@ export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIn
         }
       `}
       variables={{
-        queryJson: JSON.stringify({ ...listQuery, esoffset: listIndex }),
+        queryJson: JSON.stringify({ ...listQuery, esoffset: searchIndex }),
+        pageSize,
       }}
       render={({ error, props }) => {
         if (error) {
@@ -92,9 +102,13 @@ export default function MediaSearchRedirect({ buildSiblingUrl, listQuery, listIn
           if (!props.search) {
             return <BrokenLink />;
           }
-          const edge = props.search.medias.edges[0];
+          const edge = props.search.medias.edges[listIndex % pageSize];
           if (edge) {
-            browserHistory.push(buildSiblingUrl(edge.node.dbid, listIndex));
+            const targetId = objectType === 'media' ? edge.node.dbid : edge.node.cluster_id;
+            const mediaNavList = props.search.medias.edges.map(media => media.node.dbid);
+            const url = buildSiblingUrl(targetId, listIndex);
+            const { pathname, search } = getPathnameAndSearch(url);
+            browserHistory.push({ pathname, search, state: { mediaNavList, count: props.search.number_of_results } });
             return <CircularProgress />; // while the page loads
           }
           return <BrokenLink />;

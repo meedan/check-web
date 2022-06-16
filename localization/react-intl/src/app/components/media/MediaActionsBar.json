@@ -8,16 +8,16 @@
     "defaultMessage": "Trash"
   },
   {
+    "id": "mediaActionsBar.movedToSpam",
+    "defaultMessage": "The item was moved to {spam}"
+  },
+  {
+    "id": "mediaDetail.spam",
+    "defaultMessage": "Spam"
+  },
+  {
     "id": "mediaActionsBar.assignmentsUpdated",
     "defaultMessage": "Assignments updated successfully"
-  },
-  {
-    "id": "mediaActionsBar.publishedReport",
-    "defaultMessage": "Published report"
-  },
-  {
-    "id": "mediaActionsBar.unpublishedReport",
-    "defaultMessage": "Unpublished report"
   },
   {
     "id": "mediaActionsBar.assignmentTitle",

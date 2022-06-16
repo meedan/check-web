@@ -20,14 +20,15 @@ class UpdateStatusMutation extends Relay.Mutation {
       return Relay.QL`fragment on UpdateDynamicPayload {
         dynamicEdge,
         project_media {
-          dbid,
-          project_id,
-          log,
-          id,
-          last_status,
-          last_status_obj,
-          log_count,
-          dynamic_annotation_report_design,
+          dbid
+          project_id
+          log
+          id
+          last_status
+          last_status_obj
+          log_count
+          dynamic_annotation_report_design
+          list_columns_values
         }
       }`;
     default:

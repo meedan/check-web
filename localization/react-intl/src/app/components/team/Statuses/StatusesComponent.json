@@ -21,10 +21,6 @@
     "defaultMessage": "{languageName} statuses"
   },
   {
-    "id": "statusesComponent.subtitle",
-    "defaultMessage": "The status title is visible when reports are sent to users."
-  },
-  {
     "id": "statusesComponent.newStatus",
     "defaultMessage": "New status"
   },

@@ -8,34 +8,34 @@
     "defaultMessage": "This URL does not seem to be a valid RSS feed"
   },
   {
-    "id": "smoochBotNewsletterEditor.title",
-    "defaultMessage": "Compose your newsletter"
-  },
-  {
     "id": "smoochBotNewsletterEditor.paused",
     "defaultMessage": "To send your next newsletter, please add new content"
   },
   {
     "id": "smoochBotNewsletterEditor.active",
-    "defaultMessage": "The newsletter will be sent to {count} users on {date}, {time}"
+    "defaultMessage": "The newsletter will be sent to {count} users on {dateTime}"
   },
   {
     "id": "smoochBotNewsletterEditor.none",
     "defaultMessage": "Please complete the steps below to send a weekly newsletter"
   },
   {
-    "id": "smoochBotNewsletterEditor.firstStep",
-    "description": "This is an item in a bullet list of steps, this is the first step",
-    "defaultMessage": "1. Select a day and time of the week"
+    "id": "smoochBotNewsletterEditor.firstStepTitle",
+    "description": "Tipline newsletter schedule (how often it should be sent)",
+    "defaultMessage": "Schedule"
   },
   {
-    "id": "smoochBotNewsletterEditor.sendEvery",
-    "description": "After this string, there is a drop-down where the user can choose a day of the week",
-    "defaultMessage": "Send every"
+    "id": "smoochBotNewsletterEditor.firstStepDescription",
+    "description": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time",
+    "defaultMessage": "Send the newsletter to all subscribed user every:"
   },
   {
     "id": "smoochBotNewsletterEditor.day",
     "defaultMessage": "Day of week"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.everyday",
+    "defaultMessage": "Day"
   },
   {
     "id": "smoochBotNewsletterEditor.monday",
@@ -81,20 +81,42 @@
   },
   {
     "id": "smoochBotNewsletterEditor.secondStep",
-    "description": "This is an item in a bullet list of steps, this is the second step",
-    "defaultMessage": "2. Add content manually, or via RSS Feed."
+    "description": "Refers to tipline newsletter content",
+    "defaultMessage": "Content"
   },
   {
     "id": "smoochBotNewsletterEditor.secondStep2",
-    "defaultMessage": "If the content is not changed between two scheduled sendouts, it will not be sent."
+    "description": "Explanation about tipline newsletter delivery, in tipline newsletter settings page",
+    "defaultMessage": "If the content is not changed between two scheduled sendouts, the newsletter will not be sent."
+  },
+  {
+    "id": "smoochBotNewsletterEditor.charsCounter",
+    "description": "Counter that shows how many characters can still be input for the tipline content",
+    "defaultMessage": "{count}/{max} characters available"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.introduction",
+    "description": "Tipline newsletter introduction field label",
+    "defaultMessage": "Introduction"
+  },
+  {
+    "id": "smoochBotNewsletterEditor.introPlaceholder1",
+    "description": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated.",
+    "defaultMessage": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically."
+  },
+  {
+    "id": "smoochBotNewsletterEditor.introPlaceholder2",
+    "description": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated.",
+    "defaultMessage": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically."
   },
   {
     "id": "smoochBotNewsletterEditor.toggleRss",
-    "defaultMessage": "Automatically update content using an RSS feed"
+    "defaultMessage": "Load content from RSS feed"
   },
   {
-    "id": "smoochBotNewsletterEditor.numberOfBulletPoints",
-    "defaultMessage": "Number of bullet points"
+    "id": "smoochBotNewsletterEditor.addArticle",
+    "description": "Button label to add a new article URL to the tipline newsletter content",
+    "defaultMessage": "Add article"
   },
   {
     "id": "smoochBotNewsletterEditor.url",

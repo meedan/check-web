@@ -5,11 +5,6 @@
     "defaultMessage": "Items moved from Trash to '{toProject}'"
   },
   {
-    "id": "bulkActions.movedConfirmSuccessfully",
-    "description": "Banner displayed after items are moved successfully",
-    "defaultMessage": "Items moved from Unconfirmed to '{toProject}'"
-  },
-  {
     "id": "bulkActions.movedSuccessfully",
     "description": "Banner displayed after items are moved successfully",
     "defaultMessage": "Items moved to '{toProject}'"
@@ -19,20 +14,26 @@
     "defaultMessage": "Items moved to the Trash."
   },
   {
+    "id": "bulkActions.moveToSpamSuccessfully",
+    "defaultMessage": "Items moved to the Spam."
+  },
+  {
     "id": "bulkActions.trash",
-    "defaultMessage": "Restore selected items and move items to another folder"
+    "description": "Tooltip message for button that restores items from Trash",
+    "defaultMessage": "Restore selected items and move them to another folder"
   },
   {
     "id": "bulkActions.restore",
     "defaultMessage": "Restore from Trash"
   },
   {
-    "id": "bulkActions.unconfirmed",
-    "defaultMessage": "Confirm selected items and move items to another folder"
+    "id": "bulkActions.spam",
+    "description": "Tooltip message for button that mark items as not spam",
+    "defaultMessage": "Mark selected items as not spam and move them to another folder"
   },
   {
-    "id": "bulkActions.confirm",
-    "defaultMessage": "Move from Unconfirmed"
+    "id": "bulkActions.notSpam",
+    "defaultMessage": "Not Spam"
   },
   {
     "id": "bulkActions.dialogMoveTitle",
@@ -44,7 +45,11 @@
     "defaultMessage": "Move to folder"
   },
   {
+    "id": "bulkActions.sendItemsToSpam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
     "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send selected items to Trash"
+    "defaultMessage": "Send to trash"
   }
 ]

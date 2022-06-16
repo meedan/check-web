@@ -600,7 +600,7 @@ function SourceInfo({
           </Collapse>
         </Card>
       </Box>
-      <Tasks tasks={sourceMetadata} media={source} about={about} fieldset="metadata" />
+      <Tasks tasks={sourceMetadata} media={source} about={about} />
     </div>
   );
 }
@@ -669,9 +669,6 @@ export default createFragmentContainer(SourceInfo, {
             jsonoptions
             json_schema
             options
-            pending_suggestions_count
-            suggestions_count
-            log_count
             team_task {
               conditional_info
             }

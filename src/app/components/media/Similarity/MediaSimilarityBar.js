@@ -5,7 +5,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import MediaSimilarityBarComponent from './MediaSimilarityBarComponent';
 import { can } from '../../Can';
 
-const MediaSimilarityBar = ({ projectMedia, showSuggestionsCount, showBackButton }) => {
+const MediaSimilarityBar = ({ projectMedia }) => {
   const ids = `${projectMedia.dbid},0,${projectMedia.team.dbid}`; // Project ID doesn't matter
 
   return (
@@ -55,8 +55,6 @@ const MediaSimilarityBar = ({ projectMedia, showSuggestionsCount, showBackButton
               canAdd={can(props.project_media.permissions, 'update ProjectMedia')}
               isBlank={props.project_media.type === 'Blank'}
               isPublished={props.project_media.report_status === 'published'}
-              showSuggestionsCount={showSuggestionsCount}
-              showBackButton={showBackButton}
             />
           );
         }
@@ -66,11 +64,6 @@ const MediaSimilarityBar = ({ projectMedia, showSuggestionsCount, showBackButton
   );
 };
 
-MediaSimilarityBar.defaultProps = {
-  showSuggestionsCount: true,
-  showBackButton: false,
-};
-
 MediaSimilarityBar.propTypes = {
   projectMedia: PropTypes.shape({
     dbid: PropTypes.number.isRequired,
@@ -78,8 +71,6 @@ MediaSimilarityBar.propTypes = {
       dbid: PropTypes.number.isRequired,
     }).isRequired,
   }).isRequired,
-  showSuggestionsCount: PropTypes.bool,
-  showBackButton: PropTypes.bool,
 };
 
 export default MediaSimilarityBar;

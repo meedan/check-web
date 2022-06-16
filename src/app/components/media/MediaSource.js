@@ -4,6 +4,7 @@ import { QueryRenderer, graphql, commitMutation } from 'react-relay/compat';
 import { makeStyles } from '@material-ui/core/styles';
 import MediasLoading from './MediasLoading';
 import ChangeMediaSource from './ChangeMediaSource';
+import ErrorBoundary from '../error/ErrorBoundary';
 import SourceInfo from '../source/SourceInfo';
 import CreateMediaSource from './CreateMediaSource';
 import { can } from '../Can';
@@ -13,7 +14,6 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
   },
 }));
-
 
 // Auto-resize the iframe when embedded in the browser extension
 
@@ -161,47 +161,49 @@ const MediaSource = ({ projectMedia, params }) => {
   }
 
   return (
-    <QueryRenderer
-      environment={Relay.Store}
-      query={graphql`
-        query MediaSourceQuery($ids: String!, $teamSlug: String!) {
-          project_media(ids: $ids) {
-            id
-            dbid
-            archived
-            pusher_channel
-            permissions
-            team {
-              slug
-              ...ChangeMediaSource_team
-            }
-            source {
+    <ErrorBoundary component="MediaSource">
+      <QueryRenderer
+        environment={Relay.Store}
+        query={graphql`
+          query MediaSourceQuery($ids: String!, $teamSlug: String!) {
+            project_media(ids: $ids) {
               id
-              ...SourceInfo_source @arguments(teamSlug: $teamSlug)
+              dbid
+              archived
+              pusher_channel
+              permissions
+              team {
+                slug
+                ...ChangeMediaSource_team
+              }
+              source {
+                id
+                ...SourceInfo_source @arguments(teamSlug: $teamSlug)
+              }
+            }
+            about {
+              ...SourceInfo_about
             }
           }
-          about {
-            ...SourceInfo_about
+        `}
+        variables={{
+          ids,
+          teamSlug,
+        }}
+        render={({ error, props }) => {
+          if (!error && !props) {
+            return <MediasLoading count={1} />;
           }
-        }
-      `}
-      variables={{
-        ids,
-        teamSlug,
-      }}
-      render={({ error, props }) => {
-        if (!error && !props) {
-          return <MediasLoading count={1} />;
-        }
 
-        if (!error && props) {
-          return <MediaSourceComponent projectMedia={props.project_media} about={props.about} />;
-        }
+          if (!error && props) {
+            return <MediaSourceComponent projectMedia={props.project_media} about={props.about} />;
+          }
 
-        // TODO: We need a better error handling in the future, standardized with other components
-        return null;
-      }}
-    />
+          // TODO: We need a better error handling in the future, standardized with other components
+          return null;
+        }}
+      />
+    </ErrorBoundary>
   );
 };
 

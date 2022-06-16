@@ -4,10 +4,6 @@
     "defaultMessage": "Trash"
   },
   {
-    "id": "projectHeader.unconfirmed",
-    "defaultMessage": "Unconfirmed"
-  },
-  {
     "id": "projectHeader.tiplineInbox",
     "defaultMessage": "Tipline inbox"
   },
@@ -21,7 +17,7 @@
   },
   {
     "id": "projectHeader.trends",
-    "defaultMessage": "Trends"
+    "defaultMessage": "Shared database"
   },
   {
     "id": "projectHeader.allItems",

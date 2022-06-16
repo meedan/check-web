@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -12,7 +11,6 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import { MultiSelector } from '@meedan/check-ui';
 import ItemHistoryDialog from './ItemHistoryDialog';
 import MediaStatus from './MediaStatus';
@@ -96,9 +94,17 @@ class MediaActionsBarComponent extends Component {
   };
 
   handleSendToTrash() {
+    this.handleArchiveItem(CheckArchivedFlags.TRASHED);
+  }
+
+  handleSendToSpam() {
+    this.handleArchiveItem(CheckArchivedFlags.SPAM);
+  }
+
+  handleArchiveItem(archived) {
     const onSuccess = (response) => {
       const pm = response.updateProjectMedia.project_media;
-      const message = (
+      const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
           id="mediaActionsBar.movedToTrash"
           defaultMessage="The item was moved to {trash}"
@@ -107,6 +113,19 @@ class MediaActionsBarComponent extends Component {
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a onClick={() => browserHistory.push(`/${pm.team.slug}/trash`)}>
                 <FormattedMessage id="mediaDetail.trash" defaultMessage="Trash" />
+              </a>
+            ),
+          }}
+        />
+      ) : (
+        <FormattedMessage
+          id="mediaActionsBar.movedToSpam"
+          defaultMessage="The item was moved to {spam}"
+          values={{
+            spam: (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${pm.team.slug}/spam`)}>
+                <FormattedMessage id="mediaDetail.spam" defaultMessage="Spam" />
               </a>
             ),
           }}
@@ -122,10 +141,11 @@ class MediaActionsBarComponent extends Component {
 
     Relay.Store.commitUpdate(
       new UpdateProjectMediaMutation({
-        archived: CheckArchivedFlags.TRASHED,
+        archived,
         check_search_team: this.props.media.team.search,
         check_search_project: this.props.media.project ? this.props.media.project.search : null,
         check_search_trash: this.props.media.team.check_search_trash,
+        check_search_spam: this.props.media.team.check_search_spam,
         media: this.props.media,
         context,
         id: this.props.media.id,
@@ -224,9 +244,7 @@ class MediaActionsBarComponent extends Component {
   render() {
     const { classes, media } = this.props;
 
-    if (media.suggested_main_item || media.is_confirmed_similar_to_another_item) {
-      return null;
-    }
+    const isParent = !(media.suggested_main_item || media.is_confirmed_similar_to_another_item);
 
     const { project } = media;
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
@@ -246,56 +264,47 @@ class MediaActionsBarComponent extends Component {
 
     const context = this.getContext();
 
+    let moveOrRestor = '';
+    if (isParent) {
+      if (media.archived === CheckArchivedFlags.NONE) {
+        moveOrRestor = (
+          <MoveProjectMediaAction
+            team={this.props.media.team}
+            project={project}
+            projectMedia={this.props.media}
+            className={classes.spacedButton}
+          />
+        );
+      } else {
+        moveOrRestor = (
+          <RestoreConfirmProjectMediaToProjectAction
+            team={this.props.media.team}
+            projectMedia={this.props.media}
+            context={context}
+            className={classes.spacedButton}
+          />
+        );
+      }
+    }
+
     return (
       <div className={classes.root}>
-        { media.archived === CheckArchivedFlags.NONE ?
-          <div>
-            <MoveProjectMediaAction
-              team={this.props.media.team}
-              project={project}
-              projectMedia={this.props.media}
-              className={classes.spacedButton}
-            />
-            { media.team && media.team.smooch_bot ?
-              <Button
-                onClick={MediaActionsBarComponent.handleReportDesigner}
-                id="media-detail__report-designer"
-                variant="outlined"
-                className={classes.spacedButton}
-                startIcon={<IconReport />}
-              >
-                { published ?
-                  <FormattedMessage
-                    id="mediaActionsBar.publishedReport"
-                    defaultMessage="Published report"
-                  /> :
-                  <FormattedMessage
-                    id="mediaActionsBar.unpublishedReport"
-                    defaultMessage="Unpublished report"
-                  /> }
-              </Button> : null }
-          </div> :
-          <div>
-            <RestoreConfirmProjectMediaToProjectAction
-              team={this.props.media.team}
-              projectMedia={this.props.media}
-              context={context}
-              className={classes.spacedButton}
-            />
-          </div>
-        }
-
+        <div> { moveOrRestor } </div>
         <Box display="flex">
-          <MediaStatus
-            media={media}
-            readonly={media.archived > CheckArchivedFlags.NONE
-              || media.last_status_obj.locked || published}
-          />
+          {isParent ?
+            <MediaStatus
+              media={media}
+              readonly={media.archived > CheckArchivedFlags.NONE
+                || media.last_status_obj.locked || published}
+            /> : null
+          }
           <MediaActionsMenuButton
             key={media.id /* close menu if we navigate to a different projectMedia */}
             projectMedia={media}
+            isParent={isParent}
             handleRefresh={this.handleRefresh.bind(this)}
             handleSendToTrash={this.handleSendToTrash.bind(this)}
+            handleSendToSpam={this.handleSendToSpam.bind(this)}
             handleAssign={this.handleAssign.bind(this)}
             handleStatusLock={this.handleStatusLock.bind(this)}
             handleItemHistory={this.handleItemHistory}
@@ -456,6 +465,10 @@ const MediaActionsBarContainer = Relay.createContainer(ConnectedMediaActionsBarC
             number_of_results
           }
           check_search_trash {
+            id
+            number_of_results
+          }
+          check_search_spam {
             id
             number_of_results
           }

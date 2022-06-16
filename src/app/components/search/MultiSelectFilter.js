@@ -11,7 +11,7 @@ import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { MultiSelector } from '@meedan/check-ui';
 import RemoveableWrapper from './RemoveableWrapper';
 import SelectButton from './SelectButton';
-import { checkBlue } from '../../styles/js/shared';
+import { checkBlue, checkError } from '../../styles/js/shared';
 
 const NoHoverButton = withStyles({
   root: {
@@ -53,7 +53,7 @@ const useTagStyles = makeStyles({
     lineHeight: '22px',
     color: 'white',
     backgroundColor: checkBlue,
-    borderRadius: '2px',
+    borderRadius: '4px',
     boxSizing: 'content-box',
     padding: '0 8px 0 8px',
     outline: 0,
@@ -75,6 +75,9 @@ const useTagStyles = makeStyles({
       height: '24px',
     },
   },
+  missingProperty: {
+    backgroundColor: checkError,
+  },
 });
 
 const Tag = ({
@@ -84,9 +87,18 @@ const Tag = ({
   ...props
 }) => {
   const classes = useTagStyles();
-  return (
+  return label ? (
     <div className={`multi-select-filter__tag ${classes.root}`} {...props}>
       <span>{label}</span>
+      { readOnly ? null : (
+        <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
+      )}
+    </div>
+  ) : (
+    <div className={`multi-select-filter__tag ${classes.root} ${classes.missingProperty}`} {...props}>
+      <span>
+        <FormattedMessage id="filter.tag.deleted" defaultMessage="Property deleted" description="Message shown a placeholder when someone tries to filter a search by a property that the user has deleted" />
+      </span>
       { readOnly ? null : (
         <CloseIcon className="multi-select-filter__tag-remove" onClick={onDelete} />
       )}
@@ -151,7 +163,6 @@ const MultiSelectFilter = ({
     setVersion(version + 1); // Force refresh of wrapper component
     onChange(value);
   };
-
 
   return (
     <div>
@@ -259,7 +270,6 @@ const CustomSelectDropdown = ({
 MultiSelectFilter.defaultProps = {
   allowSearch: true,
   extraInputs: null,
-  icon: null,
   selected: [],
   onToggleOperator: null,
   readOnly: false,
@@ -275,12 +285,13 @@ MultiSelectFilter.propTypes = {
     PropTypes.string,
   ])).isRequired,
   label: PropTypes.node.isRequired,
-  icon: PropTypes.element,
+  icon: PropTypes.element.isRequired,
   onChange: PropTypes.func.isRequired,
-  selected: PropTypes.arrayOf(PropTypes.oneOfType([
-    PropTypes.object,
+  onRemove: PropTypes.func.isRequired,
+  selected: PropTypes.oneOfType([
+    PropTypes.array,
     PropTypes.string,
-  ])),
+  ]),
   onToggleOperator: PropTypes.func,
   readOnly: PropTypes.bool,
   onType: PropTypes.func,

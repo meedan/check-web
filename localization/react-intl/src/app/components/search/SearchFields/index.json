@@ -35,9 +35,54 @@
     "defaultMessage": "Unread"
   },
   {
+    "id": "search.empty",
+    "description": "Allow filtering by claim with no value set",
+    "defaultMessage": "Empty"
+  },
+  {
+    "id": "search.notEmpty",
+    "description": "Allow filtering by claim with any value set",
+    "defaultMessage": "Not empty"
+  },
+  {
+    "id": "search.emptyAssign",
+    "description": "Allow filtering by assigned_to with no value set",
+    "defaultMessage": "Not assigned"
+  },
+  {
+    "id": "search.notEmptyAssign",
+    "description": "Allow filtering by assigned_to with any value set",
+    "defaultMessage": "Assigned"
+  },
+  {
+    "id": "search.confirmed",
+    "description": "Allow filtering by confirmed items",
+    "defaultMessage": "Confirmed"
+  },
+  {
+    "id": "search.unconfirmed",
+    "description": "Allow filtering by unconfirmed items",
+    "defaultMessage": "Unconfirmed"
+  },
+  {
     "id": "search.notInAny",
     "description": "Label displayed before listing all folders that are not part of any collection",
     "defaultMessage": "Not in any collection"
+  },
+  {
+    "id": "search.reportStatusUnpublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Unpublished"
+  },
+  {
+    "id": "search.reportStatusPublished",
+    "description": "Refers to a report status",
+    "defaultMessage": "Published"
+  },
+  {
+    "id": "search.reportStatusPaused",
+    "description": "Refers to a report status",
+    "defaultMessage": "Paused"
   },
   {
     "id": "search.fieldOr",
@@ -53,6 +98,11 @@
     "id": "search.folderHeading",
     "description": "Prefix label for field to filter by folder to which items belong",
     "defaultMessage": "Folder is"
+  },
+  {
+    "id": "search.claim",
+    "description": "Prefix label for field to filter by claim",
+    "defaultMessage": "Claim field is"
   },
   {
     "id": "search.collection",
@@ -85,24 +135,19 @@
     "defaultMessage": "Created by"
   },
   {
+    "id": "search.archived",
+    "description": "Prefix label for field to filter by Tipline request",
+    "defaultMessage": "Tipline request is"
+  },
+  {
     "id": "search.reportStatus",
     "description": "Prefix label for field to filter by report status",
     "defaultMessage": "Report status is"
   },
   {
-    "id": "search.reportStatusUnpublished",
-    "description": "Refers to a report status",
-    "defaultMessage": "Unpublished"
-  },
-  {
-    "id": "search.reportStatusPaused",
-    "description": "Refers to a report status",
-    "defaultMessage": "Paused"
-  },
-  {
-    "id": "search.reportStatusPublished",
-    "description": "Refers to a report status",
-    "defaultMessage": "Published"
+    "id": "search.publishedBy",
+    "description": "Prefix label for field to filter by published by",
+    "defaultMessage": "Report published by"
   },
   {
     "id": "search.language",
@@ -113,6 +158,11 @@
     "id": "search.assignedTo",
     "description": "Prefix label for field to filter by assigned users",
     "defaultMessage": "Assigned to"
+  },
+  {
+    "id": "search.clusterTeams",
+    "description": "Prefix label for field to filter by workspace",
+    "defaultMessage": "Organization is"
   },
   {
     "id": "search.applyFilters",

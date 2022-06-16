@@ -1,0 +1,7 @@
+[
+  {
+    "id": "checkedByTeamsCell.more",
+    "description": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display",
+    "defaultMessage": "+{number} more"
+  }
+]

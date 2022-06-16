@@ -26,6 +26,7 @@ class MediaActionsMenuButton extends React.PureComponent {
     }).isRequired,
     handleRefresh: PropTypes.func.isRequired,
     handleSendToTrash: PropTypes.func.isRequired,
+    handleSendToSpam: PropTypes.func.isRequired,
     handleAssign: PropTypes.func.isRequired,
     handleStatusLock: PropTypes.func.isRequired,
   };
@@ -52,73 +53,87 @@ class MediaActionsMenuButton extends React.PureComponent {
   render() {
     const {
       projectMedia,
+      isParent,
       handleRefresh,
       handleSendToTrash,
+      handleSendToSpam,
       handleAssign,
       handleStatusLock,
       handleItemHistory,
     } = this.props;
     const menuItems = [];
 
-    if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
-      if (projectMedia.media.url) {
+    if (isParent) {
+      if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
+        if (projectMedia.media.url) {
+          menuItems.push((
+            <MenuItem
+              key="mediaActions.refresh"
+              className="media-actions__refresh"
+              id="media-actions__refresh"
+              onClick={e => this.handleActionAndClose(e, handleRefresh)}
+            >
+              <ListItemText
+                primary={
+                  <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+                }
+              />
+            </MenuItem>));
+        }
+      }
+
+      if (can(projectMedia.permissions, 'update Status') && projectMedia.archived === CheckArchivedFlags.NONE) {
         menuItems.push((
           <MenuItem
-            key="mediaActions.refresh"
-            className="media-actions__refresh"
-            id="media-actions__refresh"
-            onClick={e => this.handleActionAndClose(e, handleRefresh)}
+            key="mediaActions.assign"
+            className="media-actions__assign"
+            onClick={e => this.handleActionAndClose(e, handleAssign)}
           >
             <ListItemText
               primary={
-                <FormattedMessage id="mediaActions.refresh" defaultMessage="Refresh" />
+                <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assign to…" />
               }
             />
           </MenuItem>));
       }
-    }
 
-    if (can(projectMedia.permissions, 'update Status') && projectMedia.archived === CheckArchivedFlags.NONE) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.assign"
-          className="media-actions__assign"
-          onClick={e => this.handleActionAndClose(e, handleAssign)}
-        >
-          <ListItemText
-            primary={
-              <FormattedMessage id="mediaActions.assignOrUnassign" defaultMessage="Assign to…" />
-            }
-          />
-        </MenuItem>));
-    }
+      if (can(projectMedia.permissions, 'lock Annotation') && projectMedia.archived === CheckArchivedFlags.NONE) {
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.lockStatus"
+            className="media-actions__lock-status"
+            onClick={e => this.handleActionAndClose(e, handleStatusLock)}
+          >
+            <ListItemText
+              primary={projectMedia.last_status_obj.locked ?
+                <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
+                <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
+            />
+          </MenuItem>));
+      }
 
-    if (can(projectMedia.permissions, 'lock Annotation') && projectMedia.archived === CheckArchivedFlags.NONE) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.lockStatus"
-          className="media-actions__lock-status"
-          onClick={e => this.handleActionAndClose(e, handleStatusLock)}
-        >
-          <ListItemText
-            primary={projectMedia.last_status_obj.locked ?
-              <FormattedMessage id="mediaActions.unlockStatus" defaultMessage="Unlock status" /> :
-              <FormattedMessage id="mediaActions.lockStatus" defaultMessage="Lock status" />}
-          />
-        </MenuItem>));
-    }
-
-    if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
-      menuItems.push((
-        <MenuItem
-          key="mediaActions.sendToTrash"
-          className="media-actions__send-to-trash"
-          onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
-        >
-          <ListItemText
-            primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Move to Trash" />}
-          />
-        </MenuItem>));
+      if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.sendToTrash"
+            className="media-actions__send-to-trash"
+            onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
+          >
+            <ListItemText
+              primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to Trash" />}
+            />
+          </MenuItem>));
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.sendToSpam"
+            className="media-actions__send-to-spam"
+            onClick={e => this.handleActionAndClose(e, handleSendToSpam)}
+          >
+            <ListItemText
+              primary={<FormattedMessage id="mediaActions.sendToSpam" defaultMessage="Mark as Spam" />}
+            />
+          </MenuItem>));
+      }
     }
 
     menuItems.push((

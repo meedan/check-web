@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { makeStyles } from '@material-ui/core/styles';
-import { checkBlue, brandHighlight, opaqueBlack23 } from '../../../styles/js/shared';
+import { checkBlue, opaqueBlack23 } from '../../../styles/js/shared';
 import RuleOperatorWrapper from './RuleOperatorWrapper';
 import RuleField from './RuleField';
 
@@ -19,13 +19,13 @@ const useStyles = makeStyles(theme => ({
     border: 0,
   },
   ifGroup: {
-    border: `2px solid ${brandHighlight}`,
+    border: `2px solid ${checkBlue}`,
   },
   thenGroup: {
     border: `2px solid ${checkBlue}`,
   },
   ifTitle: {
-    color: brandHighlight,
+    color: checkBlue,
   },
   thenTitle: {
     color: checkBlue,
@@ -87,9 +87,10 @@ const RuleBody = (props) => {
           fullWidth
         /> : null }
       <RuleOperatorWrapper
+        allowRemove={Boolean(props.onResetRule)}
         center
-        color={brandHighlight}
-        deleteIconColor={brandHighlight}
+        color={checkBlue}
+        deleteIconColor={checkBlue}
         operator={rule.rules.operator}
         onSetOperator={(value) => {
           rule.rules.operator = value;
@@ -100,8 +101,12 @@ const RuleBody = (props) => {
           props.onChangeRule(rule);
         }}
         onRemove={(i) => {
-          rule.rules.groups.splice(i, 1);
-          props.onChangeRule(rule);
+          if (rule.rules.groups.length === 1 && props.onResetRule) {
+            props.onResetRule();
+          } else {
+            rule.rules.groups.splice(i, 1);
+            props.onChangeRule(rule);
+          }
         }}
       >
         {rule.rules.groups.map((group, i) => {
@@ -117,7 +122,7 @@ const RuleBody = (props) => {
               </Typography>
               <RuleOperatorWrapper
                 center={false}
-                color={brandHighlight}
+                color={checkBlue}
                 operator={group.operator}
                 onSetOperator={(value) => {
                   rule.rules.groups[i].operator = value;
@@ -191,6 +196,7 @@ const RuleBody = (props) => {
             {rule.actions.map((action, i) => {
               const actions = props.schema.properties.rules.items.properties.actions.items;
               const actionsDefinition = actions.properties.action_definition;
+              actionsDefinition.enum = actionsDefinition.enum.filter(a => a.key !== 'add_tag');
               const conditionalField = getConditionalField(actions.allOf, 'action_definition', action.action_definition);
               return (
                 <Box key={Math.random().toString().substring(2, 10)} className={classes.box}>

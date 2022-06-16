@@ -9,6 +9,7 @@ import MultiSelectFilter from '../MultiSelectFilter';
 
 const SearchFieldCountry = ({
   selected,
+  readOnly,
   onChange,
   onRemove,
 }) => (
@@ -34,6 +35,7 @@ const SearchFieldCountry = ({
                 options={options}
                 onChange={(newValue) => { onChange(newValue); }}
                 onRemove={onRemove}
+                readOnly={readOnly}
               />
             )}
           </FormattedMessage>
@@ -48,10 +50,12 @@ const SearchFieldCountry = ({
 
 SearchFieldCountry.defaultProps = {
   selected: [],
+  readOnly: false,
 };
 
 SearchFieldCountry.propTypes = {
   selected: PropTypes.array,
+  readOnly: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
   onRemove: PropTypes.func.isRequired,
 };

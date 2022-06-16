@@ -17,7 +17,11 @@
   },
   {
     "id": "mediaActions.sendToTrash",
-    "defaultMessage": "Move to Trash"
+    "defaultMessage": "Send to Trash"
+  },
+  {
+    "id": "mediaActions.sendToSpam",
+    "defaultMessage": "Mark as Spam"
   },
   {
     "id": "mediaActions.history",

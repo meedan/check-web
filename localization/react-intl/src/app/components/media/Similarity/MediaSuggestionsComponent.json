@@ -1,19 +1,40 @@
 [
   {
+    "id": "mediaSuggestionsComponent.movedToTrash",
+    "defaultMessage": "The item was moved to {trash}"
+  },
+  {
+    "id": "mediaDetail.trash",
+    "defaultMessage": "Trash"
+  },
+  {
+    "id": "mediaSuggestionsComponent.movedToSpam",
+    "defaultMessage": "The item was moved to {spam}"
+  },
+  {
+    "id": "mediaDetail.spam",
+    "defaultMessage": "Spam"
+  },
+  {
     "id": "mediaSuggestionsComponent.back",
     "defaultMessage": "Back"
+  },
+  {
+    "id": "mediaSuggestionsComponent.mediasCount",
+    "defaultMessage": "{number, plural, one {# media} other {# medias}}"
+  },
+  {
+    "id": "mediaSuggestionsComponent.requestsCount",
+    "defaultMessage": "{number} tipline requests across all medias"
   },
   {
     "id": "mediaSuggestionsComponent.title",
     "defaultMessage": "{total, plural, one {{current} of # suggested media} other {{current} of # suggested medias}}"
   },
   {
-    "id": "mediaSuggestionsComponent.questionBlank",
-    "defaultMessage": "Is the suggested media similar to the imported report?"
-  },
-  {
     "id": "mediaSuggestionsComponent.question",
-    "defaultMessage": "Is the suggested media similar to the main?"
+    "description": "Subtitle for similarity matching widget",
+    "defaultMessage": "Is this media a good match for the claim and medias on the left?"
   },
   {
     "id": "mediaSuggestionsComponent.dialogRejectTitle",
@@ -24,27 +45,19 @@
     "defaultMessage": "Move item"
   },
   {
+    "id": "mediaSuggestionsComponent.sendItemsToSpam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
+    "id": "mediaSuggestionsComponent.sendItemsToTrash",
+    "defaultMessage": "Send to trash"
+  },
+  {
     "id": "mediaSuggestionsComponent.noSuggestions",
     "defaultMessage": "There is no suggested media."
   },
   {
     "id": "mediaSuggestionsComponent.goBack",
     "defaultMessage": "Back to main view"
-  },
-  {
-    "id": "mediaSuggestionsComponent.requests",
-    "defaultMessage": "Requests"
-  },
-  {
-    "id": "mediaSuggestionsComponent.noRequests",
-    "defaultMessage": "No requests"
-  },
-  {
-    "id": "mediaSuggestionsComponent.notes",
-    "defaultMessage": "Notes"
-  },
-  {
-    "id": "mediaSuggestionsComponent.noNotes",
-    "defaultMessage": "No notes"
   }
 ]

@@ -9,6 +9,7 @@ import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import ReportGmailerrorredIcon from '@material-ui/icons/ReportGmailerrorred';
 import Tooltip from '@material-ui/core/Tooltip';
 import { makeStyles } from '@material-ui/core/styles';
 import BulkActionsMenu from './BulkActionsMenu';
@@ -132,37 +133,21 @@ class BulkActions extends React.Component {
         title: projectTitle,
         dbid: projectId,
       } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
-      const message = params.archived_was === CheckArchivedFlags.TRASHED ?
-        (
-          <FormattedMessage
-            id="bulkActions.movedRestoreSuccessfully"
-            defaultMessage="Items moved from Trash to '{toProject}'"
-            description="Banner displayed after items are moved successfully"
-            values={{
-              toProject: (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-                  {projectTitle}
-                </a>
-              ),
-            }}
-          />
-        ) :
-        (
-          <FormattedMessage
-            id="bulkActions.movedConfirmSuccessfully"
-            defaultMessage="Items moved from Unconfirmed to '{toProject}'"
-            description="Banner displayed after items are moved successfully"
-            values={{
-              toProject: (
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
-                <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
-                  {projectTitle}
-                </a>
-              ),
-            }}
-          />
-        );
+      const message = (
+        <FormattedMessage
+          id="bulkActions.movedRestoreSuccessfully"
+          defaultMessage="Items moved from Trash to '{toProject}'"
+          description="Banner displayed after items are moved successfully"
+          values={{
+            toProject: (
+              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
+                {projectTitle}
+              </a>
+            ),
+          }}
+        />
+      );
       this.props.setFlashMessage(message, 'success');
       this.setState({ dstProj: null });
       this.props.onUnselectAll();
@@ -182,12 +167,17 @@ class BulkActions extends React.Component {
     }
   }
 
-  handleDelete() {
+  handleArchive(archived) {
     const onSuccess = () => {
-      const message = (
+      const message = archived === CheckArchivedFlags.TRASHED ? (
         <FormattedMessage
           id="bulkActions.moveToTrashSuccessfully"
           defaultMessage="Items moved to the Trash."
+        />
+      ) : (
+        <FormattedMessage
+          id="bulkActions.moveToSpamSuccessfully"
+          defaultMessage="Items moved to the Spam."
         />
       );
       this.props.setFlashMessage(message, 'success');
@@ -199,6 +189,7 @@ class BulkActions extends React.Component {
         ids: this.props.selectedMedia,
         project: this.props.project,
         team: this.props.team,
+        archived,
       });
       Relay.Store.commitUpdate(mutation, { onSuccess });
     }
@@ -211,7 +202,7 @@ class BulkActions extends React.Component {
     const disabled = selectedMedia.length === 0;
     let modalToMove = null;
     let permissionKey = 'bulk_update ProjectMedia';
-    if (page === 'trash' || page === 'unconfirmed') {
+    if (page === 'trash' || page === 'spam') {
       let archivedWas = null;
       let moveTooltipMessage = null;
       let moveButtonMessage = null;
@@ -221,25 +212,28 @@ class BulkActions extends React.Component {
         moveTooltipMessage = (
           <FormattedMessage
             id="bulkActions.trash"
-            defaultMessage="Restore selected items and move items to another folder"
+            defaultMessage="Restore selected items and move them to another folder"
+            description="Tooltip message for button that restores items from Trash"
           />
         );
         moveButtonMessage = (
           <FormattedMessage id="bulkActions.restore" defaultMessage="Restore from Trash" />
         );
-      } else {
-        permissionKey = 'confirm ProjectMedia';
-        archivedWas = CheckArchivedFlags.UNCONFIRMED;
+      } else if (page === 'spam') {
+        permissionKey = 'not_spam ProjectMedia';
+        archivedWas = CheckArchivedFlags.SPAM;
         moveTooltipMessage = (
           <FormattedMessage
-            id="bulkActions.unconfirmed"
-            defaultMessage="Confirm selected items and move items to another folder"
+            id="bulkActions.spam"
+            defaultMessage="Mark selected items as not spam and move them to another folder"
+            description="Tooltip message for button that mark items as not spam"
           />
         );
         moveButtonMessage = (
-          <FormattedMessage id="bulkActions.confirm" defaultMessage="Move from Unconfirmed" />
+          <FormattedMessage id="bulkActions.notSpam" defaultMessage="Not Spam" />
         );
       }
+
       modalToMove = (
         <React.Fragment>
           <ButtonWithTooltip
@@ -305,23 +299,37 @@ class BulkActions extends React.Component {
       );
     }
 
-    const deleteButton = page === 'trash' ? null :
+    const archiveButton = page === 'trash' || page === 'spam' ? null :
       (
-        <IconButtonWithTooltip
-          title={
-            <FormattedMessage
-              id="bulkActions.sendItemsToTrash"
-              defaultMessage="Send selected items to Trash"
-            />
-          }
-          disabled={disabled}
-          className="media-bulk-actions__delete-icon"
-          onClick={this.handleDelete.bind(this)}
-        >
-          <DeleteIcon />
-        </IconButtonWithTooltip>
+        <span>
+          <IconButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.sendItemsToSpam"
+                defaultMessage="Mark as spam"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__spam-icon"
+            onClick={this.handleArchive.bind(this, CheckArchivedFlags.SPAM)}
+          >
+            <ReportGmailerrorredIcon />
+          </IconButtonWithTooltip>
+          <IconButtonWithTooltip
+            title={
+              <FormattedMessage
+                id="bulkActions.sendItemsToTrash"
+                defaultMessage="Send to trash"
+              />
+            }
+            disabled={disabled}
+            className="media-bulk-actions__delete-icon"
+            onClick={this.handleArchive.bind(this, CheckArchivedFlags.TRASHED)}
+          >
+            <DeleteIcon />
+          </IconButtonWithTooltip>
+        </span>
       );
-
 
     return (
       <span id="media-bulk-actions">
@@ -330,7 +338,7 @@ class BulkActions extends React.Component {
             <Can permission={permissionKey} permissions={team.permissions}>
               {modalToMove}
             </Can>
-            {deleteButton}
+            {archiveButton}
           </React.Fragment>
         </Box>
       </span>
@@ -359,14 +367,14 @@ export default createFragmentContainer(withSetFlashMessage(BulkActions), graphql
       id
       number_of_results
     }
-    check_search_unconfirmed {
+    check_search_spam {
       id
       number_of_results
     }
     public_team {
       id
       trash_count
-      unconfirmed_count
+      spam_count
     }
   }
 `);

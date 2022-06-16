@@ -75,7 +75,7 @@ shared_examples 'annotation' do
   end
 
   it 'should add, and answer a datetime annotation', bin3: true do
-    api_create_team_project_metadata_and_media({ url: @media_url, type: 'datetime', options: '[{"code":"UTC","label":"UTC (0 GMT)","offset":0}]' })
+    api_create_team_project_metadata_and_claim({ quote: 'item item', type: 'datetime', options: '[{"code":"UTC","label":"UTC (0 GMT)","offset":0}]' })
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')
@@ -83,11 +83,7 @@ shared_examples 'annotation' do
     wait_for_selector('.task__response-inputs')
     # answer the annotation
     wait_for_selector('.form-edit').click
-    # clear the annotation
-    wait_for_selector('.MuiOutlinedInput-input').click
-    wait_for_selector("//span[contains(text(), 'Clear')]", :xpath).click
-    wait_for_selector_none('.MuiPickersCalendarHeader-iconButton')
-    # answer the annotation
+    wait_for_selector('.form-cancel')
     wait_for_selector('.task__response input').send_keys('2021/12/12')
     wait_for_selector('.form-save').click
     wait_for_selector_none('.form-save')
@@ -95,7 +91,7 @@ shared_examples 'annotation' do
   end
 
   it 'should add, and answer a single choice annotation', bin5: true do
-    api_create_team_project_metadata_and_media({ url: @media_url, type: 'single_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
+    api_create_team_project_metadata_and_claim({ quote: 'item item', type: 'single_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')
@@ -112,7 +108,7 @@ shared_examples 'annotation' do
   end
 
   it 'should add, and answer a multiple choice annotation', bin4: true do
-    api_create_team_project_metadata_and_media({ url: @media_url, type: 'multiple_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
+    api_create_team_project_metadata_and_claim({ quote: 'item item', type: 'multiple_choice', options: '[{"label": "Foo"}, {"label": "Bar"}]' })
     wait_for_selector('#search-input')
     wait_for_selector('.medias__item').click
     wait_for_selector('.media__annotations-tabs')

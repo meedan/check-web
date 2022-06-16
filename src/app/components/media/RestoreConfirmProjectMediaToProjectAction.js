@@ -33,6 +33,7 @@ function handleRestore({
       check_search_team: team.search,
       check_search_project: null,
       check_search_trash: team.check_search_trash,
+      check_search_spam: team.check_search_spam,
       context: newContext,
       srcProj: null,
       dstProj: project,
@@ -85,6 +86,15 @@ function RestoreConfirmProjectMediaToProjectAction({
     setFlashMessage, team, projectMedia, setIsDialogOpen, setIsSaving,
   ]);
 
+  let buttonLabel = '';
+  if (projectMedia.archived === CheckArchivedFlags.TRASHED) {
+    buttonLabel = (<FormattedMessage id="mediaActionsBar.restoreTo" defaultMessage="Restore from Trash" />);
+  } else if (projectMedia.archived === CheckArchivedFlags.UNCONFIRMED) {
+    buttonLabel = (<FormattedMessage id="mediaActionsBar.confirmTo" defaultMessage="Confirm" />);
+  } else if (projectMedia.archived === CheckArchivedFlags.SPAM) {
+    buttonLabel = (<FormattedMessage id="mediaActionsBar.notSpamTo" defaultMessage="Not spam" />);
+  }
+
   return (
     <React.Fragment>
       <Button
@@ -95,10 +105,7 @@ function RestoreConfirmProjectMediaToProjectAction({
         color="primary"
         onClick={openDialog}
       >
-        { projectMedia.archived === CheckArchivedFlags.TRASHED ?
-          <FormattedMessage id="mediaActionsBar.restoreTo" defaultMessage="Restore from Trash" />
-          : <FormattedMessage id="mediaActionsBar.confirmTo" defaultMessage="Confirm" />
-        }
+        { buttonLabel }
       </Button>
       <SelectProjectDialog
         open={isDialogOpen}
@@ -139,6 +146,10 @@ export default createFragmentContainer(RestoreConfirmProjectMediaToProjectAction
         number_of_results
       }
       check_search_trash {
+        id
+        number_of_results
+      }
+      check_search_spam {
         id
         number_of_results
       }

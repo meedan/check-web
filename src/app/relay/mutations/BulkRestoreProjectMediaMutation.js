@@ -15,8 +15,8 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
         check_search_project { id, number_of_results }
         check_search_team { id, number_of_results }
         check_search_trash { id, number_of_results }
-        check_search_unconfirmed { id, number_of_results }
-        team { id, medias_count, public_team { id, trash_count, unconfirmed_count } }
+        check_search_spam { id, number_of_results }
+        team { id, medias_count, public_team { id, trash_count, spam_count } }
         project { id, medias_count }
       }
     `;
@@ -53,12 +53,12 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
         id: this.props.team.check_search_trash.id,
         number_of_results: this.props.team.public_team.trash_count - this.props.ids.length,
       };
-    } else {
-      response.team.public_team.unconfirmed_count =
-        this.props.team.public_team.unconfirmed_count - this.props.ids.length;
-      response.check_search_unconfirmed = {
-        id: this.props.team.check_search_unconfirmed.id,
-        number_of_results: this.props.team.public_team.unconfirmed_count - this.props.ids.length,
+    } else if (this.props.archived_was === CheckArchivedFlags.SPAM) {
+      response.team.public_team.spam_count =
+        this.props.team.public_team.spam_count - this.props.ids.length;
+      response.check_search_spam = {
+        id: this.props.team.check_search_spam.id,
+        number_of_results: this.props.team.public_team.spam_count - this.props.ids.length,
       };
     }
 
@@ -84,7 +84,7 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
           check_search_project: this.props.dstProject.search_id,
           check_search_team: this.props.team.search_id,
           check_search_trash: this.props.team.check_search_trash.id,
-          check_search_unconfirmed: this.props.team.check_search_unconfirmed.id,
+          check_search_spam: this.props.team.check_search_spam.id,
           team: this.props.team.id,
         },
       },
@@ -97,11 +97,11 @@ class BulkRestoreProjectMediaMutation extends Relay.Mutation {
         connectionName: 'medias',
         deletedIDFieldName: 'ids',
       });
-    } else {
+    } else if (this.props.archived_was === CheckArchivedFlags.SPAM) {
       config.push({
         type: 'NODE_DELETE',
-        parentName: 'check_search_unconfirmed',
-        parentID: this.props.team.check_search_unconfirmed.id,
+        parentName: 'check_search_spam',
+        parentID: this.props.team.check_search_spam.id,
         connectionName: 'medias',
         deletedIDFieldName: 'ids',
       });

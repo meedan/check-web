@@ -41,13 +41,7 @@ class CreateTeamTask extends React.Component {
     };
 
     const onFailure = (transaction) => {
-      const fallbackMessage = this.props.fieldset === 'tasks' ? (
-        <FormattedMessage
-          id="createTeamTask.errorTask"
-          defaultMessage="Sorry, an error occurred while creating the task. Please try again and contact {supportEmail} if the condition persists."
-          values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
-        />
-      ) : (
+      const fallbackMessage = (
         <FormattedMessage
           id="createTeamTask.errorMetadata"
           defaultMessage="Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
@@ -79,22 +73,14 @@ class CreateTeamTask extends React.Component {
           variant="contained"
           color="primary"
         >
-          { this.props.fieldset === 'metadata' ?
-            <FormattedMessage
-              id="createTeamTask.addField"
-              defaultMessage="New annotation field"
-              description="Button that triggers creation of a new field"
-            /> :
-            <FormattedMessage
-              id="createTeamTask.addTask"
-              defaultMessage="New task"
-              description="Button that triggers creation of a new task"
-            />
-          }
+          <FormattedMessage
+            id="createTeamTask.addField"
+            defaultMessage="New annotation field"
+            description="Button that triggers creation of a new field"
+          />
         </Button>
         { this.state.dialogOpen ?
           <EditTaskDialog
-            fieldset={this.props.fieldset}
             message={this.state.message}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
@@ -109,7 +95,6 @@ class CreateTeamTask extends React.Component {
 }
 
 CreateTeamTask.propTypes = {
-  fieldset: PropTypes.string.isRequired,
   team: PropTypes.object.isRequired,
   associatedType: PropTypes.string,
 };

@@ -12,7 +12,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import {
   black16,
   borderWidthLarge,
-  brandHighlight,
+  checkBlue,
 } from '../../styles/js/shared';
 
 const useStyles = makeStyles(theme => ({
@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
   },
   inputActive: {
     borderRadius: theme.spacing(0.5),
-    border: `${borderWidthLarge} solid ${brandHighlight}`,
+    border: `${borderWidthLarge} solid ${checkBlue}`,
   },
   startAdornmentRoot: {
     display: 'flex',
@@ -62,6 +62,7 @@ const SearchField = ({
   const [expand, setExpand] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [expandedText, setExpandedText] = React.useState(searchText);
+  const [localSearchText, setLocalSearchText] = React.useState(searchText);
 
   function handleExpand(event) {
     setExpand(true);
@@ -88,11 +89,26 @@ const SearchField = ({
             name="search-input"
             id="search-input"
             {...inputBaseProps}
-            onChange={(e) => {
+            onBlur={(e) => {
               setParentSearchText(e.target.value);
-              inputBaseProps.onChange(e);
+              if (inputBaseProps.onBlur) {
+                inputBaseProps.onBlur(e);
+              }
             }}
-            value={searchText}
+            onChange={(e) => {
+              setLocalSearchText(e.target.value);
+              if (inputBaseProps.onChange) {
+                inputBaseProps.onChange(e);
+              }
+            }}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                setParentSearchText(e.target.value);
+                setLocalSearchText(e.target.value);
+                inputBaseProps.onBlur(e);
+              }
+            }}
+            value={localSearchText}
             InputProps={{
               disableUnderline: true,
               startAdornment: (

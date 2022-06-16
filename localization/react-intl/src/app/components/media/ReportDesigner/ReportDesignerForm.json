@@ -9,7 +9,7 @@
   },
   {
     "id": "reportDesigner.report",
-    "defaultMessage": "Report"
+    "defaultMessage": "Fact-check"
   },
   {
     "id": "reportDesigner.text",
@@ -23,23 +23,24 @@
   },
   {
     "id": "reportDesigner.textTitle",
-    "defaultMessage": "Title ({max} characters max)"
+    "defaultMessage": "Title"
   },
   {
     "id": "reportDesigner.content",
-    "defaultMessage": "Content ({max} characters max)"
+    "defaultMessage": "Summary"
   },
   {
-    "id": "reportDesigner.textError",
-    "defaultMessage": "You must either provide text for the report or uncheck the 'Report text' box"
+    "id": "reportDesigner.textUrl",
+    "description": "Text report field",
+    "defaultMessage": "Article URL"
   },
   {
     "id": "reportDesigner.headline",
-    "defaultMessage": "Title ({max} characters max)"
+    "defaultMessage": "Title"
   },
   {
     "id": "reportDesigner.description",
-    "defaultMessage": "Content ({max} characters max)"
+    "defaultMessage": "Summary"
   },
   {
     "id": "reportDesigner.darkOverlay",
@@ -55,7 +56,7 @@
   },
   {
     "id": "reportDesigner.statusLabel",
-    "defaultMessage": "Status label ({max} characters max)"
+    "defaultMessage": "Status label"
   },
   {
     "id": "reportDesigner.datePublished",
@@ -63,6 +64,6 @@
   },
   {
     "id": "reportDesigner.url",
-    "defaultMessage": "Website URL ({max} characters max)"
+    "defaultMessage": "Website URL"
   }
 ]

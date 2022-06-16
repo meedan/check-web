@@ -14,10 +14,7 @@ import IconArrowBack from '@material-ui/icons/ArrowBack';
 import IconPlay from '@material-ui/icons/PlayArrow';
 import IconPause from '@material-ui/icons/Pause';
 import HelpIcon from '@material-ui/icons/HelpOutline';
-import config from 'config'; // eslint-disable-line require-path-exists/exists
-import ReportDesignerCopyToClipboard from './ReportDesignerCopyToClipboard';
 import ReportDesignerConfirmableButton from './ReportDesignerConfirmableButton';
-import ReportDesignerEditButton from './ReportDesignerEditButton';
 import MediaStatus from '../MediaStatus';
 import { completedGreen, inProgressYellow, brandSecondary, checkBlue } from '../../../styles/js/shared';
 import { getStatus } from '../../../helpers';
@@ -61,7 +58,6 @@ const ReportDesignerTopBar = (props) => {
   const {
     media,
     state,
-    editing,
     data,
     defaultLanguage,
     intl,
@@ -88,22 +84,18 @@ const ReportDesignerTopBar = (props) => {
       />
     );
   }
-  // If the text report is selected but has no content, we can't publish
-  if (defaultReport && defaultReport.use_text_message &&
-    defaultReport.text.length === 0 && defaultReport.title.length === 0) {
+  // We can publish if there is a default report with either visual card or text report
+  const hasValidTextReport = defaultReport && defaultReport.use_text_message && defaultReport.text?.length > 0 && defaultReport.title?.length > 0;
+  const hasValidVisualCard = defaultReport && defaultReport.use_visual_card && defaultReport.headline?.length > 0 && defaultReport.description?.length > 0;
+  if (hasValidTextReport || hasValidVisualCard) {
+    cantPublishReason = null;
+  } else {
     cantPublishReason = (
       <FormattedMessage
         id="reportDesignerToolbar.cantPublishText"
-        defaultMessage="You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+        defaultMessage="You must add a title and a summary to the fact-check in order to publish the report."
       />
     );
-  }
-  // We can publish if there is a default report with either visual card or non-empty text report
-  const hasValidTextReport = defaultReport && defaultReport.use_text_message && (defaultReport.text.length > 0 || defaultReport.title.length > 0);
-  const noInvalidTextReport = (defaultReport && !defaultReport.use_text_message) || hasValidTextReport;
-  if (defaultReport && ((defaultReport.use_visual_card && noInvalidTextReport) ||
-                        (!defaultReport.use_visual_card && hasValidTextReport))) {
-    cantPublishReason = null;
   }
   // We can't publish if the status is the initial one
   if (media.last_status === media.team.verification_statuses.default) {
@@ -116,7 +108,7 @@ const ReportDesignerTopBar = (props) => {
     );
   }
   // We Can't publish if using a visual card and there's a content warning and no alternative image is set
-  if (media.show_warning_cover && media.media.picture === data.options[0].image) {
+  if (media.show_warning_cover && data.options.some(r => (media.media.picture === r.image) && r.use_visual_card)) {
     cantPublishReason = (
       <FormattedMessage
         id="reportDesignerToolbar.cantPublishContentFlag"
@@ -126,10 +118,6 @@ const ReportDesignerTopBar = (props) => {
   }
 
   const readOnly = props.readOnly || statusChanging;
-  const url = window.location.href.replace(/\/report$/, `?t=${new Date().getTime()}`);
-  const embedTag = `<script src="${config.penderUrl}/api/medias.js?url=${encodeURIComponent(url)}"></script>`;
-  const metadata = JSON.parse(media.oembed_metadata);
-  const shareUrl = metadata.embed_url;
   const statusChanged = !!(data.last_published && data.options && data.options.length &&
     data.options[0].previous_published_status_label &&
     data.options[0].status_label !== data.options[0].previous_published_status_label);
@@ -138,7 +126,11 @@ const ReportDesignerTopBar = (props) => {
     firstSent = data.last_published;
   }
   if (firstSent) {
-    firstSent = new Date(parseInt(firstSent, 10) * 1000).toLocaleDateString(intl.locale, { month: 'short', year: 'numeric', day: '2-digit' });
+    firstSent = new Date(parseInt(firstSent, 10) * 1000).toLocaleString(intl.locale);
+  }
+  let lastSent = null;
+  if (data.last_published) {
+    lastSent = new Date(parseInt(data.last_published, 10) * 1000).toLocaleString(intl.locale);
   }
 
   const handleGoBack = () => {
@@ -164,26 +156,6 @@ const ReportDesignerTopBar = (props) => {
               defaultMessage="Back to annotation"
             />
           </Button>
-          <ReportDesignerCopyToClipboard
-            className="report-designer__copy-embed-code"
-            value={embedTag}
-            label={
-              <FormattedMessage
-                id="reportDesigner.copyEmbedCode"
-                defaultMessage="Copy embed code"
-              />
-            }
-          />
-          <ReportDesignerCopyToClipboard
-            className="report-designer__copy-share-url"
-            value={shareUrl}
-            label={
-              <FormattedMessage
-                id="reportDesigner.copyShareUrl"
-                defaultMessage="Copy share URL"
-              />
-            }
-          />
         </Box>
         <Box display="flex" justifyContent="space-between" width="0.5">
           <Box display="flex">
@@ -201,6 +173,17 @@ const ReportDesignerTopBar = (props) => {
             <Box className={classes.cell}>
               <Typography variant="subtitle2">
                 <FormattedMessage
+                  id="reportDesigner.lastPublished"
+                  defaultMessage="Last published"
+                />
+              </Typography>
+              <Typography variant="body2">
+                {lastSent || firstSent || '-'}
+              </Typography>
+            </Box>
+            <Box className={classes.cell}>
+              <Typography variant="subtitle2">
+                <FormattedMessage
                   id="reportDesigner.sentCount"
                   defaultMessage="Reports sent"
                 />
@@ -212,28 +195,7 @@ const ReportDesignerTopBar = (props) => {
             </Box>
           </Box>
           <Box display="flex">
-            { editing ?
-              <ReportDesignerEditButton
-                disabled={readOnly}
-                onClick={props.onSave}
-                label={
-                  <FormattedMessage
-                    id="reportDesigner.save"
-                    defaultMessage="Save"
-                  />
-                }
-              /> :
-              <ReportDesignerEditButton
-                disabled={readOnly || state === 'published'}
-                onClick={props.onEdit}
-                label={
-                  <FormattedMessage
-                    id="reportDesigner.edit"
-                    defaultMessage="Edit"
-                  />
-                }
-              /> }
-            { !editing && state === 'paused' ?
+            { state === 'paused' ?
               <ReportDesignerConfirmableButton
                 className={classes.publish}
                 disabled={readOnly}
@@ -392,7 +354,7 @@ const ReportDesignerTopBar = (props) => {
                   </React.Fragment>
                 }
                 noCancel={Boolean(cantPublishReason)}
-                onClose={cantPublishReason ? props.onEdit : null}
+                onClose={null}
                 onConfirm={
                   cantPublishReason ?
                     null :
@@ -409,7 +371,7 @@ const ReportDesignerTopBar = (props) => {
                     }
                 }
               /> : null }
-            { !editing && state === 'published' ?
+            { state === 'published' ?
               <ReportDesignerConfirmableButton
                 className={classes.pause}
                 disabled={readOnly}
@@ -469,14 +431,11 @@ ReportDesignerTopBar.defaultProps = {
 
 ReportDesignerTopBar.propTypes = {
   state: PropTypes.oneOf(['paused', 'published']).isRequired,
-  editing: PropTypes.bool.isRequired,
   media: PropTypes.object.isRequired,
   data: PropTypes.object.isRequired,
   defaultLanguage: PropTypes.string.isRequired,
   onStatusChange: PropTypes.func.isRequired,
   onStateChange: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onEdit: PropTypes.func.isRequired,
   readOnly: PropTypes.bool,
   intl: intlShape.isRequired,
   prefixUrl: PropTypes.string.isRequired,

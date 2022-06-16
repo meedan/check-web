@@ -15,6 +15,7 @@ import ReportDesignerFormSection from './ReportDesignerFormSection';
 import ColorPicker from '../../layout/ColorPicker';
 import UploadFile from '../../UploadFile';
 import { formatDate } from './reportDesignerHelpers';
+import LimitedTextFieldWithCounter from '../../layout/LimitedTextFieldWithCounter';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -75,6 +76,7 @@ const ReportDesignerForm = (props) => {
     className: classes.textField,
     variant: 'outlined',
     fullWidth: true,
+    disabled: props.pending,
   };
 
   return (
@@ -109,8 +111,8 @@ const ReportDesignerForm = (props) => {
                 defaultMessage="Introduction"
               />
             }
-            value={data.introduction}
-            onChange={(e) => { props.onUpdate('introduction', e.target.value); }}
+            defaultValue={data.introduction}
+            onBlur={(e) => { props.onUpdate('introduction', e.target.value); }}
             rows={4}
             multiline
             {...textFieldProps}
@@ -123,7 +125,7 @@ const ReportDesignerForm = (props) => {
               <strong>
                 <FormattedMessage
                   id="reportDesigner.report"
-                  defaultMessage="Report"
+                  defaultMessage="Fact-check"
                 />
               </strong>
             </Typography>
@@ -147,78 +149,94 @@ const ReportDesignerForm = (props) => {
 
           { data.use_text_message ?
             <Box>
-              <TextField
-                key={`text-title-${data.language}`}
-                value={data.title}
-                inputProps={{ maxLength: 140, className: classes.headlineField }}
+              <LimitedTextFieldWithCounter
+                limit={140}
                 label={
                   <FormattedMessage
                     id="reportDesigner.textTitle"
-                    defaultMessage="Title ({max} characters max)"
-                    values={{ max: 140 }}
+                    defaultMessage="Title"
                   />
                 }
-                onChange={(e) => { props.onUpdate('title', e.target.value); }}
-                onBlur={(e) => { props.onUpdate('title', e.target.value.trim()); }}
-                {...textFieldProps}
+                onUpdate={(newValue) => { props.onUpdate('title', newValue); }}
+                value={data.title}
+                textFieldProps={{
+                  key: `text-title-${data.language}`,
+                  ...textFieldProps,
+                }}
               />
-              <TextField
-                id="report-designer__text" // For integration test
-                key={`text-${data.language}`}
-                value={data.text}
-                inputProps={{ maxLength: 760 }}
+              <LimitedTextFieldWithCounter
+                limit={620}
                 label={
                   <FormattedMessage
                     id="reportDesigner.content"
-                    defaultMessage="Content ({max} characters max)"
-                    values={{ max: 760 }}
+                    defaultMessage="Summary"
                   />
                 }
-                onChange={(e) => { props.onUpdate('text', e.target.value); }}
+                onUpdate={(newValue) => { props.onUpdate('text', newValue); }}
                 rows={10}
-                multiline
-                helperText={
-                  data.use_text_message && data.text.length === 0 ?
-                    <FormattedMessage
-                      id="reportDesigner.textError"
-                      defaultMessage="You must either provide text for the report or uncheck the 'Report text' box"
-                    /> : null
+                value={data.text}
+                textFieldProps={{
+                  id: 'report-designer__text', // For integration test
+                  key: `text-${data.language}`,
+                  ...textFieldProps,
+                }}
+              />
+              <LimitedTextFieldWithCounter
+                limit={140}
+                label={
+                  <FormattedMessage
+                    id="reportDesigner.textUrl"
+                    defaultMessage="Article URL"
+                    description="Text report field"
+                  />
                 }
-                {...textFieldProps}
+                onUpdate={(newValue) => {
+                  let newUrl = newValue;
+                  if (!/^https?:\/\//.test(newUrl)) {
+                    newUrl = `https://${newUrl}`;
+                  }
+                  props.onUpdate('published_article_url', newUrl);
+                }}
+                value={data.published_article_url}
+                textFieldProps={{
+                  key: `text-url-${data.language}-${data.published_article_url}`,
+                  ...textFieldProps,
+                }}
               />
             </Box> : null }
 
-          { data.use_visual_card ?
+          { data.use_visual_card && !data.use_text_message ?
             <Box>
-              <TextField
-                key={`headline-${data.language}`}
-                value={data.headline}
-                onChange={(e) => { props.onUpdate('headline', e.target.value); }}
-                inputProps={{ maxLength: 85, className: classes.headlineField }}
+              <LimitedTextFieldWithCounter
+                limit={85}
                 label={
                   <FormattedMessage
                     id="reportDesigner.headline"
-                    defaultMessage="Title ({max} characters max)"
-                    values={{ max: 85 }}
+                    defaultMessage="Title"
                   />
                 }
-                {...textFieldProps}
+                onUpdate={(newValue) => { props.onUpdate('headline', newValue); }}
+                value={data.headline}
+                textFieldProps={{
+                  key: `headline-${data.language}`,
+                  ...textFieldProps,
+                }}
               />
-              <TextField
-                key={`description-${data.language}`}
-                value={data.description}
-                onChange={(e) => { props.onUpdate('description', e.target.value); }}
-                inputProps={{ maxLength: 240 }}
+              <LimitedTextFieldWithCounter
+                limit={240}
                 label={
                   <FormattedMessage
                     id="reportDesigner.description"
-                    defaultMessage="Content ({max} characters max)"
-                    values={{ max: 240 }}
+                    defaultMessage="Summary"
                   />
                 }
-                multiline
+                onUpdate={(newValue) => { props.onUpdate('description', newValue); }}
+                value={data.description}
                 rows={3}
-                {...textFieldProps}
+                textFieldProps={{
+                  key: `description-${data.language}`,
+                  ...textFieldProps,
+                }}
               />
               <UploadFile onChange={handleImageChange} onError={handleImageError} type="image" />
               <Box display="flex" justifyContent="space-between">
@@ -261,51 +279,52 @@ const ReportDesignerForm = (props) => {
                 <div className={classes.spacer} />
                 <Box display="flex" flexWrap="wrap" flexGrow="1">
                   <Box display="flex" width="100%">
-                    <TextField
-                      key={`status-${data.language}`}
+                    <LimitedTextFieldWithCounter
+                      limit={25}
                       value={data.status_label}
-                      onChange={(e) => { props.onUpdate('status_label', e.target.value); }}
-                      inputProps={{ maxLength: 25 }}
-                      fullWidth
+                      onUpdate={(newValue) => { props.onUpdate('status_label', newValue); }}
                       label={
                         <FormattedMessage
                           id="reportDesigner.statusLabel"
-                          defaultMessage="Status label ({max} characters max)"
-                          values={{ max: 25 }}
+                          defaultMessage="Status label"
                         />
                       }
-                      {...textFieldProps}
+                      textFieldProps={{
+                        key: `status-${data.language}`,
+                        ...textFieldProps,
+                      }}
                     />
                     <div className={classes.spacer} />
-                    <TextField
-                      key={`date-${data.language}`}
+                    <LimitedTextFieldWithCounter
+                      limit={100}
                       value={data.date || formatDate(new Date(), data.language)}
-                      onChange={(e) => { props.onUpdate('date', e.target.value); }}
-                      inputProps={{ maxLength: 100 }}
-                      fullWidth
+                      onUpdate={(newValue) => { props.onUpdate('date', newValue); }}
                       label={
                         <FormattedMessage
                           id="reportDesigner.datePublished"
                           defaultMessage="Date published"
                         />
                       }
-                      {...textFieldProps}
+                      textFieldProps={{
+                        key: `date-${data.language}`,
+                        ...textFieldProps,
+                      }}
                     />
                   </Box>
-                  <TextField
-                    key={`url-${data.language}`}
+                  <LimitedTextFieldWithCounter
+                    limit={40}
                     value={data.url}
-                    onChange={(e) => { props.onUpdate('url', e.target.value); }}
-                    inputProps={{ maxLength: 40 }}
-                    fullWidth
+                    onUpdate={(newValue) => { props.onUpdate('url', newValue); }}
                     label={
                       <FormattedMessage
                         id="reportDesigner.url"
-                        defaultMessage="Website URL ({max} characters max)"
-                        values={{ max: 40 }}
+                        defaultMessage="Website URL"
                       />
                     }
-                    {...textFieldProps}
+                    textFieldProps={{
+                      key: `url-${data.language}`,
+                      ...textFieldProps,
+                    }}
                   />
                 </Box>
               </Box>
@@ -318,6 +337,7 @@ const ReportDesignerForm = (props) => {
 
 ReportDesignerForm.defaultProps = {
   disabled: false,
+  pending: false,
 };
 
 ReportDesignerForm.propTypes = {
@@ -325,6 +345,7 @@ ReportDesignerForm.propTypes = {
   media: PropTypes.object.isRequired,
   onUpdate: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  pending: PropTypes.bool,
 };
 
 export default ReportDesignerForm;

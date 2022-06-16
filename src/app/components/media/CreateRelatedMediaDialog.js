@@ -111,6 +111,7 @@ class CreateRelatedMediaDialog extends React.Component {
                 formId={formId}
                 isSubmitting={this.props.isSubmitting}
                 onSubmit={this.props.onSubmit}
+                team={this.props.team}
                 noSource
               />
             }

@@ -6,6 +6,7 @@ import CheckContext from '../../CheckContext';
 import MediaRoute from '../../relay/MediaRoute';
 import MediaComponent from './MediaComponent';
 import MediasLoading from './MediasLoading';
+import MediaAnalysis from './MediaAnalysis'; // eslint-disable-line no-unused-vars
 import MediaTags from './MediaTags'; // eslint-disable-line no-unused-vars
 
 const MediaContainer = Relay.createContainer(MediaComponent, {
@@ -18,6 +19,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         id
         dbid
         title
+        ${MediaAnalysis.getFragment('projectMedia')}
         ${MediaTags.getFragment('projectMedia')}
         read_by_someone: is_read
         read_by_me: is_read(by_me: true)
@@ -30,12 +32,14 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
         creator_name
         user_id
         channel
+        suggested_main_item # used by MediaClaim, MediaFactCheck
         is_confirmed_similar_to_another_item
         is_secondary
         claim_description {
           id
           dbid
           description
+          context
           updated_at
           user {
             name
@@ -149,7 +153,6 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
           get_language
           get_report
           verification_statuses
-          get_tasks_enabled
           team_bots(first: 10000) {
             edges {
               node {

@@ -9,7 +9,7 @@
   },
   {
     "id": "reportDesignerToolbar.cantPublishText",
-    "defaultMessage": "You must provide text in the content or title of Report Text, or unselect it and select Visual Card in order to publish the item."
+    "defaultMessage": "You must add a title and a summary to the fact-check in order to publish the report."
   },
   {
     "id": "reportDesignerToolbar.cantPublishStatus",
@@ -24,28 +24,16 @@
     "defaultMessage": "Back to annotation"
   },
   {
-    "id": "reportDesigner.copyEmbedCode",
-    "defaultMessage": "Copy embed code"
-  },
-  {
-    "id": "reportDesigner.copyShareUrl",
-    "defaultMessage": "Copy share URL"
-  },
-  {
     "id": "reportDesigner.firstSent",
     "defaultMessage": "First published"
   },
   {
+    "id": "reportDesigner.lastPublished",
+    "defaultMessage": "Last published"
+  },
+  {
     "id": "reportDesigner.sentCount",
     "defaultMessage": "Reports sent"
-  },
-  {
-    "id": "reportDesigner.save",
-    "defaultMessage": "Save"
-  },
-  {
-    "id": "reportDesigner.edit",
-    "defaultMessage": "Edit"
   },
   {
     "id": "reportDesigner.publish",

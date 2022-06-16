@@ -189,7 +189,7 @@ const EditStatusDialog = ({
         <Button
           className="edit-status-dialog__submit"
           disabled={!statusLabel}
-          onClick={handleConfirmSubmit}
+          onClick={team.smooch_bot ? handleConfirmSubmit : handleSubmit}
           color="primary"
           variant="contained"
         >

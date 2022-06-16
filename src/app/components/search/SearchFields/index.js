@@ -15,8 +15,12 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 import PersonIcon from '@material-ui/icons/Person';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReportIcon from '@material-ui/icons/PlaylistAddCheck';
+import RuleIcon from '@material-ui/icons//Rule';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
+import ErrorIcon from '@material-ui/icons/Error';
+import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import CustomFiltersManager from '../CustomFiltersManager';
 import AddFilterMenu from '../AddFilterMenu';
 import DateRangeFilter from '../DateRangeFilter';
@@ -29,7 +33,9 @@ import { Row, checkBlue } from '../../../styles/js/shared';
 import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
+import SearchFieldClusterTeams from './SearchFieldClusterTeams';
 import SearchFieldCountry from './SearchFieldCountry';
+import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 /**
  * Return `query`, with property `key` changed to the `newArray`.
@@ -46,7 +52,7 @@ function updateStateQueryArrayValue(query, key, newArray) {
   return { ...query, [key]: newArray };
 }
 
-const typeLabels = defineMessages({
+const messages = defineMessages({
   claim: {
     id: 'search.showClaims',
     defaultMessage: 'Text',
@@ -72,9 +78,6 @@ const typeLabels = defineMessages({
     defaultMessage: 'Audio',
     description: 'Describes media type Audio',
   },
-});
-
-const readLabels = defineMessages({
   read: {
     id: 'search.itemRead',
     defaultMessage: 'Read',
@@ -84,6 +87,36 @@ const readLabels = defineMessages({
     id: 'search.itemUnread',
     defaultMessage: 'Unread',
     description: 'Describes media unread',
+  },
+  empty: {
+    id: 'search.empty',
+    defaultMessage: 'Empty',
+    description: 'Allow filtering by claim with no value set',
+  },
+  notEmpty: {
+    id: 'search.notEmpty',
+    defaultMessage: 'Not empty',
+    description: 'Allow filtering by claim with any value set',
+  },
+  emptyAssign: {
+    id: 'search.emptyAssign',
+    defaultMessage: 'Not assigned',
+    description: 'Allow filtering by assigned_to with no value set',
+  },
+  notEmptyAssign: {
+    id: 'search.notEmptyAssign',
+    defaultMessage: 'Assigned',
+    description: 'Allow filtering by assigned_to with any value set',
+  },
+  confirmed: {
+    id: 'search.confirmed',
+    defaultMessage: 'Confirmed',
+    description: 'Allow filtering by confirmed items',
+  },
+  unconfirmed: {
+    id: 'search.unconfirmed',
+    defaultMessage: 'Unconfirmed',
+    description: 'Allow filtering by unconfirmed items',
   },
 });
 
@@ -148,6 +181,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handleHasClaimClick = (claimValue) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'has_claim', claimValue),
+    );
+  }
+
   handleUserClick = (userIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'users', userIds),
@@ -160,6 +199,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handleTiplineRequestClick = (confirmedValue) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'archived', confirmedValue),
+    );
+  }
+
   handleAssignedUserClick = (userIds) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'assigned_to', userIds),
@@ -169,6 +214,12 @@ class SearchFields extends React.Component {
   handleReportStatusClick = (statuses) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'report_status', statuses),
+    );
+  }
+
+  handlePublishedByClick = (userIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'published_by', userIds),
     );
   }
 
@@ -187,6 +238,18 @@ class SearchFields extends React.Component {
   handleSourceClick = (sources) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'sources', sources),
+    );
+  }
+
+  handleClusterTeamsClick = (teamIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'cluster_teams', teamIds),
+    );
+  }
+
+  handleClusterPublishedReportsClick = (teamIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'cluster_published_reports', teamIds),
     );
   }
 
@@ -286,16 +349,32 @@ class SearchFields extends React.Component {
       team.tag_texts.edges.map(t => t.node.text) : [];
 
     const types = [
-      { value: 'claims', label: this.props.intl.formatMessage(typeLabels.claim) },
-      { value: 'links', label: this.props.intl.formatMessage(typeLabels.link) },
-      { value: 'images', label: this.props.intl.formatMessage(typeLabels.image) },
-      { value: 'videos', label: this.props.intl.formatMessage(typeLabels.video) },
-      { value: 'audios', label: this.props.intl.formatMessage(typeLabels.audio) },
+      { value: 'claims', label: this.props.intl.formatMessage(messages.claim) },
+      { value: 'links', label: this.props.intl.formatMessage(messages.link) },
+      { value: 'images', label: this.props.intl.formatMessage(messages.image) },
+      { value: 'videos', label: this.props.intl.formatMessage(messages.video) },
+      { value: 'audios', label: this.props.intl.formatMessage(messages.audio) },
     ];
 
     const readValues = [
-      { value: '0', label: this.props.intl.formatMessage(readLabels.unread) },
-      { value: '1', label: this.props.intl.formatMessage(readLabels.read) },
+      { value: '0', label: this.props.intl.formatMessage(messages.unread) },
+      { value: '1', label: this.props.intl.formatMessage(messages.read) },
+    ];
+
+    const confirmedValues = [
+      { value: CheckArchivedFlags.NONE.toString(), label: this.props.intl.formatMessage(messages.confirmed) },
+      { value: CheckArchivedFlags.UNCONFIRMED.toString(), label: this.props.intl.formatMessage(messages.unconfirmed) },
+    ];
+
+    const hasClaimOptions = [
+      { label: this.props.intl.formatMessage(messages.notEmpty), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.empty), value: 'NO_VALUE', exclusive: true },
+    ];
+
+    const assignedToOptions = [
+      { label: this.props.intl.formatMessage(messages.notEmptyAssign), value: 'ANY_VALUE', exclusive: true },
+      { label: this.props.intl.formatMessage(messages.emptyAssign), value: 'NO_VALUE', exclusive: true },
+      { label: '', value: '' },
     ];
 
     const languages = team.get_languages ? JSON.parse(team.get_languages).map(code => ({ value: code, label: languageLabel(code) })) : [];
@@ -308,6 +387,14 @@ class SearchFields extends React.Component {
     }
     if (/imported-reports/.test(window.location.pathname)) {
       selectedChannels = [CheckChannels.FETCH];
+    }
+
+    const reportStatusOptions = [
+      { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
+      { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
+    ];
+    if (!/trends/.test(window.location.pathname)) {
+      reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
     }
 
     const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
@@ -337,6 +424,21 @@ class SearchFields extends React.Component {
           )}
         </FormattedMessage>
       ),
+      has_claim: (
+        <FormattedMessage id="search.claim" defaultMessage="Claim field is" description="Prefix label for field to filter by claim">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<RuleIcon />}
+              allowSearch={false}
+              selected={this.props.query.has_claim}
+              options={hasClaimOptions}
+              onChange={this.handleHasClaimClick}
+              onRemove={() => this.handleRemoveField('has_claim')}
+            />
+          )}
+        </FormattedMessage>
+      ),
       project_group_id: (
         <FormattedMessage id="search.collection" defaultMessage="Collection is" description="Prefix label for field to filter by collection">
           { label => (
@@ -353,7 +455,7 @@ class SearchFields extends React.Component {
         </FormattedMessage>
       ),
       range: (
-        <Box maxWidth="700px">
+        <Box maxWidth="900px">
           <DateRangeFilter
             onChange={this.handleDateChange}
             value={this.props.query.range}
@@ -445,6 +547,22 @@ class SearchFields extends React.Component {
           readOnly={isSpecialPage}
         />
       ),
+      archived: (
+        <FormattedMessage id="search.archived" defaultMessage="Tipline request is" description="Prefix label for field to filter by Tipline request">
+          { label => (
+            <MultiSelectFilter
+              allowSearch={false}
+              label={label}
+              icon={<ErrorIcon />}
+              selected={this.props.query.archived}
+              options={confirmedValues}
+              onChange={this.handleTiplineRequestClick}
+              onRemove={() => this.handleRemoveField('archived')}
+              single
+            />
+          )}
+        </FormattedMessage>
+      ),
       linked_items_count: (
         <Box maxWidth="700px">
           <NumericRangeFilter
@@ -484,13 +602,23 @@ class SearchFields extends React.Component {
               label={label}
               icon={<ReportIcon />}
               selected={this.props.query.report_status}
-              options={[
-                { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
-                { label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' },
-                { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
-              ]}
+              options={reportStatusOptions}
               onChange={this.handleReportStatusClick}
               onRemove={() => this.handleRemoveField('report_status')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      published_by: (
+        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<HowToRegIcon />}
+              selected={this.props.query.published_by}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handlePublishedByClick}
+              onRemove={() => this.handleRemoveField('published_by')}
             />
           )}
         </FormattedMessage>
@@ -516,7 +644,7 @@ class SearchFields extends React.Component {
               label={label}
               icon={<PersonIcon />}
               selected={this.props.query.assigned_to}
-              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              options={assignedToOptions.concat(users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` })))}
               onChange={this.handleAssignedUserClick}
               onRemove={() => this.handleRemoveField('assigned_to')}
             />
@@ -539,11 +667,40 @@ class SearchFields extends React.Component {
           onRemove={() => this.handleRemoveField('sources')}
         />
       ),
+      cluster_teams: (
+        <FormattedMessage id="search.clusterTeams" defaultMessage="Organization is" description="Prefix label for field to filter by workspace">
+          { label => (
+            <SearchFieldClusterTeams
+              label={label}
+              icon={<CorporateFareIcon />}
+              teamSlug={team.slug}
+              selected={this.props.query.cluster_teams}
+              onChange={(newValue) => { this.handleClusterTeamsClick(newValue); }}
+              onRemove={() => this.handleRemoveField('cluster_teams')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      cluster_published_reports: (
+        <FormattedMessage id="search.publishedBy" defaultMessage="Report published by" description="Prefix label for field to filter by published by">
+          { label => (
+            <SearchFieldClusterTeams
+              label={label}
+              icon={<HowToRegIcon />}
+              teamSlug={team.slug}
+              selected={this.props.query.cluster_published_reports}
+              onChange={(newValue) => { this.handleClusterPublishedReportsClick(newValue); }}
+              onRemove={() => this.handleRemoveField('cluster_published_reports')}
+            />
+          )}
+        </FormattedMessage>
+      ),
       country: (
         <SearchFieldCountry
-          selected={this.props.query.country}
+          selected={team?.country || this.props.query.country}
           onChange={(newValue) => { this.handleCountryClick(newValue); }}
           onRemove={() => this.handleRemoveField('country')}
+          readOnly
         />
       ),
     };
@@ -553,7 +710,9 @@ class SearchFields extends React.Component {
     if (this.props.projectGroup) fieldKeys.push('project_group_id');
     if (/\/(tipline-inbox|imported-reports)+/.test(window.location.pathname)) fieldKeys.push('channels');
 
-    fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && fieldComponents[k]));
+    const { hideFields } = this.props;
+
+    fieldKeys = fieldKeys.concat(Object.keys(this.props.query).filter(k => k !== 'keyword' && hideFields.indexOf(k) === -1 && fieldComponents[k]));
     const addedFields = fieldKeys.filter(i => i !== 'team_tasks');
 
     return (
@@ -577,7 +736,7 @@ class SearchFields extends React.Component {
           })}
           <AddFilterMenu
             team={team}
-            hideOptions={this.props.hideFields}
+            hideOptions={hideFields}
             addedFields={addedFields}
             onSelect={this.handleAddField}
           />
@@ -650,6 +809,8 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
+    get_trends_filters
+    country
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
     }

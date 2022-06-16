@@ -6,21 +6,5 @@
   {
     "id": "reportDesigner.title",
     "defaultMessage": "Design your report"
-  },
-  {
-    "id": "reportDesigner.confirmLeaveTitle",
-    "defaultMessage": "Do you want to leave without saving?"
-  },
-  {
-    "id": "reportDesigner.confirmLeaveText",
-    "defaultMessage": "You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
-  },
-  {
-    "id": "reportDesigner.confirmLeaveButtonLabel",
-    "defaultMessage": "Leave without saving"
-  },
-  {
-    "id": "reportDesigner.cancelLeaveButtonLabel",
-    "defaultMessage": "Go back"
   }
 ]

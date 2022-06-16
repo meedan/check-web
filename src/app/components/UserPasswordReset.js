@@ -16,6 +16,7 @@ import PageTitle from './PageTitle';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
 import GenericUnknownErrorMessage from './GenericUnknownErrorMessage';
+import ErrorBoundary from './error/ErrorBoundary';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import { getErrorMessageForRelayModernProblem } from '../helpers';
@@ -109,80 +110,82 @@ const UserPasswordReset = (props) => {
   const classes = useStyles();
 
   return (
-    <PageTitle>
-      <Box m={2} align="center">
-        <FormattedHTMLMessage {...globalStrings.bestViewed} />
-      </Box>
-      <ContentColumn center className="user-password-reset__component">
-        <StyledCard>
-          <FormattedGlobalMessage messageKey="appNameHuman">
-            {appNameHuman => (
-              <img
-                className={classes.logo}
-                alt={appNameHuman}
-                width="120"
-                src={stringHelper('LOGO_URL')}
-              />
-            )}
-          </FormattedGlobalMessage>
-          <StyledSubHeader className="reset-password__heading">
-            { pagetitleMessage }
-          </StyledSubHeader>
-          { showConfirmDialog ? [
-            <CardContent key="usr-2" className={['user-password-reset__sent_password', classes.confirmText].join(' ')} >
-              <FormattedMessage
-                id="passwordReset.confirmedText"
-                defaultMessage="If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
-                values={{
-                  adminEmail: stringHelper('ADMIN_EMAIL'),
-                  supportEmail: stringHelper('SUPPORT_EMAIL'),
-                }}
-              />
-            </CardContent>,
-            <Typography component="div" align="center">
-              <Button
-                color="primary"
-                variant="contained"
-                disabled={submitDisabled}
-                onClick={handleSignIn}
-              >
-                <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />
-              </Button>
-            </Typography>,
-          ] : [
-            <CardContent key="usr-2">
-              { previousErrorMsg ? <p>{previousErrorMsg}</p> : null }
-              <FormattedMessage id="passwordReset.text" defaultMessage="Add your address and an email will be sent with further instructions." />
-              <div className="user-password-reset__email-input">
-                <TextField
-                  id="password-reset-email-input"
-                  type="email"
-                  label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
-                  onChange={handleChange}
-                  helperText={errorMsg}
-                  error={errorMsg}
-                  variant="outlined"
-                  margin="normal"
-                  fullWidth
-                  autoFocus
-                />
-              </div>
-            </CardContent>,
-            <CardActions key="usr-3" className="user-password-reset__actions">
-              <Button onClick={handleGoBack}>
-                <FormattedMessage {...globalStrings.cancel} />
-              </Button>
-              <Button color="primary" disabled={submitDisabled} onClick={handleSubmit}>
-                { pagetitleMessage }
-              </Button>
-            </CardActions>,
-          ]}
-        </StyledCard>
-        <Box my={4}>
-          <CheckAgreeTerms />
+    <ErrorBoundary component="UserPasswordReset">
+      <PageTitle>
+        <Box m={2} align="center">
+          <FormattedHTMLMessage {...globalStrings.bestViewed} />
         </Box>
-      </ContentColumn>
-    </PageTitle>
+        <ContentColumn center className="user-password-reset__component">
+          <StyledCard>
+            <FormattedGlobalMessage messageKey="appNameHuman">
+              {appNameHuman => (
+                <img
+                  className={classes.logo}
+                  alt={appNameHuman}
+                  width="120"
+                  src={stringHelper('LOGO_URL')}
+                />
+              )}
+            </FormattedGlobalMessage>
+            <StyledSubHeader className="reset-password__heading">
+              { pagetitleMessage }
+            </StyledSubHeader>
+            { showConfirmDialog ? [
+              <CardContent key="usr-2" className={['user-password-reset__sent_password', classes.confirmText].join(' ')} >
+                <FormattedMessage
+                  id="passwordReset.confirmedText"
+                  defaultMessage="If this email address exists, you will receive an email from {adminEmail} with instructions to reset your password. Make sure it didn't wind up in your spam mailbox. If you aren't receiving our password reset emails, contact {supportEmail}."
+                  values={{
+                    adminEmail: stringHelper('ADMIN_EMAIL'),
+                    supportEmail: stringHelper('SUPPORT_EMAIL'),
+                  }}
+                />
+              </CardContent>,
+              <Typography component="div" align="center">
+                <Button
+                  color="primary"
+                  variant="contained"
+                  disabled={submitDisabled}
+                  onClick={handleSignIn}
+                >
+                  <FormattedMessage id="passwordReset.signIn" defaultMessage="Sign In" />
+                </Button>
+              </Typography>,
+            ] : [
+              <CardContent key="usr-2">
+                { previousErrorMsg ? <p>{previousErrorMsg}</p> : null }
+                <FormattedMessage id="passwordReset.text" defaultMessage="Add your address and an email will be sent with further instructions." />
+                <div className="user-password-reset__email-input">
+                  <TextField
+                    id="password-reset-email-input"
+                    type="email"
+                    label={<FormattedMessage id="passwordReset.email" defaultMessage="Email" />}
+                    onChange={handleChange}
+                    helperText={errorMsg}
+                    error={errorMsg}
+                    variant="outlined"
+                    margin="normal"
+                    fullWidth
+                    autoFocus
+                  />
+                </div>
+              </CardContent>,
+              <CardActions key="usr-3" className="user-password-reset__actions">
+                <Button onClick={handleGoBack}>
+                  <FormattedMessage {...globalStrings.cancel} />
+                </Button>
+                <Button color="primary" disabled={submitDisabled} onClick={handleSubmit}>
+                  { pagetitleMessage }
+                </Button>
+              </CardActions>,
+            ]}
+          </StyledCard>
+          <Box my={4}>
+            <CheckAgreeTerms />
+          </Box>
+        </ContentColumn>
+      </PageTitle>
+    </ErrorBoundary>
   );
 };
 

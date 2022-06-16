@@ -138,6 +138,9 @@ const ReportDesignerPreview = (props) => {
   if (data.text) {
     text.push(data.text);
   }
+  if (data.published_article_url) {
+    text.push(data.published_article_url);
+  }
   text.push(previewFooter(defaultReport));
 
   const introduction = previewIntroduction(data, media);
@@ -170,7 +173,7 @@ const ReportDesignerPreview = (props) => {
             />
           )}
         </Box> : null }
-      { data.use_visual_card ?
+      { data.use_visual_card && !data.use_text_message ?
         <Box className={classes.visualCardPreview}>
           <ReportDesignerImagePreview
             style={{

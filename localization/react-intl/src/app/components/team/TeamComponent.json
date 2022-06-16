@@ -17,10 +17,6 @@
     "defaultMessage": "Data"
   },
   {
-    "id": "teamSettings.tasks",
-    "defaultMessage": "Tasks"
-  },
-  {
     "id": "teamSettings.rules",
     "defaultMessage": "Rules"
   },

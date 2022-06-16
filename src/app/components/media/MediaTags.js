@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import Chip from '@material-ui/core/Chip';
 import TagMenu from '../tag/TagMenu';
 import { searchQueryFromUrl, urlFromSearchQuery } from '../search/Search';
-import VideoAnnotationIcon from '../../../assets/images/video-annotation/video-annotation';
 import { units } from '../../styles/js/shared';
 
 const StyledMediaTagsContainer = styled.div`
@@ -25,11 +24,11 @@ const StyledMediaTagsContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    padding: ${units(0.5)};
-    margin: 0;
+    padding: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
+    margin: 0 0 0 ${units(-0.5)};
 
     li {
-      margin: ${units(0.5)};
+      margin: ${units(0.5)} ${units(0.5)} ${units(0.5)} 0;
     }
   }
 `;
@@ -103,15 +102,9 @@ class MediaTags extends React.Component {
     }
   }
 
-  handleVideoAnnotationIconClick = (e, fragment) => {
-    e.stopPropagation();
-    if (this.props.onTimelineCommentOpen) {
-      this.props.onTimelineCommentOpen(fragment);
-    }
-  };
-
   render() {
     const { projectMedia } = this.props;
+    const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
     const { regularTags, videoTags } = this.filterTags(projectMedia.tags.edges);
     const tags = regularTags.concat(videoTags);
 
@@ -119,20 +112,12 @@ class MediaTags extends React.Component {
       <StyledMediaTagsContainer className="media-tags__container">
         <div className="media-tags">
           <ul className="media-tags__list">
-            <li>{ projectMedia.is_secondary ? null : <TagMenu media={projectMedia} /> }</li>
+            <li>{ readOnly ? null : <TagMenu media={projectMedia} /> }</li>
             {tags.map((tag) => {
               if (tag.node.tag_text) {
                 return (
                   <li key={tag.node.id}>
                     <Chip
-                      icon={
-                        tag.node.fragment ?
-                          <VideoAnnotationIcon
-                            onClick={e =>
-                              this.handleVideoAnnotationIconClick(e, tag.node.fragment)}
-                          />
-                          : null
-                      }
                       className="media-tags__tag"
                       onClick={this.handleTagViewClick.bind(this, tag.node.tag_text)}
                       label={tag.node.tag_text.replace(/^#/, '')}
@@ -172,6 +157,9 @@ export default createFragmentContainer(MediaTags, graphql`
       slug
     }
     is_secondary
+    suggested_main_item {
+      dbid
+    }
     tags(first: 10000) {
       edges {
         node {

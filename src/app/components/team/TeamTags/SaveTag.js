@@ -102,7 +102,11 @@ const SaveTag = ({
       ],
     };
     if (tagRuleIndex > -1) {
-      newRules[tagRuleIndex] = newRule;
+      if (JSON.stringify(rule) === JSON.stringify(defaultRule)) {
+        newRules.splice(tagRuleIndex, 1);
+      } else {
+        newRules[tagRuleIndex] = newRule;
+      }
     } else {
       newRules.push(newRule);
     }
@@ -245,6 +249,7 @@ const SaveTag = ({
             schema={filteredRulesSchema}
             rule={rule}
             onChangeRule={(newRule) => { setRule(newRule); }}
+            onResetRule={() => { setRule(JSON.parse(JSON.stringify(defaultRule))); }}
           />
         </React.Fragment>
       )}

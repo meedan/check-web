@@ -1,6 +1,6 @@
 {
 	"CheckAgreeTerms.agreeTerms": {
-		"string": "Al registrarte, estás de acuerdo con {appName} {tosLink} and {ppLink}."
+		"string": "Al registrarte, estás de acuerdo con {appName} {tosLink} y {ppLink}."
 	},
 	"ConfirmEmail.content": {
 		"string": "Por favor consulta tu correo electrónico para verificar tu cuenta."
@@ -107,6 +107,10 @@
 		"string": "Canal es",
 		"developer_comment": "Prefix label for field to filter by item channel"
 	},
+	"SearchFieldClusterTeams.label": {
+		"string": "Organización es",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"UserConfirmPage.alreadyConfirmed": {
 		"string": "Esta cuenta ya ha sido confirmada",
 		"developer_comment": "Message for accounts already confirmed"
@@ -190,6 +194,10 @@
 	"addAnnotation.submitButton": {
 		"string": "Subir"
 	},
+	"addFilterMenu.Workspace": {
+		"string": "Organización",
+		"developer_comment": "Menu option to enable searching items by workspace"
+	},
 	"addFilterMenu.addFilter": {
 		"string": "Añadir filtro",
 		"developer_comment": "Button that opens menu with filter field options"
@@ -205,6 +213,10 @@
 	"addFilterMenu.channel": {
 		"string": "Canal",
 		"developer_comment": "Menu option to enable searching items by channel"
+	},
+	"addFilterMenu.claim": {
+		"string": "Afirmación",
+		"developer_comment": "Menu option to enable searching items by claim"
 	},
 	"addFilterMenu.collection": {
 		"string": "Colección",
@@ -242,6 +254,10 @@
 		"string": "Tipo de Medios",
 		"developer_comment": "Menu option to enable searching items by media type"
 	},
+	"addFilterMenu.publishedBy": {
+		"string": "Publicado por",
+		"developer_comment": "Menu option to enable searching items by report published by"
+	},
 	"addFilterMenu.reportStatus": {
 		"string": "Estado de informe",
 		"developer_comment": "Menu option to enable searching items by report status"
@@ -266,6 +282,10 @@
 		"string": "Rango de Fecha",
 		"developer_comment": "Menu option to enable searching items by date range"
 	},
+	"addFilterMenu.tiplineRequest": {
+		"string": "Solicitud de Tipline",
+		"developer_comment": "Menu option to enable searching items by confirmed/unconfirmed items"
+	},
 	"addFilterMenu.tiplineRequests": {
 		"string": "Número de solicitudes de tipline",
 		"developer_comment": "Menu option to enable searching items by tipline requests"
@@ -285,17 +305,14 @@
 	"addLanguageAction.title": {
 		"string": "Elegir un nuevo idioma"
 	},
-	"annotation.acceptSuggestion": {
-		"string": "Aceptar"
+	"annotation.addLanguage": {
+		"string": "Language {value} added by {author}"
+	},
+	"annotation.addSource": {
+		"string": "Source {name} add by {author}"
 	},
 	"annotation.addedComment": {
 		"string": "Nota de la tarea añadida por {author}: {title}{note}"
-	},
-	"annotation.archiverError": {
-		"string": "Lo sentimos, se produjo el siguiente error al archivar el elemento en {name}: \"{message}\". Por favor actualice el ítem para volver a intentarlo y póngase en contacto con {supportEmail} si la condición persiste."
-	},
-	"annotation.archiverSuccess": {
-		"string": "En caso de que este ítem se desconecte, puedes <a href=\"{link}\" target=\"_blank\" rel=\"noopener noreferrer\">acceder a una copia de respaldo a través de {name}</a>."
 	},
 	"annotation.archiverWait": {
 		"string": "Este ítem está siendo archivado en {name}. El enlace del archivo se mostrará aquí {name} cuando esté listo."
@@ -309,17 +326,27 @@
 	"annotation.changedJsonSchema": {
 		"string": "JSON Schema de la tarea {title} ha sido cambiado por {author}"
 	},
+	"annotation.createClaimContext": {
+		"string": "Additional content added by {author}: {value}"
+	},
+	"annotation.createClaimDescription": {
+		"string": "Claim added by {author}: {value}"
+	},
+	"annotation.createFactCheck": {
+		"string": "Fact-check title added by {author}: {value}"
+	},
+	"annotation.createProjectMedia": {
+		"string": "Item created by {author}"
+	},
 	"annotation.deleteButton": {
 		"string": "Eliminar "
-	},
-	"annotation.deletedComment": {
-		"string": "Comentario eliminado por {author}: {comment}"
 	},
 	"annotation.editButton": {
 		"string": "Editar"
 	},
-	"annotation.embedCodeCopied": {
-		"string": "Se ha generado y copiado un código de inserción del ítem. El ítem ahora puede ser visible públicamente."
+	"annotation.editedBy": {
+		"string": "edited by",
+		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
 		"string": "Título del ítem eliminado por {author}: {title}"
@@ -335,42 +362,6 @@
 	},
 	"annotation.embedNoteUpdated": {
 		"string": "Descripción del ítem editada por {author}: {description}"
-	},
-	"annotation.flag": {
-		"string": "Resultado de clasificación:"
-	},
-	"annotation.flagAdult": {
-		"string": "Adulto"
-	},
-	"annotation.flagLikelihood0": {
-		"string": "Desconocido"
-	},
-	"annotation.flagLikelihood1": {
-		"string": "Muy improbable"
-	},
-	"annotation.flagLikelihood2": {
-		"string": "Improbable"
-	},
-	"annotation.flagLikelihood3": {
-		"string": "Posible"
-	},
-	"annotation.flagLikelihood4": {
-		"string": "Probable"
-	},
-	"annotation.flagLikelihood5": {
-		"string": "Muy probable"
-	},
-	"annotation.flagMedical": {
-		"string": "Médico"
-	},
-	"annotation.flagRacy": {
-		"string": "Sugestivo"
-	},
-	"annotation.flagSpam": {
-		"string": "Spam"
-	},
-	"annotation.flagViolence": {
-		"string": "Violencia"
 	},
 	"annotation.mediaAssigned": {
 		"string": "Ítem asignado a {name} por {author}"
@@ -391,13 +382,7 @@
 		"string": "Campo de anotación ha sido creado por {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Campo de anotación \"{fieldLabel}\" completado por {author}: {response}"
-	},
-	"annotation.movedFromTrash": {
-		"string": "Sacado de la Papelera por {author}"
-	},
-	"annotation.movedToTrash": {
-		"string": "Movido a la Papelera por {author}"
+		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
 	},
 	"annotation.newReport": {
 		"string": "Ítem añadido por {author}"
@@ -408,32 +393,22 @@
 	"annotation.openInSlack": {
 		"string": "Abrir en Slack"
 	},
-	"annotation.penderArchiveResponse": {
-		"string": "Keep ha tomado una captura de pantalla de este URL "
-	},
-	"annotation.penderArchiveResponseError": {
-		"string": "Lo sentimos, se produjo un error al tomar la captura de pantalla del ítem. Por favor actualiza el ítem para intentarlo nuevamente y si la condición persiste ponte en contacto con {supportEmail}."
-	},
-	"annotation.penderArchiveWait": {
-		"string": "Keep está tomando la captura de pantalla de este ítem. Regresa en unos minutos para verlo."
+	"annotation.pausedBy": {
+		"string": "paused by",
+		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "Enlace permanente"
 	},
-	"annotation.projectMoved": {
-		"string": "Movido de la carpeta {previousProject} a {currentProject} por {author}"
-	},
-	"annotation.rejectSuggestion": {
-		"string": "Rechazar"
-	},
-	"annotation.relationshipCreated": {
-		"string": "Ítem relacionado añadido por {author}: {title}"
-	},
-	"annotation.relationshipDestroyed": {
-		"string": "Ítem relacionado eliminado por {author}: {title}"
+	"annotation.publishedBy": {
+		"string": "published by",
+		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "Nota de la tarea eliminada por {author}: {title}{note}"
+	},
+	"annotation.reportDesignState": {
+		"string": "Fact-check report {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "Informe enviado el {date}"
@@ -441,14 +416,11 @@
 	"annotation.reportUpdateReceived": {
 		"string": "Actualización del informe enviada el {date}"
 	},
-	"annotation.seeHowThisBotWorks": {
-		"string": "Mira cómo funciona este bot"
-	},
 	"annotation.similarCreated": {
-		"string": "Confirmado como similar por {author}: {title}"
+		"string": "Match confirmed by {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Ítem confirmado similiar, separado por {author}: {title}",
+		"string": "Match deleted by {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -458,34 +430,25 @@
 		"string": "Estado del ítem bloqueado por {author}"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Estado establecido como {status} por {author}"
+		"string": "Status changed to {status} by {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "Estado del ítem desbloqueado por {author}"
 	},
-	"annotation.suggestionAccepted": {
-		"string": "Aceptado por {user}"
-	},
 	"annotation.suggestionCreated": {
-		"string": "Coincidencia propuesta por {author}: {title}"
+		"string": "Match suggested by {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Coincidencia rechazada por {author}: {title}"
-	},
-	"annotation.suggestionRejected": {
-		"string": "Rechazado por {user}"
+		"string": "Match rejected by {author}: {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Etiquetado #{tag} por {author}"
+		"string": "Tag #{tag} added by {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "Tarea asignada a {name} por {author}: {title}"
 	},
 	"annotation.taskAssignmentDeleted": {
 		"string": "Tarea desasignada de {name} por {author}: {title}"
-	},
-	"annotation.taskCreated": {
-		"string": "Tarea creada por {author}: {task}"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "Tarea editada por {author}: {title}"
@@ -496,14 +459,21 @@
 	"annotation.taskNoteUpdated": {
 		"string": "Nota de la tarea editada por {author}: {title}{note}"
 	},
-	"annotation.taskResolve": {
-		"string": "Tarea completada por {author}: {task}{response}"
-	},
-	"annotation.teamCopied": {
-		"string": "Copiado del área de trabajo {previousTeam} por {author}"
-	},
 	"annotation.titleChanged": {
 		"string": "Título del ítem editado por {author}: {title}"
+	},
+	"annotation.unknownLanguage": {
+		"string": "Idioma desconocido",
+		"developer_comment": "Show label for undefined language"
+	},
+	"annotation.updateClaimContext": {
+		"string": "Additional content edited by {author}: {value}"
+	},
+	"annotation.updateClaimDescription": {
+		"string": "Claim edited by {author}: {value}"
+	},
+	"annotation.updateSource": {
+		"string": "Source {name} updated by {author}"
 	},
 	"annotations.loadMore": {
 		"string": "Cargar más"
@@ -524,7 +494,7 @@
 		"string": "Ítems no encontrados"
 	},
 	"autoCompleteMediaItem.results": {
-		"string": "{count, plural, one {# resultados} other {# resultados}}"
+		"string": "{count, plural, one {# resultados} many {# resultados} other {# resultados}}"
 	},
 	"autoCompleteMediaItem.searchItem": {
 		"string": "Buscar "
@@ -550,22 +520,18 @@
 	"browserSupport.message": {
 		"string": "{appName} está optimizada para Google Chrome en escritorio."
 	},
-	"bulkActions.confirm": {
-		"string": "Mover de Sin Confirmar"
-	},
 	"bulkActions.dialogMoveTitle": {
-		"string": "{mediasCount, plural, one {Necesitas mover 1 ítem a otra carpera} other {Necesitas mover # ítems a otra carpeta}}"
+		"string": "{mediasCount, plural, one {Necesitas mover 1 ítem a otra carpera} many {Necesitas mover # ítems a otra carpeta} other {Necesitas mover # ítems a otra carpeta}}"
 	},
 	"bulkActions.moveTitle": {
 		"string": "Mover a carpeta",
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
+	"bulkActions.moveToSpamSuccessfully": {
+		"string": "Items moved to the Spam."
+	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Ítems movidos a la papelera."
-	},
-	"bulkActions.movedConfirmSuccessfully": {
-		"string": "Ítems movidos de Sin Confirmar a '{toProject}'",
-		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Ítems movidos desde la Papelera a '{toProject}'",
@@ -575,17 +541,23 @@
 		"string": "Ítems movidos a '{toProject}'",
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
+	"bulkActions.notSpam": {
+		"string": "Not Spam"
+	},
 	"bulkActions.restore": {
 		"string": "Recuperar de la papelera"
 	},
+	"bulkActions.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Enviar ítems seleccionados a la Papelera"
+		"string": "Enviar a la papelera"
+	},
+	"bulkActions.spam": {
+		"string": "Not spam selected items and move items to another folder"
 	},
 	"bulkActions.trash": {
 		"string": "Recuperar ítems seleccionados y mover ítems a otra carpeta"
-	},
-	"bulkActions.unconfirmed": {
-		"string": "Confirmar ítems seleccionados y mover ítems a otra carpeta"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Agregar una nota a la notificación por correo electrónico",
@@ -596,7 +568,7 @@
 		"developer_comment": "Displayed when no member names match search input"
 	},
 	"bulkActionsAssign.submitLabel": {
-		"string": "{numItems, plural, one {Asignar 1 ítem} other {Asignar # ítems}}",
+		"string": "{numItems, plural, one {Asignar 1 ítem} many {Asignar # ítems} other {Asignar # ítems}}",
 		"developer_comment": "Button for commiting the action of assigning of a number of items in bulk"
 	},
 	"bulkActionsAssign.success": {
@@ -628,11 +600,11 @@
 		"developer_comment": "Displayed when no folder names match search input"
 	},
 	"bulkActionsMove.submitLabel": {
-		"string": "{numItems, plural, one {Mover 1 ítem} other {Mover # ítems}}",
+		"string": "{numItems, plural, one {Mover 1 ítem} many {Mover # ítems} other {Mover # ítems}}",
 		"developer_comment": "Button for commiting the action of moving of a number of items in bulk"
 	},
 	"bulkActionsStatus.dialogBody": {
-		"string": "{publishedCount, plural, one {El estado de 1 ítem no pudo ser cambiado porque su reporte está actualmente publicado. Por favor edítalo individualmente.} other {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.}}",
+		"string": "{publishedCount, plural, one {El estado de 1 ítem no pudo ser cambiado porque su reporte está actualmente publicado. Por favor edítalo individualmente.} many {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.} other {El estado de # ítems no pudo ser cambiado porque sus reportes están actualmente publicados. Por favor edítalos individualmente.}}",
 		"developer_comment": "Body of dialog warning that bulk updating item statuses could not be performed entirely"
 	},
 	"bulkActionsStatus.dialogTitle": {
@@ -640,7 +612,7 @@
 		"developer_comment": "Title of dialog warning after bulk updating item statuses"
 	},
 	"bulkActionsStatus.submitLabel": {
-		"string": "{numItems, plural, one {Establecer estado de 1 ítem} other {Establecer estado de # ítems}}",
+		"string": "{numItems, plural, one {Establecer estado de 1 ítem} many {Establecer estado de # ítems} other {Establecer estado de # ítems}}",
 		"developer_comment": "Button for commiting the action of setting status of a number of items in bulk"
 	},
 	"bulkActionsStatus.success": {
@@ -648,7 +620,7 @@
 		"developer_comment": "Success message for bulk status change action"
 	},
 	"bulkActionsTag.submitLabel": {
-		"string": "{numItems, plural, one {Etiqueta 1 ítem} other {Etiqueta # ítems}}",
+		"string": "{numItems, plural, one {Etiqueta 1 ítem} many {Etiqueta # ítems} other {Etiqueta # ítems}}",
 		"developer_comment": "Button for commiting the action of tagging of a number of items in bulk"
 	},
 	"bulkActionsTag.success": {
@@ -685,6 +657,82 @@
 	},
 	"changeUserRole.proceedLabel": {
 		"string": "Cambiar rol a {newRole}"
+	},
+	"check.error.auth": {
+		"string": "Ocurrió un error de autenticación.",
+		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
+	},
+	"check.error.conflict": {
+		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
+		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
+	},
+	"check.error.duplicated": {
+		"string": "Estás intentando crear un registro que ya existe.",
+		"developer_comment": "This is a message that displays in an error popup if the client tries to create an item but the database already has a record of it."
+	},
+	"check.error.id_not_found": {
+		"string": "Un ID solicitado no ha sido encontrado.",
+		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an identifying number that was not found in the database."
+	},
+	"check.error.invalid_value": {
+		"string": "Un valor inválido fue enviado al servidor.",
+		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server with an invalid value of some kind, such as a malformed email address."
+	},
+	"check.error.missing_object": {
+		"string": "Un objeto está faltando en la base de datos",
+		"developer_comment": "This is a message that displays in an error popup if the server cannot find an object that was requested by the client."
+	},
+	"check.error.missing_parameters": {
+		"string": "A la llamada API le faltaban parámetros.",
+		"developer_comment": "This is a message that displays in an error popup if the client sent a request to the server that was missing URL parameters."
+	},
+	"check.error.published": {
+		"string": "No puedes cambiar el estado de un ítem publicado.",
+		"developer_comment": "This is a message that displays in an error popup if the user manages to ask the server to change the status on an item that has already been published."
+	},
+	"check.error.two_factor_auth": {
+		"string": "Debes iniciar sesión utilizando la autenticación de dos factores.",
+		"developer_comment": "This is a message that displays in an error popup if the client tries to access the application, but they are not yet authenticated by two factor authentication."
+	},
+	"check.error.unauthorized": {
+		"string": "No tienes autorización para ver este contenido. Por favor contactate con tu administrador(a) del área de trabajo si necesitas permiso.",
+		"developer_comment": "This is a message that displays in an error popup if the user tries to access data that they do not have permission to access."
+	},
+	"check.error.unknown": {
+		"string": "Hubo un error que no podemos identificar.",
+		"developer_comment": "This is a message that displays in an error popup if the server returns an error that we haven't previously classified. This is the default error shown if we can't figure out what sort of error to show the user."
+	},
+	"check.error.warning": {
+		"string": "El servidor devolvió una advertencia.",
+		"developer_comment": "This is a message that displays in an error popup if the server sends it some kind of non-critical warning message (user is approaching their API call limit, for example)."
+	},
+	"check.helpers.intercom_help": {
+		"string": "Cliquea la flecha \"enviar\" a la derecha para enviar este reporte.",
+		"developer_comment": "This is text that will appear when the user opens the third-party application to file a bug report with our customer service. The arrow will be to the right side of the text regardless of whether this is a left-to-right or a right-to-left language."
+	},
+	"check.helpers.more_info": {
+		"string": "Más información...",
+		"developer_comment": "This is a label on a button that users press in order to get more info related to an error message."
+	},
+	"check.helpers.report_issue": {
+		"string": "Reportar problema",
+		"developer_comment": "This is a label on a button that appears in an error popup. When the user presses the button, another popup opens that allows the user to report an issue to customer service."
+	},
+	"check.tasks.contact_support": {
+		"string": "Contactar soporte",
+		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
+	},
+	"check.tasks.discontinued_tasks_warning": {
+		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
+	},
+	"checkedByTeamsCell.more": {
+		"string": "+{number}más",
+		"developer_comment": "Table cell displayed on Trends page showing how many more workspaces fact-checked this item but their names were omitted from display"
+	},
+	"checkedByTeamsCell.noFactCheck": {
+		"string": "Sin verificación de hechos",
+		"developer_comment": "Table cell displayed on Trends page when claim is not fact-checked yet"
 	},
 	"confirmProceedDialog.confirmationText": {
 		"string": "Escribe “{text}” para confirmar."
@@ -726,10 +774,7 @@
 		"string": "Añadir un nuevo ítem"
 	},
 	"createMedia.addNewItem": {
-		"string": "Añadir un nuevo ítem"
-	},
-	"createMedia.audio": {
-		"string": "Audio"
+		"string": "Añadir ítem"
 	},
 	"createMedia.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar el ítem. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
@@ -737,23 +782,31 @@
 	"createMedia.existing": {
 		"string": "Añadir un ítem existente"
 	},
-	"createMedia.image": {
-		"string": "Foto"
+	"createMedia.media.media": {
+		"string": "Medio"
 	},
-	"createMedia.link": {
-		"string": "Enlace"
+	"createMedia.mediaClaim": {
+		"string": "Escribe algo"
+	},
+	"createMedia.mediaClaimDescription": {
+		"string": "Descripción de la afirmación"
+	},
+	"createMedia.mediaClaimDescriptionSubtitle": {
+		"string": "Una descripción de la afirmación que necesita ser revisada."
 	},
 	"createMedia.mediaInput": {
-		"string": "Pegar o escribir"
+		"string": "Añade la URL a una publicación de red social o página web, o un bloque de texto."
 	},
-	"createMedia.quote": {
-		"string": "Texto"
+	"createMedia.mediaMediaSubtitle": {
+		"string": "Los medios que contienen la afirmación."
 	},
-	"createMedia.quoteInput": {
-		"string": "Pegar o escribir un texto"
+	"createMedia.mediaRemoveFile": {
+		"string": "Eliminar archivo",
+		"developer_comment": "Label on a button that the user clicks in order to return a file upload box back to its 'empty' state."
 	},
-	"createMedia.video": {
-		"string": "Vídeo"
+	"createMedia.or": {
+		"string": "o",
+		"developer_comment": "This will appear between two mutually exclusive inputs. If the user fills in one, then the other will be disabled."
 	},
 	"createMediaSource.createSource": {
 		"string": "Crear fuente",
@@ -814,15 +867,8 @@
 		"string": "Nuevo campo de anotación",
 		"developer_comment": "Button that triggers creation of a new field"
 	},
-	"createTeamTask.addTask": {
-		"string": "Nueva tarea",
-		"developer_comment": "Button that triggers creation of a new task"
-	},
 	"createTeamTask.errorMetadata": {
 		"string": "Lo sentimos, se produjo un error al actualizar el campo de metadatos. Vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
-	},
-	"createTeamTask.errorTask": {
-		"string": "Lo sentimos, se produjo un error al crear la tarea. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
 	},
 	"customAutocomplete.done": {
 		"string": "Listo",
@@ -865,16 +911,16 @@
 		"string": "Ver esta zona horaria en time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Hay un ítem publicado actualmente con el estado {statusLabel}. Si continúas, se pausaran todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlso.} other {Hay # ítems publicados actualmente con el estado {statusLabel}. Si continuas, se pausarán todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlos.}}"
+		"string": "{publishedCount, plural, one {Hay un ítem publicado actualmente con el estado {statusLabel}. Si continúas, se pausaran todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlso.} many {Hay # ítems publicados actualmente con el estado {statusLabel}. Si continuas, se pausarán todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlos.} other {Hay # ítems publicados actualmente con el estado {statusLabel}. Si continuas, se pausarán todos los ítems publicados con este estado. Debes revisar esos ítems para poder volver a publicarlos.}}"
 	},
 	"deleteStatusDialog.moveItemsTo": {
 		"string": "Mover ítems a"
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {Hay un ítems con el estado {statusLabel} que debe ser cambiado a otro estado antes que puedas eliminar este estado.} other {Hay # ítems con el estado {statusLabel} que deben ser cambiados a otro estado antes que puedas eliminar este estado.}}"
+		"string": "{itemsCount, plural, one {Hay un ítems con el estado {statusLabel} que debe ser cambiado a otro estado antes que puedas eliminar este estado.} many {Hay # ítems con el estado {statusLabel} que deben ser cambiados a otro estado antes que puedas eliminar este estado.} other {Hay # ítems con el estado {statusLabel} que deben ser cambiados a otro estado antes que puedas eliminar este estado.}}"
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {Debes cambiar el estado de un ítem para poder eliminar este estado} other {Debes cambiar el estado de # ítems para eliminar este estado}}"
+		"string": "{itemsCount, plural, one {Debes cambiar el estado de un ítem para poder eliminar este estado} many {Debes cambiar el estado de # ítems para eliminar este estado} other {Debes cambiar el estado de # ítems para eliminar este estado}}"
 	},
 	"destinationProjects.choose": {
 		"string": "Elegir una carpeta"
@@ -928,6 +974,10 @@
 		"string": "Enviar mensaje a solicitante",
 		"developer_comment": "Checkbox option to send a message to the user who requested the item"
 	},
+	"errorBoundary.message": {
+		"string": "Hola, tengo problemas con Check. ¡La interfaz web acaba de fallar e impide que haga mi trabajo!",
+		"developer_comment": "Prefilled support request message when Check UI crashes"
+	},
 	"fetchBot.contactUs": {
 		"string": "Contáctanos para configurar"
 	},
@@ -936,6 +986,10 @@
 	},
 	"fileUploadRespondTask.cancelTask": {
 		"string": "Cancelar"
+	},
+	"filter.tag.deleted": {
+		"string": "Propiedad eliminada",
+		"developer_comment": "Message shown a placeholder when someone tries to filter a search by a property that the user has deleted"
 	},
 	"footer.madeBy": {
 		"string": "Check: Verifica noticias de último momento en línea.\nHecho con ✨ por {meedan}"
@@ -1111,6 +1165,9 @@
 	"languagesComponent.title": {
 		"string": "Idiomas"
 	},
+	"limitedTextFieldWithCounter.counter": {
+		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
+	},
 	"list.Demand": {
 		"string": "Solicitudes"
 	},
@@ -1118,10 +1175,7 @@
 		"string": "Enviado"
 	},
 	"list.Item": {
-		"string": "Ítem"
-	},
-	"list.LastSeen": {
-		"string": "Enviado por última vez"
+		"string": "Afirmación"
 	},
 	"list.LinkedItems": {
 		"string": "Medios similares"
@@ -1135,13 +1189,25 @@
 	"list.Type": {
 		"string": "Tipo"
 	},
-	"list.clusterSize": {
-		"string": "Tamaño de clúster",
-		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
+	"list.clusterFactCheckedByTeamNames": {
+		"string": "Informe publicado",
+		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster have a published report"
 	},
-	"list.clusterTeamNames": {
-		"string": "Áreas de trabajo",
-		"developer_comment": "Table header for column that shows from which workspaces the items in the same cluster belong to"
+	"list.clusterFirstItemAt": {
+		"string": "Enviado",
+		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
+	},
+	"list.clusterLastItemAt": {
+		"string": "Enviado por última vez",
+		"developer_comment": "Table header for column that shows when the last item of the cluster was created"
+	},
+	"list.clusterRequests": {
+		"string": "Solicitudes",
+		"developer_comment": "Table header for column that shows number of requests in a cluster"
+	},
+	"list.clusterSize": {
+		"string": "Medios similares",
+		"developer_comment": "Table header for column that shows the number of similar items that belong to the same cluster"
 	},
 	"list.commentCount": {
 		"string": "Comentarios en FB"
@@ -1160,8 +1226,8 @@
 	"list.reactCount": {
 		"string": "Reacciones en FB"
 	},
-	"list.relatedCount": {
-		"string": "Relacionado"
+	"list.reportPublishedBy": {
+		"string": "Informe publicado por"
 	},
 	"list.reportStatus": {
 		"string": "Estado de Informe"
@@ -1240,6 +1306,10 @@
 	"loginEmail.lostPassword": {
 		"string": "¿Olvidaste tu clave?"
 	},
+	"mainErrorBoundary.cardTitle": {
+		"string": "Ha ocurrido un error inesperado",
+		"developer_comment": "Title for error state card displayed in error page"
+	},
 	"media.normalSpeed": {
 		"string": "Velocidad normal",
 		"developer_comment": "Sets video playback rate to original 1x speed"
@@ -1274,8 +1344,11 @@
 	"mediaActions.refresh": {
 		"string": "Actualizar "
 	},
+	"mediaActions.sendToSpam": {
+		"string": "Mark as Spam"
+	},
 	"mediaActions.sendToTrash": {
-		"string": "Mover a Papelera"
+		"string": "Send to Trash"
 	},
 	"mediaActions.tooltip": {
 		"string": "Acciones de los ítems"
@@ -1316,8 +1389,14 @@
 	"mediaActionsBar.movedRestoreBack": {
 		"string": "Recuperado de Papelera, redireccionando..."
 	},
+	"mediaActionsBar.movedToSpam": {
+		"string": "The item was moved to {spam}"
+	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "El ítem se movió a {trash}"
+	},
+	"mediaActionsBar.notSpamTo": {
+		"string": "Not spam"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "Informe publicado"
@@ -1340,7 +1419,7 @@
 		"developer_comment": "Label for the analysis content field"
 	},
 	"mediaAnalysis.discontinued": {
-		"string": "(Discontinued - {learnMoreLink})",
+		"string": "(Descontinuada - {learnMoreLink})",
 		"developer_comment": "Caption that informs that the analysis feature is deprecated."
 	},
 	"mediaAnalysis.import": {
@@ -1348,8 +1427,12 @@
 		"developer_comment": "Creator that refers to items created via Fetch or Zapier."
 	},
 	"mediaAnalysis.learnMore": {
-		"string": "Learn more",
+		"string": "Aprende más",
 		"developer_comment": "Text that links to an external help article"
+	},
+	"mediaAnalysis.sharedDatabase": {
+		"string": "Base de Datos Compartida",
+		"developer_comment": "Creator that refers to items created from the shared database."
 	},
 	"mediaAnalysis.tipline": {
 		"string": "Tipline",
@@ -1360,35 +1443,35 @@
 		"developer_comment": "Label for the analysis title field"
 	},
 	"mediaAnalysis.webForm": {
-		"string": "Web Form",
+		"string": "Formulario Web",
 		"developer_comment": "Creator that refers to items created via web forms."
 	},
 	"mediaAnalysisField.copied": {
-		"string": "Copied!",
+		"string": "¡Copiado!",
 		"developer_comment": "Confirmation label that is displayed once a Copy link is clicked."
 	},
 	"mediaAnalysisField.copy": {
-		"string": "Copy text",
+		"string": "Copiar texto",
 		"developer_comment": "Link text that once clicked copies text to clipboard."
 	},
 	"mediaClaim.claim": {
 		"string": "Afirmación",
 		"developer_comment": "Title of the media claim section."
 	},
-	"mediaClaim.description": {
-		"string": "Type something",
-		"developer_comment": "Placeholder for claim description field."
-	},
 	"mediaClaim.error": {
 		"string": "error",
 		"developer_comment": "Caption that informs that a claim could not be saved"
 	},
+	"mediaClaim.placeholder": {
+		"string": "Por ejemplo: La tierra es plana",
+		"developer_comment": "Placeholder for claim description field."
+	},
 	"mediaClaim.saved": {
-		"string": "saved by {userName} {timeAgo}",
+		"string": "guardado por {userName}{timeAgo}",
 		"developer_comment": "Caption that informs who last saved this claim and when it happened."
 	},
 	"mediaClaim.saving": {
-		"string": "saving...",
+		"string": "guardando...",
 		"developer_comment": "Caption that informs that a claim is being saved"
 	},
 	"mediaComments.noNote": {
@@ -1403,17 +1486,11 @@
 	"mediaComponent.notes": {
 		"string": "Notas"
 	},
-	"mediaComponent.related": {
-		"string": "Relacionado"
-	},
 	"mediaComponent.requests": {
 		"string": "Solicitudes"
 	},
 	"mediaComponent.source": {
 		"string": "Fuente"
-	},
-	"mediaComponent.tasks": {
-		"string": "Tareas"
 	},
 	"mediaComponent.timelineTab": {
 		"string": "Cronología"
@@ -1421,8 +1498,19 @@
 	"mediaComponent.verificationTasks": {
 		"string": "Ítems de las tareas "
 	},
+	"mediaContext.placeholder": {
+		"string": "Escribe algo",
+		"developer_comment": "Placeholder for claim context field."
+	},
+	"mediaContext.title": {
+		"string": "Contexto adicional",
+		"developer_comment": "Title of claim context field."
+	},
 	"mediaCreatedBy.createdBy": {
 		"string": "Ítem creado por {name}"
+	},
+	"mediaDetail.spam": {
+		"string": "Spam"
 	},
 	"mediaDetail.trash": {
 		"string": "Papelera"
@@ -1432,11 +1520,11 @@
 		"developer_comment": "Label for text extracted from the image below"
 	},
 	"mediaExpanded.firstSeen": {
-		"string": "First submitted:",
+		"string": "Enviado por primera vez:",
 		"developer_comment": "Header for the date when the Check item (aka media) was first received (added to) by the workspace"
 	},
 	"mediaExpanded.lastSeen": {
-		"string": "Last submitted:",
+		"string": "Enviado por última vez:",
 		"developer_comment": "Header for the date when the Check item (aka media) was last received by the the workspace"
 	},
 	"mediaExpanded.noExtractedText": {
@@ -1448,7 +1536,7 @@
 		"developer_comment": "Label when transcription is not (yet) available"
 	},
 	"mediaExpanded.requests": {
-		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
+		"string": "{count, plural, one {# solicitud} many {# solicitudes} other {# solicitudes}}"
 	},
 	"mediaExpanded.transcriptionCompleted": {
 		"string": "Audio transcrito de los medios:",
@@ -1478,45 +1566,30 @@
 		"developer_comment": "Caption that informs that a fact-check could not be saved"
 	},
 	"mediaFactCheck,saved": {
-		"string": "saved by {userName} {timeAgo}",
+		"string": "guardado por {userName}{timeAgo}",
 		"developer_comment": "Caption that informs who last saved this fact-check and when it happened."
 	},
-	"mediaFactCheck,saving": {
-		"string": "saving...",
-		"developer_comment": "Caption that informs that a fact-check is being saved"
+	"mediaFactCheck.claimMissingDesc": {
+		"string": "Debes agregar una afirmación para acceder al informe de verificación de hechos.",
+		"developer_comment": "Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmButtonLabel1": {
-		"string": "Pausar informe y actualizar contenido"
+	"mediaFactCheck.claimMissingTitle": {
+		"string": "Falta la afirmación",
+		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
-	"mediaFactCheck.confirmButtonLabel2": {
-		"string": "Sobrescribir contenido del informe"
-	},
-	"mediaFactCheck.confirmText1": {
-		"string": "Primero debes pausar tu informe para poder editarlo ¿Quieres pausar el informe y actualizarlo con el nuevo contenido?"
-	},
-	"mediaFactCheck.confirmText2": {
-		"string": "¿Quieres actualizar el informe con este nuevo contenido? Todo el contenido actual en el informe se perderá. "
-	},
-	"mediaFactCheck.confirmTitle1": {
-		"string": "El informe actual está publicado"
-	},
-	"mediaFactCheck.confirmTitle2": {
-		"string": "¿Sobrescribir contenido existente del reporte?"
-	},
-	"mediaFactCheck.copyToReport": {
-		"string": "Copy to tipline report",
-		"developer_comment": "Button label to copy fact-check data into a report."
-	},
-	"mediaFactCheck.copying": {
-		"string": "Copiando...",
-		"developer_comment": "Caption displayed while fact-check data is being copied to a report."
+	"mediaFactCheck.confirmButtonLabel": {
+		"string": "Regresar a edición"
 	},
 	"mediaFactCheck.factCheck": {
-		"string": "Fact-check",
+		"string": "Verificación de hechos",
 		"developer_comment": "Title of the media fact-check section."
 	},
+	"mediaFactCheck.saving": {
+		"string": "guardando...",
+		"developer_comment": "Caption that informs that a fact-check is being saved"
+	},
 	"mediaFactCheck.summary": {
-		"string": "Summary",
+		"string": "Resumen",
 		"developer_comment": "Label for fact-check summary field"
 	},
 	"mediaFactCheck.title": {
@@ -1524,11 +1597,11 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "URL del artículo publicado",
+		"string": "Article URL",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
-		"string": "Add a claim to access the fact-check",
+		"string": "Añade una afirmación para acceder a la verificación de hechos",
 		"developer_comment": "Placeholder for fact-check field when there is no claim description filled."
 	},
 	"mediaItem.addedBy": {
@@ -1570,10 +1643,10 @@
 		"string": "Sin publicar"
 	},
 	"mediaItem.requests": {
-		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
+		"string": "{count, plural, one {# solicitud} many {# solicitudes} other {# solicitudes}}"
 	},
 	"mediaItem.similarMedia": {
-		"string": "{count, plural, one {# medio similar} other {# medios similares}}"
+		"string": "{count, plural, one {# medio similar} many {# medios similares} other {# medios similares}}"
 	},
 	"mediaLanguageChip.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar el idioma. Por favor, intentalo nuevamente y si el problema persiste ponte en contacto con {supportEmail}."
@@ -1581,10 +1654,6 @@
 	"mediaMetadata.ImageSearch": {
 		"string": "Búsqueda inversa de imagen",
 		"developer_comment": "Menu option for performing reverse image searches on google or other engines"
-	},
-	"mediaMetadata.Timeline": {
-		"string": "Cronología",
-		"developer_comment": "Menu options for displaying the video timeline tray"
 	},
 	"mediaMetadata.audioActions": {
 		"string": "Acciones de audio",
@@ -1610,7 +1679,7 @@
 		"string": "Añadir relación"
 	},
 	"mediaRelatedComponent.count": {
-		"string": "{count, plural, one {# ítem relacionado} other {# ítems relacionados}}"
+		"string": "{count, plural, one {# ítem relacionado} many {# ítems relacionados} other {# ítems relacionados}}"
 	},
 	"mediaRelatedComponent.defaultErrorMessage": {
 		"string": "No se pudo añadir ítem relacionado"
@@ -1622,16 +1691,16 @@
 		"string": "Ítem relacionado añadido exitosamente"
 	},
 	"mediaRelatedComponent.submitButton": {
-		"string": "{count, plural, one {Añadir relación para un ítem} other {Añadir relación para # ítems}}"
+		"string": "{count, plural, one {Añadir relación para un ítem} many {Añadir relación para # ítems} other {Añadir relación para # ítems}}"
 	},
 	"mediaRequests.allRequests": {
-		"string": "{count, plural, one {# solicitud en todos los medios} other {# solicitudes en todos los medios}}"
+		"string": "{count, plural, one {# solicitud en todos los medios} many {# solicitudes en todos los medios} other {# solicitudes en todos los medios}}"
 	},
 	"mediaRequests.noRequest": {
 		"string": "Sin solicitudes"
 	},
 	"mediaRequests.thisRequests": {
-		"string": "{count, plural, one {# solicitud} other {# solicitudes}}"
+		"string": "{count, plural, one {# solicitud} many {# solicitudes} other {# solicitudes}}"
 	},
 	"mediaSearch.error": {
 		"string": "Lo sentimos, se produjo el siguiente error: {message}. Por favor actualice el ítem para volver a intentarlo y póngase en contacto con {supportEmail} si la condición persiste."
@@ -1648,22 +1717,9 @@
 	"mediaSearch.xOfY": {
 		"string": "{current} de {total}"
 	},
-	"mediaSimilarities.allSimilarMedia": {
-		"string": "Similares",
-		"developer_comment": "Adjective, plural. Heading for a list of similar items"
-	},
-	"mediaSimilarities.clickOnItem": {
-		"string": "Haz clic en un ítem"
-	},
-	"mediaSimilarities.mainItem": {
-		"string": "Principal",
-		"developer_comment": "Adjective, singular. Refers to the main item, as opposed to other similar items"
-	},
-	"mediaSimilarities.notes": {
-		"string": "Notas"
-	},
-	"mediaSimilarities.requests": {
-		"string": "Solicitudes"
+	"mediaSimilarities.moreMedias": {
+		"string": "Más medios",
+		"developer_comment": "Heading for a list of similar medias"
 	},
 	"mediaSimilarityBarAdd.addAsSimilar": {
 		"string": "Exportar todos los medios"
@@ -1672,7 +1728,7 @@
 		"string": "Añadir similar"
 	},
 	"mediaSimilarityBarAdd.addSimilarItem": {
-		"string": "{count, plural, one {Importar todos los medios de un ítem} other {Importar todos los medios de los # ítems}}"
+		"string": "{count, plural, one {Importar todos los medios de un ítem} many {Importar todos los medios de los # ítems} other {Importar todos los medios de los # ítems}}"
 	},
 	"mediaSimilarityBarAdd.addSimilarToThis": {
 		"string": "Importar medios similares en este ítem"
@@ -1700,24 +1756,23 @@
 		"string": "Ítem similar añadido exitosamente",
 		"developer_comment": "Banner displayed when similar item is added successfully"
 	},
-	"mediaSimilarityBarComponent.back": {
-		"string": "Volver"
-	},
 	"mediaSimilarityBarComponent.hasMain": {
-		"string": "This media has been associated with an existing claim."
+		"string": "Este medio ha sido asociado a una afirmación existente."
 	},
 	"mediaSimilarityBarComponent.hasSuggestedMain": {
-		"string": "This media has been suggested to be similar to an existing claim."
+		"string": "Este medio ha sido sugerido como similar a una afirmación existente.",
+		"developer_comment": "Caption to inform user that there is a suggested similarity"
 	},
 	"mediaSimilarityBarComponent.openClaim": {
-		"string": "Open claim"
+		"string": "Abrir afirmación"
+	},
+	"mediaSimilarityBarComponent.reviewSuggestion": {
+		"string": "Revisar sugerencia",
+		"developer_comment": "Button label for reviewing similarity suggestions"
 	},
 	"mediaSimilarityBarComponent.similarMedia": {
 		"string": "Medios similares",
 		"developer_comment": "Plural. Heading for the number of similar media"
-	},
-	"mediaSimilarityBarComponent.similarMediaWithValue": {
-		"string": "{count, plural, one {# medio similar} other {# medios similares}}"
 	},
 	"mediaSimilarityBarComponent.suggestedMatches": {
 		"string": "Medios sugeridos",
@@ -1739,32 +1794,36 @@
 	"mediaSuggestionsComponent.goBack": {
 		"string": "Volver a vista principal"
 	},
+	"mediaSuggestionsComponent.mediasCount": {
+		"string": "{number, plural, one {# medio} many {# medios} other {# medios}}"
+	},
 	"mediaSuggestionsComponent.moveItem": {
 		"string": "Mover ítem"
 	},
-	"mediaSuggestionsComponent.noNotes": {
-		"string": "Sin notas"
+	"mediaSuggestionsComponent.movedToSpam": {
+		"string": "The item was moved to {spam}"
 	},
-	"mediaSuggestionsComponent.noRequests": {
-		"string": "Sin solicitudes"
+	"mediaSuggestionsComponent.movedToTrash": {
+		"string": "El ítem se movió a {trash}"
 	},
 	"mediaSuggestionsComponent.noSuggestions": {
 		"string": "No hay medios sugeridos."
 	},
-	"mediaSuggestionsComponent.notes": {
-		"string": "Notas"
-	},
 	"mediaSuggestionsComponent.question": {
-		"string": "¿El medio sugerido es similar al principal?"
+		"string": "¿Es este medio una buena combinación para la afirmación y medios en la izquierda?",
+		"developer_comment": "Subtitle for similarity matching widget"
 	},
-	"mediaSuggestionsComponent.questionBlank": {
-		"string": "¿Son los medios sugeridos similares al reporte importado?"
+	"mediaSuggestionsComponent.requestsCount": {
+		"string": "{number} solicitudes de tipline en todos los medios"
 	},
-	"mediaSuggestionsComponent.requests": {
-		"string": "Solicitudes"
+	"mediaSuggestionsComponent.sendItemsToSpam": {
+		"string": "Mark as spam"
+	},
+	"mediaSuggestionsComponent.sendItemsToTrash": {
+		"string": "Enviar a la papelera"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current}de # medio sugerido} other {{current}de # medios sugeridos}}"
+		"string": "{total, plural, one {{current}de # medio sugerido} many {{current}de # medios sugeridos} other {{current}de # medios sugeridos}}"
 	},
 	"metadata.cancel": {
 		"string": "Cancelar",
@@ -1775,7 +1834,7 @@
 		"developer_comment": "Error message displayed when it's not possible to save metadata due to a required field not being filled in."
 	},
 	"metadata.couldNotSaveUrl": {
-		"string": "Could not save, at least one URL is invalid",
+		"string": "No se pudo guardar, al menos una URL es inválida",
 		"developer_comment": "Error message displayed when a URL is not in the correct format in the form, which prevents the form from being saved."
 	},
 	"metadata.delete": {
@@ -1838,8 +1897,12 @@
 		"string": "Guardar",
 		"developer_comment": "This is a label that appears on a button next to an item that the user is editing. The label indicates that if the user presses this button, the user will save the changes they have been making."
 	},
+	"metadata.uploadProgressLabel": {
+		"string": "Guardando {file}...",
+		"developer_comment": "This is a label that appears while a file upload is ongoing."
+	},
 	"metadata.url.helperText": {
-		"string": "Must be a valid URL",
+		"string": "Debe ser una URL válida",
 		"developer_comment": "A message that appears underneath a text box when a user enters text that a web browser would not interpret as a URL."
 	},
 	"moreLess.less": {
@@ -1972,7 +2035,7 @@
 		"string": "Política Privacidad"
 	},
 	"project.deleteMessage": {
-		"string": "{mediasCount, plural, one {Hay 1 ítem en {folderTitle}. Por favor elige una carpeta destino:} other {Hay # ítems en {folderTitle}. Por favor elige una carperta destino:}}"
+		"string": "{mediasCount, plural, one {Hay 1 ítem en {folderTitle}. Por favor elige una carpeta destino:} many {Hay # ítems en {folderTitle}. Por favor elige una carperta destino:} other {Hay # ítems en {folderTitle}. Por favor elige una carperta destino:}}"
 	},
 	"project.name": {
 		"string": "carpeta"
@@ -2059,10 +2122,7 @@
 		"string": "Papelera"
 	},
 	"projectHeader.trends": {
-		"string": "Tendencias"
-	},
-	"projectHeader.unconfirmed": {
-		"string": "Sin Confirmar"
+		"string": "Base de datos compartida"
 	},
 	"projectMoveDialogComponent.choose": {
 		"string": "Elegir una colección"
@@ -2100,14 +2160,14 @@
 		"string": "Todas las carpetas"
 	},
 	"projectSelector.numProjs": {
-		"string": "{length, plural, one {# seleccionada} other {# seleccionadas}}",
+		"string": "{length, plural, one {# seleccionada} many {# seleccionadas} other {# seleccionadas}}",
 		"developer_comment": "Label for number of selected folders"
+	},
+	"projects.spam": {
+		"string": "Spam"
 	},
 	"projects.trash": {
 		"string": "Papelera"
-	},
-	"projects.unconfirmed": {
-		"string": "Sin Confirmar"
 	},
 	"projectsComponent.allItems": {
 		"string": "Todos los ítems"
@@ -2229,7 +2289,7 @@
 		"string": "Título"
 	},
 	"projectsComponent.trends": {
-		"string": "Tendencias (Beta)",
+		"string": "Base de datos compartida (beta)",
 		"developer_comment": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction."
 	},
 	"reportDesigner.addIntro": {
@@ -2240,9 +2300,6 @@
 	},
 	"reportDesigner.back": {
 		"string": "Volver al anotaciones"
-	},
-	"reportDesigner.cancelLeaveButtonLabel": {
-		"string": "Regresar"
 	},
 	"reportDesigner.cancelPause": {
 		"string": "Regresar"
@@ -2255,15 +2312,6 @@
 	},
 	"reportDesigner.cantPublishTitle": {
 		"string": "Tu informe no está listo para ser publicado"
-	},
-	"reportDesigner.confirmLeaveButtonLabel": {
-		"string": "Salir sin guardar"
-	},
-	"reportDesigner.confirmLeaveText": {
-		"string": "Actualmente tienes cambios sin guardar. ¡Si abandonas ahora perderás todos los cambios sin guardar!"
-	},
-	"reportDesigner.confirmLeaveTitle": {
-		"string": "¿Deseas salir sin guardar?"
 	},
 	"reportDesigner.confirmPause": {
 		"string": "Pausar informe"
@@ -2284,7 +2332,7 @@
 		"string": "Publicar cambios y enviar correcciones"
 	},
 	"reportDesigner.confirmPublishText": {
-		"string": "{demand, plural, one {Estás a punto de enviar este informe al/la usuario(a)s que solicitó este ítem.} other {Estás a punto de enviar este informe a los(as) # usuarios(as) que solicitaron este ítem.}}"
+		"string": "{demand, plural, one {Estás a punto de enviar este informe al/la usuario(a)s que solicitó este ítem.} many {Estás a punto de enviar este informe a los(as) # usuarios(as) que solicitaron este ítem.} other {Estás a punto de enviar este informe a los(as) # usuarios(as) que solicitaron este ítem.}}"
 	},
 	"reportDesigner.confirmPublishText2": {
 		"string": "Todas las futuras solicitudes de este ítem por parte de usuarios(as) recibirán esta versión del informe mientras se mantiene publicado."
@@ -2293,7 +2341,7 @@
 		"string": "¿Listo(a) para publicar tu informe?"
 	},
 	"reportDesigner.confirmRepublishResendText": {
-		"string": "{demand, plural, one {Como el estado ha cambiado, el informe actualizado será enviado como un {correctionLink} al/la usuario(a)s que recibieron la versión anterior de este reporte.} other {Como el estado ha cambiado, el informe actualizado será enviado como un {correctionLink} a los(as) # usuarios(as) que recibieron la versión anterior de este reporte.}}"
+		"string": "{demand, plural, one {Como el estado ha cambiado, el informe actualizado será enviado como un {correctionLink} al/la usuario(a)s que recibieron la versión anterior de este reporte.} many {Como el estado ha cambiado, el informe actualizado será enviado como un {correctionLink} a los(as) # usuarios(as) que recibieron la versión anterior de este reporte.} other {Como el estado ha cambiado, el informe actualizado será enviado como un {correctionLink} a los(as) # usuarios(as) que recibieron la versión anterior de este reporte.}}"
 	},
 	"reportDesigner.confirmRepublishResendTitle": {
 		"string": "¿Listo(a) para publicar tus cambios?"
@@ -2302,7 +2350,7 @@
 		"string": "¿Listo(a) para publicar tus cambios?"
 	},
 	"reportDesigner.content": {
-		"string": "Contenido ({max} caracteres como máximo)"
+		"string": "Resumen"
 	},
 	"reportDesigner.contentScreenHeader": {
 		"string": "Contenido con advertencia no puede<br />ser publicado como una tarjeta visual.",
@@ -2310,12 +2358,6 @@
 	},
 	"reportDesigner.copyButtonInactive": {
 		"string": "Copiado "
-	},
-	"reportDesigner.copyEmbedCode": {
-		"string": "Copiar código para insertar"
-	},
-	"reportDesigner.copyShareUrl": {
-		"string": "Copiar URL para compartir"
 	},
 	"reportDesigner.correction": {
 		"string": "corrección"
@@ -2327,10 +2369,7 @@
 		"string": "Fecha de publicación"
 	},
 	"reportDesigner.description": {
-		"string": "Contenido ({max} caracteres como máximo)"
-	},
-	"reportDesigner.edit": {
-		"string": "Editar"
+		"string": "Resumen"
 	},
 	"reportDesigner.error": {
 		"string": "Lo sentimos, se produjo un error al actualizar la configuración del informe. Por favor vuelve a intentarlo y si el problema persiste ponte en contacto con {supportEmail}."
@@ -2343,7 +2382,7 @@
 		"developer_comment": "The annotation page means the page where item annotation is made (aka the item page), not the page of an annotation"
 	},
 	"reportDesigner.headline": {
-		"string": "Título ({max} caracteres como máximo)"
+		"string": "Título"
 	},
 	"reportDesigner.incorrectWarning": {
 		"string": "¿Se aplicó incorrectamente esta advertencia de contenido?",
@@ -2354,6 +2393,9 @@
 	},
 	"reportDesigner.introductionSub": {
 		"string": "Utilice el marcador de posición {query_date} para mostrar la fecha de la consulta original. Use {estado} para comunicar el estado del artículo."
+	},
+	"reportDesigner.lastPublished": {
+		"string": "Last published"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Comience a crear su informe para obtener una vista previa de lo que los usuarios verán cuando lo reciban."
@@ -2368,33 +2410,31 @@
 		"string": "Eliminar imagen"
 	},
 	"reportDesigner.report": {
-		"string": "Informe"
+		"string": "Verificación de hechos"
 	},
 	"reportDesigner.reportImagePreviewTitle": {
 		"string": "Vista previa del informe",
 		"developer_comment": "Image caption spoken by screen readers but not seen by most users"
 	},
 	"reportDesigner.republishAndResend": {
-		"string": "{demand, plural, one {Envía también el informe actualizado como un {correctionLink} al/la usuario(a) que han recibido la versión anteriore de este reporte.} other {Envía también el informe actualizado como un {correctionLink} a los(as) # usuarios(as) que han recibido la versión anterior de este reporte.}}"
-	},
-	"reportDesigner.save": {
-		"string": "Guardar"
+		"string": "{demand, plural, one {Envía también el informe actualizado como un {correctionLink} al/la usuario(a) que han recibido la versión anteriore de este reporte.} many {Envía también el informe actualizado como un {correctionLink} a los(as) # usuarios(as) que han recibido la versión anterior de este reporte.} other {Envía también el informe actualizado como un {correctionLink} a los(as) # usuarios(as) que han recibido la versión anterior de este reporte.}}"
 	},
 	"reportDesigner.sentCount": {
 		"string": "Informes enviados"
 	},
 	"reportDesigner.statusLabel": {
-		"string": "Etiqueta de estado ({max} caracteres como máximo)"
+		"string": "Etiqueta del estado"
 	},
 	"reportDesigner.text": {
 		"string": "Texto",
 		"developer_comment": "Label used for radio button that toggles the report mode to text"
 	},
-	"reportDesigner.textError": {
-		"string": "Debe proporcionar texto para el informe o desmarcar la casilla 'Texto del informe'"
-	},
 	"reportDesigner.textTitle": {
-		"string": "Título ({max} caracteres como máximo)"
+		"string": "Título"
+	},
+	"reportDesigner.textUrl": {
+		"string": "Article URL",
+		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
 		"string": "Diseña tu informe"
@@ -2404,7 +2444,7 @@
 		"developer_comment": "Header for visual card when there's a content warning active and no alternative image is set"
 	},
 	"reportDesigner.url": {
-		"string": "URL del sitio web ({max} máx. caracteres)"
+		"string": "URL de la página web"
 	},
 	"reportDesigner.useDefaultImage": {
 		"string": "Usar imagen preestablecida "
@@ -2429,7 +2469,7 @@
 		"string": "Tu ítem aún tiene el estado por defecto {status} y debe ser cambiado a un estado diferente antes de poder ser publicado."
 	},
 	"reportDesignerToolbar.cantPublishText": {
-		"string": "Debes proporcionar texto en el contenido o título del Texto del Informe, o deseleccionarlo y seleccionar Tarjeta Visual para publicar el ítem."
+		"string": "Debes añadir un título y un resumen a la verificación de datos para publicar el informe."
 	},
 	"reportStatusCell.paused": {
 		"string": "Pausado"
@@ -2521,10 +2561,10 @@
 		"string": "Eliminar "
 	},
 	"rulesTableToolbar.deleteConfirmationLabel": {
-		"string": "{numSelected, plural, one {Elimina # regla} other {Elimina # reglas}}"
+		"string": "{numSelected, plural, one {Elimina # regla} many {Elimina # reglas} other {Elimina # reglas}}"
 	},
 	"rulesTableToolbar.deleteConfirmationText": {
-		"string": "{numSelected, plural, one {Has seleccionado # regla para eliminar. ¿Quieres eliminarla? No podrás deshacer esta acción.} other {Has seleccionado # reglas para eliminar. ¿Quieres eliminar todas estas? No podrás deshacer esta acción.}}"
+		"string": "{numSelected, plural, one {Has seleccionado # regla para eliminar. ¿Quieres eliminarla? No podrás deshacer esta acción.} many {Has seleccionado # reglas para eliminar. ¿Quieres eliminar todas estas? No podrás deshacer esta acción.} other {Has seleccionado # reglas para eliminar. ¿Quieres eliminar todas estas? No podrás deshacer esta acción.}}"
 	},
 	"rulesTableToolbar.deleteConfirmationTitle": {
 		"string": "¿Deseas eliminar las reglas seleccionadas?"
@@ -2533,7 +2573,7 @@
 		"string": "Guardar"
 	},
 	"rulesTableToolbar.selected": {
-		"string": "{numSelected, plural, one {# seleccionado} other {# seleccionados}}"
+		"string": "{numSelected, plural, one {# seleccionado} many {# seleccionados} other {# seleccionados}}"
 	},
 	"rulesTableToolbar.subtitle": {
 		"string": "Crea automatizaciones para organizar carpetas y personalizar tu flujo de trabajo."
@@ -2626,12 +2666,16 @@
 		"string": "Aplicar filtro",
 		"developer_comment": "Button to perform query with specified filters"
 	},
+	"search.archived": {
+		"string": "Solicitud de Tipline es",
+		"developer_comment": "Prefix label for field to filter by Tipline request"
+	},
 	"search.assignedTo": {
 		"string": "Asignado a",
 		"developer_comment": "Prefix label for field to filter by assigned users"
 	},
 	"search.beforeDate": {
-		"string": "y antes",
+		"string": "y",
 		"developer_comment": "String displayed between after and before date pickers"
 	},
 	"search.cancel": {
@@ -2642,21 +2686,49 @@
 		"string": "Etiqueta es",
 		"developer_comment": "Prefix label for field to filter by tags"
 	},
+	"search.claim": {
+		"string": "Campo de afirmación es",
+		"developer_comment": "Prefix label for field to filter by claim"
+	},
+	"search.clusterTeams": {
+		"string": "Organización es",
+		"developer_comment": "Prefix label for field to filter by workspace"
+	},
 	"search.collection": {
 		"string": "Colección es",
 		"developer_comment": "Prefix label for field to filter by collection"
 	},
+	"search.confirmed": {
+		"string": "Confirmadas",
+		"developer_comment": "Allow filtering by confirmed items"
+	},
 	"search.dateLastSubmittedHeading": {
-		"string": "Presentado por última vez"
+		"string": "Medios publicados"
 	},
 	"search.datePublishedHeading": {
-		"string": "Publicado"
+		"string": "Informe publicado"
+	},
+	"search.dateRelative": {
+		"string": "menos de",
+		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'."
+	},
+	"search.dateStartEnd": {
+		"string": "entre",
+		"developer_comment": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'."
 	},
 	"search.dateSubmittedHeading": {
-		"string": "Presentado"
+		"string": "Medios enviados"
 	},
 	"search.dateUpdatedHeading": {
-		"string": "Actualizado"
+		"string": "Ítem actualizado"
+	},
+	"search.empty": {
+		"string": "Vacío",
+		"developer_comment": "Allow filtering by claim with no value set"
+	},
+	"search.emptyAssign": {
+		"string": "No asignado",
+		"developer_comment": "Allow filtering by assigned_to with no value set"
 	},
 	"search.fieldAnd": {
 		"string": "y",
@@ -2673,10 +2745,6 @@
 	"search.folderHeading": {
 		"string": "Carpeta es",
 		"developer_comment": "Prefix label for field to filter by folder to which items belong"
-	},
-	"search.help": {
-		"string": "<table>\n                          <tbody>\n                            <tr><td>+</td><td>Árbol + Hoja</td><td>Ítems con ambos Árbol Y Hoja</td></tr>\n                            <tr><td>|</td><td>Árbol | Hoja</td><td>Ítems con Árbol O Hoja</td></tr>\n                            <tr><td>()</td><td>Árbol + (Hoja | Rama)</td><td>Ítems con Árbol Y Hoja O ítems con Árbol Y Rama</td></tr>\n                          </tbody>\n                        </table>\n                        <div>\n                          <a href=\"https://medium.com/meedan-user-guides/search-on-check-25c752bd8cc1\" target=\"_blank\" >\n                            Aprende más sobre las técnicas de búsqueda\n                          </a>\n                        </div>",
-		"developer_comment": "Instructions for usage of logical operators on search input"
 	},
 	"search.inputHint": {
 		"string": "Buscar ",
@@ -2701,6 +2769,14 @@
 		"string": "No se encontraron resultados",
 		"developer_comment": "A message that appears when a user searches for similar items, but we could not find any results."
 	},
+	"search.notEmpty": {
+		"string": "No está vacío",
+		"developer_comment": "Allow filtering by claim with any value set"
+	},
+	"search.notEmptyAssign": {
+		"string": "Asignado",
+		"developer_comment": "Allow filtering by assigned_to with any value set"
+	},
 	"search.notInAny": {
 		"string": "No está en ninguna colección",
 		"developer_comment": "Label displayed before listing all folders that are not part of any collection"
@@ -2712,9 +2788,29 @@
 	"search.previousPage": {
 		"string": "Página anterior"
 	},
+	"search.publishedBy": {
+		"string": "Informe publicado por",
+		"developer_comment": "Prefix label for field to filter by published by"
+	},
 	"search.read": {
 		"string": "Ítem es",
 		"developer_comment": "Prefix label for field to filter by media read"
+	},
+	"search.relativeDays": {
+		"string": "días atras",
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'."
+	},
+	"search.relativeMonths": {
+		"string": "meses atrás",
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'."
+	},
+	"search.relativeWeeks": {
+		"string": "semanas atrás",
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'."
+	},
+	"search.relativeYears": {
+		"string": "años atrás",
+		"developer_comment": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'."
 	},
 	"search.reportStatus": {
 		"string": "Estado de informe es",
@@ -2772,6 +2868,10 @@
 		"string": "El estado del ítem es",
 		"developer_comment": "Prefix label for field to filter by status"
 	},
+	"search.unconfirmed": {
+		"string": "Sin Confirmar",
+		"developer_comment": "Allow filtering by unconfirmed items"
+	},
 	"search.userHeading": {
 		"string": "Creado por",
 		"developer_comment": "Prefix label for field to filter by item creator"
@@ -2792,8 +2892,12 @@
 		"string": "Manual",
 		"developer_comment": "Filter option that refers to items created manually"
 	},
+	"searchFieldChannel.sharedDatabase": {
+		"string": "Base de Datos Compartida",
+		"developer_comment": "Filter option that refers to items created from the shared database."
+	},
 	"searchFieldChannel.webForm": {
-		"string": "Web Form",
+		"string": "Formulario Web",
 		"developer_comment": "Filter option that refers to items created via a web form"
 	},
 	"searchFieldCountry.label": {
@@ -2821,13 +2925,6 @@
 	"searchKeywordConfig.allNotes": {
 		"string": "Todas las notas"
 	},
-	"searchKeywordConfig.allTaskAnswers": {
-		"string": "Todas las respuestas de tarea",
-		"developer_comment": "This options applies keyword search across all task answers"
-	},
-	"searchKeywordConfig.allTaskComments": {
-		"string": "Todos los comentarios de tareas"
-	},
 	"searchKeywordConfig.analysisContent": {
 		"string": "Contenido del análisis"
 	},
@@ -2839,13 +2936,13 @@
 		"developer_comment": "Header before a listing of annotation options"
 	},
 	"searchKeywordConfig.claimDescription": {
-		"string": "Claim description"
+		"string": "Descripción de la afirmacíon"
 	},
 	"searchKeywordConfig.factCheckSummary": {
-		"string": "Fact-check summary"
+		"string": "Resumen de verificación de hechos"
 	},
 	"searchKeywordConfig.factCheckTitle": {
-		"string": "Fact-check title"
+		"string": "Título de verificación de hechos"
 	},
 	"searchKeywordConfig.item": {
 		"string": "Ítem"
@@ -2865,15 +2962,11 @@
 	"searchKeywordConfig.tags": {
 		"string": "Etiquetas"
 	},
-	"searchKeywordConfig.tasks": {
-		"string": "Tareas",
-		"developer_comment": "Header before a listing of task options"
-	},
 	"searchResults.itemsCount": {
-		"string": "{count, plural, one {1 / 1} other {{from} - {to} / #}}"
+		"string": "{count, plural, one {1 / 1} many {{from} - {to} / #} other {{from} - {to} / #}}"
 	},
 	"searchResults.withSelection": {
-		"string": "{selectedCount, plural, one {(# seleccionado)} other {(# seleccionados)}}",
+		"string": "{selectedCount, plural, one {(# seleccionado)} many {(# seleccionados)} other {(# seleccionados)}}",
 		"developer_comment": "Label for number of selected items"
 	},
 	"sensitiveContentMenuButton.adult": {
@@ -3124,11 +3217,19 @@
 	"smoochBot.descriptionSubscription": {
 		"string": "Presenta el valor de tu boletín a la(o)s usuaria(o)s. Toda(o)s la(o)s usuaria(o)s que se inscriban recibirán cualquier boletín futuro. "
 	},
+	"smoochBot.designYourBot": {
+		"string": "Diseña tu bot",
+		"developer_comment": "Title of tipline settings page"
+	},
 	"smoochBot.footnoteGreeting": {
 		"string": "La siguiente declaración y opción se añadirán automáticamente al final de este mensaje: \"Nunca compartiremos tu información de identificación personal. Responde 9 para leer nuestra Declaración de Privacidad y Propósito\". "
 	},
 	"smoochBot.footnoteGreeting2": {
 		"string": "La Declaración de Privacidad predeterminada se puede reemplazar por una personalizada bajo la opción 'Declaración de Privacidad' en esta página. "
+	},
+	"smoochBot.labelContent": {
+		"string": "Contenido y traducción",
+		"developer_comment": "Button label in tipline settings page"
 	},
 	"smoochBot.labelGreeting": {
 		"string": "Saludo"
@@ -3144,6 +3245,9 @@
 	},
 	"smoochBot.labelNewsletter": {
 		"string": "Boletín"
+	},
+	"smoochBot.labelNewsletterV2": {
+		"string": "Contenido del boletín"
 	},
 	"smoochBot.labelNoAction": {
 		"string": "Ninguna acción de usuario(a)"
@@ -3191,7 +3295,10 @@
 		"string": "Escribe para componer tu boletín. Puedes añadir contenido del RSS a continuación."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
-		"string": "Escribe para añadir contenido"
+		"string": "Añadir un artículo"
+	},
+	"smoochBot.placeholderNewsletterIntroduction": {
+		"string": "Escribe algo"
 	},
 	"smoochBot.placeholderOptionNotAvailable": {
 		"string": "🤖Lo siento, no entendí tu mensaje ¡Inténtalo de nuevo!"
@@ -3211,23 +3318,29 @@
 	"smoochBot.placeholderSubscription": {
 		"string": "Escribe para componer tu solicitud de suscripción al boletín informativo. "
 	},
-	"smoochBot.scenarios": {
-		"string": "Escenarios"
-	},
 	"smoochBot.settings": {
 		"string": "Configuración"
 	},
-	"smoochBot.title": {
-		"string": "Diseñe su bot"
-	},
 	"smoochBot.tos": {
 		"string": "Términos del Servicio ({language})"
+	},
+	"smoochBotComponent.back": {
+		"string": "Regresar a edición",
+		"developer_comment": "Button label to close error dialog on tipline settings page"
 	},
 	"smoochBotComponent.contactUs": {
 		"string": "Contáctanos para configurar"
 	},
 	"smoochBotComponent.install": {
 		"string": "Instalar"
+	},
+	"smoochBotComponent.missingInformationBody": {
+		"string": "Al paso \"11. Suscripción y cancelación de suscripción al boletín\" le falta un marcador de posición.",
+		"developer_comment": "Content of dialog that opens when there is a validation error on tipline settings"
+	},
+	"smoochBotComponent.missingInformationTitle": {
+		"string": "Falta información",
+		"developer_comment": "Title of dialog that opens when there is a validation error on tipline settings"
 	},
 	"smoochBotComponent.save": {
 		"string": "Publicar"
@@ -3244,6 +3357,174 @@
 	},
 	"smoochBotConfig.subscriptionHeader": {
 		"string": "Acutalmente estás {subscription_status} a nuestro boletín."
+	},
+	"smoochBotContentAndTranslation.addMoreInformationDefault": {
+		"string": "¿Estás lista(o) para enviar?",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.addMoreInformationDescription": {
+		"string": "Este mensaje se envía a usuaria(o) después de que envíen el contenido, para asegurarse de que toda la información que deseen proporcionar haya sido enviada.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.addMoreInformationTitle": {
+		"string": "Enviar contenido",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.error": {
+		"string": "El marcador de posición {subscription_status} está faltando en tu contenido personalizado o traducción",
+		"developer_comment": "Error message displayed on the tipline settings page when the placeholder is not present"
+	},
+	"smoochBotContentAndTranslation.feedbackDefault": {
+		"string": "¿Estas verificaciones de hechos responden a tu pregunta?",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.feedbackDescription": {
+		"string": "Cuando las verificaciones de hechos se devuelven a la/el usuaria(o), el bot realiza un seguimiento automático para preguntar si los resultados son satisfactorios.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.feedbackTitle": {
+		"string": "Comentarios",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.greetingsDefault": {
+		"string": "Bienvenida(o) a nuestro bot de verificación de hechos. Utiliza el menú principal para navegar.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.greetingsDescription": {
+		"string": "El primer mensaje que se envía a la/el usuaria(o). Presenta a tu organización y el servicio que brindas a través de este bot. ",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.greetingsTitle": {
+		"string": "Saludos",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.moreContentPromptDefault": {
+		"string": "Por favor añade más contenido.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.moreContentPromptDescription": {
+		"string": "Este mensaje es enviado cuando usuaria(o) selecciona la opción para añadir más contenido.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.moreContentPromptTitle": {
+		"string": "Añadir más contenido",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.negativeFeedbackDefault": {
+		"string": "Gracias por tus comentarios. Periodistas de nuestro equipo han sido notificadas(os) y recibirás una actualización en este hilo si se publica una nueva verificación de hechos. ",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.negativeFeedbackDescription": {
+		"string": "Si la/el usuaria(o) no está satisfecha(o), este mensaje informa a la/el usuaria(o) que el contenido ha sido enviado a periodistas. ",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.negativeFeedbackTitle": {
+		"string": "Comentario negativo",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.newsletterDefault": {
+		"string": "Suscríbete ahora para recibir los hechos más importantes enviados directamente en WhatsApp, cada semana. {subscription_status}.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.newsletterDescription": {
+		"string": "Este mensaje informa a usuarias(os) sobre el estado de su suscripción. Debes mantener los marcadores de posición como están (no traducir el contenido entre paréntesis).",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.newsletterTitle": {
+		"string": "Suscripción y cancelación de suscripción del boletín ",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.noSearchResultDefault": {
+		"string": "No se han encontrado verificaciones de hechos. Periodistas de nuestro equipo han sido notificadas(os) y recibirás una actualización en este hilo si se verifica la información. ",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.noSearchResultDescription": {
+		"string": "Si el bot no encuentra ninguna verificación de hechos relevante en tu base de datos, informa a usuarias(os) que el contenido se ha enviado a periodistas. ",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.noSearchResultTitle": {
+		"string": "Sin resultado de búsqueda",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.noticeOfInactivityDefault": {
+		"string": "Nuestro bot actualmente está inactivo. Por favor visita *inserta URL* para leer las más recientes verificaciones de hechos.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.noticeOfInactivityDescription": {
+		"string": "Este mensaje se envía a cualquier usuaria(o) que haya enviado un mensaje a la Tipline cuando el Check Message bot está configurado como inactivo.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.noticeOfInactivityTitle": {
+		"string": "Aviso de inactividad",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDefault": {
+		"string": "Lo siento, no entendí tu mensaje.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableDescription": {
+		"string": "El mensaje enviado si la respuesta de usuaria(o) a un menú no es un escenario de menú válido.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.optionNotAvailableTitle": {
+		"string": "Opción no disponible",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.placeholder": {
+		"string": "Escribe el contenido personalizado o traducción aquí.",
+		"developer_comment": "Placeholder used in all fields under tipline content and translation settings."
+	},
+	"smoochBotContentAndTranslation.positiveFeedbackDefault": {
+		"string": "¡Gracias! ¡Corre la voz sobre esta tipline para ayudarnos a combatir la desinformación! *insert_entry_point_link*",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.positiveFeedbackDescription": {
+		"string": "Si la/el usuaria(o) está satisfecha(o), el propósito de este mensaje es agradecerle por sus comentarios.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.positiveFeedbackTitle": {
+		"string": "Comentario positivo",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionCanceledDefault": {
+		"string": "¡OK! Tu envío está cancelado.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionCanceledDescription": {
+		"string": "Este mensaje se envía cuando usuaria(o) cancela el envío de contenido.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionCanceledTitle": {
+		"string": "Envío cancelado",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionPromptDefault": {
+		"string": "Por favor ingresa la pregunta, enlace, imagen o video que deseas que sea verificado.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionPromptDescription": {
+		"string": "El mensaje solicitando a usuaria(o) que envíe contenido para verificación de hechos.",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionPromptTitle": {
+		"string": "Indicacíon de envío",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionReceivedDefault": {
+		"string": "¡Gracias! Buscando verificaciones de hechos, puede tomar un minuto.",
+		"developer_comment": "Default value for a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionReceivedDescription": {
+		"string": "La confirmación enviada a la/el usuaria(o) después una consulta válida de la/el usuaria(o) ha sido recibida, mientras el bot está buscando contenido. ",
+		"developer_comment": "Description of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.submissionReceivedTitle": {
+		"string": "Envío recibido",
+		"developer_comment": "Title of a customizable string of the tipline bot."
+	},
+	"smoochBotContentAndTranslation.subtitle": {
+		"string": "Reemplaza o traduce el contenido predeterminado para cada mensaje de bot estándar.",
+		"developer_comment": "Subtitle displayed in tipline settings page for content and translation."
 	},
 	"smoochBotIntegrationButton.cancel": {
 		"string": "Cancelar"
@@ -3308,6 +3589,18 @@
 	"smoochBotIntegrations.account": {
 		"string": "Cuenta conectada: {link}"
 	},
+	"smoochBotIntegrations.copied": {
+		"string": "Copiado ",
+		"developer_comment": "Tooltip displayed on tipline settings when a code is copied to clipboard"
+	},
+	"smoochBotIntegrations.entryPointDescription": {
+		"string": "Utiliza esta dirección en cualquier lugar en línea para abrir WhatsApp y comenzar una conversación de tipline:",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
+	"smoochBotIntegrations.entryPointTitle": {
+		"string": "Punto de entrada",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the entry point for WhatsApp"
+	},
 	"smoochBotIntegrations.lineChannelAccessToken": {
 		"string": "Token de acceso del canal LINE"
 	},
@@ -3322,6 +3615,14 @@
 	},
 	"smoochBotIntegrations.phoneNumber": {
 		"string": "Número de teléfono conectado: {link}"
+	},
+	"smoochBotIntegrations.qrCodeDescription": {
+		"string": "Utiliza este código o descarga la imagen para mostrar el código QR en promociones dentro y fuera de internet. Escanear el código QR abre WhatsApp y comienza una conversación de tipline. ",
+		"developer_comment": "Description displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
+	},
+	"smoochBotIntegrations.qrCodeTitle": {
+		"string": "Código QR",
+		"developer_comment": "Title displayed on WhatsApp tipline settings window, regarding the QR code for WhatsApp"
 	},
 	"smoochBotIntegrations.telegramBot": {
 		"string": "Bot de Telegram conectado: {link}"
@@ -3338,6 +3639,150 @@
 	},
 	"smoochBotIntegrations.viberPublicAccountToken": {
 		"string": "Token público de la cuenta de Viber"
+	},
+	"smoochBotMainMenu.languagesAndPrivacy": {
+		"string": "Idiomas y Privacidad",
+		"developer_comment": "Title of the main menu third section of the tipline where there is more than one supported language"
+	},
+	"smoochBotMainMenu.learnMore": {
+		"string": "Aprende más",
+		"developer_comment": "Link with help article about which menu features are supported by each platform in tipline settings page for the main menu."
+	},
+	"smoochBotMainMenu.mainMenu": {
+		"string": "Menú principal",
+		"developer_comment": "Title of the tipline bot main menu settings page."
+	},
+	"smoochBotMainMenu.privacy": {
+		"string": "Privacidad",
+		"developer_comment": "Title of the main menu third section of the tipline when there is only one supported language"
+	},
+	"smoochBotMainMenu.privacyStatement": {
+		"string": "Declaración de privacidad",
+		"developer_comment": "Menu label used in the tipline bot"
+	},
+	"smoochBotMainMenu.subtitle": {
+		"string": "El menú de tu bot, pregunta a la/el usuaria(o) que elija entre un grupo de opciones.",
+		"developer_comment": "Subtitle displayed in tipline settings page for the main menu."
+	},
+	"smoochBotMainMenu.subtitle2": {
+		"string": "Por favor ten en cuenta que algunos servicios de mensajería pueden tener opciones de visualización del menú diferentes a las de otros. {linkToLearnMore}.",
+		"developer_comment": "Subtitle displayed in tipline settings page for the main menu if the tipline is enabled for WhatsApp and at least one more platform."
+	},
+	"smoochBotMainMenuNewOption.cancel": {
+		"string": "Cancelar",
+		"developer_comment": "Button label to cancel adding a new tipline menu option"
+	},
+	"smoochBotMainMenuNewOption.label": {
+		"string": "Texto del botón - límite de 24 caracteres",
+		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.main": {
+		"string": "Principal",
+		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.queryState": {
+		"string": "Consulta de información",
+		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.resources": {
+		"string": "Recursos",
+		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.response": {
+		"string": "Respuesta",
+		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.save": {
+		"string": "Guardar",
+		"developer_comment": "Button label to save new tipline menu option"
+	},
+	"smoochBotMainMenuNewOption.scenario": {
+		"string": "Escenario",
+		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.selectAction": {
+		"string": "Seleccionar acción",
+		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.send": {
+		"string": "Si el botón está cliqueado, entonces envía:",
+		"developer_comment": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuNewOption.subscriptionState": {
+		"string": "Optar por suscripción",
+		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.cancel": {
+		"string": "Cancelar",
+		"developer_comment": "Button label to cancel adding a new tipline menu option"
+	},
+	"smoochBotMainMenuOption.description": {
+		"string": "Descripción - límite de 72 caracteres",
+		"developer_comment": "Description field label on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.label": {
+		"string": "Texto del botón - límite de 24 caracteres",
+		"developer_comment": "Text field label on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.main": {
+		"string": "Principal",
+		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.queryState": {
+		"string": "Indicacíon de envío",
+		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.resources": {
+		"string": "Recursos",
+		"developer_comment": "List subheader displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.response": {
+		"string": "Respuesta",
+		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.save": {
+		"string": "Guardar",
+		"developer_comment": "Button label to save new tipline menu option"
+	},
+	"smoochBotMainMenuOption.scenario": {
+		"string": "Escenario",
+		"developer_comment": "Title of dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.selectAction": {
+		"string": "Seleccionar acción",
+		"developer_comment": "Input label displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.send": {
+		"string": "Si el botón está cliqueado, entonces envía:",
+		"developer_comment": "Disclaimer displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuOption.subscriptionState": {
+		"string": "Optar por suscripción",
+		"developer_comment": "Menu option displayed on dialog that opens to add a new option to tipline bot main menu"
+	},
+	"smoochBotMainMenuSection.defaultSectionTitle": {
+		"string": "Opciones de menú",
+		"developer_comment": "Default label for a main menu section title field on tipline bot settings."
+	},
+	"smoochBotMainMenuSection.editOption": {
+		"string": "Editar",
+		"developer_comment": "Button label to edit a main menu option on tipline bot settings."
+	},
+	"smoochBotMainMenuSection.newOption": {
+		"string": "Nueva opción",
+		"developer_comment": "Button label to create a new main menu option on tipline bot settings."
+	},
+	"smoochBotMainMenuSection.noOptions": {
+		"string": "Actualmente no hay ninguna opción en esta sección.",
+		"developer_comment": "Message displayed when there is no menu option on tipline bot settings."
+	},
+	"smoochBotMainMenuSection.optionNoDescription": {
+		"string": "sin descripción",
+		"developer_comment": "Displayed when a tipline bot menu option doesn't have a description."
+	},
+	"smoochBotMainMenuSection.sectionTitle": {
+		"string": "Título - límite de 24 caracteres",
+		"developer_comment": "Label for a main menu section title field on tipline bot settings."
 	},
 	"smoochBotMenuEditor.scenario": {
 		"string": "Escenario"
@@ -3392,7 +3837,15 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "El boletín se enviará a {count} usuarias(os) el {date}, {time}"
+		"string": "The newsletter will be sent to {count} users on {dateTime}"
+	},
+	"smoochBotNewsletterEditor.addArticle": {
+		"string": "Agregar artículo",
+		"developer_comment": "Button label to add a new article URL to the tipline newsletter content"
+	},
+	"smoochBotNewsletterEditor.charsCounter": {
+		"string": "{count}/{max} caracteres disponibles",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
 	},
 	"smoochBotNewsletterEditor.day": {
 		"string": "Día de la semana"
@@ -3400,12 +3853,31 @@
 	"smoochBotNewsletterEditor.error": {
 		"string": "Esta URL no parece ser una fuente RSS válida"
 	},
-	"smoochBotNewsletterEditor.firstStep": {
-		"string": "1. Selecciona un día y hora de la semana",
-		"developer_comment": "This is an item in a bullet list of steps, this is the first step"
+	"smoochBotNewsletterEditor.everyday": {
+		"string": "Día"
+	},
+	"smoochBotNewsletterEditor.firstStepDescription": {
+		"string": "Enviar el boletín a la totalidad de usuaria(o)s suscrita(o)s cada:",
+		"developer_comment": "Explanation about tipline newsletter schedule... after that, there is a drop-down where the user can choose periodicity, day of week and time"
+	},
+	"smoochBotNewsletterEditor.firstStepTitle": {
+		"string": "Agendar",
+		"developer_comment": "Tipline newsletter schedule (how often it should be sent)"
 	},
 	"smoochBotNewsletterEditor.friday": {
 		"string": "Viernes"
+	},
+	"smoochBotNewsletterEditor.introPlaceholder1": {
+		"string": "Utiliza el marcador de posición \\{channel\\} para insertar el nombre del servicio de mensajería automáticamente.",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introPlaceholder2": {
+		"string": "Utiliza el marcador de posición \\{date\\} para insertar la fecha en que el boletín es enviado automáticamente. ",
+		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
+	},
+	"smoochBotNewsletterEditor.introduction": {
+		"string": "Introducción",
+		"developer_comment": "Tipline newsletter introduction field label"
 	},
 	"smoochBotNewsletterEditor.load": {
 		"string": "Cargar"
@@ -3419,9 +3891,6 @@
 	"smoochBotNewsletterEditor.numberOfArticles": {
 		"string": "Número de artículos para mostrar"
 	},
-	"smoochBotNewsletterEditor.numberOfBulletPoints": {
-		"string": "Número de viñetas"
-	},
 	"smoochBotNewsletterEditor.paused": {
 		"string": "Para enviar tu próximo boletín, por favor añade contenido nuevo"
 	},
@@ -3432,15 +3901,12 @@
 		"string": "Sábado"
 	},
 	"smoochBotNewsletterEditor.secondStep": {
-		"string": "2. Añade contenido manualmente, o vía Fuente RSS.",
-		"developer_comment": "This is an item in a bullet list of steps, this is the second step"
+		"string": "Contenido",
+		"developer_comment": "Refers to tipline newsletter content"
 	},
 	"smoochBotNewsletterEditor.secondStep2": {
-		"string": "Si el contenido no se cambia entre dos envíos programados, no será enviado. "
-	},
-	"smoochBotNewsletterEditor.sendEvery": {
-		"string": "Enviar cada",
-		"developer_comment": "After this string, there is a drop-down where the user can choose a day of the week"
+		"string": "Si el contenido no se modifica entre dos envíos programados, el boletín no será enviado. ",
+		"developer_comment": "Explanation about tipline newsletter delivery, in tipline newsletter settings page"
 	},
 	"smoochBotNewsletterEditor.sunday": {
 		"string": "Domingo"
@@ -3455,11 +3921,8 @@
 		"string": "Zona horaria",
 		"developer_comment": "Label for time zone selection"
 	},
-	"smoochBotNewsletterEditor.title": {
-		"string": "Compón tu boletín"
-	},
 	"smoochBotNewsletterEditor.toggleRss": {
-		"string": "Actualiza automáticamente el contenido usando una fuente RSS"
+		"string": "Agregar contenido desde la fuente RSS"
 	},
 	"smoochBotNewsletterEditor.tuesday": {
 		"string": "Martes"
@@ -3471,10 +3934,19 @@
 		"string": "Miércoles"
 	},
 	"smoochBotResourceEditor.addContent": {
-		"string": "Añadir contenido manualmente"
+		"string": "Escribe algo",
+		"developer_comment": "Placeholder for manual content entry"
+	},
+	"smoochBotResourceEditor.charsCounter": {
+		"string": "{count}/{max} caracteres disponibles",
+		"developer_comment": "Counter that shows how many characters can still be input for the tipline content"
+	},
+	"smoochBotResourceEditor.content": {
+		"string": "Contenido",
+		"developer_comment": "Header for the bot resource's content textfield"
 	},
 	"smoochBotResourceEditor.delete": {
-		"string": "Borrar"
+		"string": "Eliminar recurso"
 	},
 	"smoochBotResourceEditor.error": {
 		"string": "Esta URL no parece ser una fuente RSS válida"
@@ -3486,7 +3958,8 @@
 		"string": "Número de artículos para mostrar"
 	},
 	"smoochBotResourceEditor.rss": {
-		"string": "Agregar contenido desde la fuente RSS"
+		"string": "Agregar contenido desde la fuente RSS",
+		"developer_comment": "Label of switch that toggles loading of content from a RSS feed"
 	},
 	"smoochBotResourceEditor.rssPlaceholder": {
 		"string": "URL pública que muestra N artículos en formato RSS"
@@ -3508,6 +3981,10 @@
 	"smoochBotSettings.internalSettingsDescription": {
 		"string": "Las(os) empleadas(os) de Meedan ven estas configuraciones, pero la(o)s usuaria(o)s no.",
 		"developer_comment": "Description of Internal Settings section in the tipline settings page. The word Meedan does not need to be translated."
+	},
+	"smoochBotSettings.searchSettings": {
+		"string": "Configuración de búsqueda",
+		"developer_comment": "Title of Search settings section in the tipline settings page."
 	},
 	"smoochBotSettings.sunshineSettings": {
 		"string": "Configuración de integración con Sunshine",
@@ -3560,7 +4037,7 @@
 		"developer_comment": "Source name"
 	},
 	"sourceInfo.mediasCount": {
-		"string": "{mediasCount, plural, one {1 ítem} other {# ítems}}",
+		"string": "{mediasCount, plural, one {1 ítem} many {# ítems} other {# ítems}}",
 		"developer_comment": "show source media counts"
 	},
 	"sourceInfo.primaryLink": {
@@ -3580,6 +4057,9 @@
 	"sourceInfo.sourceName": {
 		"string": "Añadir nombre",
 		"developer_comment": "label for create source name"
+	},
+	"spam.title": {
+		"string": "Spam"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "Esto cambiará el idioma por defecto de {currentDefaultLanguage} a {newDefaultLanguage}."
@@ -3678,7 +4158,7 @@
 		"string": "Solicitaste unirte"
 	},
 	"switchTeams.member": {
-		"string": "{membersCount, plural, one {# miembro} other {# miembros}}"
+		"string": "{membersCount, plural, one {# miembro} many {# miembros} other {# miembros}}"
 	},
 	"switchTeams.newTeamLink": {
 		"string": "Crear"
@@ -3717,26 +4197,8 @@
 	"tagPicker.tagNotFound": {
 		"string": "Etiqueta #{tag} no encontrada"
 	},
-	"task.answeredBy": {
-		"string": "Completada por {byName}"
-	},
 	"task.assignOrUnassign": {
 		"string": "Assignar/Desasignar"
-	},
-	"task.assignedTo": {
-		"string": "Asignado a {name}"
-	},
-	"task.confirmDelete": {
-		"string": "¿Estás seguro(a) que quieres eliminar esta tarea?"
-	},
-	"task.confirmDeleteResponse": {
-		"string": "¿Estás seguro(a) que quieres eliminar esta respuesta?"
-	},
-	"task.confirmDeleteResponseTitle": {
-		"string": "Eliminar respuesta?"
-	},
-	"task.confirmDeleteTitle": {
-		"string": "Eliminar tarea?"
 	},
 	"task.delete": {
 		"string": "Eliminar tarea"
@@ -3753,6 +4215,14 @@
 	"task.editResponse": {
 		"string": "Editar respuesta"
 	},
+	"task.uploadWarningBody": {
+		"string": "Navegar fuera de esta página puede causar interrupciones de la carga del archivo.",
+		"developer_comment": "Warning to prevent user from navigating away while upload is running"
+	},
+	"task.uploadWarningTitle": {
+		"string": "Hay una subida de archivo en curso",
+		"developer_comment": "Warning to prevent user from navigating away while upload is running"
+	},
 	"taskActions.tooltipMetadata": {
 		"string": "Acciones de metadatos"
 	},
@@ -3766,11 +4236,11 @@
 		"string": "Todas las tareas"
 	},
 	"taskTypeSelector.numTypes": {
-		"string": "{length, plural, one {# seleccionada} other {# seleccionadas}}",
+		"string": "{length, plural, one {# seleccionada} many {# seleccionadas} other {# seleccionadas}}",
 		"developer_comment": "Label for number of selected tasks"
 	},
 	"tasks.UrlDescription": {
-		"string": "Must be a valid URL",
+		"string": "Debe ser una URL válida",
 		"developer_comment": "Hint text about what kind of text a user can put in the URL box"
 	},
 	"tasks.UrlType": {
@@ -3792,14 +4262,9 @@
 	"tasks.assign": {
 		"string": "Asignar"
 	},
-	"tasks.attributionSlogan": {
-		"string": "Para la tarea, \"{label}\""
-	},
-	"tasks.blankMetadata": {
-		"string": "No hay campos de metadatos"
-	},
-	"tasks.blankTasks": {
-		"string": "Sin tareas"
+	"tasks.blankAnnotation": {
+		"string": "No annotation fields",
+		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
 		"string": "Cancelar"
@@ -3821,6 +4286,14 @@
 		"string": "Elige un tipo de campo",
 		"developer_comment": "Label for field type selection box"
 	},
+	"tasks.confirmLeave": {
+		"string": "Actualmente estás editando anotaciones. ¿Deseas continuar hacia una nueva página? Tu trabajo no se guardará.",
+		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
+	},
+	"tasks.confirmLeaveTitle": {
+		"string": "¿Deseas salir sin guardar?",
+		"developer_comment": "This is a prompt that appears when a user tries to exit a page before saving their work."
+	},
 	"tasks.dateTimeType": {
 		"string": "Fecha",
 		"developer_comment": "Label for date type field"
@@ -3834,24 +4307,6 @@
 	},
 	"tasks.description": {
 		"string": "Descripción (opcional)"
-	},
-	"tasks.editAssignment": {
-		"string": "Editar asignación"
-	},
-	"tasks.editAttribution": {
-		"string": "Editar atribución"
-	},
-	"tasks.editFieldWithAnswersBody1": {
-		"string": "{number, plural, one {You are updating a field that has already collected # response.} other {You are updating a field that has already collected # responses.}}",
-		"developer_comment": "Body of warning when user tries to edit an annotation field that already has colledted responses"
-	},
-	"tasks.editFieldWithAnswersBody2": {
-		"string": "This change will show on these responses, and may not make sense with the updated field. Select \"Save\" if you understand and want to continue.",
-		"developer_comment": "Body of warning when user tries to edit an annotation field that already has colledted responses"
-	},
-	"tasks.editFieldWithAnswersTitle": {
-		"string": "Updating field with existing responses",
-		"developer_comment": "Title of warning when user tries to edit an annotation field that already has colledted responses"
 	},
 	"tasks.fileUpload": {
 		"string": "Carga de archivo"
@@ -3908,9 +4363,6 @@
 	"tasks.showIfCondition": {
 		"string": "Mostrar campo cuando se cumpla la condición",
 		"developer_comment": "This is a switch that, when set to 'on', will cause the field above the switch to only be shown when a certain user-defined condition is true. Selecting this button creates a dialog for the user to define the condition."
-	},
-	"tasks.showInProj": {
-		"string": "Mostrar tareas en"
 	},
 	"tasks.singleChoiceDescription": {
 		"string": "Te permite seleccionar una sola opción de una lista de opciones predefinidas",
@@ -4234,9 +4686,6 @@
 	"teamSettings.statuses": {
 		"string": "Estados"
 	},
-	"teamSettings.tasks": {
-		"string": "Tareas"
-	},
 	"teamSettings.tipline": {
 		"string": "Tipline"
 	},
@@ -4244,7 +4693,7 @@
 		"string": "Añadir etiqueta"
 	},
 	"teamTags.confirmDeleteBody": {
-		"string": "{numTags, plural, one {La etiqueta \"{tag}\" será eliminada de un ítem.} other {La etiqueta \"{tag}\" será eliminada de # ítems.}}"
+		"string": "{numTags, plural, one {La etiqueta \"{tag}\" será eliminada de un ítem.} many {La etiqueta \"{tag}\" será eliminada de # ítems.} other {La etiqueta \"{tag}\" será eliminada de # ítems.}}"
 	},
 	"teamTags.confirmDeleteLabel": {
 		"string": "Eliminar etiqueta"
@@ -4364,7 +4813,7 @@
 		"string": "Sí"
 	},
 	"teamTasks.confirmDeleteBlurbMetadata": {
-		"string": "{itemsNumber, plural, one {El campo {fieldLabel} ha sido completado en # ítem.} other {El campo {fieldLabel} ha sido completado en # ítems.}}",
+		"string": "{itemsNumber, plural, one {El campo {fieldLabel} ha sido completado en # ítem.} many {El campo {fieldLabel} ha sido completado en # ítems.} other {El campo {fieldLabel} ha sido completado en # ítems.}}",
 		"developer_comment": "Warning about existing completed instances of a field before performing deletion of it"
 	},
 	"teamTasks.confirmDeleteMetadataTitle": {
@@ -4374,8 +4823,22 @@
 		"string": "Conservar este campo con respuestas en los ítems donde se haya completado. ",
 		"developer_comment": "Label to checkbox for choosing whether completed fields should be deleted or not"
 	},
+	"teamTasks.confirmEditBlurbMetadata": {
+		"string": "Campos de ítems relacionados se modificarán como consecuencia de aplicar de este cambio, excepto aquellos que ya se hayan completado. ",
+		"developer_comment": "Warning about existing instances of a field before performing changes to it"
+	},
+	"teamTasks.confirmEditMetadataTitle": {
+		"string": "¿Estás segura(o) que quieres editar este campo?"
+	},
+	"teamTasks.confirmEditkeepCompletedMetadata": {
+		"string": "No alteres los campos que se han completado, y conserva sus respuestas existentes. ",
+		"developer_comment": "Label to checkbox for choosing whether completed fields should be changed or not"
+	},
 	"teamTasks.continue": {
 		"string": "Continuar"
+	},
+	"teamTasks.continueMetadata": {
+		"string": "Editar campo"
 	},
 	"teamTasks.deleteMetadata": {
 		"string": "Eliminar campo"
@@ -4480,6 +4943,31 @@
 	"trash.title": {
 		"string": "Papelera"
 	},
+	"trendItem.aboutThisClaim": {
+		"string": "Sobre esta afirmación"
+	},
+	"trendItem.claimDescription": {
+		"string": "Afirmaciones"
+	},
+	"trendItem.factCheck": {
+		"string": "Verificación de hechos",
+		"developer_comment": "Middle column title on trends item page"
+	},
+	"trendItem.factCheckSummary": {
+		"string": "Resumen",
+		"developer_comment": "Fact-check summary"
+	},
+	"trendItem.factCheckTitle": {
+		"string": "Título",
+		"developer_comment": "Fact-check title"
+	},
+	"trendItem.factCheckUrl": {
+		"string": "URL del artículo publicado",
+		"developer_comment": "Fact-check article URL"
+	},
+	"trendItem.import": {
+		"string": "Importar"
+	},
 	"trendItem.lastSubmitted": {
 		"string": "Enviado por última vez",
 		"developer_comment": "A label indicating that the following date is when an item was last submitted to the tip line"
@@ -4489,6 +4977,39 @@
 	},
 	"trendItem.media": {
 		"string": "Medios similares"
+	},
+	"trendItem.mediaRequests": {
+		"string": "{number} solicitudes de tipline en todos los medios"
+	},
+	"trendItem.mediasColumnTitleAll": {
+		"string": "{number} Medios en todas las organizaciones"
+	},
+	"trendItem.mediasColumnTitleSingle": {
+		"string": "{number} Medios de {organizationName}"
+	},
+	"trendItem.noClaim": {
+		"string": "No se ha añadido ninguna afirmación todavía"
+	},
+	"trendItem.noImportingClaim": {
+		"string": "Selecciona una organización para mostrar las verificaciones de hechos y anotaciones disponibles.",
+		"developer_comment": "Message displayed on trends item page when no claim was selected."
+	},
+	"trendItem.noTags": {
+		"string": "Sin etiquetas.",
+		"developer_comment": "Displayed on trends item page when item has no tags."
+	},
+	"trendItem.noTasks": {
+		"string": "No hay anotaciones completas.",
+		"developer_comment": "Displayed on trends item page when item has no completed annotations."
+	},
+	"trendItem.notPublished": {
+		"string": "Aún sin publicar"
+	},
+	"trendItem.publishedAt": {
+		"string": "Informe publicado: {date}"
+	},
+	"trendItem.rating": {
+		"string": "Calificación: {rating}"
 	},
 	"trendItem.request": {
 		"string": "Solicitud",
@@ -4502,7 +5023,46 @@
 		"string": "Ordenar por"
 	},
 	"trends.title": {
-		"string": "Tendencias"
+		"string": "Base de datos compartida"
+	},
+	"trendsItem.completedAnnotations": {
+		"string": "Anotaciones completas"
+	},
+	"trendsItem.couldNotImport": {
+		"string": "No pudimos importar la reclamación porque los medios asociados a esta reclamación ya existen en este espacio de trabajo"
+	},
+	"trendsItem.factCheck": {
+		"string": "Verificación de hechos"
+	},
+	"trendsItem.importDescription": {
+		"string": "Una nueva afirmación será creada en tu área de trabajo con medios.",
+		"developer_comment": "Dialog description when importing a claim from trends page."
+	},
+	"trendsItem.importSelectLabel": {
+		"string": "Importar al área de trabajo",
+		"developer_comment": "Select field label used in import claim dialog from trends page."
+	},
+	"trendsItem.importTextLabel": {
+		"string": "Descripción de la afirmación",
+		"developer_comment": "Text field label used in import claim dialog from trends page."
+	},
+	"trendsItem.importTitle": {
+		"string": "Importar datos al área de trabajo",
+		"developer_comment": "Dialog title when importing a claim from trends page."
+	},
+	"trendsItem.importedSuccessfully": {
+		"string": "Afirmación importada con éxito al área de trabajo {workspaceName}"
+	},
+	"trendsItem.importingQuestion": {
+		"string": "¿Qué contenido quieres importar?",
+		"developer_comment": "Question in trends page importing modal"
+	},
+	"trendsItem.proceedImport": {
+		"string": "Importar",
+		"developer_comment": "Button label to confirm importing claim from trends page"
+	},
+	"trendsItem.tags": {
+		"string": "Etiquetas"
 	},
 	"unconfirmed.title": {
 		"string": "Sin Confirmar"
@@ -4513,11 +5073,11 @@
 	"uploadFile.changeFile": {
 		"string": "{filename} (clic o arrastrar para cambiar)"
 	},
-	"uploadFile.fileMessage": {
-		"string": "Arrastra un archivo aquí o haz clic para subir un archivo (tamaño máximo permitido: {file_max_size}, extensiones permitidas {file_extensions})"
-	},
 	"uploadFile.fileTooLarge": {
 		"string": "El tamaño del archivo debe ser menor a {size}. Por favor intenta con un archivo más pequeño."
+	},
+	"uploadFile.imageVideoAudioMessage": {
+		"string": "Arrastra un archivo aquí, o cliquea para subir un archivo (tamaño máximo permitido: {file_max_size}, extensiones permitidas: {file_extensions})"
 	},
 	"uploadFile.invalidExtension": {
 		"string": "El archivo no puede ser de tipo \"{extension}\". Por favor intenta con los siguiente tipos de archivos: {allowed_types}"
@@ -4584,7 +5144,7 @@
 		"string": "Se unió {date}"
 	},
 	"userInfo.teamsCount": {
-		"string": "{teamsCount, plural, one {# espacio de trabajo} other {# áreas de trabajo}}"
+		"string": "{teamsCount, plural, one {# espacio de trabajo} many {# áreas de trabajo} other {# áreas de trabajo}}"
 	},
 	"userInfoEdit.addLink": {
 		"string": "Añadir enlace"
@@ -4762,6 +5322,10 @@
 	},
 	"userTos.validation": {
 		"string": "Debe aceptar los Términos del Servicio y la Política de Privacidad"
+	},
+	"valueListCell.more": {
+		"string": "+{number}más",
+		"developer_comment": "Button to maximize list display (tags, urls, checked options) with all values within a table cell"
 	},
 	"viewModeSwitcher.viewModeLonger": {
 		"string": "Ver títulos más largos",

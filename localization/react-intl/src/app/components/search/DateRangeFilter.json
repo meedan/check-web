@@ -1,26 +1,5 @@
 [
   {
-    "id": "search.dateSubmittedHeading",
-    "defaultMessage": "Submitted"
-  },
-  {
-    "id": "search.dateLastSubmittedHeading",
-    "defaultMessage": "Last submitted"
-  },
-  {
-    "id": "search.dateUpdatedHeading",
-    "defaultMessage": "Updated"
-  },
-  {
-    "id": "search.datePublishedHeading",
-    "defaultMessage": "Published"
-  },
-  {
-    "id": "search.afterDate",
-    "description": "String displayed before a date picker",
-    "defaultMessage": "after"
-  },
-  {
     "id": "search.anyDate",
     "description": "Date picker placeholder",
     "defaultMessage": "any date"
@@ -28,6 +7,56 @@
   {
     "id": "search.beforeDate",
     "description": "String displayed between after and before date pickers",
-    "defaultMessage": "and before"
+    "defaultMessage": "and"
+  },
+  {
+    "id": "numericRangeFilter.enterNumber",
+    "defaultMessage": "enter number"
+  },
+  {
+    "id": "search.dateSubmittedHeading",
+    "defaultMessage": "Media submitted"
+  },
+  {
+    "id": "search.dateLastSubmittedHeading",
+    "defaultMessage": "Media published"
+  },
+  {
+    "id": "search.dateUpdatedHeading",
+    "defaultMessage": "Item updated"
+  },
+  {
+    "id": "search.datePublishedHeading",
+    "defaultMessage": "Report published"
+  },
+  {
+    "id": "search.dateStartEnd",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The user selects a range of dates including a start and end date. In English this would be the first part of a phrase like 'Report published between February 3, 2022 and February 9, 2022'.",
+    "defaultMessage": "between"
+  },
+  {
+    "id": "search.dateRelative",
+    "description": "This is a label in a drop down selector, to filter a search by dates. The dates are relative to the current day and in English this would be the first part of a phrase like 'Report published less than 10 months ago'.",
+    "defaultMessage": "less than"
+  },
+  {
+    "id": "search.relativeDays",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 days ago'.",
+    "defaultMessage": "days ago"
+  },
+  {
+    "id": "search.relativeWeeks",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 weeks ago'.",
+    "defaultMessage": "weeks ago"
+  },
+  {
+    "id": "search.relativeMonths",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 months ago'.",
+    "defaultMessage": "months ago"
+  },
+  {
+    "id": "search.relativeYears",
+    "description": "This is a label in a drop down selector, and will appear a sentence format like 'Report published less than 3 years ago'.",
+    "defaultMessage": "years ago"
   }
 ]

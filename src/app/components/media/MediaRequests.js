@@ -106,10 +106,6 @@ MediaRequestsComponent.propTypes = {
 };
 
 const pageSize = 10;
-const eventTypes = ['create_dynamicannotationfield'];
-const fieldNames = ['smooch_data'];
-const annotationTypes = [];
-const whoDunnit = ['smooch'];
 
 const styles = theme => ({
   root: {
@@ -120,10 +116,6 @@ const styles = theme => ({
 const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
   initialVariables: {
     pageSize,
-    eventTypes,
-    fieldNames,
-    annotationTypes,
-    whoDunnit,
     teamSlug: null,
   },
   prepareVariables: vars => ({
@@ -141,24 +133,19 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
         media {
           file_path
         }
-        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: true) {
+        requests(last: $pageSize) {
           edges {
             node {
-              id,
-              dbid,
-              item_type,
-              item_id,
-              event,
-              event_type,
-              created_at,
-              object_after,
-              object_changes_json,
-              associated_graphql_id,
-              smooch_user_slack_channel_url,
-              smooch_user_request_language,
-              smooch_user_external_identifier,
-              smooch_report_received_at,
-              smooch_report_update_received_at,
+              id
+              dbid
+              created_at
+              value_json
+              associated_graphql_id
+              smooch_user_slack_channel_url
+              smooch_user_request_language
+              smooch_user_external_identifier
+              smooch_report_received_at
+              smooch_report_update_received_at
             }
           }
         }
@@ -170,10 +157,6 @@ const MediaAllRequestsContainer = Relay.createContainer(withStyles(styles)(withP
 const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withPusher(MediaRequestsComponent)), {
   initialVariables: {
     pageSize,
-    eventTypes,
-    fieldNames,
-    annotationTypes,
-    whoDunnit,
     teamSlug: null,
   },
   prepareVariables: vars => ({
@@ -191,24 +174,19 @@ const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withP
         media {
           file_path
         }
-        requests: log(last: $pageSize, event_types: $eventTypes, field_names: $fieldNames, annotation_types: $annotationTypes, who_dunnit: $whoDunnit, include_related: false) {
+        requests(last: $pageSize) {
           edges {
             node {
-              id,
-              dbid,
-              item_type,
-              item_id,
-              event,
-              event_type,
-              created_at,
-              object_after,
-              object_changes_json,
-              associated_graphql_id,
-              smooch_user_slack_channel_url,
-              smooch_user_request_language,
-              smooch_user_external_identifier,
-              smooch_report_received_at,
-              smooch_report_update_received_at,
+              id
+              dbid
+              created_at
+              value_json
+              associated_graphql_id
+              smooch_user_slack_channel_url
+              smooch_user_request_language
+              smooch_user_external_identifier
+              smooch_report_received_at
+              smooch_report_update_received_at
             }
           }
         }

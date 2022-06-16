@@ -10,6 +10,11 @@
     "defaultMessage": "Meedan employees see these settings, but users don't."
   },
   {
+    "id": "smoochBotSettings.searchSettings",
+    "description": "Title of Search settings section in the tipline settings page.",
+    "defaultMessage": "Search settings"
+  },
+  {
     "id": "smoochBotSettings.sunshineSettings",
     "description": "Title of Sunshine settings section in the tipline settings page. The word Sunshine does not need to be translated.",
     "defaultMessage": "Sunshine integration settings"

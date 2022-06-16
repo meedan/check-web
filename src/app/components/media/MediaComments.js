@@ -80,7 +80,6 @@ class MediaCommentsComponent extends Component {
           annotatedType="ProjectMedia"
           annotationsCount={media.annotations_count}
           relay={this.props.relay}
-          onTimelineCommentOpen={this.props.onTimelineCommentOpen}
           noActivityMessage={
             <FormattedMessage
               id="mediaComments.noNote"
@@ -172,7 +171,6 @@ const MediaComments = (props) => {
           cachedMedia={props.media}
           style={props.style}
           {...data}
-          onTimelineCommentOpen={props.onTimelineCommentOpen}
         />)}
       route={route}
       renderLoading={() => <MediasLoading count={1} />}

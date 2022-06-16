@@ -70,39 +70,18 @@
     "defaultMessage": "Delete"
   },
   {
-    "id": "task.answeredBy",
-    "defaultMessage": "Completed by {byName}"
+    "id": "metadata.uploadProgressLabel",
+    "description": "This is a label that appears while a file upload is ongoing.",
+    "defaultMessage": "Saving {file}…"
   },
   {
-    "id": "task.assignedTo",
-    "defaultMessage": "Assigned to {name}"
+    "id": "task.uploadWarningTitle",
+    "description": "Warning to prevent user from navigating away while upload is running",
+    "defaultMessage": "There is an ongoing file upload"
   },
   {
-    "id": "tasks.editAssignment",
-    "defaultMessage": "Edit assignment"
-  },
-  {
-    "id": "tasks.attributionSlogan",
-    "defaultMessage": "For the task, \"{label}\""
-  },
-  {
-    "id": "tasks.editAttribution",
-    "defaultMessage": "Edit attribution"
-  },
-  {
-    "id": "task.confirmDelete",
-    "defaultMessage": "Are you sure you want to delete this task?"
-  },
-  {
-    "id": "task.confirmDeleteTitle",
-    "defaultMessage": "Delete task?"
-  },
-  {
-    "id": "task.confirmDeleteResponse",
-    "defaultMessage": "Are you sure you want to delete this answer?"
-  },
-  {
-    "id": "task.confirmDeleteResponseTitle",
-    "defaultMessage": "Delete answer?"
+    "id": "task.uploadWarningBody",
+    "description": "Warning to prevent user from navigating away while upload is running",
+    "defaultMessage": "Navigating away from this page may cause the interruption of the file upload."
   }
 ]

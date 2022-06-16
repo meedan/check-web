@@ -12,7 +12,6 @@ import TitleCell from './TitleCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
 import SubmittedCell from './SubmittedCell';
-import LastSubmittedCell from './LastSubmittedCell';
 import UpdatedCell from './UpdatedCell';
 import DemandCell from './DemandCell';
 import ShareCountCell from './ShareCountCell';
@@ -21,21 +20,24 @@ import MetadataCell from './MetadataCell';
 import ReportStatusCell from './ReportStatusCell';
 import TagsCell from './TagsCell';
 import MediaPublishedCell from './MediaPublishedCell';
+import ReportPublishedByCell from './ReportPublishedByCell';
 import ReactionCountCell from './ReactionCountCell';
 import CommentCountCell from './CommentCountCell';
-import RelatedCountCell from './RelatedCountCell';
 import SuggestionsCountCell from './SuggestionsCountCell';
 import FolderCell from './FolderCell';
 import CreatorNameCell from './CreatorNameCell';
 import ClusterSizeCell from './ClusterSizeCell';
-import ClusterTeamsCell from './ClusterTeamsCell';
+import ClusterRequestsCell from './ClusterRequestsCell';
+import ClusterFirstItemAtCell from './ClusterFirstItemAtCell';
+import ClusterLastItemAtCell from './ClusterLastItemAtCell';
+import ClusterFactCheckedByTeamsCell from './ClusterFactCheckedByTeamsCell';
 import SourcesCell from './SourcesCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
   {
     field: 'item',
-    headerText: <FormattedMessage id="list.Item" defaultMessage="Item" />,
+    headerText: <FormattedMessage id="list.Item" defaultMessage="Claim" />,
     cellComponent: TitleCell,
     sortKey: 'title',
   },
@@ -80,13 +82,6 @@ const AllPossibleColumns = [
     sortKey: 'recent_added',
   },
   {
-    field: 'last_seen',
-    headerText: <FormattedMessage id="list.LastSeen" defaultMessage="Last submitted" />,
-    onlyIfSmoochBotEnabled: true,
-    sortKey: 'last_seen',
-    cellComponent: LastSubmittedCell,
-  },
-  {
     field: 'updated_at_timestamp',
     headerText: <FormattedMessage id="list.updated" defaultMessage="Updated" />,
     sortKey: 'recent_activity',
@@ -111,6 +106,11 @@ const AllPossibleColumns = [
     cellComponent: MediaPublishedCell,
   },
   {
+    field: 'published_by',
+    headerText: <FormattedMessage id="list.reportPublishedBy" defaultMessage="Report published by" />,
+    cellComponent: ReportPublishedByCell,
+  },
+  {
     field: 'reaction_count',
     headerText: <FormattedMessage id="list.reactCount" defaultMessage="FB Reactions" />,
     cellComponent: ReactionCountCell,
@@ -123,13 +123,6 @@ const AllPossibleColumns = [
     cellComponent: CommentCountCell,
     align: 'center',
     sortKey: 'comment_count',
-  },
-  {
-    field: 'related_count',
-    headerText: <FormattedMessage id="list.relatedCount" defaultMessage="Related" />,
-    cellComponent: RelatedCountCell,
-    align: 'center',
-    sortKey: 'related_count',
   },
   {
     field: 'suggestions_count',
@@ -151,30 +144,52 @@ const AllPossibleColumns = [
     sortKey: 'creator_name',
   },
   {
-    field: 'cluster_size',
-    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Cluster size" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
-    cellComponent: ClusterSizeCell,
-    align: 'center',
-  },
-  {
-    field: 'cluster_team_names',
-    headerText: <FormattedMessage id="list.clusterTeamNames" defaultMessage="Workspaces" description="Table header for column that shows from which workspaces the items in the same cluster belong to" />,
-    cellComponent: ClusterTeamsCell,
-    align: 'center',
-  },
-  {
     field: 'sources_as_sentence',
     headerText: <FormattedMessage id="list.sourceName" defaultMessage="Source" description="Table header for column that shows item source" />,
     cellComponent: SourcesCell,
     align: 'center',
   },
+  {
+    field: 'cluster_fact_checked_by_team_names',
+    headerText: <FormattedMessage id="list.clusterFactCheckedByTeamNames" defaultMessage="Report published" description="Table header for column that shows from which workspaces the items in the same cluster have a published report" />,
+    cellComponent: ClusterFactCheckedByTeamsCell,
+    sortKey: 'cluster_published_reports_count',
+  },
+  {
+    field: 'cluster_requests',
+    headerText: <FormattedMessage id="list.clusterRequests" defaultMessage="Requests" description="Table header for column that shows number of requests in a cluster" />,
+    cellComponent: ClusterRequestsCell,
+    align: 'center',
+    sortKey: 'cluster_requests_count',
+  },
+  {
+    field: 'cluster_size',
+    headerText: <FormattedMessage id="list.clusterSize" defaultMessage="Similar media" description="Table header for column that shows the number of similar items that belong to the same cluster" />,
+    cellComponent: ClusterSizeCell,
+    align: 'center',
+    sortKey: 'cluster_size',
+  },
+  {
+    field: 'cluster_first_item_at',
+    headerText: <FormattedMessage id="list.clusterFirstItemAt" defaultMessage="Submitted" description="Table header for column that shows when the last item of the cluster was created" />,
+    cellComponent: ClusterFirstItemAtCell,
+    sortKey: 'cluster_first_item_at',
+  },
+  {
+    field: 'cluster_last_item_at',
+    headerText: <FormattedMessage id="list.clusterLastItemAt" defaultMessage="Last submitted" description="Table header for column that shows when the last item of the cluster was created" />,
+    cellComponent: ClusterLastItemAtCell,
+    sortKey: 'cluster_last_item_at',
+  },
 ];
 
 const showInTrends = [
   'item',
-  'created_at_timestamp',
+  'cluster_fact_checked_by_team_names',
+  'cluster_requests',
   'cluster_size',
-  'cluster_team_names',
+  'cluster_first_item_at',
+  'cluster_last_item_at',
 ];
 
 function buildColumnDefs(team, resultType) {
@@ -185,11 +200,12 @@ function buildColumnDefs(team, resultType) {
   }
 
   const possibleColumns = AllPossibleColumns
-    // "demand" and "last_seen" only appear if smooch bot is installed
+    // "demand" only appears if smooch bot is installed
     .filter(({ onlyIfSmoochBotEnabled }) => onlyIfSmoochBotEnabled ? Boolean(team.smooch_bot) : true);
   const columns = [possibleColumns[0]];
   team.list_columns.forEach((listColumn) => {
-    if (listColumn.show) {
+    // Force legacy data to show "Submitted" field
+    if (listColumn.show || listColumn.key === 'created_at_timestamp') {
       let column = possibleColumns.find(c => c.field === listColumn.key);
       if (!column && /^task_value_/.test(listColumn.key)) {
         column = {
@@ -228,8 +244,10 @@ export default function SearchResultsTable({
   onChangeSortParams,
   resultType,
   viewMode,
+  count,
 }) {
   const columnDefs = React.useMemo(() => buildColumnDefs(team, resultType), [team]);
+  const mediaNavList = projectMedias.map(media => media.dbid);
 
   const handleChangeProjectMediaChecked = React.useCallback((ev, projectMedia) => {
     const { id } = projectMedia;
@@ -277,6 +295,8 @@ export default function SearchResultsTable({
               onChangeChecked={handleChangeProjectMediaChecked}
               resultType={resultType}
               viewMode={viewMode}
+              mediaNavList={mediaNavList}
+              count={count}
             />
           ))}
         </TableBody>

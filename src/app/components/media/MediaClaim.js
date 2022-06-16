@@ -6,18 +6,31 @@ import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import { makeStyles } from '@material-ui/core/styles';
 import TimeBefore from '../TimeBefore';
+import MediaContext from './MediaContext';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
 
+const useStyles = makeStyles(() => ({
+  savedBy: {
+    fontSize: '9px',
+    letterSpacing: 0,
+  },
+  title: {
+    fontSize: '16px',
+  },
+}));
+
 const MediaClaim = ({ projectMedia }) => {
+  const classes = useStyles();
   const claimDescription = projectMedia.claim_description;
 
   const [saving, setSaving] = React.useState(false);
   const [error, setError] = React.useState(false);
 
   const hasPermission = can(projectMedia.permissions, 'create ClaimDescription');
-  const readOnly = projectMedia.is_secondary;
+  const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
   const handleBlur = (newValue) => {
     setError(false);
@@ -44,6 +57,7 @@ const MediaClaim = ({ projectMedia }) => {
             input: {
               id: claimDescription.id,
               description: newValue,
+              context: claimDescription.context,
             },
           },
           onCompleted: (response, err) => {
@@ -106,13 +120,13 @@ const MediaClaim = ({ projectMedia }) => {
   return (
     <Box id="media__claim">
       <Box id="media__claim-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography variant="body" component="div">
+        <Typography className={classes.title} variant="body" component="div">
           <strong>
             <FormattedMessage id="mediaClaim.claim" defaultMessage="Claim" description="Title of the media claim section." />
           </strong>
         </Typography>
         {' '}
-        <Typography variant="caption" component="div">
+        <Typography className={classes.savedBy} variant="caption" component="div">
           { error ?
             <FormattedMessage
               id="mediaClaim.error"
@@ -127,6 +141,7 @@ const MediaClaim = ({ projectMedia }) => {
             /> : null }
           { !saving && !error && claimDescription ?
             <FormattedMessage
+              className="media-claim__saved-by"
               id="mediaClaim.saved"
               defaultMessage="saved by {userName} {timeAgo}"
               values={{
@@ -140,25 +155,34 @@ const MediaClaim = ({ projectMedia }) => {
       </Box>
 
       <Box>
-        <TextField
-          id="media-claim__description"
-          className="media-claim__description"
-          label={
-            <FormattedMessage
-              id="mediaClaim.description"
-              defaultMessage="Type something"
-              description="Placeholder for claim description field."
+        <FormattedMessage
+          id="mediaClaim.placeholder"
+          defaultMessage="For example: The earth is flat"
+          description="Placeholder for claim description field."
+        >
+          { placeholder => (
+            <TextField
+              id="media-claim__description"
+              className="media-claim__description"
+              placeholder={placeholder}
+              defaultValue={claimDescription ? claimDescription.description : ''}
+              onBlur={(e) => { handleBlur(e.target.value); }}
+              variant="outlined"
+              inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
+              rows={3}
+              rowsMax={Infinity}
+              disabled={!hasPermission || readOnly}
+              multiline
+              fullWidth
             />
-          }
-          defaultValue={claimDescription ? claimDescription.description : ''}
-          onBlur={(e) => { handleBlur(e.target.value); }}
-          variant="outlined"
-          inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-          rows={3}
-          rowsMax={Infinity}
-          disabled={!hasPermission || readOnly}
-          multiline
-          fullWidth
+          )}
+        </FormattedMessage>
+      </Box>
+      <Box id="hello">
+        <MediaContext
+          projectMedia={projectMedia}
+          setSaving={setSaving}
+          setError={setError}
         />
       </Box>
     </Box>

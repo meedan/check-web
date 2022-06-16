@@ -94,7 +94,7 @@ class TeamComponent extends Component {
     let { tab } = this.props.params;
 
     if (!tab) {
-      tab = 'lists';
+      tab = 'columns';
 
       if (action === 'main') {
         tab = 'members';
@@ -121,7 +121,7 @@ class TeamComponent extends Component {
                     defaultMessage="Columns"
                   />
                 }
-                value="lists"
+                value="columns"
               /> : null
             }
             { can(team.permissions, 'mange TeamTask') ?
@@ -134,7 +134,7 @@ class TeamComponent extends Component {
                     description="Label for annotation settings tab"
                   />
                 }
-                value="metadata"
+                value="annotation"
               /> : null
             }
             {isAdminOrEditor ?
@@ -149,7 +149,7 @@ class TeamComponent extends Component {
                 value="tipline"
               />
               : null }
-            {isAdminOrEditor ?
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__data-tab"
                 label={
@@ -161,18 +161,6 @@ class TeamComponent extends Component {
                 value="data"
               />
               : null }
-            { team.get_tasks_enabled && can(team.permissions, 'mange TeamTask') ?
-              <Tab
-                className="team-settings__tasks-tab"
-                label={
-                  <FormattedMessage
-                    id="teamSettings.tasks"
-                    defaultMessage="Tasks"
-                  />
-                }
-                value="tasks"
-              /> : null
-            }
             {isAdminOrEditor ?
               <Tab
                 className="team-settings__rules-tab"
@@ -232,7 +220,7 @@ class TeamComponent extends Component {
                 value="statuses"
               />
               : null }
-            {isAdminOrEditor ?
+            {isAdminOrEditor && Boolean(team.smooch_bot) ?
               <Tab
                 className="team-settings__report-tab"
                 label={
@@ -301,10 +289,10 @@ class TeamComponent extends Component {
           { tab === 'edit'
             ? <TeamDetails team={team} />
             : null }
-          { isSettings && tab === 'lists'
+          { isSettings && tab === 'columns'
             ? <TeamLists key={tab} />
             : null }
-          { isSettings && tab === 'metadata'
+          { isSettings && tab === 'annotation'
             ? <TeamTasks key={tab} team={team} fieldset="metadata" />
             : null }
           { isSettings && tab === 'tipline'
@@ -312,9 +300,6 @@ class TeamComponent extends Component {
             : null }
           { isSettings && tab === 'data'
             ? <TeamData teamSlug={team.slug} />
-            : null }
-          { isSettings && tab === 'tasks'
-            ? <TeamTasks key={tab} team={team} fieldset="tasks" />
             : null }
           { isSettings && tab === 'rules'
             ? <TeamRules teamSlug={team.slug} />
@@ -348,13 +333,15 @@ TeamComponent.propTypes = {
     name: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired,
     permissions: PropTypes.string.isRequired,
-    get_tasks_enabled: PropTypes.bool.isRequired,
   }).isRequired,
   // TODO: Specify prop shapes
   route: PropTypes.object.isRequired,
   // TODO: Specify prop shapes
   params: PropTypes.object.isRequired,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { TeamComponent as TeamComponentTest };
 
 TeamComponent.contextTypes = {
   store: PropTypes.object,
@@ -368,9 +355,11 @@ export default createFragmentContainer(TeamComponent, {
       name
       slug
       permissions
-      get_tasks_enabled
       ...TeamDetails_team
       alegre_bot: team_bot_installation(bot_identifier: "alegre") {
+        id
+      }
+      smooch_bot: team_bot_installation(bot_identifier: "smooch") {
         id
       }
     }

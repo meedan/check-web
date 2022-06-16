@@ -48,11 +48,6 @@
     "defaultMessage": "Fact-check summary"
   },
   {
-    "id": "searchKeywordConfig.allTaskAnswers",
-    "description": "This options applies keyword search across all task answers",
-    "defaultMessage": "All task answers"
-  },
-  {
     "id": "searchKeywordConfig.allMetadataAnswers",
     "defaultMessage": "All metadata answers"
   },
@@ -61,18 +56,9 @@
     "defaultMessage": "All notes"
   },
   {
-    "id": "searchKeywordConfig.allTaskComments",
-    "defaultMessage": "All task comments"
-  },
-  {
     "id": "searchKeywordConfig.annotation",
     "description": "Header before a listing of annotation options",
     "defaultMessage": "Annotation"
-  },
-  {
-    "id": "searchKeywordConfig.tasks",
-    "description": "Header before a listing of task options",
-    "defaultMessage": "Tasks"
   },
   {
     "id": "MultiSelector.all",

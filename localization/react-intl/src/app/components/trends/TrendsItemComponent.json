@@ -1,5 +1,13 @@
 [
   {
+    "id": "trendsItem.couldNotImport",
+    "defaultMessage": "We could not import the claim because the media associated with this claim already exist in this workspace"
+  },
+  {
+    "id": "trendsItem.importedSuccessfully",
+    "defaultMessage": "Claim successfully imported to {workspaceName} workspace"
+  },
+  {
     "id": "trendItem.lastSubmitted",
     "description": "A label indicating that the following date is when an item was last submitted to the tip line",
     "defaultMessage": "Last submitted"
@@ -15,15 +23,124 @@
     "defaultMessage": "Requests"
   },
   {
-    "id": "trendItem.main",
-    "defaultMessage": "Media"
+    "id": "trendItem.claimDescription",
+    "defaultMessage": "Claims"
   },
   {
-    "id": "trendItem.media",
-    "defaultMessage": "Similar media"
+    "id": "trendItem.rating",
+    "defaultMessage": "Rating: {rating}"
+  },
+  {
+    "id": "trendItem.publishedAt",
+    "defaultMessage": "Report published: {date}"
+  },
+  {
+    "id": "trendItem.notPublished",
+    "defaultMessage": "Not published yet"
+  },
+  {
+    "id": "trendItem.noClaim",
+    "defaultMessage": "No claim added yet"
+  },
+  {
+    "id": "trendItem.factCheck",
+    "description": "Middle column title on trends item page",
+    "defaultMessage": "Fact-check"
+  },
+  {
+    "id": "trendItem.noImportingClaim",
+    "description": "Message displayed on trends item page when no claim was selected.",
+    "defaultMessage": "Select an organization to display available fact-check and annotations."
+  },
+  {
+    "id": "trendItem.factCheckTitle",
+    "description": "Fact-check title",
+    "defaultMessage": "Title"
+  },
+  {
+    "id": "trendItem.factCheckSummary",
+    "description": "Fact-check summary",
+    "defaultMessage": "Summary"
+  },
+  {
+    "id": "trendItem.factCheckUrl",
+    "description": "Fact-check article URL",
+    "defaultMessage": "Published article URL"
+  },
+  {
+    "id": "trendItem.aboutThisClaim",
+    "defaultMessage": "About this claim"
+  },
+  {
+    "id": "trendItem.noTags",
+    "description": "Displayed on trends item page when item has no tags.",
+    "defaultMessage": "No tags."
+  },
+  {
+    "id": "trendItem.noTasks",
+    "description": "Displayed on trends item page when item has no completed annotations.",
+    "defaultMessage": "No completed annotations."
+  },
+  {
+    "id": "trendItem.import",
+    "defaultMessage": "Import"
+  },
+  {
+    "id": "trendItem.mediasColumnTitleAll",
+    "defaultMessage": "{number} Medias across all organizations"
+  },
+  {
+    "id": "trendItem.mediasColumnTitleSingle",
+    "defaultMessage": "{number} Medias from {organizationName}"
+  },
+  {
+    "id": "trendItem.mediaRequests",
+    "defaultMessage": "{number} tipline requests across all medias"
   },
   {
     "id": "trendItem.sortBy",
     "defaultMessage": "Sort by"
+  },
+  {
+    "id": "trendsItem.importTitle",
+    "description": "Dialog title when importing a claim from trends page.",
+    "defaultMessage": "Import data to workspace"
+  },
+  {
+    "id": "trendsItem.importDescription",
+    "description": "Dialog description when importing a claim from trends page.",
+    "defaultMessage": "A new claim will be created in your workspace with media."
+  },
+  {
+    "id": "trendsItem.importSelectLabel",
+    "description": "Select field label used in import claim dialog from trends page.",
+    "defaultMessage": "Import to workspace"
+  },
+  {
+    "id": "trendsItem.importTextLabel",
+    "description": "Text field label used in import claim dialog from trends page.",
+    "defaultMessage": "Claim description"
+  },
+  {
+    "id": "trendsItem.importingQuestion",
+    "description": "Question in trends page importing modal",
+    "defaultMessage": "What content do you want to import?"
+  },
+  {
+    "id": "trendsItem.factCheck",
+    "defaultMessage": "Fact-check"
+  },
+  {
+    "id": "trendsItem.completedAnnotations",
+    "defaultMessage": "Completed annotations"
+  },
+  {
+    "id": "trendsItem.tags",
+    "defaultMessage": "Tags"
+  },
+  {
+    "id": "trendsItem.proceedImport",
+    "description": "Button label to confirm importing claim from trends page",
+    "defaultMessage": "Import"
   }
 ]

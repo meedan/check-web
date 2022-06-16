@@ -24,8 +24,6 @@ class ProjectHeaderComponent extends React.PureComponent {
     let pageTitle;
     if (/\/trash(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.trash" defaultMessage="Trash" />;
-    } else if (/\/unconfirmed(\/|$)/.test(listUrl)) {
-      pageTitle = <FormattedMessage id="projectHeader.unconfirmed" defaultMessage="Unconfirmed" />;
     } else if (/\/tipline-inbox(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.tiplineInbox" defaultMessage="Tipline inbox" />;
     } else if (/\/imported-reports(\/|$)/.test(listUrl)) {
@@ -33,7 +31,7 @@ class ProjectHeaderComponent extends React.PureComponent {
     } else if (/\/suggested-matches(\/|$)/.test(listUrl)) {
       pageTitle = <FormattedMessage id="projectHeader.suggestedMatches" defaultMessage="Suggested matches" />;
     } else if (isTrendsPage) {
-      pageTitle = <FormattedMessage id="projectHeader.trends" defaultMessage="Trends" />;
+      pageTitle = <FormattedMessage id="projectHeader.trends" defaultMessage="Shared database" />;
     } else if (project) {
       pageTitle = project.title;
     } else if (saved_search) {
@@ -42,10 +40,13 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />;
     }
 
+    // Get current team for trends page
+    const currentTeam = this.props.root ? this.props.root.current_team.slug : '';
+
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         <Row>
-          <IconButton onClick={() => isTrendsPage ? browserHistory.goBack() : browserHistory.push(listUrl)} className="project-header__back-button">
+          <IconButton onClick={() => isTrendsPage ? browserHistory.push(`/${currentTeam}/trends`) : browserHistory.push(listUrl)} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
           <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle}>
@@ -77,6 +78,8 @@ const ProjectPlaceholder = { title: '' };
 
 const ProjectHeader = ({ location, params }) => {
   const commonProps = { location, params };
+  const isTrendsPage = /\/trends\/cluster\/[0-9]+/.test(location.pathname);
+
   let query = null;
 
   if (params.projectId) {
@@ -95,9 +98,19 @@ const ProjectHeader = ({ location, params }) => {
         }
       }
     `;
+  } else if (isTrendsPage) {
+    query = graphql`
+      query ProjectHeaderCurrentTeamQuery {
+        root {
+          current_team {
+            slug
+          }
+        }
+      }
+    `;
   }
 
-  if (params.projectId || params.listId) {
+  if (params.projectId || params.listId || isTrendsPage) {
     return (
       <QueryRenderer
         environment={Relay.Store}

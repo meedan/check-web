@@ -26,6 +26,7 @@ import { ContentColumn } from '../../../styles/js/shared';
 const MEAN_TOKENS_MODEL = 'xlm-r-bert-base-nli-stsb-mean-tokens';
 const INDIAN_MODEL = 'indian-sbert';
 const ELASTICSEARCH_MODEL = 'elasticsearch';
+const FILIPINO_MODEL = 'paraphrase-filipino-mpnet-base-v2';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -52,7 +53,8 @@ const SimilarityComponent = ({
   const [settings, setSettings] = React.useState(alegre_settings);
   const [vectorModelToggle, setVectorModelToggle] = React.useState((
     alegre_settings.text_similarity_model === MEAN_TOKENS_MODEL ||
-    alegre_settings.text_similarity_model === INDIAN_MODEL
+    alegre_settings.text_similarity_model === INDIAN_MODEL ||
+    alegre_settings.text_similarity_model === FILIPINO_MODEL
   ));
 
   const handleSettingsChange = (key, value) => {
@@ -236,14 +238,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.text_elasticsearch_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('text_elasticsearch_matching_threshold', newValue)}
                     disabled={!settings.text_similarity_enabled}
                     type="matching"
                     label="Elasticsearch matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.text_elasticsearch_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('text_elasticsearch_suggestion_threshold', newValue)}
                     disabled={!settings.text_similarity_enabled}
                     type="suggestion"
                     label="Elasticsearch suggestion threshold"
@@ -260,6 +262,34 @@ const SimilarityComponent = ({
                       explainer="Allow for cross lingual matches as well as deeper semantic matches that Elasticsearch may not catch directly."
                     />
                     <Box ml={7} mb={2}>
+                      <p><strong>Indexing model to use</strong></p>
+                      <RadioGroup
+                        name="indexing-vector-model"
+                        value={settings.alegre_model_in_use}
+                        onChange={e => handleSettingsChange('alegre_model_in_use', e.target.value)}
+                      >
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={MEAN_TOKENS_MODEL}
+                          control={<Radio />}
+                          label="Means tokens - Covers all languages"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={INDIAN_MODEL}
+                          control={<Radio />}
+                          label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={FILIPINO_MODEL}
+                          control={<Radio />}
+                          label="Filipino Paraphrase - Specialized in Filipino"
+                        />
+                      </RadioGroup>
+                    </Box>
+                    <Box ml={7} mb={2}>
+                      <p><strong>Matching model to use</strong></p>
                       <RadioGroup
                         name="vector-model"
                         value={settings.text_similarity_model}
@@ -267,28 +297,34 @@ const SimilarityComponent = ({
                       >
                         <FormControlLabel
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value="xlm-r-bert-base-nli-stsb-mean-tokens"
+                          value={MEAN_TOKENS_MODEL}
                           control={<Radio />}
                           label="Means tokens - Covers all languages"
                         />
                         <FormControlLabel
                           disabled={!vectorModelToggle || !settings.text_similarity_enabled}
-                          value="indian-sbert"
+                          value={INDIAN_MODEL}
                           control={<Radio />}
                           label="Indian SBERT - Specialized in Hindi, Bengali, Malayalam, and Tamil"
+                        />
+                        <FormControlLabel
+                          disabled={!vectorModelToggle || !settings.text_similarity_enabled}
+                          value={FILIPINO_MODEL}
+                          control={<Radio />}
+                          label="Filipino Paraphrase - Specialized in Filipino"
                         />
                       </RadioGroup>
                     </Box>
                     <ThresholdControl
                       value={Number(settings.text_vector_matching_threshold * 100).toFixed()}
-                      onChange={(e, newValue) => handleThresholdChange('text_vector_matching_threshold', newValue)}
+                      onChange={newValue => handleThresholdChange('text_vector_matching_threshold', newValue)}
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       type="matching"
                       label="Vector model matching threshold"
                     />
                     <ThresholdControl
                       value={Number(settings.text_vector_suggestion_threshold * 100).toFixed()}
-                      onChange={(e, newValue) => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
+                      onChange={newValue => handleThresholdChange('text_vector_suggestion_threshold', newValue)}
                       disabled={!vectorModelToggle || !settings.text_similarity_enabled}
                       type="suggestion"
                       label="Vector model suggestion threshold"
@@ -304,14 +340,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.image_hash_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('image_hash_matching_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('image_hash_matching_threshold', newValue)}
                     disabled={!settings.image_similarity_enabled}
                     type="matching"
                     label="Image matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.image_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('image_hash_suggestion_threshold', newValue)}
                     disabled={!settings.image_similarity_enabled}
                     type="suggestion"
                     label="Image suggestion threshold"
@@ -326,14 +362,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.video_hash_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('video_hash_matching_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('video_hash_matching_threshold', newValue)}
                     disabled={!settings.video_similarity_enabled}
                     type="matching"
                     label="Video matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.video_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('video_hash_suggestion_threshold', newValue)}
                     disabled={!settings.video_similarity_enabled}
                     type="suggestion"
                     label="Video suggestion threshold"
@@ -348,14 +384,14 @@ const SimilarityComponent = ({
                   />
                   <ThresholdControl
                     value={Number(settings.audio_hash_matching_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('audio_hash_matching_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('audio_hash_matching_threshold', newValue)}
                     disabled={!settings.audio_similarity_enabled}
                     type="matching"
                     label="Audio matching threshold"
                   />
                   <ThresholdControl
                     value={Number(settings.audio_hash_suggestion_threshold * 100).toFixed()}
-                    onChange={(e, newValue) => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
+                    onChange={newValue => handleThresholdChange('audio_hash_suggestion_threshold', newValue)}
                     disabled={!settings.audio_similarity_enabled}
                     type="suggestion"
                     label="Audio suggestion threshold"

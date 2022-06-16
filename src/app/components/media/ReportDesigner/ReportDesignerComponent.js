@@ -2,9 +2,7 @@
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
-import { browserHistory } from 'react-router';
 import { FormattedMessage } from 'react-intl';
-import deepEqual from 'deep-equal';
 import IconButton from '@material-ui/core/IconButton';
 import HelpIcon from '@material-ui/icons/HelpOutline';
 import Box from '@material-ui/core/Box';
@@ -14,7 +12,6 @@ import LanguageSwitcher from '../../LanguageSwitcher';
 import ReportDesignerTopBar from './ReportDesignerTopBar';
 import ReportDesignerPreview from './ReportDesignerPreview';
 import ReportDesignerForm from './ReportDesignerForm';
-import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 import { withSetFlashMessage } from '../../FlashMessage';
 import { can } from '../../Can';
 import {
@@ -30,8 +27,6 @@ import CreateReportDesignMutation from '../../../relay/mutations/CreateReportDes
 import UpdateReportDesignMutation from '../../../relay/mutations/UpdateReportDesignMutation';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 import { getListUrlQueryAndIndex } from '../../../urlHelpers';
-
-let hasUnsavedChanges = false;
 
 const useStyles = makeStyles(theme => ({
   section: {
@@ -63,42 +58,11 @@ const ReportDesignerComponent = (props) => {
   const initialLanguage = savedReportData.data.default_language || team.get_language || 'en';
   const [currentLanguage, setCurrentLanguage] = React.useState(initialLanguage);
   const [data, setData] = React.useState(propsToData(props, currentLanguage));
-  const [leaveLocation, setLeaveLocation] = React.useState(null);
-  const [editing, setEditing] = React.useState(false);
   const [pending, setPending] = React.useState(false);
 
   const defaultLanguage = data.default_language || team.get_language || 'en';
   const languages = team.get_languages ? JSON.parse(team.get_languages) : [defaultLanguage];
   const currentReportIndex = findReportIndex(data, currentLanguage);
-  hasUnsavedChanges = !deepEqual(data, propsToData(props, defaultLanguage));
-
-  const confirmCloseBrowserWindow = (e) => {
-    if (hasUnsavedChanges) {
-      const message = 'Are you sure?'; // It's not displayed
-      e.returnValue = message;
-      return message;
-    }
-    e.preventDefault();
-    return '';
-  };
-
-  React.useEffect(() => {
-    props.router.setRouteLeaveHook(
-      props.route,
-      (nextLocation) => {
-        if (!hasUnsavedChanges || (nextLocation.state && nextLocation.state.confirmed)) {
-          return true;
-        }
-        setLeaveLocation(nextLocation);
-        return false;
-      },
-    );
-    window.addEventListener('beforeunload', confirmCloseBrowserWindow);
-
-    return () => {
-      window.removeEventListener('beforeunload', confirmCloseBrowserWindow);
-    };
-  }, []);
 
   const handleChangeLanguage = (newLanguageCode) => {
     const reportIndex = findReportIndex(data, newLanguageCode);
@@ -117,15 +81,6 @@ const ReportDesignerComponent = (props) => {
     setData(updatedData);
   };
 
-  const handleConfirmLeave = () => {
-    const finalLocation = Object.assign(leaveLocation, { state: { confirmed: true } });
-    browserHistory.push(finalLocation);
-  };
-
-  const handleCancelLeave = () => {
-    setLeaveLocation(null);
-  };
-
   const handleStatusChange = () => {
     const updatedData = cloneData(data);
     updatedData.options.forEach((option, i) => {
@@ -141,33 +96,7 @@ const ReportDesignerComponent = (props) => {
     setData(updatedData);
   };
 
-  const handleEdit = () => {
-    setEditing(true);
-  };
-
-  // We can pass a hash of "field => value" (in order to update multiple fields at once) or just a pair "field, value" (in order to update only one field)
-  const handleUpdate = (fieldOrObject, valueOrNothing) => {
-    let updates = {};
-    if (typeof fieldOrObject === 'object') {
-      updates = fieldOrObject;
-    } else {
-      updates[fieldOrObject] = valueOrNothing;
-    }
-    const updatedData = cloneData(data);
-    Object.keys(updates).forEach((field) => {
-      const value = updates[field];
-      if (currentReportIndex > -1) {
-        updatedData.options[currentReportIndex][field] = value;
-      } else {
-        const newReport = defaultOptions(media, currentLanguage);
-        newReport[field] = value;
-        updatedData.options.push(newReport);
-      }
-    });
-    setData(updatedData);
-  };
-
-  const handleSave = (action, state) => {
+  const handleSave = (action, state, updatedData) => {
     const onFailure = () => {
       const message = (<FormattedMessage
         id="reportDesigner.error"
@@ -190,14 +119,13 @@ const ReportDesignerComponent = (props) => {
         },
       };
       setData(propsToData(nextProps, currentLanguage));
-      setEditing(false);
       setPending(false);
     };
 
     const annotation = media.dynamic_annotation_report_design;
     setPending(true);
 
-    const fields = JSON.parse(JSON.stringify(data));
+    const fields = JSON.parse(JSON.stringify(updatedData || data));
     delete fields.last_published;
     if (state) {
       fields.state = state;
@@ -269,6 +197,32 @@ const ReportDesignerComponent = (props) => {
     }
   };
 
+  // We can pass a hash of "field => value" (in order to update multiple fields at once) or just a pair "field, value" (in order to update only one field)
+  const handleUpdate = (fieldOrObject, valueOrNothing) => {
+    let updates = {};
+    if (typeof fieldOrObject === 'object') {
+      updates = fieldOrObject;
+    } else {
+      updates[fieldOrObject] = valueOrNothing;
+    }
+    const updatedData = cloneData(data);
+    Object.keys(updates).forEach((field) => {
+      const value = updates[field];
+      if (currentReportIndex > -1) {
+        updatedData.options[currentReportIndex][field] = value;
+      } else {
+        const newReport = defaultOptions(media, currentLanguage);
+        newReport[field] = value;
+        updatedData.options.push(newReport);
+      }
+    });
+    setData(updatedData);
+    // It doesn't work to upload the image right away
+    if (fieldOrObject !== 'image') {
+      handleSave('save', null, updatedData);
+    }
+  };
+
   const handleHelp = () => {
     window.open('http://help.checkmedia.org/en/articles/3627266-check-message-report');
   };
@@ -287,7 +241,6 @@ const ReportDesignerComponent = (props) => {
         defaultLanguage={defaultLanguage}
         data={data}
         state={data.state}
-        editing={editing}
         readOnly={
           !can(media.permissions, 'update ProjectMedia') ||
           media.archived > CheckArchivedFlags.NONE ||
@@ -295,8 +248,6 @@ const ReportDesignerComponent = (props) => {
         }
         onStatusChange={handleStatusChange}
         onStateChange={(action, state) => { handleSave(action, state); }}
-        onSave={() => { handleSave('save'); }}
-        onEdit={handleEdit}
         prefixUrl={prefixUrl}
       />
       <Box display="flex" width="1">
@@ -304,7 +255,7 @@ const ReportDesignerComponent = (props) => {
           <ReportDesignerPreview data={data.options[currentReportIndex]} media={media} />
         </Box>
         <Box flex="1" className={[classes.editor, classes.section].join(' ')}>
-          <Box display="flex">
+          <Box display="flex" className="report-designer__title">
             <Typography className={classes.title} color="inherit" variant="h6" component="div">
               <FormattedMessage
                 id="reportDesigner.title"
@@ -320,57 +271,23 @@ const ReportDesignerComponent = (props) => {
             currentLanguage={currentLanguage}
             languages={languages}
             onChange={handleChangeLanguage}
-            onSetDefault={editing ? handleSetDefaultLanguage : null}
+            onSetDefault={handleSetDefaultLanguage}
           />
           <ReportDesignerForm
             data={data.options[currentReportIndex]}
+            disabled={data.state === 'published'}
+            pending={pending}
             media={media}
-            disabled={!editing}
             onUpdate={handleUpdate}
           />
         </Box>
       </Box>
-      <ConfirmProceedDialog
-        open={leaveLocation}
-        title={
-          <FormattedMessage
-            id="reportDesigner.confirmLeaveTitle"
-            defaultMessage="Do you want to leave without saving?"
-          />
-        }
-        body={
-          <div>
-            <Typography variant="body1" component="p" paragraph>
-              <FormattedMessage
-                id="reportDesigner.confirmLeaveText"
-                defaultMessage="You currently have unsaved changes. If you leave now you will lose all unsaved changes!"
-              />
-            </Typography>
-          </div>
-        }
-        proceedLabel={
-          <FormattedMessage
-            id="reportDesigner.confirmLeaveButtonLabel"
-            defaultMessage="Leave without saving"
-          />
-        }
-        onProceed={handleConfirmLeave}
-        cancelLabel={
-          <FormattedMessage
-            id="reportDesigner.cancelLeaveButtonLabel"
-            defaultMessage="Go back"
-          />
-        }
-        onCancel={handleCancelLeave}
-      />
     </React.Fragment>
   );
 };
 
 ReportDesignerComponent.propTypes = {
   media: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired,
-  route: PropTypes.object.isRequired,
   setFlashMessage: PropTypes.func.isRequired,
 };
 

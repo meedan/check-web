@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, intlShape } from 'react-intl';
 import Box from '@material-ui/core/Box';
-import TextField from '@material-ui/core/TextField';
+import LimitedTextFieldWithCounter from '../layout/LimitedTextFieldWithCounter';
 
 const messages = defineMessages({
   placeholder: {
@@ -13,9 +13,9 @@ const messages = defineMessages({
 });
 
 const MediaFactCheckField = ({
+  limit,
   hasClaimDescription,
   hasPermission,
-  multiline,
   label,
   name,
   value,
@@ -24,48 +24,40 @@ const MediaFactCheckField = ({
   onBlur,
   intl,
 }) => {
-  const fieldProps = {};
+  let defaultValue = intl.formatMessage(messages.placeholder);
 
   if (hasClaimDescription) {
-    fieldProps.defaultValue = value || '';
-  } else {
-    fieldProps.defaultValue = intl.formatMessage(messages.placeholder);
-  }
-
-  if (multiline) {
-    fieldProps.multiline = true;
-    fieldProps.rows = rows;
-    fieldProps.rowsMax = Infinity;
+    defaultValue = value || '';
   }
 
   return (
     <Box my={2}>
-      <TextField
-        id={`media-fact-check__${name}`}
-        className={`media-fact-check__${name}`}
+      <LimitedTextFieldWithCounter
+        limit={limit}
         label={label}
-        onBlur={(e) => { onBlur(e.target.value); }}
-        variant="outlined"
-        disabled={!hasPermission || disabled}
-        key={`media-fact-check__${name}-${hasClaimDescription}`}
-        inputProps={{ style: { maxHeight: 266, overflow: 'auto' } }}
-        fullWidth
-        {...fieldProps}
+        onUpdate={(newValue) => { onBlur(newValue); }}
+        rows={rows}
+        value={defaultValue}
+        textFieldProps={{
+          id: `media-fact-check__${name}`,
+          className: `media-fact-check__${name}`,
+          disabled: (!hasPermission || disabled),
+          key: `media-fact-check__${name}-${hasClaimDescription ? '-with-claim' : '-no-claim'}`,
+        }}
       />
     </Box>
   );
 };
 
 MediaFactCheckField.defaultProps = {
-  multiline: false,
   disabled: false,
   rows: 3,
 };
 
 MediaFactCheckField.propTypes = {
+  limit: PropTypes.number.isRequired,
   hasClaimDescription: PropTypes.bool.isRequired,
   hasPermission: PropTypes.bool.isRequired,
-  multiline: PropTypes.bool,
   label: PropTypes.object.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,

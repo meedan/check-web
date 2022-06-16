@@ -2,7 +2,7 @@ language: minimal
 dist: bionic
 before_install:
 # decrypt credentials for Alegre
-- openssl aes-256-cbc -K $encrypted_126f44c7828e_key -iv $encrypted_126f44c7828e_iv
+- openssl aes-256-cbc -K $encrypted_e6af0c606e27_key -iv $encrypted_e6af0c606e27_iv
   -in test/google_credentials.json.enc -out test/google_credentials.json -d
 # Set a UTF-8 capabable locale
 - export LC_ALL=C.UTF-8
@@ -50,27 +50,44 @@ before_install:
 - cp config-server.js.example config-server.js
 - cp test/config.yml.example test/config.yml
 before_script:
-- docker-compose build
-- docker-compose -f docker-compose.yml -f docker-test.yml up -d
-- ./ngrok http 9000 >/dev/null &
+- TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME TRAVIS_BRANCH=$TRAVIS_BRANCH ./build.sh
 - MAX_WEB_CURL=30;
-- until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done
-- until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
-- until curl --silent -I -f --fail http://localhost:5000; do printf .; sleep 1; done
 - WEB_CURL_COUNT=0; until curl --silent -I -f --fail http://localhost:3333 || (("$WEB_CURL_COUNT" == "$MAX_WEB_CURL")); do printf .; sleep 1; WEB_CURL_COUNT=$((++WEB_CURL_COUNT)); done; if [ "$WEB_CURL_COUNT" == "$MAX_WEB_CURL" ]; then echo "Terminating job after $WEB_CURL_COUNT curl attempts to check-web"; travis_terminate 1; fi
 - docker-compose exec web npm run linter || travis_terminate 1;
 - docker-compose exec web npm run test:integration:lint || travis_terminate 1;
-script:
-- docker-compose exec
-  -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
-  -e TRAVIS_BRANCH=$TRAVIS_BRANCH
-  -e AWS_ENDPOINT=$AWS_ENDPOINT
-  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-  -e AWS_REGION=$AWS_REGION
-  web npm run tests
-# Change config file of check api for use Ngrok exposed port and run OCR test
-- IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID ./test/ngrok.sh
+jobs:
+  include:
+    - stage: tests
+      if: branch = develop OR branch = master
+      name: integration-and-unit-tests
+      script:
+      - docker-compose exec
+        -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
+        -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME
+        -e TRAVIS_BRANCH=$TRAVIS_BRANCH
+        -e AWS_ENDPOINT=$AWS_ENDPOINT
+        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        -e AWS_REGION=$AWS_REGION
+        web npm run tests
+    - stage: tests
+      name: similarity-tests
+      if: branch = develop OR branch = master
+      script:
+      - docker-compose exec
+        -e IMGUR_CLIENT_ID=$IMGUR_CLIENT_ID
+        -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME
+        -e TRAVIS_BRANCH=$TRAVIS_BRANCH
+        -e AWS_ENDPOINT=$AWS_ENDPOINT
+        -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+        -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+        -e AWS_REGION=$AWS_REGION
+        web npm run tests
+    - stage: tests
+      name: unit-tests
+      if: branch != develop AND branch != master
+      script:
+      - docker-compose exec -e TRAVIS_JOB_NAME=$TRAVIS_JOB_NAME web npm run tests
 after_script:
 - docker-compose exec web bash -c "python -m json.tool test/file.json"
 - size=$(du -k build/web/js/index.bundle.js | cut -f1) && size2=$(du -k build/web/js/vendor.bundle.js | cut -f1) && totalsize=$((size+size2)) && echo "Your bundle size is $totalsize kb"

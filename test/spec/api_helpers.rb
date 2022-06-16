@@ -45,7 +45,7 @@ module ApiHelpers
 
   def api_create_team_and_project(params = {})
     user = params[:user] || api_register_and_login_with_email
-    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(1000).to_i}", email: user.email }
+    team = request_api 'team', { name: "Test Team #{Time.now.to_i}", slug: "test-team-#{Time.now.to_i}-#{rand(10_000).to_i}", email: user.email }
     team_id = team.dbid
     project = request_api 'project', { title: "Test Project #{Time.now.to_i}", team_id: team_id, use_default_project: params[:use_default_project] }
     { project: project, user: user, team: team }
@@ -187,6 +187,16 @@ module ApiHelpers
     data = api_create_team_and_project(params)
     request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
     request_api 'link', { url: url || @media_url, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
+    @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
+  end
+
+  def api_create_team_project_metadata_and_claim(params = {})
+    quote = params[:quote] || 'Claim'
+    type = params[:type] || 'free_text'
+    options = params[:options] || '[]'
+    data = api_create_team_and_project(params)
+    request_api 'team_data_field', { team_id: data[:team].dbid, fieldset: 'metadata', type: type, options: options }
+    request_api 'claim', { quote: quote, email: data[:user].email, team_id: data[:team].dbid, project_id: data[:project].dbid }
     @driver.navigate.to "#{@config['self_url']}/#{data[:team].slug}/project/#{data[:project].dbid}"
   end
 

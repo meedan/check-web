@@ -42,6 +42,20 @@ describe('<TeamListsItem />', () => {
     expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
   });
 
+  it('should render item without hide button when required', () => {
+    const wrapper = mountWithIntl(<TeamListsItem
+      team={team}
+      column={column}
+      onToggle={() => {}}
+      isRequired
+    />);
+    expect(wrapper.html()).not.toMatch('Hide');
+    expect(wrapper.html()).not.toMatch('Show');
+    expect(wrapper.html()).toMatch('label-content');
+    expect(wrapper.html()).toMatch('General');
+    expect(wrapper.find('#team-lists__item-1-key-content').hostNodes()).toHaveLength(1);
+  });
+
   it('should render item and show button', () => {
     const wrapper = mountWithIntl(<TeamListsItem
       team={team}

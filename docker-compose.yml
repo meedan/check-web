@@ -142,12 +142,36 @@ services:
       - alegre/.env_file
     networks:
       - dev
+  video:
+    build: alegre
+    command: ["make", "run_model"]
+    volumes:
+      - "./alegre:/app"
+    depends_on:
+      - redis
+    env_file:
+      - alegre/.env_file
+    environment:
+      MODEL_NAME: video
+    networks:
+      - dev
+  audio:
+    build: alegre
+    command: ["make", "run_model"]
+    volumes:
+      - "./alegre:/app"
+    depends_on:
+      - redis
+    env_file:
+      - alegre/.env_file
+    environment:
+      MODEL_NAME: audio
+    networks:
+      - dev
   web:
     build: .
     ports:
       - "3333:3333"
-    depends_on:
-      - api
     volumes:
       - ".:/app"
       - "./check-api:/api"

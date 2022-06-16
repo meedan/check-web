@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TableCell from '@material-ui/core/TableCell';
 import { makeStyles } from '@material-ui/core/styles';
+import { truncateLength } from '../../../helpers';
 
 const useStyles = makeStyles({
   title: {
@@ -10,12 +11,6 @@ const useStyles = makeStyles({
     textOverflow: 'ellipsis',
   },
 });
-
-function truncate(str) {
-  const length = 32;
-  const dots = str.length > length ? '...' : '';
-  return `${str.substring(0, length)}${dots}`;
-}
 
 export default function FolderCell({ projectMedia }) {
   const classes = useStyles();
@@ -28,7 +23,7 @@ export default function FolderCell({ projectMedia }) {
   return (
     <TableCell>
       <div className={classes.title} title={title}>
-        {typeof title === 'string' ? truncate(title) : title}
+        {typeof title === 'string' ? truncateLength(title, 32) : title}
       </div>
     </TableCell>
   );

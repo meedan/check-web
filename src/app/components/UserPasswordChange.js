@@ -11,6 +11,7 @@ import PageTitle from './PageTitle';
 import ChangePasswordComponent from './ChangePasswordComponent';
 import { FormattedGlobalMessage } from './MappedMessage';
 import CheckAgreeTerms from './CheckAgreeTerms';
+import ErrorBoundary from './error/ErrorBoundary';
 import globalStrings from '../globalStrings';
 import { stringHelper } from '../customHelpers';
 import {
@@ -47,60 +48,62 @@ function UserPasswordChange() {
   const classes = useStyles();
 
   return (
-    <PageTitle>
-      <Box m={2} align="center">
-        <FormattedHTMLMessage {...globalStrings.bestViewed} />
-      </Box>
-      <ContentColumn center className="user-password-reset__component">
-        <StyledCard>
-          <FormattedGlobalMessage messageKey="appNameHuman">
-            {appNameHuman => (
-              <img
-                className={classes.logo}
-                alt={appNameHuman}
-                width="120"
-                src={stringHelper('LOGO_URL')}
-              />
-            )}
-          </FormattedGlobalMessage>
-          <StyledSubHeader className="reset-password__heading">
-            { showConfirmDialog ?
-              <FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />
-              : <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
-            }
-          </StyledSubHeader>
-
-          { showConfirmDialog ?
-            <React.Fragment>
-              <CardContent>
-                <FormattedMessage
-                  id="passwordChange.successMsg"
-                  defaultMessage="You're all set. Now you can log in with your new password."
-                />
-              </CardContent>
-              <CardActions className="user-password-change__actions">
-                <Button color="primary" onClick={handleSignIn}>
-                  <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
-                </Button>
-              </CardActions>
-            </React.Fragment> :
-            <div className="user-password-change__card">
-              <CardContent>
-                <ChangePasswordComponent
-                  type="reset-password"
-                  showCurrentPassword={false}
-                  token={token}
-                  showConfirm={showConfirm}
-                />
-              </CardContent>
-            </div>
-          }
-        </StyledCard>
-        <Box my={4}>
-          <CheckAgreeTerms />
+    <ErrorBoundary component="UserPasswordChange">
+      <PageTitle>
+        <Box m={2} align="center">
+          <FormattedHTMLMessage {...globalStrings.bestViewed} />
         </Box>
-      </ContentColumn>
-    </PageTitle>
+        <ContentColumn center className="user-password-reset__component">
+          <StyledCard>
+            <FormattedGlobalMessage messageKey="appNameHuman">
+              {appNameHuman => (
+                <img
+                  className={classes.logo}
+                  alt={appNameHuman}
+                  width="120"
+                  src={stringHelper('LOGO_URL')}
+                />
+              )}
+            </FormattedGlobalMessage>
+            <StyledSubHeader className="reset-password__heading">
+              { showConfirmDialog ?
+                <FormattedMessage id="passwordChange.successTitle" defaultMessage="Password updated" />
+                : <FormattedMessage id="passwordChange.title" defaultMessage="Change password" />
+              }
+            </StyledSubHeader>
+
+            { showConfirmDialog ?
+              <React.Fragment>
+                <CardContent>
+                  <FormattedMessage
+                    id="passwordChange.successMsg"
+                    defaultMessage="You're all set. Now you can log in with your new password."
+                  />
+                </CardContent>
+                <CardActions className="user-password-change__actions">
+                  <Button color="primary" onClick={handleSignIn}>
+                    <FormattedMessage id="passwordChange.signIn" defaultMessage="Got it" />
+                  </Button>
+                </CardActions>
+              </React.Fragment> :
+              <div className="user-password-change__card">
+                <CardContent>
+                  <ChangePasswordComponent
+                    type="reset-password"
+                    showCurrentPassword={false}
+                    token={token}
+                    showConfirm={showConfirm}
+                  />
+                </CardContent>
+              </div>
+            }
+          </StyledCard>
+          <Box my={4}>
+            <CheckAgreeTerms />
+          </Box>
+        </ContentColumn>
+      </PageTitle>
+    </ErrorBoundary>
   );
 }
 
