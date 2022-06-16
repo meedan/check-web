@@ -128,10 +128,18 @@ const messages = defineMessages({
 });
 
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
+  let value1 = a[orderBy];
+  let value2 = b[orderBy];
+  // Special case for months
+  if (orderBy === 'Month') {
+    const convertMonthToNumber = value => (parseInt(value.replace(/^([0-9]+)\..*/, '$1'), 10));
+    value1 = convertMonthToNumber(a[orderBy]);
+    value2 = convertMonthToNumber(b[orderBy]);
+  }
+  if (value2 < value1) {
     return -1;
   }
-  if (b[orderBy] > a[orderBy]) {
+  if (value2 > value1) {
     return 1;
   }
   return 0;
