@@ -39,83 +39,85 @@ const useStyles = makeStyles(theme => ({
     color: '#656565',
     cursor: 'help',
   },
+  typographyButton: {
+    fontSize: 14,
+    textTransform: 'none',
+  },
+  typographyBody1: {
+    fontSize: 14,
+  },
 }));
 
 const messagesDescription = 'Explanation on table header, when hovering the "help" icon, on data settings page';
 const messages = defineMessages({
-  month: {
-    id: 'teamDataComponent.month',
-    defaultMessage: 'Month related to this data',
-    description: messagesDescription,
-  },
   conversations: {
     id: 'teamDataComponent.conversations',
-    defaultMessage: 'Number of users sessions with the tipline bot.',
+    defaultMessage: 'Starts when a user interacts with the bot and ends after 15 minutes of inactivity.',
     description: messagesDescription,
   },
   averageMessagesPerDay: {
     id: 'teamDataComponent.averageMessagesPerDay',
-    defaultMessage: 'Average number of messages sent by tipline users per day.',
+    defaultMessage: 'Average messages per day sent back and forth between users and the bot.',
     description: messagesDescription,
   },
   uniqueUsers: {
     id: 'teamDataComponent.uniqueUsers',
-    defaultMessage: 'Number of distinct users who interacted with the tipline bot.',
+    defaultMessage: 'Distinct users who interacted with the bot.',
     description: messagesDescription,
   },
   returningUsers: {
     id: 'teamDataComponent.returningUsers',
-    defaultMessage: 'Number of users who had at least one session in the current month, and at least one session in the last previous 2 months.',
+    defaultMessage: 'Unique users who had at least one session in the current month, and at least one session in the last previous 2 months.',
     description: messagesDescription,
   },
-  validNewQueries: {
-    id: 'teamDataComponent.validNewQueries',
-    defaultMessage: 'Number of user submissions that are not in the trash.',
+  validNewRequests: {
+    id: 'teamDataComponent.validNewRequests',
+    defaultMessage: 'User requests associated with claims that are not in the trash.',
     description: messagesDescription,
   },
   publishedNativeReports: {
     id: 'teamDataComponent.publishedNativeReports',
-    defaultMessage: 'Number of reports created and published from inside Check.',
+    defaultMessage: 'Published reports created in Check (for all languages and platforms).',
     description: messagesDescription,
   },
   publishedImportedReports: {
     id: 'teamDataComponent.publishedImportedReports',
-    defaultMessage: 'Number of published reports imported from external web sites.',
+    defaultMessage: 'Published reports imported from web sites (for all languages and platforms).',
     description: messagesDescription,
   },
-  queriesAnsweredWithReport: {
-    id: 'teamDataComponent.queriesAnsweredWithReport',
-    defaultMessage: 'Number of queries answered with a report.',
+  requestsAnsweredWithReport: {
+    id: 'teamDataComponent.claimsAnsweredWithAReport',
+    defaultMessage: 'For example, if 2 users requested the same claim and received the same report, it counts as 1.',
     description: messagesDescription,
   },
   reportsSent: {
     id: 'teamDataComponent.reportsSent',
-    defaultMessage: 'Number of reports received by users.',
+    defaultMessage: 'Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2.',
     description: messagesDescription,
   },
   uniqueUsersWhoReceivedReport: {
     id: 'teamDataComponent.uniqueUsersWhoReceivedReport',
-    defaultMessage: 'Number of distinct users who received a report.',
+    defaultMessage: 'Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1.',
     description: messagesDescription,
   },
   responseTime: {
     id: 'teamDataComponent.responseTime',
-    defaultMessage: 'Average time between users submitting a query and receiving a report.',
+    defaultMessage: 'Average time between a user request and a report sent.',
     description: messagesDescription,
   },
   uniqueNewslettersSent: {
     id: 'teamDataComponent.uniqueNewslettersSent',
-    defaultMessage: 'Number of newsletters sent.',
+    defaultMessage: 'Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.',
     description: messagesDescription,
   },
   newNewsletterSubscriptions: {
     id: 'teamDataComponent.newNewsletterSubscriptions',
-    defaultMessage: 'Number of new newsletter subscriptions.',
+    defaultMessage: 'New newsletter subscriptions.',
     description: messagesDescription,
   },
   newsletterCancellations: {
     id: 'teamDataComponent.newsletterCancellations',
-    defaultMessage: 'Number of newsletter cancellations.',
+    defaultMessage: 'New newsletter cancellations.',
     description: messagesDescription,
   },
   currentSubscribers: {
@@ -184,15 +186,14 @@ const TeamDataComponent = ({
   const [currentPlatform, setCurrentPlatform] = React.useState(platforms[0]);
 
   const helpMessages = {
-    Month: intl.formatMessage(messages.month),
     Conversations: intl.formatMessage(messages.conversations),
     'Average messages per day': intl.formatMessage(messages.averageMessagesPerDay),
     'Unique users': intl.formatMessage(messages.uniqueUsers),
     'Returning users': intl.formatMessage(messages.returningUsers),
-    'Valid new queries': intl.formatMessage(messages.validNewQueries),
+    'Valid new requests': intl.formatMessage(messages.validNewRequests),
     'Published native reports': intl.formatMessage(messages.publishedNativeReports),
     'Published imported reports': intl.formatMessage(messages.publishedImportedReports),
-    'Queries answered with a report': intl.formatMessage(messages.queriesAnsweredWithReport),
+    'Requests answered with a report': intl.formatMessage(messages.requestsAnsweredWithReport),
     'Reports sent to users': intl.formatMessage(messages.reportsSent),
     'Unique users who received a report': intl.formatMessage(messages.uniqueUsersWhoReceivedReport),
     'Average (median) response time': intl.formatMessage(messages.responseTime),
@@ -240,7 +241,7 @@ const TeamDataComponent = ({
   };
 
   return (
-    <ContentColumn large>
+    <ContentColumn remainingWidth>
       <SettingsHeader
         title={
           <FormattedMessage
@@ -283,18 +284,21 @@ const TeamDataComponent = ({
         <CardContent>
           { data ?
             <TableContainer className={[classes.container, 'team-data-component__with-data'].join(' ')}>
-              <Table size="small" stickyHeader>
+              <Table stickyHeader>
                 <TableHead>
                   <TableRow>
                     {headers.map(header => (
                       <TableCell key={header} className={classes.tableCell} sortDirection={orderBy === header ? order : false}>
                         <TableSortLabel active={orderBy === header} direction={orderBy === header ? order : 'asc'} onClick={createSortHandler(header)}>
                           <Box display="flex" alignItems="center">
-                            {header}
+                            <Typography variant="button" className={classes.typographyButton}>
+                              {header}
+                            </Typography>
                             {' '}
-                            <Tooltip key={header} title={helpMessages[header] || header}>
-                              <HelpIcon fontSize="small" className={classes.helpIcon} />
-                            </Tooltip>
+                            { helpMessages[header] ?
+                              <Tooltip key={header} title={helpMessages[header]} arrow>
+                                <HelpIcon fontSize="small" className={classes.helpIcon} />
+                              </Tooltip> : null }
                           </Box>
                         </TableSortLabel>
                       </TableCell>
@@ -304,7 +308,13 @@ const TeamDataComponent = ({
                 <TableBody>
                   {rows.map(row => (
                     <TableRow key={row.ID}>
-                      {headers.map(header => (<TableCell key={`${row.ID}-${header}`} className={classes.tableCell}>{formatValue(header, row[header])}</TableCell>))}
+                      {headers.map(header => (
+                        <TableCell key={`${row.ID}-${header}`} className={classes.tableCell}>
+                          <Typography variant="body1" className={classes.typographyBody1}>
+                            {formatValue(header, row[header])}
+                          </Typography>
+                        </TableCell>
+                      ))}
                     </TableRow>
                   ))}
                 </TableBody>
