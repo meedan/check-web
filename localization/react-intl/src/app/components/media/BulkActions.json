@@ -14,12 +14,26 @@
     "defaultMessage": "Items moved to the Trash."
   },
   {
+    "id": "bulkActions.moveToSpamSuccessfully",
+    "defaultMessage": "Items moved to the Spam."
+  },
+  {
     "id": "bulkActions.trash",
-    "defaultMessage": "Restore selected items and move items to another folder"
+    "description": "Tooltip message for button that restores items from Trash",
+    "defaultMessage": "Restore selected items and move them to another folder"
   },
   {
     "id": "bulkActions.restore",
     "defaultMessage": "Restore from Trash"
+  },
+  {
+    "id": "bulkActions.spam",
+    "description": "Tooltip message for button that mark items as not spam",
+    "defaultMessage": "Mark selected items as not spam and move them to another folder"
+  },
+  {
+    "id": "bulkActions.notSpam",
+    "defaultMessage": "Not Spam"
   },
   {
     "id": "bulkActions.dialogMoveTitle",
@@ -31,7 +45,11 @@
     "defaultMessage": "Move to folder"
   },
   {
+    "id": "bulkActions.sendItemsToSpam",
+    "defaultMessage": "Mark as spam"
+  },
+  {
     "id": "bulkActions.sendItemsToTrash",
-    "defaultMessage": "Send selected items to Trash"
+    "defaultMessage": "Send to trash"
   }
 ]

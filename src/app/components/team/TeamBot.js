@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Box from '@material-ui/core/Box';
-import Form from '@meedan/react-jsonschema-form-material-ui-v1';
 import styled from 'styled-components';
 import FetchBot from './FetchBot';
+import KeepBot from './KeepBot';
 import { units, black32 } from '../../styles/js/shared';
 
 const StyledSchemaForm = styled.div`
@@ -56,14 +56,30 @@ class TeamBot extends Component {
   }
 
   render() {
+    let botContent = null;
+    switch (this.props.bot.identifier) {
+    case 'fetch':
+      botContent = (
+        <FetchBot {...this.props} />
+      );
+      break;
+    case 'keep':
+      botContent = (
+        <KeepBot {...this.props} />
+      );
+      break;
+    default:
+      botContent = null;
+      break;
+    }
+
     return (
       <React.Fragment>
         <StyledSchemaForm>
           <Box id={`bot-${this.props.bot.identifier}`}>
-            <Form {...this.props} />
+            {botContent}
           </Box>
         </StyledSchemaForm>
-        { this.props.bot.name === 'Fetch' ? <FetchBot /> : null }
       </React.Fragment>
     );
   }

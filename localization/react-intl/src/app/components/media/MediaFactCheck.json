@@ -32,7 +32,7 @@
   {
     "id": "mediaFactCheck.url",
     "description": "Label for fact-check URL field",
-    "defaultMessage": "Published article URL"
+    "defaultMessage": "Article URL"
   },
   {
     "id": "mediaActionsBar.publishedReport",

@@ -141,6 +141,7 @@ const MediaClaim = ({ projectMedia }) => {
             /> : null }
           { !saving && !error && claimDescription ?
             <FormattedMessage
+              className="media-claim__saved-by"
               id="mediaClaim.saved"
               defaultMessage="saved by {userName} {timeAgo}"
               values={{

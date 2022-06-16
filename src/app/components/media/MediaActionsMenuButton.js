@@ -25,6 +25,7 @@ class MediaActionsMenuButton extends React.PureComponent {
     }).isRequired,
     handleRefresh: PropTypes.func.isRequired,
     handleSendToTrash: PropTypes.func.isRequired,
+    handleSendToSpam: PropTypes.func.isRequired,
     handleAssign: PropTypes.func.isRequired,
     handleStatusLock: PropTypes.func.isRequired,
   };
@@ -54,6 +55,7 @@ class MediaActionsMenuButton extends React.PureComponent {
       isParent,
       handleRefresh,
       handleSendToTrash,
+      handleSendToSpam,
       handleAssign,
       handleStatusLock,
       handleItemHistory,
@@ -117,7 +119,17 @@ class MediaActionsMenuButton extends React.PureComponent {
             onClick={e => this.handleActionAndClose(e, handleSendToTrash)}
           >
             <ListItemText
-              primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Move to Trash" />}
+              primary={<FormattedMessage id="mediaActions.sendToTrash" defaultMessage="Send to Trash" />}
+            />
+          </MenuItem>));
+        menuItems.push((
+          <MenuItem
+            key="mediaActions.sendToSpam"
+            className="media-actions__send-to-spam"
+            onClick={e => this.handleActionAndClose(e, handleSendToSpam)}
+          >
+            <ListItemText
+              primary={<FormattedMessage id="mediaActions.sendToSpam" defaultMessage="Mark as Spam" />}
             />
           </MenuItem>));
       }

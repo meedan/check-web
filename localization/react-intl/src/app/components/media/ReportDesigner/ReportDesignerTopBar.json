@@ -24,14 +24,6 @@
     "defaultMessage": "Back to annotation"
   },
   {
-    "id": "reportDesigner.copyEmbedCode",
-    "defaultMessage": "Copy embed code"
-  },
-  {
-    "id": "reportDesigner.copyShareUrl",
-    "defaultMessage": "Copy share URL"
-  },
-  {
     "id": "reportDesigner.firstSent",
     "defaultMessage": "First published"
   },

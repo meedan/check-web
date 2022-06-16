@@ -6,7 +6,15 @@ import TeamDataComponent from './TeamDataComponent';
 
 const renderQuery = ({ error, props }) => {
   if (!error && props) {
-    return <TeamDataComponent dataReportUrl={props.team.get_data_report_url} />;
+    const { team } = props;
+    return (
+      <TeamDataComponent
+        slug={team.slug}
+        data={team.data_report}
+        defaultLanguage={team.get_language}
+        languages={team.get_languages}
+      />
+    );
   }
 
   // TODO: We need a better error handling in the future, standardized with other components
@@ -20,7 +28,10 @@ const TeamData = props => (
       query TeamDataQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
-          get_data_report_url
+          slug
+          get_language
+          get_languages
+          data_report
         }
       }
     `}

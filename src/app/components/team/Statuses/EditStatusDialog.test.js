@@ -39,7 +39,6 @@ describe('<EditStatusDialog />', () => {
     expect(wrapper.html()).not.toMatch('Edit status');
   });
 
-
   it('should render "Edit status" title when pass status', () => {
     const wrapper = mountWithIntl(<EditStatusDialog
       status={status}
@@ -58,7 +57,6 @@ describe('<EditStatusDialog />', () => {
     expect(wrapper.find('#edit-status-dialog__status-message-label').hostNodes()).toHaveLength(0);
   });
 
-
   it('should render message field when smooch is installed on the team', () => {
     const wrapper = mountWithIntl(<EditStatusDialog
       team={team2}
@@ -73,5 +71,37 @@ describe('<EditStatusDialog />', () => {
     expect(wrapper.html()).toMatch('True');
     expect(wrapper.html()).toMatch('Send a message to the user who requested the item when you change an item to this status');
     expect(wrapper.find('#edit-status-dialog__status-message-label').hostNodes()).toHaveLength(1);
+  });
+
+  it('should call handleConfirmSubmit function when submitting dialog and smooch is installed on the team', () => {
+    const handleConfirmSubmit = jest.fn();
+    const handleSubmit = jest.fn();
+    const wrapper = mountWithIntl(<EditStatusDialog
+      team={team2}
+      defaultLanguage="en"
+      defaultValue={status}
+      open={Boolean(status)}
+      onCancel={() => {}}
+      onSubmit={team2.smooch_bot ? handleConfirmSubmit : handleSubmit}
+    />);
+    wrapper.find('button.edit-status-dialog__submit').hostNodes().simulate('click');
+    expect(handleSubmit).not.toHaveBeenCalled();
+    expect(handleConfirmSubmit).toHaveBeenCalled();
+  });
+
+  it('should not call handleConfirmSubmit function when submitting dialog and smooch is not installed on the team', () => {
+    const handleConfirmSubmit = jest.fn();
+    const handleSubmit = jest.fn();
+    const wrapper = mountWithIntl(<EditStatusDialog
+      team={team}
+      defaultLanguage="en"
+      defaultValue={status}
+      open={Boolean(status)}
+      onCancel={() => {}}
+      onSubmit={team.smooch_bot ? handleConfirmSubmit : handleSubmit}
+    />);
+    wrapper.find('button.edit-status-dialog__submit').hostNodes().simulate('click');
+    expect(handleSubmit).toHaveBeenCalled();
+    expect(handleConfirmSubmit).not.toHaveBeenCalled();
   });
 });

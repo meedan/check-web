@@ -25,11 +25,13 @@ const useStyles = makeStyles(theme => ({
   settingsHeaderHelpIcon: {
     color: checkBlue,
   },
+  settingsHeaderExtra: {
+    marginLeft: theme.spacing(5),
+  },
 }));
 
 const SettingsHeader = ({
   title,
-  subtitle,
   helpUrl,
   actionButton,
   extra,
@@ -55,23 +57,20 @@ const SettingsHeader = ({
             </IconButton>
             : null
           }
+          <Box className={classes.settingsHeaderExtra}>
+            {extra}
+          </Box>
         </Box>
         <Box display="flex" alignItems="center">
-          {extra}
           {actionButton}
         </Box>
       </Toolbar>
-      { subtitle ?
-        <Typography>
-          {subtitle}
-        </Typography> : null }
     </Box>
   );
 };
 
 SettingsHeader.defaultProps = {
   actionButton: null,
-  subtitle: null,
   extra: null,
   helpUrl: null,
   className: '',
@@ -82,7 +81,6 @@ SettingsHeader.propTypes = {
   title: PropTypes.node.isRequired,
   helpUrl: PropTypes.string,
   actionButton: PropTypes.node,
-  subtitle: PropTypes.node,
   extra: PropTypes.node,
   className: PropTypes.string,
   style: PropTypes.object,

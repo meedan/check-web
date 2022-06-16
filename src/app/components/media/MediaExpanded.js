@@ -120,12 +120,6 @@ class MediaExpandedComponent extends Component {
     } = this.props;
     const { playbackRate } = this.state;
 
-    const {
-      onTimelineCommentOpen,
-      onVideoAnnoToggle,
-      showVideoAnnotation,
-    } = this.props;
-
     const currentTeam = this.getContext().team || this.getContext().currentUser.current_team;
 
     const currentUserRole = UserUtil.myRole(
@@ -304,9 +298,6 @@ class MediaExpandedComponent extends Component {
             <CardActions>
               <MediaExpandedActions
                 currentUserRole={currentUserRole}
-                onTimelineCommentOpen={onTimelineCommentOpen}
-                onVideoAnnoToggle={onVideoAnnoToggle}
-                showVideoAnnotation={showVideoAnnotation}
                 projectMedia={media}
                 playbackRate={playbackRate}
                 onPlaybackRateChange={r => this.setState({ playbackRate: r })}

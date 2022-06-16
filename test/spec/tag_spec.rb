@@ -12,7 +12,6 @@ shared_examples 'tag' do
     add_team_tag('newtag')
     wait_for_selector('.team-tags__row')
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(false)
-    expect(@driver.page_source.include?('1 / 1')).to be(true)
     expect(@driver.page_source.include?('newtag')).to be(true)
 
     # Edit tag
@@ -29,13 +28,11 @@ shared_examples 'tag' do
     # Create another tag
     expect(@driver.page_source.include?('tag2')).to be(false)
     add_team_tag('tag2')
-    expect(@driver.page_source.include?('2 / 2')).to be(true)
     expect(@driver.page_source.include?('tag2')).to be(true)
 
     # Search tag by keyword
     wait_for_selector('#search-input').send_keys('edited')
     @driver.action.send_keys(:enter).perform
-    expect(@driver.page_source.include?('1 / 2')).to be(true)
     expect(@driver.page_source.include?('newtagedited')).to be(true)
     expect(@driver.page_source.include?('tag2')).to be(false)
 
@@ -44,7 +41,6 @@ shared_examples 'tag' do
     wait_for_selector('.team-tags-actions__destroy').click
     wait_for_selector('#confirm-dialog__confirm-action-button').click
     wait_for_selector_none('#confirm-dialog__confirm-action-button')
-    expect(@driver.page_source.include?('0 / 1')).to be(true)
     expect(@driver.page_source.include?('newtagedited')).to be(false)
     expect(@driver.find_elements(:css, '.team-tags__row').empty?).to be(true)
   end

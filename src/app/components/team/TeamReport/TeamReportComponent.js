@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { graphql, commitMutation } from 'react-relay/compat';
 import { Store } from 'react-relay/classic';
+import { browserHistory } from 'react-router';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
@@ -104,27 +105,19 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
     });
   };
 
+  if (!team.smooch_bot) {
+    const path = `/${team.slug}/settings`;
+    browserHistory.push(path);
+    return null;
+  }
   return (
     <Box display="flex" justifyContent="left" className="team-report-component">
-      <LanguageSwitcher
-        orientation="vertical"
-        primaryLanguage={defaultLanguage}
-        currentLanguage={currentLanguage}
-        languages={languages}
-        onChange={setCurrentLanguage}
-      />
       <ContentColumn large>
         <SettingsHeader
           title={
             <FormattedMessage
               id="teamReportComponent.title"
               defaultMessage="Default report settings"
-            />
-          }
-          subtitle={
-            <FormattedMessage
-              id="teamReportComponent.subtitle"
-              defaultMessage="The content you set here can be edited in each individual report."
             />
           }
           helpUrl="http://help.checkmedia.org/en/articles/3627266-check-message-report"
@@ -134,6 +127,14 @@ const TeamReportComponent = ({ team, setFlashMessage }) => {
                 <FormattedMessage id="teamReportComponent.save" defaultMessage="Save" />
               </Button>
             </Can>
+          }
+          extra={
+            <LanguageSwitcher
+              component="dropdown"
+              currentLanguage={currentLanguage}
+              languages={languages}
+              onChange={setCurrentLanguage}
+            />
           }
         />
         <Card>

@@ -132,26 +132,12 @@ const SmoochBotComponent = ({
   // If only on language, no margin left. If more than one language the language selector is displayed, so we add a margin.
   return (
     <Box display="flex" justifyContent="left" className="smooch-bot-component" ml={installation && bot && languages.length > 1 ? 0 : 6}>
-      { installation && bot && languages.length > 1 ?
-        <LanguageSwitcher
-          orientation="vertical"
-          primaryLanguage={defaultLanguage}
-          currentLanguage={currentLanguage}
-          languages={languages}
-          onChange={handleChangeLanguage}
-        /> : null }
       <ContentColumn large>
         <SettingsHeader
           title={
             <FormattedMessage
               id="smoochBotComponent.title"
               defaultMessage="Tipline"
-            />
-          }
-          subtitle={
-            <FormattedMessage
-              id="smoochBotComponent.subtitle"
-              defaultMessage="Create automated conversational bots to receive content from your audience."
             />
           }
           helpUrl="https://help.checkmedia.org/en/articles/4838307-creating-your-tipline-bot"
@@ -162,6 +148,15 @@ const SmoochBotComponent = ({
                   <FormattedMessage id="smoochBotComponent.save" defaultMessage="Publish" />
                 </Button>
               </Can> : null
+          }
+          extra={
+            installation && bot && languages.length > 1 ?
+              <LanguageSwitcher
+                component="dropdown"
+                currentLanguage={currentLanguage}
+                languages={languages}
+                onChange={handleChangeLanguage}
+              /> : null
           }
         />
         <Card>
@@ -190,6 +185,7 @@ const SmoochBotComponent = ({
                     disable={saving}
                   >
                     <FormattedMessage
+                      data-testid="install-smooch__button"
                       id="smoochBotComponent.install"
                       defaultMessage="Install"
                     />

@@ -1,24 +1,88 @@
 [
   {
+    "id": "teamDataComponent.conversations",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity."
+  },
+  {
+    "id": "teamDataComponent.averageMessagesPerDay",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Average messages per day sent back and forth between users and the bot."
+  },
+  {
+    "id": "teamDataComponent.uniqueUsers",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Distinct users who interacted with the bot."
+  },
+  {
+    "id": "teamDataComponent.returningUsers",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique users who had at least one session in the current month, and at least one session in the last previous 2 months."
+  },
+  {
+    "id": "teamDataComponent.validNewRequests",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "User requests associated with claims that are not in the trash."
+  },
+  {
+    "id": "teamDataComponent.publishedNativeReports",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Published reports created in Check (for all languages and platforms)."
+  },
+  {
+    "id": "teamDataComponent.publishedImportedReports",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Published reports imported from web sites (for all languages and platforms)."
+  },
+  {
+    "id": "teamDataComponent.claimsAnsweredWithAReport",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "For example, if 2 users requested the same claim and received the same report, it counts as 1."
+  },
+  {
+    "id": "teamDataComponent.reportsSent",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2."
+  },
+  {
+    "id": "teamDataComponent.uniqueUsersWhoReceivedReport",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1."
+  },
+  {
+    "id": "teamDataComponent.responseTime",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Average time between a user request and a report sent."
+  },
+  {
+    "id": "teamDataComponent.uniqueNewslettersSent",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022."
+  },
+  {
+    "id": "teamDataComponent.newNewsletterSubscriptions",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "New newsletter subscriptions."
+  },
+  {
+    "id": "teamDataComponent.newsletterCancellations",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "New newsletter cancellations."
+  },
+  {
+    "id": "teamDataComponent.currentSubscribers",
+    "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
+    "defaultMessage": "Current number of newsletter subscriptions."
+  },
+  {
     "id": "teamDataComponent.title",
     "description": "Header for the stored data page of the current team",
-    "defaultMessage": "Workspace data"
+    "defaultMessage": "Tipline engagement data"
   },
   {
-    "id": "teamDataComponent.subtitle",
-    "defaultMessage": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
-  },
-  {
-    "id": "teamDataComponent.notSet1",
-    "defaultMessage": "Click the button below to open your data report in a new window."
-  },
-  {
-    "id": "teamDataComponent.viewDataReport",
-    "defaultMessage": "View data report"
-  },
-  {
-    "id": "teamDataComponent.notSet2",
-    "defaultMessage": "To request any customization of your data report, please reach out to support."
+    "id": "teamDataComponent.download",
+    "description": "Label for action button displayed on workspace data report page.",
+    "defaultMessage": "Download CSV"
   },
   {
     "id": "teamDataComponent.set1",

@@ -29,14 +29,11 @@ class MediaDetail extends React.Component {
       gaps,
       media,
       onPlayerReady,
-      onTimelineCommentOpen,
-      onVideoAnnoToggle,
       playerRef,
       playing,
       scrubTo,
       seekTo,
       setPlayerState,
-      showVideoAnnotation,
       start,
     } = this.props;
 
@@ -69,14 +66,11 @@ class MediaDetail extends React.Component {
               end,
               gaps,
               onPlayerReady,
-              onTimelineCommentOpen,
-              onVideoAnnoToggle,
               playerRef,
               playing,
               scrubTo,
               seekTo,
               setPlayerState,
-              showVideoAnnotation,
               start,
             }}
           />

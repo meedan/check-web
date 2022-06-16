@@ -17,6 +17,23 @@
     "@babel/plugin-proposal-optional-chaining",
     ["babel-plugin-styled-components", { "pure": true }],
     ["relay", { "compat": true, "schema": "relay.json" }],
-    ["react-intl", { "messagesDir": "localization/react-intl/" }]
+    ["react-intl", { "messagesDir": "localization/react-intl/" }],
+		["babel-plugin-import",
+      {
+        "libraryName": "@material-ui/core",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "core"
+    ],
+    [
+      "babel-plugin-import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false
+      },
+      "icons"
+    ]
   ]
 }
