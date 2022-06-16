@@ -22,7 +22,13 @@ export default function Spam({ routeParams }) {
       <Search
         searchUrlPrefix={`/${routeParams.team}/spam`}
         mediaUrlPrefix={`/${routeParams.team}/media`}
-        title={<FormattedMessage id="spam.title" defaultMessage="Spam" />}
+        title={
+          <FormattedMessage
+            id="spam.title"
+            defaultMessage="Spam"
+            description="Spam, as in junk, unsolicited content"
+          />
+        }
         icon={<DeleteIcon />}
         teamSlug={routeParams.team}
         query={query}

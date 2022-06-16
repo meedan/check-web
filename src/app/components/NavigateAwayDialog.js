@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router';
 import Typography from '@material-ui/core/Typography';
 import ConfirmProceedDialog from './layout/ConfirmProceedDialog';
-import globalStrings from '../globalStrings';
 
 const NavigateAwayDialog = ({
   title,
@@ -87,8 +86,20 @@ NavigateAwayDialog.propTypes = {
 };
 
 NavigateAwayDialog.defaultProps = {
-  cancelLabel: <FormattedMessage {...globalStrings.cancel} />,
-  proceedLabel: <FormattedMessage {...globalStrings.ok} />,
+  cancelLabel: (
+    <FormattedMessage
+      id="global.cancel"
+      defaultMessage="Cancel"
+      description="Regular Cancel action label"
+    />
+  ),
+  proceedLabel: (
+    <FormattedMessage
+      id="global.ok"
+      defaultMessage="OK"
+      description="Regular OK/confirmation label"
+    />
+  ),
 };
 
 export default withRouter(NavigateAwayDialog);
