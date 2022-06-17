@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';

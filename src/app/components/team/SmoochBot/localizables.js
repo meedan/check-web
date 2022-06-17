@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, defineMessages } from 'react-intl';
 import Box from '@material-ui/core/Box';

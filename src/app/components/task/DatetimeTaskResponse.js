@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import { FormattedMessage, FormattedDate } from 'react-intl';
 import { convertNumbers2English } from '../../helpers';
