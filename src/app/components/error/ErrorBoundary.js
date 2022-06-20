@@ -25,7 +25,7 @@ const errbitNotifier = ({
   fetch(`${config.errbitHost}/api/v3/projects/1/notices?key=${config.errbitApiKey}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'text/plain;charset=UTF-8',
+      'Content-Type': 'application/json',
       'User-Agent': window.navigator.userAgent,
     },
     body: JSON.stringify({
