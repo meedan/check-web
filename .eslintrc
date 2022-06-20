@@ -20,6 +20,7 @@
     },
     "plugins": [
         "require-path-exists",
+        "@calm/react-intl",
     ],
     "rules": {
         "indent": [2, 2],
@@ -71,6 +72,13 @@
 
         "max-len": "off",
         "function-paren-newline": "off",
+
+        "@calm/react-intl/missing-attribute": [2,
+          {
+            "requireDescription": true,
+            "requireIdAsString": true,
+          }
+        ],
     },
     "overrides": [
         {

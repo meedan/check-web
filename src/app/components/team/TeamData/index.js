@@ -9,6 +9,7 @@ const renderQuery = ({ error, props }) => {
     const { team } = props;
     return (
       <TeamDataComponent
+        slug={team.slug}
         data={team.data_report}
         defaultLanguage={team.get_language}
         languages={team.get_languages}
@@ -27,6 +28,7 @@ const TeamData = props => (
       query TeamDataQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
+          slug
           get_language
           get_languages
           data_report

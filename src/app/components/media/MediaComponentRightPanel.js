@@ -34,6 +34,7 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
               <FormattedMessage
                 id="mediaComponent.requests"
                 defaultMessage="Requests"
+                description="Label for the Requests tab, as in requests from users"
               />
             }
             value="requests"
@@ -45,6 +46,7 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
             <FormattedMessage
               id="mediaComponent.annotation"
               defaultMessage="Annotation"
+              description="Label for the Annotation tab"
             />
           }
           value="metadata"
@@ -55,6 +57,7 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
             <FormattedMessage
               id="mediaComponent.source"
               defaultMessage="Source"
+              description="Label for the Source tab, as in source of the information"
             />
           }
           value="source"
@@ -65,6 +68,7 @@ const MediaComponentRightPanel = ({ projectMedia }) => {
             <FormattedMessage
               id="mediaComponent.notes"
               defaultMessage="Notes"
+              description="Label for the Notes tab, as in text notes"
             />
           }
           value="notes"

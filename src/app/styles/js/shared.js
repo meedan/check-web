@@ -345,6 +345,7 @@ export const ContentColumn = styled.div`
   ${props => props.large ? `max-width: ${columnWidthLarge}` : ''}
   ${props => props.wide ? `max-width: ${columnWidthWide}` : ''}
   ${props => props.fullWidth ? 'max-width: 100%' : ''}
+  ${props => props.remainingWidth ? 'max-width: calc(100vw - 320px)' : '' /* 320px = 32px (margin left) + 256px (left bar width) + 32px (margin right) */}
   ${props => props.flex ? 'display: flex; flex-direction: column;' : ''}
 `;
 

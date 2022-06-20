@@ -19,7 +19,8 @@
   },
   {
     "id": "bulkActions.trash",
-    "defaultMessage": "Restore selected items and move items to another folder"
+    "description": "Tooltip message for button that restores items from Trash",
+    "defaultMessage": "Restore selected items and move them to another folder"
   },
   {
     "id": "bulkActions.restore",
@@ -27,7 +28,8 @@
   },
   {
     "id": "bulkActions.spam",
-    "defaultMessage": "Not spam selected items and move items to another folder"
+    "description": "Tooltip message for button that mark items as not spam",
+    "defaultMessage": "Mark selected items as not spam and move them to another folder"
   },
   {
     "id": "bulkActions.notSpam",

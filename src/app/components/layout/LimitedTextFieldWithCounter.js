@@ -22,6 +22,7 @@ const LimitedTextFieldWithCounter = ({
           <FormattedMessage
             id="limitedTextFieldWithCounter.counter"
             defaultMessage="{remaining, plural, one {(# character left)} other {(# characters left)}}"
+            description="Label that displays how many characters more can be typed"
             values={{ remaining }}
           />
         </React.Fragment>

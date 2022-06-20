@@ -1,0 +1,12 @@
+[
+  {
+    "id": "global.cancel",
+    "description": "Regular Cancel action label",
+    "defaultMessage": "Cancel"
+  },
+  {
+    "id": "global.ok",
+    "description": "Regular OK/confirmation label",
+    "defaultMessage": "OK"
+  }
+]
