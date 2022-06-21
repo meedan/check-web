@@ -21,6 +21,7 @@
   },
   {
     "id": "mediaCreatedBy.createdBy",
+    "description": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item.",
     "defaultMessage": "Item created by {name}"
   }
 ]
