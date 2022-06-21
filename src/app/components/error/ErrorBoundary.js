@@ -1,7 +1,6 @@
 import React from 'react';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import StackTrace from 'stacktrace-js';
-import StackTraceGPS from 'stacktrace-gps';
 import config from 'config'; // eslint-disable-line require-path-exists/exists
 import ErrorPage from './ErrorPage';
 import GenericUnknownErrorMessage from '../GenericUnknownErrorMessage';
@@ -16,7 +15,6 @@ const messages = defineMessages({
 
 const errbitNotifier = ({
   error,
-  errorInfo,
   stackFrameArray,
   session,
   component,
@@ -25,17 +23,17 @@ const errbitNotifier = ({
   fetch(`${config.errbitHost}/api/v3/projects/1/notices?key=${config.errbitApiKey}`, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json',
-      'User-Agent': window.navigator.userAgent,
+      'content-type': 'application/json',
     },
     body: JSON.stringify({
       errors: [{
         type: error.name,
         message: error.message,
-        backtrace: stackFrameArray[0].toString(),
       }],
       environment: {},
-      params: { errorInfo, stackFrameArray },
+      params: {
+        backtrace: stackFrameArray[0].toString(),
+      },
       session,
       context: {
         component,
@@ -56,8 +54,6 @@ const errbitNotifier = ({
   }).catch(err => console.error('Failed to notify Errbit:', err)); // eslint-disable-line no-console
 };
 
-const gps = new StackTraceGPS();
-
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -74,10 +70,6 @@ class ErrorBoundary extends React.Component {
       const errBack = err => console.error('stacktrace-js error:', err); // eslint-disable-line no-console
 
       StackTrace.fromError(error).then((stackFrameArray) => {
-        gps.pinpoint(stackFrameArray[0]).then((foundFunctionName) => {
-          console.log('foundFunctionName', foundFunctionName); // eslint-disable-line no-console
-        }, errBack);
-
         const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
         const callIntercom = (data) => {
           if (Intercom) {
