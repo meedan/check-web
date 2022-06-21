@@ -13,10 +13,6 @@ import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
 
 const useStyles = makeStyles(() => ({
-  savedBy: {
-    fontSize: '9px',
-    letterSpacing: 0,
-  },
   title: {
     fontSize: '16px',
   },
@@ -126,7 +122,7 @@ const MediaClaim = ({ projectMedia }) => {
           </strong>
         </Typography>
         {' '}
-        <Typography className={classes.savedBy} variant="caption" component="div">
+        <Typography variant="caption" component="div">
           { error ?
             <FormattedMessage
               id="mediaClaim.error"

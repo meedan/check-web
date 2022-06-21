@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -237,11 +236,13 @@ const MediaFactCheck = ({ projectMedia }) => {
                 className="media-fact-check__published-report"
                 id="mediaActionsBar.publishedReport"
                 defaultMessage="Published report"
+                description="A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
               /> :
               <FormattedMessage
                 className="media-fact-check__unpublished-report"
                 id="mediaActionsBar.unpublishedReport"
                 defaultMessage="Unpublished report"
+                description="A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
               /> }
           </Button>
         </Box> : null }
@@ -270,6 +271,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           <FormattedMessage
             id="mediaFactCheck.confirmButtonLabel"
             defaultMessage="Go back to editing"
+            description="A label on a button that the user can press to go back to the screen where they edit a fact check."
           />
         }
         onProceed={() => { setShowDialog(false); }}
