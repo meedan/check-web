@@ -386,7 +386,7 @@ class AddAnnotation extends Component {
             onKeyPress={this.handleKeyPress.bind(this)}
             onKeyUp={this.handleKeyUp.bind(this)}
             value={this.state.cmd}
-            onChange={this.bli.blo.handleChange.bind(this)}
+            onChange={this.handleChange.bind(this)}
             variant="outlined"
           />
           {this.state.fileMode ? (
