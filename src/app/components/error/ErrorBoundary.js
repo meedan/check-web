@@ -29,10 +29,16 @@ const errbitNotifier = ({
       errors: [{
         type: error.name,
         message: error.message,
+        backtrace: stackFrameArray.map(f => ({
+          column: f.columnNumber,
+          file: f.fileName,
+          function: f.functionName,
+          line: f.lineNumber,
+        })),
       }],
       environment: {},
       params: {
-        backtrace: stackFrameArray[0].toString(),
+        errorLocation: stackFrameArray[0].toString(),
       },
       session,
       context: {
@@ -40,6 +46,7 @@ const errbitNotifier = ({
         severity: 'error',
         language: 'JavaScript',
         url: window.location.href,
+        userAgent: window.navigator.userAgent,
         notifier: {
           name: 'Check ErrorBoundary',
           version: '0.150.0',
@@ -48,48 +55,61 @@ const errbitNotifier = ({
       },
     }),
   }).then((response) => {
-    if (response.ok) {
+    if (response.ok && callIntercom) {
       response.json().then(data => callIntercom(data));
     }
   }).catch(err => console.error('Failed to notify Errbit:', err)); // eslint-disable-line no-console
+};
+
+const getStackTraceAndNotifyErrbit = ({
+  error,
+  component,
+  callIntercom,
+}) => {
+  if (config.errbitApiKey && config.errbitHost) {
+    const errBack = err => console.error('stacktrace-js error:', err); // eslint-disable-line no-console
+
+    StackTrace.fromError(error).then((stackFrameArray) => {
+      const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
+
+      errbitNotifier({
+        error,
+        stackFrameArray,
+        session: { name, dbid, email },
+        component,
+        callIntercom,
+      });
+    }, errBack);
+  }
 };
 
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false };
+
+    window.onerror = (message, source, lineno, colno, error) => {
+      getStackTraceAndNotifyErrbit({ error, component: 'window' });
+    };
   }
 
   static getDerivedStateFromError() {
     return { hasError: true };
   }
 
-  componentDidCatch(error, errorInfo) {
-    if (config.errbitApiKey && config.errbitHost) {
-      const { component, intl } = this.props;
-      const errBack = err => console.error('stacktrace-js error:', err); // eslint-disable-line no-console
+  componentDidCatch(error) {
+    const { component, intl } = this.props;
 
-      StackTrace.fromError(error).then((stackFrameArray) => {
-        const { dbid, email, name } = window.Check.store.getState().app.context.currentUser;
-        const callIntercom = (data) => {
-          if (Intercom) {
-            Intercom(
-              'showNewMessage',
-              `${intl.formatMessage(messages.askSupport)}\n\n${data.url}`,
-            );
-          }
-        };
+    const callIntercom = (data) => {
+      if (Intercom) {
+        Intercom(
+          'showNewMessage',
+          `${intl.formatMessage(messages.askSupport)}\n\n${data.url}`,
+        );
+      }
+    };
 
-        errbitNotifier({
-          error,
-          errorInfo,
-          stackFrameArray,
-          session: { name, dbid, email },
-          component,
-          callIntercom,
-        });
-      }, errBack);
-    }
+    getStackTraceAndNotifyErrbit({ error, component, callIntercom });
   }
 
   render() {
