@@ -306,10 +306,10 @@
 		"string": "Pilih bahasa baru"
 	},
 	"annotation.addLanguage": {
-		"string": "Language {value} added by {author}"
+		"string": "Bahasa {value} ditambahkan oleh {author}"
 	},
 	"annotation.addSource": {
-		"string": "Source {name} add by {author}"
+		"string": "Sumber {name} ditambahkan oleh {author}"
 	},
 	"annotation.addedComment": {
 		"string": "Catatan tugas ditambahkan oleh {author}: {title}{note}"
@@ -327,16 +327,16 @@
 		"string": "Skema JSON dari tugas {title} diubah oleh {author}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Additional content added by {author}: {value}"
+		"string": "Konten tambahan ditambahkan oleh {author}: {value}"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Claim added by {author}: {value}"
+		"string": "Klaim ditambahkan oleh {author}: {value}"
 	},
 	"annotation.createFactCheck": {
-		"string": "Fact-check title added by {author}: {value}"
+		"string": "Judul pengecekan fakta ditambahkan oleh {author}: {value}"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Item created by {author}"
+		"string": "Perihal dibuat oleh {author}"
 	},
 	"annotation.deleteButton": {
 		"string": "Hapus"
@@ -345,7 +345,7 @@
 		"string": "Sunting"
 	},
 	"annotation.editedBy": {
-		"string": "edited by",
+		"string": "disunting oleh",
 		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
@@ -382,7 +382,7 @@
 		"string": "Bidang anotasi dibuat oleh {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
+		"string": "Anotasi \"{fieldLabel}\" disunting oleh {author}: {response}"
 	},
 	"annotation.newReport": {
 		"string": "Perihal ditambahkan oleh {author}"
@@ -394,21 +394,21 @@
 		"string": "Buka di Slack"
 	},
 	"annotation.pausedBy": {
-		"string": "paused by",
+		"string": "ditunda oleh",
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "Permalink"
 	},
 	"annotation.publishedBy": {
-		"string": "published by",
+		"string": "diterbitkan oleh",
 		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "Catatan tugas dihapus oleh {author}: {title}{note} "
 	},
 	"annotation.reportDesignState": {
-		"string": "Fact-check report {state} {author}"
+		"string": "Laporan pengecekan fakta {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "Laporan dikirimkan pada {date}"
@@ -417,10 +417,10 @@
 		"string": "Pembaruan laporan dikirimkan pada {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "Match confirmed by {author}: {title}"
+		"string": "Kecocokan dikonfirmasi oleh {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Match deleted by {author}: {title}",
+		"string": "Kecocokan dihapus oleh {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -430,19 +430,19 @@
 		"string": "Status perihal dikunci oleh {author}"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status changed to {status} by {author}"
+		"string": "Status diubah menjadi {status} oleh {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "Status perihal dibuka kuncinya oleh {author}"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Match suggested by {author}: {title}"
+		"string": "Kecocokan disarankan oleh {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Match rejected by {author}: {title}"
+		"string": "Kecocokan ditolak oleh {author}: {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tag #{tag} added by {author}"
+		"string": "Label #{tag} ditambahkan oleh {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "Tugas diberikan ke {name} oleh{author}: {title}  "
@@ -467,13 +467,13 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Additional content edited by {author}: {value}"
+		"string": "Konten tambahan disunting oleh {author}: {value}"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "Claim edited by {author}: {value}"
+		"string": "Klaim disunting oleh {author}: {value}"
 	},
 	"annotation.updateSource": {
-		"string": "Source {name} updated by {author}"
+		"string": "Sumber {name} diperbarui oleh {author}"
 	},
 	"annotations.loadMore": {
 		"string": "Muat lebih"
@@ -528,7 +528,7 @@
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveToSpamSuccessfully": {
-		"string": "Items moved to the Spam."
+		"string": "Item dipindahkan ke Spam."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Perihal dibuang ke Tong Sampah."
@@ -542,22 +542,24 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.notSpam": {
-		"string": "Not Spam"
+		"string": "Bukan Spam"
 	},
 	"bulkActions.restore": {
 		"string": "Kembalikan dari Tong Sampah"
 	},
 	"bulkActions.sendItemsToSpam": {
-		"string": "Mark as spam"
+		"string": "Tandai sebagai spam"
 	},
 	"bulkActions.sendItemsToTrash": {
-		"string": "Send to trash"
+		"string": "Buang ke tong sampah"
 	},
 	"bulkActions.spam": {
-		"string": "Not spam selected items and move items to another folder"
+		"string": "Tandai perihal yang dipilih sebagai bukan spam dan pindahkan ke folder lain",
+		"developer_comment": "Tooltip message for button that mark items as not spam"
 	},
 	"bulkActions.trash": {
-		"string": "Kembalikan perihal yang dipilih dan pindahkan ke folder lain"
+		"string": "Kembalikan perihal yang dipilih dan pindahkan ke folder lain",
+		"developer_comment": "Tooltip message for button that restores items from Trash"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Tambah catatan ke pemberitahuan surel",
@@ -663,7 +665,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
+		"string": "Terjadi konflik basis data. Mungkin beberapa pengguna lain sudah melakukan tindakan ini. Silakan muat ulang halaman.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
@@ -723,7 +725,7 @@
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"string": "Penting! Fitur Tugas akan dihentikan pada 1 Juni 2022. Silakan hubungi dukungan jika Anda memiliki pertanyaan tentang cara menggantinya dengan Anotasi.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
 	"checkedByTeamsCell.more": {
@@ -979,7 +981,7 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
-		"string": "Hubungi kami untuk pengaturan"
+		"string": "Hubungi kami untuk mengatur"
 	},
 	"fileUploadRespondTask.answerTask": {
 		"string": "Jawab tugas"
@@ -1028,7 +1030,8 @@
 		"string": "Terbaik dilihat dengan <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome untuk Desktop</a>."
 	},
 	"global.cancel": {
-		"string": "Batalkan"
+		"string": "Batalkan",
+		"developer_comment": "Regular Cancel action label"
 	},
 	"global.close": {
 		"string": "Tutup"
@@ -1043,7 +1046,8 @@
 		"string": "Sunting"
 	},
 	"global.ok": {
-		"string": "OK"
+		"string": "OK",
+		"developer_comment": "Regular OK/confirmation label"
 	},
 	"global.save": {
 		"string": "Simpan"
@@ -1166,7 +1170,8 @@
 		"string": "Bahasa"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
+		"string": "{remaining, plural, other {(# karakter yang tersisa)}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
 		"string": "Permintaan"
@@ -1345,10 +1350,10 @@
 		"string": "Segarkan"
 	},
 	"mediaActions.sendToSpam": {
-		"string": "Mark as Spam"
+		"string": "Tandai sebagai spam"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Send to Trash"
+		"string": "Buang ke Tong Sampah"
 	},
 	"mediaActions.tooltip": {
 		"string": "Tindakan perihal"
@@ -1390,16 +1395,17 @@
 		"string": "Dikembalikan dari Tong Sampah, mengalihkan..."
 	},
 	"mediaActionsBar.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "Perihal telah dipindahkan ke {spam}"
 	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "Perihal telah dipindahkan ke {trash}"
 	},
 	"mediaActionsBar.notSpamTo": {
-		"string": "Not spam"
+		"string": "Bukan spam"
 	},
 	"mediaActionsBar.publishedReport": {
-		"string": "Laporan yang sudah diterbitkan"
+		"string": "Laporan yang sudah diterbitkan",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
 	},
 	"mediaActionsBar.restoreOrConfirm": {
 		"string": "Pindahkan ke folder"
@@ -1408,7 +1414,8 @@
 		"string": "Kembalikan dari Tong Sampah"
 	},
 	"mediaActionsBar.unpublishedReport": {
-		"string": "Laporan yang belum diterbitkan"
+		"string": "Laporan yang belum diterbitkan",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
 	},
 	"mediaAnalysis.analysis": {
 		"string": "Analisis",
@@ -1478,19 +1485,23 @@
 		"string": "Tidak ada catatan"
 	},
 	"mediaComponent.annotation": {
-		"string": "Anotasi"
+		"string": "Anotasi",
+		"developer_comment": "Label for the Annotation tab"
 	},
 	"mediaComponent.answered": {
 		"string": "selesai"
 	},
 	"mediaComponent.notes": {
-		"string": "Catatan"
+		"string": "Catatan",
+		"developer_comment": "Label for the Notes tab, as in text notes"
 	},
 	"mediaComponent.requests": {
-		"string": "Permintaan"
+		"string": "Permintaan",
+		"developer_comment": "Label for the Requests tab, as in requests from users"
 	},
 	"mediaComponent.source": {
-		"string": "Sumber"
+		"string": "Sumber",
+		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
 	"mediaComponent.timelineTab": {
 		"string": "Lini masa"
@@ -1507,7 +1518,8 @@
 		"developer_comment": "Title of claim context field."
 	},
 	"mediaCreatedBy.createdBy": {
-		"string": "Perihal dibuat oleh {name}"
+		"string": "Perihal dibuat oleh {name}",
+		"developer_comment": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
 	},
 	"mediaDetail.spam": {
 		"string": "Spam"
@@ -1578,7 +1590,8 @@
 		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.confirmButtonLabel": {
-		"string": "Kembali menyunting"
+		"string": "Kembali menyunting",
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "Pengecekan fakta",
@@ -1597,7 +1610,7 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Article URL",
+		"string": "URL artikel",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -1801,7 +1814,7 @@
 		"string": "Pindahkan perihal"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "Perihal telah dipindahkan ke {spam}"
 	},
 	"mediaSuggestionsComponent.movedToTrash": {
 		"string": "Perihal telah dipindahkan ke {trash}"
@@ -1817,10 +1830,10 @@
 		"string": "{number} permintaan tipline di semua media"
 	},
 	"mediaSuggestionsComponent.sendItemsToSpam": {
-		"string": "Mark as spam"
+		"string": "Tandai sebagai spam"
 	},
 	"mediaSuggestionsComponent.sendItemsToTrash": {
-		"string": "Send to trash"
+		"string": "Buang ke tong sampah"
 	},
 	"mediaSuggestionsComponent.title": {
 		"string": "{total, plural, other {{current} dari # media yang disarankan}}"
@@ -2395,7 +2408,7 @@
 		"string": "Gunakan placeholder {query_date} untuk menampilkan tanggal pertanyaan asli. Gunakan {status} untuk mengomunikasikan status artikel."
 	},
 	"reportDesigner.lastPublished": {
-		"string": "Last published"
+		"string": "Terakhir diterbitkan"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Mulai buat laporan Anda untuk meninjau terlebih dahulu apa yang akan dilihat pengguna saat mereka menerimanya."
@@ -2423,7 +2436,7 @@
 		"string": "Laporan terkirim"
 	},
 	"reportDesigner.statusLabel": {
-		"string": "Status label"
+		"string": "Label status"
 	},
 	"reportDesigner.text": {
 		"string": "Teks",
@@ -2433,7 +2446,7 @@
 		"string": "Judul"
 	},
 	"reportDesigner.textUrl": {
-		"string": "Article URL",
+		"string": "URL artikel",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
@@ -3349,9 +3362,6 @@
 		"string": "Pengaturan Tipline berhasil disimpan",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
-	"smoochBotComponent.subtitle": {
-		"string": "Buat bot percakapan otomatis untuk menerima konten dari audiens Anda."
-	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
 	},
@@ -3837,7 +3847,7 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "The newsletter will be sent to {count} users on {dateTime}"
+		"string": "Buletin akan dikirim ke {count} pengguna pada {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
 		"string": "Tambah artikel",
@@ -4059,7 +4069,8 @@
 		"developer_comment": "label for create source name"
 	},
 	"spam.title": {
-		"string": "Spam"
+		"string": "Spam",
+		"developer_comment": "Spam, as in junk, unsolicited content"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "Ini akan mengubah bahasa bawaan dari {currentDefaultLanguage} ke {newDefaultLanguage}."
@@ -4137,9 +4148,6 @@
 	},
 	"statusesComponent.saved": {
 		"string": "Beberapa status berhasil disimpan"
-	},
-	"statusesComponent.subtitle": {
-		"string": "Judul status terlihat saat laporan dikirim ke pengguna."
 	},
 	"statusesComponent.title": {
 		"string": "Status dalam bahasa {languageName}",
@@ -4263,7 +4271,7 @@
 		"string": "Tugaskan"
 	},
 	"tasks.blankAnnotation": {
-		"string": "No annotation fields",
+		"string": "Tidak ada bidang anotasi",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
@@ -4405,14 +4413,56 @@
 	"teamBots.success": {
 		"string": "Pengaturan diperbarui!"
 	},
+	"teamDataComponent.averageMessagesPerDay": {
+		"string": "Average messages per day sent back and forth between users and the bot.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.claimsAnsweredWithAReport": {
+		"string": "For example, if 2 users requested the same claim and received the same report, it counts as 1.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.conversations": {
+		"string": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.currentSubscribers": {
+		"string": "Jumlah langganan buletin saat ini.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.download": {
+		"string": "Unduh CSV",
+		"developer_comment": "Label for action button displayed on workspace data report page."
+	},
 	"teamDataComponent.formLinkText": {
 		"string": "bentuk pendek ini"
 	},
-	"teamDataComponent.notSet1": {
-		"string": "Klik tombol di bawah ini untuk membuka laporan data Anda di jendela baru."
+	"teamDataComponent.newNewsletterSubscriptions": {
+		"string": "New newsletter subscriptions.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDataComponent.notSet2": {
-		"string": "Untuk meminta penyesuaian laporan data Anda, silakan hubungi dukungan."
+	"teamDataComponent.newsletterCancellations": {
+		"string": "New newsletter cancellations.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedImportedReports": {
+		"string": "Published reports imported from web sites (for all languages and platforms).",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedNativeReports": {
+		"string": "Published reports created in Check (for all languages and platforms).",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.reportsSent": {
+		"string": "Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.responseTime": {
+		"string": "Average time between a user request and a report sent.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.returningUsers": {
+		"string": "Unique users who had at least one session in the current month, and at least one session in the last previous two months.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
 		"string": "Isi {thisShortForm} untuk meminta akses ke laporan data Anda."
@@ -4420,15 +4470,25 @@
 	"teamDataComponent.set2": {
 		"string": "Laporan data Anda akan diaktifkan dalam waktu satu hari kerja."
 	},
-	"teamDataComponent.subtitle": {
-		"string": "Unduh data dan metadata dari Check. Dapatkan wawasan dan analisis tentang ruang kerja dan penggunaan Tipline."
-	},
 	"teamDataComponent.title": {
-		"string": "Data ruang kerja",
+		"string": "Data keterlibatan tipline",
 		"developer_comment": "Header for the stored data page of the current team"
 	},
-	"teamDataComponent.viewDataReport": {
-		"string": "Lihat laporan data"
+	"teamDataComponent.uniqueNewslettersSent": {
+		"string": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.uniqueUsers": {
+		"string": "Distinct users who interacted with the bot.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.uniqueUsersWhoReceivedReport": {
+		"string": "Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.validNewRequests": {
+		"string": "User requests associated with claims that are not in the trash.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.description": {
 		"string": "Deskripsi"
@@ -4623,9 +4683,6 @@
 	"teamReportComponent.signatureLabel": {
 		"string": "Tanda tangan (maksimal {max} karakter)",
 		"developer_comment": "Label for signature field in report settings"
-	},
-	"teamReportComponent.subtitle": {
-		"string": "Konten yang Anda atur di sini dapat disunting di setiap laporan individual."
 	},
 	"teamReportComponent.telegram": {
 		"string": "Nama pengguna bot Telegram"

@@ -17,7 +17,7 @@
   {
     "id": "teamDataComponent.returningUsers",
     "description": "Explanation on table header, when hovering the \"help\" icon, on data settings page",
-    "defaultMessage": "Unique users who had at least one session in the current month, and at least one session in the last previous 2 months."
+    "defaultMessage": "Unique users who had at least one session in the current month, and at least one session in the last previous two months."
   },
   {
     "id": "teamDataComponent.validNewRequests",

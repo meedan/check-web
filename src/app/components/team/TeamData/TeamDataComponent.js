@@ -68,7 +68,7 @@ const messages = defineMessages({
   },
   returningUsers: {
     id: 'teamDataComponent.returningUsers',
-    defaultMessage: 'Unique users who had at least one session in the current month, and at least one session in the last previous 2 months.',
+    defaultMessage: 'Unique users who had at least one session in the current month, and at least one session in the last previous two months.',
     description: messagesDescription,
   },
   validNewRequests: {
