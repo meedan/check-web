@@ -75,7 +75,7 @@ class MediaRequestsComponent extends Component {
               id="mediaRequests.thisRequests"
               defaultMessage="{count, plural, one {# request} other {# requests}}"
               values={{
-                count: this.props.media.requests_count,
+                count: this.props.media.demand,
               }}
             />
           }
@@ -170,7 +170,7 @@ const MediaOwnRequestsContainer = Relay.createContainer(withStyles(styles)(withP
         dbid
         archived
         pusher_channel
-        requests_count
+        demand
         media {
           file_path
         }
