@@ -37,7 +37,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
   const handleGoToReport = () => {
-    if (!claimDescription) {
+    if (!claimDescription || claimDescription.description.length === 0 || claimDescription.description.trim().length === 0) {
       setShowDialog(true);
     } else {
       window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
@@ -261,6 +261,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="mediaFactCheck.claimMissingDesc"
+                data-testid="media-fact-check__confirm-button-label"
                 defaultMessage="You must add a claim to access the fact-check report."
                 description="Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
               />
