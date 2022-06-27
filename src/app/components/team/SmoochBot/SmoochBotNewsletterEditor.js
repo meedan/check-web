@@ -349,9 +349,9 @@ const SmoochBotNewsletterEditor = ({
           fullWidth
         />
         <Typography variant="caption">
-          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder \u007Bchannel\u007D to insert the name of the messaging service automatically." />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder {channel} to insert the name of the messaging service automatically." />
           <br />
-          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder \u007Bdate\u007D to insert the date the newsletter is sent automatically." />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder {date} to insert the date the newsletter is sent automatically." />
         </Typography>
       </Box>
       <Box mb={3} mt={2}>
