@@ -130,4 +130,10 @@ describe('<MediaFactCheck>', () => {
     expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(1);
     expect(wrapper.find('[data-testid="media-fact-check__confirm-button-label"]').text()).toContain('You must add a claim to access the fact-check report');
   });
+
+  it('should not render missing claim dialog when clicking the report button with a claim that have description', () => {
+    const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia3} />);
+    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
+    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(0);
+  });
 });

@@ -37,7 +37,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
   const handleGoToReport = () => {
-    if (!claimDescription || claimDescription.description.length === 0 || claimDescription.description.trim().length === 0) {
+    if (!claimDescription || claimDescription.description.trim().length === 0) {
       setShowDialog(true);
     } else {
       window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
