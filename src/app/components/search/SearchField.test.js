@@ -10,15 +10,14 @@ describe('<SearchResults />', () => {
     const wrapper = mountWithIntl(<SearchField
       isActive
       inputBaseProps={{
-        onBlur: onBlur
+        onBlur,
       }}
-      endAdorment = {node}
+      endAdorment={node}
       showExpand
       setParentSearchText={() => {}}
     />);
     wrapper.find('#search-input').hostNodes().simulate('click');
-    wrapper.find('#search-input').hostNodes().simulate('keypress', {key: 'Enter'})
+    wrapper.find('#search-input').hostNodes().simulate('keypress', { key: 'Enter' });
     expect(onBlur).toHaveBeenCalled();
   });
-
 });
