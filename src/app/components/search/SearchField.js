@@ -105,7 +105,9 @@ const SearchField = ({
               if (e.key === 'Enter') {
                 setParentSearchText(e.target.value);
                 setLocalSearchText(e.target.value);
-                inputBaseProps.onBlur(e);
+                if (inputBaseProps.onBlur) {
+                  inputBaseProps.onBlur(e);
+                }
               }
             }}
             value={localSearchText}
