@@ -3878,11 +3878,11 @@
 		"string": "الجمعة"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "يُرجى استخدام النص النائب \\{channel\\} لإدخال اسم خدمة التواصل النصي تلقائيا.",
+		"string": "يُرجى استخدام النص النائب {channel} لإدخال اسم خدمة التواصل النصي تلقائيا.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "يُرجى استخدام النص النائب \\{date\\} لإدخال تاريخ إرسال الرسالة الإخبارية تلقائيا.",
+		"string": "يُرجى استخدام النص النائب {date} لإدخال تاريخ إرسال الرسالة الإخبارية تلقائيا.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -4418,7 +4418,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "For example, if 2 users requested the same claim and received the same report, it counts as 1.",
+		"string": "For example, if two users requested the same claim and received the same report, it counts as one.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
@@ -4453,7 +4453,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2.",
+		"string": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
@@ -4479,11 +4479,11 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
-		"string": "Distinct users who interacted with the bot.",
+		"string": "Unique users who interacted with the bot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1.",
+		"string": "Unique users who received a report. For example, if one user received three reports, it counts as one.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
