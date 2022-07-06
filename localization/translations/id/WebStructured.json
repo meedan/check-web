@@ -3878,11 +3878,11 @@
 		"string": "Jumat"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Gunakan placeholder \\{channel\\} untuk memasukkan nama layanan olah pesan secara otomatis.",
+		"string": "Gunakan placeholder {channel} untuk memasukkan nama layanan olah pesan secara otomatis.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Gunakan placeholder \\{date\\} untuk memasukkan tanggal buletin dikirim secara otomatis.",
+		"string": "Gunakan placeholder {date} untuk memasukkan tanggal buletin yang dikirim secara otomatis.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -4414,15 +4414,15 @@
 		"string": "Pengaturan diperbarui!"
 	},
 	"teamDataComponent.averageMessagesPerDay": {
-		"string": "Average messages per day sent back and forth between users and the bot.",
+		"string": "Pesan rata-rata per hari yang dikirim bolak-balik antara pengguna dan bot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "For example, if 2 users requested the same claim and received the same report, it counts as 1.",
+		"string": "For example, if two users requested the same claim and received the same report, it counts as one.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
-		"string": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity.",
+		"string": "Dimulai saat pengguna berinteraksi dengan bot dan berakhir setelah 15 menit tidak aktif.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.currentSubscribers": {
@@ -4437,31 +4437,31 @@
 		"string": "bentuk pendek ini"
 	},
 	"teamDataComponent.newNewsletterSubscriptions": {
-		"string": "New newsletter subscriptions.",
+		"string": "Langganan buletin baru.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newsletterCancellations": {
-		"string": "New newsletter cancellations.",
+		"string": "Pembatalan buletin baru.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedImportedReports": {
-		"string": "Published reports imported from web sites (for all languages and platforms).",
+		"string": "Laporan diterbitkan yang diimpor dari situs web (untuk semua bahasa dan platform).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedNativeReports": {
-		"string": "Published reports created in Check (for all languages and platforms).",
+		"string": "Laporan diterbitkan yang dibuat di Check (untuk semua bahasa dan platform).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2.",
+		"string": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
-		"string": "Average time between a user request and a report sent.",
+		"string": "Waktu rata-rata antara permintaan pengguna dan laporan yang dikirim.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.returningUsers": {
-		"string": "Unique users who had at least one session in the current month, and at least one session in the last previous two months.",
+		"string": "Pengguna unik yang memiliki setidaknya satu sesi dalam bulan ini, dan setidaknya satu sesi dalam dua bulan terakhir.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
@@ -4475,19 +4475,19 @@
 		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.uniqueNewslettersSent": {
-		"string": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.",
+		"string": "Buletin unik yang dikirim, untuk semua platform. Informasi ini mulai dikumpulkan pada 1 Juni 2022.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
-		"string": "Distinct users who interacted with the bot.",
+		"string": "Unique users who interacted with the bot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1.",
+		"string": "Unique users who received a report. For example, if one user received three reports, it counts as one.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
-		"string": "User requests associated with claims that are not in the trash.",
+		"string": "Permintaan pengguna terkait dengan klaim yang tidak ada di tempat sampah.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.description": {
