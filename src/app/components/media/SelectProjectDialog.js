@@ -56,17 +56,18 @@ function SelectProjectDialog({
 
   // Add "empty folders" to empty collections, so they appear in the drop-down as well
   projectGroups.forEach((pg) => {
-    if (!projects.find(p => p.project_group_id === pg.dbid)) {
+    if (projects.length > 0 && !projects.find(p => p.project_group_id === pg.dbid)) {
       projects.push({ projectGroupTitle: pg.title, title: intl.formatMessage(messages.noFolders) });
     }
   });
 
   // Get a default folder
-  const defaultFolder = projects.filter(({ dbid }) => dbid === team.default_folder.dbid)[0];
+  // The value returned can be undefined if workspace default folder has privacy settings on
+  const defaultFolder = team.default_folder ? projects.filter(({ dbid }) => dbid === team.default_folder.dbid)[0] : null;
 
   // Lastly, sort options by title and exclude some options and defaultFolder to add it to the top of the list
   const filteredProjects = projects
-    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid) && dbid !== defaultFolder.dbid)
+    .filter(({ dbid }) => team.default_folder && !excludeProjectDbids.includes(dbid) &&  dbid !== team.default_folder.dbid)
     .sort((a, b) => {
       // First sort by collection
       if (a.projectGroupTitle !== b.projectGroupTitle) {
@@ -76,11 +77,11 @@ function SelectProjectDialog({
       return a.title.localeCompare(b.title);
     });
 
-  const filteredProjectsOptions = [defaultFolder, ...filteredProjects];
-  const [value, setValue] = React.useState(defaultFolder);
+  const filteredProjectsOptions = defaultFolder ? [defaultFolder, ...filteredProjects] : [...filteredProjects];
+  const [value, setValue] = React.useState(defaultFolder || null);
 
   const handleSubmit = React.useCallback(() => {
-    setValue(defaultFolder);
+    setValue(defaultFolder || null);
     onSubmit(value);
   }, [onSubmit, value]);
 
@@ -222,3 +223,6 @@ const SelectProjectDialogRenderer = (parentProps) => {
 };
 
 export default injectIntl(SelectProjectDialogRenderer);
+
+// eslint-disable-next-line import/no-unused-modules
+export { SelectProjectDialog as SelectProjectDialogTest };
