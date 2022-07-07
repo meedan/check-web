@@ -1,4 +1,4 @@
-# Description
+## Description
 
 Please include a summary of the change and which issue is fixed. Please also include relevant motivation and context.
 
@@ -10,18 +10,18 @@ References: TICKET-ID-1, TICKET-ID-2, …, TICKET-ID-N
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
 
-# How has this been tested?
+## How has this been tested?
 
 Please describe the tests that you ran to verify your changes. Provide instructions so we can verify the changes. Please describe whether or not you implemented automated tests.
 
-# Things to pay attention to during code review
+## Things to pay attention to during code review
 
 Please describe parts of the change that require extra attention during code review, for example:
 
 - File FFFF, line LL: This refactoring does this and this. Is it consistent with how it’s implemented elsewhere?
 - Etc.
 
-# Checklist
+## Checklist
 
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code in hard-to-understand areas, if any
