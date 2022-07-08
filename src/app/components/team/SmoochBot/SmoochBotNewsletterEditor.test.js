@@ -29,7 +29,6 @@ describe('<SmoochBotNewsletterEditor />', () => {
       newsletter={{
         smooch_newsletter_feed_url: '',
         smooch_newsletter_day: 'thursday',
-        smooch_newsletter_introduction: 'Hello',
         smooch_newsletter_time: '8',
         smooch_newsletter_timezone: 'America/Tijuana (GMT-07:00)',
         smooch_newsletter_body: 'Test',
