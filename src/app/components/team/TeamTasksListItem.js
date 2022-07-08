@@ -12,6 +12,7 @@ import IconFileUpload from '@material-ui/icons/CloudUpload';
 import LinkOutlinedIcon from '@material-ui/icons/LinkOutlined';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import TeamTaskCard from './TeamTaskCard';
+import TeamTaskContainer from './TeamTaskContainer';
 import Reorder from '../layout/Reorder';
 import ConditionalField from '../task/ConditionalField';
 import EditTaskDialog from '../task/EditTaskDialog';
@@ -37,7 +38,6 @@ function submitMoveTeamTaskUp({
                   label
                   order
                   tasks_count
-                  tasks_with_answers_count
                 }
               }
             }
@@ -76,7 +76,6 @@ function submitMoveTeamTaskDown({
                   label
                   order
                   tasks_count
-                  tasks_with_answers_count
                 }
               }
             }
@@ -115,7 +114,6 @@ function submitTask({
                   label
                   order
                   tasks_count
-                  tasks_with_answers_count
                 }
               }
             }
@@ -330,30 +328,37 @@ class TeamTasksListItem extends React.Component {
               onChange={this.handleConditionChange}
             />
           </TeamTaskCard>
-          <TeamTaskConfirmDialog
-            projects={projects}
-            selectedProjects={selectedProjects}
-            editedTask={this.state.editedTask}
-            editLabelOrDescription={this.state.editLabelOrDescription}
-            open={this.state.dialogOpen}
-            task={task}
-            action={this.state.action}
-            handleClose={this.handleCloseDialog}
-            handleConfirm={this.handleConfirmDialog}
-            message={this.state.message}
-          />
+          { this.state.dialogOpen ?
+            <TeamTaskContainer task={task} team={this.props.team}>
+              {teamTask => (
+                <TeamTaskConfirmDialog
+                  projects={projects}
+                  selectedProjects={selectedProjects}
+                  editedTask={this.state.editedTask}
+                  editLabelOrDescription={this.state.editLabelOrDescription}
+                  task={teamTask}
+                  open={this.state.dialogOpen}
+                  action={this.state.action}
+                  handleClose={this.handleCloseDialog}
+                  handleConfirm={this.handleConfirmDialog}
+                  message={this.state.message}
+                />
+              )}
+            </TeamTaskContainer> : null }
           { this.state.isEditing ?
-            <EditTaskDialog
-              task={task}
-              message={this.state.message}
-              taskType={task.type}
-              onDismiss={this.handleCloseEdit}
-              onSubmit={this.handleEdit}
-              projects={projects}
-              isTeamTask
-            />
-            : null
-          }
+            <TeamTaskContainer task={task} team={this.props.team}>
+              {teamTask => (
+                <EditTaskDialog
+                  message={this.state.message}
+                  taskType={teamTask.type}
+                  onDismiss={this.handleCloseEdit}
+                  onSubmit={this.handleEdit}
+                  projects={projects}
+                  task={teamTask}
+                  isTeamTask
+                />
+              )}
+            </TeamTaskContainer> : null }
         </Box>
       </React.Fragment>
     );
@@ -372,7 +377,6 @@ TeamTasksListItem.propTypes = {
     json_options: PropTypes.string,
     json_project_ids: PropTypes.string,
     json_schema: PropTypes.string,
-    tasks_with_answers_count: PropTypes.number,
     tasks_count: PropTypes.number,
   }).isRequired,
   tasks: PropTypes.array.isRequired,
