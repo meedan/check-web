@@ -146,6 +146,9 @@ const SmoochBotNewsletterEditor = ({
   } else {
     charactersCount += body.length;
   }
+  if (introduction && (rssPreview || body)) {
+    charactersCount += 2; // Two line breaks are added to separate the introduction from the body
+  }
 
   const handleError = () => {
     setLoading(false);
