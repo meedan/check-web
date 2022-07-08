@@ -20,8 +20,8 @@
     "defaultMessage": "Create dynamic forms to annotate sources by adding fields."
   },
   {
-    "id": "teamMetadataRender.blankMetadata",
-    "description": "Text for empty metadata",
-    "defaultMessage": "No metadata fields"
+    "id": "teamMetadataRender.blankAnnotations",
+    "description": "Text for empty annotations",
+    "defaultMessage": "No annotation fields"
   }
 ]

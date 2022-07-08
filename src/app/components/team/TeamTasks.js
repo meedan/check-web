@@ -31,6 +31,7 @@ const TeamTasks = ({ team }) => {
           team(slug: $slug) {
             id
             dbid
+            slug
             team_tasks(fieldset: "metadata", first: 10000) {
               edges {
                 node {
@@ -47,7 +48,6 @@ const TeamTasks = ({ team }) => {
                   required
                   conditional_info
                   tasks_count
-                  tasks_with_answers_count
                 }
               }
             }
