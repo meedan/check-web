@@ -111,9 +111,9 @@ function TeamMetadataRender({ team, about }) {
               /> :
               <BlankState>
                 <FormattedMessage
-                  id="teamMetadataRender.blankMetadata"
-                  defaultMessage="No metadata fields"
-                  description="Text for empty metadata"
+                  id="teamMetadataRender.blankAnnotations"
+                  defaultMessage="No annotation fields"
+                  description="Text for empty annotations"
                 />
               </BlankState>
             }
