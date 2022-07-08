@@ -64,13 +64,13 @@ shared_examples 'source' do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__metadata-tab').click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'annotation')]", :xpath)
     wait_for_selector('.metadata-tab__source').click
     # Create source annotation
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
+    expect(@driver.page_source.include?('No annotation fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
     create_annotation(tab_class: '.metadata-tab__source', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my source annotation')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
+    expect(@driver.page_source.include?('No annotation fields')).to be(false)
     expect(@driver.page_source.include?('my source annotation')).to be(true)
     @driver.navigate.to "#{@config['self_url']}/#{team}/all-items"
     wait_for_selector('#search-input')
