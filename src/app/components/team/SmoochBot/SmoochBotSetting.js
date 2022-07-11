@@ -97,7 +97,7 @@ const SmoochBotSetting = (props) => {
     inputProps.min = 1;
   }
 
-  if (field === 'smooch_urls_to_ignore' || /^smooch_template_newsletter_header_/.test(field)) {
+  if (field === 'smooch_urls_to_ignore' || /^smooch_template_newsletter_header_/.test(field) || field === 'turnio_cacert') {
     Object.assign(otherProps, {
       rows: 5,
       rowsMax: Infinity,
