@@ -5,7 +5,6 @@ import ReportDesignerTopBar from './ReportDesignerTopBar';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 describe('<ReportDesignerComponent />', () => {
-
   const props = {
     media: {
       permissions: '{"update ProjectMedia":true}',
