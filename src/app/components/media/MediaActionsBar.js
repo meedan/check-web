@@ -294,8 +294,11 @@ class MediaActionsBarComponent extends Component {
           {isParent ?
             <MediaStatus
               media={media}
-              readonly={media.archived > CheckArchivedFlags.NONE
-                || media.last_status_obj.locked || published}
+              readonly={(
+                (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
+                media.last_status_obj.locked ||
+                published
+              )}
             /> : null
           }
           <MediaActionsMenuButton
@@ -519,4 +522,5 @@ class MediaActionsBar extends React.PureComponent {
   }
 }
 
+export { MediaActionsBarComponent };
 export default MediaActionsBar;
