@@ -31,4 +31,5 @@ Please describe parts of the change that require extra attention during code rev
 - [ ] If I implemented any new components, they are self-contained, their `propTypes` are declared and they use React Hooks and, if data-fetching is required, they use Relay Modern with fragment containers
 - [ ] I added a `description` prop to all `<FormattedMessage />` components I added
 - [ ] To the best of my knowledge, any new styles are applied according to the design system
+- [ ] If I added a new external dependency, I included a rationale for doing so and an estimate of the change in bundle size (e.g., checked in https://bundlephobia.com/)
 
