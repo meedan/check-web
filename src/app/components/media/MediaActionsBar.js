@@ -521,6 +521,6 @@ class MediaActionsBar extends React.PureComponent {
     );
   }
 }
-
+// eslint-disable-next-line import/no-unused-modules
 export { MediaActionsBarComponent };
 export default MediaActionsBar;

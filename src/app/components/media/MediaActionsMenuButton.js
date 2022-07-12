@@ -174,6 +174,7 @@ class MediaActionsMenuButton extends React.PureComponent {
   }
 }
 
+// eslint-disable-next-line import/no-unused-modules
 export { MediaActionsMenuButton };
 export default createFragmentContainer(MediaActionsMenuButton, {
   projectMedia: graphql`
