@@ -28,6 +28,26 @@ describe('<MediaActionsBarComponent />', () => {
     },
   };
 
+  const team2 = {
+    slug: 'test',
+    verification_statuses: {
+      label: 'Status',
+      default: 'undetermined',
+      active: 'in_progress',
+      statuses: [
+        {
+          description: 'Default, just added, no work has started',
+          id: 'undetermined',
+          label: 'Unstarted',
+          style: {
+            backgroundColor: '#518FFF',
+            color: '#518FFF',
+          },
+        },
+      ],
+    },
+  };
+
   const classes = {};
 
   it('should allow status change for Unconfirmed items', () => {
@@ -91,5 +111,39 @@ describe('<MediaActionsBarComponent />', () => {
     const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
     expect(wrapper.find(MediaStatus)).toHaveLength(1);
     expect(wrapper.find(MediaStatus).props().readonly).toEqual(true);
+  });
+
+  it('should render without errors even if do not have team users', () => {
+    const media = {
+      team: { team2 },
+      archived: CheckArchivedFlags.UNCONFIRMED,
+      last_status_obj: {
+        locked: false,
+        assignments: {
+          edges: [],
+        },
+      },
+      dynamic_annotation_report_design: {
+        data: {
+          state: 'not-published', // As opposed to 'published' for this matter. Not necessarily an actual possible value.
+        },
+      },
+    };
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    expect(wrapper.find('.project__assignment-menu')).toHaveLength(1);
+  });
+
+  it('should render without errors even if media do not have assignments', () => {
+    const media = {
+      team: { team2 },
+      archived: CheckArchivedFlags.UNCONFIRMED,
+      dynamic_annotation_report_design: {
+        data: {
+          state: 'not-published', // As opposed to 'published' for this matter. Not necessarily an actual possible value.
+        },
+      },
+    };
+    const wrapper = shallowWithIntl(<MediaActionsBarComponent media={media} classes={classes} setFlashMessage={() => {}} />);
+    expect(wrapper.find('.project__assignment-menu')).toHaveLength(1);
   });
 });
