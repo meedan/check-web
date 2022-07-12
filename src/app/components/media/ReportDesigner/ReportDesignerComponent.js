@@ -243,7 +243,7 @@ const ReportDesignerComponent = (props) => {
         state={data.state}
         readOnly={
           !can(media.permissions, 'update ProjectMedia') ||
-          media.archived > CheckArchivedFlags.NONE ||
+          (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
           pending
         }
         onStatusChange={handleStatusChange}
