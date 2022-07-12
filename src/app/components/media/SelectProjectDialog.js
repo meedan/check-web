@@ -67,7 +67,7 @@ function SelectProjectDialog({
 
   // Lastly, sort options by title and exclude some options and defaultFolder to add it to the top of the list
   const filteredProjects = projects
-    .filter(({ dbid }) => team.default_folder && !excludeProjectDbids.includes(dbid) &&  dbid !== team.default_folder.dbid)
+    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid) &&  dbid !== team.default_folder?.dbid)
     .sort((a, b) => {
       // First sort by collection
       if (a.projectGroupTitle !== b.projectGroupTitle) {
