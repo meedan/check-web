@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
@@ -242,7 +243,7 @@ const ReportDesignerComponent = (props) => {
         state={data.state}
         readOnly={
           !can(media.permissions, 'update ProjectMedia') ||
-          media.archived > CheckArchivedFlags.NONE ||
+          (media.archived > CheckArchivedFlags.NONE && media.archived !== CheckArchivedFlags.UNCONFIRMED) ||
           pending
         }
         onStatusChange={handleStatusChange}

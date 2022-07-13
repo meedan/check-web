@@ -306,10 +306,10 @@
 		"string": "Escolha um novo idioma"
 	},
 	"annotation.addLanguage": {
-		"string": "Language {value} added by {author}"
+		"string": "Idioma {value} adicionado por {author}"
 	},
 	"annotation.addSource": {
-		"string": "Source {name} add by {author}"
+		"string": "Fonte {name} adicionada por {author}"
 	},
 	"annotation.addedComment": {
 		"string": "Nota da tarefa inserida por {author}: {title}{note}"
@@ -327,16 +327,16 @@
 		"string": "O JSON Schema da tarefa {title} foi modificado por {author}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Additional content added by {author}: {value}"
+		"string": "Conteúdo adicional adicionado por {author}: {value}"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Claim added by {author}: {value}"
+		"string": "Afirmação adicionada por {author}: {value}"
 	},
 	"annotation.createFactCheck": {
-		"string": "Fact-check title added by {author}: {value}"
+		"string": "Título da verificação de fatos adicionado por {author}: {value}"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Item created by {author}"
+		"string": "Item criado por {author}"
 	},
 	"annotation.deleteButton": {
 		"string": "Excluir"
@@ -345,7 +345,7 @@
 		"string": "Editar"
 	},
 	"annotation.editedBy": {
-		"string": "edited by",
+		"string": "editado por",
 		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
@@ -382,7 +382,7 @@
 		"string": "Campo de anotação criado por {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
+		"string": "Anotação \"{fieldLabel}\" editada por {author}: {response}"
 	},
 	"annotation.newReport": {
 		"string": "Item inserido por {author}"
@@ -394,21 +394,21 @@
 		"string": "Abrir no Slack"
 	},
 	"annotation.pausedBy": {
-		"string": "paused by",
+		"string": "suspenso por",
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "Permalink"
 	},
 	"annotation.publishedBy": {
-		"string": "published by",
+		"string": "publicado por",
 		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "Nota da tarefa excluída por {author}: {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Fact-check report {state} {author}"
+		"string": "Relatório da verificação de fatos {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "Relatório enviado em {date}"
@@ -417,10 +417,10 @@
 		"string": "Atualização de relatório enviado em {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "Match confirmed by {author}: {title}"
+		"string": "Correspondência confirmada por {author}: {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Match deleted by {author}: {title}",
+		"string": "Correspondência excluída por {author}: {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -430,19 +430,19 @@
 		"string": "Status do item bloqueado por {author}"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status changed to {status} by {author}"
+		"string": "Status modificado para {status} por {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "Status do item desbloqueado por {author}"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Match suggested by {author}: {title}"
+		"string": "Correspondência sugerida por {author}: {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Match rejected by {author}: {title}"
+		"string": "Correspondência rejeitada por {author}: {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tag #{tag} added by {author}"
+		"string": "Tag #{tag} adicionada por {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "Tarefa atribuída a {name} por {author}: {title}"
@@ -467,13 +467,13 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Additional content edited by {author}: {value}"
+		"string": "Conteúdo adicional editado por {author}: {value}"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "Claim edited by {author}: {value}"
+		"string": "Afirmação editada por {author}: {value}"
 	},
 	"annotation.updateSource": {
-		"string": "Source {name} updated by {author}"
+		"string": "Fonte {name} atualizada por {author}"
 	},
 	"annotations.loadMore": {
 		"string": "Carregar mais"
@@ -528,7 +528,7 @@
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveToSpamSuccessfully": {
-		"string": "Items moved to the Spam."
+		"string": "Os itens foram movidos para o Spam."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Itens movidos para a Lixeira."
@@ -542,22 +542,24 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.notSpam": {
-		"string": "Not Spam"
+		"string": "Não é Spam"
 	},
 	"bulkActions.restore": {
 		"string": "Restaurar da Lixeira"
 	},
 	"bulkActions.sendItemsToSpam": {
-		"string": "Mark as spam"
+		"string": "Marcar como spam"
 	},
 	"bulkActions.sendItemsToTrash": {
 		"string": "Enviar para a lixeira"
 	},
 	"bulkActions.spam": {
-		"string": "Not spam selected items and move items to another folder"
+		"string": "Marcar os itens selecionados como não spam e movê-los para outra pasta",
+		"developer_comment": "Tooltip message for button that mark items as not spam"
 	},
 	"bulkActions.trash": {
-		"string": "Restaurar itens selecionados e movê-los para outra pasta"
+		"string": "Restaurar itens selecionados e movê-los para outra pasta",
+		"developer_comment": "Tooltip message for button that restores items from Trash"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Adicione uma nota à notificação por e-mail",
@@ -663,7 +665,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
+		"string": "Houve um conflito no banco de dados. Talvez algum(a) outro(a) usuário(a) já tenha realizado esta ação. Por favor, recarregue a página.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
@@ -723,7 +725,7 @@
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"string": "Importante! As tarefas serão descontinuadas em 1º de junho de 2022. Por favor, entre em contato com o suporte se você tiver alguma dúvida sobre como substituí-las por Anotações.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
 	"checkedByTeamsCell.more": {
@@ -979,7 +981,7 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
-		"string": "Entre em contato conosco para configurar esse serviço "
+		"string": "Entre em contato conosco para configurar este serviço "
 	},
 	"fileUploadRespondTask.answerTask": {
 		"string": "Responder à tarefa"
@@ -1028,7 +1030,8 @@
 		"string": "Melhor visualizado com  <a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome para Desktop</a>."
 	},
 	"global.cancel": {
-		"string": "Cancelar"
+		"string": "Cancelar",
+		"developer_comment": "Regular Cancel action label"
 	},
 	"global.close": {
 		"string": "Fechar"
@@ -1043,7 +1046,8 @@
 		"string": "Editar"
 	},
 	"global.ok": {
-		"string": "OK"
+		"string": "OK",
+		"developer_comment": "Regular OK/confirmation label"
 	},
 	"global.save": {
 		"string": "Salvar"
@@ -1166,7 +1170,8 @@
 		"string": "Idiomas"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
+		"string": "{remaining, plural, one {(# carácter restante)} many {(# caracteres restantes)} other {(# caracteres restantes)}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
 		"string": "Solicitações"
@@ -1345,10 +1350,10 @@
 		"string": "Recarregar"
 	},
 	"mediaActions.sendToSpam": {
-		"string": "Mark as Spam"
+		"string": "Marcar como Spam"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Send to Trash"
+		"string": "Mover para Lixeira"
 	},
 	"mediaActions.tooltip": {
 		"string": "Ações dos items"
@@ -1390,16 +1395,17 @@
 		"string": "Restaurado da Lixeira, redirecionando..."
 	},
 	"mediaActionsBar.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "O item foi movido para {spam}"
 	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "O item foi movido para a {trash}"
 	},
 	"mediaActionsBar.notSpamTo": {
-		"string": "Not spam"
+		"string": "Não é spam"
 	},
 	"mediaActionsBar.publishedReport": {
-		"string": "Relatório publicado"
+		"string": "Relatório publicado",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
 	},
 	"mediaActionsBar.restoreOrConfirm": {
 		"string": "Mover para a pasta"
@@ -1408,7 +1414,8 @@
 		"string": "Restaurar da Lixeira"
 	},
 	"mediaActionsBar.unpublishedReport": {
-		"string": "Relatório não publicado"
+		"string": "Relatório não publicado",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
 	},
 	"mediaAnalysis.analysis": {
 		"string": "Análise",
@@ -1478,19 +1485,23 @@
 		"string": "Nenhuma nota"
 	},
 	"mediaComponent.annotation": {
-		"string": "Anotação"
+		"string": "Anotação",
+		"developer_comment": "Label for the Annotation tab"
 	},
 	"mediaComponent.answered": {
 		"string": "completada"
 	},
 	"mediaComponent.notes": {
-		"string": "Notas"
+		"string": "Notas",
+		"developer_comment": "Label for the Notes tab, as in text notes"
 	},
 	"mediaComponent.requests": {
-		"string": "Solicitações"
+		"string": "Solicitações",
+		"developer_comment": "Label for the Requests tab, as in requests from users"
 	},
 	"mediaComponent.source": {
-		"string": "Fonte"
+		"string": "Fonte",
+		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
 	"mediaComponent.timelineTab": {
 		"string": "Cronologia"
@@ -1507,7 +1518,8 @@
 		"developer_comment": "Title of claim context field."
 	},
 	"mediaCreatedBy.createdBy": {
-		"string": "Item criado por {name}"
+		"string": "Item criado por {name}",
+		"developer_comment": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
 	},
 	"mediaDetail.spam": {
 		"string": "Spam"
@@ -1578,7 +1590,8 @@
 		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.confirmButtonLabel": {
-		"string": "Voltar para edição"
+		"string": "Voltar para edição",
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "Verificação de fatos",
@@ -1597,7 +1610,7 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Article URL",
+		"string": "URL do artigo",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -1801,7 +1814,7 @@
 		"string": "Mover item"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "O item foi movido para {spam}"
 	},
 	"mediaSuggestionsComponent.movedToTrash": {
 		"string": "O item foi movido para a {trash}"
@@ -1817,7 +1830,7 @@
 		"string": "{number} solicitações da Tipline em todas as mídias"
 	},
 	"mediaSuggestionsComponent.sendItemsToSpam": {
-		"string": "Mark as spam"
+		"string": "Marcar como spam"
 	},
 	"mediaSuggestionsComponent.sendItemsToTrash": {
 		"string": "Enviar para a lixeira"
@@ -2395,7 +2408,7 @@
 		"string": "Use o indicador {query_date} para exibir a data da consulta original. Use {status} para comunicar o status do artigo."
 	},
 	"reportDesigner.lastPublished": {
-		"string": "Last published"
+		"string": "Última publicação"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "Comece a criar seu relatório para poder pré-visualizar o que os(as) usuários(as) verão quando o receberem."
@@ -2433,7 +2446,7 @@
 		"string": "Título"
 	},
 	"reportDesigner.textUrl": {
-		"string": "Article URL",
+		"string": "URL do artigo",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
@@ -3349,9 +3362,6 @@
 		"string": "As configurações da Tipline foram salvas com sucesso.",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
-	"smoochBotComponent.subtitle": {
-		"string": "Crie bots automáticos de diálogo para receber conteúdos do seu público."
-	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
 	},
@@ -3837,7 +3847,7 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "The newsletter will be sent to {count} users on {dateTime}"
+		"string": "O boletim informativo será enviado para {count} usuários(as) em {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
 		"string": "Adicionar artigo",
@@ -3868,11 +3878,11 @@
 		"string": "Sexta-feira"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use o indicador \\{channel\\} para inserir automaticamente o nome do serviço de mensagens.",
+		"string": "Use o indicador {channel} para inserir automaticamente o nome do serviço de mensagens.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use o indicador \\{date\\} para inserir automaticamente a data em que o boletim informativo é enviado.",
+		"string": "Use o indicador {date} para inserir automaticamente a data em que o boletim informativo é enviado.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -4059,7 +4069,8 @@
 		"developer_comment": "label for create source name"
 	},
 	"spam.title": {
-		"string": "Spam"
+		"string": "Spam",
+		"developer_comment": "Spam, as in junk, unsolicited content"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "Isto modificará o idioma padrão de {currentDefaultLanguage} para {newDefaultLanguage}."
@@ -4137,9 +4148,6 @@
 	},
 	"statusesComponent.saved": {
 		"string": "Os status foram salvos com sucesso."
-	},
-	"statusesComponent.subtitle": {
-		"string": "O título do status é exibido quando os relatório são enviados aos(às) usuários(as)."
 	},
 	"statusesComponent.title": {
 		"string": "{languageName} status",
@@ -4263,7 +4271,7 @@
 		"string": "Atribuir"
 	},
 	"tasks.blankAnnotation": {
-		"string": "No annotation fields",
+		"string": "Não há campos de anotação",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
@@ -4405,14 +4413,56 @@
 	"teamBots.success": {
 		"string": "Configurações salvas."
 	},
+	"teamDataComponent.averageMessagesPerDay": {
+		"string": "Número médio de mensagens por dia enviadas entre os usuários(as) e o bot.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.claimsAnsweredWithAReport": {
+		"string": "Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta somente como um.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.conversations": {
+		"string": "Começa quando um(a) usuário(a) interage com o bot e termina após 15 minutos de inatividade.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.currentSubscribers": {
+		"string": "Número atual de assinaturas do boletim informativo.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.download": {
+		"string": "Baixar CSV",
+		"developer_comment": "Label for action button displayed on workspace data report page."
+	},
 	"teamDataComponent.formLinkText": {
 		"string": "este breve formulário"
 	},
-	"teamDataComponent.notSet1": {
-		"string": "Clique no botão abaixo para abrir seu relatório de dados em uma nova janela."
+	"teamDataComponent.newNewsletterSubscriptions": {
+		"string": "Novas assinaturas do boletim informativo.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDataComponent.notSet2": {
-		"string": "Para solicitar qualquer personalização do seu relatório de dados, por favor, entre em contato com o suporte."
+	"teamDataComponent.newsletterCancellations": {
+		"string": "Novos cancelamentos do boletim informativo.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedImportedReports": {
+		"string": "Relatórios publicados importados de sites (para todos os idiomas e plataformas).",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedNativeReports": {
+		"string": "Relatórios publicados criados no Check (para todos os idiomas e plataformas).",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.reportsSent": {
+		"string": "Relatórios enviados em resposta a solicitações. Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta como dois.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.responseTime": {
+		"string": "Tempo médio entre uma solicitação de um(a) usuário(a) e um relatório enviado.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.returningUsers": {
+		"string": "Usuários(a) distintos(as) que tiveram pelo menos uma sessão no mês atual e pelo menos uma sessão nos dois meses anteriores.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
 		"string": "Preencha {thisShortForm} para solicitar acesso ao seu relatório de dados."
@@ -4420,15 +4470,25 @@
 	"teamDataComponent.set2": {
 		"string": "Seu relatório de dados será habilitado em até um dia útil."
 	},
-	"teamDataComponent.subtitle": {
-		"string": "Baixe os dados e metadados do Check. Tenha percepções e análises sobre o espaço de trabalho e o uso da Tipline."
-	},
 	"teamDataComponent.title": {
-		"string": "Dados do espaço de trabalho",
+		"string": "Dados de engajamento da Tipline",
 		"developer_comment": "Header for the stored data page of the current team"
 	},
-	"teamDataComponent.viewDataReport": {
-		"string": "Ver relatório de dados"
+	"teamDataComponent.uniqueNewslettersSent": {
+		"string": "Envio de boletins informativos distintos para todas as plataformas. Estas informações começaram a ser coletadas em 1º de junho de 2022.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.uniqueUsers": {
+		"string": "Usuários(as) distintos(as) que interagiram com o bot.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.uniqueUsersWhoReceivedReport": {
+		"string": "Usuários(as) distintos(as) que receberam um relatório. Por exemplo, se um(a) usuário(a) recebeu três relatórios, conta somente como um.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.validNewRequests": {
+		"string": "Solicitações de usuários(as) associadas a afirmações que não estão na lixeira.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.description": {
 		"string": "Descrição"
@@ -4574,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Configurações do espaço de trabalho"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "Não há campos de metadados",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "Não há campos de anotação",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Formulário de anotação de item",
@@ -4623,9 +4683,6 @@
 	"teamReportComponent.signatureLabel": {
 		"string": "Assinatura ({max} caracteres no máximo)",
 		"developer_comment": "Label for signature field in report settings"
-	},
-	"teamReportComponent.subtitle": {
-		"string": "O conteúdo que você definir aqui pode ser editado em todos os relatórios, individualmente."
 	},
 	"teamReportComponent.telegram": {
 		"string": "Nome de usuário do bot do Telegram"

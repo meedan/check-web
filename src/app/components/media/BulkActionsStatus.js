@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Relay from 'react-relay/classic';
@@ -46,16 +47,11 @@ const BulkActionsStatus = ({
       mutation: graphql`
         mutation BulkActionsStatusMutation($input: UpdateProjectMediasInput!) {
           updateProjectMedias(input: $input) {
-            ids
-            check_search_team {
-              medias(first: 50) {
-                edges {
-                  node {
-                    id
-                    list_columns_values
-                  }
-                }
-              }
+            updated_objects {
+              id
+              status
+              last_status
+              list_columns_values
             }
           }
         }

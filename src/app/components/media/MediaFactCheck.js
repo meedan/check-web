@@ -37,7 +37,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const readOnly = projectMedia.is_secondary || projectMedia.suggested_main_item;
 
   const handleGoToReport = () => {
-    if (!claimDescription) {
+    if (!claimDescription || claimDescription.description.trim().length === 0) {
       setShowDialog(true);
     } else {
       window.location.assign(`${window.location.pathname.replace(/\/(suggested-matches|similar-media)/, '')}/report`);
@@ -136,7 +136,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   return (
     <Box id="media__fact-check">
       <Box id="media__fact-check-title" display="flex" alignItems="center" mb={2} justifyContent="space-between">
-        <Typography className={classes.title} variant="body" component="div">
+        <Typography className={classes.title} variant="body1" component="div">
           <strong>
             <FormattedMessage id="mediaFactCheck.factCheck" defaultMessage="Fact-check" description="Title of the media fact-check section." />
           </strong>
@@ -236,11 +236,13 @@ const MediaFactCheck = ({ projectMedia }) => {
                 className="media-fact-check__published-report"
                 id="mediaActionsBar.publishedReport"
                 defaultMessage="Published report"
+                description="A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
               /> :
               <FormattedMessage
                 className="media-fact-check__unpublished-report"
                 id="mediaActionsBar.unpublishedReport"
                 defaultMessage="Unpublished report"
+                description="A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
               /> }
           </Button>
         </Box> : null }
@@ -259,6 +261,7 @@ const MediaFactCheck = ({ projectMedia }) => {
             <Typography variant="body1" component="p" paragraph>
               <FormattedMessage
                 id="mediaFactCheck.claimMissingDesc"
+                data-testid="media-fact-check__confirm-button-label"
                 defaultMessage="You must add a claim to access the fact-check report."
                 description="Content of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
               />
@@ -269,6 +272,7 @@ const MediaFactCheck = ({ projectMedia }) => {
           <FormattedMessage
             id="mediaFactCheck.confirmButtonLabel"
             defaultMessage="Go back to editing"
+            description="A label on a button that the user can press to go back to the screen where they edit a fact check."
           />
         }
         onProceed={() => { setShowDialog(false); }}

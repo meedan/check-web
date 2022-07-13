@@ -554,10 +554,12 @@
 		"string": "Tuma kwa taka"
 	},
 	"bulkActions.spam": {
-		"string": "Not spam selected items and move items to another folder"
+		"string": "Mark selected items as not spam and move them to another folder",
+		"developer_comment": "Tooltip message for button that mark items as not spam"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move items to another folder"
+		"string": "Restore selected items and move them to another folder",
+		"developer_comment": "Tooltip message for button that restores items from Trash"
 	},
 	"bulkActionsAssign.assignmentNotes": {
 		"string": "Add a note to email notification",
@@ -979,7 +981,7 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
-		"string": "Wasiliana nasi kusanidi"
+		"string": "Contact us to set up"
 	},
 	"fileUploadRespondTask.answerTask": {
 		"string": "Jibu kazi"
@@ -1028,7 +1030,8 @@
 		"string": "Inatazamwa bora na<a href=\"https://www.google.com/chrome/browser/desktop/\">Chrome ya Eneo Kazi</a>."
 	},
 	"global.cancel": {
-		"string": "Ghairi"
+		"string": "Ghairi",
+		"developer_comment": "Regular Cancel action label"
 	},
 	"global.close": {
 		"string": "Funga"
@@ -1043,7 +1046,8 @@
 		"string": "Hariri"
 	},
 	"global.ok": {
-		"string": "Sawa"
+		"string": "Sawa",
+		"developer_comment": "Regular OK/confirmation label"
 	},
 	"global.save": {
 		"string": "Hifadhi"
@@ -1166,7 +1170,8 @@
 		"string": "Lugha"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}"
+		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}",
+		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
 		"string": "Maombi"
@@ -1399,7 +1404,8 @@
 		"string": "Not spam"
 	},
 	"mediaActionsBar.publishedReport": {
-		"string": "Ripoti iliyochapishwa"
+		"string": "Ripoti iliyochapishwa",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state."
 	},
 	"mediaActionsBar.restoreOrConfirm": {
 		"string": "Move to folder"
@@ -1408,7 +1414,8 @@
 		"string": "Rejesha kutoka kwa taka "
 	},
 	"mediaActionsBar.unpublishedReport": {
-		"string": "Ripoti isiyochapishwa"
+		"string": "Ripoti isiyochapishwa",
+		"developer_comment": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state."
 	},
 	"mediaAnalysis.analysis": {
 		"string": "Uchambuzi",
@@ -1478,19 +1485,23 @@
 		"string": "Hakuna kidokezo"
 	},
 	"mediaComponent.annotation": {
-		"string": "Annotation"
+		"string": "Annotation",
+		"developer_comment": "Label for the Annotation tab"
 	},
 	"mediaComponent.answered": {
 		"string": "imekamilika"
 	},
 	"mediaComponent.notes": {
-		"string": "Vidokezo"
+		"string": "Vidokezo",
+		"developer_comment": "Label for the Notes tab, as in text notes"
 	},
 	"mediaComponent.requests": {
-		"string": "Maombi"
+		"string": "Maombi",
+		"developer_comment": "Label for the Requests tab, as in requests from users"
 	},
 	"mediaComponent.source": {
-		"string": "Chanzo"
+		"string": "Chanzo",
+		"developer_comment": "Label for the Source tab, as in source of the information"
 	},
 	"mediaComponent.timelineTab": {
 		"string": "Kalenda ya matukio"
@@ -1507,7 +1518,8 @@
 		"developer_comment": "Title of claim context field."
 	},
 	"mediaCreatedBy.createdBy": {
-		"string": "Item created by {name}"
+		"string": "Item created by {name}",
+		"developer_comment": "A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
 	},
 	"mediaDetail.spam": {
 		"string": "Barua taka"
@@ -1578,7 +1590,8 @@
 		"developer_comment": "Title of a dialog that is displayed when user attempts to access a report from a fact-check but there is no claim yet"
 	},
 	"mediaFactCheck.confirmButtonLabel": {
-		"string": "Go back to editing"
+		"string": "Go back to editing",
+		"developer_comment": "A label on a button that the user can press to go back to the screen where they edit a fact check."
 	},
 	"mediaFactCheck.factCheck": {
 		"string": "Fact-check",
@@ -3349,9 +3362,6 @@
 		"string": "Tipline settings saved successfully",
 		"developer_comment": "Banner displayed when tipline settings are saved successfully"
 	},
-	"smoochBotComponent.subtitle": {
-		"string": "Unda roboti za mazungumzo za kiotomatiki kupokea yaliyomo kutoka kwa hadhira yako."
-	},
 	"smoochBotComponent.title": {
 		"string": "Tipline"
 	},
@@ -3868,11 +3878,11 @@
 		"string": "Friday"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Use the placeholder \\{channel\\} to insert the name of the messaging service automatically.",
+		"string": "Use the placeholder {channel} to insert the name of the messaging service automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Use the placeholder \\{date\\} to insert the date the newsletter is sent automatically.",
+		"string": "Use the placeholder {date} to insert the date the newsletter is sent automatically.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -4059,7 +4069,8 @@
 		"developer_comment": "label for create source name"
 	},
 	"spam.title": {
-		"string": "Barua taka"
+		"string": "Barua taka",
+		"developer_comment": "Spam, as in junk, unsolicited content"
 	},
 	"statusListItem.confirmDefaultBody1": {
 		"string": "This will change the default language from {currentDefaultLanguage} to {newDefaultLanguage}."
@@ -4137,9 +4148,6 @@
 	},
 	"statusesComponent.saved": {
 		"string": "Statuses saved successfully"
-	},
-	"statusesComponent.subtitle": {
-		"string": "Kichwa cha hali kinaonekana ripoti zinapotumwa kwa watumiaji."
 	},
 	"statusesComponent.title": {
 		"string": "{languageName} hadhi",
@@ -4405,14 +4413,56 @@
 	"teamBots.success": {
 		"string": "Mipangilio imesasishwa!"
 	},
+	"teamDataComponent.averageMessagesPerDay": {
+		"string": "Average messages per day sent back and forth between users and the bot.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.claimsAnsweredWithAReport": {
+		"string": "For example, if two users requested the same claim and received the same report, it counts as one.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.conversations": {
+		"string": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.currentSubscribers": {
+		"string": "Current number of newsletter subscriptions.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.download": {
+		"string": "Download CSV",
+		"developer_comment": "Label for action button displayed on workspace data report page."
+	},
 	"teamDataComponent.formLinkText": {
 		"string": "this short form"
 	},
-	"teamDataComponent.notSet1": {
-		"string": "Click the button below to open your data report in a new window."
+	"teamDataComponent.newNewsletterSubscriptions": {
+		"string": "New newsletter subscriptions.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
-	"teamDataComponent.notSet2": {
-		"string": "To request any customization of your data report, please reach out to support."
+	"teamDataComponent.newsletterCancellations": {
+		"string": "New newsletter cancellations.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedImportedReports": {
+		"string": "Published reports imported from web sites (for all languages and platforms).",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.publishedNativeReports": {
+		"string": "Published reports created in Check (for all languages and platforms).",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.reportsSent": {
+		"string": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.responseTime": {
+		"string": "Average time between a user request and a report sent.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.returningUsers": {
+		"string": "Unique users who had at least one session in the current month, and at least one session in the last previous two months.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
 		"string": "Fill {thisShortForm} to request access to your data report."
@@ -4420,15 +4470,25 @@
 	"teamDataComponent.set2": {
 		"string": "Your data report will be enabled within one business day."
 	},
-	"teamDataComponent.subtitle": {
-		"string": "Download data and metadata from Check. Get insight and analysis about workspace and tipline usage."
-	},
 	"teamDataComponent.title": {
-		"string": "Workspace data",
+		"string": "Tipline engagement data",
 		"developer_comment": "Header for the stored data page of the current team"
 	},
-	"teamDataComponent.viewDataReport": {
-		"string": "View data report"
+	"teamDataComponent.uniqueNewslettersSent": {
+		"string": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.uniqueUsers": {
+		"string": "Unique users who interacted with the bot.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.uniqueUsersWhoReceivedReport": {
+		"string": "Unique users who received a report. For example, if one user received three reports, it counts as one.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
+	},
+	"teamDataComponent.validNewRequests": {
+		"string": "User requests associated with claims that are not in the trash.",
+		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.description": {
 		"string": "Maelezo"
@@ -4574,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Mipangilio ya eneo la kazi"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "Hakuna sehemu za metadata",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "No annotation fields",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Item annotation form",
@@ -4623,9 +4683,6 @@
 	"teamReportComponent.signatureLabel": {
 		"string": "Signature ({max} characters max)",
 		"developer_comment": "Label for signature field in report settings"
-	},
-	"teamReportComponent.subtitle": {
-		"string": "Yaliyomo unayoweka hapa yanaweza kuhaririwa katika kila ripoti ya kibinafsi."
 	},
 	"teamReportComponent.telegram": {
 		"string": "Telegram bot username"

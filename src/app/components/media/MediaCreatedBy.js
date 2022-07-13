@@ -54,6 +54,7 @@ const MediaCreatedBy = ({ projectMedia, intl }) => {
         values={{
           name: showUserName ? <a href={`/check/user/${userId}`}>{creatorName}</a> : formattedChannelName,
         }}
+        description="A text field that indicates who the original author of a claim is. The {name} field will render the display name of the user who created the item."
       />
     </Typography>
   );

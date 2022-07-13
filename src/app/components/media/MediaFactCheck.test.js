@@ -50,6 +50,36 @@ const projectMedia3 = {
   report: { data: { state: 'unpublished' } },
 };
 
+const projectMedia4 = {
+  team: { smooch_bot: { bla: 1 } },
+  permissions,
+  claim_description: {
+    description: '',
+    fact_check: {
+      title: 'title',
+      url: 'url',
+      summary: 'summary',
+      user: { name: 'Loren User test' },
+    },
+  },
+  report: { data: { state: 'unpublished' } },
+};
+
+const projectMedia5 = {
+  team: { smooch_bot: { bla: 1 } },
+  permissions,
+  claim_description: {
+    description: '     ',
+    fact_check: {
+      title: 'title',
+      url: 'url',
+      summary: 'summary',
+      user: { name: 'Loren User test' },
+    },
+  },
+  report: { data: { state: 'unpublished' } },
+};
+
 describe('<MediaFactCheck>', () => {
   it('should render fact check input fields', () => {
     const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia} />);
@@ -83,5 +113,27 @@ describe('<MediaFactCheck>', () => {
     expect(wrapper.find('.media-fact-check__saved-by').find('span').first().text()).toContain('saved by Loren User test');
     expect(wrapper.html()).toMatch('saved by Loren User test');
     expect(wrapper.find('time').text()).toContain('May 26, 2022');
+  });
+
+  it('should render missing claim dialog when clicking the report button with a claim with empty description', () => {
+    const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia4} />);
+    expect(wrapper.find('.media-fact-check__unpublished-report').text()).toEqual('Unpublished report');
+    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
+    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('[data-testid="media-fact-check__confirm-button-label"]').text()).toContain('You must add a claim to access the fact-check report');
+  });
+
+  it('should render missing claim dialog when clicking the report button with a claim with blank spaces description', () => {
+    const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia5} />);
+    expect(wrapper.find('.media-fact-check__unpublished-report').text()).toEqual('Unpublished report');
+    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
+    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('[data-testid="media-fact-check__confirm-button-label"]').text()).toContain('You must add a claim to access the fact-check report');
+  });
+
+  it('should not render missing claim dialog when clicking the report button with a claim that have description', () => {
+    const wrapper = mountWithIntl(<MediaFactCheck projectMedia={projectMedia3} />);
+    wrapper.find('.media-fact-check__report-designer').hostNodes().simulate('click');
+    expect(wrapper.find('#confirm-dialog__confirm-action-button').hostNodes()).toHaveLength(0);
   });
 });

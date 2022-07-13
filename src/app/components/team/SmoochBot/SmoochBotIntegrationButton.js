@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -87,6 +88,7 @@ const SmoochBotIntegrationButton = ({
   permanentDisconnection,
   skipUrlConfirmation,
   helpUrl,
+  readOnly,
   intl,
   setFlashMessage,
 }) => {
@@ -237,27 +239,28 @@ const SmoochBotIntegrationButton = ({
           </Box>
         }
         endIcon={
-          <Typography
-            variant="caption"
-            className={[
-              classes.smoochBotIntegrationButtonFlag,
-              online ? classes.smoochBotIntegrationButtonConnected : classes.smoochBotIntegrationButtonDisconnected,
-            ].join(' ')}
-          >
-            { online ?
-              <FormattedMessage
-                id="smoochBotIntegrationButton.online"
-                defaultMessage="Online"
-              /> :
-              <FormattedMessage
-                id="smoochBotIntegrationButton.connect"
-                defaultMessage="Connect"
-              /> }
-          </Typography>
+          (!readOnly || online) ?
+            <Typography
+              variant="caption"
+              className={[
+                classes.smoochBotIntegrationButtonFlag,
+                online ? classes.smoochBotIntegrationButtonConnected : classes.smoochBotIntegrationButtonDisconnected,
+              ].join(' ')}
+            >
+              { online ?
+                <FormattedMessage
+                  id="smoochBotIntegrationButton.online"
+                  defaultMessage="Online"
+                /> :
+                <FormattedMessage
+                  id="smoochBotIntegrationButton.connect"
+                  defaultMessage="Connect"
+                /> }
+            </Typography> : null
         }
         onClick={handleClick}
         className={classes.smoochBotIntegrationButton}
-        disabled={disabled}
+        disabled={disabled || (readOnly && !online)}
       >
         <Box className={classes.smoochBotIntegrationButtonLabel}>
           {label}
@@ -294,6 +297,7 @@ const SmoochBotIntegrationButton = ({
         )}
         proceedLabel={<FormattedMessage id="smoochBotIntegrationButton.disconnect" defaultMessage="Disconnect from this account" />}
         onProceed={() => { setOpenConfirmDialog(true); }}
+        proceedDisabled={readOnly}
         cancelLabel={<FormattedMessage id="smoochBotIntegrationButton.cancel" defaultMessage="Cancel" />}
         onCancel={() => { setOpenInfoDialog(false); }}
       />
@@ -405,6 +409,7 @@ SmoochBotIntegrationButton.defaultProps = {
   info: null,
   permanentDisconnection: false,
   skipUrlConfirmation: false,
+  readOnly: false,
 };
 
 SmoochBotIntegrationButton.propTypes = {
@@ -425,6 +430,7 @@ SmoochBotIntegrationButton.propTypes = {
   permanentDisconnection: PropTypes.bool,
   helpUrl: PropTypes.string.isRequired,
   intl: intlShape.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default withSetFlashMessage(injectIntl(SmoochBotIntegrationButton));

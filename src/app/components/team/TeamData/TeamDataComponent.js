@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
@@ -62,12 +63,12 @@ const messages = defineMessages({
   },
   uniqueUsers: {
     id: 'teamDataComponent.uniqueUsers',
-    defaultMessage: 'Distinct users who interacted with the bot.',
+    defaultMessage: 'Unique users who interacted with the bot.',
     description: messagesDescription,
   },
   returningUsers: {
     id: 'teamDataComponent.returningUsers',
-    defaultMessage: 'Unique users who had at least one session in the current month, and at least one session in the last previous 2 months.',
+    defaultMessage: 'Unique users who had at least one session in the current month, and at least one session in the last previous two months.',
     description: messagesDescription,
   },
   validNewRequests: {
@@ -87,17 +88,17 @@ const messages = defineMessages({
   },
   requestsAnsweredWithReport: {
     id: 'teamDataComponent.claimsAnsweredWithAReport',
-    defaultMessage: 'For example, if 2 users requested the same claim and received the same report, it counts as 1.',
+    defaultMessage: 'For example, if two users requested the same claim and received the same report, it counts as one.',
     description: messagesDescription,
   },
   reportsSent: {
     id: 'teamDataComponent.reportsSent',
-    defaultMessage: 'Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2.',
+    defaultMessage: 'Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.',
     description: messagesDescription,
   },
   uniqueUsersWhoReceivedReport: {
     id: 'teamDataComponent.uniqueUsersWhoReceivedReport',
-    defaultMessage: 'Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1.',
+    defaultMessage: 'Unique users who received a report. For example, if one user received three reports, it counts as one.',
     description: messagesDescription,
   },
   responseTime: {

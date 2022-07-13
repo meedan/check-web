@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import styled from 'styled-components';

@@ -36,10 +36,12 @@
   },
   {
     "id": "mediaActionsBar.publishedReport",
+    "description": "A label on a button that opens the report for this item. This displays if the report for this media item is currently in the 'Published' state.",
     "defaultMessage": "Published report"
   },
   {
     "id": "mediaActionsBar.unpublishedReport",
+    "description": "A label on a button that opens the report for this item. This displays if the report for this media item is NOT currently in the 'Published' state.",
     "defaultMessage": "Unpublished report"
   },
   {
@@ -54,6 +56,7 @@
   },
   {
     "id": "mediaFactCheck.confirmButtonLabel",
+    "description": "A label on a button that the user can press to go back to the screen where they edit a fact check.",
     "defaultMessage": "Go back to editing"
   }
 ]

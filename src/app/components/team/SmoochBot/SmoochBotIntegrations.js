@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -34,7 +35,9 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
   const classes = useStyles();
   const [copied, setCopied] = React.useState(null);
 
+  const isWabaSet = settings.turnio_host && settings.turnio_secret && settings.turnio_token;
   const isSmoochSet = settings.smooch_app_id && settings.smooch_secret_key_key_id && settings.smooch_secret_key_secret && settings.smooch_webhook_secret;
+  const isEnabled = isWabaSet || isSmoochSet;
 
   const isOnline = name => Object.keys(enabledIntegrations).indexOf(name) > -1;
 
@@ -61,7 +64,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
       <Box display="flex" justifyContent="space-between" flexWrap="wrap">
         <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isSmoochSet}
+          disabled={!isEnabled}
           type="whatsapp"
           label="WhatsApp"
           url="https://airtable.com/shrAhYXEFGe7F9QHr"
@@ -69,6 +72,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<WhatsAppIcon />}
           color={whatsappGreen}
           online={isOnline('whatsapp')}
+          readOnly={isWabaSet}
           info={
             isOnline('whatsapp') ?
               <Box>
@@ -209,7 +213,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
         />
         <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isSmoochSet}
+          disabled={!isEnabled}
           type="twitter"
           label="Twitter"
           url={settings.smooch_twitter_authorization_url}
@@ -217,6 +221,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<TwitterIcon />}
           color={twitterBlue}
           online={isOnline('twitter')}
+          readOnly={isWabaSet}
           info={
             isOnline('twitter') ?
               <FormattedMessage
@@ -234,7 +239,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
         />
         <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isSmoochSet}
+          disabled={!isEnabled}
           type="messenger"
           label="Messenger"
           url={settings.smooch_facebook_authorization_url}
@@ -242,6 +247,7 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
           icon={<FacebookIcon />}
           color={facebookBlue}
           online={isOnline('messenger')}
+          readOnly={isWabaSet}
           info={
             isOnline('messenger') ?
               <FormattedMessage
@@ -259,12 +265,13 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
         />
         <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isSmoochSet}
+          disabled={!isEnabled}
           type="telegram"
           label="Telegram"
           icon={<TelegramIcon />}
           color={telegramBlue}
           online={isOnline('telegram')}
+          readOnly={isWabaSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_6aa3557c62"
           params={[
             {
@@ -289,12 +296,13 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
         />
         <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isSmoochSet}
+          disabled={!isEnabled}
           type="viber"
           label="Viber"
           icon={<ViberIcon />}
           color={viberPurple}
           online={isOnline('viber')}
+          readOnly={isWabaSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_895bbda0a6"
           params={[
             {
@@ -315,12 +323,13 @@ const SmoochBotIntegrations = ({ settings, enabledIntegrations, installationId }
         />
         <SmoochBotIntegrationButton
           installationId={installationId}
-          disabled={!isSmoochSet}
+          disabled={!isEnabled}
           type="line"
           label="LINE"
           icon={<LineIcon />}
           color={lineGreen}
           online={isOnline('line')}
+          readOnly={isWabaSet}
           helpUrl="http://help.checkmedia.org/en/articles/5189362-connecting-a-new-tipline#h_351dd4f960"
           params={[
             {

@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape, defineMessages, FormattedMessage } from 'react-intl';
@@ -144,6 +145,9 @@ const SmoochBotNewsletterEditor = ({
     charactersCount += rssPreview.length;
   } else {
     charactersCount += body.length;
+  }
+  if (introduction && (rssPreview || body)) {
+    charactersCount += 2; // Two line breaks are added to separate the introduction from the body
   }
 
   const handleError = () => {
@@ -348,9 +352,9 @@ const SmoochBotNewsletterEditor = ({
           fullWidth
         />
         <Typography variant="caption">
-          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder \u007Bchannel\u007D to insert the name of the messaging service automatically." />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder1" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated." defaultMessage="Use the placeholder {channel} to insert the name of the messaging service automatically." />
           <br />
-          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder \u007Bdate\u007D to insert the date the newsletter is sent automatically." />
+          <FormattedMessage id="smoochBotNewsletterEditor.introPlaceholder2" description="Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated." defaultMessage="Use the placeholder {date} to insert the date the newsletter is sent automatically." />
         </Typography>
       </Box>
       <Box mb={3} mt={2}>

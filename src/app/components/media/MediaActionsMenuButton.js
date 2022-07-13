@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
@@ -111,7 +112,10 @@ class MediaActionsMenuButton extends React.PureComponent {
           </MenuItem>));
       }
 
-      if (can(projectMedia.permissions, 'update ProjectMedia') && projectMedia.archived === CheckArchivedFlags.NONE) {
+      if (can(projectMedia.permissions, 'update ProjectMedia') && (
+        projectMedia.archived === CheckArchivedFlags.NONE ||
+        projectMedia.archived === CheckArchivedFlags.UNCONFIRMED
+      )) {
         menuItems.push((
           <MenuItem
             key="mediaActions.sendToTrash"
@@ -151,6 +155,7 @@ class MediaActionsMenuButton extends React.PureComponent {
     return menuItems.length ? (
       <div>
         <IconButton
+          id="media-actions-menu-button__icon-button"
           tooltip={<FormattedMessage id="mediaActions.tooltip" defaultMessage="Item actions" />}
           onClick={this.handleOpenMenu}
         >
@@ -169,6 +174,8 @@ class MediaActionsMenuButton extends React.PureComponent {
   }
 }
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaActionsMenuButton };
 export default createFragmentContainer(MediaActionsMenuButton, {
   projectMedia: graphql`
     fragment MediaActionsMenuButton_projectMedia on ProjectMedia {
