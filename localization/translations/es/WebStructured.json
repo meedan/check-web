@@ -4418,7 +4418,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "For example, if two users requested the same claim and received the same report, it counts as one.",
+		"string": "Por ejemplo, si dos usuaria(o)s solicitaron la misma afirmación y recibieron el mismo informe, cuenta como uno.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
@@ -4453,7 +4453,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.",
+		"string": "Informes enviados en respuesta a solicitudes. Por ejemplo, si dos usuaria(o)s solicitaron la misma afirmación y recibieron el mismo informe, cuenta como dos.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
@@ -4479,11 +4479,11 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
-		"string": "Unique users who interacted with the bot.",
+		"string": "Usuaria(o)s única(o)s que interactuaron con el bot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Unique users who received a report. For example, if one user received three reports, it counts as one.",
+		"string": "Usuaria(o)s única(o)s que recibieron un informe. Por ejemplo, si un(a) usuaria(o) recibió tres informes, cuenta como uno.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
@@ -4634,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Configuración del área de trabajo"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "No hay campos de metadatos",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "Sin campos de anotación",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Formulario de anotación de ítem",

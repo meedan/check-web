@@ -4418,7 +4418,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "For example, if two users requested the same claim and received the same report, it counts as one.",
+		"string": "Par exemple, si deux utilisateurs ont demandé la même affirmation et reçu le même rapport, cela compte pour un.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
@@ -4453,7 +4453,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.",
+		"string": "Rapports envoyés en réponse à des demandes. Par exemple, si deux utilisateurs ont demandé la même affirmation et reçu le même rapport, cela compte pour deux.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
@@ -4479,11 +4479,11 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
-		"string": "Unique users who interacted with the bot.",
+		"string": "Utilisateurs distincts qui ont interagi avec le robot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Unique users who received a report. For example, if one user received three reports, it counts as one.",
+		"string": "Utilisateurs distincts qui ont reçu un rapport. Par exemple, si un utilisateur a reçu trois rapports, cela compte pour un.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
@@ -4634,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Paramètres de l’espace de travail"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "Il n’y a aucun champ de métadonnées",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "Il n’y a aucun champ d’annotation",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Formulaire d’annotation des éléments",
