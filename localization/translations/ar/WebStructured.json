@@ -306,10 +306,10 @@
 		"string": "اختيار لغة جديدة"
 	},
 	"annotation.addLanguage": {
-		"string": "Language {value} added by {author}"
+		"string": "أضيفت اللغة {value} من طرف {author}"
 	},
 	"annotation.addSource": {
-		"string": "Source {name} add by {author}"
+		"string": "أضيف المصدر {name} من طرف {author}"
 	},
 	"annotation.addedComment": {
 		"string": "قام(ت) {author} بإضافة تعليق على مهمة : {title}{note}"
@@ -327,16 +327,16 @@
 		"string": "قام(ت) {author} بتعديل مخطط JSON الخاص بمهمة {title}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Additional content added by {author}: {value}"
+		"string": "أضيف محتوى إضافي من طرف {author} : {value}"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Claim added by {author}: {value}"
+		"string": "أضيف ادعاء من طرف {author} : {value}"
 	},
 	"annotation.createFactCheck": {
-		"string": "Fact-check title added by {author}: {value}"
+		"string": "أضيف عنوان لتقصي الحقائق من طرف {author} : {value}"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Item created by {author}"
+		"string": "لقد تم إنشاء عنصر من طرف {author}"
 	},
 	"annotation.deleteButton": {
 		"string": "حذف"
@@ -345,7 +345,7 @@
 		"string": "تحرير"
 	},
 	"annotation.editedBy": {
-		"string": "edited by",
+		"string": "حُرّر من طرف",
 		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
@@ -382,7 +382,7 @@
 		"string": "‫لقد تم إنشاء حقل التعقيب من طرف {author}: {fieldLabel}"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
+		"string": "حُرّر التعليق \"{fieldLabel}\" من طرف {author} : {response}"
 	},
 	"annotation.newReport": {
 		"string": "قام(ت) {author} بإضافة العنصر"
@@ -394,21 +394,21 @@
 		"string": "فتح في Slack"
 	},
 	"annotation.pausedBy": {
-		"string": "paused by",
+		"string": "موقَّف مؤقتا من طرف",
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "الرابط الثابت"
 	},
 	"annotation.publishedBy": {
-		"string": "published by",
+		"string": "منشور من طرف",
 		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "قام(ت) {author} بحذف تعليق على مهمة : {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Fact-check report {state} {author}"
+		"string": "تقرير تقصي الحقائق {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "أُرسِل التقرير في {date}"
@@ -417,10 +417,10 @@
 		"string": "أُرسِل تحديث للتقرير في {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "Match confirmed by {author}: {title}"
+		"string": "تطابُق مُؤكَّد من طرف {author} : {title}"
 	},
 	"annotation.similarDestroyed": {
-		"string": "Match deleted by {author}: {title}",
+		"string": "تطابُق محذوف من طرف {author} : {title}",
 		"developer_comment": "Tells that one item previously confirmed as similar has been detached from current item."
 	},
 	"annotation.smoochNoMessage": {
@@ -430,19 +430,19 @@
 		"string": "قام(ت) {author} بإقفال حالة العنصر"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status changed to {status} by {author}"
+		"string": "تغيرت الحالة إلى {status} من طرف {author}"
 	},
 	"annotation.statusUnlocked": {
 		"string": "قام(ت) {author} بإلغاء إقفال حالة العنصر"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Match suggested by {author}: {title}"
+		"string": "التطابُق المُقترَح من طرف {author} : {title}"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Match rejected by {author}: {title}"
+		"string": "التطابُق المرفوض من طرف {author} : {title}"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tag #{tag} added by {author}"
+		"string": "أضيف الوسم #{tag} من طرف {author}"
 	},
 	"annotation.taskAssignmentCreated": {
 		"string": "قام المؤلف {author} بتعيين مهمة لـ {name} : {title}"
@@ -467,13 +467,13 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Additional content edited by {author}: {value}"
+		"string": "حُرّر المحتوى الإضافي من طرف {author} : {value}"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "Claim edited by {author}: {value}"
+		"string": "حُرّر الادعاء من طرف {author} : {value}"
 	},
 	"annotation.updateSource": {
-		"string": "Source {name} updated by {author}"
+		"string": "حُدّث المصدر {name} من طرف {author}"
 	},
 	"annotations.loadMore": {
 		"string": "تحميل المزيد"
@@ -528,7 +528,7 @@
 		"developer_comment": "Label for button to commit action of moving item to the selected folder"
 	},
 	"bulkActions.moveToSpamSuccessfully": {
-		"string": "Items moved to the Spam."
+		"string": "نُقلَت العناصر إلى مجلد الإعلانات المزعجة."
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "تم إرسال العناصر إلى سلة المهملات."
@@ -542,23 +542,23 @@
 		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.notSpam": {
-		"string": "Not Spam"
+		"string": "ليس إعلانا مزعجا"
 	},
 	"bulkActions.restore": {
 		"string": "الاستعادة من سلة المهملات"
 	},
 	"bulkActions.sendItemsToSpam": {
-		"string": "Mark as spam"
+		"string": "وسم كإعلان مزعج"
 	},
 	"bulkActions.sendItemsToTrash": {
 		"string": "إرسال إلى سلة المهملات"
 	},
 	"bulkActions.spam": {
-		"string": "Mark selected items as not spam and move them to another folder",
+		"string": "وسم العناصر المُحدَّدة على أنها ليست إعلانات مزعجة ثم نقلها إلى مجلد آخر",
 		"developer_comment": "Tooltip message for button that mark items as not spam"
 	},
 	"bulkActions.trash": {
-		"string": "Restore selected items and move them to another folder",
+		"string": "استعادة العناصر المُحدَّدة على أنها ليست إعلانات مزعجة ثم نقلها إلى مجلد آخر",
 		"developer_comment": "Tooltip message for button that restores items from Trash"
 	},
 	"bulkActionsAssign.assignmentNotes": {
@@ -665,7 +665,7 @@
 		"developer_comment": "This is a message that displays in an error popup if the client is unable to authenticate (log in)."
 	},
 	"check.error.conflict": {
-		"string": "There was a database conflict. Maybe some other user already performed this action. Please reload the page.",
+		"string": "هناك تعارض في قاعدة البيانات. ربما يُجري مستخدم آخر هذا الإجراء مسبقا. يُرجى إعادة تحميل الصفحة.",
 		"developer_comment": "This is a message that displays in an error popup if the server returns an error involving some kind of conflicting data."
 	},
 	"check.error.duplicated": {
@@ -725,7 +725,7 @@
 		"developer_comment": "This is a label on a button that appears in a warning message. When the user presses the button, another popup opens that allows the user to contact customer service."
 	},
 	"check.tasks.discontinued_tasks_warning": {
-		"string": "Important! Tasks will be discontinued on June 1st, 2022. Please reach out to support if you have any questions on how to replace them with Annotations.",
+		"string": "هام ! ستنقطع المهام بتاريخ فاتح يونيو 2022. يُرجى ربط الاتصال بالدعم إذا كانت لديك أي أسئلة حول كيفية استبدالها بواسطة التعليقات.",
 		"developer_comment": "This is a warning message to users of the Tasks feature, which will be removed from our software on June 1, 2022."
 	},
 	"checkedByTeamsCell.more": {
@@ -981,7 +981,7 @@
 		"developer_comment": "Prefilled support request message when Check UI crashes"
 	},
 	"fetchBot.contactUs": {
-		"string": "Contact us to set up"
+		"string": "الاتصال بنا للإعداد"
 	},
 	"fileUploadRespondTask.answerTask": {
 		"string": "يرجى الاستجابة للمهمة "
@@ -1170,7 +1170,7 @@
 		"string": "اللغات"
 	},
 	"limitedTextFieldWithCounter.counter": {
-		"string": "{remaining, plural, one {(# character left)} other {(# characters left)}}",
+		"string": "{remaining, plural, zero {(لم يبق أي حرف)} one {(بقي حرف واحد)} two {(بقي حرفان)} few {(بقي # حروف)} many {(بقي # حرفا)} other {(بقي # حرف)}}",
 		"developer_comment": "Label that displays how many characters more can be typed"
 	},
 	"list.Demand": {
@@ -1350,10 +1350,10 @@
 		"string": "تحديث"
 	},
 	"mediaActions.sendToSpam": {
-		"string": "Mark as Spam"
+		"string": "وسم كإعلان مزعج"
 	},
 	"mediaActions.sendToTrash": {
-		"string": "Send to Trash"
+		"string": "إرسال إلى سلة المهملات"
 	},
 	"mediaActions.tooltip": {
 		"string": "إجراءات العنصر"
@@ -1395,13 +1395,13 @@
 		"string": "تمت الاستعادة من سلة المهملات، تجري الآن إعادة التوجيه…"
 	},
 	"mediaActionsBar.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "لقد نُقل العنصر إلى {spam}"
 	},
 	"mediaActionsBar.movedToTrash": {
 		"string": "نُقل العنصر إلى {trash}"
 	},
 	"mediaActionsBar.notSpamTo": {
-		"string": "Not spam"
+		"string": "ليس إعلانا مزعجا"
 	},
 	"mediaActionsBar.publishedReport": {
 		"string": "تقرير منشور",
@@ -1610,7 +1610,7 @@
 		"developer_comment": "Label for fact-check title field"
 	},
 	"mediaFactCheck.url": {
-		"string": "Article URL",
+		"string": "عنوان المقال",
 		"developer_comment": "Label for fact-check URL field"
 	},
 	"mediaFactCheckField.noClaimDescription": {
@@ -1814,7 +1814,7 @@
 		"string": "نقل العنصر"
 	},
 	"mediaSuggestionsComponent.movedToSpam": {
-		"string": "The item was moved to {spam}"
+		"string": "لقد نُقل العنصر إلى {spam}"
 	},
 	"mediaSuggestionsComponent.movedToTrash": {
 		"string": "نُقل العنصر إلى {trash}"
@@ -1830,7 +1830,7 @@
 		"string": "{number} طلب للخط الساخن عبر كل المواد الإعلامية"
 	},
 	"mediaSuggestionsComponent.sendItemsToSpam": {
-		"string": "Mark as spam"
+		"string": "وسم كإعلان مزعج"
 	},
 	"mediaSuggestionsComponent.sendItemsToTrash": {
 		"string": "إرسال إلى سلة المهملات"
@@ -2408,7 +2408,7 @@
 		"string": "عليك باستخدام النص النائب {query_date} مبدئيا لعرض تاريخ البحث الأصلي. كما يمكنك استخدام {status} للإخبار عن حالة التقرير."
 	},
 	"reportDesigner.lastPublished": {
-		"string": "Last published"
+		"string": "آخر نشر"
 	},
 	"reportDesigner.nothingToPreview": {
 		"string": "يرجى البدء بإنشاء التقرير لمعاينة ما سيراه المستخدمون عند استلام التقرير."
@@ -2446,7 +2446,7 @@
 		"string": "العنوان"
 	},
 	"reportDesigner.textUrl": {
-		"string": "Article URL",
+		"string": "عنوان المقال",
 		"developer_comment": "Text report field"
 	},
 	"reportDesigner.title": {
@@ -3847,7 +3847,7 @@
 		"developer_comment": "The context here is a time... for example, at 10am"
 	},
 	"smoochBotNewsletterEditor.active": {
-		"string": "The newsletter will be sent to {count} users on {dateTime}"
+		"string": "سيتم إرسال الرسالة الإخبارية إلى {count} مستخدم في {dateTime}"
 	},
 	"smoochBotNewsletterEditor.addArticle": {
 		"string": "إضافة مقال",
@@ -4271,7 +4271,7 @@
 		"string": "تخصيص"
 	},
 	"tasks.blankAnnotation": {
-		"string": "No annotation fields",
+		"string": "لا توجد حقول للتعليقات",
 		"developer_comment": "A message that appears when the Annotation menu is opened but no Annotation fields have been created in the project settings."
 	},
 	"tasks.cancelAdd": {
@@ -4414,54 +4414,54 @@
 		"string": "تم حفظ الإعدادات"
 	},
 	"teamDataComponent.averageMessagesPerDay": {
-		"string": "Average messages per day sent back and forth between users and the bot.",
+		"string": "متوسط عدد الرسائل المُرسَلة يوميا بين المستخدمين والبوت.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "For example, if two users requested the same claim and received the same report, it counts as one.",
+		"string": "مثلا، إذا طلب مستخدمان نفس الادعاء وتلقيا نفس التقرير، سوف يُحسَب أنه تقرير واحد.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
-		"string": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity.",
+		"string": "البدء عندما يتواصل مستخدم مع البوت ثم ينتهي بعد 15 دقيقة من عدم النشاط..",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.currentSubscribers": {
-		"string": "Current number of newsletter subscriptions.",
+		"string": "عدد الاشتراكات الحالية في الرسائل الإخبارية",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.download": {
-		"string": "Download CSV",
+		"string": "تنزيل CSV",
 		"developer_comment": "Label for action button displayed on workspace data report page."
 	},
 	"teamDataComponent.formLinkText": {
 		"string": "هذه الاستمارة قصيرة"
 	},
 	"teamDataComponent.newNewsletterSubscriptions": {
-		"string": "New newsletter subscriptions.",
+		"string": "الاشتراكات الجديدة في الرسائل الإخبارية",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newsletterCancellations": {
-		"string": "New newsletter cancellations.",
+		"string": "إلغاءات الاشتراك الجديدة في الرسائل الإخبارية",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedImportedReports": {
-		"string": "Published reports imported from web sites (for all languages and platforms).",
+		"string": "التقارير الجديدة التي تم استيرادها من مواقع الويب (لجميع اللغات والمنصات).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedNativeReports": {
-		"string": "Published reports created in Check (for all languages and platforms).",
+		"string": "التقارير الجديدة التي تم إنشاؤها في Check (لجميع اللغات والمنصات).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Reports sent in response to requests. For example, if two users requested the same claim and received the same report, it counts as two.",
+		"string": "التقارير المُرسَلة كجواب على الطلبات. مثلا، إذا طلب مستخدمان نفس الادعاء ثم تلقيا نفس التقرير، سيُحسبان على أنهما تقريران اثنان.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
-		"string": "Average time between a user request and a report sent.",
+		"string": "متوسط المدة بين طلب المستخدم وإرسال التقرير.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.returningUsers": {
-		"string": "Unique users who had at least one session in the current month, and at least one session in the last previous two months.",
+		"string": "المستخدمون الوحيدون الذين كانوا على الأقل في جلسة واجدة خلال الشهر الحالي، وعلى الأقل في جلسة واحدة خلال الشهرين الماضيين.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
@@ -4471,23 +4471,23 @@
 		"string": "سوف يصبح تقرير بياناتك ممكنا خلال يوم عمل واحد."
 	},
 	"teamDataComponent.title": {
-		"string": "Tipline engagement data",
+		"string": "بيانات الالتزام للخط الساخن",
 		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.uniqueNewslettersSent": {
-		"string": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.",
+		"string": "الرسائل الإخبارية الوحيدة المُرسلَة، لجميع المنصات. لقد بدأ التقاط هذه المعلومة خلال الفاتح من يونيو 2022.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
-		"string": "Unique users who interacted with the bot.",
+		"string": "المستخدمون الوحيدون الذين تفاعلوا مع البوت.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Unique users who received a report. For example, if one user received three reports, it counts as one.",
+		"string": "المستخدمون الوحيدون الذي استلموا التقرير. مثلا، لو استلم مستخدم ثلاثة تقارير، سوف تُحسَب على أنها تقرير واحد.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
-		"string": "User requests associated with claims that are not in the trash.",
+		"string": "طلبات المستخدمين المرتبطة بهذه الادعاءات، والتي ليست في سلة المهملات.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.description": {
@@ -4634,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "إعدادات مساحة العمل"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "لا توجد حقول للبيانات الوصفيّة",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "لا توجد حقول للتعليقات",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "استمارة تفسيرات العنصر",

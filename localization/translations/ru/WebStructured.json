@@ -4634,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Настройки проекта"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "Нет полей для метаданных",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "No annotation fields",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Item annotation form",

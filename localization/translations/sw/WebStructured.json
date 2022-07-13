@@ -4634,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Mipangilio ya eneo la kazi"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "Hakuna sehemu za metadata",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "No annotation fields",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Item annotation form",
