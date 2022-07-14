@@ -137,6 +137,9 @@ describe('<MediaActionsBarComponent />', () => {
     const media = {
       team: { team2 },
       archived: CheckArchivedFlags.UNCONFIRMED,
+      last_status_obj: {
+        locked: false,
+      },
       dynamic_annotation_report_design: {
         data: {
           state: 'not-published', // As opposed to 'published' for this matter. Not necessarily an actual possible value.
