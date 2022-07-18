@@ -49,6 +49,7 @@ const MediaContainer = Relay.createContainer(MediaComponent, {
             title
             summary
             url
+            language
             updated_at
             user {
               name
