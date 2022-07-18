@@ -4,13 +4,13 @@ shared_examples 'annotation' do
     team = "task-team-#{Time.now.to_i}"
     create_team_and_go_to_settings_page(team)
     wait_for_selector('.team-settings__metadata-tab', :css, 30).click
-    wait_for_selector("//span[contains(text(), 'metadata')]", :xpath)
+    wait_for_selector("//span[contains(text(), 'annotation')]", :xpath)
 
     # Create annotation
-    expect(@driver.page_source.include?('No metadata fields')).to be(true)
+    expect(@driver.page_source.include?('No annotation fields')).to be(true)
     expect(@driver.page_source.include?('my metadata')).to be(false)
     create_annotation(tab_class: '.team-settings__metadata-tab', task_type_class: '.edit-task-dialog__menu-item-free_text', task_name: 'my metadata')
-    expect(@driver.page_source.include?('No metadata fields')).to be(false)
+    expect(@driver.page_source.include?('No annotation fields')).to be(false)
     expect(@driver.page_source.include?('my metadata')).to be(true)
 
     # Edit annotation

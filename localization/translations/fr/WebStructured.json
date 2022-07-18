@@ -345,7 +345,7 @@
 		"string": "Modifier"
 	},
 	"annotation.editedBy": {
-		"string": "modifiée par",
+		"string": "modifié par",
 		"developer_comment": "Fact-check in edited state"
 	},
 	"annotation.embedLabelRemoved": {
@@ -394,21 +394,21 @@
 		"string": "Ouvrir dans Slack"
 	},
 	"annotation.pausedBy": {
-		"string": "mise en pause",
+		"string": "mis en pause",
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
 		"string": "Permalien"
 	},
 	"annotation.publishedBy": {
-		"string": "publiée par",
+		"string": "publié par",
 		"developer_comment": "Fact-check in published state"
 	},
 	"annotation.removedComment": {
 		"string": "La note de tâche a été supprimé par {author} : {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Fact-check report {state} {author}"
+		"string": "Rapport de vérification de faits {state} {author}"
 	},
 	"annotation.reportReceived": {
 		"string": "Rapport envoyé le {date}"
@@ -766,7 +766,7 @@
 		"developer_comment": "Content warning type: Violence"
 	},
 	"contentScreen.warning": {
-		"string": "<strong>{user_name}</strong> a décrit ce contenu comme <strong>{warning_category}</strong>",
+		"string": "<strong>{user_name}</strong> a qualifié ce contenu comme <strong>{warning_category}</strong>",
 		"developer_comment": "Content warning displayed over sensitive content"
 	},
 	"createMedia.addItem": {
@@ -1836,7 +1836,7 @@
 		"string": "Déplacer vers la corbeille"
 	},
 	"mediaSuggestionsComponent.title": {
-		"string": "{total, plural, one {{current} de # média suggéré} many {{current} de # médias suggérés} other {{current} de # médias suggérés}}"
+		"string": "{total, plural, one {{current} de # média suggéré} many {{current} de # de médias suggérés} other {{current} de # médias suggérés}}"
 	},
 	"metadata.cancel": {
 		"string": "Annuler",
@@ -3305,7 +3305,7 @@
 		"string": "📌*Menu principal*\n\n*Répondez 1* (ou 🔍) pour envoyer une demande de vérification des faits relatifs à un article, une vidéo, une image ou à tout autre contenu.\n*Répondez 2* (ou 🦠) pour obtenir les derniers renseignements sur la maladie à coronavirus (COVID-19)"
 	},
 	"smoochBot.placeholderNewsletter": {
-		"string": "Tapez pour rédiger votre lettre d’information. Vous pouvez ajouter du contenu du RSS ci-dessous."
+		"string": "Tapez pour rédiger votre lettre d’information. Ci-dessous, vous pouvez ajouter du contenu du RSS."
 	},
 	"smoochBot.placeholderNewsletterBulletPoint": {
 		"string": "Ajouter un article"
@@ -3878,11 +3878,11 @@
 		"string": "Vendredi"
 	},
 	"smoochBotNewsletterEditor.introPlaceholder1": {
-		"string": "Utilisez l’espace réservé \\{channel\\} pour insérer automatiquement le nom du service de messagerie.",
+		"string": "Utilisez l’espace réservé {channel} pour insérer automatiquement le nom du service de messagerie.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {channel} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introPlaceholder2": {
-		"string": "Utilisez l’espace réservé \\{date\\} pour insérer automatiquement la date d’envoi de la lettre d’information.",
+		"string": "Utilisez l’espace réservé {date} pour insérer automatiquement la date d’envoi de la lettre d’information.",
 		"developer_comment": "Explanation about a placeholder that can be used in the tipline newsletter introduction, so {date} here must not be translated."
 	},
 	"smoochBotNewsletterEditor.introduction": {
@@ -4414,15 +4414,15 @@
 		"string": "Les paramètres ont été mis à jour"
 	},
 	"teamDataComponent.averageMessagesPerDay": {
-		"string": "Average messages per day sent back and forth between users and the bot.",
+		"string": "Moyenne par jour des échanges de messages entre les utilisateurs et le robot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "For example, if 2 users requested the same claim and received the same report, it counts as 1.",
+		"string": "Par exemple, si deux utilisateurs ont demandé la même affirmation et reçu le même rapport, cela compte pour un.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
-		"string": "Starts when a user interacts with the bot and ends after 15 minutes of inactivity.",
+		"string": "Commence quand un utilisateur interagit avec le robot et se termine après 15 minutes d’inactivité.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.currentSubscribers": {
@@ -4437,31 +4437,31 @@
 		"string": "ce cours formulaire"
 	},
 	"teamDataComponent.newNewsletterSubscriptions": {
-		"string": "New newsletter subscriptions.",
+		"string": "Nouveaux abonnements à la lettre d’information.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.newsletterCancellations": {
-		"string": "New newsletter cancellations.",
+		"string": "Nouvelles annulations à la lettre d’information.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedImportedReports": {
-		"string": "Published reports imported from web sites (for all languages and platforms).",
+		"string": "Rapports publiés importés de sites Web (pour toutes les langues et plateformes).",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.publishedNativeReports": {
-		"string": "Published reports created in Check (for all languages and platforms).",
+		"string": "Rapports publiés créés dans Check (pour toutes les langues et plateformes)",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Reports sent in response to requests. For example, if 2 users requested the same claim and received the same report, it counts as 2.",
+		"string": "Rapports envoyés en réponse à des demandes. Par exemple, si deux utilisateurs ont demandé la même affirmation et reçu le même rapport, cela compte pour deux.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
-		"string": "Average time between a user request and a report sent.",
+		"string": "Temps moyen entre la demande d’un utilisateur et l’envoi d’un rapport.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.returningUsers": {
-		"string": "Unique users who had at least one session in the current month, and at least one session in the last previous two months.",
+		"string": "Nombre d’utilisateurs distincts ayant eu au moins une session dans le mois courant et au moins une session dans les deux mois précédents.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.set1": {
@@ -4471,23 +4471,23 @@
 		"string": "Votre rapport de données sera activé en moins d’un jour ouvrable."
 	},
 	"teamDataComponent.title": {
-		"string": "Tipline engagement data",
+		"string": "Données d’interaction de la ligne info",
 		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.uniqueNewslettersSent": {
-		"string": "Unique newsletters sent, for all platforms. This information started to be collected in June 1st, 2022.",
+		"string": "Nombre de lettres d’information distinctes envoyées, pour toutes les plateformes. La collecte de ce renseignement a commencé le 1er juin 2022.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
-		"string": "Distinct users who interacted with the bot.",
+		"string": "Utilisateurs distincts qui ont interagi avec le robot.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Unique users who received a report. For example, if 1 user received 3 reports, it counts as 1.",
+		"string": "Utilisateurs distincts qui ont reçu un rapport. Par exemple, si un utilisateur a reçu trois rapports, cela compte pour un.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
-		"string": "User requests associated with claims that are not in the trash.",
+		"string": "Demandes d’utilisateur associées à des affirmations qui ne sont pas dans la corbeille.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDetails.description": {
@@ -4634,9 +4634,9 @@
 	"teamMenu.teamSettings": {
 		"string": "Paramètres de l’espace de travail"
 	},
-	"teamMetadataRender.blankMetadata": {
-		"string": "Il n’y a aucun champ de métadonnées",
-		"developer_comment": "Text for empty metadata"
+	"teamMetadataRender.blankAnnotations": {
+		"string": "Il n’y a aucun champ d’annotation",
+		"developer_comment": "Text for empty annotations"
 	},
 	"teamMetadataRender.itemTitle": {
 		"string": "Formulaire d’annotation des éléments",
