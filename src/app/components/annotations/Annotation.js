@@ -740,6 +740,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.updateLanguage"
               defaultMessage="Language {value} updated by {author}"
+              description="Log entry indicating an item language has been updated. {value} receives language name"
               values={{
                 value: languageName,
                 author: authorName,

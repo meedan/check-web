@@ -121,6 +121,7 @@
   },
   {
     "id": "annotation.updateLanguage",
+    "description": "Log entry indicating an item language has been updated. {value} receives language name",
     "defaultMessage": "Language {value} updated by {author}"
   },
   {
