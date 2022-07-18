@@ -101,6 +101,10 @@
     "defaultMessage": "Language {value} added by {author}"
   },
   {
+    "id": "annotation.updateLanguage",
+    "defaultMessage": "Language {value} updated by {author}"
+  },
+  {
     "id": "annotation.metadataResponse",
     "defaultMessage": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
   },
