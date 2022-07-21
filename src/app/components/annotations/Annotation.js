@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, FormattedMessage, FormattedHTMLMessage, injectIntl, intlShape } from 'react-intl';
@@ -20,6 +19,7 @@ import config from 'config'; // eslint-disable-line require-path-exists/exists
 import { Link } from 'react-router';
 import { can } from '../Can';
 import { withSetFlashMessage } from '../FlashMessage';
+import { FormattedGlobalMessage } from '../MappedMessage';
 import ParsedText from '../ParsedText';
 import TimeBefore from '../TimeBefore';
 import SourcePicture from '../source/SourcePicture';
@@ -29,7 +29,6 @@ import UserTooltip from '../user/UserTooltip';
 import { languageLabel } from '../../LanguageRegistry';
 import DeleteAnnotationMutation from '../../relay/mutations/DeleteAnnotationMutation';
 import DeleteVersionMutation from '../../relay/mutations/DeleteVersionMutation';
-import UpdateTaskMutation from '../../relay/mutations/UpdateTaskMutation';
 import {
   getErrorMessage,
   getStatus,
@@ -38,7 +37,6 @@ import {
   parseStringUnixTimestamp,
   safelyParseJSON,
 } from '../../helpers';
-import globalStrings from '../../globalStrings';
 import { stringHelper } from '../../customHelpers';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import {
@@ -284,37 +282,14 @@ class Annotation extends Component {
     const message = getErrorMessage(
       transaction,
       (
-        <FormattedMessage
-          {...globalStrings.unknownError}
+        <FormattedGlobalMessage
+          messageKey="unknownError"
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       ),
     );
     this.props.setFlashMessage(message, 'error');
   };
-
-  handleSuggestion(vid, accept) {
-    const onSuccess = () => {};
-
-    const task = { id: this.props.annotated.id };
-    if (accept) {
-      task.accept_suggestion = vid;
-    } else {
-      task.reject_suggestion = vid;
-    }
-
-    const parentType = this.props.annotatedType.replace(/([a-z])([A-Z])/, '$1_$2').toLowerCase();
-
-    Relay.Store.commitUpdate(
-      new UpdateTaskMutation({
-        operation: 'suggest',
-        annotated: this.props.annotated.project_media,
-        parent_type: parentType,
-        task,
-      }),
-      { onSuccess, onFailure: this.fail },
-    );
-  }
 
   static renderTaskResponse(type, object) {
     if (type === 'multiple_choice') {
@@ -360,7 +335,11 @@ class Annotation extends Component {
       annotationActions = canDoAnnotationActions ? (
         <div>
           <Tooltip title={
-            <FormattedMessage id="annotation.menuTooltip" defaultMessage="Annotation actions" />
+            <FormattedMessage
+              id="annotation.menuTooltip"
+              defaultMessage="Annotation actions"
+              description="Tooltip for the annotation actions menu icon button"
+            />
           }
           >
             <IconButton
@@ -382,7 +361,11 @@ class Annotation extends Component {
                 className="annotation__delete"
                 onClick={this.handleDelete.bind(this, annotation.id)}
               >
-                <FormattedMessage id="annotation.deleteButton" defaultMessage="Delete" />
+                <FormattedMessage
+                  id="annotation.deleteButton"
+                  defaultMessage="Delete"
+                  description="Menu item for deleting an annotation"
+                />
               </MenuItem>
             ) : null}
             <MenuItem>
@@ -393,6 +376,7 @@ class Annotation extends Component {
                 <FormattedMessage
                   id="annotation.permalink"
                   defaultMessage="Permalink"
+                  description="Menu item for getting a permanent url for an annotaion"
                 />
               </a>
             </MenuItem>
@@ -420,6 +404,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.taggedHeader"
               defaultMessage="Tag #{tag} added by {author}"
+              description="Log entry indicating a tag was added"
               values={{
                 tag: activity.tag.tag_text.replace(/^#/, ''),
                 author: authorName,
@@ -436,6 +421,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.metadataCreated"
               defaultMessage="Annotation field created by {author}: {fieldLabel}"
+              description="Log entry indicating an annotation field was created"
               values={{
                 fieldLabel: content.label,
                 author: authorName,
@@ -450,7 +436,7 @@ class Annotation extends Component {
       const meta = safelyParseJSON(activity.meta);
       if (meta && meta.source) {
         const { source } = meta;
-        const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
+        const relationshipAuthor = source.by_check ? 'Check' : authorName;
         const type = object.relationship_type;
         contentTemplate = (
           <span>
@@ -458,6 +444,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.similarCreated"
                 defaultMessage="Match confirmed by {author}: {title}"
+                description="Log entry indicating a similarity match was confirmed"
                 values={{
                   title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
@@ -467,6 +454,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.suggestionCreated"
                 defaultMessage="Match suggested by {author}: {title}"
+                description="Log entry indicating a similarity match was suggested"
                 values={{
                   title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
@@ -481,7 +469,7 @@ class Annotation extends Component {
       const meta = safelyParseJSON(activity.meta);
       if (meta && meta.source) {
         const { source } = meta;
-        const relationshipAuthor = source.by_check ? (<FormattedMessage {...globalStrings.appNameHuman} />) : authorName;
+        const relationshipAuthor = source.by_check ? 'Check' : authorName;
         const relationshipChanges = safelyParseJSON(activity.object_changes_json);
         const type = relationshipChanges.relationship_type[0];
         contentTemplate = (
@@ -500,6 +488,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.suggestionDestroyed"
                 defaultMessage="Match rejected by {author}: {title}"
+                description="Log entry indicating a similarity match was rejected"
                 values={{
                   title: (<Link to={source.url} target="_blank">{emojify(source.title)}</Link>),
                   author: relationshipAuthor,
@@ -525,6 +514,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.taskAssignmentCreated"
                 defaultMessage="Task assigned to {name} by {author}: {title}"
+                description="Log entry indicating a task has been assigned"
                 values={values}
               />
             </span>
@@ -536,6 +526,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.mediaAssignmentCreated"
                 defaultMessage="Item assigned to {name} by {author}"
+                description="Log entry indicating an item has been assigned"
                 values={values}
               />
             </span>
@@ -559,6 +550,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.taskAssignmentDeleted"
                 defaultMessage="Task unassigned from {name} by {author}: {title}"
+                description="Log entry indicating a task has been unassigned"
                 values={values}
               />
             </span>
@@ -570,6 +562,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.mediaAssignmentDeleted"
                 defaultMessage="Item unassigned from {name} by {author}"
+                description="Log entry indicating an item has been unassigned"
                 values={values}
               />
             </span>
@@ -588,6 +581,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.statusLocked"
                 defaultMessage="Item status locked by {author}"
+                description="Log entry indicating an item status has been locked"
                 values={{ author: authorName }}
               />
             );
@@ -596,6 +590,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.statusUnlocked"
                 defaultMessage="Item status unlocked by {author}"
+                description="Log entry indicating an item status has been unlocked"
                 values={{ author: authorName }}
               />
             );
@@ -607,6 +602,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.mediaAssigned"
                 defaultMessage="Item assigned to {name} by {author}"
+                description="Log entry indicating an item has been assigned"
                 values={{
                   name: assignment.assigned_to_name,
                   author: authorName,
@@ -618,6 +614,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.mediaUnassigned"
                 defaultMessage="Item unassigned from {name} by {author}"
+                description="Log entry indicating an item has been unassigned"
                 values={{
                   name: assignment.assigned_from_name,
                   author: authorName,
@@ -629,7 +626,7 @@ class Annotation extends Component {
       } else if (object.annotation_type === 'report_design') {
         const reportDesignChange = safelyParseJSON(activity.object_changes_json).data;
         let reportState = this.props.intl.formatMessage(messages.editedBy);
-        if (reportDesignChange[0]) {
+        if (reportDesignChange && reportDesignChange[0]) {
           reportState = reportDesignChange[1].state;
           if (reportDesignChange[0].state === reportDesignChange[1].state) {
             reportState = this.props.intl.formatMessage(messages.editedBy);
@@ -643,6 +640,7 @@ class Annotation extends Component {
           <FormattedMessage
             id="annotation.reportDesignState"
             defaultMessage="Fact-check report {state} {author}"
+            description="Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
             values={{
               state: reportState,
               author: authorName,
@@ -663,6 +661,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.statusSetHeader"
               defaultMessage="Status changed to {status} by {author}"
+              description="Log entry indicating an item status has been changed"
               values={{
                 status: (
                   <span
@@ -716,7 +715,7 @@ class Annotation extends Component {
         );
       }
 
-      if (object.field_name === 'language' && activityType === 'create_dynamicannotationfield') {
+      if (object.field_name === 'language') {
         const languageName = object.value !== 'und' ? languageLabel(object.value) : (
           <FormattedMessage
             id="annotation.unknownLanguage"
@@ -724,14 +723,27 @@ class Annotation extends Component {
             description="Show label for undefined language"
           />
         );
-        contentTemplate = (
+        contentTemplate = activityType === 'create_dynamicannotationfield' ? (
           <span>
             <FormattedMessage
               id="annotation.addLanguage"
               defaultMessage="Language {value} added by {author}"
+              description="Log entry indicating an item language has been set. {value} receives language name"
               values={{
                 value: languageName,
-                author: (<FormattedMessage {...globalStrings.appNameHuman} />),
+                author: 'Check',
+              }}
+            />
+          </span>
+        ) : (
+          <span>
+            <FormattedMessage
+              id="annotation.updateLanguage"
+              defaultMessage="Language {value} updated by {author}"
+              description="Log entry indicating an item language has been updated. {value} receives language name"
+              values={{
+                value: languageName,
+                author: authorName,
               }}
             />
           </span>
@@ -745,6 +757,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.metadataResponse"
                 defaultMessage='Annotation "{fieldLabel}" edited by {author}: {response}'
+                description="Log entry indicating an annotation response has been changed"
                 values={{
                   fieldLabel: activity.task.label,
                   author: authorName,
@@ -793,9 +806,10 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.addSource"
               defaultMessage="Source {name} add by {author}"
+              description="Log entry indicating a source has been added"
               values={{
                 name: meta.source_name,
-                author: (<FormattedMessage {...globalStrings.appNameHuman} />),
+                author: 'Check',
               }}
             />
           </span>
@@ -806,6 +820,7 @@ class Annotation extends Component {
             <FormattedMessage
               id="annotation.createProjectMedia"
               defaultMessage="Item created by {author}"
+              description="Log entry indicating an item has been created"
               values={{
                 author: authorName,
               }}
@@ -825,6 +840,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.addSource"
                 defaultMessage="Source {name} add by {author}"
+                description="Log entry indicating a source has been added"
                 values={{
                   name: meta.source_name,
                   author: authorName,
@@ -838,6 +854,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.updateSource"
                 defaultMessage="Source {name} updated by {author}"
+                description="Log entry indicating an item status has been changed"
                 values={{
                   name: meta.source_name,
                   author: authorName,
@@ -859,6 +876,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.updateClaimDescription"
                 defaultMessage="Claim edited by {author}: {value}"
+                description="Log entry indicating a claim has been edited"
                 values={{
                   author: authorName,
                   value: object.description,
@@ -872,6 +890,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.createClaimDescription"
                 defaultMessage="Claim added by {author}: {value}"
+                description="Log entry indicating a claim has been added"
                 values={{
                   author: authorName,
                   value: object.description,
@@ -887,6 +906,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.updateClaimContext"
                 defaultMessage="Additional content edited by {author}: {value}"
+                description="Log entry indicating the additional content has been edited"
                 values={{
                   author: authorName,
                   value: object.context,
@@ -900,6 +920,7 @@ class Annotation extends Component {
               <FormattedMessage
                 id="annotation.createClaimContext"
                 defaultMessage="Additional content added by {author}: {value}"
+                description="Log entry indicating additional content has been added"
                 values={{
                   author: authorName,
                   value: object.context,
@@ -917,6 +938,7 @@ class Annotation extends Component {
           <FormattedMessage
             id="annotation.createFactCheck"
             defaultMessage="Fact-check title added by {author}: {value}"
+            description="Log entry indicating fact-check title has been added"
             values={{
               author: authorName,
               value: object.title,
