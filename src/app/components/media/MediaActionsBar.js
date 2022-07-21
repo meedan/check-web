@@ -250,14 +250,13 @@ class MediaActionsBarComponent extends Component {
     const published = (media.dynamic_annotation_report_design && media.dynamic_annotation_report_design.data && media.dynamic_annotation_report_design.data.state === 'published');
 
     const options = [];
-    if (media.team.team_users?.edges) {
-      media.team.team_users.edges.forEach((teamUser) => {
-        if (teamUser.node.status === 'member' && !teamUser.node.user.is_bot) {
-          const { user } = teamUser.node;
-          options.push({ label: user.name, value: user.dbid.toString() });
-        }
-      });
-    }
+    media.team.team_users?.edges.forEach((teamUser) => {
+      if (teamUser.node.status === 'member' && !teamUser.node.user.is_bot) {
+        const { user } = teamUser.node;
+        options.push({ label: user.name, value: user.dbid.toString() });
+      }
+    });
+
     const selected = [];
     if (media.last_status_obj.assignments?.edges) {
       const assignments = media.last_status_obj.assignments.edges;
