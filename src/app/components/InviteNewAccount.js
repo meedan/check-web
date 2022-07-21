@@ -277,13 +277,11 @@ const InviteNewAccount = ({ teamSlug }) => (
           dbid
           name
           email
-          login
           accepted_terms
           team_user(team_slug: $teamSlug) {
             team {
               dbid
               name
-              slug
             }
             invited_by {
               name

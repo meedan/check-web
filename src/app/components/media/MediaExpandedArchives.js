@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -43,7 +43,7 @@ const MediaExpandedArchives = ({ projectMedia }) => {
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <Typography variant="subtitle2">
-            <FormattedMessage id="mediaExpandedArchives.archives" defaultMessage="Archives:" />
+            <FormattedMessage id="mediaExpandedArchives.archives" defaultMessage="Archives:" description="This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL." />
           </Typography>
         </Grid>
         { activeArchivers.map(f => (
