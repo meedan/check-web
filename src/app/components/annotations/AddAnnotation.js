@@ -111,7 +111,7 @@ class AddAnnotation extends Component {
     );
     const message = getErrorMessage(transaction, fallbackMessage);
     this.setState({
-      message: message.replace(/<br\s*\/?>/gm, '; '),
+      message: typeof message === 'string' ? message.replace(/<br\s*\/?>/gm, '; ') : message,
       isSubmitting: false,
     });
   };
