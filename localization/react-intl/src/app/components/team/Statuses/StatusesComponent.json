@@ -1,18 +1,22 @@
 [
   {
     "id": "statusesComponent.error",
+    "description": "Error message displayed when status can't be changed.",
     "defaultMessage": "Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
   },
   {
     "id": "statusesComponent.deleted",
+    "description": "Success message displayed when status is deleted.",
     "defaultMessage": "Status deleted successfully"
   },
   {
     "id": "statusesComponent.saved",
+    "description": "Success message displayed when status is saved.",
     "defaultMessage": "Statuses saved successfully"
   },
   {
     "id": "statusesComponent.created",
+    "description": "Success message displayed when status is created.",
     "defaultMessage": "Status created successfully"
   },
   {
@@ -22,10 +26,12 @@
   },
   {
     "id": "statusesComponent.newStatus",
+    "description": "Button label to create a new status.",
     "defaultMessage": "New status"
   },
   {
     "id": "statusesComponent.blurbSecondary",
+    "description": "Message displayed on status translation page.",
     "defaultMessage": "Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
   }
 ]

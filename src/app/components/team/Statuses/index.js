@@ -20,7 +20,6 @@ const Statuses = props => (
       query StatusesQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
           id
-          verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
           verification_statuses
           get_language
           get_languages

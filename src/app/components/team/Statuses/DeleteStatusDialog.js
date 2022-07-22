@@ -1,5 +1,6 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
+import { QueryRenderer, graphql } from 'react-relay/compat';
+import Relay from 'react-relay/classic';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import FormControl from '@material-ui/core/FormControl';
@@ -10,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
 const DeleteStatusDialog = ({
-  defaultValue: deleteStatus,
+  deleteStatus,
   onCancel,
   onProceed,
   open,
@@ -26,17 +27,53 @@ const DeleteStatusDialog = ({
     if (onProceed) {
       onProceed({
         status_id: deleteStatus.id,
-        fallback_status_id: moveToStatus,
+        fallback_status_id: moveToStatus || '',
       });
     }
   };
 
   if (!deleteStatus || !open) return null;
 
+  if (!deleteStatus.items_count) {
+    return (
+      <ConfirmProceedDialog
+        open
+        title={
+          <FormattedMessage
+            id="deleteStatusDialog.statusNotInUseTitle"
+            defaultMessage="Confirm status deletion"
+            description="Title displayed on a confirmation modal when a status being deleted is not in used by any item."
+          />
+        }
+        body={
+          <div>
+            <Typography variant="body1" component="p" paragraph>
+              <FormattedMessage
+                id="deleteStatusDialog.statusNotInUseMessage"
+                defaultMessage="Are you sure you want to delete this status?"
+                description="Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+              />
+            </Typography>
+          </div>
+        }
+        onCancel={onCancel}
+        onProceed={handleSubmit}
+        proceedLabel={
+          <FormattedMessage
+            id="statusesComponent.deleteButton"
+            defaultMessage="Delete status"
+            description="Button label to delete status"
+          />
+        }
+      />
+    );
+  }
+
   const inputLabel = (
     <FormattedMessage
       id="deleteStatusDialog.moveItemsTo"
       defaultMessage="Move items to"
+      description="This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
     />
   );
 
@@ -48,6 +85,7 @@ const DeleteStatusDialog = ({
           id="deleteStatusDialog.statusInUseTitle"
           defaultMessage="{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
           values={{ itemsCount: deleteStatus.items_count }}
+          description="Title of a modal that is displayed when a status in use is being deleted."
         />
       }
       body={
@@ -60,6 +98,7 @@ const DeleteStatusDialog = ({
                 itemsCount: deleteStatus.items_count,
                 statusLabel: <strong>{deleteStatus.label}</strong>,
               }}
+              description="Message of a modal that is displayed when a status in use is being deleted."
             />
           </Typography>
           { deleteStatus.published_reports_count ?
@@ -71,6 +110,7 @@ const DeleteStatusDialog = ({
                   publishedCount: deleteStatus.published_reports_count,
                   statusLabel: <strong>{deleteStatus.label}</strong>,
                 }}
+                description="Message of a modal that is displayed when a status in use is being deleted."
               />
             </Typography>
             : null
@@ -110,6 +150,7 @@ const DeleteStatusDialog = ({
         <FormattedMessage
           id="statusesComponent.moveItemsAndDelete"
           defaultMessage="Move items and delete status"
+          description="Label of a button that is displayed when a status in use is being deleted."
         />
       }
     />
@@ -117,7 +158,7 @@ const DeleteStatusDialog = ({
 };
 
 DeleteStatusDialog.propTypes = {
-  defaultValue: PropTypes.object,
+  deleteStatus: PropTypes.object,
   onCancel: PropTypes.func.isRequired,
   onProceed: PropTypes.func.isRequired,
   open: PropTypes.bool.isRequired,
@@ -128,7 +169,34 @@ DeleteStatusDialog.propTypes = {
 };
 
 DeleteStatusDialog.defaultProps = {
-  defaultValue: {},
+  deleteStatus: {},
 };
 
-export default DeleteStatusDialog;
+const DeleteStatusDialogContainer = originalProps => (
+  <QueryRenderer
+    environment={Relay.Store}
+    query={graphql`
+      query DeleteStatusDialogQuery($teamSlug: String!, $status: String!) {
+        team(slug: $teamSlug) {
+          id
+          verification_statuses_with_counters: verification_statuses(items_count_for_status: $status, published_reports_count_for_status: $status)
+        }
+      }
+    `}
+    variables={{
+      teamSlug: originalProps.teamSlug,
+      status: originalProps.defaultValue,
+    }}
+    render={({ error, props }) => {
+      if (!error && props) {
+        const deleteStatus = props.team.verification_statuses_with_counters.statuses.find(s => s.id === originalProps.defaultValue);
+        return <DeleteStatusDialog {...originalProps} deleteStatus={deleteStatus} />;
+      }
+
+      // TODO: We need a better error handling in the future, standardized with other components
+      return null;
+    }}
+  />
+);
+
+export default DeleteStatusDialogContainer;
