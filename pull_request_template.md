@@ -6,10 +6,11 @@ References: TICKET-ID-1, TICKET-ID-2, …, TICKET-ID-N
 
 ## Type of change
 
+- [ ] Performance improvement and/or refactoring (non-breaking change that keeps existing functionality)
 - [ ] Bug fix (non-breaking change which fixes an issue)
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected)
-- [ ] Automated test (add/Update automated tests)
+- [ ] Automated test (add or update automated tests)
 
 ## How has this been tested?
 
