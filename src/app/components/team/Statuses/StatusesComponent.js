@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -44,7 +43,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   const [currentLanguage, setCurrentLanguage] = React.useState(defaultLanguage);
   const [addingNewStatus, setAddingNewStatus] = React.useState(false);
   const [selectedStatus, setSelectedStatus] = React.useState(null);
-  const [deleteStatus, setDeleteStatus] = React.useState(null);
+  const [showDeleteStatusDialogFor, setShowDeleteStatusDialogFor] = React.useState(null);
   const classes = useToolbarStyles();
 
   const handleError = (error) => {
@@ -53,6 +52,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         id="statusesComponent.error"
         defaultMessage="Sorry, an error occurred while updating the statuses. Please try again and contact {supportEmail} if the condition persists."
         values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+        description="Error message displayed when status can't be changed."
       />
     );
     const message = getErrorMessage(error, fallbackMessage);
@@ -75,7 +75,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
             team {
               id
               verification_statuses
-              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
             }
           }
         }
@@ -96,7 +95,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
             team {
               id
               verification_statuses
-              verification_statuses_with_counters: verification_statuses(items_count: true, published_reports_count: true)
             }
           }
         }
@@ -111,17 +109,18 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 
   const handleDelete = ({ status_id, fallback_status_id }) => {
     const onCompleted = () => {
-      setDeleteStatus(null);
+      setShowDeleteStatusDialogFor(null);
       setFlashMessage((
         <FormattedMessage
           id="statusesComponent.deleted"
           defaultMessage="Status deleted successfully"
+          description="Success message displayed when status is deleted."
         />
       ), 'success');
     };
     const onError = (error) => {
       handleError(error);
-      setDeleteStatus(null);
+      setShowDeleteStatusDialogFor(null);
     };
     submitDeleteStatus({
       input: {
@@ -143,6 +142,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           <FormattedMessage
             id="statusesComponent.saved"
             defaultMessage="Statuses saved successfully"
+            description="Success message displayed when status is saved."
           />
         ), 'success');
       }
@@ -151,6 +151,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
           <FormattedMessage
             id="statusesComponent.created"
             defaultMessage="Status created successfully"
+            description="Success message displayed when status is created."
           />
         ), 'success');
       }
@@ -191,13 +192,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
   };
 
   const handleMenuDelete = (status) => {
-    const statusWithCounters =
-      team.verification_statuses_with_counters.statuses.find(t => t.id === status.id);
-    if (statusWithCounters.items_count) {
-      setDeleteStatus(statusWithCounters);
-    } else {
-      handleDelete({ status_id: status.id, fallback_status_id: '' });
-    }
+    setShowDeleteStatusDialogFor(status.id);
   };
 
   const handleMenuMakeDefault = (status) => {
@@ -241,6 +236,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
               <FormattedMessage
                 id="statusesComponent.newStatus"
                 defaultMessage="New status"
+                description="Button label to create a new status."
               />
             </Button>
           }
@@ -277,6 +273,7 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
                     <FormattedMessage
                       id="statusesComponent.blurbSecondary"
                       defaultMessage="Translate statuses in secondary languages in order to display them in local languages in your fact checking reports."
+                      description="Message displayed on status translation page."
                     />
                   </StyledBlurb>
                   <TranslateStatuses
@@ -301,14 +298,15 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
         onSubmit={handleAddOrEditStatus}
         open={addingNewStatus || Boolean(selectedStatus)}
       />
-      <DeleteStatusDialog
-        defaultValue={deleteStatus}
-        key={deleteStatus || 'delete-status-dialog'}
-        open={Boolean(deleteStatus)}
-        onCancel={() => setDeleteStatus(null)}
-        onProceed={handleDelete}
-        statuses={statuses}
-      />
+      { showDeleteStatusDialogFor ?
+        <DeleteStatusDialog
+          open
+          defaultValue={showDeleteStatusDialogFor}
+          key={showDeleteStatusDialogFor || 'delete-status-dialog'}
+          onCancel={() => setShowDeleteStatusDialogFor(null)}
+          onProceed={handleDelete}
+          statuses={statuses}
+        /> : null }
     </Box>
   );
 };
@@ -316,7 +314,6 @@ const StatusesComponent = ({ team, setFlashMessage }) => {
 StatusesComponent.propTypes = {
   team: PropTypes.shape({
     verification_statuses: PropTypes.object.isRequired,
-    verification_statuses_with_counters: PropTypes.object.isRequired,
     get_language: PropTypes.string.isRequired,
     get_languages: PropTypes.string.isRequired,
   }).isRequired,
