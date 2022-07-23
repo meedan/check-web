@@ -10,7 +10,9 @@ import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
 import ConfirmProceedDialog from '../../layout/ConfirmProceedDialog';
 
-const DeleteStatusDialog = ({
+/* Exported for unit test */
+/* eslint-disable-next-line import/no-unused-modules */
+export const DeleteStatusDialog = ({
   deleteStatus,
   onCancel,
   onProceed,
