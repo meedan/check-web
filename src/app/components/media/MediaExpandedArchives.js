@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
+/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -76,11 +76,12 @@ MediaExpandedArchives.propTypes = {
   }).isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaExpandedArchives as MediaExpandedArchivesTest };
+
 export default createFragmentContainer(MediaExpandedArchives, {
   projectMedia: graphql`
     fragment MediaExpandedArchives_projectMedia on ProjectMedia {
-      id
-      dbid
       archiver: annotation(annotation_type: "archiver") {
         data
       }
