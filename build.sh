@@ -31,7 +31,7 @@ else
     sed -i '/storage_public_endpoint/ i \  \storage_endpoint:\ '"'$NGROK_URL'"'' check-api/config/config.yml
     docker-compose build
     docker-compose -f docker-compose.yml -f docker-test.yml up -d
-    until curl --silent -I -f --fail http://localhost:5000; do printf .; sleep 1; done
+    until curl --silent -I -f --fail http://localhost:3100; do printf .; sleep 1; done
   fi
   until curl --silent -I -f --fail http://localhost:3200; do printf .; sleep 1; done
   until curl --silent -I -f --fail http://localhost:3000; do printf .; sleep 1; done

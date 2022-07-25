@@ -1,6 +1,6 @@
 import React from 'react';
 import { mountWithIntl } from '../../../../../test/unit/helpers/intl-test';
-import DeleteStatusDialog from './DeleteStatusDialog';
+import { DeleteStatusDialog } from './DeleteStatusDialog';
 
 describe('<DeleteStatusDialog />', () => {
   const statuses = [
@@ -24,7 +24,7 @@ describe('<DeleteStatusDialog />', () => {
 
   it('should display the status to be deleted and show the message that one item is using this status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
-      defaultValue={statuses[2]}
+      deleteStatus={statuses[2]}
       onCancel={() => {}}
       onProceed={() => {}}
       handleSelect={() => {}}
@@ -40,7 +40,7 @@ describe('<DeleteStatusDialog />', () => {
 
   it('should display message that four items are using the status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
-      defaultValue={statuses[0]}
+      deleteStatus={statuses[0]}
       onCancel={() => {}}
       onProceed={() => {}}
       handleSelect={() => {}}
@@ -56,7 +56,7 @@ describe('<DeleteStatusDialog />', () => {
 
   it('should display the published items using this status', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
-      defaultValue={statuses[1]}
+      deleteStatus={statuses[1]}
       onCancel={() => {}}
       onProceed={() => {}}
       handleSelect={() => {}}
@@ -71,7 +71,7 @@ describe('<DeleteStatusDialog />', () => {
 
   it('should not display published message when there is no item published', () => {
     const wrapper = mountWithIntl(<DeleteStatusDialog
-      defaultValue={statuses[0]}
+      deleteStatus={statuses[0]}
       onCancel={() => {}}
       onProceed={() => {}}
       handleSelect={() => {}}
