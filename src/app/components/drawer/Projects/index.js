@@ -20,10 +20,10 @@ const renderQuery = ({ error, props }) => {
 };
 
 const Projects = () => {
-  const teamSlug = window.location.pathname.match(/^\/([^/]+)/)[1];
+  const teamSlug = window.location.pathname.match(/^\/([^/]+)/) ? window.location.pathname.match(/^\/([^/]+)/)[1] : null;
 
   // Not in a team context
-  if (teamSlug === 'check') {
+  if (teamSlug === 'check' || !teamSlug) {
     return null;
   }
 
