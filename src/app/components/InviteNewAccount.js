@@ -134,12 +134,12 @@ const InviteNewAccountComponent = ({ user }) => {
                 id="inviteNewAccount.invitedBy"
                 defaultMessage="{name} has invited you to join the workspace"
                 values={{
-                  name: teamUser.invited_by.name,
+                  name: teamUser?.invited_by?.name,
                 }}
               />
             </Typography>
             <Typography component="div" align="center" className={classes.bold} paragraph="true">
-              {teamUser.team.name}
+              {teamUser?.team?.name}
             </Typography>
             <Typography component="div" align="center" paragraph="true">
               <FormattedHTMLMessage
@@ -310,4 +310,6 @@ InviteNewAccount.propTypes = {
   teamSlug: PropTypes.string.isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { InviteNewAccountComponent };
 export default InviteNewAccount;
