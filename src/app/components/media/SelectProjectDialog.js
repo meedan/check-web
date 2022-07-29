@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
@@ -12,11 +11,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Typography from '@material-ui/core/Typography';
-import { units } from '../../styles/js/shared';
 
 const messages = defineMessages({
   notInAnyCollection: {
@@ -47,7 +42,7 @@ function SelectProjectDialog({
   const projectGroups = team.project_groups.edges.map(({ node }) => node);
 
   // Fill in the collection title for each folder, even if "not in any collection"
-  const projects = team.projects.edges
+  const projects = team.projects?.edges
     .map(({ node }) => {
       const projectGroup = projectGroups.find(pg => pg.dbid === node.project_group_id) ||
                            { title: intl.formatMessage(messages.notInAnyCollection) };
@@ -56,18 +51,18 @@ function SelectProjectDialog({
 
   // Add "empty folders" to empty collections, so they appear in the drop-down as well
   projectGroups.forEach((pg) => {
-    if (projects.length > 0 && !projects.find(p => p.project_group_id === pg.dbid)) {
+    if (!projects.find(p => p.project_group_id === pg.dbid)) {
       projects.push({ projectGroupTitle: pg.title, title: intl.formatMessage(messages.noFolders) });
     }
   });
 
   // Get a default folder
   // The value returned can be undefined if workspace default folder has privacy settings on
-  const defaultFolder = team.default_folder ? projects.filter(({ dbid }) => dbid === team.default_folder.dbid)[0] : null;
+  const defaultFolder = projects.filter(({ is_default }) => is_default === true)[0];
 
   // Lastly, sort options by title and exclude some options and defaultFolder to add it to the top of the list
   const filteredProjects = projects
-    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid) &&  dbid !== team.default_folder?.dbid)
+    .filter(({ dbid }) => !excludeProjectDbids.includes(dbid) && dbid !== defaultFolder?.dbid)
     .sort((a, b) => {
       // First sort by collection
       if (a.projectGroupTitle !== b.projectGroupTitle) {
@@ -98,16 +93,17 @@ function SelectProjectDialog({
       onClick={event => event.stopPropagation()}
       open={open}
       onClose={onCancel}
-      maxWidth="sm" fullWidth
+      maxWidth="sm"
+      fullWidth
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         { extraContent ?
-            <Box py={2}>
-              <Typography variant="body1" component="p" paragraph>
-                {extraContent}
-              </Typography>
-            </Box>: null }
+          <Box py={2}>
+            <Typography variant="body1" component="p" paragraph>
+              {extraContent}
+            </Typography>
+          </Box> : null }
         <Autocomplete
           options={filteredProjectsOptions}
           autoHighlight
@@ -123,7 +119,11 @@ function SelectProjectDialog({
               autoFocus
               name="project-title"
               label={
-                <FormattedMessage id="destinationProjects.choose" defaultMessage="Choose a folder" />
+                <FormattedMessage
+                  id="destinationProjects.choose"
+                  defaultMessage="Choose a folder"
+                  description="Choose a folder input label"
+                />
               }
               variant="outlined"
             />
@@ -179,10 +179,6 @@ const SelectProjectDialogRenderer = (parentProps) => {
             id
             dbid
             name
-            default_folder {
-              id
-              dbid
-            }
             projects(first: 10000) {
               edges {
                 node {
@@ -192,6 +188,7 @@ const SelectProjectDialogRenderer = (parentProps) => {
                   project_group_id
                   medias_count  # For optimistic updates when adding/moving items
                   search_id  # For optimistic updates when adding/moving items
+                  is_default
                 }
               }
             }
