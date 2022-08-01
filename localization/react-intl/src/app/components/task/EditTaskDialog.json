@@ -8,14 +8,6 @@
     "defaultMessage": "Other"
   },
   {
-    "id": "singleChoiceTask.addValue",
-    "defaultMessage": "Add Option"
-  },
-  {
-    "id": "singleChoiceTask.addOther",
-    "defaultMessage": "Add \"Other\""
-  },
-  {
     "id": "tasks.textType",
     "description": "Label for text type field",
     "defaultMessage": "Text"

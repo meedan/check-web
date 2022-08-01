@@ -9,11 +9,9 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  Divider,
   FormControl,
   FormControlLabel,
   FormHelperText,
-  IconButton,
   InputLabel,
   ListItemIcon,
   MenuItem,
@@ -23,28 +21,24 @@ import {
 import { withStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import {
-  Add as AddIcon,
   CheckBox as CheckBoxIcon,
-  CheckBoxOutlineBlank as CheckBoxOutlineBlankIcon,
-  Clear as ClearIcon,
   CloudUpload as CloudUploadIcon,
   DateRange as DateRangeIcon,
   LocationOn as LocationIcon,
   RadioButtonChecked as RadioButtonCheckedIcon,
-  RadioButtonUnchecked as RadioButtonUncheckedIcon,
   ShortText as ShortTextIcon,
   LinkOutlined as LinkOutlinedIcon,
 } from '@material-ui/icons';
 import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
 import Attribution from './Attribution';
+import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
 import NumberIcon from '../../icons/NumberIcon';
 import {
   units,
   caption,
   black54,
-  Row,
   alertRed,
 } from '../../styles/js/shared';
 
@@ -111,7 +105,7 @@ class EditTaskDialog extends React.Component {
       taskType: task ? task.type : (props.taskType || null),
       description: task ? task.description : null,
       showInBrowserExtension: task ? task.show_in_browser_extension : true,
-      options: task ? task.options : [{ label: '' }, { label: '' }],
+      options: task ? task.options : [{ label: '', new: true }, { label: '', new: true }],
       project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
@@ -131,9 +125,9 @@ class EditTaskDialog extends React.Component {
   handleAddValue() {
     const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
     if (this.state.hasOther) {
-      options.splice(-1, 0, { label: '' });
+      options.splice(-1, 0, { label: '', new: true });
     } else {
-      options.push({ label: '' });
+      options.push({ label: '', new: true });
     }
     this.setState({ options });
 
@@ -159,6 +153,11 @@ class EditTaskDialog extends React.Component {
     options[parseInt(e.target.id, 10)].label = e.target.value;
     this.setState({ options });
 
+    this.validateTask(this.state.label, options);
+  }
+
+  handleEditOptions(options) {
+    this.setState({ options });
     this.validateTask(this.state.label, options);
   }
 
@@ -215,7 +214,7 @@ class EditTaskDialog extends React.Component {
   handleSelectType = (e) => {
     const taskType = e.target.value;
     const { task } = this.props;
-    let options = task ? task.options : [{ label: '' }, { label: '' }];
+    let options = task ? task.options : [{ label: '', new: true }, { label: '', new: true }];
     if (taskType === 'datetime') {
       options = [{
         code: 'UTC',
@@ -254,78 +253,6 @@ class EditTaskDialog extends React.Component {
 
   toggleAssignmentField() {
     this.setState({ showAssignmentField: !this.state.showAssignmentField });
-  }
-
-  renderOptions() {
-    if (this.props.noOptions) {
-      return null;
-    }
-
-    if (this.state.taskType !== 'single_choice' &&
-        this.state.taskType !== 'multiple_choice') {
-      return null;
-    }
-
-    const { formatMessage } = this.props.intl;
-    const canRemove = this.state.options.length > 2;
-
-    return (
-      <React.Fragment>
-        <Divider />
-        <Box mt={1}>
-          {this.state.options.map((item, index) => (
-            <div key={`create-task__add-options-radiobutton-${index.toString()}`}>
-              <Row>
-                { this.state.taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null}
-                { this.state.taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null}
-                <Box clone py={0.5} px={1} width="75%">
-                  <TextField
-                    key="create-task__add-option-input"
-                    className="create-task__add-option-input"
-                    id={index.toString()}
-                    onChange={this.handleEditOption.bind(this)}
-                    placeholder={`${formatMessage(messages.value)} ${index + 1}`}
-                    value={item.label}
-                    disabled={item.other || this.state.preventChangeTaskType}
-                    variant="outlined"
-                    margin="dense"
-                  />
-                </Box>
-                {canRemove && !this.state.preventChangeTaskType ?
-                  <IconButton>
-                    <ClearIcon
-                      key="create-task__remove-option-button"
-                      className="create-task__remove-option-button create-task__md-icon"
-                      onClick={this.handleRemoveOption.bind(this, index)}
-                    />
-                  </IconButton>
-                  : null}
-              </Row>
-            </div>
-          ))}
-          <Box mt={1} display="flex">
-            <Button
-              onClick={this.handleAddValue.bind(this)}
-              startIcon={<AddIcon />}
-              variant="contained"
-              disabled={this.state.preventChangeTaskType}
-            >
-              <FormattedMessage id="singleChoiceTask.addValue" defaultMessage="Add Option" />
-            </Button>
-            <Box ml={1}>
-              <Button
-                onClick={this.handleAddOther.bind(this)}
-                startIcon={<AddIcon />}
-                variant="contained"
-                disabled={this.state.hasOther || this.state.preventChangeTaskType}
-              >
-                <FormattedMessage id="singleChoiceTask.addOther" defaultMessage='Add "Other"' />
-              </Button>
-            </Box>
-          </Box>
-        </Box>
-      </React.Fragment>
-    );
   }
 
   render() {
@@ -503,7 +430,11 @@ class EditTaskDialog extends React.Component {
             }
           >
             {types.map(t => (
-              <MenuItem value={t.value} className={`edit-task-dialog__menu-item-${t.value}`}>
+              <MenuItem
+                key={t.value}
+                value={t.value}
+                className={`edit-task-dialog__menu-item-${t.value}`}
+              >
                 <ListItemIcon>{t.icon}</ListItemIcon>
                 {t.label}
               </MenuItem>
@@ -673,7 +604,11 @@ class EditTaskDialog extends React.Component {
             : null
           }
 
-          {this.renderOptions()}
+          <EditTaskOptions
+            task={this.props.task}
+            taskType={this.state.taskType}
+            onChange={this.handleEditOptions.bind(this)}
+          />
 
           <StyledTaskAssignment>
             { this.state.showAssignmentField ?
