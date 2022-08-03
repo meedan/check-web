@@ -17,7 +17,6 @@ const Trends = ({ routeParams }) => (
       query={graphql`
         query TrendsQuery($slug: String!) {
           team(slug: $slug) {
-            id
             get_trends_filters
             get_trends_enabled
           }

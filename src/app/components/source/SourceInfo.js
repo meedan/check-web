@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { graphql, commitMutation, createFragmentContainer } from 'react-relay/compat';
