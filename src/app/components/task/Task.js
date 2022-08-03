@@ -254,7 +254,7 @@ class Task extends Component {
       mutatedLocalResponses[matchingTaskIndex].node.first_response_value = textValue;
     } else {
       // value is an object, we transform it to a string separated by ', '
-      let tempValue = textValue.selected.join(', ');
+      let tempValue = textValue.selected?.join(', ');
       if (textValue.other) {
         tempValue += `, ${textValue.other}`;
       }
@@ -486,10 +486,10 @@ class Task extends Component {
             data-urlerror={anyInvalidUrls}
             onClick={() => {
               let tempTextValue;
-              const isEmptyUrlArray = () => task.type === 'url' && this.state.textValue.filter(item => item.url !== '' || item.title !== '').length === 0;
+              const isEmptyUrlArray = () => task.type === 'url' && this.state.textValue?.filter(item => item.url !== '' || item.title !== '').length === 0;
               // if multiple choice, textValue is an object, we transform it to a string separated by ', '
               if (task.type === 'multiple_choice') {
-                tempTextValue = this.state.textValue.selected.join(', ');
+                tempTextValue = this.state.textValue.selected?.join(', ');
                 if (this.state.textValue.other) {
                   tempTextValue += `, ${this.state.textValue.other}`;
                 }
@@ -502,8 +502,7 @@ class Task extends Component {
                   tempTextValue = null;
                 }
               }
-              // if there's a blank submission, and an existing submission exists, treat as a delete action
-              if (!payload && (!this.state.textValue || isEmptyUrlArray()) && task.first_response_value) {
+              if (!payload && (!this.state.textValue || isEmptyUrlArray()) && task.first_response_value && task.first_response?.id) {
                 this.submitDeleteTaskResponse(task.first_response.id);
               } else if (tempTextValue === task?.first_response_value) {
                 // if the current submission hasn't changed at all, do nothing
@@ -590,9 +589,9 @@ class Task extends Component {
             <Typography variant="body1">
               Saved {timeAgo} by{' '}
               <a
-                href={`/check/user/${responseObj.annotator.user.dbid}`}
+                href={`/check/user/${responseObj.annotator.user?.dbid}`}
               >
-                {responseObj.annotator.user.name}
+                {responseObj.annotator.user?.name}
               </a>
             </Typography>
           </StyledAnnotatorInformation>)
@@ -851,11 +850,11 @@ class Task extends Component {
       }
     });
 
-    const zeroAnswer = task.responses.edges.length === 0;
+    const zeroAnswer = task.responses.edges?.length === 0;
 
     let taskBody = null;
     if (!isArchived) {
-      if (!response || task.responses.edges.length > 1) {
+      if (!response || task.responses.edges?.length > 1) {
         taskBody = (
           <div>
             <StyledTaskResponses>
@@ -904,6 +903,9 @@ class Task extends Component {
 Task.contextTypes = {
   store: PropTypes.object,
 };
+
+// eslint-disable-next-line import/no-unused-modules
+export { Task as TaskComponentTest };
 
 export default Relay.createContainer(Task, {
   initialVariables: {
