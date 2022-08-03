@@ -600,7 +600,7 @@ class Task extends Component {
     };
 
     return (
-      <StyledWordBreakDiv className="task__resolved">
+      <StyledWordBreakDiv key={responseObj?.dbid} className="task__resolved">
         {task.type === 'free_text' ? (
           <div className="task__response">
             <MetadataText
