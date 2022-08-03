@@ -1,5 +1,5 @@
 import React from 'react';
-import { mountWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { TaskComponentTest } from './Task';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
 import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
@@ -214,18 +214,17 @@ const media = {
 
 describe('<Task />', () => {
   it('should render MetadataText when task type is free text', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_free_text}
       media={media}
       about={{}}
       isEditing={false}
     />);
     expect(wrapper.find(MetadataText)).toHaveLength(1);
-    // console.log(wrapper.debug())
   });
 
   it('should render MetadataNumber when task type is file_upload', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_number}
       media={media}
       about={{}}
@@ -235,7 +234,7 @@ describe('<Task />', () => {
   });
 
   it('should render MetadataFile when task type is file_upload', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_upload_file}
       media={media}
       about={{}}
@@ -245,7 +244,7 @@ describe('<Task />', () => {
   });
 
   it('should render MetadataUrl when task type is url', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_url}
       media={media}
       about={{}}
@@ -255,7 +254,7 @@ describe('<Task />', () => {
   });
 
   it('should render MetadataDate when task type is file_upload', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_datetime}
       media={media}
       about={{}}
@@ -265,7 +264,7 @@ describe('<Task />', () => {
   });
 
   it('should render MetadataMultiselect when task type is multiple_choice', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_multiple_choice}
       media={media}
       about={{}}
@@ -275,7 +274,7 @@ describe('<Task />', () => {
   });
 
   it('should render MetadataMultiselect when task type is single_choice', () => {
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_single_choice}
       media={media}
       about={{}}
@@ -285,16 +284,12 @@ describe('<Task />', () => {
   });
 
   it('should render MetadataLocation when task type is geolocation', () => {
-    // const div = '<div id="map"/>';
-    // const div2 = global.document.createElement(div);
-    // global.document.body.appendChild(div);
-    const map = mount(<Map />);
-    const wrapper = mountWithIntl(<TaskComponentTest
+    const wrapper = shallowWithIntl(<TaskComponentTest
       task={task_geolocation}
       media={media}
       about={{}}
       isEditing
-    />, { attachTo: map });
+    />);
     expect(wrapper.find(MetadataLocation)).toHaveLength(1);
   });
 });
