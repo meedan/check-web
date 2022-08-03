@@ -1,7 +1,6 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import {
   Box,
   Button,
@@ -32,6 +31,7 @@ import {
 import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
 import Attribution from './Attribution';
+import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
 import NumberIcon from '../../icons/NumberIcon';
@@ -71,17 +71,6 @@ const StyledTaskCantUpdateType = styled.div`
   color: ${alertRed};
 `;
 
-const messages = defineMessages({
-  value: {
-    id: 'singleChoiceTask.value',
-    defaultMessage: 'Value',
-  },
-  other: {
-    id: 'singleChoiceTask.other',
-    defaultMessage: 'Other',
-  },
-});
-
 const styles = {
   select: {
     display: 'flex',
@@ -106,108 +95,49 @@ class EditTaskDialog extends React.Component {
       description: task ? task.description : null,
       showInBrowserExtension: task ? task.show_in_browser_extension : true,
       options: task ? task.options : [{ label: '', new: true }, { label: '', new: true }],
+      diff: {},
       project_ids: task ? task.project_ids : [],
       submitDisabled: true,
       showAssignmentField: false,
-      editLabelOrDescription: false,
-      hasOther: task ? task.options?.some(option => option.other) : false,
-      preventChangeTaskType: task && task.tasks_with_answers_count > 0,
+      showWarning: false,
+      hasCollectedAnswers: task && task.tasks_with_answers_count > 0,
       restrictTimezones: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.restrictTimezones,
       alwaysShowTime: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.alwaysShowTime,
     };
   }
 
-  handleDescriptionChange(e) {
-    this.setState({ description: e.target.value, editLabelOrDescription: true });
-    this.validateTask(this.state.label, this.state.options);
-  }
-
-  handleAddValue() {
-    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    if (this.state.hasOther) {
-      options.splice(-1, 0, { label: '', new: true });
-    } else {
-      options.push({ label: '', new: true });
-    }
-    this.setState({ options });
-
-    this.validateTask(this.state.label, options);
-  }
-
-  handleAddOther() {
-    const options = Array.isArray(this.state.options) ? this.state.options.slice(0) : [];
-    const other = true;
-    let label = '';
-
-    if (!this.state.hasOther) {
-      label = this.props.intl.formatMessage(messages.other);
-      options.push({ label, other });
-      this.setState({ options, hasOther: true });
-    }
-
-    this.validateTask(this.state.label, options);
-  }
-
-  handleEditOption(e) {
-    const options = this.state.options.slice(0);
-    options[parseInt(e.target.id, 10)].label = e.target.value;
-    this.setState({ options });
-
-    this.validateTask(this.state.label, options);
-  }
-
-  handleEditOptions(options) {
-    this.setState({ options });
-    this.validateTask(this.state.label, options);
-  }
-
-  handleRemoveOption(index) {
-    const options = this.state.options.slice(0);
-    let hasOther = null;
-
-    if (this.state.hasOther) {
-      hasOther = index !== options.length - 1;
-    } else {
-      hasOther = false;
-    }
-
-    options.splice(index, 1);
-
-    this.setState({ options, hasOther });
-
-    this.validateTask(this.state.label, options);
-  }
-
-  validateTask(label, options) {
-    let valid = false;
-
-    if (this.state.taskType) {
-      if (this.state.taskType === 'single_choice' ||
-          this.state.taskType === 'multiple_choice') {
-        valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
-      } else if (this.state.taskType === 'datetime') {
-        valid = !!(label && label.trim()) && options.length > 0;
-      } else {
-        valid = !!(label && label.trim());
-      }
-    }
-
-    this.setState({ submitDisabled: !valid });
-  }
-
-  handleLabelChange(e) {
-    this.setState({ label: e.target.value, editLabelOrDescription: true });
+  handleLabelChange = (e) => {
+    this.setState({
+      label: e.target.value,
+      showWarning: false,
+    });
     this.validateTask(e.target.value, this.state.options);
-  }
+  };
 
-  handleToogleShowInBrowserExtension(e) {
-    this.setState({ showInBrowserExtension: e.target.checked });
+  handleDescriptionChange = (e) => {
+    this.setState({
+      description: e.target.value,
+      showWarning: false,
+    });
     this.validateTask(this.state.label, this.state.options);
-  }
+  };
 
-  handleSelectProjects = (projectsIds) => {
-    const project_ids = projectsIds.map(id => parseInt(id, 10));
-    this.setState({ project_ids });
+  handleOptionsChange = (options, diff) => {
+    if (diff) {
+      this.setState({ options, diff });
+    } else {
+      this.setState({ options });
+    }
+    this.setState({ showWarning: false });
+    this.validateTask(this.state.label, options);
+  };
+
+  handleToggleAssignmentField = () => {
+    this.setState({ showAssignmentField: !this.state.showAssignmentField });
+  };
+
+  handleToggleShowInBrowserExtension = (e) => {
+    this.setState({ showInBrowserExtension: e.target.checked });
     this.validateTask(this.state.label, this.state.options);
   };
 
@@ -228,7 +158,33 @@ class EditTaskDialog extends React.Component {
     );
   };
 
-  handleSubmitTask() {
+  handleSave = () => {
+    const { hasCollectedAnswers, showWarning } = this.state;
+    if (hasCollectedAnswers && !showWarning) {
+      this.setState({ showWarning: true });
+    } else {
+      this.submitTask();
+    }
+  };
+
+  validateTask(label, options) {
+    let valid = false;
+
+    if (this.state.taskType) {
+      if (this.state.taskType === 'single_choice' ||
+          this.state.taskType === 'multiple_choice') {
+        valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
+      } else if (this.state.taskType === 'datetime') {
+        valid = !!(label && label.trim()) && options.length > 0;
+      } else {
+        valid = !!(label && label.trim());
+      }
+    }
+
+    this.setState({ submitDisabled: !valid });
+  }
+
+  submitTask() {
     const jsonoptions = this.state.options
       ? JSON.stringify(this.state.options
         .map(item => ({ ...item, label: item.label.trim() }))
@@ -242,17 +198,12 @@ class EditTaskDialog extends React.Component {
       show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
       json_project_ids: JSON.stringify(this.state.project_ids),
-      editLabelOrDescription: this.state.editLabelOrDescription,
     };
 
     if (!this.state.submitDisabled) {
       this.props.onSubmit(task);
       this.setState({ submitDisabled: true });
     }
-  }
-
-  toggleAssignmentField() {
-    this.setState({ showAssignmentField: !this.state.showAssignmentField });
   }
 
   render() {
@@ -420,7 +371,7 @@ class EditTaskDialog extends React.Component {
             onChange={this.handleSelectType}
             labelId="edit-task-dialog__type-select-label"
             value={this.state.taskType}
-            disabled={this.state.preventChangeTaskType}
+            disabled={this.state.hasCollectedAnswers}
             label={
               <FormattedMessage
                 id="tasks.chooseType"
@@ -444,7 +395,7 @@ class EditTaskDialog extends React.Component {
         <Box mt={1} mb={2}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
-        { this.state.preventChangeTaskType ?
+        { this.state.hasCollectedAnswers ?
           <Box mt={1} mb={2}>
             <StyledTaskCantUpdateType>
               <FormattedMessage
@@ -464,7 +415,7 @@ class EditTaskDialog extends React.Component {
         className="create-task__dialog"
         open
         onClose={this.props.onDismiss}
-        scroll="paper"
+        scroll="body"
         maxWidth="sm"
         fullWidth
       >
@@ -481,7 +432,7 @@ class EditTaskDialog extends React.Component {
               />
             }
             defaultValue={this.state.label}
-            onChange={this.handleLabelChange.bind(this)}
+            onChange={this.handleLabelChange}
             margin="normal"
             variant="outlined"
             multiline
@@ -491,10 +442,14 @@ class EditTaskDialog extends React.Component {
             id="task-description-input"
             className="create-task__task-description-input"
             label={
-              <FormattedMessage id="tasks.description" defaultMessage="Description (optional)" />
+              <FormattedMessage
+                id="tasks.description"
+                defaultMessage="Description (optional)"
+                description="Description field for custom annotation field"
+              />
             }
             defaultValue={this.state.description}
-            onChange={this.handleDescriptionChange.bind(this)}
+            onChange={this.handleDescriptionChange}
             margin="normal"
             variant="outlined"
             multiline
@@ -588,6 +543,7 @@ class EditTaskDialog extends React.Component {
                           <FormattedMessage
                             id="tasks.timezones"
                             defaultMessage="Timezones available to complete the task"
+                            description="Label of timezones list available to the task"
                           />
                         }
                       />
@@ -603,13 +559,11 @@ class EditTaskDialog extends React.Component {
             </Box>
             : null
           }
-
           <EditTaskOptions
             task={this.props.task}
             taskType={this.state.taskType}
-            onChange={this.handleEditOptions.bind(this)}
+            onChange={this.handleOptionsChange}
           />
-
           <StyledTaskAssignment>
             { this.state.showAssignmentField ?
               <Attribution
@@ -621,29 +575,54 @@ class EditTaskDialog extends React.Component {
             { this.props.allowAssignment ?
               <button
                 className="create-task__add-assignment-button"
-                onClick={this.toggleAssignmentField.bind(this)}
+                onClick={this.handleToggleAssignmentField}
               >
                 +{' '}
-                <FormattedMessage id="tasks.assign" defaultMessage="Assign" />
+                <FormattedMessage
+                  id="tasks.assign"
+                  defaultMessage="Assign"
+                  description="Label to assign task button"
+                />
               </button> : null
             }
           </StyledTaskAssignment>
+          <EditTaskAlert
+            showAlert={this.state.hasCollectedAnswers && this.state.showWarning}
+            task={this.props.task}
+            diff={this.state.diff}
+          />
         </DialogContent>
         <DialogActions>
           <Button
             className="create-task__dialog-cancel-button"
             onClick={this.props.onDismiss}
           >
-            <FormattedMessage id="tasks.cancelAdd" defaultMessage="Cancel" />
+            <FormattedMessage
+              id="tasks.cancelAdd"
+              defaultMessage="Cancel"
+              description="Cancel action button label"
+            />
           </Button>
           <Button
             className="create-task__dialog-submit-button"
-            onClick={this.handleSubmitTask.bind(this)}
+            onClick={this.handleSave}
             variant="contained"
             color="primary"
             disabled={this.state.submitDisabled}
           >
-            <FormattedMessage id="tasks.add" defaultMessage="Save" />
+            { this.state.showWarning ? (
+              <FormattedMessage
+                id="tasks.saveButtonWarning"
+                defaultMessage="I understand, save changes"
+                description="Save action button label warning"
+              />
+            ) : (
+              <FormattedMessage
+                id="tasks.add"
+                defaultMessage="Save"
+                description="Save action button label"
+              />
+            )}
           </Button>
         </DialogActions>
       </Dialog>
@@ -651,6 +630,7 @@ class EditTaskDialog extends React.Component {
   }
 }
 
+// TODO review propTypes
 EditTaskDialog.propTypes = {
   allowAssignment: PropTypes.bool,
   isTeamTask: PropTypes.bool,

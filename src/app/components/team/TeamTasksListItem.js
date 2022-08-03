@@ -13,6 +13,7 @@ import LinkOutlinedIcon from '@material-ui/icons/LinkOutlined';
 import TeamTaskConfirmDialog from './TeamTaskConfirmDialog';
 import TeamTaskCard from './TeamTaskCard';
 import TeamTaskContainer from './TeamTaskContainer';
+import { withSetFlashMessage } from '../FlashMessage';
 import Reorder from '../layout/Reorder';
 import ConditionalField from '../task/ConditionalField';
 import EditTaskDialog from '../task/EditTaskDialog';
@@ -142,7 +143,6 @@ class TeamTasksListItem extends React.Component {
 
     this.state = {
       action: null,
-      message: null,
       dialogOpen: false,
       editLabelOrDescription: false,
       showInBrowserExtension: !!this.props.task?.show_in_browser_extension,
@@ -162,7 +162,7 @@ class TeamTasksListItem extends React.Component {
 
   fail = (transaction) => {
     const message = getErrorMessage(transaction, <GenericUnknownErrorMessage />);
-    this.setState({ message });
+    this.props.setFlashMessage(message, 'error');
   };
 
   handleMenuEdit = () => {
@@ -177,23 +177,19 @@ class TeamTasksListItem extends React.Component {
     this.handleCloseDialog();
     if (this.state.action === 'delete') {
       this.handleDestroy(keepCompleted);
-    } else if (this.state.action === 'edit') {
-      this.handleSubmitTask(keepCompleted);
     }
   }
 
   handleEdit = (editedTask) => {
-    this.setState({
-      isEditing: false,
-      editedTask,
-      editLabelOrDescription: editedTask.editLabelOrDescription,
-      dialogOpen: true,
-    });
+    this.setState(
+      { isEditing: false, editedTask },
+      () => this.handleSubmitTask(false),
+    );
   };
 
   handleDestroy = (keepCompleted) => {
     const { task } = this.props;
-
+    // FIXME Update to RelayModern mutation
     Relay.Store.commitUpdate(
       new DeleteTeamTaskMutation({
         teamId: this.props.team.id,
@@ -205,13 +201,14 @@ class TeamTasksListItem extends React.Component {
   };
 
   handleCloseDialog = () => {
-    this.setState({ dialogOpen: false, message: null });
+    this.setState({ dialogOpen: false });
   };
 
   handleCloseEdit = () => {
-    this.setState({ action: null, isEditing: false, message: null });
+    this.setState({ action: null, isEditing: false });
   };
 
+  // TODO Get rid of keepCompleted for handleSubmitTask
   handleSubmitTask = (keepCompleted) => {
     const task = this.state.editedTask;
     const { id } = this.props.task;
@@ -233,7 +230,7 @@ class TeamTasksListItem extends React.Component {
       this.handleCloseEdit();
       this.setState({ editedTask: null });
     };
-
+    // FIXME Update to RelayModern mutation
     Relay.Store.commitUpdate(
       new UpdateTeamTaskMutation({
         team: this.props.team,
@@ -255,7 +252,7 @@ class TeamTasksListItem extends React.Component {
     const onSuccess = () => {
       this.handleCloseEdit();
     };
-
+    // FIXME Update to RelayModern mutation
     Relay.Store.commitUpdate(
       new UpdateTeamTaskMutation({
         team: this.props.team,
@@ -341,7 +338,6 @@ class TeamTasksListItem extends React.Component {
                   action={this.state.action}
                   handleClose={this.handleCloseDialog}
                   handleConfirm={this.handleConfirmDialog}
-                  message={this.state.message}
                 />
               )}
             </TeamTaskContainer> : null }
@@ -349,7 +345,6 @@ class TeamTasksListItem extends React.Component {
             <TeamTaskContainer task={task} team={this.props.team}>
               {teamTask => (
                 <EditTaskDialog
-                  message={this.state.message}
                   taskType={teamTask.type}
                   onDismiss={this.handleCloseEdit}
                   onSubmit={this.handleEdit}
@@ -396,4 +391,4 @@ TeamTasksListItem.propTypes = {
   about: PropTypes.object.isRequired,
 };
 
-export default (TeamTasksListItem);
+export default withSetFlashMessage(TeamTasksListItem);

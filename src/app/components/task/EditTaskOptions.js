@@ -27,6 +27,14 @@ const messages = defineMessages({
   },
 });
 
+// Task options are either pre-existing, new, delete-candidate, edit-candidate
+// Verify integrity of following operations:
+// - Add, Edit, Delete
+//  - pre-existing
+//  - new
+//  - delete-candidate
+//  - edit-candidate
+
 const EditTaskOptions = ({
   intl,
   noOptions,
@@ -48,7 +56,7 @@ const EditTaskOptions = ({
   });
 
   const [options, setOptions] = React.useState(task ? task.options : [{ label: '', tempId: Math.random() }, { label: '', tempId: Math.random() }]);
-  const [hasOther, setHasOther] = React.useState(false);
+  const [hasOther, setHasOther] = React.useState(task ? task.options?.some(option => option.other) : false);
 
   const { formatMessage } = intl;
   const canRemove = options.length > 2;
@@ -59,55 +67,90 @@ const EditTaskOptions = ({
   const handleEditOption = (newValue, index) => {
     const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
-    if (!newOptions[index].initialLabel && !newOptions[index].tempId) {
+
+    // Set initialLabel if previously existing option
+    // TODO make this a mapping function to set up initial options state
+    if (!newOptions[index].tempId && !newOptions[index].initialLabel) {
       newOptions[index].initialLabel = newOptions[index].label;
     }
+
+    // Once initialLabel is defined, set new label
+    newOptions[index].label = newValue;
+
+    // If initialLabel is set, add to diff.changed, else update diff.added
     if (newOptions[index].initialLabel) {
       newDiff.changed[newOptions[index].initialLabel] = newValue;
+    } else {
+      newDiff.added = newOptions.filter(o => o.tempId && o.label.trim()).map(o => o.label);
     }
-    newOptions[index].label = newValue;
+
+    // If current value is same as initial, there's no change, remove from Diff
+    if (newOptions[index].initialLabel === newValue) {
+      delete newDiff.changed[newValue];
+    }
+
+    // TODO if setting value equal as deleted existing, restore deleted existing
+    // don't actually delete and replace
+
     setDiff(newDiff);
     setOptions(newOptions);
-    onChange(newOptions);
+    onChange(newOptions, newDiff);
   };
 
   const handleRemoveOption = (index) => {
     const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
     const newHasOther = hasOther && (index !== options.length - 1);
-    if (!newOptions[index].initialLabel && !newOptions[index].tempId) {
+
+    // Set initialLabel if previously existing option
+    // TODO make this a mapping function to set up initial options state
+    if (!newOptions[index].tempId && !newOptions[index].initialLabel) {
       newOptions[index].initialLabel = newOptions[index].label;
     }
+
+    // If initialLabel is set, add to diff.deleted
     if (newOptions[index].initialLabel) {
       newDiff.deleted.push(newOptions[index].initialLabel);
+      // Update diff.changed if removing an edited existing option
+      delete newDiff.changed[newOptions[index].initialLabel];
     }
+
     newOptions.splice(index, 1);
+    newDiff.added = newOptions.filter(o => o.tempId && o.label.trim()).map(o => o.label);
     setDiff(newDiff);
     setOptions(newOptions);
     setHasOther(newHasOther);
-    onChange(newOptions);
+    onChange(newOptions, newDiff);
   };
 
   const handleAddValue = () => {
     const newOptions = JSON.parse(JSON.stringify(options));
+    const newValue = { label: '', tempId: Math.random() };
     if (hasOther) {
-      newOptions.splice(-1, 0, { label: '', tempId: Math.random() });
+      newOptions.splice(-1, 0, newValue);
     } else {
-      newOptions.push({ label: '', tempId: Math.random() });
+      newOptions.push(newValue);
     }
     setOptions(newOptions);
+    // Not passing newDiff to onChange yet as we didn't add a label
+    onChange(newOptions);
   };
 
   const handleAddOther = () => {
+    const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
+    const otherLabel = formatMessage(messages.other);
     newOptions.push({
-      label: formatMessage(messages.other),
+      label: otherLabel,
       other: true,
       tempId: Math.random(),
     });
+
+    newDiff.added.push(otherLabel);
     setOptions(newOptions);
+    setDiff(newDiff);
     setHasOther(true);
-    onChange(newOptions);
+    onChange(newOptions, newDiff);
   };
 
   return (
@@ -176,6 +219,7 @@ const EditTaskOptions = ({
   );
 };
 
+// TODO review/complete propTypes
 EditTaskOptions.propTypes = {
   noOptions: PropTypes.bool,
 };
@@ -184,4 +228,5 @@ EditTaskOptions.defaultProps = {
   noOptions: false,
 };
 
+// TODO createFragmentContainer
 export default injectIntl(EditTaskOptions);

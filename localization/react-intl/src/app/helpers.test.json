@@ -1,0 +1,6 @@
+[
+  {
+    "id": "addAnnotation.error",
+    "defaultMessage": "Sorry, an error occurred while updating the item. Please try again and contact {supportEmail} if the condition persists."
+  }
+]
