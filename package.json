@@ -71,6 +71,7 @@
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2",
     "enzyme": "^3.3.0",
+    "eslint-plugin-relay": "^1.8.3",
     "jest": "^25.4.0"
   },
   "dependencies": {

@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import Relay from 'react-relay/classic';
 import { QueryRenderer, graphql } from 'react-relay/compat';
