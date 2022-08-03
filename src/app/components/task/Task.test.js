@@ -1,11 +1,8 @@
 import React from 'react';
-import { shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
+import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
+import { mountWithIntl, shallowWithIntl } from '../../../../test/unit/helpers/intl-test';
 import { TaskComponentTest } from './Task';
 import CheckArchivedFlags from '../../CheckArchivedFlags';
-import { MetadataText, MetadataFile, MetadataDate, MetadataNumber, MetadataLocation, MetadataMultiselect, MetadataUrl } from '@meedan/check-ui';
-import { json } from 'express';
-import { mount } from 'enzyme';
-import { Map } from 'react-leaflet';
 
 const permissions = JSON.stringify({
   'create Media': true, 'create ClaimDescription': true, 'read Dynamic': true, 'update Dynamic': true,
@@ -13,12 +10,12 @@ const permissions = JSON.stringify({
 
 const task_free_text = {
   type: 'free_text',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
       node: {
-        id: '11', dbid: 11, permissions, content: 'text content', file_data: null,
+        id: '11', dbid: 11, permissions, content: 'text content', file_data: null, annotator: { name: 'user test' },
       },
     }],
   },
@@ -36,7 +33,7 @@ const task_free_text = {
 
 const task_number = {
   type: 'number',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -59,7 +56,7 @@ const task_number = {
 
 const task_upload_file = {
   type: 'file_upload',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -82,7 +79,7 @@ const task_upload_file = {
 
 const task_url = {
   type: 'url',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -105,7 +102,7 @@ const task_url = {
 
 const task_multiple_choice = {
   type: 'multiple_choice',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -129,7 +126,7 @@ const task_multiple_choice = {
 
 const task_single_choice = {
   type: 'single_choice',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -153,7 +150,7 @@ const task_single_choice = {
 
 const task_datetime = {
   type: 'datetime',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -180,7 +177,7 @@ const content = [{
 
 const task_geolocation = {
   type: 'geolocation',
-  dbid: 'das',
+  dbid: 'dbid',
   assignments: { edges: [] },
   responses: {
     edges: [{
@@ -291,5 +288,27 @@ describe('<Task />', () => {
       isEditing
     />);
     expect(wrapper.find(MetadataLocation)).toHaveLength(1);
+  });
+
+  it('should render "edit button" when user is not editing annotation', () => {
+    const wrapper = mountWithIntl(<TaskComponentTest
+      task={task_free_text}
+      media={media}
+      about={{}}
+      isEditing={false}
+    />);
+    expect(wrapper.find('.metadata-edit').hostNodes()).toHaveLength(1);
+  });
+
+  it('should render "edit forms" when user is editing annotation', () => {
+    const wrapper = mountWithIntl(<TaskComponentTest
+      task={task_free_text}
+      media={media}
+      about={{}}
+      isEditing
+    />);
+    expect(wrapper.find('.metadata-cancel').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.metadata-save').hostNodes()).toHaveLength(1);
+    expect(wrapper.find('.clear-button').hostNodes()).toHaveLength(1);
   });
 });
