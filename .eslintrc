@@ -21,6 +21,7 @@
     "plugins": [
         "require-path-exists",
         "@calm/react-intl",
+        "relay",
     ],
     "rules": {
         "indent": [2, 2],
@@ -31,6 +32,9 @@
         "react/prop-types": "off",
         "react/forbid-prop-types": "off",
         "react/no-children-prop": "off",
+
+        // Relay
+        "relay/unused-fields": "error",
 
         // TODO Fix a11y issues
         "jsx-a11y/no-static-element-interactions": "off",

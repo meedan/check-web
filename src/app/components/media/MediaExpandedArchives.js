@@ -43,7 +43,7 @@ const MediaExpandedArchives = ({ projectMedia }) => {
       <Grid container spacing={2}>
         <Grid item xs={2}>
           <Typography variant="subtitle2">
-            <FormattedMessage id="mediaExpandedArchives.archives" defaultMessage="Archives:" />
+            <FormattedMessage id="mediaExpandedArchives.archives" defaultMessage="Archives:" description="This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL." />
           </Typography>
         </Grid>
         { activeArchivers.map(f => (
@@ -76,11 +76,12 @@ MediaExpandedArchives.propTypes = {
   }).isRequired,
 };
 
+// eslint-disable-next-line import/no-unused-modules
+export { MediaExpandedArchives as MediaExpandedArchivesTest };
+
 export default createFragmentContainer(MediaExpandedArchives, {
   projectMedia: graphql`
     fragment MediaExpandedArchives_projectMedia on ProjectMedia {
-      id
-      dbid
       archiver: annotation(annotation_type: "archiver") {
         data
       }

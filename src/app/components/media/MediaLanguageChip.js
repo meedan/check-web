@@ -1,4 +1,4 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import PropTypes from 'prop-types';
@@ -32,6 +32,7 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
           id="mediaLanguageChip.error"
           defaultMessage="Sorry, an error occurred while updating the language. Please try again and contact {supportEmail} if the condition persists."
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
+          description="This message appears when a user tries to update the language on a media item and an error occurs."
         />
       );
       const errorMessage = getErrorMessage(transaction, fallbackMessage);
