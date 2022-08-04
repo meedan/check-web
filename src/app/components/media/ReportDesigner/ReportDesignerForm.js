@@ -88,6 +88,7 @@ const ReportDesignerForm = (props) => {
           onToggle={(enabled) => { props.onUpdate('use_introduction', enabled); }}
           label={
             <FormattedMessage
+              data-testid="report-designer__introduction"
               id="reportDesigner.introduction"
               defaultMessage="Introduction"
             />
@@ -183,6 +184,7 @@ const ReportDesignerForm = (props) => {
               />
               <LimitedTextFieldWithCounter
                 limit={140}
+                data-testid="report-designer__text-url"
                 label={
                   <FormattedMessage
                     id="reportDesigner.textUrl"
@@ -192,7 +194,7 @@ const ReportDesignerForm = (props) => {
                 }
                 onUpdate={(newValue) => {
                   let newUrl = newValue;
-                  if (!/^https?:\/\//.test(newUrl)) {
+                  if (newValue.trim().length !== 0 && !/^https?:\/\//.test(newUrl)) {
                     newUrl = `https://${newUrl}`;
                   }
                   props.onUpdate('published_article_url', newUrl);

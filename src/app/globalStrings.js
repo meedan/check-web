@@ -48,6 +48,7 @@ const globalStrings = defineMessages({
   unknownError: {
     id: 'global.unknownError',
     defaultMessage: 'Sorry, an error occurred. Please try again and contact {supportEmail} if the condition persists.',
+    description: 'Message displayed in error notification when an operation fails unexpectedly',
   },
   update: {
     id: 'global.update',

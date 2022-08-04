@@ -11,7 +11,9 @@ const LimitedTextFieldWithCounter = ({
   value,
   textFieldProps,
 }) => {
-  const [remaining, setRemaining] = React.useState(limit - value.length);
+  // Making sure component doesn't crash if value is null.
+  // defaultProps only seem to step in when value is undefined.
+  const [remaining, setRemaining] = React.useState(limit - (value?.length || 0));
 
   return (
     <TextField

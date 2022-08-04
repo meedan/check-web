@@ -7,12 +7,11 @@ const team = {
   name: 'teamName',
   slug: 'slugTeam',
   members_count: 1,
-  default_folder: { dbid: 1, id: 'UHJvamVjdC80\n' },
   project_groups: { edges: [{ node: { project_group_id: '1', title: 'title' } }] },
   projects: {
     edges: [{
       node: {
-        title: 'title', dbid: 2, project_group_id: '1', id: 'ABJvamVjdC70\n',
+        title: 'title', dbid: 2, project_group_id: '1', id: 'ABJvamVjdC70\n', is_default: false,
       },
     }],
   },
@@ -27,12 +26,11 @@ const team2 = {
   name: 'teamName',
   slug: 'slugTeam',
   members_count: 1,
-  default_folder: { dbid: 1, id: 'UHJvamVjdC80\n' },
   project_groups: { edges: [{ node: { project_group_id: '1', title: 'title' } }] },
   projects: {
     edges: [{
       node: {
-        title: 'title', dbid: 1, project_group_id: '1', id: 'UHJvamVjdC80\n',
+        title: 'title', dbid: 1, project_group_id: '1', id: 'UHJvamVjdC80\n', is_default: true,
       },
     }],
   },

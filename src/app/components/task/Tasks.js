@@ -305,12 +305,12 @@ const Tasks = ({
           .filter(task => (!isBrowserExtension || task.node.show_in_browser_extension))
           .filter(showMetadataItem)
           .map(task => (
-            <>
-              <li key={task.node.dbid}>
+            <React.Fragment key={task.node.dbid}>
+              <li>
                 <Task task={task.node} media={media} about={about} isEditing={isEditing} localResponses={localResponses} setLocalResponses={setLocalResponses} />
               </li>
               <Divider />
-            </>
+            </React.Fragment>
           ))
         }
       </ul>
