@@ -5,6 +5,11 @@
     "defaultMessage": "Items moved from Trash to '{toProject}'"
   },
   {
+    "id": "bulkActions.movedFromSpamSuccessfully",
+    "description": "Banner displayed after items are moved successfully",
+    "defaultMessage": "Items moved from Spam to '{toProject}'"
+  },
+  {
     "id": "bulkActions.movedSuccessfully",
     "description": "Banner displayed after items are moved successfully",
     "defaultMessage": "Items moved to '{toProject}'"

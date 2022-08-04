@@ -133,14 +133,28 @@ class BulkActions extends React.Component {
         title: projectTitle,
         dbid: projectId,
       } = this.state.dstProj ? this.state.dstProj : { title: null, dbid: null };
-      const message = (
+      const message = this.props.page === 'trash' ? (
         <FormattedMessage
           id="bulkActions.movedRestoreSuccessfully"
           defaultMessage="Items moved from Trash to '{toProject}'"
           description="Banner displayed after items are moved successfully"
           values={{
             toProject: (
-              // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
+              <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
+                {projectTitle}
+              </a>
+            ),
+          }}
+        />
+      ) : (
+        <FormattedMessage
+          id="bulkActions.movedFromSpamSuccessfully"
+          defaultMessage="Items moved from Spam to '{toProject}'"
+          description="Banner displayed after items are moved successfully"
+          values={{
+            toProject: (
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid
               <a onClick={() => browserHistory.push(`/${this.props.team.slug}/project/${projectId}`)}>
                 {projectTitle}
               </a>
