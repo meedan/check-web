@@ -1,10 +1,12 @@
 [
   {
     "id": "projectGroup.name",
+    "description": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case.",
     "defaultMessage": "collection"
   },
   {
     "id": "projectGroup.deleteMessage",
+    "description": "A message that appears when a user attempts to delete a collection to warn them that any folders inside will NOT be deleted, and will still be accessible.",
     "defaultMessage": "If you delete this collection, all folders will still be accessible outside of the collection."
   }
 ]

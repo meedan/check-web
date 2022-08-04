@@ -45,7 +45,7 @@ function ChangePasswordComponent({
   const handleChangePasswordConfirm = (e) => {
     const { value } = e.target;
     const bothFilled =
-      password.length >= passwordLength.min && value.length >= passwordLength.min;
+      password?.length >= passwordLength.min && value.length >= passwordLength.min;
     const samePass = password === value;
     const message = bothFilled && !samePass ? (
       <FormattedMessage

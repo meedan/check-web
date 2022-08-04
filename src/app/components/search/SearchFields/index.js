@@ -1,3 +1,4 @@
+/* eslint-disable relay/unused-fields */
 import React from 'react';
 import { createFragmentContainer, graphql } from 'react-relay/compat';
 import { FormattedMessage, injectIntl, intlShape, defineMessages } from 'react-intl';

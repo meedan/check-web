@@ -1,3 +1,4 @@
+/* eslint-disable @calm/react-intl/missing-attribute, relay/unused-fields */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
@@ -40,7 +41,6 @@ const TrendsItem = ({ routeParams, location }) => {
                       team {
                         name
                         dbid
-                        country
                       }
                     }
                   }
@@ -48,9 +48,6 @@ const TrendsItem = ({ routeParams, location }) => {
               }
             }
             cluster(id: $clusterId) {
-              size
-              first_item_at
-              last_item_at
               requests_count
               claim_descriptions(first: 1000) {
                 edges {
@@ -70,9 +67,6 @@ const TrendsItem = ({ routeParams, location }) => {
                         data
                       }
                       last_status
-                      last_status_obj {
-                        data
-                      }
                       tags(first: 10000) {
                         edges {
                           node {
@@ -86,7 +80,6 @@ const TrendsItem = ({ routeParams, location }) => {
                           node {
                             slug
                             label
-                            options
                             first_response_value
                           }
                         }
@@ -113,41 +106,24 @@ const TrendsItem = ({ routeParams, location }) => {
                     requests_count
                     updated_at
                     last_seen
-                    created_at
                     picture
-                    language_code
-                    pusher_channel
                     dbid
-                    project_id
-                    full_url
-                    domain
                     team {
                       id
                       dbid
                       slug
                       name
                       avatar
-                      get_language
-                      get_report
                       verification_statuses
-                      team_bots(first: 10000) {
-                        edges {
-                          node {
-                            login
-                          }
-                        }
-                      }
                     }
                     media {
                       dbid
                       url
                       quote
-                      embed_path
                       metadata
                       type
                       picture
                       file_path
-                      thumbnail_path
                     }
                   }
                 }
