@@ -246,7 +246,7 @@ const AddFilterMenu = ({
   options = options.concat([
     {
       id: 'add-filter-menu__language',
-      key: 'dynamic',
+      key: 'language',
       icon: <LanguageIcon />,
       label: (
         <FormattedMessage
