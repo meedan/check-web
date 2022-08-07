@@ -224,6 +224,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handleAnnotatedByClick = (userIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'annotated_by', userIds),
+    );
+  }
+
   handleProjectGroupClick = (projectGroupDbids) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'project_group_id', projectGroupDbids),
@@ -620,6 +626,20 @@ class SearchFields extends React.Component {
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handlePublishedByClick}
               onRemove={() => this.handleRemoveField('published_by')}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      annotated_by: (
+        <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              selected={this.props.query.annotated_by}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handleAnnotatedByClick}
+              onRemove={() => this.handleRemoveField('annotated_by')}
             />
           )}
         </FormattedMessage>
