@@ -73,10 +73,10 @@ const UploadMessage = ({ type, about }) => {
       id="uploadFile.message"
       defaultMessage="Drop an image file here, or click to upload a file (max size: {upload_max_size}, allowed extensions: {upload_extensions}, allowed dimensions between {upload_min_dimensions} and {upload_max_dimensions} pixels)"
       values={{
-        upload_max_size: about.upload_max_size,
-        upload_extensions: about.upload_extensions.join(', '),
-        upload_max_dimensions: about.upload_max_dimensions,
-        upload_min_dimensions: about.upload_min_dimensions,
+        upload_max_size: about?.upload_max_size,
+        upload_extensions: about?.upload_extensions?.join(', '),
+        upload_max_dimensions: about?.upload_max_dimensions,
+        upload_min_dimensions: about?.upload_min_dimensions,
       }}
     />
   );
@@ -85,8 +85,8 @@ const UploadMessage = ({ type, about }) => {
       id="uploadFile.videoMessage"
       defaultMessage="Drop a video file here, or click to upload a file (max size: {video_max_size}, allowed extensions: {video_extensions})"
       values={{
-        video_max_size: about.video_max_size,
-        video_extensions: about.video_extensions.join(', '),
+        video_max_size: about?.video_max_size,
+        video_extensions: about?.video_extensions?.join(', '),
       }}
     />
   );
@@ -95,21 +95,33 @@ const UploadMessage = ({ type, about }) => {
       id="uploadFile.audioMessage"
       defaultMessage="Drop an audio file here, or click to upload a file (max size: {audio_max_size}, allowed extensions: {audio_extensions})"
       values={{
-        audio_max_size: about.audio_max_size,
-        audio_extensions: about.audio_extensions.join(', '),
+        audio_max_size: about?.audio_max_size,
+        audio_extensions: about?.audio_extensions?.join(', '),
       }}
     />
   );
+
+  case 'file': return (
+    <FormattedMessage
+      id="uploadFile.fileMessage"
+      defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
+      values={{
+        file_max_size: about?.file_max_size,
+        file_extensions: about?.file_extensions?.join(', '),
+      }}
+    />
+  );
+
   case 'image+video+audio': return (
     <FormattedMessage
       id="uploadFile.imageVideoAudioMessage"
       defaultMessage="Drop a file here, or click to upload a file (max size: {file_max_size}, allowed extensions: {file_extensions})"
       values={{
-        file_max_size: about.file_max_size,
-        file_extensions: about.upload_extensions
-          .concat(about.video_extensions)
-          .concat(about.audio_extensions)
-          .join(', '),
+        file_max_size: about?.file_max_size,
+        file_extensions: about?.upload_extensions
+          ?.concat(about?.video_extensions)
+          ?.concat(about?.audio_extensions)
+          ?.join(', '),
       }}
     />
   );
@@ -118,7 +130,7 @@ const UploadMessage = ({ type, about }) => {
 };
 
 UploadMessage.propTypes = {
-  type: PropTypes.oneOf(['image', 'video', 'audio', 'file']).isRequired,
+  type: PropTypes.oneOf(['image', 'video', 'audio', 'file', 'image+video+audio']).isRequired,
   about: PropTypes.shape({
     upload_max_size: PropTypes.string.isRequired,
     upload_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -127,9 +139,9 @@ UploadMessage.propTypes = {
     video_max_size: PropTypes.string.isRequired,
     video_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     audio_max_size: PropTypes.string.isRequired,
-    audio_extensions: PropTypes.string.isRequired,
+    audio_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
     file_max_size: PropTypes.string.isRequired,
-    file_extensions: PropTypes.string.isRequired,
+    file_extensions: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
   }).isRequired,
 };
 
@@ -285,5 +297,6 @@ UploadFile.propTypes = {
   onError: PropTypes.func.isRequired, // func(Image?, <FormattedMessage ...>) => undefined
   disabled: PropTypes.bool,
 };
-
+// eslint-disable-next-line
+export { UploadFileComponent };
 export default UploadFile;
