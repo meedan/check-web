@@ -137,5 +137,5 @@ Search.propTypes = {
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'suggested-matches']), // FIXME find a cleaner way to render Trash differently
   query: PropTypes.object.isRequired, // may be empty
   showExpand: PropTypes.bool,
-  resultType: PropTypes.string, // 'default' or 'trends', for now
+  resultType: PropTypes.string, // 'default' or 'feed', for now
 };

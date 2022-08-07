@@ -23,7 +23,6 @@ import ForwardIcon from '@material-ui/icons/Forward';
 import ErrorIcon from '@material-ui/icons/Error';
 import MarkunreadIcon from '@material-ui/icons/Markunread';
 import SettingsInputAntennaIcon from '@material-ui/icons/SettingsInputAntenna';
-import PublicIcon from '@material-ui/icons/Public';
 import CorporateFareIcon from '@material-ui/icons/CorporateFare';
 import NumberIcon from '../../icons/NumberIcon';
 
@@ -313,18 +312,6 @@ const AddFilterMenu = ({
           id="addFilterMenu.publishedBy"
           defaultMessage="Published by"
           description="Menu option to enable searching items by report published by"
-        />
-      ),
-    },
-    {
-      id: 'add-filter-menu__country',
-      key: 'country',
-      icon: <PublicIcon />,
-      label: (
-        <FormattedMessage
-          id="addFilterMenu.country"
-          defaultMessage="Country"
-          description="Menu option to enable searching items by country"
         />
       ),
     },

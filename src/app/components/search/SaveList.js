@@ -58,7 +58,6 @@ const updateSpecialPageMutation = graphql`
       team {
         get_tipline_inbox_filters
         get_suggested_matches_filters
-        get_trends_filters
       }
     }
   }
@@ -86,7 +85,7 @@ const SaveList = ({
   query,
   setFlashMessage,
 }) => {
-  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|trends)(\/([0-9]+))?/);
+  const currentPath = window.location.pathname.match(/^\/[^/]+\/(list|project|all-items|collection|tipline-inbox|suggested-matches|feed)(\/([0-9]+))?/);
 
   if (!currentPath) {
     return null;
@@ -98,12 +97,12 @@ const SaveList = ({
 
   const [title, setTitle] = React.useState('');
   const [saving, setSaving] = React.useState(false);
-  const [operation, setOperation] = React.useState(objectType === 'trends' ? 'UPDATE_SPECIAL_PAGE' : 'CREATE'); // or 'UPDATE'
+  const [operation, setOperation] = React.useState(objectType === 'feed' ? 'UPDATE_SPECIAL_PAGE' : 'CREATE'); // or 'UPDATE'
   const [showNewDialog, setShowNewDialog] = React.useState(false);
   const [showExistingDialog, setShowExistingDialog] = React.useState(false);
 
   // Just show the button on: "All Items", collection and folder (create a list) or list (create a new list or update list)
-  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches', 'trends'].indexOf(objectType) === -1) {
+  if (['all-items', 'project', 'list', 'collection', 'tipline-inbox', 'suggested-matches'].indexOf(objectType) === -1) {
     return null;
   }
 
@@ -118,7 +117,7 @@ const SaveList = ({
   }
 
   // Don't show the button if it's a tipline inbox or suggested matches page and nothing changed
-  if (['tipline-inbox', 'suggested-matches', 'trends'].indexOf(objectType) !== -1) {
+  if (['tipline-inbox', 'suggested-matches', 'feed'].indexOf(objectType) !== -1) {
     let defaultQuery = {};
     let savedQuery = '{}';
     if (objectType === 'tipline-inbox') {
@@ -127,9 +126,6 @@ const SaveList = ({
     } else if (objectType === 'suggested-matches') {
       defaultQuery = { suggestions_count: { min: 1 } };
       savedQuery = team.get_suggested_matches_filters;
-    } else if (objectType === 'trends') {
-      defaultQuery = { trends: true, country: true };
-      savedQuery = team.get_trends_filters;
     }
     // Don't show the button if it's a saved search or a default list
     if (savedQuery) {
@@ -195,8 +191,6 @@ const SaveList = ({
         input.tipline_inbox_filters = JSON.stringify(query);
       } else if (objectType === 'suggested-matches') {
         input.suggested_matches_filters = JSON.stringify(query);
-      } else if (objectType === 'trends') {
-        input.trends_filters = JSON.stringify(query);
       }
     } else {
       input.filters = JSON.stringify(queryToBeSaved);
@@ -245,8 +239,6 @@ const SaveList = ({
     } else if (['tipline-inbox', 'suggested-matches'].indexOf(objectType) !== -1) {
       setOperation('UPDATE_SPECIAL_PAGE');
       setShowExistingDialog(true);
-    } else if (objectType === 'trends') {
-      handleSave();
     }
   };
 

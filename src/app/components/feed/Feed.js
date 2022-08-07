@@ -3,56 +3,52 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
 import Relay from 'react-relay/classic';
-import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { TrendingUp as TrendingUpIcon } from '@material-ui/icons';
 import ErrorBoundary from '../error/ErrorBoundary';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
-const Trends = ({ routeParams }) => (
-  <ErrorBoundary component="Trends">
+const Feed = ({ routeParams }) => (
+  <ErrorBoundary component="Feed">
     <QueryRenderer
       environment={Relay.Store}
       query={graphql`
-        query TrendsQuery($slug: String!) {
+        query FeedQuery($slug: String!, $feedId: Int!) {
           team(slug: $slug) {
-            get_trends_filters
-            get_trends_enabled
+            feed(dbid: $feedId) {
+              dbid
+              name
+            }
           }
         }
       `}
       variables={{
         slug: routeParams.team,
+        feedId: parseInt(routeParams.feedId, 10),
       }}
       render={({ error, props }) => {
         if (!error && props) {
           const { team } = props;
-          if (!team.get_trends_enabled) {
+          const { feed } = team;
+          if (!feed) {
             browserHistory.push('/check/not-found');
           }
-          const savedQuery = team.get_trends_filters || {};
-          let query = {};
-          if (typeof routeParams.query === 'undefined' && Object.keys(savedQuery).length > 0) {
-            query = { ...savedQuery };
-          } else {
-            query = {
-              sort: 'cluster_last_item_at',
-              ...safelyParseJSON(routeParams.query, {}),
-            };
-          }
-          query.trends = true;
-          query.country = true;
+          const query = {
+            sort: 'cluster_last_item_at',
+            feed_id: feed.dbid,
+            ...safelyParseJSON(routeParams.query, {}),
+          };
           return (
             <Search
-              searchUrlPrefix={`/${routeParams.team}/trends`}
-              mediaUrlPrefix="media"
-              title={<FormattedMessage id="trends.title" defaultMessage="Shared database" />}
+              searchUrlPrefix={`/${routeParams.team}/feed/${feed.dbid}`}
+              mediaUrlPrefix={`/check/feed/${feed.dbid}`}
+              title={feed.name}
               icon={<TrendingUpIcon />}
               query={query}
               teamSlug={routeParams.team}
               showExpand
-              resultType="trends"
+              resultType="feed"
               hideFields={[
                 'folder',
                 'projects',
@@ -74,17 +70,20 @@ const Trends = ({ routeParams }) => (
             />
           );
         }
+        // eslint-disable-next-line no-console
+        console.log('Error', error);
         return null;
       }}
     />
   </ErrorBoundary>
 );
 
-Trends.propTypes = {
+Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
+    feedId: PropTypes.string.isRequired,
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
 };
 
-export default Trends;
+export default Feed;

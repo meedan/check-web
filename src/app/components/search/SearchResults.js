@@ -346,8 +346,8 @@ function SearchResultsComponent({
     }
 
     let result = `${urlPrefix}/${projectMedia.dbid}?${urlParams.toString()}`;
-    if (resultType === 'trends') {
-      result = `/check/trends/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
+    if (resultType === 'feed') {
+      result = `${mediaUrlPrefix}/cluster/${projectMedia.cluster?.dbid}?${urlParams.toString()}`;
     }
 
     return result;
@@ -619,7 +619,7 @@ SearchResultsComponent.propTypes = {
   listDescription: PropTypes.string, // or undefined
   classes: PropTypes.object,
   page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder']), // FIXME find a cleaner way to render Trash differently
-  resultType: PropTypes.string, // 'default' or 'trends', for now
+  resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   savedSearch: PropTypes.object, // or null
 };

@@ -53,7 +53,7 @@ const Toolbar = ({
           {actions}
           <ViewModeSwitcher viewMode={viewMode} onChangeViewMode={onChangeViewMode} />
         </Row>
-        {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox'].indexOf(page) === -1 && resultType !== 'trends' ? (
+        {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} project={project} team={team} />

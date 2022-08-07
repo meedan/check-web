@@ -35,7 +35,6 @@ import SearchFieldSource from './SearchFieldSource';
 import SearchFieldChannel from './SearchFieldChannel';
 import CheckChannels from '../../../CheckChannels';
 import SearchFieldClusterTeams from './SearchFieldClusterTeams';
-import SearchFieldCountry from './SearchFieldCountry';
 import CheckArchivedFlags from '../../../CheckArchivedFlags';
 
 /**
@@ -254,12 +253,6 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleCountryClick = (country) => {
-    this.props.setQuery(
-      updateStateQueryArrayValue(this.props.query, 'country', country),
-    );
-  }
-
   handleTagsOperator = () => {
     const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
     this.props.setQuery(
@@ -394,7 +387,7 @@ class SearchFields extends React.Component {
       { label: <FormattedMessage id="search.reportStatusUnpublished" defaultMessage="Unpublished" description="Refers to a report status" />, value: 'unpublished' },
       { label: <FormattedMessage id="search.reportStatusPublished" defaultMessage="Published" description="Refers to a report status" />, value: 'published' },
     ];
-    if (!/trends/.test(window.location.pathname)) {
+    if (!/feed/.test(window.location.pathname)) {
       reportStatusOptions.push({ label: <FormattedMessage id="search.reportStatusPaused" defaultMessage="Paused" description="Refers to a report status" />, value: 'paused' });
     }
 
@@ -696,14 +689,6 @@ class SearchFields extends React.Component {
           )}
         </FormattedMessage>
       ),
-      country: (
-        <SearchFieldCountry
-          selected={team?.country || this.props.query.country}
-          onChange={(newValue) => { this.handleCountryClick(newValue); }}
-          onRemove={() => this.handleRemoveField('country')}
-          readOnly
-        />
-      ),
     };
 
     let fieldKeys = [];
@@ -810,8 +795,6 @@ export default createFragmentContainer(injectIntl(SearchFields), graphql`
     verification_statuses
     get_languages
     get_tipline_inbox_filters
-    get_trends_filters
-    country
     smooch_bot: team_bot_installation(bot_identifier: "smooch") {
       id
     }

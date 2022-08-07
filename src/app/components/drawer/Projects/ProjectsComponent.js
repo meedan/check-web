@@ -26,7 +26,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import ForumIcon from '@material-ui/icons/Forum';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
@@ -125,11 +124,6 @@ const ProjectsComponent = ({
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
     browserHistory.push(`/${team.slug}/${listId}`);
-  };
-
-  const handleTrends = () => {
-    setActiveItem({ type: 'trends', id: null });
-    browserHistory.push(`/${team.slug}/trends`);
   };
 
   const handleClick = (route, id) => {
@@ -485,22 +479,6 @@ const ProjectsComponent = ({
           </Box>
         </Collapse>
       </List>
-      { team.get_trends_enabled ? (
-        <List>
-          <ListItem
-            button
-            onClick={handleTrends}
-          >
-            <ListItemIcon className={classes.listItemIconRoot}>
-              <TrendingUpIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <FormattedMessage id="projectsComponent.trends" defaultMessage="Shared database (beta)" description="This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction." />
-            </ListItemText>
-          </ListItem>
-        </List>
-      ) : null
-      }
 
       {/* Dialogs to create new folder, collection or list */}
 

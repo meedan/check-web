@@ -183,7 +183,7 @@ const AllPossibleColumns = [
   },
 ];
 
-const showInTrends = [
+const showInFeed = [
   'item',
   'cluster_fact_checked_by_team_names',
   'cluster_requests',
@@ -193,10 +193,10 @@ const showInTrends = [
 ];
 
 function buildColumnDefs(team, resultType) {
-  if (resultType === 'trends') {
-    const trendColumns = AllPossibleColumns
-      .filter(column => showInTrends.includes(column.field));
-    return trendColumns;
+  if (resultType === 'feed') {
+    const feedColumns = AllPossibleColumns
+      .filter(column => showInFeed.includes(column.field));
+    return feedColumns;
   }
 
   const possibleColumns = AllPossibleColumns
