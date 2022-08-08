@@ -287,17 +287,10 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleDynamicClick = (field, newValue) => {
-    const { query } = this.props;
-    const oldDynamic = query.dynamic ? query.dynamic : {};
-    const newDynamic = updateStateQueryArrayValue(oldDynamic, field, newValue);
-    if (Object.keys(newDynamic).length === 0) {
-      const newQuery = { ...query };
-      delete newQuery.dynamic;
-      this.props.setQuery(newQuery);
-    } else {
-      this.props.setQuery({ ...query, dynamic: newDynamic });
-    }
+  handleLanguageClick = (language) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'language', language),
+    );
   }
 
   handleClickClear = () => {
@@ -646,16 +639,16 @@ class SearchFields extends React.Component {
           )}
         </FormattedMessage>
       ),
-      dynamic: (
+      language: (
         <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<LanguageIcon />}
-              selected={this.props.query.dynamic && this.props.query.dynamic.language}
+              selected={this.props.query.language}
               options={languages}
-              onChange={newValue => this.handleDynamicClick('language', newValue)}
-              onRemove={() => this.handleRemoveField('dynamic')}
+              onChange={(newValue) => { this.handleLanguageClick(newValue); }}
+              onRemove={() => this.handleRemoveField('language')}
             />
           )}
         </FormattedMessage>
