@@ -266,17 +266,17 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleTagsOperator = () => {
-    const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
-    this.props.setQuery(
-      { ...this.props.query, tags_operator: operator },
-    );
+  handleSwitchOperator = (key) => {
+    const operator = this.switchOperatorIs('or', key) ? 'and' : 'or';
+    const query = { ...this.props.query };
+    query[key] = operator;
+    this.props.setQuery(query);
   }
 
-  tagsOperatorIs(operator) {
+  switchOperatorIs(operator, key) {
     let currentOperator = 'or'; // "or" is the default
-    if (this.props.query && this.props.query.tags_operator) {
-      currentOperator = this.props.query.tags_operator;
+    if (this.props.query && this.props.query[key]) {
+      currentOperator = this.props.query[key];
     }
     return currentOperator === operator;
   }
@@ -481,7 +481,7 @@ class SearchFields extends React.Component {
               onChange={(newValue) => {
                 this.handleTagClick(newValue);
               }}
-              onToggleOperator={this.handleTagsOperator}
+              onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
               operator={this.props.query.tags_operator}
               onRemove={() => this.handleRemoveField('tags')}
             />
@@ -640,6 +640,8 @@ class SearchFields extends React.Component {
               options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
               onChange={this.handleAnnotatedByClick}
               onRemove={() => this.handleRemoveField('annotated_by')}
+              onToggleOperator={() => this.handleSwitchOperator('annotated_by_operator')}
+              operator={this.props.query.annotated_by_operator}
             />
           )}
         </FormattedMessage>
