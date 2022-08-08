@@ -142,7 +142,7 @@ function SearchResultsComponent({
   let pusherChannel = null;
   const [selectedProjectMediaIds, setSelectedProjectMediaIds] = React.useState([]);
   const [query, setQuery] = React.useState(defaultQuery);
-  const [showSimilar] = React.useState('show_similar' in query ? query.show_similar : false);
+  const [showSimilar] = React.useState(Boolean(query.show_similar));
   const [viewMode, setViewMode] = React.useState(defaultViewMode);
 
   const handleChangeViewMode = (mode) => {
