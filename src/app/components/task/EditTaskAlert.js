@@ -21,7 +21,7 @@ const EditTaskAlert = ({
           values={{ number: task.tasks_with_answers_count }}
         />
       </AlertTitle>
-      { diff.deleted?.map(deletedOption => (
+      { diff.deleted.map(deletedOption => (
         <div>
           <FormattedMessage
             id="tasks.deleteOptionWithAnswersBody"

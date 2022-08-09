@@ -29,7 +29,6 @@ class CreateTeamTask extends React.Component {
       show_in_browser_extension: task.show_in_browser_extension,
       task_type: task.type,
       json_options: task.jsonoptions,
-      json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
       fieldset: this.props.fieldset,
       associated_type: this.props.associatedType,
@@ -63,8 +62,6 @@ class CreateTeamTask extends React.Component {
   };
 
   render() {
-    const { projects } = this.props.team;
-
     return (
       <React.Fragment>
         <Button
@@ -84,8 +81,6 @@ class CreateTeamTask extends React.Component {
             message={this.state.message}
             onDismiss={this.handleClose}
             onSubmit={this.handleSubmitTask}
-            projects={projects ? projects.edges : null}
-            isTeamTask
           />
           : null
         }

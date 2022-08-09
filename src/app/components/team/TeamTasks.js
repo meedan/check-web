@@ -43,7 +43,6 @@ const TeamTasks = ({ team }) => {
                   options
                   type
                   associated_type
-                  project_ids
                   json_schema
                   show_in_browser_extension
                   required

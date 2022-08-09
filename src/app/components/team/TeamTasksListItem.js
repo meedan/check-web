@@ -183,7 +183,7 @@ class TeamTasksListItem extends React.Component {
   handleEdit = (editedTask) => {
     this.setState(
       { isEditing: false, editedTask },
-      () => this.handleSubmitTask(false),
+      this.handleSubmitTask,
     );
   };
 
@@ -208,8 +208,7 @@ class TeamTasksListItem extends React.Component {
     this.setState({ action: null, isEditing: false });
   };
 
-  // TODO Get rid of keepCompleted for handleSubmitTask
-  handleSubmitTask = (keepCompleted) => {
+  handleSubmitTask = () => {
     const task = this.state.editedTask;
     const { id } = this.props.task;
 
@@ -221,9 +220,7 @@ class TeamTasksListItem extends React.Component {
       show_in_browser_extension: this.state.showInBrowserExtension,
       required: this.state.required,
       json_options: task.jsonoptions,
-      json_project_ids: task.json_project_ids,
       json_schema: task.jsonschema,
-      keep_completed_tasks: keepCompleted,
     };
 
     const onSuccess = () => {
@@ -288,9 +285,7 @@ class TeamTasksListItem extends React.Component {
   };
 
   render() {
-    const { task, team } = this.props;
-    const projects = team.projects ? team.projects.edges : null;
-    const selectedProjects = task ? task.project_ids : [];
+    const { task } = this.props;
 
     const icon = {
       free_text: <ShortTextIcon />,
@@ -329,8 +324,6 @@ class TeamTasksListItem extends React.Component {
             <TeamTaskContainer task={task} team={this.props.team}>
               {teamTask => (
                 <TeamTaskConfirmDialog
-                  projects={projects}
-                  selectedProjects={selectedProjects}
                   editedTask={this.state.editedTask}
                   editLabelOrDescription={this.state.editLabelOrDescription}
                   task={teamTask}
@@ -348,9 +341,7 @@ class TeamTasksListItem extends React.Component {
                   taskType={teamTask.type}
                   onDismiss={this.handleCloseEdit}
                   onSubmit={this.handleEdit}
-                  projects={projects}
                   task={teamTask}
-                  isTeamTask
                 />
               )}
             </TeamTaskContainer> : null }
@@ -370,23 +361,12 @@ TeamTasksListItem.propTypes = {
     show_in_browser_extension: PropTypes.bool,
     type: PropTypes.string.isRequired,
     json_options: PropTypes.string,
-    json_project_ids: PropTypes.string,
     json_schema: PropTypes.string,
     tasks_count: PropTypes.number,
   }).isRequired,
   tasks: PropTypes.array.isRequired,
   team: PropTypes.shape({
     id: PropTypes.string.isRequired,
-    projects: PropTypes.shape({
-      edges: PropTypes.arrayOf((
-        PropTypes.shape({
-          node: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            dbid: PropTypes.number.isRequired,
-          }),
-        })
-      )),
-    }),
   }).isRequired,
   about: PropTypes.object.isRequired,
 };

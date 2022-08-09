@@ -105,11 +105,6 @@
     "defaultMessage": "Timezones available to complete the task"
   },
   {
-    "id": "tasks.assign",
-    "description": "Label to assign task button",
-    "defaultMessage": "Assign"
-  },
-  {
     "id": "tasks.cancelAdd",
     "description": "Cancel action button label",
     "defaultMessage": "Cancel"

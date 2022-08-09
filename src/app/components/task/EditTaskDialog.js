@@ -30,17 +30,11 @@ import {
 } from '@material-ui/icons';
 import { getTimeZones } from '@vvo/tzdb';
 import styled from 'styled-components';
-import Attribution from './Attribution';
 import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
 import NumberIcon from '../../icons/NumberIcon';
-import {
-  units,
-  caption,
-  black54,
-  alertRed,
-} from '../../styles/js/shared';
+import { units, alertRed } from '../../styles/js/shared';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -52,20 +46,6 @@ const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   };
   return newOption;
 });
-
-const StyledTaskAssignment = styled.div`
-  margin-top ${units(2)};
-
-  .create-task__add-assignment-button {
-    bottom: ${units(2)};
-    font: ${caption};
-    padding: 0 ${units(1)};
-    color: ${black54};
-    cursor: pointer;
-    border: 0;
-    background: transparent;
-  }
-`;
 
 const StyledTaskCantUpdateType = styled.div`
   color: ${alertRed};
@@ -95,8 +75,7 @@ class EditTaskDialog extends React.Component {
       description: task ? task.description : null,
       showInBrowserExtension: task ? task.show_in_browser_extension : true,
       options: task ? task.options : [{ label: '', new: true }, { label: '', new: true }],
-      diff: {},
-      project_ids: task ? task.project_ids : [],
+      diff: null,
       submitDisabled: true,
       showAssignmentField: false,
       showWarning: false,
@@ -159,8 +138,8 @@ class EditTaskDialog extends React.Component {
   };
 
   handleSave = () => {
-    const { hasCollectedAnswers, showWarning } = this.state;
-    if (hasCollectedAnswers && !showWarning) {
+    const { diff, hasCollectedAnswers, showWarning } = this.state;
+    if (diff && hasCollectedAnswers && !showWarning) {
       this.setState({ showWarning: true });
     } else {
       this.submitTask();
@@ -197,7 +176,6 @@ class EditTaskDialog extends React.Component {
       description: this.state.description,
       show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
-      json_project_ids: JSON.stringify(this.state.project_ids),
     };
 
     if (!this.state.submitDisabled) {
@@ -356,7 +334,7 @@ class EditTaskDialog extends React.Component {
       },
     ];
 
-    const FieldTypeSelect = () => this.props.isTeamTask ? (
+    const FieldTypeSelect = () => (
       <React.Fragment>
         <FormControl variant="outlined" margin="normal" fullWidth id="edit-task-dialog__type-select">
           <InputLabel id="edit-task-dialog__type-select-label">
@@ -408,7 +386,7 @@ class EditTaskDialog extends React.Component {
           : null
         }
       </React.Fragment>
-    ) : null;
+    );
 
     return (
       <Dialog
@@ -456,7 +434,7 @@ class EditTaskDialog extends React.Component {
             fullWidth
           />
           <FieldTypeSelect />
-          { this.props.isTeamTask && this.state.taskType === 'datetime' ?
+          { this.state.taskType === 'datetime' ?
             <Box mt={2}>
               <FormControlLabel
                 control={
@@ -564,30 +542,8 @@ class EditTaskDialog extends React.Component {
             taskType={this.state.taskType}
             onChange={this.handleOptionsChange}
           />
-          <StyledTaskAssignment>
-            { this.state.showAssignmentField ?
-              <Attribution
-                multi
-                selectedUsers={[]}
-                id="new"
-                taskType={this.state.taskType}
-              /> : null }
-            { this.props.allowAssignment ?
-              <button
-                className="create-task__add-assignment-button"
-                onClick={this.handleToggleAssignmentField}
-              >
-                +{' '}
-                <FormattedMessage
-                  id="tasks.assign"
-                  defaultMessage="Assign"
-                  description="Label to assign task button"
-                />
-              </button> : null
-            }
-          </StyledTaskAssignment>
           <EditTaskAlert
-            showAlert={this.state.hasCollectedAnswers && this.state.showWarning}
+            showAlert={this.state.showWarning}
             task={this.props.task}
             diff={this.state.diff}
           />
@@ -632,23 +588,17 @@ class EditTaskDialog extends React.Component {
 
 // TODO review propTypes
 EditTaskDialog.propTypes = {
-  allowAssignment: PropTypes.bool,
-  isTeamTask: PropTypes.bool,
   message: PropTypes.node,
   noOptions: PropTypes.bool,
   onDismiss: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  projects: PropTypes.array,
   task: PropTypes.object,
   taskType: PropTypes.string,
 };
 
 EditTaskDialog.defaultProps = {
-  allowAssignment: false,
-  isTeamTask: false,
   message: null,
   noOptions: false,
-  projects: null,
   task: null,
   taskType: null,
 };

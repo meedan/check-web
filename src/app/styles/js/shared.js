@@ -366,19 +366,6 @@ export const AlignOpposite = styled.div`
   width: fit-content;
 `;
 
-// Tags (ensure wrapping, alignment when many tags)
-export const StyledTagsWrapper = styled.div`
-  display: inline;
-  flex-wrap: wrap;
-  > div {
-    display: inline-flex !important;
-    margin: ${units(0.5)} ${units(1)} ${units(0.5)} 0 !important;
-    > span {
-      color: ${black54} !important;
-    }
-  }
-`;
-
 // It seems that this component is not centered in Material UI 0.x
 // So we must always use this wrapper, or similar.
 export const StyledIconButton = styled(IconButton)`
