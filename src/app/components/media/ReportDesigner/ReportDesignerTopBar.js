@@ -66,6 +66,9 @@ const ReportDesignerTopBar = (props) => {
   const [resendToPrevious, setResendToPrevious] = React.useState(false);
   const [statusChanging, setStatusChanging] = React.useState(false);
 
+  console.log('ReportDesignerTopBar::media', media); // eslint-disable-line no-console
+  console.log('ReportDesignerTopBar::data', data); // eslint-disable-line no-console
+
   // By default, there is no report at all - so we can't publish, of course
   let cantPublishReason = (
     <FormattedMessage
