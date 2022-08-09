@@ -167,6 +167,18 @@ const AddFilterMenu = ({
     ),
   },
   {
+    id: 'add-filter-menu__annotated-by',
+    key: 'annotated_by',
+    icon: <PersonIcon />,
+    label: (
+      <FormattedMessage
+        id="addFilterMenu.annotatedBy"
+        defaultMessage="Annotated by"
+        description="Menu option to enable searching items by annotated by"
+      />
+    ),
+  },
+  {
     id: 'add-filter-menu__created-by',
     key: 'users',
     icon: <PersonIcon />,
@@ -246,7 +258,7 @@ const AddFilterMenu = ({
   options = options.concat([
     {
       id: 'add-filter-menu__language',
-      key: 'dynamic',
+      key: 'language',
       icon: <LanguageIcon />,
       label: (
         <FormattedMessage

@@ -224,6 +224,12 @@ class SearchFields extends React.Component {
     );
   }
 
+  handleAnnotatedByClick = (userIds) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'annotated_by', userIds),
+    );
+  }
+
   handleProjectGroupClick = (projectGroupDbids) => {
     this.props.setQuery(
       updateStateQueryArrayValue(this.props.query, 'project_group_id', projectGroupDbids),
@@ -260,17 +266,17 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleTagsOperator = () => {
-    const operator = this.tagsOperatorIs('or') ? 'and' : 'or';
-    this.props.setQuery(
-      { ...this.props.query, tags_operator: operator },
-    );
+  handleSwitchOperator = (key) => {
+    const operator = this.switchOperatorIs('or', key) ? 'and' : 'or';
+    const query = { ...this.props.query };
+    query[key] = operator;
+    this.props.setQuery(query);
   }
 
-  tagsOperatorIs(operator) {
+  switchOperatorIs(operator, key) {
     let currentOperator = 'or'; // "or" is the default
-    if (this.props.query && this.props.query.tags_operator) {
-      currentOperator = this.props.query.tags_operator;
+    if (this.props.query && this.props.query[key]) {
+      currentOperator = this.props.query[key];
     }
     return currentOperator === operator;
   }
@@ -281,17 +287,10 @@ class SearchFields extends React.Component {
     );
   }
 
-  handleDynamicClick = (field, newValue) => {
-    const { query } = this.props;
-    const oldDynamic = query.dynamic ? query.dynamic : {};
-    const newDynamic = updateStateQueryArrayValue(oldDynamic, field, newValue);
-    if (Object.keys(newDynamic).length === 0) {
-      const newQuery = { ...query };
-      delete newQuery.dynamic;
-      this.props.setQuery(newQuery);
-    } else {
-      this.props.setQuery({ ...query, dynamic: newDynamic });
-    }
+  handleLanguageClick = (language) => {
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'language', language),
+    );
   }
 
   handleClickClear = () => {
@@ -475,7 +474,7 @@ class SearchFields extends React.Component {
               onChange={(newValue) => {
                 this.handleTagClick(newValue);
               }}
-              onToggleOperator={this.handleTagsOperator}
+              onToggleOperator={() => this.handleSwitchOperator('tags_operator')}
               operator={this.props.query.tags_operator}
               onRemove={() => this.handleRemoveField('tags')}
             />
@@ -624,16 +623,32 @@ class SearchFields extends React.Component {
           )}
         </FormattedMessage>
       ),
-      dynamic: (
+      annotated_by: (
+        <FormattedMessage id="search.annotatedBy" defaultMessage="Annotated by" description="Prefix label for field to filter by annotated by">
+          { label => (
+            <MultiSelectFilter
+              label={label}
+              icon={<PersonIcon />}
+              selected={this.props.query.annotated_by}
+              options={users.map(u => ({ label: u.node.name, value: `${u.node.dbid}` }))}
+              onChange={this.handleAnnotatedByClick}
+              onRemove={() => this.handleRemoveField('annotated_by')}
+              onToggleOperator={() => this.handleSwitchOperator('annotated_by_operator')}
+              operator={this.props.query.annotated_by_operator}
+            />
+          )}
+        </FormattedMessage>
+      ),
+      language: (
         <FormattedMessage id="search.language" defaultMessage="Language is" description="Prefix label for field to filter by language">
           { label => (
             <MultiSelectFilter
               label={label}
               icon={<LanguageIcon />}
-              selected={this.props.query.dynamic && this.props.query.dynamic.language}
+              selected={this.props.query.language}
               options={languages}
-              onChange={newValue => this.handleDynamicClick('language', newValue)}
-              onRemove={() => this.handleRemoveField('dynamic')}
+              onChange={(newValue) => { this.handleLanguageClick(newValue); }}
+              onRemove={() => this.handleRemoveField('language')}
             />
           )}
         </FormattedMessage>
