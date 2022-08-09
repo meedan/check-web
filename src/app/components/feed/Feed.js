@@ -35,9 +35,10 @@ const Feed = ({ routeParams }) => (
             browserHistory.push('/check/not-found');
           }
           const query = {
+            ...safelyParseJSON(routeParams.query, {}),
             sort: 'cluster_last_item_at',
             feed_id: feed.dbid,
-            ...safelyParseJSON(routeParams.query, {}),
+            clusterize: true,
           };
           return (
             <Search
