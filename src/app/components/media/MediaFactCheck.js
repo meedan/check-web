@@ -33,7 +33,7 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [title, setTitle] = React.useState(factCheck ? factCheck.title : '');
   const [summary, setSummary] = React.useState(factCheck ? factCheck.summary : '');
   const [url, setUrl] = React.useState(factCheck ? factCheck.url : '');
-  const [language, setLanguage] = React.useState(factCheck ? factCheck.language : 'und');
+  const [language, setLanguage] = React.useState(factCheck ? factCheck.language : '');
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
@@ -137,6 +137,7 @@ const MediaFactCheck = ({ projectMedia }) => {
               setError(true);
             } else {
               setError(false);
+              setLanguage(response.createFactCheck.claim_description.fact_check.language);
             }
           },
           onError: () => {
@@ -248,9 +249,9 @@ const MediaFactCheck = ({ projectMedia }) => {
         deleteIcon={<EditIcon />}
         icon={<LanguageIcon />}
         color="primary"
-        label={language !== 'und' ? languageLabel(language) : 'Unknown language'}
+        label={language === '' || language === 'und' ? 'Unknown language' : languageLabel(language)}
         onDelete={
-          hasPermission ? () => setCorrectingLanguage(true) : null
+          hasPermission && factCheck ? () => setCorrectingLanguage(true) : null
         }
       />
       <LanguagePickerDialog
