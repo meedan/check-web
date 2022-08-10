@@ -83,16 +83,16 @@ const userRole = ({
 };
 
 function UserTooltipComponent({ teamUser }) {
-  const { user } = teamUser;
-  const { source } = user;
-  const role = userRole(teamUser);
+  const user = teamUser && teamUser.user;
+  const source = user && user.source;
+  const role = teamUser ? userRole(teamUser) : null;
 
   if (!source) {
     return null;
   }
 
   // TODO make API give ISO8601 dates
-  const createdAt = new Date(parseInt(source.created_at, 10) * 1000);
+  const createdAt = new Date(parseInt(source?.created_at, 10) * 1000);
 
   return (
     <StyledTooltip>
@@ -100,8 +100,8 @@ function UserTooltipComponent({ teamUser }) {
         <StyledSmallColumnTooltip>
           <Avatar
             className="avatar"
-            src={source.image}
-            alt={user.name}
+            src={source?.image}
+            alt={user?.name}
           />
         </StyledSmallColumnTooltip>
 
@@ -111,7 +111,7 @@ function UserTooltipComponent({ teamUser }) {
               {user.name}
             </strong>
             <StyledUserRole>{role ? <LocalizedRole role={role} /> : null}</StyledUserRole>
-            <Link to={`/check/user/${user.dbid}`} className="tooltip__profile-link" >
+            <Link to={`/check/user/${user?.dbid}`} className="tooltip__profile-link" >
               <StyledMdLaunch>
                 <LaunchIcon />
               </StyledMdLaunch>
@@ -119,7 +119,7 @@ function UserTooltipComponent({ teamUser }) {
 
             <div className="tooltip__description">
               <p className="tooltip__description-text" style={{ font: caption }}>
-                <ParsedText text={truncateLength(source.description, 600)} />
+                <ParsedText text={truncateLength(source?.description, 600)} />
               </p>
             </div>
           </div>
@@ -132,13 +132,13 @@ function UserTooltipComponent({ teamUser }) {
                   defaultMessage="Joined {date} &bull; {teamsCount, plural, =0 {No workspaces} one {1 workspace} other {# workspaces}}"
                   values={{
                     date: dateString,
-                    teamsCount: user.number_of_teams,
+                    teamsCount: user?.number_of_teams,
                   }}
                 />
               )}
             </FormattedDate>
           </div>
-          {source.account_sources.edges.map(({ node: { account: { id, url, provider } } }) => (
+          {source?.account_sources?.edges.map(({ node: { account: { id, url, provider } } }) => (
             <AccountLink key={id} url={url} provider={provider} />
           ))}
         </StyledBigColumn>
@@ -146,6 +146,8 @@ function UserTooltipComponent({ teamUser }) {
     </StyledTooltip>
   );
 }
+// eslint-disable-next-line
+export { UserTooltipComponent }; 
 
 export default Relay.createContainer(UserTooltipComponent, {
   fragments: {
