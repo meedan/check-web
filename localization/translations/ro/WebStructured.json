@@ -202,6 +202,10 @@
 		"string": "Add filter",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotatedBy": {
+		"string": "Annotated by",
+		"developer_comment": "Menu option to enable searching items by annotated by"
+	},
 	"addFilterMenu.annotation": {
 		"string": "Annotation",
 		"developer_comment": "Menu option to enable searching items by annotation fields"
@@ -306,10 +310,12 @@
 		"string": "Alege o limbă nouă"
 	},
 	"annotation.addLanguage": {
-		"string": "Language {value} added by {author}"
+		"string": "Language {value} added by {author}",
+		"developer_comment": "Log entry indicating an item language has been set. {value} receives language name"
 	},
 	"annotation.addSource": {
-		"string": "Source {name} add by {author}"
+		"string": "Source {name} add by {author}",
+		"developer_comment": "Log entry indicating a source has been added"
 	},
 	"annotation.addedComment": {
 		"string": "Notă la sarcină adăugată de {author}: {title}{note}"
@@ -327,19 +333,24 @@
 		"string": "Schema JSON a sarcinii {title} modificată de {author}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Additional content added by {author}: {value}"
+		"string": "Additional content added by {author}: {value}",
+		"developer_comment": "Log entry indicating additional content has been added"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Claim added by {author}: {value}"
+		"string": "Claim added by {author}: {value}",
+		"developer_comment": "Log entry indicating a claim has been added"
 	},
 	"annotation.createFactCheck": {
-		"string": "Fact-check title added by {author}: {value}"
+		"string": "Fact-check title added by {author}: {value}",
+		"developer_comment": "Log entry indicating fact-check title has been added"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Item created by {author}"
+		"string": "Item created by {author}",
+		"developer_comment": "Log entry indicating an item has been created"
 	},
 	"annotation.deleteButton": {
-		"string": "Șterge"
+		"string": "Șterge",
+		"developer_comment": "Menu item for deleting an annotation"
 	},
 	"annotation.editButton": {
 		"string": "Editează"
@@ -364,25 +375,32 @@
 		"string": "Descriere a elementului editată de {author}: {description}"
 	},
 	"annotation.mediaAssigned": {
-		"string": "Element alocat lui {name} de {author}"
+		"string": "Element alocat lui {name} de {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "Element alocat lui {name} de {author}"
+		"string": "Element alocat lui {name} de {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "Alocare element lui {name} anulată de {author}"
+		"string": "Alocare element lui {name} anulată de {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "Alocare element lui {name} anulată de {author}"
+		"string": "Alocare element lui {name} anulată de {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.menuTooltip": {
-		"string": "Acțiuni de adnotare"
+		"string": "Acțiuni de adnotare",
+		"developer_comment": "Tooltip for the annotation actions menu icon button"
 	},
 	"annotation.metadataCreated": {
-		"string": "Annotation field created by {author}: {fieldLabel}"
+		"string": "Annotation field created by {author}: {fieldLabel}",
+		"developer_comment": "Log entry indicating an annotation field was created"
 	},
 	"annotation.metadataResponse": {
-		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}"
+		"string": "Annotation \"{fieldLabel}\" edited by {author}: {response}",
+		"developer_comment": "Log entry indicating an annotation response has been changed"
 	},
 	"annotation.newReport": {
 		"string": "Element adăugat de {author}"
@@ -398,7 +416,8 @@
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
-		"string": "Link permanent"
+		"string": "Link permanent",
+		"developer_comment": "Menu item for getting a permanent url for an annotaion"
 	},
 	"annotation.publishedBy": {
 		"string": "published by",
@@ -408,7 +427,8 @@
 		"string": "Nota la sarcină ștearsă de {author}: {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Fact-check report {state} {author}"
+		"string": "Fact-check report {state} {author}",
+		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
 		"string": "Raport trimis pe {date}"
@@ -417,7 +437,8 @@
 		"string": "Actualizare raport trimisă pe {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "Match confirmed by {author}: {title}"
+		"string": "Match confirmed by {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was confirmed"
 	},
 	"annotation.similarDestroyed": {
 		"string": "Match deleted by {author}: {title}",
@@ -427,28 +448,36 @@
 		"string": "Nu a fost trimis niciun mesaj cu cererea"
 	},
 	"annotation.statusLocked": {
-		"string": "Starea elementului blocată de {author}"
+		"string": "Starea elementului blocată de {author}",
+		"developer_comment": "Log entry indicating an item status has been locked"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status changed to {status} by {author}"
+		"string": "Status changed to {status} by {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotation.statusUnlocked": {
-		"string": "Starea elementului deblocată de {author}"
+		"string": "Starea elementului deblocată de {author}",
+		"developer_comment": "Log entry indicating an item status has been unlocked"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Match suggested by {author}: {title}"
+		"string": "Match suggested by {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was suggested"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Match rejected by {author}: {title}"
+		"string": "Match rejected by {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was rejected"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tag #{tag} added by {author}"
+		"string": "Tag #{tag} added by {author}",
+		"developer_comment": "Log entry indicating a tag was added"
 	},
 	"annotation.taskAssignmentCreated": {
-		"string": "Sarcină alocată lui {name} de {author}: {title}"
+		"string": "Sarcină alocată lui {name} de {author}: {title}",
+		"developer_comment": "Log entry indicating a task has been assigned"
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "Alocare sarcină lui {name} anulată de {author}: {title}"
+		"string": "Alocare sarcină lui {name} anulată de {author}: {title}",
+		"developer_comment": "Log entry indicating a task has been unassigned"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "Sarcină redactată de {author}: {title}"
@@ -467,13 +496,20 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Additional content edited by {author}: {value}"
+		"string": "Additional content edited by {author}: {value}",
+		"developer_comment": "Log entry indicating the additional content has been edited"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "Claim edited by {author}: {value}"
+		"string": "Claim edited by {author}: {value}",
+		"developer_comment": "Log entry indicating a claim has been edited"
+	},
+	"annotation.updateLanguage": {
+		"string": "Language {value} updated by {author}",
+		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
 	},
 	"annotation.updateSource": {
-		"string": "Source {name} updated by {author}"
+		"string": "Source {name} updated by {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotations.loadMore": {
 		"string": "Încarcă mai mult"
@@ -532,6 +568,10 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Elemente mutate în coșul de gunoi."
+	},
+	"bulkActions.movedFromSpamSuccessfully": {
+		"string": "Items moved from Spam to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Elemente mutate din coșul de gunoi în `{toProject}`",
@@ -913,16 +953,28 @@
 		"string": "Vezi acest fus orar pe time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}"
+		"string": "{publishedCount, plural, one {There  is one item currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.} other {There are # items currently published with the status {statusLabel}. If you continue, all published items with this status will be paused. You must review those items to re-publish them.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.moveItemsTo": {
-		"string": "Mută elementele în"
+		"string": "Mută elementele în",
+		"developer_comment": "This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}"
+		"string": "{itemsCount, plural, one {There is one item with the status {statusLabel} that must be changed to another status before you can delete this status.} other {There are # items with the status {statusLabel} that must be changed to another status before you can delete this status.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}"
+		"string": "{itemsCount, plural, one {You need to change the status of one item to delete this status} other {You need to change the status of # items to delete this status}}",
+		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
+	},
+	"deleteStatusDialog.statusNotInUseMessage": {
+		"string": "Are you sure you want to delete this status?",
+		"developer_comment": "Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+	},
+	"deleteStatusDialog.statusNotInUseTitle": {
+		"string": "Confirm status deletion",
+		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
 	"destinationProjects.choose": {
 		"string": "Choose a folder"
@@ -1062,7 +1114,8 @@
 		"string": "Etichete"
 	},
 	"global.unknownError": {
-		"string": "Ne pare rău, s-a produs o eroare. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+		"string": "Ne pare rău, s-a produs o eroare. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă.",
+		"developer_comment": "Message displayed in error notification when an operation fails unexpectedly"
 	},
 	"global.update": {
 		"string": "Actualizează"
@@ -1559,7 +1612,8 @@
 		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
-		"string": "Arhive:"
+		"string": "Arhive:",
+		"developer_comment": "This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL."
 	},
 	"mediaExpandedMetadata.comments": {
 		"string": "Comentarii FB"
@@ -1662,7 +1716,8 @@
 		"string": "{count, plural, one {# similar media} other {# similar media}}"
 	},
 	"mediaLanguageChip.error": {
-		"string": "Ne pare rău, a apărut o eroare la actualizarea limbii. Vă rugăm să încercați din nou și contactați {supportEmail} dacă situația persistă."
+		"string": "Ne pare rău, a apărut o eroare la actualizarea limbii. Vă rugăm să încercați din nou și contactați {supportEmail} dacă situația persistă.",
+		"developer_comment": "This message appears when a user tries to update the language on a media item and an error occurs."
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Căutare inversă de imagini",
@@ -2114,10 +2169,12 @@
 		"string": "There are no items here."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "If you delete this collection, all folders will still be accessible outside of the collection."
+		"string": "If you delete this collection, all folders will still be accessible outside of the collection.",
+		"developer_comment": "A message that appears when a user attempts to delete a collection to warn them that any folders inside will NOT be deleted, and will still be accessible."
 	},
 	"projectGroup.name": {
-		"string": "collection"
+		"string": "collection",
+		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
 	},
 	"projectHeader.allItems": {
 		"string": "Toate elementele"
@@ -2670,6 +2727,10 @@
 	"search.and": {
 		"string": "și",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.annotatedBy": {
+		"string": "Annotated by",
+		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
 		"string": "any date",
@@ -4129,25 +4190,36 @@
 		"string": "You need to translate all statuses into {language}"
 	},
 	"statusesComponent.blurbSecondary": {
-		"string": "Traduceți stările în limbi secundare pentru afișarea lor în limbile naționale în rapoartele de verificare a faptelor."
+		"string": "Traduceți stările în limbi secundare pentru afișarea lor în limbile naționale în rapoartele de verificare a faptelor.",
+		"developer_comment": "Message displayed on status translation page."
 	},
 	"statusesComponent.created": {
-		"string": "Status created successfully"
+		"string": "Status created successfully",
+		"developer_comment": "Success message displayed when status is created."
+	},
+	"statusesComponent.deleteButton": {
+		"string": "Delete status",
+		"developer_comment": "Button label to delete status"
 	},
 	"statusesComponent.deleted": {
-		"string": "Status deleted successfully"
+		"string": "Status deleted successfully",
+		"developer_comment": "Success message displayed when status is deleted."
 	},
 	"statusesComponent.error": {
-		"string": "Ne pare rău, s-a produs o eroare la actualizarea stărilor. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă."
+		"string": "Ne pare rău, s-a produs o eroare la actualizarea stărilor. Vă rugăm să încercați din nou și să contactați {supportEmail} dacă situația persistă.",
+		"developer_comment": "Error message displayed when status can't be changed."
 	},
 	"statusesComponent.moveItemsAndDelete": {
-		"string": "Mută elementele și șterge starea"
+		"string": "Mută elementele și șterge starea",
+		"developer_comment": "Label of a button that is displayed when a status in use is being deleted."
 	},
 	"statusesComponent.newStatus": {
-		"string": "Stare nouă"
+		"string": "Stare nouă",
+		"developer_comment": "Button label to create a new status."
 	},
 	"statusesComponent.saved": {
-		"string": "Statuses saved successfully"
+		"string": "Statuses saved successfully",
+		"developer_comment": "Success message displayed when status is saved."
 	},
 	"statusesComponent.title": {
 		"string": "Stări {languageName}",
@@ -5129,6 +5201,9 @@
 	},
 	"uploadFile.changeFile": {
 		"string": "{filename} (dați clic sau plasați pentru modificare)"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Plasați aici un fișier video sau dați clic pentru încărcarea unui fișier (mărime max.: {file_max_size}, extensii permise: {file_extensions})"
 	},
 	"uploadFile.fileTooLarge": {
 		"string": "Mărimea fișierului trebuie să fie mai mică de {size}. Încercați cu un fișier mai mic."
