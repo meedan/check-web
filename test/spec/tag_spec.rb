@@ -108,7 +108,8 @@ shared_examples 'tag' do
     wait_for_selector('.multi__selector-save').click
     wait_for_selector_none('.multiselector__search-input input')
     delete_tag(new_tag)
-    wait_for_selector_none('.media-tags__tag')
+    @driver.navigate.refresh
+    wait_for_selector('.media-detail')
     expect(@driver.page_source.include?(new_tag)).to be(false)
   end
 end
