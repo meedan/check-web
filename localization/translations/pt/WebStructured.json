@@ -202,6 +202,10 @@
 		"string": "Adicionar filtro",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotatedBy": {
+		"string": "Annotated by",
+		"developer_comment": "Menu option to enable searching items by annotated by"
+	},
 	"addFilterMenu.annotation": {
 		"string": "Anotação",
 		"developer_comment": "Menu option to enable searching items by annotation fields"
@@ -306,10 +310,12 @@
 		"string": "Escolha um novo idioma"
 	},
 	"annotation.addLanguage": {
-		"string": "Idioma {value} adicionado por {author}"
+		"string": "Idioma {value} adicionado por {author}",
+		"developer_comment": "Log entry indicating an item language has been set. {value} receives language name"
 	},
 	"annotation.addSource": {
-		"string": "Fonte {name} adicionada por {author}"
+		"string": "Fonte {name} adicionada por {author}",
+		"developer_comment": "Log entry indicating a source has been added"
 	},
 	"annotation.addedComment": {
 		"string": "Nota da tarefa inserida por {author}: {title}{note}"
@@ -327,19 +333,24 @@
 		"string": "O JSON Schema da tarefa {title} foi modificado por {author}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Conteúdo adicional adicionado por {author}: {value}"
+		"string": "Conteúdo adicional adicionado por {author}: {value}",
+		"developer_comment": "Log entry indicating additional content has been added"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Afirmação adicionada por {author}: {value}"
+		"string": "Afirmação adicionada por {author}: {value}",
+		"developer_comment": "Log entry indicating a claim has been added"
 	},
 	"annotation.createFactCheck": {
-		"string": "Título da verificação de fatos adicionado por {author}: {value}"
+		"string": "Título da verificação de fatos adicionado por {author}: {value}",
+		"developer_comment": "Log entry indicating fact-check title has been added"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Item criado por {author}"
+		"string": "Item criado por {author}",
+		"developer_comment": "Log entry indicating an item has been created"
 	},
 	"annotation.deleteButton": {
-		"string": "Excluir"
+		"string": "Excluir",
+		"developer_comment": "Menu item for deleting an annotation"
 	},
 	"annotation.editButton": {
 		"string": "Editar"
@@ -364,25 +375,32 @@
 		"string": "Descrição do item editada por {author}: {description}"
 	},
 	"annotation.mediaAssigned": {
-		"string": "Item atribuído a {name} por {author}"
+		"string": "Item atribuído a {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "Item atribuído a {name} por {author}"
+		"string": "Item atribuído a {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "Atribuição do item removida de {name} por {author}"
+		"string": "Atribuição do item removida de {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "Atribuição do item removida de {name} por {author}"
+		"string": "Atribuição do item removida de {name} por {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.menuTooltip": {
-		"string": "Ações das anotações"
+		"string": "Ações das anotações",
+		"developer_comment": "Tooltip for the annotation actions menu icon button"
 	},
 	"annotation.metadataCreated": {
-		"string": "Campo de anotação criado por {author}: {fieldLabel}"
+		"string": "Campo de anotação criado por {author}: {fieldLabel}",
+		"developer_comment": "Log entry indicating an annotation field was created"
 	},
 	"annotation.metadataResponse": {
-		"string": "Anotação \"{fieldLabel}\" editada por {author}: {response}"
+		"string": "Anotação \"{fieldLabel}\" editada por {author}: {response}",
+		"developer_comment": "Log entry indicating an annotation response has been changed"
 	},
 	"annotation.newReport": {
 		"string": "Item inserido por {author}"
@@ -398,7 +416,8 @@
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
-		"string": "Permalink"
+		"string": "Permalink",
+		"developer_comment": "Menu item for getting a permanent url for an annotaion"
 	},
 	"annotation.publishedBy": {
 		"string": "publicado por",
@@ -408,7 +427,8 @@
 		"string": "Nota da tarefa excluída por {author}: {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Relatório da verificação de fatos {state} {author}"
+		"string": "Relatório da verificação de fatos {state} {author}",
+		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
 		"string": "Relatório enviado em {date}"
@@ -417,7 +437,8 @@
 		"string": "Atualização de relatório enviado em {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "Correspondência confirmada por {author}: {title}"
+		"string": "Correspondência confirmada por {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was confirmed"
 	},
 	"annotation.similarDestroyed": {
 		"string": "Correspondência excluída por {author}: {title}",
@@ -427,28 +448,36 @@
 		"string": "Nenhuma mensagen foi enviada com a solicitação"
 	},
 	"annotation.statusLocked": {
-		"string": "Status do item bloqueado por {author}"
+		"string": "Status do item bloqueado por {author}",
+		"developer_comment": "Log entry indicating an item status has been locked"
 	},
 	"annotation.statusSetHeader": {
-		"string": "Status modificado para {status} por {author}"
+		"string": "Status modificado para {status} por {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotation.statusUnlocked": {
-		"string": "Status do item desbloqueado por {author}"
+		"string": "Status do item desbloqueado por {author}",
+		"developer_comment": "Log entry indicating an item status has been unlocked"
 	},
 	"annotation.suggestionCreated": {
-		"string": "Correspondência sugerida por {author}: {title}"
+		"string": "Correspondência sugerida por {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was suggested"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "Correspondência rejeitada por {author}: {title}"
+		"string": "Correspondência rejeitada por {author}: {title}",
+		"developer_comment": "Log entry indicating a similarity match was rejected"
 	},
 	"annotation.taggedHeader": {
-		"string": "Tag #{tag} adicionada por {author}"
+		"string": "Tag #{tag} adicionada por {author}",
+		"developer_comment": "Log entry indicating a tag was added"
 	},
 	"annotation.taskAssignmentCreated": {
-		"string": "Tarefa atribuída a {name} por {author}: {title}"
+		"string": "Tarefa atribuída a {name} por {author}: {title}",
+		"developer_comment": "Log entry indicating a task has been assigned"
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "Atribuição da tarefa removida de {name} por {author}: {title}"
+		"string": "Atribuição da tarefa removida de {name} por {author}: {title}",
+		"developer_comment": "Log entry indicating a task has been unassigned"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "Tarefa editada por {author}: {title}"
@@ -467,13 +496,20 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Conteúdo adicional editado por {author}: {value}"
+		"string": "Conteúdo adicional editado por {author}: {value}",
+		"developer_comment": "Log entry indicating the additional content has been edited"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "Afirmação editada por {author}: {value}"
+		"string": "Afirmação editada por {author}: {value}",
+		"developer_comment": "Log entry indicating a claim has been edited"
+	},
+	"annotation.updateLanguage": {
+		"string": "Language {value} updated by {author}",
+		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
 	},
 	"annotation.updateSource": {
-		"string": "Fonte {name} atualizada por {author}"
+		"string": "Fonte {name} atualizada por {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotations.loadMore": {
 		"string": "Carregar mais"
@@ -532,6 +568,10 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Itens movidos para a Lixeira."
+	},
+	"bulkActions.movedFromSpamSuccessfully": {
+		"string": "Items moved from Spam to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Itens movidos da Lixeira para '{toProject}'",
@@ -913,16 +953,28 @@
 		"string": "Ver este fuso horário em time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Há um item atualmente publicado com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} many {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} other {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.}}"
+		"string": "{publishedCount, plural, one {Há um item atualmente publicado com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} many {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.} other {Há # itens atualmente publicados com o status {statusLabel}. Se você continuar, todos os itens publicados com este status serão suspensos. Você deve revisar estes itens para publicá-los novamente.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.moveItemsTo": {
-		"string": "Mover itens para"
+		"string": "Mover itens para",
+		"developer_comment": "This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {Há um item com o status {statusLabel} que deve ser modificado para um outro para que você possa excluir este status.} many {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.} other {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.}}"
+		"string": "{itemsCount, plural, one {Há um item com o status {statusLabel} que deve ser modificado para um outro para que você possa excluir este status.} many {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.} other {Há # itens com o status {statusLabel} que devem ser modificados para um outro para que você possa excluir este status.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {Você deve modificar o status de um item para excluir este status.} many {Você deve modificar o status de # itens para excluir este status.} other {Você deve modificar o status de # itens para excluir este status.}}"
+		"string": "{itemsCount, plural, one {Você deve modificar o status de um item para excluir este status.} many {Você deve modificar o status de # itens para excluir este status.} other {Você deve modificar o status de # itens para excluir este status.}}",
+		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
+	},
+	"deleteStatusDialog.statusNotInUseMessage": {
+		"string": "Are you sure you want to delete this status?",
+		"developer_comment": "Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+	},
+	"deleteStatusDialog.statusNotInUseTitle": {
+		"string": "Confirm status deletion",
+		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
 	"destinationProjects.choose": {
 		"string": "Escolha uma pasta"
@@ -1062,7 +1114,8 @@
 		"string": "Tags"
 	},
 	"global.unknownError": {
-		"string": "Desculpe, ocorreu um erro. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "Message displayed in error notification when an operation fails unexpectedly"
 	},
 	"global.update": {
 		"string": "Atualizar"
@@ -1559,7 +1612,8 @@
 		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
-		"string": "Arquivos:"
+		"string": "Arquivos:",
+		"developer_comment": "This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL."
 	},
 	"mediaExpandedMetadata.comments": {
 		"string": "Comentários do Facebook"
@@ -1662,7 +1716,8 @@
 		"string": "{count, plural, one {# mídia semelhante} many {# mídias semelhantes} other {# mídias semelhantes}}"
 	},
 	"mediaLanguageChip.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro ao atualizar o idioma. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "This message appears when a user tries to update the language on a media item and an error occurs."
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Busca reversa de imagem",
@@ -2114,10 +2169,12 @@
 		"string": "Não há itens aqui."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "Se você excluir esta coleção, todas as pastas continuarão acessíveis fora da coleção. "
+		"string": "Se você excluir esta coleção, todas as pastas continuarão acessíveis fora da coleção. ",
+		"developer_comment": "A message that appears when a user attempts to delete a collection to warn them that any folders inside will NOT be deleted, and will still be accessible."
 	},
 	"projectGroup.name": {
-		"string": "coleção"
+		"string": "coleção",
+		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
 	},
 	"projectHeader.allItems": {
 		"string": "Todos os itens"
@@ -2670,6 +2727,10 @@
 	"search.and": {
 		"string": "e",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.annotatedBy": {
+		"string": "Annotated by",
+		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
 		"string": "qualquer data",
@@ -4129,25 +4190,36 @@
 		"string": "Você precisa traduzir todos os status para {language}"
 	},
 	"statusesComponent.blurbSecondary": {
-		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos."
+		"string": "Traduza os status em idiomas secundários para exibi-los nos idiomas locais nos seus relatórios de verificação de fatos.",
+		"developer_comment": "Message displayed on status translation page."
 	},
 	"statusesComponent.created": {
-		"string": "O status foi criado com sucesso."
+		"string": "O status foi criado com sucesso.",
+		"developer_comment": "Success message displayed when status is created."
+	},
+	"statusesComponent.deleteButton": {
+		"string": "Delete status",
+		"developer_comment": "Button label to delete status"
 	},
 	"statusesComponent.deleted": {
-		"string": "O status foi excluído com sucesso."
+		"string": "O status foi excluído com sucesso.",
+		"developer_comment": "Success message displayed when status is deleted."
 	},
 	"statusesComponent.error": {
-		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir."
+		"string": "Desculpe, ocorreu um erro ao atualizar os status. Por favor, tente novamente e entre em contato com {supportEmail} se o problema persistir.",
+		"developer_comment": "Error message displayed when status can't be changed."
 	},
 	"statusesComponent.moveItemsAndDelete": {
-		"string": "Mover itens e excluir status"
+		"string": "Mover itens e excluir status",
+		"developer_comment": "Label of a button that is displayed when a status in use is being deleted."
 	},
 	"statusesComponent.newStatus": {
-		"string": "Novo status"
+		"string": "Novo status",
+		"developer_comment": "Button label to create a new status."
 	},
 	"statusesComponent.saved": {
-		"string": "Os status foram salvos com sucesso."
+		"string": "Os status foram salvos com sucesso.",
+		"developer_comment": "Success message displayed when status is saved."
 	},
 	"statusesComponent.title": {
 		"string": "{languageName} status",
@@ -4418,7 +4490,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.claimsAnsweredWithAReport": {
-		"string": "Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta somente como um.",
+		"string": "Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta-se somente um.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.conversations": {
@@ -4453,7 +4525,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.reportsSent": {
-		"string": "Relatórios enviados em resposta a solicitações. Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, conta como dois.",
+		"string": "Relatórios enviados em resposta a solicitações. Por exemplo, se dois(duas) usuários(as) solicitaram a mesma afirmação e receberam o mesmo relatório, contam-se como dois.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.responseTime": {
@@ -4475,7 +4547,7 @@
 		"developer_comment": "Header for the stored data page of the current team"
 	},
 	"teamDataComponent.uniqueNewslettersSent": {
-		"string": "Envio de boletins informativos distintos para todas as plataformas. Estas informações começaram a ser coletadas em 1º de junho de 2022.",
+		"string": "Envio de boletins informativos distintos, para todas as plataformas. Estas informações começaram a ser coletadas em 1º de junho de 2022.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsers": {
@@ -4483,7 +4555,7 @@
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.uniqueUsersWhoReceivedReport": {
-		"string": "Usuários(as) distintos(as) que receberam um relatório. Por exemplo, se um(a) usuário(a) recebeu três relatórios, conta somente como um.",
+		"string": "Usuários(as) distintos(as) que receberam um relatório. Por exemplo, se um(a) usuário(a) recebeu três relatórios, conta-se somente um.",
 		"developer_comment": "Explanation on table header, when hovering the \"help\" icon, on data settings page"
 	},
 	"teamDataComponent.validNewRequests": {
@@ -5129,6 +5201,9 @@
 	},
 	"uploadFile.changeFile": {
 		"string": "{filename} (clique ou deposite para modificar)"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Deposite um arquivo aqui, ou clique para carregar um arquivo (tamanho máximo: {file_max_size}, extensões permitidas: {file_extensions})"
 	},
 	"uploadFile.fileTooLarge": {
 		"string": "O tamanho do arquivo deve ser inferior a {size}. Por favor, tente com um arquivo menor."

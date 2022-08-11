@@ -202,6 +202,10 @@
 		"string": "Ajouter un filtre",
 		"developer_comment": "Button that opens menu with filter field options"
 	},
+	"addFilterMenu.annotatedBy": {
+		"string": "Annotated by",
+		"developer_comment": "Menu option to enable searching items by annotated by"
+	},
 	"addFilterMenu.annotation": {
 		"string": "Annotation",
 		"developer_comment": "Menu option to enable searching items by annotation fields"
@@ -306,10 +310,12 @@
 		"string": "Choisir une nouvelle langue"
 	},
 	"annotation.addLanguage": {
-		"string": "La langue {value} a été ajoutée par {author}"
+		"string": "La langue {value} a été ajoutée par {author}",
+		"developer_comment": "Log entry indicating an item language has been set. {value} receives language name"
 	},
 	"annotation.addSource": {
-		"string": "La source {name} a été ajoutée par {author}"
+		"string": "La source {name} a été ajoutée par {author}",
+		"developer_comment": "Log entry indicating a source has been added"
 	},
 	"annotation.addedComment": {
 		"string": "Une note de tâche a été ajoutée par {author} : {title}{note}"
@@ -327,19 +333,24 @@
 		"string": "Le schéma JSON de la tâche a été changé par {author} : {title}"
 	},
 	"annotation.createClaimContext": {
-		"string": "Un contenu supplémentaire a été ajouté par {author} : {value}"
+		"string": "Un contenu supplémentaire a été ajouté par {author} : {value}",
+		"developer_comment": "Log entry indicating additional content has been added"
 	},
 	"annotation.createClaimDescription": {
-		"string": "Une affirmation a été ajoutée par {author} : {value}"
+		"string": "Une affirmation a été ajoutée par {author} : {value}",
+		"developer_comment": "Log entry indicating a claim has been added"
 	},
 	"annotation.createFactCheck": {
-		"string": "Un titre de vérification de faits a été ajouté par {author} : {value}"
+		"string": "Un titre de vérification de faits a été ajouté par {author} : {value}",
+		"developer_comment": "Log entry indicating fact-check title has been added"
 	},
 	"annotation.createProjectMedia": {
-		"string": "Un élément a été créé par {author}"
+		"string": "Un élément a été créé par {author}",
+		"developer_comment": "Log entry indicating an item has been created"
 	},
 	"annotation.deleteButton": {
-		"string": "Supprimer"
+		"string": "Supprimer",
+		"developer_comment": "Menu item for deleting an annotation"
 	},
 	"annotation.editButton": {
 		"string": "Modifier"
@@ -364,25 +375,32 @@
 		"string": "La description de l’élément a été modifiée par {author} : {description}"
 	},
 	"annotation.mediaAssigned": {
-		"string": "L’élément a été attribué à {name} par {author}"
+		"string": "L’élément a été attribué à {name} par {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentCreated": {
-		"string": "L’élément a été attribué à {name} par {author}"
+		"string": "L’élément a été attribué à {name} par {author}",
+		"developer_comment": "Log entry indicating an item has been assigned"
 	},
 	"annotation.mediaAssignmentDeleted": {
-		"string": "L’attribution d’une élément a été retirée de {name} par {author}"
+		"string": "L’attribution d’une élément a été retirée de {name} par {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.mediaUnassigned": {
-		"string": "L’attribution d’une élément a été retirée de {name} par {author}"
+		"string": "L’attribution d’une élément a été retirée de {name} par {author}",
+		"developer_comment": "Log entry indicating an item has been unassigned"
 	},
 	"annotation.menuTooltip": {
-		"string": "Actions sur la note"
+		"string": "Actions sur la note",
+		"developer_comment": "Tooltip for the annotation actions menu icon button"
 	},
 	"annotation.metadataCreated": {
-		"string": "Le champ d’annotation a été créé par {author} : {fieldLabel}"
+		"string": "Le champ d’annotation a été créé par {author} : {fieldLabel}",
+		"developer_comment": "Log entry indicating an annotation field was created"
 	},
 	"annotation.metadataResponse": {
-		"string": "L’annotation « {fieldLabel} » a été modifieé par {author} : {response}"
+		"string": "L’annotation « {fieldLabel} » a été modifieé par {author} : {response}",
+		"developer_comment": "Log entry indicating an annotation response has been changed"
 	},
 	"annotation.newReport": {
 		"string": "Un élément a été ajouté par {author}"
@@ -398,7 +416,8 @@
 		"developer_comment": "Fact-check in paused state"
 	},
 	"annotation.permalink": {
-		"string": "Permalien"
+		"string": "Permalien",
+		"developer_comment": "Menu item for getting a permanent url for an annotaion"
 	},
 	"annotation.publishedBy": {
 		"string": "publié par",
@@ -408,7 +427,8 @@
 		"string": "La note de tâche a été supprimé par {author} : {title}{note}"
 	},
 	"annotation.reportDesignState": {
-		"string": "Rapport de vérification de faits {state} {author}"
+		"string": "Rapport de vérification de faits {state} {author}",
+		"developer_comment": "Log entry indicating a report state has changed. Example: Fact-check report [edited by|paused by|published by] author"
 	},
 	"annotation.reportReceived": {
 		"string": "Rapport envoyé le {date}"
@@ -417,7 +437,8 @@
 		"string": "Mise à jour du rapport envoyée le {date}"
 	},
 	"annotation.similarCreated": {
-		"string": "La correspondance a été confirmée par {author} : {title}"
+		"string": "La correspondance a été confirmée par {author} : {title}",
+		"developer_comment": "Log entry indicating a similarity match was confirmed"
 	},
 	"annotation.similarDestroyed": {
 		"string": "La correspondance a été supprimée par {author} : {title}",
@@ -427,28 +448,36 @@
 		"string": "Aucun message n’a été envoyé avec la demande"
 	},
 	"annotation.statusLocked": {
-		"string": "L’état de l’élément a été verrouillé par {author}"
+		"string": "L’état de l’élément a été verrouillé par {author}",
+		"developer_comment": "Log entry indicating an item status has been locked"
 	},
 	"annotation.statusSetHeader": {
-		"string": "L’état a été changé à {status} par {author}"
+		"string": "L’état a été changé à {status} par {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotation.statusUnlocked": {
-		"string": "L’état de l’élément a été déverrouillé par {author}"
+		"string": "L’état de l’élément a été déverrouillé par {author}",
+		"developer_comment": "Log entry indicating an item status has been unlocked"
 	},
 	"annotation.suggestionCreated": {
-		"string": "La correspondance a été suggérée par {author} : {title}"
+		"string": "La correspondance a été suggérée par {author} : {title}",
+		"developer_comment": "Log entry indicating a similarity match was suggested"
 	},
 	"annotation.suggestionDestroyed": {
-		"string": "La correspondance a été refusée par {author} : {title}"
+		"string": "La correspondance a été refusée par {author} : {title}",
+		"developer_comment": "Log entry indicating a similarity match was rejected"
 	},
 	"annotation.taggedHeader": {
-		"string": "L’étiquette no {tag} a été ajoutée par {author}"
+		"string": "L’étiquette no {tag} a été ajoutée par {author}",
+		"developer_comment": "Log entry indicating a tag was added"
 	},
 	"annotation.taskAssignmentCreated": {
-		"string": "La tâche a été attribuée à {name} par {author} : {title}"
+		"string": "La tâche a été attribuée à {name} par {author} : {title}",
+		"developer_comment": "Log entry indicating a task has been assigned"
 	},
 	"annotation.taskAssignmentDeleted": {
-		"string": "L’attribution d’une tâche a été retirée de {name} par {author} : {title}"
+		"string": "L’attribution d’une tâche a été retirée de {name} par {author} : {title}",
+		"developer_comment": "Log entry indicating a task has been unassigned"
 	},
 	"annotation.taskLabelUpdated": {
 		"string": "La tâche a été modifiée par {author} : {title}"
@@ -467,13 +496,20 @@
 		"developer_comment": "Show label for undefined language"
 	},
 	"annotation.updateClaimContext": {
-		"string": "Le contenu supplémentaire a été modifié par {author} : {value}"
+		"string": "Le contenu supplémentaire a été modifié par {author} : {value}",
+		"developer_comment": "Log entry indicating the additional content has been edited"
 	},
 	"annotation.updateClaimDescription": {
-		"string": "L’affirmation a été modifiée par {author} : {value}"
+		"string": "L’affirmation a été modifiée par {author} : {value}",
+		"developer_comment": "Log entry indicating a claim has been edited"
+	},
+	"annotation.updateLanguage": {
+		"string": "Language {value} updated by {author}",
+		"developer_comment": "Log entry indicating an item language has been updated. {value} receives language name"
 	},
 	"annotation.updateSource": {
-		"string": "La source {name} a été mise à jour par {author}"
+		"string": "La source {name} a été mise à jour par {author}",
+		"developer_comment": "Log entry indicating an item status has been changed"
 	},
 	"annotations.loadMore": {
 		"string": "Charger davantage"
@@ -532,6 +568,10 @@
 	},
 	"bulkActions.moveToTrashSuccessfully": {
 		"string": "Les éléments ont été déplacés vers la corbeille."
+	},
+	"bulkActions.movedFromSpamSuccessfully": {
+		"string": "Items moved from Spam to '{toProject}'",
+		"developer_comment": "Banner displayed after items are moved successfully"
 	},
 	"bulkActions.movedRestoreSuccessfully": {
 		"string": "Les éléments ont été déplacés de la corbeille vers « {toProject} »",
@@ -913,16 +953,28 @@
 		"string": "Afficher ce fuseau horaire sur time.is"
 	},
 	"deleteStatusDialog.itemsPublishedMessage": {
-		"string": "{publishedCount, plural, one {Il existe un élément publié actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.} many {Il existe # éléments publiés actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.} other {Il existe # éléments publiés actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.}}"
+		"string": "{publishedCount, plural, one {Il existe un élément publié actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.} many {Il existe # éléments publiés actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.} other {Il existe # éléments publiés actuellement dont l’état est {statusLabel}. Si vous poursuivez, tous les éléments publiés auxquels cet état est attribué seront interrompus. Vous devez réviser ces éléments afin de les republier.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.moveItemsTo": {
-		"string": "Déplacer les éléments vers"
+		"string": "Déplacer les éléments vers",
+		"developer_comment": "This is a field label. In this field, a destination status can be set, so, when a status is deleted, all existing items will be moved to this status defined here in this field."
 	},
 	"deleteStatusDialog.statusInUseMessage": {
-		"string": "{itemsCount, plural, one {Il existe un élément dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.} many {Il existe # éléments dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.} other {Il existe # éléments dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.}}"
+		"string": "{itemsCount, plural, one {Il existe un élément dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.} many {Il existe # éléments dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.} other {Il existe # éléments dont l’état est {statusLabel}, à changer en un autre état avant de pouvoir supprimer cet état.}}",
+		"developer_comment": "Message of a modal that is displayed when a status in use is being deleted."
 	},
 	"deleteStatusDialog.statusInUseTitle": {
-		"string": "{itemsCount, plural, one {Vous devez changer l’état d’un élément pour supprimer cet état} many {Vous devez changer l’état de # éléments pour supprimer cet état} other {Vous devez changer l’état de # éléments pour supprimer cet état}}"
+		"string": "{itemsCount, plural, one {Vous devez changer l’état d’un élément pour supprimer cet état} many {Vous devez changer l’état de # éléments pour supprimer cet état} other {Vous devez changer l’état de # éléments pour supprimer cet état}}",
+		"developer_comment": "Title of a modal that is displayed when a status in use is being deleted."
+	},
+	"deleteStatusDialog.statusNotInUseMessage": {
+		"string": "Are you sure you want to delete this status?",
+		"developer_comment": "Confirmation message displayed on a modal when a status is deleted from statuses settings page."
+	},
+	"deleteStatusDialog.statusNotInUseTitle": {
+		"string": "Confirm status deletion",
+		"developer_comment": "Title displayed on a confirmation modal when a status being deleted is not in used by any item."
 	},
 	"destinationProjects.choose": {
 		"string": "Choisissez un dossier"
@@ -1062,7 +1114,8 @@
 		"string": "Étiquettes"
 	},
 	"global.unknownError": {
-		"string": "Désolé, une erreur est survenue. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
+		"string": "Désolé, une erreur est survenue. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste.",
+		"developer_comment": "Message displayed in error notification when an operation fails unexpectedly"
 	},
 	"global.update": {
 		"string": "Mettre à jour"
@@ -1559,7 +1612,8 @@
 		"developer_comment": "Label when transcription is in progress"
 	},
 	"mediaExpandedArchives.archives": {
-		"string": "Archives :"
+		"string": "Archives :",
+		"developer_comment": "This is a header that tells the user that what follows is a list of archival services on the internet that they can use to permanently save the content at a URL."
 	},
 	"mediaExpandedMetadata.comments": {
 		"string": "Commentaires sur Facebook"
@@ -1662,7 +1716,8 @@
 		"string": "{count, plural, one {# média semblable} many {# médias semblables} other {# médias semblables}}"
 	},
 	"mediaLanguageChip.error": {
-		"string": "Désolé, une erreur est survenue lors de la mise à jour de la langue. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
+		"string": "Désolé, une erreur est survenue lors de la mise à jour de la langue. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste.",
+		"developer_comment": "This message appears when a user tries to update the language on a media item and an error occurs."
 	},
 	"mediaMetadata.ImageSearch": {
 		"string": "Recherche inversée d’image",
@@ -2114,10 +2169,12 @@
 		"string": "Il n’y a aucun élément ici."
 	},
 	"projectGroup.deleteMessage": {
-		"string": "Si vous supprimez cette collection, tous les dossiers seront encore accessibles en dehors de la collection."
+		"string": "Si vous supprimez cette collection, tous les dossiers seront encore accessibles en dehors de la collection.",
+		"developer_comment": "A message that appears when a user attempts to delete a collection to warn them that any folders inside will NOT be deleted, and will still be accessible."
 	},
 	"projectGroup.name": {
-		"string": "collection"
+		"string": "collection",
+		"developer_comment": "A placeholder that appears if for some reason a collection lacks a name. This should never appear to the user, but please localize it just in case."
 	},
 	"projectHeader.allItems": {
 		"string": "Tous les éléments"
@@ -2670,6 +2727,10 @@
 	"search.and": {
 		"string": "et",
 		"developer_comment": "Logical operator to be applied when filtering by multiple tags"
+	},
+	"search.annotatedBy": {
+		"string": "Annotated by",
+		"developer_comment": "Prefix label for field to filter by annotated by"
 	},
 	"search.anyDate": {
 		"string": "n’importe quelle date",
@@ -4129,25 +4190,36 @@
 		"string": "Vous devez traduire tous les états en {language}"
 	},
 	"statusesComponent.blurbSecondary": {
-		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits."
+		"string": "Traduisez les états dans des langues secondaires afin de les afficher dans les langues locales dans vos rapports de vérification des faits.",
+		"developer_comment": "Message displayed on status translation page."
 	},
 	"statusesComponent.created": {
-		"string": "L’état a été créé avec succès"
+		"string": "L’état a été créé avec succès",
+		"developer_comment": "Success message displayed when status is created."
+	},
+	"statusesComponent.deleteButton": {
+		"string": "Delete status",
+		"developer_comment": "Button label to delete status"
 	},
 	"statusesComponent.deleted": {
-		"string": "L’état a été supprimé avec succès"
+		"string": "L’état a été supprimé avec succès",
+		"developer_comment": "Success message displayed when status is deleted."
 	},
 	"statusesComponent.error": {
-		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste."
+		"string": "Désolé, une erreur est survenue lors de la mise à jour des états. Veuillez réessayer et envoyer un courriel à {supportEmail} si la situation persiste.",
+		"developer_comment": "Error message displayed when status can't be changed."
 	},
 	"statusesComponent.moveItemsAndDelete": {
-		"string": "Déplacer les éléments et supprimer l’état"
+		"string": "Déplacer les éléments et supprimer l’état",
+		"developer_comment": "Label of a button that is displayed when a status in use is being deleted."
 	},
 	"statusesComponent.newStatus": {
-		"string": "Nouvel état"
+		"string": "Nouvel état",
+		"developer_comment": "Button label to create a new status."
 	},
 	"statusesComponent.saved": {
-		"string": "Les états ont été enregistrés avec succès"
+		"string": "Les états ont été enregistrés avec succès",
+		"developer_comment": "Success message displayed when status is saved."
 	},
 	"statusesComponent.title": {
 		"string": "États en {languageName}",
@@ -5129,6 +5201,9 @@
 	},
 	"uploadFile.changeFile": {
 		"string": "{filename} (cliquer ou déposer pour changer)"
+	},
+	"uploadFile.fileMessage": {
+		"string": "Déposez un fichier ici ou cliquez pour téléverser un fichier (taille maximale : {file_max_size}, extensions autorisées : {file_extensions})"
 	},
 	"uploadFile.fileTooLarge": {
 		"string": "La taille des fichiers devrait être inférieure à {size}. Veuillez essayer avec un fichier plus petit."
