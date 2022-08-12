@@ -53,7 +53,7 @@ const Toolbar = ({
           {actions}
           <ViewModeSwitcher viewMode={viewMode} onChangeViewMode={onChangeViewMode} />
         </Row>
-        {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox', 'feed'].indexOf(page) === -1 && resultType !== 'feed' ? (
+        {['trash', 'collection', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed'].indexOf(page) === -1 && resultType !== 'feed' ? (
           <Can {...perms}>
             <OffsetButton>
               <CreateProjectMedia search={search} project={project} team={team} />
@@ -71,7 +71,7 @@ Toolbar.defaultProps = {
 };
 
 Toolbar.propTypes = {
-  page: PropTypes.oneOf(['trash', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox', 'feed']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'folder', 'list', 'imported-reports', 'tipline-inbox', 'spam', 'suggested-matches', 'feed']), // FIXME find a cleaner way to render Trash differently
   viewMode: PropTypes.oneOf(['shorter', 'longer']),
   onChangeViewMode: PropTypes.func.isRequired,
   // FIXME: Define other PropTypes
