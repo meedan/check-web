@@ -4,6 +4,10 @@
     "defaultMessage": "Claim"
   },
   {
+    "id": "list.factCheck",
+    "defaultMessage": "Fact-check"
+  },
+  {
     "id": "list.Demand",
     "defaultMessage": "Requests"
   },

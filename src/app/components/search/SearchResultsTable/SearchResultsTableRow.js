@@ -50,6 +50,10 @@ export default function SearchResultsTableRow({
     // eslint-disable-next-line no-param-reassign
     projectMedia.list_columns_values = JSON.parse(projectMedia.list_columns_values);
   }
+  if (resultType === 'factCheck') {
+    // eslint-disable-next-line no-param-reassign
+    projectMedia.list_columns_values = projectMedia.feed_columns_values;
+  }
 
   return (
     <TableRow
@@ -59,7 +63,7 @@ export default function SearchResultsTableRow({
       className="medias__item" // for integration tests
       hover={!!dbid} // only allow hover when clickable
     >
-      { resultType !== 'feed' ? (
+      { (resultType !== 'feed' && resultType !== 'factCheck') ? (
         <TableCell padding="checkbox" onClick={swallowClick}>
           { !projectMedia.is_secondary ? <Checkbox checked={checked} onChange={handleChangeChecked} /> : null }
         </TableCell>

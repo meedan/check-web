@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchResultsTableHead from './SearchResultsTableHead';
 import SearchResultsTableRow from './SearchResultsTableRow';
 import TitleCell from './TitleCell';
+import FactCheckCell from './FactCheckCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
 import SubmittedCell from './SubmittedCell';
@@ -41,6 +42,11 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.Item" defaultMessage="Claim" />,
     cellComponent: TitleCell,
     sortKey: 'title',
+  },
+  {
+    field: 'fact_check',
+    headerText: <FormattedMessage id="list.factCheck" defaultMessage="Fact-check" />,
+    cellComponent: FactCheckCell,
   },
   {
     field: 'demand',
@@ -200,7 +206,7 @@ const showInFeed = [
 ];
 
 const showInFactCheck = [
-  'item',
+  'fact_check',
   'status',
   'updated_at_timestamp',
   'team_name',
