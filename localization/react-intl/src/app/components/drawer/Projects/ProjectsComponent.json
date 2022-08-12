@@ -55,6 +55,11 @@
     "defaultMessage": "Filtered lists"
   },
   {
+    "id": "projectsComponent.sharedFeeds",
+    "description": "Feeds of content shared across workspaces",
+    "defaultMessage": "Shared feeds"
+  },
+  {
     "id": "projectsComponent.newFolder",
     "description": "Dialog title for creating new folder",
     "defaultMessage": "New folder"

@@ -12,6 +12,7 @@ const renderQuery = ({ error, props }) => {
         projects={props.team.projects.edges.map(p => p.node)}
         projectGroups={props.team.project_groups.edges.map(pg => pg.node)}
         savedSearches={props.team.saved_searches.edges.map(ss => ss.node)}
+        feeds={props.team.feeds.edges.map(f => f.node)}
       />
     );
   }
@@ -77,6 +78,15 @@ const Projects = () => {
                   dbid
                   title
                   filters
+                }
+              }
+            }
+            feeds(first: 10000) {
+              edges {
+                node {
+                  id
+                  dbid
+                  name
                 }
               }
             }

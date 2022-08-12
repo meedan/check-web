@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import { TrendingUp as TrendingUpIcon } from '@material-ui/icons';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -58,7 +58,7 @@ const FeedComponent = ({ routeParams, ...props }) => {
         { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} /> : null }
       </React.Fragment>
     ),
-    icon: <TrendingUpIcon />,
+    icon: <FilterNoneIcon />,
     teamSlug: routeParams.team,
     readOnlyFields: Object.keys(feed.filters),
     showExpand: true,

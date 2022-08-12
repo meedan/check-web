@@ -17,6 +17,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ListIcon from '@material-ui/icons/List';
+import FilterNoneIcon from '@material-ui/icons/FilterNone';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -82,6 +83,7 @@ const ProjectsComponent = ({
   projects,
   projectGroups,
   savedSearches,
+  feeds,
   location,
   setFlashMessage,
 }) => {
@@ -104,6 +106,8 @@ const ProjectsComponent = ({
     React.useState(getBooleanPref('drawer.foldersExpanded', true));
   const [listsExpanded, setListsExpanded] =
     React.useState(getBooleanPref('drawer.listsExpanded', true));
+  const [feedsExpanded, setFeedsExpanded] =
+    React.useState(getBooleanPref('drawer.feedsExpanded', true));
 
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
@@ -255,6 +259,11 @@ const ProjectsComponent = ({
   const handleToggleListsExpand = () => {
     setListsExpanded(!listsExpanded);
     window.storage.set('drawer.listsExpanded', !listsExpanded);
+  };
+
+  const handleToggleFeedsExpand = () => {
+    setFeedsExpanded(!feedsExpanded);
+    window.storage.set('drawer.feedsExpanded', !feedsExpanded);
   };
 
   return (
@@ -478,6 +487,39 @@ const ProjectsComponent = ({
             ))}
           </Box>
         </Collapse>
+
+        {/* Shared feeds */}
+        { feeds.length > 0 ?
+          <React.Fragment>
+            <ListItem onClick={handleToggleFeedsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
+              { feedsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
+              <ListItemText>
+                <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+                  <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+                </Box>
+              </ListItemText>
+            </ListItem>
+
+            { feedsExpanded ? null : <Divider /> }
+
+            {/* Lists */}
+            <Collapse in={feedsExpanded} className={classes.projectsComponentCollapse}>
+              <Box>
+                {feeds.sort((a, b) => (a.title.localeCompare(b.title))).map(feed => (
+                  <ProjectsListItem
+                    key={feed.id}
+                    routePrefix="feed"
+                    routeSuffix="/shared"
+                    icon={<FilterNoneIcon />}
+                    project={feed}
+                    teamSlug={team.slug}
+                    onClick={handleClick}
+                    isActive={isActive('feed', feed.dbid)}
+                  />
+                ))}
+              </Box>
+            </Collapse>
+          </React.Fragment> : null }
       </List>
 
       {/* Dialogs to create new folder, collection or list */}
@@ -546,6 +588,11 @@ ProjectsComponent.propTypes = {
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
+  feeds: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired).isRequired,
 };
 
