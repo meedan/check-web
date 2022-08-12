@@ -1,13 +1,174 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay/compat';
+import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
 import { TrendingUp as TrendingUpIcon } from '@material-ui/icons';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
+import FeedSharingSwitch from './FeedSharingSwitch';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
+
+const FeedComponent = ({ routeParams, ...props }) => {
+  const { team } = props;
+  const { feed } = team;
+  const feedTeam = feed.current_feed_team;
+  const { tab } = routeParams;
+
+  if (!feed) {
+    browserHistory.push('/check/not-found');
+  }
+
+  const commonSearchProps = {
+    searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
+    title: feed.name,
+    extra: (
+      <React.Fragment>
+        <Tabs
+          indicatorColor="primary"
+          textColor="primary"
+          value={tab}
+          onChange={(e, newTab) => { browserHistory.push(`/${routeParams.team}/feed/${feed.dbid}/${newTab}`); }} /* This way filters are easily reset */
+        >
+          <Tab
+            label={
+              <FormattedMessage
+                id="feed.shared"
+                defaultMessage="Shared"
+                description="Tab with label 'Shared' displayed on a feed page. It references content from this workspace that is shared with others."
+              />
+            }
+            value="shared"
+          />
+          { feedTeam.shared ?
+            <Tab
+              label={
+                <FormattedMessage
+                  id="feed.feed"
+                  defaultMessage="Feed"
+                  description="Tab with label 'Feed' displayed on a feed page. It references content from different workspaces that is shared among them."
+                />
+              }
+              value="feed"
+            /> : null }
+        </Tabs>
+        { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} /> : null }
+      </React.Fragment>
+    ),
+    icon: <TrendingUpIcon />,
+    teamSlug: routeParams.team,
+    readOnlyFields: Object.keys(feed.filters),
+    showExpand: true,
+    page: 'feed',
+  };
+
+  let routeQuery = safelyParseJSON(routeParams.query, {});
+  if (Object.keys(routeQuery).length === 0) {
+    routeQuery = feedTeam.filters;
+  }
+
+  return (
+    <React.Fragment>
+      {/* The "Shared" tab just shows content from that workspace */}
+      { tab === 'shared' ?
+        <Search
+          mediaUrlPrefix="media"
+          result
+          query={{
+            ...feed.filters,
+            ...routeQuery,
+          }}
+          feedTeam={{
+            id: feedTeam.id,
+            filters: feedTeam.filters,
+            feedFilters: feed.filters,
+          }}
+          hideFields={['cluster_teams', 'cluster_published_reports']}
+          {...commonSearchProps}
+        />
+        : null
+      }
+
+      {/* The "Feed" tab displays content from the feed itself */}
+
+      {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
+      { tab === 'feed' && feed.published ?
+        <Search
+          mediaUrlPrefix="media"
+          query={{
+            ...safelyParseJSON(routeParams.query, {}),
+            feed_id: feed.dbid,
+            ...feed.filters,
+          }}
+          resultType="factCheck"
+          hideFields={[
+            'folder',
+            'projects',
+            'project_group_id',
+            'tags',
+            'verification_status',
+            'users',
+            'assigned_to',
+            'published_by',
+            'team_tasks',
+            'channels',
+            'linked_items_count',
+            'suggestions_count',
+            'demand',
+            'sources',
+            'dynamic',
+            'annotated_by',
+            'language',
+            'published_by',
+            'has_claim',
+            'cluster_published_reports',
+            'cluster_teams',
+            'archived',
+          ]}
+          {...commonSearchProps}
+        />
+        : null
+      }
+
+      {/* If it's not a "published" feed, then it's a clustered view from workspace data */}
+      { tab === 'feed' && !feed.published ?
+        <Search
+          mediaUrlPrefix={`/check/feed/${feed.dbid}`}
+          query={{
+            ...safelyParseJSON(routeParams.query, {}),
+            sort: 'cluster_last_item_at',
+            feed_id: feed.dbid,
+            clusterize: true,
+            ...feed.filters,
+          }}
+          resultType="feed"
+          hideFields={[
+            'folder',
+            'projects',
+            'project_group_id',
+            'tags',
+            'verification_status',
+            'users',
+            'assigned_to',
+            'published_by',
+            'team_tasks',
+            'channels',
+            'linked_items_count',
+            'suggestions_count',
+            'demand',
+            'sources',
+            'dynamic',
+          ]}
+          {...commonSearchProps}
+        />
+        : null
+      }
+    </React.Fragment>
+  );
+};
 
 const Feed = ({ routeParams }) => (
   <ErrorBoundary component="Feed">
@@ -19,6 +180,13 @@ const Feed = ({ routeParams }) => (
             feed(dbid: $feedId) {
               dbid
               name
+              published
+              filters
+              current_feed_team {
+                id
+                filters
+                shared
+              }
             }
           }
         }
@@ -29,47 +197,7 @@ const Feed = ({ routeParams }) => (
       }}
       render={({ error, props }) => {
         if (!error && props) {
-          const { team } = props;
-          const { feed } = team;
-          if (!feed) {
-            browserHistory.push('/check/not-found');
-          }
-          const query = {
-            ...safelyParseJSON(routeParams.query, {}),
-            sort: 'cluster_last_item_at',
-            feed_id: feed.dbid,
-            clusterize: true,
-          };
-          return (
-            <Search
-              searchUrlPrefix={`/${routeParams.team}/feed/${feed.dbid}`}
-              mediaUrlPrefix={`/check/feed/${feed.dbid}`}
-              title={feed.name}
-              icon={<TrendingUpIcon />}
-              query={query}
-              teamSlug={routeParams.team}
-              showExpand
-              resultType="feed"
-              hideFields={[
-                'folder',
-                'projects',
-                'project_group_id',
-                'tags',
-                'read',
-                'verification_status',
-                'users',
-                'assigned_to',
-                'published_by',
-                'team_tasks',
-                'channels',
-                'linked_items_count',
-                'suggestions_count',
-                'demand',
-                'sources',
-                'dynamic',
-              ]}
-            />
-          );
+          return <FeedComponent routeParams={routeParams} {...props} />;
         }
         return null;
       }}
@@ -81,6 +209,7 @@ Feed.propTypes = {
   routeParams: PropTypes.shape({
     team: PropTypes.string.isRequired,
     feedId: PropTypes.string.isRequired,
+    tab: PropTypes.oneOf(['shared', 'feed']),
     query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
   }).isRequired,
 };

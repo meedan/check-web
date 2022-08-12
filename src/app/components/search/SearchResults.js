@@ -124,6 +124,7 @@ function SearchResultsComponent({
   search,
   project,
   projectGroup,
+  feedTeam,
   searchUrlPrefix,
   mediaUrlPrefix,
   showExpand,
@@ -136,7 +137,9 @@ function SearchResultsComponent({
   page,
   resultType,
   hideFields,
+  readOnlyFields,
   savedSearch,
+  extra,
 }) {
   const defaultViewMode = window.storage?.getValue('viewMode') || 'shorter'; // or "longer"
   let pusherChannel = null;
@@ -328,7 +331,7 @@ function SearchResultsComponent({
     const itemIndexInPage = search.medias.edges.findIndex(edge => edge.node === projectMedia);
     const listIndex = getBeginIndex() + itemIndexInPage;
     const urlParams = new URLSearchParams();
-    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches)$')) {
+    if (searchUrlPrefix.match('(/trash|/tipline-inbox|/imported-reports|/tipline-inbox|/suggested-matches|(/feed/[0-9]+/(shared|feed)))$')) {
       // Usually, `listPath` can be inferred from the route params. With `trash` it can't,
       // so we'll give it to the receiving page. (See <MediaPage>.)
       urlParams.set('listPath', searchUrlPrefix);
@@ -458,6 +461,7 @@ function SearchResultsComponent({
             : null}
         </Row>
       </StyledListHeader>
+      { extra ? <Box mb={2} ml={2}>{extra}</Box> : null }
       <Box m={2}>
         <SearchFields
           query={unsortedQuery}
@@ -465,10 +469,13 @@ function SearchResultsComponent({
           onChange={handleChangeQuery}
           project={project}
           projectGroup={projectGroup}
+          feedTeam={feedTeam}
           savedSearch={savedSearch}
           hideFields={hideFields}
+          readOnlyFields={readOnlyFields}
           title={title}
           team={team}
+          page={page}
           handleSubmit={handleSubmit}
         />
       </Box>
@@ -478,7 +485,7 @@ function SearchResultsComponent({
           team={team}
           viewMode={viewMode}
           onChangeViewMode={handleChangeViewMode}
-          similarAction={team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled ?
+          similarAction={team.alegre_bot && team.alegre_bot.alegre_settings.master_similarity_enabled && page !== 'feed' ?
             <FormControlLabel
               classes={{ labelPlacementStart: classes.similarSwitch }}
               control={
@@ -588,7 +595,10 @@ SearchResultsComponent.defaultProps = {
   page: undefined, // FIXME find a cleaner way to render Trash differently
   resultType: 'default',
   hideFields: [],
+  readOnlyFields: [],
   savedSearch: null,
+  feedTeam: null,
+  extra: null,
 };
 
 SearchResultsComponent.propTypes = {
@@ -609,6 +619,11 @@ SearchResultsComponent.propTypes = {
     id: PropTypes.string.isRequired, // TODO fill in props
     dbid: PropTypes.number.isRequired,
   }), // may be null
+  feedTeam: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    filters: PropTypes.object,
+    feedFilters: PropTypes.object,
+  }), // may be null
   searchUrlPrefix: PropTypes.string.isRequired,
   mediaUrlPrefix: PropTypes.string.isRequired,
   showExpand: PropTypes.bool,
@@ -618,10 +633,12 @@ SearchResultsComponent.propTypes = {
   listActions: PropTypes.node, // or undefined
   listDescription: PropTypes.string, // or undefined
   classes: PropTypes.object,
-  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder']), // FIXME find a cleaner way to render Trash differently
+  page: PropTypes.oneOf(['trash', 'collection', 'list', 'folder', 'feed']), // FIXME find a cleaner way to render Trash differently
   resultType: PropTypes.string, // 'default' or 'feed', for now
   hideFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
+  readOnlyFields: PropTypes.arrayOf(PropTypes.string.isRequired), // or undefined
   savedSearch: PropTypes.object, // or null
+  extra: PropTypes.node, // or null
 };
 
 const SearchResultsContainer = Relay.createContainer(withStyles(Styles)(withPusher(SearchResultsComponent)), {
@@ -772,7 +789,13 @@ export default function SearchResults({ query, teamSlug, ...props }) {
     />
   );
 }
+
 SearchResults.propTypes = {
   query: PropTypes.object.isRequired,
   teamSlug: PropTypes.string.isRequired,
+  extra: PropTypes.node,
+};
+
+SearchResults.defaultProps = {
+  extra: null,
 };

@@ -36,6 +36,11 @@
     "defaultMessage": "Report status"
   },
   {
+    "id": "list.teamName",
+    "description": "Table header for column that shows the team name",
+    "defaultMessage": "Fact-check by"
+  },
+  {
     "id": "list.tags",
     "defaultMessage": "Tags"
   },

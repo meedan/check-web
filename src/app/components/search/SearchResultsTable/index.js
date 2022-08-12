@@ -32,6 +32,7 @@ import ClusterFirstItemAtCell from './ClusterFirstItemAtCell';
 import ClusterLastItemAtCell from './ClusterLastItemAtCell';
 import ClusterFactCheckedByTeamsCell from './ClusterFactCheckedByTeamsCell';
 import SourcesCell from './SourcesCell';
+import TeamNameCell from './TeamNameCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -92,6 +93,12 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.reportStatus" defaultMessage="Report status" />,
     sortKey: 'report_status',
     cellComponent: ReportStatusCell,
+  },
+  {
+    field: 'team_name',
+    headerText: <FormattedMessage id="list.teamName" defaultMessage="Fact-check by" description="Table header for column that shows the team name" />,
+    cellComponent: TeamNameCell,
+    align: 'center',
   },
   {
     field: 'tags_as_sentence',
@@ -192,11 +199,25 @@ const showInFeed = [
   'cluster_last_item_at',
 ];
 
+const showInFactCheck = [
+  'item',
+  'status',
+  'updated_at_timestamp',
+  'team_name',
+  'tags_as_sentence',
+];
+
 function buildColumnDefs(team, resultType) {
   if (resultType === 'feed') {
     const feedColumns = AllPossibleColumns
       .filter(column => showInFeed.includes(column.field));
     return feedColumns;
+  }
+
+  if (resultType === 'factCheck') {
+    const factCheckColumns = AllPossibleColumns
+      .filter(column => showInFactCheck.includes(column.field));
+    return factCheckColumns;
   }
 
   const possibleColumns = AllPossibleColumns

@@ -40,13 +40,10 @@ class ProjectHeaderComponent extends React.PureComponent {
       pageTitle = <FormattedMessage id="projectHeader.allItems" defaultMessage="All items" />;
     }
 
-    // Get current team for feed page
-    const currentTeam = this.props.root ? this.props.root.current_team.slug : '';
-
     return (
       <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
         <Row>
-          <IconButton onClick={() => isFeedPage ? browserHistory.push(`/${currentTeam}/feed/${location.pathname.match(/\/feed\/([0-9]+)/)[1]}`) : browserHistory.push(listUrl)} className="project-header__back-button">
+          <IconButton onClick={() => browserHistory.push(listUrl)} className="project-header__back-button">
             <ArrowBackIcon />
           </IconButton>
           <HeaderTitle className="project-header__title" style={{ maxWidth: 300 }} title={pageTitle}>
@@ -78,7 +75,6 @@ const ProjectPlaceholder = { title: '' };
 
 const ProjectHeader = ({ location, params }) => {
   const commonProps = { location, params };
-  const isFeedPage = /\/feed\/[0-9]+\/cluster\/[0-9]+/.test(location.pathname);
 
   let query = null;
 
@@ -98,19 +94,9 @@ const ProjectHeader = ({ location, params }) => {
         }
       }
     `;
-  } else if (isFeedPage) {
-    query = graphql`
-      query ProjectHeaderCurrentTeamQuery {
-        root {
-          current_team {
-            slug
-          }
-        }
-      }
-    `;
   }
 
-  if (params.projectId || params.listId || isFeedPage) {
+  if (params.projectId || params.listId) {
     return (
       <QueryRenderer
         environment={Relay.Store}
