@@ -41,7 +41,7 @@ const EditTaskAlert = ({
           />
         </div>
       ))}
-      { diff.added ? (
+      { diff.added.length ? (
         <div>
           <FormattedMessage
             id="tasks.addOptionWithAnswersBody"

@@ -166,7 +166,11 @@ class EditTaskDialog extends React.Component {
   submitTask() {
     const jsonoptions = this.state.options
       ? JSON.stringify(this.state.options
-        .map(item => ({ ...item, label: item.label.trim() }))
+        .map(item => ({
+          ...item,
+          label: item.label.trim(),
+          tempId: undefined, // tempId is for UI only. This avoids saving to db.
+        }))
         .filter(item => item.label !== ''))
       : undefined;
 
@@ -176,6 +180,7 @@ class EditTaskDialog extends React.Component {
       description: this.state.description,
       show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
+      diff: JSON.stringify(this.state.diff),
     };
 
     if (!this.state.submitDisabled) {

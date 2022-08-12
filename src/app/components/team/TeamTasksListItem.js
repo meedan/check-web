@@ -221,6 +221,7 @@ class TeamTasksListItem extends React.Component {
       required: this.state.required,
       json_options: task.jsonoptions,
       json_schema: task.jsonschema,
+      diff: task.diff,
     };
 
     const onSuccess = () => {
