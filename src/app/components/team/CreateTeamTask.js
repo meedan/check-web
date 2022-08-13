@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
@@ -44,6 +43,7 @@ class CreateTeamTask extends React.Component {
         <FormattedMessage
           id="createTeamTask.errorMetadata"
           defaultMessage="Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
+          description="Error message displayed when creating an annotation field fails"
           values={{ supportEmail: stringHelper('SUPPORT_EMAIL') }}
         />
       );
@@ -91,11 +91,8 @@ class CreateTeamTask extends React.Component {
 
 CreateTeamTask.propTypes = {
   team: PropTypes.object.isRequired,
-  associatedType: PropTypes.string,
+  associatedType: PropTypes.string.isRequired,
 };
 
-CreateTeamTask.defaultProps = {
-  associatedType: null,
-};
-
+// TODO createFragmentContainer
 export default CreateTeamTask;

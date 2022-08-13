@@ -22,7 +22,7 @@ const EditTaskAlert = ({
         />
       </AlertTitle>
       { diff.deleted.map(deletedOption => (
-        <div>
+        <div key={deletedOption}>
           <FormattedMessage
             id="tasks.deleteOptionWithAnswersBody"
             defaultMessage='• "{deletedOption}" will be permanently deleted from existing responses.'
@@ -32,7 +32,7 @@ const EditTaskAlert = ({
         </div>
       ))}
       { Object.entries(diff.changed).map(([oldOption, newOption]) => (
-        <div>
+        <div key={oldOption}>
           <FormattedMessage
             id="tasks.changeOptionWithAnswersBody"
             defaultMessage='• "{oldOption}" will be changed to "{newOption}" in existing responses.'

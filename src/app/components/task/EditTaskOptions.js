@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
+import { FormattedMessage, defineMessages, injectIntl, intlShape } from 'react-intl';
 import {
   Box,
   Button,
@@ -27,70 +27,46 @@ const messages = defineMessages({
   },
 });
 
-// Task options are either pre-existing, new, delete-candidate, edit-candidate
-// Verify integrity of following operations:
-// - Add, Edit, Delete
-//  - pre-existing
-//  - new
-//  - delete-candidate
-//  - edit-candidate
-
 const EditTaskOptions = ({
   intl,
-  noOptions,
   onChange,
   task,
   taskType,
 }) => {
-  if (
-    noOptions ||
-    (taskType !== 'single_choice' && taskType !== 'multiple_choice')
-  ) {
+  if (!['single_choice', 'multiple_choice'].includes(taskType)) {
     return null;
   }
+
+  const buildInitialOptions = () => task ?
+    task.options.map(item => ({ ...item, oldLabel: item.label })) :
+    [{ label: '', tempId: Math.random() }, { label: '', tempId: Math.random() }];
 
   const [diff, setDiff] = React.useState({
     deleted: [],
     changed: {},
     added: [],
   });
-
-  const [options, setOptions] = React.useState(task ? task.options : [{ label: '', tempId: Math.random() }, { label: '', tempId: Math.random() }]);
+  const [options, setOptions] = React.useState(buildInitialOptions());
   const [hasOther, setHasOther] = React.useState(task ? task.options?.some(option => option.other) : false);
 
-  const { formatMessage } = intl;
   const canRemove = options.length > 2;
 
-  console.log('options', options); // eslint-disable-line no-console
-  console.log('diff', diff); // eslint-disable-line no-console
-
-  const handleEditOption = (newValue, index) => {
+  const handleEditOption = (newLabel, index) => {
+    const { oldLabel } = options[index];
     const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
 
-    // Set initialLabel if previously existing option
-    // TODO make this a mapping function to set up initial options state
-    if (!newOptions[index].tempId && !newOptions[index].initialLabel) {
-      newOptions[index].initialLabel = newOptions[index].label;
-    }
+    newOptions[index].label = newLabel;
 
-    // Once initialLabel is defined, set new label
-    newOptions[index].label = newValue;
-
-    // If initialLabel is set, add to diff.changed, else update diff.added
-    if (newOptions[index].initialLabel) {
-      newDiff.changed[newOptions[index].initialLabel] = newValue;
+    if (oldLabel) {
+      newDiff.changed[oldLabel] = newLabel;
     } else {
       newDiff.added = newOptions.filter(o => o.tempId && o.label.trim()).map(o => o.label);
     }
 
-    // If current value is same as initial, there's no change, remove from Diff
-    if (newOptions[index].initialLabel === newValue) {
-      delete newDiff.changed[newValue];
+    if (oldLabel === newLabel) {
+      delete newDiff.changed[oldLabel];
     }
-
-    // TODO if setting value equal as deleted existing, restore deleted existing
-    // don't actually delete and replace
 
     setDiff(newDiff);
     setOptions(newOptions);
@@ -98,21 +74,14 @@ const EditTaskOptions = ({
   };
 
   const handleRemoveOption = (index) => {
+    const { oldLabel } = options[index];
     const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
     const newHasOther = hasOther && (index !== options.length - 1);
 
-    // Set initialLabel if previously existing option
-    // TODO make this a mapping function to set up initial options state
-    if (!newOptions[index].tempId && !newOptions[index].initialLabel) {
-      newOptions[index].initialLabel = newOptions[index].label;
-    }
-
-    // If initialLabel is set, add to diff.deleted
-    if (newOptions[index].initialLabel) {
-      newDiff.deleted.push(newOptions[index].initialLabel);
-      // Update diff.changed if removing an edited existing option
-      delete newDiff.changed[newOptions[index].initialLabel];
+    if (oldLabel) {
+      newDiff.deleted.push(oldLabel);
+      delete newDiff.changed[oldLabel];
     }
 
     newOptions.splice(index, 1);
@@ -123,23 +92,22 @@ const EditTaskOptions = ({
     onChange(newOptions, newDiff);
   };
 
-  const handleAddValue = () => {
+  const handleAddOption = () => {
     const newOptions = JSON.parse(JSON.stringify(options));
-    const newValue = { label: '', tempId: Math.random() };
+    const option = { label: '', tempId: Math.random() };
     if (hasOther) {
-      newOptions.splice(-1, 0, newValue);
+      newOptions.splice(-1, 0, option);
     } else {
-      newOptions.push(newValue);
+      newOptions.push(option);
     }
     setOptions(newOptions);
-    // Not passing newDiff to onChange yet as we didn't add a label
     onChange(newOptions);
   };
 
   const handleAddOther = () => {
     const newDiff = Object.assign({}, diff);
     const newOptions = JSON.parse(JSON.stringify(options));
-    const otherLabel = formatMessage(messages.other);
+    const otherLabel = intl.formatMessage(messages.other);
     newOptions.push({
       label: otherLabel,
       other: true,
@@ -157,22 +125,23 @@ const EditTaskOptions = ({
     <React.Fragment>
       <Divider />
       <Box mt={1}>
-        {options.map((item, index) => (
+        { options.map((item, index) => (
           <div key={`edit-task-options__option-${index.toString()}`}>
             <Row>
-              { taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null}
-              { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null}
+              { taskType === 'single_choice' ? <RadioButtonUncheckedIcon /> : null }
+              { taskType === 'multiple_choice' ? <CheckBoxOutlineBlankIcon /> : null }
               <Box clone py={0.5} px={1} width="75%">
                 <TextField
                   key="create-task__add-option-input"
                   className="create-task__add-option-input"
                   id={index.toString()}
                   onChange={e => handleEditOption(e.target.value, index)}
-                  placeholder={`${formatMessage(messages.value)} ${index + 1}`}
+                  placeholder={`${intl.formatMessage(messages.value)} ${index + 1}`}
                   value={item.label}
                   disabled={item.other}
                   variant="outlined"
                   margin="dense"
+                  error={options.filter(o => o.label === item.label).length > 1}
                 />
               </Box>
               { canRemove ?
@@ -189,7 +158,7 @@ const EditTaskOptions = ({
         ))}
         <Box mt={1} display="flex">
           <Button
-            onClick={handleAddValue}
+            onClick={handleAddOption}
             startIcon={<AddIcon />}
             variant="contained"
           >
@@ -219,13 +188,18 @@ const EditTaskOptions = ({
   );
 };
 
-// TODO review/complete propTypes
-EditTaskOptions.propTypes = {
-  noOptions: PropTypes.bool,
+EditTaskOptions.defaultProps = {
+  task: null,
 };
 
-EditTaskOptions.defaultProps = {
-  noOptions: false,
+EditTaskOptions.propTypes = {
+  intl: intlShape.isRequired,
+  onChange: PropTypes.func.isRequired,
+  task: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+  }),
+  taskType: PropTypes.string.isRequired,
 };
 
 // TODO createFragmentContainer

@@ -23,18 +23,18 @@ import {
   CheckBox as CheckBoxIcon,
   CloudUpload as CloudUploadIcon,
   DateRange as DateRangeIcon,
+  Info as InfoIcon,
   LocationOn as LocationIcon,
   RadioButtonChecked as RadioButtonCheckedIcon,
   ShortText as ShortTextIcon,
   LinkOutlined as LinkOutlinedIcon,
 } from '@material-ui/icons';
 import { getTimeZones } from '@vvo/tzdb';
-import styled from 'styled-components';
 import EditTaskAlert from './EditTaskAlert';
 import EditTaskOptions from './EditTaskOptions';
 import Message from '../Message';
 import NumberIcon from '../../icons/NumberIcon';
-import { units, alertRed } from '../../styles/js/shared';
+import { units } from '../../styles/js/shared';
 
 const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   const offset = option.currentTimeOffsetInMinutes / 60;
@@ -46,10 +46,6 @@ const timezones = getTimeZones({ includeUtc: true }).map((option) => {
   };
   return newOption;
 });
-
-const StyledTaskCantUpdateType = styled.div`
-  color: ${alertRed};
-`;
 
 const styles = {
   select: {
@@ -74,10 +70,9 @@ class EditTaskDialog extends React.Component {
       taskType: task ? task.type : (props.taskType || null),
       description: task ? task.description : null,
       showInBrowserExtension: task ? task.show_in_browser_extension : true,
-      options: task ? task.options : [{ label: '', new: true }, { label: '', new: true }],
+      options: task ? task.options : [{ label: '' }, { label: '' }],
       diff: null,
       submitDisabled: true,
-      showAssignmentField: false,
       showWarning: false,
       hasCollectedAnswers: task && task.tasks_with_answers_count > 0,
       restrictTimezones: task?.type === 'datetime' && Array.isArray(task.options) && task.options[0]?.restrictTimezones,
@@ -111,10 +106,6 @@ class EditTaskDialog extends React.Component {
     this.validateTask(this.state.label, options);
   };
 
-  handleToggleAssignmentField = () => {
-    this.setState({ showAssignmentField: !this.state.showAssignmentField });
-  };
-
   handleToggleShowInBrowserExtension = (e) => {
     this.setState({ showInBrowserExtension: e.target.checked });
     this.validateTask(this.state.label, this.state.options);
@@ -123,7 +114,7 @@ class EditTaskDialog extends React.Component {
   handleSelectType = (e) => {
     const taskType = e.target.value;
     const { task } = this.props;
-    let options = task ? task.options : [{ label: '', new: true }, { label: '', new: true }];
+    let options = task ? task.options : [{ label: '' }, { label: '' }];
     if (taskType === 'datetime') {
       options = [{
         code: 'UTC',
@@ -148,15 +139,19 @@ class EditTaskDialog extends React.Component {
 
   validateTask(label, options) {
     let valid = false;
+    const hasLabel = Boolean(label?.trim());
 
     if (this.state.taskType) {
-      if (this.state.taskType === 'single_choice' ||
-          this.state.taskType === 'multiple_choice') {
-        valid = !!(label && label.trim()) && options.filter(item => item.label.trim() !== '').length > 1;
+      if (['single_choice', 'multiple_choice'].includes(this.state.taskType)) {
+        const noDuplicatedOptions =
+          new Set(options.map(item => item.label.trim())).size === options.length;
+        const hasAtLeastTwoOptions =
+          options.filter(item => item.label.trim() !== '').length > 1;
+        valid = hasLabel && noDuplicatedOptions && hasAtLeastTwoOptions;
       } else if (this.state.taskType === 'datetime') {
-        valid = !!(label && label.trim()) && options.length > 0;
+        valid = hasLabel && options.length > 0;
       } else {
-        valid = !!(label && label.trim());
+        valid = hasLabel;
       }
     }
 
@@ -169,7 +164,9 @@ class EditTaskDialog extends React.Component {
         .map(item => ({
           ...item,
           label: item.label.trim(),
-          tempId: undefined, // tempId is for UI only. This avoids saving to db.
+          // oldLabel and tempId are for UI only. This avoids saving to db.
+          oldLabel: undefined,
+          tempId: undefined,
         }))
         .filter(item => item.label !== ''))
       : undefined;
@@ -180,7 +177,7 @@ class EditTaskDialog extends React.Component {
       description: this.state.description,
       show_in_browser_extension: this.state.showInBrowserExtension,
       jsonoptions,
-      diff: JSON.stringify(this.state.diff),
+      diff: this.state.diff ? JSON.stringify(this.state.diff) : undefined,
     };
 
     if (!this.state.submitDisabled) {
@@ -375,18 +372,17 @@ class EditTaskDialog extends React.Component {
             ))}
           </Select>
         </FormControl>
-        <Box mt={1} mb={2}>
+        <Box mt={1} mb={this.state.hasCollectedAnswers ? 1 : 2}>
           { types.find(t => t.value === this.state.taskType)?.description }
         </Box>
         { this.state.hasCollectedAnswers ?
-          <Box mt={1} mb={2}>
-            <StyledTaskCantUpdateType>
-              <FormattedMessage
-                id="tasks.cantChangeTypeMessage"
-                defaultMessage="The field type cannot be changed because answers have already been filled"
-                description="Message when team task has answers and type cannot be updated"
-              />
-            </StyledTaskCantUpdateType>
+          <Box mb={2} display="flex" alignItems="center">
+            <Box mr={1}><InfoIcon /></Box>
+            <FormattedMessage
+              id="tasks.cantChangeTypeMessage"
+              defaultMessage="The field type cannot be changed because answers have already been filled"
+              description="Message when team task has answers and type cannot be updated"
+            />
           </Box>
           : null
         }
@@ -594,7 +590,6 @@ class EditTaskDialog extends React.Component {
 // TODO review propTypes
 EditTaskDialog.propTypes = {
   message: PropTypes.node,
-  noOptions: PropTypes.bool,
   onDismiss: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   task: PropTypes.object,
@@ -603,7 +598,6 @@ EditTaskDialog.propTypes = {
 
 EditTaskDialog.defaultProps = {
   message: null,
-  noOptions: false,
   task: null,
   taskType: null,
 };

@@ -1,6 +1,7 @@
 [
   {
     "id": "createTeamTask.errorMetadata",
+    "description": "Error message displayed when creating an annotation field fails",
     "defaultMessage": "Sorry, an error occurred while updating the metadata field. Please try again and contact {supportEmail} if the condition persists."
   },
   {
