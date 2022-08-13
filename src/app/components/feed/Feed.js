@@ -134,6 +134,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               'cluster_published_reports',
               'cluster_teams',
               'archived',
+              'read',
             ]}
             {...commonSearchProps}
           />
