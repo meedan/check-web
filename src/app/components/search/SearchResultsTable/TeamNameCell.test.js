@@ -17,7 +17,7 @@ function mountInTable(value) {
 
 const projectMedia = {
   list_columns_values: {
-    team_name: 'Test'
+    team_name: 'Test',
   },
 };
 
