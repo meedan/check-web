@@ -11,7 +11,6 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function TeamNameCell({ projectMedia }) {
   const classes = useStyles();
   const teamName = projectMedia.list_columns_values.team_name;

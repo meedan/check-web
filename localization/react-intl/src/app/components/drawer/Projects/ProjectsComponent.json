@@ -16,22 +16,27 @@
   },
   {
     "id": "projectsComponent.allItems",
+    "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All items"
   },
   {
     "id": "projectsComponent.tiplineInbox",
+    "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Tipline inbox"
   },
   {
     "id": "projectsComponent.importedReports",
+    "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Imported reports"
   },
   {
     "id": "projectsComponent.suggestedMatches",
+    "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Suggested matches"
   },
   {
     "id": "projectsComponent.folders",
+    "description": "Label for a collapsable panel displayed on the left sidebar.",
     "defaultMessage": "Folders"
   },
   {
@@ -101,10 +106,12 @@
   },
   {
     "id": "projectsComponent.newList",
+    "description": "Title for a dialog to create a new list displayed on the left sidebar.",
     "defaultMessage": "New list"
   },
   {
     "id": "projectsComponent.createList",
+    "description": "Label for a button to create a new list displayed on the left sidebar.",
     "defaultMessage": "Create list"
   },
   {

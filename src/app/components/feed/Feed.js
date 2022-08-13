@@ -12,15 +12,19 @@ import FeedSharingSwitch from './FeedSharingSwitch';
 import Search from '../search/Search';
 import { safelyParseJSON } from '../../helpers';
 
-const FeedComponent = ({ routeParams, ...props }) => {
+// Used in unit test
+// eslint-disable-next-line import/no-unused-modules
+export const FeedComponent = ({ routeParams, ...props }) => {
   const { team } = props;
   const { feed } = team;
-  const feedTeam = feed.current_feed_team;
   const { tab } = routeParams;
 
   if (!feed) {
     browserHistory.push('/check/not-found');
+    return null;
   }
+
+  const feedTeam = feed.current_feed_team;
 
   const commonSearchProps = {
     searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
@@ -74,21 +78,23 @@ const FeedComponent = ({ routeParams, ...props }) => {
     <React.Fragment>
       {/* The "Shared" tab just shows content from that workspace */}
       { tab === 'shared' ?
-        <Search
-          mediaUrlPrefix="media"
-          result
-          query={{
-            ...feed.filters,
-            ...routeQuery,
-          }}
-          feedTeam={{
-            id: feedTeam.id,
-            filters: feedTeam.filters,
-            feedFilters: feed.filters,
-          }}
-          hideFields={['cluster_teams', 'cluster_published_reports']}
-          {...commonSearchProps}
-        />
+        <div id="feed__from-workspace">
+          <Search
+            mediaUrlPrefix="media"
+            result
+            query={{
+              ...feed.filters,
+              ...routeQuery,
+            }}
+            feedTeam={{
+              id: feedTeam.id,
+              filters: feedTeam.filters,
+              feedFilters: feed.filters,
+            }}
+            hideFields={['cluster_teams', 'cluster_published_reports']}
+            {...commonSearchProps}
+          />
+        </div>
         : null
       }
 
@@ -96,78 +102,104 @@ const FeedComponent = ({ routeParams, ...props }) => {
 
       {/* For a "published" feed, it's just all the fact-checks from the workspaces */}
       { tab === 'feed' && feed.published ?
-        <Search
-          mediaUrlPrefix="media"
-          query={{
-            ...safelyParseJSON(routeParams.query, {}),
-            feed_id: feed.dbid,
-            ...feed.filters,
-          }}
-          resultType="factCheck"
-          hideFields={[
-            'folder',
-            'projects',
-            'project_group_id',
-            'tags',
-            'verification_status',
-            'users',
-            'assigned_to',
-            'published_by',
-            'team_tasks',
-            'channels',
-            'linked_items_count',
-            'suggestions_count',
-            'demand',
-            'sources',
-            'dynamic',
-            'annotated_by',
-            'language',
-            'published_by',
-            'has_claim',
-            'cluster_published_reports',
-            'cluster_teams',
-            'archived',
-          ]}
-          {...commonSearchProps}
-        />
+        <div id="feed__fact-checks">
+          <Search
+            mediaUrlPrefix="media"
+            query={{
+              ...safelyParseJSON(routeParams.query, {}),
+              feed_id: feed.dbid,
+              ...feed.filters,
+            }}
+            resultType="factCheck"
+            hideFields={[
+              'folder',
+              'projects',
+              'project_group_id',
+              'tags',
+              'verification_status',
+              'users',
+              'assigned_to',
+              'published_by',
+              'team_tasks',
+              'channels',
+              'linked_items_count',
+              'suggestions_count',
+              'demand',
+              'sources',
+              'dynamic',
+              'annotated_by',
+              'language',
+              'published_by',
+              'has_claim',
+              'cluster_published_reports',
+              'cluster_teams',
+              'archived',
+            ]}
+            {...commonSearchProps}
+          />
+        </div>
         : null
       }
 
       {/* If it's not a "published" feed, then it's a clustered view from workspace data */}
       { tab === 'feed' && !feed.published ?
-        <Search
-          mediaUrlPrefix={`/check/feed/${feed.dbid}`}
-          query={{
-            ...safelyParseJSON(routeParams.query, {}),
-            sort: 'cluster_last_item_at',
-            feed_id: feed.dbid,
-            clusterize: true,
-            ...feed.filters,
-          }}
-          resultType="feed"
-          hideFields={[
-            'folder',
-            'projects',
-            'project_group_id',
-            'tags',
-            'verification_status',
-            'users',
-            'assigned_to',
-            'published_by',
-            'team_tasks',
-            'channels',
-            'linked_items_count',
-            'suggestions_count',
-            'demand',
-            'sources',
-            'dynamic',
-          ]}
-          {...commonSearchProps}
-        />
+        <div id="feed__clusters">
+          <Search
+            mediaUrlPrefix={`/check/feed/${feed.dbid}`}
+            query={{
+              ...safelyParseJSON(routeParams.query, {}),
+              sort: 'cluster_last_item_at',
+              feed_id: feed.dbid,
+              clusterize: true,
+              ...feed.filters,
+            }}
+            resultType="feed"
+            hideFields={[
+              'folder',
+              'projects',
+              'project_group_id',
+              'tags',
+              'verification_status',
+              'users',
+              'assigned_to',
+              'published_by',
+              'team_tasks',
+              'channels',
+              'linked_items_count',
+              'suggestions_count',
+              'demand',
+              'sources',
+              'dynamic',
+            ]}
+            {...commonSearchProps}
+          />
+        </div>
         : null
       }
     </React.Fragment>
   );
+};
+
+FeedComponent.propTypes = {
+  routeParams: PropTypes.shape({
+    team: PropTypes.string.isRequired,
+    feedId: PropTypes.string.isRequired,
+    tab: PropTypes.oneOf(['shared', 'feed']),
+    query: PropTypes.string, // JSON-encoded value; can be empty/null/invalid
+  }).isRequired,
+  team: PropTypes.shape({
+    feed: PropTypes.shape({
+      dbid: PropTypes.number,
+      name: PropTypes.string,
+      published: PropTypes.bool,
+      filters: PropTypes.object,
+      current_feed_team: PropTypes.shape({
+        id: PropTypes.string,
+        filters: PropTypes.object,
+        shared: PropTypes.bool,
+      }),
+    }),
+  }).isRequired,
 };
 
 const Feed = ({ routeParams }) => (

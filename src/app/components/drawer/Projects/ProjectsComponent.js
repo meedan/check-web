@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -278,7 +277,7 @@ const ProjectsComponent = ({
           className={activeItem.type === 'all-items' ? ['projects-list__all-items', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
         >
           <ListItemText>
-            <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" />
+            <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
           <ListItemSecondaryAction>
             {team.medias_count}
@@ -295,7 +294,7 @@ const ProjectsComponent = ({
               <ForumIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" />
+              <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -309,7 +308,7 @@ const ProjectsComponent = ({
               <GetAppIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" />
+              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -323,7 +322,7 @@ const ProjectsComponent = ({
               <NewReleasesIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested matches" />
+              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested matches" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -334,7 +333,7 @@ const ProjectsComponent = ({
           { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-              <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
+              <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
                   <AddIcon />
@@ -553,8 +552,8 @@ const ProjectsComponent = ({
         team={team}
         open={showNewListDialog}
         onClose={() => { setShowNewListDialog(false); }}
-        title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" />}
-        buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" />}
+        title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" description="Title for a dialog to create a new list displayed on the left sidebar." />}
+        buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" description="Label for a button to create a new list displayed on the left sidebar." />}
         helpUrl="https://help.checkmedia.org/en/articles/5229474-filtered-lists"
         errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
         successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
