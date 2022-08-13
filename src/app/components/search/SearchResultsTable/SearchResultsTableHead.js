@@ -11,7 +11,7 @@ export default function SearchResultsTableHead({
   return (
     <TableHead>
       <TableRow>
-        { resultType !== 'trends' ? (
+        { (resultType !== 'feed' && resultType !== 'factCheck') ? (
           <SelectAllTh
             selectedIds={selectedIds}
             projectMedias={projectMedias}

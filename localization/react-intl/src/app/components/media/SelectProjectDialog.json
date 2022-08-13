@@ -10,6 +10,7 @@
   },
   {
     "id": "destinationProjects.choose",
+    "description": "Choose a folder input label",
     "defaultMessage": "Choose a folder"
   }
 ]

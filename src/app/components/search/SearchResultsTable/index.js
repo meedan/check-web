@@ -9,6 +9,7 @@ import { withStyles } from '@material-ui/core/styles';
 import SearchResultsTableHead from './SearchResultsTableHead';
 import SearchResultsTableRow from './SearchResultsTableRow';
 import TitleCell from './TitleCell';
+import FactCheckCell from './FactCheckCell';
 import TypeCell from './TypeCell';
 import StatusCell from './StatusCell';
 import SubmittedCell from './SubmittedCell';
@@ -32,6 +33,7 @@ import ClusterFirstItemAtCell from './ClusterFirstItemAtCell';
 import ClusterLastItemAtCell from './ClusterLastItemAtCell';
 import ClusterFactCheckedByTeamsCell from './ClusterFactCheckedByTeamsCell';
 import SourcesCell from './SourcesCell';
+import TeamNameCell from './TeamNameCell';
 import { truncateLength } from '../../../helpers';
 
 const AllPossibleColumns = [
@@ -40,6 +42,11 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.Item" defaultMessage="Claim" />,
     cellComponent: TitleCell,
     sortKey: 'title',
+  },
+  {
+    field: 'fact_check',
+    headerText: <FormattedMessage id="list.factCheck" defaultMessage="Fact-check" />,
+    cellComponent: FactCheckCell,
   },
   {
     field: 'demand',
@@ -92,6 +99,12 @@ const AllPossibleColumns = [
     headerText: <FormattedMessage id="list.reportStatus" defaultMessage="Report status" />,
     sortKey: 'report_status',
     cellComponent: ReportStatusCell,
+  },
+  {
+    field: 'team_name',
+    headerText: <FormattedMessage id="list.teamName" defaultMessage="Fact-check by" description="Table header for column that shows the team name" />,
+    cellComponent: TeamNameCell,
+    align: 'center',
   },
   {
     field: 'tags_as_sentence',
@@ -183,7 +196,7 @@ const AllPossibleColumns = [
   },
 ];
 
-const showInTrends = [
+const showInFeed = [
   'item',
   'cluster_fact_checked_by_team_names',
   'cluster_requests',
@@ -192,11 +205,25 @@ const showInTrends = [
   'cluster_last_item_at',
 ];
 
+const showInFactCheck = [
+  'fact_check',
+  'status',
+  'updated_at_timestamp',
+  'team_name',
+  'tags_as_sentence',
+];
+
 function buildColumnDefs(team, resultType) {
-  if (resultType === 'trends') {
-    const trendColumns = AllPossibleColumns
-      .filter(column => showInTrends.includes(column.field));
-    return trendColumns;
+  if (resultType === 'feed') {
+    const feedColumns = AllPossibleColumns
+      .filter(column => showInFeed.includes(column.field));
+    return feedColumns;
+  }
+
+  if (resultType === 'factCheck') {
+    const factCheckColumns = AllPossibleColumns
+      .filter(column => showInFactCheck.includes(column.field));
+    return factCheckColumns;
   }
 
   const possibleColumns = AllPossibleColumns

@@ -16,22 +16,27 @@
   },
   {
     "id": "projectsComponent.allItems",
+    "description": "Label for the 'All items' list displayed on the left sidebar",
     "defaultMessage": "All items"
   },
   {
     "id": "projectsComponent.tiplineInbox",
+    "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Tipline inbox"
   },
   {
     "id": "projectsComponent.importedReports",
+    "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Imported reports"
   },
   {
     "id": "projectsComponent.suggestedMatches",
+    "description": "Label for a list displayed on the left sidebar.",
     "defaultMessage": "Suggested matches"
   },
   {
     "id": "projectsComponent.folders",
+    "description": "Label for a collapsable panel displayed on the left sidebar.",
     "defaultMessage": "Folders"
   },
   {
@@ -55,9 +60,9 @@
     "defaultMessage": "Filtered lists"
   },
   {
-    "id": "projectsComponent.trends",
-    "description": "This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction.",
-    "defaultMessage": "Shared database (beta)"
+    "id": "projectsComponent.sharedFeeds",
+    "description": "Feeds of content shared across workspaces",
+    "defaultMessage": "Shared feeds"
   },
   {
     "id": "projectsComponent.newFolder",
@@ -101,10 +106,12 @@
   },
   {
     "id": "projectsComponent.newList",
+    "description": "Title for a dialog to create a new list displayed on the left sidebar.",
     "defaultMessage": "New list"
   },
   {
     "id": "projectsComponent.createList",
+    "description": "Label for a button to create a new list displayed on the left sidebar.",
     "defaultMessage": "Create list"
   },
   {

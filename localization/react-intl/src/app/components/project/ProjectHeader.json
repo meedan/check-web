@@ -16,8 +16,8 @@
     "defaultMessage": "Suggested matches"
   },
   {
-    "id": "projectHeader.trends",
-    "defaultMessage": "Shared database"
+    "id": "projectHeader.feed",
+    "defaultMessage": "Shared feed"
   },
   {
     "id": "projectHeader.allItems",

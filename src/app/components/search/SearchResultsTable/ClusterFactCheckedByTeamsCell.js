@@ -9,7 +9,7 @@ export default function ClusterFactCheckedByTeamsCell({ projectMedia }) {
     <ValueListCell
       values={values}
       noValueLabel={
-        <FormattedMessage id="checkedByTeamsCell.noFactCheck" defaultMessage="No fact-check" description="Table cell displayed on Trends page when claim is not fact-checked yet" />
+        <FormattedMessage id="checkedByTeamsCell.noFactCheck" defaultMessage="No fact-check" description="Table cell displayed on feed page when claim is not fact-checked yet" />
       }
       randomizeOrder
       renderNoValueAsChip
