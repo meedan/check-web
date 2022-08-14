@@ -301,18 +301,25 @@ const SaveList = ({
   return (
     <React.Fragment>
 
-      {/* The "Save list" button */}
+      {/* The "Save" button */}
       <Button
         id="save-list__button"
         className={classes.saveListButton}
         startIcon={<ListIcon />}
         onClick={handleClick}
       >
-        <FormattedMessage
-          id="saveList.saveList"
-          defaultMessage="Save"
-          description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list"
-        />
+        { feedTeam && feedTeam.shared ?
+          <FormattedMessage
+            id="saveList.saveFeed"
+            defaultMessage="Save and share"
+            description="'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters."
+          /> :
+          <FormattedMessage
+            id="saveList.saveList"
+            defaultMessage="Save"
+            description="'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list."
+          />
+        }
       </Button>
 
       {/* Create a new list */}
@@ -431,6 +438,7 @@ SaveList.propTypes = {
     id: PropTypes.string.isRequired,
     filters: PropTypes.object,
     feedFilters: PropTypes.object,
+    shared: PropTypes.bool,
   }), // may be null
   savedSearch: PropTypes.shape({
     id: PropTypes.string.isRequired,

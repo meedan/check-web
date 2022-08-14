@@ -301,12 +301,10 @@ class SearchFields extends React.Component {
   };
 
   handleOperatorClick = () => {
-    if (this.props.page !== 'feed') {
-      const operator = this.props.query.operator === 'OR' ? 'AND' : 'OR';
-      this.props.setQuery(
-        updateStateQueryArrayValue(this.props.query, 'operator', operator),
-      );
-    }
+    const operator = this.props.query.operator === 'OR' ? 'AND' : 'OR';
+    this.props.setQuery(
+      updateStateQueryArrayValue(this.props.query, 'operator', operator),
+    );
   }
 
   render() {
@@ -407,14 +405,20 @@ class SearchFields extends React.Component {
 
     const isSpecialPage = /\/(tipline-inbox|imported-reports|suggested-matches)+/.test(window.location.pathname);
 
-    const OperatorToggle = () => (
-      <Button style={{ minWidth: 0, color: checkBlue }} onClick={this.handleOperatorClick}>
-        { this.props.query.operator === 'OR' ?
-          <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
-          <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
-        }
-      </Button>
-    );
+    const OperatorToggle = () => {
+      let operatorProps = { style: { minWidth: 0, color: checkBlue }, onClick: this.handleOperatorClick };
+      if (this.props.page === 'feed') {
+        operatorProps = { style: { minWidth: 0, color: 'black' }, disabled: true };
+      }
+      return (
+        <Button {...operatorProps}>
+          { this.props.query.operator === 'OR' ?
+            <FormattedMessage id="search.fieldOr" defaultMessage="or" description="Logical operator 'OR' to be applied when filtering by multiple fields" /> :
+            <FormattedMessage id="search.fieldAnd" defaultMessage="and" description="Logical operator 'AND' to be applied when filtering by multiple fields" />
+          }
+        </Button>
+      );
+    };
 
     const fieldComponents = {
       projects: (

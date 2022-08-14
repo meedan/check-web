@@ -461,7 +461,7 @@ function SearchResultsComponent({
             : null}
         </Row>
       </StyledListHeader>
-      { extra ? <Box mb={2} ml={2}>{extra}</Box> : null }
+      { extra ? <Box mb={2} ml={2}>{extra(query)}</Box> : null }
       <Box m={2}>
         <SearchFields
           query={unsortedQuery}

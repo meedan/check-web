@@ -4,7 +4,7 @@ import { QueryRenderer, graphql } from 'react-relay/compat';
 import { FormattedMessage } from 'react-intl';
 import Relay from 'react-relay/classic';
 import { browserHistory } from 'react-router';
-import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import ErrorBoundary from '../error/ErrorBoundary';
@@ -26,10 +26,16 @@ export const FeedComponent = ({ routeParams, ...props }) => {
 
   const feedTeam = feed.current_feed_team;
 
-  const commonSearchProps = {
-    searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
-    title: feed.name,
-    extra: (
+  // This component is displayed on top of the search filters
+  const topBar = (query) => {
+    const currentFeedTeamFilters = {};
+    Object.keys(query).forEach((key) => {
+      if (!Object.keys(feed.filters).includes(key) && key !== 'timestamp') {
+        currentFeedTeamFilters[key] = query[key];
+      }
+    });
+    const readOnlySwitcher = (!feedTeam.shared && (JSON.stringify(currentFeedTeamFilters) !== JSON.stringify(feedTeam.filters)));
+    return (
       <React.Fragment>
         <Tabs
           indicatorColor="primary"
@@ -59,10 +65,16 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               value="feed"
             /> : null }
         </Tabs>
-        { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} /> : null }
+        { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} readOnly={readOnlySwitcher} /> : null }
       </React.Fragment>
-    ),
-    icon: <FilterNoneIcon />,
+    );
+  };
+
+  const commonSearchProps = {
+    searchUrlPrefix: `/${routeParams.team}/feed/${feed.dbid}/${tab}`,
+    title: feed.name,
+    extra: topBar,
+    icon: <DynamicFeedIcon />,
     teamSlug: routeParams.team,
     readOnlyFields: Object.keys(feed.filters),
     showExpand: true,
@@ -90,6 +102,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               id: feedTeam.id,
               filters: feedTeam.filters,
               feedFilters: feed.filters,
+              shared: feedTeam.shared,
             }}
             hideFields={['cluster_teams', 'cluster_published_reports']}
             {...commonSearchProps}
