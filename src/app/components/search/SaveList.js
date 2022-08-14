@@ -183,7 +183,7 @@ const SaveList = ({
     ), 'success');
     setTitle('');
     handleClose();
-    if (operation === 'CREATE') {
+    if (operation === 'CREATE' && response.createSavedSearch) {
       browserHistory.push(`/${team.slug}/list/${response.createSavedSearch.saved_search.dbid}`);
     }
   };
