@@ -104,7 +104,6 @@ const AllPossibleColumns = [
     field: 'team_name',
     headerText: <FormattedMessage id="list.teamName" defaultMessage="Fact-check by" description="Table header for column that shows the team name" />,
     cellComponent: TeamNameCell,
-    align: 'center',
   },
   {
     field: 'tags_as_sentence',

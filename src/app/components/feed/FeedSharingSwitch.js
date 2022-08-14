@@ -5,11 +5,13 @@ import { Store } from 'react-relay/classic';
 import { FormattedMessage } from 'react-intl';
 import Box from '@material-ui/core/Box';
 import Switch from '@material-ui/core/Switch';
+import Tooltip from '@material-ui/core/Tooltip';
 import { withSetFlashMessage } from '../FlashMessage';
 
 const FeedSharingSwitch = ({
   enabled,
   feedTeamId,
+  readOnly,
   setFlashMessage,
 }) => {
   const [saving, setSaving] = React.useState(false);
@@ -70,14 +72,29 @@ const FeedSharingSwitch = ({
     });
   };
 
+  const SwitchWrapper = ({ children }) => {
+    if (readOnly) {
+      return (
+        <Tooltip title={<FormattedMessage id="feedSharingSwitch.tooltip" defaultMessage="You need to save changes before sharing" description="Tooltip displayed on feed 'Enable sharing' switcher" />}>
+          <span>
+            {children}
+          </span>
+        </Tooltip>
+      );
+    }
+    return children;
+  };
+
   return (
     <Box mb={4} mt={2}>
       <Box display="flex" alignItems="center">
-        <Switch
-          checked={enabled}
-          onChange={handleChange}
-          disabled={saving}
-        />
+        <SwitchWrapper>
+          <Switch
+            checked={enabled}
+            onChange={handleChange}
+            disabled={saving || readOnly}
+          />
+        </SwitchWrapper>
         <strong>
           <FormattedMessage
             id="feedSharingSwitch.label"
@@ -97,9 +114,14 @@ const FeedSharingSwitch = ({
   );
 };
 
+FeedSharingSwitch.defaultProps = {
+  readOnly: false,
+};
+
 FeedSharingSwitch.propTypes = {
   enabled: PropTypes.bool.isRequired,
   feedTeamId: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool,
 };
 
 export default withSetFlashMessage(FeedSharingSwitch);

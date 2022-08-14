@@ -16,7 +16,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ListIcon from '@material-ui/icons/List';
-import FilterNoneIcon from '@material-ui/icons/FilterNone';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -509,7 +509,7 @@ const ProjectsComponent = ({
                     key={feed.id}
                     routePrefix="feed"
                     routeSuffix="/shared"
-                    icon={<FilterNoneIcon />}
+                    icon={<DynamicFeedIcon />}
                     project={feed}
                     teamSlug={team.slug}
                     onClick={handleClick}

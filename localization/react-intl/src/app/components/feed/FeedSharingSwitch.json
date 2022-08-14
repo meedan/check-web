@@ -10,6 +10,11 @@
     "defaultMessage": "Sharing settings for this feed were updated successfully"
   },
   {
+    "id": "feedSharingSwitch.tooltip",
+    "description": "Tooltip displayed on feed 'Enable sharing' switcher",
+    "defaultMessage": "You need to save changes before sharing"
+  },
+  {
     "id": "feedSharingSwitch.label",
     "description": "Label for a toggle/switcher displayed on feed page, under the Shared tab.",
     "defaultMessage": "Enable sharing"

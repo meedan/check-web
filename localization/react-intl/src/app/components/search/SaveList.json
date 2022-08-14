@@ -10,8 +10,13 @@
     "defaultMessage": "Filters saved successfully"
   },
   {
+    "id": "saveList.saveFeed",
+    "description": "'Save and share' here are in infinitive form - it's a button label, to save the current set of filters applied to a search result as feed filters.",
+    "defaultMessage": "Save and share"
+  },
+  {
     "id": "saveList.saveList",
-    "description": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list",
+    "description": "'Save' here is in infinitive form - it's a button label, to save the current set of filters applied to a search result as a list.",
     "defaultMessage": "Save"
   },
   {

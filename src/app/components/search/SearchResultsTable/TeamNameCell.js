@@ -16,7 +16,7 @@ export default function TeamNameCell({ projectMedia }) {
   const teamName = projectMedia.list_columns_values.team_name;
 
   return (
-    <TableCell align="center">
+    <TableCell>
       <div className={classes.teamName} >
         <span >{teamName}</span>
       </div>
