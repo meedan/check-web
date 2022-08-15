@@ -65,7 +65,7 @@ export const FeedComponent = ({ routeParams, ...props }) => {
               value="feed"
             /> : null }
         </Tabs>
-        { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} readOnly={readOnlySwitcher} /> : null }
+        { tab === 'shared' ? <FeedSharingSwitch enabled={feedTeam.shared} feedTeamId={feedTeam.id} readOnly={readOnlySwitcher} numberOfWorkspaces={feed.teams_count} feedName={feed.name} /> : null }
       </React.Fragment>
     );
   };
@@ -207,6 +207,7 @@ FeedComponent.propTypes = {
       name: PropTypes.string,
       published: PropTypes.bool,
       filters: PropTypes.object,
+      teams_count: PropTypes.number,
       current_feed_team: PropTypes.shape({
         id: PropTypes.string,
         filters: PropTypes.object,
@@ -228,6 +229,7 @@ const Feed = ({ routeParams }) => (
               name
               published
               filters
+              teams_count
               current_feed_team {
                 id
                 filters
