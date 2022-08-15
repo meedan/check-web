@@ -57,8 +57,6 @@ const MediaLanguageChip = ({ projectMedia, setFlashMessage }) => {
     return null;
   }
 
-  console.log('MediaLanguageChip', projectMedia); // eslint-disable-line no-console
-
   return (
     <React.Fragment>
       <Chip
