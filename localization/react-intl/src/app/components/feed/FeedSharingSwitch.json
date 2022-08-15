@@ -7,12 +7,12 @@
   {
     "id": "feedSharingSwitch.savedSuccessfully",
     "description": "Success message displayed when data sharing is changed for a feed.",
-    "defaultMessage": "Sharing settings for this feed were updated successfully"
+    "defaultMessage": "Content shared to {feedName}"
   },
   {
     "id": "feedSharingSwitch.tooltip",
     "description": "Tooltip displayed on feed 'Enable sharing' switcher",
-    "defaultMessage": "You need to save changes before sharing"
+    "defaultMessage": "Apply and save the filter to share"
   },
   {
     "id": "feedSharingSwitch.label",
@@ -23,5 +23,40 @@
     "id": "feedSharingSwitch.description",
     "description": "Description for a toggle/switcher displayed on feed page, under the Shared tab.",
     "defaultMessage": "Select the content to share in this feed using the filter."
+  },
+  {
+    "id": "feedSharingSwitch.confirmDisableSharingTitle",
+    "description": "Title of 'Disable feed sharing' confirmation window.",
+    "defaultMessage": "Disable Shared Feed"
+  },
+  {
+    "id": "feedSharingSwitch.confirmEnableSharingTitle",
+    "description": "Title of 'Enable feed sharing' confirmation window.",
+    "defaultMessage": "Enable Shared Feed"
+  },
+  {
+    "id": "feedSharingSwitch.confirmDisableSharingContent",
+    "description": "Content of 'Disable feed sharing' confirmation window.",
+    "defaultMessage": "Are you sure? {numberOfWorkspaces} other workspaces will immediately loose access to this content."
+  },
+  {
+    "id": "feedSharingSwitch.confirmEnableSharingContent",
+    "description": "Content of 'Enable feed sharing' confirmation window.",
+    "defaultMessage": "Are you sure? Any current and future content matching this filter will immediately be shared with {numberOfWorkspaces} other workspaces."
+  },
+  {
+    "id": "feedSharingSwitch.disableSharing",
+    "description": "Button label displayed on 'Disable feed sharing' confirmation window.",
+    "defaultMessage": "Disable sharing"
+  },
+  {
+    "id": "feedSharingSwitch.enableSharing",
+    "description": "Button label displayed on 'Enable feed sharing' confirmation window.",
+    "defaultMessage": "Enable sharing"
+  },
+  {
+    "id": "feedSharingSwitch.cancel",
+    "description": "Button label displayed on 'Enable feed sharing' confirmation window.",
+    "defaultMessage": "Cancel"
   }
 ]
