@@ -15,7 +15,7 @@ import {
   opaqueBlack87,
 } from '../../../styles/js/shared';
 
-const isTrendsPage = () => (/\/trends/.test(window.location.pathname));
+const isFeedPage = () => (/\/feed/.test(window.location.pathname));
 
 const useStyles = makeStyles({
   root: {
@@ -65,7 +65,7 @@ const useStyles = makeStyles({
   },
   title: ({ isRead }) => ({
     color: black87,
-    fontWeight: !isRead || isTrendsPage() ? 'bold' : 'normal',
+    fontWeight: !isRead || isFeedPage() ? 'bold' : 'normal',
     overflow: 'hidden',
     display: '-webkit-box',
     '-webkit-box-orient': 'vertical',
@@ -129,7 +129,7 @@ const IconOrNothing = ({
   isSuggested,
   className,
 }) => {
-  if (isTrendsPage()) {
+  if (isFeedPage()) {
     return null;
   }
   if (isMain) {

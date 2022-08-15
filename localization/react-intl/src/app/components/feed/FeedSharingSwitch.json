@@ -1,0 +1,27 @@
+[
+  {
+    "id": "feedSharingSwitch.defaultErrorMessage",
+    "description": "Error message displayed when it's not possible to change sharing setting for a feed.",
+    "defaultMessage": "Could not update your sharing settings for this feed, please try again"
+  },
+  {
+    "id": "feedSharingSwitch.savedSuccessfully",
+    "description": "Success message displayed when data sharing is changed for a feed.",
+    "defaultMessage": "Sharing settings for this feed were updated successfully"
+  },
+  {
+    "id": "feedSharingSwitch.tooltip",
+    "description": "Tooltip displayed on feed 'Enable sharing' switcher",
+    "defaultMessage": "You need to save changes before sharing"
+  },
+  {
+    "id": "feedSharingSwitch.label",
+    "description": "Label for a toggle/switcher displayed on feed page, under the Shared tab.",
+    "defaultMessage": "Enable sharing"
+  },
+  {
+    "id": "feedSharingSwitch.description",
+    "description": "Description for a toggle/switcher displayed on feed page, under the Shared tab.",
+    "defaultMessage": "Select the content to share in this feed using the filter."
+  }
+]

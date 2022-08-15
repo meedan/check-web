@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { makeStyles } from '@material-ui/core/styles';
 import { opaqueBlack03 } from '../../../styles/js/shared';
 
-const isTrendsPage = /\/trends$/.test(window.location.pathname);
+const isFeedPage = /\/feed$/.test(window.location.pathname);
 
 const swallowClick = (ev) => {
   // prevent <TableRow onClick> from firing when we check the checkbox
@@ -16,13 +16,13 @@ const swallowClick = (ev) => {
 const useStyles = makeStyles({
   root: ({ dbid, isRead }) => ({
     cursor: dbid ? 'pointer' : 'wait',
-    background: isRead || isTrendsPage ? opaqueBlack03 : 'transparent',
+    background: isRead || isFeedPage ? opaqueBlack03 : 'transparent',
     textDecoration: 'none',
   }),
   hover: ({ isRead }) => ({
     '&$hover:hover': {
       boxShadow: '0px 1px 6px rgba(0, 0, 0, 0.25)',
-      background: isRead || isTrendsPage ? opaqueBlack03 : 'transparent',
+      background: isRead || isFeedPage ? opaqueBlack03 : 'transparent',
       transform: 'scale(1)',
     },
   }),
@@ -34,9 +34,9 @@ export default function SearchResultsTableRow({
   const { dbid, is_read: isRead } = projectMedia;
   const classes = useStyles({ dbid, isRead });
 
-  // This is why we don't get a listIndex in our trends item url
+  // This is why we don't get a listIndex in our feed item url
   // We are forcing the url instead of getting it from `projectMediaUrl` which is built from `buildProjectMediaUrl`
-  const projectMediaOrTrendsUrl = projectMediaUrl;
+  const projectMediaOrFeedUrl = projectMediaUrl;
 
   const handleChangeChecked = React.useCallback((ev) => {
     if (!dbid) {
@@ -50,6 +50,10 @@ export default function SearchResultsTableRow({
     // eslint-disable-next-line no-param-reassign
     projectMedia.list_columns_values = JSON.parse(projectMedia.list_columns_values);
   }
+  if (resultType === 'factCheck') {
+    // eslint-disable-next-line no-param-reassign
+    projectMedia.list_columns_values = projectMedia.feed_columns_values;
+  }
 
   return (
     <TableRow
@@ -59,7 +63,7 @@ export default function SearchResultsTableRow({
       className="medias__item" // for integration tests
       hover={!!dbid} // only allow hover when clickable
     >
-      { resultType !== 'trends' ? (
+      { (resultType !== 'feed' && resultType !== 'factCheck') ? (
         <TableCell padding="checkbox" onClick={swallowClick}>
           { !projectMedia.is_secondary ? <Checkbox checked={checked} onChange={handleChangeChecked} /> : null }
         </TableCell>
@@ -71,7 +75,7 @@ export default function SearchResultsTableRow({
           field={field}
           type={type}
           projectMedia={projectMedia}
-          projectMediaUrl={projectMediaOrTrendsUrl}
+          projectMediaUrl={projectMediaOrFeedUrl}
           viewMode={viewMode}
         />
       ))}

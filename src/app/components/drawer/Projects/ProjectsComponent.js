@@ -1,4 +1,3 @@
-/* eslint-disable @calm/react-intl/missing-attribute */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { commitMutation, graphql } from 'react-relay/compat';
@@ -17,6 +16,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import FolderOpenIcon from '@material-ui/icons/FolderOpen';
 import FolderSpecialIcon from '@material-ui/icons/FolderSpecial';
 import ListIcon from '@material-ui/icons/List';
+import DynamicFeedIcon from '@material-ui/icons/DynamicFeed';
 import AddIcon from '@material-ui/icons/Add';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -26,7 +26,6 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import GetAppIcon from '@material-ui/icons/GetApp';
 import ForumIcon from '@material-ui/icons/Forum';
 import NewReleasesIcon from '@material-ui/icons/NewReleases';
-import TrendingUpIcon from '@material-ui/icons/TrendingUp';
 import { DragDropContext } from 'react-beautiful-dnd';
 import ProjectsListItem from './ProjectsListItem';
 import NewProject from './NewProject';
@@ -83,6 +82,7 @@ const ProjectsComponent = ({
   projects,
   projectGroups,
   savedSearches,
+  feeds,
   location,
   setFlashMessage,
 }) => {
@@ -105,6 +105,8 @@ const ProjectsComponent = ({
     React.useState(getBooleanPref('drawer.foldersExpanded', true));
   const [listsExpanded, setListsExpanded] =
     React.useState(getBooleanPref('drawer.listsExpanded', true));
+  const [feedsExpanded, setFeedsExpanded] =
+    React.useState(getBooleanPref('drawer.feedsExpanded', true));
 
   // Get/set which list item should be highlighted
   const pathParts = window.location.pathname.split('/');
@@ -125,11 +127,6 @@ const ProjectsComponent = ({
   const handleSpecialLists = (listId) => {
     setActiveItem({ type: listId, id: null });
     browserHistory.push(`/${team.slug}/${listId}`);
-  };
-
-  const handleTrends = () => {
-    setActiveItem({ type: 'trends', id: null });
-    browserHistory.push(`/${team.slug}/trends`);
   };
 
   const handleClick = (route, id) => {
@@ -263,6 +260,11 @@ const ProjectsComponent = ({
     window.storage.set('drawer.listsExpanded', !listsExpanded);
   };
 
+  const handleToggleFeedsExpand = () => {
+    setFeedsExpanded(!feedsExpanded);
+    window.storage.set('drawer.feedsExpanded', !feedsExpanded);
+  };
+
   return (
     <React.Fragment>
       <List dense className={[classes.projectsComponentList, 'projects-list'].join(' ')}>
@@ -275,7 +277,7 @@ const ProjectsComponent = ({
           className={activeItem.type === 'all-items' ? ['projects-list__all-items', classes.projectsComponentCollectionExpanded].join(' ') : 'projects-list__all-items'}
         >
           <ListItemText>
-            <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" />
+            <FormattedMessage id="projectsComponent.allItems" defaultMessage="All items" description="Label for the 'All items' list displayed on the left sidebar" />
           </ListItemText>
           <ListItemSecondaryAction>
             {team.medias_count}
@@ -292,7 +294,7 @@ const ProjectsComponent = ({
               <ForumIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" />
+              <FormattedMessage id="projectsComponent.tiplineInbox" defaultMessage="Tipline inbox" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -306,7 +308,7 @@ const ProjectsComponent = ({
               <GetAppIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" />
+              <FormattedMessage id="projectsComponent.importedReports" defaultMessage="Imported reports" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -320,7 +322,7 @@ const ProjectsComponent = ({
               <NewReleasesIcon />
             </ListItemIcon>
             <ListItemText>
-              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested matches" />
+              <FormattedMessage id="projectsComponent.suggestedMatches" defaultMessage="Suggested matches" description="Label for a list displayed on the left sidebar." />
             </ListItemText>
           </ListItem> : null }
 
@@ -331,7 +333,7 @@ const ProjectsComponent = ({
           { foldersExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
           <ListItemText>
             <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
-              <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" />
+              <FormattedMessage id="projectsComponent.folders" defaultMessage="Folders" description="Label for a collapsable panel displayed on the left sidebar." />
               <Can permissions={team.permissions} permission="create Project">
                 <IconButton onClick={(e) => { setFolderMenuAnchor(e.currentTarget); e.stopPropagation(); }} className={[classes.projectsComponentButton, 'projects-list__add-folder-or-collection'].join(' ')}>
                   <AddIcon />
@@ -484,23 +486,40 @@ const ProjectsComponent = ({
             ))}
           </Box>
         </Collapse>
+
+        {/* Shared feeds */}
+        { feeds.length > 0 ?
+          <React.Fragment>
+            <ListItem onClick={handleToggleFeedsExpand} className={[classes.projectsComponentHeader, 'project-list__header'].join(' ')}>
+              { feedsExpanded ? <ExpandLess className={classes.projectsComponentChevron} /> : <ExpandMore className={classes.projectsComponentChevron} /> }
+              <ListItemText>
+                <Box display="flex" alignItems="center" justifyContent="space-between" fontWeight="bold">
+                  <FormattedMessage id="projectsComponent.sharedFeeds" defaultMessage="Shared feeds" description="Feeds of content shared across workspaces" />
+                </Box>
+              </ListItemText>
+            </ListItem>
+
+            { feedsExpanded ? null : <Divider /> }
+
+            {/* Lists */}
+            <Collapse in={feedsExpanded} className={classes.projectsComponentCollapse}>
+              <Box>
+                {feeds.sort((a, b) => (a.title.localeCompare(b.title))).map(feed => (
+                  <ProjectsListItem
+                    key={feed.id}
+                    routePrefix="feed"
+                    routeSuffix="/shared"
+                    icon={<DynamicFeedIcon />}
+                    project={feed}
+                    teamSlug={team.slug}
+                    onClick={handleClick}
+                    isActive={isActive('feed', feed.dbid)}
+                  />
+                ))}
+              </Box>
+            </Collapse>
+          </React.Fragment> : null }
       </List>
-      { team.get_trends_enabled ? (
-        <List>
-          <ListItem
-            button
-            onClick={handleTrends}
-          >
-            <ListItemIcon className={classes.listItemIconRoot}>
-              <TrendingUpIcon />
-            </ListItemIcon>
-            <ListItemText>
-              <FormattedMessage id="projectsComponent.trends" defaultMessage="Shared database (beta)" description="This is a menu item. When the user clicks on it, the user is taken to a page that lets the user see trends in various topics. There is a 'Beta' indicator to let the user know that this is experimental and under construction." />
-            </ListItemText>
-          </ListItem>
-        </List>
-      ) : null
-      }
 
       {/* Dialogs to create new folder, collection or list */}
 
@@ -533,8 +552,8 @@ const ProjectsComponent = ({
         team={team}
         open={showNewListDialog}
         onClose={() => { setShowNewListDialog(false); }}
-        title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" />}
-        buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" />}
+        title={<FormattedMessage id="projectsComponent.newList" defaultMessage="New list" description="Title for a dialog to create a new list displayed on the left sidebar." />}
+        buttonLabel={<FormattedMessage id="projectsComponent.createList" defaultMessage="Create list" description="Label for a button to create a new list displayed on the left sidebar." />}
         helpUrl="https://help.checkmedia.org/en/articles/5229474-filtered-lists"
         errorMessage={<FormattedMessage id="projectsComponent.newListErrorMessage" defaultMessage="Could not create list, please try again" description="Error message when creating new list fails" />}
         successMessage={<FormattedMessage id="projectsComponent.newListSuccessMessage" defaultMessage="List created successfully" description="Success message when new list is created" />}
@@ -568,6 +587,11 @@ ProjectsComponent.propTypes = {
     dbid: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     filters: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
+  feeds: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    dbid: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired).isRequired,
 };
 

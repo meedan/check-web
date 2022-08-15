@@ -8,16 +8,11 @@ import Button from '@material-ui/core/Button';
 import IconReport from '@material-ui/icons/PlaylistAddCheck';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import Chip from '@material-ui/core/Chip';
-import EditIcon from '@material-ui/icons/Edit';
-import LanguageIcon from '@material-ui/icons/Language';
-import MediaFactCheckField from './MediaFactCheckField';
 import TimeBefore from '../TimeBefore';
-import LanguagePickerDialog from '../layout/LanguagePickerDialog';
 import { parseStringUnixTimestamp } from '../../helpers';
 import { can } from '../Can';
+import MediaFactCheckField from './MediaFactCheckField';
 import ConfirmProceedDialog from '../layout/ConfirmProceedDialog';
-import { languageLabel } from '../../LanguageRegistry';
 
 const useStyles = makeStyles(() => ({
   title: {
@@ -33,12 +28,9 @@ const MediaFactCheck = ({ projectMedia }) => {
   const [title, setTitle] = React.useState(factCheck ? factCheck.title : '');
   const [summary, setSummary] = React.useState(factCheck ? factCheck.summary : '');
   const [url, setUrl] = React.useState(factCheck ? factCheck.url : '');
-  const [language, setLanguage] = React.useState(factCheck ? factCheck.language : '');
   const [saving, setSaving] = React.useState(false);
   const [showDialog, setShowDialog] = React.useState(false);
   const [error, setError] = React.useState(false);
-
-  const [correctingLanguage, setCorrectingLanguage] = React.useState(false);
 
   const hasPermission = Boolean(can(projectMedia.permissions, 'create ClaimDescription') && claimDescription?.description);
   const published = (projectMedia.report && projectMedia.report.data && projectMedia.report.data.state === 'published');
@@ -54,12 +46,7 @@ const MediaFactCheck = ({ projectMedia }) => {
 
   const handleBlur = (field, value) => {
     setError(false);
-    const values = {
-      title,
-      summary,
-      url,
-      language,
-    };
+    const values = { title, summary, url };
     values[field] = value;
     if (hasPermission) {
       if (factCheck) {
@@ -74,7 +61,6 @@ const MediaFactCheck = ({ projectMedia }) => {
                   title
                   summary
                   url
-                  language
                   user {
                     name
                   }
@@ -115,7 +101,6 @@ const MediaFactCheck = ({ projectMedia }) => {
                     title
                     summary
                     url
-                    language
                     updated_at
                     user {
                       name
@@ -137,7 +122,6 @@ const MediaFactCheck = ({ projectMedia }) => {
               setError(true);
             } else {
               setError(false);
-              setLanguage(response.createFactCheck.claim_description.fact_check.language);
             }
           },
           onError: () => {
@@ -147,13 +131,6 @@ const MediaFactCheck = ({ projectMedia }) => {
         });
       }
     }
-  };
-
-  const handleLanguageSubmit = (value) => {
-    const { languageCode } = value;
-    setLanguage(languageCode);
-    handleBlur('language', languageCode);
-    setCorrectingLanguage(false);
   };
 
   return (
@@ -244,24 +221,6 @@ const MediaFactCheck = ({ projectMedia }) => {
         key={`url-${claimDescription}`}
       />
 
-      <Chip
-        className="media-tags__tag media-tags__language"
-        deleteIcon={<EditIcon />}
-        icon={<LanguageIcon />}
-        color="primary"
-        label={language === '' || language === 'und' ? 'Unknown language' : languageLabel(language)}
-        onDelete={
-          hasPermission && factCheck ? () => setCorrectingLanguage(true) : null
-        }
-      />
-      <LanguagePickerDialog
-        isSaving={saving}
-        open={correctingLanguage}
-        onDismiss={() => setCorrectingLanguage(false)}
-        onSubmit={handleLanguageSubmit}
-        team={projectMedia.team}
-      />
-
       { projectMedia.team.smooch_bot ?
         <Box mt={1}>
           <Button
@@ -344,7 +303,6 @@ MediaFactCheck.propTypes = {
         title: PropTypes.string,
         summary: PropTypes.string,
         url: PropTypes.string,
-        language: PropTypes.string,
         updated_at: PropTypes.string,
         user: PropTypes.shape({
           name: PropTypes.string,

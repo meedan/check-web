@@ -38,7 +38,6 @@ shared_examples 'similarity' do
     wait_for_selector('.media-similarity__menu-icon').click
     wait_for_selector('.similarity-media-item__delete-relationship')
     wait_for_selector('.similarity-media-item__pin-relationship').click
-    wait_for_selector('.message')
     wait_for_url_change(@driver.current_url.to_s)
     wait_for_selector_list_size('.MuiCardHeader-title', 3)
     # remove similar item

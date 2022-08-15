@@ -185,7 +185,8 @@ const useStyles = makeStyles(theme => ({
 
 // FIXME: Break into smaller components
 
-const TrendsItemComponent = ({
+const FeedItemComponent = ({
+  feedId,
   cluster,
   teams,
   setFlashMessage,
@@ -257,7 +258,7 @@ const TrendsItemComponent = ({
     setIsImporting(false);
     setFlashMessage((
       <FormattedMessage
-        id="trendsItem.couldNotImport"
+        id="feedItem.couldNotImport"
         defaultMessage="We could not import the claim because the media associated with this claim already exist in this workspace"
       />
     ), 'error');
@@ -288,7 +289,7 @@ const TrendsItemComponent = ({
 
     commitMutation(Relay.Store, {
       mutation: graphql`
-        mutation TrendsItemComponentCreateProjectMediaMutation($input: CreateProjectMediaInput!) {
+        mutation FeedItemComponentCreateProjectMediaMutation($input: CreateProjectMediaInput!) {
           createProjectMedia(input: $input) {
             project_media {
               id
@@ -306,7 +307,7 @@ const TrendsItemComponent = ({
           setIsImporting(false);
           setFlashMessage((
             <FormattedMessage
-              id="trendsItem.importedSuccessfully"
+              id="feedItem.importedSuccessfully"
               defaultMessage="Claim successfully imported to {workspaceName} workspace"
               values={{
                 workspaceName: teams.find(t => t.dbid === parseInt(selectedImportingTeam, 10)).name,
@@ -343,7 +344,7 @@ const TrendsItemComponent = ({
           {title}
         </Typography>
         <Typography className={classes.cardSubhead}>
-          <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="trendItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.demand} {item.demand === 1 ? <FormattedMessage id="trendItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="trendItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />}
+          <MediaTypeDisplayName mediaType={item.type} /> - <FormattedMessage id="feedItem.lastSubmitted" defaultMessage="Last submitted" description="A label indicating that the following date is when an item was last submitted to the tip line" /> - <TimeBefore date={parseStringUnixTimestamp(item.last_seen)} /> - {item.demand} {item.demand === 1 ? <FormattedMessage id="feedItem.request" defaultMessage="Request" description="A label that appears alongside a number showing the number of requests an item has received. This is the singular noun for use when it is a single request, appearing in English as '1 request'." /> : <FormattedMessage id="feedItem.requests" defaultMessage="Requests" description="A label that appears alongside a number showing the number of requests an item has received. This is the plural noun for use when there are zero or more than one requests, appearing in English as '10 requests' or '0 requests'." />}
         </Typography>
         <Typography className={classes.cardDescription} variant="body1">
           {description}
@@ -368,7 +369,7 @@ const TrendsItemComponent = ({
     <>
       <NextPreviousLinks
         buildSiblingUrl={buildSiblingUrl}
-        listQuery={{ trends: true }}
+        listQuery={{ feed_id: feedId }}
         listIndex={listIndex}
         objectType="cluster"
       />
@@ -377,7 +378,7 @@ const TrendsItemComponent = ({
           <Column>
             <Box display="flex" alignItems="center" justifyContent="space-between">
               <Typography className={classes.columnTitle}>
-                <FormattedMessage id="trendItem.claimDescription" defaultMessage="Claims" />
+                <FormattedMessage id="feedItem.claimDescription" defaultMessage="Claims" />
               </Typography>
               <IconButton onClick={handleClose}>
                 <CloseIcon />
@@ -399,21 +400,21 @@ const TrendsItemComponent = ({
                         <strong className={classes.claim}>{claim.description}</strong>
                         <Box mt={2}>
                           <FormattedMessage
-                            id="trendItem.rating"
+                            id="feedItem.rating"
                             defaultMessage="Rating: {rating}"
                             values={{ rating: getStatus(claim.project_media.team.verification_statuses, claim.project_media.last_status).label }}
                           />
                         </Box>
                         <Box mt={1}>
                           <FormattedMessage
-                            id="trendItem.publishedAt"
+                            id="feedItem.publishedAt"
                             defaultMessage="Report published: {date}"
                             values={{
                               date: (
                                 claim?.project_media?.report_status === 'published' ?
                                   <TimeBefore date={parseStringUnixTimestamp(claim.project_media.report?.data?.last_published)} /> :
                                   <span style={{ color: opaqueBlack38 }}>
-                                    <FormattedMessage id="trendItem.notPublished" defaultMessage="Not published yet" />
+                                    <FormattedMessage id="feedItem.notPublished" defaultMessage="Not published yet" />
                                   </span>
                               ),
                             }}
@@ -440,7 +441,7 @@ const TrendsItemComponent = ({
                       <Box mt={2}>
                         <span style={{ color: opaqueBlack38 }}>
                           <FormattedMessage
-                            id="trendItem.noClaim"
+                            id="feedItem.noClaim"
                             defaultMessage="No claim added yet"
                           />
                         </span>
@@ -456,14 +457,14 @@ const TrendsItemComponent = ({
         <Box className={['media__column', classes.mediaColumn, classes.middleColumn].join(' ')}>
           <Column>
             <Typography className={classes.columnTitle}>
-              <FormattedMessage id="trendItem.factCheck" defaultMessage="Fact-check" description="Middle column title on trends item page" />
+              <FormattedMessage id="feedItem.factCheck" defaultMessage="Fact-check" description="Middle column title on feed item page" />
             </Typography>
             { !importingClaim ?
               <Box className={classes.box}>
                 <FormattedMessage
-                  id="trendItem.noImportingClaim"
+                  id="feedItem.noImportingClaim"
                   defaultMessage="Select an organization to display available fact-check and annotations."
-                  description="Message displayed on trends item page when no claim was selected."
+                  description="Message displayed on feed item page when no claim was selected."
                 />
               </Box> : null }
             { importingClaim ?
@@ -474,7 +475,7 @@ const TrendsItemComponent = ({
                 <Box mb={2}>
                   <TextField
                     key={`fact-check-title-${importingClaim.id}`}
-                    label={<FormattedMessage id="trendItem.factCheckTitle" defaultMessage="Title" description="Fact-check title" />}
+                    label={<FormattedMessage id="feedItem.factCheckTitle" defaultMessage="Title" description="Fact-check title" />}
                     defaultValue={importingClaim?.fact_check?.title}
                     variant="outlined"
                     InputProps={{ readOnly: true }}
@@ -484,7 +485,7 @@ const TrendsItemComponent = ({
                 <Box mb={2}>
                   <TextField
                     key={`fact-check-summary-${importingClaim.id}`}
-                    label={<FormattedMessage id="trendItem.factCheckSummary" defaultMessage="Summary" description="Fact-check summary" />}
+                    label={<FormattedMessage id="feedItem.factCheckSummary" defaultMessage="Summary" description="Fact-check summary" />}
                     defaultValue={importingClaim?.fact_check?.summary}
                     variant="outlined"
                     rows={3}
@@ -496,7 +497,7 @@ const TrendsItemComponent = ({
                 <Box mb={3}>
                   <TextField
                     key={`fact-check-url-${importingClaim.id}`}
-                    label={<FormattedMessage id="trendItem.factCheckUrl" defaultMessage="Published article URL" description="Fact-check article URL" />}
+                    label={<FormattedMessage id="feedItem.factCheckUrl" defaultMessage="Published article URL" description="Fact-check article URL" />}
                     defaultValue={importingClaim?.fact_check?.url}
                     variant="outlined"
                     InputProps={{ readOnly: true }}
@@ -505,16 +506,16 @@ const TrendsItemComponent = ({
                 </Box>
                 <Divider />
                 <Box mb={2} mt={2}>
-                  <strong><FormattedMessage id="trendItem.aboutThisClaim" defaultMessage="About this claim" /></strong>
+                  <strong><FormattedMessage id="feedItem.aboutThisClaim" defaultMessage="About this claim" /></strong>
                 </Box>
                 <Box key={`tags-${importingClaim.project_media.id}`}>
                   { importingClaim.project_media.tags.edges.length === 0 ?
-                    <FormattedMessage id="trendItem.noTags" defaultMessage="No tags." description="Displayed on trends item page when item has no tags." /> : null }
+                    <FormattedMessage id="feedItem.noTags" defaultMessage="No tags." description="Displayed on feed item page when item has no tags." /> : null }
                   {importingClaim.project_media.tags.edges.map(tag => <Chip label={tag.node.tag_text} key={tag.node.id} color="primary" className={classes.chip} />)}
                 </Box>
                 <Box mt={2}>
                   { importingClaim.project_media.tasks.edges.map(task => task.node).filter(task => task.first_response_value).length === 0 ?
-                    <FormattedMessage id="trendItem.noTasks" defaultMessage="No completed annotations." description="Displayed on trends item page when item has no completed annotations." /> : null }
+                    <FormattedMessage id="feedItem.noTasks" defaultMessage="No completed annotations." description="Displayed on feed item page when item has no completed annotations." /> : null }
                   {importingClaim.project_media.tasks.edges.map(task => task.node).filter(task => task.first_response_value).map(task => (
                     <Box mt={2}>
                       <p><strong>{task.label}</strong></p>
@@ -530,22 +531,22 @@ const TrendsItemComponent = ({
           <Column>
             <Box display="flex" justifyContent="flex-end">
               <Button color="primary" variant="contained" startIcon={<SystemUpdateAltOutlinedIcon />} onClick={() => { setShowImportClaimDialog(true); }} disabled={!selectedItem}>
-                <FormattedMessage id="trendItem.import" defaultMessage="Import" />
+                <FormattedMessage id="feedItem.import" defaultMessage="Import" />
               </Button>
             </Box>
             <Grid container alignItems="center">
               <Grid item xs={6}>
                 <Typography className={classes.columnTitle}>
                   { !selectedTeam ?
-                    <FormattedMessage id="trendItem.mediasColumnTitleAll" defaultMessage="{number} Medias across all organizations" values={{ number: medias.length }} /> : null }
+                    <FormattedMessage id="feedItem.mediasColumnTitleAll" defaultMessage="{number} Medias across all organizations" values={{ number: medias.length }} /> : null }
                   { selectedTeam ?
-                    <FormattedMessage id="trendItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: selectedTeam.name }} /> : null }
+                    <FormattedMessage id="feedItem.mediasColumnTitleSingle" defaultMessage="{number} Medias from {organizationName}" values={{ number: medias.length, organizationName: selectedTeam.name }} /> : null }
                 </Typography>
-                <p><small><FormattedMessage id="trendItem.mediaRequests" defaultMessage="{number} tipline requests across all medias" values={{ number: totalDemand }} /></small></p>
+                <p><small><FormattedMessage id="feedItem.mediaRequests" defaultMessage="{number} tipline requests across all medias" values={{ number: totalDemand }} /></small></p>
               </Grid>
               <Grid item xs={6}>
                 <Typography className={`${classes.columnTitle} ${classes.sortBy}`} component="div">
-                  <FormattedMessage id="trendItem.sortBy" defaultMessage="Sort by" /><br />
+                  <FormattedMessage id="feedItem.sortBy" defaultMessage="Sort by" /><br />
                   <Select
                     value={sortBy}
                     onChange={handleChange}
@@ -589,27 +590,27 @@ const TrendsItemComponent = ({
           open={showImportClaimDialog}
           title={
             <FormattedMessage
-              id="trendsItem.importTitle"
+              id="feedItem.importTitle"
               defaultMessage="Import data to workspace"
-              description="Dialog title when importing a claim from trends page."
+              description="Dialog title when importing a claim from feed page."
             />
           }
           body={(
             <React.Fragment>
               <Typography paragraph>
                 <FormattedMessage
-                  id="trendsItem.importDescription"
+                  id="feedItem.importDescription"
                   defaultMessage="A new claim will be created in your workspace with media."
-                  description="Dialog description when importing a claim from trends page."
+                  description="Dialog description when importing a claim from feed page."
                 />
               </Typography>
               <Box my={3}>
                 <FormControl variant="outlined" fullWidth>
                   <InputLabel labelId="import-to-workspace-label">
                     <FormattedMessage
-                      id="trendsItem.importSelectLabel"
+                      id="feedItem.importSelectLabel"
                       defaultMessage="Import to workspace"
-                      description="Select field label used in import claim dialog from trends page."
+                      description="Select field label used in import claim dialog from feed page."
                     />
                   </InputLabel>
                   <Select
@@ -618,9 +619,9 @@ const TrendsItemComponent = ({
                     onChange={(e) => { setSelectedImportingTeam(e.target.value); }}
                     label={
                       <FormattedMessage
-                        id="trendsItem.importSelectLabel"
+                        id="feedItem.importSelectLabel"
                         defaultMessage="Import to workspace"
-                        description="Select field label used in import claim dialog from trends page."
+                        description="Select field label used in import claim dialog from feed page."
                       />
                     }
                   >
@@ -634,9 +635,9 @@ const TrendsItemComponent = ({
                 <TextField
                   label={
                     <FormattedMessage
-                      id="trendsItem.importTextLabel"
+                      id="feedItem.importTextLabel"
                       defaultMessage="Claim description"
-                      description="Text field label used in import claim dialog from trends page."
+                      description="Text field label used in import claim dialog from feed page."
                     />
                   }
                   variant="outlined"
@@ -649,7 +650,7 @@ const TrendsItemComponent = ({
                 />
               </Box>
               <Box mt={3}>
-                <FormattedMessage id="trendsItem.importingQuestion" defaultMessage="What content do you want to import?" description="Question in trends page importing modal" paragraph />
+                <FormattedMessage id="feedItem.importingQuestion" defaultMessage="What content do you want to import?" description="Question in feed page importing modal" paragraph />
                 <Box>
                   <FormControlLabel
                     control={
@@ -658,7 +659,7 @@ const TrendsItemComponent = ({
                         onChange={(e) => { setImportingOptions({ ...importingOptions, factCheck: e.target.checked }); }}
                       />
                     }
-                    label={<FormattedMessage id="trendsItem.factCheck" defaultMessage="Fact-check" />}
+                    label={<FormattedMessage id="feedItem.factCheck" defaultMessage="Fact-check" description="Middle column title on feed item page" />}
                   />
                 </Box>
                 <Box>
@@ -669,7 +670,7 @@ const TrendsItemComponent = ({
                         onChange={(e) => { setImportingOptions({ ...importingOptions, annotations: e.target.checked }); }}
                       />
                     }
-                    label={<FormattedMessage id="trendsItem.completedAnnotations" defaultMessage="Completed annotations" />}
+                    label={<FormattedMessage id="feedItem.completedAnnotations" defaultMessage="Completed annotations" />}
                   />
                 </Box>
                 <Box>
@@ -680,14 +681,14 @@ const TrendsItemComponent = ({
                         onChange={(e) => { setImportingOptions({ ...importingOptions, tags: e.target.checked }); }}
                       />
                     }
-                    label={<FormattedMessage id="trendsItem.tags" defaultMessage="Tags" />}
+                    label={<FormattedMessage id="feedItem.tags" defaultMessage="Tags" />}
                   />
                 </Box>
               </Box>
             </React.Fragment>
           )}
           proceedDisabled={!selectedImportingTeam || (!importingClaimDescription && !importingClaim?.description)}
-          proceedLabel={<FormattedMessage id="trendsItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from trends page" />}
+          proceedLabel={<FormattedMessage id="feedItem.proceedImport" defaultMessage="Import" description="Button label to confirm importing claim from feed page" />}
           onProceed={handleImport}
           onCancel={() => { setShowImportClaimDialog(false); }}
           isSaving={isImporting}
@@ -697,4 +698,4 @@ const TrendsItemComponent = ({
   );
 };
 
-export default withSetFlashMessage(TrendsItemComponent);
+export default withSetFlashMessage(FeedItemComponent);

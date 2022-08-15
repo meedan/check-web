@@ -103,13 +103,13 @@ shared_examples 'tag' do
     fill_field('.multiselector__search-input input', new_tag)
     wait_for_selector('#tag-menu__create-button').click
     @driver.action.send_keys(:enter).perform
+    # Verify that 'Tag already exists' message is displayed
     @wait.until { @driver.page_source.include?('Tag already exists') }
     wait_for_selector('.multi__selector-save').click
-    # Verify that tag is not added and that error message is displayed
     wait_for_selector_none('.multiselector__search-input input')
-    expect(@driver.find_elements(:class, 'media-tags__tag').length).to eq 1
     delete_tag(new_tag)
-    wait_for_selector_none('.media-tags__tag')
-    expect(@driver.find_elements(:class, 'media-tags__tag').length).to eq 0
+    @driver.navigate.refresh
+    wait_for_selector('.media-detail')
+    expect(@driver.page_source.include?(new_tag)).to be(false)
   end
 end

@@ -18,15 +18,15 @@ const SearchFieldClusterTeams = ({
     query={graphql`
       query SearchFieldClusterTeamsQuery($teamSlug: String!) {
         team(slug: $teamSlug) {
-          country_teams
+          shared_teams
         }
       }
     `}
     variables={{ teamSlug }}
     render={({ error, props }) => {
       if (!error && props) {
-        const { country_teams: countryTeams } = props.team;
-        const options = Object.keys(countryTeams).map(t => ({ label: countryTeams[t], value: t }));
+        const { shared_teams: sharedTeams } = props.team;
+        const options = Object.keys(sharedTeams).map(t => ({ label: sharedTeams[t], value: t }));
 
         return (
           <MultiSelectFilter
